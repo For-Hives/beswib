@@ -1,22 +1,24 @@
 'use client'
 
-import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { AlertTriangle, Calendar, MapPinned, ShoppingCart, User } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import React, { useEffect, useState } from 'react'
 
+import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import Link from 'next/link'
+
+import type { User as AppUser } from '@/models/user.model'
+
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { handleSuccessfulPurchase } from '@/app/[locale]/purchase/actions'
 import CardMarket, { BibSale } from '@/components/marketplace/CardMarket'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
 import { SlidingPanel } from '@/components/ui/SlidingPanel'
+import { fetchUserById } from '@/services/user.services'
 import { formatDateWithLocale } from '@/lib/dateUtils'
+import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n-config'
 import { cn } from '@/lib/utils'
-import type { User as AppUser } from '@/models/user.model'
-import { fetchUserById } from '@/services/user.services'
 
 interface PurchaseClientProps {
 	bib: BibSale
@@ -26,19 +28,47 @@ interface PurchaseClientProps {
 	user: AppUser | null
 }
 
-export default function PurchaseClient({ paymentIntent, otherBibs = [], locale, bib, user }: Readonly<PurchaseClientProps>) {
+export default function PurchaseClient({
+	user,
+	paymentIntent,
+	otherBibs = [],
+	locale,
+	bib,
+}: Readonly<PurchaseClientProps>) {
 	const stripe = useStripe()
 	const elements = useElements()
 	const [errorMessage, setErrorMessage] = useState<null | string>(null)
 	const [isPanelOpen, setIsPanelOpen] = useState(false)
-	const { isSignedIn, user: clerkUser } = useUser()
+	const { user: clerkUser, isSignedIn } = useUser()
 	const router = useRouter()
 	const [isProfileComplete, setIsProfileComplete] = useState(false)
 
 	useEffect(() => {
 		if (user) {
-			const { firstName, lastName, birthDate, phoneNumber, emergencyContactName, emergencyContactPhone, address, postalCode, city, country } = user
-			const isComplete = [firstName, lastName, birthDate, phoneNumber, emergencyContactName, emergencyContactPhone, address, postalCode, city, country].every(Boolean)
+			const {
+				postalCode,
+				phoneNumber,
+				lastName,
+				firstName,
+				emergencyContactPhone,
+				emergencyContactName,
+				country,
+				city,
+				birthDate,
+				address,
+			} = user
+			const isComplete = [
+				firstName,
+				lastName,
+				birthDate,
+				phoneNumber,
+				emergencyContactName,
+				emergencyContactPhone,
+				address,
+				postalCode,
+				city,
+				country,
+			].every(Boolean)
 			setIsProfileComplete(isComplete)
 		}
 	}, [user])
@@ -203,19 +233,22 @@ export default function PurchaseClient({ paymentIntent, otherBibs = [], locale, 
 								</div>
 							</div>
 							{!isProfileComplete && isSignedIn && (
-								<Alert variant="destructive" className="mb-4">
+								<Alert className="mb-4" variant="destructive">
 									<AlertTriangle className="h-4 w-4" />
 									<AlertTitle>Profile Incomplete</AlertTitle>
 									<AlertDescription>
-										Please complete your runner profile before purchasing a bib. <Link href={`/${locale}/profile`} className="font-bold text-destructive-foreground">Complete Profile</Link>
+										Please complete your runner profile before purchasing a bib.{' '}
+										<Link className="text-destructive-foreground font-bold" href={`/${locale}/profile`}>
+											Complete Profile
+										</Link>
 									</AlertDescription>
 								</Alert>
 							)}
 							<Button
 								className="flex items-center justify-center gap-2 text-lg font-medium"
+								disabled={!isProfileComplete && isSignedIn}
 								onClick={handleBuyNowClick}
 								size="lg"
-								disabled={!isProfileComplete && isSignedIn}
 							>
 								<ShoppingCart className="h-5 w-5" />
 								Buy Now

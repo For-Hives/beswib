@@ -1,18 +1,21 @@
-import { auth } from '@clerk/nextjs/server'
 import type { Metadata } from 'next'
+
 import React from 'react'
 
-import { BibSale } from '@/components/marketplace/CardMarket'
-import PurchaseClient from '@/components/marketplace/purchase/PurchaseClient'
-import { StripeProvider } from '@/components/marketplace/purchase/StripeProvider'
-import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
-import { Locale } from '@/lib/i18n-config'
-import type { Bib } from '@/models/bib.model'
+import { auth } from '@clerk/nextjs/server'
+
 import type { Event as EventModel } from '@/models/event.model'
 import type { User } from '@/models/user.model'
+import type { Bib } from '@/models/bib.model'
+
 import { fetchAvailableBibsForEvent, fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
+import { StripeProvider } from '@/components/marketplace/purchase/StripeProvider'
+import PurchaseClient from '@/components/marketplace/purchase/PurchaseClient'
+import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
 import { createPaymentIntent } from '@/services/stripe.services'
+import { BibSale } from '@/components/marketplace/CardMarket'
 import { fetchUserById } from '@/services/user.services'
+import { Locale } from '@/lib/i18n-config'
 
 export const metadata: Metadata = {
 	title: 'Purchase Bib',
@@ -34,7 +37,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	const { tkn } = await searchParams
 	const { userId } = await auth()
 
-	let user: User | null = null
+	let user: null | User = null
 	if (userId) {
 		user = await fetchUserById(userId)
 	}

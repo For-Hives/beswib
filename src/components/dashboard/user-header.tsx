@@ -1,7 +1,8 @@
 'use client'
 
-import { UserButton } from '@clerk/nextjs'
 import { AlertTriangle, ShieldCheck } from 'lucide-react'
+
+import { UserButton } from '@clerk/nextjs'
 import Link from 'next/link'
 
 import type { User } from '@/models/user.model'
