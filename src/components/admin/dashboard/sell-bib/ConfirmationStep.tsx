@@ -80,9 +80,9 @@ export default function ConfirmationStep({
 
 		return {
 			user: {
-				firstName: user.firstName ?? 'Anonymous',
-				id: user.id,
 				lastName: user.lastName ?? '',
+				id: user.id,
+				firstName: user.firstName ?? 'Anonymous',
 			},
 			status: 'available' as const,
 			price: parseFloat(formData.sellingPrice) ?? 0,

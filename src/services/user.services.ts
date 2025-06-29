@@ -38,7 +38,7 @@ export async function fetchUserById(id: string): Promise<null | User> {
 	}
 }
 
-export function isAdmin(user: User | null): boolean {
+export function isAdmin(user: null | User): boolean {
 	return user?.isAdmin === true
 }
 

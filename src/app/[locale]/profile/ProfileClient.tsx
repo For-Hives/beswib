@@ -4,7 +4,7 @@ import type { User as ClerkUser } from '@clerk/nextjs/server'
 
 import { useForm } from 'react-hook-form'
 
-import { isoDate, minLength, object, pipe, type InferOutput, string } from 'valibot'
+import { type InferOutput, isoDate, minLength, object, pipe, string } from 'valibot'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 
 import type { User } from '@/models/user.model'
@@ -20,6 +20,12 @@ import { Locale } from '@/lib/i18n-config'
 
 import profileTranslations from './locales.json'
 
+interface ProfileClientProps {
+	clerkUser: SerializedClerkUser
+	locale: Locale
+	user: null | User
+}
+
 interface SerializedClerkUser {
 	emailAddresses: { emailAddress: string; id: string }[]
 	firstName: null | string
@@ -29,23 +35,17 @@ interface SerializedClerkUser {
 	username: null | string
 }
 
-interface ProfileClientProps {
-	clerkUser: SerializedClerkUser
-	locale: Locale
-	user: null | User
-}
-
 const runnerSchema = object({
-	firstName: pipe(string(), minLength(1, 'First name must not be empty')),
-	lastName: pipe(string(), minLength(1, 'Last name must not be empty')),
-	birthDate: pipe(string(), isoDate('Birth date must be a valid ISO date.')),
-	phoneNumber: pipe(string(), minLength(1, 'Phone number must not be empty')),
-	emergencyContactName: pipe(string(), minLength(1, 'Emergency contact name must not be empty')),
-	emergencyContactPhone: pipe(string(), minLength(1, 'Emergency contact phone must not be empty')),
-	address: pipe(string(), minLength(1, 'Address must not be empty')),
 	postalCode: pipe(string(), minLength(1, 'Postal code must not be empty')),
-	city: pipe(string(), minLength(1, 'City must not be empty')),
+	phoneNumber: pipe(string(), minLength(1, 'Phone number must not be empty')),
+	lastName: pipe(string(), minLength(1, 'Last name must not be empty')),
+	firstName: pipe(string(), minLength(1, 'First name must not be empty')),
+	emergencyContactPhone: pipe(string(), minLength(1, 'Emergency contact phone must not be empty')),
+	emergencyContactName: pipe(string(), minLength(1, 'Emergency contact name must not be empty')),
 	country: pipe(string(), minLength(1, 'Country must not be empty')),
+	city: pipe(string(), minLength(1, 'City must not be empty')),
+	birthDate: pipe(string(), isoDate('Birth date must be a valid ISO date.')),
+	address: pipe(string(), minLength(1, 'Address must not be empty')),
 })
 
 type RunnerForm = InferOutput<typeof runnerSchema>
