@@ -4,7 +4,7 @@ import type { User as ClerkUser } from '@clerk/nextjs/server'
 
 import { useForm } from 'react-hook-form'
 
-import { isoDate, minLength, object, type Output, string } from 'valibot'
+import { isoDate, minLength, object, pipe, type InferOutput, string } from 'valibot'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 
 import type { User } from '@/models/user.model'
@@ -20,26 +20,35 @@ import { Locale } from '@/lib/i18n-config'
 
 import profileTranslations from './locales.json'
 
+interface SerializedClerkUser {
+	emailAddresses: { emailAddress: string; id: string }[]
+	firstName: null | string
+	id: string
+	imageUrl: string
+	lastName: null | string
+	username: null | string
+}
+
 interface ProfileClientProps {
-	clerkUser: ClerkUser | null
+	clerkUser: SerializedClerkUser
 	locale: Locale
 	user: null | User
 }
 
 const runnerSchema = object({
-	postalCode: string([minLength(1, 'Postal code is required')]),
-	phoneNumber: string([minLength(1, 'Phone number is required')]),
-	lastName: string([minLength(1, 'Last name is required')]),
-	firstName: string([minLength(1, 'First name is required')]),
-	emergencyContactPhone: string([minLength(1, 'Emergency contact phone is required')]),
-	emergencyContactName: string([minLength(1, 'Emergency contact name is required')]),
-	country: string([minLength(1, 'Country is required')]),
-	city: string([minLength(1, 'City is required')]),
-	birthDate: string([isoDate('Birth date must be a valid ISO date.')]),
-	address: string([minLength(1, 'Address is required')]),
+	firstName: pipe(string(), minLength(1, 'First name must not be empty')),
+	lastName: pipe(string(), minLength(1, 'Last name must not be empty')),
+	birthDate: pipe(string(), isoDate('Birth date must be a valid ISO date.')),
+	phoneNumber: pipe(string(), minLength(1, 'Phone number must not be empty')),
+	emergencyContactName: pipe(string(), minLength(1, 'Emergency contact name must not be empty')),
+	emergencyContactPhone: pipe(string(), minLength(1, 'Emergency contact phone must not be empty')),
+	address: pipe(string(), minLength(1, 'Address must not be empty')),
+	postalCode: pipe(string(), minLength(1, 'Postal code must not be empty')),
+	city: pipe(string(), minLength(1, 'City must not be empty')),
+	country: pipe(string(), minLength(1, 'Country must not be empty')),
 })
 
-type RunnerForm = Output<typeof runnerSchema>
+type RunnerForm = InferOutput<typeof runnerSchema>
 
 export default function ProfileClient({ user, locale, clerkUser }: ProfileClientProps) {
 	const t = getTranslations(locale, profileTranslations)
