@@ -3,13 +3,26 @@ import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
 export const mockUser: User = {
-	role: 'user',
-	lastName: 'User',
-	id: 'user1',
-	firstName: 'Test',
-	email: 'test@example.com',
-	createdAt: new Date('2024-01-01'),
+	address: null,
+	birthDate: null,
+	city: null,
 	clerkId: 'clerk_user1',
+	country: null,
+	createdAt: '2024-01-01T00:00:00.000Z',
+	email: 'test@example.com',
+	emergencyContactName: null,
+	emergencyContactPhone: null,
+	firstName: 'Test',
+	id: 'user1',
+	isAdmin: false,
+	isOrganizer: false,
+	lastName: 'User',
+	phoneNumber: null,
+	postalCode: null,
+	role: 'user',
+	stripeAccountId: null,
+	stripeAccountVerified: false,
+	updatedAt: '2024-01-01T00:00:00.000Z',
 }
 
 export const mockEvent: Event = {
