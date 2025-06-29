@@ -69,6 +69,11 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 		}
 	}
 
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault()
+		form.handleSubmit(onSubmit)(e).catch(console.error)
+	}
+
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -90,7 +95,7 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 								</CardHeader>
 								<CardContent>
 									<Form {...form}>
-										<form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+										<form className="space-y-8" onSubmit={handleSubmit}>
 											<div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 												<FormField
 													control={form.control}
