@@ -1,9 +1,20 @@
 export interface User {
-	clerkId: string
-	createdAt: Date
+	address: null | string
+	birthDate: null | string
+	city: null | string
+	country: null | string
+	createdAt: string
 	email: string
-	firstName: string
+	emergencyContactName: null | string
+	emergencyContactPhone: null | string
+	firstName: null | string
 	id: string
-	lastName: string
-	role: 'admin' | 'user'
+	isAdmin: boolean
+	isOrganizer: boolean
+	lastName: null | string
+	phoneNumber: null | string
+	postalCode: null | string
+	stripeAccountId: null | string
+	stripeAccountVerified: boolean
+	updatedAt: string
 }

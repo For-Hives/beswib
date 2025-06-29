@@ -1,6 +1,10 @@
 'use client'
 
 import { UserButton } from '@clerk/nextjs'
+import { AlertTriangle, ShieldCheck } from 'lucide-react'
+import Link from 'next/link'
+
+import type { User } from '@/models/user.model'
 
 interface SerializedClerkUser {
 	emailAddresses: { emailAddress: string; id: string }[]
@@ -13,10 +17,25 @@ interface SerializedClerkUser {
 
 interface UserHeaderProps {
 	clerkUser: SerializedClerkUser
+	user: null | User
 }
 
-export default function UserHeader({ clerkUser }: Readonly<UserHeaderProps>) {
+export default function UserHeader({ user, clerkUser }: Readonly<UserHeaderProps>) {
 	const userName = clerkUser.firstName ?? clerkUser.emailAddresses[0]?.emailAddress ?? 'User'
+
+	const isRunnerProfileComplete =
+		user?.firstName != null &&
+		user?.lastName != null &&
+		user?.birthDate != null &&
+		user?.phoneNumber != null &&
+		user?.emergencyContactName != null &&
+		user?.emergencyContactPhone != null &&
+		user?.address != null &&
+		user?.postalCode != null &&
+		user?.city != null &&
+		user?.country != null
+
+	const isSellerProfileComplete = user?.stripeAccountVerified === true
 
 	return (
 		<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 container mx-auto mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
@@ -38,6 +57,22 @@ export default function UserHeader({ clerkUser }: Readonly<UserHeaderProps>) {
 					<UserButton />
 				</div>
 			</div>
+			{!isRunnerProfileComplete && (
+				<div className="mt-4 rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-3 text-sm text-yellow-500">
+					<Link className="flex items-center gap-2" href="/profile">
+						<AlertTriangle className="h-5 w-5" />
+						Your runner profile is incomplete. Please update it to be able to buy bibs.
+					</Link>
+				</div>
+			)}
+			{!isSellerProfileComplete && (
+				<div className="mt-4 rounded-lg border border-blue-500/50 bg-blue-500/10 p-3 text-sm text-blue-500">
+					<Link className="flex items-center gap-2" href="/profile">
+						<ShieldCheck className="h-5 w-5" />
+						Your seller profile is incomplete. Please update it to be able to sell bibs.
+					</Link>
+				</div>
+			)}
 		</div>
 	)
 }

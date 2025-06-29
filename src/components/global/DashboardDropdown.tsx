@@ -1,6 +1,6 @@
 'use client'
 
-import { LayoutDashboard, Settings, ShoppingBag, Tag } from 'lucide-react'
+import { LayoutDashboard, Settings, ShoppingBag, Tag, User } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { useUser } from '@clerk/nextjs'
@@ -47,6 +47,11 @@ export default function DashboardDropdown({ locale }: Readonly<DashboardDropdown
 			onClick: () => (window.location.href = '/dashboard'),
 			label: t.navbar.dashboardLink,
 			Icon: <LayoutDashboard className="h-4 w-4" />,
+		},
+		{
+			onClick: () => (window.location.href = '/profile'),
+			label: t.navbar.profileLink,
+			Icon: <User className="h-4 w-4" />,
 		},
 		{
 			onClick: () => (window.location.href = '/marketplace'),

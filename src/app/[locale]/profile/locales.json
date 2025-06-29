@@ -1,0 +1,68 @@
+{
+	"en": {
+		"profile": {
+			"title": "My Profile",
+			"description": "Update your personal and runner information.",
+			"runnerInfo": {
+				"title": "Runner Information",
+				"description": "Complete your runner profile to buy bibs on the marketplace.",
+				"firstName": "First Name",
+				"lastName": "Last Name",
+				"birthDate": "Birth Date",
+				"phoneNumber": "Phone Number",
+				"emergencyContactName": "Emergency Contact Name",
+				"emergencyContactPhone": "Emergency Contact Phone",
+				"address": "Address",
+				"postalCode": "Postal Code",
+				"city": "City",
+				"country": "Country",
+				"save": "Save Changes"
+			},
+			"sellerInfo": {
+				"title": "Seller Information",
+				"description": "Complete your seller profile to sell bibs and receive payments.",
+				"connectStripe": "Connect with Stripe",
+				"stripeConnectionStatus": "Stripe Connection Status:",
+				"stripeVerified": "Verified",
+				"stripeNotVerified": "Not Verified"
+			},
+			"notifications": {
+				"profileUpdated": "Profile updated successfully.",
+				"profileUpdateError": "An error occurred while updating your profile."
+			}
+		}
+	},
+	"fr": {
+		"profile": {
+			"title": "Mon Profil",
+			"description": "Mettez à jour vos informations personnelles et de coureur.",
+			"runnerInfo": {
+				"title": "Informations Coureur",
+				"description": "Complétez votre profil de coureur pour acheter des dossards sur la marketplace.",
+				"firstName": "Prénom",
+				"lastName": "Nom",
+				"birthDate": "Date de naissance",
+				"phoneNumber": "Numéro de téléphone",
+				"emergencyContactName": "Nom du contact d'urgence",
+				"emergencyContactPhone": "Téléphone du contact d'urgence",
+				"address": "Adresse",
+				"postalCode": "Code Postal",
+				"city": "Ville",
+				"country": "Pays",
+				"save": "Enregistrer les modifications"
+			},
+			"sellerInfo": {
+				"title": "Informations Vendeur",
+				"description": "Complétez votre profil vendeur pour vendre des dossards et recevoir des paiements.",
+				"connectStripe": "Se connecter avec Stripe",
+				"stripeConnectionStatus": "Statut de la connexion Stripe :",
+				"stripeVerified": "Vérifié",
+				"stripeNotVerified": "Non Vérifié"
+			},
+			"notifications": {
+				"profileUpdated": "Profil mis à jour avec succès.",
+				"profileUpdateError": "Une erreur est survenue lors de la mise à jour de votre profil."
+			}
+		}
+	}
+}
