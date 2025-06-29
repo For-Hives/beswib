@@ -63,7 +63,7 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 	async function onSubmit(values: RunnerForm) {
 		if (!user) return
 		try {
-			await updateUser(user.id, values)
+			await updateUser(user.id, values as Partial<User>)
 		} catch (error) {
 			console.error(error)
 		}
@@ -244,8 +244,8 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 									<Button className="w-full">{t.profile.sellerInfo.connectStripe}</Button>
 									<p className="text-muted-foreground text-sm">
 										{t.profile.sellerInfo.stripeConnectionStatus}{' '}
-										<span className={user?.stripeAccountVerified ? 'text-green-500' : 'text-red-500'}>
-											{user?.stripeAccountVerified
+										<span className={user?.stripeAccountVerified === true ? 'text-green-500' : 'text-red-500'}>
+											{user?.stripeAccountVerified === true
 												? t.profile.sellerInfo.stripeVerified
 												: t.profile.sellerInfo.stripeNotVerified}
 										</span>
