@@ -343,7 +343,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 					<div>
 						<p className="text-muted-foreground text-sm">{t.organizers.ui.connectedAs}</p>
 						<p className="text-foreground font-medium">
-							{currentUser.firstName} {currentUser.lastName} ({currentUser.email})
+							{currentUser.firstName ?? 'Anonymous'} {currentUser.lastName ?? ''} ({currentUser.email})
 						</p>
 					</div>
 					<div className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-medium">

@@ -96,7 +96,8 @@ export default function CardMarket({ locale, bibSale }: Readonly<CardMarketProps
 				<div className="flex w-full items-center justify-center py-2">
 					<div className="flex w-full items-center justify-center">
 						<p className="text-muted-foreground text-xs leading-relaxed italic">
-							{translations?.soldBy ?? 'vendu par'} {bibSale.user.firstName} {bibSale.user.lastName}
+							{translations?.soldBy ?? 'vendu par'} {bibSale.user.firstName ?? 'Anonymous'}{' '}
+							{bibSale.user.lastName ?? ''}
 						</p>
 					</div>
 				</div>

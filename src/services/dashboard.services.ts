@@ -198,8 +198,8 @@ export async function getRecentActivity(): Promise<
 		recentUsers.items.forEach(user => {
 			activities.push({
 				type: 'user_registration',
-				title: `New user registered: ${user.firstName} ${user.lastName}`,
-				timestamp: user.createdAt,
+				title: `New user registered: ${user.firstName ?? 'Anonymous'} ${user.lastName ?? ''}`,
+				timestamp: new Date(user.createdAt),
 				status: 'completed',
 				id: `user-${user.id}`,
 			})
