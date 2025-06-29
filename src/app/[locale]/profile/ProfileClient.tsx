@@ -1,8 +1,8 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
+import { valibotResolver } from '@hookform/resolvers/valibot'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { isoDate, minLength, object, string, type Output } from 'valibot'
 
 import type { User } from '@/models/user.model'
 import { getTranslations } from '@/lib/getDictionary'
@@ -22,41 +22,47 @@ interface ProfileClientProps {
 	user: null | User
 }
 
-const formSchema = z.object({
-	firstName: z.string().min(2, { message: 'First name must be at least 2 characters.' }),
-	lastName: z.string().min(2, { message: 'Last name must be at least 2 characters.' }),
-	birthDate: z.string(),
-	phoneNumber: z.string(),
-	emergencyContactName: z.string(),
-	emergencyContactPhone: z.string(),
-	address: z.string(),
-	postalCode: z.string(),
-	city: z.string(),
-	country: z.string(),
+const runnerSchema = object({
+	firstName: string([minLength(1, 'First name is required')]),
+	lastName: string([minLength(1, 'Last name is required')]),
+	birthDate: isoDate('Birth date must be a valid date'),
+	phoneNumber: string([minLength(1, 'Phone number is required')]),
+	emergencyContactName: string([minLength(1, 'Emergency contact name is required')]),
+	emergencyContactPhone: string([minLength(1, 'Emergency contact phone is required')]),
+	address: string([minLength(1, 'Address is required')]),
+	postalCode: string([minLength(1, 'Postal code is required')]),
+	city: string([minLength(1, 'City is required')]),
+	country: string([minLength(1, 'Country is required')]),
 })
+
+type RunnerForm = Output<typeof runnerSchema>
 
 export default function ProfileClient({ locale, user, clerkUser }: ProfileClientProps) {
 	const t = getTranslations(locale, profileTranslations)
 
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
+	const form = useForm<RunnerForm>({
+		resolver: valibotResolver(runnerSchema),
 		defaultValues: {
-			firstName: user?.firstName || '',
-			lastName: user?.lastName || '',
-			birthDate: user?.birthDate || '',
-			phoneNumber: user?.phoneNumber || '',
-			emergencyContactName: user?.emergencyContactName || '',
-			emergencyContactPhone: user?.emergencyContactPhone || '',
-			address: user?.address || '',
-			postalCode: user?.postalCode || '',
-			city: user?.city || '',
-			country: user?.country || '',
+			firstName: user?.firstName ?? '',
+			lastName: user?.lastName ?? '',
+			birthDate: user?.birthDate ?? '',
+			phoneNumber: user?.phoneNumber ?? '',
+			emergencyContactName: user?.emergencyContactName ?? '',
+			emergencyContactPhone: user?.emergencyContactPhone ?? '',
+			address: user?.address ?? '',
+			postalCode: user?.postalCode ?? '',
+			city: user?.city ?? '',
+			country: user?.country ?? '',
 		},
 	})
 
-	async function onSubmit(values: z.infer<typeof formSchema>) {
+	async function onSubmit(values: RunnerForm) {
 		if (!user) return
-		await updateUser(user.id, values as Partial<User>)
+		try {
+			await updateUser(user.id, values)
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	return (
