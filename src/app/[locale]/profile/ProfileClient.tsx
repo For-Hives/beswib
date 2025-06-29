@@ -1,58 +1,62 @@
 'use client'
 
-import { valibotResolver } from '@hookform/resolvers/valibot'
+import type { User as ClerkUser } from '@clerk/nextjs/server'
+
 import { useForm } from 'react-hook-form'
-import { isoDate, minLength, object, string, type Output } from 'valibot'
+
+import { isoDate, minLength, object, type Output, string } from 'valibot'
+import { valibotResolver } from '@hookform/resolvers/valibot'
 
 import type { User } from '@/models/user.model'
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
-import UserHeader from '@/components/dashboard/user-header'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
+
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import UserHeader from '@/components/dashboard/user-header'
+import { getTranslations } from '@/lib/getDictionary'
 import { updateUser } from '@/services/user.services'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Locale } from '@/lib/i18n-config'
 
 import profileTranslations from './locales.json'
 
 interface ProfileClientProps {
-	clerkUser: any
+	clerkUser: ClerkUser | null
 	locale: Locale
 	user: null | User
 }
 
 const runnerSchema = object({
-	firstName: string([minLength(1, 'First name is required')]),
-	lastName: string([minLength(1, 'Last name is required')]),
-	birthDate: isoDate('Birth date must be a valid date'),
-	phoneNumber: string([minLength(1, 'Phone number is required')]),
-	emergencyContactName: string([minLength(1, 'Emergency contact name is required')]),
-	emergencyContactPhone: string([minLength(1, 'Emergency contact phone is required')]),
-	address: string([minLength(1, 'Address is required')]),
 	postalCode: string([minLength(1, 'Postal code is required')]),
-	city: string([minLength(1, 'City is required')]),
+	phoneNumber: string([minLength(1, 'Phone number is required')]),
+	lastName: string([minLength(1, 'Last name is required')]),
+	firstName: string([minLength(1, 'First name is required')]),
+	emergencyContactPhone: string([minLength(1, 'Emergency contact phone is required')]),
+	emergencyContactName: string([minLength(1, 'Emergency contact name is required')]),
 	country: string([minLength(1, 'Country is required')]),
+	city: string([minLength(1, 'City is required')]),
+	birthDate: string([isoDate('Birth date must be a valid ISO date.')]),
+	address: string([minLength(1, 'Address is required')]),
 })
 
 type RunnerForm = Output<typeof runnerSchema>
 
-export default function ProfileClient({ locale, user, clerkUser }: ProfileClientProps) {
+export default function ProfileClient({ user, locale, clerkUser }: ProfileClientProps) {
 	const t = getTranslations(locale, profileTranslations)
 
 	const form = useForm<RunnerForm>({
 		resolver: valibotResolver(runnerSchema),
 		defaultValues: {
-			firstName: user?.firstName ?? '',
-			lastName: user?.lastName ?? '',
-			birthDate: user?.birthDate ?? '',
-			phoneNumber: user?.phoneNumber ?? '',
-			emergencyContactName: user?.emergencyContactName ?? '',
-			emergencyContactPhone: user?.emergencyContactPhone ?? '',
-			address: user?.address ?? '',
 			postalCode: user?.postalCode ?? '',
-			city: user?.city ?? '',
+			phoneNumber: user?.phoneNumber ?? '',
+			lastName: user?.lastName ?? '',
+			firstName: user?.firstName ?? '',
+			emergencyContactPhone: user?.emergencyContactPhone ?? '',
+			emergencyContactName: user?.emergencyContactName ?? '',
 			country: user?.country ?? '',
+			city: user?.city ?? '',
+			birthDate: user?.birthDate ?? '',
+			address: user?.address ?? '',
 		},
 	})
 
@@ -86,7 +90,7 @@ export default function ProfileClient({ locale, user, clerkUser }: ProfileClient
 								</CardHeader>
 								<CardContent>
 									<Form {...form}>
-										<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+										<form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
 											<div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 												<FormField
 													control={form.control}

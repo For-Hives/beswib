@@ -28,5 +28,5 @@ export default async function ProfilePage({ params }: { params: Promise<LocalePa
 		})),
 	}
 
-	return <ProfileClient locale={locale} user={user} clerkUser={serializedClerkUser} />
+	return <ProfileClient clerkUser={serializedClerkUser} locale={locale} user={user} />
 }
