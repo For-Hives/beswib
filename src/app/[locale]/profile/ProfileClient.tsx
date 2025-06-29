@@ -1,7 +1,5 @@
 'use client'
 
-import type { User as ClerkUser } from '@clerk/nextjs/server'
-
 import { useForm } from 'react-hook-form'
 
 import { type InferOutput, isoDate, minLength, object, pipe, string } from 'valibot'
