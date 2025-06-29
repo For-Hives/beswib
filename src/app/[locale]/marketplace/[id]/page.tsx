@@ -1,17 +1,18 @@
+import { auth } from '@clerk/nextjs/server'
 import type { Metadata } from 'next'
-
 import React from 'react'
 
-import { fetchAvailableBibsForEvent, fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
-import { StripeProvider } from '@/components/marketplace/purchase/StripeProvider'
-import PurchaseClient from '@/components/marketplace/purchase/PurchaseClient'
-import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
-import { createPaymentIntent } from '@/services/stripe.services'
 import { BibSale } from '@/components/marketplace/CardMarket'
-import { Event as EventModel } from '@/models/event.model'
+import PurchaseClient from '@/components/marketplace/purchase/PurchaseClient'
+import { StripeProvider } from '@/components/marketplace/purchase/StripeProvider'
+import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
 import { Locale } from '@/lib/i18n-config'
-import { User } from '@/models/user.model'
-import { Bib } from '@/models/bib.model'
+import type { Bib } from '@/models/bib.model'
+import type { Event as EventModel } from '@/models/event.model'
+import type { User } from '@/models/user.model'
+import { fetchAvailableBibsForEvent, fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
+import { createPaymentIntent } from '@/services/stripe.services'
+import { fetchUserById } from '@/services/user.services'
 
 export const metadata: Metadata = {
 	title: 'Purchase Bib',
@@ -31,6 +32,13 @@ interface MarketplaceItemPageProps {
 export default async function MarketplaceItemPage({ searchParams, params }: MarketplaceItemPageProps) {
 	const { locale, id } = await params
 	const { tkn } = await searchParams
+	const { userId } = await auth()
+
+	let user: User | null = null
+	if (userId) {
+		user = await fetchUserById(userId)
+	}
+
 	let bib: (Bib & { expand?: { eventId: EventModel; sellerUserId: User } }) | null
 
 	if (tkn != null) {
@@ -112,7 +120,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<StripeProvider clientSecret={paymentIntent}>
-				<PurchaseClient bib={bibSale} locale={locale} otherBibs={otherBibs} paymentIntent={paymentIntent} />
+				<PurchaseClient bib={bibSale} locale={locale} otherBibs={otherBibs} paymentIntent={paymentIntent} user={user} />
 			</StripeProvider>
 		</div>
 	)
