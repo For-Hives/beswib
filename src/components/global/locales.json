@@ -3,6 +3,7 @@
 		"navbar": {
 			"homeLink": "Home",
 			"dashboardLink": "Dashboard",
+			"profileLink": "Profile",
 			"buyBibLink": "Buy a Bib",
 			"sellBibLink": "Sell a Bib",
 			"racesLink": "Races",
@@ -65,6 +66,7 @@
 		"navbar": {
 			"homeLink": "Accueil",
 			"dashboardLink": "Tableau de bord",
+			"profileLink": "Profil",
 			"buyBibLink": "Acheter un dossard",
 			"sellBibLink": "Vendre un dossard",
 			"racesLink": "Courses",
@@ -127,6 +129,7 @@
 		"navbar": {
 			"homeLink": "홈",
 			"dashboardLink": "대시보드",
+			"profileLink": "프로필",
 			"buyBibLink": "경주번호표 구매",
 			"sellBibLink": "경주번호표 판매",
 			"racesLink": "레이스",

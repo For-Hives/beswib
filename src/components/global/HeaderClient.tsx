@@ -1,7 +1,7 @@
 'use client'
 
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
-import { LayoutDashboard, Settings, ShoppingBag, Tag } from 'lucide-react'
+import { LayoutDashboard, Settings, ShoppingBag, Tag, User } from 'lucide-react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 
@@ -187,6 +187,16 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 			>
 				<LayoutDashboard className="h-4 w-4" />
 				{t.navbar.dashboardLink}
+			</DisclosureButton>
+
+			{/* Profile Link */}
+			<DisclosureButton
+				as={Link}
+				className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+				href="/profile"
+			>
+				<User className="h-4 w-4" />
+				{t.navbar.profileLink}
 			</DisclosureButton>
 
 			{/* Buy Bib Link 🛍️ */}

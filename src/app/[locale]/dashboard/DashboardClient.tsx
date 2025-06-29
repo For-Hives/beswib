@@ -42,13 +42,13 @@ import { Locale } from '@/lib/i18n-config'
 
 import dashboardTranslations from './locales.json'
 
-export default function DashboardClient({ locale, clerkUser }: DashboardClientProps) {
+export default function DashboardClient({ user, locale, clerkUser }: DashboardClientProps) {
 	const t = getTranslations(locale, dashboardTranslations)
 
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-			<UserHeader clerkUser={clerkUser} />
+			<UserHeader clerkUser={clerkUser} user={user} />
 
 			<div className="relative pt-32 pb-12">
 				<div className="container mx-auto max-w-6xl p-6">
