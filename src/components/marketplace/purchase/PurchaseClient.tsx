@@ -5,6 +5,7 @@ import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import React, { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
+import { useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -14,7 +15,6 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { handleSuccessfulPurchase } from '@/app/[locale]/purchase/actions'
 import CardMarket, { BibSale } from '@/components/marketplace/CardMarket'
 import { SlidingPanel } from '@/components/ui/SlidingPanel'
-import { fetchUserById } from '@/services/user.services'
 import { formatDateWithLocale } from '@/lib/dateUtils'
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n-config'
@@ -39,7 +39,7 @@ export default function PurchaseClient({
 	const elements = useElements()
 	const [errorMessage, setErrorMessage] = useState<null | string>(null)
 	const [isPanelOpen, setIsPanelOpen] = useState(false)
-	const { user: clerkUser, isSignedIn } = useUser()
+	const { isSignedIn } = useUser()
 	const router = useRouter()
 	const [isProfileComplete, setIsProfileComplete] = useState(false)
 
@@ -75,7 +75,7 @@ export default function PurchaseClient({
 
 	// Check if user is authenticated when trying to open payment modal
 	const handleBuyNowClick = () => {
-		if (!isSignedIn) {
+		if (isSignedIn !== true) {
 			router.push(`/${locale}/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`)
 			return
 		}
@@ -232,7 +232,7 @@ export default function PurchaseClient({
 									)}
 								</div>
 							</div>
-							{!isProfileComplete && isSignedIn && (
+							{!isProfileComplete && isSignedIn === true && (
 								<Alert className="mb-4" variant="destructive">
 									<AlertTriangle className="h-4 w-4" />
 									<AlertTitle>Profile Incomplete</AlertTitle>
@@ -246,7 +246,7 @@ export default function PurchaseClient({
 							)}
 							<Button
 								className="flex items-center justify-center gap-2 text-lg font-medium"
-								disabled={!isProfileComplete && isSignedIn}
+								disabled={!isProfileComplete && isSignedIn === true}
 								onClick={handleBuyNowClick}
 								size="lg"
 							>
