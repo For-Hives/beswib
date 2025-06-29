@@ -54,12 +54,25 @@ function buildUserData(evt: WebhookEvent, primaryEmail: string): Omit<User, 'cre
 	const { last_name, id: clerkId, first_name } = userData
 
 	return {
-		role: 'user',
-		lastName: last_name ?? '',
-		firstName: first_name ?? '',
-		email: primaryEmail,
-		createdAt: new Date(),
+		address: '',
+		birthDate: '',
+		city: '',
 		clerkId,
+		country: '',
+		createdAt: new Date().toISOString(),
+		email: primaryEmail,
+		emergencyContactName: '',
+		emergencyContactPhone: '',
+		firstName: first_name ?? '',
+		isAdmin: false,
+		isOrganizer: false,
+		lastName: last_name ?? '',
+		phoneNumber: '',
+		postalCode: '',
+		role: 'user',
+		stripeAccountId: null,
+		stripeAccountVerified: false,
+		updatedAt: new Date().toISOString(),
 	}
 }
 
@@ -116,7 +129,7 @@ async function processUserCreation(
 	try {
 		const newUserInDb = await createUser(userData)
 
-		if (!newUserInDb) {
+		if (newUserInDb === null) {
 			console.error(`Failed to create user ${clerkId} in PocketBase.`)
 			return NextResponse.json({ error: 'Failed to create user in database' }, { status: 500 })
 		}

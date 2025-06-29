@@ -55,9 +55,9 @@ export function transformBibToBibSale(bib: Bib & { expand?: { eventId: Event; se
 
 	return {
 		user: {
-			lastName: seller.lastName,
+			firstName: seller.firstName ?? 'Anonymous',
 			id: seller.id,
-			firstName: seller.firstName,
+			lastName: seller.lastName ?? '',
 		},
 		status,
 		price: bib.price,

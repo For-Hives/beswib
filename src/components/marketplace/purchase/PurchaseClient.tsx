@@ -216,7 +216,7 @@ export default function PurchaseClient({
 							<div className="p-6">
 								<h2 className="text-foreground text-2xl font-bold">{bib.event.name}</h2>
 								<p className="text-muted-foreground mt-1 text-sm italic">
-									Sold by {bib.user.firstName} {bib.user.lastName}
+									Sold by {bib.user.firstName ?? 'Anonymous'} {bib.user.lastName ?? ''}
 								</p>
 							</div>
 						</div>
