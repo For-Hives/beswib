@@ -1,5 +1,5 @@
 import { SelectAlt, SelectContentAlt, SelectItemAlt, SelectTriggerAlt, SelectValueAlt } from '@/components/ui/selectAlt'
-import Translations from '@/app/[locale]/event/locales.json'
+import Translations from '@/app/[locale]/admin/locales.json'
 import { Textarea } from '@/components/ui/textareaAlt'
 import { DateInput } from '@/components/ui/date-input'
 import { getTranslations } from '@/lib/getDictionary'

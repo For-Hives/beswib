@@ -18,7 +18,7 @@ interface EventOptionCardProps {
 	optionIndex: number
 }
 
-import Translations from '@/app/[locale]/event/locales.json'
+import Translations from '@/app/[locale]/admin/locales.json'
 
 export default function EventOptionCard({
 	optionIndex,

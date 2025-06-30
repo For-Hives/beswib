@@ -2,7 +2,7 @@ import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 
 import * as v from 'valibot'
 
-import adminTranslations from '@/app/[locale]/event/locales.json'
+import adminTranslations from '@/app/[locale]/admin/locales.json'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
 
