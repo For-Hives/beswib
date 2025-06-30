@@ -8,7 +8,7 @@ import { valibotResolver } from '@hookform/resolvers/valibot'
 import { toast } from 'sonner'
 
 import { createEventAction } from '@/app/[locale]/admin/actions'
-import Translations from '@/app/[locale]/event/locales.json'
+import Translations from '@/app/[locale]/admin/locales.json'
 import { EventOption } from '@/models/eventOption.model'
 import { getTranslations } from '@/lib/getDictionary'
 import { Separator } from '@/components/ui/separator'

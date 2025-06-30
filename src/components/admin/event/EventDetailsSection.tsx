@@ -1,4 +1,4 @@
-import Translations from '@/app/[locale]/event/locales.json'
+import Translations from '@/app/[locale]/admin/locales.json'
 import { DateInput } from '@/components/ui/date-input'
 import { getTranslations } from '@/lib/getDictionary'
 import { Input } from '@/components/ui/inputAlt'

@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import EventCreationForm from '@/components/admin/event/event-creation-form'
-import Translations from '@/app/[locale]/event/locales.json'
+import Translations from '@/app/[locale]/admin/locales.json'
 import { getTranslations } from '@/lib/getDictionary'
 import { Event } from '@/models/event.model'
 import { User } from '@/models/user.model'
