@@ -39,10 +39,28 @@ export default function UserHeader({ user, clerkUser }: Readonly<UserHeaderProps
 	const isSellerProfileComplete = user?.stripeAccountVerified === true
 
 	return (
-		<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 container mx-auto mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
+		<div className="bg-card/25 border-border/30 z-20 container mx-auto mb-0 rounded-2xl border p-4 backdrop-blur-sm">
 			<div className="flex items-center justify-between">
 				<div>
 					<p className="text-muted-foreground text-sm">Welcome back</p>
+					<div className="flex">
+						{!isRunnerProfileComplete && (
+							<div className="mt-4 rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-3 text-sm text-yellow-500">
+								<Link className="flex items-center gap-2" href="/profile">
+									<AlertTriangle className="h-5 w-5" />
+									Your runner profile is incomplete. Please update it to be able to buy bibs.
+								</Link>
+							</div>
+						)}
+						{!isSellerProfileComplete && (
+							<div className="mt-4 rounded-lg border border-blue-500/50 bg-blue-500/10 p-3 text-sm text-blue-500">
+								<Link className="flex items-center gap-2" href="/profile">
+									<ShieldCheck className="h-5 w-5" />
+									Your seller profile is incomplete. Please update it to be able to sell bibs.
+								</Link>
+							</div>
+						)}
+					</div>
 				</div>
 
 				<div className="flex items-center justify-end gap-4">
@@ -58,22 +76,6 @@ export default function UserHeader({ user, clerkUser }: Readonly<UserHeaderProps
 					<UserButton />
 				</div>
 			</div>
-			{!isRunnerProfileComplete && (
-				<div className="mt-4 rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-3 text-sm text-yellow-500">
-					<Link className="flex items-center gap-2" href="/profile">
-						<AlertTriangle className="h-5 w-5" />
-						Your runner profile is incomplete. Please update it to be able to buy bibs.
-					</Link>
-				</div>
-			)}
-			{!isSellerProfileComplete && (
-				<div className="mt-4 rounded-lg border border-blue-500/50 bg-blue-500/10 p-3 text-sm text-blue-500">
-					<Link className="flex items-center gap-2" href="/profile">
-						<ShieldCheck className="h-5 w-5" />
-						Your seller profile is incomplete. Please update it to be able to sell bibs.
-					</Link>
-				</div>
-			)}
 		</div>
 	)
 }
