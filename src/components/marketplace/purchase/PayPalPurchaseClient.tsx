@@ -40,7 +40,7 @@ export default function PayPalPurchaseClient({
 	const [loading, setLoading] = useState(false)
 	const { isSignedIn } = useUser()
 	const router = useRouter()
-	const [isProfileComplete, setIsProfileComplete] = useState(true)
+	const [isProfileComplete, setIsProfileComplete] = useState(false)
 
 	useEffect(() => {
 		if (user) {
