@@ -106,6 +106,8 @@ export async function createOrder(sellerId: string, amount: string): Promise<{ e
 export async function onboardSeller(trackingId: string): Promise<{ action_url?: string; error?: string }> {
 	try {
 		const token = await getAccessToken()
+		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
+		
 		const response = await fetch('https://api-m.sandbox.paypal.com/v2/customer/partner-referrals', {
 			method: 'POST',
 			headers: {
@@ -115,6 +117,7 @@ export async function onboardSeller(trackingId: string): Promise<{ action_url?: 
 			},
 			body: JSON.stringify({
 				tracking_id: trackingId,
+				return_url: `${baseUrl}/en/paypal/callback?trackingId=${trackingId}`,
 				products: ['EXPRESS_CHECKOUT'],
 				operations: [
 					{

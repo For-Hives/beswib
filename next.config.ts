@@ -43,7 +43,7 @@ const nextConfig: NextConfig = {
 					},
 					{
 						value:
-							"script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://*.clerk.accounts.dev https://clerk.com; object-src 'none'; frame-src https://js.stripe.com https://hooks.stripe.com https://*.clerk.accounts.dev; connect-src 'self' https://api.stripe.com https://*.clerk.accounts.dev https://clerk.com;",
+							"script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.paypal.com https://*.clerk.accounts.dev https://clerk.com; object-src 'none'; frame-src https://www.paypal.com https://*.clerk.accounts.dev; connect-src 'self' https://api-m.sandbox.paypal.com https://api-m.paypal.com https://*.clerk.accounts.dev https://clerk.com;",
 						key: 'Content-Security-Policy',
 					},
 				],
