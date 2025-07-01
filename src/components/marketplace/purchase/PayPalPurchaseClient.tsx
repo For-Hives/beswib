@@ -14,12 +14,12 @@ import type { User as AppUser } from '@/models/user.model'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { handleSuccessfulPurchase } from '@/app/[locale]/purchase/actions'
 import CardMarket, { BibSale } from '@/components/marketplace/CardMarket'
+import { capturePayment, createOrder } from '@/services/paypal.services'
 import { SlidingPanel } from '@/components/ui/SlidingPanel'
 import { formatDateWithLocale } from '@/lib/dateUtils'
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n-config'
 import { cn } from '@/lib/utils'
-import { capturePayment, createOrder } from '@/services/paypal.services'
 
 interface PayPalPurchaseClientProps {
 	bib: BibSale
@@ -407,11 +407,11 @@ export default function PayPalPurchaseClient({
 										onCancel={onCancel}
 										onError={onError}
 										style={{
-											color: 'blue' as const,
-											height: 50,
-											label: 'paypal' as const,
-											layout: 'vertical' as const,
 											shape: 'rect' as const,
+											layout: 'vertical' as const,
+											label: 'paypal' as const,
+											height: 50,
+											color: 'blue' as const,
 										}}
 									/>
 								</div>

@@ -16,12 +16,12 @@ export function PayPalProvider({
 	return (
 		<PayPalScriptProvider
 			options={{
-				clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
-				components: 'buttons',
-				currency: 'EUR',
-				'disable-funding': '',
-				'enable-funding': 'venmo,paylater',
 				intent: 'capture',
+				'enable-funding': 'venmo,paylater',
+				'disable-funding': '',
+				currency: 'EUR',
+				components: 'buttons',
+				clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
 			}}
 		>
 			{children}
