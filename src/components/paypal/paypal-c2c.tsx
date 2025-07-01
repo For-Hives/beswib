@@ -6,11 +6,11 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { capturePayment, createOrder, onboardSeller } from '@/services/paypal.services'
 
 export default function PaypalC2C() {
-	const [sellerUrl, setSellerUrl] = useState<string | null>(null)
+	const [sellerUrl, setSellerUrl] = useState<null | string>(null)
 	const [sellerId, setSellerId] = useState('')
 	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
-	const [success, setSuccess] = useState<string | null>(null)
+	const [error, setError] = useState<null | string>(null)
+	const [success, setSuccess] = useState<null | string>(null)
 	const paypalContainerRef = useRef<HTMLDivElement>(null)
 
 	// Clear errors when sellerId changes
@@ -28,7 +28,7 @@ export default function PaypalC2C() {
 			if (data.error) {
 				throw new Error(data.error)
 			}
-			setSellerUrl(data.action_url!)
+			setSellerUrl(data.action_url)
 			setSuccess("Lien d'onboarding généré avec succès!")
 		} catch (e: any) {
 			console.error('Erreur onboarding:', e.message)
@@ -108,9 +108,9 @@ export default function PaypalC2C() {
 		<div
 			style={{
 				padding: 20,
-				fontFamily: 'sans-serif',
 				maxWidth: 600,
 				margin: '0 auto',
+				fontFamily: 'sans-serif',
 			}}
 		>
 			<h2>Marketplace C2C - Sandbox Test</h2>
@@ -118,23 +118,23 @@ export default function PaypalC2C() {
 			{/* Onboarding Section */}
 			<div
 				style={{
-					marginBottom: 30,
 					padding: 20,
-					border: '1px solid #ddd',
+					marginBottom: 30,
 					borderRadius: 8,
+					border: '1px solid #ddd',
 				}}
 			>
 				<h3>1. Onboarding Vendeur</h3>
 				<button
-					onClick={onboard}
 					disabled={loading}
+					onClick={onboard}
 					style={{
 						padding: '10px 20px',
-						backgroundColor: loading ? '#ccc' : '#007cba',
-						color: 'white',
-						border: 'none',
-						borderRadius: 4,
 						cursor: loading ? 'not-allowed' : 'pointer',
+						color: 'white',
+						borderRadius: 4,
+						border: 'none',
+						backgroundColor: loading ? '#ccc' : '#007cba',
 					}}
 				>
 					{loading ? 'Création...' : 'Créer un vendeur (onboarding)'}
@@ -145,16 +145,16 @@ export default function PaypalC2C() {
 						<p>✅ Lien d'onboarding généré!</p>
 						<a
 							href={sellerUrl}
-							target="_blank"
 							rel="noreferrer"
 							style={{
-								display: 'inline-block',
-								padding: '8px 16px',
-								backgroundColor: '#28a745',
-								color: 'white',
 								textDecoration: 'none',
+								padding: '8px 16px',
+								display: 'inline-block',
+								color: 'white',
 								borderRadius: 4,
+								backgroundColor: '#28a745',
 							}}
+							target="_blank"
 						>
 							Terminer l'onboarding du vendeur
 						</a>
@@ -163,18 +163,18 @@ export default function PaypalC2C() {
 			</div>
 
 			{/* Payment Section */}
-			<div style={{ padding: 20, border: '1px solid #ddd', borderRadius: 8 }}>
+			<div style={{ padding: 20, borderRadius: 8, border: '1px solid #ddd' }}>
 				<h3>2. Test de Paiement</h3>
 
 				{error && (
 					<div
 						style={{
-							color: '#721c24',
-							backgroundColor: '#f8d7da',
 							padding: 10,
-							borderRadius: 4,
 							marginBottom: 15,
+							color: '#721c24',
+							borderRadius: 4,
 							border: '1px solid #f5c6cb',
+							backgroundColor: '#f8d7da',
 						}}
 					>
 						❌ {error}
@@ -184,12 +184,12 @@ export default function PaypalC2C() {
 				{success && (
 					<div
 						style={{
-							color: '#155724',
-							backgroundColor: '#d4edda',
 							padding: 10,
-							borderRadius: 4,
 							marginBottom: 15,
+							color: '#155724',
+							borderRadius: 4,
 							border: '1px solid #c3e6cb',
+							backgroundColor: '#d4edda',
 						}}
 					>
 						✅ {success}
@@ -197,43 +197,43 @@ export default function PaypalC2C() {
 				)}
 
 				<input
-					type="text"
-					placeholder="Seller Merchant ID (ex: 56HWWPL2WXLVL)"
-					value={sellerId}
 					onChange={e => setSellerId(e.target.value)}
+					placeholder="Seller Merchant ID (ex: 56HWWPL2WXLVL)"
 					style={{
+						width: '100%',
 						padding: 10,
 						marginBottom: 15,
-						width: '100%',
-						border: '1px solid #ddd',
-						borderRadius: 4,
 						fontSize: 14,
+						borderRadius: 4,
+						border: '1px solid #ddd',
 					}}
+					type="text"
+					value={sellerId}
 				/>
 
 				<div ref={paypalContainerRef}>
 					{sellerId.trim() && (
 						<PayPalScriptProvider
-							options={{
-								clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '',
-								currency: 'EUR',
-								intent: 'capture',
-							}}
 							deferLoading={false}
+							options={{
+								intent: 'capture',
+								currency: 'EUR',
+								clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '',
+							}}
 						>
 							<PayPalButtons
-								key={sellerId} // Force re-render when sellerId changes
-								disabled={loading || !sellerId.trim()}
 								createOrder={handleCreateOrder}
+								disabled={loading || !sellerId.trim()}
+								key={sellerId} // Force re-render when sellerId changes
 								onApprove={onApprove}
-								onError={onError}
 								onCancel={onCancel}
+								onError={onError}
 								style={{
-									layout: 'vertical',
-									color: 'blue',
 									shape: 'rect',
+									layout: 'vertical',
 									label: 'paypal',
 									height: 50,
+									color: 'blue',
 								}}
 							/>
 						</PayPalScriptProvider>
@@ -242,11 +242,11 @@ export default function PaypalC2C() {
 					{!sellerId.trim() && (
 						<div
 							style={{
-								padding: 20,
 								textAlign: 'center',
+								padding: 20,
 								color: '#6c757d',
-								border: '2px dashed #dee2e6',
 								borderRadius: 4,
+								border: '2px dashed #dee2e6',
 							}}
 						>
 							Veuillez entrer un Seller Merchant ID pour afficher les boutons PayPal
