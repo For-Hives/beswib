@@ -4,11 +4,12 @@ import type { Bib } from '@/models/bib.model'
 
 export const mockUser: User = {
 	updatedAt: '2024-01-01T00:00:00.000Z',
-	stripeAccountVerified: false,
-	stripeAccountId: null,
 	role: 'user',
 	postalCode: null,
 	phoneNumber: null,
+	paypalTrackingId: null,
+	paypalMerchantId: null,
+	paypalAccountVerified: false,
 	lastName: 'User',
 	isOrganizer: false,
 	isAdmin: false,

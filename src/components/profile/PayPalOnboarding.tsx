@@ -20,7 +20,7 @@ interface PayPalOnboardingProps {
 	user: User
 }
 
-export default function PayPalOnboarding({ t, user }: PayPalOnboardingProps) {
+export default function PayPalOnboarding({ user, t }: PayPalOnboardingProps) {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<null | string>(null)
 	const [onboardingUrl, setOnboardingUrl] = useState<null | string>(null)

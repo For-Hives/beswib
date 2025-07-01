@@ -36,7 +36,7 @@ export default function UserHeader({ user, clerkUser }: Readonly<UserHeaderProps
 		user?.city != null &&
 		user?.country != null
 
-	const isSellerProfileComplete = user?.stripeAccountVerified === true
+	const isSellerProfileComplete = user?.paypalAccountVerified === true
 
 	return (
 		<div className="bg-card/25 border-border/30 z-20 container mx-auto mb-0 rounded-2xl border p-4 backdrop-blur-sm">
