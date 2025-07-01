@@ -135,7 +135,7 @@ Looking to integrate your race or explore a partnership?
 ## 🧪 TODOs / Future Dev
 
 - [ ] OAuth for partner orgs
-- [ ] Stripe payout integration
+- [x] PayPal integration for marketplace payments and seller onboarding
 - [ ] Multi-language support (FR/EN/ES)
 - [ ] Admin dashboard (course stats, transfer logs, etc.)
 - [ ] Race listing aggregator from competitors
