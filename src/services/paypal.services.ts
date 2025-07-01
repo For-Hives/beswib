@@ -62,7 +62,7 @@ export async function createOrder(sellerId: string, amount: string): Promise<{ e
 						platform_fees: [
 							{
 								amount: {
-									value: '1.00', // Platform commission
+									value: (parseFloat(amount) * 0.1).toFixed(2), // 10% Platform commission
 									currency_code: 'EUR',
 								},
 							},
