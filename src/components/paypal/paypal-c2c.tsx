@@ -25,14 +25,14 @@ export default function PaypalC2C() {
 			setError(null)
 			const tracking_id = 'seller_' + Date.now()
 			const data = await onboardSeller(tracking_id)
-			if (data.error) {
+			if (data.error != null) {
 				throw new Error(data.error)
 			}
-			setSellerUrl(data.action_url)
+			setSellerUrl(data.action_url ?? null)
 			setSuccess("Lien d'onboarding généré avec succès!")
-		} catch (e: any) {
-			console.error('Erreur onboarding:', e.message)
-			setError("Erreur pendant l'onboarding: " + e.message)
+		} catch (error: unknown) {
+			console.error('Erreur onboarding:', error instanceof Error ? error.message : 'Unknown error')
+			setError("Erreur pendant l'onboarding: " + (error instanceof Error ? error.message : 'Unknown error'))
 		} finally {
 			setLoading(false)
 		}
@@ -50,15 +50,16 @@ export default function PaypalC2C() {
 			setError(null)
 
 			const data = await createOrder(sellerId.trim(), '10.00')
-			if (data.error) {
+			if (data.error != null) {
 				throw new Error(data.error)
 			}
 
-			console.log('Order créée :', data)
-			return data.id!
-		} catch (e: any) {
-			const errorMsg = 'Erreur pendant la création de la commande: ' + e.message
-			console.error('Erreur création order:', e.message)
+			console.info('Order créée :', data)
+			return data.id ?? ''
+		} catch (error: unknown) {
+			const errorMsg =
+				'Erreur pendant la création de la commande: ' + (error instanceof Error ? error.message : 'Unknown error')
+			console.error('Erreur création order:', error instanceof Error ? error.message : 'Unknown error')
 			setError(errorMsg)
 			throw new Error(errorMsg)
 		} finally {
@@ -66,40 +67,42 @@ export default function PaypalC2C() {
 		}
 	}, [sellerId])
 
-	const onApprove = useCallback(async (data: any) => {
+	const onApprove = useCallback(async (data: { orderID: string }) => {
 		try {
 			setLoading(true)
 			setError(null)
 
 			const res = await capturePayment(data.orderID)
-			if (res.error) {
+			if (res.error != null) {
 				throw new Error(res.error)
 			}
 
 			setSuccess('Paiement capturé avec succès!')
-			console.log('Paiement capturé:', res)
+			console.info('Paiement capturé:', res)
 
 			// Reset after successful payment
 			setTimeout(() => {
 				setSuccess(null)
 			}, 5000)
-		} catch (e: any) {
-			const errorMsg = 'Erreur pendant la capture du paiement: ' + e.message
-			console.error('Erreur capture:', e.message)
+		} catch (error: unknown) {
+			const errorMsg =
+				'Erreur pendant la capture du paiement: ' + (error instanceof Error ? error.message : 'Unknown error')
+			console.error('Erreur capture:', error instanceof Error ? error.message : 'Unknown error')
 			setError(errorMsg)
 		} finally {
 			setLoading(false)
 		}
 	}, [])
 
-	const onError = useCallback((err: any) => {
+	const onError = useCallback((err: Record<string, unknown>) => {
 		console.error('PayPal Error:', err)
-		setError('Erreur PayPal: ' + (err.message ?? 'Une erreur inconnue est survenue'))
+		const message = typeof err.message === 'string' ? err.message : 'Une erreur inconnue est survenue'
+		setError('Erreur PayPal: ' + message)
 		setLoading(false)
 	}, [])
 
 	const onCancel = useCallback(() => {
-		console.log('PayPal payment cancelled')
+		console.info('PayPal payment cancelled')
 		setError("Paiement annulé par l'utilisateur")
 		setLoading(false)
 	}, [])
@@ -127,7 +130,9 @@ export default function PaypalC2C() {
 				<h3>1. Onboarding Vendeur</h3>
 				<button
 					disabled={loading}
-					onClick={onboard}
+					onClick={() => {
+						void onboard()
+					}}
 					style={{
 						padding: '10px 20px',
 						cursor: loading ? 'not-allowed' : 'pointer',
@@ -140,7 +145,7 @@ export default function PaypalC2C() {
 					{loading ? 'Création...' : 'Créer un vendeur (onboarding)'}
 				</button>
 
-				{sellerUrl && (
+				{sellerUrl != null && (
 					<div style={{ marginTop: 10 }}>
 						<p>✅ Lien d'onboarding généré!</p>
 						<a
@@ -166,7 +171,7 @@ export default function PaypalC2C() {
 			<div style={{ padding: 20, borderRadius: 8, border: '1px solid #ddd' }}>
 				<h3>2. Test de Paiement</h3>
 
-				{error && (
+				{error != null && (
 					<div
 						style={{
 							padding: 10,
@@ -181,7 +186,7 @@ export default function PaypalC2C() {
 					</div>
 				)}
 
-				{success && (
+				{success != null && (
 					<div
 						style={{
 							padding: 10,
@@ -218,7 +223,7 @@ export default function PaypalC2C() {
 							options={{
 								intent: 'capture',
 								currency: 'EUR',
-								clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '',
+								clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? '',
 							}}
 						>
 							<PayPalButtons

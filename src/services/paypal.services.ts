@@ -2,7 +2,33 @@
 
 import { revalidatePath } from 'next/cache'
 
-export async function capturePayment(orderID: string) {
+interface PayPalAccessToken {
+	access_token: string
+	expires_in: number
+	token_type: string
+}
+
+interface PayPalCaptureResponse {
+	id: string
+	status: string
+}
+
+interface PayPalLink {
+	href: string
+	method?: string
+	rel: string
+}
+
+interface PayPalOnboardResponse {
+	links: PayPalLink[]
+}
+
+interface PayPalOrderResponse {
+	id: string
+	status: string
+}
+
+export async function capturePayment(orderID: string): Promise<{ data?: PayPalCaptureResponse; error?: string }> {
 	try {
 		const token = await getAccessToken()
 		const response = await fetch(`https://api-m.sandbox.paypal.com/v2/checkout/orders/${orderID}/capture`, {
@@ -14,19 +40,19 @@ export async function capturePayment(orderID: string) {
 		})
 
 		if (!response.ok) {
-			const error = await response.json()
+			const error = (await response.json()) as { message: string }
 			throw new Error(JSON.stringify(error))
 		}
 
-		const data = await response.json()
-		return data
-	} catch (error: any) {
-		console.error('Capture payment error:', error.message)
+		const data = (await response.json()) as PayPalCaptureResponse
+		return { data }
+	} catch (error) {
+		console.error('Capture payment error:', error instanceof Error ? error.message : error)
 		return { error: 'Failed to capture payment' }
 	}
 }
 
-export async function createOrder(sellerId: string, amount: string) {
+export async function createOrder(sellerId: string, amount: string): Promise<{ error?: string; id?: string }> {
 	try {
 		const token = await getAccessToken()
 		const orderData = {
@@ -65,19 +91,19 @@ export async function createOrder(sellerId: string, amount: string) {
 		})
 
 		if (!response.ok) {
-			const error = await response.json()
+			const error = (await response.json()) as { message: string }
 			throw new Error(JSON.stringify(error))
 		}
 
-		const data = await response.json()
+		const data = (await response.json()) as PayPalOrderResponse
 		return { id: data.id }
-	} catch (error: any) {
-		console.error('Create order error:', error.message)
+	} catch (error) {
+		console.error('Create order error:', error instanceof Error ? error.message : error)
 		return { error: 'Failed to create order' }
 	}
 }
 
-export async function onboardSeller(trackingId: string) {
+export async function onboardSeller(trackingId: string): Promise<{ action_url?: string; error?: string }> {
 	try {
 		const token = await getAccessToken()
 		const response = await fetch('https://api-m.sandbox.paypal.com/v2/customer/partner-referrals', {
@@ -108,21 +134,21 @@ export async function onboardSeller(trackingId: string) {
 		})
 
 		if (!response.ok) {
-			const error = await response.json()
+			const error = (await response.json()) as { message: string }
 			throw new Error(JSON.stringify(error))
 		}
 
-		const data = await response.json()
-		const actionUrl = data.links.find((l: { rel: string }) => l.rel === 'action_url').href
+		const data = (await response.json()) as PayPalOnboardResponse
+		const actionUrl = data.links.find(l => l.rel === 'action_url')?.href
 		revalidatePath('/') // To update the UI with the new link
 		return { action_url: actionUrl }
-	} catch (error: any) {
-		console.error('Onboard error:', error.message)
+	} catch (error) {
+		console.error('Onboard error:', error instanceof Error ? error.message : error)
 		return { error: 'Failed to onboard seller' }
 	}
 }
 
-async function getAccessToken() {
+async function getAccessToken(): Promise<string> {
 	const response = await fetch('https://api-m.sandbox.paypal.com/v1/oauth2/token', {
 		method: 'POST',
 		headers: {
@@ -134,9 +160,9 @@ async function getAccessToken() {
 		body: 'grant_type=client_credentials',
 	})
 	if (!response.ok) {
-		const error = await response.json()
+		const error = (await response.json()) as { message: string }
 		throw new Error(JSON.stringify(error))
 	}
-	const data = await response.json()
+	const data = (await response.json()) as PayPalAccessToken
 	return data.access_token
 }
