@@ -9,10 +9,9 @@ import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
 import { fetchAvailableBibsForEvent, fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
-import { StripeProvider } from '@/components/marketplace/purchase/StripeProvider'
-import PurchaseClient from '@/components/marketplace/purchase/PurchaseClient'
+import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
+import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider'
 import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
-import { createPaymentIntent } from '@/services/stripe.services'
 import { BibSale } from '@/components/marketplace/CardMarket'
 import { fetchUserById } from '@/services/user.services'
 import { Locale } from '@/lib/i18n-config'
@@ -118,13 +117,11 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 			},
 		}))
 
-	const paymentIntent = await createPaymentIntent(id)
-
 	return (
 		<div className="container mx-auto px-4 py-8">
-			<StripeProvider clientSecret={paymentIntent}>
-				<PurchaseClient bib={bibSale} locale={locale} otherBibs={otherBibs} paymentIntent={paymentIntent} user={user} />
-			</StripeProvider>
+			<PayPalProvider>
+				<PayPalPurchaseClient bib={bibSale} locale={locale} otherBibs={otherBibs} user={user} />
+			</PayPalProvider>
 		</div>
 	)
 }
