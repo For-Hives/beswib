@@ -21,10 +21,11 @@
 			"sellerInfo": {
 				"title": "Seller Information",
 				"description": "Complete your seller profile to sell bibs and receive payments.",
-				"connectStripe": "Connect with Stripe",
-				"stripeConnectionStatus": "Stripe Connection Status:",
-				"stripeVerified": "Verified",
-				"stripeNotVerified": "Not Verified"
+				"connectPayPal": "Connect with PayPal",
+				"paypalConnectionStatus": "PayPal Connection Status:",
+				"paypalVerified": "Verified",
+				"paypalNotVerified": "Not Verified",
+				"paypalMerchantId": "PayPal Merchant ID"
 			},
 			"notifications": {
 				"profileUpdated": "Profile updated successfully.",
@@ -54,10 +55,11 @@
 			"sellerInfo": {
 				"title": "Informations Vendeur",
 				"description": "Complétez votre profil vendeur pour vendre des dossards et recevoir des paiements.",
-				"connectStripe": "Se connecter avec Stripe",
-				"stripeConnectionStatus": "Statut de la connexion Stripe :",
-				"stripeVerified": "Vérifié",
-				"stripeNotVerified": "Non Vérifié"
+				"connectPayPal": "Se connecter avec PayPal",
+				"paypalConnectionStatus": "Statut de la connexion PayPal :",
+				"paypalVerified": "Vérifié",
+				"paypalNotVerified": "Non Vérifié",
+				"paypalMerchantId": "ID Marchand PayPal"
 			},
 			"notifications": {
 				"profileUpdated": "Profil mis à jour avec succès.",

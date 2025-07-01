@@ -25,11 +25,13 @@ interface PayPalPurchaseClientProps {
 	bib: BibSale
 	locale: Locale
 	otherBibs?: BibSale[]
+	sellerUser: AppUser | null
 	user: AppUser | null
 }
 
 export default function PayPalPurchaseClient({
 	user,
+	sellerUser,
 	otherBibs = [],
 	locale,
 	bib,
@@ -84,9 +86,14 @@ export default function PayPalPurchaseClient({
 	}
 
 	const handleCreateOrder = useCallback(async () => {
-		// Note: In a real implementation, we would need to get the seller's PayPal merchant ID
-		// For now, we'll use a placeholder or get it from the bib's seller user data
-		const sellerId = 'YOUR_SELLER_MERCHANT_ID' // This should be fetched from the seller's profile
+		// Get seller's PayPal merchant ID
+		const sellerId = sellerUser?.paypalMerchantId
+
+		if (sellerId === null || sellerId === undefined || sellerId === '') {
+			const errorMsg = 'Seller PayPal account not configured'
+			setErrorMessage(errorMsg)
+			throw new Error(errorMsg)
+		}
 
 		try {
 			setLoading(true)
@@ -107,7 +114,7 @@ export default function PayPalPurchaseClient({
 		} finally {
 			setLoading(false)
 		}
-	}, [bib.price])
+	}, [sellerUser?.paypalMerchantId, bib.price])
 
 	const onApprove = useCallback(
 		async (data: { orderID: string }) => {

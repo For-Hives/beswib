@@ -120,7 +120,13 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<PayPalProvider>
-				<PayPalPurchaseClient bib={bibSale} locale={locale} otherBibs={otherBibs} user={user} />
+				<PayPalPurchaseClient
+					bib={bibSale}
+					locale={locale}
+					otherBibs={otherBibs}
+					sellerUser={bib.expand?.sellerUserId ?? null}
+					user={user}
+				/>
 			</PayPalProvider>
 		</div>
 	)

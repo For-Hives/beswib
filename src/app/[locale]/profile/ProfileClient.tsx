@@ -9,6 +9,7 @@ import type { User } from '@/models/user.model'
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import PayPalOnboarding from '@/components/profile/PayPalOnboarding'
 import UserHeader from '@/components/dashboard/user-header'
 import { getTranslations } from '@/lib/getDictionary'
 import { updateUser } from '@/services/user.services'
@@ -253,15 +254,11 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 									<CardDescription>{t.profile.sellerInfo.description}</CardDescription>
 								</CardHeader>
 								<CardContent className="space-y-4">
-									<Button className="w-full">{t.profile.sellerInfo.connectStripe}</Button>
-									<p className="text-muted-foreground text-sm">
-										{t.profile.sellerInfo.stripeConnectionStatus}{' '}
-										<span className={user?.stripeAccountVerified === true ? 'text-green-500' : 'text-red-500'}>
-											{user?.stripeAccountVerified === true
-												? t.profile.sellerInfo.stripeVerified
-												: t.profile.sellerInfo.stripeNotVerified}
-										</span>
-									</p>
+									{user ? (
+										<PayPalOnboarding t={t.profile.sellerInfo} user={user} />
+									) : (
+										<p className="text-muted-foreground text-sm">Please complete your profile first.</p>
+									)}
 								</CardContent>
 							</Card>
 						</div>
