@@ -55,11 +55,12 @@ function buildUserData(evt: WebhookEvent, primaryEmail: string): Omit<User, 'cre
 
 	return {
 		updatedAt: new Date().toISOString(),
-		stripeAccountVerified: false,
-		stripeAccountId: null,
-		role: 'user',
+		role: 'user' as const,
 		postalCode: '',
 		phoneNumber: '',
+		paypalTrackingId: null,
+		paypalMerchantId: null,
+		paypalAccountVerified: false,
 		lastName: last_name ?? '',
 		isOrganizer: false,
 		isAdmin: false,
@@ -68,11 +69,11 @@ function buildUserData(evt: WebhookEvent, primaryEmail: string): Omit<User, 'cre
 		emergencyContactName: '',
 		email: primaryEmail,
 		createdAt: new Date().toISOString(),
-		country: '',
+		country: null,
 		clerkId,
-		city: '',
-		birthDate: '',
-		address: '',
+		city: null,
+		birthDate: null,
+		address: null,
 	}
 }
 

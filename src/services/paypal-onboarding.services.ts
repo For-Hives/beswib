@@ -13,9 +13,9 @@ export async function completePayPalOnboarding(
 	try {
 		// Update user with PayPal merchant ID and verification status
 		await updateUser(userId, {
-			paypalAccountVerified: true,
-			paypalMerchantId: merchantId,
 			paypalTrackingId: trackingId,
+			paypalMerchantId: merchantId,
+			paypalAccountVerified: true,
 		})
 
 		revalidatePath('/profile')
