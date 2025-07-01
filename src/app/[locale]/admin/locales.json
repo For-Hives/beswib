@@ -1,5 +1,78 @@
 {
 	"en": {
+		"dashboard": {
+			"title": "Admin Dashboard",
+			"subtitle": "Manage your Beswib platform",
+			"sections": {
+				"overview": {
+					"title": "Platform Overview",
+					"description": "Key metrics and statistics"
+				},
+				"events": {
+					"title": "Events Management",
+					"description": "Manage racing events and approvals"
+				},
+				"bibs": {
+					"title": "Bibs Management",
+					"description": "Oversee bib listings and validations"
+				},
+				"users": {
+					"title": "Users Management",
+					"description": "Manage platform users and roles"
+				},
+				"transactions": {
+					"title": "Transactions",
+					"description": "Monitor payments and financial activity"
+				},
+				"organizers": {
+					"title": "Organizers Management",
+					"description": "Manage event organizers and partnerships"
+				}
+			},
+			"stats": {
+				"totalEvents": "Total Events",
+				"pendingEvents": "Pending Events",
+				"totalBibs": "Total Bibs",
+				"pendingBibs": "Pending Validation",
+				"totalUsers": "Total Users",
+				"todaysTransactions": "Today's Transactions",
+				"platformGrowth": "Platform growth",
+				"revenueToday": "revenue today",
+				"totalOrganizers": "Total Organizers",
+				"partneredOrganizers": "Partnered Organizers"
+			},
+			"actions": {
+				"createEvent": "Create New Event",
+				"createEventDescription": "Create and configure new racing events for the platform",
+				"viewEvents": "View Events",
+				"viewEventsDescription": "Browse and manage all racing events on the platform",
+				"createOrganizer": "Create New Organizer",
+				"createOrganizerDescription": "Add new event organizers to the platform",
+				"viewOrganizers": "View Organizers",
+				"viewOrganizersDescription": "Manage all event organizers and their partnerships",
+				"validateOrganizer": "Validate Organizers",
+				"validateOrganizerDescription": "Review and approve organizer partnership requests",
+				"reviewBibs": "Review Pending Bibs",
+				"manageUsers": "Manage Users",
+				"viewTransactions": "View All Transactions",
+				"viewReports": "View Reports"
+			},
+			"recentActivity": {
+				"title": "Recent Activity",
+				"description": "View recent platform activity and system events",
+				"noBibsPending": "No bibs pending validation",
+				"noRecentActivity": "No recent activity"
+			},
+			"ui": {
+				"connectedAs": "Connected as",
+				"comingSoon": "Coming Soon",
+				"signIn": "Sign In"
+			},
+			"errors": {
+				"accessError": "Access Error",
+				"accessErrorMessage": "Unable to verify admin access. Please try logging in again."
+			}
+		},
 		"event": {
 			"title": "Create New Event",
 			"subtitle": "Configure your racing event for the Beswib platform",
@@ -163,6 +236,79 @@
 		}
 	},
 	"fr": {
+		"dashboard": {
+			"title": "Tableau de Bord Admin",
+			"subtitle": "Gérez votre plateforme Beswib",
+			"sections": {
+				"overview": {
+					"title": "Aperçu de la Plateforme",
+					"description": "Métriques clés et statistiques"
+				},
+				"events": {
+					"title": "Gestion des Événements",
+					"description": "Gérez les événements de course et les approbations"
+				},
+				"bibs": {
+					"title": "Gestion des Dossards",
+					"description": "Supervisez les annonces de dossards et les validations"
+				},
+				"users": {
+					"title": "Gestion des Utilisateurs",
+					"description": "Gérez les utilisateurs de la plateforme et leurs rôles"
+				},
+				"transactions": {
+					"title": "Transactions",
+					"description": "Surveillez les paiements et l'activité financière"
+				},
+				"organizers": {
+					"title": "Gestion des Organisateurs",
+					"description": "Gérez les organisateurs d'événements et les partenariats"
+				}
+			},
+			"stats": {
+				"totalEvents": "Total des Événements",
+				"pendingEvents": "Événements en Attente",
+				"totalBibs": "Total des Dossards",
+				"pendingBibs": "En Attente de Validation",
+				"totalUsers": "Total des Utilisateurs",
+				"todaysTransactions": "Transactions d'Aujourd'hui",
+				"platformGrowth": "Croissance de la plateforme",
+				"revenueToday": "revenus aujourd'hui",
+				"totalOrganizers": "Total des Organisateurs",
+				"partneredOrganizers": "Organisateurs Partenaires"
+			},
+			"actions": {
+				"createEvent": "Créer un Nouvel Événement",
+				"createEventDescription": "Créez et configurez de nouveaux événements de course pour la plateforme",
+				"viewEvents": "Voir les Événements",
+				"viewEventsDescription": "Parcourez et gérez tous les événements de course sur la plateforme",
+				"createOrganizer": "Créer un Nouvel Organisateur",
+				"createOrganizerDescription": "Ajoutez de nouveaux organisateurs d'événements à la plateforme",
+				"viewOrganizers": "Voir les Organisateurs",
+				"viewOrganizersDescription": "Gérez tous les organisateurs d'événements et leurs partenariats",
+				"validateOrganizer": "Valider les Organisateurs",
+				"validateOrganizerDescription": "Examinez et approuvez les demandes de partenariat d'organisateurs",
+				"reviewBibs": "Examiner les Dossards en Attente",
+				"manageUsers": "Gérer les Utilisateurs",
+				"viewTransactions": "Voir Toutes les Transactions",
+				"viewReports": "Voir les Rapports"
+			},
+			"recentActivity": {
+				"title": "Activité Récente",
+				"description": "Voir l'activité récente de la plateforme et les événements système",
+				"noBibsPending": "Aucun dossard en attente de validation",
+				"noRecentActivity": "Aucune activité récente"
+			},
+			"ui": {
+				"connectedAs": "Connecté en tant que",
+				"comingSoon": "Bientôt Disponible",
+				"signIn": "Se Connecter"
+			},
+			"errors": {
+				"accessError": "Erreur d'Accès",
+				"accessErrorMessage": "Impossible de vérifier l'accès administrateur. Veuillez essayer de vous reconnecter."
+			}
+		},
 		"event": {
 			"title": "Créer un Nouvel Événement",
 			"subtitle": "Configurez votre événement de course pour la plateforme Beswib",
@@ -326,6 +472,79 @@
 		}
 	},
 	"ko": {
+		"dashboard": {
+			"title": "관리자 대시보드",
+			"subtitle": "Beswib 플랫폼을 관리하세요",
+			"sections": {
+				"overview": {
+					"title": "플랫폼 개요",
+					"description": "주요 지표 및 통계"
+				},
+				"events": {
+					"title": "이벤트 관리",
+					"description": "레이싱 이벤트 및 승인을 관리합니다"
+				},
+				"bibs": {
+					"title": "비브 관리",
+					"description": "비브 목록 및 검증을 감독합니다"
+				},
+				"users": {
+					"title": "사용자 관리",
+					"description": "플랫폼 사용자 및 역할을 관리합니다"
+				},
+				"transactions": {
+					"title": "거래",
+					"description": "결제 및 금융 활동을 모니터링합니다"
+				},
+				"organizers": {
+					"title": "주최자 관리",
+					"description": "이벤트 주최자 및 파트너십을 관리합니다"
+				}
+			},
+			"stats": {
+				"totalEvents": "총 이벤트",
+				"pendingEvents": "대기 중인 이벤트",
+				"totalBibs": "총 비브",
+				"pendingBibs": "검증 대기 중",
+				"totalUsers": "총 사용자",
+				"todaysTransactions": "오늘의 거래",
+				"platformGrowth": "플랫폼 성장",
+				"revenueToday": "오늘 수익",
+				"totalOrganizers": "총 주최자",
+				"partneredOrganizers": "파트너 주최자"
+			},
+			"actions": {
+				"createEvent": "새 이벤트 생성",
+				"createEventDescription": "플랫폼을 위한 새로운 레이싱 이벤트를 생성하고 구성합니다",
+				"viewEvents": "이벤트 보기",
+				"viewEventsDescription": "플랫폼의 모든 레이싱 이벤트를 탐색하고 관리합니다",
+				"createOrganizer": "새 주최자 생성",
+				"createOrganizerDescription": "플랫폼에 새로운 이벤트 주최자를 추가합니다",
+				"viewOrganizers": "주최자 보기",
+				"viewOrganizersDescription": "모든 이벤트 주최자 및 그들의 파트너십을 관리합니다",
+				"validateOrganizer": "주최자 검증",
+				"validateOrganizerDescription": "주최자 파트너십 요청을 검토하고 승인합니다",
+				"reviewBibs": "대기 중인 비브 검토",
+				"manageUsers": "사용자 관리",
+				"viewTransactions": "모든 거래 보기",
+				"viewReports": "보고서 보기"
+			},
+			"recentActivity": {
+				"title": "최근 활동",
+				"description": "최근 플랫폼 활동 및 시스템 이벤트를 확인합니다",
+				"noBibsPending": "검증 대기 중인 비브가 없습니다",
+				"noRecentActivity": "최근 활동이 없습니다"
+			},
+			"ui": {
+				"connectedAs": "다음으로 연결됨",
+				"comingSoon": "곧 출시",
+				"signIn": "로그인"
+			},
+			"errors": {
+				"accessError": "접근 오류",
+				"accessErrorMessage": "관리자 접근 권한을 확인할 수 없습니다. 다시 로그인해 주세요."
+			}
+		},
 		"event": {
 			"title": "새 이벤트 생성",
 			"subtitle": "Beswib 플랫폼을 위한 레이싱 이벤트를 구성하세요",
