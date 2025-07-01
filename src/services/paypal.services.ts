@@ -107,7 +107,7 @@ export async function onboardSeller(trackingId: string): Promise<{ action_url?: 
 	try {
 		const token = await getAccessToken()
 		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
-		
+
 		const response = await fetch('https://api-m.sandbox.paypal.com/v2/customer/partner-referrals', {
 			method: 'POST',
 			headers: {
