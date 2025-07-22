@@ -42,7 +42,7 @@
 		"@radix-ui/react-slot": "1.2.3",
 		"@radix-ui/react-tabs": "1.1.12",
 		"@stripe/react-stripe-js": "3.7.0",
-		"@stripe/stripe-js": "7.5.0",
+		"@stripe/stripe-js": "7.6.1",
 		"@tabler/icons-react": "3.34.1",
 		"@tanstack/eslint-plugin-query": "5.81.2",
 		"@tanstack/react-table": "8.21.3",
