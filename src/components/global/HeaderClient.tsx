@@ -9,6 +9,7 @@ import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useUser } 
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
 
@@ -72,6 +73,8 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 						<div className="hidden sm:ml-6 sm:block">
 							<div className="text-foreground flex items-center">
 								<div className="flex items-center gap-4">
+									{/* Theme Toggle */}
+									<ThemeToggle />
 									<SignedIn>
 										{/* Dashboard Dropdown Menu 📊 */}
 										<DashboardDropdown locale={locale} />
@@ -124,6 +127,11 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 						{/* Auth Section 🔒 */}
 						<div className="border-border border-t pt-4 pb-3">
 							<div className="flex flex-col space-y-2 px-2">
+								{/* Theme Toggle for Mobile */}
+								<div className="flex items-center justify-between px-3 py-2">
+									<span className="text-muted-foreground text-base font-medium">Theme</span>
+									<ThemeToggle />
+								</div>
 								<SignedIn>
 									<MobileDashboardLinks locale={locale} />
 								</SignedIn>
