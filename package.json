@@ -92,7 +92,7 @@
 		"@typescript-eslint/parser": "8.38.0",
 		"@vitejs/plugin-react": "4.7.0",
 		"@vitest/ui": "3.2.4",
-		"eslint": "9.31.0",
+		"eslint": "9.32.0",
 		"eslint-config-next": "15.4.4",
 		"jsdom": "26.1.0",
 		"tailwindcss": "4.1.11",
