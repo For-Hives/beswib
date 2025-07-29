@@ -7,15 +7,12 @@ import { updateUser } from '@/services/user.services'
 
 export async function completePayPalOnboarding(
 	userId: string,
-	merchantId: string,
-	trackingId: string
+	paypalMerchantId: string
 ): Promise<{ error?: string; success?: boolean }> {
 	try {
-		// Update user with PayPal merchant ID and verification status
+		// Update user with PayPal merchant ID directly
 		await updateUser(userId, {
-			paypalTrackingId: trackingId,
-			paypalMerchantId: merchantId,
-			paypalAccountVerified: true,
+			paypalMerchantId: paypalMerchantId,
 		})
 
 		revalidatePath('/profile')
@@ -26,9 +23,27 @@ export async function completePayPalOnboarding(
 	}
 }
 
-export async function initiatePayPalOnboarding(userId: string): Promise<{ actionUrl?: string; error?: string }> {
+export async function updatePayPalMerchantId(
+	userId: string,
+	merchantId: string
+): Promise<{ error?: string; success?: boolean }> {
 	try {
-		// Generate a unique tracking ID for this onboarding
+		// Update user with PayPal merchant ID
+		await updateUser(userId, {
+			paypalMerchantId: merchantId,
+		})
+
+		revalidatePath('/profile')
+		return { success: true }
+	} catch (error) {
+		console.error('PayPal merchant ID update error:', error)
+		return { error: 'Failed to update PayPal merchant ID' }
+	}
+}
+
+export async function initiatePayPalOnboarding(userId: string): Promise<{ actionUrl?: string; referralId?: string; error?: string }> {
+	try {
+		// Generate a unique tracking ID for this onboarding (only used internally)
 		const trackingId = `seller_${userId}_${Date.now()}`
 
 		// Call PayPal onboarding service
@@ -38,13 +53,8 @@ export async function initiatePayPalOnboarding(userId: string): Promise<{ action
 			return { error: result.error }
 		}
 
-		// Store the tracking ID for later verification
-		await updateUser(userId, {
-			paypalTrackingId: trackingId,
-		})
-
 		revalidatePath('/profile')
-		return { actionUrl: result.action_url }
+		return { actionUrl: result.action_url, referralId: result.referral_id }
 	} catch (error) {
 		console.error('PayPal onboarding error:', error)
 		return { error: 'Failed to initiate PayPal onboarding' }

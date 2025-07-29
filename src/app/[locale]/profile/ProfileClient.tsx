@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Locale } from '@/lib/i18n-config'
 
-import profileTranslations from './locales.json'
+import profileTranslations from '@/app/[locale]/profile/locales.json'
 
 interface ProfileClientProps {
 	clerkUser: SerializedClerkUser
@@ -255,7 +255,7 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 								</CardHeader>
 								<CardContent className="space-y-4">
 									{user ? (
-										<PayPalOnboarding t={t.profile.sellerInfo} user={user} />
+										<PayPalOnboarding user={user} locale={locale} />
 									) : (
 										<p className="text-muted-foreground text-sm">Please complete your profile first.</p>
 									)}
