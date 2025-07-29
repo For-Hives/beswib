@@ -39,7 +39,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	}
 
 	const getStatusBadge = () => {
-		if (user?.paypalMerchantId) {
+		if (typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0) {
 			return (
 				<Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" variant="default">
 					<CheckCircle className="mr-1 h-3 w-3" />
@@ -67,8 +67,11 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 				<AlertDescription>
 					{error instanceof Error
 						? error.message
-						: typeof error === 'object' && error !== null && 'message' in error
-							? (error as any).message
+						: typeof error === 'object' &&
+							  error !== null &&
+							  'message' in error &&
+							  typeof (error as { message?: unknown }).message === 'string'
+							? String((error as { message?: unknown }).message)
 							: 'Failed to load user data. Please refresh the page.'}
 				</AlertDescription>
 			</Alert>
@@ -96,7 +99,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 				</CardHeader>
 				<CardContent className="space-y-4">
 					{/* PayPal Merchant ID Display (if available) */}
-					{user?.paypalMerchantId && (
+					{typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0 && (
 						<div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-900/20">
 							<p className="text-sm text-blue-800 dark:text-blue-300">
 								<strong>Merchant ID:</strong> {user.paypalMerchantId}
@@ -110,7 +113,10 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 					{/* Connect Button */}
 					<Button
 						className="w-full"
-						disabled={onboardingMutation.isPending || !!user?.paypalMerchantId}
+						disabled={
+							onboardingMutation.isPending ||
+							(typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0)
+						}
 						onClick={handlePayPalConnect}
 					>
 						{onboardingMutation.isPending ? (
@@ -124,7 +130,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 					</Button>
 
 					{/* Onboarding URL Display */}
-					{onboardingMutation.data?.actionUrl && (
+					{typeof onboardingMutation.data?.actionUrl === 'string' && onboardingMutation.data.actionUrl.length > 0 && (
 						<Alert>
 							<ExternalLink className="h-4 w-4" />
 							<AlertDescription>
@@ -146,16 +152,21 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 			</Card>
 
 			{/* Error Display */}
-			{onboardingMutation.error && (
+			{onboardingMutation.error ? (
 				<Alert variant="destructive">
 					<XCircle className="h-4 w-4" />
 					<AlertDescription>
 						{onboardingMutation.error instanceof Error
 							? onboardingMutation.error.message
-							: 'Failed to initiate PayPal onboarding'}
+							: typeof onboardingMutation.error === 'object' &&
+								  onboardingMutation.error !== null &&
+								  'message' in onboardingMutation.error &&
+								  typeof (onboardingMutation.error as { message?: unknown }).message === 'string'
+								? String((onboardingMutation.error as { message?: unknown }).message)
+								: 'Failed to initiate PayPal onboarding'}
 					</AlertDescription>
 				</Alert>
-			)}
+			) : null}
 		</div>
 	)
 }

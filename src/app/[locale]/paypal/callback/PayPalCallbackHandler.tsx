@@ -17,7 +17,6 @@ export default function PayPalCallbackHandler() {
 		const handleCallback = async () => {
 			try {
 				const merchantId = searchParams.get('merchantId')
-				const trackingId = searchParams.get('trackingId')
 				const merchantIdInPayPal = searchParams.get('merchantIdInPayPal')
 
 				if (user?.id === null || user?.id === undefined || user?.id === '') {
@@ -36,7 +35,6 @@ export default function PayPalCallbackHandler() {
 				}
 
 				const finalMerchantId = merchantId ?? merchantIdInPayPal
-				const finalTrackingId = trackingId ?? `fallback_${user.id}_${Date.now()}`
 
 				if (finalMerchantId === null || finalMerchantId === '') {
 					setStatus('error')
@@ -45,7 +43,7 @@ export default function PayPalCallbackHandler() {
 				}
 
 				// Complete the onboarding process
-				const result = await completePayPalOnboarding(user.id, finalMerchantId, finalTrackingId)
+				const result = await completePayPalOnboarding(user.id, finalMerchantId)
 
 				if (result.error !== null && result.error !== undefined && result.error !== '') {
 					setStatus('error')

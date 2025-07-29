@@ -19,8 +19,15 @@ interface PayPalLink {
 	rel: string
 }
 
-interface PayPalOnboardResponse {
-	links: PayPalLink[]
+interface PayPalOperation {
+	api_integration_preference?: {
+		rest_api_integration?: {
+			third_party_details?: {
+				merchant_id?: string
+			}
+		}
+	}
+	operation: string
 }
 
 interface PayPalOrderResponse {
@@ -29,15 +36,21 @@ interface PayPalOrderResponse {
 }
 
 interface PayPalPartnerReferralResponse {
-	collected_consents: any[]
+	collected_consents: unknown[]
 	id: string
-	legal_consents: any[]
+	legal_consents: unknown[]
 	links: PayPalLink[]
-	operations: any[]
+	operations: PayPalOperation[]
 	partner_client_id: string
 	preferred_language_code: string
 	products: string[]
-	technical_phone_contacts: any[]
+	technical_phone_contacts: unknown[]
+}
+
+interface Webhook {
+	event_types: { name: string }[]
+	id: string
+	url: string
 }
 
 export async function capturePayment(orderID: string): Promise<{ data?: PayPalCaptureResponse; error?: string }> {
@@ -136,17 +149,17 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 			throw new Error(JSON.stringify(error))
 		}
 
-		const data = await response.json()
-		console.log('PayPal referral data:', JSON.stringify(data, null, 2))
+		const data = (await response.json()) as PayPalPartnerReferralResponse & { status?: string }
+		console.info('PayPal referral data:', JSON.stringify(data, null, 2))
 
 		// Check if the referral has been completed and get the merchant ID
-		if (data.operations && data.operations.length > 0) {
-			const apiIntegration = data.operations.find((op: any) => op.operation === 'API_INTEGRATION')
+		if (Array.isArray(data.operations) && data.operations.length > 0) {
+			const apiIntegration = data.operations.find(op => op.operation === 'API_INTEGRATION')
 			if (apiIntegration?.api_integration_preference) {
 				const merchantId =
 					apiIntegration.api_integration_preference.rest_api_integration?.third_party_details?.merchant_id
-				if (merchantId) {
-					console.log('Found merchant ID:', merchantId)
+				if (typeof merchantId === 'string' && merchantId.length > 0) {
+					console.info('Found merchant ID:', merchantId)
 					return { merchant_id: merchantId }
 				}
 			}
@@ -162,7 +175,7 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 			return { error: 'PayPal onboarding was rejected or failed. Please try again.' }
 		}
 
-		console.log('No merchant ID found in operations. Full data:', JSON.stringify(data, null, 2))
+		console.info('No merchant ID found in operations. Full data:', JSON.stringify(data, null, 2))
 		return { error: 'Merchant ID not found. Please complete the PayPal onboarding process and try again.' }
 	} catch (error) {
 		console.error('Get merchant ID error:', error instanceof Error ? error.message : error)
@@ -170,7 +183,7 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 	}
 }
 
-export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?: any[] }> {
+export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?: Webhook[] }> {
 	try {
 		const token = await getAccessToken()
 
@@ -189,7 +202,7 @@ export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?:
 			return { error: JSON.stringify(error) }
 		}
 
-		const data = await response.json()
+		const data = (await response.json()) as { webhooks: Webhook[] }
 		return { webhooks: data.webhooks }
 	} catch (error) {
 		console.error('List webhooks error:', error instanceof Error ? error.message : error)
@@ -282,8 +295,8 @@ export async function setupPayPalWebhooks(): Promise<{ error?: string; success?:
 			return { error: JSON.stringify(error) }
 		}
 
-		const data = await response.json()
-		console.log('PayPal webhook setup successful:', data)
+		const data = (await response.json()) as { id: string }
+		console.info('PayPal webhook setup successful:', data)
 		return { success: true }
 	} catch (error) {
 		console.error('Setup webhooks error:', error instanceof Error ? error.message : error)

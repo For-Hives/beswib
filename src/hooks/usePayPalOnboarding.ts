@@ -1,13 +1,11 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
 import { initiatePayPalOnboarding } from '@/services/paypal-onboarding.services'
 
 export function usePayPalOnboarding() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
-		onSuccess: (result, userId) => {
-			if (result.actionUrl) {
+		onSuccess: result => {
+			if (result.actionUrl ?? '') {
 				// Open PayPal onboarding in a new window
 				window.open(result.actionUrl, '_blank', 'width=400,height=600')
 			}

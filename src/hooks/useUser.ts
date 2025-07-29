@@ -10,7 +10,7 @@ export function useUpdateUser() {
 	return useMutation({
 		onSuccess: (updatedUser, { userId }) => {
 			// Invalidate and refetch user data
-			queryClient.invalidateQueries({ queryKey: ['user', userId] })
+			void queryClient.invalidateQueries({ queryKey: ['user', userId] })
 			queryClient.setQueryData(['user', userId], updatedUser)
 		},
 		mutationFn: ({ userId, userData }: { userData: Partial<User>; userId: string }) => updateUser(userId, userData),
