@@ -25,7 +25,14 @@
 				"paypalConnectionStatus": "PayPal Connection Status:",
 				"paypalVerified": "Verified",
 				"paypalNotVerified": "Not Verified",
-				"paypalMerchantId": "PayPal Merchant ID"
+				"paypalMerchantId": "PayPal Merchant ID",
+				"onboardingTitle": "PayPal Onboarding",
+				"onboardingDescription": "Connect your PayPal account to receive payments when selling bibs.",
+				"paymentTestTitle": "Payment Testing",
+				"paymentTestDescription": "Test your PayPal integration with sample payments.",
+				"createSellerButton": "Create Seller Account",
+				"testingPayment": "Ready to test payments with your merchant ID.",
+				"completeSetup": "Complete PayPal Setup"
 			},
 			"notifications": {
 				"profileUpdated": "Profile updated successfully.",
@@ -59,7 +66,14 @@
 				"paypalConnectionStatus": "Statut de la connexion PayPal :",
 				"paypalVerified": "Vérifié",
 				"paypalNotVerified": "Non Vérifié",
-				"paypalMerchantId": "ID Marchand PayPal"
+				"paypalMerchantId": "ID Marchand PayPal",
+				"onboardingTitle": "Configuration PayPal",
+				"onboardingDescription": "Connectez votre compte PayPal pour recevoir des paiements lors de la vente de dossards.",
+				"paymentTestTitle": "Test de Paiement",
+				"paymentTestDescription": "Testez votre intégration PayPal avec des paiements d'exemple.",
+				"createSellerButton": "Créer un Compte Vendeur",
+				"testingPayment": "Prêt à tester les paiements avec votre ID marchand.",
+				"completeSetup": "Terminer la Configuration PayPal"
 			},
 			"notifications": {
 				"profileUpdated": "Profil mis à jour avec succès.",

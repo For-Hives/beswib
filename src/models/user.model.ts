@@ -13,9 +13,7 @@ export interface User {
 	isAdmin: boolean
 	isOrganizer: boolean
 	lastName: null | string
-	paypalAccountVerified: boolean
 	paypalMerchantId: null | string
-	paypalTrackingId: null | string
 	phoneNumber: null | string
 	postalCode: null | string
 	role: 'admin' | 'user'
