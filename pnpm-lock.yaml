@@ -76,10 +76,10 @@ importers:
         version: 1.1.12(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@stripe/react-stripe-js':
         specifier: 3.8.1
-        version: 3.8.1(@stripe/stripe-js@7.6.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 3.8.1(@stripe/stripe-js@7.7.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@stripe/stripe-js':
-        specifier: 7.6.1
-        version: 7.6.1
+        specifier: 7.7.0
+        version: 7.7.0
       '@tabler/icons-react':
         specifier: 3.34.1
         version: 3.34.1(react@19.1.0)
@@ -1541,8 +1541,8 @@ packages:
       react: '>=16.8.0 <20.0.0'
       react-dom: '>=16.8.0 <20.0.0'
 
-  '@stripe/stripe-js@7.6.1':
-    resolution: {integrity: sha512-BUDj5gujbtx53/Cexws0+aPrEBsKAN8ExPf9UfuTCivVU6ug2PjqI0zUeL1jon3795eOLlyqvCDjp6VNknjE0A==}
+  '@stripe/stripe-js@7.7.0':
+    resolution: {integrity: sha512-SXuhqhuR5FXaYgKTXzZJeqtVA6JKb9IZWaGeEUxHHiOcFy2p51wccO72bYpXwoK4D5pzQOIYLTuAc7etxyMmwg==}
     engines: {node: '>=12.16'}
 
   '@swc/helpers@0.5.15':
@@ -5123,14 +5123,14 @@ snapshots:
 
   '@standard-schema/utils@0.3.0': {}
 
-  '@stripe/react-stripe-js@3.8.1(@stripe/stripe-js@7.6.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@stripe/react-stripe-js@3.8.1(@stripe/stripe-js@7.7.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@stripe/stripe-js': 7.6.1
+      '@stripe/stripe-js': 7.7.0
       prop-types: 15.8.1
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@stripe/stripe-js@7.6.1': {}
+  '@stripe/stripe-js@7.7.0': {}
 
   '@swc/helpers@0.5.15':
     dependencies:
