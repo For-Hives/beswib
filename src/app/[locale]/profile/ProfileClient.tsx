@@ -9,6 +9,7 @@ import type { User } from '@/models/user.model'
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import profileTranslations from '@/app/[locale]/profile/locales.json'
 import PayPalOnboarding from '@/components/profile/PayPalOnboarding'
 import UserHeader from '@/components/dashboard/user-header'
 import { getTranslations } from '@/lib/getDictionary'
@@ -16,8 +17,6 @@ import { updateUser } from '@/services/user.services'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Locale } from '@/lib/i18n-config'
-
-import profileTranslations from '@/app/[locale]/profile/locales.json'
 
 interface ProfileClientProps {
 	clerkUser: SerializedClerkUser
@@ -255,7 +254,7 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 								</CardHeader>
 								<CardContent className="space-y-4">
 									{user ? (
-										<PayPalOnboarding user={user} locale={locale} />
+										<PayPalOnboarding locale={locale} user={user} />
 									) : (
 										<p className="text-muted-foreground text-sm">Please complete your profile first.</p>
 									)}

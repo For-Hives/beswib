@@ -29,15 +29,15 @@ interface PayPalOrderResponse {
 }
 
 interface PayPalPartnerReferralResponse {
+	collected_consents: any[]
 	id: string
+	legal_consents: any[]
 	links: PayPalLink[]
+	operations: any[]
 	partner_client_id: string
 	preferred_language_code: string
 	products: string[]
 	technical_phone_contacts: any[]
-	operations: any[]
-	legal_consents: any[]
-	collected_consents: any[]
 }
 
 export async function capturePayment(orderID: string): Promise<{ data?: PayPalCaptureResponse; error?: string }> {
@@ -115,60 +115,10 @@ export async function createOrder(sellerId: string, amount: string): Promise<{ e
 	}
 }
 
-export async function onboardSeller(trackingId: string): Promise<{ action_url?: string; referral_id?: string; error?: string }> {
+export async function getMerchantId(referralId: string): Promise<{ error?: string; merchant_id?: string }> {
 	try {
 		const token = await getAccessToken()
-		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
 
-		const response = await fetch('https://api-m.sandbox.paypal.com/v2/customer/partner-referrals', {
-			method: 'POST',
-			headers: {
-				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
-			},
-			body: JSON.stringify({
-				tracking_id: trackingId,
-				partner_config_override: {
-					return_url: `${baseUrl}/en/paypal/callback?trackingId=${trackingId}`,
-				},
-				products: ['EXPRESS_CHECKOUT'],
-				operations: [
-					{
-						operation: 'API_INTEGRATION',
-						api_integration_preference: {
-							rest_api_integration: {
-								third_party_details: {
-									features: ['PAYMENT', 'REFUND'],
-								},
-								integration_type: 'THIRD_PARTY',
-								integration_method: 'PAYPAL',
-							},
-						},
-					},
-				],
-			}),
-		})
-
-		if (!response.ok) {
-			const error = (await response.json()) as { message: string }
-			throw new Error(JSON.stringify(error))
-		}
-
-		const data = (await response.json()) as PayPalPartnerReferralResponse
-		const actionUrl = data.links.find(l => l.rel === 'action_url')?.href
-		revalidatePath('/') // To update the UI with the new link
-		return { action_url: actionUrl, referral_id: data.id }
-	} catch (error) {
-		console.error('Onboard error:', error instanceof Error ? error.message : error)
-		return { error: 'Failed to onboard seller' }
-	}
-}
-
-export async function getMerchantId(referralId: string): Promise<{ merchant_id?: string; error?: string }> {
-	try {
-		const token = await getAccessToken()
-		
 		const response = await fetch(`https://api-m.sandbox.paypal.com/v2/customer/partner-referrals/${referralId}`, {
 			method: 'GET',
 			headers: {
@@ -183,14 +133,15 @@ export async function getMerchantId(referralId: string): Promise<{ merchant_id?:
 			throw new Error(JSON.stringify(error))
 		}
 
-		const data = (await response.json()) as any
+		const data = await response.json()
 		console.log('PayPal referral data:', JSON.stringify(data, null, 2))
-		
+
 		// Check if the referral has been completed and get the merchant ID
 		if (data.operations && data.operations.length > 0) {
 			const apiIntegration = data.operations.find((op: any) => op.operation === 'API_INTEGRATION')
-			if (apiIntegration && apiIntegration.api_integration_preference) {
-				const merchantId = apiIntegration.api_integration_preference.rest_api_integration?.third_party_details?.merchant_id
+			if (apiIntegration?.api_integration_preference) {
+				const merchantId =
+					apiIntegration.api_integration_preference.rest_api_integration?.third_party_details?.merchant_id
 				if (merchantId) {
 					console.log('Found merchant ID:', merchantId)
 					return { merchant_id: merchantId }
@@ -216,47 +167,7 @@ export async function getMerchantId(referralId: string): Promise<{ merchant_id?:
 	}
 }
 
-export async function setupPayPalWebhooks(): Promise<{ success?: boolean; error?: string }> {
-	try {
-		const token = await getAccessToken()
-		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
-		const webhookUrl = `${baseUrl}/api/webhooks/paypal`
-
-		const response = await fetch('https://api-m.sandbox.paypal.com/v1/notifications/webhooks', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
-			},
-			body: JSON.stringify({
-				url: webhookUrl,
-				event_types: [
-					{
-						name: 'MERCHANT.ONBOARDING.COMPLETED'
-					},
-					{
-						name: 'MERCHANT.PARTNER-CONSENT.REVOKED'
-					}
-				]
-			}),
-		})
-
-		if (!response.ok) {
-			const error = (await response.json()) as { message: string }
-			console.error('PayPal webhook setup error:', error)
-			return { error: JSON.stringify(error) }
-		}
-
-		const data = await response.json()
-		console.log('PayPal webhook setup successful:', data)
-		return { success: true }
-	} catch (error) {
-		console.error('Setup webhooks error:', error instanceof Error ? error.message : error)
-		return { error: 'Failed to setup PayPal webhooks' }
-	}
-}
-
-export async function listPayPalWebhooks(): Promise<{ webhooks?: any[]; error?: string }> {
+export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?: any[] }> {
 	try {
 		const token = await getAccessToken()
 
@@ -279,6 +190,98 @@ export async function listPayPalWebhooks(): Promise<{ webhooks?: any[]; error?: 
 	} catch (error) {
 		console.error('List webhooks error:', error instanceof Error ? error.message : error)
 		return { error: 'Failed to list PayPal webhooks' }
+	}
+}
+
+export async function onboardSeller(
+	trackingId: string
+): Promise<{ action_url?: string; error?: string; referral_id?: string }> {
+	try {
+		const token = await getAccessToken()
+		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
+
+		const response = await fetch('https://api-m.sandbox.paypal.com/v2/customer/partner-referrals', {
+			method: 'POST',
+			headers: {
+				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({
+				tracking_id: trackingId,
+				products: ['EXPRESS_CHECKOUT'],
+				partner_config_override: {
+					return_url: `${baseUrl}/en/paypal/callback?trackingId=${trackingId}`,
+				},
+				operations: [
+					{
+						operation: 'API_INTEGRATION',
+						api_integration_preference: {
+							rest_api_integration: {
+								third_party_details: {
+									features: ['PAYMENT', 'REFUND'],
+								},
+								integration_type: 'THIRD_PARTY',
+								integration_method: 'PAYPAL',
+							},
+						},
+					},
+				],
+			}),
+		})
+
+		if (!response.ok) {
+			const error = (await response.json()) as { message: string }
+			throw new Error(JSON.stringify(error))
+		}
+
+		const data = (await response.json()) as PayPalPartnerReferralResponse
+		const actionUrl = data.links.find(l => l.rel === 'action_url')?.href
+		revalidatePath('/') // To update the UI with the new link
+		return { referral_id: data.id, action_url: actionUrl }
+	} catch (error) {
+		console.error('Onboard error:', error instanceof Error ? error.message : error)
+		return { error: 'Failed to onboard seller' }
+	}
+}
+
+export async function setupPayPalWebhooks(): Promise<{ error?: string; success?: boolean }> {
+	try {
+		const token = await getAccessToken()
+		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
+		const webhookUrl = `${baseUrl}/api/webhooks/paypal`
+
+		const response = await fetch('https://api-m.sandbox.paypal.com/v1/notifications/webhooks', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({
+				url: webhookUrl,
+				event_types: [
+					{
+						name: 'MERCHANT.ONBOARDING.COMPLETED',
+					},
+					{
+						name: 'MERCHANT.PARTNER-CONSENT.REVOKED',
+					},
+				],
+			}),
+		})
+
+		if (!response.ok) {
+			const error = (await response.json()) as { message: string }
+			console.error('PayPal webhook setup error:', error)
+			return { error: JSON.stringify(error) }
+		}
+
+		const data = await response.json()
+		console.log('PayPal webhook setup successful:', data)
+		return { success: true }
+	} catch (error) {
+		console.error('Setup webhooks error:', error instanceof Error ? error.message : error)
+		return { error: 'Failed to setup PayPal webhooks' }
 	}
 }
 

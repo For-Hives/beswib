@@ -1,29 +1,25 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { AlertCircle, CheckCircle, ExternalLink, XCircle } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 import type { User } from '@/models/user.model'
 
-import { initiatePayPalOnboarding } from '@/services/paypal-onboarding.services'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { CheckCircle, XCircle, AlertCircle, ExternalLink } from 'lucide-react'
-
+import { initiatePayPalOnboarding } from '@/services/paypal-onboarding.services'
 import profileTranslations from '@/app/[locale]/profile/locales.json'
-import { Locale } from '@/lib/i18n-config'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 import { getTranslations } from '@/lib/getDictionary'
-
-
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Locale } from '@/lib/i18n-config'
 
 interface PayPalOnboardingProps {
-	locale: Locale,
+	locale: Locale
 	user: User
 }
 
 export default function PayPalOnboarding({ user, locale }: PayPalOnboardingProps) {
-
 	const t = getTranslations(locale, profileTranslations).profile
 
 	const [loading, setLoading] = useState(false)
@@ -68,7 +64,7 @@ export default function PayPalOnboarding({ user, locale }: PayPalOnboardingProps
 	const getStatusBadge = () => {
 		if (user.paypalMerchantId) {
 			return (
-				<Badge variant="default" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
+				<Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" variant="default">
 					<CheckCircle className="mr-1 h-3 w-3" />
 					{t.paypalVerified}
 				</Badge>
@@ -91,9 +87,7 @@ export default function PayPalOnboarding({ user, locale }: PayPalOnboardingProps
 						PayPal Account Status
 						{getStatusBadge()}
 					</CardTitle>
-					<CardDescription>
-						{t.paypalConnectionStatus}
-					</CardDescription>
+					<CardDescription>{t.paypalConnectionStatus}</CardDescription>
 				</CardHeader>
 			</Card>
 
@@ -158,12 +152,8 @@ export default function PayPalOnboarding({ user, locale }: PayPalOnboardingProps
 					</CardHeader>
 					<CardContent>
 						<div className="rounded-lg border border-orange-200 bg-orange-50 p-4 dark:border-orange-800 dark:bg-orange-900/20">
-							<p className="text-sm text-orange-800 dark:text-orange-300">
-								{t.testingPayment}
-							</p>
-							<p className="mt-1 text-xs text-orange-600 dark:text-orange-400">
-								Merchant ID: {user.paypalMerchantId}
-							</p>
+							<p className="text-sm text-orange-800 dark:text-orange-300">{t.testingPayment}</p>
+							<p className="mt-1 text-xs text-orange-600 dark:text-orange-400">Merchant ID: {user.paypalMerchantId}</p>
 						</div>
 					</CardContent>
 				</Card>
