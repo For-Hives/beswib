@@ -24,8 +24,8 @@ importers:
         specifier: 2.2.0
         version: 2.2.0(react@19.1.1)
       '@hookform/resolvers':
-        specifier: 5.2.0
-        version: 5.2.0(react-hook-form@7.61.1(react@19.1.1))
+        specifier: 5.2.1
+        version: 5.2.1(react-hook-form@7.61.1(react@19.1.1))
       '@next/eslint-plugin-next':
         specifier: 15.4.4
         version: 15.4.4
@@ -652,8 +652,8 @@ packages:
     peerDependencies:
       react: '>= 16 || ^19.0.0-rc'
 
-  '@hookform/resolvers@5.2.0':
-    resolution: {integrity: sha512-3YI+VqxJQH6ryRWG+j3k+M19Wf37LeSKJDg6Vdjq6makLOqZGYn77iTaYLMLpVi/uHc1N6OTCmcxJwhOQV979g==}
+  '@hookform/resolvers@5.2.1':
+    resolution: {integrity: sha512-u0+6X58gkjMcxur1wRWokA7XsiiBJ6aK17aPZxhkoYiK5J+HcTx0Vhu9ovXe6H+dVpO6cjrn2FkJTryXEMlryQ==}
     peerDependencies:
       react-hook-form: ^7.55.0
 
@@ -4322,7 +4322,7 @@ snapshots:
     dependencies:
       react: 19.1.1
 
-  '@hookform/resolvers@5.2.0(react-hook-form@7.61.1(react@19.1.1))':
+  '@hookform/resolvers@5.2.1(react-hook-form@7.61.1(react@19.1.1))':
     dependencies:
       '@standard-schema/utils': 0.3.0
       react-hook-form: 7.61.1(react@19.1.1)
