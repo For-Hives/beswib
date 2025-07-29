@@ -12,9 +12,9 @@ const mockUser: User = {
 	role: 'user',
 	postalCode: null,
 	phoneNumber: null,
-	paypalTrackingId: null,
+
 	paypalMerchantId: null,
-	paypalAccountVerified: false,
+
 	lastName: 'User',
 	isOrganizer: false,
 	isAdmin: false,
