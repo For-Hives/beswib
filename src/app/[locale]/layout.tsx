@@ -6,6 +6,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from 'sonner'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticParams'
+import QueryProvider from '@/components/providers/QueryProvider'
 import Footer from '@/components/global/footer'
 import Header from '@/components/global/Header'
 
@@ -75,12 +76,14 @@ export default async function RootLayout({
 		<ClerkProvider>
 			<html className="dark" lang={locale}>
 				<body className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased`}>
-					<NuqsAdapter>
-						<Header localeParams={params} />
-						{children}
-						<Footer localeParams={params} />
-						<Toaster />
-					</NuqsAdapter>
+					<QueryProvider>
+						<NuqsAdapter>
+							<Header localeParams={params} />
+							{children}
+							<Footer localeParams={params} />
+							<Toaster />
+						</NuqsAdapter>
+					</QueryProvider>
 				</body>
 			</html>
 		</ClerkProvider>

@@ -43,7 +43,8 @@ interface PayPalPartnerReferralResponse {
 export async function capturePayment(orderID: string): Promise<{ data?: PayPalCaptureResponse; error?: string }> {
 	try {
 		const token = await getAccessToken()
-		const response = await fetch(`https://api-m.sandbox.paypal.com/v2/checkout/orders/${orderID}/capture`, {
+		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
+		const response = await fetch(`${paypalApiUrl}/v2/checkout/orders/${orderID}/capture`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -93,7 +94,8 @@ export async function createOrder(sellerId: string, amount: string): Promise<{ e
 			intent: 'CAPTURE',
 		}
 
-		const response = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders', {
+		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
+		const response = await fetch(`${paypalApiUrl}/v2/checkout/orders`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -119,7 +121,8 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 	try {
 		const token = await getAccessToken()
 
-		const response = await fetch(`https://api-m.sandbox.paypal.com/v2/customer/partner-referrals/${referralId}`, {
+		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
+		const response = await fetch(`${paypalApiUrl}/v2/customer/partner-referrals/${referralId}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -171,7 +174,8 @@ export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?:
 	try {
 		const token = await getAccessToken()
 
-		const response = await fetch('https://api-m.sandbox.paypal.com/v1/notifications/webhooks', {
+		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
+		const response = await fetch(`${paypalApiUrl}/v1/notifications/webhooks`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -200,7 +204,8 @@ export async function onboardSeller(
 		const token = await getAccessToken()
 		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
 
-		const response = await fetch('https://api-m.sandbox.paypal.com/v2/customer/partner-referrals', {
+		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
+		const response = await fetch(`${paypalApiUrl}/v2/customer/partner-referrals`, {
 			method: 'POST',
 			headers: {
 				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
@@ -251,7 +256,8 @@ export async function setupPayPalWebhooks(): Promise<{ error?: string; success?:
 		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
 		const webhookUrl = `${baseUrl}/api/webhooks/paypal`
 
-		const response = await fetch('https://api-m.sandbox.paypal.com/v1/notifications/webhooks', {
+		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
+		const response = await fetch(`${paypalApiUrl}/v1/notifications/webhooks`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -286,7 +292,8 @@ export async function setupPayPalWebhooks(): Promise<{ error?: string; success?:
 }
 
 async function getAccessToken(): Promise<string> {
-	const response = await fetch('https://api-m.sandbox.paypal.com/v1/oauth2/token', {
+	const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
+	const response = await fetch(`${paypalApiUrl}/v1/oauth2/token`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',

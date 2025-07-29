@@ -1,3 +1,4 @@
+'use server'
 import { pb } from '@/lib/pocketbaseClient'
 import { User } from '@/models/user.model'
 
@@ -38,8 +39,15 @@ export async function fetchUserById(id: string): Promise<null | User> {
 	}
 }
 
-export function isAdmin(user: null | User): boolean {
-	return user?.isAdmin === true
+export async function getUserData(userId: string): Promise<null | User> {
+	try {
+		console.log('Fetching user data for ID:', userId)
+		const user = await pb.collection('users').getOne<User>(userId)
+		return user
+	} catch (error) {
+		console.error('Error fetching user data:', error)
+		return null
+	}
 }
 
 export async function isUserAdmin(id: string): Promise<boolean> {
