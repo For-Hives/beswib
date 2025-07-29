@@ -254,7 +254,7 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 								</CardHeader>
 								<CardContent className="space-y-4">
 									{user ? (
-										<PayPalOnboarding locale={locale} user={user} />
+										<PayPalOnboarding locale={locale} userId={user.id} />
 									) : (
 										<p className="text-muted-foreground text-sm">Please complete your profile first.</p>
 									)}

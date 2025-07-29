@@ -1,12 +1,12 @@
 'use client'
 
-import { AlertCircle, CheckCircle, ExternalLink, XCircle } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { CheckCircle, ExternalLink, RefreshCw, XCircle } from 'lucide-react'
+import { Suspense } from 'react'
 
-import type { User } from '@/models/user.model'
+import { usePayPalOnboarding } from '@/hooks/usePayPalOnboarding'
+import { useUser } from '@/hooks/useUser'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { initiatePayPalOnboarding } from '@/services/paypal-onboarding.services'
 import profileTranslations from '@/app/[locale]/profile/locales.json'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { getTranslations } from '@/lib/getDictionary'
@@ -14,55 +14,32 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Locale } from '@/lib/i18n-config'
 
+import PayPalOnboardingSkeleton from './PayPalOnboardingSkeleton'
+
 interface PayPalOnboardingProps {
 	locale: Locale
-	user: User
+	userId: string
 }
 
-export default function PayPalOnboarding({ user, locale }: PayPalOnboardingProps) {
-	const t = getTranslations(locale, profileTranslations).profile
+export default function PayPalOnboarding(props: PayPalOnboardingProps) {
+	return (
+		<Suspense fallback={<PayPalOnboardingSkeleton />}>
+			<PayPalOnboardingContent {...props} />
+		</Suspense>
+	)
+}
 
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState<null | string>(null)
-	const [success, setSuccess] = useState<null | string>(null)
-	const [onboardingUrl, setOnboardingUrl] = useState<null | string>(null)
+function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
+	const t = getTranslations(locale, profileTranslations).profile.sellerInfo
+	const { isLoading, error, data: user } = useUser(userId)
+	const onboardingMutation = usePayPalOnboarding()
 
-	// Clear messages when component mounts
-	useEffect(() => {
-		setError(null)
-		setSuccess(null)
-	}, [])
-
-	const handlePayPalConnect = async () => {
-		try {
-			setLoading(true)
-			setError(null)
-			setSuccess(null)
-
-			const result = await initiatePayPalOnboarding(user.id)
-
-			if (result.error !== null && result.error !== undefined && result.error !== '') {
-				setError(result.error)
-				return
-			}
-
-			if (result.actionUrl !== null && result.actionUrl !== undefined && result.actionUrl !== '') {
-				setOnboardingUrl(result.actionUrl)
-				setSuccess('PayPal onboarding started! Complete the setup in the popup window.')
-
-				// Open PayPal onboarding in a new window
-				window.open(result.actionUrl, '_blank', 'width=400,height=600')
-			}
-		} catch (err) {
-			setError('Failed to initiate PayPal connection')
-			console.error('PayPal connection error:', err)
-		} finally {
-			setLoading(false)
-		}
+	const handlePayPalConnect = () => {
+		onboardingMutation.mutate(userId)
 	}
 
 	const getStatusBadge = () => {
-		if (user.paypalMerchantId) {
+		if (user?.paypalMerchantId) {
 			return (
 				<Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" variant="default">
 					<CheckCircle className="mr-1 h-3 w-3" />
@@ -75,6 +52,26 @@ export default function PayPalOnboarding({ user, locale }: PayPalOnboardingProps
 				<XCircle className="mr-1 h-3 w-3" />
 				{t.paypalNotVerified}
 			</Badge>
+		)
+	}
+
+	if (isLoading) {
+		return <PayPalOnboardingSkeleton />
+	}
+
+	if (error) {
+		console.error('User fetch error:', error)
+		return (
+			<Alert variant="destructive">
+				<XCircle className="h-4 w-4" />
+				<AlertDescription>
+					{error instanceof Error
+						? error.message
+						: typeof error === 'object' && error !== null && 'message' in error
+							? (error as any).message
+							: 'Failed to load user data. Please refresh the page.'}
+				</AlertDescription>
+			</Alert>
 		)
 	}
 
@@ -99,7 +96,7 @@ export default function PayPalOnboarding({ user, locale }: PayPalOnboardingProps
 				</CardHeader>
 				<CardContent className="space-y-4">
 					{/* PayPal Merchant ID Display (if available) */}
-					{user.paypalMerchantId && (
+					{user?.paypalMerchantId && (
 						<div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-900/20">
 							<p className="text-sm text-blue-800 dark:text-blue-300">
 								<strong>Merchant ID:</strong> {user.paypalMerchantId}
@@ -113,24 +110,29 @@ export default function PayPalOnboarding({ user, locale }: PayPalOnboardingProps
 					{/* Connect Button */}
 					<Button
 						className="w-full"
-						disabled={loading || !!user.paypalMerchantId}
-						onClick={() => {
-							void handlePayPalConnect()
-						}}
+						disabled={onboardingMutation.isPending || !!user?.paypalMerchantId}
+						onClick={handlePayPalConnect}
 					>
-						{loading ? 'Connecting...' : t.createSellerButton}
+						{onboardingMutation.isPending ? (
+							<>
+								<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+								Connecting...
+							</>
+						) : (
+							t.createSellerButton
+						)}
 					</Button>
 
 					{/* Onboarding URL Display */}
-					{onboardingUrl !== null && (
+					{onboardingMutation.data?.actionUrl && (
 						<Alert>
-							<AlertCircle className="h-4 w-4" />
+							<ExternalLink className="h-4 w-4" />
 							<AlertDescription>
 								<div className="space-y-2">
 									<p>PayPal onboarding window opened. If it didn't open automatically:</p>
 									<a
 										className="inline-flex items-center text-sm font-medium text-blue-600 underline hover:text-blue-800"
-										href={onboardingUrl}
+										href={onboardingMutation.data.actionUrl}
 										rel="noopener noreferrer"
 										target="_blank"
 									>
@@ -143,35 +145,15 @@ export default function PayPalOnboarding({ user, locale }: PayPalOnboardingProps
 				</CardContent>
 			</Card>
 
-			{/* Payment Testing Section (if merchant ID is available) */}
-			{user.paypalMerchantId && (
-				<Card>
-					<CardHeader>
-						<CardTitle>{t.paymentTestTitle}</CardTitle>
-						<CardDescription>{t.paymentTestDescription}</CardDescription>
-					</CardHeader>
-					<CardContent>
-						<div className="rounded-lg border border-orange-200 bg-orange-50 p-4 dark:border-orange-800 dark:bg-orange-900/20">
-							<p className="text-sm text-orange-800 dark:text-orange-300">{t.testingPayment}</p>
-							<p className="mt-1 text-xs text-orange-600 dark:text-orange-400">Merchant ID: {user.paypalMerchantId}</p>
-						</div>
-					</CardContent>
-				</Card>
-			)}
-
-			{/* Success Display */}
-			{success !== null && (
-				<Alert>
-					<CheckCircle className="h-4 w-4" />
-					<AlertDescription>{success}</AlertDescription>
-				</Alert>
-			)}
-
 			{/* Error Display */}
-			{error !== null && (
+			{onboardingMutation.error && (
 				<Alert variant="destructive">
 					<XCircle className="h-4 w-4" />
-					<AlertDescription>{error}</AlertDescription>
+					<AlertDescription>
+						{onboardingMutation.error instanceof Error
+							? onboardingMutation.error.message
+							: 'Failed to initiate PayPal onboarding'}
+					</AlertDescription>
 				</Alert>
 			)}
 		</div>

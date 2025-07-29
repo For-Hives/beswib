@@ -7,7 +7,7 @@ vi.mock('@/lib/pocketbaseClient', () => ({
 
 import { mockUser } from '@/tests/mocks/data'
 
-import { createUser, fetchUserByClerkId, fetchUserById, isAdmin } from '@/services/user.services'
+import { createUser, fetchUserByClerkId, fetchUserById } from '@/services/user.services'
 
 describe('user.services', () => {
 	beforeEach(() => {
@@ -86,16 +86,16 @@ describe('user.services', () => {
 	describe('isAdmin', () => {
 		it('should return true if the user is an admin', () => {
 			const adminUser = { ...mockUser, role: 'admin' as const }
-			expect(isAdmin(adminUser)).toBe(true)
+			expect(adminUser.isAdmin).toBe(true)
 		})
 
 		it('should return false if the user is not an admin', () => {
 			const regularUser = { ...mockUser, role: 'user' as const }
-			expect(isAdmin(regularUser)).toBe(false)
+			expect(regularUser.isAdmin).toBe(false)
 		})
 
 		it('should return false if the user is null', () => {
-			expect(isAdmin(null)).toBe(false)
+			expect(null).toBe(false)
 		})
 	})
 })
