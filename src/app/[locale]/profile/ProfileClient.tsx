@@ -81,18 +81,8 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 		},
 	})
 
-	async function onSubmit(values: RunnerForm) {
-		if (!user) return
-		try {
-			await updateUser(user.id, values as Partial<User>)
-		} catch (error) {
-			console.error(error)
-		}
-	}
-
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault()
-		form.handleSubmit(onSubmit)(e).catch(console.error)
+	if (!user) {
+		return null
 	}
 
 	return (
@@ -109,7 +99,7 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 
 					<div className="grid gap-8 lg:grid-cols-3">
 						<div className="lg:col-span-2">
-							<ModernRunnerForm />
+							<ModernRunnerForm user={user} />
 						</div>
 						<div>
 							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">

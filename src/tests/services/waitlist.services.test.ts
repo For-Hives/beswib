@@ -29,6 +29,12 @@ const mockUser: User = {
 	city: null,
 	birthDate: null,
 	address: null,
+	clubAffiliation: null,
+	emergencyContactRelationship: null,
+	gender: null,
+	licenseNumber: null,
+	medicalCertificateUrl: null,
+	tshirtSize: null,
 }
 
 import { addToWaitlist, fetchUserWaitlists } from '@/services/waitlist.services'

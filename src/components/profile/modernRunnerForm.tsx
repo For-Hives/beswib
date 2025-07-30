@@ -8,8 +8,10 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
-import { User, Phone, Shield, MapPin, FileText, Trophy, Calendar, Globe } from 'lucide-react'
+import { Contact, Phone, Shield, MapPin, FileText, Trophy, Calendar, Globe } from 'lucide-react'
 import { useForm } from 'react-hook-form'
+import { User } from '@/models/user.model'
+import { updateUser } from '@/services/user.services'
 
 interface RunnerFormData {
 	firstName: string
@@ -29,38 +31,48 @@ interface RunnerFormData {
 	licenseNumber: string
 }
 
-export default function ModernRunnerForm() {
+export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 	const [activeSection, setActiveSection] = useState<string | null>(null)
 
 	const form = useForm<RunnerFormData>({
 		defaultValues: {
-			firstName: '',
-			lastName: '',
-			birthDate: '',
-			phoneNumber: '',
-			emergencyContactName: '',
-			emergencyContactPhone: '',
-			emergencyContactRelationship: '',
-			address: '',
-			postalCode: '',
-			city: '',
-			country: '',
-			gender: '',
-			medicalCertificateUrl: '',
-			clubAffiliation: '',
-			licenseNumber: '',
+			firstName: user?.firstName ?? '',
+			lastName: user?.lastName ?? '',
+			birthDate: user?.birthDate ?? '',
+			phoneNumber: user?.phoneNumber ?? '',
+			emergencyContactName: user?.emergencyContactName ?? '',
+			emergencyContactPhone: user?.emergencyContactPhone ?? '',
+			emergencyContactRelationship: user?.emergencyContactRelationship ?? '',
+			address: user?.address ?? '',
+			postalCode: user?.postalCode ?? '',
+			city: user?.city ?? '',
+			country: user?.country ?? '',
+			gender: user?.gender ?? '',
+			medicalCertificateUrl: user?.medicalCertificateUrl ?? '',
+			clubAffiliation: user?.clubAffiliation ?? '',
+			licenseNumber: user?.licenseNumber ?? '',
 		},
 	})
 
-	const handleSubmit = form.handleSubmit(data => {
-		console.log(data)
-	})
+	async function onSubmit(values: RunnerFormData) {
+		if (!user) return
+		try {
+			await updateUser(user.id, values as Partial<User>)
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault()
+		form.handleSubmit(onSubmit)(e).catch(console.error)
+	}
 
 	const sections = [
 		{
 			id: 'personal',
 			title: 'Informations Personnelles',
-			icon: User,
+			icon: Contact,
 			fields: ['firstName', 'lastName', 'birthDate', 'phoneNumber', 'gender'],
 		},
 		{
@@ -158,7 +170,7 @@ export default function ModernRunnerForm() {
 								<div className="space-y-6">
 									<div className="flex items-center gap-3">
 										<div className="rounded-lg bg-blue-900/20 p-2">
-											<User className="h-5 w-5 text-blue-400" />
+											<Contact className="h-5 w-5 text-blue-400" />
 										</div>
 										<div>
 											<h3 className="text-xl font-semibold text-white">Informations Personnelles</h3>
