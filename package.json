@@ -22,7 +22,7 @@
 		"@clerk/nextjs": "6.28.0",
 		"@faker-js/faker": "9.9.0",
 		"@formatjs/intl-localematcher": "0.6.1",
-		"@headlessui/react": "2.2.6",
+		"@headlessui/react": "2.2.7",
 		"@heroicons/react": "2.2.0",
 		"@hookform/resolvers": "5.2.1",
 		"@next/eslint-plugin-next": "15.4.5",
