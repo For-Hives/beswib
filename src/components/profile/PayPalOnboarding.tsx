@@ -1,4 +1,5 @@
 'use client'
+import React from 'react'
 
 import { CheckCircle, ExternalLink, RefreshCw, XCircle } from 'lucide-react'
 import { Suspense } from 'react'
@@ -32,10 +33,18 @@ export default function PayPalOnboarding(props: PayPalOnboardingProps) {
 function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	const t = getTranslations(locale, profileTranslations).profile.sellerInfo
 	const { isLoading, error, data: user } = useUser(userId)
+
 	const onboardingMutation = usePayPalOnboarding()
+	const [showDisconnectConfirm, setShowDisconnectConfirm] = React.useState(false)
 
 	const handlePayPalConnect = () => {
 		onboardingMutation.mutate(userId)
+	}
+
+	const handleDisconnect = () => {
+		// TODO: Implement actual disconnect logic (API call etc.)
+		setShowDisconnectConfirm(false)
+		// Optionally, trigger a mutation to disconnect PayPal account
 	}
 
 	const getStatusBadge = () => {
@@ -110,24 +119,41 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 						</div>
 					)}
 
-					{/* Connect Button */}
-					<Button
-						className="w-full"
-						disabled={
-							onboardingMutation.isPending ||
-							(typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0)
-						}
-						onClick={handlePayPalConnect}
-					>
-						{onboardingMutation.isPending ? (
-							<>
-								<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-								Connecting...
-							</>
-						) : (
-							t.createSellerButton
-						)}
-					</Button>
+					{/* Connect/Disconnect Button */}
+					{typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0 ? (
+						<>
+							<Button className="w-full" variant="destructive" onClick={() => setShowDisconnectConfirm(true)}>
+								Déconnecter le compte vendeur
+							</Button>
+							{/* Confirmation Dialog */}
+							{showDisconnectConfirm && (
+								<div className="bg-opacity-40 fixed inset-0 z-50 flex items-center justify-center bg-black">
+									<div className="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-900">
+										<p className="mb-4 text-sm">Êtes-vous sûr de vouloir déconnecter votre compte vendeur PayPal ?</p>
+										<div className="flex justify-end gap-2">
+											<Button variant="outline" onClick={() => setShowDisconnectConfirm(false)}>
+												Annuler
+											</Button>
+											<Button variant="destructive" onClick={handleDisconnect}>
+												Confirmer
+											</Button>
+										</div>
+									</div>
+								</div>
+							)}
+						</>
+					) : (
+						<Button className="w-full" disabled={onboardingMutation.isPending} onClick={handlePayPalConnect}>
+							{onboardingMutation.isPending ? (
+								<>
+									<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+									Connecting...
+								</>
+							) : (
+								t.createSellerButton
+							)}
+						</Button>
+					)}
 
 					{/* Onboarding URL Display */}
 					{typeof onboardingMutation.data?.actionUrl === 'string' && onboardingMutation.data.actionUrl.length > 0 && (
