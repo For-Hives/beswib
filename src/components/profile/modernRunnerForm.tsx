@@ -1,93 +1,38 @@
 'use client'
 
-import React from 'react'
-
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import {
-	User,
-	Phone,
-	Calendar,
-	MapPin,
-	Shield,
-	Shirt,
-	Trophy,
-	Sparkles,
-	Zap,
-	Rocket,
-	ChevronRight,
-	ChevronLeft,
-	Check,
-} from 'lucide-react'
-
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Progress } from '@/components/ui/progress'
+import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
+import { User, Phone, Shield, MapPin, FileText, Trophy, Calendar, Globe } from 'lucide-react'
+import { useForm } from 'react-hook-form'
 
-const formSchema = z.object({
-	firstName: z.string().min(2, 'First name must be at least 2 characters'),
-	lastName: z.string().min(2, 'Last name must be at least 2 characters'),
-	birthDate: z.string().min(1, 'Birth date is required'),
-	phoneNumber: z.string().min(10, 'Phone number must be at least 10 digits'),
-	emergencyContactName: z.string().min(2, 'Emergency contact name is required'),
-	emergencyContactPhone: z.string().min(10, 'Emergency contact phone is required'),
-	emergencyContactRelationship: z.string().min(1, 'Relationship is required'),
-	address: z.string().min(5, 'Address is required'),
-	postalCode: z.string().min(3, 'Postal code is required'),
-	city: z.string().min(2, 'City is required'),
-	country: z.string().min(2, 'Country is required'),
-	gender: z.string().min(1, 'Gender selection is required'),
-	medicalCertificateUrl: z.string().url('Must be a valid URL').optional().or(z.literal('')),
-	tshirtSize: z.string().min(1, 'T-shirt size is required'),
-	clubAffiliation: z.string().optional(),
-	licenseNumber: z.string().optional(),
-})
-
-const steps = [
-	{
-		id: 'personal',
-		title: 'Personal Info',
-		icon: User,
-		description: 'Tell us about yourself',
-		color: 'from-purple-500 to-pink-500',
-	},
-	{
-		id: 'contact',
-		title: 'Contact & Emergency',
-		icon: Phone,
-		description: 'Stay connected & safe',
-		color: 'from-blue-500 to-cyan-500',
-	},
-	{
-		id: 'location',
-		title: 'Location',
-		icon: MapPin,
-		description: 'Where are you from?',
-		color: 'from-green-500 to-emerald-500',
-	},
-	{
-		id: 'preferences',
-		title: 'Preferences',
-		icon: Shirt,
-		description: 'Final touches',
-		color: 'from-orange-500 to-red-500',
-	},
-]
+interface RunnerFormData {
+	firstName: string
+	lastName: string
+	birthDate: string
+	phoneNumber: string
+	emergencyContactName: string
+	emergencyContactPhone: string
+	emergencyContactRelationship: string
+	address: string
+	postalCode: string
+	city: string
+	country: string
+	gender: string
+	medicalCertificateUrl: string
+	clubAffiliation: string
+	licenseNumber: string
+}
 
 export default function ModernRunnerForm() {
-	const [currentStep, setCurrentStep] = useState(0)
-	const [completedSteps, setCompletedSteps] = useState<number[]>([])
-	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [activeSection, setActiveSection] = useState<string | null>(null)
 
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
+	const form = useForm<RunnerFormData>({
 		defaultValues: {
 			firstName: '',
 			lastName: '',
@@ -102,558 +47,485 @@ export default function ModernRunnerForm() {
 			country: '',
 			gender: '',
 			medicalCertificateUrl: '',
-			tshirtSize: '',
 			clubAffiliation: '',
 			licenseNumber: '',
 		},
 	})
 
-	const nextStep = async () => {
-		const fieldsToValidate = getFieldsForStep(currentStep)
-		const isValid = await form.trigger(fieldsToValidate)
+	const handleSubmit = form.handleSubmit(data => {
+		console.log(data)
+	})
 
-		if (isValid) {
-			if (!completedSteps.includes(currentStep)) {
-				setCompletedSteps([...completedSteps, currentStep])
-			}
-			if (currentStep < steps.length - 1) {
-				setCurrentStep(currentStep + 1)
-			}
-		}
-	}
-
-	const prevStep = () => {
-		if (currentStep > 0) {
-			setCurrentStep(currentStep - 1)
-		}
-	}
-
-	const getFieldsForStep = (step: number) => {
-		switch (step) {
-			case 0:
-				return ['firstName', 'lastName', 'birthDate', 'gender'] as const
-			case 1:
-				return ['phoneNumber', 'emergencyContactName', 'emergencyContactPhone', 'emergencyContactRelationship'] as const
-			case 2:
-				return ['address', 'postalCode', 'city', 'country'] as const
-			case 3:
-				return ['tshirtSize'] as const
-			default:
-				return []
-		}
-	}
-
-	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		setIsSubmitting(true)
-		// Simulate API call
-		await new Promise(resolve => setTimeout(resolve, 2000))
-		console.log(values)
-		setIsSubmitting(false)
-		// Add success animation or redirect
-	}
-
-	const progress = ((currentStep + 1) / steps.length) * 100
+	const sections = [
+		{
+			id: 'personal',
+			title: 'Informations Personnelles',
+			icon: User,
+			fields: ['firstName', 'lastName', 'birthDate', 'phoneNumber', 'gender'],
+		},
+		{
+			id: 'emergency',
+			title: "Contact d'Urgence",
+			icon: Shield,
+			fields: ['emergencyContactName', 'emergencyContactPhone', 'emergencyContactRelationship'],
+		},
+		{ id: 'address', title: 'Adresse', icon: MapPin, fields: ['address', 'postalCode', 'city', 'country'] },
+		{
+			id: 'documents',
+			title: 'Documents & Affiliations',
+			icon: FileText,
+			fields: ['medicalCertificateUrl', 'clubAffiliation', 'licenseNumber'],
+		},
+	]
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4">
-			<div className="mx-auto max-w-4xl">
-				{/* Header with animated progress */}
-				<motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-8 text-center">
-					<div className="mb-4 flex items-center justify-center gap-2">
-						<Rocket className="h-8 w-8 text-purple-400" />
-						<h1 className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-4xl font-bold text-transparent">
-							Runner Registration
-						</h1>
-						<Sparkles className="h-8 w-8 text-pink-400" />
+		<div className="bg-card/80 min-h-screen rounded-xl p-4">
+			<div className="mx-auto max-w-4xl space-y-8">
+				{/* Header */}
+				<div className="space-y-4 text-center">
+					<div className="inline-flex items-center gap-2 rounded-full border border-blue-800 bg-blue-900/20 px-4 py-2">
+						<Trophy className="h-4 w-4 text-blue-400" />
+						<span className="text-sm font-medium text-blue-300">Profil Coureur</span>
 					</div>
-					<p className="text-lg text-slate-400">Let's get you ready to run! ⚡</p>
-				</motion.div>
+					<h1 className="text-3xl font-bold text-white">Informations Coureur</h1>
+					<p className="mx-auto max-w-2xl text-gray-400">
+						Complétez votre profil de coureur pour acheter des dossards sur la marketplace.
+					</p>
+				</div>
 
-				{/* Progress Bar */}
-				<motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="mb-8">
-					<div className="mb-4 flex justify-between">
-						{steps.map((step, index) => {
-							const Icon = step.icon
-							const isCompleted = completedSteps.includes(index)
-							const isCurrent = currentStep === index
+				{/* Progress Overview */}
+				<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+					{sections.map(section => {
+						const Icon = section.icon
+						const hasErrors = section.fields.some(field => form.formState.errors[field as keyof RunnerFormData])
+						const isComplete = section.fields.every(field => {
+							const value = form.watch(field as keyof RunnerFormData)
+							return value && value.toString().trim() !== ''
+						})
 
-							return (
-								<motion.div
-									key={step.id}
-									className="flex flex-col items-center"
-									whileHover={{ scale: 1.05 }}
-									whileTap={{ scale: 0.95 }}
-								>
-									<div
-										className={`relative mb-2 flex h-12 w-12 items-center justify-center rounded-full border-2 transition-all duration-300 ${
-											isCurrent
-												? `bg-gradient-to-r ${step.color} border-transparent shadow-lg shadow-purple-500/25`
-												: isCompleted
-													? 'border-green-500 bg-green-500'
-													: 'border-slate-600 bg-slate-800'
-										} `}
-									>
-										{isCompleted ? (
-											<Check className="h-6 w-6 text-white" />
-										) : (
-											<Icon className={`h-6 w-6 ${isCurrent ? 'text-white' : 'text-slate-400'}`} />
-										)}
-										{isCurrent && (
-											<motion.div
-												className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-75"
-												animate={{ scale: [1, 1.2, 1] }}
-												transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-											/>
-										)}
-									</div>
-									<span className={`text-sm font-medium ${isCurrent ? 'text-purple-400' : 'text-slate-500'}`}>
-										{step.title}
-									</span>
-								</motion.div>
-							)
-						})}
-					</div>
-					<Progress value={progress} className="h-2 bg-slate-800" />
-				</motion.div>
-
-				{/* Form Card */}
-				<motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-					<Card className="border-slate-700 bg-slate-800/50 shadow-2xl backdrop-blur-xl">
-						<CardHeader className="text-center">
-							<motion.div
-								key={currentStep}
-								initial={{ opacity: 0, x: 20 }}
-								animate={{ opacity: 1, x: 0 }}
-								exit={{ opacity: 0, x: -20 }}
-								className="flex items-center justify-center gap-3"
+						return (
+							<Card
+								key={section.id}
+								className={`cursor-pointer border-gray-800 bg-gray-900/50 backdrop-blur-sm transition-all duration-200 hover:bg-gray-900/80 ${
+									activeSection === section.id ? 'border-blue-500 ring-2 ring-blue-500' : ''
+								}`}
+								onClick={() => setActiveSection(activeSection === section.id ? null : section.id)}
 							>
-								<div className={`rounded-full bg-gradient-to-r ${steps[currentStep].color} p-2`}>
-									{React.createElement(steps[currentStep].icon, { className: 'h-6 w-6 text-white' })}
-								</div>
-								<div>
-									<CardTitle className="text-2xl text-white">{steps[currentStep].title}</CardTitle>
-									<CardDescription className="text-slate-400">{steps[currentStep].description}</CardDescription>
-								</div>
-							</motion.div>
-						</CardHeader>
-
-						<CardContent>
-							<Form {...form}>
-								<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-									<AnimatePresence mode="wait">
-										<motion.div
-											key={currentStep}
-											initial={{ opacity: 0, x: 50 }}
-											animate={{ opacity: 1, x: 0 }}
-											exit={{ opacity: 0, x: -50 }}
-											transition={{ duration: 0.3 }}
+								<CardContent className="p-4">
+									<div className="flex items-center gap-3">
+										<div
+											className={`rounded-lg p-2 ${
+												hasErrors
+													? 'bg-red-900/20 text-red-400'
+													: isComplete
+														? 'bg-green-900/20 text-green-400'
+														: 'bg-blue-900/20 text-blue-400'
+											}`}
 										>
-											{currentStep === 0 && (
-												<div className="space-y-6">
-													<div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-														<FormField
-															control={form.control}
-															name="firstName"
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel className="text-slate-300">First Name</FormLabel>
-																	<FormControl>
-																		<Input
-																			{...field}
-																			className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-purple-500 focus:ring-purple-500/20"
-																			placeholder="Enter your first name"
-																		/>
-																	</FormControl>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-														<FormField
-															control={form.control}
-															name="lastName"
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel className="text-slate-300">Last Name</FormLabel>
-																	<FormControl>
-																		<Input
-																			{...field}
-																			className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-purple-500 focus:ring-purple-500/20"
-																			placeholder="Enter your last name"
-																		/>
-																	</FormControl>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-													</div>
-
-													<div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-														<FormField
-															control={form.control}
-															name="birthDate"
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel className="flex items-center gap-2 text-slate-300">
-																		<Calendar className="h-4 w-4" />
-																		Birth Date
-																	</FormLabel>
-																	<FormControl>
-																		<Input
-																			type="date"
-																			{...field}
-																			className="border-slate-600 bg-slate-900/50 text-white focus:border-purple-500 focus:ring-purple-500/20"
-																		/>
-																	</FormControl>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-
-														<FormField
-															control={form.control}
-															name="gender"
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel className="text-slate-300">Gender</FormLabel>
-																	<Select onValueChange={field.onChange} defaultValue={field.value}>
-																		<FormControl>
-																			<SelectTrigger className="border-slate-600 bg-slate-900/50 text-white focus:border-purple-500 focus:ring-purple-500/20">
-																				<SelectValue placeholder="Select gender" />
-																			</SelectTrigger>
-																		</FormControl>
-																		<SelectContent className="border-slate-600 bg-slate-800">
-																			<SelectItem value="male" className="text-white hover:bg-slate-700">
-																				Male
-																			</SelectItem>
-																			<SelectItem value="female" className="text-white hover:bg-slate-700">
-																				Female
-																			</SelectItem>
-																			<SelectItem value="other" className="text-white hover:bg-slate-700">
-																				Other
-																			</SelectItem>
-																		</SelectContent>
-																	</Select>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-													</div>
-												</div>
-											)}
-
-											{currentStep === 1 && (
-												<div className="space-y-6">
-													<FormField
-														control={form.control}
-														name="phoneNumber"
-														render={({ field }) => (
-															<FormItem>
-																<FormLabel className="flex items-center gap-2 text-slate-300">
-																	<Phone className="h-4 w-4" />
-																	Phone Number
-																</FormLabel>
-																<FormControl>
-																	<Input
-																		{...field}
-																		className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20"
-																		placeholder="Your phone number"
-																	/>
-																</FormControl>
-																<FormMessage />
-															</FormItem>
-														)}
-													/>
-
-													<div className="rounded-lg border border-slate-600 bg-slate-900/30 p-4">
-														<div className="mb-4 flex items-center gap-2">
-															<Shield className="h-5 w-5 text-red-400" />
-															<h3 className="font-semibold text-red-400">Emergency Contact</h3>
-															<Badge variant="destructive" className="ml-auto">
-																Important
-															</Badge>
-														</div>
-
-														<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-															<FormField
-																control={form.control}
-																name="emergencyContactName"
-																render={({ field }) => (
-																	<FormItem>
-																		<FormLabel className="text-slate-300">Contact Name</FormLabel>
-																		<FormControl>
-																			<Input
-																				{...field}
-																				className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-red-500 focus:ring-red-500/20"
-																				placeholder="Emergency contact name"
-																			/>
-																		</FormControl>
-																		<FormMessage />
-																	</FormItem>
-																)}
-															/>
-
-															<FormField
-																control={form.control}
-																name="emergencyContactPhone"
-																render={({ field }) => (
-																	<FormItem>
-																		<FormLabel className="text-slate-300">Contact Phone</FormLabel>
-																		<FormControl>
-																			<Input
-																				{...field}
-																				className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-red-500 focus:ring-red-500/20"
-																				placeholder="Emergency contact phone"
-																			/>
-																		</FormControl>
-																		<FormMessage />
-																	</FormItem>
-																)}
-															/>
-														</div>
-
-														<FormField
-															control={form.control}
-															name="emergencyContactRelationship"
-															render={({ field }) => (
-																<FormItem className="mt-4">
-																	<FormLabel className="text-slate-300">Relationship</FormLabel>
-																	<FormControl>
-																		<Input
-																			{...field}
-																			className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-red-500 focus:ring-red-500/20"
-																			placeholder="e.g., Parent, Spouse, Friend"
-																		/>
-																	</FormControl>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-													</div>
-												</div>
-											)}
-
-											{currentStep === 2 && (
-												<div className="space-y-6">
-													<FormField
-														control={form.control}
-														name="address"
-														render={({ field }) => (
-															<FormItem>
-																<FormLabel className="flex items-center gap-2 text-slate-300">
-																	<MapPin className="h-4 w-4" />
-																	Address
-																</FormLabel>
-																<FormControl>
-																	<Input
-																		{...field}
-																		className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-green-500 focus:ring-green-500/20"
-																		placeholder="Your full address"
-																	/>
-																</FormControl>
-																<FormMessage />
-															</FormItem>
-														)}
-													/>
-
-													<div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-														<FormField
-															control={form.control}
-															name="postalCode"
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel className="text-slate-300">Postal Code</FormLabel>
-																	<FormControl>
-																		<Input
-																			{...field}
-																			className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-green-500 focus:ring-green-500/20"
-																			placeholder="12345"
-																		/>
-																	</FormControl>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-
-														<FormField
-															control={form.control}
-															name="city"
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel className="text-slate-300">City</FormLabel>
-																	<FormControl>
-																		<Input
-																			{...field}
-																			className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-green-500 focus:ring-green-500/20"
-																			placeholder="Your city"
-																		/>
-																	</FormControl>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-
-														<FormField
-															control={form.control}
-															name="country"
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel className="text-slate-300">Country</FormLabel>
-																	<FormControl>
-																		<Input
-																			{...field}
-																			className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-green-500 focus:ring-green-500/20"
-																			placeholder="Your country"
-																		/>
-																	</FormControl>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-													</div>
-												</div>
-											)}
-
-											{currentStep === 3 && (
-												<div className="space-y-6">
-													<div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-														<FormField
-															control={form.control}
-															name="tshirtSize"
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel className="flex items-center gap-2 text-slate-300">
-																		<Shirt className="h-4 w-4" />
-																		T-Shirt Size
-																	</FormLabel>
-																	<Select onValueChange={field.onChange} defaultValue={field.value}>
-																		<FormControl>
-																			<SelectTrigger className="border-slate-600 bg-slate-900/50 text-white focus:border-orange-500 focus:ring-orange-500/20">
-																				<SelectValue placeholder="Select size" />
-																			</SelectTrigger>
-																		</FormControl>
-																		<SelectContent className="border-slate-600 bg-slate-800">
-																			{['XS', 'S', 'M', 'L', 'XL', 'XXL'].map(size => (
-																				<SelectItem key={size} value={size} className="text-white hover:bg-slate-700">
-																					{size}
-																				</SelectItem>
-																			))}
-																		</SelectContent>
-																	</Select>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-
-														<FormField
-															control={form.control}
-															name="medicalCertificateUrl"
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel className="text-slate-300">Medical Certificate URL</FormLabel>
-																	<FormControl>
-																		<Input
-																			{...field}
-																			className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-orange-500 focus:ring-orange-500/20"
-																			placeholder="https://..."
-																		/>
-																	</FormControl>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-													</div>
-
-													<div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-														<FormField
-															control={form.control}
-															name="clubAffiliation"
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel className="flex items-center gap-2 text-slate-300">
-																		<Trophy className="h-4 w-4" />
-																		Club Affiliation
-																	</FormLabel>
-																	<FormControl>
-																		<Input
-																			{...field}
-																			className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-orange-500 focus:ring-orange-500/20"
-																			placeholder="Your running club (optional)"
-																		/>
-																	</FormControl>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-
-														<FormField
-															control={form.control}
-															name="licenseNumber"
-															render={({ field }) => (
-																<FormItem>
-																	<FormLabel className="text-slate-300">License Number</FormLabel>
-																	<FormControl>
-																		<Input
-																			{...field}
-																			className="border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-orange-500 focus:ring-orange-500/20"
-																			placeholder="License # (optional)"
-																		/>
-																	</FormControl>
-																	<FormMessage />
-																</FormItem>
-															)}
-														/>
-													</div>
-												</div>
-											)}
-										</motion.div>
-									</AnimatePresence>
-
-									{/* Navigation Buttons */}
-									<div className="flex justify-between pt-6">
-										<Button
-											type="button"
-											variant="outline"
-											onClick={prevStep}
-											disabled={currentStep === 0}
-											className="border-slate-600 bg-slate-800 text-white hover:bg-slate-700"
-										>
-											<ChevronLeft className="mr-2 h-4 w-4" />
-											Previous
-										</Button>
-
-										{currentStep === steps.length - 1 ? (
-											<Button
-												type="submit"
-												disabled={isSubmitting}
-												className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
-											>
-												{isSubmitting ? (
-													<motion.div
-														animate={{ rotate: 360 }}
-														transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: 'linear' }}
-														className="mr-2 h-4 w-4 rounded-full border-2 border-white border-t-transparent"
-													/>
-												) : (
-													<Zap className="mr-2 h-4 w-4" />
+											<Icon className="h-4 w-4" />
+										</div>
+										<div className="min-w-0 flex-1">
+											<p className="truncate text-sm font-medium text-white">{section.title}</p>
+											<div className="mt-1 flex items-center gap-2">
+												{isComplete && (
+													<Badge
+														variant="secondary"
+														className="border-green-800 bg-green-900/20 text-xs text-green-400"
+													>
+														Complet
+													</Badge>
 												)}
-												{isSubmitting ? 'Submitting...' : 'Complete Registration'}
-											</Button>
-										) : (
-											<Button
-												type="button"
-												onClick={nextStep}
-												className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
-											>
-												Next
-												<ChevronRight className="ml-2 h-4 w-4" />
-											</Button>
-										)}
+												{hasErrors && (
+													<Badge variant="destructive" className="border-red-800 bg-red-900/20 text-xs text-red-400">
+														Erreurs
+													</Badge>
+												)}
+											</div>
+										</div>
 									</div>
-								</form>
-							</Form>
-						</CardContent>
-					</Card>
-				</motion.div>
+								</CardContent>
+							</Card>
+						)
+					})}
+				</div>
+
+				{/* Main Form */}
+				<Card className="border-gray-800 bg-gray-900/50 backdrop-blur-sm">
+					<CardContent className="p-8">
+						<Form {...form}>
+							<form onSubmit={handleSubmit} className="space-y-12">
+								{/* Personal Information Section */}
+								<div className="space-y-6">
+									<div className="flex items-center gap-3">
+										<div className="rounded-lg bg-blue-900/20 p-2">
+											<User className="h-5 w-5 text-blue-400" />
+										</div>
+										<div>
+											<h3 className="text-xl font-semibold text-white">Informations Personnelles</h3>
+											<p className="text-sm text-gray-400">Vos informations de base</p>
+										</div>
+									</div>
+
+									<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+										<FormField
+											control={form.control}
+											name="firstName"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className="text-gray-300">Prénom</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+															placeholder="Votre prénom"
+														/>
+													</FormControl>
+													<FormMessage className="text-red-400" />
+												</FormItem>
+											)}
+										/>
+
+										<FormField
+											control={form.control}
+											name="lastName"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className="text-gray-300">Nom</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+															placeholder="Votre nom"
+														/>
+													</FormControl>
+													<FormMessage className="text-red-400" />
+												</FormItem>
+											)}
+										/>
+									</div>
+
+									<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+										<FormField
+											control={form.control}
+											name="birthDate"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className="flex items-center gap-2 text-gray-300">
+														<Calendar className="h-4 w-4" />
+														Date de naissance
+													</FormLabel>
+													<FormControl>
+														<Input
+															type="date"
+															{...field}
+															className="border-gray-700 bg-gray-800 text-white focus:border-blue-500 focus:ring-blue-500/20"
+														/>
+													</FormControl>
+													<FormMessage className="text-red-400" />
+												</FormItem>
+											)}
+										/>
+
+										<FormField
+											control={form.control}
+											name="phoneNumber"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className="flex items-center gap-2 text-gray-300">
+														<Phone className="h-4 w-4" />
+														Numéro de téléphone
+													</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+															placeholder="+33 6 12 34 56 78"
+														/>
+													</FormControl>
+													<FormMessage className="text-red-400" />
+												</FormItem>
+											)}
+										/>
+
+										<FormField
+											control={form.control}
+											name="gender"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className="text-gray-300">Genre</FormLabel>
+													<Select defaultValue={field.value} onValueChange={field.onChange}>
+														<FormControl>
+															<SelectTrigger className="border-gray-700 bg-gray-800 text-white focus:border-blue-500 focus:ring-blue-500/20">
+																<SelectValue placeholder="Sélectionner le genre" />
+															</SelectTrigger>
+														</FormControl>
+														<SelectContent className="border-gray-700 bg-gray-800">
+															<SelectItem value="male" className="text-white hover:bg-gray-700">
+																Homme
+															</SelectItem>
+															<SelectItem value="female" className="text-white hover:bg-gray-700">
+																Femme
+															</SelectItem>
+															<SelectItem value="other" className="text-white hover:bg-gray-700">
+																Autre
+															</SelectItem>
+														</SelectContent>
+													</Select>
+													<FormMessage className="text-red-400" />
+												</FormItem>
+											)}
+										/>
+									</div>
+								</div>
+
+								<Separator className="bg-gray-800" />
+
+								{/* Emergency Contact Section */}
+								<div className="space-y-6">
+									<div className="flex items-center gap-3">
+										<div className="rounded-lg bg-red-900/20 p-2">
+											<Shield className="h-5 w-5 text-red-400" />
+										</div>
+										<div>
+											<h3 className="text-xl font-semibold text-white">Contact d'Urgence</h3>
+											<p className="text-sm text-gray-400">Personne à contacter en cas d'urgence</p>
+										</div>
+									</div>
+
+									<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+										<FormField
+											control={form.control}
+											name="emergencyContactName"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className="text-gray-300">Nom du contact d'urgence</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+															placeholder="Nom complet"
+														/>
+													</FormControl>
+													<FormMessage className="text-red-400" />
+												</FormItem>
+											)}
+										/>
+
+										<FormField
+											control={form.control}
+											name="emergencyContactPhone"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className="text-gray-300">Téléphone du contact d'urgence</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+															placeholder="+33 6 12 34 56 78"
+														/>
+													</FormControl>
+													<FormMessage className="text-red-400" />
+												</FormItem>
+											)}
+										/>
+									</div>
+
+									<FormField
+										control={form.control}
+										name="emergencyContactRelationship"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel className="text-gray-300">Relation du contact d'urgence</FormLabel>
+												<FormControl>
+													<Input
+														{...field}
+														className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+														placeholder="Ex: Conjoint(e), Parent, Ami(e)..."
+													/>
+												</FormControl>
+												<FormMessage className="text-red-400" />
+											</FormItem>
+										)}
+									/>
+								</div>
+
+								<Separator className="bg-gray-800" />
+
+								{/* Address Section */}
+								<div className="space-y-6">
+									<div className="flex items-center gap-3">
+										<div className="rounded-lg bg-green-900/20 p-2">
+											<MapPin className="h-5 w-5 text-green-400" />
+										</div>
+										<div>
+											<h3 className="text-xl font-semibold text-white">Adresse</h3>
+											<p className="text-sm text-gray-400">Votre adresse de résidence</p>
+										</div>
+									</div>
+
+									<FormField
+										control={form.control}
+										name="address"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel className="text-gray-300">Adresse</FormLabel>
+												<FormControl>
+													<Input
+														{...field}
+														className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+														placeholder="123 Rue de la Course"
+													/>
+												</FormControl>
+												<FormMessage className="text-red-400" />
+											</FormItem>
+										)}
+									/>
+
+									<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+										<FormField
+											control={form.control}
+											name="postalCode"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className="text-gray-300">Code Postal</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+															placeholder="75001"
+														/>
+													</FormControl>
+													<FormMessage className="text-red-400" />
+												</FormItem>
+											)}
+										/>
+
+										<FormField
+											control={form.control}
+											name="city"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className="text-gray-300">Ville</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+															placeholder="Paris"
+														/>
+													</FormControl>
+													<FormMessage className="text-red-400" />
+												</FormItem>
+											)}
+										/>
+
+										<FormField
+											control={form.control}
+											name="country"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className="flex items-center gap-2 text-gray-300">
+														<Globe className="h-4 w-4" />
+														Pays
+													</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+															placeholder="France"
+														/>
+													</FormControl>
+													<FormMessage className="text-red-400" />
+												</FormItem>
+											)}
+										/>
+									</div>
+								</div>
+
+								<Separator className="bg-gray-800" />
+
+								{/* Documents & Affiliations Section */}
+								<div className="space-y-6">
+									<div className="flex items-center gap-3">
+										<div className="rounded-lg bg-purple-900/20 p-2">
+											<FileText className="h-5 w-5 text-purple-400" />
+										</div>
+										<div>
+											<h3 className="text-xl font-semibold text-white">Documents & Affiliations</h3>
+											<p className="text-sm text-gray-400">Certificats médicaux et affiliations sportives</p>
+										</div>
+									</div>
+
+									<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+										<FormField
+											control={form.control}
+											name="medicalCertificateUrl"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className="text-gray-300">URL du certificat médical</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+															placeholder="https://..."
+														/>
+													</FormControl>
+													<FormMessage className="text-red-400" />
+												</FormItem>
+											)}
+										/>
+
+										<FormField
+											control={form.control}
+											name="clubAffiliation"
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className="text-gray-300">Affiliation au club</FormLabel>
+													<FormControl>
+														<Input
+															{...field}
+															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+															placeholder="Nom du club (optionnel)"
+														/>
+													</FormControl>
+													<FormMessage className="text-red-400" />
+												</FormItem>
+											)}
+										/>
+									</div>
+
+									<FormField
+										control={form.control}
+										name="licenseNumber"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel className="text-gray-300">Numéro de licence</FormLabel>
+												<FormControl>
+													<Input
+														{...field}
+														className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+														placeholder="Numéro de licence FFA (optionnel)"
+													/>
+												</FormControl>
+												<FormMessage className="text-red-400" />
+											</FormItem>
+										)}
+									/>
+								</div>
+
+								{/* Submit Button */}
+								<div className="flex justify-end pt-6">
+									<Button
+										type="submit"
+										size="lg"
+										className="rounded-lg bg-blue-600 px-8 py-3 font-medium text-white transition-all duration-200 hover:scale-105 hover:bg-blue-700"
+									>
+										Enregistrer les modifications
+									</Button>
+								</div>
+							</form>
+						</Form>
+					</CardContent>
+				</Card>
 			</div>
 		</div>
 	)
