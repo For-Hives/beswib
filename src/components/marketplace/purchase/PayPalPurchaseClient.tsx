@@ -47,13 +47,19 @@ export default function PayPalPurchaseClient({
 	useEffect(() => {
 		if (user) {
 			const {
+				tshirtSize,
 				postalCode,
 				phoneNumber,
+				medicalCertificateUrl,
+				licenseNumber,
 				lastName,
+				gender,
 				firstName,
+				emergencyContactRelationship,
 				emergencyContactPhone,
 				emergencyContactName,
 				country,
+				clubAffiliation,
 				city,
 				birthDate,
 				address,
@@ -69,6 +75,12 @@ export default function PayPalPurchaseClient({
 				postalCode,
 				city,
 				country,
+				gender,
+				medicalCertificateUrl,
+				emergencyContactRelationship,
+				tshirtSize,
+				clubAffiliation,
+				licenseNumber,
 			].every(Boolean)
 			setIsProfileComplete(isComplete)
 		}

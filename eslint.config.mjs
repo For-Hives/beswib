@@ -91,7 +91,7 @@ const baseParserOptions = {
 }
 
 export default [
-	perfectionist.configs['recommended-natural'],
+	//	perfectionist.configs['recommended-natural'],
 	eslintPluginPrettierRecommended,
 	...queryPlugin.configs['flat/recommended'],
 	promisePlugin.configs['flat/recommended'],
@@ -100,7 +100,7 @@ export default [
 	{
 		rules: {
 			...baseRules,
-			...perfectionistRules,
+			// ...perfectionistRules,
 		},
 		plugins: basePlugins,
 		languageOptions: {
@@ -114,7 +114,7 @@ export default [
 	{
 		rules: {
 			...baseRules,
-			...perfectionistRules,
+			// ...perfectionistRules,
 			// Règles TypeScript spécifiques
 			...tsPlugin.configs.recommended.rules,
 			...tsPlugin.configs['recommended-type-checked'].rules,

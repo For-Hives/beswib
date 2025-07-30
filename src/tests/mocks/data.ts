@@ -22,6 +22,12 @@ export const mockUser: User = {
 	city: null,
 	birthDate: null,
 	address: null,
+	gender: null,
+	medicalCertificateUrl: null,
+	emergencyContactRelationship: null,
+	tshirtSize: null,
+	clubAffiliation: null,
+	licenseNumber: null,
 }
 
 export const mockEvent: Event = {
