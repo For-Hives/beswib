@@ -23,11 +23,9 @@ export default async function EventsPage({ params }: { params: Promise<LocalePar
 
 	return (
 		<div className="p-5">
-			<main className="mx-auto max-w-3xl">
-				<h1 className="mb-5 text-center text-3xl">{t.events.title}</h1>
-				<p className="mb-8 text-center text-gray-500">{t.events.description}</p>
-				<EventListClient error={error} locale={locale} prefetchedEvents={events} />
-			</main>
+			<h1 className="mb-5 text-center text-3xl">{t.events.title}</h1>
+			<p className="mb-8 text-center text-gray-500">{t.events.description}</p>
+			<EventListClient error={error} locale={locale} prefetchedEvents={events} />
 		</div>
 	)
 }
