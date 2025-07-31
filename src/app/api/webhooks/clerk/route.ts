@@ -60,15 +60,14 @@ function buildUserData(evt: WebhookEvent, primaryEmail: string): Omit<User, 'cre
 		clerkId,
 		clubAffiliation: null,
 		country: null,
-		createdAt: new Date().toISOString(),
+
 		email: primaryEmail,
 		emergencyContactName: '',
 		emergencyContactPhone: '',
 		emergencyContactRelationship: null,
 		firstName: first_name ?? '',
 		gender: null,
-		isAdmin: false,
-		isOrganizer: false,
+
 		lastName: last_name ?? '',
 		licenseNumber: null,
 		medicalCertificateUrl: null,
@@ -76,8 +75,6 @@ function buildUserData(evt: WebhookEvent, primaryEmail: string): Omit<User, 'cre
 		phoneNumber: '',
 		postalCode: '',
 		role: 'user' as const,
-		tshirtSize: null,
-		updatedAt: new Date().toISOString(),
 	}
 }
 

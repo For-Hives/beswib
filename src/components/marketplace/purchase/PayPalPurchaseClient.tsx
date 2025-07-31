@@ -47,7 +47,6 @@ export default function PayPalPurchaseClient({
 	useEffect(() => {
 		if (user) {
 			const {
-				tshirtSize,
 				postalCode,
 				phoneNumber,
 				medicalCertificateUrl,
@@ -78,7 +77,7 @@ export default function PayPalPurchaseClient({
 				gender,
 				medicalCertificateUrl,
 				emergencyContactRelationship,
-				tshirtSize,
+
 				clubAffiliation,
 				licenseNumber,
 			].every(Boolean)

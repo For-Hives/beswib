@@ -14,7 +14,4 @@ export interface Transaction {
 
 	buyerUserId: User['id']
 	sellerUserId: User['id']
-
-	createdAt: Date
-	updatedAt: Date
 }

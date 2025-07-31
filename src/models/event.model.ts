@@ -26,7 +26,4 @@ export interface Event {
 
 	// Organizer relation 🤝
 	organizer: Organizer['id'] // RELATION_RECORD_ID 🔗
-
-	created: Date
-	updated: Date
 }

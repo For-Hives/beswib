@@ -9,7 +9,4 @@ export interface EventCreationRequest {
 	eventDate?: Date
 	status: 'accepted' | 'rejected' | 'waiting'
 	userId: User['id']
-
-	created: Date
-	updated: Date
 }

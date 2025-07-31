@@ -19,7 +19,4 @@ export interface Bib {
 	listed: 'private' | 'public' | null
 	validated: boolean
 	optionValues: Record<string, string>
-
-	created: Date
-	updated: Date
 }
