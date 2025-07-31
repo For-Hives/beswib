@@ -8,33 +8,9 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
-// Using the actual Event interface
-export interface Event {
-	bibPickupLocation?: string
-	bibPickupWindowBeginDate: Date
-	bibPickupWindowEndDate: Date
-	description: string
-	distanceKm?: number
-	elevationGainM?: number
-	eventDate: Date
-	id: string
-	location: string
-	name: string
-	officialStandardPrice?: number
-	options: EventOption[] | null
-	organizer: string // Organizer['id']
-	parcoursUrl?: string
-	participants?: number
-	registrationUrl?: string
-	transferDeadline?: Date
-	typeCourse: 'route' | 'trail' | 'triathlon' | 'ultra'
-}
-
-interface EventOption {
-	id: string
-	name: string
-	price: number
-}
+import type { Event } from '@/models/event.model'
+import { getTranslations } from '@/lib/getDictionary'
+import Translations from './locales.json'
 
 interface EventsPageProps {
 	prefetchedEvents: Event[]
@@ -57,6 +33,8 @@ const eventTypeLabels = {
 }
 
 export default function EventsPage({ prefetchedEvents, locale, error }: EventsPageProps) {
+	const t = getTranslations(locale, Translations)
+
 	const [searchTerm, setSearchTerm] = useState('')
 	const [selectedType, setSelectedType] = useState<string>('all')
 	const [sortBy, setSortBy] = useState<string>('date')
@@ -76,14 +54,15 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 			switch (sortBy) {
 				case 'date':
 					return new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime()
-				case 'price':
-					const priceA = a.officialStandardPrice || 0
-					const priceB = b.officialStandardPrice || 0
+				case 'price': {
+					const priceA = a.officialStandardPrice ?? 0
+					const priceB = b.officialStandardPrice ?? 0
 					return priceA - priceB
+				}
 				case 'participants':
-					return (b.participants || 0) - (a.participants || 0)
+					return (b.participants ?? 0) - (a.participants ?? 0)
 				case 'distance':
-					return (a.distanceKm || 0) - (b.distanceKm || 0)
+					return (a.distanceKm ?? 0) - (b.distanceKm ?? 0)
 				default:
 					return 0
 			}
@@ -120,17 +99,13 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 	}
 
 	const getLowestPrice = (event: Event) => {
-		if (!event.options || event.options.length === 0) {
-			return event.officialStandardPrice || 0
-		}
-		const optionPrices = event.options.map(option => option.price)
-		const standardPrice = event.officialStandardPrice || Number.POSITIVE_INFINITY
-		return Math.min(standardPrice, ...optionPrices)
+		// event.options does not contain price info, use only officialStandardPrice
+		return event.officialStandardPrice ?? 0
 	}
 
 	const EventCard = ({ event }: { event: Event }) => {
 		const lowestPrice = getLowestPrice(event)
-		const hasDiscount = event.officialStandardPrice && lowestPrice < event.officialStandardPrice
+		const hasDiscount = event.officialStandardPrice != null && lowestPrice < event.officialStandardPrice
 		const discountPercentage = hasDiscount
 			? Math.round(((event.officialStandardPrice! - lowestPrice) / event.officialStandardPrice!) * 100)
 			: null
@@ -141,7 +116,7 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 					<div
 						className={`${eventTypeColors[event.typeCourse]} relative flex h-32 items-center justify-center text-white`}
 					>
-						{discountPercentage && (
+						{discountPercentage != null && (
 							<Badge className="absolute top-2 right-2 border-0 bg-red-600 text-white">-{discountPercentage}%</Badge>
 						)}
 						<div className="text-center">
@@ -158,7 +133,7 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 						</h3>
 						<div className="text-right">
 							<div className="text-2xl font-bold text-white">{lowestPrice}€</div>
-							{hasDiscount && event.officialStandardPrice && (
+							{hasDiscount && event.officialStandardPrice != null && (
 								<div className="text-sm text-gray-400 line-through">{event.officialStandardPrice}€</div>
 							)}
 						</div>
@@ -172,15 +147,15 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 						<div className="flex items-center text-sm text-gray-300">
 							<MapPin className="mr-2 h-4 w-4 text-gray-400" />
 							{event.location}
-							{event.distanceKm && ` • ${event.distanceKm}km`}
+							{event.distanceKm != null && ` • ${event.distanceKm}km`}
 						</div>
-						{event.participants && (
+						{event.participants != null && (
 							<div className="flex items-center text-sm text-gray-300">
 								<Users className="mr-2 h-4 w-4 text-gray-400" />
 								{event.participants} participants
 							</div>
 						)}
-						{event.elevationGainM && (
+						{event.elevationGainM != null && (
 							<div className="flex items-center text-sm text-gray-300">
 								<Mountain className="mr-2 h-4 w-4 text-gray-400" />
 								{event.elevationGainM}m D+
@@ -192,7 +167,7 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 						<Badge variant="secondary" className="border-gray-600 bg-gray-700 text-gray-200">
 							{eventTypeLabels[event.typeCourse]}
 						</Badge>
-						{event.parcoursUrl && (
+						{Boolean(event.parcoursUrl) && (
 							<Badge variant="outline" className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white">
 								<Route className="mr-1 h-3 w-3" />
 								Parcours
@@ -200,7 +175,7 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 						)}
 					</div>
 
-					{event.registrationUrl ? (
+					{event.registrationUrl != null ? (
 						<Button
 							className="w-full border-0 bg-blue-600 text-white hover:bg-blue-700"
 							disabled={!isRegistrationOpen(event.transferDeadline)}
@@ -221,7 +196,7 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 						</div>
 					)}
 
-					{event.bibPickupLocation && (
+					{Boolean(event.bibPickupLocation) && (
 						<div className="mt-1 text-xs text-gray-400">Retrait dossard: {event.bibPickupLocation}</div>
 					)}
 				</CardContent>
@@ -229,11 +204,11 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 		)
 	}
 
-	if (error) {
+	if (error != null) {
 		return (
 			<div className="flex min-h-screen items-center justify-center bg-gray-900">
 				<div className="text-center">
-					<div className="mb-2 text-xl text-red-400">Erreur</div>
+					<div className="mb-2 text-xl text-red-400">{t.GLOBAL.errors.unexpected}</div>
 					<div className="text-gray-300">{error}</div>
 				</div>
 			</div>

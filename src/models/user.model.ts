@@ -25,6 +25,6 @@ export interface User {
 	licenseNumber: null | string
 	clubAffiliation: null | string
 
-	createdAt: string
-	updatedAt: string
+	created: Date
+	updated: Date
 }

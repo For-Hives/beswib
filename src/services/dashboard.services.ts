@@ -199,7 +199,7 @@ export async function getRecentActivity(): Promise<
 			activities.push({
 				type: 'user_registration',
 				title: `New user registered: ${user.firstName ?? 'Anonymous'} ${user.lastName ?? ''}`,
-				timestamp: new Date(user.createdAt),
+				timestamp: new Date(user.created),
 				status: 'completed',
 				id: `user-${user.id}`,
 			})

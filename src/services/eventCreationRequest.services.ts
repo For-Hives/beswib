@@ -7,7 +7,7 @@ import { pb } from '@/lib/pocketbaseClient'
  * @param requestData The event creation request data
  */
 export async function createEventCreationRequest(
-	requestData: Omit<EventCreationRequest, 'id' | 'status'>
+	requestData: Omit<EventCreationRequest, 'id' | 'status' | 'created' | 'updated'>
 ): Promise<EventCreationRequest | null> {
 	try {
 		const dataToCreate = {
