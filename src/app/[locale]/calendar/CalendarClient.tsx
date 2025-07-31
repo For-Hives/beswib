@@ -8,6 +8,9 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Event } from '@/models/event.model'
+import { getTranslations } from '@/lib/getDictionary'
+
+import Translations from './locales.json'
 
 interface CalendarPageProps {
 	prefetchedEvents: Event[]
@@ -47,8 +50,10 @@ const monthNames = [
 const dayNames = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
 
 export default function CalendarPage({ prefetchedEvents, locale, error }: CalendarPageProps) {
+	const t = getTranslations(locale, Translations)
+
 	const [currentDate, setCurrentDate] = useState(new Date())
-	const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
+
 	const [viewMode, setViewMode] = useState<'month' | 'week'>('month')
 
 	// Group events by date
@@ -57,9 +62,7 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 
 		prefetchedEvents.forEach(event => {
 			const dateKey = new Date(event.eventDate).toDateString()
-			if (!grouped[dateKey]) {
-				grouped[dateKey] = []
-			}
+			grouped[dateKey] ??= []
 			grouped[dateKey].push(event)
 		})
 
@@ -75,12 +78,8 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 	}
 
 	const getLowestPrice = (event: Event) => {
-		if (!event.options || event.options.length === 0) {
-			return event.officialStandardPrice || 0
-		}
-		const optionPrices = event.options.map(option => option.price)
-		const standardPrice = event.officialStandardPrice || Number.POSITIVE_INFINITY
-		return Math.min(standardPrice, ...optionPrices)
+		// event.options does not contain price info, use only officialStandardPrice
+		return event.officialStandardPrice ?? 0
 	}
 
 	const isRegistrationOpen = (transferDeadline?: Date) => {
@@ -94,7 +93,7 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 		const month = currentDate.getMonth()
 
 		const firstDay = new Date(year, month, 1)
-		const lastDay = new Date(year, month + 1, 0)
+
 		const startDate = new Date(firstDay)
 
 		// Adjust to start on Monday
@@ -137,13 +136,15 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 		return (
 			<Dialog>
 				<DialogTrigger asChild>
-					<div
+					<input
+						type="button"
+						tabIndex={0}
 						className={`${eventTypeColors[event.typeCourse]} mb-1 cursor-pointer truncate rounded p-1 text-xs text-white transition-opacity hover:opacity-80`}
-						onClick={() => setSelectedEvent(event)}
+						aria-label={event.name}
 					>
 						<div className="truncate font-medium">{event.name}</div>
 						<div className="opacity-90">{event.location}</div>
-					</div>
+					</input>
 				</DialogTrigger>
 				<DialogContent className="max-w-2xl border-gray-700 bg-gray-800 text-white">
 					<DialogHeader>
@@ -160,19 +161,19 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 									<MapPin className="mr-2 h-4 w-4 text-gray-400" />
 									{event.location}
 								</div>
-								{event.distanceKm && (
+								{event.distanceKm != null && (
 									<div className="flex items-center text-gray-300">
 										<Route className="mr-2 h-4 w-4 text-gray-400" />
 										{event.distanceKm}km
 									</div>
 								)}
-								{event.elevationGainM && (
+								{event.elevationGainM != null && (
 									<div className="flex items-center text-gray-300">
 										<Mountain className="mr-2 h-4 w-4 text-gray-400" />
 										{event.elevationGainM}m D+
 									</div>
 								)}
-								{event.participants && (
+								{event.participants != null && (
 									<div className="flex items-center text-gray-300">
 										<Users className="mr-2 h-4 w-4 text-gray-400" />
 										{event.participants} participants
@@ -183,7 +184,7 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 							<div className="space-y-3">
 								<div className="text-right">
 									<div className="text-2xl font-bold text-white">À partir de {lowestPrice}€</div>
-									{event.officialStandardPrice && lowestPrice < event.officialStandardPrice && (
+									{event.officialStandardPrice != null && lowestPrice < event.officialStandardPrice && (
 										<div className="text-sm text-gray-400 line-through">{event.officialStandardPrice}€</div>
 									)}
 								</div>
@@ -202,11 +203,11 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 						</div>
 
 						<div className="space-y-2">
-							<h4 className="font-semibold text-white">Description</h4>
+							<h4 className="font-semibold text-white">{t.calendar.description}</h4>
 							<p className="text-sm text-gray-300">{event.description}</p>
 						</div>
 
-						{event.bibPickupLocation && (
+						{Boolean(event.bibPickupLocation) && (
 							<div className="space-y-2">
 								<h4 className="font-semibold text-white">Retrait des dossards</h4>
 								<div className="text-sm text-gray-300">
@@ -223,9 +224,9 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 								<h4 className="font-semibold text-white">Options d'inscription</h4>
 								<div className="space-y-1">
 									{event.options.map(option => (
-										<div key={option.id} className="flex items-center justify-between text-sm">
-											<span className="text-gray-300">{option.name}</span>
-											<span className="font-medium text-white">{option.price}€</span>
+										<div key={option.key} className="flex items-center justify-between text-sm">
+											<span className="text-gray-300">{option.label}</span>
+											<span className="font-medium text-white">{option.values.join(', ')}</span>
 										</div>
 									))}
 								</div>
@@ -233,7 +234,7 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 						)}
 
 						<div className="flex gap-2 pt-4">
-							{event.registrationUrl && (
+							{Boolean(event.registrationUrl) && (
 								<Button
 									className="flex-1 bg-blue-600 hover:bg-blue-700"
 									disabled={!isRegistrationOpen(event.transferDeadline)}
@@ -242,7 +243,7 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 									{!isRegistrationOpen(event.transferDeadline) ? 'Inscriptions fermées' : "S'inscrire"}
 								</Button>
 							)}
-							{event.parcoursUrl && (
+							{Boolean(event.parcoursUrl) && (
 								<Button
 									variant="outline"
 									className="border-gray-600 bg-transparent text-gray-300 hover:bg-gray-700"
@@ -259,7 +260,7 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 		)
 	}
 
-	if (error) {
+	if (error != null) {
 		return (
 			<div className="flex min-h-screen items-center justify-center bg-gray-900">
 				<div className="text-center">
@@ -352,10 +353,9 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 						{/* Calendar Days */}
 						<div className="grid grid-cols-7">
 							{calendarDays.map((day, index) => {
-								const dayEvents = eventsByDate[day.toDateString()] || []
+								const dayEvents = eventsByDate[day.toDateString()] != null ? eventsByDate[day.toDateString()] : []
 								const isCurrentMonth = day.getMonth() === currentMonth
 								const isToday = day.toDateString() === today.toDateString()
-								const hasEvents = dayEvents.length > 0
 
 								return (
 									<div
