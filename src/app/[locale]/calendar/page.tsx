@@ -2,14 +2,11 @@ import type { Event } from '@/models/event.model'
 
 import { generateLocaleParams, LocaleParams } from '@/lib/generateStaticParams'
 import { fetchApprovedPublicEvents } from '@/services/event.services'
-import { getTranslations } from '@/lib/getDictionary'
 
 import CalendarPage from './CalendarClient'
-import eventsTranslations from './locales.json'
 
 export default async function EventsPage({ params }: { params: Promise<LocaleParams> }) {
 	const { locale } = await params
-	const t = getTranslations(locale, eventsTranslations)
 
 	let events: Event[] = []
 	let error: null | string = null

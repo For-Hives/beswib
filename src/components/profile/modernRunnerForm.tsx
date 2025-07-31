@@ -55,7 +55,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 	})
 
 	async function onSubmit(values: RunnerFormData) {
-		if (!user) return
+		if (user === null) return
 		try {
 			await updateUser(user.id, values as Partial<User>)
 		} catch (error) {
@@ -112,7 +112,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 						const hasErrors = section.fields.some(field => form.formState.errors[field as keyof RunnerFormData])
 						const isComplete = section.fields.every(field => {
 							const value = form.watch(field as keyof RunnerFormData)
-							return value && value.toString().trim() !== ''
+							return Boolean(value && value.toString().trim() !== '')
 						})
 
 						return (
