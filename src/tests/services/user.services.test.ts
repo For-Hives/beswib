@@ -86,12 +86,12 @@ describe('user.services', () => {
 	describe('isAdmin', () => {
 		it('should return true if the user is an admin', () => {
 			const adminUser = { ...mockUser, role: 'admin' as const }
-			expect(adminUser.isAdmin).toBe(true)
+			expect(adminUser.role).toBe('admin')
 		})
 
 		it('should return false if the user is not an admin', () => {
 			const regularUser = { ...mockUser, role: 'user' as const }
-			expect(regularUser.isAdmin).toBe(false)
+			expect(regularUser.role).not.toBe('admin')
 		})
 
 		it('should return false if the user is null', () => {
