@@ -103,101 +103,99 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 		return event.officialStandardPrice ?? 0
 	}
 
+	// Nouvelle carte événement optimisée UX
 	const EventCard = ({ event }: { event: Event }) => {
 		const lowestPrice = getLowestPrice(event)
-		const hasDiscount = event.officialStandardPrice != null && lowestPrice < event.officialStandardPrice
-		const discountPercentage = hasDiscount
-			? Math.round(((event.officialStandardPrice! - lowestPrice) / event.officialStandardPrice!) * 100)
-			: null
-
+		const hasDossard = Boolean(event.registrationUrl)
+		const registrationOpen = isRegistrationOpen(event.transferDeadline)
+		const isOfficial = !hasDossard
 		return (
-			<Card className="group overflow-hidden border-gray-700 bg-gray-800 transition-all duration-300 hover:border-gray-600 hover:shadow-xl">
-				<CardHeader className="p-0">
-					<div
-						className={`${eventTypeColors[event.typeCourse]} relative flex h-32 items-center justify-center text-white`}
-					>
-						{discountPercentage != null && (
-							<Badge className="absolute top-2 right-2 border-0 bg-red-600 text-white">-{discountPercentage}%</Badge>
-						)}
-						<div className="text-center">
-							<div className="mb-1 text-xs font-medium opacity-90">{eventTypeLabels[event.typeCourse]}</div>
-							<div className="text-4xl font-bold">001</div>
-							<div className="mt-2 rounded bg-white/20 px-2 py-1 text-xs backdrop-blur-sm">{event.location}</div>
-						</div>
-					</div>
-				</CardHeader>
-				<CardContent className="bg-gray-800 p-4">
-					<div className="mb-3 flex items-start justify-between">
-						<h3 className="text-lg leading-tight font-bold text-white transition-colors group-hover:text-blue-400">
-							{event.name}
-						</h3>
-						<div className="text-right">
-							<div className="text-2xl font-bold text-white">{lowestPrice}€</div>
-							{hasDiscount && event.officialStandardPrice != null && (
-								<div className="text-sm text-gray-400 line-through">{event.officialStandardPrice}€</div>
-							)}
-						</div>
-					</div>
-
-					<div className="mb-4 space-y-2">
-						<div className="flex items-center text-sm text-gray-300">
-							<Calendar className="mr-2 h-4 w-4 text-gray-400" />
+			<Card className="group overflow-hidden border-gray-700 bg-gray-900 transition-all duration-300 hover:border-blue-600 hover:shadow-xl">
+				<CardHeader className="flex items-center justify-between bg-gray-800 p-0">
+					<div className="flex items-center gap-2 p-3">
+						<Badge className="bg-blue-600 px-2 py-1 text-xs text-white">
+							<Calendar className="mr-1 inline h-4 w-4" />
 							{formatDate(event.eventDate)}
-						</div>
-						<div className="flex items-center text-sm text-gray-300">
-							<MapPin className="mr-2 h-4 w-4 text-gray-400" />
-							{event.location}
-							{event.distanceKm != null && ` • ${event.distanceKm}km`}
-						</div>
-						{event.participants != null && (
-							<div className="flex items-center text-sm text-gray-300">
-								<Users className="mr-2 h-4 w-4 text-gray-400" />
-								{event.participants} participants
-							</div>
-						)}
-						{event.elevationGainM != null && (
-							<div className="flex items-center text-sm text-gray-300">
-								<Mountain className="mr-2 h-4 w-4 text-gray-400" />
-								{event.elevationGainM}m D+
-							</div>
-						)}
-					</div>
-
-					<div className="mb-4 flex items-center justify-between">
-						<Badge variant="secondary" className="border-gray-600 bg-gray-700 text-gray-200">
+						</Badge>
+						<Badge className={`px-2 py-1 text-xs ${eventTypeColors[event.typeCourse]}`}>
 							{eventTypeLabels[event.typeCourse]}
 						</Badge>
-						{Boolean(event.parcoursUrl) && (
-							<Badge variant="outline" className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white">
-								<Route className="mr-1 h-3 w-3" />
-								Parcours
-							</Badge>
+					</div>
+					<div className="flex items-center gap-2 p-3">
+						{hasDossard && registrationOpen ? (
+							<Badge className="bg-green-600 px-2 py-1 text-xs text-white">Dossard dispo</Badge>
+						) : (
+							<Badge className="bg-red-600 px-2 py-1 text-xs text-white">Site officiel</Badge>
 						)}
 					</div>
-
-					{event.registrationUrl != null ? (
-						<Button
-							className="w-full border-0 bg-blue-600 text-white hover:bg-blue-700"
-							disabled={!isRegistrationOpen(event.transferDeadline)}
-							onClick={() => window.open(event.registrationUrl, '_blank')}
-						>
-							{!isRegistrationOpen(event.transferDeadline) ? 'Inscriptions fermées' : 'Je veux ce dossard'}
-						</Button>
-					) : (
-						<Button className="w-full border-0 bg-gray-600 text-white hover:bg-gray-700" disabled>
-							Bientôt disponible
-						</Button>
-					)}
-
-					{event.transferDeadline && isRegistrationOpen(event.transferDeadline) && (
-						<div className="mt-2 flex items-center text-xs text-gray-400">
+				</CardHeader>
+				<CardContent className="flex flex-col gap-2 bg-gray-900 p-4">
+					<h3 className="mb-1 text-xl font-bold text-white">{event.name}</h3>
+					<div className="mb-2 flex items-center text-sm text-gray-400">
+						<MapPin className="mr-2 h-4 w-4" />
+						{event.location}
+						{event.distanceKm != null && <span className="ml-2">• {event.distanceKm}km</span>}
+					</div>
+					<div className="mb-2 flex items-center gap-4">
+						{event.participants != null && (
+							<span className="flex items-center text-xs text-gray-400">
+								<Users className="mr-1 h-3 w-3" />
+								{event.participants} participants
+							</span>
+						)}
+						{event.elevationGainM != null && (
+							<span className="flex items-center text-xs text-gray-400">
+								<Mountain className="mr-1 h-3 w-3" />
+								{event.elevationGainM}m D+
+							</span>
+						)}
+					</div>
+					<div className="mb-2 flex items-center gap-2">
+						{event.parcoursUrl && (
+							<Button
+								variant="outline"
+								size="sm"
+								className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white"
+								onClick={() => window.open(event.parcoursUrl, '_blank')}
+							>
+								<Route className="mr-1 h-3 w-3" />
+								Parcours
+							</Button>
+						)}
+					</div>
+					<div className="mb-2 flex items-center justify-between">
+						<div className="flex flex-col">
+							{hasDossard && registrationOpen ? (
+								<span className="text-2xl font-bold text-green-400">{lowestPrice}€</span>
+							) : (
+								<span className="text-lg font-semibold text-gray-400">Prix sur site officiel</span>
+							)}
+						</div>
+						{hasDossard && registrationOpen && (
+							<Button
+								className="bg-blue-600 px-4 py-2 text-white"
+								onClick={() => window.open(event.registrationUrl!, '_blank')}
+							>
+								Je veux ce dossard
+							</Button>
+						)}
+						{isOfficial && (
+							<Button
+								className="bg-gray-700 px-4 py-2 text-white"
+								onClick={() => window.open(event.officialUrl ?? '#', '_blank')}
+							>
+								Voir sur le site officiel
+							</Button>
+						)}
+					</div>
+					{event.transferDeadline && registrationOpen && (
+						<div className="flex items-center text-xs text-gray-400">
 							<Clock className="mr-1 h-3 w-3" />
 							Transfert jusqu'au {formatDate(event.transferDeadline)}
 						</div>
 					)}
-
 					{Boolean(event.bibPickupLocation) && (
-						<div className="mt-1 text-xs text-gray-400">Retrait dossard: {event.bibPickupLocation}</div>
+						<div className="text-xs text-gray-400">Retrait dossard: {event.bibPickupLocation}</div>
 					)}
 				</CardContent>
 			</Card>
@@ -230,14 +228,8 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 	}
 
 	return (
-		<div className="min-h-screen bg-gray-900">
+		<div className="min-h-screen">
 			<div className="container mx-auto px-4 py-8">
-				{/* Header */}
-				<div className="mb-8 text-center">
-					<h1 className="mb-2 text-4xl font-bold text-white">Événements Sportifs</h1>
-					<p className="text-gray-400">Découvrez et participez aux meilleurs événements sportifs</p>
-				</div>
-
 				{/* Search and Filters */}
 				<div className="mb-8 rounded-lg border border-gray-700 bg-gray-800 p-6 shadow-lg">
 					<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
