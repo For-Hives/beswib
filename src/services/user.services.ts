@@ -51,7 +51,7 @@ export async function getUserData(userId: string): Promise<null | User> {
 
 export async function isUserAdmin(id: string): Promise<boolean> {
 	const user = await fetchUserById(id)
-	return user?.isAdmin ?? false
+	return user?.role === 'admin'
 }
 
 export async function updateUser(id: string, user: Partial<User>): Promise<User> {
