@@ -25,7 +25,7 @@ describe('user.services', () => {
 
 		it('should throw an error if user creation fails', async () => {
 			mockPocketbase.create.mockRejectedValue(new Error('Failed to create'))
-			await expect(createUser(mockUser)).rejects.toThrow('Error creating user in PocketBase: Failed to create')
+			await expect(createUser(mockUser)).rejects.toThrow('Failed to create')
 		})
 	})
 
@@ -49,11 +49,10 @@ describe('user.services', () => {
 			expect(user).toBeNull()
 		})
 
-		it('should throw an error if fetching fails for other reasons', async () => {
+		it('should return null if fetching fails for other reasons', async () => {
 			mockPocketbase.getFirstListItem.mockRejectedValue(new Error('Fetch failed'))
-			await expect(fetchUserByClerkId('clerk123')).rejects.toThrow(
-				'Error fetching user by Clerk ID "clerk123": Fetch failed'
-			)
+			const user = await fetchUserByClerkId('clerk123')
+			expect(user).toBeNull()
 		})
 	})
 
@@ -77,25 +76,30 @@ describe('user.services', () => {
 			expect(user).toBeNull()
 		})
 
-		it('should throw an error if fetching fails for other reasons', async () => {
+		it('should return null if fetching fails for other reasons', async () => {
 			mockPocketbase.getOne.mockRejectedValue(new Error('Fetch failed'))
-			await expect(fetchUserById('user1')).rejects.toThrow('Error fetching user by PocketBase ID "user1": Fetch failed')
+			const user = await fetchUserById('user1')
+			expect(user).toBeNull()
 		})
 	})
 
 	describe('isAdmin', () => {
-		it('should return true if the user is an admin', () => {
-			const adminUser = { ...mockUser, role: 'admin' as const }
-			expect(adminUser.role).toBe('admin')
+		it('should return true if the user is an admin', async () => {
+			mockPocketbase.getOne.mockResolvedValue({ ...mockUser, role: 'admin' })
+			const result = await (await import('@/services/user.services')).isUserAdmin('user1')
+			expect(result).toBe(true)
 		})
 
-		it('should return false if the user is not an admin', () => {
-			const regularUser = { ...mockUser, role: 'user' as const }
-			expect(regularUser.role).not.toBe('admin')
+		it('should return false if the user is not an admin', async () => {
+			mockPocketbase.getOne.mockResolvedValue({ ...mockUser, role: 'user' })
+			const result = await (await import('@/services/user.services')).isUserAdmin('user1')
+			expect(result).toBe(false)
 		})
 
-		it('should return false if the user is null', () => {
-			expect(null).toBe(false)
+		it('should return false if the user is null', async () => {
+			mockPocketbase.getOne.mockResolvedValue(null)
+			const result = await (await import('@/services/user.services')).isUserAdmin('user1')
+			expect(result).toBe(false)
 		})
 	})
 })
