@@ -1,12 +1,14 @@
 export interface Organizer {
-	created: Date
-	email: string
 	id: string
-	isPartnered: boolean
-	logo?: string // filename.jpg 🖼️
 	name: string
-	updated: Date
+	logo?: string // filename.jpg 🖼️
+	email: string
+
 	website?: string
+	isPartnered: boolean
+
+	created: Date
+	updated: Date
 }
 
 // For creation forms that include file upload 📤
