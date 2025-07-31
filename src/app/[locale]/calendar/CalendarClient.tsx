@@ -136,15 +136,13 @@ export default function CalendarPage({ prefetchedEvents, locale, error }: Calend
 		return (
 			<Dialog>
 				<DialogTrigger asChild>
-					<input
-						type="button"
-						tabIndex={0}
+					<div
 						className={`${eventTypeColors[event.typeCourse]} mb-1 cursor-pointer truncate rounded p-1 text-xs text-white transition-opacity hover:opacity-80`}
 						aria-label={event.name}
 					>
 						<div className="truncate font-medium">{event.name}</div>
 						<div className="opacity-90">{event.location}</div>
-					</input>
+					</div>
 				</DialogTrigger>
 				<DialogContent className="max-w-2xl border-gray-700 bg-gray-800 text-white">
 					<DialogHeader>
