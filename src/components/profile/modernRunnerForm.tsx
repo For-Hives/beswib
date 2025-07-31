@@ -10,10 +10,12 @@ import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
 import { Contact, Phone, Shield, MapPin, FileText, Trophy, Calendar, Globe } from 'lucide-react'
 import { useForm } from 'react-hook-form'
+import { object, string, minLength, url, picklist, pipe } from 'valibot'
+import { valibotResolver } from '@hookform/resolvers/valibot'
 import { User } from '@/models/user.model'
 import { updateUser } from '@/services/user.services'
 
-interface RunnerFormData {
+type RunnerFormData = {
 	firstName: string
 	lastName: string
 	birthDate: string
@@ -25,16 +27,35 @@ interface RunnerFormData {
 	postalCode: string
 	city: string
 	country: string
-	gender: string
+	gender: 'male' | 'female' | 'other'
 	medicalCertificateUrl: string
 	clubAffiliation: string
 	licenseNumber: string
 }
 
+const runnerFormSchema = object({
+	firstName: pipe(string(), minLength(2, 'Le prénom doit contenir au moins 2 caractères')),
+	lastName: pipe(string(), minLength(2, 'Le nom doit contenir au moins 2 caractères')),
+	birthDate: pipe(string(), minLength(4, 'Veuillez entrer une date de naissance valide')),
+	phoneNumber: pipe(string(), minLength(8, 'Numéro de téléphone invalide')),
+	emergencyContactName: pipe(string(), minLength(2, 'Le nom du contact doit contenir au moins 2 caractères')),
+	emergencyContactPhone: pipe(string(), minLength(8, 'Numéro de téléphone invalide')),
+	emergencyContactRelationship: pipe(string(), minLength(2, 'Veuillez préciser la relation')),
+	address: pipe(string(), minLength(4, 'Adresse trop courte')),
+	postalCode: pipe(string(), minLength(4, 'Code postal invalide')),
+	city: pipe(string(), minLength(2, 'Ville trop courte')),
+	country: pipe(string(), minLength(2, 'Pays trop court')),
+	gender: picklist(['male', 'female', 'other'], 'Genre invalide'),
+	medicalCertificateUrl: pipe(string(), url('URL invalide')),
+	clubAffiliation: string(),
+	licenseNumber: string(),
+})
+
 export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 	const [activeSection, setActiveSection] = useState<string | null>(null)
 
 	const form = useForm<RunnerFormData>({
+		resolver: valibotResolver(runnerFormSchema),
 		defaultValues: {
 			firstName: user?.firstName ?? '',
 			lastName: user?.lastName ?? '',
@@ -47,7 +68,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 			postalCode: user?.postalCode ?? '',
 			city: user?.city ?? '',
 			country: user?.country ?? '',
-			gender: user?.gender ?? '',
+			gender: user?.gender === 'male' || user?.gender === 'female' || user?.gender === 'other' ? user.gender : 'male',
 			medicalCertificateUrl: user?.medicalCertificateUrl ?? '',
 			clubAffiliation: user?.clubAffiliation ?? '',
 			licenseNumber: user?.licenseNumber ?? '',
