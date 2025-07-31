@@ -1,27 +1,30 @@
 export interface User {
-	address: null | string
-	birthDate: null | string
-	city: null | string
+	id: string
 	clerkId: null | string
-	clubAffiliation: null | string
-	country: null | string
-	createdAt: string
+	paypalMerchantId: null | string
+	role: 'admin' | 'user'
+
 	email: string
+	firstName: null | string
+	lastName: null | string
+
+	birthDate: null | string
+	phoneNumber: null | string
 	emergencyContactName: null | string
 	emergencyContactPhone: null | string
 	emergencyContactRelationship: null | string
-	firstName: null | string
-	gender: 'female' | 'male' | 'other' | null
-	id: string
-	isAdmin: boolean
-	isOrganizer: boolean
-	lastName: null | string
-	licenseNumber: null | string
-	medicalCertificateUrl: null | string
-	paypalMerchantId: null | string
-	phoneNumber: null | string
+
+	address: null | string
 	postalCode: null | string
-	role: 'admin' | 'user'
-	tshirtSize: null | 'L' | 'M' | 'S' | 'XL' | 'XS' | 'XXL'
+	city: null | string
+	country: null | string
+
+	gender: 'female' | 'male' | 'other' | null
+
+	medicalCertificateUrl: null | string
+	licenseNumber: null | string
+	clubAffiliation: null | string
+
+	createdAt: string
 	updatedAt: string
 }

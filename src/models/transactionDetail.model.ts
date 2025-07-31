@@ -1,6 +1,9 @@
 import { Transaction } from './transaction.model'
 
+// TODO : this table does not exist in the database yet, but is used to store transaction details for runners
 export interface TransactionDetail {
+	id: string
+
 	address: string
 	beneficiaryFirstName: string
 	beneficiaryLastName: string
@@ -11,7 +14,6 @@ export interface TransactionDetail {
 		phone: string
 	}
 	ffaNumber?: string
-	id: string
 	medicalCertificateUrl?: string
 	// replicate event options if needed 🏷️
 	optionValues: Record<string, string>
