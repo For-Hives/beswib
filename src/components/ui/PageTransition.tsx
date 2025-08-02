@@ -3,29 +3,32 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { ReactNode } from 'react'
 
-// Bouncy compress/expand variants
+// Fade + Scale variants for a subtle wow effect
 const variants = {
 	initial: {
-		y: '-100%',
-		scaleY: 0.8,
 		opacity: 0,
+		scale: 0.96,
+		filter: 'blur(8px)',
 	},
 	animate: {
-		y: '0%',
-		scaleY: 1,
 		opacity: 1,
+		scale: 1,
+		filter: 'blur(0px)',
 		transition: {
-			bounce: 0.6,
-			duration: 0.7,
+			stiffness: 420,
+			damping: 38,
+			mass: 0.9,
+			opacity: { duration: 0.38 },
+			scale: { duration: 0.48 },
 		},
 	},
 	exit: {
-		y: '100%',
-		scaleY: 0.8,
 		opacity: 0,
+		scale: 1.04,
+		filter: 'blur(8px)',
 		transition: {
-			bounce: 0.4,
-			duration: 0.5,
+			opacity: { duration: 0.32 },
+			scale: { duration: 0.32 },
 		},
 	},
 }
