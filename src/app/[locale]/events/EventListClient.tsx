@@ -174,7 +174,7 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 						{hasDossard && registrationOpen && (
 							<Button
 								className="bg-blue-600 px-4 py-2 text-white"
-								onClick={() => window.open(event.registrationUrl!, '_blank')}
+								onClick={() => window.open(event.registrationUrl, '_blank')}
 							>
 								Je veux ce dossard
 							</Button>
@@ -182,7 +182,7 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 						{isOfficial && (
 							<Button
 								className="bg-gray-700 px-4 py-2 text-white"
-								onClick={() => window.open(event.officialUrl ?? '#', '_blank')}
+								onClick={() => window.open(event.parcoursUrl ?? '#', '_blank')}
 							>
 								Voir sur le site officiel
 							</Button>
