@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 
 import { Geist, Geist_Mono } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
@@ -7,6 +8,7 @@ import { Toaster } from 'sonner'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticParams'
 import QueryProvider from '@/components/providers/QueryProvider'
+import PageTransition from '@/components/ui/PageTransition'
 import Footer from '@/components/global/footer'
 import Header from '@/components/global/Header'
 
@@ -63,24 +65,18 @@ export function generateStaticParams() {
 	return generateLocaleParams()
 }
 
-export default async function RootLayout({
-	params,
-	children,
-}: Readonly<{
-	children: React.ReactNode
-	params: Promise<LocaleParams>
-}>) {
-	const { locale } = await params
-
+export default async function RootLayout(props: { params: Promise<LocaleParams>; children: ReactNode }) {
+	const localeParams = await props.params
+	const { locale } = localeParams
 	return (
 		<ClerkProvider>
 			<html className="dark" lang={locale}>
 				<body className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased`}>
 					<QueryProvider>
 						<NuqsAdapter>
-							<Header localeParams={params} />
-							{children}
-							<Footer localeParams={params} />
+							<Header localeParams={props.params} />
+							<PageTransition>{props.children}</PageTransition>
+							<Footer localeParams={props.params} />
 							<Toaster />
 						</NuqsAdapter>
 					</QueryProvider>
