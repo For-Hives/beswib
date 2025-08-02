@@ -10,8 +10,26 @@
 				"all": "All Events",
 				"location": "Location",
 				"date": "Date",
-				"category": "Category"
+				"category": "Category",
+				"price": "Price",
+				"participants": "Participants",
+				"distance": "Distance"
 			},
+			"raceTypes": {
+				"triathlon": "Triathlon",
+				"trail": "Trail",
+				"route": "Road",
+				"ultra": "Ultra"
+			},
+			"countLabel": "{count} event{count, plural, one {} other {s}} found",
+			"calendarView": "Calendar view",
+			"listView": "List view",
+			"featuredTitle": "Upcoming Events",
+			"featuredSubtitle": "Next 30 days",
+			"allEventsTitle": "All Events",
+			"noResultsTitle": "No events found",
+			"noResultsSubtitle": "Try changing your search criteria",
+			"calendarTitle": "Events Calendar",
 			"eventCard": {
 				"viewDetails": "View Details",
 				"bibsAvailable": "bibs available",
@@ -32,8 +50,26 @@
 				"all": "Tous les événements",
 				"location": "Lieu",
 				"date": "Date",
-				"category": "Catégorie"
+				"category": "Catégorie",
+				"price": "Prix",
+				"participants": "Participants",
+				"distance": "Distance"
 			},
+			"raceTypes": {
+				"triathlon": "Triathlon",
+				"trail": "Trail",
+				"route": "Route",
+				"ultra": "Ultra"
+			},
+			"countLabel": "{count} événement{count, plural, one {} other {s}} trouvé{count, plural, one {} other {s}}",
+			"calendarView": "Vue calendrier",
+			"listView": "Vue liste",
+			"featuredTitle": "Événements à venir",
+			"featuredSubtitle": "Prochains 30 jours",
+			"allEventsTitle": "Tous les événements",
+			"noResultsTitle": "Aucun événement trouvé",
+			"noResultsSubtitle": "Essayez de modifier vos critères de recherche",
+			"calendarTitle": "Calendrier des événements",
 			"eventCard": {
 				"viewDetails": "Voir les détails",
 				"bibsAvailable": "dossards disponibles",
@@ -54,8 +90,26 @@
 				"all": "모든 이벤트",
 				"location": "위치",
 				"date": "날짜",
-				"category": "카테고리"
+				"category": "카테고리",
+				"price": "가격",
+				"participants": "참가자",
+				"distance": "거리"
 			},
+			"raceTypes": {
+				"triathlon": "트라이애슬론",
+				"trail": "트레일",
+				"route": "로드",
+				"ultra": "울트라"
+			},
+			"countLabel": "{count}개 이벤트가 검색됨",
+			"calendarView": "캘린더 보기",
+			"listView": "리스트 보기",
+			"featuredTitle": "다가오는 이벤트",
+			"featuredSubtitle": "다음 30일",
+			"allEventsTitle": "모든 이벤트",
+			"noResultsTitle": "이벤트를 찾을 수 없습니다",
+			"noResultsSubtitle": "검색 기준을 변경해보세요",
+			"calendarTitle": "이벤트 캘린더",
 			"eventCard": {
 				"viewDetails": "세부 정보 보기",
 				"bibsAvailable": "개 비브 사용 가능",

@@ -29,6 +29,14 @@ const eventTypeLabels = {
 }
 
 export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps) {
+	function getCountLabel(): string {
+		if (typeof t.events?.countLabel === 'string' && t.events.countLabel !== undefined && t.events.countLabel !== null) {
+			return (t.events.countLabel as string).replace('{count}', String(prefetchedEvents.length))
+		}
+		return `${prefetchedEvents.length} événement${prefetchedEvents.length !== 1 ? 's' : ''} trouvé${prefetchedEvents.length !== 1 ? 's' : ''}`
+	}
+	// ...existing code...
+	// ...existing code...
 	// Calendar view logic
 	const currentMonth = new Date().getMonth()
 	const currentYear = new Date().getFullYear()
@@ -179,10 +187,12 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								key={type.key}
 								className={`flex flex-col items-center justify-center py-6 transition hover:scale-105 focus:ring-2 focus:ring-blue-500 focus:outline-none ${type.color} shadow-lg`}
 								onClick={() => setSelectedType(type.key)}
-								aria-label={type.label}
+								aria-label={(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
 							>
 								<div className="mb-2">{type.icon}</div>
-								<div className="text-lg font-bold text-white">{type.label}</div>
+								<div className="text-lg font-bold text-white">
+									{(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
+								</div>
 								<div className="mt-1 text-2xl font-bold text-white">{type.count}</div>
 							</button>
 						))}
@@ -195,7 +205,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 						<div className="lg:col-span-2">
 							<input
 								type="text"
-								placeholder="Rechercher un événement, une ville..."
+								placeholder={t.events?.searchPlaceholder ?? 'Rechercher un événement, une ville...'}
 								value={searchTerm}
 								onChange={e => setSearchTerm(e.target.value)}
 								className="w-full rounded border-gray-600 bg-gray-700 px-4 py-2 text-white placeholder-gray-400 focus:border-blue-500"
@@ -207,11 +217,13 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								onChange={e => setSelectedType(e.target.value)}
 								className="w-full rounded border-gray-600 bg-gray-700 px-4 py-2 text-white"
 							>
-								<option value="all">Tous les types</option>
-								<option value="triathlon">Triathlon</option>
-								<option value="trail">Trail</option>
-								<option value="route">Route</option>
-								<option value="ultra">Ultra</option>
+								<option value="all">{t.events?.filters?.all ?? 'Tous les types'}</option>
+								<option value="triathlon">
+									{(t.events?.raceTypes as Record<string, string>)?.triathlon ?? 'Triathlon'}
+								</option>
+								<option value="trail">{(t.events?.raceTypes as Record<string, string>)?.trail ?? 'Trail'}</option>
+								<option value="route">{(t.events?.raceTypes as Record<string, string>)?.route ?? 'Route'}</option>
+								<option value="ultra">{(t.events?.raceTypes as Record<string, string>)?.ultra ?? 'Ultra'}</option>
 							</select>
 						</div>
 						<div>
@@ -220,24 +232,20 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								onChange={e => setSortBy(e.target.value)}
 								className="w-full rounded border-gray-600 bg-gray-700 px-4 py-2 text-white"
 							>
-								<option value="date">Date</option>
-								<option value="price">Prix</option>
-								<option value="participants">Participants</option>
-								<option value="distance">Distance</option>
+								<option value="date">{t.events?.filters?.date ?? 'Date'}</option>
+								<option value="price">{t.events?.filters?.price ?? 'Prix'}</option>
+								<option value="participants">{t.events?.filters?.participants ?? 'Participants'}</option>
+								<option value="distance">{t.events?.filters?.distance ?? 'Distance'}</option>
 							</select>
 						</div>
 					</div>
 					<div className="mt-4 flex items-center justify-between">
-						<p className="text-sm text-gray-400">
-							{/* Placeholder for event count, will be updated with filtered events */}
-							{prefetchedEvents.length} événement{prefetchedEvents.length !== 1 ? 's' : ''} trouvé
-							{prefetchedEvents.length !== 1 ? 's' : ''}
-						</p>
+						<p className="text-sm text-gray-400">{getCountLabel()}</p>
 						<button
 							className={`rounded border border-gray-600 bg-transparent px-4 py-2 text-gray-300 transition hover:bg-gray-700 ${viewMode === 'calendar' ? 'bg-blue-700 text-white' : ''}`}
 							onClick={() => setViewMode(viewMode === 'list' ? 'calendar' : 'list')}
 						>
-							{viewMode === 'list' ? 'Vue calendrier' : 'Vue liste'}
+							{viewMode === 'list' ? (t.events?.calendarView ?? 'Vue calendrier') : (t.events?.listView ?? 'Vue liste')}
 						</button>
 					</div>
 				</div>
@@ -250,9 +258,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							<div className="mb-12">
 								<div className="mb-6 flex items-center">
 									<Star className="mr-2 h-6 w-6 text-yellow-500" />
-									<h2 className="text-2xl font-bold text-white">Événements à venir</h2>
+									<h2 className="text-2xl font-bold text-white">{t.events?.featuredTitle ?? 'Événements à venir'}</h2>
 									<span className="ml-3 rounded bg-yellow-500/20 px-3 py-1 text-xs text-yellow-400">
-										Prochains 30 jours
+										{t.events?.featuredSubtitle ?? 'Prochains 30 jours'}
 									</span>
 								</div>
 								<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -266,7 +274,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 						{/* Upcoming Events */}
 						{upcomingEvents.length > 0 && (
 							<div>
-								<h2 className="mb-6 text-2xl font-bold text-white">Tous les événements</h2>
+								<h2 className="mb-6 text-2xl font-bold text-white">
+									{t.events?.allEventsTitle ?? 'Tous les événements'}
+								</h2>
 								<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 									{upcomingEvents.map(event => (
 										<EventCard key={event.id} event={event} />
@@ -278,8 +288,12 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 						{/* No Results */}
 						{sortedEvents.length === 0 && (
 							<div className="py-12 text-center">
-								<h3 className="mb-2 text-xl font-semibold text-white">Aucun événement trouvé</h3>
-								<p className="text-gray-400">Essayez de modifier vos critères de recherche</p>
+								<h3 className="mb-2 text-xl font-semibold text-white">
+									{t.events?.noResultsTitle ?? 'Aucun événement trouvé'}
+								</h3>
+								<p className="text-gray-400">
+									{t.events?.noResultsSubtitle ?? 'Essayez de modifier vos critères de recherche'}
+								</p>
 							</div>
 						)}
 					</>
@@ -288,7 +302,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				{/* Calendar View */}
 				{viewMode === 'calendar' && (
 					<div className="mb-12">
-						<h2 className="mb-6 text-2xl font-bold text-white">Calendrier des événements</h2>
+						<h2 className="mb-6 text-2xl font-bold text-white">
+							{t.events?.calendarTitle ?? 'Calendrier des événements'}
+						</h2>
 						<div className="grid grid-cols-7 gap-2 rounded-lg bg-gray-800 p-4">
 							{/* Day headers */}
 							{['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map(day => (
@@ -336,8 +352,12 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 						</div>
 						{sortedEvents.length === 0 && (
 							<div className="py-12 text-center">
-								<h3 className="mb-2 text-xl font-semibold text-white">Aucun événement trouvé</h3>
-								<p className="text-gray-400">Essayez de modifier vos critères de recherche</p>
+								<h3 className="mb-2 text-xl font-semibold text-white">
+									{t.events?.noResultsTitle ?? 'Aucun événement trouvé'}
+								</h3>
+								<p className="text-gray-400">
+									{t.events?.noResultsSubtitle ?? 'Essayez de modifier vos critères de recherche'}
+								</p>
 							</div>
 						)}
 					</div>
