@@ -1,12 +1,8 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { Search, Calendar, MapPin, Users, Filter, Star, Clock, Mountain, Route } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Star, Mountain, Route } from 'lucide-react'
+import { Card } from '@/components/ui/card'
 
 import type { Event } from '@/models/event.model'
 import { getTranslations } from '@/lib/getDictionary'
@@ -33,32 +29,38 @@ const eventTypeLabels = {
 }
 
 export default function EventsPage({ prefetchedEvents, locale, error }: EventsPageProps) {
-	const t = getTranslations(locale, Translations)
+	// Calendar view logic
+	const currentMonth = new Date().getMonth()
+	const currentYear = new Date().getFullYear()
+	// Get all days for the current month
+	const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate()
+	const firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay() // 0=Sunday
 
+	// State and translation variables
 	const [searchTerm, setSearchTerm] = useState('')
 	const [selectedType, setSelectedType] = useState<string>('all')
 	const [sortBy, setSortBy] = useState<string>('date')
+	const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list')
+	const t = getTranslations(locale, Translations)
 
-	const filteredAndSortedEvents = useMemo(() => {
-		const filtered = prefetchedEvents.filter(event => {
+	// Filtering and sorting logic
+	const filteredEvents = useMemo(() => {
+		return prefetchedEvents.filter(event => {
 			const matchesSearch =
 				event.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
 				event.location.toLowerCase().includes(searchTerm.toLowerCase())
 			const matchesType = selectedType === 'all' || event.typeCourse === selectedType
-
 			return matchesSearch && matchesType
 		})
+	}, [searchTerm, selectedType, prefetchedEvents])
 
-		// Sort events
-		filtered.sort((a, b) => {
+	const sortedEvents = useMemo(() => {
+		return [...filteredEvents].sort((a, b) => {
 			switch (sortBy) {
 				case 'date':
 					return new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime()
-				case 'price': {
-					const priceA = a.officialStandardPrice ?? 0
-					const priceB = b.officialStandardPrice ?? 0
-					return priceA - priceB
-				}
+				case 'price':
+					return (a.officialStandardPrice ?? 0) - (b.officialStandardPrice ?? 0)
 				case 'participants':
 					return (b.participants ?? 0) - (a.participants ?? 0)
 				case 'distance':
@@ -67,140 +69,87 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 					return 0
 			}
 		})
+	}, [filteredEvents, sortBy])
 
-		return filtered
-	}, [searchTerm, selectedType, sortBy, prefetchedEvents])
+	// Group events by date string (must be after sortedEvents)
+	const eventsByDate = useMemo(() => {
+		const grouped: { [date: string]: Event[] } = {}
+		sortedEvents.forEach(event => {
+			const dateKey = new Date(event.eventDate).toDateString()
+			grouped[dateKey] ??= []
+			grouped[dateKey].push(event)
+		})
+		return grouped
+	}, [sortedEvents])
 
-	// Featured events (upcoming events within next 30 days)
+	// Featured events: next 30 days
 	const now = new Date()
 	const thirtyDaysFromNow = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000)
-
-	const featuredEvents = filteredAndSortedEvents.filter(event => {
+	const featuredEvents = sortedEvents.filter(event => {
 		const eventDate = new Date(event.eventDate)
 		return eventDate >= now && eventDate <= thirtyDaysFromNow
 	})
 
-	const upcomingEvents = filteredAndSortedEvents.filter(event => {
+	// Upcoming events: after 30 days
+	const upcomingEvents = sortedEvents.filter(event => {
 		const eventDate = new Date(event.eventDate)
 		return eventDate > thirtyDaysFromNow
 	})
 
-	const formatDate = (date: Date) => {
-		return new Date(date).toLocaleDateString('fr-FR', {
-			day: 'numeric',
-			month: 'short',
-			year: 'numeric',
-		})
-	}
+	// Simple event card
+	const EventCard = ({ event }: { event: Event }) => (
+		<Card className="flex flex-col gap-2 border border-gray-700 bg-gray-900 p-4">
+			<div className="mb-2 flex items-center gap-2">
+				<span className={`rounded px-2 py-1 text-xs ${eventTypeColors[event.typeCourse]}`}>
+					{eventTypeLabels[event.typeCourse]}
+				</span>
+				<span className="text-xs text-gray-400">
+					{new Date(event.eventDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })}
+				</span>
+			</div>
+			<div className="mb-1 text-lg font-bold text-white">{event.name}</div>
+			<div className="mb-1 text-sm text-gray-400">{event.location}</div>
+			{event.distanceKm != null && <div className="text-xs text-gray-400">Distance: {event.distanceKm}km</div>}
+			{event.participants != null && <div className="text-xs text-gray-400">Participants: {event.participants}</div>}
+			{event.officialStandardPrice != null && (
+				<div className="text-xs font-bold text-green-400">À partir de {event.officialStandardPrice}€</div>
+			)}
+		</Card>
+	)
 
-	const isRegistrationOpen = (transferDeadline?: Date) => {
-		if (!transferDeadline) return true
-		return new Date(transferDeadline) > new Date()
-	}
+	// Featured events (upcoming events within next 30 days)
 
-	const getLowestPrice = (event: Event) => {
-		// event.options does not contain price info, use only officialStandardPrice
-		return event.officialStandardPrice ?? 0
-	}
-
-	// Nouvelle carte événement optimisée UX
-	const EventCard = ({ event }: { event: Event }) => {
-		const lowestPrice = getLowestPrice(event)
-		const hasDossard = Boolean(event.registrationUrl)
-		const registrationOpen = isRegistrationOpen(event.transferDeadline)
-		const isOfficial = !hasDossard
-		return (
-			<Card className="group overflow-hidden border-gray-700 bg-gray-900 transition-all duration-300 hover:border-blue-600 hover:shadow-xl">
-				<CardHeader className="flex items-center justify-between bg-gray-800 p-0">
-					<div className="flex items-center gap-2 p-3">
-						<Badge className="bg-blue-600 px-2 py-1 text-xs text-white">
-							<Calendar className="mr-1 inline h-4 w-4" />
-							{formatDate(event.eventDate)}
-						</Badge>
-						<Badge className={`px-2 py-1 text-xs ${eventTypeColors[event.typeCourse]}`}>
-							{eventTypeLabels[event.typeCourse]}
-						</Badge>
-					</div>
-					<div className="flex items-center gap-2 p-3">
-						{hasDossard && registrationOpen ? (
-							<Badge className="bg-green-600 px-2 py-1 text-xs text-white">Dossard dispo</Badge>
-						) : (
-							<Badge className="bg-red-600 px-2 py-1 text-xs text-white">Site officiel</Badge>
-						)}
-					</div>
-				</CardHeader>
-				<CardContent className="flex flex-col gap-2 bg-gray-900 p-4">
-					<h3 className="mb-1 text-xl font-bold text-white">{event.name}</h3>
-					<div className="mb-2 flex items-center text-sm text-gray-400">
-						<MapPin className="mr-2 h-4 w-4" />
-						{event.location}
-						{event.distanceKm != null && <span className="ml-2">• {event.distanceKm}km</span>}
-					</div>
-					<div className="mb-2 flex items-center gap-4">
-						{event.participants != null && (
-							<span className="flex items-center text-xs text-gray-400">
-								<Users className="mr-1 h-3 w-3" />
-								{event.participants} participants
-							</span>
-						)}
-						{event.elevationGainM != null && (
-							<span className="flex items-center text-xs text-gray-400">
-								<Mountain className="mr-1 h-3 w-3" />
-								{event.elevationGainM}m D+
-							</span>
-						)}
-					</div>
-					<div className="mb-2 flex items-center gap-2">
-						{event.parcoursUrl && (
-							<Button
-								variant="outline"
-								size="sm"
-								className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white"
-								onClick={() => window.open(event.parcoursUrl, '_blank')}
-							>
-								<Route className="mr-1 h-3 w-3" />
-								Parcours
-							</Button>
-						)}
-					</div>
-					<div className="mb-2 flex items-center justify-between">
-						<div className="flex flex-col">
-							{hasDossard && registrationOpen ? (
-								<span className="text-2xl font-bold text-green-400">{lowestPrice}€</span>
-							) : (
-								<span className="text-lg font-semibold text-gray-400">Prix sur site officiel</span>
-							)}
-						</div>
-						{hasDossard && registrationOpen && (
-							<Button
-								className="bg-blue-600 px-4 py-2 text-white"
-								onClick={() => window.open(event.registrationUrl, '_blank')}
-							>
-								Je veux ce dossard
-							</Button>
-						)}
-						{isOfficial && (
-							<Button
-								className="bg-gray-700 px-4 py-2 text-white"
-								onClick={() => window.open(event.parcoursUrl ?? '#', '_blank')}
-							>
-								Voir sur le site officiel
-							</Button>
-						)}
-					</div>
-					{event.transferDeadline && registrationOpen && (
-						<div className="flex items-center text-xs text-gray-400">
-							<Clock className="mr-1 h-3 w-3" />
-							Transfert jusqu'au {formatDate(event.transferDeadline)}
-						</div>
-					)}
-					{Boolean(event.bibPickupLocation) && (
-						<div className="text-xs text-gray-400">Retrait dossard: {event.bibPickupLocation}</div>
-					)}
-				</CardContent>
-			</Card>
-		)
-	}
+	// Race type summary cards
+	const raceTypeSummary = [
+		{
+			key: 'triathlon',
+			label: eventTypeLabels.triathlon,
+			color: eventTypeColors.triathlon,
+			count: prefetchedEvents.filter(e => e.typeCourse === 'triathlon').length,
+			icon: <Star className="h-6 w-6 text-red-500" />,
+		},
+		{
+			key: 'trail',
+			label: eventTypeLabels.trail,
+			color: eventTypeColors.trail,
+			count: prefetchedEvents.filter(e => e.typeCourse === 'trail').length,
+			icon: <Mountain className="h-6 w-6 text-orange-500" />,
+		},
+		{
+			key: 'route',
+			label: eventTypeLabels.route,
+			color: eventTypeColors.route,
+			count: prefetchedEvents.filter(e => e.typeCourse === 'route').length,
+			icon: <Route className="h-6 w-6 text-blue-500" />,
+		},
+		{
+			key: 'ultra',
+			label: eventTypeLabels.ultra,
+			color: eventTypeColors.ultra,
+			count: prefetchedEvents.filter(e => e.typeCourse === 'ultra').length,
+			icon: <Star className="h-6 w-6 text-purple-500" />,
+		},
+	]
 
 	if (error != null) {
 		return (
@@ -217,9 +166,6 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 		return (
 			<div className="flex min-h-screen items-center justify-center bg-gray-900">
 				<div className="text-center">
-					<div className="mb-4 text-gray-400">
-						<Search className="mx-auto h-16 w-16" />
-					</div>
 					<h3 className="mb-2 text-xl font-semibold text-white">Aucun événement disponible</h3>
 					<p className="text-gray-400">Revenez bientôt pour découvrir nos prochains événements</p>
 				</div>
@@ -230,117 +176,174 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 	return (
 		<div className="min-h-screen">
 			<div className="container mx-auto px-4 py-8">
-				{/* Search and Filters */}
-				<div className="mb-8 rounded-lg border border-gray-700 bg-gray-800 p-6 shadow-lg">
-					<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-						<div className="lg:col-span-2">
-							<div className="relative">
-								<Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform text-gray-400" />
-								<Input
-									placeholder="Rechercher un événement, une ville..."
-									value={searchTerm}
-									onChange={e => setSearchTerm(e.target.value)}
-									className="border-gray-600 bg-gray-700 pl-10 text-white placeholder-gray-400 focus:border-blue-500"
-								/>
-							</div>
-						</div>
-
-						<Select value={selectedType} onValueChange={setSelectedType}>
-							<SelectTrigger className="border-gray-600 bg-gray-700 text-white">
-								<SelectValue placeholder="Type d'événement" />
-							</SelectTrigger>
-							<SelectContent className="border-gray-700 bg-gray-800">
-								<SelectItem value="all" className="text-white hover:bg-gray-700">
-									Tous les types
-								</SelectItem>
-								<SelectItem value="triathlon" className="text-white hover:bg-gray-700">
-									Triathlon
-								</SelectItem>
-								<SelectItem value="trail" className="text-white hover:bg-gray-700">
-									Trail
-								</SelectItem>
-								<SelectItem value="route" className="text-white hover:bg-gray-700">
-									Route
-								</SelectItem>
-								<SelectItem value="ultra" className="text-white hover:bg-gray-700">
-									Ultra
-								</SelectItem>
-							</SelectContent>
-						</Select>
-
-						<Select value={sortBy} onValueChange={setSortBy}>
-							<SelectTrigger className="border-gray-600 bg-gray-700 text-white">
-								<SelectValue placeholder="Trier par" />
-							</SelectTrigger>
-							<SelectContent className="border-gray-700 bg-gray-800">
-								<SelectItem value="date" className="text-white hover:bg-gray-700">
-									Date
-								</SelectItem>
-								<SelectItem value="price" className="text-white hover:bg-gray-700">
-									Prix
-								</SelectItem>
-								<SelectItem value="participants" className="text-white hover:bg-gray-700">
-									Participants
-								</SelectItem>
-								<SelectItem value="distance" className="text-white hover:bg-gray-700">
-									Distance
-								</SelectItem>
-							</SelectContent>
-						</Select>
-					</div>
-
-					<div className="mt-4 flex items-center justify-between">
-						<p className="text-sm text-gray-400">
-							{filteredAndSortedEvents.length} événement{filteredAndSortedEvents.length !== 1 ? 's' : ''} trouvé
-							{filteredAndSortedEvents.length !== 1 ? 's' : ''}
-						</p>
-						<Button
-							variant="outline"
-							size="sm"
-							className="border-gray-600 bg-transparent text-gray-300 hover:bg-gray-700"
-						>
-							<Filter className="mr-2 h-4 w-4" />
-							Filtres avancés
-						</Button>
+				{/* Header and Race Type Summary */}
+				<div className="mb-8">
+					<h1 className="mb-2 text-3xl font-bold text-white">{t.events?.title ?? 'Événements sportifs'}</h1>
+					<p className="mb-6 text-gray-400">
+						{t.events?.description ?? 'Découvrez et inscrivez-vous à des courses sportives partout en France.'}
+					</p>
+					<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+						{raceTypeSummary.map(type => (
+							<Card key={type.key} className={`flex flex-col items-center justify-center py-6 ${type.color} shadow-lg`}>
+								<div className="mb-2">{type.icon}</div>
+								<div className="text-lg font-bold text-white">{type.label}</div>
+								<div className="mt-1 text-2xl font-bold text-white">{type.count}</div>
+							</Card>
+						))}
 					</div>
 				</div>
 
-				{/* Featured Events (Next 30 days) */}
-				{featuredEvents.length > 0 && (
+				{/* Filter Bar and View Toggle */}
+				<div className="mb-8 rounded-lg border border-gray-700 bg-gray-800 p-6 shadow-lg">
+					<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+						<div className="lg:col-span-2">
+							<input
+								type="text"
+								placeholder="Rechercher un événement, une ville..."
+								value={searchTerm}
+								onChange={e => setSearchTerm(e.target.value)}
+								className="w-full rounded border-gray-600 bg-gray-700 px-4 py-2 text-white placeholder-gray-400 focus:border-blue-500"
+							/>
+						</div>
+						<div>
+							<select
+								value={selectedType}
+								onChange={e => setSelectedType(e.target.value)}
+								className="w-full rounded border-gray-600 bg-gray-700 px-4 py-2 text-white"
+							>
+								<option value="all">Tous les types</option>
+								<option value="triathlon">Triathlon</option>
+								<option value="trail">Trail</option>
+								<option value="route">Route</option>
+								<option value="ultra">Ultra</option>
+							</select>
+						</div>
+						<div>
+							<select
+								value={sortBy}
+								onChange={e => setSortBy(e.target.value)}
+								className="w-full rounded border-gray-600 bg-gray-700 px-4 py-2 text-white"
+							>
+								<option value="date">Date</option>
+								<option value="price">Prix</option>
+								<option value="participants">Participants</option>
+								<option value="distance">Distance</option>
+							</select>
+						</div>
+					</div>
+					<div className="mt-4 flex items-center justify-between">
+						<p className="text-sm text-gray-400">
+							{/* Placeholder for event count, will be updated with filtered events */}
+							{prefetchedEvents.length} événement{prefetchedEvents.length !== 1 ? 's' : ''} trouvé
+							{prefetchedEvents.length !== 1 ? 's' : ''}
+						</p>
+						<button
+							className={`rounded border border-gray-600 bg-transparent px-4 py-2 text-gray-300 transition hover:bg-gray-700 ${viewMode === 'calendar' ? 'bg-blue-700 text-white' : ''}`}
+							onClick={() => setViewMode(viewMode === 'list' ? 'calendar' : 'list')}
+						>
+							{viewMode === 'list' ? 'Vue calendrier' : 'Vue liste'}
+						</button>
+					</div>
+				</div>
+
+				{/* List View */}
+				{viewMode === 'list' && (
+					<>
+						{/* Featured Events (Next 30 days) */}
+						{featuredEvents.length > 0 && (
+							<div className="mb-12">
+								<div className="mb-6 flex items-center">
+									<Star className="mr-2 h-6 w-6 text-yellow-500" />
+									<h2 className="text-2xl font-bold text-white">Événements à venir</h2>
+									<span className="ml-3 rounded bg-yellow-500/20 px-3 py-1 text-xs text-yellow-400">
+										Prochains 30 jours
+									</span>
+								</div>
+								<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+									{featuredEvents.map(event => (
+										<EventCard key={event.id} event={event} />
+									))}
+								</div>
+							</div>
+						)}
+
+						{/* Upcoming Events */}
+						{upcomingEvents.length > 0 && (
+							<div>
+								<h2 className="mb-6 text-2xl font-bold text-white">Tous les événements</h2>
+								<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+									{upcomingEvents.map(event => (
+										<EventCard key={event.id} event={event} />
+									))}
+								</div>
+							</div>
+						)}
+
+						{/* No Results */}
+						{sortedEvents.length === 0 && (
+							<div className="py-12 text-center">
+								<h3 className="mb-2 text-xl font-semibold text-white">Aucun événement trouvé</h3>
+								<p className="text-gray-400">Essayez de modifier vos critères de recherche</p>
+							</div>
+						)}
+					</>
+				)}
+
+				{/* Calendar View */}
+				{viewMode === 'calendar' && (
 					<div className="mb-12">
-						<div className="mb-6 flex items-center">
-							<Star className="mr-2 h-6 w-6 text-yellow-500" />
-							<h2 className="text-2xl font-bold text-white">Événements à venir</h2>
-							<Badge className="ml-3 border-yellow-500/30 bg-yellow-500/20 text-yellow-400">Prochains 30 jours</Badge>
-						</div>
-						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-							{featuredEvents.map(event => (
-								<EventCard key={event.id} event={event} />
+						<h2 className="mb-6 text-2xl font-bold text-white">Calendrier des événements</h2>
+						<div className="grid grid-cols-7 gap-2 rounded-lg bg-gray-800 p-4">
+							{/* Day headers */}
+							{['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map(day => (
+								<div key={day} className="pb-2 text-center text-xs font-bold text-gray-400">
+									{day}
+								</div>
 							))}
+							{/* Empty cells for first week */}
+							{Array((firstDayOfWeek + 6) % 7)
+								.fill(null)
+								.map((_, i) => (
+									<div key={`empty-${i}`} />
+								))}
+							{/* Calendar days */}
+							{Array(daysInMonth)
+								.fill(null)
+								.map((_, i) => {
+									const dateObj = new Date(currentYear, currentMonth, i + 1)
+									const dateKey = dateObj.toDateString()
+									const dayEvents = eventsByDate[dateKey] ?? []
+									return (
+										<div key={i} className="flex min-h-[60px] flex-col rounded border border-gray-700 bg-gray-900 p-1">
+											<div className="mb-1 text-xs font-bold text-white">{i + 1}</div>
+											{dayEvents.length > 0 ? (
+												<div className="space-y-1">
+													{dayEvents.slice(0, 2).map(event => (
+														<div
+															key={event.id}
+															className={`rounded px-1 py-0.5 text-xs text-white ${eventTypeColors[event.typeCourse]} truncate`}
+															title={event.name}
+														>
+															{event.name}
+														</div>
+													))}
+													{dayEvents.length > 2 && (
+														<div className="text-[10px] text-gray-400">+{dayEvents.length - 2} autres</div>
+													)}
+												</div>
+											) : (
+												<div className="flex-1" />
+											)}
+										</div>
+									)
+								})}
 						</div>
-					</div>
-				)}
-
-				{/* Upcoming Events */}
-				{upcomingEvents.length > 0 && (
-					<div>
-						<h2 className="mb-6 text-2xl font-bold text-white">Tous les événements</h2>
-						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-							{upcomingEvents.map(event => (
-								<EventCard key={event.id} event={event} />
-							))}
-						</div>
-					</div>
-				)}
-
-				{/* No Results */}
-				{filteredAndSortedEvents.length === 0 && (
-					<div className="py-12 text-center">
-						<div className="mb-4 text-gray-600">
-							<Search className="mx-auto h-16 w-16" />
-						</div>
-						<h3 className="mb-2 text-xl font-semibold text-white">Aucun événement trouvé</h3>
-						<p className="text-gray-400">Essayez de modifier vos critères de recherche</p>
+						{sortedEvents.length === 0 && (
+							<div className="py-12 text-center">
+								<h3 className="mb-2 text-xl font-semibold text-white">Aucun événement trouvé</h3>
+								<p className="text-gray-400">Essayez de modifier vos critères de recherche</p>
+							</div>
+						)}
 					</div>
 				)}
 			</div>
