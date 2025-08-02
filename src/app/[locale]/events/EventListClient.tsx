@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import { Star, Mountain, Route } from 'lucide-react'
 import { Card } from '@/components/ui/card'
+import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
 
 import type { Event } from '@/models/event.model'
 import { getTranslations } from '@/lib/getDictionary'
@@ -31,12 +32,10 @@ const eventTypeLabels = {
 export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps) {
 	function getCountLabel(): string {
 		if (typeof t.events?.countLabel === 'string' && t.events.countLabel !== undefined && t.events.countLabel !== null) {
-			return (t.events.countLabel as string).replace('{count}', String(prefetchedEvents.length))
+			return t.events.countLabel.replace('{count}', String(prefetchedEvents.length))
 		}
 		return `${prefetchedEvents.length} événement${prefetchedEvents.length !== 1 ? 's' : ''} trouvé${prefetchedEvents.length !== 1 ? 's' : ''}`
 	}
-	// ...existing code...
-	// ...existing code...
 	// Calendar view logic
 	const currentMonth = new Date().getMonth()
 	const currentYear = new Date().getFullYear()
@@ -45,11 +44,37 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	const firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay() // 0=Sunday
 
 	// State and translation variables
-	const [searchTerm, setSearchTerm] = useState('')
-	const [selectedType, setSelectedType] = useState<string>('all')
-	const [sortBy, setSortBy] = useState<string>('date')
-	const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list')
 	const t = getTranslations(locale, Translations)
+
+	// useQueryStates for filter state management via URL
+	const [query, setQuery] = useQueryStates(
+		{
+			search: parseAsString.withDefault(''),
+			type: parseAsStringLiteral(['all', 'triathlon', 'trail', 'route', 'ultra'] as const).withDefault('all'),
+			sort: parseAsStringLiteral(['date', 'price', 'participants', 'distance'] as const).withDefault('date'),
+			view: parseAsStringLiteral(['list', 'calendar'] as const).withDefault('list'),
+		},
+		{ history: 'push' }
+	)
+
+	const searchTerm = query.search
+	const selectedType = query.type
+	const sortBy = query.sort
+	const viewMode = query.view as 'list' | 'calendar'
+
+	// Handlers for filter changes
+	const handleSearchChange = (val: string) => {
+		void setQuery({ search: val })
+	}
+	const handleTypeChange = (val: 'all' | 'triathlon' | 'trail' | 'route' | 'ultra') => {
+		void setQuery({ type: val })
+	}
+	const handleSortChange = (val: 'date' | 'price' | 'participants' | 'distance') => {
+		void setQuery({ sort: val })
+	}
+	const handleViewModeChange = (val: 'list' | 'calendar') => {
+		void setQuery({ view: val })
+	}
 
 	// Filtering and sorting logic
 	const filteredEvents = useMemo(() => {
@@ -186,7 +211,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							<button
 								key={type.key}
 								className={`flex flex-col items-center justify-center py-6 transition hover:scale-105 focus:ring-2 focus:ring-blue-500 focus:outline-none ${type.color} shadow-lg`}
-								onClick={() => setSelectedType(type.key)}
+								onClick={() => handleTypeChange(type.key as 'all' | 'triathlon' | 'trail' | 'route' | 'ultra')}
 								aria-label={(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
 							>
 								<div className="mb-2">{type.icon}</div>
@@ -207,14 +232,14 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								type="text"
 								placeholder={t.events?.searchPlaceholder ?? 'Rechercher un événement, une ville...'}
 								value={searchTerm}
-								onChange={e => setSearchTerm(e.target.value)}
+								onChange={e => handleSearchChange(e.target.value)}
 								className="w-full rounded border-gray-600 bg-gray-700 px-4 py-2 text-white placeholder-gray-400 focus:border-blue-500"
 							/>
 						</div>
 						<div>
 							<select
 								value={selectedType}
-								onChange={e => setSelectedType(e.target.value)}
+								onChange={e => handleTypeChange(e.target.value as 'all' | 'triathlon' | 'trail' | 'route' | 'ultra')}
 								className="w-full rounded border-gray-600 bg-gray-700 px-4 py-2 text-white"
 							>
 								<option value="all">{t.events?.filters?.all ?? 'Tous les types'}</option>
@@ -229,7 +254,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 						<div>
 							<select
 								value={sortBy}
-								onChange={e => setSortBy(e.target.value)}
+								onChange={e => handleSortChange(e.target.value as 'date' | 'price' | 'participants' | 'distance')}
 								className="w-full rounded border-gray-600 bg-gray-700 px-4 py-2 text-white"
 							>
 								<option value="date">{t.events?.filters?.date ?? 'Date'}</option>
@@ -243,7 +268,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 						<p className="text-sm text-gray-400">{getCountLabel()}</p>
 						<button
 							className={`rounded border border-gray-600 bg-transparent px-4 py-2 text-gray-300 transition hover:bg-gray-700 ${viewMode === 'calendar' ? 'bg-blue-700 text-white' : ''}`}
-							onClick={() => setViewMode(viewMode === 'list' ? 'calendar' : 'list')}
+							onClick={() => handleViewModeChange(viewMode === 'list' ? 'calendar' : 'list')}
 						>
 							{viewMode === 'list' ? (t.events?.calendarView ?? 'Vue calendrier') : (t.events?.listView ?? 'Vue liste')}
 						</button>
