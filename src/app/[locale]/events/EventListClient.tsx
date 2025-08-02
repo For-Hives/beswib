@@ -28,7 +28,7 @@ const eventTypeLabels = {
 	ultra: 'ULTRA',
 }
 
-export default function EventsPage({ prefetchedEvents, locale, error }: EventsPageProps) {
+export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps) {
 	// Calendar view logic
 	const currentMonth = new Date().getMonth()
 	const currentYear = new Date().getFullYear()
@@ -96,30 +96,7 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 		return eventDate > thirtyDaysFromNow
 	})
 
-	// Simple event card
-	const EventCard = ({ event }: { event: Event }) => (
-		<Card className="flex flex-col gap-2 border border-gray-700 bg-gray-900 p-4">
-			<div className="mb-2 flex items-center gap-2">
-				<span className={`rounded px-2 py-1 text-xs ${eventTypeColors[event.typeCourse]}`}>
-					{eventTypeLabels[event.typeCourse]}
-				</span>
-				<span className="text-xs text-gray-400">
-					{new Date(event.eventDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })}
-				</span>
-			</div>
-			<div className="mb-1 text-lg font-bold text-white">{event.name}</div>
-			<div className="mb-1 text-sm text-gray-400">{event.location}</div>
-			{event.distanceKm != null && <div className="text-xs text-gray-400">Distance: {event.distanceKm}km</div>}
-			{event.participants != null && <div className="text-xs text-gray-400">Participants: {event.participants}</div>}
-			{event.officialStandardPrice != null && (
-				<div className="text-xs font-bold text-green-400">À partir de {event.officialStandardPrice}€</div>
-			)}
-		</Card>
-	)
-
-	// Featured events (upcoming events within next 30 days)
-
-	// Race type summary cards
+	// Race type summary cards as quick-access buttons
 	const raceTypeSummary = [
 		{
 			key: 'triathlon',
@@ -151,27 +128,41 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 		},
 	]
 
-	if (error != null) {
-		return (
-			<div className="flex min-h-screen items-center justify-center bg-gray-900">
-				<div className="text-center">
-					<div className="mb-2 text-xl text-red-400">{t.GLOBAL.errors.unexpected}</div>
-					<div className="text-gray-300">{error}</div>
-				</div>
+	// Improved event card (Tailwind UI best practices)
+	const EventCard = ({ event }: { event: Event }) => (
+		<Card className="flex flex-col gap-2 border border-gray-700 bg-gray-900 p-4 transition hover:shadow-xl">
+			<div className="mb-2 flex items-center gap-2">
+				<span className={`rounded px-2 py-1 text-xs font-semibold ${eventTypeColors[event.typeCourse]}`}>
+					{eventTypeLabels[event.typeCourse]}
+				</span>
+				<span className="text-xs text-gray-400">
+					{new Date(event.eventDate).toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' })}
+				</span>
 			</div>
-		)
-	}
-
-	if (prefetchedEvents.length === 0) {
-		return (
-			<div className="flex min-h-screen items-center justify-center bg-gray-900">
-				<div className="text-center">
-					<h3 className="mb-2 text-xl font-semibold text-white">Aucun événement disponible</h3>
-					<p className="text-gray-400">Revenez bientôt pour découvrir nos prochains événements</p>
-				</div>
+			<div className="truncate text-lg font-bold text-white" title={event.name}>
+				{event.name}
 			</div>
-		)
-	}
+			<div className="flex items-center gap-1 text-sm text-gray-400">
+				<svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						strokeWidth={2}
+						d="M17.657 16.657L13.414 12.414a4 4 0 10-5.657 5.657l4.243 4.243a8 8 0 1011.314-11.314l-4.243 4.243z"
+					/>
+				</svg>
+				{event.location}
+			</div>
+			<div className="flex flex-wrap gap-2 text-xs text-gray-400">
+				{event.distanceKm != null && <span>{event.distanceKm}km</span>}
+				{event.elevationGainM != null && <span>{event.elevationGainM}m D+</span>}
+				{event.participants != null && <span>{event.participants} participants</span>}
+			</div>
+			{event.officialStandardPrice != null && (
+				<div className="text-xs font-bold text-green-400">À partir de {event.officialStandardPrice}€</div>
+			)}
+		</Card>
+	)
 
 	return (
 		<div className="min-h-screen">
@@ -184,11 +175,16 @@ export default function EventsPage({ prefetchedEvents, locale, error }: EventsPa
 					</p>
 					<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
 						{raceTypeSummary.map(type => (
-							<Card key={type.key} className={`flex flex-col items-center justify-center py-6 ${type.color} shadow-lg`}>
+							<button
+								key={type.key}
+								className={`flex flex-col items-center justify-center py-6 transition hover:scale-105 focus:ring-2 focus:ring-blue-500 focus:outline-none ${type.color} shadow-lg`}
+								onClick={() => setSelectedType(type.key)}
+								aria-label={type.label}
+							>
 								<div className="mb-2">{type.icon}</div>
 								<div className="text-lg font-bold text-white">{type.label}</div>
 								<div className="mt-1 text-2xl font-bold text-white">{type.count}</div>
-							</Card>
+							</button>
 						))}
 					</div>
 				</div>
