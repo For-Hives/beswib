@@ -28,7 +28,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 	const navigationLinks = [
 		{ label: t.navbar.homeLink, href: '/', current: false },
 		{ label: t.navbar.racesLink, href: '/events', current: false },
-		{ label: t.navbar.calendarLink, href: '/calendar', current: false },
+
 		{ label: t.navbar.marketplaceLink, href: '/marketplace', current: false },
 		{ label: t.navbar.faqLink, href: '/faq', current: false },
 		{ label: t.navbar.contactLink, href: '/contact', current: false },
