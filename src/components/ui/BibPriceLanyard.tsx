@@ -270,7 +270,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 	useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], ropePositions.ropeJointLengths.j3])
 	useSphericalJoint(j3, card, [
 		[0, 0, 0],
-		[0, 1.45, 0],
+		[0, 2.4, 0], // Ajusté pour s'attacher dans le clamp
 	])
 
 	useEffect(() => {
@@ -361,7 +361,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 						clearcoatRoughness={0.15}
 						roughness={0.9}
 						metalness={0.8}
-						color="#f0f0f0"
+						color="#d0d0d0"
 					/>
 				</mesh>
 
@@ -422,7 +422,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 				{/* Clip - real geometry from GLB model */}
 				{nodes.clip?.geometry != null && (
 					<mesh geometry={nodes.clip.geometry}>
-						<meshStandardMaterial color="#666666" metalness={1} roughness={0.3} />
+						<meshStandardMaterial color="#404040" metalness={1} roughness={0.3} />
 					</mesh>
 				)}
 
