@@ -79,7 +79,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 	async function onSubmit(values: RunnerFormData) {
 		if (user === null) return
-		
+
 		startTransition(async () => {
 			try {
 				setSubmitStatus('idle')
@@ -109,8 +109,8 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 					<AlertTriangle className="h-4 w-4" />
 					<AlertTitle>Profile Required for Marketplace Access</AlertTitle>
 					<AlertDescription>
-						Please complete all required fields below to access the marketplace and purchase bibs. 
-						Fields marked with * are required.
+						Please complete all required fields below to access the marketplace and purchase bibs. Fields marked with *
+						are required.
 					</AlertDescription>
 				</Alert>
 			)}
@@ -140,9 +140,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 				<Alert variant="destructive">
 					<AlertTriangle className="h-4 w-4" />
 					<AlertTitle>Error Saving Profile</AlertTitle>
-					<AlertDescription>
-						There was an error saving your profile. Please try again.
-					</AlertDescription>
+					<AlertDescription>There was an error saving your profile. Please try again.</AlertDescription>
 				</Alert>
 			)}
 
@@ -151,7 +149,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 				<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
-							<UserIcon className="h-5 w-5 text-primary" />
+							<UserIcon className="text-primary h-5 w-5" />
 							Personal Information
 						</CardTitle>
 					</CardHeader>
@@ -168,9 +166,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								type="text"
 							/>
 							{form.formState.errors.firstName && (
-								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
-									{form.formState.errors.firstName.message}
-								</p>
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.firstName.message}</p>
 							)}
 						</div>
 
@@ -186,9 +182,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								type="text"
 							/>
 							{form.formState.errors.lastName && (
-								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
-									{form.formState.errors.lastName.message}
-								</p>
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.lastName.message}</p>
 							)}
 						</div>
 
@@ -203,9 +197,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								type="date"
 							/>
 							{form.formState.errors.birthDate && (
-								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
-									{form.formState.errors.birthDate.message}
-								</p>
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.birthDate.message}</p>
 							)}
 						</div>
 
@@ -231,8 +223,8 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="gender">
 								Gender *
 							</Label>
-							<SelectAlt 
-								onValueChange={(value) => form.setValue('gender', value as 'male' | 'female' | 'other')}
+							<SelectAlt
+								onValueChange={value => form.setValue('gender', value as 'male' | 'female' | 'other')}
 								value={form.watch('gender')}
 							>
 								<SelectTriggerAlt id="gender">
@@ -245,9 +237,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								</SelectContentAlt>
 							</SelectAlt>
 							{form.formState.errors.gender && (
-								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
-									{form.formState.errors.gender.message}
-								</p>
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.gender.message}</p>
 							)}
 						</div>
 					</CardContent>
@@ -257,7 +247,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 				<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
-							<Shield className="h-5 w-5 text-primary" />
+							<Shield className="text-primary h-5 w-5" />
 							Emergency Contact
 						</CardTitle>
 					</CardHeader>
@@ -299,7 +289,10 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 						</div>
 
 						<div className="sm:col-span-2">
-							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="emergencyContactRelationship">
+							<Label
+								className="text-foreground mb-2 block text-base font-medium"
+								htmlFor="emergencyContactRelationship"
+							>
 								Relationship *
 							</Label>
 							<Input
@@ -322,7 +315,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 				<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
-							<MapPin className="h-5 w-5 text-primary" />
+							<MapPin className="text-primary h-5 w-5" />
 							Address Information
 						</CardTitle>
 					</CardHeader>
@@ -339,9 +332,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								type="text"
 							/>
 							{form.formState.errors.address && (
-								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
-									{form.formState.errors.address.message}
-								</p>
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.address.message}</p>
 							)}
 						</div>
 
@@ -375,9 +366,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								type="text"
 							/>
 							{form.formState.errors.city && (
-								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
-									{form.formState.errors.city.message}
-								</p>
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.city.message}</p>
 							)}
 						</div>
 
@@ -393,9 +382,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								type="text"
 							/>
 							{form.formState.errors.country && (
-								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
-									{form.formState.errors.country.message}
-								</p>
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.country.message}</p>
 							)}
 						</div>
 					</CardContent>
@@ -405,9 +392,9 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 				<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
-							<FileText className="h-5 w-5 text-primary" />
+							<FileText className="text-primary h-5 w-5" />
 							Documents & Affiliations
-							<span className="text-sm font-normal text-muted-foreground">(Optional)</span>
+							<span className="text-muted-foreground text-sm font-normal">(Optional)</span>
 						</CardTitle>
 					</CardHeader>
 					<CardContent className="grid grid-cols-1 gap-6">
@@ -421,9 +408,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								placeholder="https://example.com/medical-cert.pdf"
 								type="url"
 							/>
-							<p className="text-muted-foreground mt-1 text-sm">
-								Optional: Link to your medical certificate
-							</p>
+							<p className="text-muted-foreground mt-1 text-sm">Optional: Link to your medical certificate</p>
 						</div>
 
 						<div>
@@ -436,24 +421,15 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								placeholder="Running Club Name"
 								type="text"
 							/>
-							<p className="text-muted-foreground mt-1 text-sm">
-								Optional: Name of your running/sports club
-							</p>
+							<p className="text-muted-foreground mt-1 text-sm">Optional: Name of your running/sports club</p>
 						</div>
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="licenseNumber">
 								License Number
 							</Label>
-							<Input
-								{...form.register('licenseNumber')}
-								id="licenseNumber"
-								placeholder="FFA123456"
-								type="text"
-							/>
-							<p className="text-muted-foreground mt-1 text-sm">
-								Optional: Your athletic federation license number
-							</p>
+							<Input {...form.register('licenseNumber')} id="licenseNumber" placeholder="FFA123456" type="text" />
+							<p className="text-muted-foreground mt-1 text-sm">Optional: Your athletic federation license number</p>
 						</div>
 					</CardContent>
 				</Card>
@@ -461,7 +437,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 				{/* Submit Button */}
 				<div className="flex justify-end">
 					<Button
-						className="flex items-center gap-2 text-lg font-medium px-8 py-3"
+						className="flex items-center gap-2 px-8 py-3 text-lg font-medium"
 						disabled={isPending}
 						size="lg"
 						type="submit"
