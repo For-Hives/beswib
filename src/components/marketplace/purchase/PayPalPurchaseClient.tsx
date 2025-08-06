@@ -45,6 +45,7 @@ export default function PayPalPurchaseClient({
 	locale,
 	bib,
 	eventData,
+	organizerData,
 }: Readonly<PayPalPurchaseClientProps>) {
 	const [errorMessage, setErrorMessage] = useState<null | string>(null)
 	const [successMessage, setSuccessMessage] = useState<null | string>(null)
@@ -523,7 +524,7 @@ export default function PayPalPurchaseClient({
 													<div>
 														<p className="text-muted-foreground text-sm font-medium">Organization</p>
 														<p className="text-foreground font-medium">
-															{organizerData?.name || eventData?.expand?.organizer?.name || 'Unknown Organizer'}
+															{organizerData?.name ?? eventData?.expand?.organizer?.name ?? 'Unknown Organizer'}
 														</p>
 													</div>
 
@@ -537,29 +538,33 @@ export default function PayPalPurchaseClient({
 													)}
 
 													{/* Website */}
-													{(organizerData?.website || eventData?.expand?.organizer?.website) && (
+													{((organizerData?.website != null && organizerData.website.trim() !== '') ||
+														(eventData?.expand?.organizer?.website != null &&
+															eventData.expand.organizer.website.trim() !== '')) && (
 														<div>
 															<p className="text-muted-foreground text-sm font-medium">Website</p>
 															<a
-																href={organizerData?.website || eventData?.expand?.organizer?.website || '#'}
+																href={organizerData?.website ?? eventData?.expand?.organizer?.website ?? '#'}
 																target="_blank"
 																rel="noopener noreferrer"
 																className="text-primary hover:text-primary/80 text-sm font-medium underline"
 															>
-																{organizerData?.website || eventData?.expand?.organizer?.website}
+																{organizerData?.website ?? eventData?.expand?.organizer?.website}
 															</a>
 														</div>
 													)}
 
 													{/* Contact Email */}
-													{(organizerData?.email || eventData?.expand?.organizer?.email) && (
+													{((organizerData?.email != null && organizerData.email.trim() !== '') ||
+														(eventData?.expand?.organizer?.email != null &&
+															eventData.expand.organizer.email.trim() !== '')) && (
 														<div>
 															<p className="text-muted-foreground text-sm font-medium">Contact</p>
 															<a
-																href={`mailto:${organizerData?.email || eventData?.expand?.organizer?.email}`}
+																href={`mailto:${organizerData?.email ?? eventData?.expand?.organizer?.email}`}
 																className="text-primary hover:text-primary/80 text-sm font-medium underline"
 															>
-																{organizerData?.email || eventData?.expand?.organizer?.email}
+																{organizerData?.email ?? eventData?.expand?.organizer?.email}
 															</a>
 														</div>
 													)}
