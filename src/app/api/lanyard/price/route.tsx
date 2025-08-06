@@ -50,6 +50,9 @@ export function GET(request: NextRequest) {
 								fontSize: '12px',
 								fontWeight: 'bold',
 								border: '1px solid #ef4444',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
 							}}
 						>
 							-{discountPercentage}%
@@ -73,6 +76,8 @@ export function GET(request: NextRequest) {
 									color: '#666',
 									textDecoration: 'line-through',
 									opacity: 0.7,
+									display: 'flex',
+									justifyContent: 'center',
 								}}
 							>
 								{parseFloat(originalPrice).toFixed(2)} {currency}
@@ -87,6 +92,8 @@ export function GET(request: NextRequest) {
 								color: '#ffffff',
 								textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
 								marginBottom: '4px',
+								display: 'flex',
+								justifyContent: 'center',
 							}}
 						>
 							€{parseFloat(price).toFixed(0)}
@@ -100,6 +107,8 @@ export function GET(request: NextRequest) {
 								fontWeight: '600',
 								textTransform: 'uppercase',
 								letterSpacing: '1px',
+								display: 'flex',
+								justifyContent: 'center',
 							}}
 						>
 							Race Bib
@@ -121,6 +130,9 @@ export function GET(request: NextRequest) {
 							fontWeight: 'bold',
 							textTransform: 'uppercase',
 							letterSpacing: '1px',
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
 						}}
 					>
 						BESWIB
