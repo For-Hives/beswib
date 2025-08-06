@@ -229,6 +229,8 @@ export default function PayPalPurchaseClient({
 
 	return (
 		<div className="relative">
+			{/* Interactive Price Lanyard */}
+			<SimplePriceLanyard price={bib.price} originalPrice={bib.originalPrice} currency="EUR" className="" />
 			<div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 				{/* Product Layout */}
 				<div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
@@ -745,7 +747,6 @@ export default function PayPalPurchaseClient({
 									</ul>
 								</div>
 							</div>
-							
 
 							{/* Payment Section - Right Side */}
 							<div className="space-y-6">
