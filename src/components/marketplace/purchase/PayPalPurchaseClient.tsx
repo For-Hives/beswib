@@ -196,75 +196,77 @@ export default function PayPalPurchaseClient({
 	const samEventBibs = otherBibs.filter(otherBib => otherBib.event.id === bib.event.id && otherBib.id !== bib.id)
 
 	return (
-		<div className="from-background via-primary/5 to-background relative bg-gradient-to-br">
+		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
 			<div className="relative pt-12 pb-12">
-				<div className="container mx-auto max-w-4xl p-6">
+				<div className="container mx-auto max-w-6xl p-6">
 					{/* Header */}
-					<div className="mb-8 space-y-2 text-center">
-						<h1 className="text-foreground text-3xl font-bold tracking-tight">Purchase Bib</h1>
-						<p className="text-muted-foreground text-lg">Complete your purchase to secure your race bib</p>
+					<div className="mb-12 space-y-2 text-center">
+						<h1 className="text-foreground text-4xl font-bold tracking-tight">Purchase Bib</h1>
+						<p className="text-muted-foreground text-lg">Complete your purchase to secure your race bib for {bib.event.name}</p>
 					</div>
 
-					{/* Main Content Grid */}
-					<div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-						{/* Event Image Card */}
-						<div className="border-border/50 bg-card/80 relative overflow-hidden rounded-lg border backdrop-blur-sm transition-all duration-200 hover:shadow-lg lg:col-span-2">
-							<div className="relative h-64 lg:h-80">
-								<Image
-									alt="Event Image"
-									className="object-cover"
-									fill
-									sizes="(max-width: 1024px) 100vw, 66vw"
-									src={bib.event.image}
-								/>
-								{/* Event Type Badge */}
-								<div className="absolute top-4 left-4 z-10">
-									<span
-										className={cn(
-											'inline-block rounded-full border px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-md',
-											bgFromType(bib.event.type)
-										)}
-									>
-										{bib.event.type.charAt(0).toUpperCase() + bib.event.type.slice(1)}
-									</span>
-								</div>
-								{/* Discount Badge */}
-								{!!bib.originalPrice && ((bib.originalPrice - bib.price) / bib.originalPrice) * 100 > 10 && (
-									<div className="absolute top-4 right-4 z-10">
-										<span className="rounded-full border border-red-500/50 bg-red-500/15 px-3 py-1 text-xs font-medium text-white/90 shadow-md shadow-red-500/20 backdrop-blur-md">
-											{(-((bib.originalPrice - bib.price) / bib.originalPrice) * 100).toFixed(0)}%
+					{/* Event Overview Card */}
+					<Card className="mb-8 border-border/50 bg-card/80 backdrop-blur-sm">
+						<div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+							{/* Event Image */}
+							<div className="relative overflow-hidden rounded-lg lg:col-span-2">
+								<div className="relative h-64 lg:h-80">
+									<Image
+										alt="Event Image"
+										className="object-cover"
+										fill
+										sizes="(max-width: 1024px) 100vw, 66vw"
+										src={bib.event.image}
+									/>
+									{/* Event Type Badge */}
+									<div className="absolute top-4 left-4 z-10">
+										<span
+											className={cn(
+												'inline-block rounded-full border px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-md',
+												bgFromType(bib.event.type)
+											)}
+										>
+											{bib.event.type.charAt(0).toUpperCase() + bib.event.type.slice(1)}
 										</span>
 									</div>
-								)}
-							</div>
-							{/* Event Title */}
-							<div className="p-6">
-								<h2 className="text-foreground text-2xl font-bold">{bib.event.name}</h2>
-								<p className="text-muted-foreground mt-1 text-sm italic">
-									Sold by {bib.user.firstName ?? 'Anonymous'} {bib.user.lastName ?? ''}
-								</p>
-							</div>
-						</div>
-
-						{/* Price and Purchase Card */}
-						<div className="border-border/50 bg-card/80 flex flex-col justify-between rounded-lg border p-6 backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
-							<div>
-								<h3 className="mb-4 text-lg font-semibold">Price</h3>
-								<div className="mb-6">
-									<p className="text-foreground text-4xl font-bold">{bib.price}€</p>
-									{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
-										<p className="text-muted-foreground text-lg line-through">{bib.originalPrice}€</p>
-									)}
-									{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
-										<p className="text-green-600 text-sm font-medium mt-1">
-											Save €{(bib.originalPrice - bib.price).toFixed(2)} ({(((bib.originalPrice - bib.price) / bib.originalPrice) * 100).toFixed(0)}% off)
-										</p>
+									{/* Discount Badge */}
+									{!!bib.originalPrice && ((bib.originalPrice - bib.price) / bib.originalPrice) * 100 > 10 && (
+										<div className="absolute top-4 right-4 z-10">
+											<Badge variant="destructive" className="text-white">
+												{(-((bib.originalPrice - bib.price) / bib.originalPrice) * 100).toFixed(0)}% OFF
+											</Badge>
+										</div>
 									)}
 								</div>
+								<div className="p-6">
+									<h2 className="text-foreground text-2xl font-bold">{bib.event.name}</h2>
+									<p className="text-muted-foreground mt-1 text-sm italic">
+										Sold by {bib.user.firstName ?? 'Anonymous'} {bib.user.lastName ?? ''}
+									</p>
+								</div>
 							</div>
-							{/* Show alerts for specific cases */}
+
+							{/* Price and Purchase Section */}
+							<div className="flex flex-col justify-between p-6">
+								<div>
+									<h3 className="mb-4 text-lg font-semibold">Price</h3>
+									<div className="mb-6">
+										<p className="text-foreground text-4xl font-bold">{bib.price}€</p>
+										{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
+											<p className="text-muted-foreground text-lg line-through">{bib.originalPrice}€</p>
+										)}
+										{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
+											<p className="mt-1 text-sm font-medium text-green-600">
+												Save €{(bib.originalPrice - bib.price).toFixed(2)} (
+												{(((bib.originalPrice - bib.price) / bib.originalPrice) * 100).toFixed(0)}% off)
+											</p>
+										)}
+									</div>
+								</div>
+								
+								{/* Show alerts for specific cases */}
 							{!isProfileComplete && isSignedIn === true && !isOwnBib && (
 								<Alert className="mb-4" variant="destructive">
 									<AlertTriangle className="h-4 w-4" />
@@ -314,8 +316,9 @@ export default function PayPalPurchaseClient({
 									Buy Now
 								</Button>
 							)}
+							</div>
 						</div>
-					</div>
+					</Card>
 
 					{/* Bib-Specific Information */}
 					{bibData && (
@@ -337,9 +340,9 @@ export default function PayPalPurchaseClient({
 													<Tag className="h-5 w-5" />
 												</div>
 												<div>
-													<h4 className="font-medium text-foreground">Status</h4>
+													<h4 className="text-foreground font-medium">Status</h4>
 													<div className="flex items-center gap-2">
-														<Badge 
+														<Badge
 															variant={bibData.status === 'available' ? 'default' : 'secondary'}
 															className="capitalize"
 														>
@@ -365,7 +368,7 @@ export default function PayPalPurchaseClient({
 														<Hash className="h-5 w-5" />
 													</div>
 													<div>
-														<h4 className="font-medium text-foreground">Registration Number</h4>
+														<h4 className="text-foreground font-medium">Registration Number</h4>
 														<p className="text-muted-foreground">#{bibData.registrationNumber}</p>
 													</div>
 												</div>
@@ -376,13 +379,13 @@ export default function PayPalPurchaseClient({
 										{bibData.optionValues && Object.keys(bibData.optionValues).length > 0 && (
 											<div className="space-y-4">
 												<div>
-													<h4 className="font-medium text-foreground mb-3 flex items-center gap-2">
+													<h4 className="text-foreground mb-3 flex items-center gap-2 font-medium">
 														<CheckCircle2 className="h-4 w-4" />
 														Selected Options
 													</h4>
 													<div className="space-y-3">
 														{Object.entries(bibData.optionValues).map(([key, value]) => (
-															<div key={key} className="border-l-2 border-primary/20 pl-4">
+															<div key={key} className="border-primary/20 border-l-2 pl-4">
 																<div className="flex items-center justify-between">
 																	<span className="text-muted-foreground text-sm capitalize">
 																		{key.replace(/([A-Z])/g, ' $1').toLowerCase()}
