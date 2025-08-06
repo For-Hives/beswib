@@ -7,6 +7,7 @@ import { auth } from '@clerk/nextjs/server'
 import type { Event as EventModel } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
+import type { Organizer } from '@/models/organizer.model'
 
 import { fetchAvailableBibsForEvent, fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
 import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
@@ -14,6 +15,7 @@ import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider
 import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
 import { BibSale } from '@/components/marketplace/CardMarket'
 import { fetchUserByClerkId } from '@/services/user.services'
+import { fetchOrganizerById } from '@/services/organizer.services'
 import { Locale } from '@/lib/i18n-config'
 
 export const metadata: Metadata = {
@@ -51,6 +53,14 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 
 	if (!bib || !bib.expand?.eventId) {
 		return <div>Bib not found or event data missing</div>
+	}
+
+	// Fetch organizer information
+	let organizer: Organizer | null = null
+	try {
+		organizer = await fetchOrganizerById(bib.expand.eventId.organizer)
+	} catch (error) {
+		console.warn('Could not fetch organizer data:', error)
 	}
 
 	// Function to map status
@@ -126,6 +136,8 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 					otherBibs={otherBibs}
 					sellerUser={bib.expand?.sellerUserId ?? null}
 					user={user}
+					eventData={bib.expand.eventId}
+					organizerData={organizer ?? undefined}
 				/>
 			</PayPalProvider>
 		</div>
