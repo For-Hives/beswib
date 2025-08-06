@@ -1,8 +1,15 @@
+// the main component is from a component library, so we need to ignore some types.
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 'use client'
-
-import React, { useEffect, useRef, useState } from 'react'
-import { Canvas, extend, useFrame, type ThreeEvent } from '@react-three/fiber'
-import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei'
+import { useEffect, useRef, useState, Suspense } from 'react'
+import { Canvas, extend, useFrame } from '@react-three/fiber'
+import { useTexture, Environment, Lightformer } from '@react-three/drei'
 import {
 	BallCollider,
 	CuboidCollider,
@@ -10,98 +17,31 @@ import {
 	RigidBody,
 	useRopeJoint,
 	useSphericalJoint,
-	type RigidBodyProps,
+	RigidBodyProps,
 } from '@react-three/rapier'
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline'
 import * as THREE from 'three'
 
-// Extend Three.js elements for React Three Fiber
+// Import texture from public directory
+const lanyardTexture = '/models/lanyard.png'
+
 extend({ MeshLineGeometry, MeshLineMaterial })
 
-// Enhanced RigidBody reference interface with Rapier API methods
-interface EnhancedRigidBodyRef {
-	wakeUp?: () => void
-	setNextKinematicTranslation?: (translation: { x: number; y: number; z: number }) => void
-	translation?: () => THREE.Vector3
-	angvel?: () => THREE.Vector3
-	rotation?: () => THREE.Vector3
-	setAngvel?: (angularVelocity: { x: number; y: number; z: number }) => void
-	lerped?: THREE.Vector3
+interface LanyardProps {
+	position?: [number, number, number]
+	gravity?: [number, number, number]
+	fov?: number
+	transparent?: boolean
 }
 
-// Type for GLTF assets with specific node structure
-interface BibLanyardGLTF {
-	nodes: {
-		card: THREE.Mesh
-		clip: THREE.Mesh
-		clamp: THREE.Mesh
-	}
-	materials: {
-		metal: THREE.Material
-	}
-}
-
-// Enhanced MeshLine geometry interface
-interface MeshLineGeometryType extends THREE.BufferGeometry {
-	setPoints: (points: THREE.Vector3[]) => void
-}
-
-// Component props interfaces
-interface BibPriceLanyardProps {
-	readonly price: number
-	readonly originalPrice?: number
-	readonly currency?: string
-	readonly position?: [number, number, number]
-	readonly gravity?: [number, number, number]
-	readonly fov?: number
-	readonly transparent?: boolean
-	readonly className?: string
-}
-
-interface BandProps {
-	readonly maxSpeed?: number
-	readonly minSpeed?: number
-	readonly priceTextureUrl: string
-}
-
-// Physics body configuration - using as const for better type inference
-const PHYSICS_SEGMENT_PROPS = {
-	type: 'dynamic' as const,
-	canSleep: true,
-	colliders: false,
-	angularDamping: 4,
-	linearDamping: 4,
-} satisfies Partial<RigidBodyProps>
-
-// Physics joint configuration constants
-const JOINT_POSITIONS = {
-	FIXED: [0, 4, 0] as const,
-	J1: [0.5, 0, 0] as const,
-	J2: [1, 0, 0] as const,
-	J3: [1.5, 0, 0] as const,
-	CARD: [2, 0, 0] as const,
-} as const
-
-const ROPE_JOINT_CONFIG: [[number, number, number], [number, number, number], number] = [[0, 0, 0], [0, 0, 0], 1]
-const SPHERICAL_JOINT_CONFIG: [[number, number, number], [number, number, number]] = [
-	[0, 0, 0],
-	[0, 1.45, 0],
-]
-
-export default function BibPriceLanyard({
-	price,
-	originalPrice,
-	currency = 'EUR',
+export default function Lanyard({
 	position = [0, 0, 30],
 	gravity = [0, -40, 0],
 	fov = 20,
 	transparent = true,
-	className = '',
-}: BibPriceLanyardProps) {
-	const priceTextureUrl = `/api/lanyard/price?price=${price}&originalPrice=${originalPrice ?? ''}&currency=${currency}`
-
+}: LanyardProps) {
 	return (
-		<div className={`fixed top-8 right-8 z-[9999] h-[400px] w-[300px] ${className}`}>
+		<div className="relative z-0 flex h-screen w-full origin-center scale-100 transform items-center justify-center">
 			<Canvas
 				camera={{ position, fov }}
 				gl={{ alpha: transparent }}
@@ -109,7 +49,9 @@ export default function BibPriceLanyard({
 			>
 				<ambientLight intensity={Math.PI} />
 				<Physics gravity={gravity} timeStep={1 / 60}>
-					<Band priceTextureUrl={priceTextureUrl} />
+					<Suspense fallback={<FallbackBand />}>
+						<Band />
+					</Suspense>
 				</Physics>
 				<Environment blur={0.75}>
 					<Lightformer
@@ -146,302 +88,273 @@ export default function BibPriceLanyard({
 	)
 }
 
-function Band({ maxSpeed = 50, minSpeed = 0, priceTextureUrl }: BandProps) {
-	// Typed refs for physics bodies and visual elements
-	const bandRef = useRef<THREE.Mesh>(null)
-	const fixedRef = useRef<EnhancedRigidBodyRef>(null)
-	const j1Ref = useRef<EnhancedRigidBodyRef>(null)
-	const j2Ref = useRef<EnhancedRigidBodyRef>(null)
-	const j3Ref = useRef<EnhancedRigidBodyRef>(null)
-	const cardRef = useRef<EnhancedRigidBodyRef>(null)
+interface BandProps {
+	maxSpeed?: number
+	minSpeed?: number
+}
 
-	// Three.js vectors for calculations - using readonly to prevent mutation
-	const vectorCache = {
-		vec: new THREE.Vector3(),
-		ang: new THREE.Vector3(),
-		rot: new THREE.Vector3(),
-		dir: new THREE.Vector3(),
-	} as const
+function FallbackBand() {
+	const band = useRef<any>(null)
+	const fixed = useRef<any>(null)
+	const j1 = useRef<any>(null)
+	const j2 = useRef<any>(null)
+	const j3 = useRef<any>(null)
+	const card = useRef<any>(null)
 
-	// Load 3D assets with proper typing
-	const gltf = useGLTF('/models/card.glb') as unknown as BibLanyardGLTF
-	const { nodes, materials } = gltf
-
-	// Load textures
-	const lanyardTexture = useTexture('/models/lanyard.png')
-	const priceTexture = useTexture(priceTextureUrl)
-
-	// Curve for rope visualization with proper initialization
-	const [curve] = useState(() => {
-		const initialPoints = Array.from({ length: 4 }, () => new THREE.Vector3())
-		return new THREE.CatmullRomCurve3(initialPoints)
-	})
-
-	// State for drag interaction with proper typing
-	const [dragState, setDragState] = useState<
-		| {
-				isDragging: false
-				dragVector: null
-		  }
-		| {
-				isDragging: true
-				dragVector: THREE.Vector3
-		  }
-	>({
-		isDragging: false,
-		dragVector: null,
-	})
-
-	const [isHovered, setIsHovered] = useState(false)
-	const [isSmallScreen, setIsSmallScreen] = useState(() => {
-		return typeof window !== 'undefined' ? window.innerWidth < 1024 : false
-	})
-
-	// Window resize handler with proper cleanup
-	useEffect(() => {
-		const handleResize = () => {
-			setIsSmallScreen(window.innerWidth < 1024)
-		}
-
-		window.addEventListener('resize', handleResize)
-		return () => window.removeEventListener('resize', handleResize)
-	}, [])
-
-	// Physics joints setup with proper type casting for Rapier compatibility
-	useRopeJoint(fixedRef as React.RefObject<never>, j1Ref as React.RefObject<never>, ROPE_JOINT_CONFIG)
-	useRopeJoint(j1Ref as React.RefObject<never>, j2Ref as React.RefObject<never>, ROPE_JOINT_CONFIG)
-	useRopeJoint(j2Ref as React.RefObject<never>, j3Ref as React.RefObject<never>, ROPE_JOINT_CONFIG)
-	useSphericalJoint(j3Ref as React.RefObject<never>, cardRef as React.RefObject<never>, SPHERICAL_JOINT_CONFIG)
-
-	// Cursor management effect
-	useEffect(() => {
-		if (isHovered) {
-			const cursor = dragState.isDragging ? 'grabbing' : 'grab'
-			document.body.style.cursor = cursor
-			return () => {
-				document.body.style.cursor = 'auto'
-			}
-		}
-	}, [isHovered, dragState.isDragging])
-
-	// Main animation loop with improved type safety
-	useFrame((state, delta) => {
-		const { vec, ang, rot, dir } = vectorCache
-
-		// Handle drag interaction
-		if (dragState.isDragging && dragState.dragVector) {
-			vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera)
-			dir.copy(vec).sub(state.camera.position).normalize()
-			vec.add(dir.multiplyScalar(state.camera.position.length()))
-
-			// Wake up physics bodies
-			const physicsRefs = [cardRef, j1Ref, j2Ref, j3Ref, fixedRef]
-			physicsRefs.forEach(ref => {
-				const current = ref.current
-				if (current?.wakeUp) {
-					current.wakeUp()
-				}
-			})
-
-			// Update card position
-			const cardCurrent = cardRef.current
-			if (cardCurrent?.setNextKinematicTranslation) {
-				cardCurrent.setNextKinematicTranslation({
-					x: vec.x - dragState.dragVector.x,
-					y: vec.y - dragState.dragVector.y,
-					z: vec.z - dragState.dragVector.z,
-				})
-			}
-		}
-
-		// Update rope physics and visualization
-		const fixedCurrent = fixedRef.current
-		if (fixedCurrent?.translation) {
-			// Update joint interpolation
-			const jointRefs = [j1Ref, j2Ref]
-			jointRefs.forEach(ref => {
-				const current = ref.current
-				if (current?.translation) {
-					const translation = current.translation()
-
-					// Initialize lerped position using nullish coalescing
-					current.lerped ??= new THREE.Vector3().copy(translation)
-
-					// Calculate smooth interpolation with proper bounds
-					const distance = current.lerped.distanceTo(translation)
-					const clampedDistance = Math.max(0.1, Math.min(1, distance))
-					const interpolationSpeed = delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
-
-					current.lerped.lerp(translation, interpolationSpeed)
-				}
-			})
-
-			// Update curve points for rope visualization
-			const j3Current = j3Ref.current
-			const j2Current = j2Ref.current
-			const j1Current = j1Ref.current
-
-			if (j3Current?.translation && j2Current?.lerped && j1Current?.lerped && fixedCurrent.translation) {
-				const j3Translation = j3Current.translation()
-				const fixedTranslation = fixedCurrent.translation()
-
-				// Update curve points safely
-				const points = curve.points
-				if (points.length >= 4) {
-					points[0].copy(j3Translation)
-					points[1].copy(j2Current.lerped)
-					points[2].copy(j1Current.lerped)
-					points[3].copy(fixedTranslation)
-				}
-
-				// Update mesh line geometry with type safety
-				const band = bandRef.current
-				if (band?.geometry) {
-					const geometry = band.geometry as MeshLineGeometryType
-					if ('setPoints' in geometry && typeof geometry.setPoints === 'function') {
-						geometry.setPoints(curve.getPoints(32))
-					}
-				}
-			}
-
-			// Apply angular damping to card
-			const cardCurrent = cardRef.current
-			if (cardCurrent?.angvel && cardCurrent.rotation && cardCurrent.setAngvel) {
-				const angularVelocity = cardCurrent.angvel()
-				const rotation = cardCurrent.rotation()
-
-				ang.copy(angularVelocity)
-				rot.copy(rotation)
-
-				cardCurrent.setAngvel({
-					x: ang.x,
-					y: ang.y - rot.y * 0.25,
-					z: ang.z,
-				})
-			}
-		}
-	})
-
-	// Configure curve and texture properties
-	useEffect(() => {
-		curve.curveType = 'chordal'
-		lanyardTexture.wrapS = THREE.RepeatWrapping
-		lanyardTexture.wrapT = THREE.RepeatWrapping
-	}, [curve, lanyardTexture])
-
-	// Event handlers with improved type safety
-	const handlePointerUp = (event: ThreeEvent<PointerEvent>) => {
-		const target = event.target as Element
-
-		if (target && 'releasePointerCapture' in target && typeof target.releasePointerCapture === 'function') {
-			target.releasePointerCapture(event.pointerId)
-		}
-
-		setDragState({ isDragging: false, dragVector: null })
+	const segmentProps: any = {
+		type: 'dynamic' as RigidBodyProps['type'],
+		canSleep: true,
+		colliders: false,
+		angularDamping: 4,
+		linearDamping: 4,
 	}
 
-	const handlePointerDown = (event: ThreeEvent<PointerEvent>) => {
-		const target = event.target as Element
+	const [dragged, drag] = useState<false | THREE.Vector3>(false)
+	const [hovered, hover] = useState(false)
 
-		if (target && 'setPointerCapture' in target && typeof target.setPointerCapture === 'function') {
-			target.setPointerCapture(event.pointerId)
-		}
-
-		const cardCurrent = cardRef.current
-		if (event.point && cardCurrent?.translation) {
-			const cardTranslation = cardCurrent.translation()
-			const dragVector = new THREE.Vector3().copy(event.point).sub(vectorCache.vec.copy(cardTranslation))
-
-			setDragState({ isDragging: true, dragVector })
-		}
-	}
-
-	// Determine rigid body type based on drag state
-	const rigidBodyType: RigidBodyProps['type'] = dragState.isDragging ? 'kinematicPosition' : 'dynamic'
+	useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1])
+	useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1])
+	useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1])
+	useSphericalJoint(j3, card, [
+		[0, 0, 0],
+		[0, 1.45, 0],
+	])
 
 	return (
 		<>
-			<group position={JOINT_POSITIONS.FIXED}>
-				{/* Fixed anchor point */}
-				<RigidBody ref={fixedRef as React.RefObject<never>} {...PHYSICS_SEGMENT_PROPS} type="fixed" />
-
-				{/* Joint segments */}
-				<RigidBody
-					position={JOINT_POSITIONS.J1}
-					ref={j1Ref as React.RefObject<never>}
-					{...PHYSICS_SEGMENT_PROPS}
-					type="dynamic"
-				>
+			<group position={[0, 4, 0]}>
+				<RigidBody ref={fixed} {...segmentProps} type={'fixed' as RigidBodyProps['type']} />
+				<RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
 					<BallCollider args={[0.1]} />
 				</RigidBody>
-
-				<RigidBody
-					position={JOINT_POSITIONS.J2}
-					ref={j2Ref as React.RefObject<never>}
-					{...PHYSICS_SEGMENT_PROPS}
-					type="dynamic"
-				>
+				<RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
 					<BallCollider args={[0.1]} />
 				</RigidBody>
-
-				<RigidBody
-					position={JOINT_POSITIONS.J3}
-					ref={j3Ref as React.RefObject<never>}
-					{...PHYSICS_SEGMENT_PROPS}
-					type="dynamic"
-				>
+				<RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
 					<BallCollider args={[0.1]} />
 				</RigidBody>
-
-				{/* Card with price display */}
 				<RigidBody
-					position={JOINT_POSITIONS.CARD}
-					ref={cardRef as React.RefObject<never>}
-					{...PHYSICS_SEGMENT_PROPS}
-					type={rigidBodyType}
+					position={[2, 0, 0]}
+					ref={card}
+					{...segmentProps}
+					type={dragged ? ('kinematicPosition' as RigidBodyProps['type']) : ('dynamic' as RigidBodyProps['type'])}
 				>
 					<CuboidCollider args={[0.8, 1.125, 0.01]} />
 					<group
 						scale={2.25}
 						position={[0, -1.2, -0.05]}
-						onPointerOver={() => setIsHovered(true)}
-						onPointerOut={() => setIsHovered(false)}
-						onPointerUp={handlePointerUp}
-						onPointerDown={handlePointerDown}
+						onPointerOver={() => hover(true)}
+						onPointerOut={() => hover(false)}
+						onPointerUp={(e: any) => {
+							e.target.releasePointerCapture(e.pointerId)
+							drag(false)
+						}}
+						onPointerDown={(e: any) => {
+							e.target.setPointerCapture(e.pointerId)
+							drag(new THREE.Vector3().copy(e.point))
+						}}
 					>
-						{/* Card with custom price texture */}
-						<mesh geometry={nodes.card.geometry}>
+						<mesh>
+							<boxGeometry args={[1.6, 2.25, 0.02]} />
 							<meshPhysicalMaterial
-								map={priceTexture}
-								map-anisotropy={16}
+								color="#ffffff"
 								clearcoat={1}
 								clearcoatRoughness={0.15}
 								roughness={0.9}
 								metalness={0.8}
 							/>
 						</mesh>
-						<mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
-						<mesh geometry={nodes.clamp.geometry} material={materials.metal} />
 					</group>
 				</RigidBody>
 			</group>
-
-			{/* Rope visualization using MeshLine */}
-			<mesh ref={bandRef}>
-				{React.createElement('meshLineGeometry')}
-				{React.createElement('meshLineMaterial', {
-					color: 'white',
-					depthTest: false,
-					resolution: isSmallScreen ? [1000, 2000] : [1000, 1000],
-					useMap: true,
-					map: lanyardTexture,
-					repeat: [-4, 1],
-					lineWidth: 1,
-				})}
-			</mesh>
 		</>
 	)
 }
 
-// Preload 3D model for better performance
-useGLTF.preload('/models/card.glb')
+function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
+	// Using "any" for refs since the exact types depend on Rapier's internals
+	const band = useRef<any>(null)
+	const fixed = useRef<any>(null)
+	const j1 = useRef<any>(null)
+	const j2 = useRef<any>(null)
+	const j3 = useRef<any>(null)
+	const card = useRef<any>(null)
+
+	const vec = new THREE.Vector3()
+	const ang = new THREE.Vector3()
+	const rot = new THREE.Vector3()
+	const dir = new THREE.Vector3()
+
+	const segmentProps: any = {
+		type: 'dynamic' as RigidBodyProps['type'],
+		canSleep: true,
+		colliders: false,
+		angularDamping: 4,
+		linearDamping: 4,
+	}
+
+	// Load only the lanyard texture, skip problematic GLTF
+	const texture = useTexture(lanyardTexture)
+	const [curve] = useState(
+		() =>
+			new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
+	)
+	const [dragged, drag] = useState<false | THREE.Vector3>(false)
+	const [hovered, hover] = useState(false)
+
+	const [isSmall, setIsSmall] = useState<boolean>(() => {
+		if (typeof window !== 'undefined') {
+			return window.innerWidth < 1024
+		}
+		return false
+	})
+
+	useEffect(() => {
+		const handleResize = (): void => {
+			setIsSmall(window.innerWidth < 1024)
+		}
+
+		window.addEventListener('resize', handleResize)
+		return (): void => window.removeEventListener('resize', handleResize)
+	}, [])
+
+	useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1])
+	useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1])
+	useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1])
+	useSphericalJoint(j3, card, [
+		[0, 0, 0],
+		[0, 1.45, 0],
+	])
+
+	useEffect(() => {
+		if (hovered) {
+			document.body.style.cursor = dragged ? 'grabbing' : 'grab'
+			return () => {
+				document.body.style.cursor = 'auto'
+			}
+		}
+	}, [hovered, dragged])
+
+	useFrame((state, delta) => {
+		if (dragged && typeof dragged !== 'boolean') {
+			vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera)
+			dir.copy(vec).sub(state.camera.position).normalize()
+			vec.add(dir.multiplyScalar(state.camera.position.length()))
+			;[card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp())
+			card.current?.setNextKinematicTranslation({
+				x: vec.x - dragged.x,
+				y: vec.y - dragged.y,
+				z: vec.z - dragged.z,
+			})
+		}
+		if (fixed.current) {
+			;[j1, j2].forEach(ref => {
+				if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation())
+				const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())))
+				ref.current.lerped.lerp(ref.current.translation(), delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed)))
+			})
+			curve.points[0].copy(j3.current.translation())
+			curve.points[1].copy(j2.current.lerped)
+			curve.points[2].copy(j1.current.lerped)
+			curve.points[3].copy(fixed.current.translation())
+			band.current.geometry.setPoints(curve.getPoints(32))
+			ang.copy(card.current.angvel())
+			rot.copy(card.current.rotation())
+			card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z })
+		}
+	})
+
+	curve.curveType = 'chordal'
+
+	// Fix texture wrapping - check if texture is loaded and has the required properties
+	useEffect(() => {
+		if (texture && typeof texture === 'object' && 'wrapS' in texture && 'wrapT' in texture) {
+			// @ts-expect-error - texture is not typed
+			texture.wrapS = THREE.RepeatWrapping
+			// @ts-expect-error - texture is not typed
+			texture.wrapT = THREE.RepeatWrapping
+		}
+	}, [texture])
+
+	// Create a simple card component without GLTF
+	const SimpleCard = () => (
+		<group
+			scale={2.25}
+			position={[0, -1.2, -0.05]}
+			onPointerOver={() => hover(true)}
+			onPointerOut={() => hover(false)}
+			onPointerUp={(e: any) => {
+				e.target.releasePointerCapture(e.pointerId)
+				drag(false)
+			}}
+			onPointerDown={(e: any) => {
+				e.target.setPointerCapture(e.pointerId)
+				drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
+			}}
+		>
+			{/* Main card body */}
+			<mesh>
+				<boxGeometry args={[1.6, 2.25, 0.02]} />
+				<meshPhysicalMaterial
+					color="#ffffff"
+					clearcoat={1}
+					clearcoatRoughness={0.15}
+					roughness={0.9}
+					metalness={0.8}
+				/>
+			</mesh>
+			
+			{/* Clip - small metallic piece at top */}
+			<mesh position={[0, 0.9, 0.02]}>
+				<boxGeometry args={[0.3, 0.2, 0.05]} />
+				<meshStandardMaterial color="#666666" metalness={1} roughness={0.3} />
+			</mesh>
+			
+			{/* Clamp - connector piece */}
+			<mesh position={[0, 1.1, 0.01]}>
+				<boxGeometry args={[0.15, 0.15, 0.03]} />
+				<meshStandardMaterial color="#333333" metalness={1} roughness={0.2} />
+			</mesh>
+		</group>
+	)
+
+	return (
+		<>
+			<group position={[0, 4, 0]}>
+				<RigidBody ref={fixed} {...segmentProps} type={'fixed' as RigidBodyProps['type']} />
+				<RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
+					<BallCollider args={[0.1]} />
+				</RigidBody>
+				<RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
+					<BallCollider args={[0.1]} />
+				</RigidBody>
+				<RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
+					<BallCollider args={[0.1]} />
+				</RigidBody>
+				<RigidBody
+					position={[2, 0, 0]}
+					ref={card}
+					{...segmentProps}
+					type={dragged ? ('kinematicPosition' as RigidBodyProps['type']) : ('dynamic' as RigidBodyProps['type'])}
+				>
+					<CuboidCollider args={[0.8, 1.125, 0.01]} />
+					<SimpleCard />
+				</RigidBody>
+			</group>
+			<mesh ref={band}>
+				{/* @ts-expect-error - meshLineGeometry is not typed */}
+				<meshLineGeometry />
+				{/* @ts-expect-error - meshLineMaterial is not typed */}
+				<meshLineMaterial
+					color="white"
+					depthTest={false}
+					resolution={isSmall ? [1000, 2000] : [1000, 1000]}
+					useMap={!!texture}
+					map={texture}
+					repeat={[-4, 1]}
+					lineWidth={1}
+				/>
+			</mesh>
+		</>
+	)
+}

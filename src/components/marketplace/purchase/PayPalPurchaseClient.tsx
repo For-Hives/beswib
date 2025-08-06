@@ -26,7 +26,7 @@ import { isUserProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
-import BibPriceLanyard from '@/components/ui/BibPriceLanyard'
+import Lanyard from '@/components/ui/BibPriceLanyard'
 
 interface PayPalPurchaseClientProps {
 	bib: BibSale
@@ -230,7 +230,8 @@ export default function PayPalPurchaseClient({
 	return (
 		<div className="relative">
 			{/* Interactive Price Lanyard */}
-			<BibPriceLanyard price={bib.price} originalPrice={bib.originalPrice} currency="EUR" className="" />
+			{/* <BibPriceLanyard price={bib.price} originalPrice={bib.originalPrice} currency="EUR" className="" /> */}
+			<Lanyard />
 			<div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 				{/* Product Layout */}
 				<div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
