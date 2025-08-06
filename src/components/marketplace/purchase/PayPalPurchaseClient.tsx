@@ -1,16 +1,6 @@
 'use client'
 
-import {
-	AlertTriangle,
-	Calendar,
-	Mountain,
-	CheckCircle2,
-	Shield,
-	Star,
-	Info,
-	CreditCard,
-	MapPinned,
-} from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
@@ -26,6 +16,7 @@ import type { Organizer } from '@/models/organizer.model'
 import type { Bib } from '@/models/bib.model'
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { handleSuccessfulPurchase } from '@/app/[locale]/purchase/actions'
 import CardMarket, { BibSale } from '@/components/marketplace/CardMarket'
 import { capturePayment, createOrder } from '@/services/paypal.services'
@@ -177,44 +168,6 @@ export default function PayPalPurchaseClient({
 	// Filter other bibs for the same event (excluding current bib)
 	const samEventBibs = otherBibs.filter(otherBib => otherBib.event.id === bib.event.id && otherBib.id !== bib.id)
 
-	// Mock reviews data for demonstration
-	const reviews = {
-		average: 4.8,
-		totalCount: 127,
-		featured: [
-			{
-				id: 1,
-				rating: 5,
-				content:
-					'Amazing experience! The bib transfer was seamless and I saved so much compared to the official price. Highly recommend Beswib!',
-				date: 'December 15, 2024',
-				datetime: '2024-12-15',
-				author: 'Sarah M.',
-				avatarSrc: `https://images.unsplash.com/photo-1494790108755-2616b612b786?w=256&h=256&q=80&fit=crop&crop=face`,
-			},
-			{
-				id: 2,
-				rating: 5,
-				content:
-					"Perfect service! Got my bib for the marathon I thought I'd missed. The seller was very responsive and everything went smoothly.",
-				date: 'December 10, 2024',
-				datetime: '2024-12-10',
-				author: 'Mike R.',
-				avatarSrc: `https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=256&h=256&q=80&fit=crop&crop=face`,
-			},
-			{
-				id: 3,
-				rating: 4,
-				content:
-					'Great platform for finding race bibs. The process is straightforward and secure. Will definitely use again!',
-				date: 'December 5, 2024',
-				datetime: '2024-12-05',
-				author: 'Emma L.',
-				avatarSrc: `https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=256&h=256&q=80&fit=crop&crop=face`,
-			},
-		],
-	}
-
 	// FAQ data
 	const faqs = [
 		{
@@ -272,12 +225,8 @@ export default function PayPalPurchaseClient({
 		`,
 	}
 
-	function classNames(...classes: (string | boolean | undefined)[]): string {
-		return classes.filter(Boolean).join(' ')
-	}
-
 	return (
-		<div className="min-h-screen" style={{ backgroundColor: '#0F0F23' }}>
+		<div className="relative">
 			<div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 				{/* Product Layout */}
 				<div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
@@ -287,8 +236,7 @@ export default function PayPalPurchaseClient({
 							<Image
 								alt={bib.event.name}
 								src={bib.event.image}
-								className="aspect-[4/3] w-full rounded-lg object-cover"
-								style={{ backgroundColor: 'rgba(22, 33, 62, 0.8)' }}
+								className="bg-card/80 aspect-[4/3] w-full rounded-lg object-cover"
 								width={800}
 								height={600}
 							/>
@@ -318,62 +266,30 @@ export default function PayPalPurchaseClient({
 					<div className="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
 						<div className="flex flex-col-reverse">
 							<div className="mt-4">
-								<h1 className="text-2xl font-bold tracking-tight sm:text-3xl" style={{ color: '#FFFFFF' }}>
-									{bib.event.name}
-								</h1>
+								<h1 className="text-foreground text-2xl font-bold tracking-tight sm:text-3xl">{bib.event.name}</h1>
 
 								<h2 id="information-heading" className="sr-only">
 									Bib information
 								</h2>
-								<p className="mt-2 text-sm" style={{ color: '#9CA3AF' }}>
+								<p className="text-muted-foreground mt-2 text-sm">
 									Event Date: {formatDateWithLocale(bib.event.date, locale)} • {bib.event.location}
 								</p>
 							</div>
 
 							<div className="space-y-4">
-								{/* Reviews */}
-								<div>
-									<h3 className="sr-only">Reviews</h3>
-									<div className="flex items-center">
-										{[0, 1, 2, 3, 4].map(rating => (
-											<Star
-												key={rating}
-												aria-hidden="true"
-												className={classNames(
-													reviews.average > rating ? 'text-yellow-400' : 'text-gray-600',
-													'h-5 w-5 flex-shrink-0'
-												)}
-												fill="currentColor"
-											/>
-										))}
-									</div>
-									<p className="sr-only">{reviews.average} out of 5 stars</p>
-									<p className="mt-1 text-sm" style={{ color: '#9CA3AF' }}>
-										{reviews.average} out of 5 stars ({reviews.totalCount} reviews)
-									</p>
-								</div>
-
 								{/* Race Stats */}
-								<div className="flex items-center gap-6 text-sm">
+								<div className="text-muted-foreground flex items-center gap-6 text-sm">
 									{/* Distance + Elevation */}
-									<div className="flex items-center gap-2">
-										<Mountain className="h-4 w-4" style={{ color: '#3B82F6' }} />
-										<span style={{ color: '#E5E7EB' }}>
-											{bib.event.distance}
-											{bib.event.distanceUnit}
-											{(eventData?.elevationGainM ?? 0) > 0 && (
-												<span style={{ color: '#9CA3AF' }}> (+{eventData?.elevationGainM}m)</span>
-											)}
-										</span>
-									</div>
+									<span>
+										{bib.event.distance}
+										{bib.event.distanceUnit}
+										{(eventData?.elevationGainM ?? 0) > 0 && (
+											<span className="text-muted-foreground/70"> (+{eventData?.elevationGainM}m)</span>
+										)}
+									</span>
 
 									{/* Participants */}
-									<div className="flex items-center gap-2">
-										<svg className="h-4 w-4" style={{ color: '#3B82F6' }} fill="currentColor" viewBox="0 0 20 20">
-											<path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-										</svg>
-										<span style={{ color: '#E5E7EB' }}>{bib.event.participantCount.toLocaleString()} runners</span>
-									</div>
+									<span>{bib.event.participantCount.toLocaleString()} runners</span>
 								</div>
 							</div>
 						</div>
@@ -381,22 +297,12 @@ export default function PayPalPurchaseClient({
 						{/* Event Description */}
 						<div className="mt-6">
 							{eventData?.description && eventData.description.trim() !== '' ? (
-								<div
-									className="rounded-lg border p-4"
-									style={{
-										backgroundColor: 'rgba(22, 33, 62, 0.4)',
-										borderColor: 'rgba(156, 163, 175, 0.2)',
-									}}
-								>
-									<h3 className="mb-2 text-sm font-semibold" style={{ color: '#3B82F6' }}>
-										🏃 À propos de cet événement
-									</h3>
-									<p className="text-sm leading-relaxed" style={{ color: '#E5E7EB' }}>
-										{eventData.description}
-									</p>
+								<div className="border-border/50 bg-card/50 rounded-lg border p-4 backdrop-blur-sm">
+									<h3 className="text-primary mb-2 text-sm font-semibold">À propos de cet événement</h3>
+									<p className="text-foreground/80 text-sm leading-relaxed">{eventData.description}</p>
 								</div>
 							) : (
-								<p style={{ color: '#9CA3AF' }}>
+								<p className="text-muted-foreground">
 									Secure your spot for {bib.event.name}. This race bib includes all official race materials and
 									registration transfer to your name.
 								</p>
@@ -405,37 +311,24 @@ export default function PayPalPurchaseClient({
 
 						{/* Transfer Deadline Warning - Critical */}
 						{eventData?.transferDeadline && (
-							<div
-								className="mt-6 rounded-lg border p-4"
-								style={{
-									backgroundColor: 'rgba(245, 158, 11, 0.1)',
-									borderColor: 'rgba(245, 158, 11, 0.5)',
-								}}
-							>
-								<div className="flex items-center gap-2">
-									<AlertTriangle className="h-4 w-4 text-yellow-400" />
-									<p className="text-sm font-medium text-yellow-300">
-										⏰ Transfer deadline: {formatDateWithLocale(eventData.transferDeadline, locale)}
-									</p>
-								</div>
+							<div className="mt-6 rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-4 backdrop-blur-sm">
+								<p className="text-sm font-medium text-yellow-300">
+									Transfer deadline: {formatDateWithLocale(eventData.transferDeadline, locale)}
+								</p>
 							</div>
 						)}
 
 						{/* Price */}
 						<div className="mt-6">
 							<div className="flex items-baseline gap-3">
-								<p className="text-4xl font-bold tracking-tight" style={{ color: '#FFFFFF' }}>
-									€{bib.price}
-								</p>
+								<p className="text-foreground text-4xl font-bold tracking-tight">€{bib.price}</p>
 
 								{/* Official Event Price */}
 								{(eventData?.officialStandardPrice ?? 0) > 0 &&
 									(eventData?.officialStandardPrice ?? 0) !== bib.price && (
 										<div className="flex flex-col">
-											<p className="text-sm" style={{ color: '#9CA3AF' }}>
-												Prix de base
-											</p>
-											<p className="text-lg line-through" style={{ color: '#6B7280' }}>
+											<p className="text-muted-foreground text-sm">Prix de base</p>
+											<p className="text-muted-foreground text-lg line-through">
 												€{eventData?.officialStandardPrice ?? 0}
 											</p>
 										</div>
@@ -458,7 +351,7 @@ export default function PayPalPurchaseClient({
 								(eventData?.officialStandardPrice ?? 0) > bib.price && (
 									<div className="mt-2">
 										<p className="text-sm font-medium text-green-400">
-											💰 Save €{((eventData?.officialStandardPrice ?? 0) - bib.price).toFixed(2)} vs. official price (
+											Save €{((eventData?.officialStandardPrice ?? 0) - bib.price).toFixed(2)} vs. official price (
 											{(
 												(((eventData?.officialStandardPrice ?? 0) - bib.price) /
 													(eventData?.officialStandardPrice ?? 1)) *
@@ -508,22 +401,9 @@ export default function PayPalPurchaseClient({
 								<button
 									type="button"
 									onClick={handleBuyNowClick}
-									className="flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white transition-all hover:scale-[1.02] focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-none"
-									style={{
-										backgroundColor: '#3B82F6',
-										boxShadow: '0 2px 4px rgba(59, 130, 246, 0.2)',
-									}}
-									onMouseEnter={e => {
-										e.currentTarget.style.backgroundColor = '#2563EB'
-										e.currentTarget.style.boxShadow = '0 4px 8px rgba(59, 130, 246, 0.3)'
-									}}
-									onMouseLeave={e => {
-										e.currentTarget.style.backgroundColor = '#3B82F6'
-										e.currentTarget.style.boxShadow = '0 2px 4px rgba(59, 130, 246, 0.2)'
-									}}
+									className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary w-full rounded-md px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-50"
 									disabled={isOwnBib}
 								>
-									<CreditCard className="mr-2 h-5 w-5" />
 									{isSignedIn !== true ? 'Sign In to Purchase' : 'Purchase Bib'}
 								</button>
 							)}
@@ -531,95 +411,26 @@ export default function PayPalPurchaseClient({
 							{/* Preview/Info Button */}
 							<button
 								type="button"
-								className="flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-none"
-								style={{
-									backgroundColor: 'transparent',
-									color: '#FFFFFF',
-									border: '1px solid rgba(255, 255, 255, 0.2)',
-								}}
-								onMouseEnter={e => {
-									e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'
-									e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
-								}}
-								onMouseLeave={e => {
-									e.currentTarget.style.backgroundColor = 'transparent'
-									e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)'
-								}}
+								className="border-border bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus:ring-primary w-full rounded-md border px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none"
 							>
-								<Info className="mr-2 h-5 w-5" />
 								Event Details
 							</button>
-						</div>
-
-						{/* Highlights - Focused on Value */}
-						<div className="mt-10 border-t pt-10" style={{ borderColor: 'rgba(156, 163, 175, 0.2)' }}>
-							<h3 className="text-sm font-medium" style={{ color: '#FFFFFF' }}>
-								✅ What you get
-							</h3>
-							<div className="mt-4 space-y-2">
-								<div className="flex items-center gap-2">
-									<CheckCircle2 className="h-4 w-4 text-green-400" />
-									<span className="text-sm" style={{ color: '#E5E7EB' }}>
-										Official race bib transferred to your name
-									</span>
-								</div>
-								<div className="flex items-center gap-2">
-									<CheckCircle2 className="h-4 w-4 text-green-400" />
-									<span className="text-sm" style={{ color: '#E5E7EB' }}>
-										All race materials & timing chip
-									</span>
-								</div>
-								<div className="flex items-center gap-2">
-									<CheckCircle2 className="h-4 w-4 text-green-400" />
-									<span className="text-sm" style={{ color: '#E5E7EB' }}>
-										Secure transfer process
-									</span>
-								</div>
-							</div>
-						</div>
-
-						{/* Seller Info */}
-						<div className="mt-10 border-t pt-10" style={{ borderColor: 'rgba(156, 163, 175, 0.2)' }}>
-							<h3 className="text-sm font-medium" style={{ color: '#FFFFFF' }}>
-								Seller Information
-							</h3>
-							<p className="mt-4 text-sm" style={{ color: '#9CA3AF' }}>
-								Sold by {bib.user.firstName ?? 'Anonymous'} {bib.user.lastName ?? ''}.{' '}
-								<Link href="#" className="font-medium underline" style={{ color: '#3B82F6' }}>
-									View seller profile
-								</Link>
-							</p>
-						</div>
-
-						{/* Terms */}
-						<div className="mt-10 border-t pt-10" style={{ borderColor: 'rgba(156, 163, 175, 0.2)' }}>
-							<h3 className="text-sm font-medium" style={{ color: '#FFFFFF' }}>
-								Terms & Conditions
-							</h3>
-							<p className="mt-4 text-sm" style={{ color: '#9CA3AF' }}>
-								{terms.summary}{' '}
-								<a href={terms.href} className="font-medium underline" style={{ color: '#3B82F6' }}>
-									Read full terms
-								</a>
-							</p>
 						</div>
 					</div>
 
 					{/* Tabbed Content Section */}
 					<div className="mx-auto mt-16 w-full max-w-2xl lg:col-span-4 lg:mt-0 lg:max-w-none">
 						<TabGroup>
-							<div className="border-b" style={{ borderColor: 'rgba(156, 163, 175, 0.2)' }}>
+							<div className="border-border/20 border-b">
 								<TabList className="-mb-px flex space-x-8">
-									<Tab className="border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap text-gray-300 hover:border-gray-400 hover:text-gray-200 data-[selected]:border-blue-500 data-[selected]:text-blue-400">
+									<Tab className="text-muted-foreground hover:border-muted-foreground hover:text-foreground data-[selected]:border-primary data-[selected]:text-primary border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap">
 										Event Details
 									</Tab>
-									<Tab className="border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap text-gray-300 hover:border-gray-400 hover:text-gray-200 data-[selected]:border-blue-500 data-[selected]:text-blue-400">
-										Reviews
-									</Tab>
-									<Tab className="border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap text-gray-300 hover:border-gray-400 hover:text-gray-200 data-[selected]:border-blue-500 data-[selected]:text-blue-400">
+
+									<Tab className="text-muted-foreground hover:border-muted-foreground hover:text-foreground data-[selected]:border-primary data-[selected]:text-primary border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap">
 										FAQ
 									</Tab>
-									<Tab className="border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap text-gray-300 hover:border-gray-400 hover:text-gray-200 data-[selected]:border-blue-500 data-[selected]:text-blue-400">
+									<Tab className="text-muted-foreground hover:border-muted-foreground hover:text-foreground data-[selected]:border-primary data-[selected]:text-primary border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap">
 										Terms
 									</Tab>
 								</TabList>
@@ -632,75 +443,44 @@ export default function PayPalPurchaseClient({
 										{/* Essential Event Information */}
 										<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
 											{/* Key Details */}
-											<div
-												className="rounded-lg border p-6"
-												style={{
-													backgroundColor: 'rgba(22, 33, 62, 0.8)',
-													borderColor: 'rgba(156, 163, 175, 0.2)',
-												}}
-											>
-												<h4 className="mb-4 font-semibold" style={{ color: '#FFFFFF' }}>
-													📍 Race Information
-												</h4>
+											<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
+												<h4 className="text-foreground mb-4 font-semibold">Race Information</h4>
 												<div className="space-y-4">
-													<div className="flex items-start gap-3">
-														<Calendar className="mt-0.5 h-5 w-5" style={{ color: '#3B82F6' }} />
-														<div>
-															<p className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
-																Date
-															</p>
-															<p className="font-medium" style={{ color: '#E5E7EB' }}>
-																{formatDateWithLocale(bib.event.date, locale)}
-															</p>
-														</div>
+													<div>
+														<p className="text-muted-foreground text-sm font-medium">Date</p>
+														<p className="text-foreground font-medium">
+															{formatDateWithLocale(bib.event.date, locale)}
+														</p>
 													</div>
-													<div className="flex items-start gap-3">
-														<MapPinned className="mt-0.5 h-5 w-5" style={{ color: '#3B82F6' }} />
-														<div>
-															<p className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
-																Location
-															</p>
-															<p className="font-medium" style={{ color: '#E5E7EB' }}>
-																{bib.event.location}
-															</p>
-														</div>
+													<div>
+														<p className="text-muted-foreground text-sm font-medium">Location</p>
+														<p className="text-foreground font-medium">{bib.event.location}</p>
 													</div>
-													<div className="flex items-start gap-3">
-														<Mountain className="mt-0.5 h-5 w-5" style={{ color: '#3B82F6' }} />
-														<div>
-															<p className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
-																Distance
-															</p>
-															<p className="font-medium" style={{ color: '#E5E7EB' }}>
-																{bib.event.distance}
-																{bib.event.distanceUnit}
-																{(eventData?.elevationGainM ?? 0) > 0 && (
-																	<span className="ml-2 text-sm" style={{ color: '#9CA3AF' }}>
-																		(+{eventData?.elevationGainM}m elevation)
-																	</span>
-																)}
-															</p>
-														</div>
+													<div>
+														<p className="text-muted-foreground text-sm font-medium">Distance</p>
+														<p className="text-foreground font-medium">
+															{bib.event.distance}
+															{bib.event.distanceUnit}
+															{(eventData?.elevationGainM ?? 0) > 0 && (
+																<span className="text-muted-foreground ml-2 text-sm">
+																	(+{eventData?.elevationGainM}m elevation)
+																</span>
+															)}
+														</p>
 													</div>
 												</div>
 											</div>
 
 											{/* Transfer Deadline - Critical Info */}
 											{eventData?.transferDeadline && (
-												<div
-													className="rounded-lg border p-6"
-													style={{
-														backgroundColor: 'rgba(245, 158, 11, 0.15)',
-														borderColor: 'rgba(245, 158, 11, 0.6)',
-													}}
-												>
-													<h4 className="mb-3 font-semibold text-yellow-300">⚠️ Transfer Deadline</h4>
+												<div className="rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-6 backdrop-blur-sm">
+													<h4 className="mb-3 font-semibold text-yellow-300">Transfer Deadline</h4>
 													<p className="mb-2 text-sm text-yellow-200">Last date for bib transfer:</p>
 													<p className="text-xl font-bold text-yellow-100">
 														{formatDateWithLocale(eventData.transferDeadline, locale)}
 													</p>
 													<p className="mt-3 text-xs text-yellow-200">
-														⏰ Complete your purchase before this date to ensure transfer
+														Complete your purchase before this date to ensure transfer
 													</p>
 												</div>
 											)}
@@ -708,83 +488,26 @@ export default function PayPalPurchaseClient({
 
 										{/* Optional: Verified Organizer Badge */}
 										{eventData?.expand?.organizer?.isPartnered === true && (
-											<div
-												className="rounded-lg border p-4"
-												style={{
-													backgroundColor: 'rgba(16, 185, 129, 0.1)',
-													borderColor: 'rgba(16, 185, 129, 0.4)',
-												}}
-											>
-												<div className="flex items-center gap-3">
-													<CheckCircle2 className="h-5 w-5 text-green-400" />
-													<div>
-														<h4 className="font-medium text-green-300">✅ Verified Partner Organizer</h4>
-														<p className="text-sm text-green-200">
-															{eventData?.expand?.organizer?.name} • Trusted Partner
-														</p>
-													</div>
+											<div className="rounded-lg border border-green-500/40 bg-green-500/10 p-4 backdrop-blur-sm">
+												<div>
+													<h4 className="font-medium text-green-300">Verified Partner Organizer</h4>
+													<p className="text-sm text-green-200">
+														{eventData?.expand?.organizer?.name} • Trusted Partner
+													</p>
 												</div>
 											</div>
 										)}
 									</div>
 								</TabPanel>
 
-								{/* Reviews Panel */}
-								<TabPanel className="-mb-10 py-10">
-									<h3 className="sr-only">Customer Reviews</h3>
-									{reviews.featured.map((review, reviewIdx) => (
-										<div key={review.id} className="flex space-x-4 text-sm" style={{ color: '#9CA3AF' }}>
-											<div className="flex-none py-10">
-												<Image
-													alt=""
-													src={review.avatarSrc}
-													className="h-10 w-10 rounded-full"
-													style={{ backgroundColor: 'rgba(22, 33, 62, 0.8)' }}
-													width={40}
-													height={40}
-												/>
-											</div>
-											<div className={classNames(reviewIdx === 0 ? '' : 'border-t border-gray-600', 'py-10')}>
-												<h3 className="font-medium" style={{ color: '#FFFFFF' }}>
-													{review.author}
-												</h3>
-												<p>
-													<time dateTime={review.datetime}>{review.date}</time>
-												</p>
-
-												<div className="mt-4 flex items-center">
-													{[0, 1, 2, 3, 4].map(rating => (
-														<Star
-															key={rating}
-															aria-hidden="true"
-															className={classNames(
-																review.rating > rating ? 'text-yellow-400' : 'text-gray-600',
-																'h-5 w-5 flex-shrink-0'
-															)}
-															fill="currentColor"
-														/>
-													))}
-												</div>
-												<p className="sr-only">{review.rating} out of 5 stars</p>
-
-												<div className="mt-4 text-sm leading-6" style={{ color: '#9CA3AF' }}>
-													<p>{review.content}</p>
-												</div>
-											</div>
-										</div>
-									))}
-								</TabPanel>
-
 								{/* FAQ Panel */}
-								<TabPanel className="py-10 text-sm" style={{ color: '#9CA3AF' }}>
+								<TabPanel className="text-muted-foreground py-10 text-sm">
 									<h3 className="sr-only">Frequently Asked Questions</h3>
 									<dl>
 										{faqs.map(faq => (
 											<Fragment key={faq.question}>
-												<dt className="mt-10 font-medium" style={{ color: '#FFFFFF' }}>
-													{faq.question}
-												</dt>
-												<dd className="mt-2 text-sm leading-6" style={{ color: '#9CA3AF' }}>
+												<dt className="text-foreground mt-10 font-medium">{faq.question}</dt>
+												<dd className="text-muted-foreground mt-2 text-sm leading-6">
 													<p>{faq.answer}</p>
 												</dd>
 											</Fragment>
@@ -797,8 +520,7 @@ export default function PayPalPurchaseClient({
 									<h3 className="sr-only">Terms & Conditions</h3>
 									<div
 										dangerouslySetInnerHTML={{ __html: terms.content }}
-										className="text-sm [&_h4]:mt-5 [&_h4]:font-medium [&_h4]:text-white [&_li]:pl-2 [&_li::marker]:text-gray-400 [&_p]:my-2 [&_p]:text-sm [&_p]:leading-6 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5 [&_ul]:text-sm [&_ul]:leading-6 [&>:first-child]:mt-0"
-										style={{ color: '#9CA3AF' }}
+										className="text-muted-foreground [&_h4]:text-foreground text-sm [&_h4]:mt-5 [&_h4]:font-medium [&_li]:pl-2 [&_p]:my-2 [&_p]:text-sm [&_p]:leading-6 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5 [&_ul]:text-sm [&_ul]:leading-6 [&>:first-child]:mt-0"
 									/>
 								</TabPanel>
 							</TabPanels>
@@ -809,12 +531,8 @@ export default function PayPalPurchaseClient({
 					{samEventBibs.length > 0 && (
 						<div className="mt-12">
 							<div className="mb-6 text-center">
-								<h2 className="text-2xl font-bold tracking-tight" style={{ color: '#FFFFFF' }}>
-									Other bibs for this event
-								</h2>
-								<p className="mt-1" style={{ color: '#9CA3AF' }}>
-									More bibs available for {bib.event.name}
-								</p>
+								<h2 className="text-foreground text-2xl font-bold tracking-tight">Other bibs for this event</h2>
+								<p className="text-muted-foreground mt-1">More bibs available for {bib.event.name}</p>
 							</div>
 
 							<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -834,33 +552,24 @@ export default function PayPalPurchaseClient({
 				title="Complete Your Purchase"
 				variant="slide"
 			>
-				<div className="p-6" style={{ backgroundColor: '#0F0F23' }}>
+				<div className="bg-background p-6">
 					<div className="mx-auto max-w-4xl">
 						<div className="grid gap-8 lg:grid-cols-3">
 							{/* Order Summary - Left Side */}
 							<div className="space-y-6 lg:col-span-2">
 								{/* Event Summary Card */}
-								<div
-									className="rounded-lg border p-6"
-									style={{ backgroundColor: 'rgba(22, 33, 62, 0.8)', borderColor: 'rgba(156, 163, 175, 0.2)' }}
-								>
-									<h3 className="mb-4 text-sm font-medium" style={{ color: '#FFFFFF' }}>
-										Event Details
-									</h3>
+								<div className="border-border/50 bg-card/80 rounded-lg border p-6 backdrop-blur-sm">
+									<h3 className="text-foreground mb-4 text-sm font-medium">Event Details</h3>
 									<div className="flex items-start gap-4">
 										<div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg">
 											<Image alt="Event Image" className="object-cover" fill sizes="80px" src={bib.event.image} />
 										</div>
 										<div className="min-w-0 flex-1">
-											<h4 className="truncate text-lg font-semibold" style={{ color: '#FFFFFF' }}>
-												{bib.event.name}
-											</h4>
-											<p className="mt-1 text-sm" style={{ color: '#9CA3AF' }}>
+											<h4 className="text-foreground truncate text-lg font-semibold">{bib.event.name}</h4>
+											<p className="text-muted-foreground mt-1 text-sm">
 												{formatDateWithLocale(bib.event.date, locale)}
 											</p>
-											<p className="text-sm" style={{ color: '#9CA3AF' }}>
-												{bib.event.location}
-											</p>
+											<p className="text-muted-foreground text-sm">{bib.event.location}</p>
 											<div className="mt-2 flex items-center gap-2">
 												<span
 													className={cn(
@@ -870,37 +579,28 @@ export default function PayPalPurchaseClient({
 												>
 													{bib.event.type.charAt(0).toUpperCase() + bib.event.type.slice(1)}
 												</span>
-												<span className="text-xs" style={{ color: '#9CA3AF' }}>
+												<span className="text-muted-foreground text-xs">
 													{bib.event.distance}
 													{bib.event.distanceUnit}
 												</span>
 											</div>
 										</div>
 										<div className="flex-shrink-0 text-right">
-											<p className="text-2xl font-bold" style={{ color: '#FFFFFF' }}>
-												€{bib.price}
-											</p>
+											<p className="text-foreground text-2xl font-bold">€{bib.price}</p>
 											{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
-												<p className="text-sm line-through" style={{ color: '#6B7280' }}>
-													€{bib.originalPrice}
-												</p>
+												<p className="text-muted-foreground text-sm line-through">€{bib.originalPrice}</p>
 											)}
 										</div>
 									</div>
 								</div>
 
 								{/* Order Summary Details */}
-								<div
-									className="rounded-lg border p-6"
-									style={{ backgroundColor: 'rgba(22, 33, 62, 0.8)', borderColor: 'rgba(156, 163, 175, 0.2)' }}
-								>
-									<h3 className="mb-4 text-sm font-medium" style={{ color: '#FFFFFF' }}>
-										Order Summary
-									</h3>
+								<div className="border-border/50 bg-card/80 rounded-lg border p-6 backdrop-blur-sm">
+									<h3 className="text-foreground mb-4 text-sm font-medium">Order Summary</h3>
 									<div className="space-y-3">
 										<div className="flex items-center justify-between">
-											<span style={{ color: '#E5E7EB' }}>Race bib transfer</span>
-											<span style={{ color: '#E5E7EB' }}>€{bib.price}</span>
+											<span className="text-foreground/80">Race bib transfer</span>
+											<span className="text-foreground/80">€{bib.price}</span>
 										</div>
 										{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
 											<div className="flex items-center justify-between text-green-400">
@@ -908,94 +608,47 @@ export default function PayPalPurchaseClient({
 												<span className="text-sm">-€{(bib.originalPrice - bib.price).toFixed(2)}</span>
 											</div>
 										)}
-										<div className="border-t pt-3" style={{ borderColor: 'rgba(156, 163, 175, 0.2)' }}>
+										<div className="border-border/20 border-t pt-3">
 											<div className="flex items-center justify-between text-lg font-semibold">
-												<span style={{ color: '#FFFFFF' }}>Total</span>
-												<span style={{ color: '#FFFFFF' }}>€{bib.price}</span>
+												<span className="text-foreground">Total</span>
+												<span className="text-foreground">€{bib.price}</span>
 											</div>
 										</div>
 									</div>
 								</div>
 
 								{/* What's Included */}
-								<div
-									className="rounded-lg border p-6"
-									style={{ backgroundColor: 'rgba(22, 33, 62, 0.8)', borderColor: 'rgba(156, 163, 175, 0.2)' }}
-								>
-									<h3 className="mb-4 text-sm font-medium" style={{ color: '#FFFFFF' }}>
-										What's included
-									</h3>
-									<ul className="space-y-2">
-										<li className="flex items-center gap-3">
-											<CheckCircle2 className="h-4 w-4 flex-shrink-0 text-green-400" />
-											<span className="text-sm" style={{ color: '#E5E7EB' }}>
-												Official race bib with your registered details
-											</span>
-										</li>
-										<li className="flex items-center gap-3">
-											<CheckCircle2 className="h-4 w-4 flex-shrink-0 text-green-400" />
-											<span className="text-sm" style={{ color: '#E5E7EB' }}>
-												All event materials (timing chip, race packet)
-											</span>
-										</li>
-										<li className="flex items-center gap-3">
-											<CheckCircle2 className="h-4 w-4 flex-shrink-0 text-green-400" />
-											<span className="text-sm" style={{ color: '#E5E7EB' }}>
-												Complete registration transfer service
-											</span>
-										</li>
-										<li className="flex items-center gap-3">
-											<CheckCircle2 className="h-4 w-4 flex-shrink-0 text-green-400" />
-											<span className="text-sm" style={{ color: '#E5E7EB' }}>
-												24/7 customer support
-											</span>
-										</li>
+								<div className="border-border/50 bg-card/80 rounded-lg border p-6 backdrop-blur-sm">
+									<h3 className="text-foreground mb-4 text-sm font-medium">What's included</h3>
+									<ul className="text-foreground/80 space-y-2 text-sm">
+										<li>• Official race bib with your registered details</li>
+										<li>• All event materials (timing chip, race packet)</li>
+										<li>• Complete registration transfer service</li>
+										<li>• 24/7 customer support</li>
 									</ul>
 								</div>
 							</div>
 
 							{/* Payment Section - Right Side */}
 							<div className="space-y-6">
-								<div
-									className="rounded-lg border p-6"
-									style={{ backgroundColor: 'rgba(22, 33, 62, 0.8)', borderColor: 'rgba(156, 163, 175, 0.2)' }}
-								>
-									<h3 className="mb-4 text-sm font-medium" style={{ color: '#FFFFFF' }}>
-										Payment Method
-									</h3>
+								<div className="border-border/50 bg-card/80 rounded-lg border p-6 backdrop-blur-sm">
+									<h3 className="text-foreground mb-4 text-sm font-medium">Payment Method</h3>
 
 									{/* Error Messages */}
 									{Boolean(errorMessage) && (
-										<div
-											className="mb-4 rounded-lg border p-3 text-sm"
-											style={{
-												backgroundColor: 'rgba(239, 68, 68, 0.1)',
-												borderColor: 'rgba(239, 68, 68, 0.5)',
-												color: '#EF4444',
-											}}
-										>
+										<div className="mb-4 rounded-lg border border-red-500/50 bg-red-500/10 p-3 text-sm text-red-400">
 											{errorMessage}
 										</div>
 									)}
 
 									{/* Success Messages */}
 									{Boolean(successMessage) && (
-										<div
-											className="mb-4 rounded-lg border p-3 text-sm"
-											style={{
-												backgroundColor: 'rgba(16, 185, 129, 0.1)',
-												borderColor: 'rgba(16, 185, 129, 0.5)',
-												color: '#10B981',
-											}}
-										>
+										<div className="mb-4 rounded-lg border border-green-500/50 bg-green-500/10 p-3 text-sm text-green-400">
 											{successMessage}
 										</div>
 									)}
 
-									<div
-										className="rounded-lg border p-4"
-										style={{ backgroundColor: '#0F0F23', borderColor: 'rgba(156, 163, 175, 0.2)' }}
-									>
+									<div className="border-border/20 bg-background rounded-lg border p-4">
 										<PayPalButtons
 											createOrder={handleCreateOrder}
 											disabled={loading ?? !isProfileComplete}
@@ -1014,25 +667,19 @@ export default function PayPalPurchaseClient({
 								</div>
 
 								{/* Security Features */}
-								<div
-									className="rounded-lg border p-6"
-									style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', borderColor: 'rgba(16, 185, 129, 0.5)' }}
-								>
-									<div className="flex items-start gap-3">
-										<Shield className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
-										<div className="text-sm">
-											<p className="font-medium text-green-300">100% Secure Transaction</p>
-											<p className="mt-1 text-green-200">
-												Your payment is processed securely through PayPal's trusted platform. We never store your
-												payment details.
-											</p>
-										</div>
+								<div className="rounded-lg border border-green-500/40 bg-green-500/10 p-6 backdrop-blur-sm">
+									<div className="text-sm">
+										<p className="font-medium text-green-300">100% Secure Transaction</p>
+										<p className="mt-1 text-green-200">
+											Your payment is processed securely through PayPal's trusted platform. We never store your payment
+											details.
+										</p>
 									</div>
 								</div>
 
 								{/* Trust Indicators */}
 								<div className="space-y-4 text-center">
-									<div className="flex items-center justify-center gap-6 text-xs" style={{ color: '#9CA3AF' }}>
+									<div className="text-muted-foreground flex items-center justify-center gap-6 text-xs">
 										<div className="flex items-center gap-1">
 											<div className="h-2 w-2 rounded-full bg-green-400"></div>
 											<span>256-bit SSL</span>
@@ -1046,13 +693,11 @@ export default function PayPalPurchaseClient({
 											<span>PCI Compliant</span>
 										</div>
 									</div>
-									<p className="text-xs" style={{ color: '#9CA3AF' }}>
-										Trusted by thousands of athletes worldwide
-									</p>
-									<div className="flex items-center justify-center gap-4 text-xs" style={{ color: '#9CA3AF' }}>
-										<span>🔒 Bank-level encryption</span>
-										<span>⚡ Instant confirmation</span>
-										<span>🛡️ Fraud protection</span>
+									<p className="text-muted-foreground text-xs">Trusted by thousands of athletes worldwide</p>
+									<div className="text-muted-foreground flex items-center justify-center gap-4 text-xs">
+										<span>Bank-level encryption</span>
+										<span>Instant confirmation</span>
+										<span>Fraud protection</span>
 									</div>
 								</div>
 							</div>
