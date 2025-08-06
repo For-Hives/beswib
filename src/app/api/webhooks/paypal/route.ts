@@ -155,28 +155,54 @@ async function handleSellerConsentGranted(event: PayPalWebhookEvent) {
 		console.info('Handling seller consent granted:', {
 			trackingId,
 			merchantId,
+			event,
 		})
 
 		if (merchantId == null || (trackingId?.startsWith('seller_') ?? false) === false) {
-			console.error('Invalid tracking ID or missing merchant ID:', { trackingId, merchantId })
+			console.error('Invalid tracking ID or missing merchant ID:', { trackingId, merchantId, event })
 			return
 		}
 
 		const userId = trackingId != null ? trackingId.split('_')[1] : undefined
 		if (userId == null) {
-			console.error('Could not extract user ID from tracking ID:', trackingId)
+			console.error('Could not extract user ID from tracking ID:', { trackingId, event })
 			return
 		}
 
-		// Update user with PayPal merchant ID
-		await updateUser(userId, {
-			paypalMerchantId: merchantId,
-		})
-
-		console.info('Successfully updated user with PayPal merchant ID (consent granted):', {
-			userId,
-			merchantId,
-		})
+		// Retry updateUser up to 3 times on failure
+		let lastError = null
+		for (let attempt = 1; attempt <= 3; attempt++) {
+			try {
+				await updateUser(userId, {
+					paypalMerchantId: merchantId,
+				})
+				console.info('Successfully updated user with PayPal merchant ID (consent granted):', {
+					userId,
+					merchantId,
+					attempt,
+				})
+				lastError = null
+				break
+			} catch (error) {
+				lastError = error
+				console.error(`Attempt ${attempt} failed to update user:`, {
+					userId,
+					merchantId,
+					error,
+					event,
+				})
+				// Wait 1s before retrying
+				if (attempt < 3) await new Promise(resolve => setTimeout(resolve, 1000))
+			}
+		}
+		if (lastError !== null) {
+			console.error('All attempts to update user failed:', {
+				userId,
+				merchantId,
+				lastError,
+				event,
+			})
+		}
 	} catch (error) {
 		console.error('Error handling seller consent granted:', error)
 	}
