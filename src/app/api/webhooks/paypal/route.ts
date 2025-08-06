@@ -56,6 +56,10 @@ export async function POST(request: NextRequest) {
 				await handleConsentRevoked(webhookEvent)
 				break
 
+			case 'CUSTOMER.MERCHANT-INTEGRATION.SELLER-CONSENT-GRANTED':
+				await handleSellerConsentGranted(webhookEvent)
+				break
+
 			default:
 				console.info('Unhandled PayPal webhook event type:', webhookEvent.event_type)
 		}
@@ -138,5 +142,42 @@ async function handleOnboardingCompleted(event: PayPalWebhookEvent) {
 		})
 	} catch (error) {
 		console.error('Error handling onboarding completed:', error)
+	}
+}
+
+// Handle seller consent granted event
+async function handleSellerConsentGranted(event: PayPalWebhookEvent) {
+	try {
+		const { resource } = event
+		const merchantId = resource.merchant_id
+		const trackingId = resource.tracking_id
+
+		console.info('Handling seller consent granted:', {
+			trackingId,
+			merchantId,
+		})
+
+		if (merchantId == null || (trackingId?.startsWith('seller_') ?? false) === false) {
+			console.error('Invalid tracking ID or missing merchant ID:', { trackingId, merchantId })
+			return
+		}
+
+		const userId = trackingId != null ? trackingId.split('_')[1] : undefined
+		if (userId == null) {
+			console.error('Could not extract user ID from tracking ID:', trackingId)
+			return
+		}
+
+		// Update user with PayPal merchant ID
+		await updateUser(userId, {
+			paypalMerchantId: merchantId,
+		})
+
+		console.info('Successfully updated user with PayPal merchant ID (consent granted):', {
+			userId,
+			merchantId,
+		})
+	} catch (error) {
+		console.error('Error handling seller consent granted:', error)
 	}
 }
