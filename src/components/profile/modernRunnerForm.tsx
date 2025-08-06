@@ -1,19 +1,19 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Separator } from '@/components/ui/separator'
-import { Badge } from '@/components/ui/badge'
-import { Contact, Phone, Shield, MapPin, FileText, Trophy, Calendar, Globe } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/inputAlt'
+import { SelectAlt, SelectContentAlt, SelectItemAlt, SelectTriggerAlt, SelectValueAlt } from '@/components/ui/selectAlt'
+import { Label } from '@/components/ui/label'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { CheckCircle, User as UserIcon, Shield, MapPin, FileText, AlertTriangle, Save } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { object, string, minLength, url, picklist, pipe } from 'valibot'
+import { object, string, minLength, picklist, pipe, optional } from 'valibot'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { User } from '@/models/user.model'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
+import { isUserProfileComplete } from '@/lib/userValidation'
 
 type RunnerFormData = {
 	firstName: string
@@ -28,31 +28,33 @@ type RunnerFormData = {
 	city: string
 	country: string
 	gender: 'male' | 'female' | 'other'
-	medicalCertificateUrl: string
-	clubAffiliation: string
-	licenseNumber: string
+	medicalCertificateUrl?: string
+	clubAffiliation?: string
+	licenseNumber?: string
 }
 
 const runnerFormSchema = object({
-	firstName: pipe(string(), minLength(2, 'Le prénom doit contenir au moins 2 caractères')),
-	lastName: pipe(string(), minLength(2, 'Le nom doit contenir au moins 2 caractères')),
-	birthDate: pipe(string(), minLength(4, 'Veuillez entrer une date de naissance valide')),
-	phoneNumber: pipe(string(), minLength(8, 'Numéro de téléphone invalide')),
-	emergencyContactName: pipe(string(), minLength(2, 'Le nom du contact doit contenir au moins 2 caractères')),
-	emergencyContactPhone: pipe(string(), minLength(8, 'Numéro de téléphone invalide')),
-	emergencyContactRelationship: pipe(string(), minLength(2, 'Veuillez préciser la relation')),
-	address: pipe(string(), minLength(4, 'Adresse trop courte')),
-	postalCode: pipe(string(), minLength(4, 'Code postal invalide')),
-	city: pipe(string(), minLength(2, 'Ville trop courte')),
-	country: pipe(string(), minLength(2, 'Pays trop court')),
-	gender: picklist(['male', 'female', 'other'], 'Genre invalide'),
-	medicalCertificateUrl: pipe(string(), url('URL invalide')),
-	clubAffiliation: string(),
-	licenseNumber: string(),
+	firstName: pipe(string(), minLength(2, 'First name must be at least 2 characters')),
+	lastName: pipe(string(), minLength(2, 'Last name must be at least 2 characters')),
+	birthDate: pipe(string(), minLength(4, 'Please enter a valid birth date')),
+	phoneNumber: pipe(string(), minLength(8, 'Invalid phone number')),
+	emergencyContactName: pipe(string(), minLength(2, 'Contact name must be at least 2 characters')),
+	emergencyContactPhone: pipe(string(), minLength(8, 'Invalid phone number')),
+	emergencyContactRelationship: pipe(string(), minLength(2, 'Please specify the relationship')),
+	address: pipe(string(), minLength(4, 'Address too short')),
+	postalCode: pipe(string(), minLength(4, 'Invalid postal code')),
+	city: pipe(string(), minLength(2, 'City name too short')),
+	country: pipe(string(), minLength(2, 'Country name too short')),
+	gender: picklist(['male', 'female', 'other'], 'Invalid gender'),
+	medicalCertificateUrl: optional(string()),
+	clubAffiliation: optional(string()),
+	licenseNumber: optional(string()),
 })
 
 export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
-	const [activeSection, setActiveSection] = useState<string | null>(null)
+	const [isPending, startTransition] = useTransition()
+	const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+	const isComplete = isUserProfileComplete(user)
 
 	const form = useForm<RunnerFormData>({
 		resolver: valibotResolver(runnerFormSchema),
@@ -77,11 +79,21 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 	async function onSubmit(values: RunnerFormData) {
 		if (user === null) return
-		try {
-			await updateUserProfile(user.id, values as Partial<User>)
-		} catch (error) {
-			console.error(error)
-		}
+		
+		startTransition(async () => {
+			try {
+				setSubmitStatus('idle')
+				await updateUserProfile(user.id, values as Partial<User>)
+				setSubmitStatus('success')
+				// Reset success message after 3 seconds
+				setTimeout(() => setSubmitStatus('idle'), 3000)
+			} catch (error) {
+				console.error(error)
+				setSubmitStatus('error')
+				// Reset error message after 5 seconds
+				setTimeout(() => setSubmitStatus('idle'), 5000)
+			}
+		})
 	}
 
 	const handleSubmit = (e: React.FormEvent) => {
@@ -89,477 +101,376 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 		form.handleSubmit(onSubmit)(e).catch(console.error)
 	}
 
-	const sections = [
-		{
-			id: 'personal',
-			title: 'Informations Personnelles',
-			icon: Contact,
-			fields: ['firstName', 'lastName', 'birthDate', 'phoneNumber', 'gender'],
-		},
-		{
-			id: 'emergency',
-			title: "Contact d'Urgence",
-			icon: Shield,
-			fields: ['emergencyContactName', 'emergencyContactPhone', 'emergencyContactRelationship'],
-		},
-		{ id: 'address', title: 'Adresse', icon: MapPin, fields: ['address', 'postalCode', 'city', 'country'] },
-		{
-			id: 'documents',
-			title: 'Documents & Affiliations',
-			icon: FileText,
-			fields: ['medicalCertificateUrl', 'clubAffiliation', 'licenseNumber'],
-		},
-	]
-
 	return (
-		<div className="bg-card/80 min-h-screen rounded-xl p-4">
-			<div className="mx-auto max-w-4xl space-y-8">
-				{/* Header */}
-				<div className="space-y-4 text-center">
-					<div className="inline-flex items-center gap-2 rounded-full border border-blue-800 bg-blue-900/20 px-4 py-2">
-						<Trophy className="h-4 w-4 text-blue-400" />
-						<span className="text-sm font-medium text-blue-300">Profil Coureur</span>
-					</div>
-					<h1 className="text-3xl font-bold text-white">Informations Coureur</h1>
-					<p className="mx-auto max-w-2xl text-gray-400">
-						Complétez votre profil de coureur pour acheter des dossards sur la marketplace.
-					</p>
-				</div>
+		<div className="space-y-8">
+			{/* Status Alert */}
+			{!isComplete && (
+				<Alert variant="destructive">
+					<AlertTriangle className="h-4 w-4" />
+					<AlertTitle>Profile Required for Marketplace Access</AlertTitle>
+					<AlertDescription>
+						Please complete all required fields below to access the marketplace and purchase bibs. 
+						Fields marked with * are required.
+					</AlertDescription>
+				</Alert>
+			)}
 
-				{/* Progress Overview */}
-				<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-					{sections.map(section => {
-						const Icon = section.icon
-						const hasErrors = section.fields.some(field => form.formState.errors[field as keyof RunnerFormData])
-						const isComplete = section.fields.every(field => {
-							const value = form.watch(field as keyof RunnerFormData)
-							return Boolean(value && value.toString().trim() !== '')
-						})
+			{isComplete && (
+				<Alert className="border-green-500/50 bg-green-500/10">
+					<CheckCircle className="h-4 w-4 text-green-500" />
+					<AlertTitle className="text-green-700 dark:text-green-300">Profile Complete</AlertTitle>
+					<AlertDescription className="text-green-600 dark:text-green-400">
+						Your profile is complete! You can now access the marketplace and purchase bibs.
+					</AlertDescription>
+				</Alert>
+			)}
 
-						return (
-							<Card
-								key={section.id}
-								className={`cursor-pointer border-gray-800 bg-gray-900/50 backdrop-blur-sm transition-all duration-200 hover:bg-gray-900/80 ${
-									activeSection === section.id ? 'border-blue-500 ring-2 ring-blue-500' : ''
-								}`}
-								onClick={() => setActiveSection(activeSection === section.id ? null : section.id)}
+			{/* Submit Status Messages */}
+			{submitStatus === 'success' && (
+				<Alert className="border-green-500/50 bg-green-500/10">
+					<CheckCircle className="h-4 w-4 text-green-500" />
+					<AlertTitle className="text-green-700 dark:text-green-300">Profile Saved</AlertTitle>
+					<AlertDescription className="text-green-600 dark:text-green-400">
+						Your profile has been successfully updated.
+					</AlertDescription>
+				</Alert>
+			)}
+
+			{submitStatus === 'error' && (
+				<Alert variant="destructive">
+					<AlertTriangle className="h-4 w-4" />
+					<AlertTitle>Error Saving Profile</AlertTitle>
+					<AlertDescription>
+						There was an error saving your profile. Please try again.
+					</AlertDescription>
+				</Alert>
+			)}
+
+			<form onSubmit={handleSubmit} className="space-y-8">
+				{/* Personal Information Section */}
+				<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+					<CardHeader>
+						<CardTitle className="flex items-center gap-2">
+							<UserIcon className="h-5 w-5 text-primary" />
+							Personal Information
+						</CardTitle>
+					</CardHeader>
+					<CardContent className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="firstName">
+								First Name *
+							</Label>
+							<Input
+								{...form.register('firstName')}
+								className={form.formState.errors.firstName ? 'border-red-500' : ''}
+								id="firstName"
+								placeholder="Enter your first name"
+								type="text"
+							/>
+							{form.formState.errors.firstName && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.firstName.message}
+								</p>
+							)}
+						</div>
+
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="lastName">
+								Last Name *
+							</Label>
+							<Input
+								{...form.register('lastName')}
+								className={form.formState.errors.lastName ? 'border-red-500' : ''}
+								id="lastName"
+								placeholder="Enter your last name"
+								type="text"
+							/>
+							{form.formState.errors.lastName && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.lastName.message}
+								</p>
+							)}
+						</div>
+
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="birthDate">
+								Birth Date *
+							</Label>
+							<Input
+								{...form.register('birthDate')}
+								className={form.formState.errors.birthDate ? 'border-red-500' : ''}
+								id="birthDate"
+								type="date"
+							/>
+							{form.formState.errors.birthDate && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.birthDate.message}
+								</p>
+							)}
+						</div>
+
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="phoneNumber">
+								Phone Number *
+							</Label>
+							<Input
+								{...form.register('phoneNumber')}
+								className={form.formState.errors.phoneNumber ? 'border-red-500' : ''}
+								id="phoneNumber"
+								placeholder="+1 234 567 8900"
+								type="tel"
+							/>
+							{form.formState.errors.phoneNumber && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.phoneNumber.message}
+								</p>
+							)}
+						</div>
+
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="gender">
+								Gender *
+							</Label>
+							<SelectAlt 
+								onValueChange={(value) => form.setValue('gender', value as 'male' | 'female' | 'other')}
+								value={form.watch('gender')}
 							>
-								<CardContent className="p-4">
-									<div className="flex items-center gap-3">
-										<div
-											className={`rounded-lg p-2 ${
-												hasErrors
-													? 'bg-red-900/20 text-red-400'
-													: isComplete
-														? 'bg-green-900/20 text-green-400'
-														: 'bg-blue-900/20 text-blue-400'
-											}`}
-										>
-											<Icon className="h-4 w-4" />
-										</div>
-										<div className="min-w-0 flex-1">
-											<p className="truncate text-sm font-medium text-white">{section.title}</p>
-											<div className="mt-1 flex items-center gap-2">
-												{isComplete && (
-													<Badge
-														variant="secondary"
-														className="border-green-800 bg-green-900/20 text-xs text-green-400"
-													>
-														Complet
-													</Badge>
-												)}
-												{hasErrors && (
-													<Badge variant="destructive" className="border-red-800 bg-red-900/20 text-xs text-red-400">
-														Erreurs
-													</Badge>
-												)}
-											</div>
-										</div>
-									</div>
-								</CardContent>
-							</Card>
-						)
-					})}
-				</div>
-
-				{/* Main Form */}
-				<Card className="border-gray-800 bg-gray-900/50 backdrop-blur-sm">
-					<CardContent className="p-8">
-						<Form {...form}>
-							<form onSubmit={handleSubmit} className="space-y-12">
-								{/* Personal Information Section */}
-								<div className="space-y-6">
-									<div className="flex items-center gap-3">
-										<div className="rounded-lg bg-blue-900/20 p-2">
-											<Contact className="h-5 w-5 text-blue-400" />
-										</div>
-										<div>
-											<h3 className="text-xl font-semibold text-white">Informations Personnelles</h3>
-											<p className="text-sm text-gray-400">Vos informations de base</p>
-										</div>
-									</div>
-
-									<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-										<FormField
-											control={form.control}
-											name="firstName"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="text-gray-300">Prénom</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-															placeholder="Votre prénom"
-														/>
-													</FormControl>
-													<FormMessage className="text-red-400" />
-												</FormItem>
-											)}
-										/>
-
-										<FormField
-											control={form.control}
-											name="lastName"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="text-gray-300">Nom</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-															placeholder="Votre nom"
-														/>
-													</FormControl>
-													<FormMessage className="text-red-400" />
-												</FormItem>
-											)}
-										/>
-									</div>
-
-									<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-										<FormField
-											control={form.control}
-											name="birthDate"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="flex items-center gap-2 text-gray-300">
-														<Calendar className="h-4 w-4" />
-														Date de naissance
-													</FormLabel>
-													<FormControl>
-														<Input
-															type="date"
-															{...field}
-															className="border-gray-700 bg-gray-800 text-white focus:border-blue-500 focus:ring-blue-500/20"
-														/>
-													</FormControl>
-													<FormMessage className="text-red-400" />
-												</FormItem>
-											)}
-										/>
-
-										<FormField
-											control={form.control}
-											name="phoneNumber"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="flex items-center gap-2 text-gray-300">
-														<Phone className="h-4 w-4" />
-														Numéro de téléphone
-													</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-															placeholder="+33 6 12 34 56 78"
-														/>
-													</FormControl>
-													<FormMessage className="text-red-400" />
-												</FormItem>
-											)}
-										/>
-
-										<FormField
-											control={form.control}
-											name="gender"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="text-gray-300">Genre</FormLabel>
-													<Select defaultValue={field.value} onValueChange={field.onChange}>
-														<FormControl>
-															<SelectTrigger className="border-gray-700 bg-gray-800 text-white focus:border-blue-500 focus:ring-blue-500/20">
-																<SelectValue placeholder="Sélectionner le genre" />
-															</SelectTrigger>
-														</FormControl>
-														<SelectContent className="border-gray-700 bg-gray-800">
-															<SelectItem value="male" className="text-white hover:bg-gray-700">
-																Homme
-															</SelectItem>
-															<SelectItem value="female" className="text-white hover:bg-gray-700">
-																Femme
-															</SelectItem>
-															<SelectItem value="other" className="text-white hover:bg-gray-700">
-																Autre
-															</SelectItem>
-														</SelectContent>
-													</Select>
-													<FormMessage className="text-red-400" />
-												</FormItem>
-											)}
-										/>
-									</div>
-								</div>
-
-								<Separator className="bg-gray-800" />
-
-								{/* Emergency Contact Section */}
-								<div className="space-y-6">
-									<div className="flex items-center gap-3">
-										<div className="rounded-lg bg-red-900/20 p-2">
-											<Shield className="h-5 w-5 text-red-400" />
-										</div>
-										<div>
-											<h3 className="text-xl font-semibold text-white">Contact d'Urgence</h3>
-											<p className="text-sm text-gray-400">Personne à contacter en cas d'urgence</p>
-										</div>
-									</div>
-
-									<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-										<FormField
-											control={form.control}
-											name="emergencyContactName"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="text-gray-300">Nom du contact d'urgence</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-															placeholder="Nom complet"
-														/>
-													</FormControl>
-													<FormMessage className="text-red-400" />
-												</FormItem>
-											)}
-										/>
-
-										<FormField
-											control={form.control}
-											name="emergencyContactPhone"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="text-gray-300">Téléphone du contact d'urgence</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-															placeholder="+33 6 12 34 56 78"
-														/>
-													</FormControl>
-													<FormMessage className="text-red-400" />
-												</FormItem>
-											)}
-										/>
-									</div>
-
-									<FormField
-										control={form.control}
-										name="emergencyContactRelationship"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel className="text-gray-300">Relation du contact d'urgence</FormLabel>
-												<FormControl>
-													<Input
-														{...field}
-														className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-														placeholder="Ex: Conjoint(e), Parent, Ami(e)..."
-													/>
-												</FormControl>
-												<FormMessage className="text-red-400" />
-											</FormItem>
-										)}
-									/>
-								</div>
-
-								<Separator className="bg-gray-800" />
-
-								{/* Address Section */}
-								<div className="space-y-6">
-									<div className="flex items-center gap-3">
-										<div className="rounded-lg bg-green-900/20 p-2">
-											<MapPin className="h-5 w-5 text-green-400" />
-										</div>
-										<div>
-											<h3 className="text-xl font-semibold text-white">Adresse</h3>
-											<p className="text-sm text-gray-400">Votre adresse de résidence</p>
-										</div>
-									</div>
-
-									<FormField
-										control={form.control}
-										name="address"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel className="text-gray-300">Adresse</FormLabel>
-												<FormControl>
-													<Input
-														{...field}
-														className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-														placeholder="123 Rue de la Course"
-													/>
-												</FormControl>
-												<FormMessage className="text-red-400" />
-											</FormItem>
-										)}
-									/>
-
-									<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-										<FormField
-											control={form.control}
-											name="postalCode"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="text-gray-300">Code Postal</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-															placeholder="75001"
-														/>
-													</FormControl>
-													<FormMessage className="text-red-400" />
-												</FormItem>
-											)}
-										/>
-
-										<FormField
-											control={form.control}
-											name="city"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="text-gray-300">Ville</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-															placeholder="Paris"
-														/>
-													</FormControl>
-													<FormMessage className="text-red-400" />
-												</FormItem>
-											)}
-										/>
-
-										<FormField
-											control={form.control}
-											name="country"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="flex items-center gap-2 text-gray-300">
-														<Globe className="h-4 w-4" />
-														Pays
-													</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-															placeholder="France"
-														/>
-													</FormControl>
-													<FormMessage className="text-red-400" />
-												</FormItem>
-											)}
-										/>
-									</div>
-								</div>
-
-								<Separator className="bg-gray-800" />
-
-								{/* Documents & Affiliations Section */}
-								<div className="space-y-6">
-									<div className="flex items-center gap-3">
-										<div className="rounded-lg bg-purple-900/20 p-2">
-											<FileText className="h-5 w-5 text-purple-400" />
-										</div>
-										<div>
-											<h3 className="text-xl font-semibold text-white">Documents & Affiliations</h3>
-											<p className="text-sm text-gray-400">Certificats médicaux et affiliations sportives</p>
-										</div>
-									</div>
-
-									<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-										<FormField
-											control={form.control}
-											name="medicalCertificateUrl"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="text-gray-300">URL du certificat médical</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-															placeholder="https://..."
-														/>
-													</FormControl>
-													<FormMessage className="text-red-400" />
-												</FormItem>
-											)}
-										/>
-
-										<FormField
-											control={form.control}
-											name="clubAffiliation"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="text-gray-300">Affiliation au club</FormLabel>
-													<FormControl>
-														<Input
-															{...field}
-															className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-															placeholder="Nom du club (optionnel)"
-														/>
-													</FormControl>
-													<FormMessage className="text-red-400" />
-												</FormItem>
-											)}
-										/>
-									</div>
-
-									<FormField
-										control={form.control}
-										name="licenseNumber"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel className="text-gray-300">Numéro de licence</FormLabel>
-												<FormControl>
-													<Input
-														{...field}
-														className="border-gray-700 bg-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
-														placeholder="Numéro de licence FFA (optionnel)"
-													/>
-												</FormControl>
-												<FormMessage className="text-red-400" />
-											</FormItem>
-										)}
-									/>
-								</div>
-
-								{/* Submit Button */}
-								<div className="flex justify-end pt-6">
-									<Button
-										type="submit"
-										size="lg"
-										className="rounded-lg bg-blue-600 px-8 py-3 font-medium text-white transition-all duration-200 hover:scale-105 hover:bg-blue-700"
-									>
-										Enregistrer les modifications
-									</Button>
-								</div>
-							</form>
-						</Form>
+								<SelectTriggerAlt id="gender">
+									<SelectValueAlt placeholder="Select your gender" />
+								</SelectTriggerAlt>
+								<SelectContentAlt>
+									<SelectItemAlt value="male">Male</SelectItemAlt>
+									<SelectItemAlt value="female">Female</SelectItemAlt>
+									<SelectItemAlt value="other">Other</SelectItemAlt>
+								</SelectContentAlt>
+							</SelectAlt>
+							{form.formState.errors.gender && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.gender.message}
+								</p>
+							)}
+						</div>
 					</CardContent>
 				</Card>
-			</div>
+
+				{/* Emergency Contact Section */}
+				<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+					<CardHeader>
+						<CardTitle className="flex items-center gap-2">
+							<Shield className="h-5 w-5 text-primary" />
+							Emergency Contact
+						</CardTitle>
+					</CardHeader>
+					<CardContent className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="emergencyContactName">
+								Contact Name *
+							</Label>
+							<Input
+								{...form.register('emergencyContactName')}
+								className={form.formState.errors.emergencyContactName ? 'border-red-500' : ''}
+								id="emergencyContactName"
+								placeholder="Emergency contact name"
+								type="text"
+							/>
+							{form.formState.errors.emergencyContactName && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.emergencyContactName.message}
+								</p>
+							)}
+						</div>
+
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="emergencyContactPhone">
+								Contact Phone *
+							</Label>
+							<Input
+								{...form.register('emergencyContactPhone')}
+								className={form.formState.errors.emergencyContactPhone ? 'border-red-500' : ''}
+								id="emergencyContactPhone"
+								placeholder="+1 234 567 8900"
+								type="tel"
+							/>
+							{form.formState.errors.emergencyContactPhone && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.emergencyContactPhone.message}
+								</p>
+							)}
+						</div>
+
+						<div className="sm:col-span-2">
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="emergencyContactRelationship">
+								Relationship *
+							</Label>
+							<Input
+								{...form.register('emergencyContactRelationship')}
+								className={form.formState.errors.emergencyContactRelationship ? 'border-red-500' : ''}
+								id="emergencyContactRelationship"
+								placeholder="e.g., Spouse, Parent, Friend"
+								type="text"
+							/>
+							{form.formState.errors.emergencyContactRelationship && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.emergencyContactRelationship.message}
+								</p>
+							)}
+						</div>
+					</CardContent>
+				</Card>
+
+				{/* Address Section */}
+				<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+					<CardHeader>
+						<CardTitle className="flex items-center gap-2">
+							<MapPin className="h-5 w-5 text-primary" />
+							Address Information
+						</CardTitle>
+					</CardHeader>
+					<CardContent className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+						<div className="sm:col-span-2">
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="address">
+								Street Address *
+							</Label>
+							<Input
+								{...form.register('address')}
+								className={form.formState.errors.address ? 'border-red-500' : ''}
+								id="address"
+								placeholder="123 Main Street"
+								type="text"
+							/>
+							{form.formState.errors.address && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.address.message}
+								</p>
+							)}
+						</div>
+
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="postalCode">
+								Postal Code *
+							</Label>
+							<Input
+								{...form.register('postalCode')}
+								className={form.formState.errors.postalCode ? 'border-red-500' : ''}
+								id="postalCode"
+								placeholder="12345"
+								type="text"
+							/>
+							{form.formState.errors.postalCode && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.postalCode.message}
+								</p>
+							)}
+						</div>
+
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="city">
+								City *
+							</Label>
+							<Input
+								{...form.register('city')}
+								className={form.formState.errors.city ? 'border-red-500' : ''}
+								id="city"
+								placeholder="Enter your city"
+								type="text"
+							/>
+							{form.formState.errors.city && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.city.message}
+								</p>
+							)}
+						</div>
+
+						<div className="sm:col-span-2">
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="country">
+								Country *
+							</Label>
+							<Input
+								{...form.register('country')}
+								className={form.formState.errors.country ? 'border-red-500' : ''}
+								id="country"
+								placeholder="Enter your country"
+								type="text"
+							/>
+							{form.formState.errors.country && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.country.message}
+								</p>
+							)}
+						</div>
+					</CardContent>
+				</Card>
+
+				{/* Documents & Affiliations Section - Optional */}
+				<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+					<CardHeader>
+						<CardTitle className="flex items-center gap-2">
+							<FileText className="h-5 w-5 text-primary" />
+							Documents & Affiliations
+							<span className="text-sm font-normal text-muted-foreground">(Optional)</span>
+						</CardTitle>
+					</CardHeader>
+					<CardContent className="grid grid-cols-1 gap-6">
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="medicalCertificateUrl">
+								Medical Certificate URL
+							</Label>
+							<Input
+								{...form.register('medicalCertificateUrl')}
+								id="medicalCertificateUrl"
+								placeholder="https://example.com/medical-cert.pdf"
+								type="url"
+							/>
+							<p className="text-muted-foreground mt-1 text-sm">
+								Optional: Link to your medical certificate
+							</p>
+						</div>
+
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="clubAffiliation">
+								Club Affiliation
+							</Label>
+							<Input
+								{...form.register('clubAffiliation')}
+								id="clubAffiliation"
+								placeholder="Running Club Name"
+								type="text"
+							/>
+							<p className="text-muted-foreground mt-1 text-sm">
+								Optional: Name of your running/sports club
+							</p>
+						</div>
+
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="licenseNumber">
+								License Number
+							</Label>
+							<Input
+								{...form.register('licenseNumber')}
+								id="licenseNumber"
+								placeholder="FFA123456"
+								type="text"
+							/>
+							<p className="text-muted-foreground mt-1 text-sm">
+								Optional: Your athletic federation license number
+							</p>
+						</div>
+					</CardContent>
+				</Card>
+
+				{/* Submit Button */}
+				<div className="flex justify-end">
+					<Button
+						className="flex items-center gap-2 text-lg font-medium px-8 py-3"
+						disabled={isPending}
+						size="lg"
+						type="submit"
+					>
+						<Save className="h-5 w-5" />
+						{isPending ? 'Saving...' : 'Save Profile'}
+					</Button>
+				</div>
+			</form>
 		</div>
 	)
 }
