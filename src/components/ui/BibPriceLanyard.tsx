@@ -4,8 +4,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 'use client'
 import { useEffect, useRef, useState, Suspense } from 'react'
 import { Canvas, extend, useFrame } from '@react-three/fiber'
@@ -38,7 +36,7 @@ export default function Lanyard({
 	transparent = true,
 }: LanyardProps) {
 	return (
-		<div className="fixed -top-32 -right-72 z-10 h-[100vh] w-[100vw] origin-center scale-100 transform">
+		<div className="fixed -top-32 -right-128 z-10 h-[100vh] w-[100vw] origin-center scale-100 transform">
 			<Canvas
 				camera={{ position, fov }}
 				gl={{ alpha: transparent }}
@@ -46,7 +44,7 @@ export default function Lanyard({
 			>
 				<ambientLight intensity={Math.PI} />
 				<Physics gravity={gravity} timeStep={1 / 60}>
-					<Suspense fallback={<FallbackBand />}>
+					<Suspense>
 						<Band />
 					</Suspense>
 				</Physics>
@@ -90,80 +88,6 @@ interface BandProps {
 	minSpeed?: number
 }
 
-function FallbackBand() {
-	const fixed = useRef<any>(null)
-	const j1 = useRef<any>(null)
-	const j2 = useRef<any>(null)
-	const j3 = useRef<any>(null)
-	const card = useRef<any>(null)
-
-	const segmentProps: any = {
-		type: 'dynamic' as RigidBodyProps['type'],
-		canSleep: true,
-		colliders: false,
-		angularDamping: 4,
-		linearDamping: 4,
-	}
-
-	const [dragged, drag] = useState<false | THREE.Vector3>(false)
-
-	useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1])
-	useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1])
-	useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1])
-	useSphericalJoint(j3, card, [
-		[0, 0, 0],
-		[0, 1.45, 0],
-	])
-
-	return (
-		<>
-			<group position={[0, 4, 0]}>
-				<RigidBody ref={fixed} {...segmentProps} type={'fixed' as RigidBodyProps['type']} />
-				<RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
-					<BallCollider args={[0.1]} />
-				</RigidBody>
-				<RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
-					<BallCollider args={[0.1]} />
-				</RigidBody>
-				<RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
-					<BallCollider args={[0.1]} />
-				</RigidBody>
-				<RigidBody
-					position={[2, 0, 0]}
-					ref={card}
-					{...segmentProps}
-					type={dragged ? ('kinematicPosition' as RigidBodyProps['type']) : ('dynamic' as RigidBodyProps['type'])}
-				>
-					<CuboidCollider args={[0.8, 1.125, 0.01]} />
-					<group
-						scale={2.5}
-						position={[0, -1.2, -0.05]}
-						onPointerUp={(e: any) => {
-							e.target.releasePointerCapture(e.pointerId)
-							drag(false)
-						}}
-						onPointerDown={(e: any) => {
-							e.target.setPointerCapture(e.pointerId)
-							drag(new THREE.Vector3().copy(e.point))
-						}}
-					>
-						<mesh>
-							<boxGeometry args={[1.6, 2.25, 0.02]} />
-							<meshPhysicalMaterial
-								color="#ffffff"
-								clearcoat={1}
-								clearcoatRoughness={0.15}
-								roughness={0.9}
-								metalness={0.8}
-							/>
-						</mesh>
-					</group>
-				</RigidBody>
-			</group>
-		</>
-	)
-}
-
 function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 	// Using "any" for refs since the exact types depend on Rapier's internals
 	const band = useRef<any>(null)
@@ -186,91 +110,83 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 		linearDamping: 4,
 	}
 
-	// Create a realistic braided grey rope texture
+	// Create a realistic diffuse rope texture that wraps properly around the cord
 	const [ropeTexture] = useState(() => {
 		const canvas = document.createElement('canvas')
-		canvas.width = 1024
+		canvas.width = 256 // Reduced for better performance
 		canvas.height = 64
 		const ctx = canvas.getContext('2d')!
 
-		// Clear with transparent background
-		ctx.clearRect(0, 0, 1024, 64)
+		// Clear canvas
+		ctx.clearRect(0, 0, 256, 64)
 
-		// Base rope color - natural grey
-		ctx.fillStyle = '#595959' // Medium grey base
-		ctx.fillRect(0, 0, 1024, 64)
+		// Create gradient from top to bottom for cylindrical lighting
+		const gradient = ctx.createLinearGradient(0, 0, 0, 64)
+		gradient.addColorStop(0, '#C8C8C8') // Light top
+		gradient.addColorStop(0.3, '#A8A8A8') // Medium-light
+		gradient.addColorStop(0.5, '#909090') // Medium center
+		gradient.addColorStop(0.7, '#787878') // Medium-dark
+		gradient.addColorStop(1, '#606060') // Dark bottom
 
-		// Create 6 braided strands for authentic rope look
-		const numStrands = 6
-		const centerY = 32
-		const radius = 14
+		ctx.fillStyle = gradient
+		ctx.fillRect(0, 0, 256, 64)
 
-		for (let strand = 0; strand < numStrands; strand++) {
-			// Natural grey/charcoal color palette
-			const strandColors = [
-				'#6B6B6B', // Light grey
-				'#4A4A4A', // Dark grey
-				'#2F2F2F', // Charcoal
-				'#808080', // Silver grey
-				'#363636', // Very dark grey
-				'#565656', // Medium dark grey
-			]
+		// Add braided rope pattern - simplified for better diffusion
+		ctx.globalCompositeOperation = 'multiply'
 
-			for (let x = 0; x < 1024; x++) {
-				// Braided pattern - each strand follows a different phase
-				const angle = x * 0.015 + (strand * Math.PI) / 3
-				const twist = Math.sin(angle) * radius * (0.8 + Math.sin(x * 0.003) * 0.2)
-				const y = centerY + twist
+		// Create 3 main twisted strands
+		for (let strand = 0; strand < 3; strand++) {
+			const strandOffset = (strand * Math.PI * 2) / 3
 
-				// Create individual braided strand
-				const strandRadius = 6
+			for (let x = 0; x < 256; x += 2) {
+				// Twisted pattern
+				const angle = x * 0.04 + strandOffset
+				const twist = Math.sin(angle) * 16 + 32
+				const strandWidth = 12
 
-				for (let dy = -strandRadius; dy <= strandRadius; dy++) {
-					const distance = Math.abs(dy) / strandRadius
-					const alpha = Math.cos((distance * Math.PI) / 2) // Smooth round strand
+				// Create strand with gradual edges
+				for (let dy = -strandWidth; dy <= strandWidth; dy++) {
+					const y = twist + dy
+					if (y >= 0 && y < 64) {
+						const distance = Math.abs(dy) / strandWidth
+						const alpha = Math.max(0, 1 - distance) * 0.3
 
-					if (alpha > 0) {
-						// Base strand color
-						ctx.fillStyle = strandColors[strand]
-						ctx.globalAlpha = alpha * 0.85
-						ctx.fillRect(x, y + dy, 1, 1)
+						// Strand color varies by position
+						const brightness = 0.8 + Math.sin(angle * 2) * 0.2
+						const color = Math.floor(120 * brightness)
 
-						// Highlight for roundness
-						if (dy < -strandRadius / 2) {
-							ctx.fillStyle = '#9E9E9E' // Light grey highlight
-							ctx.globalAlpha = alpha * 0.3
-							ctx.fillRect(x, y + dy, 1, 1)
-						}
-
-						// Shadow for depth
-						if (dy > strandRadius / 3) {
-							ctx.fillStyle = '#1C1C1C' // Very dark shadow
-							ctx.globalAlpha = alpha * 0.4
-							ctx.fillRect(x, y + dy, 1, 1)
-						}
+						ctx.fillStyle = `rgba(${color}, ${color}, ${color}, ${alpha})`
+						ctx.fillRect(x, y, 2, 1)
 					}
 				}
-				ctx.globalAlpha = 1.0
 			}
 		}
 
-		// Add fine fiber texture for realism
-		ctx.globalAlpha = 0.12
-		for (let i = 0; i < 2000; i++) {
-			const x = Math.random() * 1024
+		// Reset composite operation
+		ctx.globalCompositeOperation = 'source-over'
+
+		// Add subtle fiber texture for realism
+		ctx.globalAlpha = 0.1
+		for (let i = 0; i < 800; i++) {
+			const x = Math.random() * 256
 			const y = Math.random() * 64
-			const fiber = Math.random() > 0.5 ? '#ADADAD' : '#333333'
-			ctx.fillStyle = fiber
-			ctx.fillRect(x, y, 1, Math.random() > 0.7 ? 2 : 1)
+			const size = Math.random() > 0.8 ? 2 : 1
+			const brightness = 120 + Math.random() * 60
+
+			ctx.fillStyle = `rgb(${brightness}, ${brightness}, ${brightness})`
+			ctx.fillRect(x, y, size, 1)
 		}
 		ctx.globalAlpha = 1.0
 
+		// Create texture with proper wrapping
 		const texture = new THREE.CanvasTexture(canvas)
 		texture.wrapS = THREE.RepeatWrapping
-		texture.wrapT = THREE.RepeatWrapping
-		texture.generateMipmaps = true
-		texture.minFilter = THREE.LinearMipmapLinearFilter
+		texture.wrapT = THREE.ClampToEdgeWrapping // Prevent vertical repeating
+		texture.generateMipmaps = false
+		texture.minFilter = THREE.LinearFilter
 		texture.magFilter = THREE.LinearFilter
+		texture.flipY = false
+		texture.format = THREE.RGBAFormat
 		texture.needsUpdate = true
 		return texture
 	})
@@ -282,16 +198,60 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 	const [dragged, drag] = useState<false | THREE.Vector3>(false)
 	const [hovered, hover] = useState(false)
 
-	const [isSmall, setIsSmall] = useState<boolean>(() => {
+	// Dynamic screen size and rope positioning system
+	const [screenSize, setScreenSize] = useState<{ width: number; height: number; isSmall: boolean }>(() => {
 		if (typeof window !== 'undefined') {
-			return window.innerWidth < 1024
+			return {
+				width: window.innerWidth,
+				height: window.innerHeight,
+				isSmall: window.innerWidth < 1024,
+			}
 		}
-		return false
+		return { width: 1024, height: 768, isSmall: false }
 	})
+
+	// Calculate dynamic rope positions based on screen size
+	const ropePositions = useMemo(() => {
+		const { width, height, isSmall } = screenSize
+		
+		// Base positions for different screen sizes
+		const baseY = isSmall ? 6 : 8 // Start higher on mobile
+		const segmentSpacing = isSmall ? 1.2 : 1.8 // Closer segments on mobile
+		
+		// Adjust card position based on screen height to avoid text overlap
+		let cardOffset = -6
+		if (height < 700) {
+			cardOffset = -4 // Bring card up on short screens
+		} else if (height < 900) {
+			cardOffset = -5 // Medium positioning
+		} else if (height > 1200) {
+			cardOffset = -8 // Lower card on tall screens
+		}
+
+		// Adjust horizontally for very wide screens
+		const groupX = width > 1800 ? 2 : 0
+
+		return {
+			groupPosition: [groupX, baseY, 0] as [number, number, number],
+			j1Position: [0, -segmentSpacing * 0.7, 0] as [number, number, number],
+			j2Position: [0, -segmentSpacing * 1.4, 0] as [number, number, number],
+			j3Position: [0, -segmentSpacing * 2.2, 0] as [number, number, number],
+			cardPosition: [0, cardOffset, 0] as [number, number, number],
+			ropeJointLengths: {
+				j1: segmentSpacing * 0.8,
+				j2: segmentSpacing,
+				j3: segmentSpacing,
+			},
+		}
+	}, [screenSize])
 
 	useEffect(() => {
 		const handleResize = (): void => {
-			setIsSmall(window.innerWidth < 1024)
+			setScreenSize({
+				width: window.innerWidth,
+				height: window.innerHeight,
+				isSmall: window.innerWidth < 1024,
+			})
 		}
 
 		window.addEventListener('resize', handleResize)
@@ -308,7 +268,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 
 	useEffect(() => {
 		if (hovered) {
-			document.body.style.cursor = dragged ? 'grabbing' : 'grab'
+			document.body.style.cursor = dragged !== false ? 'grabbing' : 'grab'
 			return () => {
 				document.body.style.cursor = 'auto'
 			}
@@ -316,7 +276,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 	}, [hovered, dragged])
 
 	useFrame((state, delta) => {
-		if (dragged && typeof dragged !== 'boolean') {
+		if (dragged !== false && typeof dragged !== 'boolean') {
 			vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera)
 			dir.copy(vec).sub(state.camera.position).normalize()
 			vec.add(dir.multiplyScalar(state.camera.position.length()))
@@ -327,11 +287,17 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 				z: vec.z - dragged.z,
 			})
 		}
-		if (fixed.current) {
+		if (fixed.current != null) {
 			;[j1, j2].forEach(ref => {
-				if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation())
-				const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())))
-				ref.current.lerped.lerp(ref.current.translation(), delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed)))
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+				const current = ref.current
+				if (current != null && current.lerped == null) {
+					current.lerped = new THREE.Vector3().copy(current.translation())
+				}
+				if (current?.lerped != null) {
+					const clampedDistance = Math.max(0.1, Math.min(1, current.lerped.distanceTo(current.translation())))
+					current.lerped.lerp(current.translation(), delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed)))
+				}
 			})
 			curve.points[0].copy(j3.current.translation())
 			curve.points[1].copy(j2.current.lerped)
@@ -423,7 +389,9 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 					position={[0, -6, 0]}
 					ref={card}
 					{...segmentProps}
-					type={dragged ? ('kinematicPosition' as RigidBodyProps['type']) : ('dynamic' as RigidBodyProps['type'])}
+					type={
+						dragged !== false ? ('kinematicPosition' as RigidBodyProps['type']) : ('dynamic' as RigidBodyProps['type'])
+					}
 				>
 					<CuboidCollider args={[0.8, 1.125, 0.01]} />
 					<SimpleCard />
@@ -434,17 +402,17 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 				<meshLineGeometry />
 				{/* @ts-expect-error - meshLineMaterial is not typed */}
 				<meshLineMaterial
-					color="#4A4A4A"
+					color="#F5F5F5"
 					depthTest={false}
 					resolution={isSmall ? [1400, 2800] : [1400, 1400]}
 					useMap={true}
 					map={ropeTexture}
-					repeat={[-10, 1]}
-					lineWidth={1.4}
-					opacity={0.98}
+					repeat={[-6, 1]}
+					lineWidth={1.2}
+					opacity={0.95}
 					transparent={true}
-					roughness={0.8}
-					metalness={0.05}
+					roughness={0.9}
+					metalness={0.02}
 				/>
 			</mesh>
 		</>
