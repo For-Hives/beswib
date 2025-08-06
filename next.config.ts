@@ -43,7 +43,17 @@ const nextConfig: NextConfig = {
 					},
 					{
 						value:
-							"script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.paypal.com https://*.clerk.accounts.dev https://clerk.com; object-src 'none'; frame-src https://www.paypal.com https://*.clerk.accounts.dev; connect-src 'self' https://api-m.sandbox.paypal.com https://api-m.paypal.com https://*.clerk.accounts.dev https://clerk.com;",
+							"default-src 'self'; " +
+							"script-src 'self' 'unsafe-inline'" +
+							(process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'") +
+							' https://www.paypal.com https://www.sandbox.paypal.com https://*.clerk.accounts.dev https://clerk.com https://challenges.cloudflare.com; ' +
+							"object-src 'none'; " +
+							'frame-src https://www.paypal.com https://www.sandbox.paypal.com https://*.clerk.accounts.dev https://clerk.com https://challenges.cloudflare.com; ' +
+							"connect-src 'self' https://api-m.sandbox.paypal.com https://api-m.paypal.com https://www.sandbox.paypal.com https://www.paypal.com https://*.clerk.accounts.dev https://clerk.com; " +
+							"img-src 'self' https://img.clerk.com data:; " +
+							"style-src 'self' 'unsafe-inline'; " +
+							"worker-src 'self' blob:; " +
+							"form-action 'self';",
 						key: 'Content-Security-Policy',
 					},
 				],
