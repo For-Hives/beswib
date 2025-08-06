@@ -35,13 +35,13 @@ interface LanyardProps {
 }
 
 export default function Lanyard({
-	position = [0, 0, 30],
-	gravity = [0, -40, 0],
-	fov = 20,
+	position = [0, 0, 24],
+	gravity = [0, -32, 0],
+	fov = 16,
 	transparent = true,
 }: LanyardProps) {
 	return (
-		<div className="relative z-0 flex h-screen w-full origin-center scale-100 transform items-center justify-center">
+		<div className="fixed top-16 right-8 z-10 h-[80vh] w-[32vw] origin-center scale-80 transform">
 			<Canvas
 				camera={{ position, fov }}
 				gl={{ alpha: transparent }}
@@ -193,8 +193,95 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 		linearDamping: 4,
 	}
 
-	// Load only the lanyard texture, skip problematic GLTF
-	const texture = useTexture(lanyardTexture)
+	// Create a realistic braided grey rope texture
+	const [ropeTexture] = useState(() => {
+		const canvas = document.createElement('canvas')
+		canvas.width = 1024
+		canvas.height = 64
+		const ctx = canvas.getContext('2d')!
+		
+		// Clear with transparent background
+		ctx.clearRect(0, 0, 1024, 64)
+		
+		// Base rope color - natural grey
+		ctx.fillStyle = '#595959' // Medium grey base
+		ctx.fillRect(0, 0, 1024, 64)
+		
+		// Create 6 braided strands for authentic rope look
+		const numStrands = 6
+		const centerY = 32
+		const radius = 14
+		
+		for (let strand = 0; strand < numStrands; strand++) {
+			// Natural grey/charcoal color palette
+			const strandColors = [
+				'#6B6B6B', // Light grey
+				'#4A4A4A', // Dark grey  
+				'#2F2F2F', // Charcoal
+				'#808080', // Silver grey
+				'#363636', // Very dark grey
+				'#565656'  // Medium dark grey
+			]
+			
+			for (let x = 0; x < 1024; x++) {
+				// Braided pattern - each strand follows a different phase
+				const angle = (x * 0.015) + (strand * Math.PI / 3)
+				const twist = Math.sin(angle) * radius * (0.8 + Math.sin(x * 0.003) * 0.2)
+				const y = centerY + twist
+				
+				// Create individual braided strand
+				const strandRadius = 6
+				
+				for (let dy = -strandRadius; dy <= strandRadius; dy++) {
+					const distance = Math.abs(dy) / strandRadius
+					const alpha = Math.cos((distance * Math.PI) / 2) // Smooth round strand
+					
+					if (alpha > 0) {
+						// Base strand color
+						ctx.fillStyle = strandColors[strand]
+						ctx.globalAlpha = alpha * 0.85
+						ctx.fillRect(x, y + dy, 1, 1)
+						
+						// Highlight for roundness
+						if (dy < -strandRadius/2) {
+							ctx.fillStyle = '#9E9E9E' // Light grey highlight
+							ctx.globalAlpha = alpha * 0.3
+							ctx.fillRect(x, y + dy, 1, 1)
+						}
+						
+						// Shadow for depth
+						if (dy > strandRadius/3) {
+							ctx.fillStyle = '#1C1C1C' // Very dark shadow
+							ctx.globalAlpha = alpha * 0.4
+							ctx.fillRect(x, y + dy, 1, 1)
+						}
+					}
+				}
+				ctx.globalAlpha = 1.0
+			}
+		}
+		
+		// Add fine fiber texture for realism
+		ctx.globalAlpha = 0.12
+		for (let i = 0; i < 2000; i++) {
+			const x = Math.random() * 1024
+			const y = Math.random() * 64
+			const fiber = Math.random() > 0.5 ? '#ADADAD' : '#333333'
+			ctx.fillStyle = fiber
+			ctx.fillRect(x, y, 1, Math.random() > 0.7 ? 2 : 1)
+		}
+		ctx.globalAlpha = 1.0
+		
+		const texture = new THREE.CanvasTexture(canvas)
+		texture.wrapS = THREE.RepeatWrapping
+		texture.wrapT = THREE.RepeatWrapping
+		texture.generateMipmaps = true
+		texture.minFilter = THREE.LinearMipmapLinearFilter
+		texture.magFilter = THREE.LinearFilter
+		texture.needsUpdate = true
+		return texture
+	})
+
 	const [curve] = useState(
 		() =>
 			new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
@@ -266,15 +353,6 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 
 	curve.curveType = 'chordal'
 
-	// Fix texture wrapping - check if texture is loaded and has the required properties
-	useEffect(() => {
-		if (texture && typeof texture === 'object' && 'wrapS' in texture && 'wrapT' in texture) {
-			// @ts-expect-error - texture is not typed
-			texture.wrapS = THREE.RepeatWrapping
-			// @ts-expect-error - texture is not typed
-			texture.wrapT = THREE.RepeatWrapping
-		}
-	}, [texture])
 
 	// Create a simple card component without GLTF
 	const SimpleCard = () => (
@@ -292,24 +370,37 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 				drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
 			}}
 		>
-			{/* Main card body */}
+			{/* Main card body with hole */}
 			<mesh>
 				<boxGeometry args={[1.6, 2.25, 0.02]} />
-				<meshPhysicalMaterial
-					color="#ffffff"
-					clearcoat={1}
-					clearcoatRoughness={0.15}
-					roughness={0.9}
-					metalness={0.8}
+				<meshPhysicalMaterial color="#ffffff" clearcoat={1} clearcoatRoughness={0.15} roughness={0.9} metalness={0.8} />
+			</mesh>
+
+			{/* Hole in the card for the rope */}
+			<mesh position={[0, 1.0, 0]}>
+				<cylinderGeometry args={[0.08, 0.08, 0.05, 16]} />
+				<meshPhysicalMaterial 
+					color="#000000" 
+					transmission={1} 
+					opacity={0.1} 
+					transparent={true}
+					roughness={1}
+					metalness={0}
 				/>
 			</mesh>
-			
+
+			{/* Hole rim - small metallic ring around the hole */}
+			<mesh position={[0, 1.0, 0.025]} rotation={[Math.PI / 2, 0, 0]}>
+				<ringGeometry args={[0.08, 0.12, 16]} />
+				<meshStandardMaterial color="#CCCCCC" metalness={0.8} roughness={0.2} />
+			</mesh>
+
 			{/* Clip - small metallic piece at top */}
 			<mesh position={[0, 0.9, 0.02]}>
 				<boxGeometry args={[0.3, 0.2, 0.05]} />
 				<meshStandardMaterial color="#666666" metalness={1} roughness={0.3} />
 			</mesh>
-			
+
 			{/* Clamp - connector piece */}
 			<mesh position={[0, 1.1, 0.01]}>
 				<boxGeometry args={[0.15, 0.15, 0.03]} />
@@ -346,13 +437,17 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 				<meshLineGeometry />
 				{/* @ts-expect-error - meshLineMaterial is not typed */}
 				<meshLineMaterial
-					color="white"
+					color="#4A4A4A"
 					depthTest={false}
-					resolution={isSmall ? [1000, 2000] : [1000, 1000]}
-					useMap={!!texture}
-					map={texture}
-					repeat={[-4, 1]}
-					lineWidth={1}
+					resolution={isSmall ? [1400, 2800] : [1400, 1400]}
+					useMap={true}
+					map={ropeTexture}
+					repeat={[-10, 1]}
+					lineWidth={1.4}
+					opacity={0.98}
+					transparent={true}
+					roughness={0.8}
+					metalness={0.05}
 				/>
 			</mesh>
 		</>
