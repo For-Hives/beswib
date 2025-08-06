@@ -9,7 +9,6 @@ import {
 	Mountain,
 	ShoppingCart,
 	TrendingUp,
-	User,
 	Users,
 	ExternalLink,
 	Building2,
@@ -378,7 +377,7 @@ export default function PayPalPurchaseClient({
 										</div>
 
 										{/* Selected Options */}
-										{bibData.optionValues && Object.keys(bibData.optionValues).length > 0 && (
+										{bibData.optionValues != null && Object.keys(bibData.optionValues).length > 0 && (
 											<div className="space-y-4">
 												<div>
 													<h4 className="text-foreground mb-3 flex items-center gap-2 font-medium">
@@ -393,7 +392,7 @@ export default function PayPalPurchaseClient({
 																		{key.replace(/([A-Z])/g, ' $1').toLowerCase()}
 																	</span>
 																	<Badge variant="secondary" className="ml-2">
-																		{value as string}
+																		{value}
 																	</Badge>
 																</div>
 															</div>
@@ -411,7 +410,7 @@ export default function PayPalPurchaseClient({
 					{/* Comprehensive Event Information */}
 					<div className="mt-8 space-y-8">
 						{/* Event Description */}
-						{eventData?.description && (
+						{eventData?.description != null && eventData.description.length > 0 && (
 							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
 								<CardHeader>
 									<CardTitle className="flex items-center gap-2">
@@ -454,7 +453,7 @@ export default function PayPalPurchaseClient({
 										{bib.event.distance}
 										{bib.event.distanceUnit}
 									</p>
-									{eventData?.elevationGainM && (
+									{eventData?.elevationGainM != null && eventData.elevationGainM > 0 && (
 										<div className="text-muted-foreground flex items-center gap-1 text-sm">
 											<Mountain className="h-4 w-4" />
 											{eventData.elevationGainM}m elevation gain
@@ -475,7 +474,7 @@ export default function PayPalPurchaseClient({
 									<p className="text-foreground font-medium">
 										{formatParticipantCount(bib.event.participantCount)} registered
 									</p>
-									{eventData?.officialStandardPrice && (
+									{eventData?.officialStandardPrice != null && eventData.officialStandardPrice > 0 && (
 										<p className="text-muted-foreground text-sm">Official price: €{eventData.officialStandardPrice}</p>
 									)}
 								</CardContent>
@@ -483,7 +482,8 @@ export default function PayPalPurchaseClient({
 						</div>
 
 						{/* Bib Pickup & Transfer Info */}
-						{(eventData?.bibPickupLocation || eventData?.bibPickupWindowBeginDate) && (
+						{((eventData?.bibPickupLocation != null && eventData.bibPickupLocation.length > 0) ||
+							eventData?.bibPickupWindowBeginDate != null) && (
 							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
 								<CardHeader>
 									<CardTitle className="flex items-center gap-2">
@@ -493,13 +493,13 @@ export default function PayPalPurchaseClient({
 								</CardHeader>
 								<CardContent className="space-y-4">
 									<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-										{eventData.bibPickupLocation && (
+										{eventData.bibPickupLocation != null && eventData.bibPickupLocation.length > 0 && (
 											<div>
 												<h4 className="text-foreground mb-1 font-medium">Pickup Location</h4>
 												<p className="text-muted-foreground text-sm">{eventData.bibPickupLocation}</p>
 											</div>
 										)}
-										{eventData.bibPickupWindowBeginDate && eventData.bibPickupWindowEndDate && (
+										{eventData.bibPickupWindowBeginDate != null && eventData.bibPickupWindowEndDate != null && (
 											<div>
 												<h4 className="text-foreground mb-1 font-medium">Pickup Window</h4>
 												<p className="text-muted-foreground text-sm">
@@ -508,7 +508,7 @@ export default function PayPalPurchaseClient({
 												</p>
 											</div>
 										)}
-										{eventData.transferDeadline && (
+										{eventData.transferDeadline != null && (
 											<div className="md:col-span-2">
 												<h4 className="text-foreground mb-1 font-medium">Transfer Deadline</h4>
 												<p className="text-muted-foreground flex items-center gap-1 text-sm">
@@ -523,7 +523,7 @@ export default function PayPalPurchaseClient({
 						)}
 
 						{/* Race Options */}
-						{eventData?.options && eventData.options.length > 0 && (
+						{eventData?.options != null && eventData.options.length > 0 && (
 							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
 								<CardHeader>
 									<CardTitle>Race Options</CardTitle>
@@ -554,7 +554,7 @@ export default function PayPalPurchaseClient({
 						)}
 
 						{/* Organizer Information */}
-						{(eventData?.expand?.organizer || organizerData) && (
+						{(eventData?.expand?.organizer != null || organizerData != null) && (
 							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
 								<CardHeader>
 									<CardTitle className="flex items-center gap-2">
@@ -564,41 +564,45 @@ export default function PayPalPurchaseClient({
 								</CardHeader>
 								<CardContent>
 									<div className="flex items-start gap-4">
-										{(eventData?.expand?.organizer?.logo || organizerData?.logo) && (
+										{(eventData?.expand?.organizer?.logo != null && eventData.expand.organizer.logo.length > 0) ||
+										(organizerData?.logo != null && organizerData.logo.length > 0) ? (
 											<div className="border-border/20 relative h-16 w-16 overflow-hidden rounded-lg border">
 												<Image
 													alt="Organizer Logo"
 													className="object-contain p-2"
 													fill
 													sizes="64px"
-													src={`/api/files/pbc_4261386219/${eventData?.expand?.organizer?.id || organizerData?.id}/${eventData?.expand?.organizer?.logo || organizerData?.logo}`}
+													src={`/api/files/pbc_4261386219/${eventData?.expand?.organizer?.id ?? organizerData?.id}/${eventData?.expand?.organizer?.logo ?? organizerData?.logo}`}
 												/>
 											</div>
-										)}
+										) : null}
 										<div className="flex-1 space-y-2">
 											<div className="flex items-center gap-2">
 												<h3 className="text-foreground font-semibold">
-													{eventData?.expand?.organizer?.name || organizerData?.name}
+													{eventData?.expand?.organizer?.name ?? organizerData?.name}
 												</h3>
-												{(eventData?.expand?.organizer?.isPartnered || organizerData?.isPartnered) && (
+												{(eventData?.expand?.organizer?.isPartnered === true ||
+													organizerData?.isPartnered === true) && (
 													<Badge variant="default" className="flex items-center gap-1">
 														<CheckCircle2 className="h-3 w-3" />
 														Partner
 													</Badge>
 												)}
 											</div>
-											{(eventData?.expand?.organizer?.website || organizerData?.website) && (
+											{(eventData?.expand?.organizer?.website != null &&
+												eventData.expand.organizer.website.length > 0) ||
+											(organizerData?.website != null && organizerData.website.length > 0) ? (
 												<Link
 													className="text-muted-foreground hover:text-primary flex items-center gap-1 text-sm transition-colors"
-													href={eventData?.expand?.organizer?.website || organizerData?.website || '#'}
+													href={eventData?.expand?.organizer?.website ?? organizerData?.website ?? '#'}
 													target="_blank"
 													rel="noopener noreferrer"
 												>
 													<Globe className="h-4 w-4" />
-													{eventData?.expand?.organizer?.website || organizerData?.website}
+													{eventData?.expand?.organizer?.website ?? organizerData?.website}
 													<ExternalLink className="h-3 w-3" />
 												</Link>
-											)}
+											) : null}
 										</div>
 									</div>
 								</CardContent>
@@ -606,7 +610,8 @@ export default function PayPalPurchaseClient({
 						)}
 
 						{/* External Links */}
-						{(eventData?.registrationUrl || eventData?.parcoursUrl) && (
+						{((eventData?.registrationUrl != null && eventData.registrationUrl.length > 0) ||
+							(eventData?.parcoursUrl != null && eventData.parcoursUrl.length > 0)) && (
 							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
 								<CardHeader>
 									<CardTitle className="flex items-center gap-2">
@@ -616,7 +621,7 @@ export default function PayPalPurchaseClient({
 								</CardHeader>
 								<CardContent>
 									<div className="flex flex-col gap-3">
-										{eventData.registrationUrl && (
+										{eventData.registrationUrl != null && eventData.registrationUrl.length > 0 && (
 											<Link
 												className="text-primary hover:text-primary/80 flex items-center gap-2 transition-colors"
 												href={eventData.registrationUrl}
@@ -628,7 +633,7 @@ export default function PayPalPurchaseClient({
 												<ExternalLink className="h-3 w-3" />
 											</Link>
 										)}
-										{eventData.parcoursUrl && (
+										{eventData.parcoursUrl != null && eventData.parcoursUrl.length > 0 && (
 											<Link
 												className="text-primary hover:text-primary/80 flex items-center gap-2 transition-colors"
 												href={eventData.parcoursUrl}
@@ -739,7 +744,7 @@ export default function PayPalPurchaseClient({
 
 									<PayPalButtons
 										createOrder={handleCreateOrder}
-										disabled={loading || !isProfileComplete}
+										disabled={loading ?? !isProfileComplete}
 										onApprove={onApprove}
 										onCancel={onCancel}
 										onError={onError}
