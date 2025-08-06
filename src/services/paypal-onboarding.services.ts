@@ -1,5 +1,16 @@
 'use server'
 
+export async function disconnectPayPalAccount(userId: string): Promise<{ error?: string; success?: boolean }> {
+	try {
+		await updateUser(userId, { paypalMerchantId: null })
+		revalidatePath('/profile')
+		return { success: true }
+	} catch (error) {
+		console.error('PayPal disconnect error:', error)
+		return { error: 'Failed to disconnect PayPal account' }
+	}
+}
+
 import { revalidatePath } from 'next/cache'
 
 import { onboardSeller } from '@/services/paypal.services'
