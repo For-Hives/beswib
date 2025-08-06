@@ -352,30 +352,32 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 					/>
 				</mesh>
 
-				{/* Price Card Content - simplified */}
+				{/* Price Card Content - fit perfectly in card */}
 				{price != null && (
 					<Html
 						transform
-						position={[0, 0, 0.02]}
-						scale={0.25}
+						position={[0, -0.2, 0.02]}
+						scale={0.22}
 						style={{
 							pointerEvents: 'none',
 							userSelect: 'none',
+							width: '100%',
+							height: '100%',
 						}}
 					>
-						<div className="flex min-w-[300px] flex-col items-center justify-center rounded-xl border border-white/20 bg-gradient-to-br from-white/90 via-white/80 to-white/90 p-4 backdrop-blur-sm">
+						<div className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-gradient-to-br p-3">
 							{/* Discount Badge */}
 							{hasDiscount && discountPercentage > 0 && (
-								<div className="mb-3">
-									<span className="inline-flex items-center rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white">
+								<div className="mb-4">
+									<span className="inline-flex items-center rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-md">
 										-{discountPercentage}% OFF
 									</span>
 								</div>
 							)}
 
 							{/* Main Price */}
-							<div className="mb-2 text-center">
-								<span className="text-3xl font-bold text-gray-900">
+							<div className="mb-3 text-center">
+								<span className="text-4xl font-bold text-gray-900">
 									{currency === 'EUR' ? '€' : '$'}
 									{price}
 								</span>
@@ -383,8 +385,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 
 							{/* Original Price */}
 							{hasDiscount && (
-								<div className="mb-3 text-center">
-									<span className="text-lg text-gray-500 line-through">
+								<div className="mb-4 text-center">
+									<span className="text-xl text-gray-500 line-through">
 										{currency === 'EUR' ? '€' : '$'}
 										{originalPrice}
 									</span>
@@ -394,7 +396,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 							{/* Savings Amount */}
 							{hasDiscount && savingsAmount > 0 && (
 								<div className="text-center">
-									<span className="text-sm font-medium text-green-600">
+									<span className="text-base font-medium text-green-600">
 										Save {currency === 'EUR' ? '€' : '$'}
 										{savingsAmount.toFixed(2)}
 									</span>
@@ -404,17 +406,10 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 					</Html>
 				)}
 
-				{/* Hole in the card for the rope */}
+				{/* Hole in the card for the rope - fully transparent */}
 				<mesh position={[0, 1.0, 0]}>
 					<cylinderGeometry args={[0.08, 0.08, 0.05, 16]} />
-					<meshPhysicalMaterial
-						color="#000000"
-						transmission={1}
-						opacity={0.1}
-						transparent={true}
-						roughness={1}
-						metalness={0}
-					/>
+					<meshBasicMaterial transparent={true} opacity={0} visible={false} />
 				</mesh>
 
 				{/* Hole rim - small metallic ring around the hole */}
