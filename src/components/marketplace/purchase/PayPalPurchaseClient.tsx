@@ -3,23 +3,17 @@
 import {
 	AlertTriangle,
 	Calendar,
-	Clock,
-	Globe,
-	MapPinned,
 	Mountain,
-	ShoppingCart,
-	TrendingUp,
-	Users,
-	ExternalLink,
-	Building2,
 	CheckCircle2,
-	Tag,
-	Hash,
 	Shield,
-	Package,
+	Star,
+	Info,
+	CreditCard,
+	MapPinned,
 } from 'lucide-react'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 
 import { useRouter } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
@@ -38,10 +32,8 @@ import { capturePayment, createOrder } from '@/services/paypal.services'
 import { SlidingPanel } from '@/components/ui/SlidingPanel'
 import { formatDateWithLocale } from '@/lib/dateUtils'
 import { isUserProfileComplete } from '@/lib/userValidation'
-import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n-config'
 import { cn } from '@/lib/utils'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
 interface PayPalPurchaseClientProps {
@@ -62,8 +54,6 @@ export default function PayPalPurchaseClient({
 	locale,
 	bib,
 	eventData,
-	organizerData,
-	bibData,
 }: Readonly<PayPalPurchaseClientProps>) {
 	const [errorMessage, setErrorMessage] = useState<null | string>(null)
 	const [successMessage, setSuccessMessage] = useState<null | string>(null)
@@ -184,103 +174,321 @@ export default function PayPalPurchaseClient({
 		}
 	}
 
-	function formatParticipantCount(participantCount: number) {
-		return participantCount.toLocaleString('en-US', {
-			minimumFractionDigits: 0,
-			maximumFractionDigits: 0,
-		})
-	}
-
 	// Filter other bibs for the same event (excluding current bib)
 	const samEventBibs = otherBibs.filter(otherBib => otherBib.event.id === bib.event.id && otherBib.id !== bib.id)
 
-	return (
-		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
-			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+	// Mock reviews data for demonstration
+	const reviews = {
+		average: 4.8,
+		totalCount: 127,
+		featured: [
+			{
+				id: 1,
+				rating: 5,
+				content:
+					'Amazing experience! The bib transfer was seamless and I saved so much compared to the official price. Highly recommend Beswib!',
+				date: 'December 15, 2024',
+				datetime: '2024-12-15',
+				author: 'Sarah M.',
+				avatarSrc: `https://images.unsplash.com/photo-1494790108755-2616b612b786?w=256&h=256&q=80&fit=crop&crop=face`,
+			},
+			{
+				id: 2,
+				rating: 5,
+				content:
+					"Perfect service! Got my bib for the marathon I thought I'd missed. The seller was very responsive and everything went smoothly.",
+				date: 'December 10, 2024',
+				datetime: '2024-12-10',
+				author: 'Mike R.',
+				avatarSrc: `https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=256&h=256&q=80&fit=crop&crop=face`,
+			},
+			{
+				id: 3,
+				rating: 4,
+				content:
+					'Great platform for finding race bibs. The process is straightforward and secure. Will definitely use again!',
+				date: 'December 5, 2024',
+				datetime: '2024-12-05',
+				author: 'Emma L.',
+				avatarSrc: `https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=256&h=256&q=80&fit=crop&crop=face`,
+			},
+		],
+	}
 
-			<div className="relative pt-12 pb-12">
-				<div className="container mx-auto max-w-6xl p-6">
-					{/* Header */}
-					<div className="mb-12 space-y-2 text-center">
-						<h1 className="text-foreground text-4xl font-bold tracking-tight">Purchase Bib</h1>
-						<p className="text-muted-foreground text-lg">
-							Complete your purchase to secure your race bib for {bib.event.name}
-						</p>
+	// FAQ data
+	const faqs = [
+		{
+			question: 'How does the bib transfer process work?',
+			answer:
+				"Once you complete your purchase, we'll coordinate with the seller to transfer the bib registration to your name. You'll receive all necessary confirmation details and pickup instructions.",
+		},
+		{
+			question: 'Is my payment secure?',
+			answer:
+				"Yes! All payments are processed through PayPal's secure platform. We never store your payment information, and all transactions are protected by PayPal's buyer protection policy.",
+		},
+		{
+			question: 'What if the event gets cancelled?',
+			answer:
+				"In case of event cancellation, you'll be eligible for a full refund according to the event organizer's cancellation policy. We'll handle the refund process on your behalf.",
+		},
+		{
+			question: "Can I resell the bib if I can't participate?",
+			answer:
+				'Yes, you can list your bib for resale on our platform up until the transfer deadline set by the event organizer. This helps other runners who are looking for last-minute entries.',
+		},
+	]
+
+	// License/Terms data
+	const terms = {
+		href: '#',
+		summary: "By purchasing this bib, you agree to our terms of service and the event organizer's participation rules.",
+		content: `
+			<h4>Terms of Purchase</h4>
+			
+			<p>By purchasing this race bib, you agree to the following terms and conditions.</p>
+			
+			<ul role="list">
+			<li>You must provide accurate personal information for bib registration transfer.</li>
+			<li>You agree to abide by all event organizer rules and regulations.</li>
+			<li>Medical certificates may be required depending on the event requirements.</li>
+			</ul>
+			
+			<h4>What's included</h4>
+			
+			<ul role="list">
+			<li>Official race bib with your name and details.</li>
+			<li>All event-specific materials (timing chip, race packet, etc.).</li>
+			<li>Support throughout the transfer process.</li>
+			</ul>
+			
+			<h4>Important Notes</h4>
+			
+			<ul role="list">
+			<li>Bib transfers must be completed before the event organizer's deadline.</li>
+			<li>Some events may require additional documentation or fees.</li>
+			<li>Refunds are subject to the event organizer's cancellation policy.</li>
+			</ul>
+		`,
+	}
+
+	function classNames(...classes: (string | boolean | undefined)[]): string {
+		return classes.filter(Boolean).join(' ')
+	}
+
+	return (
+		<div className="min-h-screen" style={{ backgroundColor: '#0F0F23' }}>
+			<div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+				{/* Product Layout */}
+				<div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
+					{/* Event Image */}
+					<div className="lg:col-span-4 lg:row-end-1">
+						<div className="relative">
+							<Image
+								alt={bib.event.name}
+								src={bib.event.image}
+								className="aspect-[4/3] w-full rounded-lg object-cover"
+								style={{ backgroundColor: 'rgba(22, 33, 62, 0.8)' }}
+								width={800}
+								height={600}
+							/>
+							{/* Event Type Badge */}
+							<div className="absolute top-4 left-4 z-10">
+								<span
+									className={cn(
+										'inline-block rounded-full border px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-md',
+										bgFromType(bib.event.type)
+									)}
+								>
+									{bib.event.type.charAt(0).toUpperCase() + bib.event.type.slice(1)}
+								</span>
+							</div>
+							{/* Discount Badge */}
+							{!!bib.originalPrice && ((bib.originalPrice - bib.price) / bib.originalPrice) * 100 > 10 && (
+								<div className="absolute top-4 right-4 z-10">
+									<Badge variant="destructive" className="text-white">
+										{(-((bib.originalPrice - bib.price) / bib.originalPrice) * 100).toFixed(0)}% OFF
+									</Badge>
+								</div>
+							)}
+						</div>
 					</div>
 
-					{/* Event Overview Card */}
-					<Card className="border-border/50 bg-card/80 mb-8 backdrop-blur-sm">
-						<div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-							{/* Event Image */}
-							<div className="relative overflow-hidden rounded-lg lg:col-span-2">
-								<div className="relative h-64 lg:h-80">
-									<Image
-										alt="Event Image"
-										className="object-cover"
-										fill
-										sizes="(max-width: 1024px) 100vw, 66vw"
-										src={bib.event.image}
-									/>
-									{/* Event Type Badge */}
-									<div className="absolute top-4 left-4 z-10">
-										<span
-											className={cn(
-												'inline-block rounded-full border px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-md',
-												bgFromType(bib.event.type)
+					{/* Product Details */}
+					<div className="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
+						<div className="flex flex-col-reverse">
+							<div className="mt-4">
+								<h1 className="text-2xl font-bold tracking-tight sm:text-3xl" style={{ color: '#FFFFFF' }}>
+									{bib.event.name}
+								</h1>
+
+								<h2 id="information-heading" className="sr-only">
+									Bib information
+								</h2>
+								<p className="mt-2 text-sm" style={{ color: '#9CA3AF' }}>
+									Event Date: {formatDateWithLocale(bib.event.date, locale)} • {bib.event.location}
+								</p>
+							</div>
+
+							<div className="space-y-4">
+								{/* Reviews */}
+								<div>
+									<h3 className="sr-only">Reviews</h3>
+									<div className="flex items-center">
+										{[0, 1, 2, 3, 4].map(rating => (
+											<Star
+												key={rating}
+												aria-hidden="true"
+												className={classNames(
+													reviews.average > rating ? 'text-yellow-400' : 'text-gray-600',
+													'h-5 w-5 flex-shrink-0'
+												)}
+												fill="currentColor"
+											/>
+										))}
+									</div>
+									<p className="sr-only">{reviews.average} out of 5 stars</p>
+									<p className="mt-1 text-sm" style={{ color: '#9CA3AF' }}>
+										{reviews.average} out of 5 stars ({reviews.totalCount} reviews)
+									</p>
+								</div>
+
+								{/* Race Stats */}
+								<div className="flex items-center gap-6 text-sm">
+									{/* Distance + Elevation */}
+									<div className="flex items-center gap-2">
+										<Mountain className="h-4 w-4" style={{ color: '#3B82F6' }} />
+										<span style={{ color: '#E5E7EB' }}>
+											{bib.event.distance}
+											{bib.event.distanceUnit}
+											{(eventData?.elevationGainM ?? 0) > 0 && (
+												<span style={{ color: '#9CA3AF' }}> (+{eventData?.elevationGainM}m)</span>
 											)}
-										>
-											{bib.event.type.charAt(0).toUpperCase() + bib.event.type.slice(1)}
 										</span>
 									</div>
-									{/* Discount Badge */}
-									{!!bib.originalPrice && ((bib.originalPrice - bib.price) / bib.originalPrice) * 100 > 10 && (
-										<div className="absolute top-4 right-4 z-10">
-											<Badge variant="destructive" className="text-white">
-												{(-((bib.originalPrice - bib.price) / bib.originalPrice) * 100).toFixed(0)}% OFF
-											</Badge>
-										</div>
-									)}
+
+									{/* Participants */}
+									<div className="flex items-center gap-2">
+										<svg className="h-4 w-4" style={{ color: '#3B82F6' }} fill="currentColor" viewBox="0 0 20 20">
+											<path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+										</svg>
+										<span style={{ color: '#E5E7EB' }}>{bib.event.participantCount.toLocaleString()} runners</span>
+									</div>
 								</div>
-								<div className="p-6">
-									<h2 className="text-foreground text-2xl font-bold">{bib.event.name}</h2>
-									<p className="text-muted-foreground mt-1 text-sm italic">
-										Sold by {bib.user.firstName ?? 'Anonymous'} {bib.user.lastName ?? ''}
+							</div>
+						</div>
+
+						{/* Event Description */}
+						<div className="mt-6">
+							{eventData?.description && eventData.description.trim() !== '' ? (
+								<div
+									className="rounded-lg border p-4"
+									style={{
+										backgroundColor: 'rgba(22, 33, 62, 0.4)',
+										borderColor: 'rgba(156, 163, 175, 0.2)',
+									}}
+								>
+									<h3 className="mb-2 text-sm font-semibold" style={{ color: '#3B82F6' }}>
+										🏃 À propos de cet événement
+									</h3>
+									<p className="text-sm leading-relaxed" style={{ color: '#E5E7EB' }}>
+										{eventData.description}
+									</p>
+								</div>
+							) : (
+								<p style={{ color: '#9CA3AF' }}>
+									Secure your spot for {bib.event.name}. This race bib includes all official race materials and
+									registration transfer to your name.
+								</p>
+							)}
+						</div>
+
+						{/* Transfer Deadline Warning - Critical */}
+						{eventData?.transferDeadline && (
+							<div
+								className="mt-6 rounded-lg border p-4"
+								style={{
+									backgroundColor: 'rgba(245, 158, 11, 0.1)',
+									borderColor: 'rgba(245, 158, 11, 0.5)',
+								}}
+							>
+								<div className="flex items-center gap-2">
+									<AlertTriangle className="h-4 w-4 text-yellow-400" />
+									<p className="text-sm font-medium text-yellow-300">
+										⏰ Transfer deadline: {formatDateWithLocale(eventData.transferDeadline, locale)}
 									</p>
 								</div>
 							</div>
+						)}
 
-							{/* Price and Purchase Section */}
-							<div className="flex flex-col justify-between p-6">
-								<div>
-									<h3 className="mb-4 text-lg font-semibold">Price</h3>
-									<div className="mb-6">
-										<p className="text-foreground text-4xl font-bold">{bib.price}€</p>
-										{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
-											<p className="text-muted-foreground text-lg line-through">{bib.originalPrice}€</p>
-										)}
-										{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
-											<p className="mt-1 text-sm font-medium text-green-600">
-												Save €{(bib.originalPrice - bib.price).toFixed(2)} (
-												{(((bib.originalPrice - bib.price) / bib.originalPrice) * 100).toFixed(0)}% off)
+						{/* Price */}
+						<div className="mt-6">
+							<div className="flex items-baseline gap-3">
+								<p className="text-4xl font-bold tracking-tight" style={{ color: '#FFFFFF' }}>
+									€{bib.price}
+								</p>
+
+								{/* Official Event Price */}
+								{(eventData?.officialStandardPrice ?? 0) > 0 &&
+									(eventData?.officialStandardPrice ?? 0) !== bib.price && (
+										<div className="flex flex-col">
+											<p className="text-sm" style={{ color: '#9CA3AF' }}>
+												Prix de base
 											</p>
-										)}
-									</div>
-								</div>
+											<p className="text-lg line-through" style={{ color: '#6B7280' }}>
+												€{eventData?.officialStandardPrice ?? 0}
+											</p>
+										</div>
+									)}
+							</div>
 
-								{/* Show alerts for specific cases */}
-								{!isProfileComplete && isSignedIn === true && !isOwnBib && (
+							{/* Seller's original price discount */}
+							{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
+								<div className="mt-2">
+									<p className="text-sm font-medium text-green-400">
+										Save €{(bib.originalPrice - bib.price).toFixed(2)} from seller (
+										{(((bib.originalPrice - bib.price) / bib.originalPrice) * 100).toFixed(0)}% off)
+									</p>
+								</div>
+							)}
+
+							{/* Show savings vs official price */}
+							{(eventData?.officialStandardPrice ?? 0) > 0 &&
+								eventData?.officialStandardPrice !== bib.price &&
+								(eventData?.officialStandardPrice ?? 0) > bib.price && (
+									<div className="mt-2">
+										<p className="text-sm font-medium text-green-400">
+											💰 Save €{((eventData?.officialStandardPrice ?? 0) - bib.price).toFixed(2)} vs. official price (
+											{(
+												(((eventData?.officialStandardPrice ?? 0) - bib.price) /
+													(eventData?.officialStandardPrice ?? 1)) *
+												100
+											).toFixed(0)}
+											% off)
+										</p>
+									</div>
+								)}
+						</div>
+
+						{/* Action Buttons */}
+						<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+							{/* Show alerts for specific cases */}
+							{!isProfileComplete && isSignedIn === true && !isOwnBib && (
+								<div className="sm:col-span-2">
 									<Alert className="mb-4" variant="destructive">
 										<AlertTriangle className="h-4 w-4" />
 										<AlertTitle>Profile Incomplete</AlertTitle>
 										<AlertDescription>
 											Please complete your runner profile before purchasing a bib.{' '}
-											<Link className="text-destructive-foreground font-bold" href={`/${locale}/profile`}>
+											<Link className="font-bold underline" href={`/${locale}/profile`}>
 												Complete Profile
 											</Link>
 										</AlertDescription>
 									</Alert>
-								)}
-								{isOwnBib && isSignedIn === true && (
+								</div>
+							)}
+							{isOwnBib && isSignedIn === true && (
+								<div className="sm:col-span-2">
 									<Alert className="mb-4" variant="default">
 										<AlertTriangle className="h-4 w-4" />
 										<AlertTitle>Your Own Bib</AlertTitle>
@@ -292,371 +500,321 @@ export default function PayPalPurchaseClient({
 											.
 										</AlertDescription>
 									</Alert>
-								)}
+								</div>
+							)}
 
-								{/* Only show buy button if user is signed in, has complete profile, and it's not their own bib */}
-								{isSignedIn === true && isProfileComplete && !isOwnBib && (
-									<Button
-										className="flex items-center justify-center gap-2 text-lg font-medium"
-										onClick={handleBuyNowClick}
-										size="lg"
-									>
-										<ShoppingCart className="h-5 w-5" />
-										Buy Now
-									</Button>
-								)}
+							{/* Buy Button */}
+							{(isSignedIn !== true || (isSignedIn === true && isProfileComplete && !isOwnBib)) && (
+								<button
+									type="button"
+									onClick={handleBuyNowClick}
+									className="flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white transition-all hover:scale-[1.02] focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-none"
+									style={{
+										backgroundColor: '#3B82F6',
+										boxShadow: '0 2px 4px rgba(59, 130, 246, 0.2)',
+									}}
+									onMouseEnter={e => {
+										e.currentTarget.style.backgroundColor = '#2563EB'
+										e.currentTarget.style.boxShadow = '0 4px 8px rgba(59, 130, 246, 0.3)'
+									}}
+									onMouseLeave={e => {
+										e.currentTarget.style.backgroundColor = '#3B82F6'
+										e.currentTarget.style.boxShadow = '0 2px 4px rgba(59, 130, 246, 0.2)'
+									}}
+									disabled={isOwnBib}
+								>
+									<CreditCard className="mr-2 h-5 w-5" />
+									{isSignedIn !== true ? 'Sign In to Purchase' : 'Purchase Bib'}
+								</button>
+							)}
 
-								{/* Show sign in prompt for non-authenticated users */}
-								{isSignedIn !== true && (
-									<Button
-										className="flex items-center justify-center gap-2 text-lg font-medium"
-										onClick={handleBuyNowClick}
-										size="lg"
-									>
-										<ShoppingCart className="h-5 w-5" />
-										Buy Now
-									</Button>
-								)}
+							{/* Preview/Info Button */}
+							<button
+								type="button"
+								className="flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-none"
+								style={{
+									backgroundColor: 'transparent',
+									color: '#FFFFFF',
+									border: '1px solid rgba(255, 255, 255, 0.2)',
+								}}
+								onMouseEnter={e => {
+									e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'
+									e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
+								}}
+								onMouseLeave={e => {
+									e.currentTarget.style.backgroundColor = 'transparent'
+									e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)'
+								}}
+							>
+								<Info className="mr-2 h-5 w-5" />
+								Event Details
+							</button>
+						</div>
+
+						{/* Highlights - Focused on Value */}
+						<div className="mt-10 border-t pt-10" style={{ borderColor: 'rgba(156, 163, 175, 0.2)' }}>
+							<h3 className="text-sm font-medium" style={{ color: '#FFFFFF' }}>
+								✅ What you get
+							</h3>
+							<div className="mt-4 space-y-2">
+								<div className="flex items-center gap-2">
+									<CheckCircle2 className="h-4 w-4 text-green-400" />
+									<span className="text-sm" style={{ color: '#E5E7EB' }}>
+										Official race bib transferred to your name
+									</span>
+								</div>
+								<div className="flex items-center gap-2">
+									<CheckCircle2 className="h-4 w-4 text-green-400" />
+									<span className="text-sm" style={{ color: '#E5E7EB' }}>
+										All race materials & timing chip
+									</span>
+								</div>
+								<div className="flex items-center gap-2">
+									<CheckCircle2 className="h-4 w-4 text-green-400" />
+									<span className="text-sm" style={{ color: '#E5E7EB' }}>
+										Secure transfer process
+									</span>
+								</div>
 							</div>
 						</div>
-					</Card>
 
-					{/* Bib-Specific Information */}
-					{bibData && (
-						<div className="mt-8">
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
-								<CardHeader>
-									<CardTitle className="flex items-center gap-2">
-										<Package className="h-5 w-5" />
-										Bib Details
-									</CardTitle>
-									<CardDescription>Specific information for this bib listing</CardDescription>
-								</CardHeader>
-								<CardContent>
-									<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-										{/* Bib Status & Info */}
-										<div className="space-y-4">
-											<div className="flex items-center gap-3">
-												<div className="bg-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-full">
-													<Tag className="h-5 w-5" />
-												</div>
-												<div>
-													<h4 className="text-foreground font-medium">Status</h4>
-													<div className="flex items-center gap-2">
-														<Badge
-															variant={bibData.status === 'available' ? 'default' : 'secondary'}
-															className="capitalize"
-														>
-															{bibData.status}
-														</Badge>
-														{bibData.validated ? (
-															<Badge variant="default" className="flex items-center gap-1">
-																<CheckCircle2 className="h-3 w-3" />
-																Validated
-															</Badge>
-														) : (
-															<Badge variant="outline" className="flex items-center gap-1">
-																<Shield className="h-3 w-3" />
-																Pending Validation
-															</Badge>
-														)}
+						{/* Seller Info */}
+						<div className="mt-10 border-t pt-10" style={{ borderColor: 'rgba(156, 163, 175, 0.2)' }}>
+							<h3 className="text-sm font-medium" style={{ color: '#FFFFFF' }}>
+								Seller Information
+							</h3>
+							<p className="mt-4 text-sm" style={{ color: '#9CA3AF' }}>
+								Sold by {bib.user.firstName ?? 'Anonymous'} {bib.user.lastName ?? ''}.{' '}
+								<Link href="#" className="font-medium underline" style={{ color: '#3B82F6' }}>
+									View seller profile
+								</Link>
+							</p>
+						</div>
+
+						{/* Terms */}
+						<div className="mt-10 border-t pt-10" style={{ borderColor: 'rgba(156, 163, 175, 0.2)' }}>
+							<h3 className="text-sm font-medium" style={{ color: '#FFFFFF' }}>
+								Terms & Conditions
+							</h3>
+							<p className="mt-4 text-sm" style={{ color: '#9CA3AF' }}>
+								{terms.summary}{' '}
+								<a href={terms.href} className="font-medium underline" style={{ color: '#3B82F6' }}>
+									Read full terms
+								</a>
+							</p>
+						</div>
+					</div>
+
+					{/* Tabbed Content Section */}
+					<div className="mx-auto mt-16 w-full max-w-2xl lg:col-span-4 lg:mt-0 lg:max-w-none">
+						<TabGroup>
+							<div className="border-b" style={{ borderColor: 'rgba(156, 163, 175, 0.2)' }}>
+								<TabList className="-mb-px flex space-x-8">
+									<Tab className="border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap text-gray-300 hover:border-gray-400 hover:text-gray-200 data-[selected]:border-blue-500 data-[selected]:text-blue-400">
+										Event Details
+									</Tab>
+									<Tab className="border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap text-gray-300 hover:border-gray-400 hover:text-gray-200 data-[selected]:border-blue-500 data-[selected]:text-blue-400">
+										Reviews
+									</Tab>
+									<Tab className="border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap text-gray-300 hover:border-gray-400 hover:text-gray-200 data-[selected]:border-blue-500 data-[selected]:text-blue-400">
+										FAQ
+									</Tab>
+									<Tab className="border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap text-gray-300 hover:border-gray-400 hover:text-gray-200 data-[selected]:border-blue-500 data-[selected]:text-blue-400">
+										Terms
+									</Tab>
+								</TabList>
+							</div>
+							<TabPanels as={Fragment}>
+								{/* Event Details Panel */}
+								<TabPanel className="py-10">
+									<h3 className="sr-only">Event Details</h3>
+									<div className="space-y-6">
+										{/* Essential Event Information */}
+										<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+											{/* Key Details */}
+											<div
+												className="rounded-lg border p-6"
+												style={{
+													backgroundColor: 'rgba(22, 33, 62, 0.8)',
+													borderColor: 'rgba(156, 163, 175, 0.2)',
+												}}
+											>
+												<h4 className="mb-4 font-semibold" style={{ color: '#FFFFFF' }}>
+													📍 Race Information
+												</h4>
+												<div className="space-y-4">
+													<div className="flex items-start gap-3">
+														<Calendar className="mt-0.5 h-5 w-5" style={{ color: '#3B82F6' }} />
+														<div>
+															<p className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
+																Date
+															</p>
+															<p className="font-medium" style={{ color: '#E5E7EB' }}>
+																{formatDateWithLocale(bib.event.date, locale)}
+															</p>
+														</div>
+													</div>
+													<div className="flex items-start gap-3">
+														<MapPinned className="mt-0.5 h-5 w-5" style={{ color: '#3B82F6' }} />
+														<div>
+															<p className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
+																Location
+															</p>
+															<p className="font-medium" style={{ color: '#E5E7EB' }}>
+																{bib.event.location}
+															</p>
+														</div>
+													</div>
+													<div className="flex items-start gap-3">
+														<Mountain className="mt-0.5 h-5 w-5" style={{ color: '#3B82F6' }} />
+														<div>
+															<p className="text-sm font-medium" style={{ color: '#9CA3AF' }}>
+																Distance
+															</p>
+															<p className="font-medium" style={{ color: '#E5E7EB' }}>
+																{bib.event.distance}
+																{bib.event.distanceUnit}
+																{(eventData?.elevationGainM ?? 0) > 0 && (
+																	<span className="ml-2 text-sm" style={{ color: '#9CA3AF' }}>
+																		(+{eventData?.elevationGainM}m elevation)
+																	</span>
+																)}
+															</p>
+														</div>
 													</div>
 												</div>
 											</div>
-											{bibData.registrationNumber && Number(bibData.registrationNumber) > 0 && (
-												<div className="flex items-center gap-3">
-													<div className="bg-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-full">
-														<Hash className="h-5 w-5" />
-													</div>
-													<div>
-														<h4 className="text-foreground font-medium">Registration Number</h4>
-														<p className="text-muted-foreground">#{bibData.registrationNumber}</p>
-													</div>
+
+											{/* Transfer Deadline - Critical Info */}
+											{eventData?.transferDeadline && (
+												<div
+													className="rounded-lg border p-6"
+													style={{
+														backgroundColor: 'rgba(245, 158, 11, 0.15)',
+														borderColor: 'rgba(245, 158, 11, 0.6)',
+													}}
+												>
+													<h4 className="mb-3 font-semibold text-yellow-300">⚠️ Transfer Deadline</h4>
+													<p className="mb-2 text-sm text-yellow-200">Last date for bib transfer:</p>
+													<p className="text-xl font-bold text-yellow-100">
+														{formatDateWithLocale(eventData.transferDeadline, locale)}
+													</p>
+													<p className="mt-3 text-xs text-yellow-200">
+														⏰ Complete your purchase before this date to ensure transfer
+													</p>
 												</div>
 											)}
 										</div>
 
-										{/* Selected Options */}
-										{bibData.optionValues != null && Object.keys(bibData.optionValues).length > 0 && (
-											<div className="space-y-4">
-												<div>
-													<h4 className="text-foreground mb-3 flex items-center gap-2 font-medium">
-														<CheckCircle2 className="h-4 w-4" />
-														Selected Options
-													</h4>
-													<div className="space-y-3">
-														{Object.entries(bibData.optionValues).map(([key, value]) => (
-															<div key={key} className="border-primary/20 border-l-2 pl-4">
-																<div className="flex items-center justify-between">
-																	<span className="text-muted-foreground text-sm capitalize">
-																		{key.replace(/([A-Z])/g, ' $1').toLowerCase()}
-																	</span>
-																	<Badge variant="secondary" className="ml-2">
-																		{value}
-																	</Badge>
-																</div>
-															</div>
-														))}
+										{/* Optional: Verified Organizer Badge */}
+										{eventData?.expand?.organizer?.isPartnered === true && (
+											<div
+												className="rounded-lg border p-4"
+												style={{
+													backgroundColor: 'rgba(16, 185, 129, 0.1)',
+													borderColor: 'rgba(16, 185, 129, 0.4)',
+												}}
+											>
+												<div className="flex items-center gap-3">
+													<CheckCircle2 className="h-5 w-5 text-green-400" />
+													<div>
+														<h4 className="font-medium text-green-300">✅ Verified Partner Organizer</h4>
+														<p className="text-sm text-green-200">
+															{eventData?.expand?.organizer?.name} • Trusted Partner
+														</p>
 													</div>
 												</div>
 											</div>
 										)}
 									</div>
-								</CardContent>
-							</Card>
-						</div>
-					)}
+								</TabPanel>
 
-					{/* Comprehensive Event Information */}
-					<div className="mt-8 space-y-8">
-						{/* Event Description */}
-						{eventData?.description != null && eventData.description.length > 0 && (
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
-								<CardHeader>
-									<CardTitle className="flex items-center gap-2">
-										<Calendar className="h-5 w-5" />
-										Event Description
-									</CardTitle>
-								</CardHeader>
-								<CardContent>
-									<p className="text-muted-foreground leading-relaxed">{eventData.description}</p>
-								</CardContent>
-							</Card>
-						)}
-
-						{/* Event Details Grid */}
-						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-							{/* Basic Event Info */}
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
-								<CardHeader>
-									<CardTitle className="flex items-center gap-2">
-										<Calendar className="h-5 w-5" />
-										Event Date
-									</CardTitle>
-								</CardHeader>
-								<CardContent>
-									<p className="text-foreground font-medium">{formatDateWithLocale(bib.event.date, locale)}</p>
-								</CardContent>
-							</Card>
-
-							{/* Location & Distance */}
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
-								<CardHeader>
-									<CardTitle className="flex items-center gap-2">
-										<MapPinned className="h-5 w-5" />
-										Location & Distance
-									</CardTitle>
-								</CardHeader>
-								<CardContent className="space-y-2">
-									<p className="text-foreground font-medium">{bib.event.location}</p>
-									<p className="text-muted-foreground">
-										{bib.event.distance}
-										{bib.event.distanceUnit}
-									</p>
-									{eventData?.elevationGainM != null && eventData.elevationGainM > 0 && (
-										<div className="text-muted-foreground flex items-center gap-1 text-sm">
-											<Mountain className="h-4 w-4" />
-											{eventData.elevationGainM}m elevation gain
-										</div>
-									)}
-								</CardContent>
-							</Card>
-
-							{/* Participants */}
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
-								<CardHeader>
-									<CardTitle className="flex items-center gap-2">
-										<Users className="h-5 w-5" />
-										Participants
-									</CardTitle>
-								</CardHeader>
-								<CardContent>
-									<p className="text-foreground font-medium">
-										{formatParticipantCount(bib.event.participantCount)} registered
-									</p>
-									{eventData?.officialStandardPrice != null && eventData.officialStandardPrice > 0 && (
-										<p className="text-muted-foreground text-sm">Official price: €{eventData.officialStandardPrice}</p>
-									)}
-								</CardContent>
-							</Card>
-						</div>
-
-						{/* Bib Pickup & Transfer Info */}
-						{((eventData?.bibPickupLocation != null && eventData.bibPickupLocation.length > 0) ||
-							eventData?.bibPickupWindowBeginDate != null) && (
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
-								<CardHeader>
-									<CardTitle className="flex items-center gap-2">
-										<Clock className="h-5 w-5" />
-										Bib Pickup Information
-									</CardTitle>
-								</CardHeader>
-								<CardContent className="space-y-4">
-									<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-										{eventData.bibPickupLocation != null && eventData.bibPickupLocation.length > 0 && (
-											<div>
-												<h4 className="text-foreground mb-1 font-medium">Pickup Location</h4>
-												<p className="text-muted-foreground text-sm">{eventData.bibPickupLocation}</p>
-											</div>
-										)}
-										{eventData.bibPickupWindowBeginDate != null && eventData.bibPickupWindowEndDate != null && (
-											<div>
-												<h4 className="text-foreground mb-1 font-medium">Pickup Window</h4>
-												<p className="text-muted-foreground text-sm">
-													{formatDateWithLocale(eventData.bibPickupWindowBeginDate, locale)} -{' '}
-													{formatDateWithLocale(eventData.bibPickupWindowEndDate, locale)}
-												</p>
-											</div>
-										)}
-										{eventData.transferDeadline != null && (
-											<div className="md:col-span-2">
-												<h4 className="text-foreground mb-1 font-medium">Transfer Deadline</h4>
-												<p className="text-muted-foreground flex items-center gap-1 text-sm">
-													<AlertTriangle className="h-4 w-4" />
-													Last date for transfer: {formatDateWithLocale(eventData.transferDeadline, locale)}
-												</p>
-											</div>
-										)}
-									</div>
-								</CardContent>
-							</Card>
-						)}
-
-						{/* Race Options */}
-						{eventData?.options != null && eventData.options.length > 0 && (
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
-								<CardHeader>
-									<CardTitle>Race Options</CardTitle>
-									<CardDescription>Available options for this event</CardDescription>
-								</CardHeader>
-								<CardContent>
-									<div className="space-y-3">
-										{eventData.options.map((option, index) => (
-											<div key={index} className="border-primary/20 border-l-2 pl-4">
-												<h4 className="text-foreground font-medium">{option.label}</h4>
-												<div className="mt-1 flex flex-wrap gap-2">
-													{option.values.map(value => (
-														<Badge key={value} variant="secondary" className="text-xs">
-															{value}
-														</Badge>
-													))}
-													{option.required && (
-														<Badge variant="destructive" className="text-xs">
-															Required
-														</Badge>
-													)}
-												</div>
-											</div>
-										))}
-									</div>
-								</CardContent>
-							</Card>
-						)}
-
-						{/* Organizer Information */}
-						{(eventData?.expand?.organizer != null || organizerData != null) && (
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
-								<CardHeader>
-									<CardTitle className="flex items-center gap-2">
-										<Building2 className="h-5 w-5" />
-										Event Organizer
-									</CardTitle>
-								</CardHeader>
-								<CardContent>
-									<div className="flex items-start gap-4">
-										{(eventData?.expand?.organizer?.logo != null && eventData.expand.organizer.logo.length > 0) ||
-										(organizerData?.logo != null && organizerData.logo.length > 0) ? (
-											<div className="border-border/20 relative h-16 w-16 overflow-hidden rounded-lg border">
+								{/* Reviews Panel */}
+								<TabPanel className="-mb-10 py-10">
+									<h3 className="sr-only">Customer Reviews</h3>
+									{reviews.featured.map((review, reviewIdx) => (
+										<div key={review.id} className="flex space-x-4 text-sm" style={{ color: '#9CA3AF' }}>
+											<div className="flex-none py-10">
 												<Image
-													alt="Organizer Logo"
-													className="object-contain p-2"
-													fill
-													sizes="64px"
-													src={`/api/files/pbc_4261386219/${eventData?.expand?.organizer?.id ?? organizerData?.id}/${eventData?.expand?.organizer?.logo ?? organizerData?.logo}`}
+													alt=""
+													src={review.avatarSrc}
+													className="h-10 w-10 rounded-full"
+													style={{ backgroundColor: 'rgba(22, 33, 62, 0.8)' }}
+													width={40}
+													height={40}
 												/>
 											</div>
-										) : null}
-										<div className="flex-1 space-y-2">
-											<div className="flex items-center gap-2">
-												<h3 className="text-foreground font-semibold">
-													{eventData?.expand?.organizer?.name ?? organizerData?.name}
+											<div className={classNames(reviewIdx === 0 ? '' : 'border-t border-gray-600', 'py-10')}>
+												<h3 className="font-medium" style={{ color: '#FFFFFF' }}>
+													{review.author}
 												</h3>
-												{(eventData?.expand?.organizer?.isPartnered === true ||
-													organizerData?.isPartnered === true) && (
-													<Badge variant="default" className="flex items-center gap-1">
-														<CheckCircle2 className="h-3 w-3" />
-														Partner
-													</Badge>
-												)}
-											</div>
-											{(eventData?.expand?.organizer?.website != null &&
-												eventData.expand.organizer.website.length > 0) ||
-											(organizerData?.website != null && organizerData.website.length > 0) ? (
-												<Link
-													className="text-muted-foreground hover:text-primary flex items-center gap-1 text-sm transition-colors"
-													href={eventData?.expand?.organizer?.website ?? organizerData?.website ?? '#'}
-													target="_blank"
-													rel="noopener noreferrer"
-												>
-													<Globe className="h-4 w-4" />
-													{eventData?.expand?.organizer?.website ?? organizerData?.website}
-													<ExternalLink className="h-3 w-3" />
-												</Link>
-											) : null}
-										</div>
-									</div>
-								</CardContent>
-							</Card>
-						)}
+												<p>
+													<time dateTime={review.datetime}>{review.date}</time>
+												</p>
 
-						{/* External Links */}
-						{((eventData?.registrationUrl != null && eventData.registrationUrl.length > 0) ||
-							(eventData?.parcoursUrl != null && eventData.parcoursUrl.length > 0)) && (
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
-								<CardHeader>
-									<CardTitle className="flex items-center gap-2">
-										<ExternalLink className="h-5 w-5" />
-										Useful Links
-									</CardTitle>
-								</CardHeader>
-								<CardContent>
-									<div className="flex flex-col gap-3">
-										{eventData.registrationUrl != null && eventData.registrationUrl.length > 0 && (
-											<Link
-												className="text-primary hover:text-primary/80 flex items-center gap-2 transition-colors"
-												href={eventData.registrationUrl}
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												<TrendingUp className="h-4 w-4" />
-												Official Registration
-												<ExternalLink className="h-3 w-3" />
-											</Link>
-										)}
-										{eventData.parcoursUrl != null && eventData.parcoursUrl.length > 0 && (
-											<Link
-												className="text-primary hover:text-primary/80 flex items-center gap-2 transition-colors"
-												href={eventData.parcoursUrl}
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												<MapPinned className="h-4 w-4" />
-												Race Course Map
-												<ExternalLink className="h-3 w-3" />
-											</Link>
-										)}
-									</div>
-								</CardContent>
-							</Card>
-						)}
+												<div className="mt-4 flex items-center">
+													{[0, 1, 2, 3, 4].map(rating => (
+														<Star
+															key={rating}
+															aria-hidden="true"
+															className={classNames(
+																review.rating > rating ? 'text-yellow-400' : 'text-gray-600',
+																'h-5 w-5 flex-shrink-0'
+															)}
+															fill="currentColor"
+														/>
+													))}
+												</div>
+												<p className="sr-only">{review.rating} out of 5 stars</p>
+
+												<div className="mt-4 text-sm leading-6" style={{ color: '#9CA3AF' }}>
+													<p>{review.content}</p>
+												</div>
+											</div>
+										</div>
+									))}
+								</TabPanel>
+
+								{/* FAQ Panel */}
+								<TabPanel className="py-10 text-sm" style={{ color: '#9CA3AF' }}>
+									<h3 className="sr-only">Frequently Asked Questions</h3>
+									<dl>
+										{faqs.map(faq => (
+											<Fragment key={faq.question}>
+												<dt className="mt-10 font-medium" style={{ color: '#FFFFFF' }}>
+													{faq.question}
+												</dt>
+												<dd className="mt-2 text-sm leading-6" style={{ color: '#9CA3AF' }}>
+													<p>{faq.answer}</p>
+												</dd>
+											</Fragment>
+										))}
+									</dl>
+								</TabPanel>
+
+								{/* Terms Panel */}
+								<TabPanel className="pt-10">
+									<h3 className="sr-only">Terms & Conditions</h3>
+									<div
+										dangerouslySetInnerHTML={{ __html: terms.content }}
+										className="text-sm [&_h4]:mt-5 [&_h4]:font-medium [&_h4]:text-white [&_li]:pl-2 [&_li::marker]:text-gray-400 [&_p]:my-2 [&_p]:text-sm [&_p]:leading-6 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5 [&_ul]:text-sm [&_ul]:leading-6 [&>:first-child]:mt-0"
+										style={{ color: '#9CA3AF' }}
+									/>
+								</TabPanel>
+							</TabPanels>
+						</TabGroup>
 					</div>
 
 					{/* Other Bibs Section */}
 					{samEventBibs.length > 0 && (
 						<div className="mt-12">
 							<div className="mb-6 text-center">
-								<h2 className="text-foreground text-2xl font-bold tracking-tight">See other bibs for this event</h2>
-								<p className="text-muted-foreground mt-1">More bibs available for {bib.event.name}</p>
+								<h2 className="text-2xl font-bold tracking-tight" style={{ color: '#FFFFFF' }}>
+									Other bibs for this event
+								</h2>
+								<p className="mt-1" style={{ color: '#9CA3AF' }}>
+									More bibs available for {bib.event.name}
+								</p>
 							</div>
 
 							<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -673,146 +831,198 @@ export default function PayPalPurchaseClient({
 				className="z-[100]"
 				isOpen={isPanelOpen}
 				onClose={() => setIsPanelOpen(false)}
-				title="Secure Payment with PayPal"
+				title="Complete Your Purchase"
 				variant="slide"
 			>
-				<div className="container mx-auto p-6">
-					<div className="flex gap-6">
-						<div className="flex flex-col gap-6 lg:w-2/3">
-							{/* Event Summary Card */}
-							<div className="bg-muted/30 border-border/20 rounded-lg border p-6">
-								<div className="flex items-start gap-4">
-									<div className="relative h-16 w-16 overflow-hidden rounded-lg">
-										<Image alt="Event Image" className="object-cover" fill sizes="64px" src={bib.event.image} />
+				<div className="p-6" style={{ backgroundColor: '#0F0F23' }}>
+					<div className="mx-auto max-w-4xl">
+						<div className="grid gap-8 lg:grid-cols-3">
+							{/* Order Summary - Left Side */}
+							<div className="space-y-6 lg:col-span-2">
+								{/* Event Summary Card */}
+								<div
+									className="rounded-lg border p-6"
+									style={{ backgroundColor: 'rgba(22, 33, 62, 0.8)', borderColor: 'rgba(156, 163, 175, 0.2)' }}
+								>
+									<h3 className="mb-4 text-sm font-medium" style={{ color: '#FFFFFF' }}>
+										Event Details
+									</h3>
+									<div className="flex items-start gap-4">
+										<div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg">
+											<Image alt="Event Image" className="object-cover" fill sizes="80px" src={bib.event.image} />
+										</div>
+										<div className="min-w-0 flex-1">
+											<h4 className="truncate text-lg font-semibold" style={{ color: '#FFFFFF' }}>
+												{bib.event.name}
+											</h4>
+											<p className="mt-1 text-sm" style={{ color: '#9CA3AF' }}>
+												{formatDateWithLocale(bib.event.date, locale)}
+											</p>
+											<p className="text-sm" style={{ color: '#9CA3AF' }}>
+												{bib.event.location}
+											</p>
+											<div className="mt-2 flex items-center gap-2">
+												<span
+													className={cn(
+														'inline-block rounded-full border px-2 py-1 text-xs font-medium text-white/90',
+														bgFromType(bib.event.type)
+													)}
+												>
+													{bib.event.type.charAt(0).toUpperCase() + bib.event.type.slice(1)}
+												</span>
+												<span className="text-xs" style={{ color: '#9CA3AF' }}>
+													{bib.event.distance}
+													{bib.event.distanceUnit}
+												</span>
+											</div>
+										</div>
+										<div className="flex-shrink-0 text-right">
+											<p className="text-2xl font-bold" style={{ color: '#FFFFFF' }}>
+												€{bib.price}
+											</p>
+											{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
+												<p className="text-sm line-through" style={{ color: '#6B7280' }}>
+													€{bib.originalPrice}
+												</p>
+											)}
+										</div>
 									</div>
-									<div className="flex-1">
-										<h3 className="font-semibold">{bib.event.name}</h3>
-										<p className="text-muted-foreground text-sm">{formatDateWithLocale(bib.event.date, locale)}</p>
-										<p className="text-muted-foreground text-sm">{bib.event.location}</p>
-									</div>
-									<div className="text-right">
-										<p className="text-lg font-bold">{bib.price}€</p>
+								</div>
+
+								{/* Order Summary Details */}
+								<div
+									className="rounded-lg border p-6"
+									style={{ backgroundColor: 'rgba(22, 33, 62, 0.8)', borderColor: 'rgba(156, 163, 175, 0.2)' }}
+								>
+									<h3 className="mb-4 text-sm font-medium" style={{ color: '#FFFFFF' }}>
+										Order Summary
+									</h3>
+									<div className="space-y-3">
+										<div className="flex items-center justify-between">
+											<span style={{ color: '#E5E7EB' }}>Race bib transfer</span>
+											<span style={{ color: '#E5E7EB' }}>€{bib.price}</span>
+										</div>
 										{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
-											<p className="text-muted-foreground text-sm line-through">{bib.originalPrice}€</p>
+											<div className="flex items-center justify-between text-green-400">
+												<span className="text-sm">Discount applied</span>
+												<span className="text-sm">-€{(bib.originalPrice - bib.price).toFixed(2)}</span>
+											</div>
 										)}
-									</div>
-								</div>
-							</div>
-
-							{/* Order Summary */}
-							<div className="bg-muted/30 border-border/20 rounded-lg border p-4">
-								<h3 className="text-muted-foreground mb-3 text-sm font-medium">Order Summary</h3>
-								<div className="space-y-2">
-									<div className="flex items-center justify-between">
-										<span className="text-sm">Race bib</span>
-										<span className="text-sm">{bib.price}€</span>
-									</div>
-									{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
-										<div className="flex items-center justify-between text-green-600">
-											<span className="text-sm">Discount</span>
-											<span className="text-sm">-{(bib.originalPrice - bib.price).toFixed(2)}€</span>
-										</div>
-									)}
-									<div className="border-border/20 border-t pt-2">
-										<div className="flex items-center justify-between font-semibold">
-											<span>Total</span>
-											<span>{bib.price}€</span>
+										<div className="border-t pt-3" style={{ borderColor: 'rgba(156, 163, 175, 0.2)' }}>
+											<div className="flex items-center justify-between text-lg font-semibold">
+												<span style={{ color: '#FFFFFF' }}>Total</span>
+												<span style={{ color: '#FFFFFF' }}>€{bib.price}</span>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
 
-						{/* PayPal Payment Section */}
-						<div className="space-y-6 lg:w-1/3">
-							<div>
-								<h3 className="text-muted-foreground mb-3 text-sm font-medium">Payment Method</h3>
-								<div className="bg-background border-border/20 rounded-lg border p-4">
+								{/* What's Included */}
+								<div
+									className="rounded-lg border p-6"
+									style={{ backgroundColor: 'rgba(22, 33, 62, 0.8)', borderColor: 'rgba(156, 163, 175, 0.2)' }}
+								>
+									<h3 className="mb-4 text-sm font-medium" style={{ color: '#FFFFFF' }}>
+										What's included
+									</h3>
+									<ul className="space-y-2">
+										<li className="flex items-center gap-3">
+											<CheckCircle2 className="h-4 w-4 flex-shrink-0 text-green-400" />
+											<span className="text-sm" style={{ color: '#E5E7EB' }}>
+												Official race bib with your registered details
+											</span>
+										</li>
+										<li className="flex items-center gap-3">
+											<CheckCircle2 className="h-4 w-4 flex-shrink-0 text-green-400" />
+											<span className="text-sm" style={{ color: '#E5E7EB' }}>
+												All event materials (timing chip, race packet)
+											</span>
+										</li>
+										<li className="flex items-center gap-3">
+											<CheckCircle2 className="h-4 w-4 flex-shrink-0 text-green-400" />
+											<span className="text-sm" style={{ color: '#E5E7EB' }}>
+												Complete registration transfer service
+											</span>
+										</li>
+										<li className="flex items-center gap-3">
+											<CheckCircle2 className="h-4 w-4 flex-shrink-0 text-green-400" />
+											<span className="text-sm" style={{ color: '#E5E7EB' }}>
+												24/7 customer support
+											</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							{/* Payment Section - Right Side */}
+							<div className="space-y-6">
+								<div
+									className="rounded-lg border p-6"
+									style={{ backgroundColor: 'rgba(22, 33, 62, 0.8)', borderColor: 'rgba(156, 163, 175, 0.2)' }}
+								>
+									<h3 className="mb-4 text-sm font-medium" style={{ color: '#FFFFFF' }}>
+										Payment Method
+									</h3>
+
 									{/* Error Messages */}
 									{Boolean(errorMessage) && (
-										<div className="bg-destructive/10 text-destructive border-destructive/20 mb-4 rounded-lg border p-3 text-sm">
+										<div
+											className="mb-4 rounded-lg border p-3 text-sm"
+											style={{
+												backgroundColor: 'rgba(239, 68, 68, 0.1)',
+												borderColor: 'rgba(239, 68, 68, 0.5)',
+												color: '#EF4444',
+											}}
+										>
 											{errorMessage}
 										</div>
 									)}
 
 									{/* Success Messages */}
 									{Boolean(successMessage) && (
-										<div className="mb-4 rounded-lg border border-green-500/20 bg-green-500/10 p-3 text-sm text-green-600">
+										<div
+											className="mb-4 rounded-lg border p-3 text-sm"
+											style={{
+												backgroundColor: 'rgba(16, 185, 129, 0.1)',
+												borderColor: 'rgba(16, 185, 129, 0.5)',
+												color: '#10B981',
+											}}
+										>
 											{successMessage}
 										</div>
 									)}
 
-									<PayPalButtons
-										createOrder={handleCreateOrder}
-										disabled={loading ?? !isProfileComplete}
-										onApprove={onApprove}
-										onCancel={onCancel}
-										onError={onError}
-										style={{
-											shape: 'rect' as const,
-											layout: 'vertical' as const,
-											label: 'paypal' as const,
-											height: 50,
-											color: 'blue' as const,
-										}}
-									/>
-								</div>
-							</div>
-
-							{/* Enhanced Trust indicators */}
-							<div className="space-y-4">
-								<div className="border-border/20 border-t pt-4">
-									<div className="text-muted-foreground flex items-center justify-center gap-6 text-xs">
-										<div className="flex items-center gap-1">
-											<svg className="h-3 w-3 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-												<path
-													clipRule="evenodd"
-													d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-													fillRule="evenodd"
-												/>
-											</svg>
-											256-bit SSL
-										</div>
-										<div className="flex items-center gap-1">
-											<svg className="h-3 w-3 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-												<path
-													clipRule="evenodd"
-													d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-													fillRule="evenodd"
-												/>
-											</svg>
-											PayPal Secured
-										</div>
-										<div className="flex items-center gap-1">
-											<svg className="h-3 w-3 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
-												<path
-													clipRule="evenodd"
-													d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-													fillRule="evenodd"
-												/>
-											</svg>
-											PCI Compliant
-										</div>
+									<div
+										className="rounded-lg border p-4"
+										style={{ backgroundColor: '#0F0F23', borderColor: 'rgba(156, 163, 175, 0.2)' }}
+									>
+										<PayPalButtons
+											createOrder={handleCreateOrder}
+											disabled={loading ?? !isProfileComplete}
+											onApprove={onApprove}
+											onCancel={onCancel}
+											onError={onError}
+											style={{
+												shape: 'rect' as const,
+												layout: 'vertical' as const,
+												label: 'paypal' as const,
+												height: 50,
+												color: 'blue' as const,
+											}}
+										/>
 									</div>
 								</div>
 
-								{/* Additional Trust Elements */}
-								<div className="rounded-lg border border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-900/20">
+								{/* Security Features */}
+								<div
+									className="rounded-lg border p-6"
+									style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', borderColor: 'rgba(16, 185, 129, 0.5)' }}
+								>
 									<div className="flex items-start gap-3">
-										<svg
-											className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600"
-											fill="currentColor"
-											viewBox="0 0 20 20"
-										>
-											<path
-												clipRule="evenodd"
-												d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-												fillRule="evenodd"
-											/>
-										</svg>
+										<Shield className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-400" />
 										<div className="text-sm">
-											<p className="font-medium text-green-800 dark:text-green-300">100% Secure Transaction</p>
-											<p className="mt-1 text-green-700 dark:text-green-400">
+											<p className="font-medium text-green-300">100% Secure Transaction</p>
+											<p className="mt-1 text-green-200">
 												Your payment is processed securely through PayPal's trusted platform. We never store your
 												payment details.
 											</p>
@@ -820,14 +1030,30 @@ export default function PayPalPurchaseClient({
 									</div>
 								</div>
 
-								<div className="space-y-2 text-center">
-									<p className="text-muted-foreground text-xs">Trusted by thousands of athletes worldwide</p>
-									<div className="text-muted-foreground flex items-center justify-center gap-4 text-xs">
+								{/* Trust Indicators */}
+								<div className="space-y-4 text-center">
+									<div className="flex items-center justify-center gap-6 text-xs" style={{ color: '#9CA3AF' }}>
+										<div className="flex items-center gap-1">
+											<div className="h-2 w-2 rounded-full bg-green-400"></div>
+											<span>256-bit SSL</span>
+										</div>
+										<div className="flex items-center gap-1">
+											<div className="h-2 w-2 rounded-full bg-blue-400"></div>
+											<span>PayPal Secured</span>
+										</div>
+										<div className="flex items-center gap-1">
+											<div className="h-2 w-2 rounded-full bg-purple-400"></div>
+											<span>PCI Compliant</span>
+										</div>
+									</div>
+									<p className="text-xs" style={{ color: '#9CA3AF' }}>
+										Trusted by thousands of athletes worldwide
+									</p>
+									<div className="flex items-center justify-center gap-4 text-xs" style={{ color: '#9CA3AF' }}>
 										<span>🔒 Bank-level encryption</span>
 										<span>⚡ Instant confirmation</span>
 										<span>🛡️ Fraud protection</span>
 									</div>
-									<p className="text-muted-foreground text-xs">Questions? Contact our support team at any time</p>
 								</div>
 							</div>
 						</div>
