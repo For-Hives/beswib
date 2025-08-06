@@ -121,8 +121,21 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 						</div>
 					)}
 
-					{/* Connect/Disconnect Button */}
-					{typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0 ? (
+					{/* Connect/Disconnect Button or Loader */}
+					{onboardingMutation.isPending ? (
+						<Button className="w-full" disabled>
+							<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+							Connecting...
+						</Button>
+					) : onboardingMutation.isSuccess &&
+					  (typeof user?.paypalMerchantId !== 'string' || user.paypalMerchantId === '') ? (
+						<div className="flex flex-col items-center justify-center space-y-2 py-6">
+							<RefreshCw className="mb-2 h-6 w-6 animate-spin text-blue-600" />
+							<span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+								It could take a few minutes to link your PayPal account.
+							</span>
+						</div>
+					) : typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0 ? (
 						<>
 							<Button
 								className="w-full"
@@ -185,14 +198,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 						</>
 					) : (
 						<Button className="w-full" disabled={onboardingMutation.isPending} onClick={handlePayPalConnect}>
-							{onboardingMutation.isPending ? (
-								<>
-									<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-									Connecting...
-								</>
-							) : (
-								t.createSellerButton
-							)}
+							{t.createSellerButton}
 						</Button>
 					)}
 
