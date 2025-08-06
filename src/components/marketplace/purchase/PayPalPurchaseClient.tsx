@@ -1,6 +1,24 @@
 'use client'
 
-import { AlertTriangle, Calendar, Clock, Globe, MapPinned, Mountain, ShoppingCart, TrendingUp, User, Users, ExternalLink, Building2, CheckCircle2 } from 'lucide-react'
+import {
+	AlertTriangle,
+	Calendar,
+	Clock,
+	Globe,
+	MapPinned,
+	Mountain,
+	ShoppingCart,
+	TrendingUp,
+	User,
+	Users,
+	ExternalLink,
+	Building2,
+	CheckCircle2,
+	Tag,
+	Hash,
+	Shield,
+	Package,
+} from 'lucide-react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
 
@@ -12,6 +30,7 @@ import Link from 'next/link'
 import type { User as AppUser } from '@/models/user.model'
 import type { Event } from '@/models/event.model'
 import type { Organizer } from '@/models/organizer.model'
+import type { Bib } from '@/models/bib.model'
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { handleSuccessfulPurchase } from '@/app/[locale]/purchase/actions'
@@ -34,6 +53,7 @@ interface PayPalPurchaseClientProps {
 	user: AppUser | null
 	eventData?: Event & { expand?: { organizer: Organizer } }
 	organizerData?: Organizer
+	bibData?: Bib & { expand?: { eventId: Event; sellerUserId: AppUser } }
 }
 
 export default function PayPalPurchaseClient({
@@ -44,6 +64,7 @@ export default function PayPalPurchaseClient({
 	bib,
 	eventData,
 	organizerData,
+	bibData,
 }: Readonly<PayPalPurchaseClientProps>) {
 	const [errorMessage, setErrorMessage] = useState<null | string>(null)
 	const [successMessage, setSuccessMessage] = useState<null | string>(null)
@@ -236,6 +257,11 @@ export default function PayPalPurchaseClient({
 									{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
 										<p className="text-muted-foreground text-lg line-through">{bib.originalPrice}€</p>
 									)}
+									{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
+										<p className="text-green-600 text-sm font-medium mt-1">
+											Save €{(bib.originalPrice - bib.price).toFixed(2)} ({(((bib.originalPrice - bib.price) / bib.originalPrice) * 100).toFixed(0)}% off)
+										</p>
+									)}
 								</div>
 							</div>
 							{/* Show alerts for specific cases */}
@@ -264,7 +290,7 @@ export default function PayPalPurchaseClient({
 									</AlertDescription>
 								</Alert>
 							)}
-							
+
 							{/* Only show buy button if user is signed in, has complete profile, and it's not their own bib */}
 							{isSignedIn === true && isProfileComplete && !isOwnBib && (
 								<Button
@@ -276,7 +302,7 @@ export default function PayPalPurchaseClient({
 									Buy Now
 								</Button>
 							)}
-							
+
 							{/* Show sign in prompt for non-authenticated users */}
 							{isSignedIn !== true && (
 								<Button
@@ -290,6 +316,92 @@ export default function PayPalPurchaseClient({
 							)}
 						</div>
 					</div>
+
+					{/* Bib-Specific Information */}
+					{bibData && (
+						<div className="mt-8">
+							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+								<CardHeader>
+									<CardTitle className="flex items-center gap-2">
+										<Package className="h-5 w-5" />
+										Bib Details
+									</CardTitle>
+									<CardDescription>Specific information for this bib listing</CardDescription>
+								</CardHeader>
+								<CardContent>
+									<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+										{/* Bib Status & Info */}
+										<div className="space-y-4">
+											<div className="flex items-center gap-3">
+												<div className="bg-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-full">
+													<Tag className="h-5 w-5" />
+												</div>
+												<div>
+													<h4 className="font-medium text-foreground">Status</h4>
+													<div className="flex items-center gap-2">
+														<Badge 
+															variant={bibData.status === 'available' ? 'default' : 'secondary'}
+															className="capitalize"
+														>
+															{bibData.status}
+														</Badge>
+														{bibData.validated ? (
+															<Badge variant="default" className="flex items-center gap-1">
+																<CheckCircle2 className="h-3 w-3" />
+																Validated
+															</Badge>
+														) : (
+															<Badge variant="outline" className="flex items-center gap-1">
+																<Shield className="h-3 w-3" />
+																Pending Validation
+															</Badge>
+														)}
+													</div>
+												</div>
+											</div>
+											{bibData.registrationNumber && Number(bibData.registrationNumber) > 0 && (
+												<div className="flex items-center gap-3">
+													<div className="bg-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-full">
+														<Hash className="h-5 w-5" />
+													</div>
+													<div>
+														<h4 className="font-medium text-foreground">Registration Number</h4>
+														<p className="text-muted-foreground">#{bibData.registrationNumber}</p>
+													</div>
+												</div>
+											)}
+										</div>
+
+										{/* Selected Options */}
+										{bibData.optionValues && Object.keys(bibData.optionValues).length > 0 && (
+											<div className="space-y-4">
+												<div>
+													<h4 className="font-medium text-foreground mb-3 flex items-center gap-2">
+														<CheckCircle2 className="h-4 w-4" />
+														Selected Options
+													</h4>
+													<div className="space-y-3">
+														{Object.entries(bibData.optionValues).map(([key, value]) => (
+															<div key={key} className="border-l-2 border-primary/20 pl-4">
+																<div className="flex items-center justify-between">
+																	<span className="text-muted-foreground text-sm capitalize">
+																		{key.replace(/([A-Z])/g, ' $1').toLowerCase()}
+																	</span>
+																	<Badge variant="secondary" className="ml-2">
+																		{value as string}
+																	</Badge>
+																</div>
+															</div>
+														))}
+													</div>
+												</div>
+											</div>
+										)}
+									</div>
+								</CardContent>
+							</Card>
+						</div>
+					)}
 
 					{/* Comprehensive Event Information */}
 					<div className="mt-8 space-y-8">
@@ -333,9 +445,12 @@ export default function PayPalPurchaseClient({
 								</CardHeader>
 								<CardContent className="space-y-2">
 									<p className="text-foreground font-medium">{bib.event.location}</p>
-									<p className="text-muted-foreground">{bib.event.distance}{bib.event.distanceUnit}</p>
+									<p className="text-muted-foreground">
+										{bib.event.distance}
+										{bib.event.distanceUnit}
+									</p>
 									{eventData?.elevationGainM && (
-										<div className="flex items-center gap-1 text-sm text-muted-foreground">
+										<div className="text-muted-foreground flex items-center gap-1 text-sm">
 											<Mountain className="h-4 w-4" />
 											{eventData.elevationGainM}m elevation gain
 										</div>
@@ -352,7 +467,9 @@ export default function PayPalPurchaseClient({
 									</CardTitle>
 								</CardHeader>
 								<CardContent>
-									<p className="text-foreground font-medium">{formatParticipantCount(bib.event.participantCount)} registered</p>
+									<p className="text-foreground font-medium">
+										{formatParticipantCount(bib.event.participantCount)} registered
+									</p>
 									{eventData?.officialStandardPrice && (
 										<p className="text-muted-foreground text-sm">Official price: €{eventData.officialStandardPrice}</p>
 									)}
@@ -373,22 +490,23 @@ export default function PayPalPurchaseClient({
 									<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
 										{eventData.bibPickupLocation && (
 											<div>
-												<h4 className="font-medium text-foreground mb-1">Pickup Location</h4>
+												<h4 className="text-foreground mb-1 font-medium">Pickup Location</h4>
 												<p className="text-muted-foreground text-sm">{eventData.bibPickupLocation}</p>
 											</div>
 										)}
 										{eventData.bibPickupWindowBeginDate && eventData.bibPickupWindowEndDate && (
 											<div>
-												<h4 className="font-medium text-foreground mb-1">Pickup Window</h4>
+												<h4 className="text-foreground mb-1 font-medium">Pickup Window</h4>
 												<p className="text-muted-foreground text-sm">
-													{formatDateWithLocale(eventData.bibPickupWindowBeginDate, locale)} - {formatDateWithLocale(eventData.bibPickupWindowEndDate, locale)}
+													{formatDateWithLocale(eventData.bibPickupWindowBeginDate, locale)} -{' '}
+													{formatDateWithLocale(eventData.bibPickupWindowEndDate, locale)}
 												</p>
 											</div>
 										)}
 										{eventData.transferDeadline && (
 											<div className="md:col-span-2">
-												<h4 className="font-medium text-foreground mb-1">Transfer Deadline</h4>
-												<p className="text-muted-foreground text-sm flex items-center gap-1">
+												<h4 className="text-foreground mb-1 font-medium">Transfer Deadline</h4>
+												<p className="text-muted-foreground flex items-center gap-1 text-sm">
 													<AlertTriangle className="h-4 w-4" />
 													Last date for transfer: {formatDateWithLocale(eventData.transferDeadline, locale)}
 												</p>
@@ -409,10 +527,10 @@ export default function PayPalPurchaseClient({
 								<CardContent>
 									<div className="space-y-3">
 										{eventData.options.map((option, index) => (
-											<div key={index} className="border-l-2 border-primary/20 pl-4">
-												<h4 className="font-medium text-foreground">{option.label}</h4>
-												<div className="flex flex-wrap gap-2 mt-1">
-													{option.values.map((value) => (
+											<div key={index} className="border-primary/20 border-l-2 pl-4">
+												<h4 className="text-foreground font-medium">{option.label}</h4>
+												<div className="mt-1 flex flex-wrap gap-2">
+													{option.values.map(value => (
 														<Badge key={value} variant="secondary" className="text-xs">
 															{value}
 														</Badge>
@@ -442,19 +560,19 @@ export default function PayPalPurchaseClient({
 								<CardContent>
 									<div className="flex items-start gap-4">
 										{(eventData?.expand?.organizer?.logo || organizerData?.logo) && (
-											<div className="relative h-16 w-16 overflow-hidden rounded-lg border border-border/20">
+											<div className="border-border/20 relative h-16 w-16 overflow-hidden rounded-lg border">
 												<Image
 													alt="Organizer Logo"
 													className="object-contain p-2"
 													fill
 													sizes="64px"
-													src={`/api/files/pbc_4261386219/${(eventData?.expand?.organizer?.id || organizerData?.id)}/${(eventData?.expand?.organizer?.logo || organizerData?.logo)}`}
+													src={`/api/files/pbc_4261386219/${eventData?.expand?.organizer?.id || organizerData?.id}/${eventData?.expand?.organizer?.logo || organizerData?.logo}`}
 												/>
 											</div>
 										)}
 										<div className="flex-1 space-y-2">
 											<div className="flex items-center gap-2">
-												<h3 className="font-semibold text-foreground">
+												<h3 className="text-foreground font-semibold">
 													{eventData?.expand?.organizer?.name || organizerData?.name}
 												</h3>
 												{(eventData?.expand?.organizer?.isPartnered || organizerData?.isPartnered) && (
