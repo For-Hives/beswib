@@ -4,10 +4,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+
 'use client'
 import { useEffect, useRef, useState, Suspense, useMemo } from 'react'
 import { Canvas, extend, useFrame } from '@react-three/fiber'
-import { Environment, Lightformer, Html } from '@react-three/drei'
+import { Environment, Lightformer, Html, useGLTF } from '@react-three/drei'
 import {
 	BallCollider,
 	CuboidCollider,
@@ -19,6 +20,9 @@ import {
 } from '@react-three/rapier'
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline'
 import * as THREE from 'three'
+
+// URL to the 3D model in public folder
+const cardGLB = '/models/card.glb'
 
 extend({ MeshLineGeometry, MeshLineMaterial })
 
@@ -266,7 +270,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 	useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], ropePositions.ropeJointLengths.j3])
 	useSphericalJoint(j3, card, [
 		[0, 0, 0],
-		[0, 1.125, 0],
+		[0, 1.45, 0],
 	])
 
 	useEffect(() => {
@@ -317,6 +321,16 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 
 	// Create a simple card component with price display
 	const SimpleCard = () => {
+		// Load the 3D model with Suspense-compatible error handling
+		let nodes: any
+		try {
+			const gltfData = useGLTF(cardGLB, true) as any
+			nodes = gltfData.nodes
+		} catch (error) {
+			console.warn('GLB model failed to load:', error)
+			// Fallback to basic geometries
+			nodes = {}
+		}
 		// Calculate savings and discount percentage
 		const hasDiscount = Boolean(originalPrice != null && originalPrice > (price ?? 0))
 		const savingsAmount = hasDiscount ? (originalPrice ?? 0) - (price ?? 0) : 0
@@ -338,17 +352,16 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 					drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
 				}}
 			>
-				{/* Main card body */}
-				<mesh>
-					<boxGeometry args={[1.6, 2.25, 0.02]} />
+				{/* Main card body from GLB model */}
+				<mesh geometry={nodes.card?.geometry ?? undefined}>
 					<meshPhysicalMaterial
-						color="#ffffff"
+						// Désactive complètement la map pour éviter les erreurs de texture blob
+						map={null}
 						clearcoat={1}
 						clearcoatRoughness={0.15}
-						roughness={0.8}
-						metalness={0.3}
-						transparent={true}
-						opacity={0.95}
+						roughness={0.9}
+						metalness={0.8}
+						color="#f0f0f0"
 					/>
 				</mesh>
 
@@ -404,6 +417,20 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 							)}
 						</div>
 					</Html>
+				)}
+
+				{/* Clip - real geometry from GLB model */}
+				{nodes.clip?.geometry != null && (
+					<mesh geometry={nodes.clip.geometry}>
+						<meshStandardMaterial color="#666666" metalness={1} roughness={0.3} />
+					</mesh>
+				)}
+
+				{/* Clamp - real geometry from GLB model */}
+				{nodes.clamp?.geometry != null && (
+					<mesh geometry={nodes.clamp.geometry}>
+						<meshStandardMaterial color="#333333" metalness={1} roughness={0.2} />
+					</mesh>
 				)}
 			</group>
 		)
@@ -476,3 +503,6 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		</>
 	)
 }
+
+// Preload the GLB model to avoid texture loading issues
+useGLTF.preload(cardGLB)
