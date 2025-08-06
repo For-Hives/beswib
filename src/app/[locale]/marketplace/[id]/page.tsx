@@ -13,7 +13,7 @@ import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurcha
 import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider'
 import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
 import { BibSale } from '@/components/marketplace/CardMarket'
-import { fetchUserById } from '@/services/user.services'
+import { fetchUserByClerkId } from '@/services/user.services'
 import { Locale } from '@/lib/i18n-config'
 
 export const metadata: Metadata = {
@@ -38,7 +38,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 
 	let user: null | User = null
 	if (userId !== null && userId !== undefined) {
-		user = await fetchUserById(userId)
+		user = await fetchUserByClerkId(userId)
 	}
 
 	let bib: (Bib & { expand?: { eventId: EventModel; sellerUserId: User } }) | null
