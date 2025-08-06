@@ -9,7 +9,7 @@
 'use client'
 import { useEffect, useRef, useState, Suspense } from 'react'
 import { Canvas, extend, useFrame } from '@react-three/fiber'
-import { useTexture, Environment, Lightformer } from '@react-three/drei'
+import { Environment, Lightformer } from '@react-three/drei'
 import {
 	BallCollider,
 	CuboidCollider,
@@ -106,7 +106,6 @@ function FallbackBand() {
 	}
 
 	const [dragged, drag] = useState<false | THREE.Vector3>(false)
-	const [hovered, hover] = useState(false)
 
 	useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1])
 	useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1])
@@ -139,8 +138,6 @@ function FallbackBand() {
 					<group
 						scale={2.5}
 						position={[0, -1.2, -0.05]}
-						onPointerOver={() => hover(true)}
-						onPointerOut={() => hover(false)}
 						onPointerUp={(e: any) => {
 							e.target.releasePointerCapture(e.pointerId)
 							drag(false)
