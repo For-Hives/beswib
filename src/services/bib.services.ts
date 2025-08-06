@@ -4,6 +4,7 @@ import type { Transaction } from '@/models/transaction.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
+import type { Organizer } from '@/models/organizer.model'
 
 import { pb } from '@/lib/pocketbaseClient'
 
@@ -110,7 +111,7 @@ export async function fetchAvailableBibsForMarketplace(): Promise<
  */
 export async function fetchBibById(
 	bibId: string
-): Promise<(Bib & { expand?: { eventId: Event; sellerUserId: User } }) | null> {
+): Promise<(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }) | null> {
 	if (bibId === '') {
 		console.error('Bib ID is required.')
 		return null
@@ -118,8 +119,10 @@ export async function fetchBibById(
 	try {
 		const record = await pb
 			.collection('bibs')
-			.getOne<Bib & { expand?: { eventId: Event; sellerUserId: User } }>(bibId, {
-				expand: 'eventId,sellerUserId',
+			.getOne<
+				Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }
+			>(bibId, {
+				expand: 'eventId,sellerUserId,eventId.organizer',
 			})
 
 		return record
