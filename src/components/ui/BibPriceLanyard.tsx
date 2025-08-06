@@ -223,28 +223,18 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		return { width: 1024, height: 768, isSmall: false }
 	})
 
-	// Calculate dynamic rope positions - rope starts from top-left and goes to mid-screen
+	// Simple rope positions - reset to basic working values
 	const ropePositions = useMemo(() => {
-		const { isSmall } = screenSize
-
-		// Simple positioning for 50vw container
-		// Start from top-left area
-		const startX = isSmall ? -4 : -6
-		const startY = isSmall ? 3 : 4
-
-		// Rope segments going diagonally down-right
-		const spacing = isSmall ? 1.2 : 1.8
-
 		return {
-			groupPosition: [startX, startY, 0] as [number, number, number],
-			j1Position: [spacing * 0.8, -spacing * 0.5, 0] as [number, number, number],
-			j2Position: [spacing * 1.6, -spacing * 1.2, 0] as [number, number, number],
-			j3Position: [spacing * 2.4, -spacing * 2, 0] as [number, number, number],
-			cardPosition: [spacing * 3.2, -spacing * 3, 0] as [number, number, number],
+			groupPosition: [0, 4, 0] as [number, number, number],
+			j1Position: [0, -1, 0] as [number, number, number],
+			j2Position: [0, -2, 0] as [number, number, number],
+			j3Position: [0, -3, 0] as [number, number, number],
+			cardPosition: [0, -4.5, 0] as [number, number, number],
 			ropeJointLengths: {
-				j1: spacing * 0.8,
-				j2: spacing,
-				j3: spacing * 1.2,
+				j1: 1.2,
+				j2: 1.2,
+				j3: 1.5,
 			},
 		}
 	}, [screenSize])
@@ -325,24 +315,20 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 			hasDiscount && originalPrice != null ? Math.round((savingsAmount / originalPrice) * 100) : 0
 
 		return (
-			<group scale={1.8} position={[0, -1.2, -0.05]}>
-				{/* Invisible interaction zone - only the card area */}
-				<mesh
-					position={[0, 0, 0.05]}
-					onPointerOver={() => hover(true)}
-					onPointerOut={() => hover(false)}
-					onPointerUp={(e: any) => {
-						e.target.releasePointerCapture(e.pointerId)
-						drag(false)
-					}}
-					onPointerDown={(e: any) => {
-						e.target.setPointerCapture(e.pointerId)
-						drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
-					}}
-				>
-					<boxGeometry args={[1.6, 2.25, 0.1]} />
-					<meshBasicMaterial transparent opacity={0} />
-				</mesh>
+			<group
+				scale={2}
+				position={[0, -1.2, -0.05]}
+				onPointerOver={() => hover(true)}
+				onPointerOut={() => hover(false)}
+				onPointerUp={(e: any) => {
+					e.target.releasePointerCapture(e.pointerId)
+					drag(false)
+				}}
+				onPointerDown={(e: any) => {
+					e.target.setPointerCapture(e.pointerId)
+					drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
+				}}
+			>
 				{/* Main card body */}
 				<mesh>
 					<boxGeometry args={[1.6, 2.25, 0.02]} />
@@ -357,33 +343,30 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 					/>
 				</mesh>
 
-				{/* Price Card Content */}
+				{/* Price Card Content - simplified */}
 				{price != null && (
 					<Html
 						transform
-						occlude
-						position={[0, -0.1, 0.03]}
-						scale={0.4}
+						position={[0, -0.2, 0.02]}
+						scale={0.2}
 						style={{
 							pointerEvents: 'none',
 							userSelect: 'none',
-							width: '400px',
-							height: '563px',
 						}}
 					>
-						<div className="from-background via-primary/15 to-background border-border/20 flex h-full w-full flex-col items-center justify-center rounded-xl border bg-gradient-to-br p-4 backdrop-blur-sm">
+						<div className="flex min-w-[300px] flex-col items-center justify-center rounded-xl border border-white/20 bg-gradient-to-br from-white/90 via-white/80 to-white/90 p-4 backdrop-blur-sm">
 							{/* Discount Badge */}
 							{hasDiscount && discountPercentage > 0 && (
-								<div className="mb-4">
-									<span className="bg-destructive text-destructive-foreground inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold">
+								<div className="mb-3">
+									<span className="inline-flex items-center rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white">
 										-{discountPercentage}% OFF
 									</span>
 								</div>
 							)}
 
 							{/* Main Price */}
-							<div className="mb-3 text-center">
-								<span className="text-foreground text-4xl font-bold">
+							<div className="mb-2 text-center">
+								<span className="text-3xl font-bold text-gray-900">
 									{currency === 'EUR' ? '€' : '$'}
 									{price}
 								</span>
@@ -391,8 +374,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 
 							{/* Original Price */}
 							{hasDiscount && (
-								<div className="mb-4 text-center">
-									<span className="text-muted-foreground text-xl line-through">
+								<div className="mb-3 text-center">
+									<span className="text-lg text-gray-500 line-through">
 										{currency === 'EUR' ? '€' : '$'}
 										{originalPrice}
 									</span>
@@ -402,15 +385,12 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 							{/* Savings Amount */}
 							{hasDiscount && savingsAmount > 0 && (
 								<div className="text-center">
-									<span className="text-base font-medium text-green-400">
+									<span className="text-sm font-medium text-green-600">
 										Save {currency === 'EUR' ? '€' : '$'}
 										{savingsAmount.toFixed(2)}
 									</span>
 								</div>
 							)}
-
-							{/* Separator line */}
-							<div className="via-primary/40 mt-6 h-px w-20 bg-gradient-to-r from-transparent to-transparent"></div>
 						</div>
 					</Html>
 				)}
