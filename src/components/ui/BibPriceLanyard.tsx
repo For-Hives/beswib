@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Canvas, extend, useFrame, type ThreeEvent } from '@react-three/fiber'
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei'
 import {
@@ -18,43 +18,75 @@ import * as THREE from 'three'
 // Extend Three.js elements for React Three Fiber
 extend({ MeshLineGeometry, MeshLineMaterial })
 
-// Type declarations for custom geometry and material
-declare module '@react-three/fiber' {
-	namespace JSX {
-		interface IntrinsicElements {
-			meshLineGeometry: any
-			meshLineMaterial: any
-		}
+// Enhanced RigidBody reference interface with Rapier API methods
+interface EnhancedRigidBodyRef {
+	wakeUp?: () => void
+	setNextKinematicTranslation?: (translation: { x: number; y: number; z: number }) => void
+	translation?: () => THREE.Vector3
+	angvel?: () => THREE.Vector3
+	rotation?: () => THREE.Vector3
+	setAngvel?: (angularVelocity: { x: number; y: number; z: number }) => void
+	lerped?: THREE.Vector3
+}
+
+// Type for GLTF assets with specific node structure
+interface BibLanyardGLTF {
+	nodes: {
+		card: THREE.Mesh
+		clip: THREE.Mesh
+		clamp: THREE.Mesh
+	}
+	materials: {
+		metal: THREE.Material
 	}
 }
 
+// Enhanced MeshLine geometry interface
+interface MeshLineGeometryType extends THREE.BufferGeometry {
+	setPoints: (points: THREE.Vector3[]) => void
+}
+
+// Component props interfaces
 interface BibPriceLanyardProps {
-	price: number
-	originalPrice?: number
-	currency?: string
-	position?: [number, number, number]
-	gravity?: [number, number, number]
-	fov?: number
-	transparent?: boolean
-	className?: string
+	readonly price: number
+	readonly originalPrice?: number
+	readonly currency?: string
+	readonly position?: [number, number, number]
+	readonly gravity?: [number, number, number]
+	readonly fov?: number
+	readonly transparent?: boolean
+	readonly className?: string
 }
 
 interface BandProps {
-	maxSpeed?: number
-	minSpeed?: number
-	priceTextureUrl: string
+	readonly maxSpeed?: number
+	readonly minSpeed?: number
+	readonly priceTextureUrl: string
 }
 
-// Note: Using any types for RigidBody refs due to complex Rapier type system
-
-// Segment properties for physics bodies
-const segmentProps: Partial<RigidBodyProps> = {
-	type: 'dynamic',
+// Physics body configuration - using as const for better type inference
+const PHYSICS_SEGMENT_PROPS = {
+	type: 'dynamic' as const,
 	canSleep: true,
 	colliders: false,
 	angularDamping: 4,
 	linearDamping: 4,
-}
+} satisfies Partial<RigidBodyProps>
+
+// Physics joint configuration constants
+const JOINT_POSITIONS = {
+	FIXED: [0, 4, 0] as const,
+	J1: [0.5, 0, 0] as const,
+	J2: [1, 0, 0] as const,
+	J3: [1.5, 0, 0] as const,
+	CARD: [2, 0, 0] as const,
+} as const
+
+const ROPE_JOINT_CONFIG: [[number, number, number], [number, number, number], number] = [[0, 0, 0], [0, 0, 0], 1]
+const SPHERICAL_JOINT_CONFIG: [[number, number, number], [number, number, number]] = [
+	[0, 0, 0],
+	[0, 1.45, 0],
+]
 
 export default function BibPriceLanyard({
 	price,
@@ -65,7 +97,7 @@ export default function BibPriceLanyard({
 	fov = 20,
 	transparent = true,
 	className = '',
-}: Readonly<BibPriceLanyardProps>) {
+}: BibPriceLanyardProps) {
 	const priceTextureUrl = `/api/lanyard/price?price=${price}&originalPrice=${originalPrice ?? ''}&currency=${currency}`
 
 	return (
@@ -114,202 +146,266 @@ export default function BibPriceLanyard({
 	)
 }
 
-function Band({ maxSpeed = 50, minSpeed = 0, priceTextureUrl }: Readonly<BandProps>) {
-	// Refs for physics bodies and visual elements
-	const band = useRef<THREE.Mesh>(null)
-	const fixed = useRef<any>(null)
-	const j1 = useRef<any>(null)
-	const j2 = useRef<any>(null)
-	const j3 = useRef<any>(null)
-	const card = useRef<any>(null)
+function Band({ maxSpeed = 50, minSpeed = 0, priceTextureUrl }: BandProps) {
+	// Typed refs for physics bodies and visual elements
+	const bandRef = useRef<THREE.Mesh>(null)
+	const fixedRef = useRef<EnhancedRigidBodyRef>(null)
+	const j1Ref = useRef<EnhancedRigidBodyRef>(null)
+	const j2Ref = useRef<EnhancedRigidBodyRef>(null)
+	const j3Ref = useRef<EnhancedRigidBodyRef>(null)
+	const cardRef = useRef<EnhancedRigidBodyRef>(null)
 
-	// Three.js vectors for calculations
-	const vec = new THREE.Vector3()
-	const ang = new THREE.Vector3()
-	const rot = new THREE.Vector3()
-	const dir = new THREE.Vector3()
+	// Three.js vectors for calculations - using readonly to prevent mutation
+	const vectorCache = {
+		vec: new THREE.Vector3(),
+		ang: new THREE.Vector3(),
+		rot: new THREE.Vector3(),
+		dir: new THREE.Vector3(),
+	} as const
 
-	// Load 3D assets and textures
-	const gltf = useGLTF('/models/card.glb')
-	const nodes = gltf.nodes as any
-	const materials = gltf.materials as any
+	// Load 3D assets with proper typing
+	const gltf = useGLTF('/models/card.glb') as unknown as BibLanyardGLTF
+	const { nodes, materials } = gltf
+
+	// Load textures
 	const lanyardTexture = useTexture('/models/lanyard.png')
 	const priceTexture = useTexture(priceTextureUrl)
 
-	// Curve for rope visualization
-	const [curve] = useState(
-		() =>
-			new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
-	)
-
-	// State for drag interaction
-	const [dragged, setDragged] = useState<false | THREE.Vector3>(false)
-	const [hovered, setHovered] = useState(false)
-
-	// Responsive design state
-	const [isSmall, setIsSmall] = useState<boolean>(() => {
-		if (typeof window !== 'undefined') {
-			return window.innerWidth < 1024
-		}
-		return false
+	// Curve for rope visualization with proper initialization
+	const [curve] = useState(() => {
+		const initialPoints = Array.from({ length: 4 }, () => new THREE.Vector3())
+		return new THREE.CatmullRomCurve3(initialPoints)
 	})
 
-	// Handle window resize
+	// State for drag interaction with proper typing
+	const [dragState, setDragState] = useState<
+		| {
+				isDragging: false
+				dragVector: null
+		  }
+		| {
+				isDragging: true
+				dragVector: THREE.Vector3
+		  }
+	>({
+		isDragging: false,
+		dragVector: null,
+	})
+
+	const [isHovered, setIsHovered] = useState(false)
+	const [isSmallScreen, setIsSmallScreen] = useState(() => {
+		return typeof window !== 'undefined' ? window.innerWidth < 1024 : false
+	})
+
+	// Window resize handler with proper cleanup
 	useEffect(() => {
-		const handleResize = (): void => {
-			setIsSmall(window.innerWidth < 1024)
+		const handleResize = () => {
+			setIsSmallScreen(window.innerWidth < 1024)
 		}
 
 		window.addEventListener('resize', handleResize)
-		return (): void => window.removeEventListener('resize', handleResize)
+		return () => window.removeEventListener('resize', handleResize)
 	}, [])
 
-	// Physics joints setup
-	useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1])
-	useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1])
-	useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1])
-	useSphericalJoint(j3, card, [
-		[0, 0, 0],
-		[0, 1.45, 0],
-	])
+	// Physics joints setup with proper type casting for Rapier compatibility
+	useRopeJoint(fixedRef as React.RefObject<never>, j1Ref as React.RefObject<never>, ROPE_JOINT_CONFIG)
+	useRopeJoint(j1Ref as React.RefObject<never>, j2Ref as React.RefObject<never>, ROPE_JOINT_CONFIG)
+	useRopeJoint(j2Ref as React.RefObject<never>, j3Ref as React.RefObject<never>, ROPE_JOINT_CONFIG)
+	useSphericalJoint(j3Ref as React.RefObject<never>, cardRef as React.RefObject<never>, SPHERICAL_JOINT_CONFIG)
 
-	// Handle cursor changes on hover
+	// Cursor management effect
 	useEffect(() => {
-		if (hovered) {
-			document.body.style.cursor = dragged !== false ? 'grabbing' : 'grab'
+		if (isHovered) {
+			const cursor = dragState.isDragging ? 'grabbing' : 'grab'
+			document.body.style.cursor = cursor
 			return () => {
 				document.body.style.cursor = 'auto'
 			}
 		}
-		return undefined
-	}, [hovered, dragged])
+	}, [isHovered, dragState.isDragging])
 
-	// Animation frame loop
+	// Main animation loop with improved type safety
 	useFrame((state, delta) => {
+		const { vec, ang, rot, dir } = vectorCache
+
 		// Handle drag interaction
-		if (dragged !== false && dragged instanceof THREE.Vector3) {
+		if (dragState.isDragging && dragState.dragVector) {
 			vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera)
 			dir.copy(vec).sub(state.camera.position).normalize()
 			vec.add(dir.multiplyScalar(state.camera.position.length()))
 
-			// Wake up all physics bodies
-			const refs = [card, j1, j2, j3, fixed]
-			refs.forEach(ref => {
-				if (ref.current?.wakeUp) {
-					ref.current.wakeUp()
+			// Wake up physics bodies
+			const physicsRefs = [cardRef, j1Ref, j2Ref, j3Ref, fixedRef]
+			physicsRefs.forEach(ref => {
+				const current = ref.current
+				if (current?.wakeUp) {
+					current.wakeUp()
 				}
 			})
 
 			// Update card position
-			if (card.current?.setNextKinematicTranslation) {
-				card.current.setNextKinematicTranslation({
-					x: vec.x - dragged.x,
-					y: vec.y - dragged.y,
-					z: vec.z - dragged.z,
+			const cardCurrent = cardRef.current
+			if (cardCurrent?.setNextKinematicTranslation) {
+				cardCurrent.setNextKinematicTranslation({
+					x: vec.x - dragState.dragVector.x,
+					y: vec.y - dragState.dragVector.y,
+					z: vec.z - dragState.dragVector.z,
 				})
 			}
 		}
 
 		// Update rope physics and visualization
-		if (fixed.current?.translation) {
-			const joints = [j1, j2]
-			joints.forEach(ref => {
-				if (ref.current?.translation) {
-					// Initialize lerped position if not exists
-					if (!ref.current.lerped) {
-						ref.current.lerped = new THREE.Vector3().copy(ref.current.translation())
-					}
+		const fixedCurrent = fixedRef.current
+		if (fixedCurrent?.translation) {
+			// Update joint interpolation
+			const jointRefs = [j1Ref, j2Ref]
+			jointRefs.forEach(ref => {
+				const current = ref.current
+				if (current?.translation) {
+					const translation = current.translation()
 
-					// Calculate smooth interpolation
-					const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())))
-					ref.current.lerped.lerp(
-						ref.current.translation(),
-						delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
-					)
+					// Initialize lerped position using nullish coalescing
+					current.lerped ??= new THREE.Vector3().copy(translation)
+
+					// Calculate smooth interpolation with proper bounds
+					const distance = current.lerped.distanceTo(translation)
+					const clampedDistance = Math.max(0.1, Math.min(1, distance))
+					const interpolationSpeed = delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
+
+					current.lerped.lerp(translation, interpolationSpeed)
 				}
 			})
 
 			// Update curve points for rope visualization
-			if (j3.current?.translation && j2.current?.lerped && j1.current?.lerped) {
-				curve.points[0]?.copy(j3.current.translation())
-				curve.points[1]?.copy(j2.current.lerped)
-				curve.points[2]?.copy(j1.current.lerped)
-				curve.points[3]?.copy(fixed.current.translation())
+			const j3Current = j3Ref.current
+			const j2Current = j2Ref.current
+			const j1Current = j1Ref.current
 
-				// Update mesh line geometry
-				const geometry = band.current?.geometry as THREE.BufferGeometry & {
-					setPoints?: (points: THREE.Vector3[]) => void
+			if (j3Current?.translation && j2Current?.lerped && j1Current?.lerped && fixedCurrent.translation) {
+				const j3Translation = j3Current.translation()
+				const fixedTranslation = fixedCurrent.translation()
+
+				// Update curve points safely
+				const points = curve.points
+				if (points.length >= 4) {
+					points[0].copy(j3Translation)
+					points[1].copy(j2Current.lerped)
+					points[2].copy(j1Current.lerped)
+					points[3].copy(fixedTranslation)
 				}
-				if (geometry?.setPoints) {
-					geometry.setPoints(curve.getPoints(32))
+
+				// Update mesh line geometry with type safety
+				const band = bandRef.current
+				if (band?.geometry) {
+					const geometry = band.geometry as MeshLineGeometryType
+					if ('setPoints' in geometry && typeof geometry.setPoints === 'function') {
+						geometry.setPoints(curve.getPoints(32))
+					}
 				}
 			}
 
 			// Apply angular damping to card
-			if (card.current?.angvel && card.current?.rotation && card.current?.setAngvel) {
-				ang.copy(card.current.angvel())
-				rot.copy(card.current.rotation())
-				card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z })
+			const cardCurrent = cardRef.current
+			if (cardCurrent?.angvel && cardCurrent.rotation && cardCurrent.setAngvel) {
+				const angularVelocity = cardCurrent.angvel()
+				const rotation = cardCurrent.rotation()
+
+				ang.copy(angularVelocity)
+				rot.copy(rotation)
+
+				cardCurrent.setAngvel({
+					x: ang.x,
+					y: ang.y - rot.y * 0.25,
+					z: ang.z,
+				})
 			}
 		}
 	})
 
-	// Configure curve and texture wrapping
-	curve.curveType = 'chordal'
-	lanyardTexture.wrapS = THREE.RepeatWrapping
-	lanyardTexture.wrapT = THREE.RepeatWrapping
+	// Configure curve and texture properties
+	useEffect(() => {
+		curve.curveType = 'chordal'
+		lanyardTexture.wrapS = THREE.RepeatWrapping
+		lanyardTexture.wrapT = THREE.RepeatWrapping
+	}, [curve, lanyardTexture])
 
-	// Event handlers for drag interaction
-	const handlePointerUp = (e: ThreeEvent<PointerEvent>) => {
-		const target = e.target as HTMLElement
-		if (target?.releasePointerCapture) {
-			target.releasePointerCapture(e.pointerId)
+	// Event handlers with improved type safety
+	const handlePointerUp = (event: ThreeEvent<PointerEvent>) => {
+		const target = event.target as Element
+
+		if (target && 'releasePointerCapture' in target && typeof target.releasePointerCapture === 'function') {
+			target.releasePointerCapture(event.pointerId)
 		}
-		setDragged(false)
+
+		setDragState({ isDragging: false, dragVector: null })
 	}
 
-	const handlePointerDown = (e: ThreeEvent<PointerEvent>) => {
-		const target = e.target as HTMLElement
-		if (target?.setPointerCapture) {
-			target.setPointerCapture(e.pointerId)
+	const handlePointerDown = (event: ThreeEvent<PointerEvent>) => {
+		const target = event.target as Element
+
+		if (target && 'setPointerCapture' in target && typeof target.setPointerCapture === 'function') {
+			target.setPointerCapture(event.pointerId)
 		}
 
-		if (e.point && card.current?.translation) {
-			const cardTranslation = card.current.translation()
-			setDragged(new THREE.Vector3().copy(e.point).sub(vec.copy(cardTranslation)))
+		const cardCurrent = cardRef.current
+		if (event.point && cardCurrent?.translation) {
+			const cardTranslation = cardCurrent.translation()
+			const dragVector = new THREE.Vector3().copy(event.point).sub(vectorCache.vec.copy(cardTranslation))
+
+			setDragState({ isDragging: true, dragVector })
 		}
 	}
+
+	// Determine rigid body type based on drag state
+	const rigidBodyType: RigidBodyProps['type'] = dragState.isDragging ? 'kinematicPosition' : 'dynamic'
 
 	return (
 		<>
-			<group position={[0, 4, 0]}>
+			<group position={JOINT_POSITIONS.FIXED}>
 				{/* Fixed anchor point */}
-				<RigidBody ref={fixed} {...segmentProps} type="fixed" />
+				<RigidBody ref={fixedRef as React.RefObject<never>} {...PHYSICS_SEGMENT_PROPS} type="fixed" />
 
 				{/* Joint segments */}
-				<RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps} type="dynamic">
+				<RigidBody
+					position={JOINT_POSITIONS.J1}
+					ref={j1Ref as React.RefObject<never>}
+					{...PHYSICS_SEGMENT_PROPS}
+					type="dynamic"
+				>
 					<BallCollider args={[0.1]} />
 				</RigidBody>
-				<RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps} type="dynamic">
+
+				<RigidBody
+					position={JOINT_POSITIONS.J2}
+					ref={j2Ref as React.RefObject<never>}
+					{...PHYSICS_SEGMENT_PROPS}
+					type="dynamic"
+				>
 					<BallCollider args={[0.1]} />
 				</RigidBody>
-				<RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps} type="dynamic">
+
+				<RigidBody
+					position={JOINT_POSITIONS.J3}
+					ref={j3Ref as React.RefObject<never>}
+					{...PHYSICS_SEGMENT_PROPS}
+					type="dynamic"
+				>
 					<BallCollider args={[0.1]} />
 				</RigidBody>
 
 				{/* Card with price display */}
 				<RigidBody
-					position={[2, 0, 0]}
-					ref={card}
-					{...segmentProps}
-					type={dragged !== false ? 'kinematicPosition' : 'dynamic'}
+					position={JOINT_POSITIONS.CARD}
+					ref={cardRef as React.RefObject<never>}
+					{...PHYSICS_SEGMENT_PROPS}
+					type={rigidBodyType}
 				>
 					<CuboidCollider args={[0.8, 1.125, 0.01]} />
 					<group
 						scale={2.25}
 						position={[0, -1.2, -0.05]}
-						onPointerOver={() => setHovered(true)}
-						onPointerOut={() => setHovered(false)}
+						onPointerOver={() => setIsHovered(true)}
+						onPointerOut={() => setIsHovered(false)}
 						onPointerUp={handlePointerUp}
 						onPointerDown={handlePointerDown}
 					>
@@ -320,8 +416,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, priceTextureUrl }: Readonly<BandPro
 								map-anisotropy={16}
 								clearcoat={1}
 								clearcoatRoughness={0.15}
-								roughness={0.3}
-								metalness={0.1}
+								roughness={0.9}
+								metalness={0.8}
 							/>
 						</mesh>
 						<mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
@@ -331,19 +427,17 @@ function Band({ maxSpeed = 50, minSpeed = 0, priceTextureUrl }: Readonly<BandPro
 			</group>
 
 			{/* Rope visualization using MeshLine */}
-			<mesh ref={band}>
-				{/* @ts-expect-error -- meshLineGeometry is extended via extend() */}
-				<meshLineGeometry />
-				{/* @ts-expect-error -- meshLineMaterial is extended via extend() */}
-				<meshLineMaterial
-					color="white"
-					depthTest={false}
-					resolution={isSmall ? [1000, 2000] : [1000, 1000]}
-					useMap
-					map={lanyardTexture}
-					repeat={[-4, 1]}
-					lineWidth={1}
-				/>
+			<mesh ref={bandRef}>
+				{React.createElement('meshLineGeometry')}
+				{React.createElement('meshLineMaterial', {
+					color: 'white',
+					depthTest: false,
+					resolution: isSmallScreen ? [1000, 2000] : [1000, 1000],
+					useMap: true,
+					map: lanyardTexture,
+					repeat: [-4, 1],
+					lineWidth: 1,
+				})}
 			</mesh>
 		</>
 	)
