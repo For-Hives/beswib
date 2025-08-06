@@ -7,7 +7,7 @@
 'use client'
 import { useEffect, useRef, useState, Suspense, useMemo } from 'react'
 import { Canvas, extend, useFrame } from '@react-three/fiber'
-import { Environment, Lightformer } from '@react-three/drei'
+import { Environment, Lightformer, Html } from '@react-three/drei'
 import {
 	BallCollider,
 	CuboidCollider,
@@ -27,25 +27,34 @@ interface LanyardProps {
 	gravity?: [number, number, number]
 	fov?: number
 	transparent?: boolean
+	price?: number
+	originalPrice?: number
+	currency?: string
+	discount?: number
 }
 
 export default function Lanyard({
-	position = [0, 0, 32],
-	gravity = [0, -60, 0],
+	position = [0, 0, 15],
+	gravity = [0, -40, 0],
 	fov = 32,
 	transparent = true,
+	price,
+	originalPrice,
+	currency = 'EUR',
+	discount,
 }: LanyardProps) {
 	return (
-		<div className="fixed -top-32 right-[35vw] z-10 h-[100vh] w-[100vw] origin-center scale-100 transform">
+		<div className="pointer-events-none fixed top-0 left-0 z-10 h-[100vh] w-[100vw]">
 			<Canvas
 				camera={{ position, fov }}
 				gl={{ alpha: transparent }}
 				onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
+				style={{ pointerEvents: 'auto' }}
 			>
 				<ambientLight intensity={Math.PI} />
 				<Physics gravity={gravity} timeStep={1 / 60}>
 					<Suspense>
-						<Band />
+						<Band price={price} originalPrice={originalPrice} currency={currency} discount={discount} />
 					</Suspense>
 				</Physics>
 				<Environment blur={0.75}>
@@ -86,9 +95,13 @@ export default function Lanyard({
 interface BandProps {
 	maxSpeed?: number
 	minSpeed?: number
+	price?: number
+	originalPrice?: number
+	currency?: string
+	discount?: number
 }
 
-function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
+function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'EUR' }: BandProps) {
 	// Using "any" for refs since the exact types depend on Rapier's internals
 	const band = useRef<any>(null)
 	const fixed = useRef<any>(null)
@@ -210,46 +223,28 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 		return { width: 1024, height: 768, isSmall: false }
 	})
 
-	// Calculate dynamic rope positions based on screen size
+	// Calculate dynamic rope positions - rope starts from top-left and goes to mid-screen
 	const ropePositions = useMemo(() => {
-		const { width, height, isSmall } = screenSize
+		const { isSmall } = screenSize
 
-		// Base positions for different screen sizes
-		const baseY = isSmall ? 6 : 8 // Start higher on mobile
-		const segmentSpacing = isSmall ? 1.2 : 1.8 // Closer segments on mobile
+		// Simple positioning for 50vw container
+		// Start from top-left area
+		const startX = isSmall ? -4 : -6
+		const startY = isSmall ? 3 : 4
 
-		// Adjust card position based on screen height to avoid text overlap
-		let cardOffset = -6
-		if (height < 600) {
-			cardOffset = -3 // Very short screens (mobile landscape)
-		} else if (height < 700) {
-			cardOffset = -4 // Short screens
-		} else if (height < 900) {
-			cardOffset = -5 // Medium positioning
-		} else if (height > 1200) {
-			cardOffset = -8 // Lower card on tall screens
-		} else if (height > 1400) {
-			cardOffset = -10 // Very tall screens
-		}
-
-		// Adjust horizontally for very wide screens to avoid being too far left
-		let groupX = 0
-		if (width > 1800) {
-			groupX = 2 // Move slightly right on very wide screens
-		} else if (width > 2400) {
-			groupX = 4 // Move further right on ultra-wide screens
-		}
+		// Rope segments going diagonally down-right
+		const spacing = isSmall ? 1.2 : 1.8
 
 		return {
-			groupPosition: [groupX, baseY, 0] as [number, number, number],
-			j1Position: [0, -segmentSpacing * 0.7, 0] as [number, number, number],
-			j2Position: [0, -segmentSpacing * 1.4, 0] as [number, number, number],
-			j3Position: [0, -segmentSpacing * 2.2, 0] as [number, number, number],
-			cardPosition: [0, cardOffset, 0] as [number, number, number],
+			groupPosition: [startX, startY, 0] as [number, number, number],
+			j1Position: [spacing * 0.8, -spacing * 0.5, 0] as [number, number, number],
+			j2Position: [spacing * 1.6, -spacing * 1.2, 0] as [number, number, number],
+			j3Position: [spacing * 2.4, -spacing * 2, 0] as [number, number, number],
+			cardPosition: [spacing * 3.2, -spacing * 3, 0] as [number, number, number],
 			ropeJointLengths: {
-				j1: segmentSpacing * 0.8,
-				j2: segmentSpacing,
-				j3: segmentSpacing,
+				j1: spacing * 0.8,
+				j2: spacing,
+				j3: spacing * 1.2,
 			},
 		}
 	}, [screenSize])
@@ -321,60 +316,138 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 
 	curve.curveType = 'chordal'
 
-	// Create a simple card component without GLTF
-	const SimpleCard = () => (
-		<group
-			scale={2.25}
-			position={[0, -1.2, -0.05]}
-			onPointerOver={() => hover(true)}
-			onPointerOut={() => hover(false)}
-			onPointerUp={(e: any) => {
-				e.target.releasePointerCapture(e.pointerId)
-				drag(false)
-			}}
-			onPointerDown={(e: any) => {
-				e.target.setPointerCapture(e.pointerId)
-				drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
-			}}
-		>
-			{/* Main card body with hole */}
-			<mesh>
-				<boxGeometry args={[1.6, 2.25, 0.02]} />
-				<meshPhysicalMaterial color="#ffffff" clearcoat={1} clearcoatRoughness={0.15} roughness={0.9} metalness={0.8} />
-			</mesh>
+	// Create a simple card component with price display
+	const SimpleCard = () => {
+		// Calculate savings and discount percentage
+		const hasDiscount = Boolean(originalPrice != null && originalPrice > (price ?? 0))
+		const savingsAmount = hasDiscount ? (originalPrice ?? 0) - (price ?? 0) : 0
+		const discountPercentage =
+			hasDiscount && originalPrice != null ? Math.round((savingsAmount / originalPrice) * 100) : 0
 
-			{/* Hole in the card for the rope */}
-			<mesh position={[0, 1.0, 0]}>
-				<cylinderGeometry args={[0.08, 0.08, 0.05, 16]} />
-				<meshPhysicalMaterial
-					color="#000000"
-					transmission={1}
-					opacity={0.1}
-					transparent={true}
-					roughness={1}
-					metalness={0}
-				/>
-			</mesh>
+		return (
+			<group scale={1.8} position={[0, -1.2, -0.05]}>
+				{/* Invisible interaction zone - only the card area */}
+				<mesh
+					position={[0, 0, 0.05]}
+					onPointerOver={() => hover(true)}
+					onPointerOut={() => hover(false)}
+					onPointerUp={(e: any) => {
+						e.target.releasePointerCapture(e.pointerId)
+						drag(false)
+					}}
+					onPointerDown={(e: any) => {
+						e.target.setPointerCapture(e.pointerId)
+						drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
+					}}
+				>
+					<boxGeometry args={[1.6, 2.25, 0.1]} />
+					<meshBasicMaterial transparent opacity={0} />
+				</mesh>
+				{/* Main card body */}
+				<mesh>
+					<boxGeometry args={[1.6, 2.25, 0.02]} />
+					<meshPhysicalMaterial
+						color="#ffffff"
+						clearcoat={1}
+						clearcoatRoughness={0.15}
+						roughness={0.8}
+						metalness={0.3}
+						transparent={true}
+						opacity={0.95}
+					/>
+				</mesh>
 
-			{/* Hole rim - small metallic ring around the hole */}
-			<mesh position={[0, 1.0, 0.025]} rotation={[Math.PI / 2, 0, 0]}>
-				<ringGeometry args={[0.08, 0.12, 16]} />
-				<meshStandardMaterial color="#CCCCCC" metalness={0.8} roughness={0.2} />
-			</mesh>
+				{/* Price Card Content */}
+				{price != null && (
+					<Html
+						transform
+						occlude
+						position={[0, -0.1, 0.03]}
+						scale={0.4}
+						style={{
+							pointerEvents: 'none',
+							userSelect: 'none',
+							width: '400px',
+							height: '563px',
+						}}
+					>
+						<div className="from-background via-primary/15 to-background border-border/20 flex h-full w-full flex-col items-center justify-center rounded-xl border bg-gradient-to-br p-4 backdrop-blur-sm">
+							{/* Discount Badge */}
+							{hasDiscount && discountPercentage > 0 && (
+								<div className="mb-4">
+									<span className="bg-destructive text-destructive-foreground inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold">
+										-{discountPercentage}% OFF
+									</span>
+								</div>
+							)}
 
-			{/* Clip - small metallic piece at top */}
-			<mesh position={[0, 0.9, 0.02]}>
-				<boxGeometry args={[0.3, 0.2, 0.05]} />
-				<meshStandardMaterial color="#666666" metalness={1} roughness={0.3} />
-			</mesh>
+							{/* Main Price */}
+							<div className="mb-3 text-center">
+								<span className="text-foreground text-4xl font-bold">
+									{currency === 'EUR' ? '€' : '$'}
+									{price}
+								</span>
+							</div>
 
-			{/* Clamp - connector piece */}
-			<mesh position={[0, 1.1, 0.01]}>
-				<boxGeometry args={[0.15, 0.15, 0.03]} />
-				<meshStandardMaterial color="#333333" metalness={1} roughness={0.2} />
-			</mesh>
-		</group>
-	)
+							{/* Original Price */}
+							{hasDiscount && (
+								<div className="mb-4 text-center">
+									<span className="text-muted-foreground text-xl line-through">
+										{currency === 'EUR' ? '€' : '$'}
+										{originalPrice}
+									</span>
+								</div>
+							)}
+
+							{/* Savings Amount */}
+							{hasDiscount && savingsAmount > 0 && (
+								<div className="text-center">
+									<span className="text-base font-medium text-green-400">
+										Save {currency === 'EUR' ? '€' : '$'}
+										{savingsAmount.toFixed(2)}
+									</span>
+								</div>
+							)}
+
+							{/* Separator line */}
+							<div className="via-primary/40 mt-6 h-px w-20 bg-gradient-to-r from-transparent to-transparent"></div>
+						</div>
+					</Html>
+				)}
+
+				{/* Hole in the card for the rope */}
+				<mesh position={[0, 1.0, 0]}>
+					<cylinderGeometry args={[0.08, 0.08, 0.05, 16]} />
+					<meshPhysicalMaterial
+						color="#000000"
+						transmission={1}
+						opacity={0.1}
+						transparent={true}
+						roughness={1}
+						metalness={0}
+					/>
+				</mesh>
+
+				{/* Hole rim - small metallic ring around the hole */}
+				<mesh position={[0, 1.0, 0.025]} rotation={[Math.PI / 2, 0, 0]}>
+					<ringGeometry args={[0.08, 0.12, 16]} />
+					<meshStandardMaterial color="#CCCCCC" metalness={0.8} roughness={0.2} />
+				</mesh>
+
+				{/* Clip - small metallic piece at top */}
+				<mesh position={[0, 0.9, 0.02]}>
+					<boxGeometry args={[0.3, 0.2, 0.05]} />
+					<meshStandardMaterial color="#666666" metalness={1} roughness={0.3} />
+				</mesh>
+
+				{/* Clamp - connector piece */}
+				<mesh position={[0, 1.1, 0.01]}>
+					<boxGeometry args={[0.15, 0.15, 0.03]} />
+					<meshStandardMaterial color="#333333" metalness={1} roughness={0.2} />
+				</mesh>
+			</group>
+		)
+	}
 
 	return (
 		<>

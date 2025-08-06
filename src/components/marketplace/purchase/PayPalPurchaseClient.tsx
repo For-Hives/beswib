@@ -229,9 +229,17 @@ export default function PayPalPurchaseClient({
 
 	return (
 		<div className="relative">
-			{/* Interactive Price Lanyard */}
-			{/* <BibPriceLanyard price={bib.price} originalPrice={bib.originalPrice} currency="EUR" className="" /> */}
-			<Lanyard />
+			{/* Interactive Price Lanyard with dynamic price display */}
+			<Lanyard
+				price={bib.price}
+				originalPrice={bib.originalPrice}
+				currency="EUR"
+				discount={
+					bib.originalPrice && bib.originalPrice > bib.price
+						? Math.round(((bib.originalPrice - bib.price) / bib.originalPrice) * 100)
+						: undefined
+				}
+			/>
 			<div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 				{/* Product Layout */}
 				<div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
