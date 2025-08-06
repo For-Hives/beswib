@@ -1,0 +1,563 @@
+{
+	"designSystem": {
+		"name": "Beswib Platform Design System",
+		"version": "1.0.0",
+		"description": "Dark-themed race bib marketplace platform with modern UI patterns",
+
+		"colorPalette": {
+			"primary": {
+				"main": "#3B82F6",
+				"light": "#60A5FA",
+				"dark": "#1D4ED8",
+				"hover": "#2563EB"
+			},
+			"secondary": {
+				"main": "#10B981",
+				"light": "#34D399",
+				"dark": "#059669"
+			},
+			"background": {
+				"primary": "#0F0F23",
+				"secondary": "#1A1A2E",
+				"tertiary": "#16213E",
+				"card": "rgba(26, 26, 46, 0.8)",
+				"overlay": "rgba(15, 15, 35, 0.95)"
+			},
+			"surface": {
+				"card": "rgba(22, 33, 62, 0.8)",
+				"input": "rgba(26, 26, 46, 0.6)",
+				"modal": "rgba(15, 15, 35, 0.98)"
+			},
+			"text": {
+				"primary": "#FFFFFF",
+				"secondary": "#E5E7EB",
+				"tertiary": "#9CA3AF",
+				"muted": "#6B7280",
+				"inverse": "#0F0F23"
+			},
+			"border": {
+				"primary": "rgba(59, 130, 246, 0.2)",
+				"secondary": "rgba(156, 163, 175, 0.2)",
+				"input": "rgba(156, 163, 175, 0.3)",
+				"focus": "#3B82F6"
+			},
+			"status": {
+				"success": {
+					"background": "rgba(16, 185, 129, 0.1)",
+					"border": "rgba(16, 185, 129, 0.5)",
+					"text": "#10B981",
+					"icon": "#10B981"
+				},
+				"warning": {
+					"background": "rgba(245, 158, 11, 0.1)",
+					"border": "rgba(245, 158, 11, 0.5)",
+					"text": "#F59E0B",
+					"icon": "#F59E0B"
+				},
+				"error": {
+					"background": "rgba(239, 68, 68, 0.1)",
+					"border": "rgba(239, 68, 68, 0.5)",
+					"text": "#EF4444",
+					"icon": "#EF4444"
+				}
+			}
+		},
+
+		"typography": {
+			"fontFamily": {
+				"primary": "Geist, system-ui, sans-serif",
+				"mono": "Geist Mono, monospace"
+			},
+			"fontSize": {
+				"xs": "0.75rem",
+				"sm": "0.875rem",
+				"base": "1rem",
+				"lg": "1.125rem",
+				"xl": "1.25rem",
+				"2xl": "1.5rem",
+				"3xl": "1.875rem",
+				"4xl": "2.25rem"
+			},
+			"fontWeight": {
+				"normal": "400",
+				"medium": "500",
+				"semibold": "600",
+				"bold": "700"
+			},
+			"lineHeight": {
+				"tight": "1.25",
+				"normal": "1.5",
+				"relaxed": "1.75"
+			}
+		},
+
+		"spacing": {
+			"xs": "0.25rem",
+			"sm": "0.5rem",
+			"md": "1rem",
+			"lg": "1.5rem",
+			"xl": "2rem",
+			"2xl": "3rem",
+			"3xl": "4rem"
+		},
+
+		"borderRadius": {
+			"sm": "0.25rem",
+			"md": "0.375rem",
+			"lg": "0.5rem",
+			"xl": "0.75rem",
+			"2xl": "1rem",
+			"full": "9999px"
+		},
+
+		"shadows": {
+			"sm": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+			"md": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+			"lg": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+			"xl": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+			"card": "0 4px 12px rgba(0, 0, 0, 0.15)",
+			"modal": "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+		},
+
+		"elementStyling": {
+			"navigation": {
+				"header": {
+					"background": "rgba(15, 15, 35, 0.95)",
+					"backdropFilter": "blur(12px)",
+					"border": "rgba(156, 163, 175, 0.1)",
+					"height": "4rem",
+					"padding": "0 1rem",
+					"shadow": "0 1px 3px rgba(0, 0, 0, 0.1)"
+				},
+				"logo": {
+					"color": "#FFFFFF",
+					"fontSize": "1.5rem",
+					"fontWeight": "700"
+				},
+				"links": {
+					"default": {
+						"color": "#9CA3AF",
+						"fontSize": "0.875rem",
+						"fontWeight": "500",
+						"padding": "0.5rem 0.75rem",
+						"borderRadius": "0.375rem",
+						"transition": "all 0.2s ease"
+					},
+					"hover": {
+						"color": "#FFFFFF",
+						"background": "rgba(59, 130, 246, 0.1)"
+					},
+					"active": {
+						"color": "#FFFFFF",
+						"background": "rgba(59, 130, 246, 0.2)"
+					}
+				},
+				"userMenu": {
+					"background": "rgba(26, 26, 46, 0.95)",
+					"border": "rgba(156, 163, 175, 0.2)",
+					"borderRadius": "0.5rem",
+					"shadow": "0 10px 25px rgba(0, 0, 0, 0.2)",
+					"padding": "0.5rem"
+				}
+			},
+
+			"cards": {
+				"default": {
+					"background": "rgba(22, 33, 62, 0.8)",
+					"border": "rgba(156, 163, 175, 0.2)",
+					"borderRadius": "0.75rem",
+					"padding": "1.5rem",
+					"shadow": "0 4px 12px rgba(0, 0, 0, 0.15)",
+					"backdropFilter": "blur(8px)"
+				},
+				"hover": {
+					"border": "rgba(59, 130, 246, 0.3)",
+					"shadow": "0 8px 25px rgba(0, 0, 0, 0.2)",
+					"transform": "translateY(-2px)"
+				},
+				"header": {
+					"padding": "0 0 1rem 0",
+					"borderBottom": "rgba(156, 163, 175, 0.1)"
+				},
+				"title": {
+					"color": "#FFFFFF",
+					"fontSize": "1.25rem",
+					"fontWeight": "600",
+					"display": "flex",
+					"alignItems": "center",
+					"gap": "0.5rem"
+				},
+				"content": {
+					"padding": "1rem 0"
+				}
+			},
+
+			"buttons": {
+				"primary": {
+					"background": "#3B82F6",
+					"color": "#FFFFFF",
+					"border": "none",
+					"borderRadius": "0.5rem",
+					"padding": "0.75rem 1.5rem",
+					"fontSize": "0.875rem",
+					"fontWeight": "500",
+					"transition": "all 0.2s ease",
+					"shadow": "0 2px 4px rgba(59, 130, 246, 0.2)"
+				},
+				"primary:hover": {
+					"background": "#2563EB",
+					"shadow": "0 4px 8px rgba(59, 130, 246, 0.3)",
+					"transform": "translateY(-1px)"
+				},
+				"secondary": {
+					"background": "transparent",
+					"color": "#FFFFFF",
+					"border": "rgba(255, 255, 255, 0.2)",
+					"borderRadius": "0.5rem",
+					"padding": "0.75rem 1.5rem",
+					"fontSize": "0.875rem",
+					"fontWeight": "500",
+					"transition": "all 0.2s ease"
+				},
+				"secondary:hover": {
+					"background": "rgba(255, 255, 255, 0.1)",
+					"border": "rgba(255, 255, 255, 0.3)"
+				},
+				"ghost": {
+					"background": "transparent",
+					"color": "#9CA3AF",
+					"border": "none",
+					"borderRadius": "0.375rem",
+					"padding": "0.5rem 0.75rem",
+					"fontSize": "0.875rem",
+					"fontWeight": "500",
+					"transition": "all 0.2s ease"
+				},
+				"ghost:hover": {
+					"color": "#FFFFFF",
+					"background": "rgba(59, 130, 246, 0.1)"
+				},
+				"disabled": {
+					"background": "rgba(156, 163, 175, 0.1)",
+					"color": "rgba(156, 163, 175, 0.5)",
+					"cursor": "not-allowed",
+					"transform": "none"
+				}
+			},
+
+			"forms": {
+				"input": {
+					"background": "rgba(26, 26, 46, 0.6)",
+					"border": "rgba(156, 163, 175, 0.3)",
+					"borderRadius": "0.5rem",
+					"color": "#FFFFFF",
+					"padding": "0.75rem",
+					"fontSize": "0.875rem",
+					"transition": "all 0.2s ease"
+				},
+				"input:focus": {
+					"border": "#3B82F6",
+					"boxShadow": "0 0 0 3px rgba(59, 130, 246, 0.1)",
+					"outline": "none"
+				},
+				"input:error": {
+					"border": "#EF4444",
+					"boxShadow": "0 0 0 3px rgba(239, 68, 68, 0.1)"
+				},
+				"label": {
+					"color": "#E5E7EB",
+					"fontSize": "0.875rem",
+					"fontWeight": "500",
+					"marginBottom": "0.5rem",
+					"display": "block"
+				},
+				"error": {
+					"color": "#EF4444",
+					"fontSize": "0.75rem",
+					"marginTop": "0.25rem"
+				},
+				"help": {
+					"color": "#9CA3AF",
+					"fontSize": "0.75rem",
+					"marginTop": "0.25rem"
+				}
+			},
+
+			"alerts": {
+				"success": {
+					"background": "rgba(16, 185, 129, 0.1)",
+					"border": "rgba(16, 185, 129, 0.5)",
+					"borderRadius": "0.5rem",
+					"padding": "1rem",
+					"color": "#10B981"
+				},
+				"warning": {
+					"background": "rgba(245, 158, 11, 0.1)",
+					"border": "rgba(245, 158, 11, 0.5)",
+					"borderRadius": "0.5rem",
+					"padding": "1rem",
+					"color": "#F59E0B"
+				},
+				"error": {
+					"background": "rgba(239, 68, 68, 0.1)",
+					"border": "rgba(239, 68, 68, 0.5)",
+					"borderRadius": "0.5rem",
+					"padding": "1rem",
+					"color": "#EF4444"
+				},
+				"info": {
+					"background": "rgba(59, 130, 246, 0.1)",
+					"border": "rgba(59, 130, 246, 0.5)",
+					"borderRadius": "0.5rem",
+					"padding": "1rem",
+					"color": "#3B82F6"
+				}
+			},
+
+			"icons": {
+				"default": {
+					"color": "#9CA3AF",
+					"size": "1.25rem"
+				},
+				"primary": {
+					"color": "#3B82F6",
+					"size": "1.25rem"
+				},
+				"success": {
+					"color": "#10B981",
+					"size": "1.25rem"
+				},
+				"warning": {
+					"color": "#F59E0B",
+					"size": "1.25rem"
+				},
+				"error": {
+					"color": "#EF4444",
+					"size": "1.25rem"
+				},
+				"card": {
+					"color": "#3B82F6",
+					"size": "1.5rem",
+					"marginRight": "0.5rem"
+				}
+			},
+
+			"modals": {
+				"overlay": {
+					"background": "rgba(0, 0, 0, 0.5)",
+					"backdropFilter": "blur(4px)"
+				},
+				"container": {
+					"background": "rgba(15, 15, 35, 0.98)",
+					"border": "rgba(156, 163, 175, 0.2)",
+					"borderRadius": "1rem",
+					"shadow": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+					"padding": "2rem",
+					"maxWidth": "32rem",
+					"width": "90vw"
+				},
+				"header": {
+					"marginBottom": "1.5rem"
+				},
+				"title": {
+					"color": "#FFFFFF",
+					"fontSize": "1.5rem",
+					"fontWeight": "600"
+				},
+				"content": {
+					"color": "#E5E7EB",
+					"fontSize": "0.875rem",
+					"lineHeight": "1.5"
+				}
+			},
+
+			"dropdowns": {
+				"trigger": {
+					"background": "rgba(26, 26, 46, 0.6)",
+					"border": "rgba(156, 163, 175, 0.3)",
+					"borderRadius": "0.5rem",
+					"padding": "0.75rem",
+					"color": "#FFFFFF",
+					"fontSize": "0.875rem",
+					"transition": "all 0.2s ease"
+				},
+				"trigger:hover": {
+					"border": "rgba(59, 130, 246, 0.5)"
+				},
+				"content": {
+					"background": "rgba(26, 26, 46, 0.95)",
+					"border": "rgba(156, 163, 175, 0.2)",
+					"borderRadius": "0.5rem",
+					"shadow": "0 10px 25px rgba(0, 0, 0, 0.2)",
+					"padding": "0.5rem",
+					"minWidth": "12rem"
+				},
+				"item": {
+					"color": "#E5E7EB",
+					"padding": "0.5rem 0.75rem",
+					"borderRadius": "0.375rem",
+					"fontSize": "0.875rem",
+					"transition": "all 0.2s ease"
+				},
+				"item:hover": {
+					"background": "rgba(59, 130, 246, 0.1)",
+					"color": "#FFFFFF"
+				}
+			},
+
+			"tabs": {
+				"list": {
+					"background": "rgba(26, 26, 46, 0.6)",
+					"border": "rgba(156, 163, 175, 0.2)",
+					"borderRadius": "0.5rem",
+					"padding": "0.25rem"
+				},
+				"trigger": {
+					"background": "transparent",
+					"color": "#9CA3AF",
+					"padding": "0.5rem 1rem",
+					"borderRadius": "0.375rem",
+					"fontSize": "0.875rem",
+					"fontWeight": "500",
+					"transition": "all 0.2s ease"
+				},
+				"trigger[data-state='active']": {
+					"background": "#3B82F6",
+					"color": "#FFFFFF"
+				},
+				"trigger:hover": {
+					"color": "#FFFFFF"
+				},
+				"content": {
+					"padding": "1rem 0"
+				}
+			},
+
+			"progress": {
+				"track": {
+					"background": "rgba(156, 163, 175, 0.2)",
+					"borderRadius": "9999px",
+					"height": "0.5rem"
+				},
+				"indicator": {
+					"background": "#3B82F6",
+					"borderRadius": "9999px",
+					"height": "0.5rem",
+					"transition": "width 0.3s ease"
+				}
+			},
+
+			"badges": {
+				"default": {
+					"background": "rgba(156, 163, 175, 0.1)",
+					"color": "#9CA3AF",
+					"borderRadius": "9999px",
+					"padding": "0.25rem 0.75rem",
+					"fontSize": "0.75rem",
+					"fontWeight": "500"
+				},
+				"primary": {
+					"background": "rgba(59, 130, 246, 0.1)",
+					"color": "#3B82F6"
+				},
+				"success": {
+					"background": "rgba(16, 185, 129, 0.1)",
+					"color": "#10B981"
+				},
+				"warning": {
+					"background": "rgba(245, 158, 11, 0.1)",
+					"color": "#F59E0B"
+				},
+				"error": {
+					"background": "rgba(239, 68, 68, 0.1)",
+					"color": "#EF4444"
+				}
+			}
+		},
+
+		"layout": {
+			"container": {
+				"maxWidth": "80rem",
+				"margin": "0 auto",
+				"padding": "0 1rem"
+			},
+			"grid": {
+				"columns": "12",
+				"gap": "1.5rem"
+			},
+			"section": {
+				"padding": "3rem 0"
+			}
+		},
+
+		"animations": {
+			"duration": {
+				"fast": "0.15s",
+				"normal": "0.2s",
+				"slow": "0.3s"
+			},
+			"easing": {
+				"default": "cubic-bezier(0.4, 0, 0.2, 1)",
+				"in": "cubic-bezier(0.4, 0, 1, 1)",
+				"out": "cubic-bezier(0, 0, 0.2, 1)",
+				"inOut": "cubic-bezier(0.4, 0, 0.2, 1)"
+			},
+			"transitions": {
+				"default": "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+				"transform": "transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+				"opacity": "opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+				"colors": "color 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+			}
+		},
+
+		"doNotRules": [
+			"DO NOT apply card gradients to icons or buttons",
+			"DO NOT use primary button colors for text elements",
+			"DO NOT apply shadows to text content - only containers",
+			"DO NOT use border colors as background colors",
+			"DO NOT apply hover effects to disabled elements",
+			"DO NOT use success colors for error states",
+			"DO NOT apply backdrop blur to text elements",
+			"DO NOT use card backgrounds for form inputs",
+			"DO NOT apply button styling to navigation links",
+			"DO NOT use icon colors for text elements",
+			"DO NOT apply modal shadows to regular cards",
+			"DO NOT use alert colors for regular text",
+			"DO NOT apply focus styles to non-interactive elements",
+			"DO NOT use dropdown styling for regular containers",
+			"DO NOT apply tab styling to buttons or links"
+		],
+
+		"contextRules": {
+			"cardIcons": "Use primary blue (#3B82F6) for card section icons, not the card background color",
+			"buttonIcons": "Use white (#FFFFFF) for icons inside primary buttons, primary blue for secondary buttons",
+			"navigationIcons": "Use muted gray (#9CA3AF) for navigation icons, not primary colors",
+			"formIcons": "Use muted gray (#9CA3AF) for form field icons, error red (#EF4444) for validation errors",
+			"alertIcons": "Use the same color as the alert text for alert icons",
+			"cardBorders": "Use subtle transparency for card borders, not solid colors",
+			"buttonBorders": "Use white transparency for secondary button borders, not primary colors",
+			"inputBorders": "Use muted gray for default input borders, primary blue for focus, error red for validation",
+			"shadowApplication": "Apply shadows only to elevated elements (cards, modals, dropdowns), not to text or icons",
+			"gradientUsage": "Use gradients sparingly and only for hero sections or special call-to-action elements",
+			"backdropBlur": "Apply backdrop blur only to navigation and modal overlays, not to content elements"
+		},
+
+		"responsiveBreakpoints": {
+			"sm": "640px",
+			"md": "768px",
+			"lg": "1024px",
+			"xl": "1280px",
+			"2xl": "1536px"
+		},
+
+		"zIndex": {
+			"dropdown": "1000",
+			"sticky": "1020",
+			"fixed": "1030",
+			"modalBackdrop": "1040",
+			"modal": "1050",
+			"popover": "1060",
+			"tooltip": "1070"
+		}
+	}
+}
