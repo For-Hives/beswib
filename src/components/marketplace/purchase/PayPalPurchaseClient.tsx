@@ -295,29 +295,97 @@ export default function PayPalPurchaseClient({
 							</div>
 						</div>
 
-						{/* Event Description */}
+						{/* Event Description with Organizer Info */}
 						<div className="mt-6">
 							{eventData?.description && eventData.description.trim() !== '' ? (
 								<div className="border-border/50 bg-card/50 rounded-lg border p-4 backdrop-blur-sm">
-									<h3 className="text-primary mb-2 text-sm font-semibold">À propos de cet événement</h3>
-									<p className="text-foreground/80 text-sm leading-relaxed">{eventData.description}</p>
+									<h3 className="text-primary mb-3 text-sm font-semibold">À propos de cet événement</h3>
+									<p className="text-foreground/80 mb-4 text-sm leading-relaxed">{eventData.description}</p>
+
+									{/* Organizer Information */}
+									{(organizerData != null || eventData?.expand?.organizer != null) && (
+										<div className="border-border/30 border-t pt-4">
+											<div className="flex items-start justify-between">
+												<div className="flex-1">
+													<p className="text-muted-foreground mb-1 text-xs font-medium">Organisé par</p>
+													<p className="text-foreground text-sm font-medium">
+														{organizerData?.name ?? eventData?.expand?.organizer?.name ?? 'Unknown Organizer'}
+													</p>
+
+													{/* Website */}
+													{((organizerData?.website != null && organizerData.website.trim() !== '') ||
+														(eventData?.expand?.organizer?.website != null &&
+															eventData.expand.organizer.website.trim() !== '')) && (
+														<a
+															href={organizerData?.website ?? eventData?.expand?.organizer?.website ?? '#'}
+															target="_blank"
+															rel="noopener noreferrer"
+															className="text-primary hover:text-primary/80 mt-1 inline-block text-xs font-medium underline"
+														>
+															{organizerData?.website ?? eventData?.expand?.organizer?.website}
+														</a>
+													)}
+												</div>
+
+												{/* Verified Partner Badge */}
+												{(organizerData?.isPartnered === true ||
+													eventData?.expand?.organizer?.isPartnered === true) && (
+													<div className="ml-3 flex items-center gap-1.5 rounded-full border border-green-500/40 bg-green-500/15 px-2.5 py-1">
+														<div className="h-1.5 w-1.5 rounded-full bg-green-400"></div>
+														<span className="text-xs font-medium text-green-400">Vérifié</span>
+													</div>
+												)}
+											</div>
+										</div>
+									)}
 								</div>
 							) : (
-								<p className="text-muted-foreground">
-									Secure your spot for {bib.event.name}. This race bib includes all official race materials and
-									registration transfer to your name.
-								</p>
+								<div className="border-border/50 bg-card/50 rounded-lg border p-4 backdrop-blur-sm">
+									<h3 className="text-primary mb-3 text-sm font-semibold">À propos de cet événement</h3>
+									<p className="text-foreground/80 mb-4 text-sm leading-relaxed">
+										Secure your spot for {bib.event.name}. This race bib includes all official race materials and
+										registration transfer to your name.
+									</p>
+
+									{/* Organizer Information */}
+									{(organizerData != null || eventData?.expand?.organizer != null) && (
+										<div className="border-border/30 border-t pt-4">
+											<div className="flex items-start justify-between">
+												<div className="flex-1">
+													<p className="text-muted-foreground mb-1 text-xs font-medium">Organisé par</p>
+													<p className="text-foreground text-sm font-medium">
+														{organizerData?.name ?? eventData?.expand?.organizer?.name ?? 'Unknown Organizer'}
+													</p>
+
+													{/* Website */}
+													{((organizerData?.website != null && organizerData.website.trim() !== '') ||
+														(eventData?.expand?.organizer?.website != null &&
+															eventData.expand.organizer.website.trim() !== '')) && (
+														<a
+															href={organizerData?.website ?? eventData?.expand?.organizer?.website ?? '#'}
+															target="_blank"
+															rel="noopener noreferrer"
+															className="text-primary hover:text-primary/80 mt-1 inline-block text-xs font-medium underline"
+														>
+															{organizerData?.website ?? eventData?.expand?.organizer?.website}
+														</a>
+													)}
+												</div>
+
+												{/* Verified Partner Badge */}
+												{(organizerData?.isPartnered === true ||
+													eventData?.expand?.organizer?.isPartnered === true) && (
+													<div className="ml-3 flex items-center gap-1.5 rounded-full border border-green-500/40 bg-green-500/15 px-2.5 py-1">
+														<div className="h-1.5 w-1.5 rounded-full bg-green-400"></div>
+														<span className="text-xs font-medium text-green-400">Vérifié</span>
+													</div>
+												)}
+											</div>
+										</div>
+									)}
+								</div>
 							)}
 						</div>
-
-						{/* Transfer Deadline Warning - Critical */}
-						{eventData?.transferDeadline && (
-							<div className="mt-6 rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-4 backdrop-blur-sm">
-								<p className="text-sm font-medium text-yellow-300">
-									Transfer deadline: {formatDateWithLocale(eventData.transferDeadline, locale)}
-								</p>
-							</div>
-						)}
 
 						{/* Price */}
 						<div className="mt-6">
@@ -514,63 +582,6 @@ export default function PayPalPurchaseClient({
 												</a>
 											</p>
 										</div>
-
-										{/* Event Organizer Information */}
-										{(organizerData != null || eventData?.expand?.organizer != null) && (
-											<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
-												<h4 className="text-foreground mb-4 font-semibold">Event Organizer</h4>
-												<div className="space-y-3">
-													{/* Organizer Name */}
-													<div>
-														<p className="text-muted-foreground text-sm font-medium">Organization</p>
-														<p className="text-foreground font-medium">
-															{organizerData?.name ?? eventData?.expand?.organizer?.name ?? 'Unknown Organizer'}
-														</p>
-													</div>
-
-													{/* Partner Status */}
-													{(organizerData?.isPartnered === true ||
-														eventData?.expand?.organizer?.isPartnered === true) && (
-														<div className="flex items-center gap-2">
-															<div className="h-2 w-2 rounded-full bg-green-400"></div>
-															<span className="text-sm font-medium text-green-400">Verified Partner</span>
-														</div>
-													)}
-
-													{/* Website */}
-													{((organizerData?.website != null && organizerData.website.trim() !== '') ||
-														(eventData?.expand?.organizer?.website != null &&
-															eventData.expand.organizer.website.trim() !== '')) && (
-														<div>
-															<p className="text-muted-foreground text-sm font-medium">Website</p>
-															<a
-																href={organizerData?.website ?? eventData?.expand?.organizer?.website ?? '#'}
-																target="_blank"
-																rel="noopener noreferrer"
-																className="text-primary hover:text-primary/80 text-sm font-medium underline"
-															>
-																{organizerData?.website ?? eventData?.expand?.organizer?.website}
-															</a>
-														</div>
-													)}
-
-													{/* Contact Email */}
-													{((organizerData?.email != null && organizerData.email.trim() !== '') ||
-														(eventData?.expand?.organizer?.email != null &&
-															eventData.expand.organizer.email.trim() !== '')) && (
-														<div>
-															<p className="text-muted-foreground text-sm font-medium">Contact</p>
-															<a
-																href={`mailto:${organizerData?.email ?? eventData?.expand?.organizer?.email}`}
-																className="text-primary hover:text-primary/80 text-sm font-medium underline"
-															>
-																{organizerData?.email ?? eventData?.expand?.organizer?.email}
-															</a>
-														</div>
-													)}
-												</div>
-											</div>
-										)}
 									</div>
 								</TabPanel>
 
