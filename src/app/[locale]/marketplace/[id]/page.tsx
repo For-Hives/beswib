@@ -138,6 +138,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 					user={user}
 					eventData={bib.expand.eventId}
 					organizerData={organizer ?? undefined}
+					bibData={bib}
 				/>
 			</PayPalProvider>
 		</div>
