@@ -5,6 +5,7 @@ import { CheckCircle, ExternalLink, RefreshCw, XCircle } from 'lucide-react'
 import { Suspense } from 'react'
 
 import { usePayPalOnboarding } from '@/hooks/usePayPalOnboarding'
+import { usePayPalDisconnect } from '@/hooks/usePayPalDisconnect'
 import { useUser } from '@/hooks/useUser'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -35,6 +36,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	const { isLoading, error, data: user } = useUser(userId)
 
 	const onboardingMutation = usePayPalOnboarding()
+	const disconnectMutation = usePayPalDisconnect()
 	const [showDisconnectConfirm, setShowDisconnectConfirm] = React.useState(false)
 
 	const handlePayPalConnect = () => {
@@ -42,9 +44,11 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	}
 
 	const handleDisconnect = () => {
-		// TODO: Implement actual disconnect logic (API call etc.)
-		setShowDisconnectConfirm(false)
-		// Optionally, trigger a mutation to disconnect PayPal account
+		disconnectMutation.mutate(userId, {
+			onSuccess: () => {
+				setShowDisconnectConfirm(false)
+			},
+		})
 	}
 
 	const getStatusBadge = () => {
@@ -120,8 +124,20 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 					{/* Connect/Disconnect Button */}
 					{typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0 ? (
 						<>
-							<Button className="w-full" variant="destructive" onClick={() => setShowDisconnectConfirm(true)}>
-								Déconnecter le compte vendeur
+							<Button
+								className="w-full"
+								variant="destructive"
+								onClick={() => setShowDisconnectConfirm(true)}
+								disabled={disconnectMutation.isPending}
+							>
+								{disconnectMutation.isPending ? (
+									<>
+										<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+										Déconnexion...
+									</>
+								) : (
+									'Déconnecter le compte vendeur'
+								)}
 							</Button>
 							{/* Confirmation Dialog */}
 							{showDisconnectConfirm && (
@@ -129,16 +145,43 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 									<div className="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-900">
 										<p className="mb-4 text-sm">Êtes-vous sûr de vouloir déconnecter votre compte vendeur PayPal ?</p>
 										<div className="flex justify-end gap-2">
-											<Button variant="outline" onClick={() => setShowDisconnectConfirm(false)}>
+											<Button
+												variant="outline"
+												onClick={() => setShowDisconnectConfirm(false)}
+												disabled={disconnectMutation.isPending}
+											>
 												Annuler
 											</Button>
-											<Button variant="destructive" onClick={handleDisconnect}>
-												Confirmer
+											<Button variant="destructive" onClick={handleDisconnect} disabled={disconnectMutation.isPending}>
+												{disconnectMutation.isPending ? (
+													<>
+														<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+														Déconnexion...
+													</>
+												) : (
+													'Confirmer'
+												)}
 											</Button>
 										</div>
 									</div>
 								</div>
 							)}
+							{/* Error Display for disconnect */}
+							{disconnectMutation.error ? (
+								<Alert variant="destructive">
+									<XCircle className="h-4 w-4" />
+									<AlertDescription>
+										{disconnectMutation.error instanceof Error
+											? disconnectMutation.error.message
+											: typeof disconnectMutation.error === 'object' &&
+												  disconnectMutation.error !== null &&
+												  'message' in disconnectMutation.error &&
+												  typeof (disconnectMutation.error as { message?: unknown }).message === 'string'
+												? String((disconnectMutation.error as { message?: unknown }).message)
+												: 'Failed to disconnect PayPal account'}
+									</AlertDescription>
+								</Alert>
+							) : null}
 						</>
 					) : (
 						<Button className="w-full" disabled={onboardingMutation.isPending} onClick={handlePayPalConnect}>
@@ -175,7 +218,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 				</CardContent>
 			</Card>
 
-			{/* Error Display */}
+			{/* Error Display for onboarding */}
 			{onboardingMutation.error ? (
 				<Alert variant="destructive">
 					<XCircle className="h-4 w-4" />
