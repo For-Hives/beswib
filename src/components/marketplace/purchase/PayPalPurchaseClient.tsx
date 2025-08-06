@@ -26,6 +26,7 @@ import { isUserProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
+import SimplePriceLanyard from '@/components/ui/SimplePriceLanyard'
 
 interface PayPalPurchaseClientProps {
 	bib: BibSale
@@ -744,6 +745,7 @@ export default function PayPalPurchaseClient({
 									</ul>
 								</div>
 							</div>
+							
 
 							{/* Payment Section - Right Side */}
 							<div className="space-y-6">
