@@ -204,11 +204,13 @@ export default function PayPalPurchaseClient({
 					{/* Header */}
 					<div className="mb-12 space-y-2 text-center">
 						<h1 className="text-foreground text-4xl font-bold tracking-tight">Purchase Bib</h1>
-						<p className="text-muted-foreground text-lg">Complete your purchase to secure your race bib for {bib.event.name}</p>
+						<p className="text-muted-foreground text-lg">
+							Complete your purchase to secure your race bib for {bib.event.name}
+						</p>
 					</div>
 
 					{/* Event Overview Card */}
-					<Card className="mb-8 border-border/50 bg-card/80 backdrop-blur-sm">
+					<Card className="border-border/50 bg-card/80 mb-8 backdrop-blur-sm">
 						<div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
 							{/* Event Image */}
 							<div className="relative overflow-hidden rounded-lg lg:col-span-2">
@@ -265,57 +267,57 @@ export default function PayPalPurchaseClient({
 										)}
 									</div>
 								</div>
-								
+
 								{/* Show alerts for specific cases */}
-							{!isProfileComplete && isSignedIn === true && !isOwnBib && (
-								<Alert className="mb-4" variant="destructive">
-									<AlertTriangle className="h-4 w-4" />
-									<AlertTitle>Profile Incomplete</AlertTitle>
-									<AlertDescription>
-										Please complete your runner profile before purchasing a bib.{' '}
-										<Link className="text-destructive-foreground font-bold" href={`/${locale}/profile`}>
-											Complete Profile
-										</Link>
-									</AlertDescription>
-								</Alert>
-							)}
-							{isOwnBib && isSignedIn === true && (
-								<Alert className="mb-4" variant="default">
-									<AlertTriangle className="h-4 w-4" />
-									<AlertTitle>Your Own Bib</AlertTitle>
-									<AlertDescription>
-										You cannot purchase your own bib. You can manage it from your{' '}
-										<Link className="font-bold underline" href={`/${locale}/dashboard/seller`}>
-											seller dashboard
-										</Link>
-										.
-									</AlertDescription>
-								</Alert>
-							)}
+								{!isProfileComplete && isSignedIn === true && !isOwnBib && (
+									<Alert className="mb-4" variant="destructive">
+										<AlertTriangle className="h-4 w-4" />
+										<AlertTitle>Profile Incomplete</AlertTitle>
+										<AlertDescription>
+											Please complete your runner profile before purchasing a bib.{' '}
+											<Link className="text-destructive-foreground font-bold" href={`/${locale}/profile`}>
+												Complete Profile
+											</Link>
+										</AlertDescription>
+									</Alert>
+								)}
+								{isOwnBib && isSignedIn === true && (
+									<Alert className="mb-4" variant="default">
+										<AlertTriangle className="h-4 w-4" />
+										<AlertTitle>Your Own Bib</AlertTitle>
+										<AlertDescription>
+											You cannot purchase your own bib. You can manage it from your{' '}
+											<Link className="font-bold underline" href={`/${locale}/dashboard/seller`}>
+												seller dashboard
+											</Link>
+											.
+										</AlertDescription>
+									</Alert>
+								)}
 
-							{/* Only show buy button if user is signed in, has complete profile, and it's not their own bib */}
-							{isSignedIn === true && isProfileComplete && !isOwnBib && (
-								<Button
-									className="flex items-center justify-center gap-2 text-lg font-medium"
-									onClick={handleBuyNowClick}
-									size="lg"
-								>
-									<ShoppingCart className="h-5 w-5" />
-									Buy Now
-								</Button>
-							)}
+								{/* Only show buy button if user is signed in, has complete profile, and it's not their own bib */}
+								{isSignedIn === true && isProfileComplete && !isOwnBib && (
+									<Button
+										className="flex items-center justify-center gap-2 text-lg font-medium"
+										onClick={handleBuyNowClick}
+										size="lg"
+									>
+										<ShoppingCart className="h-5 w-5" />
+										Buy Now
+									</Button>
+								)}
 
-							{/* Show sign in prompt for non-authenticated users */}
-							{isSignedIn !== true && (
-								<Button
-									className="flex items-center justify-center gap-2 text-lg font-medium"
-									onClick={handleBuyNowClick}
-									size="lg"
-								>
-									<ShoppingCart className="h-5 w-5" />
-									Buy Now
-								</Button>
-							)}
+								{/* Show sign in prompt for non-authenticated users */}
+								{isSignedIn !== true && (
+									<Button
+										className="flex items-center justify-center gap-2 text-lg font-medium"
+										onClick={handleBuyNowClick}
+										size="lg"
+									>
+										<ShoppingCart className="h-5 w-5" />
+										Buy Now
+									</Button>
+								)}
 							</div>
 						</div>
 					</Card>
