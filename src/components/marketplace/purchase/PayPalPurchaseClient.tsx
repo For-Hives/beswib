@@ -1,6 +1,6 @@
 'use client'
 
-import { AlertTriangle, Calendar, MapPinned, ShoppingCart, User } from 'lucide-react'
+import { AlertTriangle, Calendar, Clock, Globe, MapPinned, Mountain, ShoppingCart, TrendingUp, User, Users, ExternalLink, Building2, CheckCircle2 } from 'lucide-react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
 
@@ -10,6 +10,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import type { User as AppUser } from '@/models/user.model'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { handleSuccessfulPurchase } from '@/app/[locale]/purchase/actions'
@@ -21,6 +23,8 @@ import { isUserProfileComplete } from '@/lib/userValidation'
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n-config'
 import { cn } from '@/lib/utils'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 
 interface PayPalPurchaseClientProps {
 	bib: BibSale
@@ -28,6 +32,8 @@ interface PayPalPurchaseClientProps {
 	otherBibs?: BibSale[]
 	sellerUser: AppUser | null
 	user: AppUser | null
+	eventData?: Event & { expand?: { organizer: Organizer } }
+	organizerData?: Organizer
 }
 
 export default function PayPalPurchaseClient({
@@ -36,6 +42,8 @@ export default function PayPalPurchaseClient({
 	otherBibs = [],
 	locale,
 	bib,
+	eventData,
+	organizerData,
 }: Readonly<PayPalPurchaseClientProps>) {
 	const [errorMessage, setErrorMessage] = useState<null | string>(null)
 	const [successMessage, setSuccessMessage] = useState<null | string>(null)
@@ -230,7 +238,8 @@ export default function PayPalPurchaseClient({
 									)}
 								</div>
 							</div>
-							{!isProfileComplete && isSignedIn === true && (
+							{/* Show alerts for specific cases */}
+							{!isProfileComplete && isSignedIn === true && !isOwnBib && (
 								<Alert className="mb-4" variant="destructive">
 									<AlertTriangle className="h-4 w-4" />
 									<AlertTitle>Profile Incomplete</AlertTitle>
@@ -255,60 +264,263 @@ export default function PayPalPurchaseClient({
 									</AlertDescription>
 								</Alert>
 							)}
-							<Button
-								className="flex items-center justify-center gap-2 text-lg font-medium"
-								disabled={(!isProfileComplete && isSignedIn === true) || isOwnBib}
-								onClick={handleBuyNowClick}
-								size="lg"
-							>
-								<ShoppingCart className="h-5 w-5" />
-								{isOwnBib ? 'Your Own Bib' : 'Buy Now'}
-							</Button>
+							
+							{/* Only show buy button if user is signed in, has complete profile, and it's not their own bib */}
+							{isSignedIn === true && isProfileComplete && !isOwnBib && (
+								<Button
+									className="flex items-center justify-center gap-2 text-lg font-medium"
+									onClick={handleBuyNowClick}
+									size="lg"
+								>
+									<ShoppingCart className="h-5 w-5" />
+									Buy Now
+								</Button>
+							)}
+							
+							{/* Show sign in prompt for non-authenticated users */}
+							{isSignedIn !== true && (
+								<Button
+									className="flex items-center justify-center gap-2 text-lg font-medium"
+									onClick={handleBuyNowClick}
+									size="lg"
+								>
+									<ShoppingCart className="h-5 w-5" />
+									Buy Now
+								</Button>
+							)}
 						</div>
 					</div>
 
-					{/* Event Details Grid */}
-					<div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-						{/* Date Card */}
-						<div className="border-border/50 bg-card/80 rounded-lg border p-6 backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
-							<h3 className="mb-3 text-lg font-semibold">Date</h3>
-							<div className="flex items-center gap-3">
-								<div className="bg-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-full">
-									<Calendar className="h-5 w-5" />
-								</div>
-								<p className="text-muted-foreground">{formatDateWithLocale(bib.event.date, locale)}</p>
-							</div>
+					{/* Comprehensive Event Information */}
+					<div className="mt-8 space-y-8">
+						{/* Event Description */}
+						{eventData?.description && (
+							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+								<CardHeader>
+									<CardTitle className="flex items-center gap-2">
+										<Calendar className="h-5 w-5" />
+										Event Description
+									</CardTitle>
+								</CardHeader>
+								<CardContent>
+									<p className="text-muted-foreground leading-relaxed">{eventData.description}</p>
+								</CardContent>
+							</Card>
+						)}
+
+						{/* Event Details Grid */}
+						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+							{/* Basic Event Info */}
+							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+								<CardHeader>
+									<CardTitle className="flex items-center gap-2">
+										<Calendar className="h-5 w-5" />
+										Event Date
+									</CardTitle>
+								</CardHeader>
+								<CardContent>
+									<p className="text-foreground font-medium">{formatDateWithLocale(bib.event.date, locale)}</p>
+								</CardContent>
+							</Card>
+
+							{/* Location & Distance */}
+							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+								<CardHeader>
+									<CardTitle className="flex items-center gap-2">
+										<MapPinned className="h-5 w-5" />
+										Location & Distance
+									</CardTitle>
+								</CardHeader>
+								<CardContent className="space-y-2">
+									<p className="text-foreground font-medium">{bib.event.location}</p>
+									<p className="text-muted-foreground">{bib.event.distance}{bib.event.distanceUnit}</p>
+									{eventData?.elevationGainM && (
+										<div className="flex items-center gap-1 text-sm text-muted-foreground">
+											<Mountain className="h-4 w-4" />
+											{eventData.elevationGainM}m elevation gain
+										</div>
+									)}
+								</CardContent>
+							</Card>
+
+							{/* Participants */}
+							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+								<CardHeader>
+									<CardTitle className="flex items-center gap-2">
+										<Users className="h-5 w-5" />
+										Participants
+									</CardTitle>
+								</CardHeader>
+								<CardContent>
+									<p className="text-foreground font-medium">{formatParticipantCount(bib.event.participantCount)} registered</p>
+									{eventData?.officialStandardPrice && (
+										<p className="text-muted-foreground text-sm">Official price: €{eventData.officialStandardPrice}</p>
+									)}
+								</CardContent>
+							</Card>
 						</div>
 
-						{/* Location Card */}
-						<div className="border-border/50 bg-card/80 rounded-lg border p-6 backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
-							<h3 className="mb-3 text-lg font-semibold">Location & Distance</h3>
-							<div className="flex items-center gap-3">
-								<div className="bg-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-full">
-									<MapPinned className="h-5 w-5" />
-								</div>
-								<div>
-									<p className="text-muted-foreground text-sm">{bib.event.location}</p>
-									<p className="text-muted-foreground text-sm font-medium">
-										{bib.event.distance}
-										{bib.event.distanceUnit}
-									</p>
-								</div>
-							</div>
-						</div>
+						{/* Bib Pickup & Transfer Info */}
+						{(eventData?.bibPickupLocation || eventData?.bibPickupWindowBeginDate) && (
+							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+								<CardHeader>
+									<CardTitle className="flex items-center gap-2">
+										<Clock className="h-5 w-5" />
+										Bib Pickup Information
+									</CardTitle>
+								</CardHeader>
+								<CardContent className="space-y-4">
+									<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+										{eventData.bibPickupLocation && (
+											<div>
+												<h4 className="font-medium text-foreground mb-1">Pickup Location</h4>
+												<p className="text-muted-foreground text-sm">{eventData.bibPickupLocation}</p>
+											</div>
+										)}
+										{eventData.bibPickupWindowBeginDate && eventData.bibPickupWindowEndDate && (
+											<div>
+												<h4 className="font-medium text-foreground mb-1">Pickup Window</h4>
+												<p className="text-muted-foreground text-sm">
+													{formatDateWithLocale(eventData.bibPickupWindowBeginDate, locale)} - {formatDateWithLocale(eventData.bibPickupWindowEndDate, locale)}
+												</p>
+											</div>
+										)}
+										{eventData.transferDeadline && (
+											<div className="md:col-span-2">
+												<h4 className="font-medium text-foreground mb-1">Transfer Deadline</h4>
+												<p className="text-muted-foreground text-sm flex items-center gap-1">
+													<AlertTriangle className="h-4 w-4" />
+													Last date for transfer: {formatDateWithLocale(eventData.transferDeadline, locale)}
+												</p>
+											</div>
+										)}
+									</div>
+								</CardContent>
+							</Card>
+						)}
 
-						{/* Participants Card */}
-						<div className="border-border/50 bg-card/80 rounded-lg border p-6 backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
-							<h3 className="mb-3 text-lg font-semibold">Participants</h3>
-							<div className="flex items-center gap-3">
-								<div className="bg-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-full">
-									<User className="h-5 w-5" />
-								</div>
-								<p className="text-muted-foreground">
-									{formatParticipantCount(bib.event.participantCount)} participants
-								</p>
-							</div>
-						</div>
+						{/* Race Options */}
+						{eventData?.options && eventData.options.length > 0 && (
+							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+								<CardHeader>
+									<CardTitle>Race Options</CardTitle>
+									<CardDescription>Available options for this event</CardDescription>
+								</CardHeader>
+								<CardContent>
+									<div className="space-y-3">
+										{eventData.options.map((option, index) => (
+											<div key={index} className="border-l-2 border-primary/20 pl-4">
+												<h4 className="font-medium text-foreground">{option.label}</h4>
+												<div className="flex flex-wrap gap-2 mt-1">
+													{option.values.map((value) => (
+														<Badge key={value} variant="secondary" className="text-xs">
+															{value}
+														</Badge>
+													))}
+													{option.required && (
+														<Badge variant="destructive" className="text-xs">
+															Required
+														</Badge>
+													)}
+												</div>
+											</div>
+										))}
+									</div>
+								</CardContent>
+							</Card>
+						)}
+
+						{/* Organizer Information */}
+						{(eventData?.expand?.organizer || organizerData) && (
+							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+								<CardHeader>
+									<CardTitle className="flex items-center gap-2">
+										<Building2 className="h-5 w-5" />
+										Event Organizer
+									</CardTitle>
+								</CardHeader>
+								<CardContent>
+									<div className="flex items-start gap-4">
+										{(eventData?.expand?.organizer?.logo || organizerData?.logo) && (
+											<div className="relative h-16 w-16 overflow-hidden rounded-lg border border-border/20">
+												<Image
+													alt="Organizer Logo"
+													className="object-contain p-2"
+													fill
+													sizes="64px"
+													src={`/api/files/pbc_4261386219/${(eventData?.expand?.organizer?.id || organizerData?.id)}/${(eventData?.expand?.organizer?.logo || organizerData?.logo)}`}
+												/>
+											</div>
+										)}
+										<div className="flex-1 space-y-2">
+											<div className="flex items-center gap-2">
+												<h3 className="font-semibold text-foreground">
+													{eventData?.expand?.organizer?.name || organizerData?.name}
+												</h3>
+												{(eventData?.expand?.organizer?.isPartnered || organizerData?.isPartnered) && (
+													<Badge variant="default" className="flex items-center gap-1">
+														<CheckCircle2 className="h-3 w-3" />
+														Partner
+													</Badge>
+												)}
+											</div>
+											{(eventData?.expand?.organizer?.website || organizerData?.website) && (
+												<Link
+													className="text-muted-foreground hover:text-primary flex items-center gap-1 text-sm transition-colors"
+													href={eventData?.expand?.organizer?.website || organizerData?.website || '#'}
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<Globe className="h-4 w-4" />
+													{eventData?.expand?.organizer?.website || organizerData?.website}
+													<ExternalLink className="h-3 w-3" />
+												</Link>
+											)}
+										</div>
+									</div>
+								</CardContent>
+							</Card>
+						)}
+
+						{/* External Links */}
+						{(eventData?.registrationUrl || eventData?.parcoursUrl) && (
+							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+								<CardHeader>
+									<CardTitle className="flex items-center gap-2">
+										<ExternalLink className="h-5 w-5" />
+										Useful Links
+									</CardTitle>
+								</CardHeader>
+								<CardContent>
+									<div className="flex flex-col gap-3">
+										{eventData.registrationUrl && (
+											<Link
+												className="text-primary hover:text-primary/80 flex items-center gap-2 transition-colors"
+												href={eventData.registrationUrl}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												<TrendingUp className="h-4 w-4" />
+												Official Registration
+												<ExternalLink className="h-3 w-3" />
+											</Link>
+										)}
+										{eventData.parcoursUrl && (
+											<Link
+												className="text-primary hover:text-primary/80 flex items-center gap-2 transition-colors"
+												href={eventData.parcoursUrl}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												<MapPinned className="h-4 w-4" />
+												Race Course Map
+												<ExternalLink className="h-3 w-3" />
+											</Link>
+										)}
+									</div>
+								</CardContent>
+							</Card>
+						)}
 					</div>
 
 					{/* Other Bibs Section */}
