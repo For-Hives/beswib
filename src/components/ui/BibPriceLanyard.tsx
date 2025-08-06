@@ -266,7 +266,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 	useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], ropePositions.ropeJointLengths.j3])
 	useSphericalJoint(j3, card, [
 		[0, 0, 0],
-		[0, 1.45, 0],
+		[0, 1.125, 0],
 	])
 
 	useEffect(() => {
@@ -405,30 +405,6 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 						</div>
 					</Html>
 				)}
-
-				{/* Hole in the card for the rope - fully transparent */}
-				<mesh position={[0, 1.0, 0]}>
-					<cylinderGeometry args={[0.08, 0.08, 0.05, 16]} />
-					<meshBasicMaterial transparent={true} opacity={0} visible={false} />
-				</mesh>
-
-				{/* Hole rim - small metallic ring around the hole */}
-				<mesh position={[0, 1.0, 0.025]} rotation={[Math.PI / 2, 0, 0]}>
-					<ringGeometry args={[0.08, 0.12, 16]} />
-					<meshStandardMaterial color="#CCCCCC" metalness={0.8} roughness={0.2} />
-				</mesh>
-
-				{/* Clip - small metallic piece at top */}
-				<mesh position={[0, 0.8, 0.02]}>
-					<boxGeometry args={[0.3, 0.2, 0.05]} />
-					<meshStandardMaterial color="#666666" metalness={1} roughness={0.3} />
-				</mesh>
-
-				{/* Clamp - connector piece */}
-				<mesh position={[0, 1.1, 0.01]}>
-					<boxGeometry args={[0.15, 0.15, 0.03]} />
-					<meshStandardMaterial color="#333333" metalness={1} roughness={0.2} />
-				</mesh>
 			</group>
 		)
 	}
@@ -474,7 +450,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 						dragged !== false ? ('kinematicPosition' as RigidBodyProps['type']) : ('dynamic' as RigidBodyProps['type'])
 					}
 				>
-					<CuboidCollider args={[0.8, 1.125, 0.01]} />
+					{/* Card collision - simple box without interference at attachment point */}
+					<CuboidCollider args={[0.8, 1.0, 0.01]} position={[0, -0.125, 0]} />
 					<SimpleCard />
 				</RigidBody>
 			</group>
