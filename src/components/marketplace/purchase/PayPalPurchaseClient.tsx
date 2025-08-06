@@ -4,7 +4,6 @@ import { AlertTriangle } from 'lucide-react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
 
-
 import { useRouter } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
 import Image from 'next/image'
@@ -418,156 +417,152 @@ export default function PayPalPurchaseClient({
 						</div>
 					</div>
 
-									{/* Event Details and Additional Information */}
-				<div className="mx-auto mt-16 w-full max-w-2xl lg:col-span-4 lg:mt-0 lg:max-w-none">
-					<div className="space-y-8">
-						{/* Event Details Section */}
-						<div>
-							<h3 className="text-foreground mb-6 text-xl font-semibold">Event Details</h3>
-							<div className="space-y-6">
-								{/* Essential Event Information */}
-								<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-									{/* Key Details */}
+					{/* Event Details and Additional Information */}
+					<div className="mx-auto mt-16 w-full max-w-2xl lg:col-span-4 lg:mt-0 lg:max-w-none">
+						<div className="space-y-8">
+							{/* Event Details Section */}
+							<div>
+								<h3 className="text-foreground mb-6 text-xl font-semibold">Event Details</h3>
+								<div className="space-y-6">
+									{/* Essential Event Information */}
+									<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+										{/* Key Details */}
+										<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
+											<h4 className="text-foreground mb-4 font-semibold">Race Information</h4>
+											<div className="space-y-4">
+												<div>
+													<p className="text-muted-foreground text-sm font-medium">Date</p>
+													<p className="text-foreground font-medium">{formatDateWithLocale(bib.event.date, locale)}</p>
+												</div>
+												<div>
+													<p className="text-muted-foreground text-sm font-medium">Location</p>
+													<p className="text-foreground font-medium">{bib.event.location}</p>
+												</div>
+												<div>
+													<p className="text-muted-foreground text-sm font-medium">Distance</p>
+													<p className="text-foreground font-medium">
+														{bib.event.distance}
+														{bib.event.distanceUnit}
+														{(eventData?.elevationGainM ?? 0) > 0 && (
+															<span className="text-muted-foreground ml-2 text-sm">
+																(+{eventData?.elevationGainM}m elevation)
+															</span>
+														)}
+													</p>
+												</div>
+											</div>
+										</div>
+
+										{/* Transfer Deadline - Critical Info */}
+										{eventData?.transferDeadline && (
+											<div className="rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-6 backdrop-blur-sm">
+												<h4 className="mb-3 font-semibold text-yellow-300">Transfer Deadline</h4>
+												<p className="mb-2 text-sm text-yellow-200">Last date for bib transfer:</p>
+												<p className="text-xl font-bold text-yellow-100">
+													{formatDateWithLocale(eventData.transferDeadline, locale)}
+												</p>
+												<p className="mt-3 text-xs text-yellow-200">
+													Complete your purchase before this date to ensure transfer
+												</p>
+											</div>
+										)}
+									</div>
+
+									{/* What you get */}
 									<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
-										<h4 className="text-foreground mb-4 font-semibold">Race Information</h4>
-										<div className="space-y-4">
-											<div>
-												<p className="text-muted-foreground text-sm font-medium">Date</p>
-												<p className="text-foreground font-medium">
-													{formatDateWithLocale(bib.event.date, locale)}
-												</p>
-											</div>
-											<div>
-												<p className="text-muted-foreground text-sm font-medium">Location</p>
-												<p className="text-foreground font-medium">{bib.event.location}</p>
-											</div>
-											<div>
-												<p className="text-muted-foreground text-sm font-medium">Distance</p>
-												<p className="text-foreground font-medium">
-													{bib.event.distance}
-													{bib.event.distanceUnit}
-													{(eventData?.elevationGainM ?? 0) > 0 && (
-														<span className="text-muted-foreground ml-2 text-sm">
-															(+{eventData?.elevationGainM}m elevation)
-														</span>
-													)}
-												</p>
-											</div>
+										<h4 className="text-foreground mb-4 font-semibold">What you get</h4>
+										<div className="text-foreground/80 space-y-2 text-sm">
+											<div>• Official race bib transferred to your name</div>
+											<div>• All race materials & timing chip</div>
+											<div>• Secure transfer process</div>
 										</div>
 									</div>
 
-									{/* Transfer Deadline - Critical Info */}
-									{eventData?.transferDeadline && (
-										<div className="rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-6 backdrop-blur-sm">
-											<h4 className="mb-3 font-semibold text-yellow-300">Transfer Deadline</h4>
-											<p className="mb-2 text-sm text-yellow-200">Last date for bib transfer:</p>
-											<p className="text-xl font-bold text-yellow-100">
-												{formatDateWithLocale(eventData.transferDeadline, locale)}
-											</p>
-											<p className="mt-3 text-xs text-yellow-200">
-												Complete your purchase before this date to ensure transfer
-											</p>
+									{/* Seller Information */}
+									<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
+										<h4 className="text-foreground mb-4 font-semibold">Seller Information</h4>
+										<p className="text-muted-foreground text-sm">Sold by {bib.user.firstName ?? 'Anonymous'}.</p>
+									</div>
+
+									{/* Terms & Conditions */}
+									<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
+										<h4 className="text-foreground mb-4 font-semibold">Terms & Conditions</h4>
+										<p className="text-muted-foreground text-sm">
+											{terms.summary}{' '}
+											<a href={terms.href} className="text-primary hover:text-primary/80 font-medium underline">
+												Read full terms
+											</a>
+										</p>
+									</div>
+
+									{/* Optional: Verified Organizer Badge */}
+									{eventData?.expand?.organizer?.isPartnered === true && (
+										<div className="rounded-lg border border-green-500/40 bg-green-500/10 p-4 backdrop-blur-sm">
+											<div>
+												<h4 className="font-medium text-green-300">Verified Partner Organizer</h4>
+												<p className="text-sm text-green-200">{eventData?.expand?.organizer?.name} • Trusted Partner</p>
+											</div>
 										</div>
 									)}
 								</div>
-
-								{/* What you get */}
-								<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
-									<h4 className="text-foreground mb-4 font-semibold">What you get</h4>
-									<div className="text-foreground/80 space-y-2 text-sm">
-										<div>• Official race bib transferred to your name</div>
-										<div>• All race materials & timing chip</div>
-										<div>• Secure transfer process</div>
-									</div>
-								</div>
-
-								{/* Seller Information */}
-								<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
-									<h4 className="text-foreground mb-4 font-semibold">Seller Information</h4>
-									<p className="text-muted-foreground text-sm">
-										Sold by {bib.user.firstName ?? 'Anonymous'}.
-									</p>
-								</div>
-
-								{/* Terms & Conditions */}
-								<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
-									<h4 className="text-foreground mb-4 font-semibold">Terms & Conditions</h4>
-									<p className="text-muted-foreground text-sm">
-										{terms.summary}{' '}
-										<a href={terms.href} className="text-primary hover:text-primary/80 font-medium underline">
-											Read full terms
-										</a>
-									</p>
-								</div>
-
-								{/* Optional: Verified Organizer Badge */}
-								{eventData?.expand?.organizer?.isPartnered === true && (
-									<div className="rounded-lg border border-green-500/40 bg-green-500/10 p-4 backdrop-blur-sm">
-										<div>
-											<h4 className="font-medium text-green-300">Verified Partner Organizer</h4>
-											<p className="text-sm text-green-200">
-												{eventData?.expand?.organizer?.name} • Trusted Partner
-											</p>
-										</div>
-									</div>
-								)}
 							</div>
-						</div>
 
-						{/* FAQ Accordion Section */}
-						<div>
-							<h3 className="text-foreground mb-6 text-xl font-semibold">Frequently Asked Questions</h3>
-							<Accordion className="w-full" collapsible type="single">
-								{faqs.map(faq => (
-									<AccordionItem key={faq.question} value={faq.question}>
-										<AccordionTrigger className="text-left text-foreground">{faq.question}</AccordionTrigger>
+							{/* FAQ Accordion Section */}
+							<div>
+								<h3 className="text-foreground mb-6 text-xl font-semibold">Frequently Asked Questions</h3>
+								<Accordion className="w-full" collapsible type="single">
+									{faqs.map(faq => (
+										<AccordionItem key={faq.question} value={faq.question}>
+											<AccordionTrigger className="text-foreground text-left">{faq.question}</AccordionTrigger>
+											<AccordionContent className="text-muted-foreground text-sm leading-6">
+												{faq.answer}
+											</AccordionContent>
+										</AccordionItem>
+									))}
+								</Accordion>
+							</div>
+
+							{/* Terms Accordion Section */}
+							<div>
+								<h3 className="text-foreground mb-6 text-xl font-semibold">Detailed Terms & Conditions</h3>
+								<Accordion className="w-full" collapsible type="single">
+									<AccordionItem value="purchase-terms">
+										<AccordionTrigger className="text-foreground text-left">Terms of Purchase</AccordionTrigger>
 										<AccordionContent className="text-muted-foreground text-sm leading-6">
-											{faq.answer}
+											<p className="mb-4">
+												By purchasing this race bib, you agree to the following terms and conditions.
+											</p>
+											<ul className="list-disc space-y-1 pl-5">
+												<li>You must provide accurate personal information for bib registration transfer.</li>
+												<li>You agree to abide by all event organizer rules and regulations.</li>
+												<li>Medical certificates may be required depending on the event requirements.</li>
+											</ul>
 										</AccordionContent>
 									</AccordionItem>
-								))}
-							</Accordion>
-						</div>
-
-						{/* Terms Accordion Section */}
-						<div>
-							<h3 className="text-foreground mb-6 text-xl font-semibold">Detailed Terms & Conditions</h3>
-							<Accordion className="w-full" collapsible type="single">
-								<AccordionItem value="purchase-terms">
-									<AccordionTrigger className="text-left text-foreground">Terms of Purchase</AccordionTrigger>
-									<AccordionContent className="text-muted-foreground text-sm leading-6">
-										<p className="mb-4">By purchasing this race bib, you agree to the following terms and conditions.</p>
-										<ul className="list-disc space-y-1 pl-5">
-											<li>You must provide accurate personal information for bib registration transfer.</li>
-											<li>You agree to abide by all event organizer rules and regulations.</li>
-											<li>Medical certificates may be required depending on the event requirements.</li>
-										</ul>
-									</AccordionContent>
-								</AccordionItem>
-								<AccordionItem value="whats-included">
-									<AccordionTrigger className="text-left text-foreground">What's included</AccordionTrigger>
-									<AccordionContent className="text-muted-foreground text-sm leading-6">
-										<ul className="list-disc space-y-1 pl-5">
-											<li>Official race bib with your name and details.</li>
-											<li>All event-specific materials (timing chip, race packet, etc.).</li>
-											<li>Support throughout the transfer process.</li>
-										</ul>
-									</AccordionContent>
-								</AccordionItem>
-								<AccordionItem value="important-notes">
-									<AccordionTrigger className="text-left text-foreground">Important Notes</AccordionTrigger>
-									<AccordionContent className="text-muted-foreground text-sm leading-6">
-										<ul className="list-disc space-y-1 pl-5">
-											<li>Bib transfers must be completed before the event organizer's deadline.</li>
-											<li>Some events may require additional documentation or fees.</li>
-											<li>Refunds are subject to the event organizer's cancellation policy.</li>
-										</ul>
-									</AccordionContent>
-								</AccordionItem>
-							</Accordion>
+									<AccordionItem value="whats-included">
+										<AccordionTrigger className="text-foreground text-left">What's included</AccordionTrigger>
+										<AccordionContent className="text-muted-foreground text-sm leading-6">
+											<ul className="list-disc space-y-1 pl-5">
+												<li>Official race bib with your name and details.</li>
+												<li>All event-specific materials (timing chip, race packet, etc.).</li>
+												<li>Support throughout the transfer process.</li>
+											</ul>
+										</AccordionContent>
+									</AccordionItem>
+									<AccordionItem value="important-notes">
+										<AccordionTrigger className="text-foreground text-left">Important Notes</AccordionTrigger>
+										<AccordionContent className="text-muted-foreground text-sm leading-6">
+											<ul className="list-disc space-y-1 pl-5">
+												<li>Bib transfers must be completed before the event organizer's deadline.</li>
+												<li>Some events may require additional documentation or fees.</li>
+												<li>Refunds are subject to the event organizer's cancellation policy.</li>
+											</ul>
+										</AccordionContent>
+									</AccordionItem>
+								</Accordion>
+							</div>
 						</div>
 					</div>
-				</div>
 
 					{/* Other Bibs Section */}
 					{samEventBibs.length > 0 && (
