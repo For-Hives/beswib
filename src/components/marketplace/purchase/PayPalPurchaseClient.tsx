@@ -45,6 +45,9 @@ export default function PayPalPurchaseClient({
 	const router = useRouter()
 	const [isProfileComplete, setIsProfileComplete] = useState(false)
 
+	// Check if current user is the seller of this bib
+	const isOwnBib = user?.id === bib.user.id
+
 	useEffect(() => {
 		setIsProfileComplete(isUserProfileComplete(user))
 	}, [user])
@@ -53,6 +56,10 @@ export default function PayPalPurchaseClient({
 	const handleBuyNowClick = () => {
 		if (isSignedIn !== true) {
 			router.push(`/${locale}/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`)
+			return
+		}
+		if (isOwnBib) {
+			// User trying to buy their own bib - do nothing, button should be disabled
 			return
 		}
 		if (isProfileComplete) {
@@ -235,14 +242,27 @@ export default function PayPalPurchaseClient({
 									</AlertDescription>
 								</Alert>
 							)}
+							{isOwnBib && isSignedIn === true && (
+								<Alert className="mb-4" variant="default">
+									<AlertTriangle className="h-4 w-4" />
+									<AlertTitle>Your Own Bib</AlertTitle>
+									<AlertDescription>
+										You cannot purchase your own bib. You can manage it from your{' '}
+										<Link className="font-bold underline" href={`/${locale}/dashboard/seller`}>
+											seller dashboard
+										</Link>
+										.
+									</AlertDescription>
+								</Alert>
+							)}
 							<Button
 								className="flex items-center justify-center gap-2 text-lg font-medium"
-								disabled={!isProfileComplete && isSignedIn === true}
+								disabled={(!isProfileComplete && isSignedIn === true) || isOwnBib}
 								onClick={handleBuyNowClick}
 								size="lg"
 							>
 								<ShoppingCart className="h-5 w-5" />
-								Buy Now
+								{isOwnBib ? 'Your Own Bib' : 'Buy Now'}
 							</Button>
 						</div>
 					</div>
