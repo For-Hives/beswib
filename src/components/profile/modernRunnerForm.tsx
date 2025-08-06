@@ -77,7 +77,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 		},
 	})
 
-	async function onSubmit(values: RunnerFormData) {
+	function onSubmit(values: RunnerFormData) {
 		if (user === null) return
 
 		startTransition(async () => {
@@ -105,7 +105,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 		<div className="space-y-8">
 			{/* Status Alert */}
 			{!isComplete && (
-				<Alert variant="destructive">
+				<Alert variant="destructive" className="bg-red-500/5">
 					<AlertTriangle className="h-4 w-4" />
 					<AlertTitle>Profile Required for Marketplace Access</AlertTitle>
 					<AlertDescription>
