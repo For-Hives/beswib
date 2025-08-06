@@ -223,18 +223,27 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		return { width: 1024, height: 768, isSmall: false }
 	})
 
-	// Simple rope positions - reset to basic working values
+	// Rope positions - starts from top-right and goes to card
 	const ropePositions = useMemo(() => {
+		const { isSmall } = screenSize
+
+		// Start from top-right area of the 50vw container
+		const startX = isSmall ? 5 : 7
+		const startY = isSmall ? 7 : 9
+
+		// Create a diagonal path down to the card
+		const spacing = isSmall ? 1.5 : 2
+
 		return {
-			groupPosition: [0, 4, 0] as [number, number, number],
-			j1Position: [0, -1, 0] as [number, number, number],
-			j2Position: [0, -2, 0] as [number, number, number],
-			j3Position: [0, -3, 0] as [number, number, number],
-			cardPosition: [0, -4.5, 0] as [number, number, number],
+			groupPosition: [startX, startY, 0] as [number, number, number],
+			j1Position: [startX - spacing * 0.5, startY - spacing * 1, 0] as [number, number, number],
+			j2Position: [startX - spacing * 1, startY - spacing * 2, 0] as [number, number, number],
+			j3Position: [startX - spacing * 1.5, startY - spacing * 3, 0] as [number, number, number],
+			cardPosition: [startX - spacing * 2, startY - spacing * 4, 0] as [number, number, number],
 			ropeJointLengths: {
-				j1: 1.2,
-				j2: 1.2,
-				j3: 1.5,
+				j1: spacing * 1.2,
+				j2: spacing * 1.2,
+				j3: spacing * 1.2,
 			},
 		}
 	}, [screenSize])
