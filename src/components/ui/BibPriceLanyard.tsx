@@ -34,9 +34,9 @@ interface LanyardProps {
 }
 
 export default function Lanyard({
-	position = [0, 0, 15],
+	position = [0, 0, 40],
 	gravity = [0, -40, 0],
-	fov = 32,
+	fov = 16,
 	transparent = true,
 	price,
 	originalPrice,
@@ -223,23 +223,23 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		return { width: 1024, height: 768, isSmall: false }
 	})
 
-	// Rope positions - starts from top-right and goes to card
+	// Rope positions - starts from top-left and goes to card
 	const ropePositions = useMemo(() => {
 		const { isSmall } = screenSize
 
-		// Start from top-right area of the 50vw container
-		const startX = isSmall ? 5 : 7
-		const startY = isSmall ? 7 : 9
+		// Start from top-left area of the 50vw container, slightly spaced from edge
+		const startX = isSmall ? -4 : -5
+		const startY = isSmall ? 6 : 7
 
-		// Create a diagonal path down to the card
+		// Create a path down from top-left
 		const spacing = isSmall ? 1.5 : 2
 
 		return {
 			groupPosition: [startX, startY, 0] as [number, number, number],
-			j1Position: [startX - spacing * 0.5, startY - spacing * 1, 0] as [number, number, number],
-			j2Position: [startX - spacing * 1, startY - spacing * 2, 0] as [number, number, number],
-			j3Position: [startX - spacing * 1.5, startY - spacing * 3, 0] as [number, number, number],
-			cardPosition: [startX - spacing * 2, startY - spacing * 4, 0] as [number, number, number],
+			j1Position: [startX + spacing * 0.3, startY - spacing * 1, 0] as [number, number, number],
+			j2Position: [startX + spacing * 0.6, startY - spacing * 2, 0] as [number, number, number],
+			j3Position: [startX + spacing * 0.9, startY - spacing * 3, 0] as [number, number, number],
+			cardPosition: [startX + spacing * 1.2, startY - spacing * 4, 0] as [number, number, number],
 			ropeJointLengths: {
 				j1: spacing * 1.2,
 				j2: spacing * 1.2,
@@ -326,7 +326,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		return (
 			<group
 				scale={2}
-				position={[0, -1.2, -0.05]}
+				position={[0, 0, 0]}
 				onPointerOver={() => hover(true)}
 				onPointerOut={() => hover(false)}
 				onPointerUp={(e: any) => {
@@ -356,8 +356,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 				{price != null && (
 					<Html
 						transform
-						position={[0, -0.2, 0.02]}
-						scale={0.2}
+						position={[0, 0, 0.02]}
+						scale={0.25}
 						style={{
 							pointerEvents: 'none',
 							userSelect: 'none',
@@ -424,7 +424,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 				</mesh>
 
 				{/* Clip - small metallic piece at top */}
-				<mesh position={[0, 0.9, 0.02]}>
+				<mesh position={[0, 0.8, 0.02]}>
 					<boxGeometry args={[0.3, 0.2, 0.05]} />
 					<meshStandardMaterial color="#666666" metalness={1} roughness={0.3} />
 				</mesh>
@@ -494,7 +494,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 					useMap={true}
 					map={ropeTexture}
 					repeat={[-6, 1]}
-					lineWidth={1}
+					lineWidth={0.8}
 					opacity={0.95}
 					transparent={true}
 					roughness={0.9}
