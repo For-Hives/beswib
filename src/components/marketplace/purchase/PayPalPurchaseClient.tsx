@@ -515,7 +515,7 @@ export default function PayPalPurchaseClient({
 										</div>
 
 										{/* Event Organizer Information */}
-										{(organizerData || eventData?.expand?.organizer) && (
+										{(organizerData != null || eventData?.expand?.organizer != null) && (
 											<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
 												<h4 className="text-foreground mb-4 font-semibold">Event Organizer</h4>
 												<div className="space-y-3">
