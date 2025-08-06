@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form'
 import { object, string, minLength, url, picklist, pipe } from 'valibot'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { User } from '@/models/user.model'
-import { updateUser } from '@/services/user.services'
+import { updateUserProfile } from '@/app/[locale]/profile/actions'
 
 type RunnerFormData = {
 	firstName: string
@@ -78,7 +78,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 	async function onSubmit(values: RunnerFormData) {
 		if (user === null) return
 		try {
-			await updateUser(user.id, values as Partial<User>)
+			await updateUserProfile(user.id, values as Partial<User>)
 		} catch (error) {
 			console.error(error)
 		}

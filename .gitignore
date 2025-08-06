@@ -48,3 +48,6 @@ next-env.d.ts
 /.idea/
 /.cursor/
 /.sonarlint/
+
+# Claude code ignore
+CLAUDE.md

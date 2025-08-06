@@ -17,6 +17,7 @@ import CardMarket, { BibSale } from '@/components/marketplace/CardMarket'
 import { capturePayment, createOrder } from '@/services/paypal.services'
 import { SlidingPanel } from '@/components/ui/SlidingPanel'
 import { formatDateWithLocale } from '@/lib/dateUtils'
+import { isUserProfileComplete } from '@/lib/userValidation'
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n-config'
 import { cn } from '@/lib/utils'
@@ -45,44 +46,7 @@ export default function PayPalPurchaseClient({
 	const [isProfileComplete, setIsProfileComplete] = useState(false)
 
 	useEffect(() => {
-		if (user) {
-			const {
-				postalCode,
-				phoneNumber,
-				medicalCertificateUrl,
-				licenseNumber,
-				lastName,
-				gender,
-				firstName,
-				emergencyContactRelationship,
-				emergencyContactPhone,
-				emergencyContactName,
-				country,
-				clubAffiliation,
-				city,
-				birthDate,
-				address,
-			} = user
-			const isComplete = [
-				firstName,
-				lastName,
-				birthDate,
-				phoneNumber,
-				emergencyContactName,
-				emergencyContactPhone,
-				address,
-				postalCode,
-				city,
-				country,
-				gender,
-				medicalCertificateUrl,
-				emergencyContactRelationship,
-
-				clubAffiliation,
-				licenseNumber,
-			].every(Boolean)
-			setIsProfileComplete(isComplete)
-		}
+		setIsProfileComplete(isUserProfileComplete(user))
 	}, [user])
 
 	// Check if user is authenticated when trying to open payment modal
