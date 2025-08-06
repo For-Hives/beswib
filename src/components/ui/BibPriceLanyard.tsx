@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 'use client'
-import { useEffect, useRef, useState, Suspense } from 'react'
+import { useEffect, useRef, useState, Suspense, useMemo } from 'react'
 import { Canvas, extend, useFrame } from '@react-three/fiber'
 import { Environment, Lightformer } from '@react-three/drei'
 import {
@@ -36,7 +36,7 @@ export default function Lanyard({
 	transparent = true,
 }: LanyardProps) {
 	return (
-		<div className="fixed -top-32 -right-128 z-10 h-[100vh] w-[100vw] origin-center scale-100 transform">
+		<div className="fixed -top-32 right-[35vw] z-10 h-[100vh] w-[100vw] origin-center scale-100 transform">
 			<Canvas
 				camera={{ position, fov }}
 				gl={{ alpha: transparent }}
@@ -213,23 +213,32 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 	// Calculate dynamic rope positions based on screen size
 	const ropePositions = useMemo(() => {
 		const { width, height, isSmall } = screenSize
-		
+
 		// Base positions for different screen sizes
 		const baseY = isSmall ? 6 : 8 // Start higher on mobile
 		const segmentSpacing = isSmall ? 1.2 : 1.8 // Closer segments on mobile
-		
+
 		// Adjust card position based on screen height to avoid text overlap
 		let cardOffset = -6
-		if (height < 700) {
-			cardOffset = -4 // Bring card up on short screens
+		if (height < 600) {
+			cardOffset = -3 // Very short screens (mobile landscape)
+		} else if (height < 700) {
+			cardOffset = -4 // Short screens
 		} else if (height < 900) {
 			cardOffset = -5 // Medium positioning
 		} else if (height > 1200) {
 			cardOffset = -8 // Lower card on tall screens
+		} else if (height > 1400) {
+			cardOffset = -10 // Very tall screens
 		}
 
-		// Adjust horizontally for very wide screens
-		const groupX = width > 1800 ? 2 : 0
+		// Adjust horizontally for very wide screens to avoid being too far left
+		let groupX = 0
+		if (width > 1800) {
+			groupX = 2 // Move slightly right on very wide screens
+		} else if (width > 2400) {
+			groupX = 4 // Move further right on ultra-wide screens
+		}
 
 		return {
 			groupPosition: [groupX, baseY, 0] as [number, number, number],
@@ -258,9 +267,9 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 		return (): void => window.removeEventListener('resize', handleResize)
 	}, [])
 
-	useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1.2])
-	useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1.8])
-	useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1.8])
+	useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], ropePositions.ropeJointLengths.j1])
+	useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], ropePositions.ropeJointLengths.j2])
+	useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], ropePositions.ropeJointLengths.j3])
 	useSphericalJoint(j3, card, [
 		[0, 0, 0],
 		[0, 1.45, 0],
@@ -369,24 +378,39 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 
 	return (
 		<>
-			<group position={[0, 8, 0]}>
+			<group position={ropePositions.groupPosition}>
 				{/* Fixed point - rope attachment high up off-screen */}
 				<RigidBody ref={fixed} {...segmentProps} type={'fixed' as RigidBodyProps['type']} />
 
-				{/* Rope segments - spaced further apart for longer rope */}
-				<RigidBody position={[0, -1, 0]} ref={j1} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
+				{/* Rope segments - dynamically positioned based on screen size */}
+				<RigidBody
+					position={ropePositions.j1Position}
+					ref={j1}
+					{...segmentProps}
+					type={'dynamic' as RigidBodyProps['type']}
+				>
 					<BallCollider args={[0.1]} />
 				</RigidBody>
-				<RigidBody position={[0, -2.5, 0]} ref={j2} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
+				<RigidBody
+					position={ropePositions.j2Position}
+					ref={j2}
+					{...segmentProps}
+					type={'dynamic' as RigidBodyProps['type']}
+				>
 					<BallCollider args={[0.1]} />
 				</RigidBody>
-				<RigidBody position={[0, -4, 0]} ref={j3} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
+				<RigidBody
+					position={ropePositions.j3Position}
+					ref={j3}
+					{...segmentProps}
+					type={'dynamic' as RigidBodyProps['type']}
+				>
 					<BallCollider args={[0.1]} />
 				</RigidBody>
 
-				{/* Card positioned to hang in middle of screen */}
+				{/* Card positioned dynamically to avoid text overlap */}
 				<RigidBody
-					position={[0, -6, 0]}
+					position={ropePositions.cardPosition}
 					ref={card}
 					{...segmentProps}
 					type={
@@ -404,11 +428,11 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
 				<meshLineMaterial
 					color="#F5F5F5"
 					depthTest={false}
-					resolution={isSmall ? [1400, 2800] : [1400, 1400]}
+					resolution={screenSize.isSmall ? [1400, 2800] : [1400, 1400]}
 					useMap={true}
 					map={ropeTexture}
 					repeat={[-6, 1]}
-					lineWidth={1.2}
+					lineWidth={1}
 					opacity={0.95}
 					transparent={true}
 					roughness={0.9}
