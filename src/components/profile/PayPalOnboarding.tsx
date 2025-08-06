@@ -90,13 +90,11 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	return (
 		<div className="space-y-6">
 			{/* Status Overview */}
-			<Card>
-				<CardHeader>
-					<CardTitle className="flex items-center justify-between">
-						PayPal Account Status
-						{getStatusBadge()}
-					</CardTitle>
+			<Card className="relative">
+				<CardHeader className="">
+					<CardTitle>PayPal Account Status</CardTitle>
 					<CardDescription>{t.paypalConnectionStatus}</CardDescription>
+					<div>{getStatusBadge()}</div>
 				</CardHeader>
 			</Card>
 
