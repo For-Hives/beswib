@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useMemo, useState, useEffect } from 'react'
-import { Calendar, MapPin, Users, Search, ShoppingCart, Bell, Route, Mountain } from 'lucide-react'
+import { MapPin, Users, Search, ShoppingCart, Bell, Route, Mountain } from 'lucide-react'
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
 import { useRouter } from 'next/navigation'
 import Fuse from 'fuse.js'
@@ -592,60 +592,34 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				</div>
 			</div>
 
-			{/* Grouped Events */}
-			<div className="w-full px-6">
-				{groupedSections.length > 0 ? (
-					groupedSections.map(section => (
-						<div className="mb-12" key={section.title}>
-							<div className="mb-6 flex items-center">
-								{sortBy === 'date' && <Calendar className="text-primary mr-3 h-5 w-5" />}
-								{sortBy === 'price' ? <ShoppingCart className="text-primary mr-3 h-5 w-5" /> : null}
-								{sortBy === 'participants' ? <Users className="text-primary mr-3 h-5 w-5" /> : null}
-								{sortBy === 'distance' ? <Route className="text-primary mr-3 h-5 w-5" /> : null}
-								<h2 className="text-foreground text-2xl font-bold">{section.title}</h2>
-								<span className="bg-primary/20 text-primary ml-3 rounded-full px-3 py-1 text-xs font-medium">
-									{section.events.length}
-								</span>
-							</div>
-							<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-								{section.events.map(event => (
-									<EventCard key={event.id} event={event} />
+			{/* Timeline-only UI */}
+			<div className="px-6">
+				<Timeline
+					title={
+						{ date: 'Par mois', price: 'Par prix', participants: 'Par participants', distance: 'Par distance' }[sortBy]
+					}
+					subtitle={
+						{
+							date: 'Explorez les événements mois par mois',
+							price: 'Regroupés par tranches de prix',
+							participants: 'Regroupés par nombre de participants',
+							distance: 'Regroupés par distance (km)',
+						}[sortBy]
+					}
+					data={groupedSections.map(section => ({
+						title: `${section.title} • ${section.events.length}`,
+						content: (
+							<div className="grid grid-cols-3 gap-4">
+								{section.events.slice(0, 8).map(e => (
+									<div key={e.id} className="col-span-1">
+										<EventCard event={e} />
+									</div>
 								))}
 							</div>
-						</div>
-					))
-				) : (
-					<div className="py-16 text-center">
-						<div className="bg-muted mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full">
-							<Calendar className="text-muted-foreground h-6 w-6" />
-						</div>
-						<h3 className="text-foreground mb-2 text-xl font-semibold">
-							{t.events?.noResultsTitle ?? 'Aucun événement trouvé'}
-						</h3>
-						<p className="text-muted-foreground">
-							{t.events?.noResultsSubtitle ?? 'Essayez de modifier vos critères de recherche'}
-						</p>
-					</div>
-				)}
+						),
+					}))}
+				/>
 			</div>
-
-			{/* Optional: Timeline demo using grouped sections when sorting by date */}
-			{sortBy === 'date' && groupedSections.length > 0 && (
-				<div className="px-6">
-					<Timeline
-						data={groupedSections.map(section => ({
-							title: section.title,
-							content: (
-								<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-									{section.events.slice(0, 6).map(e => (
-										<EventCard key={e.id} event={e} />
-									))}
-								</div>
-							),
-						}))}
-					/>
-				</div>
-			)}
 		</div>
 	)
 }
