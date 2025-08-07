@@ -15,6 +15,7 @@ import { capturePayment, createOrder } from '@/services/paypal.services'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'
 import Lanyard from '@/components/ui/BibPriceLanyard'
+import { lockBib, unlockBib } from '@/services/bib.services'
 
 // Import sub-components
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
@@ -49,6 +50,7 @@ export default function PayPalPurchaseClient({
 	const [errorMessage, setErrorMessage] = useState<null | string>(null)
 	const [successMessage, setSuccessMessage] = useState<null | string>(null)
 	const [isPanelOpen, setIsPanelOpen] = useState(false)
+	const [lockExpiration, setLockExpiration] = useState<Date | null>(bib.lockedAt ? new Date(bib.lockedAt) : null)
 	const [loading, setLoading] = useState(false)
 	const { isSignedIn } = useUser()
 	const router = useRouter()
@@ -62,7 +64,7 @@ export default function PayPalPurchaseClient({
 	}, [user])
 
 	// Check if user is authenticated when trying to open payment modal
-	const handleBuyNowClick = () => {
+	const handleBuyNowClick = async () => {
 		if (isSignedIn !== true) {
 			router.push(`/${locale}/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`)
 			return
@@ -72,7 +74,28 @@ export default function PayPalPurchaseClient({
 			return
 		}
 		if (isProfileComplete) {
-			setIsPanelOpen(true)
+			// check for lock mechanism to prevent multi user to buy the same bib
+			if (bib.lockedAt != null) {
+				setErrorMessage('This bib is currently locked by another user for purchase. Please try again later.')
+				return
+			}
+			// Try to lock the bib for this user
+			setLoading(true)
+			try {
+				const lockedBib = await lockBib(bib.id, user?.id || '')
+				if (!lockedBib) {
+					setErrorMessage('Failed to lock bib. It may have just been locked by another user.')
+					console.error('Failed to lock bib:', lockedBib)
+					setLoading(false)
+					return
+				}
+				setLockExpiration(new Date(lockedBib.lockedAt!))
+				setIsPanelOpen(true)
+			} catch (err) {
+				setErrorMessage('Error locking bib for purchase.')
+			} finally {
+				setLoading(false)
+			}
 		}
 	}
 
@@ -215,6 +238,13 @@ export default function PayPalPurchaseClient({
 							locale={locale}
 							onBuyNowClick={handleBuyNowClick}
 						/>
+						{/* Lock timer display */}
+						{lockExpiration && new Date(lockExpiration) > new Date() && (
+							<div className="text-warning mt-4">
+								Bib locked for you. Time left:{' '}
+								{Math.max(0, Math.floor((new Date(lockExpiration).getTime() - Date.now()) / 1000))} seconds
+							</div>
+						)}
 					</div>
 
 					{/* Tabbed Content Section */}

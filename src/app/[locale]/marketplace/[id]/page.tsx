@@ -98,6 +98,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 			distance: bib.expand.eventId.distanceKm ?? 0,
 			date: new Date(bib.expand.eventId.eventDate),
 		},
+		lockedAt: bib.lockedAt ? new Date(bib.lockedAt) : null,
 	} satisfies BibSale
 
 	return (

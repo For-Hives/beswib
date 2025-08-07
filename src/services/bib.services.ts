@@ -86,7 +86,7 @@ export async function fetchAvailableBibsForEvent(
 	try {
 		const records = await pb.collection('bibs').getFullList<Bib & { expand?: { eventId: Event; sellerUserId: User } }>({
 			sort: 'price',
-			filter: `eventId = "${eventId}" && status = 'available' && listed = 'public'`,
+			filter: `eventId = "${eventId}" && status = 'available' && listed = 'public' && lockedAt = null`,
 			expand: 'eventId,sellerUserId',
 		})
 		return records
@@ -105,16 +105,81 @@ export async function fetchAvailableBibsForMarketplace(): Promise<
 	(Bib & { expand?: { eventId: Event; sellerUserId: User } })[]
 > {
 	try {
+		// Only fetch bibs that are not locked or whose lock has expired
+		const filter = `status = 'available' && listed = 'public' && lockedAt = null`
 		const records = await pb.collection('bibs').getFullList<Bib & { expand?: { eventId: Event; sellerUserId: User } }>({
 			sort: '-created',
-			filter: `status = 'available' && listed = 'public'`,
+			filter,
 			expand: 'eventId,sellerUserId',
 		})
+
+		console.log(records)
 		return records
 	} catch (error: unknown) {
 		throw new Error(
 			`Error fetching available bibs for marketplace: ` + (error instanceof Error ? error.message : String(error))
 		)
+	}
+}
+
+/**
+ * Atomically locks a bib for purchase for 5 minutes if not already locked or lock expired.
+ * @param bibId The ID of the bib to lock.
+ * @param userId The ID of the user attempting to lock.
+ */
+export async function lockBib(bibId: string, userId: string): Promise<Bib | null> {
+	if (!bibId || !userId) return null
+	try {
+		const bib = await pb.collection('bibs').getOne<Bib>(bibId)
+		const now = new Date()
+		if (bib.lockedAt) {
+			// Already locked and not expired
+			return null
+		}
+		const updated = await pb.collection('bibs').update<Bib>(bibId, { lockedAt: now })
+		return updated
+	} catch (error: unknown) {
+		throw new Error('Error locking bib: ' + (error instanceof Error ? error.message : String(error)))
+	}
+}
+
+/**
+ * Unlocks a bib (clears lockedAt).
+ * @param bibId The ID of the bib to unlock.
+ */
+export async function unlockBib(bibId: string): Promise<Bib | null> {
+	if (!bibId) return null
+	try {
+		const updated = await pb.collection('bibs').update<Bib>(bibId, { lockedAt: null })
+		return updated
+	} catch (error: unknown) {
+		throw new Error('Error unlocking bib: ' + (error instanceof Error ? error.message : String(error)))
+	}
+}
+
+/**
+ * Unlocks all bibs whose lockedAt is older than 5 minutes ago.
+ * Can be called by a scheduled job or marketplace trigger.
+ */
+export async function unlockExpiredBibs(): Promise<number> {
+	try {
+		const now = new Date()
+		const expiredDate = new Date(now.getTime() - 5 * 60 * 1000)
+		const pad = (n: number, width = 2) => n.toString().padStart(width, '0')
+		const padMs = (n: number) => n.toString().padStart(3, '0')
+		const expiredIso = `${expiredDate.getUTCFullYear()}-${pad(expiredDate.getUTCMonth() + 1)}-${pad(expiredDate.getUTCDate())} ${pad(expiredDate.getUTCHours())}:${pad(expiredDate.getUTCMinutes())}:${pad(expiredDate.getUTCSeconds())}.${padMs(expiredDate.getUTCMilliseconds())}Z`
+		console.log(`Unlocking expired bibs older than ${expiredIso}`)
+		const records = await pb.collection('bibs').getFullList<Bib>({
+			filter: `lockedAt != null && lockedAt < '${expiredIso}'`,
+		})
+		let count = 0
+		for (const bib of records) {
+			await pb.collection('bibs').update<Bib>(bib.id, { lockedAt: null })
+			count++
+		}
+		return count
+	} catch (error: unknown) {
+		throw new Error('Error unlocking expired bibs: ' + (error instanceof Error ? error.message : String(error)))
 	}
 }
 
