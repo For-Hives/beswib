@@ -165,7 +165,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 			</div>
 
 			{/* Main content */}
-			<div className="relative pt-32 pb-12">
+			<div className="relative pt-40 pb-12">
 				<div className="container mx-auto max-w-6xl p-6">
 					<div className="space-y-8">
 						{/* Header */}

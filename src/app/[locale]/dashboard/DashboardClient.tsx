@@ -38,7 +38,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 			<UserHeader clerkUser={clerkUser} user={user} />
 
-			<div className="relative pt-32 pb-12">
+			<div className="relative pt-40 pb-12">
 				<div className="container mx-auto max-w-6xl p-6">
 					{/* Header */}
 					<div className="mb-12 space-y-2 text-center">
