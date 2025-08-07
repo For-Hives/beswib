@@ -121,8 +121,8 @@ export async function fetchAllOrganizersWithEventsCount(): Promise<(Organizer & 
 			id: record.id,
 			eventsCount:
 				record.expand?.events_via_organizer !== null &&
-					record.expand?.events_via_organizer !== undefined &&
-					Array.isArray(record.expand.events_via_organizer)
+				record.expand?.events_via_organizer !== undefined &&
+				Array.isArray(record.expand.events_via_organizer)
 					? record.expand.events_via_organizer.length
 					: 0,
 			email: record.email as string,
