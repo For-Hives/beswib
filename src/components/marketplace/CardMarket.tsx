@@ -35,13 +35,36 @@ export interface BibSale {
 interface CardMarketProps {
 	bibSale: BibSale
 	locale: Locale
+	/** Optional event data for official price comparison */
+	eventData?: Event
 }
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
+import type { Event } from '@/models/event.model'
 
-export default function CardMarket({ locale, bibSale }: Readonly<CardMarketProps>) {
+export default function CardMarket({ locale, bibSale, eventData }: Readonly<CardMarketProps>) {
 	const translations = getTranslations(locale, marketplaceTranslations)
+
+	// Calculate the lowest reference price between original and official
+	const officialPrice = eventData?.officialStandardPrice ?? 0
+	const originalPrice = bibSale.originalPrice ?? 0
+
+	// Determine the reference price (lowest between original and official)
+	const referencePrice =
+		officialPrice > 0 && originalPrice > 0
+			? Math.min(officialPrice, originalPrice)
+			: officialPrice > 0
+				? officialPrice
+				: originalPrice > 0
+					? originalPrice
+					: 0
+
+	// Calculate discount percentage based on the lowest reference price
+	const discountPercentage =
+		referencePrice > 0 && referencePrice > bibSale.price
+			? Math.round(((referencePrice - bibSale.price) / referencePrice) * 100)
+			: 0
 
 	return (
 		<div className="h-full w-full">
@@ -79,15 +102,15 @@ export default function CardMarket({ locale, bibSale }: Readonly<CardMarketProps
 							</span>
 						</div>
 						{/* Calc of the discount - red if more than 10% off 💰 */}
-						{((bibSale.originalPrice - bibSale.price) / bibSale.originalPrice) * 100 > 10 && (
+						{discountPercentage > 10 && (
 							<div className="absolute top-0 right-0 z-20 m-2 flex justify-center">
 								<span
 									className={clsx('text-xs', {
 										'mb-2 rounded-full border border-red-500/50 bg-red-500/15 px-3 py-1 font-medium text-white/90 shadow-md shadow-red-500/20 backdrop-blur-md':
-											((bibSale.originalPrice - bibSale.price) / bibSale.originalPrice) * 100 > 10,
+											discountPercentage > 10,
 									})}
 								>
-									{(-((bibSale.originalPrice - bibSale.price) / bibSale.originalPrice) * 100).toFixed(0)}%
+									-{discountPercentage}%
 								</span>
 							</div>
 						)}
@@ -107,7 +130,9 @@ export default function CardMarket({ locale, bibSale }: Readonly<CardMarketProps
 						<h3 className="text-foreground text-lg font-bold">{bibSale.event.name}</h3>
 						<div className="relative flex flex-col items-center gap-2">
 							<p className="text-2xl font-bold text-white">{bibSale.price}€</p>
-							<p className="absolute top-8 right-0 text-sm italic line-through">{bibSale.originalPrice}€</p>
+							{referencePrice > 0 && referencePrice > bibSale.price && (
+								<p className="absolute top-8 right-0 text-sm italic line-through">{referencePrice}€</p>
+							)}
 						</div>
 					</div>
 					<div className="flex items-center gap-3">

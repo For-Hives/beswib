@@ -227,6 +227,7 @@ export default function PayPalPurchaseClient({
 				onClose={() => setIsPanelOpen(false)}
 				bib={bib}
 				locale={locale}
+				eventData={eventData as Event}
 				errorMessage={errorMessage}
 				successMessage={successMessage}
 				loading={loading}
