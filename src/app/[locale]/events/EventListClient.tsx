@@ -1,12 +1,13 @@
 'use client'
 
 import { useMemo } from 'react'
-import { Star, Mountain, Route } from 'lucide-react'
-import { Card } from '@/components/ui/card'
+import { Star, Mountain, Route, Calendar, MapPin, Users, Search } from 'lucide-react'
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
+import Fuse from 'fuse.js'
 
 import type { Event } from '@/models/event.model'
 import { getTranslations } from '@/lib/getDictionary'
+import SpotlightCard from '@/Components/SpotlightCard/SpotlightCard'
 import Translations from './locales.json'
 
 interface EventsPageProps {
@@ -16,10 +17,10 @@ interface EventsPageProps {
 }
 
 const eventTypeColors = {
-	triathlon: 'bg-gradient-to-br from-red-600 to-red-700',
-	trail: 'bg-gradient-to-br from-orange-600 to-orange-700',
-	route: 'bg-gradient-to-br from-blue-600 to-blue-700',
-	ultra: 'bg-gradient-to-br from-purple-600 to-purple-700',
+	triathlon: 'bg-purple-500/15 border-purple-500/50 text-purple-400',
+	trail: 'bg-yellow-500/15 border-yellow-500/50 text-yellow-400',
+	route: 'bg-blue-500/15 border-blue-500/50 text-blue-400',
+	ultra: 'bg-red-500/15 border-red-500/50 text-red-400',
 }
 
 const eventTypeLabels = {
@@ -29,20 +30,14 @@ const eventTypeLabels = {
 	ultra: 'ULTRA',
 }
 
-export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps) {
-	function getCountLabel(): string {
-		if (typeof t.events?.countLabel === 'string' && t.events.countLabel !== undefined && t.events.countLabel !== null) {
-			return t.events.countLabel.replace('{count}', String(prefetchedEvents.length))
-		}
-		return `${prefetchedEvents.length} événement${prefetchedEvents.length !== 1 ? 's' : ''} trouvé${prefetchedEvents.length !== 1 ? 's' : ''}`
-	}
-	// Calendar view logic
-	const currentMonth = new Date().getMonth()
-	const currentYear = new Date().getFullYear()
-	// Get all days for the current month
-	const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate()
-	const firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay() // 0=Sunday
+const eventTypeIcons = {
+	triathlon: <Star className="h-4 w-4" />,
+	trail: <Mountain className="h-4 w-4" />,
+	route: <Route className="h-4 w-4" />,
+	ultra: <Star className="h-4 w-4" />,
+}
 
+export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps) {
 	// State and translation variables
 	const t = getTranslations(locale, Translations)
 
@@ -52,7 +47,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			search: parseAsString.withDefault(''),
 			type: parseAsStringLiteral(['all', 'triathlon', 'trail', 'route', 'ultra'] as const).withDefault('all'),
 			sort: parseAsStringLiteral(['date', 'price', 'participants', 'distance'] as const).withDefault('date'),
-			view: parseAsStringLiteral(['list', 'calendar'] as const).withDefault('list'),
+			location: parseAsString.withDefault(''),
 		},
 		{ history: 'push' }
 	)
@@ -60,7 +55,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	const searchTerm = query.search
 	const selectedType = query.type
 	const sortBy = query.sort
-	const viewMode = query.view as 'list' | 'calendar'
+	const selectedLocation = query.location
 
 	// Handlers for filter changes
 	const handleSearchChange = (val: string) => {
@@ -72,20 +67,45 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	const handleSortChange = (val: 'date' | 'price' | 'participants' | 'distance') => {
 		void setQuery({ sort: val })
 	}
-	const handleViewModeChange = (val: 'list' | 'calendar') => {
-		void setQuery({ view: val })
+	const handleLocationChange = (val: string) => {
+		void setQuery({ location: val })
 	}
+
+	// Extract unique locations for the filter
+	const uniqueLocations = Array.from(new Set(prefetchedEvents.map(event => event.location))).sort()
+
+	// Fuse.js instance for fuzzy search
+	const fuse = useMemo(
+		() =>
+			new Fuse(prefetchedEvents, {
+				threshold: 0.4,
+				keys: ['name', 'location', 'typeCourse'],
+			}),
+		[prefetchedEvents]
+	)
 
 	// Filtering and sorting logic
 	const filteredEvents = useMemo(() => {
-		return prefetchedEvents.filter(event => {
-			const matchesSearch =
-				event.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-				event.location.toLowerCase().includes(searchTerm.toLowerCase())
-			const matchesType = selectedType === 'all' || event.typeCourse === selectedType
-			return matchesSearch && matchesType
-		})
-	}, [searchTerm, selectedType, prefetchedEvents])
+		let filtered = prefetchedEvents
+
+		// Fuzzy search with Fuse.js
+		if (searchTerm !== '') {
+			const fuseResults = fuse.search(searchTerm)
+			filtered = fuseResults.map(result => result.item)
+		}
+
+		// Filter by type
+		if (selectedType !== 'all') {
+			filtered = filtered.filter(event => event.typeCourse === selectedType)
+		}
+
+		// Filter by location
+		if (selectedLocation !== '') {
+			filtered = filtered.filter(event => event.location.toLowerCase().includes(selectedLocation.toLowerCase()))
+		}
+
+		return filtered
+	}, [searchTerm, selectedType, selectedLocation, prefetchedEvents, fuse])
 
 	const sortedEvents = useMemo(() => {
 		return [...filteredEvents].sort((a, b) => {
@@ -103,17 +123,6 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			}
 		})
 	}, [filteredEvents, sortBy])
-
-	// Group events by date string (must be after sortedEvents)
-	const eventsByDate = useMemo(() => {
-		const grouped: { [date: string]: Event[] } = {}
-		sortedEvents.forEach(event => {
-			const dateKey = new Date(event.eventDate).toDateString()
-			grouped[dateKey] ??= []
-			grouped[dateKey].push(event)
-		})
-		return grouped
-	}, [sortedEvents])
 
 	// Featured events: next 30 days
 	const now = new Date()
@@ -136,255 +145,233 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			label: eventTypeLabels.triathlon,
 			color: eventTypeColors.triathlon,
 			count: prefetchedEvents.filter(e => e.typeCourse === 'triathlon').length,
-			icon: <Star className="h-6 w-6 text-red-500" />,
+			icon: eventTypeIcons.triathlon,
 		},
 		{
 			key: 'trail',
 			label: eventTypeLabels.trail,
 			color: eventTypeColors.trail,
 			count: prefetchedEvents.filter(e => e.typeCourse === 'trail').length,
-			icon: <Mountain className="h-6 w-6 text-orange-500" />,
+			icon: eventTypeIcons.trail,
 		},
 		{
 			key: 'route',
 			label: eventTypeLabels.route,
 			color: eventTypeColors.route,
 			count: prefetchedEvents.filter(e => e.typeCourse === 'route').length,
-			icon: <Route className="h-6 w-6 text-blue-500" />,
+			icon: eventTypeIcons.route,
 		},
 		{
 			key: 'ultra',
 			label: eventTypeLabels.ultra,
 			color: eventTypeColors.ultra,
 			count: prefetchedEvents.filter(e => e.typeCourse === 'ultra').length,
-			icon: <Star className="h-6 w-6 text-purple-500" />,
+			icon: eventTypeIcons.ultra,
 		},
 	]
 
-	// Improved event card (Tailwind UI best practices)
+	function getCountLabel(): string {
+		if (typeof t.events?.countLabel === 'string' && t.events.countLabel !== undefined && t.events.countLabel !== null) {
+			return t.events.countLabel.replace('{count}', String(filteredEvents.length))
+		}
+		return `${filteredEvents.length} événement${filteredEvents.length !== 1 ? 's' : ''} trouvé${filteredEvents.length !== 1 ? 's' : ''}`
+	}
+
+	// Event card using SpotlightCard
 	const EventCard = ({ event }: { event: Event }) => (
-		<Card className="flex flex-col gap-2 border border-gray-700 bg-gray-900 p-4 transition hover:shadow-xl">
-			<div className="mb-2 flex items-center gap-2">
-				<span className={`rounded px-2 py-1 text-xs font-semibold ${eventTypeColors[event.typeCourse]}`}>
-					{eventTypeLabels[event.typeCourse]}
-				</span>
-				<span className="text-xs text-gray-400">
-					{new Date(event.eventDate).toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' })}
-				</span>
+		<SpotlightCard className="h-full">
+			<div className="flex h-full flex-col">
+				<div className="mb-3 flex items-center justify-between">
+					<span
+						className={`inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium ${eventTypeColors[event.typeCourse]}`}
+					>
+						{eventTypeIcons[event.typeCourse]}
+						{eventTypeLabels[event.typeCourse] || event.typeCourse.toUpperCase()}
+					</span>
+					<span className="text-muted-foreground text-xs">
+						{new Date(event.eventDate).toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' })}
+					</span>
+				</div>
+
+				<h3 className="text-foreground mb-3 line-clamp-2 text-xl font-bold" title={event.name}>
+					{event.name}
+				</h3>
+
+				<div className="text-muted-foreground mb-4 flex flex-col gap-2 text-sm">
+					<div className="flex items-center gap-2">
+						<MapPin className="h-4 w-4" />
+						<span>{event.location}</span>
+					</div>
+
+					<div className="flex items-center gap-4">
+						{event.distanceKm != null && (
+							<div className="flex items-center gap-1">
+								<Route className="h-4 w-4" />
+								<span>{event.distanceKm}km</span>
+							</div>
+						)}
+						{event.participants != null && (
+							<div className="flex items-center gap-1">
+								<Users className="h-4 w-4" />
+								<span>{event.participants}</span>
+							</div>
+						)}
+					</div>
+
+					{event.elevationGainM != null && (
+						<div className="flex items-center gap-2">
+							<Mountain className="h-4 w-4" />
+							<span>{event.elevationGainM}m D+</span>
+						</div>
+					)}
+				</div>
+
+				<div className="mt-auto">
+					{event.officialStandardPrice != null && (
+						<div className="mb-3 text-right">
+							<span className="text-lg font-bold text-green-400">À partir de {event.officialStandardPrice}€</span>
+						</div>
+					)}
+					<button className="bg-primary/20 text-primary hover:bg-primary/30 w-full rounded-lg px-4 py-2 text-sm font-medium transition-colors">
+						Voir les détails
+					</button>
+				</div>
 			</div>
-			<div className="truncate text-lg font-bold text-white" title={event.name}>
-				{event.name}
-			</div>
-			<div className="flex items-center gap-1 text-sm text-gray-400">
-				<svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						strokeWidth={2}
-						d="M17.657 16.657L13.414 12.414a4 4 0 10-5.657 5.657l4.243 4.243a8 8 0 1011.314-11.314l-4.243 4.243z"
-					/>
-				</svg>
-				{event.location}
-			</div>
-			<div className="flex flex-wrap gap-2 text-xs text-gray-400">
-				{event.distanceKm != null && <span>{event.distanceKm}km</span>}
-				{event.elevationGainM != null && <span>{event.elevationGainM}m D+</span>}
-				{event.participants != null && <span>{event.participants} participants</span>}
-			</div>
-			{event.officialStandardPrice != null && (
-				<div className="text-xs font-bold text-green-400">À partir de {event.officialStandardPrice}€</div>
-			)}
-		</Card>
+		</SpotlightCard>
 	)
 
 	return (
-		<div className="min-h-screen">
-			<div className="container mx-auto px-4 py-8">
-				{/* Header and Race Type Summary */}
-				<div className="mb-8">
-					<h1 className="mb-2 text-3xl font-bold text-white">{t.events?.title ?? 'Événements sportifs'}</h1>
-					<p className="mb-6 text-gray-400">
-						{t.events?.description ?? 'Découvrez et inscrivez-vous à des courses sportives partout en France.'}
-					</p>
-					<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+		<div className="bg-background min-h-screen">
+			{/* Hero Section */}
+			<div className="border-border bg-card/50 border-b backdrop-blur-sm">
+				<div className="container mx-auto px-4 py-12">
+					<div className="text-center">
+						<h1 className="text-foreground mb-4 text-4xl font-bold md:text-5xl">
+							{t.events?.title ?? 'Événements sportifs'}
+						</h1>
+						<p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+							{t.events?.description ?? 'Découvrez et inscrivez-vous à des courses sportives partout en France.'}
+						</p>
+					</div>
+
+					{/* Race type quick filters */}
+					<div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
 						{raceTypeSummary.map(type => (
 							<button
 								key={type.key}
-								className={`flex flex-col items-center justify-center py-6 transition hover:scale-105 focus:ring-2 focus:ring-blue-500 focus:outline-none ${type.color} shadow-lg`}
+								className={`group flex flex-col items-center justify-center rounded-xl border p-4 transition-all hover:scale-105 ${selectedType === type.key ? type.color : 'border-border bg-card/60 hover:bg-card/80'}`}
 								onClick={() => handleTypeChange(type.key as 'all' | 'triathlon' | 'trail' | 'route' | 'ultra')}
 								aria-label={(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
 							>
 								<div className="mb-2">{type.icon}</div>
-								<div className="text-lg font-bold text-white">
+								<div
+									className={`text-sm font-medium ${selectedType === type.key ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}
+								>
 									{(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
 								</div>
-								<div className="mt-1 text-2xl font-bold text-white">{type.count}</div>
+								<div
+									className={`text-xl font-bold ${selectedType === type.key ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}
+								>
+									{type.count}
+								</div>
 							</button>
 						))}
 					</div>
 				</div>
+			</div>
 
-				{/* Filter Bar and View Toggle */}
-				<div className="mb-8 rounded-lg border border-gray-700 bg-gray-800 p-6 shadow-lg">
-					<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-						<div className="lg:col-span-2">
+			{/* Search and Filters */}
+			<div className="border-border bg-card/30 border-b backdrop-blur-sm">
+				<div className="container mx-auto px-4 py-6">
+					<div className="mb-4">
+						<div className="relative">
+							<Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
 							<input
 								type="text"
 								placeholder={t.events?.searchPlaceholder ?? 'Rechercher un événement, une ville...'}
 								value={searchTerm}
 								onChange={e => handleSearchChange(e.target.value)}
-								className="w-full rounded border-gray-600 bg-gray-700 px-4 py-2 text-white placeholder-gray-400 focus:border-blue-500"
+								className="border-border bg-background/80 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 w-full rounded-lg border py-3 pr-4 pl-10 focus:ring-2 focus:outline-none"
 							/>
 						</div>
-						<div>
-							<select
-								value={selectedType}
-								onChange={e => handleTypeChange(e.target.value as 'all' | 'triathlon' | 'trail' | 'route' | 'ultra')}
-								className="w-full rounded border-gray-600 bg-gray-700 px-4 py-2 text-white"
-							>
-								<option value="all">{t.events?.filters?.all ?? 'Tous les types'}</option>
-								<option value="triathlon">
-									{(t.events?.raceTypes as Record<string, string>)?.triathlon ?? 'Triathlon'}
-								</option>
-								<option value="trail">{(t.events?.raceTypes as Record<string, string>)?.trail ?? 'Trail'}</option>
-								<option value="route">{(t.events?.raceTypes as Record<string, string>)?.route ?? 'Route'}</option>
-								<option value="ultra">{(t.events?.raceTypes as Record<string, string>)?.ultra ?? 'Ultra'}</option>
-							</select>
-						</div>
-						<div>
-							<select
-								value={sortBy}
-								onChange={e => handleSortChange(e.target.value as 'date' | 'price' | 'participants' | 'distance')}
-								className="w-full rounded border-gray-600 bg-gray-700 px-4 py-2 text-white"
-							>
-								<option value="date">{t.events?.filters?.date ?? 'Date'}</option>
-								<option value="price">{t.events?.filters?.price ?? 'Prix'}</option>
-								<option value="participants">{t.events?.filters?.participants ?? 'Participants'}</option>
-								<option value="distance">{t.events?.filters?.distance ?? 'Distance'}</option>
-							</select>
-						</div>
 					</div>
-					<div className="mt-4 flex items-center justify-between">
-						<p className="text-sm text-gray-400">{getCountLabel()}</p>
-						<button
-							className={`rounded border border-gray-600 bg-transparent px-4 py-2 text-gray-300 transition hover:bg-gray-700 ${viewMode === 'calendar' ? 'bg-blue-700 text-white' : ''}`}
-							onClick={() => handleViewModeChange(viewMode === 'list' ? 'calendar' : 'list')}
+
+					<div className="flex flex-wrap gap-3">
+						<select
+							value={selectedLocation}
+							onChange={e => handleLocationChange(e.target.value)}
+							className="border-border bg-background/80 text-foreground focus:border-primary focus:ring-primary/20 rounded-lg border px-3 py-2 text-sm focus:ring-2 focus:outline-none"
 						>
-							{viewMode === 'list' ? (t.events?.calendarView ?? 'Vue calendrier') : (t.events?.listView ?? 'Vue liste')}
-						</button>
+							<option value="">Toutes les villes</option>
+							{uniqueLocations.map(location => (
+								<option key={location} value={location}>
+									{location}
+								</option>
+							))}
+						</select>
+
+						<select
+							value={sortBy}
+							onChange={e => handleSortChange(e.target.value as 'date' | 'price' | 'participants' | 'distance')}
+							className="border-border bg-background/80 text-foreground focus:border-primary focus:ring-primary/20 rounded-lg border px-3 py-2 text-sm focus:ring-2 focus:outline-none"
+						>
+							<option value="date">{t.events?.filters?.date ?? 'Trier par date'}</option>
+							<option value="price">{t.events?.filters?.price ?? 'Trier par prix'}</option>
+							<option value="participants">{t.events?.filters?.participants ?? 'Trier par participants'}</option>
+							<option value="distance">{t.events?.filters?.distance ?? 'Trier par distance'}</option>
+						</select>
+
+						<div className="text-muted-foreground ml-auto text-sm">{getCountLabel()}</div>
 					</div>
 				</div>
+			</div>
 
-				{/* List View */}
-				{viewMode === 'list' && (
-					<>
-						{/* Featured Events (Next 30 days) */}
-						{featuredEvents.length > 0 && (
-							<div className="mb-12">
-								<div className="mb-6 flex items-center">
-									<Star className="mr-2 h-6 w-6 text-yellow-500" />
-									<h2 className="text-2xl font-bold text-white">{t.events?.featuredTitle ?? 'Événements à venir'}</h2>
-									<span className="ml-3 rounded bg-yellow-500/20 px-3 py-1 text-xs text-yellow-400">
-										{t.events?.featuredSubtitle ?? 'Prochains 30 jours'}
-									</span>
-								</div>
-								<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-									{featuredEvents.map(event => (
-										<EventCard key={event.id} event={event} />
-									))}
-								</div>
-							</div>
-						)}
-
-						{/* Upcoming Events */}
-						{upcomingEvents.length > 0 && (
-							<div>
-								<h2 className="mb-6 text-2xl font-bold text-white">
-									{t.events?.allEventsTitle ?? 'Tous les événements'}
-								</h2>
-								<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-									{upcomingEvents.map(event => (
-										<EventCard key={event.id} event={event} />
-									))}
-								</div>
-							</div>
-						)}
-
-						{/* No Results */}
-						{sortedEvents.length === 0 && (
-							<div className="py-12 text-center">
-								<h3 className="mb-2 text-xl font-semibold text-white">
-									{t.events?.noResultsTitle ?? 'Aucun événement trouvé'}
-								</h3>
-								<p className="text-gray-400">
-									{t.events?.noResultsSubtitle ?? 'Essayez de modifier vos critères de recherche'}
-								</p>
-							</div>
-						)}
-					</>
+			{/* Events Grid */}
+			<div className="container mx-auto px-4 py-8">
+				{/* Featured Events (Next 30 days) */}
+				{featuredEvents.length > 0 && (
+					<div className="mb-12">
+						<div className="mb-6 flex items-center">
+							<Calendar className="text-primary mr-3 h-5 w-5" />
+							<h2 className="text-foreground text-2xl font-bold">{t.events?.featuredTitle ?? 'Événements à venir'}</h2>
+							<span className="bg-primary/20 text-primary ml-3 rounded-full px-3 py-1 text-xs font-medium">
+								{t.events?.featuredSubtitle ?? 'Prochains 30 jours'}
+							</span>
+						</div>
+						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+							{featuredEvents.map(event => (
+								<EventCard key={event.id} event={event} />
+							))}
+						</div>
+					</div>
 				)}
 
-				{/* Calendar View */}
-				{viewMode === 'calendar' && (
-					<div className="mb-12">
-						<h2 className="mb-6 text-2xl font-bold text-white">
-							{t.events?.calendarTitle ?? 'Calendrier des événements'}
+				{/* All Events */}
+				{upcomingEvents.length > 0 && (
+					<div>
+						<h2 className="text-foreground mb-6 text-2xl font-bold">
+							{t.events?.allEventsTitle ?? 'Tous les événements'}
 						</h2>
-						<div className="grid grid-cols-7 gap-2 rounded-lg bg-gray-800 p-4">
-							{/* Day headers */}
-							{['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map(day => (
-								<div key={day} className="pb-2 text-center text-xs font-bold text-gray-400">
-									{day}
-								</div>
+						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+							{upcomingEvents.map(event => (
+								<EventCard key={event.id} event={event} />
 							))}
-							{/* Empty cells for first week */}
-							{Array((firstDayOfWeek + 6) % 7)
-								.fill(null)
-								.map((_, i) => (
-									<div key={`empty-${i}`} />
-								))}
-							{/* Calendar days */}
-							{Array(daysInMonth)
-								.fill(null)
-								.map((_, i) => {
-									const dateObj = new Date(currentYear, currentMonth, i + 1)
-									const dateKey = dateObj.toDateString()
-									const dayEvents = eventsByDate[dateKey] ?? []
-									return (
-										<div key={i} className="flex min-h-[60px] flex-col rounded border border-gray-700 bg-gray-900 p-1">
-											<div className="mb-1 text-xs font-bold text-white">{i + 1}</div>
-											{dayEvents.length > 0 ? (
-												<div className="space-y-1">
-													{dayEvents.slice(0, 2).map(event => (
-														<div
-															key={event.id}
-															className={`rounded px-1 py-0.5 text-xs text-white ${eventTypeColors[event.typeCourse]} truncate`}
-															title={event.name}
-														>
-															{event.name}
-														</div>
-													))}
-													{dayEvents.length > 2 && (
-														<div className="text-[10px] text-gray-400">+{dayEvents.length - 2} autres</div>
-													)}
-												</div>
-											) : (
-												<div className="flex-1" />
-											)}
-										</div>
-									)
-								})}
 						</div>
-						{sortedEvents.length === 0 && (
-							<div className="py-12 text-center">
-								<h3 className="mb-2 text-xl font-semibold text-white">
-									{t.events?.noResultsTitle ?? 'Aucun événement trouvé'}
-								</h3>
-								<p className="text-gray-400">
-									{t.events?.noResultsSubtitle ?? 'Essayez de modifier vos critères de recherche'}
-								</p>
-							</div>
-						)}
+					</div>
+				)}
+
+				{/* No Results */}
+				{sortedEvents.length === 0 && (
+					<div className="py-16 text-center">
+						<div className="bg-muted mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full">
+							<Calendar className="text-muted-foreground h-6 w-6" />
+						</div>
+						<h3 className="text-foreground mb-2 text-xl font-semibold">
+							{t.events?.noResultsTitle ?? 'Aucun événement trouvé'}
+						</h3>
+						<p className="text-muted-foreground">
+							{t.events?.noResultsSubtitle ?? 'Essayez de modifier vos critères de recherche'}
+						</p>
 					</div>
 				)}
 			</div>
