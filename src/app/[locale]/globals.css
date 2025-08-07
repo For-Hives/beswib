@@ -40,6 +40,52 @@
   .animate-sweep {
     animation: sweep 4s ease-in-out infinite;
   }
+
+  /* Gentle snow fall above mountains */
+  @keyframes snow-fall {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: .9; }
+    100% { transform: translateY(26px) translateX(8px); opacity: .15; }
+  }
+  .animate-snow {
+    animation: snow-fall 3.6s linear infinite;
+  }
+  /* Longer snow fall to reach the ground */
+  @keyframes snow-fall-long {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: .95; }
+    100% { transform: translateY(80px) translateX(10px); opacity: .2; }
+  }
+  .animate-snow-long {
+    animation: snow-fall-long 5s linear infinite;
+  }
+
+  /* Water stream flow */
+  @keyframes water-flow {
+    to { stroke-dashoffset: -240; }
+  }
+  .animate-water {
+    animation: water-flow 3s linear infinite;
+  }
+
+  /* Birds flying across */
+  @keyframes birds-fly {
+    0% { transform: translateX(-40px) translateY(0); opacity: .85; }
+    50% { transform: translateX(0) translateY(-4px); opacity: 1; }
+    100% { transform: translateX(40px) translateY(0); opacity: .85; }
+  }
+  .animate-birds {
+    animation: birds-fly 5s ease-in-out infinite;
+  }
+  /* Subtle wing flap */
+  @keyframes bird-flap {
+    0%, 100% { transform: rotate(0deg) scaleY(1); }
+    50% { transform: rotate(-6deg) scaleY(0.92); }
+  }
+  .animate-bird-flap {
+    transform-origin: center;
+    animation: bird-flap 0.6s ease-in-out infinite;
+  }
 }
 
 :root {
