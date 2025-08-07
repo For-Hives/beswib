@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState, useEffect } from 'react'
-import { Star, Mountain, Route, Calendar, MapPin, Users, Search, ShoppingCart, Bell } from 'lucide-react'
+import { Calendar, MapPin, Users, Search, ShoppingCart, Bell, Route, Mountain } from 'lucide-react'
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
 import { useRouter } from 'next/navigation'
 import Fuse from 'fuse.js'
@@ -11,6 +11,7 @@ import { getTranslations } from '@/lib/getDictionary'
 import { fetchAvailableBibsForEvent } from '@/services/bib.services'
 import { Input } from '@/components/ui/inputAlt'
 import { SelectAlt, SelectContentAlt, SelectItemAlt, SelectTriggerAlt, SelectValueAlt } from '@/components/ui/selectAlt'
+import { TriathlonIcon, TrailIcon, RouteIcon, UltraIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
 import SpotlightCard from '@/Components/SpotlightCard/SpotlightCard'
 import Translations from './locales.json'
 
@@ -35,10 +36,10 @@ const eventTypeLabels = {
 }
 
 const eventTypeIcons = {
-	triathlon: <Star className="h-4 w-4" />,
-	trail: <Mountain className="h-4 w-4" />,
-	route: <Route className="h-4 w-4" />,
-	ultra: <Star className="h-4 w-4" />,
+	triathlon: <TriathlonIcon className="h-4 w-4" />,
+	trail: <TrailIcon className="h-4 w-4" />,
+	route: <RouteIcon className="h-4 w-4" />,
+	ultra: <UltraIcon className="h-4 w-4" />,
 }
 
 export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps) {
@@ -170,7 +171,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				label: 'Tous',
 				color: 'bg-gray-500/15 border-gray-500/50 text-gray-400',
 				count: prefetchedEvents.length,
-				icon: <Star className="h-4 w-4" />,
+				icon: <AllTypesIcon className="h-4 w-4" />,
 			},
 		]
 
