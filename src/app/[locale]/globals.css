@@ -91,34 +91,82 @@
 		animation: snow-fall-long 5s linear infinite;
 	}
 
-  /* Chaotic full-height snow variants */
-  @keyframes snow-a {
-    0% { transform: translate(0, -10px); opacity: 0; }
-    10% { opacity: .95; }
-    25% { transform: translate(-6px, 40px); }
-    50% { transform: translate(3px, 90px); }
-    75% { transform: translate(-4px, 130px); }
-    100% { transform: translate(0, 170px); opacity: .2; }
-  }
-  @keyframes snow-b {
-    0% { transform: translate(0, -12px); opacity: 0; }
-    10% { opacity: .9; }
-    25% { transform: translate(5px, 36px); }
-    50% { transform: translate(-4px, 88px); }
-    75% { transform: translate(6px, 132px); }
-    100% { transform: translate(0, 172px); opacity: .22; }
-  }
-  @keyframes snow-c {
-    0% { transform: translate(0, -8px); opacity: 0; }
-    10% { opacity: .85; }
-    25% { transform: translate(-4px, 38px); }
-    50% { transform: translate(6px, 92px); }
-    75% { transform: translate(-2px, 128px); }
-    100% { transform: translate(2px, 168px); opacity: .18; }
-  }
-  .animate-snow-a { animation: snow-a var(--snow-dur, 6s) linear infinite; }
-  .animate-snow-b { animation: snow-b var(--snow-dur, 6.5s) linear infinite; }
-  .animate-snow-c { animation: snow-c var(--snow-dur, 7s) linear infinite; }
+	/* Chaotic full-height snow variants */
+	@keyframes snow-a {
+		0% {
+			transform: translate(0, -10px);
+			opacity: 0;
+		}
+		10% {
+			opacity: 0.95;
+		}
+		25% {
+			transform: translate(-6px, 40px);
+		}
+		50% {
+			transform: translate(3px, 90px);
+		}
+		75% {
+			transform: translate(-4px, 130px);
+		}
+		100% {
+			transform: translate(0, 170px);
+			opacity: 0.2;
+		}
+	}
+	@keyframes snow-b {
+		0% {
+			transform: translate(0, -12px);
+			opacity: 0;
+		}
+		10% {
+			opacity: 0.9;
+		}
+		25% {
+			transform: translate(5px, 36px);
+		}
+		50% {
+			transform: translate(-4px, 88px);
+		}
+		75% {
+			transform: translate(6px, 132px);
+		}
+		100% {
+			transform: translate(0, 172px);
+			opacity: 0.22;
+		}
+	}
+	@keyframes snow-c {
+		0% {
+			transform: translate(0, -8px);
+			opacity: 0;
+		}
+		10% {
+			opacity: 0.85;
+		}
+		25% {
+			transform: translate(-4px, 38px);
+		}
+		50% {
+			transform: translate(6px, 92px);
+		}
+		75% {
+			transform: translate(-2px, 128px);
+		}
+		100% {
+			transform: translate(2px, 168px);
+			opacity: 0.18;
+		}
+	}
+	.animate-snow-a {
+		animation: snow-a var(--snow-dur, 6s) linear infinite;
+	}
+	.animate-snow-b {
+		animation: snow-b var(--snow-dur, 6.5s) linear infinite;
+	}
+	.animate-snow-c {
+		animation: snow-c var(--snow-dur, 7s) linear infinite;
+	}
 
 	/* Water stream flow */
 	@keyframes water-flow {
