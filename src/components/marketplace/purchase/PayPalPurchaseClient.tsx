@@ -18,7 +18,7 @@ import type { Bib } from '@/models/bib.model'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { handleSuccessfulPurchase } from '@/app/[locale]/purchase/actions'
-import CardMarket, { BibSale } from '@/components/marketplace/CardMarket'
+import { BibSale } from '@/components/marketplace/CardMarket'
 import { capturePayment, createOrder } from '@/services/paypal.services'
 import { SlidingPanel } from '@/components/ui/SlidingPanel'
 import { formatDateWithLocale } from '@/lib/dateUtils'
@@ -31,7 +31,6 @@ import Lanyard from '@/components/ui/BibPriceLanyard'
 interface PayPalPurchaseClientProps {
 	bib: BibSale
 	locale: Locale
-	otherBibs?: BibSale[]
 	sellerUser: AppUser | null
 	user: AppUser | null
 	eventData?: Event & { expand?: { organizer: Organizer } }
@@ -42,7 +41,6 @@ interface PayPalPurchaseClientProps {
 export default function PayPalPurchaseClient({
 	user,
 	sellerUser,
-	otherBibs = [],
 	locale,
 	bib,
 	eventData,
@@ -166,9 +164,6 @@ export default function PayPalPurchaseClient({
 				return 'bg-purple-500/15 border-purple-500/50'
 		}
 	}
-
-	// Filter other bibs for the same event (excluding current bib)
-	const samEventBibs = otherBibs.filter(otherBib => otherBib.event.id === bib.event.id && otherBib.id !== bib.id)
 
 	// FAQ data
 	const faqs = [
@@ -654,22 +649,6 @@ export default function PayPalPurchaseClient({
 							</TabPanels>
 						</TabGroup>
 					</div>
-
-					{/* Other Bibs Section */}
-					{samEventBibs.length > 0 && (
-						<div className="mt-12">
-							<div className="mb-6 text-center">
-								<h2 className="text-foreground text-2xl font-bold tracking-tight">Other bibs for this event</h2>
-								<p className="text-muted-foreground mt-1">More bibs available for {bib.event.name}</p>
-							</div>
-
-							<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-								{samEventBibs.map(otherBib => (
-									<CardMarket bibSale={otherBib} key={otherBib.id} locale={locale} />
-								))}
-							</div>
-						</div>
-					)}
 				</div>
 			</div>
 

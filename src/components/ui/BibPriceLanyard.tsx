@@ -7,6 +7,7 @@
 
 'use client'
 import React, { useEffect, useRef, useState, Suspense, useMemo } from 'react'
+import dynamic from 'next/dynamic'
 import { Canvas, extend, useFrame } from '@react-three/fiber'
 import { Environment, Lightformer, Html, useGLTF } from '@react-three/drei'
 import {
@@ -25,6 +26,12 @@ import * as THREE from 'three'
 const cardGLB = '/models/card.glb'
 
 extend({ MeshLineGeometry, MeshLineMaterial })
+
+// Force client-side rendering for Three.js components
+const LanyardClient = dynamic(() => Promise.resolve(Lanyard), {
+	ssr: false,
+	loading: () => <div className="pointer-events-none fixed top-0 left-0 z-10 h-[100vh] w-[100vw]" />
+})
 
 interface LanyardProps {
 	position?: [number, number, number]
