@@ -266,8 +266,8 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 								))}
 							</div>
 
-						{/* Empty state when no results */}
-						{filteredAndSortedBibs.length === 0 && <EmptyResults locale={locale} />}
+							{/* Empty state when no results */}
+							{filteredAndSortedBibs.length === 0 && <EmptyResults locale={locale} />}
 						</div>
 					</div>
 				</div>
