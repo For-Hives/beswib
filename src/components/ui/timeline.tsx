@@ -8,6 +8,52 @@ interface TimelineEntry {
 	content: React.ReactNode
 }
 
+const TimelineItem = ({ item }: { item: TimelineEntry }) => {
+	const itemRef = useRef<HTMLDivElement>(null)
+	const { scrollYProgress } = useScroll({
+		target: itemRef,
+		offset: ['start 80%', 'start 30%'],
+	})
+	const titleOpacity = useTransform(scrollYProgress, [0, 1], [0.45, 1])
+	const titleBgPosition = useTransform(scrollYProgress, [0, 1], ['0% 50%', '100% 50%'])
+
+	return (
+		<div ref={itemRef} className="flex justify-start pt-10 md:gap-10 md:pt-20">
+			<div className="sticky top-40 z-40 flex max-w-xs flex-col items-center self-start md:w-full md:flex-row lg:max-w-sm">
+				<div className="absolute left-3 flex h-6 w-6 items-center justify-center rounded-full bg-neutral-50/70 ring-1 ring-neutral-200/60 md:left-3 dark:bg-neutral-900/60 dark:ring-neutral-700/60">
+					<div className="h-2.5 w-2.5 rounded-full bg-neutral-300 dark:bg-neutral-700" />
+				</div>
+				<motion.h3
+					style={{
+						opacity: titleOpacity,
+						backgroundPosition: titleBgPosition,
+						backgroundSize: '200% 100%',
+						backgroundRepeat: 'no-repeat',
+					}}
+					className="hidden bg-gradient-to-r from-purple-500 via-blue-500 to-neutral-400 bg-clip-text text-xl font-bold text-transparent md:block md:pl-20 md:text-5xl"
+				>
+					{item.title}
+				</motion.h3>
+			</div>
+
+			<div className="relative w-full pr-4 pl-20 md:pl-4">
+				<motion.h3
+					style={{
+						opacity: titleOpacity,
+						backgroundPosition: titleBgPosition,
+						backgroundSize: '200% 100%',
+						backgroundRepeat: 'no-repeat',
+					}}
+					className="mb-4 block bg-gradient-to-r from-purple-500 via-blue-500 to-neutral-400 bg-clip-text text-left text-2xl font-bold text-transparent md:hidden"
+				>
+					{item.title}
+				</motion.h3>
+				{item.content}
+			</div>
+		</div>
+	)
+}
+
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 	const ref = useRef<HTMLDivElement>(null)
 	const containerRef = useRef<HTMLDivElement>(null)
@@ -35,23 +81,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 		<div className="w-full font-sans md:px-10" ref={containerRef}>
 			<div ref={ref} className="relative mx-auto max-w-full pb-20">
 				{data.map(item => (
-					<div key={item.title} className="flex justify-start pt-10 md:gap-10 md:pt-20">
-						<div className="sticky top-40 z-40 flex max-w-xs flex-col items-center self-start md:w-full md:flex-row lg:max-w-sm">
-							<div className="absolute left-3 flex h-10 w-10 items-center justify-center rounded-full bg-white md:left-3 dark:bg-black">
-								<div className="h-4 w-4 rounded-full border border-neutral-300 bg-neutral-200 p-2 dark:border-neutral-700 dark:bg-neutral-800" />
-							</div>
-							<h3 className="hidden text-xl font-bold text-neutral-500 md:block md:pl-20 md:text-5xl dark:text-neutral-500">
-								{item.title}
-							</h3>
-						</div>
-
-						<div className="relative w-full pr-4 pl-20 md:pl-4">
-							<h3 className="mb-4 block text-left text-2xl font-bold text-neutral-500 md:hidden dark:text-neutral-500">
-								{item.title}
-							</h3>
-							{item.content}{' '}
-						</div>
-					</div>
+					<TimelineItem key={item.title} item={item} />
 				))}
 				<div
 					style={{ height: height + 'px' }}
