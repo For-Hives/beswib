@@ -22,9 +22,15 @@ export default async function EventsPage({ params }: { params: Promise<LocalePar
 	}
 
 	return (
-		<div className="p-5">
-			<h1 className="mb-5 text-center text-3xl">{t.events.title}</h1>
-			<p className="mb-8 text-center text-gray-500">{t.events.description}</p>
+		<div className="min-h-screen">
+			{/* Page header with title and description */}
+			<header className="border-border bg-card/50 border-b px-6 py-4">
+				<div className="mx-auto max-w-7xl">
+					<h1 className="text-2xl font-bold">{t.events.title}</h1>
+					<p className="text-muted-foreground text-sm">{t.events.description}</p>
+				</div>
+			</header>
+
 			<EventListClient error={error} locale={locale} prefetchedEvents={events} />
 		</div>
 	)
