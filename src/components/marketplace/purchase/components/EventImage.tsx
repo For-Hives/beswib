@@ -5,17 +5,20 @@ import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import type { BibSale } from '@/components/marketplace/CardMarket'
+import type { Event } from '@/models/event.model'
 
 interface EventImageProps {
 	/** The bib sale data containing event information */
 	bib: BibSale
+	/** Optional event data for official price comparison */
+	eventData?: Event
 }
 
 /**
  * Component that displays the event image with type badge and discount badge
  * Handles the visual presentation of the event with proper styling and overlays
  */
-export default function EventImage({ bib }: EventImageProps) {
+export default function EventImage({ bib, eventData }: EventImageProps) {
 	/**
 	 * Get background styling based on event type
 	 * @param type - The type of sporting event
@@ -38,10 +41,24 @@ export default function EventImage({ bib }: EventImageProps) {
 		}
 	}
 
-	// Calculate discount percentage for display
+	// Calculate the lowest reference price between original and official
+	const officialPrice = eventData?.officialStandardPrice ?? 0
+	const originalPrice = bib.originalPrice ?? 0
+
+	// Determine the reference price (lowest between original and official)
+	const referencePrice =
+		officialPrice > 0 && originalPrice > 0
+			? Math.min(officialPrice, originalPrice)
+			: officialPrice > 0
+				? officialPrice
+				: originalPrice > 0
+					? originalPrice
+					: 0
+
+	// Calculate discount percentage based on the lowest reference price
 	const discountPercentage =
-		bib.originalPrice && bib.originalPrice > bib.price
-			? Math.round(((bib.originalPrice - bib.price) / bib.originalPrice) * 100)
+		referencePrice > 0 && referencePrice > bib.price
+			? Math.round(((referencePrice - bib.price) / referencePrice) * 100)
 			: 0
 
 	return (

@@ -166,7 +166,7 @@ export default function PayPalPurchaseClient({
 				<div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
 					{/* Event Image */}
 					<div className="lg:col-span-4 lg:row-end-1">
-						<EventImage bib={bib} />
+						<EventImage bib={bib} eventData={eventData} />
 					</div>
 
 					{/* Product Details */}
