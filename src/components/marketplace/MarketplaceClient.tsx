@@ -7,10 +7,11 @@ import Fuse from 'fuse.js'
 
 import type { BibSale } from '@/components/marketplace/CardMarket'
 
+import { Search } from 'lucide-react'
+
 import OfferCounter from '@/components/marketplace/offerCounter'
 import CardMarket from '@/components/marketplace/CardMarket'
 import MarketplaceSidebar, { type MarketplaceFilters } from '@/components/marketplace/MarketplaceSidebar'
-import MarketplaceHeader from '@/components/marketplace/MarketplaceHeader'
 import { Locale } from '@/lib/i18n-config'
 
 // Props for the MarketplaceClient: receives an array of bibs to display 🛍️
@@ -91,7 +92,6 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		(sidebarFilters: MarketplaceFilters) => {
 			void setFilters({
 				sport: sidebarFilters.sport,
-				search: sidebarFilters.search,
 				distance: sidebarFilters.distance,
 				priceMin: sidebarFilters.priceMin,
 				priceMax: sidebarFilters.priceMax,
@@ -175,19 +175,19 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 			<div className="border-border bg-card/80 border-b p-6">
 				<div className="mx-auto max-w-7xl">
 					<div className="relative">
-						<Search className="text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform" />
+						<Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
 						<input
 							className="border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent block w-full rounded-lg border p-2.5 pl-10 text-sm"
-							placeholder="Search by name, location, sport..."
+							placeholder="Quick search by name, location, sport..."
 							value={search}
-							onChange={(e) => setFilters({ search: e.target.value })}
+							onChange={e => void setFilters({ search: e.target.value })}
 						/>
 					</div>
 				</div>
 			</div>
 
 			{/* Main content with sidebar and results */}
-			<div className="mx-auto max-w-7xl p-6">
+			<div className="w-full p-6">
 				<div className="flex gap-8">
 					{/* Sidebar with filters */}
 					<div className="w-80 flex-shrink-0">
@@ -198,9 +198,9 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 							regions={uniqueLocations}
 						/>
 					</div>
-					
+
 					{/* Main content area */}
-					<div className="flex-1">
+					<div className="min-w-0 flex-1">
 						<div className="space-y-6">
 							{/* OfferCounter displays the number of results and the sort selector 🔢 */}
 							<OfferCounter
@@ -211,7 +211,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 							/>
 
 							{/* Grid of bib cards, responsive layout 🖼️ */}
-							<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+							<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
 								{filteredAndSortedBibs.map(bib => (
 									<CardMarket bibSale={bib} key={bib.id} locale={locale} />
 								))}

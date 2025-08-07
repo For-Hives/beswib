@@ -44,7 +44,7 @@ export default function CardMarket({ locale, bibSale }: Readonly<CardMarketProps
 	const translations = getTranslations(locale, marketplaceTranslations)
 
 	return (
-		<div className="h-full w-full max-w-xs">
+		<div className="h-full w-full">
 			<div className="bg-card/80 border-border relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md transition-all duration-300 hover:border-white/35">
 				<div
 					className={cn(

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useMemo, useState } from 'react'
-import { Search, X, SlidersHorizontal, Calendar, MapPin, Euro, Activity, Filter } from 'lucide-react'
+import { X, SlidersHorizontal, Calendar, MapPin, Euro, Activity, Filter } from 'lucide-react'
 import Fuse from 'fuse.js'
 
 import { Input } from '@/components/ui/input'
@@ -21,7 +21,6 @@ interface MarketplaceSidebarProps {
 }
 
 export type MarketplaceFilters = {
-	search: string
 	sport: string | null
 	distance: string | null
 	priceMin: number
@@ -39,7 +38,6 @@ export default function MarketplaceSidebar({
 }: MarketplaceSidebarProps) {
 	// Main filter state
 	const [filters, setFilters] = useState<MarketplaceFilters>({
-		search: '',
 		sport: null,
 		distance: null,
 		priceMin: 0,
@@ -88,11 +86,6 @@ export default function MarketplaceSidebar({
 		const updated = { ...filters, ...newFilters }
 		setFilters(updated)
 		onFiltersChange?.(updated)
-	}
-
-	// Handle search input
-	const handleSearchChange = (value: string) => {
-		updateFilters({ search: value })
 	}
 
 	// Handle sport selection
@@ -152,7 +145,6 @@ export default function MarketplaceSidebar({
 
 	// Count active filters
 	const activeFiltersCount = [
-		filters.search !== '',
 		filters.sport !== null,
 		filters.distance !== null,
 		filters.priceMin !== 0 || filters.priceMax !== maxPrice,
@@ -167,8 +159,8 @@ export default function MarketplaceSidebar({
 	}, [maxPrice])
 
 	return (
-		<div className="bg-card border-border h-full w-80 overflow-y-auto border-r">
-			<div className="space-y-6 p-6">
+		<div className="bg-card border-border w-80 rounded-lg border p-6">
+			<div className="space-y-6">
 				{/* Header */}
 				<div className="space-y-2">
 					<div className="flex items-center justify-between">
@@ -188,23 +180,6 @@ export default function MarketplaceSidebar({
 						)}
 					</div>
 					<Separator />
-				</div>
-
-				{/* Search */}
-				<div className="space-y-2">
-					<Label className="flex items-center gap-2 text-sm font-medium">
-						<Search className="h-4 w-4" />
-						{t.searchPlaceholder || 'Search events'}
-					</Label>
-					<div className="relative">
-						<Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
-						<Input
-							placeholder={t.searchPlaceholder || 'Search by name, location...'}
-							value={filters.search}
-							onChange={e => handleSearchChange(e.target.value)}
-							className="pl-10"
-						/>
-					</div>
 				</div>
 
 				{/* Sport Filter */}
