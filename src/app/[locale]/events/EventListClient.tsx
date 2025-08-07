@@ -1,12 +1,14 @@
 'use client'
 
-import { useMemo } from 'react'
-import { Star, Mountain, Route, Calendar, MapPin, Users, Search } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { Star, Mountain, Route, Calendar, MapPin, Users, Search, ShoppingCart, Bell } from 'lucide-react'
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
+import { useRouter } from 'next/navigation'
 import Fuse from 'fuse.js'
 
 import type { Event } from '@/models/event.model'
 import { getTranslations } from '@/lib/getDictionary'
+import { fetchAvailableBibsForEvent } from '@/services/bib.services'
 import SpotlightCard from '@/Components/SpotlightCard/SpotlightCard'
 import Translations from './locales.json'
 
@@ -40,6 +42,7 @@ const eventTypeIcons = {
 export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps) {
 	// State and translation variables
 	const t = getTranslations(locale, Translations)
+	const router = useRouter()
 
 	// useQueryStates for filter state management via URL
 	const [query, setQuery] = useQueryStates(
@@ -74,7 +77,14 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	// Extract unique locations for the filter
 	const uniqueLocations = Array.from(new Set(prefetchedEvents.map(event => event.location))).sort()
 
-	// Fuse.js instance for fuzzy search
+	// State for location autocomplete
+	const [locationSearch, setLocationSearch] = useState('')
+	const [showLocationDropdown, setShowLocationDropdown] = useState(false)
+	
+	// State to track bibs availability for each event
+	const [eventBibsCache, setEventBibsCache] = useState<Record<string, number>>({})
+
+	// Fuse.js instance for fuzzy search on events
 	const fuse = useMemo(
 		() =>
 			new Fuse(prefetchedEvents, {
@@ -83,6 +93,14 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			}),
 		[prefetchedEvents]
 	)
+
+	// Fuse.js instance for location autocomplete
+	const locationFuse = useMemo(() => new Fuse(uniqueLocations, { threshold: 0.4 }), [uniqueLocations])
+
+	// Filtered locations for autocomplete
+	const filteredLocations = locationSearch
+		? locationFuse.search(locationSearch).map(result => result.item)
+		: uniqueLocations.slice(0, 10)
 
 	// Filtering and sorting logic
 	const filteredEvents = useMemo(() => {
@@ -138,43 +156,84 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		return eventDate > thirtyDaysFromNow
 	})
 
-	// Race type summary cards as quick-access buttons
-	const raceTypeSummary = [
-		{
-			key: 'triathlon',
-			label: eventTypeLabels.triathlon,
-			color: eventTypeColors.triathlon,
-			count: prefetchedEvents.filter(e => e.typeCourse === 'triathlon').length,
-			icon: eventTypeIcons.triathlon,
-		},
-		{
-			key: 'trail',
-			label: eventTypeLabels.trail,
-			color: eventTypeColors.trail,
-			count: prefetchedEvents.filter(e => e.typeCourse === 'trail').length,
-			icon: eventTypeIcons.trail,
-		},
-		{
-			key: 'route',
-			label: eventTypeLabels.route,
-			color: eventTypeColors.route,
-			count: prefetchedEvents.filter(e => e.typeCourse === 'route').length,
-			icon: eventTypeIcons.route,
-		},
-		{
-			key: 'ultra',
-			label: eventTypeLabels.ultra,
-			color: eventTypeColors.ultra,
-			count: prefetchedEvents.filter(e => e.typeCourse === 'ultra').length,
-			icon: eventTypeIcons.ultra,
-		},
-	]
+	// Race type summary cards as quick-access buttons - dynamically generated from actual events
+	const raceTypeSummary = useMemo(() => {
+		// Get unique event types from actual events
+		const uniqueTypes = Array.from(new Set(prefetchedEvents.map(e => e.typeCourse)))
+
+		// Start with "all" option
+		const summary = [
+			{
+				key: 'all',
+				label: 'TOUTES',
+				color: 'bg-gray-500/15 border-gray-500/50 text-gray-400',
+				count: prefetchedEvents.length,
+				icon: <Star className="h-4 w-4" />,
+			},
+		]
+
+		// Add categories that actually exist in the data
+		uniqueTypes.forEach(type => {
+			if (eventTypeLabels[type] && eventTypeColors[type]) {
+				summary.push({
+					key: type,
+					label: eventTypeLabels[type],
+					color: eventTypeColors[type],
+					count: prefetchedEvents.filter(e => e.typeCourse === type).length,
+					icon: eventTypeIcons[type],
+				})
+			}
+		})
+
+		return summary
+	}, [prefetchedEvents])
 
 	function getCountLabel(): string {
 		if (typeof t.events?.countLabel === 'string' && t.events.countLabel !== undefined && t.events.countLabel !== null) {
 			return t.events.countLabel.replace('{count}', String(filteredEvents.length))
 		}
 		return `${filteredEvents.length} événement${filteredEvents.length !== 1 ? 's' : ''} trouvé${filteredEvents.length !== 1 ? 's' : ''}`
+	}
+
+	// Function to get bib count for an event (with caching)
+	const getBibCountForEvent = async (eventId: string): Promise<number> => {
+		if (eventBibsCache[eventId] !== undefined) {
+			return eventBibsCache[eventId]
+		}
+		
+		try {
+			const availableBibs = await fetchAvailableBibsForEvent(eventId)
+			const count = availableBibs.length
+			setEventBibsCache(prev => ({ ...prev, [eventId]: count }))
+			return count
+		} catch (error) {
+			console.error('Error fetching bibs for event:', error)
+			return 0
+		}
+	}
+
+	// Function to handle event button clicks
+	const handleEventAction = async (event: Event) => {
+		try {
+			const bibCount = await getBibCountForEvent(event.id)
+			
+			if (bibCount > 0) {
+				// Redirect to marketplace with filters for this specific event
+				const searchParams = new URLSearchParams({
+					search: event.name, // Search by event name
+					geography: event.location.toLowerCase(), // Filter by location
+					sport: event.typeCourse === 'all' ? '' : event.typeCourse // Filter by sport type
+				})
+				router.push(`/${locale}/marketplace?${searchParams.toString()}`)
+			} else {
+				// Redirect to event detail page (which has the waitlist functionality)
+				router.push(`/${locale}/events/${event.id}`)
+			}
+		} catch (error) {
+			console.error('Error checking event bibs:', error)
+			// Fallback: redirect to event detail page
+			router.push(`/${locale}/events/${event.id}`)
+		}
 	}
 
 	// Event card using SpotlightCard
@@ -232,8 +291,25 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							<span className="text-lg font-bold text-green-400">À partir de {event.officialStandardPrice}€</span>
 						</div>
 					)}
-					<button className="bg-primary/20 text-primary hover:bg-primary/30 w-full rounded-lg px-4 py-2 text-sm font-medium transition-colors">
-						Voir les détails
+					<button 
+						onClick={() => handleEventAction(event)}
+						className="bg-primary/20 text-primary hover:bg-primary/30 w-full rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer flex items-center justify-center gap-2"
+					>
+						{eventBibsCache[event.id] !== undefined ? (
+							eventBibsCache[event.id] > 0 ? (
+								<>
+									<ShoppingCart className="h-4 w-4" />
+									Voir les dossards ({eventBibsCache[event.id]})
+								</>
+							) : (
+								<>
+									<Bell className="h-4 w-4" />
+									Rejoindre la waitlist
+								</>
+							)
+						) : (
+							'Vérifier les dossards...'
+						)}
 					</button>
 				</div>
 			</div>
@@ -241,25 +317,15 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	)
 
 	return (
-		<div className="bg-background min-h-screen">
-			{/* Hero Section */}
-			<div className="border-border bg-card/50 border-b backdrop-blur-sm">
-				<div className="container mx-auto px-4 py-12">
-					<div className="text-center">
-						<h1 className="text-foreground mb-4 text-4xl font-bold md:text-5xl">
-							{t.events?.title ?? 'Événements sportifs'}
-						</h1>
-						<p className="text-muted-foreground mx-auto max-w-2xl text-lg">
-							{t.events?.description ?? 'Découvrez et inscrivez-vous à des courses sportives partout en France.'}
-						</p>
-					</div>
-
-					{/* Race type quick filters */}
-					<div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+		<div className="bg-background">
+			{/* Race type quick filters like in marketplace */}
+			<div className="border-border bg-card/80 border-b p-6">
+				<div className="mx-auto max-w-7xl">
+					<div className={`mb-6 grid gap-4 ${raceTypeSummary.length <= 2 ? 'grid-cols-2' : raceTypeSummary.length <= 3 ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-2 md:grid-cols-4'}`}>
 						{raceTypeSummary.map(type => (
 							<button
 								key={type.key}
-								className={`group flex flex-col items-center justify-center rounded-xl border p-4 transition-all hover:scale-105 ${selectedType === type.key ? type.color : 'border-border bg-card/60 hover:bg-card/80'}`}
+								className={`group flex flex-col items-center justify-center rounded-xl border p-4 transition-all hover:scale-105 cursor-pointer ${selectedType === type.key ? type.color : 'border-border bg-card/60 hover:bg-card/80'}`}
 								onClick={() => handleTypeChange(type.key as 'all' | 'triathlon' | 'trail' | 'route' | 'ultra')}
 								aria-label={(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
 							>
@@ -277,43 +343,77 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							</button>
 						))}
 					</div>
+
+					{/* Search bar - same style as marketplace */}
+					<div className="relative">
+						<Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
+						<input
+							className="border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent block w-full rounded-lg border p-2.5 pl-10 text-sm"
+							placeholder={t.events?.searchPlaceholder ?? 'Rechercher un événement, une ville...'}
+							value={searchTerm}
+							onChange={e => handleSearchChange(e.target.value)}
+						/>
+					</div>
 				</div>
 			</div>
 
-			{/* Search and Filters */}
-			<div className="border-border bg-card/30 border-b backdrop-blur-sm">
-				<div className="container mx-auto px-4 py-6">
-					<div className="mb-4">
+			{/* Filters section - simplified but similar to marketplace */}
+			<div className="w-full p-6">
+				<div className="max-w-7xl">
+					<div className="mb-6 flex flex-wrap gap-3">
+						{/* Location autocomplete dropdown */}
 						<div className="relative">
-							<Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
 							<input
 								type="text"
-								placeholder={t.events?.searchPlaceholder ?? 'Rechercher un événement, une ville...'}
-								value={searchTerm}
-								onChange={e => handleSearchChange(e.target.value)}
-								className="border-border bg-background/80 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 w-full rounded-lg border py-3 pr-4 pl-10 focus:ring-2 focus:outline-none"
+								placeholder="Rechercher une ville..."
+								value={locationSearch || selectedLocation}
+								onChange={e => {
+									setLocationSearch(e.target.value)
+									setShowLocationDropdown(true)
+									if (e.target.value === '') {
+										handleLocationChange('')
+									}
+								}}
+								onFocus={() => setShowLocationDropdown(true)}
+								onBlur={() => {
+									// Delay hiding dropdown to allow clicks on items
+									setTimeout(() => setShowLocationDropdown(false), 200)
+								}}
+								className="border-border bg-card/60 text-foreground focus:border-accent focus:ring-accent w-48 rounded-lg border px-3 py-2 text-sm focus:ring-2 focus:outline-none"
 							/>
+							{showLocationDropdown && filteredLocations.length > 0 && (
+								<div className="bg-card border-border absolute top-full right-0 left-0 z-50 mt-1 max-h-40 overflow-y-auto rounded-lg border shadow-lg">
+									<button
+										onClick={() => {
+											handleLocationChange('')
+											setLocationSearch('')
+											setShowLocationDropdown(false)
+										}}
+										className="hover:bg-muted/50 border-border block w-full border-b px-3 py-2 text-left text-sm"
+									>
+										Toutes les villes
+									</button>
+									{filteredLocations.map(location => (
+										<button
+											key={location}
+											onClick={() => {
+												handleLocationChange(location)
+												setLocationSearch(location)
+												setShowLocationDropdown(false)
+											}}
+											className="hover:bg-muted/50 block w-full px-3 py-2 text-left text-sm"
+										>
+											{location}
+										</button>
+									))}
+								</div>
+							)}
 						</div>
-					</div>
-
-					<div className="flex flex-wrap gap-3">
-						<select
-							value={selectedLocation}
-							onChange={e => handleLocationChange(e.target.value)}
-							className="border-border bg-background/80 text-foreground focus:border-primary focus:ring-primary/20 rounded-lg border px-3 py-2 text-sm focus:ring-2 focus:outline-none"
-						>
-							<option value="">Toutes les villes</option>
-							{uniqueLocations.map(location => (
-								<option key={location} value={location}>
-									{location}
-								</option>
-							))}
-						</select>
 
 						<select
 							value={sortBy}
 							onChange={e => handleSortChange(e.target.value as 'date' | 'price' | 'participants' | 'distance')}
-							className="border-border bg-background/80 text-foreground focus:border-primary focus:ring-primary/20 rounded-lg border px-3 py-2 text-sm focus:ring-2 focus:outline-none"
+							className="border-border bg-card/60 text-foreground focus:border-accent focus:ring-accent rounded-lg border px-3 py-2 text-sm focus:ring-2 focus:outline-none"
 						>
 							<option value="date">{t.events?.filters?.date ?? 'Trier par date'}</option>
 							<option value="price">{t.events?.filters?.price ?? 'Trier par prix'}</option>
@@ -327,7 +427,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			</div>
 
 			{/* Events Grid */}
-			<div className="container mx-auto px-4 py-8">
+			<div className="w-full px-6">
 				{/* Featured Events (Next 30 days) */}
 				{featuredEvents.length > 0 && (
 					<div className="mb-12">
