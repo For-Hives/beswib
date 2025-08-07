@@ -1,22 +1,10 @@
 'use client'
 
-import {
-	AlertTriangle,
-	Calendar,
-	Clock,
-	DollarSign,
-	ExternalLink,
-	Globe,
-	Mail,
-	MapPin,
-	Mountain,
-	Route,
-	Users,
-	X,
-} from 'lucide-react'
+import { Calendar, Clock, DollarSign, ExternalLink, Globe, Mail, MapPin, Route, Users, X } from 'lucide-react'
 
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
+import { TriathlonIcon, TrailIcon, RouteIcon, UltraIcon } from '@/components/icons/RaceTypeIcons'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
@@ -71,15 +59,15 @@ export function EventView(props: Readonly<EventViewProps>) {
 	const getEventTypeIcon = (typeCourse: Event['typeCourse']) => {
 		switch (typeCourse) {
 			case 'route':
-				return <Route className="h-4 w-4" />
+				return <RouteIcon className="h-4 w-4" />
 			case 'trail':
-				return <Mountain className="h-4 w-4" />
+				return <TrailIcon className="h-4 w-4" />
 			case 'triathlon':
-				return <Users className="h-4 w-4" />
+				return <TriathlonIcon className="h-4 w-4" />
 			case 'ultra':
-				return <AlertTriangle className="h-4 w-4" />
+				return <UltraIcon className="h-4 w-4" />
 			default:
-				return <Route className="h-4 w-4" />
+				return <RouteIcon className="h-4 w-4" />
 		}
 	}
 
