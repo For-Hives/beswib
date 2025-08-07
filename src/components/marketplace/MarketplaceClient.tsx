@@ -15,6 +15,7 @@ import OfferCounter from '@/components/marketplace/offerCounter'
 import CardMarket from '@/components/marketplace/CardMarket'
 import MarketplaceSidebar, { type MarketplaceFilters } from '@/components/marketplace/MarketplaceSidebar'
 import { Locale } from '@/lib/i18n-config'
+import EmptyResults from '@/components/marketplace/EmptyResults'
 
 // Props for the MarketplaceClient: receives an array of bibs to display 🛍️
 interface MarketplaceClientProps {
@@ -265,30 +266,8 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 								))}
 							</div>
 
-							{/* Empty state when no results */}
-							{filteredAndSortedBibs.length === 0 && (
-								<div className="flex flex-col items-center justify-center py-12 text-center">
-									<div className="bg-muted mb-4 rounded-full p-6">
-										<svg
-											className="text-muted-foreground h-12 w-12"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 0a4 4 0 104 4h-6a4 4 0 100-8zm6 0V9a4 4 0 10-8 0v3"
-											/>
-										</svg>
-									</div>
-									<h3 className="text-foreground mb-2 text-lg font-semibold">No bibs found</h3>
-									<p className="text-muted-foreground max-w-md">
-										Try adjusting your filters or search terms to find more bibs that match your criteria.
-									</p>
-								</div>
-							)}
+						{/* Empty state when no results */}
+						{filteredAndSortedBibs.length === 0 && <EmptyResults locale={locale} />}
 						</div>
 					</div>
 				</div>

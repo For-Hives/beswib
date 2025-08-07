@@ -5,6 +5,13 @@
 
 @tailwind utilities;
 
+@layer utilities {
+	/* Slow spin for subtle animated SVGs */
+	.animate-spin-slow {
+		animation: spin 4s linear infinite;
+	}
+}
+
 :root {
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.3211 0 0);

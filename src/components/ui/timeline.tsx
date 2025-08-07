@@ -1,6 +1,14 @@
 'use client'
 
-import { useScroll, useTransform, motion, useSpring, useMotionValueEvent, type MotionValue } from 'motion/react'
+import {
+	useScroll,
+	useTransform,
+	motion,
+	useSpring,
+	useMotionValue,
+	useMotionValueEvent,
+	type MotionValue,
+} from 'motion/react'
 import React, { useEffect, useRef, useState } from 'react'
 
 interface TimelineEntry {
@@ -54,7 +62,7 @@ const TimelineItem = ({
 	return (
 		<div ref={itemRef} className="flex justify-start pt-10 md:gap-10 md:pt-20">
 			<div className="sticky top-40 z-40 flex max-w-xs flex-col items-center self-start md:w-full md:flex-row lg:max-w-sm">
-				<div className="absolute left-3 flex h-6 w-6 items-center justify-center rounded-full bg-neutral-50/70 ring-1 ring-neutral-200/60 md:left-3 dark:bg-neutral-900/60 dark:ring-neutral-700/60">
+				<div className="absolute left-3 ml-2.5 flex h-6 w-6 items-center justify-center rounded-full bg-neutral-50/70 ring-1 ring-neutral-200/60 md:left-3 dark:bg-neutral-900/60 dark:ring-neutral-700/60">
 					<div
 						className={`h-2.5 w-2.5 rounded-full ${isActive ? 'bg-gradient-to-r from-purple-500 via-blue-500 to-sky-400' : 'bg-neutral-300 dark:bg-neutral-700'}`}
 					/>
@@ -66,7 +74,11 @@ const TimelineItem = ({
 						backgroundSize: '200% 100%',
 						backgroundRepeat: 'no-repeat',
 					}}
-					className={`hidden bg-clip-text text-xl font-bold text-transparent md:block md:pl-20 md:text-5xl ${isActive ? 'bg-gradient-to-r from-purple-500 via-blue-500 to-sky-400' : 'bg-gradient-to-r from-purple-500 via-blue-500 to-neutral-400'}`}
+					className={`hidden text-xl font-bold md:block md:pl-20 md:text-5xl ${
+						isActive
+							? 'bg-gradient-to-r from-purple-500 via-blue-500 to-sky-400 bg-clip-text text-transparent'
+							: 'text-neutral-500 dark:text-neutral-500'
+					}`}
 				>
 					{item.title}
 				</motion.h3>
@@ -80,7 +92,11 @@ const TimelineItem = ({
 						backgroundSize: '200% 100%',
 						backgroundRepeat: 'no-repeat',
 					}}
-					className={`mb-4 block bg-clip-text text-left text-2xl font-bold text-transparent md:hidden ${isActive ? 'bg-gradient-to-r from-purple-500 via-blue-500 to-sky-400' : 'bg-gradient-to-r from-purple-500 via-blue-500 to-neutral-400'}`}
+					className={`mb-4 block text-left text-2xl font-bold md:hidden ${
+						isActive
+							? 'bg-gradient-to-r from-purple-500 via-blue-500 to-sky-400 bg-clip-text text-transparent'
+							: 'text-neutral-500 dark:text-neutral-500'
+					}`}
 				>
 					{item.title}
 				</motion.h3>
@@ -105,28 +121,70 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 		return () => ro.disconnect()
 	}, [])
 
-	const { scrollYProgress } = useScroll({
-		target: containerRef,
-		offset: ['start 10%', 'end 50%'],
+	// Compute line height in pixels so that the tip aligns with viewport bottom - 10vh,
+	// clamped to the timeline container height. Then ease it with a spring.
+	const lineHeightRaw = useMotionValue(0)
+	const heightSpring = useSpring(lineHeightRaw, { stiffness: 120, damping: 30, mass: 0.8 })
+	const containerHeight = useMotionValue(0)
+	// Keep a motion value in sync with latest measured height
+	useEffect(() => {
+		containerHeight.set(height)
+	}, [height, containerHeight])
+	// Early-acceleration easing: first 25% progresses 1.5x faster, then linear to end
+	const heightEased = useTransform(heightSpring, (h: number) => {
+		const H = containerHeight.get()
+		if (H <= 0) return 0
+		const p = Math.max(0, Math.min(1, h / H))
+		const q = 0.25
+		const k = 1.5 // 50% faster
+		const fAtQ = Math.min(1, k * q) // continuity value at q
+		let f = 0
+		if (p <= q) {
+			f = Math.min(1, k * p)
+		} else {
+			const remaining = 1 - q
+			const scale = remaining > 0 ? (1 - fAtQ) / remaining : 0
+			f = fAtQ + (p - q) * scale
+		}
+		f = Math.max(0, Math.min(1, f))
+		return f * H
 	})
+	const opacityTransform = useTransform(heightEased, [0, 20], [0, 1])
 
-	// Smooth the scroll-driven progress for the line using a spring (ease-in-out feel)
-	const springProgress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.8 })
-	const heightTransform = useTransform(springProgress, [0, 1], [0, height])
-	const opacityTransform = useTransform(springProgress, [0, 0.1], [0, 1])
+	useEffect(() => {
+		const updateLine = () => {
+			if (!ref.current) return
+			const rect = ref.current.getBoundingClientRect()
+			const viewportBottom = window.innerHeight * 0.9 // bottom - 10vh
+			const distance = viewportBottom - rect.top
+			const clamped = Math.max(0, Math.min(distance, rect.height))
+			lineHeightRaw.set(clamped)
+		}
+		// Keep initial state at 0 until the first scroll/resize
+		lineHeightRaw.set(0)
+		window.addEventListener('scroll', updateLine, { passive: true })
+		window.addEventListener('resize', updateLine)
+		const ro = new ResizeObserver(updateLine)
+		if (ref.current) ro.observe(ref.current)
+		return () => {
+			window.removeEventListener('scroll', updateLine)
+			window.removeEventListener('resize', updateLine)
+			ro.disconnect()
+		}
+	}, [])
 
 	return (
 		<div className="w-full font-sans md:px-10" ref={containerRef}>
 			<div ref={ref} className="relative mx-auto max-w-full pb-20">
 				{data.map(item => (
-					<TimelineItem key={item.title} item={item} containerRef={ref} lineHeight={heightTransform} />
+					<TimelineItem key={item.title} item={item} containerRef={ref} lineHeight={heightEased} />
 				))}
 				<div
 					style={{ height: height + 'px' }}
 					className="absolute top-0 left-8 w-[2px] overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] md:left-8 dark:via-neutral-700"
 				>
 					<motion.div
-						style={{ height: heightTransform, opacity: opacityTransform }}
+						style={{ height: heightEased, opacity: opacityTransform }}
 						className="absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-purple-500 from-[0%] via-blue-500 via-[10%] to-transparent"
 					/>
 				</div>
