@@ -20,12 +20,11 @@ export default function PriceDisplay({ bib, eventData }: PriceDisplayProps) {
 		<div className="mt-6">
 			{/* Main Price Display */}
 			<div className="flex items-baseline gap-3">
-				<p className="text-foreground text-4xl font-bold tracking-tight">€{bib.price}</p>
+				<p className="text-foreground text-4xl font-bold">€{bib.price}</p>
 
 				{/* Official Event Price Comparison */}
 				{(eventData?.officialStandardPrice ?? 0) > 0 && (eventData?.officialStandardPrice ?? 0) !== bib.price && (
 					<div className="flex flex-col">
-						<p className="text-muted-foreground text-sm">Prix de base</p>
 						<p className="text-muted-foreground text-lg line-through">€{eventData?.officialStandardPrice ?? 0}</p>
 					</div>
 				)}
