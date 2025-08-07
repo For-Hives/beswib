@@ -9,6 +9,7 @@ import type { BibSale } from '@/components/marketplace/CardMarket'
 
 import { Search } from 'lucide-react'
 
+import ActiveFiltersBadges from '@/components/marketplace/ActiveFiltersBadges'
 import OfferCounter from '@/components/marketplace/offerCounter'
 import CardMarket from '@/components/marketplace/CardMarket'
 import MarketplaceSidebar, { type MarketplaceFilters } from '@/components/marketplace/MarketplaceSidebar'
@@ -89,16 +90,8 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 
 	// --- Handler function for sidebar filters 🔗
 	const handleFiltersChange = React.useCallback(
-		(sidebarFilters: MarketplaceFilters) => {
-			void setFilters({
-				sport: sidebarFilters.sport,
-				distance: sidebarFilters.distance,
-				priceMin: sidebarFilters.priceMin,
-				priceMax: sidebarFilters.priceMax,
-				geography: sidebarFilters.geography,
-				dateStart: sidebarFilters.dateStart ?? null,
-				dateEnd: sidebarFilters.dateEnd ?? null,
-			})
+		(sidebarFilters: Partial<MarketplaceFilters>) => {
+			void setFilters(sidebarFilters)
 		},
 		[setFilters]
 	)
@@ -108,6 +101,36 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 			void setFilters({ sort: sortOption as 'date' | 'distance' | 'price-asc' | 'price-desc' })
 		},
 		[setFilters]
+	)
+
+	// --- Handler for removing individual filters 🔗
+	const handleRemoveFilter = React.useCallback(
+		(type: string, value?: string) => {
+			switch (type) {
+				case 'sport':
+					void setFilters({ sport: null })
+					break
+				case 'distance':
+					void setFilters({ distance: null })
+					break
+				case 'price':
+					void setFilters({ priceMin: 0, priceMax: maxPrice })
+					break
+				case 'geography':
+					if (value) {
+						const newGeography = geography.filter(loc => loc !== value)
+						void setFilters({ geography: newGeography })
+					}
+					break
+				case 'dateStart':
+					void setFilters({ dateStart: null })
+					break
+				case 'dateEnd':
+					void setFilters({ dateEnd: null })
+					break
+			}
+		},
+		[setFilters, geography, maxPrice]
 	)
 
 	// --- Fuse.js instance for fuzzy search on bibs (name, location, type) ✨
@@ -186,6 +209,21 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 				</div>
 			</div>
 
+			{/* Active filters badges */}
+			<ActiveFiltersBadges
+				filters={{
+					sport,
+					distance,
+					priceMin,
+					priceMax,
+					geography,
+					dateStart: dateStart ?? undefined,
+					dateEnd: dateEnd ?? undefined,
+				}}
+				maxPrice={maxPrice}
+				onRemoveFilter={handleRemoveFilter}
+			/>
+
 			{/* Main content with sidebar and results */}
 			<div className="w-full p-6">
 				<div className="flex gap-8">
@@ -194,6 +232,15 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 						<MarketplaceSidebar
 							locale={locale}
 							maxPrice={maxPrice}
+							filters={{
+								sport,
+								distance,
+								priceMin,
+								priceMax,
+								geography,
+								dateStart: dateStart ?? undefined,
+								dateEnd: dateEnd ?? undefined,
+							}}
 							onFiltersChange={handleFiltersChange}
 							regions={uniqueLocations}
 						/>
