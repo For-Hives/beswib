@@ -51,7 +51,7 @@ export default function Lanyard({
 	React.useEffect(() => {
 		const originalError = console.error
 		console.error = (...args) => {
-			const message = String(args[0] || '')
+			const message = String(args[0] ?? '')
 			if (message.includes("THREE.GLTFLoader: Couldn't load texture") || message.includes('blob:http://localhost')) {
 				return // Suppress GLTFLoader texture errors
 			}
@@ -254,8 +254,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		() =>
 			new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
 	)
-	const [dragged, drag] = useState<false | THREE.Vector3>(false)
-	const [hovered, hover] = useState(false)
+	const [dragged] = useState<false | THREE.Vector3>(false)
+	const [hovered] = useState(false)
 
 	// Dynamic screen size and rope positioning system
 	const [screenSize, setScreenSize] = useState<{ width: number; height: number; isSmall: boolean }>(() => {
@@ -429,7 +429,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 			const originalWarn = console.warn
 
 			console.error = (...args) => {
-				const message = args[0]?.toString?.() || ''
+				const message = args[0]?.toString?.() ?? ''
 				if (message.includes("THREE.GLTFLoader: Couldn't load texture") || message.includes('blob:')) {
 					return // Ignore texture blob errors silently
 				}
@@ -437,7 +437,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 			}
 
 			console.warn = (...args) => {
-				const message = args[0]?.toString?.() || ''
+				const message = args[0]?.toString?.() ?? ''
 				if (message.includes("THREE.GLTFLoader: Couldn't load texture") || message.includes('blob:')) {
 					return // Ignore texture blob warnings silently
 				}
