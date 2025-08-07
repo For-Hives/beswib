@@ -501,13 +501,13 @@ export default function PayPalPurchaseClient({
 						<TabGroup>
 							<div className="border-border/20 border-b">
 								<TabList className="-mb-px flex space-x-8">
-									<Tab className="text-muted-foreground hover:border-muted-foreground hover:text-foreground data-[selected]:border-primary data-[selected]:text-primary border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap">
+									<Tab className="text-muted-foreground hover:border-muted-foreground hover:text-foreground data-[selected]:border-primary data-[selected]:text-primary border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap focus:outline-none">
 										Event Details
 									</Tab>
-									<Tab className="text-muted-foreground hover:border-muted-foreground hover:text-foreground data-[selected]:border-primary data-[selected]:text-primary border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap">
+									<Tab className="text-muted-foreground hover:border-muted-foreground hover:text-foreground data-[selected]:border-primary data-[selected]:text-primary border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap focus:outline-none">
 										FAQ
 									</Tab>
-									<Tab className="text-muted-foreground hover:border-muted-foreground hover:text-foreground data-[selected]:border-primary data-[selected]:text-primary border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap">
+									<Tab className="text-muted-foreground hover:border-muted-foreground hover:text-foreground data-[selected]:border-primary data-[selected]:text-primary border-b-2 border-transparent py-6 text-sm font-medium whitespace-nowrap focus:outline-none">
 										Terms
 									</Tab>
 								</TabList>

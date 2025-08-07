@@ -7,7 +7,6 @@
 
 'use client'
 import React, { useEffect, useRef, useState, Suspense, useMemo } from 'react'
-import dynamic from 'next/dynamic'
 import { Canvas, extend, useFrame } from '@react-three/fiber'
 import { Environment, Lightformer, Html, useGLTF } from '@react-three/drei'
 import {
@@ -26,12 +25,6 @@ import * as THREE from 'three'
 const cardGLB = '/models/card.glb'
 
 extend({ MeshLineGeometry, MeshLineMaterial })
-
-// Force client-side rendering for Three.js components
-const LanyardClient = dynamic(() => Promise.resolve(Lanyard), {
-	ssr: false,
-	loading: () => <div className="pointer-events-none fixed top-0 left-0 z-10 h-[100vh] w-[100vw]" />
-})
 
 interface LanyardProps {
 	position?: [number, number, number]
@@ -54,20 +47,60 @@ export default function Lanyard({
 	currency = 'EUR',
 	discount,
 }: LanyardProps) {
-	// Global suppression of GLTFLoader texture errors
+	const [isClient, setIsClient] = useState(false)
+	const [hasError, setHasError] = useState(false)
+
+	// Ensure client-side rendering
+	useEffect(() => {
+		setIsClient(true)
+	}, [])
+
+	// Enhanced error suppression for GLTFLoader texture errors
 	React.useEffect(() => {
 		const originalError = console.error
+		const originalWarn = console.warn
+
 		console.error = (...args) => {
 			const message = String(args[0] ?? '')
-			if (message.includes("THREE.GLTFLoader: Couldn't load texture") || message.includes('blob:http://localhost')) {
+			if (
+				message.includes("THREE.GLTFLoader: Couldn't load texture") ||
+				message.includes('blob:http://localhost') ||
+				message.includes('blob:') ||
+				message.includes('THREE.GLTFLoader')
+			) {
 				return // Suppress GLTFLoader texture errors
 			}
 			originalError.apply(console, args)
 		}
+
+		console.warn = (...args) => {
+			const message = String(args[0] ?? '')
+			if (
+				message.includes("THREE.GLTFLoader: Couldn't load texture") ||
+				message.includes('blob:http://localhost') ||
+				message.includes('blob:') ||
+				message.includes('THREE.GLTFLoader')
+			) {
+				return // Suppress GLTFLoader texture warnings
+			}
+			originalWarn.apply(console, args)
+		}
+
 		return () => {
 			console.error = originalError
+			console.warn = originalWarn
 		}
 	}, [])
+
+	// Don't render anything on server-side
+	if (!isClient) {
+		return <div className="pointer-events-none fixed top-0 left-0 z-10 h-[100vh] w-[100vw]" />
+	}
+
+	// Don't render if there's an error
+	if (hasError) {
+		return <div className="pointer-events-none fixed top-0 left-0 z-10 h-[100vh] w-[100vw]" />
+	}
 
 	return (
 		<div className="pointer-events-none fixed top-0 left-0 z-10 h-[100vh] w-[100vw]">
@@ -78,6 +111,10 @@ export default function Lanyard({
 				style={{ pointerEvents: 'none' }}
 				eventSource={undefined}
 				eventPrefix="client"
+				onError={error => {
+					console.warn('Canvas error:', error)
+					setHasError(true)
+				}}
 			>
 				<ambientLight intensity={Math.PI} />
 				<Physics gravity={gravity} timeStep={1 / 60}>
@@ -430,6 +467,14 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 			nodes = {}
 		}
 
+		// Wait for model to be fully loaded
+		const [isModelLoaded, setIsModelLoaded] = useState(false)
+		useEffect(() => {
+			if (nodes && Object.keys(nodes).length > 0) {
+				setIsModelLoaded(true)
+			}
+		}, [nodes])
+
 		// Suppress GLTFLoader texture errors silently
 		React.useEffect(() => {
 			const originalError = console.error
@@ -461,6 +506,11 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		const savingsAmount = hasDiscount ? (originalPrice ?? 0) - (price ?? 0) : 0
 		const discountPercentage =
 			hasDiscount && originalPrice != null ? Math.round((savingsAmount / originalPrice) * 100) : 0
+
+		// Don't render if model is not loaded
+		if (!isModelLoaded) {
+			return <group scale={2} position={[0, 0, 0]} />
+		}
 
 		return (
 			<group scale={2} position={[0, 0, 0]}>
