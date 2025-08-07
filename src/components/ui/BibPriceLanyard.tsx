@@ -319,6 +319,47 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 
 	curve.curveType = 'chordal'
 
+	// Create a gradient texture for the card like CTA landing style
+	const [cardGradientTexture] = useState(() => {
+		const canvas = document.createElement('canvas')
+		canvas.width = 512
+		canvas.height = 512
+		const ctx = canvas.getContext('2d')!
+
+		// Create a blue-black gradient like CTA landing
+		const gradient = ctx.createLinearGradient(0, 0, 512, 512)
+		gradient.addColorStop(0, '#1e293b') // Bleu foncé en haut (slate-800)
+		gradient.addColorStop(0.3, '#0f172a') // Bleu très foncé (slate-900)
+		gradient.addColorStop(0.6, '#020617') // Presque noir (slate-950)
+		gradient.addColorStop(1, '#000000') // Noir pur en bas
+
+		ctx.fillStyle = gradient
+		ctx.fillRect(0, 0, 512, 512)
+
+		// Add subtle noise for texture
+		ctx.globalAlpha = 0.05
+		for (let i = 0; i < 2000; i++) {
+			const x = Math.random() * 512
+			const y = Math.random() * 512
+			const size = Math.random() * 2
+			const brightness = 200 + Math.random() * 55
+
+			ctx.fillStyle = `rgb(${brightness}, ${brightness}, ${brightness})`
+			ctx.fillRect(x, y, size, size)
+		}
+		ctx.globalAlpha = 1.0
+
+		const texture = new THREE.CanvasTexture(canvas)
+		texture.wrapS = THREE.ClampToEdgeWrapping
+		texture.wrapT = THREE.ClampToEdgeWrapping
+		texture.generateMipmaps = false
+		texture.minFilter = THREE.LinearFilter
+		texture.magFilter = THREE.LinearFilter
+		texture.flipY = false
+		texture.needsUpdate = true
+		return texture
+	})
+
 	// Create a simple card component with price display
 	const SimpleCard = ({
 		price,
@@ -363,13 +404,13 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 				{/* Main card body from GLB model */}
 				<mesh geometry={nodes.card?.geometry ?? undefined}>
 					<meshPhysicalMaterial
-						// Désactive complètement la map pour éviter les erreurs de texture blob
-						map={null}
+						// Applique la texture de dégradé bleu-noir comme le CTA landing
+						map={cardGradientTexture}
 						clearcoat={1}
 						clearcoatRoughness={0.15}
-						roughness={0.9}
-						metalness={0.8}
-						color="#f0f0f0"
+						roughness={0.6}
+						metalness={0.1}
+						color="#e2e8f0"
 					/>
 				</mesh>
 
@@ -400,7 +441,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 
 							{/* Main Price */}
 							<div className="mb-2 text-center">
-								<span className="text-5xl font-bold text-gray-800 italic">
+								<span className="text-5xl font-bold text-gray-50 italic">
 									{price}
 									{currency === 'EUR' ? '€' : '$'}
 								</span>
