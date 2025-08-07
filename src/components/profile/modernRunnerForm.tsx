@@ -8,8 +8,8 @@ import { SelectAlt, SelectContentAlt, SelectItemAlt, SelectTriggerAlt, SelectVal
 import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { CheckCircle, User as UserIcon, Shield, MapPin, FileText, AlertTriangle, Save } from 'lucide-react'
-import { useForm } from 'react-hook-form'
-import { object, string, minLength, picklist, pipe, optional } from 'valibot'
+import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import { object, string, minLength, picklist, pipe, optional, date } from 'valibot'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { User } from '@/models/user.model'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
@@ -18,7 +18,7 @@ import { isUserProfileComplete } from '@/lib/userValidation'
 type RunnerFormData = {
 	firstName: string
 	lastName: string
-	birthDate: string
+	birthDate: Date
 	phoneNumber: string
 	emergencyContactName: string
 	emergencyContactPhone: string
@@ -36,7 +36,7 @@ type RunnerFormData = {
 const runnerFormSchema = object({
 	firstName: pipe(string(), minLength(2, 'First name must be at least 2 characters')),
 	lastName: pipe(string(), minLength(2, 'Last name must be at least 2 characters')),
-	birthDate: pipe(string(), minLength(4, 'Please enter a valid birth date')),
+	birthDate: date(),
 	phoneNumber: pipe(string(), minLength(8, 'Invalid phone number')),
 	emergencyContactName: pipe(string(), minLength(2, 'Contact name must be at least 2 characters')),
 	emergencyContactPhone: pipe(string(), minLength(8, 'Invalid phone number')),
@@ -61,7 +61,12 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 		defaultValues: {
 			firstName: user?.firstName ?? '',
 			lastName: user?.lastName ?? '',
-			birthDate: user?.birthDate ?? '',
+			birthDate:
+				user?.birthDate && !(user.birthDate instanceof Date)
+					? new Date(user.birthDate)
+					: user?.birthDate instanceof Date
+						? user.birthDate
+						: undefined,
 			phoneNumber: user?.phoneNumber ?? '',
 			emergencyContactName: user?.emergencyContactName ?? '',
 			emergencyContactPhone: user?.emergencyContactPhone ?? '',
@@ -77,28 +82,31 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 		},
 	})
 
-	function onSubmit(values: RunnerFormData) {
+	const onSubmit: SubmitHandler<RunnerFormData> = values => {
 		if (user === null) return
-
+		const payload: Partial<User> = {
+			...values,
+			birthDate:
+				values.birthDate instanceof Date ? values.birthDate : values.birthDate ? new Date(values.birthDate) : undefined,
+		}
+		console.info('Submitting profile update:', payload)
 		startTransition(async () => {
 			try {
 				setSubmitStatus('idle')
-				await updateUserProfile(user.id, values as Partial<User>)
+				await updateUserProfile(user.id, payload)
 				setSubmitStatus('success')
-				// Reset success message after 3 seconds
 				setTimeout(() => setSubmitStatus('idle'), 3000)
 			} catch (error) {
 				console.error(error)
 				setSubmitStatus('error')
-				// Reset error message after 5 seconds
 				setTimeout(() => setSubmitStatus('idle'), 5000)
 			}
 		})
 	}
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		form.handleSubmit(onSubmit)(e).catch(console.error)
+		void form.handleSubmit(onSubmit)(e)
 	}
 
 	return (
@@ -165,7 +173,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								placeholder="Enter your first name"
 								type="text"
 							/>
-							{form.formState.errors.firstName && (
+							{typeof form.formState.errors.firstName?.message === 'string' && (
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.firstName.message}</p>
 							)}
 						</div>
@@ -181,7 +189,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								placeholder="Enter your last name"
 								type="text"
 							/>
-							{form.formState.errors.lastName && (
+							{typeof form.formState.errors.lastName?.message === 'string' && (
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.lastName.message}</p>
 							)}
 						</div>
@@ -190,13 +198,23 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="birthDate">
 								Birth Date *
 							</Label>
-							<Input
-								{...form.register('birthDate')}
-								className={form.formState.errors.birthDate ? 'border-red-500' : ''}
-								id="birthDate"
-								type="date"
+							<Controller
+								name="birthDate"
+								control={form.control}
+								render={({ field }) => (
+									<Input
+										id="birthDate"
+										type="date"
+										className={form.formState.errors.birthDate?.message != null ? 'border-red-500' : ''}
+										value={field.value != null ? field.value.toISOString().slice(0, 10) : ''}
+										onChange={e => {
+											const val = e.target.value
+											field.onChange(val ? new Date(val) : undefined)
+										}}
+									/>
+								)}
 							/>
-							{form.formState.errors.birthDate && (
+							{typeof form.formState.errors.birthDate?.message === 'string' && (
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.birthDate.message}</p>
 							)}
 						</div>

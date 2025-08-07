@@ -12,7 +12,7 @@ describe('isUserProfileComplete', () => {
 		email: 'john.doe@example.com',
 		firstName: 'John',
 		lastName: 'Doe',
-		birthDate: '1990-01-01',
+		birthDate: new Date('1990-01-01'),
 		phoneNumber: '+33123456789',
 		emergencyContactName: 'Jane Doe',
 		emergencyContactPhone: '+33987654321',
