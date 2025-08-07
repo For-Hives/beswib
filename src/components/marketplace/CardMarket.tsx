@@ -30,6 +30,7 @@ export interface BibSale {
 		id: string
 		lastName: string
 	}
+	lockedAt: Date | null
 }
 
 interface CardMarketProps {

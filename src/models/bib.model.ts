@@ -19,4 +19,6 @@ export interface Bib {
 	listed: 'private' | 'public' | null
 	validated: boolean
 	optionValues: Record<string, string>
+
+	lockedAt?: Date | null // Timestamp when the bib was locked for purchase
 }
