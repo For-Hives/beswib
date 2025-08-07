@@ -47,6 +47,21 @@ export default function Lanyard({
 	currency = 'EUR',
 	discount,
 }: LanyardProps) {
+	// Global suppression of GLTFLoader texture errors
+	React.useEffect(() => {
+		const originalError = console.error
+		console.error = (...args) => {
+			const message = String(args[0] || '')
+			if (message.includes("THREE.GLTFLoader: Couldn't load texture") || message.includes('blob:http://localhost')) {
+				return // Suppress GLTFLoader texture errors
+			}
+			originalError.apply(console, args)
+		}
+		return () => {
+			console.error = originalError
+		}
+	}, [])
+
 	return (
 		<div className="pointer-events-none fixed top-0 left-0 z-10 h-[100vh] w-[100vw]">
 			<Canvas
@@ -411,14 +426,27 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		// Suppress GLTFLoader texture errors silently
 		React.useEffect(() => {
 			const originalError = console.error
+			const originalWarn = console.warn
+
 			console.error = (...args) => {
-				if (args[0]?.includes?.("THREE.GLTFLoader: Couldn't load texture")) {
+				const message = args[0]?.toString?.() || ''
+				if (message.includes("THREE.GLTFLoader: Couldn't load texture") || message.includes('blob:')) {
 					return // Ignore texture blob errors silently
 				}
 				originalError.apply(console, args)
 			}
+
+			console.warn = (...args) => {
+				const message = args[0]?.toString?.() || ''
+				if (message.includes("THREE.GLTFLoader: Couldn't load texture") || message.includes('blob:')) {
+					return // Ignore texture blob warnings silently
+				}
+				originalWarn.apply(console, args)
+			}
+
 			return () => {
 				console.error = originalError
+				console.warn = originalWarn
 			}
 		}, [])
 		// Calculate savings and discount percentage
