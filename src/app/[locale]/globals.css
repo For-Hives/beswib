@@ -18,7 +18,7 @@
     }
   }
   .animate-dash {
-    animation: dash 6s linear infinite;
+    animation: dash 6s linear infinite alternate;
   }
 
   /* Horizontal bike glide */
@@ -75,7 +75,7 @@
     100% { transform: translateX(40px) translateY(0); opacity: .85; }
   }
   .animate-birds {
-    animation: birds-fly 5s ease-in-out infinite;
+    animation: birds-fly 5s ease-in-out infinite alternate;
   }
   /* Subtle wing flap */
   @keyframes bird-flap {

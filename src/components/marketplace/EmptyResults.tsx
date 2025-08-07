@@ -56,8 +56,8 @@ export default function EmptyResults({ locale }: Readonly<EmptyResultsProps>) {
 					/>
 				</svg>
 				{/* Snow particles above the peaks */}
-				<svg className="absolute top-0 left-1/2 h-10 w-28 -translate-x-1/2" viewBox="0 0 120 40" fill="none">
-					{[5, 20, 35, 55, 75, 95].map((x, i) => (
+				<svg className="absolute top-0 left-1/2 h-10 w-28 -translate-x-1/2 scale-175" viewBox="0 0 120 80" fill="none">
+					{[5, 20, 35, 55, 75, 95, 110, 125, 150, 175, 190, 205, 220, 235, 250, 265, 280, 295].map((x, i) => (
 						<circle
 							key={x}
 							cx={x}
@@ -69,26 +69,9 @@ export default function EmptyResults({ locale }: Readonly<EmptyResultsProps>) {
 						/>
 					))}
 				</svg>
-				{/* Magnifying glass removed */}
 
-				{/* Pine tree on the side (more detailed) */}
-				<svg className="text-foreground/70 absolute bottom-3 left-1 h-20 w-12" viewBox="0 0 48 96" fill="none">
-					<rect x="22" y="58" width="4" height="30" rx="1" fill="currentColor" opacity="0.7" />
-					<path d="M24 12 L8 36 H40 Z" fill="currentColor" opacity="0.18" />
-					<path d="M24 22 L10 44 H38 Z" fill="currentColor" opacity="0.24" />
-					<path d="M24 30 L12 52 H36 Z" fill="currentColor" opacity="0.3" />
-					<path d="M24 38 L14 56 H34 Z" fill="currentColor" opacity="0.36" />
-					<path d="M24 46 L16 60 H32 Z" fill="currentColor" opacity="0.42" />
-					<path d="M24 12 L8 36 H40 Z" fill="white" opacity="0.15" />
-					<path d="M24 22 L10 44 H38 Z" fill="white" opacity="0.12" />
-					<path d="M24 30 L12 52 H36 Z" fill="white" opacity="0.1" />
-				</svg>
 				{/* Water stream descending from a mountain gap (aligned to valley at x=120,y=90) */}
-				<svg
-					className="text-primary/60 absolute inset-x-0 top-0 mx-auto h-36 w-full"
-					viewBox="0 0 300 200"
-					fill="none"
-				>
+				<svg className="text-primary/60 absolute inset-x-0 top-1 mx-auto h-36 w-full" viewBox="0 0 300 200" fill="none">
 					<path
 						d="M120 90 C 118 100, 130 108, 128 118 S 140 136, 136 152 S 144 168, 140 188"
 						stroke="currentColor"
@@ -100,7 +83,7 @@ export default function EmptyResults({ locale }: Readonly<EmptyResultsProps>) {
 				</svg>
 
 				{/* Birds at the top (more realistic shapes and motion) */}
-				<svg className="text-foreground/80 absolute top-3 right-6 h-8 w-24" viewBox="0 0 96 32" fill="none">
+				<svg className="text-foreground/80 absolute top-3 right-6 h-8 w-24 scale-150" viewBox="0 0 96 64" fill="none">
 					<g className="animate-birds">
 						<g className="animate-bird-flap">
 							<path d="M6 18 q6 -8 12 0 q-6 -4 -12 0Z" fill="currentColor" />
