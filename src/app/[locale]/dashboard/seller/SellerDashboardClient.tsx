@@ -51,7 +51,12 @@ import { Locale } from '@/lib/i18n-config'
 
 import sellerTranslations from './locales.json'
 
-export default function SellerDashboardClient({ sellerBibs = [], locale, clerkUser, user }: SellerDashboardClientProps) {
+export default function SellerDashboardClient({
+	sellerBibs = [],
+	locale,
+	clerkUser,
+	user,
+}: SellerDashboardClientProps) {
 	const t = getTranslations(locale, sellerTranslations)
 
 	const userName = clerkUser?.firstName ?? clerkUser?.emailAddresses?.[0]?.emailAddress ?? 'Seller'
