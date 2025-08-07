@@ -38,7 +38,7 @@ interface LanyardProps {
 }
 
 export default function Lanyard({
-	position = [0, 0, 40],
+	position = [0, 0, 27],
 	gravity = [0, -40, 0],
 	fov = 16,
 	transparent = true,
@@ -361,63 +361,9 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 						clearcoatRoughness={0.15}
 						roughness={0.9}
 						metalness={0.8}
-						color="#d0d0d0"
+						color="#f0f0f0"
 					/>
 				</mesh>
-
-				{/* Price Card Content - fit perfectly in card */}
-				{price != null && (
-					<Html
-						transform
-						position={[0, -0.2, 0.02]}
-						scale={0.22}
-						style={{
-							pointerEvents: 'none',
-							userSelect: 'none',
-							width: '100%',
-							height: '100%',
-						}}
-					>
-						<div className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-gradient-to-br p-3">
-							{/* Discount Badge */}
-							{hasDiscount && discountPercentage > 0 && (
-								<div className="mb-4">
-									<span className="inline-flex items-center rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-md">
-										-{discountPercentage}% OFF
-									</span>
-								</div>
-							)}
-
-							{/* Main Price */}
-							<div className="mb-3 text-center">
-								<span className="text-4xl font-bold text-gray-900">
-									{currency === 'EUR' ? '€' : '$'}
-									{price}
-								</span>
-							</div>
-
-							{/* Original Price */}
-							{hasDiscount && (
-								<div className="mb-4 text-center">
-									<span className="text-xl text-gray-500 line-through">
-										{currency === 'EUR' ? '€' : '$'}
-										{originalPrice}
-									</span>
-								</div>
-							)}
-
-							{/* Savings Amount */}
-							{hasDiscount && savingsAmount > 0 && (
-								<div className="text-center">
-									<span className="text-base font-medium text-green-600">
-										Save {currency === 'EUR' ? '€' : '$'}
-										{savingsAmount.toFixed(2)}
-									</span>
-								</div>
-							)}
-						</div>
-					</Html>
-				)}
 
 				{/* Clip - real geometry from GLB model */}
 				{nodes.clip?.geometry != null && (
