@@ -8,7 +8,7 @@ export interface User {
 	firstName: null | string
 	lastName: null | string
 
-	birthDate: null | string
+	birthDate: null | Date
 	phoneNumber: null | string
 	emergencyContactName: null | string
 	emergencyContactPhone: null | string
