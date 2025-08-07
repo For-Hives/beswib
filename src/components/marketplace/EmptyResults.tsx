@@ -32,6 +32,9 @@ const texts: Record<Locale, { title: string; subtitle: string; cta: string }> = 
 export default function EmptyResults({ locale }: Readonly<EmptyResultsProps>) {
 	const t = texts[locale] ?? texts.en
 
+	// Single source of truth for the mountain path so the dashed trail matches exactly
+	const mountainD = 'M10 110 L70 40 L120 90 L170 20 L230 95 L290 110'
+
 	return (
 		<div className="flex flex-col items-center justify-center py-16 text-center">
 			<div className="relative mb-8 h-40 w-56">
@@ -41,14 +44,15 @@ export default function EmptyResults({ locale }: Readonly<EmptyResultsProps>) {
 					viewBox="0 0 300 120"
 					fill="none"
 				>
-					<path d="M10 110 L70 40 L120 90 L170 20 L230 95 L290 110" stroke="currentColor" strokeWidth="2" fill="none" />
+					<path d={mountainD} stroke="currentColor" strokeWidth="2" fill="none" />
 					<path
-						d="M15 108 L75 50 L125 92 L175 30 L235 98 L285 108"
+						d={mountainD}
 						stroke="currentColor"
 						strokeWidth="2"
 						strokeDasharray="6 10"
 						className="animate-dash"
 						fill="none"
+						transform="translate(0,8)"
 					/>
 				</svg>
 				{/* Magnifying glass sweeping over */}
