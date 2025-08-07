@@ -7,7 +7,7 @@ import locales from './locales.json'
 // Props for OfferCounter: count of bibs, current sort value, and sort change handler 🔢
 interface OfferCounterProps {
 	readonly count: number
-	readonly locale?: keyof typeof locales // optional, fallback to 'en'  fallback to 'en' 🌐
+	readonly locale?: string // optional, fallback to 'en'  fallback to 'en' 🌐
 	readonly onSortChange: (value: string) => void
 	readonly sortValue: string
 }
@@ -15,7 +15,7 @@ interface OfferCounterProps {
 // OfferCounter displays the number of available bibs and a sort dropdown 🔢
 export default function OfferCounter({ sortValue, onSortChange, locale, count }: OfferCounterProps) {
 	const lang = locale ?? 'en'
-	const t = locales[lang] ?? locales['en']
+	const t = locales[lang as keyof typeof locales] ?? locales['en']
 	let countLabel = ''
 	if (count === 0) {
 		countLabel = t.noBibs

@@ -14,7 +14,7 @@ import { Slider } from '@/components/ui/slider'
 import locales from './locales.json'
 
 interface MarketplaceSidebarProps {
-	readonly locale?: keyof typeof locales
+	readonly locale?: string
 	readonly maxPrice?: number
 	readonly onFiltersChange?: (filters: MarketplaceFilters) => void
 	readonly regions?: string[]
@@ -53,15 +53,15 @@ export default function MarketplaceSidebar({
 	const [showAllDistances, setShowAllDistances] = useState(false)
 
 	const lang = locale ?? 'en'
-	const t = locales[lang] ?? locales['en']
+	const t = locales[lang as keyof typeof locales] ?? locales['en']
 
 	// Sports options
 	const sportsOptions = [
 		{ value: 'running', label: 'Running', icon: '🏃' },
 		{ value: 'trail', label: 'Trail', icon: '🏔️' },
 		{ value: 'triathlon', label: 'Triathlon', icon: '🏊‍♂️🚴‍♂️🏃‍♂️' },
-		{ value: 'cycling', label: t.cycling || 'Cycling', icon: '🚴' },
-		{ value: 'swimming', label: t.swimming || 'Swimming', icon: '🏊' },
+		{ value: 'cycling', label: t.cycling ?? 'Cycling', icon: '🚴' },
+		{ value: 'swimming', label: t.swimming ?? 'Swimming', icon: '🏊' },
 		{ value: 'other', label: 'Other', icon: '🏅' },
 	]
 
@@ -120,11 +120,11 @@ export default function MarketplaceSidebar({
 
 	// Handle date changes
 	const handleDateStartChange = (date: string) => {
-		updateFilters({ dateStart: date || undefined })
+		updateFilters({ dateStart: date ?? undefined })
 	}
 
 	const handleDateEndChange = (date: string) => {
-		updateFilters({ dateEnd: date || undefined })
+		updateFilters({ dateEnd: date ?? undefined })
 	}
 
 	// Reset filters
@@ -166,7 +166,7 @@ export default function MarketplaceSidebar({
 					<div className="flex items-center justify-between">
 						<h2 className="flex items-center gap-2 text-lg font-semibold">
 							<Filter className="h-5 w-5" />
-							{t.filters || 'Filters'}
+							{t.filters ?? 'Filters'}
 						</h2>
 						{activeFiltersCount > 0 && (
 							<Button
@@ -186,7 +186,7 @@ export default function MarketplaceSidebar({
 				<div className="space-y-3">
 					<Label className="flex items-center gap-2 text-sm font-medium">
 						<Activity className="h-4 w-4" />
-						{t.sport || 'Sport'}
+						{t.sport ?? 'Sport'}
 					</Label>
 					<div className="space-y-2">
 						<div className="grid grid-cols-2 gap-2">
@@ -230,7 +230,7 @@ export default function MarketplaceSidebar({
 				<div className="space-y-3">
 					<Label className="flex items-center gap-2 text-sm font-medium">
 						<SlidersHorizontal className="h-4 w-4" />
-						{t.distance || 'Distance'}
+						{t.distance ?? 'Distance'}
 					</Label>
 					<div className="space-y-2">
 						<div className="space-y-1">
@@ -274,7 +274,7 @@ export default function MarketplaceSidebar({
 				<div className="space-y-3">
 					<Label className="flex items-center gap-2 text-sm font-medium">
 						<Euro className="h-4 w-4" />
-						{t.priceRange || 'Price Range'}
+						{t.priceRange ?? 'Price Range'}
 					</Label>
 					<div className="space-y-3">
 						<Slider
@@ -296,7 +296,7 @@ export default function MarketplaceSidebar({
 				<div className="space-y-3">
 					<Label className="flex items-center gap-2 text-sm font-medium">
 						<MapPin className="h-4 w-4" />
-						{t.region || 'Location'}
+						{t.region ?? 'Location'}
 					</Label>
 					<div className="space-y-2">
 						<Input
@@ -324,7 +324,7 @@ export default function MarketplaceSidebar({
 				<div className="space-y-3">
 					<Label className="flex items-center gap-2 text-sm font-medium">
 						<Calendar className="h-4 w-4" />
-						{t.date || 'Event Date'}
+						{t.date ?? 'Event Date'}
 					</Label>
 					<div className="space-y-2">
 						<div className="space-y-1">
