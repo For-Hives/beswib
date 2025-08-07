@@ -12,7 +12,7 @@ import { fetchAvailableBibsForEvent } from '@/services/bib.services'
 import { Input } from '@/components/ui/inputAlt'
 import { SelectAlt, SelectContentAlt, SelectItemAlt, SelectTriggerAlt, SelectValueAlt } from '@/components/ui/selectAlt'
 import { TriathlonIcon, TrailIcon, RouteIcon, UltraIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
-import SpotlightCard from '@/Components/SpotlightCard/SpotlightCard'
+import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
 import Translations from './locales.json'
 
 interface EventsPageProps {
