@@ -23,5 +23,14 @@ export function isUserProfileComplete(user: User | null): boolean {
 		user.gender,
 	]
 
-	return requiredFields.every(field => field !== null && field !== undefined && field.trim() !== '')
+	return requiredFields.every(field => {
+		if (field === null || field === undefined) return false
+		if (field instanceof Date) {
+			return !isNaN(field.getTime())
+		}
+		if (typeof field === 'string') {
+			return field.trim() !== ''
+		}
+		return true
+	})
 }
