@@ -35,15 +35,26 @@ export default async function MarketplacePage({ params }: { params: Promise<Loca
 	const bibs: BibSale[] = transformBibsToBibSales(availableBibs)
 
 	return (
-		<div className="mx-auto max-w-7xl p-5 font-sans">
+		<div className="min-h-screen">
 			{/* Page header with title and description */}
-			<header className="mb-8 text-center">
-				<h1 className="text-3xl font-bold">{t.title}</h1>
-				<p className="text-lg text-gray-600">{t.description}</p>
+			<header className="border-border bg-card/50 border-b px-6 py-4">
+				<div className="mx-auto max-w-7xl">
+					<h1 className="text-2xl font-bold">{t.title}</h1>
+					<p className="text-muted-foreground text-sm">{t.description}</p>
+				</div>
 			</header>
 
 			{/* Client component that handles filtering, sorting, and displaying bibs */}
-			<Suspense fallback={<div className="text-center text-gray-500">Loading marketplace...</div>}>
+			<Suspense
+				fallback={
+					<div className="flex h-64 items-center justify-center">
+						<div className="text-center">
+							<div className="border-primary mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2"></div>
+							<p className="text-muted-foreground">Loading marketplace...</p>
+						</div>
+					</div>
+				}
+			>
 				<MarketplaceClient bibs={bibs} locale={locale} />
 			</Suspense>
 		</div>
