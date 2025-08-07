@@ -244,12 +244,11 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 							)}
 						</div>
 
-						<div className="relative z-[9999]">
+						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="gender">
 								Gender *
 							</Label>
 							<SelectAnimated
-								className="relative z-[9999]"
 								onValueChange={value => form.setValue('gender', value as 'male' | 'female' | 'other')}
 								options={genderOptions}
 								placeholder="Select your gender"
