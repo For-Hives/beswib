@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from 'react'
 
-import { useSearchParams } from 'next/navigation'
+import { useQueryState } from 'nuqs'
 import { useUser } from '@clerk/nextjs'
 
 import { completePayPalOnboarding } from '@/services/paypal-onboarding.services'
 
 export default function PayPalCallbackHandler() {
-	const searchParams = useSearchParams()
+	const [merchantId] = useQueryState('merchantId')
+	const [merchantIdInPayPal] = useQueryState('merchantIdInPayPal')
 	const { user } = useUser()
 	const [status, setStatus] = useState<'error' | 'loading' | 'success'>('loading')
 	const [message, setMessage] = useState('')
@@ -16,19 +17,13 @@ export default function PayPalCallbackHandler() {
 	useEffect(() => {
 		const handleCallback = async () => {
 			try {
-				const merchantId = searchParams.get('merchantId')
-				const merchantIdInPayPal = searchParams.get('merchantIdInPayPal')
-
 				if (user?.id === null || user?.id === undefined || user?.id === '') {
 					setStatus('error')
 					setMessage('User not authenticated')
 					return
 				}
 
-				if (
-					(merchantId === null || merchantId === undefined || merchantId === '') &&
-					(merchantIdInPayPal === null || merchantIdInPayPal === undefined || merchantIdInPayPal === '')
-				) {
+				if ((merchantId == null || merchantId === '') && (merchantIdInPayPal == null || merchantIdInPayPal === '')) {
 					setStatus('error')
 					setMessage('Missing merchant ID from PayPal')
 					return
@@ -36,7 +31,7 @@ export default function PayPalCallbackHandler() {
 
 				const finalMerchantId = merchantId ?? merchantIdInPayPal
 
-				if (finalMerchantId === null || finalMerchantId === '') {
+				if (finalMerchantId == null || finalMerchantId === '') {
 					setStatus('error')
 					setMessage('Invalid merchant ID')
 					return
@@ -45,7 +40,7 @@ export default function PayPalCallbackHandler() {
 				// Complete the onboarding process
 				const result = await completePayPalOnboarding(user.id, finalMerchantId)
 
-				if (result.error !== null && result.error !== undefined && result.error !== '') {
+				if (result.error != null && result.error !== '') {
 					setStatus('error')
 					setMessage(result.error)
 					return
@@ -67,7 +62,7 @@ export default function PayPalCallbackHandler() {
 		}
 
 		void handleCallback()
-	}, [searchParams, user?.id])
+	}, [merchantId, merchantIdInPayPal, user?.id])
 
 	return (
 		<div className="space-y-4">

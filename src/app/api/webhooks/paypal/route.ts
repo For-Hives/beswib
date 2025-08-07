@@ -1,21 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { updateUser } from '@/services/user.services'
+import {
+	handlePaymentCaptureCompleted,
+	handleCheckoutOrderApproved,
+	handleOnboardingCompleted,
+	handleSellerConsentGranted,
+	handleConsentRevoked,
+	PayPalWebhookEvent,
+} from '@/services/paypal.services'
 
-interface PayPalWebhookEvent {
-	create_time: string
-	event_type: string
-	resource: {
-		account_status?: string
-		consent_status?: string
-		merchant_id?: string
-		partner_client_id?: string
-		permissions?: string[]
-		tracking_id?: string
-	}
-	resource_type: string
-	summary: string
-}
+// PayPalWebhookEvent type is now imported from paypal.services
 
 // Handle GET requests for webhook verification (PayPal may send GET requests to verify the endpoint)
 export function GET() {
@@ -39,171 +33,36 @@ export async function POST(request: NextRequest) {
 		// Parse the webhook payload
 		const webhookEvent = JSON.parse(body) as PayPalWebhookEvent
 
-		// Verify webhook signature (basic check - in production, implement proper signature verification)
-
 		// TODO: Implement proper webhook signature verification
 		// For now, we'll process the webhook without signature verification
 		// In production, you should verify the signature using PayPal's SDK
 
 		console.info('Processing PayPal webhook event:', webhookEvent.event_type)
 
+		let result: unknown = null
 		switch (webhookEvent.event_type) {
 			case 'MERCHANT.ONBOARDING.COMPLETED':
-				await handleOnboardingCompleted(webhookEvent)
+				result = await handleOnboardingCompleted(webhookEvent)
 				break
-
 			case 'MERCHANT.PARTNER-CONSENT.REVOKED':
-				await handleConsentRevoked(webhookEvent)
+				result = await handleConsentRevoked(webhookEvent)
 				break
-
 			case 'CUSTOMER.MERCHANT-INTEGRATION.SELLER-CONSENT-GRANTED':
-				await handleSellerConsentGranted(webhookEvent)
+				result = await handleSellerConsentGranted(webhookEvent)
 				break
-
+			case 'PAYMENT.CAPTURE.COMPLETED':
+				result = await handlePaymentCaptureCompleted(webhookEvent)
+				break
+			case 'CHECKOUT.ORDER.APPROVED':
+				result = await handleCheckoutOrderApproved(webhookEvent)
+				break
 			default:
 				console.info('Unhandled PayPal webhook event type:', webhookEvent.event_type)
 		}
 
-		return NextResponse.json({ status: 'success' })
+		return NextResponse.json({ status: 'success', result })
 	} catch (error) {
 		console.error('PayPal webhook error:', error)
 		return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 })
-	}
-}
-
-async function handleConsentRevoked(event: PayPalWebhookEvent) {
-	try {
-		const { resource } = event
-		const merchantId = resource.merchant_id
-		const trackingId = resource.tracking_id
-
-		console.info('Handling consent revoked:', {
-			trackingId,
-			merchantId,
-		})
-
-		if ((trackingId?.startsWith('seller_') ?? false) === false) {
-			console.error('Invalid tracking ID format in consent revoked:', trackingId)
-			return
-		}
-
-		const userId = trackingId != null ? trackingId.split('_')[1] : undefined
-		if (userId == null) {
-			console.error('Could not extract user ID from tracking ID:', trackingId)
-			return
-		}
-
-		// Remove PayPal merchant ID from user
-		await updateUser(userId, {
-			paypalMerchantId: null,
-		})
-
-		console.info('Successfully removed PayPal merchant ID from user:', {
-			userId,
-			merchantId,
-		})
-	} catch (error) {
-		console.error('Error handling consent revoked:', error)
-	}
-}
-
-async function handleOnboardingCompleted(event: PayPalWebhookEvent) {
-	try {
-		const { resource } = event
-		const merchantId = resource.merchant_id
-		const trackingId = resource.tracking_id
-
-		console.info('Handling onboarding completed:', {
-			trackingId,
-			merchantId,
-			consentStatus: resource.consent_status,
-			accountStatus: resource.account_status,
-		})
-
-		if (merchantId == null || (trackingId?.startsWith('seller_') ?? false) === false) {
-			console.error('Invalid tracking ID or missing merchant ID:', { trackingId, merchantId })
-			return
-		}
-
-		const userId = trackingId != null ? trackingId.split('_')[1] : undefined
-		if (userId == null) {
-			console.error('Could not extract user ID from tracking ID:', trackingId)
-			return
-		}
-
-		// Update user with PayPal merchant ID
-		await updateUser(userId, {
-			paypalMerchantId: merchantId,
-		})
-
-		console.info('Successfully updated user with PayPal merchant ID:', {
-			userId,
-			merchantId,
-		})
-	} catch (error) {
-		console.error('Error handling onboarding completed:', error)
-	}
-}
-
-// Handle seller consent granted event
-async function handleSellerConsentGranted(event: PayPalWebhookEvent) {
-	try {
-		const { resource } = event
-		const merchantId = resource.merchant_id
-		const trackingId = resource.tracking_id
-
-		console.info('Handling seller consent granted:', {
-			trackingId,
-			merchantId,
-			event,
-		})
-
-		if (merchantId == null || (trackingId?.startsWith('seller_') ?? false) === false) {
-			console.error('Invalid tracking ID or missing merchant ID:', { trackingId, merchantId, event })
-			return
-		}
-
-		const userId = trackingId != null ? trackingId.split('_')[1] : undefined
-		if (userId == null) {
-			console.error('Could not extract user ID from tracking ID:', { trackingId, event })
-			return
-		}
-
-		// Retry updateUser up to 3 times on failure
-		let lastError = null
-		for (let attempt = 1; attempt <= 3; attempt++) {
-			try {
-				await updateUser(userId, {
-					paypalMerchantId: merchantId,
-				})
-				console.info('Successfully updated user with PayPal merchant ID (consent granted):', {
-					userId,
-					merchantId,
-					attempt,
-				})
-				lastError = null
-				break
-			} catch (error) {
-				lastError = error
-				console.error(`Attempt ${attempt} failed to update user:`, {
-					userId,
-					merchantId,
-					error,
-					event,
-				})
-				// Wait 1s before retrying
-				if (attempt < 3) await new Promise(resolve => setTimeout(resolve, 1000))
-			}
-		}
-		if (lastError !== null) {
-			console.error('All attempts to update user failed:', {
-				userId,
-				merchantId,
-				lastError,
-				event,
-			})
-		}
-	} catch (error) {
-		console.error('Error handling seller consent granted:', error)
 	}
 }

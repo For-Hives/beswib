@@ -1,4 +1,12 @@
 'use server'
+// Helper: Find transaction by PayPal orderId
+export async function getTransactionByOrderId(orderId: string): Promise<{ id: string; bibId: string } | null> {
+	// TODO: Replace with actual DB query
+	// Example: Query PocketBase or your DB for transaction with matching orderId
+	// This is a stub for integration
+	void orderId // placeholder to use parameter
+	return await Promise.resolve(null)
+}
 
 import type { Transaction } from '@/models/transaction.model'
 
