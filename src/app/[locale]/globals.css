@@ -10,6 +10,36 @@
 	.animate-spin-slow {
 		animation: spin 4s linear infinite;
 	}
+
+  /* Trail dash animation for SVG paths */
+  @keyframes dash {
+    to {
+      stroke-dashoffset: -400;
+    }
+  }
+  .animate-dash {
+    animation: dash 6s linear infinite;
+  }
+
+  /* Horizontal bike glide */
+  @keyframes bike-glide {
+    0% { transform: translateX(-28px); }
+    50% { transform: translateX(28px); }
+    100% { transform: translateX(-28px); }
+  }
+  .animate-bike {
+    animation: bike-glide 5s ease-in-out infinite;
+  }
+
+  /* Sweep animation for magnifying glass */
+  @keyframes sweep {
+    0% { transform: translateX(-36px); opacity: .2; }
+    50% { transform: translateX(36px); opacity: .5; }
+    100% { transform: translateX(-36px); opacity: .2; }
+  }
+  .animate-sweep {
+    animation: sweep 4s ease-in-out infinite;
+  }
 }
 
 :root {
