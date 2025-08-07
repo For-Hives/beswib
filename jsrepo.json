@@ -7,8 +7,8 @@
 	"formatter": "prettier",
 	"configFiles": {},
 	"paths": {
-		"*": "./src/blocks",
-		"Components": "./src/Components",
-		"Animations": "./src/Animations"
+		"*": "./src/components/bits",
+		"Components": "./src/components/bits",
+		"Animations": "./src/components/bits/Animations"
 	}
 }
