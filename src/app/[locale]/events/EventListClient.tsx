@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/inputAlt'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { TriathlonIcon, TrailIcon, RouteIcon, UltraIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
+import { Timeline } from '@/components/ui/timeline'
 import Translations from './locales.json'
 
 interface EventsPageProps {
@@ -163,19 +164,97 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		})
 	}, [filteredEvents, sortBy])
 
-	// Featured events: next 30 days
-	const now = new Date()
-	const thirtyDaysFromNow = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000)
-	const featuredEvents = sortedEvents.filter(event => {
-		const eventDate = new Date(event.eventDate)
-		return eventDate >= now && eventDate <= thirtyDaysFromNow
-	})
+	// Grouping helpers
+	type GroupSections = Array<{ title: string; events: Event[] }>
 
-	// Upcoming events: after 30 days
-	const upcomingEvents = sortedEvents.filter(event => {
-		const eventDate = new Date(event.eventDate)
-		return eventDate > thirtyDaysFromNow
-	})
+	const getMonthKey = (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`
+
+	const getMonthLabel = (date: Date) => {
+		const label = date.toLocaleDateString(locale, { month: 'long', year: 'numeric' })
+		return label.charAt(0).toUpperCase() + label.slice(1)
+	}
+
+	const buildRangeGrouper = <T extends number | null | undefined>(
+		getValue: (e: Event) => T,
+		ranges: Array<{ label: string; test: (v: number) => boolean }>,
+		unknownLabel: string
+	): GroupSections => {
+		const groups: Record<string, Event[]> = {}
+		for (const r of ranges) groups[r.label] = []
+		groups[unknownLabel] = []
+
+		for (const event of sortedEvents) {
+			const raw = getValue(event)
+			if (raw == null) {
+				groups[unknownLabel].push(event)
+				continue
+			}
+			const value = Number(raw)
+			const bucket = ranges.find(r => r.test(value))?.label
+			if (bucket) groups[bucket].push(event)
+		}
+
+		return Object.entries(groups)
+			.filter(([, list]) => (list?.length ?? 0) > 0)
+			.map(([title, list]) => ({ title, events: list }))
+	}
+
+	// Build grouped sections based on selected sort
+	const groupedSections: GroupSections = useMemo(() => {
+		if (sortBy === 'date') {
+			const byMonth: Record<string, Event[]> = {}
+			for (const event of sortedEvents) {
+				const d = new Date(event.eventDate)
+				const key = getMonthKey(d)
+				if (!byMonth[key]) byMonth[key] = []
+				byMonth[key].push(event)
+			}
+			return Object.entries(byMonth).map(([key, list]) => {
+				const [y, m] = key.split('-').map(Number)
+				const label = getMonthLabel(new Date(y, (m ?? 1) - 1, 1))
+				return { title: label, events: list }
+			})
+		}
+
+		if (sortBy === 'price') {
+			return buildRangeGrouper(
+				e => e.officialStandardPrice ?? null,
+				[
+					{ label: '0€ – 20€', test: v => v >= 0 && v < 20 },
+					{ label: '20€ – 50€', test: v => v >= 20 && v < 50 },
+					{ label: '50€ – 100€', test: v => v >= 50 && v < 100 },
+					{ label: '100€+', test: v => v >= 100 },
+				],
+				'Prix inconnu'
+			)
+		}
+
+		if (sortBy === 'participants') {
+			return buildRangeGrouper(
+				e => e.participants ?? null,
+				[
+					{ label: '≤ 100 participants', test: v => v <= 100 },
+					{ label: '100 – 500', test: v => v > 100 && v <= 500 },
+					{ label: '500 – 1 000', test: v => v > 500 && v <= 1000 },
+					{ label: '1 000+', test: v => v > 1000 },
+				],
+				'Participants inconnus'
+			)
+		}
+
+		// distance
+		return buildRangeGrouper(
+			e => e.distanceKm ?? null,
+			[
+				{ label: '≤ 10 km', test: v => v <= 10 },
+				{ label: '10 – 21 km', test: v => v > 10 && v <= 21 },
+				{ label: '21 – 42 km', test: v => v > 21 && v <= 42 },
+				{ label: '42 – 100 km', test: v => v > 42 && v <= 100 },
+				{ label: '100 km+', test: v => v > 100 },
+			],
+			'Distance inconnue'
+		)
+	}, [sortedEvents, sortBy, locale])
 
 	// Race type summary cards as quick-access buttons - dynamically generated from actual events
 	const raceTypeSummary = useMemo(() => {
@@ -211,10 +290,10 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		return summary
 	}, [prefetchedEvents])
 
-	// Pre-load bib counts for featured and upcoming events
+	// Pre-load bib counts for the first 16 sorted events (stable regardless of grouping)
 	useEffect(() => {
 		const loadBibCounts = async () => {
-			const eventsToLoad = [...featuredEvents.slice(0, 8), ...upcomingEvents.slice(0, 8)] // Load first 16 events
+			const eventsToLoad = sortedEvents.slice(0, 16)
 
 			const promises = eventsToLoad.map(async event => {
 				if (eventBibsCache[event.id] === undefined) {
@@ -238,7 +317,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		}
 
 		void loadBibCounts()
-	}, [featuredEvents, upcomingEvents, eventBibsCache])
+	}, [sortedEvents, eventBibsCache])
 
 	// Function to get bib count for an event (with caching)
 	const getBibCountForEvent = async (eventId: string): Promise<number> => {
@@ -513,42 +592,29 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				</div>
 			</div>
 
-			{/* Events Grid */}
+			{/* Grouped Events */}
 			<div className="w-full px-6">
-				{/* Featured Events (Next 30 days) */}
-				{featuredEvents.length > 0 && (
-					<div className="mb-12">
-						<div className="mb-6 flex items-center">
-							<Calendar className="text-primary mr-3 h-5 w-5" />
-							<h2 className="text-foreground text-2xl font-bold">{t.events?.featuredTitle ?? 'Événements à venir'}</h2>
-							<span className="bg-primary/20 text-primary ml-3 rounded-full px-3 py-1 text-xs font-medium">
-								{t.events?.featuredSubtitle ?? 'Prochains 30 jours'}
-							</span>
+				{groupedSections.length > 0 ? (
+					groupedSections.map(section => (
+						<div className="mb-12" key={section.title}>
+							<div className="mb-6 flex items-center">
+								{sortBy === 'date' && <Calendar className="text-primary mr-3 h-5 w-5" />}
+								{sortBy === 'price' ? <ShoppingCart className="text-primary mr-3 h-5 w-5" /> : null}
+								{sortBy === 'participants' ? <Users className="text-primary mr-3 h-5 w-5" /> : null}
+								{sortBy === 'distance' ? <Route className="text-primary mr-3 h-5 w-5" /> : null}
+								<h2 className="text-foreground text-2xl font-bold">{section.title}</h2>
+								<span className="bg-primary/20 text-primary ml-3 rounded-full px-3 py-1 text-xs font-medium">
+									{section.events.length}
+								</span>
+							</div>
+							<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+								{section.events.map(event => (
+									<EventCard key={event.id} event={event} />
+								))}
+							</div>
 						</div>
-						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-							{featuredEvents.map(event => (
-								<EventCard key={event.id} event={event} />
-							))}
-						</div>
-					</div>
-				)}
-
-				{/* All Events */}
-				{upcomingEvents.length > 0 && (
-					<div>
-						<h2 className="text-foreground mb-6 text-2xl font-bold">
-							{t.events?.allEventsTitle ?? 'Tous les événements'}
-						</h2>
-						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-							{upcomingEvents.map(event => (
-								<EventCard key={event.id} event={event} />
-							))}
-						</div>
-					</div>
-				)}
-
-				{/* No Results */}
-				{sortedEvents.length === 0 && (
+					))
+				) : (
 					<div className="py-16 text-center">
 						<div className="bg-muted mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full">
 							<Calendar className="text-muted-foreground h-6 w-6" />
@@ -562,6 +628,24 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 					</div>
 				)}
 			</div>
+
+			{/* Optional: Timeline demo using grouped sections when sorting by date */}
+			{sortBy === 'date' && groupedSections.length > 0 && (
+				<div className="px-6">
+					<Timeline
+						data={groupedSections.map(section => ({
+							title: section.title,
+							content: (
+								<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+									{section.events.slice(0, 6).map(e => (
+										<EventCard key={e.id} event={e} />
+									))}
+								</div>
+							),
+						}))}
+					/>
+				</div>
+			)}
 		</div>
 	)
 }
