@@ -8,17 +8,20 @@ interface TimelineEntry {
 	content: React.ReactNode
 }
 
-export const Timeline = ({ data, title, subtitle }: { data: TimelineEntry[]; title?: string; subtitle?: string }) => {
+export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 	const ref = useRef<HTMLDivElement>(null)
 	const containerRef = useRef<HTMLDivElement>(null)
 	const [height, setHeight] = useState(0)
 
 	useEffect(() => {
-		if (ref.current) {
-			const rect = ref.current.getBoundingClientRect()
-			setHeight(rect.height)
-		}
-	}, [ref])
+		if (!ref.current) return
+		const el = ref.current
+		const handleResize = () => setHeight(el.getBoundingClientRect().height)
+		handleResize()
+		const ro = new ResizeObserver(handleResize)
+		ro.observe(el)
+		return () => ro.disconnect()
+	}, [])
 
 	const { scrollYProgress } = useScroll({
 		target: containerRef,
@@ -30,18 +33,9 @@ export const Timeline = ({ data, title, subtitle }: { data: TimelineEntry[]; tit
 
 	return (
 		<div className="w-full font-sans md:px-10" ref={containerRef}>
-			<div className="mx-auto max-w-full px-4 py-20 md:px-8 lg:px-10">
-				{title !== undefined && title !== '' ? (
-					<h2 className="mb-2 max-w-4xl text-lg text-black md:text-4xl dark:text-white">{title}</h2>
-				) : null}
-				{subtitle !== undefined && subtitle !== '' ? (
-					<p className="max-w-sm text-sm text-neutral-700 md:text-base dark:text-neutral-300">{subtitle}</p>
-				) : null}
-			</div>
-
 			<div ref={ref} className="relative mx-auto max-w-full pb-20">
 				{data.map(item => (
-					<div key={item.title} className="flex justify-start pt-10 md:gap-10 md:pt-40">
+					<div key={item.title} className="flex justify-start pt-10 md:gap-10 md:pt-20">
 						<div className="sticky top-40 z-40 flex max-w-xs flex-col items-center self-start md:w-full md:flex-row lg:max-w-sm">
 							<div className="absolute left-3 flex h-10 w-10 items-center justify-center rounded-full bg-white md:left-3 dark:bg-black">
 								<div className="h-4 w-4 rounded-full border border-neutral-300 bg-neutral-200 p-2 dark:border-neutral-700 dark:bg-neutral-800" />
