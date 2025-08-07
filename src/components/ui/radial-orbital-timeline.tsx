@@ -15,7 +15,7 @@ interface TimelineItem {
 	content: string
 	date: string
 	energy: number
-	icon: React.ElementType
+	icon: React.ComponentType<{ size?: number }>
 	id: number
 	relatedIds: number[]
 	status: 'completed' | 'in-progress' | 'pending'
