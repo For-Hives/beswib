@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { X, SlidersHorizontal, Calendar, MapPin, Euro, Activity, Filter } from 'lucide-react'
 import Fuse from 'fuse.js'
 
@@ -16,7 +16,8 @@ import locales from './locales.json'
 interface MarketplaceSidebarProps {
 	readonly locale?: string
 	readonly maxPrice?: number
-	readonly onFiltersChange?: (filters: MarketplaceFilters) => void
+	readonly filters: MarketplaceFilters
+	readonly onFiltersChange: (filters: Partial<MarketplaceFilters>) => void
 	readonly regions?: string[]
 }
 
@@ -33,20 +34,10 @@ export type MarketplaceFilters = {
 export default function MarketplaceSidebar({
 	regions = [],
 	onFiltersChange,
+	filters,
 	maxPrice = 2000,
 	locale,
 }: MarketplaceSidebarProps) {
-	// Main filter state
-	const [filters, setFilters] = useState<MarketplaceFilters>({
-		sport: null,
-		distance: null,
-		priceMin: 0,
-		priceMax: maxPrice,
-		geography: [],
-		dateStart: undefined,
-		dateEnd: undefined,
-	})
-
 	// UI states
 	const [regionSearch, setRegionSearch] = useState('')
 	const [showAllSports, setShowAllSports] = useState(false)
@@ -81,26 +72,19 @@ export default function MarketplaceSidebar({
 	const fuse = useMemo(() => new Fuse(regions, { threshold: 0.4 }), [regions])
 	const filteredRegions = regionSearch ? fuse.search(regionSearch).map(result => result.item) : regions
 
-	// Update filters and notify parent
-	const updateFilters = (newFilters: Partial<MarketplaceFilters>) => {
-		const updated = { ...filters, ...newFilters }
-		setFilters(updated)
-		onFiltersChange?.(updated)
-	}
-
 	// Handle sport selection
 	const handleSportChange = (sport: string | null) => {
-		updateFilters({ sport: sport === 'all' ? null : sport })
+		onFiltersChange({ sport: sport === 'all' ? null : sport })
 	}
 
 	// Handle distance selection
 	const handleDistanceChange = (distance: string | null) => {
-		updateFilters({ distance: distance === 'all' ? null : distance })
+		onFiltersChange({ distance: distance === 'all' ? null : distance })
 	}
 
 	// Handle price range changes
 	const handlePriceChange = (values: number[]) => {
-		updateFilters({ priceMin: values[0], priceMax: values[1] })
+		onFiltersChange({ priceMin: values[0], priceMax: values[1] })
 	}
 
 	// Handle geography selection
@@ -108,39 +92,23 @@ export default function MarketplaceSidebar({
 		const newGeography = filters.geography.includes(location)
 			? filters.geography.filter(l => l !== location)
 			: [...filters.geography, location]
-		updateFilters({ geography: newGeography })
+		onFiltersChange({ geography: newGeography })
 	}
 
 	// Remove geography filter
 	const handleRemoveGeography = (location: string) => {
-		updateFilters({
+		onFiltersChange({
 			geography: filters.geography.filter(l => l !== location),
 		})
 	}
 
 	// Handle date changes
 	const handleDateStartChange = (date: string) => {
-		updateFilters({ dateStart: date ?? undefined })
+		onFiltersChange({ dateStart: date ?? undefined })
 	}
 
 	const handleDateEndChange = (date: string) => {
-		updateFilters({ dateEnd: date ?? undefined })
-	}
-
-	// Reset filters
-	const resetFilters = () => {
-		const resetState = {
-			search: '',
-			sport: null,
-			distance: null,
-			priceMin: 0,
-			priceMax: maxPrice,
-			geography: [],
-			dateStart: undefined,
-			dateEnd: undefined,
-		}
-		setFilters(resetState)
-		onFiltersChange?.(resetState)
+		onFiltersChange({ dateEnd: date ?? undefined })
 	}
 
 	// Count active filters
@@ -152,11 +120,6 @@ export default function MarketplaceSidebar({
 		filters.dateStart !== undefined,
 		filters.dateEnd !== undefined,
 	].filter(Boolean).length
-
-	// Update max price when prop changes
-	useEffect(() => {
-		setFilters(prev => ({ ...prev, priceMax: maxPrice }))
-	}, [maxPrice])
 
 	return (
 		<div className="bg-card border-border w-80 rounded-lg border p-6">
@@ -172,7 +135,17 @@ export default function MarketplaceSidebar({
 							<Button
 								variant="ghost"
 								size="sm"
-								onClick={resetFilters}
+								onClick={() =>
+									onFiltersChange({
+										sport: null,
+										distance: null,
+										priceMin: 0,
+										priceMax: maxPrice,
+										geography: [],
+										dateStart: undefined,
+										dateEnd: undefined,
+									})
+								}
 								className="text-muted-foreground hover:text-foreground"
 							>
 								Reset ({activeFiltersCount})
