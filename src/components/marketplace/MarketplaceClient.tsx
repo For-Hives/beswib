@@ -9,17 +9,9 @@ import type { BibSale } from '@/components/marketplace/CardMarket'
 
 import OfferCounter from '@/components/marketplace/offerCounter'
 import CardMarket from '@/components/marketplace/CardMarket'
+import MarketplaceSidebar, { type MarketplaceFilters } from '@/components/marketplace/MarketplaceSidebar'
+import MarketplaceHeader from '@/components/marketplace/MarketplaceHeader'
 import { Locale } from '@/lib/i18n-config'
-
-import Searchbar from './searchbar'
-
-// Type for advanced filters (same as in Searchbar) 🧐
-type AdvancedFilters = {
-	dateEnd?: string
-	dateStart?: string
-	geography: string[]
-	price: number[]
-}
 
 // Props for the MarketplaceClient: receives an array of bibs to display 🛍️
 interface MarketplaceClientProps {
@@ -69,7 +61,6 @@ const sortBibs = (bibs: BibSale[], sort: string) => {
 // --- Main client component for the marketplace grid and filters 🖼️
 
 export default function MarketplaceClient({ locale, bibs }: Readonly<MarketplaceClientProps>) {
-	// TODO: translations -> locale 🌐
 	// --- Query state management with URL sync using nuqs 🔗
 	const [{ sport, sort, search, priceMin, priceMax, geography, distance, dateStart, dateEnd }, setFilters] =
 		useQueryStates(
@@ -95,24 +86,19 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 	// --- Extract the maximum price from bibs for the price slider 💰
 	const maxPrice = Math.max(...bibs.map(bib => bib.price), 0) // Maximum price for slider 💸
 
-	// --- Handler functions to bridge the component interface with nuqs 🔗
-	const handleSearch = React.useCallback(
-		(searchTerm: string) => {
-			void setFilters({ search: searchTerm })
-		},
-		[setFilters]
-	)
-
-	const handleSportChange = React.useCallback(
-		(sportType: null | string) => {
-			void setFilters({ sport: sportType })
-		},
-		[setFilters]
-	)
-
-	const handleDistanceChange = React.useCallback(
-		(distanceFilter: null | string) => {
-			void setFilters({ distance: distanceFilter })
+	// --- Handler function for sidebar filters 🔗
+	const handleFiltersChange = React.useCallback(
+		(sidebarFilters: MarketplaceFilters) => {
+			void setFilters({
+				sport: sidebarFilters.sport,
+				search: sidebarFilters.search,
+				distance: sidebarFilters.distance,
+				priceMin: sidebarFilters.priceMin,
+				priceMax: sidebarFilters.priceMax,
+				geography: sidebarFilters.geography,
+				dateStart: sidebarFilters.dateStart ?? null,
+				dateEnd: sidebarFilters.dateEnd ?? null,
+			})
 		},
 		[setFilters]
 	)
@@ -120,20 +106,6 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 	const handleSortChange = React.useCallback(
 		(sortOption: string) => {
 			void setFilters({ sort: sortOption as 'date' | 'distance' | 'price-asc' | 'price-desc' })
-		},
-		[setFilters]
-	)
-
-	const handleAdvancedFiltersChange = React.useCallback(
-		(filters: AdvancedFilters) => {
-			// Use a single update to prevent multiple re-renders
-			void setFilters({
-				priceMin: filters.price[0] ?? 0,
-				priceMax: filters.price[1] ?? 200,
-				geography: filters.geography,
-				dateStart: filters.dateStart ?? null,
-				dateEnd: filters.dateEnd ?? null,
-			})
 		},
 		[setFilters]
 	)
@@ -196,27 +168,82 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		return sortBibs(filtered, sort)
 	}, [bibs, search, sport, distance, sort, priceMin, priceMax, geography, dateStart, dateEnd, fuse])
 
-	// --- Main render: searchbar, offer counter, and grid of bib cards 🖼️
+	// --- Main render: classic layout with search bar at top and sidebar 🖼️
 	return (
-		<div className="flex flex-col space-y-6 pt-8">
-			{/* Wrapper Searchbar with high z-index to ensure dropdown visibility ⬆️ */}
-			<div className="relative z-[60]">
-				<Searchbar
-					maxPrice={maxPrice}
-					onAdvancedFiltersChange={handleAdvancedFiltersChange}
-					onDistanceChange={handleDistanceChange}
-					onSearch={handleSearch}
-					onSportChange={handleSportChange}
-					regions={uniqueLocations}
-				/>
+		<div className="bg-background">
+			{/* Search bar at the top */}
+			<div className="border-border bg-card/80 border-b p-6">
+				<div className="mx-auto max-w-7xl">
+					<div className="relative">
+						<Search className="text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform" />
+						<input
+							className="border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent block w-full rounded-lg border p-2.5 pl-10 text-sm"
+							placeholder="Search by name, location, sport..."
+							value={search}
+							onChange={(e) => setFilters({ search: e.target.value })}
+						/>
+					</div>
+				</div>
 			</div>
-			{/* OfferCounter displays the number of results and the sort selector 🔢 */}
-			<OfferCounter count={filteredAndSortedBibs.length} onSortChange={handleSortChange} sortValue={sort} />
-			{/* Grid of bib cards, responsive layout 🖼️ */}
-			<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-				{filteredAndSortedBibs.map(bib => (
-					<CardMarket bibSale={bib} key={bib.id} locale={locale} />
-				))}
+
+			{/* Main content with sidebar and results */}
+			<div className="mx-auto max-w-7xl p-6">
+				<div className="flex gap-8">
+					{/* Sidebar with filters */}
+					<div className="w-80 flex-shrink-0">
+						<MarketplaceSidebar
+							locale={locale}
+							maxPrice={maxPrice}
+							onFiltersChange={handleFiltersChange}
+							regions={uniqueLocations}
+						/>
+					</div>
+					
+					{/* Main content area */}
+					<div className="flex-1">
+						<div className="space-y-6">
+							{/* OfferCounter displays the number of results and the sort selector 🔢 */}
+							<OfferCounter
+								count={filteredAndSortedBibs.length}
+								onSortChange={handleSortChange}
+								sortValue={sort}
+								locale={locale}
+							/>
+
+							{/* Grid of bib cards, responsive layout 🖼️ */}
+							<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+								{filteredAndSortedBibs.map(bib => (
+									<CardMarket bibSale={bib} key={bib.id} locale={locale} />
+								))}
+							</div>
+
+							{/* Empty state when no results */}
+							{filteredAndSortedBibs.length === 0 && (
+								<div className="flex flex-col items-center justify-center py-12 text-center">
+									<div className="bg-muted mb-4 rounded-full p-6">
+										<svg
+											className="text-muted-foreground h-12 w-12"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 0a4 4 0 104 4h-6a4 4 0 100-8zm6 0V9a4 4 0 10-8 0v3"
+											/>
+										</svg>
+									</div>
+									<h3 className="text-foreground mb-2 text-lg font-semibold">No bibs found</h3>
+									<p className="text-muted-foreground max-w-md">
+										Try adjusting your filters or search terms to find more bibs that match your criteria.
+									</p>
+								</div>
+							)}
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	)
