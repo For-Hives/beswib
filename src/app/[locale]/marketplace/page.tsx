@@ -38,7 +38,7 @@ export default async function MarketplacePage({ params }: { params: Promise<Loca
 		<div className="min-h-screen">
 			{/* Page header with title and description */}
 			<header className="border-border bg-card/50 border-b px-6 py-4">
-				<div className="mx-auto max-w-full">
+				<div className="mx-auto max-w-7xl">
 					<h1 className="text-2xl font-bold">{t.title}</h1>
 					<p className="text-muted-foreground text-sm">{t.description}</p>
 				</div>

@@ -8,6 +8,7 @@ import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { formatDateWithLocale } from '@/lib/dateUtils'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
+import type { Event } from '@/models/event.model'
 import { cn } from '@/lib/utils'
 
 export interface BibSaleSimplified {
@@ -28,10 +29,26 @@ export interface BibSaleSimplified {
 interface CardMarketSimplifiedProps {
 	bibSaleSimplified: BibSaleSimplified
 	locale: Locale
+	/** Optional event data for official price comparison */
+	eventData?: Event
 }
 
-export default function CardMarketSimplified({ locale, bibSaleSimplified }: CardMarketSimplifiedProps) {
+export default function CardMarketSimplified({ locale, bibSaleSimplified, eventData }: CardMarketSimplifiedProps) {
 	const translations = getTranslations(locale, marketplaceTranslations).participants
+
+	// Calculate the lowest reference price between original and official
+	const officialPrice = eventData?.officialStandardPrice ?? 0
+	const originalPrice = bibSaleSimplified.originalPrice ?? 0
+
+	// Determine the reference price (lowest between original and official)
+	const referencePrice =
+		officialPrice > 0 && originalPrice > 0
+			? Math.min(officialPrice, originalPrice)
+			: officialPrice > 0
+				? officialPrice
+				: originalPrice > 0
+					? originalPrice
+					: 0
 
 	return (
 		<div className="w-full max-w-xs">
@@ -71,7 +88,9 @@ export default function CardMarketSimplified({ locale, bibSaleSimplified }: Card
 						<h3 className="text-foreground text-lg font-bold">{bibSaleSimplified.event.name}</h3>
 						<div className="relative flex flex-col items-center gap-2">
 							<p className="text-2xl font-bold text-white">{bibSaleSimplified.price}€</p>
-							<p className="absolute top-8 right-0 text-sm italic line-through">{bibSaleSimplified.originalPrice}€</p>
+							{referencePrice > 0 && referencePrice > bibSaleSimplified.price && (
+								<p className="absolute top-8 right-0 text-sm italic line-through">{referencePrice}€</p>
+							)}
 						</div>
 					</div>
 					<div className="flex items-center gap-3">

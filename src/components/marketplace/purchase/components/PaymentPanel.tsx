@@ -7,6 +7,7 @@ import { SlidingPanel } from '@/components/ui/SlidingPanel'
 import { formatDateWithLocale } from '@/lib/dateUtils'
 import { cn } from '@/lib/utils'
 import type { BibSale } from '@/components/marketplace/CardMarket'
+import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n-config'
 
 interface PaymentPanelProps {
@@ -18,6 +19,8 @@ interface PaymentPanelProps {
 	bib: BibSale
 	/** Locale for date formatting */
 	locale: Locale
+	/** Optional event data for official price comparison */
+	eventData?: Event
 	/** Error message to display */
 	errorMessage: string | null
 	/** Success message to display */
@@ -45,6 +48,7 @@ export default function PaymentPanel({
 	onClose,
 	bib,
 	locale,
+	eventData,
 	errorMessage,
 	successMessage,
 	loading,
@@ -54,6 +58,23 @@ export default function PaymentPanel({
 	onError,
 	onCancel,
 }: PaymentPanelProps) {
+	// Calculate the lowest reference price between original and official
+	const officialPrice = eventData?.officialStandardPrice ?? 0
+	const originalPrice = bib.originalPrice ?? 0
+
+	// Determine the reference price (lowest between original and official)
+	const referencePrice =
+		officialPrice > 0 && originalPrice > 0
+			? Math.min(officialPrice, originalPrice)
+			: officialPrice > 0
+				? officialPrice
+				: originalPrice > 0
+					? originalPrice
+					: 0
+
+	// Check if we have a valid reference price to compare against
+	const hasValidReference = referencePrice > 0 && referencePrice !== bib.price && referencePrice > bib.price
+
 	/**
 	 * Get background styling based on event type
 	 * @param type - The type of sporting event
@@ -111,8 +132,8 @@ export default function PaymentPanel({
 									</div>
 									<div className="flex-shrink-0 text-right">
 										<p className="text-foreground text-2xl font-bold">€{bib.price}</p>
-										{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
-											<p className="text-muted-foreground text-sm line-through">€{bib.originalPrice}</p>
+										{hasValidReference && (
+											<p className="text-muted-foreground text-sm line-through">€{referencePrice}</p>
 										)}
 									</div>
 								</div>
@@ -126,10 +147,10 @@ export default function PaymentPanel({
 										<span className="text-foreground/80">Race bib transfer</span>
 										<span className="text-foreground/80">€{bib.price}</span>
 									</div>
-									{Boolean(bib.originalPrice && bib.originalPrice > bib.price) && (
+									{hasValidReference && (
 										<div className="flex items-center justify-between text-green-400">
 											<span className="text-sm">Discount applied</span>
-											<span className="text-sm">-€{(bib.originalPrice - bib.price).toFixed(2)}</span>
+											<span className="text-sm">-€{(referencePrice - bib.price).toFixed(2)}</span>
 										</div>
 									)}
 									<div className="border-border/20 border-t pt-3">
