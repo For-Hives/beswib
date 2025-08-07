@@ -130,21 +130,26 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 	useEffect(() => {
 		containerHeight.set(height)
 	}, [height, containerHeight])
-	// Early-acceleration easing: first 25% progresses 1.5x faster, then linear to end
+	// Threshold + early-acceleration easing:
+	// - No animation until 20% progress
+	// - First 25% after threshold runs 1.5x faster, then linear to end
 	const heightEased = useTransform(heightSpring, (h: number) => {
 		const H = containerHeight.get()
 		if (H <= 0) return 0
 		const p = Math.max(0, Math.min(1, h / H))
+		const startThreshold = 0.2
+		if (p <= startThreshold) return 0
+		const p2 = (p - startThreshold) / (1 - startThreshold)
 		const q = 0.25
 		const k = 1.5 // 50% faster
-		const fAtQ = Math.min(1, k * q) // continuity value at q
+		const fAtQ = Math.min(1, k * q)
 		let f = 0
-		if (p <= q) {
-			f = Math.min(1, k * p)
+		if (p2 <= q) {
+			f = Math.min(1, k * p2)
 		} else {
 			const remaining = 1 - q
 			const scale = remaining > 0 ? (1 - fAtQ) / remaining : 0
-			f = fAtQ + (p - q) * scale
+			f = fAtQ + (p2 - q) * scale
 		}
 		f = Math.max(0, Math.min(1, f))
 		return f * H

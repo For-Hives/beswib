@@ -118,7 +118,7 @@ const SelectAnimated = ({
 									<motion.button
 										animate={{ x: 0, scale: 1, opacity: 1 }}
 										className={cn(
-											'text-foreground hover:bg-accent data-[focus]:bg-accent flex w-full items-center gap-x-2 rounded-lg px-4 py-2 text-left text-sm transition-colors',
+											'text-foreground hover:bg-accent data-[focus]:bg-accent my-1 flex w-full items-center gap-x-2 rounded-lg px-4 py-2 text-left text-sm transition-colors',
 											option.value === value ? 'bg-accent text-accent-foreground' : ''
 										)}
 										exit={{
