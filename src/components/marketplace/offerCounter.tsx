@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 
 import locales from './locales.json'
 
@@ -16,6 +16,15 @@ interface OfferCounterProps {
 export default function OfferCounter({ sortValue, onSortChange, locale, count }: OfferCounterProps) {
 	const lang = locale ?? 'en'
 	const t = locales[lang as keyof typeof locales] ?? locales['en']
+
+	// Sort options for SelectAnimated
+	const sortOptions: SelectOption[] = [
+		{ value: 'date', label: t.sortByDate },
+		{ value: 'price-asc', label: t.sortByPriceAsc },
+		{ value: 'price-desc', label: t.sortByPriceDesc },
+		{ value: 'distance', label: t.sortByDistance },
+	]
+
 	let countLabel = ''
 	if (count === 0) {
 		countLabel = t.noBibs
@@ -29,25 +38,13 @@ export default function OfferCounter({ sortValue, onSortChange, locale, count }:
 			{/* Display the number of available bibs, with pluralization 🧮 */}
 			<p className="text-sm text-gray-400">{countLabel}</p>
 			{/* Dropdown to select the sort order 🔄 */}
-			<Select onValueChange={onSortChange} value={sortValue}>
-				<SelectTrigger className="border-border text-foreground bg-card data-[placeholder]:!text-muted-foreground focus:border-accent focus:ring-accent placeholder:text-muted-foreground w-full border sm:w-48">
-					<SelectValue placeholder={t.sortBy} />
-				</SelectTrigger>
-				<SelectContent className="border-border bg-card text-foreground">
-					<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="date">
-						{t.sortByDate}
-					</SelectItem>
-					<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="price-asc">
-						{t.sortByPriceAsc}
-					</SelectItem>
-					<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="price-desc">
-						{t.sortByPriceDesc}
-					</SelectItem>
-					<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="distance">
-						{t.sortByDistance}
-					</SelectItem>
-				</SelectContent>
-			</Select>
+			<SelectAnimated
+				className="w-full sm:w-48"
+				onValueChange={onSortChange}
+				options={sortOptions}
+				placeholder={t.sortBy}
+				value={sortValue}
+			/>
 		</div>
 	)
 }

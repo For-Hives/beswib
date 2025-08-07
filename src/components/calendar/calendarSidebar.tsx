@@ -3,6 +3,7 @@
 import type { Event } from '@/models/event.model'
 
 import { Calendar } from '@/components/ui/calendar'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 
 interface CalendarSidebarProps {
 	events: Event[]
@@ -30,42 +31,49 @@ export function CalendarSidebar(props: Readonly<CalendarSidebarProps>) {
 		onDateSelect(newDate)
 	}
 
+	// Convert arrays to SelectOption format
+	const yearOptions: SelectOption[] = years.map(y => ({
+		value: y.toString(),
+		label: y.toString(),
+	}))
+
+	const monthOptions: SelectOption[] = months.map(m => ({
+		value: m.toString(),
+		label: new Date(0, m).toLocaleString('default', { month: 'short' }),
+	}))
+
+	const dayOptions: SelectOption[] = days.map(d => ({
+		value: d.toString(),
+		label: d.toString(),
+	}))
+
 	return (
 		<div className="bg-muted/10 flex w-80 flex-col border-r p-4">
 			<div className="relative mb-4 flex gap-2">
-				<select
-					className="rounded border p-1 text-sm"
-					onChange={e => handleChange(Number(e.target.value), month, day)}
-					value={year}
-				>
-					{years.map(y => (
-						<option key={y} value={y}>
-							{y}
-						</option>
-					))}
-				</select>
-				<select
-					className="rounded border p-1 text-sm"
-					onChange={e => handleChange(year, Number(e.target.value), day)}
-					value={month}
-				>
-					{months.map(m => (
-						<option key={m} value={m}>
-							{new Date(0, m).toLocaleString('default', { month: 'short' })}
-						</option>
-					))}
-				</select>
-				<select
-					className="rounded border p-1 text-sm"
-					onChange={e => handleChange(year, month, Number(e.target.value))}
-					value={day}
-				>
-					{days.map(d => (
-						<option key={d} value={d}>
-							{d}
-						</option>
-					))}
-				</select>
+				<SelectAnimated
+					className="flex-1"
+					contentClassName="w-full"
+					onValueChange={value => handleChange(Number(value), month, day)}
+					options={yearOptions}
+					placeholder="Year"
+					value={year.toString()}
+				/>
+				<SelectAnimated
+					className="flex-1"
+					contentClassName="w-full"
+					onValueChange={value => handleChange(year, Number(value), day)}
+					options={monthOptions}
+					placeholder="Month"
+					value={month.toString()}
+				/>
+				<SelectAnimated
+					className="flex-1"
+					contentClassName="w-full"
+					onValueChange={value => handleChange(year, month, Number(value))}
+					options={dayOptions}
+					placeholder="Day"
+					value={day.toString()}
+				/>
 			</div>
 
 			<Calendar

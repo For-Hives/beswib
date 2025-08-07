@@ -10,7 +10,7 @@ import type { Event } from '@/models/event.model'
 import { getTranslations } from '@/lib/getDictionary'
 import { fetchAvailableBibsForEvent } from '@/services/bib.services'
 import { Input } from '@/components/ui/inputAlt'
-import { SelectAlt, SelectContentAlt, SelectItemAlt, SelectTriggerAlt, SelectValueAlt } from '@/components/ui/selectAlt'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { TriathlonIcon, TrailIcon, RouteIcon, UltraIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
 import Translations from './locales.json'
@@ -70,6 +70,14 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	const sortBy = query.sort
 	const selectedLocation = query.location
 
+	// Sort options for SelectAnimated
+	const sortOptions: SelectOption[] = [
+		{ value: 'date', label: t.events?.filters?.date ?? 'Trier par date' },
+		{ value: 'price', label: t.events?.filters?.price ?? 'Trier par prix' },
+		{ value: 'participants', label: t.events?.filters?.participants ?? 'Trier par participants' },
+		{ value: 'distance', label: t.events?.filters?.distance ?? 'Trier par distance' },
+	]
+
 	// Handlers for filter changes
 	const handleSearchChange = (val: string) => {
 		void setQuery({ search: val })
@@ -77,9 +85,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	const handleTypeChange = (val: 'all' | 'triathlon' | 'trail' | 'route' | 'ultra') => {
 		void setQuery({ type: val })
 	}
-	const handleSortChange = (val: 'date' | 'price' | 'participants' | 'distance') => {
+	const handleSortChange = (val: string) => {
 		// Intentionally not awaiting - this is a fire-and-forget operation
-		void setQuery({ sort: val })
+		void setQuery({ sort: val as 'date' | 'price' | 'participants' | 'distance' })
 	}
 	const handleLocationChange = (val: string) => {
 		void setQuery({ location: val })
@@ -494,19 +502,12 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							)}
 						</div>
 
-						<SelectAlt value={sortBy} onValueChange={handleSortChange}>
-							<SelectTriggerAlt className="w-48 text-sm">
-								<SelectValueAlt placeholder="Trier par..." />
-							</SelectTriggerAlt>
-							<SelectContentAlt>
-								<SelectItemAlt value="date">{t.events?.filters?.date ?? 'Trier par date'}</SelectItemAlt>
-								<SelectItemAlt value="price">{t.events?.filters?.price ?? 'Trier par prix'}</SelectItemAlt>
-								<SelectItemAlt value="participants">
-									{t.events?.filters?.participants ?? 'Trier par participants'}
-								</SelectItemAlt>
-								<SelectItemAlt value="distance">{t.events?.filters?.distance ?? 'Trier par distance'}</SelectItemAlt>
-							</SelectContentAlt>
-						</SelectAlt>
+						<SelectAnimated
+							onValueChange={handleSortChange}
+							options={sortOptions}
+							placeholder="Trier par..."
+							value={sortBy}
+						/>
 					</div>
 				</div>
 			</div>

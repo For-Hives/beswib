@@ -4,7 +4,7 @@ import { useState, useTransition } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/inputAlt'
-import { SelectAlt, SelectContentAlt, SelectItemAlt, SelectTriggerAlt, SelectValueAlt } from '@/components/ui/selectAlt'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { CheckCircle, User as UserIcon, Shield, MapPin, FileText, AlertTriangle, Save } from 'lucide-react'
@@ -55,6 +55,13 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 	const [isPending, startTransition] = useTransition()
 	const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 	const isComplete = isUserProfileComplete(user)
+
+	// Gender options for SelectAnimated
+	const genderOptions: SelectOption[] = [
+		{ value: 'male', label: 'Male' },
+		{ value: 'female', label: 'Female' },
+		{ value: 'other', label: 'Other' },
+	]
 
 	const form = useForm<RunnerFormData>({
 		resolver: valibotResolver(runnerFormSchema),
@@ -237,23 +244,17 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 							)}
 						</div>
 
-						<div>
+						<div className="relative z-[9999]">
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="gender">
 								Gender *
 							</Label>
-							<SelectAlt
+							<SelectAnimated
+								className="relative z-[9999]"
 								onValueChange={value => form.setValue('gender', value as 'male' | 'female' | 'other')}
+								options={genderOptions}
+								placeholder="Select your gender"
 								value={form.watch('gender')}
-							>
-								<SelectTriggerAlt id="gender">
-									<SelectValueAlt placeholder="Select your gender" />
-								</SelectTriggerAlt>
-								<SelectContentAlt>
-									<SelectItemAlt value="male">Male</SelectItemAlt>
-									<SelectItemAlt value="female">Female</SelectItemAlt>
-									<SelectItemAlt value="other">Other</SelectItemAlt>
-								</SelectContentAlt>
-							</SelectAlt>
+							/>
 							{form.formState.errors.gender && (
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.gender.message}</p>
 							)}
@@ -262,7 +263,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 				</Card>
 
 				{/* Emergency Contact Section */}
-				<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+				<Card className="border-border/50 bg-card/80 -z-10 backdrop-blur-sm">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<Shield className="text-primary h-5 w-5" />

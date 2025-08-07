@@ -6,7 +6,7 @@ import { Check, ChevronsUpDown, X } from 'lucide-react'
 import Fuse from 'fuse.js'
 
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Badge } from '@/components/ui/badgeAlt'
 import { Button } from '@/components/ui/button'
@@ -61,15 +61,15 @@ export default function Searchbar({
 	const [tempRegion, setTempRegion] = useState<string[]>([])
 	const [tempDateStart, setTempDateStart] = useState<string | undefined>(undefined)
 	const [tempDateEnd, setTempDateEnd] = useState<string | undefined>(undefined)
-	// --- States for hover effects on select triggers ✨
-	const [isHover, setIsHover] = useState(false)
-	const [isHover2, setIsHover2] = useState(false)
 	// --- State for the region search input in the advanced filters 🗺️
 	const [regionSearch, setRegionSearch] = useState('') // Stores the current value of the region search input 💾
 	// State for the selected region 📍 (Translated from French)
 	const [selectedRegion, setSelectedRegion] = useState(tempRegion[0] || '')
 	// State for the region popover 💬 (Translated from French)
 	const [isRegionOpen, setIsRegionOpen] = useState(false)
+	// State for selected sport and distance
+	const [selectedSport, setSelectedSport] = useState<string | null>(null)
+	const [selectedDistance, setSelectedDistance] = useState<string | null>(null)
 
 	// Toggle function for the filter dropdown 🔄
 	const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen)
@@ -133,6 +133,29 @@ export default function Searchbar({
 	const lang = locale ?? 'en'
 	const t = locales[lang] ?? locales['en']
 
+	// Sport options for SelectAnimated
+	const sportOptions: SelectOption[] = [
+		{ value: 'all', label: t.allSports },
+		{ value: 'running', label: 'Running' },
+		{ value: 'trail', label: 'Trail' },
+		{ value: 'triathlon', label: 'Triathlon' },
+		{ value: 'cycling', label: t.cycling },
+		{ value: 'swimming', label: t.swimming },
+	]
+
+	// Distance options for SelectAnimated
+	const distanceOptions: SelectOption[] = [
+		{ value: 'all', label: t.allDistances },
+		{ value: '5', label: '5km' },
+		{ value: '10', label: '10km' },
+		{ value: '21', label: 'Semi-Marathon' },
+		{ value: '42', label: 'Marathon' },
+		{ value: '80', label: 'Ultra (+80km)' },
+		{ value: 'tri-s', label: 'Triathlon S' },
+		{ value: 'tri-m', label: 'Triathlon M' },
+		{ value: 'tri-l', label: 'Triathlon L' },
+	]
+
 	return (
 		// Main container with responsive padding and shadow 容器
 		<div className="bg-card/80 border-border relative flex flex-col rounded-2xl border p-2 shadow-md backdrop-blur-md xl:p-4">
@@ -155,79 +178,30 @@ export default function Searchbar({
 				<div className="flex w-full items-center gap-2 xl:w-1/4 xl:gap-4">
 					{/* Sport dropdown - takes 1/3 of the filters section 🏅 */}
 					<div className="w-1/3">
-						<Select onValueChange={value => onSportChange(value || null)}>
-							<SelectTrigger
-								className="border-border text-foreground bg-card data-[placeholder]:!text-muted-foreground focus:border-accent focus:ring-accent placeholder:text-muted-foreground h-9 w-full overflow-hidden border text-ellipsis whitespace-nowrap"
-								onMouseEnter={() => setIsHover2(true)}
-								onMouseLeave={() => setIsHover2(false)}
-								style={{ backgroundColor: isHover2 ? 'rgba(var(--accent),0.08)' : 'var(--card)' }}
-							>
-								<SelectValue className="text-foreground" placeholder={t.sport} />
-							</SelectTrigger>
-							<SelectContent className="border-border bg-card text-foreground z-[9999]">
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="all">
-									{t.allSports}
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="running">
-									Running
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="trail">
-									Trail
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="triathlon">
-									Triathlon
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="cycling">
-									{t.cycling}
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="swimming">
-									{t.swimming}
-								</SelectItem>
-							</SelectContent>
-						</Select>
+						<SelectAnimated
+							onValueChange={value => {
+								const sport = value === 'all' ? null : value
+								setSelectedSport(sport)
+								onSportChange(sport)
+							}}
+							options={sportOptions}
+							placeholder={t.sport}
+							value={selectedSport ?? 'all'}
+						/>
 					</div>
 
 					{/* Distance dropdown - takes 1/3 of the filters section 📏 */}
 					<div className="w-1/3">
-						<Select onValueChange={value => onDistanceChange(value ?? null)}>
-							<SelectTrigger
-								className="border-border text-foreground bg-card data-[placeholder]:!text-muted-foreground focus:border-accent focus:ring-accent placeholder:text-muted-foreground h-9 w-full overflow-hidden border text-ellipsis whitespace-nowrap"
-								onMouseEnter={() => setIsHover(true)}
-								onMouseLeave={() => setIsHover(false)}
-								style={{ backgroundColor: isHover ? 'rgba(var(--accent),0.08)' : 'var(--card)' }}
-							>
-								<SelectValue placeholder={t.distance} />
-							</SelectTrigger>
-							<SelectContent className="border-border bg-card text-foreground z-[9999]">
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="all">
-									{t.allDistances}
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="5">
-									5km
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="10">
-									10km
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="21">
-									Semi-Marathon
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="42">
-									Marathon
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="80">
-									Ultra (+80km)
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="tri-s">
-									Triathlon S
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="tri-m">
-									Triathlon M
-								</SelectItem>
-								<SelectItem className="focus:bg-slate-300 focus:text-gray-400" value="tri-l">
-									Triathlon L
-								</SelectItem>
-							</SelectContent>
-						</Select>
+						<SelectAnimated
+							onValueChange={value => {
+								const distance = value === 'all' ? null : value
+								setSelectedDistance(distance)
+								onDistanceChange(distance)
+							}}
+							options={distanceOptions}
+							placeholder={t.distance}
+							value={selectedDistance ?? 'all'}
+						/>
 					</div>
 
 					{/* Filter button with dropdown - takes 1/3 of the filters section ⚙️ */}
