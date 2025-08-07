@@ -89,6 +89,9 @@ importers:
       '@react-three/rapier':
         specifier: 2.1.0
         version: 2.1.0(@react-three/fiber@9.3.0(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(three@0.179.1))(react@19.1.1)(three@0.179.1)
+      '@rive-app/react-canvas':
+        specifier: ^4.22.1
+        version: 4.22.1(react@19.1.1)
       '@tabler/icons-react':
         specifier: 3.34.1
         version: 3.34.1(react@19.1.1)
@@ -1517,6 +1520,14 @@ packages:
     resolution: {integrity: sha512-ua5U6V66gDcbLZe4P2QeyNgPp4YWD1ymGA6j3n+s8CGExtrCPe64v+g4mvpT8Bnb985R96e4zFT61+m0YCwqMg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
+
+  '@rive-app/canvas@2.30.4':
+    resolution: {integrity: sha512-kq8pUw6aexyEqnDG2hpw8NJiHfhaTycN6d+6Q1ogKG492NKWbcWHcVzXlcl77x0uWSEAKyKrOxzwOb+ebwUvZw==}
+
+  '@rive-app/react-canvas@4.22.1':
+    resolution: {integrity: sha512-RJVoP60mi152u7Joh/x/DutKC4aSaMrxwR5LRrvOUZiJbJO9ZKWofyttZmHEYRw+sAhDGnvQ0eIdc2e/udkvSg==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0
 
   '@rolldown/pluginutils@1.0.0-beta.27':
     resolution: {integrity: sha512-+d0F4MKMCbeVUJwG96uQ4SgAznZNSq93I3V+9NHA4OpvqG8mRCpGdKmK8l/dl02h2CCDHwW2FqilnTyDcAnqjA==}
@@ -3816,8 +3827,8 @@ packages:
   svix-fetch@3.0.0:
     resolution: {integrity: sha512-rcADxEFhSqHbraZIsjyZNh4TF6V+koloX1OzZ+AQuObX9mZ2LIMhm1buZeuc5BIZPftZpJCMBsSiBaeszo9tRw==}
 
-  svix@1.71.0:
-    resolution: {integrity: sha512-1x+EZZXGXwFoQG6Dge3kDBtxoYo/5VCMUobeVDmbwxAzb4al9pyjwKkzOL98OwPyPKGygLjEc+4yQsv5FxRcUQ==}
+  svix@1.70.1:
+    resolution: {integrity: sha512-UDO8VBNyfZcqRjQQLanrOanGK+nCaMhBT7LJyXQBhPLEUcoDzRUhKujFdivl2OrleUVNknmuuz7CnYZ+4Axugg==}
 
   swr@2.3.4:
     resolution: {integrity: sha512-bYd2lrhc+VarcpkgWclcUi92wYCpOgMws9Sd1hG1ntAu0NEy+14CbotuFjshBU2kt9rYj9TSmDcybpxpeTU1fg==}
@@ -5434,6 +5445,13 @@ snapshots:
 
   '@react-types/shared@3.31.0(react@19.1.1)':
     dependencies:
+      react: 19.1.1
+
+  '@rive-app/canvas@2.30.4': {}
+
+  '@rive-app/react-canvas@4.22.1(react@19.1.1)':
+    dependencies:
+      '@rive-app/canvas': 2.30.4
       react: 19.1.1
 
   '@rolldown/pluginutils@1.0.0-beta.27': {}
