@@ -36,10 +36,10 @@ const eventTypeLabels = {
 }
 
 const eventTypeIcons = {
-	triathlon: <TriathlonIcon className="h-4 w-4" />,
-	trail: <TrailIcon className="h-4 w-4" />,
-	route: <RouteIcon className="h-4 w-4" />,
-	ultra: <UltraIcon className="h-4 w-4" />,
+	triathlon: <TriathlonIcon className="h-5 w-5" />,
+	trail: <TrailIcon className="h-5 w-5" />,
+	route: <RouteIcon className="h-5 w-5" />,
+	ultra: <UltraIcon className="h-5 w-5" />,
 }
 
 export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps) {
@@ -171,7 +171,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				label: 'Tous',
 				color: 'bg-gray-500/15 border-gray-500/50 text-gray-400',
 				count: prefetchedEvents.length,
-				icon: <AllTypesIcon className="h-4 w-4" />,
+				icon: <AllTypesIcon className="h-5 w-5" />,
 			},
 		]
 
