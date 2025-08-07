@@ -2,11 +2,15 @@ import { CheckCircle, DollarSign, Euro } from 'lucide-react'
 
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
+import type { Locale } from '@/lib/i18n-config'
 
-import { SelectAlt, SelectContentAlt, SelectItemAlt, SelectTriggerAlt, SelectValueAlt } from '@/components/ui/selectAlt'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/inputAlt'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { Label } from '@/components/ui/label'
+import { getTranslations } from '@/lib/getDictionary'
+
+import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
 
 interface BibDetailsStepProps {
 	errors: Record<string, string>
@@ -19,10 +23,6 @@ interface BibDetailsStepProps {
 	locale: Locale
 	onChange: (data: Partial<BibDetailsStepProps['formData']>) => void
 }
-
-import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
 
 export default function BibDetailsStep({ onChange, locale, formData, errors }: Readonly<BibDetailsStepProps>) {
 	const t = getTranslations(locale, sellBibTranslations)
@@ -101,32 +101,31 @@ export default function BibDetailsStep({ onChange, locale, formData, errors }: R
 						<div className="col-span-full">
 							<Label className="text-foreground mb-4 block text-base font-medium">{t.form.bibDetails.bibOptions}</Label>
 							<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-								{formData.selectedEvent.options.map(option => (
-									<div key={option.key}>
-										<Label className="text-foreground mb-2 block text-sm font-medium" htmlFor={option.key}>
-											{option.label} {option.required && '*'}
-										</Label>
-										<SelectAlt
-											onValueChange={value =>
-												onChange({
-													optionValues: { ...formData.optionValues, [option.key]: value },
-												})
-											}
-											value={formData.optionValues[option.key] || ''}
-										>
-											<SelectTriggerAlt id={option.key}>
-												<SelectValueAlt placeholder={`Select ${option.label}`} />
-											</SelectTriggerAlt>
-											<SelectContentAlt>
-												{option.values.map(value => (
-													<SelectItemAlt key={value} value={value}>
-														{value}
-													</SelectItemAlt>
-												))}
-											</SelectContentAlt>
-										</SelectAlt>
-									</div>
-								))}
+								{formData.selectedEvent.options.map(option => {
+									// Convert option values to SelectOption format
+									const optionChoices: SelectOption[] = option.values.map(value => ({
+										value,
+										label: value,
+									}))
+
+									return (
+										<div key={option.key}>
+											<Label className="text-foreground mb-2 block text-sm font-medium" htmlFor={option.key}>
+												{option.label} {option.required && '*'}
+											</Label>
+											<SelectAnimated
+												onValueChange={value =>
+													onChange({
+														optionValues: { ...formData.optionValues, [option.key]: value },
+													})
+												}
+												options={optionChoices}
+												placeholder={`Select ${option.label}`}
+												value={formData.optionValues[option.key] || ''}
+											/>
+										</div>
+									)
+								})}
 							</div>
 						</div>
 					)}
