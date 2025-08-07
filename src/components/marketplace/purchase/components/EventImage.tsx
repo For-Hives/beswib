@@ -55,7 +55,7 @@ export default function EventImage({ bib }: EventImageProps) {
 			/>
 
 			{/* Event Type Badge - Top Left */}
-			<div className="absolute left-4 top-4 z-10">
+			<div className="absolute top-4 left-4 z-10">
 				<span
 					className={cn(
 						'inline-block rounded-full border px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-md',
@@ -68,7 +68,7 @@ export default function EventImage({ bib }: EventImageProps) {
 
 			{/* Discount Badge - Top Right (only show if significant discount) */}
 			{discountPercentage > 10 && (
-				<div className="absolute right-4 top-4 z-10">
+				<div className="absolute top-4 right-4 z-10">
 					<Badge variant="destructive" className="text-white">
 						-{discountPercentage}% OFF
 					</Badge>

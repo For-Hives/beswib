@@ -70,7 +70,7 @@ export default function ActionButtons({
 				<button
 					type="button"
 					onClick={onBuyNowClick}
-					className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary w-full rounded-md px-8 py-3 text-base font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50"
+					className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary w-full rounded-md px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-50"
 					disabled={isOwnBib}
 				>
 					{isSignedIn !== true ? 'Sign In to Purchase' : 'Purchase Bib'}
@@ -81,7 +81,7 @@ export default function ActionButtons({
 			{(isSignedIn !== true || (isSignedIn === true && isProfileComplete && !isOwnBib)) && (
 				<button
 					type="button"
-					className="border-border bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus:ring-primary w-full rounded-md border px-8 py-3 text-base font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2"
+					className="border-border bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus:ring-primary w-full rounded-md border px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none"
 				>
 					Event Details
 				</button>
