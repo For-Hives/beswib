@@ -1,11 +1,14 @@
 import React, { Suspense } from 'react'
 import PurchaseSuccessClient from './purchaseSuccessClient'
+import { LocaleParams } from '@/lib/generateStaticParams'
 
-export default function PurchaseSuccessPage() {
+export default async function PurchaseSuccessPage({ params }: { params: Promise<LocaleParams> }) {
+	const { locale } = await params
+
 	return (
 		<div>
 			<Suspense fallback={<div>Loading...</div>}>
-				<PurchaseSuccessClient />
+				<PurchaseSuccessClient locale={locale} />
 			</Suspense>
 		</div>
 	)
