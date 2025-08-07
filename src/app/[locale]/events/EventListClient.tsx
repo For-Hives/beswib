@@ -453,6 +453,14 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			<div className="w-full p-6">
 				<div className="max-w-7xl">
 					<div className="mb-6 flex flex-wrap gap-3">
+						<div className="w-48">
+							<SelectAnimated
+								onValueChange={handleSortChange}
+								options={sortOptions}
+								placeholder="Trier par..."
+								value={sortBy}
+							/>
+						</div>
 						{/* Location autocomplete dropdown */}
 						<div className="relative w-48">
 							<Input
@@ -501,13 +509,6 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								</div>
 							)}
 						</div>
-
-						<SelectAnimated
-							onValueChange={handleSortChange}
-							options={sortOptions}
-							placeholder="Trier par..."
-							value={sortBy}
-						/>
 					</div>
 				</div>
 			</div>
