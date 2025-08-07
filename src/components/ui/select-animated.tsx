@@ -1,7 +1,7 @@
 'use client'
 
 import { ChevronDown } from 'lucide-react'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import { createPortal } from 'react-dom'
 
 import { AnimatePresence, motion } from 'framer-motion'
@@ -43,8 +43,11 @@ const SelectAnimated = ({
 	const selectedOption = options.find(option => option.value === value)
 
 	const toggleDropdown = () => {
-		if (!disabled) {
-			setIsOpen(!isOpen)
+		if (disabled) return
+		if (!isOpen) {
+			setIsOpen(true)
+		} else {
+			setIsOpen(false)
 		}
 	}
 
@@ -58,20 +61,27 @@ const SelectAnimated = ({
 		setMounted(true)
 	}, [])
 
-	// Position dropdown when it opens
-	useEffect(() => {
-		if (isOpen && triggerRef.current && dropdownRef.current) {
-			const triggerRect = triggerRef.current.getBoundingClientRect()
-			const dropdown = dropdownRef.current
+	// Position dropdown when it opens (useLayoutEffect to avoid initial flicker)
+	useLayoutEffect(() => {
+		if (!isOpen) return
+		if (!triggerRef.current || !dropdownRef.current) return
 
-			// Position the dropdown below the trigger
-			dropdown.style.position = 'fixed'
-			dropdown.style.top = `${triggerRect.bottom + 8}px`
-			dropdown.style.left = `${triggerRect.left}px`
+		const triggerRect = triggerRef.current.getBoundingClientRect()
+		const dropdown = dropdownRef.current
+
+		dropdown.style.position = 'fixed'
+		dropdown.style.top = `${triggerRect.bottom + 8}px`
+		dropdown.style.left = `${triggerRect.left}px`
+
+		if (contentClassName?.includes('w-full')) {
 			dropdown.style.width = `${triggerRect.width}px`
-			dropdown.style.zIndex = '9999'
+		} else {
+			const minWidth = 120
+			dropdown.style.width = `${Math.max(triggerRect.width, minWidth)}px`
 		}
-	}, [isOpen])
+
+		dropdown.style.zIndex = '9999'
+	}, [isOpen, contentClassName])
 
 	const renderDropdown = () => {
 		if (!mounted) return null
@@ -92,34 +102,34 @@ const SelectAnimated = ({
 						{/* Dropdown content */}
 						<motion.div
 							ref={dropdownRef}
-							animate={{ y: 0, scale: 1, filter: 'blur(0px)' }}
+							animate={{ y: 0, scale: 1, opacity: 1 }}
 							className={cn(
-								'bg-background border-border ring-opacity-5 max-h-[200px] min-w-[120px] origin-top-right overflow-y-auto rounded-md border p-1 shadow-lg ring-1 ring-black backdrop-blur-sm',
+								'bg-card border-border ring-opacity-5 max-h-[200px] origin-top-right overflow-hidden overflow-y-auto rounded-md border p-1 shadow-lg ring-1 ring-black',
+								// Only apply min-width if no specific width is set in contentClassName
+								!contentClassName?.includes('w-') && 'min-w-[120px]',
 								contentClassName
 							)}
-							exit={{ y: -5, scale: 0.95, opacity: 0, filter: 'blur(10px)' }}
-							initial={{ y: -5, scale: 0.95, filter: 'blur(10px)' }}
+							exit={{ y: -5, scale: 0.98, opacity: 0 }}
+							initial={{ y: -5, scale: 0.98, opacity: 0 }}
 							transition={{ type: 'spring', ease: 'circInOut', duration: 0.6 }}
 						>
 							{options.length > 0 ? (
 								options.map((option, index) => (
 									<motion.button
-										animate={{ x: 0, scale: 1, opacity: 1, filter: 'blur(0px)' }}
+										animate={{ x: 0, scale: 1, opacity: 1 }}
 										className={cn(
 											'text-foreground hover:bg-accent data-[focus]:bg-accent flex w-full items-center gap-x-2 rounded-lg px-4 py-2 text-left text-sm transition-colors',
 											option.value === value ? 'bg-accent text-accent-foreground' : ''
 										)}
 										exit={{
-											x: 10,
-											scale: 0.95,
+											x: 6,
+											scale: 0.98,
 											opacity: 0,
-											filter: 'blur(10px)',
 										}}
 										initial={{
-											x: 10,
-											scale: 0.95,
+											x: 6,
+											scale: 0.98,
 											opacity: 0,
-											filter: 'blur(10px)',
 										}}
 										key={option.value}
 										onClick={() => handleOptionClick(option.value)}
@@ -163,7 +173,7 @@ const SelectAnimated = ({
 			<button
 				ref={triggerRef}
 				className={cn(
-					'border-input dark:bg-input/30 flex h-10 min-h-[40px] w-full min-w-[120px] items-center justify-between rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+					'border-input dark:bg-input/30 my-[1px] flex h-10 min-h-[42px] w-full min-w-[120px] items-center justify-between rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
 					'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
 					'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
 					'text-foreground placeholder:text-muted-foreground',
