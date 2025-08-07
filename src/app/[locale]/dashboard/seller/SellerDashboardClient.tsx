@@ -6,8 +6,10 @@ import Link from 'next/link'
 
 import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
+import type { User } from '@/models/user.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
 import { getTranslations } from '@/lib/getDictionary'
 import { Button } from '@/components/ui/button'
 
@@ -15,6 +17,7 @@ interface SellerDashboardClientProps {
 	clerkUser: SerializedClerkUser
 	locale: Locale
 	sellerBibs: (Bib & { expand?: { eventId: Event } })[]
+	user: User
 }
 
 interface SerializedClerkUser {
@@ -48,7 +51,7 @@ import { Locale } from '@/lib/i18n-config'
 
 import sellerTranslations from './locales.json'
 
-export default function SellerDashboardClient({ sellerBibs = [], locale, clerkUser }: SellerDashboardClientProps) {
+export default function SellerDashboardClient({ sellerBibs = [], locale, clerkUser, user }: SellerDashboardClientProps) {
 	const t = getTranslations(locale, sellerTranslations)
 
 	const userName = clerkUser?.firstName ?? clerkUser?.emailAddresses?.[0]?.emailAddress ?? 'Seller'
@@ -90,6 +93,11 @@ export default function SellerDashboardClient({ sellerBibs = [], locale, clerkUs
 						<p className="text-muted-foreground text-lg">
 							{t.welcome ?? 'Welcome to your seller dashboard'}, {userName}!
 						</p>
+					</div>
+
+					{/* Seller Profile Validation */}
+					<div className="mb-8">
+						<SellerProfileValidation user={user} locale={locale} />
 					</div>
 
 					{/* Statistics Cards */}

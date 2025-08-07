@@ -43,5 +43,5 @@ export default async function SellerDashboardPage({ params }: { params: Promise<
 		})),
 	}
 
-	return <SellerDashboardClient clerkUser={serializedClerkUser} locale={locale} sellerBibs={sellerBibs} />
+	return <SellerDashboardClient clerkUser={serializedClerkUser} locale={locale} sellerBibs={sellerBibs} user={pbUser} />
 }

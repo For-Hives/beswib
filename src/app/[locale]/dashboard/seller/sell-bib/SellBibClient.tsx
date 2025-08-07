@@ -16,9 +16,11 @@ import {
 	ProgressSteps,
 	StepNavigation,
 } from '@/components/admin/dashboard/sell-bib'
+import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
 import { Separator } from '@/components/ui/separator'
 import { getTranslations } from '@/lib/getDictionary'
 import { createBib } from '@/services/bib.services'
+import { isSellerProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'
 
 interface FormData {
@@ -49,6 +51,9 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [errors, setErrors] = useState<Record<string, string>>({})
 	const [createdBib, setCreatedBib] = useState<Bib | null>(null)
+
+	// Check if seller profile is complete
+	const isSellerProfileValid = isSellerProfileComplete(user)
 
 	const [formData, setFormData] = useState<FormData>({
 		sellingPrice: '',
@@ -104,6 +109,12 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 
 	const handleNext = () => {
 		if (validateStep(currentStep)) {
+			// Check if seller profile is complete before allowing progression
+			if (!isSellerProfileValid) {
+				setErrors({ submit: 'Please complete your seller profile before proceeding.' })
+				return
+			}
+			
 			if (!isLastStep) {
 				setCurrentStep(STEPS[currentStepIndex + 1])
 			}
@@ -118,6 +129,12 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 
 	const handleSubmit = async () => {
 		if (!validateStep(currentStep) || !formData.selectedEvent) {
+			return
+		}
+
+		// Check if seller profile is complete before allowing submission
+		if (!isSellerProfileValid) {
+			setErrors({ submit: 'Please complete your seller profile before selling bibs.' })
 			return
 		}
 
@@ -235,6 +252,13 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 							<h1 className="text-foreground text-4xl font-bold tracking-tight md:text-5xl">{t.title}</h1>
 							<p className="text-muted-foreground mt-4 text-lg">{t.subtitle}</p>
 						</div>
+
+						{/* Seller Profile Validation */}
+						{!isSellerProfileValid && (
+							<div className="mb-8">
+								<SellerProfileValidation user={user} locale={locale} />
+							</div>
+						)}
 
 						{/* Progress Steps */}
 						<ProgressSteps currentStepIndex={currentStepIndex} locale={locale} steps={STEPS} />
