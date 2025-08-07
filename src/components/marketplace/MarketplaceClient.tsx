@@ -15,7 +15,8 @@ import OfferCounter from '@/components/marketplace/offerCounter'
 import CardMarket from '@/components/marketplace/CardMarket'
 import MarketplaceSidebar, { type MarketplaceFilters } from '@/components/marketplace/MarketplaceSidebar'
 import { Locale } from '@/lib/i18n-config'
-import EmptyResults from '@/components/marketplace/EmptyResults'
+import dynamic from 'next/dynamic'
+const EmptyResultsRive = dynamic(() => import('@/components/marketplace/EmptyResultsRive'), { ssr: false })
 
 // Props for the MarketplaceClient: receives an array of bibs to display 🛍️
 interface MarketplaceClientProps {
@@ -259,16 +260,16 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 								locale={locale}
 							/>
 
-							{/* Grid of bib cards, responsive layout 🖼️ */}
-							<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-								{filteredAndSortedBibs.map(bib => (
-									<CardMarket bibSale={bib} key={bib.id} locale={locale} />
-								))}
-							</div>
+					{/* Grid of bib cards, responsive layout 🖼️ */}
+					<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+						{filteredAndSortedBibs.map(bib => (
+							<CardMarket bibSale={bib} key={bib.id} locale={locale} />
+						))}
+					</div>
 
-							{/* Empty state when no results */}
-							{filteredAndSortedBibs.length === 0 && <EmptyResults locale={locale} />}
-						</div>
+					{/* Empty state when no results */}
+					{filteredAndSortedBibs.length === 0 && <EmptyResultsRive locale={locale} />}
+					</div>
 					</div>
 				</div>
 			</div>
