@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState, useEffect } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { Calendar, MapPin, Users, Search, ShoppingCart, Bell, Route, Mountain } from 'lucide-react'
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
 import { useRouter } from 'next/navigation'
@@ -346,28 +346,8 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			{/* Race type quick filters like in marketplace */}
 			<div className="border-border bg-card/80 border-b p-6">
 				<div className="mx-auto max-w-7xl">
-					<div
-						className={`mb-6 grid gap-4 ${raceTypeSummary.length <= 2 ? 'grid-cols-2' : raceTypeSummary.length <= 3 ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-2 md:grid-cols-5'}`}
-					>
-						{raceTypeSummary.map(type => (
-							<button
-								key={type.key}
-								className={`group flex cursor-pointer flex-col items-center justify-center rounded-xl border p-4 transition-all hover:scale-105 ${selectedType === type.key ? type.color : 'border-border bg-card/60 hover:bg-card/80'}`}
-								onClick={() => handleTypeChange(type.key as 'all' | 'triathlon' | 'trail' | 'route' | 'ultra')}
-								aria-label={(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
-							>
-								<div className="mb-2">{type.icon}</div>
-								<div
-									className={`text-sm font-medium ${selectedType === type.key ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}
-								>
-									{(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
-								</div>
-							</button>
-						))}
-					</div>
-
 					{/* Search bar - same style as marketplace */}
-					<div className="relative">
+					<div className="relative mb-6">
 						<Search className="text-muted-foreground absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 transform" />
 						<Input
 							className="pl-10 text-sm"
@@ -375,6 +355,71 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							value={searchTerm}
 							onChange={e => handleSearchChange(e.target.value)}
 						/>
+					</div>
+
+					{/* Race type filter buttons - improved design */}
+					<div
+						className={`grid gap-3 ${raceTypeSummary.length <= 2 ? 'grid-cols-2' : raceTypeSummary.length <= 3 ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-2 md:grid-cols-5'}`}
+					>
+						{raceTypeSummary.map(type => (
+							<button
+								key={type.key}
+								className={`group relative flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 p-4 transition-all duration-200 hover:scale-105 hover:shadow-md active:scale-95 ${
+									selectedType === type.key
+										? type.color
+										: 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600 dark:hover:bg-gray-700'
+								}`}
+								onClick={() => handleTypeChange(type.key as 'all' | 'triathlon' | 'trail' | 'route' | 'ultra')}
+								aria-label={(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
+							>
+								{/* Icon with better sizing and colors */}
+								<div
+									className={`mb-2 transition-colors duration-200 ${
+										selectedType === type.key
+											? 'text-current'
+											: 'text-gray-500 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-300'
+									}`}
+								>
+									{React.cloneElement(type.icon, {
+										className: 'h-6 w-6',
+										size: 24,
+									})}
+								</div>
+
+								{/* Label with better typography */}
+								<div
+									className={`text-sm font-semibold transition-colors duration-200 ${
+										selectedType === type.key
+											? 'text-current'
+											: 'text-gray-700 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-gray-100'
+									}`}
+								>
+									{(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
+								</div>
+
+								{/* Count badge */}
+								{type.count > 0 && (
+									<div
+										className={`absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold transition-colors duration-200 ${
+											selectedType === type.key
+												? 'bg-current text-white'
+												: 'bg-gray-200 text-gray-600 group-hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-300 dark:group-hover:bg-gray-500'
+										}`}
+									>
+										{type.count}
+									</div>
+								)}
+
+								{/* Hover effect indicator */}
+								<div
+									className={`absolute inset-0 rounded-lg transition-opacity duration-200 ${
+										selectedType === type.key
+											? 'bg-current opacity-5'
+											: 'bg-gray-200 opacity-0 group-hover:opacity-10 dark:bg-gray-600'
+									}`}
+								/>
+							</button>
+						))}
 					</div>
 				</div>
 			</div>
