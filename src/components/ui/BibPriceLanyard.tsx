@@ -1,9 +1,4 @@
-// the main component is from a component library, so we need to ignore some types.
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable */
 
 'use client'
 import React, { useEffect, useRef, useState, Suspense, useMemo } from 'react'

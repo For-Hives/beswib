@@ -1,5 +1,11 @@
 import { Organizer } from '@/models/organizer.model'
 import { pb } from '@/lib/pocketbaseClient'
+import { ClientResponseError } from 'pocketbase'
+
+// Type guard to check if the error is a ClientResponseError
+const isClientResponseError = (error: unknown): error is ClientResponseError => {
+	return error instanceof Error && 'status' in error && typeof (error as { status: unknown }).status === 'number'
+}
 
 /**
  * Create a new organizer
@@ -157,7 +163,7 @@ export async function fetchOrganizerById(id: string): Promise<null | Organizer> 
 		}
 	} catch (error) {
 		// Only log error if it's not a "not found" error
-		if (error && typeof error === 'object' && 'status' in error && (error as any).status !== 404) {
+		if (isClientResponseError(error) && error.status !== 404) {
 			console.error('Error fetching organizer by ID:', error)
 		}
 		return null

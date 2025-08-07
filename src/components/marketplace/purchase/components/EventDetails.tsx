@@ -23,7 +23,7 @@ export default function EventDetails({ bib, eventData, organizerData }: EventDet
 	return (
 		<div className="mt-6">
 			{/* Event Description with Organizer Info */}
-			{eventData?.description && eventData.description.trim() !== '' ? (
+			{eventData?.description != null && eventData.description.trim() !== '' ? (
 				<div className="border-border/50 bg-card/50 rounded-lg border p-4 backdrop-blur-sm">
 					<h3 className="text-primary mb-3 text-sm font-semibold">À propos de cet événement</h3>
 					<p className="text-foreground/80 mb-4 text-sm leading-relaxed">{eventData.description}</p>
