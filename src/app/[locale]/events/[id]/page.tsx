@@ -138,7 +138,7 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 			</div>
 			<Link
 				className="border-border bg-accent/20 text-accent-foreground hover:bg-accent/30 hover:text-foreground mx-auto mt-8 flex w-full max-w-4xl items-center justify-center gap-2 rounded-lg border px-4 py-3 font-medium backdrop-blur-md transition"
-				href="/calendar"
+				href="/events"
 			>
 				<ArrowLeft className="h-5 w-5" />
 				Back to events list

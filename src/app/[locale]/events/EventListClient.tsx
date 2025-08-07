@@ -28,6 +28,13 @@ const eventTypeColors = {
 	ultra: 'bg-red-500/15 border-red-500/50 text-red-400',
 }
 
+const eventTypeColorsDisabled = {
+	triathlon: 'opacity-25',
+	trail: 'opacity-25',
+	route: 'opacity-25',
+	ultra: 'opacity-25',
+}
+
 const eventTypeLabels = {
 	triathlon: 'TRIATHLON',
 	trail: 'TRAIL',
@@ -169,7 +176,8 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			{
 				key: 'all',
 				label: 'Tous',
-				color: 'bg-gray-500/15 border-gray-500/50 text-gray-400',
+				color: 'bg-black/35 border-slate-500/50 text-slate-400',
+				colorDisabled: 'opacity-25',
 				count: prefetchedEvents.length,
 				icon: <AllTypesIcon className="h-5 w-5" />,
 			},
@@ -182,6 +190,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 					key: type,
 					label: eventTypeLabels[type],
 					color: eventTypeColors[type],
+					colorDisabled: eventTypeColorsDisabled[type],
 					count: prefetchedEvents.filter(e => e.typeCourse === type).length,
 					icon: eventTypeIcons[type],
 				})
@@ -365,19 +374,24 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							<button
 								key={type.key}
 								className={`group relative flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 p-4 transition-all duration-200 hover:scale-105 hover:shadow-md active:scale-95 ${
-									selectedType === type.key
-										? type.color
-										: 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600 dark:hover:bg-gray-700'
+									selectedType === type.key ? type.color : type.colorDisabled
 								}`}
 								onClick={() => handleTypeChange(type.key as 'all' | 'triathlon' | 'trail' | 'route' | 'ultra')}
 								aria-label={(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
 							>
+								{/* Radio button indicator - top left */}
+								<div className="absolute top-1 left-1 flex h-4 w-4 items-center justify-center">
+									<div className={`relative h-3 w-3 rounded-full bg-current transition-all duration-200`}>
+										{selectedType === type.key && (
+											<div className="absolute top-1/2 left-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
+										)}
+									</div>
+								</div>
+
 								{/* Icon with better sizing and colors */}
 								<div
 									className={`mb-2 transition-colors duration-200 ${
-										selectedType === type.key
-											? 'text-current'
-											: 'text-gray-500 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-300'
+										selectedType === type.key ? 'text-current' : 'text-current'
 									}`}
 								>
 									{React.cloneElement(type.icon, {
@@ -389,9 +403,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								{/* Label with better typography */}
 								<div
 									className={`text-sm font-semibold transition-colors duration-200 ${
-										selectedType === type.key
-											? 'text-current'
-											: 'text-gray-700 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-gray-100'
+										selectedType === type.key ? 'text-current' : 'text-current'
 									}`}
 								>
 									{(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
@@ -401,9 +413,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								{type.count > 0 && (
 									<div
 										className={`absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold transition-colors duration-200 ${
-											selectedType === type.key
-												? 'bg-current text-white'
-												: 'bg-gray-200 text-gray-600 group-hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-300 dark:group-hover:bg-gray-500'
+											selectedType === type.key ? 'bg-gray-600 text-white' : 'bg-gray-200 text-gray-600'
 										}`}
 									>
 										{type.count}
@@ -413,9 +423,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								{/* Hover effect indicator */}
 								<div
 									className={`absolute inset-0 rounded-lg transition-opacity duration-200 ${
-										selectedType === type.key
-											? 'bg-current opacity-5'
-											: 'bg-gray-200 opacity-0 group-hover:opacity-10 dark:bg-gray-600'
+										selectedType === type.key ? 'bg-current opacity-5' : 'bg-gray-200 opacity-0 group-hover:opacity-10'
 									}`}
 								/>
 							</button>
