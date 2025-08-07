@@ -28,6 +28,7 @@ export default function UserHeader({ user, clerkUser }: Readonly<UserHeaderProps
 		user?.firstName != null &&
 		user?.lastName != null &&
 		user?.birthDate != null &&
+		(user.birthDate instanceof Date ? !isNaN(user.birthDate.getTime()) : String(user.birthDate).trim() !== '') &&
 		user?.phoneNumber != null &&
 		user?.emergencyContactName != null &&
 		user?.emergencyContactPhone != null &&

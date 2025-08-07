@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { CheckCircle, User as UserIcon, Shield, MapPin, FileText, AlertTriangle, Save } from 'lucide-react'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
-import { object, string, minLength, picklist, pipe, optional, date } from 'valibot'
+import { object, string, minLength, picklist, pipe, optional } from 'valibot'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { User } from '@/models/user.model'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
@@ -18,7 +18,7 @@ import { isUserProfileComplete } from '@/lib/userValidation'
 type RunnerFormData = {
 	firstName: string
 	lastName: string
-	birthDate: Date
+	birthDate: string // YYYY-MM-DD
 	phoneNumber: string
 	emergencyContactName: string
 	emergencyContactPhone: string
@@ -36,7 +36,7 @@ type RunnerFormData = {
 const runnerFormSchema = object({
 	firstName: pipe(string(), minLength(2, 'First name must be at least 2 characters')),
 	lastName: pipe(string(), minLength(2, 'Last name must be at least 2 characters')),
-	birthDate: date(),
+	birthDate: pipe(string(), minLength(10, 'Birth date is required')),
 	phoneNumber: pipe(string(), minLength(8, 'Invalid phone number')),
 	emergencyContactName: pipe(string(), minLength(2, 'Contact name must be at least 2 characters')),
 	emergencyContactPhone: pipe(string(), minLength(8, 'Invalid phone number')),
@@ -69,11 +69,11 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 			firstName: user?.firstName ?? '',
 			lastName: user?.lastName ?? '',
 			birthDate:
-				user?.birthDate && !(user.birthDate instanceof Date)
-					? new Date(user.birthDate)
-					: user?.birthDate instanceof Date
-						? user.birthDate
-						: undefined,
+				user?.birthDate instanceof Date
+					? user.birthDate.toISOString().slice(0, 10)
+					: typeof user?.birthDate === 'string'
+						? user.birthDate.slice(0, 10)
+						: '',
 			phoneNumber: user?.phoneNumber ?? '',
 			emergencyContactName: user?.emergencyContactName ?? '',
 			emergencyContactPhone: user?.emergencyContactPhone ?? '',
@@ -93,8 +93,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 		if (user === null) return
 		const payload: Partial<User> = {
 			...values,
-			birthDate:
-				values.birthDate instanceof Date ? values.birthDate : values.birthDate ? new Date(values.birthDate) : undefined,
+			birthDate: values.birthDate ? values.birthDate.slice(0, 10) : null,
 		}
 		console.info('Submitting profile update:', payload)
 		startTransition(async () => {
@@ -213,11 +212,8 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 										id="birthDate"
 										type="date"
 										className={form.formState.errors.birthDate?.message != null ? 'border-red-500' : ''}
-										value={field.value != null ? field.value.toISOString().slice(0, 10) : ''}
-										onChange={e => {
-											const val = e.target.value
-											field.onChange(val ? new Date(val) : undefined)
-										}}
+										value={field.value ?? ''}
+										onChange={e => field.onChange(e.target.value)}
 									/>
 								)}
 							/>
