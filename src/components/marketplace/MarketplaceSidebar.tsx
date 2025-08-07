@@ -4,7 +4,7 @@ import React, { useMemo, useState } from 'react'
 import { X, SlidersHorizontal, Calendar, MapPin, Euro, Activity, Filter } from 'lucide-react'
 import Fuse from 'fuse.js'
 
-import { Input } from '@/components/ui/input'
+import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'

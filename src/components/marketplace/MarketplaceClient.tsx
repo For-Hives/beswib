@@ -9,6 +9,7 @@ import type { BibSale } from '@/components/marketplace/CardMarket'
 
 import { Search } from 'lucide-react'
 
+import { Input } from '@/components/ui/inputAlt'
 import ActiveFiltersBadges from '@/components/marketplace/ActiveFiltersBadges'
 import OfferCounter from '@/components/marketplace/offerCounter'
 import CardMarket from '@/components/marketplace/CardMarket'
@@ -198,9 +199,9 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 			<div className="border-border bg-card/80 border-b p-6">
 				<div className="max-w-7xl">
 					<div className="relative">
-						<Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
-						<input
-							className="border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent block w-full rounded-lg border p-2.5 pl-10 text-sm"
+						<Search className="text-muted-foreground absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 transform" />
+						<Input
+							className="pl-10 text-sm"
 							placeholder="Quick search by name, location, sport..."
 							value={search}
 							onChange={e => void setFilters({ search: e.target.value })}
