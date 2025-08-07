@@ -457,10 +457,12 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		currency?: string
 	}) => {
 		// Load the 3D model with Suspense-compatible error handling
-		let nodes: any
+		let nodes: Record<string, unknown> = {}
 		try {
-			const gltfData = useGLTF(cardGLB, true) as any
-			nodes = gltfData.nodes
+			const gltfData = useGLTF(cardGLB, true)
+			if (gltfData && typeof gltfData === 'object' && 'nodes' in gltfData && typeof gltfData.nodes === 'object') {
+				nodes = gltfData.nodes as Record<string, unknown>
+			}
 		} catch (error) {
 			console.warn('GLB model failed to load:', error)
 			// Fallback to basic geometries
@@ -470,7 +472,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		// Wait for model to be fully loaded
 		const [isModelLoaded, setIsModelLoaded] = useState(false)
 		useEffect(() => {
-			if (nodes && Object.keys(nodes).length > 0) {
+			if (nodes && typeof nodes === 'object' && Object.keys(nodes).length > 0) {
 				setIsModelLoaded(true)
 			}
 		}, [nodes])
@@ -515,7 +517,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		return (
 			<group scale={2} position={[0, 0, 0]}>
 				{/* Main card body from GLB model */}
-				<mesh geometry={nodes.card?.geometry ?? undefined}>
+				<mesh geometry={(nodes.card as { geometry?: THREE.BufferGeometry })?.geometry ?? undefined}>
 					<meshPhysicalMaterial
 						// Applique la texture de dégradé bleu-noir comme le CTA landing
 						map={cardGradientTexture}
@@ -564,15 +566,15 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 				)}
 
 				{/* Clip - real geometry from GLB model */}
-				{nodes.clip?.geometry != null && (
-					<mesh geometry={nodes.clip.geometry}>
+				{(nodes.clip as { geometry?: THREE.BufferGeometry })?.geometry != null && (
+					<mesh geometry={(nodes.clip as { geometry?: THREE.BufferGeometry }).geometry}>
 						<meshStandardMaterial color="#404040" metalness={1} roughness={0.3} />
 					</mesh>
 				)}
 
 				{/* Clamp - real geometry from GLB model */}
-				{nodes.clamp?.geometry != null && (
-					<mesh geometry={nodes.clamp.geometry}>
+				{(nodes.clamp as { geometry?: THREE.BufferGeometry })?.geometry != null && (
+					<mesh geometry={(nodes.clamp as { geometry?: THREE.BufferGeometry }).geometry}>
 						<meshStandardMaterial color="#333333" metalness={1} roughness={0.2} />
 					</mesh>
 				)}

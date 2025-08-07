@@ -89,6 +89,7 @@ export default function ConfirmationStep({
 			originalPrice: formData.originalPrice
 				? parseFloat(formData.originalPrice)
 				: parseFloat(formData.sellingPrice) + 10,
+			lockedAt: null,
 			id: createdBib?.id ?? 'preview',
 			event: {
 				type: mapEventTypeToBibSaleType(formData.selectedEvent.typeCourse),

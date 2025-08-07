@@ -35,6 +35,7 @@ const runsExample: BibSale[] = [
 			distance: 42,
 			date: getRandomFutureDate(),
 		},
+		lockedAt: null,
 	},
 	{
 		user: {
@@ -56,6 +57,7 @@ const runsExample: BibSale[] = [
 			distance: 226,
 			date: getRandomFutureDate(),
 		},
+		lockedAt: null,
 	},
 	{
 		user: {
@@ -77,6 +79,7 @@ const runsExample: BibSale[] = [
 			distance: 21,
 			date: getRandomFutureDate(),
 		},
+		lockedAt: null,
 	},
 	{
 		user: {
@@ -98,6 +101,7 @@ const runsExample: BibSale[] = [
 			distance: 42,
 			date: getRandomFutureDate(),
 		},
+		lockedAt: null,
 	},
 	{
 		user: {
@@ -119,6 +123,7 @@ const runsExample: BibSale[] = [
 			distance: 170,
 			date: getRandomFutureDate(),
 		},
+		lockedAt: null,
 	},
 ]
 

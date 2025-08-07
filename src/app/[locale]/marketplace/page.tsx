@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import type { BibSale } from '@/components/marketplace/CardMarket'
-import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticParams'
+import { generateLocaleParams } from '@/lib/generateStaticParams'
+import type { Locale } from '@/lib/i18n-config'
 import MarketplaceClient from '@/components/marketplace/MarketplaceClient'
 import { fetchAvailableBibsForMarketplace, unlockExpiredBibs } from '@/services/bib.services'
 import { transformBibsToBibSales } from '@/lib/bibTransformers'
@@ -17,7 +18,7 @@ export function generateStaticParams() {
 	return generateLocaleParams()
 }
 
-export default async function MarketplacePage({ params }: { params: LocaleParams }) {
+export default async function MarketplacePage({ params }: { params: Promise<{ locale: Locale }> }) {
 	const { locale } = await params
 	const t = getTranslations(locale, marketplaceTranslations)
 	await unlockExpiredBibs()

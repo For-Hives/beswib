@@ -157,7 +157,13 @@ export async function fetchOrganizerById(id: string): Promise<null | Organizer> 
 		}
 	} catch (error) {
 		// Only log error if it's not a "not found" error
-		if (error && typeof error === 'object' && 'status' in error && (error as any).status !== 404) {
+		if (
+			error !== null &&
+			error !== undefined &&
+			typeof error === 'object' &&
+			'status' in error &&
+			(error as { status?: number }).status !== 404
+		) {
 			console.error('Error fetching organizer by ID:', error)
 		}
 		return null
