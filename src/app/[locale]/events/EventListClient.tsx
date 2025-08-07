@@ -15,6 +15,7 @@ import { TriathlonIcon, TrailIcon, RouteIcon, UltraIcon, AllTypesIcon } from '@/
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
 import { Timeline } from '@/components/ui/timeline'
 import Translations from './locales.json'
+import { DateTime } from 'luxon'
 
 interface EventsPageProps {
 	prefetchedEvents: Event[]
@@ -150,8 +151,11 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	const sortedEvents = useMemo(() => {
 		return [...filteredEvents].sort((a, b) => {
 			switch (sortBy) {
-				case 'date':
-					return new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime()
+				case 'date': {
+					const da = DateTime.fromISO(String(a.eventDate))
+					const db = DateTime.fromISO(String(b.eventDate))
+					return da.toMillis() - db.toMillis()
+				}
 				case 'price':
 					return (a.officialStandardPrice ?? 0) - (b.officialStandardPrice ?? 0)
 				case 'participants':
@@ -167,12 +171,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	// Grouping helpers
 	type GroupSections = Array<{ title: string; events: Event[] }>
 
-	const getMonthKey = (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`
+	const getMonthKey = (dt: DateTime) => dt.toFormat('yyyy-LL')
 
-	const getMonthLabel = (date: Date) => {
-		const label = date.toLocaleDateString(locale, { month: 'long', year: 'numeric' })
-		return label.charAt(0).toUpperCase() + label.slice(1)
-	}
+	const getMonthLabel = (dt: DateTime) => dt.setLocale(locale).toFormat('LLLL yyyy')
 
 	const buildRangeGrouper = <T extends number | null | undefined>(
 		getValue: (e: Event) => T,
@@ -204,14 +205,14 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		if (sortBy === 'date') {
 			const byMonth: Record<string, Event[]> = {}
 			for (const event of sortedEvents) {
-				const d = new Date(event.eventDate)
-				const key = getMonthKey(d)
+				const dt = DateTime.fromISO(String(event.eventDate))
+				const key = getMonthKey(dt)
 				if (!byMonth[key]) byMonth[key] = []
 				byMonth[key].push(event)
 			}
 			return Object.entries(byMonth).map(([key, list]) => {
-				const [y, m] = key.split('-').map(Number)
-				const label = getMonthLabel(new Date(y, (m ?? 1) - 1, 1))
+				const dt = DateTime.fromFormat(key, 'yyyy-LL')
+				const label = getMonthLabel(dt)
 				return { title: label, events: list }
 			})
 		}
@@ -595,21 +596,10 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			{/* Timeline-only UI */}
 			<div className="px-6">
 				<Timeline
-					title={
-						{ date: 'Par mois', price: 'Par prix', participants: 'Par participants', distance: 'Par distance' }[sortBy]
-					}
-					subtitle={
-						{
-							date: 'Explorez les événements mois par mois',
-							price: 'Regroupés par tranches de prix',
-							participants: 'Regroupés par nombre de participants',
-							distance: 'Regroupés par distance (km)',
-						}[sortBy]
-					}
 					data={groupedSections.map(section => ({
-						title: `${section.title} • ${section.events.length}`,
+						title: section.title,
 						content: (
-							<div className="grid grid-cols-3 gap-4">
+							<div className="grid grid-cols-2 gap-4">
 								{section.events.slice(0, 8).map(e => (
 									<div key={e.id} className="col-span-1">
 										<EventCard event={e} />
