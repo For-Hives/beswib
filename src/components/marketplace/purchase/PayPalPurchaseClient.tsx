@@ -15,7 +15,7 @@ import { capturePayment, createOrder } from '@/services/paypal.services'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'
 import Lanyard from '@/components/ui/BibPriceLanyard'
-import { lockBib, unlockBib } from '@/services/bib.services'
+import { lockBib, unlockBib, unlockExpiredBibs } from '@/services/bib.services'
 
 // Import sub-components
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
@@ -60,6 +60,7 @@ export default function PayPalPurchaseClient({
 	const isOwnBib = user?.id === bib.user.id
 
 	useEffect(() => {
+		unlockExpiredBibs()
 		setIsProfileComplete(isUserProfileComplete(user))
 	}, [user])
 
