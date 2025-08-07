@@ -71,7 +71,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 				sort: parseAsStringLiteral(['date', 'distance', 'price-asc', 'price-desc'] as const).withDefault('date'),
 				search: parseAsString.withDefault(''),
 				priceMin: parseAsFloat.withDefault(0),
-				priceMax: parseAsFloat.withDefault(200),
+				priceMax: parseAsFloat.withDefault(500),
 				geography: parseAsArrayOf(parseAsString, ',').withDefault([]),
 				distance: parseAsString, // null when not set, string when set
 				dateStart: parseAsString, // ISO date string or null
