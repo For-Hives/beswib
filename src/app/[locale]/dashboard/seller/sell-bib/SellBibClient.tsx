@@ -114,7 +114,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				setErrors({ submit: 'Please complete your seller profile before proceeding.' })
 				return
 			}
-			
+
 			if (!isLastStep) {
 				setCurrentStep(STEPS[currentStepIndex + 1])
 			}

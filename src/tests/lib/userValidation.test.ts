@@ -39,7 +39,12 @@ describe('isUserProfileComplete', () => {
 	})
 
 	it('should return true for user without optional documents', () => {
-		const userWithoutDocuments = { ...completeUser, medicalCertificateUrl: null, licenseNumber: null, clubAffiliation: null }
+		const userWithoutDocuments = {
+			...completeUser,
+			medicalCertificateUrl: null,
+			licenseNumber: null,
+			clubAffiliation: null,
+		}
 		expect(isUserProfileComplete(userWithoutDocuments)).toBe(true)
 	})
 
@@ -146,7 +151,12 @@ describe('isSellerProfileComplete', () => {
 	})
 
 	it('should return false for user with undefined fields', () => {
-		const userWithUndefinedFields = { ...completeSellerUser, email: undefined, firstName: undefined, lastName: undefined }
+		const userWithUndefinedFields = {
+			...completeSellerUser,
+			email: undefined,
+			firstName: undefined,
+			lastName: undefined,
+		}
 		expect(isSellerProfileComplete(userWithUndefinedFields)).toBe(false)
 	})
 })
