@@ -276,3 +276,34 @@ body {
 	max-width: 100vw;
 	scroll-behavior: smooth;
 }
+
+body *,
+body {
+	--sb-track-color: oklch(0.3211 0 0);
+	--sb-thumb-color: oklch(0.9219 0 0);
+	--sb-size: 6px;
+}
+
+body::-webkit-scrollbar,
+body *::-webkit-scrollbar {
+	width: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track,
+body *::-webkit-scrollbar-track {
+	background: var(--sb-track-color);
+	border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb,
+body *::-webkit-scrollbar-thumb {
+	background: var(--sb-thumb-color);
+	border-radius: 6px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+	body,
+	body * {
+		scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+	}
+}
