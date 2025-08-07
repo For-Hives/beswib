@@ -78,6 +78,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		void setQuery({ type: val })
 	}
 	const handleSortChange = (val: 'date' | 'price' | 'participants' | 'distance') => {
+		// Intentionally not awaiting - this is a fire-and-forget operation
 		void setQuery({ sort: val })
 	}
 	const handleLocationChange = (val: string) => {
@@ -85,7 +86,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	}
 
 	// Extract unique locations for the filter
-	const uniqueLocations = Array.from(new Set(prefetchedEvents.map(event => event.location))).sort()
+	const uniqueLocations = Array.from(new Set(prefetchedEvents.map(event => event.location))).sort((a, b) =>
+		a.localeCompare(b)
+	)
 
 	// State for location autocomplete
 	const [locationSearch, setLocationSearch] = useState('')
@@ -329,21 +332,27 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 						onClick={() => void handleEventAction(event)}
 						className="bg-primary/20 text-primary hover:bg-primary/30 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
 					>
-						{eventBibsCache[event.id] !== undefined ? (
-							eventBibsCache[event.id] > 0 ? (
-								<>
-									<ShoppingCart className="h-4 w-4" />
-									Voir les dossards ({eventBibsCache[event.id]})
-								</>
-							) : (
-								<>
-									<Bell className="h-4 w-4" />
-									Rejoindre la waitlist
-								</>
-							)
-						) : (
-							'Vérifier les dossards...'
-						)}
+						{(() => {
+							if (eventBibsCache[event.id] !== undefined) {
+								if (eventBibsCache[event.id] > 0) {
+									return (
+										<>
+											<ShoppingCart className="h-4 w-4" />
+											Voir les dossards ({eventBibsCache[event.id]})
+										</>
+									)
+								} else {
+									return (
+										<>
+											<Bell className="h-4 w-4" />
+											Rejoindre la waitlist
+										</>
+									)
+								}
+							} else {
+								return 'Vérifier les dossards...'
+							}
+						})()}
 					</button>
 				</div>
 			</div>
@@ -368,7 +377,15 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 					{/* Race type filter buttons - improved design */}
 					<div
-						className={`grid gap-3 ${raceTypeSummary.length <= 2 ? 'grid-cols-2' : raceTypeSummary.length <= 3 ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-2 md:grid-cols-5'}`}
+						className={`grid gap-3 ${(() => {
+							if (raceTypeSummary.length <= 2) {
+								return 'grid-cols-2'
+							} else if (raceTypeSummary.length <= 3) {
+								return 'grid-cols-2 md:grid-cols-3'
+							} else {
+								return 'grid-cols-2 md:grid-cols-5'
+							}
+						})()}`}
 					>
 						{raceTypeSummary.map(type => (
 							<button
@@ -389,11 +406,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								</div>
 
 								{/* Icon with better sizing and colors */}
-								<div
-									className={`mb-2 transition-colors duration-200 ${
-										selectedType === type.key ? 'text-current' : 'text-current'
-									}`}
-								>
+								<div className="mb-2 text-current transition-colors duration-200">
 									{React.cloneElement(type.icon, {
 										className: 'h-6 w-6',
 										size: 24,
@@ -401,11 +414,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								</div>
 
 								{/* Label with better typography */}
-								<div
-									className={`text-sm font-semibold transition-colors duration-200 ${
-										selectedType === type.key ? 'text-current' : 'text-current'
-									}`}
-								>
+								<div className="text-sm font-semibold text-current transition-colors duration-200">
 									{(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
 								</div>
 

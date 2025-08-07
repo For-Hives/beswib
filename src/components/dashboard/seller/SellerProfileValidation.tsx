@@ -5,7 +5,6 @@ import Link from 'next/link'
 
 import type { User } from '@/models/user.model'
 
-import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { isSellerProfileComplete } from '@/lib/userValidation'
@@ -17,42 +16,6 @@ interface SellerProfileValidationProps {
 
 export default function SellerProfileValidation({ user, locale }: SellerProfileValidationProps) {
 	const isComplete = isSellerProfileComplete(user)
-
-	const getMissingFields = () => {
-		const missing: string[] = []
-
-		if (!user.paypalMerchantId || user.paypalMerchantId.trim() === '') {
-			missing.push('PayPal Merchant ID')
-		}
-		if (!user.email || user.email.trim() === '') {
-			missing.push('Email')
-		}
-		if (!user.firstName || user.firstName.trim() === '') {
-			missing.push('First Name')
-		}
-		if (!user.lastName || user.lastName.trim() === '') {
-			missing.push('Last Name')
-		}
-		if (!user.phoneNumber || user.phoneNumber.trim() === '') {
-			missing.push('Phone Number')
-		}
-		if (!user.address || user.address.trim() === '') {
-			missing.push('Address')
-		}
-		if (!user.postalCode || user.postalCode.trim() === '') {
-			missing.push('Postal Code')
-		}
-		if (!user.city || user.city.trim() === '') {
-			missing.push('City')
-		}
-		if (!user.country || user.country.trim() === '') {
-			missing.push('Country')
-		}
-
-		return missing
-	}
-
-	const missingFields = getMissingFields()
 
 	if (isComplete) {
 		return (

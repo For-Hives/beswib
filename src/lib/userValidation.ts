@@ -43,7 +43,7 @@ export function isSellerProfileComplete(user: User | null): boolean {
 	if (!user) return false
 
 	// Check if PayPal merchant ID is configured
-	if (!user.paypalMerchantId || user.paypalMerchantId.trim() === '') {
+	if (user.paypalMerchantId === null || user.paypalMerchantId === undefined || user.paypalMerchantId.trim() === '') {
 		return false
 	}
 
