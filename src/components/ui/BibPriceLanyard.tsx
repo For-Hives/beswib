@@ -38,7 +38,7 @@ interface LanyardProps {
 }
 
 export default function Lanyard({
-	position = [0, 0, 27],
+	position = [0, 0, 22],
 	gravity = [0, -40, 0],
 	fov = 16,
 	transparent = true,
@@ -137,13 +137,13 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		// Clear canvas
 		ctx.clearRect(0, 0, 256, 64)
 
-		// Create gradient from top to bottom for cylindrical lighting
+		// Create gradient from top to bottom for cylindrical lighting - medium tones
 		const gradient = ctx.createLinearGradient(0, 0, 0, 64)
-		gradient.addColorStop(0, '#C8C8C8') // Light top
-		gradient.addColorStop(0.3, '#A8A8A8') // Medium-light
-		gradient.addColorStop(0.5, '#909090') // Medium center
-		gradient.addColorStop(0.7, '#787878') // Medium-dark
-		gradient.addColorStop(1, '#606060') // Dark bottom
+		gradient.addColorStop(0, '#8A8A8A') // Medium gray top
+		gradient.addColorStop(0.3, '#6A6A6A') // Darker medium gray
+		gradient.addColorStop(0.5, '#5A5A5A') // Medium-dark gray center
+		gradient.addColorStop(0.7, '#4A4A4A') // Dark gray
+		gradient.addColorStop(1, '#3A3A3A') // Dark bottom
 
 		ctx.fillStyle = gradient
 		ctx.fillRect(0, 0, 256, 64)
@@ -432,8 +432,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 						<div className="relative flex h-full w-full flex-col items-center justify-center gap-8 rounded-lg p-4">
 							{/* Discount Badge */}
 							{hasDiscount && discountPercentage > 0 && (
-								<div className="absolute top-0 right-0 m-4">
-									<span className="text-md inline-flex items-center rounded-full bg-red-500 px-2 py-1 font-semibold text-white">
+								<div className="absolute top-1/2 right-0 mt-12 mr-12 -translate-y-1/2">
+									<span className="text-md inline-flex items-center rounded-full bg-red-500/50 px-2 py-1 font-semibold text-white">
 										-{discountPercentage}% OFF
 									</span>
 								</div>
@@ -518,7 +518,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 				<meshLineGeometry />
 				{/* @ts-expect-error - meshLineMaterial is not typed */}
 				<meshLineMaterial
-					color="#F5F5F5"
+					color="#6A6A6A"
 					depthTest={false}
 					resolution={screenSize.isSmall ? [1400, 2800] : [1400, 1400]}
 					useMap={true}
