@@ -10,6 +10,7 @@ import { pb } from '@/lib/pocketbaseClient'
 
 import { createTransaction } from './transaction.services'
 import { fetchUserById } from './user.services'
+import { isSellerProfileComplete } from '@/lib/userValidation'
 
 /**
  * Creates a new bib listing. Handles both partnered and unlisted events.
@@ -23,6 +24,18 @@ export async function createBib(bibData: Omit<Bib, 'id'>): Promise<Bib | null> {
 	}
 	if (bibData.registrationNumber === '' || bibData.price === undefined || bibData.price < 0) {
 		console.error('Registration Number and a valid Price are required.')
+		return null
+	}
+
+	// Validate seller profile before allowing bib creation
+	const sellerUser = await fetchUserById(bibData.sellerUserId)
+	if (!sellerUser) {
+		console.error('Seller user not found.')
+		return null
+	}
+
+	if (!isSellerProfileComplete(sellerUser)) {
+		console.error('Seller profile is not complete. Cannot create bib listing.')
 		return null
 	}
 
