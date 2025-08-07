@@ -9,7 +9,7 @@ import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 import type { Organizer } from '@/models/organizer.model'
 
-import { fetchAvailableBibsForEvent, fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
+import { fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
 import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
 import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider'
 import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
@@ -58,7 +58,9 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	// Fetch organizer information
 	let organizer: Organizer | null = null
 	try {
-		organizer = await fetchOrganizerById(bib.expand.eventId.organizer)
+		if (bib.expand.eventId.organizer) {
+			organizer = await fetchOrganizerById(bib.expand.eventId.organizer)
+		}
 	} catch (error) {
 		console.warn('Could not fetch organizer data:', error)
 	}
@@ -98,35 +100,6 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 		},
 	} satisfies BibSale
 
-	// Fetch other available bibs for the same event
-	const otherBibsData = await fetchAvailableBibsForEvent(bib.expand.eventId.id)
-
-	// Transform other bibs to BibSale format
-	const otherBibs: BibSale[] = otherBibsData
-		.filter(otherBib => otherBib.expand?.eventId && otherBib.expand?.sellerUserId)
-		.map(otherBib => ({
-			user: {
-				lastName: otherBib.expand!.sellerUserId.lastName ?? 'Unknown',
-				id: otherBib.sellerUserId,
-				firstName: otherBib.expand!.sellerUserId.firstName ?? 'Unknown',
-			},
-			status: mapStatus(otherBib.status),
-			price: otherBib.price,
-			originalPrice: otherBib.originalPrice ?? 0,
-			id: otherBib.id,
-			event: {
-				type: mapEventTypeToBibSaleType(otherBib.expand!.eventId.typeCourse),
-				participantCount: otherBib.expand!.eventId.participants ?? 0,
-				name: otherBib.expand!.eventId.name,
-				location: otherBib.expand!.eventId.location,
-				image: '/beswib.svg',
-				id: otherBib.expand!.eventId.id,
-				distanceUnit: 'km' as const,
-				distance: otherBib.expand!.eventId.distanceKm ?? 0,
-				date: new Date(otherBib.expand!.eventId.eventDate),
-			},
-		}))
-
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -134,7 +107,6 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 				<PayPalPurchaseClient
 					bib={bibSale}
 					locale={locale}
-					otherBibs={otherBibs}
 					sellerUser={bib.expand?.sellerUserId ?? null}
 					user={user}
 					eventData={bib.expand.eventId}

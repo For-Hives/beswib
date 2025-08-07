@@ -121,8 +121,8 @@ export async function fetchAllOrganizersWithEventsCount(): Promise<(Organizer & 
 			id: record.id,
 			eventsCount:
 				record.expand?.events_via_organizer !== null &&
-				record.expand?.events_via_organizer !== undefined &&
-				Array.isArray(record.expand.events_via_organizer)
+					record.expand?.events_via_organizer !== undefined &&
+					Array.isArray(record.expand.events_via_organizer)
 					? record.expand.events_via_organizer.length
 					: 0,
 			email: record.email as string,
@@ -139,6 +139,10 @@ export async function fetchAllOrganizersWithEventsCount(): Promise<(Organizer & 
  */
 export async function fetchOrganizerById(id: string): Promise<null | Organizer> {
 	try {
+		if (!id || id === '') {
+			return null
+		}
+
 		const record = await pb.collection('organizer').getOne(id)
 
 		return {
@@ -152,7 +156,10 @@ export async function fetchOrganizerById(id: string): Promise<null | Organizer> 
 			created: new Date(record.created as string),
 		}
 	} catch (error) {
-		console.error('Error fetching organizer by ID:', error)
+		// Only log error if it's not a "not found" error
+		if (error && typeof error === 'object' && 'status' in error && (error as any).status !== 404) {
+			console.error('Error fetching organizer by ID:', error)
+		}
 		return null
 	}
 }
