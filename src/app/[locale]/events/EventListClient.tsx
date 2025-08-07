@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { Star, Mountain, Route, Calendar, MapPin, Users, Search, ShoppingCart, Bell } from 'lucide-react'
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
 import { useRouter } from 'next/navigation'
@@ -9,6 +9,8 @@ import Fuse from 'fuse.js'
 import type { Event } from '@/models/event.model'
 import { getTranslations } from '@/lib/getDictionary'
 import { fetchAvailableBibsForEvent } from '@/services/bib.services'
+import { Input } from '@/components/ui/inputAlt'
+import { SelectAlt, SelectContentAlt, SelectItemAlt, SelectTriggerAlt, SelectValueAlt } from '@/components/ui/selectAlt'
 import SpotlightCard from '@/Components/SpotlightCard/SpotlightCard'
 import Translations from './locales.json'
 
@@ -80,7 +82,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	// State for location autocomplete
 	const [locationSearch, setLocationSearch] = useState('')
 	const [showLocationDropdown, setShowLocationDropdown] = useState(false)
-	
+
 	// State to track bibs availability for each event
 	const [eventBibsCache, setEventBibsCache] = useState<Record<string, number>>({})
 
@@ -165,7 +167,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		const summary = [
 			{
 				key: 'all',
-				label: 'TOUTES',
+				label: 'Tous',
 				color: 'bg-gray-500/15 border-gray-500/50 text-gray-400',
 				count: prefetchedEvents.length,
 				icon: <Star className="h-4 w-4" />,
@@ -188,19 +190,41 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		return summary
 	}, [prefetchedEvents])
 
-	function getCountLabel(): string {
-		if (typeof t.events?.countLabel === 'string' && t.events.countLabel !== undefined && t.events.countLabel !== null) {
-			return t.events.countLabel.replace('{count}', String(filteredEvents.length))
+	// Pre-load bib counts for featured and upcoming events
+	useEffect(() => {
+		const loadBibCounts = async () => {
+			const eventsToLoad = [...featuredEvents.slice(0, 8), ...upcomingEvents.slice(0, 8)] // Load first 16 events
+
+			const promises = eventsToLoad.map(async event => {
+				if (eventBibsCache[event.id] === undefined) {
+					try {
+						const availableBibs = await fetchAvailableBibsForEvent(event.id)
+						return { [event.id]: availableBibs.length }
+					} catch (error) {
+						console.error('Error loading bibs for event:', event.id, error)
+						return { [event.id]: 0 }
+					}
+				}
+				return {}
+			})
+
+			const results = await Promise.all(promises)
+			const newCache = results.reduce((acc, curr) => ({ ...acc, ...curr }), {})
+
+			if (Object.keys(newCache).length > 0) {
+				setEventBibsCache(prev => ({ ...prev, ...newCache }))
+			}
 		}
-		return `${filteredEvents.length} événement${filteredEvents.length !== 1 ? 's' : ''} trouvé${filteredEvents.length !== 1 ? 's' : ''}`
-	}
+
+		void loadBibCounts()
+	}, [featuredEvents, upcomingEvents, eventBibsCache])
 
 	// Function to get bib count for an event (with caching)
 	const getBibCountForEvent = async (eventId: string): Promise<number> => {
 		if (eventBibsCache[eventId] !== undefined) {
 			return eventBibsCache[eventId]
 		}
-		
+
 		try {
 			const availableBibs = await fetchAvailableBibsForEvent(eventId)
 			const count = availableBibs.length
@@ -216,13 +240,13 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	const handleEventAction = async (event: Event) => {
 		try {
 			const bibCount = await getBibCountForEvent(event.id)
-			
+
 			if (bibCount > 0) {
 				// Redirect to marketplace with filters for this specific event
 				const searchParams = new URLSearchParams({
 					search: event.name, // Search by event name
 					geography: event.location.toLowerCase(), // Filter by location
-					sport: event.typeCourse === 'all' ? '' : event.typeCourse // Filter by sport type
+					sport: event.typeCourse, // Filter by sport type
 				})
 				router.push(`/${locale}/marketplace?${searchParams.toString()}`)
 			} else {
@@ -291,9 +315,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							<span className="text-lg font-bold text-green-400">À partir de {event.officialStandardPrice}€</span>
 						</div>
 					)}
-					<button 
-						onClick={() => handleEventAction(event)}
-						className="bg-primary/20 text-primary hover:bg-primary/30 w-full rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer flex items-center justify-center gap-2"
+					<button
+						onClick={() => void handleEventAction(event)}
+						className="bg-primary/20 text-primary hover:bg-primary/30 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
 					>
 						{eventBibsCache[event.id] !== undefined ? (
 							eventBibsCache[event.id] > 0 ? (
@@ -321,11 +345,13 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			{/* Race type quick filters like in marketplace */}
 			<div className="border-border bg-card/80 border-b p-6">
 				<div className="mx-auto max-w-7xl">
-					<div className={`mb-6 grid gap-4 ${raceTypeSummary.length <= 2 ? 'grid-cols-2' : raceTypeSummary.length <= 3 ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-2 md:grid-cols-4'}`}>
+					<div
+						className={`mb-6 grid gap-4 ${raceTypeSummary.length <= 2 ? 'grid-cols-2' : raceTypeSummary.length <= 3 ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-2 md:grid-cols-5'}`}
+					>
 						{raceTypeSummary.map(type => (
 							<button
 								key={type.key}
-								className={`group flex flex-col items-center justify-center rounded-xl border p-4 transition-all hover:scale-105 cursor-pointer ${selectedType === type.key ? type.color : 'border-border bg-card/60 hover:bg-card/80'}`}
+								className={`group flex cursor-pointer flex-col items-center justify-center rounded-xl border p-4 transition-all hover:scale-105 ${selectedType === type.key ? type.color : 'border-border bg-card/60 hover:bg-card/80'}`}
 								onClick={() => handleTypeChange(type.key as 'all' | 'triathlon' | 'trail' | 'route' | 'ultra')}
 								aria-label={(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
 							>
@@ -335,20 +361,15 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								>
 									{(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
 								</div>
-								<div
-									className={`text-xl font-bold ${selectedType === type.key ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}
-								>
-									{type.count}
-								</div>
 							</button>
 						))}
 					</div>
 
 					{/* Search bar - same style as marketplace */}
 					<div className="relative">
-						<Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
-						<input
-							className="border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent block w-full rounded-lg border p-2.5 pl-10 text-sm"
+						<Search className="text-muted-foreground absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 transform" />
+						<Input
+							className="pl-10 text-sm"
 							placeholder={t.events?.searchPlaceholder ?? 'Rechercher un événement, une ville...'}
 							value={searchTerm}
 							onChange={e => handleSearchChange(e.target.value)}
@@ -362,8 +383,8 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				<div className="max-w-7xl">
 					<div className="mb-6 flex flex-wrap gap-3">
 						{/* Location autocomplete dropdown */}
-						<div className="relative">
-							<input
+						<div className="relative w-48">
+							<Input
 								type="text"
 								placeholder="Rechercher une ville..."
 								value={locationSearch || selectedLocation}
@@ -379,7 +400,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 									// Delay hiding dropdown to allow clicks on items
 									setTimeout(() => setShowLocationDropdown(false), 200)
 								}}
-								className="border-border bg-card/60 text-foreground focus:border-accent focus:ring-accent w-48 rounded-lg border px-3 py-2 text-sm focus:ring-2 focus:outline-none"
+								className="text-sm"
 							/>
 							{showLocationDropdown && filteredLocations.length > 0 && (
 								<div className="bg-card border-border absolute top-full right-0 left-0 z-50 mt-1 max-h-40 overflow-y-auto rounded-lg border shadow-lg">
@@ -389,7 +410,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 											setLocationSearch('')
 											setShowLocationDropdown(false)
 										}}
-										className="hover:bg-muted/50 border-border block w-full border-b px-3 py-2 text-left text-sm"
+										className="hover:bg-muted/50 border-border block w-full cursor-pointer border-b px-3 py-2 text-left text-sm"
 									>
 										Toutes les villes
 									</button>
@@ -401,7 +422,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 												setLocationSearch(location)
 												setShowLocationDropdown(false)
 											}}
-											className="hover:bg-muted/50 block w-full px-3 py-2 text-left text-sm"
+											className="hover:bg-muted/50 block w-full cursor-pointer px-3 py-2 text-left text-sm"
 										>
 											{location}
 										</button>
@@ -410,18 +431,19 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							)}
 						</div>
 
-						<select
-							value={sortBy}
-							onChange={e => handleSortChange(e.target.value as 'date' | 'price' | 'participants' | 'distance')}
-							className="border-border bg-card/60 text-foreground focus:border-accent focus:ring-accent rounded-lg border px-3 py-2 text-sm focus:ring-2 focus:outline-none"
-						>
-							<option value="date">{t.events?.filters?.date ?? 'Trier par date'}</option>
-							<option value="price">{t.events?.filters?.price ?? 'Trier par prix'}</option>
-							<option value="participants">{t.events?.filters?.participants ?? 'Trier par participants'}</option>
-							<option value="distance">{t.events?.filters?.distance ?? 'Trier par distance'}</option>
-						</select>
-
-						<div className="text-muted-foreground ml-auto text-sm">{getCountLabel()}</div>
+						<SelectAlt value={sortBy} onValueChange={handleSortChange}>
+							<SelectTriggerAlt className="w-48 text-sm">
+								<SelectValueAlt placeholder="Trier par..." />
+							</SelectTriggerAlt>
+							<SelectContentAlt>
+								<SelectItemAlt value="date">{t.events?.filters?.date ?? 'Trier par date'}</SelectItemAlt>
+								<SelectItemAlt value="price">{t.events?.filters?.price ?? 'Trier par prix'}</SelectItemAlt>
+								<SelectItemAlt value="participants">
+									{t.events?.filters?.participants ?? 'Trier par participants'}
+								</SelectItemAlt>
+								<SelectItemAlt value="distance">{t.events?.filters?.distance ?? 'Trier par distance'}</SelectItemAlt>
+							</SelectContentAlt>
+						</SelectAlt>
 					</div>
 				</div>
 			</div>
