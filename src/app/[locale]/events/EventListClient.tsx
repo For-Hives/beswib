@@ -149,12 +149,29 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	}, [searchTerm, selectedType, selectedLocation, prefetchedEvents, fuse])
 
 	const sortedEvents = useMemo(() => {
+		const parseEventDate = (value: unknown): DateTime | null => {
+			if (value instanceof Date) {
+				const dt = DateTime.fromJSDate(value)
+				return dt.isValid ? dt : null
+			}
+			if (typeof value === 'string' || typeof value === 'number') {
+				const iso = DateTime.fromISO(String(value))
+				if (iso.isValid) return iso
+				const js = DateTime.fromJSDate(new Date(value))
+				return js.isValid ? js : null
+			}
+			return null
+		}
+
 		return [...filteredEvents].sort((a, b) => {
 			switch (sortBy) {
 				case 'date': {
-					const da = DateTime.fromISO(String(a.eventDate))
-					const db = DateTime.fromISO(String(b.eventDate))
-					return da.toMillis() - db.toMillis()
+					const da = parseEventDate(a.eventDate)
+					const db = parseEventDate(b.eventDate)
+					if (da && db) return da.toMillis() - db.toMillis()
+					if (da && !db) return -1
+					if (!da && db) return 1
+					return 0
 				}
 				case 'price':
 					return (a.officialStandardPrice ?? 0) - (b.officialStandardPrice ?? 0)
@@ -204,17 +221,35 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	const groupedSections: GroupSections = useMemo(() => {
 		if (sortBy === 'date') {
 			const byMonth: Record<string, Event[]> = {}
+			const unknown: Event[] = []
 			for (const event of sortedEvents) {
-				const dt = DateTime.fromISO(String(event.eventDate))
-				const key = getMonthKey(dt)
+				const parsed = (() => {
+					if (event.eventDate instanceof Date) {
+						const dt = DateTime.fromJSDate(event.eventDate)
+						return dt.isValid ? dt : null
+					}
+					const asStr = String(event.eventDate)
+					const iso = DateTime.fromISO(asStr)
+					if (iso.isValid) return iso
+					const js = DateTime.fromJSDate(new Date(asStr))
+					return js.isValid ? js : null
+				})()
+
+				if (!parsed) {
+					unknown.push(event)
+					continue
+				}
+				const key = getMonthKey(parsed)
 				if (!byMonth[key]) byMonth[key] = []
 				byMonth[key].push(event)
 			}
-			return Object.entries(byMonth).map(([key, list]) => {
+			const sections: GroupSections = Object.entries(byMonth).map(([key, list]) => {
 				const dt = DateTime.fromFormat(key, 'yyyy-LL')
 				const label = getMonthLabel(dt)
 				return { title: label, events: list }
 			})
+			if (unknown.length > 0) sections.push({ title: 'Date inconnue', events: unknown })
+			return sections
 		}
 
 		if (sortBy === 'price') {
