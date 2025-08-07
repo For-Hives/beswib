@@ -34,44 +34,30 @@ export default function EmptyResults({ locale }: Readonly<EmptyResultsProps>) {
 
 	return (
 		<div className="flex flex-col items-center justify-center py-16 text-center">
-			<div className="relative mb-6 h-28 w-28">
-				{/* Outer rotating dashed ring */}
-				<svg className="animate-spin-slow text-muted-foreground absolute inset-0 h-full w-full" viewBox="0 0 120 120">
-					<circle
-						cx="60"
-						cy="60"
-						r="52"
+			<div className="relative mb-8 h-40 w-56">
+				{/* Mountain silhouette with animated trail */}
+				<svg
+					className="text-muted-foreground absolute inset-x-0 top-0 mx-auto h-24 w-full"
+					viewBox="0 0 300 120"
+					fill="none"
+				>
+					<path d="M10 110 L70 40 L120 90 L170 20 L230 95 L290 110" stroke="currentColor" strokeWidth="2" fill="none" />
+					<path
+						d="M15 108 L75 50 L125 92 L175 30 L235 98 L285 108"
+						stroke="currentColor"
+						strokeWidth="2"
+						strokeDasharray="6 10"
+						className="animate-dash"
 						fill="none"
-						stroke="currentColor"
-						strokeWidth="4"
-						strokeDasharray="8 12"
-						strokeLinecap="round"
 					/>
 				</svg>
-				{/* Inner pulsing circle */}
-				<div className="absolute inset-0 flex items-center justify-center">
-					<span className="relative inline-flex h-8 w-8">
-						<span className="bg-primary absolute inline-flex h-full w-full animate-ping rounded-full opacity-20" />
-						<span className="bg-primary/80 relative inline-flex h-8 w-8 rounded-full" />
-					</span>
+				{/* Magnifying glass sweeping over */}
+				<div className="absolute top-1/2 left-1/2 -mt-2 -translate-x-1/2">
+					<svg className="animate-sweep text-primary/80 h-6 w-6" viewBox="0 0 24 24" fill="none">
+						<path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" stroke="currentColor" strokeWidth="1.5" />
+						<path d="M21 21l-3.8-3.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+					</svg>
 				</div>
-				{/* Magnifying glass */}
-				<svg className="text-primary absolute inset-0 m-auto h-10 w-10" viewBox="0 0 24 24" fill="none">
-					<path
-						d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"
-						stroke="currentColor"
-						strokeWidth="1.5"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					/>
-					<path
-						d="M21 21l-3.8-3.8"
-						stroke="currentColor"
-						strokeWidth="1.5"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					/>
-				</svg>
 			</div>
 
 			<h3 className="text-foreground mb-2 text-xl font-semibold">{t.title}</h3>
@@ -82,7 +68,7 @@ export default function EmptyResults({ locale }: Readonly<EmptyResultsProps>) {
 					Explore latest bibs
 				</Link>
 				<Button asChild>
-					<Link href={`/${locale}/contact`}>{t.cta}</Link>
+					<Link href={`/contact`}>{t.cta}</Link>
 				</Button>
 			</div>
 		</div>
