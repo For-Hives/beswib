@@ -94,7 +94,7 @@ const SelectAnimated = ({
 							ref={dropdownRef}
 							animate={{ y: 0, scale: 1, filter: 'blur(0px)' }}
 							className={cn(
-								'bg-background border-border ring-opacity-5 origin-top-right rounded-md border p-1 shadow-lg ring-1 ring-black backdrop-blur-sm',
+								'bg-background border-border ring-opacity-5 max-h-[200px] min-w-[120px] origin-top-right overflow-y-auto rounded-md border p-1 shadow-lg ring-1 ring-black backdrop-blur-sm',
 								contentClassName
 							)}
 							exit={{ y: -5, scale: 0.95, opacity: 0, filter: 'blur(10px)' }}
@@ -163,7 +163,7 @@ const SelectAnimated = ({
 			<button
 				ref={triggerRef}
 				className={cn(
-					'border-input dark:bg-input/30 flex h-9 w-full min-w-0 items-center justify-between rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+					'border-input dark:bg-input/30 flex h-10 min-h-[40px] w-full min-w-[120px] items-center justify-between rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
 					'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
 					'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
 					'text-foreground placeholder:text-muted-foreground',
@@ -174,15 +174,15 @@ const SelectAnimated = ({
 				disabled={disabled}
 				type="button"
 			>
-				<div className="flex items-center gap-2">
+				<div className="flex min-w-0 flex-1 items-center gap-2">
 					{selectedOption?.icon}
-					<span className={selectedOption ? 'text-foreground' : 'text-muted-foreground'}>
+					<span className={cn(selectedOption ? 'text-foreground' : 'text-muted-foreground', 'truncate')}>
 						{selectedOption?.label ?? placeholder}
 					</span>
 				</div>
 				<motion.span
 					animate={{ rotate: isOpen ? 180 : 0 }}
-					className="ml-1"
+					className="ml-2 flex-shrink-0"
 					transition={{ type: 'spring', ease: 'easeInOut', duration: 0.4 }}
 				>
 					<ChevronDown className="h-4 w-4" />
