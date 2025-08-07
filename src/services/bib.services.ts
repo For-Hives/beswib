@@ -113,7 +113,7 @@ export async function fetchAvailableBibsForMarketplace(): Promise<
 			expand: 'eventId,sellerUserId',
 		})
 
-		console.log(records)
+		console.info(records)
 		return records
 	} catch (error: unknown) {
 		throw new Error(
@@ -168,7 +168,7 @@ export async function unlockExpiredBibs(): Promise<number> {
 		const pad = (n: number, width = 2) => n.toString().padStart(width, '0')
 		const padMs = (n: number) => n.toString().padStart(3, '0')
 		const expiredIso = `${expiredDate.getUTCFullYear()}-${pad(expiredDate.getUTCMonth() + 1)}-${pad(expiredDate.getUTCDate())} ${pad(expiredDate.getUTCHours())}:${pad(expiredDate.getUTCMinutes())}:${pad(expiredDate.getUTCSeconds())}.${padMs(expiredDate.getUTCMilliseconds())}Z`
-		console.log(`Unlocking expired bibs older than ${expiredIso}`)
+		console.info(`Unlocking expired bibs older than ${expiredIso}`)
 		const records = await pb.collection('bibs').getFullList<Bib>({
 			filter: `lockedAt != null && lockedAt < '${expiredIso}'`,
 		})

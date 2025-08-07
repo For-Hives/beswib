@@ -59,6 +59,7 @@ export function transformBibToBibSale(bib: Bib & { expand?: { eventId: Event; se
 			id: seller.id,
 			firstName: seller.firstName ?? 'Anonymous',
 		},
+		lockedAt: bib.lockedAt ?? null,
 		status,
 		price: bib.price,
 		originalPrice: bib.originalPrice ?? bib.price,

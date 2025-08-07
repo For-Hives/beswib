@@ -15,7 +15,7 @@ import { capturePayment, createOrder } from '@/services/paypal.services'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'
 import Lanyard from '@/components/ui/BibPriceLanyard'
-import { lockBib, unlockBib, unlockExpiredBibs } from '@/services/bib.services'
+import { lockBib, unlockExpiredBibs } from '@/services/bib.services'
 
 // Import sub-components
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
@@ -60,7 +60,7 @@ export default function PayPalPurchaseClient({
 	const isOwnBib = user?.id === bib.user.id
 
 	useEffect(() => {
-		unlockExpiredBibs()
+		void unlockExpiredBibs()
 		setIsProfileComplete(isUserProfileComplete(user))
 	}, [user])
 
@@ -83,7 +83,7 @@ export default function PayPalPurchaseClient({
 			// Try to lock the bib for this user
 			setLoading(true)
 			try {
-				const lockedBib = await lockBib(bib.id, user?.id || '')
+				const lockedBib = await lockBib(bib.id, user?.id ?? '')
 				if (!lockedBib) {
 					setErrorMessage('Failed to lock bib. It may have just been locked by another user.')
 					console.error('Failed to lock bib:', lockedBib)
@@ -93,7 +93,7 @@ export default function PayPalPurchaseClient({
 				setLockExpiration(new Date(lockedBib.lockedAt!))
 				setIsPanelOpen(true)
 			} catch (err) {
-				setErrorMessage('Error locking bib for purchase.')
+				setErrorMessage('Error locking bib for purchase.' + (err instanceof Error ? err.message : String(err)))
 			} finally {
 				setLoading(false)
 			}
@@ -159,9 +159,9 @@ export default function PayPalPurchaseClient({
 		[bib.id, locale, router]
 	)
 
-	const onError = useCallback((err: Record<string, unknown>) => {
-		console.error('PayPal Error:', err)
-		const message = typeof err.message === 'string' ? err.message : 'An unknown error occurred'
+	const onError = useCallback((_err: Record<string, unknown>) => {
+		console.error('PayPal Error:', _err)
+		const message = typeof _err.message === 'string' ? _err.message : 'An unknown error occurred'
 		setErrorMessage('PayPal Error: ' + message)
 		setLoading(false)
 	}, [])
@@ -237,7 +237,9 @@ export default function PayPalPurchaseClient({
 							isProfileComplete={isProfileComplete}
 							isOwnBib={isOwnBib}
 							locale={locale}
-							onBuyNowClick={handleBuyNowClick}
+							onBuyNowClick={() => {
+								void handleBuyNowClick()
+							}}
 						/>
 						{/* Lock timer display */}
 						{lockExpiration && new Date(lockExpiration) > new Date() && (

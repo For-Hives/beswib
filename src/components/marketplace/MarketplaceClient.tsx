@@ -118,7 +118,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 					void setFilters({ priceMin: 0, priceMax: maxPrice })
 					break
 				case 'geography':
-					if (value) {
+					if (value !== null && value !== undefined && value !== '') {
 						const newGeography = geography.filter(loc => loc !== value)
 						void setFilters({ geography: newGeography })
 					}
