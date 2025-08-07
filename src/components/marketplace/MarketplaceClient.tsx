@@ -260,16 +260,16 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 								locale={locale}
 							/>
 
-					{/* Grid of bib cards, responsive layout 🖼️ */}
-					<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-						{filteredAndSortedBibs.map(bib => (
-							<CardMarket bibSale={bib} key={bib.id} locale={locale} />
-						))}
-					</div>
+							{/* Grid of bib cards, responsive layout 🖼️ */}
+							<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+								{filteredAndSortedBibs.map(bib => (
+									<CardMarket bibSale={bib} key={bib.id} locale={locale} />
+								))}
+							</div>
 
-					{/* Empty state when no results */}
-					{filteredAndSortedBibs.length === 0 && <EmptyResultsRive locale={locale} />}
-					</div>
+							{/* Empty state when no results */}
+							{filteredAndSortedBibs.length === 0 && <EmptyResultsRive locale={locale} />}
+						</div>
 					</div>
 				</div>
 			</div>
