@@ -295,8 +295,3 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		</div>
 	)
 }
-
-// MarketplaceClient: client component for filtering, sorting, and displaying bibs 🛍️
-// Receives bibs as props from the server 📦
-// Extracts unique locations and max price for dynamic filters 🗺️💰
-// Handles all filter and sort state, and passes handlers to Searchbar ⚙️
