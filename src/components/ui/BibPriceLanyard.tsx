@@ -320,7 +320,15 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 	curve.curveType = 'chordal'
 
 	// Create a simple card component with price display
-	const SimpleCard = () => {
+	const SimpleCard = ({
+		price,
+		originalPrice,
+		currency = 'EUR',
+	}: {
+		price?: number
+		originalPrice?: number
+		currency?: string
+	}) => {
 		// Load the 3D model with Suspense-compatible error handling
 		let nodes: any
 		try {
@@ -364,6 +372,42 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 						color="#f0f0f0"
 					/>
 				</mesh>
+
+				{/* HTML Content - same size and position as the card */}
+				{price != null && (
+					<Html
+						transform
+						position={[0, 0, 0]} // Même position que le mesh, légèrement devant
+						scale={0.09} // Échelle réduite pour correspondre exactement au mesh
+						style={{
+							userSelect: 'none',
+							width: '320px', // Taille plus grande car scale est réduit
+							height: '440px',
+							transform: 'translateY(-235px)',
+							borderRadius: '50px',
+							pointerEvents: 'none',
+						}}
+					>
+						<div className="relative flex h-full w-full flex-col items-center justify-center gap-8 rounded-lg p-4">
+							{/* Discount Badge */}
+							{hasDiscount && discountPercentage > 0 && (
+								<div className="absolute top-0 right-0 m-4">
+									<span className="text-md inline-flex items-center rounded-full bg-red-500 px-2 py-1 font-semibold text-white">
+										-{discountPercentage}% OFF
+									</span>
+								</div>
+							)}
+
+							{/* Main Price */}
+							<div className="mb-2 text-center">
+								<span className="text-5xl font-bold text-gray-800 italic">
+									{price}
+									{currency === 'EUR' ? '€' : '$'}
+								</span>
+							</div>
+						</div>
+					</Html>
+				)}
 
 				{/* Clip - real geometry from GLB model */}
 				{nodes.clip?.geometry != null && (
@@ -425,7 +469,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 				>
 					{/* Card collision - simple box without interference at attachment point */}
 					<CuboidCollider args={[0.8, 1.0, 0.01]} position={[0, -0.125, 0]} />
-					<SimpleCard />
+					<SimpleCard price={price} originalPrice={originalPrice} currency={currency} />
 				</RigidBody>
 			</group>
 			<mesh ref={band}>
