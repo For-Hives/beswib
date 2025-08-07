@@ -19,6 +19,7 @@
 		"test:coverage": "vitest run --coverage"
 	},
 	"dependencies": {
+		"nuqs": "^2.4.3",
 		"@clerk/nextjs": "6.29.0",
 		"@faker-js/faker": "9.9.0",
 		"@formatjs/intl-localematcher": "0.6.1",

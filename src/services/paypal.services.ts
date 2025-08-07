@@ -1,6 +1,209 @@
-'use server'
+// --- PayPal Webhook Event Types and Handlers ---
+export type PayPalWebhookEvent = {
+	create_time: string
+	event_type: string
+	resource: unknown
+	resource_type: string
+	summary: string
+}
 
-import { revalidatePath } from 'next/cache'
+export type PayPalPaymentCaptureResource = {
+	supplementary_data?: { related_ids?: { order_id?: string } }
+	id?: string
+	payee?: { email_address?: string }
+	amount?: { value?: string; currency_code?: string }
+	status?: string
+}
+
+export async function handlePaymentCaptureCompleted(event: unknown) {
+	if (typeof event !== 'object' || event === null) {
+		throw new Error('Invalid webhook event')
+	}
+	const resourceRaw = (event as { resource?: unknown }).resource
+	if (typeof resourceRaw !== 'object' || resourceRaw === null) {
+		throw new Error('No resource in webhook event')
+	}
+	const resource = resourceRaw as PayPalPaymentCaptureResource
+	const orderId = resource.supplementary_data?.related_ids?.order_id ?? ''
+	const captureId = resource.id ?? ''
+	const payerEmail = resource.payee?.email_address ?? ''
+	const amount = resource.amount?.value ?? ''
+	const currency = resource.amount?.currency_code ?? ''
+	const status = resource.status ?? ''
+	const bibId = await findBibIdByOrderId(orderId)
+	const transactionId = await findTransactionIdByOrderId(orderId)
+
+	// Update transaction status to succeeded
+	if (typeof transactionId === 'string' && transactionId !== '') {
+		// updateTransaction should be imported from transaction.services
+
+		await import('./transaction.services').then(m =>
+			m.updateTransaction(transactionId, {
+				status: 'succeeded',
+				paymentIntentId: captureId,
+			})
+		)
+	}
+
+	// Update bib status to sold
+	if (typeof bibId === 'string' && bibId !== '') {
+		// updateBib should be imported from bib.services
+
+		await import('./bib.services').then(m =>
+			m.updateBib(bibId, {
+				status: 'sold',
+				validated: true,
+			})
+		)
+	}
+
+	return {
+		orderId,
+		captureId,
+		bibId,
+		transactionId,
+		payerEmail,
+		amount,
+		currency,
+		status,
+	}
+}
+
+export async function handleCheckoutOrderApproved(event: unknown) {
+	if (typeof event !== 'object' || event === null) {
+		throw new Error('Invalid webhook event')
+	}
+	const resource = (event as { resource?: unknown }).resource
+	if (typeof resource !== 'object' || resource === null) {
+		throw new Error('No resource in webhook event')
+	}
+	const orderId = (resource as { id?: string }).id ?? ''
+	const payerEmail = (resource as { payer?: { email_address?: string } }).payer?.email_address ?? ''
+	const amount =
+		(resource as { purchase_units?: [{ amount?: { value?: string } }] }).purchase_units?.[0]?.amount?.value ?? ''
+	const currency =
+		(resource as { purchase_units?: [{ amount?: { currency_code?: string } }] }).purchase_units?.[0]?.amount
+			?.currency_code ?? ''
+
+	// Optionally, update transaction to pending/approved
+	const transactionId = await findTransactionIdByOrderId(orderId)
+	if (typeof transactionId === 'string' && transactionId !== '') {
+		// updateTransaction should be imported from transaction.services
+
+		await import('./transaction.services').then(m =>
+			m.updateTransaction(transactionId, {
+				status: 'pending',
+			})
+		)
+	}
+
+	return {
+		orderId,
+		transactionId,
+		payerEmail,
+		amount,
+		currency,
+	}
+}
+
+export async function handleOnboardingCompleted(event: PayPalWebhookEvent) {
+	const resource = event.resource as { merchant_id?: string; tracking_id?: string }
+	const merchantId = resource.merchant_id
+	const trackingId = resource.tracking_id
+
+	if (merchantId == null || (trackingId?.startsWith('seller_') ?? false) === false) {
+		throw new Error('Invalid tracking ID or missing merchant ID')
+	}
+
+	const userId = trackingId != null ? trackingId.split('_')[1] : undefined
+	if (userId == null) {
+		throw new Error('Could not extract user ID from tracking ID')
+	}
+
+	// updateUser is dynamically imported for SSR compatibility
+	await import('./user.services').then(m =>
+		m.updateUser(userId, {
+			paypalMerchantId: merchantId,
+		})
+	)
+
+	return { userId, merchantId }
+}
+
+export async function handleSellerConsentGranted(event: PayPalWebhookEvent) {
+	const resource = event.resource as { merchant_id?: string; tracking_id?: string }
+	const merchantId = resource.merchant_id
+	const trackingId = resource.tracking_id
+
+	if (merchantId == null || (trackingId?.startsWith('seller_') ?? false) === false) {
+		throw new Error('Invalid tracking ID or missing merchant ID')
+	}
+
+	const userId = trackingId != null ? trackingId.split('_')[1] : undefined
+	if (userId == null) {
+		throw new Error('Could not extract user ID from tracking ID')
+	}
+
+	let attempts = 0
+	let success = false
+	while (attempts < 3 && !success) {
+		try {
+			// updateUser is dynamically imported for SSR compatibility
+			await import('./user.services').then(m =>
+				m.updateUser(userId, {
+					paypalMerchantId: merchantId,
+				})
+			)
+			success = true
+		} catch (err) {
+			attempts++
+			if (attempts >= 3) {
+				throw err
+			}
+		}
+	}
+
+	return { userId, merchantId }
+}
+
+export async function handleConsentRevoked(event: PayPalWebhookEvent) {
+	// Implement actual logic as needed
+	await Promise.resolve()
+	return { revoked: true, event }
+}
+
+// Helper: Find bibId by orderId (implement as needed)
+export async function findBibIdByOrderId(orderId: string): Promise<string | null> {
+	// Example implementation: Query transaction by orderId, then get bibId
+	try {
+		// Dynamically import transaction.services for SSR compatibility
+		const { getTransactionByOrderId } = await import('./transaction.services')
+		const transaction = await getTransactionByOrderId(orderId)
+		if (transaction && typeof transaction.bibId === 'string') {
+			return transaction.bibId
+		}
+		return null
+	} catch (error) {
+		console.error('Error in findBibIdByOrderId:', error)
+		return null
+	}
+}
+
+// Helper: Find transactionId by orderId (implement as needed)
+export async function findTransactionIdByOrderId(orderId: string): Promise<string | null> {
+	try {
+		// Dynamically import transaction.services for SSR compatibility
+		const { getTransactionByOrderId } = await import('./transaction.services')
+		const transaction = await getTransactionByOrderId(orderId)
+		if (transaction && typeof transaction.id === 'string') {
+			return transaction.id
+		}
+		return null
+	} catch (error) {
+		console.error('Error in findTransactionIdByOrderId:', error)
+		return null
+	}
+}
 
 interface PayPalAccessToken {
 	access_token: string
@@ -256,7 +459,6 @@ export async function onboardSeller(
 
 		const data = (await response.json()) as PayPalPartnerReferralResponse
 		const actionUrl = data.links.find(l => l.rel === 'action_url')?.href
-		revalidatePath('/') // To update the UI with the new link
 		return { referral_id: data.id, action_url: actionUrl }
 	} catch (error) {
 		console.error('Onboard error:', error instanceof Error ? error.message : error)
