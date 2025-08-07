@@ -1,0 +1,50 @@
+{
+	"fr": {
+		"success": {
+			"title": "Achat réussi !",
+			"thanks": "Merci pour votre achat. Votre transaction a été validée avec succès. Nous vous remercions chaleureusement pour votre confiance.",
+			"steps": [
+				{ "label": "Achat réussi", "description": "Votre paiement a été validé." },
+				{
+					"label": "En attente de validation de l'organisateur",
+					"description": "Votre achat doit être validé par l'organisateur de l'événement."
+				},
+				{ "label": "Confirmation par email", "description": "Vous recevrez bientôt un email de confirmation." },
+				{ "label": "Dossard prêt", "description": "Vous pourrez utiliser votre dossard dès réception du mail." }
+			],
+			"viewBibs": "Voir tous mes dossards",
+			"backMarketplace": "Retour au marketplace"
+		}
+	},
+	"en": {
+		"success": {
+			"title": "Purchase successful!",
+			"thanks": "Thank you for your purchase. Your transaction was successful. We sincerely appreciate your trust.",
+			"steps": [
+				{ "label": "Purchase successful", "description": "Your payment has been validated." },
+				{
+					"label": "Waiting for organizer validation",
+					"description": "Your purchase must be validated by the event organizer."
+				},
+				{ "label": "Email confirmation", "description": "You will soon receive a confirmation email." },
+				{ "label": "Bib ready", "description": "You can use your bib as soon as you receive the email." }
+			],
+			"viewBibs": "View all my bibs",
+			"backMarketplace": "Back to marketplace"
+		}
+	},
+	"ko": {
+		"success": {
+			"title": "구매 성공!",
+			"thanks": "구매해 주셔서 감사합니다. 거래가 성공적으로 완료되었습니다. 신뢰해 주셔서 진심으로 감사드립니다.",
+			"steps": [
+				{ "label": "구매 성공", "description": "결제가 완료되었습니다." },
+				{ "label": "주최자 승인 대기 중", "description": "구매가 이벤트 주최자의 승인을 받아야 합니다." },
+				{ "label": "이메일 확인", "description": "곧 확인 이메일을 받게 됩니다." },
+				{ "label": "빕 사용 가능", "description": "이메일을 받는 즉시 빕을 사용할 수 있습니다." }
+			],
+			"viewBibs": "내 모든 빕 보기",
+			"backMarketplace": "마켓플레이스로 돌아가기"
+		}
+	}
+}
