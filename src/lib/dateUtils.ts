@@ -24,39 +24,13 @@ export function datetimeToDate(datetimeString: string): string {
  */
 export function formatDateForDisplay(dateString: string, locale: string = 'en'): string {
 	if (!dateString) return ''
-
 	try {
-		const date = new Date(dateString)
-
-		// Handle different locales 🗺️
-		switch (locale) {
-			case 'en':
-				return date.toLocaleDateString('en-US', {
-					year: 'numeric',
-					month: 'long',
-					day: 'numeric',
-				})
-			case 'fr':
-				return date.toLocaleDateString('fr-FR', {
-					year: 'numeric',
-					month: 'long',
-					day: 'numeric',
-				})
-			case 'ko':
-				return date.toLocaleDateString('ko-KR', {
-					year: 'numeric',
-					month: 'long',
-					day: 'numeric',
-				})
-			default:
-				return date.toLocaleDateString('en-US', {
-					year: 'numeric',
-					month: 'long',
-					day: 'numeric',
-				})
-		}
-	} catch (error) {
-		console.error('Error formatting date:', error)
+		// Support date-only ('YYYY-MM-DD') or ISO; normalize to UTC to avoid TZ shifts
+		const base = dateString.length === 10 ? `${dateString}T00:00:00` : dateString
+		const dt = DateTime.fromISO(base, { zone: 'utc' }).setLocale(locale).toUTC()
+		if (!dt.isValid) return dateString
+		return dt.toLocaleString(DateTime.DATE_FULL)
+	} catch {
 		return dateString
 	}
 }
@@ -68,12 +42,11 @@ export function formatDateForDisplay(dateString: string, locale: string = 'en'):
  */
 export function formatDateForInput(dateString: string): string {
 	if (!dateString) return ''
-
 	try {
-		const date = new Date(dateString)
-		return date.toISOString().split('T')[0]
-	} catch (error) {
-		console.error('Error formatting date for input:', error)
+		const base = dateString.length === 10 ? `${dateString}T00:00:00` : dateString
+		const dt = DateTime.fromISO(base, { zone: 'utc' }).toUTC()
+		return dt.isValid ? dt.toFormat('yyyy-LL-dd') : ''
+	} catch {
 		return ''
 	}
 }

@@ -14,6 +14,7 @@ import { valibotResolver } from '@hookform/resolvers/valibot'
 import { User } from '@/models/user.model'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import { isUserProfileComplete } from '@/lib/userValidation'
+import { formatDateForInput } from '@/lib/dateUtils'
 
 type RunnerFormData = {
 	firstName: string
@@ -69,10 +70,10 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 			firstName: user?.firstName ?? '',
 			lastName: user?.lastName ?? '',
 			birthDate:
-				user?.birthDate instanceof Date
-					? user.birthDate.toISOString().slice(0, 10)
-					: typeof user?.birthDate === 'string'
-						? user.birthDate.slice(0, 10)
+				typeof user?.birthDate === 'string'
+					? formatDateForInput(user.birthDate)
+					: user?.birthDate instanceof Date
+						? formatDateForInput(user.birthDate.toISOString())
 						: '',
 			phoneNumber: user?.phoneNumber ?? '',
 			emergencyContactName: user?.emergencyContactName ?? '',

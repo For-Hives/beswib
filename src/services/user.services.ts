@@ -1,6 +1,7 @@
 'use server'
 import { pb } from '@/lib/pocketbaseClient'
 import { User } from '@/models/user.model'
+import { DateTime } from 'luxon'
 
 // Map PocketBase record (uses 'bithDate') to our User model ('birthDate')
 interface PbUserRecordMinimal {
@@ -29,13 +30,16 @@ interface PbUserRecordMinimal {
 }
 
 function mapPbRecordToUser(record: PbUserRecordMinimal): User {
+	// Normalize PB 'bithDate' (string or Date) to 'YYYY-MM-DD' using Luxon
+	let birthDate: string | Date | null = null
 	const bithDate = record?.bithDate
-	const birthDate =
-		bithDate instanceof Date
-			? bithDate.toISOString().slice(0, 10)
-			: typeof bithDate === 'string'
-				? bithDate.slice(0, 10)
-				: null
+	if (bithDate instanceof Date) {
+		const dt = DateTime.fromJSDate(bithDate).toUTC()
+		birthDate = dt.isValid ? dt.toFormat('yyyy-LL-dd') : null
+	} else if (typeof bithDate === 'string' && bithDate.trim() !== '') {
+		const dt = DateTime.fromISO(bithDate, { zone: 'utc' })
+		birthDate = dt.isValid ? dt.toFormat('yyyy-LL-dd') : null
+	}
 
 	return {
 		id: record.id,
@@ -70,14 +74,15 @@ function mapUserToPbPayload(user: Partial<User>): Record<string, unknown> {
 		const birthDate = payload.birthDate
 		delete payload.birthDate
 		if (birthDate == null || birthDate === '') {
-			// Clear the field in PB
 			payload.bithDate = ''
 		} else if (birthDate instanceof Date) {
-			payload.bithDate = new Date(birthDate).toISOString()
+			const dt = DateTime.fromJSDate(birthDate).toUTC()
+			payload.bithDate = dt.isValid ? dt.toISO() : ''
 		} else if (typeof birthDate === 'string') {
-			// Accept YYYY-MM-DD and append midnight UTC to avoid TZ issues
-			const normalized = birthDate.length === 10 ? `${birthDate}T00:00:00.000Z` : birthDate
-			payload.bithDate = new Date(normalized).toISOString()
+			// Supports 'YYYY-MM-DD' or ISO strings; normalize to UTC ISO
+			const base = birthDate.length === 10 ? `${birthDate}T00:00:00` : birthDate
+			const dt = DateTime.fromISO(base, { zone: 'utc' }).toUTC().startOf('day')
+			payload.bithDate = dt.isValid ? dt.toISO() : ''
 		}
 	}
 	return payload
