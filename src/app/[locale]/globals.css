@@ -11,81 +11,157 @@
 		animation: spin 4s linear infinite;
 	}
 
-  /* Trail dash animation for SVG paths */
-  @keyframes dash {
-    to {
-      stroke-dashoffset: -400;
-    }
-  }
-  .animate-dash {
-    animation: dash 6s linear infinite alternate;
-  }
+	/* Trail dash animation for SVG paths */
+	@keyframes dash {
+		to {
+			stroke-dashoffset: -400;
+		}
+	}
+	.animate-dash {
+		animation: dash 6s linear infinite alternate;
+	}
 
-  /* Horizontal bike glide */
-  @keyframes bike-glide {
-    0% { transform: translateX(-28px); }
-    50% { transform: translateX(28px); }
-    100% { transform: translateX(-28px); }
-  }
-  .animate-bike {
-    animation: bike-glide 5s ease-in-out infinite;
-  }
+	/* Horizontal bike glide */
+	@keyframes bike-glide {
+		0% {
+			transform: translateX(-28px);
+		}
+		50% {
+			transform: translateX(28px);
+		}
+		100% {
+			transform: translateX(-28px);
+		}
+	}
+	.animate-bike {
+		animation: bike-glide 5s ease-in-out infinite;
+	}
 
-  /* Sweep animation for magnifying glass */
-  @keyframes sweep {
-    0% { transform: translateX(-36px); opacity: .2; }
-    50% { transform: translateX(36px); opacity: .5; }
-    100% { transform: translateX(-36px); opacity: .2; }
-  }
-  .animate-sweep {
-    animation: sweep 4s ease-in-out infinite;
-  }
+	/* Sweep animation for magnifying glass */
+	@keyframes sweep {
+		0% {
+			transform: translateX(-36px);
+			opacity: 0.2;
+		}
+		50% {
+			transform: translateX(36px);
+			opacity: 0.5;
+		}
+		100% {
+			transform: translateX(-36px);
+			opacity: 0.2;
+		}
+	}
+	.animate-sweep {
+		animation: sweep 4s ease-in-out infinite;
+	}
 
-  /* Gentle snow fall above mountains */
-  @keyframes snow-fall {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
-    10% { opacity: .9; }
-    100% { transform: translateY(26px) translateX(8px); opacity: .15; }
-  }
-  .animate-snow {
-    animation: snow-fall 3.6s linear infinite;
-  }
-  /* Longer snow fall to reach the ground */
-  @keyframes snow-fall-long {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
+	/* Gentle snow fall above mountains */
+	@keyframes snow-fall {
+		0% {
+			transform: translateY(0) translateX(0);
+			opacity: 0;
+		}
+		10% {
+			opacity: 0.9;
+		}
+		100% {
+			transform: translateY(26px) translateX(8px);
+			opacity: 0.15;
+		}
+	}
+	.animate-snow {
+		animation: snow-fall 3.6s linear infinite;
+	}
+	/* Longer snow fall to reach the ground */
+	@keyframes snow-fall-long {
+		0% {
+			transform: translateY(0) translateX(0);
+			opacity: 0;
+		}
+		10% {
+			opacity: 0.95;
+		}
+		100% {
+			transform: translateY(80px) translateX(10px);
+			opacity: 0.2;
+		}
+	}
+	.animate-snow-long {
+		animation: snow-fall-long 5s linear infinite;
+	}
+
+  /* Chaotic full-height snow variants */
+  @keyframes snow-a {
+    0% { transform: translate(0, -10px); opacity: 0; }
     10% { opacity: .95; }
-    100% { transform: translateY(80px) translateX(10px); opacity: .2; }
+    25% { transform: translate(-6px, 40px); }
+    50% { transform: translate(3px, 90px); }
+    75% { transform: translate(-4px, 130px); }
+    100% { transform: translate(0, 170px); opacity: .2; }
   }
-  .animate-snow-long {
-    animation: snow-fall-long 5s linear infinite;
+  @keyframes snow-b {
+    0% { transform: translate(0, -12px); opacity: 0; }
+    10% { opacity: .9; }
+    25% { transform: translate(5px, 36px); }
+    50% { transform: translate(-4px, 88px); }
+    75% { transform: translate(6px, 132px); }
+    100% { transform: translate(0, 172px); opacity: .22; }
   }
+  @keyframes snow-c {
+    0% { transform: translate(0, -8px); opacity: 0; }
+    10% { opacity: .85; }
+    25% { transform: translate(-4px, 38px); }
+    50% { transform: translate(6px, 92px); }
+    75% { transform: translate(-2px, 128px); }
+    100% { transform: translate(2px, 168px); opacity: .18; }
+  }
+  .animate-snow-a { animation: snow-a var(--snow-dur, 6s) linear infinite; }
+  .animate-snow-b { animation: snow-b var(--snow-dur, 6.5s) linear infinite; }
+  .animate-snow-c { animation: snow-c var(--snow-dur, 7s) linear infinite; }
 
-  /* Water stream flow */
-  @keyframes water-flow {
-    to { stroke-dashoffset: -240; }
-  }
-  .animate-water {
-    animation: water-flow 3s linear infinite;
-  }
+	/* Water stream flow */
+	@keyframes water-flow {
+		to {
+			stroke-dashoffset: -240;
+		}
+	}
+	.animate-water {
+		animation: water-flow 3s linear infinite;
+	}
 
-  /* Birds flying across */
-  @keyframes birds-fly {
-    0% { transform: translateX(-40px) translateY(0); opacity: .85; }
-    50% { transform: translateX(0) translateY(-4px); opacity: 1; }
-    100% { transform: translateX(40px) translateY(0); opacity: .85; }
-  }
-  .animate-birds {
-    animation: birds-fly 5s ease-in-out infinite alternate;
-  }
-  /* Subtle wing flap */
-  @keyframes bird-flap {
-    0%, 100% { transform: rotate(0deg) scaleY(1); }
-    50% { transform: rotate(-6deg) scaleY(0.92); }
-  }
-  .animate-bird-flap {
-    transform-origin: center;
-    animation: bird-flap 0.6s ease-in-out infinite;
-  }
+	/* Birds flying across */
+	@keyframes birds-fly {
+		0% {
+			transform: translateX(-40px) translateY(0);
+			opacity: 0.85;
+		}
+		50% {
+			transform: translateX(0) translateY(-4px);
+			opacity: 1;
+		}
+		100% {
+			transform: translateX(40px) translateY(0);
+			opacity: 0.85;
+		}
+	}
+	.animate-birds {
+		animation: birds-fly 5s ease-in-out infinite alternate;
+	}
+	/* Subtle wing flap */
+	@keyframes bird-flap {
+		0%,
+		100% {
+			transform: rotate(0deg) scaleY(1);
+		}
+		50% {
+			transform: rotate(-6deg) scaleY(0.92);
+		}
+	}
+	.animate-bird-flap {
+		transform-origin: center;
+		animation: bird-flap 0.6s ease-in-out infinite;
+	}
 }
 
 :root {

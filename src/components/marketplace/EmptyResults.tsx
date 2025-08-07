@@ -55,17 +55,30 @@ export default function EmptyResults({ locale }: Readonly<EmptyResultsProps>) {
 						transform="translate(0,2)"
 					/>
 				</svg>
-				{/* Snow particles above the peaks */}
-				<svg className="absolute top-0 left-1/2 h-10 w-28 -translate-x-1/2 scale-175" viewBox="0 0 120 80" fill="none">
-					{[5, 20, 35, 55, 75, 95, 110, 125, 150, 175, 190, 205, 220, 235, 250, 265, 280, 295].map((x, i) => (
+				{/* Snow particles above the peaks (chaotic full-height) */}
+				<svg className="absolute top-0 left-1/2 h-10 w-28 -translate-x-1/2 scale-200" viewBox="0 0 300 180" fill="none">
+					{[5, 20, 35, 55, 75, 95, 120, 140, 160, 180, 200, 220, 240, 260, 280].map((x, i) => (
 						<circle
-							key={x}
+							key={`sA-${x}`}
 							cx={x}
-							cy={6 + (i % 2) * 4}
-							r={1.5}
-							className="animate-snow"
+							cy={8 + (i % 3) * 6}
+							r={i % 4 === 0 ? 1.6 : 1.2}
+							className={i % 3 === 0 ? 'animate-snow-a' : i % 3 === 1 ? 'animate-snow-b' : 'animate-snow-c'}
 							fill="currentColor"
-							style={{ animationDelay: `${i * 250}ms` }}
+							style={{ animationDelay: `${i * 160}ms`, ['--snow-dur' as any]: `${5.4 + i * 0.18}s` }}
+						/>
+					))}
+				</svg>
+				<svg className="absolute top-3 left-[46%] h-10 w-24 -translate-x-1/2" viewBox="0 0 300 180" fill="none">
+					{[15, 38, 62, 88, 116, 146, 176, 206, 236, 266].map((x, i) => (
+						<circle
+							key={`sB-${x}`}
+							cx={x}
+							cy={10 + (i % 2) * 7}
+							r={i % 3 === 0 ? 1.4 : 1.1}
+							className={i % 3 === 0 ? 'animate-snow-b' : i % 3 === 1 ? 'animate-snow-c' : 'animate-snow-a'}
+							fill="currentColor"
+							style={{ animationDelay: `${120 + i * 140}ms`, ['--snow-dur' as any]: `${5.8 + i * 0.22}s` }}
 						/>
 					))}
 				</svg>
@@ -83,7 +96,7 @@ export default function EmptyResults({ locale }: Readonly<EmptyResultsProps>) {
 				</svg>
 
 				{/* Birds at the top (more realistic shapes and motion) */}
-				<svg className="text-foreground/80 absolute top-3 right-6 h-8 w-24 scale-150" viewBox="0 0 96 64" fill="none">
+				<svg className="text-foreground/80 absolute top-3 right-6 h-8 w-24 scale-200" viewBox="0 0 96 64" fill="none">
 					<g className="animate-birds">
 						<g className="animate-bird-flap">
 							<path d="M6 18 q6 -8 12 0 q-6 -4 -12 0Z" fill="currentColor" />
