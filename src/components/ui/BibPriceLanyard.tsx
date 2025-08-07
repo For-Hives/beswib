@@ -6,7 +6,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 
 'use client'
-import { useEffect, useRef, useState, Suspense, useMemo } from 'react'
+import React, { useEffect, useRef, useState, Suspense, useMemo } from 'react'
 import { Canvas, extend, useFrame } from '@react-three/fiber'
 import { Environment, Lightformer, Html, useGLTF } from '@react-three/drei'
 import {
@@ -53,7 +53,9 @@ export default function Lanyard({
 				camera={{ position, fov }}
 				gl={{ alpha: transparent }}
 				onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
-				style={{ pointerEvents: 'auto' }}
+				style={{ pointerEvents: 'none' }}
+				eventSource={undefined}
+				eventPrefix="client"
 			>
 				<ambientLight intensity={Math.PI} />
 				<Physics gravity={gravity} timeStep={1 / 60}>
@@ -92,6 +94,31 @@ export default function Lanyard({
 					/>
 				</Environment>
 			</Canvas>
+
+			{/* Zone cliquable précise pour la card uniquement */}
+			<div
+				className="pointer-events-auto fixed"
+				style={{
+					top: '20%',
+					left: '5%',
+					width: '120px',
+					height: '150px',
+					zIndex: 11,
+					cursor: 'grab',
+				}}
+				onMouseEnter={() => {
+					document.body.style.cursor = 'grab'
+				}}
+				onMouseLeave={() => {
+					document.body.style.cursor = 'auto'
+				}}
+				onMouseDown={() => {
+					document.body.style.cursor = 'grabbing'
+				}}
+				onMouseUp={() => {
+					document.body.style.cursor = 'grab'
+				}}
+			/>
 		</div>
 	)
 }
@@ -380,6 +407,20 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 			// Fallback to basic geometries
 			nodes = {}
 		}
+
+		// Suppress GLTFLoader texture errors silently
+		React.useEffect(() => {
+			const originalError = console.error
+			console.error = (...args) => {
+				if (args[0]?.includes?.("THREE.GLTFLoader: Couldn't load texture")) {
+					return // Ignore texture blob errors silently
+				}
+				originalError.apply(console, args)
+			}
+			return () => {
+				console.error = originalError
+			}
+		}, [])
 		// Calculate savings and discount percentage
 		const hasDiscount = Boolean(originalPrice != null && originalPrice > (price ?? 0))
 		const savingsAmount = hasDiscount ? (originalPrice ?? 0) - (price ?? 0) : 0
@@ -387,20 +428,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 			hasDiscount && originalPrice != null ? Math.round((savingsAmount / originalPrice) * 100) : 0
 
 		return (
-			<group
-				scale={2}
-				position={[0, 0, 0]}
-				onPointerOver={() => hover(true)}
-				onPointerOut={() => hover(false)}
-				onPointerUp={(e: any) => {
-					e.target.releasePointerCapture(e.pointerId)
-					drag(false)
-				}}
-				onPointerDown={(e: any) => {
-					e.target.setPointerCapture(e.pointerId)
-					drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
-				}}
-			>
+			<group scale={2} position={[0, 0, 0]}>
 				{/* Main card body from GLB model */}
 				<mesh geometry={nodes.card?.geometry ?? undefined}>
 					<meshPhysicalMaterial
