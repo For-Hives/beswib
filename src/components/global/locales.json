@@ -25,6 +25,18 @@
 				"title": "FAQ | Beswib",
 				"description": "Frequently Asked Questions about buying, selling, and organizing events on Beswib."
 			},
+			"legalNotice": {
+				"title": "Legal Notice | Beswib",
+				"description": "Company information, publication director, hosting provider, and legal disclosures for Beswib."
+			},
+			"privacy": {
+				"title": "Privacy Policy | Beswib",
+				"description": "How Beswib collects, uses, and protects your personal data, cookies, and your rights."
+			},
+			"terms": {
+				"title": "Terms of Service | Beswib",
+				"description": "The terms that govern access and use of Beswib’s C2B2C platform and services."
+			},
 			"contact": {
 				"title": "Contact | Beswib",
 				"description": "Get in touch with the Beswib team for any questions or inquiries."
@@ -88,6 +100,18 @@
 				"title": "FAQ | Beswib",
 				"description": "Questions fréquemment posées sur l'achat, la vente et l'organisation d'événements sur Beswib."
 			},
+			"legalNotice": {
+				"title": "Mentions légales | Beswib",
+				"description": "Informations sur la société, le directeur de la publication, l’hébergeur et les mentions légales de Beswib."
+			},
+			"privacy": {
+				"title": "Politique de confidentialité | Beswib",
+				"description": "Comment Beswib collecte, utilise et protège vos données personnelles, les cookies et vos droits."
+			},
+			"terms": {
+				"title": "Conditions d’utilisation | Beswib",
+				"description": "Les conditions qui régissent l’accès et l’utilisation de la plateforme C2B2C Beswib."
+			},
 			"contact": {
 				"title": "Contact | Beswib",
 				"description": "Entrez en contact avec l'équipe Beswib pour toute question ou demande."
@@ -150,6 +174,18 @@
 			"faq": {
 				"title": "FAQ | Beswib",
 				"description": "Beswib에서 이벤트 구매, 판매 및 조직에 대한 자주 묻는 질문입니다."
+			},
+			"legalNotice": {
+				"title": "Legal Notice | Beswib",
+				"description": "Company information, publication director, hosting provider, and legal disclosures for Beswib."
+			},
+			"privacy": {
+				"title": "Privacy Policy | Beswib",
+				"description": "How Beswib collects, uses, and protects your personal data, cookies, and your rights."
+			},
+			"terms": {
+				"title": "Terms of Service | Beswib",
+				"description": "The terms that govern access and use of Beswib’s C2B2C platform and services."
 			},
 			"contact": {
 				"title": "Contact | Beswib",
