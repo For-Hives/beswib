@@ -55,6 +55,20 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 		return <div>Bib not found or event data missing</div>
 	}
 
+	// Block access if event has passed or transfer window closed (except admins elsewhere)
+	const now = new Date()
+	const eventDate = new Date(bib.expand.eventId.eventDate)
+	const transferDeadline = bib.expand.eventId.transferDeadline ? new Date(bib.expand.eventId.transferDeadline) : null
+	const isSaleOpen = transferDeadline != null ? transferDeadline >= now : eventDate >= now
+	if (!isSaleOpen) {
+		return (
+			<div className="mx-auto max-w-lg p-6 text-center">
+				<p className="mb-4 text-lg font-semibold">Sale closed for this event.</p>
+				<p className="text-muted-foreground text-sm">The event has already passed or the transfer deadline is over.</p>
+			</div>
+		)
+	}
+
 	// Fetch organizer information
 	let organizer: Organizer | null = null
 	try {

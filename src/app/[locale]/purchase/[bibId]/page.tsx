@@ -64,6 +64,24 @@ export default async function BibPurchasePage({
 		)
 	}
 
+	// Block purchase if event has passed or transfer window closed
+	const now = new Date()
+	const eventDateObj = bib.expand?.eventId ? new Date(bib.expand.eventId.eventDate) : null
+	const transferDeadline = bib.expand?.eventId?.transferDeadline ? new Date(bib.expand.eventId.transferDeadline) : null
+	const isSaleOpen = transferDeadline != null ? transferDeadline >= now : eventDateObj != null ? eventDateObj >= now : false
+	if (!isSaleOpen) {
+		return (
+			<div className="mx-auto max-w-lg p-4 text-center text-[var(--text-dark)] md:p-8">
+				<p className="mb-6 rounded-lg border border-red-300 bg-[var(--error-bg)] p-4 text-[var(--error-text)]">
+					{t.purchase.errors.bibNotAvailable.replace('{status}', 'closed')}
+				</p>
+				<Link className="text-[var(--accent-sporty)] hover:underline" href="/events">
+					{t.purchase.browseOtherEvents}
+				</Link>
+			</div>
+		)
+	}
+
 	// Compare PocketBase ID of seller with PocketBase ID of current user
 	if (bib.sellerUserId === currentUserPocketBaseId) {
 		return (
@@ -79,7 +97,7 @@ export default async function BibPurchasePage({
 	}
 
 	const eventName = bib.expand?.eventId?.name ?? `Event ID: ${bib.eventId}`
-	const eventDate = bib.expand?.eventId ? new Date(bib.expand.eventId.eventDate).toLocaleDateString() : 'N/A'
+	const eventDateStr = bib.expand?.eventId ? new Date(bib.expand.eventId.eventDate).toLocaleDateString() : 'N/A'
 
 	async function handleConfirmPurchase() {
 		'use server'
@@ -136,7 +154,7 @@ export default async function BibPurchasePage({
 					<span className="font-semibold">{t.purchase.details.event}:</span> {eventName}
 				</p>
 				<p>
-					<span className="font-semibold">{t.purchase.details.eventDate}:</span> {eventDate}
+				<span className="font-semibold">{t.purchase.details.eventDate}:</span> {eventDateStr}
 				</p>
 				<p>
 					<span className="font-semibold">{t.purchase.details.registrationNumber}:</span>{' '}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { SelectAlt, SelectContentAlt, SelectItemAlt, SelectTriggerAlt, SelectValueAlt } from '@/components/ui/selectAlt'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { getAllOrganizersAction } from '@/app/[locale]/admin/actions'
 import Translations from '@/app/[locale]/admin/locales.json'
 import { getTranslations } from '@/lib/getDictionary'
@@ -41,6 +41,16 @@ export default function OrganizerSection({ setValue, locale, formData, errors }:
 		void loadOrganizers()
 	}, [])
 
+	const organizerOptions: SelectOption[] = organizers.map(organizer => ({
+		value: organizer.id,
+		label: organizer.name ?? 'Unnamed Organizer',
+		icon: organizer.isPartnered ? (
+			<span className="bg-primary/10 text-primary rounded px-2 py-0.5 text-xs font-medium">
+				{translations.event.fields.organizer.partnered}
+			</span>
+		) : undefined,
+	}))
+
 	return (
 		<div className="grid grid-cols-1 gap-12 md:grid-cols-3">
 			<div>
@@ -62,49 +72,17 @@ export default function OrganizerSection({ setValue, locale, formData, errors }:
 							</div>
 						)}
 
-						{organizers.length > 0 ? (
-							<SelectAlt
-								disabled={isLoading}
-								onValueChange={(value: string) => setValue('organizer', value)}
-								value={formData.organizer ?? ''}
-							>
-								<SelectTriggerAlt id="organizer">
-									<SelectValueAlt
-										placeholder={
-											isLoading
-												? translations.event.fields.organizer.loading
-												: translations.event.fields.organizer.placeholder
-										}
-									/>
-								</SelectTriggerAlt>
-								<SelectContentAlt>
-									{!isLoading && organizers.length > 0
-										? organizers.map(organizer => (
-												<SelectItemAlt key={organizer.id} value={organizer.id}>
-													<div className="flex items-center gap-2">
-														<span>{organizer.name ?? 'Unnamed Organizer'}</span>
-														{organizer.isPartnered && (
-															<span className="bg-primary/10 text-primary rounded px-2 py-1 text-xs font-medium">
-																{translations.event.fields.organizer.partnered}
-															</span>
-														)}
-													</div>
-												</SelectItemAlt>
-											))
-										: null}
-									{!isLoading && organizers.length === 0 && (error === null || error === '') && (
-										<SelectItemAlt disabled value="">
-											{translations.event.fields.organizer.noOrganizers}
-										</SelectItemAlt>
-									)}
-									{isLoading && (
-										<SelectItemAlt disabled value="">
-											{translations.event.fields.organizer.loading}
-										</SelectItemAlt>
-									)}
-								</SelectContentAlt>
-							</SelectAlt>
-						) : null}
+						<SelectAnimated
+							disabled={isLoading}
+							onValueChange={(value: string) => setValue('organizer', value)}
+							options={organizerOptions}
+							placeholder={
+								isLoading
+									? translations.event.fields.organizer.loading
+									: translations.event.fields.organizer.placeholder
+							}
+							value={formData.organizer ?? ''}
+						/>
 						{errors.organizer && (
 							<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.organizer.message}</p>
 						)}
