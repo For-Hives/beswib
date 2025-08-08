@@ -90,7 +90,7 @@ export default function PayPalPurchaseClient({
 					setLoading(false)
 					return
 				}
-				setLockExpiration(new Date(lockedBib.lockedAt))
+				setLockExpiration(lockedBib.lockedAt != null ? new Date(lockedBib.lockedAt) : null)
 				setIsPanelOpen(true)
 			} catch (err) {
 				setErrorMessage('Error locking bib for purchase.' + (err instanceof Error ? err.message : String(err)))
