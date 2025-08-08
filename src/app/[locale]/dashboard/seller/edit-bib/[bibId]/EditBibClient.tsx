@@ -11,6 +11,7 @@ import type { Bib } from '@/models/bib.model'
 
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 
 import { handleToggleListingStatus, handleUpdateBibDetails, handleWithdrawBib } from './actions'
 import editBibTranslations from './locales.json'
@@ -114,7 +115,9 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 	const currentStatusDisplay = typeof bib.status === 'string' ? bib.status.replace('_', ' ') : 'N/A'
 	const eventName = bib.expand?.eventId?.name ?? 'N/A'
 	const eventDate =
-		bib.expand?.eventId?.eventDate != null ? new Date(bib.expand.eventId.eventDate).toLocaleDateString() : 'N/A'
+		bib.expand?.eventId?.eventDate != null
+			? formatDateObjectForDisplay(new Date(bib.expand.eventId.eventDate), locale)
+			: 'N/A'
 	const eventLocation = bib.expand?.eventId?.location ?? 'N/A'
 
 	return (

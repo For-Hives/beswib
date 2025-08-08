@@ -75,6 +75,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { User } from '@/models/user.model'
 import { cn } from '@/lib/utils'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 
 interface AdminOrganizersPageClientProps {
 	currentUser: null | User
@@ -201,7 +202,9 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 				const date = row.getValue('created')
 				return (
 					<div>
-						{date !== null && date !== undefined && date !== '' ? new Date(date as string).toLocaleDateString() : 'N/A'}
+						{date !== null && date !== undefined && date !== ''
+							? formatDateObjectForDisplay(new Date(date as string), locale)
+							: 'N/A'}
 					</div>
 				)
 			},

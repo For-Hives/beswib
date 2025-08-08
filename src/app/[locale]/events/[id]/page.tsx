@@ -14,6 +14,7 @@ import { generateLocaleParams } from '@/lib/generateStaticParams'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { addToWaitlist } from '@/services/waitlist.services'
 import { fetchEventById } from '@/services/event.services'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 import { Locale } from '@/lib/i18n-config'
 
 type EventDetailPageProps = {
@@ -25,7 +26,6 @@ type EventDetailPageProps = {
 }
 
 export default async function EventDetailPage({ searchParams, params }: EventDetailPageProps) {
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const { locale, id: eventId } = await params //TODO: add translations support later
 
 	const resolvedSearchParams = await searchParams
@@ -67,7 +67,7 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 			<div className="bg-card/80 border-border relative mx-auto flex w-full flex-col overflow-hidden rounded-2xl border p-5 shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md transition-all duration-300 hover:border-white/35">
 				<h1 className="mb-2 text-3xl font-bold text-gray-200">{event.name}</h1>
 				<p className="text-md text-muted-foreground">
-					<strong>Date:</strong> {new Date(event.eventDate).toLocaleDateString()}
+					<strong>Date:</strong> {formatDateObjectForDisplay(event.eventDate, locale)}
 				</p>
 				<p className="text-md text-muted-foreground">
 					<strong>Location:</strong> {event.location}

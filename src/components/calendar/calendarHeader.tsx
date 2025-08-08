@@ -9,13 +9,14 @@ interface CalendarHeaderProps {
 	onViewModeChange: (mode: ViewMode) => void
 	selectedDate: Date
 	viewMode: ViewMode
+	locale?: string
 }
 
 // Déclaration locale du type ViewMode (day, month, week, year)
 type ViewMode = 'day' | 'month' | 'week' | 'year'
 
 export function CalendarHeader(props: Readonly<CalendarHeaderProps>) {
-	const { viewMode, selectedDate, onViewModeChange, onDateChange } = props
+	const { viewMode, selectedDate, onViewModeChange, onDateChange, locale = 'en-US' } = props
 
 	const formatHeaderDate = () => {
 		const options: Intl.DateTimeFormatOptions = {
@@ -24,7 +25,7 @@ export function CalendarHeader(props: Readonly<CalendarHeaderProps>) {
 		}
 
 		if (viewMode === 'day') {
-			return selectedDate.toLocaleDateString('en-US', {
+			return selectedDate.toLocaleDateString(locale, {
 				year: 'numeric',
 				weekday: 'long',
 				month: 'long',
@@ -32,7 +33,7 @@ export function CalendarHeader(props: Readonly<CalendarHeaderProps>) {
 			})
 		}
 
-		return selectedDate.toLocaleDateString('en-US', options)
+		return selectedDate.toLocaleDateString(locale, options)
 	}
 
 	const navigateDate = (direction: 'next' | 'prev') => {

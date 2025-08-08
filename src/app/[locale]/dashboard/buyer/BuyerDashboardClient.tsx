@@ -11,6 +11,7 @@ import type { Bib } from '@/models/bib.model'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { getTranslations } from '@/lib/getDictionary'
 import { Button } from '@/components/ui/button'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 
 interface BuyerDashboardClientProps {
 	clerkUser: SerializedClerkUser
@@ -153,7 +154,7 @@ export default function BuyerDashboardClient({
 															<Calendar className="h-4 w-4" />
 															{t.dateOfEvent ?? 'Date of Event'}:{' '}
 															{bib.expand?.eventId
-																? new Date(bib.expand.eventId.eventDate).toLocaleDateString()
+																? formatDateObjectForDisplay(new Date(bib.expand.eventId.eventDate), locale)
 																: 'N/A'}
 														</p>
 														<p>
@@ -220,12 +221,12 @@ export default function BuyerDashboardClient({
 															<Calendar className="h-4 w-4" />
 															{t.dateOfEvent ?? 'Date of Event'}:{' '}
 															{waitlist.expand?.eventId
-																? new Date(waitlist.expand.eventId.eventDate).toLocaleDateString()
+																? formatDateObjectForDisplay(new Date(waitlist.expand.eventId.eventDate), locale)
 																: 'N/A'}
 														</p>
 														<p>
 															{t.dateAddedToWaitlist ?? 'Date Added to Waitlist'}:{' '}
-															{new Date(waitlist.addedAt).toLocaleDateString()}
+															{formatDateObjectForDisplay(new Date(waitlist.addedAt), locale)}
 														</p>
 														<p className="flex items-center gap-2">
 															<Users className="h-4 w-4" />

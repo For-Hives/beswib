@@ -12,6 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
 import { getTranslations } from '@/lib/getDictionary'
 import { Button } from '@/components/ui/button'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 
 interface SellerDashboardClientProps {
 	clerkUser: SerializedClerkUser
@@ -250,7 +251,7 @@ export default function SellerDashboardClient({
 														<p className="text-muted-foreground">Event Date</p>
 														<p className="font-medium">
 															{bib.expand?.eventId?.eventDate
-																? new Date(bib.expand.eventId.eventDate).toLocaleDateString()
+																? formatDateObjectForDisplay(new Date(bib.expand.eventId.eventDate), locale)
 																: 'N/A'}
 														</p>
 													</div>

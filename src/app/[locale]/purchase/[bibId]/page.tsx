@@ -11,6 +11,7 @@ import { fetchBibById, processBibSale } from '@/services/bib.services'
 import { generateLocaleParams } from '@/lib/generateStaticParams'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { getTranslations } from '@/lib/getDictionary'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 import { Locale } from '@/lib/i18n-config'
 
 import translations from './locales.json'
@@ -98,7 +99,7 @@ export default async function BibPurchasePage({
 	}
 
 	const eventName = bib.expand?.eventId?.name ?? `Event ID: ${bib.eventId}`
-	const eventDateStr = bib.expand?.eventId ? new Date(bib.expand.eventId.eventDate).toLocaleDateString() : 'N/A'
+	const eventDateStr = bib.expand?.eventId ? formatDateObjectForDisplay(bib.expand.eventId.eventDate, locale) : 'N/A'
 
 	async function handleConfirmPurchase() {
 		'use server'

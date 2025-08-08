@@ -73,9 +73,7 @@ function EventCard({
 						{eventTypeIcons[event.typeCourse]}
 						{eventTypeLabels[event.typeCourse] || event.typeCourse.toUpperCase()}
 					</span>
-					<span className="text-muted-foreground text-xs">
-						{formatDateObjectForDisplay(event.eventDate, locale)}
-					</span>
+					<span className="text-muted-foreground text-xs">{formatDateObjectForDisplay(event.eventDate, locale)}</span>
 				</div>
 
 				<h3 className="text-foreground mb-3 line-clamp-2 text-xl font-bold" title={event.name}>
