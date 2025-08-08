@@ -55,7 +55,7 @@ export default function PayPalPurchaseClient({
 	const [errorMessage, setErrorMessage] = useState<null | string>(null)
 	const [successMessage, setSuccessMessage] = useState<null | string>(null)
 	const [isPanelOpen, setIsPanelOpen] = useState(false)
-	const [lockExpiration, setLockExpiration] = useState<Date | null>(bib.lockedAt ? new Date(bib.lockedAt) : null)
+	const [lockExpiration, setLockExpiration] = useState<DateTime | null>(null)
 	const [loading, setLoading] = useState(false)
 	const { isSignedIn } = useUser()
 	const router = useRouter()
@@ -106,13 +106,14 @@ export default function PayPalPurchaseClient({
 			try {
 				if (isBibLocked === 'unlocked') {
 					const lockedBib = await lockBib(bib.id, user?.id ?? '')
-					if (!lockedBib) {
+					if (lockedBib === null || lockedBib === undefined) {
 						toast.error('Failed to lock bib. It may have just been locked by another user.')
 						console.error('Failed to lock bib:', lockedBib)
 						setLoading(false)
 						return
 					}
-					setLockExpiration(lockedBib.lockedAt != null ? new Date(lockedBib.lockedAt) : null)
+					const lockedDt = pbDateToLuxon(lockedBib.lockedAt)
+					setLockExpiration(lockedDt ? lockedDt.plus({ minutes: 5 }) : null)
 					// Store lockedAt in Nuqs param
 					let lockedAtDt = pbDateToLuxon(lockedBib.lockedAt)
 					if (lockedAtDt) {
@@ -272,10 +273,10 @@ export default function PayPalPurchaseClient({
 							}}
 						/>
 						{/* Lock timer display */}
-						{isLockedByMe && lockExpiration && new Date(lockExpiration) > new Date() && (
+						{lockExpiration != null && lockExpiration > DateTime.now() && (
 							<div className="text-warning mt-4">
 								Bib locked for you. Time left:{' '}
-								{Math.max(0, Math.floor((new Date(lockExpiration).getTime() - Date.now()) / 1000))} seconds
+								{Math.max(0, Math.floor((lockExpiration.toMillis() - Date.now()) / 1000))} seconds
 							</div>
 						)}
 					</div>
