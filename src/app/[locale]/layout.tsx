@@ -11,6 +11,7 @@ import QueryProvider from '@/components/providers/QueryProvider'
 import PageTransition from '@/components/ui/PageTransition'
 import Footer from '@/components/global/footer'
 import Header from '@/components/global/Header'
+import { ThemeProvider } from '@/components/providers/ThemeProvider'
 
 // import '/globals.css' 💅
 import '@/app/[locale]/globals.css'
@@ -70,16 +71,18 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 	const { locale } = localeParams
 	return (
 		<ClerkProvider>
-			<html className="dark" lang={locale}>
+			<html lang={locale}>
 				<body className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased`}>
-					<QueryProvider>
-						<NuqsAdapter>
-							<Header localeParams={props.params} />
-							<PageTransition>{props.children}</PageTransition>
-							<Footer localeParams={props.params} />
-							<Toaster />
-						</NuqsAdapter>
-					</QueryProvider>
+					<ThemeProvider>
+						<QueryProvider>
+							<NuqsAdapter>
+								<Header localeParams={props.params} />
+								<PageTransition>{props.children}</PageTransition>
+								<Footer localeParams={props.params} />
+								<Toaster />
+							</NuqsAdapter>
+						</QueryProvider>
+					</ThemeProvider>
 				</body>
 			</html>
 		</ClerkProvider>
