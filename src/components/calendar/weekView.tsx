@@ -6,10 +6,11 @@ interface WeekViewProps {
 	getEventsForDate: (date: Date) => Event[]
 	onEventSelect: (event: Event) => void
 	selectedDate: Date
+	locale?: string
 }
 
 export function WeekView(props: Readonly<WeekViewProps>) {
-	const { selectedDate, onEventSelect, getEventsForDate } = props
+	const { selectedDate, onEventSelect, getEventsForDate, locale = 'en-US' } = props
 
 	const getWeekDays = () => {
 		const startOfWeek = new Date(selectedDate)
@@ -33,7 +34,7 @@ export function WeekView(props: Readonly<WeekViewProps>) {
 				<div className="border-r border-b p-2"></div>
 				{weekDays.map(day => (
 					<div className="border-b p-2 text-center" key={day.toISOString()}>
-						<div className="text-muted-foreground text-xs">{day.toLocaleDateString('en-US', { weekday: 'short' })}</div>
+						<div className="text-muted-foreground text-xs">{day.toLocaleDateString(locale, { weekday: 'short' })}</div>
 						<div className="font-medium">{day.getDate()}</div>
 					</div>
 				))}

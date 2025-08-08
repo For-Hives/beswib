@@ -8,10 +8,11 @@ interface YearViewProps {
 	getEventsForDate: (date: Date) => Event[]
 	onDateSelect: (date: Date) => void
 	selectedDate: Date
+	locale?: string
 }
 
 export function YearView(props: Readonly<YearViewProps>) {
-	const { selectedDate, onDateSelect, getEventsForDate } = props
+	const { selectedDate, onDateSelect, getEventsForDate, locale = 'en-US' } = props
 	const year = selectedDate.getFullYear()
 	const months = Array.from({ length: 12 }, (_, i) => i)
 
@@ -36,7 +37,7 @@ export function YearView(props: Readonly<YearViewProps>) {
 			<div className="grid grid-cols-3 gap-6">
 				{months.map(month => {
 					const monthDays = getMonthDays(month)
-					const monthName = new Date(year, month, 1).toLocaleDateString('en-US', { month: 'long' })
+					const monthName = new Date(year, month, 1).toLocaleDateString(locale, { month: 'long' })
 
 					return (
 						<div className="rounded-lg border p-3" key={month}>
