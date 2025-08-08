@@ -27,17 +27,17 @@ export default function EventImage({ bib, eventData }: EventImageProps) {
 	function bgFromType(type: BibSale['event']['type']) {
 		switch (type) {
 			case 'cycling':
-				return 'bg-cyan-500/15 border-cyan-500/50'
+				return 'bg-cyan-100/40 border-cyan-500/60 dark:bg-cyan-500/15 dark:border-cyan-500/50'
 			case 'other':
-				return 'bg-gray-500/15 border-gray-500/50'
+				return 'bg-gray-100/40 border-gray-500/60 dark:bg-gray-500/15 dark:border-gray-500/50'
 			case 'running':
-				return 'bg-green-500/15 border-green-500/50'
+				return 'bg-green-100/40 border-green-500/60 dark:bg-green-500/15 dark:border-green-500/50'
 			case 'swimming':
-				return 'bg-blue-500/15 border-blue-500/50'
+				return 'bg-blue-100/40 border-blue-500/60 dark:bg-blue-500/15 dark:border-blue-500/50'
 			case 'trail':
-				return 'bg-yellow-500/15 border-yellow-500/50'
+				return 'bg-yellow-100/40 border-yellow-500/60 dark:bg-yellow-500/15 dark:border-yellow-500/50'
 			case 'triathlon':
-				return 'bg-purple-500/15 border-purple-500/50'
+				return 'bg-purple-100/40 border-purple-500/60 dark:bg-purple-500/15 dark:border-purple-500/50'
 		}
 	}
 
@@ -75,7 +75,7 @@ export default function EventImage({ bib, eventData }: EventImageProps) {
 			<div className="absolute top-4 left-4 z-10">
 				<span
 					className={cn(
-						'inline-block rounded-full border px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-md',
+						'inline-block rounded-full border px-3 py-1 text-xs font-medium text-black/90 backdrop-blur-md dark:text-white/90',
 						bgFromType(bib.event.type)
 					)}
 				>
