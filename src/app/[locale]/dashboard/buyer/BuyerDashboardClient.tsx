@@ -43,7 +43,7 @@ export default function BuyerDashboardClient({
 	locale,
 	clerkUser,
 }: BuyerDashboardClientProps) {
-    const t = getTranslations(locale, buyerTranslations)
+	const t = getTranslations(locale, buyerTranslations)
 
 	const userName = clerkUser?.firstName ?? clerkUser?.emailAddresses?.[0]?.emailAddress ?? 'Buyer'
 
@@ -60,16 +60,18 @@ export default function BuyerDashboardClient({
 			<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
 				<div className="flex items-center justify-between">
 					<div>
-                        <p className="text-muted-foreground text-sm">{t.title}</p>
+						<p className="text-muted-foreground text-sm">{t.title}</p>
 						<p className="text-foreground flex items-center gap-2 font-medium">
 							<ShoppingCart className="h-4 w-4" />
 							{userName}
 							{clerkUser?.emailAddresses?.[0] !== undefined && (
-                                <span className="text-muted-foreground ml-2 text-sm">({clerkUser.emailAddresses[0].emailAddress})</span>
+								<span className="text-muted-foreground ml-2 text-sm">({clerkUser.emailAddresses[0].emailAddress})</span>
 							)}
 						</p>
 					</div>
-                    <div className="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-500">{t.badge ?? 'BUYER'}</div>
+					<div className="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-500">
+						{t.badge ?? 'BUYER'}
+					</div>
 				</div>
 			</div>
 
@@ -132,7 +134,7 @@ export default function BuyerDashboardClient({
 									<ShoppingCart className="h-5 w-5" />
 									{t.myPurchases ?? 'My Purchases'}
 								</CardTitle>
-                                    <CardDescription>{t.trackPurchases ?? 'Track your race bib purchases and transfers'}</CardDescription>
+								<CardDescription>{t.trackPurchases ?? 'Track your race bib purchases and transfers'}</CardDescription>
 							</CardHeader>
 							<CardContent>
 								{totalPurchases > 0 ? (
@@ -145,9 +147,9 @@ export default function BuyerDashboardClient({
 														<h4 className="font-semibold">
 															{t.bibForLabel ?? 'Bib for'} {bib.expand?.eventId?.name ?? `Event ID: ${bib.eventId}`}
 														</h4>
-                                                    <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800 dark:bg-green-900/20 dark:text-green-400">
-                                                        {t.purchased ?? 'Purchased'}
-                                                    </span>
+														<span className="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800 dark:bg-green-900/20 dark:text-green-400">
+															{t.purchased ?? 'Purchased'}
+														</span>
 													</div>
 													<div className="text-muted-foreground space-y-1 text-sm">
 														<p className="flex items-center gap-2">
@@ -178,7 +180,7 @@ export default function BuyerDashboardClient({
 											{t.noPurchases ?? "You haven't made any purchases yet"}
 										</p>
 										<Link href="/events">
-                                        <Button>{t.browseEvents}</Button>
+											<Button>{t.browseEvents}</Button>
 										</Link>
 									</div>
 								)}
@@ -192,14 +194,14 @@ export default function BuyerDashboardClient({
 									<Clock className="h-5 w-5" />
 									{t.waitlistEntries ?? 'Your Waitlist Entries'}
 								</CardTitle>
-                                    <CardDescription>
-                                        {t.waitlistIntro ?? "Events you're waiting for bibs to become available"}
-                                        <br />
-                                        <Link className="text-primary hover:underline" href="/events">
-                                            {t.browseEventsWaitlist ?? 'Browse events'}
-                                        </Link>{' '}
-                                        {t.waitlistJoinText ?? 'to join a waitlist if no bibs are available.'}
-                                    </CardDescription>
+								<CardDescription>
+									{t.waitlistIntro ?? "Events you're waiting for bibs to become available"}
+									<br />
+									<Link className="text-primary hover:underline" href="/events">
+										{t.browseEventsWaitlist ?? 'Browse events'}
+									</Link>{' '}
+									{t.waitlistJoinText ?? 'to join a waitlist if no bibs are available.'}
+								</CardDescription>
 							</CardHeader>
 							<CardContent>
 								{waitlistEntries > 0 ? (
@@ -212,9 +214,9 @@ export default function BuyerDashboardClient({
 														<h4 className="font-semibold">
 															{waitlist.expand?.eventId?.name ?? `Event ID: ${waitlist.eventId}`}
 														</h4>
-                                                    <span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400">
-                                                        {t.waiting ?? 'Waiting'}
-                                                    </span>
+														<span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400">
+															{t.waiting ?? 'Waiting'}
+														</span>
 													</div>
 													<div className="text-muted-foreground space-y-1 text-sm">
 														<p className="flex items-center gap-2">
@@ -244,7 +246,7 @@ export default function BuyerDashboardClient({
 											{t.noWaitlistEntries ?? 'You are not currently on any waitlists.'}
 										</p>
 										<Link href="/events">
-                                        <Button variant="outline">{t.browseEvents}</Button>
+											<Button variant="outline">{t.browseEvents}</Button>
 										</Link>
 									</div>
 								)}
