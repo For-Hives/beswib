@@ -60,7 +60,8 @@ export function formatDateWithLocale(date: Date, locale: Locale): string {
 		}
 
 		// Use provided locale, or automatically detect browser locale 🌐
-		const targetLocaleFromPath = locale ?? (typeof navigator !== 'undefined' ? navigator.language : 'en-US')
+		const targetLocaleFromPath =
+			locale ?? (typeof window !== 'undefined' && window.navigator ? window.navigator.language : 'en-US')
 		const dateTime = dt.setLocale(targetLocaleFromPath)
 
 		// Check if locale is valid after configuration ✅
@@ -71,7 +72,7 @@ export function formatDateWithLocale(date: Date, locale: Locale): string {
 
 		return dateTime.toLocaleString(DateTime.DATE_MED)
 	} catch {
-		// Fallback to native JavaScript Date formatting  fallback to native JavaScript Date formatting 📅
+		// Fallback to native JavaScript Date formatting 📅
 		return new Date(date).toLocaleDateString()
 	}
 }

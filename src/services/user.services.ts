@@ -90,8 +90,8 @@ function mapUserToPbPayload(user: Partial<User>): Record<string, unknown> {
 
 export async function createUser(user: Partial<User>): Promise<User> {
 	try {
-		// Tests expect the raw user object to be passed to PocketBase create
-		const created = await pb.collection('users').create<PbUserRecordMinimal>(user as Record<string, unknown>)
+		const payload = mapUserToPbPayload(user)
+		const created = await pb.collection('users').create<PbUserRecordMinimal>(payload)
 		return mapPbRecordToUser(created)
 	} catch (error) {
 		console.error('Error creating user:', error)
@@ -106,6 +106,9 @@ export async function fetchUserByClerkId(clerkId: string | undefined): Promise<n
 	}
 	try {
 		const user = await pb.collection('users').getFirstListItem<PbUserRecordMinimal>(`clerkId = "${clerkId}"`)
+		if (!user) {
+			return null
+		}
 		return mapPbRecordToUser(user)
 	} catch (error) {
 		console.error('Error fetching user by clerk ID:', error)
@@ -120,6 +123,9 @@ export async function fetchUserById(id: string): Promise<null | User> {
 	}
 	try {
 		const user = await pb.collection('users').getOne<PbUserRecordMinimal>(id)
+		if (!user) {
+			return null
+		}
 		return mapPbRecordToUser(user)
 	} catch (error) {
 		console.error('Error fetching user by ID:', error)
@@ -128,8 +134,15 @@ export async function fetchUserById(id: string): Promise<null | User> {
 }
 
 export async function getUserData(userId: string): Promise<null | User> {
+	if (userId === '') {
+		console.error('User ID is required to fetch user data.')
+		return null
+	}
 	try {
 		const user = await pb.collection('users').getOne<PbUserRecordMinimal>(userId)
+		if (!user) {
+			return null
+		}
 		return mapPbRecordToUser(user)
 	} catch (error) {
 		console.error('Error fetching user data:', error)
