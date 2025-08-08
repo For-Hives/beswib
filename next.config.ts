@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
 		const scriptSrc = [
 			"'self'",
 			"'unsafe-inline'",
+			"'unsafe-eval'",
 			'wasm-unsafe-eval',
 			'https://www.paypal.com',
 			'https://www.sandbox.paypal.com',
