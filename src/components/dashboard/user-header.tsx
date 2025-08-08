@@ -4,6 +4,9 @@ import { AlertTriangle, ShieldCheck } from 'lucide-react'
 
 import { UserButton } from '@clerk/nextjs'
 import Link from 'next/link'
+import { getTranslations } from '@/lib/getDictionary'
+import dashboardTranslations from '@/app/[locale]/dashboard/locales.json'
+import { Locale } from '@/lib/i18n-config'
 
 import type { User } from '@/models/user.model'
 
@@ -19,9 +22,11 @@ interface SerializedClerkUser {
 interface UserHeaderProps {
 	clerkUser: SerializedClerkUser
 	user: null | User
+    locale?: Locale
 }
 
-export default function UserHeader({ user, clerkUser }: Readonly<UserHeaderProps>) {
+export default function UserHeader({ user, clerkUser, locale }: Readonly<UserHeaderProps>) {
+    const t = getTranslations(locale ?? ('en' as Locale), dashboardTranslations)
 	const userName = clerkUser.firstName ?? clerkUser.emailAddresses[0]?.emailAddress ?? 'User'
 
 	const hasAtLeastOneContact =
@@ -47,21 +52,21 @@ export default function UserHeader({ user, clerkUser }: Readonly<UserHeaderProps
 		<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
 			<div className="flex items-center justify-between">
 				<div>
-					<p className="text-muted-foreground text-sm">Welcome back</p>
+                    <p className="text-muted-foreground text-sm">{t.dashboard.welcomeBack ?? 'Welcome back'}</p>
 					<div className="flex">
 						{!isRunnerProfileComplete && (
 							<div className="mt-4 rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-3 text-sm text-yellow-500">
-								<Link className="flex items-center gap-2" href="/profile">
+                                <Link className="flex items-center gap-2" href="/profile">
 									<AlertTriangle className="h-5 w-5" />
-									Your runner profile is incomplete. Please update it to be able to buy bibs.
+                                    {t.dashboard.runnerProfileIncomplete ?? 'Your runner profile is incomplete. Please update it to be able to buy bibs.'}
 								</Link>
 							</div>
 						)}
 						{!isSellerProfileComplete && (
 							<div className="mt-4 rounded-lg border border-blue-500/50 bg-blue-500/10 p-3 text-sm text-blue-500">
-								<Link className="flex items-center gap-2" href="/profile">
+                                <Link className="flex items-center gap-2" href="/profile">
 									<ShieldCheck className="h-5 w-5" />
-									Your seller profile is incomplete. Please update it to be able to sell bibs.
+                                    {t.dashboard.sellerProfileIncomplete ?? 'Your seller profile is incomplete. Please update it to be able to sell bibs.'}
 								</Link>
 							</div>
 						)}
@@ -70,7 +75,7 @@ export default function UserHeader({ user, clerkUser }: Readonly<UserHeaderProps
 
 				<div className="flex items-center justify-end gap-4">
 					<div className="flex flex-col items-end gap-2">
-						<div className="bg-primary/10 text-primary w-fit rounded-full px-3 py-1 text-xs font-medium">MEMBER</div>
+                        <div className="bg-primary/10 text-primary w-fit rounded-full px-3 py-1 text-xs font-medium">{t.dashboard.memberBadge ?? 'MEMBER'}</div>
 						<p className="text-foreground font-medium">
 							{userName}
 							{clerkUser.emailAddresses[0] !== undefined && (

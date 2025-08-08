@@ -36,7 +36,7 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-			<UserHeader clerkUser={clerkUser} user={user} />
+            <UserHeader clerkUser={clerkUser} user={user} locale={locale} />
 
 			<div className="relative pt-48 pb-12">
 				<div className="container mx-auto max-w-6xl p-6">

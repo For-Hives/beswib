@@ -60,6 +60,7 @@
 			"organizerAuthorize": "You're an organizer and want to authorize bib sales",
 			"discussPartnership": "Or simply discuss a partnership",
 			"fillFormResponse": "👉 Fill out the form and we'll get back to you within 24h.",
+			"contactCta": "Contact",
 			"form": {
 				"yourName": "Your name",
 				"yourNamePlaceholder": "Your name",
@@ -136,6 +137,7 @@
 			"organizerAuthorize": "Vous êtes organisateur et vous voulez autoriser la vente de dossard",
 			"discussPartnership": "Ou tout simplement discuter d'un partenariat",
 			"fillFormResponse": "👉 Remplissez le formulaire et on revient vers vous sous 24h.",
+			"contactCta": "Contacter",
 			"form": {
 				"yourName": "Votre nom",
 				"yourNamePlaceholder": "Votre nom",
@@ -212,6 +214,7 @@
 			"organizerAuthorize": "Eres organizador y quieres autorizar la venta de dorsales",
 			"discussPartnership": "O simplemente hablar de una colaboración",
 			"fillFormResponse": "👉 Rellena el formulario y te responderemos en 24h.",
+			"contactCta": "Contacto",
 			"form": {
 				"yourName": "Tu nombre",
 				"yourNamePlaceholder": "Tu nombre",
@@ -288,6 +291,7 @@
 			"organizerAuthorize": "Sei un organizzatore e vuoi autorizzare la vendita di pettorali",
 			"discussPartnership": "Oppure semplicemente discutere una partnership",
 			"fillFormResponse": "👉 Compila il modulo e ti ricontatteremo entro 24 ore.",
+			"contactCta": "Contatta",
 			"form": {
 				"yourName": "Il tuo nome",
 				"yourNamePlaceholder": "Il tuo nome",
@@ -364,6 +368,7 @@
 			"organizerAuthorize": "Du bist Veranstalter und möchtest den Verkauf von Startnummern erlauben",
 			"discussPartnership": "Oder einfach eine Partnerschaft besprechen",
 			"fillFormResponse": "👉 Fülle das Formular aus und wir melden uns innerhalb von 24 Stunden.",
+			"contactCta": "Kontakt",
 			"form": {
 				"yourName": "Dein Name",
 				"yourNamePlaceholder": "Dein Name",
@@ -440,6 +445,7 @@
 			"organizerAuthorize": "Ești organizator și vrei să autorizezi vânzarea numerelor",
 			"discussPartnership": "Sau pur și simplu să discutăm un parteneriat",
 			"fillFormResponse": "👉 Completează formularul și revenim în 24h.",
+			"contactCta": "Contact",
 			"form": {
 				"yourName": "Numele tău",
 				"yourNamePlaceholder": "Numele tău",
@@ -516,6 +522,7 @@
 			"organizerAuthorize": "É organizador e quer autorizar a venda de dorsais",
 			"discussPartnership": "Ou simplesmente discutir uma parceria",
 			"fillFormResponse": "👉 Preencha o formulário e entraremos em contacto em 24h.",
+			"contactCta": "Contacto",
 			"form": {
 				"yourName": "O seu nome",
 				"yourNamePlaceholder": "O seu nome",
@@ -592,6 +599,7 @@
 			"organizerAuthorize": "Ben je organisator en wil je verkoop van startnummers toestaan",
 			"discussPartnership": "Of gewoon een partnerschap bespreken",
 			"fillFormResponse": "👉 Vul het formulier in en we nemen binnen 24 uur contact op.",
+			"contactCta": "Contact",
 			"form": {
 				"yourName": "Je naam",
 				"yourNamePlaceholder": "Je naam",
@@ -668,6 +676,7 @@
 			"organizerAuthorize": "주최자이고 빕 판매를 승인하고 싶으신가요?",
 			"discussPartnership": "또는 단순히 파트너십에 대해 논의하고 싶으신가요?",
 			"fillFormResponse": "👉 양식을 작성하시면 24시간 이내에 다시 연락드리겠습니다.",
+			"contactCta": "문의하기",
 			"form": {
 				"yourName": "당신의 이름",
 				"yourNamePlaceholder": "당신의 이름",

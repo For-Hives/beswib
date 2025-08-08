@@ -6,6 +6,7 @@
 			"searchPlaceholder": "Search events...",
 			"noEvents": "No events available",
 			"loading": "Loading events...",
+			"searchCityPlaceholder": "Search a city...",
 			"filters": {
 				"all": "All Events",
 				"location": "Location",
@@ -45,6 +46,7 @@
 				"checkBibs": "Check bibs...",
 				"viewBibs": "View bibs ({count})",
 				"joinWaitlist": "Join waitlist",
+				"elevationGain": "Elevation Gain",
 				"fromPrice": "From {price}€"
 			},
 			"noEventsToDisplay": "No events to display.",
@@ -58,6 +60,7 @@
 			"searchPlaceholder": "Rechercher des événements...",
 			"noEvents": "Aucun événement disponible",
 			"loading": "Chargement des événements...",
+			"searchCityPlaceholder": "Rechercher une ville...",
 			"filters": {
 				"all": "Tous les événements",
 				"location": "Lieu",
@@ -96,7 +99,8 @@
 				"soldOut": "Épuisé",
 				"checkBibs": "Vérifier les dossards...",
 				"viewBibs": "Voir les dossards ({count})",
-				"joinWaitlist": "Rejoindre la waitlist",
+				"joinWaitlist": "Rejoindre la liste d'attente",
+				"elevationGain": "D+",
 				"fromPrice": "À partir de {price}€"
 			},
 			"noEventsToDisplay": "Aucun événement à afficher.",
@@ -110,6 +114,7 @@
 			"searchPlaceholder": "이벤트 검색...",
 			"noEvents": "사용 가능한 이벤트가 없습니다",
 			"loading": "이벤트 로딩 중...",
+			"searchCityPlaceholder": "도시 검색...",
 			"filters": {
 				"all": "모든 이벤트",
 				"location": "위치",
@@ -149,6 +154,7 @@
 				"checkBibs": "빕 확인...",
 				"viewBibs": "빕 보기 ({count})",
 				"joinWaitlist": "대기 목록 참여",
+				"elevationGain": "고도 상승",
 				"fromPrice": "{price}원부터"
 			},
 			"noEventsToDisplay": "표시할 이벤트가 없습니다.",
@@ -162,6 +168,7 @@
 			"searchPlaceholder": "Buscar eventos...",
 			"noEvents": "No hay eventos disponibles",
 			"loading": "Cargando eventos...",
+			"searchCityPlaceholder": "Buscar una ciudad...",
 			"filters": {
 				"all": "Todos los eventos",
 				"location": "Ubicación",
@@ -201,6 +208,7 @@
 				"checkBibs": "Comprobar dorsales...",
 				"viewBibs": "Ver dorsales ({count})",
 				"joinWaitlist": "Unirse a la lista de espera",
+				"elevationGain": "Desnivel",
 				"fromPrice": "Desde {price}€"
 			},
 			"noEventsToDisplay": "No hay eventos para mostrar.",
@@ -214,6 +222,7 @@
 			"searchPlaceholder": "Cerca eventi...",
 			"noEvents": "Nessun evento disponibile",
 			"loading": "Caricamento eventi...",
+			"searchCityPlaceholder": "Cerca una città...",
 			"filters": {
 				"all": "Tutti gli eventi",
 				"location": "Posizione",
@@ -253,6 +262,7 @@
 				"checkBibs": "Controlla pettorali...",
 				"viewBibs": "Vedi pettorali ({count})",
 				"joinWaitlist": "Unisciti alla lista d'attesa",
+				"elevationGain": "Dislivello",
 				"fromPrice": "Da {price}€"
 			},
 			"noEventsToDisplay": "Nessun evento da mostrare.",
@@ -266,6 +276,7 @@
 			"searchPlaceholder": "Events suchen...",
 			"noEvents": "Keine Events verfügbar",
 			"loading": "Lade Events...",
+			"searchCityPlaceholder": "Stadt suchen...",
 			"filters": {
 				"all": "Alle Events",
 				"location": "Ort",
@@ -305,6 +316,7 @@
 				"checkBibs": "Startnummern prüfen...",
 				"viewBibs": "Startnummern ansehen ({count})",
 				"joinWaitlist": "Warteliste beitreten",
+				"elevationGain": "Höhenmeter",
 				"fromPrice": "Ab {price}€"
 			},
 			"noEventsToDisplay": "Keine Events zum Anzeigen.",
@@ -318,6 +330,7 @@
 			"searchPlaceholder": "Caută evenimente...",
 			"noEvents": "Nu există evenimente disponibile",
 			"loading": "Se încarcă evenimentele...",
+			"searchCityPlaceholder": "Caută un oraș...",
 			"filters": {
 				"all": "Toate evenimentele",
 				"location": "Locația",
@@ -357,6 +370,7 @@
 				"checkBibs": "Verifică numerele...",
 				"viewBibs": "Vezi numerele ({count})",
 				"joinWaitlist": "Alătură-te listei de așteptare",
+				"elevationGain": "Diferență de nivel",
 				"fromPrice": "De la {price}€"
 			},
 			"noEventsToDisplay": "Nu există evenimente de afișat.",
@@ -370,6 +384,7 @@
 			"searchPlaceholder": "Pesquisar eventos...",
 			"noEvents": "Não há eventos disponíveis",
 			"loading": "A carregar eventos...",
+			"searchCityPlaceholder": "Pesquisar uma cidade...",
 			"filters": {
 				"all": "Todos os eventos",
 				"location": "Localização",
@@ -409,6 +424,7 @@
 				"checkBibs": "Verificar dorsais...",
 				"viewBibs": "Ver dorsais ({count})",
 				"joinWaitlist": "Juntar-se à lista de espera",
+				"elevationGain": "Ganho de elevação",
 				"fromPrice": "Desde {price}€"
 			},
 			"noEventsToDisplay": "Não há eventos para mostrar.",
@@ -422,6 +438,7 @@
 			"searchPlaceholder": "Events zoeken...",
 			"noEvents": "Geen events beschikbaar",
 			"loading": "Events laden...",
+			"searchCityPlaceholder": "Zoek een stad...",
 			"filters": {
 				"all": "Alle events",
 				"location": "Locatie",
@@ -461,6 +478,7 @@
 				"checkBibs": "Startnummers controleren...",
 				"viewBibs": "Startnummers bekijken ({count})",
 				"joinWaitlist": "Deelnemen aan wachtlijst",
+				"elevationGain": "Hoogtemeters",
 				"fromPrice": "Vanaf {price}€"
 			},
 			"noEventsToDisplay": "Geen events om weer te geven.",

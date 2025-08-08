@@ -246,9 +246,9 @@ function BentoCard({
 				<h3 className="text-card-foreground mb-1 text-lg font-semibold">{title}</h3>
 				<p className="text-muted-foreground">{content}</p>
 			</div>
-			<Button className="group mt-4" size="sm" variant="ghost">
-				Contact <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-			</Button>
+            <Button className="group mt-4" size="sm" variant="ghost">
+                {t?.contactCta ?? 'Contact'} <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
 
 			{/* Dynamic background effects based on hover state ✨ */}
 			{hoverEffect === 'glow' && isActive && (

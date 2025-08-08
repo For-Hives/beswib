@@ -36,14 +36,14 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-			<UserHeader clerkUser={clerkUser} user={user} />
+            <UserHeader clerkUser={clerkUser} user={user} locale={locale} />
 
 			<div className="relative pt-40 pb-12">
 				<div className="container mx-auto max-w-6xl p-6">
 					{/* Header */}
 					<div className="mb-12 space-y-2 text-center">
-						<h1 className="text-foreground text-4xl font-bold tracking-tight">{t.dashboard.title}</h1>
-						<p className="text-muted-foreground text-lg">Choose how you want to use Beswib</p>
+                        <h1 className="text-foreground text-4xl font-bold tracking-tight">{t.dashboard.title}</h1>
+                        <p className="text-muted-foreground text-lg">{t.dashboard.chooseHowToUse ?? 'Choose how you want to use Beswib'}</p>
 					</div>
 
 					{/* Main Dashboard Cards - Only Buyer and Seller */}
@@ -59,15 +59,15 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 							</CardHeader>
 							<CardContent className="flex justify-center gap-4 text-center">
 								<Link href="/dashboard/buyer">
-									<Button className="w-full" size="lg">
-										<ShoppingBag className="mr-2 h-5 w-5" />I want to buy a bib
-									</Button>
+                                    <Button className="w-full" size="lg">
+                                        <ShoppingBag className="mr-2 h-5 w-5" />{t.dashboard.buyCta ?? 'I want to buy a bib'}
+                                    </Button>
 								</Link>
 								<Link href="/dashboard/buyer">
-									<Button className="w-full" size="lg" variant="outline">
-										<ShoppingCart className="mr-2 h-5 w-5" />
-										Access my Buyer Dashboard
-									</Button>
+                                    <Button className="w-full" size="lg" variant="outline">
+                                        <ShoppingCart className="mr-2 h-5 w-5" />
+                                        {t.dashboard.accessBuyer ?? 'Access my Buyer Dashboard'}
+                                    </Button>
 								</Link>
 							</CardContent>
 						</Card>
@@ -85,15 +85,15 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 								<div className="flex h-full w-full flex-col items-center justify-end">
 									<div className="flex justify-between gap-4">
 										<Link className="w-full" href="/dashboard/seller/sell-bib">
-											<Button className="w-full" size="lg">
-												<Tag className="mr-2 h-5 w-5" />I want to sell a bib
-											</Button>
+                                    <Button className="w-full" size="lg">
+                                        <Tag className="mr-2 h-5 w-5" />{t.dashboard.sellCta ?? 'I want to sell a bib'}
+                                    </Button>
 										</Link>
 										<Link className="w-full" href="/dashboard/seller">
-											<Button className="w-full" size="lg" variant="outline">
-												<Tag className="mr-2 h-5 w-5" />
-												Access my Seller Dashboard
-											</Button>
+                                    <Button className="w-full" size="lg" variant="outline">
+                                        <Tag className="mr-2 h-5 w-5" />
+                                        {t.dashboard.accessSeller ?? 'Access my Seller Dashboard'}
+                                    </Button>
 										</Link>
 									</div>
 								</div>
@@ -103,7 +103,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 
 					{/* Quick Actions Grid */}
 					<div className="mb-12">
-						<h2 className="text-foreground mb-8 text-center text-2xl font-bold">Quick Actions</h2>
+                        <h2 className="text-foreground mb-8 text-center text-2xl font-bold">{t.dashboard.quickActions ?? 'Quick Actions'}</h2>
 						<div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-6">
 							{/* Sell Bib */}
 							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
@@ -112,7 +112,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<Plus className="h-6 w-6" />
 										</div>
-										<p className="text-sm font-medium">Sell Bib</p>
+                                        <p className="text-sm font-medium">{t.dashboard.sellBib ?? 'Sell Bib'}</p>
 									</CardContent>
 								</Link>
 							</Card>
@@ -124,7 +124,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<Calendar className="h-6 w-6" />
 										</div>
-										<p className="text-sm font-medium">Browse Events</p>
+                                        <p className="text-sm font-medium">{t.dashboard.browseEvents ?? 'Browse Events'}</p>
 									</CardContent>
 								</Link>
 							</Card>
@@ -136,7 +136,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<Search className="h-6 w-6" />
 										</div>
-										<p className="text-sm font-medium">Marketplace</p>
+                                        <p className="text-sm font-medium">{t.dashboard.marketplace ?? 'Marketplace'}</p>
 									</CardContent>
 								</Link>
 							</Card>
@@ -148,7 +148,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<List className="h-6 w-6" />
 										</div>
-										<p className="text-sm font-medium">I don't find my event</p>
+                                        <p className="text-sm font-medium">{t.dashboard.cantFindEvent ?? "I don't find my event"}</p>
 									</CardContent>
 								</Link>
 							</Card>
@@ -160,7 +160,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<MapPin className="h-6 w-6" />
 										</div>
-										<p className="text-sm font-medium">Contact</p>
+                                        <p className="text-sm font-medium">{t.dashboard.contact ?? 'Contact'}</p>
 									</CardContent>
 								</Link>
 							</Card>
@@ -172,30 +172,30 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 						{/* Getting Started */}
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader>
-								<CardTitle className="flex items-center gap-2">
+                                    <CardTitle className="flex items-center gap-2">
 									<Zap className="h-5 w-5" />
-									Getting Started
+                                        {t.dashboard.gettingStarted ?? 'Getting Started'}
 								</CardTitle>
-								<CardDescription>New to Beswib? Here's how to get started quickly.</CardDescription>
+                                    <CardDescription>{t.dashboard.gettingStartedDesc ?? "New to Beswib? Here's how to get started quickly."}</CardDescription>
 							</CardHeader>
 							<CardContent className="space-y-3">
 								<div className="flex items-center gap-3">
 									<div className="bg-primary/10 text-primary flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium">
 										1
 									</div>
-									<p className="text-sm">Browse available race bibs in our marketplace</p>
+                                    <p className="text-sm">{t.dashboard.stepBrowse ?? 'Browse available race bibs in our marketplace'}</p>
 								</div>
 								<div className="flex items-center gap-3">
 									<div className="bg-primary/10 text-primary flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium">
 										2
 									</div>
-									<p className="text-sm">List your own bibs for sale when plans change</p>
+                                    <p className="text-sm">{t.dashboard.stepList ?? 'List your own bibs for sale when plans change'}</p>
 								</div>
 								<div className="flex items-center gap-3">
 									<div className="bg-primary/10 text-primary flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium">
 										3
 									</div>
-									<p className="text-sm">Connect with the running community</p>
+                                    <p className="text-sm">{t.dashboard.stepConnect ?? 'Connect with the running community'}</p>
 								</div>
 							</CardContent>
 						</Card>
@@ -203,24 +203,24 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 						{/* Platform Stats */}
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader>
-								<CardTitle className="flex items-center gap-2">
+                                    <CardTitle className="flex items-center gap-2">
 									<TrendingUp className="h-5 w-5" />
-									Platform Activity
+                                        {t.dashboard.platformActivity ?? 'Platform Activity'}
 								</CardTitle>
-								<CardDescription>See what's happening on Beswib today.</CardDescription>
+                                    <CardDescription>{t.dashboard.platformActivityDesc ?? "See what's happening on Beswib today."}</CardDescription>
 							</CardHeader>
 							<CardContent className="space-y-4">
 								<div className="flex items-center justify-between">
-									<span className="text-sm">Active Listings</span>
-									<span className="text-primary font-semibold">Coming Soon</span>
+                                    <span className="text-sm">{t.dashboard.activeListings ?? 'Active Listings'}</span>
+                                    <span className="text-primary font-semibold">{t.dashboard.comingSoon ?? 'Coming Soon'}</span>
 								</div>
 								<div className="flex items-center justify-between">
-									<span className="text-sm">Recent Transfers</span>
-									<span className="text-primary font-semibold">Coming Soon</span>
+                                    <span className="text-sm">{t.dashboard.recentTransfers ?? 'Recent Transfers'}</span>
+                                    <span className="text-primary font-semibold">{t.dashboard.comingSoon ?? 'Coming Soon'}</span>
 								</div>
 								<div className="flex items-center justify-between">
-									<span className="text-sm">Community Members</span>
-									<span className="text-primary font-semibold">Growing Daily</span>
+                                    <span className="text-sm">{t.dashboard.communityMembers ?? 'Community Members'}</span>
+                                    <span className="text-primary font-semibold">{t.dashboard.growingDaily ?? 'Growing Daily'}</span>
 								</div>
 							</CardContent>
 						</Card>
