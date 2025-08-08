@@ -557,166 +557,166 @@
 		},
 		"event": {
 			"buttons": {
-				"cancel": "Cancel",
-				"createEvent": "Create Event",
-				"creating": "Creating Event..."
+				"cancel": "Cancelar",
+				"createEvent": "Crear Evento",
+				"creating": "Creando Evento..."
 			},
 			"errors": {
-				"creationFailed": "Failed to create event. Please try again.",
-				"fillRequired": "Please fill in all required fields.",
-				"invalidDate": "Please select a valid date.",
-				"invalidPrice": "Please enter a valid price."
+				"creationFailed": "No se pudo crear el evento. Por favor, intente de nuevo.",
+				"fillRequired": "Por favor, rellene todos los campos obligatorios.",
+				"invalidDate": "Por favor, seleccione una fecha válida.",
+				"invalidPrice": "Por favor, introduzca un precio válido."
 			},
 			"eventOptions": {
-				"addOption": "Add Event Option",
-				"optionKey": "Key",
-				"optionName": "Option Name",
-				"optionRequired": "Required",
-				"optionSelectPlaceholder": "Select option type",
-				"optionType": "Option Type",
-				"removeOption": "Remove Option",
+				"addOption": "Añadir Opción de Evento",
+				"optionKey": "Clave",
+				"optionName": "Nombre de la Opción",
+				"optionRequired": "Requerido",
+				"optionSelectPlaceholder": "Seleccionar tipo de opción",
+				"optionType": "Tipo de Opción",
+				"removeOption": "Eliminar Opción",
 				"types": {
-					"number": "Number Input",
-					"select": "Select",
-					"text": "Text Input"
+					"number": "Entrada Numérica",
+					"select": "Seleccionar",
+					"text": "Entrada de Texto"
 				},
 				"values": {
-					"addValue": "Add Value",
-					"label": "Values",
-					"placeholder": "Option value",
-					"removeValue": "Remove Value"
+					"addValue": "Añadir Valor",
+					"label": "Valores",
+					"placeholder": "Valor de la opción",
+					"removeValue": "Eliminar Valor"
 				}
 			},
 			"fields": {
 				"bibPickupBegin": {
-					"label": "Pickup Window Begin",
+					"label": "Inicio del Período de Recogida",
 					"required": true
 				},
 				"bibPickupEnd": {
-					"label": "Pickup Window End",
+					"label": "Fin del Período de Recogida",
 					"required": true
 				},
 				"bibPickupLocation": {
-					"label": "Bib Pickup Location",
-					"placeholder": "Marathon Expo, Porte de Versailles"
+					"label": "Lugar de Recogida de Dorsales",
+					"placeholder": "Expo Maratón, Porte de Versailles"
 				},
 				"description": {
-					"label": "Description",
-					"placeholder": "Describe the event...",
+					"label": "Descripción",
+					"placeholder": "Describe el evento...",
 					"required": true
 				},
 				"distance": {
-					"label": "Distance (km)",
+					"label": "Distancia (km)",
 					"placeholder": "42.195"
 				},
 				"elevationGain": {
-					"label": "Elevation Gain (m)",
+					"label": "Ganancia de Elevación (m)",
 					"placeholder": "500"
 				},
 				"eventDate": {
-					"label": "Event Date",
+					"label": "Fecha del Evento",
 					"required": true
 				},
 				"eventName": {
-					"label": "Event Name",
-					"placeholder": "Marathon de Paris",
+					"label": "Nombre del Evento",
+					"placeholder": "Maratón de París",
 					"required": true
 				},
 				"eventType": {
-					"label": "Event Type",
+					"label": "Tipo de Evento",
 					"options": {
-						"cycle": "Cycle",
-						"road": "Road",
-						"route": "Route",
-						"trail": "Trail",
-						"triathlon": "Triathlon",
+						"cycle": "Ciclo",
+						"road": "Carretera",
+						"route": "Ruta",
+						"trail": "Sendero",
+						"triathlon": "Triatlón",
 						"ultra": "Ultra"
 					},
-					"placeholder": "Select event type",
+					"placeholder": "Seleccionar tipo de evento",
 					"required": true
 				},
 				"isPartnered": {
-					"description": "Is this event partnered with Beswib?",
-					"label": "Partner Event"
+					"description": "¿Este evento está asociado con Beswib?",
+					"label": "Evento Asociado"
 				},
 				"location": {
-					"label": "Location",
-					"placeholder": "Paris, France",
+					"label": "Ubicación",
+					"placeholder": "París, Francia",
 					"required": true
 				},
 				"logoUpload": {
-					"description": "Upload a logo for your event. Supported formats: PNG, JPG, SVG (max 5MB)",
-					"dropText": "Drop it",
-					"fileModified": "modified",
+					"description": "Sube un logo para tu evento. Formatos soportados: PNG, JPG, SVG (máx 5MB)",
+					"dropText": "Soltar aquí",
+					"fileModified": "modificado",
 					"fileSizeUnit": "MB",
-					"label": "Event Logo",
-					"uploadSubtext": "Drag or drop your files here or click to upload",
-					"uploadText": "Upload file"
+					"label": "Logo del Evento",
+					"uploadSubtext": "Arrastre o suelte sus archivos aquí o haga clic para subir",
+					"uploadText": "Subir archivo"
 				},
 				"officialPrice": {
-					"label": "Official Price (€)",
+					"label": "Precio Oficial (€)",
 					"placeholder": "120"
 				},
 				"organizer": {
-					"label": "Event Organizer",
-					"loading": "Loading organizers...",
-					"noOrganizers": "No organizers available",
-					"partnered": "Partner",
-					"placeholder": "Select an organizer"
+					"label": "Organizador del Evento",
+					"loading": "Cargando organizadores...",
+					"noOrganizers": "No hay organizadores disponibles",
+					"partnered": "Asociado",
+					"placeholder": "Seleccionar un organizador"
 				},
 				"parcoursUrl": {
-					"label": "Parcours URL",
+					"label": "URL del Recorrido",
 					"placeholder": "https://example.com/route.gpx"
 				},
 				"participantCount": {
-					"label": "Participant Count",
+					"label": "Número de Participantes",
 					"placeholder": "30000"
 				},
 				"registrationUrl": {
-					"label": "Registration Link",
+					"label": "Enlace de Registro",
 					"placeholder": "https://example.com/register"
 				},
 				"transferDeadline": {
-					"label": "Transfer Deadline"
+					"label": "Fecha Límite de Transferencia"
 				}
 			},
 			"partnership": {
-				"notPartnered": "Not Partnered (display only)",
-				"partnered": "Partnered Event (allows bib resale)"
+				"notPartnered": "No Asociado (solo visualización)",
+				"partnered": "Evento Asociado (permite reventa de dorsales)"
 			},
 			"sections": {
 				"bibPickup": {
-					"description": "Details about where and when participants can collect their bibs.",
-					"title": "Bib Pickup Information"
+					"description": "Detalles sobre dónde y cuándo los participantes pueden recoger sus dorsales.",
+					"title": "Información de Recogida de Dorsales"
 				},
 				"eventDetails": {
-					"description": "Additional details about distance, elevation, pricing, and logistics.",
-					"title": "Event Details"
+					"description": "Detalles adicionales sobre distancia, elevación, precios y logística.",
+					"title": "Detalles del Evento"
 				},
 				"eventInformation": {
-					"description": "Basic information about the event including name, date, and location.",
-					"title": "Event Information"
+					"description": "Información básica sobre el evento, incluyendo nombre, fecha y ubicación.",
+					"title": "Información del Evento"
 				},
 				"eventOptions": {
-					"description": "Configure additional options and categories for the event.",
-					"title": "Event Options"
+					"description": "Configurar opciones y categorías adicionales para el evento.",
+					"title": "Opciones del Evento"
 				},
 				"organizer": {
-					"description": "Select the organizer responsible for this event.",
-					"title": "Event Organizer"
+					"description": "Seleccionar el organizador responsable de este evento.",
+					"title": "Organizador del Evento"
 				},
 				"partnership": {
-					"description": "Configure partnership status and related settings.",
-					"title": "Partnership Settings"
+					"description": "Configurar estado de asociación y ajustes relacionados.",
+					"title": "Configuración de Asociación"
 				}
 			},
-			"subtitle": "Configure your racing event for the Beswib platform",
+			"subtitle": "Configura tu evento de carreras para la plataforma Beswib",
 			"success": {
-				"message": "\"{eventName}\" has been created and is now available on the platform.",
-				"redirecting": "Redirecting to admin dashboard...",
-				"title": "Event Created Successfully!"
+				"message": "\"{eventName}\" ha sido creado y ahora está disponible en la plataforma.",
+				"redirecting": "Redirigiendo al panel de administrador...",
+				"title": "¡Evento Creado Exitosamente!"
 			},
-			"title": "Create New Event"
+			"title": "Crear Nuevo Evento"
 		}
 	},
 	"it": {

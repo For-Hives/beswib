@@ -564,285 +564,285 @@
 		}
 	},
 	"ro": {
-		"title": "Sell Your Bib",
-		"subtitle": "List your race bib for sale in a few simple steps",
+		"title": "Vinde-ți Numărul",
+		"subtitle": "Listează-ți numărul de concurs pentru vânzare în câțiva pași simpli",
 		"steps": {
 			"eventSelection": {
-				"title": "Select Event",
-				"description": "Choose the event for which you want to sell your bib"
+				"title": "Selectează Evenimentul",
+				"description": "Alege evenimentul pentru care vrei să-ți vinzi numărul"
 			},
 			"bibDetails": {
-				"title": "Bib Details",
-				"description": "Provide details about your race bib"
+				"title": "Detalii Număr",
+				"description": "Oferă detalii despre numărul tău de concurs"
 			},
 			"pricing": {
-				"title": "Set Price",
-				"description": "Set your selling price and preferences"
+				"title": "Setează Prețul",
+				"description": "Setează prețul de vânzare și preferințele"
 			},
 			"confirmation": {
-				"title": "Confirmation",
-				"description": "Review your listing before publishing"
+				"title": "Confirmare",
+				"description": "Revizuiește-ți anunțul înainte de publicare"
 			}
 		},
 		"form": {
 			"eventSelection": {
-				"searchPlaceholder": "Search for events...",
-				"noEventsFound": "No events found matching your search",
-				"selectEvent": "Select this event",
-				"eventSelected": "Event selected",
-				"eventInfo": "Event Information",
-				"date": "Date",
-				"location": "Location",
-				"distance": "Distance",
-				"elevation": "Elevation",
-				"participants": "Participants",
-				"requestNewEvent": "Can't find your event?",
-				"requestNewEventDescription": "Request to have it listed - we'll take care of everything!",
-				"requestNewEventButton": "Request New Event"
+				"searchPlaceholder": "Caută evenimente...",
+				"noEventsFound": "Nu s-au găsit evenimente care să corespundă căutării tale",
+				"selectEvent": "Selectează acest eveniment",
+				"eventSelected": "Eveniment selectat",
+				"eventInfo": "Informații Eveniment",
+				"date": "Dată",
+				"location": "Locație",
+				"distance": "Distanță",
+				"elevation": "Elevație",
+				"participants": "Participanți",
+				"requestNewEvent": "Nu găsești evenimentul tău?",
+				"requestNewEventDescription": "Solicită listarea acestuia - ne ocupăm noi de tot!",
+				"requestNewEventButton": "Solicită Eveniment Nou"
 			},
 			"bibDetails": {
-				"registrationNumber": "Registration Number",
-				"registrationNumberPlaceholder": "Enter your bib number",
-				"registrationNumberHelp": "The number on your race bib",
-				"bibOptions": "Bib Options",
-				"originalPrice": "Original Price (Optional)",
-				"originalPricePlaceholder": "Price you paid for registration",
-				"originalPriceHelp": "This helps buyers understand the value"
+				"registrationNumber": "Număr de Înregistrare",
+				"registrationNumberPlaceholder": "Introdu numărul tău de concurs",
+				"registrationNumberHelp": "Numărul de pe numărul tău de concurs",
+				"bibOptions": "Opțiuni Număr",
+				"originalPrice": "Preț Original (Opțional)",
+				"originalPricePlaceholder": "Prețul plătit pentru înregistrare",
+				"originalPriceHelp": "Acest lucru ajută cumpărătorii să înțeleagă valoarea"
 			},
 			"pricing": {
-				"sellingPrice": "Selling Price",
-				"sellingPricePlaceholder": "Enter your selling price",
-				"sellingPriceHelp": "Set a competitive price for your bib",
-				"listingType": "Listing Type",
-				"publicListing": "Public Listing",
-				"privateListing": "Private Listing",
-				"publicListingHelp": "Anyone can see and buy your bib",
-				"privateListingHelp": "Only people with the direct link can buy",
-				"currency": "$"
+				"sellingPrice": "Preț de Vânzare",
+				"sellingPricePlaceholder": "Introdu prețul de vânzare",
+				"sellingPriceHelp": "Setează un preț competitiv pentru numărul tău",
+				"listingType": "Tip Anunț",
+				"publicListing": "Anunț Public",
+				"privateListing": "Anunț Privat",
+				"publicListingHelp": "Oricine poate vedea și cumpăra numărul tău",
+				"privateListingHelp": "Doar persoanele cu linkul direct pot cumpăra",
+				"currency": "€"
 			},
 			"confirmation": {
-				"reviewTitle": "Review Your Listing",
-				"event": "Event",
-				"bibNumber": "Bib Number",
-				"originalPrice": "Original Price",
-				"sellingPrice": "Selling Price",
-				"listingType": "Listing Type",
+				"reviewTitle": "Revizuiește-ți Anunțul",
+				"event": "Eveniment",
+				"bibNumber": "Număr de Concurs",
+				"originalPrice": "Preț Original",
+				"sellingPrice": "Preț de Vânzare",
+				"listingType": "Tip Anunț",
 				"public": "Public",
-				"private": "Private",
-				"terms": "I confirm that I own this bib and have the right to sell it",
-				"termsRequired": "You must accept the terms to continue",
-				"privateLink": "Private Link",
-				"privateLinkHelp": "Share this link to allow others to purchase your bib privately",
-				"copyLink": "Copy Link",
-				"marketplacePreview": "Marketplace Preview"
+				"private": "Privat",
+				"terms": "Confirm că dețin acest număr și am dreptul să-l vând",
+				"termsRequired": "Trebuie să accepți termenii pentru a continua",
+				"privateLink": "Link Privat",
+				"privateLinkHelp": "Partajează acest link pentru a permite altora să cumpere numărul tău privat",
+				"copyLink": "Copiază Linkul",
+				"marketplacePreview": "Previzualizare piață"
 			}
 		},
 		"actions": {
-			"next": "Next",
-			"previous": "Previous",
-			"finish": "List My Bib",
-			"cancel": "Cancel"
+			"next": "Următorul",
+			"previous": "Anteriorul",
+			"finish": "Listează Numărul Meu",
+			"cancel": "Anulează"
 		},
 		"messages": {
-			"success": "Your bib has been listed successfully!",
-			"error": "There was an error listing your bib. Please try again.",
-			"loading": "Creating your listing...",
-			"linkCopied": "Link copied to clipboard!"
+			"success": "Numărul tău a fost listat cu succes!",
+			"error": "A apărut o eroare la listarea numărului tău. Te rugăm să încerci din nou.",
+			"loading": "Se creează anunțul tău...",
+			"linkCopied": "Link copiat în clipboard!"
 		},
 		"validation": {
-			"eventRequired": "Please select an event",
-			"registrationNumberRequired": "Registration number is required",
-			"priceRequired": "Selling price is required",
-			"priceMinimum": "Price must be greater than $0",
-			"priceFormat": "Please enter a valid price"
+			"eventRequired": "Te rugăm să selectezi un eveniment",
+			"registrationNumberRequired": "Numărul de înregistrare este obligatoriu",
+			"priceRequired": "Prețul de vânzare este obligatoriu",
+			"priceMinimum": "Prețul trebuie să fie mai mare de 0€",
+			"priceFormat": "Te rugăm să introduci un preț valid"
 		}
 	},
 	"pt": {
-		"title": "Sell Your Bib",
-		"subtitle": "List your race bib for sale in a few simple steps",
+		"title": "Venda o seu Dorsal",
+		"subtitle": "Liste o seu dorsal para venda em alguns passos simples",
 		"steps": {
 			"eventSelection": {
-				"title": "Select Event",
-				"description": "Choose the event for which you want to sell your bib"
+				"title": "Selecionar Evento",
+				"description": "Escolha o evento para o qual quer vender o seu dorsal"
 			},
 			"bibDetails": {
-				"title": "Bib Details",
-				"description": "Provide details about your race bib"
+				"title": "Detalhes do Dorsal",
+				"description": "Forneça detalhes sobre o seu dorsal de corrida"
 			},
 			"pricing": {
-				"title": "Set Price",
-				"description": "Set your selling price and preferences"
+				"title": "Definir Preço",
+				"description": "Defina o seu preço de venda e preferências"
 			},
 			"confirmation": {
-				"title": "Confirmation",
-				"description": "Review your listing before publishing"
+				"title": "Confirmação",
+				"description": "Revise o seu anúncio antes de publicar"
 			}
 		},
 		"form": {
 			"eventSelection": {
-				"searchPlaceholder": "Search for events...",
-				"noEventsFound": "No events found matching your search",
-				"selectEvent": "Select this event",
-				"eventSelected": "Event selected",
-				"eventInfo": "Event Information",
-				"date": "Date",
-				"location": "Location",
-				"distance": "Distance",
-				"elevation": "Elevation",
-				"participants": "Participants",
-				"requestNewEvent": "Can't find your event?",
-				"requestNewEventDescription": "Request to have it listed - we'll take care of everything!",
-				"requestNewEventButton": "Request New Event"
+				"searchPlaceholder": "Procurar eventos...",
+				"noEventsFound": "Nenhum evento encontrado correspondente à sua pesquisa",
+				"selectEvent": "Selecionar este evento",
+				"eventSelected": "Evento selecionado",
+				"eventInfo": "Informações do Evento",
+				"date": "Data",
+				"location": "Local",
+				"distance": "Distância",
+				"elevation": "Elevação",
+				"participants": "Participantes",
+				"requestNewEvent": "Não consegue encontrar o seu evento?",
+				"requestNewEventDescription": "Solicite que seja listado - nós tratamos de tudo!",
+				"requestNewEventButton": "Solicitar Novo Evento"
 			},
 			"bibDetails": {
-				"registrationNumber": "Registration Number",
-				"registrationNumberPlaceholder": "Enter your bib number",
-				"registrationNumberHelp": "The number on your race bib",
-				"bibOptions": "Bib Options",
-				"originalPrice": "Original Price (Optional)",
-				"originalPricePlaceholder": "Price you paid for registration",
-				"originalPriceHelp": "This helps buyers understand the value"
+				"registrationNumber": "Número de Inscrição",
+				"registrationNumberPlaceholder": "Insira o seu número de dorsal",
+				"registrationNumberHelp": "O número no seu dorsal de corrida",
+				"bibOptions": "Opções do Dorsal",
+				"originalPrice": "Preço Original (Opcional)",
+				"originalPricePlaceholder": "Preço que pagou pela inscrição",
+				"originalPriceHelp": "Isso ajuda os compradores a entender o valor"
 			},
 			"pricing": {
-				"sellingPrice": "Selling Price",
-				"sellingPricePlaceholder": "Enter your selling price",
-				"sellingPriceHelp": "Set a competitive price for your bib",
-				"listingType": "Listing Type",
-				"publicListing": "Public Listing",
-				"privateListing": "Private Listing",
-				"publicListingHelp": "Anyone can see and buy your bib",
-				"privateListingHelp": "Only people with the direct link can buy",
-				"currency": "$"
+				"sellingPrice": "Preço de Venda",
+				"sellingPricePlaceholder": "Insira o seu preço de venda",
+				"sellingPriceHelp": "Defina um preço competitivo para o seu dorsal",
+				"listingType": "Tipo de Anúncio",
+				"publicListing": "Anúncio Público",
+				"privateListing": "Anúncio Privado",
+				"publicListingHelp": "Qualquer pessoa pode ver e comprar o seu dorsal",
+				"privateListingHelp": "Apenas pessoas com o link direto podem comprar",
+				"currency": "€"
 			},
 			"confirmation": {
-				"reviewTitle": "Review Your Listing",
-				"event": "Event",
-				"bibNumber": "Bib Number",
-				"originalPrice": "Original Price",
-				"sellingPrice": "Selling Price",
-				"listingType": "Listing Type",
-				"public": "Public",
-				"private": "Private",
-				"terms": "I confirm that I own this bib and have the right to sell it",
-				"termsRequired": "You must accept the terms to continue",
-				"privateLink": "Private Link",
-				"privateLinkHelp": "Share this link to allow others to purchase your bib privately",
-				"copyLink": "Copy Link",
-				"marketplacePreview": "Marketplace Preview"
+				"reviewTitle": "Revise o seu Anúncio",
+				"event": "Evento",
+				"bibNumber": "Número do Dorsal",
+				"originalPrice": "Preço Original",
+				"sellingPrice": "Preço de Venda",
+				"listingType": "Tipo de Anúncio",
+				"public": "Público",
+				"private": "Privado",
+				"terms": "Confirmo que sou proprietário deste dorsal e tenho o direito de o vender",
+				"termsRequired": "Deve aceitar os termos para continuar",
+				"privateLink": "Link Privado",
+				"privateLinkHelp": "Partilhe este link para permitir que outros comprem o seu dorsal de forma privada",
+				"copyLink": "Copiar Link",
+				"marketplacePreview": "Pré-visualização do Marketplace"
 			}
 		},
 		"actions": {
-			"next": "Next",
-			"previous": "Previous",
-			"finish": "List My Bib",
-			"cancel": "Cancel"
+			"next": "Próximo",
+			"previous": "Anterior",
+			"finish": "Listar o meu Dorsal",
+			"cancel": "Cancelar"
 		},
 		"messages": {
-			"success": "Your bib has been listed successfully!",
-			"error": "There was an error listing your bib. Please try again.",
-			"loading": "Creating your listing...",
-			"linkCopied": "Link copied to clipboard!"
+			"success": "O seu dorsal foi listado com sucesso!",
+			"error": "Ocorreu um erro ao listar o seu dorsal. Por favor, tente novamente.",
+			"loading": "A criar o seu anúncio...",
+			"linkCopied": "Link copiado para a área de transferência!"
 		},
 		"validation": {
-			"eventRequired": "Please select an event",
-			"registrationNumberRequired": "Registration number is required",
-			"priceRequired": "Selling price is required",
-			"priceMinimum": "Price must be greater than $0",
-			"priceFormat": "Please enter a valid price"
+			"eventRequired": "Por favor, selecione um evento",
+			"registrationNumberRequired": "O número de inscrição é obrigatório",
+			"priceRequired": "O preço de venda é obrigatório",
+			"priceMinimum": "O preço deve ser superior a 0€",
+			"priceFormat": "Por favor, insira um preço válido"
 		}
 	},
 	"nl": {
-		"title": "Sell Your Bib",
-		"subtitle": "List your race bib for sale in a few simple steps",
+		"title": "Verkoop uw Startnummer",
+		"subtitle": "Plaats uw startnummer te koop in een paar eenvoudige stappen",
 		"steps": {
 			"eventSelection": {
-				"title": "Select Event",
-				"description": "Choose the event for which you want to sell your bib"
+				"title": "Evenement Selecteren",
+				"description": "Kies het evenement waarvoor u uw startnummer wilt verkopen"
 			},
 			"bibDetails": {
-				"title": "Bib Details",
-				"description": "Provide details about your race bib"
+				"title": "Startnummer Details",
+				"description": "Geef details op over uw startnummer"
 			},
 			"pricing": {
-				"title": "Set Price",
-				"description": "Set your selling price and preferences"
+				"title": "Prijs Instellen",
+				"description": "Stel uw verkoopprijs en voorkeuren in"
 			},
 			"confirmation": {
-				"title": "Confirmation",
-				"description": "Review your listing before publishing"
+				"title": "Bevestiging",
+				"description": "Controleer uw aanbieding voordat u deze publiceert"
 			}
 		},
 		"form": {
 			"eventSelection": {
-				"searchPlaceholder": "Search for events...",
-				"noEventsFound": "No events found matching your search",
-				"selectEvent": "Select this event",
-				"eventSelected": "Event selected",
-				"eventInfo": "Event Information",
-				"date": "Date",
-				"location": "Location",
-				"distance": "Distance",
-				"elevation": "Elevation",
-				"participants": "Participants",
-				"requestNewEvent": "Can't find your event?",
-				"requestNewEventDescription": "Request to have it listed - we'll take care of everything!",
-				"requestNewEventButton": "Request New Event"
+				"searchPlaceholder": "Zoek naar evenementen...",
+				"noEventsFound": "Geen evenementen gevonden die overeenkomen met uw zoekopdracht",
+				"selectEvent": "Selecteer dit evenement",
+				"eventSelected": "Evenement geselecteerd",
+				"eventInfo": "Evenementinformatie",
+				"date": "Datum",
+				"location": "Locatie",
+				"distance": "Afstand",
+				"elevation": "Hoogteverschil",
+				"participants": "Deelnemers",
+				"requestNewEvent": "Kunt u uw evenement niet vinden?",
+				"requestNewEventDescription": "Vraag om het te laten vermelden - wij regelen alles!",
+				"requestNewEventButton": "Nieuw Evenement Aanvragen"
 			},
 			"bibDetails": {
-				"registrationNumber": "Registration Number",
-				"registrationNumberPlaceholder": "Enter your bib number",
-				"registrationNumberHelp": "The number on your race bib",
-				"bibOptions": "Bib Options",
-				"originalPrice": "Original Price (Optional)",
-				"originalPricePlaceholder": "Price you paid for registration",
-				"originalPriceHelp": "This helps buyers understand the value"
+				"registrationNumber": "Registratienummer",
+				"registrationNumberPlaceholder": "Voer uw startnummer in",
+				"registrationNumberHelp": "Het nummer op uw startnummer",
+				"bibOptions": "Startnummer Opties",
+				"originalPrice": "Oorspronkelijke Prijs (Optioneel)",
+				"originalPricePlaceholder": "Prijs die u betaald heeft voor registratie",
+				"originalPriceHelp": "Dit helpt kopers de waarde te begrijpen"
 			},
 			"pricing": {
-				"sellingPrice": "Selling Price",
-				"sellingPricePlaceholder": "Enter your selling price",
-				"sellingPriceHelp": "Set a competitive price for your bib",
-				"listingType": "Listing Type",
-				"publicListing": "Public Listing",
-				"privateListing": "Private Listing",
-				"publicListingHelp": "Anyone can see and buy your bib",
-				"privateListingHelp": "Only people with the direct link can buy",
-				"currency": "$"
+				"sellingPrice": "Verkoopprijs",
+				"sellingPricePlaceholder": "Voer uw verkoopprijs in",
+				"sellingPriceHelp": "Stel een concurrerende prijs in voor uw startnummer",
+				"listingType": "Aanbiedingstype",
+				"publicListing": "Openbare Aanbieding",
+				"privateListing": "Privé Aanbieding",
+				"publicListingHelp": "Iedereen kan uw startnummer zien en kopen",
+				"privateListingHelp": "Alleen mensen met de directe link kunnen kopen",
+				"currency": "€"
 			},
 			"confirmation": {
-				"reviewTitle": "Review Your Listing",
-				"event": "Event",
-				"bibNumber": "Bib Number",
-				"originalPrice": "Original Price",
-				"sellingPrice": "Selling Price",
-				"listingType": "Listing Type",
-				"public": "Public",
-				"private": "Private",
-				"terms": "I confirm that I own this bib and have the right to sell it",
-				"termsRequired": "You must accept the terms to continue",
-				"privateLink": "Private Link",
-				"privateLinkHelp": "Share this link to allow others to purchase your bib privately",
-				"copyLink": "Copy Link",
-				"marketplacePreview": "Marketplace Preview"
+				"reviewTitle": "Controleer uw Aanbieding",
+				"event": "Evenement",
+				"bibNumber": "Startnummer",
+				"originalPrice": "Oorspronkelijke Prijs",
+				"sellingPrice": "Verkoopprijs",
+				"listingType": "Aanbiedingstype",
+				"public": "Openbaar",
+				"private": "Privé",
+				"terms": "Ik bevestig dat ik eigenaar ben van dit startnummer en het recht heb om het te verkopen",
+				"termsRequired": "U moet de voorwaarden accepteren om door te gaan",
+				"privateLink": "Privé Link",
+				"privateLinkHelp": "Deel deze link om anderen in staat te stellen uw startnummer privé te kopen",
+				"copyLink": "Link Kopiëren",
+				"marketplacePreview": "Marktplaats Voorbeeld"
 			}
 		},
 		"actions": {
-			"next": "Next",
-			"previous": "Previous",
-			"finish": "List My Bib",
-			"cancel": "Cancel"
+			"next": "Volgende",
+			"previous": "Vorige",
+			"finish": "Mijn Startnummer Plaatsen",
+			"cancel": "Annuleren"
 		},
 		"messages": {
-			"success": "Your bib has been listed successfully!",
-			"error": "There was an error listing your bib. Please try again.",
-			"loading": "Creating your listing...",
-			"linkCopied": "Link copied to clipboard!"
+			"success": "Uw startnummer is succesvol geplaatst!",
+			"error": "Er is een fout opgetreden bij het plaatsen van uw startnummer. Probeer het opnieuw.",
+			"loading": "Uw aanbieding wordt aangemaakt...",
+			"linkCopied": "Link gekopieerd naar klembord!"
 		},
 		"validation": {
-			"eventRequired": "Please select an event",
-			"registrationNumberRequired": "Registration number is required",
-			"priceRequired": "Selling price is required",
-			"priceMinimum": "Price must be greater than $0",
-			"priceFormat": "Please enter a valid price"
+			"eventRequired": "Selecteer alstublieft een evenement",
+			"registrationNumberRequired": "Registratienummer is verplicht",
+			"priceRequired": "Verkoopprijs is verplicht",
+			"priceMinimum": "Prijs moet hoger zijn dan €0",
+			"priceFormat": "Voer een geldige prijs in"
 		}
 	}
 }

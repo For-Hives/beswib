@@ -79,158 +79,158 @@
 	},
 	"es": {
 		"success": {
-			"title": "Purchase successful!",
-			"thanks": "Thank you for your purchase. Your transaction was successful. We sincerely appreciate your trust.",
+			"title": "¡Compra exitosa!",
+			"thanks": "Gracias por tu compra. Tu transacción se ha realizado con éxito. Agradecemos sinceramente tu confianza.",
 			"steps": [
 				{
-					"label": "Purchase successful",
-					"description": "Your payment has been validated."
+					"label": "Compra exitosa",
+					"description": "Tu pago ha sido validado."
 				},
 				{
-					"label": "Waiting for organizer validation",
-					"description": "Your purchase must be validated by the event organizer."
+					"label": "Esperando la validación del organizador",
+					"description": "Tu compra debe ser validada por el organizador del evento."
 				},
 				{
-					"label": "Email confirmation",
-					"description": "You will soon receive a confirmation email."
+					"label": "Confirmación por correo electrónico",
+					"description": "Pronto recibirás un correo electrónico de confirmación."
 				},
 				{
-					"label": "Bib ready",
-					"description": "You can use your bib as soon as you receive the email."
+					"label": "Dorsal listo",
+					"description": "Podrás usar tu dorsal en cuanto recibas el correo electrónico."
 				}
 			],
-			"viewBibs": "View all my bibs",
-			"backMarketplace": "Back to marketplace"
+			"viewBibs": "Ver todos mis dorsales",
+			"backMarketplace": "Volver al marketplace"
 		}
 	},
 	"it": {
 		"success": {
-			"title": "Purchase successful!",
-			"thanks": "Thank you for your purchase. Your transaction was successful. We sincerely appreciate your trust.",
+			"title": "Acquisto riuscito!",
+			"thanks": "Grazie per il tuo acquisto. La tua transazione è stata completata con successo. Apprezziamo sinceramente la tua fiducia.",
 			"steps": [
 				{
-					"label": "Purchase successful",
-					"description": "Your payment has been validated."
+					"label": "Acquisto riuscito",
+					"description": "Il tuo pagamento è stato convalidato."
 				},
 				{
-					"label": "Waiting for organizer validation",
-					"description": "Your purchase must be validated by the event organizer."
+					"label": "In attesa di convalida da parte dell'organizzatore",
+					"description": "Il tuo acquisto deve essere convalidato dall'organizzatore dell'evento."
 				},
 				{
-					"label": "Email confirmation",
-					"description": "You will soon receive a confirmation email."
+					"label": "Conferma via email",
+					"description": "Riceverai presto un'email di conferma."
 				},
 				{
-					"label": "Bib ready",
-					"description": "You can use your bib as soon as you receive the email."
+					"label": "Pettorale pronto",
+					"description": "Potrai utilizzare il tuo pettorale non appena riceverai l'email."
 				}
 			],
-			"viewBibs": "View all my bibs",
-			"backMarketplace": "Back to marketplace"
+			"viewBibs": "Vedi tutti i miei pettorali",
+			"backMarketplace": "Torna al marketplace"
 		}
 	},
 	"de": {
 		"success": {
-			"title": "Purchase successful!",
-			"thanks": "Thank you for your purchase. Your transaction was successful. We sincerely appreciate your trust.",
+			"title": "Kauf erfolgreich!",
+			"thanks": "Vielen Dank für Ihren Kauf. Ihre Transaktion war erfolgreich. Wir schätzen Ihr Vertrauen sehr.",
 			"steps": [
 				{
-					"label": "Purchase successful",
-					"description": "Your payment has been validated."
+					"label": "Kauf erfolgreich",
+					"description": "Ihre Zahlung wurde validiert."
 				},
 				{
-					"label": "Waiting for organizer validation",
-					"description": "Your purchase must be validated by the event organizer."
+					"label": "Warten auf Veranstalter-Validierung",
+					"description": "Ihr Kauf muss vom Veranstalter validiert werden."
 				},
 				{
-					"label": "Email confirmation",
-					"description": "You will soon receive a confirmation email."
+					"label": "E-Mail Bestätigung",
+					"description": "Sie erhalten in Kürze eine Bestätigungs-E-Mail."
 				},
 				{
-					"label": "Bib ready",
-					"description": "You can use your bib as soon as you receive the email."
+					"label": "Startnummer bereit",
+					"description": "Sie können Ihre Startnummer verwenden, sobald Sie die E-Mail erhalten."
 				}
 			],
-			"viewBibs": "View all my bibs",
-			"backMarketplace": "Back to marketplace"
+			"viewBibs": "Alle meine Startnummern ansehen",
+			"backMarketplace": "Zurück zum Marktplatz"
 		}
 	},
 	"ro": {
 		"success": {
-			"title": "Purchase successful!",
-			"thanks": "Thank you for your purchase. Your transaction was successful. We sincerely appreciate your trust.",
+			"title": "Achiziție reușită!",
+			"thanks": "Vă mulțumim pentru achiziție. Tranzacția dumneavoastră a fost validată cu succes. Apreciem sincer încrederea dumneavoastră.",
 			"steps": [
 				{
-					"label": "Purchase successful",
-					"description": "Your payment has been validated."
+					"label": "Achiziție reușită",
+					"description": "Plata dumneavoastră a fost validată."
 				},
 				{
-					"label": "Waiting for organizer validation",
-					"description": "Your purchase must be validated by the event organizer."
+					"label": "În așteptarea validării organizatorului",
+					"description": "Achiziția dumneavoastră trebuie să fie validată de organizatorul evenimentului."
 				},
 				{
-					"label": "Email confirmation",
-					"description": "You will soon receive a confirmation email."
+					"label": "Confirmare prin email",
+					"description": "Veți primi în curând un email de confirmare."
 				},
 				{
-					"label": "Bib ready",
-					"description": "You can use your bib as soon as you receive the email."
+					"label": "Număr de concurs gata",
+					"description": "Vă puteți utiliza numărul de concurs imediat ce primiți emailul."
 				}
 			],
-			"viewBibs": "View all my bibs",
-			"backMarketplace": "Back to marketplace"
+			"viewBibs": "Vezi toate numerele mele de concurs",
+			"backMarketplace": "Înapoi la marketplace"
 		}
 	},
 	"pt": {
 		"success": {
-			"title": "Purchase successful!",
-			"thanks": "Thank you for your purchase. Your transaction was successful. We sincerely appreciate your trust.",
+			"title": "Compra bem-sucedida!",
+			"thanks": "Obrigado pela sua compra. A sua transação foi bem-sucedida. Agradecemos sinceramente a sua confiança.",
 			"steps": [
 				{
-					"label": "Purchase successful",
-					"description": "Your payment has been validated."
+					"label": "Compra bem-sucedida",
+					"description": "O seu pagamento foi validado."
 				},
 				{
-					"label": "Waiting for organizer validation",
-					"description": "Your purchase must be validated by the event organizer."
+					"label": "Aguardando validação do organizador",
+					"description": "A sua compra deve ser validada pelo organizador do evento."
 				},
 				{
-					"label": "Email confirmation",
-					"description": "You will soon receive a confirmation email."
+					"label": "Confirmação por email",
+					"description": "Em breve receberá um email de confirmação."
 				},
 				{
-					"label": "Bib ready",
-					"description": "You can use your bib as soon as you receive the email."
+					"label": "Dorsal pronto",
+					"description": "Poderá usar o seu dorsal assim que receber o email."
 				}
 			],
-			"viewBibs": "View all my bibs",
-			"backMarketplace": "Back to marketplace"
+			"viewBibs": "Ver todos os meus dorsais",
+			"backMarketplace": "Voltar ao marketplace"
 		}
 	},
 	"nl": {
 		"success": {
-			"title": "Purchase successful!",
-			"thanks": "Thank you for your purchase. Your transaction was successful. We sincerely appreciate your trust.",
+			"title": "Aankoop succesvol!",
+			"thanks": "Bedankt voor uw aankoop. Uw transactie is succesvol verlopen. Wij waarderen uw vertrouwen oprecht.",
 			"steps": [
 				{
-					"label": "Purchase successful",
-					"description": "Your payment has been validated."
+					"label": "Aankoop succesvol",
+					"description": "Uw betaling is gevalideerd."
 				},
 				{
-					"label": "Waiting for organizer validation",
-					"description": "Your purchase must be validated by the event organizer."
+					"label": "Wachten op validatie van de organisator",
+					"description": "Uw aankoop moet worden gevalideerd door de evenement organisator."
 				},
 				{
-					"label": "Email confirmation",
-					"description": "You will soon receive a confirmation email."
+					"label": "E-mail bevestiging",
+					"description": "U ontvangt binnenkort een bevestigings-e-mail."
 				},
 				{
-					"label": "Bib ready",
-					"description": "You can use your bib as soon as you receive the email."
+					"label": "Startnummer klaar",
+					"description": "U kunt uw startnummer gebruiken zodra u de e-mail ontvangt."
 				}
 			],
-			"viewBibs": "View all my bibs",
-			"backMarketplace": "Back to marketplace"
+			"viewBibs": "Bekijk al mijn startnummers",
+			"backMarketplace": "Terug naar de marktplaats"
 		}
 	}
 }

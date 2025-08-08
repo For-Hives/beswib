@@ -86,7 +86,8 @@
 				"accessError": "Access Error",
 				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
 				"signIn": "Sign In",
-				"connectedAs": "Connected as"
+				"connectedAs": "Connected as",
+				"unknownEvent": "Unknown Event"
 			}
 		}
 	},
@@ -177,7 +178,8 @@
 				"accessError": "Erreur d'Accès",
 				"accessErrorDescription": "Impossible de vérifier l'accès administrateur. Veuillez vous reconnecter.",
 				"signIn": "Se Connecter",
-				"connectedAs": "Connecté en tant que"
+				"connectedAs": "Connecté en tant que",
+				"unknownEvent": "Événement inconnu"
 			}
 		}
 	},
@@ -268,7 +270,8 @@
 				"accessError": "접근 오류",
 				"accessErrorDescription": "관리자 접근을 확인할 수 없습니다. 다시 로그인해 주세요.",
 				"signIn": "로그인",
-				"connectedAs": "다음으로 연결됨"
+				"connectedAs": "다음으로 연결됨",
+				"unknownEvent": "알 수 없는 이벤트"
 			}
 		}
 	},
@@ -359,7 +362,8 @@
 				"accessError": "Error de Acceso",
 				"accessErrorDescription": "No se pudo verificar el acceso de administrador. Por favor, intente iniciar sesión nuevamente.",
 				"signIn": "Iniciar Sesión",
-				"connectedAs": "Conectado como"
+				"connectedAs": "Conectado como",
+				"unknownEvent": "Evento desconocido"
 			}
 		}
 	},
@@ -450,7 +454,8 @@
 				"accessError": "Errore di Accesso",
 				"accessErrorDescription": "Impossibile verificare l'accesso amministratore. Per favore, prova ad accedere di nuovo.",
 				"signIn": "Accedi",
-				"connectedAs": "Connesso come"
+				"connectedAs": "Connesso come",
+				"unknownEvent": "Evento sconosciuto"
 			}
 		}
 	},
@@ -541,7 +546,8 @@
 				"accessError": "Zugriffsfehler",
 				"accessErrorDescription": "Administratorzugriff konnte nicht überprüft werden. Bitte versuchen Sie, sich erneut anzumelden.",
 				"signIn": "Anmelden",
-				"connectedAs": "Verbunden als"
+				"connectedAs": "Verbunden als",
+				"unknownEvent": "Unbekanntes Ereignis"
 			}
 		}
 	},
@@ -632,7 +638,8 @@
 				"accessError": "Eroare de acces",
 				"accessErrorDescription": "Nu s-a putut verifica accesul de administrator. Vă rugăm să încercați să vă autentificați din nou.",
 				"signIn": "Autentificare",
-				"connectedAs": "Conectat ca"
+				"connectedAs": "Conectat ca",
+				"unknownEvent": "Eveniment necunoscut"
 			}
 		}
 	},
@@ -723,7 +730,8 @@
 				"accessError": "Erro de Acesso",
 				"accessErrorDescription": "Não foi possível verificar o acesso de administrador. Por favor, tente fazer login novamente.",
 				"signIn": "Entrar",
-				"connectedAs": "Conectado como"
+				"connectedAs": "Conectado como",
+				"unknownEvent": "Evento desconhecido"
 			}
 		}
 	},
@@ -814,7 +822,8 @@
 				"accessError": "Toegangsprobleem",
 				"accessErrorDescription": "Kan geen beheerdersrechten verifiëren. Probeer opnieuw in te loggen.",
 				"signIn": "Inloggen",
-				"connectedAs": "Verbonden als"
+				"connectedAs": "Verbonden als",
+				"unknownEvent": "Onbekend evenement"
 			}
 		}
 	}
