@@ -74,9 +74,6 @@ export default function PayPalPurchaseClient({
 	// Check if current user is the seller of this bib
 	const isOwnBib = user?.id === bib.user.id
 
-	// Helper: is bib locked by this user?
-	const isLockedByMe = lockedAtParam && bib.lockedAt && lockedAtParam === bib.lockedAt.toISOString()
-
 	useEffect(() => {
 		setIsProfileComplete(isUserProfileComplete(user))
 	}, [user])
