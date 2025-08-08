@@ -20,7 +20,6 @@ import { DateTime } from 'luxon'
 interface EventsPageProps {
 	prefetchedEvents: Event[]
 	locale: string
-	error?: string | null
 }
 
 const eventTypeColors = {
@@ -209,7 +208,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			}
 			const value = Number(raw)
 			const bucket = ranges.find(r => r.test(value))?.label
-			if (bucket) groups[bucket].push(event)
+			if (bucket != null) groups[bucket].push(event)
 		}
 
 		return Object.entries(groups)
@@ -235,12 +234,12 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 					return js.isValid ? js : null
 				})()
 
-				if (!parsed) {
+				if (parsed == null) {
 					unknown.push(event)
 					continue
 				}
 				const key = getMonthKey(parsed)
-				if (!byMonth[key]) byMonth[key] = []
+				byMonth[key] ??= []
 				byMonth[key].push(event)
 			}
 			const sections: GroupSections = Object.entries(byMonth).map(([key, list]) => {
