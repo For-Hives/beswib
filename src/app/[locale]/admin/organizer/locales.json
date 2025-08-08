@@ -1,10 +1,20 @@
 {
 	"en": {
 		"organizers": {
+      "common": {
+        "na": "N/A",
+        "unknownOrganizer": "Unknown Organizer"
+      },
 			"actions": {
 				"createOrganizer": "Add New Organizer",
 				"createOrganizerDescription": "Register event organizers to enable bib resale for their races"
 			},
+      "actionsLabels": {
+        "openMenu": "Open menu",
+        "edit": "Edit",
+        "view": "View",
+        "delete": "Delete"
+      },
 			"create": {
 				"errors": {
 					"createFailed": "Failed to create organizer",
@@ -64,24 +74,33 @@
 					"rowsPerPage": "Rows per page",
 					"selectAll": "Select all",
 					"selectRow": "Select row",
-					"toggleColumns": "Toggle columns"
+          "toggleColumns": "Toggle columns",
+          "selectNumberOfResults": "Select number of results"
 				},
 				"empty": {
 					"createButton": "Create New Organizer",
 					"description": "Get started by creating your first organizer",
 					"title": "No organizers found"
 				},
-				"noResults": "No organizers found",
+        "noResults": "No organizers found",
 				"noResultsDescription": "Get started by creating your first organizer",
 				"search": "Search organizers..."
+        ,
+        "pagination": {
+          "goToFirst": "Go to first page",
+          "goToPrev": "Go to previous page",
+          "goToNext": "Go to next page",
+          "goToLast": "Go to last page",
+          "of": "of"
+        }
 			},
 			"title": "Organizers Management",
 			"ui": {
 				"accessError": "Access Error",
 				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
-				"connectedAs": "Connected as",
+        "connectedAs": "Connected as",
 				"loading": "Loading...",
-				"signIn": "Sign In"
+        "signIn": "Sign In"
 			},
 			"validate": {
 				"messages": {
@@ -112,10 +131,20 @@
 	},
 	"fr": {
 		"organizers": {
+      "common": {
+        "na": "N/D",
+        "unknownOrganizer": "Organisateur inconnu"
+      },
 			"actions": {
 				"createOrganizer": "Ajouter un Organisateur",
 				"createOrganizerDescription": "Enregistrer les organisateurs d'événements pour activer la revente de dossards sur leurs courses"
 			},
+      "actionsLabels": {
+        "openMenu": "Ouvrir le menu",
+        "edit": "Modifier",
+        "view": "Voir",
+        "delete": "Supprimer"
+      },
 			"create": {
 				"errors": {
 					"createFailed": "Échec de la création de l'organisateur",
@@ -175,16 +204,24 @@
 					"rowsPerPage": "Lignes par page",
 					"selectAll": "Tout sélectionner",
 					"selectRow": "Sélectionner la ligne",
-					"toggleColumns": "Basculer les colonnes"
+          "toggleColumns": "Basculer les colonnes",
+          "selectNumberOfResults": "Sélectionner le nombre de résultats"
 				},
 				"empty": {
 					"createButton": "Créer un Nouvel Organisateur",
 					"description": "Commencez par créer votre premier organisateur",
 					"title": "Aucun organisateur trouvé"
 				},
-				"noResults": "Aucun organisateur trouvé",
+        "noResults": "Aucun organisateur trouvé",
 				"noResultsDescription": "Commencez par créer votre premier organisateur",
-				"search": "Rechercher des organisateurs..."
+        "search": "Rechercher des organisateurs...",
+        "pagination": {
+          "goToFirst": "Aller à la première page",
+          "goToPrev": "Aller à la page précédente",
+          "goToNext": "Aller à la page suivante",
+          "goToLast": "Aller à la dernière page",
+          "of": "sur"
+        }
 			},
 			"title": "Gestion des Organisateurs",
 			"ui": {
