@@ -133,3 +133,40 @@ export function getDatePlaceholder(locale: string = 'en'): string {
 			return 'jj/mm/aaaa'
 	}
 }
+
+/**
+ * Formats a date in simple YYYY-MM-DD format 📅
+ * @param date - The date (Date object, string, or any date-like value)
+ * @returns Date string in YYYY-MM-DD format
+ */
+export function formatDateSimple(date: unknown): string {
+	if (date == null || date === '') return ''
+	try {
+		let dt: DateTime
+
+		if (typeof date === 'string') {
+			// Try different string formats
+			dt = DateTime.fromISO(date)
+			if (!dt.isValid) {
+				dt = DateTime.fromSQL(date)
+			}
+			if (!dt.isValid) {
+				dt = DateTime.fromJSDate(new Date(date))
+			}
+		} else if (date instanceof Date) {
+			dt = DateTime.fromJSDate(date)
+		} else {
+			// Try to convert whatever it is to a Date first
+			dt = DateTime.fromJSDate(new Date(date as string))
+		}
+
+		if (!dt.isValid) {
+			console.warn('formatDateSimple: Invalid date received:', date)
+			return ''
+		}
+		return dt.toFormat('yyyy-LL-dd')
+	} catch (error) {
+		console.warn('formatDateSimple: Error formatting date:', date, error)
+		return ''
+	}
+}

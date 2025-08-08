@@ -7,7 +7,7 @@ import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 
 import { Card, CardContent } from '@/components/ui/card'
-import { formatDateForDisplay } from '@/lib/dateUtils'
+import { formatDateSimple } from '@/lib/dateUtils'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 
@@ -34,12 +34,23 @@ export default function EventSelectionStep({
 
 	const [searchQuery, setSearchQuery] = useState('')
 
-	// Filter events based on search query
-	const filteredEvents = availableEvents.filter(
-		event =>
+	// Filter events: exclude past events and apply search query
+	const filteredEvents = availableEvents.filter(event => {
+		// Filter out past events (events before today)
+		const eventDate = new Date(event.eventDate)
+		const today = new Date()
+		today.setHours(0, 0, 0, 0) // Reset time to compare only dates
+
+		const isNotPastEvent = eventDate >= today
+
+		// Apply search filter
+		const matchesSearch =
+			searchQuery === '' ||
 			event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
 			event.location.toLowerCase().includes(searchQuery.toLowerCase())
-	)
+
+		return isNotPastEvent && matchesSearch
+	})
 
 	return (
 		<div className="grid grid-cols-1 gap-12 md:grid-cols-3">
@@ -84,18 +95,21 @@ export default function EventSelectionStep({
 												<div className="flex items-center gap-2">
 													<Calendar className="h-4 w-4" />
 													{(() => {
-														const eventDate = event.eventDate
-														const getDateString = (date: typeof eventDate): string => {
-															if (typeof date === 'string') {
-																return date
-															}
-															if (date instanceof Date) {
-																return date.toISOString()
-															}
-															return new Date(date).toISOString()
+														const formatted = formatDateSimple(event.eventDate)
+														if (formatted) return formatted
+
+														// Fallback: simple date formatting
+														try {
+															const date = new Date(event.eventDate)
+															if (isNaN(date.getTime())) return 'Invalid Date'
+
+															const year = date.getFullYear()
+															const month = String(date.getMonth() + 1).padStart(2, '0')
+															const day = String(date.getDate()).padStart(2, '0')
+															return `${year}-${month}-${day}`
+														} catch {
+															return 'Date Error'
 														}
-														const dateStr = getDateString(eventDate)
-														return formatDateForDisplay(dateStr.split('T')[0], locale)
 													})()}
 												</div>
 												<div className="flex items-center gap-2">

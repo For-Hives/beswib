@@ -4,6 +4,7 @@ import { LayoutDashboard, Settings, ShoppingBag, Tag, User } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { useUser } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 import { DropdownMenuAnimated } from '@/components/ui/dropdown-menu-animated'
 import { getTranslations } from '@/lib/getDictionary'
@@ -22,6 +23,7 @@ export default function DashboardDropdown({ locale }: Readonly<DashboardDropdown
 
 	const { user: clerkUser, isLoaded } = useUser()
 	const [isAdmin, setIsAdmin] = useState(false)
+    const router = useRouter()
 
 	useEffect(() => {
 		if (!isLoaded || !clerkUser) {
@@ -44,22 +46,22 @@ export default function DashboardDropdown({ locale }: Readonly<DashboardDropdown
 
 	const baseOptions = [
 		{
-			onClick: () => (window.location.href = '/dashboard'),
+			onClick: () => router.push(`/${locale}/dashboard`),
 			label: t.navbar.dashboardLink,
 			Icon: <LayoutDashboard className="h-4 w-4" />,
 		},
 		{
-			onClick: () => (window.location.href = '/profile'),
+			onClick: () => router.push(`/${locale}/profile`),
 			label: t.navbar.profileLink,
 			Icon: <User className="h-4 w-4" />,
 		},
 		{
-			onClick: () => (window.location.href = '/marketplace'),
+			onClick: () => router.push(`/${locale}/marketplace`),
 			label: t.navbar.buyBibLink,
 			Icon: <ShoppingBag className="h-4 w-4" />,
 		},
 		{
-			onClick: () => (window.location.href = '/dashboard/seller/sell-bib'),
+			onClick: () => router.push(`/${locale}/dashboard/seller/sell-bib`),
 			label: t.navbar.sellBibLink,
 			Icon: <Tag className="h-4 w-4" />,
 		},
@@ -70,7 +72,7 @@ export default function DashboardDropdown({ locale }: Readonly<DashboardDropdown
 		? [
 				...baseOptions,
 				{
-					onClick: () => (window.location.href = '/admin'),
+					onClick: () => router.push(`/${locale}/admin`),
 					label: 'Admin',
 					Icon: <Settings className="h-4 w-4" />,
 				},
