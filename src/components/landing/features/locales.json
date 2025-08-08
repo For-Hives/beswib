@@ -115,229 +115,229 @@
 	},
 	"es": {
 		"features": {
-			"title": "Why choose Beswib?",
-			"subtitle": "Concrete benefits for every actor in the running ecosystem",
+			"title": "¿Por qué elegir Beswib?",
+			"subtitle": "Beneficios concretos para cada actor en el ecosistema running",
 			"security": {
-				"title": "Security & Compliance",
-				"description": "Complete regulatory coverage, fraud reduction and total transfer traceability."
+				"title": "Seguridad y Cumplimiento",
+				"description": "Cobertura regulatoria completa, reducción de fraudes y trazabilidad total de transferencias."
 			},
 			"trust": {
-				"title": "Total Trust",
-				"description": "Verified profiles, guaranteed fraud protection and secure automated process."
+				"title": "Confianza Total",
+				"description": "Perfiles verificados, protección garantizada contra fraudes y proceso automatizado seguro."
 			},
 			"search": {
-				"title": "Smart Search",
-				"description": "Advanced filters by distance, date and location with personalized suggestions and alerts."
+				"title": "Búsqueda Inteligente",
+				"description": "Filtros avanzados por distancia, fecha y ubicación con sugerencias personalizadas y alertas."
 			},
 			"profitability": {
-				"title": "Maximum Profitability",
-				"description": "Last-minute resale at free price with immediate fund reception."
+				"title": "Rentabilidad Máxima",
+				"description": "Reventa de último minuto a precio libre con recepción inmediata de fondos."
 			},
 			"analytics": {
-				"title": "Analytics & Insights",
-				"description": "Track market trends in real time with average prices and forecasts."
+				"title": "Análisis e Insights",
+				"description": "Sigue las tendencias del mercado en tiempo real con precios promedio y pronósticos."
 			},
 			"community": {
-				"title": "Global Community",
-				"description": "Connect with over 12,000 active runners worldwide."
+				"title": "Comunidad Global",
+				"description": "Conéctate con más de 12,000 corredores activos en todo el mundo."
 			},
 			"notifications": {
-				"title": "Smart Notifications",
-				"description": "Smart alerts for new bibs, price drops and important reminders."
+				"title": "Notificaciones Inteligentes",
+				"description": "Alertas inteligentes para nuevos dorsales, bajadas de precios y recordatorios importantes."
 			},
 			"support": {
-				"title": "Premium Support 24/7",
-				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
+				"title": "Soporte Premium 24/7",
+				"description": "Asistencia dedicada en español con garantías premium y resolución rápida."
 			}
 		}
 	},
 	"it": {
 		"features": {
-			"title": "Why choose Beswib?",
-			"subtitle": "Concrete benefits for every actor in the running ecosystem",
+			"title": "Perché scegliere Beswib?",
+			"subtitle": "Benefici concreti per ogni attore nell'ecosistema del running",
 			"security": {
-				"title": "Security & Compliance",
-				"description": "Complete regulatory coverage, fraud reduction and total transfer traceability."
+				"title": "Sicurezza e Conformità",
+				"description": "Copertura normativa completa, riduzione delle frodi e tracciabilità totale dei trasferimenti."
 			},
 			"trust": {
-				"title": "Total Trust",
-				"description": "Verified profiles, guaranteed fraud protection and secure automated process."
+				"title": "Fiducia Totale",
+				"description": "Profili verificati, protezione garantita dalle frodi e processo automatizzato sicuro."
 			},
 			"search": {
-				"title": "Smart Search",
-				"description": "Advanced filters by distance, date and location with personalized suggestions and alerts."
+				"title": "Ricerca Intelligente",
+				"description": "Filtri avanzati per distanza, data e posizione con suggerimenti personalizzati e avvisi."
 			},
 			"profitability": {
-				"title": "Maximum Profitability",
-				"description": "Last-minute resale at free price with immediate fund reception."
+				"title": "Redditività Massima",
+				"description": "Rivendita dell'ultimo minuto a prezzo libero con ricezione immediata dei fondi."
 			},
 			"analytics": {
-				"title": "Analytics & Insights",
-				"description": "Track market trends in real time with average prices and forecasts."
+				"title": "Analytics e Insights",
+				"description": "Traccia le tendenze del mercato in tempo reale con prezzi medi e previsioni."
 			},
 			"community": {
-				"title": "Global Community",
-				"description": "Connect with over 12,000 active runners worldwide."
+				"title": "Comunità Globale",
+				"description": "Connettiti con oltre 12.000 runners attivi in tutto il mondo."
 			},
 			"notifications": {
-				"title": "Smart Notifications",
-				"description": "Smart alerts for new bibs, price drops and important reminders."
+				"title": "Notifiche Intelligenti",
+				"description": "Avvisi intelligenti per nuovi pettorali, cali di prezzo e promemoria importanti."
 			},
 			"support": {
-				"title": "Premium Support 24/7",
-				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
+				"title": "Supporto Premium 24/7",
+				"description": "Assistenza dedicata in italiano con garanzie premium e risoluzione rapida."
 			}
 		}
 	},
 	"de": {
 		"features": {
-			"title": "Why choose Beswib?",
-			"subtitle": "Concrete benefits for every actor in the running ecosystem",
+			"title": "Warum Beswib wählen?",
+			"subtitle": "Konkrete Vorteile für jeden Akteur im Lauf-Ökosystem",
 			"security": {
-				"title": "Security & Compliance",
-				"description": "Complete regulatory coverage, fraud reduction and total transfer traceability."
+				"title": "Sicherheit & Compliance",
+				"description": "Vollständige regulatorische Abdeckung, Betrugsreduktion und vollständige Übertragungsruckverfolgung."
 			},
 			"trust": {
-				"title": "Total Trust",
-				"description": "Verified profiles, guaranteed fraud protection and secure automated process."
+				"title": "Vollstes Vertrauen",
+				"description": "Verifizierte Profile, garantierter Betrugsschutz und sicherer automatisierter Prozess."
 			},
 			"search": {
-				"title": "Smart Search",
-				"description": "Advanced filters by distance, date and location with personalized suggestions and alerts."
+				"title": "Intelligente Suche",
+				"description": "Erweiterte Filter nach Entfernung, Datum und Standort mit personalisierten Vorschlägen und Benachrichtigungen."
 			},
 			"profitability": {
-				"title": "Maximum Profitability",
-				"description": "Last-minute resale at free price with immediate fund reception."
+				"title": "Maximale Rentabilität",
+				"description": "Last-Minute-Wiederverkauf zu freiem Preis mit sofortigem Geldeingang."
 			},
 			"analytics": {
 				"title": "Analytics & Insights",
-				"description": "Track market trends in real time with average prices and forecasts."
+				"description": "Verfolgen Sie Markttrends in Echtzeit mit Durchschnittspreisen und Prognosen."
 			},
 			"community": {
-				"title": "Global Community",
-				"description": "Connect with over 12,000 active runners worldwide."
+				"title": "Globale Gemeinschaft",
+				"description": "Verbinden Sie sich mit über 12.000 aktiven Läufern weltweit."
 			},
 			"notifications": {
-				"title": "Smart Notifications",
-				"description": "Smart alerts for new bibs, price drops and important reminders."
+				"title": "Intelligente Benachrichtigungen",
+				"description": "Intelligente Benachrichtigungen für neue Startnummern, Preissenkungen und wichtige Erinnerungen."
 			},
 			"support": {
 				"title": "Premium Support 24/7",
-				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
+				"description": "Dedizierte Unterstützung auf Deutsch mit Premium-Garantien und schneller Lösung."
 			}
 		}
 	},
 	"ro": {
 		"features": {
-			"title": "Why choose Beswib?",
-			"subtitle": "Concrete benefits for every actor in the running ecosystem",
+			"title": "De ce să alegi Beswib?",
+			"subtitle": "Beneficii concrete pentru fiecare actor din ecosistemul de alergare",
 			"security": {
-				"title": "Security & Compliance",
-				"description": "Complete regulatory coverage, fraud reduction and total transfer traceability."
+				"title": "Securitate și Conformitate",
+				"description": "Acoperire regulamentară completă, reducerea fraudelor și trasabilitatea totală a transferurilor."
 			},
 			"trust": {
-				"title": "Total Trust",
-				"description": "Verified profiles, guaranteed fraud protection and secure automated process."
+				"title": "Încredere Totală",
+				"description": "Profile verificate, protecție garantată împotriva fraudelor și proces automatizat securizat."
 			},
 			"search": {
-				"title": "Smart Search",
-				"description": "Advanced filters by distance, date and location with personalized suggestions and alerts."
+				"title": "Căutare Inteligentă",
+				"description": "Filtre avansate după distanță, dată și locație cu sugestii personalizate și alerte."
 			},
 			"profitability": {
-				"title": "Maximum Profitability",
-				"description": "Last-minute resale at free price with immediate fund reception."
+				"title": "Profitabilitate Maximă",
+				"description": "Revânzare de ultimă oară la preț liber cu primirea imediată a fondurilor."
 			},
 			"analytics": {
-				"title": "Analytics & Insights",
-				"description": "Track market trends in real time with average prices and forecasts."
+				"title": "Analytics și Insights",
+				"description": "Urmărește tendințele pieței în timp real cu prețurile medii și prognozele."
 			},
 			"community": {
-				"title": "Global Community",
-				"description": "Connect with over 12,000 active runners worldwide."
+				"title": "Comunitate Globală",
+				"description": "Conectează-te cu peste 12.000 de alergători activi din întreaga lume."
 			},
 			"notifications": {
-				"title": "Smart Notifications",
-				"description": "Smart alerts for new bibs, price drops and important reminders."
+				"title": "Notificări Inteligente",
+				"description": "Alerte inteligente pentru numere noi, scăderi de prețuri și reamintiri importante."
 			},
 			"support": {
-				"title": "Premium Support 24/7",
-				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
+				"title": "Suport Premium 24/7",
+				"description": "Asistență dedicată în română cu garanții premium și rezolvare rapidă."
 			}
 		}
 	},
 	"pt": {
 		"features": {
-			"title": "Why choose Beswib?",
-			"subtitle": "Concrete benefits for every actor in the running ecosystem",
+			"title": "Porque escolher Beswib?",
+			"subtitle": "Benefícios concretos para cada ator no ecossistema de corrida",
 			"security": {
-				"title": "Security & Compliance",
-				"description": "Complete regulatory coverage, fraud reduction and total transfer traceability."
+				"title": "Segurança e Conformidade",
+				"description": "Cobertura regulamentar completa, redução de fraudes e rastreabilidade total de transferências."
 			},
 			"trust": {
-				"title": "Total Trust",
-				"description": "Verified profiles, guaranteed fraud protection and secure automated process."
+				"title": "Confiança Total",
+				"description": "Perfis verificados, proteção garantida contra fraudes e processo automatizado seguro."
 			},
 			"search": {
-				"title": "Smart Search",
-				"description": "Advanced filters by distance, date and location with personalized suggestions and alerts."
+				"title": "Busca Inteligente",
+				"description": "Filtros avançados por distância, data e localização com sugestões personalizadas e alertas."
 			},
 			"profitability": {
-				"title": "Maximum Profitability",
-				"description": "Last-minute resale at free price with immediate fund reception."
+				"title": "Rentabilidade Máxima",
+				"description": "Revenda de última hora a preço livre com receção imediata de fundos."
 			},
 			"analytics": {
-				"title": "Analytics & Insights",
-				"description": "Track market trends in real time with average prices and forecasts."
+				"title": "Analytics e Insights",
+				"description": "Acompanhe as tendências do mercado em tempo real com preços médios e previsões."
 			},
 			"community": {
-				"title": "Global Community",
-				"description": "Connect with over 12,000 active runners worldwide."
+				"title": "Comunidade Global",
+				"description": "Conecte-se com mais de 12.000 corredores ativos em todo o mundo."
 			},
 			"notifications": {
-				"title": "Smart Notifications",
-				"description": "Smart alerts for new bibs, price drops and important reminders."
+				"title": "Notificações Inteligentes",
+				"description": "Alertas inteligentes para novos dorsais, quedas de preço e lembretes importantes."
 			},
 			"support": {
-				"title": "Premium Support 24/7",
-				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
+				"title": "Suporte Premium 24/7",
+				"description": "Assistência dedicada em português com garantias premium e resolução rápida."
 			}
 		}
 	},
 	"nl": {
 		"features": {
-			"title": "Why choose Beswib?",
-			"subtitle": "Concrete benefits for every actor in the running ecosystem",
+			"title": "Waarom Beswib kiezen?",
+			"subtitle": "Concrete voordelen voor elke actor in het hardloop-ecosysteem",
 			"security": {
-				"title": "Security & Compliance",
-				"description": "Complete regulatory coverage, fraud reduction and total transfer traceability."
+				"title": "Veiligheid & Compliance",
+				"description": "Volledige regelgevingsdekking, fraudereductie en totale overdracht traceerbaarheid."
 			},
 			"trust": {
-				"title": "Total Trust",
-				"description": "Verified profiles, guaranteed fraud protection and secure automated process."
+				"title": "Volledig Vertrouwen",
+				"description": "Geverifieerde profielen, gegarandeerde fraudebescherming en veilig geautomatiseerd proces."
 			},
 			"search": {
-				"title": "Smart Search",
-				"description": "Advanced filters by distance, date and location with personalized suggestions and alerts."
+				"title": "Slimme Zoekfunctie",
+				"description": "Geavanceerde filters op afstand, datum en locatie met gepersonaliseerde suggesties en alerts."
 			},
 			"profitability": {
-				"title": "Maximum Profitability",
-				"description": "Last-minute resale at free price with immediate fund reception."
+				"title": "Maximale Winstgevendheid",
+				"description": "Last-minute doorverkoop tegen vrije prijs met onmiddellijke ontvangst van gelden."
 			},
 			"analytics": {
 				"title": "Analytics & Insights",
-				"description": "Track market trends in real time with average prices and forecasts."
+				"description": "Volg markttrends in realtime met gemiddelde prijzen en voorspellingen."
 			},
 			"community": {
-				"title": "Global Community",
-				"description": "Connect with over 12,000 active runners worldwide."
+				"title": "Wereldwijde Gemeenschap",
+				"description": "Verbind met meer dan 12.000 actieve hardlopers wereldwijd."
 			},
 			"notifications": {
-				"title": "Smart Notifications",
-				"description": "Smart alerts for new bibs, price drops and important reminders."
+				"title": "Slimme Meldingen",
+				"description": "Slimme alerts voor nieuwe startnummers, prijsdalingen en belangrijke herinneringen."
 			},
 			"support": {
-				"title": "Premium Support 24/7",
-				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
+				"title": "Premium Ondersteuning 24/7",
+				"description": "Toegewijde assistentie in het Nederlands met premium garanties en snelle oplossing."
 			}
 		}
 	}

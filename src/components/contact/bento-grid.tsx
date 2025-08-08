@@ -8,19 +8,21 @@ import type React from 'react'
 import globalTranslations from '@/components/global/locales.json'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { SOCIALS } from '@/lib/socials'
 
-type BentoCardProps = {
+type BentoCardProps = Readonly<{
 	className?: string
 	content: string
 	hoverEffect: 'float' | 'glow' | 'pulse'
 	href: string
 	icon: React.ReactNode
+	ctaLabel: string
 
 	isActive: boolean
 	onMouseEnter: () => void
 	onMouseLeave: () => void
 	title: string
-}
+}>
 
 import Link from 'next/link'
 
@@ -32,7 +34,7 @@ type Props = {
 
 type Translations = (typeof globalTranslations)['en']['contact']
 
-export default function BentoGrid({ t }: Props) {
+export default function BentoGrid({ t }: Readonly<Props>) {
 	const [activeCard, setActiveCard] = useState<null | string>(null)
 
 	const handleMouseEnter = (id: string) => {
@@ -106,6 +108,7 @@ export default function BentoGrid({ t }: Props) {
 				hoverEffect="glow"
 				href="mailto:contact@beswib.com"
 				icon={<Mail className="h-6 w-6" />}
+				ctaLabel={t.contactCta}
 				isActive={activeCard === 'email'}
 				onMouseEnter={() => handleMouseEnter('email')}
 				onMouseLeave={handleMouseLeave}
@@ -119,6 +122,7 @@ export default function BentoGrid({ t }: Props) {
 				hoverEffect="float"
 				href="mailto:support@beswib.com"
 				icon={<Users className="h-6 w-6" />}
+				ctaLabel={t.contactCta}
 				isActive={activeCard === 'support'}
 				onMouseEnter={() => handleMouseEnter('support')}
 				onMouseLeave={handleMouseLeave}
@@ -131,7 +135,7 @@ export default function BentoGrid({ t }: Props) {
 				className="border-border bg-card hover:border-primary/50 relative col-span-1 flex cursor-pointer flex-col items-start justify-start overflow-hidden rounded-3xl border px-6 py-6 text-center shadow-xl transition-colors"
 				initial={{ y: 20, opacity: 0 }}
 			>
-				<Link className="h-full w-full" href="https://twitter.com/beswib" rel="noopener noreferrer" target="_blank">
+				<Link className="h-full w-full" href={SOCIALS.twitter} rel="noopener noreferrer" target="_blank">
 					<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
 
 					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
@@ -147,12 +151,7 @@ export default function BentoGrid({ t }: Props) {
 				className="border-border bg-card hover:border-primary/50 relative col-span-1 flex cursor-pointer flex-col items-start justify-start overflow-hidden rounded-3xl border px-6 py-6 text-center shadow-xl transition-colors"
 				initial={{ y: 20, opacity: 0 }}
 			>
-				<Link
-					className="h-full w-full"
-					href="https://www.facebook.com/beswib"
-					rel="noopener noreferrer"
-					target="_blank"
-				>
+				<Link className="h-full w-full" href={SOCIALS.facebook} rel="noopener noreferrer" target="_blank">
 					<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
 
 					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
@@ -168,12 +167,7 @@ export default function BentoGrid({ t }: Props) {
 				className="border-border bg-card hover:border-primary/50 relative col-span-1 flex cursor-pointer flex-col items-start justify-start overflow-hidden rounded-3xl border px-6 py-6 text-center shadow-xl transition-colors"
 				initial={{ y: 20, opacity: 0 }}
 			>
-				<Link
-					className="h-full w-full"
-					href="https://www.instagram.com/beswib"
-					rel="noopener noreferrer"
-					target="_blank"
-				>
+				<Link className="h-full w-full" href={SOCIALS.instagram} rel="noopener noreferrer" target="_blank">
 					<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
 
 					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
@@ -190,7 +184,7 @@ export default function BentoGrid({ t }: Props) {
 				className="border-border bg-card hover:border-primary/50 relative col-span-1 flex cursor-pointer flex-col items-start justify-start overflow-hidden rounded-3xl border px-6 py-6 text-center shadow-xl transition-colors"
 				initial={{ y: 20, opacity: 0 }}
 			>
-				<Link className="h-full w-full" href="https://x.com/beswib" rel="noopener noreferrer" target="_blank">
+				<Link className="h-full w-full" href={SOCIALS.x} rel="noopener noreferrer" target="_blank">
 					<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
 
 					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
@@ -209,6 +203,7 @@ export default function BentoGrid({ t }: Props) {
 				hoverEffect="glow"
 				href="mailto:partners@beswib.com"
 				icon={<Handshake className="h-6 w-6" />}
+				ctaLabel={t.partnerships}
 				isActive={activeCard === 'partnerships'}
 				onMouseEnter={() => handleMouseEnter('partnerships')}
 				onMouseLeave={handleMouseLeave}
@@ -228,6 +223,7 @@ function BentoCard({
 	hoverEffect,
 	content,
 	className,
+	ctaLabel,
 }: BentoCardProps) {
 	return (
 		<motion.a
@@ -247,7 +243,7 @@ function BentoCard({
 				<p className="text-muted-foreground">{content}</p>
 			</div>
 			<Button className="group mt-4" size="sm" variant="ghost">
-				{t?.contactCta ?? 'Contact'}{' '}
+				{ctaLabel}
 				<ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
 			</Button>
 
