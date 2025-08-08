@@ -11,7 +11,7 @@ Ce fichier liste tous les fichiers du projet et leur statut de traduction. Un fi
 - [ ] `src/app/[locale]/page.tsx`
 - [ ] `src/app/[locale]/layout.tsx`
 - [ ] `src/app/[locale]/globals.css`
-- [x] `src/app/[locale]/locales.json` - Traduit dans 6 langues (en, fr, es, pt, nl, ko)
+- [ ] `src/app/[locale]/locales.json`
 - [ ] `src/app/[locale]/middleware.ts`
 
 #### Admin

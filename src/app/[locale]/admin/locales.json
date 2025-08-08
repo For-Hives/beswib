@@ -716,1191 +716,1191 @@
 	"it": {
 		"dashboard": {
 			"actions": {
-				"createEvent": "Create New Event",
-				"createEventDescription": "Create and configure new racing events for the platform",
-				"createOrganizer": "Create New Organizer",
-				"createOrganizerDescription": "Add new event organizers to the platform",
-				"manageUsers": "Manage Users",
-				"reviewBibs": "Review Pending Bibs",
-				"validateOrganizer": "Validate Organizers",
-				"validateOrganizerDescription": "Review and approve organizer partnership requests",
-				"viewEvents": "View Events",
-				"viewEventsDescription": "Browse and manage all racing events on the platform",
-				"viewOrganizers": "View Organizers",
-				"viewOrganizersDescription": "Manage all event organizers and their partnerships",
-				"viewReports": "View Reports",
-				"viewTransactions": "View All Transactions"
+				"createEvent": "Crea Nuovo Evento",
+				"createEventDescription": "Crea e configura nuovi eventi di corsa per la piattaforma",
+				"createOrganizer": "Crea Nuovo Organizzatore",
+				"createOrganizerDescription": "Aggiungi nuovi organizzatori di eventi alla piattaforma",
+				"manageUsers": "Gestisci Utenti",
+				"reviewBibs": "Rivedi Pettorali in Attesa",
+				"validateOrganizer": "Valida Organizzatori",
+				"validateOrganizerDescription": "Rivedi e approva richieste di partnership di organizzatori",
+				"viewEvents": "Visualizza Eventi",
+				"viewEventsDescription": "Sfoglia e gestisci tutti gli eventi di corsa sulla piattaforma",
+				"viewOrganizers": "Visualizza Organizzatori",
+				"viewOrganizersDescription": "Gestisci tutti gli organizzatori di eventi e le loro partnership",
+				"viewReports": "Visualizza Report",
+				"viewTransactions": "Visualizza Tutte le Transazioni"
 			},
 			"errors": {
-				"accessError": "Access Error",
-				"accessErrorMessage": "Unable to verify admin access. Please try logging in again."
+				"accessError": "Errore di Accesso",
+				"accessErrorMessage": "Impossibile verificare l'accesso amministratore. Prova ad accedere di nuovo."
 			},
 			"recentActivity": {
-				"description": "View recent platform activity and system events",
-				"noBibsPending": "No bibs pending validation",
-				"noRecentActivity": "No recent activity",
-				"title": "Recent Activity"
+				"description": "Visualizza l'attività recente della piattaforma e gli eventi di sistema",
+				"noBibsPending": "Nessun pettorale in attesa di validazione",
+				"noRecentActivity": "Nessuna attività recente",
+				"title": "Attività Recente"
 			},
 			"sections": {
 				"bibs": {
-					"description": "Oversee bib listings and validations",
-					"title": "Bibs Management"
+					"description": "Sovrintendi elenchi di pettorali e validazioni",
+					"title": "Gestione Pettorali"
 				},
 				"events": {
-					"description": "Manage racing events and approvals",
-					"title": "Events Management"
+					"description": "Gestisci eventi di corsa e approvazioni",
+					"title": "Gestione Eventi"
 				},
 				"organizers": {
-					"description": "Manage event organizers and partnerships",
-					"title": "Organizers Management"
+					"description": "Gestisci organizzatori di eventi e partnership",
+					"title": "Gestione Organizzatori"
 				},
 				"overview": {
-					"description": "Key metrics and statistics",
-					"title": "Platform Overview"
+					"description": "Metriche chiave e statistiche",
+					"title": "Panoramica Piattaforma"
 				},
 				"transactions": {
-					"description": "Monitor payments and financial activity",
-					"title": "Transactions"
+					"description": "Monitora pagamenti e attività finanziaria",
+					"title": "Transazioni"
 				},
 				"users": {
-					"description": "Manage platform users and roles",
-					"title": "Users Management"
+					"description": "Gestisci utenti della piattaforma e ruoli",
+					"title": "Gestione Utenti"
 				}
 			},
 			"stats": {
-				"partneredOrganizers": "Partnered Organizers",
-				"pendingBibs": "Pending Validation",
-				"pendingEvents": "Pending Events",
-				"platformGrowth": "Platform growth",
-				"revenueToday": "revenue today",
-				"todaysTransactions": "Today's Transactions",
-				"totalBibs": "Total Bibs",
-				"totalEvents": "Total Events",
-				"totalOrganizers": "Total Organizers",
-				"totalUsers": "Total Users"
+				"partneredOrganizers": "Organizzatori Partner",
+				"pendingBibs": "In Attesa di Validazione",
+				"pendingEvents": "Eventi in Attesa",
+				"platformGrowth": "Crescita della piattaforma",
+				"revenueToday": "ricavi oggi",
+				"todaysTransactions": "Transazioni di Oggi",
+				"totalBibs": "Totale Pettorali",
+				"totalEvents": "Totale Eventi",
+				"totalOrganizers": "Totale Organizzatori",
+				"totalUsers": "Totale Utenti"
 			},
-			"subtitle": "Manage your Beswib platform",
-			"title": "Admin Dashboard",
+			"subtitle": "Gestisci la tua piattaforma Beswib",
+			"title": "Dashboard Amministratore",
 			"ui": {
-				"comingSoon": "Coming Soon",
-				"connectedAs": "Connected as",
-				"signIn": "Sign In"
+				"comingSoon": "Prossimamente",
+				"connectedAs": "Connesso come",
+				"signIn": "Accedi"
 			}
 		},
 		"event": {
 			"buttons": {
-				"cancel": "Cancel",
-				"createEvent": "Create Event",
-				"creating": "Creating Event..."
+				"cancel": "Annulla",
+				"createEvent": "Crea Evento",
+				"creating": "Creazione Evento..."
 			},
 			"errors": {
-				"creationFailed": "Failed to create event. Please try again.",
-				"fillRequired": "Please fill in all required fields.",
-				"invalidDate": "Please select a valid date.",
-				"invalidPrice": "Please enter a valid price."
+				"creationFailed": "Impossibile creare l'evento. Riprova.",
+				"fillRequired": "Compila tutti i campi obbligatori.",
+				"invalidDate": "Seleziona una data valida.",
+				"invalidPrice": "Inserisci un prezzo valido."
 			},
 			"eventOptions": {
-				"addOption": "Add Event Option",
-				"optionKey": "Key",
-				"optionName": "Option Name",
-				"optionRequired": "Required",
-				"optionSelectPlaceholder": "Select option type",
-				"optionType": "Option Type",
-				"removeOption": "Remove Option",
+				"addOption": "Aggiungi Opzione Evento",
+				"optionKey": "Chiave",
+				"optionName": "Nome Opzione",
+				"optionRequired": "Obbligatorio",
+				"optionSelectPlaceholder": "Seleziona tipo opzione",
+				"optionType": "Tipo Opzione",
+				"removeOption": "Rimuovi Opzione",
 				"types": {
-					"number": "Number Input",
-					"select": "Select",
-					"text": "Text Input"
+					"number": "Input Numerico",
+					"select": "Selezione",
+					"text": "Input Testo"
 				},
 				"values": {
-					"addValue": "Add Value",
-					"label": "Values",
-					"placeholder": "Option value",
-					"removeValue": "Remove Value"
+					"addValue": "Aggiungi Valore",
+					"label": "Valori",
+					"placeholder": "Valore opzione",
+					"removeValue": "Rimuovi Valore"
 				}
 			},
 			"fields": {
 				"bibPickupBegin": {
-					"label": "Pickup Window Begin",
+					"label": "Inizio Finestra Ritiro",
 					"required": true
 				},
 				"bibPickupEnd": {
-					"label": "Pickup Window End",
+					"label": "Fine Finestra Ritiro",
 					"required": true
 				},
 				"bibPickupLocation": {
-					"label": "Bib Pickup Location",
-					"placeholder": "Marathon Expo, Porte de Versailles"
+					"label": "Luogo Ritiro Pettorali",
+					"placeholder": "Expo Maratona, Porte de Versailles"
 				},
 				"description": {
-					"label": "Description",
-					"placeholder": "Describe the event...",
+					"label": "Descrizione",
+					"placeholder": "Descrivi l'evento...",
 					"required": true
 				},
 				"distance": {
-					"label": "Distance (km)",
+					"label": "Distanza (km)",
 					"placeholder": "42.195"
 				},
 				"elevationGain": {
-					"label": "Elevation Gain (m)",
+					"label": "Dislivello Positivo (m)",
 					"placeholder": "500"
 				},
 				"eventDate": {
-					"label": "Event Date",
+					"label": "Data Evento",
 					"required": true
 				},
 				"eventName": {
-					"label": "Event Name",
-					"placeholder": "Marathon de Paris",
+					"label": "Nome Evento",
+					"placeholder": "Maratona di Parigi",
 					"required": true
 				},
 				"eventType": {
-					"label": "Event Type",
+					"label": "Tipo Evento",
 					"options": {
-						"cycle": "Cycle",
-						"road": "Road",
-						"route": "Route",
-						"trail": "Trail",
+						"cycle": "Ciclo",
+						"road": "Strada",
+						"route": "Percorso",
+						"trail": "Sentiero",
 						"triathlon": "Triathlon",
 						"ultra": "Ultra"
 					},
-					"placeholder": "Select event type",
+					"placeholder": "Seleziona tipo evento",
 					"required": true
 				},
 				"isPartnered": {
-					"description": "Is this event partnered with Beswib?",
-					"label": "Partner Event"
+					"description": "Questo evento è in partnership con Beswib?",
+					"label": "Evento Partner"
 				},
 				"location": {
-					"label": "Location",
-					"placeholder": "Paris, France",
+					"label": "Luogo",
+					"placeholder": "Parigi, Francia",
 					"required": true
 				},
 				"logoUpload": {
-					"description": "Upload a logo for your event. Supported formats: PNG, JPG, SVG (max 5MB)",
-					"dropText": "Drop it",
-					"fileModified": "modified",
+					"description": "Carica un logo per il tuo evento. Formati supportati: PNG, JPG, SVG (max 5MB)",
+					"dropText": "Rilascialo",
+					"fileModified": "modificato",
 					"fileSizeUnit": "MB",
-					"label": "Event Logo",
-					"uploadSubtext": "Drag or drop your files here or click to upload",
-					"uploadText": "Upload file"
+					"label": "Logo Evento",
+					"uploadSubtext": "Trascina e rilascia i tuoi file qui o clicca per caricare",
+					"uploadText": "Carica file"
 				},
 				"officialPrice": {
-					"label": "Official Price (€)",
+					"label": "Prezzo Ufficiale (€)",
 					"placeholder": "120"
 				},
 				"organizer": {
-					"label": "Event Organizer",
-					"loading": "Loading organizers...",
-					"noOrganizers": "No organizers available",
+					"label": "Organizzatore Evento",
+					"loading": "Caricamento organizzatori...",
+					"noOrganizers": "Nessun organizzatore disponibile",
 					"partnered": "Partner",
-					"placeholder": "Select an organizer"
+					"placeholder": "Seleziona un organizzatore"
 				},
 				"parcoursUrl": {
-					"label": "Parcours URL",
+					"label": "URL Percorso",
 					"placeholder": "https://example.com/route.gpx"
 				},
 				"participantCount": {
-					"label": "Participant Count",
+					"label": "Numero Partecipanti",
 					"placeholder": "30000"
 				},
 				"registrationUrl": {
-					"label": "Registration Link",
+					"label": "Link Registrazione",
 					"placeholder": "https://example.com/register"
 				},
 				"transferDeadline": {
-					"label": "Transfer Deadline"
+					"label": "Scadenza Trasferimento"
 				}
 			},
 			"partnership": {
-				"notPartnered": "Not Partnered (display only)",
-				"partnered": "Partnered Event (allows bib resale)"
+				"notPartnered": "Non Partner (solo visualizzazione)",
+				"partnered": "Evento Partner (consente rivendita pettorali)"
 			},
 			"sections": {
 				"bibPickup": {
-					"description": "Details about where and when participants can collect their bibs.",
-					"title": "Bib Pickup Information"
+					"description": "Dettagli su dove e quando i partecipanti possono ritirare i loro pettorali.",
+					"title": "Informazioni Ritiro Pettorali"
 				},
 				"eventDetails": {
-					"description": "Additional details about distance, elevation, pricing, and logistics.",
-					"title": "Event Details"
+					"description": "Dettagli aggiuntivi su distanza, dislivello, prezzi e logistica.",
+					"title": "Dettagli Evento"
 				},
 				"eventInformation": {
-					"description": "Basic information about the event including name, date, and location.",
-					"title": "Event Information"
+					"description": "Informazioni di base sull'evento inclusi nome, data e luogo.",
+					"title": "Informazioni Evento"
 				},
 				"eventOptions": {
-					"description": "Configure additional options and categories for the event.",
-					"title": "Event Options"
+					"description": "Configura opzioni aggiuntive e categorie per l'evento.",
+					"title": "Opzioni Evento"
 				},
 				"organizer": {
-					"description": "Select the organizer responsible for this event.",
-					"title": "Event Organizer"
+					"description": "Seleziona l'organizzatore responsabile per questo evento.",
+					"title": "Organizzatore Evento"
 				},
 				"partnership": {
-					"description": "Configure partnership status and related settings.",
-					"title": "Partnership Settings"
+					"description": "Configura lo stato di partnership e le impostazioni correlate.",
+					"title": "Impostazioni Partnership"
 				}
 			},
-			"subtitle": "Configure your racing event for the Beswib platform",
+			"subtitle": "Configura il tuo evento di corsa per la piattaforma Beswib",
 			"success": {
-				"message": "\"{eventName}\" has been created and is now available on the platform.",
-				"redirecting": "Redirecting to admin dashboard...",
-				"title": "Event Created Successfully!"
+				"message": "\"{eventName}\" è stato creato ed è ora disponibile sulla piattaforma.",
+				"redirecting": "Reindirizzamento alla dashboard amministratore...",
+				"title": "Evento Creato con Successo!"
 			},
-			"title": "Create New Event"
+			"title": "Crea Nuovo Evento"
 		}
 	},
 	"de": {
 		"dashboard": {
 			"actions": {
-				"createEvent": "Create New Event",
-				"createEventDescription": "Create and configure new racing events for the platform",
-				"createOrganizer": "Create New Organizer",
-				"createOrganizerDescription": "Add new event organizers to the platform",
-				"manageUsers": "Manage Users",
-				"reviewBibs": "Review Pending Bibs",
-				"validateOrganizer": "Validate Organizers",
-				"validateOrganizerDescription": "Review and approve organizer partnership requests",
-				"viewEvents": "View Events",
-				"viewEventsDescription": "Browse and manage all racing events on the platform",
-				"viewOrganizers": "View Organizers",
-				"viewOrganizersDescription": "Manage all event organizers and their partnerships",
-				"viewReports": "View Reports",
-				"viewTransactions": "View All Transactions"
+				"createEvent": "Neues Event erstellen",
+				"createEventDescription": "Erstellen und konfigurieren Sie neue Rennveranstaltungen für die Plattform",
+				"createOrganizer": "Neuen Veranstalter erstellen",
+				"createOrganizerDescription": "Fügen Sie neue Eventveranstalter zur Plattform hinzu",
+				"manageUsers": "Benutzer verwalten",
+				"reviewBibs": "Ausstehende Startnummern überprüfen",
+				"validateOrganizer": "Veranstalter validieren",
+				"validateOrganizerDescription": "Überprüfen und genehmigen Sie Veranstalter-Partnerschaftsanfragen",
+				"viewEvents": "Events anzeigen",
+				"viewEventsDescription": "Durchsuchen und verwalten Sie alle Rennveranstaltungen auf der Plattform",
+				"viewOrganizers": "Veranstalter anzeigen",
+				"viewOrganizersDescription": "Verwalten Sie alle Eventveranstalter und ihre Partnerschaften",
+				"viewReports": "Berichte anzeigen",
+				"viewTransactions": "Alle Transaktionen anzeigen"
 			},
 			"errors": {
-				"accessError": "Access Error",
-				"accessErrorMessage": "Unable to verify admin access. Please try logging in again."
+				"accessError": "Zugriffsfehler",
+				"accessErrorMessage": "Admin-Zugriff kann nicht verifiziert werden. Bitte versuchen Sie sich erneut anzumelden."
 			},
 			"recentActivity": {
-				"description": "View recent platform activity and system events",
-				"noBibsPending": "No bibs pending validation",
-				"noRecentActivity": "No recent activity",
-				"title": "Recent Activity"
+				"description": "Zeigen Sie die neuesten Plattformaktivitäten und Systemereignisse an",
+				"noBibsPending": "Keine ausstehenden Startnummern zur Validierung",
+				"noRecentActivity": "Keine kürzlichen Aktivitäten",
+				"title": "Neueste Aktivitäten"
 			},
 			"sections": {
 				"bibs": {
-					"description": "Oversee bib listings and validations",
-					"title": "Bibs Management"
+					"description": "Überwachen Sie Startnummern-Listen und Validierungen",
+					"title": "Startnummern-Verwaltung"
 				},
 				"events": {
-					"description": "Manage racing events and approvals",
-					"title": "Events Management"
+					"description": "Verwalten Sie Rennveranstaltungen und Genehmigungen",
+					"title": "Event-Verwaltung"
 				},
 				"organizers": {
-					"description": "Manage event organizers and partnerships",
-					"title": "Organizers Management"
+					"description": "Verwalten Sie Eventveranstalter und Partnerschaften",
+					"title": "Veranstalter-Verwaltung"
 				},
 				"overview": {
-					"description": "Key metrics and statistics",
-					"title": "Platform Overview"
+					"description": "Wichtige Kennzahlen und Statistiken",
+					"title": "Plattform-Übersicht"
 				},
 				"transactions": {
-					"description": "Monitor payments and financial activity",
-					"title": "Transactions"
+					"description": "Überwachen Sie Zahlungen und Finanzaktivitäten",
+					"title": "Transaktionen"
 				},
 				"users": {
-					"description": "Manage platform users and roles",
-					"title": "Users Management"
+					"description": "Verwalten Sie Plattformbenutzer und Rollen",
+					"title": "Benutzer-Verwaltung"
 				}
 			},
 			"stats": {
-				"partneredOrganizers": "Partnered Organizers",
-				"pendingBibs": "Pending Validation",
-				"pendingEvents": "Pending Events",
-				"platformGrowth": "Platform growth",
-				"revenueToday": "revenue today",
-				"todaysTransactions": "Today's Transactions",
-				"totalBibs": "Total Bibs",
-				"totalEvents": "Total Events",
-				"totalOrganizers": "Total Organizers",
-				"totalUsers": "Total Users"
+				"partneredOrganizers": "Partner-Veranstalter",
+				"pendingBibs": "Ausstehende Validierung",
+				"pendingEvents": "Ausstehende Events",
+				"platformGrowth": "Plattform-Wachstum",
+				"revenueToday": "Einnahmen heute",
+				"todaysTransactions": "Heutige Transaktionen",
+				"totalBibs": "Gesamt-Startnummern",
+				"totalEvents": "Gesamt-Events",
+				"totalOrganizers": "Gesamt-Veranstalter",
+				"totalUsers": "Gesamt-Benutzer"
 			},
-			"subtitle": "Manage your Beswib platform",
-			"title": "Admin Dashboard",
+			"subtitle": "Verwalten Sie Ihre Beswib-Plattform",
+			"title": "Admin-Dashboard",
 			"ui": {
-				"comingSoon": "Coming Soon",
-				"connectedAs": "Connected as",
-				"signIn": "Sign In"
+				"comingSoon": "Demnächst verfügbar",
+				"connectedAs": "Verbunden als",
+				"signIn": "Anmelden"
 			}
 		},
 		"event": {
 			"buttons": {
-				"cancel": "Cancel",
-				"createEvent": "Create Event",
-				"creating": "Creating Event..."
+				"cancel": "Abbrechen",
+				"createEvent": "Event erstellen",
+				"creating": "Event wird erstellt..."
 			},
 			"errors": {
-				"creationFailed": "Failed to create event. Please try again.",
-				"fillRequired": "Please fill in all required fields.",
-				"invalidDate": "Please select a valid date.",
-				"invalidPrice": "Please enter a valid price."
+				"creationFailed": "Event konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+				"fillRequired": "Bitte füllen Sie alle erforderlichen Felder aus.",
+				"invalidDate": "Bitte wählen Sie ein gültiges Datum.",
+				"invalidPrice": "Bitte geben Sie einen gültigen Preis ein."
 			},
 			"eventOptions": {
-				"addOption": "Add Event Option",
-				"optionKey": "Key",
-				"optionName": "Option Name",
-				"optionRequired": "Required",
-				"optionSelectPlaceholder": "Select option type",
-				"optionType": "Option Type",
-				"removeOption": "Remove Option",
+				"addOption": "Event-Option hinzufügen",
+				"optionKey": "Schlüssel",
+				"optionName": "Optionsname",
+				"optionRequired": "Erforderlich",
+				"optionSelectPlaceholder": "Optionstyp auswählen",
+				"optionType": "Optionstyp",
+				"removeOption": "Option entfernen",
 				"types": {
-					"number": "Number Input",
-					"select": "Select",
-					"text": "Text Input"
+					"number": "Zahleneingabe",
+					"select": "Auswahl",
+					"text": "Texteingabe"
 				},
 				"values": {
-					"addValue": "Add Value",
-					"label": "Values",
-					"placeholder": "Option value",
-					"removeValue": "Remove Value"
+					"addValue": "Wert hinzufügen",
+					"label": "Werte",
+					"placeholder": "Optionswert",
+					"removeValue": "Wert entfernen"
 				}
 			},
 			"fields": {
 				"bibPickupBegin": {
-					"label": "Pickup Window Begin",
+					"label": "Abholfenster Beginn",
 					"required": true
 				},
 				"bibPickupEnd": {
-					"label": "Pickup Window End",
+					"label": "Abholfenster Ende",
 					"required": true
 				},
 				"bibPickupLocation": {
-					"label": "Bib Pickup Location",
-					"placeholder": "Marathon Expo, Porte de Versailles"
+					"label": "Startnummern-Abholort",
+					"placeholder": "Marathon-Expo, Porte de Versailles"
 				},
 				"description": {
-					"label": "Description",
-					"placeholder": "Describe the event...",
+					"label": "Beschreibung",
+					"placeholder": "Beschreiben Sie das Event...",
 					"required": true
 				},
 				"distance": {
-					"label": "Distance (km)",
+					"label": "Distanz (km)",
 					"placeholder": "42.195"
 				},
 				"elevationGain": {
-					"label": "Elevation Gain (m)",
+					"label": "Höhengewinn (m)",
 					"placeholder": "500"
 				},
 				"eventDate": {
-					"label": "Event Date",
+					"label": "Event-Datum",
 					"required": true
 				},
 				"eventName": {
-					"label": "Event Name",
+					"label": "Event-Name",
 					"placeholder": "Marathon de Paris",
 					"required": true
 				},
 				"eventType": {
-					"label": "Event Type",
+					"label": "Event-Typ",
 					"options": {
-						"cycle": "Cycle",
-						"road": "Road",
+						"cycle": "Radfahren",
+						"road": "Straße",
 						"route": "Route",
 						"trail": "Trail",
 						"triathlon": "Triathlon",
 						"ultra": "Ultra"
 					},
-					"placeholder": "Select event type",
+					"placeholder": "Event-Typ auswählen",
 					"required": true
 				},
 				"isPartnered": {
-					"description": "Is this event partnered with Beswib?",
-					"label": "Partner Event"
+					"description": "Ist dieses Event mit Beswib gepartnert?",
+					"label": "Partner-Event"
 				},
 				"location": {
-					"label": "Location",
-					"placeholder": "Paris, France",
+					"label": "Ort",
+					"placeholder": "Paris, Frankreich",
 					"required": true
 				},
 				"logoUpload": {
-					"description": "Upload a logo for your event. Supported formats: PNG, JPG, SVG (max 5MB)",
-					"dropText": "Drop it",
-					"fileModified": "modified",
+					"description": "Laden Sie ein Logo für Ihr Event hoch. Unterstützte Formate: PNG, JPG, SVG (max 5MB)",
+					"dropText": "Hier ablegen",
+					"fileModified": "geändert",
 					"fileSizeUnit": "MB",
-					"label": "Event Logo",
-					"uploadSubtext": "Drag or drop your files here or click to upload",
-					"uploadText": "Upload file"
+					"label": "Event-Logo",
+					"uploadSubtext": "Ziehen Sie Ihre Dateien hierher oder klicken Sie zum Hochladen",
+					"uploadText": "Datei hochladen"
 				},
 				"officialPrice": {
-					"label": "Official Price (€)",
+					"label": "Offizieller Preis (€)",
 					"placeholder": "120"
 				},
 				"organizer": {
-					"label": "Event Organizer",
-					"loading": "Loading organizers...",
-					"noOrganizers": "No organizers available",
+					"label": "Event-Veranstalter",
+					"loading": "Veranstalter werden geladen...",
+					"noOrganizers": "Keine Veranstalter verfügbar",
 					"partnered": "Partner",
-					"placeholder": "Select an organizer"
+					"placeholder": "Veranstalter auswählen"
 				},
 				"parcoursUrl": {
-					"label": "Parcours URL",
+					"label": "Strecken-URL",
 					"placeholder": "https://example.com/route.gpx"
 				},
 				"participantCount": {
-					"label": "Participant Count",
+					"label": "Teilnehmerzahl",
 					"placeholder": "30000"
 				},
 				"registrationUrl": {
-					"label": "Registration Link",
+					"label": "Registrierungs-Link",
 					"placeholder": "https://example.com/register"
 				},
 				"transferDeadline": {
-					"label": "Transfer Deadline"
+					"label": "Übertragungsfrist"
 				}
 			},
 			"partnership": {
-				"notPartnered": "Not Partnered (display only)",
-				"partnered": "Partnered Event (allows bib resale)"
+				"notPartnered": "Nicht gepartnert (nur Anzeige)",
+				"partnered": "Partner-Event (erlaubt Startnummern-Wiederverkauf)"
 			},
 			"sections": {
 				"bibPickup": {
-					"description": "Details about where and when participants can collect their bibs.",
-					"title": "Bib Pickup Information"
+					"description": "Details darüber, wo und wann Teilnehmer ihre Startnummern abholen können.",
+					"title": "Startnummern-Abholinformationen"
 				},
 				"eventDetails": {
-					"description": "Additional details about distance, elevation, pricing, and logistics.",
-					"title": "Event Details"
+					"description": "Zusätzliche Details zu Distanz, Höhengewinn, Preisen und Logistik.",
+					"title": "Event-Details"
 				},
 				"eventInformation": {
-					"description": "Basic information about the event including name, date, and location.",
-					"title": "Event Information"
+					"description": "Grundinformationen über das Event einschließlich Name, Datum und Ort.",
+					"title": "Event-Informationen"
 				},
 				"eventOptions": {
-					"description": "Configure additional options and categories for the event.",
-					"title": "Event Options"
+					"description": "Konfigurieren Sie zusätzliche Optionen und Kategorien für das Event.",
+					"title": "Event-Optionen"
 				},
 				"organizer": {
-					"description": "Select the organizer responsible for this event.",
-					"title": "Event Organizer"
+					"description": "Wählen Sie den für dieses Event verantwortlichen Veranstalter.",
+					"title": "Event-Veranstalter"
 				},
 				"partnership": {
-					"description": "Configure partnership status and related settings.",
-					"title": "Partnership Settings"
+					"description": "Konfigurieren Sie den Partnerschaftsstatus und zugehörige Einstellungen.",
+					"title": "Partnerschafts-Einstellungen"
 				}
 			},
-			"subtitle": "Configure your racing event for the Beswib platform",
+			"subtitle": "Konfigurieren Sie Ihre Rennveranstaltung für die Beswib-Plattform",
 			"success": {
-				"message": "\"{eventName}\" has been created and is now available on the platform.",
-				"redirecting": "Redirecting to admin dashboard...",
-				"title": "Event Created Successfully!"
+				"message": "\"{eventName}\" wurde erstellt und ist jetzt auf der Plattform verfügbar.",
+				"redirecting": "Weiterleitung zum Admin-Dashboard...",
+				"title": "Event erfolgreich erstellt!"
 			},
-			"title": "Create New Event"
+			"title": "Neues Event erstellen"
 		}
 	},
 	"ro": {
 		"dashboard": {
 			"actions": {
-				"createEvent": "Create New Event",
-				"createEventDescription": "Create and configure new racing events for the platform",
-				"createOrganizer": "Create New Organizer",
-				"createOrganizerDescription": "Add new event organizers to the platform",
-				"manageUsers": "Manage Users",
-				"reviewBibs": "Review Pending Bibs",
-				"validateOrganizer": "Validate Organizers",
-				"validateOrganizerDescription": "Review and approve organizer partnership requests",
-				"viewEvents": "View Events",
-				"viewEventsDescription": "Browse and manage all racing events on the platform",
-				"viewOrganizers": "View Organizers",
-				"viewOrganizersDescription": "Manage all event organizers and their partnerships",
-				"viewReports": "View Reports",
-				"viewTransactions": "View All Transactions"
+				"createEvent": "Creează Eveniment Nou",
+				"createEventDescription": "Creează și configurează evenimente noi de curse pentru platformă",
+				"createOrganizer": "Creează Organizator Nou",
+				"createOrganizerDescription": "Adaugă organizatori noi de evenimente la platformă",
+				"manageUsers": "Gestionează Utilizatorii",
+				"reviewBibs": "Revizuiește Numerele în Așteptare",
+				"validateOrganizer": "Validează Organizatorii",
+				"validateOrganizerDescription": "Revizuiește și aprobă cererile de parteneriat cu organizatorii",
+				"viewEvents": "Vezi Evenimentele",
+				"viewEventsDescription": "Navighează și gestionează toate evenimentele de curse pe platformă",
+				"viewOrganizers": "Vezi Organizatorii",
+				"viewOrganizersDescription": "Gestionează toți organizatorii de evenimente și parteneriatele lor",
+				"viewReports": "Vezi Rapoartele",
+				"viewTransactions": "Vezi Toate Tranzacțiile"
 			},
 			"errors": {
-				"accessError": "Access Error",
-				"accessErrorMessage": "Unable to verify admin access. Please try logging in again."
+				"accessError": "Eroare de Acces",
+				"accessErrorMessage": "Nu se poate verifica accesul de administrator. Te rugăm să te conectezi din nou."
 			},
 			"recentActivity": {
-				"description": "View recent platform activity and system events",
-				"noBibsPending": "No bibs pending validation",
-				"noRecentActivity": "No recent activity",
-				"title": "Recent Activity"
+				"description": "Vezi activitatea recentă a platformei și evenimentele sistemului",
+				"noBibsPending": "Nu sunt numere în așteptarea validării",
+				"noRecentActivity": "Nu există activitate recentă",
+				"title": "Activitate Recentă"
 			},
 			"sections": {
 				"bibs": {
-					"description": "Oversee bib listings and validations",
-					"title": "Bibs Management"
+					"description": "Supraveghează listele de numere și validările",
+					"title": "Gestionarea Numerelor"
 				},
 				"events": {
-					"description": "Manage racing events and approvals",
-					"title": "Events Management"
+					"description": "Gestionează evenimentele de curse și aprobările",
+					"title": "Gestionarea Evenimentelor"
 				},
 				"organizers": {
-					"description": "Manage event organizers and partnerships",
-					"title": "Organizers Management"
+					"description": "Gestionează organizatorii de evenimente și parteneriatele",
+					"title": "Gestionarea Organizatorilor"
 				},
 				"overview": {
-					"description": "Key metrics and statistics",
-					"title": "Platform Overview"
+					"description": "Metrici cheie și statistici",
+					"title": "Vederea de Ansamblu a Platformei"
 				},
 				"transactions": {
-					"description": "Monitor payments and financial activity",
-					"title": "Transactions"
+					"description": "Monitorizează plățile și activitatea financiară",
+					"title": "Tranzacții"
 				},
 				"users": {
-					"description": "Manage platform users and roles",
-					"title": "Users Management"
+					"description": "Gestionează utilizatorii platformei și rolurile",
+					"title": "Gestionarea Utilizatorilor"
 				}
 			},
 			"stats": {
-				"partneredOrganizers": "Partnered Organizers",
-				"pendingBibs": "Pending Validation",
-				"pendingEvents": "Pending Events",
-				"platformGrowth": "Platform growth",
-				"revenueToday": "revenue today",
-				"todaysTransactions": "Today's Transactions",
-				"totalBibs": "Total Bibs",
-				"totalEvents": "Total Events",
-				"totalOrganizers": "Total Organizers",
-				"totalUsers": "Total Users"
+				"partneredOrganizers": "Organizatori Parteneri",
+				"pendingBibs": "În Așteptarea Validării",
+				"pendingEvents": "Evenimente în Așteptare",
+				"platformGrowth": "creșterea platformei",
+				"revenueToday": "venituri astăzi",
+				"todaysTransactions": "Tranzacțiile de Astăzi",
+				"totalBibs": "Total Numere",
+				"totalEvents": "Total Evenimente",
+				"totalOrganizers": "Total Organizatori",
+				"totalUsers": "Total Utilizatori"
 			},
-			"subtitle": "Manage your Beswib platform",
-			"title": "Admin Dashboard",
+			"subtitle": "Gestionează platforma ta Beswib",
+			"title": "Dashboard Administrator",
 			"ui": {
-				"comingSoon": "Coming Soon",
-				"connectedAs": "Connected as",
-				"signIn": "Sign In"
+				"comingSoon": "În Curând",
+				"connectedAs": "Conectat ca",
+				"signIn": "Conectare"
 			}
 		},
 		"event": {
 			"buttons": {
-				"cancel": "Cancel",
-				"createEvent": "Create Event",
-				"creating": "Creating Event..."
+				"cancel": "Anulează",
+				"createEvent": "Creează Eveniment",
+				"creating": "Se creează Evenimentul..."
 			},
 			"errors": {
-				"creationFailed": "Failed to create event. Please try again.",
-				"fillRequired": "Please fill in all required fields.",
-				"invalidDate": "Please select a valid date.",
-				"invalidPrice": "Please enter a valid price."
+				"creationFailed": "Nu s-a putut crea evenimentul. Te rugăm să încerci din nou.",
+				"fillRequired": "Te rugăm să completezi toate câmpurile obligatorii.",
+				"invalidDate": "Te rugăm să selectezi o dată validă.",
+				"invalidPrice": "Te rugăm să introduci un preț valid."
 			},
 			"eventOptions": {
-				"addOption": "Add Event Option",
-				"optionKey": "Key",
-				"optionName": "Option Name",
-				"optionRequired": "Required",
-				"optionSelectPlaceholder": "Select option type",
-				"optionType": "Option Type",
-				"removeOption": "Remove Option",
+				"addOption": "Adaugă Opțiune Eveniment",
+				"optionKey": "Cheie",
+				"optionName": "Numele Opțiunii",
+				"optionRequired": "Obligatoriu",
+				"optionSelectPlaceholder": "Selectează tipul opțiunii",
+				"optionType": "Tipul Opțiunii",
+				"removeOption": "Elimină Opțiunea",
 				"types": {
-					"number": "Number Input",
-					"select": "Select",
-					"text": "Text Input"
+					"number": "Introducere Număr",
+					"select": "Selectare",
+					"text": "Introducere Text"
 				},
 				"values": {
-					"addValue": "Add Value",
-					"label": "Values",
-					"placeholder": "Option value",
-					"removeValue": "Remove Value"
+					"addValue": "Adaugă Valoare",
+					"label": "Valori",
+					"placeholder": "Valoarea opțiunii",
+					"removeValue": "Elimină Valoarea"
 				}
 			},
 			"fields": {
 				"bibPickupBegin": {
-					"label": "Pickup Window Begin",
+					"label": "Începutul Ferestrei de Ridicare",
 					"required": true
 				},
 				"bibPickupEnd": {
-					"label": "Pickup Window End",
+					"label": "Sfârșitul Ferestrei de Ridicare",
 					"required": true
 				},
 				"bibPickupLocation": {
-					"label": "Bib Pickup Location",
-					"placeholder": "Marathon Expo, Porte de Versailles"
+					"label": "Locația de Ridicare a Numerelor",
+					"placeholder": "Expo Marathon, Porte de Versailles"
 				},
 				"description": {
-					"label": "Description",
-					"placeholder": "Describe the event...",
+					"label": "Descriere",
+					"placeholder": "Descrie evenimentul...",
 					"required": true
 				},
 				"distance": {
-					"label": "Distance (km)",
+					"label": "Distanța (km)",
 					"placeholder": "42.195"
 				},
 				"elevationGain": {
-					"label": "Elevation Gain (m)",
+					"label": "Diferența de Altitudine (m)",
 					"placeholder": "500"
 				},
 				"eventDate": {
-					"label": "Event Date",
+					"label": "Data Evenimentului",
 					"required": true
 				},
 				"eventName": {
-					"label": "Event Name",
+					"label": "Numele Evenimentului",
 					"placeholder": "Marathon de Paris",
 					"required": true
 				},
 				"eventType": {
-					"label": "Event Type",
+					"label": "Tipul Evenimentului",
 					"options": {
-						"cycle": "Cycle",
-						"road": "Road",
-						"route": "Route",
-						"trail": "Trail",
-						"triathlon": "Triathlon",
+						"cycle": "Ciclism",
+						"road": "Șosea",
+						"route": "Rută",
+						"trail": "Traseu",
+						"triathlon": "Triatlon",
 						"ultra": "Ultra"
 					},
-					"placeholder": "Select event type",
+					"placeholder": "Selectează tipul evenimentului",
 					"required": true
 				},
 				"isPartnered": {
-					"description": "Is this event partnered with Beswib?",
-					"label": "Partner Event"
+					"description": "Este acest eveniment partener cu Beswib?",
+					"label": "Eveniment Partener"
 				},
 				"location": {
-					"label": "Location",
-					"placeholder": "Paris, France",
+					"label": "Locația",
+					"placeholder": "Paris, Franța",
 					"required": true
 				},
 				"logoUpload": {
-					"description": "Upload a logo for your event. Supported formats: PNG, JPG, SVG (max 5MB)",
-					"dropText": "Drop it",
-					"fileModified": "modified",
+					"description": "Încarcă un logo pentru evenimentul tău. Formate acceptate: PNG, JPG, SVG (max 5MB)",
+					"dropText": "Lăsați-l aici",
+					"fileModified": "modificat",
 					"fileSizeUnit": "MB",
-					"label": "Event Logo",
-					"uploadSubtext": "Drag or drop your files here or click to upload",
-					"uploadText": "Upload file"
+					"label": "Logo-ul Evenimentului",
+					"uploadSubtext": "Trageți sau lăsați fișierele aici sau faceți clic pentru a încărca",
+					"uploadText": "Încarcă fișierul"
 				},
 				"officialPrice": {
-					"label": "Official Price (€)",
+					"label": "Prețul Oficial (€)",
 					"placeholder": "120"
 				},
 				"organizer": {
-					"label": "Event Organizer",
-					"loading": "Loading organizers...",
-					"noOrganizers": "No organizers available",
-					"partnered": "Partner",
-					"placeholder": "Select an organizer"
+					"label": "Organizatorul Evenimentului",
+					"loading": "Se încarcă organizatorii...",
+					"noOrganizers": "Nu sunt organizatori disponibili",
+					"partnered": "Partener",
+					"placeholder": "Selectează un organizator"
 				},
 				"parcoursUrl": {
-					"label": "Parcours URL",
+					"label": "URL-ul Traseului",
 					"placeholder": "https://example.com/route.gpx"
 				},
 				"participantCount": {
-					"label": "Participant Count",
+					"label": "Numărul de Participanți",
 					"placeholder": "30000"
 				},
 				"registrationUrl": {
-					"label": "Registration Link",
+					"label": "Link-ul de Înregistrare",
 					"placeholder": "https://example.com/register"
 				},
 				"transferDeadline": {
-					"label": "Transfer Deadline"
+					"label": "Termenul Limită de Transfer"
 				}
 			},
 			"partnership": {
-				"notPartnered": "Not Partnered (display only)",
-				"partnered": "Partnered Event (allows bib resale)"
+				"notPartnered": "Nu este Partener (doar afișare)",
+				"partnered": "Eveniment Partener (permite revânzarea numerelor)"
 			},
 			"sections": {
 				"bibPickup": {
-					"description": "Details about where and when participants can collect their bibs.",
-					"title": "Bib Pickup Information"
+					"description": "Detalii despre unde și când participanții își pot ridica numerele.",
+					"title": "Informații despre Ridicarea Numerelor"
 				},
 				"eventDetails": {
-					"description": "Additional details about distance, elevation, pricing, and logistics.",
-					"title": "Event Details"
+					"description": "Detalii suplimentare despre distanță, diferența de altitudine, prețuri și logistică.",
+					"title": "Detaliile Evenimentului"
 				},
 				"eventInformation": {
-					"description": "Basic information about the event including name, date, and location.",
-					"title": "Event Information"
+					"description": "Informații de bază despre eveniment inclusiv numele, data și locația.",
+					"title": "Informațiile Evenimentului"
 				},
 				"eventOptions": {
-					"description": "Configure additional options and categories for the event.",
-					"title": "Event Options"
+					"description": "Configurează opțiuni suplimentare și categorii pentru eveniment.",
+					"title": "Opțiunile Evenimentului"
 				},
 				"organizer": {
-					"description": "Select the organizer responsible for this event.",
-					"title": "Event Organizer"
+					"description": "Selectează organizatorul responsabil pentru acest eveniment.",
+					"title": "Organizatorul Evenimentului"
 				},
 				"partnership": {
-					"description": "Configure partnership status and related settings.",
-					"title": "Partnership Settings"
+					"description": "Configurează statusul parteneriatului și setările conexe.",
+					"title": "Setările Parteneriatului"
 				}
 			},
-			"subtitle": "Configure your racing event for the Beswib platform",
+			"subtitle": "Configurează evenimentul tău de curse pentru platforma Beswib",
 			"success": {
-				"message": "\"{eventName}\" has been created and is now available on the platform.",
-				"redirecting": "Redirecting to admin dashboard...",
-				"title": "Event Created Successfully!"
+				"message": "\"{eventName}\" a fost creat și este acum disponibil pe platformă.",
+				"redirecting": "Se redirecționează către dashboard-ul de administrator...",
+				"title": "Evenimentul a fost Creat cu Succes!"
 			},
-			"title": "Create New Event"
+			"title": "Creează Eveniment Nou"
 		}
 	},
 	"pt": {
 		"dashboard": {
 			"actions": {
-				"createEvent": "Create New Event",
-				"createEventDescription": "Create and configure new racing events for the platform",
-				"createOrganizer": "Create New Organizer",
-				"createOrganizerDescription": "Add new event organizers to the platform",
-				"manageUsers": "Manage Users",
-				"reviewBibs": "Review Pending Bibs",
-				"validateOrganizer": "Validate Organizers",
-				"validateOrganizerDescription": "Review and approve organizer partnership requests",
-				"viewEvents": "View Events",
-				"viewEventsDescription": "Browse and manage all racing events on the platform",
-				"viewOrganizers": "View Organizers",
-				"viewOrganizersDescription": "Manage all event organizers and their partnerships",
-				"viewReports": "View Reports",
-				"viewTransactions": "View All Transactions"
+				"createEvent": "Criar Novo Evento",
+				"createEventDescription": "Criar e configurar novos eventos de corrida para a plataforma",
+				"createOrganizer": "Criar Novo Organizador",
+				"createOrganizerDescription": "Adicionar novos organizadores de eventos à plataforma",
+				"manageUsers": "Gerenciar Usuários",
+				"reviewBibs": "Revisar Números Pendentes",
+				"validateOrganizer": "Validar Organizadores",
+				"validateOrganizerDescription": "Revisar e aprovar solicitações de parceria com organizadores",
+				"viewEvents": "Ver Eventos",
+				"viewEventsDescription": "Navegar e gerenciar todos os eventos de corrida na plataforma",
+				"viewOrganizers": "Ver Organizadores",
+				"viewOrganizersDescription": "Gerenciar todos os organizadores de eventos e suas parcerias",
+				"viewReports": "Ver Relatórios",
+				"viewTransactions": "Ver Todas as Transações"
 			},
 			"errors": {
-				"accessError": "Access Error",
-				"accessErrorMessage": "Unable to verify admin access. Please try logging in again."
+				"accessError": "Erro de Acesso",
+				"accessErrorMessage": "Não foi possível verificar o acesso de administrador. Tente fazer login novamente."
 			},
 			"recentActivity": {
-				"description": "View recent platform activity and system events",
-				"noBibsPending": "No bibs pending validation",
-				"noRecentActivity": "No recent activity",
-				"title": "Recent Activity"
+				"description": "Ver atividade recente da plataforma e eventos do sistema",
+				"noBibsPending": "Nenhum número pendente para validação",
+				"noRecentActivity": "Nenhuma atividade recente",
+				"title": "Atividade Recente"
 			},
 			"sections": {
 				"bibs": {
-					"description": "Oversee bib listings and validations",
-					"title": "Bibs Management"
+					"description": "Supervisionar listagens e validações de números",
+					"title": "Gerenciamento de Números"
 				},
 				"events": {
-					"description": "Manage racing events and approvals",
-					"title": "Events Management"
+					"description": "Gerenciar eventos de corrida e aprovações",
+					"title": "Gerenciamento de Eventos"
 				},
 				"organizers": {
-					"description": "Manage event organizers and partnerships",
-					"title": "Organizers Management"
+					"description": "Gerenciar organizadores de eventos e parcerias",
+					"title": "Gerenciamento de Organizadores"
 				},
 				"overview": {
-					"description": "Key metrics and statistics",
-					"title": "Platform Overview"
+					"description": "Métricas e estatísticas principais",
+					"title": "Visão Geral da Plataforma"
 				},
 				"transactions": {
-					"description": "Monitor payments and financial activity",
-					"title": "Transactions"
+					"description": "Monitorar pagamentos e atividade financeira",
+					"title": "Transações"
 				},
 				"users": {
-					"description": "Manage platform users and roles",
-					"title": "Users Management"
+					"description": "Gerenciar usuários da plataforma e funções",
+					"title": "Gerenciamento de Usuários"
 				}
 			},
 			"stats": {
-				"partneredOrganizers": "Partnered Organizers",
-				"pendingBibs": "Pending Validation",
-				"pendingEvents": "Pending Events",
-				"platformGrowth": "Platform growth",
-				"revenueToday": "revenue today",
-				"todaysTransactions": "Today's Transactions",
-				"totalBibs": "Total Bibs",
-				"totalEvents": "Total Events",
-				"totalOrganizers": "Total Organizers",
-				"totalUsers": "Total Users"
+				"partneredOrganizers": "Organizadores Parceiros",
+				"pendingBibs": "Validação Pendente",
+				"pendingEvents": "Eventos Pendentes",
+				"platformGrowth": "crescimento da plataforma",
+				"revenueToday": "receita hoje",
+				"todaysTransactions": "Transações de Hoje",
+				"totalBibs": "Total de Números",
+				"totalEvents": "Total de Eventos",
+				"totalOrganizers": "Total de Organizadores",
+				"totalUsers": "Total de Usuários"
 			},
-			"subtitle": "Manage your Beswib platform",
-			"title": "Admin Dashboard",
+			"subtitle": "Gerencie sua plataforma Beswib",
+			"title": "Painel de Administração",
 			"ui": {
-				"comingSoon": "Coming Soon",
-				"connectedAs": "Connected as",
-				"signIn": "Sign In"
+				"comingSoon": "Em Breve",
+				"connectedAs": "Conectado como",
+				"signIn": "Entrar"
 			}
 		},
 		"event": {
 			"buttons": {
-				"cancel": "Cancel",
-				"createEvent": "Create Event",
-				"creating": "Creating Event..."
+				"cancel": "Cancelar",
+				"createEvent": "Criar Evento",
+				"creating": "Criando Evento..."
 			},
 			"errors": {
-				"creationFailed": "Failed to create event. Please try again.",
-				"fillRequired": "Please fill in all required fields.",
-				"invalidDate": "Please select a valid date.",
-				"invalidPrice": "Please enter a valid price."
+				"creationFailed": "Falha ao criar evento. Tente novamente.",
+				"fillRequired": "Por favor, preencha todos os campos obrigatórios.",
+				"invalidDate": "Por favor, selecione uma data válida.",
+				"invalidPrice": "Por favor, insira um preço válido."
 			},
 			"eventOptions": {
-				"addOption": "Add Event Option",
-				"optionKey": "Key",
-				"optionName": "Option Name",
-				"optionRequired": "Required",
-				"optionSelectPlaceholder": "Select option type",
-				"optionType": "Option Type",
-				"removeOption": "Remove Option",
+				"addOption": "Adicionar Opção de Evento",
+				"optionKey": "Chave",
+				"optionName": "Nome da Opção",
+				"optionRequired": "Obrigatório",
+				"optionSelectPlaceholder": "Selecionar tipo de opção",
+				"optionType": "Tipo de Opção",
+				"removeOption": "Remover Opção",
 				"types": {
-					"number": "Number Input",
-					"select": "Select",
-					"text": "Text Input"
+					"number": "Entrada de Número",
+					"select": "Seleção",
+					"text": "Entrada de Texto"
 				},
 				"values": {
-					"addValue": "Add Value",
-					"label": "Values",
-					"placeholder": "Option value",
-					"removeValue": "Remove Value"
+					"addValue": "Adicionar Valor",
+					"label": "Valores",
+					"placeholder": "Valor da opção",
+					"removeValue": "Remover Valor"
 				}
 			},
 			"fields": {
 				"bibPickupBegin": {
-					"label": "Pickup Window Begin",
+					"label": "Início da Janela de Retirada",
 					"required": true
 				},
 				"bibPickupEnd": {
-					"label": "Pickup Window End",
+					"label": "Fim da Janela de Retirada",
 					"required": true
 				},
 				"bibPickupLocation": {
-					"label": "Bib Pickup Location",
-					"placeholder": "Marathon Expo, Porte de Versailles"
+					"label": "Local de Retirada dos Números",
+					"placeholder": "Expo Maratona, Porte de Versailles"
 				},
 				"description": {
-					"label": "Description",
-					"placeholder": "Describe the event...",
+					"label": "Descrição",
+					"placeholder": "Descreva o evento...",
 					"required": true
 				},
 				"distance": {
-					"label": "Distance (km)",
+					"label": "Distância (km)",
 					"placeholder": "42.195"
 				},
 				"elevationGain": {
-					"label": "Elevation Gain (m)",
+					"label": "Ganho de Elevação (m)",
 					"placeholder": "500"
 				},
 				"eventDate": {
-					"label": "Event Date",
+					"label": "Data do Evento",
 					"required": true
 				},
 				"eventName": {
-					"label": "Event Name",
-					"placeholder": "Marathon de Paris",
+					"label": "Nome do Evento",
+					"placeholder": "Maratona de Paris",
 					"required": true
 				},
 				"eventType": {
-					"label": "Event Type",
+					"label": "Tipo de Evento",
 					"options": {
-						"cycle": "Cycle",
-						"road": "Road",
-						"route": "Route",
-						"trail": "Trail",
-						"triathlon": "Triathlon",
+						"cycle": "Ciclismo",
+						"road": "Estrada",
+						"route": "Rota",
+						"trail": "Trilha",
+						"triathlon": "Triatlo",
 						"ultra": "Ultra"
 					},
-					"placeholder": "Select event type",
+					"placeholder": "Selecionar tipo de evento",
 					"required": true
 				},
 				"isPartnered": {
-					"description": "Is this event partnered with Beswib?",
-					"label": "Partner Event"
+					"description": "Este evento é parceiro da Beswib?",
+					"label": "Evento Parceiro"
 				},
 				"location": {
-					"label": "Location",
-					"placeholder": "Paris, France",
+					"label": "Local",
+					"placeholder": "Paris, França",
 					"required": true
 				},
 				"logoUpload": {
-					"description": "Upload a logo for your event. Supported formats: PNG, JPG, SVG (max 5MB)",
-					"dropText": "Drop it",
-					"fileModified": "modified",
+					"description": "Faça upload de um logo para seu evento. Formatos suportados: PNG, JPG, SVG (máx 5MB)",
+					"dropText": "Solte aqui",
+					"fileModified": "modificado",
 					"fileSizeUnit": "MB",
-					"label": "Event Logo",
-					"uploadSubtext": "Drag or drop your files here or click to upload",
-					"uploadText": "Upload file"
+					"label": "Logo do Evento",
+					"uploadSubtext": "Arraste e solte seus arquivos aqui ou clique para fazer upload",
+					"uploadText": "Fazer upload do arquivo"
 				},
 				"officialPrice": {
-					"label": "Official Price (€)",
+					"label": "Preço Oficial (€)",
 					"placeholder": "120"
 				},
 				"organizer": {
-					"label": "Event Organizer",
-					"loading": "Loading organizers...",
-					"noOrganizers": "No organizers available",
-					"partnered": "Partner",
-					"placeholder": "Select an organizer"
+					"label": "Organizador do Evento",
+					"loading": "Carregando organizadores...",
+					"noOrganizers": "Nenhum organizador disponível",
+					"partnered": "Parceiro",
+					"placeholder": "Selecionar um organizador"
 				},
 				"parcoursUrl": {
-					"label": "Parcours URL",
+					"label": "URL do Percurso",
 					"placeholder": "https://example.com/route.gpx"
 				},
 				"participantCount": {
-					"label": "Participant Count",
+					"label": "Contagem de Participantes",
 					"placeholder": "30000"
 				},
 				"registrationUrl": {
-					"label": "Registration Link",
+					"label": "Link de Inscrição",
 					"placeholder": "https://example.com/register"
 				},
 				"transferDeadline": {
-					"label": "Transfer Deadline"
+					"label": "Prazo de Transferência"
 				}
 			},
 			"partnership": {
-				"notPartnered": "Not Partnered (display only)",
-				"partnered": "Partnered Event (allows bib resale)"
+				"notPartnered": "Não Parceiro (apenas exibição)",
+				"partnered": "Evento Parceiro (permite revenda de números)"
 			},
 			"sections": {
 				"bibPickup": {
-					"description": "Details about where and when participants can collect their bibs.",
-					"title": "Bib Pickup Information"
+					"description": "Detalhes sobre onde e quando os participantes podem coletar seus números.",
+					"title": "Informações de Retirada dos Números"
 				},
 				"eventDetails": {
-					"description": "Additional details about distance, elevation, pricing, and logistics.",
-					"title": "Event Details"
+					"description": "Detalhes adicionais sobre distância, elevação, preços e logística.",
+					"title": "Detalhes do Evento"
 				},
 				"eventInformation": {
-					"description": "Basic information about the event including name, date, and location.",
-					"title": "Event Information"
+					"description": "Informações básicas sobre o evento incluindo nome, data e local.",
+					"title": "Informações do Evento"
 				},
 				"eventOptions": {
-					"description": "Configure additional options and categories for the event.",
-					"title": "Event Options"
+					"description": "Configurar opções e categorias adicionais para o evento.",
+					"title": "Opções do Evento"
 				},
 				"organizer": {
-					"description": "Select the organizer responsible for this event.",
-					"title": "Event Organizer"
+					"description": "Selecionar o organizador responsável por este evento.",
+					"title": "Organizador do Evento"
 				},
 				"partnership": {
-					"description": "Configure partnership status and related settings.",
-					"title": "Partnership Settings"
+					"description": "Configurar status de parceria e configurações relacionadas.",
+					"title": "Configurações de Parceria"
 				}
 			},
-			"subtitle": "Configure your racing event for the Beswib platform",
+			"subtitle": "Configure seu evento de corrida para a plataforma Beswib",
 			"success": {
-				"message": "\"{eventName}\" has been created and is now available on the platform.",
-				"redirecting": "Redirecting to admin dashboard...",
-				"title": "Event Created Successfully!"
+				"message": "\"{eventName}\" foi criado e agora está disponível na plataforma.",
+				"redirecting": "Redirecionando para o painel de administração...",
+				"title": "Evento Criado com Sucesso!"
 			},
-			"title": "Create New Event"
+			"title": "Criar Novo Evento"
 		}
 	},
 	"nl": {
 		"dashboard": {
 			"actions": {
-				"createEvent": "Create New Event",
-				"createEventDescription": "Create and configure new racing events for the platform",
-				"createOrganizer": "Create New Organizer",
-				"createOrganizerDescription": "Add new event organizers to the platform",
-				"manageUsers": "Manage Users",
-				"reviewBibs": "Review Pending Bibs",
-				"validateOrganizer": "Validate Organizers",
-				"validateOrganizerDescription": "Review and approve organizer partnership requests",
-				"viewEvents": "View Events",
-				"viewEventsDescription": "Browse and manage all racing events on the platform",
-				"viewOrganizers": "View Organizers",
-				"viewOrganizersDescription": "Manage all event organizers and their partnerships",
-				"viewReports": "View Reports",
-				"viewTransactions": "View All Transactions"
+				"createEvent": "Nieuw Evenement Maken",
+				"createEventDescription": "Maak en configureer nieuwe race-evenementen voor het platform",
+				"createOrganizer": "Nieuwe Organisator Maken",
+				"createOrganizerDescription": "Voeg nieuwe evenementorganisatoren toe aan het platform",
+				"manageUsers": "Gebruikers Beheren",
+				"reviewBibs": "Wachtende Startnummers Beoordelen",
+				"validateOrganizer": "Organisatoren Valideren",
+				"validateOrganizerDescription": "Beoordeel en keur organisator-partnerschapsverzoeken goed",
+				"viewEvents": "Evenementen Bekijken",
+				"viewEventsDescription": "Blader door en beheer alle race-evenementen op het platform",
+				"viewOrganizers": "Organisatoren Bekijken",
+				"viewOrganizersDescription": "Beheer alle evenementorganisatoren en hun partnerschappen",
+				"viewReports": "Rapporten Bekijken",
+				"viewTransactions": "Alle Transacties Bekijken"
 			},
 			"errors": {
-				"accessError": "Access Error",
-				"accessErrorMessage": "Unable to verify admin access. Please try logging in again."
+				"accessError": "Toegangsfout",
+				"accessErrorMessage": "Kan admin-toegang niet verifiëren. Probeer opnieuw in te loggen."
 			},
 			"recentActivity": {
-				"description": "View recent platform activity and system events",
-				"noBibsPending": "No bibs pending validation",
-				"noRecentActivity": "No recent activity",
-				"title": "Recent Activity"
+				"description": "Bekijk recente platformactiviteit en systeemgebeurtenissen",
+				"noBibsPending": "Geen startnummers wachtend op validatie",
+				"noRecentActivity": "Geen recente activiteit",
+				"title": "Recente Activiteit"
 			},
 			"sections": {
 				"bibs": {
-					"description": "Oversee bib listings and validations",
-					"title": "Bibs Management"
+					"description": "Toezicht houden op startnummerlijsten en validaties",
+					"title": "Startnummerbeheer"
 				},
 				"events": {
-					"description": "Manage racing events and approvals",
-					"title": "Events Management"
+					"description": "Race-evenementen en goedkeuringen beheren",
+					"title": "Evenementenbeheer"
 				},
 				"organizers": {
-					"description": "Manage event organizers and partnerships",
-					"title": "Organizers Management"
+					"description": "Evenementorganisatoren en partnerschappen beheren",
+					"title": "Organisatorenbeheer"
 				},
 				"overview": {
-					"description": "Key metrics and statistics",
-					"title": "Platform Overview"
+					"description": "Belangrijke metriek en statistieken",
+					"title": "Platformoverzicht"
 				},
 				"transactions": {
-					"description": "Monitor payments and financial activity",
-					"title": "Transactions"
+					"description": "Betalingen en financiële activiteit monitoren",
+					"title": "Transacties"
 				},
 				"users": {
-					"description": "Manage platform users and roles",
-					"title": "Users Management"
+					"description": "Platformgebruikers en rollen beheren",
+					"title": "Gebruikersbeheer"
 				}
 			},
 			"stats": {
-				"partneredOrganizers": "Partnered Organizers",
-				"pendingBibs": "Pending Validation",
-				"pendingEvents": "Pending Events",
-				"platformGrowth": "Platform growth",
-				"revenueToday": "revenue today",
-				"todaysTransactions": "Today's Transactions",
-				"totalBibs": "Total Bibs",
-				"totalEvents": "Total Events",
-				"totalOrganizers": "Total Organizers",
-				"totalUsers": "Total Users"
+				"partneredOrganizers": "Partnerorganisatoren",
+				"pendingBibs": "Wachtende Validatie",
+				"pendingEvents": "Wachtende Evenementen",
+				"platformGrowth": "platformgroei",
+				"revenueToday": "omzet vandaag",
+				"todaysTransactions": "Transacties van Vandaag",
+				"totalBibs": "Totaal Startnummers",
+				"totalEvents": "Totaal Evenementen",
+				"totalOrganizers": "Totaal Organisatoren",
+				"totalUsers": "Totaal Gebruikers"
 			},
-			"subtitle": "Manage your Beswib platform",
+			"subtitle": "Beheer uw Beswib-platform",
 			"title": "Admin Dashboard",
 			"ui": {
-				"comingSoon": "Coming Soon",
-				"connectedAs": "Connected as",
-				"signIn": "Sign In"
+				"comingSoon": "Binnenkort Beschikbaar",
+				"connectedAs": "Verbonden als",
+				"signIn": "Inloggen"
 			}
 		},
 		"event": {
 			"buttons": {
-				"cancel": "Cancel",
-				"createEvent": "Create Event",
-				"creating": "Creating Event..."
+				"cancel": "Annuleren",
+				"createEvent": "Evenement Maken",
+				"creating": "Evenement Maken..."
 			},
 			"errors": {
-				"creationFailed": "Failed to create event. Please try again.",
-				"fillRequired": "Please fill in all required fields.",
-				"invalidDate": "Please select a valid date.",
-				"invalidPrice": "Please enter a valid price."
+				"creationFailed": "Evenement maken mislukt. Probeer het opnieuw.",
+				"fillRequired": "Vul alle verplichte velden in.",
+				"invalidDate": "Selecteer een geldige datum.",
+				"invalidPrice": "Voer een geldige prijs in."
 			},
 			"eventOptions": {
-				"addOption": "Add Event Option",
-				"optionKey": "Key",
-				"optionName": "Option Name",
-				"optionRequired": "Required",
-				"optionSelectPlaceholder": "Select option type",
-				"optionType": "Option Type",
-				"removeOption": "Remove Option",
+				"addOption": "Evenementoptie Toevoegen",
+				"optionKey": "Sleutel",
+				"optionName": "Optienaam",
+				"optionRequired": "Verplicht",
+				"optionSelectPlaceholder": "Selecteer optietype",
+				"optionType": "Optietype",
+				"removeOption": "Optie Verwijderen",
 				"types": {
-					"number": "Number Input",
-					"select": "Select",
-					"text": "Text Input"
+					"number": "Nummerinvoer",
+					"select": "Selectie",
+					"text": "Tekstinvoer"
 				},
 				"values": {
-					"addValue": "Add Value",
-					"label": "Values",
-					"placeholder": "Option value",
-					"removeValue": "Remove Value"
+					"addValue": "Waarde Toevoegen",
+					"label": "Waarden",
+					"placeholder": "Optiewaarde",
+					"removeValue": "Waarde Verwijderen"
 				}
 			},
 			"fields": {
 				"bibPickupBegin": {
-					"label": "Pickup Window Begin",
+					"label": "Ophaalvenster Begin",
 					"required": true
 				},
 				"bibPickupEnd": {
-					"label": "Pickup Window End",
+					"label": "Ophaalvenster Einde",
 					"required": true
 				},
 				"bibPickupLocation": {
-					"label": "Bib Pickup Location",
+					"label": "Startnummer Ophaallocatie",
 					"placeholder": "Marathon Expo, Porte de Versailles"
 				},
 				"description": {
-					"label": "Description",
-					"placeholder": "Describe the event...",
+					"label": "Beschrijving",
+					"placeholder": "Beschrijf het evenement...",
 					"required": true
 				},
 				"distance": {
-					"label": "Distance (km)",
+					"label": "Afstand (km)",
 					"placeholder": "42.195"
 				},
 				"elevationGain": {
-					"label": "Elevation Gain (m)",
+					"label": "Hoogtewinst (m)",
 					"placeholder": "500"
 				},
 				"eventDate": {
-					"label": "Event Date",
+					"label": "Evenementsdatum",
 					"required": true
 				},
 				"eventName": {
-					"label": "Event Name",
+					"label": "Evenementsnaam",
 					"placeholder": "Marathon de Paris",
 					"required": true
 				},
 				"eventType": {
-					"label": "Event Type",
+					"label": "Evenementtype",
 					"options": {
-						"cycle": "Cycle",
-						"road": "Road",
+						"cycle": "Fietsen",
+						"road": "Weg",
 						"route": "Route",
 						"trail": "Trail",
-						"triathlon": "Triathlon",
+						"triathlon": "Triatlon",
 						"ultra": "Ultra"
 					},
-					"placeholder": "Select event type",
+					"placeholder": "Selecteer evenementtype",
 					"required": true
 				},
 				"isPartnered": {
-					"description": "Is this event partnered with Beswib?",
-					"label": "Partner Event"
+					"description": "Is dit evenement gepartnert met Beswib?",
+					"label": "Partner Evenement"
 				},
 				"location": {
-					"label": "Location",
-					"placeholder": "Paris, France",
+					"label": "Locatie",
+					"placeholder": "Parijs, Frankrijk",
 					"required": true
 				},
 				"logoUpload": {
-					"description": "Upload a logo for your event. Supported formats: PNG, JPG, SVG (max 5MB)",
-					"dropText": "Drop it",
-					"fileModified": "modified",
+					"description": "Upload een logo voor uw evenement. Ondersteunde formaten: PNG, JPG, SVG (max 5MB)",
+					"dropText": "Hier neerzetten",
+					"fileModified": "aangepast",
 					"fileSizeUnit": "MB",
-					"label": "Event Logo",
-					"uploadSubtext": "Drag or drop your files here or click to upload",
-					"uploadText": "Upload file"
+					"label": "Evenement Logo",
+					"uploadSubtext": "Sleep uw bestanden hierheen of klik om te uploaden",
+					"uploadText": "Bestand uploaden"
 				},
 				"officialPrice": {
-					"label": "Official Price (€)",
+					"label": "Officiële Prijs (€)",
 					"placeholder": "120"
 				},
 				"organizer": {
-					"label": "Event Organizer",
-					"loading": "Loading organizers...",
-					"noOrganizers": "No organizers available",
+					"label": "Evenementorganisator",
+					"loading": "Organisatoren laden...",
+					"noOrganizers": "Geen organisatoren beschikbaar",
 					"partnered": "Partner",
-					"placeholder": "Select an organizer"
+					"placeholder": "Selecteer een organisator"
 				},
 				"parcoursUrl": {
 					"label": "Parcours URL",
 					"placeholder": "https://example.com/route.gpx"
 				},
 				"participantCount": {
-					"label": "Participant Count",
+					"label": "Aantal Deelnemers",
 					"placeholder": "30000"
 				},
 				"registrationUrl": {
-					"label": "Registration Link",
+					"label": "Registratielink",
 					"placeholder": "https://example.com/register"
 				},
 				"transferDeadline": {
-					"label": "Transfer Deadline"
+					"label": "Overdrachtsdeadline"
 				}
 			},
 			"partnership": {
-				"notPartnered": "Not Partnered (display only)",
-				"partnered": "Partnered Event (allows bib resale)"
+				"notPartnered": "Niet Gepartnert (alleen weergave)",
+				"partnered": "Partner Evenement (staat startnummer doorverkoop toe)"
 			},
 			"sections": {
 				"bibPickup": {
-					"description": "Details about where and when participants can collect their bibs.",
-					"title": "Bib Pickup Information"
+					"description": "Details over waar en wanneer deelnemers hun startnummers kunnen ophalen.",
+					"title": "Startnummer Ophaalinformatie"
 				},
 				"eventDetails": {
-					"description": "Additional details about distance, elevation, pricing, and logistics.",
-					"title": "Event Details"
+					"description": "Aanvullende details over afstand, hoogte, prijzen en logistiek.",
+					"title": "Evenementdetails"
 				},
 				"eventInformation": {
-					"description": "Basic information about the event including name, date, and location.",
-					"title": "Event Information"
+					"description": "Basisinformatie over het evenement inclusief naam, datum en locatie.",
+					"title": "Evenementinformatie"
 				},
 				"eventOptions": {
-					"description": "Configure additional options and categories for the event.",
-					"title": "Event Options"
+					"description": "Configureer aanvullende opties en categorieën voor het evenement.",
+					"title": "Evenementopties"
 				},
 				"organizer": {
-					"description": "Select the organizer responsible for this event.",
-					"title": "Event Organizer"
+					"description": "Selecteer de organisator verantwoordelijk voor dit evenement.",
+					"title": "Evenementorganisator"
 				},
 				"partnership": {
-					"description": "Configure partnership status and related settings.",
-					"title": "Partnership Settings"
+					"description": "Configureer partnerschapsstatus en gerelateerde instellingen.",
+					"title": "Partnerschapsinstellingen"
 				}
 			},
-			"subtitle": "Configure your racing event for the Beswib platform",
+			"subtitle": "Configureer uw race-evenement voor het Beswib-platform",
 			"success": {
-				"message": "\"{eventName}\" has been created and is now available on the platform.",
-				"redirecting": "Redirecting to admin dashboard...",
-				"title": "Event Created Successfully!"
+				"message": "\"{eventName}\" is gemaakt en is nu beschikbaar op het platform.",
+				"redirecting": "Doorverwijzen naar admin dashboard...",
+				"title": "Evenement Succesvol Gemaakt!"
 			},
-			"title": "Create New Event"
+			"title": "Nieuw Evenement Maken"
 		}
 	},
 	"ko": {
