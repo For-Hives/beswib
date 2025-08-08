@@ -153,7 +153,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 			header: t.organizers.table.columns.name,
 			filterFn: multiColumnFilterFn,
 			enableHiding: false,
-			cell: ({ row }) => <div className="font-medium">{row.getValue('name') ?? 'N/A'}</div>,
+            cell: ({ row }) => <div className="font-medium">{row.getValue('name') ?? t.organizers.common.na}</div>,
 			accessorKey: 'name',
 		},
 		{
@@ -164,7 +164,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 				return (
 					<div className="flex items-center gap-2">
 						<Mail className="text-muted-foreground h-4 w-4" />
-						<span className="text-sm">{String(email) || 'N/A'}</span>
+                        <span className="text-sm">{String(email) || t.organizers.common.na}</span>
 					</div>
 				)
 			},
@@ -202,9 +202,9 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 				const date = row.getValue('created')
 				return (
 					<div>
-						{date !== null && date !== undefined && date !== ''
-							? formatDateObjectForDisplay(new Date(date as string), locale)
-							: 'N/A'}
+                        {date !== null && date !== undefined && date !== ''
+                            ? formatDateObjectForDisplay(new Date(date as string), locale)
+                            : t.organizers.common.na}
 					</div>
 				)
 			},
@@ -213,7 +213,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 		{
 			size: 60,
 			id: 'actions',
-			header: () => <span className="sr-only">Actions</span>,
+            header: () => <span className="sr-only">{t.organizers.actionsLabels.openMenu}</span>,
 			enableSorting: false,
 			enableHiding: false,
 			cell: ({ row }) => <RowActions row={row} />,
@@ -615,12 +615,12 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 											label: n.toString(),
 										}))
 										return (
-											<SelectAnimated
+                                            <SelectAnimated
 												onValueChange={(value: string) => {
 													table.setPageSize(Number(value))
 												}}
 												options={pageSizeOptions}
-												placeholder="Select number of results"
+                                                placeholder={t.organizers.table.controls.selectNumberOfResults}
 												value={table.getState().pagination.pageSize.toString()}
 											/>
 										)
@@ -629,7 +629,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 
 								{/* Page number information */}
 								<div className="text-muted-foreground flex grow justify-end text-sm whitespace-nowrap">
-									<p aria-live="polite" className="text-muted-foreground text-sm whitespace-nowrap">
+                                    <p aria-live="polite" className="text-muted-foreground text-sm whitespace-nowrap">
 										<span className="text-foreground">
 											{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}-
 											{Math.min(
@@ -640,8 +640,8 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 												),
 												table.getRowCount()
 											)}
-										</span>{' '}
-										of <span className="text-foreground">{table.getRowCount().toString()}</span>
+                                        </span>{' '}
+                                        {t.organizers.table.pagination.of} <span className="text-foreground">{table.getRowCount().toString()}</span>
 									</p>
 								</div>
 
@@ -651,8 +651,8 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 										<PaginationContent>
 											{/* First page button */}
 											<PaginationItem>
-												<Button
-													aria-label="Go to first page"
+                                                <Button
+                                                    aria-label={t.organizers.table.pagination.goToFirst}
 													className="disabled:pointer-events-none disabled:opacity-50"
 													disabled={!table.getCanPreviousPage()}
 													onClick={() => table.firstPage()}
@@ -664,8 +664,8 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 											</PaginationItem>
 											{/* Previous page button */}
 											<PaginationItem>
-												<Button
-													aria-label="Go to previous page"
+                                                <Button
+                                                    aria-label={t.organizers.table.pagination.goToPrev}
 													className="disabled:pointer-events-none disabled:opacity-50"
 													disabled={!table.getCanPreviousPage()}
 													onClick={() => table.previousPage()}
@@ -677,8 +677,8 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 											</PaginationItem>
 											{/* Next page button */}
 											<PaginationItem>
-												<Button
-													aria-label="Go to next page"
+                                                <Button
+                                                    aria-label={t.organizers.table.pagination.goToNext}
 													className="disabled:pointer-events-none disabled:opacity-50"
 													disabled={!table.getCanNextPage()}
 													onClick={() => table.nextPage()}
@@ -690,8 +690,8 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 											</PaginationItem>
 											{/* Last page button */}
 											<PaginationItem>
-												<Button
-													aria-label="Go to last page"
+                                                <Button
+                                                    aria-label={t.organizers.table.pagination.goToLast}
 													className="disabled:pointer-events-none disabled:opacity-50"
 													disabled={!table.getCanNextPage()}
 													onClick={() => table.lastPage()}
@@ -727,28 +727,28 @@ function RowActions({ row }: { row: Row<Organizer> }) {
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button className="h-8 w-8 p-0" variant="ghost">
-						<span className="sr-only">Open menu</span>
+                        <span className="sr-only">{t.organizers.actionsLabels.openMenu}</span>
 						<MoreHorizontal className="h-4 w-4" />
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end">
 					<DropdownMenuGroup>
-						<DropdownMenuItem className="cursor-not-allowed opacity-50" disabled>
+                        <DropdownMenuItem className="cursor-not-allowed opacity-50" disabled>
 							<Edit className="mr-2 h-4 w-4" />
-							Edit
+                            {t.organizers.actionsLabels.edit}
 						</DropdownMenuItem>
-						<DropdownMenuItem className="cursor-not-allowed opacity-50" disabled>
+                        <DropdownMenuItem className="cursor-not-allowed opacity-50" disabled>
 							<Eye className="mr-2 h-4 w-4" />
-							View
+                            {t.organizers.actionsLabels.view}
 						</DropdownMenuItem>
 					</DropdownMenuGroup>
 					<DropdownMenuSeparator />
-					<DropdownMenuItem
+                        <DropdownMenuItem
 						className="text-destructive focus:text-destructive"
 						onClick={() => setShowDeleteDialog(true)}
 					>
 						<Trash2 className="mr-2 h-4 w-4" />
-						Delete
+                            {t.organizers.actionsLabels.delete}
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
@@ -760,20 +760,20 @@ function RowActions({ row }: { row: Row<Organizer> }) {
 							<CircleAlert className="opacity-80" size={16} />
 						</div>
 						<AlertDialogHeader>
-							<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                            <AlertDialogTitle>{t.organizers.table.controls.confirmDelete}</AlertDialogTitle>
 							<AlertDialogDescription>
-								This action cannot be undone. This will permanently delete the organizer "
-								{row.original.name || 'Unknown Organizer'}".
+                                {t.organizers.table.controls.deleteDescription} "
+                                {row.original.name || t.organizers.common.unknownOrganizer}"
 							</AlertDialogDescription>
 						</AlertDialogHeader>
 					</div>
 					<AlertDialogFooter>
-						<AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel>{t.organizers.table.controls.cancel}</AlertDialogCancel>
 						<AlertDialogAction
 							className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
 							onClick={handleDelete}
 						>
-							Delete
+                            {t.organizers.actionsLabels.delete}
 						</AlertDialogAction>
 					</AlertDialogFooter>
 				</AlertDialogContent>

@@ -166,332 +166,332 @@
 	},
 	"es": {
 		"journey": {
-			"title": "How does it work?",
-			"subtitle": "Discover the simple and secure process to sell or buy bibs on Beswib",
-			"buyerTab": "Buyer Journey",
-			"sellerTab": "Seller Journey",
+			"title": "¿Cómo funciona?",
+			"subtitle": "Descubre el proceso simple y seguro para vender o comprar dorsales en Beswib",
+			"buyerTab": "Recorrido del Comprador",
+			"sellerTab": "Recorrido del Vendedor",
 			"buyer": {
 				"step1": {
-					"title": "Account Creation",
-					"content": "Registration and email confirmation"
+					"title": "Creación de Cuenta",
+					"content": "Registro y confirmación por email"
 				},
 				"step2": {
-					"title": "Race Search",
-					"content": "Browse available races and bibs"
+					"title": "Búsqueda de Carrera",
+					"content": "Navega por carreras y dorsales disponibles"
 				},
 				"step3": {
-					"title": "Purchase",
-					"content": "Enter runner information and secure payment"
+					"title": "Compra",
+					"content": "Introduce información del corredor y pago seguro"
 				},
 				"step4": {
-					"title": "Confirmation",
-					"content": "Immediate purchase confirmation email"
+					"title": "Confirmación",
+					"content": "Email de confirmación de compra inmediato"
 				},
 				"step5": {
-					"title": "Race Integration",
-					"content": "Registration confirmation with organizer"
+					"title": "Integración de Carrera",
+					"content": "Confirmación de registro con el organizador"
 				}
 			},
 			"seller": {
 				"step1": {
-					"title": "Account Creation",
-					"content": "Quick registration and email confirmation"
+					"title": "Creación de Cuenta",
+					"content": "Registro rápido y confirmación por email"
 				},
 				"step2": {
-					"title": "Bib Registration",
-					"content": "Enter registration number and registration data"
+					"title": "Registro del Dorsal",
+					"content": "Introduce el número de inscripción y datos de registro"
 				},
 				"step3": {
-					"title": "Validation",
-					"content": "Verification with organizer"
+					"title": "Validación",
+					"content": "Verificación con el organizador"
 				},
 				"step4": {
-					"title": "Listing",
-					"content": "Set price and publish your public or private offer"
+					"title": "Publicación",
+					"content": "Establece el precio y publica tu oferta pública o privada"
 				},
 				"step5": {
-					"title": "Payment",
-					"content": "Receive funds on your Beswib account then withdraw money to your bank account"
+					"title": "Pago",
+					"content": "Recibe fondos en tu cuenta Beswib y luego retira dinero a tu cuenta bancaria"
 				}
 			}
 		},
 		"steps": {
-			"step": "Step"
+			"step": "Paso"
 		}
 	},
 	"it": {
 		"journey": {
-			"title": "How does it work?",
-			"subtitle": "Discover the simple and secure process to sell or buy bibs on Beswib",
-			"buyerTab": "Buyer Journey",
-			"sellerTab": "Seller Journey",
+			"title": "Come funziona?",
+			"subtitle": "Scopri il processo semplice e sicuro per vendere o comprare pettorine su Beswib",
+			"buyerTab": "Percorso dell'Acquirente",
+			"sellerTab": "Percorso del Venditore",
 			"buyer": {
 				"step1": {
-					"title": "Account Creation",
-					"content": "Registration and email confirmation"
+					"title": "Creazione Account",
+					"content": "Registrazione e conferma email"
 				},
 				"step2": {
-					"title": "Race Search",
-					"content": "Browse available races and bibs"
+					"title": "Ricerca Gara",
+					"content": "Naviga tra gare e pettorine disponibili"
 				},
 				"step3": {
-					"title": "Purchase",
-					"content": "Enter runner information and secure payment"
+					"title": "Acquisto",
+					"content": "Inserisci informazioni del corridore e pagamento sicuro"
 				},
 				"step4": {
-					"title": "Confirmation",
-					"content": "Immediate purchase confirmation email"
+					"title": "Conferma",
+					"content": "Email di conferma acquisto immediata"
 				},
 				"step5": {
-					"title": "Race Integration",
-					"content": "Registration confirmation with organizer"
+					"title": "Integrazione Gara",
+					"content": "Conferma registrazione con l'organizzatore"
 				}
 			},
 			"seller": {
 				"step1": {
-					"title": "Account Creation",
-					"content": "Quick registration and email confirmation"
+					"title": "Creazione Account",
+					"content": "Registrazione rapida e conferma email"
 				},
 				"step2": {
-					"title": "Bib Registration",
-					"content": "Enter registration number and registration data"
+					"title": "Registrazione Pettorina",
+					"content": "Inserisci numero di iscrizione e dati di registrazione"
 				},
 				"step3": {
-					"title": "Validation",
-					"content": "Verification with organizer"
+					"title": "Validazione",
+					"content": "Verifica con l'organizzatore"
 				},
 				"step4": {
-					"title": "Listing",
-					"content": "Set price and publish your public or private offer"
+					"title": "Inserzione",
+					"content": "Imposta il prezzo e pubblica la tua offerta pubblica o privata"
 				},
 				"step5": {
-					"title": "Payment",
-					"content": "Receive funds on your Beswib account then withdraw money to your bank account"
+					"title": "Pagamento",
+					"content": "Ricevi fondi sul tuo account Beswib e poi preleva denaro sul tuo conto bancario"
 				}
 			}
 		},
 		"steps": {
-			"step": "Step"
+			"step": "Passo"
 		}
 	},
 	"de": {
 		"journey": {
-			"title": "How does it work?",
-			"subtitle": "Discover the simple and secure process to sell or buy bibs on Beswib",
-			"buyerTab": "Buyer Journey",
-			"sellerTab": "Seller Journey",
+			"title": "Wie funktioniert es?",
+			"subtitle": "Entdecken Sie den einfachen und sicheren Prozess zum Verkaufen oder Kaufen von Startnummern auf Beswib",
+			"buyerTab": "Käufer-Reise",
+			"sellerTab": "Verkäufer-Reise",
 			"buyer": {
 				"step1": {
-					"title": "Account Creation",
-					"content": "Registration and email confirmation"
+					"title": "Konto erstellen",
+					"content": "Registrierung und E-Mail-Bestätigung"
 				},
 				"step2": {
-					"title": "Race Search",
-					"content": "Browse available races and bibs"
+					"title": "Wettkampf suchen",
+					"content": "Verfügbare Wettkämpfe und Startnummern durchsuchen"
 				},
 				"step3": {
-					"title": "Purchase",
-					"content": "Enter runner information and secure payment"
+					"title": "Kauf",
+					"content": "Läuferinformationen eingeben und sicher bezahlen"
 				},
 				"step4": {
-					"title": "Confirmation",
-					"content": "Immediate purchase confirmation email"
+					"title": "Bestätigung",
+					"content": "Sofortige Kaufbestätigungs-E-Mail"
 				},
 				"step5": {
-					"title": "Race Integration",
-					"content": "Registration confirmation with organizer"
+					"title": "Wettkampf-Integration",
+					"content": "Registrierungsbestätigung mit dem Veranstalter"
 				}
 			},
 			"seller": {
 				"step1": {
-					"title": "Account Creation",
-					"content": "Quick registration and email confirmation"
+					"title": "Konto erstellen",
+					"content": "Schnelle Registrierung und E-Mail-Bestätigung"
 				},
 				"step2": {
-					"title": "Bib Registration",
-					"content": "Enter registration number and registration data"
+					"title": "Startnummer registrieren",
+					"content": "Registrierungsnummer und Registrierungsdaten eingeben"
 				},
 				"step3": {
-					"title": "Validation",
-					"content": "Verification with organizer"
+					"title": "Validierung",
+					"content": "Überprüfung mit dem Veranstalter"
 				},
 				"step4": {
-					"title": "Listing",
-					"content": "Set price and publish your public or private offer"
+					"title": "Auflistung",
+					"content": "Preis festlegen und öffentliches oder privates Angebot veröffentlichen"
 				},
 				"step5": {
-					"title": "Payment",
-					"content": "Receive funds on your Beswib account then withdraw money to your bank account"
+					"title": "Zahlung",
+					"content": "Geld auf Ihr Beswib-Konto erhalten und dann Geld auf Ihr Bankkonto abheben"
 				}
 			}
 		},
 		"steps": {
-			"step": "Step"
+			"step": "Schritt"
 		}
 	},
 	"ro": {
 		"journey": {
-			"title": "How does it work?",
-			"subtitle": "Discover the simple and secure process to sell or buy bibs on Beswib",
-			"buyerTab": "Buyer Journey",
-			"sellerTab": "Seller Journey",
+			"title": "Cum funcționează?",
+			"subtitle": "Descoperă procesul simplu și sigur pentru a vinde sau cumpăra numere de concurs pe Beswib",
+			"buyerTab": "Călătoria Cumpărătorului",
+			"sellerTab": "Călătoria Vânzătorului",
 			"buyer": {
 				"step1": {
-					"title": "Account Creation",
-					"content": "Registration and email confirmation"
+					"title": "Crearea Contului",
+					"content": "Înregistrare și confirmare prin email"
 				},
 				"step2": {
-					"title": "Race Search",
-					"content": "Browse available races and bibs"
+					"title": "Căutarea Cursei",
+					"content": "Răsfoiește cursele și numerele disponibile"
 				},
 				"step3": {
-					"title": "Purchase",
-					"content": "Enter runner information and secure payment"
+					"title": "Achiziție",
+					"content": "Introdu informațiile alergătorului și plata securizată"
 				},
 				"step4": {
-					"title": "Confirmation",
-					"content": "Immediate purchase confirmation email"
+					"title": "Confirmare",
+					"content": "Email imediat de confirmare a achiziției"
 				},
 				"step5": {
-					"title": "Race Integration",
-					"content": "Registration confirmation with organizer"
+					"title": "Integrarea în Cursă",
+					"content": "Confirmarea înregistrării cu organizatorul"
 				}
 			},
 			"seller": {
 				"step1": {
-					"title": "Account Creation",
-					"content": "Quick registration and email confirmation"
+					"title": "Crearea Contului",
+					"content": "Înregistrare rapidă și confirmare prin email"
 				},
 				"step2": {
-					"title": "Bib Registration",
-					"content": "Enter registration number and registration data"
+					"title": "Înregistrarea Numărului",
+					"content": "Introdu numărul de înregistrare și datele de înregistrare"
 				},
 				"step3": {
-					"title": "Validation",
-					"content": "Verification with organizer"
+					"title": "Validare",
+					"content": "Verificare cu organizatorul"
 				},
 				"step4": {
-					"title": "Listing",
-					"content": "Set price and publish your public or private offer"
+					"title": "Listare",
+					"content": "Stabilește prețul și publică oferta ta publică sau privată"
 				},
 				"step5": {
-					"title": "Payment",
-					"content": "Receive funds on your Beswib account then withdraw money to your bank account"
+					"title": "Plată",
+					"content": "Primește fonduri în contul tău Beswib și apoi retrage banii în contul bancar"
 				}
 			}
 		},
 		"steps": {
-			"step": "Step"
+			"step": "Pasul"
 		}
 	},
 	"pt": {
 		"journey": {
-			"title": "How does it work?",
-			"subtitle": "Discover the simple and secure process to sell or buy bibs on Beswib",
-			"buyerTab": "Buyer Journey",
-			"sellerTab": "Seller Journey",
+			"title": "Como funciona?",
+			"subtitle": "Descubra o processo simples e seguro para vender ou comprar dorsais no Beswib",
+			"buyerTab": "Jornada do Comprador",
+			"sellerTab": "Jornada do Vendedor",
 			"buyer": {
 				"step1": {
-					"title": "Account Creation",
-					"content": "Registration and email confirmation"
+					"title": "Criação da Conta",
+					"content": "Registo e confirmação por email"
 				},
 				"step2": {
-					"title": "Race Search",
-					"content": "Browse available races and bibs"
+					"title": "Pesquisa da Corrida",
+					"content": "Navegue pelas corridas e dorsais disponíveis"
 				},
 				"step3": {
-					"title": "Purchase",
-					"content": "Enter runner information and secure payment"
+					"title": "Compra",
+					"content": "Introduza informações do corredor e pagamento seguro"
 				},
 				"step4": {
-					"title": "Confirmation",
-					"content": "Immediate purchase confirmation email"
+					"title": "Confirmação",
+					"content": "Email imediato de confirmação da compra"
 				},
 				"step5": {
-					"title": "Race Integration",
-					"content": "Registration confirmation with organizer"
+					"title": "Integração na Corrida",
+					"content": "Confirmação do registo com o organizador"
 				}
 			},
 			"seller": {
 				"step1": {
-					"title": "Account Creation",
-					"content": "Quick registration and email confirmation"
+					"title": "Criação da Conta",
+					"content": "Registo rápido e confirmação por email"
 				},
 				"step2": {
-					"title": "Bib Registration",
-					"content": "Enter registration number and registration data"
+					"title": "Registo do Dorsal",
+					"content": "Introduza o número de inscrição e dados de registo"
 				},
 				"step3": {
-					"title": "Validation",
-					"content": "Verification with organizer"
+					"title": "Validação",
+					"content": "Verificação com o organizador"
 				},
 				"step4": {
-					"title": "Listing",
-					"content": "Set price and publish your public or private offer"
+					"title": "Anúncio",
+					"content": "Defina o preço e publique a sua oferta pública ou privada"
 				},
 				"step5": {
-					"title": "Payment",
-					"content": "Receive funds on your Beswib account then withdraw money to your bank account"
+					"title": "Pagamento",
+					"content": "Receba fundos na sua conta Beswib e depois retire dinheiro para a sua conta bancária"
 				}
 			}
 		},
 		"steps": {
-			"step": "Step"
+			"step": "Passo"
 		}
 	},
 	"nl": {
 		"journey": {
-			"title": "How does it work?",
-			"subtitle": "Discover the simple and secure process to sell or buy bibs on Beswib",
-			"buyerTab": "Buyer Journey",
-			"sellerTab": "Seller Journey",
+			"title": "Hoe werkt het?",
+			"subtitle": "Ontdek het eenvoudige en veilige proces om startnummers te verkopen of kopen op Beswib",
+			"buyerTab": "Koper Reis",
+			"sellerTab": "Verkoper Reis",
 			"buyer": {
 				"step1": {
-					"title": "Account Creation",
-					"content": "Registration and email confirmation"
+					"title": "Account Aanmaken",
+					"content": "Registratie en email bevestiging"
 				},
 				"step2": {
-					"title": "Race Search",
-					"content": "Browse available races and bibs"
+					"title": "Race Zoeken",
+					"content": "Bladeren door beschikbare races en startnummers"
 				},
 				"step3": {
-					"title": "Purchase",
-					"content": "Enter runner information and secure payment"
+					"title": "Aankoop",
+					"content": "Voer loperinformatie in en veilige betaling"
 				},
 				"step4": {
-					"title": "Confirmation",
-					"content": "Immediate purchase confirmation email"
+					"title": "Bevestiging",
+					"content": "Onmiddellijke aankoop bevestiging email"
 				},
 				"step5": {
-					"title": "Race Integration",
-					"content": "Registration confirmation with organizer"
+					"title": "Race Integratie",
+					"content": "Registratie bevestiging met organisator"
 				}
 			},
 			"seller": {
 				"step1": {
-					"title": "Account Creation",
-					"content": "Quick registration and email confirmation"
+					"title": "Account Aanmaken",
+					"content": "Snelle registratie en email bevestiging"
 				},
 				"step2": {
-					"title": "Bib Registration",
-					"content": "Enter registration number and registration data"
+					"title": "Startnummer Registratie",
+					"content": "Voer registratienummer en registratiegegevens in"
 				},
 				"step3": {
-					"title": "Validation",
-					"content": "Verification with organizer"
+					"title": "Validatie",
+					"content": "Verificatie met organisator"
 				},
 				"step4": {
-					"title": "Listing",
-					"content": "Set price and publish your public or private offer"
+					"title": "Advertentie",
+					"content": "Stel prijs in en publiceer uw publieke of private aanbod"
 				},
 				"step5": {
-					"title": "Payment",
-					"content": "Receive funds on your Beswib account then withdraw money to your bank account"
+					"title": "Betaling",
+					"content": "Ontvang geld op uw Beswib account en trek vervolgens geld op naar uw bankrekening"
 				}
 			}
 		},
 		"steps": {
-			"step": "Step"
+			"step": "Stap"
 		}
 	}
 }

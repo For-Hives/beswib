@@ -99,7 +99,7 @@ export default function BuyerDashboardClient({
 					<div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader className="pb-2">
-								<CardTitle className="text-muted-foreground text-sm">Total Purchases</CardTitle>
+                                <CardTitle className="text-muted-foreground text-sm">{t.totalPurchasesLabel ?? 'Total Purchases'}</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<div className="text-2xl font-bold">{totalPurchases}</div>
@@ -108,7 +108,7 @@ export default function BuyerDashboardClient({
 
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader className="pb-2">
-								<CardTitle className="text-muted-foreground text-sm">Waitlist Entries</CardTitle>
+                                <CardTitle className="text-muted-foreground text-sm">{t.waitlistEntriesLabel ?? 'Waitlist Entries'}</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<div className="text-2xl font-bold">{waitlistEntries}</div>
@@ -117,7 +117,7 @@ export default function BuyerDashboardClient({
 
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader className="pb-2">
-								<CardTitle className="text-muted-foreground text-sm">Total Spent</CardTitle>
+                                <CardTitle className="text-muted-foreground text-sm">{t.totalSpentLabel ?? 'Total Spent'}</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<div className="text-2xl font-bold">€{totalSpent.toFixed(2)}</div>

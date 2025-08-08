@@ -478,75 +478,75 @@
 	"es": {
 		"dashboard": {
 			"actions": {
-				"createEvent": "Create New Event",
-				"createEventDescription": "Create and configure new racing events for the platform",
-				"createOrganizer": "Create New Organizer",
-				"createOrganizerDescription": "Add new event organizers to the platform",
-				"manageUsers": "Manage Users",
-				"reviewBibs": "Review Pending Bibs",
-				"validateOrganizer": "Validate Organizers",
-				"validateOrganizerDescription": "Review and approve organizer partnership requests",
-				"viewEvents": "View Events",
-				"viewEventsDescription": "Browse and manage all racing events on the platform",
-				"viewOrganizers": "View Organizers",
-				"viewOrganizersDescription": "Manage all event organizers and their partnerships",
-				"viewReports": "View Reports",
-				"viewTransactions": "View All Transactions"
+				"createEvent": "Crear Nuevo Evento",
+				"createEventDescription": "Crear y configurar nuevos eventos de carreras para la plataforma",
+				"createOrganizer": "Crear Nuevo Organizador",
+				"createOrganizerDescription": "Añadir nuevos organizadores de eventos a la plataforma",
+				"manageUsers": "Gestionar Usuarios",
+				"reviewBibs": "Revisar Dorsales Pendientes",
+				"validateOrganizer": "Validar Organizadores",
+				"validateOrganizerDescription": "Revisar y aprobar solicitudes de asociación de organizadores",
+				"viewEvents": "Ver Eventos",
+				"viewEventsDescription": "Explorar y gestionar todos los eventos de carreras en la plataforma",
+				"viewOrganizers": "Ver Organizadores",
+				"viewOrganizersDescription": "Gestionar todos los organizadores de eventos y sus asociaciones",
+				"viewReports": "Ver Reportes",
+				"viewTransactions": "Ver Todas las Transacciones"
 			},
 			"errors": {
-				"accessError": "Access Error",
-				"accessErrorMessage": "Unable to verify admin access. Please try logging in again."
+				"accessError": "Error de Acceso",
+				"accessErrorMessage": "No se puede verificar el acceso de administrador. Por favor, intente iniciar sesión nuevamente."
 			},
 			"recentActivity": {
-				"description": "View recent platform activity and system events",
-				"noBibsPending": "No bibs pending validation",
-				"noRecentActivity": "No recent activity",
-				"title": "Recent Activity"
+				"description": "Ver actividad reciente de la plataforma y eventos del sistema",
+				"noBibsPending": "No hay dorsales pendientes de validación",
+				"noRecentActivity": "No hay actividad reciente",
+				"title": "Actividad Reciente"
 			},
 			"sections": {
 				"bibs": {
-					"description": "Oversee bib listings and validations",
-					"title": "Bibs Management"
+					"description": "Supervisar listados de dorsales y validaciones",
+					"title": "Gestión de Dorsales"
 				},
 				"events": {
-					"description": "Manage racing events and approvals",
-					"title": "Events Management"
+					"description": "Gestionar eventos de carreras y aprobaciones",
+					"title": "Gestión de Eventos"
 				},
 				"organizers": {
-					"description": "Manage event organizers and partnerships",
-					"title": "Organizers Management"
+					"description": "Gestionar organizadores de eventos y asociaciones",
+					"title": "Gestión de Organizadores"
 				},
 				"overview": {
-					"description": "Key metrics and statistics",
-					"title": "Platform Overview"
+					"description": "Métricas clave y estadísticas",
+					"title": "Visión General de la Plataforma"
 				},
 				"transactions": {
-					"description": "Monitor payments and financial activity",
-					"title": "Transactions"
+					"description": "Monitorear pagos y actividad financiera",
+					"title": "Transacciones"
 				},
 				"users": {
-					"description": "Manage platform users and roles",
-					"title": "Users Management"
+					"description": "Gestionar usuarios de la plataforma y roles",
+					"title": "Gestión de Usuarios"
 				}
 			},
 			"stats": {
-				"partneredOrganizers": "Partnered Organizers",
-				"pendingBibs": "Pending Validation",
-				"pendingEvents": "Pending Events",
-				"platformGrowth": "Platform growth",
-				"revenueToday": "revenue today",
-				"todaysTransactions": "Today's Transactions",
-				"totalBibs": "Total Bibs",
-				"totalEvents": "Total Events",
-				"totalOrganizers": "Total Organizers",
-				"totalUsers": "Total Users"
+				"partneredOrganizers": "Organizadores Asociados",
+				"pendingBibs": "Pendientes de Validación",
+				"pendingEvents": "Eventos Pendientes",
+				"platformGrowth": "Crecimiento de la plataforma",
+				"revenueToday": "ingresos hoy",
+				"todaysTransactions": "Transacciones de Hoy",
+				"totalBibs": "Total de Dorsales",
+				"totalEvents": "Total de Eventos",
+				"totalOrganizers": "Total de Organizadores",
+				"totalUsers": "Total de Usuarios"
 			},
-			"subtitle": "Manage your Beswib platform",
-			"title": "Admin Dashboard",
+			"subtitle": "Gestiona tu plataforma Beswib",
+			"title": "Panel de Administrador",
 			"ui": {
-				"comingSoon": "Coming Soon",
-				"connectedAs": "Connected as",
-				"signIn": "Sign In"
+				"comingSoon": "Próximamente",
+				"connectedAs": "Conectado como",
+				"signIn": "Iniciar Sesión"
 			}
 		},
 		"event": {

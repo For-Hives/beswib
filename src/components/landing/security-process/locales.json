@@ -88,176 +88,176 @@
 	},
 	"es": {
 		"security": {
-			"title": "Maximum Security",
-			"subtitle": "Every transaction is processed automatically with the highest security standards",
+			"title": "Máxima Seguridad",
+			"subtitle": "Cada transacción se procesa automáticamente con los más altos estándares de seguridad",
 			"partnership": {
-				"title": "Partnership",
-				"content": "Partnership with race organizers and authorization to ensure legitimacy."
+				"title": "Asociación",
+				"content": "Asociación con organizadores de carreras y autorización para garantizar la legitimidad."
 			},
 			"certification": {
-				"title": "Certification",
-				"content": "Verification of seller registration validity and bib certification for sale."
+				"title": "Certificación",
+				"content": "Verificación de la validez del registro del vendedor y certificación del dorsal para la venta."
 			},
 			"transfer": {
-				"title": "Transfer",
-				"content": "Collection of new runner registration data and bib ownership transfer."
+				"title": "Transferencia",
+				"content": "Recolección de datos de registro del nuevo corredor y transferencia de propiedad del dorsal."
 			},
 			"update": {
-				"title": "Update",
-				"content": "Runner data modification with organizer and information update."
+				"title": "Actualización",
+				"content": "Modificación de datos del corredor con el organizador y actualización de información."
 			},
 			"confirmation": {
-				"title": "Confirmation",
-				"content": "Final validation with all parties and registration confirmation notifications."
+				"title": "Confirmación",
+				"content": "Validación final con todas las partes y notificaciones de confirmación de registro."
 			}
 		},
 		"steps": {
-			"step": "Step"
+			"step": "Paso"
 		}
 	},
 	"it": {
 		"security": {
-			"title": "Maximum Security",
-			"subtitle": "Every transaction is processed automatically with the highest security standards",
+			"title": "Massima Sicurezza",
+			"subtitle": "Ogni transazione è elaborata automaticamente con i più alti standard di sicurezza",
 			"partnership": {
 				"title": "Partnership",
-				"content": "Partnership with race organizers and authorization to ensure legitimacy."
+				"content": "Partnership con organizzatori di gare e autorizzazione per garantire la legittimità."
 			},
 			"certification": {
-				"title": "Certification",
-				"content": "Verification of seller registration validity and bib certification for sale."
+				"title": "Certificazione",
+				"content": "Verifica della validità della registrazione del venditore e certificazione della pettorina per la vendita."
 			},
 			"transfer": {
-				"title": "Transfer",
-				"content": "Collection of new runner registration data and bib ownership transfer."
+				"title": "Trasferimento",
+				"content": "Raccolta dei dati di registrazione del nuovo corridore e trasferimento di proprietà della pettorina."
 			},
 			"update": {
-				"title": "Update",
-				"content": "Runner data modification with organizer and information update."
+				"title": "Aggiornamento",
+				"content": "Modifica dei dati del corridore con l'organizzatore e aggiornamento delle informazioni."
 			},
 			"confirmation": {
-				"title": "Confirmation",
-				"content": "Final validation with all parties and registration confirmation notifications."
+				"title": "Conferma",
+				"content": "Validazione finale con tutte le parti e notifiche di conferma registrazione."
 			}
 		},
 		"steps": {
-			"step": "Step"
+			"step": "Passo"
 		}
 	},
 	"de": {
 		"security": {
-			"title": "Maximum Security",
-			"subtitle": "Every transaction is processed automatically with the highest security standards",
+			"title": "Maximale Sicherheit",
+			"subtitle": "Jede Transaktion wird automatisch mit den höchsten Sicherheitsstandards verarbeitet",
 			"partnership": {
-				"title": "Partnership",
-				"content": "Partnership with race organizers and authorization to ensure legitimacy."
+				"title": "Partnerschaft",
+				"content": "Partnerschaft mit Wettkampfveranstaltern und Autorisierung zur Gewährleistung der Legitimitat."
 			},
 			"certification": {
-				"title": "Certification",
-				"content": "Verification of seller registration validity and bib certification for sale."
+				"title": "Zertifizierung",
+				"content": "Überprüfung der Gültigkeit der Verkäufer-Registrierung und Startnummer-Zertifizierung für den Verkauf."
 			},
 			"transfer": {
-				"title": "Transfer",
-				"content": "Collection of new runner registration data and bib ownership transfer."
+				"title": "Übertragung",
+				"content": "Sammlung neuer Läufer-Registrierungsdaten und Übertragung des Startnummer-Eigentums."
 			},
 			"update": {
-				"title": "Update",
-				"content": "Runner data modification with organizer and information update."
+				"title": "Aktualisierung",
+				"content": "Läuferdaten-Änderung mit dem Veranstalter und Informations-Update."
 			},
 			"confirmation": {
-				"title": "Confirmation",
-				"content": "Final validation with all parties and registration confirmation notifications."
+				"title": "Bestätigung",
+				"content": "Finale Validierung mit allen Parteien und Registrierungsbestätigungs-Benachrichtigungen."
 			}
 		},
 		"steps": {
-			"step": "Step"
+			"step": "Schritt"
 		}
 	},
 	"ro": {
 		"security": {
-			"title": "Maximum Security",
-			"subtitle": "Every transaction is processed automatically with the highest security standards",
+			"title": "Securitate Maximă",
+			"subtitle": "Fiecare tranzacție este procesată automat cu cele mai înalte standarde de securitate",
 			"partnership": {
-				"title": "Partnership",
-				"content": "Partnership with race organizers and authorization to ensure legitimacy."
+				"title": "Parteneriat",
+				"content": "Parteneriat cu organizatorii de curse și autorizare pentru a asigura legitimitatea."
 			},
 			"certification": {
-				"title": "Certification",
-				"content": "Verification of seller registration validity and bib certification for sale."
+				"title": "Certificare",
+				"content": "Verificarea validitatii înregistrării vânzătorului și certificarea numărului pentru vânzare."
 			},
 			"transfer": {
 				"title": "Transfer",
-				"content": "Collection of new runner registration data and bib ownership transfer."
+				"content": "Colectarea datelor de înregistrare ale noului alergător și transferul proprietății numărului."
 			},
 			"update": {
-				"title": "Update",
-				"content": "Runner data modification with organizer and information update."
+				"title": "Actualizare",
+				"content": "Modificarea datelor alergătorului cu organizatorul și actualizarea informațiilor."
 			},
 			"confirmation": {
-				"title": "Confirmation",
-				"content": "Final validation with all parties and registration confirmation notifications."
+				"title": "Confirmare",
+				"content": "Validarea finală cu toate părțile și notificările de confirmare a înregistrării."
 			}
 		},
 		"steps": {
-			"step": "Step"
+			"step": "Pasul"
 		}
 	},
 	"pt": {
 		"security": {
-			"title": "Maximum Security",
-			"subtitle": "Every transaction is processed automatically with the highest security standards",
+			"title": "Segurança Máxima",
+			"subtitle": "Cada transação é processada automaticamente com os mais altos padrões de segurança",
 			"partnership": {
-				"title": "Partnership",
-				"content": "Partnership with race organizers and authorization to ensure legitimacy."
+				"title": "Parceria",
+				"content": "Parceria com organizadores de corridas e autorização para garantir a legitimidade."
 			},
 			"certification": {
-				"title": "Certification",
-				"content": "Verification of seller registration validity and bib certification for sale."
+				"title": "Certificação",
+				"content": "Verificação da validade do registo do vendedor e certificação do dorsal para venda."
 			},
 			"transfer": {
-				"title": "Transfer",
-				"content": "Collection of new runner registration data and bib ownership transfer."
+				"title": "Transferência",
+				"content": "Recolha de dados de registo do novo corredor e transferência de propriedade do dorsal."
 			},
 			"update": {
-				"title": "Update",
-				"content": "Runner data modification with organizer and information update."
+				"title": "Atualização",
+				"content": "Modificação dos dados do corredor com o organizador e atualização das informações."
 			},
 			"confirmation": {
-				"title": "Confirmation",
-				"content": "Final validation with all parties and registration confirmation notifications."
+				"title": "Confirmação",
+				"content": "Validação final com todas as partes e notificações de confirmação do registo."
 			}
 		},
 		"steps": {
-			"step": "Step"
+			"step": "Passo"
 		}
 	},
 	"nl": {
 		"security": {
-			"title": "Maximum Security",
-			"subtitle": "Every transaction is processed automatically with the highest security standards",
+			"title": "Maximum Veiligheid",
+			"subtitle": "Elke transactie wordt automatisch verwerkt met de hoogste veiligheidsstandaarden",
 			"partnership": {
-				"title": "Partnership",
-				"content": "Partnership with race organizers and authorization to ensure legitimacy."
+				"title": "Partnerschap",
+				"content": "Partnerschap met race-organisatoren en autorisatie om legitimiteit te waarborgen."
 			},
 			"certification": {
-				"title": "Certification",
-				"content": "Verification of seller registration validity and bib certification for sale."
+				"title": "Certificering",
+				"content": "Verificatie van de geldigheid van verkoper registratie en startnummer certificering voor verkoop."
 			},
 			"transfer": {
-				"title": "Transfer",
-				"content": "Collection of new runner registration data and bib ownership transfer."
+				"title": "Overdracht",
+				"content": "Verzameling van nieuwe loper registratiegegevens en startnummer eigendom overdracht."
 			},
 			"update": {
 				"title": "Update",
-				"content": "Runner data modification with organizer and information update."
+				"content": "Loper data modificatie met organisator en informatie update."
 			},
 			"confirmation": {
-				"title": "Confirmation",
-				"content": "Final validation with all parties and registration confirmation notifications."
+				"title": "Bevestiging",
+				"content": "Finale validatie met alle partijen en registratie bevestiging notificaties."
 			}
 		},
 		"steps": {
-			"step": "Step"
+			"step": "Stap"
 		}
 	}
 }
