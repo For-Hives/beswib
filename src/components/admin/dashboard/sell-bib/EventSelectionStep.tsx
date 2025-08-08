@@ -95,7 +95,7 @@ export default function EventSelectionStep({
 															return new Date(date).toISOString()
 														}
 														const dateStr = getDateString(eventDate)
-														return formatDateForDisplay(dateStr.split('T')[0])
+														return formatDateForDisplay(dateStr.split('T')[0], locale)
 													})()}
 												</div>
 												<div className="flex items-center gap-2">

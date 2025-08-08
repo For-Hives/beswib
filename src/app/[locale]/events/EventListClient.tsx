@@ -14,6 +14,7 @@ import { SelectAnimated, type SelectOption } from '@/components/ui/select-animat
 import { TriathlonIcon, TrailIcon, RouteIcon, UltraIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
 import { Timeline } from '@/components/ui/timeline'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 import Translations from './locales.json'
 import { DateTime } from 'luxon'
 
@@ -73,7 +74,7 @@ function EventCard({
 						{eventTypeLabels[event.typeCourse] || event.typeCourse.toUpperCase()}
 					</span>
 					<span className="text-muted-foreground text-xs">
-						{new Date(event.eventDate).toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' })}
+						{formatDateObjectForDisplay(event.eventDate, locale)}
 					</span>
 				</div>
 
