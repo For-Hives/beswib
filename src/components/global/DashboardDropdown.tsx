@@ -23,7 +23,7 @@ export default function DashboardDropdown({ locale }: Readonly<DashboardDropdown
 
 	const { user: clerkUser, isLoaded } = useUser()
 	const [isAdmin, setIsAdmin] = useState(false)
-    const router = useRouter()
+	const router = useRouter()
 
 	useEffect(() => {
 		if (!isLoaded || !clerkUser) {
