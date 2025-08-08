@@ -199,7 +199,7 @@ export default function MarketplaceSidebar({
 								{showAllSports
 									? (t.showLess ?? 'Show Less')
 									: t.showMoreCount
-										? (t.showMoreCount as string).replace('{count}', String(sportsOptions.length - 4))
+										? t.showMoreCount.replace('{count}', String(sportsOptions.length - 4))
 										: `Show ${sportsOptions.length - 4} More`}
 							</Button>
 						)}
@@ -247,7 +247,7 @@ export default function MarketplaceSidebar({
 								{showAllDistances
 									? (t.showLess ?? 'Show Less')
 									: t.showMoreCount
-										? (t.showMoreCount as string).replace('{count}', String(distanceOptions.length - 4))
+										? t.showMoreCount.replace('{count}', String(distanceOptions.length - 4))
 										: `Show ${distanceOptions.length - 4} More`}
 							</Button>
 						)}
