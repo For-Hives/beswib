@@ -53,6 +53,25 @@
 		"swimming": "Swimming",
 		"verified": "Verified",
 		"wantThisBib": "I want this bib"
+		,
+		"distances": {
+			"fiveKm": "5 km",
+			"fiveKmRange": "4-6 km",
+			"tenKm": "10 km",
+			"tenKmRange": "9-11 km",
+			"halfMarathon": "Half Marathon",
+			"halfMarathonRange": "20-22 km",
+			"marathon": "Marathon",
+			"marathonRange": "41-43 km",
+			"ultra": "Ultra (+80 km)",
+			"ultraRange": "80+ km",
+			"triS": "Triathlon S",
+			"triSRange": "25-30 km",
+			"triM": "Triathlon M",
+			"triMRange": "50-55 km",
+			"triL": "Triathlon L",
+			"triLRange": "110-115 km"
+		}
 	},
 	"fr": {
 		"aboutEvent": "À propos de cet événement",
@@ -108,6 +127,25 @@
 		"swimming": "Natation",
 		"verified": "Vérifié",
 		"wantThisBib": "Je veux ce dossard"
+		,
+		"distances": {
+			"fiveKm": "5 km",
+			"fiveKmRange": "4-6 km",
+			"tenKm": "10 km",
+			"tenKmRange": "9-11 km",
+			"halfMarathon": "Semi-marathon",
+			"halfMarathonRange": "20-22 km",
+			"marathon": "Marathon",
+			"marathonRange": "41-43 km",
+			"ultra": "Ultra (+80 km)",
+			"ultraRange": "80+ km",
+			"triS": "Triathlon S",
+			"triSRange": "25-30 km",
+			"triM": "Triathlon M",
+			"triMRange": "50-55 km",
+			"triL": "Triathlon L",
+			"triLRange": "110-115 km"
+		}
 	},
 	"es": {
 		"aboutEvent": "Acerca de este evento",
@@ -163,6 +201,25 @@
 		"swimming": "Natación",
 		"verified": "Verificado",
 		"wantThisBib": "Quiero este dorsal"
+		,
+		"distances": {
+			"fiveKm": "5 km",
+			"fiveKmRange": "4-6 km",
+			"tenKm": "10 km",
+			"tenKmRange": "9-11 km",
+			"halfMarathon": "Media maratón",
+			"halfMarathonRange": "20-22 km",
+			"marathon": "Maratón",
+			"marathonRange": "41-43 km",
+			"ultra": "Ultra (+80 km)",
+			"ultraRange": "80+ km",
+			"triS": "Triatlón S",
+			"triSRange": "25-30 km",
+			"triM": "Triatlón M",
+			"triMRange": "50-55 km",
+			"triL": "Triatlón L",
+			"triLRange": "110-115 km"
+		}
 	},
 	"it": {
 		"aboutEvent": "Su questo evento",
@@ -218,6 +275,25 @@
 		"swimming": "Nuoto",
 		"verified": "Verificato",
 		"wantThisBib": "Voglio questo pettorale"
+		,
+		"distances": {
+			"fiveKm": "5 km",
+			"fiveKmRange": "4-6 km",
+			"tenKm": "10 km",
+			"tenKmRange": "9-11 km",
+			"halfMarathon": "Mezza maratona",
+			"halfMarathonRange": "20-22 km",
+			"marathon": "Maratona",
+			"marathonRange": "41-43 km",
+			"ultra": "Ultra (+80 km)",
+			"ultraRange": "80+ km",
+			"triS": "Triathlon S",
+			"triSRange": "25-30 km",
+			"triM": "Triathlon M",
+			"triMRange": "50-55 km",
+			"triL": "Triathlon L",
+			"triLRange": "110-115 km"
+		}
 	},
 	"de": {
 		"aboutEvent": "Über diese Veranstaltung",
@@ -273,6 +349,25 @@
 		"swimming": "Schwimmen",
 		"verified": "Verifiziert",
 		"wantThisBib": "Ich will diese Startnummer"
+		,
+		"distances": {
+			"fiveKm": "5 km",
+			"fiveKmRange": "4-6 km",
+			"tenKm": "10 km",
+			"tenKmRange": "9-11 km",
+			"halfMarathon": "Halbmarathon",
+			"halfMarathonRange": "20-22 km",
+			"marathon": "Marathon",
+			"marathonRange": "41-43 km",
+			"ultra": "Ultra (+80 km)",
+			"ultraRange": "80+ km",
+			"triS": "Triathlon S",
+			"triSRange": "25-30 km",
+			"triM": "Triathlon M",
+			"triMRange": "50-55 km",
+			"triL": "Triathlon L",
+			"triLRange": "110-115 km"
+		}
 	},
 	"ro": {
 		"aboutEvent": "Despre acest eveniment",
@@ -328,6 +423,25 @@
 		"swimming": "Înot",
 		"verified": "Verificat",
 		"wantThisBib": "Vreau acest număr"
+		,
+		"distances": {
+			"fiveKm": "5 km",
+			"fiveKmRange": "4-6 km",
+			"tenKm": "10 km",
+			"tenKmRange": "9-11 km",
+			"halfMarathon": "Semimaraton",
+			"halfMarathonRange": "20-22 km",
+			"marathon": "Maraton",
+			"marathonRange": "41-43 km",
+			"ultra": "Ultra (+80 km)",
+			"ultraRange": "80+ km",
+			"triS": "Triatlon S",
+			"triSRange": "25-30 km",
+			"triM": "Triatlon M",
+			"triMRange": "50-55 km",
+			"triL": "Triatlon L",
+			"triLRange": "110-115 km"
+		}
 	},
 	"pt": {
 		"aboutEvent": "Sobre este evento",
@@ -383,6 +497,25 @@
 		"swimming": "Natação",
 		"verified": "Verificado",
 		"wantThisBib": "Quero este dorsal"
+		,
+		"distances": {
+			"fiveKm": "5 km",
+			"fiveKmRange": "4-6 km",
+			"tenKm": "10 km",
+			"tenKmRange": "9-11 km",
+			"halfMarathon": "Meia-maratona",
+			"halfMarathonRange": "20-22 km",
+			"marathon": "Maratona",
+			"marathonRange": "41-43 km",
+			"ultra": "Ultra (+80 km)",
+			"ultraRange": "80+ km",
+			"triS": "Triatlo S",
+			"triSRange": "25-30 km",
+			"triM": "Triatlo M",
+			"triMRange": "50-55 km",
+			"triL": "Triatlo L",
+			"triLRange": "110-115 km"
+		}
 	},
 	"nl": {
 		"aboutEvent": "Over dit evenement",
@@ -438,6 +571,25 @@
 		"swimming": "Zwemmen",
 		"verified": "Geverifieerd",
 		"wantThisBib": "Ik wil dit startnummer"
+		,
+		"distances": {
+			"fiveKm": "5 km",
+			"fiveKmRange": "4-6 km",
+			"tenKm": "10 km",
+			"tenKmRange": "9-11 km",
+			"halfMarathon": "Halve marathon",
+			"halfMarathonRange": "20-22 km",
+			"marathon": "Marathon",
+			"marathonRange": "41-43 km",
+			"ultra": "Ultra (+80 km)",
+			"ultraRange": "80+ km",
+			"triS": "Triatlon S",
+			"triSRange": "25-30 km",
+			"triM": "Triatlon M",
+			"triMRange": "50-55 km",
+			"triL": "Triatlon L",
+			"triLRange": "110-115 km"
+		}
 	},
 	"ko": {
 		"aboutEvent": "이 이벤트 정보",
@@ -493,5 +645,24 @@
 		"swimming": "수영",
 		"verified": "검증됨",
 		"wantThisBib": "이 빕을 원합니다"
+		,
+		"distances": {
+			"fiveKm": "5km",
+			"fiveKmRange": "4-6 km",
+			"tenKm": "10km",
+			"tenKmRange": "9-11 km",
+			"halfMarathon": "하프 마라톤",
+			"halfMarathonRange": "20-22 km",
+			"marathon": "마라톤",
+			"marathonRange": "41-43 km",
+			"ultra": "울트라 (+80 km)",
+			"ultraRange": "80+ km",
+			"triS": "트라이애슬론 S",
+			"triSRange": "25-30 km",
+			"triM": "트라이애슬론 M",
+			"triMRange": "50-55 km",
+			"triL": "트라이애슬론 L",
+			"triLRange": "110-115 km"
+		}
 	}
 }

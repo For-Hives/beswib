@@ -69,10 +69,13 @@ export default function PrivacyClient({ locale }: Readonly<Props>) {
 				<section className="space-y-3">
 					<h2 className="text-xl font-semibold tracking-tight md:text-2xl">{t.privacy.contact.title}</h2>
 					<p className="text-muted-foreground">
-						<strong>{t.privacy.contact.ownerName}</strong> — {t.privacy.contact.ownerDetails}
+						<strong>{t.privacy.contact.ownerName}</strong>
 					</p>
+					<p className="text-muted-foreground">{t.privacy.contact.ownerDetails}</p>
 					<p className="text-muted-foreground">
-						<strong>{t.privacy.contact.hostingTitle}</strong> {t.privacy.contact.hostingDetails}
+						<strong>{t.privacy.contact.hostingTitle}</strong>
+						<br />
+						{t.privacy.contact.hostingDetails}
 					</p>
 					<p>
 						<Link href={t.privacy.contact.website} className="underline" target="_blank" rel="noreferrer">

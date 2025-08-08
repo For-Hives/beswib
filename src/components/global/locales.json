@@ -191,7 +191,16 @@
 			"madeWith": "Hecho con",
 			"by": "por",
 			"selectLanguage": "Seleccionar idioma",
-			"currentLanguage": "Idioma actual"
+			"currentLanguage": "Idioma actual",
+			"sections": {
+				"explore": "Explorar",
+				"legal": "Legal"
+			},
+			"links": {
+				"legalNotice": "Aviso legal",
+				"privacy": "Política de privacidad",
+				"terms": "Términos del servicio"
+			}
 		},
 		"pages": {
 			"faq": {
@@ -268,7 +277,16 @@
 			"madeWith": "Fatto con",
 			"by": "da",
 			"selectLanguage": "Seleziona lingua",
-			"currentLanguage": "Lingua attuale"
+			"currentLanguage": "Lingua attuale",
+			"sections": {
+				"explore": "Esplora",
+				"legal": "Legale"
+			},
+			"links": {
+				"legalNotice": "Note legali",
+				"privacy": "Informativa privacy",
+				"terms": "Termini di servizio"
+			}
 		},
 		"pages": {
 			"faq": {
@@ -345,7 +363,16 @@
 			"madeWith": "Gemacht mit",
 			"by": "von",
 			"selectLanguage": "Sprache auswählen",
-			"currentLanguage": "Aktuelle Sprache"
+			"currentLanguage": "Aktuelle Sprache",
+			"sections": {
+				"explore": "Entdecken",
+				"legal": "Rechtliches"
+			},
+			"links": {
+				"legalNotice": "Impressum",
+				"privacy": "Datenschutz",
+				"terms": "Nutzungsbedingungen"
+			}
 		},
 		"pages": {
 			"faq": {
@@ -422,7 +449,16 @@
 			"madeWith": "Realizat cu",
 			"by": "de",
 			"selectLanguage": "Selectează limba",
-			"currentLanguage": "Limba curentă"
+			"currentLanguage": "Limba curentă",
+			"sections": {
+				"explore": "Explorează",
+				"legal": "Legal"
+			},
+			"links": {
+				"legalNotice": "Mențiuni legale",
+				"privacy": "Politica de confidențialitate",
+				"terms": "Termeni și condiții"
+			}
 		},
 		"pages": {
 			"faq": {
@@ -499,7 +535,16 @@
 			"madeWith": "Feito com",
 			"by": "por",
 			"selectLanguage": "Selecionar idioma",
-			"currentLanguage": "Idioma atual"
+			"currentLanguage": "Idioma atual",
+			"sections": {
+				"explore": "Explorar",
+				"legal": "Legal"
+			},
+			"links": {
+				"legalNotice": "Aviso legal",
+				"privacy": "Política de Privacidade",
+				"terms": "Termos de Serviço"
+			}
 		},
 		"pages": {
 			"faq": {
@@ -576,7 +621,16 @@
 			"madeWith": "Gemaakt met",
 			"by": "door",
 			"selectLanguage": "Taal kiezen",
-			"currentLanguage": "Huidige taal"
+			"currentLanguage": "Huidige taal",
+			"sections": {
+				"explore": "Verkennen",
+				"legal": "Juridisch"
+			},
+			"links": {
+				"legalNotice": "Juridische kennisgeving",
+				"privacy": "Privacybeleid",
+				"terms": "Servicevoorwaarden"
+			}
 		},
 		"pages": {
 			"faq": {
