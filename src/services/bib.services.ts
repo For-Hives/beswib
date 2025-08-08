@@ -161,6 +161,38 @@ export async function unlockBib(bibId: string): Promise<Bib | null> {
 }
 
 /**
+ * Checks if a bib is currently locked.
+ * @param bibId The ID of the bib to check.
+ */
+
+export async function isLocked(bibId: string): Promise<boolean> {
+	if (!bibId) return false
+	try {
+		const bib = await pb.collection('bibs').getOne<Bib>(bibId)
+
+		// if locked, check if the lock has expired
+		if (bib.lockedAt) {
+			const now = new Date()
+			const lockExpiration = new Date(bib.lockedAt)
+			lockExpiration.setMinutes(lockExpiration.getMinutes() + 5)
+			if (now > lockExpiration) {
+				// Lock has expired
+				await unlockBib(bibId)
+				return false
+			}
+		}
+		// si non verouiller, check si deja vendu
+		if (Boolean(bib.status === 'sold')) {
+			return true
+		}
+
+		return bib.lockedAt !== null
+	} catch (error: unknown) {
+		throw new Error('Error checking if bib is locked: ' + (error instanceof Error ? error.message : String(error)))
+	}
+}
+
+/**
  * Unlocks all bibs whose lockedAt is older than 5 minutes ago.
  * Can be called by a scheduled job or marketplace trigger.
  */

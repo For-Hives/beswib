@@ -15,10 +15,11 @@ import { capturePayment, createOrder } from '@/services/paypal.services'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'
 // import Lanyard from '@/components/ui/BibPriceLanyard'
-import { lockBib, unlockExpiredBibs } from '@/services/bib.services'
+import { isLocked, lockBib, unlockExpiredBibs } from '@/services/bib.services'
 
 // Import sub-components
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
+import { toast } from 'sonner'
 
 interface PayPalPurchaseClientProps {
 	bib: BibSale
@@ -60,12 +61,13 @@ export default function PayPalPurchaseClient({
 	const isOwnBib = user?.id === bib.user.id
 
 	useEffect(() => {
-		void unlockExpiredBibs()
+		// void unlockExpiredBibs()
 		setIsProfileComplete(isUserProfileComplete(user))
 	}, [user])
 
 	// Check if user is authenticated when trying to open payment modal
 	const handleBuyNowClick = async () => {
+		console.log('click')
 		if (isSignedIn !== true) {
 			router.push(`/${locale}/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`)
 			return
@@ -74,10 +76,13 @@ export default function PayPalPurchaseClient({
 			// User trying to buy their own bib - do nothing, button should be disabled
 			return
 		}
+		console.log('ici ca passe')
 		if (isProfileComplete) {
 			// check for lock mechanism to prevent multi user to buy the same bib
-			if (bib.lockedAt != null) {
-				setErrorMessage('This bib is currently locked by another user for purchase. Please try again later.')
+			const isBibLocked = await isLocked(bib.id)
+			if (isBibLocked) {
+				console.log('Bib is locked:', bib.lockedAt)
+				toast.error('This bib is currently locked by another user for purchase. Please try again later.')
 				return
 			}
 			// Try to lock the bib for this user
@@ -85,7 +90,7 @@ export default function PayPalPurchaseClient({
 			try {
 				const lockedBib = await lockBib(bib.id, user?.id ?? '')
 				if (!lockedBib) {
-					setErrorMessage('Failed to lock bib. It may have just been locked by another user.')
+					toast.error('Failed to lock bib. It may have just been locked by another user.')
 					console.error('Failed to lock bib:', lockedBib)
 					setLoading(false)
 					return
@@ -93,7 +98,7 @@ export default function PayPalPurchaseClient({
 				setLockExpiration(lockedBib.lockedAt != null ? new Date(lockedBib.lockedAt) : null)
 				setIsPanelOpen(true)
 			} catch (err) {
-				setErrorMessage('Error locking bib for purchase.' + (err instanceof Error ? err.message : String(err)))
+				toast.error('Error locking bib for purchase.' + (err instanceof Error ? err.message : String(err)))
 			} finally {
 				setLoading(false)
 			}
