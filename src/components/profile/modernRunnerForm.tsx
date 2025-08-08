@@ -59,7 +59,6 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 	const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 	const isComplete = isUserProfileComplete(user)
 
-
 	// Gender options for SelectAnimated
 	const genderOptions: SelectOption[] = [
 		{ value: 'male', label: 'Male' },
