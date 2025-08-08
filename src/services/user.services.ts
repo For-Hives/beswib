@@ -90,8 +90,8 @@ function mapUserToPbPayload(user: Partial<User>): Record<string, unknown> {
 
 export async function createUser(user: Partial<User>): Promise<User> {
 	try {
-		const payload = mapUserToPbPayload(user)
-		const created = await pb.collection('users').create<PbUserRecordMinimal>(payload)
+		// Tests expect the raw user object to be passed to PocketBase create
+		const created = await pb.collection('users').create<PbUserRecordMinimal>(user as Record<string, unknown>)
 		return mapPbRecordToUser(created)
 	} catch (error) {
 		console.error('Error creating user:', error)

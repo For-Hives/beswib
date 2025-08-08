@@ -728,7 +728,12 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							<div className="grid grid-cols-2 gap-4">
 								{section.events.slice(0, 8).map(e => (
 									<div key={e.id} className="col-span-1">
-										<EventCard event={e} />
+										<EventCard
+											event={e}
+											locale={locale}
+											bibsCount={eventBibsCache[e.id]}
+											onAction={handleEventAction}
+										/>
 									</div>
 								))}
 							</div>
