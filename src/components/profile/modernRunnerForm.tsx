@@ -12,6 +12,9 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { object, string, minLength, picklist, pipe, optional, email as emailValidator } from 'valibot'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { User } from '@/models/user.model'
+import profileTranslations from '@/components/profile/locales.json'
+import { getTranslations } from '@/lib/getDictionary'
+import { Locale } from '@/lib/i18n-config'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { formatDateForHTMLInput } from '@/lib/dateUtils'
@@ -54,16 +57,17 @@ const runnerFormSchema = object({
 	licenseNumber: optional(string()),
 })
 
-export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
+export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Readonly<{ user: User; locale?: Locale }>) {
+	const t = getTranslations(locale, profileTranslations)
 	const [isPending, startTransition] = useTransition()
 	const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 	const isComplete = isUserProfileComplete(user)
 
 	// Gender options for SelectAnimated
 	const genderOptions: SelectOption[] = [
-		{ value: 'male', label: 'Male' },
-		{ value: 'female', label: 'Female' },
-		{ value: 'other', label: 'Other' },
+		{ value: 'male', label: t.genderOptions?.male ?? 'Male' },
+		{ value: 'female', label: t.genderOptions?.female ?? 'Female' },
+		{ value: 'other', label: t.genderOptions?.other ?? 'Other' },
 	]
 
 	const form = useForm<RunnerFormData>({
@@ -127,10 +131,9 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 			{!isComplete && (
 				<Alert variant="destructive" className="bg-red-500/5">
 					<AlertTriangle className="h-4 w-4" />
-					<AlertTitle>Profile Required for Marketplace Access</AlertTitle>
+					<AlertTitle>{t.profileRequiredTitle ?? 'Profile Required for Marketplace Access'}</AlertTitle>
 					<AlertDescription>
-						Please complete all required fields below to access the marketplace and purchase bibs. Fields marked with *
-						are required.
+						{t.profileRequiredDesc ?? 'Please complete all required fields below to access the marketplace and purchase bibs. Fields marked with * are required.'}
 					</AlertDescription>
 				</Alert>
 			)}
@@ -138,9 +141,9 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 			{isComplete && (
 				<Alert className="border-green-500/50 bg-green-500/10">
 					<CheckCircle className="h-4 w-4 text-green-500" />
-					<AlertTitle className="text-green-700 dark:text-green-300">Profile Complete</AlertTitle>
+					<AlertTitle className="text-green-700 dark:text-green-300">{t.profileCompleteTitle ?? 'Profile Complete'}</AlertTitle>
 					<AlertDescription className="text-green-600 dark:text-green-400">
-						Your profile is complete! You can now access the marketplace and purchase bibs.
+						{t.profileCompleteDesc ?? 'Your profile is complete! You can now access the marketplace and purchase bibs.'}
 					</AlertDescription>
 				</Alert>
 			)}
@@ -149,9 +152,9 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 			{submitStatus === 'success' && (
 				<Alert className="border-green-500/50 bg-green-500/10">
 					<CheckCircle className="h-4 w-4 text-green-500" />
-					<AlertTitle className="text-green-700 dark:text-green-300">Profile Saved</AlertTitle>
+					<AlertTitle className="text-green-700 dark:text-green-300">{t.profileSavedTitle ?? 'Profile Saved'}</AlertTitle>
 					<AlertDescription className="text-green-600 dark:text-green-400">
-						Your profile has been successfully updated.
+						{t.profileSavedDesc ?? 'Your profile has been successfully updated.'}
 					</AlertDescription>
 				</Alert>
 			)}
@@ -159,8 +162,8 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 			{submitStatus === 'error' && (
 				<Alert variant="destructive">
 					<AlertTriangle className="h-4 w-4" />
-					<AlertTitle>Error Saving Profile</AlertTitle>
-					<AlertDescription>There was an error saving your profile. Please try again.</AlertDescription>
+					<AlertTitle>{t.errorSavingTitle ?? 'Error Saving Profile'}</AlertTitle>
+					<AlertDescription>{t.errorSavingDesc ?? 'There was an error saving your profile. Please try again.'}</AlertDescription>
 				</Alert>
 			)}
 
@@ -176,13 +179,13 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 					<CardContent className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="firstName">
-								First Name *
+								{t.firstName ?? 'First Name'} *
 							</Label>
 							<Input
 								{...form.register('firstName')}
 								className={form.formState.errors.firstName ? 'border-red-500' : ''}
 								id="firstName"
-								placeholder="Enter your first name"
+								placeholder={t.firstNamePlaceholder ?? 'Enter your first name'}
 								type="text"
 							/>
 							{typeof form.formState.errors.firstName?.message === 'string' && (
@@ -192,13 +195,13 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="lastName">
-								Last Name *
+								{t.lastName ?? 'Last Name'} *
 							</Label>
 							<Input
 								{...form.register('lastName')}
 								className={form.formState.errors.lastName ? 'border-red-500' : ''}
 								id="lastName"
-								placeholder="Enter your last name"
+								placeholder={t.lastNamePlaceholder ?? 'Enter your last name'}
 								type="text"
 							/>
 							{typeof form.formState.errors.lastName?.message === 'string' && (
@@ -208,7 +211,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="birthDate">
-								Birth Date *
+								{t.birthDate ?? 'Birth Date'} *
 							</Label>
 							<Controller
 								name="birthDate"
@@ -230,8 +233,8 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="phoneNumber">
-								Phone Number
-								<span className="text-muted-foreground ml-1 text-xs">(at least one of phone or contact email)</span>
+								{t.phoneNumber ?? 'Phone Number'}
+								<span className="text-muted-foreground ml-1 text-xs">{t.atLeastOneContact ?? '(at least one of phone or contact email)'}</span>
 							</Label>
 							<Input
 								{...form.register('phoneNumber')}
@@ -249,8 +252,8 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="contactEmail">
-								Contact Email
-								<span className="text-muted-foreground ml-1 text-xs">(optional alternative to phone)</span>
+								{t.contactEmail ?? 'Contact Email'}
+								<span className="text-muted-foreground ml-1 text-xs">{t.optionalAlternative ?? '(optional alternative to phone)'}</span>
 							</Label>
 							<Input
 								{...form.register('contactEmail')}
@@ -268,7 +271,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="gender">
-								Gender *
+								{t.gender ?? 'Gender'} *
 							</Label>
 							<SelectAnimated
 								onValueChange={value => form.setValue('gender', value as 'male' | 'female' | 'other')}
@@ -294,7 +297,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 					<CardContent className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="emergencyContactName">
-								Contact Name *
+								{t.contactName ?? 'Contact Name'} *
 							</Label>
 							<Input
 								{...form.register('emergencyContactName')}
@@ -312,7 +315,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="emergencyContactPhone">
-								Contact Phone *
+								{t.contactPhone ?? 'Contact Phone'} *
 							</Label>
 							<Input
 								{...form.register('emergencyContactPhone')}
@@ -333,7 +336,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								className="text-foreground mb-2 block text-base font-medium"
 								htmlFor="emergencyContactRelationship"
 							>
-								Relationship *
+								{t.relationship ?? 'Relationship'} *
 							</Label>
 							<Input
 								{...form.register('emergencyContactRelationship')}
@@ -362,7 +365,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 					<CardContent className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 						<div className="sm:col-span-2">
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="address">
-								Street Address *
+								{t.street ?? 'Street Address'} *
 							</Label>
 							<Input
 								{...form.register('address')}
@@ -378,7 +381,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="postalCode">
-								Postal Code *
+								{t.postalCode ?? 'Postal Code'} *
 							</Label>
 							<Input
 								{...form.register('postalCode')}
@@ -396,13 +399,13 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="city">
-								City *
+								{t.city ?? 'City'} *
 							</Label>
 							<Input
 								{...form.register('city')}
 								className={form.formState.errors.city ? 'border-red-500' : ''}
 								id="city"
-								placeholder="Enter your city"
+								placeholder={t.cityPlaceholder ?? 'Enter your city'}
 								type="text"
 							/>
 							{form.formState.errors.city && (
@@ -412,13 +415,13 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 						<div className="sm:col-span-2">
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="country">
-								Country *
+								{t.country ?? 'Country'} *
 							</Label>
 							<Input
 								{...form.register('country')}
 								className={form.formState.errors.country ? 'border-red-500' : ''}
 								id="country"
-								placeholder="Enter your country"
+								placeholder={t.countryPlaceholder ?? 'Enter your country'}
 								type="text"
 							/>
 							{form.formState.errors.country && (
@@ -440,7 +443,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 					<CardContent className="grid grid-cols-1 gap-6">
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="medicalCertificateUrl">
-								Medical Certificate URL
+								{t.medicalCertUrl ?? 'Medical Certificate URL'}
 							</Label>
 							<Input
 								{...form.register('medicalCertificateUrl')}
@@ -448,12 +451,12 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								placeholder="https://example.com/medical-cert.pdf"
 								type="url"
 							/>
-							<p className="text-muted-foreground mt-1 text-sm">Optional: Link to your medical certificate</p>
+							<p className="text-muted-foreground mt-1 text-sm">{t.medicalCertHelp ?? 'Optional: Link to your medical certificate'}</p>
 						</div>
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="clubAffiliation">
-								Club Affiliation
+								{t.clubAffiliation ?? 'Club Affiliation'}
 							</Label>
 							<Input
 								{...form.register('clubAffiliation')}
@@ -461,29 +464,29 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 								placeholder="Running Club Name"
 								type="text"
 							/>
-							<p className="text-muted-foreground mt-1 text-sm">Optional: Name of your running/sports club</p>
+							<p className="text-muted-foreground mt-1 text-sm">{t.clubAffiliationHelp ?? 'Optional: Name of your running/sports club'}</p>
 						</div>
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="licenseNumber">
-								License Number
+								{t.licenseNumber ?? 'License Number'}
 							</Label>
 							<Input {...form.register('licenseNumber')} id="licenseNumber" placeholder="FFA123456" type="text" />
-							<p className="text-muted-foreground mt-1 text-sm">Optional: Your athletic federation license number</p>
+							<p className="text-muted-foreground mt-1 text-sm">{t.licenseNumberHelp ?? 'Optional: Your athletic federation license number'}</p>
 						</div>
 					</CardContent>
 				</Card>
 
 				{/* Submit Button */}
 				<div className="flex justify-end">
-					<Button
+							<Button
 						className="flex items-center gap-2 px-8 py-3 text-lg font-medium"
 						disabled={isPending}
 						size="lg"
 						type="submit"
 					>
 						<Save className="h-5 w-5" />
-						{isPending ? 'Saving...' : 'Save Profile'}
+								{isPending ? (t.saving ?? 'Saving...') : (t.save ?? 'Save Profile')}
 					</Button>
 				</div>
 			</form>
