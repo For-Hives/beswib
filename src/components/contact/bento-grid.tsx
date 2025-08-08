@@ -52,16 +52,16 @@ export default function BentoGrid({ t }: Props) {
 				initial={{ y: 20, opacity: 0 }}
 			>
 				<div className="relative z-10">
-					<h1 className="text-primary-foreground mb-6 text-4xl font-bold">{t.discussTogether}</h1>
-					<p className="text-primary-foreground/80 mb-8">{t.useContactForm}</p>
+					<h1 className="dark:text-primary-foreground mb-6 text-4xl font-bold">{t.discussTogether}</h1>
+					<p className="dark:text-primary-foreground/80 mb-8">{t.useContactForm}</p>
 
 					<div className="mb-2">
-						<p className="text-primary-foreground/80 mb-4">{t.runnerOrganizer}</p>
+						<p className="dark:text-primary-foreground/80 mb-4">{t.runnerOrganizer}</p>
 
 						<div className="flex justify-between space-x-4">
 							<div>
-								<p className="text-primary-foreground/80">{t.ourTeamResponds}</p>
-								<ul className="text-primary-foreground/80 mt-2 list-inside list-disc space-y-1">
+								<p className="dark:text-primary-foreground/80">{t.ourTeamResponds}</p>
+								<ul className="dark:text-primary-foreground/80 mt-2 list-inside list-disc space-y-1">
 									<li>{t.understandPlatform}</li>
 									<li>{t.sellBibNotListed}</li>
 									<li>{t.organizerAuthorize}</li>
