@@ -85,5 +85,179 @@
 		"steps": {
 			"step": "단계"
 		}
+	},
+	"es": {
+		"security": {
+			"title": "Maximum Security",
+			"subtitle": "Every transaction is processed automatically with the highest security standards",
+			"partnership": {
+				"title": "Partnership",
+				"content": "Partnership with race organizers and authorization to ensure legitimacy."
+			},
+			"certification": {
+				"title": "Certification",
+				"content": "Verification of seller registration validity and bib certification for sale."
+			},
+			"transfer": {
+				"title": "Transfer",
+				"content": "Collection of new runner registration data and bib ownership transfer."
+			},
+			"update": {
+				"title": "Update",
+				"content": "Runner data modification with organizer and information update."
+			},
+			"confirmation": {
+				"title": "Confirmation",
+				"content": "Final validation with all parties and registration confirmation notifications."
+			}
+		},
+		"steps": {
+			"step": "Step"
+		}
+	},
+	"it": {
+		"security": {
+			"title": "Maximum Security",
+			"subtitle": "Every transaction is processed automatically with the highest security standards",
+			"partnership": {
+				"title": "Partnership",
+				"content": "Partnership with race organizers and authorization to ensure legitimacy."
+			},
+			"certification": {
+				"title": "Certification",
+				"content": "Verification of seller registration validity and bib certification for sale."
+			},
+			"transfer": {
+				"title": "Transfer",
+				"content": "Collection of new runner registration data and bib ownership transfer."
+			},
+			"update": {
+				"title": "Update",
+				"content": "Runner data modification with organizer and information update."
+			},
+			"confirmation": {
+				"title": "Confirmation",
+				"content": "Final validation with all parties and registration confirmation notifications."
+			}
+		},
+		"steps": {
+			"step": "Step"
+		}
+	},
+	"de": {
+		"security": {
+			"title": "Maximum Security",
+			"subtitle": "Every transaction is processed automatically with the highest security standards",
+			"partnership": {
+				"title": "Partnership",
+				"content": "Partnership with race organizers and authorization to ensure legitimacy."
+			},
+			"certification": {
+				"title": "Certification",
+				"content": "Verification of seller registration validity and bib certification for sale."
+			},
+			"transfer": {
+				"title": "Transfer",
+				"content": "Collection of new runner registration data and bib ownership transfer."
+			},
+			"update": {
+				"title": "Update",
+				"content": "Runner data modification with organizer and information update."
+			},
+			"confirmation": {
+				"title": "Confirmation",
+				"content": "Final validation with all parties and registration confirmation notifications."
+			}
+		},
+		"steps": {
+			"step": "Step"
+		}
+	},
+	"ro": {
+		"security": {
+			"title": "Maximum Security",
+			"subtitle": "Every transaction is processed automatically with the highest security standards",
+			"partnership": {
+				"title": "Partnership",
+				"content": "Partnership with race organizers and authorization to ensure legitimacy."
+			},
+			"certification": {
+				"title": "Certification",
+				"content": "Verification of seller registration validity and bib certification for sale."
+			},
+			"transfer": {
+				"title": "Transfer",
+				"content": "Collection of new runner registration data and bib ownership transfer."
+			},
+			"update": {
+				"title": "Update",
+				"content": "Runner data modification with organizer and information update."
+			},
+			"confirmation": {
+				"title": "Confirmation",
+				"content": "Final validation with all parties and registration confirmation notifications."
+			}
+		},
+		"steps": {
+			"step": "Step"
+		}
+	},
+	"pt": {
+		"security": {
+			"title": "Maximum Security",
+			"subtitle": "Every transaction is processed automatically with the highest security standards",
+			"partnership": {
+				"title": "Partnership",
+				"content": "Partnership with race organizers and authorization to ensure legitimacy."
+			},
+			"certification": {
+				"title": "Certification",
+				"content": "Verification of seller registration validity and bib certification for sale."
+			},
+			"transfer": {
+				"title": "Transfer",
+				"content": "Collection of new runner registration data and bib ownership transfer."
+			},
+			"update": {
+				"title": "Update",
+				"content": "Runner data modification with organizer and information update."
+			},
+			"confirmation": {
+				"title": "Confirmation",
+				"content": "Final validation with all parties and registration confirmation notifications."
+			}
+		},
+		"steps": {
+			"step": "Step"
+		}
+	},
+	"nl": {
+		"security": {
+			"title": "Maximum Security",
+			"subtitle": "Every transaction is processed automatically with the highest security standards",
+			"partnership": {
+				"title": "Partnership",
+				"content": "Partnership with race organizers and authorization to ensure legitimacy."
+			},
+			"certification": {
+				"title": "Certification",
+				"content": "Verification of seller registration validity and bib certification for sale."
+			},
+			"transfer": {
+				"title": "Transfer",
+				"content": "Collection of new runner registration data and bib ownership transfer."
+			},
+			"update": {
+				"title": "Update",
+				"content": "Runner data modification with organizer and information update."
+			},
+			"confirmation": {
+				"title": "Confirmation",
+				"content": "Final validation with all parties and registration confirmation notifications."
+			}
+		},
+		"steps": {
+			"step": "Step"
+		}
 	}
 }

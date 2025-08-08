@@ -246,7 +246,36 @@ export default function PayPalPurchaseClient({
 					<div className="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
 						<div className="flex flex-col-reverse"></div>
 
-						<EventDetails bib={bib} eventData={eventData} organizerData={organizerData} />
+								<h2 id="information-heading" className="sr-only">
+									Bib information
+								</h2>
+								<p className="text-muted-foreground mt-2 text-sm">
+									Event Date: {bib.event.date.toLocaleDateString()} • {bib.event.location}
+								</p>
+							</div>
+
+							<div className="space-y-4">
+								{/* Race Stats */}
+								<div className="text-muted-foreground flex items-center gap-6 text-sm">
+									{/* Distance + Elevation */}
+									<span>
+										{bib.event.distance}
+										{bib.event.distanceUnit}
+										{(eventData?.elevationGainM ?? 0) > 0 && (
+											<span className="text-muted-foreground/70"> (+{eventData?.elevationGainM}m)</span>
+										)}
+									</span>
+
+									{/* Participants */}
+									<span>{bib.event.participantCount.toLocaleString()} runners</span>
+								</div>
+							</div>
+						</div>
+
+						{/* Event Description with Organizer Info */}
+						<EventDetails bib={bib} eventData={eventData} organizerData={organizerData} locale={locale} />
+
+						{/* Price */}
 						<PriceDisplay bib={bib} eventData={eventData} />
 						<ActionButtons
 							isSignedIn={isSignedIn}

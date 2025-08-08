@@ -1,0 +1,56 @@
+{
+	"en": {
+		"noEvents": "No events",
+		"viewEvent": "View event",
+		"date": "Date",
+		"location": "Location"
+	},
+	"fr": {
+		"noEvents": "Aucun événement",
+		"viewEvent": "Voir l'événement",
+		"date": "Date",
+		"location": "Lieu"
+	},
+	"ko": {
+		"noEvents": "이벤트 없음",
+		"viewEvent": "이벤트 보기",
+		"date": "날짜",
+		"location": "위치"
+	},
+	"es": {
+		"noEvents": "No hay eventos",
+		"viewEvent": "Ver evento",
+		"date": "Fecha",
+		"location": "Ubicación"
+	},
+	"it": {
+		"noEvents": "Nessun evento",
+		"viewEvent": "Vedi evento",
+		"date": "Data",
+		"location": "Posizione"
+	},
+	"de": {
+		"noEvents": "Keine Veranstaltungen",
+		"viewEvent": "Event ansehen",
+		"date": "Datum",
+		"location": "Ort"
+	},
+	"ro": {
+		"noEvents": "Nu există evenimente",
+		"viewEvent": "Vezi evenimentul",
+		"date": "Dată",
+		"location": "Locație"
+	},
+	"pt": {
+		"noEvents": "Sem eventos",
+		"viewEvent": "Ver evento",
+		"date": "Data",
+		"location": "Local"
+	},
+	"nl": {
+		"noEvents": "Geen evenementen",
+		"viewEvent": "Bekijk evenement",
+		"date": "Datum",
+		"location": "Locatie"
+	}
+}

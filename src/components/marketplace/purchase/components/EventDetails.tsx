@@ -5,6 +5,10 @@ import React from 'react'
 import type { BibSale } from '@/components/marketplace/CardMarket'
 import type { Event } from '@/models/event.model'
 import type { Organizer } from '@/models/organizer.model'
+import type { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/getDictionary'
+
+import marketplaceTranslations from '@/components/marketplace/locales.json'
 
 interface EventDetailsProps {
 	/** The bib sale data containing event information */
@@ -13,21 +17,24 @@ interface EventDetailsProps {
 	eventData?: Event & { expand?: { organizer: Organizer } }
 	/** Optional organizer data */
 	organizerData?: Organizer
+	/** Current locale */
+	locale: Locale
 }
 
 /**
  * Component that displays detailed event information including description and organizer details
  * Shows event stats, description, and organizer information in a structured layout
  */
-export default function EventDetails({ bib, eventData, organizerData }: EventDetailsProps) {
+export default function EventDetails({ bib, eventData, organizerData, locale }: EventDetailsProps) {
+	const t = getTranslations(locale, marketplaceTranslations)
 	return (
 		<div className="mt-6">
 			{/* Event Description with Organizer Info */}
 			{eventData?.description !== null &&
 			eventData?.description !== undefined &&
 			eventData.description.trim() !== '' ? (
-				<div className="dark:border-border/50 bg-card/50 rounded-lg border border-black/50 p-4 backdrop-blur-sm">
-					<h3 className="text-primary mb-3 text-sm font-semibold">À propos de cet événement</h3>
+				<div className="border-border/50 bg-card/50 rounded-lg border p-4 backdrop-blur-sm">
+					<h3 className="text-primary mb-3 text-sm font-semibold">{t.aboutEvent}</h3>
 					<p className="text-foreground/80 mb-4 text-sm leading-relaxed">{eventData.description}</p>
 
 					{/* Organizer Information */}
@@ -35,7 +42,7 @@ export default function EventDetails({ bib, eventData, organizerData }: EventDet
 						<div className="border-border/30 border-t pt-4">
 							<div className="flex items-start justify-between">
 								<div className="flex-1">
-									<p className="text-muted-foreground mb-1 text-xs font-medium">Organisé par</p>
+									<p className="text-muted-foreground mb-1 text-xs font-medium">{t.organizedBy}</p>
 									<p className="text-foreground text-sm font-medium">
 										{organizerData?.name ?? eventData?.expand?.organizer?.name ?? 'Unknown Organizer'}
 									</p>
@@ -59,7 +66,7 @@ export default function EventDetails({ bib, eventData, organizerData }: EventDet
 								{(organizerData?.isPartnered === true || eventData?.expand?.organizer?.isPartnered === true) && (
 									<div className="ml-3 flex items-center gap-1.5 rounded-full border border-green-500/40 bg-green-500/15 px-2.5 py-1">
 										<div className="h-1.5 w-1.5 rounded-full bg-green-400"></div>
-										<span className="text-xs font-medium text-green-400">Vérifié</span>
+										<span className="text-xs font-medium text-green-400">{t.verified}</span>
 									</div>
 								)}
 							</div>
@@ -67,11 +74,10 @@ export default function EventDetails({ bib, eventData, organizerData }: EventDet
 					)}
 				</div>
 			) : (
-				<div className="dark:border-border/50 bg-card/50 rounded-lg border border-black/50 p-4 backdrop-blur-sm">
-					<h3 className="text-primary mb-3 text-sm font-semibold">À propos de cet événement</h3>
+				<div className="border-border/50 bg-card/50 rounded-lg border p-4 backdrop-blur-sm">
+					<h3 className="text-primary mb-3 text-sm font-semibold">{t.aboutEvent}</h3>
 					<p className="text-foreground/80 mb-4 text-sm leading-relaxed">
-						Secure your spot for {bib.event.name}. This race bib includes all official race materials and registration
-						transfer to your name.
+						{t.secureSpot.replace('{eventName}', bib.event.name)}
 					</p>
 
 					{/* Organizer Information - Fallback */}
@@ -79,7 +85,7 @@ export default function EventDetails({ bib, eventData, organizerData }: EventDet
 						<div className="border-border/30 border-t pt-4">
 							<div className="flex items-start justify-between">
 								<div className="flex-1">
-									<p className="text-muted-foreground mb-1 text-xs font-medium">Organisé par</p>
+									<p className="text-muted-foreground mb-1 text-xs font-medium">{t.organizedBy}</p>
 									<p className="text-foreground text-sm font-medium">
 										{organizerData?.name ?? eventData?.expand?.organizer?.name ?? 'Unknown Organizer'}
 									</p>
@@ -103,7 +109,7 @@ export default function EventDetails({ bib, eventData, organizerData }: EventDet
 								{(organizerData?.isPartnered === true || eventData?.expand?.organizer?.isPartnered === true) && (
 									<div className="ml-3 flex items-center gap-1.5 rounded-full border border-green-500/40 bg-green-500/15 px-2.5 py-1">
 										<div className="h-1.5 w-1.5 rounded-full bg-green-400"></div>
-										<span className="text-xs font-medium text-green-400">Vérifié</span>
+										<span className="text-xs font-medium text-green-400">{t.verified}</span>
 									</div>
 								)}
 							</div>

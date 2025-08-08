@@ -73,11 +73,11 @@ export default function DashboardDropdown({ locale }: Readonly<DashboardDropdown
 				...baseOptions,
 				{
 					onClick: () => router.push(`/${locale}/admin`),
-					label: 'Admin',
+					label: t.navbar.adminLink,
 					Icon: <Settings className="h-4 w-4" />,
 				},
 			]
 		: baseOptions
 
-	return <DropdownMenuAnimated options={options}>Dashboard</DropdownMenuAnimated>
+	return <DropdownMenuAnimated options={options}>{t.navbar.dashboardLink}</DropdownMenuAnimated>
 }

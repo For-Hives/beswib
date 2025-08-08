@@ -18,6 +18,38 @@ import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 import Translations from './locales.json'
 import { DateTime } from 'luxon'
 
+interface EventTranslations {
+	events?: {
+		eventCard?: {
+			viewDetails?: string
+			bibsAvailable?: string
+			soldOut?: string
+			checkBibs?: string
+			viewBibs?: string
+			joinWaitlist?: string
+			fromPrice?: string
+		}
+		filters?: {
+			all?: string
+			location?: string
+			date?: string
+			category?: string
+			price?: string
+			participants?: string
+			distance?: string
+			allCities?: string
+		}
+		raceTypes?: Record<string, string>
+		groupLabels?: {
+			unknownDate?: string
+			unknownPrice?: string
+			unknownParticipants?: string
+			unknownDistance?: string
+		}
+		searchPlaceholder?: string
+	}
+}
+
 interface EventsPageProps {
 	prefetchedEvents: Event[]
 	locale: string
@@ -37,12 +69,7 @@ const eventTypeColorsDisabled = {
 	cycle: 'opacity-25',
 } as const
 
-const eventTypeLabels = {
-	triathlon: 'TRIATHLON',
-	trail: 'TRAIL',
-	road: 'ROAD',
-	cycle: 'CYCLE',
-} as const
+// Labels for types are now translated from locales via t.events.raceTypes
 
 const eventTypeIcons = {
 	triathlon: <TriathlonIcon className="h-5 w-5" />,
@@ -57,11 +84,13 @@ function EventCard({
 	locale,
 	bibsCount,
 	onAction,
+	t,
 }: {
 	event: Event
 	locale: string
 	bibsCount: number | undefined
 	onAction: (event: Event) => void | Promise<void>
+	t: EventTranslations
 }) {
 	return (
 		<SpotlightCard className="h-full">
@@ -71,7 +100,7 @@ function EventCard({
 						className={`inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium ${eventTypeColors[event.typeCourse]}`}
 					>
 						{eventTypeIcons[event.typeCourse]}
-						{eventTypeLabels[event.typeCourse] || event.typeCourse.toUpperCase()}
+						{(t.events?.raceTypes as Record<string, string>)?.[event.typeCourse] || event.typeCourse.toUpperCase()}
 					</span>
 					<span className="text-muted-foreground text-xs">{formatDateObjectForDisplay(event.eventDate, locale)}</span>
 				</div>
@@ -112,7 +141,10 @@ function EventCard({
 				<div className="mt-auto">
 					{event.officialStandardPrice != null && (
 						<div className="mb-3 text-right">
-							<span className="text-lg font-bold text-green-400">À partir de {event.officialStandardPrice}€</span>
+							<span className="text-lg font-bold text-green-400">
+								{t.events?.eventCard?.fromPrice?.replace('{price}', event.officialStandardPrice?.toString() ?? '0') ??
+									`From ${event.officialStandardPrice}€`}
+							</span>
 						</div>
 					)}
 					<button
@@ -123,16 +155,17 @@ function EventCard({
 							bibsCount > 0 ? (
 								<>
 									<ShoppingCart className="h-4 w-4" />
-									Voir les dossards ({bibsCount})
+									{t.events?.eventCard?.viewBibs?.replace('{count}', bibsCount.toString()) ??
+										`View bibs (${bibsCount})`}
 								</>
 							) : (
 								<>
 									<Bell className="h-4 w-4" />
-									Rejoindre la waitlist
+									{t.events?.eventCard?.joinWaitlist ?? 'Join waitlist'}
 								</>
 							)
 						) : (
-							'Vérifier les dossards...'
+							(t.events?.eventCard?.checkBibs ?? 'Check bibs...')
 						)}
 					</button>
 				</div>
@@ -338,7 +371,8 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				const label = getMonthLabel(dt)
 				return { title: label, events: list }
 			})
-			if (unknown.length > 0) sections.push({ title: 'Date inconnue', events: unknown })
+			if (unknown.length > 0)
+				sections.push({ title: t.events?.groupLabels?.unknownDate ?? 'Unknown date', events: unknown })
 			return sections
 		}
 
@@ -351,7 +385,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 					{ label: '50€ – 100€', test: v => v >= 50 && v < 100 },
 					{ label: '100€+', test: v => v >= 100 },
 				],
-				'Prix inconnu'
+				t.events?.groupLabels?.unknownPrice ?? 'Unknown price'
 			)
 		}
 
@@ -364,7 +398,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 					{ label: '500 – 1 000', test: v => v > 500 && v <= 1000 },
 					{ label: '1 000+', test: v => v > 1000 },
 				],
-				'Participants inconnus'
+				t.events?.groupLabels?.unknownParticipants ?? 'Unknown participants'
 			)
 		}
 
@@ -378,7 +412,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				{ label: '42 – 100 km', test: v => v > 42 && v <= 100 },
 				{ label: '100 km+', test: v => v > 100 },
 			],
-			'Distance inconnue'
+			t.events?.groupLabels?.unknownDistance ?? 'Unknown distance'
 		)
 	}, [sortedEvents, sortBy, locale])
 
@@ -391,7 +425,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		const summary = [
 			{
 				key: 'all',
-				label: 'Tous',
+				label: (t.events?.raceTypes as Record<string, string>)?.all ?? 'All',
 				color: 'bg-black/35 border-slate-500/50 text-slate-400',
 				colorDisabled: 'opacity-25',
 				count: prefetchedEvents.length,
@@ -401,10 +435,10 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 		// Add categories that actually exist in the data
 		uniqueTypes.forEach(type => {
-			if (eventTypeLabels[type] && eventTypeColors[type]) {
+			if ((t.events?.raceTypes as Record<string, string>)?.[type] && eventTypeColors[type]) {
 				summary.push({
 					key: type,
-					label: eventTypeLabels[type],
+					label: (t.events?.raceTypes as Record<string, string>)?.[type] || type.toUpperCase(),
 					color: eventTypeColors[type],
 					colorDisabled: eventTypeColorsDisabled[type],
 					count: prefetchedEvents.filter(e => e.typeCourse === type).length,
@@ -496,7 +530,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 						<Search className="text-muted-foreground absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 transform" />
 						<Input
 							className="pl-10 text-sm"
-							placeholder={t.events?.searchPlaceholder ?? 'Rechercher un événement, une ville...'}
+							placeholder={t.events?.searchPlaceholder ?? 'Search events...'}
 							value={searchTerm}
 							onChange={e => handleSearchChange(e.target.value)}
 						/>
@@ -610,7 +644,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 										}}
 										className="hover:bg-muted/50 border-border block w-full cursor-pointer border-b px-3 py-2 text-left text-sm"
 									>
-										Toutes les villes
+										{t.events?.filters?.allCities ?? 'All cities'}
 									</button>
 									{filteredLocations.map(location => (
 										<button
@@ -646,6 +680,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 											locale={locale}
 											bibsCount={eventBibsCache[e.id]}
 											onAction={handleEventAction}
+											t={t}
 										/>
 									</div>
 								))}

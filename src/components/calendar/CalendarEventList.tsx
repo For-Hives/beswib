@@ -2,24 +2,24 @@ import Link from 'next/link'
 
 import type { Event } from '@/models/event.model'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
+import { getTranslations } from '@/lib/getDictionary'
+import type { Locale } from '@/lib/i18n-config'
+
+import calendarTranslations from './locales.json'
 
 interface CalendarEventListProps {
 	readonly groupedEvents: GroupedEvents
 	readonly sortedMonthKeys: string[]
 	readonly t: { calendar: { noEvents: string } }
-	readonly locale?: string
+	readonly locale: Locale
 }
 
 interface GroupedEvents {
 	[yearMonth: string]: Event[]
 }
 
-export default function CalendarEventList({
-	t,
-	sortedMonthKeys,
-	groupedEvents,
-	locale = 'en',
-}: CalendarEventListProps) {
+export default function CalendarEventList({ t, sortedMonthKeys, groupedEvents, locale }: CalendarEventListProps) {
+	const calendarT = getTranslations(locale, calendarTranslations)
 	return (
 		<main className="mx-auto max-w-4xl">
 			{sortedMonthKeys.length > 0 ? (
@@ -34,10 +34,10 @@ export default function CalendarEventList({
 								>
 									<h2 className="text-lg font-bold text-gray-200"> {event.name} </h2>
 									<p className="text-muted-foreground mt-2 text-sm">
-										<strong>Date:</strong> {formatDateObjectForDisplay(event.eventDate, locale)}
+										<strong>{calendarT.date}:</strong> {formatDateObjectForDisplay(event.eventDate, locale)}
 									</p>
 									<p className="text-muted-foreground mt-1 text-sm">
-										<strong>Location:</strong> {event.location}
+										<strong>{calendarT.location}:</strong> {event.location}
 									</p>
 									{event.description != null && event.description !== '' && (
 										<p className="mt-1 text-xs text-gray-400">
@@ -50,7 +50,7 @@ export default function CalendarEventList({
 											className="border-border bg-accent/20 text-accent-foreground hover:bg-accent/30 hover:text-foreground flex w-full items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium backdrop-blur-md transition"
 											href={`/events/${event.id}`}
 										>
-											Voir l'événement
+											{calendarT.viewEvent}
 										</Link>
 									</div>
 								</div>

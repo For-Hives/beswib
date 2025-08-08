@@ -280,5 +280,569 @@
 			"priceMinimum": "가격은 ₩0보다 커야 합니다",
 			"priceFormat": "유효한 가격을 입력해주세요"
 		}
+	},
+	"es": {
+		"title": "Sell Your Bib",
+		"subtitle": "List your race bib for sale in a few simple steps",
+		"steps": {
+			"eventSelection": {
+				"title": "Select Event",
+				"description": "Choose the event for which you want to sell your bib"
+			},
+			"bibDetails": {
+				"title": "Bib Details",
+				"description": "Provide details about your race bib"
+			},
+			"pricing": {
+				"title": "Set Price",
+				"description": "Set your selling price and preferences"
+			},
+			"confirmation": {
+				"title": "Confirmation",
+				"description": "Review your listing before publishing"
+			}
+		},
+		"form": {
+			"eventSelection": {
+				"searchPlaceholder": "Search for events...",
+				"noEventsFound": "No events found matching your search",
+				"selectEvent": "Select this event",
+				"eventSelected": "Event selected",
+				"eventInfo": "Event Information",
+				"date": "Date",
+				"location": "Location",
+				"distance": "Distance",
+				"elevation": "Elevation",
+				"participants": "Participants",
+				"requestNewEvent": "Can't find your event?",
+				"requestNewEventDescription": "Request to have it listed - we'll take care of everything!",
+				"requestNewEventButton": "Request New Event"
+			},
+			"bibDetails": {
+				"registrationNumber": "Registration Number",
+				"registrationNumberPlaceholder": "Enter your bib number",
+				"registrationNumberHelp": "The number on your race bib",
+				"bibOptions": "Bib Options",
+				"originalPrice": "Original Price (Optional)",
+				"originalPricePlaceholder": "Price you paid for registration",
+				"originalPriceHelp": "This helps buyers understand the value"
+			},
+			"pricing": {
+				"sellingPrice": "Selling Price",
+				"sellingPricePlaceholder": "Enter your selling price",
+				"sellingPriceHelp": "Set a competitive price for your bib",
+				"listingType": "Listing Type",
+				"publicListing": "Public Listing",
+				"privateListing": "Private Listing",
+				"publicListingHelp": "Anyone can see and buy your bib",
+				"privateListingHelp": "Only people with the direct link can buy",
+				"currency": "$"
+			},
+			"confirmation": {
+				"reviewTitle": "Review Your Listing",
+				"event": "Event",
+				"bibNumber": "Bib Number",
+				"originalPrice": "Original Price",
+				"sellingPrice": "Selling Price",
+				"listingType": "Listing Type",
+				"public": "Public",
+				"private": "Private",
+				"terms": "I confirm that I own this bib and have the right to sell it",
+				"termsRequired": "You must accept the terms to continue",
+				"privateLink": "Private Link",
+				"privateLinkHelp": "Share this link to allow others to purchase your bib privately",
+				"copyLink": "Copy Link",
+				"marketplacePreview": "Marketplace Preview"
+			}
+		},
+		"actions": {
+			"next": "Next",
+			"previous": "Previous",
+			"finish": "List My Bib",
+			"cancel": "Cancel"
+		},
+		"messages": {
+			"success": "Your bib has been listed successfully!",
+			"error": "There was an error listing your bib. Please try again.",
+			"loading": "Creating your listing...",
+			"linkCopied": "Link copied to clipboard!"
+		},
+		"validation": {
+			"eventRequired": "Please select an event",
+			"registrationNumberRequired": "Registration number is required",
+			"priceRequired": "Selling price is required",
+			"priceMinimum": "Price must be greater than $0",
+			"priceFormat": "Please enter a valid price"
+		}
+	},
+	"it": {
+		"title": "Sell Your Bib",
+		"subtitle": "List your race bib for sale in a few simple steps",
+		"steps": {
+			"eventSelection": {
+				"title": "Select Event",
+				"description": "Choose the event for which you want to sell your bib"
+			},
+			"bibDetails": {
+				"title": "Bib Details",
+				"description": "Provide details about your race bib"
+			},
+			"pricing": {
+				"title": "Set Price",
+				"description": "Set your selling price and preferences"
+			},
+			"confirmation": {
+				"title": "Confirmation",
+				"description": "Review your listing before publishing"
+			}
+		},
+		"form": {
+			"eventSelection": {
+				"searchPlaceholder": "Search for events...",
+				"noEventsFound": "No events found matching your search",
+				"selectEvent": "Select this event",
+				"eventSelected": "Event selected",
+				"eventInfo": "Event Information",
+				"date": "Date",
+				"location": "Location",
+				"distance": "Distance",
+				"elevation": "Elevation",
+				"participants": "Participants",
+				"requestNewEvent": "Can't find your event?",
+				"requestNewEventDescription": "Request to have it listed - we'll take care of everything!",
+				"requestNewEventButton": "Request New Event"
+			},
+			"bibDetails": {
+				"registrationNumber": "Registration Number",
+				"registrationNumberPlaceholder": "Enter your bib number",
+				"registrationNumberHelp": "The number on your race bib",
+				"bibOptions": "Bib Options",
+				"originalPrice": "Original Price (Optional)",
+				"originalPricePlaceholder": "Price you paid for registration",
+				"originalPriceHelp": "This helps buyers understand the value"
+			},
+			"pricing": {
+				"sellingPrice": "Selling Price",
+				"sellingPricePlaceholder": "Enter your selling price",
+				"sellingPriceHelp": "Set a competitive price for your bib",
+				"listingType": "Listing Type",
+				"publicListing": "Public Listing",
+				"privateListing": "Private Listing",
+				"publicListingHelp": "Anyone can see and buy your bib",
+				"privateListingHelp": "Only people with the direct link can buy",
+				"currency": "$"
+			},
+			"confirmation": {
+				"reviewTitle": "Review Your Listing",
+				"event": "Event",
+				"bibNumber": "Bib Number",
+				"originalPrice": "Original Price",
+				"sellingPrice": "Selling Price",
+				"listingType": "Listing Type",
+				"public": "Public",
+				"private": "Private",
+				"terms": "I confirm that I own this bib and have the right to sell it",
+				"termsRequired": "You must accept the terms to continue",
+				"privateLink": "Private Link",
+				"privateLinkHelp": "Share this link to allow others to purchase your bib privately",
+				"copyLink": "Copy Link",
+				"marketplacePreview": "Marketplace Preview"
+			}
+		},
+		"actions": {
+			"next": "Next",
+			"previous": "Previous",
+			"finish": "List My Bib",
+			"cancel": "Cancel"
+		},
+		"messages": {
+			"success": "Your bib has been listed successfully!",
+			"error": "There was an error listing your bib. Please try again.",
+			"loading": "Creating your listing...",
+			"linkCopied": "Link copied to clipboard!"
+		},
+		"validation": {
+			"eventRequired": "Please select an event",
+			"registrationNumberRequired": "Registration number is required",
+			"priceRequired": "Selling price is required",
+			"priceMinimum": "Price must be greater than $0",
+			"priceFormat": "Please enter a valid price"
+		}
+	},
+	"de": {
+		"title": "Sell Your Bib",
+		"subtitle": "List your race bib for sale in a few simple steps",
+		"steps": {
+			"eventSelection": {
+				"title": "Select Event",
+				"description": "Choose the event for which you want to sell your bib"
+			},
+			"bibDetails": {
+				"title": "Bib Details",
+				"description": "Provide details about your race bib"
+			},
+			"pricing": {
+				"title": "Set Price",
+				"description": "Set your selling price and preferences"
+			},
+			"confirmation": {
+				"title": "Confirmation",
+				"description": "Review your listing before publishing"
+			}
+		},
+		"form": {
+			"eventSelection": {
+				"searchPlaceholder": "Search for events...",
+				"noEventsFound": "No events found matching your search",
+				"selectEvent": "Select this event",
+				"eventSelected": "Event selected",
+				"eventInfo": "Event Information",
+				"date": "Date",
+				"location": "Location",
+				"distance": "Distance",
+				"elevation": "Elevation",
+				"participants": "Participants",
+				"requestNewEvent": "Can't find your event?",
+				"requestNewEventDescription": "Request to have it listed - we'll take care of everything!",
+				"requestNewEventButton": "Request New Event"
+			},
+			"bibDetails": {
+				"registrationNumber": "Registration Number",
+				"registrationNumberPlaceholder": "Enter your bib number",
+				"registrationNumberHelp": "The number on your race bib",
+				"bibOptions": "Bib Options",
+				"originalPrice": "Original Price (Optional)",
+				"originalPricePlaceholder": "Price you paid for registration",
+				"originalPriceHelp": "This helps buyers understand the value"
+			},
+			"pricing": {
+				"sellingPrice": "Selling Price",
+				"sellingPricePlaceholder": "Enter your selling price",
+				"sellingPriceHelp": "Set a competitive price for your bib",
+				"listingType": "Listing Type",
+				"publicListing": "Public Listing",
+				"privateListing": "Private Listing",
+				"publicListingHelp": "Anyone can see and buy your bib",
+				"privateListingHelp": "Only people with the direct link can buy",
+				"currency": "$"
+			},
+			"confirmation": {
+				"reviewTitle": "Review Your Listing",
+				"event": "Event",
+				"bibNumber": "Bib Number",
+				"originalPrice": "Original Price",
+				"sellingPrice": "Selling Price",
+				"listingType": "Listing Type",
+				"public": "Public",
+				"private": "Private",
+				"terms": "I confirm that I own this bib and have the right to sell it",
+				"termsRequired": "You must accept the terms to continue",
+				"privateLink": "Private Link",
+				"privateLinkHelp": "Share this link to allow others to purchase your bib privately",
+				"copyLink": "Copy Link",
+				"marketplacePreview": "Marketplace Preview"
+			}
+		},
+		"actions": {
+			"next": "Next",
+			"previous": "Previous",
+			"finish": "List My Bib",
+			"cancel": "Cancel"
+		},
+		"messages": {
+			"success": "Your bib has been listed successfully!",
+			"error": "There was an error listing your bib. Please try again.",
+			"loading": "Creating your listing...",
+			"linkCopied": "Link copied to clipboard!"
+		},
+		"validation": {
+			"eventRequired": "Please select an event",
+			"registrationNumberRequired": "Registration number is required",
+			"priceRequired": "Selling price is required",
+			"priceMinimum": "Price must be greater than $0",
+			"priceFormat": "Please enter a valid price"
+		}
+	},
+	"ro": {
+		"title": "Sell Your Bib",
+		"subtitle": "List your race bib for sale in a few simple steps",
+		"steps": {
+			"eventSelection": {
+				"title": "Select Event",
+				"description": "Choose the event for which you want to sell your bib"
+			},
+			"bibDetails": {
+				"title": "Bib Details",
+				"description": "Provide details about your race bib"
+			},
+			"pricing": {
+				"title": "Set Price",
+				"description": "Set your selling price and preferences"
+			},
+			"confirmation": {
+				"title": "Confirmation",
+				"description": "Review your listing before publishing"
+			}
+		},
+		"form": {
+			"eventSelection": {
+				"searchPlaceholder": "Search for events...",
+				"noEventsFound": "No events found matching your search",
+				"selectEvent": "Select this event",
+				"eventSelected": "Event selected",
+				"eventInfo": "Event Information",
+				"date": "Date",
+				"location": "Location",
+				"distance": "Distance",
+				"elevation": "Elevation",
+				"participants": "Participants",
+				"requestNewEvent": "Can't find your event?",
+				"requestNewEventDescription": "Request to have it listed - we'll take care of everything!",
+				"requestNewEventButton": "Request New Event"
+			},
+			"bibDetails": {
+				"registrationNumber": "Registration Number",
+				"registrationNumberPlaceholder": "Enter your bib number",
+				"registrationNumberHelp": "The number on your race bib",
+				"bibOptions": "Bib Options",
+				"originalPrice": "Original Price (Optional)",
+				"originalPricePlaceholder": "Price you paid for registration",
+				"originalPriceHelp": "This helps buyers understand the value"
+			},
+			"pricing": {
+				"sellingPrice": "Selling Price",
+				"sellingPricePlaceholder": "Enter your selling price",
+				"sellingPriceHelp": "Set a competitive price for your bib",
+				"listingType": "Listing Type",
+				"publicListing": "Public Listing",
+				"privateListing": "Private Listing",
+				"publicListingHelp": "Anyone can see and buy your bib",
+				"privateListingHelp": "Only people with the direct link can buy",
+				"currency": "$"
+			},
+			"confirmation": {
+				"reviewTitle": "Review Your Listing",
+				"event": "Event",
+				"bibNumber": "Bib Number",
+				"originalPrice": "Original Price",
+				"sellingPrice": "Selling Price",
+				"listingType": "Listing Type",
+				"public": "Public",
+				"private": "Private",
+				"terms": "I confirm that I own this bib and have the right to sell it",
+				"termsRequired": "You must accept the terms to continue",
+				"privateLink": "Private Link",
+				"privateLinkHelp": "Share this link to allow others to purchase your bib privately",
+				"copyLink": "Copy Link",
+				"marketplacePreview": "Marketplace Preview"
+			}
+		},
+		"actions": {
+			"next": "Next",
+			"previous": "Previous",
+			"finish": "List My Bib",
+			"cancel": "Cancel"
+		},
+		"messages": {
+			"success": "Your bib has been listed successfully!",
+			"error": "There was an error listing your bib. Please try again.",
+			"loading": "Creating your listing...",
+			"linkCopied": "Link copied to clipboard!"
+		},
+		"validation": {
+			"eventRequired": "Please select an event",
+			"registrationNumberRequired": "Registration number is required",
+			"priceRequired": "Selling price is required",
+			"priceMinimum": "Price must be greater than $0",
+			"priceFormat": "Please enter a valid price"
+		}
+	},
+	"pt": {
+		"title": "Sell Your Bib",
+		"subtitle": "List your race bib for sale in a few simple steps",
+		"steps": {
+			"eventSelection": {
+				"title": "Select Event",
+				"description": "Choose the event for which you want to sell your bib"
+			},
+			"bibDetails": {
+				"title": "Bib Details",
+				"description": "Provide details about your race bib"
+			},
+			"pricing": {
+				"title": "Set Price",
+				"description": "Set your selling price and preferences"
+			},
+			"confirmation": {
+				"title": "Confirmation",
+				"description": "Review your listing before publishing"
+			}
+		},
+		"form": {
+			"eventSelection": {
+				"searchPlaceholder": "Search for events...",
+				"noEventsFound": "No events found matching your search",
+				"selectEvent": "Select this event",
+				"eventSelected": "Event selected",
+				"eventInfo": "Event Information",
+				"date": "Date",
+				"location": "Location",
+				"distance": "Distance",
+				"elevation": "Elevation",
+				"participants": "Participants",
+				"requestNewEvent": "Can't find your event?",
+				"requestNewEventDescription": "Request to have it listed - we'll take care of everything!",
+				"requestNewEventButton": "Request New Event"
+			},
+			"bibDetails": {
+				"registrationNumber": "Registration Number",
+				"registrationNumberPlaceholder": "Enter your bib number",
+				"registrationNumberHelp": "The number on your race bib",
+				"bibOptions": "Bib Options",
+				"originalPrice": "Original Price (Optional)",
+				"originalPricePlaceholder": "Price you paid for registration",
+				"originalPriceHelp": "This helps buyers understand the value"
+			},
+			"pricing": {
+				"sellingPrice": "Selling Price",
+				"sellingPricePlaceholder": "Enter your selling price",
+				"sellingPriceHelp": "Set a competitive price for your bib",
+				"listingType": "Listing Type",
+				"publicListing": "Public Listing",
+				"privateListing": "Private Listing",
+				"publicListingHelp": "Anyone can see and buy your bib",
+				"privateListingHelp": "Only people with the direct link can buy",
+				"currency": "$"
+			},
+			"confirmation": {
+				"reviewTitle": "Review Your Listing",
+				"event": "Event",
+				"bibNumber": "Bib Number",
+				"originalPrice": "Original Price",
+				"sellingPrice": "Selling Price",
+				"listingType": "Listing Type",
+				"public": "Public",
+				"private": "Private",
+				"terms": "I confirm that I own this bib and have the right to sell it",
+				"termsRequired": "You must accept the terms to continue",
+				"privateLink": "Private Link",
+				"privateLinkHelp": "Share this link to allow others to purchase your bib privately",
+				"copyLink": "Copy Link",
+				"marketplacePreview": "Marketplace Preview"
+			}
+		},
+		"actions": {
+			"next": "Next",
+			"previous": "Previous",
+			"finish": "List My Bib",
+			"cancel": "Cancel"
+		},
+		"messages": {
+			"success": "Your bib has been listed successfully!",
+			"error": "There was an error listing your bib. Please try again.",
+			"loading": "Creating your listing...",
+			"linkCopied": "Link copied to clipboard!"
+		},
+		"validation": {
+			"eventRequired": "Please select an event",
+			"registrationNumberRequired": "Registration number is required",
+			"priceRequired": "Selling price is required",
+			"priceMinimum": "Price must be greater than $0",
+			"priceFormat": "Please enter a valid price"
+		}
+	},
+	"nl": {
+		"title": "Sell Your Bib",
+		"subtitle": "List your race bib for sale in a few simple steps",
+		"steps": {
+			"eventSelection": {
+				"title": "Select Event",
+				"description": "Choose the event for which you want to sell your bib"
+			},
+			"bibDetails": {
+				"title": "Bib Details",
+				"description": "Provide details about your race bib"
+			},
+			"pricing": {
+				"title": "Set Price",
+				"description": "Set your selling price and preferences"
+			},
+			"confirmation": {
+				"title": "Confirmation",
+				"description": "Review your listing before publishing"
+			}
+		},
+		"form": {
+			"eventSelection": {
+				"searchPlaceholder": "Search for events...",
+				"noEventsFound": "No events found matching your search",
+				"selectEvent": "Select this event",
+				"eventSelected": "Event selected",
+				"eventInfo": "Event Information",
+				"date": "Date",
+				"location": "Location",
+				"distance": "Distance",
+				"elevation": "Elevation",
+				"participants": "Participants",
+				"requestNewEvent": "Can't find your event?",
+				"requestNewEventDescription": "Request to have it listed - we'll take care of everything!",
+				"requestNewEventButton": "Request New Event"
+			},
+			"bibDetails": {
+				"registrationNumber": "Registration Number",
+				"registrationNumberPlaceholder": "Enter your bib number",
+				"registrationNumberHelp": "The number on your race bib",
+				"bibOptions": "Bib Options",
+				"originalPrice": "Original Price (Optional)",
+				"originalPricePlaceholder": "Price you paid for registration",
+				"originalPriceHelp": "This helps buyers understand the value"
+			},
+			"pricing": {
+				"sellingPrice": "Selling Price",
+				"sellingPricePlaceholder": "Enter your selling price",
+				"sellingPriceHelp": "Set a competitive price for your bib",
+				"listingType": "Listing Type",
+				"publicListing": "Public Listing",
+				"privateListing": "Private Listing",
+				"publicListingHelp": "Anyone can see and buy your bib",
+				"privateListingHelp": "Only people with the direct link can buy",
+				"currency": "$"
+			},
+			"confirmation": {
+				"reviewTitle": "Review Your Listing",
+				"event": "Event",
+				"bibNumber": "Bib Number",
+				"originalPrice": "Original Price",
+				"sellingPrice": "Selling Price",
+				"listingType": "Listing Type",
+				"public": "Public",
+				"private": "Private",
+				"terms": "I confirm that I own this bib and have the right to sell it",
+				"termsRequired": "You must accept the terms to continue",
+				"privateLink": "Private Link",
+				"privateLinkHelp": "Share this link to allow others to purchase your bib privately",
+				"copyLink": "Copy Link",
+				"marketplacePreview": "Marketplace Preview"
+			}
+		},
+		"actions": {
+			"next": "Next",
+			"previous": "Previous",
+			"finish": "List My Bib",
+			"cancel": "Cancel"
+		},
+		"messages": {
+			"success": "Your bib has been listed successfully!",
+			"error": "There was an error listing your bib. Please try again.",
+			"loading": "Creating your listing...",
+			"linkCopied": "Link copied to clipboard!"
+		},
+		"validation": {
+			"eventRequired": "Please select an event",
+			"registrationNumberRequired": "Registration number is required",
+			"priceRequired": "Selling price is required",
+			"priceMinimum": "Price must be greater than $0",
+			"priceFormat": "Please enter a valid price"
+		}
 	}
 }

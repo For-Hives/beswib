@@ -97,5 +97,203 @@
 				"descriptionTemplate": "${price}짜리 {eventName} 빕 구매를 확인합니다."
 			}
 		}
+	},
+	"es": {
+		"purchase": {
+			"title": "Confirm Your Bib Purchase",
+			"errors": {
+				"bibNotAvailable": "This bib is no longer available for purchase (Status: {status}).",
+				"cannotPurchaseOwnBib": "You cannot purchase your own bib listing.",
+				"authFailed": "User authentication failed. Please sign in again.",
+				"purchaseFailed": "Purchase failed. Please try again.",
+				"unexpectedError": "An unexpected error occurred during purchase.",
+				"errorPrefix": "Error:"
+			},
+			"details": {
+				"title": "Review Bib Details:",
+				"event": "Event",
+				"eventDate": "Event Date",
+				"registrationNumber": "Registration Number",
+				"registrationNumberNote": "(Provided after purchase)",
+				"size": "Size",
+				"gender": "Gender",
+				"price": "Price"
+			},
+			"confirmButton": "Confirm & Proceed to Payment (Simulated)",
+			"agreementText": "By clicking \"Confirm & Proceed\", you agree to purchase this bib. Further payment processing will be simulated in this version.",
+			"cancelLink": "Cancel and return to event page",
+			"browseOtherEvents": "Browse other events",
+			"backToEventPage": "Back to event page",
+			"metadata": {
+				"notFoundTitle": "Bib Not Found | Beswib",
+				"titleTemplate": "Purchase Bib for {eventName} | Beswib",
+				"descriptionTemplate": "Confirm your purchase for a bib for {eventName} priced at ${price}."
+			}
+		}
+	},
+	"it": {
+		"purchase": {
+			"title": "Confirm Your Bib Purchase",
+			"errors": {
+				"bibNotAvailable": "This bib is no longer available for purchase (Status: {status}).",
+				"cannotPurchaseOwnBib": "You cannot purchase your own bib listing.",
+				"authFailed": "User authentication failed. Please sign in again.",
+				"purchaseFailed": "Purchase failed. Please try again.",
+				"unexpectedError": "An unexpected error occurred during purchase.",
+				"errorPrefix": "Error:"
+			},
+			"details": {
+				"title": "Review Bib Details:",
+				"event": "Event",
+				"eventDate": "Event Date",
+				"registrationNumber": "Registration Number",
+				"registrationNumberNote": "(Provided after purchase)",
+				"size": "Size",
+				"gender": "Gender",
+				"price": "Price"
+			},
+			"confirmButton": "Confirm & Proceed to Payment (Simulated)",
+			"agreementText": "By clicking \"Confirm & Proceed\", you agree to purchase this bib. Further payment processing will be simulated in this version.",
+			"cancelLink": "Cancel and return to event page",
+			"browseOtherEvents": "Browse other events",
+			"backToEventPage": "Back to event page",
+			"metadata": {
+				"notFoundTitle": "Bib Not Found | Beswib",
+				"titleTemplate": "Purchase Bib for {eventName} | Beswib",
+				"descriptionTemplate": "Confirm your purchase for a bib for {eventName} priced at ${price}."
+			}
+		}
+	},
+	"de": {
+		"purchase": {
+			"title": "Confirm Your Bib Purchase",
+			"errors": {
+				"bibNotAvailable": "This bib is no longer available for purchase (Status: {status}).",
+				"cannotPurchaseOwnBib": "You cannot purchase your own bib listing.",
+				"authFailed": "User authentication failed. Please sign in again.",
+				"purchaseFailed": "Purchase failed. Please try again.",
+				"unexpectedError": "An unexpected error occurred during purchase.",
+				"errorPrefix": "Error:"
+			},
+			"details": {
+				"title": "Review Bib Details:",
+				"event": "Event",
+				"eventDate": "Event Date",
+				"registrationNumber": "Registration Number",
+				"registrationNumberNote": "(Provided after purchase)",
+				"size": "Size",
+				"gender": "Gender",
+				"price": "Price"
+			},
+			"confirmButton": "Confirm & Proceed to Payment (Simulated)",
+			"agreementText": "By clicking \"Confirm & Proceed\", you agree to purchase this bib. Further payment processing will be simulated in this version.",
+			"cancelLink": "Cancel and return to event page",
+			"browseOtherEvents": "Browse other events",
+			"backToEventPage": "Back to event page",
+			"metadata": {
+				"notFoundTitle": "Bib Not Found | Beswib",
+				"titleTemplate": "Purchase Bib for {eventName} | Beswib",
+				"descriptionTemplate": "Confirm your purchase for a bib for {eventName} priced at ${price}."
+			}
+		}
+	},
+	"ro": {
+		"purchase": {
+			"title": "Confirm Your Bib Purchase",
+			"errors": {
+				"bibNotAvailable": "This bib is no longer available for purchase (Status: {status}).",
+				"cannotPurchaseOwnBib": "You cannot purchase your own bib listing.",
+				"authFailed": "User authentication failed. Please sign in again.",
+				"purchaseFailed": "Purchase failed. Please try again.",
+				"unexpectedError": "An unexpected error occurred during purchase.",
+				"errorPrefix": "Error:"
+			},
+			"details": {
+				"title": "Review Bib Details:",
+				"event": "Event",
+				"eventDate": "Event Date",
+				"registrationNumber": "Registration Number",
+				"registrationNumberNote": "(Provided after purchase)",
+				"size": "Size",
+				"gender": "Gender",
+				"price": "Price"
+			},
+			"confirmButton": "Confirm & Proceed to Payment (Simulated)",
+			"agreementText": "By clicking \"Confirm & Proceed\", you agree to purchase this bib. Further payment processing will be simulated in this version.",
+			"cancelLink": "Cancel and return to event page",
+			"browseOtherEvents": "Browse other events",
+			"backToEventPage": "Back to event page",
+			"metadata": {
+				"notFoundTitle": "Bib Not Found | Beswib",
+				"titleTemplate": "Purchase Bib for {eventName} | Beswib",
+				"descriptionTemplate": "Confirm your purchase for a bib for {eventName} priced at ${price}."
+			}
+		}
+	},
+	"pt": {
+		"purchase": {
+			"title": "Confirm Your Bib Purchase",
+			"errors": {
+				"bibNotAvailable": "This bib is no longer available for purchase (Status: {status}).",
+				"cannotPurchaseOwnBib": "You cannot purchase your own bib listing.",
+				"authFailed": "User authentication failed. Please sign in again.",
+				"purchaseFailed": "Purchase failed. Please try again.",
+				"unexpectedError": "An unexpected error occurred during purchase.",
+				"errorPrefix": "Error:"
+			},
+			"details": {
+				"title": "Review Bib Details:",
+				"event": "Event",
+				"eventDate": "Event Date",
+				"registrationNumber": "Registration Number",
+				"registrationNumberNote": "(Provided after purchase)",
+				"size": "Size",
+				"gender": "Gender",
+				"price": "Price"
+			},
+			"confirmButton": "Confirm & Proceed to Payment (Simulated)",
+			"agreementText": "By clicking \"Confirm & Proceed\", you agree to purchase this bib. Further payment processing will be simulated in this version.",
+			"cancelLink": "Cancel and return to event page",
+			"browseOtherEvents": "Browse other events",
+			"backToEventPage": "Back to event page",
+			"metadata": {
+				"notFoundTitle": "Bib Not Found | Beswib",
+				"titleTemplate": "Purchase Bib for {eventName} | Beswib",
+				"descriptionTemplate": "Confirm your purchase for a bib for {eventName} priced at ${price}."
+			}
+		}
+	},
+	"nl": {
+		"purchase": {
+			"title": "Confirm Your Bib Purchase",
+			"errors": {
+				"bibNotAvailable": "This bib is no longer available for purchase (Status: {status}).",
+				"cannotPurchaseOwnBib": "You cannot purchase your own bib listing.",
+				"authFailed": "User authentication failed. Please sign in again.",
+				"purchaseFailed": "Purchase failed. Please try again.",
+				"unexpectedError": "An unexpected error occurred during purchase.",
+				"errorPrefix": "Error:"
+			},
+			"details": {
+				"title": "Review Bib Details:",
+				"event": "Event",
+				"eventDate": "Event Date",
+				"registrationNumber": "Registration Number",
+				"registrationNumberNote": "(Provided after purchase)",
+				"size": "Size",
+				"gender": "Gender",
+				"price": "Price"
+			},
+			"confirmButton": "Confirm & Proceed to Payment (Simulated)",
+			"agreementText": "By clicking \"Confirm & Proceed\", you agree to purchase this bib. Further payment processing will be simulated in this version.",
+			"cancelLink": "Cancel and return to event page",
+			"browseOtherEvents": "Browse other events",
+			"backToEventPage": "Back to event page",
+			"metadata": {
+				"notFoundTitle": "Bib Not Found | Beswib",
+				"titleTemplate": "Purchase Bib for {eventName} | Beswib",
+				"descriptionTemplate": "Confirm your purchase for a bib for {eventName} priced at ${price}."
+			}
+		}
 	}
 }

@@ -4,8 +4,17 @@ import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { capturePayment, createOrder, onboardSeller } from '@/services/paypal.services'
+import type { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/getDictionary'
 
-export default function PaypalC2C() {
+import paypalTranslations from './locales.json'
+
+interface PaypalC2CProps {
+	locale: Locale
+}
+
+export default function PaypalC2C({ locale }: PaypalC2CProps) {
+	const t = getTranslations(locale, paypalTranslations)
 	const [sellerUrl, setSellerUrl] = useState<null | string>(null)
 	const [sellerId, setSellerId] = useState('')
 	const [loading, setLoading] = useState(false)
@@ -29,10 +38,10 @@ export default function PaypalC2C() {
 				throw new Error(data.error)
 			}
 			setSellerUrl(data.action_url ?? null)
-			setSuccess("Lien d'onboarding généré avec succès!")
+			setSuccess(t.onboardingSuccess)
 		} catch (error: unknown) {
 			console.error('Erreur onboarding:', error instanceof Error ? error.message : 'Unknown error')
-			setError("Erreur pendant l'onboarding: " + (error instanceof Error ? error.message : 'Unknown error'))
+			setError(t.onboardingError.replace('{error}', error instanceof Error ? error.message : 'Unknown error'))
 		} finally {
 			setLoading(false)
 		}
@@ -40,9 +49,9 @@ export default function PaypalC2C() {
 
 	const handleCreateOrder = useCallback(async () => {
 		if (!sellerId.trim()) {
-			const errorMsg = 'Merci de renseigner un sellerId'
+			const errorMsg = t.enterSellerId
 			setError(errorMsg)
-			throw new Error('Seller ID manquant')
+			throw new Error(t.sellerIdMissing)
 		}
 
 		try {
@@ -54,11 +63,10 @@ export default function PaypalC2C() {
 				throw new Error(data.error)
 			}
 
-			console.info('Order créée :', data)
+			console.info(t.orderCreated, data)
 			return data.id ?? ''
 		} catch (error: unknown) {
-			const errorMsg =
-				'Erreur pendant la création de la commande: ' + (error instanceof Error ? error.message : 'Unknown error')
+			const errorMsg = t.orderError.replace('{error}', error instanceof Error ? error.message : 'Unknown error')
 			console.error('Erreur création order:', error instanceof Error ? error.message : 'Unknown error')
 			setError(errorMsg)
 			throw new Error(errorMsg)
@@ -77,8 +85,8 @@ export default function PaypalC2C() {
 				throw new Error(res.error)
 			}
 
-			setSuccess('Paiement capturé avec succès!')
-			console.info('Paiement capturé:', res)
+			setSuccess(t.paymentCaptured)
+			console.info(t.paymentCaptured, res)
 
 			// Reset after successful payment
 			setTimeout(() => {
@@ -103,7 +111,7 @@ export default function PaypalC2C() {
 
 	const onCancel = useCallback(() => {
 		console.info('PayPal payment cancelled')
-		setError("Paiement annulé par l'utilisateur")
+		setError(t.paymentCancelled)
 		setLoading(false)
 	}, [])
 
@@ -142,12 +150,12 @@ export default function PaypalC2C() {
 						backgroundColor: loading ? '#ccc' : '#007cba',
 					}}
 				>
-					{loading ? 'Création...' : 'Créer un vendeur (onboarding)'}
+					{loading ? t.creating : t.createSeller}
 				</button>
 
 				{sellerUrl != null && (
 					<div style={{ marginTop: 10 }}>
-						<p>✅ Lien d'onboarding généré!</p>
+						<p>{t.onboardingGenerated}</p>
 						<a
 							href={sellerUrl}
 							rel="noreferrer"
@@ -161,7 +169,7 @@ export default function PaypalC2C() {
 							}}
 							target="_blank"
 						>
-							Terminer l'onboarding du vendeur
+							{t.completeOnboarding}
 						</a>
 					</div>
 				)}

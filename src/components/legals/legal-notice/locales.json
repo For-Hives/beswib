@@ -1,103 +1,460 @@
 {
 	"en": {
 		"legal": {
+			"abuse": {
+				"content": "To report contentious content or if you are the victim of fraudulent use of a Beswib service, please contact us at",
+				"title": "Abuse"
+			},
 			"badge": "Legal",
-			"title": "Legal Notice",
-			"intro": "Beswib, a platform operated by the company Beswib. Below are the mandatory legal disclosures.",
 			"company": {
-				"title": "Company Information",
-				"nameLabel": "Company",
 				"name": "Beswib",
-				"siretLabel": "SIRET",
-				"siret": "880 505 276 00019",
-				"vatLabel": "VAT number",
-				"vat": "FR 35 880505276",
-				"registeredOfficeLabel": "Registered office",
-				"registeredOffice": "4 Impasse de la marchaisière, 44115 Haute-Goulaine, France",
+				"nameLabel": "Company",
+				"publicationDirector": "Andy Cinquin",
 				"publicationDirectorLabel": "Director of publication",
-				"publicationDirector": "Andy Cinquin"
+				"registeredOffice": "4 Impasse de la marchaisière, 44115 Haute-Goulaine, France",
+				"registeredOfficeLabel": "Registered office",
+				"siret": "880 505 276 00019",
+				"siretLabel": "SIRET",
+				"title": "Company Information",
+				"vat": "FR 35 880505276",
+				"vatLabel": "VAT number"
 			},
 			"contact": {
-				"title": "Contact",
-				"website": "https://beswib.com",
-				"emailLabel": "Email:",
 				"email": "contact@beswib.com",
-				"phoneLabel": "Phone:",
+				"emailLabel": "Email:",
 				"phone": "+33 (0)6 21 58 26 84",
+				"phoneLabel": "Phone:",
+				"postal": "72 Avenue Camus, 44000 Nantes, France",
 				"postalLabel": "Postal address:",
-				"postal": "72 Avenue Camus, 44000 Nantes, France"
+				"title": "Contact",
+				"website": "https://beswib.com"
 			},
 			"hosting": {
-				"title": "Hosting",
-				"companyLabel": "Company:",
-				"company": "netcup GmbH",
-				"addressLabel": "Address:",
 				"address": "Daimlerstraße 25, 76185 Karlsruhe, Germany",
-				"websiteLabel": "Website:",
-				"website": "https://www.netcup.com/en/"
+				"addressLabel": "Address:",
+				"company": "netcup GmbH",
+				"companyLabel": "Company:",
+				"title": "Hosting",
+				"website": "https://www.netcup.com/en/",
+				"websiteLabel": "Website:"
 			},
+			"intro": "Beswib, a platform operated by the company Beswib. Below are the mandatory legal disclosures.",
 			"ipr": {
-				"title": "Intellectual Property",
-				"content": "This website and its contents (data, information, photos, logos, trademarks) are the exclusive property of Beswib or its partners. Any reproduction, representation, translation, adaptation, or quotation, in whole or in part, by any means or media, is strictly prohibited unless provided by law or expressly authorized by their owner. Photos are not contractual."
+				"content": "This website and its contents (data, information, photos, logos, trademarks) are the exclusive property of Beswib or its partners. Any reproduction, representation, translation, adaptation, or quotation, in whole or in part, by any means or media, is strictly prohibited unless provided by law or expressly authorized by their owner. Photos are not contractual.",
+				"title": "Intellectual Property"
 			},
-			"abuse": {
-				"title": "Abuse",
-				"content": "To report contentious content or if you are the victim of fraudulent use of a Beswib service, please contact us at"
-			},
+			"title": "Legal Notice",
 			"update": {
-				"title": "Update",
-				"content": "Should we update, amend, or make any changes to this document, those changes will be posted here."
+				"content": "Should we update, amend, or make any changes to this document, those changes will be posted here.",
+				"title": "Update"
 			}
 		}
 	},
 	"fr": {
 		"legal": {
+			"abuse": {
+				"content": "Pour signaler un contenu litigieux ou si vous êtes victime d’une utilisation frauduleuse d’un service Beswib, veuillez nous contacter à",
+				"title": "Abus"
+			},
 			"badge": "Légal",
-			"title": "Mentions légales",
-			"intro": "Beswib, une plateforme opérée par la société Beswib. Vous trouverez ci-dessous les mentions légales obligatoires.",
 			"company": {
-				"title": "Informations sur la société",
-				"nameLabel": "Société",
 				"name": "Beswib",
-				"siretLabel": "SIRET",
-				"siret": "880 505 276 00019",
-				"vatLabel": "Numéro de TVA",
-				"vat": "FR 35 880505276",
-				"registeredOfficeLabel": "Siège social",
-				"registeredOffice": "4 Impasse de la marchaisière, 44115 Haute-Goulaine, France",
+				"nameLabel": "Société",
+				"publicationDirector": "Andy Cinquin",
 				"publicationDirectorLabel": "Directeur de la publication",
-				"publicationDirector": "Andy Cinquin"
+				"registeredOffice": "4 Impasse de la marchaisière, 44115 Haute-Goulaine, France",
+				"registeredOfficeLabel": "Siège social",
+				"siret": "880 505 276 00019",
+				"siretLabel": "SIRET",
+				"title": "Informations sur la société",
+				"vat": "FR 35 880505276",
+				"vatLabel": "Numéro de TVA"
 			},
 			"contact": {
-				"title": "Contact",
-				"website": "https://beswib.com",
-				"emailLabel": "Email :",
 				"email": "contact@beswib.com",
-				"phoneLabel": "Téléphone :",
+				"emailLabel": "Email :",
 				"phone": "+33 (0)6 21 58 26 84",
+				"phoneLabel": "Téléphone :",
+				"postal": "72 Avenue Camus, 44000 Nantes, France",
 				"postalLabel": "Adresse postale :",
-				"postal": "72 Avenue Camus, 44000 Nantes, France"
+				"title": "Contact",
+				"website": "https://beswib.com"
 			},
 			"hosting": {
-				"title": "Hébergement",
-				"companyLabel": "Société :",
-				"company": "netcup GmbH",
-				"addressLabel": "Adresse :",
 				"address": "Daimlerstraße 25, 76185 Karlsruhe, Allemagne",
-				"websiteLabel": "Site web :",
-				"website": "https://www.netcup.com/"
+				"addressLabel": "Adresse :",
+				"company": "netcup GmbH",
+				"companyLabel": "Société :",
+				"title": "Hébergement",
+				"website": "https://www.netcup.com/",
+				"websiteLabel": "Site web :"
 			},
+			"intro": "Beswib, une plateforme opérée par la société Beswib. Vous trouverez ci-dessous les mentions légales obligatoires.",
 			"ipr": {
-				"title": "Propriété intellectuelle",
-				"content": "Ce site et l’ensemble de ses contenus (données, informations, photos, logos, marques) sont la propriété exclusive de Beswib ou de ses partenaires. Toute reproduction, représentation, traduction, adaptation ou citation, totale ou partielle, quel qu’en soit le procédé ou le support, est strictement interdite sauf disposition légale ou autorisation expresse de leur propriétaire. Les photos ne sont pas contractuelles."
+				"content": "Ce site et l’ensemble de ses contenus (données, informations, photos, logos, marques) sont la propriété exclusive de Beswib ou de ses partenaires. Toute reproduction, représentation, traduction, adaptation ou citation, totale ou partielle, quel qu’en soit le procédé ou le support, est strictement interdite sauf disposition légale ou autorisation expresse de leur propriétaire. Les photos ne sont pas contractuelles.",
+				"title": "Propriété intellectuelle"
 			},
-			"abuse": {
-				"title": "Abus",
-				"content": "Pour signaler un contenu litigieux ou si vous êtes victime d’une utilisation frauduleuse d’un service Beswib, veuillez nous contacter à"
-			},
+			"title": "Mentions légales",
 			"update": {
-				"title": "Mise à jour",
-				"content": "Si nous mettons à jour, modifions ou apportons des changements à ce document, ces modifications seront publiées ici."
+				"content": "Si nous mettons à jour, modifions ou apportons des changements à ce document, ces modifications seront publiées ici.",
+				"title": "Mise à jour"
+			}
+		}
+	},
+	"es": {
+		"legal": {
+			"abuse": {
+				"content": "To report contentious content or if you are the victim of fraudulent use of a Beswib service, please contact us at",
+				"title": "Abuse"
+			},
+			"badge": "Legal",
+			"company": {
+				"name": "Beswib",
+				"nameLabel": "Company",
+				"publicationDirector": "Andy Cinquin",
+				"publicationDirectorLabel": "Director of publication",
+				"registeredOffice": "4 Impasse de la marchaisière, 44115 Haute-Goulaine, France",
+				"registeredOfficeLabel": "Registered office",
+				"siret": "880 505 276 00019",
+				"siretLabel": "SIRET",
+				"title": "Company Information",
+				"vat": "FR 35 880505276",
+				"vatLabel": "VAT number"
+			},
+			"contact": {
+				"email": "contact@beswib.com",
+				"emailLabel": "Email:",
+				"phone": "+33 (0)6 21 58 26 84",
+				"phoneLabel": "Phone:",
+				"postal": "72 Avenue Camus, 44000 Nantes, France",
+				"postalLabel": "Postal address:",
+				"title": "Contact",
+				"website": "https://beswib.com"
+			},
+			"hosting": {
+				"address": "Daimlerstraße 25, 76185 Karlsruhe, Germany",
+				"addressLabel": "Address:",
+				"company": "netcup GmbH",
+				"companyLabel": "Company:",
+				"title": "Hosting",
+				"website": "https://www.netcup.com/en/",
+				"websiteLabel": "Website:"
+			},
+			"intro": "Beswib, a platform operated by the company Beswib. Below are the mandatory legal disclosures.",
+			"ipr": {
+				"content": "This website and its contents (data, information, photos, logos, trademarks) are the exclusive property of Beswib or its partners. Any reproduction, representation, translation, adaptation, or quotation, in whole or in part, by any means or media, is strictly prohibited unless provided by law or expressly authorized by their owner. Photos are not contractual.",
+				"title": "Intellectual Property"
+			},
+			"title": "Legal Notice",
+			"update": {
+				"content": "Should we update, amend, or make any changes to this document, those changes will be posted here.",
+				"title": "Update"
+			}
+		}
+	},
+	"it": {
+		"legal": {
+			"abuse": {
+				"content": "To report contentious content or if you are the victim of fraudulent use of a Beswib service, please contact us at",
+				"title": "Abuse"
+			},
+			"badge": "Legal",
+			"company": {
+				"name": "Beswib",
+				"nameLabel": "Company",
+				"publicationDirector": "Andy Cinquin",
+				"publicationDirectorLabel": "Director of publication",
+				"registeredOffice": "4 Impasse de la marchaisière, 44115 Haute-Goulaine, France",
+				"registeredOfficeLabel": "Registered office",
+				"siret": "880 505 276 00019",
+				"siretLabel": "SIRET",
+				"title": "Company Information",
+				"vat": "FR 35 880505276",
+				"vatLabel": "VAT number"
+			},
+			"contact": {
+				"email": "contact@beswib.com",
+				"emailLabel": "Email:",
+				"phone": "+33 (0)6 21 58 26 84",
+				"phoneLabel": "Phone:",
+				"postal": "72 Avenue Camus, 44000 Nantes, France",
+				"postalLabel": "Postal address:",
+				"title": "Contact",
+				"website": "https://beswib.com"
+			},
+			"hosting": {
+				"address": "Daimlerstraße 25, 76185 Karlsruhe, Germany",
+				"addressLabel": "Address:",
+				"company": "netcup GmbH",
+				"companyLabel": "Company:",
+				"title": "Hosting",
+				"website": "https://www.netcup.com/en/",
+				"websiteLabel": "Website:"
+			},
+			"intro": "Beswib, a platform operated by the company Beswib. Below are the mandatory legal disclosures.",
+			"ipr": {
+				"content": "This website and its contents (data, information, photos, logos, trademarks) are the exclusive property of Beswib or its partners. Any reproduction, representation, translation, adaptation, or quotation, in whole or in part, by any means or media, is strictly prohibited unless provided by law or expressly authorized by their owner. Photos are not contractual.",
+				"title": "Intellectual Property"
+			},
+			"title": "Legal Notice",
+			"update": {
+				"content": "Should we update, amend, or make any changes to this document, those changes will be posted here.",
+				"title": "Update"
+			}
+		}
+	},
+	"de": {
+		"legal": {
+			"abuse": {
+				"content": "To report contentious content or if you are the victim of fraudulent use of a Beswib service, please contact us at",
+				"title": "Abuse"
+			},
+			"badge": "Legal",
+			"company": {
+				"name": "Beswib",
+				"nameLabel": "Company",
+				"publicationDirector": "Andy Cinquin",
+				"publicationDirectorLabel": "Director of publication",
+				"registeredOffice": "4 Impasse de la marchaisière, 44115 Haute-Goulaine, France",
+				"registeredOfficeLabel": "Registered office",
+				"siret": "880 505 276 00019",
+				"siretLabel": "SIRET",
+				"title": "Company Information",
+				"vat": "FR 35 880505276",
+				"vatLabel": "VAT number"
+			},
+			"contact": {
+				"email": "contact@beswib.com",
+				"emailLabel": "Email:",
+				"phone": "+33 (0)6 21 58 26 84",
+				"phoneLabel": "Phone:",
+				"postal": "72 Avenue Camus, 44000 Nantes, France",
+				"postalLabel": "Postal address:",
+				"title": "Contact",
+				"website": "https://beswib.com"
+			},
+			"hosting": {
+				"address": "Daimlerstraße 25, 76185 Karlsruhe, Germany",
+				"addressLabel": "Address:",
+				"company": "netcup GmbH",
+				"companyLabel": "Company:",
+				"title": "Hosting",
+				"website": "https://www.netcup.com/en/",
+				"websiteLabel": "Website:"
+			},
+			"intro": "Beswib, a platform operated by the company Beswib. Below are the mandatory legal disclosures.",
+			"ipr": {
+				"content": "This website and its contents (data, information, photos, logos, trademarks) are the exclusive property of Beswib or its partners. Any reproduction, representation, translation, adaptation, or quotation, in whole or in part, by any means or media, is strictly prohibited unless provided by law or expressly authorized by their owner. Photos are not contractual.",
+				"title": "Intellectual Property"
+			},
+			"title": "Legal Notice",
+			"update": {
+				"content": "Should we update, amend, or make any changes to this document, those changes will be posted here.",
+				"title": "Update"
+			}
+		}
+	},
+	"ro": {
+		"legal": {
+			"abuse": {
+				"content": "To report contentious content or if you are the victim of fraudulent use of a Beswib service, please contact us at",
+				"title": "Abuse"
+			},
+			"badge": "Legal",
+			"company": {
+				"name": "Beswib",
+				"nameLabel": "Company",
+				"publicationDirector": "Andy Cinquin",
+				"publicationDirectorLabel": "Director of publication",
+				"registeredOffice": "4 Impasse de la marchaisière, 44115 Haute-Goulaine, France",
+				"registeredOfficeLabel": "Registered office",
+				"siret": "880 505 276 00019",
+				"siretLabel": "SIRET",
+				"title": "Company Information",
+				"vat": "FR 35 880505276",
+				"vatLabel": "VAT number"
+			},
+			"contact": {
+				"email": "contact@beswib.com",
+				"emailLabel": "Email:",
+				"phone": "+33 (0)6 21 58 26 84",
+				"phoneLabel": "Phone:",
+				"postal": "72 Avenue Camus, 44000 Nantes, France",
+				"postalLabel": "Postal address:",
+				"title": "Contact",
+				"website": "https://beswib.com"
+			},
+			"hosting": {
+				"address": "Daimlerstraße 25, 76185 Karlsruhe, Germany",
+				"addressLabel": "Address:",
+				"company": "netcup GmbH",
+				"companyLabel": "Company:",
+				"title": "Hosting",
+				"website": "https://www.netcup.com/en/",
+				"websiteLabel": "Website:"
+			},
+			"intro": "Beswib, a platform operated by the company Beswib. Below are the mandatory legal disclosures.",
+			"ipr": {
+				"content": "This website and its contents (data, information, photos, logos, trademarks) are the exclusive property of Beswib or its partners. Any reproduction, representation, translation, adaptation, or quotation, in whole or in part, by any means or media, is strictly prohibited unless provided by law or expressly authorized by their owner. Photos are not contractual.",
+				"title": "Intellectual Property"
+			},
+			"title": "Legal Notice",
+			"update": {
+				"content": "Should we update, amend, or make any changes to this document, those changes will be posted here.",
+				"title": "Update"
+			}
+		}
+	},
+	"pt": {
+		"legal": {
+			"abuse": {
+				"content": "To report contentious content or if you are the victim of fraudulent use of a Beswib service, please contact us at",
+				"title": "Abuse"
+			},
+			"badge": "Legal",
+			"company": {
+				"name": "Beswib",
+				"nameLabel": "Company",
+				"publicationDirector": "Andy Cinquin",
+				"publicationDirectorLabel": "Director of publication",
+				"registeredOffice": "4 Impasse de la marchaisière, 44115 Haute-Goulaine, France",
+				"registeredOfficeLabel": "Registered office",
+				"siret": "880 505 276 00019",
+				"siretLabel": "SIRET",
+				"title": "Company Information",
+				"vat": "FR 35 880505276",
+				"vatLabel": "VAT number"
+			},
+			"contact": {
+				"email": "contact@beswib.com",
+				"emailLabel": "Email:",
+				"phone": "+33 (0)6 21 58 26 84",
+				"phoneLabel": "Phone:",
+				"postal": "72 Avenue Camus, 44000 Nantes, France",
+				"postalLabel": "Postal address:",
+				"title": "Contact",
+				"website": "https://beswib.com"
+			},
+			"hosting": {
+				"address": "Daimlerstraße 25, 76185 Karlsruhe, Germany",
+				"addressLabel": "Address:",
+				"company": "netcup GmbH",
+				"companyLabel": "Company:",
+				"title": "Hosting",
+				"website": "https://www.netcup.com/en/",
+				"websiteLabel": "Website:"
+			},
+			"intro": "Beswib, a platform operated by the company Beswib. Below are the mandatory legal disclosures.",
+			"ipr": {
+				"content": "This website and its contents (data, information, photos, logos, trademarks) are the exclusive property of Beswib or its partners. Any reproduction, representation, translation, adaptation, or quotation, in whole or in part, by any means or media, is strictly prohibited unless provided by law or expressly authorized by their owner. Photos are not contractual.",
+				"title": "Intellectual Property"
+			},
+			"title": "Legal Notice",
+			"update": {
+				"content": "Should we update, amend, or make any changes to this document, those changes will be posted here.",
+				"title": "Update"
+			}
+		}
+	},
+	"nl": {
+		"legal": {
+			"abuse": {
+				"content": "To report contentious content or if you are the victim of fraudulent use of a Beswib service, please contact us at",
+				"title": "Abuse"
+			},
+			"badge": "Legal",
+			"company": {
+				"name": "Beswib",
+				"nameLabel": "Company",
+				"publicationDirector": "Andy Cinquin",
+				"publicationDirectorLabel": "Director of publication",
+				"registeredOffice": "4 Impasse de la marchaisière, 44115 Haute-Goulaine, France",
+				"registeredOfficeLabel": "Registered office",
+				"siret": "880 505 276 00019",
+				"siretLabel": "SIRET",
+				"title": "Company Information",
+				"vat": "FR 35 880505276",
+				"vatLabel": "VAT number"
+			},
+			"contact": {
+				"email": "contact@beswib.com",
+				"emailLabel": "Email:",
+				"phone": "+33 (0)6 21 58 26 84",
+				"phoneLabel": "Phone:",
+				"postal": "72 Avenue Camus, 44000 Nantes, France",
+				"postalLabel": "Postal address:",
+				"title": "Contact",
+				"website": "https://beswib.com"
+			},
+			"hosting": {
+				"address": "Daimlerstraße 25, 76185 Karlsruhe, Germany",
+				"addressLabel": "Address:",
+				"company": "netcup GmbH",
+				"companyLabel": "Company:",
+				"title": "Hosting",
+				"website": "https://www.netcup.com/en/",
+				"websiteLabel": "Website:"
+			},
+			"intro": "Beswib, a platform operated by the company Beswib. Below are the mandatory legal disclosures.",
+			"ipr": {
+				"content": "This website and its contents (data, information, photos, logos, trademarks) are the exclusive property of Beswib or its partners. Any reproduction, representation, translation, adaptation, or quotation, in whole or in part, by any means or media, is strictly prohibited unless provided by law or expressly authorized by their owner. Photos are not contractual.",
+				"title": "Intellectual Property"
+			},
+			"title": "Legal Notice",
+			"update": {
+				"content": "Should we update, amend, or make any changes to this document, those changes will be posted here.",
+				"title": "Update"
+			}
+		}
+	},
+	"ko": {
+		"legal": {
+			"abuse": {
+				"content": "To report contentious content or if you are the victim of fraudulent use of a Beswib service, please contact us at",
+				"title": "Abuse"
+			},
+			"badge": "Legal",
+			"company": {
+				"name": "Beswib",
+				"nameLabel": "Company",
+				"publicationDirector": "Andy Cinquin",
+				"publicationDirectorLabel": "Director of publication",
+				"registeredOffice": "4 Impasse de la marchaisière, 44115 Haute-Goulaine, France",
+				"registeredOfficeLabel": "Registered office",
+				"siret": "880 505 276 00019",
+				"siretLabel": "SIRET",
+				"title": "Company Information",
+				"vat": "FR 35 880505276",
+				"vatLabel": "VAT number"
+			},
+			"contact": {
+				"email": "contact@beswib.com",
+				"emailLabel": "Email:",
+				"phone": "+33 (0)6 21 58 26 84",
+				"phoneLabel": "Phone:",
+				"postal": "72 Avenue Camus, 44000 Nantes, France",
+				"postalLabel": "Postal address:",
+				"title": "Contact",
+				"website": "https://beswib.com"
+			},
+			"hosting": {
+				"address": "Daimlerstraße 25, 76185 Karlsruhe, Germany",
+				"addressLabel": "Address:",
+				"company": "netcup GmbH",
+				"companyLabel": "Company:",
+				"title": "Hosting",
+				"website": "https://www.netcup.com/en/",
+				"websiteLabel": "Website:"
+			},
+			"intro": "Beswib, a platform operated by the company Beswib. Below are the mandatory legal disclosures.",
+			"ipr": {
+				"content": "This website and its contents (data, information, photos, logos, trademarks) are the exclusive property of Beswib or its partners. Any reproduction, representation, translation, adaptation, or quotation, in whole or in part, by any means or media, is strictly prohibited unless provided by law or expressly authorized by their owner. Photos are not contractual.",
+				"title": "Intellectual Property"
+			},
+			"title": "Legal Notice",
+			"update": {
+				"content": "Should we update, amend, or make any changes to this document, those changes will be posted here.",
+				"title": "Update"
 			}
 		}
 	}
