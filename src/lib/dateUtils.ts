@@ -1,3 +1,23 @@
+import { DateTime } from 'luxon'
+
+/**
+ * Converts a PocketBase RFC3399 date string to a Luxon DateTime object
+ * @param dateStr PocketBase date string (e.g. '2025-08-08 14:10:30.832Z')
+ */
+export function pbDateStringToLuxon(dateStr: string): DateTime {
+	const pbFormat = "yyyy-MM-dd HH:mm:ss.SSS'Z'"
+	return DateTime.fromFormat(dateStr, pbFormat, { zone: 'utc' })
+}
+
+/**
+ * Converts a JS Date object to a PocketBase RFC3399 date string
+ * @param date JS Date object
+ */
+export function dateToPbDateString(date: Date): string {
+	const pad = (n: number, width = 2) => n.toString().padStart(width, '0')
+	const padMs = (n: number) => n.toString().padStart(3, '0')
+	return `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1)}-${pad(date.getUTCDate())} ${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}:${pad(date.getUTCSeconds())}.${padMs(date.getUTCMilliseconds())}Z`
+}
 /**
  * Utility functions for date handling and localization 📅🌐
  */

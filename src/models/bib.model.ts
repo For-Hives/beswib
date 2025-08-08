@@ -20,5 +20,5 @@ export interface Bib {
 	validated: boolean
 	optionValues: Record<string, string>
 
-	lockedAt?: Date | null // Timestamp when the bib was locked for purchase
+	lockedAt?: Date | string | null // RFC3399 Date format
 }
