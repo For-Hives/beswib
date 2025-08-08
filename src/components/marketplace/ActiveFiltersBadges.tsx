@@ -20,13 +20,13 @@ interface ActiveFiltersBadgesProps {
 	}
 	readonly maxPrice: number
 	readonly onRemoveFilter: (type: string, value?: string) => void
-    readonly locale?: Locale
+	readonly locale?: Locale
 }
 
 const sportsOptions = [
 	{ value: 'running', label: 'Road', icon: '🏃' },
 	{ value: 'trail', label: 'Trail', icon: '🏔️' },
-	{ value: 'triathlon', label: 'Triathlon', icon: '🏊‍♂️🚴‍♂️🏃‍♂️' },
+	{ value: 'triathlon', label: 'Triathlon', icon: '🏊‍♂️' },
 	{ value: 'cycling', label: 'Cycling', icon: '🚴' },
 	{ value: 'other', label: 'Other', icon: '🏅' },
 ]
@@ -43,7 +43,7 @@ const distanceOptions = [
 ]
 
 export default function ActiveFiltersBadges({ filters, maxPrice, onRemoveFilter, locale }: ActiveFiltersBadgesProps) {
-    const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
+	const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
 	const activeFilters = []
 
 	// Sport filter
@@ -89,18 +89,18 @@ export default function ActiveFiltersBadges({ filters, maxPrice, onRemoveFilter,
 	})
 
 	// Date filters
-    if (filters.dateStart !== undefined && filters.dateStart !== '') {
+	if (filters.dateStart !== undefined && filters.dateStart !== '') {
 		activeFilters.push({
 			type: 'dateStart',
-            label: `${t.start ?? 'From'}: ${filters.dateStart}`,
+			label: `${t.start ?? 'From'}: ${filters.dateStart}`,
 			value: 'dateStart',
 		})
 	}
 
-    if (filters.dateEnd !== undefined && filters.dateEnd !== '') {
+	if (filters.dateEnd !== undefined && filters.dateEnd !== '') {
 		activeFilters.push({
 			type: 'dateEnd',
-            label: `${t.end ?? 'To'}: ${filters.dateEnd}`,
+			label: `${t.end ?? 'To'}: ${filters.dateEnd}`,
 			value: 'dateEnd',
 		})
 	}

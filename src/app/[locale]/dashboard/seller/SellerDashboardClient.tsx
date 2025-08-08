@@ -87,7 +87,7 @@ export default function SellerDashboardClient({
 							)}
 						</p>
 					</div>
-					<div className="rounded-full bg-green-500/10 px-3 py-1 text-xs font-medium text-green-500">SELLER</div>
+					<div className="rounded-full bg-green-500/10 px-3 py-1 text-xs font-medium text-green-500">{t.badge ?? 'SELLER'}</div>
 				</div>
 			</div>
 
@@ -276,7 +276,7 @@ export default function SellerDashboardClient({
 								<div className="py-12 text-center">
 									<Tag className="text-muted-foreground mx-auto mb-4 h-16 w-16" />
 									<h3 className="mb-2 text-lg font-semibold">{t?.noBibsListed ?? 'No bibs listed yet'}</h3>
-									<p className="text-muted-foreground mb-6">Start selling your race bibs to connect with runners</p>
+								<p className="text-muted-foreground mb-6">{t.startSelling ?? 'Start selling your race bibs to connect with runners'}</p>
 									<Link href="/dashboard/seller/sell-bib">
 										<Button size="lg">
 											<Plus className="mr-2 h-4 w-4" />
