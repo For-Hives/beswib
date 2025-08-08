@@ -81,7 +81,7 @@ export const FileUpload = ({ onChange, locale }: { locale: Locale; onChange?: (f
 							files.map((file, idx) => (
 								<motion.div
 									className={cn(
-										'bg-card/80 border-border/50 relative z-40 mx-auto mt-4 flex w-full flex-col items-start justify-start overflow-hidden rounded-md border p-4 backdrop-blur-md md:h-24',
+										'bg-card/80 dark:border-border/50 relative z-40 mx-auto mt-4 flex w-full flex-col items-start justify-start overflow-hidden rounded-md border border-black/50 p-4 backdrop-blur-md md:h-24',
 										'shadow-sm'
 									)}
 									key={'file' + idx}
@@ -125,7 +125,7 @@ export const FileUpload = ({ onChange, locale }: { locale: Locale; onChange?: (f
 						{!files.length && (
 							<motion.div
 								className={cn(
-									'bg-card/80 border-border/50 relative z-40 mx-auto mt-4 flex h-32 w-full max-w-[8rem] items-center justify-center rounded-md border backdrop-blur-md group-hover/file:shadow-2xl',
+									'bg-card/80 dark:border-border/50 relative z-40 mx-auto mt-4 flex h-32 w-full max-w-[8rem] items-center justify-center rounded-md border border-black/50 backdrop-blur-md group-hover/file:shadow-2xl',
 									'shadow-[0px_10px_50px_rgba(0,0,0,0.1)]'
 								)}
 								layoutId="file-upload"

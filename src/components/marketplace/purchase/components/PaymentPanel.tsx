@@ -105,7 +105,7 @@ export default function PaymentPanel({
 						{/* Order Summary - Left Side */}
 						<div className="space-y-6 lg:col-span-2">
 							{/* Event Summary Card */}
-							<div className="border-border/50 bg-card/80 rounded-lg border p-6 backdrop-blur-sm">
+							<div className="dark:border-border/50 bg-card/80 rounded-lg border border-black/50 p-6 backdrop-blur-sm">
 								<h3 className="text-foreground mb-4 text-sm font-medium">Event Details</h3>
 								<div className="flex items-start gap-4">
 									<div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg">
@@ -140,7 +140,7 @@ export default function PaymentPanel({
 							</div>
 
 							{/* Order Summary Details */}
-							<div className="border-border/50 bg-card/80 rounded-lg border p-6 backdrop-blur-sm">
+							<div className="dark:border-border/50 bg-card/80 rounded-lg border border-black/50 p-6 backdrop-blur-sm">
 								<h3 className="text-foreground mb-4 text-sm font-medium">Order Summary</h3>
 								<div className="space-y-3">
 									<div className="flex items-center justify-between">
@@ -163,7 +163,7 @@ export default function PaymentPanel({
 							</div>
 
 							{/* What's Included */}
-							<div className="border-border/50 bg-card/80 rounded-lg border p-6 backdrop-blur-sm">
+							<div className="dark:border-border/50 bg-card/80 rounded-lg border border-black/50 p-6 backdrop-blur-sm">
 								<h3 className="text-foreground mb-4 text-sm font-medium">What's included</h3>
 								<ul className="text-foreground/80 space-y-2 text-sm">
 									<li>• Official race bib with your registered details</li>
@@ -176,7 +176,7 @@ export default function PaymentPanel({
 
 						{/* Payment Section - Right Side */}
 						<div className="space-y-6">
-							<div className="border-border/50 bg-card/80 rounded-lg border p-6 backdrop-blur-sm">
+							<div className="dark:border-border/50 bg-card/80 rounded-lg border border-black/50 p-6 backdrop-blur-sm">
 								<h3 className="text-foreground mb-4 text-sm font-medium">Payment Method</h3>
 
 								{/* Error Messages */}

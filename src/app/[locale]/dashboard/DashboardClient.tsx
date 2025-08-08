@@ -49,7 +49,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 					{/* Main Dashboard Cards - Only Buyer and Seller */}
 					<div className="mx-auto mb-12 grid max-w-7xl grid-cols-1 gap-8 md:grid-cols-2">
 						{/* Buyer Dashboard */}
-						<Card className="border-border/50 bg-card/80 flex h-full flex-col justify-between backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
+						<Card className="dark:border-border/50 bg-card/80 flex h-full flex-col justify-between border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
 							<CardHeader className="text-center">
 								<div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-blue-500/10 text-blue-500 transition-colors group-hover:bg-blue-500/20">
 									<ShoppingCart className="h-10 w-10" />
@@ -73,7 +73,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 						</Card>
 
 						{/* Seller Dashboard */}
-						<Card className="border-border/50 bg-card/80 hover:bg-card/90 group flex h-full flex-col justify-between backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
+						<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 group flex h-full flex-col justify-between border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
 							<CardHeader className="text-center">
 								<div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-green-500/10 text-green-500 transition-colors group-hover:bg-green-500/20">
 									<Tag className="h-10 w-10" />
@@ -106,7 +106,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 						<h2 className="text-foreground mb-8 text-center text-2xl font-bold">Quick Actions</h2>
 						<div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-6">
 							{/* Sell Bib */}
-							<Card className="border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 								<Link href="/dashboard/seller/sell-bib">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
@@ -118,7 +118,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 							</Card>
 
 							{/* Browse Events */}
-							<Card className="border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 								<Link href="/events">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
@@ -130,7 +130,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 							</Card>
 
 							{/* Marketplace */}
-							<Card className="border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 								<Link href="/marketplace">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
@@ -142,7 +142,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 							</Card>
 
 							{/* My Listings */}
-							<Card className="border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 								<Link href="/dashboard/seller/request-event">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
@@ -154,7 +154,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 							</Card>
 
 							{/* Contact */}
-							<Card className="border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 								<Link href="/contact">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
@@ -170,7 +170,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 					{/* Featured Section */}
 					<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
 						{/* Getting Started */}
-						<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader>
 								<CardTitle className="flex items-center gap-2">
 									<Zap className="h-5 w-5" />
@@ -201,7 +201,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 						</Card>
 
 						{/* Platform Stats */}
-						<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader>
 								<CardTitle className="flex items-center gap-2">
 									<TrendingUp className="h-5 w-5" />

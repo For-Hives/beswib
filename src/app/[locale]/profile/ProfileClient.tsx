@@ -50,7 +50,7 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 							<ModernRunnerForm user={user} />
 						</div>
 						<div>
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 								<CardHeader>
 									<CardTitle>{t.profile.sellerInfo.title}</CardTitle>
 									<CardDescription>{t.profile.sellerInfo.description}</CardDescription>

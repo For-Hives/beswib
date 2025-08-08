@@ -81,7 +81,7 @@ export default function EventSelectionStep({
 					) : (
 						filteredEvents.map(event => (
 							<Card
-								className={`border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer backdrop-blur-sm transition-all duration-200 hover:shadow-lg ${
+								className={`dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-lg ${
 									selectedEvent?.id === event.id ? 'ring-primary border-primary bg-primary/5 ring-2' : ''
 								}`}
 								key={event.id}

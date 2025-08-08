@@ -37,7 +37,7 @@ export default function AdminEventPageClient({ locale, currentUser }: AdminEvent
 			<div className="from-background via-destructive/5 to-background relative min-h-screen bg-gradient-to-br">
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 				<div className="relative flex min-h-screen items-center justify-center">
-					<div className="border-border/50 bg-card/80 w-full max-w-md rounded-3xl border p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--destructive)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--destructive)/0.2)] backdrop-blur-md">
+					<div className="dark:border-border/50 bg-card/80 w-full max-w-md rounded-3xl border border-black/50 p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--destructive)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--destructive)/0.2)] backdrop-blur-md">
 						<div className="mb-6 text-6xl text-red-600 dark:text-red-400">⚠</div>
 						<h1 className="text-foreground mb-4 text-3xl font-bold">Access Error</h1>
 						<p className="text-muted-foreground mb-6 text-lg">
@@ -60,7 +60,7 @@ export default function AdminEventPageClient({ locale, currentUser }: AdminEvent
 			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 				<div className="relative flex min-h-screen items-center justify-center">
-					<div className="border-border/50 bg-card/80 w-full max-w-md rounded-3xl border p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md">
+					<div className="dark:border-border/50 bg-card/80 w-full max-w-md rounded-3xl border border-black/50 p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md">
 						<div className="mb-6 text-6xl text-green-600 dark:text-green-400">✓</div>
 						<h1 className="text-foreground mb-4 text-3xl font-bold">{translations.event.success.title}</h1>
 						<p className="text-muted-foreground mb-6 text-lg">

@@ -65,7 +65,7 @@ export default function PricingStep({ onChange, locale, formData, errors }: Read
 							onValueChange={(value: 'private' | 'public') => onChange({ listingType: value })}
 							value={formData.listingType}
 						>
-							<div className="border-border/50 bg-card/50 space-y-2 rounded-lg p-4">
+							<div className="dark:border-border/50 bg-card/50 space-y-2 rounded-lg border-black/50 p-4">
 								<div className="flex items-center space-x-3">
 									<RadioGroupItem id="public" value="public" />
 									<Label className="font-medium" htmlFor="public">
@@ -75,7 +75,7 @@ export default function PricingStep({ onChange, locale, formData, errors }: Read
 								<p className="text-muted-foreground ml-6 text-sm">{t.form.pricing.publicListingHelp}</p>
 							</div>
 
-							<div className="border-border/50 bg-card/50 space-y-2 rounded-lg p-4">
+							<div className="dark:border-border/50 bg-card/50 space-y-2 rounded-lg border-black/50 p-4">
 								<div className="flex items-center space-x-3">
 									<RadioGroupItem id="private" value="private" />
 									<Label className="font-medium" htmlFor="private">

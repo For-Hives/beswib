@@ -11,7 +11,7 @@ export default function FileUploadDemo() {
 	}
 
 	return (
-		<div className="bg-card/80 border-border/50 mx-auto w-full max-w-4xl rounded-lg border backdrop-blur-md">
+		<div className="bg-card/80 dark:border-border/50 mx-auto w-full max-w-4xl rounded-lg border border-black/50 backdrop-blur-md">
 			<FileUpload locale="en" onChange={handleFileUpload} />
 			{/*  TODO: if the Demo component is still used, make the locales dynamic 🌐 (Translated from French) */}
 		</div>

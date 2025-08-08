@@ -26,7 +26,7 @@ export default function EventDetails({ bib, eventData, organizerData }: EventDet
 			{eventData?.description !== null &&
 			eventData?.description !== undefined &&
 			eventData.description.trim() !== '' ? (
-				<div className="border-border/50 bg-card/50 rounded-lg border p-4 backdrop-blur-sm">
+				<div className="dark:border-border/50 bg-card/50 rounded-lg border border-black/50 p-4 backdrop-blur-sm">
 					<h3 className="text-primary mb-3 text-sm font-semibold">À propos de cet événement</h3>
 					<p className="text-foreground/80 mb-4 text-sm leading-relaxed">{eventData.description}</p>
 
@@ -67,7 +67,7 @@ export default function EventDetails({ bib, eventData, organizerData }: EventDet
 					)}
 				</div>
 			) : (
-				<div className="border-border/50 bg-card/50 rounded-lg border p-4 backdrop-blur-sm">
+				<div className="dark:border-border/50 bg-card/50 rounded-lg border border-black/50 p-4 backdrop-blur-sm">
 					<h3 className="text-primary mb-3 text-sm font-semibold">À propos de cet événement</h3>
 					<p className="text-foreground/80 mb-4 text-sm leading-relaxed">
 						Secure your spot for {bib.event.name}. This race bib includes all official race materials and registration
