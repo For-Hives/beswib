@@ -252,12 +252,12 @@
 					"title": "Organisateurs en attente"
 				},
 				"stats": {
-					"approvedPartners": "Partenaires Approuvés",
-					"pendingValidation": "En Attente de Validation",
-					"totalOrganizers": "Total Organisateurs"
+					"approvedPartners": "Partenaires approuvés",
+					"pendingValidation": "En attente de validation",
+					"totalOrganizers": "Total organisateurs"
 				},
-				"subtitle": "Examiner et approuver les candidatures d'organisateurs pour devenir partenaires de la plateforme.",
-				"title": "Valider les Organisateurs"
+				"subtitle": "Examinez et approuvez les candidatures des organisateurs pour devenir partenaires de la plateforme.",
+				"title": "Valider les organisateurs"
 			}
 		}
 	},
@@ -267,11 +267,11 @@
 				"na": "N/A",
 				"organizer": "organizador",
 				"organizers": "organizadores",
-				"unknownOrganizer": "Organizador Desconocido"
+				"unknownOrganizer": "Organizador desconocido"
 			},
 			"actions": {
-				"createOrganizer": "Agregar Nuevo Organizador",
-				"createOrganizerDescription": "Registrar organizadores de eventos para habilitar la reventa de dorsales para sus carreras"
+				"createOrganizer": "Añadir nuevo organizador",
+				"createOrganizerDescription": "Registra organizadores de eventos para permitir la reventa de dorsales en sus carreras"
 			},
 			"actionsLabels": {
 				"openMenu": "Abrir menú",
@@ -281,48 +281,48 @@
 			},
 			"create": {
 				"errors": {
-					"createFailed": "Error al crear organizador",
-					"emailInvalid": "Por favor ingrese una dirección de email válida",
-					"nameRequired": "El nombre del organizador es requerido",
+					"createFailed": "Error al crear el organizador",
+					"emailInvalid": "Por favor, introduce una dirección de correo válida",
+					"nameRequired": "El nombre del organizador es obligatorio",
 					"websiteInvalid": "Debe ser una URL válida"
 				},
 				"form": {
 					"cancelButton": "Cancelar",
-					"emailLabel": "Dirección de Email",
+					"emailLabel": "Dirección de correo",
 					"emailPlaceholder": "contact@marathon-paris.com",
-					"nameLabel": "Nombre del Organizador",
+					"nameLabel": "Nombre del organizador",
 					"namePlaceholder": "Maratón de París",
-					"partnerDescription": "Marque esta opción para permitir la reventa de dorsales para eventos organizados por este organizador. Esto hará que sus eventos estén disponibles en el mercado Beswib.",
-					"partnerLabel": "Habilitar Reventa de Dorsales",
-					"submitButton": "Crear Organizador",
-					"websiteLabel": "Sitio Web",
+					"partnerDescription": "Marca esta opción para permitir la reventa de dorsales para eventos organizados por este organizador. Esto hará que sus eventos estén disponibles en el marketplace de Beswib.",
+					"partnerLabel": "Habilitar reventa de dorsales",
+					"submitButton": "Crear organizador",
+					"websiteLabel": "Sitio web",
 					"websitePlaceholder": "https://www.marathon-paris.com"
 				},
-				"subtitle": "Agregar un nuevo organizador de eventos a la plataforma Beswib",
+				"subtitle": "Añade un nuevo organizador de eventos a la plataforma Beswib",
 				"success": {
-					"backButton": "Volver al Panel",
-					"message": "\"{organizerName}\" ha sido creado y ahora está disponible en la plataforma.",
-					"title": "¡Organizador Creado Exitosamente!"
+					"backButton": "Volver al panel",
+					"message": "\"{organizerName}\" ha sido creado y ya está disponible en la plataforma.",
+					"title": "¡Organizador creado con éxito!"
 				},
-				"title": "Crear Nuevo Organizador"
+				"title": "Crear nuevo organizador"
 			},
 			"sections": {
 				"actions": {
-					"description": "Agregar o gestionar organizadores de eventos para el control de reventa de dorsales",
-					"title": "Acciones Rápidas"
+					"description": "Añade o gestiona organizadores de eventos para el control de la reventa de dorsales",
+					"title": "Acciones rápidas"
 				}
 			},
 			"stats": {
-				"partneredOrganizers": "Reventa de Dorsales Habilitada",
-				"totalOrganizers": "Total de Organizadores"
+				"partneredOrganizers": "Reventa de dorsales habilitada",
+				"totalOrganizers": "Total organizadores"
 			},
-			"subtitle": "Gestionar organizadores de eventos para controlar qué carreras están disponibles para la reventa de dorsales",
+			"subtitle": "Gestiona organizadores de eventos para controlar qué carreras están disponibles para la reventa de dorsales",
 			"table": {
 				"columns": {
 					"created": "Creado",
-					"email": "Email",
+					"email": "Correo",
 					"eventsCount": "Eventos",
-					"name": "Nombre del Organizador",
+					"name": "Nombre del organizador",
 					"partnership": "Asociación",
 					"status": {
 						"partner": "Socio",
@@ -334,7 +334,7 @@
 					"clearFilter": "Limpiar filtro",
 					"confirmDelete": "¿Está absolutamente seguro?",
 					"deleteDescription": "Esta acción no se puede deshacer. Esto eliminará permanentemente",
-					"deleteSelected": "Eliminar Seleccionados",
+					"deleteSelected": "Eliminar seleccionados",
 					"rowsPerPage": "Filas por página",
 					"selectAll": "Seleccionar todo",
 					"selectRow": "Seleccionar fila",
@@ -342,12 +342,12 @@
 					"selectNumberOfResults": "Seleccionar número de resultados"
 				},
 				"empty": {
-					"createButton": "Crear Nuevo Organizador",
-					"description": "Comience creando su primer organizador",
+					"createButton": "Crear nuevo organizador",
+					"description": "Comienza creando tu primer organizador",
 					"title": "No se encontraron organizadores"
 				},
 				"noResults": "No se encontraron organizadores",
-				"noResultsDescription": "Comience creando su primer organizador",
+				"noResultsDescription": "Comienza creando tu primer organizador",
 				"search": "Buscar organizadores...",
 				"pagination": {
 					"goToFirst": "Ir a la primera página",
@@ -357,18 +357,18 @@
 					"of": "de"
 				}
 			},
-			"title": "Gestión de Organizadores",
+			"title": "Gestión de organizadores",
 			"ui": {
-				"accessError": "Error de Acceso",
+				"accessError": "Error de acceso",
 				"accessErrorDescription": "No se puede verificar el acceso de administrador. Por favor, intente iniciar sesión nuevamente.",
 				"connectedAs": "Conectado como",
 				"loading": "Cargando...",
-				"signIn": "Iniciar Sesión"
+				"signIn": "Iniciar sesión"
 			},
 			"validate": {
 				"messages": {
 					"approveError": "Error al aprobar organizador",
-					"approveSuccess": "¡Organizador aprobado exitosamente!",
+					"approveSuccess": "¡Organizador aprobado con éxito!",
 					"rejectError": "Error al rechazar organizador",
 					"rejectSuccess": "Organizador rechazado"
 				},
@@ -376,19 +376,19 @@
 					"actions": {
 						"approve": "Aprobar",
 						"reject": "Rechazar",
-						"viewWebsite": "Ver Sitio Web"
+						"viewWebsite": "Ver sitio web"
 					},
 					"noResults": "No hay organizadores pendientes",
 					"noResultsDescription": "Todos los organizadores han sido validados",
-					"title": "Organizadores Pendientes"
+					"title": "Organizadores pendientes"
 				},
 				"stats": {
-					"approvedPartners": "Socios Aprobados",
-					"pendingValidation": "Pendiente de Validación",
-					"totalOrganizers": "Total de Organizadores"
+					"approvedPartners": "Socios aprobados",
+					"pendingValidation": "Pendiente de validación",
+					"totalOrganizers": "Total organizadores"
 				},
-				"subtitle": "Revisar y aprobar las solicitudes de organizadores para convertirse en socios de la plataforma.",
-				"title": "Validar Organizadores"
+				"subtitle": "Revisa y aprueba las solicitudes de organizadores para convertirse en socios de la plataforma.",
+				"title": "Validar organizadores"
 			}
 		}
 	},
@@ -398,10 +398,10 @@
 				"na": "N/A",
 				"organizer": "organizzatore",
 				"organizers": "organizzatori",
-				"unknownOrganizer": "Organizzatore Sconosciuto"
+				"unknownOrganizer": "Organizzatore sconosciuto"
 			},
 			"actions": {
-				"createOrganizer": "Aggiungi Nuovo Organizzatore",
+				"createOrganizer": "Aggiungi nuovo organizzatore",
 				"createOrganizerDescription": "Registra organizzatori di eventi per abilitare la rivendita di pettorali per le loro gare"
 			},
 			"actionsLabels": {
@@ -419,33 +419,33 @@
 				},
 				"form": {
 					"cancelButton": "Annulla",
-					"emailLabel": "Indirizzo Email",
+					"emailLabel": "Indirizzo email",
 					"emailPlaceholder": "contact@marathon-paris.com",
-					"nameLabel": "Nome Organizzatore",
+					"nameLabel": "Nome organizzatore",
 					"namePlaceholder": "Maratona di Parigi",
-					"partnerDescription": "Seleziona questa opzione per permettere la rivendita di pettorali per eventi organizzati da questo organizzatore. Questo renderà i loro eventi disponibili sul mercato Beswib.",
-					"partnerLabel": "Abilita Rivendita Pettorali",
-					"submitButton": "Crea Organizzatore",
-					"websiteLabel": "Sito Web",
+					"partnerDescription": "Seleziona questa opzione per permettere la rivendita di pettorali per eventi organizzati da questo organizzatore. Questo renderà i loro eventi disponibili sul marketplace Beswib.",
+					"partnerLabel": "Abilita rivendita pettorali",
+					"submitButton": "Crea organizzatore",
+					"websiteLabel": "Sito web",
 					"websitePlaceholder": "https://www.marathon-paris.com"
 				},
 				"subtitle": "Aggiungi un nuovo organizzatore di eventi alla piattaforma Beswib",
 				"success": {
-					"backButton": "Torna alla Dashboard",
+					"backButton": "Torna alla dashboard",
 					"message": "\"{organizerName}\" è stato creato ed è ora disponibile sulla piattaforma.",
-					"title": "Organizzatore Creato con Successo!"
+					"title": "Organizzatore creato con successo!"
 				},
-				"title": "Crea Nuovo Organizzatore"
+				"title": "Crea nuovo organizzatore"
 			},
 			"sections": {
 				"actions": {
 					"description": "Aggiungi o gestisci organizzatori di eventi per il controllo della rivendita di pettorali",
-					"title": "Azioni Rapide"
+					"title": "Azioni rapide"
 				}
 			},
 			"stats": {
-				"partneredOrganizers": "Rivendita Pettorali Abilitata",
-				"totalOrganizers": "Totale Organizzatori"
+				"partneredOrganizers": "Rivendita pettorali abilitata",
+				"totalOrganizers": "Totale organizzatori"
 			},
 			"subtitle": "Gestisci organizzatori di eventi per controllare quali gare sono disponibili per la rivendita di pettorali",
 			"table": {
@@ -453,7 +453,7 @@
 					"created": "Creato",
 					"email": "Email",
 					"eventsCount": "Eventi",
-					"name": "Nome Organizzatore",
+					"name": "Nome organizzatore",
 					"partnership": "Partnership",
 					"status": {
 						"partner": "Partner",
@@ -465,7 +465,7 @@
 					"clearFilter": "Cancella filtro",
 					"confirmDelete": "Sei assolutamente sicuro?",
 					"deleteDescription": "Questa azione non può essere annullata. Questo eliminerà permanentemente",
-					"deleteSelected": "Elimina Selezionati",
+					"deleteSelected": "Elimina selezionati",
 					"rowsPerPage": "Righe per pagina",
 					"selectAll": "Seleziona tutto",
 					"selectRow": "Seleziona riga",
@@ -473,7 +473,7 @@
 					"selectNumberOfResults": "Seleziona numero di risultati"
 				},
 				"empty": {
-					"createButton": "Crea Nuovo Organizzatore",
+					"createButton": "Crea nuovo organizzatore",
 					"description": "Inizia creando il tuo primo organizzatore",
 					"title": "Nessun organizzatore trovato"
 				},
@@ -488,9 +488,9 @@
 					"of": "di"
 				}
 			},
-			"title": "Gestione Organizzatori",
+			"title": "Gestione organizzatori",
 			"ui": {
-				"accessError": "Errore di Accesso",
+				"accessError": "Errore di accesso",
 				"accessErrorDescription": "Impossibile verificare l'accesso amministratore. Prova ad accedere di nuovo.",
 				"connectedAs": "Connesso come",
 				"loading": "Caricamento...",
@@ -507,19 +507,19 @@
 					"actions": {
 						"approve": "Approva",
 						"reject": "Rifiuta",
-						"viewWebsite": "Visualizza Sito Web"
+						"viewWebsite": "Visualizza sito web"
 					},
 					"noResults": "Nessun organizzatore in attesa",
 					"noResultsDescription": "Tutti gli organizzatori sono stati validati",
-					"title": "Organizzatori in Attesa"
+					"title": "Organizzatori in attesa"
 				},
 				"stats": {
-					"approvedPartners": "Partner Approvati",
-					"pendingValidation": "In Attesa di Validazione",
-					"totalOrganizers": "Totale Organizzatori"
+					"approvedPartners": "Partner approvati",
+					"pendingValidation": "In attesa di validazione",
+					"totalOrganizers": "Totale organizzatori"
 				},
 				"subtitle": "Rivedi e approva le candidature degli organizzatori per diventare partner della piattaforma.",
-				"title": "Valida Organizzatori"
+				"title": "Valida organizzatori"
 			}
 		}
 	},
@@ -533,7 +533,7 @@
 			},
 			"actions": {
 				"createOrganizer": "Neuen Veranstalter hinzufügen",
-				"createOrganizerDescription": "Registriere Veranstalter von Events, um den Verkauf von Startnummern für ihre Rennen zu ermöglichen"
+				"createOrganizerDescription": "Registriere Eventveranstalter, um den Weiterverkauf von Startnummern für ihre Rennen zu ermöglichen"
 			},
 			"actionsLabels": {
 				"openMenu": "Menü öffnen",
@@ -543,7 +543,7 @@
 			},
 			"create": {
 				"errors": {
-					"createFailed": "Veranstalter konnte nicht erstellt werden",
+					"createFailed": "Fehler beim Erstellen des Veranstalters",
 					"emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
 					"nameRequired": "Veranstaltername ist erforderlich",
 					"websiteInvalid": "Muss eine gültige URL sein"
@@ -554,7 +554,7 @@
 					"emailPlaceholder": "contact@marathon-paris.com",
 					"nameLabel": "Veranstaltername",
 					"namePlaceholder": "Marathon de Paris",
-					"partnerDescription": "Aktivieren Sie diese Option, um den Verkauf von Startnummern für Events zu ermöglichen, die von diesem Veranstalter organisiert werden. Dies macht ihre Events auf dem Beswib-Marktplatz verfügbar.",
+					"partnerDescription": "Aktivieren Sie diese Option, um den Weiterverkauf von Startnummern für Events zu ermöglichen, die von diesem Veranstalter organisiert werden. Dadurch werden deren Events auf dem Beswib-Marktplatz verfügbar.",
 					"partnerLabel": "Startnummernverkauf aktivieren",
 					"submitButton": "Veranstalter erstellen",
 					"websiteLabel": "Website",
@@ -629,9 +629,9 @@
 			},
 			"validate": {
 				"messages": {
-					"approveError": "Veranstalter konnte nicht genehmigt werden",
+					"approveError": "Fehler beim Genehmigen des Veranstalters",
 					"approveSuccess": "Veranstalter erfolgreich genehmigt!",
-					"rejectError": "Veranstalter konnte nicht abgelehnt werden",
+					"rejectError": "Fehler beim Ablehnen des Veranstalters",
 					"rejectSuccess": "Veranstalter abgelehnt"
 				},
 				"pending": {
@@ -660,54 +660,54 @@
 				"na": "N/A",
 				"organizer": "organizator",
 				"organizers": "organizatori",
-				"unknownOrganizer": "Organizator Necunoscut"
+				"unknownOrganizer": "Organizator necunoscut"
 			},
 			"actions": {
-				"createOrganizer": "Adaugă Organizator Nou",
+				"createOrganizer": "Adaugă organizator nou",
 				"createOrganizerDescription": "Înregistrează organizatori de evenimente pentru a permite revânzarea numerelor pentru cursele lor"
 			},
 			"actionsLabels": {
 				"openMenu": "Deschide meniul",
 				"edit": "Editează",
-				"view": "Vizualizează",
+				"view": "Vezi",
 				"delete": "Șterge"
 			},
 			"create": {
 				"errors": {
-					"createFailed": "Eșec la crearea organizatorului",
+					"createFailed": "Eroare la crearea organizatorului",
 					"emailInvalid": "Vă rugăm să introduceți o adresă de email validă",
 					"nameRequired": "Numele organizatorului este obligatoriu",
 					"websiteInvalid": "Trebuie să fie un URL valid"
 				},
 				"form": {
 					"cancelButton": "Anulează",
-					"emailLabel": "Adresa de Email",
+					"emailLabel": "Adresă de email",
 					"emailPlaceholder": "contact@marathon-paris.com",
-					"nameLabel": "Numele Organizatorului",
+					"nameLabel": "Numele organizatorului",
 					"namePlaceholder": "Maratonul de la Paris",
 					"partnerDescription": "Bifați această opțiune pentru a permite revânzarea numerelor pentru evenimentele organizate de acest organizator. Aceasta va face evenimentele lor disponibile pe piața Beswib.",
-					"partnerLabel": "Activează Revânzarea Numerelor",
-					"submitButton": "Creează Organizator",
+					"partnerLabel": "Activează revânzarea numerelor",
+					"submitButton": "Creează organizator",
 					"websiteLabel": "Website",
 					"websitePlaceholder": "https://www.marathon-paris.com"
 				},
-				"subtitle": "Adaugă un nou organizator de evenimente la platforma Beswib",
+				"subtitle": "Adaugă un nou organizator de evenimente pe platforma Beswib",
 				"success": {
-					"backButton": "Înapoi la Dashboard",
+					"backButton": "Înapoi la dashboard",
 					"message": "\"{organizerName}\" a fost creat și este acum disponibil pe platformă.",
-					"title": "Organizator Creat cu Succes!"
+					"title": "Organizator creat cu succes!"
 				},
-				"title": "Creează Organizator Nou"
+				"title": "Creează organizator nou"
 			},
 			"sections": {
 				"actions": {
 					"description": "Adaugă sau gestionează organizatori de evenimente pentru controlul revânzării numerelor",
-					"title": "Acțiuni Rapide"
+					"title": "Acțiuni rapide"
 				}
 			},
 			"stats": {
-				"partneredOrganizers": "Revânzarea Numerelor Activată",
-				"totalOrganizers": "Total Organizatori"
+				"partneredOrganizers": "Revânzarea numerelor activată",
+				"totalOrganizers": "Total organizatori"
 			},
 			"subtitle": "Gestionează organizatori de evenimente pentru a controla ce curse sunt disponibile pentru revânzarea numerelor",
 			"table": {
@@ -715,10 +715,10 @@
 					"created": "Creat",
 					"email": "Email",
 					"eventsCount": "Evenimente",
-					"name": "Numele Organizatorului",
+					"name": "Numele organizatorului",
 					"partnership": "Parteneriat",
 					"status": {
-						"partner": "Partner",
+						"partner": "Partener",
 						"standard": "Standard"
 					}
 				},
@@ -727,7 +727,7 @@
 					"clearFilter": "Șterge filtru",
 					"confirmDelete": "Ești absolut sigur?",
 					"deleteDescription": "Această acțiune nu poate fi anulată. Aceasta va șterge definitiv",
-					"deleteSelected": "Șterge Selectații",
+					"deleteSelected": "Șterge selectații",
 					"rowsPerPage": "Rânduri pe pagină",
 					"selectAll": "Selectează tot",
 					"selectRow": "Selectează rând",
@@ -735,7 +735,7 @@
 					"selectNumberOfResults": "Selectează numărul de rezultate"
 				},
 				"empty": {
-					"createButton": "Creează Organizator Nou",
+					"createButton": "Creează organizator nou",
 					"description": "Începe prin a crea primul tău organizator",
 					"title": "Nu s-au găsit organizatori"
 				},
@@ -750,9 +750,9 @@
 					"of": "din"
 				}
 			},
-			"title": "Gestionarea Organizatorilor",
+			"title": "Gestionarea organizatorilor",
 			"ui": {
-				"accessError": "Eroare de Acces",
+				"accessError": "Eroare de acces",
 				"accessErrorDescription": "Nu s-a putut verifica accesul de administrator. Vă rugăm să încercați să vă conectați din nou.",
 				"connectedAs": "Conectat ca",
 				"loading": "Se încarcă...",
@@ -760,28 +760,28 @@
 			},
 			"validate": {
 				"messages": {
-					"approveError": "Eșec la aprobarea organizatorului",
+					"approveError": "Eroare la aprobarea organizatorului",
 					"approveSuccess": "Organizator aprobat cu succes!",
-					"rejectError": "Eșec la respingerea organizatorului",
+					"rejectError": "Eroare la respingerea organizatorului",
 					"rejectSuccess": "Organizator respins"
 				},
 				"pending": {
 					"actions": {
 						"approve": "Aprobă",
 						"reject": "Respinge",
-						"viewWebsite": "Vizualizează Website"
+						"viewWebsite": "Vezi website"
 					},
 					"noResults": "Nu există organizatori în așteptare",
 					"noResultsDescription": "Toți organizatorii au fost validați",
-					"title": "Organizatori în Așteptare"
+					"title": "Organizatori în așteptare"
 				},
 				"stats": {
-					"approvedPartners": "Parteneri Aprobați",
-					"pendingValidation": "În Așteptarea Validării",
-					"totalOrganizers": "Total Organizatori"
+					"approvedPartners": "Parteneri aprobați",
+					"pendingValidation": "În așteptarea validării",
+					"totalOrganizers": "Total organizatori"
 				},
 				"subtitle": "Revizuiește și aprobă cererile organizatorilor pentru a deveni parteneri ai platformei.",
-				"title": "Validează Organizatori"
+				"title": "Validează organizatori"
 			}
 		}
 	},
@@ -791,11 +791,11 @@
 				"na": "N/A",
 				"organizer": "organizador",
 				"organizers": "organizadores",
-				"unknownOrganizer": "Organizador Desconhecido"
+				"unknownOrganizer": "Organizador desconhecido"
 			},
 			"actions": {
-				"createOrganizer": "Adicionar Novo Organizador",
-				"createOrganizerDescription": "Registrar organizadores de eventos para permitir a revenda de números para suas corridas"
+				"createOrganizer": "Adicionar novo organizador",
+				"createOrganizerDescription": "Registre organizadores de eventos para permitir a revenda de números para suas corridas"
 			},
 			"actionsLabels": {
 				"openMenu": "Abrir menu",
@@ -812,41 +812,41 @@
 				},
 				"form": {
 					"cancelButton": "Cancelar",
-					"emailLabel": "Endereço de Email",
+					"emailLabel": "Endereço de email",
 					"emailPlaceholder": "contact@marathon-paris.com",
-					"nameLabel": "Nome do Organizador",
+					"nameLabel": "Nome do organizador",
 					"namePlaceholder": "Maratona de Paris",
-					"partnerDescription": "Marque esta opção para permitir a revenda de números para eventos organizados por este organizador. Isso tornará seus eventos disponíveis no mercado Beswib.",
-					"partnerLabel": "Ativar Revenda de Números",
-					"submitButton": "Criar Organizador",
+					"partnerDescription": "Marque esta opção para permitir a revenda de números para eventos organizados por este organizador. Isso tornará seus eventos disponíveis no marketplace Beswib.",
+					"partnerLabel": "Ativar revenda de números",
+					"submitButton": "Criar organizador",
 					"websiteLabel": "Website",
 					"websitePlaceholder": "https://www.marathon-paris.com"
 				},
-				"subtitle": "Adicionar um novo organizador de eventos à plataforma Beswib",
+				"subtitle": "Adicione um novo organizador de eventos à plataforma Beswib",
 				"success": {
-					"backButton": "Voltar ao Dashboard",
+					"backButton": "Voltar ao dashboard",
 					"message": "\"{organizerName}\" foi criado e está agora disponível na plataforma.",
-					"title": "Organizador Criado com Sucesso!"
+					"title": "Organizador criado com sucesso!"
 				},
-				"title": "Criar Novo Organizador"
+				"title": "Criar novo organizador"
 			},
 			"sections": {
 				"actions": {
-					"description": "Adicionar ou gerenciar organizadores de eventos para controle de revenda de números",
-					"title": "Ações Rápidas"
+					"description": "Adicione ou gerencie organizadores de eventos para controle de revenda de números",
+					"title": "Ações rápidas"
 				}
 			},
 			"stats": {
-				"partneredOrganizers": "Revenda de Números Ativada",
-				"totalOrganizers": "Total de Organizadores"
+				"partneredOrganizers": "Revenda de números ativada",
+				"totalOrganizers": "Total de organizadores"
 			},
-			"subtitle": "Gerenciar organizadores de eventos para controlar quais corridas estão disponíveis para revenda de números",
+			"subtitle": "Gerencie organizadores de eventos para controlar quais corridas estão disponíveis para revenda de números",
 			"table": {
 				"columns": {
 					"created": "Criado",
 					"email": "Email",
 					"eventsCount": "Eventos",
-					"name": "Nome do Organizador",
+					"name": "Nome do organizador",
 					"partnership": "Parceria",
 					"status": {
 						"partner": "Parceiro",
@@ -858,7 +858,7 @@
 					"clearFilter": "Limpar filtro",
 					"confirmDelete": "Tem certeza absoluta?",
 					"deleteDescription": "Esta ação não pode ser desfeita. Isso excluirá permanentemente",
-					"deleteSelected": "Excluir Selecionados",
+					"deleteSelected": "Excluir selecionados",
 					"rowsPerPage": "Linhas por página",
 					"selectAll": "Selecionar tudo",
 					"selectRow": "Selecionar linha",
@@ -866,7 +866,7 @@
 					"selectNumberOfResults": "Selecionar número de resultados"
 				},
 				"empty": {
-					"createButton": "Criar Novo Organizador",
+					"createButton": "Criar novo organizador",
 					"description": "Comece criando seu primeiro organizador",
 					"title": "Nenhum organizador encontrado"
 				},
@@ -881,9 +881,9 @@
 					"of": "de"
 				}
 			},
-			"title": "Gerenciamento de Organizadores",
+			"title": "Gerenciamento de organizadores",
 			"ui": {
-				"accessError": "Erro de Acesso",
+				"accessError": "Erro de acesso",
 				"accessErrorDescription": "Não foi possível verificar o acesso de administrador. Por favor, tente fazer login novamente.",
 				"connectedAs": "Conectado como",
 				"loading": "Carregando...",
@@ -900,19 +900,19 @@
 					"actions": {
 						"approve": "Aprovar",
 						"reject": "Rejeitar",
-						"viewWebsite": "Ver Website"
+						"viewWebsite": "Ver website"
 					},
 					"noResults": "Nenhum organizador pendente",
 					"noResultsDescription": "Todos os organizadores foram validados",
-					"title": "Organizadores Pendentes"
+					"title": "Organizadores pendentes"
 				},
 				"stats": {
-					"approvedPartners": "Parceiros Aprovados",
-					"pendingValidation": "Validação Pendente",
-					"totalOrganizers": "Total de Organizadores"
+					"approvedPartners": "Parceiros aprovados",
+					"pendingValidation": "Validação pendente",
+					"totalOrganizers": "Total de organizadores"
 				},
-				"subtitle": "Revisar e aprovar aplicações de organizadores para se tornarem parceiros da plataforma.",
-				"title": "Validar Organizadores"
+				"subtitle": "Revise e aprove as aplicações de organizadores para se tornarem parceiros da plataforma.",
+				"title": "Validar organizadores"
 			}
 		}
 	},
@@ -922,11 +922,11 @@
 				"na": "N/A",
 				"organizer": "organisator",
 				"organizers": "organisatoren",
-				"unknownOrganizer": "Onbekende Organisator"
+				"unknownOrganizer": "Onbekende organisator"
 			},
 			"actions": {
-				"createOrganizer": "Nieuwe Organisator Toevoegen",
-				"createOrganizerDescription": "Registreer evenementenorganisatoren om doorverkoop van startnummers voor hun races mogelijk te maken"
+				"createOrganizer": "Nieuwe organisator toevoegen",
+				"createOrganizerDescription": "Registreer organisatoren van evenementen om doorverkoop van startnummers voor hun races mogelijk te maken"
 			},
 			"actionsLabels": {
 				"openMenu": "Menu openen",
@@ -947,31 +947,31 @@
 					"emailPlaceholder": "contact@marathon-paris.com",
 					"nameLabel": "Organisatornaam",
 					"namePlaceholder": "Marathon van Parijs",
-					"partnerDescription": "Vink deze optie aan om doorverkoop van startnummers mogelijk te maken voor evenementen die door deze organisator worden georganiseerd. Dit maakt hun evenementen beschikbaar op de Beswib marktplaats.",
-					"partnerLabel": "Doorverkoop Startnummers Inschakelen",
-					"submitButton": "Organisator Aanmaken",
+					"partnerDescription": "Vink deze optie aan om doorverkoop van startnummers mogelijk te maken voor evenementen die door deze organisator worden georganiseerd. Dit maakt hun evenementen beschikbaar op de Beswib-marktplaats.",
+					"partnerLabel": "Doorverkoop startnummers inschakelen",
+					"submitButton": "Organisator aanmaken",
 					"websiteLabel": "Website",
 					"websitePlaceholder": "https://www.marathon-paris.com"
 				},
-				"subtitle": "Voeg een nieuwe evenementenorganisator toe aan het Beswib platform",
+				"subtitle": "Voeg een nieuwe organisator van evenementen toe aan het Beswib-platform",
 				"success": {
-					"backButton": "Terug naar Dashboard",
+					"backButton": "Terug naar dashboard",
 					"message": "\"{organizerName}\" is aangemaakt en is nu beschikbaar op het platform.",
-					"title": "Organisator Succesvol Aangemaakt!"
+					"title": "Organisator succesvol aangemaakt!"
 				},
-				"title": "Nieuwe Organisator Aanmaken"
+				"title": "Nieuwe organisator aanmaken"
 			},
 			"sections": {
 				"actions": {
-					"description": "Voeg evenementenorganisatoren toe of beheer ze voor controle van doorverkoop van startnummers",
-					"title": "Snelle Acties"
+					"description": "Voeg organisatoren van evenementen toe of beheer ze voor controle van doorverkoop van startnummers",
+					"title": "Snelle acties"
 				}
 			},
 			"stats": {
-				"partneredOrganizers": "Doorverkoop Startnummers Ingeschakeld",
-				"totalOrganizers": "Totaal Organisatoren"
+				"partneredOrganizers": "Doorverkoop startnummers ingeschakeld",
+				"totalOrganizers": "Totaal organisatoren"
 			},
-			"subtitle": "Beheer evenementenorganisatoren om te bepalen welke races beschikbaar zijn voor doorverkoop van startnummers",
+			"subtitle": "Beheer organisatoren van evenementen om te bepalen welke races beschikbaar zijn voor doorverkoop van startnummers",
 			"table": {
 				"columns": {
 					"created": "Aangemaakt",
@@ -989,7 +989,7 @@
 					"clearFilter": "Filter wissen",
 					"confirmDelete": "Weet je het zeker?",
 					"deleteDescription": "Deze actie kan niet ongedaan worden gemaakt. Dit zal permanent verwijderen",
-					"deleteSelected": "Geselecteerde Verwijderen",
+					"deleteSelected": "Geselecteerde verwijderen",
 					"rowsPerPage": "Rijen per pagina",
 					"selectAll": "Alles selecteren",
 					"selectRow": "Rij selecteren",
@@ -997,7 +997,7 @@
 					"selectNumberOfResults": "Aantal resultaten selecteren"
 				},
 				"empty": {
-					"createButton": "Nieuwe Organisator Aanmaken",
+					"createButton": "Nieuwe organisator aanmaken",
 					"description": "Begin met het aanmaken van je eerste organisator",
 					"title": "Geen organisatoren gevonden"
 				},
@@ -1012,7 +1012,7 @@
 					"of": "van"
 				}
 			},
-			"title": "Beheer van Organisatoren",
+			"title": "Beheer van organisatoren",
 			"ui": {
 				"accessError": "Toegangsfout",
 				"accessErrorDescription": "Kan admin-toegang niet verifiëren. Probeer opnieuw in te loggen.",
@@ -1031,19 +1031,19 @@
 					"actions": {
 						"approve": "Goedkeuren",
 						"reject": "Afwijzen",
-						"viewWebsite": "Website Bekijken"
+						"viewWebsite": "Website bekijken"
 					},
 					"noResults": "Geen wachtende organisatoren",
 					"noResultsDescription": "Alle organisatoren zijn gevalideerd",
-					"title": "Wachtende Organisatoren"
+					"title": "Wachtende organisatoren"
 				},
 				"stats": {
-					"approvedPartners": "Goedgekeurde Partners",
-					"pendingValidation": "Wachtend op Validatie",
-					"totalOrganizers": "Totaal Organisatoren"
+					"approvedPartners": "Goedgekeurde partners",
+					"pendingValidation": "Wachtend op validatie",
+					"totalOrganizers": "Totaal organisatoren"
 				},
 				"subtitle": "Bekijk en keur organisatoraanvragen goed om platformpartners te worden.",
-				"title": "Organisatoren Valideren"
+				"title": "Organisatoren valideren"
 			}
 		}
 	},
@@ -1057,7 +1057,7 @@
 			},
 			"actions": {
 				"createOrganizer": "새 주최자 추가",
-				"createOrganizerDescription": "이벤트 주최자를 등록하여 그들의 레이스에서 번호판 재판매를 가능하게 합니다"
+				"createOrganizerDescription": "이벤트 주최자를 등록하여 그들의 레이스에서 번호표 재판매를 가능하게 합니다"
 			},
 			"actionsLabels": {
 				"openMenu": "메뉴 열기",
@@ -1078,8 +1078,8 @@
 					"emailPlaceholder": "contact@marathon-paris.com",
 					"nameLabel": "주최자 이름",
 					"namePlaceholder": "파리 마라톤",
-					"partnerDescription": "이 주최자가 조직한 이벤트에서 번호판 재판매를 허용하려면 이 옵션을 선택하세요. 이렇게 하면 그들의 이벤트가 Beswib 마켓플레이스에서 사용할 수 있게 됩니다.",
-					"partnerLabel": "번호판 재판매 활성화",
+					"partnerDescription": "이 옵션을 선택하면 이 주최자가 주최하는 이벤트에 대해 번호표 재판매가 허용됩니다. 이렇게 하면 해당 이벤트가 Beswib 마켓플레이스에서 제공됩니다.",
+					"partnerLabel": "번호표 재판매 활성화",
 					"submitButton": "주최자 생성",
 					"websiteLabel": "웹사이트",
 					"websitePlaceholder": "https://www.marathon-paris.com"
@@ -1094,15 +1094,15 @@
 			},
 			"sections": {
 				"actions": {
-					"description": "번호판 재판매 제어를 위한 이벤트 주최자 추가 또는 관리",
+					"description": "번호표 재판매 제어를 위한 이벤트 주최자 추가 또는 관리",
 					"title": "빠른 작업"
 				}
 			},
 			"stats": {
-				"partneredOrganizers": "번호판 재판매 활성화됨",
+				"partneredOrganizers": "번호표 재판매 활성화됨",
 				"totalOrganizers": "총 주최자 수"
 			},
-			"subtitle": "번호판 재판매에 사용할 수 있는 레이스를 제어하기 위해 이벤트 주최자 관리",
+			"subtitle": "번호표 재판매에 사용할 수 있는 레이스를 제어하기 위해 이벤트 주최자 관리",
 			"table": {
 				"columns": {
 					"created": "생성됨",
@@ -1119,7 +1119,7 @@
 					"cancel": "취소",
 					"clearFilter": "필터 지우기",
 					"confirmDelete": "정말 확실합니까?",
-					"deleteDescription": "이 작업은 되돌릴 수 없습니다. 이것은 영구적으로 삭제할 것입니다",
+					"deleteDescription": "이 작업은 되돌릴 수 없습니다. 영구적으로 삭제됩니다.",
 					"deleteSelected": "선택된 항목 삭제",
 					"rowsPerPage": "페이지당 행 수",
 					"selectAll": "모두 선택",
