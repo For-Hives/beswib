@@ -92,28 +92,28 @@ export default function CardMarket({ locale, bibSale, eventData }: Readonly<Card
 							<div className="h-full w-full animate-pulse bg-[linear-gradient(90deg,hsl(var(--foreground)/0.3)_1px,transparent_1px),linear-gradient(hsl(var(--foreground)/0.3)_1px,transparent_1px)] bg-[length:15px_15px]" />
 						</div>
 						{/* type of event 🎉 */}
-                        <div className="absolute inset-0 top-0 left-0 z-20 m-2">
+						<div className="absolute inset-0 top-0 left-0 z-20 m-2">
 							<span
 								className={clsx(
 									'mb-3 inline-block rounded-full border px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-md',
 									bgFromType(bibSale.event.type)
 								)}
 							>
-                                {(() => {
-                                    const type = bibSale.event.type
-                                    switch (type) {
-                                        case 'trail':
-                                            return translations.trail ?? 'Trail'
-                                        case 'running':
-                                            return translations.road ?? 'Road'
-                                        case 'triathlon':
-                                            return translations.triathlon ?? 'Triathlon'
-                                        case 'cycling':
-                                            return (translations as any).cycle ?? 'Cycling'
-                                        default:
-                                            return translations.other ?? 'Other'
-                                    }
-                                })()}
+								{(() => {
+									const type = bibSale.event.type
+									switch (type) {
+										case 'trail':
+											return translations.trail ?? 'Trail'
+										case 'running':
+											return translations.road ?? 'Road'
+										case 'triathlon':
+											return translations.triathlon ?? 'Triathlon'
+										case 'cycling':
+											return (translations as any).cycle ?? 'Cycling'
+										default:
+											return translations.other ?? 'Other'
+									}
+								})()}
 							</span>
 						</div>
 						{/* Calc of the discount - red if more than 10% off 💰 */}

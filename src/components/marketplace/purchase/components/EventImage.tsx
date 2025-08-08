@@ -15,8 +15,8 @@ interface EventImageProps {
 	bib: BibSale
 	/** Optional event data for official price comparison */
 	eventData?: Event
-    /** Locale for translations */
-    locale?: Locale
+	/** Locale for translations */
+	locale?: Locale
 }
 
 /**
@@ -24,7 +24,7 @@ interface EventImageProps {
  * Handles the visual presentation of the event with proper styling and overlays
  */
 export default function EventImage({ bib, eventData, locale }: EventImageProps) {
-    const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
+	const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
 	/**
 	 * Get background styling based on event type
 	 * @param type - The type of sporting event
@@ -78,27 +78,27 @@ export default function EventImage({ bib, eventData, locale }: EventImageProps) 
 			/>
 
 			{/* Event Type Badge - Top Left */}
-            <div className="absolute top-4 left-4 z-10">
+			<div className="absolute top-4 left-4 z-10">
 				<span
 					className={cn(
 						'inline-block rounded-full border px-3 py-1 text-xs font-medium text-black/90 backdrop-blur-md dark:text-white/90',
 						bgFromType(bib.event.type)
 					)}
 				>
-                    {(() => {
-                        switch (bib.event.type) {
-                            case 'trail':
-                                return t.trail ?? 'Trail'
-                            case 'running':
-                                return t.road ?? 'Road'
-                            case 'triathlon':
-                                return t.triathlon ?? 'Triathlon'
-                            case 'cycling':
-                                return (t as any).cycle ?? 'Cycling'
-                            default:
-                                return t.other ?? 'Other'
-                        }
-                    })()}
+					{(() => {
+						switch (bib.event.type) {
+							case 'trail':
+								return t.trail ?? 'Trail'
+							case 'running':
+								return t.road ?? 'Road'
+							case 'triathlon':
+								return t.triathlon ?? 'Triathlon'
+							case 'cycling':
+								return (t as any).cycle ?? 'Cycling'
+							default:
+								return t.other ?? 'Other'
+						}
+					})()}
 				</span>
 			</div>
 
