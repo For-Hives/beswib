@@ -239,8 +239,9 @@ export default function PayPalPurchaseClient({
 
 			<div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 				<div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
-					<div className="lg:col-span-4 lg:row-end-1">
-						<EventImage bib={bib} eventData={eventData} />
+					{/* Event Image */}
+                    <div className="lg:col-span-4 lg:row-end-1">
+                        <EventImage bib={bib} eventData={eventData} locale={locale} />
 					</div>
 
 					<div className="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">

@@ -4,6 +4,9 @@ import React from 'react'
 import { X } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
+import { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/getDictionary'
+import marketplaceTranslations from '@/components/marketplace/locales.json'
 
 interface ActiveFiltersBadgesProps {
 	readonly filters: {
@@ -17,14 +20,14 @@ interface ActiveFiltersBadgesProps {
 	}
 	readonly maxPrice: number
 	readonly onRemoveFilter: (type: string, value?: string) => void
+    readonly locale?: Locale
 }
 
 const sportsOptions = [
-	{ value: 'running', label: 'Running', icon: '🏃' },
+	{ value: 'running', label: 'Road', icon: '🏃' },
 	{ value: 'trail', label: 'Trail', icon: '🏔️' },
 	{ value: 'triathlon', label: 'Triathlon', icon: '🏊‍♂️🚴‍♂️🏃‍♂️' },
 	{ value: 'cycling', label: 'Cycling', icon: '🚴' },
-	{ value: 'swimming', label: 'Swimming', icon: '🏊' },
 	{ value: 'other', label: 'Other', icon: '🏅' },
 ]
 
@@ -39,7 +42,8 @@ const distanceOptions = [
 	{ value: 'tri-l', label: 'Triathlon L', range: '110-115km' },
 ]
 
-export default function ActiveFiltersBadges({ filters, maxPrice, onRemoveFilter }: ActiveFiltersBadgesProps) {
+export default function ActiveFiltersBadges({ filters, maxPrice, onRemoveFilter, locale }: ActiveFiltersBadgesProps) {
+    const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
 	const activeFilters = []
 
 	// Sport filter
@@ -85,18 +89,18 @@ export default function ActiveFiltersBadges({ filters, maxPrice, onRemoveFilter 
 	})
 
 	// Date filters
-	if (filters.dateStart !== undefined && filters.dateStart !== '') {
+    if (filters.dateStart !== undefined && filters.dateStart !== '') {
 		activeFilters.push({
 			type: 'dateStart',
-			label: `From: ${filters.dateStart}`,
+            label: `${t.start ?? 'From'}: ${filters.dateStart}`,
 			value: 'dateStart',
 		})
 	}
 
-	if (filters.dateEnd !== undefined && filters.dateEnd !== '') {
+    if (filters.dateEnd !== undefined && filters.dateEnd !== '') {
 		activeFilters.push({
 			type: 'dateEnd',
-			label: `To: ${filters.dateEnd}`,
+            label: `${t.end ?? 'To'}: ${filters.dateEnd}`,
 			value: 'dateEnd',
 		})
 	}

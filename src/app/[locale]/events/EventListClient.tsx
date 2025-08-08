@@ -133,7 +133,9 @@ function EventCard({
 					{event.elevationGainM != null && (
 						<div className="flex items-center gap-2">
 							<Mountain className="h-4 w-4" />
-							<span>{event.elevationGainM}m D+</span>
+							<span>
+								{event.elevationGainM}m {(t.events?.eventCard as any)?.elevationGain ?? 'D+'}
+							</span>
 						</div>
 					)}
 				</div>
@@ -618,7 +620,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 						<div className="relative w-48">
 							<Input
 								type="text"
-								placeholder="Rechercher une ville..."
+								placeholder={(t.events as any)?.searchCityPlaceholder ?? 'Search a city...'}
 								value={locationSearch !== '' ? locationSearch : selectedLocation}
 								onChange={e => {
 									setLocationSearch(e.target.value)

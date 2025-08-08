@@ -10,6 +10,8 @@ import type { BibSale } from '@/components/marketplace/CardMarket'
 import { Search } from 'lucide-react'
 
 import { Input } from '@/components/ui/inputAlt'
+import { getTranslations } from '@/lib/getDictionary'
+import marketplaceTranslations from '@/components/marketplace/locales.json'
 import ActiveFiltersBadges from '@/components/marketplace/ActiveFiltersBadges'
 import OfferCounter from '@/components/marketplace/offerCounter'
 import CardMarket from '@/components/marketplace/CardMarket'
@@ -66,6 +68,7 @@ const sortBibs = (bibs: BibSale[], sort: string) => {
 // --- Main client component for the marketplace grid and filters 🖼️
 
 export default function MarketplaceClient({ locale, bibs }: Readonly<MarketplaceClientProps>) {
+    const translations = getTranslations(locale, marketplaceTranslations)
 	// --- Query state management with URL sync using nuqs 🔗
 	const [{ sport, sort, search, priceMin, priceMax, geography, distance, dateStart, dateEnd }, setFilters] =
 		useQueryStates(
@@ -202,9 +205,9 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 				<div className="w-full">
 					<div className="relative">
 						<Search className="text-muted-foreground absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 transform" />
-						<Input
+                        <Input
 							className="pl-10 text-sm"
-							placeholder="Quick search by name, location, sport..."
+                            placeholder={translations.searchPlaceholder ?? 'Quick search by name, location, sport...'}
 							value={search}
 							onChange={e => void setFilters({ search: e.target.value })}
 						/>
@@ -213,7 +216,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 			</div>
 
 			{/* Active filters badges - take full width and align left */}
-			<ActiveFiltersBadges
+            <ActiveFiltersBadges
 				filters={{
 					sport,
 					distance,
@@ -225,6 +228,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 				}}
 				maxPrice={maxPrice}
 				onRemoveFilter={handleRemoveFilter}
+                locale={locale}
 			/>
 
 			{/* Main content with sidebar and results */}

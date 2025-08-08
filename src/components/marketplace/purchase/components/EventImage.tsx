@@ -1,6 +1,9 @@
 'use client'
 
 import React from 'react'
+import { getTranslations } from '@/lib/getDictionary'
+import marketplaceTranslations from '@/components/marketplace/locales.json'
+import { Locale } from '@/lib/i18n-config'
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
@@ -12,13 +15,16 @@ interface EventImageProps {
 	bib: BibSale
 	/** Optional event data for official price comparison */
 	eventData?: Event
+    /** Locale for translations */
+    locale?: Locale
 }
 
 /**
  * Component that displays the event image with type badge and discount badge
  * Handles the visual presentation of the event with proper styling and overlays
  */
-export default function EventImage({ bib, eventData }: EventImageProps) {
+export default function EventImage({ bib, eventData, locale }: EventImageProps) {
+    const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
 	/**
 	 * Get background styling based on event type
 	 * @param type - The type of sporting event
@@ -72,14 +78,27 @@ export default function EventImage({ bib, eventData }: EventImageProps) {
 			/>
 
 			{/* Event Type Badge - Top Left */}
-			<div className="absolute top-4 left-4 z-10">
+            <div className="absolute top-4 left-4 z-10">
 				<span
 					className={cn(
 						'inline-block rounded-full border px-3 py-1 text-xs font-medium text-black/90 backdrop-blur-md dark:text-white/90',
 						bgFromType(bib.event.type)
 					)}
 				>
-					{bib.event.type.charAt(0).toUpperCase() + bib.event.type.slice(1)}
+                    {(() => {
+                        switch (bib.event.type) {
+                            case 'trail':
+                                return t.trail ?? 'Trail'
+                            case 'running':
+                                return t.road ?? 'Road'
+                            case 'triathlon':
+                                return t.triathlon ?? 'Triathlon'
+                            case 'cycling':
+                                return (t as any).cycle ?? 'Cycling'
+                            default:
+                                return t.other ?? 'Other'
+                        }
+                    })()}
 				</span>
 			</div>
 
