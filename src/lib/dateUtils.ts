@@ -27,11 +27,33 @@ export function formatDateForDisplay(dateString: string, locale: string = 'en'):
 	try {
 		// Support date-only ('YYYY-MM-DD') or ISO; normalize to UTC to avoid TZ shifts
 		const base = dateString.length === 10 ? `${dateString}T00:00:00` : dateString
-		const dt = DateTime.fromISO(base, { zone: 'utc' }).setLocale(locale).toUTC()
+		const dt = DateTime.fromISO(base, { zone: 'utc' }).setLocale(locale)
 		if (!dt.isValid) return dateString
 		return dt.toLocaleString(DateTime.DATE_FULL)
 	} catch {
 		return dateString
+	}
+}
+
+/**
+ * Formats a Date object to be displayed according to the locale 🌍
+ * @param date - The Date object 📅
+ * @param locale - The locale ('en', 'fr', 'ko') 🌐
+ * @param format - The format type (optional, defaults to DATE_MED) 📄
+ * @returns Formatted date string 📄
+ */
+export function formatDateObjectForDisplay(
+	date: Date | string,
+	locale: string = 'en',
+	format: any = DateTime.DATE_MED
+): string {
+	if (!date) return ''
+	try {
+		const dt = typeof date === 'string' ? DateTime.fromISO(date) : DateTime.fromJSDate(date)
+		if (!dt.isValid) return ''
+		return dt.setLocale(locale).toLocaleString(format)
+	} catch {
+		return ''
 	}
 }
 
