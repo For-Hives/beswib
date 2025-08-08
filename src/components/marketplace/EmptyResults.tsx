@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import type React from 'react'
 
 import { Locale } from '@/lib/i18n-config'
 import { Button } from '@/components/ui/button'
@@ -56,32 +57,44 @@ export default function EmptyResults({ locale }: Readonly<EmptyResultsProps>) {
 					/>
 				</svg>
 				{/* Snow particles above the peaks (chaotic full-height) */}
-				<svg className="absolute top-0 left-1/2 h-10 w-28 -translate-x-1/2 scale-200" viewBox="0 0 300 180" fill="none">
-					{[5, 20, 35, 55, 75, 95, 120, 140, 160, 180, 200, 220, 240, 260, 280].map((x, i) => (
-						<circle
-							key={`sA-${x}`}
-							cx={x}
-							cy={8 + (i % 3) * 6}
-							r={i % 4 === 0 ? 1.6 : 1.2}
-							className={i % 3 === 0 ? 'animate-snow-a' : i % 3 === 1 ? 'animate-snow-b' : 'animate-snow-c'}
-							fill="currentColor"
-							style={{ animationDelay: `${i * 160}ms`, ['--snow-dur' as any]: `${5.4 + i * 0.18}s` }}
-						/>
-					))}
-				</svg>
-				<svg className="absolute top-3 left-[46%] h-10 w-24 -translate-x-1/2" viewBox="0 0 300 180" fill="none">
-					{[15, 38, 62, 88, 116, 146, 176, 206, 236, 266].map((x, i) => (
-						<circle
-							key={`sB-${x}`}
-							cx={x}
-							cy={10 + (i % 2) * 7}
-							r={i % 3 === 0 ? 1.4 : 1.1}
-							className={i % 3 === 0 ? 'animate-snow-b' : i % 3 === 1 ? 'animate-snow-c' : 'animate-snow-a'}
-							fill="currentColor"
-							style={{ animationDelay: `${120 + i * 140}ms`, ['--snow-dur' as any]: `${5.8 + i * 0.22}s` }}
-						/>
-					))}
-				</svg>
+                <svg className="absolute top-0 left-1/2 h-10 w-28 -translate-x-1/2 scale-200" viewBox="0 0 300 180" fill="none">
+                    {[5, 20, 35, 55, 75, 95, 120, 140, 160, 180, 200, 220, 240, 260, 280].map((x, i) => {
+                        const style: React.CSSProperties & Record<'--snow-dur', string> = {
+                            animationDelay: `${i * 160}ms`,
+                            '--snow-dur': `${5.4 + i * 0.18}s`,
+                        }
+                        return (
+                            <circle
+                                key={`sA-${x}`}
+                                cx={x}
+                                cy={8 + (i % 3) * 6}
+                                r={i % 4 === 0 ? 1.6 : 1.2}
+                                className={i % 3 === 0 ? 'animate-snow-a' : i % 3 === 1 ? 'animate-snow-b' : 'animate-snow-c'}
+                                fill="currentColor"
+                                style={style}
+                            />
+                        )
+                    })}
+                </svg>
+                <svg className="absolute top-3 left-[46%] h-10 w-24 -translate-x-1/2" viewBox="0 0 300 180" fill="none">
+                    {[15, 38, 62, 88, 116, 146, 176, 206, 236, 266].map((x, i) => {
+                        const style: React.CSSProperties & Record<'--snow-dur', string> = {
+                            animationDelay: `${120 + i * 140}ms`,
+                            '--snow-dur': `${5.8 + i * 0.22}s`,
+                        }
+                        return (
+                            <circle
+                                key={`sB-${x}`}
+                                cx={x}
+                                cy={10 + (i % 2) * 7}
+                                r={i % 3 === 0 ? 1.4 : 1.1}
+                                className={i % 3 === 0 ? 'animate-snow-b' : i % 3 === 1 ? 'animate-snow-c' : 'animate-snow-a'}
+                                fill="currentColor"
+                                style={style}
+                            />
+                        )
+                    })}
+                </svg>
 
 				{/* Water stream descending from a mountain gap (aligned to valley at x=120,y=90) */}
 				<svg className="text-primary/60 absolute inset-x-0 top-1 mx-auto h-36 w-full" viewBox="0 0 300 200" fill="none">

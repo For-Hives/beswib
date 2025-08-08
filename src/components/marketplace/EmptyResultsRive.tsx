@@ -2,10 +2,8 @@
 
 import { useEffect } from 'react'
 import { useRive, Layout, Fit, Alignment, RuntimeLoader } from '@rive-app/react-canvas'
-import Link from 'next/link'
 
 import type { Locale } from '@/lib/i18n-config'
-import { Button } from '@/components/ui/button'
 
 interface Props {
 	locale: Locale
