@@ -20,6 +20,7 @@ import { isLocked, lockBib, unlockExpiredBibs } from '@/services/bib.services'
 
 // Import sub-components
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
+import { LockTimer } from './LockTimer'
 import { toast } from 'sonner'
 import { is } from 'valibot'
 import { DateTime } from 'luxon'
@@ -56,6 +57,7 @@ export default function PayPalPurchaseClient({
 	const [successMessage, setSuccessMessage] = useState<null | string>(null)
 	const [isPanelOpen, setIsPanelOpen] = useState(false)
 	const [lockExpiration, setLockExpiration] = useState<DateTime | null>(null)
+	const [secondsLeft, setSecondsLeft] = useState<number | null>(null)
 	const [loading, setLoading] = useState(false)
 	const { isSignedIn } = useUser()
 	const router = useRouter()
@@ -76,9 +78,36 @@ export default function PayPalPurchaseClient({
 	const isLockedByMe = lockedAtParam && bib.lockedAt && lockedAtParam === bib.lockedAt.toISOString()
 
 	useEffect(() => {
-		// void unlockExpiredBibs()
 		setIsProfileComplete(isUserProfileComplete(user))
 	}, [user])
+
+	// Set lockExpiration from Nuqs lockedAt param
+	useEffect(() => {
+		if (lockedAtParam) {
+			const lockedDt = DateTime.fromISO(lockedAtParam)
+			setLockExpiration(lockedDt.plus({ minutes: 5 }))
+		} else {
+			setLockExpiration(null)
+		}
+	}, [lockedAtParam])
+
+	// Interactive countdown timer
+	useEffect(() => {
+		if (!lockExpiration) {
+			setSecondsLeft(null)
+			return
+		}
+		const updateSeconds = () => {
+			const left = Math.max(0, Math.floor((lockExpiration.toMillis() - Date.now()) / 1000))
+			setSecondsLeft(left)
+			if (left <= 0) {
+				setLockExpiration(null)
+			}
+		}
+		updateSeconds()
+		const interval = setInterval(updateSeconds, 1000)
+		return () => clearInterval(interval)
+	}, [lockExpiration])
 
 	// Check if user is authenticated when trying to open payment modal
 	const handleBuyNowClick = async () => {
@@ -205,64 +234,28 @@ export default function PayPalPurchaseClient({
 
 	return (
 		<div className="relative">
+			{/* Lock timer in top left corner */}
+			{secondsLeft !== null && secondsLeft > 0 && (
+				<div style={{ position: 'fixed', top: 24, left: 24, zIndex: 50 }}>
+					<LockTimer seconds={secondsLeft} />
+				</div>
+			)}
 			{/* Interactive Price Lanyard with dynamic price display */}
-			{/* <Lanyard
-				price={bib.price}
-				originalPrice={bib.originalPrice}
-				currency="EUR"
-				discount={
-					bib.originalPrice && bib.originalPrice > bib.price
-						? Math.round(((bib.originalPrice - bib.price) / bib.originalPrice) * 100)
-						: undefined
-				}
-			/> */}
+			{/* ...existing code... */}
 			<div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-				{/* Product Layout */}
+				{/* ...existing code... */}
 				<div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
-					{/* Event Image */}
+					{/* ...existing code... */}
 					<div className="lg:col-span-4 lg:row-end-1">
 						<EventImage bib={bib} eventData={eventData} />
 					</div>
-
-					{/* Product Details */}
+					{/* ...existing code... */}
 					<div className="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
-						<div className="flex flex-col-reverse">
-							<div className="mt-4">
-								<h1 className="text-foreground text-2xl font-bold tracking-tight sm:text-3xl">{bib.event.name}</h1>
-
-								<h2 id="information-heading" className="sr-only">
-									Bib information
-								</h2>
-								<p className="text-muted-foreground mt-2 text-sm">
-									Event Date: {bib.event.date.toLocaleDateString()} • {bib.event.location}
-								</p>
-							</div>
-
-							<div className="space-y-4">
-								{/* Race Stats */}
-								<div className="text-muted-foreground flex items-center gap-6 text-sm">
-									{/* Distance + Elevation */}
-									<span>
-										{bib.event.distance}
-										{bib.event.distanceUnit}
-										{(eventData?.elevationGainM ?? 0) > 0 && (
-											<span className="text-muted-foreground/70"> (+{eventData?.elevationGainM}m)</span>
-										)}
-									</span>
-
-									{/* Participants */}
-									<span>{bib.event.participantCount.toLocaleString()} runners</span>
-								</div>
-							</div>
-						</div>
-
-						{/* Event Description with Organizer Info */}
+						{/* ...existing code... */}
+						<div className="flex flex-col-reverse">{/* ...existing code... */}</div>
+						{/* ...existing code... */}
 						<EventDetails bib={bib} eventData={eventData} organizerData={organizerData} />
-
-						{/* Price */}
 						<PriceDisplay bib={bib} eventData={eventData} />
-
-						{/* Action Buttons */}
 						<ActionButtons
 							isSignedIn={isSignedIn}
 							isProfileComplete={isProfileComplete}
@@ -272,20 +265,12 @@ export default function PayPalPurchaseClient({
 								void handleBuyNowClick()
 							}}
 						/>
-						{/* Lock timer display */}
-						{lockExpiration != null && lockExpiration > DateTime.now() && (
-							<div className="text-warning mt-4">
-								Bib locked for you. Time left:{' '}
-								{Math.max(0, Math.floor((lockExpiration.toMillis() - Date.now()) / 1000))} seconds
-							</div>
-						)}
+						{/* ...existing code... */}
 					</div>
-
-					{/* Tabbed Content Section */}
+					{/* ...existing code... */}
 					<ContentTabs bib={bib} eventData={eventData} locale={locale} />
 				</div>
 			</div>
-
 			<PaymentPanel
 				isOpen={isPanelOpen}
 				onClose={() => setIsPanelOpen(false)}
