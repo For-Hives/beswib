@@ -31,62 +31,62 @@
 	},
 	"es": {
 		"cta": {
-			"organizerButton": "Become a partner organizer",
-			"webAppButton": "Access the WebApp"
+			"organizerButton": "Conviértete en organizador socio",
+			"webAppButton": "Acceder a la WebApp"
 		},
 		"ctaSection": {
-			"title": "Beswib transforms bib transfer management into a win-win solution for everyone",
-			"description": "Organizers: reduce your risks and administrative burden <br />Runners: buy and sell safely, without negotiation or stress"
+			"title": "Beswib transforma la gestión de transferencias de dorsales en una solución beneficiosa para todos",
+			"description": "Organizadores: reducid vuestros riesgos y carga administrativa <br />Corredores: comprad y vended de forma segura, sin negociación ni estrés"
 		}
 	},
 	"it": {
 		"cta": {
-			"organizerButton": "Become a partner organizer",
-			"webAppButton": "Access the WebApp"
+			"organizerButton": "Diventa un organizzatore partner",
+			"webAppButton": "Accedi alla WebApp"
 		},
 		"ctaSection": {
-			"title": "Beswib transforms bib transfer management into a win-win solution for everyone",
-			"description": "Organizers: reduce your risks and administrative burden <br />Runners: buy and sell safely, without negotiation or stress"
+			"title": "Beswib trasforma la gestione dei trasferimenti di pettorali in una soluzione vantaggiosa per tutti",
+			"description": "Organizzatori: riducete i vostri rischi e il carico amministrativo <br />Runner: comprate e vendete in sicurezza, senza negoziazioni o stress"
 		}
 	},
 	"de": {
 		"cta": {
-			"organizerButton": "Become a partner organizer",
-			"webAppButton": "Access the WebApp"
+			"organizerButton": "Partner-Veranstalter werden",
+			"webAppButton": "Zur WebApp"
 		},
 		"ctaSection": {
-			"title": "Beswib transforms bib transfer management into a win-win solution for everyone",
-			"description": "Organizers: reduce your risks and administrative burden <br />Runners: buy and sell safely, without negotiation or stress"
+			"title": "Beswib verwandelt Startnummer-Transfer-Management in eine Win-Win-Lösung für alle",
+			"description": "Veranstalter: reduziert eure Risiken und administrativen Aufwand <br />Läufer: kauft und verkauft sicher, ohne Verhandlung oder Stress"
 		}
 	},
 	"ro": {
 		"cta": {
-			"organizerButton": "Become a partner organizer",
-			"webAppButton": "Access the WebApp"
+			"organizerButton": "Devine organizator partener",
+			"webAppButton": "Accesează WebApp-ul"
 		},
 		"ctaSection": {
-			"title": "Beswib transforms bib transfer management into a win-win solution for everyone",
-			"description": "Organizers: reduce your risks and administrative burden <br />Runners: buy and sell safely, without negotiation or stress"
+			"title": "Beswib transformă managementul transferurilor de numere într-o soluție câștigătoare pentru toți",
+			"description": "Organizatori: reduceți riscurile și povara administrativă <br />Alergători: cumpărați și vândeți în siguranță, fără negociere sau stres"
 		}
 	},
 	"pt": {
 		"cta": {
-			"organizerButton": "Become a partner organizer",
-			"webAppButton": "Access the WebApp"
+			"organizerButton": "Torna-te organizador parceiro",
+			"webAppButton": "Aceder à WebApp"
 		},
 		"ctaSection": {
-			"title": "Beswib transforms bib transfer management into a win-win solution for everyone",
-			"description": "Organizers: reduce your risks and administrative burden <br />Runners: buy and sell safely, without negotiation or stress"
+			"title": "A Beswib transforma a gestão de transferências de dorsais numa solução vantajosa para todos",
+			"description": "Organizadores: reduzi os vossos riscos e carga administrativa <br />Corredores: comprai e vendei com segurança, sem negociação ou stress"
 		}
 	},
 	"nl": {
 		"cta": {
-			"organizerButton": "Become a partner organizer",
-			"webAppButton": "Access the WebApp"
+			"organizerButton": "Word partnerorganisator",
+			"webAppButton": "Ga naar de WebApp"
 		},
 		"ctaSection": {
-			"title": "Beswib transforms bib transfer management into a win-win solution for everyone",
-			"description": "Organizers: reduce your risks and administrative burden <br />Runners: buy and sell safely, without negotiation or stress"
+			"title": "Beswib transformeert startnummer-overdracht-beheer tot een win-win oplossing voor iedereen",
+			"description": "Organisatoren: verminder jullie risico's en administratieve lasten <br />Lopers: koop en verkoop veilig, zonder onderhandeling of stress"
 		}
 	}
 }

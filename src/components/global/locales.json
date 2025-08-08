@@ -19,7 +19,16 @@
 			"madeWith": "Made with",
 			"by": "by",
 			"selectLanguage": "Select language",
-			"currentLanguage": "Current language"
+			"currentLanguage": "Current language",
+			"sections": {
+				"explore": "Explore",
+				"legal": "Legal"
+			},
+			"links": {
+				"legalNotice": "Legal Notice",
+				"privacy": "Privacy Policy",
+				"terms": "Terms of Service"
+			}
 		},
 		"pages": {
 			"faq": {
@@ -96,7 +105,16 @@
 			"madeWith": "Fait avec",
 			"by": "par",
 			"selectLanguage": "Choisir la langue",
-			"currentLanguage": "Langue actuelle"
+			"currentLanguage": "Langue actuelle",
+			"sections": {
+				"explore": "Explorer",
+				"legal": "Légal"
+			},
+			"links": {
+				"legalNotice": "Mentions légales",
+				"privacy": "Politique de confidentialité",
+				"terms": "Conditions d’utilisation"
+			}
 		},
 		"pages": {
 			"faq": {

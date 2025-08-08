@@ -161,49 +161,49 @@
 	"es": {
 		"faq": {
 			"badge": "FAQ",
-			"title": "Everything you need to know about Beswib",
-			"description": "The secure marketplace for race bib transfers. Our goal is to streamline bib reselling, making it legal, safe and faster than ever.",
-			"contactButton": "Any questions? Reach out",
+			"title": "Todo lo que necesitas saber sobre Beswib",
+			"description": "El marketplace seguro para transferencias de dorsales. Nuestro objetivo es simplificar la reventa de dorsales, haciéndola legal, segura y más rápida que nunca.",
+			"contactButton": "¿Alguna pregunta? Contáctanos",
 			"items": [
 				{
 					"id": "what-is-beswib",
-					"question": "What is Beswib?",
-					"answer": "Beswib is a secure marketplace that allows runners to legally sell and buy race bibs. We work directly with race organizers to guarantee official and secure transfers."
+					"question": "¿Qué es Beswib?",
+					"answer": "Beswib es un marketplace seguro que permite a los corredores vender y comprar dorsales legalmente. Trabajamos directamente con organizadores de carreras para garantizar transferencias oficiales y seguras."
 				},
 				{
 					"id": "how-to-sell",
-					"question": "How do I sell my bib?",
-					"answer": "Create an account, add your bib with registration information, wait for organizer validation, then set your price. Once sold, the transfer is done automatically and you receive your payment."
+					"question": "¿Cómo vendo mi dorsal?",
+					"answer": "Crea una cuenta, añade tu dorsal con información de registro, espera la validación del organizador, luego fija tu precio. Una vez vendido, la transferencia se hace automáticamente y recibes tu pago."
 				},
 				{
 					"id": "is-it-legal",
-					"question": "Is it legal to resell a bib?",
-					"answer": "Yes, but only for Beswib partner races. We only list events that officially authorize bib transfers, ensuring the legality of each transaction."
+					"question": "¿Es legal revender un dorsal?",
+					"answer": "Sí, pero solo para carreras asociadas a Beswib. Solo listamos eventos que autorizan oficialmente las transferencias de dorsales, asegurando la legalidad de cada transacción."
 				},
 				{
 					"id": "how-to-buy",
-					"question": "How do I buy a bib?",
-					"answer": "Browse available bibs, select the one you want, make a secure payment and provide your information. The bib will be transferred to your name with the organizer."
+					"question": "¿Cómo compro un dorsal?",
+					"answer": "Explora dorsales disponibles, selecciona el que quieras, haz un pago seguro y proporciona tu información. El dorsal se transferirá a tu nombre con el organizador."
 				},
 				{
 					"id": "payment-security",
-					"question": "Are payments secure?",
-					"answer": "Absolutely. We use encrypted payment systems and funds are secured until complete transfer validation. Sellers receive payment only after transfer confirmation."
+					"question": "¿Son seguros los pagos?",
+					"answer": "Absolutamente. Usamos sistemas de pago encriptados y los fondos están asegurados hasta la validación completa de la transferencia. Los vendedores reciben el pago solo después de la confirmación de transferencia."
 				},
 				{
 					"id": "organizer-benefits",
-					"question": "What are the benefits for organizers?",
-					"answer": "Fraud reduction, decreased customer service, complete participant traceability, no technical burden, and increased event visibility through our runner community."
+					"question": "¿Cuáles son los beneficios para organizadores?",
+					"answer": "Reducción de fraudes, menor servicio al cliente, trazabilidad completa de participantes, sin carga técnica, y mayor visibilidad del evento a través de nuestra comunidad de corredores."
 				},
 				{
 					"id": "fees",
-					"question": "Are there any fees?",
-					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+					"question": "¿Hay alguna comisión?",
+					"answer": "Cobramos una comisión modesta en cada venta exitosa para cubrir las tasas de transacción y mantener la plataforma. Los detalles de las comisiones son transparentes y se muestran antes de cada transacción."
 				},
 				{
 					"id": "cancellation",
-					"question": "What happens if the race is cancelled?",
-					"answer": "In case of cancellation, we follow the organizer's refund policy. We will keep you informed and facilitate the refund process according to the event conditions."
+					"question": "¿Qué pasa si se cancela la carrera?",
+					"answer": "En caso de cancelación, seguimos la política de reembolso del organizador. Te mantendremos informado y facilitaremos el proceso de reembolso según las condiciones del evento."
 				}
 			],
 			"support": {
@@ -214,49 +214,49 @@
 	"it": {
 		"faq": {
 			"badge": "FAQ",
-			"title": "Everything you need to know about Beswib",
-			"description": "The secure marketplace for race bib transfers. Our goal is to streamline bib reselling, making it legal, safe and faster than ever.",
-			"contactButton": "Any questions? Reach out",
+			"title": "Tutto quello che devi sapere su Beswib",
+			"description": "Il marketplace sicuro per i trasferimenti di pettorali da gara. Il nostro obiettivo è semplificare la rivendita di pettorali, rendendola legale, sicura e più veloce che mai.",
+			"contactButton": "Domande? Contattaci",
 			"items": [
 				{
 					"id": "what-is-beswib",
-					"question": "What is Beswib?",
-					"answer": "Beswib is a secure marketplace that allows runners to legally sell and buy race bibs. We work directly with race organizers to guarantee official and secure transfers."
+					"question": "Cos'è Beswib?",
+					"answer": "Beswib è un marketplace sicuro che permette ai runners di vendere e acquistare pettorali da gara legalmente. Lavoriamo direttamente con gli organizzatori di gare per garantire trasferimenti ufficiali e sicuri."
 				},
 				{
 					"id": "how-to-sell",
-					"question": "How do I sell my bib?",
-					"answer": "Create an account, add your bib with registration information, wait for organizer validation, then set your price. Once sold, the transfer is done automatically and you receive your payment."
+					"question": "Come vendo il mio pettorale?",
+					"answer": "Crea un account, aggiungi il tuo pettorale con le informazioni di registrazione, aspetta la convalida dell'organizzatore, poi stabilisci il tuo prezzo. Una volta venduto, il trasferimento avviene automaticamente e ricevi il pagamento."
 				},
 				{
 					"id": "is-it-legal",
-					"question": "Is it legal to resell a bib?",
-					"answer": "Yes, but only for Beswib partner races. We only list events that officially authorize bib transfers, ensuring the legality of each transaction."
+					"question": "È legale rivendere un pettorale?",
+					"answer": "Sì, ma solo per le gare partner di Beswib. Elenchiamo solo eventi che autorizzano ufficialmente i trasferimenti di pettorali, garantendo la legalità di ogni transazione."
 				},
 				{
 					"id": "how-to-buy",
-					"question": "How do I buy a bib?",
-					"answer": "Browse available bibs, select the one you want, make a secure payment and provide your information. The bib will be transferred to your name with the organizer."
+					"question": "Come acquisto un pettorale?",
+					"answer": "Esplora i pettorali disponibili, seleziona quello desiderato, effettua un pagamento sicuro e fornisci le tue informazioni. Il pettorale verrà trasferito a tuo nome con l'organizzatore."
 				},
 				{
 					"id": "payment-security",
-					"question": "Are payments secure?",
-					"answer": "Absolutely. We use encrypted payment systems and funds are secured until complete transfer validation. Sellers receive payment only after transfer confirmation."
+					"question": "I pagamenti sono sicuri?",
+					"answer": "Assolutamente. Utilizziamo sistemi di pagamento crittografati e i fondi sono protetti fino alla completa validazione del trasferimento. I venditori ricevono il pagamento solo dopo la conferma del trasferimento."
 				},
 				{
 					"id": "organizer-benefits",
-					"question": "What are the benefits for organizers?",
-					"answer": "Fraud reduction, decreased customer service, complete participant traceability, no technical burden, and increased event visibility through our runner community."
+					"question": "Quali sono i vantaggi per gli organizzatori?",
+					"answer": "Riduzione delle frodi, diminuzione del servizio clienti, tracciabilità completa dei partecipanti, nessun onere tecnico e maggiore visibilità dell'evento attraverso la nostra community di runners."
 				},
 				{
 					"id": "fees",
-					"question": "Are there any fees?",
-					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+					"question": "Ci sono commissioni?",
+					"answer": "Prendiamo una commissione modesta su ogni vendita riuscita per coprire le commissioni di transazione e mantenere la piattaforma. I dettagli delle commissioni sono trasparenti e visualizzati prima di ogni transazione."
 				},
 				{
 					"id": "cancellation",
-					"question": "What happens if the race is cancelled?",
-					"answer": "In case of cancellation, we follow the organizer's refund policy. We will keep you informed and facilitate the refund process according to the event conditions."
+					"question": "Cosa succede se la gara viene annullata?",
+					"answer": "In caso di annullamento, seguiamo la politica di rimborso dell'organizzatore. Ti terremo informato e faciliteremo il processo di rimborso secondo le condizioni dell'evento."
 				}
 			],
 			"support": {
@@ -267,49 +267,49 @@
 	"de": {
 		"faq": {
 			"badge": "FAQ",
-			"title": "Everything you need to know about Beswib",
-			"description": "The secure marketplace for race bib transfers. Our goal is to streamline bib reselling, making it legal, safe and faster than ever.",
-			"contactButton": "Any questions? Reach out",
+			"title": "Alles was Sie über Beswib wissen müssen",
+			"description": "Der sichere Marktplatz für Startnummer-Transfers. Unser Ziel ist es, den Wiederverkauf von Startnummern zu vereinfachen und ihn legal, sicher und schneller denn je zu machen.",
+			"contactButton": "Fragen? Kontaktieren Sie uns",
 			"items": [
 				{
 					"id": "what-is-beswib",
-					"question": "What is Beswib?",
-					"answer": "Beswib is a secure marketplace that allows runners to legally sell and buy race bibs. We work directly with race organizers to guarantee official and secure transfers."
+					"question": "Was ist Beswib?",
+					"answer": "Beswib ist ein sicherer Marktplatz, der es Läufern ermöglicht, Startnummern legal zu verkaufen und zu kaufen. Wir arbeiten direkt mit Veranstaltern zusammen, um offizielle und sichere Übertragungen zu gewährleisten."
 				},
 				{
 					"id": "how-to-sell",
-					"question": "How do I sell my bib?",
-					"answer": "Create an account, add your bib with registration information, wait for organizer validation, then set your price. Once sold, the transfer is done automatically and you receive your payment."
+					"question": "Wie verkaufe ich meine Startnummer?",
+					"answer": "Erstellen Sie ein Konto, fügen Sie Ihre Startnummer mit Anmeldeinformationen hinzu, warten Sie auf die Validierung des Veranstalters und legen Sie dann Ihren Preis fest. Nach dem Verkauf erfolgt die Übertragung automatisch und Sie erhalten Ihre Zahlung."
 				},
 				{
 					"id": "is-it-legal",
-					"question": "Is it legal to resell a bib?",
-					"answer": "Yes, but only for Beswib partner races. We only list events that officially authorize bib transfers, ensuring the legality of each transaction."
+					"question": "Ist es legal, eine Startnummer weiterzuverkaufen?",
+					"answer": "Ja, aber nur für Beswib-Partnerrennen. Wir listen nur Veranstaltungen, die Startnummer-Transfers offiziell autorisieren und gewährleisten so die Legalität jeder Transaktion."
 				},
 				{
 					"id": "how-to-buy",
-					"question": "How do I buy a bib?",
-					"answer": "Browse available bibs, select the one you want, make a secure payment and provide your information. The bib will be transferred to your name with the organizer."
+					"question": "Wie kaufe ich eine Startnummer?",
+					"answer": "Durchsuchen Sie verfügbare Startnummern, wählen Sie die gewünschte aus, tätigen Sie eine sichere Zahlung und geben Sie Ihre Informationen an. Die Startnummer wird auf Ihren Namen beim Veranstalter übertragen."
 				},
 				{
 					"id": "payment-security",
-					"question": "Are payments secure?",
-					"answer": "Absolutely. We use encrypted payment systems and funds are secured until complete transfer validation. Sellers receive payment only after transfer confirmation."
+					"question": "Sind Zahlungen sicher?",
+					"answer": "Absolut. Wir verwenden verschlüsselte Zahlungssysteme und Gelder sind bis zur vollständigen Übertragungsvalidierung gesichert. Verkäufer erhalten die Zahlung erst nach Bestätigung der Übertragung."
 				},
 				{
 					"id": "organizer-benefits",
-					"question": "What are the benefits for organizers?",
-					"answer": "Fraud reduction, decreased customer service, complete participant traceability, no technical burden, and increased event visibility through our runner community."
+					"question": "Was sind die Vorteile für Veranstalter?",
+					"answer": "Betrugsreduktion, verringerter Kundenservice, vollständige Teilnehmer-Nachverfolgbarkeit, keine technische Belastung und erhöhte Veranstaltungssichtbarkeit durch unsere Läufer-Community."
 				},
 				{
 					"id": "fees",
-					"question": "Are there any fees?",
-					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+					"question": "Gibt es Gebühren?",
+					"answer": "Wir nehmen eine bescheidene Provision bei jedem erfolgreichen Verkauf, um Transaktionsgebühren zu decken und die Plattform zu erhalten. Gebührendetails sind transparent und werden vor jeder Transaktion angezeigt."
 				},
 				{
 					"id": "cancellation",
-					"question": "What happens if the race is cancelled?",
-					"answer": "In case of cancellation, we follow the organizer's refund policy. We will keep you informed and facilitate the refund process according to the event conditions."
+					"question": "Was passiert, wenn das Rennen abgesagt wird?",
+					"answer": "Im Fall einer Absage folgen wir der Rückerstattungsrichtlinie des Veranstalters. Wir halten Sie informiert und erleichtern den Rückerstattungsprozess entsprechend den Veranstaltungsbedingungen."
 				}
 			],
 			"support": {
@@ -319,50 +319,50 @@
 	},
 	"ro": {
 		"faq": {
-			"badge": "FAQ",
-			"title": "Everything you need to know about Beswib",
-			"description": "The secure marketplace for race bib transfers. Our goal is to streamline bib reselling, making it legal, safe and faster than ever.",
-			"contactButton": "Any questions? Reach out",
+			"badge": "Întrebări frecvente",
+			"title": "Tot ce trebuie să știi despre Beswib",
+			"description": "Piața sigură pentru transferurile de numere de concurs. Obiectivul nostru este să simplificăm revânzarea numerelor de concurs, făcând-o legală, sigură și mai rapidă ca niciodată.",
+			"contactButton": "Întrebări? Contactează-ne",
 			"items": [
 				{
 					"id": "what-is-beswib",
-					"question": "What is Beswib?",
-					"answer": "Beswib is a secure marketplace that allows runners to legally sell and buy race bibs. We work directly with race organizers to guarantee official and secure transfers."
+					"question": "Ce este Beswib?",
+					"answer": "Beswib este o piață sigură care permite alergătorilor să vândă și să cumpere legal numere de concurs. Lucrăm direct cu organizatorii de curse pentru a garanta transferuri oficiale și sigure."
 				},
 				{
 					"id": "how-to-sell",
-					"question": "How do I sell my bib?",
-					"answer": "Create an account, add your bib with registration information, wait for organizer validation, then set your price. Once sold, the transfer is done automatically and you receive your payment."
+					"question": "Cum îmi vând numărul de concurs?",
+					"answer": "Creează un cont, adaugă numărul tău cu informațiile de înscriere, așteaptă validarea organizatorului, apoi stabilește prețul. Odată vândut, transferul se face automat și primești plata."
 				},
 				{
 					"id": "is-it-legal",
-					"question": "Is it legal to resell a bib?",
-					"answer": "Yes, but only for Beswib partner races. We only list events that officially authorize bib transfers, ensuring the legality of each transaction."
+					"question": "Este legal să revând un număr de concurs?",
+					"answer": "Da, dar doar pentru cursele partenere Beswib. Listăm doar evenimente care autorizează oficial transferurile de numere de concurs, asigurând legalitatea fiecărei tranzacții."
 				},
 				{
 					"id": "how-to-buy",
-					"question": "How do I buy a bib?",
-					"answer": "Browse available bibs, select the one you want, make a secure payment and provide your information. The bib will be transferred to your name with the organizer."
+					"question": "Cum cumpăr un număr de concurs?",
+					"answer": "Răsfoiește numerele disponibile, selectează pe cel dorit, fă o plată sigură și furnizează informațiile tale. Numărul va fi transferat pe numele tău la organizator."
 				},
 				{
 					"id": "payment-security",
-					"question": "Are payments secure?",
-					"answer": "Absolutely. We use encrypted payment systems and funds are secured until complete transfer validation. Sellers receive payment only after transfer confirmation."
+					"question": "Sunt plățile sigure?",
+					"answer": "Absolut. Folosim sisteme de plată criptate și fondurile sunt asigurate până la validarea completă a transferului. Vânzătorii primesc plata doar după confirmarea transferului."
 				},
 				{
 					"id": "organizer-benefits",
-					"question": "What are the benefits for organizers?",
-					"answer": "Fraud reduction, decreased customer service, complete participant traceability, no technical burden, and increased event visibility through our runner community."
+					"question": "Care sunt beneficiile pentru organizatori?",
+					"answer": "Reducerea fraudelor, scăderea serviciului pentru clienți, trasabilitatea completă a participanților, nicio povară tehnică și vizibilitatea crescută a evenimentului prin comunitatea noastră de alergători."
 				},
 				{
 					"id": "fees",
-					"question": "Are there any fees?",
-					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+					"question": "Există comisioane?",
+					"answer": "Luăm un comision modest la fiecare vânzare reușită pentru a acoperi taxele de tranzacție și a menține platforma. Detaliile comisionului sunt transparente și afișate înainte de fiecare tranzacție."
 				},
 				{
 					"id": "cancellation",
-					"question": "What happens if the race is cancelled?",
-					"answer": "In case of cancellation, we follow the organizer's refund policy. We will keep you informed and facilitate the refund process according to the event conditions."
+					"question": "Ce se întâmplă dacă cursa este anulată?",
+					"answer": "În caz de anulare, urmăm politica de rambursare a organizatorului. Te vom ține informat și vom facilita procesul de rambursare conform condițiilor evenimentului."
 				}
 			],
 			"support": {
@@ -372,50 +372,50 @@
 	},
 	"pt": {
 		"faq": {
-			"badge": "FAQ",
-			"title": "Everything you need to know about Beswib",
-			"description": "The secure marketplace for race bib transfers. Our goal is to streamline bib reselling, making it legal, safe and faster than ever.",
-			"contactButton": "Any questions? Reach out",
+			"badge": "Perguntas Frequentes",
+			"title": "Tudo o que precisa saber sobre Beswib",
+			"description": "O marketplace seguro para transferências de dorsais de corrida. O nosso objetivo é simplificar a revenda de dorsais, tornando-a legal, segura e mais rápida do que nunca.",
+			"contactButton": "Perguntas? Entre em contacto",
 			"items": [
 				{
 					"id": "what-is-beswib",
-					"question": "What is Beswib?",
-					"answer": "Beswib is a secure marketplace that allows runners to legally sell and buy race bibs. We work directly with race organizers to guarantee official and secure transfers."
+					"question": "O que é Beswib?",
+					"answer": "Beswib é um marketplace seguro que permite aos corredores vender e comprar dorsais de corrida legalmente. Trabalhamos diretamente com organizadores de corridas para garantir transferências oficiais e seguras."
 				},
 				{
 					"id": "how-to-sell",
-					"question": "How do I sell my bib?",
-					"answer": "Create an account, add your bib with registration information, wait for organizer validation, then set your price. Once sold, the transfer is done automatically and you receive your payment."
+					"question": "Como vendo o meu dorsal?",
+					"answer": "Crie uma conta, adicione o seu dorsal com informações de inscrição, aguarde a validação do organizador, depois defina o preço. Uma vez vendido, a transferência é feita automaticamente e recebe o pagamento."
 				},
 				{
 					"id": "is-it-legal",
-					"question": "Is it legal to resell a bib?",
-					"answer": "Yes, but only for Beswib partner races. We only list events that officially authorize bib transfers, ensuring the legality of each transaction."
+					"question": "É legal revender um dorsal?",
+					"answer": "Sim, mas apenas para corridas parceiras da Beswib. Apenas listamos eventos que autorizam oficialmente as transferências de dorsais, garantindo a legalidade de cada transação."
 				},
 				{
 					"id": "how-to-buy",
-					"question": "How do I buy a bib?",
-					"answer": "Browse available bibs, select the one you want, make a secure payment and provide your information. The bib will be transferred to your name with the organizer."
+					"question": "Como compro um dorsal?",
+					"answer": "Navegue pelos dorsais disponíveis, selecione o que deseja, faça um pagamento seguro e forneça as suas informações. O dorsal será transferido para o seu nome junto do organizador."
 				},
 				{
 					"id": "payment-security",
-					"question": "Are payments secure?",
-					"answer": "Absolutely. We use encrypted payment systems and funds are secured until complete transfer validation. Sellers receive payment only after transfer confirmation."
+					"question": "Os pagamentos são seguros?",
+					"answer": "Absolutamente. Usamos sistemas de pagamento encriptados e os fundos ficam seguros até à validação completa da transferência. Os vendedores recebem o pagamento apenas após confirmação da transferência."
 				},
 				{
 					"id": "organizer-benefits",
-					"question": "What are the benefits for organizers?",
-					"answer": "Fraud reduction, decreased customer service, complete participant traceability, no technical burden, and increased event visibility through our runner community."
+					"question": "Quais são os benefícios para organizadores?",
+					"answer": "Redução de fraudes, diminuição do atendimento ao cliente, rastreabilidade completa de participantes, sem carga técnica e maior visibilidade do evento através da nossa comunidade de corredores."
 				},
 				{
 					"id": "fees",
-					"question": "Are there any fees?",
-					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+					"question": "Há alguma taxa?",
+					"answer": "Cobramos uma comissão modesta em cada venda bem-sucedida para cobrir as taxas de transação e manter a plataforma. Os detalhes das taxas são transparentes e exibidos antes de cada transação."
 				},
 				{
 					"id": "cancellation",
-					"question": "What happens if the race is cancelled?",
-					"answer": "In case of cancellation, we follow the organizer's refund policy. We will keep you informed and facilitate the refund process according to the event conditions."
+					"question": "O que acontece se a corrida for cancelada?",
+					"answer": "Em caso de cancelamento, seguimos a política de reembolso do organizador. Manteremos informado e facilitaremos o processo de reembolso de acordo com as condições do evento."
 				}
 			],
 			"support": {
@@ -425,50 +425,50 @@
 	},
 	"nl": {
 		"faq": {
-			"badge": "FAQ",
-			"title": "Everything you need to know about Beswib",
-			"description": "The secure marketplace for race bib transfers. Our goal is to streamline bib reselling, making it legal, safe and faster than ever.",
-			"contactButton": "Any questions? Reach out",
+			"badge": "Veelgestelde vragen",
+			"title": "Alles wat je moet weten over Beswib",
+			"description": "De veilige marktplaats voor startnummer overdrachten. Ons doel is het doorverkopen van startnummers te stroomlijnen, waardoor het legaal, veilig en sneller dan ooit wordt.",
+			"contactButton": "Vragen? Neem contact op",
 			"items": [
 				{
 					"id": "what-is-beswib",
-					"question": "What is Beswib?",
-					"answer": "Beswib is a secure marketplace that allows runners to legally sell and buy race bibs. We work directly with race organizers to guarantee official and secure transfers."
+					"question": "Wat is Beswib?",
+					"answer": "Beswib is een veilige marktplaats waarmee hardlopers legaal startnummers kunnen verkopen en kopen. We werken rechtstreeks met wedstrijdorganisatoren samen om officiële en veilige overdrachten te garanderen."
 				},
 				{
 					"id": "how-to-sell",
-					"question": "How do I sell my bib?",
-					"answer": "Create an account, add your bib with registration information, wait for organizer validation, then set your price. Once sold, the transfer is done automatically and you receive your payment."
+					"question": "Hoe verkoop ik mijn startnummer?",
+					"answer": "Maak een account aan, voeg je startnummer toe met registratie-informatie, wacht op validatie van de organisator en stel dan je prijs in. Eenmaal verkocht wordt de overdracht automatisch uitgevoerd en ontvang je je betaling."
 				},
 				{
 					"id": "is-it-legal",
-					"question": "Is it legal to resell a bib?",
-					"answer": "Yes, but only for Beswib partner races. We only list events that officially authorize bib transfers, ensuring the legality of each transaction."
+					"question": "Is het legaal om een startnummer door te verkopen?",
+					"answer": "Ja, maar alleen voor Beswib partnerwedstrijden. We vermelden alleen evenementen die officieel startnummer overdrachten autoriseren, waardoor de legaliteit van elke transactie wordt gewaarborgd."
 				},
 				{
 					"id": "how-to-buy",
-					"question": "How do I buy a bib?",
-					"answer": "Browse available bibs, select the one you want, make a secure payment and provide your information. The bib will be transferred to your name with the organizer."
+					"question": "Hoe koop ik een startnummer?",
+					"answer": "Blader door beschikbare startnummers, selecteer degene die je wilt, doe een veilige betaling en verstrek je informatie. Het startnummer wordt op jouw naam overgedragen bij de organisator."
 				},
 				{
 					"id": "payment-security",
-					"question": "Are payments secure?",
-					"answer": "Absolutely. We use encrypted payment systems and funds are secured until complete transfer validation. Sellers receive payment only after transfer confirmation."
+					"question": "Zijn betalingen veilig?",
+					"answer": "Absoluut. We gebruiken gecodeerde betalingssystemen en fondsen worden beveiligd tot volledige overdracht validatie. Verkopers ontvangen betaling pas na bevestiging van de overdracht."
 				},
 				{
 					"id": "organizer-benefits",
-					"question": "What are the benefits for organizers?",
-					"answer": "Fraud reduction, decreased customer service, complete participant traceability, no technical burden, and increased event visibility through our runner community."
+					"question": "Wat zijn de voordelen voor organisatoren?",
+					"answer": "Fraudereductie, verminderde klantenservice, volledige traceerbaarheid van deelnemers, geen technische last en verhoogde evenement zichtbaarheid door onze hardlopers community."
 				},
 				{
 					"id": "fees",
-					"question": "Are there any fees?",
-					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+					"question": "Zijn er kosten?",
+					"answer": "We nemen een bescheiden commissie op elke succesvolle verkoop om transactiekosten te dekken en het platform te onderhouden. Kostendetails zijn transparant en worden voor elke transactie weergegeven."
 				},
 				{
 					"id": "cancellation",
-					"question": "What happens if the race is cancelled?",
-					"answer": "In case of cancellation, we follow the organizer's refund policy. We will keep you informed and facilitate the refund process according to the event conditions."
+					"question": "Wat gebeurt er als de wedstrijd wordt geannuleerd?",
+					"answer": "Bij annulering volgen we het terugbetalingsbeleid van de organisator. We houden je op de hoogte en faciliteren het terugbetalingsproces volgens de evenement voorwaarden."
 				}
 			],
 			"support": {

@@ -22,44 +22,44 @@
 	},
 	"es": {
 		"stats": {
-			"bibsSold": "Bibs sold",
-			"partnerRaces": "Partner races",
-			"satisfactionRate": "Satisfaction rate"
+			"bibsSold": "Dorsales vendidos",
+			"partnerRaces": "Carreras asociadas",
+			"satisfactionRate": "Tasa de satisfacción"
 		}
 	},
 	"it": {
 		"stats": {
-			"bibsSold": "Bibs sold",
-			"partnerRaces": "Partner races",
-			"satisfactionRate": "Satisfaction rate"
+			"bibsSold": "Pettorali venduti",
+			"partnerRaces": "Gare partner",
+			"satisfactionRate": "Tasso di soddisfazione"
 		}
 	},
 	"de": {
 		"stats": {
-			"bibsSold": "Bibs sold",
-			"partnerRaces": "Partner races",
-			"satisfactionRate": "Satisfaction rate"
+			"bibsSold": "Verkaufte Startnummern",
+			"partnerRaces": "Partner-Rennen",
+			"satisfactionRate": "Zufriedenheitsrate"
 		}
 	},
 	"ro": {
 		"stats": {
-			"bibsSold": "Bibs sold",
-			"partnerRaces": "Partner races",
-			"satisfactionRate": "Satisfaction rate"
+			"bibsSold": "Numere vândute",
+			"partnerRaces": "Curse partenere",
+			"satisfactionRate": "Rata de satisfacție"
 		}
 	},
 	"pt": {
 		"stats": {
-			"bibsSold": "Bibs sold",
-			"partnerRaces": "Partner races",
-			"satisfactionRate": "Satisfaction rate"
+			"bibsSold": "Dorsais vendidos",
+			"partnerRaces": "Provas parceiras",
+			"satisfactionRate": "Taxa de satisfação"
 		}
 	},
 	"nl": {
 		"stats": {
-			"bibsSold": "Bibs sold",
-			"partnerRaces": "Partner races",
-			"satisfactionRate": "Satisfaction rate"
+			"bibsSold": "Verkochte startnummers",
+			"partnerRaces": "Partnerwedstrijden",
+			"satisfactionRate": "Tevredenheidspercentage"
 		}
 	}
 }
