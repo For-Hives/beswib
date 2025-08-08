@@ -46,9 +46,9 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 					</div>
 
 					<div className="grid gap-8 lg:grid-cols-3">
-						<div className="lg:col-span-2">
-							<ModernRunnerForm user={user} />
-						</div>
+                        <div className="lg:col-span-2">
+                            <ModernRunnerForm user={user} locale={locale} />
+                        </div>
 						<div>
 							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 								<CardHeader>
