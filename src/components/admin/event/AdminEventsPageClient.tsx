@@ -403,7 +403,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 			<div className="from-background via-destructive/5 to-background relative min-h-screen bg-gradient-to-br">
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 				<div className="relative flex min-h-screen items-center justify-center">
-					<div className="border-border/50 bg-card/80 w-full max-w-md rounded-3xl border p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--destructive)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--destructive)/0.2)] backdrop-blur-md">
+					<div className="dark:border-border/50 bg-card/80 w-full max-w-md rounded-3xl border border-black/50 p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--destructive)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--destructive)/0.2)] backdrop-blur-md">
 						<div className="mb-6 text-6xl text-red-600 dark:text-red-400">⚠</div>
 						<h1 className="text-foreground mb-4 text-3xl font-bold">{t.events.ui.accessError}</h1>
 						<p className="text-muted-foreground mb-6 text-lg">{t.events.ui.accessErrorDescription}</p>
@@ -477,7 +477,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 
 						{/* Stats Grid */}
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-3">
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 								<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 									<CardTitle className="text-sm font-medium">{t.events.stats.totalEvents}</CardTitle>
 									<Calendar className="text-muted-foreground h-4 w-4" />
@@ -487,7 +487,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 								</CardContent>
 							</Card>
 
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 								<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 									<CardTitle className="text-sm font-medium">{t.events.stats.upcomingEvents}</CardTitle>
 									<Calendar className="text-muted-foreground h-4 w-4" />
@@ -497,7 +497,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 								</CardContent>
 							</Card>
 
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 								<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 									<CardTitle className="text-sm font-medium">{t.events.stats.pastEvents}</CardTitle>
 									<Calendar className="text-muted-foreground h-4 w-4" />
@@ -518,7 +518,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 							<div className="grid gap-6 md:grid-cols-1 lg:grid-cols-1">
 								{/* Create Event Card */}
 								<Link href="/admin/event/create">
-									<Card className="border-border/50 bg-card/80 hover:bg-card/90 group cursor-pointer backdrop-blur-md transition-all duration-300 hover:shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.15),inset_0_0_60px_hsl(var(--accent)/0.1),0_0_50px_hsl(var(--primary)/0.25)]">
+									<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 group cursor-pointer border-black/50 backdrop-blur-md transition-all duration-300 hover:shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.15),inset_0_0_60px_hsl(var(--accent)/0.1),0_0_50px_hsl(var(--primary)/0.25)]">
 										<CardHeader>
 											<div className="flex items-center gap-3">
 												<div className="bg-primary/10 text-primary rounded-lg p-2">
@@ -656,7 +656,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 							</div>
 
 							{/* Table */}
-							<div className="bg-card/80 border-border/50 overflow-hidden rounded-2xl border shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md">
+							<div className="bg-card/80 dark:border-border/50 overflow-hidden rounded-2xl border border-black/50 shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md">
 								<Table className="table-fixed">
 									<TableHeader>
 										{table.getHeaderGroups().map(headerGroup => (

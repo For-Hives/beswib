@@ -113,7 +113,7 @@ export default function ConfirmationStep({
 			<div>
 				<h2 className="text-foreground mb-6 text-2xl font-semibold">{t.form.confirmation.reviewTitle}</h2>
 
-				<Card className="border-border/50 bg-card/80 mb-8 backdrop-blur-sm">
+				<Card className="dark:border-border/50 bg-card/80 mb-8 border-black/50 backdrop-blur-sm">
 					<CardContent className="space-y-6 p-6">
 						<div className="grid grid-cols-1 gap-6">
 							<div className="space-y-2">
@@ -156,7 +156,7 @@ export default function ConfirmationStep({
 
 				{/* Private Link - Only after creation */}
 				{createdBib !== null && createdBib !== undefined && formData.listingType === 'private' && (
-					<Card className="border-border/50 bg-card/80 mb-8 backdrop-blur-sm">
+					<Card className="dark:border-border/50 bg-card/80 mb-8 border-black/50 backdrop-blur-sm">
 						<CardContent className="space-y-4 p-6">
 							<Label className="text-foreground text-base font-medium">{t.form.confirmation.privateLink}</Label>
 							<div className="flex gap-2">
@@ -176,7 +176,7 @@ export default function ConfirmationStep({
 				)}
 
 				{/* Terms */}
-				<div className="bg-card/50 border-border/50 space-y-4 rounded-lg border p-4">
+				<div className="bg-card/50 dark:border-border/50 space-y-4 rounded-lg border border-black/50 p-4">
 					<div className="flex items-start space-x-3">
 						<Checkbox
 							checked={formData.acceptedTerms}

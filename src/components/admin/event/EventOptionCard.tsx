@@ -33,7 +33,7 @@ export default function EventOptionCard({
 	const translations = getTranslations(locale, Translations)
 
 	return (
-		<div className="border-border/50 bg-card/50 rounded-2xl border p-6 shadow-md backdrop-blur-sm">
+		<div className="dark:border-border/50 bg-card/50 rounded-2xl border border-black/50 p-6 shadow-md backdrop-blur-sm">
 			<div className="mb-6 flex items-center justify-between">
 				<h3 className="text-foreground text-lg font-medium">Option {optionIndex + 1}</h3>
 				<Button onClick={() => onRemove(optionIndex)} size="sm" type="button" variant="outline">

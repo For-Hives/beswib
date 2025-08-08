@@ -95,7 +95,7 @@ export default function BuyerDashboardClient({
 
 					{/* Statistics Cards */}
 					<div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-						<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader className="pb-2">
 								<CardTitle className="text-muted-foreground text-sm">Total Purchases</CardTitle>
 							</CardHeader>
@@ -104,7 +104,7 @@ export default function BuyerDashboardClient({
 							</CardContent>
 						</Card>
 
-						<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader className="pb-2">
 								<CardTitle className="text-muted-foreground text-sm">Waitlist Entries</CardTitle>
 							</CardHeader>
@@ -113,7 +113,7 @@ export default function BuyerDashboardClient({
 							</CardContent>
 						</Card>
 
-						<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader className="pb-2">
 								<CardTitle className="text-muted-foreground text-sm">Total Spent</CardTitle>
 							</CardHeader>
@@ -126,7 +126,7 @@ export default function BuyerDashboardClient({
 					{/* Main Content */}
 					<div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
 						{/* Purchase History */}
-						<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader>
 								<CardTitle className="flex items-center gap-2">
 									<ShoppingCart className="h-5 w-5" />
@@ -186,7 +186,7 @@ export default function BuyerDashboardClient({
 						</Card>
 
 						{/* Waitlist */}
-						<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader>
 								<CardTitle className="flex items-center gap-2">
 									<Clock className="h-5 w-5" />
@@ -257,7 +257,7 @@ export default function BuyerDashboardClient({
 						<h2 className="text-foreground mb-6 text-xl font-bold">Quick Actions</h2>
 						<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
 							<Link href="/marketplace">
-								<Card className="border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<ShoppingCart className="text-primary mb-2 h-8 w-8" />
 										<p className="text-sm font-medium">Browse Marketplace</p>
@@ -266,7 +266,7 @@ export default function BuyerDashboardClient({
 							</Link>
 
 							<Link href="/events">
-								<Card className="border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<Calendar className="text-primary mb-2 h-8 w-8" />
 										<p className="text-sm font-medium">Browse Events</p>
@@ -275,7 +275,7 @@ export default function BuyerDashboardClient({
 							</Link>
 
 							<Link href="/dashboard">
-								<Card className="border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<Users className="text-primary mb-2 h-8 w-8" />
 										<p className="text-sm font-medium">Main Dashboard</p>
@@ -284,7 +284,7 @@ export default function BuyerDashboardClient({
 							</Link>
 
 							<Link href="/contact">
-								<Card className="border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<Clock className="text-primary mb-2 h-8 w-8" />
 										<p className="text-sm font-medium">Get Help</p>

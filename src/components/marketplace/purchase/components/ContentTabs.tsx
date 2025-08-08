@@ -79,7 +79,7 @@ export default function ContentTabs({ bib, eventData, locale }: ContentTabsProps
 							{/* Essential Event Information Grid */}
 							<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
 								{/* Key Details Card */}
-								<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
+								<div className="border-black/50 dark:border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
 									<h4 className="text-foreground mb-4 font-semibold">Race Information</h4>
 									<div className="space-y-4">
 										<div>
@@ -121,7 +121,7 @@ export default function ContentTabs({ bib, eventData, locale }: ContentTabsProps
 							</div>
 
 							{/* What you get Card */}
-							<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
+							<div className="border-black/50 dark:border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
 								<h4 className="text-foreground mb-4 font-semibold">What you get</h4>
 								<div className="text-foreground/80 space-y-2 text-sm">
 									<div>• Official race bib transferred to your name</div>
@@ -131,13 +131,13 @@ export default function ContentTabs({ bib, eventData, locale }: ContentTabsProps
 							</div>
 
 							{/* Seller Information Card */}
-							<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
+							<div className="border-black/50 dark:border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
 								<h4 className="text-foreground mb-4 font-semibold">Seller Information</h4>
 								<p className="text-muted-foreground text-sm">Sold by {bib.user.firstName ?? 'Anonymous'}.</p>
 							</div>
 
 							{/* Terms & Conditions Card */}
-							<div className="border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
+							<div className="border-black/50 dark:border-border/50 bg-card/50 rounded-lg border p-6 backdrop-blur-sm">
 								<h4 className="text-foreground mb-4 font-semibold">Terms & Conditions</h4>
 								<p className="text-muted-foreground text-sm">
 									{terms.summary}{' '}

@@ -166,7 +166,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 			<form onSubmit={handleSubmit} className="space-y-8">
 				{/* Personal Information Section */}
-				<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+				<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<UserIcon className="text-primary h-5 w-5" />
@@ -284,7 +284,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 				</Card>
 
 				{/* Emergency Contact Section */}
-				<Card className="border-border/50 bg-card/80 -z-10 backdrop-blur-sm">
+				<Card className="dark:border-border/50 bg-card/80 -z-10 border-black/50 backdrop-blur-sm">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<Shield className="text-primary h-5 w-5" />
@@ -352,7 +352,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 				</Card>
 
 				{/* Address Section */}
-				<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+				<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<MapPin className="text-primary h-5 w-5" />
@@ -429,7 +429,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 				</Card>
 
 				{/* Documents & Affiliations Section - Optional */}
-				<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+				<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<FileText className="text-primary h-5 w-5" />

@@ -105,7 +105,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 			<div className="from-background via-destructive/5 to-background relative min-h-screen bg-gradient-to-br">
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 				<div className="relative flex min-h-screen items-center justify-center">
-					<div className="border-border/50 bg-card/80 w-full max-w-md rounded-3xl border p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--destructive)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--destructive)/0.2)] backdrop-blur-md">
+					<div className="dark:border-border/50 bg-card/80 w-full max-w-md rounded-3xl border border-black/50 p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--destructive)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--destructive)/0.2)] backdrop-blur-md">
 						<div className="mb-6 text-6xl text-red-600 dark:text-red-400">⚠</div>
 						<h1 className="text-foreground mb-4 text-3xl font-bold">{t.dashboard.errors.accessError}</h1>
 						<p className="text-muted-foreground mb-6 text-lg">{t.dashboard.errors.accessErrorMessage}</p>
@@ -176,7 +176,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 
 						{/* Stats Grid */}
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 								<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 									<CardTitle className="text-sm font-medium">{t.dashboard.stats.totalEvents}</CardTitle>
 									<Calendar className="text-muted-foreground h-4 w-4" />
@@ -189,7 +189,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 								</CardContent>
 							</Card>
 
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 								<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 									<CardTitle className="text-sm font-medium">{t.dashboard.stats.totalBibs}</CardTitle>
 									<FileText className="text-muted-foreground h-4 w-4" />
@@ -202,7 +202,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 								</CardContent>
 							</Card>
 
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 								<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 									<CardTitle className="text-sm font-medium">{t.dashboard.stats.totalUsers}</CardTitle>
 									<Users className="text-muted-foreground h-4 w-4" />
@@ -215,7 +215,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 								</CardContent>
 							</Card>
 
-							<Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 								<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 									<CardTitle className="text-sm font-medium">{t.dashboard.stats.todaysTransactions}</CardTitle>
 									<CreditCard className="text-muted-foreground h-4 w-4" />
@@ -232,7 +232,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 						{/* Dashboard Cards Grid */}
 						<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 							{/* Create Event Card */}
-							<Card className="border-border/50 bg-card/80 hover:bg-card/90 group backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
+							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 group border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
 								<CardHeader className="text-center">
 									<div className="bg-primary/10 text-primary group-hover:bg-primary/20 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full transition-colors">
 										<Plus className="h-8 w-8" />
@@ -251,7 +251,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 							</Card>
 
 							{/* View Events Card */}
-							<Card className="border-border/50 bg-card/80 hover:bg-card/90 group backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
+							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 group border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
 								<CardHeader className="text-center">
 									<div className="bg-primary/10 text-primary group-hover:bg-primary/20 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full transition-colors">
 										<Eye className="h-8 w-8" />
@@ -270,7 +270,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 							</Card>
 
 							{/* Create Organizer Card */}
-							<Card className="border-border/50 bg-card/80 hover:bg-card/90 group backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
+							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 group border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
 								<CardHeader className="text-center">
 									<div className="bg-primary/10 text-primary group-hover:bg-primary/20 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full transition-colors">
 										<Building className="h-8 w-8" />
@@ -289,7 +289,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 							</Card>
 
 							{/* View Organizers Card */}
-							<Card className="border-border/50 bg-card/80 hover:bg-card/90 group backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
+							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 group border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
 								<CardHeader className="text-center">
 									<div className="bg-primary/10 text-primary group-hover:bg-primary/20 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full transition-colors">
 										<Users className="h-8 w-8" />
@@ -308,7 +308,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 							</Card>
 
 							{/* Validate Organizer Card - Disabled for now */}
-							<Card className="border-border/50 bg-card/60 cursor-not-allowed opacity-60 backdrop-blur-sm">
+							<Card className="dark:border-border/50 bg-card/60 cursor-not-allowed border-black/50 opacity-60 backdrop-blur-sm">
 								<CardHeader className="text-center">
 									<div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-500/10 text-gray-500">
 										<CheckCircle className="h-8 w-8" />
@@ -328,7 +328,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 						</div>
 
 						{/* Recent Activity - Disabled for now */}
-						<Card className="border-border/50 bg-card/60 cursor-not-allowed opacity-60 backdrop-blur-sm">
+						<Card className="dark:border-border/50 bg-card/60 cursor-not-allowed border-black/50 opacity-60 backdrop-blur-sm">
 							<CardHeader className="text-center">
 								<div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-500/10 text-gray-500">
 									<Clock className="h-8 w-8" />
@@ -345,7 +345,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 						</Card>
 
 						{/* Transactions Card (Coming Soon) */}
-						<Card className="border-border/50 bg-card/60 cursor-not-allowed opacity-60 backdrop-blur-sm">
+						<Card className="dark:border-border/50 bg-card/60 cursor-not-allowed border-black/50 opacity-60 backdrop-blur-sm">
 							<CardHeader className="text-center">
 								<div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-500/10 text-gray-500">
 									<CreditCard className="h-8 w-8" />
