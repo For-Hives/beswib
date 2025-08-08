@@ -117,7 +117,6 @@ export async function fetchAvailableBibsForMarketplace(): Promise<
 			expand: 'eventId,sellerUserId',
 		})
 
-		console.info(records)
 		return records
 	} catch (error: unknown) {
 		throw new Error(
