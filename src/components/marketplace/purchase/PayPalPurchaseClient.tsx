@@ -14,7 +14,7 @@ import { BibSale } from '@/components/marketplace/CardMarket'
 import { capturePayment, createOrder } from '@/services/paypal.services'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'
-import Lanyard from '@/components/ui/BibPriceLanyard'
+// import Lanyard from '@/components/ui/BibPriceLanyard'
 import { lockBib, unlockExpiredBibs } from '@/services/bib.services'
 
 // Import sub-components
@@ -90,7 +90,7 @@ export default function PayPalPurchaseClient({
 					setLoading(false)
 					return
 				}
-				setLockExpiration(new Date(lockedBib.lockedAt!))
+				setLockExpiration(new Date(lockedBib.lockedAt))
 				setIsPanelOpen(true)
 			} catch (err) {
 				setErrorMessage('Error locking bib for purchase.' + (err instanceof Error ? err.message : String(err)))
@@ -175,7 +175,7 @@ export default function PayPalPurchaseClient({
 	return (
 		<div className="relative">
 			{/* Interactive Price Lanyard with dynamic price display */}
-			<Lanyard
+			{/* <Lanyard
 				price={bib.price}
 				originalPrice={bib.originalPrice}
 				currency="EUR"
@@ -184,7 +184,7 @@ export default function PayPalPurchaseClient({
 						? Math.round(((bib.originalPrice - bib.price) / bib.originalPrice) * 100)
 						: undefined
 				}
-			/>
+			/> */}
 			<div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 				{/* Product Layout */}
 				<div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
