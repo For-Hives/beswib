@@ -7,17 +7,14 @@ import type { User } from '@/models/user.model'
 export function isUserProfileComplete(user: User | null): boolean {
 	if (!user) return false
 
-	// Accept either phoneNumber or contactEmail as a valid contact method
-	const hasAtLeastOneContact =
-		(typeof user.phoneNumber === 'string' && user.phoneNumber.trim() !== '') ||
-		(typeof user.contactEmail === 'string' && user.contactEmail.trim() !== '')
-
+	// Require both phoneNumber and contactEmail individually
 	const requiredFields = [
 		user.email,
 		user.firstName,
 		user.lastName,
 		user.birthDate,
-		hasAtLeastOneContact ? 'ok' : null,
+		user.phoneNumber,
+		user.contactEmail,
 		user.emergencyContactName,
 		user.emergencyContactPhone,
 		user.emergencyContactRelationship,
