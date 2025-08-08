@@ -138,6 +138,9 @@ export async function getUserData(userId: string): Promise<null | User> {
 }
 
 export async function isUserAdmin(id: string): Promise<boolean> {
+	if (!id) {
+		return false
+	}
 	const user = await fetchUserById(id)
 	return user?.role === 'admin'
 }

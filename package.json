@@ -89,7 +89,8 @@
 		"tailwind-merge": "3.3.1",
 		"three": "0.179.1",
 		"valibot": "1.1.0",
-		"zod": "4.0.15"
+		"zod": "4.0.15",
+		"zustand": "^5.0.7"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "3.3.1",
