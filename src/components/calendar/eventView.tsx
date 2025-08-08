@@ -15,13 +15,14 @@ interface EventViewProps {
 	event: Event
 	onClose: () => void
 	organizer?: Organizer
+	locale?: string
 }
 
 export function EventView(props: Readonly<EventViewProps>) {
-	const { organizer, onClose, event } = props
+	const { organizer, onClose, event, locale = 'en-US' } = props
 
 	const formatDate = (date: Date) => {
-		return date.toLocaleDateString('en-US', {
+		return date.toLocaleDateString(locale, {
 			year: 'numeric',
 			weekday: 'long',
 			month: 'long',
@@ -30,7 +31,7 @@ export function EventView(props: Readonly<EventViewProps>) {
 	}
 
 	const formatTime = (date: Date) => {
-		return date.toLocaleTimeString('en-US', {
+		return date.toLocaleTimeString(locale, {
 			minute: '2-digit',
 			hour12: true,
 			hour: 'numeric',

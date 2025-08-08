@@ -76,6 +76,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 
 interface AdminEventsPageClientProps {
 	currentUser: null | User
@@ -263,7 +264,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 					return (
 						<div>
 							{date !== null && date !== undefined && date !== ''
-								? new Date(date as string).toLocaleDateString()
+								? formatDateObjectForDisplay(new Date(date as string), locale)
 								: 'N/A'}
 						</div>
 					)

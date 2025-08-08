@@ -25,6 +25,7 @@ interface ValidationStats {
 
 import organizerTranslations from '@/app/[locale]/admin/organizer/locales.json'
 import { getTranslations } from '@/lib/getDictionary'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 import { Locale } from '@/lib/i18n-config'
 export default function AdminOrganizerValidatePageClient({
 	locale,
@@ -275,7 +276,7 @@ export default function AdminOrganizerValidatePageClient({
 
 												<div className="text-sm">
 													<span className="text-muted-foreground">Created: </span>
-													{new Date(organizer.created).toLocaleDateString()}
+													{formatDateObjectForDisplay(new Date(organizer.created), locale)}
 												</div>
 
 												<div className="flex gap-2">

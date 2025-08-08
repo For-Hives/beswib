@@ -45,9 +45,9 @@ export function formatDateForDisplay(dateString: string, locale: string = 'en'):
 export function formatDateObjectForDisplay(
 	date: Date | string,
 	locale: string = 'en',
-	format: any = DateTime.DATE_MED
+	format: Intl.DateTimeFormatOptions = DateTime.DATE_MED
 ): string {
-	if (!date) return ''
+	if (date == null || date === '') return ''
 	try {
 		const dt = typeof date === 'string' ? DateTime.fromISO(date) : DateTime.fromJSDate(date)
 		if (!dt.isValid) return ''
