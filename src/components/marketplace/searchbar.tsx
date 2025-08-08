@@ -246,19 +246,17 @@ export default function Searchbar({
 									</label>
 									<div className="w-full flex-col space-y-2">
 										<input
-											className="border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent h-10 w-full rounded border px-3 text-center [color-scheme:dark]"
+											className="border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent h-10 w-full rounded border px-3 text-center"
 											id="date-start"
 											onChange={e => setTempDateStart(e.target.value)}
 											type="date"
 											value={tempDateStart ?? ''}
 										/>
 										<input
-											className="border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent h-10 w-full rounded border px-3 text-center [color-scheme:dark]"
+											className="border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent h-10 w-full rounded border px-3 text-center"
 											id="date-end"
 											onChange={e => setTempDateEnd(e.target.value)}
-											style={{
-												colorScheme: 'dark',
-											}}
+											
 											type="date"
 											value={tempDateEnd ?? ''}
 										/>
