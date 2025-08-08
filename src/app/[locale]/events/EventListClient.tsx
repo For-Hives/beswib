@@ -50,6 +50,98 @@ const eventTypeIcons = {
 	ultra: <UltraIcon className="h-5 w-5" />,
 }
 
+// Moved out to avoid defining components inside components (react/no-unstable-nested-components)
+function EventCard({
+  event,
+  locale,
+  bibsCount,
+  onAction,
+}: {
+  event: Event
+  locale: string
+  bibsCount: number | undefined
+  onAction: (event: Event) => void | Promise<void>
+}) {
+  return (
+    <SpotlightCard className="h-full">
+      <div className="flex h-full flex-col">
+        <div className="mb-3 flex items-center justify-between">
+          <span
+            className={`inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium ${eventTypeColors[event.typeCourse]}`}
+          >
+            {eventTypeIcons[event.typeCourse]}
+            {eventTypeLabels[event.typeCourse] || event.typeCourse.toUpperCase()}
+          </span>
+          <span className="text-muted-foreground text-xs">
+            {new Date(event.eventDate).toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' })}
+          </span>
+        </div>
+
+        <h3 className="text-foreground mb-3 line-clamp-2 text-xl font-bold" title={event.name}>
+          {event.name}
+        </h3>
+
+        <div className="text-muted-foreground mb-4 flex flex-col gap-2 text-sm">
+          <div className="flex items-center gap-2">
+            <MapPin className="h-4 w-4" />
+            <span>{event.location}</span>
+          </div>
+
+          <div className="flex items-center gap-4">
+            {event.distanceKm != null && (
+              <div className="flex items-center gap-1">
+                <Route className="h-4 w-4" />
+                <span>{event.distanceKm}km</span>
+              </div>
+            )}
+            {event.participants != null && (
+              <div className="flex items-center gap-1">
+                <Users className="h-4 w-4" />
+                <span>{event.participants}</span>
+              </div>
+            )}
+          </div>
+
+          {event.elevationGainM != null && (
+            <div className="flex items-center gap-2">
+              <Mountain className="h-4 w-4" />
+              <span>{event.elevationGainM}m D+</span>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-auto">
+          {event.officialStandardPrice != null && (
+            <div className="mb-3 text-right">
+              <span className="text-lg font-bold text-green-400">À partir de {event.officialStandardPrice}€</span>
+            </div>
+          )}
+          <button
+            onClick={() => void onAction(event)}
+            className="bg-primary/20 text-primary hover:bg-primary/30 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
+          >
+            {bibsCount !== undefined ? (
+              bibsCount > 0 ? (
+                <>
+                  <ShoppingCart className="h-4 w-4" />
+                  Voir les dossards ({bibsCount})
+                </>
+              ) : (
+                <>
+                  <Bell className="h-4 w-4" />
+                  Rejoindre la waitlist
+                </>
+              )
+            ) : (
+              'Vérifier les dossards...'
+            )}
+          </button>
+        </div>
+      </div>
+    </SpotlightCard>
+  )
+}
+
 export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps) {
 	// State and translation variables
 	const t = getTranslations(locale, Translations)
