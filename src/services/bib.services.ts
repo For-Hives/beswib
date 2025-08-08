@@ -84,9 +84,11 @@ export async function fetchAvailableBibsForEvent(
 		return []
 	}
 	try {
+		const nowIso = formatDateToPbIso(new Date())
+		const saleWindowFilter = `((eventId.transferDeadline != null && eventId.transferDeadline >= '${nowIso}') || (eventId.transferDeadline = null && eventId.eventDate >= '${nowIso}'))`
 		const records = await pb.collection('bibs').getFullList<Bib & { expand?: { eventId: Event; sellerUserId: User } }>({
 			sort: 'price',
-			filter: `eventId = "${eventId}" && status = 'available' && listed = 'public' && lockedAt = null`,
+			filter: `eventId = "${eventId}" && status = 'available' && listed = 'public' && lockedAt = null && ${saleWindowFilter}`,
 			expand: 'eventId,sellerUserId',
 		})
 		return records
@@ -105,8 +107,10 @@ export async function fetchAvailableBibsForMarketplace(): Promise<
 	(Bib & { expand?: { eventId: Event; sellerUserId: User } })[]
 > {
 	try {
-		// Only fetch bibs that are not locked or whose lock has expired
-		const filter = `status = 'available' && listed = 'public' && lockedAt = null`
+		// Only fetch bibs that are not locked or whose lock has expired and with future event or active transfer window
+		const nowIso = formatDateToPbIso(new Date())
+		const saleWindowFilter = `((eventId.transferDeadline != null && eventId.transferDeadline >= '${nowIso}') || (eventId.transferDeadline = null && eventId.eventDate >= '${nowIso}'))`
+		const filter = `status = 'available' && listed = 'public' && lockedAt = null && ${saleWindowFilter}`
 		const records = await pb.collection('bibs').getFullList<Bib & { expand?: { eventId: Event; sellerUserId: User } }>({
 			sort: '-created',
 			filter,
@@ -236,7 +240,7 @@ export async function fetchBibByIdForSeller(
 	} catch (error: unknown) {
 		throw new Error(
 			`Error fetching bib ${bibId} for seller ${sellerUserId}: ` +
-				(error instanceof Error ? error.message : String(error))
+			(error instanceof Error ? error.message : String(error))
 		)
 	}
 }
@@ -334,15 +338,18 @@ export async function fetchPubliclyListedBibsForEvent(eventId: string): Promise<
 		return []
 	}
 	try {
+		const nowIso = formatDateToPbIso(new Date())
+		const saleWindowFilter = `((eventId.transferDeadline != null && eventId.transferDeadline >= '${nowIso}') || (eventId.transferDeadline = null && eventId.eventDate >= '${nowIso}'))`
 		const records = await pb.collection('bibs').getFullList<Bib>({
 			sort: 'price',
-			filter: `eventId = "${eventId}" && status = 'listed_public'`,
+			filter: `eventId = "${eventId}" && status = 'available' && listed = 'public' && lockedAt = null && ${saleWindowFilter}`,
+			expand: 'eventId',
 		})
 		return records
 	} catch (error: unknown) {
 		throw new Error(
 			`Error fetching publicly listed bibs for event ${eventId}: ` +
-				(error instanceof Error ? error.message : String(error))
+			(error instanceof Error ? error.message : String(error))
 		)
 	}
 }
@@ -362,7 +369,7 @@ export async function processBibSale(
 	}
 
 	try {
-		const bib = await pb.collection('bibs').getOne<Bib>(bibId)
+		const bib = await pb.collection('bibs').getOne<Bib & { expand?: { eventId: Event } }>(bibId, { expand: 'eventId' })
 		if (bib == null) {
 			return { success: false, error: `Bib with ID ${bibId} not found.` }
 		}
@@ -375,6 +382,17 @@ export async function processBibSale(
 		}
 		if (bib.sellerUserId === buyerUserId) {
 			return { success: false, error: 'Seller cannot buy their own bib.' }
+		}
+
+		// Ensure event hasn't passed and any transfer window is still open
+		const now = new Date()
+		const eventDate = bib.expand?.eventId ? new Date(bib.expand.eventId.eventDate) : null
+		const transferDeadline = bib.expand?.eventId?.transferDeadline
+			? new Date(bib.expand.eventId.transferDeadline)
+			: null
+		const isSaleOpen = transferDeadline != null ? transferDeadline >= now : eventDate != null ? eventDate >= now : false
+		if (!isSaleOpen) {
+			return { success: false, error: 'Sales for this event are closed.' }
 		}
 
 		// 2. Fetch the Seller User to get their information for transaction creation. 👤
@@ -544,4 +562,16 @@ function generatePrivateListingToken(): string {
 		result += chars.charAt(Math.floor(Math.random() * chars.length))
 	}
 	return result
+}
+
+/**
+ * Formats a Date object to PocketBase compatible ISO string: YYYY-MM-DD HH:mm:ss.mmmZ (UTC)
+ */
+function formatDateToPbIso(date: Date): string {
+	const d = new Date(date.getTime())
+	const pad = (n: number, width = 2) => n.toString().padStart(width, '0')
+	const padMs = (n: number) => n.toString().padStart(3, '0')
+	return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())} ${pad(d.getUTCHours())}:${pad(
+		d.getUTCMinutes()
+	)}:${pad(d.getUTCSeconds())}.${padMs(d.getUTCMilliseconds())}Z`
 }

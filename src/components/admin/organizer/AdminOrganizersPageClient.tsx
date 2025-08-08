@@ -62,7 +62,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { SelectAlt, SelectContentAlt, SelectItemAlt, SelectTriggerAlt, SelectValueAlt } from '@/components/ui/selectAlt'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination'
@@ -603,26 +603,25 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 							<div className="flex items-center justify-between gap-8">
 								{/* Results per page */}
 								<div className="flex items-center gap-3">
-									<Label className="max-sm:sr-only" htmlFor={id}>
+                                <Label className="max-sm:sr-only" htmlFor={id}>
 										{t.organizers.table.controls.rowsPerPage}
 									</Label>
-									<SelectAlt
-										onValueChange={(value: string) => {
-											table.setPageSize(Number(value))
-										}}
-										value={table.getState().pagination.pageSize.toString()}
-									>
-										<SelectTriggerAlt className="w-fit whitespace-nowrap" id={id}>
-											<SelectValueAlt placeholder="Select number of results" />
-										</SelectTriggerAlt>
-										<SelectContentAlt className="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2">
-											{[5, 10, 25, 50].map(pageSize => (
-												<SelectItemAlt key={`pagesize-${pageSize}`} value={pageSize.toString()}>
-													{pageSize}
-												</SelectItemAlt>
-											))}
-										</SelectContentAlt>
-									</SelectAlt>
+                                {(() => {
+                                    const pageSizeOptions: SelectOption[] = [5, 10, 25, 50].map(n => ({
+                                        value: n.toString(),
+                                        label: n.toString(),
+                                    }))
+                                    return (
+                                        <SelectAnimated
+                                            onValueChange={(value: string) => {
+                                                table.setPageSize(Number(value))
+                                            }}
+                                            options={pageSizeOptions}
+                                            placeholder="Select number of results"
+                                            value={table.getState().pagination.pageSize.toString()}
+                                        />
+                                    )
+                                })()}
 								</div>
 
 								{/* Page number information */}
