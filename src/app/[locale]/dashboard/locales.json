@@ -96,6 +96,33 @@
 	"ko": {
 		"dashboard": {
 			"title": "대시보드",
+			"chooseHowToUse": "Beswib을 사용하는 방법을 선택하세요",
+			"buyCta": "빕을 구매하고 싶어요",
+			"accessBuyer": "구매자 대시보드 접속",
+			"sellCta": "빕을 판매하고 싶어요",
+			"accessSeller": "판매자 대시보드 접속",
+			"quickActions": "빠른 작업",
+			"sellBib": "빕 판매",
+			"browseEvents": "이벤트 탐색",
+			"marketplace": "마켓플레이스",
+			"cantFindEvent": "이벤트를 찾을 수 없습니다",
+			"contact": "연락처",
+			"gettingStarted": "시작하기",
+			"gettingStartedDesc": "Beswib이 처음이신가요? 빠르게 시작하는 방법입니다.",
+			"stepBrowse": "마켓플레이스에서 사용 가능한 레이스 빕 탐색",
+			"stepList": "계획이 변경되면 자신의 빕을 판매용으로 등록",
+			"stepConnect": "러닝 커뮤니티와 연결",
+			"platformActivity": "플랫폼 활동",
+			"platformActivityDesc": "오늘 Beswib에서 무슨 일이 일어나고 있는지 확인하세요.",
+			"activeListings": "활성 목록",
+			"recentTransfers": "최근 이관",
+			"communityMembers": "커뮤니티 회원",
+			"comingSoon": "곧 출시",
+			"growingDaily": "매일 성장",
+			"welcomeBack": "다시 오신 것을 환영합니다",
+			"runnerProfileIncomplete": "러너 프로필이 불완전합니다. 빕을 구매하려면 업데이트해주세요.",
+			"sellerProfileIncomplete": "판매자 프로필이 불완전합니다. 빕을 판매하려면 업데이트해주세요.",
+			"memberBadge": "회원",
 			"organizer": {
 				"title": "주최자 대시보드",
 				"description": "이벤트 및 제출을 관리하세요."
@@ -115,122 +142,284 @@
 	},
 	"es": {
 		"dashboard": {
-			"title": "Dashboard",
+			"title": "Panel",
+			"chooseHowToUse": "Elige cómo quieres usar Beswib",
+			"buyCta": "Quiero comprar un dorsal",
+			"accessBuyer": "Acceder a mi Panel de Comprador",
+			"sellCta": "Quiero vender un dorsal",
+			"accessSeller": "Acceder a mi Panel de Vendedor",
+			"quickActions": "Acciones rápidas",
+			"sellBib": "Vender dorsal",
+			"browseEvents": "Explorar eventos",
+			"marketplace": "Mercado",
+			"cantFindEvent": "No encuentro mi evento",
+			"contact": "Contacto",
+			"gettingStarted": "Primeros pasos",
+			"gettingStartedDesc": "¿Nuevo en Beswib? Aquí te explicamos cómo empezar rápidamente.",
+			"stepBrowse": "Explora dorsales disponibles en nuestro mercado",
+			"stepList": "Publica tus propios dorsales a la venta cuando cambien tus planes",
+			"stepConnect": "Conéctate con la comunidad de corredores",
+			"platformActivity": "Actividad de la plataforma",
+			"platformActivityDesc": "Mira lo que está pasando en Beswib hoy.",
+			"activeListings": "Anuncios activos",
+			"recentTransfers": "Transferencias recientes",
+			"communityMembers": "Miembros de la comunidad",
+			"comingSoon": "Próximamente",
+			"growingDaily": "Creciendo diariamente",
+			"welcomeBack": "Bienvenido de nuevo",
+			"runnerProfileIncomplete": "Tu perfil de corredor está incompleto. Por favor, actualízalo para poder comprar dorsales.",
+			"sellerProfileIncomplete": "Tu perfil de vendedor está incompleto. Por favor, actualízalo para poder vender dorsales.",
+			"memberBadge": "MIEMBRO",
 			"organizer": {
-				"title": "Organizer Dashboard",
-				"description": "Manage your events and submissions."
+				"title": "Panel de Organizador",
+				"description": "Gestiona tus eventos y envíos."
 			},
 			"buyer": {
-				"title": "Buyer Dashboard",
-				"description": "View your purchases and manage your waitlist entries."
+				"title": "Panel de Comprador",
+				"description": "Consulta tus compras y gestiona tus entradas de lista de espera."
 			},
 			"seller": {
-				"title": "Seller Dashboard",
-				"description": "Manage your bib listings and view your sales."
+				"title": "Panel de Vendedor",
+				"description": "Gestiona tus anuncios de dorsales y consulta tus ventas."
 			}
 		},
 		"auth": {
-			"signInToAccessDashboard": "Please sign in to access your dashboard."
+			"signInToAccessDashboard": "Por favor, inicia sesión para acceder a tu panel."
 		}
 	},
 	"it": {
 		"dashboard": {
 			"title": "Dashboard",
+			"chooseHowToUse": "Scegli come vuoi usare Beswib",
+			"buyCta": "Voglio comprare un pettorale",
+			"accessBuyer": "Accedi al mio Dashboard Acquirente",
+			"sellCta": "Voglio vendere un pettorale",
+			"accessSeller": "Accedi al mio Dashboard Venditore",
+			"quickActions": "Azioni rapide",
+			"sellBib": "Vendi pettorale",
+			"browseEvents": "Sfoglia eventi",
+			"marketplace": "Mercato",
+			"cantFindEvent": "Non trovo il mio evento",
+			"contact": "Contatto",
+			"gettingStarted": "Inizia",
+			"gettingStartedDesc": "Nuovo su Beswib? Ecco come iniziare rapidamente.",
+			"stepBrowse": "Sfoglia i pettorali disponibili nel nostro marketplace",
+			"stepList": "Inserisci i tuoi pettorali in vendita quando i piani cambiano",
+			"stepConnect": "Connettiti con la comunità di runners",
+			"platformActivity": "Attività della piattaforma",
+			"platformActivityDesc": "Guarda cosa sta succedendo su Beswib oggi.",
+			"activeListings": "Annunci attivi",
+			"recentTransfers": "Trasferimenti recenti",
+			"communityMembers": "Membri della comunità",
+			"comingSoon": "Prossimamente",
+			"growingDaily": "Cresce ogni giorno",
+			"welcomeBack": "Bentornato",
+			"runnerProfileIncomplete": "Il tuo profilo corridore è incompleto. Aggiornalo per poter acquistare pettorali.",
+			"sellerProfileIncomplete": "Il tuo profilo venditore è incompleto. Aggiornalo per poter vendere pettorali.",
+			"memberBadge": "MEMBRO",
 			"organizer": {
-				"title": "Organizer Dashboard",
-				"description": "Manage your events and submissions."
+				"title": "Dashboard Organizzatore",
+				"description": "Gestisci i tuoi eventi e le tue proposte."
 			},
 			"buyer": {
-				"title": "Buyer Dashboard",
-				"description": "View your purchases and manage your waitlist entries."
+				"title": "Dashboard Acquirente",
+				"description": "Visualizza i tuoi acquisti e gestisci le tue iscrizioni alla lista d'attesa."
 			},
 			"seller": {
-				"title": "Seller Dashboard",
-				"description": "Manage your bib listings and view your sales."
+				"title": "Dashboard Venditore",
+				"description": "Gestisci le tue inserzioni di pettorali e visualizza le tue vendite."
 			}
 		},
 		"auth": {
-			"signInToAccessDashboard": "Please sign in to access your dashboard."
+			"signInToAccessDashboard": "Per favore, accedi per accedere alla tua dashboard."
 		}
 	},
 	"de": {
 		"dashboard": {
 			"title": "Dashboard",
+			"chooseHowToUse": "Wähle, wie du Beswib nutzen möchtest",
+			"buyCta": "Ich möchte eine Startnummer kaufen",
+			"accessBuyer": "Zugang zu meinem Käufer-Dashboard",
+			"sellCta": "Ich möchte eine Startnummer verkaufen",
+			"accessSeller": "Zugang zu meinem Verkäufer-Dashboard",
+			"quickActions": "Schnellaktionen",
+			"sellBib": "Startnummer verkaufen",
+			"browseEvents": "Veranstaltungen durchsuchen",
+			"marketplace": "Marktplatz",
+			"cantFindEvent": "Ich finde meine Veranstaltung nicht",
+			"contact": "Kontakt",
+			"gettingStarted": "Erste Schritte",
+			"gettingStartedDesc": "Neu bei Beswib? So legst du schnell los.",
+			"stepBrowse": "Durchsuche verfügbare Startnummern auf unserem Marktplatz",
+			"stepList": "Liste deine eigenen Startnummern zum Verkauf, wenn sich Pläne ändern",
+			"stepConnect": "Verbinde dich mit der Lauf-Community",
+			"platformActivity": "Plattform-Aktivität",
+			"platformActivityDesc": "Sehen Sie, was heute auf Beswib passiert.",
+			"activeListings": "Aktive Angebote",
+			"recentTransfers": "Kürzliche Transfers",
+			"communityMembers": "Community-Mitglieder",
+			"comingSoon": "Demnächst verfügbar",
+			"growingDaily": "Wächst täglich",
+			"welcomeBack": "Willkommen zurück",
+			"runnerProfileIncomplete": "Dein Läuferprofil ist unvollständig. Bitte aktualisiere es, um Startnummern kaufen zu können.",
+			"sellerProfileIncomplete": "Dein Verkäuferprofil ist unvollständig. Bitte aktualisiere es, um Startnummern verkaufen zu können.",
+			"memberBadge": "MITGLIED",
 			"organizer": {
-				"title": "Organizer Dashboard",
-				"description": "Manage your events and submissions."
+				"title": "Veranstalter-Dashboard",
+				"description": "Verwalte deine Veranstaltungen und Einreichungen."
 			},
 			"buyer": {
-				"title": "Buyer Dashboard",
-				"description": "View your purchases and manage your waitlist entries."
+				"title": "Käufer-Dashboard",
+				"description": "Zeige deine Käufe an und verwalte deine Wartelisten-Einträge."
 			},
 			"seller": {
-				"title": "Seller Dashboard",
-				"description": "Manage your bib listings and view your sales."
+				"title": "Verkäufer-Dashboard",
+				"description": "Verwalte deine Startnummer-Anzeigen und sieh deine Verkäufe ein."
 			}
 		},
 		"auth": {
-			"signInToAccessDashboard": "Please sign in to access your dashboard."
+			"signInToAccessDashboard": "Bitte melde dich an, um dein Dashboard aufzurufen."
 		}
 	},
 	"ro": {
 		"dashboard": {
-			"title": "Dashboard",
+			"title": "Panou",
+			"chooseHowToUse": "Alege cum vrei să folosești Beswib",
+			"buyCta": "Vreau să cumpăr un număr",
+			"accessBuyer": "Accesează Panoul meu de Cumpărător",
+			"sellCta": "Vreau să vând un număr",
+			"accessSeller": "Accesează Panoul meu de Vânzător",
+			"quickActions": "Acțiuni rapide",
+			"sellBib": "Vinde numărul",
+			"browseEvents": "Răsfoiește evenimente",
+			"marketplace": "Piață",
+			"cantFindEvent": "Nu găsesc evenimentul meu",
+			"contact": "Contact",
+			"gettingStarted": "Începe",
+			"gettingStartedDesc": "Nou pe Beswib? Iată cum să începi rapid.",
+			"stepBrowse": "Răsfoiește numerele de concurs disponibile în marketplace‑ul nostru",
+			"stepList": "Listează‑ți propriile numere de concurs pentru vânzare când se schimbă planurile",
+			"stepConnect": "Conectează‑te cu comunitatea de alergători",
+			"platformActivity": "Activitatea platformei",
+			"platformActivityDesc": "Vezi ce se întâmplă azi pe Beswib.",
+			"activeListings": "Anunțuri active",
+			"recentTransfers": "Transferuri recente",
+			"communityMembers": "Membri ai comunității",
+			"comingSoon": "În curând",
+			"growingDaily": "Creștere zilnică",
+			"welcomeBack": "Bun venit înapoi",
+			"runnerProfileIncomplete": "Profilul tău de alergător este incomplet. Te rugăm să-l actualizezi pentru a putea cumpăra numere.",
+			"sellerProfileIncomplete": "Profilul tău de vânzător este incomplet. Te rugăm să-l actualizezi pentru a putea vinde numere.",
+			"memberBadge": "MEMBRU",
 			"organizer": {
-				"title": "Organizer Dashboard",
-				"description": "Manage your events and submissions."
+				"title": "Panou Organizator",
+				"description": "Gestionează evenimentele și trimiterile."
 			},
 			"buyer": {
-				"title": "Buyer Dashboard",
-				"description": "View your purchases and manage your waitlist entries."
+				"title": "Panou Cumpărător",
+				"description": "Vizualizează achizițiile și gestionează intrările tale în lista de așteptare."
 			},
 			"seller": {
-				"title": "Seller Dashboard",
-				"description": "Manage your bib listings and view your sales."
+				"title": "Panou Vânzător",
+				"description": "Gestionează anunțurile de numere și vizualizează vânzările tale."
 			}
 		},
 		"auth": {
-			"signInToAccessDashboard": "Please sign in to access your dashboard."
+			"signInToAccessDashboard": "Te rugăm să te autentifici pentru a accesa panoul tău."
 		}
 	},
 	"pt": {
 		"dashboard": {
-			"title": "Dashboard",
+			"title": "Painel",
+			"chooseHowToUse": "Escolha como quer usar o Beswib",
+			"buyCta": "Quero comprar um dorsal",
+			"accessBuyer": "Aceder ao meu Painel de Comprador",
+			"sellCta": "Quero vender um dorsal",
+			"accessSeller": "Aceder ao meu Painel de Vendedor",
+			"quickActions": "Ações rápidas",
+			"sellBib": "Vender dorsal",
+			"browseEvents": "Navegar por eventos",
+			"marketplace": "Marketplace",
+			"cantFindEvent": "Não encontro o meu evento",
+			"contact": "Contacto",
+			"gettingStarted": "Primeiros passos",
+			"gettingStartedDesc": "Novo na Beswib? Veja como começar rapidamente.",
+			"stepBrowse": "Navegue pelos dorsais de corrida disponíveis no nosso marketplace",
+			"stepList": "Liste os seus próprios dorsais para venda quando os planos mudarem",
+			"stepConnect": "Conecte-se com a comunidade de corrida",
+			"platformActivity": "Atividade da plataforma",
+			"platformActivityDesc": "Veja o que está a acontecer na Beswib hoje.",
+			"activeListings": "Anúncios ativos",
+			"recentTransfers": "Transferências recentes",
+			"communityMembers": "Membros da comunidade",
+			"comingSoon": "Em breve",
+			"growingDaily": "Crescendo diariamente",
+			"welcomeBack": "Bem-vindo de volta",
+			"runnerProfileIncomplete": "O seu perfil de corredor está incompleto. Por favor, atualize-o para poder comprar dorsais.",
+			"sellerProfileIncomplete": "O seu perfil de vendedor está incompleto. Por favor, atualize-o para poder vender dorsais.",
+			"memberBadge": "MEMBRO",
 			"organizer": {
-				"title": "Organizer Dashboard",
-				"description": "Manage your events and submissions."
+				"title": "Painel do Organizador",
+				"description": "Gerir os seus eventos e envios."
 			},
 			"buyer": {
-				"title": "Buyer Dashboard",
-				"description": "View your purchases and manage your waitlist entries."
+				"title": "Painel do Comprador",
+				"description": "Ver as suas compras e gerir as suas entradas na lista de espera."
 			},
 			"seller": {
-				"title": "Seller Dashboard",
-				"description": "Manage your bib listings and view your sales."
+				"title": "Painel do Vendedor",
+				"description": "Gerir os seus anúncios de dorsais e ver as suas vendas."
 			}
 		},
 		"auth": {
-			"signInToAccessDashboard": "Please sign in to access your dashboard."
+			"signInToAccessDashboard": "Por favor, inicie sessão para aceder ao seu painel."
 		}
 	},
 	"nl": {
 		"dashboard": {
 			"title": "Dashboard",
+			"chooseHowToUse": "Kies hoe u Beswib wilt gebruiken",
+			"buyCta": "Ik wil een startnummer kopen",
+			"accessBuyer": "Toegang tot mijn Koper Dashboard",
+			"sellCta": "Ik wil een startnummer verkopen",
+			"accessSeller": "Toegang tot mijn Verkoper Dashboard",
+			"quickActions": "Snelle acties",
+			"sellBib": "Startnummer verkopen",
+			"browseEvents": "Evenementen bekijken",
+			"marketplace": "Marktplaats",
+			"cantFindEvent": "Ik kan mijn evenement niet vinden",
+			"contact": "Contact",
+			"gettingStarted": "Aan de slag",
+			"gettingStartedDesc": "Nieuw bij Beswib? Zo gaat u snel van start.",
+			"stepBrowse": "Blader door beschikbare startnummers op onze marktplaats",
+			"stepList": "Plaats uw eigen startnummers te koop wanneer plannen veranderen",
+			"stepConnect": "Maak contact met de hardloopgemeenschap",
+			"platformActivity": "Platformactiviteit",
+			"platformActivityDesc": "Zie wat er vandaag op Beswib gebeurt.",
+			"activeListings": "Actieve advertenties",
+			"recentTransfers": "Recente overdrachten",
+			"communityMembers": "Gemeenschapsleden",
+			"comingSoon": "Binnenkort beschikbaar",
+			"growingDaily": "Dagelijks groeiend",
+			"welcomeBack": "Welkom terug",
+			"runnerProfileIncomplete": "Je hardloperprofiel is onvolledig. Werk het bij om startnummers te kunnen kopen.",
+			"sellerProfileIncomplete": "Je verkoperprofiel is onvolledig. Werk het bij om startnummers te kunnen verkopen.",
+			"memberBadge": "LID",
 			"organizer": {
-				"title": "Organizer Dashboard",
-				"description": "Manage your events and submissions."
+				"title": "Organisator Dashboard",
+				"description": "Beheer je evenementen en inzendingen."
 			},
 			"buyer": {
-				"title": "Buyer Dashboard",
-				"description": "View your purchases and manage your waitlist entries."
+				"title": "Koper Dashboard",
+				"description": "Bekijk je aankopen en beheer je wachtlijstvermeldingen."
 			},
 			"seller": {
-				"title": "Seller Dashboard",
-				"description": "Manage your bib listings and view your sales."
+				"title": "Verkoper Dashboard",
+				"description": "Beheer je startnummer-advertenties en bekijk je verkopen."
 			}
 		},
 		"auth": {
-			"signInToAccessDashboard": "Please sign in to access your dashboard."
+			"signInToAccessDashboard": "Log in om je dashboard te openen."
 		}
 	}
 }

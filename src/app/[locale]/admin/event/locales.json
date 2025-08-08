@@ -361,7 +361,8 @@
 				"accessError": "Error de acceso",
 				"accessErrorDescription": "No se puede verificar el acceso de administrador. Por favor, intente iniciar sesión nuevamente.",
 				"signIn": "Iniciar sesión",
-				"connectedAs": "Conectado como"
+				"connectedAs": "Conectado como",
+				"unknownEvent": "Evento desconocido"
 			}
 		}
 	},
@@ -452,7 +453,8 @@
 				"accessError": "Errore di accesso",
 				"accessErrorDescription": "Impossibile verificare l'accesso amministratore. Prova ad accedere di nuovo.",
 				"signIn": "Accedi",
-				"connectedAs": "Connesso come"
+				"connectedAs": "Connesso come",
+				"unknownEvent": "Evento sconosciuto"
 			}
 		}
 	},
@@ -543,7 +545,8 @@
 				"accessError": "Zugriffsfehler",
 				"accessErrorDescription": "Administratorzugriff konnte nicht überprüft werden. Bitte versuchen Sie, sich erneut anzumelden.",
 				"signIn": "Anmelden",
-				"connectedAs": "Verbunden als"
+				"connectedAs": "Verbunden als",
+				"unknownEvent": "Unbekanntes Ereignis"
 			}
 		}
 	},
@@ -634,7 +637,8 @@
 				"accessError": "Eroare de acces",
 				"accessErrorDescription": "Nu se poate verifica accesul de administrator. Vă rugăm să încercați să vă autentificați din nou.",
 				"signIn": "Autentificare",
-				"connectedAs": "Conectat ca"
+				"connectedAs": "Conectat ca",
+				"unknownEvent": "Eveniment necunoscut"
 			}
 		}
 	},
@@ -725,7 +729,8 @@
 				"accessError": "Erro de acesso",
 				"accessErrorDescription": "Não foi possível verificar o acesso de administrador. Por favor, tente fazer login novamente.",
 				"signIn": "Entrar",
-				"connectedAs": "Conectado como"
+				"connectedAs": "Conectado como",
+				"unknownEvent": "Evento desconhecido"
 			}
 		}
 	},
@@ -816,7 +821,8 @@
 				"accessError": "Toegangsprobleem",
 				"accessErrorDescription": "Kan geen beheerdersrechten verifiëren. Probeer opnieuw in te loggen.",
 				"signIn": "Inloggen",
-				"connectedAs": "Verbonden als"
+				"connectedAs": "Verbonden als",
+				"unknownEvent": "Onbekend evenement"
 			}
 		}
 	}

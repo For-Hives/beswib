@@ -140,45 +140,45 @@
 	"es": {
 		"organizers": {
 			"create": {
-				"title": "Add New Organizer",
-				"subtitle": "Register event organizers to enable bib resale functionality for their races",
+				"title": "Añadir Nuevo Organizador",
+				"subtitle": "Registrar organizadores de eventos para habilitar la función de reventa de dorsales para sus carreras",
 				"sections": {
 					"basicInformation": {
-						"title": "Organizer Information",
-						"description": "Enter the basic information about the event organizer to identify which races will be available for bib resale on the platform."
+						"title": "Información del Organizador",
+						"description": "Introduce la información básica sobre el organizador del evento para identificar qué carreras estarán disponibles para la reventa de dorsales en la plataforma."
 					}
 				},
 				"form": {
-					"nameLabel": "Organizer Name",
+					"nameLabel": "Nombre del Organizador",
 					"namePlaceholder": "Marathon de Paris",
-					"emailLabel": "Contact Email",
+					"emailLabel": "Correo Electrónico de Contacto",
 					"emailPlaceholder": "contact@marathon-paris.com",
-					"websiteLabel": "Website",
+					"websiteLabel": "Sitio Web",
 					"websitePlaceholder": "https://www.marathon-paris.com",
 					"logoUpload": {
-						"label": "Organizer Logo",
-						"description": "Upload the organizer's logo. Supported formats: PNG, JPG, SVG (max 5MB)",
-						"uploadText": "Upload file",
-						"uploadSubtext": "Drag or drop your files here or click to upload",
-						"dropText": "Drop it",
+						"label": "Logo del Organizador",
+						"description": "Sube el logo del organizador. Formatos compatibles: PNG, JPG, SVG (máx. 5MB)",
+						"uploadText": "Subir archivo",
+						"uploadSubtext": "Arrastra o suelta tus archivos aquí o haz clic para subir",
+						"dropText": "Suéltalo aquí",
 						"fileSizeUnit": "MB",
-						"fileModified": "modified"
+						"fileModified": "modificado"
 					},
-					"partnerLabel": "Partner Organizer",
-					"partnerDescription": "Partner organizers can enable bib resale for their events on the platform.",
-					"submitButton": "Create Organizer",
-					"cancelButton": "Cancel"
+					"partnerLabel": "Organizador Socio",
+					"partnerDescription": "Los organizadores socios pueden habilitar la reventa de dorsales para sus eventos en la plataforma.",
+					"submitButton": "Crear Organizador",
+					"cancelButton": "Cancelar"
 				},
 				"success": {
-					"title": "Organizer Created Successfully",
-					"message": "The organizer '{organizerName}' has been successfully created.",
-					"backButton": "Back to Organizers"
+					"title": "Organizador Creado Exitosamente",
+					"message": "El organizador '{organizerName}' ha sido creado exitosamente.",
+					"backButton": "Volver a Organizadores"
 				},
 				"errors": {
-					"nameRequired": "Organizer name is required",
-					"emailInvalid": "Please enter a valid email address",
-					"websiteInvalid": "Please enter a valid website URL",
-					"createFailed": "Failed to create organizer. Please try again."
+					"nameRequired": "El nombre del organizador es obligatorio",
+					"emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
+					"websiteInvalid": "Por favor, introduce una URL de sitio web válida",
+					"createFailed": "Error al crear el organizador. Por favor, inténtalo de nuevo."
 				}
 			}
 		}
@@ -186,45 +186,45 @@
 	"it": {
 		"organizers": {
 			"create": {
-				"title": "Add New Organizer",
-				"subtitle": "Register event organizers to enable bib resale functionality for their races",
+				"title": "Aggiungi Nuovo Organizzatore",
+				"subtitle": "Registra gli organizzatori di eventi per abilitare la funzionalità di rivendita di pettorali per le loro gare",
 				"sections": {
 					"basicInformation": {
-						"title": "Organizer Information",
-						"description": "Enter the basic information about the event organizer to identify which races will be available for bib resale on the platform."
+						"title": "Informazioni sull'Organizzatore",
+						"description": "Inserisci le informazioni di base sull'organizzatore dell'evento per identificare quali gare saranno disponibili per la rivendita di pettorali sulla piattaforma."
 					}
 				},
 				"form": {
-					"nameLabel": "Organizer Name",
+					"nameLabel": "Nome Organizzatore",
 					"namePlaceholder": "Marathon de Paris",
-					"emailLabel": "Contact Email",
+					"emailLabel": "Email di Contatto",
 					"emailPlaceholder": "contact@marathon-paris.com",
-					"websiteLabel": "Website",
+					"websiteLabel": "Sito Web",
 					"websitePlaceholder": "https://www.marathon-paris.com",
 					"logoUpload": {
-						"label": "Organizer Logo",
-						"description": "Upload the organizer's logo. Supported formats: PNG, JPG, SVG (max 5MB)",
-						"uploadText": "Upload file",
-						"uploadSubtext": "Drag or drop your files here or click to upload",
-						"dropText": "Drop it",
+						"label": "Logo Organizzatore",
+						"description": "Carica il logo dell'organizzatore. Formati supportati: PNG, JPG, SVG (max 5MB)",
+						"uploadText": "Carica file",
+						"uploadSubtext": "Trascina o rilascia i tuoi file qui o clicca per caricare",
+						"dropText": "Rilascialo",
 						"fileSizeUnit": "MB",
-						"fileModified": "modified"
+						"fileModified": "modificato"
 					},
-					"partnerLabel": "Partner Organizer",
-					"partnerDescription": "Partner organizers can enable bib resale for their events on the platform.",
-					"submitButton": "Create Organizer",
-					"cancelButton": "Cancel"
+					"partnerLabel": "Organizzatore Partner",
+					"partnerDescription": "Gli organizzatori partner possono abilitare la rivendita di pettorali per i loro eventi sulla piattaforma.",
+					"submitButton": "Crea Organizzatore",
+					"cancelButton": "Annulla"
 				},
 				"success": {
-					"title": "Organizer Created Successfully",
-					"message": "The organizer '{organizerName}' has been successfully created.",
-					"backButton": "Back to Organizers"
+					"title": "Organizzatore Creato con Successo",
+					"message": "L'organizzatore '{organizerName}' è stato creato con successo.",
+					"backButton": "Torna agli Organizzatori"
 				},
 				"errors": {
-					"nameRequired": "Organizer name is required",
-					"emailInvalid": "Please enter a valid email address",
-					"websiteInvalid": "Please enter a valid website URL",
-					"createFailed": "Failed to create organizer. Please try again."
+					"nameRequired": "Il nome dell'organizzatore è obbligatorio",
+					"emailInvalid": "Per favore, inserisci un indirizzo email valido",
+					"websiteInvalid": "Per favore, inserisci un URL del sito web valido",
+					"createFailed": "Creazione organizzatore fallita. Per favore riprova."
 				}
 			}
 		}
@@ -232,45 +232,45 @@
 	"de": {
 		"organizers": {
 			"create": {
-				"title": "Add New Organizer",
-				"subtitle": "Register event organizers to enable bib resale functionality for their races",
+				"title": "Neuen Veranstalter hinzufügen",
+				"subtitle": "Registrieren Sie Eventveranstalter, um die Startnummer-Wiederverkaufsfunktion für ihre Rennen zu aktivieren",
 				"sections": {
 					"basicInformation": {
-						"title": "Organizer Information",
-						"description": "Enter the basic information about the event organizer to identify which races will be available for bib resale on the platform."
+						"title": "Veranstalter-Informationen",
+						"description": "Geben Sie die grundlegenden Informationen über den Eventveranstalter ein, um zu identifizieren, welche Rennen auf der Plattform zum Wiederverkauf von Startnummern verfügbar sein werden."
 					}
 				},
 				"form": {
-					"nameLabel": "Organizer Name",
+					"nameLabel": "Veranstalter-Name",
 					"namePlaceholder": "Marathon de Paris",
-					"emailLabel": "Contact Email",
+					"emailLabel": "Kontakt-E-Mail",
 					"emailPlaceholder": "contact@marathon-paris.com",
-					"websiteLabel": "Website",
+					"websiteLabel": "Webseite",
 					"websitePlaceholder": "https://www.marathon-paris.com",
 					"logoUpload": {
-						"label": "Organizer Logo",
-						"description": "Upload the organizer's logo. Supported formats: PNG, JPG, SVG (max 5MB)",
-						"uploadText": "Upload file",
-						"uploadSubtext": "Drag or drop your files here or click to upload",
-						"dropText": "Drop it",
+						"label": "Veranstalter-Logo",
+						"description": "Laden Sie das Logo des Veranstalters hoch. Unterstützte Formate: PNG, JPG, SVG (max 5MB)",
+						"uploadText": "Datei hochladen",
+						"uploadSubtext": "Ziehen Sie Ihre Dateien hierher oder klicken Sie zum Hochladen",
+						"dropText": "Hier ablegen",
 						"fileSizeUnit": "MB",
-						"fileModified": "modified"
+						"fileModified": "geändert"
 					},
-					"partnerLabel": "Partner Organizer",
-					"partnerDescription": "Partner organizers can enable bib resale for their events on the platform.",
-					"submitButton": "Create Organizer",
-					"cancelButton": "Cancel"
+					"partnerLabel": "Partner-Veranstalter",
+					"partnerDescription": "Partner-Veranstalter können den Wiederverkauf von Startnummern für ihre Events auf der Plattform aktivieren.",
+					"submitButton": "Veranstalter erstellen",
+					"cancelButton": "Abbrechen"
 				},
 				"success": {
-					"title": "Organizer Created Successfully",
-					"message": "The organizer '{organizerName}' has been successfully created.",
-					"backButton": "Back to Organizers"
+					"title": "Veranstalter erfolgreich erstellt",
+					"message": "Der Veranstalter '{organizerName}' wurde erfolgreich erstellt.",
+					"backButton": "Zurück zu den Veranstaltern"
 				},
 				"errors": {
-					"nameRequired": "Organizer name is required",
-					"emailInvalid": "Please enter a valid email address",
-					"websiteInvalid": "Please enter a valid website URL",
-					"createFailed": "Failed to create organizer. Please try again."
+					"nameRequired": "Veranstalter-Name ist erforderlich",
+					"emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+					"websiteInvalid": "Bitte geben Sie eine gültige Webseite-URL ein",
+					"createFailed": "Fehler beim Erstellen des Veranstalters. Bitte versuchen Sie es erneut."
 				}
 			}
 		}
@@ -278,45 +278,45 @@
 	"ro": {
 		"organizers": {
 			"create": {
-				"title": "Add New Organizer",
-				"subtitle": "Register event organizers to enable bib resale functionality for their races",
+				"title": "Adaugă Organizator Nou",
+				"subtitle": "Înregistrează organizatorii de evenimente pentru a activa funcționalitatea de revânzare a numerelor de concurs pentru cursele lor",
 				"sections": {
 					"basicInformation": {
-						"title": "Organizer Information",
-						"description": "Enter the basic information about the event organizer to identify which races will be available for bib resale on the platform."
+						"title": "Informații despre Organizator",
+						"description": "Introdu informațiile de bază despre organizatorul evenimentului pentru a identifica ce curse vor fi disponibile pentru revânzarea numerelor de concurs pe platformă."
 					}
 				},
 				"form": {
-					"nameLabel": "Organizer Name",
-					"namePlaceholder": "Marathon de Paris",
-					"emailLabel": "Contact Email",
+					"nameLabel": "Nume Organizator",
+					"namePlaceholder": "Maratonul Parisului",
+					"emailLabel": "Email de Contact",
 					"emailPlaceholder": "contact@marathon-paris.com",
-					"websiteLabel": "Website",
+					"websiteLabel": "Site web",
 					"websitePlaceholder": "https://www.marathon-paris.com",
 					"logoUpload": {
-						"label": "Organizer Logo",
-						"description": "Upload the organizer's logo. Supported formats: PNG, JPG, SVG (max 5MB)",
-						"uploadText": "Upload file",
-						"uploadSubtext": "Drag or drop your files here or click to upload",
-						"dropText": "Drop it",
+						"label": "Logo Organizator",
+						"description": "Încarcă logo-ul organizatorului. Formate acceptate: PNG, JPG, SVG (max 5MB)",
+						"uploadText": "Încarcă fișierul",
+						"uploadSubtext": "Trageți sau lăsați fișierele aici sau faceți clic pentru a încărca",
+						"dropText": "Lăsați-l aici",
 						"fileSizeUnit": "MB",
-						"fileModified": "modified"
+						"fileModified": "modificat"
 					},
-					"partnerLabel": "Partner Organizer",
-					"partnerDescription": "Partner organizers can enable bib resale for their events on the platform.",
-					"submitButton": "Create Organizer",
-					"cancelButton": "Cancel"
+					"partnerLabel": "Organizator Partener",
+					"partnerDescription": "Organizatorii parteneri pot activa revânzarea numerelor de concurs pentru evenimentele lor pe platformă.",
+					"submitButton": "Creează Organizator",
+					"cancelButton": "Anulează"
 				},
 				"success": {
-					"title": "Organizer Created Successfully",
-					"message": "The organizer '{organizerName}' has been successfully created.",
-					"backButton": "Back to Organizers"
+					"title": "Organizator Creat cu Succes",
+					"message": "Organizatorul '{organizerName}' a fost creat cu succes.",
+					"backButton": "Înapoi la Organizatori"
 				},
 				"errors": {
-					"nameRequired": "Organizer name is required",
-					"emailInvalid": "Please enter a valid email address",
-					"websiteInvalid": "Please enter a valid website URL",
-					"createFailed": "Failed to create organizer. Please try again."
+					"nameRequired": "Numele organizatorului este obligatoriu",
+					"emailInvalid": "Te rog să introduci o adresă de email validă",
+					"websiteInvalid": "Te rog să introduci o adresă URL de site web validă",
+					"createFailed": "Creare organizator eșuată. Te rog să încerci din nou."
 				}
 			}
 		}
@@ -324,45 +324,45 @@
 	"pt": {
 		"organizers": {
 			"create": {
-				"title": "Add New Organizer",
-				"subtitle": "Register event organizers to enable bib resale functionality for their races",
+				"title": "Adicionar Novo Organizador",
+				"subtitle": "Registe organizadores de eventos para ativar a função de revenda de dorsais para as suas corridas",
 				"sections": {
 					"basicInformation": {
-						"title": "Organizer Information",
-						"description": "Enter the basic information about the event organizer to identify which races will be available for bib resale on the platform."
+						"title": "Informações do Organizador",
+						"description": "Insira as informações básicas sobre o organizador do evento para identificar quais corridas estarão disponíveis para a revenda de dorsais na plataforma."
 					}
 				},
 				"form": {
-					"nameLabel": "Organizer Name",
-					"namePlaceholder": "Marathon de Paris",
-					"emailLabel": "Contact Email",
+					"nameLabel": "Nome do Organizador",
+					"namePlaceholder": "Maratona de Paris",
+					"emailLabel": "Email de Contacto",
 					"emailPlaceholder": "contact@marathon-paris.com",
 					"websiteLabel": "Website",
 					"websitePlaceholder": "https://www.marathon-paris.com",
 					"logoUpload": {
-						"label": "Organizer Logo",
-						"description": "Upload the organizer's logo. Supported formats: PNG, JPG, SVG (max 5MB)",
-						"uploadText": "Upload file",
-						"uploadSubtext": "Drag or drop your files here or click to upload",
-						"dropText": "Drop it",
+						"label": "Logo do Organizador",
+						"description": "Carregue o logo do organizador. Formatos suportados: PNG, JPG, SVG (máx 5MB)",
+						"uploadText": "Carregar ficheiro",
+						"uploadSubtext": "Arraste ou solte os seus ficheiros aqui ou clique para carregar",
+						"dropText": "Solte aqui",
 						"fileSizeUnit": "MB",
-						"fileModified": "modified"
+						"fileModified": "modificado"
 					},
-					"partnerLabel": "Partner Organizer",
-					"partnerDescription": "Partner organizers can enable bib resale for their events on the platform.",
-					"submitButton": "Create Organizer",
-					"cancelButton": "Cancel"
+					"partnerLabel": "Organizador Parceiro",
+					"partnerDescription": "Os organizadores parceiros podem ativar a revenda de dorsais para os seus eventos na plataforma.",
+					"submitButton": "Criar Organizador",
+					"cancelButton": "Cancelar"
 				},
 				"success": {
-					"title": "Organizer Created Successfully",
-					"message": "The organizer '{organizerName}' has been successfully created.",
-					"backButton": "Back to Organizers"
+					"title": "Organizador Criado com Sucesso",
+					"message": "O organizador '{organizerName}' foi criado com sucesso.",
+					"backButton": "Voltar aos Organizadores"
 				},
 				"errors": {
-					"nameRequired": "Organizer name is required",
-					"emailInvalid": "Please enter a valid email address",
-					"websiteInvalid": "Please enter a valid website URL",
-					"createFailed": "Failed to create organizer. Please try again."
+					"nameRequired": "O nome do organizador é obrigatório",
+					"emailInvalid": "Por favor, insira um endereço de email válido",
+					"websiteInvalid": "Por favor, insira uma URL de website válida",
+					"createFailed": "Falha ao criar organizador. Por favor, tente novamente."
 				}
 			}
 		}
@@ -370,45 +370,45 @@
 	"nl": {
 		"organizers": {
 			"create": {
-				"title": "Add New Organizer",
-				"subtitle": "Register event organizers to enable bib resale functionality for their races",
+				"title": "Nieuwe Organisator Toevoegen",
+				"subtitle": "Registreer evenementorganisatoren om de startnummer-doorverkoopfunctionaliteit voor hun races in te schakelen",
 				"sections": {
 					"basicInformation": {
-						"title": "Organizer Information",
-						"description": "Enter the basic information about the event organizer to identify which races will be available for bib resale on the platform."
+						"title": "Organisator Informatie",
+						"description": "Voer de basisinformatie over de evenementorganisator in om te bepalen welke races beschikbaar zullen zijn voor de verkoop van startnummers op het platform."
 					}
 				},
 				"form": {
-					"nameLabel": "Organizer Name",
-					"namePlaceholder": "Marathon de Paris",
-					"emailLabel": "Contact Email",
+					"nameLabel": "Naam Organisator",
+					"namePlaceholder": "Marathon van Parijs",
+					"emailLabel": "Contact E-mail",
 					"emailPlaceholder": "contact@marathon-paris.com",
 					"websiteLabel": "Website",
 					"websitePlaceholder": "https://www.marathon-paris.com",
 					"logoUpload": {
-						"label": "Organizer Logo",
-						"description": "Upload the organizer's logo. Supported formats: PNG, JPG, SVG (max 5MB)",
-						"uploadText": "Upload file",
-						"uploadSubtext": "Drag or drop your files here or click to upload",
-						"dropText": "Drop it",
+						"label": "Organisator Logo",
+						"description": "Upload het logo van de organisator. Ondersteunde formaten: PNG, JPG, SVG (max 5MB)",
+						"uploadText": "Bestand uploaden",
+						"uploadSubtext": "Sleep of plaats uw bestanden hier of klik om te uploaden",
+						"dropText": "Plaatsen",
 						"fileSizeUnit": "MB",
-						"fileModified": "modified"
+						"fileModified": "gewijzigd"
 					},
-					"partnerLabel": "Partner Organizer",
-					"partnerDescription": "Partner organizers can enable bib resale for their events on the platform.",
-					"submitButton": "Create Organizer",
-					"cancelButton": "Cancel"
+					"partnerLabel": "Partner Organisator",
+					"partnerDescription": "Partnerorganisatoren kunnen de verkoop van startnummers voor hun evenementen op het platform inschakelen.",
+					"submitButton": "Organisator Aanmaken",
+					"cancelButton": "Annuleren"
 				},
 				"success": {
-					"title": "Organizer Created Successfully",
-					"message": "The organizer '{organizerName}' has been successfully created.",
-					"backButton": "Back to Organizers"
+					"title": "Organisator Succesvol Aangemaakt",
+					"message": "De organisator '{organizerName}' is succesvol aangemaakt.",
+					"backButton": "Terug naar Organisatoren"
 				},
 				"errors": {
-					"nameRequired": "Organizer name is required",
-					"emailInvalid": "Please enter a valid email address",
-					"websiteInvalid": "Please enter a valid website URL",
-					"createFailed": "Failed to create organizer. Please try again."
+					"nameRequired": "Naam organisator is vereist",
+					"emailInvalid": "Voer een geldig e-mailadres in",
+					"websiteInvalid": "Voer een geldige website-URL in",
+					"createFailed": "Mislukt om organisator aan te maken. Probeer het opnieuw."
 				}
 			}
 		}
