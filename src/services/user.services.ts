@@ -1,4 +1,5 @@
 'use server'
+import { pbDateToLuxon } from '@/lib/dateUtils'
 import { pb } from '@/lib/pocketbaseClient'
 import { User } from '@/models/user.model'
 import { DateTime } from 'luxon'
@@ -36,23 +37,15 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 	console.log('mapPbRecordToUser - record.birthDate:', record?.birthDate, 'type:', typeof record?.birthDate)
 
 	// Normalize PB 'birthDate' (string or Date) to 'YYYY-MM-DD' using Luxon
-	let birthDate: string | Date | null = null
-	const bithDate = record?.birthDate
-	if (bithDate instanceof Date) {
-		const dt = DateTime.fromJSDate(bithDate).toUTC()
-		birthDate = dt.isValid ? dt.toFormat('yyyy-LL-dd') : null
-	} else if (typeof bithDate === 'string' && bithDate.trim() !== '') {
-		console.log('mapPbRecordToUser - attempting to parse string:', bithDate)
-		const dt = DateTime.fromISO(bithDate, { zone: 'utc' })
-		console.log('mapPbRecordToUser - DateTime.fromISO result:', dt, 'isValid:', dt.isValid)
-		if (!dt.isValid) {
-			// Try alternative parsing methods
-			const dt2 = DateTime.fromSQL(bithDate)
-			console.log('mapPbRecordToUser - DateTime.fromSQL result:', dt2, 'isValid:', dt2.isValid)
-			birthDate = dt2.isValid ? dt2.toFormat('yyyy-LL-dd') : null
-		} else {
-			birthDate = dt.toFormat('yyyy-LL-dd')
-		}
+	let birthDate: string | null = null
+
+	const rawBirthDate = record?.birthDate
+	const parsed = pbDateToLuxon(rawBirthDate)
+
+	if (parsed?.isValid === true) {
+		birthDate = parsed.toFormat('yyyy-LL-dd')
+	} else {
+		console.warn('mapPbRecordToUser - Invalid birthDate:', rawBirthDate)
 	}
 
 	console.log('mapPbRecordToUser - final birthDate:', birthDate)
