@@ -410,51 +410,51 @@
 	"ko": {
 		"terms": {
 			"accounts": {
-				"content": "Users must provide accurate information and maintain the confidentiality of their credentials. Certain features may require identity verification or organizer validation.",
-				"title": "Accounts and Eligibility"
+				"content": "사용자는 정확한 정보를 제공해야 하며, 자격 증명의 기밀을 유지해야 합니다. 일부 기능은 신원 확인 또는 주최자 검증이 필요할 수 있습니다.",
+				"title": "계정 및 자격"
 			},
-			"badge": "Terms",
+			"badge": "약관",
 			"changes": {
-				"content": "We may update these Terms from time to time. Continued use of the services after changes constitutes acceptance of the updated Terms.",
-				"title": "Changes to the Terms"
+				"content": "본 약관은 수시로 업데이트될 수 있습니다. 변경 후 서비스를 계속 이용하면 변경된 약관에 동의한 것으로 간주됩니다.",
+				"title": "약관 변경"
 			},
 			"fees": {
-				"content": "Beswib may charge service fees to buyers and/or sellers, displayed before checkout. Organizers may also incur fees for integrations or services.",
-				"title": "Fees"
+				"content": "Beswib은 결제 전에 표시되는 서비스 수수료를 구매자 및/또는 판매자에게 부과할 수 있습니다. 주최자도 연동 또는 서비스에 따른 비용이 발생할 수 있습니다.",
+				"title": "수수료"
 			},
-			"intro": "Thank you for using Beswib. These Terms govern your access to and use of Beswib’s services. By registering, accessing, or using the services, you agree to be bound by these Terms.",
+			"intro": "Beswib을 이용해 주셔서 감사합니다. 본 약관은 Beswib 서비스에 대한 귀하의 접근 및 사용을 규정합니다. 서비스에 가입·접속·사용함으로써 귀하는 본 약관에 동의하게 됩니다.",
 			"ipr": {
-				"content": "All content on Beswib (including trademarks, logos, and text) remains the property of Beswib or its licensors.",
-				"title": "Intellectual Property"
+				"content": "Beswib의 모든 콘텐츠(상표, 로고, 텍스트 포함)는 Beswib 또는 해당 라이선스 보유자의 자산으로 남습니다.",
+				"title": "지식재산권"
 			},
 			"liability": {
-				"content": "To the maximum extent permitted by law, Beswib is not liable for indirect, incidental, special, consequential or punitive damages, or any loss of profits or revenues.",
-				"title": "Liability"
+				"content": "법이 허용하는 최대 한도 내에서, Beswib은 간접·우발·특별·결과적·징벌적 손해 또는 이익·수익 손실에 대해 책임을 지지 않습니다.",
+				"title": "책임 제한"
 			},
 			"marketModel": {
-				"content": "Beswib operates a C2B2C model: sellers list bibs, buyers purchase them, and Beswib interfaces with event organizers to perform official transfers, where available.",
-				"title": "C2B2C Marketplace Model"
+				"content": "Beswib은 C2B2C 모델로 운영됩니다: 판매자는 도스라르를 등록하고, 구매자는 이를 구매하며, Beswib은 가능할 경우 주최자와 연동해 공식 이관을 수행합니다.",
+				"title": "C2B2C 마켓플레이스 모델"
 			},
 			"organizers": {
-				"content": "For eligible events, Beswib collaborates with organizers to enable official transfers. Organizers remain responsible for their own policies, regulations, and participant management.",
-				"title": "Organizer Relationships"
+				"content": "대상 이벤트의 경우, Beswib은 주최자와 협력하여 공식 이관을 가능하게 합니다. 주최자는 자체 정책·규정·참가자 관리에 대해 책임을 집니다.",
+				"title": "주최자 관계"
 			},
 			"payments": {
-				"content": "Payments are handled via third-party processors. Seller payouts occur after successful organizer validation or transfer confirmation. Beswib may hold funds in case of disputes or compliance checks.",
-				"title": "Payments and Payouts"
+				"content": "결제는 제3자 결제처리를 통해 이루어집니다. 판매자 정산은 주최자 검증 또는 이관 확인 후 진행됩니다. 분쟁 또는 컴플라이언스 점검 시 자금이 보류될 수 있습니다.",
+				"title": "결제 및 정산"
 			},
 			"scope": {
-				"content": "These Terms apply to all users of the platform, including buyers, sellers, and organizers.",
-				"title": "Scope"
+				"content": "본 약관은 플랫폼의 모든 사용자(구매자, 판매자, 주최자)에게 적용됩니다.",
+				"title": "적용 범위"
 			},
 			"termination": {
-				"content": "We may suspend or terminate access to the services at any time for breach of these Terms or for unlawful activities.",
-				"title": "Termination"
+				"content": "약관 위반 또는 불법 행위 시, 서비스 접근은 언제든지 제한 또는 종료될 수 있습니다.",
+				"title": "해지"
 			},
-			"title": "Terms of Service",
+			"title": "서비스 약관",
 			"transactions": {
-				"content": "Listings must be accurate and comply with event policies. Transactions are final once the transfer is initiated. In case an organizer refuses a transfer, the transaction may be canceled and refunded as per our policies.",
-				"title": "Listings and Transactions"
+				"content": "등록된 정보는 정확해야 하며 이벤트 정책을 준수해야 합니다. 이관이 시작되면 거래는 최종적입니다. 주최자가 이관을 거부하는 경우, 당사 정책에 따라 거래가 취소·환불될 수 있습니다.",
+				"title": "등록 및 거래"
 			}
 		}
 	}
