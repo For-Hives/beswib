@@ -256,7 +256,6 @@ export default function Searchbar({
 											className="border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent h-10 w-full rounded border px-3 text-center"
 											id="date-end"
 											onChange={e => setTempDateEnd(e.target.value)}
-											
 											type="date"
 											value={tempDateEnd ?? ''}
 										/>
