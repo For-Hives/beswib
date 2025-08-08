@@ -43,7 +43,13 @@
 				"paymentTestDescription": "Test your PayPal integration with sample payments.",
 				"createSellerButton": "Create Seller Account",
 				"testingPayment": "Ready to test payments with your merchant ID.",
-				"completeSetup": "Complete PayPal Setup"
+                "completeSetup": "Complete PayPal Setup",
+                "disconnectButton": "Disconnect PayPal seller account",
+                "disconnectTitle": "Disconnect PayPal?",
+                "disconnectDescription": "You will not be able to receive payments until you reconnect your PayPal seller account.",
+                "disconnecting": "Disconnecting...",
+                "cancel": "Cancel",
+                "confirm": "Confirm"
 			},
 			"notifications": {
 				"profileUpdated": "Profile updated successfully.",
@@ -95,7 +101,13 @@
 				"paymentTestDescription": "Testez votre intégration PayPal avec des paiements d'exemple.",
 				"createSellerButton": "Créer un Compte Vendeur",
 				"testingPayment": "Prêt à tester les paiements avec votre ID marchand.",
-				"completeSetup": "Terminer la Configuration PayPal"
+                "completeSetup": "Terminer la Configuration PayPal",
+                "disconnectButton": "Déconnecter le compte vendeur PayPal",
+                "disconnectTitle": "Déconnecter PayPal ?",
+                "disconnectDescription": "Vous ne pourrez plus recevoir de paiements tant que vous ne reconnecterez pas votre compte vendeur PayPal.",
+                "disconnecting": "Déconnexion...",
+                "cancel": "Annuler",
+                "confirm": "Confirmer"
 			},
 			"notifications": {
 				"profileUpdated": "Profil mis à jour avec succès.",

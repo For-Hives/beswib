@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 
-import { CheckCircle, ExternalLink, RefreshCw, XCircle } from 'lucide-react'
+import { CheckCircle, ExternalLink, RefreshCw, Unlink, XCircle } from 'lucide-react'
 import { Suspense } from 'react'
 
 import { usePayPalOnboarding } from '@/hooks/usePayPalOnboarding'
@@ -15,6 +15,16 @@ import { getTranslations } from '@/lib/getDictionary'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Locale } from '@/lib/i18n-config'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 
 import PayPalOnboardingSkeleton from './PayPalOnboardingSkeleton'
 
@@ -37,7 +47,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 
 	const onboardingMutation = usePayPalOnboarding()
 	const disconnectMutation = usePayPalDisconnect()
-	const [showDisconnectConfirm, setShowDisconnectConfirm] = React.useState(false)
+    const [showDisconnectConfirm, setShowDisconnectConfirm] = React.useState(false)
 
 	const handlePayPalConnect = () => {
 		onboardingMutation.mutate(userId)
@@ -135,50 +145,52 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 								It could take a few minutes to link your PayPal account.
 							</span>
 						</div>
-					) : typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0 ? (
-						<>
-							<Button
-								className="w-full"
-								variant="destructive"
-								onClick={() => setShowDisconnectConfirm(true)}
-								disabled={disconnectMutation.isPending}
-							>
-								{disconnectMutation.isPending ? (
-									<>
-										<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-										Déconnexion...
-									</>
-								) : (
-									'Déconnecter le compte vendeur'
-								)}
-							</Button>
-							{/* Confirmation Dialog */}
-							{showDisconnectConfirm && (
-								<div className="bg-opacity-40 fixed inset-0 z-50 flex items-center justify-center bg-black">
-									<div className="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-900">
-										<p className="mb-4 text-sm">Êtes-vous sûr de vouloir déconnecter votre compte vendeur PayPal ?</p>
-										<div className="flex justify-end gap-2">
-											<Button
-												variant="outline"
-												onClick={() => setShowDisconnectConfirm(false)}
-												disabled={disconnectMutation.isPending}
-											>
-												Annuler
-											</Button>
-											<Button variant="destructive" onClick={handleDisconnect} disabled={disconnectMutation.isPending}>
-												{disconnectMutation.isPending ? (
-													<>
-														<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-														Déconnexion...
-													</>
-												) : (
-													'Confirmer'
-												)}
-											</Button>
-										</div>
-									</div>
-								</div>
-							)}
+                    ) : typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0 ? (
+                        <>
+                            <Button
+                                className="w-full"
+                                variant="destructive"
+                                onClick={() => setShowDisconnectConfirm(true)}
+                                disabled={disconnectMutation.isPending}
+                            >
+                                {disconnectMutation.isPending ? (
+                                    <>
+                                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                                        {t.disconnecting}
+                                    </>
+                                ) : (
+                                    <>
+                                        <Unlink className="mr-2 h-4 w-4" />
+                                        {t.disconnectButton}
+                                    </>
+                                )}
+                            </Button>
+
+                            <AlertDialog open={showDisconnectConfirm} onOpenChange={setShowDisconnectConfirm}>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>{t.disconnectTitle}</AlertDialogTitle>
+                                        <AlertDialogDescription>{t.disconnectDescription}</AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel disabled={disconnectMutation.isPending}>{t.cancel}</AlertDialogCancel>
+                                        <AlertDialogAction
+                                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                            onClick={handleDisconnect}
+                                            disabled={disconnectMutation.isPending}
+                                        >
+                                            {disconnectMutation.isPending ? (
+                                                <>
+                                                    <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                                                    {t.disconnecting}
+                                                </>
+                                            ) : (
+                                                t.confirm
+                                            )}
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
 							{/* Error Display for disconnect */}
 							{disconnectMutation.error ? (
 								<Alert variant="destructive">
