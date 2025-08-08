@@ -26,10 +26,10 @@
 		"dateAddedToWaitlist": "Date Added to Waitlist:",
 		"status": "Status:",
 		"notifiedOn": "Notified on",
-    "waitingForNotification": "Waiting for notification",
-    "totalPurchasesLabel": "Total Purchases",
-    "waitlistEntriesLabel": "Waitlist Entries",
-    "totalSpentLabel": "Total Spent"
+		"waitingForNotification": "Waiting for notification",
+		"totalPurchasesLabel": "Total Purchases",
+		"waitlistEntriesLabel": "Waitlist Entries",
+		"totalSpentLabel": "Total Spent"
 	},
 	"fr": {
 		"title": "Tableau de bord acheteur",
@@ -58,10 +58,10 @@
 		"dateAddedToWaitlist": "Date d'ajout à la liste d'attente :",
 		"status": "Statut :",
 		"notifiedOn": "Notifié le",
-    "waitingForNotification": "En attente de notification",
-    "totalPurchasesLabel": "Achats totaux",
-    "waitlistEntriesLabel": "Listes d'attente",
-    "totalSpentLabel": "Dépenses totales"
+		"waitingForNotification": "En attente de notification",
+		"totalPurchasesLabel": "Achats totaux",
+		"waitlistEntriesLabel": "Listes d'attente",
+		"totalSpentLabel": "Dépenses totales"
 	},
 	"ko": {
 		"title": "구매자 대시보드",
@@ -90,10 +90,10 @@
 		"dateAddedToWaitlist": "대기 목록 추가 날짜:",
 		"status": "상태:",
 		"notifiedOn": "알림 날짜",
-    "waitingForNotification": "알림 대기 중",
-    "totalPurchasesLabel": "총 구매",
-    "waitlistEntriesLabel": "대기 목록",
-    "totalSpentLabel": "총 지출"
+		"waitingForNotification": "알림 대기 중",
+		"totalPurchasesLabel": "총 구매",
+		"waitlistEntriesLabel": "대기 목록",
+		"totalSpentLabel": "총 지출"
 	},
 	"es": {
 		"title": "Panel de Comprador",
@@ -122,10 +122,10 @@
 		"dateAddedToWaitlist": "Fecha Añadido a Lista de Espera:",
 		"status": "Estado:",
 		"notifiedOn": "Notificado el",
-    "waitingForNotification": "Esperando notificación",
-    "totalPurchasesLabel": "Compras totales",
-    "waitlistEntriesLabel": "Listas de espera",
-    "totalSpentLabel": "Gasto total"
+		"waitingForNotification": "Esperando notificación",
+		"totalPurchasesLabel": "Compras totales",
+		"waitlistEntriesLabel": "Listas de espera",
+		"totalSpentLabel": "Gasto total"
 	},
 	"it": {
 		"title": "Dashboard Acquirente",
@@ -154,10 +154,10 @@
 		"dateAddedToWaitlist": "Data Aggiunta alla Lista d'Attesa:",
 		"status": "Stato:",
 		"notifiedOn": "Notificato il",
-    "waitingForNotification": "In attesa di notifica",
-    "totalPurchasesLabel": "Acquisti totali",
-    "waitlistEntriesLabel": "Liste d'attesa",
-    "totalSpentLabel": "Totale speso"
+		"waitingForNotification": "In attesa di notifica",
+		"totalPurchasesLabel": "Acquisti totali",
+		"waitlistEntriesLabel": "Liste d'attesa",
+		"totalSpentLabel": "Totale speso"
 	},
 	"de": {
 		"title": "Käufer-Dashboard",
@@ -186,10 +186,10 @@
 		"dateAddedToWaitlist": "Datum der Hinzufügung zur Warteliste:",
 		"status": "Status:",
 		"notifiedOn": "Benachrichtigt am",
-    "waitingForNotification": "Warten auf Benachrichtigung",
-    "totalPurchasesLabel": "Gesamtkäufe",
-    "waitlistEntriesLabel": "Wartelisten",
-    "totalSpentLabel": "Gesamtausgaben"
+		"waitingForNotification": "Warten auf Benachrichtigung",
+		"totalPurchasesLabel": "Gesamtkäufe",
+		"waitlistEntriesLabel": "Wartelisten",
+		"totalSpentLabel": "Gesamtausgaben"
 	},
 	"ro": {
 		"title": "Panou Cumpărător",
@@ -218,10 +218,10 @@
 		"dateAddedToWaitlist": "Data Adăugării în Lista de Așteptare:",
 		"status": "Stare:",
 		"notifiedOn": "Notificat pe",
-    "waitingForNotification": "Așteptând notificare",
-    "totalPurchasesLabel": "Achiziții totale",
-    "waitlistEntriesLabel": "Liste de așteptare",
-    "totalSpentLabel": "Total cheltuit"
+		"waitingForNotification": "Așteptând notificare",
+		"totalPurchasesLabel": "Achiziții totale",
+		"waitlistEntriesLabel": "Liste de așteptare",
+		"totalSpentLabel": "Total cheltuit"
 	},
 	"pt": {
 		"title": "Painel do Comprador",
@@ -250,10 +250,10 @@
 		"dateAddedToWaitlist": "Data Adicionado à Lista de Espera:",
 		"status": "Estado:",
 		"notifiedOn": "Notificado em",
-    "waitingForNotification": "A aguardar notificação",
-    "totalPurchasesLabel": "Compras totais",
-    "waitlistEntriesLabel": "Listas de espera",
-    "totalSpentLabel": "Total gasto"
+		"waitingForNotification": "A aguardar notificação",
+		"totalPurchasesLabel": "Compras totais",
+		"waitlistEntriesLabel": "Listas de espera",
+		"totalSpentLabel": "Total gasto"
 	},
 	"nl": {
 		"title": "Koper Dashboard",
@@ -282,9 +282,9 @@
 		"dateAddedToWaitlist": "Datum Toegevoegd aan Wachtlijst:",
 		"status": "Status:",
 		"notifiedOn": "Genotificeerd op",
-    "waitingForNotification": "Wachten op notificatie",
-    "totalPurchasesLabel": "Totale aankopen",
-    "waitlistEntriesLabel": "Wachtlijsten",
-    "totalSpentLabel": "Totaal besteed"
+		"waitingForNotification": "Wachten op notificatie",
+		"totalPurchasesLabel": "Totale aankopen",
+		"waitlistEntriesLabel": "Wachtlijsten",
+		"totalSpentLabel": "Totaal besteed"
 	}
 }
