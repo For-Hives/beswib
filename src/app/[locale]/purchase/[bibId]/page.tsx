@@ -68,7 +68,8 @@ export default async function BibPurchasePage({
 	const now = new Date()
 	const eventDateObj = bib.expand?.eventId ? new Date(bib.expand.eventId.eventDate) : null
 	const transferDeadline = bib.expand?.eventId?.transferDeadline ? new Date(bib.expand.eventId.transferDeadline) : null
-	const isSaleOpen = transferDeadline != null ? transferDeadline >= now : eventDateObj != null ? eventDateObj >= now : false
+	const isSaleOpen =
+		transferDeadline != null ? transferDeadline >= now : eventDateObj != null ? eventDateObj >= now : false
 	if (!isSaleOpen) {
 		return (
 			<div className="mx-auto max-w-lg p-4 text-center text-[var(--text-dark)] md:p-8">
@@ -154,7 +155,7 @@ export default async function BibPurchasePage({
 					<span className="font-semibold">{t.purchase.details.event}:</span> {eventName}
 				</p>
 				<p>
-				<span className="font-semibold">{t.purchase.details.eventDate}:</span> {eventDateStr}
+					<span className="font-semibold">{t.purchase.details.eventDate}:</span> {eventDateStr}
 				</p>
 				<p>
 					<span className="font-semibold">{t.purchase.details.registrationNumber}:</span>{' '}

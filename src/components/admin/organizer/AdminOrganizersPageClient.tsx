@@ -603,25 +603,25 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 							<div className="flex items-center justify-between gap-8">
 								{/* Results per page */}
 								<div className="flex items-center gap-3">
-                                <Label className="max-sm:sr-only" htmlFor={id}>
+									<Label className="max-sm:sr-only" htmlFor={id}>
 										{t.organizers.table.controls.rowsPerPage}
 									</Label>
-                                {(() => {
-                                    const pageSizeOptions: SelectOption[] = [5, 10, 25, 50].map(n => ({
-                                        value: n.toString(),
-                                        label: n.toString(),
-                                    }))
-                                    return (
-                                        <SelectAnimated
-                                            onValueChange={(value: string) => {
-                                                table.setPageSize(Number(value))
-                                            }}
-                                            options={pageSizeOptions}
-                                            placeholder="Select number of results"
-                                            value={table.getState().pagination.pageSize.toString()}
-                                        />
-                                    )
-                                })()}
+									{(() => {
+										const pageSizeOptions: SelectOption[] = [5, 10, 25, 50].map(n => ({
+											value: n.toString(),
+											label: n.toString(),
+										}))
+										return (
+											<SelectAnimated
+												onValueChange={(value: string) => {
+													table.setPageSize(Number(value))
+												}}
+												options={pageSizeOptions}
+												placeholder="Select number of results"
+												value={table.getState().pagination.pageSize.toString()}
+											/>
+										)
+									})()}
 								</div>
 
 								{/* Page number information */}
