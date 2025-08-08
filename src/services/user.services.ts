@@ -32,10 +32,6 @@ interface PbUserRecordMinimal {
 }
 
 function mapPbRecordToUser(record: PbUserRecordMinimal): User {
-	// Debug: Check what we get from PocketBase
-	console.log('mapPbRecordToUser - Raw record:', record)
-	console.log('mapPbRecordToUser - record.birthDate:', record?.birthDate, 'type:', typeof record?.birthDate)
-
 	// Normalize PB 'birthDate' (string or Date) to 'YYYY-MM-DD' using Luxon
 	let birthDate: string | null = null
 
@@ -47,8 +43,6 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 	} else {
 		console.warn('mapPbRecordToUser - Invalid birthDate:', rawBirthDate)
 	}
-
-	console.log('mapPbRecordToUser - final birthDate:', birthDate)
 
 	return {
 		id: record.id,

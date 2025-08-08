@@ -16,13 +16,12 @@ import { capturePayment, createOrder } from '@/services/paypal.services'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'
 // import Lanyard from '@/components/ui/BibPriceLanyard'
-import { isLocked, lockBib, unlockExpiredBibs } from '@/services/bib.services'
+import { isLocked, lockBib } from '@/services/bib.services'
 
 // Import sub-components
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
 import { LockTimer } from './LockTimer'
 import { toast } from 'sonner'
-import { is } from 'valibot'
 import { DateTime } from 'luxon'
 import { pbDateToLuxon } from '@/lib/dateUtils'
 
@@ -108,7 +107,6 @@ export default function PayPalPurchaseClient({
 
 	// Check if user is authenticated when trying to open payment modal
 	const handleBuyNowClick = async () => {
-		console.log('click')
 		if (isSignedIn !== true) {
 			router.push(`/${locale}/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`)
 			return
@@ -117,12 +115,10 @@ export default function PayPalPurchaseClient({
 			// User trying to buy their own bib - do nothing, button should be disabled
 			return
 		}
-		console.log('ici ca passe')
 		if (isProfileComplete) {
 			// check for lock mechanism to prevent multi user to buy the same bib
 			const isBibLocked = await isLocked(bib.id, lockedAtParam)
 			if (isBibLocked === 'locked') {
-				console.log('Bib is locked:', isBibLocked)
 				toast.error('This bib is currently locked by another user for purchase. Please try again later.')
 				return
 			}
@@ -143,7 +139,9 @@ export default function PayPalPurchaseClient({
 					// Store lockedAt in Nuqs param
 					let lockedAtDt = pbDateToLuxon(lockedBib.lockedAt)
 					if (lockedAtDt) {
-						setLockedAtParam(lockedAtDt.toISO())
+						setLockedAtParam(lockedAtDt.toISO()).catch(() => {
+							toast.error('Error with the lock mechanism')
+						})
 					}
 				} else if (isBibLocked === 'userlocked') {
 					toast.info('This bib is currently locked by you for purchase.')
