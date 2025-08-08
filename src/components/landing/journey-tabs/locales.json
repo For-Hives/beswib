@@ -163,5 +163,335 @@
 		"steps": {
 			"step": "단계"
 		}
+	},
+	"es": {
+		"journey": {
+			"title": "How does it work?",
+			"subtitle": "Discover the simple and secure process to sell or buy bibs on Beswib",
+			"buyerTab": "Buyer Journey",
+			"sellerTab": "Seller Journey",
+			"buyer": {
+				"step1": {
+					"title": "Account Creation",
+					"content": "Registration and email confirmation"
+				},
+				"step2": {
+					"title": "Race Search",
+					"content": "Browse available races and bibs"
+				},
+				"step3": {
+					"title": "Purchase",
+					"content": "Enter runner information and secure payment"
+				},
+				"step4": {
+					"title": "Confirmation",
+					"content": "Immediate purchase confirmation email"
+				},
+				"step5": {
+					"title": "Race Integration",
+					"content": "Registration confirmation with organizer"
+				}
+			},
+			"seller": {
+				"step1": {
+					"title": "Account Creation",
+					"content": "Quick registration and email confirmation"
+				},
+				"step2": {
+					"title": "Bib Registration",
+					"content": "Enter registration number and registration data"
+				},
+				"step3": {
+					"title": "Validation",
+					"content": "Verification with organizer"
+				},
+				"step4": {
+					"title": "Listing",
+					"content": "Set price and publish your public or private offer"
+				},
+				"step5": {
+					"title": "Payment",
+					"content": "Receive funds on your Beswib account then withdraw money to your bank account"
+				}
+			}
+		},
+		"steps": {
+			"step": "Step"
+		}
+	},
+	"it": {
+		"journey": {
+			"title": "How does it work?",
+			"subtitle": "Discover the simple and secure process to sell or buy bibs on Beswib",
+			"buyerTab": "Buyer Journey",
+			"sellerTab": "Seller Journey",
+			"buyer": {
+				"step1": {
+					"title": "Account Creation",
+					"content": "Registration and email confirmation"
+				},
+				"step2": {
+					"title": "Race Search",
+					"content": "Browse available races and bibs"
+				},
+				"step3": {
+					"title": "Purchase",
+					"content": "Enter runner information and secure payment"
+				},
+				"step4": {
+					"title": "Confirmation",
+					"content": "Immediate purchase confirmation email"
+				},
+				"step5": {
+					"title": "Race Integration",
+					"content": "Registration confirmation with organizer"
+				}
+			},
+			"seller": {
+				"step1": {
+					"title": "Account Creation",
+					"content": "Quick registration and email confirmation"
+				},
+				"step2": {
+					"title": "Bib Registration",
+					"content": "Enter registration number and registration data"
+				},
+				"step3": {
+					"title": "Validation",
+					"content": "Verification with organizer"
+				},
+				"step4": {
+					"title": "Listing",
+					"content": "Set price and publish your public or private offer"
+				},
+				"step5": {
+					"title": "Payment",
+					"content": "Receive funds on your Beswib account then withdraw money to your bank account"
+				}
+			}
+		},
+		"steps": {
+			"step": "Step"
+		}
+	},
+	"de": {
+		"journey": {
+			"title": "How does it work?",
+			"subtitle": "Discover the simple and secure process to sell or buy bibs on Beswib",
+			"buyerTab": "Buyer Journey",
+			"sellerTab": "Seller Journey",
+			"buyer": {
+				"step1": {
+					"title": "Account Creation",
+					"content": "Registration and email confirmation"
+				},
+				"step2": {
+					"title": "Race Search",
+					"content": "Browse available races and bibs"
+				},
+				"step3": {
+					"title": "Purchase",
+					"content": "Enter runner information and secure payment"
+				},
+				"step4": {
+					"title": "Confirmation",
+					"content": "Immediate purchase confirmation email"
+				},
+				"step5": {
+					"title": "Race Integration",
+					"content": "Registration confirmation with organizer"
+				}
+			},
+			"seller": {
+				"step1": {
+					"title": "Account Creation",
+					"content": "Quick registration and email confirmation"
+				},
+				"step2": {
+					"title": "Bib Registration",
+					"content": "Enter registration number and registration data"
+				},
+				"step3": {
+					"title": "Validation",
+					"content": "Verification with organizer"
+				},
+				"step4": {
+					"title": "Listing",
+					"content": "Set price and publish your public or private offer"
+				},
+				"step5": {
+					"title": "Payment",
+					"content": "Receive funds on your Beswib account then withdraw money to your bank account"
+				}
+			}
+		},
+		"steps": {
+			"step": "Step"
+		}
+	},
+	"ro": {
+		"journey": {
+			"title": "How does it work?",
+			"subtitle": "Discover the simple and secure process to sell or buy bibs on Beswib",
+			"buyerTab": "Buyer Journey",
+			"sellerTab": "Seller Journey",
+			"buyer": {
+				"step1": {
+					"title": "Account Creation",
+					"content": "Registration and email confirmation"
+				},
+				"step2": {
+					"title": "Race Search",
+					"content": "Browse available races and bibs"
+				},
+				"step3": {
+					"title": "Purchase",
+					"content": "Enter runner information and secure payment"
+				},
+				"step4": {
+					"title": "Confirmation",
+					"content": "Immediate purchase confirmation email"
+				},
+				"step5": {
+					"title": "Race Integration",
+					"content": "Registration confirmation with organizer"
+				}
+			},
+			"seller": {
+				"step1": {
+					"title": "Account Creation",
+					"content": "Quick registration and email confirmation"
+				},
+				"step2": {
+					"title": "Bib Registration",
+					"content": "Enter registration number and registration data"
+				},
+				"step3": {
+					"title": "Validation",
+					"content": "Verification with organizer"
+				},
+				"step4": {
+					"title": "Listing",
+					"content": "Set price and publish your public or private offer"
+				},
+				"step5": {
+					"title": "Payment",
+					"content": "Receive funds on your Beswib account then withdraw money to your bank account"
+				}
+			}
+		},
+		"steps": {
+			"step": "Step"
+		}
+	},
+	"pt": {
+		"journey": {
+			"title": "How does it work?",
+			"subtitle": "Discover the simple and secure process to sell or buy bibs on Beswib",
+			"buyerTab": "Buyer Journey",
+			"sellerTab": "Seller Journey",
+			"buyer": {
+				"step1": {
+					"title": "Account Creation",
+					"content": "Registration and email confirmation"
+				},
+				"step2": {
+					"title": "Race Search",
+					"content": "Browse available races and bibs"
+				},
+				"step3": {
+					"title": "Purchase",
+					"content": "Enter runner information and secure payment"
+				},
+				"step4": {
+					"title": "Confirmation",
+					"content": "Immediate purchase confirmation email"
+				},
+				"step5": {
+					"title": "Race Integration",
+					"content": "Registration confirmation with organizer"
+				}
+			},
+			"seller": {
+				"step1": {
+					"title": "Account Creation",
+					"content": "Quick registration and email confirmation"
+				},
+				"step2": {
+					"title": "Bib Registration",
+					"content": "Enter registration number and registration data"
+				},
+				"step3": {
+					"title": "Validation",
+					"content": "Verification with organizer"
+				},
+				"step4": {
+					"title": "Listing",
+					"content": "Set price and publish your public or private offer"
+				},
+				"step5": {
+					"title": "Payment",
+					"content": "Receive funds on your Beswib account then withdraw money to your bank account"
+				}
+			}
+		},
+		"steps": {
+			"step": "Step"
+		}
+	},
+	"nl": {
+		"journey": {
+			"title": "How does it work?",
+			"subtitle": "Discover the simple and secure process to sell or buy bibs on Beswib",
+			"buyerTab": "Buyer Journey",
+			"sellerTab": "Seller Journey",
+			"buyer": {
+				"step1": {
+					"title": "Account Creation",
+					"content": "Registration and email confirmation"
+				},
+				"step2": {
+					"title": "Race Search",
+					"content": "Browse available races and bibs"
+				},
+				"step3": {
+					"title": "Purchase",
+					"content": "Enter runner information and secure payment"
+				},
+				"step4": {
+					"title": "Confirmation",
+					"content": "Immediate purchase confirmation email"
+				},
+				"step5": {
+					"title": "Race Integration",
+					"content": "Registration confirmation with organizer"
+				}
+			},
+			"seller": {
+				"step1": {
+					"title": "Account Creation",
+					"content": "Quick registration and email confirmation"
+				},
+				"step2": {
+					"title": "Bib Registration",
+					"content": "Enter registration number and registration data"
+				},
+				"step3": {
+					"title": "Validation",
+					"content": "Verification with organizer"
+				},
+				"step4": {
+					"title": "Listing",
+					"content": "Set price and publish your public or private offer"
+				},
+				"step5": {
+					"title": "Payment",
+					"content": "Receive funds on your Beswib account then withdraw money to your bank account"
+				}
+			}
+		},
+		"steps": {
+			"step": "Step"
+		}
 	}
 }

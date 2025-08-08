@@ -70,5 +70,149 @@
 				"location": "샤모니"
 			}
 		]
+	},
+	"es": {
+		"runs": [
+			{
+				"name": "Nantes Marathon",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nice",
+				"location": "Nice"
+			},
+			{
+				"name": "Thonon Half Marathon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Paris Marathon",
+				"location": "Paris"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		]
+	},
+	"it": {
+		"runs": [
+			{
+				"name": "Nantes Marathon",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nice",
+				"location": "Nice"
+			},
+			{
+				"name": "Thonon Half Marathon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Paris Marathon",
+				"location": "Paris"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		]
+	},
+	"de": {
+		"runs": [
+			{
+				"name": "Nantes Marathon",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nice",
+				"location": "Nice"
+			},
+			{
+				"name": "Thonon Half Marathon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Paris Marathon",
+				"location": "Paris"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		]
+	},
+	"ro": {
+		"runs": [
+			{
+				"name": "Nantes Marathon",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nice",
+				"location": "Nice"
+			},
+			{
+				"name": "Thonon Half Marathon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Paris Marathon",
+				"location": "Paris"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		]
+	},
+	"pt": {
+		"runs": [
+			{
+				"name": "Nantes Marathon",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nice",
+				"location": "Nice"
+			},
+			{
+				"name": "Thonon Half Marathon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Paris Marathon",
+				"location": "Paris"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		]
+	},
+	"nl": {
+		"runs": [
+			{
+				"name": "Nantes Marathon",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nice",
+				"location": "Nice"
+			},
+			{
+				"name": "Thonon Half Marathon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Paris Marathon",
+				"location": "Paris"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		]
 	}
 }

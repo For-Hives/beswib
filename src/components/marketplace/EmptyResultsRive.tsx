@@ -22,6 +22,37 @@ const texts: Record<Locale, { title: string; subtitle: string; cta: string }> = 
 			"Ajustez vos filtres. Si vous pensez que nous n'avons pas encore la course qui vous intéresse, contactez-nous.",
 		cta: 'Nous contacter',
 	},
+	es: {
+		title: 'Ningún resultado coincide con tu búsqueda',
+		subtitle: 'Prueba a ajustar los filtros. Si crees que falta un evento que te interesa, contáctanos.',
+		cta: 'Contáctanos',
+	},
+	it: {
+		title: 'Nessun risultato corrisponde alla tua ricerca',
+		subtitle: 'Prova a modificare i filtri. Se pensi che manchi un evento di tuo interesse, contattaci.',
+		cta: 'Contattaci',
+	},
+	de: {
+		title: 'Keine Ergebnisse für deine Suche',
+		subtitle: 'Versuche deine Filter anzupassen. Wenn ein interessantes Event fehlt, kontaktiere uns gerne.',
+		cta: 'Kontakt aufnehmen',
+	},
+	ro: {
+		title: 'Niciun rezultat nu corespunde căutării tale',
+		subtitle: 'Încearcă să ajustezi filtrele. Dacă lipsește un eveniment care te interesează, contactează-ne.',
+		cta: 'Contactează-ne',
+	},
+	pt: {
+		title: 'Nenhum resultado corresponde à tua pesquisa',
+		subtitle: 'Tenta ajustar os filtros. Se achas que falta um evento do teu interesse, contacta-nos.',
+		cta: 'Contacta-nos',
+	},
+	nl: {
+		title: 'Geen resultaten voor je zoekopdracht',
+		subtitle:
+			'Probeer je filters aan te passen. Als er een event ontbreekt dat je interesseert, neem contact met ons op.',
+		cta: 'Neem contact op',
+	},
 	ko: {
 		title: '검색과 일치하는 결과가 없습니다',
 		subtitle: '필터를 조정해 보세요. 관심 있는 대회가 없다면 문의해 주세요.',

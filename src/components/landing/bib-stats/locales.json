@@ -19,5 +19,47 @@
 			"partnerRaces": "파트너 레이스",
 			"satisfactionRate": "만족도"
 		}
+	},
+	"es": {
+		"stats": {
+			"bibsSold": "Bibs sold",
+			"partnerRaces": "Partner races",
+			"satisfactionRate": "Satisfaction rate"
+		}
+	},
+	"it": {
+		"stats": {
+			"bibsSold": "Bibs sold",
+			"partnerRaces": "Partner races",
+			"satisfactionRate": "Satisfaction rate"
+		}
+	},
+	"de": {
+		"stats": {
+			"bibsSold": "Bibs sold",
+			"partnerRaces": "Partner races",
+			"satisfactionRate": "Satisfaction rate"
+		}
+	},
+	"ro": {
+		"stats": {
+			"bibsSold": "Bibs sold",
+			"partnerRaces": "Partner races",
+			"satisfactionRate": "Satisfaction rate"
+		}
+	},
+	"pt": {
+		"stats": {
+			"bibsSold": "Bibs sold",
+			"partnerRaces": "Partner races",
+			"satisfactionRate": "Satisfaction rate"
+		}
+	},
+	"nl": {
+		"stats": {
+			"bibsSold": "Bibs sold",
+			"partnerRaces": "Partner races",
+			"satisfactionRate": "Satisfaction rate"
+		}
 	}
 }

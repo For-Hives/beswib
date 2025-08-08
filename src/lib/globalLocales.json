@@ -19,6 +19,66 @@
 			}
 		}
 	},
+	"es": {
+		"GLOBAL": {
+			"appName": "Mi Aplicación Asombrosa",
+			"logoAltText": "Logotipo de Mi Aplicación Asombrosa",
+			"welcomeMessage": "¡Bienvenido!",
+			"errors": {
+				"unexpected": "Ocurrió un error inesperado."
+			}
+		}
+	},
+	"it": {
+		"GLOBAL": {
+			"appName": "La Mia Applicazione Fantastica",
+			"logoAltText": "Logo della Mia Applicazione Fantastica",
+			"welcomeMessage": "Benvenuto!",
+			"errors": {
+				"unexpected": "Si è verificato un errore imprevisto."
+			}
+		}
+	},
+	"de": {
+		"GLOBAL": {
+			"appName": "Meine Großartige App",
+			"logoAltText": "Logo meiner großartigen App",
+			"welcomeMessage": "Willkommen!",
+			"errors": {
+				"unexpected": "Ein unerwarteter Fehler ist aufgetreten."
+			}
+		}
+	},
+	"ro": {
+		"GLOBAL": {
+			"appName": "Aplicația Mea Uimitoare",
+			"logoAltText": "Sigla Aplicației Mele Uimitoare",
+			"welcomeMessage": "Bun venit!",
+			"errors": {
+				"unexpected": "A apărut o eroare neașteptată."
+			}
+		}
+	},
+	"pt": {
+		"GLOBAL": {
+			"appName": "Minha Aplicação Incrível",
+			"logoAltText": "Logotipo da Minha Aplicação Incrível",
+			"welcomeMessage": "Bem-vindo!",
+			"errors": {
+				"unexpected": "Ocorreu um erro inesperado."
+			}
+		}
+	},
+	"nl": {
+		"GLOBAL": {
+			"appName": "Mijn Geweldige App",
+			"logoAltText": "Logo van Mijn Geweldige App",
+			"welcomeMessage": "Welkom!",
+			"errors": {
+				"unexpected": "Er is een onverwachte fout opgetreden."
+			}
+		}
+	},
 	"ko": {
 		"GLOBAL": {
 			"appName": "내 멋진 앱",

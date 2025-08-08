@@ -85,6 +85,174 @@
 			}
 		]
 	},
+	"es": {
+		"home": {
+			"hero": {
+				"title": "¿Un imprevisto?<br />¡Transfiere tu dorsal!",
+				"description": "Tanto si te gusta el running, trail, triatlón o ciclismo, encuentra tu carrera favorita o vende tu dorsal con confianza.",
+				"organizerButton": "¿Organizador? Publica tu carrera",
+				"consultRacesButton": "Ver carreras",
+				"workInProgress": "Trabajo en curso"
+			},
+			"impact": {
+				"title": "Nuestro impacto",
+				"activeEvents": "Eventos activos",
+				"bibsExchanged": "Dorsales intercambiados"
+			},
+			"callToAction": {
+				"title": "¿Listo para empezar?",
+				"description": "Conoce cómo funciona Beswib o empieza a explorar eventos ahora.",
+				"learnMoreButton": "Saber más (FAQ)"
+			}
+		},
+		"runs": [
+			{ "name": "Maratón de Nantes", "location": "Nantes" },
+			{ "name": "Ironman Niza", "location": "Niza" },
+			{ "name": "Medio Maratón de Thonon", "location": "Thonon-les-Bains" },
+			{ "name": "Maratón de París", "location": "París" },
+			{ "name": "Ultra Trail del Mont Blanc", "location": "Chamonix" }
+		]
+	},
+	"it": {
+		"home": {
+			"hero": {
+				"title": "Un imprevisto?<br />Trasferisci il tuo pettorale!",
+				"description": "Che tu ami running, trail, triathlon o ciclismo, trova la tua gara preferita o vendi il tuo pettorale in sicurezza.",
+				"organizerButton": "Organizzatore? Elenca la tua gara",
+				"consultRacesButton": "Sfoglia le gare",
+				"workInProgress": "Lavori in corso"
+			},
+			"impact": {
+				"title": "Il nostro impatto",
+				"activeEvents": "Eventi attivi",
+				"bibsExchanged": "Pettorali scambiati"
+			},
+			"callToAction": {
+				"title": "Pronto a iniziare?",
+				"description": "Scopri come funziona Beswib o inizia subito a esplorare gli eventi.",
+				"learnMoreButton": "Scopri di più (FAQ)"
+			}
+		},
+		"runs": [
+			{ "name": "Maratona di Nantes", "location": "Nantes" },
+			{ "name": "Ironman Nizza", "location": "Nizza" },
+			{ "name": "Mezza Maratona di Thonon", "location": "Thonon-les-Bains" },
+			{ "name": "Maratona di Parigi", "location": "Parigi" },
+			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
+		]
+	},
+	"de": {
+		"home": {
+			"hero": {
+				"title": "Ein unvorhergesehenes Ereignis?<br />Übertrage deine Startnummer!",
+				"description": "Ob Laufen, Trail, Triathlon oder Radfahren – finde dein Lieblingsrennen oder verkaufe deine Startnummer sicher.",
+				"organizerButton": "Veranstalter? Liste dein Rennen",
+				"consultRacesButton": "Rennen durchsuchen",
+				"workInProgress": "Arbeiten im Gange"
+			},
+			"impact": {
+				"title": "Unsere Wirkung",
+				"activeEvents": "Aktive Events",
+				"bibsExchanged": "Übertragene Startnummern"
+			},
+			"callToAction": {
+				"title": "Bereit loszulegen?",
+				"description": "Erfahre mehr über Beswib oder beginne jetzt, Events zu entdecken.",
+				"learnMoreButton": "Mehr erfahren (FAQ)"
+			}
+		},
+		"runs": [
+			{ "name": "Marathon Nantes", "location": "Nantes" },
+			{ "name": "Ironman Nizza", "location": "Nizza" },
+			{ "name": "Halbmarathon Thonon", "location": "Thonon-les-Bains" },
+			{ "name": "Marathon Paris", "location": "Paris" },
+			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
+		]
+	},
+	"ro": {
+		"home": {
+			"hero": {
+				"title": "Un eveniment neașteptat?<br />Transferă-ți numărul!",
+				"description": "Fie că preferi alergarea, trail, triatlon sau ciclism, găsește cursa preferată sau vinde-ți numărul cu încredere.",
+				"organizerButton": "Organizator? Listează cursa",
+				"consultRacesButton": "Vezi cursele",
+				"workInProgress": "Lucrăm la asta"
+			},
+			"impact": {
+				"title": "Impactul nostru",
+				"activeEvents": "Evenimente active",
+				"bibsExchanged": "Numere transferate"
+			},
+			"callToAction": {
+				"title": "Gata de început?",
+				"description": "Află cum funcționează Beswib sau începe să explorezi evenimentele chiar acum.",
+				"learnMoreButton": "Află mai multe (FAQ)"
+			}
+		},
+		"runs": [
+			{ "name": "Maratonul Nantes", "location": "Nantes" },
+			{ "name": "Ironman Nisa", "location": "Nisa" },
+			{ "name": "Semimaratonul Thonon", "location": "Thonon-les-Bains" },
+			{ "name": "Maratonul Paris", "location": "Paris" },
+			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
+		]
+	},
+	"pt": {
+		"home": {
+			"hero": {
+				"title": "Um imprevisto?<br />Transfere o teu dorsal!",
+				"description": "Se gostas de corrida, trail, triatlo ou ciclismo, encontra a tua prova favorita ou vende o teu dorsal com confiança.",
+				"organizerButton": "Organizador? Lista a tua prova",
+				"consultRacesButton": "Ver provas",
+				"workInProgress": "Em desenvolvimento"
+			},
+			"impact": {
+				"title": "O nosso impacto",
+				"activeEvents": "Eventos ativos",
+				"bibsExchanged": "Dorsais transferidos"
+			},
+			"callToAction": {
+				"title": "Pronto para começar?",
+				"description": "Sabe como funciona a Beswib ou começa já a explorar eventos.",
+				"learnMoreButton": "Saber mais (FAQ)"
+			}
+		},
+		"runs": [
+			{ "name": "Maratona de Nantes", "location": "Nantes" },
+			{ "name": "Ironman Nice", "location": "Nice" },
+			{ "name": "Meia Maratona de Thonon", "location": "Thonon-les-Bains" },
+			{ "name": "Maratona de Paris", "location": "Paris" },
+			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
+		]
+	},
+	"nl": {
+		"home": {
+			"hero": {
+				"title": "Onverwacht iets gebeurd?<br />Draag je startnummer over!",
+				"description": "Of je nu van hardlopen, trail, triatlon of fietsen houdt: vind je favoriete race of verkoop je startnummer met vertrouwen.",
+				"organizerButton": "Organisator? Plaats je race",
+				"consultRacesButton": "Races bekijken",
+				"workInProgress": "Werk in uitvoering"
+			},
+			"impact": {
+				"title": "Onze impact",
+				"activeEvents": "Actieve events",
+				"bibsExchanged": "Overgedragen startnummers"
+			},
+			"callToAction": {
+				"title": "Klaar om te starten?",
+				"description": "Lees hoe Beswib werkt of begin nu met het verkennen van events.",
+				"learnMoreButton": "Meer info (FAQ)"
+			}
+		},
+		"runs": [
+			{ "name": "Marathon van Nantes", "location": "Nantes" },
+			{ "name": "Ironman Nice", "location": "Nice" },
+			{ "name": "Halve marathon Thonon", "location": "Thonon-les-Bains" },
+			{ "name": "Marathon van Parijs", "location": "Parijs" },
+			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
+		]
+	},
 	"ko": {
 		"home": {
 			"hero": {

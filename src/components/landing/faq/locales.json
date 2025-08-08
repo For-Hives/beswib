@@ -157,5 +157,323 @@
 				"buttonUrl": "/contact"
 			}
 		}
+	},
+	"es": {
+		"faq": {
+			"badge": "FAQ",
+			"title": "Everything you need to know about Beswib",
+			"description": "The secure marketplace for race bib transfers. Our goal is to streamline bib reselling, making it legal, safe and faster than ever.",
+			"contactButton": "Any questions? Reach out",
+			"items": [
+				{
+					"id": "what-is-beswib",
+					"question": "What is Beswib?",
+					"answer": "Beswib is a secure marketplace that allows runners to legally sell and buy race bibs. We work directly with race organizers to guarantee official and secure transfers."
+				},
+				{
+					"id": "how-to-sell",
+					"question": "How do I sell my bib?",
+					"answer": "Create an account, add your bib with registration information, wait for organizer validation, then set your price. Once sold, the transfer is done automatically and you receive your payment."
+				},
+				{
+					"id": "is-it-legal",
+					"question": "Is it legal to resell a bib?",
+					"answer": "Yes, but only for Beswib partner races. We only list events that officially authorize bib transfers, ensuring the legality of each transaction."
+				},
+				{
+					"id": "how-to-buy",
+					"question": "How do I buy a bib?",
+					"answer": "Browse available bibs, select the one you want, make a secure payment and provide your information. The bib will be transferred to your name with the organizer."
+				},
+				{
+					"id": "payment-security",
+					"question": "Are payments secure?",
+					"answer": "Absolutely. We use encrypted payment systems and funds are secured until complete transfer validation. Sellers receive payment only after transfer confirmation."
+				},
+				{
+					"id": "organizer-benefits",
+					"question": "What are the benefits for organizers?",
+					"answer": "Fraud reduction, decreased customer service, complete participant traceability, no technical burden, and increased event visibility through our runner community."
+				},
+				{
+					"id": "fees",
+					"question": "Are there any fees?",
+					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+				},
+				{
+					"id": "cancellation",
+					"question": "What happens if the race is cancelled?",
+					"answer": "In case of cancellation, we follow the organizer's refund policy. We will keep you informed and facilitate the refund process according to the event conditions."
+				}
+			],
+			"support": {
+				"buttonUrl": "/contact"
+			}
+		}
+	},
+	"it": {
+		"faq": {
+			"badge": "FAQ",
+			"title": "Everything you need to know about Beswib",
+			"description": "The secure marketplace for race bib transfers. Our goal is to streamline bib reselling, making it legal, safe and faster than ever.",
+			"contactButton": "Any questions? Reach out",
+			"items": [
+				{
+					"id": "what-is-beswib",
+					"question": "What is Beswib?",
+					"answer": "Beswib is a secure marketplace that allows runners to legally sell and buy race bibs. We work directly with race organizers to guarantee official and secure transfers."
+				},
+				{
+					"id": "how-to-sell",
+					"question": "How do I sell my bib?",
+					"answer": "Create an account, add your bib with registration information, wait for organizer validation, then set your price. Once sold, the transfer is done automatically and you receive your payment."
+				},
+				{
+					"id": "is-it-legal",
+					"question": "Is it legal to resell a bib?",
+					"answer": "Yes, but only for Beswib partner races. We only list events that officially authorize bib transfers, ensuring the legality of each transaction."
+				},
+				{
+					"id": "how-to-buy",
+					"question": "How do I buy a bib?",
+					"answer": "Browse available bibs, select the one you want, make a secure payment and provide your information. The bib will be transferred to your name with the organizer."
+				},
+				{
+					"id": "payment-security",
+					"question": "Are payments secure?",
+					"answer": "Absolutely. We use encrypted payment systems and funds are secured until complete transfer validation. Sellers receive payment only after transfer confirmation."
+				},
+				{
+					"id": "organizer-benefits",
+					"question": "What are the benefits for organizers?",
+					"answer": "Fraud reduction, decreased customer service, complete participant traceability, no technical burden, and increased event visibility through our runner community."
+				},
+				{
+					"id": "fees",
+					"question": "Are there any fees?",
+					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+				},
+				{
+					"id": "cancellation",
+					"question": "What happens if the race is cancelled?",
+					"answer": "In case of cancellation, we follow the organizer's refund policy. We will keep you informed and facilitate the refund process according to the event conditions."
+				}
+			],
+			"support": {
+				"buttonUrl": "/contact"
+			}
+		}
+	},
+	"de": {
+		"faq": {
+			"badge": "FAQ",
+			"title": "Everything you need to know about Beswib",
+			"description": "The secure marketplace for race bib transfers. Our goal is to streamline bib reselling, making it legal, safe and faster than ever.",
+			"contactButton": "Any questions? Reach out",
+			"items": [
+				{
+					"id": "what-is-beswib",
+					"question": "What is Beswib?",
+					"answer": "Beswib is a secure marketplace that allows runners to legally sell and buy race bibs. We work directly with race organizers to guarantee official and secure transfers."
+				},
+				{
+					"id": "how-to-sell",
+					"question": "How do I sell my bib?",
+					"answer": "Create an account, add your bib with registration information, wait for organizer validation, then set your price. Once sold, the transfer is done automatically and you receive your payment."
+				},
+				{
+					"id": "is-it-legal",
+					"question": "Is it legal to resell a bib?",
+					"answer": "Yes, but only for Beswib partner races. We only list events that officially authorize bib transfers, ensuring the legality of each transaction."
+				},
+				{
+					"id": "how-to-buy",
+					"question": "How do I buy a bib?",
+					"answer": "Browse available bibs, select the one you want, make a secure payment and provide your information. The bib will be transferred to your name with the organizer."
+				},
+				{
+					"id": "payment-security",
+					"question": "Are payments secure?",
+					"answer": "Absolutely. We use encrypted payment systems and funds are secured until complete transfer validation. Sellers receive payment only after transfer confirmation."
+				},
+				{
+					"id": "organizer-benefits",
+					"question": "What are the benefits for organizers?",
+					"answer": "Fraud reduction, decreased customer service, complete participant traceability, no technical burden, and increased event visibility through our runner community."
+				},
+				{
+					"id": "fees",
+					"question": "Are there any fees?",
+					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+				},
+				{
+					"id": "cancellation",
+					"question": "What happens if the race is cancelled?",
+					"answer": "In case of cancellation, we follow the organizer's refund policy. We will keep you informed and facilitate the refund process according to the event conditions."
+				}
+			],
+			"support": {
+				"buttonUrl": "/contact"
+			}
+		}
+	},
+	"ro": {
+		"faq": {
+			"badge": "FAQ",
+			"title": "Everything you need to know about Beswib",
+			"description": "The secure marketplace for race bib transfers. Our goal is to streamline bib reselling, making it legal, safe and faster than ever.",
+			"contactButton": "Any questions? Reach out",
+			"items": [
+				{
+					"id": "what-is-beswib",
+					"question": "What is Beswib?",
+					"answer": "Beswib is a secure marketplace that allows runners to legally sell and buy race bibs. We work directly with race organizers to guarantee official and secure transfers."
+				},
+				{
+					"id": "how-to-sell",
+					"question": "How do I sell my bib?",
+					"answer": "Create an account, add your bib with registration information, wait for organizer validation, then set your price. Once sold, the transfer is done automatically and you receive your payment."
+				},
+				{
+					"id": "is-it-legal",
+					"question": "Is it legal to resell a bib?",
+					"answer": "Yes, but only for Beswib partner races. We only list events that officially authorize bib transfers, ensuring the legality of each transaction."
+				},
+				{
+					"id": "how-to-buy",
+					"question": "How do I buy a bib?",
+					"answer": "Browse available bibs, select the one you want, make a secure payment and provide your information. The bib will be transferred to your name with the organizer."
+				},
+				{
+					"id": "payment-security",
+					"question": "Are payments secure?",
+					"answer": "Absolutely. We use encrypted payment systems and funds are secured until complete transfer validation. Sellers receive payment only after transfer confirmation."
+				},
+				{
+					"id": "organizer-benefits",
+					"question": "What are the benefits for organizers?",
+					"answer": "Fraud reduction, decreased customer service, complete participant traceability, no technical burden, and increased event visibility through our runner community."
+				},
+				{
+					"id": "fees",
+					"question": "Are there any fees?",
+					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+				},
+				{
+					"id": "cancellation",
+					"question": "What happens if the race is cancelled?",
+					"answer": "In case of cancellation, we follow the organizer's refund policy. We will keep you informed and facilitate the refund process according to the event conditions."
+				}
+			],
+			"support": {
+				"buttonUrl": "/contact"
+			}
+		}
+	},
+	"pt": {
+		"faq": {
+			"badge": "FAQ",
+			"title": "Everything you need to know about Beswib",
+			"description": "The secure marketplace for race bib transfers. Our goal is to streamline bib reselling, making it legal, safe and faster than ever.",
+			"contactButton": "Any questions? Reach out",
+			"items": [
+				{
+					"id": "what-is-beswib",
+					"question": "What is Beswib?",
+					"answer": "Beswib is a secure marketplace that allows runners to legally sell and buy race bibs. We work directly with race organizers to guarantee official and secure transfers."
+				},
+				{
+					"id": "how-to-sell",
+					"question": "How do I sell my bib?",
+					"answer": "Create an account, add your bib with registration information, wait for organizer validation, then set your price. Once sold, the transfer is done automatically and you receive your payment."
+				},
+				{
+					"id": "is-it-legal",
+					"question": "Is it legal to resell a bib?",
+					"answer": "Yes, but only for Beswib partner races. We only list events that officially authorize bib transfers, ensuring the legality of each transaction."
+				},
+				{
+					"id": "how-to-buy",
+					"question": "How do I buy a bib?",
+					"answer": "Browse available bibs, select the one you want, make a secure payment and provide your information. The bib will be transferred to your name with the organizer."
+				},
+				{
+					"id": "payment-security",
+					"question": "Are payments secure?",
+					"answer": "Absolutely. We use encrypted payment systems and funds are secured until complete transfer validation. Sellers receive payment only after transfer confirmation."
+				},
+				{
+					"id": "organizer-benefits",
+					"question": "What are the benefits for organizers?",
+					"answer": "Fraud reduction, decreased customer service, complete participant traceability, no technical burden, and increased event visibility through our runner community."
+				},
+				{
+					"id": "fees",
+					"question": "Are there any fees?",
+					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+				},
+				{
+					"id": "cancellation",
+					"question": "What happens if the race is cancelled?",
+					"answer": "In case of cancellation, we follow the organizer's refund policy. We will keep you informed and facilitate the refund process according to the event conditions."
+				}
+			],
+			"support": {
+				"buttonUrl": "/contact"
+			}
+		}
+	},
+	"nl": {
+		"faq": {
+			"badge": "FAQ",
+			"title": "Everything you need to know about Beswib",
+			"description": "The secure marketplace for race bib transfers. Our goal is to streamline bib reselling, making it legal, safe and faster than ever.",
+			"contactButton": "Any questions? Reach out",
+			"items": [
+				{
+					"id": "what-is-beswib",
+					"question": "What is Beswib?",
+					"answer": "Beswib is a secure marketplace that allows runners to legally sell and buy race bibs. We work directly with race organizers to guarantee official and secure transfers."
+				},
+				{
+					"id": "how-to-sell",
+					"question": "How do I sell my bib?",
+					"answer": "Create an account, add your bib with registration information, wait for organizer validation, then set your price. Once sold, the transfer is done automatically and you receive your payment."
+				},
+				{
+					"id": "is-it-legal",
+					"question": "Is it legal to resell a bib?",
+					"answer": "Yes, but only for Beswib partner races. We only list events that officially authorize bib transfers, ensuring the legality of each transaction."
+				},
+				{
+					"id": "how-to-buy",
+					"question": "How do I buy a bib?",
+					"answer": "Browse available bibs, select the one you want, make a secure payment and provide your information. The bib will be transferred to your name with the organizer."
+				},
+				{
+					"id": "payment-security",
+					"question": "Are payments secure?",
+					"answer": "Absolutely. We use encrypted payment systems and funds are secured until complete transfer validation. Sellers receive payment only after transfer confirmation."
+				},
+				{
+					"id": "organizer-benefits",
+					"question": "What are the benefits for organizers?",
+					"answer": "Fraud reduction, decreased customer service, complete participant traceability, no technical burden, and increased event visibility through our runner community."
+				},
+				{
+					"id": "fees",
+					"question": "Are there any fees?",
+					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+				},
+				{
+					"id": "cancellation",
+					"question": "What happens if the race is cancelled?",
+					"answer": "In case of cancellation, we follow the organizer's refund policy. We will keep you informed and facilitate the refund process according to the event conditions."
+				}
+			],
+			"support": {
+				"buttonUrl": "/contact"
+			}
+		}
 	}
 }

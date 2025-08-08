@@ -136,5 +136,281 @@
 				}
 			}
 		}
+	},
+	"es": {
+		"organizers": {
+			"create": {
+				"title": "Add New Organizer",
+				"subtitle": "Register event organizers to enable bib resale functionality for their races",
+				"sections": {
+					"basicInformation": {
+						"title": "Organizer Information",
+						"description": "Enter the basic information about the event organizer to identify which races will be available for bib resale on the platform."
+					}
+				},
+				"form": {
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"emailLabel": "Contact Email",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com",
+					"logoUpload": {
+						"label": "Organizer Logo",
+						"description": "Upload the organizer's logo. Supported formats: PNG, JPG, SVG (max 5MB)",
+						"uploadText": "Upload file",
+						"uploadSubtext": "Drag or drop your files here or click to upload",
+						"dropText": "Drop it",
+						"fileSizeUnit": "MB",
+						"fileModified": "modified"
+					},
+					"partnerLabel": "Partner Organizer",
+					"partnerDescription": "Partner organizers can enable bib resale for their events on the platform.",
+					"submitButton": "Create Organizer",
+					"cancelButton": "Cancel"
+				},
+				"success": {
+					"title": "Organizer Created Successfully",
+					"message": "The organizer '{organizerName}' has been successfully created.",
+					"backButton": "Back to Organizers"
+				},
+				"errors": {
+					"nameRequired": "Organizer name is required",
+					"emailInvalid": "Please enter a valid email address",
+					"websiteInvalid": "Please enter a valid website URL",
+					"createFailed": "Failed to create organizer. Please try again."
+				}
+			}
+		}
+	},
+	"it": {
+		"organizers": {
+			"create": {
+				"title": "Add New Organizer",
+				"subtitle": "Register event organizers to enable bib resale functionality for their races",
+				"sections": {
+					"basicInformation": {
+						"title": "Organizer Information",
+						"description": "Enter the basic information about the event organizer to identify which races will be available for bib resale on the platform."
+					}
+				},
+				"form": {
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"emailLabel": "Contact Email",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com",
+					"logoUpload": {
+						"label": "Organizer Logo",
+						"description": "Upload the organizer's logo. Supported formats: PNG, JPG, SVG (max 5MB)",
+						"uploadText": "Upload file",
+						"uploadSubtext": "Drag or drop your files here or click to upload",
+						"dropText": "Drop it",
+						"fileSizeUnit": "MB",
+						"fileModified": "modified"
+					},
+					"partnerLabel": "Partner Organizer",
+					"partnerDescription": "Partner organizers can enable bib resale for their events on the platform.",
+					"submitButton": "Create Organizer",
+					"cancelButton": "Cancel"
+				},
+				"success": {
+					"title": "Organizer Created Successfully",
+					"message": "The organizer '{organizerName}' has been successfully created.",
+					"backButton": "Back to Organizers"
+				},
+				"errors": {
+					"nameRequired": "Organizer name is required",
+					"emailInvalid": "Please enter a valid email address",
+					"websiteInvalid": "Please enter a valid website URL",
+					"createFailed": "Failed to create organizer. Please try again."
+				}
+			}
+		}
+	},
+	"de": {
+		"organizers": {
+			"create": {
+				"title": "Add New Organizer",
+				"subtitle": "Register event organizers to enable bib resale functionality for their races",
+				"sections": {
+					"basicInformation": {
+						"title": "Organizer Information",
+						"description": "Enter the basic information about the event organizer to identify which races will be available for bib resale on the platform."
+					}
+				},
+				"form": {
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"emailLabel": "Contact Email",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com",
+					"logoUpload": {
+						"label": "Organizer Logo",
+						"description": "Upload the organizer's logo. Supported formats: PNG, JPG, SVG (max 5MB)",
+						"uploadText": "Upload file",
+						"uploadSubtext": "Drag or drop your files here or click to upload",
+						"dropText": "Drop it",
+						"fileSizeUnit": "MB",
+						"fileModified": "modified"
+					},
+					"partnerLabel": "Partner Organizer",
+					"partnerDescription": "Partner organizers can enable bib resale for their events on the platform.",
+					"submitButton": "Create Organizer",
+					"cancelButton": "Cancel"
+				},
+				"success": {
+					"title": "Organizer Created Successfully",
+					"message": "The organizer '{organizerName}' has been successfully created.",
+					"backButton": "Back to Organizers"
+				},
+				"errors": {
+					"nameRequired": "Organizer name is required",
+					"emailInvalid": "Please enter a valid email address",
+					"websiteInvalid": "Please enter a valid website URL",
+					"createFailed": "Failed to create organizer. Please try again."
+				}
+			}
+		}
+	},
+	"ro": {
+		"organizers": {
+			"create": {
+				"title": "Add New Organizer",
+				"subtitle": "Register event organizers to enable bib resale functionality for their races",
+				"sections": {
+					"basicInformation": {
+						"title": "Organizer Information",
+						"description": "Enter the basic information about the event organizer to identify which races will be available for bib resale on the platform."
+					}
+				},
+				"form": {
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"emailLabel": "Contact Email",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com",
+					"logoUpload": {
+						"label": "Organizer Logo",
+						"description": "Upload the organizer's logo. Supported formats: PNG, JPG, SVG (max 5MB)",
+						"uploadText": "Upload file",
+						"uploadSubtext": "Drag or drop your files here or click to upload",
+						"dropText": "Drop it",
+						"fileSizeUnit": "MB",
+						"fileModified": "modified"
+					},
+					"partnerLabel": "Partner Organizer",
+					"partnerDescription": "Partner organizers can enable bib resale for their events on the platform.",
+					"submitButton": "Create Organizer",
+					"cancelButton": "Cancel"
+				},
+				"success": {
+					"title": "Organizer Created Successfully",
+					"message": "The organizer '{organizerName}' has been successfully created.",
+					"backButton": "Back to Organizers"
+				},
+				"errors": {
+					"nameRequired": "Organizer name is required",
+					"emailInvalid": "Please enter a valid email address",
+					"websiteInvalid": "Please enter a valid website URL",
+					"createFailed": "Failed to create organizer. Please try again."
+				}
+			}
+		}
+	},
+	"pt": {
+		"organizers": {
+			"create": {
+				"title": "Add New Organizer",
+				"subtitle": "Register event organizers to enable bib resale functionality for their races",
+				"sections": {
+					"basicInformation": {
+						"title": "Organizer Information",
+						"description": "Enter the basic information about the event organizer to identify which races will be available for bib resale on the platform."
+					}
+				},
+				"form": {
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"emailLabel": "Contact Email",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com",
+					"logoUpload": {
+						"label": "Organizer Logo",
+						"description": "Upload the organizer's logo. Supported formats: PNG, JPG, SVG (max 5MB)",
+						"uploadText": "Upload file",
+						"uploadSubtext": "Drag or drop your files here or click to upload",
+						"dropText": "Drop it",
+						"fileSizeUnit": "MB",
+						"fileModified": "modified"
+					},
+					"partnerLabel": "Partner Organizer",
+					"partnerDescription": "Partner organizers can enable bib resale for their events on the platform.",
+					"submitButton": "Create Organizer",
+					"cancelButton": "Cancel"
+				},
+				"success": {
+					"title": "Organizer Created Successfully",
+					"message": "The organizer '{organizerName}' has been successfully created.",
+					"backButton": "Back to Organizers"
+				},
+				"errors": {
+					"nameRequired": "Organizer name is required",
+					"emailInvalid": "Please enter a valid email address",
+					"websiteInvalid": "Please enter a valid website URL",
+					"createFailed": "Failed to create organizer. Please try again."
+				}
+			}
+		}
+	},
+	"nl": {
+		"organizers": {
+			"create": {
+				"title": "Add New Organizer",
+				"subtitle": "Register event organizers to enable bib resale functionality for their races",
+				"sections": {
+					"basicInformation": {
+						"title": "Organizer Information",
+						"description": "Enter the basic information about the event organizer to identify which races will be available for bib resale on the platform."
+					}
+				},
+				"form": {
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"emailLabel": "Contact Email",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com",
+					"logoUpload": {
+						"label": "Organizer Logo",
+						"description": "Upload the organizer's logo. Supported formats: PNG, JPG, SVG (max 5MB)",
+						"uploadText": "Upload file",
+						"uploadSubtext": "Drag or drop your files here or click to upload",
+						"dropText": "Drop it",
+						"fileSizeUnit": "MB",
+						"fileModified": "modified"
+					},
+					"partnerLabel": "Partner Organizer",
+					"partnerDescription": "Partner organizers can enable bib resale for their events on the platform.",
+					"submitButton": "Create Organizer",
+					"cancelButton": "Cancel"
+				},
+				"success": {
+					"title": "Organizer Created Successfully",
+					"message": "The organizer '{organizerName}' has been successfully created.",
+					"backButton": "Back to Organizers"
+				},
+				"errors": {
+					"nameRequired": "Organizer name is required",
+					"emailInvalid": "Please enter a valid email address",
+					"websiteInvalid": "Please enter a valid website URL",
+					"createFailed": "Failed to create organizer. Please try again."
+				}
+			}
+		}
 	}
 }

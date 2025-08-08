@@ -1,0 +1,191 @@
+{
+	"en": {
+		"validation": {
+			"firstNameMinLength": "First name must be at least 2 characters",
+			"lastNameMinLength": "Last name must be at least 2 characters",
+			"birthDateRequired": "Birth date is required",
+			"invalidEmail": "Invalid email address",
+			"contactNameMinLength": "Contact name must be at least 2 characters",
+			"invalidPhoneNumber": "Invalid phone number",
+			"relationshipRequired": "Please specify the relationship",
+			"addressTooShort": "Address too short",
+			"invalidPostalCode": "Invalid postal code",
+			"cityNameTooShort": "City name too short",
+			"countryNameTooShort": "Country name too short",
+			"invalidGender": "Invalid gender"
+		},
+		"genderOptions": {
+			"male": "Male",
+			"female": "Female",
+			"other": "Other"
+		}
+	},
+	"fr": {
+		"validation": {
+			"firstNameMinLength": "Le prénom doit contenir au moins 2 caractères",
+			"lastNameMinLength": "Le nom doit contenir au moins 2 caractères",
+			"birthDateRequired": "La date de naissance est obligatoire",
+			"invalidEmail": "Adresse email invalide",
+			"contactNameMinLength": "Le nom du contact doit contenir au moins 2 caractères",
+			"invalidPhoneNumber": "Numéro de téléphone invalide",
+			"relationshipRequired": "Veuillez préciser la relation",
+			"addressTooShort": "Adresse trop courte",
+			"invalidPostalCode": "Code postal invalide",
+			"cityNameTooShort": "Nom de ville trop court",
+			"countryNameTooShort": "Nom de pays trop court",
+			"invalidGender": "Genre invalide"
+		},
+		"genderOptions": {
+			"male": "Homme",
+			"female": "Femme",
+			"other": "Autre"
+		}
+	},
+	"ko": {
+		"validation": {
+			"firstNameMinLength": "이름은 최소 2자 이상이어야 합니다",
+			"lastNameMinLength": "성은 최소 2자 이상이어야 합니다",
+			"birthDateRequired": "생년월일은 필수입니다",
+			"invalidEmail": "잘못된 이메일 주소",
+			"contactNameMinLength": "연락처 이름은 최소 2자 이상이어야 합니다",
+			"invalidPhoneNumber": "잘못된 전화번호",
+			"relationshipRequired": "관계를 명시해주세요",
+			"addressTooShort": "주소가 너무 짧습니다",
+			"invalidPostalCode": "잘못된 우편번호",
+			"cityNameTooShort": "도시 이름이 너무 짧습니다",
+			"countryNameTooShort": "국가 이름이 너무 짧습니다",
+			"invalidGender": "잘못된 성별"
+		},
+		"genderOptions": {
+			"male": "남성",
+			"female": "여성",
+			"other": "기타"
+		}
+	},
+	"es": {
+		"validation": {
+			"firstNameMinLength": "El nombre debe tener al menos 2 caracteres",
+			"lastNameMinLength": "El apellido debe tener al menos 2 caracteres",
+			"birthDateRequired": "La fecha de nacimiento es obligatoria",
+			"invalidEmail": "Dirección de correo electrónico no válida",
+			"contactNameMinLength": "El nombre del contacto debe tener al menos 2 caracteres",
+			"invalidPhoneNumber": "Número de teléfono no válido",
+			"relationshipRequired": "Por favor especifica la relación",
+			"addressTooShort": "Dirección demasiado corta",
+			"invalidPostalCode": "Código postal no válido",
+			"cityNameTooShort": "Nombre de ciudad demasiado corto",
+			"countryNameTooShort": "Nombre de país demasiado corto",
+			"invalidGender": "Género no válido"
+		},
+		"genderOptions": {
+			"male": "Masculino",
+			"female": "Femenino",
+			"other": "Otro"
+		}
+	},
+	"it": {
+		"validation": {
+			"firstNameMinLength": "Il nome deve avere almeno 2 caratteri",
+			"lastNameMinLength": "Il cognome deve avere almeno 2 caratteri",
+			"birthDateRequired": "La data di nascita è obbligatoria",
+			"invalidEmail": "Indirizzo email non valido",
+			"contactNameMinLength": "Il nome del contatto deve avere almeno 2 caratteri",
+			"invalidPhoneNumber": "Numero di telefono non valido",
+			"relationshipRequired": "Specifica la relazione",
+			"addressTooShort": "Indirizzo troppo corto",
+			"invalidPostalCode": "Codice postale non valido",
+			"cityNameTooShort": "Nome della città troppo corto",
+			"countryNameTooShort": "Nome del paese troppo corto",
+			"invalidGender": "Genere non valido"
+		},
+		"genderOptions": {
+			"male": "Maschio",
+			"female": "Femmina",
+			"other": "Altro"
+		}
+	},
+	"de": {
+		"validation": {
+			"firstNameMinLength": "Der Vorname muss mindestens 2 Zeichen lang sein",
+			"lastNameMinLength": "Der Nachname muss mindestens 2 Zeichen lang sein",
+			"birthDateRequired": "Das Geburtsdatum ist erforderlich",
+			"invalidEmail": "Ungültige E-Mail-Adresse",
+			"contactNameMinLength": "Der Kontaktname muss mindestens 2 Zeichen lang sein",
+			"invalidPhoneNumber": "Ungültige Telefonnummer",
+			"relationshipRequired": "Bitte geben Sie die Beziehung an",
+			"addressTooShort": "Adresse zu kurz",
+			"invalidPostalCode": "Ungültige Postleitzahl",
+			"cityNameTooShort": "Stadtname zu kurz",
+			"countryNameTooShort": "Ländername zu kurz",
+			"invalidGender": "Ungültiges Geschlecht"
+		},
+		"genderOptions": {
+			"male": "Männlich",
+			"female": "Weiblich",
+			"other": "Andere"
+		}
+	},
+	"ro": {
+		"validation": {
+			"firstNameMinLength": "Prenumele trebuie să aibă cel puțin 2 caractere",
+			"lastNameMinLength": "Numele trebuie să aibă cel puțin 2 caractere",
+			"birthDateRequired": "Data nașterii este obligatorie",
+			"invalidEmail": "Adresă de email nevalidă",
+			"contactNameMinLength": "Numele contactului trebuie să aibă cel puțin 2 caractere",
+			"invalidPhoneNumber": "Număr de telefon nevalid",
+			"relationshipRequired": "Te rog să specifici relația",
+			"addressTooShort": "Adresa prea scurtă",
+			"invalidPostalCode": "Cod poștal nevalid",
+			"cityNameTooShort": "Numele orașului prea scurt",
+			"countryNameTooShort": "Numele țării prea scurt",
+			"invalidGender": "Gen nevalid"
+		},
+		"genderOptions": {
+			"male": "Bărbat",
+			"female": "Femeie",
+			"other": "Altul"
+		}
+	},
+	"pt": {
+		"validation": {
+			"firstNameMinLength": "O primeiro nome deve ter pelo menos 2 caracteres",
+			"lastNameMinLength": "O último nome deve ter pelo menos 2 caracteres",
+			"birthDateRequired": "A data de nascimento é obrigatória",
+			"invalidEmail": "Endereço de email inválido",
+			"contactNameMinLength": "O nome do contacto deve ter pelo menos 2 caracteres",
+			"invalidPhoneNumber": "Número de telefone inválido",
+			"relationshipRequired": "Por favor especifica a relação",
+			"addressTooShort": "Endereço muito curto",
+			"invalidPostalCode": "Código postal inválido",
+			"cityNameTooShort": "Nome da cidade muito curto",
+			"countryNameTooShort": "Nome do país muito curto",
+			"invalidGender": "Género inválido"
+		},
+		"genderOptions": {
+			"male": "Masculino",
+			"female": "Feminino",
+			"other": "Outro"
+		}
+	},
+	"nl": {
+		"validation": {
+			"firstNameMinLength": "De voornaam moet minimaal 2 tekens bevatten",
+			"lastNameMinLength": "De achternaam moet minimaal 2 tekens bevatten",
+			"birthDateRequired": "Geboortedatum is vereist",
+			"invalidEmail": "Ongeldig e-mailadres",
+			"contactNameMinLength": "De contactnaam moet minimaal 2 tekens bevatten",
+			"invalidPhoneNumber": "Ongeldig telefoonnummer",
+			"relationshipRequired": "Specificeer de relatie",
+			"addressTooShort": "Adres te kort",
+			"invalidPostalCode": "Ongeldige postcode",
+			"cityNameTooShort": "Stadsnaam te kort",
+			"countryNameTooShort": "Landnaam te kort",
+			"invalidGender": "Ongeldig geslacht"
+		},
+		"genderOptions": {
+			"male": "Man",
+			"female": "Vrouw",
+			"other": "Anders"
+		}
+	}
+}

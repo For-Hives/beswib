@@ -112,5 +112,233 @@
 				"description": "프리미엄 보장 및 빠른 해결을 갖춘 한국어 전용 지원."
 			}
 		}
+	},
+	"es": {
+		"features": {
+			"title": "Why choose Beswib?",
+			"subtitle": "Concrete benefits for every actor in the running ecosystem",
+			"security": {
+				"title": "Security & Compliance",
+				"description": "Complete regulatory coverage, fraud reduction and total transfer traceability."
+			},
+			"trust": {
+				"title": "Total Trust",
+				"description": "Verified profiles, guaranteed fraud protection and secure automated process."
+			},
+			"search": {
+				"title": "Smart Search",
+				"description": "Advanced filters by distance, date and location with personalized suggestions and alerts."
+			},
+			"profitability": {
+				"title": "Maximum Profitability",
+				"description": "Last-minute resale at free price with immediate fund reception."
+			},
+			"analytics": {
+				"title": "Analytics & Insights",
+				"description": "Track market trends in real time with average prices and forecasts."
+			},
+			"community": {
+				"title": "Global Community",
+				"description": "Connect with over 12,000 active runners worldwide."
+			},
+			"notifications": {
+				"title": "Smart Notifications",
+				"description": "Smart alerts for new bibs, price drops and important reminders."
+			},
+			"support": {
+				"title": "Premium Support 24/7",
+				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
+			}
+		}
+	},
+	"it": {
+		"features": {
+			"title": "Why choose Beswib?",
+			"subtitle": "Concrete benefits for every actor in the running ecosystem",
+			"security": {
+				"title": "Security & Compliance",
+				"description": "Complete regulatory coverage, fraud reduction and total transfer traceability."
+			},
+			"trust": {
+				"title": "Total Trust",
+				"description": "Verified profiles, guaranteed fraud protection and secure automated process."
+			},
+			"search": {
+				"title": "Smart Search",
+				"description": "Advanced filters by distance, date and location with personalized suggestions and alerts."
+			},
+			"profitability": {
+				"title": "Maximum Profitability",
+				"description": "Last-minute resale at free price with immediate fund reception."
+			},
+			"analytics": {
+				"title": "Analytics & Insights",
+				"description": "Track market trends in real time with average prices and forecasts."
+			},
+			"community": {
+				"title": "Global Community",
+				"description": "Connect with over 12,000 active runners worldwide."
+			},
+			"notifications": {
+				"title": "Smart Notifications",
+				"description": "Smart alerts for new bibs, price drops and important reminders."
+			},
+			"support": {
+				"title": "Premium Support 24/7",
+				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
+			}
+		}
+	},
+	"de": {
+		"features": {
+			"title": "Why choose Beswib?",
+			"subtitle": "Concrete benefits for every actor in the running ecosystem",
+			"security": {
+				"title": "Security & Compliance",
+				"description": "Complete regulatory coverage, fraud reduction and total transfer traceability."
+			},
+			"trust": {
+				"title": "Total Trust",
+				"description": "Verified profiles, guaranteed fraud protection and secure automated process."
+			},
+			"search": {
+				"title": "Smart Search",
+				"description": "Advanced filters by distance, date and location with personalized suggestions and alerts."
+			},
+			"profitability": {
+				"title": "Maximum Profitability",
+				"description": "Last-minute resale at free price with immediate fund reception."
+			},
+			"analytics": {
+				"title": "Analytics & Insights",
+				"description": "Track market trends in real time with average prices and forecasts."
+			},
+			"community": {
+				"title": "Global Community",
+				"description": "Connect with over 12,000 active runners worldwide."
+			},
+			"notifications": {
+				"title": "Smart Notifications",
+				"description": "Smart alerts for new bibs, price drops and important reminders."
+			},
+			"support": {
+				"title": "Premium Support 24/7",
+				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
+			}
+		}
+	},
+	"ro": {
+		"features": {
+			"title": "Why choose Beswib?",
+			"subtitle": "Concrete benefits for every actor in the running ecosystem",
+			"security": {
+				"title": "Security & Compliance",
+				"description": "Complete regulatory coverage, fraud reduction and total transfer traceability."
+			},
+			"trust": {
+				"title": "Total Trust",
+				"description": "Verified profiles, guaranteed fraud protection and secure automated process."
+			},
+			"search": {
+				"title": "Smart Search",
+				"description": "Advanced filters by distance, date and location with personalized suggestions and alerts."
+			},
+			"profitability": {
+				"title": "Maximum Profitability",
+				"description": "Last-minute resale at free price with immediate fund reception."
+			},
+			"analytics": {
+				"title": "Analytics & Insights",
+				"description": "Track market trends in real time with average prices and forecasts."
+			},
+			"community": {
+				"title": "Global Community",
+				"description": "Connect with over 12,000 active runners worldwide."
+			},
+			"notifications": {
+				"title": "Smart Notifications",
+				"description": "Smart alerts for new bibs, price drops and important reminders."
+			},
+			"support": {
+				"title": "Premium Support 24/7",
+				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
+			}
+		}
+	},
+	"pt": {
+		"features": {
+			"title": "Why choose Beswib?",
+			"subtitle": "Concrete benefits for every actor in the running ecosystem",
+			"security": {
+				"title": "Security & Compliance",
+				"description": "Complete regulatory coverage, fraud reduction and total transfer traceability."
+			},
+			"trust": {
+				"title": "Total Trust",
+				"description": "Verified profiles, guaranteed fraud protection and secure automated process."
+			},
+			"search": {
+				"title": "Smart Search",
+				"description": "Advanced filters by distance, date and location with personalized suggestions and alerts."
+			},
+			"profitability": {
+				"title": "Maximum Profitability",
+				"description": "Last-minute resale at free price with immediate fund reception."
+			},
+			"analytics": {
+				"title": "Analytics & Insights",
+				"description": "Track market trends in real time with average prices and forecasts."
+			},
+			"community": {
+				"title": "Global Community",
+				"description": "Connect with over 12,000 active runners worldwide."
+			},
+			"notifications": {
+				"title": "Smart Notifications",
+				"description": "Smart alerts for new bibs, price drops and important reminders."
+			},
+			"support": {
+				"title": "Premium Support 24/7",
+				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
+			}
+		}
+	},
+	"nl": {
+		"features": {
+			"title": "Why choose Beswib?",
+			"subtitle": "Concrete benefits for every actor in the running ecosystem",
+			"security": {
+				"title": "Security & Compliance",
+				"description": "Complete regulatory coverage, fraud reduction and total transfer traceability."
+			},
+			"trust": {
+				"title": "Total Trust",
+				"description": "Verified profiles, guaranteed fraud protection and secure automated process."
+			},
+			"search": {
+				"title": "Smart Search",
+				"description": "Advanced filters by distance, date and location with personalized suggestions and alerts."
+			},
+			"profitability": {
+				"title": "Maximum Profitability",
+				"description": "Last-minute resale at free price with immediate fund reception."
+			},
+			"analytics": {
+				"title": "Analytics & Insights",
+				"description": "Track market trends in real time with average prices and forecasts."
+			},
+			"community": {
+				"title": "Global Community",
+				"description": "Connect with over 12,000 active runners worldwide."
+			},
+			"notifications": {
+				"title": "Smart Notifications",
+				"description": "Smart alerts for new bibs, price drops and important reminders."
+			},
+			"support": {
+				"title": "Premium Support 24/7",
+				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
+			}
+		}
 	}
 }

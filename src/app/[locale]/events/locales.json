@@ -13,13 +13,21 @@
 				"category": "Category",
 				"price": "Price",
 				"participants": "Participants",
-				"distance": "Distance"
+				"distance": "Distance",
+				"allCities": "All cities"
 			},
 			"raceTypes": {
 				"triathlon": "Triathlon",
 				"trail": "Trail",
 				"road": "Road",
-				"cycle": "Cycle"
+				"cycle": "Cycle",
+				"all": "All"
+			},
+			"groupLabels": {
+				"unknownDate": "Unknown date",
+				"unknownPrice": "Unknown price",
+				"unknownParticipants": "Unknown participants",
+				"unknownDistance": "Unknown distance"
 			},
 			"countLabel": "{count} event{count, plural, one {} other {s}} found",
 			"calendarView": "Calendar view",
@@ -33,7 +41,11 @@
 			"eventCard": {
 				"viewDetails": "View Details",
 				"bibsAvailable": "bibs available",
-				"soldOut": "Sold Out"
+				"soldOut": "Sold Out",
+				"checkBibs": "Check bibs...",
+				"viewBibs": "View bibs ({count})",
+				"joinWaitlist": "Join waitlist",
+				"fromPrice": "From {price}€"
 			},
 			"noEventsToDisplay": "No events to display.",
 			"eventListTitleClient": "Event List (Client Component):"
@@ -53,13 +65,21 @@
 				"category": "Catégorie",
 				"price": "Prix",
 				"participants": "Participants",
-				"distance": "Distance"
+				"distance": "Distance",
+				"allCities": "Toutes les villes"
 			},
 			"raceTypes": {
 				"triathlon": "Triathlon",
 				"trail": "Trail",
 				"road": "Route",
-				"cycle": "Cycle"
+				"cycle": "Cycle",
+				"all": "Tous"
+			},
+			"groupLabels": {
+				"unknownDate": "Date inconnue",
+				"unknownPrice": "Prix inconnu",
+				"unknownParticipants": "Participants inconnus",
+				"unknownDistance": "Distance inconnue"
 			},
 			"countLabel": "{count} événement{count, plural, one {} other {s}} trouvé{count, plural, one {} other {s}}",
 			"calendarView": "Vue calendrier",
@@ -73,7 +93,11 @@
 			"eventCard": {
 				"viewDetails": "Voir les détails",
 				"bibsAvailable": "dossards disponibles",
-				"soldOut": "Épuisé"
+				"soldOut": "Épuisé",
+				"checkBibs": "Vérifier les dossards...",
+				"viewBibs": "Voir les dossards ({count})",
+				"joinWaitlist": "Rejoindre la waitlist",
+				"fromPrice": "À partir de {price}€"
 			},
 			"noEventsToDisplay": "Aucun événement à afficher.",
 			"eventListTitleClient": "Liste des événements (Composant client) :"
@@ -93,13 +117,21 @@
 				"category": "카테고리",
 				"price": "가격",
 				"participants": "참가자",
-				"distance": "거리"
+				"distance": "거리",
+				"allCities": "모든 도시"
 			},
 			"raceTypes": {
 				"triathlon": "트라이애슬론",
 				"trail": "트레일",
 				"road": "로드",
-				"cycle": "사이클"
+				"cycle": "사이클",
+				"all": "전체"
+			},
+			"groupLabels": {
+				"unknownDate": "날짜 미상",
+				"unknownPrice": "가격 미상",
+				"unknownParticipants": "참가자 미상",
+				"unknownDistance": "거리 미상"
 			},
 			"countLabel": "{count}개 이벤트가 검색됨",
 			"calendarView": "캘린더 보기",
@@ -113,10 +145,326 @@
 			"eventCard": {
 				"viewDetails": "세부 정보 보기",
 				"bibsAvailable": "개 비브 사용 가능",
-				"soldOut": "매진"
+				"soldOut": "매진",
+				"checkBibs": "빕 확인...",
+				"viewBibs": "빕 보기 ({count})",
+				"joinWaitlist": "대기 목록 참여",
+				"fromPrice": "{price}원부터"
 			},
 			"noEventsToDisplay": "표시할 이벤트가 없습니다.",
 			"eventListTitleClient": "이벤트 목록 (클라이언트 컴포넌트):"
+		}
+	},
+	"es": {
+		"events": {
+			"title": "Explorar eventos",
+			"description": "Encuentra y compra dorsales para próximos eventos",
+			"searchPlaceholder": "Buscar eventos...",
+			"noEvents": "No hay eventos disponibles",
+			"loading": "Cargando eventos...",
+			"filters": {
+				"all": "Todos los eventos",
+				"location": "Ubicación",
+				"date": "Fecha",
+				"category": "Categoría",
+				"price": "Precio",
+				"participants": "Participantes",
+				"distance": "Distancia",
+				"allCities": "Todas las ciudades"
+			},
+			"raceTypes": {
+				"triathlon": "Triatlón",
+				"trail": "Trail",
+				"road": "Carretera",
+				"cycle": "Ciclismo",
+				"all": "Todos"
+			},
+			"groupLabels": {
+				"unknownDate": "Fecha desconocida",
+				"unknownPrice": "Precio desconocido",
+				"unknownParticipants": "Participantes desconocidos",
+				"unknownDistance": "Distancia desconocida"
+			},
+			"countLabel": "{count} evento{count, plural, one {} other {s}} encontrado{count, plural, one {} other {s}}",
+			"calendarView": "Vista de calendario",
+			"listView": "Vista de lista",
+			"featuredTitle": "Próximos eventos",
+			"featuredSubtitle": "Próximos 30 días",
+			"allEventsTitle": "Todos los eventos",
+			"noResultsTitle": "No se encontraron eventos",
+			"noResultsSubtitle": "Intenta cambiar tus criterios de búsqueda",
+			"calendarTitle": "Calendario de eventos",
+			"eventCard": {
+				"viewDetails": "Ver detalles",
+				"bibsAvailable": "dorsales disponibles",
+				"soldOut": "Agotado",
+				"checkBibs": "Comprobar dorsales...",
+				"viewBibs": "Ver dorsales ({count})",
+				"joinWaitlist": "Unirse a la lista de espera",
+				"fromPrice": "Desde {price}€"
+			},
+			"noEventsToDisplay": "No hay eventos para mostrar.",
+			"eventListTitleClient": "Lista de eventos (Componente cliente):"
+		}
+	},
+	"it": {
+		"events": {
+			"title": "Esplora eventi",
+			"description": "Trova e acquista pettorali per eventi futuri",
+			"searchPlaceholder": "Cerca eventi...",
+			"noEvents": "Nessun evento disponibile",
+			"loading": "Caricamento eventi...",
+			"filters": {
+				"all": "Tutti gli eventi",
+				"location": "Posizione",
+				"date": "Data",
+				"category": "Categoria",
+				"price": "Prezzo",
+				"participants": "Partecipanti",
+				"distance": "Distanza",
+				"allCities": "Tutte le città"
+			},
+			"raceTypes": {
+				"triathlon": "Triathlon",
+				"trail": "Trail",
+				"road": "Strada",
+				"cycle": "Ciclismo",
+				"all": "Tutti"
+			},
+			"groupLabels": {
+				"unknownDate": "Data sconosciuta",
+				"unknownPrice": "Prezzo sconosciuto",
+				"unknownParticipants": "Partecipanti sconosciuti",
+				"unknownDistance": "Distanza sconosciuta"
+			},
+			"countLabel": "{count} evento{count, plural, one {} other {i}} trovato{count, plural, one {} other {i}}",
+			"calendarView": "Vista calendario",
+			"listView": "Vista elenco",
+			"featuredTitle": "Eventi in arrivo",
+			"featuredSubtitle": "Prossimi 30 giorni",
+			"allEventsTitle": "Tutti gli eventi",
+			"noResultsTitle": "Nessun evento trovato",
+			"noResultsSubtitle": "Prova a modificare i criteri di ricerca",
+			"calendarTitle": "Calendario eventi",
+			"eventCard": {
+				"viewDetails": "Vedi dettagli",
+				"bibsAvailable": "pettorali disponibili",
+				"soldOut": "Esaurito",
+				"checkBibs": "Controlla pettorali...",
+				"viewBibs": "Vedi pettorali ({count})",
+				"joinWaitlist": "Unisciti alla lista d'attesa",
+				"fromPrice": "Da {price}€"
+			},
+			"noEventsToDisplay": "Nessun evento da mostrare.",
+			"eventListTitleClient": "Elenco eventi (Componente client):"
+		}
+	},
+	"de": {
+		"events": {
+			"title": "Events erkunden",
+			"description": "Finde und kaufe Startnummern für kommende Events",
+			"searchPlaceholder": "Events suchen...",
+			"noEvents": "Keine Events verfügbar",
+			"loading": "Lade Events...",
+			"filters": {
+				"all": "Alle Events",
+				"location": "Ort",
+				"date": "Datum",
+				"category": "Kategorie",
+				"price": "Preis",
+				"participants": "Teilnehmer",
+				"distance": "Distanz",
+				"allCities": "Alle Städte"
+			},
+			"raceTypes": {
+				"triathlon": "Triathlon",
+				"trail": "Trail",
+				"road": "Straße",
+				"cycle": "Radsport",
+				"all": "Alle"
+			},
+			"groupLabels": {
+				"unknownDate": "Unbekanntes Datum",
+				"unknownPrice": "Unbekannter Preis",
+				"unknownParticipants": "Unbekannte Teilnehmer",
+				"unknownDistance": "Unbekannte Distanz"
+			},
+			"countLabel": "{count} Event{count, plural, one {} other {s}} gefunden",
+			"calendarView": "Kalenderansicht",
+			"listView": "Listenansicht",
+			"featuredTitle": "Kommende Events",
+			"featuredSubtitle": "Nächste 30 Tage",
+			"allEventsTitle": "Alle Events",
+			"noResultsTitle": "Keine Events gefunden",
+			"noResultsSubtitle": "Versuche deine Suchkriterien zu ändern",
+			"calendarTitle": "Event-Kalender",
+			"eventCard": {
+				"viewDetails": "Details ansehen",
+				"bibsAvailable": "Startnummern verfügbar",
+				"soldOut": "Ausverkauft",
+				"checkBibs": "Startnummern prüfen...",
+				"viewBibs": "Startnummern ansehen ({count})",
+				"joinWaitlist": "Warteliste beitreten",
+				"fromPrice": "Ab {price}€"
+			},
+			"noEventsToDisplay": "Keine Events zum Anzeigen.",
+			"eventListTitleClient": "Event-Liste (Client-Komponente):"
+		}
+	},
+	"ro": {
+		"events": {
+			"title": "Explorează evenimente",
+			"description": "Găsește și cumpără numere pentru evenimente viitoare",
+			"searchPlaceholder": "Caută evenimente...",
+			"noEvents": "Nu există evenimente disponibile",
+			"loading": "Se încarcă evenimentele...",
+			"filters": {
+				"all": "Toate evenimentele",
+				"location": "Locația",
+				"date": "Data",
+				"category": "Categoria",
+				"price": "Preț",
+				"participants": "Participanți",
+				"distance": "Distanță",
+				"allCities": "Toate orașele"
+			},
+			"raceTypes": {
+				"triathlon": "Triathlon",
+				"trail": "Trail",
+				"road": "Șosea",
+				"cycle": "Ciclism",
+				"all": "Toate"
+			},
+			"groupLabels": {
+				"unknownDate": "Dată necunoscută",
+				"unknownPrice": "Preț necunoscut",
+				"unknownParticipants": "Participanți necunoscuți",
+				"unknownDistance": "Distanță necunoscută"
+			},
+			"countLabel": "{count} eveniment{count, plural, one {} other {e}} găsit{count, plural, one {} other {e}}",
+			"calendarView": "Vedere calendar",
+			"listView": "Vedere listă",
+			"featuredTitle": "Evenimente viitoare",
+			"featuredSubtitle": "Următoarele 30 de zile",
+			"allEventsTitle": "Toate evenimentele",
+			"noResultsTitle": "Nu s-au găsit evenimente",
+			"noResultsSubtitle": "Încearcă să modifici criteriile de căutare",
+			"calendarTitle": "Calendar evenimente",
+			"eventCard": {
+				"viewDetails": "Vezi detalii",
+				"bibsAvailable": "numere disponibile",
+				"soldOut": "Epuizat",
+				"checkBibs": "Verifică numerele...",
+				"viewBibs": "Vezi numerele ({count})",
+				"joinWaitlist": "Alătură-te listei de așteptare",
+				"fromPrice": "De la {price}€"
+			},
+			"noEventsToDisplay": "Nu există evenimente de afișat.",
+			"eventListTitleClient": "Lista evenimente (Componenta client):"
+		}
+	},
+	"pt": {
+		"events": {
+			"title": "Explorar eventos",
+			"description": "Encontra e compra dorsais para eventos futuros",
+			"searchPlaceholder": "Pesquisar eventos...",
+			"noEvents": "Não há eventos disponíveis",
+			"loading": "A carregar eventos...",
+			"filters": {
+				"all": "Todos os eventos",
+				"location": "Localização",
+				"date": "Data",
+				"category": "Categoria",
+				"price": "Preço",
+				"participants": "Participantes",
+				"distance": "Distância",
+				"allCities": "Todas as cidades"
+			},
+			"raceTypes": {
+				"triathlon": "Triatlo",
+				"trail": "Trail",
+				"road": "Estrada",
+				"cycle": "Ciclismo",
+				"all": "Todos"
+			},
+			"groupLabels": {
+				"unknownDate": "Data desconhecida",
+				"unknownPrice": "Preço desconhecido",
+				"unknownParticipants": "Participantes desconhecidos",
+				"unknownDistance": "Distância desconhecida"
+			},
+			"countLabel": "{count} evento{count, plural, one {} other {s}} encontrado{count, plural, one {} other {s}}",
+			"calendarView": "Vista de calendário",
+			"listView": "Vista de lista",
+			"featuredTitle": "Próximos eventos",
+			"featuredSubtitle": "Próximos 30 dias",
+			"allEventsTitle": "Todos os eventos",
+			"noResultsTitle": "Não foram encontrados eventos",
+			"noResultsSubtitle": "Tenta alterar os teus critérios de pesquisa",
+			"calendarTitle": "Calendário de eventos",
+			"eventCard": {
+				"viewDetails": "Ver detalhes",
+				"bibsAvailable": "dorsais disponíveis",
+				"soldOut": "Esgotado",
+				"checkBibs": "Verificar dorsais...",
+				"viewBibs": "Ver dorsais ({count})",
+				"joinWaitlist": "Juntar-se à lista de espera",
+				"fromPrice": "Desde {price}€"
+			},
+			"noEventsToDisplay": "Não há eventos para mostrar.",
+			"eventListTitleClient": "Lista de eventos (Componente cliente):"
+		}
+	},
+	"nl": {
+		"events": {
+			"title": "Events verkennen",
+			"description": "Vind en koop startnummers voor aankomende events",
+			"searchPlaceholder": "Events zoeken...",
+			"noEvents": "Geen events beschikbaar",
+			"loading": "Events laden...",
+			"filters": {
+				"all": "Alle events",
+				"location": "Locatie",
+				"date": "Datum",
+				"category": "Categorie",
+				"price": "Prijs",
+				"participants": "Deelnemers",
+				"distance": "Afstand",
+				"allCities": "Alle steden"
+			},
+			"raceTypes": {
+				"triathlon": "Triathlon",
+				"trail": "Trail",
+				"road": "Weg",
+				"cycle": "Wielrennen",
+				"all": "Alle"
+			},
+			"groupLabels": {
+				"unknownDate": "Onbekende datum",
+				"unknownPrice": "Onbekende prijs",
+				"unknownParticipants": "Onbekende deelnemers",
+				"unknownDistance": "Onbekende afstand"
+			},
+			"countLabel": "{count} event{count, plural, one {} other {s}} gevonden",
+			"calendarView": "Kalenderweergave",
+			"listView": "Lijstweergave",
+			"featuredTitle": "Aankomende events",
+			"featuredSubtitle": "Komende 30 dagen",
+			"allEventsTitle": "Alle events",
+			"noResultsTitle": "Geen events gevonden",
+			"noResultsSubtitle": "Probeer je zoekcriteria te wijzigen",
+			"calendarTitle": "Event-kalender",
+			"eventCard": {
+				"viewDetails": "Details bekijken",
+				"bibsAvailable": "startnummers beschikbaar",
+				"soldOut": "Uitverkocht",
+				"checkBibs": "Startnummers controleren...",
+				"viewBibs": "Startnummers bekijken ({count})",
+				"joinWaitlist": "Deelnemen aan wachtlijst",
+				"fromPrice": "Vanaf {price}€"
+			},
+			"noEventsToDisplay": "Geen events om weer te geven.",
+			"eventListTitleClient": "Event-lijst (Client-component):"
 		}
 	}
 }

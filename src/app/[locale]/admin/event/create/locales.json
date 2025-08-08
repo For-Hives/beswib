@@ -271,5 +271,551 @@
 				"connectedAs": "다음으로 연결됨"
 			}
 		}
+	},
+	"es": {
+		"events": {
+			"title": "Event Management",
+			"subtitle": "Manage all events, partnerships, and configurations from this central hub.",
+			"sections": {
+				"overview": {
+					"title": "Events Overview",
+					"description": "View and manage all events in the system"
+				},
+				"actions": {
+					"title": "Quick Actions",
+					"description": "Common administrative tasks for event management"
+				}
+			},
+			"stats": {
+				"totalEvents": "Total Events",
+				"activeEvents": "Active Events",
+				"upcomingEvents": "Upcoming Events",
+				"pastEvents": "Past Events",
+				"partneredEvents": "Partnered Events",
+				"draftEvents": "Draft Events"
+			},
+			"actions": {
+				"createEvent": "Create New Event",
+				"createEventDescription": "Add a new event to the platform",
+				"importEvents": "Import Events",
+				"importEventsDescription": "Bulk import events from external sources",
+				"manageCategories": "Manage Categories",
+				"manageCategoriesDescription": "Organize events by categories and types"
+			},
+			"table": {
+				"columns": {
+					"name": "Event Name",
+					"date": "Date",
+					"distance": "Distance",
+					"type": "Type",
+					"participants": "Participants",
+					"partnered": "Partnered",
+					"actions": "Actions"
+				},
+				"status": {
+					"active": "Active",
+					"upcoming": "Upcoming",
+					"past": "Past",
+					"draft": "Draft",
+					"cancelled": "Cancelled"
+				},
+				"actions": {
+					"edit": "Edit",
+					"view": "View",
+					"delete": "Delete",
+					"duplicate": "Duplicate"
+				},
+				"empty": {
+					"title": "No events found",
+					"description": "Get started by creating your first event",
+					"createButton": "Create Event"
+				},
+				"controls": {
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"clearFilter": "Clear filter",
+					"toggleColumns": "Toggle columns",
+					"rowsPerPage": "Rows per page",
+					"deleteSelected": "Delete",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"cancel": "Cancel",
+					"yes": "Yes",
+					"no": "No"
+				}
+			},
+			"filters": {
+				"all": "All Events",
+				"active": "Active",
+				"upcoming": "Upcoming",
+				"past": "Past",
+				"partnered": "Partnered",
+				"search": "Search events..."
+			},
+			"ui": {
+				"comingSoon": "Coming Soon",
+				"loading": "Loading...",
+				"refreshing": "Refreshing...",
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"signIn": "Sign In",
+				"connectedAs": "Connected as"
+			}
+		}
+	},
+	"it": {
+		"events": {
+			"title": "Event Management",
+			"subtitle": "Manage all events, partnerships, and configurations from this central hub.",
+			"sections": {
+				"overview": {
+					"title": "Events Overview",
+					"description": "View and manage all events in the system"
+				},
+				"actions": {
+					"title": "Quick Actions",
+					"description": "Common administrative tasks for event management"
+				}
+			},
+			"stats": {
+				"totalEvents": "Total Events",
+				"activeEvents": "Active Events",
+				"upcomingEvents": "Upcoming Events",
+				"pastEvents": "Past Events",
+				"partneredEvents": "Partnered Events",
+				"draftEvents": "Draft Events"
+			},
+			"actions": {
+				"createEvent": "Create New Event",
+				"createEventDescription": "Add a new event to the platform",
+				"importEvents": "Import Events",
+				"importEventsDescription": "Bulk import events from external sources",
+				"manageCategories": "Manage Categories",
+				"manageCategoriesDescription": "Organize events by categories and types"
+			},
+			"table": {
+				"columns": {
+					"name": "Event Name",
+					"date": "Date",
+					"distance": "Distance",
+					"type": "Type",
+					"participants": "Participants",
+					"partnered": "Partnered",
+					"actions": "Actions"
+				},
+				"status": {
+					"active": "Active",
+					"upcoming": "Upcoming",
+					"past": "Past",
+					"draft": "Draft",
+					"cancelled": "Cancelled"
+				},
+				"actions": {
+					"edit": "Edit",
+					"view": "View",
+					"delete": "Delete",
+					"duplicate": "Duplicate"
+				},
+				"empty": {
+					"title": "No events found",
+					"description": "Get started by creating your first event",
+					"createButton": "Create Event"
+				},
+				"controls": {
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"clearFilter": "Clear filter",
+					"toggleColumns": "Toggle columns",
+					"rowsPerPage": "Rows per page",
+					"deleteSelected": "Delete",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"cancel": "Cancel",
+					"yes": "Yes",
+					"no": "No"
+				}
+			},
+			"filters": {
+				"all": "All Events",
+				"active": "Active",
+				"upcoming": "Upcoming",
+				"past": "Past",
+				"partnered": "Partnered",
+				"search": "Search events..."
+			},
+			"ui": {
+				"comingSoon": "Coming Soon",
+				"loading": "Loading...",
+				"refreshing": "Refreshing...",
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"signIn": "Sign In",
+				"connectedAs": "Connected as"
+			}
+		}
+	},
+	"de": {
+		"events": {
+			"title": "Event Management",
+			"subtitle": "Manage all events, partnerships, and configurations from this central hub.",
+			"sections": {
+				"overview": {
+					"title": "Events Overview",
+					"description": "View and manage all events in the system"
+				},
+				"actions": {
+					"title": "Quick Actions",
+					"description": "Common administrative tasks for event management"
+				}
+			},
+			"stats": {
+				"totalEvents": "Total Events",
+				"activeEvents": "Active Events",
+				"upcomingEvents": "Upcoming Events",
+				"pastEvents": "Past Events",
+				"partneredEvents": "Partnered Events",
+				"draftEvents": "Draft Events"
+			},
+			"actions": {
+				"createEvent": "Create New Event",
+				"createEventDescription": "Add a new event to the platform",
+				"importEvents": "Import Events",
+				"importEventsDescription": "Bulk import events from external sources",
+				"manageCategories": "Manage Categories",
+				"manageCategoriesDescription": "Organize events by categories and types"
+			},
+			"table": {
+				"columns": {
+					"name": "Event Name",
+					"date": "Date",
+					"distance": "Distance",
+					"type": "Type",
+					"participants": "Participants",
+					"partnered": "Partnered",
+					"actions": "Actions"
+				},
+				"status": {
+					"active": "Active",
+					"upcoming": "Upcoming",
+					"past": "Past",
+					"draft": "Draft",
+					"cancelled": "Cancelled"
+				},
+				"actions": {
+					"edit": "Edit",
+					"view": "View",
+					"delete": "Delete",
+					"duplicate": "Duplicate"
+				},
+				"empty": {
+					"title": "No events found",
+					"description": "Get started by creating your first event",
+					"createButton": "Create Event"
+				},
+				"controls": {
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"clearFilter": "Clear filter",
+					"toggleColumns": "Toggle columns",
+					"rowsPerPage": "Rows per page",
+					"deleteSelected": "Delete",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"cancel": "Cancel",
+					"yes": "Yes",
+					"no": "No"
+				}
+			},
+			"filters": {
+				"all": "All Events",
+				"active": "Active",
+				"upcoming": "Upcoming",
+				"past": "Past",
+				"partnered": "Partnered",
+				"search": "Search events..."
+			},
+			"ui": {
+				"comingSoon": "Coming Soon",
+				"loading": "Loading...",
+				"refreshing": "Refreshing...",
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"signIn": "Sign In",
+				"connectedAs": "Connected as"
+			}
+		}
+	},
+	"ro": {
+		"events": {
+			"title": "Event Management",
+			"subtitle": "Manage all events, partnerships, and configurations from this central hub.",
+			"sections": {
+				"overview": {
+					"title": "Events Overview",
+					"description": "View and manage all events in the system"
+				},
+				"actions": {
+					"title": "Quick Actions",
+					"description": "Common administrative tasks for event management"
+				}
+			},
+			"stats": {
+				"totalEvents": "Total Events",
+				"activeEvents": "Active Events",
+				"upcomingEvents": "Upcoming Events",
+				"pastEvents": "Past Events",
+				"partneredEvents": "Partnered Events",
+				"draftEvents": "Draft Events"
+			},
+			"actions": {
+				"createEvent": "Create New Event",
+				"createEventDescription": "Add a new event to the platform",
+				"importEvents": "Import Events",
+				"importEventsDescription": "Bulk import events from external sources",
+				"manageCategories": "Manage Categories",
+				"manageCategoriesDescription": "Organize events by categories and types"
+			},
+			"table": {
+				"columns": {
+					"name": "Event Name",
+					"date": "Date",
+					"distance": "Distance",
+					"type": "Type",
+					"participants": "Participants",
+					"partnered": "Partnered",
+					"actions": "Actions"
+				},
+				"status": {
+					"active": "Active",
+					"upcoming": "Upcoming",
+					"past": "Past",
+					"draft": "Draft",
+					"cancelled": "Cancelled"
+				},
+				"actions": {
+					"edit": "Edit",
+					"view": "View",
+					"delete": "Delete",
+					"duplicate": "Duplicate"
+				},
+				"empty": {
+					"title": "No events found",
+					"description": "Get started by creating your first event",
+					"createButton": "Create Event"
+				},
+				"controls": {
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"clearFilter": "Clear filter",
+					"toggleColumns": "Toggle columns",
+					"rowsPerPage": "Rows per page",
+					"deleteSelected": "Delete",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"cancel": "Cancel",
+					"yes": "Yes",
+					"no": "No"
+				}
+			},
+			"filters": {
+				"all": "All Events",
+				"active": "Active",
+				"upcoming": "Upcoming",
+				"past": "Past",
+				"partnered": "Partnered",
+				"search": "Search events..."
+			},
+			"ui": {
+				"comingSoon": "Coming Soon",
+				"loading": "Loading...",
+				"refreshing": "Refreshing...",
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"signIn": "Sign In",
+				"connectedAs": "Connected as"
+			}
+		}
+	},
+	"pt": {
+		"events": {
+			"title": "Event Management",
+			"subtitle": "Manage all events, partnerships, and configurations from this central hub.",
+			"sections": {
+				"overview": {
+					"title": "Events Overview",
+					"description": "View and manage all events in the system"
+				},
+				"actions": {
+					"title": "Quick Actions",
+					"description": "Common administrative tasks for event management"
+				}
+			},
+			"stats": {
+				"totalEvents": "Total Events",
+				"activeEvents": "Active Events",
+				"upcomingEvents": "Upcoming Events",
+				"pastEvents": "Past Events",
+				"partneredEvents": "Partnered Events",
+				"draftEvents": "Draft Events"
+			},
+			"actions": {
+				"createEvent": "Create New Event",
+				"createEventDescription": "Add a new event to the platform",
+				"importEvents": "Import Events",
+				"importEventsDescription": "Bulk import events from external sources",
+				"manageCategories": "Manage Categories",
+				"manageCategoriesDescription": "Organize events by categories and types"
+			},
+			"table": {
+				"columns": {
+					"name": "Event Name",
+					"date": "Date",
+					"distance": "Distance",
+					"type": "Type",
+					"participants": "Participants",
+					"partnered": "Partnered",
+					"actions": "Actions"
+				},
+				"status": {
+					"active": "Active",
+					"upcoming": "Upcoming",
+					"past": "Past",
+					"draft": "Draft",
+					"cancelled": "Cancelled"
+				},
+				"actions": {
+					"edit": "Edit",
+					"view": "View",
+					"delete": "Delete",
+					"duplicate": "Duplicate"
+				},
+				"empty": {
+					"title": "No events found",
+					"description": "Get started by creating your first event",
+					"createButton": "Create Event"
+				},
+				"controls": {
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"clearFilter": "Clear filter",
+					"toggleColumns": "Toggle columns",
+					"rowsPerPage": "Rows per page",
+					"deleteSelected": "Delete",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"cancel": "Cancel",
+					"yes": "Yes",
+					"no": "No"
+				}
+			},
+			"filters": {
+				"all": "All Events",
+				"active": "Active",
+				"upcoming": "Upcoming",
+				"past": "Past",
+				"partnered": "Partnered",
+				"search": "Search events..."
+			},
+			"ui": {
+				"comingSoon": "Coming Soon",
+				"loading": "Loading...",
+				"refreshing": "Refreshing...",
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"signIn": "Sign In",
+				"connectedAs": "Connected as"
+			}
+		}
+	},
+	"nl": {
+		"events": {
+			"title": "Event Management",
+			"subtitle": "Manage all events, partnerships, and configurations from this central hub.",
+			"sections": {
+				"overview": {
+					"title": "Events Overview",
+					"description": "View and manage all events in the system"
+				},
+				"actions": {
+					"title": "Quick Actions",
+					"description": "Common administrative tasks for event management"
+				}
+			},
+			"stats": {
+				"totalEvents": "Total Events",
+				"activeEvents": "Active Events",
+				"upcomingEvents": "Upcoming Events",
+				"pastEvents": "Past Events",
+				"partneredEvents": "Partnered Events",
+				"draftEvents": "Draft Events"
+			},
+			"actions": {
+				"createEvent": "Create New Event",
+				"createEventDescription": "Add a new event to the platform",
+				"importEvents": "Import Events",
+				"importEventsDescription": "Bulk import events from external sources",
+				"manageCategories": "Manage Categories",
+				"manageCategoriesDescription": "Organize events by categories and types"
+			},
+			"table": {
+				"columns": {
+					"name": "Event Name",
+					"date": "Date",
+					"distance": "Distance",
+					"type": "Type",
+					"participants": "Participants",
+					"partnered": "Partnered",
+					"actions": "Actions"
+				},
+				"status": {
+					"active": "Active",
+					"upcoming": "Upcoming",
+					"past": "Past",
+					"draft": "Draft",
+					"cancelled": "Cancelled"
+				},
+				"actions": {
+					"edit": "Edit",
+					"view": "View",
+					"delete": "Delete",
+					"duplicate": "Duplicate"
+				},
+				"empty": {
+					"title": "No events found",
+					"description": "Get started by creating your first event",
+					"createButton": "Create Event"
+				},
+				"controls": {
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"clearFilter": "Clear filter",
+					"toggleColumns": "Toggle columns",
+					"rowsPerPage": "Rows per page",
+					"deleteSelected": "Delete",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"cancel": "Cancel",
+					"yes": "Yes",
+					"no": "No"
+				}
+			},
+			"filters": {
+				"all": "All Events",
+				"active": "Active",
+				"upcoming": "Upcoming",
+				"past": "Past",
+				"partnered": "Partnered",
+				"search": "Search events..."
+			},
+			"ui": {
+				"comingSoon": "Coming Soon",
+				"loading": "Loading...",
+				"refreshing": "Refreshing...",
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"signIn": "Sign In",
+				"connectedAs": "Connected as"
+			}
+		}
 	}
 }

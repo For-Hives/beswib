@@ -179,7 +179,9 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 	return (
 		<>
 			{/* Dashboard Section Header 📜 */}
-			<div className="text-muted-foreground px-3 py-2 text-xs font-semibold tracking-wide uppercase">Dashboard</div>
+			<div className="text-muted-foreground px-3 py-2 text-xs font-semibold tracking-wide uppercase">
+				{t.navbar.dashboardLink}
+			</div>
 
 			{/* Dashboard Main Link 🏠 */}
 			<DisclosureButton
@@ -229,7 +231,7 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 					href="/admin"
 				>
 					<Settings className="h-4 w-4" />
-					Admin
+					{t.navbar.adminLink}
 				</DisclosureButton>
 			)}
 

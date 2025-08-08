@@ -3,10 +3,11 @@
 		"navbar": {
 			"homeLink": "Home",
 			"dashboardLink": "Dashboard",
+			"adminLink": "Admin",
 			"profileLink": "Profile",
 			"buyBibLink": "Buy a Bib",
 			"sellBibLink": "Sell a Bib",
-			"racesLink": "Races",
+			"racesLink": "Events",
 			"calendarLink": "Calendar",
 			"marketplaceLink": "Marketplace",
 			"faqLink": "FAQ",
@@ -78,10 +79,11 @@
 		"navbar": {
 			"homeLink": "Accueil",
 			"dashboardLink": "Tableau de bord",
+			"adminLink": "Administration",
 			"profileLink": "Profil",
 			"buyBibLink": "Acheter un dossard",
 			"sellBibLink": "Vendre un dossard",
-			"racesLink": "Courses",
+			"racesLink": "Événements",
 			"calendarLink": "Calendrier",
 			"marketplaceLink": "Marché",
 			"faqLink": "FAQ",
@@ -149,14 +151,471 @@
 			}
 		}
 	},
+	"es": {
+		"navbar": {
+			"homeLink": "Inicio",
+			"dashboardLink": "Panel",
+			"adminLink": "Administración",
+			"profileLink": "Perfil",
+			"buyBibLink": "Comprar un dorsal",
+			"sellBibLink": "Vender un dorsal",
+			"racesLink": "Eventos",
+			"calendarLink": "Calendario",
+			"marketplaceLink": "Mercado",
+			"faqLink": "FAQ",
+			"contactLink": "Contacto",
+			"signIn": "Iniciar sesión",
+			"signUp": "Registrarse"
+		},
+		"footer": {
+			"madeWith": "Hecho con",
+			"by": "por",
+			"selectLanguage": "Seleccionar idioma",
+			"currentLanguage": "Idioma actual"
+		},
+		"pages": {
+			"faq": {
+				"title": "FAQ | Beswib",
+				"description": "Preguntas frecuentes sobre comprar, vender y organizar eventos en Beswib."
+			},
+			"legalNotice": {
+				"title": "Aviso Legal | Beswib",
+				"description": "Información de la empresa, director de publicación, proveedor de alojamiento y avisos legales de Beswib."
+			},
+			"privacy": {
+				"title": "Política de Privacidad | Beswib",
+				"description": "Cómo Beswib recopila, utiliza y protege tus datos personales, cookies y tus derechos."
+			},
+			"terms": {
+				"title": "Términos del Servicio | Beswib",
+				"description": "Los términos que rigen el acceso y uso de la plataforma C2B2C de Beswib."
+			},
+			"contact": {
+				"title": "Contacto | Beswib",
+				"description": "Ponte en contacto con el equipo de Beswib para cualquier pregunta o consulta."
+			}
+		},
+		"contact": {
+			"getInTouch": "Ponte en contacto",
+			"contactDescription": "Nos encantaría saber de ti. Envíanos un mensaje y responderemos lo antes posible.",
+			"email": "Consultas generales",
+			"support": "Atención al cliente",
+			"partnerships": "Alianzas comerciales",
+			"interactiveExperience": "Experiencia interactiva",
+			"interactiveDescription": "Haz clic para descubrir más sobre nuestra presencia social",
+			"discussTogether": "¡Hablemos!",
+			"useContactForm": "Utiliza el formulario de contacto para escribirnos.",
+			"runnerOrganizer": "Tanto si eres corredor con una duda sobre vender un dorsal, como si eres organizador interesado en listar tu carrera en BibUp, este formulario es para ti.",
+			"ourTeamResponds": "Nuestro equipo responde rápido — ya sea para:",
+			"understandPlatform": "Entender cómo funciona la plataforma",
+			"sellBibNotListed": "¿Quieres vender un dorsal pero la carrera no está en Bibup?",
+			"organizerAuthorize": "Eres organizador y quieres autorizar la venta de dorsales",
+			"discussPartnership": "O simplemente hablar de una colaboración",
+			"fillFormResponse": "👉 Rellena el formulario y te responderemos en 24h.",
+			"form": {
+				"yourName": "Tu nombre",
+				"yourNamePlaceholder": "Tu nombre",
+				"yourEmail": "Tu email",
+				"yourEmailPlaceholder": "Tu email",
+				"yourMessage": "Tu mensaje",
+				"yourMessagePlaceholder": "Tu mensaje",
+				"sendMessage": "Enviar mensaje",
+				"sending": "Enviando...",
+				"messageSent": "¡Mensaje enviado!",
+				"messageResponse": "Te responderemos lo antes posible.",
+				"sendAnotherMessage": "Enviar otro mensaje"
+			}
+		}
+	},
+	"it": {
+		"navbar": {
+			"homeLink": "Home",
+			"dashboardLink": "Dashboard",
+			"adminLink": "Amministrazione",
+			"profileLink": "Profilo",
+			"buyBibLink": "Compra un pettorale",
+			"sellBibLink": "Vendi un pettorale",
+			"racesLink": "Eventi",
+			"calendarLink": "Calendario",
+			"marketplaceLink": "Mercato",
+			"faqLink": "FAQ",
+			"contactLink": "Contatto",
+			"signIn": "Accedi",
+			"signUp": "Registrati"
+		},
+		"footer": {
+			"madeWith": "Fatto con",
+			"by": "da",
+			"selectLanguage": "Seleziona lingua",
+			"currentLanguage": "Lingua attuale"
+		},
+		"pages": {
+			"faq": {
+				"title": "FAQ | Beswib",
+				"description": "Domande frequenti su acquisto, vendita e organizzazione eventi su Beswib."
+			},
+			"legalNotice": {
+				"title": "Note legali | Beswib",
+				"description": "Informazioni aziendali, direttore della pubblicazione, hosting e note legali di Beswib."
+			},
+			"privacy": {
+				"title": "Privacy | Beswib",
+				"description": "Come Beswib raccoglie, utilizza e protegge i tuoi dati personali, i cookie e i tuoi diritti."
+			},
+			"terms": {
+				"title": "Termini di servizio | Beswib",
+				"description": "I termini che regolano l'accesso e l'uso della piattaforma C2B2C di Beswib."
+			},
+			"contact": {
+				"title": "Contatto | Beswib",
+				"description": "Contatta il team Beswib per domande o richieste."
+			}
+		},
+		"contact": {
+			"getInTouch": "Contattaci",
+			"contactDescription": "Ci farebbe piacere sentirti. Inviaci un messaggio e ti risponderemo al più presto.",
+			"email": "Richieste generali",
+			"support": "Assistenza clienti",
+			"partnerships": "Partnership commerciali",
+			"interactiveExperience": "Esperienza interattiva",
+			"interactiveDescription": "Clicca per scoprire di più sulla nostra presenza social",
+			"discussTogether": "Parliamone insieme!",
+			"useContactForm": "Usa il modulo di contatto per scriverci.",
+			"runnerOrganizer": "Che tu sia un runner con una domanda sulla vendita di un pettorale o un organizzatore interessato a pubblicare la tua gara su BibUp, questo modulo fa per te.",
+			"ourTeamResponds": "Il nostro team risponde rapidamente — per esempio per:",
+			"understandPlatform": "Capire come funziona la piattaforma",
+			"sellBibNotListed": "Vuoi vendere un pettorale ma la gara non è su Bibup?",
+			"organizerAuthorize": "Sei un organizzatore e vuoi autorizzare la vendita di pettorali",
+			"discussPartnership": "Oppure semplicemente discutere una partnership",
+			"fillFormResponse": "👉 Compila il modulo e ti ricontatteremo entro 24 ore.",
+			"form": {
+				"yourName": "Il tuo nome",
+				"yourNamePlaceholder": "Il tuo nome",
+				"yourEmail": "La tua email",
+				"yourEmailPlaceholder": "La tua email",
+				"yourMessage": "Il tuo messaggio",
+				"yourMessagePlaceholder": "Il tuo messaggio",
+				"sendMessage": "Invia messaggio",
+				"sending": "Invio...",
+				"messageSent": "Messaggio inviato!",
+				"messageResponse": "Ti risponderemo al più presto.",
+				"sendAnotherMessage": "Invia un altro messaggio"
+			}
+		}
+	},
+	"de": {
+		"navbar": {
+			"homeLink": "Startseite",
+			"dashboardLink": "Dashboard",
+			"adminLink": "Administration",
+			"profileLink": "Profil",
+			"buyBibLink": "Startnummer kaufen",
+			"sellBibLink": "Startnummer verkaufen",
+			"racesLink": "Veranstaltungen",
+			"calendarLink": "Kalender",
+			"marketplaceLink": "Marktplatz",
+			"faqLink": "FAQ",
+			"contactLink": "Kontakt",
+			"signIn": "Anmelden",
+			"signUp": "Registrieren"
+		},
+		"footer": {
+			"madeWith": "Gemacht mit",
+			"by": "von",
+			"selectLanguage": "Sprache auswählen",
+			"currentLanguage": "Aktuelle Sprache"
+		},
+		"pages": {
+			"faq": {
+				"title": "FAQ | Beswib",
+				"description": "Häufig gestellte Fragen zum Kaufen, Verkaufen und Veranstalten auf Beswib."
+			},
+			"legalNotice": {
+				"title": "Impressum | Beswib",
+				"description": "Unternehmensangaben, verantwortliche Person, Hosting-Anbieter und rechtliche Hinweise für Beswib."
+			},
+			"privacy": {
+				"title": "Datenschutzerklärung | Beswib",
+				"description": "Wie Beswib deine personenbezogenen Daten, Cookies und Rechte verarbeitet und schützt."
+			},
+			"terms": {
+				"title": "Nutzungsbedingungen | Beswib",
+				"description": "Die Bedingungen für den Zugriff und die Nutzung der C2B2C-Plattform von Beswib."
+			},
+			"contact": {
+				"title": "Kontakt | Beswib",
+				"description": "Kontaktiere das Beswib-Team bei Fragen oder Anliegen."
+			}
+		},
+		"contact": {
+			"getInTouch": "Kontakt aufnehmen",
+			"contactDescription": "Wir freuen uns, von dir zu hören. Sende uns eine Nachricht und wir antworten so schnell wie möglich.",
+			"email": "Allgemeine Anfragen",
+			"support": "Kundensupport",
+			"partnerships": "Geschäftspartnerschaften",
+			"interactiveExperience": "Interaktive Erfahrung",
+			"interactiveDescription": "Klicke, um mehr über unsere Social-Media-Präsenz zu erfahren",
+			"discussTogether": "Lass uns sprechen!",
+			"useContactForm": "Nutze das Kontaktformular, um uns zu erreichen.",
+			"runnerOrganizer": "Ob Läufer mit Fragen zum Verkauf einer Startnummer oder Veranstalter, der sein Rennen auf BibUp listen möchte – dieses Formular ist für dich.",
+			"ourTeamResponds": "Unser Team antwortet schnell — unter anderem bei:",
+			"understandPlatform": "Verständnis der Plattform",
+			"sellBibNotListed": "Du willst eine Startnummer verkaufen, aber das Rennen ist nicht auf Bibup?",
+			"organizerAuthorize": "Du bist Veranstalter und möchtest den Verkauf von Startnummern erlauben",
+			"discussPartnership": "Oder einfach eine Partnerschaft besprechen",
+			"fillFormResponse": "👉 Fülle das Formular aus und wir melden uns innerhalb von 24 Stunden.",
+			"form": {
+				"yourName": "Dein Name",
+				"yourNamePlaceholder": "Dein Name",
+				"yourEmail": "Deine E‑Mail",
+				"yourEmailPlaceholder": "Deine E‑Mail",
+				"yourMessage": "Deine Nachricht",
+				"yourMessagePlaceholder": "Deine Nachricht",
+				"sendMessage": "Nachricht senden",
+				"sending": "Senden...",
+				"messageSent": "Nachricht gesendet!",
+				"messageResponse": "Wir melden uns so schnell wie möglich.",
+				"sendAnotherMessage": "Weitere Nachricht senden"
+			}
+		}
+	},
+	"ro": {
+		"navbar": {
+			"homeLink": "Acasă",
+			"dashboardLink": "Panou",
+			"adminLink": "Administrare",
+			"profileLink": "Profil",
+			"buyBibLink": "Cumpără un număr",
+			"sellBibLink": "Vinde un număr",
+			"racesLink": "Evenimente",
+			"calendarLink": "Calendar",
+			"marketplaceLink": "Piață",
+			"faqLink": "Întrebări frecvente",
+			"contactLink": "Contact",
+			"signIn": "Autentificare",
+			"signUp": "Înregistrare"
+		},
+		"footer": {
+			"madeWith": "Realizat cu",
+			"by": "de",
+			"selectLanguage": "Selectează limba",
+			"currentLanguage": "Limba curentă"
+		},
+		"pages": {
+			"faq": {
+				"title": "Întrebări frecvente | Beswib",
+				"description": "Întrebări frecvente despre cumpărare, vânzare și organizarea de evenimente pe Beswib."
+			},
+			"legalNotice": {
+				"title": "Mențiuni legale | Beswib",
+				"description": "Informații despre companie, directorul publicației, găzduire și mențiuni legale pentru Beswib."
+			},
+			"privacy": {
+				"title": "Politica de confidențialitate | Beswib",
+				"description": "Cum colectează, folosește și protejează Beswib datele tale personale, cookie-urile și drepturile tale."
+			},
+			"terms": {
+				"title": "Termeni și condiții | Beswib",
+				"description": "Termenii care guvernează accesul și utilizarea platformei C2B2C Beswib."
+			},
+			"contact": {
+				"title": "Contact | Beswib",
+				"description": "Ia legătura cu echipa Beswib pentru întrebări sau solicitări."
+			}
+		},
+		"contact": {
+			"getInTouch": "Ia legătura",
+			"contactDescription": "Ne-ar plăcea să auzim de la tine. Trimite-ne un mesaj și îți vom răspunde cât mai curând.",
+			"email": "Întrebări generale",
+			"support": "Asistență clienți",
+			"partnerships": "Parteneriate de afaceri",
+			"interactiveExperience": "Experiență interactivă",
+			"interactiveDescription": "Apasă pentru a afla mai multe despre prezența noastră socială",
+			"discussTogether": "Hai să discutăm!",
+			"useContactForm": "Folosește formularul de contact pentru a ne scrie.",
+			"runnerOrganizer": "Fie că ești alergător cu o întrebare despre vânzarea unui număr sau un organizator interesat să-și listeze cursa pe BibUp, acest formular este pentru tine.",
+			"ourTeamResponds": "Echipa noastră răspunde rapid — fie pentru:",
+			"understandPlatform": "A înțelege cum funcționează platforma",
+			"sellBibNotListed": "Vrei să vinzi un număr dar cursa nu este pe Bibup?",
+			"organizerAuthorize": "Ești organizator și vrei să autorizezi vânzarea numerelor",
+			"discussPartnership": "Sau pur și simplu să discutăm un parteneriat",
+			"fillFormResponse": "👉 Completează formularul și revenim în 24h.",
+			"form": {
+				"yourName": "Numele tău",
+				"yourNamePlaceholder": "Numele tău",
+				"yourEmail": "Emailul tău",
+				"yourEmailPlaceholder": "Emailul tău",
+				"yourMessage": "Mesajul tău",
+				"yourMessagePlaceholder": "Mesajul tău",
+				"sendMessage": "Trimite mesajul",
+				"sending": "Se trimite...",
+				"messageSent": "Mesaj trimis!",
+				"messageResponse": "Îți vom răspunde cât mai curând.",
+				"sendAnotherMessage": "Trimite un alt mesaj"
+			}
+		}
+	},
+	"pt": {
+		"navbar": {
+			"homeLink": "Início",
+			"dashboardLink": "Painel",
+			"adminLink": "Administração",
+			"profileLink": "Perfil",
+			"buyBibLink": "Comprar um dorsal",
+			"sellBibLink": "Vender um dorsal",
+			"racesLink": "Eventos",
+			"calendarLink": "Calendário",
+			"marketplaceLink": "Marketplace",
+			"faqLink": "FAQ",
+			"contactLink": "Contacto",
+			"signIn": "Iniciar sessão",
+			"signUp": "Registar-se"
+		},
+		"footer": {
+			"madeWith": "Feito com",
+			"by": "por",
+			"selectLanguage": "Selecionar idioma",
+			"currentLanguage": "Idioma atual"
+		},
+		"pages": {
+			"faq": {
+				"title": "FAQ | Beswib",
+				"description": "Perguntas frequentes sobre comprar, vender e organizar eventos no Beswib."
+			},
+			"legalNotice": {
+				"title": "Aviso Legal | Beswib",
+				"description": "Informações da empresa, diretor de publicação, alojamento e avisos legais da Beswib."
+			},
+			"privacy": {
+				"title": "Política de Privacidade | Beswib",
+				"description": "Como a Beswib recolhe, utiliza e protege os seus dados pessoais, cookies e os seus direitos."
+			},
+			"terms": {
+				"title": "Termos de Serviço | Beswib",
+				"description": "Os termos que regem o acesso e a utilização da plataforma C2B2C da Beswib."
+			},
+			"contact": {
+				"title": "Contacto | Beswib",
+				"description": "Entre em contacto com a equipa Beswib para quaisquer questões ou pedidos."
+			}
+		},
+		"contact": {
+			"getInTouch": "Entre em contacto",
+			"contactDescription": "Gostaríamos de ouvir de si. Envie-nos uma mensagem e responderemos o mais rápido possível.",
+			"email": "Consultas gerais",
+			"support": "Apoio ao cliente",
+			"partnerships": "Parcerias comerciais",
+			"interactiveExperience": "Experiência interativa",
+			"interactiveDescription": "Clique para descobrir mais sobre a nossa presença social",
+			"discussTogether": "Vamos conversar!",
+			"useContactForm": "Use o formulário de contacto para falar connosco.",
+			"runnerOrganizer": "Quer seja corredor com dúvidas sobre vender um dorsal, quer seja organizador interessado em listar a sua prova no BibUp, este formulário é para si.",
+			"ourTeamResponds": "A nossa equipa responde rapidamente — nomeadamente para:",
+			"understandPlatform": "Perceber como funciona a plataforma",
+			"sellBibNotListed": "Quer vender um dorsal mas a prova não está no Bibup?",
+			"organizerAuthorize": "É organizador e quer autorizar a venda de dorsais",
+			"discussPartnership": "Ou simplesmente discutir uma parceria",
+			"fillFormResponse": "👉 Preencha o formulário e entraremos em contacto em 24h.",
+			"form": {
+				"yourName": "O seu nome",
+				"yourNamePlaceholder": "O seu nome",
+				"yourEmail": "O seu email",
+				"yourEmailPlaceholder": "O seu email",
+				"yourMessage": "A sua mensagem",
+				"yourMessagePlaceholder": "A sua mensagem",
+				"sendMessage": "Enviar mensagem",
+				"sending": "A enviar...",
+				"messageSent": "Mensagem enviada!",
+				"messageResponse": "Responderemos o mais rapidamente possível.",
+				"sendAnotherMessage": "Enviar outra mensagem"
+			}
+		}
+	},
+	"nl": {
+		"navbar": {
+			"homeLink": "Start",
+			"dashboardLink": "Dashboard",
+			"adminLink": "Beheer",
+			"profileLink": "Profiel",
+			"buyBibLink": "Startnummer kopen",
+			"sellBibLink": "Startnummer verkopen",
+			"racesLink": "Evenementen",
+			"calendarLink": "Kalender",
+			"marketplaceLink": "Marktplaats",
+			"faqLink": "FAQ",
+			"contactLink": "Contact",
+			"signIn": "Inloggen",
+			"signUp": "Registreren"
+		},
+		"footer": {
+			"madeWith": "Gemaakt met",
+			"by": "door",
+			"selectLanguage": "Taal kiezen",
+			"currentLanguage": "Huidige taal"
+		},
+		"pages": {
+			"faq": {
+				"title": "FAQ | Beswib",
+				"description": "Veelgestelde vragen over kopen, verkopen en evenementen op Beswib."
+			},
+			"legalNotice": {
+				"title": "Juridische kennisgeving | Beswib",
+				"description": "Bedrijfsinformatie, verantwoordelijke uitgever, hostingprovider en juridische vermeldingen voor Beswib."
+			},
+			"privacy": {
+				"title": "Privacybeleid | Beswib",
+				"description": "Hoe Beswib je persoonsgegevens, cookies en je rechten verzamelt, gebruikt en beschermt."
+			},
+			"terms": {
+				"title": "Servicevoorwaarden | Beswib",
+				"description": "De voorwaarden voor toegang tot en gebruik van het C2B2C-platform van Beswib."
+			},
+			"contact": {
+				"title": "Contact | Beswib",
+				"description": "Neem contact op met het Beswib-team voor vragen of verzoeken."
+			}
+		},
+		"contact": {
+			"getInTouch": "Neem contact op",
+			"contactDescription": "We horen graag van je. Stuur ons een bericht en we reageren zo snel mogelijk.",
+			"email": "Algemene vragen",
+			"support": "Klantenservice",
+			"partnerships": "Zakelijke partnerschappen",
+			"interactiveExperience": "Interactieve ervaring",
+			"interactiveDescription": "Klik om meer te ontdekken over onze aanwezigheid op sociale media",
+			"discussTogether": "Laten we praten!",
+			"useContactForm": "Gebruik het contactformulier om ons te bereiken.",
+			"runnerOrganizer": "Of je nu een loper bent met een vraag over het verkopen van een startnummer of een organisator die zijn race op BibUp wil plaatsen, dit formulier is voor jou.",
+			"ourTeamResponds": "Ons team reageert snel — onder meer voor:",
+			"understandPlatform": "Begrijpen hoe het platform werkt",
+			"sellBibNotListed": "Wil je een startnummer verkopen maar staat de race niet op Bibup?",
+			"organizerAuthorize": "Ben je organisator en wil je verkoop van startnummers toestaan",
+			"discussPartnership": "Of gewoon een partnerschap bespreken",
+			"fillFormResponse": "👉 Vul het formulier in en we nemen binnen 24 uur contact op.",
+			"form": {
+				"yourName": "Je naam",
+				"yourNamePlaceholder": "Je naam",
+				"yourEmail": "Je e‑mail",
+				"yourEmailPlaceholder": "Je e‑mail",
+				"yourMessage": "Je bericht",
+				"yourMessagePlaceholder": "Je bericht",
+				"sendMessage": "Bericht verzenden",
+				"sending": "Bezig met verzenden...",
+				"messageSent": "Bericht verzonden!",
+				"messageResponse": "We reageren zo snel mogelijk.",
+				"sendAnotherMessage": "Nog een bericht sturen"
+			}
+		}
+	},
 	"ko": {
 		"navbar": {
 			"homeLink": "홈",
 			"dashboardLink": "대시보드",
+			"adminLink": "관리자",
 			"profileLink": "프로필",
 			"buyBibLink": "경주번호표 구매",
 			"sellBibLink": "경주번호표 판매",
-			"racesLink": "레이스",
+			"racesLink": "이벤트",
 			"calendarLink": "캘린더",
 			"marketplaceLink": "마켓플레이스",
 			"faqLink": "자주 묻는 질문",

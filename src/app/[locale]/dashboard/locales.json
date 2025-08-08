@@ -58,5 +58,125 @@
 		"auth": {
 			"signInToAccessDashboard": "대시보드에 액세스하려면 로그인하세요."
 		}
+	},
+	"es": {
+		"dashboard": {
+			"title": "Dashboard",
+			"organizer": {
+				"title": "Organizer Dashboard",
+				"description": "Manage your events and submissions."
+			},
+			"buyer": {
+				"title": "Buyer Dashboard",
+				"description": "View your purchases and manage your waitlist entries."
+			},
+			"seller": {
+				"title": "Seller Dashboard",
+				"description": "Manage your bib listings and view your sales."
+			}
+		},
+		"auth": {
+			"signInToAccessDashboard": "Please sign in to access your dashboard."
+		}
+	},
+	"it": {
+		"dashboard": {
+			"title": "Dashboard",
+			"organizer": {
+				"title": "Organizer Dashboard",
+				"description": "Manage your events and submissions."
+			},
+			"buyer": {
+				"title": "Buyer Dashboard",
+				"description": "View your purchases and manage your waitlist entries."
+			},
+			"seller": {
+				"title": "Seller Dashboard",
+				"description": "Manage your bib listings and view your sales."
+			}
+		},
+		"auth": {
+			"signInToAccessDashboard": "Please sign in to access your dashboard."
+		}
+	},
+	"de": {
+		"dashboard": {
+			"title": "Dashboard",
+			"organizer": {
+				"title": "Organizer Dashboard",
+				"description": "Manage your events and submissions."
+			},
+			"buyer": {
+				"title": "Buyer Dashboard",
+				"description": "View your purchases and manage your waitlist entries."
+			},
+			"seller": {
+				"title": "Seller Dashboard",
+				"description": "Manage your bib listings and view your sales."
+			}
+		},
+		"auth": {
+			"signInToAccessDashboard": "Please sign in to access your dashboard."
+		}
+	},
+	"ro": {
+		"dashboard": {
+			"title": "Dashboard",
+			"organizer": {
+				"title": "Organizer Dashboard",
+				"description": "Manage your events and submissions."
+			},
+			"buyer": {
+				"title": "Buyer Dashboard",
+				"description": "View your purchases and manage your waitlist entries."
+			},
+			"seller": {
+				"title": "Seller Dashboard",
+				"description": "Manage your bib listings and view your sales."
+			}
+		},
+		"auth": {
+			"signInToAccessDashboard": "Please sign in to access your dashboard."
+		}
+	},
+	"pt": {
+		"dashboard": {
+			"title": "Dashboard",
+			"organizer": {
+				"title": "Organizer Dashboard",
+				"description": "Manage your events and submissions."
+			},
+			"buyer": {
+				"title": "Buyer Dashboard",
+				"description": "View your purchases and manage your waitlist entries."
+			},
+			"seller": {
+				"title": "Seller Dashboard",
+				"description": "Manage your bib listings and view your sales."
+			}
+		},
+		"auth": {
+			"signInToAccessDashboard": "Please sign in to access your dashboard."
+		}
+	},
+	"nl": {
+		"dashboard": {
+			"title": "Dashboard",
+			"organizer": {
+				"title": "Organizer Dashboard",
+				"description": "Manage your events and submissions."
+			},
+			"buyer": {
+				"title": "Buyer Dashboard",
+				"description": "View your purchases and manage your waitlist entries."
+			},
+			"seller": {
+				"title": "Seller Dashboard",
+				"description": "Manage your bib listings and view your sales."
+			}
+		},
+		"auth": {
+			"signInToAccessDashboard": "Please sign in to access your dashboard."
+		}
 	}
 }

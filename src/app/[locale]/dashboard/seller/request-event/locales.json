@@ -1,68 +1,299 @@
 {
 	"en": {
-		"title": "Request New Event",
-		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
+		"actions": {
+			"cancel": "Cancel",
+			"goBack": "Back to Sell Bib",
+			"submit": "Submit Request"
+		},
 		"form": {
-			"eventName": "Event Name",
-			"eventNamePlaceholder": "Enter the event name",
-			"eventNameHelp": "The official name of the race or event",
-			"location": "Location",
-			"locationPlaceholder": "City, Country or specific venue",
-			"locationHelp": "Where the event takes place",
 			"eventDate": "Event Date",
 			"eventDateHelp": "When the event is scheduled",
+			"eventName": "Event Name",
+			"eventNameHelp": "The official name of the race or event",
+			"eventNamePlaceholder": "Enter the event name",
+			"location": "Location",
+			"locationHelp": "Where the event takes place",
+			"locationPlaceholder": "City, Country or specific venue",
 			"message": "Additional Information",
-			"messagePlaceholder": "Any additional details about the event (optional)",
-			"messageHelp": "Provide any extra information that might help us add this event"
-		},
-		"actions": {
-			"submit": "Submit Request",
-			"cancel": "Cancel",
-			"goBack": "Back to Sell Bib"
+			"messageHelp": "Provide any extra information that might help us add this event",
+			"messagePlaceholder": "Any additional details about the event (optional)"
 		},
 		"messages": {
-			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon.",
 			"error": "There was an error submitting your request. Please try again.",
-			"loading": "Submitting your request..."
+			"loading": "Submitting your request...",
+			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
 		},
+		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
+		"title": "Request New Event",
 		"validation": {
-			"eventNameRequired": "Event name is required",
-			"locationRequired": "Location is required",
+			"eventDateInPast": "Event date cannot be in the past",
 			"eventDateRequired": "Event date is required",
-			"eventDateInPast": "Event date cannot be in the past"
+			"eventNameRequired": "Event name is required",
+			"locationRequired": "Location is required"
 		}
 	},
 	"fr": {
-		"title": "Demander un nouvel événement",
-		"subtitle": "Vous ne trouvez pas votre événement ? Faites-le nous savoir et nous l'ajouterons à notre plateforme !",
+		"actions": {
+			"cancel": "Annuler",
+			"goBack": "Retour à la vente de dossard",
+			"submit": "Soumettre la demande"
+		},
 		"form": {
-			"eventName": "Nom de l'événement",
-			"eventNamePlaceholder": "Entrez le nom de l'événement",
-			"eventNameHelp": "Le nom officiel de la course ou de l'événement",
-			"location": "Lieu",
-			"locationPlaceholder": "Ville, Pays ou lieu spécifique",
-			"locationHelp": "Où se déroule l'événement",
 			"eventDate": "Date de l'événement",
 			"eventDateHelp": "Quand l'événement est programmé",
+			"eventName": "Nom de l'événement",
+			"eventNameHelp": "Le nom officiel de la course ou de l'événement",
+			"eventNamePlaceholder": "Entrez le nom de l'événement",
+			"location": "Lieu",
+			"locationHelp": "Où se déroule l'événement",
+			"locationPlaceholder": "Ville, Pays ou lieu spécifique",
 			"message": "Informations supplémentaires",
-			"messagePlaceholder": "Tous détails supplémentaires sur l'événement (optionnel)",
-			"messageHelp": "Fournissez toute information supplémentaire qui pourrait nous aider à ajouter cet événement"
-		},
-		"actions": {
-			"submit": "Soumettre la demande",
-			"cancel": "Annuler",
-			"goBack": "Retour à la vente de dossard"
+			"messageHelp": "Fournissez toute information supplémentaire qui pourrait nous aider à ajouter cet événement",
+			"messagePlaceholder": "Tous détails supplémentaires sur l'événement (optionnel)"
 		},
 		"messages": {
-			"success": "Votre demande d'événement a été soumise avec succès ! Nous l'examinerons et vous recontacterons bientôt.",
 			"error": "Il y a eu une erreur lors de la soumission de votre demande. Veuillez réessayer.",
-			"loading": "Soumission de votre demande..."
+			"loading": "Soumission de votre demande...",
+			"success": "Votre demande d'événement a été soumise avec succès ! Nous l'examinerons et vous recontacterons bientôt."
 		},
+		"subtitle": "Vous ne trouvez pas votre événement ? Faites-le nous savoir et nous l'ajouterons à notre plateforme !",
+		"title": "Demander un nouvel événement",
 		"validation": {
-			"eventNameRequired": "Le nom de l'événement est requis",
-			"locationRequired": "Le lieu est requis",
+			"eventDateInPast": "La date de l'événement ne peut pas être dans le passé",
 			"eventDateRequired": "La date de l'événement est requise",
-			"eventDateInPast": "La date de l'événement ne peut pas être dans le passé"
+			"eventNameRequired": "Le nom de l'événement est requis",
+			"locationRequired": "Le lieu est requis"
+		}
+	},
+	"es": {
+		"actions": {
+			"cancel": "Cancel",
+			"goBack": "Back to Sell Bib",
+			"submit": "Submit Request"
+		},
+		"form": {
+			"eventDate": "Event Date",
+			"eventDateHelp": "When the event is scheduled",
+			"eventName": "Event Name",
+			"eventNameHelp": "The official name of the race or event",
+			"eventNamePlaceholder": "Enter the event name",
+			"location": "Location",
+			"locationHelp": "Where the event takes place",
+			"locationPlaceholder": "City, Country or specific venue",
+			"message": "Additional Information",
+			"messageHelp": "Provide any extra information that might help us add this event",
+			"messagePlaceholder": "Any additional details about the event (optional)"
+		},
+		"messages": {
+			"error": "There was an error submitting your request. Please try again.",
+			"loading": "Submitting your request...",
+			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+		},
+		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
+		"title": "Request New Event",
+		"validation": {
+			"eventDateInPast": "Event date cannot be in the past",
+			"eventDateRequired": "Event date is required",
+			"eventNameRequired": "Event name is required",
+			"locationRequired": "Location is required"
+		}
+	},
+	"it": {
+		"actions": {
+			"cancel": "Cancel",
+			"goBack": "Back to Sell Bib",
+			"submit": "Submit Request"
+		},
+		"form": {
+			"eventDate": "Event Date",
+			"eventDateHelp": "When the event is scheduled",
+			"eventName": "Event Name",
+			"eventNameHelp": "The official name of the race or event",
+			"eventNamePlaceholder": "Enter the event name",
+			"location": "Location",
+			"locationHelp": "Where the event takes place",
+			"locationPlaceholder": "City, Country or specific venue",
+			"message": "Additional Information",
+			"messageHelp": "Provide any extra information that might help us add this event",
+			"messagePlaceholder": "Any additional details about the event (optional)"
+		},
+		"messages": {
+			"error": "There was an error submitting your request. Please try again.",
+			"loading": "Submitting your request...",
+			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+		},
+		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
+		"title": "Request New Event",
+		"validation": {
+			"eventDateInPast": "Event date cannot be in the past",
+			"eventDateRequired": "Event date is required",
+			"eventNameRequired": "Event name is required",
+			"locationRequired": "Location is required"
+		}
+	},
+	"de": {
+		"actions": {
+			"cancel": "Cancel",
+			"goBack": "Back to Sell Bib",
+			"submit": "Submit Request"
+		},
+		"form": {
+			"eventDate": "Event Date",
+			"eventDateHelp": "When the event is scheduled",
+			"eventName": "Event Name",
+			"eventNameHelp": "The official name of the race or event",
+			"eventNamePlaceholder": "Enter the event name",
+			"location": "Location",
+			"locationHelp": "Where the event takes place",
+			"locationPlaceholder": "City, Country or specific venue",
+			"message": "Additional Information",
+			"messageHelp": "Provide any extra information that might help us add this event",
+			"messagePlaceholder": "Any additional details about the event (optional)"
+		},
+		"messages": {
+			"error": "There was an error submitting your request. Please try again.",
+			"loading": "Submitting your request...",
+			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+		},
+		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
+		"title": "Request New Event",
+		"validation": {
+			"eventDateInPast": "Event date cannot be in the past",
+			"eventDateRequired": "Event date is required",
+			"eventNameRequired": "Event name is required",
+			"locationRequired": "Location is required"
+		}
+	},
+	"ro": {
+		"actions": {
+			"cancel": "Cancel",
+			"goBack": "Back to Sell Bib",
+			"submit": "Submit Request"
+		},
+		"form": {
+			"eventDate": "Event Date",
+			"eventDateHelp": "When the event is scheduled",
+			"eventName": "Event Name",
+			"eventNameHelp": "The official name of the race or event",
+			"eventNamePlaceholder": "Enter the event name",
+			"location": "Location",
+			"locationHelp": "Where the event takes place",
+			"locationPlaceholder": "City, Country or specific venue",
+			"message": "Additional Information",
+			"messageHelp": "Provide any extra information that might help us add this event",
+			"messagePlaceholder": "Any additional details about the event (optional)"
+		},
+		"messages": {
+			"error": "There was an error submitting your request. Please try again.",
+			"loading": "Submitting your request...",
+			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+		},
+		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
+		"title": "Request New Event",
+		"validation": {
+			"eventDateInPast": "Event date cannot be in the past",
+			"eventDateRequired": "Event date is required",
+			"eventNameRequired": "Event name is required",
+			"locationRequired": "Location is required"
+		}
+	},
+	"pt": {
+		"actions": {
+			"cancel": "Cancel",
+			"goBack": "Back to Sell Bib",
+			"submit": "Submit Request"
+		},
+		"form": {
+			"eventDate": "Event Date",
+			"eventDateHelp": "When the event is scheduled",
+			"eventName": "Event Name",
+			"eventNameHelp": "The official name of the race or event",
+			"eventNamePlaceholder": "Enter the event name",
+			"location": "Location",
+			"locationHelp": "Where the event takes place",
+			"locationPlaceholder": "City, Country or specific venue",
+			"message": "Additional Information",
+			"messageHelp": "Provide any extra information that might help us add this event",
+			"messagePlaceholder": "Any additional details about the event (optional)"
+		},
+		"messages": {
+			"error": "There was an error submitting your request. Please try again.",
+			"loading": "Submitting your request...",
+			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+		},
+		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
+		"title": "Request New Event",
+		"validation": {
+			"eventDateInPast": "Event date cannot be in the past",
+			"eventDateRequired": "Event date is required",
+			"eventNameRequired": "Event name is required",
+			"locationRequired": "Location is required"
+		}
+	},
+	"nl": {
+		"actions": {
+			"cancel": "Cancel",
+			"goBack": "Back to Sell Bib",
+			"submit": "Submit Request"
+		},
+		"form": {
+			"eventDate": "Event Date",
+			"eventDateHelp": "When the event is scheduled",
+			"eventName": "Event Name",
+			"eventNameHelp": "The official name of the race or event",
+			"eventNamePlaceholder": "Enter the event name",
+			"location": "Location",
+			"locationHelp": "Where the event takes place",
+			"locationPlaceholder": "City, Country or specific venue",
+			"message": "Additional Information",
+			"messageHelp": "Provide any extra information that might help us add this event",
+			"messagePlaceholder": "Any additional details about the event (optional)"
+		},
+		"messages": {
+			"error": "There was an error submitting your request. Please try again.",
+			"loading": "Submitting your request...",
+			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+		},
+		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
+		"title": "Request New Event",
+		"validation": {
+			"eventDateInPast": "Event date cannot be in the past",
+			"eventDateRequired": "Event date is required",
+			"eventNameRequired": "Event name is required",
+			"locationRequired": "Location is required"
+		}
+	},
+	"ko": {
+		"actions": {
+			"cancel": "Cancel",
+			"goBack": "Back to Sell Bib",
+			"submit": "Submit Request"
+		},
+		"form": {
+			"eventDate": "Event Date",
+			"eventDateHelp": "When the event is scheduled",
+			"eventName": "Event Name",
+			"eventNameHelp": "The official name of the race or event",
+			"eventNamePlaceholder": "Enter the event name",
+			"location": "Location",
+			"locationHelp": "Where the event takes place",
+			"locationPlaceholder": "City, Country or specific venue",
+			"message": "Additional Information",
+			"messageHelp": "Provide any extra information that might help us add this event",
+			"messagePlaceholder": "Any additional details about the event (optional)"
+		},
+		"messages": {
+			"error": "There was an error submitting your request. Please try again.",
+			"loading": "Submitting your request...",
+			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+		},
+		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
+		"title": "Request New Event",
+		"validation": {
+			"eventDateInPast": "Event date cannot be in the past",
+			"eventDateRequired": "Event date is required",
+			"eventNameRequired": "Event name is required",
+			"locationRequired": "Location is required"
 		}
 	}
 }

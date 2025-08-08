@@ -1,223 +1,1000 @@
 {
 	"en": {
 		"organizers": {
-			"title": "Organizers Management",
-			"subtitle": "Manage event organizers to control which races are available for bib resale",
-			"stats": {
-				"totalOrganizers": "Total Organizers",
-				"partneredOrganizers": "Bib Resale Enabled"
-			},
-			"sections": {
-				"actions": {
-					"title": "Quick Actions",
-					"description": "Add or manage event organizers for bib resale control"
-				}
-			},
 			"actions": {
 				"createOrganizer": "Add New Organizer",
 				"createOrganizerDescription": "Register event organizers to enable bib resale for their races"
 			},
+			"create": {
+				"errors": {
+					"createFailed": "Failed to create organizer",
+					"emailInvalid": "Please enter a valid email address",
+					"nameRequired": "Organizer name is required",
+					"websiteInvalid": "Must be a valid URL"
+				},
+				"form": {
+					"cancelButton": "Cancel",
+					"emailLabel": "Email Address",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"partnerDescription": "Check this option to allow bib resale for events organized by this organizer. This will make their events available on the Beswib marketplace.",
+					"partnerLabel": "Enable Bib Resale",
+					"submitButton": "Create Organizer",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com"
+				},
+				"subtitle": "Add a new event organizer to the Beswib platform",
+				"success": {
+					"backButton": "Back to Dashboard",
+					"message": "\"{organizerName}\" has been created and is now available on the platform.",
+					"title": "Organizer Created Successfully!"
+				},
+				"title": "Create New Organizer"
+			},
+			"sections": {
+				"actions": {
+					"description": "Add or manage event organizers for bib resale control",
+					"title": "Quick Actions"
+				}
+			},
+			"stats": {
+				"partneredOrganizers": "Bib Resale Enabled",
+				"totalOrganizers": "Total Organizers"
+			},
+			"subtitle": "Manage event organizers to control which races are available for bib resale",
 			"table": {
-				"search": "Search organizers...",
-				"noResults": "No organizers found",
-				"noResultsDescription": "Get started by creating your first organizer",
 				"columns": {
-					"name": "Organizer Name",
+					"created": "Created",
 					"email": "Email",
 					"eventsCount": "Events",
+					"name": "Organizer Name",
 					"partnership": "Partnership",
-					"created": "Created",
 					"status": {
 						"partner": "Partner",
 						"standard": "Standard"
 					}
 				},
 				"controls": {
-					"selectAll": "Select all",
-					"selectRow": "Select row",
-					"toggleColumns": "Toggle columns",
+					"cancel": "Cancel",
 					"clearFilter": "Clear filter",
-					"deleteSelected": "Delete Selected",
 					"confirmDelete": "Are you absolutely sure?",
 					"deleteDescription": "This action cannot be undone. This will permanently delete",
-					"cancel": "Cancel",
-					"rowsPerPage": "Rows per page"
+					"deleteSelected": "Delete Selected",
+					"rowsPerPage": "Rows per page",
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"toggleColumns": "Toggle columns"
 				},
 				"empty": {
-					"title": "No organizers found",
+					"createButton": "Create New Organizer",
 					"description": "Get started by creating your first organizer",
-					"createButton": "Create New Organizer"
-				}
+					"title": "No organizers found"
+				},
+				"noResults": "No organizers found",
+				"noResultsDescription": "Get started by creating your first organizer",
+				"search": "Search organizers..."
 			},
+			"title": "Organizers Management",
 			"ui": {
-				"connectedAs": "Connected as",
-				"loading": "Loading...",
 				"accessError": "Access Error",
 				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"connectedAs": "Connected as",
+				"loading": "Loading...",
 				"signIn": "Sign In"
 			},
-			"create": {
-				"title": "Create New Organizer",
-				"subtitle": "Add a new event organizer to the Beswib platform",
-				"form": {
-					"nameLabel": "Organizer Name",
-					"namePlaceholder": "Marathon de Paris",
-					"emailLabel": "Email Address",
-					"emailPlaceholder": "contact@marathon-paris.com",
-					"websiteLabel": "Website",
-					"websitePlaceholder": "https://www.marathon-paris.com",
-					"partnerLabel": "Enable Bib Resale",
-					"partnerDescription": "Check this option to allow bib resale for events organized by this organizer. This will make their events available on the Beswib marketplace.",
-					"submitButton": "Create Organizer",
-					"cancelButton": "Cancel"
-				},
-				"success": {
-					"title": "Organizer Created Successfully!",
-					"message": "\"{organizerName}\" has been created and is now available on the platform.",
-					"backButton": "Back to Dashboard"
-				},
-				"errors": {
-					"nameRequired": "Organizer name is required",
-					"emailInvalid": "Please enter a valid email address",
-					"websiteInvalid": "Must be a valid URL",
-					"createFailed": "Failed to create organizer"
-				}
-			},
 			"validate": {
-				"title": "Validate Organizers",
-				"subtitle": "Review and approve organizer applications to become platform partners.",
-				"stats": {
-					"totalOrganizers": "Total Organizers",
-					"pendingValidation": "Pending Validation",
-					"approvedPartners": "Approved Partners"
+				"messages": {
+					"approveError": "Failed to approve organizer",
+					"approveSuccess": "Organizer approved successfully!",
+					"rejectError": "Failed to reject organizer",
+					"rejectSuccess": "Organizer rejected"
 				},
 				"pending": {
-					"title": "Pending Organizers",
-					"noResults": "No pending organizers",
-					"noResultsDescription": "All organizers have been validated",
 					"actions": {
 						"approve": "Approve",
 						"reject": "Reject",
 						"viewWebsite": "View Website"
-					}
+					},
+					"noResults": "No pending organizers",
+					"noResultsDescription": "All organizers have been validated",
+					"title": "Pending Organizers"
 				},
-				"messages": {
-					"approveSuccess": "Organizer approved successfully!",
-					"rejectSuccess": "Organizer rejected",
-					"approveError": "Failed to approve organizer",
-					"rejectError": "Failed to reject organizer"
-				}
+				"stats": {
+					"approvedPartners": "Approved Partners",
+					"pendingValidation": "Pending Validation",
+					"totalOrganizers": "Total Organizers"
+				},
+				"subtitle": "Review and approve organizer applications to become platform partners.",
+				"title": "Validate Organizers"
 			}
 		}
 	},
 	"fr": {
 		"organizers": {
-			"title": "Gestion des Organisateurs",
-			"subtitle": "Gérer les organisateurs d'événements pour contrôler quelles courses sont disponibles pour la revente de dossards",
-			"stats": {
-				"totalOrganizers": "Total Organisateurs",
-				"partneredOrganizers": "Revente de Dossards Activée"
-			},
-			"sections": {
-				"actions": {
-					"title": "Actions Rapides",
-					"description": "Ajouter ou gérer les organisateurs d'événements pour le contrôle de la revente de dossards"
-				}
-			},
 			"actions": {
 				"createOrganizer": "Ajouter un Organisateur",
 				"createOrganizerDescription": "Enregistrer les organisateurs d'événements pour activer la revente de dossards sur leurs courses"
 			},
+			"create": {
+				"errors": {
+					"createFailed": "Échec de la création de l'organisateur",
+					"emailInvalid": "Veuillez entrer une adresse email valide",
+					"nameRequired": "Le nom de l'organisateur est requis",
+					"websiteInvalid": "Doit être une URL valide"
+				},
+				"form": {
+					"cancelButton": "Annuler",
+					"emailLabel": "Adresse Email",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"nameLabel": "Nom de l'Organisateur",
+					"namePlaceholder": "Marathon de Paris",
+					"partnerDescription": "Cochez cette option pour permettre la revente de dossards pour les événements organisés par cet organisateur. Cela rendra leurs événements disponibles sur la marketplace Beswib.",
+					"partnerLabel": "Activer la Revente de Dossards",
+					"submitButton": "Créer l'Organisateur",
+					"websiteLabel": "Site Web",
+					"websitePlaceholder": "https://www.marathon-paris.com"
+				},
+				"subtitle": "Ajouter un nouvel organisateur d'événements à la plateforme Beswib",
+				"success": {
+					"backButton": "Retour au Tableau de Bord",
+					"message": "\"{organizerName}\" a été créé et est maintenant disponible sur la plateforme.",
+					"title": "Organisateur Créé avec Succès !"
+				},
+				"title": "Créer un Nouvel Organisateur"
+			},
+			"sections": {
+				"actions": {
+					"description": "Ajouter ou gérer les organisateurs d'événements pour le contrôle de la revente de dossards",
+					"title": "Actions Rapides"
+				}
+			},
+			"stats": {
+				"partneredOrganizers": "Revente de Dossards Activée",
+				"totalOrganizers": "Total Organisateurs"
+			},
+			"subtitle": "Gérer les organisateurs d'événements pour contrôler quelles courses sont disponibles pour la revente de dossards",
 			"table": {
-				"search": "Rechercher des organisateurs...",
-				"noResults": "Aucun organisateur trouvé",
-				"noResultsDescription": "Commencez par créer votre premier organisateur",
 				"columns": {
-					"name": "Nom de l'Organisateur",
+					"created": "Créé le",
 					"email": "Email",
 					"eventsCount": "Événements",
+					"name": "Nom de l'Organisateur",
 					"partnership": "Partenariat",
-					"created": "Créé le",
 					"status": {
 						"partner": "Partenaire",
 						"standard": "Standard"
 					}
 				},
 				"controls": {
-					"selectAll": "Tout sélectionner",
-					"selectRow": "Sélectionner la ligne",
-					"toggleColumns": "Basculer les colonnes",
+					"cancel": "Annuler",
 					"clearFilter": "Effacer le filtre",
-					"deleteSelected": "Supprimer la sélection",
 					"confirmDelete": "Êtes-vous absolument sûr ?",
 					"deleteDescription": "Cette action ne peut pas être annulée. Cela supprimera définitivement",
-					"cancel": "Annuler",
-					"rowsPerPage": "Lignes par page"
+					"deleteSelected": "Supprimer la sélection",
+					"rowsPerPage": "Lignes par page",
+					"selectAll": "Tout sélectionner",
+					"selectRow": "Sélectionner la ligne",
+					"toggleColumns": "Basculer les colonnes"
 				},
 				"empty": {
-					"title": "Aucun organisateur trouvé",
+					"createButton": "Créer un Nouvel Organisateur",
 					"description": "Commencez par créer votre premier organisateur",
-					"createButton": "Créer un Nouvel Organisateur"
-				}
+					"title": "Aucun organisateur trouvé"
+				},
+				"noResults": "Aucun organisateur trouvé",
+				"noResultsDescription": "Commencez par créer votre premier organisateur",
+				"search": "Rechercher des organisateurs..."
 			},
+			"title": "Gestion des Organisateurs",
 			"ui": {
-				"connectedAs": "Connecté en tant que",
-				"loading": "Chargement...",
 				"accessError": "Erreur d'accès",
 				"accessErrorDescription": "Impossible de vérifier l'accès administrateur. Veuillez vous reconnecter.",
+				"connectedAs": "Connecté en tant que",
+				"loading": "Chargement...",
 				"signIn": "Se connecter"
 			},
-			"create": {
-				"title": "Créer un Nouvel Organisateur",
-				"subtitle": "Ajouter un nouvel organisateur d'événements à la plateforme Beswib",
-				"form": {
-					"nameLabel": "Nom de l'Organisateur",
-					"namePlaceholder": "Marathon de Paris",
-					"emailLabel": "Adresse Email",
-					"emailPlaceholder": "contact@marathon-paris.com",
-					"websiteLabel": "Site Web",
-					"websitePlaceholder": "https://www.marathon-paris.com",
-					"partnerLabel": "Activer la Revente de Dossards",
-					"partnerDescription": "Cochez cette option pour permettre la revente de dossards pour les événements organisés par cet organisateur. Cela rendra leurs événements disponibles sur la marketplace Beswib.",
-					"submitButton": "Créer l'Organisateur",
-					"cancelButton": "Annuler"
-				},
-				"success": {
-					"title": "Organisateur Créé avec Succès !",
-					"message": "\"{organizerName}\" a été créé et est maintenant disponible sur la plateforme.",
-					"backButton": "Retour au Tableau de Bord"
-				},
-				"errors": {
-					"nameRequired": "Le nom de l'organisateur est requis",
-					"emailInvalid": "Veuillez entrer une adresse email valide",
-					"websiteInvalid": "Doit être une URL valide",
-					"createFailed": "Échec de la création de l'organisateur"
-				}
-			},
 			"validate": {
-				"title": "Valider les Organisateurs",
-				"subtitle": "Examiner et approuver les candidatures d'organisateurs pour devenir partenaires de la plateforme.",
-				"stats": {
-					"totalOrganizers": "Total Organisateurs",
-					"pendingValidation": "En Attente de Validation",
-					"approvedPartners": "Partenaires Approuvés"
+				"messages": {
+					"approveError": "Échec de l'approbation de l'organisateur",
+					"approveSuccess": "Organisateur approuvé avec succès !",
+					"rejectError": "Échec du rejet de l'organisateur",
+					"rejectSuccess": "Organisateur rejeté"
 				},
 				"pending": {
-					"title": "Organisateurs en Attente",
-					"noResults": "Aucun organisateur en attente",
-					"noResultsDescription": "Tous les organisateurs ont été validés",
 					"actions": {
 						"approve": "Approuver",
 						"reject": "Rejeter",
 						"viewWebsite": "Voir le Site Web"
+					},
+					"noResults": "Aucun organisateur en attente",
+					"noResultsDescription": "Tous les organisateurs ont été validés",
+					"title": "Organisateurs en Attente"
+				},
+				"stats": {
+					"approvedPartners": "Partenaires Approuvés",
+					"pendingValidation": "En Attente de Validation",
+					"totalOrganizers": "Total Organisateurs"
+				},
+				"subtitle": "Examiner et approuver les candidatures d'organisateurs pour devenir partenaires de la plateforme.",
+				"title": "Valider les Organisateurs"
+			}
+		}
+	},
+	"es": {
+		"organizers": {
+			"actions": {
+				"createOrganizer": "Add New Organizer",
+				"createOrganizerDescription": "Register event organizers to enable bib resale for their races"
+			},
+			"create": {
+				"errors": {
+					"createFailed": "Failed to create organizer",
+					"emailInvalid": "Please enter a valid email address",
+					"nameRequired": "Organizer name is required",
+					"websiteInvalid": "Must be a valid URL"
+				},
+				"form": {
+					"cancelButton": "Cancel",
+					"emailLabel": "Email Address",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"partnerDescription": "Check this option to allow bib resale for events organized by this organizer. This will make their events available on the Beswib marketplace.",
+					"partnerLabel": "Enable Bib Resale",
+					"submitButton": "Create Organizer",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com"
+				},
+				"subtitle": "Add a new event organizer to the Beswib platform",
+				"success": {
+					"backButton": "Back to Dashboard",
+					"message": "\"{organizerName}\" has been created and is now available on the platform.",
+					"title": "Organizer Created Successfully!"
+				},
+				"title": "Create New Organizer"
+			},
+			"sections": {
+				"actions": {
+					"description": "Add or manage event organizers for bib resale control",
+					"title": "Quick Actions"
+				}
+			},
+			"stats": {
+				"partneredOrganizers": "Bib Resale Enabled",
+				"totalOrganizers": "Total Organizers"
+			},
+			"subtitle": "Manage event organizers to control which races are available for bib resale",
+			"table": {
+				"columns": {
+					"created": "Created",
+					"email": "Email",
+					"eventsCount": "Events",
+					"name": "Organizer Name",
+					"partnership": "Partnership",
+					"status": {
+						"partner": "Partner",
+						"standard": "Standard"
 					}
 				},
+				"controls": {
+					"cancel": "Cancel",
+					"clearFilter": "Clear filter",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"deleteSelected": "Delete Selected",
+					"rowsPerPage": "Rows per page",
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"toggleColumns": "Toggle columns"
+				},
+				"empty": {
+					"createButton": "Create New Organizer",
+					"description": "Get started by creating your first organizer",
+					"title": "No organizers found"
+				},
+				"noResults": "No organizers found",
+				"noResultsDescription": "Get started by creating your first organizer",
+				"search": "Search organizers..."
+			},
+			"title": "Organizers Management",
+			"ui": {
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"connectedAs": "Connected as",
+				"loading": "Loading...",
+				"signIn": "Sign In"
+			},
+			"validate": {
 				"messages": {
-					"approveSuccess": "Organisateur approuvé avec succès !",
-					"rejectSuccess": "Organisateur rejeté",
-					"approveError": "Échec de l'approbation de l'organisateur",
-					"rejectError": "Échec du rejet de l'organisateur"
+					"approveError": "Failed to approve organizer",
+					"approveSuccess": "Organizer approved successfully!",
+					"rejectError": "Failed to reject organizer",
+					"rejectSuccess": "Organizer rejected"
+				},
+				"pending": {
+					"actions": {
+						"approve": "Approve",
+						"reject": "Reject",
+						"viewWebsite": "View Website"
+					},
+					"noResults": "No pending organizers",
+					"noResultsDescription": "All organizers have been validated",
+					"title": "Pending Organizers"
+				},
+				"stats": {
+					"approvedPartners": "Approved Partners",
+					"pendingValidation": "Pending Validation",
+					"totalOrganizers": "Total Organizers"
+				},
+				"subtitle": "Review and approve organizer applications to become platform partners.",
+				"title": "Validate Organizers"
+			}
+		}
+	},
+	"it": {
+		"organizers": {
+			"actions": {
+				"createOrganizer": "Add New Organizer",
+				"createOrganizerDescription": "Register event organizers to enable bib resale for their races"
+			},
+			"create": {
+				"errors": {
+					"createFailed": "Failed to create organizer",
+					"emailInvalid": "Please enter a valid email address",
+					"nameRequired": "Organizer name is required",
+					"websiteInvalid": "Must be a valid URL"
+				},
+				"form": {
+					"cancelButton": "Cancel",
+					"emailLabel": "Email Address",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"partnerDescription": "Check this option to allow bib resale for events organized by this organizer. This will make their events available on the Beswib marketplace.",
+					"partnerLabel": "Enable Bib Resale",
+					"submitButton": "Create Organizer",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com"
+				},
+				"subtitle": "Add a new event organizer to the Beswib platform",
+				"success": {
+					"backButton": "Back to Dashboard",
+					"message": "\"{organizerName}\" has been created and is now available on the platform.",
+					"title": "Organizer Created Successfully!"
+				},
+				"title": "Create New Organizer"
+			},
+			"sections": {
+				"actions": {
+					"description": "Add or manage event organizers for bib resale control",
+					"title": "Quick Actions"
 				}
+			},
+			"stats": {
+				"partneredOrganizers": "Bib Resale Enabled",
+				"totalOrganizers": "Total Organizers"
+			},
+			"subtitle": "Manage event organizers to control which races are available for bib resale",
+			"table": {
+				"columns": {
+					"created": "Created",
+					"email": "Email",
+					"eventsCount": "Events",
+					"name": "Organizer Name",
+					"partnership": "Partnership",
+					"status": {
+						"partner": "Partner",
+						"standard": "Standard"
+					}
+				},
+				"controls": {
+					"cancel": "Cancel",
+					"clearFilter": "Clear filter",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"deleteSelected": "Delete Selected",
+					"rowsPerPage": "Rows per page",
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"toggleColumns": "Toggle columns"
+				},
+				"empty": {
+					"createButton": "Create New Organizer",
+					"description": "Get started by creating your first organizer",
+					"title": "No organizers found"
+				},
+				"noResults": "No organizers found",
+				"noResultsDescription": "Get started by creating your first organizer",
+				"search": "Search organizers..."
+			},
+			"title": "Organizers Management",
+			"ui": {
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"connectedAs": "Connected as",
+				"loading": "Loading...",
+				"signIn": "Sign In"
+			},
+			"validate": {
+				"messages": {
+					"approveError": "Failed to approve organizer",
+					"approveSuccess": "Organizer approved successfully!",
+					"rejectError": "Failed to reject organizer",
+					"rejectSuccess": "Organizer rejected"
+				},
+				"pending": {
+					"actions": {
+						"approve": "Approve",
+						"reject": "Reject",
+						"viewWebsite": "View Website"
+					},
+					"noResults": "No pending organizers",
+					"noResultsDescription": "All organizers have been validated",
+					"title": "Pending Organizers"
+				},
+				"stats": {
+					"approvedPartners": "Approved Partners",
+					"pendingValidation": "Pending Validation",
+					"totalOrganizers": "Total Organizers"
+				},
+				"subtitle": "Review and approve organizer applications to become platform partners.",
+				"title": "Validate Organizers"
+			}
+		}
+	},
+	"de": {
+		"organizers": {
+			"actions": {
+				"createOrganizer": "Add New Organizer",
+				"createOrganizerDescription": "Register event organizers to enable bib resale for their races"
+			},
+			"create": {
+				"errors": {
+					"createFailed": "Failed to create organizer",
+					"emailInvalid": "Please enter a valid email address",
+					"nameRequired": "Organizer name is required",
+					"websiteInvalid": "Must be a valid URL"
+				},
+				"form": {
+					"cancelButton": "Cancel",
+					"emailLabel": "Email Address",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"partnerDescription": "Check this option to allow bib resale for events organized by this organizer. This will make their events available on the Beswib marketplace.",
+					"partnerLabel": "Enable Bib Resale",
+					"submitButton": "Create Organizer",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com"
+				},
+				"subtitle": "Add a new event organizer to the Beswib platform",
+				"success": {
+					"backButton": "Back to Dashboard",
+					"message": "\"{organizerName}\" has been created and is now available on the platform.",
+					"title": "Organizer Created Successfully!"
+				},
+				"title": "Create New Organizer"
+			},
+			"sections": {
+				"actions": {
+					"description": "Add or manage event organizers for bib resale control",
+					"title": "Quick Actions"
+				}
+			},
+			"stats": {
+				"partneredOrganizers": "Bib Resale Enabled",
+				"totalOrganizers": "Total Organizers"
+			},
+			"subtitle": "Manage event organizers to control which races are available for bib resale",
+			"table": {
+				"columns": {
+					"created": "Created",
+					"email": "Email",
+					"eventsCount": "Events",
+					"name": "Organizer Name",
+					"partnership": "Partnership",
+					"status": {
+						"partner": "Partner",
+						"standard": "Standard"
+					}
+				},
+				"controls": {
+					"cancel": "Cancel",
+					"clearFilter": "Clear filter",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"deleteSelected": "Delete Selected",
+					"rowsPerPage": "Rows per page",
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"toggleColumns": "Toggle columns"
+				},
+				"empty": {
+					"createButton": "Create New Organizer",
+					"description": "Get started by creating your first organizer",
+					"title": "No organizers found"
+				},
+				"noResults": "No organizers found",
+				"noResultsDescription": "Get started by creating your first organizer",
+				"search": "Search organizers..."
+			},
+			"title": "Organizers Management",
+			"ui": {
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"connectedAs": "Connected as",
+				"loading": "Loading...",
+				"signIn": "Sign In"
+			},
+			"validate": {
+				"messages": {
+					"approveError": "Failed to approve organizer",
+					"approveSuccess": "Organizer approved successfully!",
+					"rejectError": "Failed to reject organizer",
+					"rejectSuccess": "Organizer rejected"
+				},
+				"pending": {
+					"actions": {
+						"approve": "Approve",
+						"reject": "Reject",
+						"viewWebsite": "View Website"
+					},
+					"noResults": "No pending organizers",
+					"noResultsDescription": "All organizers have been validated",
+					"title": "Pending Organizers"
+				},
+				"stats": {
+					"approvedPartners": "Approved Partners",
+					"pendingValidation": "Pending Validation",
+					"totalOrganizers": "Total Organizers"
+				},
+				"subtitle": "Review and approve organizer applications to become platform partners.",
+				"title": "Validate Organizers"
+			}
+		}
+	},
+	"ro": {
+		"organizers": {
+			"actions": {
+				"createOrganizer": "Add New Organizer",
+				"createOrganizerDescription": "Register event organizers to enable bib resale for their races"
+			},
+			"create": {
+				"errors": {
+					"createFailed": "Failed to create organizer",
+					"emailInvalid": "Please enter a valid email address",
+					"nameRequired": "Organizer name is required",
+					"websiteInvalid": "Must be a valid URL"
+				},
+				"form": {
+					"cancelButton": "Cancel",
+					"emailLabel": "Email Address",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"partnerDescription": "Check this option to allow bib resale for events organized by this organizer. This will make their events available on the Beswib marketplace.",
+					"partnerLabel": "Enable Bib Resale",
+					"submitButton": "Create Organizer",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com"
+				},
+				"subtitle": "Add a new event organizer to the Beswib platform",
+				"success": {
+					"backButton": "Back to Dashboard",
+					"message": "\"{organizerName}\" has been created and is now available on the platform.",
+					"title": "Organizer Created Successfully!"
+				},
+				"title": "Create New Organizer"
+			},
+			"sections": {
+				"actions": {
+					"description": "Add or manage event organizers for bib resale control",
+					"title": "Quick Actions"
+				}
+			},
+			"stats": {
+				"partneredOrganizers": "Bib Resale Enabled",
+				"totalOrganizers": "Total Organizers"
+			},
+			"subtitle": "Manage event organizers to control which races are available for bib resale",
+			"table": {
+				"columns": {
+					"created": "Created",
+					"email": "Email",
+					"eventsCount": "Events",
+					"name": "Organizer Name",
+					"partnership": "Partnership",
+					"status": {
+						"partner": "Partner",
+						"standard": "Standard"
+					}
+				},
+				"controls": {
+					"cancel": "Cancel",
+					"clearFilter": "Clear filter",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"deleteSelected": "Delete Selected",
+					"rowsPerPage": "Rows per page",
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"toggleColumns": "Toggle columns"
+				},
+				"empty": {
+					"createButton": "Create New Organizer",
+					"description": "Get started by creating your first organizer",
+					"title": "No organizers found"
+				},
+				"noResults": "No organizers found",
+				"noResultsDescription": "Get started by creating your first organizer",
+				"search": "Search organizers..."
+			},
+			"title": "Organizers Management",
+			"ui": {
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"connectedAs": "Connected as",
+				"loading": "Loading...",
+				"signIn": "Sign In"
+			},
+			"validate": {
+				"messages": {
+					"approveError": "Failed to approve organizer",
+					"approveSuccess": "Organizer approved successfully!",
+					"rejectError": "Failed to reject organizer",
+					"rejectSuccess": "Organizer rejected"
+				},
+				"pending": {
+					"actions": {
+						"approve": "Approve",
+						"reject": "Reject",
+						"viewWebsite": "View Website"
+					},
+					"noResults": "No pending organizers",
+					"noResultsDescription": "All organizers have been validated",
+					"title": "Pending Organizers"
+				},
+				"stats": {
+					"approvedPartners": "Approved Partners",
+					"pendingValidation": "Pending Validation",
+					"totalOrganizers": "Total Organizers"
+				},
+				"subtitle": "Review and approve organizer applications to become platform partners.",
+				"title": "Validate Organizers"
+			}
+		}
+	},
+	"pt": {
+		"organizers": {
+			"actions": {
+				"createOrganizer": "Add New Organizer",
+				"createOrganizerDescription": "Register event organizers to enable bib resale for their races"
+			},
+			"create": {
+				"errors": {
+					"createFailed": "Failed to create organizer",
+					"emailInvalid": "Please enter a valid email address",
+					"nameRequired": "Organizer name is required",
+					"websiteInvalid": "Must be a valid URL"
+				},
+				"form": {
+					"cancelButton": "Cancel",
+					"emailLabel": "Email Address",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"partnerDescription": "Check this option to allow bib resale for events organized by this organizer. This will make their events available on the Beswib marketplace.",
+					"partnerLabel": "Enable Bib Resale",
+					"submitButton": "Create Organizer",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com"
+				},
+				"subtitle": "Add a new event organizer to the Beswib platform",
+				"success": {
+					"backButton": "Back to Dashboard",
+					"message": "\"{organizerName}\" has been created and is now available on the platform.",
+					"title": "Organizer Created Successfully!"
+				},
+				"title": "Create New Organizer"
+			},
+			"sections": {
+				"actions": {
+					"description": "Add or manage event organizers for bib resale control",
+					"title": "Quick Actions"
+				}
+			},
+			"stats": {
+				"partneredOrganizers": "Bib Resale Enabled",
+				"totalOrganizers": "Total Organizers"
+			},
+			"subtitle": "Manage event organizers to control which races are available for bib resale",
+			"table": {
+				"columns": {
+					"created": "Created",
+					"email": "Email",
+					"eventsCount": "Events",
+					"name": "Organizer Name",
+					"partnership": "Partnership",
+					"status": {
+						"partner": "Partner",
+						"standard": "Standard"
+					}
+				},
+				"controls": {
+					"cancel": "Cancel",
+					"clearFilter": "Clear filter",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"deleteSelected": "Delete Selected",
+					"rowsPerPage": "Rows per page",
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"toggleColumns": "Toggle columns"
+				},
+				"empty": {
+					"createButton": "Create New Organizer",
+					"description": "Get started by creating your first organizer",
+					"title": "No organizers found"
+				},
+				"noResults": "No organizers found",
+				"noResultsDescription": "Get started by creating your first organizer",
+				"search": "Search organizers..."
+			},
+			"title": "Organizers Management",
+			"ui": {
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"connectedAs": "Connected as",
+				"loading": "Loading...",
+				"signIn": "Sign In"
+			},
+			"validate": {
+				"messages": {
+					"approveError": "Failed to approve organizer",
+					"approveSuccess": "Organizer approved successfully!",
+					"rejectError": "Failed to reject organizer",
+					"rejectSuccess": "Organizer rejected"
+				},
+				"pending": {
+					"actions": {
+						"approve": "Approve",
+						"reject": "Reject",
+						"viewWebsite": "View Website"
+					},
+					"noResults": "No pending organizers",
+					"noResultsDescription": "All organizers have been validated",
+					"title": "Pending Organizers"
+				},
+				"stats": {
+					"approvedPartners": "Approved Partners",
+					"pendingValidation": "Pending Validation",
+					"totalOrganizers": "Total Organizers"
+				},
+				"subtitle": "Review and approve organizer applications to become platform partners.",
+				"title": "Validate Organizers"
+			}
+		}
+	},
+	"nl": {
+		"organizers": {
+			"actions": {
+				"createOrganizer": "Add New Organizer",
+				"createOrganizerDescription": "Register event organizers to enable bib resale for their races"
+			},
+			"create": {
+				"errors": {
+					"createFailed": "Failed to create organizer",
+					"emailInvalid": "Please enter a valid email address",
+					"nameRequired": "Organizer name is required",
+					"websiteInvalid": "Must be a valid URL"
+				},
+				"form": {
+					"cancelButton": "Cancel",
+					"emailLabel": "Email Address",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"partnerDescription": "Check this option to allow bib resale for events organized by this organizer. This will make their events available on the Beswib marketplace.",
+					"partnerLabel": "Enable Bib Resale",
+					"submitButton": "Create Organizer",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com"
+				},
+				"subtitle": "Add a new event organizer to the Beswib platform",
+				"success": {
+					"backButton": "Back to Dashboard",
+					"message": "\"{organizerName}\" has been created and is now available on the platform.",
+					"title": "Organizer Created Successfully!"
+				},
+				"title": "Create New Organizer"
+			},
+			"sections": {
+				"actions": {
+					"description": "Add or manage event organizers for bib resale control",
+					"title": "Quick Actions"
+				}
+			},
+			"stats": {
+				"partneredOrganizers": "Bib Resale Enabled",
+				"totalOrganizers": "Total Organizers"
+			},
+			"subtitle": "Manage event organizers to control which races are available for bib resale",
+			"table": {
+				"columns": {
+					"created": "Created",
+					"email": "Email",
+					"eventsCount": "Events",
+					"name": "Organizer Name",
+					"partnership": "Partnership",
+					"status": {
+						"partner": "Partner",
+						"standard": "Standard"
+					}
+				},
+				"controls": {
+					"cancel": "Cancel",
+					"clearFilter": "Clear filter",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"deleteSelected": "Delete Selected",
+					"rowsPerPage": "Rows per page",
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"toggleColumns": "Toggle columns"
+				},
+				"empty": {
+					"createButton": "Create New Organizer",
+					"description": "Get started by creating your first organizer",
+					"title": "No organizers found"
+				},
+				"noResults": "No organizers found",
+				"noResultsDescription": "Get started by creating your first organizer",
+				"search": "Search organizers..."
+			},
+			"title": "Organizers Management",
+			"ui": {
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"connectedAs": "Connected as",
+				"loading": "Loading...",
+				"signIn": "Sign In"
+			},
+			"validate": {
+				"messages": {
+					"approveError": "Failed to approve organizer",
+					"approveSuccess": "Organizer approved successfully!",
+					"rejectError": "Failed to reject organizer",
+					"rejectSuccess": "Organizer rejected"
+				},
+				"pending": {
+					"actions": {
+						"approve": "Approve",
+						"reject": "Reject",
+						"viewWebsite": "View Website"
+					},
+					"noResults": "No pending organizers",
+					"noResultsDescription": "All organizers have been validated",
+					"title": "Pending Organizers"
+				},
+				"stats": {
+					"approvedPartners": "Approved Partners",
+					"pendingValidation": "Pending Validation",
+					"totalOrganizers": "Total Organizers"
+				},
+				"subtitle": "Review and approve organizer applications to become platform partners.",
+				"title": "Validate Organizers"
+			}
+		}
+	},
+	"ko": {
+		"organizers": {
+			"actions": {
+				"createOrganizer": "Add New Organizer",
+				"createOrganizerDescription": "Register event organizers to enable bib resale for their races"
+			},
+			"create": {
+				"errors": {
+					"createFailed": "Failed to create organizer",
+					"emailInvalid": "Please enter a valid email address",
+					"nameRequired": "Organizer name is required",
+					"websiteInvalid": "Must be a valid URL"
+				},
+				"form": {
+					"cancelButton": "Cancel",
+					"emailLabel": "Email Address",
+					"emailPlaceholder": "contact@marathon-paris.com",
+					"nameLabel": "Organizer Name",
+					"namePlaceholder": "Marathon de Paris",
+					"partnerDescription": "Check this option to allow bib resale for events organized by this organizer. This will make their events available on the Beswib marketplace.",
+					"partnerLabel": "Enable Bib Resale",
+					"submitButton": "Create Organizer",
+					"websiteLabel": "Website",
+					"websitePlaceholder": "https://www.marathon-paris.com"
+				},
+				"subtitle": "Add a new event organizer to the Beswib platform",
+				"success": {
+					"backButton": "Back to Dashboard",
+					"message": "\"{organizerName}\" has been created and is now available on the platform.",
+					"title": "Organizer Created Successfully!"
+				},
+				"title": "Create New Organizer"
+			},
+			"sections": {
+				"actions": {
+					"description": "Add or manage event organizers for bib resale control",
+					"title": "Quick Actions"
+				}
+			},
+			"stats": {
+				"partneredOrganizers": "Bib Resale Enabled",
+				"totalOrganizers": "Total Organizers"
+			},
+			"subtitle": "Manage event organizers to control which races are available for bib resale",
+			"table": {
+				"columns": {
+					"created": "Created",
+					"email": "Email",
+					"eventsCount": "Events",
+					"name": "Organizer Name",
+					"partnership": "Partnership",
+					"status": {
+						"partner": "Partner",
+						"standard": "Standard"
+					}
+				},
+				"controls": {
+					"cancel": "Cancel",
+					"clearFilter": "Clear filter",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"deleteSelected": "Delete Selected",
+					"rowsPerPage": "Rows per page",
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"toggleColumns": "Toggle columns"
+				},
+				"empty": {
+					"createButton": "Create New Organizer",
+					"description": "Get started by creating your first organizer",
+					"title": "No organizers found"
+				},
+				"noResults": "No organizers found",
+				"noResultsDescription": "Get started by creating your first organizer",
+				"search": "Search organizers..."
+			},
+			"title": "Organizers Management",
+			"ui": {
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"connectedAs": "Connected as",
+				"loading": "Loading...",
+				"signIn": "Sign In"
+			},
+			"validate": {
+				"messages": {
+					"approveError": "Failed to approve organizer",
+					"approveSuccess": "Organizer approved successfully!",
+					"rejectError": "Failed to reject organizer",
+					"rejectSuccess": "Organizer rejected"
+				},
+				"pending": {
+					"actions": {
+						"approve": "Approve",
+						"reject": "Reject",
+						"viewWebsite": "View Website"
+					},
+					"noResults": "No pending organizers",
+					"noResultsDescription": "All organizers have been validated",
+					"title": "Pending Organizers"
+				},
+				"stats": {
+					"approvedPartners": "Approved Partners",
+					"pendingValidation": "Pending Validation",
+					"totalOrganizers": "Total Organizers"
+				},
+				"subtitle": "Review and approve organizer applications to become platform partners.",
+				"title": "Validate Organizers"
 			}
 		}
 	}
