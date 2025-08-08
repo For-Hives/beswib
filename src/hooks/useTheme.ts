@@ -18,7 +18,9 @@ export const useThemeStore = create<ThemeState>()(
 		}),
 		{
 			name: 'theme',
-			storage: createJSONStorage(() => (typeof window !== 'undefined' ? window.localStorage : undefined as unknown as Storage)),
+			storage: createJSONStorage(() =>
+				typeof window !== 'undefined' ? window.localStorage : (undefined as unknown as Storage)
+			),
 		}
 	)
 )
