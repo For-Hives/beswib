@@ -50,7 +50,7 @@ export default function MarketplaceSidebar({
 	const sportsOptions = [
 		{ value: 'running', label: t.road ?? 'Road', icon: '🏃' },
 		{ value: 'trail', label: t.trail ?? 'Trail', icon: '🏔️' },
-		{ value: 'triathlon', label: t.triathlon ?? 'Triathlon', icon: '🏊‍♂️🚴‍♂️🏃‍♂️' },
+		{ value: 'triathlon', label: t.triathlon ?? 'Triathlon', icon: '🏊‍♂️' },
 		{ value: 'cycling', label: t.cycling ?? 'Cycling', icon: '🚴' },
 		{ value: 'other', label: t.other ?? 'Other', icon: '🏅' },
 	]
@@ -157,7 +157,7 @@ export default function MarketplaceSidebar({
 								}
 								className="text-muted-foreground hover:text-foreground"
 							>
-																	{(t.reset ?? 'Reset') + ` (${activeFiltersCount})`}
+								{(t.reset ?? 'Reset') + ` (${activeFiltersCount})`}
 							</Button>
 						)}
 					</div>
@@ -192,7 +192,11 @@ export default function MarketplaceSidebar({
 								onClick={() => setShowAllSports(!showAllSports)}
 								className="text-muted-foreground w-full"
 							>
-								{showAllSports ? (t.showLess ?? 'Show Less') : (t.showMoreCount ? (t.showMoreCount as string).replace('{count}', String(sportsOptions.length - 4)) : `Show ${sportsOptions.length - 4} More`)}
+								{showAllSports
+									? (t.showLess ?? 'Show Less')
+									: t.showMoreCount
+										? (t.showMoreCount as string).replace('{count}', String(sportsOptions.length - 4))
+										: `Show ${sportsOptions.length - 4} More`}
 							</Button>
 						)}
 						{filters.sport !== null && (
@@ -236,7 +240,11 @@ export default function MarketplaceSidebar({
 								onClick={() => setShowAllDistances(!showAllDistances)}
 								className="text-muted-foreground w-full"
 							>
-								{showAllDistances ? (t.showLess ?? 'Show Less') : (t.showMoreCount ? (t.showMoreCount as string).replace('{count}', String(distanceOptions.length - 4)) : `Show ${distanceOptions.length - 4} More`)}
+								{showAllDistances
+									? (t.showLess ?? 'Show Less')
+									: t.showMoreCount
+										? (t.showMoreCount as string).replace('{count}', String(distanceOptions.length - 4))
+										: `Show ${distanceOptions.length - 4} More`}
 							</Button>
 						)}
 						{filters.distance !== null && (
@@ -281,11 +289,11 @@ export default function MarketplaceSidebar({
 						{t.region ?? 'Location'}
 					</Label>
 					<div className="space-y-2">
-														<Input
-									placeholder={t.searchLocationsPlaceholder ?? 'Search locations...'}
-									value={regionSearch}
-									onChange={e => setRegionSearch(e.target.value)}
-								/>
+						<Input
+							placeholder={t.searchLocationsPlaceholder ?? 'Search locations...'}
+							value={regionSearch}
+							onChange={e => setRegionSearch(e.target.value)}
+						/>
 						<div className="max-h-40 space-y-1 overflow-y-auto">
 							{filteredRegions.slice(0, 10).map(region => (
 								<Button
@@ -309,8 +317,8 @@ export default function MarketplaceSidebar({
 						{t.date ?? 'Event Date'}
 					</Label>
 					<div className="space-y-2">
-														<div className="space-y-1">
-									<Label className="text-muted-foreground text-xs">{t.start ?? 'From'}</Label>
+						<div className="space-y-1">
+							<Label className="text-muted-foreground text-xs">{t.start ?? 'From'}</Label>
 							<Input
 								type="date"
 								value={filters.dateStart ?? ''}
@@ -318,8 +326,8 @@ export default function MarketplaceSidebar({
 								className=""
 							/>
 						</div>
-														<div className="space-y-1">
-									<Label className="text-muted-foreground text-xs">{t.end ?? 'To'}</Label>
+						<div className="space-y-1">
+							<Label className="text-muted-foreground text-xs">{t.end ?? 'To'}</Label>
 							<Input
 								type="date"
 								value={filters.dateEnd ?? ''}
@@ -334,8 +342,8 @@ export default function MarketplaceSidebar({
 				{activeFiltersCount > 0 && (
 					<div className="space-y-3">
 						<Separator />
-													<div className="space-y-2">
-								<Label className="text-sm font-medium">{t.activeFilters ?? 'Active Filters'}</Label>
+						<div className="space-y-2">
+							<Label className="text-sm font-medium">{t.activeFilters ?? 'Active Filters'}</Label>
 							<div className="flex flex-wrap gap-1">
 								{filters.geography.map(location => (
 									<Badge key={location} variant="secondary" className="text-xs">
@@ -362,14 +370,14 @@ export default function MarketplaceSidebar({
 									</Badge>
 								)}
 								{filters.dateStart !== undefined && filters.dateStart !== '' && (
-																			<Badge variant="secondary" className="text-xs">
-											{(t.start ?? 'From') + ': '} {filters.dateStart}
+									<Badge variant="secondary" className="text-xs">
+										{(t.start ?? 'From') + ': '} {filters.dateStart}
 										<X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handleDateStartChange('')} />
 									</Badge>
 								)}
 								{filters.dateEnd !== undefined && filters.dateEnd !== '' && (
-																			<Badge variant="secondary" className="text-xs">
-											{(t.end ?? 'To') + ': '} {filters.dateEnd}
+									<Badge variant="secondary" className="text-xs">
+										{(t.end ?? 'To') + ': '} {filters.dateEnd}
 										<X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handleDateEndChange('')} />
 									</Badge>
 								)}
