@@ -32,8 +32,8 @@ interface PbUserRecordMinimal {
 
 function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 	// Debug: Check what we get from PocketBase
-	console.log('mapPbRecordToUser - Raw record:', record)
-	console.log('mapPbRecordToUser - record.birthDate:', record?.birthDate, 'type:', typeof record?.birthDate)
+	console.info('mapPbRecordToUser - Raw record:', record)
+	console.info('mapPbRecordToUser - record.birthDate:', record?.birthDate, 'type:', typeof record?.birthDate)
 
 	// Normalize PB 'birthDate' (string or Date) to 'YYYY-MM-DD' using Luxon
 	let birthDate: string | Date | null = null
@@ -42,20 +42,20 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 		const dt = DateTime.fromJSDate(bithDate).toUTC()
 		birthDate = dt.isValid ? dt.toFormat('yyyy-LL-dd') : null
 	} else if (typeof bithDate === 'string' && bithDate.trim() !== '') {
-		console.log('mapPbRecordToUser - attempting to parse string:', bithDate)
+		console.info('mapPbRecordToUser - attempting to parse string:', bithDate)
 		const dt = DateTime.fromISO(bithDate, { zone: 'utc' })
-		console.log('mapPbRecordToUser - DateTime.fromISO result:', dt, 'isValid:', dt.isValid)
+		console.info('mapPbRecordToUser - DateTime.fromISO result:', dt, 'isValid:', dt.isValid)
 		if (!dt.isValid) {
 			// Try alternative parsing methods
 			const dt2 = DateTime.fromSQL(bithDate)
-			console.log('mapPbRecordToUser - DateTime.fromSQL result:', dt2, 'isValid:', dt2.isValid)
+			console.info('mapPbRecordToUser - DateTime.fromSQL result:', dt2, 'isValid:', dt2.isValid)
 			birthDate = dt2.isValid ? dt2.toFormat('yyyy-LL-dd') : null
 		} else {
 			birthDate = dt.toFormat('yyyy-LL-dd')
 		}
 	}
 
-	console.log('mapPbRecordToUser - final birthDate:', birthDate)
+	console.info('mapPbRecordToUser - final birthDate:', birthDate)
 
 	return {
 		id: record.id,

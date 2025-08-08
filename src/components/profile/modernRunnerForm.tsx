@@ -60,9 +60,9 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 	const isComplete = isUserProfileComplete(user)
 
 	// Debug: Check what birthDate we receive
-	console.log('ModernRunnerForm - Raw user object:', user)
-	console.log('ModernRunnerForm - user.birthDate:', user?.birthDate, 'type:', typeof user?.birthDate)
-	console.log('ModernRunnerForm - formatted birthDate:', formatDateForHTMLInput(user?.birthDate))
+	console.info('ModernRunnerForm - Raw user object:', user)
+	console.info('ModernRunnerForm - user.birthDate:', user?.birthDate, 'type:', typeof user?.birthDate)
+	console.info('ModernRunnerForm - formatted birthDate:', formatDateForHTMLInput(user?.birthDate))
 
 	// Gender options for SelectAnimated
 	const genderOptions: SelectOption[] = [

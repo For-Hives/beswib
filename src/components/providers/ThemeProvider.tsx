@@ -4,7 +4,7 @@ import { useThemeStore } from '@/hooks/useTheme'
 import { useEffect } from 'react'
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-	const { theme, setTheme } = useThemeStore()
+	const { theme } = useThemeStore()
 
 	useEffect(() => {
 		// Keep color-scheme in sync with theme to avoid flash
