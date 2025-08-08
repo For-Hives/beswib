@@ -124,7 +124,9 @@
 						"route": "Route",
 						"trail": "Trail",
 						"triathlon": "Triathlon",
-						"ultra": "Ultra"
+						"ultra": "Ultra",
+						"road": "Road",
+						"cycle": "Cycle"
 					},
 					"required": true
 				},

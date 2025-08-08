@@ -199,7 +199,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		<div className="bg-background">
 			{/* Search bar at the top */}
 			<div className="border-border bg-card/80 border-b p-6">
-				<div className="max-w-7xl">
+				<div className="w-full">
 					<div className="relative">
 						<Search className="text-muted-foreground absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 transform" />
 						<Input
@@ -212,7 +212,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 				</div>
 			</div>
 
-			{/* Active filters badges */}
+			{/* Active filters badges - take full width and align left */}
 			<ActiveFiltersBadges
 				filters={{
 					sport,

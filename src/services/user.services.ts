@@ -10,6 +10,7 @@ interface PbUserRecordMinimal {
 	paypalMerchantId: string | null
 	role: 'admin' | 'user'
 	email: string
+	contactEmail: string | null
 	firstName: string | null
 	lastName: string | null
 	bithDate: string | Date | null
@@ -47,6 +48,7 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 		paypalMerchantId: record.paypalMerchantId,
 		role: record.role,
 		email: record.email,
+		contactEmail: record.contactEmail,
 		firstName: record.firstName,
 		lastName: record.lastName,
 		birthDate,

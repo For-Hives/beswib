@@ -4,7 +4,7 @@ import { Calendar, Clock, DollarSign, ExternalLink, Globe, Mail, MapPin, Route, 
 
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
-import { TriathlonIcon, TrailIcon, RouteIcon, UltraIcon } from '@/components/icons/RaceTypeIcons'
+import { TriathlonIcon, TrailIcon, RouteIcon, CycleIcon } from '@/components/icons/RaceTypeIcons'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
@@ -44,13 +44,13 @@ export function EventView(props: Readonly<EventViewProps>) {
 
 	const getEventTypeColor = (typeCourse: Event['typeCourse']) => {
 		switch (typeCourse) {
-			case 'route':
+			case 'road':
 				return 'bg-blue-500'
 			case 'trail':
 				return 'bg-green-500'
 			case 'triathlon':
 				return 'bg-purple-500'
-			case 'ultra':
+			case 'cycle':
 				return 'bg-red-500'
 			default:
 				return 'bg-gray-500'
@@ -59,14 +59,14 @@ export function EventView(props: Readonly<EventViewProps>) {
 
 	const getEventTypeIcon = (typeCourse: Event['typeCourse']) => {
 		switch (typeCourse) {
-			case 'route':
+			case 'road':
 				return <RouteIcon className="h-4 w-4" />
 			case 'trail':
 				return <TrailIcon className="h-4 w-4" />
 			case 'triathlon':
 				return <TriathlonIcon className="h-4 w-4" />
-			case 'ultra':
-				return <UltraIcon className="h-4 w-4" />
+			case 'cycle':
+				return <CycleIcon className="h-4 w-4" />
 			default:
 				return <RouteIcon className="h-4 w-4" />
 		}

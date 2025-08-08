@@ -18,10 +18,10 @@ export default function EventInformationSection({
 	const translations = getTranslations(locale, Translations)
 
 	const typeOptions: SelectOption[] = [
-		{ value: 'route', label: translations.event.fields.eventType.options.route },
+		{ value: 'road', label: translations.event.fields.eventType.options.route },
 		{ value: 'trail', label: translations.event.fields.eventType.options.trail },
 		{ value: 'triathlon', label: translations.event.fields.eventType.options.triathlon },
-		{ value: 'ultra', label: translations.event.fields.eventType.options.ultra },
+		{ value: 'cycle', label: translations.event.fields.eventType.options.ultra },
 	]
 
 	return (
@@ -77,11 +77,11 @@ export default function EventInformationSection({
 						</Label>
 						<SelectAnimated
 							onValueChange={(value: string) =>
-								setValue('typeCourse', value as 'route' | 'trail' | 'triathlon' | 'ultra')
+								setValue('typeCourse', value as 'road' | 'trail' | 'triathlon' | 'cycle')
 							}
 							options={typeOptions}
 							placeholder={translations.event.fields.eventType.placeholder}
-							value={formData.typeCourse ?? 'route'}
+							value={formData.typeCourse ?? 'road'}
 						/>
 						{errors.typeCourse && (
 							<p className="mt-1 text-sm text-red-600 dark:text-red-400">{String(errors.typeCourse.message)}</p>

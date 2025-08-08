@@ -38,13 +38,13 @@ export function MonthView(props: Readonly<MonthViewProps>) {
 
 	const getEventColor = (typeCourse: Event['typeCourse']) => {
 		switch (typeCourse) {
-			case 'route':
+			case 'road':
 				return 'bg-blue-500'
 			case 'trail':
 				return 'bg-green-500'
 			case 'triathlon':
 				return 'bg-purple-500'
-			case 'ultra':
+			case 'cycle':
 				return 'bg-red-500'
 			default:
 				return 'bg-gray-500'

@@ -24,12 +24,16 @@ interface UserHeaderProps {
 export default function UserHeader({ user, clerkUser }: Readonly<UserHeaderProps>) {
 	const userName = clerkUser.firstName ?? clerkUser.emailAddresses[0]?.emailAddress ?? 'User'
 
+	const hasAtLeastOneContact =
+		(user?.phoneNumber != null && String(user.phoneNumber).trim() !== '') ||
+		(user?.contactEmail != null && String(user.contactEmail).trim() !== '')
+
 	const isRunnerProfileComplete =
 		user?.firstName != null &&
 		user?.lastName != null &&
 		user?.birthDate != null &&
 		(user.birthDate instanceof Date ? !isNaN(user.birthDate.getTime()) : String(user.birthDate).trim() !== '') &&
-		user?.phoneNumber != null &&
+		hasAtLeastOneContact &&
 		user?.emergencyContactName != null &&
 		user?.emergencyContactPhone != null &&
 		user?.address != null &&

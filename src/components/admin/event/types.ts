@@ -9,7 +9,7 @@ import { Locale } from '@/lib/i18n-config'
 // Validation Schema using Valibot
 export const EventCreationSchema = v.pipe(
 	v.object({
-		typeCourse: v.picklist(['route', 'trail', 'triathlon', 'ultra']),
+		typeCourse: v.picklist(['road', 'trail', 'triathlon', 'cycle']),
 		transferDeadline: v.optional(v.string()),
 		registrationUrl: v.optional(v.union([v.pipe(v.string(), v.url('Must be a valid URL')), v.literal('')])),
 		participants: v.pipe(v.number(), v.minValue(1, 'Participant count must be at least 1')),

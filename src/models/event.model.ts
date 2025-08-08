@@ -22,7 +22,7 @@ export interface Event {
 	bibPickupLocation?: string
 	registrationUrl?: string // link to registration 🔗
 
-	typeCourse: 'route' | 'trail' | 'triathlon' | 'ultra'
+	typeCourse: 'road' | 'trail' | 'triathlon' | 'cycle'
 
 	// Organizer relation 🤝
 	organizer: Organizer['id'] // RELATION_RECORD_ID 🔗

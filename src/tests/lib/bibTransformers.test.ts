@@ -6,10 +6,10 @@ import { mapEventTypeToBibSaleType, transformBibsToBibSales, transformBibToBibSa
 describe('bibTransformers', () => {
 	describe('mapEventTypeToBibSaleType', () => {
 		it('should map event types correctly', () => {
-			expect(mapEventTypeToBibSaleType('route')).toBe('running')
+			expect(mapEventTypeToBibSaleType('road')).toBe('running')
 			expect(mapEventTypeToBibSaleType('trail')).toBe('trail')
 			expect(mapEventTypeToBibSaleType('triathlon')).toBe('triathlon')
-			expect(mapEventTypeToBibSaleType('ultra')).toBe('running')
+			expect(mapEventTypeToBibSaleType('cycle')).toBe('cycling')
 			expect(mapEventTypeToBibSaleType(undefined)).toBe('other')
 		})
 	})

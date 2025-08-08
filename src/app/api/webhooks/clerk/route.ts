@@ -58,6 +58,7 @@ function buildUserData(evt: WebhookEvent, primaryEmail: string): Omit<User, 'cre
 		birthDate: null,
 		city: null,
 		clerkId,
+		contactEmail: null,
 		clubAffiliation: null,
 		country: null,
 

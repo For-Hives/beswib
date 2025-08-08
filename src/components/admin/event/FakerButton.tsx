@@ -148,11 +148,11 @@ export default function FakerButton({ setValue, setEventOptions }: Readonly<Fake
 			organizers.length > 0 ? organizers[faker.number.int({ min: 0, max: organizers.length - 1 })] : null
 
 		const fakeData: Partial<EventFormData> = {
-			typeCourse: ['route', 'trail', 'triathlon', 'ultra'][faker.number.int({ min: 0, max: 3 })] as
-				| 'route'
+			typeCourse: ['road', 'trail', 'triathlon', 'cycle'][faker.number.int({ min: 0, max: 3 })] as
+				| 'road'
 				| 'trail'
 				| 'triathlon'
-				| 'ultra',
+				| 'cycle',
 			transferDeadline: transferDeadline.toISOString().split('T')[0],
 			registrationUrl: faker.internet.url(),
 			participants: faker.number.int({ min: 50, max: 2000 }),

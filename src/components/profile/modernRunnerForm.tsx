@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { CheckCircle, User as UserIcon, Shield, MapPin, FileText, AlertTriangle, Save } from 'lucide-react'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
-import { object, string, minLength, picklist, pipe, optional } from 'valibot'
+import { object, string, minLength, picklist, pipe, optional, email as emailValidator } from 'valibot'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { User } from '@/models/user.model'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
@@ -21,6 +21,7 @@ type RunnerFormData = {
 	lastName: string
 	birthDate: string // YYYY-MM-DD
 	phoneNumber: string
+	contactEmail?: string
 	emergencyContactName: string
 	emergencyContactPhone: string
 	emergencyContactRelationship: string
@@ -38,7 +39,8 @@ const runnerFormSchema = object({
 	firstName: pipe(string(), minLength(2, 'First name must be at least 2 characters')),
 	lastName: pipe(string(), minLength(2, 'Last name must be at least 2 characters')),
 	birthDate: pipe(string(), minLength(10, 'Birth date is required')),
-	phoneNumber: pipe(string(), minLength(8, 'Invalid phone number')),
+	phoneNumber: pipe(string(), minLength(0)),
+	contactEmail: optional(pipe(string(), emailValidator('Invalid email address'))),
 	emergencyContactName: pipe(string(), minLength(2, 'Contact name must be at least 2 characters')),
 	emergencyContactPhone: pipe(string(), minLength(8, 'Invalid phone number')),
 	emergencyContactRelationship: pipe(string(), minLength(2, 'Please specify the relationship')),
@@ -57,9 +59,6 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 	const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 	const isComplete = isUserProfileComplete(user)
 
-	// Debug: Check what birthDate we receive from API
-	console.log('ModernRunnerForm: user.birthDate =', user?.birthDate, typeof user?.birthDate)
-	console.log('ModernRunnerForm: formatted birthDate =', formatDateForHTMLInput(user?.birthDate))
 
 	// Gender options for SelectAnimated
 	const genderOptions: SelectOption[] = [
@@ -75,6 +74,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 			lastName: user?.lastName ?? '',
 			birthDate: formatDateForHTMLInput(user?.birthDate),
 			phoneNumber: user?.phoneNumber ?? '',
+			contactEmail: user?.contactEmail ?? '',
 			emergencyContactName: user?.emergencyContactName ?? '',
 			emergencyContactPhone: user?.emergencyContactPhone ?? '',
 			emergencyContactRelationship: user?.emergencyContactRelationship ?? '',
@@ -91,6 +91,13 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 	const onSubmit: SubmitHandler<RunnerFormData> = values => {
 		if (user === null) return
+		// Enforce at least one contact: if both are empty, surface client-side error
+		const hasPhone = typeof values.phoneNumber === 'string' && values.phoneNumber.trim() !== ''
+		const hasEmail = typeof values.contactEmail === 'string' && values.contactEmail.trim() !== ''
+		if (!hasPhone && !hasEmail) {
+			setSubmitStatus('error')
+			return
+		}
 		const payload: Partial<User> = {
 			...values,
 			birthDate: values.birthDate ? values.birthDate.slice(0, 10) : null,
@@ -224,7 +231,8 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="phoneNumber">
-								Phone Number *
+								Phone Number
+								<span className="text-muted-foreground ml-1 text-xs">(at least one of phone or contact email)</span>
 							</Label>
 							<Input
 								{...form.register('phoneNumber')}
@@ -236,6 +244,25 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 							{form.formState.errors.phoneNumber && (
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
 									{form.formState.errors.phoneNumber.message}
+								</p>
+							)}
+						</div>
+
+						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="contactEmail">
+								Contact Email
+								<span className="text-muted-foreground ml-1 text-xs">(optional alternative to phone)</span>
+							</Label>
+							<Input
+								{...form.register('contactEmail')}
+								className={form.formState.errors.contactEmail ? 'border-red-500' : ''}
+								id="contactEmail"
+								placeholder="you@example.com"
+								type="email"
+							/>
+							{form.formState.errors.contactEmail && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
+									{form.formState.errors.contactEmail.message as string}
 								</p>
 							)}
 						</div>

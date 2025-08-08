@@ -5,6 +5,7 @@ export interface User {
 	role: 'admin' | 'user'
 
 	email: string
+	contactEmail: null | string
 	firstName: null | string
 	lastName: null | string
 
