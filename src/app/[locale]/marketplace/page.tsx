@@ -4,7 +4,7 @@ import type { BibSale } from '@/components/marketplace/CardMarket'
 import { generateLocaleParams } from '@/lib/generateStaticParams'
 import type { Locale } from '@/lib/i18n-config'
 import MarketplaceClient from '@/components/marketplace/MarketplaceClient'
-import { fetchAvailableBibsForMarketplace, unlockExpiredBibs } from '@/services/bib.services'
+import { fetchAvailableBibsForMarketplace } from '@/services/bib.services'
 import { transformBibsToBibSales } from '@/lib/bibTransformers'
 import { getTranslations } from '@/lib/getDictionary'
 import marketplaceTranslations from './locales.json'
@@ -21,8 +21,8 @@ export function generateStaticParams() {
 export default async function MarketplacePage({ params }: { params: Promise<{ locale: Locale }> }) {
 	const { locale } = await params
 	const t = getTranslations(locale, marketplaceTranslations)
-	await unlockExpiredBibs()
-	const availableBibs = await fetchAvailableBibsForMarketplace()
+	// await unlockExpiredBibs()
+	const availableBibs = process.env.NODE_ENV === 'development' ? await fetchAvailableBibsForMarketplace() : []
 	const bibs: BibSale[] = transformBibsToBibSales(availableBibs)
 	return (
 		<div className="min-h-screen">

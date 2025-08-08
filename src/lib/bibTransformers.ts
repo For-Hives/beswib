@@ -35,7 +35,7 @@ export function transformBibsToBibSales(
  */
 export function transformBibToBibSale(bib: Bib & { expand?: { eventId: Event; sellerUserId: User } }): BibSale | null {
 	// Check if we have the required expanded data
-	if (!bib.expand || bib.expand?.eventId == null || bib.expand?.sellerUserId == null) {
+	if (bib.expand?.eventId == null || bib.expand?.sellerUserId == null) {
 		console.warn(`Bib ${bib.id} missing required expanded data`)
 		return null
 	}
