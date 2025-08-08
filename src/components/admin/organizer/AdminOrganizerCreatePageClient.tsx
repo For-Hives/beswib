@@ -85,7 +85,7 @@ export default function AdminOrganizerCreatePageClient({
 	return (
 		<div>
 			{/* Admin header with user info */}
-			<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-24 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
+			<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
 				<div className="flex items-center justify-between">
 					<div>
 						<p className="text-muted-foreground text-sm">Connected as</p>
