@@ -52,8 +52,7 @@
 		"start": "Start",
 		"swimming": "Swimming",
 		"verified": "Verified",
-		"wantThisBib": "I want this bib"
-		,
+		"wantThisBib": "I want this bib",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -126,8 +125,7 @@
 		"start": "Début",
 		"swimming": "Natation",
 		"verified": "Vérifié",
-		"wantThisBib": "Je veux ce dossard"
-		,
+		"wantThisBib": "Je veux ce dossard",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -200,8 +198,7 @@
 		"start": "Inicio",
 		"swimming": "Natación",
 		"verified": "Verificado",
-		"wantThisBib": "Quiero este dorsal"
-		,
+		"wantThisBib": "Quiero este dorsal",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -274,8 +271,7 @@
 		"start": "Inizio",
 		"swimming": "Nuoto",
 		"verified": "Verificato",
-		"wantThisBib": "Voglio questo pettorale"
-		,
+		"wantThisBib": "Voglio questo pettorale",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -348,8 +344,7 @@
 		"start": "Start",
 		"swimming": "Schwimmen",
 		"verified": "Verifiziert",
-		"wantThisBib": "Ich will diese Startnummer"
-		,
+		"wantThisBib": "Ich will diese Startnummer",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -422,8 +417,7 @@
 		"start": "Început",
 		"swimming": "Înot",
 		"verified": "Verificat",
-		"wantThisBib": "Vreau acest număr"
-		,
+		"wantThisBib": "Vreau acest număr",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -496,8 +490,7 @@
 		"start": "Início",
 		"swimming": "Natação",
 		"verified": "Verificado",
-		"wantThisBib": "Quero este dorsal"
-		,
+		"wantThisBib": "Quero este dorsal",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -570,8 +563,7 @@
 		"start": "Start",
 		"swimming": "Zwemmen",
 		"verified": "Geverifieerd",
-		"wantThisBib": "Ik wil dit startnummer"
-		,
+		"wantThisBib": "Ik wil dit startnummer",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -644,8 +636,7 @@
 		"start": "시작",
 		"swimming": "수영",
 		"verified": "검증됨",
-		"wantThisBib": "이 빕을 원합니다"
-		,
+		"wantThisBib": "이 빕을 원합니다",
 		"distances": {
 			"fiveKm": "5km",
 			"fiveKmRange": "4-6 km",

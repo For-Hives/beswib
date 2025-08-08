@@ -56,16 +56,20 @@ export default function MarketplaceSidebar({
 	]
 
 	// Distance options
-    const distanceOptions = [
-        { value: '5', label: t.distances?.fiveKm ?? '5 km', range: t.distances?.fiveKmRange ?? '4-6 km' },
-        { value: '10', label: t.distances?.tenKm ?? '10 km', range: t.distances?.tenKmRange ?? '9-11 km' },
-        { value: '21', label: t.distances?.halfMarathon ?? 'Half Marathon', range: t.distances?.halfMarathonRange ?? '20-22 km' },
-        { value: '42', label: t.distances?.marathon ?? 'Marathon', range: t.distances?.marathonRange ?? '41-43 km' },
-        { value: '80', label: t.distances?.ultra ?? 'Ultra (+80 km)', range: t.distances?.ultraRange ?? '80+ km' },
-        { value: 'tri-s', label: t.distances?.triS ?? 'Triathlon S', range: t.distances?.triSRange ?? '25-30 km' },
-        { value: 'tri-m', label: t.distances?.triM ?? 'Triathlon M', range: t.distances?.triMRange ?? '50-55 km' },
-        { value: 'tri-l', label: t.distances?.triL ?? 'Triathlon L', range: t.distances?.triLRange ?? '110-115 km' },
-    ]
+	const distanceOptions = [
+		{ value: '5', label: t.distances?.fiveKm ?? '5 km', range: t.distances?.fiveKmRange ?? '4-6 km' },
+		{ value: '10', label: t.distances?.tenKm ?? '10 km', range: t.distances?.tenKmRange ?? '9-11 km' },
+		{
+			value: '21',
+			label: t.distances?.halfMarathon ?? 'Half Marathon',
+			range: t.distances?.halfMarathonRange ?? '20-22 km',
+		},
+		{ value: '42', label: t.distances?.marathon ?? 'Marathon', range: t.distances?.marathonRange ?? '41-43 km' },
+		{ value: '80', label: t.distances?.ultra ?? 'Ultra (+80 km)', range: t.distances?.ultraRange ?? '80+ km' },
+		{ value: 'tri-s', label: t.distances?.triS ?? 'Triathlon S', range: t.distances?.triSRange ?? '25-30 km' },
+		{ value: 'tri-m', label: t.distances?.triM ?? 'Triathlon M', range: t.distances?.triMRange ?? '50-55 km' },
+		{ value: 'tri-l', label: t.distances?.triL ?? 'Triathlon L', range: t.distances?.triLRange ?? '110-115 km' },
+	]
 
 	// Fuzzy search for regions
 	const fuse = useMemo(() => new Fuse(regions, { threshold: 0.4 }), [regions])
