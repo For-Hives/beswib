@@ -12,7 +12,7 @@ import { createTransaction } from './transaction.services'
 import { fetchUserById } from './user.services'
 import { isSellerProfileComplete } from '@/lib/userValidation'
 import { DateTime } from 'luxon'
-import { pbDateToLuxon, dateToPbDateString } from '@/lib/dateUtils'
+import { pbDateToLuxon } from '@/lib/dateUtils'
 
 /**
  * Creates a new bib listing. Handles both partnered and unlisted events.
@@ -137,7 +137,7 @@ export async function lockBib(bibId: string, userId: string): Promise<Bib | null
 	try {
 		const bib = await pb.collection('bibs').getOne<Bib>(bibId)
 		const now = new Date()
-		if (bib.lockedAt) {
+		if (bib.lockedAt != null && bib.lockedAt != '') {
 			// Already locked and not expired
 			return null
 		}
@@ -174,8 +174,6 @@ export async function isLocked(bibId: string, timekey: string = ''): Promise<'lo
 		const lockedAtDt = pbDateToLuxon(bib.lockedAt)?.toUTC()
 		const timekeyDt = DateTime.fromISO(timekey).toUTC()
 
-		console.log('pouet')
-
 		if (lockedAtDt != null) {
 			const nowDt: DateTime = DateTime.now()
 			const lockExpiration: DateTime = lockedAtDt.plus({ minutes: 5 })
@@ -184,7 +182,6 @@ export async function isLocked(bibId: string, timekey: string = ''): Promise<'lo
 				return 'unlocked'
 			}
 			if (timekeyDt != null) {
-				console.log('Checking lock expiration:', lockedAtDt.toISO(), timekeyDt.toISO())
 				return lockedAtDt.isValid && timekeyDt.isValid && lockedAtDt.toISO() === timekeyDt.toISO()
 					? 'userlocked'
 					: 'locked'
