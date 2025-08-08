@@ -643,19 +643,19 @@
 				"description": "Beswib에서 이벤트 구매, 판매 및 조직에 대한 자주 묻는 질문입니다."
 			},
 			"legalNotice": {
-				"title": "Legal Notice | Beswib",
-				"description": "Company information, publication director, hosting provider, and legal disclosures for Beswib."
+				"title": "법적 고지 | Beswib",
+				"description": "Beswib의 회사 정보, 발행 책임자, 호스팅 제공업체 및 법적 공시사항입니다."
 			},
 			"privacy": {
-				"title": "Privacy Policy | Beswib",
-				"description": "How Beswib collects, uses, and protects your personal data, cookies, and your rights."
+				"title": "개인정보 보호정책 | Beswib",
+				"description": "Beswib이 개인 데이터, 쿠키를 수집, 사용 및 보호하는 방법과 귀하의 권리입니다."
 			},
 			"terms": {
-				"title": "Terms of Service | Beswib",
-				"description": "The terms that govern access and use of Beswib’s C2B2C platform and services."
+				"title": "서비스 약관 | Beswib",
+				"description": "Beswib의 C2B2C 플랫폼 및 서비스 액세스와 사용을 관리하는 약관입니다."
 			},
 			"contact": {
-				"title": "Contact | Beswib",
+				"title": "연락처 | Beswib",
 				"description": "질문이나 문의사항이 있으시면 Beswib 팀에 연락해 주세요."
 			}
 		},

@@ -133,7 +133,8 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 					<AlertTriangle className="h-4 w-4" />
 					<AlertTitle>{t.profileRequiredTitle ?? 'Profile Required for Marketplace Access'}</AlertTitle>
 					<AlertDescription>
-						{t.profileRequiredDesc ?? 'Please complete all required fields below to access the marketplace and purchase bibs. Fields marked with * are required.'}
+						{t.profileRequiredDesc ??
+							'Please complete all required fields below to access the marketplace and purchase bibs. Fields marked with * are required.'}
 					</AlertDescription>
 				</Alert>
 			)}
@@ -141,7 +142,9 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 			{isComplete && (
 				<Alert className="border-green-500/50 bg-green-500/10">
 					<CheckCircle className="h-4 w-4 text-green-500" />
-					<AlertTitle className="text-green-700 dark:text-green-300">{t.profileCompleteTitle ?? 'Profile Complete'}</AlertTitle>
+					<AlertTitle className="text-green-700 dark:text-green-300">
+						{t.profileCompleteTitle ?? 'Profile Complete'}
+					</AlertTitle>
 					<AlertDescription className="text-green-600 dark:text-green-400">
 						{t.profileCompleteDesc ?? 'Your profile is complete! You can now access the marketplace and purchase bibs.'}
 					</AlertDescription>
@@ -152,7 +155,9 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 			{submitStatus === 'success' && (
 				<Alert className="border-green-500/50 bg-green-500/10">
 					<CheckCircle className="h-4 w-4 text-green-500" />
-					<AlertTitle className="text-green-700 dark:text-green-300">{t.profileSavedTitle ?? 'Profile Saved'}</AlertTitle>
+					<AlertTitle className="text-green-700 dark:text-green-300">
+						{t.profileSavedTitle ?? 'Profile Saved'}
+					</AlertTitle>
 					<AlertDescription className="text-green-600 dark:text-green-400">
 						{t.profileSavedDesc ?? 'Your profile has been successfully updated.'}
 					</AlertDescription>
@@ -163,7 +168,9 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 				<Alert variant="destructive">
 					<AlertTriangle className="h-4 w-4" />
 					<AlertTitle>{t.errorSavingTitle ?? 'Error Saving Profile'}</AlertTitle>
-					<AlertDescription>{t.errorSavingDesc ?? 'There was an error saving your profile. Please try again.'}</AlertDescription>
+					<AlertDescription>
+						{t.errorSavingDesc ?? 'There was an error saving your profile. Please try again.'}
+					</AlertDescription>
 				</Alert>
 			)}
 
@@ -234,7 +241,9 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="phoneNumber">
 								{t.phoneNumber ?? 'Phone Number'}
-								<span className="text-muted-foreground ml-1 text-xs">{t.atLeastOneContact ?? '(at least one of phone or contact email)'}</span>
+								<span className="text-muted-foreground ml-1 text-xs">
+									{t.atLeastOneContact ?? '(at least one of phone or contact email)'}
+								</span>
 							</Label>
 							<Input
 								{...form.register('phoneNumber')}
@@ -253,7 +262,9 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="contactEmail">
 								{t.contactEmail ?? 'Contact Email'}
-								<span className="text-muted-foreground ml-1 text-xs">{t.optionalAlternative ?? '(optional alternative to phone)'}</span>
+								<span className="text-muted-foreground ml-1 text-xs">
+									{t.optionalAlternative ?? '(optional alternative to phone)'}
+								</span>
 							</Label>
 							<Input
 								{...form.register('contactEmail')}
@@ -451,7 +462,9 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 								placeholder="https://example.com/medical-cert.pdf"
 								type="url"
 							/>
-							<p className="text-muted-foreground mt-1 text-sm">{t.medicalCertHelp ?? 'Optional: Link to your medical certificate'}</p>
+							<p className="text-muted-foreground mt-1 text-sm">
+								{t.medicalCertHelp ?? 'Optional: Link to your medical certificate'}
+							</p>
 						</div>
 
 						<div>
@@ -464,7 +477,9 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 								placeholder="Running Club Name"
 								type="text"
 							/>
-							<p className="text-muted-foreground mt-1 text-sm">{t.clubAffiliationHelp ?? 'Optional: Name of your running/sports club'}</p>
+							<p className="text-muted-foreground mt-1 text-sm">
+								{t.clubAffiliationHelp ?? 'Optional: Name of your running/sports club'}
+							</p>
 						</div>
 
 						<div>
@@ -472,21 +487,23 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 								{t.licenseNumber ?? 'License Number'}
 							</Label>
 							<Input {...form.register('licenseNumber')} id="licenseNumber" placeholder="FFA123456" type="text" />
-							<p className="text-muted-foreground mt-1 text-sm">{t.licenseNumberHelp ?? 'Optional: Your athletic federation license number'}</p>
+							<p className="text-muted-foreground mt-1 text-sm">
+								{t.licenseNumberHelp ?? 'Optional: Your athletic federation license number'}
+							</p>
 						</div>
 					</CardContent>
 				</Card>
 
 				{/* Submit Button */}
 				<div className="flex justify-end">
-							<Button
+					<Button
 						className="flex items-center gap-2 px-8 py-3 text-lg font-medium"
 						disabled={isPending}
 						size="lg"
 						type="submit"
 					>
 						<Save className="h-5 w-5" />
-								{isPending ? (t.saving ?? 'Saving...') : (t.save ?? 'Save Profile')}
+						{isPending ? (t.saving ?? 'Saving...') : (t.save ?? 'Save Profile')}
 					</Button>
 				</div>
 			</form>
