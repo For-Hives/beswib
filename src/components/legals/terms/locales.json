@@ -1,0 +1,104 @@
+{
+	"en": {
+		"terms": {
+			"badge": "Terms",
+			"title": "Terms of Service",
+			"intro": "Thank you for using Beswib. These Terms govern your access to and use of Beswib’s services. By registering, accessing, or using the services, you agree to be bound by these Terms.",
+			"scope": {
+				"title": "Scope",
+				"content": "These Terms apply to all users of the platform, including buyers, sellers, and organizers."
+			},
+			"marketModel": {
+				"title": "C2B2C Marketplace Model",
+				"content": "Beswib operates a C2B2C model: sellers list bibs, buyers purchase them, and Beswib interfaces with event organizers to perform official transfers, where available."
+			},
+			"accounts": {
+				"title": "Accounts and Eligibility",
+				"content": "Users must provide accurate information and maintain the confidentiality of their credentials. Certain features may require identity verification or organizer validation."
+			},
+			"transactions": {
+				"title": "Listings and Transactions",
+				"content": "Listings must be accurate and comply with event policies. Transactions are final once the transfer is initiated. In case an organizer refuses a transfer, the transaction may be canceled and refunded as per our policies."
+			},
+			"fees": {
+				"title": "Fees",
+				"content": "Beswib may charge service fees to buyers and/or sellers, displayed before checkout. Organizers may also incur fees for integrations or services."
+			},
+			"payments": {
+				"title": "Payments and Payouts",
+				"content": "Payments are handled via third-party processors. Seller payouts occur after successful organizer validation or transfer confirmation. Beswib may hold funds in case of disputes or compliance checks."
+			},
+			"organizers": {
+				"title": "Organizer Relationships",
+				"content": "For eligible events, Beswib collaborates with organizers to enable official transfers. Organizers remain responsible for their own policies, regulations, and participant management."
+			},
+			"liability": {
+				"title": "Liability",
+				"content": "To the maximum extent permitted by law, Beswib is not liable for indirect, incidental, special, consequential or punitive damages, or any loss of profits or revenues."
+			},
+			"ipr": {
+				"title": "Intellectual Property",
+				"content": "All content on Beswib (including trademarks, logos, and text) remains the property of Beswib or its licensors."
+			},
+			"termination": {
+				"title": "Termination",
+				"content": "We may suspend or terminate access to the services at any time for breach of these Terms or for unlawful activities."
+			},
+			"changes": {
+				"title": "Changes to the Terms",
+				"content": "We may update these Terms from time to time. Continued use of the services after changes constitutes acceptance of the updated Terms."
+			}
+		}
+	},
+	"fr": {
+		"terms": {
+			"badge": "Conditions",
+			"title": "Conditions d’utilisation",
+			"intro": "Merci d’utiliser Beswib. Les présentes Conditions régissent votre accès et votre utilisation des services Beswib. En vous inscrivant, en accédant ou en utilisant les services, vous acceptez d’être lié par ces Conditions.",
+			"scope": {
+				"title": "Champ d’application",
+				"content": "Ces Conditions s’appliquent à tous les utilisateurs de la plateforme : acheteurs, vendeurs et organisateurs."
+			},
+			"marketModel": {
+				"title": "Modèle C2B2C",
+				"content": "Beswib opère un modèle C2B2C : les vendeurs listent des dossards, les acheteurs les achètent, et Beswib interfère avec les organisateurs pour effectuer les transferts officiels lorsque cela est possible."
+			},
+			"accounts": {
+				"title": "Comptes et éligibilité",
+				"content": "Les utilisateurs doivent fournir des informations exactes et garder leurs identifiants confidentiels. Certaines fonctionnalités peuvent nécessiter une vérification d’identité ou une validation par l’organisateur."
+			},
+			"transactions": {
+				"title": "Annonces et transactions",
+				"content": "Les annonces doivent être exactes et conformes aux règles de l’événement. Les transactions sont définitives une fois le transfert engagé. Si un organisateur refuse le transfert, la transaction peut être annulée et remboursée selon nos politiques."
+			},
+			"fees": {
+				"title": "Frais",
+				"content": "Beswib peut facturer des frais de service aux acheteurs et/ou aux vendeurs, affichés avant le paiement. Les organisateurs peuvent également supporter des frais pour les intégrations ou services."
+			},
+			"payments": {
+				"title": "Paiements et virements",
+				"content": "Les paiements sont gérés par des prestataires tiers. Les virements aux vendeurs interviennent après validation par l’organisateur ou confirmation du transfert. Beswib peut retenir des fonds en cas de litige ou de vérifications de conformité."
+			},
+			"organizers": {
+				"title": "Relations avec les organisateurs",
+				"content": "Pour les événements éligibles, Beswib collabore avec les organisateurs pour permettre les transferts officiels. Les organisateurs restent responsables de leurs politiques, règlements et de la gestion des participants."
+			},
+			"liability": {
+				"title": "Responsabilité",
+				"content": "Dans la mesure maximale permise par la loi, Beswib n’est pas responsable des dommages indirects, accessoires, spéciaux, consécutifs ou punitifs, ni de toute perte de profits ou de revenus."
+			},
+			"ipr": {
+				"title": "Propriété intellectuelle",
+				"content": "Tous les contenus de Beswib (marques, logos, textes) restent la propriété de Beswib ou de ses concédants."
+			},
+			"termination": {
+				"title": "Résiliation",
+				"content": "Nous pouvons suspendre ou résilier l’accès aux services à tout moment en cas de violation des présentes Conditions ou d’activités illicites."
+			},
+			"changes": {
+				"title": "Modifications des Conditions",
+				"content": "Nous pouvons mettre à jour ces Conditions de temps à autre. L’utilisation continue des services après modification vaut acceptation des Conditions mises à jour."
+			}
+		}
+	}
+}
