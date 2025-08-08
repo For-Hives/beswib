@@ -21,7 +21,7 @@ Ce fichier liste tous les fichiers du projet et leur statut de traduction. Un fi
 - [ ] `src/app/[locale]/admin/locales.json`
 - [ ] `src/app/[locale]/admin/loading.tsx`
 - [ ] `src/app/[locale]/admin/event/create/page.tsx`
-- [ ] `src/app/[locale]/admin/event/create/locales.json`
+- [x] `src/app/[locale]/admin/event/create/locales.json`
 - [ ] `src/app/[locale]/admin/event/page.tsx`
 - [ ] `src/app/[locale]/admin/event/locales.json`
 - [ ] `src/app/[locale]/admin/organizer/create/page.tsx`

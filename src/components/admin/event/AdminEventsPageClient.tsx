@@ -880,20 +880,19 @@ function RowActions({ t, row }: { row: Row<Event>; t: EventsTranslations }) {
 							<CircleAlert className="opacity-80" size={16} />
 						</div>
 						<AlertDialogHeader>
-							<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+							<AlertDialogTitle>{t.events.table.controls.confirmDelete}</AlertDialogTitle>
 							<AlertDialogDescription>
-								This action cannot be undone. This will permanently delete the event "
-								{row.original.name || 'Unknown Event'}".
+								{t.events.table.controls.deleteDescription} "{row.original.name || 'Unknown Event'}".
 							</AlertDialogDescription>
 						</AlertDialogHeader>
 					</div>
 					<AlertDialogFooter>
-						<AlertDialogCancel>Cancel</AlertDialogCancel>
+						<AlertDialogCancel>{t.events.table.controls.cancel}</AlertDialogCancel>
 						<AlertDialogAction
 							className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
 							onClick={handleDelete}
 						>
-							Delete
+							{t.events.table.actions.delete}
 						</AlertDialogAction>
 					</AlertDialogFooter>
 				</AlertDialogContent>

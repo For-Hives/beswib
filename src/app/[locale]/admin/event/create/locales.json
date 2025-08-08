@@ -274,547 +274,547 @@
 	},
 	"es": {
 		"events": {
-			"title": "Event Management",
-			"subtitle": "Manage all events, partnerships, and configurations from this central hub.",
+			"title": "Gestión de Eventos",
+			"subtitle": "Administra todos los eventos, asociaciones y configuraciones desde este centro central.",
 			"sections": {
 				"overview": {
-					"title": "Events Overview",
-					"description": "View and manage all events in the system"
+					"title": "Resumen de Eventos",
+					"description": "Ver y gestionar todos los eventos en el sistema"
 				},
 				"actions": {
-					"title": "Quick Actions",
-					"description": "Common administrative tasks for event management"
+					"title": "Acciones Rápidas",
+					"description": "Tareas administrativas comunes para la gestión de eventos"
 				}
 			},
 			"stats": {
-				"totalEvents": "Total Events",
-				"activeEvents": "Active Events",
-				"upcomingEvents": "Upcoming Events",
-				"pastEvents": "Past Events",
-				"partneredEvents": "Partnered Events",
-				"draftEvents": "Draft Events"
+				"totalEvents": "Total de Eventos",
+				"activeEvents": "Eventos Activos",
+				"upcomingEvents": "Próximos Eventos",
+				"pastEvents": "Eventos Pasados",
+				"partneredEvents": "Eventos en Colaboración",
+				"draftEvents": "Borradores"
 			},
 			"actions": {
-				"createEvent": "Create New Event",
-				"createEventDescription": "Add a new event to the platform",
-				"importEvents": "Import Events",
-				"importEventsDescription": "Bulk import events from external sources",
-				"manageCategories": "Manage Categories",
-				"manageCategoriesDescription": "Organize events by categories and types"
+				"createEvent": "Crear Nuevo Evento",
+				"createEventDescription": "Agregar un nuevo evento a la plataforma",
+				"importEvents": "Importar Eventos",
+				"importEventsDescription": "Importación masiva de eventos desde fuentes externas",
+				"manageCategories": "Gestionar Categorías",
+				"manageCategoriesDescription": "Organizar eventos por categorías y tipos"
 			},
 			"table": {
 				"columns": {
-					"name": "Event Name",
-					"date": "Date",
-					"distance": "Distance",
-					"type": "Type",
-					"participants": "Participants",
-					"partnered": "Partnered",
-					"actions": "Actions"
+					"name": "Nombre del Evento",
+					"date": "Fecha",
+					"distance": "Distancia",
+					"type": "Tipo",
+					"participants": "Participantes",
+					"partnered": "Colaboración",
+					"actions": "Acciones"
 				},
 				"status": {
-					"active": "Active",
-					"upcoming": "Upcoming",
-					"past": "Past",
-					"draft": "Draft",
-					"cancelled": "Cancelled"
+					"active": "Activo",
+					"upcoming": "Próximo",
+					"past": "Pasado",
+					"draft": "Borrador",
+					"cancelled": "Cancelado"
 				},
 				"actions": {
-					"edit": "Edit",
-					"view": "View",
-					"delete": "Delete",
-					"duplicate": "Duplicate"
+					"edit": "Editar",
+					"view": "Ver",
+					"delete": "Eliminar",
+					"duplicate": "Duplicar"
 				},
 				"empty": {
-					"title": "No events found",
-					"description": "Get started by creating your first event",
-					"createButton": "Create Event"
+					"title": "No se encontraron eventos",
+					"description": "Comienza creando tu primer evento",
+					"createButton": "Crear Evento"
 				},
 				"controls": {
-					"selectAll": "Select all",
-					"selectRow": "Select row",
-					"clearFilter": "Clear filter",
-					"toggleColumns": "Toggle columns",
-					"rowsPerPage": "Rows per page",
-					"deleteSelected": "Delete",
-					"confirmDelete": "Are you absolutely sure?",
-					"deleteDescription": "This action cannot be undone. This will permanently delete",
-					"cancel": "Cancel",
-					"yes": "Yes",
+					"selectAll": "Seleccionar todo",
+					"selectRow": "Seleccionar fila",
+					"clearFilter": "Limpiar filtro",
+					"toggleColumns": "Alternar columnas",
+					"rowsPerPage": "Filas por página",
+					"deleteSelected": "Eliminar",
+					"confirmDelete": "¿Estás absolutamente seguro?",
+					"deleteDescription": "Esta acción no se puede deshacer. Esto eliminará permanentemente",
+					"cancel": "Cancelar",
+					"yes": "Sí",
 					"no": "No"
 				}
 			},
 			"filters": {
-				"all": "All Events",
-				"active": "Active",
-				"upcoming": "Upcoming",
-				"past": "Past",
-				"partnered": "Partnered",
-				"search": "Search events..."
+				"all": "Todos los Eventos",
+				"active": "Activos",
+				"upcoming": "Próximos",
+				"past": "Pasados",
+				"partnered": "Colaboración",
+				"search": "Buscar eventos..."
 			},
 			"ui": {
-				"comingSoon": "Coming Soon",
-				"loading": "Loading...",
-				"refreshing": "Refreshing...",
-				"accessError": "Access Error",
-				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
-				"signIn": "Sign In",
-				"connectedAs": "Connected as"
+				"comingSoon": "Próximamente",
+				"loading": "Cargando...",
+				"refreshing": "Actualizando...",
+				"accessError": "Error de Acceso",
+				"accessErrorDescription": "No se pudo verificar el acceso de administrador. Por favor, intente iniciar sesión nuevamente.",
+				"signIn": "Iniciar Sesión",
+				"connectedAs": "Conectado como"
 			}
 		}
 	},
 	"it": {
 		"events": {
-			"title": "Event Management",
-			"subtitle": "Manage all events, partnerships, and configurations from this central hub.",
+			"title": "Gestione Eventi",
+			"subtitle": "Gestisci tutti gli eventi, le partnership e le configurazioni da questo hub centrale.",
 			"sections": {
 				"overview": {
-					"title": "Events Overview",
-					"description": "View and manage all events in the system"
+					"title": "Panoramica Eventi",
+					"description": "Visualizza e gestisci tutti gli eventi nel sistema"
 				},
 				"actions": {
-					"title": "Quick Actions",
-					"description": "Common administrative tasks for event management"
+					"title": "Azioni Rapide",
+					"description": "Attività amministrative comuni per la gestione degli eventi"
 				}
 			},
 			"stats": {
-				"totalEvents": "Total Events",
-				"activeEvents": "Active Events",
-				"upcomingEvents": "Upcoming Events",
-				"pastEvents": "Past Events",
-				"partneredEvents": "Partnered Events",
-				"draftEvents": "Draft Events"
+				"totalEvents": "Eventi Totali",
+				"activeEvents": "Eventi Attivi",
+				"upcomingEvents": "Eventi in Arrivo",
+				"pastEvents": "Eventi Passati",
+				"partneredEvents": "Eventi in Collaborazione",
+				"draftEvents": "Bozze"
 			},
 			"actions": {
-				"createEvent": "Create New Event",
-				"createEventDescription": "Add a new event to the platform",
-				"importEvents": "Import Events",
-				"importEventsDescription": "Bulk import events from external sources",
-				"manageCategories": "Manage Categories",
-				"manageCategoriesDescription": "Organize events by categories and types"
+				"createEvent": "Crea Nuovo Evento",
+				"createEventDescription": "Aggiungi un nuovo evento alla piattaforma",
+				"importEvents": "Importa Eventi",
+				"importEventsDescription": "Importazione massiva di eventi da fonti esterne",
+				"manageCategories": "Gestisci Categorie",
+				"manageCategoriesDescription": "Organizza eventi per categorie e tipi"
 			},
 			"table": {
 				"columns": {
-					"name": "Event Name",
-					"date": "Date",
-					"distance": "Distance",
-					"type": "Type",
-					"participants": "Participants",
-					"partnered": "Partnered",
-					"actions": "Actions"
+					"name": "Nome Evento",
+					"date": "Data",
+					"distance": "Distanza",
+					"type": "Tipo",
+					"participants": "Partecipanti",
+					"partnered": "Collaborazione",
+					"actions": "Azioni"
 				},
 				"status": {
-					"active": "Active",
-					"upcoming": "Upcoming",
-					"past": "Past",
-					"draft": "Draft",
-					"cancelled": "Cancelled"
+					"active": "Attivo",
+					"upcoming": "In Arrivo",
+					"past": "Passato",
+					"draft": "Bozza",
+					"cancelled": "Annullato"
 				},
 				"actions": {
-					"edit": "Edit",
-					"view": "View",
-					"delete": "Delete",
-					"duplicate": "Duplicate"
+					"edit": "Modifica",
+					"view": "Visualizza",
+					"delete": "Elimina",
+					"duplicate": "Duplica"
 				},
 				"empty": {
-					"title": "No events found",
-					"description": "Get started by creating your first event",
-					"createButton": "Create Event"
+					"title": "Nessun evento trovato",
+					"description": "Inizia creando il tuo primo evento",
+					"createButton": "Crea Evento"
 				},
 				"controls": {
-					"selectAll": "Select all",
-					"selectRow": "Select row",
-					"clearFilter": "Clear filter",
-					"toggleColumns": "Toggle columns",
-					"rowsPerPage": "Rows per page",
-					"deleteSelected": "Delete",
-					"confirmDelete": "Are you absolutely sure?",
-					"deleteDescription": "This action cannot be undone. This will permanently delete",
-					"cancel": "Cancel",
-					"yes": "Yes",
+					"selectAll": "Seleziona tutto",
+					"selectRow": "Seleziona riga",
+					"clearFilter": "Cancella filtro",
+					"toggleColumns": "Attiva/disattiva colonne",
+					"rowsPerPage": "Righe per pagina",
+					"deleteSelected": "Elimina",
+					"confirmDelete": "Sei assolutamente sicuro?",
+					"deleteDescription": "Questa azione non può essere annullata. Questo eliminerà definitivamente",
+					"cancel": "Annulla",
+					"yes": "Sì",
 					"no": "No"
 				}
 			},
 			"filters": {
-				"all": "All Events",
-				"active": "Active",
-				"upcoming": "Upcoming",
-				"past": "Past",
-				"partnered": "Partnered",
-				"search": "Search events..."
+				"all": "Tutti gli Eventi",
+				"active": "Attivi",
+				"upcoming": "In Arrivo",
+				"past": "Passati",
+				"partnered": "Collaborazione",
+				"search": "Cerca eventi..."
 			},
 			"ui": {
-				"comingSoon": "Coming Soon",
-				"loading": "Loading...",
-				"refreshing": "Refreshing...",
-				"accessError": "Access Error",
-				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
-				"signIn": "Sign In",
-				"connectedAs": "Connected as"
+				"comingSoon": "Prossimamente",
+				"loading": "Caricamento...",
+				"refreshing": "Aggiornamento...",
+				"accessError": "Errore di Accesso",
+				"accessErrorDescription": "Impossibile verificare l'accesso amministratore. Per favore, prova ad accedere di nuovo.",
+				"signIn": "Accedi",
+				"connectedAs": "Connesso come"
 			}
 		}
 	},
 	"de": {
 		"events": {
-			"title": "Event Management",
-			"subtitle": "Manage all events, partnerships, and configurations from this central hub.",
+			"title": "Veranstaltungsverwaltung",
+			"subtitle": "Verwalten Sie alle Veranstaltungen, Partnerschaften und Konfigurationen von diesem zentralen Hub aus.",
 			"sections": {
 				"overview": {
-					"title": "Events Overview",
-					"description": "View and manage all events in the system"
+					"title": "Veranstaltungsübersicht",
+					"description": "Alle Veranstaltungen im System anzeigen und verwalten"
 				},
 				"actions": {
-					"title": "Quick Actions",
-					"description": "Common administrative tasks for event management"
+					"title": "Schnellaktionen",
+					"description": "Häufige administrative Aufgaben für die Veranstaltungsverwaltung"
 				}
 			},
 			"stats": {
-				"totalEvents": "Total Events",
-				"activeEvents": "Active Events",
-				"upcomingEvents": "Upcoming Events",
-				"pastEvents": "Past Events",
-				"partneredEvents": "Partnered Events",
-				"draftEvents": "Draft Events"
+				"totalEvents": "Gesamtanzahl Veranstaltungen",
+				"activeEvents": "Aktive Veranstaltungen",
+				"upcomingEvents": "Bevorstehende Veranstaltungen",
+				"pastEvents": "Vergangene Veranstaltungen",
+				"partneredEvents": "Partnerveranstaltungen",
+				"draftEvents": "Entwürfe"
 			},
 			"actions": {
-				"createEvent": "Create New Event",
-				"createEventDescription": "Add a new event to the platform",
-				"importEvents": "Import Events",
-				"importEventsDescription": "Bulk import events from external sources",
-				"manageCategories": "Manage Categories",
-				"manageCategoriesDescription": "Organize events by categories and types"
+				"createEvent": "Neue Veranstaltung erstellen",
+				"createEventDescription": "Eine neue Veranstaltung zur Plattform hinzufügen",
+				"importEvents": "Veranstaltungen importieren",
+				"importEventsDescription": "Massenimport von Veranstaltungen aus externen Quellen",
+				"manageCategories": "Kategorien verwalten",
+				"manageCategoriesDescription": "Veranstaltungen nach Kategorien und Typen organisieren"
 			},
 			"table": {
 				"columns": {
-					"name": "Event Name",
-					"date": "Date",
-					"distance": "Distance",
-					"type": "Type",
-					"participants": "Participants",
-					"partnered": "Partnered",
-					"actions": "Actions"
+					"name": "Veranstaltungsname",
+					"date": "Datum",
+					"distance": "Distanz",
+					"type": "Typ",
+					"participants": "Teilnehmer",
+					"partnered": "Partner",
+					"actions": "Aktionen"
 				},
 				"status": {
-					"active": "Active",
-					"upcoming": "Upcoming",
-					"past": "Past",
-					"draft": "Draft",
-					"cancelled": "Cancelled"
+					"active": "Aktiv",
+					"upcoming": "Bevorstehend",
+					"past": "Vergangen",
+					"draft": "Entwurf",
+					"cancelled": "Abgesagt"
 				},
 				"actions": {
-					"edit": "Edit",
-					"view": "View",
-					"delete": "Delete",
-					"duplicate": "Duplicate"
+					"edit": "Bearbeiten",
+					"view": "Ansehen",
+					"delete": "Löschen",
+					"duplicate": "Duplizieren"
 				},
 				"empty": {
-					"title": "No events found",
-					"description": "Get started by creating your first event",
-					"createButton": "Create Event"
+					"title": "Keine Veranstaltungen gefunden",
+					"description": "Beginnen Sie mit der Erstellung Ihrer ersten Veranstaltung",
+					"createButton": "Veranstaltung erstellen"
 				},
 				"controls": {
-					"selectAll": "Select all",
-					"selectRow": "Select row",
-					"clearFilter": "Clear filter",
-					"toggleColumns": "Toggle columns",
-					"rowsPerPage": "Rows per page",
-					"deleteSelected": "Delete",
-					"confirmDelete": "Are you absolutely sure?",
-					"deleteDescription": "This action cannot be undone. This will permanently delete",
-					"cancel": "Cancel",
-					"yes": "Yes",
-					"no": "No"
+					"selectAll": "Alle auswählen",
+					"selectRow": "Zeile auswählen",
+					"clearFilter": "Filter löschen",
+					"toggleColumns": "Spalten umschalten",
+					"rowsPerPage": "Zeilen pro Seite",
+					"deleteSelected": "Löschen",
+					"confirmDelete": "Sind Sie absolut sicher?",
+					"deleteDescription": "Diese Aktion kann nicht rückgängig gemacht werden. Dies wird dauerhaft gelöscht",
+					"cancel": "Abbrechen",
+					"yes": "Ja",
+					"no": "Nein"
 				}
 			},
 			"filters": {
-				"all": "All Events",
-				"active": "Active",
-				"upcoming": "Upcoming",
-				"past": "Past",
-				"partnered": "Partnered",
-				"search": "Search events..."
+				"all": "Alle Veranstaltungen",
+				"active": "Aktiv",
+				"upcoming": "Bevorstehend",
+				"past": "Vergangen",
+				"partnered": "Partner",
+				"search": "Veranstaltungen suchen..."
 			},
 			"ui": {
-				"comingSoon": "Coming Soon",
-				"loading": "Loading...",
-				"refreshing": "Refreshing...",
-				"accessError": "Access Error",
-				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
-				"signIn": "Sign In",
-				"connectedAs": "Connected as"
+				"comingSoon": "Demnächst verfügbar",
+				"loading": "Wird geladen...",
+				"refreshing": "Aktualisierung...",
+				"accessError": "Zugriffsfehler",
+				"accessErrorDescription": "Administratorzugriff konnte nicht überprüft werden. Bitte versuchen Sie, sich erneut anzumelden.",
+				"signIn": "Anmelden",
+				"connectedAs": "Verbunden als"
 			}
 		}
 	},
 	"ro": {
 		"events": {
-			"title": "Event Management",
-			"subtitle": "Manage all events, partnerships, and configurations from this central hub.",
+			"title": "Gestionarea Evenimentelor",
+			"subtitle": "Gestionează toate evenimentele, parteneriatele și configurațiile din acest hub central.",
 			"sections": {
 				"overview": {
-					"title": "Events Overview",
-					"description": "View and manage all events in the system"
+					"title": "Prezentare generală a evenimentelor",
+					"description": "Vizualizează și gestionează toate evenimentele din sistem"
 				},
 				"actions": {
-					"title": "Quick Actions",
-					"description": "Common administrative tasks for event management"
+					"title": "Acțiuni rapide",
+					"description": "Sarcini administrative comune pentru gestionarea evenimentelor"
 				}
 			},
 			"stats": {
-				"totalEvents": "Total Events",
-				"activeEvents": "Active Events",
-				"upcomingEvents": "Upcoming Events",
-				"pastEvents": "Past Events",
-				"partneredEvents": "Partnered Events",
-				"draftEvents": "Draft Events"
+				"totalEvents": "Total Evenimente",
+				"activeEvents": "Evenimente Active",
+				"upcomingEvents": "Evenimente Viitoare",
+				"pastEvents": "Evenimente Trecute",
+				"partneredEvents": "Evenimente Parteneriate",
+				"draftEvents": "Ciorne"
 			},
 			"actions": {
-				"createEvent": "Create New Event",
-				"createEventDescription": "Add a new event to the platform",
-				"importEvents": "Import Events",
-				"importEventsDescription": "Bulk import events from external sources",
-				"manageCategories": "Manage Categories",
-				"manageCategoriesDescription": "Organize events by categories and types"
+				"createEvent": "Creează Eveniment Nou",
+				"createEventDescription": "Adaugă un eveniment nou pe platformă",
+				"importEvents": "Importă Evenimente",
+				"importEventsDescription": "Importă în masă evenimente din surse externe",
+				"manageCategories": "Gestionează Categorii",
+				"manageCategoriesDescription": "Organizează evenimentele pe categorii și tipuri"
 			},
 			"table": {
 				"columns": {
-					"name": "Event Name",
-					"date": "Date",
-					"distance": "Distance",
-					"type": "Type",
-					"participants": "Participants",
-					"partnered": "Partnered",
-					"actions": "Actions"
+					"name": "Nume Eveniment",
+					"date": "Data",
+					"distance": "Distanță",
+					"type": "Tip",
+					"participants": "Participanți",
+					"partnered": "Parteneriat",
+					"actions": "Acțiuni"
 				},
 				"status": {
-					"active": "Active",
-					"upcoming": "Upcoming",
-					"past": "Past",
-					"draft": "Draft",
-					"cancelled": "Cancelled"
+					"active": "Activ",
+					"upcoming": "Viitor",
+					"past": "Trecut",
+					"draft": "Ciornă",
+					"cancelled": "Anulat"
 				},
 				"actions": {
-					"edit": "Edit",
-					"view": "View",
-					"delete": "Delete",
-					"duplicate": "Duplicate"
+					"edit": "Editează",
+					"view": "Vizualizează",
+					"delete": "Șterge",
+					"duplicate": "Duplică"
 				},
 				"empty": {
-					"title": "No events found",
-					"description": "Get started by creating your first event",
-					"createButton": "Create Event"
+					"title": "Nu au fost găsite evenimente",
+					"description": "Începe prin a crea primul tău eveniment",
+					"createButton": "Creează Eveniment"
 				},
 				"controls": {
-					"selectAll": "Select all",
-					"selectRow": "Select row",
-					"clearFilter": "Clear filter",
-					"toggleColumns": "Toggle columns",
-					"rowsPerPage": "Rows per page",
-					"deleteSelected": "Delete",
-					"confirmDelete": "Are you absolutely sure?",
-					"deleteDescription": "This action cannot be undone. This will permanently delete",
-					"cancel": "Cancel",
-					"yes": "Yes",
-					"no": "No"
+					"selectAll": "Selectează tot",
+					"selectRow": "Selectează rând",
+					"clearFilter": "Șterge filtrul",
+					"toggleColumns": "Comută coloane",
+					"rowsPerPage": "Rânduri pe pagină",
+					"deleteSelected": "Șterge",
+					"confirmDelete": "Ești absolut sigur?",
+					"deleteDescription": "Această acțiune nu poate fi anulată. Acest lucru va șterge permanent",
+					"cancel": "Anulează",
+					"yes": "Da",
+					"no": "Nu"
 				}
 			},
 			"filters": {
-				"all": "All Events",
+				"all": "Toate Evenimentele",
 				"active": "Active",
-				"upcoming": "Upcoming",
-				"past": "Past",
-				"partnered": "Partnered",
-				"search": "Search events..."
+				"upcoming": "Viitoare",
+				"past": "Trecute",
+				"partnered": "Parteneriate",
+				"search": "Caută evenimente..."
 			},
 			"ui": {
-				"comingSoon": "Coming Soon",
-				"loading": "Loading...",
-				"refreshing": "Refreshing...",
-				"accessError": "Access Error",
-				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
-				"signIn": "Sign In",
-				"connectedAs": "Connected as"
+				"comingSoon": "În curând",
+				"loading": "Se încarcă...",
+				"refreshing": "Se reîmprospătează...",
+				"accessError": "Eroare de acces",
+				"accessErrorDescription": "Nu s-a putut verifica accesul de administrator. Vă rugăm să încercați să vă autentificați din nou.",
+				"signIn": "Autentificare",
+				"connectedAs": "Conectat ca"
 			}
 		}
 	},
 	"pt": {
 		"events": {
-			"title": "Event Management",
-			"subtitle": "Manage all events, partnerships, and configurations from this central hub.",
+			"title": "Gestão de Eventos",
+			"subtitle": "Gerencie todos os eventos, parcerias e configurações a partir deste hub central.",
 			"sections": {
 				"overview": {
-					"title": "Events Overview",
-					"description": "View and manage all events in the system"
+					"title": "Visão Geral dos Eventos",
+					"description": "Visualize e gerencie todos os eventos no sistema"
 				},
 				"actions": {
-					"title": "Quick Actions",
-					"description": "Common administrative tasks for event management"
+					"title": "Ações Rápidas",
+					"description": "Tarefas administrativas comuns para gestão de eventos"
 				}
 			},
 			"stats": {
-				"totalEvents": "Total Events",
-				"activeEvents": "Active Events",
-				"upcomingEvents": "Upcoming Events",
-				"pastEvents": "Past Events",
-				"partneredEvents": "Partnered Events",
-				"draftEvents": "Draft Events"
+				"totalEvents": "Total de Eventos",
+				"activeEvents": "Eventos Ativos",
+				"upcomingEvents": "Próximos Eventos",
+				"pastEvents": "Eventos Passados",
+				"partneredEvents": "Eventos em Parceria",
+				"draftEvents": "Rascunhos"
 			},
 			"actions": {
-				"createEvent": "Create New Event",
-				"createEventDescription": "Add a new event to the platform",
-				"importEvents": "Import Events",
-				"importEventsDescription": "Bulk import events from external sources",
-				"manageCategories": "Manage Categories",
-				"manageCategoriesDescription": "Organize events by categories and types"
+				"createEvent": "Criar Novo Evento",
+				"createEventDescription": "Adicionar um novo evento à plataforma",
+				"importEvents": "Importar Eventos",
+				"importEventsDescription": "Importação em massa de eventos de fontes externas",
+				"manageCategories": "Gerenciar Categorias",
+				"manageCategoriesDescription": "Organizar eventos por categorias e tipos"
 			},
 			"table": {
 				"columns": {
-					"name": "Event Name",
-					"date": "Date",
-					"distance": "Distance",
-					"type": "Type",
-					"participants": "Participants",
-					"partnered": "Partnered",
-					"actions": "Actions"
+					"name": "Nome do Evento",
+					"date": "Data",
+					"distance": "Distância",
+					"type": "Tipo",
+					"participants": "Participantes",
+					"partnered": "Parceria",
+					"actions": "Ações"
 				},
 				"status": {
-					"active": "Active",
-					"upcoming": "Upcoming",
-					"past": "Past",
-					"draft": "Draft",
-					"cancelled": "Cancelled"
+					"active": "Ativo",
+					"upcoming": "Próximo",
+					"past": "Passado",
+					"draft": "Rascunho",
+					"cancelled": "Cancelado"
 				},
 				"actions": {
-					"edit": "Edit",
-					"view": "View",
-					"delete": "Delete",
-					"duplicate": "Duplicate"
+					"edit": "Editar",
+					"view": "Visualizar",
+					"delete": "Excluir",
+					"duplicate": "Duplicar"
 				},
 				"empty": {
-					"title": "No events found",
-					"description": "Get started by creating your first event",
-					"createButton": "Create Event"
+					"title": "Nenhum evento encontrado",
+					"description": "Comece criando seu primeiro evento",
+					"createButton": "Criar Evento"
 				},
 				"controls": {
-					"selectAll": "Select all",
-					"selectRow": "Select row",
-					"clearFilter": "Clear filter",
-					"toggleColumns": "Toggle columns",
-					"rowsPerPage": "Rows per page",
-					"deleteSelected": "Delete",
-					"confirmDelete": "Are you absolutely sure?",
-					"deleteDescription": "This action cannot be undone. This will permanently delete",
-					"cancel": "Cancel",
-					"yes": "Yes",
-					"no": "No"
+					"selectAll": "Selecionar tudo",
+					"selectRow": "Selecionar linha",
+					"clearFilter": "Limpar filtro",
+					"toggleColumns": "Alternar colunas",
+					"rowsPerPage": "Linhas por página",
+					"deleteSelected": "Excluir",
+					"confirmDelete": "Tem certeza absoluta?",
+					"deleteDescription": "Esta ação não pode ser desfeita. Isso excluirá permanentemente",
+					"cancel": "Cancelar",
+					"yes": "Sim",
+					"no": "Não"
 				}
 			},
 			"filters": {
-				"all": "All Events",
-				"active": "Active",
-				"upcoming": "Upcoming",
-				"past": "Past",
-				"partnered": "Partnered",
-				"search": "Search events..."
+				"all": "Todos os Eventos",
+				"active": "Ativos",
+				"upcoming": "Próximos",
+				"past": "Passados",
+				"partnered": "Parceria",
+				"search": "Pesquisar eventos..."
 			},
 			"ui": {
-				"comingSoon": "Coming Soon",
-				"loading": "Loading...",
-				"refreshing": "Refreshing...",
-				"accessError": "Access Error",
-				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
-				"signIn": "Sign In",
-				"connectedAs": "Connected as"
+				"comingSoon": "Em breve",
+				"loading": "Carregando...",
+				"refreshing": "Atualizando...",
+				"accessError": "Erro de Acesso",
+				"accessErrorDescription": "Não foi possível verificar o acesso de administrador. Por favor, tente fazer login novamente.",
+				"signIn": "Entrar",
+				"connectedAs": "Conectado como"
 			}
 		}
 	},
 	"nl": {
 		"events": {
-			"title": "Event Management",
-			"subtitle": "Manage all events, partnerships, and configurations from this central hub.",
+			"title": "Evenementbeheer",
+			"subtitle": "Beheer alle evenementen, partnerschappen en configuraties vanuit deze centrale hub.",
 			"sections": {
 				"overview": {
-					"title": "Events Overview",
-					"description": "View and manage all events in the system"
+					"title": "Evenementenoverzicht",
+					"description": "Bekijk en beheer alle evenementen in het systeem"
 				},
 				"actions": {
-					"title": "Quick Actions",
-					"description": "Common administrative tasks for event management"
+					"title": "Snelle Acties",
+					"description": "Veelvoorkomende administratieve taken voor evenementbeheer"
 				}
 			},
 			"stats": {
-				"totalEvents": "Total Events",
-				"activeEvents": "Active Events",
-				"upcomingEvents": "Upcoming Events",
-				"pastEvents": "Past Events",
-				"partneredEvents": "Partnered Events",
-				"draftEvents": "Draft Events"
+				"totalEvents": "Totaal Evenementen",
+				"activeEvents": "Actieve Evenementen",
+				"upcomingEvents": "Aankomende Evenementen",
+				"pastEvents": "Afgelopen Evenementen",
+				"partneredEvents": "Partner Evenementen",
+				"draftEvents": "Concepten"
 			},
 			"actions": {
-				"createEvent": "Create New Event",
-				"createEventDescription": "Add a new event to the platform",
-				"importEvents": "Import Events",
-				"importEventsDescription": "Bulk import events from external sources",
-				"manageCategories": "Manage Categories",
-				"manageCategoriesDescription": "Organize events by categories and types"
+				"createEvent": "Nieuw Evenement Aanmaken",
+				"createEventDescription": "Voeg een nieuw evenement toe aan het platform",
+				"importEvents": "Evenementen Importeren",
+				"importEventsDescription": "Bulk importeren van evenementen uit externe bronnen",
+				"manageCategories": "Categorieën Beheren",
+				"manageCategoriesDescription": "Evenementen organiseren op categorieën en typen"
 			},
 			"table": {
 				"columns": {
-					"name": "Event Name",
-					"date": "Date",
-					"distance": "Distance",
+					"name": "Evenementnaam",
+					"date": "Datum",
+					"distance": "Afstand",
 					"type": "Type",
-					"participants": "Participants",
-					"partnered": "Partnered",
-					"actions": "Actions"
+					"participants": "Deelnemers",
+					"partnered": "Partner",
+					"actions": "Acties"
 				},
 				"status": {
-					"active": "Active",
-					"upcoming": "Upcoming",
-					"past": "Past",
-					"draft": "Draft",
-					"cancelled": "Cancelled"
+					"active": "Actief",
+					"upcoming": "Aankomend",
+					"past": "Afgelopen",
+					"draft": "Concept",
+					"cancelled": "Geannuleerd"
 				},
 				"actions": {
-					"edit": "Edit",
-					"view": "View",
-					"delete": "Delete",
-					"duplicate": "Duplicate"
+					"edit": "Bewerken",
+					"view": "Bekijken",
+					"delete": "Verwijderen",
+					"duplicate": "Dupliceren"
 				},
 				"empty": {
-					"title": "No events found",
-					"description": "Get started by creating your first event",
-					"createButton": "Create Event"
+					"title": "Geen evenementen gevonden",
+					"description": "Begin met het aanmaken van je eerste evenement",
+					"createButton": "Evenement Aanmaken"
 				},
 				"controls": {
-					"selectAll": "Select all",
-					"selectRow": "Select row",
-					"clearFilter": "Clear filter",
-					"toggleColumns": "Toggle columns",
-					"rowsPerPage": "Rows per page",
-					"deleteSelected": "Delete",
-					"confirmDelete": "Are you absolutely sure?",
-					"deleteDescription": "This action cannot be undone. This will permanently delete",
-					"cancel": "Cancel",
-					"yes": "Yes",
-					"no": "No"
+					"selectAll": "Alles selecteren",
+					"selectRow": "Rij selecteren",
+					"clearFilter": "Filter wissen",
+					"toggleColumns": "Kolommen wisselen",
+					"rowsPerPage": "Rijen per pagina",
+					"deleteSelected": "Verwijderen",
+					"confirmDelete": "Weet je het zeker?",
+					"deleteDescription": "Deze actie kan niet ongedaan worden gemaakt. Dit wordt permanent verwijderd",
+					"cancel": "Annuleren",
+					"yes": "Ja",
+					"no": "Nee"
 				}
 			},
 			"filters": {
-				"all": "All Events",
-				"active": "Active",
-				"upcoming": "Upcoming",
-				"past": "Past",
-				"partnered": "Partnered",
-				"search": "Search events..."
+				"all": "Alle Evenementen",
+				"active": "Actief",
+				"upcoming": "Aankomend",
+				"past": "Afgelopen",
+				"partnered": "Partner",
+				"search": "Evenementen zoeken..."
 			},
 			"ui": {
-				"comingSoon": "Coming Soon",
-				"loading": "Loading...",
-				"refreshing": "Refreshing...",
-				"accessError": "Access Error",
-				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
-				"signIn": "Sign In",
-				"connectedAs": "Connected as"
+				"comingSoon": "Binnenkort beschikbaar",
+				"loading": "Bezig met laden...",
+				"refreshing": "Vernieuwen...",
+				"accessError": "Toegangsprobleem",
+				"accessErrorDescription": "Kan geen beheerdersrechten verifiëren. Probeer opnieuw in te loggen.",
+				"signIn": "Inloggen",
+				"connectedAs": "Verbonden als"
 			}
 		}
 	}

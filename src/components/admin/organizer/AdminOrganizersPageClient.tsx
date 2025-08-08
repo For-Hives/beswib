@@ -516,7 +516,10 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 														<AlertDialogTitle>{t.organizers.table.controls.confirmDelete}</AlertDialogTitle>
 														<AlertDialogDescription>
 															{t.organizers.table.controls.deleteDescription} {table.getSelectedRowModel().rows.length}{' '}
-															selected {table.getSelectedRowModel().rows.length === 1 ? 'organizer' : 'organizers'}.
+															{table.getSelectedRowModel().rows.length === 1
+																? t.organizers.common.organizer
+																: t.organizers.common.organizers}
+															.
 														</AlertDialogDescription>
 													</AlertDialogHeader>
 												</div>
