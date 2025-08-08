@@ -73,6 +73,45 @@ export function formatDateForInput(dateString: string): string {
 	}
 }
 
+/**
+ * Robust function to format any date value for HTML date inputs (YYYY-MM-DD) 📅
+ * @param date - The date (can be string, Date object, or any date-like value)
+ * @returns Date string in YYYY-MM-DD format suitable for HTML date inputs
+ */
+export function formatDateForHTMLInput(date: unknown): string {
+	if (date == null || date === '') return ''
+
+	try {
+		let dt: DateTime
+
+		if (typeof date === 'string') {
+			// Try different string formats
+			dt = DateTime.fromISO(date)
+			if (!dt.isValid) {
+				dt = DateTime.fromSQL(date)
+			}
+			if (!dt.isValid) {
+				dt = DateTime.fromJSDate(new Date(date))
+			}
+		} else if (date instanceof Date) {
+			dt = DateTime.fromJSDate(date)
+		} else {
+			// Try to convert whatever it is to a Date first
+			dt = DateTime.fromJSDate(new Date(date as string))
+		}
+
+		if (!dt.isValid) {
+			console.warn('formatDateForHTMLInput: Invalid date received:', date)
+			return ''
+		}
+
+		return dt.toFormat('yyyy-LL-dd')
+	} catch (error) {
+		console.warn('formatDateForHTMLInput: Error formatting date:', date, error)
+		return ''
+	}
+}
+
 // Helper function to format date with Luxon safely ✨
 export function formatDateWithLocale(date: Date, locale: Locale): string {
 	try {

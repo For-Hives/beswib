@@ -16,7 +16,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 			}
 		}
 		// run only once to set initial theme if not persisted
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	useEffect(() => {

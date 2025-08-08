@@ -14,7 +14,7 @@ import { valibotResolver } from '@hookform/resolvers/valibot'
 import { User } from '@/models/user.model'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import { isUserProfileComplete } from '@/lib/userValidation'
-import { formatDateForInput } from '@/lib/dateUtils'
+import { formatDateForHTMLInput } from '@/lib/dateUtils'
 
 type RunnerFormData = {
 	firstName: string
@@ -57,6 +57,10 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 	const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 	const isComplete = isUserProfileComplete(user)
 
+	// Debug: Check what birthDate we receive from API
+	console.log('ModernRunnerForm: user.birthDate =', user?.birthDate, typeof user?.birthDate)
+	console.log('ModernRunnerForm: formatted birthDate =', formatDateForHTMLInput(user?.birthDate))
+
 	// Gender options for SelectAnimated
 	const genderOptions: SelectOption[] = [
 		{ value: 'male', label: 'Male' },
@@ -69,12 +73,7 @@ export default function ModernRunnerForm({ user }: Readonly<{ user: User }>) {
 		defaultValues: {
 			firstName: user?.firstName ?? '',
 			lastName: user?.lastName ?? '',
-			birthDate:
-				typeof user?.birthDate === 'string'
-					? formatDateForInput(user.birthDate)
-					: user?.birthDate instanceof Date
-						? formatDateForInput(user.birthDate.toISOString())
-						: '',
+			birthDate: formatDateForHTMLInput(user?.birthDate),
 			phoneNumber: user?.phoneNumber ?? '',
 			emergencyContactName: user?.emergencyContactName ?? '',
 			emergencyContactPhone: user?.emergencyContactPhone ?? '',

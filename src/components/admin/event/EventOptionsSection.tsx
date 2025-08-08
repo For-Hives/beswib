@@ -27,7 +27,8 @@ export default function EventOptionsSection({
 			values: [''],
 			required: false,
 			label: '',
-			key: `option-${Date.now()}-${Math.random()}`,
+			// Do not generate a weird key by default; let user define it
+			key: '',
 		}
 		setEventOptions([...eventOptions, newOption])
 	}
@@ -85,7 +86,8 @@ export default function EventOptionsSection({
 				<div className="space-y-8">
 					{eventOptions.map((option, optionIndex) => (
 						<EventOptionCard
-							key={option.key || `option-${optionIndex}`}
+							// Use a stable key that doesn't depend on the editable "key" field
+							key={`option-${optionIndex}`}
 							locale={locale}
 							onAddValue={addOptionValue}
 							onRemove={removeEventOption}
