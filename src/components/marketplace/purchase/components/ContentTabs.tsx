@@ -107,13 +107,13 @@ export default function ContentTabs({ bib, eventData, locale }: ContentTabsProps
 
 								{/* Transfer Deadline Warning Card */}
 								{eventData?.transferDeadline && (
-									<div className="rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-6 backdrop-blur-sm">
-										<h4 className="mb-3 font-semibold text-yellow-300">Transfer Deadline</h4>
-										<p className="mb-2 text-sm text-yellow-200">Last date for bib transfer:</p>
-										<p className="text-xl font-bold text-yellow-100">
+									<div className="rounded-lg border border-yellow-800/50 bg-yellow-500/10 p-6 backdrop-blur-sm dark:border-yellow-500/50 dark:bg-yellow-500/10">
+										<h4 className="mb-3 font-semibold text-yellow-900 dark:text-yellow-300">Transfer Deadline</h4>
+										<p className="mb-2 text-sm text-yellow-800 dark:text-yellow-200">Last date for bib transfer:</p>
+										<p className="text-xl font-bold text-black dark:text-yellow-100">
 											{formatDateWithLocale(eventData.transferDeadline, locale)}
 										</p>
-										<p className="mt-3 text-xs text-yellow-200">
+										<p className="mt-3 text-xs text-yellow-800 dark:text-yellow-200">
 											Complete your purchase before this date to ensure transfer
 										</p>
 									</div>
