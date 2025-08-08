@@ -1,18 +1,20 @@
 import Link from 'next/link'
 
 import type { Event } from '@/models/event.model'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 
 interface CalendarEventListProps {
 	readonly groupedEvents: GroupedEvents
 	readonly sortedMonthKeys: string[]
 	readonly t: { calendar: { noEvents: string } }
+	readonly locale?: string
 }
 
 interface GroupedEvents {
 	[yearMonth: string]: Event[]
 }
 
-export default function CalendarEventList({ t, sortedMonthKeys, groupedEvents }: CalendarEventListProps) {
+export default function CalendarEventList({ t, sortedMonthKeys, groupedEvents, locale = 'en' }: CalendarEventListProps) {
 	return (
 		<main className="mx-auto max-w-4xl">
 			{sortedMonthKeys.length > 0 ? (
