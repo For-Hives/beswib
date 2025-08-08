@@ -95,26 +95,31 @@ export default function PayPalPurchaseClient({
 		if (isProfileComplete) {
 			// check for lock mechanism to prevent multi user to buy the same bib
 			const isBibLocked = await isLocked(bib.id, lockedAtParam)
-			if (isBibLocked) {
+			if (isBibLocked === 'locked') {
 				console.log('Bib is locked:', isBibLocked)
 				toast.error('This bib is currently locked by another user for purchase. Please try again later.')
 				return
 			}
 			// Try to lock the bib for this user
 			setLoading(true)
+
 			try {
-				const lockedBib = await lockBib(bib.id, user?.id ?? '')
-				if (!lockedBib) {
-					toast.error('Failed to lock bib. It may have just been locked by another user.')
-					console.error('Failed to lock bib:', lockedBib)
-					setLoading(false)
-					return
-				}
-				setLockExpiration(lockedBib.lockedAt != null ? new Date(lockedBib.lockedAt) : null)
-				// Store lockedAt in Nuqs param
-				let lockedAtDt = pbDateToLuxon(lockedBib.lockedAt)
-				if (lockedAtDt) {
-					setLockedAtParam(lockedAtDt.toISO())
+				if (isBibLocked === 'unlocked') {
+					const lockedBib = await lockBib(bib.id, user?.id ?? '')
+					if (!lockedBib) {
+						toast.error('Failed to lock bib. It may have just been locked by another user.')
+						console.error('Failed to lock bib:', lockedBib)
+						setLoading(false)
+						return
+					}
+					setLockExpiration(lockedBib.lockedAt != null ? new Date(lockedBib.lockedAt) : null)
+					// Store lockedAt in Nuqs param
+					let lockedAtDt = pbDateToLuxon(lockedBib.lockedAt)
+					if (lockedAtDt) {
+						setLockedAtParam(lockedAtDt.toISO())
+					}
+				} else if (isBibLocked === 'userlocked') {
+					toast.info('This bib is currently locked by you for purchase.')
 				}
 				setIsPanelOpen(true)
 			} catch (err) {
