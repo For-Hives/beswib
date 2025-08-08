@@ -171,8 +171,10 @@ export async function isLocked(bibId: string, timekey: string = ''): Promise<boo
 	if (!bibId) return false
 	try {
 		const bib = await pb.collection('bibs').getOne<Bib>(bibId)
-		const lockedAtDt = pbDateToLuxon(bib.lockedAt)
-		const timekeyDt = pbDateToLuxon(timekey)
+		const lockedAtDt = pbDateToLuxon(bib.lockedAt)?.toUTC()
+		const timekeyDt = DateTime.fromISO(timekey).toUTC()
+
+		console.log('pouet')
 
 		if (lockedAtDt != null) {
 			const nowDt: DateTime = DateTime.now()
@@ -182,7 +184,8 @@ export async function isLocked(bibId: string, timekey: string = ''): Promise<boo
 				return false
 			}
 			if (timekeyDt != null) {
-				return lockedAtDt.isValid && timekeyDt.isValid && lockedAtDt.toISO() === timekeyDt.toISO()
+				console.log('Checking lock expiration:', lockedAtDt.toISO(), timekeyDt.toISO())
+				return lockedAtDt.isValid && timekeyDt.isValid && lockedAtDt.toISO() !== timekeyDt.toISO()
 			}
 			return true
 		}

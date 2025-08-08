@@ -22,6 +22,8 @@ import { isLocked, lockBib, unlockExpiredBibs } from '@/services/bib.services'
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
 import { toast } from 'sonner'
 import { is } from 'valibot'
+import { DateTime } from 'luxon'
+import { pbDateToLuxon } from '@/lib/dateUtils'
 
 interface PayPalPurchaseClientProps {
 	bib: BibSale
@@ -110,8 +112,9 @@ export default function PayPalPurchaseClient({
 				}
 				setLockExpiration(lockedBib.lockedAt != null ? new Date(lockedBib.lockedAt) : null)
 				// Store lockedAt in Nuqs param
-				if (lockedBib.lockedAt) {
-					setLockedAtParam(lockedBib.lockedAt.toISOString())
+				let lockedAtDt = pbDateToLuxon(lockedBib.lockedAt)
+				if (lockedAtDt) {
+					setLockedAtParam(lockedAtDt.toISO())
 				}
 				setIsPanelOpen(true)
 			} catch (err) {
