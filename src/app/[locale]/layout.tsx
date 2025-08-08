@@ -70,8 +70,24 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 	const localeParams = await props.params
 	const { locale } = localeParams
 	return (
-		<ClerkProvider>
-			<html lang={locale}>
+        <ClerkProvider>
+            <html lang={locale}>
+                <head>
+                    {/* Apply persisted/system theme BEFORE paint to prevent flash */}
+                    <script
+                        dangerouslySetInnerHTML={{
+                            __html: `(() => { try { 
+  var stored = localStorage.getItem('theme');
+  var theme = null;
+  if (stored) { 
+    try { var parsed = JSON.parse(stored); theme = parsed && parsed.state && parsed.state.theme; } catch (_) { theme = stored; }
+  }
+  if (!theme) { theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+  var d = document.documentElement; d.classList.remove('light','dark'); d.classList.add(theme); d.style.colorScheme = theme;
+} catch (e) {} })();`,
+                        }}
+                    />
+                </head>
 				<body className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased`}>
 					<ThemeProvider>
 						<QueryProvider>

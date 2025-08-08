@@ -125,11 +125,12 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 		const radius = isMobile ? 160 : 200
 		const radian = (angle * Math.PI) / 180
 
-		const x = radius * Math.cos(radian)
-		const y = radius * Math.sin(radian)
+		// Deterministic rounding to avoid SSR/CSR string mismatches
+		const x = Number((radius * Math.cos(radian)).toFixed(3))
+		const y = Number((radius * Math.sin(radian)).toFixed(3))
 
 		const zIndex = Math.round(100 + 50 * Math.cos(radian))
-		const opacity = Math.max(0.4, Math.min(1, 0.4 + 0.6 * ((1 + Math.sin(radian)) / 2)))
+		const opacity = Number(Math.max(0.4, Math.min(1, 0.4 + 0.6 * ((1 + Math.sin(radian)) / 2))).toFixed(3))
 
 		return { zIndex, y, x, opacity, angle }
 	}
@@ -225,6 +226,7 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 									nodeRefs.current[item.id] = el
 								}}
 								role="button"
+								suppressHydrationWarning
 								style={nodeStyle}
 								tabIndex={0}
 							>
