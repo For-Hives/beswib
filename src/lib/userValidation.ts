@@ -7,12 +7,17 @@ import type { User } from '@/models/user.model'
 export function isUserProfileComplete(user: User | null): boolean {
 	if (!user) return false
 
+	// Accept either phoneNumber or contactEmail as a valid contact method
+	const hasAtLeastOneContact =
+		(typeof user.phoneNumber === 'string' && user.phoneNumber.trim() !== '') ||
+		(typeof user.contactEmail === 'string' && user.contactEmail.trim() !== '')
+
 	const requiredFields = [
 		user.email,
 		user.firstName,
 		user.lastName,
 		user.birthDate,
-		user.phoneNumber,
+		hasAtLeastOneContact ? 'ok' : null,
 		user.emergencyContactName,
 		user.emergencyContactPhone,
 		user.emergencyContactRelationship,
@@ -47,12 +52,17 @@ export function isSellerProfileComplete(user: User | null): boolean {
 		return false
 	}
 
+	// Accept either phoneNumber or contactEmail as a valid contact method
+	const hasAtLeastOneContact =
+		(typeof user.phoneNumber === 'string' && user.phoneNumber.trim() !== '') ||
+		(typeof user.contactEmail === 'string' && user.contactEmail.trim() !== '')
+
 	// Check for basic contact information required for selling
 	const requiredSellerFields = [
 		user.email,
 		user.firstName,
 		user.lastName,
-		user.phoneNumber,
+		hasAtLeastOneContact ? 'ok' : null,
 		user.address,
 		user.postalCode,
 		user.city,

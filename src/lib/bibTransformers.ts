@@ -7,15 +7,15 @@ import type { Bib } from '@/models/bib.model'
  * Maps database event type to BibSale event type
  */
 export function mapEventTypeToBibSaleType(
-	eventType: 'route' | 'trail' | 'triathlon' | 'ultra' | undefined
+	eventType: 'road' | 'trail' | 'triathlon' | 'cycle' | undefined
 ): 'cycling' | 'other' | 'running' | 'swimming' | 'trail' | 'triathlon' {
 	if (!eventType) return 'other'
 
 	const typeMap: Record<string, 'cycling' | 'other' | 'running' | 'swimming' | 'trail' | 'triathlon'> = {
-		ultra: 'running',
+		cycle: 'cycling',
 		triathlon: 'triathlon',
 		trail: 'trail',
-		route: 'running',
+		road: 'running',
 	}
 
 	return typeMap[eventType] ?? 'other'
@@ -81,12 +81,12 @@ export function transformBibToBibSale(bib: Bib & { expand?: { eventId: Event; se
 /**
  * Generates an event image URL based on event type
  */
-function generateEventImageUrl(eventType: 'route' | 'trail' | 'triathlon' | 'ultra'): string {
+function generateEventImageUrl(eventType: 'road' | 'trail' | 'triathlon' | 'cycle'): string {
 	const imageMap: Record<string, string> = {
-		ultra: '/bib-blue.png',
+		cycle: '/bib-blue.png',
 		triathlon: '/bib-red.png',
 		trail: '/bib-orange.png',
-		route: '/bib-green.png',
+		road: '/bib-green.png',
 	}
 
 	return imageMap[eventType] ?? '/bib-pink.png'

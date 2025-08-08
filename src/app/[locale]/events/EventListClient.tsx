@@ -11,7 +11,7 @@ import { getTranslations } from '@/lib/getDictionary'
 import { fetchAvailableBibsForEvent } from '@/services/bib.services'
 import { Input } from '@/components/ui/inputAlt'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
-import { TriathlonIcon, TrailIcon, RouteIcon, UltraIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
+import { TriathlonIcon, TrailIcon, RouteIcon, CycleIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
 import { Timeline } from '@/components/ui/timeline'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
@@ -26,30 +26,30 @@ interface EventsPageProps {
 const eventTypeColors = {
 	triathlon: 'bg-purple-500/15 border-purple-500/50 text-purple-400',
 	trail: 'bg-yellow-500/15 border-yellow-500/50 text-yellow-400',
-	route: 'bg-blue-500/15 border-blue-500/50 text-blue-400',
-	ultra: 'bg-red-500/15 border-red-500/50 text-red-400',
-}
+	road: 'bg-blue-500/15 border-blue-500/50 text-blue-400',
+	cycle: 'bg-red-500/15 border-red-500/50 text-red-400',
+} as const
 
 const eventTypeColorsDisabled = {
 	triathlon: 'opacity-25',
 	trail: 'opacity-25',
-	route: 'opacity-25',
-	ultra: 'opacity-25',
-}
+	road: 'opacity-25',
+	cycle: 'opacity-25',
+} as const
 
 const eventTypeLabels = {
 	triathlon: 'TRIATHLON',
 	trail: 'TRAIL',
-	route: 'ROUTE',
-	ultra: 'ULTRA',
-}
+	road: 'ROAD',
+	cycle: 'CYCLE',
+} as const
 
 const eventTypeIcons = {
 	triathlon: <TriathlonIcon className="h-5 w-5" />,
 	trail: <TrailIcon className="h-5 w-5" />,
-	route: <RouteIcon className="h-5 w-5" />,
-	ultra: <UltraIcon className="h-5 w-5" />,
-}
+	road: <RouteIcon className="h-5 w-5" />,
+	cycle: <CycleIcon className="h-5 w-5" />,
+} as const
 
 // Moved out to avoid defining components inside components (react/no-unstable-nested-components)
 function EventCard({
@@ -150,7 +150,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	const [query, setQuery] = useQueryStates(
 		{
 			search: parseAsString.withDefault(''),
-			type: parseAsStringLiteral(['all', 'triathlon', 'trail', 'route', 'ultra'] as const).withDefault('all'),
+			type: parseAsStringLiteral(['all', 'triathlon', 'trail', 'road', 'cycle'] as const).withDefault('all'),
 			sort: parseAsStringLiteral(['date', 'price', 'participants', 'distance'] as const).withDefault('date'),
 			location: parseAsString.withDefault(''),
 		},
@@ -174,7 +174,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	const handleSearchChange = (val: string) => {
 		void setQuery({ search: val })
 	}
-	const handleTypeChange = (val: 'all' | 'triathlon' | 'trail' | 'route' | 'ultra') => {
+	const handleTypeChange = (val: 'all' | 'triathlon' | 'trail' | 'road' | 'cycle') => {
 		void setQuery({ type: val })
 	}
 	const handleSortChange = (val: string) => {
@@ -520,7 +520,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								className={`group relative flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 p-4 transition-all duration-200 hover:scale-105 hover:shadow-md active:scale-95 ${
 									selectedType === type.key ? type.color : type.colorDisabled
 								}`}
-								onClick={() => handleTypeChange(type.key as 'all' | 'triathlon' | 'trail' | 'route' | 'ultra')}
+								onClick={() => handleTypeChange(type.key as 'all' | 'triathlon' | 'trail' | 'road' | 'cycle')}
 								aria-label={(t.events?.raceTypes as Record<string, string>)?.[type.key] ?? type.label}
 							>
 								{/* Radio button indicator - top left */}

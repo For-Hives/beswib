@@ -45,7 +45,7 @@ export default function EventCreationForm({ onSuccess, onCancel, locale }: Reado
 	} = useForm<EventFormData>({
 		resolver: valibotResolver(EventCreationSchema),
 		defaultValues: {
-			typeCourse: 'route',
+			typeCourse: 'road',
 			participants: 1,
 			options: [],
 		},

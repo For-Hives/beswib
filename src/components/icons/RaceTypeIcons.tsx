@@ -44,8 +44,8 @@ export const RouteIcon: React.FC<IconProps> = ({ className, size = 16 }) => (
 	</svg>
 )
 
-// Ultra Icon - Using custom SVG
-export const UltraIcon: React.FC<IconProps> = ({ className, size = 16 }) => (
+// Cycle Icon - Using custom SVG (reuse UltraIcon artwork for now)
+export const CycleIcon: React.FC<IconProps> = ({ className, size = 16 }) => (
 	<svg
 		width={size}
 		height={size}
@@ -88,8 +88,8 @@ export const AllTypesIcon: React.FC<IconProps> = ({ className, size = 16 }) => (
 export const raceTypeIcons = {
 	triathlon: TriathlonIcon,
 	trail: TrailIcon,
-	route: RouteIcon,
-	ultra: UltraIcon,
+	road: RouteIcon,
+	cycle: CycleIcon,
 	all: AllTypesIcon,
 } as const
 

@@ -18,8 +18,8 @@
 			"raceTypes": {
 				"triathlon": "Triathlon",
 				"trail": "Trail",
-				"route": "Road",
-				"ultra": "Ultra"
+				"road": "Road",
+				"cycle": "Cycle"
 			},
 			"countLabel": "{count} event{count, plural, one {} other {s}} found",
 			"calendarView": "Calendar view",
@@ -58,8 +58,8 @@
 			"raceTypes": {
 				"triathlon": "Triathlon",
 				"trail": "Trail",
-				"route": "Route",
-				"ultra": "Ultra"
+				"road": "Route",
+				"cycle": "Cycle"
 			},
 			"countLabel": "{count} événement{count, plural, one {} other {s}} trouvé{count, plural, one {} other {s}}",
 			"calendarView": "Vue calendrier",
@@ -98,8 +98,8 @@
 			"raceTypes": {
 				"triathlon": "트라이애슬론",
 				"trail": "트레일",
-				"route": "로드",
-				"ultra": "울트라"
+				"road": "로드",
+				"cycle": "사이클"
 			},
 			"countLabel": "{count}개 이벤트가 검색됨",
 			"calendarView": "캘린더 보기",

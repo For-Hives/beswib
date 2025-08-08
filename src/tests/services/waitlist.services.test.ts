@@ -19,6 +19,7 @@ const mockUser: User = {
 	emergencyContactPhone: null,
 	emergencyContactName: null,
 	email: 'test@test.com',
+	contactEmail: null,
 	created: new Date('2024-01-01T00:00:00.000Z'),
 	country: null,
 	clerkId: 'clerk_user1',

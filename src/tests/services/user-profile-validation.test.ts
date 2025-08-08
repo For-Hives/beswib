@@ -10,6 +10,7 @@ describe('isUserProfileComplete', () => {
 		paypalMerchantId: null,
 		role: 'user',
 		email: 'john.doe@example.com',
+		contactEmail: 'john.contact@example.com',
 		firstName: 'John',
 		lastName: 'Doe',
 		birthDate: new Date('1990-01-01'),

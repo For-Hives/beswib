@@ -107,8 +107,8 @@ export default function ActiveFiltersBadges({ filters, maxPrice, onRemoveFilter 
 
 	return (
 		<div className="border-border bg-card/50 border-b px-6 py-3">
-			<div className="mx-auto max-w-7xl">
-				<div className="flex flex-wrap gap-2">
+			<div className="w-full">
+				<div className="flex flex-wrap items-center gap-2">
 					{activeFilters.map((filter, index) => (
 						<Badge
 							key={`${filter.type}-${index}`}
