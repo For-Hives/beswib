@@ -510,3 +510,29 @@ body *::-webkit-scrollbar-thumb {
 		scrollbar-color: var(--sb-thumb-color) var(--sb-track-color) !important;
 	}
 }
+
+/* Normalize native date input calendar icon color across themes */
+/* Chrome/Edge/Safari (WebKit/Blink) */
+input[type='date']::-webkit-calendar-picker-indicator {
+    /* Ensure the icon is visible and allow color tweaking */
+    opacity: 1;
+}
+/* In light theme, keep dark icon (no invert) */
+:root input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(0);
+}
+/* In dark theme, invert so the icon appears white */
+.dark input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(1.2) contrast(1);
+}
+
+/* Hint the control to adopt the current theme for browsers that respect color-scheme */
+input[type='date'] {
+    color-scheme: var(--theme-color-scheme, light);
+}
+:root input[type='date'] {
+    --theme-color-scheme: light;
+}
+.dark input[type='date'] {
+    --theme-color-scheme: dark;
+}

@@ -316,7 +316,7 @@ export default function MarketplaceSidebar({
 								type="date"
 								value={filters.dateStart ?? ''}
 								onChange={e => handleDateStartChange(e.target.value)}
-								className="[color-scheme:dark]"
+								className=""
 							/>
 						</div>
 						<div className="space-y-1">
@@ -325,7 +325,7 @@ export default function MarketplaceSidebar({
 								type="date"
 								value={filters.dateEnd ?? ''}
 								onChange={e => handleDateEndChange(e.target.value)}
-								className="[color-scheme:dark]"
+								className=""
 							/>
 						</div>
 					</div>

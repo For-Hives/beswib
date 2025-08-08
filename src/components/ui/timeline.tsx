@@ -1,14 +1,6 @@
 'use client'
 
-import {
-	useScroll,
-	useTransform,
-	motion,
-	useSpring,
-	useMotionValue,
-	useMotionValueEvent,
-	type MotionValue,
-} from 'motion/react'
+import { useScroll, useTransform, motion, useSpring, useMotionValue, type MotionValue } from 'motion/react'
 import React, { useEffect, useRef, useState } from 'react'
 
 interface TimelineEntry {
@@ -54,10 +46,26 @@ const TimelineItem = ({
 		}
 	}, [containerRef])
 
-	useMotionValueEvent(lineHeight, 'change', v => {
-		const activationOffset = 12 // trigger when the line reaches the dot center
-		setIsActive(v >= anchorY - activationOffset)
-	})
+	// Subscribe to motion value changes outside render to avoid setState during parent render
+	useEffect(() => {
+		let rafId = 0
+		const computeActive = (v: number) => {
+			const activationOffset = 12 // trigger when the line reaches the dot center
+			const next = v >= anchorY - activationOffset
+			// avoid unnecessary updates
+			setIsActive(prev => (prev !== next ? next : prev))
+		}
+		// set initial state based on current value
+		computeActive(lineHeight.get())
+		const unsubscribe = lineHeight.on('change', v => {
+			if (rafId) cancelAnimationFrame(rafId)
+			rafId = requestAnimationFrame(() => computeActive(v))
+		})
+		return () => {
+			if (rafId) cancelAnimationFrame(rafId)
+			unsubscribe()
+		}
+	}, [lineHeight, anchorY])
 
 	return (
 		<div ref={itemRef} className="flex justify-start pt-10 md:gap-10 md:pt-20">
