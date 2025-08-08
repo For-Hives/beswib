@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react'
+import { useQueryState } from 'nuqs'
 import { useRouter } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
 
@@ -20,6 +21,7 @@ import { isLocked, lockBib, unlockExpiredBibs } from '@/services/bib.services'
 // Import sub-components
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
 import { toast } from 'sonner'
+import { is } from 'valibot'
 
 interface PayPalPurchaseClientProps {
 	bib: BibSale
@@ -57,8 +59,19 @@ export default function PayPalPurchaseClient({
 	const router = useRouter()
 	const [isProfileComplete, setIsProfileComplete] = useState(false)
 
+	// Nuqs param for lockedAt
+	const [lockedAtParam, setLockedAtParam] = useQueryState<string | null>('lockedAt', {
+		history: 'replace',
+		shallow: false,
+		parse: (value: string | null) => value,
+		defaultValue: null,
+	})
+
 	// Check if current user is the seller of this bib
 	const isOwnBib = user?.id === bib.user.id
+
+	// Helper: is bib locked by this user?
+	const isLockedByMe = lockedAtParam && bib.lockedAt && lockedAtParam === bib.lockedAt.toISOString()
 
 	useEffect(() => {
 		// void unlockExpiredBibs()
@@ -79,9 +92,9 @@ export default function PayPalPurchaseClient({
 		console.log('ici ca passe')
 		if (isProfileComplete) {
 			// check for lock mechanism to prevent multi user to buy the same bib
-			const isBibLocked = await isLocked(bib.id)
+			const isBibLocked = await isLocked(bib.id, lockedAtParam)
 			if (isBibLocked) {
-				console.log('Bib is locked:', bib.lockedAt)
+				console.log('Bib is locked:', isBibLocked)
 				toast.error('This bib is currently locked by another user for purchase. Please try again later.')
 				return
 			}
@@ -96,6 +109,10 @@ export default function PayPalPurchaseClient({
 					return
 				}
 				setLockExpiration(lockedBib.lockedAt != null ? new Date(lockedBib.lockedAt) : null)
+				// Store lockedAt in Nuqs param
+				if (lockedBib.lockedAt) {
+					setLockedAtParam(lockedBib.lockedAt.toISOString())
+				}
 				setIsPanelOpen(true)
 			} catch (err) {
 				toast.error('Error locking bib for purchase.' + (err instanceof Error ? err.message : String(err)))
@@ -247,7 +264,7 @@ export default function PayPalPurchaseClient({
 							}}
 						/>
 						{/* Lock timer display */}
-						{lockExpiration && new Date(lockExpiration) > new Date() && (
+						{isLockedByMe && lockExpiration && new Date(lockExpiration) > new Date() && (
 							<div className="text-warning mt-4">
 								Bib locked for you. Time left:{' '}
 								{Math.max(0, Math.floor((new Date(lockExpiration).getTime() - Date.now()) / 1000))} seconds

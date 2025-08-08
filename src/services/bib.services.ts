@@ -11,6 +11,8 @@ import { pb } from '@/lib/pocketbaseClient'
 import { createTransaction } from './transaction.services'
 import { fetchUserById } from './user.services'
 import { isSellerProfileComplete } from '@/lib/userValidation'
+import { DateTime } from 'luxon'
+import { pbDateStringToLuxon, dateToPbDateString } from '@/lib/dateUtils'
 
 /**
  * Creates a new bib listing. Handles both partnered and unlisted events.
@@ -165,29 +167,32 @@ export async function unlockBib(bibId: string): Promise<Bib | null> {
  * @param bibId The ID of the bib to check.
  */
 
-export async function isLocked(bibId: string): Promise<boolean> {
+export async function isLocked(bibId: string, timekey: string = ''): Promise<boolean> {
 	if (!bibId) return false
 	try {
 		const bib = await pb.collection('bibs').getOne<Bib>(bibId)
 
-		// if locked, check if the lock has expired
-		if (bib.lockedAt) {
-			const now = new Date()
-			const lockExpiration = new Date(bib.lockedAt)
-			lockExpiration.setMinutes(lockExpiration.getMinutes() + 5)
-			if (now > lockExpiration) {
-				// Lock has expired
+		if (bib.lockedAt != '') {
+			const lockedAtDt: DateTime = pbDateStringToLuxon(bib.lockedAt as string)
+			const nowDt: DateTime = DateTime.now()
+			const lockExpiration: DateTime = lockedAtDt.plus({ minutes: 5 })
+			if (nowDt > lockExpiration) {
 				await unlockBib(bibId)
 				return false
 			}
+			if (timekey != '') {
+				const timekeyDt: DateTime = pbDateStringToLuxon(timekey)
+				return lockedAtDt.isValid && timekeyDt.isValid && lockedAtDt.toISO() === timekeyDt.toISO()
+			}
+			return true
 		}
 		// si non verouiller, check si deja vendu
 		if (Boolean(bib.status === 'sold')) {
 			return true
 		}
-
-		return bib.lockedAt !== null
+		return false
 	} catch (error: unknown) {
+		console.error('Error checking if bib is locked: ', error)
 		throw new Error('Error checking if bib is locked: ' + (error instanceof Error ? error.message : String(error)))
 	}
 }
