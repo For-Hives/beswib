@@ -188,9 +188,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 			header: t.table.columns.partnership,
 			cell: ({ row }: { row: Row<Organizer> }) => (
 				<Badge variant={row.getValue('isPartnered') === true ? 'default' : 'secondary'}>
-					{row.getValue('isPartnered') === true
-						? t.table.columns.status.partner
-						: t.table.columns.status.standard}
+					{row.getValue('isPartnered') === true ? t.table.columns.status.partner : t.table.columns.status.standard}
 				</Badge>
 			),
 			accessorKey: 'isPartnered',
@@ -516,9 +514,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 														<AlertDialogTitle>{t.table.controls.confirmDelete}</AlertDialogTitle>
 														<AlertDialogDescription>
 															{t.table.controls.deleteDescription} {table.getSelectedRowModel().rows.length}{' '}
-															{table.getSelectedRowModel().rows.length === 1
-																? t.common.organizer
-																: t.common.organizers}
+															{table.getSelectedRowModel().rows.length === 1 ? t.common.organizer : t.common.organizers}
 															.
 														</AlertDialogDescription>
 													</AlertDialogHeader>
@@ -643,8 +639,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 												table.getRowCount()
 											)}
 										</span>{' '}
-										{t.table.pagination.of}{' '}
-										<span className="text-foreground">{table.getRowCount().toString()}</span>
+										{t.table.pagination.of} <span className="text-foreground">{table.getRowCount().toString()}</span>
 									</p>
 								</div>
 
@@ -765,8 +760,7 @@ function RowActions({ row, t }: { row: Row<Organizer>; t: any }) {
 						<AlertDialogHeader>
 							<AlertDialogTitle>{t.table.controls.confirmDelete}</AlertDialogTitle>
 							<AlertDialogDescription>
-								{t.table.controls.deleteDescription} "
-								{row.original.name || t.common.unknownOrganizer}"
+								{t.table.controls.deleteDescription} "{row.original.name || t.common.unknownOrganizer}"
 							</AlertDialogDescription>
 						</AlertDialogHeader>
 					</div>
