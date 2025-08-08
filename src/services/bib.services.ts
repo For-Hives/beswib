@@ -167,8 +167,8 @@ export async function unlockBib(bibId: string): Promise<Bib | null> {
  * @param bibId The ID of the bib to check.
  */
 
-export async function isLocked(bibId: string, timekey: string = ''): Promise<boolean> {
-	if (!bibId) return false
+export async function isLocked(bibId: string, timekey: string = ''): Promise<'locked' | 'unlocked' | 'userlocked'> {
+	if (!bibId) return 'locked'
 	try {
 		const bib = await pb.collection('bibs').getOne<Bib>(bibId)
 		const lockedAtDt = pbDateToLuxon(bib.lockedAt)?.toUTC()
@@ -181,19 +181,21 @@ export async function isLocked(bibId: string, timekey: string = ''): Promise<boo
 			const lockExpiration: DateTime = lockedAtDt.plus({ minutes: 5 })
 			if (nowDt > lockExpiration) {
 				await unlockBib(bibId)
-				return false
+				return 'unlocked'
 			}
 			if (timekeyDt != null) {
 				console.log('Checking lock expiration:', lockedAtDt.toISO(), timekeyDt.toISO())
-				return lockedAtDt.isValid && timekeyDt.isValid && lockedAtDt.toISO() !== timekeyDt.toISO()
+				return lockedAtDt.isValid && timekeyDt.isValid && lockedAtDt.toISO() === timekeyDt.toISO()
+					? 'userlocked'
+					: 'locked'
 			}
-			return true
+			return 'locked'
 		}
 		// si non verouiller, check si deja vendu
 		if (Boolean(bib.status === 'sold')) {
-			return true
+			return 'locked'
 		}
-		return false
+		return 'unlocked'
 	} catch (error: unknown) {
 		console.error('Error checking if bib is locked: ', error)
 		throw new Error('Error checking if bib is locked: ' + (error instanceof Error ? error.message : String(error)))
