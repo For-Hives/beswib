@@ -168,9 +168,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				case 'date': {
 					const da = parseEventDate(a.eventDate)
 					const db = parseEventDate(b.eventDate)
-					if (da && db) return da.toMillis() - db.toMillis()
-					if (da && !db) return -1
-					if (!da && db) return 1
+					if (da != null && db != null) return da.toMillis() - db.toMillis()
+					if (da != null && db == null) return -1
+					if (da == null && db != null) return 1
 					return 0
 				}
 				case 'price':
@@ -581,7 +581,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							<Input
 								type="text"
 								placeholder="Rechercher une ville..."
-								value={locationSearch || selectedLocation}
+								value={locationSearch !== '' ? locationSearch : selectedLocation}
 								onChange={e => {
 									setLocationSearch(e.target.value)
 									setShowLocationDropdown(true)

@@ -458,12 +458,20 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 	}) => {
 		// Load the 3D model with Suspense-compatible error handling
 		let nodes: Record<string, unknown> = {}
-		try {
-			const gltfData = useGLTF(cardGLB, true)
-			if (gltfData && typeof gltfData === 'object' && 'nodes' in gltfData && typeof gltfData.nodes === 'object') {
-				nodes = gltfData.nodes as Record<string, unknown>
-			}
-		} catch (error) {
+				try {
+					const gltfData = useGLTF(cardGLB, true)
+					if (
+						gltfData != null &&
+						typeof gltfData === 'object' &&
+						'nodes' in gltfData &&
+						// @ts-expect-error – runtime guard for nodes presence
+						gltfData.nodes != null &&
+						typeof (gltfData as any).nodes === 'object'
+					) {
+						// @ts-expect-error – narrowing external lib type
+						nodes = gltfData.nodes as Record<string, unknown>
+					}
+				} catch (error) {
 			console.warn('GLB model failed to load:', error)
 			// Fallback to basic geometries
 			nodes = {}
@@ -472,7 +480,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, price, originalPrice, currency = 'E
 		// Wait for model to be fully loaded
 		const [isModelLoaded, setIsModelLoaded] = useState(false)
 		useEffect(() => {
-			if (nodes && typeof nodes === 'object' && Object.keys(nodes).length > 0) {
+				if (nodes != null && typeof nodes === 'object' && Object.keys(nodes).length > 0) {
 				setIsModelLoaded(true)
 			}
 		}, [nodes])
