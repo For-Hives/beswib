@@ -13,7 +13,7 @@ interface PbUserRecordMinimal {
 	contactEmail: string | null
 	firstName: string | null
 	lastName: string | null
-	bithDate: string | Date | null
+	birthDate: string | Date | null
 	phoneNumber: string | null
 	emergencyContactName: string | null
 	emergencyContactPhone: string | null
@@ -31,9 +31,13 @@ interface PbUserRecordMinimal {
 }
 
 function mapPbRecordToUser(record: PbUserRecordMinimal): User {
-	// Normalize PB 'bithDate' (string or Date) to 'YYYY-MM-DD' using Luxon
+	// Debug: Check what we get from PocketBase
+	console.log('mapPbRecordToUser - Raw record:', record)
+	console.log('mapPbRecordToUser - record.birthDate:', record?.birthDate, 'type:', typeof record?.birthDate)
+	
+	// Normalize PB 'birthDate' (string or Date) to 'YYYY-MM-DD' using Luxon
 	let birthDate: string | Date | null = null
-	const bithDate = record?.bithDate
+	const bithDate = record?.birthDate
 	if (bithDate instanceof Date) {
 		const dt = DateTime.fromJSDate(bithDate).toUTC()
 		birthDate = dt.isValid ? dt.toFormat('yyyy-LL-dd') : null
@@ -41,6 +45,8 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 		const dt = DateTime.fromISO(bithDate, { zone: 'utc' })
 		birthDate = dt.isValid ? dt.toFormat('yyyy-LL-dd') : null
 	}
+	
+	console.log('mapPbRecordToUser - final birthDate:', birthDate)
 
 	return {
 		id: record.id,
@@ -69,22 +75,22 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 	}
 }
 
-// Map our User partial (birthDate) to PB payload (bithDate)
+// Map our User partial (birthDate) to PB payload (birthDate)
 function mapUserToPbPayload(user: Partial<User>): Record<string, unknown> {
 	const payload: Record<string, unknown> = { ...user }
 	if ('birthDate' in payload) {
 		const birthDate = payload.birthDate
 		delete payload.birthDate
 		if (birthDate == null || birthDate === '') {
-			payload.bithDate = ''
+			payload.birthDate = ''
 		} else if (birthDate instanceof Date) {
 			const dt = DateTime.fromJSDate(birthDate).toUTC()
-			payload.bithDate = dt.isValid ? dt.toISO() : ''
+			payload.birthDate = dt.isValid ? dt.toISO() : ''
 		} else if (typeof birthDate === 'string') {
 			// Supports 'YYYY-MM-DD' or ISO strings; normalize to UTC ISO
 			const base = birthDate.length === 10 ? `${birthDate}T00:00:00` : birthDate
 			const dt = DateTime.fromISO(base, { zone: 'utc' }).toUTC().startOf('day')
-			payload.bithDate = dt.isValid ? dt.toISO() : ''
+			payload.birthDate = dt.isValid ? dt.toISO() : ''
 		}
 	}
 	return payload

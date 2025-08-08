@@ -72,15 +72,25 @@ export default function MarketplaceSidebar({
 	const fuse = useMemo(() => new Fuse(regions, { threshold: 0.4 }), [regions])
 	const filteredRegions = regionSearch ? fuse.search(regionSearch).map(result => result.item) : regions
 
-	// Handle sport selection
-	const handleSportChange = (sport: string | null) => {
-		onFiltersChange({ sport: sport === 'all' ? null : sport })
-	}
+    // Handle sport selection as toggle
+    const handleSportChange = (sport: string | null) => {
+        if (sport === 'all') {
+            onFiltersChange({ sport: null })
+            return
+        }
+        const next = filters.sport === sport ? null : sport
+        onFiltersChange({ sport: next })
+    }
 
-	// Handle distance selection
-	const handleDistanceChange = (distance: string | null) => {
-		onFiltersChange({ distance: distance === 'all' ? null : distance })
-	}
+    // Handle distance selection as toggle
+    const handleDistanceChange = (distance: string | null) => {
+        if (distance === 'all') {
+            onFiltersChange({ distance: null })
+            return
+        }
+        const next = filters.distance === distance ? null : distance
+        onFiltersChange({ distance: next })
+    }
 
 	// Handle price range changes
 	const handlePriceChange = (values: number[]) => {
@@ -163,10 +173,10 @@ export default function MarketplaceSidebar({
 					</Label>
 					<div className="space-y-2">
 						<div className="grid grid-cols-2 gap-2">
-							{sportsOptions.slice(0, showAllSports ? undefined : 4).map(sport => (
+                            {sportsOptions.slice(0, showAllSports ? undefined : 4).map(sport => (
 								<Button
 									key={sport.value}
-									variant={filters.sport === sport.value ? 'default' : 'outline'}
+                                    variant={filters.sport === sport.value ? 'default' : 'outline'}
 									size="sm"
 									onClick={() => handleSportChange(sport.value)}
 									className="h-auto justify-start p-2"
@@ -207,10 +217,10 @@ export default function MarketplaceSidebar({
 					</Label>
 					<div className="space-y-2">
 						<div className="space-y-1">
-							{distanceOptions.slice(0, showAllDistances ? undefined : 4).map(distance => (
+                            {distanceOptions.slice(0, showAllDistances ? undefined : 4).map(distance => (
 								<Button
 									key={distance.value}
-									variant={filters.distance === distance.value ? 'default' : 'ghost'}
+                                    variant={filters.distance === distance.value ? 'default' : 'ghost'}
 									size="sm"
 									onClick={() => handleDistanceChange(distance.value)}
 									className="h-auto w-full justify-between p-2"
