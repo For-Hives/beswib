@@ -20,7 +20,7 @@ export default function AdminOrganizerCreatePageClient({
 	locale,
 	currentUser,
 }: Readonly<AdminOrganizerCreatePageClientProps>) {
-	const translations = getTranslations(locale, organizerCreateTranslations)
+	const t = getTranslations(locale, organizerCreateTranslations)
 
 	const router = useRouter()
 	const [isSuccess, setIsSuccess] = useState(false)
@@ -43,15 +43,13 @@ export default function AdminOrganizerCreatePageClient({
 				<div className="relative flex min-h-screen items-center justify-center">
 					<div className="dark:border-border/50 bg-card/80 w-full max-w-md rounded-3xl border border-black/50 p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--destructive)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--destructive)/0.2)] backdrop-blur-md">
 						<div className="mb-6 text-6xl text-red-600 dark:text-red-400">⚠</div>
-						<h1 className="text-foreground mb-4 text-3xl font-bold">Access Error</h1>
-						<p className="text-muted-foreground mb-6 text-lg">
-							Unable to verify admin access. Please try logging in again.
-						</p>
+						<h1 className="text-foreground mb-4 text-3xl font-bold">{t.organizers.ui.accessError}</h1>
+						<p className="text-muted-foreground mb-6 text-lg">{t.organizers.ui.accessErrorDescription}</p>
 						<button
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
 							onClick={() => router.push('/sign-in')}
 						>
-							Sign In
+							{t.organizers.ui.signIn}
 						</button>
 					</div>
 				</div>
@@ -66,15 +64,15 @@ export default function AdminOrganizerCreatePageClient({
 				<div className="relative flex min-h-screen items-center justify-center">
 					<div className="dark:border-border/50 bg-card/80 w-full max-w-md rounded-3xl border border-black/50 p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md">
 						<div className="mb-6 text-6xl text-green-600 dark:text-green-400">✓</div>
-						<h1 className="text-foreground mb-4 text-3xl font-bold">{translations.organizers.create.success.title}</h1>
+						<h1 className="text-foreground mb-4 text-3xl font-bold">{t.organizers.create.success.title}</h1>
 						<p className="text-muted-foreground mb-6 text-lg">
-							{translations.organizers.create.success.message.replace('{organizerName}', createdOrganizer.name)}
+							{t.organizers.create.success.message.replace('{organizerName}', createdOrganizer.name)}
 						</p>
 						<button
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
 							onClick={() => router.push('/admin/organizer')}
 						>
-							{translations.organizers.create.success.backButton}
+							{t.organizers.create.success.backButton}
 						</button>
 					</div>
 				</div>
@@ -88,7 +86,7 @@ export default function AdminOrganizerCreatePageClient({
 			<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
 				<div className="flex items-center justify-between">
 					<div>
-						<p className="text-muted-foreground text-sm">Connected as</p>
+						<p className="text-muted-foreground text-sm">{t.organizers.ui.connectedAs}</p>
 						<p className="text-foreground font-medium">
 							{currentUser.firstName ?? 'Anonymous'} {currentUser.lastName ?? ''} ({currentUser.email})
 						</p>

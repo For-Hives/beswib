@@ -70,7 +70,9 @@
 			"ui": {
 				"comingSoon": "Coming Soon",
 				"connectedAs": "Connected as",
-				"signIn": "Sign In"
+				"signIn": "Sign In",
+				"anonymous": "Anonymous",
+				"empty": ""
 			}
 		},
 		"event": {
@@ -308,7 +310,9 @@
 			"ui": {
 				"comingSoon": "Bientôt Disponible",
 				"connectedAs": "Connecté en tant que",
-				"signIn": "Se Connecter"
+				"signIn": "Se Connecter",
+				"anonymous": "Anonyme",
+				"empty": ""
 			}
 		},
 		"event": {
@@ -546,7 +550,9 @@
 			"ui": {
 				"comingSoon": "Próximamente",
 				"connectedAs": "Conectado como",
-				"signIn": "Iniciar Sesión"
+				"signIn": "Iniciar Sesión",
+				"anonymous": "Anónimo",
+				"empty": ""
 			}
 		},
 		"event": {
@@ -784,7 +790,9 @@
 			"ui": {
 				"comingSoon": "Prossimamente",
 				"connectedAs": "Connesso come",
-				"signIn": "Accedi"
+				"signIn": "Accedi",
+				"anonymous": "Anonimo",
+				"empty": ""
 			}
 		},
 		"event": {
@@ -1022,7 +1030,9 @@
 			"ui": {
 				"comingSoon": "Demnächst verfügbar",
 				"connectedAs": "Verbunden als",
-				"signIn": "Anmelden"
+				"signIn": "Anmelden",
+				"anonymous": "Anonym",
+				"empty": ""
 			}
 		},
 		"event": {
@@ -1260,7 +1270,9 @@
 			"ui": {
 				"comingSoon": "În Curând",
 				"connectedAs": "Conectat ca",
-				"signIn": "Conectare"
+				"signIn": "Conectare",
+				"anonymous": "Anonim",
+				"empty": ""
 			}
 		},
 		"event": {
@@ -1498,7 +1510,9 @@
 			"ui": {
 				"comingSoon": "Em Breve",
 				"connectedAs": "Conectado como",
-				"signIn": "Entrar"
+				"signIn": "Entrar",
+				"anonymous": "Anônimo",
+				"empty": ""
 			}
 		},
 		"event": {
@@ -1736,7 +1750,9 @@
 			"ui": {
 				"comingSoon": "Binnenkort Beschikbaar",
 				"connectedAs": "Verbonden als",
-				"signIn": "Inloggen"
+				"signIn": "Inloggen",
+				"anonymous": "Anoniem",
+				"empty": ""
 			}
 		},
 		"event": {
@@ -1974,7 +1990,9 @@
 			"ui": {
 				"comingSoon": "곧 출시",
 				"connectedAs": "다음으로 연결됨",
-				"signIn": "로그인"
+				"signIn": "로그인",
+				"anonymous": "익명",
+				"empty": ""
 			}
 		},
 		"event": {

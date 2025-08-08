@@ -3,6 +3,8 @@
 		"organizers": {
 			"common": {
 				"na": "N/A",
+				"organizer": "organizer",
+				"organizers": "organizers",
 				"unknownOrganizer": "Unknown Organizer"
 			},
 			"actions": {
@@ -132,6 +134,8 @@
 		"organizers": {
 			"common": {
 				"na": "N/D",
+				"organizer": "organisateur",
+				"organizers": "organisateurs",
 				"unknownOrganizer": "Organisateur inconnu"
 			},
 			"actions": {
