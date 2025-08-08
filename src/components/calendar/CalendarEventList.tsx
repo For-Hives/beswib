@@ -14,7 +14,12 @@ interface GroupedEvents {
 	[yearMonth: string]: Event[]
 }
 
-export default function CalendarEventList({ t, sortedMonthKeys, groupedEvents, locale = 'en' }: CalendarEventListProps) {
+export default function CalendarEventList({
+	t,
+	sortedMonthKeys,
+	groupedEvents,
+	locale = 'en',
+}: CalendarEventListProps) {
 	return (
 		<main className="mx-auto max-w-4xl">
 			{sortedMonthKeys.length > 0 ? (
@@ -29,7 +34,7 @@ export default function CalendarEventList({ t, sortedMonthKeys, groupedEvents, l
 								>
 									<h2 className="text-lg font-bold text-gray-200"> {event.name} </h2>
 									<p className="text-muted-foreground mt-2 text-sm">
-										<strong>Date:</strong> {new Date(event.eventDate).toLocaleDateString()}
+										<strong>Date:</strong> {formatDateObjectForDisplay(event.eventDate, locale)}
 									</p>
 									<p className="text-muted-foreground mt-1 text-sm">
 										<strong>Location:</strong> {event.location}
