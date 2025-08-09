@@ -278,7 +278,7 @@ export async function fetchBibByIdForSeller(
 	} catch (error: unknown) {
 		throw new Error(
 			`Error fetching bib ${bibId} for seller ${sellerUserId}: ` +
-			(error instanceof Error ? error.message : String(error))
+				(error instanceof Error ? error.message : String(error))
 		)
 	}
 }
@@ -387,7 +387,7 @@ export async function fetchPubliclyListedBibsForEvent(eventId: string): Promise<
 	} catch (error: unknown) {
 		throw new Error(
 			`Error fetching publicly listed bibs for event ${eventId}: ` +
-			(error instanceof Error ? error.message : String(error))
+				(error instanceof Error ? error.message : String(error))
 		)
 	}
 }
