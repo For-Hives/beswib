@@ -23,7 +23,7 @@ import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, Pay
 import { LockTimer } from './LockTimer'
 import { toast } from 'sonner'
 import { DateTime } from 'luxon'
-import { pbDateToLuxon } from '@/lib/dateUtils'
+// import { pbDateToLuxon } from '@/lib/dateUtils'
 
 interface PayPalPurchaseClientProps {
 	bib: BibSale
@@ -44,6 +44,9 @@ interface PayPalPurchaseClientProps {
  * - PayPal payment processing
  * - Purchase confirmation and navigation
  */
+type DateLike = string | Date | null | undefined
+type LockStatus = 'locked' | 'unlocked' | 'userlocked'
+
 export default function PayPalPurchaseClient({
 	user,
 	sellerUser,
@@ -52,6 +55,26 @@ export default function PayPalPurchaseClient({
 	eventData,
 	organizerData,
 }: Readonly<PayPalPurchaseClientProps>) {
+	// Local safe converter to avoid type-aware linter issues with cross-module inference
+	const toLuxon = (date: DateLike): DateTime | null => {
+		if (date instanceof Date) {
+			const dt = DateTime.fromJSDate(date).toUTC()
+			return dt.isValid ? dt : null
+		}
+		if (typeof date === 'string' && date.trim() !== '') {
+			let dt = DateTime.fromISO(date, { zone: 'utc' })
+			if (dt.isValid) return dt
+			dt = DateTime.fromSQL(date, { zone: 'utc' })
+			if (dt.isValid) return dt
+			dt = DateTime.fromFormat(date, "yyyy-MM-dd HH:mm:ss.SSS'Z'", { zone: 'utc' })
+			if (dt.isValid) return dt
+		}
+		return null
+	}
+
+	const normalizeLockStatus = (value: unknown): LockStatus => {
+		return value === 'locked' || value === 'unlocked' || value === 'userlocked' ? (value as LockStatus) : 'locked'
+	}
 	const [errorMessage, setErrorMessage] = useState<null | string>(null)
 	const [successMessage, setSuccessMessage] = useState<null | string>(null)
 	const [isPanelOpen, setIsPanelOpen] = useState(false)
@@ -117,7 +140,7 @@ export default function PayPalPurchaseClient({
 		}
 		if (isProfileComplete) {
 			// check for lock mechanism to prevent multi user to buy the same bib
-			const isBibLocked = await isLocked(bib.id, lockedAtParam)
+			const isBibLocked: LockStatus = normalizeLockStatus(await isLocked(bib.id, lockedAtParam ?? ''))
 			if (isBibLocked === 'locked') {
 				toast.error('This bib is currently locked by another user for purchase. Please try again later.')
 				return
@@ -134,14 +157,17 @@ export default function PayPalPurchaseClient({
 						setLoading(false)
 						return
 					}
-					const lockedDt = pbDateToLuxon(lockedBib.lockedAt)
-					setLockExpiration(lockedDt ? lockedDt.plus({ minutes: 5 }) : null)
+					const lockedDt: DateTime | null = toLuxon(lockedBib.lockedAt)
+					setLockExpiration(lockedDt !== null ? lockedDt.plus({ minutes: 5 }) : null)
 					// Store lockedAt in Nuqs param
-					let lockedAtDt = pbDateToLuxon(lockedBib.lockedAt)
-					if (lockedAtDt) {
-						setLockedAtParam(lockedAtDt.toISO()).catch(() => {
-							toast.error('Error with the lock mechanism')
-						})
+					const lockedAtDt: DateTime | null = toLuxon(lockedBib.lockedAt)
+					if (lockedAtDt !== null) {
+						const iso = lockedAtDt.toISO()
+						if (iso !== null) {
+							setLockedAtParam(iso).catch(() => {
+								toast.error('Error with the lock mechanism')
+							})
+						}
 					}
 				} else if (isBibLocked === 'userlocked') {
 					toast.info('This bib is currently locked by you for purchase.')
@@ -236,7 +262,6 @@ export default function PayPalPurchaseClient({
 				</div>
 			)}
 			{/* Interactive Price Lanyard with dynamic price display */}
-
 			<div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 				<div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
 					{/* Event Image */}
@@ -244,9 +269,11 @@ export default function PayPalPurchaseClient({
 						<EventImage bib={bib} eventData={eventData} locale={locale} />
 					</div>
 
+					{/* Product Details */}
 					<div className="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
-						<div className="flex flex-col-reverse"></div>
-
+						<div className="flex flex-col-reverse">
+							<div className="mt-4">
+								<h1 className="text-foreground text-2xl font-bold tracking-tight sm:text-3xl">{bib.event.name}</h1>
 								<h2 id="information-heading" className="sr-only">
 									Bib information
 								</h2>
@@ -288,9 +315,10 @@ export default function PayPalPurchaseClient({
 							}}
 						/>
 					</div>
-
-					<ContentTabs bib={bib} eventData={eventData} locale={locale} />
 				</div>
+
+				{/* Tabbed Content Section */}
+				<ContentTabs bib={bib} eventData={eventData} locale={locale} />
 			</div>
 			<PaymentPanel
 				isOpen={isPanelOpen}
