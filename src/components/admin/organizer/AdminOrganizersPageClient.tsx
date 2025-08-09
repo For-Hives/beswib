@@ -457,6 +457,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 															inputRef.current.focus()
 														}
 													}}
+													type="button"
 												>
 													<CircleX aria-hidden="true" size={16} />
 												</button>
@@ -550,7 +551,8 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 													return (
 														<TableHead className="h-11" key={header.id} style={{ width: `${header.getSize()}px` }}>
 															{header.isPlaceholder ? null : header.column.getCanSort() ? (
-                        <div
+																<button
+																	type="button"
 																	className={cn(
 																		header.column.getCanSort() &&
 																			'flex h-full cursor-pointer items-center justify-between gap-2 select-none'
@@ -561,7 +563,6 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 																			e.preventDefault()
 																		}
 																	}}
-                            role="button"
 																	tabIndex={header.column.getCanSort() ? 0 : undefined}
 																>
 																	{flexRender(header.column.columnDef.header, header.getContext())}
@@ -569,7 +570,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 																		desc: <ChevronDown aria-hidden="true" className="shrink-0 opacity-60" size={16} />,
 																		asc: <ChevronUp aria-hidden="true" className="shrink-0 opacity-60" size={16} />,
 																	}[header.column.getIsSorted() as string] ?? null}
-																</div>
+																</button>
 															) : (
 																flexRender(header.column.columnDef.header, header.getContext())
 															)}
@@ -720,17 +721,20 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 }
 
 type OrganizerTranslationsForRowActions = {
-    organizers: {
-        actionsLabels: { openMenu: string; edit: string; view: string; delete: string }
-        table: { controls: { confirmDelete: string; deleteDescription: string; cancel: string } }
-        common: { unknownOrganizer: string }
-    }
+	organizers: {
+		actionsLabels: { openMenu: string; edit: string; view: string; delete: string }
+		table: { controls: { confirmDelete: string; deleteDescription: string; cancel: string } }
+		common: { unknownOrganizer: string }
+	}
 }
 
-function RowActions({ row, t }: Readonly<{ row: Row<Organizer & { eventsCount: number }>; t: OrganizerTranslationsForRowActions }>) {
+function RowActions({
+	row,
+	t,
+}: Readonly<{ row: Row<Organizer & { eventsCount: number }>; t: OrganizerTranslationsForRowActions }>) {
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 
-    const handleDelete = () => {
+	const handleDelete = () => {
 		console.warn('Delete organizer:', row.original.id)
 		setShowDeleteDialog(false)
 	}
