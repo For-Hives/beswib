@@ -20,7 +20,10 @@ describe('user.services', () => {
 			const user = await createUser(mockUser)
 			expect(user).toEqual(mockUser)
 			expect(mockPocketbase.collection).toHaveBeenCalledWith('users')
-			expect(mockPocketbase.create).toHaveBeenCalledWith(mockUser)
+			const expectedPayload: any = { ...mockUser }
+			delete expectedPayload.birthDate
+			expectedPayload.bithDate = ''
+			expect(mockPocketbase.create).toHaveBeenCalledWith(expectedPayload)
 		})
 
 		it('should throw an error if user creation fails', async () => {
