@@ -109,7 +109,9 @@ export default function CardMarket({ locale, bibSale, eventData }: Readonly<Card
 										case 'triathlon':
 											return translations.triathlon ?? 'Triathlon'
 										case 'cycling':
-											return (translations as any).cycle ?? 'Cycling'
+											return typeof (translations as { cycling?: unknown }).cycling === 'string'
+												? (translations as { cycling?: string }).cycling
+												: 'Cycling'
 										default:
 											return translations.other ?? 'Other'
 									}

@@ -94,7 +94,9 @@ export default function EventImage({ bib, eventData, locale }: EventImageProps) 
 							case 'triathlon':
 								return t.triathlon ?? 'Triathlon'
 							case 'cycling':
-								return (t as any).cycle ?? 'Cycling'
+								return typeof (t as { cycling?: unknown }).cycling === 'string'
+									? (t as { cycling?: string }).cycling
+									: 'Cycling'
 							default:
 								return t.other ?? 'Other'
 						}
