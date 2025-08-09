@@ -91,7 +91,10 @@ export default async function Image() {
 							<div style={{ fontSize: 48, fontWeight: 800, color: '#B3C8D9', lineHeight: 1.1 }}>
 								Tout ce que vous devez savoir sur Beswib
 							</div>
-							<div style={{ fontSize: 28, color: '#A0A0AA' }}>La marketplace sécurisée pour les transferts de dossards. Notre objectif est de simplifier la revente de dossards, en la rendant légale, sûre et plus rapide que jamais.</div>
+							<div style={{ fontSize: 28, color: '#A0A0AA' }}>
+								La marketplace sécurisée pour les transferts de dossards. Notre objectif est de simplifier la revente de
+								dossards, en la rendant légale, sûre et plus rapide que jamais.
+							</div>
 						</div>
 
 						{/* Right: stats stack incl. logo first */}

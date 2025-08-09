@@ -92,7 +92,8 @@ export default async function Image() {
 								Discutons ensemble !
 							</div>
 							<div style={{ fontSize: 28, color: '#A0A0AA' }}>
-								Que vous soyez coureur avec une question sur la revente d'un dossard, ou organisateur intéressé pour lister votre course sur Bibswib, cette page est faite pour vous.
+								Que vous soyez coureur avec une question sur la revente d'un dossard, ou organisateur intéressé pour
+								lister votre course sur Bibswib, cette page est faite pour vous.
 							</div>
 						</div>
 
