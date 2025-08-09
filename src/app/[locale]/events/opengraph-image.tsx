@@ -89,7 +89,7 @@ export default async function Image() {
 						{/* Left: headline + tagline */}
 						<div style={{ display: 'flex', flexDirection: 'column', gap: 18, width: '55%' }}>
 							<div style={{ fontSize: 48, fontWeight: 800, color: '#B3C8D9', lineHeight: 1.1 }}>
-								Parcourez les événements 
+								Parcourez les événements
 							</div>
 							<div style={{ fontSize: 28, color: '#A0A0AA' }}>
 								Trouvez et achetez des dossards pour les événements à venir
