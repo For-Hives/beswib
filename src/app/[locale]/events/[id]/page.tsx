@@ -68,7 +68,7 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-			
+
 			<div className="relative pt-12 pb-12">
 				<div className="container mx-auto max-w-6xl p-6">
 					{/* Success Modal-like Notification */}
@@ -119,7 +119,7 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 
 					{/* Event Details Card */}
 					<div className="mb-8">
-						<div className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm rounded-3xl border p-8 shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)]">
+						<div className="dark:border-border/50 bg-card/80 rounded-3xl border border-black/50 p-8 shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-sm">
 							<div className="grid gap-6 md:grid-cols-2">
 								<div>
 									<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.date}</h3>
@@ -140,15 +140,20 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 					</div>
 
 					{/* Bibs Section */}
-					<div className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm rounded-3xl border p-8 shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)]">
+					<div className="dark:border-border/50 bg-card/80 rounded-3xl border border-black/50 p-8 shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-sm">
 						<h2 className="text-foreground mb-6 text-2xl font-bold">{t.event.bibs.title}</h2>
-						
+
 						{publiclyListedBibs.length > 0 ? (
 							<div className="grid gap-4">
 								{publiclyListedBibs.map(bib => (
-									<div className="dark:border-border/30 bg-card/40 hover:bg-card/60 flex flex-col justify-between rounded-2xl border p-6 transition-colors sm:flex-row sm:items-center" key={bib.id}>
+									<div
+										className="dark:border-border/30 bg-card/40 hover:bg-card/60 flex flex-col justify-between rounded-2xl border p-6 transition-colors sm:flex-row sm:items-center"
+										key={bib.id}
+									>
 										<div className="space-y-2">
-											<div className="text-2xl font-bold text-[var(--accent-sporty)]">{t.event.bibs.price}: ${bib.price.toFixed(2)}</div>
+											<div className="text-2xl font-bold text-[var(--accent-sporty)]">
+												{t.event.bibs.price}: ${bib.price.toFixed(2)}
+											</div>
 											{bib.originalPrice != null && bib.originalPrice !== 0 && !isNaN(bib.originalPrice) && (
 												<p className="text-muted-foreground text-sm">
 													{t.event.bibs.originalPrice}: ${bib.originalPrice.toFixed(2)}
@@ -156,15 +161,19 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 											)}
 											<div className="flex gap-4">
 												{bib.optionValues.size != null && bib.optionValues.size !== '' && (
-													<p className="text-muted-foreground text-sm">{t.event.bibs.size}: {bib.optionValues.size}</p>
+													<p className="text-muted-foreground text-sm">
+														{t.event.bibs.size}: {bib.optionValues.size}
+													</p>
 												)}
 												{bib.optionValues.gender != null && (
-													<p className="text-muted-foreground text-sm">{t.event.bibs.gender}: {bib.optionValues.gender}</p>
+													<p className="text-muted-foreground text-sm">
+														{t.event.bibs.gender}: {bib.optionValues.gender}
+													</p>
 												)}
 											</div>
 										</div>
-										<Link 
-											className="bg-primary hover:bg-primary/90 text-primary-foreground mt-4 rounded-xl px-6 py-3 font-medium transition sm:mt-0" 
+										<Link
+											className="bg-primary hover:bg-primary/90 text-primary-foreground mt-4 rounded-xl px-6 py-3 font-medium transition sm:mt-0"
 											href={`/purchase/${bib.id}`}
 										>
 											{t.event.bibs.buyButton}
@@ -173,11 +182,11 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 								))}
 							</div>
 						) : (
-							<div className="text-center py-8">
+							<div className="py-8 text-center">
 								<div className="mb-6 text-6xl opacity-50">📋</div>
 								<h3 className="text-foreground mb-4 text-xl font-semibold">{t.event.bibs.noBibsAvailable}</h3>
 								<p className="text-muted-foreground mb-6">{t.event.waitlist.joinDescription}</p>
-								
+
 								<form action={handleJoinWaitlist} className="mx-auto max-w-xs">
 									<input name="eventId" type="hidden" value={eventId} />
 									<button
