@@ -6,6 +6,7 @@ import { getTranslations } from '@/lib/getDictionary'
 
 import heroTranslations from './locales.json'
 import { HeroAnimation } from './HeroAnimation'
+import Link from 'next/link'
 
 export default async function HeroAlternative({ localeParams }: { localeParams: Promise<LocaleParams> }) {
 	const { locale } = await localeParams
@@ -82,7 +83,7 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 
 	return (
 		<div className="relative">
-			<div className="absolute top-48 left-0 z-30 h-[calc(100vh-10rem)] w-[100vw]">
+			<div className="pointer-events-none absolute top-48 left-0 z-30 h-[calc(100vh-10rem)] w-[100vw] border-b-4 border-neutral-200">
 				<Image
 					alt="template-run"
 					className="z-30 -scale-x-100 overflow-visible object-cover object-bottom"
@@ -91,14 +92,14 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 					src={'/landing/background3.webp'}
 				/>
 			</div>
-			<div className="absolute top-24 left-0 z-20 w-full text-center text-[2rem] font-bold tracking-tight text-neutral-800 dark:text-neutral-50">
+			<div className="pointer-events-none absolute top-24 left-0 z-20 w-full text-center text-[2rem] font-bold tracking-tight text-neutral-800 dark:text-neutral-50">
 				<h1
 					dangerouslySetInnerHTML={{ __html: landingT.home.hero.title }}
 					className="font-geist [&_span]:font-bowlby-one-sc [&_span]:mx-2 [&_span]:text-[8rem]"
 				/>
 			</div>
 
-			<section className="relative px-4 pt-20 xl:px-0 xl:pt-40">
+			<section className="pointer-events-none relative">
 				<div className="absolute top-0 left-0 z-0 flex h-screen w-screen">
 					<div className="flex h-full items-end">
 						<Image
@@ -111,12 +112,11 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 					</div>
 					<div className="z-0 h-[50vh] max-h-[50vh] w-[50vw] max-w-[50vw] -translate-y-14 overflow-hidden bg-[url('/svgs/topography.svg')] bg-center bg-repeat"></div>
 				</div>
-
-				<div className="z-20 mx-auto max-w-7xl">
-					<div className="grid min-h-[calc(100vh-10rem)] grid-cols-12 gap-4">
-						{/* <div className="col-span-12 flex flex-col justify-center gap-6 pb-32 md:col-span-5">
-						
-						<p className="text-lg text-neutral-50 dark:text-neutral-300">{landingT.home.hero.description}</p>
+			</section>
+			<div className="z-20 mx-auto flex max-w-full justify-end">
+				<div className="grid min-h-screen w-1/2 grid-cols-12 gap-4">
+					<div className="col-span-12 flex flex-col justify-start gap-6 px-20 pt-[50vh]">
+						<p className="text-lg text-neutral-800 dark:text-neutral-300">{landingT.home.hero.description}</p>
 						<div className="flex flex-row gap-4">
 							<div>
 								<Link
@@ -136,12 +136,8 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 							</div>
 						</div>
 					</div>
-					<div className="col-span-12 md:col-span-7">
-						<HeroAnimation locale={locale} runs={runs} />
-					</div> */}
-					</div>
 				</div>
-			</section>
+			</div>
 		</div>
 	)
 }
