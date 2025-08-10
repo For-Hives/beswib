@@ -4,7 +4,8 @@ import JourneyTabs from '@/components/landing/journey-tabs/JourneyTabs'
 import FeaturesBento from '@/components/landing/features/Features'
 import BibStats from '@/components/landing/bib-stats/BibStats'
 import BesWibCTA from '@/components/landing/cta/CTASection'
-import Hero from '@/components/landing/hero/Hero'
+import HeroAlternative from '@/components/landing/hero/HeroAlternative'
+// import Hero from '@/components/landing/hero/Hero'
 
 // Generate static params for all locales 🌍
 export function generateStaticParams() {
@@ -18,7 +19,8 @@ export default async function Home({ params }: { params: Promise<LocaleParams> }
 	return (
 		<div className="relative">
 			{/* Hero Section 🦸 */}
-			<Hero localeParams={params} />
+			{/* <Hero localeParams={params} /> */}
+			<HeroAlternative localeParams={params} />
 			{/* Stats Section 📊 */}
 			<BibStats localeParams={params} />
 			{/* Journey Section 🚶 */}
