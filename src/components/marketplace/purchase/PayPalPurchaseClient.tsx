@@ -184,7 +184,6 @@ export default function PayPalPurchaseClient({
 	const handleCreateOrder = useCallback(async () => {
 		// Get seller's PayPal merchant ID
 		const sellerId = sellerUser?.paypalMerchantId
-
 		if (sellerId === null || sellerId === undefined || sellerId === '') {
 			const errorMsg = 'Seller PayPal account not configured'
 			setErrorMessage(errorMsg)
@@ -192,6 +191,7 @@ export default function PayPalPurchaseClient({
 		}
 
 		try {
+			console.info('Creating order for bib:', bib.id, 'with seller ID:', sellerId)
 			setLoading(true)
 			setErrorMessage(null)
 
