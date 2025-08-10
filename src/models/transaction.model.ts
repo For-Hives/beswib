@@ -4,16 +4,15 @@ import type { Bib } from './bib.model'
 export interface Transaction {
 	id: string
 	amount: number
-	bibId: Bib['id']
+	bib_id: Bib['id']
 
-	paymentIntentId?: string
-	platformFee: number
+	platform_fee: number
 	status: 'claimed' | 'failed' | 'pending' | 'refunded' | 'succeeded'
 
 	transactionDate: Date
 
-	buyerUserId: User['id']
-	sellerUserId: User['id']
+	buyer_user_id: User['id']
+	seller_user_id: User['id']
 
 	// PayPal-specific fields for webhook capture
 	paypal_order_id: string
