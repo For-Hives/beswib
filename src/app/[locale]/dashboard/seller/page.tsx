@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 
 import { fetchUserByClerkId } from '@/services/user.services'
 import { fetchBibsBySeller } from '@/services/bib.services'
+import { fetchSellerCompletedTransactions, fetchSellerTransactions } from '@/services/transaction.services'
 import { LocaleParams } from '@/lib/generateStaticParams'
 
 import SellerDashboardClient from './SellerDashboardClient'
@@ -26,8 +27,12 @@ export default async function SellerDashboardPage({ params }: { params: Promise<
 		redirect('/sign-in')
 	}
 
-	// Fetch seller bibs
-	const sellerBibs = await fetchBibsBySeller(pbUser.id)
+	// Fetch seller data
+	const [sellerBibs, sellerTransactions, sellerCompletedTransactions] = await Promise.all([
+		fetchBibsBySeller(pbUser.id),
+		fetchSellerTransactions(pbUser.id),
+		fetchSellerCompletedTransactions(pbUser.id),
+	])
 
 	// Extract only serializable properties from currentUser
 
@@ -43,5 +48,17 @@ export default async function SellerDashboardPage({ params }: { params: Promise<
 		})),
 	}
 
-	return <SellerDashboardClient clerkUser={serializedClerkUser} locale={locale} sellerBibs={sellerBibs} user={pbUser} />
+	// Compute revenue and pass transactions
+	const totalRevenue = sellerCompletedTransactions.reduce((sum, tx) => sum + (tx?.amount ?? 0), 0)
+
+	return (
+		<SellerDashboardClient
+			clerkUser={serializedClerkUser}
+			locale={locale}
+			sellerBibs={sellerBibs}
+			user={pbUser}
+			sellerTransactions={sellerTransactions}
+			totalRevenue={totalRevenue}
+		/>
+	)
 }

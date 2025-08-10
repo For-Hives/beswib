@@ -6,6 +6,7 @@ import Link from 'next/link'
 
 import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
+import type { Transaction } from '@/models/transaction.model'
 import type { User } from '@/models/user.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -19,6 +20,8 @@ interface SellerDashboardClientProps {
 	locale: Locale
 	sellerBibs: (Bib & { expand?: { eventId: Event } })[]
 	user: User
+	sellerTransactions: (Transaction & { expand?: { bib_id?: Bib & { expand?: { eventId: Event } } } })[]
+	totalRevenue: number
 }
 
 interface SerializedClerkUser {
@@ -57,6 +60,8 @@ export default function SellerDashboardClient({
 	locale,
 	clerkUser,
 	user,
+	sellerTransactions = [],
+	totalRevenue,
 }: SellerDashboardClientProps) {
 	const t = getTranslations(locale, sellerTranslations)
 
@@ -66,9 +71,7 @@ export default function SellerDashboardClient({
 	const totalListings = Array.isArray(sellerBibs) ? sellerBibs.length : 0
 	const availableBibs = Array.isArray(sellerBibs) ? sellerBibs.filter(bib => bib.status === 'available').length : 0
 	const soldBibs = Array.isArray(sellerBibs) ? sellerBibs.filter(bib => bib.status === 'sold').length : 0
-	const totalRevenue = Array.isArray(sellerBibs)
-		? sellerBibs.filter(bib => bib?.status === 'sold').reduce((sum, bib) => sum + (bib?.price || 0), 0)
-		: 0
+	const succeededTransactions = sellerTransactions.filter(tx => tx.status === 'succeeded')
 
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
@@ -200,6 +203,51 @@ export default function SellerDashboardClient({
 							</Link>
 						</div>
 					</div>
+
+					{/* Recent Sales */}
+					<Card className="dark:border-border/50 bg-card/80 mb-8 border-black/50 backdrop-blur-sm">
+						<CardHeader>
+							<CardTitle className="flex items-center gap-2">
+								<List className="h-5 w-5" />
+								Recent Sales
+							</CardTitle>
+							<CardDescription>Completed transactions for your bibs</CardDescription>
+						</CardHeader>
+						<CardContent>
+							{succeededTransactions.length > 0 ? (
+								<div className="space-y-4">
+									{succeededTransactions.map(tx => {
+										const bib = tx.expand?.bib_id
+										if (!tx?.id || !bib?.id) return null
+										return (
+											<div className="rounded-lg border p-4" key={tx.id}>
+												<div className="mb-2 flex items-start justify-between">
+													<h4 className="font-semibold">{bib.expand?.eventId?.name ?? `Event ID: ${bib.eventId}`}</h4>
+													<span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/20 dark:text-blue-400">
+														Sold
+													</span>
+												</div>
+												<div className="text-muted-foreground space-y-1 text-sm">
+													<p>
+														{t.registrationNumber ?? 'Registration Number'}: {bib.registrationNumber}
+													</p>
+													<p>Amount: €{tx.amount?.toFixed(2) ?? 'N/A'}</p>
+												</div>
+											</div>
+										)
+									})}
+								</div>
+							) : (
+								<div className="py-8 text-center">
+									<List className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
+									<p className="text-muted-foreground mb-4">No completed sales yet</p>
+									<Link href="/dashboard/seller/sell-bib">
+										<Button>List a bib</Button>
+									</Link>
+								</div>
+							)}
+						</CardContent>
+					</Card>
 
 					{/* Bib Listings */}
 					<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
