@@ -66,9 +66,7 @@ export default async function BuyerDashboardPage({
 	// Determine event name from most recent succeeded transaction if available
 	const latestSucceeded = completedTransactions[0]
 	const successEventName =
-		purchaseSuccess && latestSucceeded != null
-			? (latestSucceeded.expand?.bib_id?.expand?.eventId?.name ?? 'Event')
-			: ''
+		purchaseSuccess && latestSucceeded != null ? (latestSucceeded.expand?.bib_id?.expand?.eventId?.name ?? 'Event') : ''
 
 	// Compute total spent from succeeded transactions
 	const totalSpent = completedTransactions.reduce((sum, tx) => sum + (tx?.amount ?? 0), 0)
