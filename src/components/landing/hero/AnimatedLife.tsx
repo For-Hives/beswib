@@ -3,6 +3,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useThemeStore } from '@/hooks/useTheme'
 
+// Global knobs
+export const GLOBAL_SPEED = 0.75 // >1.0 makes everyone faster
+export const COUNT_MULTIPLIER = 0.2 // >1.0 increases number of entities
+
 type RaceEntity = {
 	id: string
 	kind: 'bike' | 'runner'
@@ -10,14 +14,20 @@ type RaceEntity = {
 	durationMs: number
 	delayMs: number
 	zIndex: number
+	color: string
+	internalDurMs: number
+	isSpecial?: boolean
+	name?: string
 }
 
 export function AnimatedLife() {
 	const { theme } = useThemeStore()
-	const color = theme === 'dark' ? 'white' : 'black'
 
 	const [entities, setEntities] = useState<RaceEntity[]>([])
 	const nextWaveAtRef = useRef<number | null>(null)
+	const fastSpecialIdRef = useRef<string | null>(null)
+	const slowSpecialIdRef = useRef<string | null>(null)
+	const [showSpecialTooltip, setShowSpecialTooltip] = useState(false)
 
 	const randInt = useCallback((min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min, [])
 
@@ -37,32 +47,74 @@ export function AnimatedLife() {
 
 			const result: RaceEntity[] = []
 
+			// Tailwind-like neutral gray shades (broader range for more disparity)
+			const neutralForLight = [
+				'#0a0a0a',
+				'#111111',
+				'#171717',
+				'#262626',
+				'#303030',
+				'#404040',
+				'#525252',
+				'#6b7280',
+				'#737373',
+				'#9ca3af',
+				'#a3a3a3',
+			]
+			const neutralForDark = [
+				'#fafafa',
+				'#f9fafb',
+				'#f5f5f5',
+				'#e5e5e5',
+				'#e7e5e4',
+				'#d4d4d4',
+				'#cfcfcf',
+				'#bfbfbf',
+				'#a3a3a3',
+			]
+			const palette = theme === 'dark' ? neutralForDark : neutralForLight
+			const pickColor = () => palette[randInt(0, palette.length - 1)]
+
 			// Helper for durations per kind/group (ms)
+			// Faster overall now
 			const pickDuration = (g: 'peloton' | 'breakaway' | 'straggler') => {
 				if (kind === 'bike') {
-					if (g === 'breakaway') return randInt(18000, 22000)
-					if (g === 'peloton') return randInt(24000, 30000)
-					return randInt(32000, 42000) // straggler
+					if (g === 'breakaway') return randInt(5000, 8000)
+					if (g === 'peloton') return randInt(7000, 10000)
+					return randInt(10000, 14000)
 				}
 				// runner
-				if (g === 'breakaway') return randInt(28000, 34000)
-				if (g === 'peloton') return randInt(38000, 48000)
-				return randInt(50000, 58000)
+				if (g === 'breakaway') return randInt(7000, 11000)
+				if (g === 'peloton') return randInt(10000, 16000)
+				return randInt(16000, 22000)
 			}
 
 			const pickDelay = (g: 'peloton' | 'breakaway' | 'straggler') => {
-				if (g === 'breakaway') return randInt(0, 5000)
-				if (g === 'peloton') return randInt(3000, 12000)
-				return randInt(10000, 20000)
+				if (g === 'breakaway') return randInt(0, 500)
+				if (g === 'peloton') return randInt(0, 1500)
+				return randInt(500, 2500)
 			}
 
-			const pushEntity = (g: 'peloton' | 'breakaway' | 'straggler', baseTop: number, spread: number) => {
-				const durationMs = pickDuration(g)
-				const delayMs = pickDelay(g)
+			const kindMin = kind === 'bike' ? 5000 : 7000
+			const kindMax = kind === 'bike' ? 14000 : 22000
+			const internalMin = kind === 'bike' ? 200 : 300 // ms per internal cycle
+			const internalMax = kind === 'bike' ? 600 : 800
+			const mapRange = (value: number, inMin: number, inMax: number, outMin: number, outMax: number) => {
+				const t = Math.min(1, Math.max(0, (value - inMin) / Math.max(1, inMax - inMin)))
+				return Math.round(outMin + (outMax - outMin) * t)
+			}
+
+			const pushEntity = (g: 'peloton' | 'breakaway' | 'straggler') => {
+				let durationMs = pickDuration(g)
+				let delayMs = pickDelay(g)
+				// Apply global speed
+				durationMs = Math.max(1000, Math.round(durationMs / GLOBAL_SPEED))
+				delayMs = Math.max(0, Math.round(delayMs / GLOBAL_SPEED))
 				const { durationMs: dMs, delayMs: dlMs } = clampToOneMinute(durationMs, delayMs)
-				// Contrainte utilisateur: top entre 0% et 10% pour densifier les bandes hautes
-				const rawTop = baseTop + (Math.random() * 2 - 1) * spread
-				const topPercent = Math.min(10, Math.max(0, rawTop))
+				// Vertical position: random across 0–40 (decoupled from group)
+				const topPercent = randInt(0, 40)
+				let internalDurMs = mapRange(dMs, kindMin, kindMax, internalMin, internalMax)
+				internalDurMs = Math.max(150, Math.round(internalDurMs / GLOBAL_SPEED))
 				result.push({
 					id: `${kind}-${g}-${crypto.randomUUID()}`,
 					kind,
@@ -70,34 +122,68 @@ export function AnimatedLife() {
 					durationMs: dMs,
 					delayMs: dlMs,
 					zIndex: kind === 'bike' ? 3 : 2,
+					color: pickColor(),
+					internalDurMs,
 				})
 			}
 
-			// Toutes les bandes verticales sont resserrées entre 0% et 10%
-			// Peloton: autour de 4–7%
-			const pelotonBand = randInt(4, 7)
-			for (let i = 0; i < pelotonCount; i++) pushEntity('peloton', pelotonBand, 1.5)
+			for (let i = 0; i < pelotonCount; i++) pushEntity('peloton')
 
-			// Échappée: 1–3%
-			const breakBand = randInt(1, 3)
-			for (let i = 0; i < breakawayCount; i++) pushEntity('breakaway', breakBand, 1)
+			for (let i = 0; i < breakawayCount; i++) pushEntity('breakaway')
 
-			// Retardataires: 7–10%
-			const dragBand = randInt(7, 10)
-			for (let i = 0; i < stragglerCount; i++) pushEntity('straggler', dragBand, 1.5)
+			for (let i = 0; i < stragglerCount; i++) pushEntity('straggler')
 
 			return result
 		},
-		[clampToOneMinute, randInt]
+		[clampToOneMinute, randInt, theme]
 	)
 
 	const spawnWave = useCallback(() => {
-		const bikeCount = randInt(15, 35)
-		const runnerCount = randInt(15, 35)
+		const bikeCount = randInt(Math.round(25 * COUNT_MULTIPLIER), Math.round(55 * COUNT_MULTIPLIER))
+		const runnerCount = randInt(Math.round(25 * COUNT_MULTIPLIER), Math.round(55 * COUNT_MULTIPLIER))
 		const bikes = generateGroup('bike', bikeCount)
 		const runners = generateGroup('runner', runnerCount)
-		// Ensure bikes are always faster overall by sanity-checking duration ranges (already chosen)
-		setEntities([...bikes, ...runners])
+		const all = [...bikes, ...runners]
+		// Compute baselines
+		const durations = all.map(e => e.durationMs)
+		const fastestMs = durations.length ? Math.min(...durations) : 10000
+		const slowestMs = durations.length ? Math.max(...durations) : 20000
+		// Ensure exactly one fastest special (Bréval) and one slowest special (quentin)
+		const hasFast = fastSpecialIdRef.current && all.some(e => e.id === fastSpecialIdRef.current)
+		const hasSlow = slowSpecialIdRef.current && all.some(e => e.id === slowSpecialIdRef.current)
+		let fastIdx = -1
+		let slowIdx = -1
+		if (!hasFast && all.length > 0) fastIdx = randInt(0, all.length - 1)
+		if (!hasSlow && all.length > 1) {
+			do {
+				slowIdx = randInt(0, all.length - 1)
+			} while (slowIdx === fastIdx)
+		}
+		if (fastIdx >= 0) {
+			const extraFast = 1 + (Math.random() * 0.1 + 0.05) // +5% to +15% speed
+			const targetDur = Math.max(300, Math.round(fastestMs / extraFast))
+			const chosen = all[fastIdx]
+			chosen.isSpecial = true
+			chosen.name = 'Bréval'
+			// Base color while tooltip hidden (neutral gray)
+			chosen.color = '#9ca3af'
+			chosen.durationMs = targetDur
+			// internal duration proportional
+			chosen.internalDurMs = Math.max(100, Math.round(chosen.internalDurMs / extraFast))
+			fastSpecialIdRef.current = chosen.id
+		}
+		if (slowIdx >= 0) {
+			const extraSlow = 1 + (Math.random() * 0.1 + 0.05) // +5% to +15% slower (longer duration)
+			const targetDur = Math.min(59000, Math.round(slowestMs * extraSlow))
+			const chosenS = all[slowIdx]
+			chosenS.isSpecial = true
+			chosenS.name = 'quentin'
+			chosenS.color = '#9ca3af'
+			chosenS.durationMs = targetDur
+			chosenS.internalDurMs = Math.max(150, Math.round(chosenS.internalDurMs * extraSlow))
+			slowSpecialIdRef.current = chosenS.id
+		}
+		setEntities(all)
 		nextWaveAtRef.current = Date.now() + 60000
 	}, [generateGroup, randInt])
 
@@ -107,27 +193,57 @@ export function AnimatedLife() {
 		return () => clearInterval(id)
 	}, [spawnWave])
 
-	const handleAnimationEnd = useCallback((id: string) => {
-		setEntities(prev => prev.filter(e => e.id !== id))
-	}, [])
+	const handleAnimationEnd = useCallback(
+		(entity: RaceEntity) => {
+			setEntities(prev => {
+				const others = prev.filter(e => e.id !== entity.id)
+				const next = [...others]
+				// baselines from remaining entities
+				const durations = others.map(e => e.durationMs)
+				const fastestMs = durations.length ? Math.min(...durations) : 10000
+				const slowestMs = durations.length ? Math.max(...durations) : 20000
+				const fresh = generateGroup(entity.kind, 1)[0]
+				if (entity.isSpecial && entity.name === 'Bréval') {
+					const extraFast = 1 + (Math.random() * 0.1 + 0.05)
+					fresh.isSpecial = true
+					fresh.name = 'Bréval'
+					fresh.color = '#9ca3af'
+					fresh.durationMs = Math.max(300, Math.round(fastestMs / extraFast))
+					fresh.internalDurMs = Math.max(100, Math.round(fresh.internalDurMs / extraFast))
+					fastSpecialIdRef.current = fresh.id
+				} else if (entity.isSpecial && entity.name === 'quentin') {
+					const extraSlow = 1 + (Math.random() * 0.1 + 0.05)
+					fresh.isSpecial = true
+					fresh.name = 'quentin'
+					fresh.color = '#9ca3af'
+					fresh.durationMs = Math.min(59000, Math.round(slowestMs * extraSlow))
+					fresh.internalDurMs = Math.max(150, Math.round(fresh.internalDurMs * extraSlow))
+					slowSpecialIdRef.current = fresh.id
+				}
+				next.push(fresh)
+				return next
+			})
+		},
+		[generateGroup]
+	)
 
 	return (
-		<div className="absolute bottom-0 left-0 z-20 flex h-[25vh] w-screen">
+		<div
+			className="absolute bottom-0 left-0 z-20 flex h-[35vh] w-screen"
+			onClick={() => setShowSpecialTooltip(v => !v)}
+		>
 			<div className="relative h-full w-full">
 				<style>{`
 					@keyframes race-move {
-						from {
-							transform: translateX(-20vw);
-						}
-						to {
-							transform: translateX(120vw);
-						}
+            from { transform: translateX(-25vw); }
+            to { transform: translateX(125vw); }
 					}
 					.race-move {
 						animation-name: race-move;
 						animation-timing-function: linear;
-						animation-fill-mode: forwards;
+            animation-fill-mode: both;
 						will-change: transform;
+            transform: translateX(-25vw);
 					}
 				`}</style>
 
@@ -138,11 +254,42 @@ export function AnimatedLife() {
 						style={{ top: `${entity.topPercent}%`, zIndex: entity.zIndex }}
 					>
 						<div
-							className="race-move"
+							className="race-move relative"
 							style={{ animationDuration: `${entity.durationMs}ms`, animationDelay: `${entity.delayMs}ms` }}
-							onAnimationEnd={() => handleAnimationEnd(entity.id)}
+							onAnimationEnd={() => handleAnimationEnd(entity)}
 						>
-							{entity.kind === 'bike' ? <Cycling color={color} /> : <Runner color={color} />}
+							{entity.isSpecial && showSpecialTooltip && (
+								<div className="pointer-events-none absolute -top-6 left-2 rounded bg-black/80 px-2 py-0.5 text-[10px] font-medium text-white">
+									{entity.name}
+								</div>
+							)}
+							{entity.kind === 'bike' ? (
+								<Cycling
+									color={
+										entity.isSpecial && showSpecialTooltip
+											? entity.name === 'Bréval'
+												? '#f97316'
+												: entity.name === 'quentin'
+													? '#22c55e'
+													: entity.color
+											: entity.color
+									}
+									internalDurMs={entity.internalDurMs}
+								/>
+							) : (
+								<Runner
+									color={
+										entity.isSpecial && showSpecialTooltip
+											? entity.name === 'Bréval'
+												? '#f97316'
+												: entity.name === 'quentin'
+													? '#22c55e'
+													: entity.color
+											: entity.color
+									}
+									internalDurMs={entity.internalDurMs}
+								/>
+							)}
 						</div>
 					</div>
 				))}
@@ -151,7 +298,7 @@ export function AnimatedLife() {
 	)
 }
 
-function Cycling({ color }: { color: string }) {
+function Cycling({ color, internalDurMs }: { color: string; internalDurMs: number }) {
 	return (
 		<svg
 			width="800"
@@ -186,7 +333,7 @@ function Cycling({ color }: { color: string }) {
 					type="rotate"
 					from="0 154.25 563.5"
 					to="360 154.25 563.5"
-					dur="1.2s"
+					dur={`${Math.max(0.2, internalDurMs / 1000).toFixed(2)}s`}
 					repeatCount="indefinite"
 				/>
 			</path>
@@ -197,7 +344,7 @@ function Cycling({ color }: { color: string }) {
 					type="rotate"
 					from="0 644.25 563.5"
 					to="360 644.25 563.5"
-					dur="1.2s"
+					dur={`${Math.max(0.2, internalDurMs / 1000).toFixed(2)}s`}
 					repeatCount="indefinite"
 				/>
 			</path>
@@ -205,7 +352,7 @@ function Cycling({ color }: { color: string }) {
 	)
 }
 
-function Runner({ color }: { color: string }) {
+function Runner({ color, internalDurMs }: { color: string; internalDurMs: number }) {
 	return (
 		<svg
 			width="800"
@@ -223,7 +370,7 @@ function Runner({ color }: { color: string }) {
 					keyTimes="0; 0.5; 1"
 					calcMode="spline"
 					keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
-					dur="0.8s"
+					dur={`${Math.max(0.25, internalDurMs / 1000).toFixed(2)}s`}
 					repeatCount="indefinite"
 				/>
 			</path>
@@ -237,7 +384,7 @@ function Runner({ color }: { color: string }) {
 					keyTimes="0; 0.5; 1"
 					calcMode="spline"
 					keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
-					dur="0.8s"
+					dur={`${Math.max(0.25, internalDurMs / 1000).toFixed(2)}s`}
 					repeatCount="indefinite"
 				/>
 			</path>
@@ -255,7 +402,7 @@ function Runner({ color }: { color: string }) {
 					keyTimes="0; 0.5; 1"
 					calcMode="spline"
 					keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
-					dur="0.8s"
+					dur={`${Math.max(0.25, internalDurMs / 1000).toFixed(2)}s`}
 					repeatCount="indefinite"
 				/>
 			</path>
@@ -267,7 +414,7 @@ function Runner({ color }: { color: string }) {
 					keyTimes="0; 0.5; 1"
 					calcMode="spline"
 					keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
-					dur="0.8s"
+					dur={`${Math.max(0.25, internalDurMs / 1000).toFixed(2)}s`}
 					repeatCount="indefinite"
 				/>
 			</path>
