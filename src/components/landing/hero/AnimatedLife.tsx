@@ -4,12 +4,40 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useThemeStore } from '@/hooks/useTheme'
 
 // Global knobs
-export const GLOBAL_SPEED = 0.75 // >1.0 makes everyone faster
-export const COUNT_MULTIPLIER = 0.2 // >1.0 increases number of entities
+// GLOBAL_SPEED: higher means faster traversal and faster internal animations
+export const GLOBAL_SPEED = 0.75
+// COUNT_MULTIPLIER: higher means more entities per minute
+export const COUNT_MULTIPLIER = 0.2
+
+// Aliases to keep types readable
+type Kind = 'bike' | 'runner'
+type GroupKind = 'peloton' | 'breakaway' | 'straggler'
+
+// Generate a UUID safely across browsers (fallbacks for older mobile/WebViews)
+const safeRandomId = (): string => {
+	try {
+		if (typeof window !== 'undefined' && window.crypto) {
+			// @ts-expect-error randomUUID may be missing on older browsers
+			if (typeof window.crypto.randomUUID === 'function') {
+				// @ts-ignore
+				return window.crypto.randomUUID()
+			}
+			if (typeof window.crypto.getRandomValues === 'function') {
+				const bytes = new Uint8Array(16)
+				window.crypto.getRandomValues(bytes)
+				bytes[6] = (bytes[6] & 0x0f) | 0x40
+				bytes[8] = (bytes[8] & 0x3f) | 0x80
+				const hex = Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('')
+				return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`
+			}
+		}
+	} catch {}
+	return `id-${Date.now()}-${Math.random().toString(36).slice(2)}`
+}
 
 type RaceEntity = {
 	id: string
-	kind: 'bike' | 'runner'
+	kind: Kind
 	topPercent: number
 	durationMs: number
 	delayMs: number
@@ -25,8 +53,9 @@ export function AnimatedLife() {
 
 	const [entities, setEntities] = useState<RaceEntity[]>([])
 	const nextWaveAtRef = useRef<number | null>(null)
-	const fastSpecialIdRef = useRef<string | null>(null)
-	const slowSpecialIdRef = useRef<string | null>(null)
+	// Track the current special IDs (use empty string to avoid nullable warnings)
+	const fastSpecialIdRef = useRef<string>('')
+	const slowSpecialIdRef = useRef<string>('')
 	const [showSpecialTooltip, setShowSpecialTooltip] = useState(false)
 
 	const randInt = useCallback((min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min, [])
@@ -38,8 +67,12 @@ export function AnimatedLife() {
 		return { durationMs: Math.min(durationMs, maxDuration), delayMs }
 	}, [])
 
+	/**
+	 * Generate a batch of entities for a given kind with peloton/breakaway/straggler distribution.
+	 * Position Y is randomized in [0, 40] for variety; durations/delays are sampled by group.
+	 */
 	const generateGroup = useCallback(
-		(kind: 'bike' | 'runner', count: number): RaceEntity[] => {
+		(kind: Kind, count: number): RaceEntity[] => {
 			// Group distribution: peloton, breakaway, stragglers
 			const pelotonCount = Math.max(3, Math.floor(count * 0.7))
 			const breakawayCount = Math.max(1, Math.floor(count * 0.1))
@@ -77,7 +110,7 @@ export function AnimatedLife() {
 
 			// Helper for durations per kind/group (ms)
 			// Faster overall now
-			const pickDuration = (g: 'peloton' | 'breakaway' | 'straggler') => {
+			const pickDuration = (g: GroupKind) => {
 				if (kind === 'bike') {
 					if (g === 'breakaway') return randInt(5000, 8000)
 					if (g === 'peloton') return randInt(7000, 10000)
@@ -89,7 +122,7 @@ export function AnimatedLife() {
 				return randInt(16000, 22000)
 			}
 
-			const pickDelay = (g: 'peloton' | 'breakaway' | 'straggler') => {
+			const pickDelay = (g: GroupKind) => {
 				if (g === 'breakaway') return randInt(0, 500)
 				if (g === 'peloton') return randInt(0, 1500)
 				return randInt(500, 2500)
@@ -104,7 +137,7 @@ export function AnimatedLife() {
 				return Math.round(outMin + (outMax - outMin) * t)
 			}
 
-			const pushEntity = (g: 'peloton' | 'breakaway' | 'straggler') => {
+			const pushEntity = (g: GroupKind) => {
 				let durationMs = pickDuration(g)
 				let delayMs = pickDelay(g)
 				// Apply global speed
@@ -116,7 +149,7 @@ export function AnimatedLife() {
 				let internalDurMs = mapRange(dMs, kindMin, kindMax, internalMin, internalMax)
 				internalDurMs = Math.max(150, Math.round(internalDurMs / GLOBAL_SPEED))
 				result.push({
-					id: `${kind}-${g}-${crypto.randomUUID()}`,
+					id: `${kind}-${g}-${safeRandomId()}`,
 					kind,
 					topPercent,
 					durationMs: dMs,
@@ -127,11 +160,15 @@ export function AnimatedLife() {
 				})
 			}
 
-			for (let i = 0; i < pelotonCount; i++) pushEntity('peloton')
-
-			for (let i = 0; i < breakawayCount; i++) pushEntity('breakaway')
-
-			for (let i = 0; i < stragglerCount; i++) pushEntity('straggler')
+			for (let i = 0; i < pelotonCount; i++) {
+				pushEntity('peloton')
+			}
+			for (let i = 0; i < breakawayCount; i++) {
+				pushEntity('breakaway')
+			}
+			for (let i = 0; i < stragglerCount; i++) {
+				pushEntity('straggler')
+			}
 
 			return result
 		},
@@ -149,8 +186,8 @@ export function AnimatedLife() {
 		const fastestMs = durations.length ? Math.min(...durations) : 10000
 		const slowestMs = durations.length ? Math.max(...durations) : 20000
 		// Ensure exactly one fastest special (Bréval) and one slowest special (quentin)
-		const hasFast = fastSpecialIdRef.current && all.some(e => e.id === fastSpecialIdRef.current)
-		const hasSlow = slowSpecialIdRef.current && all.some(e => e.id === slowSpecialIdRef.current)
+		const hasFast = fastSpecialIdRef.current !== '' && all.some(e => e.id === fastSpecialIdRef.current)
+		const hasSlow = slowSpecialIdRef.current !== '' && all.some(e => e.id === slowSpecialIdRef.current)
 		let fastIdx = -1
 		let slowIdx = -1
 		if (!hasFast && all.length > 0) fastIdx = randInt(0, all.length - 1)
@@ -230,7 +267,12 @@ export function AnimatedLife() {
 	return (
 		<div
 			className="absolute bottom-0 left-0 z-20 flex h-[35vh] w-screen"
+			role="button"
+			tabIndex={0}
 			onClick={() => setShowSpecialTooltip(v => !v)}
+			onKeyDown={e => {
+				if (e.key === 'Enter' || e.key === ' ') setShowSpecialTooltip(v => !v)
+			}}
 		>
 			<div className="relative h-full w-full">
 				<style>{`
@@ -258,38 +300,25 @@ export function AnimatedLife() {
 							style={{ animationDuration: `${entity.durationMs}ms`, animationDelay: `${entity.delayMs}ms` }}
 							onAnimationEnd={() => handleAnimationEnd(entity)}
 						>
-							{entity.isSpecial && showSpecialTooltip && (
+							{entity.isSpecial === true && showSpecialTooltip === true && (
 								<div className="pointer-events-none absolute -top-6 left-2 rounded bg-black/80 px-2 py-0.5 text-[10px] font-medium text-white">
 									{entity.name}
 								</div>
 							)}
-							{entity.kind === 'bike' ? (
-								<Cycling
-									color={
-										entity.isSpecial && showSpecialTooltip
-											? entity.name === 'Bréval'
-												? '#f97316'
-												: entity.name === 'quentin'
-													? '#22c55e'
-													: entity.color
-											: entity.color
-									}
-									internalDurMs={entity.internalDurMs}
-								/>
-							) : (
-								<Runner
-									color={
-										entity.isSpecial && showSpecialTooltip
-											? entity.name === 'Bréval'
-												? '#f97316'
-												: entity.name === 'quentin'
-													? '#22c55e'
-													: entity.color
-											: entity.color
-									}
-									internalDurMs={entity.internalDurMs}
-								/>
-							)}
+							{(() => {
+								const isSpecial = entity.isSpecial === true
+								const showBrand = isSpecial && showSpecialTooltip === true
+								let brandColor = entity.color
+								if (showBrand) {
+									if (entity.name === 'Bréval') brandColor = '#f97316'
+									else if (entity.name === 'quentin') brandColor = '#22c55e'
+								}
+								return entity.kind === 'bike' ? (
+									<Cycling color={brandColor} internalDurMs={entity.internalDurMs} />
+								) : (
+									<Runner color={brandColor} internalDurMs={entity.internalDurMs} />
+								)
+							})()}
 						</div>
 					</div>
 				))}
