@@ -2,7 +2,7 @@
 	"en": {
 		"home": {
 			"hero": {
-				"title": "An unexpected event?<br />Transfer your bib!",
+				"title": "An unexpected event? <span>Transfer</span> your bib!",
 				"description": "Whether you're into running, trail, triathlon or cycling, find your favorite race or sell your bib with confidence.",
 				"organizerButton": "Organizer? List your race",
 				"consultRacesButton": "Browse races",
@@ -45,7 +45,7 @@
 	"fr": {
 		"home": {
 			"hero": {
-				"title": "Un imprévu ?<br />Transfert ton dossard !",
+				"title": "Un imprévu ? <span>Transfère</span> ton dossard !",
 				"description": "Que vous soyez plutôt running, trail, triathlon ou encore cyclisme Trouvez votre course favorite ou vendez votre dossard en toute confiance.",
 				"organizerButton": "Organisateur ? Liste ta course",
 				"consultRacesButton": "Consulter les courses",
@@ -88,7 +88,7 @@
 	"es": {
 		"home": {
 			"hero": {
-				"title": "¿Un imprevisto?<br />¡Transfiere tu dorsal!",
+				"title": "¿Un imprevisto? <span>Transfiere</span> tu dorsal!",
 				"description": "Tanto si te gusta el running, trail, triatlón o ciclismo, encuentra tu carrera favorita o vende tu dorsal con confianza.",
 				"organizerButton": "¿Organizador? Publica tu carrera",
 				"consultRacesButton": "Ver carreras",
@@ -116,7 +116,7 @@
 	"it": {
 		"home": {
 			"hero": {
-				"title": "Un imprevisto?<br />Trasferisci il tuo pettorale!",
+				"title": "Un imprevisto? <span>Trasferisci</span> il tuo pettorale!",
 				"description": "Che tu ami running, trail, triathlon o ciclismo, trova la tua gara preferita o vendi il tuo pettorale in sicurezza.",
 				"organizerButton": "Organizzatore? Elenca la tua gara",
 				"consultRacesButton": "Sfoglia le gare",
@@ -144,7 +144,7 @@
 	"de": {
 		"home": {
 			"hero": {
-				"title": "Ein unvorhergesehenes Ereignis?<br />Übertrage deine Startnummer!",
+				"title": "Ein unvorhergesehenes Ereignis? <span>Übertrage</span> deine Startnummer!",
 				"description": "Ob Laufen, Trail, Triathlon oder Radfahren – finde dein Lieblingsrennen oder verkaufe deine Startnummer sicher.",
 				"organizerButton": "Veranstalter? Liste dein Rennen",
 				"consultRacesButton": "Rennen durchsuchen",
@@ -172,7 +172,7 @@
 	"ro": {
 		"home": {
 			"hero": {
-				"title": "Un eveniment neașteptat?<br />Transferă-ți numărul!",
+				"title": "Un eveniment neașteptat? <span>Transferă</span>-ți numărul!",
 				"description": "Fie că preferi alergarea, trail, triatlon sau ciclism, găsește cursa preferată sau vinde-ți numărul cu încredere.",
 				"organizerButton": "Organizator? Listează cursa",
 				"consultRacesButton": "Vezi cursele",
@@ -200,7 +200,7 @@
 	"pt": {
 		"home": {
 			"hero": {
-				"title": "Um imprevisto?<br />Transfere o teu dorsal!",
+				"title": "Um imprevisto? <span>Transfere</span> o teu dorsal!",
 				"description": "Se gostas de corrida, trail, triatlo ou ciclismo, encontra a tua prova favorita ou vende o teu dorsal com confiança.",
 				"organizerButton": "Organizador? Lista a tua prova",
 				"consultRacesButton": "Ver provas",
@@ -228,7 +228,7 @@
 	"nl": {
 		"home": {
 			"hero": {
-				"title": "Onverwacht iets gebeurd?<br />Draag je startnummer over!",
+				"title": "Onverwacht iets gebeurd? <span>Draag</span> je startnummer over!",
 				"description": "Of je nu van hardlopen, trail, triatlon of fietsen houdt: vind je favoriete race of verkoop je startnummer met vertrouwen.",
 				"organizerButton": "Organisator? Plaats je race",
 				"consultRacesButton": "Races bekijken",
@@ -256,7 +256,7 @@
 	"ko": {
 		"home": {
 			"hero": {
-				"title": "예상치 못한 일이?<br />빕을 전송하세요!",
+				"title": "예상치 못한 일이? <span>빕을 전송하세요!</span>",
 				"description": "러닝, 트레일, 철인 3종 경기 또는 사이클링을 좋아하든 상관없이 좋아하는 레이스를 찾거나 자신 있게 빕을 판매하세요.",
 				"organizerButton": "주최자? 레이스 등록",
 				"consultRacesButton": "레이스 보기",

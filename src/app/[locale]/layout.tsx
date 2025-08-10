@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Bowlby_One_SC } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from 'sonner'
@@ -24,6 +24,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
 	variable: '--font-geist-mono',
 	subsets: ['latin'],
+})
+
+const bowlbyOneSC = Bowlby_One_SC({
+	variable: '--font-bowlby-one-sc',
+	subsets: ['latin'],
+	weight: '400',
 })
 
 export const metadata: Metadata = {
@@ -80,7 +86,9 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 						}}
 					/>
 				</head>
-				<body className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased`}>
+				<body
+					className={`${geistSans.variable} ${geistMono.variable} ${bowlbyOneSC.variable} bg-background text-foreground font-geist antialiased`}
+				>
 					<ThemeProvider>
 						<QueryProvider>
 							<NuqsAdapter>
