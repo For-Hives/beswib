@@ -66,6 +66,7 @@ export async function updateTransaction(
 	transactionId: string,
 	transactionData: Partial<Omit<Transaction, 'id' | 'transactionDate'>>
 ): Promise<null | Transaction> {
+	console.log('Updating transaction with ID:', transactionId)
 	if (transactionId === '') {
 		console.error('Transaction ID is required to update a transaction.')
 		return null
@@ -73,6 +74,8 @@ export async function updateTransaction(
 
 	try {
 		const record = await pb.collection('transactions').update<Transaction>(transactionId, transactionData)
+
+		console.log('Updated transaction record:', record)
 		return record
 	} catch (error: unknown) {
 		throw new Error('Error updating transaction: ' + (error instanceof Error ? error.message : String(error)))

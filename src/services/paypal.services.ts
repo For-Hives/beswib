@@ -1,3 +1,5 @@
+import { updateTransaction, getTransactionByOrderId, createTransaction } from './transaction.services'
+import { updateBib } from './bib.services'
 // --- PayPal Webhook Event Types and Handlers ---
 export type PayPalWebhookEvent = {
 	create_time: string
@@ -8,7 +10,7 @@ export type PayPalWebhookEvent = {
 }
 
 export type PayPalPaymentCaptureResource = {
-	supplementary_data?: { related_ids?: { order_id?: string } }
+	supplementary_data?: { related_ids?: { order_id?: string; bib_id?: string } }
 	id?: string
 	payee?: { email_address?: string }
 	amount?: { value?: string; currency_code?: string }
@@ -23,38 +25,91 @@ export async function handlePaymentCaptureCompleted(event: unknown) {
 	if (typeof resourceRaw !== 'object' || resourceRaw === null) {
 		throw new Error('No resource in webhook event')
 	}
-	const resource = resourceRaw as PayPalPaymentCaptureResource
+	const resource = resourceRaw as PayPalPaymentCaptureResource & {
+		payer?: { payer_id?: string }
+		update_time?: string
+		create_time?: string
+	}
+	console.info(resource)
 	const orderId = resource.supplementary_data?.related_ids?.order_id ?? ''
 	const captureId = resource.id ?? ''
 	const payerEmail = resource.payee?.email_address ?? ''
-	const amount = resource.amount?.value ?? ''
+	const payerId = resource.payer?.payer_id ?? '' // PayPal Payer ID, if available
+	const amountStr = resource.amount?.value ?? ''
+	const amount = amountStr !== '' ? Number(amountStr) : 0
 	const currency = resource.amount?.currency_code ?? ''
 	const status = resource.status ?? ''
-	const bibId = await findBibIdByOrderId(orderId)
-	const transactionId = await findTransactionIdByOrderId(orderId)
+	const captureTime = resource.update_time ?? resource.create_time ?? ''
+	const bibId = resource.supplementary_data?.related_ids?.bib_id ?? ''
 
-	// Update transaction status to succeeded
+	console.info({
+		orderId,
+		captureId,
+		bibId,
+		payerEmail,
+		payerId,
+		amount,
+		currency,
+		status,
+		captureTime,
+		raw_webhook_payload: event,
+	})
+
+	// Find transactionId using getTransactionByOrderId
+	let transactionId: string | null = null
+	try {
+		const transaction = await getTransactionByOrderId(orderId)
+		transactionId = transaction?.id ?? null
+	} catch (error) {
+		console.error('Error finding transaction by orderId:', error)
+		transactionId = null
+	}
+
+	// Update or create transaction with all required PayPal fields and raw payload
 	if (typeof transactionId === 'string' && transactionId !== '') {
-		// updateTransaction should be imported from transaction.services
-
-		await import('./transaction.services').then(m =>
-			m.updateTransaction(transactionId, {
-				status: 'succeeded',
-				paymentIntentId: captureId,
-			})
-		)
+		await updateTransaction(transactionId, {
+			status: 'succeeded', // payment_status
+			paymentIntentId: captureId, // legacy field, keep for compatibility
+			paypal_order_id: orderId,
+			paypal_capture_id: captureId,
+			payer_email: payerEmail,
+			payer_id: payerId,
+			amount,
+			currency,
+			payment_status: status,
+			capture_time: captureTime,
+			raw_webhook_payload: JSON.stringify(event),
+		})
+		console.info('Transaction updated')
+	} else {
+		// Create transaction if it does not exist
+		await createTransaction({
+			bibId,
+			buyerUserId: '', // Set appropriately if available
+			sellerUserId: '', // Set appropriately if available
+			amount,
+			platformFee: 0, // Set appropriately if available
+			status: 'succeeded',
+			paymentIntentId: captureId,
+			paypal_order_id: orderId,
+			paypal_capture_id: captureId,
+			payer_email: payerEmail,
+			payer_id: payerId,
+			currency,
+			payment_status: status,
+			capture_time: captureTime,
+			raw_webhook_payload: JSON.stringify(event),
+		})
+		console.info('Transaction created')
 	}
 
 	// Update bib status to sold
 	if (typeof bibId === 'string' && bibId !== '') {
-		// updateBib should be imported from bib.services
-
-		await import('./bib.services').then(m =>
-			m.updateBib(bibId, {
-				status: 'sold',
-				validated: true,
-			})
-		)
+		await updateBib(bibId, {
+			status: 'sold',
+			validated: true,
+		})
+		console.info('Bib updated to sold')
 	}
 
 	return {
@@ -63,9 +118,12 @@ export async function handlePaymentCaptureCompleted(event: unknown) {
 		bibId,
 		transactionId,
 		payerEmail,
+		payerId,
 		amount,
 		currency,
 		status,
+		captureTime,
+		raw_webhook_payload: event,
 	}
 }
 
@@ -86,15 +144,18 @@ export async function handleCheckoutOrderApproved(event: unknown) {
 			?.currency_code ?? ''
 
 	// Optionally, update transaction to pending/approved
-	const transactionId = await findTransactionIdByOrderId(orderId)
+	let transactionId: string | null = null
+	try {
+		const transaction = await getTransactionByOrderId(orderId)
+		transactionId = transaction?.id ?? null
+	} catch (error) {
+		console.error('Error finding transaction by orderId:', error)
+		transactionId = null
+	}
 	if (typeof transactionId === 'string' && transactionId !== '') {
-		// updateTransaction should be imported from transaction.services
-
-		await import('./transaction.services').then(m =>
-			m.updateTransaction(transactionId, {
-				status: 'pending',
-			})
-		)
+		await updateTransaction(transactionId, {
+			status: 'pending',
+		})
 	}
 
 	return {
@@ -170,39 +231,6 @@ export async function handleConsentRevoked(event: PayPalWebhookEvent) {
 	// Implement actual logic as needed
 	await Promise.resolve()
 	return { revoked: true, event }
-}
-
-// Helper: Find bibId by orderId (implement as needed)
-export async function findBibIdByOrderId(orderId: string): Promise<string | null> {
-	// Example implementation: Query transaction by orderId, then get bibId
-	try {
-		// Dynamically import transaction.services for SSR compatibility
-		const { getTransactionByOrderId } = await import('./transaction.services')
-		const transaction = await getTransactionByOrderId(orderId)
-		if (transaction && typeof transaction.bibId === 'string') {
-			return transaction.bibId
-		}
-		return null
-	} catch (error) {
-		console.error('Error in findBibIdByOrderId:', error)
-		return null
-	}
-}
-
-// Helper: Find transactionId by orderId (implement as needed)
-export async function findTransactionIdByOrderId(orderId: string): Promise<string | null> {
-	try {
-		// Dynamically import transaction.services for SSR compatibility
-		const { getTransactionByOrderId } = await import('./transaction.services')
-		const transaction = await getTransactionByOrderId(orderId)
-		if (transaction && typeof transaction.id === 'string') {
-			return transaction.id
-		}
-		return null
-	} catch (error) {
-		console.error('Error in findTransactionIdByOrderId:', error)
-		return null
-	}
 }
 
 interface PayPalAccessToken {
