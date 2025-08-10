@@ -71,33 +71,85 @@ function Runner() {
 			xmlns="http://www.w3.org/2000/svg"
 			className="h-10 w-10"
 		>
+			{/* right leg */}
 			<path
 				d="M583 750L530 559L388.5 419"
 				stroke="#FF0202"
 				strokeWidth="80"
 				strokeLinecap="round"
 				strokeLinejoin="round"
-			/>
+			>
+				<animate
+					attributeName="d"
+					values="M583 750L530 559L388.5 419; M135 625L315 625L388.5 419; M583 750L530 559L388.5 419"
+					keyTimes="0; 0.5; 1"
+					calcMode="spline"
+					keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
+					dur="0.8s"
+					repeatCount="indefinite"
+				/>
+			</path>
+			{/* body */}
 			<path d="M388 419L430 199" stroke="#0000FF" strokeWidth="80" strokeLinecap="round" />
-			<path d="M135 625H315L381 416" stroke="#FF0202" strokeWidth="80" strokeLinecap="round" strokeLinejoin="round" />
+			{/* left leg */}
+			<path
+				d="M135 625L315 625L388.5 419"
+				stroke="#FF0202"
+				strokeWidth="80"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+			>
+				<animate
+					attributeName="d"
+					values="M135 625L315 625L388.5 419; M583 750L530 559L388.5 419; M135 625L315 625L388.5 419"
+					keyTimes="0; 0.5; 1"
+					calcMode="spline"
+					keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
+					dur="0.8s"
+					repeatCount="indefinite"
+				/>
+			</path>
+			{/* arm */}
 			<path
 				d="M430 201L268 259L207.5 372.5"
 				stroke="#FFFF00"
 				strokeWidth="80"
 				strokeLinecap="round"
 				strokeLinejoin="round"
-			/>
+			>
+				<animate
+					attributeName="d"
+					values="M430 201L268 259L207.5 372.5; M430 201L533 358.5L649.5 418; M430 201L268 259L207.5 372.5"
+					keyTimes="0; 0.5; 1"
+					calcMode="spline"
+					keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
+					dur="0.8s"
+					repeatCount="indefinite"
+				/>
+			</path>
+			{/* arm */}
 			<path
 				d="M430 201L532 366L660.5 348"
 				stroke="#82821A"
 				strokeWidth="80"
 				strokeLinecap="round"
 				strokeLinejoin="round"
-			/>
+			>
+				<animate
+					attributeName="d"
+					values="M430 201L532 366L660.5 348; M430 201L280 257L208 369.5; M430 201L532 366L660.5 348"
+					keyTimes="0; 0.5; 1"
+					calcMode="spline"
+					keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
+					dur="0.8s"
+					repeatCount="indefinite"
+				/>
+			</path>
+			{/* head (no anim)*/})
 			<path
 				d="M449.063 137.188C467.188 137.188 482.5 130.937 495.313 118.125C508.125 105.312 514.375 90.3126 514.375 73.1251C514.375 55.0001 508.125 39.6874 495.313 26.8749C482.5 14.0624 467.188 7.8125 449.063 7.8125C431.563 7.8125 416.563 14.0624 403.75 26.8749C390.938 39.6874 384.688 55.0001 384.688 73.1251C384.688 90.6251 390.938 105.625 403.75 118.125C416.875 130.937 431.875 137.188 449.063 137.188Z"
 				fill="black"
-			/>
+			></path>
 		</svg>
 	)
 }
