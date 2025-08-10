@@ -1,11 +1,18 @@
 'use server'
 // Helper: Find transaction by PayPal orderId
-export async function getTransactionByOrderId(orderId: string): Promise<{ id: string; bibId: string } | null> {
-	// TODO: Replace with actual DB query
-	// Example: Query PocketBase or your DB for transaction with matching orderId
-	// This is a stub for integration
-	void orderId // placeholder to use parameter
-	return await Promise.resolve(null)
+export async function getTransactionByOrderId(
+	orderId: string
+): Promise<{ id: string; bibId: string; buyerUserId: string } | null> {
+	if (!orderId) return null
+	try {
+		const record = await pb
+			.collection('transactions')
+			.getFirstListItem<{ id: string; bibId: string; buyerUserId: string }>(`paypal_order_id = "${orderId}"`)
+		return record ?? null
+	} catch {
+		// Not found or query error
+		return null
+	}
 }
 
 import type { Transaction } from '@/models/transaction.model'
@@ -66,7 +73,7 @@ export async function updateTransaction(
 	transactionId: string,
 	transactionData: Partial<Omit<Transaction, 'id' | 'transactionDate'>>
 ): Promise<null | Transaction> {
-	console.log('Updating transaction with ID:', transactionId)
+	console.info('Updating transaction with ID:', transactionId)
 	if (transactionId === '') {
 		console.error('Transaction ID is required to update a transaction.')
 		return null
@@ -75,7 +82,7 @@ export async function updateTransaction(
 	try {
 		const record = await pb.collection('transactions').update<Transaction>(transactionId, transactionData)
 
-		console.log('Updated transaction record:', record)
+		console.info('Updated transaction record:', record)
 		return record
 	} catch (error: unknown) {
 		throw new Error('Error updating transaction: ' + (error instanceof Error ? error.message : String(error)))

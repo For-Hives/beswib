@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import {
-	handlePaymentCaptureCompleted,
 	handleCheckoutOrderApproved,
 	handleOnboardingCompleted,
 	handleSellerConsentGranted,
 	handleConsentRevoked,
+	handlePaymentCaptureCompleted,
 	PayPalWebhookEvent,
 } from '@/services/paypal.services'
 import { verifyPayPalWebhookSignature } from '@/lib/paypalWebhookVerify'
@@ -56,6 +56,7 @@ export async function POST(request: NextRequest) {
 				break
 			case 'PAYMENT.CAPTURE.COMPLETED':
 				result = await handlePaymentCaptureCompleted(webhookEvent)
+				break
 				break
 			case 'CHECKOUT.ORDER.APPROVED':
 				result = await handleCheckoutOrderApproved(webhookEvent)

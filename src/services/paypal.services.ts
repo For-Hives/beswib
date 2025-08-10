@@ -1,6 +1,4 @@
-import { updateTransaction, getTransactionByOrderId, createTransaction } from './transaction.services'
-import { updateBib } from './bib.services'
-import { Bib } from '@/models/bib.model'
+import { getTransactionByOrderId, updateTransaction } from './transaction.services'
 import { BibSale } from '@/components/marketplace/CardMarket'
 // --- PayPal Webhook Event Types and Handlers ---
 export type PayPalWebhookEvent = {
@@ -27,106 +25,15 @@ export async function handlePaymentCaptureCompleted(event: unknown) {
 	if (typeof resourceRaw !== 'object' || resourceRaw === null) {
 		throw new Error('No resource in webhook event')
 	}
+	// Normalize the resource to the shape expected by salesComplete
 	const resource = resourceRaw as PayPalPaymentCaptureResource & {
 		payer?: { payer_id?: string }
 		update_time?: string
 		create_time?: string
 	}
-	console.info(resource)
-	const orderId = resource.supplementary_data?.related_ids?.order_id ?? ''
-	const captureId = resource.id ?? ''
-	const payerEmail = resource.payee?.email_address ?? ''
-	const payerId = resource.payer?.payer_id ?? '' // PayPal Payer ID, if available
-	const amountStr = resource.amount?.value ?? ''
-	const amount = amountStr !== '' ? Number(amountStr) : 0
-	const currency = resource.amount?.currency_code ?? ''
-	const status = resource.status ?? ''
-	const captureTime = resource.update_time ?? resource.create_time ?? ''
-	const bibId = resource.supplementary_data?.related_ids?.bib_id ?? ''
-
-	console.info({
-		orderId,
-		captureId,
-		bibId,
-		payerEmail,
-		payerId,
-		amount,
-		currency,
-		status,
-		captureTime,
-		raw_webhook_payload: event,
-	})
-
-	// Find transactionId using getTransactionByOrderId
-	let transactionId: string | null = null
-	try {
-		const transaction = await getTransactionByOrderId(orderId)
-		transactionId = transaction?.id ?? null
-	} catch (error) {
-		console.error('Error finding transaction by orderId:', error)
-		transactionId = null
-	}
-
-	// Update or create transaction with all required PayPal fields and raw payload
-	if (typeof transactionId === 'string' && transactionId !== '') {
-		await updateTransaction(transactionId, {
-			status: 'succeeded', // payment_status
-			paymentIntentId: captureId, // legacy field, keep for compatibility
-			paypal_order_id: orderId,
-			paypal_capture_id: captureId,
-			payer_email: payerEmail,
-			payer_id: payerId,
-			amount,
-			currency,
-			payment_status: status,
-			capture_time: captureTime,
-			raw_webhook_payload: JSON.stringify(event),
-		})
-		console.info('Transaction updated')
-	} else {
-		// Create transaction if it does not exist
-		await createTransaction({
-			bibId,
-			buyerUserId: '', // Set appropriately if available
-			sellerUserId: '', // Set appropriately if available
-			amount,
-			platformFee: 0, // Set appropriately if available
-			status: 'succeeded',
-			paymentIntentId: captureId,
-			paypal_order_id: orderId,
-			paypal_capture_id: captureId,
-			payer_email: payerEmail,
-			payer_id: payerId,
-			currency,
-			payment_status: status,
-			capture_time: captureTime,
-			raw_webhook_payload: JSON.stringify(event),
-		})
-		console.info('Transaction created')
-	}
-
-	// Update bib status to sold
-	if (typeof bibId === 'string' && bibId !== '') {
-		await updateBib(bibId, {
-			status: 'sold',
-			validated: true,
-		})
-		console.info('Bib updated to sold')
-	}
-
-	return {
-		orderId,
-		captureId,
-		bibId,
-		transactionId,
-		payerEmail,
-		payerId,
-		amount,
-		currency,
-		status,
-		captureTime,
-		raw_webhook_payload: event,
-	}
+	// Defer orchestration to centralized sales service (avoids static import cycle)
+	const mod = await import('./sales.services')
+	return mod.salesComplete({ event: { resource } })
 }
 
 export async function handleCheckoutOrderApproved(event: unknown) {
