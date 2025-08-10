@@ -12,7 +12,7 @@ import type { Bib } from '@/models/bib.model'
 
 import { createSale } from '@/app/[locale]/purchase/actions'
 import { BibSale } from '@/components/marketplace/CardMarket'
-import { capturePayment } from '@/services/paypal.services'
+import { captureOrder } from '@/app/[locale]/purchase/actions'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'
 // import Lanyard from '@/components/ui/BibPriceLanyard'
@@ -218,7 +218,7 @@ export default function PayPalPurchaseClient({
 				setLoading(true)
 				setErrorMessage(null)
 
-				const res = await capturePayment(data.orderID)
+				const res = await captureOrder(data.orderID)
 				if (res.error !== null && res.error !== undefined && res.error !== '') {
 					throw new Error(res.error)
 				}

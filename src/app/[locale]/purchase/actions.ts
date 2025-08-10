@@ -7,6 +7,7 @@ import { createTransaction } from '@/services/transaction.services'
 import { salesCreate } from '@/services/sales.services'
 import { fetchBibById } from '@/services/bib.services'
 import { fetchUserByClerkId } from '@/services/user.services'
+import { capturePayment } from '@/services/paypal.services'
 
 export async function handlePaymentPageOpened(paymentIntentId: string, bibId: string) {
 	const { userId } = await auth()
@@ -78,5 +79,17 @@ export async function createSale(bibId: string, sellerMerchantId: string) {
 	} catch (error) {
 		console.error('Error creating sale:', error)
 		return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
+	}
+}
+
+// Server-side wrapper to capture a PayPal order (prevents exposing client secret to the browser)
+export async function captureOrder(orderId: string) {
+	if (!orderId) return { error: 'Missing orderId' }
+	try {
+		const res = await capturePayment(orderId)
+		return res
+	} catch (error) {
+		console.error('Error capturing order:', error)
+		return { error: error instanceof Error ? error.message : 'Unknown error' }
 	}
 }
