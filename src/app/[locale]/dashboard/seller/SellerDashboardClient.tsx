@@ -1,6 +1,30 @@
 'use client'
 
 import { Edit3, Info, List, Plus, Search, Tag, Users } from 'lucide-react'
+import { useState } from 'react'
+// Simple tooltip component
+function Tooltip({ children, content }: { children: React.ReactNode; content: React.ReactNode }) {
+	const [visible, setVisible] = useState(false)
+	return (
+		<span className="relative inline-block">
+			<span
+				onMouseEnter={() => setVisible(true)}
+				onMouseLeave={() => setVisible(false)}
+				onFocus={() => setVisible(true)}
+				onBlur={() => setVisible(false)}
+				tabIndex={0}
+				className="cursor-pointer outline-none"
+			>
+				{children}
+			</span>
+			{visible && (
+				<span className="bg-background text-foreground border-border absolute left-1/2 z-50 mt-2 w-64 -translate-x-1/2 rounded border px-3 py-2 text-xs shadow-lg">
+					{content}
+				</span>
+			)}
+		</span>
+	)
+}
 
 import Link from 'next/link'
 
@@ -180,8 +204,23 @@ export default function SellerDashboardClient({
 						</Card>
 
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
-							<CardHeader className="pb-2">
-								<CardTitle className="text-muted-foreground text-sm">Net Revenue</CardTitle>
+							<CardHeader className="flex items-center gap-2 pb-2">
+								<CardTitle className="text-muted-foreground flex items-center gap-2 text-sm">
+									Net Revenue
+									<Tooltip
+										content={
+											<span>
+												How fees work: <br />
+												<strong>Net = Amount − Platform fees − PayPal fees.</strong>
+												<br />
+												Platform fees are <strong>10% of the listing price</strong>.<br />
+												PayPal fees are provided by PayPal in the capture and may vary by country and payment method.
+											</span>
+										}
+									>
+										<Info className="text-muted-foreground inline-block h-4 w-4 align-middle" />
+									</Tooltip>
+								</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<div className="text-2xl font-bold">€{totals.net.toFixed(2)}</div>
@@ -190,13 +229,6 @@ export default function SellerDashboardClient({
 									<p>Gross: €{totals.gross.toFixed(2)}</p>
 									<p>Platform fees: −€{totals.platform.toFixed(2)}</p>
 									<p>PayPal fees: −€{totals.paypal.toFixed(2)}</p>
-									<div className="flex items-start gap-2 pt-2">
-										<Info className="mt-0.5 h-3.5 w-3.5" />
-										<span>
-											How fees work: Net = Amount − Platform fees − PayPal fees. Platform fees are 10% of the listing
-											price. PayPal fees are provided by PayPal in the capture and may vary by country and payment method.
-										</span>
-									</div>
 								</div>
 							</CardContent>
 						</Card>
@@ -287,7 +319,10 @@ export default function SellerDashboardClient({
 																<p>Amount: €{tx.amount?.toFixed(2) ?? 'N/A'}</p>
 																<p>
 																	Net: <span className="font-medium">€{net.toFixed(2)}</span>{' '}
-																	<span className="text-xs">(Amount €{(tx.amount ?? 0).toFixed(2)} − Platform €{(tx.platform_fee ?? 0).toFixed(2)} − PayPal €{paypalFee.toFixed(2)})</span>
+																	<span className="text-xs">
+																		(Amount €{(tx.amount ?? 0).toFixed(2)} − Platform €
+																		{(tx.platform_fee ?? 0).toFixed(2)} − PayPal €{paypalFee.toFixed(2)})
+																	</span>
 																</p>
 															</div>
 														)
