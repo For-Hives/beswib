@@ -71,7 +71,10 @@ export default function BibStatsClient({ locale }: Readonly<BibStatsClientProps>
 	}, [hasAnimated])
 
 	return (
-		<section className="bg-card/50 border-border border-t px-4 py-12 md:py-24 xl:px-0" ref={sectionRef}>
+		<section
+			className="dark:bg-card/50 dark:border-border border-t border-neutral-200/60 bg-white/70 px-4 py-12 md:py-24 xl:px-0"
+			ref={sectionRef}
+		>
 			<div className="mx-auto max-w-7xl">
 				<div className="grid gap-8 md:grid-cols-3">
 					{stats.map((stat, index) => (
@@ -86,7 +89,7 @@ export default function BibStatsClient({ locale }: Readonly<BibStatsClientProps>
 								/>
 								{stat.suffix}
 							</div>
-							<p className="text-muted-foreground text-lg">{stat.label}</p>
+							<p className="dark:text-muted-foreground text-lg text-neutral-700">{stat.label}</p>
 						</div>
 					))}
 				</div>

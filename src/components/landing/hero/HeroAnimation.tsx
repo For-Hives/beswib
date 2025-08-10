@@ -108,16 +108,16 @@ export const HeroAnimation = ({
 			<div className="absolute right-1/4 bottom-20 z-50">
 				<div className="flex gap-4 pt-12 md:pt-0">
 					<button
-						className="group/button flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
+						className="group/button flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-white/90 text-neutral-900 shadow-sm ring-1 ring-neutral-200 hover:bg-white dark:bg-neutral-800 dark:text-neutral-400 dark:shadow-none dark:ring-0"
 						onClick={handlePrev}
 					>
-						<IconArrowLeft className="h-5 w-5 text-black transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" />
+						<IconArrowLeft className="h-5 w-5 transition-transform duration-300 group-hover/button:rotate-12" />
 					</button>
 					<button
-						className="group/button flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
+						className="group/button flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-white/90 text-neutral-900 shadow-sm ring-1 ring-neutral-200 hover:bg-white dark:bg-neutral-800 dark:text-neutral-400 dark:shadow-none dark:ring-0"
 						onClick={handleNext}
 					>
-						<IconArrowRight className="h-5 w-5 text-black transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" />
+						<IconArrowRight className="h-5 w-5 transition-transform duration-300 group-hover/button:-rotate-12" />
 					</button>
 				</div>
 			</div>

@@ -24,19 +24,19 @@ export function CTASection({ withGlow = true, locale, className }: CTAProps) {
 		<div className="px-4 xl:px-0">
 			<section
 				className={cn(
-					'from-background via-primary/15 to-background mx-auto my-12 max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-br pt-0 md:pt-0',
+					'via-primary/10 dark:from-background dark:via-primary/15 dark:to-background mx-auto my-12 max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-br from-white to-white pt-0 md:pt-0',
 					className
 				)}
 			>
 				<div className="relative mx-auto flex max-w-7xl flex-col items-center gap-6 px-6 py-12 text-center sm:gap-8 md:py-24">
 					{/* Title */}
-					<h2 className="animate-fade-in-up text-3xl font-semibold opacity-0 delay-200 sm:text-4xl">
+					<h2 className="animate-fade-in-up dark:text-foreground text-3xl font-semibold text-neutral-900 opacity-0 delay-200 sm:text-4xl">
 						{translations?.ctaSection.title}
 					</h2>
 
 					{/* Description */}
 					<p
-						className="animate-fade-in-up text-muted-foreground max-w-4xl text-lg opacity-0 delay-300"
+						className="animate-fade-in-up dark:text-muted-foreground max-w-4xl text-lg text-neutral-700 opacity-0 delay-300"
 						dangerouslySetInnerHTML={{ __html: translations?.ctaSection.description ?? '' }}
 					/>
 

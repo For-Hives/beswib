@@ -82,13 +82,15 @@ export default function JourneyTabsClient({ locale }: Readonly<JourneyTabsClient
 	]
 
 	return (
-		<section className="bg-muted/30 px-4 py-16 md:py-24 xl:px-0">
+		<section className="dark:bg-muted/30 bg-neutral-50 px-4 py-16 md:py-24 xl:px-0">
 			<div className="mx-auto max-w-7xl">
 				<div className="mb-12 text-center">
-					<h2 className="text-foreground mb-6 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+					<h2 className="dark:text-foreground mb-6 text-3xl font-bold tracking-tight text-neutral-900 md:text-4xl lg:text-5xl">
 						{t.journey.title}
 					</h2>
-					<p className="text-muted-foreground mx-auto max-w-3xl text-lg md:text-xl">{t.journey.subtitle}</p>
+					<p className="dark:text-muted-foreground mx-auto max-w-3xl text-lg text-neutral-700 md:text-xl">
+						{t.journey.subtitle}
+					</p>
 				</div>
 
 				<Tabs className="w-full" defaultValue="buyer">

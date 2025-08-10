@@ -86,24 +86,26 @@ export default async function Hero({ localeParams }: { localeParams: Promise<Loc
 		<section className="relative px-4 pt-20 xl:px-0 xl:pt-40">
 			<Image
 				alt="template-run"
-				className="-z-10 -scale-x-100 overflow-hidden object-cover object-center opacity-50 dark:opacity-75"
+				className="-z-10 -scale-x-100 overflow-hidden object-cover object-center opacity-100 dark:opacity-75"
 				fill
 				sizes="100vw"
 				src={'/landing/background.jpg'}
 			/>
-			<div className="from-background/100 to-background/100 absolute inset-0 -z-10 bg-gradient-to-b via-zinc-900/20 dark:bg-gradient-to-r dark:via-zinc-900/60"></div>
+			<div
+				className={`dark:from-background/100 dark:to-background/100 dark:backdrop-blur-0 absolute inset-0 -z-10 dark:bg-gradient-to-r dark:via-zinc-900/60 dark:via-50%`}
+			></div>
 			<div className="z-20 mx-auto max-w-7xl">
 				<div className="grid grid-cols-12 gap-4">
 					<div className="col-span-12 flex flex-col justify-center gap-6 pb-32 md:col-span-5">
 						<h1
-							className="text-foreground text-5xl font-bold tracking-tight"
+							className="text-5xl font-bold tracking-tight text-neutral-50 dark:text-neutral-100"
 							dangerouslySetInnerHTML={{ __html: landingT.home.hero.title }}
 						></h1>
-						<p className="text-muted-foreground text-lg">{landingT.home.hero.description}</p>
+						<p className="text-lg text-neutral-50 dark:text-neutral-300">{landingT.home.hero.description}</p>
 						<div className="flex flex-row gap-4">
 							<div>
 								<Link
-									className="border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md border px-3 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none md:px-8"
+									className="border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md border px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none md:px-8 dark:shadow-none"
 									href="/marketplace"
 								>
 									{landingT.home.hero.organizerButton}
@@ -111,7 +113,7 @@ export default async function Hero({ localeParams }: { localeParams: Promise<Loc
 							</div>
 							<div>
 								<Link
-									className="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none md:px-8"
+									className="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none md:px-8 dark:shadow-none"
 									href="/events"
 								>
 									{landingT.home.hero.consultRacesButton}

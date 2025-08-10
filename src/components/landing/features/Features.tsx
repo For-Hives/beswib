@@ -63,13 +63,13 @@ export default async function FeaturesBento({ localeParams }: { localeParams: Pr
 	]
 
 	return (
-		<section className="bg-muted border-t border-neutral-200/10 py-24">
+		<section className="dark:bg-muted border-t border-neutral-200/60 bg-white py-24 dark:border-neutral-200/10">
 			<div className="mx-auto max-w-7xl">
 				<div className="mb-16 text-center">
 					<h2 className="mb-6 text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
 						{t.features.title}
 					</h2>
-					<p className="text-muted-foreground mx-auto max-w-3xl text-xl">{t.features.subtitle}</p>
+					<p className="mx-auto max-w-3xl text-xl text-neutral-700 dark:text-neutral-300">{t.features.subtitle}</p>
 				</div>
 
 				<FeaturesSectionWithHoverEffects features={features} />
