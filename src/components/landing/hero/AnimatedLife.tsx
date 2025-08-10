@@ -1,14 +1,151 @@
 'use client'
 
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useThemeStore } from '@/hooks/useTheme'
+
+type RaceEntity = {
+	id: string
+	kind: 'bike' | 'runner'
+	topPercent: number
+	durationMs: number
+	delayMs: number
+	zIndex: number
+}
 
 export function AnimatedLife() {
 	const { theme } = useThemeStore()
+	const color = theme === 'dark' ? 'white' : 'black'
+
+	const [entities, setEntities] = useState<RaceEntity[]>([])
+	const nextWaveAtRef = useRef<number | null>(null)
+
+	const randInt = useCallback((min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min, [])
+
+	const clampToOneMinute = useCallback((durationMs: number, delayMs: number) => {
+		const cap = 60000
+		if (delayMs + durationMs <= cap) return { durationMs, delayMs }
+		const maxDuration = Math.max(10000, cap - delayMs - 500)
+		return { durationMs: Math.min(durationMs, maxDuration), delayMs }
+	}, [])
+
+	const generateGroup = useCallback(
+		(kind: 'bike' | 'runner', count: number): RaceEntity[] => {
+			// Group distribution: peloton, breakaway, stragglers
+			const pelotonCount = Math.max(3, Math.floor(count * 0.7))
+			const breakawayCount = Math.max(1, Math.floor(count * 0.1))
+			const stragglerCount = Math.max(0, count - pelotonCount - breakawayCount)
+
+			const result: RaceEntity[] = []
+
+			// Helper for durations per kind/group (ms)
+			const pickDuration = (g: 'peloton' | 'breakaway' | 'straggler') => {
+				if (kind === 'bike') {
+					if (g === 'breakaway') return randInt(18000, 22000)
+					if (g === 'peloton') return randInt(24000, 30000)
+					return randInt(32000, 42000) // straggler
+				}
+				// runner
+				if (g === 'breakaway') return randInt(28000, 34000)
+				if (g === 'peloton') return randInt(38000, 48000)
+				return randInt(50000, 58000)
+			}
+
+			const pickDelay = (g: 'peloton' | 'breakaway' | 'straggler') => {
+				if (g === 'breakaway') return randInt(0, 5000)
+				if (g === 'peloton') return randInt(3000, 12000)
+				return randInt(10000, 20000)
+			}
+
+			const pushEntity = (g: 'peloton' | 'breakaway' | 'straggler', baseTop: number, spread: number) => {
+				const durationMs = pickDuration(g)
+				const delayMs = pickDelay(g)
+				const { durationMs: dMs, delayMs: dlMs } = clampToOneMinute(durationMs, delayMs)
+				// Contrainte utilisateur: top entre 0% et 10% pour densifier les bandes hautes
+				const rawTop = baseTop + (Math.random() * 2 - 1) * spread
+				const topPercent = Math.min(10, Math.max(0, rawTop))
+				result.push({
+					id: `${kind}-${g}-${crypto.randomUUID()}`,
+					kind,
+					topPercent,
+					durationMs: dMs,
+					delayMs: dlMs,
+					zIndex: kind === 'bike' ? 3 : 2,
+				})
+			}
+
+			// Toutes les bandes verticales sont resserrées entre 0% et 10%
+			// Peloton: autour de 4–7%
+			const pelotonBand = randInt(4, 7)
+			for (let i = 0; i < pelotonCount; i++) pushEntity('peloton', pelotonBand, 1.5)
+
+			// Échappée: 1–3%
+			const breakBand = randInt(1, 3)
+			for (let i = 0; i < breakawayCount; i++) pushEntity('breakaway', breakBand, 1)
+
+			// Retardataires: 7–10%
+			const dragBand = randInt(7, 10)
+			for (let i = 0; i < stragglerCount; i++) pushEntity('straggler', dragBand, 1.5)
+
+			return result
+		},
+		[clampToOneMinute, randInt]
+	)
+
+	const spawnWave = useCallback(() => {
+		const bikeCount = randInt(15, 35)
+		const runnerCount = randInt(15, 35)
+		const bikes = generateGroup('bike', bikeCount)
+		const runners = generateGroup('runner', runnerCount)
+		// Ensure bikes are always faster overall by sanity-checking duration ranges (already chosen)
+		setEntities([...bikes, ...runners])
+		nextWaveAtRef.current = Date.now() + 60000
+	}, [generateGroup, randInt])
+
+	useEffect(() => {
+		spawnWave()
+		const id = setInterval(spawnWave, 60000)
+		return () => clearInterval(id)
+	}, [spawnWave])
+
+	const handleAnimationEnd = useCallback((id: string) => {
+		setEntities(prev => prev.filter(e => e.id !== id))
+	}, [])
+
 	return (
 		<div className="absolute bottom-0 left-0 z-20 flex h-[25vh] w-screen">
 			<div className="relative h-full w-full">
-				<Cycling color={theme === 'dark' ? 'white' : 'black'} />
-				<Runner color={theme === 'dark' ? 'white' : 'black'} />
+				<style>{`
+					@keyframes race-move {
+						from {
+							transform: translateX(-20vw);
+						}
+						to {
+							transform: translateX(120vw);
+						}
+					}
+					.race-move {
+						animation-name: race-move;
+						animation-timing-function: linear;
+						animation-fill-mode: forwards;
+						will-change: transform;
+					}
+				`}</style>
+
+				{entities.map(entity => (
+					<div
+						key={entity.id}
+						className="pointer-events-none absolute top-0 left-0"
+						style={{ top: `${entity.topPercent}%`, zIndex: entity.zIndex }}
+					>
+						<div
+							className="race-move"
+							style={{ animationDuration: `${entity.durationMs}ms`, animationDelay: `${entity.delayMs}ms` }}
+							onAnimationEnd={() => handleAnimationEnd(entity.id)}
+						>
+							{entity.kind === 'bike' ? <Cycling color={color} /> : <Runner color={color} />}
+						</div>
+					</div>
+				))}
 			</div>
 		</div>
 	)
