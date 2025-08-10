@@ -61,6 +61,7 @@ export async function createSale(bibId: string, sellerMerchantId: string) {
 		return { success: false, error: 'Missing parameters.' }
 	}
 	try {
+		console.log('BEZJIGEZJOG')
 		const { orderId, transaction } = await salesCreate({
 			buyerUserId: userId,
 			sellerMerchantId,

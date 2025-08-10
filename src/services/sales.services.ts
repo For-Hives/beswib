@@ -19,6 +19,8 @@ type SalesCreateOutput = {
 
 // Create PayPal order and persist a pending Transaction linked to that order
 export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateOutput> {
+	console.info('Creating sale with input:', input)
+
 	const { buyerUserId, sellerMerchantId, bibId } = input
 	if (!buyerUserId || !sellerMerchantId || !bibId) {
 		throw new Error('Missing required salesCreate parameters')
