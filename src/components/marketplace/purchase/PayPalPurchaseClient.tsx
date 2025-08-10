@@ -10,9 +10,9 @@ import type { Event } from '@/models/event.model'
 import type { Organizer } from '@/models/organizer.model'
 import type { Bib } from '@/models/bib.model'
 
-import { handleSuccessfulPurchase } from '@/app/[locale]/purchase/actions'
+import { createSale } from '@/app/[locale]/purchase/actions'
 import { BibSale } from '@/components/marketplace/CardMarket'
-import { capturePayment, createOrder } from '@/services/paypal.services'
+import { capturePayment } from '@/services/paypal.services'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'
 // import Lanyard from '@/components/ui/BibPriceLanyard'
@@ -195,13 +195,13 @@ export default function PayPalPurchaseClient({
 			setLoading(true)
 			setErrorMessage(null)
 
-			const data = await createOrder(sellerId, bib)
-			if (data.error !== null && data.error !== undefined && data.error !== '') {
-				throw new Error(data.error)
+			const res = await createSale(bib.id, sellerId)
+			if (!res.success || res.orderId == null || res.orderId === '') {
+				throw new Error(res.error ?? 'Failed to create sale')
 			}
 
-			console.info('Order created:', data)
-			return data.id ?? ''
+			console.info('Sale created, order:', res.orderId)
+			return res.orderId
 		} catch (error: unknown) {
 			const errorMsg = 'Error creating order: ' + (error instanceof Error ? error.message : 'Unknown error')
 			console.error('Order creation error:', error instanceof Error ? error.message : 'Unknown error')
@@ -210,7 +210,7 @@ export default function PayPalPurchaseClient({
 		} finally {
 			setLoading(false)
 		}
-	}, [sellerUser?.paypalMerchantId, bib.price])
+	}, [sellerUser?.paypalMerchantId, bib.id])
 
 	const onApprove = useCallback(
 		async (data: { orderID: string }) => {
@@ -226,8 +226,6 @@ export default function PayPalPurchaseClient({
 				setSuccessMessage('Payment captured successfully!')
 				console.info('Payment captured:', res)
 
-				// Handle successful purchase
-				await handleSuccessfulPurchase(data.orderID, bib.id)
 				router.push(`/${locale}/purchase/success`)
 			} catch (error: unknown) {
 				const errorMsg = 'Error capturing payment: ' + (error instanceof Error ? error.message : 'Unknown error')
