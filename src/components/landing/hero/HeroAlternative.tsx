@@ -83,16 +83,16 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 
 	return (
 		<div className="relative">
-			<div className="pointer-events-none absolute top-48 left-0 z-30 h-[calc(100vh-10rem)] w-[100vw] border-b-4 border-neutral-200">
+			<div className="pointer-events-none absolute top-48 left-0 z-30 h-[calc(100vh-10rem)] w-[100vw]">
 				<Image
 					alt="template-run"
-					className="z-30 -scale-x-100 overflow-visible object-cover object-bottom"
+					className="z-30 -scale-x-100 overflow-visible object-cover object-bottom dark:grayscale"
 					fill
 					sizes="100vw"
 					src={'/landing/background3.webp'}
 				/>
 			</div>
-			<div className="pointer-events-none absolute top-24 left-0 z-20 w-full text-center text-[2rem] font-bold tracking-tight text-neutral-800 dark:text-neutral-50">
+			<div className="absolute top-24 left-0 z-20 w-full text-center text-[2rem] font-bold tracking-tight text-neutral-800 dark:text-neutral-50">
 				<h1
 					dangerouslySetInnerHTML={{ __html: landingT.home.hero.title }}
 					className="font-geist [&_span]:font-bowlby-one-sc [&_span]:mx-2 [&_span]:text-[8rem]"
