@@ -3,7 +3,7 @@
 import { createOrder, PayPalPaymentCaptureResource } from './paypal.services'
 import { createTransaction, updateTransaction, getTransactionByOrderId } from './transaction.services'
 import { fetchBibById, updateBib } from './bib.services'
-import type { Transaction } from '@/models/transaction.model'
+import { fetchUserByClerkId } from './user.services'
 import type { BibSale } from '@/components/marketplace/CardMarket'
 
 type SalesCreateInput = {
@@ -14,7 +14,7 @@ type SalesCreateInput = {
 
 type SalesCreateOutput = {
 	orderId: string
-	transaction: Transaction
+	transaction: { id: string }
 }
 
 // Create PayPal order and persist a pending Transaction linked to that order
@@ -62,17 +62,23 @@ export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateO
 
 	const platformFee = Number((bib.price * 0.1).toFixed(2))
 
+	// Map Clerk buyer id to PocketBase user id
+	const pbBuyer = await fetchUserByClerkId(buyerUserId)
+	if (!pbBuyer) {
+		throw new Error('Buyer user not found in database')
+	}
+
 	const tx = await createTransaction({
 		status: 'pending',
-		sellerUserId: bib.sellerUserId,
-		buyerUserId,
-		bibId: bib.id,
+		seller_user_id: bib.sellerUserId,
+		buyer_user_id: pbBuyer.id,
+		bib_id: bib.id,
 		amount: bib.price,
-		platformFee,
-		paymentIntentId: order.id, // legacy field
+		platform_fee: platformFee,
 		paypal_order_id: order.id,
 		paypal_capture_id: '',
 		payer_email: '',
+		payer_id: '',
 		currency: 'EUR',
 		payment_status: 'PENDING',
 		capture_time: '',
@@ -115,12 +121,11 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 
 	const found = await getTransactionByOrderId(orderId)
 	const transactionId = found?.id ?? null
-	const bibId = (found?.bibId ?? bibIdFromPayload) || null
+	const bibId = (found?.bib_id ?? bibIdFromPayload) || null
 
 	if (typeof transactionId === 'string' && transactionId !== '') {
 		await updateTransaction(transactionId, {
 			status: 'succeeded',
-			paymentIntentId: captureId,
 			paypal_order_id: orderId,
 			paypal_capture_id: captureId,
 			payer_email: payerEmail,
@@ -135,7 +140,7 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 
 	if (typeof bibId === 'string' && bibId !== '') {
 		// If we have buyerUserId from original transaction, prefer that
-		const buyerUserId = found?.buyerUserId
+		const buyerUserId = found?.buyer_user_id
 		await updateBib(bibId, {
 			status: 'sold',
 			validated: true,
