@@ -4,7 +4,8 @@ import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
 import { fetchUserWaitlists } from '@/services/waitlist.services'
-import { fetchBibsByBuyer } from '@/services/bib.services'
+import { fetchUserByClerkId } from '@/services/user.services'
+import { fetchBuyerCompletedTransactions, fetchBuyerTransactions } from '@/services/transaction.services'
 import { LocaleParams } from '@/lib/generateStaticParams'
 
 import BuyerDashboardClient from './BuyerDashboardClient'
@@ -33,8 +34,18 @@ export default async function BuyerDashboardPage({
 		redirect('/sign-in')
 	}
 
-	// Fetch all required data
-	const [purchasedBibs, userWaitlists] = await Promise.all([fetchBibsByBuyer(userId), fetchUserWaitlists(userId)])
+	// Resolve PocketBase user from Clerk ID
+	const pbUser = await fetchUserByClerkId(userId)
+	if (pbUser == null) {
+		redirect('/dashboard')
+	}
+
+	// Fetch all required data for dashboard
+	const [buyerTransactions, completedTransactions, userWaitlists] = await Promise.all([
+		fetchBuyerTransactions(pbUser.id),
+		fetchBuyerCompletedTransactions(pbUser.id),
+		fetchUserWaitlists(pbUser.id),
+	])
 
 	// Extract only serializable properties from clerkUser
 	const serializedClerkUser = {
@@ -52,14 +63,22 @@ export default async function BuyerDashboardPage({
 	// Handle purchase success
 	const purchaseSuccess = purchase_success === 'true'
 
+	// Determine event name from most recent succeeded transaction if available
+	const latestSucceeded = completedTransactions[0]
 	const successEventName =
-		purchaseSuccess && purchasedBibs.length > 0 ? (purchasedBibs[0]?.expand?.eventId?.name ?? 'Event') : ''
+		purchaseSuccess && latestSucceeded != null
+			? (latestSucceeded.expand?.bib_id?.expand?.eventId?.name ?? 'Event')
+			: ''
+
+	// Compute total spent from succeeded transactions
+	const totalSpent = completedTransactions.reduce((sum, tx) => sum + (tx?.amount ?? 0), 0)
 
 	return (
 		<BuyerDashboardClient
 			clerkUser={serializedClerkUser}
 			locale={locale}
-			purchasedBibs={purchasedBibs}
+			buyerTransactions={buyerTransactions}
+			totalSpent={totalSpent}
 			purchaseSuccess={purchaseSuccess}
 			successEventName={successEventName}
 			userWaitlists={userWaitlists}

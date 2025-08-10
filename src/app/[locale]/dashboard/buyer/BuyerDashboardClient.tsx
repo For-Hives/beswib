@@ -7,6 +7,7 @@ import Link from 'next/link'
 import type { Waitlist } from '@/models/waitlist.model'
 import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
+import type { Transaction } from '@/models/transaction.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { getTranslations } from '@/lib/getDictionary'
@@ -16,10 +17,11 @@ import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 interface BuyerDashboardClientProps {
 	clerkUser: SerializedClerkUser
 	locale: Locale
-	purchasedBibs: (Bib & { expand?: { eventId: Event } })[]
+	buyerTransactions: (Transaction & { expand?: { bib_id?: Bib & { expand?: { eventId: Event } } } })[]
 	purchaseSuccess: boolean
 	successEventName: string
 	userWaitlists: (Waitlist & { expand?: { eventId: Event } })[]
+	totalSpent: number
 }
 
 interface SerializedClerkUser {
@@ -39,7 +41,8 @@ export default function BuyerDashboardClient({
 	userWaitlists = [],
 	successEventName,
 	purchaseSuccess,
-	purchasedBibs = [],
+	buyerTransactions = [],
+	totalSpent,
 	locale,
 	clerkUser,
 }: BuyerDashboardClientProps) {
@@ -48,8 +51,8 @@ export default function BuyerDashboardClient({
 	const userName = clerkUser?.firstName ?? clerkUser?.emailAddresses?.[0]?.emailAddress ?? 'Buyer'
 
 	// Calculate statistics with safety checks
-	const totalPurchases = Array.isArray(purchasedBibs) ? purchasedBibs.length : 0
-	const totalSpent = Array.isArray(purchasedBibs) ? purchasedBibs.reduce((sum, bib) => sum + (bib?.price || 0), 0) : 0
+	const succeededTransactions = buyerTransactions.filter(tx => tx.status === 'succeeded')
+	const totalPurchases = succeededTransactions.length
 	const waitlistEntries = Array.isArray(userWaitlists) ? userWaitlists.length : 0
 
 	return (
@@ -143,10 +146,11 @@ export default function BuyerDashboardClient({
 							<CardContent>
 								{totalPurchases > 0 ? (
 									<div className="space-y-4">
-										{purchasedBibs.map(bib => {
-											if (!bib?.id) return null
+										{succeededTransactions.map(tx => {
+											const bib = tx.expand?.bib_id
+											if (!tx?.id || !bib?.id) return null
 											return (
-												<div className="rounded-lg border p-4" key={bib.id}>
+												<div className="rounded-lg border p-4" key={tx.id}>
 													<div className="mb-2 flex items-start justify-between">
 														<h4 className="font-semibold">
 															{t.bibForLabel ?? 'Bib for'} {bib.expand?.eventId?.name ?? `Event ID: ${bib.eventId}`}
@@ -167,7 +171,7 @@ export default function BuyerDashboardClient({
 															{t.registrationNumber ?? 'Registration Number'}: {bib.registrationNumber}
 														</p>
 														<p>
-															{t.pricePaid ?? 'Price Paid'}: €{bib.price?.toFixed(2) ?? 'N/A'}
+															{t.pricePaid ?? 'Price Paid'}: €{tx.amount?.toFixed(2) ?? 'N/A'}
 														</p>
 													</div>
 													<p className="text-muted-foreground mt-2 text-xs">

@@ -1,4 +1,6 @@
 'use server'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
 // Helper: Find transaction by PayPal orderId
 export async function getTransactionByOrderId(
 	orderId: string
@@ -18,6 +20,57 @@ export async function getTransactionByOrderId(
 import type { Transaction } from '@/models/transaction.model'
 
 import { pb } from '@/lib/pocketbaseClient'
+
+export type TransactionWithExpand = Transaction & {
+	expand?: { bib_id?: Bib & { expand?: { eventId: Event } } }
+}
+
+/**
+ * Fetch all transactions for a buyer (PocketBase user id), newest first.
+ * Expands bib and event for richer UI display.
+ */
+export async function fetchBuyerTransactions(buyerUserId: string): Promise<TransactionWithExpand[]> {
+	if (buyerUserId === '') {
+		console.error('Buyer User ID is required to fetch their transactions.')
+		return []
+	}
+	try {
+		const records = await pb.collection('transactions').getFullList<TransactionWithExpand>({
+			sort: '-created',
+			filter: `buyer_user_id = "${buyerUserId}"`,
+			expand: 'bib_id,bib_id.eventId',
+		})
+		return records
+	} catch (error: unknown) {
+		throw new Error(
+			`Error fetching transactions for buyer ID "${buyerUserId}": ` +
+				(error instanceof Error ? error.message : String(error))
+		)
+	}
+}
+
+/**
+ * Fetch only completed (succeeded) transactions for a buyer for spend aggregation.
+ */
+export async function fetchBuyerCompletedTransactions(buyerUserId: string): Promise<TransactionWithExpand[]> {
+	if (buyerUserId === '') {
+		console.error('Buyer User ID is required to fetch their completed transactions.')
+		return []
+	}
+	try {
+		const records = await pb.collection('transactions').getFullList<TransactionWithExpand>({
+			sort: '-created',
+			filter: `buyer_user_id = "${buyerUserId}" && status = 'succeeded'`,
+			expand: 'bib_id,bib_id.eventId',
+		})
+		return records
+	} catch (error: unknown) {
+		throw new Error(
+			`Error fetching completed transactions for buyer ID "${buyerUserId}": ` +
+				(error instanceof Error ? error.message : String(error))
+		)
+	}
+}
 
 /**
  * Creates a new transaction record.
