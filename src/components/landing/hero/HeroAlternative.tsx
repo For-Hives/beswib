@@ -23,7 +23,7 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 				/>
 			</div>
 			<AnimatedLife />
-			<div className="absolute top-8 left-0 z-20 w-full text-center text-[0.9rem] font-bold tracking-tight text-neutral-800 lg:top-16 lg:text-[1.5rem] xl:top-24 xl:text-[2rem] dark:text-neutral-50">
+			<div className="absolute top-8 left-0 z-20 w-full text-center text-[0.9rem] font-bold tracking-tight text-neutral-800 lg:top-10 lg:text-[1.5rem] xl:top-24 xl:text-[2rem] dark:text-neutral-50">
 				<h1
 					dangerouslySetInnerHTML={{ __html: landingT.home.hero.title }}
 					className="font-geist [&_span]:font-bowlby-one-sc [&_span]:mx-2 [&_span]:text-[3.5rem] [&_span]:lg:text-[6rem] [&_span]:xl:text-[8rem]"
