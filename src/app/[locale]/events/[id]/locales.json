@@ -1,0 +1,290 @@
+{
+	"en": {
+		"event": {
+			"title": "Event Details",
+			"date": "Date",
+			"location": "Location",
+			"backToEvents": "Back to events list",
+			"bibs": {
+				"title": "Available Bibs for this Event",
+				"price": "Price",
+				"originalPrice": "Original Price",
+				"size": "Size",
+				"gender": "Gender",
+				"buyButton": "Buy Bib",
+				"noBibsAvailable": "No bibs currently listed for resale for this event."
+			},
+			"waitlist": {
+				"joinButton": "Join Waitlist",
+				"joinDescription": "Be notified if a bib becomes available.",
+				"success": {
+					"title": "Success!",
+					"message": "You've been successfully added to the waitlist for {eventName}! We'll notify you if a bib becomes available.",
+					"icon": "✓"
+				},
+				"error": {
+					"title": "Error",
+					"alreadyAdded": "You are already on the waitlist for {eventName}.",
+					"failed": "Failed to add you to the waitlist. Please try again.",
+					"icon": "⚠"
+				}
+			}
+		}
+	},
+	"fr": {
+		"event": {
+			"title": "Détails de l'événement",
+			"date": "Date",
+			"location": "Lieu",
+			"backToEvents": "Retour à la liste des événements",
+			"bibs": {
+				"title": "Dossards disponibles pour cet événement",
+				"price": "Prix",
+				"originalPrice": "Prix original",
+				"size": "Taille",
+				"gender": "Sexe",
+				"buyButton": "Acheter le dossard",
+				"noBibsAvailable": "Aucun dossard actuellement en vente pour cet événement."
+			},
+			"waitlist": {
+				"joinButton": "Rejoindre la liste d'attente",
+				"joinDescription": "Soyez notifié si un dossard devient disponible.",
+				"success": {
+					"title": "Succès !",
+					"message": "Vous avez été ajouté avec succès à la liste d'attente pour {eventName} ! Nous vous notifierons si un dossard devient disponible.",
+					"icon": "✓"
+				},
+				"error": {
+					"title": "Erreur",
+					"alreadyAdded": "Vous êtes déjà sur la liste d'attente pour {eventName}.",
+					"failed": "Échec de l'ajout à la liste d'attente. Veuillez réessayer.",
+					"icon": "⚠"
+				}
+			}
+		}
+	},
+	"es": {
+		"event": {
+			"title": "Detalles del evento",
+			"date": "Fecha",
+			"location": "Ubicación",
+			"backToEvents": "Volver a la lista de eventos",
+			"bibs": {
+				"title": "Dorsales disponibles para este evento",
+				"price": "Precio",
+				"originalPrice": "Precio original",
+				"size": "Talla",
+				"gender": "Género",
+				"buyButton": "Comprar dorsal",
+				"noBibsAvailable": "No hay dorsales disponibles para la venta en este evento."
+			},
+			"waitlist": {
+				"joinButton": "Unirse a la lista de espera",
+				"joinDescription": "Recibe una notificación si un dorsal está disponible.",
+				"success": {
+					"title": "¡Éxito!",
+					"message": "¡Has sido añadido exitosamente a la lista de espera para {eventName}! Te notificaremos si un dorsal está disponible.",
+					"icon": "✓"
+				},
+				"error": {
+					"title": "Error",
+					"alreadyAdded": "Ya estás en la lista de espera para {eventName}.",
+					"failed": "No se pudo agregarte a la lista de espera. Inténtalo de nuevo.",
+					"icon": "⚠"
+				}
+			}
+		}
+	},
+	"it": {
+		"event": {
+			"title": "Dettagli dell'evento",
+			"date": "Data",
+			"location": "Posizione",
+			"backToEvents": "Torna alla lista degli eventi",
+			"bibs": {
+				"title": "Pettorine disponibili per questo evento",
+				"price": "Prezzo",
+				"originalPrice": "Prezzo originale",
+				"size": "Taglia",
+				"gender": "Genere",
+				"buyButton": "Compra pettorina",
+				"noBibsAvailable": "Nessuna pettorina attualmente in vendita per questo evento."
+			},
+			"waitlist": {
+				"joinButton": "Unisciti alla lista d'attesa",
+				"joinDescription": "Ricevi una notifica se una pettorina diventa disponibile.",
+				"success": {
+					"title": "Successo!",
+					"message": "Sei stato aggiunto con successo alla lista d'attesa per {eventName}! Ti avviseremo se una pettorina diventa disponibile.",
+					"icon": "✓"
+				},
+				"error": {
+					"title": "Errore",
+					"alreadyAdded": "Sei già nella lista d'attesa per {eventName}.",
+					"failed": "Non è stato possibile aggiungerti alla lista d'attesa. Riprova.",
+					"icon": "⚠"
+				}
+			}
+		}
+	},
+	"de": {
+		"event": {
+			"title": "Event-Details",
+			"date": "Datum",
+			"location": "Ort",
+			"backToEvents": "Zurück zur Event-Liste",
+			"bibs": {
+				"title": "Verfügbare Startnummern für dieses Event",
+				"price": "Preis",
+				"originalPrice": "Ursprünglicher Preis",
+				"size": "Größe",
+				"gender": "Geschlecht",
+				"buyButton": "Startnummer kaufen",
+				"noBibsAvailable": "Derzeit keine Startnummern zum Verkauf für dieses Event verfügbar."
+			},
+			"waitlist": {
+				"joinButton": "Auf Warteliste setzen",
+				"joinDescription": "Benachrichtigung erhalten, wenn eine Startnummer verfügbar wird.",
+				"success": {
+					"title": "Erfolg!",
+					"message": "Sie wurden erfolgreich zur Warteliste für {eventName} hinzugefügt! Wir benachrichtigen Sie, wenn eine Startnummer verfügbar wird.",
+					"icon": "✓"
+				},
+				"error": {
+					"title": "Fehler",
+					"alreadyAdded": "Sie stehen bereits auf der Warteliste für {eventName}.",
+					"failed": "Fehler beim Hinzufügen zur Warteliste. Bitte versuchen Sie es erneut.",
+					"icon": "⚠"
+				}
+			}
+		}
+	},
+	"ro": {
+		"event": {
+			"title": "Detaliile evenimentului",
+			"date": "Data",
+			"location": "Locația",
+			"backToEvents": "Înapoi la lista de evenimente",
+			"bibs": {
+				"title": "Numere de concurs disponibile pentru acest eveniment",
+				"price": "Preț",
+				"originalPrice": "Preț original",
+				"size": "Mărime",
+				"gender": "Gen",
+				"buyButton": "Cumpără numărul",
+				"noBibsAvailable": "Nu sunt numere de concurs disponibile pentru vânzare la acest eveniment."
+			},
+			"waitlist": {
+				"joinButton": "Alătură-te listei de așteptare",
+				"joinDescription": "Fii notificat dacă un număr de concurs devine disponibil.",
+				"success": {
+					"title": "Succes!",
+					"message": "Ai fost adăugat cu succes pe lista de așteptare pentru {eventName}! Te vom anunța dacă un număr de concurs devine disponibil.",
+					"icon": "✓"
+				},
+				"error": {
+					"title": "Eroare",
+					"alreadyAdded": "Ești deja pe lista de așteptare pentru {eventName}.",
+					"failed": "Nu te-am putut adăuga pe lista de așteptare. Te rugăm să încerci din nou.",
+					"icon": "⚠"
+				}
+			}
+		}
+	},
+	"pt": {
+		"event": {
+			"title": "Detalhes do evento",
+			"date": "Data",
+			"location": "Localização",
+			"backToEvents": "Voltar à lista de eventos",
+			"bibs": {
+				"title": "Dorsais disponíveis para este evento",
+				"price": "Preço",
+				"originalPrice": "Preço original",
+				"size": "Tamanho",
+				"gender": "Género",
+				"buyButton": "Comprar dorsal",
+				"noBibsAvailable": "Nenhum dorsal atualmente à venda para este evento."
+			},
+			"waitlist": {
+				"joinButton": "Juntar-se à lista de espera",
+				"joinDescription": "Seja notificado se um dorsal ficar disponível.",
+				"success": {
+					"title": "Sucesso!",
+					"message": "Foste adicionado com sucesso à lista de espera para {eventName}! Vamos notificar-te se um dorsal ficar disponível.",
+					"icon": "✓"
+				},
+				"error": {
+					"title": "Erro",
+					"alreadyAdded": "Já estás na lista de espera para {eventName}.",
+					"failed": "Falha ao adicionar-te à lista de espera. Tenta novamente.",
+					"icon": "⚠"
+				}
+			}
+		}
+	},
+	"nl": {
+		"event": {
+			"title": "Evenement details",
+			"date": "Datum",
+			"location": "Locatie",
+			"backToEvents": "Terug naar evenementenlijst",
+			"bibs": {
+				"title": "Beschikbare startnummers voor dit evenement",
+				"price": "Prijs",
+				"originalPrice": "Oorspronkelijke prijs",
+				"size": "Maat",
+				"gender": "Geslacht",
+				"buyButton": "Startnummer kopen",
+				"noBibsAvailable": "Momenteel geen startnummers te koop voor dit evenement."
+			},
+			"waitlist": {
+				"joinButton": "Aan wachtlijst toevoegen",
+				"joinDescription": "Ontvang een melding als een startnummer beschikbaar komt.",
+				"success": {
+					"title": "Gelukt!",
+					"message": "Je bent succesvol toegevoegd aan de wachtlijst voor {eventName}! We sturen je een melding als een startnummer beschikbaar komt.",
+					"icon": "✓"
+				},
+				"error": {
+					"title": "Fout",
+					"alreadyAdded": "Je staat al op de wachtlijst voor {eventName}.",
+					"failed": "Kon je niet toevoegen aan de wachtlijst. Probeer het opnieuw.",
+					"icon": "⚠"
+				}
+			}
+		}
+	},
+	"ko": {
+		"event": {
+			"title": "이벤트 세부사항",
+			"date": "날짜",
+			"location": "위치",
+			"backToEvents": "이벤트 목록으로 돌아가기",
+			"bibs": {
+				"title": "이 이벤트에 사용 가능한 빕",
+				"price": "가격",
+				"originalPrice": "원래 가격",
+				"size": "사이즈",
+				"gender": "성별",
+				"buyButton": "빕 구매",
+				"noBibsAvailable": "현재 이 이벤트에 판매중인 빕이 없습니다."
+			},
+			"waitlist": {
+				"joinButton": "대기 목록에 참여",
+				"joinDescription": "빕이 사용 가능해지면 알림을 받으세요.",
+				"success": {
+					"title": "성공!",
+					"message": "{eventName} 대기 목록에 성공적으로 추가되었습니다! 빕이 사용 가능해지면 알려드리겠습니다.",
+					"icon": "✓"
+				},
+				"error": {
+					"title": "오류",
+					"alreadyAdded": "이미 {eventName} 대기 목록에 있습니다.",
+					"failed": "대기 목록에 추가하지 못했습니다. 다시 시도해 주세요.",
+					"icon": "⚠"
+				}
+			}
+		}
+	}
+}
