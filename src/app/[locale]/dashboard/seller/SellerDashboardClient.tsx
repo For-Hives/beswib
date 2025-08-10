@@ -1,6 +1,6 @@
 'use client'
 
-import { Edit3, List, Plus, Search, Tag, Users } from 'lucide-react'
+import { Edit3, Info, List, Plus, Search, Tag, Users } from 'lucide-react'
 
 import Link from 'next/link'
 
@@ -72,6 +72,42 @@ export default function SellerDashboardClient({
 	const availableBibs = Array.isArray(sellerBibs) ? sellerBibs.filter(bib => bib.status === 'available').length : 0
 	const soldBibs = Array.isArray(sellerBibs) ? sellerBibs.filter(bib => bib.status === 'sold').length : 0
 	const succeededTransactions = sellerTransactions.filter(tx => tx.status === 'succeeded')
+
+	// Extract PayPal fees from webhook payload when present
+	const extractPaypalFee = (raw: unknown): number => {
+		if (typeof raw !== 'string' || raw.trim() === '') return 0
+		try {
+			const parsed = JSON.parse(raw) as { event?: { resource?: unknown } } | { resource?: unknown }
+			const resource =
+				(parsed as { event?: { resource?: unknown } })?.event?.resource ??
+				(parsed as { resource?: unknown })?.resource ??
+				null
+			if (resource && typeof resource === 'object') {
+				const breakdown = (resource as { seller_receivable_breakdown?: { paypal_fee?: { value?: string } } })
+					.seller_receivable_breakdown
+				const feeStr = breakdown?.paypal_fee?.value
+				const fee = feeStr != null ? Number(feeStr) : 0
+				return Number.isFinite(fee) ? fee : 0
+			}
+			return 0
+		} catch {
+			return 0
+		}
+	}
+
+	const totals = succeededTransactions.reduce(
+		(acc, tx) => {
+			const amount = tx.amount ?? 0
+			const platform = tx.platform_fee ?? 0
+			const paypal = extractPaypalFee(tx.raw_webhook_payload)
+			acc.gross += amount
+			acc.platform += platform
+			acc.paypal += paypal
+			acc.net += amount - platform - paypal
+			return acc
+		},
+		{ gross: 0, platform: 0, paypal: 0, net: 0 }
+	)
 
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
@@ -145,11 +181,23 @@ export default function SellerDashboardClient({
 
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader className="pb-2">
-								<CardTitle className="text-muted-foreground text-sm">Revenue</CardTitle>
+								<CardTitle className="text-muted-foreground text-sm">Net Revenue</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<div className="text-2xl font-bold">€{totalRevenue.toFixed(2)}</div>
-								<p className="text-muted-foreground text-xs">Total earned</p>
+								<div className="text-2xl font-bold">€{totals.net.toFixed(2)}</div>
+								<p className="text-muted-foreground text-xs">After platform and PayPal fees</p>
+								<div className="text-muted-foreground mt-2 space-y-1 text-xs">
+									<p>Gross: €{totals.gross.toFixed(2)}</p>
+									<p>Platform fees: −€{totals.platform.toFixed(2)}</p>
+									<p>PayPal fees: −€{totals.paypal.toFixed(2)}</p>
+									<div className="flex items-start gap-2 pt-2">
+										<Info className="mt-0.5 h-3.5 w-3.5" />
+										<span>
+											How fees work: Net = Amount − Platform fees − PayPal fees. Platform fees are 10% of the listing
+											price. PayPal fees are provided by PayPal in the capture and may vary by country and payment method.
+										</span>
+									</div>
+								</div>
 							</CardContent>
 						</Card>
 					</div>
@@ -231,7 +279,19 @@ export default function SellerDashboardClient({
 													<p>
 														{t.registrationNumber ?? 'Registration Number'}: {bib.registrationNumber}
 													</p>
-													<p>Amount: €{tx.amount?.toFixed(2) ?? 'N/A'}</p>
+													{(() => {
+														const paypalFee = extractPaypalFee(tx.raw_webhook_payload)
+														const net = (tx.amount ?? 0) - (tx.platform_fee ?? 0) - paypalFee
+														return (
+															<div className="space-y-0.5">
+																<p>Amount: €{tx.amount?.toFixed(2) ?? 'N/A'}</p>
+																<p>
+																	Net: <span className="font-medium">€{net.toFixed(2)}</span>{' '}
+																	<span className="text-xs">(Amount €{(tx.amount ?? 0).toFixed(2)} − Platform €{(tx.platform_fee ?? 0).toFixed(2)} − PayPal €{paypalFee.toFixed(2)})</span>
+																</p>
+															</div>
+														)
+													})()}
 												</div>
 											</div>
 										)
