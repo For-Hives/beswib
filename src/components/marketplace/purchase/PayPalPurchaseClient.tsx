@@ -195,7 +195,7 @@ export default function PayPalPurchaseClient({
 			setLoading(true)
 			setErrorMessage(null)
 
-			const data = await createOrder(sellerId, bib.price.toString())
+			const data = await createOrder(sellerId, bib)
 			if (data.error !== null && data.error !== undefined && data.error !== '') {
 				throw new Error(data.error)
 			}
