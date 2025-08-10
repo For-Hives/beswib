@@ -1,5 +1,7 @@
 import { updateTransaction, getTransactionByOrderId, createTransaction } from './transaction.services'
 import { updateBib } from './bib.services'
+import { Bib } from '@/models/bib.model'
+import { BibSale } from '@/components/marketplace/CardMarket'
 // --- PayPal Webhook Event Types and Handlers ---
 export type PayPalWebhookEvent = {
 	create_time: string
@@ -309,7 +311,7 @@ export async function capturePayment(orderID: string): Promise<{ data?: PayPalCa
 	}
 }
 
-export async function createOrder(sellerId: string, amount: string): Promise<{ error?: string; id?: string }> {
+export async function createOrder(sellerId: string, bib: BibSale): Promise<{ error?: string; id?: string }> {
 	try {
 		const token = await getAccessToken()
 		const orderData = {
@@ -319,7 +321,7 @@ export async function createOrder(sellerId: string, amount: string): Promise<{ e
 						platform_fees: [
 							{
 								amount: {
-									value: (parseFloat(amount) * 0.1).toFixed(2), // 10% Platform commission
+									value: (parseFloat(bib.price.toString()) * 0.1).toFixed(2), // 10% Platform commission
 									currency_code: 'EUR',
 								},
 								payee: { merchant_id: 'ZBXWM6RWP6NE4' }, // Platform receives fee
@@ -328,15 +330,16 @@ export async function createOrder(sellerId: string, amount: string): Promise<{ e
 					},
 					payee: { merchant_id: sellerId },
 					amount: {
-						value: amount,
+						value: bib.price.toString(),
 						currency_code: 'EUR',
 						breakdown: {
-							item_total: { value: amount, currency_code: 'EUR' },
+							item_total: { value: bib.price.toString(), currency_code: 'EUR' },
 						},
 					},
 				},
 			],
 			intent: 'CAPTURE',
+			custom_id: bib.id,
 		}
 
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
