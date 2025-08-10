@@ -73,6 +73,52 @@ export async function fetchBuyerCompletedTransactions(buyerUserId: string): Prom
 }
 
 /**
+ * Fetch all transactions for a seller (PocketBase user id), newest first.
+ */
+export async function fetchSellerTransactions(sellerUserId: string): Promise<TransactionWithExpand[]> {
+	if (sellerUserId === '') {
+		console.error('Seller User ID is required to fetch their transactions.')
+		return []
+	}
+	try {
+		const records = await pb.collection('transactions').getFullList<TransactionWithExpand>({
+			sort: '-created',
+			filter: `seller_user_id = "${sellerUserId}"`,
+			expand: 'bib_id,bib_id.eventId',
+		})
+		return records
+	} catch (error: unknown) {
+		throw new Error(
+			`Error fetching transactions for seller ID "${sellerUserId}": ` +
+				(error instanceof Error ? error.message : String(error))
+		)
+	}
+}
+
+/**
+ * Fetch only completed (succeeded) transactions for a seller.
+ */
+export async function fetchSellerCompletedTransactions(sellerUserId: string): Promise<TransactionWithExpand[]> {
+	if (sellerUserId === '') {
+		console.error('Seller User ID is required to fetch their completed transactions.')
+		return []
+	}
+	try {
+		const records = await pb.collection('transactions').getFullList<TransactionWithExpand>({
+			sort: '-created',
+			filter: `seller_user_id = "${sellerUserId}" && status = 'succeeded'`,
+			expand: 'bib_id,bib_id.eventId',
+		})
+		return records
+	} catch (error: unknown) {
+		throw new Error(
+			`Error fetching completed transactions for seller ID "${sellerUserId}": ` +
+				(error instanceof Error ? error.message : String(error))
+		)
+	}
+}
+
+/**
  * Creates a new transaction record.
  * @param transactionData Data for the new transaction.
  *   Expects: bibId, buyerUserId (PocketBase User ID), sellerUserId (PocketBase User ID),
