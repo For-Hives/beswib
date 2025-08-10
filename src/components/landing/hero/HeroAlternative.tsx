@@ -13,7 +13,7 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 
 	return (
 		<div className="relative">
-			<div className="pointer-events-none absolute top-32 left-0 z-30 h-[calc(100vh-10rem)] w-[100vw] lg:top-32 xl:top-48">
+			<div className="pointer-events-none absolute top-32 left-0 z-30 h-[calc(100vh-10rem)] w-[100vw] scale-75 md:scale-100 lg:top-32 xl:top-48">
 				<Image
 					alt="template-run"
 					className="z-30 -scale-x-100 overflow-visible object-cover object-bottom dark:grayscale"

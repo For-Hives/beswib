@@ -17,9 +17,7 @@ type GroupKind = 'peloton' | 'breakaway' | 'straggler'
 const safeRandomId = (): string => {
 	try {
 		if (typeof window !== 'undefined' && window.crypto) {
-			// @ts-expect-error randomUUID may be missing on older browsers
 			if (typeof window.crypto.randomUUID === 'function') {
-				// @ts-ignore
 				return window.crypto.randomUUID()
 			}
 			if (typeof window.crypto.getRandomValues === 'function') {
@@ -57,6 +55,30 @@ export function AnimatedLife() {
 	const fastSpecialIdRef = useRef<string>('')
 	const slowSpecialIdRef = useRef<string>('')
 	const [showSpecialTooltip, setShowSpecialTooltip] = useState(false)
+
+	// Responsive speed/count factors derived from viewport
+	// Phones: +30% speed, -50% population
+	const [speedFactor, setSpeedFactor] = useState<number>(GLOBAL_SPEED)
+	const [countFactor, setCountFactor] = useState<number>(COUNT_MULTIPLIER)
+
+	useEffect(() => {
+		const compute = () => {
+			if (typeof window === 'undefined') return
+			const w = window.innerWidth
+			// Tailwind-esque breakpoints: phone <= 640px
+			if (w <= 640) {
+				// Phone: add +0.3 speed on top of global knob (ensures net speed-up even if GLOBAL_SPEED < 1)
+				setSpeedFactor(Math.max(0.1, GLOBAL_SPEED + 0.3))
+				setCountFactor(Math.max(0, COUNT_MULTIPLIER * 0.5))
+			} else {
+				setSpeedFactor(GLOBAL_SPEED)
+				setCountFactor(COUNT_MULTIPLIER)
+			}
+		}
+		compute()
+		window.addEventListener('resize', compute)
+		return () => window.removeEventListener('resize', compute)
+	}, [])
 
 	const randInt = useCallback((min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min, [])
 
@@ -141,13 +163,13 @@ export function AnimatedLife() {
 				let durationMs = pickDuration(g)
 				let delayMs = pickDelay(g)
 				// Apply global speed
-				durationMs = Math.max(1000, Math.round(durationMs / GLOBAL_SPEED))
-				delayMs = Math.max(0, Math.round(delayMs / GLOBAL_SPEED))
+				durationMs = Math.max(1000, Math.round(durationMs / speedFactor))
+				delayMs = Math.max(0, Math.round(delayMs / speedFactor))
 				const { durationMs: dMs, delayMs: dlMs } = clampToOneMinute(durationMs, delayMs)
 				// Vertical position: random across 0–40 (decoupled from group)
 				const topPercent = randInt(0, 40)
 				let internalDurMs = mapRange(dMs, kindMin, kindMax, internalMin, internalMax)
-				internalDurMs = Math.max(150, Math.round(internalDurMs / GLOBAL_SPEED))
+				internalDurMs = Math.max(150, Math.round(internalDurMs / speedFactor))
 				result.push({
 					id: `${kind}-${g}-${safeRandomId()}`,
 					kind,
@@ -172,12 +194,12 @@ export function AnimatedLife() {
 
 			return result
 		},
-		[clampToOneMinute, randInt, theme]
+		[clampToOneMinute, randInt, theme, speedFactor]
 	)
 
 	const spawnWave = useCallback(() => {
-		const bikeCount = randInt(Math.round(25 * COUNT_MULTIPLIER), Math.round(55 * COUNT_MULTIPLIER))
-		const runnerCount = randInt(Math.round(25 * COUNT_MULTIPLIER), Math.round(55 * COUNT_MULTIPLIER))
+		const bikeCount = randInt(Math.round(25 * countFactor), Math.round(55 * countFactor))
+		const runnerCount = randInt(Math.round(25 * countFactor), Math.round(55 * countFactor))
 		const bikes = generateGroup('bike', bikeCount)
 		const runners = generateGroup('runner', runnerCount)
 		const all = [...bikes, ...runners]
@@ -222,7 +244,7 @@ export function AnimatedLife() {
 		}
 		setEntities(all)
 		nextWaveAtRef.current = Date.now() + 60000
-	}, [generateGroup, randInt])
+	}, [generateGroup, randInt, countFactor])
 
 	useEffect(() => {
 		spawnWave()
@@ -265,9 +287,8 @@ export function AnimatedLife() {
 	)
 
 	return (
-		<div
-			className="absolute bottom-0 left-0 z-20 flex h-[35vh] w-screen"
-			role="button"
+		<button
+			className="absolute bottom-0 left-0 z-20 flex h-[45vh] w-screen md:h-[35vh]"
 			tabIndex={0}
 			onClick={() => setShowSpecialTooltip(v => !v)}
 			onKeyDown={e => {
@@ -323,7 +344,7 @@ export function AnimatedLife() {
 					</div>
 				))}
 			</div>
-		</div>
+		</button>
 	)
 }
 
