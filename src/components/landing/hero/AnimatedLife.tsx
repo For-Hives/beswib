@@ -33,24 +33,7 @@ function Cycling() {
 				fill="black"
 			/>
 			<path d="M767.183 180.998L754.519 192.602L717.494 182.058V164.114H767.183V180.998Z" fill="black" />
-			{/* Crank + pedals (rotating) */}
-			<g>
-				<g>
-					<circle cx="400" cy="563.5" r="10" fill="black" />
-					<line x1="400" y1="503.5" x2="400" y2="623.5" stroke="black" strokeWidth="12" strokeLinecap="round" />
-					<rect x="390" y="498.5" width="20" height="10" rx="2" fill="black" />
-					<rect x="390" y="613.5" width="20" height="10" rx="2" fill="black" />
-					<animateTransform
-						attributeName="transform"
-						attributeType="XML"
-						type="rotate"
-						from="0 400 563.5"
-						to="360 400 563.5"
-						dur="0.8s"
-						repeatCount="indefinite"
-					/>
-				</g>
-			</g>
+
 			<path d="M18 563.5H290.5" stroke="black" strokeWidth="25">
 				<animateTransform
 					attributeName="transform"
