@@ -93,7 +93,11 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 								</div>
 							</div>
 						</div>
-						<div className="-mr-2 flex sm:hidden">
+						<div className="-mr-2 flex gap-4 sm:hidden">
+							<div className="flex items-center gap-3">
+								<ThemeToggle />
+							</div>
+
 							{/* Mobile menu button 📱 */}
 							<DisclosureButton className="group text-muted-foreground hover:bg-accent hover:text-accent-foreground focus:ring-ring relative inline-flex items-center justify-center rounded-md p-2 transition-colors focus:ring-2 focus:outline-none focus:ring-inset">
 								<span className="absolute -inset-0.5" />
