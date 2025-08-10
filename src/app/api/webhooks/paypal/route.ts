@@ -8,6 +8,7 @@ import {
 	handleConsentRevoked,
 	PayPalWebhookEvent,
 } from '@/services/paypal.services'
+import { verifyPayPalWebhookSignature } from '@/lib/paypalWebhookVerify'
 
 // PayPalWebhookEvent type is now imported from paypal.services
 
@@ -30,12 +31,15 @@ export async function POST(request: NextRequest) {
 			body: body,
 		})
 
+		// Verify webhook signature
+		const verified = await verifyPayPalWebhookSignature({ headers, body })
+		if (!verified) {
+			console.error('PayPal webhook signature verification failed')
+			return NextResponse.json({ error: 'Invalid webhook signature' }, { status: 400 })
+		}
+
 		// Parse the webhook payload
 		const webhookEvent = JSON.parse(body) as PayPalWebhookEvent
-
-		// TODO: Implement proper webhook signature verification
-		// For now, we'll process the webhook without signature verification
-		// In production, you should verify the signature using PayPal's SDK
 
 		console.info('Processing PayPal webhook event:', webhookEvent.event_type)
 
