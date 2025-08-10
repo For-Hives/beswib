@@ -1,5 +1,6 @@
 import type { User } from './user.model'
 import type { Bib } from './bib.model'
+import type { Event } from './event.model'
 
 export interface Transaction {
 	id: string
@@ -23,4 +24,9 @@ export interface Transaction {
 	payment_status: string
 	capture_time: string
 	raw_webhook_payload: string
+}
+
+// Richer transaction type with PocketBase expand for bib and event
+export type TransactionWithExpand = Transaction & {
+	expand?: { bib_id?: Bib & { expand?: { eventId: Event } } }
 }

@@ -1,6 +1,4 @@
 'use server'
-import type { Bib } from '@/models/bib.model'
-import type { Event } from '@/models/event.model'
 // Helper: Find transaction by PayPal orderId
 export async function getTransactionByOrderId(
 	orderId: string
@@ -17,13 +15,11 @@ export async function getTransactionByOrderId(
 	}
 }
 
-import type { Transaction } from '@/models/transaction.model'
+import type { Transaction, TransactionWithExpand } from '@/models/transaction.model'
 
 import { pb } from '@/lib/pocketbaseClient'
 
-export type TransactionWithExpand = Transaction & {
-	expand?: { bib_id?: Bib & { expand?: { eventId: Event } } }
-}
+// type moved to models/transaction.model
 
 /**
  * Fetch all transactions for a buyer (PocketBase user id), newest first.

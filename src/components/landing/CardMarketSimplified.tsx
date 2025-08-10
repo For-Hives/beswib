@@ -9,22 +9,10 @@ import { formatDateWithLocale } from '@/lib/dateUtils'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
 import type { Event } from '@/models/event.model'
+import type { BibSaleSimplified } from '@/models/marketplace.model'
 import { cn } from '@/lib/utils'
 
-export interface BibSaleSimplified {
-	event: {
-		date: Date
-		distance: number
-		distanceUnit: string
-		image: string
-		location: string
-		name: string
-		participantCount: number
-	}
-	id: string
-	originalPrice: number
-	price: number
-}
+// Type moved to src/models/marketplace.model
 
 interface CardMarketSimplifiedProps {
 	bibSaleSimplified: BibSaleSimplified

@@ -5,7 +5,7 @@ import React, { useMemo } from 'react'
 import { parseAsArrayOf, parseAsFloat, parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
 import Fuse from 'fuse.js'
 
-import type { BibSale } from '@/components/marketplace/CardMarket'
+import type { BibSale } from '@/models/marketplace.model'
 
 import { Search } from 'lucide-react'
 
