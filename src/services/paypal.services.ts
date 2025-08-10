@@ -1,21 +1,16 @@
 import { getTransactionByOrderId, updateTransaction } from './transaction.services'
-import { BibSale } from '@/components/marketplace/CardMarket'
+import type { BibSale } from '@/models/marketplace.model'
+import type {
+	PayPalAccessToken,
+	PayPalCaptureResponse,
+	PayPalOrderResponse,
+	PayPalPartnerReferralResponse,
+	PayPalPaymentCaptureResource,
+	PayPalWebhook,
+	PayPalWebhookEvent,
+} from '@/models/paypal.model'
 // --- PayPal Webhook Event Types and Handlers ---
-export type PayPalWebhookEvent = {
-	create_time: string
-	event_type: string
-	resource: unknown
-	resource_type: string
-	summary: string
-}
-
-export type PayPalPaymentCaptureResource = {
-	supplementary_data?: { related_ids?: { order_id?: string; bib_id?: string } }
-	id?: string
-	payee?: { email_address?: string }
-	amount?: { value?: string; currency_code?: string }
-	status?: string
-}
+// Types moved to src/models/paypal.model
 
 export async function handlePaymentCaptureCompleted(event: unknown) {
 	if (typeof event !== 'object' || event === null) {
@@ -142,56 +137,7 @@ export async function handleConsentRevoked(event: PayPalWebhookEvent) {
 	return { revoked: true, event }
 }
 
-interface PayPalAccessToken {
-	access_token: string
-	expires_in: number
-	token_type: string
-}
-
-interface PayPalCaptureResponse {
-	id: string
-	status: string
-}
-
-interface PayPalLink {
-	href: string
-	method?: string
-	rel: string
-}
-
-interface PayPalOperation {
-	api_integration_preference?: {
-		rest_api_integration?: {
-			third_party_details?: {
-				merchant_id?: string
-			}
-		}
-	}
-	operation: string
-}
-
-interface PayPalOrderResponse {
-	id: string
-	status: string
-}
-
-interface PayPalPartnerReferralResponse {
-	collected_consents: unknown[]
-	id: string
-	legal_consents: unknown[]
-	links: PayPalLink[]
-	operations: PayPalOperation[]
-	partner_client_id: string
-	preferred_language_code: string
-	products: string[]
-	technical_phone_contacts: unknown[]
-}
-
-interface Webhook {
-	event_types: { name: string }[]
-	id: string
-	url: string
-}
+// Interfaces moved to src/models/paypal.model
 
 export async function capturePayment(orderID: string): Promise<{ data?: PayPalCaptureResponse; error?: string }> {
 	try {
@@ -325,7 +271,7 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 	}
 }
 
-export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?: Webhook[] }> {
+export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?: PayPalWebhook[] }> {
 	try {
 		const token = await getAccessToken()
 
@@ -344,7 +290,7 @@ export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?:
 			return { error: JSON.stringify(error) }
 		}
 
-		const data = (await response.json()) as { webhooks: Webhook[] }
+		const data = (await response.json()) as { webhooks: PayPalWebhook[] }
 		return { webhooks: data.webhooks }
 	} catch (error) {
 		console.error('List webhooks error:', error instanceof Error ? error.message : error)

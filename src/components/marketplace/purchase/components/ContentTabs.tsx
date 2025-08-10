@@ -4,7 +4,7 @@ import React, { Fragment } from 'react'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { formatDateWithLocale } from '@/lib/dateUtils'
-import type { BibSale } from '@/components/marketplace/CardMarket'
+import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n-config'
 

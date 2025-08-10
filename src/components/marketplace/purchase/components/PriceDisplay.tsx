@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import type { BibSale } from '@/components/marketplace/CardMarket'
+import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
 
 interface PriceDisplayProps {

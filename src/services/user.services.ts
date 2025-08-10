@@ -1,35 +1,10 @@
 'use server'
 import { pbDateToLuxon } from '@/lib/dateUtils'
 import { pb } from '@/lib/pocketbaseClient'
-import { User } from '@/models/user.model'
+import { User, type PbUserRecordMinimal } from '@/models/user.model'
 import { DateTime } from 'luxon'
 
-// Map PocketBase record (uses 'bithDate') to our User model ('birthDate')
-interface PbUserRecordMinimal {
-	id: string
-	clerkId: string | null
-	paypalMerchantId: string | null
-	role: 'admin' | 'user'
-	email: string
-	contactEmail: string | null
-	firstName: string | null
-	lastName: string | null
-	birthDate: string | Date | null
-	phoneNumber: string | null
-	emergencyContactName: string | null
-	emergencyContactPhone: string | null
-	emergencyContactRelationship: string | null
-	address: string | null
-	postalCode: string | null
-	city: string | null
-	country: string | null
-	gender: 'female' | 'male' | 'other' | null
-	medicalCertificateUrl: string | null
-	licenseNumber: string | null
-	clubAffiliation: string | null
-	created: string
-	updated: string
-}
+// Map PocketBase record to our User model
 
 function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 	// Normalize PB 'birthDate' (string or Date) to 'YYYY-MM-DD' using Luxon

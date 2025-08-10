@@ -11,7 +11,7 @@ import type { Organizer } from '@/models/organizer.model'
 import type { Bib } from '@/models/bib.model'
 
 import { createSale } from '@/app/[locale]/purchase/actions'
-import { BibSale } from '@/components/marketplace/CardMarket'
+import type { BibSale } from '@/models/marketplace.model'
 import { captureOrder } from '@/app/[locale]/purchase/actions'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'

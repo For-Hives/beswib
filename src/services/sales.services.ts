@@ -1,21 +1,13 @@
 'use server'
 
-import { createOrder, PayPalPaymentCaptureResource } from './paypal.services'
+import { createOrder } from './paypal.services'
 import { createTransaction, updateTransaction, getTransactionByOrderId } from './transaction.services'
 import { fetchBibById, updateBib } from './bib.services'
 import { fetchUserByClerkId } from './user.services'
-import type { BibSale } from '@/components/marketplace/CardMarket'
+import type { BibSale } from '@/models/marketplace.model'
+import type { SalesCreateInput, SalesCreateOutput, SalesCompleteInput, SalesCompleteOutput } from '@/models/sales.model'
 
-type SalesCreateInput = {
-	buyerUserId: string
-	sellerMerchantId: string // PayPal merchant id
-	bibId: string
-}
-
-type SalesCreateOutput = {
-	orderId: string
-	transaction: { id: string }
-}
+// Types moved to src/models/sales.model
 
 // Create PayPal order and persist a pending Transaction linked to that order
 export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateOutput> {
@@ -90,20 +82,7 @@ export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateO
 	return { orderId: order.id, transaction: tx }
 }
 
-type SalesCompleteInput = {
-	event: {
-		resource: PayPalPaymentCaptureResource & {
-			payer?: { payer_id?: string }
-			update_time?: string
-			create_time?: string
-		}
-	}
-}
-
-type SalesCompleteOutput = {
-	transactionId: string | null
-	bibId: string | null
-}
+// Types moved to src/models/sales.model
 
 // Finalize the Transaction and mark the bib as sold based on PayPal capture webhook
 export async function salesComplete(input: SalesCompleteInput): Promise<SalesCompleteOutput> {

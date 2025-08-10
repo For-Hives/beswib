@@ -8,30 +8,7 @@ import clsx from 'clsx'
 
 import { formatDateWithLocale } from '@/lib/dateUtils'
 import { cn } from '@/lib/utils'
-
-export interface BibSale {
-	event: {
-		date: Date
-		distance: number
-		distanceUnit: 'km' | 'mi'
-		id: string
-		image: string
-		location: string
-		name: string
-		participantCount: number
-		type: 'cycling' | 'other' | 'running' | 'swimming' | 'trail' | 'triathlon'
-	}
-	id: string
-	originalPrice: number
-	price: number
-	status: 'available' | 'sold'
-	user: {
-		firstName: string
-		id: string
-		lastName: string
-	}
-	lockedAt: Date | string | null
-}
+import type { BibSale } from '@/models/marketplace.model'
 
 interface CardMarketProps {
 	bibSale: BibSale
