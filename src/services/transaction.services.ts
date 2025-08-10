@@ -2,12 +2,12 @@
 // Helper: Find transaction by PayPal orderId
 export async function getTransactionByOrderId(
 	orderId: string
-): Promise<{ id: string; bibId: string; buyerUserId: string } | null> {
+): Promise<{ id: string; bib_id: string; buyer_user_id: string } | null> {
 	if (!orderId) return null
 	try {
 		const record = await pb
 			.collection('transactions')
-			.getFirstListItem<{ id: string; bibId: string; buyerUserId: string }>(`paypal_order_id = "${orderId}"`)
+			.getFirstListItem<{ id: string; bib_id: string; buyer_user_id: string }>(`paypal_order_id = "${orderId}"`)
 		return record ?? null
 	} catch {
 		// Not found or query error
@@ -29,11 +29,11 @@ export async function createTransaction(
 	transactionData: Omit<Transaction, 'id' | 'transactionDate'>
 ): Promise<null | Transaction> {
 	if (
-		transactionData.bibId === '' ||
-		transactionData.buyerUserId === '' ||
-		transactionData.sellerUserId === '' ||
+		transactionData.bib_id === '' ||
+		transactionData.buyer_user_id === '' ||
+		transactionData.seller_user_id === '' ||
 		transactionData.amount === undefined ||
-		transactionData.platformFee === undefined ||
+		transactionData.platform_fee === undefined ||
 		!transactionData.status
 	) {
 		console.error('Missing required fields for transaction creation:', transactionData)

@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache'
 import { createTransaction } from '@/services/transaction.services'
 import { salesCreate } from '@/services/sales.services'
 import { fetchBibById } from '@/services/bib.services'
+import { fetchUserByClerkId } from '@/services/user.services'
 
 export async function handlePaymentPageOpened(paymentIntentId: string, bibId: string) {
 	const { userId } = await auth()
@@ -19,21 +20,26 @@ export async function handlePaymentPageOpened(paymentIntentId: string, bibId: st
 		if (!bib) {
 			throw new Error('Bib not found.')
 		}
+		// Map Clerk userId to PocketBase user record ID
+		const pbUser = await fetchUserByClerkId(userId)
+		if (!pbUser) {
+			throw new Error('User not found in database.')
+		}
 
 		const transaction = await createTransaction({
 			status: 'pending',
-			sellerUserId: bib.sellerUserId,
-			platformFee: bib.price * 0.1,
-			paymentIntentId: paymentIntentId,
+			seller_user_id: bib.sellerUserId,
+			platform_fee: bib.price * 0.1,
 			paypal_order_id: paymentIntentId,
 			paypal_capture_id: '',
 			payer_email: '',
+			payer_id: '',
 			currency: 'EUR',
 			payment_status: 'pending',
 			capture_time: '',
 			raw_webhook_payload: '',
-			buyerUserId: userId,
-			bibId: bib.id,
+			buyer_user_id: pbUser.id,
+			bib_id: bib.id,
 			amount: bib.price,
 		})
 
@@ -61,7 +67,6 @@ export async function createSale(bibId: string, sellerMerchantId: string) {
 		return { success: false, error: 'Missing parameters.' }
 	}
 	try {
-		console.log('BEZJIGEZJOG')
 		const { orderId, transaction } = await salesCreate({
 			buyerUserId: userId,
 			sellerMerchantId,
