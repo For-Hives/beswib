@@ -11,34 +11,27 @@ interface Position {
 
 interface SpotlightCardProps extends React.PropsWithChildren {
 	className?: string
-	spotlightColor?: `rgba(${number}, ${number}, ${number}, ${number})`
+	/**
+	 * CSS color for the spotlight radial gradient. Defaults to theme variable
+	 * `--interactive-bubble` which is tuned for both light and dark.
+	 */
+	spotlightColor?: string
 }
 
 const SpotlightCard: React.FC<SpotlightCardProps> = ({
-	spotlightColor = 'rgba(255, 255, 255, 0.25)',
+	spotlightColor = 'var(--interactive-bubble)',
 	className = '',
 	children,
 }) => {
 	const divRef = useRef<HTMLDivElement>(null)
-	const [isFocused, setIsFocused] = useState<boolean>(false)
 	const [position, setPosition] = useState<Position>({ y: 0, x: 0 })
 	const [opacity, setOpacity] = useState<number>(0)
 
 	const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = e => {
-		if (!divRef.current || isFocused) return
+		if (!divRef.current) return
 
 		const rect = divRef.current.getBoundingClientRect()
 		setPosition({ y: e.clientY - rect.top, x: e.clientX - rect.left })
-	}
-
-	const handleFocus = () => {
-		setIsFocused(true)
-		setOpacity(0.6)
-	}
-
-	const handleBlur = () => {
-		setIsFocused(false)
-		setOpacity(0)
 	}
 
 	const handleMouseEnter = () => {
@@ -53,13 +46,9 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
 		<div
 			ref={divRef}
 			onMouseMove={handleMouseMove}
-			onFocus={handleFocus}
-			onBlur={handleBlur}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
-			className={`relative overflow-hidden rounded-3xl border border-neutral-400 bg-neutral-200 p-8 dark:border-neutral-800 dark:bg-neutral-900 ${className}`}
-			tabIndex={0}
-			role="button"
+			className={`border-border bg-card relative overflow-hidden rounded-3xl border p-8 ${className}`}
 			aria-label="Interactive card with spotlight effect"
 		>
 			<div

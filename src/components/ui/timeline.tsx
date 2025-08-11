@@ -70,9 +70,9 @@ const TimelineItem = ({
 	return (
 		<div ref={itemRef} className="flex justify-start pt-10 md:gap-10 md:pt-20">
 			<div className="sticky top-40 z-40 flex max-w-xs flex-col items-center self-start md:w-full md:flex-row lg:max-w-sm">
-				<div className="absolute left-3 ml-2.5 flex h-6 w-6 items-center justify-center rounded-full bg-neutral-50/70 ring-1 ring-neutral-200/60 md:left-3 dark:bg-neutral-900/60 dark:ring-neutral-700/60">
+				<div className="bg-card/70 ring-border/60 absolute left-3 ml-2.5 flex h-6 w-6 items-center justify-center rounded-full ring-1 md:left-3">
 					<div
-						className={`h-2.5 w-2.5 rounded-full ${isActive ? 'bg-gradient-to-r from-purple-500 via-blue-500 to-sky-400' : 'bg-neutral-300 dark:bg-neutral-700'}`}
+						className={`h-2.5 w-2.5 rounded-full ${isActive ? 'bg-gradient-to-r from-purple-500 via-blue-500 to-sky-400' : 'bg-muted'}`}
 					/>
 				</div>
 				<motion.h3
@@ -194,7 +194,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 				))}
 				<div
 					style={{ height: height + 'px' }}
-					className="absolute top-0 left-8 w-[2px] overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] md:left-8 dark:via-neutral-700"
+					className="via-border absolute top-0 left-8 w-[2px] overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] md:left-8"
 				>
 					<motion.div
 						style={{ opacity: opacityTransform, height: heightEased }}
