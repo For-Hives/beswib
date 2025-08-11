@@ -19,7 +19,6 @@ export default async function Home({ params }: { params: Promise<LocaleParams> }
 	return (
 		<div className="relative">
 			{/* Hero Section 🦸 */}
-			{/* <Hero localeParams={params} /> */}
 			<HeroAlternative localeParams={params} />
 			{/* Stats Section 📊 */}
 			<BibStats localeParams={params} />
