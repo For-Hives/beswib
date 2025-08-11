@@ -22,6 +22,7 @@ const nextConfig: NextConfig = {
 			'https://*.clerk.accounts.dev',
 			'https://clerk.com',
 			'https://challenges.cloudflare.com',
+			'https://umami.wadefade.fr',
 		].join(' ')
 
 		const connectSrc = [
@@ -32,6 +33,7 @@ const nextConfig: NextConfig = {
 			'https://www.paypal.com',
 			'https://*.clerk.accounts.dev',
 			'https://clerk.com',
+			'https://umami.wadefade.fr',
 		].join(' ')
 
 		const frameSrc = [
