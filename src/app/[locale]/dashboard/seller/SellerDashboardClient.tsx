@@ -1,6 +1,6 @@
 'use client'
 
-import { Edit3, Info, List, Plus, Search, Tag, Users } from 'lucide-react'
+import { Edit3, List, Plus, Search, Tag, Users } from 'lucide-react'
 
 import Link from 'next/link'
 
