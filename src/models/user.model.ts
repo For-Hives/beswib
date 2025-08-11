@@ -49,7 +49,7 @@ export interface PbUserRecordMinimal {
 	postalCode: string | null
 	city: string | null
 	country: string | null
-	gender: 'female' | 'male' | 'other' | null
+	gender: 'female' | 'male' | 'other' | 'helicopter apache' | null
 	medicalCertificateUrl: string | null
 	licenseNumber: string | null
 	clubAffiliation: string | null
