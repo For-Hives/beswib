@@ -16,7 +16,6 @@ import type { Bib } from '@/models/bib.model'
 
 import { createSale, captureOrder } from '@/app/[locale]/purchase/actions'
 import { isUserProfileComplete } from '@/lib/userValidation'
-
 import { isLocked, lockBib } from '@/services/bib.services'
 import { Locale } from '@/lib/i18n-config'
 

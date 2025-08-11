@@ -6,9 +6,9 @@ import { revalidatePath } from 'next/cache'
 import { createTransaction } from '@/services/transaction.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { capturePayment } from '@/services/paypal.services'
+import { PLATFORM_FEE } from '@/constants/global.constant'
 import { salesCreate } from '@/services/sales.services'
 import { fetchBibById } from '@/services/bib.services'
-import { PLATFORM_FEE } from '@/constants/global.constant'
 
 export async function handlePaymentPageOpened(paymentIntentId: string, bibId: string) {
 	const { userId } = await auth()
