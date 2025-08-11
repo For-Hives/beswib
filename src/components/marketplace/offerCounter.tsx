@@ -36,7 +36,7 @@ export default function OfferCounter({ sortValue, onSortChange, locale, count }:
 	return (
 		<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 			{/* Display the number of available bibs, with pluralization 🧮 */}
-			<p className="text-sm text-gray-400">{countLabel}</p>
+			<p className="text-muted-foreground text-sm">{countLabel}</p>
 			{/* Dropdown to select the sort order 🔄 */}
 			<SelectAnimated
 				className="w-full sm:w-48"
