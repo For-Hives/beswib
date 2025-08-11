@@ -1,11 +1,19 @@
-const clientId = () => process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
-const clientSecret = () => process.env.PAYPAL_CLIENT_SECRET
-const webhookId = () => process.env.PAYPAL_WEBHOOK_ID
-const apiUrl = () => process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
-
-if (clientId == null) throw new Error('Missing PayPal client ID')
-if (clientSecret == null) throw new Error('Missing PayPal client secret')
-if (webhookId == null) throw new Error('Missing PayPal webhook ID')
+const clientId = (): string => {
+	const v = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+	if (v == null || v === '') throw new Error('Missing PayPal client ID')
+	return v
+}
+const clientSecret = (): string => {
+	const v = process.env.PAYPAL_CLIENT_SECRET
+	if (v == null || v === '') throw new Error('Missing PayPal client secret')
+	return v
+}
+const webhookId = (): string => {
+	const v = process.env.PAYPAL_WEBHOOK_ID
+	if (v == null || v === '') throw new Error('Missing PayPal webhook ID')
+	return v
+}
+const apiUrl = (): string => process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
 
 async function getPayPalAccessToken(): Promise<string> {
 	const auth = Buffer.from(`${clientId()}:${clientSecret()}`).toString('base64')
@@ -59,9 +67,12 @@ export async function verifyPayPalWebhookSignature({
 		return false
 	}
 
+	// Narrow the parsed body to an object; PayPal expects an object for webhook_event
+	const parsedBody = JSON.parse(body) as Record<string, unknown>
+
 	const payload = {
-		webhook_id: webhookId,
-		webhook_event: JSON.parse(body),
+		webhook_id: webhookId(),
+		webhook_event: parsedBody,
 		transmission_time: transmissionTime,
 		transmission_sig: transmissionSig,
 		transmission_id: transmissionId,
