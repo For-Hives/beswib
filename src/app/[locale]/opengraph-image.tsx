@@ -1,130 +1,229 @@
 import { ImageResponse } from 'next/og'
-import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { headers } from 'next/headers'
 
-export const alt = 'Beswib – Achetez et vendez vos dossards simplement et en toute sécurité'
-export const size = { width: 1200, height: 630 }
+/**
+ * Open Graph image route for localized pages.
+ *
+ * This route renders a 1200x630 image using Satori (via `ImageResponse`).
+ * We point Satori to a static PNG hosted under `/public/openGraph` using an
+ * absolute URL, because Satori fetches external resources over HTTP.
+ */
+
+/**
+ * Alt text for the generated OG image.
+ */
+export const alt = 'Beswib Open Graph Image'
+/**
+ * Standard Open Graph dimensions.
+ */
+export const size = {
+	width: 1200,
+	height: 630,
+}
+/**
+ * Output MIME type for the generated image.
+ */
 export const contentType = 'image/png'
-export const runtime = 'nodejs'
 
 export default async function Image() {
-	// Load assets
-	const bg = await readFile(join(process.cwd(), 'public', 'landing', 'background.jpg'))
-	const bgDataUrl = `data:image/jpeg;base64,${Buffer.from(bg).toString('base64')}`
-	const logoSvg = await readFile(join(process.cwd(), 'public', 'beswib.svg'), 'utf-8')
-	const logoDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(logoSvg)}`
+	// Read request headers to construct an absolute URL that works behind proxies
+	// (e.g., Vercel/Reverse proxies). Satori needs absolute URLs for external assets.
+	const requestHeaders = await headers()
+	const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? 'localhost:3000'
+	const xfProto = requestHeaders.get('x-forwarded-proto')
+	const isLocal = host?.startsWith('localhost') || host?.startsWith('127.0.0.1')
+	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
+
+	// Absolute URL to the static OG asset served from /public/openGraph
+	const fileName = 'OG image beswib.png'
+	const src = `${protocol}://${host}/openGraph/${encodeURIComponent(fileName)}`
+
+	// Preload social icons as data URLs to ensure reliability in OG runtime
+	async function toDataUrl(url: string, type: string = 'image/png'): Promise<string | null> {
+		try {
+			const res = await fetch(url)
+			if (!res.ok) return null
+			const buf = await res.arrayBuffer()
+			const bytes = new Uint8Array(buf)
+			let base64: string
+			// Use Buffer in Node, fallback to btoa when available (edge)
+			// @ts-ignore - Buffer may not exist in edge runtime
+			if (typeof Buffer !== 'undefined') {
+				// @ts-ignore
+				base64 = Buffer.from(bytes).toString('base64')
+			} else if (typeof btoa === 'function') {
+				let binary = ''
+				for (let i = 0; i < bytes.length; i += 1) binary += String.fromCharCode(bytes[i])
+				base64 = btoa(binary)
+			} else {
+				return null
+			}
+			return `data:${type};base64,${base64}`
+		} catch {
+			return null
+		}
+	}
+
+	const facebookUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('white facebook.png')}`
+	const instagramUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('white instagram.png')}`
+	const linkedinUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('white linkedin.png')}`
+	const xUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('white X.png')}`
+	const beswibLogoUrl = `${protocol}://${host}/beswib.svg`
+
+	const [facebookDataUrl, instagramDataUrl, linkedinDataUrl, xDataUrl, beswibDataUrl] = await Promise.all([
+		toDataUrl(facebookUrl),
+		toDataUrl(instagramUrl),
+		toDataUrl(linkedinUrl),
+		toDataUrl(xUrl),
+		toDataUrl(beswibLogoUrl, 'image/svg+xml'),
+	])
+
+	// No custom font loading to ensure reliability in all runtimes
 
 	return new ImageResponse(
 		(
 			<div
 				style={{
-					width: '100%',
-					height: '100%',
-					position: 'relative',
-					backgroundColor: '#0B0D12',
+					width: `${size.width}px`,
+					height: `${size.height}px`,
 					display: 'flex',
+					backgroundColor: '#000000',
+					position: 'relative',
 				}}
 			>
-				{/* Background image (mountain), dimmed */}
-				<img
-					src={bgDataUrl}
-					alt=""
-					style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.22 }}
-				/>
+				{/*
+				 * Satori supports HTML-like markup. We intentionally use a plain <img>
+				 * with an absolute URL so that Satori can fetch the PNG. `next/image`
+				 * is not supported in this rendering context.
+				 */}
+				{/* eslint-disable-next-line @next/next/no-img-element */}
+				<img src={src} width={size.width} height={size.height} alt="" style={{ objectFit: 'cover' }} />
 
-				{/* Center watermark logo */}
-				<img
-					src={logoDataUrl}
-					alt=""
-					style={{
-						position: 'absolute',
-						top: '50%',
-						left: '50%',
-						transform: 'translate(-50%, -50%)',
-						width: '70%',
-						height: '70%',
-						opacity: 0.1,
-						objectFit: 'contain',
-					}}
-				/>
-
-				{/* Dark gradient overlay for readability */}
+				{/* Text overlay container (use simple tags/styles supported by Satori) */}
 				<div
 					style={{
 						position: 'absolute',
 						inset: 0,
-						background: 'linear-gradient(180deg, rgba(0,0,0,0.48), rgba(0,0,0,0.68))',
-					}}
-				/>
-
-				{/* Safe zone wrapper (80% centered) */}
-				<div
-					style={{
-						position: 'relative',
-						zIndex: 1,
-						width: '80%',
-						margin: '0 auto',
-						height: '100%',
 						display: 'flex',
 						flexDirection: 'column',
+						padding: 0,
+						color: '#ffffff',
 					}}
 				>
-					<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', paddingTop: 18, gap: 8 }}>
-						{/* Top visual anchor: logo + brand text */}
-						<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', paddingTop: 18, gap: 8 }}>
-							<img src={logoDataUrl} alt="" style={{ width: 56, height: 56, opacity: 0.9 }} />
-							<div style={{ fontSize: 62, fontWeight: 700, color: '#B3C8D9', letterSpacing: 0.2 }}>Beswib</div>
+					{/* Absolute positioned text block at exact offsets */}
+					<div
+						style={{
+							position: 'absolute',
+							left: 70,
+							top: 169,
+							display: 'flex',
+							flexDirection: 'column',
+						}}
+					>
+						<div
+							style={{
+								display: 'flex',
+								flexDirection: 'column',
+								// fontFamily intentionally omitted for OG reliability
+								fontSize: 50,
+								fontWeight: 700,
+								lineHeight: 1.1,
+								marginBottom: 16,
+							}}
+						>
+							<div style={{ marginBottom: 4 }}>Achetez et vendez</div>
+							<div style={{ marginBottom: 4 }}>vos dossards</div>
+							<div>en toute sérénité.</div>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								flexDirection: 'column',
+								// fontFamily intentionally omitted for OG reliability
+								fontSize: 25,
+								fontWeight: 500,
+								opacity: 0.9,
+							}}
+						>
+							<div style={{ marginBottom: 2 }}>Plateforme d'achat et revente</div>
+							<div>de dossards sécurisée</div>
 						</div>
 					</div>
 
-					{/* Main content row */}
+					{/* Bottom-left social logos at left: 70px, bottom: 77px */}
 					<div
 						style={{
+							position: 'absolute',
+							left: 70,
+							top: 516,
 							display: 'flex',
-							flex: 1,
+							flexDirection: 'row',
 							alignItems: 'center',
-							gap: 128,
+							zIndex: 10,
 						}}
 					>
-						{/* Left: headline + tagline */}
-						<div style={{ display: 'flex', flexDirection: 'column', gap: 18, width: '55%' }}>
-							<div style={{ fontSize: 48, fontWeight: 800, color: '#B3C8D9', lineHeight: 1.1 }}>
-								Achetez et vendez vos dossards
-							</div>
-							<div style={{ fontSize: 28, color: '#A0A0AA' }}>simplement et en toute sécurité</div>
-						</div>
+						{/* eslint-disable-next-line @next/next/no-img-element */}
+						<img
+							src={facebookDataUrl ?? facebookUrl}
+							width={30}
+							height={30}
+							alt="Facebook"
+							style={{ marginRight: 16 }}
+						/>
+						{/* eslint-disable-next-line @next/next/no-img-element */}
+						<img
+							src={instagramDataUrl ?? instagramUrl}
+							width={30}
+							height={30}
+							alt="Instagram"
+							style={{ marginRight: 16 }}
+						/>
+						{/* eslint-disable-next-line @next/next/no-img-element */}
+						<img
+							src={linkedinDataUrl ?? linkedinUrl}
+							width={30}
+							height={30}
+							alt="LinkedIn"
+							style={{ marginRight: 16 }}
+						/>
+						{/* eslint-disable-next-line @next/next/no-img-element */}
+						<img src={xDataUrl ?? xUrl} width={30} height={30} alt="X" />
+					</div>
 
-						{/* Right: stats stack incl. logo first */}
-						<div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '45%' }}>
-							{/* Stat 1 */}
-							<div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-								<div style={{ fontSize: 24, opacity: 0.9 }}>🏅</div>
-								<div style={{ display: 'flex', flexDirection: 'column' }}>
-									<div style={{ fontSize: 40, fontWeight: 800, color: '#6A4CFF' }}>2500+</div>
-									<div style={{ fontSize: 20, color: '#A0A0AA' }}>Dossards vendus</div>
-								</div>
-							</div>
-							{/* Stat 2 */}
-							<div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-								<div style={{ fontSize: 24, opacity: 0.9 }}>🏃</div>
-								<div style={{ display: 'flex', flexDirection: 'column' }}>
-									<div style={{ fontSize: 40, fontWeight: 800, color: '#6A4CFF' }}>150+</div>
-									<div style={{ fontSize: 20, color: '#A0A0AA' }}>Courses partenaires</div>
-								</div>
-							</div>
-							{/* Stat 3 */}
-							<div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-								<div style={{ fontSize: 24, opacity: 0.9 }}>⭐</div>
-								<div style={{ display: 'flex', flexDirection: 'column' }}>
-									<div style={{ fontSize: 40, fontWeight: 800, color: '#6A4CFF' }}>98%</div>
-									<div style={{ fontSize: 20, color: '#A0A0AA' }}>Taux de satisfaction</div>
-								</div>
-							</div>
-						</div>
+					{/* Top-right beswib logo (30x30) */}
+					<div
+						style={{
+							position: 'absolute',
+							left: 1089,
+							top: 57,
+							display: 'flex',
+							alignItems: 'center',
+						}}
+					>
+						{/* eslint-disable-next-line @next/next/no-img-element */}
+						<img src={beswibDataUrl ?? beswibLogoUrl} width={40} height={40} alt="Beswib" />
+					</div>
+
+					{/* Bottom-right domain text */}
+					<div
+						style={{
+							position: 'absolute',
+							left: 1018,
+							top: 516,
+							display: 'flex',
+							alignItems: 'center',
+							color: '#ffffff',
+							fontSize: 20,
+							fontWeight: 600,
+						}}
+					>
+						beswib.com
 					</div>
 				</div>
 			</div>
 		),
-		{ ...size, emoji: 'twemoji' }
+		{
+			...size,
+		}
 	)
 }
