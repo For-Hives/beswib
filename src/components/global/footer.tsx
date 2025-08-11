@@ -1,10 +1,8 @@
-import { Facebook, Instagram, Twitter, X } from 'lucide-react'
-
 import Link from 'next/link'
 
+import { SOCIALS, InstagramIcon, LinkedinIcon, StravaIcon } from '@/lib/socials'
 import { LocaleParams } from '@/lib/generateStaticParams'
 import { getTranslations } from '@/lib/getDictionary'
-import { SOCIALS } from '@/lib/socials'
 
 import LanguageSelector from './LanguageSelector'
 import translations from './locales.json'
@@ -27,40 +25,31 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 					</p>
 					<div className="flex items-center gap-3">
 						<Link
-							href={SOCIALS.twitter}
+							href={SOCIALS.linkedin}
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="Twitter"
 							className="text-muted-foreground hover:text-foreground transition-colors"
 						>
-							<Twitter className="h-5 w-5" />
-						</Link>
-						<Link
-							href={SOCIALS.x}
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label="X"
-							className="text-muted-foreground hover:text-foreground transition-colors"
-						>
-							<X className="h-5 w-5" />
-						</Link>
-						<Link
-							href={SOCIALS.facebook}
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label="Facebook"
-							className="text-muted-foreground hover:text-foreground transition-colors"
-						>
-							<Facebook className="h-5 w-5" />
+							<LinkedinIcon className="h-5 w-5" />
 						</Link>
 						<Link
 							href={SOCIALS.instagram}
 							target="_blank"
 							rel="noopener noreferrer"
-							aria-label="Instagram"
+							aria-label="X"
 							className="text-muted-foreground hover:text-foreground transition-colors"
 						>
-							<Instagram className="h-5 w-5" />
+							<InstagramIcon className="h-5 w-5" />
+						</Link>
+						<Link
+							href={SOCIALS.strava}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Facebook"
+							className="text-muted-foreground hover:text-foreground transition-colors"
+						>
+							<StravaIcon className="h-5 w-5" />
 						</Link>
 					</div>
 				</div>
