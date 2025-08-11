@@ -10,8 +10,8 @@ export function SessionsTracker() {
 	const { user, isSignedIn, isLoaded } = useUser()
 
 	useEffect(() => {
-		if (isLoaded && isSignedIn && user) {
-			umamiIdentify(user.id, { name: user.fullName, email: user.emailAddresses[0].toString() })
+		if (isLoaded === true && isSignedIn === true && user != null) {
+			void umamiIdentify(user.id, { name: user.fullName, email: user.emailAddresses[0].toString() })
 		}
 	}, [isLoaded, isSignedIn, user])
 
