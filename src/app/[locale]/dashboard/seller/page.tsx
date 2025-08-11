@@ -58,7 +58,6 @@ export default async function SellerDashboardPage({ params }: { params: Promise<
 			sellerBibs={sellerBibs}
 			user={pbUser}
 			sellerTransactions={sellerTransactions}
-			totalRevenue={totalRevenue}
 		/>
 	)
 }
