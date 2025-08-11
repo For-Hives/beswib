@@ -2,7 +2,6 @@
 
 import { DateTime } from 'luxon'
 
-import type { Transaction } from '@/models/transaction.model'
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
@@ -12,9 +11,7 @@ import { isSellerProfileComplete } from '@/lib/userValidation'
 import { pbDateToLuxon } from '@/lib/dateUtils'
 import { pb } from '@/lib/pocketbaseClient'
 
-import { createTransaction } from './transaction.services'
 import { fetchUserById } from './user.services'
-import { PLATFORM_FEE } from '@/constants/global.constant'
 
 /**
  * Creates a new bib listing. Handles both partnered and unlisted events.
