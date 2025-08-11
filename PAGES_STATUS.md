@@ -5,7 +5,7 @@
 **Lien:** `/`
 
 - [x] Design moderne
-- [ ] White theme
+- [x] White theme
 - [x] Responsive
 - [x] Traductions
 
