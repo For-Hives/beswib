@@ -7,16 +7,15 @@ function Tooltip({ children, content }: { children: React.ReactNode; content: Re
 	const [visible, setVisible] = useState(false)
 	return (
 		<span className="relative inline-block">
-			<span
+			<div
 				onMouseEnter={() => setVisible(true)}
 				onMouseLeave={() => setVisible(false)}
 				onFocus={() => setVisible(true)}
 				onBlur={() => setVisible(false)}
-				tabIndex={0}
 				className="cursor-pointer outline-none"
 			>
 				{children}
-			</span>
+			</div>
 			{visible && (
 				<span className="bg-background text-foreground border-border absolute left-1/2 z-50 mt-2 w-64 -translate-x-1/2 rounded border px-3 py-2 text-xs shadow-lg">
 					{content}

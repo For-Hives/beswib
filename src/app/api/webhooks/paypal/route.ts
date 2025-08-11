@@ -57,7 +57,6 @@ export async function POST(request: NextRequest) {
 			case 'PAYMENT.CAPTURE.COMPLETED':
 				result = await handlePaymentCaptureCompleted(webhookEvent)
 				break
-				break
 			case 'CHECKOUT.ORDER.APPROVED':
 				result = await handleCheckoutOrderApproved(webhookEvent)
 				break
