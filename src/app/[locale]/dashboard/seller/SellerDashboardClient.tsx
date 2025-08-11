@@ -1,30 +1,6 @@
 'use client'
 
 import { Edit3, Info, List, Plus, Search, Tag, Users } from 'lucide-react'
-import { useState } from 'react'
-// Simple tooltip component
-function Tooltip({ children, content }: { children: React.ReactNode; content: React.ReactNode }) {
-	const [visible, setVisible] = useState(false)
-	return (
-		<span className="relative inline-block">
-			<div
-				onMouseEnter={() => setVisible(true)}
-				onMouseLeave={() => setVisible(false)}
-				onFocus={() => setVisible(true)}
-				onBlur={() => setVisible(false)}
-				className="cursor-pointer outline-none"
-			>
-				{children}
-			</div>
-			{visible && (
-				<span className="bg-background text-foreground border-border absolute left-1/2 z-50 mt-2 w-64 -translate-x-1/2 rounded border px-3 py-2 text-xs shadow-lg">
-					{content}
-				</span>
-			)}
-		</span>
-	)
-}
-
 import Link from 'next/link'
 
 import type { Event } from '@/models/event.model'
@@ -35,8 +11,12 @@ import type { User } from '@/models/user.model'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
 import { getTranslations } from '@/lib/getDictionary'
+import { Locale } from '@/lib/i18n-config'
 import { Button } from '@/components/ui/button'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
+
+import sellerTranslations from './locales.json'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 interface SellerDashboardClientProps {
 	clerkUser: SerializedClerkUser
@@ -73,10 +53,6 @@ const getStatusDisplay = (status: string) => {
 			return { label: status, color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400' }
 	}
 }
-
-import { Locale } from '@/lib/i18n-config'
-
-import sellerTranslations from './locales.json'
 
 export default function SellerDashboardClient({
 	sellerBibs = [],
@@ -205,8 +181,9 @@ export default function SellerDashboardClient({
 							<CardHeader className="flex items-center gap-2 pb-2">
 								<CardTitle className="text-muted-foreground flex items-center gap-2 text-sm">
 									Net Revenue
-									<Tooltip
-										content={
+									<Tooltip>
+										<TooltipTrigger>Hover</TooltipTrigger>
+										<TooltipContent>
 											<span>
 												How fees work: <br />
 												<strong>Net = Amount − Platform fees − PayPal fees.</strong>
@@ -214,9 +191,7 @@ export default function SellerDashboardClient({
 												Platform fees are <strong>10% of the listing price</strong>.<br />
 												PayPal fees are provided by PayPal in the capture and may vary by country and payment method.
 											</span>
-										}
-									>
-										<Info className="text-muted-foreground inline-block h-4 w-4 align-middle" />
+										</TooltipContent>
 									</Tooltip>
 								</CardTitle>
 							</CardHeader>
