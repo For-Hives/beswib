@@ -148,7 +148,7 @@ function EventCard({
 				<div className="mt-auto">
 					{event.officialStandardPrice != null && (
 						<div className="mb-3 text-right">
-							<span className="text-lg font-bold text-green-400">
+							<span className="text-lg font-bold text-emerald-600 dark:text-green-400">
 								{t.events?.eventCard?.fromPrice?.replace('{price}', event.officialStandardPrice?.toString() ?? '0') ??
 									`From ${event.officialStandardPrice}€`}
 							</span>
@@ -436,7 +436,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				icon: <AllTypesIcon className="h-5 w-5" />,
 				count: prefetchedEvents.length,
 				colorDisabled: 'opacity-25',
-				color: 'bg-black/35 border-slate-500/50 text-slate-400',
+				color: 'bg-muted/80 border-border text-muted-foreground',
 			},
 		]
 
@@ -558,7 +558,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 						{raceTypeSummary.map(type => (
 							<button
 								key={type.key}
-								className={`group relative flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 p-4 transition-all duration-200 hover:scale-105 hover:shadow-md active:scale-95 ${
+								className={`group relative flex cursor-pointer flex-col items-center justify-center rounded-lg border p-4 transition-all duration-200 hover:scale-105 hover:shadow-md active:scale-95 ${
 									selectedType === type.key ? type.color : type.colorDisabled
 								}`}
 								onClick={() => handleTypeChange(type.key as 'all' | 'triathlon' | 'trail' | 'road' | 'cycle')}
@@ -568,7 +568,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								<div className="absolute top-1 left-1 flex h-4 w-4 items-center justify-center">
 									<div className={`relative h-3 w-3 rounded-full bg-current transition-all duration-200`}>
 										{selectedType === type.key && (
-											<div className="absolute top-1/2 left-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
+											<div className="bg-primary-foreground absolute top-1/2 left-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full" />
 										)}
 									</div>
 								</div>
@@ -589,8 +589,8 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								{/* Count badge */}
 								{type.count > 0 && (
 									<div
-										className={`absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold transition-colors duration-200 ${
-											selectedType === type.key ? 'bg-gray-600 text-white' : 'bg-gray-200 text-gray-600'
+										className={`absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold shadow-sm transition-colors duration-200 ${
+											selectedType === type.key ? 'bg-foreground text-background' : 'bg-muted text-muted-foreground'
 										}`}
 									>
 										{type.count}
@@ -600,7 +600,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								{/* Hover effect indicator */}
 								<div
 									className={`absolute inset-0 rounded-lg transition-opacity duration-200 ${
-										selectedType === type.key ? 'bg-current opacity-5' : 'bg-gray-200 opacity-0 group-hover:opacity-10'
+										selectedType === type.key ? 'bg-current opacity-5' : 'bg-muted opacity-0 group-hover:opacity-10'
 									}`}
 								/>
 							</button>

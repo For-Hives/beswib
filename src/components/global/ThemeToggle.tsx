@@ -7,7 +7,11 @@ import { useThemeStore } from '@/hooks/useTheme'
 export function ThemeToggle() {
 	const { toggleTheme, theme } = useThemeStore()
 	return (
-		<button aria-label="Toggle theme" onClick={toggleTheme} className="rounded-md p-2">
+		<button
+			aria-label="Toggle theme"
+			onClick={toggleTheme}
+			className="pointer-events-auto cursor-pointer rounded-md p-2"
+		>
 			{theme === 'light' ? <Moon /> : <Sun />}
 		</button>
 	)
