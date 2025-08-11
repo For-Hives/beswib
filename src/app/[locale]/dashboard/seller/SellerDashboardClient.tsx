@@ -272,7 +272,7 @@ export default function SellerDashboardClient({
 								<div className="space-y-4">
 									{succeededTransactions.map(tx => {
 										const bib = tx.expand?.bib_id
-										if (!tx?.id || !bib?.id) return null
+										if (!tx?.id || bib?.id != '' || !bib?.id != null) return null
 										return (
 											<div className="rounded-lg border p-4" key={tx.id}>
 												<div className="mb-2 flex items-start justify-between">

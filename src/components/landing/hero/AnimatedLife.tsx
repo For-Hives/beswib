@@ -17,7 +17,7 @@ type GroupKind = 'peloton' | 'breakaway' | 'straggler'
 // Generate a UUID safely across browsers (fallbacks for older mobile/WebViews)
 const safeRandomId = (): string => {
 	try {
-		if (typeof window !== 'undefined' && window.crypto) {
+		if (typeof window !== 'undefined' && window.crypto != undefined) {
 			if (typeof window.crypto.randomUUID === 'function') {
 				return window.crypto.randomUUID()
 			}
@@ -263,7 +263,7 @@ export function AnimatedLife() {
 				const fastestMs = durations.length ? Math.min(...durations) : 10000
 				const slowestMs = durations.length ? Math.max(...durations) : 20000
 				const fresh = generateGroup(entity.kind, 1)[0]
-				if (entity.isSpecial && entity.name === 'Bréval') {
+				if (entity.isSpecial != null && entity.name === 'Bréval') {
 					const extraFast = 1 + (Math.random() * 0.1 + 0.05)
 					fresh.isSpecial = true
 					fresh.name = 'Bréval'
@@ -271,7 +271,7 @@ export function AnimatedLife() {
 					fresh.durationMs = Math.max(300, Math.round(fastestMs / extraFast))
 					fresh.internalDurMs = Math.max(100, Math.round(fresh.internalDurMs / extraFast))
 					fastSpecialIdRef.current = fresh.id
-				} else if (entity.isSpecial && entity.name === 'quentin') {
+				} else if (entity.isSpecial != null && entity.name === 'quentin') {
 					const extraSlow = 1 + (Math.random() * 0.1 + 0.05)
 					fresh.isSpecial = true
 					fresh.name = 'quentin'
