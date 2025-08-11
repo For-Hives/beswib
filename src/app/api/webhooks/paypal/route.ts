@@ -11,8 +11,6 @@ import {
 } from '@/services/paypal.services'
 import { verifyPayPalWebhookSignature } from '@/lib/paypalWebhookVerify'
 
-// PayPalWebhookEvent type is now imported from models/paypal.model
-
 // Handle GET requests for webhook verification (PayPal may send GET requests to verify the endpoint)
 export function GET() {
 	return NextResponse.json({
