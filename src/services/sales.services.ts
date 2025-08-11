@@ -8,8 +8,6 @@ import { fetchBibById, updateBib } from './bib.services'
 import { fetchUserByClerkId } from './user.services'
 import { createOrder } from './paypal.services'
 
-// Types moved to src/models/sales.model
-
 // Create PayPal order and persist a pending Transaction linked to that order
 export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateOutput> {
 	console.info('Creating sale with input:', input)
