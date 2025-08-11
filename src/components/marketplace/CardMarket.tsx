@@ -48,16 +48,16 @@ export default function CardMarket({ locale, eventData, bibSale }: Readonly<Card
 
 	return (
 		<div className="h-full w-full">
-				<div className="bg-card/80 border-border relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md transition-all duration-300 hover:border-foreground/35">
+			<div className="bg-card/80 border-border hover:border-foreground/35 relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md transition-all duration-300">
 				<div
 					className={cn(
 						'absolute inset-0 -z-20 opacity-50',
 						'[background-size:20px_20px]',
-							'[background-image:radial-gradient(hsl(var(--border))_1px,transparent_1px)]',
+						'[background-image:radial-gradient(hsl(var(--border))_1px,transparent_1px)]',
 						'dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]'
 					)}
 				/>
-					<div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-background [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] opacity-25 dark:bg-black"></div>
+				<div className="bg-background pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] opacity-25 dark:bg-black"></div>
 				<div className="relative flex justify-center px-4 pt-4">
 					<div className="from-primary/20 via-accent/20 to-secondary/20 before:from-primary before:via-accent before:via-secondary before:to-ring relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gradient-to-br shadow-[inset_0_0_20px_hsl(var(--primary)/0.3),inset_0_0_40px_hsl(var(--accent)/0.2),0_0_30px_hsl(var(--primary)/0.4)] before:absolute before:inset-0 before:-z-10 before:m-[-1px] before:rounded-xl before:bg-gradient-to-br before:p-0.5">
 						<Image
@@ -113,7 +113,7 @@ export default function CardMarket({ locale, eventData, bibSale }: Readonly<Card
 					</div>
 				</div>
 				<div className="flex w-full items-center justify-center py-2">
-						<div className="flex w-full items-center justify-center">
+					<div className="flex w-full items-center justify-center">
 						<p className="text-muted-foreground text-xs leading-relaxed italic">
 							{translations?.soldBy ?? 'vendu par'} {bibSale.user.firstName ?? 'Anonymous'}{' '}
 							{bibSale.user.lastName ?? ''}
@@ -125,7 +125,7 @@ export default function CardMarket({ locale, eventData, bibSale }: Readonly<Card
 					<div className="flex w-full justify-between gap-2">
 						<h3 className="text-foreground text-lg font-bold">{bibSale.event.name}</h3>
 						<div className="relative flex flex-col items-center gap-2">
-								<p className="text-2xl font-bold text-foreground">{bibSale.price}€</p>
+							<p className="text-foreground text-2xl font-bold">{bibSale.price}€</p>
 							{referencePrice > 0 && referencePrice > bibSale.price && (
 								<p className="absolute top-8 right-0 text-sm italic line-through">{referencePrice}€</p>
 							)}
