@@ -2,26 +2,26 @@ import type { Metadata } from 'next'
 
 import type { ReactNode } from 'react'
 
+import { ConsentManagerProvider, CookieBanner, ConsentManagerDialog } from '@c15t/nextjs'
 import { Geist, Geist_Mono, Bowlby_One_SC } from 'next/font/google'
-import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { ClerkProvider, useAuth, useUser } from '@clerk/nextjs'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
+import { currentUser } from '@clerk/nextjs/server'
+import { Session } from 'inspector/promises'
 import { Toaster } from 'sonner'
+import Script from 'next/script'
+import { is } from 'valibot'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticParams'
+import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import QueryProvider from '@/components/providers/QueryProvider'
+import { umamiIdentify, umamiTrack } from '@/lib/umami.utils'
 import PageTransition from '@/components/ui/PageTransition'
 import Footer from '@/components/global/footer'
 import Header from '@/components/global/Header'
 
 import '@/app/[locale]/globals.css'
-import Script from 'next/script'
-import { is } from 'valibot'
-import { umamiIdentify, umamiTrack } from '@/lib/umami.utils'
-import { currentUser } from '@clerk/nextjs/server'
-import { Session } from 'inspector/promises'
-import { SessionsTracker } from '@/components/global/sessionsTrackers'
-import { ConsentManagerProvider, CookieBanner, ConsentManagerDialog } from '@c15t/nextjs'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',

@@ -5,6 +5,7 @@ import type { BibSale } from '@/models/marketplace.model'
 
 import { createTransaction, updateTransaction, getTransactionByOrderId } from './transaction.services'
 import { fetchBibById, updateBib } from './bib.services'
+import { sendSaleAlert } from './notification.service'
 import { fetchUserByClerkId } from './user.services'
 import { createOrder } from './paypal.services'
 
@@ -125,6 +126,9 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 			...(typeof buyerUserId === 'string' && buyerUserId !== '' ? { buyerUserId } : {}),
 		})
 	}
+
+	// Fire-and-forget sale alert to Discord (silent if not configured)
+	void sendSaleAlert({ orderId, currency, bibId, amount })
 
 	return { transactionId, bibId }
 }
