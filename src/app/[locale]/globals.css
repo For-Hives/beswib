@@ -232,6 +232,8 @@
 	--border: oklch(0.89 0.004 264.53); /* Darker borders */
 	--input: oklch(0.89 0.004 264.53); /* Darker inputs */
 	--ring: oklch(0.6231 0.188 259.8145);
+	/* Interactive bubble color for light theme (softer than primary) */
+	--interactive-bubble: color-mix(in oklch, var(--primary) 55%, white);
 	--chart-1: oklch(0.6231 0.188 259.8145);
 	--chart-2: oklch(0.5461 0.2152 262.8809);
 	--chart-3: oklch(0.4882 0.2172 264.3763);
@@ -279,6 +281,8 @@
 	--border: oklch(0.3715 0 0);
 	--input: oklch(0.3715 0 0);
 	--ring: oklch(0.6231 0.188 259.8145);
+	/* Interactive bubble color for dark theme (original primary) */
+	--interactive-bubble: var(--primary);
 	--chart-1: oklch(0.7137 0.1434 254.624);
 	--chart-2: oklch(0.6231 0.188 259.8145);
 	--chart-3: oklch(0.5461 0.2152 262.8809);

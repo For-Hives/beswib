@@ -87,16 +87,16 @@ function SelectTriggerAlt({ className, children, ...props }: React.ComponentProp
 			style={{
 				background: useMotionTemplate`
         radial-gradient(
-          ${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
-          var(--primary),
-          transparent 80%
+			  ${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
+			  var(--interactive-bubble),
+			  transparent 80%
         )
       `,
 			}}
 		>
 			<SelectPrimitive.Trigger
 				className={cn(
-					`shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring data-[placeholder]:text-foreground/50 hover:bg-foreground/5 border-input flex h-10 w-full items-center justify-between gap-2 rounded-md border px-3 py-2 text-sm transition duration-400 group-hover/select:shadow-none focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:hover:bg-zinc-800 dark:focus-visible:ring-neutral-600 dark:data-[placeholder]:text-neutral-600`,
+					`shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring data-[placeholder]:text-foreground/50 border-input flex h-10 w-full items-center justify-between gap-2 rounded-md border px-3 py-2 text-sm transition duration-400 group-hover/select:shadow-none focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600 dark:data-[placeholder]:text-neutral-600`,
 					className
 				)}
 				data-slot="select-trigger"
