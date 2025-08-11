@@ -13,8 +13,6 @@ import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
 import { cn } from '@/lib/utils'
 
-// Type moved to src/models/marketplace.model
-
 interface CardMarketSimplifiedProps {
 	bibSaleSimplified: BibSaleSimplified
 	locale: Locale
