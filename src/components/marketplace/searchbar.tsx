@@ -227,9 +227,9 @@ export default function Searchbar({
 										max={maxPrice}
 										min={0}
 										onChange={e => setTempPrice([0, +e.target.value])}
-										style={{
-											background: `linear-gradient(to right, var(--accent) 0%, var(--accent) ${((tempPrice[1] / maxPrice) * 100).toFixed(0)}%, #E5E7EB ${((tempPrice[1] / maxPrice) * 100).toFixed(0)}%, #E5E7EB 100%)`,
-										}}
+								style={{
+									background: `linear-gradient(to right, hsl(var(--accent)) 0%, hsl(var(--accent)) ${((tempPrice[1] / maxPrice) * 100).toFixed(0)}%, hsl(var(--muted)) ${((tempPrice[1] / maxPrice) * 100).toFixed(0)}%, hsl(var(--muted)) 100%)`,
+								}}
 										type="range"
 										value={tempPrice[1]}
 									/>
@@ -346,14 +346,14 @@ export default function Searchbar({
 			</div>
 
 			{/* Divider between search/filters and filter badges ↔️ */}
-			<hr className="my-2 border-gray-400" />
+			<hr className="my-2 border-border" />
 
 			{/* Filter badges section - shows currently applied filters 🏷️ */}
 			<div className="mt-4 flex flex-wrap gap-2 xl:mt-0 xl:gap-4">
 				{/* Region filter badges 🗺️ */}
 				{selectedFilters.geography.map(location => (
 					<Badge
-						className="max-w-[100px] overflow-hidden bg-blue-400 text-ellipsis whitespace-nowrap text-white"
+						className="max-w-[100px] overflow-hidden bg-primary text-ellipsis whitespace-nowrap text-primary-foreground"
 						key={location}
 						variant="secondary"
 					>
@@ -369,7 +369,7 @@ export default function Searchbar({
 					</Badge>
 				))}
 				{/* Price filter badge 💰 */}
-				<Badge className="bg-background text-white" key="price" variant="secondary">
+				<Badge className="bg-secondary text-secondary-foreground" key="price" variant="secondary">
 					{selectedFilters.price[0] === 0 && selectedFilters.price[1] === maxPrice
 						? t.allPrices
 						: `${t.priceRange}: ${selectedFilters.price[0]}€ - ${selectedFilters.price[1]}€`}
@@ -384,7 +384,7 @@ export default function Searchbar({
 				</Badge>
 				{/* Start date filter badge 📅 */}
 				{selectedFilters.dateStart != null && selectedFilters.dateStart !== '' && (
-					<Badge className="bg-background text-white" key="dateStart" variant="secondary">
+					<Badge className="bg-secondary text-secondary-foreground" key="dateStart" variant="secondary">
 						{`${t.start}: ${selectedFilters.dateStart}`}
 						<button
 							aria-label="Remove start date filter"
@@ -398,7 +398,7 @@ export default function Searchbar({
 				)}
 				{/* End date filter badge 📅 */}
 				{selectedFilters.dateEnd != null && selectedFilters.dateEnd !== '' && (
-					<Badge className="bg-background text-white" key="dateEnd" variant="secondary">
+					<Badge className="bg-secondary text-secondary-foreground" key="dateEnd" variant="secondary">
 						{`${t.end}: ${selectedFilters.dateEnd}`}
 						<button
 							aria-label="Remove end date filter"

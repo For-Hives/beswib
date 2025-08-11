@@ -61,18 +61,18 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 						<p className="dark:text-primary-foreground/80 mb-4">{t.runnerOrganizer}</p>
 
 						<div className="flex justify-between space-x-4">
-						<div>
-							<p className="text-muted-foreground dark:text-primary-foreground/80">{t.ourTeamResponds}</p>
-							<ul className="text-muted-foreground dark:text-primary-foreground/80 mt-2 list-inside list-disc space-y-1">
+							<div>
+								<p className="text-muted-foreground dark:text-primary-foreground/80">{t.ourTeamResponds}</p>
+								<ul className="text-muted-foreground dark:text-primary-foreground/80 mt-2 list-inside list-disc space-y-1">
 									<li>{t.understandPlatform}</li>
 									<li>{t.sellBibNotListed}</li>
 									<li>{t.organizerAuthorize}</li>
 									<li>{t.discussPartnership}</li>
 								</ul>
-							<p className="text-muted-foreground dark:text-primary-foreground/80 mt-4">{t.fillFormResponse}</p>
+								<p className="text-muted-foreground dark:text-primary-foreground/80 mt-4">{t.fillFormResponse}</p>
 							</div>
 							<div className="flex w-1/3 items-center justify-center">
-							<div className="bg-primary/10 rounded-full p-4 backdrop-blur-sm">
+								<div className="bg-primary/10 rounded-full p-4 backdrop-blur-sm">
 									<MessageCircle className="text-primary-foreground h-16 w-16 p-2" />
 								</div>
 							</div>
@@ -143,7 +143,7 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 							<Twitter className="text-foreground h-8 w-8" />
 						</div>
 					</div>
-				<div className="bg-primary/10 absolute -right-8 -bottom-8 h-24 w-24 rounded-full blur-xl"></div>
+					<div className="bg-primary/10 absolute -right-8 -bottom-8 h-24 w-24 rounded-full blur-xl"></div>
 				</Link>
 			</motion.div>
 			<motion.div

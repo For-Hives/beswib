@@ -47,8 +47,8 @@ export default function ContactForm({ t }: ContactFormProps) {
 						<path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
 					</svg>
 				</div>
-					<h3 className="mb-2 text-xl font-bold">{t.form.messageSent}</h3>
-					<p className="text-muted-foreground dark:text-slate-300">{t.form.messageResponse}</p>
+				<h3 className="mb-2 text-xl font-bold">{t.form.messageSent}</h3>
+				<p className="text-muted-foreground dark:text-slate-300">{t.form.messageResponse}</p>
 				<Button className="mt-4" onClick={() => setIsSubmitted(false)} variant="outline">
 					{t.form.sendAnotherMessage}
 				</Button>
@@ -59,7 +59,7 @@ export default function ContactForm({ t }: ContactFormProps) {
 	return (
 		<form className="mt-4 h-full space-y-4" onSubmit={handleSubmit}>
 			<div>
-				<label className="mb-1 block text-sm font-medium text-foreground dark:text-gray-300" htmlFor="name">
+				<label className="text-foreground mb-1 block text-sm font-medium dark:text-gray-300" htmlFor="name">
 					{t.form.yourName}
 				</label>
 				<Input
@@ -70,7 +70,7 @@ export default function ContactForm({ t }: ContactFormProps) {
 				/>
 			</div>
 			<div>
-				<label className="mb-1 block text-sm font-medium text-foreground dark:text-gray-300" htmlFor="email">
+				<label className="text-foreground mb-1 block text-sm font-medium dark:text-gray-300" htmlFor="email">
 					{t.form.yourEmail}
 				</label>
 				<Input
@@ -82,7 +82,7 @@ export default function ContactForm({ t }: ContactFormProps) {
 				/>
 			</div>
 			<div className="flex-1">
-				<label className="block text-sm font-medium text-foreground dark:text-gray-300" htmlFor="message">
+				<label className="text-foreground block text-sm font-medium dark:text-gray-300" htmlFor="message">
 					{t.form.yourMessage}
 				</label>
 				<Textarea
@@ -93,7 +93,7 @@ export default function ContactForm({ t }: ContactFormProps) {
 				/>
 			</div>
 			<Button
-				className="from-primary to-primary/80 hover:from-primary/80 hover:to-primary w-full cursor-pointer bg-gradient-to-r text-primary-foreground"
+				className="from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-primary-foreground w-full cursor-pointer bg-gradient-to-r"
 				disabled={isSubmitting}
 				type="submit"
 			>
