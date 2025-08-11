@@ -21,7 +21,7 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 					fill
 					// size= 100vw in tablet and 80vw on phone
 					sizes="100vw"
-					src={'/landing/background_v2.png'}
+					src={'/landing/background_v2.webp'}
 				/>
 			</div>
 			<AnimatedLife />
