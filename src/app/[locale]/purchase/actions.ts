@@ -8,6 +8,7 @@ import { fetchUserByClerkId } from '@/services/user.services'
 import { capturePayment } from '@/services/paypal.services'
 import { salesCreate } from '@/services/sales.services'
 import { fetchBibById } from '@/services/bib.services'
+import { PLATFORM_FEE } from '@/constants/global.constant'
 
 export async function handlePaymentPageOpened(paymentIntentId: string, bibId: string) {
 	const { userId } = await auth()
@@ -31,7 +32,7 @@ export async function handlePaymentPageOpened(paymentIntentId: string, bibId: st
 			status: 'pending',
 			seller_user_id: bib.sellerUserId,
 			raw_webhook_payload: '',
-			platform_fee: bib.price * 0.1,
+			platform_fee: bib.price * PLATFORM_FEE,
 			paypal_order_id: paymentIntentId,
 			paypal_capture_id: '',
 			payment_status: 'pending',
