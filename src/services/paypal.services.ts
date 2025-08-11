@@ -10,8 +10,7 @@ import type {
 import type { BibSale } from '@/models/marketplace.model'
 
 import { getTransactionByOrderId, updateTransaction } from './transaction.services'
-// --- PayPal Webhook Event Types and Handlers ---
-// Types moved to src/models/paypal.model
+import { PLATFORM_FEE } from '@/constants/global.constant'
 
 export async function handlePaymentCaptureCompleted(event: unknown) {
 	if (typeof event !== 'object' || event === null) {
@@ -176,7 +175,7 @@ export async function createOrder(sellerId: string, bib: BibSale): Promise<{ err
 							{
 								payee: { merchant_id: 'ZBXWM6RWP6NE4' }, // Platform receives fee
 								amount: {
-									value: (parseFloat(bib.price.toString()) * 0.1).toFixed(2), // 10% Platform commission
+									value: (bib.price * PLATFORM_FEE).toFixed(2), // 10% Platform commission
 									currency_code: 'EUR',
 								},
 							},

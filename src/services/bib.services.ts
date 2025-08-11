@@ -14,6 +14,7 @@ import { pb } from '@/lib/pocketbaseClient'
 
 import { createTransaction } from './transaction.services'
 import { fetchUserById } from './user.services'
+import { PLATFORM_FEE } from '@/constants/global.constant'
 
 /**
  * Creates a new bib listing. Handles both partnered and unlisted events.
@@ -389,99 +390,6 @@ export async function fetchPubliclyListedBibsForEvent(eventId: string): Promise<
 		throw new Error(
 			`Error fetching publicly listed bibs for event ${eventId}: ` +
 				(error instanceof Error ? error.message : String(error))
-		)
-	}
-}
-
-/**
- * Processes the sale of a bib.
- * This involves creating a transaction and marking the bib as sold.
- * @param bibId The ID of the bib being sold.
- * @param buyerUserId The PocketBase User ID of the buyer.
- */
-export async function processBibSale(
-	bibId: string,
-	buyerUserId: string
-): Promise<{ error?: string; success: boolean; transaction?: Transaction }> {
-	if (bibId === '' || buyerUserId === '') {
-		return { success: false, error: 'Bib ID and Buyer User ID are required.' }
-	}
-
-	try {
-		const bib = await pb.collection('bibs').getOne<Bib & { expand?: { eventId: Event } }>(bibId, { expand: 'eventId' })
-		if (bib == null) {
-			return { success: false, error: `Bib with ID ${bibId} not found.` }
-		}
-		if (bib.status !== 'available') {
-			//TODO: fix this to check for 'listed_public' or 'listed_private' if needed 🚧
-			return {
-				success: false,
-				error: `Bib is not available for sale. Current status: ${bib.status}.`,
-			}
-		}
-		if (bib.sellerUserId === buyerUserId) {
-			return { success: false, error: 'Seller cannot buy their own bib.' }
-		}
-
-		// Ensure event hasn't passed and any transfer window is still open
-		const now = new Date()
-		const eventDate = bib.expand?.eventId ? new Date(bib.expand.eventId.eventDate) : null
-		const transferDeadline = bib.expand?.eventId?.transferDeadline
-			? new Date(bib.expand.eventId.transferDeadline)
-			: null
-		const isSaleOpen = transferDeadline != null ? transferDeadline >= now : eventDate != null ? eventDate >= now : false
-		if (!isSaleOpen) {
-			return { success: false, error: 'Sales for this event are closed.' }
-		}
-
-		// 2. Fetch the Seller User to get their information for transaction creation. 👤
-		const sellerUser = await fetchUserById(bib.sellerUserId)
-		if (sellerUser == null) {
-			return { success: false, error: `Seller user with PocketBase ID ${bib.sellerUserId} not found.` }
-		}
-		if (sellerUser.clerkId == null || sellerUser.clerkId === '') {
-			return { success: false, error: `Clerk ID not found for seller user ${bib.sellerUserId}.` }
-		}
-
-		// 3. Calculate platform fee. 💰
-		const platformFeeAmount = bib.price * 0.1 // TODO: Replace with actual platform fee logic 🚧
-
-		// 4. Create the transaction record. 📝
-		const transaction = await createTransaction({
-			status: 'succeeded',
-			seller_user_id: bib.sellerUserId,
-			raw_webhook_payload: '',
-			platform_fee: platformFeeAmount,
-			paypal_order_id: '',
-			paypal_capture_id: '',
-			payment_status: 'COMPLETED',
-			payer_id: '',
-			payer_email: '',
-			currency: 'EUR',
-			capture_time: '',
-			buyer_user_id: buyerUserId,
-			bib_id: bib.id,
-			amount: bib.price,
-		})
-
-		if (transaction == null) {
-			return { success: false, error: 'Failed to create transaction record.' }
-		}
-
-		// 6. Update the Bib status to 'sold' and set buyerUserId. ✅
-		await pb.collection('bibs').update<Bib>(bibId, {
-			status: 'sold',
-			buyerUserId: buyerUserId,
-		})
-
-		// 7. Initiate Organizer Notification (Conceptual placeholder) 📢
-		// Example: if (updatedBibRecordFromPreviousLine != null) { ... } 🤔
-		// Since updatedBib is not used, this conceptual part would need adjustment if re-enabled. 🤷
-
-		return { transaction, success: true }
-	} catch (error: unknown) {
-		throw new Error(
-			`Error processing bib sale for bib ID ${bibId}: ` + (error instanceof Error ? error.message : String(error))
 		)
 	}
 }
