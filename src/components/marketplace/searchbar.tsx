@@ -227,9 +227,9 @@ export default function Searchbar({
 										max={maxPrice}
 										min={0}
 										onChange={e => setTempPrice([0, +e.target.value])}
-										style={{
-											background: `linear-gradient(to right, hsl(var(--accent)) 0%, hsl(var(--accent)) ${((tempPrice[1] / maxPrice) * 100).toFixed(0)}%, hsl(var(--muted)) ${((tempPrice[1] / maxPrice) * 100).toFixed(0)}%, hsl(var(--muted)) 100%)`,
-										}}
+								style={{
+									background: `linear-gradient(to right, var(--accent) 0%, var(--accent) ${((tempPrice[1] / maxPrice) * 100).toFixed(0)}%, var(--muted) ${((tempPrice[1] / maxPrice) * 100).toFixed(0)}%, var(--muted) 100%)`,
+								}}
 										type="range"
 										value={tempPrice[1]}
 									/>

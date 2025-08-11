@@ -53,7 +53,7 @@ export default function CardMarket({ locale, eventData, bibSale }: Readonly<Card
 					className={cn(
 						'absolute inset-0 -z-20 opacity-50',
 						'[background-size:20px_20px]',
-						'[background-image:radial-gradient(hsl(var(--border))_1px,transparent_1px)]',
+							'[background-image:radial-gradient(var(--border)_1px,transparent_1px)]',
 						'dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]'
 					)}
 				/>
