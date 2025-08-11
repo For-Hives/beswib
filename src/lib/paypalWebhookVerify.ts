@@ -1,15 +1,15 @@
-const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
-const clientSecret = process.env.PAYPAL_CLIENT_SECRET
-const webhookId = process.env.PAYPAL_WEBHOOK_ID
-const apiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
+const clientId = () => process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+const clientSecret = () => process.env.PAYPAL_CLIENT_SECRET
+const webhookId = () => process.env.PAYPAL_WEBHOOK_ID
+const apiUrl = () => process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
 
 if (clientId == null) throw new Error('Missing PayPal client ID')
 if (clientSecret == null) throw new Error('Missing PayPal client secret')
 if (webhookId == null) throw new Error('Missing PayPal webhook ID')
 
 async function getPayPalAccessToken(): Promise<string> {
-	const auth = Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
-	const res = await fetch(`${apiUrl}/v1/oauth2/token`, {
+	const auth = Buffer.from(`${clientId()}:${clientSecret()}`).toString('base64')
+	const res = await fetch(`${apiUrl()}/v1/oauth2/token`, {
 		method: 'POST',
 		headers: {
 			Authorization: `Basic ${auth}`,
@@ -71,7 +71,7 @@ export async function verifyPayPalWebhookSignature({
 
 	try {
 		const token = await getPayPalAccessToken()
-		const res = await fetch(`${apiUrl}/v1/notifications/verify-webhook-signature`, {
+		const res = await fetch(`${apiUrl()}/v1/notifications/verify-webhook-signature`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
