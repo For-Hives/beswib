@@ -28,10 +28,9 @@ export default async function SellerDashboardPage({ params }: { params: Promise<
 	}
 
 	// Fetch seller data
-	const [sellerBibs, sellerTransactions, sellerCompletedTransactions] = await Promise.all([
+	const [sellerBibs, sellerTransactions] = await Promise.all([
 		fetchBibsBySeller(pbUser.id),
 		fetchSellerTransactions(pbUser.id),
-		fetchSellerCompletedTransactions(pbUser.id),
 	])
 
 	// Extract only serializable properties from currentUser
