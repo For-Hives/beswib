@@ -85,7 +85,6 @@ export default function SellerDashboardClient({
 	clerkUser,
 	user,
 	sellerTransactions = [],
-	totalRevenue,
 }: SellerDashboardClientProps) {
 	const t = getTranslations(locale, sellerTranslations)
 

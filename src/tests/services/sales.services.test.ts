@@ -22,8 +22,12 @@ import { createOrder } from '@/services/paypal.services'
 import { createTransaction, updateTransaction, getTransactionByOrderId } from '@/services/transaction.services'
 import { fetchBibById, updateBib } from '@/services/bib.services'
 import { fetchUserByClerkId } from '@/services/user.services'
+import type { Bib } from '@/models/bib.model'
+import type { User } from '@/models/user.model'
+import type { Transaction } from '@/models/transaction.model'
 
-const asMock = <T extends Function>(fn: unknown) => fn as unknown as T
+type MockedFn<T> = T & { mockResolvedValue: (value: unknown) => void }
+const asMock = <T>(fn: T) => fn as unknown as MockedFn<T>
 
 describe('sales.services', () => {
 	beforeEach(() => {
@@ -40,10 +44,14 @@ describe('sales.services', () => {
 				lockedAt: null,
 				sellerUserId: 'seller_pb',
 				eventId: 'event1',
-			})
+				registrationNumber: 'REG',
+				listed: null,
+				validated: true,
+				optionValues: {},
+			} satisfies Bib)
 			asMock(createOrder).mockResolvedValue({ id: 'ORDER-123' })
-			asMock(fetchUserByClerkId).mockResolvedValue({ id: 'buyer_pb' })
-			asMock(createTransaction).mockResolvedValue({ id: 'tx1', paypal_order_id: 'ORDER-123' })
+			asMock(fetchUserByClerkId).mockResolvedValue({ id: 'buyer_pb' } as unknown as User)
+			asMock(createTransaction).mockResolvedValue({ id: 'tx1', paypal_order_id: 'ORDER-123' } as unknown as Transaction)
 
 			const result = await salesCreate({
 				buyerUserId: 'clerk_buyer',
@@ -71,8 +79,8 @@ describe('sales.services', () => {
 	describe('salesComplete', () => {
 		it('updates transaction and marks bib as sold based on webhook capture payload', async () => {
 			asMock(getTransactionByOrderId).mockResolvedValue({ id: 'tx1', bib_id: 'bib1', buyer_user_id: 'buyer_pb' })
-			asMock(updateTransaction).mockResolvedValue({ id: 'tx1' })
-			asMock(updateBib).mockResolvedValue({ id: 'bib1', status: 'sold' })
+			asMock(updateTransaction).mockResolvedValue({ id: 'tx1' } as unknown as Transaction)
+			asMock(updateBib).mockResolvedValue({ id: 'bib1', status: 'sold' } as unknown as Bib)
 
 			const input = {
 				event: {
