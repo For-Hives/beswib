@@ -31,6 +31,7 @@ interface EventTranslations {
 			viewBibs?: string
 			joinWaitlist?: string
 			fromPrice?: string
+			elevationGain?: string
 		}
 		filters?: {
 			all?: string
@@ -50,6 +51,7 @@ interface EventTranslations {
 			unknownDistance?: string
 		}
 		searchPlaceholder?: string
+		searchCityPlaceholder?: string
 	}
 }
 
@@ -137,7 +139,7 @@ function EventCard({
 						<div className="flex items-center gap-2">
 							<Mountain className="h-4 w-4" />
 							<span>
-								{event.elevationGainM}m {(t.events?.eventCard as any)?.elevationGain ?? 'D+'}
+								{event.elevationGainM}m {t.events?.eventCard?.elevationGain ?? 'D+'}
 							</span>
 						</div>
 					)}
@@ -623,7 +625,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 						<div className="relative w-48">
 							<Input
 								type="text"
-								placeholder={(t.events as any)?.searchCityPlaceholder ?? 'Search a city...'}
+								placeholder={t.events?.searchCityPlaceholder ?? 'Search a city...'}
 								value={locationSearch !== '' ? locationSearch : selectedLocation}
 								onChange={e => {
 									setLocationSearch(e.target.value)
