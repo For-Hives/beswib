@@ -9,8 +9,9 @@ import type {
 } from '@/models/paypal.model'
 import type { BibSale } from '@/models/marketplace.model'
 
-import { getTransactionByOrderId, updateTransaction } from './transaction.services'
 import { PLATFORM_FEE } from '@/constants/global.constant'
+
+import { getTransactionByOrderId, updateTransaction } from './transaction.services'
 
 export async function handlePaymentCaptureCompleted(event: unknown) {
 	if (typeof event !== 'object' || event === null) {

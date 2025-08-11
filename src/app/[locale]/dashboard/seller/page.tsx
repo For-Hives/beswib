@@ -48,9 +48,6 @@ export default async function SellerDashboardPage({ params }: { params: Promise<
 		})),
 	}
 
-	// Compute revenue and pass transactions
-	const totalRevenue = sellerCompletedTransactions.reduce((sum, tx) => sum + (tx?.amount ?? 0), 0)
-
 	return (
 		<SellerDashboardClient
 			clerkUser={serializedClerkUser}
