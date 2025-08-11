@@ -21,6 +21,7 @@ import { umamiIdentify, umamiTrack } from '@/lib/umami.utils'
 import { currentUser } from '@clerk/nextjs/server'
 import { Session } from 'inspector/promises'
 import { SessionsTracker } from '@/components/global/sessionsTrackers'
+import { ConsentManagerProvider, CookieBanner, ConsentManagerDialog } from '@c15t/nextjs'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -111,15 +112,23 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 					className={`${geistSans.variable} ${geistMono.variable} ${bowlbyOneSC.variable} bg-background text-foreground font-geist antialiased`}
 				>
 					<ThemeProvider>
-						<QueryProvider>
-							<NuqsAdapter>
-								<SessionsTracker />
-								<Header localeParams={props.params} />
-								<PageTransition>{props.children}</PageTransition>
-								<Footer localeParams={props.params} />
-								<Toaster />
-							</NuqsAdapter>
-						</QueryProvider>
+						<ConsentManagerProvider
+							options={{
+								mode: 'offline',
+							}}
+						>
+							<QueryProvider>
+								<NuqsAdapter>
+									<SessionsTracker />
+									<Header localeParams={props.params} />
+									<PageTransition>{props.children}</PageTransition>
+									<CookieBanner />
+									<ConsentManagerDialog />
+									<Footer localeParams={props.params} />
+									<Toaster />
+								</NuqsAdapter>
+							</QueryProvider>
+						</ConsentManagerProvider>
 					</ThemeProvider>
 				</body>
 			</html>
