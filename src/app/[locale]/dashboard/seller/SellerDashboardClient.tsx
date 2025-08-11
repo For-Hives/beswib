@@ -25,7 +25,6 @@ interface SellerDashboardClientProps {
 	sellerBibs: (Bib & { expand?: { eventId: Event } })[]
 	user: User
 	sellerTransactions: (Transaction & { expand?: { bib_id?: Bib & { expand?: { eventId: Event } } } })[]
-	totalRevenue: number
 }
 
 interface SerializedClerkUser {
