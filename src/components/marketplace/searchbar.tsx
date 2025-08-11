@@ -227,9 +227,9 @@ export default function Searchbar({
 										max={maxPrice}
 										min={0}
 										onChange={e => setTempPrice([0, +e.target.value])}
-								style={{
-									background: `linear-gradient(to right, hsl(var(--accent)) 0%, hsl(var(--accent)) ${((tempPrice[1] / maxPrice) * 100).toFixed(0)}%, hsl(var(--muted)) ${((tempPrice[1] / maxPrice) * 100).toFixed(0)}%, hsl(var(--muted)) 100%)`,
-								}}
+										style={{
+											background: `linear-gradient(to right, hsl(var(--accent)) 0%, hsl(var(--accent)) ${((tempPrice[1] / maxPrice) * 100).toFixed(0)}%, hsl(var(--muted)) ${((tempPrice[1] / maxPrice) * 100).toFixed(0)}%, hsl(var(--muted)) 100%)`,
+										}}
 										type="range"
 										value={tempPrice[1]}
 									/>
@@ -346,14 +346,14 @@ export default function Searchbar({
 			</div>
 
 			{/* Divider between search/filters and filter badges ↔️ */}
-			<hr className="my-2 border-border" />
+			<hr className="border-border my-2" />
 
 			{/* Filter badges section - shows currently applied filters 🏷️ */}
 			<div className="mt-4 flex flex-wrap gap-2 xl:mt-0 xl:gap-4">
 				{/* Region filter badges 🗺️ */}
 				{selectedFilters.geography.map(location => (
 					<Badge
-						className="max-w-[100px] overflow-hidden bg-primary text-ellipsis whitespace-nowrap text-primary-foreground"
+						className="bg-primary text-primary-foreground max-w-[100px] overflow-hidden text-ellipsis whitespace-nowrap"
 						key={location}
 						variant="secondary"
 					>
