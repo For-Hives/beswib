@@ -19,7 +19,7 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 					className="z-30 -scale-x-100 overflow-visible object-cover object-bottom dark:grayscale"
 					fill
 					sizes="100vw"
-					src={'/landing/background3.webp'}
+					src={'/landing/background_v2.png'}
 				/>
 			</div>
 			<AnimatedLife />
