@@ -54,25 +54,25 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 				initial={{ y: 20, opacity: 0 }}
 			>
 				<div className="relative z-10">
-					<h1 className="dark:text-primary-foreground mb-6 text-4xl font-bold">{t.discussTogether}</h1>
-					<p className="dark:text-primary-foreground/80 mb-8">{t.useContactForm}</p>
+					<h1 className="text-foreground dark:text-primary-foreground mb-6 text-4xl font-bold">{t.discussTogether}</h1>
+					<p className="text-muted-foreground dark:text-primary-foreground/80 mb-8">{t.useContactForm}</p>
 
 					<div className="mb-2">
 						<p className="dark:text-primary-foreground/80 mb-4">{t.runnerOrganizer}</p>
 
 						<div className="flex justify-between space-x-4">
-							<div>
-								<p className="dark:text-primary-foreground/80">{t.ourTeamResponds}</p>
-								<ul className="dark:text-primary-foreground/80 mt-2 list-inside list-disc space-y-1">
+						<div>
+							<p className="text-muted-foreground dark:text-primary-foreground/80">{t.ourTeamResponds}</p>
+							<ul className="text-muted-foreground dark:text-primary-foreground/80 mt-2 list-inside list-disc space-y-1">
 									<li>{t.understandPlatform}</li>
 									<li>{t.sellBibNotListed}</li>
 									<li>{t.organizerAuthorize}</li>
 									<li>{t.discussPartnership}</li>
 								</ul>
-								<p className="text-primary-foreground/80 mt-4">{t.fillFormResponse}</p>
+							<p className="text-muted-foreground dark:text-primary-foreground/80 mt-4">{t.fillFormResponse}</p>
 							</div>
 							<div className="flex w-1/3 items-center justify-center">
-								<div className="bg-primary-foreground/10 rounded-full p-4 backdrop-blur-sm">
+							<div className="bg-primary/10 rounded-full p-4 backdrop-blur-sm">
 									<MessageCircle className="text-primary-foreground h-16 w-16 p-2" />
 								</div>
 							</div>
@@ -82,7 +82,7 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 
 				{/* Background decoration 🎨 */}
 				<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
-				<div className="from-primary/25 absolute top-0 right-0 h-40 w-40 rounded-bl-full bg-gradient-to-bl to-transparent"></div>
+				<div className="from-primary/20 absolute top-0 right-0 h-40 w-40 rounded-bl-full bg-gradient-to-bl to-transparent"></div>
 				<div className="from-primary/10 absolute bottom-0 left-0 h-32 w-32 rounded-tr-full bg-gradient-to-tr to-transparent"></div>
 			</motion.div>
 
@@ -143,7 +143,7 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 							<Twitter className="text-foreground h-8 w-8" />
 						</div>
 					</div>
-					<div className="bg-primary/10 absolute -right-8 -bottom-8 h-24 w-24 rounded-full blur-xl"></div>
+				<div className="bg-primary/10 absolute -right-8 -bottom-8 h-24 w-24 rounded-full blur-xl"></div>
 				</Link>
 			</motion.div>
 			<motion.div
