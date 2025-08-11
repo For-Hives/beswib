@@ -41,6 +41,8 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
+import type { Locale } from '@/lib/i18n-config'
+
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -62,11 +64,15 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+// Import translations
+import organizerTranslations from '@/app/[locale]/admin/organizer/locales.json'
 import { getAllOrganizersAction } from '@/app/[locale]/admin/actions'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
+import { getTranslations } from '@/lib/getDictionary'
 import { Organizer } from '@/models/organizer.model'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
@@ -75,12 +81,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { User } from '@/models/user.model'
 import { cn } from '@/lib/utils'
-import { formatDateObjectForDisplay } from '@/lib/dateUtils'
-import { getTranslations } from '@/lib/getDictionary'
-import type { Locale } from '@/lib/i18n-config'
-
-// Import translations
-import organizerTranslations from '@/app/[locale]/admin/organizer/locales.json'
 
 interface AdminOrganizersPageClientProps {
 	currentUser: null | User
@@ -729,8 +729,8 @@ type OrganizerTranslationsForRowActions = {
 }
 
 function RowActions({
-	row,
 	t,
+	row,
 }: Readonly<{ row: Row<Organizer & { eventsCount: number }>; t: OrganizerTranslationsForRowActions }>) {
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 

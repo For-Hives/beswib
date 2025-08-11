@@ -1,35 +1,36 @@
 'use client'
+import { ReactNode } from 'react'
+
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
-import { ReactNode } from 'react'
 
 // Fade + Scale variants for a subtle wow effect
 const variants = {
 	initial: {
-		opacity: 0,
 		scale: 0.96,
+		opacity: 0,
+		filter: 'blur(8px)',
+	},
+	exit: {
+		transition: {
+			scale: { duration: 0.32 },
+			opacity: { duration: 0.32 },
+		},
+		scale: 1.04,
+		opacity: 0,
 		filter: 'blur(8px)',
 	},
 	animate: {
-		opacity: 1,
-		scale: 1,
-		filter: 'blur(0px)',
 		transition: {
 			stiffness: 420,
-			damping: 38,
-			mass: 0.9,
-			opacity: { duration: 0.38 },
 			scale: { duration: 0.48 },
+			opacity: { duration: 0.38 },
+			mass: 0.9,
+			damping: 38,
 		},
-	},
-	exit: {
-		opacity: 0,
-		scale: 1.04,
-		filter: 'blur(8px)',
-		transition: {
-			opacity: { duration: 0.32 },
-			scale: { duration: 0.32 },
-		},
+		scale: 1,
+		opacity: 1,
+		filter: 'blur(0px)',
 	},
 }
 
@@ -43,7 +44,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
 				initial="initial"
 				animate="animate"
 				exit="exit"
-				style={{ minHeight: '100vh', width: '100%' }}
+				style={{ width: '100%', minHeight: '100vh' }}
 			>
 				{children}
 			</motion.div>

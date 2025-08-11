@@ -1,15 +1,16 @@
 'use client'
 
-import React, { useMemo, useState } from 'react'
 import { X, SlidersHorizontal, Calendar, MapPin, Euro, Activity, Filter } from 'lucide-react'
+import React, { useMemo, useState } from 'react'
+
 import Fuse from 'fuse.js'
 
+import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
-import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
+import { Badge } from '@/components/ui/badge'
+import { Label } from '@/components/ui/label'
 
 import locales from './locales.json'
 
@@ -34,9 +35,9 @@ export type MarketplaceFilters = {
 export default function MarketplaceSidebar({
 	regions = [],
 	onFiltersChange,
-	filters,
 	maxPrice = 2000,
 	locale,
+	filters,
 }: MarketplaceSidebarProps) {
 	// UI states
 	const [regionSearch, setRegionSearch] = useState('')
@@ -57,18 +58,18 @@ export default function MarketplaceSidebar({
 
 	// Distance options
 	const distanceOptions = [
-		{ value: '5', label: t.distances?.fiveKm ?? '5 km', range: t.distances?.fiveKmRange ?? '4-6 km' },
-		{ value: '10', label: t.distances?.tenKm ?? '10 km', range: t.distances?.tenKmRange ?? '9-11 km' },
+		{ value: '5', range: t.distances?.fiveKmRange ?? '4-6 km', label: t.distances?.fiveKm ?? '5 km' },
+		{ value: '10', range: t.distances?.tenKmRange ?? '9-11 km', label: t.distances?.tenKm ?? '10 km' },
 		{
 			value: '21',
-			label: t.distances?.halfMarathon ?? 'Half Marathon',
 			range: t.distances?.halfMarathonRange ?? '20-22 km',
+			label: t.distances?.halfMarathon ?? 'Half Marathon',
 		},
-		{ value: '42', label: t.distances?.marathon ?? 'Marathon', range: t.distances?.marathonRange ?? '41-43 km' },
-		{ value: '80', label: t.distances?.ultra ?? 'Ultra (+80 km)', range: t.distances?.ultraRange ?? '80+ km' },
-		{ value: 'tri-s', label: t.distances?.triS ?? 'Triathlon S', range: t.distances?.triSRange ?? '25-30 km' },
-		{ value: 'tri-m', label: t.distances?.triM ?? 'Triathlon M', range: t.distances?.triMRange ?? '50-55 km' },
-		{ value: 'tri-l', label: t.distances?.triL ?? 'Triathlon L', range: t.distances?.triLRange ?? '110-115 km' },
+		{ value: '42', range: t.distances?.marathonRange ?? '41-43 km', label: t.distances?.marathon ?? 'Marathon' },
+		{ value: '80', range: t.distances?.ultraRange ?? '80+ km', label: t.distances?.ultra ?? 'Ultra (+80 km)' },
+		{ value: 'tri-s', range: t.distances?.triSRange ?? '25-30 km', label: t.distances?.triS ?? 'Triathlon S' },
+		{ value: 'tri-m', range: t.distances?.triMRange ?? '50-55 km', label: t.distances?.triM ?? 'Triathlon M' },
+		{ value: 'tri-l', range: t.distances?.triLRange ?? '110-115 km', label: t.distances?.triL ?? 'Triathlon L' },
 	]
 
 	// Fuzzy search for regions
@@ -151,10 +152,10 @@ export default function MarketplaceSidebar({
 								onClick={() =>
 									onFiltersChange({
 										sport: null,
-										distance: null,
 										priceMin: 0,
 										priceMax: maxPrice,
 										geography: [],
+										distance: null,
 										dateStart: undefined,
 										dateEnd: undefined,
 									})

@@ -1,12 +1,12 @@
 'use client'
 
-import React from 'react'
 import { X } from 'lucide-react'
+import React from 'react'
 
+import marketplaceTranslations from '@/components/marketplace/locales.json'
+import { getTranslations } from '@/lib/getDictionary'
 import { Badge } from '@/components/ui/badge'
 import { Locale } from '@/lib/i18n-config'
-import { getTranslations } from '@/lib/getDictionary'
-import marketplaceTranslations from '@/components/marketplace/locales.json'
 
 interface ActiveFiltersBadgesProps {
 	readonly filters: {
@@ -32,17 +32,17 @@ const sportsOptions = [
 ]
 
 const distanceOptions = [
-	{ value: '5', label: '5km', range: '4-6km' },
-	{ value: '10', label: '10km', range: '9-11km' },
-	{ value: '21', label: 'Semi-Marathon', range: '20-22km' },
-	{ value: '42', label: 'Marathon', range: '41-43km' },
-	{ value: '80', label: 'Ultra (+80km)', range: '80km+' },
-	{ value: 'tri-s', label: 'Triathlon S', range: '25-30km' },
-	{ value: 'tri-m', label: 'Triathlon M', range: '50-55km' },
-	{ value: 'tri-l', label: 'Triathlon L', range: '110-115km' },
+	{ value: '5', range: '4-6km', label: '5km' },
+	{ value: '10', range: '9-11km', label: '10km' },
+	{ value: '21', range: '20-22km', label: 'Semi-Marathon' },
+	{ value: '42', range: '41-43km', label: 'Marathon' },
+	{ value: '80', range: '80km+', label: 'Ultra (+80km)' },
+	{ value: 'tri-s', range: '25-30km', label: 'Triathlon S' },
+	{ value: 'tri-m', range: '50-55km', label: 'Triathlon M' },
+	{ value: 'tri-l', range: '110-115km', label: 'Triathlon L' },
 ]
 
-export default function ActiveFiltersBadges({ filters, maxPrice, onRemoveFilter, locale }: ActiveFiltersBadgesProps) {
+export default function ActiveFiltersBadges({ onRemoveFilter, maxPrice, locale, filters }: ActiveFiltersBadgesProps) {
 	const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
 	const activeFilters = []
 
@@ -51,9 +51,9 @@ export default function ActiveFiltersBadges({ filters, maxPrice, onRemoveFilter,
 		const sport = sportsOptions.find(s => s.value === filters.sport)
 		if (sport) {
 			activeFilters.push({
+				value: filters.sport,
 				type: 'sport',
 				label: `${sport.icon} ${sport.label}`,
-				value: filters.sport,
 			})
 		}
 	}
@@ -63,9 +63,9 @@ export default function ActiveFiltersBadges({ filters, maxPrice, onRemoveFilter,
 		const distance = distanceOptions.find(d => d.value === filters.distance)
 		if (distance) {
 			activeFilters.push({
+				value: filters.distance,
 				type: 'distance',
 				label: distance.label,
-				value: filters.distance,
 			})
 		}
 	}
@@ -73,35 +73,35 @@ export default function ActiveFiltersBadges({ filters, maxPrice, onRemoveFilter,
 	// Price filter
 	if (filters.priceMin !== 0 || filters.priceMax !== maxPrice) {
 		activeFilters.push({
+			value: 'price',
 			type: 'price',
 			label: `${filters.priceMin}€ - ${filters.priceMax}€`,
-			value: 'price',
 		})
 	}
 
 	// Geography filters
 	filters.geography.forEach(location => {
 		activeFilters.push({
+			value: location,
 			type: 'geography',
 			label: location,
-			value: location,
 		})
 	})
 
 	// Date filters
 	if (filters.dateStart !== undefined && filters.dateStart !== '') {
 		activeFilters.push({
+			value: 'dateStart',
 			type: 'dateStart',
 			label: `${t.start ?? 'From'}: ${filters.dateStart}`,
-			value: 'dateStart',
 		})
 	}
 
 	if (filters.dateEnd !== undefined && filters.dateEnd !== '') {
 		activeFilters.push({
+			value: 'dateEnd',
 			type: 'dateEnd',
 			label: `${t.end ?? 'To'}: ${filters.dateEnd}`,
-			value: 'dateEnd',
 		})
 	}
 

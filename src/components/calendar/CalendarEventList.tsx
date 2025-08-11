@@ -1,9 +1,10 @@
 import Link from 'next/link'
 
 import type { Event } from '@/models/event.model'
+import type { Locale } from '@/lib/i18n-config'
+
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 import { getTranslations } from '@/lib/getDictionary'
-import type { Locale } from '@/lib/i18n-config'
 
 import calendarTranslations from './locales.json'
 
@@ -18,7 +19,7 @@ interface GroupedEvents {
 	[yearMonth: string]: Event[]
 }
 
-export default function CalendarEventList({ t, sortedMonthKeys, groupedEvents, locale }: CalendarEventListProps) {
+export default function CalendarEventList({ t, sortedMonthKeys, locale, groupedEvents }: CalendarEventListProps) {
 	const calendarT = getTranslations(locale, calendarTranslations)
 	return (
 		<main className="mx-auto max-w-4xl">

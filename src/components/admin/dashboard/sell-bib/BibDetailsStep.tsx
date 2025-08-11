@@ -4,13 +4,12 @@ import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n-config'
 
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/inputAlt'
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
-import { Label } from '@/components/ui/label'
-import { getTranslations } from '@/lib/getDictionary'
-
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+import { Card, CardContent } from '@/components/ui/card'
+import { getTranslations } from '@/lib/getDictionary'
+import { Input } from '@/components/ui/inputAlt'
+import { Label } from '@/components/ui/label'
 
 interface BibDetailsStepProps {
 	errors: Record<string, string>

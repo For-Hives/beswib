@@ -1,7 +1,8 @@
 'use server'
 
-import { updateUser } from '@/services/user.services'
 import type { User } from '@/models/user.model'
+
+import { updateUser } from '@/services/user.services'
 
 export async function updateUserProfile(userId: string, data: Partial<User>) {
 	try {

@@ -1,5 +1,3 @@
-import { getTransactionByOrderId, updateTransaction } from './transaction.services'
-import type { BibSale } from '@/models/marketplace.model'
 import type {
 	PayPalAccessToken,
 	PayPalCaptureResponse,
@@ -9,6 +7,9 @@ import type {
 	PayPalWebhook,
 	PayPalWebhookEvent,
 } from '@/models/paypal.model'
+import type { BibSale } from '@/models/marketplace.model'
+
+import { getTransactionByOrderId, updateTransaction } from './transaction.services'
 // --- PayPal Webhook Event Types and Handlers ---
 // Types moved to src/models/paypal.model
 
@@ -63,11 +64,11 @@ export async function handleCheckoutOrderApproved(event: unknown) {
 	}
 
 	return {
-		orderId,
 		transactionId,
 		payerEmail,
-		amount,
+		orderId,
 		currency,
+		amount,
 	}
 }
 
@@ -173,11 +174,11 @@ export async function createOrder(sellerId: string, bib: BibSale): Promise<{ err
 					payment_instruction: {
 						platform_fees: [
 							{
+								payee: { merchant_id: 'ZBXWM6RWP6NE4' }, // Platform receives fee
 								amount: {
 									value: (parseFloat(bib.price.toString()) * 0.1).toFixed(2), // 10% Platform commission
 									currency_code: 'EUR',
 								},
-								payee: { merchant_id: 'ZBXWM6RWP6NE4' }, // Platform receives fee
 							},
 						],
 					},

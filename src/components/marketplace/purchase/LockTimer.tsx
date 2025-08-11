@@ -1,5 +1,5 @@
-import React from 'react'
 import NumberFlow from '@number-flow/react'
+import React from 'react'
 
 interface LockTimerProps {
 	seconds: number

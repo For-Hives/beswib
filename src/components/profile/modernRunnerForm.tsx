@@ -1,23 +1,25 @@
 'use client'
 
-import { useState, useTransition } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/inputAlt'
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
-import { Label } from '@/components/ui/label'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { CheckCircle, User as UserIcon, Shield, MapPin, FileText, AlertTriangle, Save } from 'lucide-react'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import { useState, useTransition } from 'react'
+
 import { object, string, minLength, picklist, pipe, optional, email as emailValidator } from 'valibot'
 import { valibotResolver } from '@hookform/resolvers/valibot'
-import { User } from '@/models/user.model'
+
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import profileTranslations from '@/components/profile/locales.json'
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { formatDateForHTMLInput } from '@/lib/dateUtils'
+import { getTranslations } from '@/lib/getDictionary'
+import { Input } from '@/components/ui/inputAlt'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { User } from '@/models/user.model'
+import { Locale } from '@/lib/i18n-config'
 
 type RunnerFormData = {
 	firstName: string
@@ -39,22 +41,22 @@ type RunnerFormData = {
 }
 
 const runnerFormSchema = object({
-	firstName: pipe(string(), minLength(2, 'First name must be at least 2 characters')),
-	lastName: pipe(string(), minLength(2, 'Last name must be at least 2 characters')),
-	birthDate: pipe(string(), minLength(10, 'Birth date is required')),
-	phoneNumber: pipe(string(), minLength(0)),
-	contactEmail: optional(pipe(string(), emailValidator('Invalid email address'))),
-	emergencyContactName: pipe(string(), minLength(2, 'Contact name must be at least 2 characters')),
-	emergencyContactPhone: pipe(string(), minLength(8, 'Invalid phone number')),
-	emergencyContactRelationship: pipe(string(), minLength(2, 'Please specify the relationship')),
-	address: pipe(string(), minLength(4, 'Address too short')),
 	postalCode: pipe(string(), minLength(4, 'Invalid postal code')),
-	city: pipe(string(), minLength(2, 'City name too short')),
-	country: pipe(string(), minLength(2, 'Country name too short')),
-	gender: picklist(['male', 'female', 'other'], 'Invalid gender'),
+	phoneNumber: pipe(string(), minLength(0)),
 	medicalCertificateUrl: optional(string()),
-	clubAffiliation: optional(string()),
 	licenseNumber: optional(string()),
+	lastName: pipe(string(), minLength(2, 'Last name must be at least 2 characters')),
+	gender: picklist(['male', 'female', 'other'], 'Invalid gender'),
+	firstName: pipe(string(), minLength(2, 'First name must be at least 2 characters')),
+	emergencyContactRelationship: pipe(string(), minLength(2, 'Please specify the relationship')),
+	emergencyContactPhone: pipe(string(), minLength(8, 'Invalid phone number')),
+	emergencyContactName: pipe(string(), minLength(2, 'Contact name must be at least 2 characters')),
+	country: pipe(string(), minLength(2, 'Country name too short')),
+	contactEmail: optional(pipe(string(), emailValidator('Invalid email address'))),
+	clubAffiliation: optional(string()),
+	city: pipe(string(), minLength(2, 'City name too short')),
+	birthDate: pipe(string(), minLength(10, 'Birth date is required')),
+	address: pipe(string(), minLength(4, 'Address too short')),
 })
 
 export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Readonly<{ user: User; locale?: Locale }>) {
@@ -73,22 +75,22 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 	const form = useForm<RunnerFormData>({
 		resolver: valibotResolver(runnerFormSchema),
 		defaultValues: {
-			firstName: user?.firstName ?? '',
-			lastName: user?.lastName ?? '',
-			birthDate: formatDateForHTMLInput(user?.birthDate),
-			phoneNumber: user?.phoneNumber ?? '',
-			contactEmail: user?.contactEmail ?? '',
-			emergencyContactName: user?.emergencyContactName ?? '',
-			emergencyContactPhone: user?.emergencyContactPhone ?? '',
-			emergencyContactRelationship: user?.emergencyContactRelationship ?? '',
-			address: user?.address ?? '',
 			postalCode: user?.postalCode ?? '',
-			city: user?.city ?? '',
-			country: user?.country ?? '',
-			gender: user?.gender === 'male' || user?.gender === 'female' || user?.gender === 'other' ? user.gender : 'male',
+			phoneNumber: user?.phoneNumber ?? '',
 			medicalCertificateUrl: user?.medicalCertificateUrl ?? '',
-			clubAffiliation: user?.clubAffiliation ?? '',
 			licenseNumber: user?.licenseNumber ?? '',
+			lastName: user?.lastName ?? '',
+			gender: user?.gender === 'male' || user?.gender === 'female' || user?.gender === 'other' ? user.gender : 'male',
+			firstName: user?.firstName ?? '',
+			emergencyContactRelationship: user?.emergencyContactRelationship ?? '',
+			emergencyContactPhone: user?.emergencyContactPhone ?? '',
+			emergencyContactName: user?.emergencyContactName ?? '',
+			country: user?.country ?? '',
+			contactEmail: user?.contactEmail ?? '',
+			clubAffiliation: user?.clubAffiliation ?? '',
+			city: user?.city ?? '',
+			birthDate: formatDateForHTMLInput(user?.birthDate),
+			address: user?.address ?? '',
 		},
 	})
 

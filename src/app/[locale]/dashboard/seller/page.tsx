@@ -3,9 +3,9 @@ import type { Metadata } from 'next'
 import { currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
+import { fetchSellerCompletedTransactions, fetchSellerTransactions } from '@/services/transaction.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { fetchBibsBySeller } from '@/services/bib.services'
-import { fetchSellerCompletedTransactions, fetchSellerTransactions } from '@/services/transaction.services'
 import { LocaleParams } from '@/lib/generateStaticParams'
 
 import SellerDashboardClient from './SellerDashboardClient'

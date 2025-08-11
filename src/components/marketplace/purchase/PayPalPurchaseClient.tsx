@@ -1,28 +1,29 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react'
-import { useQueryState } from 'nuqs'
+
 import { useRouter } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
+import { useQueryState } from 'nuqs'
+import { DateTime } from 'luxon'
+import { toast } from 'sonner'
 
 import type { User as AppUser } from '@/models/user.model'
-import type { Event } from '@/models/event.model'
 import type { Organizer } from '@/models/organizer.model'
+import type { BibSale } from '@/models/marketplace.model'
+import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
-import { createSale } from '@/app/[locale]/purchase/actions'
-import type { BibSale } from '@/models/marketplace.model'
 import { captureOrder } from '@/app/[locale]/purchase/actions'
+import { createSale } from '@/app/[locale]/purchase/actions'
 import { isUserProfileComplete } from '@/lib/userValidation'
-import { Locale } from '@/lib/i18n-config'
 // import Lanyard from '@/components/ui/BibPriceLanyard'
 import { isLocked, lockBib } from '@/services/bib.services'
+import { Locale } from '@/lib/i18n-config'
 
 // Import sub-components
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
 import { LockTimer } from './LockTimer'
-import { toast } from 'sonner'
-import { DateTime } from 'luxon'
 // import { pbDateToLuxon } from '@/lib/dateUtils'
 
 interface PayPalPurchaseClientProps {
@@ -50,10 +51,10 @@ type LockStatus = 'locked' | 'unlocked' | 'userlocked'
 export default function PayPalPurchaseClient({
 	user,
 	sellerUser,
-	locale,
-	bib,
-	eventData,
 	organizerData,
+	locale,
+	eventData,
+	bib,
 }: Readonly<PayPalPurchaseClientProps>) {
 	// Local safe converter to avoid type-aware linter issues with cross-module inference
 	const toLuxon = (date: DateLike): DateTime | null => {
@@ -87,9 +88,9 @@ export default function PayPalPurchaseClient({
 
 	// Nuqs param for lockedAt
 	const [lockedAtParam, setLockedAtParam] = useQueryState<string | null>('lockedAt', {
-		history: 'replace',
 		shallow: false,
 		parse: (value: string | null) => value,
+		history: 'replace',
 		defaultValue: null,
 	})
 
@@ -255,7 +256,7 @@ export default function PayPalPurchaseClient({
 		<div className="relative">
 			{/* Lock timer in top left corner */}
 			{secondsLeft !== null && secondsLeft > 0 && (
-				<div style={{ position: 'fixed', top: 24, left: 24, zIndex: 50 }}>
+				<div style={{ zIndex: 50, top: 24, position: 'fixed', left: 24 }}>
 					<LockTimer seconds={secondsLeft} />
 				</div>
 			)}

@@ -4,11 +4,12 @@ import { AlertTriangle, ShieldCheck } from 'lucide-react'
 
 import { UserButton } from '@clerk/nextjs'
 import Link from 'next/link'
-import { getTranslations } from '@/lib/getDictionary'
-import dashboardTranslations from '@/app/[locale]/dashboard/locales.json'
-import { Locale } from '@/lib/i18n-config'
 
 import type { User } from '@/models/user.model'
+
+import dashboardTranslations from '@/app/[locale]/dashboard/locales.json'
+import { getTranslations } from '@/lib/getDictionary'
+import { Locale } from '@/lib/i18n-config'
 
 interface SerializedClerkUser {
 	emailAddresses: { emailAddress: string; id: string }[]
@@ -25,7 +26,7 @@ interface UserHeaderProps {
 	locale?: Locale
 }
 
-export default function UserHeader({ user, clerkUser, locale }: Readonly<UserHeaderProps>) {
+export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHeaderProps>) {
 	const t = getTranslations(locale ?? ('en' as Locale), dashboardTranslations)
 	const userName = clerkUser.firstName ?? clerkUser.emailAddresses[0]?.emailAddress ?? 'User'
 

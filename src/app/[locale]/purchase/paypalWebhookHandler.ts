@@ -16,8 +16,8 @@ export async function handlePayPalOrderCompleted(paypalOrderId: string, buyerUse
 	// 2. Update transaction status to 'succeeded'
 	await updateTransaction(transaction.id, {
 		status: 'succeeded',
-		payment_status: 'COMPLETED',
 		paypal_order_id: paypalOrderId,
+		payment_status: 'COMPLETED',
 	})
 
 	// 3. Update bib record to mark as sold and set buyer

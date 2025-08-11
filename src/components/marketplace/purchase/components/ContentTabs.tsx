@@ -1,12 +1,14 @@
 'use client'
 
-import React, { Fragment } from 'react'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { formatDateWithLocale } from '@/lib/dateUtils'
+import React, { Fragment } from 'react'
+
 import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n-config'
+
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { formatDateWithLocale } from '@/lib/dateUtils'
 
 interface ContentTabsProps {
 	/** The bib sale data */
@@ -21,7 +23,7 @@ interface ContentTabsProps {
  * Component that displays tabbed content including event details, FAQ, and terms
  * Organizes information in an easy-to-navigate tab structure
  */
-export default function ContentTabs({ bib, eventData, locale }: ContentTabsProps) {
+export default function ContentTabs({ locale, eventData, bib }: ContentTabsProps) {
 	// FAQ data
 	const faqs = [
 		{
@@ -48,8 +50,8 @@ export default function ContentTabs({ bib, eventData, locale }: ContentTabsProps
 
 	// Terms data
 	const terms = {
-		href: '#',
 		summary: "By purchasing this bib, you agree to our terms of service and the event organizer's participation rules.",
+		href: '#',
 	}
 
 	return (

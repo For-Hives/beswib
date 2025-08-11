@@ -3,8 +3,8 @@
 import { LayoutDashboard, Settings, ShoppingBag, Tag, User } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
-import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
+import { useUser } from '@clerk/nextjs'
 
 import { DropdownMenuAnimated } from '@/components/ui/dropdown-menu-animated'
 import { getTranslations } from '@/lib/getDictionary'

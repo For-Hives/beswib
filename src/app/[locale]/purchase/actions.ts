@@ -4,10 +4,10 @@ import { auth } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 
 import { createTransaction } from '@/services/transaction.services'
-import { salesCreate } from '@/services/sales.services'
-import { fetchBibById } from '@/services/bib.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { capturePayment } from '@/services/paypal.services'
+import { salesCreate } from '@/services/sales.services'
+import { fetchBibById } from '@/services/bib.services'
 
 export async function handlePaymentPageOpened(paymentIntentId: string, bibId: string) {
 	const { userId } = await auth()
@@ -30,15 +30,15 @@ export async function handlePaymentPageOpened(paymentIntentId: string, bibId: st
 		const transaction = await createTransaction({
 			status: 'pending',
 			seller_user_id: bib.sellerUserId,
+			raw_webhook_payload: '',
 			platform_fee: bib.price * 0.1,
 			paypal_order_id: paymentIntentId,
 			paypal_capture_id: '',
-			payer_email: '',
-			payer_id: '',
-			currency: 'EUR',
 			payment_status: 'pending',
+			payer_id: '',
+			payer_email: '',
+			currency: 'EUR',
 			capture_time: '',
-			raw_webhook_payload: '',
 			buyer_user_id: pbUser.id,
 			bib_id: bib.id,
 			amount: bib.price,
@@ -48,7 +48,7 @@ export async function handlePaymentPageOpened(paymentIntentId: string, bibId: st
 			throw new Error('Failed to create transaction.')
 		}
 
-		return { success: true, transaction }
+		return { transaction, success: true }
 	} catch (error) {
 		console.error('Error handling payment page open:', error)
 		if (error instanceof Error) {
@@ -68,14 +68,14 @@ export async function createSale(bibId: string, sellerMerchantId: string) {
 		return { success: false, error: 'Missing parameters.' }
 	}
 	try {
-		const { orderId, transaction } = await salesCreate({
-			buyerUserId: userId,
+		const { transaction, orderId } = await salesCreate({
 			sellerMerchantId,
+			buyerUserId: userId,
 			bibId,
 		})
 		// Optional revalidation for marketplace pages post-initiation
 		revalidatePath('/marketplace')
-		return { success: true, orderId, transactionId: transaction.id }
+		return { transactionId: transaction.id, success: true, orderId }
 	} catch (error) {
 		console.error('Error creating sale:', error)
 		return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }

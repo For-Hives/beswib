@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useRive, Layout, Fit, Alignment, RuntimeLoader } from '@rive-app/react-canvas'
+import { useEffect } from 'react'
 
 import type { Locale } from '@/lib/i18n-config'
 
@@ -10,33 +10,6 @@ interface Props {
 }
 
 const texts: Record<Locale, { title: string; subtitle: string; cta: string }> = {
-	en: {
-		title: 'No results match your search',
-		subtitle:
-			"Try tweaking your filters. If you think we're missing an event you're interested in, feel free to contact us.",
-		cta: 'Contact us',
-	},
-	fr: {
-		title: 'Aucun résultat ne correspond à votre recherche',
-		subtitle:
-			"Ajustez vos filtres. Si vous pensez que nous n'avons pas encore la course qui vous intéresse, contactez-nous.",
-		cta: 'Nous contacter',
-	},
-	es: {
-		title: 'Ningún resultado coincide con tu búsqueda',
-		subtitle: 'Prueba a ajustar los filtros. Si crees que falta un evento que te interesa, contáctanos.',
-		cta: 'Contáctanos',
-	},
-	it: {
-		title: 'Nessun risultato corrisponde alla tua ricerca',
-		subtitle: 'Prova a modificare i filtri. Se pensi che manchi un evento di tuo interesse, contattaci.',
-		cta: 'Contattaci',
-	},
-	de: {
-		title: 'Keine Ergebnisse für deine Suche',
-		subtitle: 'Versuche deine Filter anzupassen. Wenn ein interessantes Event fehlt, kontaktiere uns gerne.',
-		cta: 'Kontakt aufnehmen',
-	},
 	ro: {
 		title: 'Niciun rezultat nu corespunde căutării tale',
 		subtitle: 'Încearcă să ajustezi filtrele. Dacă lipsește un eveniment care te interesează, contactează-ne.',
@@ -58,6 +31,33 @@ const texts: Record<Locale, { title: string; subtitle: string; cta: string }> = 
 		subtitle: '필터를 조정해 보세요. 관심 있는 대회가 없다면 문의해 주세요.',
 		cta: '문의하기',
 	},
+	it: {
+		title: 'Nessun risultato corrisponde alla tua ricerca',
+		subtitle: 'Prova a modificare i filtri. Se pensi che manchi un evento di tuo interesse, contattaci.',
+		cta: 'Contattaci',
+	},
+	fr: {
+		title: 'Aucun résultat ne correspond à votre recherche',
+		subtitle:
+			"Ajustez vos filtres. Si vous pensez que nous n'avons pas encore la course qui vous intéresse, contactez-nous.",
+		cta: 'Nous contacter',
+	},
+	es: {
+		title: 'Ningún resultado coincide con tu búsqueda',
+		subtitle: 'Prueba a ajustar los filtros. Si crees que falta un evento que te interesa, contáctanos.',
+		cta: 'Contáctanos',
+	},
+	en: {
+		title: 'No results match your search',
+		subtitle:
+			"Try tweaking your filters. If you think we're missing an event you're interested in, feel free to contact us.",
+		cta: 'Contact us',
+	},
+	de: {
+		title: 'Keine Ergebnisse für deine Suche',
+		subtitle: 'Versuche deine Filter anzupassen. Wenn ein interessantes Event fehlt, kontaktiere uns gerne.',
+		cta: 'Kontakt aufnehmen',
+	},
 }
 
 export default function EmptyResultsRive({ locale }: Readonly<Props>) {
@@ -68,10 +68,10 @@ export default function EmptyResultsRive({ locale }: Readonly<Props>) {
 		RuntimeLoader.setWasmUrl('/svgs/rive_fallback.wasm')
 	}
 
-	const { rive, RiveComponent } = useRive({
+	const { RiveComponent, rive } = useRive({
 		src: '/svgs/impatient_placeholder.riv',
-		autoplay: true,
 		layout: new Layout({ fit: Fit.Contain, alignment: Alignment.Center }),
+		autoplay: true,
 	})
 
 	useEffect(() => {

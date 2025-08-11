@@ -1,8 +1,9 @@
 'use server'
+import { DateTime } from 'luxon'
+
+import { User, type PbUserRecordMinimal } from '@/models/user.model'
 import { pbDateToLuxon } from '@/lib/dateUtils'
 import { pb } from '@/lib/pocketbaseClient'
-import { User, type PbUserRecordMinimal } from '@/models/user.model'
-import { DateTime } from 'luxon'
 
 // Map PocketBase record to our User model
 
@@ -20,29 +21,29 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 	}
 
 	return {
-		id: record.id,
-		clerkId: record.clerkId,
-		paypalMerchantId: record.paypalMerchantId,
+		updated: new Date(record.updated),
 		role: record.role,
-		email: record.email,
-		contactEmail: record.contactEmail,
-		firstName: record.firstName,
-		lastName: record.lastName,
-		birthDate,
-		phoneNumber: record.phoneNumber,
-		emergencyContactName: record.emergencyContactName,
-		emergencyContactPhone: record.emergencyContactPhone,
-		emergencyContactRelationship: record.emergencyContactRelationship,
-		address: record.address,
 		postalCode: record.postalCode,
-		city: record.city,
-		country: record.country,
-		gender: record.gender,
+		phoneNumber: record.phoneNumber,
+		paypalMerchantId: record.paypalMerchantId,
 		medicalCertificateUrl: record.medicalCertificateUrl,
 		licenseNumber: record.licenseNumber,
-		clubAffiliation: record.clubAffiliation,
+		lastName: record.lastName,
+		id: record.id,
+		gender: record.gender,
+		firstName: record.firstName,
+		emergencyContactRelationship: record.emergencyContactRelationship,
+		emergencyContactPhone: record.emergencyContactPhone,
+		emergencyContactName: record.emergencyContactName,
+		email: record.email,
 		created: new Date(record.created),
-		updated: new Date(record.updated),
+		country: record.country,
+		contactEmail: record.contactEmail,
+		clubAffiliation: record.clubAffiliation,
+		clerkId: record.clerkId,
+		city: record.city,
+		birthDate,
+		address: record.address,
 	}
 }
 

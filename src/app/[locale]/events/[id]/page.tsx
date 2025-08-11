@@ -13,10 +13,11 @@ import { fetchPubliclyListedBibsForEvent } from '@/services/bib.services'
 import { generateLocaleParams } from '@/lib/generateStaticParams'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { addToWaitlist } from '@/services/waitlist.services'
-import { fetchEventById } from '@/services/event.services'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
+import { fetchEventById } from '@/services/event.services'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
+
 import eventTranslations from './locales.json'
 
 type EventDetailPageProps = {

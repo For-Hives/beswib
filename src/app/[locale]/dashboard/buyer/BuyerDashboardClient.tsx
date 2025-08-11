@@ -4,15 +4,15 @@ import { Calendar, CheckCircle, Clock, Package, ShoppingCart, Users } from 'luci
 
 import Link from 'next/link'
 
+import type { Transaction } from '@/models/transaction.model'
 import type { Waitlist } from '@/models/waitlist.model'
 import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
-import type { Transaction } from '@/models/transaction.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 import { getTranslations } from '@/lib/getDictionary'
 import { Button } from '@/components/ui/button'
-import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 
 interface BuyerDashboardClientProps {
 	clerkUser: SerializedClerkUser
@@ -39,12 +39,12 @@ import buyerTranslations from './locales.json'
 
 export default function BuyerDashboardClient({
 	userWaitlists = [],
+	totalSpent,
 	successEventName,
 	purchaseSuccess,
-	buyerTransactions = [],
-	totalSpent,
 	locale,
 	clerkUser,
+	buyerTransactions = [],
 }: BuyerDashboardClientProps) {
 	const t = getTranslations(locale, buyerTranslations)
 

@@ -12,8 +12,8 @@ async function getPayPalAccessToken(): Promise<string> {
 	const res = await fetch(`${apiUrl()}/v1/oauth2/token`, {
 		method: 'POST',
 		headers: {
-			Authorization: `Basic ${auth}`,
 			'Content-Type': 'application/x-www-form-urlencoded',
+			Authorization: `Basic ${auth}`,
 		},
 		body: 'grant_type=client_credentials',
 	})
@@ -60,13 +60,13 @@ export async function verifyPayPalWebhookSignature({
 	}
 
 	const payload = {
-		auth_algo: authAlgo,
-		cert_url: certUrl,
-		transmission_id: transmissionId,
-		transmission_sig: transmissionSig,
-		transmission_time: transmissionTime,
 		webhook_id: webhookId,
 		webhook_event: JSON.parse(body),
+		transmission_time: transmissionTime,
+		transmission_sig: transmissionSig,
+		transmission_id: transmissionId,
+		cert_url: certUrl,
+		auth_algo: authAlgo,
 	}
 
 	try {

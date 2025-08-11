@@ -1,12 +1,13 @@
-import Link from 'next/link'
 import { Facebook, Instagram, Twitter, X } from 'lucide-react'
+
+import Link from 'next/link'
 
 import { LocaleParams } from '@/lib/generateStaticParams'
 import { getTranslations } from '@/lib/getDictionary'
+import { SOCIALS } from '@/lib/socials'
 
 import LanguageSelector from './LanguageSelector'
 import translations from './locales.json'
-import { SOCIALS } from '@/lib/socials'
 
 export default async function Footer({ localeParams }: Readonly<{ localeParams: Promise<LocaleParams> }>) {
 	const { locale } = await localeParams

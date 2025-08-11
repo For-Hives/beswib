@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+
 import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
 
@@ -16,7 +17,7 @@ interface PriceDisplayProps {
  * Shows current price, original price, and savings compared to the lowest reference price
  * (either original seller price or official event price)
  */
-export default function PriceDisplay({ bib, eventData }: PriceDisplayProps) {
+export default function PriceDisplay({ eventData, bib }: PriceDisplayProps) {
 	// Calculate the lowest reference price between original and official
 	const officialPrice = eventData?.officialStandardPrice ?? 0
 	const originalPrice = bib.originalPrice ?? 0

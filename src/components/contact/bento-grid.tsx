@@ -7,8 +7,8 @@ import type React from 'react'
 
 import globalTranslations from '@/components/global/locales.json'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
 import { SOCIALS } from '@/lib/socials'
+import { cn } from '@/lib/utils'
 
 type BentoCardProps = Readonly<{
 	className?: string
@@ -221,9 +221,9 @@ function BentoCard({
 	icon,
 	href,
 	hoverEffect,
+	ctaLabel,
 	content,
 	className,
-	ctaLabel,
 }: BentoCardProps) {
 	return (
 		<motion.a

@@ -1,20 +1,12 @@
 'use client'
-import React from 'react'
-
 import { CheckCircle, ExternalLink, RefreshCw, Unlink, XCircle } from 'lucide-react'
 import { Suspense } from 'react'
+import React from 'react'
 
 import { usePayPalOnboarding } from '@/hooks/usePayPalOnboarding'
 import { usePayPalDisconnect } from '@/hooks/usePayPalDisconnect'
 import { useUser } from '@/hooks/useUser'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import profileTranslations from '@/app/[locale]/profile/locales.json'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { getTranslations } from '@/lib/getDictionary'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Locale } from '@/lib/i18n-config'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -25,6 +17,13 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import profileTranslations from '@/app/[locale]/profile/locales.json'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { getTranslations } from '@/lib/getDictionary'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Locale } from '@/lib/i18n-config'
 
 import PayPalOnboardingSkeleton from './PayPalOnboardingSkeleton'
 

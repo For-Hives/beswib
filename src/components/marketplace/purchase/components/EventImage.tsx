@@ -1,14 +1,17 @@
 'use client'
 
 import React from 'react'
-import { getTranslations } from '@/lib/getDictionary'
-import marketplaceTranslations from '@/components/marketplace/locales.json'
-import { Locale } from '@/lib/i18n-config'
+
 import Image from 'next/image'
-import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
+
 import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
+
+import marketplaceTranslations from '@/components/marketplace/locales.json'
+import { getTranslations } from '@/lib/getDictionary'
+import { Badge } from '@/components/ui/badge'
+import { Locale } from '@/lib/i18n-config'
+import { cn } from '@/lib/utils'
 
 interface EventImageProps {
 	/** The bib sale data containing event information */
@@ -23,7 +26,7 @@ interface EventImageProps {
  * Component that displays the event image with type badge and discount badge
  * Handles the visual presentation of the event with proper styling and overlays
  */
-export default function EventImage({ bib, eventData, locale }: EventImageProps) {
+export default function EventImage({ locale, eventData, bib }: EventImageProps) {
 	const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
 	/**
 	 * Get background styling based on event type

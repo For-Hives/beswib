@@ -3,8 +3,9 @@
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { capturePayment, createOrder, onboardSeller } from '@/services/paypal.services'
 import type { Locale } from '@/lib/i18n-config'
+
+import { capturePayment, createOrder, onboardSeller } from '@/services/paypal.services'
 import { getTranslations } from '@/lib/getDictionary'
 
 import paypalTranslations from './locales.json'
@@ -59,22 +60,22 @@ export default function PaypalC2C({ locale }: PaypalC2CProps) {
 			setError(null)
 
 			const data = await createOrder(sellerId.trim(), {
-				id: 'demo-bib',
+				user: { lastName: 'Seller', id: 'seller_pb_demo', firstName: 'Demo' },
+				status: 'available',
 				price: 10,
 				originalPrice: 12,
-				status: 'available',
 				lockedAt: null,
-				user: { id: 'seller_pb_demo', firstName: 'Demo', lastName: 'Seller' },
+				id: 'demo-bib',
 				event: {
-					id: 'event_demo',
-					name: 'Demo Event',
-					image: '',
-					date: new Date(),
-					distance: 10,
-					distanceUnit: 'km',
-					location: 'Anywhere',
-					participantCount: 100,
 					type: 'running',
+					participantCount: 100,
+					name: 'Demo Event',
+					location: 'Anywhere',
+					image: '',
+					id: 'event_demo',
+					distanceUnit: 'km',
+					distance: 10,
+					date: new Date(),
 				},
 			})
 			if (data.error != null) {

@@ -1,11 +1,12 @@
 'use server'
 
-import { createOrder } from './paypal.services'
+import type { SalesCreateInput, SalesCreateOutput, SalesCompleteInput, SalesCompleteOutput } from '@/models/sales.model'
+import type { BibSale } from '@/models/marketplace.model'
+
 import { createTransaction, updateTransaction, getTransactionByOrderId } from './transaction.services'
 import { fetchBibById, updateBib } from './bib.services'
 import { fetchUserByClerkId } from './user.services'
-import type { BibSale } from '@/models/marketplace.model'
-import type { SalesCreateInput, SalesCreateOutput, SalesCompleteInput, SalesCompleteOutput } from '@/models/sales.model'
+import { createOrder } from './paypal.services'
 
 // Types moved to src/models/sales.model
 
@@ -13,7 +14,7 @@ import type { SalesCreateInput, SalesCreateOutput, SalesCompleteInput, SalesComp
 export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateOutput> {
 	console.info('Creating sale with input:', input)
 
-	const { buyerUserId, sellerMerchantId, bibId } = input
+	const { sellerMerchantId, buyerUserId, bibId } = input
 	if (!buyerUserId || !sellerMerchantId || !bibId) {
 		throw new Error('Missing required salesCreate parameters')
 	}
@@ -24,26 +25,26 @@ export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateO
 
 	// Build the BibSale lightweight object expected by createOrder
 	const bibSale: BibSale = {
-		id: bib.id,
-		price: bib.price,
-		originalPrice: bib.originalPrice ?? 0,
-		status: bib.status === 'sold' ? 'sold' : 'available',
-		lockedAt: bib.lockedAt ?? null,
 		user: {
+			lastName: '',
 			id: bib.sellerUserId,
 			firstName: '',
-			lastName: '',
 		},
+		status: bib.status === 'sold' ? 'sold' : 'available',
+		price: bib.price,
+		originalPrice: bib.originalPrice ?? 0,
+		lockedAt: bib.lockedAt ?? null,
+		id: bib.id,
 		event: {
-			id: bib.eventId,
-			name: '',
-			image: '',
-			date: new Date(),
-			distance: 0,
-			distanceUnit: 'km',
-			location: '',
-			participantCount: 0,
 			type: 'running',
+			participantCount: 0,
+			name: '',
+			location: '',
+			image: '',
+			id: bib.eventId,
+			distanceUnit: 'km',
+			distance: 0,
+			date: new Date(),
 		},
 	}
 
@@ -63,23 +64,23 @@ export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateO
 	const tx = await createTransaction({
 		status: 'pending',
 		seller_user_id: bib.sellerUserId,
-		buyer_user_id: pbBuyer.id,
-		bib_id: bib.id,
-		amount: bib.price,
+		raw_webhook_payload: '',
 		platform_fee: platformFee,
 		paypal_order_id: order.id,
 		paypal_capture_id: '',
-		payer_email: '',
-		payer_id: '',
-		currency: 'EUR',
 		payment_status: 'PENDING',
+		payer_id: '',
+		payer_email: '',
+		currency: 'EUR',
 		capture_time: '',
-		raw_webhook_payload: '',
+		buyer_user_id: pbBuyer.id,
+		bib_id: bib.id,
+		amount: bib.price,
 	})
 
 	if (!tx) throw new Error('Failed to create transaction')
 
-	return { orderId: order.id, transaction: tx }
+	return { transaction: tx, orderId: order.id }
 }
 
 // Types moved to src/models/sales.model
@@ -105,15 +106,15 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 	if (typeof transactionId === 'string' && transactionId !== '') {
 		await updateTransaction(transactionId, {
 			status: 'succeeded',
+			raw_webhook_payload: JSON.stringify(input.event),
 			paypal_order_id: orderId,
 			paypal_capture_id: captureId,
-			payer_email: payerEmail,
-			payer_id: payerId,
-			amount,
-			currency,
 			payment_status: status,
+			payer_id: payerId,
+			payer_email: payerEmail,
+			currency,
 			capture_time: captureTime,
-			raw_webhook_payload: JSON.stringify(input.event),
+			amount,
 		})
 	}
 
@@ -121,8 +122,8 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 		// If we have buyerUserId from original transaction, prefer that
 		const buyerUserId = found?.buyer_user_id
 		await updateBib(bibId, {
-			status: 'sold',
 			validated: true,
+			status: 'sold',
 			...(typeof buyerUserId === 'string' && buyerUserId !== '' ? { buyerUserId } : {}),
 		})
 	}

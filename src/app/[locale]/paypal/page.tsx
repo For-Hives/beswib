@@ -1,5 +1,6 @@
-import PaypalC2C from '@/components/paypal/paypal-c2c'
 import type { Locale } from '@/lib/i18n-config'
+
+import PaypalC2C from '@/components/paypal/paypal-c2c'
 
 interface PaypalPageProps {
 	params: Promise<{ locale: Locale }>

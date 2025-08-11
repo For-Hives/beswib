@@ -1,18 +1,19 @@
 'use server'
 
+import { DateTime } from 'luxon'
+
 import type { Transaction } from '@/models/transaction.model'
+import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
-import type { Organizer } from '@/models/organizer.model'
 
+import { isSellerProfileComplete } from '@/lib/userValidation'
+import { pbDateToLuxon } from '@/lib/dateUtils'
 import { pb } from '@/lib/pocketbaseClient'
 
 import { createTransaction } from './transaction.services'
 import { fetchUserById } from './user.services'
-import { isSellerProfileComplete } from '@/lib/userValidation'
-import { DateTime } from 'luxon'
-import { pbDateToLuxon } from '@/lib/dateUtils'
 
 /**
  * Creates a new bib listing. Handles both partnered and unlisted events.
@@ -449,18 +450,18 @@ export async function processBibSale(
 		const transaction = await createTransaction({
 			status: 'succeeded',
 			seller_user_id: bib.sellerUserId,
+			raw_webhook_payload: '',
 			platform_fee: platformFeeAmount,
+			paypal_order_id: '',
+			paypal_capture_id: '',
+			payment_status: 'COMPLETED',
+			payer_id: '',
+			payer_email: '',
+			currency: 'EUR',
+			capture_time: '',
 			buyer_user_id: buyerUserId,
 			bib_id: bib.id,
 			amount: bib.price,
-			paypal_order_id: '',
-			paypal_capture_id: '',
-			payer_email: '',
-			payer_id: '',
-			currency: 'EUR',
-			payment_status: 'COMPLETED',
-			capture_time: '',
-			raw_webhook_payload: '',
 		})
 
 		if (transaction == null) {

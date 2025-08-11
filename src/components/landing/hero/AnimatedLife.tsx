@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+
 import { useThemeStore } from '@/hooks/useTheme'
 
 // Global knobs
@@ -171,14 +172,14 @@ export function AnimatedLife() {
 				let internalDurMs = mapRange(dMs, kindMin, kindMax, internalMin, internalMax)
 				internalDurMs = Math.max(150, Math.round(internalDurMs / speedFactor))
 				result.push({
-					id: `${kind}-${g}-${safeRandomId()}`,
-					kind,
+					zIndex: kind === 'bike' ? 3 : 2,
 					topPercent,
+					kind,
+					internalDurMs,
+					id: `${kind}-${g}-${safeRandomId()}`,
 					durationMs: dMs,
 					delayMs: dlMs,
-					zIndex: kind === 'bike' ? 3 : 2,
 					color: pickColor(),
-					internalDurMs,
 				})
 			}
 
@@ -314,7 +315,7 @@ export function AnimatedLife() {
 					<div
 						key={entity.id}
 						className="pointer-events-none absolute top-0 left-0"
-						style={{ top: `${entity.topPercent}%`, zIndex: entity.zIndex }}
+						style={{ zIndex: entity.zIndex, top: `${entity.topPercent}%` }}
 					>
 						<div
 							className="race-move relative"
@@ -348,7 +349,7 @@ export function AnimatedLife() {
 	)
 }
 
-function Cycling({ color, internalDurMs }: { color: string; internalDurMs: number }) {
+function Cycling({ internalDurMs, color }: { color: string; internalDurMs: number }) {
 	return (
 		<svg
 			width="800"
@@ -402,7 +403,7 @@ function Cycling({ color, internalDurMs }: { color: string; internalDurMs: numbe
 	)
 }
 
-function Runner({ color, internalDurMs }: { color: string; internalDurMs: number }) {
+function Runner({ internalDurMs, color }: { color: string; internalDurMs: number }) {
 	return (
 		<svg
 			width="800"

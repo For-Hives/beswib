@@ -1,33 +1,34 @@
 import { describe, expect, it } from 'vitest'
 
-import { isUserProfileComplete } from '@/lib/userValidation'
 import type { User } from '@/models/user.model'
+
+import { isUserProfileComplete } from '@/lib/userValidation'
 
 describe('isUserProfileComplete', () => {
 	const completeUser: User = {
-		id: '1',
-		clerkId: 'clerk_123',
-		paypalMerchantId: null,
+		updated: new Date(),
 		role: 'user',
-		email: 'john.doe@example.com',
-		contactEmail: 'john.contact@example.com',
-		firstName: 'John',
-		lastName: 'Doe',
-		birthDate: new Date('1990-01-01'),
-		phoneNumber: '+33123456789',
-		emergencyContactName: 'Jane Doe',
-		emergencyContactPhone: '+33987654321',
-		emergencyContactRelationship: 'spouse',
-		address: '123 Main Street',
 		postalCode: '75001',
-		city: 'Paris',
-		country: 'France',
-		gender: 'male',
+		phoneNumber: '+33123456789',
+		paypalMerchantId: null,
 		medicalCertificateUrl: null,
 		licenseNumber: null,
-		clubAffiliation: null,
+		lastName: 'Doe',
+		id: '1',
+		gender: 'male',
+		firstName: 'John',
+		emergencyContactRelationship: 'spouse',
+		emergencyContactPhone: '+33987654321',
+		emergencyContactName: 'Jane Doe',
+		email: 'john.doe@example.com',
 		created: new Date(),
-		updated: new Date(),
+		country: 'France',
+		contactEmail: 'john.contact@example.com',
+		clubAffiliation: null,
+		clerkId: 'clerk_123',
+		city: 'Paris',
+		birthDate: new Date('1990-01-01'),
+		address: '123 Main Street',
 	}
 
 	it('should return true for a complete user profile', () => {
@@ -67,8 +68,8 @@ describe('isUserProfileComplete', () => {
 	it('should return false when required fields are empty strings', () => {
 		const userWithEmptyFields: User = {
 			...completeUser,
-			firstName: '',
 			lastName: '   ', // whitespace only
+			firstName: '',
 		}
 		expect(isUserProfileComplete(userWithEmptyFields)).toBe(false)
 	})

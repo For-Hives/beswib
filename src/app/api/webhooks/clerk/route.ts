@@ -54,28 +54,28 @@ function buildUserData(evt: WebhookEvent, primaryEmail: string): Omit<User, 'cre
 	const { last_name, id: clerkId, first_name } = userData
 
 	return {
-		address: null,
-		birthDate: null,
-		city: null,
-		clerkId,
+		role: 'user' as const,
+		postalCode: '',
+		phoneNumber: '',
+		paypalMerchantId: null,
+		medicalCertificateUrl: null,
+		licenseNumber: null,
+		lastName: last_name ?? '',
+
+		gender: null,
+		firstName: first_name ?? '',
+		emergencyContactRelationship: null,
+		emergencyContactPhone: '',
+		emergencyContactName: '',
+		email: primaryEmail,
+
+		country: null,
 		contactEmail: null,
 		clubAffiliation: null,
-		country: null,
-
-		email: primaryEmail,
-		emergencyContactName: '',
-		emergencyContactPhone: '',
-		emergencyContactRelationship: null,
-		firstName: first_name ?? '',
-		gender: null,
-
-		lastName: last_name ?? '',
-		licenseNumber: null,
-		medicalCertificateUrl: null,
-		paypalMerchantId: null,
-		phoneNumber: '',
-		postalCode: '',
-		role: 'user' as const,
+		clerkId,
+		city: null,
+		birthDate: null,
+		address: null,
 	}
 }
 

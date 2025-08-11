@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 
-import { useQueryState } from 'nuqs'
 import { useUser } from '@clerk/nextjs'
+import { useQueryState } from 'nuqs'
 
 import { completePayPalOnboarding } from '@/services/paypal-onboarding.services'
 

@@ -12,7 +12,7 @@ interface YearViewProps {
 }
 
 export function YearView(props: Readonly<YearViewProps>) {
-	const { selectedDate, onDateSelect, getEventsForDate, locale = 'en-US' } = props
+	const { selectedDate, onDateSelect, locale = 'en-US', getEventsForDate } = props
 	const year = selectedDate.getFullYear()
 	const months = Array.from({ length: 12 }, (_, i) => i)
 
