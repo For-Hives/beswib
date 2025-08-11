@@ -448,12 +448,19 @@ export async function processBibSale(
 		// 4. Create the transaction record. 📝
 		const transaction = await createTransaction({
 			status: 'succeeded',
-			sellerUserId: bib.sellerUserId,
-			platformFee: platformFeeAmount,
-
-			buyerUserId: buyerUserId,
-			bibId: bib.id,
+			seller_user_id: bib.sellerUserId,
+			platform_fee: platformFeeAmount,
+			buyer_user_id: buyerUserId,
+			bib_id: bib.id,
 			amount: bib.price,
+			paypal_order_id: '',
+			paypal_capture_id: '',
+			payer_email: '',
+			payer_id: '',
+			currency: 'EUR',
+			payment_status: 'COMPLETED',
+			capture_time: '',
+			raw_webhook_payload: '',
 		})
 
 		if (transaction == null) {

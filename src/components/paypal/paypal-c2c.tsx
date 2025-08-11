@@ -58,7 +58,25 @@ export default function PaypalC2C({ locale }: PaypalC2CProps) {
 			setLoading(true)
 			setError(null)
 
-			const data = await createOrder(sellerId.trim(), '10.00')
+			const data = await createOrder(sellerId.trim(), {
+				id: 'demo-bib',
+				price: 10,
+				originalPrice: 12,
+				status: 'available',
+				lockedAt: null,
+				user: { id: 'seller_pb_demo', firstName: 'Demo', lastName: 'Seller' },
+				event: {
+					id: 'event_demo',
+					name: 'Demo Event',
+					image: '',
+					date: new Date(),
+					distance: 10,
+					distanceUnit: 'km',
+					location: 'Anywhere',
+					participantCount: 100,
+					type: 'running',
+				},
+			})
 			if (data.error != null) {
 				throw new Error(data.error)
 			}

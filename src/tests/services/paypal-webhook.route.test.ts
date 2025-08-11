@@ -14,6 +14,7 @@ vi.mock('@/services/paypal.services', () => ({
 
 import { verifyPayPalWebhookSignature } from '@/lib/paypalWebhookVerify'
 import { POST, GET } from '@/app/api/webhooks/paypal/route'
+import type { NextRequest } from 'next/server'
 import * as paypalServices from '@/services/paypal.services'
 
 // Helper to build a NextRequest-like object minimal subset for our route
@@ -43,8 +44,8 @@ describe('PayPal webhook route', () => {
 	it('rejects invalid signature', async () => {
 		;(verifyPayPalWebhookSignature as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(false)
 		const req = new MockRequest(JSON.stringify(mkEvent('ANY')))
-		const res = await POST(req as unknown as Request)
-		const json = await res.json()
+		const res = await POST(req as unknown as NextRequest)
+		const json = (await res.json()) as { error?: string; status?: string }
 		expect(res.status).toBe(400)
 		expect(json.error).toContain('Invalid webhook signature')
 	})
@@ -52,7 +53,7 @@ describe('PayPal webhook route', () => {
 	it('routes PAYMENT.CAPTURE.COMPLETED', async () => {
 		;(verifyPayPalWebhookSignature as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(true)
 		const req = new MockRequest(JSON.stringify(mkEvent('PAYMENT.CAPTURE.COMPLETED')))
-		const res = await POST(req as unknown as Request)
+		const res = await POST(req as unknown as NextRequest)
 		expect(paypalServices.handlePaymentCaptureCompleted).toHaveBeenCalled()
 		expect(res.status).toBe(200)
 	})
@@ -60,7 +61,7 @@ describe('PayPal webhook route', () => {
 	it('routes CHECKOUT.ORDER.APPROVED', async () => {
 		;(verifyPayPalWebhookSignature as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(true)
 		const req = new MockRequest(JSON.stringify(mkEvent('CHECKOUT.ORDER.APPROVED')))
-		const res = await POST(req as unknown as Request)
+		const res = await POST(req as unknown as NextRequest)
 		expect(paypalServices.handleCheckoutOrderApproved).toHaveBeenCalled()
 		expect(res.status).toBe(200)
 	})

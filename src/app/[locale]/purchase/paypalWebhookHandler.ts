@@ -22,7 +22,7 @@ export async function handlePayPalOrderCompleted(paypalOrderId: string, buyerUse
 
 	// 3. Update bib record to mark as sold and set buyer
 	if (typeof buyerUserId === 'string' && buyerUserId.length > 0) {
-		await updateBib(transaction.bibId, {
+		await updateBib(transaction.bib_id, {
 			status: 'sold',
 			buyerUserId,
 		})
