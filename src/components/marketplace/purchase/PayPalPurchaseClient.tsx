@@ -14,8 +14,7 @@ import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
-import { captureOrder } from '@/app/[locale]/purchase/actions'
-import { createSale } from '@/app/[locale]/purchase/actions'
+import { createSale, captureOrder } from '@/app/[locale]/purchase/actions'
 import { isUserProfileComplete } from '@/lib/userValidation'
 
 import { isLocked, lockBib } from '@/services/bib.services'
