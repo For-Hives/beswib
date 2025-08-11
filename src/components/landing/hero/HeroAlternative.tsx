@@ -17,7 +17,7 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 			<div className="">
 				<Image
 					alt="template-run"
-					className="z-30 -scale-x-100 overflow-visible object-cover object-bottom pt-36 dark:grayscale"
+					className="pointer-events-none z-30 -scale-x-100 overflow-visible object-cover object-bottom pt-36 dark:grayscale"
 					fill
 					// size= 100vw in tablet and 80vw on phone
 					sizes="100vw"
