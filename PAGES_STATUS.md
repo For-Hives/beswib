@@ -1,3 +1,5 @@
+# Pages Status Tracker
+
 ## Page d'Accueil
 
 **Lien:** `/`
@@ -6,17 +8,15 @@
 - [x] White theme
 - [x] Responsive
 - [x] Traductions
-- [ ] review globale
 
 ## Contact
 
 **Lien:** `/contact`
 
-- [x] Design moderne
+- [ ] Design moderne
 - [ ] White theme
 - [ ] Responsive
 - [ ] Traductions
-- [ ] review globale
 
 ## FAQ
 
@@ -26,41 +26,6 @@
 - [ ] White theme
 - [ ] Responsive
 - [ ] Traductions
-- [ ] review globale
-
-## Mentions Légales
-
-**Lien:** `/legals/legal-notice`
-
-- [ ] Design moderne
-- [ ] White theme
-- [ ] Responsive
-- [ ] Traductions
-- [ ] review globale
-
-## Politique de Confidentialité
-
-**Lien:** `/legals/privacy-policy`
-
-- [ ] Design moderne
-- [ ] White theme
-- [ ] Responsive
-- [ ] Traductions
-- [ ] review globale
-
-## Conditions d'Utilisation
-
-**Lien:** `/legals/terms`
-
-- [ ] Design moderne
-- [ ] White theme
-- [ ] Responsive
-- [ ] Traductions
-- [ ] review globale
-
----
-
-# Dashboard & Profil
 
 ## Non-Autorisé
 
@@ -70,7 +35,6 @@
 - [ ] White theme
 - [ ] Responsive
 - [ ] Traductions
-- [ ] review globale
 
 ## Connexion
 
@@ -80,7 +44,6 @@
 - [ ] White theme
 - [ ] Responsive
 - [ ] Traductions
-- [ ] review globale
 
 ## Profil
 
@@ -90,7 +53,6 @@
 - [ ] White theme
 - [x] Responsive
 - [x] Traductions
-- [ ] review globale
 
 ## Dashboard Principal
 
@@ -100,7 +62,6 @@
 - [ ] White theme
 - [ ] Responsive
 - [x] Traductions
-- [ ] review globale
 
 ## Dashboard Acheteur
 
@@ -110,7 +71,6 @@
 - [ ] White theme
 - [ ] Responsive
 - [x] Traductions
-- [ ] review globale
 
 ## Dashboard Vendeur
 
@@ -120,7 +80,6 @@
 - [ ] White theme
 - [ ] Responsive
 - [x] Traductions
-- [ ] review globale
 
 ## Vendre un Dossard
 
@@ -130,7 +89,6 @@
 - [ ] White theme
 - [ ] Responsive
 - [x] Traductions
-- [ ] review globale
 
 ## Modifier un Dossard
 
@@ -140,7 +98,6 @@
 - [ ] White theme
 - [ ] Responsive
 - [x] Traductions
-- [ ] review globale
 
 ## Demander un Événement
 
@@ -150,10 +107,15 @@
 - [ ] White theme
 - [ ] Responsive
 - [x] Traductions
-- [ ] review globale
-- [ ] review globale
 
----
+## Page PayPal
+
+**Lien:** `/paypal`
+
+- [ ] Design moderne
+- [ ] White theme
+- [ ] Responsive
+- [ ] Traductions
 
 ## Callback PayPal
 
@@ -163,11 +125,33 @@
 - [ ] White theme
 - [ ] Responsive
 - [ ] Traductions
-- [ ] review globale
 
----
+## Mentions Légales
 
-# Admin
+**Lien:** `/legals/legal-notice`
+
+- [ ] Design moderne
+- [ ] White theme
+- [ ] Responsive
+- [ ] Traductions
+
+## Politique de Confidentialité
+
+**Lien:** `/legals/privacy-policy`
+
+- [ ] Design moderne
+- [ ] White theme
+- [ ] Responsive
+- [ ] Traductions
+
+## Conditions d'Utilisation
+
+**Lien:** `/legals/terms`
+
+- [ ] Design moderne
+- [ ] White theme
+- [ ] Responsive
+- [ ] Traductions
 
 ## Dashboard Admin
 
@@ -177,7 +161,6 @@
 - [ ] White theme
 - [ ] Responsive
 - [x] Traductions
-- [ ] review globale
 
 ## Gestion des Événements Admin
 
@@ -187,7 +170,6 @@
 - [ ] White theme
 - [ ] Responsive
 - [x] Traductions
-- [ ] review globale
 
 ## Créer un Événement Admin
 
@@ -197,7 +179,6 @@
 - [ ] White theme
 - [ ] Responsive
 - [x] Traductions
-- [ ] review globale
 
 ## Gestion des Organisateurs Admin
 
@@ -207,7 +188,6 @@
 - [ ] White theme
 - [ ] Responsive
 - [x] Traductions
-- [ ] review globale
 
 ## Créer un Organisateur Admin
 
@@ -217,7 +197,6 @@
 - [ ] White theme
 - [x] Responsive
 - [x] Traductions
-- [ ] review globale
 
 ## Valider un Organisateur Admin
 
@@ -227,4 +206,3 @@
 - [ ] White theme
 - [ ] Responsive
 - [ ] Traductions
-- [ ] review globale

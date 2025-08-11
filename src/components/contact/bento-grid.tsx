@@ -1,13 +1,13 @@
 'use client'
 
-import { ArrowRight, Facebook, Handshake, Instagram, Mail, MessageCircle, Twitter, Users, X } from 'lucide-react'
+import { ArrowRight, Handshake, Mail, MessageCircle, Users } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useState } from 'react'
 import type React from 'react'
 
+import { InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/socials'
 import globalTranslations from '@/components/global/locales.json'
 import { Button } from '@/components/ui/button'
-import { SOCIALS } from '@/lib/socials'
 import { cn } from '@/lib/utils'
 
 type BentoCardProps = Readonly<{
@@ -135,28 +135,12 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 				className="border-border bg-card hover:border-primary/50 relative col-span-1 flex cursor-pointer flex-col items-start justify-start overflow-hidden rounded-3xl border px-6 py-6 text-center shadow-xl transition-colors"
 				initial={{ y: 20, opacity: 0 }}
 			>
-				<Link className="h-full w-full" href={SOCIALS.twitter} rel="noopener noreferrer" target="_blank">
+				<Link className="h-full w-full" href={SOCIALS.linkedin} rel="noopener noreferrer" target="_blank">
 					<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
 
 					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
 						<div className="z-20 flex cursor-pointer items-center justify-center transition-all duration-300 hover:scale-110">
-							<Twitter className="text-foreground h-8 w-8" />
-						</div>
-					</div>
-					<div className="bg-primary/10 absolute -right-8 -bottom-8 h-24 w-24 rounded-full blur-xl"></div>
-				</Link>
-			</motion.div>
-			<motion.div
-				animate={{ y: 0, opacity: 1 }}
-				className="border-border bg-card hover:border-primary/50 relative col-span-1 flex cursor-pointer flex-col items-start justify-start overflow-hidden rounded-3xl border px-6 py-6 text-center shadow-xl transition-colors"
-				initial={{ y: 20, opacity: 0 }}
-			>
-				<Link className="h-full w-full" href={SOCIALS.facebook} rel="noopener noreferrer" target="_blank">
-					<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
-
-					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
-						<div className="z-20 flex cursor-pointer items-center justify-center transition-all duration-300 hover:scale-110">
-							<Facebook className="text-foreground h-8 w-8" />
+							<LinkedinIcon className="text-foreground h-8 w-8" />
 						</div>
 					</div>
 					<div className="bg-primary/10 absolute -right-8 -bottom-8 h-24 w-24 rounded-full blur-xl"></div>
@@ -172,24 +156,23 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 
 					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
 						<div className="z-20 flex cursor-pointer items-center justify-center transition-all duration-300 hover:scale-110">
-							<Instagram className="text-foreground h-8 w-8" />
+							<InstagramIcon className="text-foreground h-8 w-8" />
 						</div>
 					</div>
 					<div className="bg-primary/10 absolute -right-8 -bottom-8 h-24 w-24 rounded-full blur-xl"></div>
 				</Link>
 			</motion.div>
-
 			<motion.div
 				animate={{ y: 0, opacity: 1 }}
 				className="border-border bg-card hover:border-primary/50 relative col-span-1 flex cursor-pointer flex-col items-start justify-start overflow-hidden rounded-3xl border px-6 py-6 text-center shadow-xl transition-colors"
 				initial={{ y: 20, opacity: 0 }}
 			>
-				<Link className="h-full w-full" href={SOCIALS.x} rel="noopener noreferrer" target="_blank">
+				<Link className="h-full w-full" href={SOCIALS.strava} rel="noopener noreferrer" target="_blank">
 					<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
 
 					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
 						<div className="z-20 flex cursor-pointer items-center justify-center transition-all duration-300 hover:scale-110">
-							<X className="text-foreground h-8 w-8" />
+							<StravaIcon className="text-foreground h-8 w-8" />
 						</div>
 					</div>
 					<div className="bg-primary/10 absolute -right-8 -bottom-8 h-24 w-24 rounded-full blur-xl"></div>
@@ -198,7 +181,7 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 
 			{/* Partnerships card with hover effect 💼 */}
 			<BentoCard
-				className="bg-card border-border hover:border-primary/50 col-span-1 border transition-colors md:col-span-2"
+				className="bg-card border-border hover:border-primary/50 col-span-1 border transition-colors md:col-span-3"
 				content="partners@beswib.com"
 				hoverEffect="glow"
 				href="mailto:partners@beswib.com"
