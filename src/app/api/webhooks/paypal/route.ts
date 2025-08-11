@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+import type { PayPalWebhookEvent } from '@/models/paypal.model'
+
 import {
 	handleCheckoutOrderApproved,
 	handleOnboardingCompleted,
@@ -7,7 +9,6 @@ import {
 	handleConsentRevoked,
 	handlePaymentCaptureCompleted,
 } from '@/services/paypal.services'
-import type { PayPalWebhookEvent } from '@/models/paypal.model'
 import { verifyPayPalWebhookSignature } from '@/lib/paypalWebhookVerify'
 
 // PayPalWebhookEvent type is now imported from models/paypal.model

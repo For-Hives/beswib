@@ -10,7 +10,7 @@ interface WeekViewProps {
 }
 
 export function WeekView(props: Readonly<WeekViewProps>) {
-	const { selectedDate, onEventSelect, getEventsForDate, locale = 'en-US' } = props
+	const { selectedDate, onEventSelect, locale = 'en-US', getEventsForDate } = props
 
 	const getWeekDays = () => {
 		const startOfWeek = new Date(selectedDate)

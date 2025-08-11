@@ -4,12 +4,13 @@ import { Calendar, MapPinned, User } from 'lucide-react'
 
 import Image from 'next/image'
 
+import type { BibSaleSimplified } from '@/models/marketplace.model'
+import type { Event } from '@/models/event.model'
+
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { formatDateWithLocale } from '@/lib/dateUtils'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
-import type { Event } from '@/models/event.model'
-import type { BibSaleSimplified } from '@/models/marketplace.model'
 import { cn } from '@/lib/utils'
 
 // Type moved to src/models/marketplace.model
@@ -21,7 +22,7 @@ interface CardMarketSimplifiedProps {
 	eventData?: Event
 }
 
-export default function CardMarketSimplified({ locale, bibSaleSimplified, eventData }: CardMarketSimplifiedProps) {
+export default function CardMarketSimplified({ locale, eventData, bibSaleSimplified }: CardMarketSimplifiedProps) {
 	const translations = getTranslations(locale, marketplaceTranslations).participants
 
 	// Calculate the lowest reference price between original and official

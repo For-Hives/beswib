@@ -5,17 +5,17 @@ import React from 'react'
 import { auth } from '@clerk/nextjs/server'
 
 import type { Event as EventModel } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { BibSale } from '@/models/marketplace.model'
 import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
-import type { Organizer } from '@/models/organizer.model'
 
-import { fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
 import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
 import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider'
-import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
-import type { BibSale } from '@/models/marketplace.model'
-import { fetchUserByClerkId } from '@/services/user.services'
+import { fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
 import { fetchOrganizerById } from '@/services/organizer.services'
+import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
+import { fetchUserByClerkId } from '@/services/user.services'
 import { Locale } from '@/lib/i18n-config'
 
 export const metadata: Metadata = {
@@ -100,6 +100,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 		status: mapStatus(bib.status),
 		price: bib.price,
 		originalPrice: bib.originalPrice ?? 0,
+		lockedAt: bib.lockedAt != '' && bib.lockedAt != null ? new Date(bib.lockedAt) : null,
 		id: bib.id,
 		event: {
 			type: mapEventTypeToBibSaleType(bib.expand.eventId.typeCourse),
@@ -112,7 +113,6 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 			distance: bib.expand.eventId.distanceKm ?? 0,
 			date: new Date(bib.expand.eventId.eventDate),
 		},
-		lockedAt: bib.lockedAt != '' && bib.lockedAt != null ? new Date(bib.lockedAt) : null,
 	} satisfies BibSale
 
 	return (

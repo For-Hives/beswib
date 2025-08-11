@@ -3,12 +3,12 @@
 import React from 'react'
 
 import type { BibSale } from '@/models/marketplace.model'
-import type { Event } from '@/models/event.model'
 import type { Organizer } from '@/models/organizer.model'
+import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n-config'
-import { getTranslations } from '@/lib/getDictionary'
 
 import marketplaceTranslations from '@/components/marketplace/locales.json'
+import { getTranslations } from '@/lib/getDictionary'
 
 interface EventDetailsProps {
 	/** The bib sale data containing event information */
@@ -25,7 +25,7 @@ interface EventDetailsProps {
  * Component that displays detailed event information including description and organizer details
  * Shows event stats, description, and organizer information in a structured layout
  */
-export default function EventDetails({ bib, eventData, organizerData, locale }: EventDetailsProps) {
+export default function EventDetails({ organizerData, locale, eventData, bib }: EventDetailsProps) {
 	const t = getTranslations(locale, marketplaceTranslations)
 	return (
 		<div className="mt-6">

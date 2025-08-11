@@ -1,11 +1,11 @@
 import type { EventCreationRequest } from '@/models/eventCreationRequest.model'
+import type { DashboardStats } from '@/models/dashboard.model'
 import type { Transaction } from '@/models/transaction.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
 import { pb } from '@/lib/pocketbaseClient'
-import type { DashboardStats } from '@/models/dashboard.model'
 
 /**
  * Gets comprehensive dashboard statistics from all collections

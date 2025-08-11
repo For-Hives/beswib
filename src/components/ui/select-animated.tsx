@@ -1,7 +1,7 @@
 'use client'
 
-import { ChevronDown } from 'lucide-react'
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
+import { ChevronDown } from 'lucide-react'
 import { createPortal } from 'react-dom'
 
 import { AnimatePresence, motion } from 'framer-motion'
@@ -26,14 +26,14 @@ type SelectAnimatedProps = {
 }
 
 const SelectAnimated = ({
-	options,
 	value,
-	onValueChange,
-	placeholder = 'Select an option',
-	disabled = false,
-	className = '',
 	triggerClassName = '',
+	placeholder = 'Select an option',
+	options,
+	onValueChange,
+	disabled = false,
 	contentClassName = '',
+	className = '',
 }: SelectAnimatedProps) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [mounted, setMounted] = useState(false)

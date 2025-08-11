@@ -1,22 +1,23 @@
 'use client'
 
 import { Edit3, Info, List, Plus, Search, Tag, Users } from 'lucide-react'
+
 import Link from 'next/link'
 
-import type { Event } from '@/models/event.model'
-import type { Bib } from '@/models/bib.model'
 import type { Transaction } from '@/models/transaction.model'
+import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
+import type { Bib } from '@/models/bib.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
-import { Button } from '@/components/ui/button'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
+import { getTranslations } from '@/lib/getDictionary'
+import { Button } from '@/components/ui/button'
+import { Locale } from '@/lib/i18n-config'
 
 import sellerTranslations from './locales.json'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 interface SellerDashboardClientProps {
 	clerkUser: SerializedClerkUser
@@ -55,11 +56,11 @@ const getStatusDisplay = (status: string) => {
 }
 
 export default function SellerDashboardClient({
+	user,
+	sellerTransactions = [],
 	sellerBibs = [],
 	locale,
 	clerkUser,
-	user,
-	sellerTransactions = [],
 }: SellerDashboardClientProps) {
 	const t = getTranslations(locale, sellerTranslations)
 
@@ -104,7 +105,7 @@ export default function SellerDashboardClient({
 			acc.net += amount - platform - paypal
 			return acc
 		},
-		{ gross: 0, platform: 0, paypal: 0, net: 0 }
+		{ platform: 0, paypal: 0, net: 0, gross: 0 }
 	)
 
 	return (

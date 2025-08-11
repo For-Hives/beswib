@@ -1,22 +1,25 @@
 'use client'
 
-import React, { useMemo, useState, useEffect } from 'react'
 import { MapPin, Users, Search, ShoppingCart, Bell, Route, Mountain } from 'lucide-react'
+import React, { useMemo, useState, useEffect } from 'react'
+
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
 import { useRouter } from 'next/navigation'
+import { DateTime } from 'luxon'
 import Fuse from 'fuse.js'
 
 import type { Event } from '@/models/event.model'
-import { getTranslations } from '@/lib/getDictionary'
-import { fetchAvailableBibsForEvent } from '@/services/bib.services'
-import { Input } from '@/components/ui/inputAlt'
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+
 import { TriathlonIcon, TrailIcon, RouteIcon, CycleIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
-import { Timeline } from '@/components/ui/timeline'
+import { fetchAvailableBibsForEvent } from '@/services/bib.services'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
+import { getTranslations } from '@/lib/getDictionary'
+import { Timeline } from '@/components/ui/timeline'
+import { Input } from '@/components/ui/inputAlt'
+
 import Translations from './locales.json'
-import { DateTime } from 'luxon'
 
 interface EventTranslations {
 	events?: {
@@ -80,11 +83,11 @@ const eventTypeIcons = {
 
 // Moved out to avoid defining components inside components (react/no-unstable-nested-components)
 function EventCard({
-	event,
-	locale,
-	bibsCount,
-	onAction,
 	t,
+	onAction,
+	locale,
+	event,
+	bibsCount,
 }: {
 	event: Event
 	locale: string
@@ -184,9 +187,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	// useQueryStates for filter state management via URL
 	const [query, setQuery] = useQueryStates(
 		{
-			search: parseAsString.withDefault(''),
 			type: parseAsStringLiteral(['all', 'triathlon', 'trail', 'road', 'cycle'] as const).withDefault('all'),
 			sort: parseAsStringLiteral(['date', 'price', 'participants', 'distance'] as const).withDefault('date'),
+			search: parseAsString.withDefault(''),
 			location: parseAsString.withDefault(''),
 		},
 		{ history: 'push' }
@@ -382,10 +385,10 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			return buildRangeGrouper(
 				e => e.officialStandardPrice ?? null,
 				[
-					{ label: '0€ – 20€', test: v => v >= 0 && v < 20 },
-					{ label: '20€ – 50€', test: v => v >= 20 && v < 50 },
-					{ label: '50€ – 100€', test: v => v >= 50 && v < 100 },
-					{ label: '100€+', test: v => v >= 100 },
+					{ test: v => v >= 0 && v < 20, label: '0€ – 20€' },
+					{ test: v => v >= 20 && v < 50, label: '20€ – 50€' },
+					{ test: v => v >= 50 && v < 100, label: '50€ – 100€' },
+					{ test: v => v >= 100, label: '100€+' },
 				],
 				t.events?.groupLabels?.unknownPrice ?? 'Unknown price'
 			)
@@ -395,10 +398,10 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			return buildRangeGrouper(
 				e => e.participants ?? null,
 				[
-					{ label: '≤ 100 participants', test: v => v <= 100 },
-					{ label: '100 – 500', test: v => v > 100 && v <= 500 },
-					{ label: '500 – 1 000', test: v => v > 500 && v <= 1000 },
-					{ label: '1 000+', test: v => v > 1000 },
+					{ test: v => v <= 100, label: '≤ 100 participants' },
+					{ test: v => v > 100 && v <= 500, label: '100 – 500' },
+					{ test: v => v > 500 && v <= 1000, label: '500 – 1 000' },
+					{ test: v => v > 1000, label: '1 000+' },
 				],
 				t.events?.groupLabels?.unknownParticipants ?? 'Unknown participants'
 			)
@@ -408,11 +411,11 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		return buildRangeGrouper(
 			e => e.distanceKm ?? null,
 			[
-				{ label: '≤ 10 km', test: v => v <= 10 },
-				{ label: '10 – 21 km', test: v => v > 10 && v <= 21 },
-				{ label: '21 – 42 km', test: v => v > 21 && v <= 42 },
-				{ label: '42 – 100 km', test: v => v > 42 && v <= 100 },
-				{ label: '100 km+', test: v => v > 100 },
+				{ test: v => v <= 10, label: '≤ 10 km' },
+				{ test: v => v > 10 && v <= 21, label: '10 – 21 km' },
+				{ test: v => v > 21 && v <= 42, label: '21 – 42 km' },
+				{ test: v => v > 42 && v <= 100, label: '42 – 100 km' },
+				{ test: v => v > 100, label: '100 km+' },
 			],
 			t.events?.groupLabels?.unknownDistance ?? 'Unknown distance'
 		)
@@ -426,12 +429,12 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		// Start with "all" option
 		const summary = [
 			{
-				key: 'all',
 				label: (t.events?.raceTypes as Record<string, string>)?.all ?? 'All',
-				color: 'bg-black/35 border-slate-500/50 text-slate-400',
-				colorDisabled: 'opacity-25',
-				count: prefetchedEvents.length,
+				key: 'all',
 				icon: <AllTypesIcon className="h-5 w-5" />,
+				count: prefetchedEvents.length,
+				colorDisabled: 'opacity-25',
+				color: 'bg-black/35 border-slate-500/50 text-slate-400',
 			},
 		]
 
@@ -439,12 +442,12 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		uniqueTypes.forEach(type => {
 			if ((t.events?.raceTypes as Record<string, string>)?.[type] && eventTypeColors[type]) {
 				summary.push({
-					key: type,
 					label: (t.events?.raceTypes as Record<string, string>)?.[type] || type.toUpperCase(),
-					color: eventTypeColors[type],
-					colorDisabled: eventTypeColorsDisabled[type],
-					count: prefetchedEvents.filter(e => e.typeCourse === type).length,
+					key: type,
 					icon: eventTypeIcons[type],
+					count: prefetchedEvents.filter(e => e.typeCourse === type).length,
+					colorDisabled: eventTypeColorsDisabled[type],
+					color: eventTypeColors[type],
 				})
 			}
 		})
@@ -506,9 +509,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			if (bibCount > 0) {
 				// Redirect to marketplace with filters for this specific event
 				const searchParams = new URLSearchParams({
+					sport: event.typeCourse, // Filter by sport type
 					search: event.name, // Search by event name
 					geography: event.location.toLowerCase(), // Filter by location
-					sport: event.typeCourse, // Filter by sport type
 				})
 				router.push(`/${locale}/marketplace?${searchParams.toString()}`)
 			} else {
@@ -571,8 +574,8 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								{/* Icon with better sizing and colors */}
 								<div className="mb-2 text-current transition-colors duration-200">
 									{React.cloneElement(type.icon, {
-										className: 'h-6 w-6',
 										size: 24,
+										className: 'h-6 w-6',
 									})}
 								</div>
 

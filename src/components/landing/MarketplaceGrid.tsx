@@ -1,3 +1,5 @@
+import type { BibSale } from '@/models/marketplace.model'
+
 import {
 	generatePricing,
 	getBibColorsDistributed,
@@ -8,7 +10,6 @@ import {
 	// generateFakeBibSales // Uncomment to use fully random data
 } from '@/lib/utils'
 import CardMarket from '@/components/marketplace/CardMarket'
-import type { BibSale } from '@/models/marketplace.model'
 import { Locale } from '@/lib/i18n-config'
 
 // Get distributed colors for our 5 examples to ensure each bib has a different color 🎨
@@ -24,6 +25,7 @@ const runsExample: BibSale[] = [
 		},
 		status: 'available',
 		...generatePricing(100),
+		lockedAt: null,
 		id: '1',
 		event: {
 			type: 'running',
@@ -36,7 +38,6 @@ const runsExample: BibSale[] = [
 			distance: 42,
 			date: getRandomFutureDate(),
 		},
-		lockedAt: null,
 	},
 	{
 		user: {
@@ -46,6 +47,7 @@ const runsExample: BibSale[] = [
 		},
 		status: 'available',
 		...generatePricing(525),
+		lockedAt: null,
 		id: '2',
 		event: {
 			type: 'triathlon',
@@ -58,7 +60,6 @@ const runsExample: BibSale[] = [
 			distance: 226,
 			date: getRandomFutureDate(),
 		},
-		lockedAt: null,
 	},
 	{
 		user: {
@@ -68,6 +69,7 @@ const runsExample: BibSale[] = [
 		},
 		status: 'available',
 		...generatePricing(25),
+		lockedAt: null,
 		id: '3',
 		event: {
 			type: 'running',
@@ -80,7 +82,6 @@ const runsExample: BibSale[] = [
 			distance: 21,
 			date: getRandomFutureDate(),
 		},
-		lockedAt: null,
 	},
 	{
 		user: {
@@ -90,6 +91,7 @@ const runsExample: BibSale[] = [
 		},
 		status: 'available',
 		...generatePricing(120),
+		lockedAt: null,
 		id: '4',
 		event: {
 			type: 'running',
@@ -102,7 +104,6 @@ const runsExample: BibSale[] = [
 			distance: 42,
 			date: getRandomFutureDate(),
 		},
-		lockedAt: null,
 	},
 	{
 		user: {
@@ -112,6 +113,7 @@ const runsExample: BibSale[] = [
 		},
 		status: 'available',
 		...generatePricing(180),
+		lockedAt: null,
 		id: '5',
 		event: {
 			type: 'trail',
@@ -124,7 +126,6 @@ const runsExample: BibSale[] = [
 			distance: 170,
 			date: getRandomFutureDate(),
 		},
-		lockedAt: null,
 	},
 ]
 

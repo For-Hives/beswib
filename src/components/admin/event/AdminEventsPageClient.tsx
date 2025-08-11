@@ -64,11 +64,12 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { getAllEventsAction } from '@/app/[locale]/admin/actions'
+import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 import { getTranslations } from '@/lib/getDictionary'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
@@ -76,7 +77,6 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
-import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 
 interface AdminEventsPageClientProps {
 	currentUser: null | User

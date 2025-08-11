@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { cn } from '@/lib/utils'
 
 interface IconProps {
@@ -7,7 +8,7 @@ interface IconProps {
 }
 
 // Triathlon Icon - Using custom SVG
-export const TriathlonIcon: React.FC<IconProps> = ({ className, size = 16 }) => (
+export const TriathlonIcon: React.FC<IconProps> = ({ size = 16, className }) => (
 	<svg
 		width={size}
 		height={size}
@@ -22,7 +23,7 @@ export const TriathlonIcon: React.FC<IconProps> = ({ className, size = 16 }) => 
 )
 
 // Trail Icon - Using custom SVG
-export const TrailIcon: React.FC<IconProps> = ({ className, size = 16 }) => (
+export const TrailIcon: React.FC<IconProps> = ({ size = 16, className }) => (
 	<svg
 		width={size}
 		height={size}
@@ -35,7 +36,7 @@ export const TrailIcon: React.FC<IconProps> = ({ className, size = 16 }) => (
 )
 
 // Route Icon - Using custom SVG (runner)
-export const RouteIcon: React.FC<IconProps> = ({ className, size = 16 }) => (
+export const RouteIcon: React.FC<IconProps> = ({ size = 16, className }) => (
 	<svg width={size} height={size} viewBox="0 0 48 60" fill="currentColor" className={cn('inline-block', className)}>
 		<ellipse cx="22.3" cy="6.3" rx="4.6" ry="4.3" />
 		<path d="M46.8,23.7c-0.4-0.2-9.3-5.8-25.1-1.4c-14,3.9-18.6-0.7-18.7-0.8c-0.5-0.6-1.4-0.6-2-0.1   c-0.6,0.5-0.7,1.4-0.1,2c0.2,0.2,3,3.3,10.7,3.3c2.9,0,6.5-0.5,10.9-1.7c14.4-4.1,22.7,1,22.7,1c0.7,0.4,1.6,0.2,2-0.4   C47.7,25,47.5,24.1,46.8,23.7z" />
@@ -45,7 +46,7 @@ export const RouteIcon: React.FC<IconProps> = ({ className, size = 16 }) => (
 )
 
 // Cycle Icon - Using custom SVG (reuse UltraIcon artwork for now)
-export const CycleIcon: React.FC<IconProps> = ({ className, size = 16 }) => (
+export const CycleIcon: React.FC<IconProps> = ({ size = 16, className }) => (
 	<svg
 		width={size}
 		height={size}
@@ -86,7 +87,7 @@ export const CycleIcon: React.FC<IconProps> = ({ className, size = 16 }) => (
 )
 
 // All types icon for the "all" filter
-export const AllTypesIcon: React.FC<IconProps> = ({ className, size = 16 }) => (
+export const AllTypesIcon: React.FC<IconProps> = ({ size = 16, className }) => (
 	<svg
 		width={size}
 		height={size}

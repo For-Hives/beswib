@@ -12,10 +12,10 @@ export function mapEventTypeToBibSaleType(
 	if (!eventType) return 'other'
 
 	const typeMap: Record<string, 'cycling' | 'other' | 'running' | 'swimming' | 'trail' | 'triathlon'> = {
-		cycle: 'cycling',
 		triathlon: 'triathlon',
 		trail: 'trail',
 		road: 'running',
+		cycle: 'cycling',
 	}
 
 	return typeMap[eventType] ?? 'other'
@@ -59,10 +59,10 @@ export function transformBibToBibSale(bib: Bib & { expand?: { eventId: Event; se
 			id: seller.id,
 			firstName: seller.firstName ?? 'Anonymous',
 		},
-		lockedAt: bib.lockedAt ?? null,
 		status,
 		price: bib.price,
 		originalPrice: bib.originalPrice ?? bib.price,
+		lockedAt: bib.lockedAt ?? null,
 		id: bib.id,
 		event: {
 			type: eventType,
@@ -83,10 +83,10 @@ export function transformBibToBibSale(bib: Bib & { expand?: { eventId: Event; se
  */
 function generateEventImageUrl(eventType: 'road' | 'trail' | 'triathlon' | 'cycle'): string {
 	const imageMap: Record<string, string> = {
-		cycle: '/bib-blue.png',
 		triathlon: '/bib-red.png',
 		trail: '/bib-orange.png',
 		road: '/bib-green.png',
+		cycle: '/bib-blue.png',
 	}
 
 	return imageMap[eventType] ?? '/bib-pink.png'

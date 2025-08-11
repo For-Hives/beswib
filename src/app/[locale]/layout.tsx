@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+
 import type { ReactNode } from 'react'
 
 import { Geist, Geist_Mono, Bowlby_One_SC } from 'next/font/google'
@@ -7,11 +8,11 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from 'sonner'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticParams'
+import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import QueryProvider from '@/components/providers/QueryProvider'
 import PageTransition from '@/components/ui/PageTransition'
 import Footer from '@/components/global/footer'
 import Header from '@/components/global/Header'
-import { ThemeProvider } from '@/components/providers/ThemeProvider'
 
 // import '/globals.css' 💅
 import '@/app/[locale]/globals.css'
@@ -27,9 +28,9 @@ const geistMono = Geist_Mono({
 })
 
 const bowlbyOneSC = Bowlby_One_SC({
+	weight: '400',
 	variable: '--font-bowlby-one-sc',
 	subsets: ['latin'],
-	weight: '400',
 })
 
 export const metadata: Metadata = {

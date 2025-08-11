@@ -77,9 +77,10 @@ const perfectionistRules = {
 
 // Plugins communs
 const basePlugins = {
-	'react-hooks': reactHooksPlugin,
+	reactHooks: reactHooksPlugin,
+	perfectionist,
 	'no-only-tests': noOnlyTestsPlugin,
-	'jsx-a11y': jsxA11yPlugin,
+	jsxA11y: jsxA11yPlugin,
 	'@next/next': nextPlugin,
 }
 
@@ -100,7 +101,7 @@ export default [
 	{
 		rules: {
 			...baseRules,
-			// ...perfectionistRules,
+			...perfectionistRules,
 		},
 		plugins: basePlugins,
 		languageOptions: {
@@ -114,7 +115,7 @@ export default [
 	{
 		rules: {
 			...baseRules,
-			// ...perfectionistRules,
+			...perfectionistRules,
 			// Règles TypeScript spécifiques
 			...tsPlugin.configs.recommended.rules,
 			...tsPlugin.configs['recommended-type-checked'].rules,

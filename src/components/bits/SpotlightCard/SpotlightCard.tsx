@@ -15,20 +15,20 @@ interface SpotlightCardProps extends React.PropsWithChildren {
 }
 
 const SpotlightCard: React.FC<SpotlightCardProps> = ({
-	children,
-	className = '',
 	spotlightColor = 'rgba(255, 255, 255, 0.25)',
+	className = '',
+	children,
 }) => {
 	const divRef = useRef<HTMLDivElement>(null)
 	const [isFocused, setIsFocused] = useState<boolean>(false)
-	const [position, setPosition] = useState<Position>({ x: 0, y: 0 })
+	const [position, setPosition] = useState<Position>({ y: 0, x: 0 })
 	const [opacity, setOpacity] = useState<number>(0)
 
 	const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = e => {
 		if (!divRef.current || isFocused) return
 
 		const rect = divRef.current.getBoundingClientRect()
-		setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+		setPosition({ y: e.clientY - rect.top, x: e.clientX - rect.left })
 	}
 
 	const handleFocus = () => {

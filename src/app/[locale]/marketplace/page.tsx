@@ -1,12 +1,16 @@
 import type { Metadata } from 'next'
+
 import { Suspense } from 'react'
+
 import type { BibSale } from '@/models/marketplace.model'
-import { generateLocaleParams } from '@/lib/generateStaticParams'
 import type { Locale } from '@/lib/i18n-config'
-import MarketplaceClient from '@/components/marketplace/MarketplaceClient'
+
 import { fetchAvailableBibsForMarketplace, unlockExpiredBibs } from '@/services/bib.services'
+import MarketplaceClient from '@/components/marketplace/MarketplaceClient'
+import { generateLocaleParams } from '@/lib/generateStaticParams'
 import { transformBibsToBibSales } from '@/lib/bibTransformers'
 import { getTranslations } from '@/lib/getDictionary'
+
 import marketplaceTranslations from './locales.json'
 
 export const metadata: Metadata = {

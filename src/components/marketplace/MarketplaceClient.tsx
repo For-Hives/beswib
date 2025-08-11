@@ -1,23 +1,22 @@
 'use client'
 
 import React, { useMemo } from 'react'
+import { Search } from 'lucide-react'
 
 import { parseAsArrayOf, parseAsFloat, parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
+import dynamic from 'next/dynamic'
 import Fuse from 'fuse.js'
 
 import type { BibSale } from '@/models/marketplace.model'
 
-import { Search } from 'lucide-react'
-
-import { Input } from '@/components/ui/inputAlt'
-import { getTranslations } from '@/lib/getDictionary'
-import marketplaceTranslations from '@/components/marketplace/locales.json'
+import MarketplaceSidebar, { type MarketplaceFilters } from '@/components/marketplace/MarketplaceSidebar'
 import ActiveFiltersBadges from '@/components/marketplace/ActiveFiltersBadges'
+import marketplaceTranslations from '@/components/marketplace/locales.json'
 import OfferCounter from '@/components/marketplace/offerCounter'
 import CardMarket from '@/components/marketplace/CardMarket'
-import MarketplaceSidebar, { type MarketplaceFilters } from '@/components/marketplace/MarketplaceSidebar'
+import { getTranslations } from '@/lib/getDictionary'
+import { Input } from '@/components/ui/inputAlt'
 import { Locale } from '@/lib/i18n-config'
-import dynamic from 'next/dynamic'
 const EmptyResultsRive = dynamic(() => import('@/components/marketplace/EmptyResultsRive'), { ssr: false })
 
 // Props for the MarketplaceClient: receives an array of bibs to display 🛍️
@@ -219,10 +218,10 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 			<ActiveFiltersBadges
 				filters={{
 					sport,
-					distance,
 					priceMin,
 					priceMax,
 					geography,
+					distance,
 					dateStart: dateStart ?? undefined,
 					dateEnd: dateEnd ?? undefined,
 				}}
@@ -241,10 +240,10 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 							maxPrice={maxPrice}
 							filters={{
 								sport,
-								distance,
 								priceMin,
 								priceMax,
 								geography,
+								distance,
 								dateStart: dateStart ?? undefined,
 								dateEnd: dateEnd ?? undefined,
 							}}

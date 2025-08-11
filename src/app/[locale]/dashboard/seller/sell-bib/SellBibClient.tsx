@@ -17,10 +17,10 @@ import {
 	StepNavigation,
 } from '@/components/admin/dashboard/sell-bib'
 import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
+import { isSellerProfileComplete } from '@/lib/userValidation'
 import { Separator } from '@/components/ui/separator'
 import { getTranslations } from '@/lib/getDictionary'
 import { createBib } from '@/services/bib.services'
-import { isSellerProfileComplete } from '@/lib/userValidation'
 import { Locale } from '@/lib/i18n-config'
 
 interface FormData {

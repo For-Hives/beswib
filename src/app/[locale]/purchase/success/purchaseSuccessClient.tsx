@@ -1,10 +1,13 @@
 'use client'
 import React from 'react'
-import { motion } from 'framer-motion'
+
 import { useRouter } from 'next/navigation'
+import { motion } from 'framer-motion'
+
 import { getTranslations } from '@/lib/getDictionary'
-import translations from './locales.json'
 import { Locale } from '@/lib/i18n-config'
+
+import translations from './locales.json'
 
 function SuccessSVG() {
 	// Animated checkmark with sparkles
@@ -28,7 +31,7 @@ function SuccessSVG() {
 				strokeLinejoin="round"
 				initial={{ pathLength: 0 }}
 				animate={{ pathLength: 1 }}
-				transition={{ duration: 1.2, ease: 'easeInOut' }}
+				transition={{ ease: 'easeInOut', duration: 1.2 }}
 			/>
 			{/* Sparkles */}
 			<motion.circle
@@ -36,27 +39,27 @@ function SuccessSVG() {
 				cy="30"
 				r="4"
 				fill="#fff"
-				initial={{ opacity: 0, scale: 0 }}
-				animate={{ opacity: 1, scale: 1 }}
-				transition={{ delay: 1.2, duration: 0.5 }}
+				initial={{ scale: 0, opacity: 0 }}
+				animate={{ scale: 1, opacity: 1 }}
+				transition={{ duration: 0.5, delay: 1.2 }}
 			/>
 			<motion.circle
 				cx="90"
 				cy="40"
 				r="3"
 				fill="#fff"
-				initial={{ opacity: 0, scale: 0 }}
-				animate={{ opacity: 1, scale: 1 }}
-				transition={{ delay: 1.4, duration: 0.5 }}
+				initial={{ scale: 0, opacity: 0 }}
+				animate={{ scale: 1, opacity: 1 }}
+				transition={{ duration: 0.5, delay: 1.4 }}
 			/>
 			<motion.circle
 				cx="70"
 				cy="100"
 				r="2.5"
 				fill="#fff"
-				initial={{ opacity: 0, scale: 0 }}
-				animate={{ opacity: 1, scale: 1 }}
-				transition={{ delay: 1.6, duration: 0.5 }}
+				initial={{ scale: 0, opacity: 0 }}
+				animate={{ scale: 1, opacity: 1 }}
+				transition={{ duration: 0.5, delay: 1.6 }}
 			/>
 		</motion.svg>
 	)
@@ -78,9 +81,9 @@ function ProgressBar({ steps }: ProgressBarProps) {
 			{steps.map((step, idx) => (
 				<motion.div
 					key={step.label}
-					initial={{ opacity: 0, x: -40 }}
-					animate={{ opacity: 1, x: 0 }}
-					transition={{ delay: 0.3 + idx * 0.2, duration: 0.6 }}
+					initial={{ x: -40, opacity: 0 }}
+					animate={{ x: 0, opacity: 1 }}
+					transition={{ duration: 0.6, delay: 0.3 + idx * 0.2 }}
 					className="flex items-center gap-4"
 				>
 					<motion.div
@@ -123,26 +126,26 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 
 	const steps = t.success.steps.map((step: { label: string; description: string }, idx: number) => ({
 		label: step.label,
-		description: step.description,
 		done: idx === 0, // Only first step is done
+		description: step.description,
 	}))
 
 	return (
 		<motion.div
-			initial={{ opacity: 0, scale: 0.95 }}
-			animate={{ opacity: 1, scale: 1 }}
-			transition={{ duration: 0.7, ease: 'easeOut' }}
+			initial={{ scale: 0.95, opacity: 0 }}
+			animate={{ scale: 1, opacity: 1 }}
+			transition={{ ease: 'easeOut', duration: 0.7 }}
 			className="bg-card/100 flex min-h-[80vh] flex-col items-center justify-center px-8 py-10 font-sans leading-relaxed text-white"
 			style={{
-				background: 'radial-gradient(ellipse at top left, #23272a 80%, #18181b 100%)',
 				fontFamily: 'var(--font-sans, sans-serif)',
+				background: 'radial-gradient(ellipse at top left, #23272a 80%, #18181b 100%)',
 			}}
 		>
 			<SuccessSVG />
 			<motion.h1
 				initial={{ y: -30, opacity: 0 }}
 				animate={{ y: 0, opacity: 1 }}
-				transition={{ delay: 0.2, duration: 0.7 }}
+				transition={{ duration: 0.7, delay: 0.2 }}
 				className="mb-2 text-3xl font-bold tracking-tight"
 			>
 				{t.success.title}
@@ -150,16 +153,16 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 			<motion.p
 				initial={{ y: 20, opacity: 0 }}
 				animate={{ y: 0, opacity: 1 }}
-				transition={{ delay: 0.4, duration: 0.7 }}
+				transition={{ duration: 0.7, delay: 0.4 }}
 				className="mb-6 text-lg text-white/80"
 			>
 				{t.success.thanks}
 			</motion.p>
 			<ProgressBar steps={steps} />
 			<motion.div
-				initial={{ opacity: 0, y: 30 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ delay: 1.2, duration: 0.7 }}
+				initial={{ y: 30, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				transition={{ duration: 0.7, delay: 1.2 }}
 				className="mt-8 flex gap-6"
 			>
 				<motion.button
@@ -183,7 +186,7 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 			<motion.div
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 0.5 }}
-				transition={{ delay: 1.5, duration: 1 }}
+				transition={{ duration: 1, delay: 1.5 }}
 				className="pointer-events-none absolute inset-0 z-0"
 				style={{
 					background:

@@ -6,9 +6,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
 
+import type { BibSale } from '@/models/marketplace.model'
+
 import { formatDateWithLocale } from '@/lib/dateUtils'
 import { cn } from '@/lib/utils'
-import type { BibSale } from '@/models/marketplace.model'
 
 interface CardMarketProps {
 	bibSale: BibSale
@@ -16,12 +17,13 @@ interface CardMarketProps {
 	/** Optional event data for official price comparison */
 	eventData?: Event
 }
+import type { Event } from '@/models/event.model'
+
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
-import type { Event } from '@/models/event.model'
 
-export default function CardMarket({ locale, bibSale, eventData }: Readonly<CardMarketProps>) {
+export default function CardMarket({ locale, eventData, bibSale }: Readonly<CardMarketProps>) {
 	const translations = getTranslations(locale, marketplaceTranslations)
 
 	// Calculate the lowest reference price between original and official

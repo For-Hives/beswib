@@ -7,20 +7,20 @@ export function GET() {
 				<div
 					style={{
 						width: '256px',
+						justifyContent: 'center',
 						height: '32px',
 						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center',
-						backgroundColor: '#333',
 						backgroundImage: 'repeating-linear-gradient(90deg, #444 0px, #444 8px, #333 8px, #333 16px)',
+						backgroundColor: '#333',
+						alignItems: 'center',
 					}}
 				>
 					<div
 						style={{
-							color: '#fff',
-							fontSize: '12px',
-							fontWeight: 'bold',
 							textShadow: '0 1px 2px rgba(0,0,0,0.5)',
+							fontWeight: 'bold',
+							fontSize: '12px',
+							color: '#fff',
 						}}
 					>
 						BESWIB

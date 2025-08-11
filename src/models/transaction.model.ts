@@ -1,6 +1,6 @@
+import type { Event } from './event.model'
 import type { User } from './user.model'
 import type { Bib } from './bib.model'
-import type { Event } from './event.model'
 
 export interface Transaction {
 	id: string

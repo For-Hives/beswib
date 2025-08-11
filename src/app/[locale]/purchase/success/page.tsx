@@ -1,6 +1,8 @@
 import React, { Suspense } from 'react'
-import PurchaseSuccessClient from './purchaseSuccessClient'
+
 import { LocaleParams } from '@/lib/generateStaticParams'
+
+import PurchaseSuccessClient from './purchaseSuccessClient'
 
 export default async function PurchaseSuccessPage({ params }: { params: Promise<LocaleParams> }) {
 	const { locale } = await params

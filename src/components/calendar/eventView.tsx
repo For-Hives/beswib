@@ -4,8 +4,8 @@ import { Calendar, Clock, DollarSign, ExternalLink, Globe, Mail, MapPin, Route, 
 
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
-import { TriathlonIcon, TrailIcon, RouteIcon, CycleIcon } from '@/components/icons/RaceTypeIcons'
 
+import { TriathlonIcon, TrailIcon, RouteIcon, CycleIcon } from '@/components/icons/RaceTypeIcons'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
@@ -19,7 +19,7 @@ interface EventViewProps {
 }
 
 export function EventView(props: Readonly<EventViewProps>) {
-	const { organizer, onClose, event, locale = 'en-US' } = props
+	const { organizer, onClose, locale = 'en-US', event } = props
 
 	const formatDate = (date: Date) => {
 		return date.toLocaleDateString(locale, {

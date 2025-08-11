@@ -9,15 +9,16 @@
 
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
-import { Canvas, extend, useFrame } from '@react-three/fiber'
-import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei'
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier'
+import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei'
+import { Canvas, extend, useFrame } from '@react-three/fiber'
+import React, { useEffect, useRef, useState } from 'react'
+
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline'
 import * as THREE from 'three'
 
 // Extend fiber to recognize MeshLine components
-extend({ MeshLineGeometry, MeshLineMaterial })
+extend({ MeshLineMaterial, MeshLineGeometry })
 
 interface PriceLanyardProps {
 	price: number
@@ -37,13 +38,13 @@ interface BandProps {
 }
 
 export default function PriceLanyard({
+	transparent = true,
 	price,
-	originalPrice,
-	currency = 'EUR',
 	position = [0, 0, 30],
+	originalPrice,
 	gravity = [0, -40, 0],
 	fov = 20,
-	transparent = true,
+	currency = 'EUR',
 	className = '',
 }: PriceLanyardProps) {
 	const priceTextureUrl = `/api/lanyard/price?price=${price}&originalPrice=${originalPrice ?? ''}&currency=${currency}`
@@ -94,7 +95,7 @@ export default function PriceLanyard({
 	)
 }
 
-function Band({ maxSpeed = 50, minSpeed = 0, priceTextureUrl }: BandProps) {
+function Band({ priceTextureUrl, minSpeed = 0, maxSpeed = 50 }: BandProps) {
 	// Refs with explicit types for mesh and physics bodies
 	const band = useRef<any>(null)
 	const fixed = useRef<any>(null)
@@ -112,9 +113,9 @@ function Band({ maxSpeed = 50, minSpeed = 0, priceTextureUrl }: BandProps) {
 	// Physics properties for rigid body segments
 	const segmentProps = {
 		type: 'dynamic' as const,
+		linearDamping: 4,
 		canSleep: true,
 		angularDamping: 4,
-		linearDamping: 4,
 	}
 
 	// Load 3D assets
@@ -176,9 +177,9 @@ function Band({ maxSpeed = 50, minSpeed = 0, priceTextureUrl }: BandProps) {
 			// Wake up all physics bodies when dragging
 			;[card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp())
 			card.current?.setNextKinematicTranslation({
-				x: vec.x - dragged.x,
-				y: vec.y - dragged.y,
 				z: vec.z - dragged.z,
+				y: vec.y - dragged.y,
+				x: vec.x - dragged.x,
 			})
 		}
 
@@ -204,9 +205,9 @@ function Band({ maxSpeed = 50, minSpeed = 0, priceTextureUrl }: BandProps) {
 			ang.copy(card.current.angvel())
 			rot.copy(card.current.rotation())
 			card.current.setAngvel({
-				x: ang.x,
-				y: ang.y - rot.y * 0.25,
 				z: ang.z,
+				y: ang.y - rot.y * 0.25,
+				x: ang.x,
 			})
 		}
 	})
@@ -271,13 +272,13 @@ function Band({ maxSpeed = 50, minSpeed = 0, priceTextureUrl }: BandProps) {
 			<mesh ref={band}>
 				{React.createElement('meshLineGeometry', {})}
 				{React.createElement('meshLineMaterial', {
-					color: 'white',
-					depthTest: false,
-					resolution: isSmall ? [1000, 2000] : [1000, 1000],
 					useMap: true,
-					map: lanyardTexture,
+					resolution: isSmall ? [1000, 2000] : [1000, 1000],
 					repeat: [-4, 1],
+					map: lanyardTexture,
 					lineWidth: 1,
+					depthTest: false,
+					color: 'white',
 				})}
 			</mesh>
 		</>

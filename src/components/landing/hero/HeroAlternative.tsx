@@ -1,11 +1,11 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import landingTranslations from '@/app/[locale]/locales.json'
 import { LocaleParams } from '@/lib/generateStaticParams'
 import { getTranslations } from '@/lib/getDictionary'
 
 import { AnimatedLife } from './AnimatedLife'
-import Link from 'next/link'
 
 export default async function HeroAlternative({ localeParams }: { localeParams: Promise<LocaleParams> }) {
 	const { locale } = await localeParams

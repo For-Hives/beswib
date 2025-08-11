@@ -2,8 +2,8 @@
 
 import type { Event } from '@/models/event.model'
 
-import { Calendar } from '@/components/ui/calendar'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+import { Calendar } from '@/components/ui/calendar'
 
 interface CalendarSidebarProps {
 	events: Event[]

@@ -1,14 +1,17 @@
 'use client'
 
-import React from 'react'
-import Image from 'next/image'
 import { PayPalButtons } from '@paypal/react-paypal-js'
-import { SlidingPanel } from '@/components/ui/SlidingPanel'
-import { formatDateWithLocale } from '@/lib/dateUtils'
-import { cn } from '@/lib/utils'
+import React from 'react'
+
+import Image from 'next/image'
+
 import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n-config'
+
+import { SlidingPanel } from '@/components/ui/SlidingPanel'
+import { formatDateWithLocale } from '@/lib/dateUtils'
+import { cn } from '@/lib/utils'
 
 interface PaymentPanelProps {
 	/** Whether the payment panel is open */
@@ -44,19 +47,19 @@ interface PaymentPanelProps {
  * Handles the complete purchase flow with order summary and payment processing
  */
 export default function PaymentPanel({
-	isOpen,
-	onClose,
-	bib,
-	locale,
-	eventData,
-	errorMessage,
 	successMessage,
+	onError,
+	onCreateOrder,
+	onClose,
+	onCancel,
+	onApprove,
+	locale,
 	loading,
 	isProfileComplete,
-	onCreateOrder,
-	onApprove,
-	onError,
-	onCancel,
+	isOpen,
+	eventData,
+	errorMessage,
+	bib,
 }: PaymentPanelProps) {
 	// Calculate the lowest reference price between original and official
 	const officialPrice = eventData?.officialStandardPrice ?? 0

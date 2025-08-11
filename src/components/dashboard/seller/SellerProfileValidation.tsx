@@ -1,15 +1,17 @@
 'use client'
 
 import { AlertCircle, CheckCircle, ExternalLink } from 'lucide-react'
+
 import Link from 'next/link'
 
 import type { User } from '@/models/user.model'
 
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { isSellerProfileComplete } from '@/lib/userValidation'
 import { getTranslations } from '@/lib/getDictionary'
+import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n-config'
+
 import sellerTranslations from './locales.json'
 
 interface SellerProfileValidationProps {

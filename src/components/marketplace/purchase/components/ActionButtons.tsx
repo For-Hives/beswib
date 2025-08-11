@@ -1,10 +1,13 @@
 'use client'
 
-import React from 'react'
-import Link from 'next/link'
 import { AlertTriangle } from 'lucide-react'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import React from 'react'
+
+import Link from 'next/link'
+
 import type { Locale } from '@/lib/i18n-config'
+
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
 interface ActionButtonsProps {
 	/** Whether user is signed in */
@@ -24,11 +27,11 @@ interface ActionButtonsProps {
  * Handles different user states: not signed in, incomplete profile, own bib, etc.
  */
 export default function ActionButtons({
+	onBuyNowClick,
+	locale,
 	isSignedIn,
 	isProfileComplete,
 	isOwnBib,
-	locale,
-	onBuyNowClick,
 }: ActionButtonsProps) {
 	return (
 		<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">

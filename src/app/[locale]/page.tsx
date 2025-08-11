@@ -1,10 +1,10 @@
 import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticParams'
 import SecurityProcess from '@/components/landing/security-process/SecurityProcess'
 import JourneyTabs from '@/components/landing/journey-tabs/JourneyTabs'
+import HeroAlternative from '@/components/landing/hero/HeroAlternative'
 import FeaturesBento from '@/components/landing/features/Features'
 import BibStats from '@/components/landing/bib-stats/BibStats'
 import BesWibCTA from '@/components/landing/cta/CTASection'
-import HeroAlternative from '@/components/landing/hero/HeroAlternative'
 // import Hero from '@/components/landing/hero/Hero'
 
 // Generate static params for all locales 🌍

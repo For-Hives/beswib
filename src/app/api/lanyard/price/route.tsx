@@ -1,5 +1,5 @@
-import { ImageResponse } from 'next/og'
 import { NextRequest } from 'next/server'
+import { ImageResponse } from 'next/og'
 
 export function GET(request: NextRequest) {
 	try {
@@ -21,38 +21,38 @@ export function GET(request: NextRequest) {
 			(
 				<div
 					style={{
-						height: '100%',
 						width: '100%',
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-						justifyContent: 'center',
-						backgroundColor: '#ffffff',
-						backgroundImage: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-						color: 'white',
-						fontFamily: 'Inter, system-ui, sans-serif',
-						borderRadius: '12px',
 						position: 'relative',
+						justifyContent: 'center',
+						height: '100%',
+						fontFamily: 'Inter, system-ui, sans-serif',
+						flexDirection: 'column',
+						display: 'flex',
+						color: 'white',
+						borderRadius: '12px',
 						border: '3px solid #2d3748',
+						backgroundImage: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+						backgroundColor: '#ffffff',
+						alignItems: 'center',
 					}}
 				>
 					{/* Badge de réduction en haut à droite */}
 					{hasDiscount === true && discountPercentage != null && (
 						<div
 							style={{
-								position: 'absolute',
 								top: '8px',
 								right: '8px',
-								backgroundColor: '#dc2626',
+								position: 'absolute',
+								padding: '4px 8px',
+								justifyContent: 'center',
+								fontWeight: 'bold',
+								fontSize: '12px',
+								display: 'flex',
 								color: 'white',
 								borderRadius: '8px',
-								padding: '4px 8px',
-								fontSize: '12px',
-								fontWeight: 'bold',
 								border: '1px solid #ef4444',
-								display: 'flex',
+								backgroundColor: '#dc2626',
 								alignItems: 'center',
-								justifyContent: 'center',
 							}}
 						>
 							-{discountPercentage}%
@@ -62,22 +62,22 @@ export function GET(request: NextRequest) {
 					{/* Prix principal */}
 					<div
 						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center',
 							gap: '4px',
+							flexDirection: 'column',
+							display: 'flex',
+							alignItems: 'center',
 						}}
 					>
 						{/* Prix barré si discount */}
 						{hasDiscount === true && originalPrice != null && (
 							<div
 								style={{
-									fontSize: '14px',
-									color: '#666',
 									textDecoration: 'line-through',
 									opacity: 0.7,
-									display: 'flex',
 									justifyContent: 'center',
+									fontSize: '14px',
+									display: 'flex',
+									color: '#666',
 								}}
 							>
 								{parseFloat(originalPrice).toFixed(2)} {currency}
@@ -87,13 +87,13 @@ export function GET(request: NextRequest) {
 						{/* Prix actuel */}
 						<div
 							style={{
-								fontSize: '32px',
-								fontWeight: 'bold',
-								color: '#ffffff',
 								textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
 								marginBottom: '4px',
-								display: 'flex',
 								justifyContent: 'center',
+								fontWeight: 'bold',
+								fontSize: '32px',
+								display: 'flex',
+								color: '#ffffff',
 							}}
 						>
 							€{parseFloat(price).toFixed(0)}
@@ -102,13 +102,13 @@ export function GET(request: NextRequest) {
 						{/* Devise et étiquette */}
 						<div
 							style={{
-								fontSize: '14px',
-								color: 'rgba(255, 255, 255, 0.9)',
-								fontWeight: '600',
 								textTransform: 'uppercase',
 								letterSpacing: '1px',
-								display: 'flex',
 								justifyContent: 'center',
+								fontWeight: '600',
+								fontSize: '14px',
+								display: 'flex',
+								color: 'rgba(255, 255, 255, 0.9)',
 							}}
 						>
 							Race Bib
@@ -118,21 +118,21 @@ export function GET(request: NextRequest) {
 					{/* Logo Beswib */}
 					<div
 						style={{
-							position: 'absolute',
-							bottom: '12px',
-							left: '50%',
 							transform: 'translateX(-50%)',
-							backgroundColor: 'rgba(255, 255, 255, 0.2)',
-							color: '#ffffff',
-							borderRadius: '4px',
-							padding: '4px 8px',
-							fontSize: '10px',
-							fontWeight: 'bold',
 							textTransform: 'uppercase',
+							position: 'absolute',
+							padding: '4px 8px',
 							letterSpacing: '1px',
-							display: 'flex',
-							alignItems: 'center',
+							left: '50%',
 							justifyContent: 'center',
+							fontWeight: 'bold',
+							fontSize: '10px',
+							display: 'flex',
+							color: '#ffffff',
+							bottom: '12px',
+							borderRadius: '4px',
+							backgroundColor: 'rgba(255, 255, 255, 0.2)',
+							alignItems: 'center',
 						}}
 					>
 						BESWIB

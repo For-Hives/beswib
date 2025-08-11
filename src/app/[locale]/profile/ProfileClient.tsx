@@ -5,11 +5,10 @@ import type { User } from '@/models/user.model'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import profileTranslations from '@/app/[locale]/profile/locales.json'
 import PayPalOnboarding from '@/components/profile/PayPalOnboarding'
+import ModernRunnerForm from '@/components/profile/modernRunnerForm'
 import UserHeader from '@/components/dashboard/user-header'
 import { getTranslations } from '@/lib/getDictionary'
-
 import { Locale } from '@/lib/i18n-config'
-import ModernRunnerForm from '@/components/profile/modernRunnerForm'
 
 interface ProfileClientProps {
 	clerkUser: SerializedClerkUser

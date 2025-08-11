@@ -5,17 +5,18 @@ vi.mock('@/lib/paypalWebhookVerify', () => ({
 }))
 
 vi.mock('@/services/paypal.services', () => ({
-	handleOnboardingCompleted: vi.fn().mockResolvedValue({ ok: true }),
-	handleConsentRevoked: vi.fn().mockResolvedValue({ ok: true }),
 	handleSellerConsentGranted: vi.fn().mockResolvedValue({ ok: true }),
 	handlePaymentCaptureCompleted: vi.fn().mockResolvedValue({ ok: true }),
+	handleOnboardingCompleted: vi.fn().mockResolvedValue({ ok: true }),
+	handleConsentRevoked: vi.fn().mockResolvedValue({ ok: true }),
 	handleCheckoutOrderApproved: vi.fn().mockResolvedValue({ ok: true }),
 }))
 
-import { verifyPayPalWebhookSignature } from '@/lib/paypalWebhookVerify'
-import { POST, GET } from '@/app/api/webhooks/paypal/route'
 import type { NextRequest } from 'next/server'
+
+import { verifyPayPalWebhookSignature } from '@/lib/paypalWebhookVerify'
 import * as paypalServices from '@/services/paypal.services'
+import { POST, GET } from '@/app/api/webhooks/paypal/route'
 
 // Helper to build a NextRequest-like object minimal subset for our route
 class MockRequest {
@@ -31,7 +32,7 @@ class MockRequest {
 	}
 }
 
-const mkEvent = (event_type: string) => ({ event_type, resource: {} })
+const mkEvent = (event_type: string) => ({ resource: {}, event_type })
 
 describe('PayPal webhook route', () => {
 	beforeEach(() => vi.clearAllMocks())
