@@ -81,7 +81,7 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 
 	return (
 		<ClerkProvider>
-			<html lang={locale} suppressHydrationWarning>
+			<html lang={locale}>
 				<head>
 					{/* Apply persisted/system theme BEFORE paint to prevent flash */}
 					<Script

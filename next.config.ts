@@ -1,5 +1,6 @@
-import { withSentryConfig } from '@sentry/nextjs'
 import type { NextConfig } from 'next'
+
+import { withSentryConfig } from '@sentry/nextjs'
 
 const nextConfig: NextConfig = {
 	trailingSlash: true,
@@ -24,6 +25,8 @@ const nextConfig: NextConfig = {
 			'https://clerk.com',
 			'https://challenges.cloudflare.com',
 			'https://umami.wadefade.fr',
+			'https://browser.sentry-cdn.com',
+			'https://o*.ingest.sentry.io',
 		].join(' ')
 
 		const connectSrc = [
@@ -35,6 +38,7 @@ const nextConfig: NextConfig = {
 			'https://*.clerk.accounts.dev',
 			'https://clerk.com',
 			'https://umami.wadefade.fr',
+			'https://o*.ingest.sentry.io',
 		].join(' ')
 
 		const frameSrc = [
@@ -62,20 +66,20 @@ const nextConfig: NextConfig = {
 				source: '/(.*)',
 				headers: [
 					{
-						key: 'X-Robots-Tag',
 						value: 'noindex, nofollow, noarchive, nosnippet, noimageindex, nocache',
+						key: 'X-Robots-Tag',
 					},
 					{
-						key: 'X-Content-Type-Options',
 						value: 'nosniff',
+						key: 'X-Content-Type-Options',
 					},
 					{
+						value: csp,
 						key: 'Content-Security-Policy',
-						value: csp,
 					},
 					{
-						key: 'Content-Security-Policy-Report-Only',
 						value: csp,
+						key: 'Content-Security-Policy-Report-Only',
 					},
 				],
 			},
@@ -87,8 +91,13 @@ export default withSentryConfig(nextConfig, {
 	// For all available options, see:
 	// https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
-	org: 'neova-s5',
-	project: 'beswib',
+	// Upload a larger set of source maps for prettier stack traces (increases build time)
+	widenClientFileUpload: true,
+	// Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
+	// This can increase your server load as well as your hosting bill.
+	// Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
+	// side errors will fail.
+	tunnelRoute: '/monitoring',
 
 	// Only print logs for uploading source maps in CI
 	silent: !process.env.CI,
@@ -96,14 +105,9 @@ export default withSentryConfig(nextConfig, {
 	// For all available options, see:
 	// https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
-	// Upload a larger set of source maps for prettier stack traces (increases build time)
-	widenClientFileUpload: true,
+	project: 'beswib',
 
-	// Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
-	// This can increase your server load as well as your hosting bill.
-	// Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
-	// side errors will fail.
-	tunnelRoute: '/monitoring',
+	org: 'neova-s5',
 
 	// Automatically tree-shake Sentry logger statements to reduce bundle size
 	disableLogger: true,

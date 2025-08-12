@@ -1,7 +1,7 @@
 'use client'
 
 import { Alignment, Fit, Layout, RuntimeLoader, useRive } from '@rive-app/react-canvas'
-import { ArrowLeft, Search } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { useEffect } from 'react'
 
 import Link from 'next/link'
@@ -9,7 +9,6 @@ import Link from 'next/link'
 import type { Locale } from '@/lib/i18n-config'
 
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 
 const texts: Record<Locale, { title: string; description: string; search: string; goBack: string; home: string }> = {
 	ro: {
@@ -89,7 +88,7 @@ export default function NotFoundPage() {
 	RuntimeLoader.setWasmUrl('/svgs/rive_fallback.wasm')
 
 	const { RiveComponent, rive } = useRive({
-		src: '/olympic_sports_boy_cycling.riv',
+		src: '/vroum.riv',
 		layout: new Layout({ fit: Fit.Cover, alignment: Alignment.Center }),
 		autoplay: true,
 	})
@@ -104,21 +103,17 @@ export default function NotFoundPage() {
 	return (
 		<div className="bg-background relative flex min-h-svh w-full flex-col justify-center p-6 md:p-10">
 			{/* Background Rive animation, dimmed for readability */}
-			<div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.06] dark:opacity-[0.05]">
-				<RiveComponent className="h-full w-full" />
+			<div className="pointer-events-none absolute z-10 flex h-full w-full justify-center lg:-top-24">
+				<div className="h-[450px] w-[450px] opacity-100 lg:h-[512px] lg:w-[512px] xl:h-[750px] xl:w-[750px]">
+					<RiveComponent />
+				</div>
 			</div>
 
-			<div className="relative mx-auto w-full max-w-5xl text-center">
-				<h1 className="text-primary mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">{t.title}</h1>
+			<div className="relative z-20 mx-auto mt-32 w-full max-w-5xl rounded-lg border border-black/20 bg-white/5 p-4 text-center backdrop-blur-xs">
+				<h1 className="text-foreground mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
+					{t.title}
+				</h1>
 				<p className="text-muted-foreground mt-6 text-lg font-medium text-pretty sm:text-xl/8">{t.description}</p>
-
-				<div className="mx-auto mt-10 flex flex-col gap-y-3 sm:max-w-sm sm:flex-row sm:space-x-2">
-					<div className="relative w-full">
-						<Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
-						<Input placeholder={t.search} className="pl-8" />
-					</div>
-					<Button variant="outline">{t.search}</Button>
-				</div>
 
 				<div className="mt-10 flex flex-col gap-x-6 gap-y-3 sm:flex-row sm:items-center sm:justify-center">
 					<Button variant="secondary" asChild className="group" type="button">
