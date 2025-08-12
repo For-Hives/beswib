@@ -29,15 +29,15 @@ export function getLocaleFromRequest(request: NextRequest): string {
 		const languages =
 			acceptLanguage.length > 0
 				? acceptLanguage
-					.split(',')
-					.map(lang => {
-						const [code, quality = '1'] = lang.trim().split(';q=')
-						return {
-							quality: parseFloat(quality),
-							code: code.split('-')[0],
-						}
-					})
-					.sort((a, b) => b.quality - a.quality)
+						.split(',')
+						.map(lang => {
+							const [code, quality = '1'] = lang.trim().split(';q=')
+							return {
+								quality: parseFloat(quality),
+								code: code.split('-')[0],
+							}
+						})
+						.sort((a, b) => b.quality - a.quality)
 				: []
 
 		// Find the first supported language 🥇
