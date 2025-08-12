@@ -180,6 +180,11 @@
 				"testingPayment": "Listo para probar pagos con tu ID de comerciante.",
 				"title": "Información del Vendedor"
 			},
+			"dangerZone": {
+				"title": "Danger Zone",
+				"description": "Sign out from your account. You can sign back in anytime.",
+				"signOut": "Disconnect"
+			},
 			"title": "Mi Perfil"
 		}
 	},
@@ -237,6 +242,11 @@
 				"paypalVerified": "Verificato",
 				"testingPayment": "Pronto a testare i pagamenti con il tuo ID commerciante.",
 				"title": "Informazioni Venditore"
+			},
+			"dangerZone": {
+				"title": "Danger Zone",
+				"description": "Sign out from your account. You can sign back in anytime.",
+				"signOut": "Disconnect"
 			},
 			"title": "Il Mio Profilo"
 		}
@@ -296,6 +306,11 @@
 				"testingPayment": "Bereit, Zahlungen mit Ihrer Händler-ID zu testen.",
 				"title": "Verkäuferinformationen"
 			},
+			"dangerZone": {
+				"title": "Danger Zone",
+				"description": "Sign out from your account. You can sign back in anytime.",
+				"signOut": "Disconnect"
+			},
 			"title": "Mein Profil"
 		}
 	},
@@ -353,6 +368,11 @@
 				"paypalVerified": "Confirmat",
 				"testingPayment": "Gata de testat plățile cu ID-ul tău de comerciant.",
 				"title": "Informații Vânzător"
+			},
+			"dangerZone": {
+				"title": "Danger Zone",
+				"description": "Sign out from your account. You can sign back in anytime.",
+				"signOut": "Disconnect"
 			},
 			"title": "Profilul Meu"
 		}
@@ -412,6 +432,11 @@
 				"testingPayment": "Pronto para testar pagamentos com o teu ID de comerciante.",
 				"title": "Informações do Vendedor"
 			},
+			"dangerZone": {
+				"title": "Danger Zone",
+				"description": "Sign out from your account. You can sign back in anytime.",
+				"signOut": "Disconnect"
+			},
 			"title": "Meu Perfil"
 		}
 	},
@@ -470,6 +495,11 @@
 				"testingPayment": "Klaar om betalingen te testen met uw merchant ID.",
 				"title": "Verkoper Informatie"
 			},
+			"dangerZone": {
+				"title": "Danger Zone",
+				"description": "Sign out from your account. You can sign back in anytime.",
+				"signOut": "Disconnect"
+			},
 			"title": "Mijn Profiel"
 		}
 	},
@@ -527,6 +557,11 @@
 				"paypalVerified": "확인됨",
 				"testingPayment": "판매자 ID로 결제를 테스트할 준비가 되었습니다.",
 				"title": "판매자 정보"
+			},
+			"dangerZone": {
+				"title": "Danger Zone",
+				"description": "Sign out from your account. You can sign back in anytime.",
+				"signOut": "Disconnect"
 			},
 			"title": "내 프로필"
 		}

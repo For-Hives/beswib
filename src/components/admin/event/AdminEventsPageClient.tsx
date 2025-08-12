@@ -373,15 +373,15 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 	// Listen to deletion events from RowActions to update local state
 	useEffect(() => {
 		const onDeleted = (e: Event) => {
-			const custom = e as CustomEvent<{ id: string }>
-			const id = custom.detail?.id
+			const maybeCustom = e as unknown as CustomEvent<{ id: string }>
+			const id = maybeCustom?.detail?.id
 			if (id) {
 				setEvents(prev => prev.filter(ev => ev.id !== id))
 			}
 		}
-		document.addEventListener('admin-events:deleted', onDeleted as EventListener)
+		document.addEventListener('admin-events:deleted', onDeleted)
 		return () => {
-			document.removeEventListener('admin-events:deleted', onDeleted as EventListener)
+			document.removeEventListener('admin-events:deleted', onDeleted)
 		}
 	}, [])
 
