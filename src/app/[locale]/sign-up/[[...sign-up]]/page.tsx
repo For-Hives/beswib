@@ -6,9 +6,9 @@ import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
 
 export default function Page() {
 	const { appearance } = useClerkTheme()
-	
+
 	return (
-		<AuthSplitScreen 
+		<AuthSplitScreen
 			title="Créer un compte"
 			subtitle="Rejoignez la communauté Beswib et commencez à échanger vos dossards."
 		>
