@@ -1,8 +1,8 @@
 'use client'
 
-import { AlertTriangle, ShieldCheck } from 'lucide-react'
+import { AlertTriangle, ShieldCheck, Settings } from 'lucide-react'
 
-import { UserButton } from '@clerk/nextjs'
+import { useClerk } from '@clerk/nextjs'
 import Link from 'next/link'
 
 import type { User } from '@/models/user.model'
@@ -10,6 +10,7 @@ import type { User } from '@/models/user.model'
 import dashboardTranslations from '@/app/[locale]/dashboard/locales.json'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 interface SerializedClerkUser {
 	emailAddresses: { emailAddress: string; id: string }[]
@@ -29,6 +30,16 @@ interface UserHeaderProps {
 export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHeaderProps>) {
 	const t = getTranslations(locale ?? ('en' as Locale), dashboardTranslations)
 	const userName = clerkUser.firstName ?? clerkUser.emailAddresses[0]?.emailAddress ?? 'User'
+	const { openUserProfile } = useClerk()
+
+	const handleOpenAccount = () => {
+		// Open Clerk's user profile modal as a clear way to manage account & sign out
+		try {
+			openUserProfile()
+		} catch (e) {
+			// no-op: gracefully ignore if Clerk hasn't initialized yet
+		}
+	}
 
 	const hasAtLeastOneContact =
 		(user?.phoneNumber != null && String(user.phoneNumber).trim() !== '') ||
@@ -76,19 +87,38 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 					</div>
 				</div>
 
-				<div className="flex items-center justify-end gap-4">
-					<div className="flex flex-col items-end gap-2">
-						<div className="bg-primary/10 text-primary w-fit rounded-full px-3 py-1 text-xs font-medium">
-							{t.dashboard.memberBadge ?? 'MEMBER'}
+				<div className="flex items-center justify-end">
+					<button
+						type="button"
+						onClick={handleOpenAccount}
+						onKeyDown={e => {
+							if (e.key === 'Enter' || e.key === ' ') {
+								e.preventDefault()
+								handleOpenAccount()
+							}
+						}}
+						className="hover:bg-accent/40 focus-visible:ring-ring group border-border/40 bg-background/40 flex items-center gap-3 rounded-xl border p-2 pr-3 text-left shadow-sm backdrop-blur-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
+						aria-label="Open account menu"
+					>
+						<Avatar className="h-9 w-9">
+							<AvatarImage src={clerkUser.imageUrl} alt={userName} />
+							<AvatarFallback>{(userName || 'U').slice(0, 1).toUpperCase()}</AvatarFallback>
+						</Avatar>
+						<div className="flex flex-col items-start">
+							<div className="bg-primary/10 text-primary w-fit rounded-full px-2 py-0.5 text-[10px] leading-4 font-medium">
+								{t.dashboard.memberBadge ?? 'MEMBER'}
+							</div>
+							<p className="text-foreground flex items-center gap-2 text-sm font-medium">
+								<span>{userName}</span>
+								{clerkUser.emailAddresses[0] !== undefined && (
+									<span className="text-muted-foreground hidden text-xs sm:inline">
+										({clerkUser.emailAddresses[0].emailAddress})
+									</span>
+								)}
+							</p>
 						</div>
-						<p className="text-foreground font-medium">
-							{userName}
-							{clerkUser.emailAddresses[0] !== undefined && (
-								<span className="text-muted-foreground ml-2 text-sm">({clerkUser.emailAddresses[0].emailAddress})</span>
-							)}
-						</p>
-					</div>
-					<UserButton />
+						<Settings className="text-muted-foreground/80 group-hover:text-foreground h-4 w-4 shrink-0" />
+					</button>
 				</div>
 			</div>
 		</div>

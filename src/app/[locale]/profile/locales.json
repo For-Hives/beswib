@@ -54,6 +54,11 @@
 				"testingPayment": "Ready to test payments with your merchant ID.",
 				"title": "Seller Information"
 			},
+			"dangerZone": {
+				"title": "Danger Zone",
+				"description": "Sign out from your account. You can sign back in anytime.",
+				"signOut": "Disconnect"
+			},
 			"title": "My Profile"
 		}
 	},
@@ -111,6 +116,11 @@
 				"paypalVerified": "Vérifié",
 				"testingPayment": "Prêt à tester les paiements avec votre ID marchand.",
 				"title": "Informations Vendeur"
+			},
+			"dangerZone": {
+				"title": "Zone dangereuse",
+				"description": "Déconnectez-vous de votre compte. Vous pourrez vous reconnecter à tout moment.",
+				"signOut": "Se déconnecter"
 			},
 			"title": "Mon Profil"
 		}

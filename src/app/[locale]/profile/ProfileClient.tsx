@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import type { User } from '@/models/user.model'
 
@@ -9,6 +9,9 @@ import ModernRunnerForm from '@/components/profile/modernRunnerForm'
 import UserHeader from '@/components/dashboard/user-header'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
+import { Button } from '@/components/ui/button'
+import { useClerk } from '@clerk/nextjs'
+import { LogOut } from 'lucide-react'
 
 interface ProfileClientProps {
 	clerkUser: SerializedClerkUser
@@ -27,6 +30,7 @@ interface SerializedClerkUser {
 
 export default function ProfileClient({ user, locale, clerkUser }: ProfileClientProps) {
 	const t = getTranslations(locale, profileTranslations)
+	const { signOut } = useClerk()
 
 	if (!user) {
 		return null
@@ -60,6 +64,26 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 									) : (
 										<p className="text-muted-foreground text-sm">Please complete your profile first.</p>
 									)}
+								</CardContent>
+							</Card>
+
+							{/* Danger Zone */}
+							<Card className="mt-8 border-destructive/40 bg-destructive/5">
+								<CardHeader>
+									<CardTitle className="text-destructive">{t.profile?.dangerZone?.title ?? 'Danger Zone'}</CardTitle>
+									<CardDescription className="text-muted-foreground">
+										{t.profile?.dangerZone?.description ?? 'Sign out from your account. You can sign back in anytime.'}
+									</CardDescription>
+								</CardHeader>
+								<CardContent>
+									<Button
+										variant="destructive"
+										onClick={() => signOut({ redirectUrl: '/' })}
+										className="w-full"
+									>
+										<LogOut className="h-4 w-4" />
+										<span>{t.profile?.dangerZone?.signOut ?? 'Disconnect'}</span>
+									</Button>
 								</CardContent>
 							</Card>
 						</div>
