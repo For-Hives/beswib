@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useThemeStore } from '@/hooks/useTheme'
+import { umamiTrack } from '@/lib/umami.utils'
 
 // Global knobs
 // GLOBAL_SPEED: higher means faster traversal and faster internal animations
@@ -287,13 +288,18 @@ export function AnimatedLife() {
 		[generateGroup]
 	)
 
+	function handleClick() {
+		setShowSpecialTooltip(v => !v)
+		umamiTrack('show_special_tooltip')
+	}
+
 	return (
 		<button
 			className="absolute bottom-0 left-0 z-20 flex h-[45vh] w-screen md:h-[35vh]"
 			tabIndex={0}
-			onClick={() => setShowSpecialTooltip(v => !v)}
+			onClick={handleClick}
 			onKeyDown={e => {
-				if (e.key === 'Enter' || e.key === ' ') setShowSpecialTooltip(v => !v)
+				if (e.key === 'Enter' || e.key === ' ') handleClick()
 			}}
 		>
 			<div className="relative h-full w-full">
