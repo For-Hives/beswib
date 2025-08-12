@@ -14,8 +14,8 @@ import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
-import { createSale, captureOrder } from '@/app/[locale]/purchase/actions'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
+import { createSale, captureOrder } from '@/app/[locale]/purchase/actions'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
 import { isUserProfileComplete } from '@/lib/userValidation'
@@ -56,7 +56,7 @@ export default function PayPalPurchaseClient({
 	eventData,
 	bib,
 }: Readonly<PayPalPurchaseClientProps>) {
-    const t = getTranslations(locale, marketplaceTranslations)
+	const t = getTranslations(locale, marketplaceTranslations)
 	// Local safe converter to avoid type-aware linter issues with cross-module inference
 	const toLuxon = (date: DateLike): DateTime | null => {
 		if (date instanceof Date) {
@@ -294,10 +294,10 @@ export default function PayPalPurchaseClient({
 										)}
 									</span>
 
-                                    {/* Participants */}
-                                    <span>
-                                        {bib.event.participantCount.toLocaleString(locale)} {t.participants ?? 'participants'}
-                                    </span>
+									{/* Participants */}
+									<span>
+										{bib.event.participantCount.toLocaleString(locale)} {t.participants ?? 'participants'}
+									</span>
 								</div>
 							</div>
 						</div>
