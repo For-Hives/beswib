@@ -54,12 +54,12 @@ export default function CustomSignIn() {
 	const handleInputChange = (field: 'email' | 'password') => (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
 		setSignInData({ [field]: value })
-		
+
 		// Clear field error on input change
 		if (fieldErrors[field]) {
 			clearFieldError(field)
 		}
-		
+
 		// Clear global error
 		if (globalError) {
 			setGlobalError('')
@@ -112,7 +112,7 @@ export default function CustomSignIn() {
 	// Handle OAuth sign in
 	const signInWith = (strategy: 'oauth_google' | 'oauth_facebook') => {
 		if (!signIn) return
-		
+
 		setSigningIn(true)
 		signIn.authenticateWithRedirect({
 			strategy,
@@ -174,7 +174,7 @@ export default function CustomSignIn() {
 			{/* Form */}
 			<form onSubmit={handleSubmit} className="space-y-4">
 				{globalError && (
-					<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm flex items-center gap-2">
+					<div className="border-destructive/20 bg-destructive/10 text-destructive flex items-center gap-2 rounded-lg border p-3 text-sm">
 						<span className="text-destructive">⚠</span>
 						{globalError}
 					</div>

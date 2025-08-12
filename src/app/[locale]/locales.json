@@ -89,7 +89,7 @@
 		"home": {
 			"hero": {
 				"title": "¿Un imprevisto? <span>Transfiere</span> tu dorsal!",
-				"description": "Tanto si te gusta el running, trail, triatlón o ciclismo, encuentra tu carrera favorita o vende tu dorsal con confianza.",
+				"description": "Tanto si te gusta el running, trail, triatlón o ciclismo.<br />Encuentra tu carrera favorita o vende tu dorsal con confianza.",
 				"organizerButton": "¿Organizador? Publica tu carrera",
 				"consultRacesButton": "Ver carreras",
 				"workInProgress": "Trabajo en curso"
@@ -117,7 +117,7 @@
 		"home": {
 			"hero": {
 				"title": "Un imprevisto? <span>Trasferisci</span> il tuo pettorale!",
-				"description": "Che tu ami running, trail, triathlon o ciclismo, trova la tua gara preferita o vendi il tuo pettorale in sicurezza.",
+				"description": "Che tu ami running, trail, triathlon o ciclismo.<br />Trova la tua gara preferita o vendi il tuo pettorale in sicurezza.",
 				"organizerButton": "Organizzatore? Elenca la tua gara",
 				"consultRacesButton": "Sfoglia le gare",
 				"workInProgress": "Lavori in corso"
@@ -145,7 +145,7 @@
 		"home": {
 			"hero": {
 				"title": "Ein unvorhergesehenes Ereignis? <span>Übertrage</span> deine Startnummer!",
-				"description": "Ob Laufen, Trail, Triathlon oder Radfahren – finde dein Lieblingsrennen oder verkaufe deine Startnummer sicher.",
+				"description": "Ob Laufen, Trail, Triathlon oder Radfahren.<br />Finde dein Lieblingsrennen oder verkaufe deine Startnummer sicher.",
 				"organizerButton": "Veranstalter? Liste dein Rennen",
 				"consultRacesButton": "Rennen durchsuchen",
 				"workInProgress": "Arbeiten im Gange"
@@ -173,7 +173,7 @@
 		"home": {
 			"hero": {
 				"title": "Un eveniment neașteptat? <span>Transferă</span>-ți numărul!",
-				"description": "Fie că preferi alergarea, trail, triatlon sau ciclism, găsește cursa preferată sau vinde-ți numărul cu încredere.",
+				"description": "Fie că preferi alergarea, trail, triatlon sau ciclism.<br />Găsește cursa preferată sau vinde-ți numărul cu încredere.",
 				"organizerButton": "Organizator? Listează cursa",
 				"consultRacesButton": "Vezi cursele",
 				"workInProgress": "Lucrăm la asta"
@@ -201,7 +201,7 @@
 		"home": {
 			"hero": {
 				"title": "Um imprevisto? <span>Transfere</span> o teu dorsal!",
-				"description": "Se gostas de corrida, trail, triatlo ou ciclismo, encontra a tua prova favorita ou vende o teu dorsal com confiança.",
+				"description": "Se gostas de corrida, trail, triatlo ou ciclismo.<br />Encontra a tua prova favorita ou vende o teu dorsal com confiança.",
 				"organizerButton": "Organizador? Lista a tua prova",
 				"consultRacesButton": "Ver provas",
 				"workInProgress": "Em desenvolvimento"
@@ -229,7 +229,7 @@
 		"home": {
 			"hero": {
 				"title": "Onverwacht iets gebeurd? <span>Draag</span> je startnummer over!",
-				"description": "Of je nu van hardlopen, trail, triatlon of fietsen houdt: vind je favoriete race of verkoop je startnummer met vertrouwen.",
+				"description": "Of je nu van hardlopen, trail, triatlon of fietsen houdt.<br />Vind je favoriete race of verkoop je startnummer met vertrouwen.",
 				"organizerButton": "Organisator? Plaats je race",
 				"consultRacesButton": "Races bekijken",
 				"workInProgress": "Werk in uitvoering"
@@ -257,7 +257,7 @@
 		"home": {
 			"hero": {
 				"title": "예상치 못한 일이? <span>빕을 전송하세요!</span>",
-				"description": "러닝, 트레일, 철인 3종 경기 또는 사이클링을 좋아하든 상관없이 좋아하는 레이스를 찾거나 자신 있게 빕을 판매하세요.",
+				"description": "러닝, 트레일, 철인 3종 경기 또는 사이클링을 좋아하든 상관없이.<br />좋아하는 레이스를 찾거나 자신 있게 빕을 판매하세요.",
 				"organizerButton": "주최자? 레이스 등록",
 				"consultRacesButton": "레이스 보기",
 				"workInProgress": "작업 진행 중"

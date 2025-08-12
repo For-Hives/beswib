@@ -41,22 +41,22 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 
 		return (
 			<div className="space-y-2">
-				<label htmlFor={inputId} className="text-sm font-medium text-foreground">
+				<label htmlFor={inputId} className="text-foreground text-sm font-medium">
 					{label}
 				</label>
-				
+
 				<div className="relative">
 					<motion.div
 						className={cn(
-							"group/input rounded-lg p-[2px] transition duration-300",
-							error && "bg-destructive/20",
-							success && "bg-emerald-500/20"
+							'group/input rounded-lg p-[2px] transition duration-300',
+							error && 'bg-destructive/20',
+							success && 'bg-emerald-500/20'
 						)}
 						onMouseEnter={() => setVisible(true)}
 						onMouseLeave={() => setVisible(false)}
 						onMouseMove={handleMouseMove}
 						style={{
-							background: error 
+							background: error
 								? useMotionTemplate`
 									radial-gradient(
 										${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
@@ -65,14 +65,14 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 									)
 								`
 								: success
-								? useMotionTemplate`
+									? useMotionTemplate`
 									radial-gradient(
 										${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
 										hsl(142 76% 36% / 0.3),
 										transparent 80%
 									)
 								`
-								: useMotionTemplate`
+									: useMotionTemplate`
 									radial-gradient(
 										${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
 										var(--interactive-bubble),
@@ -86,27 +86,23 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 								id={inputId}
 								className={cn(
 									`shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input flex h-10 w-full rounded-md border px-3 py-2 text-sm transition duration-400 group-hover/input:shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600`,
-									error && "border-destructive focus-visible:ring-destructive/20",
-									success && "border-emerald-500 focus-visible:ring-emerald-500/20",
-									showPasswordToggle && "pr-10",
+									error && 'border-destructive focus-visible:ring-destructive/20',
+									success && 'border-emerald-500 focus-visible:ring-emerald-500/20',
+									showPasswordToggle && 'pr-10',
 									className
 								)}
 								ref={ref}
 								type={inputType}
 								{...props}
 							/>
-							
+
 							{showPasswordToggle && type === 'password' && (
 								<button
 									type="button"
-									className="absolute inset-y-0 right-0 flex items-center justify-center w-10 text-muted-foreground hover:text-foreground transition-colors"
+									className="text-muted-foreground hover:text-foreground absolute inset-y-0 right-0 flex w-10 items-center justify-center transition-colors"
 									onClick={() => setShowPassword(!showPassword)}
 								>
-									{showPassword ? (
-										<EyeOff className="h-4 w-4" />
-									) : (
-										<Eye className="h-4 w-4" />
-									)}
+									{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
 								</button>
 							)}
 						</div>
@@ -115,7 +111,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 
 				{/* Error message */}
 				{error && (
-					<p className="text-xs text-destructive mt-1 flex items-center gap-1">
+					<p className="text-destructive mt-1 flex items-center gap-1 text-xs">
 						<span className="text-destructive">⚠</span>
 						{error.message}
 					</p>
@@ -123,18 +119,14 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 
 				{/* Success message */}
 				{success && !error && (
-					<p className="text-xs text-emerald-600 mt-1 flex items-center gap-1">
+					<p className="mt-1 flex items-center gap-1 text-xs text-emerald-600">
 						<span className="text-emerald-600">✓</span>
 						Valide
 					</p>
 				)}
 
 				{/* Helper text */}
-				{helperText && !error && !success && (
-					<p className="text-xs text-muted-foreground mt-1">
-						{helperText}
-					</p>
-				)}
+				{helperText && !error && !success && <p className="text-muted-foreground mt-1 text-xs">{helperText}</p>}
 			</div>
 		)
 	}

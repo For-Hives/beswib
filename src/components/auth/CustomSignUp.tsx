@@ -10,7 +10,13 @@ import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
 import { PasswordStrength } from '@/components/ui/PasswordStrength'
 import { useAuthStore } from '@/stores/authStore'
-import { validateEmail, validatePassword, validateName, validateVerificationCode, validateConfirmPassword } from '@/lib/validation'
+import {
+	validateEmail,
+	validatePassword,
+	validateName,
+	validateVerificationCode,
+	validateConfirmPassword,
+} from '@/lib/validation'
 
 export default function CustomSignUp() {
 	const { isLoaded, signUp, setActive } = useSignUp()
@@ -74,12 +80,12 @@ export default function CustomSignUp() {
 	const handleInputChange = (field: keyof typeof signUpData) => (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
 		setSignUpData({ [field]: value })
-		
+
 		// Clear field error on input change
 		if (fieldErrors[field]) {
 			clearFieldError(field)
 		}
-		
+
 		// Clear global error
 		if (globalError) {
 			setGlobalError('')
@@ -95,12 +101,12 @@ export default function CustomSignUp() {
 	const handleVerificationCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
 		setVerificationCode(value)
-		
+
 		// Clear field error on input change
 		if (fieldErrors.verificationCode) {
 			clearFieldError('verificationCode')
 		}
-		
+
 		// Clear global error
 		if (globalError) {
 			setGlobalError('')
@@ -187,7 +193,7 @@ export default function CustomSignUp() {
 	// Handle OAuth sign up
 	const signUpWith = (strategy: 'oauth_google' | 'oauth_facebook') => {
 		if (!signUp) return
-		
+
 		setSigningUp(true)
 		signUp.authenticateWithRedirect({
 			strategy,
@@ -217,7 +223,7 @@ export default function CustomSignUp() {
 
 				<form onSubmit={handleVerification} className="space-y-4">
 					{globalError && (
-						<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm flex items-center gap-2">
+						<div className="border-destructive/20 bg-destructive/10 text-destructive flex items-center gap-2 rounded-lg border p-3 text-sm">
 							<span className="text-destructive">⚠</span>
 							{globalError}
 						</div>
@@ -312,7 +318,7 @@ export default function CustomSignUp() {
 			{/* Form */}
 			<form onSubmit={handleSubmit} className="space-y-4">
 				{globalError && (
-					<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm flex items-center gap-2">
+					<div className="border-destructive/20 bg-destructive/10 text-destructive flex items-center gap-2 rounded-lg border p-3 text-sm">
 						<span className="text-destructive">⚠</span>
 						{globalError}
 					</div>
