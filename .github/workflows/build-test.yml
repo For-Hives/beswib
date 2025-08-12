@@ -34,8 +34,10 @@ jobs:
             - recursive: true
               args: [--frozen-lockfile]
             - args: [--global, gulp, prettier, vitest]
+      - name: 'Typescript Check'
+        run: pnpm tsc
       - name: 'Lint Code'
-        run: pnpm lint:fix
+        run: pnpm lint
       - name: 'Run Tests'
         run: pnpm test:run
       - name: 'Build Project'
