@@ -2,6 +2,7 @@ import { Search, ArrowLeft } from 'lucide-react'
 import * as React from 'react'
 
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 
 interface NotFoundProps {
@@ -37,7 +38,7 @@ export function NotFound({
 			</div>
 			<div className="-order-1 mt-10 flex flex-col gap-x-6 gap-y-3 sm:order-none sm:flex-row sm:items-center sm:justify-center">
 				<Button variant="secondary" asChild className="group" type="button">
-					<a href="/">
+					<Link href="/">
 						<ArrowLeft
 							className="ms-0 me-2 opacity-60 transition-transform group-hover:-translate-x-0.5"
 							size={16}
@@ -45,10 +46,10 @@ export function NotFound({
 							aria-hidden="true"
 						/>
 						Go back
-					</a>
+					</Link>
 				</Button>
 				<Button asChild type="button">
-					<a href="/">Take me home</a>
+					<Link href="/">Take me home</Link>
 				</Button>
 			</div>
 		</div>

@@ -10,7 +10,7 @@ function parseSentryDsn(dsn: string) {
 
 export async function POST(request: Request) {
 	const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN ?? process.env.SENTRY_DSN
-	if (!dsn) {
+	if (typeof dsn !== 'string' || dsn.length === 0) {
 		return new Response('Missing SENTRY_DSN', { status: 204 })
 	}
 

@@ -32,7 +32,9 @@ export default function LocaleSegmentError({
 					<Link href={`/${locale}`}>Back home</Link>
 				</Button>
 			</div>
-			{error?.digest ? <p className="text-muted-foreground mt-6 text-xs">Error reference: {error.digest}</p> : null}
+			{typeof error.digest === 'string' && error.digest.length > 0 ? (
+				<p className="text-muted-foreground mt-6 text-xs">Error reference: {error.digest}</p>
+			) : null}
 		</div>
 	)
 }
