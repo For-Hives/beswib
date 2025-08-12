@@ -9,5 +9,5 @@ Sentry.init({
 	tracesSampleRate: 1,
 	enableLogs: true,
 	dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? process.env.SENTRY_DSN,
-	debug: true,
+	debug: false,
 })
