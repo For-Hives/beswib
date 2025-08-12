@@ -4,6 +4,28 @@
 			"title": "Event Details",
 			"date": "Date",
 			"location": "Location",
+			"typeCourse": "Discipline",
+			"typeLabels": {
+				"road": "Road",
+				"trail": "Trail",
+				"triathlon": "Triathlon",
+				"cycle": "Cycling"
+			},
+			"distance": "Distance",
+			"elevationGain": "Elevation gain",
+			"participants": "Participants",
+			"officialPrice": "Official price",
+			"courseMap": "Course map",
+			"viewCourse": "View course",
+			"registration": "Registration",
+			"goToRegistration": "Go to registration",
+			"bibPickup": {
+				"title": "Bib pickup",
+				"location": "Location",
+				"window": "Pickup window"
+			},
+			"transferDeadline": "Transfer deadline",
+			"description": "Description",
 			"backToEvents": "Back to events list",
 			"bibs": {
 				"title": "Available Bibs for this Event",
@@ -36,6 +58,28 @@
 			"title": "Détails de l'événement",
 			"date": "Date",
 			"location": "Lieu",
+			"typeCourse": "Discipline",
+			"typeLabels": {
+				"road": "Route",
+				"trail": "Trail",
+				"triathlon": "Triathlon",
+				"cycle": "Cyclisme"
+			},
+			"distance": "Distance",
+			"elevationGain": "Dénivelé",
+			"participants": "Participants",
+			"officialPrice": "Prix officiel",
+			"courseMap": "Parcours",
+			"viewCourse": "Voir le parcours",
+			"registration": "Inscription",
+			"goToRegistration": "Aller à l'inscription",
+			"bibPickup": {
+				"title": "Retrait des dossards",
+				"location": "Lieu",
+				"window": "Période de retrait"
+			},
+			"transferDeadline": "Date limite de transfert",
+			"description": "Description",
 			"backToEvents": "Retour à la liste des événements",
 			"bibs": {
 				"title": "Dossards disponibles pour cet événement",
@@ -68,6 +112,28 @@
 			"title": "Detalles del evento",
 			"date": "Fecha",
 			"location": "Ubicación",
+			"typeCourse": "Disciplina",
+			"typeLabels": {
+				"road": "Carretera",
+				"trail": "Trail",
+				"triathlon": "Triatlón",
+				"cycle": "Ciclismo"
+			},
+			"distance": "Distancia",
+			"elevationGain": "Desnivel",
+			"participants": "Participantes",
+			"officialPrice": "Precio oficial",
+			"courseMap": "Mapa del recorrido",
+			"viewCourse": "Ver recorrido",
+			"registration": "Inscripción",
+			"goToRegistration": "Ir a la inscripción",
+			"bibPickup": {
+				"title": "Retiro de dorsales",
+				"location": "Ubicación",
+				"window": "Periodo de retiro"
+			},
+			"transferDeadline": "Fecha límite de transferencia",
+			"description": "Descripción",
 			"backToEvents": "Volver a la lista de eventos",
 			"bibs": {
 				"title": "Dorsales disponibles para este evento",
@@ -100,6 +166,28 @@
 			"title": "Dettagli dell'evento",
 			"date": "Data",
 			"location": "Posizione",
+			"typeCourse": "Disciplina",
+			"typeLabels": {
+				"road": "Strada",
+				"trail": "Trail",
+				"triathlon": "Triathlon",
+				"cycle": "Ciclismo"
+			},
+			"distance": "Distanza",
+			"elevationGain": "Dislivello",
+			"participants": "Partecipanti",
+			"officialPrice": "Prezzo ufficiale",
+			"courseMap": "Percorso",
+			"viewCourse": "Vedi percorso",
+			"registration": "Iscrizione",
+			"goToRegistration": "Vai all'iscrizione",
+			"bibPickup": {
+				"title": "Ritiro pettorali",
+				"location": "Luogo",
+				"window": "Periodo di ritiro"
+			},
+			"transferDeadline": "Scadenza trasferimento",
+			"description": "Descrizione",
 			"backToEvents": "Torna alla lista degli eventi",
 			"bibs": {
 				"title": "Pettorine disponibili per questo evento",
@@ -132,6 +220,28 @@
 			"title": "Event-Details",
 			"date": "Datum",
 			"location": "Ort",
+			"typeCourse": "Disziplin",
+			"typeLabels": {
+				"road": "Straße",
+				"trail": "Trail",
+				"triathlon": "Triathlon",
+				"cycle": "Radsport"
+			},
+			"distance": "Distanz",
+			"elevationGain": "Höhenmeter",
+			"participants": "Teilnehmer",
+			"officialPrice": "Offizieller Preis",
+			"courseMap": "Streckenkarte",
+			"viewCourse": "Strecke ansehen",
+			"registration": "Anmeldung",
+			"goToRegistration": "Zur Anmeldung",
+			"bibPickup": {
+				"title": "Startnummernabholung",
+				"location": "Ort",
+				"window": "Abholzeitraum"
+			},
+			"transferDeadline": "Übertragungsfrist",
+			"description": "Beschreibung",
 			"backToEvents": "Zurück zur Event-Liste",
 			"bibs": {
 				"title": "Verfügbare Startnummern für dieses Event",
@@ -164,6 +274,28 @@
 			"title": "Detaliile evenimentului",
 			"date": "Data",
 			"location": "Locația",
+			"typeCourse": "Disciplină",
+			"typeLabels": {
+				"road": "Șosea",
+				"trail": "Trail",
+				"triathlon": "Triatlon",
+				"cycle": "Ciclism"
+			},
+			"distance": "Distanță",
+			"elevationGain": "Diferență de nivel",
+			"participants": "Participanți",
+			"officialPrice": "Preț oficial",
+			"courseMap": "Harta traseului",
+			"viewCourse": "Vezi traseul",
+			"registration": "Înregistrare",
+			"goToRegistration": "Mergi la înregistrare",
+			"bibPickup": {
+				"title": "Ridicare număr",
+				"location": "Locație",
+				"window": "Perioadă de ridicare"
+			},
+			"transferDeadline": "Termen limită pentru transfer",
+			"description": "Descriere",
 			"backToEvents": "Înapoi la lista de evenimente",
 			"bibs": {
 				"title": "Numere de concurs disponibile pentru acest eveniment",
@@ -196,6 +328,28 @@
 			"title": "Detalhes do evento",
 			"date": "Data",
 			"location": "Localização",
+			"typeCourse": "Disciplina",
+			"typeLabels": {
+				"road": "Estrada",
+				"trail": "Trail",
+				"triathlon": "Triatlo",
+				"cycle": "Ciclismo"
+			},
+			"distance": "Distância",
+			"elevationGain": "Desnível",
+			"participants": "Participantes",
+			"officialPrice": "Preço oficial",
+			"courseMap": "Mapa do percurso",
+			"viewCourse": "Ver percurso",
+			"registration": "Inscrição",
+			"goToRegistration": "Ir para inscrição",
+			"bibPickup": {
+				"title": "Levantamento do dorsal",
+				"location": "Local",
+				"window": "Período de levantamento"
+			},
+			"transferDeadline": "Prazo de transferência",
+			"description": "Descrição",
 			"backToEvents": "Voltar à lista de eventos",
 			"bibs": {
 				"title": "Dorsais disponíveis para este evento",
@@ -228,6 +382,28 @@
 			"title": "Evenement details",
 			"date": "Datum",
 			"location": "Locatie",
+			"typeCourse": "Discipline",
+			"typeLabels": {
+				"road": "Weg",
+				"trail": "Trail",
+				"triathlon": "Triatlon",
+				"cycle": "Wielrennen"
+			},
+			"distance": "Afstand",
+			"elevationGain": "Hoogtemeters",
+			"participants": "Deelnemers",
+			"officialPrice": "Officiële prijs",
+			"courseMap": "Parcourskaart",
+			"viewCourse": "Parcours bekijken",
+			"registration": "Inschrijving",
+			"goToRegistration": "Ga naar inschrijving",
+			"bibPickup": {
+				"title": "Afhalen startnummer",
+				"location": "Locatie",
+				"window": "Afhaalperiode"
+			},
+			"transferDeadline": "Uiterste overdrachtsdatum",
+			"description": "Beschrijving",
 			"backToEvents": "Terug naar evenementenlijst",
 			"bibs": {
 				"title": "Beschikbare startnummers voor dit evenement",
@@ -260,6 +436,28 @@
 			"title": "이벤트 세부사항",
 			"date": "날짜",
 			"location": "위치",
+			"typeCourse": "종목",
+			"typeLabels": {
+				"road": "도로",
+				"trail": "트레일",
+				"triathlon": "트라이애슬론",
+				"cycle": "사이클"
+			},
+			"distance": "거리",
+			"elevationGain": "누적 상승고도",
+			"participants": "참가자",
+			"officialPrice": "공식 가격",
+			"courseMap": "코스 지도",
+			"viewCourse": "코스 보기",
+			"registration": "등록",
+			"goToRegistration": "등록 페이지로 이동",
+			"bibPickup": {
+				"title": "배번 수령",
+				"location": "위치",
+				"window": "수령 기간"
+			},
+			"transferDeadline": "양도 마감일",
+			"description": "설명",
 			"backToEvents": "이벤트 목록으로 돌아가기",
 			"bibs": {
 				"title": "이 이벤트에 사용 가능한 빕",

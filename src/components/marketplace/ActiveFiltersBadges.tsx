@@ -23,27 +23,32 @@ interface ActiveFiltersBadgesProps {
 	readonly locale?: Locale
 }
 
-const sportsOptions = [
-	{ value: 'running', label: 'Road', icon: '🏃' },
-	{ value: 'trail', label: 'Trail', icon: '🏔️' },
-	{ value: 'triathlon', label: 'Triathlon', icon: '🏊‍♂️' },
-	{ value: 'cycling', label: 'Cycling', icon: '🚴' },
-	{ value: 'other', label: 'Other', icon: '🏅' },
-]
-
-const distanceOptions = [
-	{ value: '5', range: '4-6km', label: '5km' },
-	{ value: '10', range: '9-11km', label: '10km' },
-	{ value: '21', range: '20-22km', label: 'Semi-Marathon' },
-	{ value: '42', range: '41-43km', label: 'Marathon' },
-	{ value: '80', range: '80km+', label: 'Ultra (+80km)' },
-	{ value: 'tri-s', range: '25-30km', label: 'Triathlon S' },
-	{ value: 'tri-m', range: '50-55km', label: 'Triathlon M' },
-	{ value: 'tri-l', range: '110-115km', label: 'Triathlon L' },
-]
+// options are now built inside the component to leverage translations
 
 export default function ActiveFiltersBadges({ onRemoveFilter, maxPrice, locale, filters }: ActiveFiltersBadgesProps) {
 	const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
+	const sportsOptions = [
+		{ value: 'running', label: t.road ?? 'Road', icon: '🏃' },
+		{ value: 'trail', label: t.trail ?? 'Trail', icon: '🏔️' },
+		{ value: 'triathlon', label: t.triathlon ?? 'Triathlon', icon: '🏊‍♂️' },
+		{ value: 'cycling', label: (t as { cycling?: string }).cycling ?? 'Cycling', icon: '🚴' },
+		{ value: 'other', label: t.other ?? 'Other', icon: '🏅' },
+	]
+
+	const distanceOptions = [
+		{ value: '5', range: t?.distances?.fiveKmRange ?? '4-6km', label: t?.distances?.fiveKm ?? '5km' },
+		{ value: '10', range: t?.distances?.tenKmRange ?? '9-11km', label: t?.distances?.tenKm ?? '10km' },
+		{
+			value: '21',
+			range: t?.distances?.halfMarathonRange ?? '20-22km',
+			label: t?.distances?.halfMarathon ?? 'Semi-Marathon',
+		},
+		{ value: '42', range: t?.distances?.marathonRange ?? '41-43km', label: t?.distances?.marathon ?? 'Marathon' },
+		{ value: '80', range: t?.distances?.ultraRange ?? '80km+', label: t?.distances?.ultra ?? 'Ultra (+80km)' },
+		{ value: 'tri-s', range: t?.distances?.triSRange ?? '25-30km', label: t?.distances?.triS ?? 'Triathlon S' },
+		{ value: 'tri-m', range: t?.distances?.triMRange ?? '50-55km', label: t?.distances?.triM ?? 'Triathlon M' },
+		{ value: 'tri-l', range: t?.distances?.triLRange ?? '110-115km', label: t?.distances?.triL ?? 'Triathlon L' },
+	]
 	const activeFilters = []
 
 	// Sport filter

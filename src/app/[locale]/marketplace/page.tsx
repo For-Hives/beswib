@@ -41,7 +41,7 @@ export default async function MarketplacePage({ params }: { params: Promise<{ lo
 					<div className="flex h-64 items-center justify-center">
 						<div className="text-center">
 							<div className="border-primary mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2"></div>
-							<p className="text-muted-foreground">Loading marketplace...</p>
+							<p className="text-muted-foreground">{t.loading}</p>
 						</div>
 					</div>
 				}
