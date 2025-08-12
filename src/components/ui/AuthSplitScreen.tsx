@@ -33,7 +33,7 @@ export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenPr
 
 						{/* Shader above image (no blend for full coverage) */}
 						<div className="pointer-events-none absolute inset-0 z-10">
-							<PlasmaShader className="opacity-80" />
+							<PlasmaShader className="absolute inset-0 opacity-80" />
 						</div>
 
 						{/* Subtle light overlay to keep things soft */}
