@@ -13,9 +13,11 @@ import type { Bib } from '@/models/bib.model'
 import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
 import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider'
 import { fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
+import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { fetchOrganizerById } from '@/services/organizer.services'
 import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
 import { fetchUserByClerkId } from '@/services/user.services'
+import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
 
 export const metadata: Metadata = {
@@ -35,6 +37,7 @@ interface MarketplaceItemPageProps {
 
 export default async function MarketplaceItemPage({ searchParams, params }: MarketplaceItemPageProps) {
 	const { locale, id } = await params
+	const t = getTranslations(locale, marketplaceTranslations)
 	const { tkn } = await searchParams
 	const { userId } = await auth()
 
@@ -52,7 +55,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	}
 
 	if (!bib || !bib.expand?.eventId) {
-		return <div>Bib not found or event data missing</div>
+		return <div>{t.bibNotFound ?? 'Bib not found or event data missing'}</div>
 	}
 
 	// Block access if event has passed or transfer window closed (except admins elsewhere)
@@ -63,8 +66,10 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	if (!isSaleOpen) {
 		return (
 			<div className="mx-auto max-w-lg p-6 text-center">
-				<p className="mb-4 text-lg font-semibold">Sale closed for this event.</p>
-				<p className="text-muted-foreground text-sm">The event has already passed or the transfer deadline is over.</p>
+				<p className="mb-4 text-lg font-semibold">{t.saleClosedTitle ?? 'Sale closed for this event.'}</p>
+				<p className="text-muted-foreground text-sm">
+					{t.saleClosedBody ?? 'The event has already passed or the transfer deadline is over.'}
+				</p>
 			</div>
 		)
 	}
