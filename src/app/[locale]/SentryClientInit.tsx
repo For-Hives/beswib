@@ -1,10 +1,14 @@
 'use client'
 
-// Ensure Sentry client config is executed on the browser even in dev/Turbopack
-// We import the root client config module here so it runs once on the client
-// The relative path goes from this file up to repo root
-import '../../../sentry.client.config'
+import { useEffect } from 'react'
 
+// Ensure Sentry client config is executed on the browser even in dev/Turbopack
+// We dynamic-import the root client config so it never runs during SSR
 export default function SentryClientInit() {
+	useEffect(() => {
+		// relative from this file to project root
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
+		import('../../../sentry.client.config')
+	}, [])
 	return null
 }
