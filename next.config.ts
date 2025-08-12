@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
 			'https://challenges.cloudflare.com',
 			'https://umami.wadefade.fr',
 			'https://browser.sentry-cdn.com',
-			'https://o*.ingest.sentry.io',
+			'https://*.ingest.sentry.io',
 		].join(' ')
 
 		const connectSrc = [
@@ -38,7 +38,8 @@ const nextConfig: NextConfig = {
 			'https://*.clerk.accounts.dev',
 			'https://clerk.com',
 			'https://umami.wadefade.fr',
-			'https://o*.ingest.sentry.io',
+			'https://*.ingest.sentry.io',
+			'https://sentry.io',
 		].join(' ')
 
 		const frameSrc = [
