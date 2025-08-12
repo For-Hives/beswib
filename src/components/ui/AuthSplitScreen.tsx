@@ -31,9 +31,9 @@ export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenPr
 							/>
 						</div>
 
-						{/* Shader above image with blend */}
+						{/* Shader above image (no blend for full coverage) */}
 						<div className="pointer-events-none absolute inset-0 z-10">
-							<PlasmaShader className="opacity-90 mix-blend-soft-light" />
+							<PlasmaShader className="opacity-80" />
 						</div>
 
 						{/* Subtle light overlay to keep things soft */}
