@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { beforeSendHandler, umamiIdentify, umamiTrack } from '../umami.utils'
+import { beforeSendHandler, umamiIdentify, umamiTrack } from '../../lib/umami.utils'
 
 describe('umami.utils', () => {
 	it('beforeSendHandler returns false for invalid payloads', () => {
@@ -18,12 +18,12 @@ describe('umami.utils', () => {
 
 		const res = beforeSendHandler('event', {
 			event_name: 'foo',
-			event_data,
+			data: event_data,
 		})
 
 		if (res === false) throw new Error('beforeSendHandler unexpectedly returned false')
-		expect(res.event_data?.email).toBe('[redacted]')
-		expect(res.event_data?.name).toBe('[redacted]')
+		expect(res.data?.email).toBe('[redacted]')
+		expect(res.data?.name).toBe('[redacted]')
 	})
 
 	it('umamiTrack/umamiIdentify are SSR safe', () => {
