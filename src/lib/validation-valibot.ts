@@ -3,20 +3,20 @@ import { FieldError } from '@/stores/authStore'
 import { Locale } from '@/lib/i18n-config'
 import { validationTranslations } from '@/lib/translations/validation'
 import { authTranslations } from '@/lib/translations/auth'
-import { 
-	createEmailSchema, 
-	createSignInPasswordSchema, 
-	createSignUpPasswordSchema, 
-	createNameSchema, 
+import {
+	createEmailSchema,
+	createSignInPasswordSchema,
+	createSignUpPasswordSchema,
+	createNameSchema,
 	createVerificationCodeSchema,
-	analyzePasswordStrength
+	analyzePasswordStrength,
 } from './validation-schemas'
 
 // Email validation using Valibot
 export const validateEmailValibot = (email: string, locale: Locale = 'fr'): FieldError | null => {
 	const schema = createEmailSchema(locale)
 	const result = v.safeParse(schema, email)
-	
+
 	if (result.success) {
 		return null
 	}
@@ -24,22 +24,26 @@ export const validateEmailValibot = (email: string, locale: Locale = 'fr'): Fiel
 	const issue = result.issues[0]
 	return {
 		message: issue.message,
-		code: issue.type === 'email' ? 'invalid_format' : 'required'
+		code: issue.type === 'email' ? 'invalid_format' : 'required',
 	}
 }
 
 // Password validation using Valibot
-export const validatePasswordValibot = (password: string, isSignUp = false, locale: Locale = 'fr'): FieldError | null => {
+export const validatePasswordValibot = (
+	password: string,
+	isSignUp = false,
+	locale: Locale = 'fr'
+): FieldError | null => {
 	const schema = isSignUp ? createSignUpPasswordSchema(locale) : createSignInPasswordSchema(locale)
 	const result = v.safeParse(schema, password)
-	
+
 	if (result.success) {
 		return null
 	}
 
 	const issue = result.issues[0]
 	let code = 'required'
-	
+
 	if (issue.type === 'min_length') code = 'too_short'
 	else if (issue.type === 'regex') {
 		const message = issue.message
@@ -50,7 +54,7 @@ export const validatePasswordValibot = (password: string, isSignUp = false, loca
 
 	return {
 		message: issue.message,
-		code
+		code,
 	}
 }
 
@@ -61,7 +65,7 @@ export const validateConfirmPasswordValibot = (
 	locale: Locale = 'fr'
 ): FieldError | null => {
 	const t = validationTranslations[locale]
-	
+
 	if (!confirmPassword) {
 		return { message: t.confirmPassword.required, code: 'required' }
 	}
@@ -77,21 +81,21 @@ export const validateConfirmPasswordValibot = (
 export const validateNameValibot = (name: string, fieldName: string, locale: Locale = 'fr'): FieldError | null => {
 	const schema = createNameSchema(fieldName, locale)
 	const result = v.safeParse(schema, name)
-	
+
 	if (result.success) {
 		return null
 	}
 
 	const issue = result.issues[0]
 	let code = 'required'
-	
+
 	if (issue.type === 'min_length') code = 'too_short'
 	else if (issue.type === 'max_length') code = 'too_long'
 	else if (issue.type === 'regex') code = 'invalid_characters'
 
 	return {
 		message: issue.message,
-		code
+		code,
 	}
 }
 
@@ -99,7 +103,7 @@ export const validateNameValibot = (name: string, fieldName: string, locale: Loc
 export const validateVerificationCodeValibot = (code: string, locale: Locale = 'fr'): FieldError | null => {
 	const schema = createVerificationCodeSchema(locale)
 	const result = v.safeParse(schema, code)
-	
+
 	if (result.success) {
 		return null
 	}
@@ -107,7 +111,7 @@ export const validateVerificationCodeValibot = (code: string, locale: Locale = '
 	const issue = result.issues[0]
 	return {
 		message: issue.message,
-		code: issue.type === 'regex' ? 'invalid_format' : 'required'
+		code: issue.type === 'regex' ? 'invalid_format' : 'required',
 	}
 }
 
@@ -127,13 +131,13 @@ export const getPasswordStrengthValibot = (
 export const validateSignInForm = (data: { email: string; password: string }, locale: Locale = 'fr') => {
 	const emailError = validateEmailValibot(data.email, locale)
 	const passwordError = validatePasswordValibot(data.password, false, locale)
-	
+
 	return {
 		isValid: !emailError && !passwordError,
 		errors: {
 			email: emailError,
-			password: passwordError
-		}
+			password: passwordError,
+		},
 	}
 }
 
@@ -148,13 +152,13 @@ export const validateSignUpForm = (
 	locale: Locale = 'fr'
 ) => {
 	const t = authTranslations[locale]
-	
+
 	const firstNameError = validateNameValibot(data.firstName, t.signUp.firstNameLabel.toLowerCase(), locale)
 	const lastNameError = validateNameValibot(data.lastName, t.signUp.lastNameLabel.toLowerCase(), locale)
 	const emailError = validateEmailValibot(data.email, locale)
 	const passwordError = validatePasswordValibot(data.password, true, locale)
 	const confirmPasswordError = validateConfirmPasswordValibot(data.password, data.confirmPassword, locale)
-	
+
 	return {
 		isValid: !firstNameError && !lastNameError && !emailError && !passwordError && !confirmPasswordError,
 		errors: {
@@ -162,7 +166,7 @@ export const validateSignUpForm = (
 			lastName: lastNameError,
 			email: emailError,
 			password: passwordError,
-			confirmPassword: confirmPasswordError
-		}
+			confirmPassword: confirmPasswordError,
+		},
 	}
 }

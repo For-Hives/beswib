@@ -5,21 +5,13 @@ import { validationTranslations } from '@/lib/translations/validation'
 // Email schema
 export const createEmailSchema = (locale: Locale = 'fr') => {
 	const t = validationTranslations[locale]
-	return v.pipe(
-		v.string(),
-		v.trim(),
-		v.nonEmpty(t.email.required),
-		v.email(t.email.invalid)
-	)
+	return v.pipe(v.string(), v.trim(), v.nonEmpty(t.email.required), v.email(t.email.invalid))
 }
 
 // Password schema for sign-in (less strict)
 export const createSignInPasswordSchema = (locale: Locale = 'fr') => {
 	const t = validationTranslations[locale]
-	return v.pipe(
-		v.string(),
-		v.nonEmpty(t.password.required)
-	)
+	return v.pipe(v.string(), v.nonEmpty(t.password.required))
 }
 
 // Password schema for sign-up (strict requirements)
@@ -63,7 +55,7 @@ export const createVerificationCodeSchema = (locale: Locale = 'fr') => {
 export const createSignInSchema = (locale: Locale = 'fr') => {
 	return v.object({
 		email: createEmailSchema(locale),
-		password: createSignInPasswordSchema(locale)
+		password: createSignInPasswordSchema(locale),
 	})
 }
 
@@ -76,15 +68,12 @@ export const createSignUpSchema = (locale: Locale = 'fr') => {
 			lastName: createNameSchema('nom', locale),
 			email: createEmailSchema(locale),
 			password: createSignUpPasswordSchema(locale),
-			confirmPassword: v.pipe(
-				v.string(),
-				v.nonEmpty(t.confirmPassword.required)
-			)
+			confirmPassword: v.pipe(v.string(), v.nonEmpty(t.confirmPassword.required)),
 		}),
 		v.forward(
 			v.partialCheck(
 				[['password'], ['confirmPassword']],
-				(input) => input.password === input.confirmPassword,
+				input => input.password === input.confirmPassword,
 				t.confirmPassword.noMatch
 			),
 			['confirmPassword']
@@ -165,11 +154,11 @@ export type ValidationResult = {
 // Helper function to validate and format results
 export const validateForm = <T>(schema: v.BaseSchema<any, T, any>, data: unknown): ValidationResult => {
 	const result = v.safeParse(schema, data)
-	
+
 	if (result.success) {
 		return {
 			success: true,
-			data: result.output
+			data: result.output,
 		}
 	}
 
@@ -190,6 +179,6 @@ export const validateForm = <T>(schema: v.BaseSchema<any, T, any>, data: unknown
 	return {
 		success: false,
 		error: globalError,
-		fieldErrors
+		fieldErrors,
 	}
 }

@@ -259,7 +259,7 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 		// Legal text
 		legal: {
 			termsText: 'En créant un compte, vous acceptez nos',
-			termsOfService: 'Conditions d\'utilisation',
+			termsOfService: "Conditions d'utilisation",
 			privacyPolicy: 'Politique de confidentialité',
 			and: 'et',
 		},
