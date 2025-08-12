@@ -1,8 +1,9 @@
 import { Search, ArrowLeft } from 'lucide-react'
 import * as React from 'react'
 
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 interface NotFoundProps {
