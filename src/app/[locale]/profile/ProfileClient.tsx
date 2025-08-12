@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import type { User } from '@/models/user.model'
 
@@ -68,7 +68,7 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 							</Card>
 
 							{/* Danger Zone */}
-							<Card className="mt-8 border-destructive/40 bg-destructive/5">
+							<Card className="border-destructive/40 bg-destructive/5 mt-8">
 								<CardHeader>
 									<CardTitle className="text-destructive">{t.profile?.dangerZone?.title ?? 'Danger Zone'}</CardTitle>
 									<CardDescription className="text-muted-foreground">
@@ -76,11 +76,7 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 									</CardDescription>
 								</CardHeader>
 								<CardContent>
-									<Button
-										variant="destructive"
-										onClick={() => signOut({ redirectUrl: '/' })}
-										className="w-full"
-									>
+									<Button variant="destructive" onClick={() => signOut({ redirectUrl: '/' })} className="w-full">
 										<LogOut className="h-4 w-4" />
 										<span>{t.profile?.dangerZone?.signOut ?? 'Disconnect'}</span>
 									</Button>
