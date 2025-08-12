@@ -74,35 +74,35 @@ export function getClerkAppearance(theme: ClerkTheme): Appearance {
 
 			// Error/warning states
 			formFieldWarningText: 'text-amber-600 dark:text-amber-400 text-xs mt-1',
-			formFieldSuccessText: 'text-emerald-600 dark:text-emerald-400 text-xs mt-1',
-
-			formFieldLabel: 'text-foreground mb-2 block text-base font-medium',
-			// Form fields - match your input styling
-			// Match src/components/ui/inputAlt.tsx as closely as possible (without the motion wrapper)
-			formFieldInput:
-				'shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input h-10 w-full rounded-md border px-3 py-2 text-sm transition duration-400 group-hover/input:shadow-none focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600 hover:shadow-md',
-			formFieldErrorText: 'text-destructive text-xs mt-1',
-
 			// Additional form elements for consistency
 			formFieldTextarea:
 				'shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input min-h-[80px] w-full rounded-md border px-3 py-2 text-sm transition duration-400 focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600 hover:shadow-md resize-vertical',
 
+			formFieldSuccessText: 'text-emerald-600 dark:text-emerald-400 text-xs mt-1',
 			formFieldSelect:
 				'shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input h-10 w-full rounded-md border px-3 py-2 text-sm transition duration-400 focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600 hover:shadow-md',
+			formFieldRadio:
+				'shadow-input border-input bg-background text-primary focus-visible:ring-ring h-4 w-4 rounded-full border transition duration-400 focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600',
+
+			formFieldLabel: 'text-foreground mb-2 block text-base font-medium',
+
+			// Form fields - match your input styling
+			// Match src/components/ui/inputAlt.tsx as closely as possible (without the motion wrapper)
+			formFieldInput:
+				'shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input h-10 w-full rounded-md border px-3 py-2 text-sm transition duration-400 group-hover/input:shadow-none focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600 hover:shadow-md',
+
+			formFieldErrorText: 'text-destructive text-xs mt-1',
 
 			formFieldCheckbox:
 				'shadow-input border-input bg-background text-primary focus-visible:ring-ring h-4 w-4 rounded border transition duration-400 focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600',
 
-			formFieldRadio:
-				'shadow-input border-input bg-background text-primary focus-visible:ring-ring h-4 w-4 rounded-full border transition duration-400 focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600',
+			// Secondary buttons - harmonized with input style
+			formButtonSecondary:
+				'shadow-input bg-background hover:bg-muted text-foreground border-input rounded-lg border px-4 py-3 text-sm font-medium transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98] dark:bg-zinc-800 dark:shadow-[0px_0px_1px_1px_#404040]',
 
 			// Primary action buttons
 			formButtonPrimary:
 				'bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]',
-
-			// Secondary buttons - harmonized with input style
-			formButtonSecondary:
-				'shadow-input bg-background hover:bg-muted text-foreground border-input rounded-lg border px-4 py-3 text-sm font-medium transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98] dark:bg-zinc-800 dark:shadow-[0px_0px_1px_1px_#404040]',
 			// Links and actions
 			footerActionLink:
 				'text-primary hover:text-primary/80 text-sm font-medium transition-colors duration-200 underline-offset-4 hover:underline',

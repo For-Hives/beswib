@@ -6,6 +6,7 @@ import { ConsentManagerProvider, CookieBanner, ConsentManagerDialog } from '@c15
 import { Geist, Geist_Mono, Bowlby_One_SC } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { ClerkProvider } from '@clerk/nextjs'
+import { shadcn } from '@clerk/themes'
 import { Toaster } from 'sonner'
 import Script from 'next/script'
 
@@ -82,7 +83,11 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 	const { locale } = localeParams
 
 	return (
-		<ClerkProvider>
+		<ClerkProvider
+			appearance={{
+				baseTheme: shadcn,
+			}}
+		>
 			<html lang={locale}>
 				<head>
 					{/* Apply persisted/system theme BEFORE paint to prevent flash */}

@@ -187,10 +187,10 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     //fragCoord.y -= -0.1*iResolution.y + 0.1*iResolution.y*cos((fragCoord.x / iResolution.x - 0.5)*M_PI*0.5);
 
 
-    vec2 r = iResolution.xy;
-    vec2 nuv = fragCoord.xy / r;
-    vec2 uv = nuv;
-    vec2 pos = (fragCoord.xy - 0.5*r) / r.y;
+    float mx = max(iResolution.x, iResolution.y);
+    vec2 uv = fragCoord.xy / mx;
+    vec2 nuv = fragCoord.xy / iResolution.xy;
+    vec2 pos = uv - (iResolution.xy)*0.5/mx;
     
     float col = 1.0;
 
@@ -470,8 +470,8 @@ export default function PlasmaShader({ className = '' }: Readonly<PlasmaShaderPr
 
 	if (!isSupported) {
 		// Fallback: render nothing so parent can show an image behind
-		return <div className={`h-full w-[600px] ${className}`} />
+		return <div className={`h-full w-full ${className}`} />
 	}
 
-	return <canvas ref={canvasRef} className={`h-full w-[600px] ${className}`} style={{ display: 'block' }} />
+	return <canvas ref={canvasRef} className={`h-full w-full ${className}`} style={{ display: 'block' }} />
 }

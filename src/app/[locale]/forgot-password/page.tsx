@@ -1,12 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { useAuth, useSignIn } from '@clerk/nextjs'
+import { useSignIn } from '@clerk/nextjs'
 import Link from 'next/link'
 
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
+import AuthGuard from '@/components/auth/AuthGuard'
 
 export default function ForgotPasswordPage() {
 	const [email, setEmail] = useState('')
@@ -18,18 +19,7 @@ export default function ForgotPasswordPage() {
 	const [secondFactor, setSecondFactor] = useState(false)
 	const [complete, setComplete] = useState(false)
 
-	const { isSignedIn } = useAuth()
 	const { isLoaded, signIn, setActive } = useSignIn()
-
-	if (!isLoaded) {
-		return <div>Loading...</div>
-	}
-
-	// If the user is already signed in,
-	// redirect them to the home page
-	if (isSignedIn) {
-		return <div>Already signed in</div>
-	}
 
 	// Send the password reset code to the user's email
 	async function create(e: React.FormEvent) {
@@ -81,7 +71,8 @@ export default function ForgotPasswordPage() {
 	}
 
 	return (
-		<AuthSplitScreen>
+		<AuthGuard mode="guest-only">
+			<AuthSplitScreen>
 			<div className="w-full max-w-md space-y-6">
 				<div className="space-y-2 text-center">
 					<h1 className="text-foreground text-2xl font-bold tracking-tight">Mot de passe oublié</h1>
@@ -173,5 +164,6 @@ export default function ForgotPasswordPage() {
 				</div>
 			</div>
 		</AuthSplitScreen>
+		</AuthGuard>
 	)
 }
