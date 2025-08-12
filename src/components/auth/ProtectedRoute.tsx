@@ -10,7 +10,7 @@ interface ProtectedRouteProps {
 /**
  * Wrapper component pour les pages qui nécessitent une authentification
  * Exemple d'utilisation dans une page dashboard :
- * 
+ *
  * export default function Dashboard() {
  *   return (
  *     <ProtectedRoute>

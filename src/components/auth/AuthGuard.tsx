@@ -12,7 +12,7 @@ interface AuthGuardProps {
 
 /**
  * AuthGuard component pour gérer les redirections basées sur l'état d'authentification
- * 
+ *
  * @param mode - 'guest-only' pour les pages d'auth (sign-in, sign-up, forgot-password)
  *               'auth-required' pour les pages protégées
  * @param redirectTo - URL de redirection personnalisée (optionnel)
@@ -51,9 +51,7 @@ export default function AuthGuard({ children, redirectTo, mode }: AuthGuardProps
 	}
 
 	// Conditions pour afficher le contenu
-	const shouldShowContent = 
-		(mode === 'guest-only' && !isSignedIn) || 
-		(mode === 'auth-required' && isSignedIn)
+	const shouldShowContent = (mode === 'guest-only' && !isSignedIn) || (mode === 'auth-required' && isSignedIn)
 
 	if (!shouldShowContent) {
 		// Ne pas afficher le contenu pendant la redirection
