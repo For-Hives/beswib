@@ -296,7 +296,7 @@ export default function AdminOrganizerValidatePageClient({
 												<div className="flex gap-2">
 													<Button
 														className="flex-1 bg-green-600 hover:bg-green-700"
-														onClick={() => handleApproveOrganizer(organizer.id)}
+														onClick={() => void handleApproveOrganizer(organizer.id)}
 														size="sm"
 													>
 														<CheckCircle className="mr-2 h-4 w-4" />
@@ -304,7 +304,7 @@ export default function AdminOrganizerValidatePageClient({
 													</Button>
 													<Button
 														className="flex-1"
-														onClick={() => handleRejectOrganizer(organizer.id)}
+														onClick={() => void handleRejectOrganizer(organizer.id)}
 														size="sm"
 														variant="destructive"
 													>

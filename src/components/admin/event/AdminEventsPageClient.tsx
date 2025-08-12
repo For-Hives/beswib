@@ -936,7 +936,7 @@ function RowActions({ t, row }: { row: Row<AppEvent>; t: EventsTranslations }) {
 						<AlertDialogCancel>{t.events.table.controls.cancel}</AlertDialogCancel>
 						<AlertDialogAction
 							className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-							onClick={handleDelete}
+							onClick={() => void handleDelete()}
 							disabled={deleting}
 						>
 							{deleting ? t.events.ui.refreshing : t.events.table.actions.delete}

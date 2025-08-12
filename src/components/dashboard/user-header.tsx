@@ -36,7 +36,7 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 		// Open Clerk's user profile modal as a clear way to manage account & sign out
 		try {
 			openUserProfile()
-		} catch (e) {
+		} catch {
 			// no-op: gracefully ignore if Clerk hasn't initialized yet
 		}
 	}

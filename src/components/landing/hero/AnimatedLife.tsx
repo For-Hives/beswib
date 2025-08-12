@@ -291,7 +291,7 @@ export function AnimatedLife() {
 
 	function handleClick() {
 		setShowSpecialTooltip(v => !v)
-		umamiTrack('show_special_tooltip')
+		void umamiTrack('show_special_tooltip')
 	}
 
 	return (
