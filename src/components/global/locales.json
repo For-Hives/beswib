@@ -35,6 +35,10 @@
 				"title": "FAQ | Beswib",
 				"description": "Frequently Asked Questions about buying, selling, and organizing events on Beswib."
 			},
+			"notFound": {
+				"title": "Not Found | Beswib",
+				"description": "The page you are looking for does not exist."
+			},
 			"legalNotice": {
 				"title": "Legal Notice | Beswib",
 				"description": "Company information, publication director, hosting provider, and legal disclosures for Beswib."
@@ -120,6 +124,10 @@
 			"faq": {
 				"title": "FAQ | Beswib",
 				"description": "Questions fréquemment posées sur l'achat, la vente et l'organisation d'événements sur Beswib."
+			},
+			"notFound": {
+				"title": "Page introuvable | Beswib",
+				"description": "La page que vous cherchez n’existe pas."
 			},
 			"legalNotice": {
 				"title": "Mentions légales | Beswib",
@@ -207,6 +215,10 @@
 				"title": "FAQ | Beswib",
 				"description": "Preguntas frecuentes sobre comprar, vender y organizar eventos en Beswib."
 			},
+			"notFound": {
+				"title": "No encontrado | Beswib",
+				"description": "La página que buscas no existe."
+			},
 			"legalNotice": {
 				"title": "Aviso Legal | Beswib",
 				"description": "Información de la empresa, director de publicación, proveedor de alojamiento y avisos legales de Beswib."
@@ -292,6 +304,10 @@
 			"faq": {
 				"title": "FAQ | Beswib",
 				"description": "Domande frequenti su acquisto, vendita e organizzazione eventi su Beswib."
+			},
+			"notFound": {
+				"title": "Pagina non trovata | Beswib",
+				"description": "La pagina richiesta non esiste."
 			},
 			"legalNotice": {
 				"title": "Note legali | Beswib",
@@ -379,6 +395,10 @@
 				"title": "FAQ | Beswib",
 				"description": "Häufig gestellte Fragen zum Kaufen, Verkaufen und Veranstalten auf Beswib."
 			},
+			"notFound": {
+				"title": "Nicht gefunden | Beswib",
+				"description": "Die gesuchte Seite existiert nicht."
+			},
 			"legalNotice": {
 				"title": "Impressum | Beswib",
 				"description": "Unternehmensangaben, verantwortliche Person, Hosting-Anbieter und rechtliche Hinweise für Beswib."
@@ -464,6 +484,10 @@
 			"faq": {
 				"title": "Întrebări frecvente | Beswib",
 				"description": "Întrebări frecvente despre cumpărare, vânzare și organizarea de evenimente pe Beswib."
+			},
+			"notFound": {
+				"title": "Negăsit | Beswib",
+				"description": "Pagina căutată nu există."
 			},
 			"legalNotice": {
 				"title": "Mențiuni legale | Beswib",
@@ -551,6 +575,10 @@
 				"title": "FAQ | Beswib",
 				"description": "Perguntas frequentes sobre comprar, vender e organizar eventos no Beswib."
 			},
+			"notFound": {
+				"title": "Não encontrado | Beswib",
+				"description": "A página que procura não existe."
+			},
 			"legalNotice": {
 				"title": "Aviso Legal | Beswib",
 				"description": "Informações da empresa, diretor de publicação, alojamento e avisos legais da Beswib."
@@ -637,6 +665,10 @@
 				"title": "FAQ | Beswib",
 				"description": "Veelgestelde vragen over kopen, verkopen en evenementen op Beswib."
 			},
+			"notFound": {
+				"title": "Niet gevonden | Beswib",
+				"description": "De pagina die je zoekt bestaat niet."
+			},
 			"legalNotice": {
 				"title": "Juridische kennisgeving | Beswib",
 				"description": "Bedrijfsinformatie, verantwoordelijke uitgever, hostingprovider en juridische vermeldingen voor Beswib."
@@ -722,6 +754,10 @@
 			"faq": {
 				"title": "FAQ | Beswib",
 				"description": "Beswib에서 이벤트 구매, 판매 및 조직에 대한 자주 묻는 질문입니다."
+			},
+			"notFound": {
+				"title": "찾을 수 없음 | Beswib",
+				"description": "찾으시는 페이지가 존재하지 않습니다."
 			},
 			"legalNotice": {
 				"title": "법적 고지 | Beswib",
