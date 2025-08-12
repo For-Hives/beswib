@@ -216,7 +216,11 @@
 				"name": "Ultra Trail du Mont Blanc",
 				"location": "Chamonix"
 			}
-		]
+		],
+        "OG": {
+            "Main": "Buy and sell <br />your race bibs <br />with peace of mind.",
+            "Secondary": "A secure platform <br />to **buy** and **resell** **race bibs**"
+        }
 	},
 	"fr": {
 		"home": {
@@ -410,7 +414,11 @@
 				"name": "Ultra Trail du Mont Blanc",
 				"location": "Chamonix"
 			}
-		]
+		],
+		"OG": {
+			"Main": "Achetez et vendez <br />vos dossards <br />en toute sérénité.",
+			"Secondary": "Plateforme d’**achat** et **revente** <br />de **dossards** sécurisée"
+		}
 	},
 	"es": {
 		"home": {
@@ -609,8 +617,12 @@
 			{ "name": "Ironman Niza", "location": "Niza" },
 			{ "name": "Medio Maratón de Thonon", "location": "Thonon-les-Bains" },
 			{ "name": "Maratón de París", "location": "París" },
-			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
-		]
+			{ "name": "Ultra Trail del Mont Blanc", "location": "Chamonix" }
+		],
+        "OG": {
+            "Main": "Compra y vende <br />tus dorsales <br />con total tranquilidad.",
+            "Secondary": "Plataforma segura <br />para **comprar** y **revender** **dorsales**"
+        }
 	},
 	"it": {
 		"home": {
@@ -810,7 +822,11 @@
 			{ "name": "Mezza Maratona di Thonon", "location": "Thonon-les-Bains" },
 			{ "name": "Maratona di Parigi", "location": "Parigi" },
 			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
-		]
+		],
+        "OG": {
+            "Main": "Compra e vendi <br />i tuoi pettorali <br />in tutta serenità.",
+            "Secondary": "Piattaforma sicura <br />per **acquistare** e **rivendere** **pettorali**"
+        }
 	},
 	"de": {
 		"home": {
@@ -1010,7 +1026,11 @@
 			{ "name": "Halbmarathon Thonon", "location": "Thonon-les-Bains" },
 			{ "name": "Marathon Paris", "location": "Paris" },
 			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
-		]
+		],
+        "OG": {
+            "Main": "Kaufe und verkaufe <br />deine Startnummern <br />ganz sorgenfrei.",
+            "Secondary": "Sichere Plattform <br />zum **Kauf** und **Weiterverkauf** von **Startnummern**"
+        }
 	},
 	"ro": {
 		"home": {
@@ -1189,7 +1209,11 @@
 			{ "name": "Semimaratonul Thonon", "location": "Thonon-les-Bains" },
 			{ "name": "Maratonul Paris", "location": "Paris" },
 			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
-		]
+		],
+        "OG": {
+            "Main": "Cumpără și vinde <br />numerele de concurs <br />fără griji.",
+            "Secondary": "Platformă sigură <br />pentru **cumpărarea** și **revânzarea** **numerelor de concurs**"
+        }
 	},
 	"pt": {
 		"home": {
@@ -1368,7 +1392,11 @@
 			{ "name": "Meia Maratona de Thonon", "location": "Thonon-les-Bains" },
 			{ "name": "Maratona de Paris", "location": "Paris" },
 			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
-		]
+		],
+        "OG": {
+            "Main": "Compra e vende <br />os teus dorsais <br />com toda a tranquilidade.",
+            "Secondary": "Plataforma segura <br />para **comprar** e **revender** **dorsais**"
+        }
 	},
 	"nl": {
 		"home": {
@@ -1568,7 +1596,11 @@
 			{ "name": "Halve marathon Thonon", "location": "Thonon-les-Bains" },
 			{ "name": "Marathon van Parijs", "location": "Parijs" },
 			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
-		]
+		],
+        "OG": {
+            "Main": "Koop en verkoop <br />je startnummers <br />zonder zorgen.",
+            "Secondary": "Een veilig platform <br />voor het **kopen** en **doorverkopen** van **startnummers**"
+        }
 	},
 	"ko": {
 		"home": {
@@ -1783,6 +1815,10 @@
 				"name": "몽블랑 울트라 트레일",
 				"location": "샤모니"
 			}
-		]
+		],
+        "OG": {
+            "Main": "안심하고 <br />빕을 <br />사고파세요.",
+            "Secondary": "**빕**을 안전하게 <br />**구매**하고 **되팔** 수 있는 플랫폼"
+        }
 	}
 }
