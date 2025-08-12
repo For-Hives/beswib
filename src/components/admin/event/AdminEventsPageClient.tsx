@@ -40,7 +40,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
+import type { Event as AppEvent } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 
 import {
@@ -175,7 +175,11 @@ interface EventsTranslations {
 }
 
 // Custom filter function for multi-column searching
-const multiColumnFilterFn: FilterFn<Event & { expand?: { organizer?: Organizer } }> = (row, columnId, filterValue) => {
+const multiColumnFilterFn: FilterFn<AppEvent & { expand?: { organizer?: Organizer } }> = (
+	row,
+	columnId,
+	filterValue
+) => {
 	const organizerName = row.original.expand?.organizer?.name ?? ''
 	const searchableRowContent =
 		`${row.original.name ?? ''} ${row.original.distanceKm ?? ''} ${row.original.typeCourse ?? ''} ${organizerName}`.toLowerCase()
@@ -194,7 +198,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 	const id = useId()
 	const inputRef = useRef<HTMLInputElement>(null)
 
-	const [events, setEvents] = useState<(Event & { expand?: { organizer?: Organizer } })[]>([])
+	const [events, setEvents] = useState<(AppEvent & { expand?: { organizer?: Organizer } })[]>([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [stats, setStats] = useState<EventsStats | null>(null)
 
@@ -213,7 +217,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 	])
 
 	// Define columns
-	const columns: ColumnDef<Event & { expand?: { organizer?: Organizer } }>[] = useMemo(
+	const columns: ColumnDef<AppEvent & { expand?: { organizer?: Organizer } }>[] = useMemo(
 		() => [
 			{
 				size: 28,
@@ -251,7 +255,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 				size: 180,
 				header: t.events.table.columns.organizer,
 				cell: ({ row }) => {
-					const event = row.original as Event & { expand?: { organizer?: Organizer } }
+					const event = row.original as AppEvent & { expand?: { organizer?: Organizer } }
 					const organizerName = event.expand?.organizer?.name
 					return <div className="font-medium">{organizerName ?? 'N/A'}</div>
 				},
@@ -340,9 +344,9 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 					// Calculate stats
 					const now = new Date()
 					const statsData: EventsStats = {
-						upcomingEvents: eventsData.filter((event: Event) => new Date(event.eventDate) >= now).length,
+						upcomingEvents: eventsData.filter((event: AppEvent) => new Date(event.eventDate) >= now).length,
 						totalEvents: eventsData.length,
-						pastEvents: eventsData.filter((event: Event) => new Date(event.eventDate) < now).length,
+						pastEvents: eventsData.filter((event: AppEvent) => new Date(event.eventDate) < now).length,
 					}
 					setStats(statsData)
 				} else {
@@ -372,9 +376,8 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 
 	// Listen to deletion events from RowActions to update local state
 	useEffect(() => {
-		const onDeleted = (e: Event) => {
-			const maybeCustom = e as unknown as CustomEvent<{ id: string }>
-			const id = maybeCustom?.detail?.id
+		const onDeleted: EventListener = e => {
+			const id = (e as unknown as CustomEvent<{ id: string }>).detail?.id
 			if (id) {
 				setEvents(prev => prev.filter(ev => ev.id !== id))
 			}
@@ -390,8 +393,8 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 		const now = new Date()
 		setStats({
 			totalEvents: events.length,
-			upcomingEvents: events.filter((event: Event) => new Date(event.eventDate) >= now).length,
-			pastEvents: events.filter((event: Event) => new Date(event.eventDate) < now).length,
+			upcomingEvents: events.filter((event: AppEvent) => new Date(event.eventDate) >= now).length,
+			pastEvents: events.filter((event: AppEvent) => new Date(event.eventDate) < now).length,
 		})
 	}, [events])
 
@@ -859,7 +862,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 	)
 }
 
-function RowActions({ t, row }: { row: Row<Event>; t: EventsTranslations }) {
+function RowActions({ t, row }: { row: Row<AppEvent>; t: EventsTranslations }) {
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 	const [deleting, setDeleting] = useState(false)
 
