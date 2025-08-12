@@ -460,7 +460,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	// Pre-load bib counts for the first 16 sorted events (stable regardless of grouping)
 	useEffect(() => {
 		const abortController = new AbortController()
-		
+
 		const loadBibCounts = async () => {
 			try {
 				const eventsToLoad = sortedEvents.slice(0, 16)
@@ -499,7 +499,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 								if (error instanceof Error && error.message === 'Request was aborted') {
 									return {}
 								}
-								
+
 								// More detailed error logging without exposing sensitive info
 								const errorMessage = error instanceof Error ? error.message : String(error)
 								if (errorMessage.includes('unexpected response')) {
@@ -515,14 +515,16 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 					try {
 						const results = await Promise.allSettled(promises)
-						
+
 						// Check if aborted before processing results
 						if (abortController.signal.aborted) {
 							return
 						}
-						
+
 						const successfulResults = results
-							.filter((result): result is PromiseFulfilledResult<Record<string, number>> => result.status === 'fulfilled')
+							.filter(
+								(result): result is PromiseFulfilledResult<Record<string, number>> => result.status === 'fulfilled'
+							)
 							.map(result => result.value)
 
 						const newCache = successfulResults.reduce((acc, curr) => ({ ...acc, ...curr }), {})
@@ -577,7 +579,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 		// Create a short-lived AbortController for individual requests
 		const abortController = new AbortController()
-		
+
 		// Auto-abort after 10 seconds to prevent hanging
 		const timeoutId = setTimeout(() => {
 			abortController.abort()
@@ -591,12 +593,12 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			return count
 		} catch (error) {
 			clearTimeout(timeoutId)
-			
+
 			// Handle abort errors silently
 			if (error instanceof Error && error.message === 'Request was aborted') {
 				return 0
 			}
-			
+
 			const errorMessage = error instanceof Error ? error.message : String(error)
 			if (errorMessage.includes('unexpected response')) {
 				console.warn(`Server communication issue for event ${eventId}`)
