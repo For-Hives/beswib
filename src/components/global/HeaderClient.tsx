@@ -5,7 +5,7 @@ import { LayoutDashboard, Settings, ShoppingBag, Tag, User } from 'lucide-react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs'
+import { SignedIn, SignedOut, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -15,6 +15,7 @@ import { Locale } from '@/lib/i18n-config'
 import { checkIsCurrentUserAdmin } from './adminActions'
 import DashboardDropdown from './DashboardDropdown'
 import { ThemeToggle } from './ThemeToggle'
+import ThemedUserButton from '@/components/ui/ThemedUserButton'
 
 interface HeaderClientProps {
 	locale: Locale
@@ -79,16 +80,18 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 										<DashboardDropdown locale={locale} />
 									</SignedIn>
 									<SignedOut>
-										<SignInButton>
-											<button className="text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-sm font-medium transition-colors">
-												{t.navbar.signIn}
-											</button>
-										</SignInButton>
-										<SignUpButton>
-											<button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-3 py-2 text-sm font-medium transition-colors">
-												{t.navbar.signUp}
-											</button>
-										</SignUpButton>
+										<Link
+											href={`/${locale}/sign-in`}
+											className="text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-sm font-medium transition-colors"
+										>
+											{t.navbar.signIn}
+										</Link>
+										<Link
+											href={`/${locale}/sign-up`}
+											className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+										>
+											{t.navbar.signUp}
+										</Link>
 									</SignedOut>
 								</div>
 							</div>
@@ -134,16 +137,18 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 									<MobileDashboardLinks locale={locale} />
 								</SignedIn>
 								<SignedOut>
-									<SignInButton>
-										<button className="text-muted-foreground hover:bg-accent hover:text-accent-foreground block w-full rounded-md px-3 py-2 text-left text-base font-medium transition-colors">
-											{t.navbar.signIn}
-										</button>
-									</SignInButton>
-									<SignUpButton>
-										<button className="bg-primary text-primary-foreground hover:bg-primary/90 block w-full rounded-md px-3 py-2 text-left text-base font-medium transition-colors">
-											{t.navbar.signUp}
-										</button>
-									</SignUpButton>
+									<Link
+										href={`/${locale}/sign-in`}
+										className="text-muted-foreground hover:bg-accent hover:text-accent-foreground block w-full rounded-md px-3 py-2 text-left text-base font-medium transition-colors"
+									>
+										{t.navbar.signIn}
+									</Link>
+									<Link
+										href={`/${locale}/sign-up`}
+										className="bg-primary text-primary-foreground hover:bg-primary/90 block w-full rounded-md px-3 py-2 text-left text-base font-medium transition-colors"
+									>
+										{t.navbar.signUp}
+									</Link>
 								</SignedOut>
 							</div>
 						</div>
@@ -241,7 +246,7 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 
 			{/* User Button 👤 */}
 			<div className="px-3 py-3">
-				<UserButton />
+				<ThemedUserButton />
 			</div>
 		</>
 	)

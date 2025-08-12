@@ -1,16 +1,18 @@
 'use client'
 
+import { SignUp } from '@clerk/nextjs'
 import { useClerkTheme } from '@/hooks/useClerkTheme'
-import { SignIn } from '@clerk/nextjs'
-
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
 
 export default function Page() {
 	const { appearance } = useClerkTheme()
-
+	
 	return (
-		<AuthSplitScreen>
-			<SignIn appearance={appearance} />
+		<AuthSplitScreen 
+			title="Créer un compte"
+			subtitle="Rejoignez la communauté Beswib et commencez à échanger vos dossards."
+		>
+			<SignUp appearance={appearance} />
 		</AuthSplitScreen>
 	)
 }
