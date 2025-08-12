@@ -40,7 +40,7 @@ export type UmamiPayload = {
 	screen?: string
 	title?: string
 	event_name?: string
-	event_data?: UmamiEventData
+	data?: UmamiEventData
 }
 
 // Basic payload guard (kept strict to avoid `any`/`unknown`)
@@ -49,23 +49,31 @@ function isValidPayload(payload: UmamiPayload | false | null | undefined): paylo
 }
 
 // Optional privacy filter: redacts common PII keys if present
-function sanitizePayload(payload: UmamiPayload): UmamiPayload {
-	if (payload.event_data) {
-		const redactKeys = ['email', 'name'] as const
-		for (const key of redactKeys) {
-			if (key in payload.event_data) {
-				// Redact the value but keep the key shape intact
-				payload.event_data[key] = '[redacted]'
-			}
+function sanitizeLocalePayload(payload: UmamiPayload): UmamiPayload {
+	let locale: RegExpMatchArray | null
+
+	payload.data ??= {}
+
+	// remove locale at the beginning of url path ( https://test.com/fr/test/ -> https://test.com/test/ )
+	if (typeof payload.url === 'string') {
+		locale = payload.url.match(/^(https?:\/\/[^/]+)\/([a-z]{2})(?:\/(.*))?$/)
+
+		console.info('Extracted locale:', locale)
+
+		payload.data['locale'] = locale ? locale[2] : ''
+
+		if (locale) {
+			payload.url = `${locale[1]}/${locale[3] || ''}`
 		}
 	}
+
 	return payload
 }
 
 // Exposed beforeSend handler used by the <Script data-before-send="beforeSendHandler" /> hook
 export function beforeSendHandler(_type: string, payload: UmamiPayload): UmamiPayload | false {
 	if (!isValidPayload(payload)) return false
-	return sanitizePayload(payload)
+	return sanitizeLocalePayload(payload)
 }
 
 // Make sure the global hook exists when this module is executed in the browser and imported anywhere
