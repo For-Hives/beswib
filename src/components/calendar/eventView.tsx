@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import Link from 'next/link'
 
 interface EventViewProps {
 	event: Event
@@ -223,22 +224,22 @@ export function EventView(props: Readonly<EventViewProps>) {
 											{organizer.email && (
 												<div className="flex items-center gap-1">
 													<Mail className="h-3 w-3" />
-													<a className="text-blue-600 hover:underline" href={`mailto:${organizer.email}`}>
+													<Link className="text-blue-600 hover:underline" href={`mailto:${organizer.email}`}>
 														{organizer.email}
-													</a>
+													</Link>
 												</div>
 											)}
 											{typeof organizer.website === 'string' && organizer.website.length > 0 && (
 												<div className="flex items-center gap-1">
 													<Globe className="h-3 w-3" />
-													<a
+													<Link
 														className="text-blue-600 hover:underline"
 														href={organizer.website}
 														rel="noopener noreferrer"
 														target="_blank"
 													>
 														Website
-													</a>
+													</Link>
 												</div>
 											)}
 										</div>
@@ -254,18 +255,18 @@ export function EventView(props: Readonly<EventViewProps>) {
 								event.registrationUrl.length > 0 &&
 								isRegistrationOpen() && (
 									<Button asChild>
-										<a href={event.registrationUrl} rel="noopener noreferrer" target="_blank">
+										<Link href={event.registrationUrl} rel="noopener noreferrer" target="_blank">
 											<ExternalLink className="mr-2 h-4 w-4" />
 											Register Now
-										</a>
+										</Link>
 									</Button>
 								)}
 							{typeof event.parcoursUrl === 'string' && event.parcoursUrl.length > 0 && (
 								<Button asChild variant="outline">
-									<a href={event.parcoursUrl} rel="noopener noreferrer" target="_blank">
+									<Link href={event.parcoursUrl} rel="noopener noreferrer" target="_blank">
 										<Route className="mr-2 h-4 w-4" />
 										View Course
-									</a>
+									</Link>
 								</Button>
 							)}
 						</div>
