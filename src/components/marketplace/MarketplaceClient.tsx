@@ -8,7 +8,9 @@ import dynamic from 'next/dynamic'
 import Fuse from 'fuse.js'
 
 import type { BibSale } from '@/models/marketplace.model'
+import type { Locale } from '@/lib/i18n-config'
 
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import MarketplaceSidebar, { type MarketplaceFilters } from '@/components/marketplace/MarketplaceSidebar'
 import ActiveFiltersBadges from '@/components/marketplace/ActiveFiltersBadges'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
@@ -16,7 +18,7 @@ import OfferCounter from '@/components/marketplace/offerCounter'
 import CardMarket from '@/components/marketplace/CardMarket'
 import { getTranslations } from '@/lib/getDictionary'
 import { Input } from '@/components/ui/inputAlt'
-import { Locale } from '@/lib/i18n-config'
+import { Button } from '@/components/ui/button'
 const EmptyResultsRive = dynamic(() => import('@/components/marketplace/EmptyResultsRive'), { ssr: false })
 
 // Props for the MarketplaceClient: receives an array of bibs to display 🛍️
@@ -210,6 +212,38 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 							value={search}
 							onChange={e => void setFilters({ search: e.target.value })}
 						/>
+						{/* Mobile-only Filters button */}
+						<div className="mt-3 block sm:hidden">
+							<Dialog>
+								<DialogTrigger asChild>
+									<Button variant="outline" className="w-full">
+										{translations.filtersButton ?? 'Filters'}
+									</Button>
+								</DialogTrigger>
+								<DialogContent className="p-0 sm:max-w-[90vw]">
+									<DialogHeader className="px-4 py-3">
+										<DialogTitle>{translations.filtersTitle ?? 'Filters'}</DialogTitle>
+									</DialogHeader>
+									<div className="max-h-[80vh] overflow-y-auto p-4">
+										<MarketplaceSidebar
+											locale={locale}
+											maxPrice={maxPrice}
+											filters={{
+												sport,
+												priceMin,
+												priceMax,
+												geography,
+												distance,
+												dateStart: dateStart ?? undefined,
+												dateEnd: dateEnd ?? undefined,
+											}}
+											onFiltersChange={handleFiltersChange}
+											regions={uniqueLocations}
+										/>
+									</div>
+								</DialogContent>
+							</Dialog>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -234,7 +268,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 			<div className="w-full p-6">
 				<div className="flex gap-8">
 					{/* Sidebar with filters */}
-					<div className="w-80 flex-shrink-0">
+					<div className="hidden w-80 flex-shrink-0 sm:block">
 						<MarketplaceSidebar
 							locale={locale}
 							maxPrice={maxPrice}

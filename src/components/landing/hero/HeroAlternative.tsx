@@ -6,6 +6,7 @@ import { LocaleParams } from '@/lib/generateStaticParams'
 import { getTranslations } from '@/lib/getDictionary'
 
 import { AnimatedLife } from './AnimatedLife'
+import TemplateRun from './TemplateRun'
 
 export default async function HeroAlternative({ localeParams }: { localeParams: Promise<LocaleParams> }) {
 	const { locale } = await localeParams
@@ -14,17 +15,7 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 	return (
 		<div className="relative pb-0 md:pb-0 xl:pb-24">
 			{/* <div className="pointer-events-none absolute top-32 left-0 z-30 h-[calc(100vh-10rem)] w-[100vw] scale-75 overflow-visible md:scale-100 lg:top-32 xl:top-48"> */}
-			<div className="">
-				<Image
-					alt="template-run"
-					className="pointer-events-none z-30 -scale-x-100 overflow-visible object-cover object-bottom pt-36 dark:grayscale"
-					fill
-					unoptimized
-					// size= 100vw in tablet and 80vw on phone
-					sizes="100vw"
-					src={'/landing/background_v4.webp'}
-				/>
-			</div>
+			<TemplateRun />
 			<AnimatedLife />
 			<div className="absolute top-8 left-0 z-20 w-full text-center text-[0.9rem] font-bold tracking-tight text-neutral-800 lg:top-10 lg:text-[1.5rem] xl:top-24 xl:text-[2rem] dark:text-neutral-50">
 				<h1
