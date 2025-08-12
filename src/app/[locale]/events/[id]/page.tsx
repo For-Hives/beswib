@@ -4,6 +4,7 @@ import { ArrowLeft, Bell } from 'lucide-react'
 
 import { notFound, redirect } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'
+import { DateTime } from 'luxon'
 import Link from 'next/link'
 
 import type { Event } from '@/models/event.model'
@@ -13,9 +14,9 @@ import { fetchPubliclyListedBibsForEvent } from '@/services/bib.services'
 import { generateLocaleParams } from '@/lib/generateStaticParams'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { addToWaitlist } from '@/services/waitlist.services'
-import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 import { fetchEventById } from '@/services/event.services'
 import { getTranslations } from '@/lib/getDictionary'
+import { pbDateToLuxon } from '@/lib/dateUtils'
 import { Locale } from '@/lib/i18n-config'
 
 import eventTranslations from './locales.json'
@@ -66,6 +67,32 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 	const waitlistSuccess = resolvedSearchParams?.waitlist_success === 'true'
 	const waitlistError = resolvedSearchParams?.waitlist_error
 
+	// Local helpers for formatting various values
+	const formatPbDate = (date: Date | string | null | undefined) => {
+		const dt = pbDateToLuxon(date)
+		if (dt == null) return ''
+		return dt.setLocale(locale).toLocaleString(DateTime.DATE_FULL)
+	}
+
+	const formatPrice = (value?: number) => {
+		if (value == null || isNaN(value)) return ''
+		try {
+			return new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(value)
+		} catch {
+			return `${value.toFixed(2)} €`
+		}
+	}
+
+	const formatDistance = (value?: number) => {
+		if (value == null || isNaN(value)) return ''
+		return `${value.toFixed(1)} km`
+	}
+
+	const formatElevation = (value?: number) => {
+		if (value == null || isNaN(value)) return ''
+		return `${Math.round(value)} m`
+	}
+
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -113,9 +140,15 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 					)}
 
 					{/* Page Header */}
-					<div className="mb-12 space-y-2 text-center">
-						<h1 className="text-foreground text-4xl font-bold tracking-tight">{event.name}</h1>
-						<p className="text-muted-foreground text-lg">{t.event.title}</p>
+					<div className="mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+						<div className="text-center sm:text-left">
+							<h1 className="text-foreground text-4xl font-bold tracking-tight">{event.name}</h1>
+							<p className="text-muted-foreground text-lg">{t.event.title}</p>
+						</div>
+						<div className="text-right">
+							<div className="text-muted-foreground text-sm">{t.event.date}</div>
+							<div className="text-foreground text-xl font-semibold">{formatPbDate(event.eventDate)}</div>
+						</div>
 					</div>
 
 					{/* Event Details Card */}
@@ -123,17 +156,106 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 						<div className="dark:border-border/50 bg-card/80 rounded-3xl border border-black/50 p-8 shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-sm">
 							<div className="grid gap-6 md:grid-cols-2">
 								<div>
-									<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.date}</h3>
-									<p className="text-muted-foreground">{formatDateObjectForDisplay(event.eventDate, locale)}</p>
-								</div>
-								<div>
 									<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.location}</h3>
 									<p className="text-muted-foreground">{event.location}</p>
 								</div>
+								<div>
+									<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.typeCourse}</h3>
+									<p className="text-muted-foreground">{t.event.typeLabels[event.typeCourse]}</p>
+								</div>
+
+								{event.distanceKm != null && !isNaN(event.distanceKm) && (
+									<div>
+										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.distance}</h3>
+										<p className="text-muted-foreground">{formatDistance(event.distanceKm)}</p>
+									</div>
+								)}
+
+								{event.elevationGainM != null && !isNaN(event.elevationGainM) && (
+									<div>
+										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.elevationGain}</h3>
+										<p className="text-muted-foreground">{formatElevation(event.elevationGainM)}</p>
+									</div>
+								)}
+
+								{event.participants != null && event.participants > 0 && (
+									<div>
+										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.participants}</h3>
+										<p className="text-muted-foreground">{event.participants}</p>
+									</div>
+								)}
+
+								{event.officialStandardPrice != null && !isNaN(event.officialStandardPrice) && (
+									<div>
+										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.officialPrice}</h3>
+										<p className="text-muted-foreground">{formatPrice(event.officialStandardPrice)}</p>
+									</div>
+								)}
+
+								{event.parcoursUrl != null && event.parcoursUrl !== '' && (
+									<div>
+										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.courseMap}</h3>
+										<p className="text-muted-foreground">
+											<Link
+												className="text-primary underline"
+												href={event.parcoursUrl}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												{t.event.viewCourse}
+											</Link>
+										</p>
+									</div>
+								)}
+
+								{event.registrationUrl != null && event.registrationUrl !== '' && (
+									<div>
+										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.registration}</h3>
+										<p className="text-muted-foreground">
+											<Link
+												className="text-primary underline"
+												href={event.registrationUrl}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												{t.event.goToRegistration}
+											</Link>
+										</p>
+									</div>
+								)}
 							</div>
+
+							{(event.bibPickupLocation != null ||
+								event.bibPickupWindowBeginDate != null ||
+								event.bibPickupWindowEndDate != null) && (
+								<div className="mt-6 grid gap-6 md:grid-cols-2">
+									<div>
+										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.bibPickup.title}</h3>
+										{event.bibPickupLocation != null && event.bibPickupLocation !== '' && (
+											<p className="text-muted-foreground">
+												<span className="font-medium">{t.event.bibPickup.location}:</span> {event.bibPickupLocation}
+											</p>
+										)}
+										{(event.bibPickupWindowBeginDate != null || event.bibPickupWindowEndDate != null) && (
+											<p className="text-muted-foreground">
+												<span className="font-medium">{t.event.bibPickup.window}:</span>{' '}
+												{formatPbDate(event.bibPickupWindowBeginDate)}
+												{event.bibPickupWindowEndDate != null && <> → {formatPbDate(event.bibPickupWindowEndDate)}</>}
+											</p>
+										)}
+									</div>
+									{event.transferDeadline != null && (
+										<div>
+											<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.transferDeadline}</h3>
+											<p className="text-muted-foreground">{formatPbDate(event.transferDeadline)}</p>
+										</div>
+									)}
+								</div>
+							)}
+
 							{event.description != null && event.description !== '' && (
 								<div className="mt-6">
-									<h3 className="text-foreground mb-2 text-lg font-semibold">Description</h3>
+									<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.description}</h3>
 									<p className="text-muted-foreground">{event.description}</p>
 								</div>
 							)}
