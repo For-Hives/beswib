@@ -2,8 +2,12 @@
 
 import { ReactNode } from 'react'
 
+import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import { authTranslations } from '@/lib/translations/auth'
+import { Locale } from '@/lib/i18n-config'
 
 import PlasmaShader from './PlasmaShader'
 
@@ -12,9 +16,12 @@ interface AuthSplitScreenProps {
 }
 
 export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenProps>) {
+	const params = useParams()
+	const locale = (params?.locale as Locale) || 'en'
+	const t = authTranslations[locale]
 	return (
 		<div className="flex min-h-screen items-center justify-center overflow-hidden p-4">
-			<div className="relative w-full max-w-6xl overflow-hidden rounded-3xl shadow-2xl">
+			<div className="relative w-full max-w-6xl overflow-hidden rounded-3xl shadow-xl">
 				{/* Grid Layout */}
 				<div className="grid min-h-[600px] md:grid-cols-12">
 					{/* Left Side - Visual Panel (Shader integrated into image) */}
@@ -32,9 +39,9 @@ export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenPr
 						</div>
 
 						{/* Shader above image (no blend for full coverage) */}
-						<div className="pointer-events-none absolute inset-0 z-10">
-							<PlasmaShader className="absolute top-0 left-0 h-full w-full opacity-80" />
-						</div>
+						{/* <div className="pointer-events-none absolute inset-0 z-10 w-full">
+							<PlasmaShader debug className="absolute top-0 left-0 h-full w-full opacity-100" />
+						</div> */}
 
 						{/* Subtle light overlay to keep things soft */}
 						<div className="absolute inset-0 z-20 bg-white/20" />
@@ -49,13 +56,13 @@ export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenPr
 							{/* Additional Info */}
 							<div className="mt-8 text-center">
 								<p className="text-muted-foreground text-xs">
-									En continuant, vous acceptez nos{' '}
-									<Link href="/legals/terms" className="text-primary hover:underline">
-										Conditions d'utilisation
+									{t.legal.termsText}{' '}
+									<Link href={`/${locale}/legals/terms`} className="text-primary hover:underline">
+										{t.legal.termsOfService}
 									</Link>{' '}
-									et notre{' '}
-									<Link href="/legals/privacy-policy" className="text-primary hover:underline">
-										Politique de confidentialité
+									{t.legal.and}{' '}
+									<Link href={`/${locale}/legals/privacy-policy`} className="text-primary hover:underline">
+										{t.legal.privacyPolicy}
 									</Link>
 								</p>
 							</div>

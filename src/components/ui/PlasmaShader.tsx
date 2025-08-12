@@ -16,6 +16,7 @@ const fragmentShaderSource = `
   
   uniform vec2 iResolution;
   uniform float iTime;
+  uniform float iFitMode; // 0: cover, 1: contain, 2: fill
   
   #define M_PI 3.14159265359
 
@@ -187,10 +188,14 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     //fragCoord.y -= -0.1*iResolution.y + 0.1*iResolution.y*cos((fragCoord.x / iResolution.x - 0.5)*M_PI*0.5);
 
 
-    float mx = max(iResolution.x, iResolution.y);
-    vec2 uv = fragCoord.xy / mx;
+    // Fit mapping controlled by iFitMode
+    float coverScale = min(iResolution.x, iResolution.y);
+    float containScale = max(iResolution.x, iResolution.y);
+    float fillScale = iResolution.y;
+    float scale = (iFitMode < 0.5) ? coverScale : ((iFitMode < 1.5) ? containScale : fillScale);
+    vec2 uv = fragCoord.xy / scale;
     vec2 nuv = fragCoord.xy / iResolution.xy;
-    vec2 pos = uv - (iResolution.xy)*0.5/mx;
+    vec2 pos = (fragCoord.xy - 0.5 * iResolution.xy) / scale;
     
     float col = 1.0;
 
@@ -309,12 +314,15 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
   }
 `
 
+type FitMode = 'cover' | 'contain' | 'fill'
+
 interface PlasmaShaderProps {
-	className?: string
+	fit?: FitMode
 	debug?: boolean
+	className?: string
 }
 
-export default function PlasmaShader({ debug = false, className = '' }: Readonly<PlasmaShaderProps>) {
+export default function PlasmaShader({ fit = 'cover', debug = false, className = '' }: Readonly<PlasmaShaderProps>) {
 	const canvasRef = useRef<HTMLCanvasElement>(null)
 	const animationFrameRef = useRef<number>(0)
 	const [isSupported, setIsSupported] = useState(true)
@@ -417,6 +425,7 @@ export default function PlasmaShader({ debug = false, className = '' }: Readonly
 		const positionAttributeLocation = gl.getAttribLocation(program, 'a_position')
 		const resolutionUniformLocation = gl.getUniformLocation(program, 'iResolution')
 		const timeUniformLocation = gl.getUniformLocation(program, 'iTime')
+		const fitModeUniformLocation = gl.getUniformLocation(program, 'iFitMode')
 
 		// Create buffer for full-screen quad
 		const positionBuffer = gl.createBuffer()
@@ -468,6 +477,13 @@ export default function PlasmaShader({ debug = false, className = '' }: Readonly
 			const tSec = (Date.now() - startTime) / 1000
 			gl.uniform2f(resolutionUniformLocation, iW, iH)
 			gl.uniform1f(timeUniformLocation, tSec)
+			// Fit mode mapping
+			if (fitModeUniformLocation) {
+				let mode = 0.0
+				if (fit === 'contain') mode = 1.0
+				else if (fit === 'fill') mode = 2.0
+				gl.uniform1f(fitModeUniformLocation, mode)
+			}
 
 			// Debug log at ~1 Hz
 			if (debug) {

@@ -22,6 +22,14 @@ export interface AuthTranslations {
 	// Common messages
 	somethingWentWrong: string
 
+	// Legal text
+	legal: {
+		termsText: string
+		termsOfService: string
+		privacyPolicy: string
+		and: string
+	}
+
 	// Sign In
 	signIn: {
 		title: string
@@ -137,6 +145,14 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 		// Common messages
 		somethingWentWrong: 'Something went wrong. Please try again.',
 
+		// Legal text
+		legal: {
+			termsText: 'By creating an account, you agree to our',
+			termsOfService: 'Terms of Service',
+			privacyPolicy: 'Privacy Policy',
+			and: 'and',
+		},
+
 		signIn: {
 			title: 'Welcome back!',
 			subtitle: 'Sign in to your account to continue',
@@ -239,6 +255,14 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 
 		// Common messages
 		somethingWentWrong: "Quelque chose s'est mal passé. Veuillez réessayer.",
+
+		// Legal text
+		legal: {
+			termsText: 'En créant un compte, vous acceptez nos',
+			termsOfService: 'Conditions d\'utilisation',
+			privacyPolicy: 'Politique de confidentialité',
+			and: 'et',
+		},
 
 		signIn: {
 			title: 'Bon retour !',
@@ -343,6 +367,14 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 		// Common messages
 		somethingWentWrong: 'Algo salió mal. Por favor intenta de nuevo.',
 
+		// Legal text
+		legal: {
+			termsText: 'Al crear una cuenta, aceptas nuestros',
+			termsOfService: 'Términos de Servicio',
+			privacyPolicy: 'Política de Privacidad',
+			and: 'y',
+		},
+
 		signIn: {
 			title: '¡Bienvenido de vuelta!',
 			subtitle: 'Inicia sesión en tu cuenta para continuar',
@@ -445,6 +477,14 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 
 		// Common messages
 		somethingWentWrong: 'Qualcosa è andato storto. Riprova.',
+
+		// Legal text
+		legal: {
+			termsText: 'Creando un account, accetti i nostri',
+			termsOfService: 'Termini di Servizio',
+			privacyPolicy: 'Politica sulla Privacy',
+			and: 'e',
+		},
 
 		signIn: {
 			title: 'Bentornato!',
@@ -549,6 +589,14 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 		// Common messages
 		somethingWentWrong: 'Etwas ist schiefgelaufen. Bitte versuche es erneut.',
 
+		// Legal text
+		legal: {
+			termsText: 'Mit der Erstellung eines Kontos stimmst du unseren',
+			termsOfService: 'Nutzungsbedingungen',
+			privacyPolicy: 'Datenschutzrichtlinie',
+			and: 'und',
+		},
+
 		signIn: {
 			title: 'Willkommen zurück!',
 			subtitle: 'Melde dich in deinem Konto an, um fortzufahren',
@@ -651,6 +699,14 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 
 		// Common messages
 		somethingWentWrong: 'Ceva nu a mers bine. Te rugăm să încerci din nou.',
+
+		// Legal text
+		legal: {
+			termsText: 'Prin crearea unui cont, ești de acord cu',
+			termsOfService: 'Termenii de Utilizare',
+			privacyPolicy: 'Politica de Confidențialitate',
+			and: 'și',
+		},
 
 		signIn: {
 			title: 'Bun venit înapoi!',
@@ -755,6 +811,14 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 		// Common messages
 		somethingWentWrong: 'Algo deu errado. Tente novamente.',
 
+		// Legal text
+		legal: {
+			termsText: 'Ao criar uma conta, você concorda com nossos',
+			termsOfService: 'Termos de Serviço',
+			privacyPolicy: 'Política de Privacidade',
+			and: 'e',
+		},
+
 		signIn: {
 			title: 'Bem-vindo de volta!',
 			subtitle: 'Entre na sua conta para continuar',
@@ -858,6 +922,14 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 		// Common messages
 		somethingWentWrong: 'Er ging iets mis. Probeer het opnieuw.',
 
+		// Legal text
+		legal: {
+			termsText: 'Door een account aan te maken, ga je akkoord met onze',
+			termsOfService: 'Gebruiksvoorwaarden',
+			privacyPolicy: 'Privacybeleid',
+			and: 'en',
+		},
+
 		signIn: {
 			title: 'Welkom terug!',
 			subtitle: 'Log in op je account om door te gaan',
@@ -960,6 +1032,14 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 
 		// Common messages
 		somethingWentWrong: '문제가 발생했습니다. 다시 시도해주세요.',
+
+		// Legal text
+		legal: {
+			termsText: '계정을 만들면 당사의',
+			termsOfService: '서비스 약관',
+			privacyPolicy: '개인정보 보호정책',
+			and: '및',
+		},
 
 		signIn: {
 			title: '다시 오신 것을 환영합니다!',
