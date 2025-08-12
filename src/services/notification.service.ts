@@ -45,3 +45,45 @@ export async function sendSaleAlert(info?: SaleAlertInfo): Promise<boolean> {
 		return false
 	}
 }
+
+type ContactMessageInfo = {
+	name: string
+	email: string
+	message: string
+}
+
+/**
+ * Sends a contact form message to a dedicated Discord webhook.
+ * Uses DISCORD_CONTACT_WEBHOOK_URL env var. If not provided, falls back to DISCORD_SALES_WEBHOOK_URL.
+ * Posts two messages: a summary line with @here, then the full message as a code block.
+ */
+export async function sendContactMessage(info: ContactMessageInfo): Promise<boolean> {
+	const primary = process.env.DISCORD_CONTACT_WEBHOOK_URL ?? ''
+	const fallback = process.env.DISCORD_SALES_WEBHOOK_URL ?? ''
+	const webhookUrl = primary.length > 0 ? primary : fallback
+	if (webhookUrl.length === 0) return false
+
+	const safe = (s: string) => s.replaceAll('`', 'ˋ').slice(0, 5000)
+	const name = safe(info.name ?? '').trim()
+	const email = safe(info.email ?? '').trim()
+	const msg = safe(info.message ?? '').trim()
+
+	const summary = `@here New contact form message | from: ${name || 'Anonymous'} | email: ${email || 'n/a'}`
+	const full = ['```', msg.slice(0, 1900), '```'].join('\n')
+
+	try {
+		const res1 = await fetch(webhookUrl, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ content: summary }),
+		})
+		const res2 = await fetch(webhookUrl, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ content: full }),
+		})
+		return res1.ok && res2.ok
+	} catch {
+		return false
+	}
+}
