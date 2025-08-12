@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useThemeStore } from '@/hooks/useTheme'
+
 import { umamiTrack } from '@/lib/umami.utils'
 
 // Global knobs

@@ -4,6 +4,7 @@ import { Loader2, Send } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useState } from 'react'
 import type React from 'react'
+
 import { toast } from 'sonner'
 
 import globalTranslations from '@/components/global/locales.json'
@@ -28,7 +29,7 @@ export default function ContactForm({ t }: ContactFormProps) {
 		setIsSubmitting(true)
 		try {
 			const { submitContactMessage } = await import('@/app/[locale]/contact/actions')
-			const res = await submitContactMessage({ name, email, message })
+			const res = await submitContactMessage({ name, message, email })
 			if (res.success) {
 				toast.success(t.form.messageSent)
 				setIsSubmitted(true)

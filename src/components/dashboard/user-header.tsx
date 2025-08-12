@@ -7,10 +7,10 @@ import Link from 'next/link'
 
 import type { User } from '@/models/user.model'
 
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import dashboardTranslations from '@/app/[locale]/dashboard/locales.json'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 interface SerializedClerkUser {
 	emailAddresses: { emailAddress: string; id: string }[]
