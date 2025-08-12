@@ -1,54 +1,119 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { useSignIn } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-import { Input } from '@/components/ui/inputAlt'
+import { FormInput } from '@/components/ui/FormInput'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
+import { useAuthStore } from '@/stores/authStore'
+import { validateEmail, validatePassword } from '@/lib/validation'
 
 export default function CustomSignIn() {
 	const { isLoaded, signIn, setActive } = useSignIn()
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [isLoading, setIsLoading] = useState(false)
-	const [error, setError] = useState('')
 	const router = useRouter()
+
+	const {
+		signInData,
+		isSigningIn,
+		globalError,
+		fieldErrors,
+		setSignInData,
+		setSigningIn,
+		setGlobalError,
+		setFieldError,
+		clearFieldError,
+		resetSignInForm,
+	} = useAuthStore()
+
+	// Reset form on component mount
+	useEffect(() => {
+		resetSignInForm()
+	}, [resetSignInForm])
+
+	// Validate fields in real-time
+	const validateField = (field: 'email' | 'password', value: string) => {
+		let error = null
+
+		switch (field) {
+			case 'email':
+				error = validateEmail(value)
+				break
+			case 'password':
+				error = validatePassword(value, false)
+				break
+		}
+
+		setFieldError(field, error)
+		return error === null
+	}
+
+	// Handle input changes
+	const handleInputChange = (field: 'email' | 'password') => (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value
+		setSignInData({ [field]: value })
+		
+		// Clear field error on input change
+		if (fieldErrors[field]) {
+			clearFieldError(field)
+		}
+		
+		// Clear global error
+		if (globalError) {
+			setGlobalError('')
+		}
+	}
 
 	// Handle form submission
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		if (!isLoaded) return
+		if (!isLoaded || isSigningIn) return
 
-		setIsLoading(true)
-		setError('')
+		// Validate all fields
+		const emailValid = validateField('email', signInData.email)
+		const passwordValid = validateField('password', signInData.password)
+
+		if (!emailValid || !passwordValid) {
+			return
+		}
+
+		setSigningIn(true)
+		setGlobalError('')
 
 		try {
 			const result = await signIn.create({
-				identifier: email,
-				password,
+				identifier: signInData.email,
+				password: signInData.password,
 			})
 
 			if (result.status === 'complete') {
 				await setActive({ session: result.createdSessionId })
 				router.push('/dashboard')
 			} else {
-				setError("Quelque chose s'est mal passé. Veuillez réessayer.")
+				setGlobalError("Quelque chose s'est mal passé. Veuillez réessayer.")
 			}
 		} catch (err: any) {
-			setError(err.errors?.[0]?.message || 'Email ou mot de passe incorrect.')
+			const errorMessage = err.errors?.[0]?.message || 'Email ou mot de passe incorrect.'
+			setGlobalError(errorMessage)
+
+			// Set specific field errors based on error codes
+			if (err.errors?.[0]?.code === 'form_identifier_not_found') {
+				setFieldError('email', { message: 'Aucun compte trouvé avec cette adresse email', code: 'not_found' })
+			} else if (err.errors?.[0]?.code === 'form_password_incorrect') {
+				setFieldError('password', { message: 'Mot de passe incorrect', code: 'incorrect' })
+			}
 		} finally {
-			setIsLoading(false)
+			setSigningIn(false)
 		}
 	}
 
 	// Handle OAuth sign in
-	const signInWith = (strategy: 'oauth_google' | 'oauth_github') => {
+	const signInWith = (strategy: 'oauth_google' | 'oauth_facebook') => {
 		if (!signIn) return
-
-		setIsLoading(true)
+		
+		setSigningIn(true)
 		signIn.authenticateWithRedirect({
 			strategy,
 			redirectUrl: '/sso-callback',
@@ -79,7 +144,7 @@ export default function CustomSignIn() {
 					size="lg"
 					className="w-full"
 					onClick={() => signInWith('oauth_google')}
-					disabled={isLoading}
+					disabled={isSigningIn}
 				>
 					<Icons.google className="mr-2 h-4 w-4" />
 					Continuer avec Google
@@ -88,11 +153,11 @@ export default function CustomSignIn() {
 					variant="outline"
 					size="lg"
 					className="w-full"
-					onClick={() => signInWith('oauth_github')}
-					disabled={isLoading}
+					onClick={() => signInWith('oauth_facebook')}
+					disabled={isSigningIn}
 				>
-					<Icons.gitHub className="mr-2 h-4 w-4" />
-					Continuer avec GitHub
+					<Icons.facebook className="mr-2 h-4 w-4" />
+					Continuer avec Facebook
 				</Button>
 			</div>
 
@@ -108,41 +173,35 @@ export default function CustomSignIn() {
 
 			{/* Form */}
 			<form onSubmit={handleSubmit} className="space-y-4">
-				{error && (
-					<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm">
-						{error}
+				{globalError && (
+					<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm flex items-center gap-2">
+						<span className="text-destructive">⚠</span>
+						{globalError}
 					</div>
 				)}
 
-				<div className="space-y-2">
-					<label htmlFor="email" className="text-foreground text-sm font-medium">
-						Adresse email
-					</label>
-					<Input
-						id="email"
-						type="email"
-						placeholder="votre@email.com"
-						value={email}
-						onChange={e => setEmail(e.target.value)}
-						required
-						disabled={isLoading}
-					/>
-				</div>
+				<FormInput
+					type="email"
+					label="Adresse email"
+					placeholder="votre@email.com"
+					value={signInData.email}
+					onChange={handleInputChange('email')}
+					error={fieldErrors.email}
+					disabled={isSigningIn}
+					autoComplete="email"
+				/>
 
-				<div className="space-y-2">
-					<label htmlFor="password" className="text-foreground text-sm font-medium">
-						Mot de passe
-					</label>
-					<Input
-						id="password"
-						type="password"
-						placeholder="••••••••"
-						value={password}
-						onChange={e => setPassword(e.target.value)}
-						required
-						disabled={isLoading}
-					/>
-				</div>
+				<FormInput
+					type="password"
+					label="Mot de passe"
+					placeholder="••••••••"
+					value={signInData.password}
+					onChange={handleInputChange('password')}
+					error={fieldErrors.password}
+					disabled={isSigningIn}
+					showPasswordToggle
+					autoComplete="current-password"
+				/>
 
 				<div className="flex items-center justify-end">
 					<Link
@@ -153,8 +212,8 @@ export default function CustomSignIn() {
 					</Link>
 				</div>
 
-				<Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-					{isLoading ? (
+				<Button type="submit" size="lg" className="w-full" disabled={isSigningIn}>
+					{isSigningIn ? (
 						<>
 							<div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
 							Connexion...

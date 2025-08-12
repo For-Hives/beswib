@@ -1,83 +1,194 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { useSignUp } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-import { Input } from '@/components/ui/inputAlt'
+import { FormInput } from '@/components/ui/FormInput'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
+import { PasswordStrength } from '@/components/ui/PasswordStrength'
+import { useAuthStore } from '@/stores/authStore'
+import { validateEmail, validatePassword, validateName, validateVerificationCode, validateConfirmPassword } from '@/lib/validation'
 
 export default function CustomSignUp() {
 	const { isLoaded, signUp, setActive } = useSignUp()
-	const [firstName, setFirstName] = useState('')
-	const [lastName, setLastName] = useState('')
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [verifying, setVerifying] = useState(false)
-	const [code, setCode] = useState('')
-	const [isLoading, setIsLoading] = useState(false)
-	const [error, setError] = useState('')
 	const router = useRouter()
+
+	const {
+		signUpData,
+		isSigningUp,
+		isVerifying,
+		globalError,
+		fieldErrors,
+		pendingVerification,
+		verificationEmail,
+		verificationCode,
+		setSignUpData,
+		setSigningUp,
+		setVerifying,
+		setGlobalError,
+		setFieldError,
+		clearFieldError,
+		setPendingVerification,
+		setVerificationCode,
+		resetSignUpForm,
+	} = useAuthStore()
+
+	// Reset form on component mount
+	useEffect(() => {
+		resetSignUpForm()
+	}, [resetSignUpForm])
+
+	// Validate fields in real-time
+	const validateField = (field: keyof typeof signUpData | 'verificationCode', value: string) => {
+		let error = null
+
+		switch (field) {
+			case 'firstName':
+				error = validateName(value, 'prénom')
+				break
+			case 'lastName':
+				error = validateName(value, 'nom')
+				break
+			case 'email':
+				error = validateEmail(value)
+				break
+			case 'password':
+				error = validatePassword(value, true)
+				break
+			case 'confirmPassword':
+				error = validateConfirmPassword(signUpData.password, value)
+				break
+			case 'verificationCode':
+				error = validateVerificationCode(value)
+				break
+		}
+
+		setFieldError(field as keyof typeof fieldErrors, error)
+		return error === null
+	}
+
+	// Handle input changes
+	const handleInputChange = (field: keyof typeof signUpData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value
+		setSignUpData({ [field]: value })
+		
+		// Clear field error on input change
+		if (fieldErrors[field]) {
+			clearFieldError(field)
+		}
+		
+		// Clear global error
+		if (globalError) {
+			setGlobalError('')
+		}
+
+		// Also validate confirm password when password changes
+		if (field === 'password' && signUpData.confirmPassword) {
+			validateField('confirmPassword', signUpData.confirmPassword)
+		}
+	}
+
+	// Handle verification code change
+	const handleVerificationCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value
+		setVerificationCode(value)
+		
+		// Clear field error on input change
+		if (fieldErrors.verificationCode) {
+			clearFieldError('verificationCode')
+		}
+		
+		// Clear global error
+		if (globalError) {
+			setGlobalError('')
+		}
+	}
 
 	// Handle form submission
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		if (!isLoaded) return
+		if (!isLoaded || isSigningUp) return
 
-		setIsLoading(true)
-		setError('')
+		// Validate all fields
+		const firstNameValid = validateField('firstName', signUpData.firstName)
+		const lastNameValid = validateField('lastName', signUpData.lastName)
+		const emailValid = validateField('email', signUpData.email)
+		const passwordValid = validateField('password', signUpData.password)
+		const confirmPasswordValid = validateField('confirmPassword', signUpData.confirmPassword)
+
+		if (!firstNameValid || !lastNameValid || !emailValid || !passwordValid || !confirmPasswordValid) {
+			return
+		}
+
+		setSigningUp(true)
+		setGlobalError('')
 
 		try {
 			await signUp.create({
-				firstName,
-				lastName,
-				emailAddress: email,
-				password,
+				firstName: signUpData.firstName,
+				lastName: signUpData.lastName,
+				emailAddress: signUpData.email,
+				password: signUpData.password,
 			})
 
 			// Prepare email verification
 			await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
-			setVerifying(true)
+			setPendingVerification(true, signUpData.email)
 		} catch (err: any) {
-			setError(err.errors?.[0]?.message || "Une erreur s'est produite lors de la création du compte.")
+			const errorMessage = err.errors?.[0]?.message || "Une erreur s'est produite lors de la création du compte."
+			setGlobalError(errorMessage)
+
+			// Set specific field errors based on error codes
+			if (err.errors?.[0]?.code === 'form_identifier_exists') {
+				setFieldError('email', { message: 'Un compte existe déjà avec cette adresse email', code: 'exists' })
+			}
 		} finally {
-			setIsLoading(false)
+			setSigningUp(false)
 		}
 	}
 
 	// Handle verification
 	const handleVerification = async (e: React.FormEvent) => {
 		e.preventDefault()
-		if (!isLoaded) return
+		if (!isLoaded || isVerifying) return
 
-		setIsLoading(true)
-		setError('')
+		// Validate verification code
+		const codeValid = validateField('verificationCode', verificationCode)
+		if (!codeValid) {
+			return
+		}
+
+		setVerifying(true)
+		setGlobalError('')
 
 		try {
 			const completeSignUp = await signUp.attemptEmailAddressVerification({
-				code,
+				code: verificationCode,
 			})
 
 			if (completeSignUp.status === 'complete') {
 				await setActive({ session: completeSignUp.createdSessionId })
 				router.push('/dashboard')
 			} else {
-				setError("Quelque chose s'est mal passé. Veuillez réessayer.")
+				setGlobalError("Quelque chose s'est mal passé. Veuillez réessayer.")
 			}
 		} catch (err: any) {
-			setError(err.errors?.[0]?.message || 'Code de vérification incorrect.')
+			const errorMessage = err.errors?.[0]?.message || 'Code de vérification incorrect.'
+			setGlobalError(errorMessage)
+			setFieldError('verificationCode', { message: 'Code de vérification incorrect', code: 'incorrect' })
 		} finally {
-			setIsLoading(false)
+			setVerifying(false)
 		}
 	}
 
 	// Handle OAuth sign up
-	const signUpWith = (strategy: 'oauth_google' | 'oauth_github') => {
+	const signUpWith = (strategy: 'oauth_google' | 'oauth_facebook') => {
 		if (!signUp) return
-
-		setIsLoading(true)
+		
+		setSigningUp(true)
 		signUp.authenticateWithRedirect({
 			strategy,
 			redirectUrl: '/sso-callback',
@@ -94,41 +205,38 @@ export default function CustomSignUp() {
 	}
 
 	// Verification form
-	if (verifying) {
+	if (pendingVerification) {
 		return (
 			<div className="w-full max-w-md space-y-6">
 				<div className="space-y-2 text-center">
 					<h1 className="text-foreground text-2xl font-bold tracking-tight">Vérifiez votre email</h1>
 					<p className="text-muted-foreground text-sm">
-						Nous avons envoyé un code de vérification à <strong>{email}</strong>
+						Nous avons envoyé un code de vérification à <strong>{verificationEmail}</strong>
 					</p>
 				</div>
 
 				<form onSubmit={handleVerification} className="space-y-4">
-					{error && (
-						<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm">
-							{error}
+					{globalError && (
+						<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm flex items-center gap-2">
+							<span className="text-destructive">⚠</span>
+							{globalError}
 						</div>
 					)}
 
-					<div className="space-y-2">
-						<label htmlFor="code" className="text-foreground text-sm font-medium">
-							Code de vérification
-						</label>
-						<Input
-							id="code"
-							type="text"
-							placeholder="123456"
-							value={code}
-							onChange={e => setCode(e.target.value)}
-							required
-							disabled={isLoading}
-							className="text-center font-mono text-lg tracking-wider"
-						/>
-					</div>
+					<FormInput
+						type="text"
+						label="Code de vérification"
+						placeholder="123456"
+						value={verificationCode}
+						onChange={handleVerificationCodeChange}
+						error={fieldErrors.verificationCode}
+						disabled={isVerifying}
+						className="text-center font-mono text-lg tracking-wider"
+						autoComplete="one-time-code"
+					/>
 
-					<Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-						{isLoading ? (
+					<Button type="submit" size="lg" className="w-full" disabled={isVerifying}>
+						{isVerifying ? (
 							<>
 								<div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
 								Vérification...
@@ -142,9 +250,10 @@ export default function CustomSignUp() {
 				<div className="text-center">
 					<button
 						onClick={() => {
-							setVerifying(false)
-							setCode('')
-							setError('')
+							setPendingVerification(false)
+							setVerificationCode('')
+							setGlobalError('')
+							clearFieldError('verificationCode')
 						}}
 						className="text-muted-foreground hover:text-foreground text-sm transition-colors"
 					>
@@ -173,7 +282,7 @@ export default function CustomSignUp() {
 					size="lg"
 					className="w-full"
 					onClick={() => signUpWith('oauth_google')}
-					disabled={isLoading}
+					disabled={isSigningUp}
 				>
 					<Icons.google className="mr-2 h-4 w-4" />
 					Continuer avec Google
@@ -182,11 +291,11 @@ export default function CustomSignUp() {
 					variant="outline"
 					size="lg"
 					className="w-full"
-					onClick={() => signUpWith('oauth_github')}
-					disabled={isLoading}
+					onClick={() => signUpWith('oauth_facebook')}
+					disabled={isSigningUp}
 				>
-					<Icons.gitHub className="mr-2 h-4 w-4" />
-					Continuer avec GitHub
+					<Icons.facebook className="mr-2 h-4 w-4" />
+					Continuer avec Facebook
 				</Button>
 			</div>
 
@@ -202,77 +311,77 @@ export default function CustomSignUp() {
 
 			{/* Form */}
 			<form onSubmit={handleSubmit} className="space-y-4">
-				{error && (
-					<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm">
-						{error}
+				{globalError && (
+					<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm flex items-center gap-2">
+						<span className="text-destructive">⚠</span>
+						{globalError}
 					</div>
 				)}
 
 				<div className="grid grid-cols-2 gap-4">
-					<div className="space-y-2">
-						<label htmlFor="firstName" className="text-foreground text-sm font-medium">
-							Prénom
-						</label>
-						<Input
-							id="firstName"
-							type="text"
-							placeholder="Jean"
-							value={firstName}
-							onChange={e => setFirstName(e.target.value)}
-							required
-							disabled={isLoading}
-						/>
-					</div>
+					<FormInput
+						type="text"
+						label="Prénom"
+						placeholder="Jean"
+						value={signUpData.firstName}
+						onChange={handleInputChange('firstName')}
+						error={fieldErrors.firstName}
+						disabled={isSigningUp}
+						autoComplete="given-name"
+					/>
 
-					<div className="space-y-2">
-						<label htmlFor="lastName" className="text-foreground text-sm font-medium">
-							Nom
-						</label>
-						<Input
-							id="lastName"
-							type="text"
-							placeholder="Dupont"
-							value={lastName}
-							onChange={e => setLastName(e.target.value)}
-							required
-							disabled={isLoading}
-						/>
-					</div>
-				</div>
-
-				<div className="space-y-2">
-					<label htmlFor="email" className="text-foreground text-sm font-medium">
-						Adresse email
-					</label>
-					<Input
-						id="email"
-						type="email"
-						placeholder="votre@email.com"
-						value={email}
-						onChange={e => setEmail(e.target.value)}
-						required
-						disabled={isLoading}
+					<FormInput
+						type="text"
+						label="Nom"
+						placeholder="Dupont"
+						value={signUpData.lastName}
+						onChange={handleInputChange('lastName')}
+						error={fieldErrors.lastName}
+						disabled={isSigningUp}
+						autoComplete="family-name"
 					/>
 				</div>
 
+				<FormInput
+					type="email"
+					label="Adresse email"
+					placeholder="votre@email.com"
+					value={signUpData.email}
+					onChange={handleInputChange('email')}
+					error={fieldErrors.email}
+					disabled={isSigningUp}
+					autoComplete="email"
+				/>
+
 				<div className="space-y-2">
-					<label htmlFor="password" className="text-foreground text-sm font-medium">
-						Mot de passe
-					</label>
-					<Input
-						id="password"
+					<FormInput
 						type="password"
+						label="Mot de passe"
 						placeholder="••••••••"
-						value={password}
-						onChange={e => setPassword(e.target.value)}
-						required
-						disabled={isLoading}
+						value={signUpData.password}
+						onChange={handleInputChange('password')}
+						error={fieldErrors.password}
+						disabled={isSigningUp}
+						showPasswordToggle
+						autoComplete="new-password"
 					/>
-					<p className="text-muted-foreground text-xs">Au moins 8 caractères avec une majuscule et un chiffre</p>
+					<PasswordStrength password={signUpData.password} show={signUpData.password.length > 0} />
 				</div>
 
-				<Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-					{isLoading ? (
+				<FormInput
+					type="password"
+					label="Confirmer le mot de passe"
+					placeholder="••••••••"
+					value={signUpData.confirmPassword}
+					onChange={handleInputChange('confirmPassword')}
+					error={fieldErrors.confirmPassword}
+					disabled={isSigningUp}
+					showPasswordToggle
+					autoComplete="new-password"
+				/>
+
+				<Button type="submit" size="lg" className="w-full" disabled={isSigningUp}>
+					{isSigningUp ? (
 						<>
 							<div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
 							Création...

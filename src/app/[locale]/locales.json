@@ -3,7 +3,7 @@
 		"home": {
 			"hero": {
 				"title": "An unexpected event? <span>Transfer</span> your bib!",
-				"description": "Whether you're into running, trail, triathlon or cycling, find your favorite race or sell your bib with confidence.",
+				"description": "Whether you're into running, trail, triathlon or cycling. <br />Find your favorite race or sell your bib with confidence.",
 				"organizerButton": "Organizer? List your race",
 				"consultRacesButton": "Browse races",
 				"workInProgress": "Work in progress"
@@ -46,7 +46,7 @@
 		"home": {
 			"hero": {
 				"title": "Un imprévu ? <span>Transfère</span> ton dossard !",
-				"description": "Que vous soyez plutôt running, trail, triathlon ou encore cyclisme. Trouvez votre course favorite ou vendez votre dossard en toute confiance.",
+				"description": "Que vous soyez plutôt running, trail, triathlon ou encore cyclisme. <br />Trouvez votre course favorite ou vendez votre dossard en toute confiance.",
 				"organizerButton": "Organisateur ? Liste ta course",
 				"consultRacesButton": "Consulter les courses",
 				"workInProgress": "Work in progress"

@@ -23,7 +23,10 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 					className="font-geist [&_span]:font-bowlby-one-sc [&_span]:mx-2 [&_span]:text-[3.5rem] [&_span]:lg:text-[6rem] [&_span]:xl:text-[8rem]"
 				/>
 				<div className="flex flex-col justify-start gap-6 px-4 lg:hidden">
-					<p className="text-center text-lg text-neutral-800 dark:text-neutral-100">{landingT.home.hero.description}</p>
+					<p
+						dangerouslySetInnerHTML={{ __html: landingT.home.hero.description }}
+						className="text-center text-lg text-neutral-800 dark:text-neutral-100"
+					/>
 					<div className="flex flex-row justify-center gap-4">
 						<div>
 							<Link
