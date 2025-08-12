@@ -44,7 +44,11 @@ export const validatePassword = (password: string, isSignUp = false, locale: Loc
 	return null
 }
 
-export const validateConfirmPassword = (password: string, confirmPassword: string, locale: Locale = 'fr'): FieldError | null => {
+export const validateConfirmPassword = (
+	password: string,
+	confirmPassword: string,
+	locale: Locale = 'fr'
+): FieldError | null => {
 	const t = validationTranslations[locale]
 	if (!confirmPassword) {
 		return { message: t.confirmPassword.required, code: 'required' }

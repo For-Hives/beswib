@@ -284,9 +284,7 @@ export default function CustomSignUp() {
 			{/* Header */}
 			<div className="space-y-2 text-center">
 				<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.signUp.title}</h1>
-				<p className="text-muted-foreground text-sm">
-					{t.signUp.subtitle}
-				</p>
+				<p className="text-muted-foreground text-sm">{t.signUp.subtitle}</p>
 			</div>
 
 			{/* OAuth Buttons */}
