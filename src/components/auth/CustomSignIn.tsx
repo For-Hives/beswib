@@ -35,7 +35,7 @@ export default function CustomSignIn() {
 				await setActive({ session: result.createdSessionId })
 				router.push('/dashboard')
 			} else {
-				setError('Quelque chose s\'est mal passé. Veuillez réessayer.')
+				setError("Quelque chose s'est mal passé. Veuillez réessayer.")
 			}
 		} catch (err: any) {
 			setError(err.errors?.[0]?.message || 'Email ou mot de passe incorrect.')
@@ -47,7 +47,7 @@ export default function CustomSignIn() {
 	// Handle OAuth sign in
 	const signInWith = (strategy: 'oauth_google' | 'oauth_github') => {
 		if (!signIn) return
-		
+
 		setIsLoading(true)
 		signIn.authenticateWithRedirect({
 			strategy,
@@ -59,7 +59,7 @@ export default function CustomSignIn() {
 	if (!isLoaded) {
 		return (
 			<div className="flex h-96 items-center justify-center">
-				<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+				<div className="border-primary h-8 w-8 animate-spin rounded-full border-b-2"></div>
 			</div>
 		)
 	}
@@ -67,13 +67,9 @@ export default function CustomSignIn() {
 	return (
 		<div className="w-full max-w-md space-y-6">
 			{/* Header */}
-			<div className="text-center space-y-2">
-				<h1 className="text-2xl font-bold tracking-tight text-foreground">
-					Bon retour !
-				</h1>
-				<p className="text-sm text-muted-foreground">
-					Connectez-vous à votre compte pour continuer
-				</p>
+			<div className="space-y-2 text-center">
+				<h1 className="text-foreground text-2xl font-bold tracking-tight">Bon retour !</h1>
+				<p className="text-muted-foreground text-sm">Connectez-vous à votre compte pour continuer</p>
 			</div>
 
 			{/* OAuth Buttons */}
@@ -103,25 +99,23 @@ export default function CustomSignIn() {
 			{/* Divider */}
 			<div className="relative">
 				<div className="absolute inset-0 flex items-center">
-					<span className="w-full border-t border-border/50" />
+					<span className="border-border/50 w-full border-t" />
 				</div>
 				<div className="relative flex justify-center text-xs uppercase">
-					<span className="bg-background px-2 text-muted-foreground tracking-wider">
-						ou continuez avec
-					</span>
+					<span className="bg-background text-muted-foreground px-2 tracking-wider">ou continuez avec</span>
 				</div>
 			</div>
 
 			{/* Form */}
 			<form onSubmit={handleSubmit} className="space-y-4">
 				{error && (
-					<div className="rounded-lg border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+					<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm">
 						{error}
 					</div>
 				)}
 
 				<div className="space-y-2">
-					<label htmlFor="email" className="text-sm font-medium text-foreground">
+					<label htmlFor="email" className="text-foreground text-sm font-medium">
 						Adresse email
 					</label>
 					<Input
@@ -129,14 +123,14 @@ export default function CustomSignIn() {
 						type="email"
 						placeholder="votre@email.com"
 						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						onChange={e => setEmail(e.target.value)}
 						required
 						disabled={isLoading}
 					/>
 				</div>
 
 				<div className="space-y-2">
-					<label htmlFor="password" className="text-sm font-medium text-foreground">
+					<label htmlFor="password" className="text-foreground text-sm font-medium">
 						Mot de passe
 					</label>
 					<Input
@@ -144,30 +138,25 @@ export default function CustomSignIn() {
 						type="password"
 						placeholder="••••••••"
 						value={password}
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={e => setPassword(e.target.value)}
 						required
 						disabled={isLoading}
 					/>
 				</div>
 
 				<div className="flex items-center justify-end">
-					<Link 
-						href="/forgot-password" 
-						className="text-sm text-primary hover:text-primary/80 transition-colors hover:underline"
+					<Link
+						href="/forgot-password"
+						className="text-primary hover:text-primary/80 text-sm transition-colors hover:underline"
 					>
 						Mot de passe oublié ?
 					</Link>
 				</div>
 
-				<Button 
-					type="submit" 
-					size="lg" 
-					className="w-full" 
-					disabled={isLoading}
-				>
+				<Button type="submit" size="lg" className="w-full" disabled={isLoading}>
 					{isLoading ? (
 						<>
-							<div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+							<div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
 							Connexion...
 						</>
 					) : (
@@ -178,10 +167,10 @@ export default function CustomSignIn() {
 
 			{/* Footer */}
 			<div className="text-center">
-				<p className="text-sm text-muted-foreground">
+				<p className="text-muted-foreground text-sm">
 					Pas encore de compte ?{' '}
-					<Link 
-						href="/sign-up" 
+					<Link
+						href="/sign-up"
 						className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
 					>
 						Créer un compte

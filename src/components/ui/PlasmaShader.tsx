@@ -307,6 +307,12 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     sdf = lerp(1.0, sdf, 0.05);
     fragColor.rgb *= sdf;
 }
+
+void main() {
+  vec4 fragColor;
+  mainImage(fragColor, gl_FragCoord.xy);
+  gl_FragColor = fragColor;
+}
 `
 
 interface PlasmaShaderProps {

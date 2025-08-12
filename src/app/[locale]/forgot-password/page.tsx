@@ -49,8 +49,8 @@ export default function ForgotPasswordPage() {
 			})
 	}
 
-	// Reset the user's password. 
-	// Upon successful reset, the user will be 
+	// Reset the user's password.
+	// Upon successful reset, the user will be
 	// signed in and redirected to the home page
 	async function reset(e: React.FormEvent) {
 		e.preventDefault()
@@ -66,7 +66,7 @@ export default function ForgotPasswordPage() {
 					setSecondFactor(true)
 					setError('')
 				} else if (result.status === 'complete') {
-					// Set the active session to 
+					// Set the active session to
 					// the newly created session (user is now signed in)
 					setActive({ session: result.createdSessionId })
 					setComplete(true)
@@ -83,44 +83,36 @@ export default function ForgotPasswordPage() {
 	return (
 		<AuthSplitScreen>
 			<div className="w-full max-w-md space-y-6">
-				<div className="text-center space-y-2">
-					<h1 className="text-2xl font-bold tracking-tight text-foreground">
-						Mot de passe oublié
-					</h1>
+				<div className="space-y-2 text-center">
+					<h1 className="text-foreground text-2xl font-bold tracking-tight">Mot de passe oublié</h1>
 					{!successfulCreation && !complete && (
-						<p className="text-sm text-muted-foreground">
+						<p className="text-muted-foreground text-sm">
 							Entrez votre adresse email pour recevoir un code de réinitialisation
 						</p>
 					)}
 					{successfulCreation && !complete && (
-						<p className="text-sm text-muted-foreground">
-							Nous avons envoyé un code de réinitialisation à votre email
-						</p>
+						<p className="text-muted-foreground text-sm">Nous avons envoyé un code de réinitialisation à votre email</p>
 					)}
-					{complete && (
-						<p className="text-sm text-emerald-600">
-							Votre mot de passe a été réinitialisé avec succès !
-						</p>
-					)}
+					{complete && <p className="text-sm text-emerald-600">Votre mot de passe a été réinitialisé avec succès !</p>}
 				</div>
 
 				{!successfulCreation && !complete && (
 					<form onSubmit={create} className="space-y-4">
 						{error && (
-							<div className="rounded-lg border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+							<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm">
 								{error}
 							</div>
 						)}
 
 						<div className="space-y-2">
-							<label htmlFor="email" className="text-sm font-medium text-foreground">
+							<label htmlFor="email" className="text-foreground text-sm font-medium">
 								Adresse email
 							</label>
 							<Input
 								type="email"
 								placeholder="votre@email.com"
 								value={email}
-								onChange={(e) => setEmail(e.target.value)}
+								onChange={e => setEmail(e.target.value)}
 								required
 							/>
 						</div>
@@ -134,34 +126,29 @@ export default function ForgotPasswordPage() {
 				{successfulCreation && !complete && (
 					<form onSubmit={reset} className="space-y-4">
 						{error && (
-							<div className="rounded-lg border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+							<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm">
 								{error}
 							</div>
 						)}
 
 						<div className="space-y-2">
-							<label htmlFor="password" className="text-sm font-medium text-foreground">
+							<label htmlFor="password" className="text-foreground text-sm font-medium">
 								Nouveau mot de passe
 							</label>
-							<Input
-								type="password"
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-								required
-							/>
+							<Input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
 						</div>
 
 						<div className="space-y-2">
-							<label htmlFor="code" className="text-sm font-medium text-foreground">
+							<label htmlFor="code" className="text-foreground text-sm font-medium">
 								Code de réinitialisation
 							</label>
 							<Input
 								type="text"
 								placeholder="123456"
 								value={code}
-								onChange={(e) => setCode(e.target.value)}
+								onChange={e => setCode(e.target.value)}
 								required
-								className="text-center text-lg font-mono tracking-wider"
+								className="text-center font-mono text-lg tracking-wider"
 							/>
 						</div>
 
@@ -174,18 +161,13 @@ export default function ForgotPasswordPage() {
 				{complete && (
 					<div className="text-center">
 						<Button asChild size="lg" className="w-full">
-							<Link href="/dashboard">
-								Continuer vers le tableau de bord
-							</Link>
+							<Link href="/dashboard">Continuer vers le tableau de bord</Link>
 						</Button>
 					</div>
 				)}
 
 				<div className="text-center">
-					<Link 
-						href="/sign-in" 
-						className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-					>
+					<Link href="/sign-in" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
 						← Retour à la connexion
 					</Link>
 				</div>
