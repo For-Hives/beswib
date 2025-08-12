@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useSignUp } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
 
 import { FormInput } from '@/components/ui/FormInput'
@@ -18,10 +18,17 @@ import {
 	validateConfirmPassword,
 } from '@/lib/validation'
 import { translateClerkError } from '@/lib/clerkErrorTranslations'
+import { authTranslations } from '@/lib/translations/auth'
+import { validationTranslations } from '@/lib/translations/validation'
+import { Locale } from '@/lib/i18n-config'
 
 export default function CustomSignUp() {
 	const { isLoaded, signUp, setActive } = useSignUp()
 	const router = useRouter()
+	const params = useParams()
+	const locale = (params?.locale as Locale) || 'en'
+	const t = authTranslations[locale]
+	const v = validationTranslations[locale]
 
 	const {
 		signUpData,

@@ -13,10 +13,10 @@ const vertexShaderSource = `
 const fragmentShaderSource = `
   precision mediump float;
   precision mediump int;
-
+  
   uniform vec2 iResolution;
   uniform float iTime;
-
+  
   #define M_PI 3.14159265359
 
 #define float2 vec2
@@ -300,24 +300,27 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     
     // Remove central box vignette to avoid vertical banding
     // (kept intentionally empty here)
-}
-
-void main() {
-  vec4 fragColor;
-  mainImage(fragColor, gl_FragCoord.xy);
-  gl_FragColor = fragColor;
-}
+  }
+  
+  void main() {
+    vec4 fragColor;
+    mainImage(fragColor, gl_FragCoord.xy);
+    gl_FragColor = fragColor;
+  }
 `
 
 interface PlasmaShaderProps {
 	className?: string
+	debug?: boolean
 }
 
-export default function PlasmaShader({ className = '' }: Readonly<PlasmaShaderProps>) {
+export default function PlasmaShader({ debug = false, className = '' }: Readonly<PlasmaShaderProps>) {
 	const canvasRef = useRef<HTMLCanvasElement>(null)
 	const animationFrameRef = useRef<number>(0)
 	const [isSupported, setIsSupported] = useState(true)
 	const resizeObserverRef = useRef<ResizeObserver | null>(null)
+	const prevSizeRef = useRef<{ w: number; h: number } | null>(null)
+	const lastLogAtMsRef = useRef<number>(0)
 
 	useEffect(() => {
 		const canvas = canvasRef.current
@@ -328,6 +331,28 @@ export default function PlasmaShader({ className = '' }: Readonly<PlasmaShaderPr
 			setIsSupported(false)
 			return
 		}
+
+		const dlog = (...args: unknown[]) => {
+			if (!debug) return
+			const now = Date.now()
+			if (now - lastLogAtMsRef.current < 100) return
+			lastLogAtMsRef.current = now
+			// eslint-disable-next-line no-console
+			console.log('[PlasmaShader]', ...args)
+		}
+
+		const logGlInfo = () => {
+			if (!debug) return
+			const ext = (gl.getExtension('WEBGL_debug_renderer_info') ?? null) as {
+				UNMASKED_VENDOR_WEBGL: number
+				UNMASKED_RENDERER_WEBGL: number
+			} | null
+			const vendor = ext ? (gl.getParameter(ext.UNMASKED_VENDOR_WEBGL) as string) : 'unknown'
+			const renderer = ext ? (gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) as string) : 'unknown'
+			dlog('GL info', { vendor, renderer, dpr: window.devicePixelRatio })
+		}
+
+		logGlInfo()
 
 		// Create shader function
 		const createShader = (gl: WebGLRenderingContext, type: number, source: string) => {
@@ -408,6 +433,16 @@ export default function PlasmaShader({ className = '' }: Readonly<PlasmaShaderPr
 				canvas.width = width
 				canvas.height = height
 				gl.viewport(0, 0, width, height)
+				const viewport = gl.getParameter(gl.VIEWPORT) as Int32Array
+				const prev = prevSizeRef.current
+				prevSizeRef.current = { w: width, h: height }
+						dlog('resize', {
+							viewport: Array.from(viewport || []),
+							devicePixelRatio: window.devicePixelRatio,
+							css: { w: rect.width, h: rect.height },
+							changedFrom: prev ?? 'none',
+							canvas: { w: canvas.width, h: canvas.height },
+						})
 			}
 		}
 
@@ -428,8 +463,24 @@ export default function PlasmaShader({ className = '' }: Readonly<PlasmaShaderPr
 			gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0)
 
 			// Set uniforms
-			gl.uniform2f(resolutionUniformLocation, canvas.width, canvas.height)
-			gl.uniform1f(timeUniformLocation, (Date.now() - startTime) / 1000)
+			const iW = canvas.width
+			const iH = canvas.height
+			const tSec = (Date.now() - startTime) / 1000
+			gl.uniform2f(resolutionUniformLocation, iW, iH)
+			gl.uniform1f(timeUniformLocation, tSec)
+
+            // Debug log at ~1 Hz
+            if (debug) {
+                const now = Date.now()
+                if (now - (lastLogAtMsRef.current || 0) > 1000) {
+                    lastLogAtMsRef.current = now
+					const viewport = gl.getParameter(gl.VIEWPORT) as Int32Array
+						dlog('frame', {
+							viewport: Array.from(viewport || []),
+							uniforms: { iTime: tSec.toFixed(2), iResolution: [iW, iH] },
+						})
+                }
+            }
 
 			// Draw
 			gl.drawArrays(gl.TRIANGLES, 0, 6)

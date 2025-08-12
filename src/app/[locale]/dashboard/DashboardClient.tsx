@@ -60,16 +60,16 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 								<CardDescription className="text-base">{t.dashboard.buyer.description}</CardDescription>
 							</CardHeader>
 							<CardContent className="flex justify-center gap-4 text-center">
-								<Link href="/dashboard/buyer">
-									<Button className="w-full" size="lg">
+								<Link href="/dashboard/buyer" className="cursor-pointer">
+									<Button className="w-full cursor-pointer" size="lg">
 										<ShoppingBag className="mr-2 h-5 w-5" />
-										{t.dashboard.buyCta ?? 'I want to buy a bib'}
+										<span className="text-xs">{t.dashboard.buyCta ?? 'I want to buy a bib'}</span>
 									</Button>
 								</Link>
-								<Link href="/dashboard/buyer">
-									<Button className="w-full" size="lg" variant="outline">
+								<Link href="/dashboard/buyer" className="cursor-pointer">
+									<Button className="w-full cursor-pointer" size="lg" variant="outline">
 										<ShoppingCart className="mr-2 h-5 w-5" />
-										{t.dashboard.accessBuyer ?? 'Access my Buyer Dashboard'}
+										<span className="text-xs">{t.dashboard.accessBuyer ?? 'Access my Buyer Dashboard'}</span>
 									</Button>
 								</Link>
 							</CardContent>
@@ -87,16 +87,16 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 							<CardContent className="text-center">
 								<div className="flex h-full w-full flex-col items-center justify-end">
 									<div className="flex justify-between gap-4">
-										<Link className="w-full" href="/dashboard/seller/sell-bib">
-											<Button className="w-full" size="lg">
+										<Link className="w-full cursor-pointer" href="/dashboard/seller/sell-bib">
+											<Button className="w-full cursor-pointer" size="lg">
 												<Tag className="mr-2 h-5 w-5" />
-												{t.dashboard.sellCta ?? 'I want to sell a bib'}
+												<span className="text-xs">{t.dashboard.sellCta ?? 'I want to sell a bib'}</span>
 											</Button>
 										</Link>
-										<Link className="w-full" href="/dashboard/seller">
-											<Button className="w-full" size="lg" variant="outline">
+										<Link className="w-full cursor-pointer" href="/dashboard/seller">
+											<Button className="w-full cursor-pointer" size="lg" variant="outline">
 												<Tag className="mr-2 h-5 w-5" />
-												{t.dashboard.accessSeller ?? 'Access my Seller Dashboard'}
+												<span className="text-xs">{t.dashboard.accessSeller ?? 'Access my Seller Dashboard'}</span>
 											</Button>
 										</Link>
 									</div>

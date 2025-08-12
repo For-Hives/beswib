@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useSignIn } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
 
 import { FormInput } from '@/components/ui/FormInput'
@@ -11,10 +11,17 @@ import { Icons } from '@/components/ui/icons'
 import { useAuthStore } from '@/stores/authStore'
 import { validateEmail, validatePassword } from '@/lib/validation'
 import { translateClerkError } from '@/lib/clerkErrorTranslations'
+import { authTranslations } from '@/lib/translations/auth'
+import { validationTranslations } from '@/lib/translations/validation'
+import { Locale } from '@/lib/i18n-config'
 
 export default function CustomSignIn() {
 	const { isLoaded, signIn, setActive } = useSignIn()
 	const router = useRouter()
+	const params = useParams()
+	const locale = (params?.locale as Locale) || 'en'
+	const t = authTranslations[locale]
+	const v = validationTranslations[locale]
 
 	const {
 		signInData,
@@ -91,19 +98,19 @@ export default function CustomSignIn() {
 
 			if (result.status === 'complete') {
 				await setActive({ session: result.createdSessionId })
-				router.push('/dashboard')
+				router.push(`/${locale}/dashboard`)
 			} else {
-				setGlobalError("Quelque chose s'est mal passé. Veuillez réessayer.")
+				setGlobalError(t.somethingWentWrong)
 			}
 		} catch (err: any) {
-			const errorMessage = translateClerkError(err)
+			const errorMessage = translateClerkError(err, locale)
 			setGlobalError(errorMessage)
 
 			// Set specific field errors based on error codes
 			if (err.errors?.[0]?.code === 'form_identifier_not_found') {
-				setFieldError('email', { message: 'Aucun compte trouvé avec cette adresse email', code: 'not_found' })
+				setFieldError('email', { message: translateClerkError(err, locale), code: 'not_found' })
 			} else if (err.errors?.[0]?.code === 'form_password_incorrect') {
-				setFieldError('password', { message: 'Mot de passe incorrect', code: 'incorrect' })
+				setFieldError('password', { message: translateClerkError(err, locale), code: 'incorrect' })
 			}
 		} finally {
 			setSigningIn(false)
@@ -117,8 +124,8 @@ export default function CustomSignIn() {
 		setSigningIn(true)
 		signIn.authenticateWithRedirect({
 			strategy,
-			redirectUrl: '/sso-callback',
-			redirectUrlComplete: '/dashboard',
+			redirectUrl: `/${locale}/sso-callback`,
+			redirectUrlComplete: `/${locale}/dashboard`,
 		})
 	}
 
@@ -134,8 +141,8 @@ export default function CustomSignIn() {
 		<div className="w-full max-w-md space-y-6">
 			{/* Header */}
 			<div className="space-y-2 text-center">
-				<h1 className="text-foreground text-2xl font-bold tracking-tight">Bon retour !</h1>
-				<p className="text-muted-foreground text-sm">Connectez-vous à votre compte pour continuer</p>
+				<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.signIn.welcome}</h1>
+				<p className="text-muted-foreground text-sm">{t.signIn.subtitle}</p>
 			</div>
 
 			{/* OAuth Buttons */}
@@ -148,7 +155,7 @@ export default function CustomSignIn() {
 					disabled={isSigningIn}
 				>
 					<Icons.google className="mr-2 h-4 w-4" />
-					Se connecter avec Google
+					{t.signIn.continueWithGoogle}
 				</Button>
 				<Button
 					variant="outline"
@@ -158,7 +165,7 @@ export default function CustomSignIn() {
 					disabled={isSigningIn}
 				>
 					<Icons.facebook className="mr-2 h-4 w-4" />
-					Se connecter avec Facebook
+					{t.signIn.continueWithFacebook}
 				</Button>
 			</div>
 
@@ -168,7 +175,7 @@ export default function CustomSignIn() {
 					<span className="border-border/50 w-full border-t" />
 				</div>
 				<div className="relative flex justify-center text-xs uppercase">
-					<span className="bg-background text-muted-foreground px-2 tracking-wider">ou continuez avec</span>
+					<span className="bg-background text-muted-foreground px-2 tracking-wider">{t.signIn.orContinueWith}</span>
 				</div>
 			</div>
 
@@ -183,8 +190,8 @@ export default function CustomSignIn() {
 
 				<FormInput
 					type="email"
-					label="Adresse email"
-					placeholder="votre@email.com"
+					label={t.fields.email}
+					placeholder={t.placeholders.email}
 					value={signInData.email}
 					onChange={handleInputChange('email')}
 					error={fieldErrors.email}
@@ -194,8 +201,8 @@ export default function CustomSignIn() {
 
 				<FormInput
 					type="password"
-					label="Mot de passe"
-					placeholder="••••••••"
+					label={t.fields.password}
+					placeholder={t.placeholders.password}
 					value={signInData.password}
 					onChange={handleInputChange('password')}
 					error={fieldErrors.password}
@@ -206,10 +213,10 @@ export default function CustomSignIn() {
 
 				<div className="flex items-center justify-end">
 					<Link
-						href="/forgot-password"
+						href={`/${locale}/forgot-password`}
 						className="text-primary hover:text-primary/80 text-sm transition-colors hover:underline"
 					>
-						Mot de passe oublié ?
+						{t.signIn.forgotPassword}
 					</Link>
 				</div>
 
@@ -217,10 +224,10 @@ export default function CustomSignIn() {
 					{isSigningIn ? (
 						<>
 							<div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
-							Connexion...
+							{t.signIn.signingIn}
 						</>
 					) : (
-						'Se connecter'
+						{t.signIn.signIn}
 					)}
 				</Button>
 			</form>
@@ -228,12 +235,12 @@ export default function CustomSignIn() {
 			{/* Footer */}
 			<div className="text-center">
 				<p className="text-muted-foreground text-sm">
-					Pas encore de compte ?{' '}
+					{t.signIn.noAccount}{' '}
 					<Link
-						href="/sign-up"
+						href={`/${locale}/sign-up`}
 						className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
 					>
-						Créer un compte
+						{t.signIn.createAccount}
 					</Link>
 				</p>
 			</div>
