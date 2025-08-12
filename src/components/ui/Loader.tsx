@@ -3,9 +3,11 @@ import { cn } from "@/lib/utils";
 interface LoaderProps {
   size?: "sm" | "md" | "lg";
   className?: string;
+  text?: string;
+  showText?: boolean;
 }
 
-export default function Loader({ size = "md", className }: LoaderProps) {
+export default function Loader({ size = "md", className, text, showText = false }: LoaderProps) {
   const sizeClasses = {
     sm: "w-8 h-8",
     md: "w-15 h-15",
@@ -13,16 +15,21 @@ export default function Loader({ size = "md", className }: LoaderProps) {
   };
 
   return (
-    <div className={cn("relative", sizeClasses[size], className)}>
-      <div 
-        className={cn(
-          "absolute rounded-full border-t-2 border-r-2 border-t-purple-600 border-r-transparent animate-spin",
-          sizeClasses[size]
-        )}
-        style={{
-          animation: "spin 0.8s linear infinite"
-        }}
-      />
+    <div className={cn("flex flex-col items-center space-y-4", className)}>
+      <div className={cn("relative", sizeClasses[size])}>
+        <div 
+          className={cn(
+            "absolute rounded-full border-t-2 border-r-2 border-t-purple-600 border-r-transparent animate-spin",
+            sizeClasses[size]
+          )}
+          style={{
+            animation: "spin 0.8s linear infinite"
+          }}
+        />
+      </div>
+      {showText && text && (
+        <p className="text-sm text-muted-foreground">{text}</p>
+      )}
     </div>
   );
 }

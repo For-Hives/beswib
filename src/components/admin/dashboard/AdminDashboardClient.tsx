@@ -38,12 +38,10 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 
 	const router = useRouter()
 	const [stats, setStats] = useState<DashboardStats | null>(null)
-	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
 		const fetchDashboardData = async () => {
 			try {
-				setIsLoading(true)
 				const statsResult = await getDashboardStatsAction()
 
 				if (statsResult.success && statsResult.data) {
@@ -91,8 +89,6 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 					},
 					availableBibs: 0,
 				})
-			} finally {
-				setIsLoading(false)
 			}
 		}
 
@@ -115,30 +111,6 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 						>
 							{t.dashboard.ui.signIn}
 						</button>
-					</div>
-				</div>
-			</div>
-		)
-	}
-
-	if (isLoading) {
-		return (
-			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
-				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-				<div className="relative pt-32 pb-12">
-					<div className="container mx-auto max-w-6xl p-6">
-						<div className="space-y-8">
-							<div className="space-y-2 text-center">
-								<div className="mx-auto h-12 w-96 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-								<div className="mx-auto h-6 w-64 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-							</div>
-							<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-								{Array.from({ length: 4 }).map((_, i) => (
-									<div className="h-64 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" key={i}></div>
-								))}
-							</div>
-							<div className="h-96 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
-						</div>
 					</div>
 				</div>
 			</div>

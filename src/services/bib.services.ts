@@ -78,22 +78,45 @@ export async function createBib(bibData: Omit<Bib, 'id'>): Promise<Bib | null> {
  * @param excludeBibId Optional ID of a bib to exclude from results.
  */
 export async function fetchAvailableBibsForEvent(
-	eventId: string
+	eventId: string,
+	abortSignal?: AbortSignal
 ): Promise<(Bib & { expand?: { eventId: Event; sellerUserId: User } })[]> {
 	if (eventId === '') {
 		console.error('Event ID is required to fetch available bibs for event.')
 		return []
 	}
+	
+	// Check if already aborted before starting
+	if (abortSignal?.aborted) {
+		throw new Error('Request was aborted')
+	}
+	
 	try {
 		const nowIso = formatDateToPbIso(new Date())
 		const saleWindowFilter = `((eventId.transferDeadline != null && eventId.transferDeadline >= '${nowIso}') || (eventId.transferDeadline = null && eventId.eventDate >= '${nowIso}'))`
+		
+		// Check for abort before making the request
+		if (abortSignal?.aborted) {
+			throw new Error('Request was aborted')
+		}
+		
 		const records = await pb.collection('bibs').getFullList<Bib & { expand?: { eventId: Event; sellerUserId: User } }>({
 			sort: 'price',
 			filter: `eventId = "${eventId}" && status = 'available' && listed = 'public' && lockedAt = null && ${saleWindowFilter}`,
 			expand: 'eventId,sellerUserId',
 		})
+		
+		// Check for abort after the request
+		if (abortSignal?.aborted) {
+			throw new Error('Request was aborted')
+		}
+		
 		return records
 	} catch (error: unknown) {
+		// Don't wrap abort errors
+		if (error instanceof Error && error.message === 'Request was aborted') {
+			throw error
+		}
 		throw new Error(
 			`Error fetching available bibs for event ${eventId}: ` + (error instanceof Error ? error.message : String(error))
 		)

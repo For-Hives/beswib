@@ -4,6 +4,7 @@
 			"appName": "My Awesome App",
 			"logoAltText": "My Awesome App Logo",
 			"welcomeMessage": "Welcome!",
+			"loading": "Loading...",
 			"errors": {
 				"unexpected": "An unexpected error occurred."
 			}
@@ -14,6 +15,7 @@
 			"appName": "Mon Application Incroyable",
 			"logoAltText": "Logo de Mon Application Incroyable",
 			"welcomeMessage": "Bienvenue !",
+			"loading": "Chargement...",
 			"errors": {
 				"unexpected": "Une erreur inattendue s'est produite."
 			}
@@ -24,6 +26,7 @@
 			"appName": "Mi Aplicación Asombrosa",
 			"logoAltText": "Logotipo de Mi Aplicación Asombrosa",
 			"welcomeMessage": "¡Bienvenido!",
+			"loading": "Cargando...",
 			"errors": {
 				"unexpected": "Ocurrió un error inesperado."
 			}
@@ -34,6 +37,7 @@
 			"appName": "La Mia Applicazione Fantastica",
 			"logoAltText": "Logo della Mia Applicazione Fantastica",
 			"welcomeMessage": "Benvenuto!",
+			"loading": "Caricamento...",
 			"errors": {
 				"unexpected": "Si è verificato un errore imprevisto."
 			}
@@ -44,6 +48,7 @@
 			"appName": "Meine Großartige App",
 			"logoAltText": "Logo meiner großartigen App",
 			"welcomeMessage": "Willkommen!",
+			"loading": "Lädt...",
 			"errors": {
 				"unexpected": "Ein unerwarteter Fehler ist aufgetreten."
 			}
@@ -54,6 +59,7 @@
 			"appName": "Aplicația Mea Uimitoare",
 			"logoAltText": "Sigla Aplicației Mele Uimitoare",
 			"welcomeMessage": "Bun venit!",
+			"loading": "Se încarcă...",
 			"errors": {
 				"unexpected": "A apărut o eroare neașteptată."
 			}
@@ -64,6 +70,7 @@
 			"appName": "Minha Aplicação Incrível",
 			"logoAltText": "Logotipo da Minha Aplicação Incrível",
 			"welcomeMessage": "Bem-vindo!",
+			"loading": "Carregando...",
 			"errors": {
 				"unexpected": "Ocorreu um erro inesperado."
 			}
@@ -74,6 +81,7 @@
 			"appName": "Mijn Geweldige App",
 			"logoAltText": "Logo van Mijn Geweldige App",
 			"welcomeMessage": "Welkom!",
+			"loading": "Laden...",
 			"errors": {
 				"unexpected": "Er is een onverwachte fout opgetreden."
 			}
@@ -84,6 +92,7 @@
 			"appName": "내 멋진 앱",
 			"logoAltText": "내 멋진 앱 로고",
 			"welcomeMessage": "환영합니다!",
+			"loading": "로딩 중...",
 			"errors": {
 				"unexpected": "예상치 못한 오류가 발생했습니다."
 			}

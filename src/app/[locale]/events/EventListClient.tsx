@@ -459,31 +459,108 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 	// Pre-load bib counts for the first 16 sorted events (stable regardless of grouping)
 	useEffect(() => {
+		const abortController = new AbortController()
+		
 		const loadBibCounts = async () => {
-			const eventsToLoad = sortedEvents.slice(0, 16)
+			try {
+				const eventsToLoad = sortedEvents.slice(0, 16)
 
-			const promises = eventsToLoad.map(async event => {
-				if (eventBibsCache[event.id] === undefined) {
+				// Process in smaller batches to avoid overwhelming the server
+				const batchSize = 4
+				const batches = []
+				for (let i = 0; i < eventsToLoad.length; i += batchSize) {
+					batches.push(eventsToLoad.slice(i, i + batchSize))
+				}
+
+				for (const batch of batches) {
+					// Check if we should abort before processing each batch
+					if (abortController.signal.aborted) {
+						return
+					}
+
+					const promises = batch.map(async event => {
+						if (eventBibsCache[event.id] === undefined) {
+							try {
+								// Validate event ID before making request
+								if (!event.id || event.id.trim() === '') {
+									console.warn('Invalid event ID:', event.id)
+									return { [event.id]: 0 }
+								}
+
+								// Check abort signal before making request
+								if (abortController.signal.aborted) {
+									return {}
+								}
+
+								const availableBibs = await fetchAvailableBibsForEvent(event.id, abortController.signal)
+								return { [event.id]: availableBibs.length }
+							} catch (error) {
+								// Handle abort errors silently
+								if (error instanceof Error && error.message === 'Request was aborted') {
+									return {}
+								}
+								
+								// More detailed error logging without exposing sensitive info
+								const errorMessage = error instanceof Error ? error.message : String(error)
+								if (errorMessage.includes('unexpected response')) {
+									console.warn(`Server communication issue for event ${event.id}`)
+								} else {
+									console.warn(`Error loading bibs for event ${event.id}:`, errorMessage)
+								}
+								return { [event.id]: 0 }
+							}
+						}
+						return {}
+					})
+
 					try {
-						const availableBibs = await fetchAvailableBibsForEvent(event.id)
-						return { [event.id]: availableBibs.length }
+						const results = await Promise.allSettled(promises)
+						
+						// Check if aborted before processing results
+						if (abortController.signal.aborted) {
+							return
+						}
+						
+						const successfulResults = results
+							.filter((result): result is PromiseFulfilledResult<Record<string, number>> => result.status === 'fulfilled')
+							.map(result => result.value)
+
+						const newCache = successfulResults.reduce((acc, curr) => ({ ...acc, ...curr }), {})
+
+						if (Object.keys(newCache).length > 0 && !abortController.signal.aborted) {
+							setEventBibsCache(prev => ({ ...prev, ...newCache }))
+						}
 					} catch (error) {
-						console.error('Error loading bibs for event:', event.id, error)
-						return { [event.id]: 0 }
+						if (!abortController.signal.aborted) {
+							console.warn('Batch processing error:', error)
+						}
+					}
+
+					// Small delay between batches to avoid rate limiting (but check for abort)
+					if (batches.indexOf(batch) < batches.length - 1 && !abortController.signal.aborted) {
+						await new Promise(resolve => {
+							const timeoutId = setTimeout(resolve, 100)
+							// Cancel timeout if aborted
+							abortController.signal.addEventListener('abort', () => {
+								clearTimeout(timeoutId)
+								resolve(undefined)
+							})
+						})
 					}
 				}
-				return {}
-			})
-
-			const results = await Promise.all(promises)
-			const newCache = results.reduce((acc, curr) => ({ ...acc, ...curr }), {})
-
-			if (Object.keys(newCache).length > 0) {
-				setEventBibsCache(prev => ({ ...prev, ...newCache }))
+			} catch (error) {
+				if (!abortController.signal.aborted) {
+					console.warn('Error in loadBibCounts:', error)
+				}
 			}
 		}
 
 		void loadBibCounts()
+
+		// Cleanup function to abort requests when component unmounts or dependencies change
+		return () => {
+			abortController.abort()
+		}
 	}, [sortedEvents, eventBibsCache])
 
 	// Function to get bib count for an event (with caching)
@@ -492,13 +569,42 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			return eventBibsCache[eventId]
 		}
 
+		// Validate event ID
+		if (!eventId || eventId.trim() === '') {
+			console.warn('Invalid event ID provided to getBibCountForEvent')
+			return 0
+		}
+
+		// Create a short-lived AbortController for individual requests
+		const abortController = new AbortController()
+		
+		// Auto-abort after 10 seconds to prevent hanging
+		const timeoutId = setTimeout(() => {
+			abortController.abort()
+		}, 10000)
+
 		try {
-			const availableBibs = await fetchAvailableBibsForEvent(eventId)
+			const availableBibs = await fetchAvailableBibsForEvent(eventId, abortController.signal)
 			const count = availableBibs.length
 			setEventBibsCache(prev => ({ ...prev, [eventId]: count }))
+			clearTimeout(timeoutId)
 			return count
 		} catch (error) {
-			console.error('Error fetching bibs for event:', error)
+			clearTimeout(timeoutId)
+			
+			// Handle abort errors silently
+			if (error instanceof Error && error.message === 'Request was aborted') {
+				return 0
+			}
+			
+			const errorMessage = error instanceof Error ? error.message : String(error)
+			if (errorMessage.includes('unexpected response')) {
+				console.warn(`Server communication issue for event ${eventId}`)
+			} else {
+				console.warn(`Error fetching bibs for event ${eventId}:`, errorMessage)
+			}
+			// Cache the error result to avoid repeated failed requests
+			setEventBibsCache(prev => ({ ...prev, [eventId]: 0 }))
 			return 0
 		}
 	}
