@@ -4,7 +4,10 @@
 import * as Sentry from '@sentry/nextjs'
 
 Sentry.init({
+	// Route events via Next tunnel to avoid ad-blockers
+	tunnel: '/monitoring',
 	tracesSampleRate: 1,
-	dsn: process.env.SENTRY_DSN,
+	// Use NEXT_PUBLIC_ prefix for client-side env exposure; fallback to SENTRY_DSN if inlined at build
+	dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? process.env.SENTRY_DSN,
 	debug: false,
 })
