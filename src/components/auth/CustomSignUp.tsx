@@ -61,22 +61,22 @@ export default function CustomSignUp() {
 
 		switch (field) {
 			case 'firstName':
-				error = validateName(value, 'prénom')
+				error = validateName(value, t.signUp.firstNameLabel.toLowerCase(), locale)
 				break
 			case 'lastName':
-				error = validateName(value, 'nom')
+				error = validateName(value, t.signUp.lastNameLabel.toLowerCase(), locale)
 				break
 			case 'email':
-				error = validateEmail(value)
+				error = validateEmail(value, locale)
 				break
 			case 'password':
-				error = validatePassword(value, true)
+				error = validatePassword(value, true, locale)
 				break
 			case 'confirmPassword':
-				error = validateConfirmPassword(signUpData.password, value)
+				error = validateConfirmPassword(signUpData.password, value, locale)
 				break
 			case 'verificationCode':
-				error = validateVerificationCode(value)
+				error = validateVerificationCode(value, locale)
 				break
 		}
 
@@ -152,12 +152,12 @@ export default function CustomSignUp() {
 			await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
 			setPendingVerification(true, signUpData.email)
 		} catch (err: any) {
-			const errorMessage = translateClerkError(err)
+			const errorMessage = translateClerkError(err, locale)
 			setGlobalError(errorMessage)
 
 			// Set specific field errors based on error codes
 			if (err.errors?.[0]?.code === 'form_identifier_exists') {
-				setFieldError('email', { message: 'Un compte existe déjà avec cette adresse email', code: 'exists' })
+				setFieldError('email', { message: translateClerkError(err, locale), code: 'exists' })
 			}
 		} finally {
 			setSigningUp(false)
@@ -185,14 +185,14 @@ export default function CustomSignUp() {
 
 			if (completeSignUp.status === 'complete') {
 				await setActive({ session: completeSignUp.createdSessionId })
-				router.push('/dashboard')
+				router.push(`/${locale}/dashboard`)
 			} else {
-				setGlobalError("Quelque chose s'est mal passé. Veuillez réessayer.")
+				setGlobalError(t.somethingWentWrong)
 			}
 		} catch (err: any) {
-			const errorMessage = translateClerkError(err)
+			const errorMessage = translateClerkError(err, locale)
 			setGlobalError(errorMessage)
-			setFieldError('verificationCode', { message: 'Code de vérification incorrect', code: 'incorrect' })
+			setFieldError('verificationCode', { message: translateClerkError(err, locale), code: 'incorrect' })
 		} finally {
 			setVerifying(false)
 		}
@@ -205,8 +205,8 @@ export default function CustomSignUp() {
 		setSigningUp(true)
 		signUp.authenticateWithRedirect({
 			strategy,
-			redirectUrl: '/sso-callback',
-			redirectUrlComplete: '/dashboard',
+			redirectUrl: `/${locale}/sso-callback`,
+			redirectUrlComplete: `/${locale}/dashboard`,
 		})
 	}
 
@@ -223,9 +223,9 @@ export default function CustomSignUp() {
 		return (
 			<div className="w-full max-w-md space-y-6">
 				<div className="space-y-2 text-center">
-					<h1 className="text-foreground text-2xl font-bold tracking-tight">Vérifiez votre email</h1>
+					<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.signUp.verifyEmail.title}</h1>
 					<p className="text-muted-foreground text-sm">
-						Nous avons envoyé un code de vérification à <strong>{verificationEmail}</strong>
+						{t.signUp.verifyEmail.subtitle} <strong>{verificationEmail}</strong>
 					</p>
 				</div>
 
@@ -239,8 +239,8 @@ export default function CustomSignUp() {
 
 					<FormInput
 						type="text"
-						label="Code de vérification"
-						placeholder="123456"
+						label={t.signUp.verifyEmail.codeLabel}
+						placeholder={t.signUp.verifyEmail.codePlaceholder}
 						value={verificationCode}
 						onChange={handleVerificationCodeChange}
 						error={fieldErrors.verificationCode}
@@ -253,10 +253,10 @@ export default function CustomSignUp() {
 						{isVerifying ? (
 							<>
 								<div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
-								Vérification...
+								{t.signUp.verifyEmail.verifying}
 							</>
 						) : (
-							'Vérifier'
+							t.signUp.verifyEmail.verifyButton
 						)}
 					</Button>
 				</form>
@@ -271,7 +271,7 @@ export default function CustomSignUp() {
 						}}
 						className="text-muted-foreground hover:text-foreground text-sm transition-colors"
 					>
-						← Retour au formulaire d'inscription
+						{t.signUp.verifyEmail.backToForm}
 					</button>
 				</div>
 			</div>
@@ -283,9 +283,9 @@ export default function CustomSignUp() {
 		<div className="w-full max-w-md space-y-6">
 			{/* Header */}
 			<div className="space-y-2 text-center">
-				<h1 className="text-foreground text-2xl font-bold tracking-tight">Créer un compte</h1>
+				<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.signUp.title}</h1>
 				<p className="text-muted-foreground text-sm">
-					Rejoignez la communauté Beswib et commencez à échanger vos dossards
+					{t.signUp.subtitle}
 				</p>
 			</div>
 
@@ -299,7 +299,7 @@ export default function CustomSignUp() {
 					disabled={isSigningUp}
 				>
 					<Icons.google className="mr-2 h-4 w-4" />
-					S'inscrire avec Google
+					{t.signUp.signUpWithGoogle}
 				</Button>
 				<Button
 					variant="outline"
@@ -309,7 +309,7 @@ export default function CustomSignUp() {
 					disabled={isSigningUp}
 				>
 					<Icons.facebook className="mr-2 h-4 w-4" />
-					S'inscrire avec Facebook
+					{t.signUp.signUpWithFacebook}
 				</Button>
 			</div>
 
@@ -319,7 +319,7 @@ export default function CustomSignUp() {
 					<span className="border-border/50 w-full border-t" />
 				</div>
 				<div className="relative flex justify-center text-xs uppercase">
-					<span className="bg-background text-muted-foreground px-2 tracking-wider">ou créez un compte avec</span>
+					<span className="bg-background text-muted-foreground px-2 tracking-wider">{t.signUp.orCreateWith}</span>
 				</div>
 			</div>
 
@@ -335,8 +335,8 @@ export default function CustomSignUp() {
 				<div className="grid grid-cols-2 gap-4">
 					<FormInput
 						type="text"
-						label="Prénom"
-						placeholder="Jean"
+						label={t.signUp.firstNameLabel}
+						placeholder={t.signUp.firstNamePlaceholder}
 						value={signUpData.firstName}
 						onChange={handleInputChange('firstName')}
 						error={fieldErrors.firstName}
@@ -346,8 +346,8 @@ export default function CustomSignUp() {
 
 					<FormInput
 						type="text"
-						label="Nom"
-						placeholder="Dupont"
+						label={t.signUp.lastNameLabel}
+						placeholder={t.signUp.lastNamePlaceholder}
 						value={signUpData.lastName}
 						onChange={handleInputChange('lastName')}
 						error={fieldErrors.lastName}
@@ -358,8 +358,8 @@ export default function CustomSignUp() {
 
 				<FormInput
 					type="email"
-					label="Adresse email"
-					placeholder="votre@email.com"
+					label={t.signUp.emailLabel}
+					placeholder={t.signUp.emailPlaceholder}
 					value={signUpData.email}
 					onChange={handleInputChange('email')}
 					error={fieldErrors.email}
@@ -370,8 +370,8 @@ export default function CustomSignUp() {
 				<div className="space-y-2">
 					<FormInput
 						type="password"
-						label="Mot de passe"
-						placeholder="••••••••"
+						label={t.signUp.passwordLabel}
+						placeholder={t.signUp.passwordPlaceholder}
 						value={signUpData.password}
 						onChange={handleInputChange('password')}
 						error={fieldErrors.password}
@@ -379,13 +379,13 @@ export default function CustomSignUp() {
 						showPasswordToggle
 						autoComplete="new-password"
 					/>
-					<PasswordStrength password={signUpData.password} show={signUpData.password.length > 0} />
+					<PasswordStrength password={signUpData.password} show={signUpData.password.length > 0} locale={locale} />
 				</div>
 
 				<FormInput
 					type="password"
-					label="Confirmer le mot de passe"
-					placeholder="••••••••"
+					label={t.signUp.confirmPasswordLabel}
+					placeholder={t.signUp.confirmPasswordPlaceholder}
 					value={signUpData.confirmPassword}
 					onChange={handleInputChange('confirmPassword')}
 					error={fieldErrors.confirmPassword}
@@ -398,10 +398,10 @@ export default function CustomSignUp() {
 					{isSigningUp ? (
 						<>
 							<div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
-							Création...
+							{t.signUp.signingUp}
 						</>
 					) : (
-						'Créer un compte'
+						t.signUp.signUpButton
 					)}
 				</Button>
 			</form>
@@ -409,12 +409,12 @@ export default function CustomSignUp() {
 			{/* Footer */}
 			<div className="text-center">
 				<p className="text-muted-foreground text-sm">
-					Déjà un compte ?{' '}
+					{t.signUp.alreadyAccount}{' '}
 					<Link
-						href="/sign-in"
+						href={`/${locale}/sign-in`}
 						className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
 					>
-						Se connecter
+						{t.signUp.signIn}
 					</Link>
 				</p>
 			</div>

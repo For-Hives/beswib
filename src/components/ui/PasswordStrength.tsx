@@ -2,24 +2,28 @@
 
 import { motion } from 'motion/react'
 import { getPasswordStrength } from '@/lib/validation'
+import { authTranslations } from '@/lib/translations/auth'
+import { Locale } from '@/lib/i18n-config'
 
 interface PasswordStrengthProps {
 	password: string
 	show?: boolean
+	locale?: Locale
 }
 
-export function PasswordStrength({ password, show = true }: PasswordStrengthProps) {
+export function PasswordStrength({ password, show = true, locale = 'fr' }: PasswordStrengthProps) {
 	if (!show || !password) return null
 
-	const { score, feedback, color } = getPasswordStrength(password)
+	const { score, feedback, color } = getPasswordStrength(password, locale)
+	const t = authTranslations[locale].passwordStrength
 
 	const strengthLabels = {
-		0: 'Très faible',
-		1: 'Faible',
-		2: 'Moyen',
-		3: 'Bon',
-		4: 'Fort',
-		5: 'Très fort',
+		0: t.veryWeak,
+		1: t.weak,
+		2: t.medium,
+		3: t.good,
+		4: t.strong,
+		5: t.veryStrong,
 	}
 
 	const strengthColors = {
@@ -46,7 +50,7 @@ export function PasswordStrength({ password, show = true }: PasswordStrengthProp
 			{/* Strength bar */}
 			<div className="space-y-1">
 				<div className="flex items-center justify-between">
-					<span className="text-muted-foreground text-xs">Force du mot de passe</span>
+					<span className="text-muted-foreground text-xs">{t.label}</span>
 					<span className={`text-xs font-medium ${strengthTextColors[color]}`}>
 						{strengthLabels[score as keyof typeof strengthLabels]}
 					</span>
@@ -68,7 +72,7 @@ export function PasswordStrength({ password, show = true }: PasswordStrengthProp
 			{/* Feedback */}
 			{feedback.length > 0 && (
 				<div className="space-y-1">
-					<p className="text-muted-foreground text-xs">Améliorations suggérées :</p>
+					<p className="text-muted-foreground text-xs">{t.suggestions}</p>
 					<ul className="space-y-0.5">
 						{feedback.slice(0, 3).map((item, index) => (
 							<motion.li

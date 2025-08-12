@@ -49,17 +49,18 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: (fieldName: string) => `${fieldName} is required`,
 			tooShort: (fieldName: string) => `${fieldName} must be at least 2 characters long`,
 			tooLong: (fieldName: string) => `${fieldName} cannot exceed 50 characters`,
-			invalidCharacters: (fieldName: string) => `${fieldName} can only contain letters, spaces, hyphens and apostrophes`,
+			invalidCharacters: (fieldName: string) =>
+				`${fieldName} can only contain letters, spaces, hyphens and apostrophes`,
 		},
 		verificationCode: {
 			required: 'Verification code is required',
 			invalid: 'Code must contain exactly 6 digits',
 		},
 	},
-	
+
 	fr: {
 		email: {
-			required: 'L\'adresse email est requise',
+			required: "L'adresse email est requise",
 			invalid: 'Veuillez entrer une adresse email valide',
 		},
 		password: {
@@ -77,14 +78,15 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: (fieldName: string) => `Le ${fieldName} est requis`,
 			tooShort: (fieldName: string) => `Le ${fieldName} doit contenir au moins 2 caractères`,
 			tooLong: (fieldName: string) => `Le ${fieldName} ne peut pas dépasser 50 caractères`,
-			invalidCharacters: (fieldName: string) => `Le ${fieldName} ne peut contenir que des lettres, espaces, tirets et apostrophes`,
+			invalidCharacters: (fieldName: string) =>
+				`Le ${fieldName} ne peut contenir que des lettres, espaces, tirets et apostrophes`,
 		},
 		verificationCode: {
 			required: 'Le code de vérification est requis',
 			invalid: 'Le code doit contenir exactement 6 chiffres',
 		},
 	},
-	
+
 	es: {
 		email: {
 			required: 'La dirección de correo es obligatoria',
@@ -105,17 +107,18 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: (fieldName: string) => `El ${fieldName} es obligatorio`,
 			tooShort: (fieldName: string) => `El ${fieldName} debe tener al menos 2 caracteres`,
 			tooLong: (fieldName: string) => `El ${fieldName} no puede exceder 50 caracteres`,
-			invalidCharacters: (fieldName: string) => `El ${fieldName} solo puede contener letras, espacios, guiones y apostrofes`,
+			invalidCharacters: (fieldName: string) =>
+				`El ${fieldName} solo puede contener letras, espacios, guiones y apostrofes`,
 		},
 		verificationCode: {
 			required: 'El código de verificación es obligatorio',
 			invalid: 'El código debe contener exactamente 6 dígitos',
 		},
 	},
-	
+
 	it: {
 		email: {
-			required: 'L\'indirizzo email è richiesto',
+			required: "L'indirizzo email è richiesto",
 			invalid: 'Inserisci un indirizzo email valido',
 		},
 		password: {
@@ -133,14 +136,15 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: (fieldName: string) => `Il ${fieldName} è richiesto`,
 			tooShort: (fieldName: string) => `Il ${fieldName} deve essere di almeno 2 caratteri`,
 			tooLong: (fieldName: string) => `Il ${fieldName} non può superare i 50 caratteri`,
-			invalidCharacters: (fieldName: string) => `Il ${fieldName} può contenere solo lettere, spazi, trattini e apostrofi`,
+			invalidCharacters: (fieldName: string) =>
+				`Il ${fieldName} può contenere solo lettere, spazi, trattini e apostrofi`,
 		},
 		verificationCode: {
 			required: 'Il codice di verifica è richiesto',
 			invalid: 'Il codice deve contenere esattamente 6 cifre',
 		},
 	},
-	
+
 	de: {
 		email: {
 			required: 'E-Mail-Adresse ist erforderlich',
@@ -161,14 +165,15 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: (fieldName: string) => `${fieldName} ist erforderlich`,
 			tooShort: (fieldName: string) => `${fieldName} muss mindestens 2 Zeichen lang sein`,
 			tooLong: (fieldName: string) => `${fieldName} darf 50 Zeichen nicht überschreiten`,
-			invalidCharacters: (fieldName: string) => `${fieldName} darf nur Buchstaben, Leerzeichen, Bindestriche und Apostrophe enthalten`,
+			invalidCharacters: (fieldName: string) =>
+				`${fieldName} darf nur Buchstaben, Leerzeichen, Bindestriche und Apostrophe enthalten`,
 		},
 		verificationCode: {
 			required: 'Verifizierungscode ist erforderlich',
 			invalid: 'Code muss genau 6 Ziffern enthalten',
 		},
 	},
-	
+
 	ro: {
 		email: {
 			required: 'Adresa de email este obligatorie',
@@ -189,14 +194,15 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: (fieldName: string) => `${fieldName} este obligatoriu`,
 			tooShort: (fieldName: string) => `${fieldName} trebuie să aibă cel puțin 2 caractere`,
 			tooLong: (fieldName: string) => `${fieldName} nu poate depăși 50 de caractere`,
-			invalidCharacters: (fieldName: string) => `${fieldName} poate conține doar litere, spații, cratime și apostrofuri`,
+			invalidCharacters: (fieldName: string) =>
+				`${fieldName} poate conține doar litere, spații, cratime și apostrofuri`,
 		},
 		verificationCode: {
 			required: 'Codul de verificare este obligatoriu',
 			invalid: 'Codul trebuie să conțină exact 6 cifre',
 		},
 	},
-	
+
 	pt: {
 		email: {
 			required: 'O endereço de email é obrigatório',
@@ -217,14 +223,15 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: (fieldName: string) => `O ${fieldName} é obrigatório`,
 			tooShort: (fieldName: string) => `O ${fieldName} deve ter pelo menos 2 caracteres`,
 			tooLong: (fieldName: string) => `O ${fieldName} não pode exceder 50 caracteres`,
-			invalidCharacters: (fieldName: string) => `O ${fieldName} pode conter apenas letras, espaços, hífens e apostrofes`,
+			invalidCharacters: (fieldName: string) =>
+				`O ${fieldName} pode conter apenas letras, espaços, hífens e apostrofes`,
 		},
 		verificationCode: {
 			required: 'O código de verificação é obrigatório',
 			invalid: 'O código deve conter exatamente 6 dígitos',
 		},
 	},
-	
+
 	nl: {
 		email: {
 			required: 'E-mailadres is verplicht',
@@ -245,14 +252,15 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: (fieldName: string) => `${fieldName} is verplicht`,
 			tooShort: (fieldName: string) => `${fieldName} moet minstens 2 tekens lang zijn`,
 			tooLong: (fieldName: string) => `${fieldName} mag niet langer zijn dan 50 tekens`,
-			invalidCharacters: (fieldName: string) => `${fieldName} mag alleen letters, spaties, koppeltekens en apostrofes bevatten`,
+			invalidCharacters: (fieldName: string) =>
+				`${fieldName} mag alleen letters, spaties, koppeltekens en apostrofes bevatten`,
 		},
 		verificationCode: {
 			required: 'Verificatiecode is verplicht',
 			invalid: 'Code moet precies 6 cijfers bevatten',
 		},
 	},
-	
+
 	ko: {
 		email: {
 			required: '이메일 주소는 필수입니다',
@@ -273,7 +281,8 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: (fieldName: string) => `${fieldName}은(는) 필수입니다`,
 			tooShort: (fieldName: string) => `${fieldName}은(는) 최소 2자 이상이어야 합니다`,
 			tooLong: (fieldName: string) => `${fieldName}은(는) 50자를 초과할 수 없습니다`,
-			invalidCharacters: (fieldName: string) => `${fieldName}은(는) 문자, 공백, 하이픈, 아포스트로피만 포함할 수 있습니다`,
+			invalidCharacters: (fieldName: string) =>
+				`${fieldName}은(는) 문자, 공백, 하이픈, 아포스트로피만 포함할 수 있습니다`,
 		},
 		verificationCode: {
 			required: '인증 코드는 필수입니다',

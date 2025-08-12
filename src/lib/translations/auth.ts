@@ -1,24 +1,43 @@
 import { Locale } from '@/lib/i18n-config'
 
 export interface AuthTranslations {
+	// Common fields
+	fields: {
+		email: string
+		password: string
+		firstName: string
+		lastName: string
+		confirmPassword: string
+	}
+
+	// Common placeholders
+	placeholders: {
+		email: string
+		password: string
+		firstName: string
+		lastName: string
+		confirmPassword: string
+	}
+
+	// Common messages
+	somethingWentWrong: string
+
 	// Sign In
 	signIn: {
 		title: string
 		subtitle: string
-		emailLabel: string
-		emailPlaceholder: string
-		passwordLabel: string
-		passwordPlaceholder: string
+		welcome: string
 		forgotPassword: string
 		signInButton: string
 		signingIn: string
+		signIn: string
 		noAccount: string
 		createAccount: string
-		signInWithGoogle: string
-		signInWithFacebook: string
+		continueWithGoogle: string
+		continueWithFacebook: string
 		orContinueWith: string
 	}
-	
+
 	// Sign Up
 	signUp: {
 		title: string
@@ -40,7 +59,7 @@ export interface AuthTranslations {
 		signUpWithGoogle: string
 		signUpWithFacebook: string
 		orCreateWith: string
-		
+
 		// Email verification
 		verifyEmail: {
 			title: string
@@ -52,7 +71,7 @@ export interface AuthTranslations {
 			backToForm: string
 		}
 	}
-	
+
 	// Forgot Password
 	forgotPassword: {
 		title: string
@@ -69,7 +88,7 @@ export interface AuthTranslations {
 		backToSignIn: string
 		continueToDashboard: string
 	}
-	
+
 	// Password Strength
 	passwordStrength: {
 		label: string
@@ -86,32 +105,50 @@ export interface AuthTranslations {
 		oneNumber: string
 		oneSpecialChar: string
 	}
-	
+
 	// Common
 	common: {
 		loading: string
 		redirecting: string
 		valid: string
-		somethingWentWrong: string
 	}
 }
 
 export const authTranslations: Record<Locale, AuthTranslations> = {
 	en: {
+		// Common fields
+		fields: {
+			email: 'Email address',
+			password: 'Password',
+			firstName: 'First name',
+			lastName: 'Last name',
+			confirmPassword: 'Confirm password',
+		},
+
+		// Common placeholders
+		placeholders: {
+			email: 'your@email.com',
+			password: '••••••••',
+			firstName: 'John',
+			lastName: 'Doe',
+			confirmPassword: '••••••••',
+		},
+
+		// Common messages
+		somethingWentWrong: 'Something went wrong. Please try again.',
+
 		signIn: {
 			title: 'Welcome back!',
 			subtitle: 'Sign in to your account to continue',
-			emailLabel: 'Email address',
-			emailPlaceholder: 'your@email.com',
-			passwordLabel: 'Password',
-			passwordPlaceholder: '••••••••',
+			welcome: 'Welcome back!',
 			forgotPassword: 'Forgot password?',
 			signInButton: 'Sign in',
 			signingIn: 'Signing in...',
+			signIn: 'Sign in',
 			noAccount: 'No account yet?',
 			createAccount: 'Create account',
-			signInWithGoogle: 'Sign in with Google',
-			signInWithFacebook: 'Sign in with Facebook',
+			continueWithGoogle: 'Sign in with Google',
+			continueWithFacebook: 'Sign in with Facebook',
 			orContinueWith: 'or continue with',
 		},
 		signUp: {
@@ -178,25 +215,43 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 			loading: 'Loading...',
 			redirecting: 'Redirecting...',
 			valid: 'Valid',
-			somethingWentWrong: 'Something went wrong. Please try again.',
 		},
 	},
-	
+
 	fr: {
+		// Common fields
+		fields: {
+			email: 'Adresse email',
+			password: 'Mot de passe',
+			firstName: 'Prénom',
+			lastName: 'Nom',
+			confirmPassword: 'Confirmer le mot de passe',
+		},
+
+		// Common placeholders
+		placeholders: {
+			email: 'votre@email.com',
+			password: '••••••••',
+			firstName: 'Jean',
+			lastName: 'Dupont',
+			confirmPassword: '••••••••',
+		},
+
+		// Common messages
+		somethingWentWrong: "Quelque chose s'est mal passé. Veuillez réessayer.",
+
 		signIn: {
 			title: 'Bon retour !',
 			subtitle: 'Connectez-vous à votre compte pour continuer',
-			emailLabel: 'Adresse email',
-			emailPlaceholder: 'votre@email.com',
-			passwordLabel: 'Mot de passe',
-			passwordPlaceholder: '••••••••',
+			welcome: 'Bon retour !',
 			forgotPassword: 'Mot de passe oublié ?',
 			signInButton: 'Se connecter',
 			signingIn: 'Connexion...',
+			signIn: 'Se connecter',
 			noAccount: 'Pas encore de compte ?',
 			createAccount: 'Créer un compte',
-			signInWithGoogle: 'Se connecter avec Google',
-			signInWithFacebook: 'Se connecter avec Facebook',
+			continueWithGoogle: 'Se connecter avec Google',
+			continueWithFacebook: 'Se connecter avec Facebook',
 			orContinueWith: 'ou continuez avec',
 		},
 		signUp: {
@@ -216,8 +271,8 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 			signingUp: 'Création...',
 			alreadyAccount: 'Déjà un compte ?',
 			signIn: 'Se connecter',
-			signUpWithGoogle: 'S\'inscrire avec Google',
-			signUpWithFacebook: 'S\'inscrire avec Facebook',
+			signUpWithGoogle: "S'inscrire avec Google",
+			signUpWithFacebook: "S'inscrire avec Facebook",
 			orCreateWith: 'ou créez un compte avec',
 			verifyEmail: {
 				title: 'Vérifiez votre email',
@@ -226,7 +281,7 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 				codePlaceholder: '123456',
 				verifyButton: 'Vérifier',
 				verifying: 'Vérification...',
-				backToForm: '← Retour au formulaire d\'inscription',
+				backToForm: "← Retour au formulaire d'inscription",
 			},
 		},
 		forgotPassword: {
@@ -263,25 +318,43 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 			loading: 'Chargement...',
 			redirecting: 'Redirection...',
 			valid: 'Valide',
-			somethingWentWrong: 'Quelque chose s\'est mal passé. Veuillez réessayer.',
 		},
 	},
-	
+
 	es: {
+		// Common fields
+		fields: {
+			email: 'Dirección de correo',
+			password: 'Contraseña',
+			firstName: 'Nombre',
+			lastName: 'Apellido',
+			confirmPassword: 'Confirmar contraseña',
+		},
+
+		// Common placeholders
+		placeholders: {
+			email: 'tu@email.com',
+			password: '••••••••',
+			firstName: 'Juan',
+			lastName: 'Pérez',
+			confirmPassword: '••••••••',
+		},
+
+		// Common messages
+		somethingWentWrong: 'Algo salió mal. Por favor intenta de nuevo.',
+
 		signIn: {
 			title: '¡Bienvenido de vuelta!',
 			subtitle: 'Inicia sesión en tu cuenta para continuar',
-			emailLabel: 'Dirección de correo',
-			emailPlaceholder: 'tu@email.com',
-			passwordLabel: 'Contraseña',
-			passwordPlaceholder: '••••••••',
+			welcome: '¡Bienvenido de vuelta!',
 			forgotPassword: '¿Olvidaste tu contraseña?',
 			signInButton: 'Iniciar sesión',
 			signingIn: 'Iniciando sesión...',
+			signIn: 'Iniciar sesión',
 			noAccount: '¿No tienes cuenta?',
 			createAccount: 'Crear cuenta',
-			signInWithGoogle: 'Iniciar sesión con Google',
-			signInWithFacebook: 'Iniciar sesión con Facebook',
+			continueWithGoogle: 'Iniciar sesión con Google',
+			continueWithFacebook: 'Iniciar sesión con Facebook',
 			orContinueWith: 'o continúa con',
 		},
 		signUp: {
@@ -348,25 +421,43 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 			loading: 'Cargando...',
 			redirecting: 'Redirigiendo...',
 			valid: 'Válido',
-			somethingWentWrong: 'Algo salió mal. Por favor intenta de nuevo.',
 		},
 	},
-	
+
 	it: {
+		// Common fields
+		fields: {
+			email: 'Indirizzo email',
+			password: 'Password',
+			firstName: 'Nome',
+			lastName: 'Cognome',
+			confirmPassword: 'Conferma password',
+		},
+
+		// Common placeholders
+		placeholders: {
+			email: 'tuo@email.com',
+			password: '••••••••',
+			firstName: 'Mario',
+			lastName: 'Rossi',
+			confirmPassword: '••••••••',
+		},
+
+		// Common messages
+		somethingWentWrong: 'Qualcosa è andato storto. Riprova.',
+
 		signIn: {
 			title: 'Bentornato!',
 			subtitle: 'Accedi al tuo account per continuare',
-			emailLabel: 'Indirizzo email',
-			emailPlaceholder: 'tuo@email.com',
-			passwordLabel: 'Password',
-			passwordPlaceholder: '••••••••',
+			welcome: 'Bentornato!',
 			forgotPassword: 'Password dimenticata?',
 			signInButton: 'Accedi',
 			signingIn: 'Accesso in corso...',
+			signIn: 'Accedi',
 			noAccount: 'Non hai un account?',
 			createAccount: 'Crea account',
-			signInWithGoogle: 'Accedi con Google',
-			signInWithFacebook: 'Accedi con Facebook',
+			continueWithGoogle: 'Accedi con Google',
+			continueWithFacebook: 'Accedi con Facebook',
 			orContinueWith: 'o continua con',
 		},
 		signUp: {
@@ -433,25 +524,43 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 			loading: 'Caricamento...',
 			redirecting: 'Reindirizzamento...',
 			valid: 'Valido',
-			somethingWentWrong: 'Qualcosa è andato storto. Riprova.',
 		},
 	},
-	
+
 	de: {
+		// Common fields
+		fields: {
+			email: 'E-Mail-Adresse',
+			password: 'Passwort',
+			firstName: 'Vorname',
+			lastName: 'Nachname',
+			confirmPassword: 'Passwort bestätigen',
+		},
+
+		// Common placeholders
+		placeholders: {
+			email: 'deine@email.com',
+			password: '••••••••',
+			firstName: 'Max',
+			lastName: 'Mustermann',
+			confirmPassword: '••••••••',
+		},
+
+		// Common messages
+		somethingWentWrong: 'Etwas ist schiefgelaufen. Bitte versuche es erneut.',
+
 		signIn: {
 			title: 'Willkommen zurück!',
 			subtitle: 'Melde dich in deinem Konto an, um fortzufahren',
-			emailLabel: 'E-Mail-Adresse',
-			emailPlaceholder: 'deine@email.com',
-			passwordLabel: 'Passwort',
-			passwordPlaceholder: '••••••••',
+			welcome: 'Willkommen zurück!',
 			forgotPassword: 'Passwort vergessen?',
 			signInButton: 'Anmelden',
 			signingIn: 'Anmeldung...',
+			signIn: 'Anmelden',
 			noAccount: 'Noch kein Konto?',
 			createAccount: 'Konto erstellen',
-			signInWithGoogle: 'Mit Google anmelden',
-			signInWithFacebook: 'Mit Facebook anmelden',
+			continueWithGoogle: 'Mit Google anmelden',
+			continueWithFacebook: 'Mit Facebook anmelden',
 			orContinueWith: 'oder fortfahren mit',
 		},
 		signUp: {
@@ -518,25 +627,43 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 			loading: 'Lade...',
 			redirecting: 'Weiterleitung...',
 			valid: 'Gültig',
-			somethingWentWrong: 'Etwas ist schiefgelaufen. Bitte versuche es erneut.',
 		},
 	},
-	
+
 	ro: {
+		// Common fields
+		fields: {
+			email: 'Adresa de email',
+			password: 'Parolă',
+			firstName: 'Prenume',
+			lastName: 'Nume',
+			confirmPassword: 'Confirmă parola',
+		},
+
+		// Common placeholders
+		placeholders: {
+			email: 'emailul@tau.com',
+			password: '••••••••',
+			firstName: 'Ion',
+			lastName: 'Popescu',
+			confirmPassword: '••••••••',
+		},
+
+		// Common messages
+		somethingWentWrong: 'Ceva nu a mers bine. Te rugăm să încerci din nou.',
+
 		signIn: {
 			title: 'Bun venit înapoi!',
 			subtitle: 'Conectează-te la contul tău pentru a continua',
-			emailLabel: 'Adresa de email',
-			emailPlaceholder: 'emailul@tau.com',
-			passwordLabel: 'Parolă',
-			passwordPlaceholder: '••••••••',
+			welcome: 'Bun venit înapoi!',
 			forgotPassword: 'Ai uitat parola?',
 			signInButton: 'Conectează-te',
 			signingIn: 'Se conectează...',
+			signIn: 'Conectează-te',
 			noAccount: 'Nu ai cont încă?',
 			createAccount: 'Creează cont',
-			signInWithGoogle: 'Conectează-te cu Google',
-			signInWithFacebook: 'Conectează-te cu Facebook',
+			continueWithGoogle: 'Conectează-te cu Google',
+			continueWithFacebook: 'Conectează-te cu Facebook',
 			orContinueWith: 'sau continuă cu',
 		},
 		signUp: {
@@ -603,25 +730,43 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 			loading: 'Se încarcă...',
 			redirecting: 'Se redirecționează...',
 			valid: 'Valid',
-			somethingWentWrong: 'Ceva nu a mers bine. Te rugăm să încerci din nou.',
 		},
 	},
-	
+
 	pt: {
+		// Common fields
+		fields: {
+			email: 'Endereço de email',
+			password: 'Senha',
+			firstName: 'Nome',
+			lastName: 'Sobrenome',
+			confirmPassword: 'Confirmar senha',
+		},
+
+		// Common placeholders
+		placeholders: {
+			email: 'seu@email.com',
+			password: '••••••••',
+			firstName: 'João',
+			lastName: 'Silva',
+			confirmPassword: '••••••••',
+		},
+
+		// Common messages
+		somethingWentWrong: 'Algo deu errado. Tente novamente.',
+
 		signIn: {
 			title: 'Bem-vindo de volta!',
 			subtitle: 'Entre na sua conta para continuar',
-			emailLabel: 'Endereço de email',
-			emailPlaceholder: 'seu@email.com',
-			passwordLabel: 'Senha',
-			passwordPlaceholder: '••••••••',
+			welcome: 'Bem-vindo de volta!',
 			forgotPassword: 'Esqueceu a senha?',
 			signInButton: 'Entrar',
 			signingIn: 'Entrando...',
+			signIn: 'Entrar',
 			noAccount: 'Ainda não tem conta?',
 			createAccount: 'Criar conta',
-			signInWithGoogle: 'Entrar com Google',
-			signInWithFacebook: 'Entrar com Facebook',
+			continueWithGoogle: 'Entrar com Google',
+			continueWithFacebook: 'Entrar com Facebook',
 			orContinueWith: 'ou continue com',
 		},
 		signUp: {
@@ -688,25 +833,43 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 			loading: 'Carregando...',
 			redirecting: 'Redirecionando...',
 			valid: 'Válido',
-			somethingWentWrong: 'Algo deu errado. Tente novamente.',
 		},
 	},
-	
+
 	nl: {
+		// Common fields
+		fields: {
+			email: 'E-mailadres',
+			password: 'Wachtwoord',
+			firstName: 'Voornaam',
+			lastName: 'Achternaam',
+			confirmPassword: 'Wachtwoord bevestigen',
+		},
+
+		// Common placeholders
+		placeholders: {
+			email: 'jouw@email.com',
+			password: '••••••••',
+			firstName: 'Jan',
+			lastName: 'Jansen',
+			confirmPassword: '••••••••',
+		},
+
+		// Common messages
+		somethingWentWrong: 'Er ging iets mis. Probeer het opnieuw.',
+
 		signIn: {
 			title: 'Welkom terug!',
 			subtitle: 'Log in op je account om door te gaan',
-			emailLabel: 'E-mailadres',
-			emailPlaceholder: 'jouw@email.com',
-			passwordLabel: 'Wachtwoord',
-			passwordPlaceholder: '••••••••',
+			welcome: 'Welkom terug!',
 			forgotPassword: 'Wachtwoord vergeten?',
 			signInButton: 'Inloggen',
 			signingIn: 'Inloggen...',
+			signIn: 'Inloggen',
 			noAccount: 'Nog geen account?',
 			createAccount: 'Account aanmaken',
-			signInWithGoogle: 'Inloggen met Google',
-			signInWithFacebook: 'Inloggen met Facebook',
+			continueWithGoogle: 'Inloggen met Google',
+			continueWithFacebook: 'Inloggen met Facebook',
 			orContinueWith: 'of ga verder met',
 		},
 		signUp: {
@@ -773,25 +936,43 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 			loading: 'Laden...',
 			redirecting: 'Omleiden...',
 			valid: 'Geldig',
-			somethingWentWrong: 'Er ging iets mis. Probeer het opnieuw.',
 		},
 	},
-	
+
 	ko: {
+		// Common fields
+		fields: {
+			email: '이메일 주소',
+			password: '비밀번호',
+			firstName: '이름',
+			lastName: '성',
+			confirmPassword: '비밀번호 확인',
+		},
+
+		// Common placeholders
+		placeholders: {
+			email: 'your@email.com',
+			password: '••••••••',
+			firstName: '홍',
+			lastName: '길동',
+			confirmPassword: '••••••••',
+		},
+
+		// Common messages
+		somethingWentWrong: '문제가 발생했습니다. 다시 시도해주세요.',
+
 		signIn: {
 			title: '다시 오신 것을 환영합니다!',
 			subtitle: '계속하려면 계정에 로그인하세요',
-			emailLabel: '이메일 주소',
-			emailPlaceholder: 'your@email.com',
-			passwordLabel: '비밀번호',
-			passwordPlaceholder: '••••••••',
+			welcome: '다시 오신 것을 환영합니다!',
 			forgotPassword: '비밀번호를 잊으셨나요?',
 			signInButton: '로그인',
 			signingIn: '로그인 중...',
+			signIn: '로그인',
 			noAccount: '아직 계정이 없으신가요?',
 			createAccount: '계정 만들기',
-			signInWithGoogle: 'Google로 로그인',
-			signInWithFacebook: 'Facebook으로 로그인',
+			continueWithGoogle: 'Google로 로그인',
+			continueWithFacebook: 'Facebook으로 로그인',
 			orContinueWith: '또는 다음으로 계속',
 		},
 		signUp: {
@@ -858,7 +1039,6 @@ export const authTranslations: Record<Locale, AuthTranslations> = {
 			loading: '로딩 중...',
 			redirecting: '리디렉션 중...',
 			valid: '유효함',
-			somethingWentWrong: '문제가 발생했습니다. 다시 시도해주세요.',
 		},
 	},
 }

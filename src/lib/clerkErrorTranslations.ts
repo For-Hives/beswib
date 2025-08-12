@@ -7,28 +7,28 @@ export interface ClerkErrorTranslations {
 	form_identifier_exists: string
 	session_exists: string
 	clerk_js_error: string
-	
+
 	// Email verification
 	form_code_incorrect: string
 	verification_expired: string
 	verification_failed: string
-	
+
 	// Password reset
 	form_param_nil: string
 	form_password_pwned: string
 	form_password_too_common: string
-	
+
 	// OAuth errors
 	oauth_access_denied: string
 	oauth_email_domain_reserved_by_saml: string
-	
+
 	// Network/general errors
 	network_error: string
 	unexpected_error: string
-	
+
 	// Rate limiting
 	too_many_requests: string
-	
+
 	// Default fallbacks
 	signin_failed: string
 	signup_failed: string
@@ -58,7 +58,7 @@ export const clerkErrorTranslations: Record<Locale, ClerkErrorTranslations> = {
 		signup_failed: 'Sign up failed. Please try again.',
 		default_error: 'An error occurred. Please try again.',
 	},
-	
+
 	fr: {
 		form_identifier_not_found: 'Aucun compte trouvé avec cette adresse email.',
 		form_password_incorrect: 'Mot de passe incorrect.',
@@ -71,16 +71,16 @@ export const clerkErrorTranslations: Record<Locale, ClerkErrorTranslations> = {
 		form_param_nil: 'Tous les champs sont requis.',
 		form_password_pwned: 'Ce mot de passe a été compromis dans une faille de sécurité. Veuillez en choisir un autre.',
 		form_password_too_common: 'Ce mot de passe est trop commun. Veuillez en choisir un plus sécurisé.',
-		oauth_access_denied: 'L\'accès a été refusé. Veuillez réessayer.',
+		oauth_access_denied: "L'accès a été refusé. Veuillez réessayer.",
 		oauth_email_domain_reserved_by_saml: 'Cette adresse email est réservée pour la connexion SAML.',
 		network_error: 'Erreur de connexion. Vérifiez votre connexion internet.',
-		unexpected_error: 'Une erreur inattendue s\'est produite. Veuillez réessayer.',
+		unexpected_error: "Une erreur inattendue s'est produite. Veuillez réessayer.",
 		too_many_requests: 'Trop de tentatives. Veuillez attendre avant de réessayer.',
 		signin_failed: 'Échec de la connexion. Vérifiez vos identifiants.',
-		signup_failed: 'Échec de l\'inscription. Veuillez réessayer.',
-		default_error: 'Une erreur s\'est produite. Veuillez réessayer.',
+		signup_failed: "Échec de l'inscription. Veuillez réessayer.",
+		default_error: "Une erreur s'est produite. Veuillez réessayer.",
 	},
-	
+
 	es: {
 		form_identifier_not_found: 'No se encontró ninguna cuenta con esta dirección de correo.',
 		form_password_incorrect: 'Contraseña incorrecta.',
@@ -102,7 +102,7 @@ export const clerkErrorTranslations: Record<Locale, ClerkErrorTranslations> = {
 		signup_failed: 'Falló el registro. Por favor intenta de nuevo.',
 		default_error: 'Ocurrió un error. Por favor intenta de nuevo.',
 	},
-	
+
 	it: {
 		form_identifier_not_found: 'Nessun account trovato con questo indirizzo email.',
 		form_password_incorrect: 'Password incorretta.',
@@ -113,10 +113,10 @@ export const clerkErrorTranslations: Record<Locale, ClerkErrorTranslations> = {
 		verification_expired: 'Il codice di verifica è scaduto. Richiedi un nuovo codice.',
 		verification_failed: 'Verifica fallita. Riprova.',
 		form_param_nil: 'Tutti i campi sono obbligatori.',
-		form_password_pwned: 'Questa password è stata compromessa in una violazione della sicurezza. Scegline un\'altra.',
+		form_password_pwned: "Questa password è stata compromessa in una violazione della sicurezza. Scegline un'altra.",
 		form_password_too_common: 'Questa password è troppo comune. Scegline una più sicura.',
-		oauth_access_denied: 'L\'accesso è stato negato. Riprova.',
-		oauth_email_domain_reserved_by_saml: 'Questo indirizzo email è riservato per l\'accesso SAML.',
+		oauth_access_denied: "L'accesso è stato negato. Riprova.",
+		oauth_email_domain_reserved_by_saml: "Questo indirizzo email è riservato per l'accesso SAML.",
 		network_error: 'Errore di connessione. Controlla la tua connessione internet.',
 		unexpected_error: 'Si è verificato un errore imprevisto. Riprova.',
 		too_many_requests: 'Troppi tentativi. Attendi prima di riprovare.',
@@ -124,7 +124,7 @@ export const clerkErrorTranslations: Record<Locale, ClerkErrorTranslations> = {
 		signup_failed: 'Registrazione fallita. Riprova.',
 		default_error: 'Si è verificato un errore. Riprova.',
 	},
-	
+
 	de: {
 		form_identifier_not_found: 'Kein Konto mit dieser E-Mail-Adresse gefunden.',
 		form_password_incorrect: 'Falsches Passwort.',
@@ -146,7 +146,7 @@ export const clerkErrorTranslations: Record<Locale, ClerkErrorTranslations> = {
 		signup_failed: 'Registrierung fehlgeschlagen. Bitte versuche es erneut.',
 		default_error: 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.',
 	},
-	
+
 	ro: {
 		form_identifier_not_found: 'Nu s-a găsit niciun cont cu această adresă de email.',
 		form_password_incorrect: 'Parolă incorectă.',
@@ -168,7 +168,7 @@ export const clerkErrorTranslations: Record<Locale, ClerkErrorTranslations> = {
 		signup_failed: 'Înregistrarea a eșuat. Te rugăm să încerci din nou.',
 		default_error: 'A apărut o eroare. Te rugăm să încerci din nou.',
 	},
-	
+
 	pt: {
 		form_identifier_not_found: 'Nenhuma conta encontrada com este endereço de email.',
 		form_password_incorrect: 'Senha incorreta.',
@@ -190,7 +190,7 @@ export const clerkErrorTranslations: Record<Locale, ClerkErrorTranslations> = {
 		signup_failed: 'Registro falhou. Tente novamente.',
 		default_error: 'Ocorreu um erro. Tente novamente.',
 	},
-	
+
 	nl: {
 		form_identifier_not_found: 'Geen account gevonden met dit e-mailadres.',
 		form_password_incorrect: 'Onjuist wachtwoord.',
@@ -212,7 +212,7 @@ export const clerkErrorTranslations: Record<Locale, ClerkErrorTranslations> = {
 		signup_failed: 'Registratie mislukt. Probeer het opnieuw.',
 		default_error: 'Er is een fout opgetreden. Probeer het opnieuw.',
 	},
-	
+
 	ko: {
 		form_identifier_not_found: '이 이메일 주소로 등록된 계정을 찾을 수 없습니다.',
 		form_password_incorrect: '비밀번호가 올바르지 않습니다.',

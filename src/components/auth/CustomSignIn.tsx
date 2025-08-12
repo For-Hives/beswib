@@ -227,7 +227,7 @@ export default function CustomSignIn() {
 							{t.signIn.signingIn}
 						</>
 					) : (
-						{t.signIn.signIn}
+						t.signIn.signIn
 					)}
 				</Button>
 			</form>

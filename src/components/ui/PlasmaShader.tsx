@@ -436,13 +436,13 @@ export default function PlasmaShader({ debug = false, className = '' }: Readonly
 				const viewport = gl.getParameter(gl.VIEWPORT) as Int32Array
 				const prev = prevSizeRef.current
 				prevSizeRef.current = { w: width, h: height }
-						dlog('resize', {
-							viewport: Array.from(viewport || []),
-							devicePixelRatio: window.devicePixelRatio,
-							css: { w: rect.width, h: rect.height },
-							changedFrom: prev ?? 'none',
-							canvas: { w: canvas.width, h: canvas.height },
-						})
+				dlog('resize', {
+					viewport: Array.from(viewport),
+					devicePixelRatio: window.devicePixelRatio,
+					css: { w: rect.width, h: rect.height },
+					changedFrom: prev ?? 'none',
+					canvas: { w: canvas.width, h: canvas.height },
+				})
 			}
 		}
 
@@ -469,18 +469,18 @@ export default function PlasmaShader({ debug = false, className = '' }: Readonly
 			gl.uniform2f(resolutionUniformLocation, iW, iH)
 			gl.uniform1f(timeUniformLocation, tSec)
 
-            // Debug log at ~1 Hz
-            if (debug) {
-                const now = Date.now()
-                if (now - (lastLogAtMsRef.current || 0) > 1000) {
-                    lastLogAtMsRef.current = now
+			// Debug log at ~1 Hz
+			if (debug) {
+				const now = Date.now()
+				if (now - (lastLogAtMsRef.current || 0) > 1000) {
+					lastLogAtMsRef.current = now
 					const viewport = gl.getParameter(gl.VIEWPORT) as Int32Array
-						dlog('frame', {
-							viewport: Array.from(viewport || []),
-							uniforms: { iTime: tSec.toFixed(2), iResolution: [iW, iH] },
-						})
-                }
-            }
+					dlog('frame', {
+						viewport: Array.from(viewport),
+						uniforms: { iTime: tSec.toFixed(2), iResolution: [iW, iH] },
+					})
+				}
+			}
 
 			// Draw
 			gl.drawArrays(gl.TRIANGLES, 0, 6)

@@ -1,72 +1,79 @@
 import { FieldError } from '@/stores/authStore'
+import { Locale } from '@/lib/i18n-config'
+import { validationTranslations } from '@/lib/translations/validation'
+import { authTranslations } from '@/lib/translations/auth'
 
-export const validateEmail = (email: string): FieldError | null => {
+export const validateEmail = (email: string, locale: Locale = 'fr'): FieldError | null => {
+	const t = validationTranslations[locale]
 	if (!email) {
-		return { message: "L'adresse email est requise", code: 'required' }
+		return { message: t.email.required, code: 'required' }
 	}
 
 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 	if (!emailRegex.test(email)) {
-		return { message: 'Veuillez entrer une adresse email valide', code: 'invalid_format' }
+		return { message: t.email.invalid, code: 'invalid_format' }
 	}
 
 	return null
 }
 
-export const validatePassword = (password: string, isSignUp = false): FieldError | null => {
+export const validatePassword = (password: string, isSignUp = false, locale: Locale = 'fr'): FieldError | null => {
+	const t = validationTranslations[locale]
 	if (!password) {
-		return { message: 'Le mot de passe est requis', code: 'required' }
+		return { message: t.password.required, code: 'required' }
 	}
 
 	if (isSignUp) {
 		if (password.length < 8) {
-			return { message: 'Le mot de passe doit contenir au moins 8 caractères', code: 'too_short' }
+			return { message: t.password.tooShort, code: 'too_short' }
 		}
 
 		if (!/(?=.*[a-z])/.test(password)) {
-			return { message: 'Le mot de passe doit contenir au moins une minuscule', code: 'missing_lowercase' }
+			return { message: t.password.missingLowercase, code: 'missing_lowercase' }
 		}
 
 		if (!/(?=.*[A-Z])/.test(password)) {
-			return { message: 'Le mot de passe doit contenir au moins une majuscule', code: 'missing_uppercase' }
+			return { message: t.password.missingUppercase, code: 'missing_uppercase' }
 		}
 
 		if (!/(?=.*\d)/.test(password)) {
-			return { message: 'Le mot de passe doit contenir au moins un chiffre', code: 'missing_number' }
+			return { message: t.password.missingNumber, code: 'missing_number' }
 		}
 	}
 
 	return null
 }
 
-export const validateConfirmPassword = (password: string, confirmPassword: string): FieldError | null => {
+export const validateConfirmPassword = (password: string, confirmPassword: string, locale: Locale = 'fr'): FieldError | null => {
+	const t = validationTranslations[locale]
 	if (!confirmPassword) {
-		return { message: 'Veuillez confirmer votre mot de passe', code: 'required' }
+		return { message: t.confirmPassword.required, code: 'required' }
 	}
 
 	if (password !== confirmPassword) {
-		return { message: 'Les mots de passe ne correspondent pas', code: 'no_match' }
+		return { message: t.confirmPassword.noMatch, code: 'no_match' }
 	}
 
 	return null
 }
 
-export const validateName = (name: string, fieldName: string): FieldError | null => {
+export const validateName = (name: string, fieldName: string, locale: Locale = 'fr'): FieldError | null => {
+	const t = validationTranslations[locale]
 	if (!name) {
-		return { message: `Le ${fieldName} est requis`, code: 'required' }
+		return { message: t.name.required(fieldName), code: 'required' }
 	}
 
 	if (name.length < 2) {
-		return { message: `Le ${fieldName} doit contenir au moins 2 caractères`, code: 'too_short' }
+		return { message: t.name.tooShort(fieldName), code: 'too_short' }
 	}
 
 	if (name.length > 50) {
-		return { message: `Le ${fieldName} ne peut pas dépasser 50 caractères`, code: 'too_long' }
+		return { message: t.name.tooLong(fieldName), code: 'too_long' }
 	}
 
 	if (!/^[a-zA-ZÀ-ÿ\s-']+$/.test(name)) {
 		return {
-			message: `Le ${fieldName} ne peut contenir que des lettres, espaces, tirets et apostrophes`,
+			message: t.name.invalidCharacters(fieldName),
 			code: 'invalid_characters',
 		}
 	}
@@ -74,13 +81,14 @@ export const validateName = (name: string, fieldName: string): FieldError | null
 	return null
 }
 
-export const validateVerificationCode = (code: string): FieldError | null => {
+export const validateVerificationCode = (code: string, locale: Locale = 'fr'): FieldError | null => {
+	const t = validationTranslations[locale]
 	if (!code) {
-		return { message: 'Le code de vérification est requis', code: 'required' }
+		return { message: t.verificationCode.required, code: 'required' }
 	}
 
 	if (!/^\d{6}$/.test(code)) {
-		return { message: 'Le code doit contenir exactement 6 chiffres', code: 'invalid_format' }
+		return { message: t.verificationCode.invalid, code: 'invalid_format' }
 	}
 
 	return null
@@ -88,31 +96,33 @@ export const validateVerificationCode = (code: string): FieldError | null => {
 
 // Helper function to get password strength
 export const getPasswordStrength = (
-	password: string
+	password: string,
+	locale: Locale = 'fr'
 ): {
 	score: number
 	feedback: string[]
 	color: 'red' | 'orange' | 'yellow' | 'green'
 } => {
+	const t = authTranslations[locale].passwordStrength
 	const feedback: string[] = []
 	let score = 0
 
 	if (password.length >= 8) score++
-	else feedback.push('Au moins 8 caractères')
+	else feedback.push(t.atLeast8Chars)
 
 	if (/(?=.*[a-z])/.test(password)) score++
-	else feedback.push('Une lettre minuscule')
+	else feedback.push(t.oneLowercase)
 
 	if (/(?=.*[A-Z])/.test(password)) score++
-	else feedback.push('Une lettre majuscule')
+	else feedback.push(t.oneUppercase)
 
 	if (/(?=.*\d)/.test(password)) score++
-	else feedback.push('Un chiffre')
+	else feedback.push(t.oneNumber)
 
 	if (/(?=.*[!@#$%^&*(),.?":{}|<>])/.test(password)) {
 		score++
 	} else if (score >= 3) {
-		feedback.push('Un caractère spécial (optionnel)')
+		feedback.push(t.oneSpecialChar)
 	}
 
 	const colors: Record<number, 'red' | 'orange' | 'yellow' | 'green'> = {
