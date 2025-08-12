@@ -13,6 +13,7 @@ import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticPar
 import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import QueryProvider from '@/components/providers/QueryProvider'
+import SentryClientInit from '@/app/[locale]/SentryClientInit'
 import PageTransition from '@/components/ui/PageTransition'
 import Footer from '@/components/global/footer'
 import Header from '@/components/global/Header'
@@ -113,6 +114,8 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 									<SessionsTracker />
 									<Header localeParams={props.params} />
 									<PageTransition>{props.children}</PageTransition>
+									{/* Ensure Sentry client init runs on the browser */}
+									<SentryClientInit />
 									<CookieBanner />
 									<ConsentManagerDialog />
 									<Footer localeParams={props.params} />
