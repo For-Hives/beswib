@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { authTranslations } from '@/lib/translations/auth'
 import { Locale } from '@/lib/i18n-config'
 
-import PlasmaShader from './PlasmaShader'
+import MountainShader from './MountainShader'
 
 interface AuthSplitScreenProps {
 	children: ReactNode
@@ -40,7 +40,7 @@ export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenPr
 
 						{/* Mountain Shader Animation */}
 						{/* <div className="pointer-events-none absolute inset-0 z-10 w-full">
-							<PlasmaShader fit="cover" className="absolute top-0 left-0 h-full w-full opacity-80" />
+							<MountainShader className="absolute top-0 left-0 h-full w-full opacity-90" />
 						</div> */}
 
 						{/* Subtle light overlay to keep things soft */}

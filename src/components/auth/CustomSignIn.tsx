@@ -9,7 +9,7 @@ import { FormInput } from '@/components/ui/FormInput'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
 import { useAuthStore } from '@/stores/authStore'
-import { validateEmail, validatePassword } from '@/lib/validation'
+import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation-valibot'
 import { translateClerkError } from '@/lib/clerkErrorTranslations'
 import { authTranslations } from '@/lib/translations/auth'
 import { validationTranslations } from '@/lib/translations/validation'
@@ -47,10 +47,10 @@ export default function CustomSignIn() {
 
 		switch (field) {
 			case 'email':
-				error = validateEmail(value)
+				error = validateEmailValibot(value, locale)
 				break
 			case 'password':
-				error = validatePassword(value, false)
+				error = validatePasswordValibot(value, false, locale)
 				break
 		}
 

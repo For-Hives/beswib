@@ -11,12 +11,12 @@ import { Icons } from '@/components/ui/icons'
 import { PasswordStrength } from '@/components/ui/PasswordStrength'
 import { useAuthStore } from '@/stores/authStore'
 import {
-	validateEmail,
-	validatePassword,
-	validateName,
-	validateVerificationCode,
-	validateConfirmPassword,
-} from '@/lib/validation'
+	validateEmailValibot,
+	validatePasswordValibot,
+	validateNameValibot,
+	validateVerificationCodeValibot,
+	validateConfirmPasswordValibot,
+} from '@/lib/validation-valibot'
 import { translateClerkError } from '@/lib/clerkErrorTranslations'
 import { authTranslations } from '@/lib/translations/auth'
 import { validationTranslations } from '@/lib/translations/validation'
@@ -61,22 +61,22 @@ export default function CustomSignUp() {
 
 		switch (field) {
 			case 'firstName':
-				error = validateName(value, t.signUp.firstNameLabel.toLowerCase(), locale)
+				error = validateNameValibot(value, t.signUp.firstNameLabel.toLowerCase(), locale)
 				break
 			case 'lastName':
-				error = validateName(value, t.signUp.lastNameLabel.toLowerCase(), locale)
+				error = validateNameValibot(value, t.signUp.lastNameLabel.toLowerCase(), locale)
 				break
 			case 'email':
-				error = validateEmail(value, locale)
+				error = validateEmailValibot(value, locale)
 				break
 			case 'password':
-				error = validatePassword(value, true, locale)
+				error = validatePasswordValibot(value, true, locale)
 				break
 			case 'confirmPassword':
-				error = validateConfirmPassword(signUpData.password, value, locale)
+				error = validateConfirmPasswordValibot(signUpData.password, value, locale)
 				break
 			case 'verificationCode':
-				error = validateVerificationCode(value, locale)
+				error = validateVerificationCodeValibot(value, locale)
 				break
 		}
 
