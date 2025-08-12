@@ -6,7 +6,6 @@ import { useEffect } from 'react'
 
 import Link from 'next/link'
 
-import type { LocaleParams } from '@/lib/generateStaticParams'
 import type { Locale } from '@/lib/i18n-config'
 
 import { Button } from '@/components/ui/button'
@@ -78,13 +77,9 @@ const texts: Record<Locale, { title: string; description: string; search: string
 	},
 }
 
-export default function NotFoundPage({ params }: { params: Promise<LocaleParams> }) {
+export default function NotFoundPage() {
 	// Runtime locale
-	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const [t, locale] = ((): [(typeof texts)[Locale], Locale] => {
-		// This component is a Client Component, but `params` is a Promise.
-		// We cannot `await` it here; Next.js will render this page under locale segment.
-		// Derive locale from <html lang> at runtime for safety.
 		const lang = typeof document !== 'undefined' ? (document.documentElement.lang as Locale) : ('en' as Locale)
 		const safeLocale = (Object.keys(texts) as Locale[]).includes(lang) ? lang : ('en' as Locale)
 		return [texts[safeLocale], safeLocale]
