@@ -39,23 +39,23 @@ export function getClerkAppearance(theme: ClerkTheme): Appearance {
 
 			socialButtonsProviderIcon: 'text-foreground',
 
-			// Social buttons - style them like your project's buttons
+			// Social buttons - harmonized with input and button style
 			socialButtonsBlockButton:
-				'bg-card/80 hover:bg-card border border-border text-foreground rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 backdrop-blur-sm hover:shadow-md',
+				'shadow-input bg-background hover:bg-muted text-foreground border-input rounded-lg border px-4 py-3 text-sm font-medium transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98] dark:bg-zinc-800 dark:shadow-[0px_0px_1px_1px_#404040]',
 			// Root and layout
 			rootBox: 'w-full',
 
 			// Profile sections
 			profileSectionTitle: 'text-foreground text-lg font-semibold mb-3',
 			profileSectionContent: 'text-muted-foreground text-sm',
-			// OTP and alternative methods
+			// OTP and alternative methods - harmonized with main input style
 			otpCodeFieldInput:
-				'border border-border text-foreground bg-card/50 rounded-lg text-center font-mono text-lg transition-all duration-200 focus:border-primary focus:ring-1 focus:ring-primary/20',
+				'shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input text-center font-mono text-lg rounded-md border px-3 py-2 transition duration-400 focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600 hover:shadow-md',
 
 			organizationSwitcherTriggerIcon: 'text-muted-foreground',
-			// Organization components
+			// Organization components - harmonized with input style
 			organizationSwitcherTrigger:
-				'text-foreground hover:bg-card/50 border border-border rounded-lg px-3 py-2 transition-all duration-200',
+				'shadow-input bg-background hover:bg-muted text-foreground border-input rounded-lg border px-3 py-2 text-sm font-medium transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98] dark:bg-zinc-800 dark:shadow-[0px_0px_1px_1px_#404040]',
 			menuItem: 'text-foreground hover:bg-muted/80 rounded-md px-3 py-2 text-sm transition-all duration-200',
 
 			// Menu and dropdowns
@@ -80,11 +80,29 @@ export function getClerkAppearance(theme: ClerkTheme): Appearance {
 			// Form fields - match your input styling
 			// Match src/components/ui/inputAlt.tsx as closely as possible (without the motion wrapper)
 			formFieldInput:
-				'shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input h-10 w-full rounded-md border px-3 py-2 text-sm transition duration-400 focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600',
+				'shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input h-10 w-full rounded-md border px-3 py-2 text-sm transition duration-400 group-hover/input:shadow-none focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600 hover:shadow-md',
 			formFieldErrorText: 'text-destructive text-xs mt-1',
+			
+			// Additional form elements for consistency
+			formFieldTextarea:
+				'shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input min-h-[80px] w-full rounded-md border px-3 py-2 text-sm transition duration-400 focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600 hover:shadow-md resize-vertical',
+			
+			formFieldSelect:
+				'shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input h-10 w-full rounded-md border px-3 py-2 text-sm transition duration-400 focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600 hover:shadow-md',
+			
+			formFieldCheckbox:
+				'shadow-input border-input bg-background text-primary focus-visible:ring-ring h-4 w-4 rounded border transition duration-400 focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600',
+			
+			formFieldRadio:
+				'shadow-input border-input bg-background text-primary focus-visible:ring-ring h-4 w-4 rounded-full border transition duration-400 focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600',
+
 			// Primary action buttons
 			formButtonPrimary:
 				'bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]',
+			
+			// Secondary buttons - harmonized with input style
+			formButtonSecondary:
+				'shadow-input bg-background hover:bg-muted text-foreground border-input rounded-lg border px-4 py-3 text-sm font-medium transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98] dark:bg-zinc-800 dark:shadow-[0px_0px_1px_1px_#404040]',
 			// Links and actions
 			footerActionLink:
 				'text-primary hover:text-primary/80 text-sm font-medium transition-colors duration-200 underline-offset-4 hover:underline',
@@ -104,7 +122,7 @@ export function getClerkAppearance(theme: ClerkTheme): Appearance {
 			backButton: 'text-muted-foreground hover:text-foreground text-sm transition-colors duration-200',
 
 			alternativeMethodsBlockButton:
-				'text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-border/50 rounded-lg px-3 py-2 text-sm transition-all duration-200',
+				'shadow-input bg-background hover:bg-muted text-foreground border-input rounded-lg border px-3 py-2 text-sm font-medium transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98] dark:bg-zinc-800 dark:shadow-[0px_0px_1px_1px_#404040]',
 			alertText: 'text-foreground text-sm',
 			alert: 'border border-border bg-card/50 text-foreground rounded-lg p-4 backdrop-blur-sm',
 		},

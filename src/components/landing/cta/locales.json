@@ -2,7 +2,7 @@
 	"en": {
 		"cta": {
 			"organizerButton": "Become a partner organizer",
-			"webAppButton": "Access the WebApp"
+			"sellBibButton": "Sell my bib"
 		},
 		"ctaSection": {
 			"title": "Beswib transforms bib transfer management into a win-win solution for everyone",
@@ -12,7 +12,7 @@
 	"fr": {
 		"cta": {
 			"organizerButton": "Devenir organisateur partenaire",
-			"webAppButton": "Accéder à la WebApp"
+			"sellBibButton": "Vendre mon dossard"
 		},
 		"ctaSection": {
 			"title": "Beswib transforme la gestion des transferts de dossards en solution gagnante pour tous",
@@ -22,7 +22,7 @@
 	"ko": {
 		"cta": {
 			"organizerButton": "파트너 주최자 되기",
-			"webAppButton": "웹앱 접속"
+			"sellBibButton": "내 번호표 판매하기"
 		},
 		"ctaSection": {
 			"title": "Beswib은 빕 전송 관리를 모든 사람을 위한 윈-윈 솔루션으로 변환합니다",
@@ -32,7 +32,7 @@
 	"es": {
 		"cta": {
 			"organizerButton": "Conviértete en organizador socio",
-			"webAppButton": "Acceder a la WebApp"
+			"sellBibButton": "Vender mi dorsal"
 		},
 		"ctaSection": {
 			"title": "Beswib transforma la gestión de transferencias de dorsales en una solución beneficiosa para todos",
@@ -42,7 +42,7 @@
 	"it": {
 		"cta": {
 			"organizerButton": "Diventa un organizzatore partner",
-			"webAppButton": "Accedi alla WebApp"
+			"sellBibButton": "Vendi il mio pettorale"
 		},
 		"ctaSection": {
 			"title": "Beswib trasforma la gestione dei trasferimenti di pettorali in una soluzione vantaggiosa per tutti",
@@ -52,7 +52,7 @@
 	"de": {
 		"cta": {
 			"organizerButton": "Partner-Veranstalter werden",
-			"webAppButton": "Zur WebApp"
+			"sellBibButton": "Mein Startnummer verkaufen"
 		},
 		"ctaSection": {
 			"title": "Beswib verwandelt Startnummer-Transfer-Management in eine Win-Win-Lösung für alle",
@@ -62,7 +62,7 @@
 	"ro": {
 		"cta": {
 			"organizerButton": "Devine organizator partener",
-			"webAppButton": "Accesează WebApp-ul"
+			"sellBibButton": "Vinde-mi numărul"
 		},
 		"ctaSection": {
 			"title": "Beswib transformă managementul transferurilor de numere într-o soluție câștigătoare pentru toți",
@@ -72,7 +72,7 @@
 	"pt": {
 		"cta": {
 			"organizerButton": "Torna-te organizador parceiro",
-			"webAppButton": "Aceder à WebApp"
+			"sellBibButton": "Vender o meu dorsal"
 		},
 		"ctaSection": {
 			"title": "A Beswib transforma a gestão de transferências de dorsais numa solução vantajosa para todos",
@@ -82,7 +82,7 @@
 	"nl": {
 		"cta": {
 			"organizerButton": "Word partnerorganisator",
-			"webAppButton": "Ga naar de WebApp"
+			"sellBibButton": "Mijn startnummer verkopen"
 		},
 		"ctaSection": {
 			"title": "Beswib transformeert startnummer-overdracht-beheer tot een win-win oplossing voor iedereen",
