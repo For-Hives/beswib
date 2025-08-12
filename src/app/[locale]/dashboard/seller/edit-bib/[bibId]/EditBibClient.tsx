@@ -23,7 +23,6 @@ interface EditBibClientProps {
 	locale: Locale
 }
 
-// TODO: create loading.tsx skeleton for this page
 export default function EditBibClient({ locale, initialError, initialBibWithEvent, bibId }: EditBibClientProps) {
 	const t = getTranslations(locale, editBibTranslations)
 
