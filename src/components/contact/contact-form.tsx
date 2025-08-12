@@ -77,7 +77,7 @@ export default function ContactForm({ t }: ContactFormProps) {
 	}
 
 	return (
-		<form className="mt-4 h-full space-y-4" onSubmit={handleSubmit}>
+		<form className="mt-4 h-full space-y-4" onSubmit={e => void handleSubmit(e)}>
 			<div>
 				<label className="text-foreground mb-1 block text-sm font-medium dark:text-gray-300" htmlFor="name">
 					{t.form.yourName}

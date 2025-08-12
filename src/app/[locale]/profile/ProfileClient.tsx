@@ -78,7 +78,7 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 									</CardDescription>
 								</CardHeader>
 								<CardContent>
-									<Button variant="destructive" onClick={() => signOut({ redirectUrl: '/' })} className="w-full">
+									<Button variant="destructive" onClick={() => void signOut({ redirectUrl: '/' })} className="w-full">
 										<LogOut className="h-4 w-4" />
 										<span>{t.profile?.dangerZone?.signOut ?? 'Disconnect'}</span>
 									</Button>
