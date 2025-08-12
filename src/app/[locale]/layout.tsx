@@ -17,8 +17,8 @@ import SentryClientInit from '@/app/[locale]/SentryClientInit'
 import PageTransition from '@/components/ui/PageTransition'
 import Footer from '@/components/global/footer'
 import Header from '@/components/global/Header'
-import '@/lib/umami.utils'
 
+import '@/lib/umami.utils'
 import '@/app/[locale]/globals.css'
 
 const geistSans = Geist({

@@ -39,8 +39,8 @@ import React, { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-import type { Organizer } from '@/models/organizer.model'
 import type { Event as AppEvent } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
 import type { User } from '@/models/user.model'
 
 import {
@@ -67,8 +67,8 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination'
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { getAllEventsAction, deleteEventAction } from '@/app/[locale]/admin/actions'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 import { getTranslations } from '@/lib/getDictionary'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -187,9 +187,10 @@ const multiColumnFilterFn: FilterFn<AppEvent & { expand?: { organizer?: Organize
 	return searchableRowContent.includes(searchTerm)
 }
 
+import { toast } from 'sonner'
+
 import translations from '@/app/[locale]/admin/event/locales.json'
 import { Locale } from '@/lib/i18n-config'
-import { toast } from 'sonner'
 
 export default function AdminEventsPageClient({ locale, currentUser }: AdminEventsPageClientProps) {
 	const t = getTranslations(locale, translations)
@@ -392,8 +393,8 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 	useEffect(() => {
 		const now = new Date()
 		setStats({
-			totalEvents: events.length,
 			upcomingEvents: events.filter((event: AppEvent) => new Date(event.eventDate) >= now).length,
+			totalEvents: events.length,
 			pastEvents: events.filter((event: AppEvent) => new Date(event.eventDate) < now).length,
 		})
 	}, [events])
