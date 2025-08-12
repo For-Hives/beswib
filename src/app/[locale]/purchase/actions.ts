@@ -3,12 +3,12 @@
 import { auth } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 
-import { createTransaction } from '@/services/transaction.services'
+import { getTransactionByOrderId, createTransaction } from '@/services/transaction.services'
+import { fetchBibById, isLocked } from '@/services/bib.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { capturePayment } from '@/services/paypal.services'
 import { PLATFORM_FEE } from '@/constants/global.constant'
 import { salesCreate } from '@/services/sales.services'
-import { fetchBibById } from '@/services/bib.services'
 
 export async function handlePaymentPageOpened(paymentIntentId: string, bibId: string) {
 	const { userId } = await auth()
@@ -84,9 +84,51 @@ export async function createSale(bibId: string, sellerMerchantId: string) {
 }
 
 // Server-side wrapper to capture a PayPal order (prevents exposing client secret to the browser)
-export async function captureOrder(orderId: string) {
+export async function captureOrder(orderId: string, lockKey: string | null = null) {
 	if (!orderId) return { error: 'Missing orderId' }
 	try {
+		// Verify the current user owns the order/transaction
+		const { userId } = await auth()
+		if (userId == null || userId === '') {
+			return { error: 'User is not authenticated.' }
+		}
+
+		const tx = await getTransactionByOrderId(orderId)
+		if (!tx) {
+			return { error: 'Order not found.' }
+		}
+
+		const pbBuyer = await fetchUserByClerkId(userId)
+		if (!pbBuyer) {
+			return { error: 'User not found in database.' }
+		}
+		if (pbBuyer.id !== tx.buyer_user_id) {
+			return { error: 'This order does not belong to the current user.' }
+		}
+
+		// Verify the bib is still available and locked by this user with the provided lock key
+		const bib = await fetchBibById(tx.bib_id)
+		if (!bib) {
+			return { error: 'Bib not found.' }
+		}
+		if (bib.status !== 'available') {
+			return { error: 'This bib is no longer available.' }
+		}
+		if (lockKey == null || lockKey === '') {
+			return { error: 'Lock has expired. Please try again.' }
+		}
+
+		const lockState = await isLocked(tx.bib_id, lockKey)
+		if (lockState !== 'userlocked') {
+			// Either locked by someone else or not locked anymore
+			const msg =
+				lockState === 'locked'
+					? 'This bib is currently locked by another user.'
+					: 'Your lock has expired. Please try again.'
+			return { error: msg }
+		}
+
+		// All checks passed, proceed to capture
 		const res = await capturePayment(orderId)
 		return res
 	} catch (error) {
