@@ -36,6 +36,7 @@ interface ConfirmationStepProps {
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
+import Link from 'next/link'
 
 export default function ConfirmationStep({
 	user,
@@ -166,9 +167,9 @@ export default function ConfirmationStep({
 									<Copy className="h-4 w-4" />
 								</Button>
 								<Button asChild size="sm" variant="outline">
-									<a href={generatePrivateLink()} rel="noopener noreferrer" target="_blank">
+									<Link href={generatePrivateLink()} rel="noopener noreferrer" target="_blank">
 										<ExternalLink className="h-4 w-4" />
-									</a>
+									</Link>
 								</Button>
 							</div>
 							<p className="text-muted-foreground text-sm">{t.form.confirmation.privateLinkHelp}</p>
