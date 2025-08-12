@@ -54,7 +54,8 @@ describe('isUserProfileComplete', () => {
 		expect(isUserProfileComplete({ ...completeUser, firstName: null })).toBe(false)
 		expect(isUserProfileComplete({ ...completeUser, lastName: null })).toBe(false)
 		expect(isUserProfileComplete({ ...completeUser, birthDate: null })).toBe(false)
-		expect(isUserProfileComplete({ ...completeUser, phoneNumber: null })).toBe(false)
+		// With the new rule, having at least one contact method (contactEmail or email) is acceptable
+		expect(isUserProfileComplete({ ...completeUser, phoneNumber: null })).toBe(true)
 		expect(isUserProfileComplete({ ...completeUser, emergencyContactName: null })).toBe(false)
 		expect(isUserProfileComplete({ ...completeUser, emergencyContactPhone: null })).toBe(false)
 		expect(isUserProfileComplete({ ...completeUser, emergencyContactRelationship: null })).toBe(false)
