@@ -156,3 +156,21 @@ export async function getAllEvents(
 		throw new Error('Error fetching all events: ' + (error instanceof Error ? error.message : String(error)))
 	}
 }
+
+/**
+ * Deletes an event by its ID.
+ * This should only be called from trusted server actions (admin-only flows).
+ * @param id The ID of the event to delete
+ * @returns true if deletion succeeded, otherwise throws
+ */
+export async function deleteEventById(id: string): Promise<boolean> {
+	if (!id || typeof id !== 'string') {
+		throw new Error('Valid event ID is required to delete an event')
+	}
+	try {
+		await pb.collection('events').delete(id)
+		return true
+	} catch (error: unknown) {
+		throw new Error('Error deleting event: ' + (error instanceof Error ? error.message : String(error)))
+	}
+}

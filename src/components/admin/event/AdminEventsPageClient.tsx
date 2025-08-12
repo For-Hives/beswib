@@ -68,7 +68,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
-import { getAllEventsAction } from '@/app/[locale]/admin/actions'
+import { getAllEventsAction, deleteEventAction } from '@/app/[locale]/admin/actions'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
 import { getTranslations } from '@/lib/getDictionary'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -185,6 +185,7 @@ const multiColumnFilterFn: FilterFn<Event & { expand?: { organizer?: Organizer }
 
 import translations from '@/app/[locale]/admin/event/locales.json'
 import { Locale } from '@/lib/i18n-config'
+import { toast } from 'sonner'
 
 export default function AdminEventsPageClient({ locale, currentUser }: AdminEventsPageClientProps) {
 	const t = getTranslations(locale, translations)
@@ -368,6 +369,31 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 
 		void fetchEvents()
 	}, [])
+
+	// Listen to deletion events from RowActions to update local state
+	useEffect(() => {
+		const onDeleted = (e: Event) => {
+			const custom = e as CustomEvent<{ id: string }>
+			const id = custom.detail?.id
+			if (id) {
+				setEvents(prev => prev.filter(ev => ev.id !== id))
+			}
+		}
+		document.addEventListener('admin-events:deleted', onDeleted as EventListener)
+		return () => {
+			document.removeEventListener('admin-events:deleted', onDeleted as EventListener)
+		}
+	}, [])
+
+	// Keep stats in sync when events change
+	useEffect(() => {
+		const now = new Date()
+		setStats({
+			totalEvents: events.length,
+			upcomingEvents: events.filter((event: Event) => new Date(event.eventDate) >= now).length,
+			pastEvents: events.filter((event: Event) => new Date(event.eventDate) < now).length,
+		})
+	}, [events])
 
 	const handleDeleteRows = () => {
 		const selectedRows = table.getSelectedRowModel().rows
@@ -835,11 +861,27 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 
 function RowActions({ t, row }: { row: Row<Event>; t: EventsTranslations }) {
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+	const [deleting, setDeleting] = useState(false)
 
-	const handleDelete = () => {
-		// TODO: Implement delete functionality
-		console.warn('Delete event:', row.original.id)
-		setShowDeleteDialog(false)
+	const handleDelete = async () => {
+		try {
+			setDeleting(true)
+			const id = row.original.id
+			const result = await deleteEventAction(id)
+			if (result.success) {
+				// Optimistically remove the row from the table data via a custom event
+				document.dispatchEvent(new CustomEvent('admin-events:deleted', { detail: { id } }))
+				toast.success('Event deleted successfully')
+			} else {
+				console.error('Failed to delete event:', result.error)
+				toast.error('Failed to delete event')
+			}
+		} catch (e) {
+			console.error('Error deleting event:', e)
+		} finally {
+			setDeleting(false)
+			setShowDeleteDialog(false)
+		}
 	}
 
 	return (
@@ -891,8 +933,9 @@ function RowActions({ t, row }: { row: Row<Event>; t: EventsTranslations }) {
 						<AlertDialogAction
 							className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
 							onClick={handleDelete}
+							disabled={deleting}
 						>
-							{t.events.table.actions.delete}
+							{deleting ? t.events.ui.refreshing : t.events.table.actions.delete}
 						</AlertDialogAction>
 					</AlertDialogFooter>
 				</AlertDialogContent>

@@ -4,7 +4,7 @@ import { checkAdminAccess } from '@/guard/adminGuard'
 
 import { createOrganizer, fetchAllOrganizersWithEventsCount } from '@/services/organizer.services'
 import { getDashboardStats, getRecentActivity } from '@/services/dashboard.services'
-import { createEvent, getAllEvents } from '@/services/event.services'
+import { createEvent, deleteEventById, getAllEvents } from '@/services/event.services'
 import { Organizer } from '@/models/organizer.model'
 import { Event } from '@/models/event.model'
 
@@ -195,5 +195,29 @@ export async function getRecentActivityAction() {
 			success: false,
 			error: error instanceof Error ? error.message : 'Failed to fetch recent activity',
 		}
+	}
+}
+
+/**
+ * Server action to delete an event by ID (admin only)
+ */
+export async function deleteEventAction(id: string): Promise<{ success: boolean; error?: string }> {
+	try {
+		const adminUser = await checkAdminAccess()
+
+		if (adminUser === null) {
+			return { success: false, error: 'Unauthorized: Admin access required' }
+		}
+
+		if (!id || typeof id !== 'string') {
+			return { success: false, error: 'Valid event ID is required' }
+		}
+
+		await deleteEventById(id)
+		console.info(`Admin ${adminUser.email} deleted event: ${id}`)
+		return { success: true }
+	} catch (error) {
+		console.error('Error in deleteEventAction:', error)
+		return { success: false, error: error instanceof Error ? error.message : 'Failed to delete event' }
 	}
 }
