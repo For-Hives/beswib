@@ -77,9 +77,20 @@ export default function Page() {
 							throw err
 						}
 					}}
-					disabled={!isConnected}
 				>
 					<span>Throw Sample Error</span>
+				</button>
+
+				<button
+					type="button"
+					className="rounded-md border border-black/20 bg-white/5 p-2 text-sm font-medium text-black/80 backdrop-blur-md hover:bg-white/10 hover:text-black/90"
+					onClick={async () => {
+						Sentry.captureMessage('manual tunnel test message')
+						await Sentry.flush(2000)
+						setHasSentError(true)
+					}}
+				>
+					<span>Send Test Message</span>
 				</button>
 
 				{hasSentError ? (
