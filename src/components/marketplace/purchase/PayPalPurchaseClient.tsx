@@ -130,48 +130,42 @@ export default function PayPalPurchaseClient({
 		return () => clearInterval(interval)
 	}, [lockExpiration])
 
-	// Check if user is authenticated when trying to open payment modal
-	const handleBuyNowClick = async () => {
-		if (isSignedIn !== true) {
-			router.push(`/${locale}/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`)
-			return
-		}
-		if (isOwnBib) {
-			// User trying to buy their own bib - do nothing, button should be disabled
-			return
-		}
-		if (isProfileComplete) {
-			// check for lock mechanism to prevent multi user to buy the same bib
-			const isBibLocked: LockStatus = normalizeLockStatus(await isLocked(bib.id, lockedAtParam ?? ''))
-			if (isBibLocked === 'locked') {
+	// Helper: update local lock state and URL param from a lockedAt value
+	const updateLockStateFrom = useCallback(
+		(lockedAt: DateLike) => {
+			const lockedDt: DateTime | null = toLuxon(lockedAt)
+			setLockExpiration(lockedDt !== null ? lockedDt.plus({ minutes: 5 }) : null)
+			if (lockedDt !== null) {
+				const iso = lockedDt.toISO()
+				if (iso !== null) {
+					setLockedAtParam(iso).catch(() => {
+						toast.error('Error with the lock mechanism')
+					})
+				}
+			}
+		},
+		[setLockedAtParam]
+	)
+
+	// Helper: enforce locking rules and open the payment panel
+	const attemptLockAndOpenPanel = useCallback(
+		async (status: LockStatus) => {
+			if (status === 'locked') {
 				toast.error('This bib is currently locked by another user for purchase. Please try again later.')
 				return
 			}
-			// Try to lock the bib for this user
-			setLoading(true)
 
+			setLoading(true)
 			try {
-				if (isBibLocked === 'unlocked') {
+				if (status === 'unlocked') {
 					const lockedBib = await lockBib(bib.id, user?.id ?? '')
 					if (lockedBib === null || lockedBib === undefined) {
 						toast.error('Failed to lock bib. It may have just been locked by another user.')
 						console.error('Failed to lock bib:', lockedBib)
-						setLoading(false)
 						return
 					}
-					const lockedDt: DateTime | null = toLuxon(lockedBib.lockedAt)
-					setLockExpiration(lockedDt !== null ? lockedDt.plus({ minutes: 5 }) : null)
-					// Store lockedAt in Nuqs param
-					const lockedAtDt: DateTime | null = toLuxon(lockedBib.lockedAt)
-					if (lockedAtDt !== null) {
-						const iso = lockedAtDt.toISO()
-						if (iso !== null) {
-							setLockedAtParam(iso).catch(() => {
-								toast.error('Error with the lock mechanism')
-							})
-						}
-					}
-				} else if (isBibLocked === 'userlocked') {
+					updateLockStateFrom(lockedBib.lockedAt)
+				} else if (status === 'userlocked') {
 					toast.info('This bib is currently locked by you for purchase.')
 				}
 				setIsPanelOpen(true)
@@ -180,7 +174,22 @@ export default function PayPalPurchaseClient({
 			} finally {
 				setLoading(false)
 			}
+		},
+		[bib.id, updateLockStateFrom, user?.id]
+	)
+
+	// Check if user is authenticated when trying to open payment modal
+	const handleBuyNowClick = async () => {
+		if (isSignedIn !== true) {
+			router.push(`/${locale}/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`)
+			return
 		}
+		if (isOwnBib) return // User trying to buy their own bib - button is disabled upstream
+		if (!isProfileComplete) return
+
+		// Check lock status to prevent multiple users purchasing the same bib
+		const status: LockStatus = normalizeLockStatus(await isLocked(bib.id, lockedAtParam ?? ''))
+		await attemptLockAndOpenPanel(status)
 	}
 
 	const handleCreateOrder = useCallback(async () => {
