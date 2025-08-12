@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
 import { useAuthStore } from '@/stores/authStore'
 import { validateEmail, validatePassword } from '@/lib/validation'
+import { translateClerkError } from '@/lib/clerkErrorTranslations'
 
 export default function CustomSignIn() {
 	const { isLoaded, signIn, setActive } = useSignIn()
@@ -95,7 +96,7 @@ export default function CustomSignIn() {
 				setGlobalError("Quelque chose s'est mal passé. Veuillez réessayer.")
 			}
 		} catch (err: any) {
-			const errorMessage = err.errors?.[0]?.message || 'Email ou mot de passe incorrect.'
+			const errorMessage = translateClerkError(err)
 			setGlobalError(errorMessage)
 
 			// Set specific field errors based on error codes
@@ -147,7 +148,7 @@ export default function CustomSignIn() {
 					disabled={isSigningIn}
 				>
 					<Icons.google className="mr-2 h-4 w-4" />
-					Continuer avec Google
+					Se connecter avec Google
 				</Button>
 				<Button
 					variant="outline"
@@ -157,7 +158,7 @@ export default function CustomSignIn() {
 					disabled={isSigningIn}
 				>
 					<Icons.facebook className="mr-2 h-4 w-4" />
-					Continuer avec Facebook
+					Se connecter avec Facebook
 				</Button>
 			</div>
 

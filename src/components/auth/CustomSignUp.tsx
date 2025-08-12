@@ -17,6 +17,7 @@ import {
 	validateVerificationCode,
 	validateConfirmPassword,
 } from '@/lib/validation'
+import { translateClerkError } from '@/lib/clerkErrorTranslations'
 
 export default function CustomSignUp() {
 	const { isLoaded, signUp, setActive } = useSignUp()
@@ -144,7 +145,7 @@ export default function CustomSignUp() {
 			await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
 			setPendingVerification(true, signUpData.email)
 		} catch (err: any) {
-			const errorMessage = err.errors?.[0]?.message || "Une erreur s'est produite lors de la création du compte."
+			const errorMessage = translateClerkError(err)
 			setGlobalError(errorMessage)
 
 			// Set specific field errors based on error codes
@@ -182,7 +183,7 @@ export default function CustomSignUp() {
 				setGlobalError("Quelque chose s'est mal passé. Veuillez réessayer.")
 			}
 		} catch (err: any) {
-			const errorMessage = err.errors?.[0]?.message || 'Code de vérification incorrect.'
+			const errorMessage = translateClerkError(err)
 			setGlobalError(errorMessage)
 			setFieldError('verificationCode', { message: 'Code de vérification incorrect', code: 'incorrect' })
 		} finally {
@@ -263,7 +264,7 @@ export default function CustomSignUp() {
 						}}
 						className="text-muted-foreground hover:text-foreground text-sm transition-colors"
 					>
-						← Retour au formulaire
+						← Retour au formulaire d'inscription
 					</button>
 				</div>
 			</div>
@@ -291,7 +292,7 @@ export default function CustomSignUp() {
 					disabled={isSigningUp}
 				>
 					<Icons.google className="mr-2 h-4 w-4" />
-					Continuer avec Google
+					S'inscrire avec Google
 				</Button>
 				<Button
 					variant="outline"
@@ -301,7 +302,7 @@ export default function CustomSignUp() {
 					disabled={isSigningUp}
 				>
 					<Icons.facebook className="mr-2 h-4 w-4" />
-					Continuer avec Facebook
+					S'inscrire avec Facebook
 				</Button>
 			</div>
 

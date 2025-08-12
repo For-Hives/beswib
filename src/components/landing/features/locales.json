@@ -31,10 +31,10 @@
 				"title": "Smart Notifications",
 				"description": "Smart alerts for new bibs, price drops and important reminders."
 			},
-			"support": {
-				"title": "Premium Support 24/7",
-				"description": "Dedicated assistance in English with premium guarantees and quick resolution."
-			}
+            "support": {
+                "title": "Dedicated multilingual assistance",
+                "description": "Dedicated support available in multiple languages with quick resolution."
+            }
 		}
 	},
 	"fr": {
@@ -69,10 +69,10 @@
 				"title": "Notifications Smart",
 				"description": "Alertes intelligentes pour nouveaux dossards, baisses de prix et rappels importants."
 			},
-			"support": {
-				"title": "Support Premium 24/7",
-				"description": "Assistance dédiée en français avec garanties premium et résolution rapide."
-			}
+            "support": {
+                "title": "Assistance dédiée multilingue",
+                "description": "Assistance dédiée dans plusieurs langues avec résolution rapide."
+            }
 		}
 	},
 	"ko": {
@@ -107,10 +107,10 @@
 				"title": "스마트 알림",
 				"description": "새로운 빕, 가격 하락 및 중요한 알림을 위한 스마트 알림."
 			},
-			"support": {
-				"title": "프리미엄 지원 24/7",
-				"description": "프리미엄 보장 및 빠른 해결을 갖춘 한국어 전용 지원."
-			}
+            "support": {
+                "title": "전담 다국어 지원",
+                "description": "여러 언어로 제공되는 전담 지원과 신속한 해결."
+            }
 		}
 	},
 	"es": {
@@ -145,10 +145,10 @@
 				"title": "Notificaciones Inteligentes",
 				"description": "Alertas inteligentes para nuevos dorsales, bajadas de precios y recordatorios importantes."
 			},
-			"support": {
-				"title": "Soporte Premium 24/7",
-				"description": "Asistencia dedicada en español con garantías premium y resolución rápida."
-			}
+            "support": {
+                "title": "Asistencia multilingüe dedicada",
+                "description": "Soporte dedicado en varios idiomas con resolución rápida."
+            }
 		}
 	},
 	"it": {
@@ -183,10 +183,10 @@
 				"title": "Notifiche Intelligenti",
 				"description": "Avvisi intelligenti per nuovi pettorali, cali di prezzo e promemoria importanti."
 			},
-			"support": {
-				"title": "Supporto Premium 24/7",
-				"description": "Assistenza dedicata in italiano con garanzie premium e risoluzione rapida."
-			}
+            "support": {
+                "title": "Assistenza multilingue dedicata",
+                "description": "Supporto dedicato in più lingue con risoluzione rapida."
+            }
 		}
 	},
 	"de": {
@@ -221,10 +221,10 @@
 				"title": "Intelligente Benachrichtigungen",
 				"description": "Intelligente Benachrichtigungen für neue Startnummern, Preissenkungen und wichtige Erinnerungen."
 			},
-			"support": {
-				"title": "Premium Support 24/7",
-				"description": "Dedizierte Unterstützung auf Deutsch mit Premium-Garantien und schneller Lösung."
-			}
+            "support": {
+                "title": "Dedizierte mehrsprachige Unterstützung",
+                "description": "Dedizierter Support in mehreren Sprachen mit schneller Lösung."
+            }
 		}
 	},
 	"ro": {
@@ -259,10 +259,10 @@
 				"title": "Notificări Inteligente",
 				"description": "Alerte inteligente pentru numere noi, scăderi de prețuri și reamintiri importante."
 			},
-			"support": {
-				"title": "Suport Premium 24/7",
-				"description": "Asistență dedicată în română cu garanții premium și rezolvare rapidă."
-			}
+            "support": {
+                "title": "Asistență multilingvă dedicată",
+                "description": "Suport dedicat în mai multe limbi, cu rezolvare rapidă."
+            }
 		}
 	},
 	"pt": {
@@ -297,10 +297,10 @@
 				"title": "Notificações Inteligentes",
 				"description": "Alertas inteligentes para novos dorsais, quedas de preço e lembretes importantes."
 			},
-			"support": {
-				"title": "Suporte Premium 24/7",
-				"description": "Assistência dedicada em português com garantias premium e resolução rápida."
-			}
+            "support": {
+                "title": "Assistência multilingue dedicada",
+                "description": "Suporte dedicado em várias línguas com resolução rápida."
+            }
 		}
 	},
 	"nl": {
@@ -335,10 +335,10 @@
 				"title": "Slimme Meldingen",
 				"description": "Slimme alerts voor nieuwe startnummers, prijsdalingen en belangrijke herinneringen."
 			},
-			"support": {
-				"title": "Premium Ondersteuning 24/7",
-				"description": "Toegewijde assistentie in het Nederlands met premium garanties en snelle oplossing."
-			}
+            "support": {
+                "title": "Toegewijde meertalige ondersteuning",
+                "description": "Toegewijde support in meerdere talen met snelle oplossing."
+            }
 		}
 	}
 }

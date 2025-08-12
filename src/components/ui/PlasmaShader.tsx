@@ -187,10 +187,10 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     //fragCoord.y -= -0.1*iResolution.y + 0.1*iResolution.y*cos((fragCoord.x / iResolution.x - 0.5)*M_PI*0.5);
 
 
-    float mx = max(iResolution.x, iResolution.y);
-    vec2 uv = fragCoord.xy / mx;
-    vec2 nuv = fragCoord.xy / iResolution.xy;
-    vec2 pos = uv - (iResolution.xy)*0.5/mx;
+    vec2 r = iResolution.xy;
+    vec2 nuv = fragCoord.xy / r;
+    vec2 uv = nuv;
+    vec2 pos = (fragCoord.xy - 0.5*r) / r.y;
     
     float col = 1.0;
 
@@ -287,12 +287,11 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     );
     //*/
     //*
+    float t = saturate(1.0 - col);
     fragColor.rgb = lerp(
         vec3(0.0, 0.2, 0.45),
-        //vec3(0.7, 0.75, 0.79),
-        //vec3(0.9),
         vec3(0.8, 0.85, 0.89),
-        1.0-col
+        t
     );
     //*/
 
@@ -323,6 +322,7 @@ export default function PlasmaShader({ className = '' }: Readonly<PlasmaShaderPr
 	const canvasRef = useRef<HTMLCanvasElement>(null)
 	const animationFrameRef = useRef<number>(0)
 	const [isSupported, setIsSupported] = useState(true)
+	const resizeObserverRef = useRef<ResizeObserver | null>(null)
 
 	useEffect(() => {
 		const canvas = canvasRef.current
@@ -405,13 +405,20 @@ export default function PlasmaShader({ className = '' }: Readonly<PlasmaShaderPr
 
 		let startTime = Date.now()
 
-		const render = () => {
-			// Set canvas size to match display size
+		const updateSize = () => {
 			const rect = canvas.getBoundingClientRect()
-			canvas.width = rect.width * window.devicePixelRatio
-			canvas.height = rect.height * window.devicePixelRatio
+			const width = Math.max(1, Math.floor(rect.width * window.devicePixelRatio))
+			const height = Math.max(1, Math.floor(rect.height * window.devicePixelRatio))
+			if (canvas.width !== width || canvas.height !== height) {
+				canvas.width = width
+				canvas.height = height
+				gl.viewport(0, 0, width, height)
+			}
+		}
 
-			gl.viewport(0, 0, canvas.width, canvas.height)
+		const render = () => {
+			// Ensure canvas matches display size each frame (cheap guard)
+			updateSize()
 
 			// Clear canvas
 			gl.clearColor(0, 0, 0, 1)
@@ -436,14 +443,15 @@ export default function PlasmaShader({ className = '' }: Readonly<PlasmaShaderPr
 		}
 
 		// Handle resize
-		const handleResize = () => {
-			const rect = canvas.getBoundingClientRect()
-			canvas.width = rect.width * window.devicePixelRatio
-			canvas.height = rect.height * window.devicePixelRatio
-		}
+		const handleResize = () => updateSize()
 
 		window.addEventListener('resize', handleResize)
 		handleResize()
+		if ('ResizeObserver' in window) {
+			resizeObserverRef.current = new ResizeObserver(() => updateSize())
+			const target = canvas.parentElement ?? canvas
+			resizeObserverRef.current.observe(target)
+		}
 
 		// Start rendering
 		render()
@@ -451,6 +459,10 @@ export default function PlasmaShader({ className = '' }: Readonly<PlasmaShaderPr
 		// Cleanup
 		return () => {
 			window.removeEventListener('resize', handleResize)
+			if (resizeObserverRef.current) {
+				resizeObserverRef.current.disconnect()
+				resizeObserverRef.current = null
+			}
 			if (animationFrameRef.current) {
 				cancelAnimationFrame(animationFrameRef.current)
 			}

@@ -111,7 +111,6 @@ export const getPasswordStrength = (
 
 	if (/(?=.*[!@#$%^&*(),.?":{}|<>])/.test(password)) {
 		score++
-		feedback.splice(feedback.indexOf('Un caractère spécial'), 1)
 	} else if (score >= 3) {
 		feedback.push('Un caractère spécial (optionnel)')
 	}
