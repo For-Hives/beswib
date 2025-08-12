@@ -11,6 +11,12 @@ const vertexShaderSource = `
 `
 
 const fragmentShaderSource = `
+  precision mediump float;
+  precision mediump int;
+
+  uniform vec2 iResolution;
+  uniform float iTime;
+
   #define M_PI 3.14159265359
 
 #define float2 vec2
@@ -450,8 +456,8 @@ export default function PlasmaShader({ className = '' }: Readonly<PlasmaShaderPr
 	}, [])
 
 	if (!isSupported) {
-		// Fallback ultra-simple: plain white block (will be replaced by an image later)
-		return <div className={`h-full w-full bg-white ${className}`} />
+		// Fallback: render nothing so parent can show an image behind
+		return <div className={`h-full w-full ${className}`} />
 	}
 
 	return <canvas ref={canvasRef} className={`h-full w-full ${className}`} style={{ display: 'block' }} />

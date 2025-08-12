@@ -7,7 +7,11 @@ import Link from 'next/link'
 
 import PlasmaShader from './PlasmaShader'
 
-export default function AuthSplitScreen({ children }: Readonly<{ children: ReactNode }>) {
+interface AuthSplitScreenProps {
+	children: ReactNode
+}
+
+export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenProps>) {
 	return (
 		<div className="flex min-h-screen items-center justify-center overflow-hidden p-4">
 			<div className="relative w-full max-w-6xl overflow-hidden rounded-3xl shadow-2xl">
@@ -15,21 +19,21 @@ export default function AuthSplitScreen({ children }: Readonly<{ children: React
 				<div className="grid min-h-[600px] md:grid-cols-12">
 					{/* Left Side - Visual Panel (Shader integrated into image) */}
 					<div className="relative overflow-hidden md:col-span-6">
-						{/* Plasma Shader Background */}
+						{/* Base image (behind) */}
 						<div className="absolute inset-0 z-0">
-							<PlasmaShader />
-						</div>
-
-						{/* Image overlay with blend mode to integrate shader into the image */}
-						<div className="pointer-events-none absolute inset-0 z-10">
 							<Image
 								src="/mountain.png"
 								alt="Mountain"
 								fill
 								sizes="(min-width: 768px) 50vw, 100vw"
 								priority
-								className="object-cover opacity-90 mix-blend-soft-light"
+								className="object-cover"
 							/>
+						</div>
+
+						{/* Shader above image with blend */}
+						<div className="pointer-events-none absolute inset-0 z-10">
+							<PlasmaShader className="opacity-90 mix-blend-soft-light" />
 						</div>
 
 						{/* Subtle light overlay to keep things soft */}

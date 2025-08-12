@@ -1,16 +1,12 @@
 'use client'
 
-import { useClerkTheme } from '@/hooks/useClerkTheme'
-import { SignIn } from '@clerk/nextjs'
-
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
+import CustomSignIn from '@/components/auth/CustomSignIn'
 
 export default function Page() {
-	const { appearance } = useClerkTheme()
-
 	return (
 		<AuthSplitScreen>
-			<SignIn appearance={appearance} />
+			<CustomSignIn />
 		</AuthSplitScreen>
 	)
 }
