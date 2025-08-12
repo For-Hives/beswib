@@ -40,6 +40,101 @@ export default function PayPalOnboarding(props: PayPalOnboardingProps) {
 	)
 }
 
+// Utility to normalize various error shapes into a message
+function formatError(error: unknown, fallback: string): string {
+	if (error instanceof Error) return error.message
+	if (typeof error === 'object' && error !== null && 'message' in error) {
+		const maybe = (error as { message?: unknown }).message
+		if (typeof maybe === 'string') return maybe
+	}
+	return fallback
+}
+
+// Badge indicating current PayPal connection status
+function StatusBadge({ hasMerchantId, t }: { hasMerchantId: boolean; t: any }) {
+	if (hasMerchantId) {
+		return (
+			<Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" variant="default">
+				<CheckCircle className="mr-1 h-3 w-3" />
+				{t.paypalVerified}
+			</Badge>
+		)
+	}
+	return (
+		<Badge variant="destructive">
+			<XCircle className="mr-1 h-3 w-3" />
+			{t.paypalNotVerified}
+		</Badge>
+	)
+}
+
+// Panel showing the merchant ID once available
+function MerchantIdPanel({ merchantId }: { merchantId: string }) {
+	return (
+		<div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-900/20">
+			<p className="text-sm text-blue-800 dark:text-blue-300">
+				<strong>Merchant ID:</strong> {merchantId}
+			</p>
+			<p className="mt-1 text-xs text-blue-600 dark:text-blue-400">
+				Your PayPal merchant ID has been automatically retrieved and saved.
+			</p>
+		</div>
+	)
+}
+
+function PendingLinkNotice({ t }: { t: any }) {
+	return (
+		<div className="flex flex-col items-center justify-center space-y-2 py-6">
+			<RefreshCw className="mb-2 h-6 w-6 animate-spin text-blue-600" />
+			<span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+				It could take a few minutes to link your PayPal account.
+			</span>
+		</div>
+	)
+}
+
+function DisconnectConfirmDialog({
+	open,
+	setOpen,
+	pending,
+	onConfirm,
+	t,
+}: {
+	open: boolean
+	setOpen: (open: boolean) => void
+	pending: boolean
+	onConfirm: () => void
+	t: any
+}) {
+	return (
+		<AlertDialog open={open} onOpenChange={setOpen}>
+			<AlertDialogContent>
+				<AlertDialogHeader>
+					<AlertDialogTitle>{t.disconnectTitle}</AlertDialogTitle>
+					<AlertDialogDescription>{t.disconnectDescription}</AlertDialogDescription>
+				</AlertDialogHeader>
+				<AlertDialogFooter>
+					<AlertDialogCancel disabled={pending}>{t.cancel}</AlertDialogCancel>
+					<AlertDialogAction
+						className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+						onClick={onConfirm}
+						disabled={pending}
+					>
+						{pending ? (
+							<>
+								<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+								{t.disconnecting}
+							</>
+						) : (
+							t.confirm
+						)}
+					</AlertDialogAction>
+				</AlertDialogFooter>
+			</AlertDialogContent>
+		</AlertDialog>
+	)
+}
+
 function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	const t = getTranslations(locale, profileTranslations).profile.sellerInfo
 	const { isLoading, error, data: user } = useUser(userId)
@@ -60,23 +155,6 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 		})
 	}
 
-	const getStatusBadge = () => {
-		if (typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0) {
-			return (
-				<Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" variant="default">
-					<CheckCircle className="mr-1 h-3 w-3" />
-					{t.paypalVerified}
-				</Badge>
-			)
-		}
-		return (
-			<Badge variant="destructive">
-				<XCircle className="mr-1 h-3 w-3" />
-				{t.paypalNotVerified}
-			</Badge>
-		)
-	}
-
 	if (isLoading) {
 		return <PayPalOnboardingSkeleton />
 	}
@@ -86,19 +164,16 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 		return (
 			<Alert variant="destructive">
 				<XCircle className="h-4 w-4" />
-				<AlertDescription>
-					{error instanceof Error
-						? error.message
-						: typeof error === 'object' &&
-							  error !== null &&
-							  'message' in error &&
-							  typeof (error as { message?: unknown }).message === 'string'
-							? String((error as { message?: unknown }).message)
-							: 'Failed to load user data. Please refresh the page.'}
-				</AlertDescription>
+				<AlertDescription>{formatError(error, 'Failed to load user data. Please refresh the page.')}</AlertDescription>
 			</Alert>
 		)
 	}
+
+	const hasMerchantId = typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0
+	const actionUrl = typeof onboardingMutation.data?.actionUrl === 'string' ? onboardingMutation.data.actionUrl : ''
+	const isOnboardingPending = onboardingMutation.isPending
+	const isOnboardingSuccess = onboardingMutation.isSuccess
+	const isDisconnectPending = disconnectMutation.isPending
 
 	return (
 		<div className="space-y-6">
@@ -107,7 +182,9 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 				<CardHeader className="">
 					<CardTitle>PayPal Account Status</CardTitle>
 					<CardDescription>{t.paypalConnectionStatus}</CardDescription>
-					<div>{getStatusBadge()}</div>
+					<div>
+						<StatusBadge hasMerchantId={hasMerchantId} t={t} />
+					</div>
 				</CardHeader>
 			</Card>
 
@@ -119,40 +196,25 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 				</CardHeader>
 				<CardContent className="space-y-4">
 					{/* PayPal Merchant ID Display (if available) */}
-					{typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0 && (
-						<div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-900/20">
-							<p className="text-sm text-blue-800 dark:text-blue-300">
-								<strong>Merchant ID:</strong> {user.paypalMerchantId}
-							</p>
-							<p className="mt-1 text-xs text-blue-600 dark:text-blue-400">
-								Your PayPal merchant ID has been automatically retrieved and saved.
-							</p>
-						</div>
-					)}
+					{hasMerchantId && <MerchantIdPanel merchantId={user!.paypalMerchantId as string} />}
 
 					{/* Connect/Disconnect Button or Loader */}
-					{onboardingMutation.isPending ? (
+					{isOnboardingPending ? (
 						<Button className="w-full" disabled>
 							<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
 							Connecting...
 						</Button>
-					) : onboardingMutation.isSuccess &&
-					  (typeof user?.paypalMerchantId !== 'string' || user.paypalMerchantId === '') ? (
-						<div className="flex flex-col items-center justify-center space-y-2 py-6">
-							<RefreshCw className="mb-2 h-6 w-6 animate-spin text-blue-600" />
-							<span className="text-sm font-medium text-blue-700 dark:text-blue-300">
-								It could take a few minutes to link your PayPal account.
-							</span>
-						</div>
-					) : typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0 ? (
+					) : isOnboardingSuccess && !hasMerchantId ? (
+						<PendingLinkNotice t={t} />
+					) : hasMerchantId ? (
 						<>
 							<Button
 								className="w-full"
 								variant="destructive"
 								onClick={() => setShowDisconnectConfirm(true)}
-								disabled={disconnectMutation.isPending}
+								disabled={isDisconnectPending}
 							>
-								{disconnectMutation.isPending ? (
+								{isDisconnectPending ? (
 									<>
 										<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
 										{t.disconnecting}
@@ -165,56 +227,32 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 								)}
 							</Button>
 
-							<AlertDialog open={showDisconnectConfirm} onOpenChange={setShowDisconnectConfirm}>
-								<AlertDialogContent>
-									<AlertDialogHeader>
-										<AlertDialogTitle>{t.disconnectTitle}</AlertDialogTitle>
-										<AlertDialogDescription>{t.disconnectDescription}</AlertDialogDescription>
-									</AlertDialogHeader>
-									<AlertDialogFooter>
-										<AlertDialogCancel disabled={disconnectMutation.isPending}>{t.cancel}</AlertDialogCancel>
-										<AlertDialogAction
-											className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-											onClick={handleDisconnect}
-											disabled={disconnectMutation.isPending}
-										>
-											{disconnectMutation.isPending ? (
-												<>
-													<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-													{t.disconnecting}
-												</>
-											) : (
-												t.confirm
-											)}
-										</AlertDialogAction>
-									</AlertDialogFooter>
-								</AlertDialogContent>
-							</AlertDialog>
+							<DisconnectConfirmDialog
+								open={showDisconnectConfirm}
+								setOpen={setShowDisconnectConfirm}
+								pending={isDisconnectPending}
+								onConfirm={handleDisconnect}
+								t={t}
+							/>
+
 							{/* Error Display for disconnect */}
 							{disconnectMutation.error ? (
 								<Alert variant="destructive">
 									<XCircle className="h-4 w-4" />
 									<AlertDescription>
-										{disconnectMutation.error instanceof Error
-											? disconnectMutation.error.message
-											: typeof disconnectMutation.error === 'object' &&
-												  disconnectMutation.error !== null &&
-												  'message' in disconnectMutation.error &&
-												  typeof (disconnectMutation.error as { message?: unknown }).message === 'string'
-												? String((disconnectMutation.error as { message?: unknown }).message)
-												: 'Failed to disconnect PayPal account'}
+										{formatError(disconnectMutation.error, 'Failed to disconnect PayPal account')}
 									</AlertDescription>
 								</Alert>
 							) : null}
 						</>
 					) : (
-						<Button className="w-full" disabled={onboardingMutation.isPending} onClick={handlePayPalConnect}>
+						<Button className="w-full" disabled={isOnboardingPending} onClick={handlePayPalConnect}>
 							{t.createSellerButton}
 						</Button>
 					)}
 
 					{/* Onboarding URL Display */}
-					{typeof onboardingMutation.data?.actionUrl === 'string' && onboardingMutation.data.actionUrl.length > 0 && (
+					{actionUrl.length > 0 && (
 						<Alert>
 							<ExternalLink className="h-4 w-4" />
 							<AlertDescription>
@@ -222,7 +260,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 									<p>PayPal onboarding window opened. If it didn't open automatically:</p>
 									<a
 										className="inline-flex items-center text-sm font-medium text-blue-600 underline hover:text-blue-800"
-										href={onboardingMutation.data.actionUrl}
+										href={actionUrl}
 										rel="noopener noreferrer"
 										target="_blank"
 									>
@@ -240,14 +278,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 				<Alert variant="destructive">
 					<XCircle className="h-4 w-4" />
 					<AlertDescription>
-						{onboardingMutation.error instanceof Error
-							? onboardingMutation.error.message
-							: typeof onboardingMutation.error === 'object' &&
-								  onboardingMutation.error !== null &&
-								  'message' in onboardingMutation.error &&
-								  typeof (onboardingMutation.error as { message?: unknown }).message === 'string'
-								? String((onboardingMutation.error as { message?: unknown }).message)
-								: 'Failed to initiate PayPal onboarding'}
+						{formatError(onboardingMutation.error, 'Failed to initiate PayPal onboarding')}
 					</AlertDescription>
 				</Alert>
 			) : null}
