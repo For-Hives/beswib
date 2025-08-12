@@ -38,9 +38,9 @@ export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenPr
 							/>
 						</div>
 
-						{/* Shader above image (no blend for full coverage) */}
+						{/* Mountain Shader Animation */}
 						{/* <div className="pointer-events-none absolute inset-0 z-10 w-full">
-							<PlasmaShader debug className="absolute top-0 left-0 h-full w-full opacity-100" />
+							<PlasmaShader fit="cover" className="absolute top-0 left-0 h-full w-full opacity-80" />
 						</div> */}
 
 						{/* Subtle light overlay to keep things soft */}
