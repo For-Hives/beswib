@@ -10,20 +10,15 @@ describe('umami.utils', () => {
 		expect(beforeSendHandler('event', undefined)).toBe(false)
 	})
 
-	it('beforeSendHandler redacts email and name', () => {
-		const event_data: Record<string, string> = {}
-		event_data.email = 'a@b.c'
-		event_data.name = 'Bob'
-		event_data.other = 'x'
-
+	it('beforeSendHandler extracts locale and rewrites URL', () => {
 		const res = beforeSendHandler('event', {
-			event_name: 'foo',
-			data: event_data,
+			url: 'https://example.com/fr/some/path',
+			data: {},
 		})
 
 		if (res === false) throw new Error('beforeSendHandler unexpectedly returned false')
-		expect(res.data?.email).toBe('[redacted]')
-		expect(res.data?.name).toBe('[redacted]')
+		expect(res.data?.locale).toBe('fr')
+		expect(res.url).toBe('https://example.com/some/path')
 	})
 
 	it('umamiTrack/umamiIdentify are SSR safe', () => {

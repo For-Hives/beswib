@@ -4,6 +4,7 @@ import { Loader2, Send } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useState } from 'react'
 import type React from 'react'
+import { toast } from 'sonner'
 
 import globalTranslations from '@/components/global/locales.json'
 import { Textarea } from '@/components/ui/textareaAlt'
@@ -29,6 +30,7 @@ export default function ContactForm({ t }: ContactFormProps) {
 			const { submitContactMessage } = await import('@/app/[locale]/contact/actions')
 			const res = await submitContactMessage({ name, email, message })
 			if (res.success) {
+				toast.success(t.form.messageSent)
 				setIsSubmitted(true)
 				setName('')
 				setEmail('')
@@ -36,9 +38,11 @@ export default function ContactForm({ t }: ContactFormProps) {
 			} else {
 				// Soft error handling; keep the user on the form
 				console.error('Contact submit failed:', res.error)
+				toast.error(res.error ?? 'Failed to send message')
 			}
 		} catch (err) {
 			console.error('Contact submit error:', err)
+			toast.error('Failed to send message')
 		} finally {
 			setIsSubmitting(false)
 		}
