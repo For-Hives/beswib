@@ -5,11 +5,17 @@ import React from 'react'
 import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
 
+import marketplaceTranslations from '@/components/marketplace/locales.json'
+import { getTranslations } from '@/lib/getDictionary'
+import { Locale } from '@/lib/i18n-config'
+
 interface PriceDisplayProps {
 	/** The bib sale data containing price information */
 	bib: BibSale
 	/** Optional event data for official price comparison */
 	eventData?: Event
+	/** Locale for translations */
+	locale?: Locale
 }
 
 /**
@@ -17,7 +23,8 @@ interface PriceDisplayProps {
  * Shows current price, original price, and savings compared to the lowest reference price
  * (either original seller price or official event price)
  */
-export default function PriceDisplay({ eventData, bib }: PriceDisplayProps) {
+export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceDisplayProps>) {
+	const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
 	// Calculate the lowest reference price between original and official
 	const officialPrice = eventData?.officialStandardPrice ?? 0
 	const originalPrice = bib.originalPrice ?? 0
@@ -36,7 +43,14 @@ export default function PriceDisplay({ eventData, bib }: PriceDisplayProps) {
 	const hasValidReference = referencePrice > 0 && referencePrice !== bib.price && referencePrice > bib.price
 
 	// Determine which price type we're comparing against for display
-	const isComparingAgainstOfficial = officialPrice > 0 && (originalPrice === 0 || officialPrice <= originalPrice)
+	let isComparingAgainstOfficial = false
+	if (officialPrice > 0) {
+		if (originalPrice === 0) {
+			isComparingAgainstOfficial = true
+		} else if (officialPrice <= originalPrice) {
+			isComparingAgainstOfficial = true
+		}
+	}
 
 	return (
 		<div className="mt-6">
@@ -48,7 +62,9 @@ export default function PriceDisplay({ eventData, bib }: PriceDisplayProps) {
 				{hasValidReference && (
 					<div className="flex flex-col">
 						<p className="text-muted-foreground text-sm">
-							{isComparingAgainstOfficial ? 'Prix officiel' : 'Prix original'}
+							{isComparingAgainstOfficial
+								? (t.officialPrice ?? 'Official price')
+								: (t.originalPrice ?? 'Original price')}
 						</p>
 						<p className="text-muted-foreground text-lg line-through">€{referencePrice}</p>
 					</div>
@@ -59,8 +75,9 @@ export default function PriceDisplay({ eventData, bib }: PriceDisplayProps) {
 			{hasValidReference && (
 				<div className="mt-2">
 					<p className="text-sm font-medium text-green-400">
-						Save €{(referencePrice - bib.price).toFixed(2)} vs. {isComparingAgainstOfficial ? 'official' : 'original'}{' '}
-						price ({(((referencePrice - bib.price) / referencePrice) * 100).toFixed(0)}% off)
+						{t.savePrefix ?? 'Save'} €{(referencePrice - bib.price).toFixed(2)} {t.saveVs ?? 'vs.'}{' '}
+						{isComparingAgainstOfficial ? (t.official ?? 'official') : (t.original ?? 'original')} {t.price ?? 'price'}{' '}
+						({(((referencePrice - bib.price) / referencePrice) * 100).toFixed(0)}% {t.off ?? 'off'})
 					</p>
 				</div>
 			)}
@@ -70,8 +87,8 @@ export default function PriceDisplay({ eventData, bib }: PriceDisplayProps) {
 				<div className="mt-1">
 					<p className="text-muted-foreground text-xs">
 						{isComparingAgainstOfficial
-							? `Original seller price: €${originalPrice}`
-							: `Official event price: €${officialPrice}`}
+							? `${t.originalSellerPrice ?? 'Original seller price'}: €${originalPrice}`
+							: `${t.officialEventPrice ?? 'Official event price'}: €${officialPrice}`}
 					</p>
 				</div>
 			)}

@@ -26,7 +26,7 @@ interface EventImageProps {
  * Component that displays the event image with type badge and discount badge
  * Handles the visual presentation of the event with proper styling and overlays
  */
-export default function EventImage({ locale, eventData, bib }: EventImageProps) {
+export default function EventImage({ locale, eventData, bib }: Readonly<EventImageProps>) {
 	const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
 	/**
 	 * Get background styling based on event type
@@ -55,14 +55,14 @@ export default function EventImage({ locale, eventData, bib }: EventImageProps) 
 	const originalPrice = bib.originalPrice ?? 0
 
 	// Determine the reference price (lowest between original and official)
-	const referencePrice =
-		officialPrice > 0 && originalPrice > 0
-			? Math.min(officialPrice, originalPrice)
-			: officialPrice > 0
-				? officialPrice
-				: originalPrice > 0
-					? originalPrice
-					: 0
+	let referencePrice = 0
+	if (officialPrice > 0 && originalPrice > 0) {
+		referencePrice = Math.min(officialPrice, originalPrice)
+	} else if (officialPrice > 0) {
+		referencePrice = officialPrice
+	} else if (originalPrice > 0) {
+		referencePrice = originalPrice
+	}
 
 	// Calculate discount percentage based on the lowest reference price
 	const discountPercentage =
@@ -111,7 +111,7 @@ export default function EventImage({ locale, eventData, bib }: EventImageProps) 
 			{discountPercentage > 10 && (
 				<div className="absolute top-4 right-4 z-10">
 					<Badge variant="destructive" className="text-white">
-						-{discountPercentage}% OFF
+						-{discountPercentage}% {t.discountOff ?? 'OFF'}
 					</Badge>
 				</div>
 			)}

@@ -7,7 +7,9 @@ import Link from 'next/link'
 
 import type { Locale } from '@/lib/i18n-config'
 
+import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { getTranslations } from '@/lib/getDictionary'
 
 interface ActionButtonsProps {
 	/** Whether user is signed in */
@@ -32,7 +34,8 @@ export default function ActionButtons({
 	isSignedIn,
 	isProfileComplete,
 	isOwnBib,
-}: ActionButtonsProps) {
+}: Readonly<ActionButtonsProps>) {
+	const t = getTranslations(locale, marketplaceTranslations)
 	return (
 		<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
 			{/* Profile Incomplete Alert */}
@@ -40,11 +43,11 @@ export default function ActionButtons({
 				<div className="sm:col-span-2">
 					<Alert className="mb-4" variant="destructive">
 						<AlertTriangle className="h-4 w-4" />
-						<AlertTitle>Profile Incomplete</AlertTitle>
+						<AlertTitle>{t.profileIncompleteTitle ?? 'Profile Incomplete'}</AlertTitle>
 						<AlertDescription>
-							Please complete your runner profile before purchasing a bib.{' '}
+							{t.profileIncompleteBody ?? 'Please complete your runner profile before purchasing a bib.'}{' '}
 							<Link className="font-bold underline" href={`/${locale}/profile`}>
-								Complete Profile
+								{t.completeProfile ?? 'Complete Profile'}
 							</Link>
 						</AlertDescription>
 					</Alert>
@@ -56,11 +59,11 @@ export default function ActionButtons({
 				<div className="sm:col-span-2">
 					<Alert className="mb-4" variant="default">
 						<AlertTriangle className="h-4 w-4" />
-						<AlertTitle>Your Own Bib</AlertTitle>
+						<AlertTitle>{t.ownBibTitle ?? 'Your Own Bib'}</AlertTitle>
 						<AlertDescription>
-							You cannot purchase your own bib. You can manage it from your{' '}
+							{t.ownBibBody ?? 'You cannot purchase your own bib. You can manage it from your'}{' '}
 							<Link className="font-bold underline" href={`/${locale}/dashboard/seller`}>
-								seller dashboard
+								{t.sellerDashboard ?? 'seller dashboard'}
 							</Link>
 							.
 						</AlertDescription>
@@ -76,7 +79,7 @@ export default function ActionButtons({
 					className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary w-full rounded-md px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-50"
 					disabled={isOwnBib}
 				>
-					{isSignedIn !== true ? 'Sign In to Purchase' : 'Purchase Bib'}
+					{isSignedIn !== true ? (t.signInToPurchase ?? 'Sign In to Purchase') : (t.purchaseBib ?? 'Purchase Bib')}
 				</button>
 			)}
 
@@ -86,7 +89,7 @@ export default function ActionButtons({
 					type="button"
 					className="border-border bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus:ring-primary w-full rounded-md border px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none"
 				>
-					Event Details
+					{t.eventDetails ?? 'Event Details'}
 				</button>
 			)}
 		</div>

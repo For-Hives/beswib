@@ -20,9 +20,11 @@ import { isLocked, lockBib } from '@/services/bib.services'
 import { Locale } from '@/lib/i18n-config'
 
 // Import sub-components
+import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
 import { LockTimer } from './LockTimer'
 // import { pbDateToLuxon } from '@/lib/dateUtils'
+import { getTranslations } from '@/lib/getDictionary'
 
 interface PayPalPurchaseClientProps {
 	bib: BibSale
@@ -54,6 +56,7 @@ export default function PayPalPurchaseClient({
 	eventData,
 	bib,
 }: Readonly<PayPalPurchaseClientProps>) {
+    const t = getTranslations(locale, marketplaceTranslations)
 	// Local safe converter to avoid type-aware linter issues with cross-module inference
 	const toLuxon = (date: DateLike): DateTime | null => {
 		if (date instanceof Date) {
@@ -291,8 +294,10 @@ export default function PayPalPurchaseClient({
 										)}
 									</span>
 
-									{/* Participants */}
-									<span>{bib.event.participantCount.toLocaleString()} runners</span>
+                                    {/* Participants */}
+                                    <span>
+                                        {bib.event.participantCount.toLocaleString(locale)} {t.participants ?? 'participants'}
+                                    </span>
 								</div>
 							</div>
 						</div>
