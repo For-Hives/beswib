@@ -17,16 +17,31 @@ interface ContactFormProps {
 export default function ContactForm({ t }: ContactFormProps) {
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [isSubmitted, setIsSubmitted] = useState(false)
+	const [name, setName] = useState('')
+	const [email, setEmail] = useState('')
+	const [message, setMessage] = useState('')
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
+		if (isSubmitting) return
 		setIsSubmitting(true)
-
-		// Simulate form submission 🚀
-		setTimeout(() => {
-			setIsSubmitting(false) // TODO: implement actual form submission logic here 🚧
-			setIsSubmitted(true)
-		}, 1500)
+		try {
+			const { submitContactMessage } = await import('@/app/[locale]/contact/actions')
+			const res = await submitContactMessage({ name, email, message })
+			if (res.success) {
+				setIsSubmitted(true)
+				setName('')
+				setEmail('')
+				setMessage('')
+			} else {
+				// Soft error handling; keep the user on the form
+				console.error('Contact submit failed:', res.error)
+			}
+		} catch (err) {
+			console.error('Contact submit error:', err)
+		} finally {
+			setIsSubmitting(false)
+		}
 	}
 
 	if (isSubmitted) {
@@ -66,6 +81,8 @@ export default function ContactForm({ t }: ContactFormProps) {
 					className="backdrop-blur-sm dark:border-stone-700 dark:bg-stone-800/50"
 					id="name"
 					placeholder={t.form.yourNamePlaceholder}
+					value={name}
+					onChange={e => setName(e.currentTarget.value)}
 					required
 				/>
 			</div>
@@ -79,6 +96,8 @@ export default function ContactForm({ t }: ContactFormProps) {
 					placeholder={t.form.yourEmailPlaceholder}
 					required
 					type="email"
+					value={email}
+					onChange={e => setEmail(e.currentTarget.value)}
 				/>
 			</div>
 			<div className="flex-1">
@@ -89,6 +108,8 @@ export default function ContactForm({ t }: ContactFormProps) {
 					className="h-[120px] resize-none backdrop-blur-sm dark:border-stone-700 dark:bg-stone-800/50"
 					id="message"
 					placeholder={t.form.yourMessagePlaceholder}
+					value={message}
+					onChange={e => setMessage(e.currentTarget.value)}
 					required
 				/>
 			</div>
