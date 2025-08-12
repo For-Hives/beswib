@@ -11,6 +11,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { formatDateWithLocale } from '@/lib/dateUtils'
 import { getTranslations } from '@/lib/getDictionary'
+import Link from 'next/link'
 
 interface ContentTabsProps {
 	/** The bib sale data */
@@ -60,7 +61,7 @@ export default function ContentTabs({ locale, eventData, bib }: Readonly<Content
 		summary:
 			t.termsSummary ??
 			"By purchasing this bib, you agree to our terms of service and the event organizer's participation rules.",
-		href: '#',
+		href: '/legals/terms/',
 	}
 
 	return (
@@ -159,9 +160,9 @@ export default function ContentTabs({ locale, eventData, bib }: Readonly<Content
 								<h4 className="text-foreground mb-4 font-semibold">{t.termsAndConditions ?? 'Terms & Conditions'}</h4>
 								<p className="text-muted-foreground text-sm">
 									{terms.summary}{' '}
-									<a href={terms.href} className="text-primary hover:text-primary/80 font-medium underline">
+									<Link href={terms.href} className="text-primary hover:text-primary/80 font-medium underline">
 										{t.readFullTerms ?? 'Read full terms'}
-									</a>
+									</Link>
 								</p>
 							</div>
 						</div>
