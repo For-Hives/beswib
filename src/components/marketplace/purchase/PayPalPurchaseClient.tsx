@@ -15,16 +15,16 @@ import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
 import { createSale, captureOrder } from '@/app/[locale]/purchase/actions'
+import marketplaceTranslations from '@/components/marketplace/locales.json'
+import { getTranslations } from '@/lib/getDictionary'
+import { Locale } from '@/lib/i18n-config'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { isLocked, lockBib } from '@/services/bib.services'
-import { Locale } from '@/lib/i18n-config'
 
 // Import sub-components
-import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
 import { LockTimer } from './LockTimer'
 // import { pbDateToLuxon } from '@/lib/dateUtils'
-import { getTranslations } from '@/lib/getDictionary'
 
 interface PayPalPurchaseClientProps {
 	bib: BibSale
