@@ -220,7 +220,8 @@ export default function PayPalPurchaseClient({
 				setLoading(true)
 				setErrorMessage(null)
 
-				const res = await captureOrder(data.orderID)
+				// Pass the lock key (lockedAtParam) to enforce a last DB check server-side
+				const res = await captureOrder(data.orderID, lockedAtParam ?? null)
 				if (res.error !== null && res.error !== undefined && res.error !== '') {
 					throw new Error(res.error)
 				}
@@ -237,7 +238,7 @@ export default function PayPalPurchaseClient({
 				setLoading(false)
 			}
 		},
-		[bib.id, locale, router]
+		[bib.id, locale, router, lockedAtParam]
 	)
 
 	const onError = useCallback((_err: Record<string, unknown>) => {
