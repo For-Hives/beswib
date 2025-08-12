@@ -4,7 +4,7 @@
 import * as Sentry from '@sentry/nextjs'
 
 Sentry.init({
-    tracesSampleRate: 1,
-    dsn: process.env.SENTRY_DSN,
-    debug: false,
+	tracesSampleRate: 1,
+	dsn: process.env.SENTRY_DSN,
+	debug: false,
 })
