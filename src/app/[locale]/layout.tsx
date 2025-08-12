@@ -17,6 +17,7 @@ import SentryClientInit from '@/app/[locale]/SentryClientInit'
 import PageTransition from '@/components/ui/PageTransition'
 import Footer from '@/components/global/footer'
 import Header from '@/components/global/Header'
+import '@/lib/umami.utils'
 
 import '@/app/[locale]/globals.css'
 
@@ -94,9 +95,11 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 					<Script
 						async
 						id="umami-script"
-						data-domains={'beswib.com'}
+						// data-domains={'beswib.com'}
 						data-website-id="e9168017-b73b-491b-b7b0-fee64f07c847"
 						src="https://umami.wadefade.fr/script.js"
+						data-tag="alpha"
+						data-before-send="beforeSendHandler"
 						strategy="afterInteractive"
 					></Script>
 				</head>
