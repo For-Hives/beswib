@@ -50,8 +50,18 @@ function formatError(error: unknown, fallback: string): string {
 	return fallback
 }
 
+// Local translation shape helpers to avoid `any` and unsafe member access
+type StatusText = { paypalVerified: string; paypalNotVerified: string }
+type DisconnectText = {
+	disconnectTitle: string
+	disconnectDescription: string
+	cancel: string
+	disconnecting: string
+	confirm: string
+}
+
 // Badge indicating current PayPal connection status
-function StatusBadge({ hasMerchantId, t }: { hasMerchantId: boolean; t: any }) {
+function StatusBadge({ t, hasMerchantId }: { hasMerchantId: boolean; t: StatusText }) {
 	if (hasMerchantId) {
 		return (
 			<Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" variant="default">
@@ -82,7 +92,7 @@ function MerchantIdPanel({ merchantId }: { merchantId: string }) {
 	)
 }
 
-function PendingLinkNotice({ t }: { t: any }) {
+function PendingLinkNotice() {
 	return (
 		<div className="flex flex-col items-center justify-center space-y-2 py-6">
 			<RefreshCw className="mb-2 h-6 w-6 animate-spin text-blue-600" />
@@ -94,17 +104,17 @@ function PendingLinkNotice({ t }: { t: any }) {
 }
 
 function DisconnectConfirmDialog({
-	open,
+	t,
 	setOpen,
 	pending,
+	open,
 	onConfirm,
-	t,
 }: {
 	open: boolean
 	setOpen: (open: boolean) => void
 	pending: boolean
 	onConfirm: () => void
-	t: any
+	t: DisconnectText
 }) {
 	return (
 		<AlertDialog open={open} onOpenChange={setOpen}>
@@ -196,7 +206,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 				</CardHeader>
 				<CardContent className="space-y-4">
 					{/* PayPal Merchant ID Display (if available) */}
-					{hasMerchantId && <MerchantIdPanel merchantId={user!.paypalMerchantId as string} />}
+					{hasMerchantId && <MerchantIdPanel merchantId={user.paypalMerchantId as string} />}
 
 					{/* Connect/Disconnect Button or Loader */}
 					{isOnboardingPending ? (
@@ -205,7 +215,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 							Connecting...
 						</Button>
 					) : isOnboardingSuccess && !hasMerchantId ? (
-						<PendingLinkNotice t={t} />
+						<PendingLinkNotice />
 					) : hasMerchantId ? (
 						<>
 							<Button
