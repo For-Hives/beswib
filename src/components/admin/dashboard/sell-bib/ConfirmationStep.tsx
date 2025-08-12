@@ -33,10 +33,11 @@ interface ConfirmationStepProps {
 	user: User
 }
 
+import Link from 'next/link'
+
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
-import Link from 'next/link'
 
 export default function ConfirmationStep({
 	user,

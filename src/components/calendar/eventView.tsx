@@ -2,6 +2,8 @@
 
 import { Calendar, Clock, DollarSign, ExternalLink, Globe, Mail, MapPin, Route, Users, X } from 'lucide-react'
 
+import Link from 'next/link'
+
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 
@@ -10,7 +12,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import Link from 'next/link'
 
 interface EventViewProps {
 	event: Event
