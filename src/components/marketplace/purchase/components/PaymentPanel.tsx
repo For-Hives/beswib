@@ -172,7 +172,7 @@ export default function PaymentPanel({
 									<li>• Official race bib with your registered details</li>
 									<li>• All event materials (timing chip, race packet)</li>
 									<li>• Complete registration transfer service</li>
-                                    <li>• Dedicated multilingual assistance</li>
+									<li>• Dedicated multilingual assistance</li>
 								</ul>
 							</div>
 						</div>
