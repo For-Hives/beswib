@@ -295,16 +295,11 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     );
     //*/
 
-    // Grains.
-    fragColor.rgb += 1.5*0.75*((rand2(uv)-.5)*.07);
+    // Optional grain (subtle)
+    fragColor.rgb += 1.5*0.50*((rand2(uv)-.5)*.05);
     
-    // Vigente.
-    vec2 vigenteSize = 0.3*iResolution.xy;
-    float sdf = -sdRoundedBox(fragCoord.xy - iResolution.xy*0.5, vigenteSize, vec4(0.25*min(iResolution.x, iResolution.y))) / vigenteSize.x;
-    float percent = 0.8;
-    sdf = (saturate(percent + sdf) - percent) / (1.0 - percent);
-    sdf = lerp(1.0, sdf, 0.05);
-    fragColor.rgb *= sdf;
+    // Remove central box vignette to avoid vertical banding
+    // (kept intentionally empty here)
 }
 
 void main() {
@@ -475,8 +470,8 @@ export default function PlasmaShader({ className = '' }: Readonly<PlasmaShaderPr
 
 	if (!isSupported) {
 		// Fallback: render nothing so parent can show an image behind
-		return <div className={`h-full w-full ${className}`} />
+		return <div className={`h-full w-[600px] ${className}`} />
 	}
 
-	return <canvas ref={canvasRef} className={`h-full w-full ${className}`} style={{ display: 'block' }} />
+	return <canvas ref={canvasRef} className={`h-full w-[600px] ${className}`} style={{ display: 'block' }} />
 }
