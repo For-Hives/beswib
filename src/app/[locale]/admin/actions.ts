@@ -2,9 +2,14 @@
 
 import { checkAdminAccess } from '@/guard/adminGuard'
 
-import { createOrganizer, fetchAllOrganizersWithEventsCount } from '@/services/organizer.services'
-import { getDashboardStats, getRecentActivity } from '@/services/dashboard.services'
+import {
+	createOrganizer,
+	deleteOrganizer,
+	fetchAllOrganizersWithEventsCount,
+	updateOrganizer,
+} from '@/services/organizer.services'
 import { createEvent, deleteEventById, getAllEvents } from '@/services/event.services'
+import { getDashboardStats, getRecentActivity } from '@/services/dashboard.services'
 import { Organizer } from '@/models/organizer.model'
 import { Event } from '@/models/event.model'
 
@@ -198,6 +203,59 @@ export async function getRecentActivityAction() {
 	}
 }
 
+/**
+ * Server action to approve an organizer (set isPartnered = true)
+ */
+export async function approveOrganizerAction(
+	id: string
+): Promise<{ success: boolean; data?: Organizer; error?: string }> {
+	try {
+		const adminUser = await checkAdminAccess()
+		if (adminUser === null) {
+			return { success: false, error: 'Unauthorized: Admin access required' }
+		}
+
+		if (!id || typeof id !== 'string') {
+			return { success: false, error: 'Valid organizer ID is required' }
+		}
+
+		const updated = await updateOrganizer(id, { isPartnered: true })
+		if (updated) {
+			console.info(`Admin ${adminUser.email} approved organizer: ${id}`)
+			return { success: true, data: updated }
+		}
+		return { success: false, error: 'Failed to approve organizer' }
+	} catch (error) {
+		console.error('Error in approveOrganizerAction:', error)
+		return { success: false, error: error instanceof Error ? error.message : 'Failed to approve organizer' }
+	}
+}
+
+/**
+ * Server action to reject an organizer (delete record)
+ */
+export async function rejectOrganizerAction(id: string): Promise<{ success: boolean; error?: string }> {
+	try {
+		const adminUser = await checkAdminAccess()
+		if (adminUser === null) {
+			return { success: false, error: 'Unauthorized: Admin access required' }
+		}
+
+		if (!id || typeof id !== 'string') {
+			return { success: false, error: 'Valid organizer ID is required' }
+		}
+
+		const ok = await deleteOrganizer(id)
+		if (ok) {
+			console.info(`Admin ${adminUser.email} rejected organizer (deleted): ${id}`)
+			return { success: true }
+		}
+		return { success: false, error: 'Failed to reject organizer' }
+	} catch (error) {
+		console.error('Error in rejectOrganizerAction:', error)
+		return { success: false, error: error instanceof Error ? error.message : 'Failed to reject organizer' }
+	}
+}
 /**
  * Server action to delete an event by ID (admin only)
  */

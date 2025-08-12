@@ -67,31 +67,45 @@ export default function AdminOrganizerValidatePageClient({
 		void fetchOrganizers()
 	}, [])
 
-	const handleApproveOrganizer = (organizerId: string) => {
+	const handleApproveOrganizer = async (organizerId: string) => {
 		try {
-			// TODO: Implement approve organizer logic
-			toast.success(translations.organizers.validate.messages.approveSuccess)
-
-			// Update local state
-			setOrganizers(prev => prev.map(org => (org.id === organizerId ? { ...org, isPartnered: true } : org)))
+			const { approveOrganizerAction } = await import('@/app/[locale]/admin/actions')
+			const res = await approveOrganizerAction(organizerId)
+			if (res.success) {
+				toast.success(translations.organizers.validate.messages.approveSuccess)
+				setOrganizers(prev => prev.map(org => (org.id === organizerId ? { ...org, isPartnered: true } : org)))
+			} else {
+				toast.error(res.error ?? translations.organizers.validate.messages.approveError)
+			}
 		} catch (error) {
 			console.error('Error approving organizer:', error)
 			toast.error(translations.organizers.validate.messages.approveError)
 		}
 	}
 
-	const handleRejectOrganizer = (organizerId: string) => {
+	const handleRejectOrganizer = async (organizerId: string) => {
 		try {
-			// TODO: Implement reject organizer logic
-			toast.success(translations.organizers.validate.messages.rejectSuccess)
-
-			// Update local state
-			setOrganizers(prev => prev.filter(org => org.id !== organizerId))
+			const { rejectOrganizerAction } = await import('@/app/[locale]/admin/actions')
+			const res = await rejectOrganizerAction(organizerId)
+			if (res.success) {
+				toast.success(translations.organizers.validate.messages.rejectSuccess)
+				setOrganizers(prev => prev.filter(org => org.id !== organizerId))
+			} else {
+				toast.error(res.error ?? translations.organizers.validate.messages.rejectError)
+			}
 		} catch (error) {
 			console.error('Error rejecting organizer:', error)
 			toast.error(translations.organizers.validate.messages.rejectError)
 		}
 	}
+
+	// Keep stats in sync when organizers change
+	useEffect(() => {
+		setStats({
+			totalOrganizers: organizers.length,
+			pendingOrganizers: organizers.filter(org => !org.isPartnered).length,
+		})
+	}, [organizers])
 
 	// Safety check - if currentUser is null, show error
 	if (!currentUser) {
