@@ -4,9 +4,10 @@
 import * as Sentry from '@sentry/nextjs'
 
 Sentry.init({
-	// Use absolute tunnel to avoid any base path/locale issues in dev
-	tunnel: (globalThis?.location?.origin ?? '') + '/monitoring',
+	// Force the SDK to use the local tunnel to bypass blockers
+	tunnel: `${location.origin}/monitoring`,
 	tracesSampleRate: 1,
+	enableLogs: true,
 	dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? process.env.SENTRY_DSN,
-	debug: false,
+	debug: true,
 })
