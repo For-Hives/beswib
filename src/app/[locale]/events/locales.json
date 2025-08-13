@@ -79,6 +79,10 @@
 				"bestPrice": "Best price",
 				"officialPrice": "Official price"
 			},
+			"OG": {
+				"titleOG": "Events",
+				"descriptionOG": "Browse our **events** <br />and find **race bibs** <br />for upcoming events!"
+			},
 			"noEventsToDisplay": "No events to display.",
 			"eventListTitleClient": "Event List (Client Component):"
 		}
@@ -162,6 +166,10 @@
 				"loading": "Chargement...",
 				"bestPrice": "Meilleur prix",
 				"officialPrice": "Prix officiel"
+			},
+			"OG": {
+				"titleOG": "Évènements",
+				"descriptionOG": "Parcourez nos **évènements** <br />et Trouvez des **dossards** <br />pour les événements à **venir** !"
 			},
 			"noEventsToDisplay": "Aucun événement à afficher.",
 			"eventListTitleClient": "Liste des événements (Composant Client) :"
@@ -247,6 +255,10 @@
 				"bestPrice": "최고 가격",
 				"officialPrice": "공식 가격"
 			},
+			"OG": {
+				"titleOG": "이벤트",
+				"descriptionOG": "우리의 **이벤트**를 둘러보고 <br />다가오는 이벤트를 위한 **레이스 비브**를 찾아보세요!"
+			},
 			"noEventsToDisplay": "표시할 이벤트가 없습니다.",
 			"eventListTitleClient": "이벤트 목록 (클라이언트 컴포넌트):"
 		}
@@ -330,6 +342,10 @@
 				"loading": "Cargando...",
 				"bestPrice": "Mejor precio",
 				"officialPrice": "Precio oficial"
+			},
+			"OG": {
+				"titleOG": "Eventos",
+				"descriptionOG": "Explora nuestros **eventos** <br />y encuentra **dorsales** <br />para eventos próximos!"
 			},
 			"noEventsToDisplay": "No hay eventos para mostrar.",
 			"eventListTitleClient": "Lista de eventos (Componente Cliente):"
@@ -415,8 +431,12 @@
 				"bestPrice": "Miglior prezzo",
 				"officialPrice": "Prezzo ufficiale"
 			},
-			"noEventsToDisplay": "Nessun evento da visualizzare.",
-			"eventListTitleClient": "Lista eventi (Componente Cliente):"
+			"OG": {
+				"titleOG": "Eventi",
+				"descriptionOG": "Sfoglia i nostri **eventi** <br />e trova i **pettorali** <br />per gli eventi in arrivo!"
+			},
+			"noEventsToDisplay": "Nessun evento da mostrare.",
+			"eventListTitleClient": "Elenco eventi (Componente client):"
 		}
 	},
 	"de": {
@@ -499,8 +519,12 @@
 				"bestPrice": "Bester Preis",
 				"officialPrice": "Offizieller Preis"
 			},
-			"noEventsToDisplay": "Keine Veranstaltungen zum Anzeigen.",
-			"eventListTitleClient": "Veranstaltungsliste (Client-Komponente):"
+			"OG": {
+				"titleOG": "Veranstaltungen",
+				"descriptionOG": "Durchsuchen Sie unsere **Veranstaltungen** <br />und finden Sie **Startnummern** <br />für kommende Veranstaltungen!"
+			},
+			"noEventsToDisplay": "Keine Events zum Anzeigen.",
+			"eventListTitleClient": "Event-Liste (Client-Komponente):"
 		}
 	},
 	"ro": {
@@ -583,8 +607,12 @@
 				"bestPrice": "Cel mai bun preț",
 				"officialPrice": "Prețul oficial"
 			},
-			"noEventsToDisplay": "Nu sunt evenimente de afișat.",
-			"eventListTitleClient": "Lista evenimentelor (Componenta Client):"
+			"OG": {
+				"titleOG": "Evenimente",
+				"descriptionOG": "Răsfoiește **evenimentele** noastre <br />și găsește **numere de concurs** <br />pentru evenimente viitoare!"
+			},
+			"noEventsToDisplay": "Nu există evenimente de afișat.",
+			"eventListTitleClient": "Lista evenimente (Componenta client):"
 		}
 	},
 	"pt": {
@@ -667,8 +695,12 @@
 				"bestPrice": "Melhor preço",
 				"officialPrice": "Preço oficial"
 			},
-			"noEventsToDisplay": "Nenhum evento para exibir.",
-			"eventListTitleClient": "Lista de eventos (Componente Cliente):"
+			"OG": {
+				"titleOG": "Eventos",
+				"descriptionOG": "Navegue pelos nossos **eventos** <br />e encontre **números de corrida** <br />para eventos futuros!"
+			},
+			"noEventsToDisplay": "Não há eventos para mostrar.",
+			"eventListTitleClient": "Lista de eventos (Componente cliente):"
 		}
 	},
 	"nl": {
@@ -751,8 +783,12 @@
 				"bestPrice": "Beste prijs",
 				"officialPrice": "Officiële prijs"
 			},
-			"noEventsToDisplay": "Geen evenementen om weer te geven.",
-			"eventListTitleClient": "Evenementenlijst (Client Component):"
+			"OG": {
+				"titleOG": "Evenementen",
+				"descriptionOG": "Blader door onze **evenementen** <br />en vind **startnummers** <br />voor aankomende evenementen!"
+			},
+			"noEventsToDisplay": "Geen events om weer te geven.",
+			"eventListTitleClient": "Event-lijst (Client-component):"
 		}
 	}
 }
