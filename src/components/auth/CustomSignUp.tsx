@@ -14,7 +14,6 @@ import {
 	validateVerificationCodeValibot,
 	validateConfirmPasswordValibot,
 } from '@/lib/validation-valibot'
-import { validationTranslations } from '@/lib/translations/validation'
 import { PasswordStrength } from '@/components/ui/PasswordStrength'
 import { translateClerkError } from '@/lib/clerkErrorTranslations'
 import { authTranslations } from '@/lib/translations/auth'
@@ -29,7 +28,6 @@ export default function CustomSignUp() {
 	const params = useParams()
 	const locale = (params?.locale as Locale) || 'en'
 	const t = authTranslations[locale]
-	const v = validationTranslations[locale]
 
 	const {
 		verificationEmail,
@@ -185,7 +183,7 @@ export default function CustomSignUp() {
 			})
 
 			if (completeSignUp.status === 'complete') {
-				await setActive({ session: completeSignUp.createdSessionId })
+				void setActive({ session: completeSignUp.createdSessionId })
 				router.push(`/${locale}/dashboard`)
 			} else {
 				setGlobalError(t.somethingWentWrong)
@@ -204,7 +202,7 @@ export default function CustomSignUp() {
 		if (!signUp) return
 
 		setSigningUp(true)
-		signUp.authenticateWithRedirect({
+		void signUp.authenticateWithRedirect({
 			strategy,
 			redirectUrlComplete: `/${locale}/dashboard`,
 			redirectUrl: `/${locale}/sso-callback`,
@@ -230,7 +228,7 @@ export default function CustomSignUp() {
 					</p>
 				</div>
 
-				<form onSubmit={handleVerification} className="space-y-4">
+				<form onSubmit={e => void handleVerification(e)} className="space-y-4">
 					{globalError && (
 						<div className="border-destructive/20 bg-destructive/10 text-destructive flex items-center gap-2 rounded-lg border p-3 text-sm">
 							<span className="text-destructive">⚠</span>
@@ -323,7 +321,7 @@ export default function CustomSignUp() {
 			</div>
 
 			{/* Form */}
-			<form onSubmit={handleSubmit} className="space-y-4">
+			<form onSubmit={e => void handleSubmit(e)} className="space-y-4">
 				{globalError && (
 					<div className="border-destructive/20 bg-destructive/10 text-destructive flex items-center gap-2 rounded-lg border p-3 text-sm">
 						<span className="text-destructive">⚠</span>

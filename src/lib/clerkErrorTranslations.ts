@@ -242,8 +242,8 @@ export function translateClerkError(error: any, locale: Locale = 'fr'): string {
 	if (!error) return translations.default_error
 
 	// Extract error code and message
-	const errorCode = error.code || error.errors?.[0]?.code
-	const errorMessage = error.message || error.errors?.[0]?.message || error.errors?.[0]?.longMessage
+	const errorCode = error.code ?? error.errors?.[0]?.code
+	const errorMessage = error.message ?? error.errors?.[0]?.message ?? error.errors?.[0]?.longMessage
 
 	// Try to find a translation for the error code
 	if (errorCode && translations[errorCode as keyof ClerkErrorTranslations]) {
@@ -252,6 +252,9 @@ export function translateClerkError(error: any, locale: Locale = 'fr'): string {
 
 	// Try to translate common English error messages
 	if (errorMessage) {
+		if (typeof errorMessage !== 'string') {
+			return translations.default_error
+		}
 		const lowerMessage = errorMessage.toLowerCase()
 
 		if (lowerMessage.includes('password') && lowerMessage.includes('incorrect')) {
@@ -280,5 +283,8 @@ export function translateClerkError(error: any, locale: Locale = 'fr'): string {
 	}
 
 	// Fallback to original message or generic error
-	return errorMessage || translations.default_error
+	if (errorMessage) {
+		return errorMessage as string
+	}
+	return translations.default_error
 }

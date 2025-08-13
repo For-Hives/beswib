@@ -27,7 +27,7 @@ export function useAuthRedirect({ redirectTo, condition }: UseAuthRedirectOption
 	const { isSignedIn, isLoaded } = useAuth()
 	const router = useRouter()
 	const params = useParams()
-	const locale = params?.locale || 'fr'
+	const locale = params?.locale ?? 'fr'
 
 	useEffect(() => {
 		if (!isLoaded) return // Attendre que Clerk soit chargé
@@ -40,7 +40,7 @@ export function useAuthRedirect({ redirectTo, condition }: UseAuthRedirectOption
 				'signed-in': `/${locale}/dashboard`,
 			}
 
-			const targetUrl = redirectTo || defaultRedirects[condition]
+			const targetUrl = redirectTo ?? defaultRedirects[condition]
 			router.replace(targetUrl)
 		}
 	}, [isSignedIn, isLoaded, router, redirectTo, condition, locale])

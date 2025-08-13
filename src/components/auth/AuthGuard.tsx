@@ -23,7 +23,8 @@ export default function AuthGuard({ redirectTo, mode, children }: AuthGuardProps
 	const { isSignedIn, isLoaded } = useAuth()
 	const router = useRouter()
 	const params = useParams()
-	const locale = params?.locale || 'fr'
+	const rawLocale = params?.locale
+	const locale = (Array.isArray(rawLocale) ? rawLocale[0] : rawLocale) ?? 'fr'
 
 	useEffect(() => {
 		if (!isLoaded) return // Attendre que Clerk soit chargé
@@ -31,11 +32,11 @@ export default function AuthGuard({ redirectTo, mode, children }: AuthGuardProps
 		if (mode === 'guest-only' && isSignedIn) {
 			// Utilisateur connecté essayant d'accéder aux pages d'auth
 			const defaultRedirect = `/${locale}/dashboard`
-			router.replace(redirectTo || defaultRedirect)
+			router.replace(redirectTo ?? defaultRedirect)
 		} else if (mode === 'auth-required' && !isSignedIn) {
 			// Utilisateur non connecté essayant d'accéder aux pages protégées
 			const defaultRedirect = `/${locale}/sign-in`
-			router.replace(redirectTo || defaultRedirect)
+			router.replace(redirectTo ?? defaultRedirect)
 		}
 	}, [isSignedIn, isLoaded, router, redirectTo, mode, locale])
 

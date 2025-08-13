@@ -54,10 +54,10 @@ export default function ValiboAuthExample({ mode }: ValiboAuthExampleProps) {
 		e.preventDefault()
 
 		if (validate(formData)) {
-			console.log('Form is valid!', formData)
+			console.info('Form is valid!', formData)
 			// Proceed with authentication logic here
 		} else {
-			console.log('Form has errors:', errors)
+			console.error('Form has errors:', errors)
 		}
 	}
 

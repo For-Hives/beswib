@@ -103,5 +103,5 @@ function getErrorCode(validation?: string): string {
 		custom: 'custom',
 	}
 
-	return codeMap[validation || ''] || 'invalid'
+	return codeMap[validation ?? ''] ?? 'invalid'
 }

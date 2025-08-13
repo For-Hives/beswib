@@ -38,7 +38,7 @@ export default function SSOCallback() {
 			}
 		}
 
-		handleCallback()
+		void handleCallback()
 	}, [handleRedirectCallback, router])
 
 	return (
