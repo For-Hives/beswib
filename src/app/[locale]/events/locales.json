@@ -49,6 +49,10 @@
 				"elevationGain": "Elevation Gain",
 				"fromPrice": "From {price}€"
 			},
+			"OG": {
+				"titleOG": "Events",
+				"descriptionOG": "Browse our **events** <br />and find **race bibs** <br />for upcoming events!"
+			},
 			"noEventsToDisplay": "No events to display.",
 			"eventListTitleClient": "Event List (Client Component):"
 		}
@@ -102,6 +106,10 @@
 				"joinWaitlist": "Rejoindre la liste d'attente",
 				"elevationGain": "D+",
 				"fromPrice": "À partir de {price}€"
+			},
+			"OG": {
+				"titleOG": "Évènements",
+				"descriptionOG": "Parcourez nos **évènements** <br />et Trouvez des **dossards** <br />pour les événements à **venir** !"
 			},
 			"noEventsToDisplay": "Aucun événement à afficher.",
 			"eventListTitleClient": "Liste des événements (Composant client) :"
@@ -157,6 +165,10 @@
 				"elevationGain": "고도 상승",
 				"fromPrice": "{price}원부터"
 			},
+			"OG": {
+				"titleOG": "이벤트",
+				"descriptionOG": "우리의 **이벤트**를 둘러보고 <br />다가오는 이벤트를 위한 **레이스 비브**를 찾아보세요!"
+			},
 			"noEventsToDisplay": "표시할 이벤트가 없습니다.",
 			"eventListTitleClient": "이벤트 목록 (클라이언트 컴포넌트):"
 		}
@@ -210,6 +222,10 @@
 				"joinWaitlist": "Unirse a la lista de espera",
 				"elevationGain": "Desnivel",
 				"fromPrice": "Desde {price}€"
+			},
+			"OG": {
+				"titleOG": "Eventos",
+				"descriptionOG": "Explora nuestros **eventos** <br />y encuentra **dorsales** <br />para eventos próximos!"
 			},
 			"noEventsToDisplay": "No hay eventos para mostrar.",
 			"eventListTitleClient": "Lista de eventos (Componente cliente):"
@@ -265,6 +281,10 @@
 				"elevationGain": "Dislivello",
 				"fromPrice": "Da {price}€"
 			},
+			"OG": {
+				"titleOG": "Eventi",
+				"descriptionOG": "Sfoglia i nostri **eventi** <br />e trova i **pettorali** <br />per gli eventi in arrivo!"
+			},
 			"noEventsToDisplay": "Nessun evento da mostrare.",
 			"eventListTitleClient": "Elenco eventi (Componente client):"
 		}
@@ -318,6 +338,10 @@
 				"joinWaitlist": "Warteliste beitreten",
 				"elevationGain": "Höhenmeter",
 				"fromPrice": "Ab {price}€"
+			},
+			"OG": {
+				"titleOG": "Veranstaltungen",
+				"descriptionOG": "Durchsuchen Sie unsere **Veranstaltungen** <br />und finden Sie **Startnummern** <br />für kommende Veranstaltungen!"
 			},
 			"noEventsToDisplay": "Keine Events zum Anzeigen.",
 			"eventListTitleClient": "Event-Liste (Client-Komponente):"
@@ -373,6 +397,10 @@
 				"elevationGain": "Diferență de nivel",
 				"fromPrice": "De la {price}€"
 			},
+			"OG": {
+				"titleOG": "Evenimente",
+				"descriptionOG": "Răsfoiește **evenimentele** noastre <br />și găsește **numere de concurs** <br />pentru evenimente viitoare!"
+			},
 			"noEventsToDisplay": "Nu există evenimente de afișat.",
 			"eventListTitleClient": "Lista evenimente (Componenta client):"
 		}
@@ -427,6 +455,10 @@
 				"elevationGain": "Ganho de elevação",
 				"fromPrice": "Desde {price}€"
 			},
+			"OG": {
+				"titleOG": "Eventos",
+				"descriptionOG": "Navegue pelos nossos **eventos** <br />e encontre **números de corrida** <br />para eventos futuros!"
+			},
 			"noEventsToDisplay": "Não há eventos para mostrar.",
 			"eventListTitleClient": "Lista de eventos (Componente cliente):"
 		}
@@ -480,6 +512,10 @@
 				"joinWaitlist": "Deelnemen aan wachtlijst",
 				"elevationGain": "Hoogtemeters",
 				"fromPrice": "Vanaf {price}€"
+			},
+			"OG": {
+				"titleOG": "Evenementen",
+				"descriptionOG": "Blader door onze **evenementen** <br />en vind **startnummers** <br />voor aankomende evenementen!"
 			},
 			"noEventsToDisplay": "Geen events om weer te geven.",
 			"eventListTitleClient": "Event-lijst (Client-component):"
