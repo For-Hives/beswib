@@ -1,7 +1,7 @@
 'use client'
 
-import { UserButton } from '@clerk/nextjs'
 import { useClerkTheme } from '@/hooks/useClerkTheme'
+import { UserButton } from '@clerk/nextjs'
 
 export default function ThemedUserButton() {
 	const { appearance } = useClerkTheme()

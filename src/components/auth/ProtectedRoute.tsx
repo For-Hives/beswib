@@ -19,7 +19,7 @@ interface ProtectedRouteProps {
  *   )
  * }
  */
-export default function ProtectedRoute({ children, redirectTo }: ProtectedRouteProps) {
+export default function ProtectedRoute({ redirectTo, children }: ProtectedRouteProps) {
 	return (
 		<AuthGuard mode="auth-required" redirectTo={redirectTo}>
 			{children}

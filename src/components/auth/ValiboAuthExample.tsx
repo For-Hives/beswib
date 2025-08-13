@@ -1,13 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+
+import { useValibot } from '@/hooks/useValibot'
 import { useParams } from 'next/navigation'
+
+import { createSignInSchema, createSignUpSchema } from '@/lib/validation-schemas'
+import { authTranslations } from '@/lib/translations/auth'
 import { FormInput } from '@/components/ui/FormInput'
 import { Button } from '@/components/ui/button'
-import { createSignInSchema, createSignUpSchema } from '@/lib/validation-schemas'
-import { useValibot } from '@/hooks/useValibot'
 import { Locale } from '@/lib/i18n-config'
-import { authTranslations } from '@/lib/translations/auth'
 
 interface ValiboAuthExampleProps {
 	mode: 'signin' | 'signup'
@@ -24,12 +26,12 @@ export default function ValiboAuthExample({ mode }: ValiboAuthExampleProps) {
 	// Initialize form data
 	const [formData, setFormData] = useState(
 		mode === 'signin'
-			? { email: '', password: '' }
-			: { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }
+			? { password: '', email: '' }
+			: { password: '', lastName: '', firstName: '', email: '', confirmPassword: '' }
 	)
 
 	// Use the Valibot hook
-	const { errors, validate, validateField, clearError } = useValibot(schema)
+	const { validateField, validate, errors, clearError } = useValibot(schema)
 
 	// Handle input changes with real-time validation
 	const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {

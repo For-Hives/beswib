@@ -1,8 +1,10 @@
-import * as v from 'valibot'
 import { FieldError } from '@/stores/authStore'
-import { Locale } from '@/lib/i18n-config'
+import * as v from 'valibot'
+
 import { validationTranslations } from '@/lib/translations/validation'
 import { authTranslations } from '@/lib/translations/auth'
+import { Locale } from '@/lib/i18n-config'
+
 import {
 	createEmailSchema,
 	createSignInPasswordSchema,
@@ -135,8 +137,8 @@ export const validateSignInForm = (data: { email: string; password: string }, lo
 	return {
 		isValid: !emailError && !passwordError,
 		errors: {
-			email: emailError,
 			password: passwordError,
+			email: emailError,
 		},
 	}
 }
@@ -162,10 +164,10 @@ export const validateSignUpForm = (
 	return {
 		isValid: !firstNameError && !lastNameError && !emailError && !passwordError && !confirmPasswordError,
 		errors: {
-			firstName: firstNameError,
-			lastName: lastNameError,
-			email: emailError,
 			password: passwordError,
+			lastName: lastNameError,
+			firstName: firstNameError,
+			email: emailError,
 			confirmPassword: confirmPasswordError,
 		},
 	}

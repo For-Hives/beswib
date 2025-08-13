@@ -2,8 +2,6 @@
 
 import { useMemo } from 'react'
 
-import { getClerkAppearance } from '@/lib/clerkTheme'
-
 import { useThemeStore } from './useTheme'
 
 export function useClerkTheme() {
@@ -17,4 +15,8 @@ export function useClerkTheme() {
 		theme,
 		appearance,
 	}
+}
+
+function getClerkAppearance(theme: string): any {
+	throw new Error('Function not implemented.')
 }

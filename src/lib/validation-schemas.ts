@@ -1,6 +1,7 @@
 import * as v from 'valibot'
-import { Locale } from '@/lib/i18n-config'
+
 import { validationTranslations } from '@/lib/translations/validation'
+import { Locale } from '@/lib/i18n-config'
 
 // Email schema
 export const createEmailSchema = (locale: Locale = 'fr') => {
@@ -54,8 +55,8 @@ export const createVerificationCodeSchema = (locale: Locale = 'fr') => {
 // Sign-in form schema
 export const createSignInSchema = (locale: Locale = 'fr') => {
 	return v.object({
-		email: createEmailSchema(locale),
 		password: createSignInPasswordSchema(locale),
+		email: createEmailSchema(locale),
 	})
 }
 
@@ -64,10 +65,10 @@ export const createSignUpSchema = (locale: Locale = 'fr') => {
 	const t = validationTranslations[locale]
 	return v.pipe(
 		v.object({
-			firstName: createNameSchema('prénom', locale),
-			lastName: createNameSchema('nom', locale),
-			email: createEmailSchema(locale),
 			password: createSignUpPasswordSchema(locale),
+			lastName: createNameSchema('nom', locale),
+			firstName: createNameSchema('prénom', locale),
+			email: createEmailSchema(locale),
 			confirmPassword: v.pipe(v.string(), v.nonEmpty(t.confirmPassword.required)),
 		}),
 		v.forward(
@@ -82,8 +83,7 @@ export const createSignUpSchema = (locale: Locale = 'fr') => {
 }
 
 // Password strength analysis using Valibot
-export const analyzePasswordStrength = (password: string, locale: Locale = 'fr') => {
-	const t = validationTranslations[locale]
+export const analyzePasswordStrength = (password: string) => {
 	let score = 0
 	const feedback: string[] = []
 
@@ -128,12 +128,12 @@ export const analyzePasswordStrength = (password: string, locale: Locale = 'fr')
 	}
 
 	const colors: Record<number, 'red' | 'orange' | 'yellow' | 'green'> = {
-		0: 'red',
-		1: 'red',
-		2: 'orange',
-		3: 'yellow',
-		4: 'green',
 		5: 'green',
+		4: 'green',
+		3: 'yellow',
+		2: 'orange',
+		1: 'red',
+		0: 'red',
 	}
 
 	return {
@@ -178,7 +178,7 @@ export const validateForm = <T>(schema: v.BaseSchema<any, T, any>, data: unknown
 
 	return {
 		success: false,
-		error: globalError,
 		fieldErrors,
+		error: globalError,
 	}
 }

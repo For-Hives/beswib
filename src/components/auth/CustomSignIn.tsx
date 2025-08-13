@@ -1,39 +1,38 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useSignIn } from '@clerk/nextjs'
+
 import { useRouter, useParams } from 'next/navigation'
+import { useAuthStore } from '@/stores/authStore'
+import { useSignIn } from '@clerk/nextjs'
 import Link from 'next/link'
 
-import { FormInput } from '@/components/ui/FormInput'
-import { Button } from '@/components/ui/button'
-import { Icons } from '@/components/ui/icons'
-import { useAuthStore } from '@/stores/authStore'
 import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation-valibot'
 import { translateClerkError } from '@/lib/clerkErrorTranslations'
 import { authTranslations } from '@/lib/translations/auth'
-import { validationTranslations } from '@/lib/translations/validation'
+import { FormInput } from '@/components/ui/FormInput'
+import { Button } from '@/components/ui/button'
+import { Icons } from '@/components/ui/icons'
 import { Locale } from '@/lib/i18n-config'
 
 export default function CustomSignIn() {
-	const { isLoaded, signIn, setActive } = useSignIn()
+	const { signIn, setActive, isLoaded } = useSignIn()
 	const router = useRouter()
 	const params = useParams()
 	const locale = (params?.locale as Locale) || 'en'
 	const t = authTranslations[locale]
-	const v = validationTranslations[locale]
 
 	const {
 		signInData,
+		setSigningIn,
+		setSignInData,
+		setGlobalError,
+		setFieldError,
+		resetSignInForm,
 		isSigningIn,
 		globalError,
 		fieldErrors,
-		setSignInData,
-		setSigningIn,
-		setGlobalError,
-		setFieldError,
 		clearFieldError,
-		resetSignInForm,
 	} = useAuthStore()
 
 	// Reset form on component mount
@@ -92,8 +91,8 @@ export default function CustomSignIn() {
 
 		try {
 			const result = await signIn.create({
-				identifier: signInData.email,
 				password: signInData.password,
+				identifier: signInData.email,
 			})
 
 			if (result.status === 'complete') {
@@ -122,10 +121,10 @@ export default function CustomSignIn() {
 		if (!signIn) return
 
 		setSigningIn(true)
-		signIn.authenticateWithRedirect({
+		void signIn.authenticateWithRedirect({
 			strategy,
-			redirectUrl: `/${locale}/sso-callback`,
 			redirectUrlComplete: `/${locale}/dashboard`,
+			redirectUrl: `/${locale}/sso-callback`,
 		})
 	}
 
@@ -180,7 +179,7 @@ export default function CustomSignIn() {
 			</div>
 
 			{/* Form */}
-			<form onSubmit={handleSubmit} className="space-y-4">
+			<form onSubmit={e => void handleSubmit(e)} className="space-y-4">
 				{globalError && (
 					<div className="border-destructive/20 bg-destructive/10 text-destructive flex items-center gap-2 rounded-lg border p-3 text-sm">
 						<span className="text-destructive">⚠</span>

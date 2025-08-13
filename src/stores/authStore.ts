@@ -66,45 +66,51 @@ export interface AuthState {
 }
 
 const initialSignInData = {
-	email: '',
 	password: '',
+	email: '',
 }
 
 const initialSignUpData = {
-	firstName: '',
-	lastName: '',
-	email: '',
 	password: '',
+	lastName: '',
+	firstName: '',
+	email: '',
 	confirmPassword: '',
 }
 
-export const useAuthStore = create<AuthState>((set, get) => ({
-	// Initial state
-	isSigningIn: false,
-	isSigningUp: false,
-	isVerifying: false,
-	isResettingPassword: false,
-
-	signInData: initialSignInData,
-	signUpData: initialSignUpData,
-
-	globalError: '',
-	fieldErrors: {},
-
-	pendingVerification: false,
+export const useAuthStore = create<AuthState>(set => ({
 	verificationEmail: '',
 	verificationCode: '',
+	signUpData: initialSignUpData,
+	signInData: initialSignInData,
 
-	// Form data actions
-	setSignInData: data =>
-		set(state => ({
-			signInData: { ...state.signInData, ...data },
-		})),
+	setVerifying: loading => set({ isVerifying: loading }),
+	setVerificationCode: code => set({ verificationCode: code }),
 
 	setSignUpData: data =>
 		set(state => ({
 			signUpData: { ...state.signUpData, ...data },
 		})),
+	setSigningUp: loading => set({ isSigningUp: loading }),
+
+	// Loading actions
+	setSigningIn: loading => set({ isSigningIn: loading }),
+	// Form data actions
+	setSignInData: data =>
+		set(state => ({
+			signInData: { ...state.signInData, ...data },
+		})),
+	setResettingPassword: loading => set({ isResettingPassword: loading }),
+
+	// Verification actions
+	setPendingVerification: (pending, email = '') =>
+		set({
+			verificationEmail: email,
+			verificationCode: '',
+			pendingVerification: pending,
+		}),
+
+	setGlobalError: error => set({ globalError: error }),
 
 	// Error actions
 	setFieldError: (field, error) =>
@@ -115,9 +121,50 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 			},
 		})),
 
-	setGlobalError: error => set({ globalError: error }),
+	resetSignUpForm: () =>
+		set({
+			verificationEmail: '',
+			verificationCode: '',
+			signUpData: initialSignUpData,
+			pendingVerification: false,
+			globalError: '',
+			fieldErrors: {},
+		}),
 
-	clearErrors: () => set({ globalError: '', fieldErrors: {} }),
+	// Reset actions
+	resetSignInForm: () =>
+		set({
+			signInData: initialSignInData,
+			globalError: '',
+			fieldErrors: {},
+		}),
+
+	resetAuthState: () =>
+		set({
+			verificationEmail: '',
+			verificationCode: '',
+			signUpData: initialSignUpData,
+			signInData: initialSignInData,
+			pendingVerification: false,
+			isVerifying: false,
+			isSigningUp: false,
+			isSigningIn: false,
+			isResettingPassword: false,
+			globalError: '',
+			fieldErrors: {},
+		}),
+
+	pendingVerification: false,
+	isVerifying: false,
+	isSigningUp: false,
+	// Initial state
+	isSigningIn: false,
+
+	isResettingPassword: false,
+
+	globalError: '',
+
+	fieldErrors: {},
 
 	clearFieldError: field =>
 		set(state => {
@@ -126,52 +173,5 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 			return { fieldErrors: newErrors }
 		}),
 
-	// Loading actions
-	setSigningIn: loading => set({ isSigningIn: loading }),
-	setSigningUp: loading => set({ isSigningUp: loading }),
-	setVerifying: loading => set({ isVerifying: loading }),
-	setResettingPassword: loading => set({ isResettingPassword: loading }),
-
-	// Verification actions
-	setPendingVerification: (pending, email = '') =>
-		set({
-			pendingVerification: pending,
-			verificationEmail: email,
-			verificationCode: '',
-		}),
-
-	setVerificationCode: code => set({ verificationCode: code }),
-
-	// Reset actions
-	resetSignInForm: () =>
-		set({
-			signInData: initialSignInData,
-			fieldErrors: {},
-			globalError: '',
-		}),
-
-	resetSignUpForm: () =>
-		set({
-			signUpData: initialSignUpData,
-			fieldErrors: {},
-			globalError: '',
-			pendingVerification: false,
-			verificationEmail: '',
-			verificationCode: '',
-		}),
-
-	resetAuthState: () =>
-		set({
-			isSigningIn: false,
-			isSigningUp: false,
-			isVerifying: false,
-			isResettingPassword: false,
-			signInData: initialSignInData,
-			signUpData: initialSignUpData,
-			globalError: '',
-			fieldErrors: {},
-			pendingVerification: false,
-			verificationEmail: '',
-			verificationCode: '',
-		}),
+	clearErrors: () => set({ globalError: '', fieldErrors: {} }),
 }))

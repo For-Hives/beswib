@@ -1,25 +1,25 @@
 'use client'
 
 import { useState } from 'react'
+
 import { useSignIn } from '@clerk/nextjs'
 import Link from 'next/link'
 
-import { Input } from '@/components/ui/inputAlt'
-import { Button } from '@/components/ui/button'
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
 import AuthGuard from '@/components/auth/AuthGuard'
+import { Input } from '@/components/ui/inputAlt'
+import { Button } from '@/components/ui/button'
 
 export default function ForgotPasswordPage() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [code, setCode] = useState('')
-	const [isLoading, setIsLoading] = useState(false)
+	const [isLoading] = useState(false)
 	const [error, setError] = useState('')
 	const [successfulCreation, setSuccessfulCreation] = useState(false)
-	const [secondFactor, setSecondFactor] = useState(false)
 	const [complete, setComplete] = useState(false)
 
-	const { isLoaded, signIn, setActive } = useSignIn()
+	const { signIn, setActive } = useSignIn()
 
 	// Send the password reset code to the user's email
 	async function create(e: React.FormEvent) {
@@ -29,7 +29,7 @@ export default function ForgotPasswordPage() {
 				strategy: 'reset_password_email_code',
 				identifier: email,
 			})
-			.then(_ => {
+			.then(() => {
 				setSuccessfulCreation(true)
 				setError('')
 			})
@@ -47,21 +47,20 @@ export default function ForgotPasswordPage() {
 		await signIn
 			?.attemptFirstFactor({
 				strategy: 'reset_password_email_code',
-				code,
 				password,
+				code,
 			})
 			.then(result => {
 				// Check if 2FA is required
 				if (result.status === 'needs_second_factor') {
-					setSecondFactor(true)
 					setError('')
 				} else if (result.status === 'complete') {
 					// Set the active session to
 					// the newly created session (user is now signed in)
-					setActive({ session: result.createdSessionId })
+					void setActive({ session: result.createdSessionId })
 					setComplete(true)
 				} else {
-					console.log(result)
+					console.error(result)
 				}
 			})
 			.catch(err => {
@@ -92,7 +91,7 @@ export default function ForgotPasswordPage() {
 					</div>
 
 					{!successfulCreation && !complete && (
-						<form onSubmit={create} className="space-y-4">
+						<form onSubmit={e => void create(e)} className="space-y-4">
 							{error && (
 								<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm">
 									{error}
@@ -119,7 +118,7 @@ export default function ForgotPasswordPage() {
 					)}
 
 					{successfulCreation && !complete && (
-						<form onSubmit={reset} className="space-y-4">
+						<form onSubmit={e => void reset(e)} className="space-y-4">
 							{error && (
 								<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm">
 									{error}

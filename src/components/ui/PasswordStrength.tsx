@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'motion/react'
+
 import { getPasswordStrengthValibot } from '@/lib/validation-valibot'
 import { authTranslations } from '@/lib/translations/auth'
 import { Locale } from '@/lib/i18n-config'
@@ -11,32 +12,32 @@ interface PasswordStrengthProps {
 	locale?: Locale
 }
 
-export function PasswordStrength({ password, show = true, locale = 'fr' }: PasswordStrengthProps) {
+export function PasswordStrength({ show = true, password, locale = 'fr' }: PasswordStrengthProps) {
 	if (!show || !password) return null
 
 	const { score, feedback, color } = getPasswordStrengthValibot(password, locale)
 	const t = authTranslations[locale].passwordStrength
 
 	const strengthLabels = {
-		0: t.veryWeak,
-		1: t.weak,
-		2: t.medium,
-		3: t.good,
-		4: t.strong,
 		5: t.veryStrong,
+		4: t.strong,
+		3: t.good,
+		2: t.medium,
+		1: t.weak,
+		0: t.veryWeak,
 	}
 
 	const strengthColors = {
+		yellow: 'bg-yellow-500',
 		red: 'bg-red-500',
 		orange: 'bg-orange-500',
-		yellow: 'bg-yellow-500',
 		green: 'bg-green-500',
 	}
 
 	const strengthTextColors = {
+		yellow: 'text-yellow-600',
 		red: 'text-red-600',
 		orange: 'text-orange-600',
-		yellow: 'text-yellow-600',
 		green: 'text-green-600',
 	}
 
@@ -77,8 +78,8 @@ export function PasswordStrength({ password, show = true, locale = 'fr' }: Passw
 						{feedback.slice(0, 3).map((item, index) => (
 							<motion.li
 								key={index}
-								initial={{ opacity: 0, x: -10 }}
-								animate={{ opacity: 1, x: 0 }}
+								initial={{ x: -10, opacity: 0 }}
+								animate={{ x: 0, opacity: 1 }}
 								transition={{ delay: index * 0.1 }}
 								className="text-muted-foreground flex items-center gap-1 text-xs"
 							>

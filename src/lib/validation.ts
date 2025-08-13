@@ -1,7 +1,8 @@
 import { FieldError } from '@/stores/authStore'
-import { Locale } from '@/lib/i18n-config'
+
 import { validationTranslations } from '@/lib/translations/validation'
 import { authTranslations } from '@/lib/translations/auth'
+import { Locale } from '@/lib/i18n-config'
 
 export const validateEmail = (email: string, locale: Locale = 'fr'): FieldError | null => {
 	const t = validationTranslations[locale]
@@ -130,12 +131,12 @@ export const getPasswordStrength = (
 	}
 
 	const colors: Record<number, 'red' | 'orange' | 'yellow' | 'green'> = {
-		0: 'red',
-		1: 'red',
-		2: 'orange',
-		3: 'yellow',
-		4: 'green',
 		5: 'green',
+		4: 'green',
+		3: 'yellow',
+		2: 'orange',
+		1: 'red',
+		0: 'red',
 	}
 
 	return {

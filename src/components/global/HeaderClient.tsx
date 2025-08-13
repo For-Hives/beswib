@@ -9,13 +9,13 @@ import { SignedIn, SignedOut, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import ThemedUserButton from '@/components/ui/ThemedUserButton'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
 
 import { checkIsCurrentUserAdmin } from './adminActions'
 import DashboardDropdown from './DashboardDropdown'
 import { ThemeToggle } from './ThemeToggle'
-import ThemedUserButton from '@/components/ui/ThemedUserButton'
 
 interface HeaderClientProps {
 	locale: Locale

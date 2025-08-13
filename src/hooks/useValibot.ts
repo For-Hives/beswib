@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
-import * as v from 'valibot'
+
 import { FieldError } from '@/stores/authStore'
+import * as v from 'valibot'
 
 type ValidationResult = {
 	isValid: boolean
@@ -82,23 +83,23 @@ export function useValibot<T extends Record<string, any>>(schema: v.BaseSchema<a
 	const isValid = Object.values(errors).every(error => error === null)
 
 	return {
+		validateField,
+		validate,
 		isValid,
 		errors,
-		validate,
-		validateField,
 		clearError,
 		clearAllErrors,
 	}
 }
 
 // Helper function to map Valibot validation types to error codes
-function getErrorCode(validation?: string | undefined): string {
+function getErrorCode(validation?: string): string {
 	const codeMap: Record<string, string> = {
+		regex: 'invalid_format',
 		non_empty: 'required',
-		email: 'invalid_format',
 		min_length: 'too_short',
 		max_length: 'too_long',
-		regex: 'invalid_format',
+		email: 'invalid_format',
 		custom: 'custom',
 	}
 

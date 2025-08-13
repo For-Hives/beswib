@@ -1,11 +1,12 @@
 'use client'
 
 import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
-import * as React from 'react'
 import { Eye, EyeOff } from 'lucide-react'
+import * as React from 'react'
+
+import { FieldError } from '@/stores/authStore'
 
 import { cn } from '@/lib/utils'
-import { FieldError } from '@/stores/authStore'
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	label: string
@@ -16,7 +17,7 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
-	({ type, className, label, error, success, helperText, showPasswordToggle, ...props }, ref) => {
+	({ type, success, showPasswordToggle, label, helperText, error, className, ...props }, ref) => {
 		const radius = 100
 		const [visible, setVisible] = React.useState(false)
 		const [showPassword, setShowPassword] = React.useState(false)

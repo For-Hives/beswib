@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useAuth } from '@clerk/nextjs'
+
 import { useRouter, useParams } from 'next/navigation'
+import { useAuth } from '@clerk/nextjs'
 
 interface UseAuthRedirectOptions {
 	redirectTo?: string
@@ -22,7 +23,7 @@ interface UseAuthRedirectOptions {
  * // Dans une page qui nécessite une authentification
  * useAuthRedirect({ condition: 'signed-out', redirectTo: '/sign-in' })
  */
-export function useAuthRedirect({ condition, redirectTo }: UseAuthRedirectOptions) {
+export function useAuthRedirect({ redirectTo, condition }: UseAuthRedirectOptions) {
 	const { isSignedIn, isLoaded } = useAuth()
 	const router = useRouter()
 	const params = useParams()
@@ -35,8 +36,8 @@ export function useAuthRedirect({ condition, redirectTo }: UseAuthRedirectOption
 
 		if (shouldRedirect) {
 			const defaultRedirects = {
-				'signed-in': `/${locale}/dashboard`,
 				'signed-out': `/${locale}/sign-in`,
+				'signed-in': `/${locale}/dashboard`,
 			}
 
 			const targetUrl = redirectTo || defaultRedirects[condition]
@@ -45,9 +46,9 @@ export function useAuthRedirect({ condition, redirectTo }: UseAuthRedirectOption
 	}, [isSignedIn, isLoaded, router, redirectTo, condition, locale])
 
 	return {
-		isLoaded,
-		isSignedIn,
 		shouldRedirect:
 			isLoaded && ((condition === 'signed-in' && isSignedIn) || (condition === 'signed-out' && !isSignedIn)),
+		isSignedIn,
+		isLoaded,
 	}
 }

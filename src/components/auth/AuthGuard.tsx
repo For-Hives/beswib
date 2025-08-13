@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useAuth } from '@clerk/nextjs'
+
 import { useRouter, useParams } from 'next/navigation'
+import { useAuth } from '@clerk/nextjs'
 
 interface AuthGuardProps {
 	children: React.ReactNode
@@ -18,7 +19,7 @@ interface AuthGuardProps {
  * @param redirectTo - URL de redirection personnalisée (optionnel)
  * @param children - Contenu à afficher si la condition est remplie
  */
-export default function AuthGuard({ children, redirectTo, mode }: AuthGuardProps) {
+export default function AuthGuard({ redirectTo, mode, children }: AuthGuardProps) {
 	const { isSignedIn, isLoaded } = useAuth()
 	const router = useRouter()
 	const params = useParams()

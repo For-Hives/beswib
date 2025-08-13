@@ -7,7 +7,7 @@ interface LoaderProps {
 	showText?: boolean
 }
 
-export default function Loader({ size = 'md', className, text, showText = false }: LoaderProps) {
+export default function Loader({ text, size = 'md', showText = false, className }: LoaderProps) {
 	const sizeClasses = {
 		sm: 'w-8 h-8',
 		md: 'w-15 h-15',

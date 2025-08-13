@@ -1,15 +1,12 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useSignUp } from '@clerk/nextjs'
+
 import { useRouter, useParams } from 'next/navigation'
+import { useAuthStore } from '@/stores/authStore'
+import { useSignUp } from '@clerk/nextjs'
 import Link from 'next/link'
 
-import { FormInput } from '@/components/ui/FormInput'
-import { Button } from '@/components/ui/button'
-import { Icons } from '@/components/ui/icons'
-import { PasswordStrength } from '@/components/ui/PasswordStrength'
-import { useAuthStore } from '@/stores/authStore'
 import {
 	validateEmailValibot,
 	validatePasswordValibot,
@@ -17,13 +14,17 @@ import {
 	validateVerificationCodeValibot,
 	validateConfirmPasswordValibot,
 } from '@/lib/validation-valibot'
+import { validationTranslations } from '@/lib/translations/validation'
+import { PasswordStrength } from '@/components/ui/PasswordStrength'
 import { translateClerkError } from '@/lib/clerkErrorTranslations'
 import { authTranslations } from '@/lib/translations/auth'
-import { validationTranslations } from '@/lib/translations/validation'
+import { FormInput } from '@/components/ui/FormInput'
+import { Button } from '@/components/ui/button'
+import { Icons } from '@/components/ui/icons'
 import { Locale } from '@/lib/i18n-config'
 
 export default function CustomSignUp() {
-	const { isLoaded, signUp, setActive } = useSignUp()
+	const { signUp, setActive, isLoaded } = useSignUp()
 	const router = useRouter()
 	const params = useParams()
 	const locale = (params?.locale as Locale) || 'en'
@@ -31,23 +32,23 @@ export default function CustomSignUp() {
 	const v = validationTranslations[locale]
 
 	const {
-		signUpData,
-		isSigningUp,
-		isVerifying,
-		globalError,
-		fieldErrors,
-		pendingVerification,
 		verificationEmail,
 		verificationCode,
+		signUpData,
+		setVerifying,
+		setVerificationCode,
 		setSignUpData,
 		setSigningUp,
-		setVerifying,
+		setPendingVerification,
 		setGlobalError,
 		setFieldError,
-		clearFieldError,
-		setPendingVerification,
-		setVerificationCode,
 		resetSignUpForm,
+		pendingVerification,
+		isVerifying,
+		isSigningUp,
+		globalError,
+		fieldErrors,
+		clearFieldError,
 	} = useAuthStore()
 
 	// Reset form on component mount
@@ -80,7 +81,7 @@ export default function CustomSignUp() {
 				break
 		}
 
-		setFieldError(field as keyof typeof fieldErrors, error)
+		setFieldError(field, error)
 		return error === null
 	}
 
@@ -142,10 +143,10 @@ export default function CustomSignUp() {
 
 		try {
 			await signUp.create({
-				firstName: signUpData.firstName,
-				lastName: signUpData.lastName,
-				emailAddress: signUpData.email,
 				password: signUpData.password,
+				lastName: signUpData.lastName,
+				firstName: signUpData.firstName,
+				emailAddress: signUpData.email,
 			})
 
 			// Prepare email verification
@@ -205,8 +206,8 @@ export default function CustomSignUp() {
 		setSigningUp(true)
 		signUp.authenticateWithRedirect({
 			strategy,
-			redirectUrl: `/${locale}/sso-callback`,
 			redirectUrlComplete: `/${locale}/dashboard`,
+			redirectUrl: `/${locale}/sso-callback`,
 		})
 	}
 

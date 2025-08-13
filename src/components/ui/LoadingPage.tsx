@@ -1,8 +1,10 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
+
 import { getTranslations } from '@/lib/getDictionary'
 import globalLocales from '@/lib/globalLocales.json'
+
 import Loader from './Loader'
 
 export default function LoadingPage() {

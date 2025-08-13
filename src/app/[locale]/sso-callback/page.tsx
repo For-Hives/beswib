@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useClerk } from '@clerk/nextjs'
+
 import { useParams, useRouter } from 'next/navigation'
+import { useClerk } from '@clerk/nextjs'
 
 export default function SSOCallback() {
 	const { handleRedirectCallback } = useClerk()
@@ -19,9 +20,10 @@ export default function SSOCallback() {
 							? params?.locale?.[0]
 							: 'en'
 				await handleRedirectCallback({
-					redirectUrlComplete: `/${locale}/dashboard`,
-					signInUrl: `/${locale}/sign-in`,
 					signUpUrl: `/${locale}/sign-up`,
+					signUpFallbackRedirectUrl: `/${locale}/dashboard`,
+					signInUrl: `/${locale}/sign-in`,
+					signInFallbackRedirectUrl: `/${locale}/dashboard`,
 				})
 				router.push(`/${locale}/dashboard`)
 			} catch (error) {
