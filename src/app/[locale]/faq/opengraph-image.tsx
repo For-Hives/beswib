@@ -1,133 +1,230 @@
 import { ImageResponse } from 'next/og'
-import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { headers } from 'next/headers'
+import { getTranslations } from '@/lib/getDictionary'
+import * as React from 'react'
+import { type LocaleParams } from '@/lib/generateStaticParams'
+import pageTranslations from './locales.json'
 
-export const alt = 'Beswib – Achetez et vendez vos dossards simplement et en toute sécurité'
-export const size = { width: 1200, height: 630 }
+/**
+ * Open Graph image route for localized pages.
+ *
+ * Renders a 1200x630 image using Next.js `ImageResponse` (Satori).
+ * Satori fetches external assets over HTTP, so we must reference images/fonts
+ * with absolute URLs. The background PNG lives in `/public/openGraph`.
+ */
+
+/**
+ * Alt text for the generated OG image.
+ */
+export const alt = 'Beswib Open Graph Image'
+/**
+ * Standard Open Graph dimensions.
+ *
+ */
+export const size = {
+	width: 1200,
+	height: 630,
+}
+/**
+ * Output MIME type for the generated image.
+ */
 export const contentType = 'image/png'
-export const runtime = 'nodejs'
 
-export default async function Image() {
-	// Load assets
-	const bg = await readFile(join(process.cwd(), 'public', 'landing', 'background.jpg'))
-	const bgDataUrl = `data:image/jpeg;base64,${Buffer.from(bg).toString('base64')}`
-	const logoSvg = await readFile(join(process.cwd(), 'public', 'beswib.svg'), 'utf-8')
-	const logoDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(logoSvg)}`
+/**
+ * Generates the Open Graph image.
+ *
+ * - Derives protocol/host from request headers to build absolute URLs (works behind proxies)
+ * - Attempts to load Bodoni Moda and Inter from Google Fonts CDN; falls back to system fonts if unavailable
+ * - Composes the image with background, titles, social icons, and brand logo
+ * - Returns a PNG response sized to standard OG dimensions
+ */
+export default async function Image({ params }: { params: Promise<LocaleParams> }) {
+	// Resolve locale from the dynamic segment
+	const { locale } = await params
+	const pageLocales = pageTranslations as unknown as Record<string, Record<string, string>>
+	const t = getTranslations(locale, pageLocales)
+	const tEn = getTranslations('en', pageLocales)
+
+	// Narrow the translation shape we need for this OG image
+	type OgTexts = {
+		faq?: {
+			titleOG?: string
+			descriptionOG?: string
+		}
+	}
+
+	// Build absolute URLs using request headers (works behind proxies like Vercel).
+	// Required by Satori for fetching external assets.
+	const requestHeaders = await headers()
+	const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? 'localhost:3000'
+	const xfProto = requestHeaders.get('x-forwarded-proto')
+	const isLocal = host?.startsWith('localhost') || host?.startsWith('127.0.0.1')
+	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
+
+	// Absolute URL to the background PNG served from `/public/openGraph`
+	const fileName = 'OG image beswib.png'
+	const src = `${protocol}://${host}/openGraph/${encodeURIComponent(fileName)}`
+
+	// We no longer embed custom fonts here; use system defaults for simplicity
+
+	// Titles and secondary text from translations (OG namespace) with English fallback per key
+	const tOg = t as OgTexts
+	const tOgEn = tEn as OgTexts
+
+	const titleRaw = tOg.faq?.titleOG ?? tOgEn.faq?.titleOG
+	const titleLines = (titleRaw ?? 'Contactez Nous !')
+		.replace(/<br\s*\/?>/gi, '\n')
+		.split('\n')
+		.map(line => line.trim())
+		.filter(Boolean)
+
+	const secondaryRaw = tOg.faq?.descriptionOG ?? tOgEn.faq?.descriptionOG ?? ''
+	const secondaryLines = secondaryRaw
+		.replace(/<br\s*\/?>/gi, '\n')
+		.split('\n')
+		.map(line => line.trim())
+		.filter(Boolean)
+
+	// Render helper: color words wrapped in **...** with #94b3b4 while keeping bold
+	function renderColoredBold(text: string) {
+		const parts = text.split(/(\*\*.+?\*\*)/g)
+		const elements: React.ReactNode[] = []
+		let cursor = 0
+		for (const part of parts) {
+			const key = `${part}-${cursor}`
+			if (part.startsWith('**') && part.endsWith('**')) {
+				const inner = part.slice(2, -2)
+				elements.push(
+					<span key={key} style={{ color: '#94b3b4', fontWeight: 700, whiteSpace: 'pre' }}>
+						{inner}
+					</span>
+				)
+			} else {
+				elements.push(
+					<span key={key} style={{ whiteSpace: 'pre' }}>
+						{part}
+					</span>
+				)
+			}
+			cursor += part.length
+		}
+		return elements
+	}
+
+	// External icon URLs (served from `/public/openGraph/logos` and `/public`)
+	const facebookUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('white facebook.png')}`
+	const instagramUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('white instagram.png')}`
+	const linkedinUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('white linkedin.png')}`
+	const xUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('white X.png')}`
+	const beswibLogoUrl = `${protocol}://${host}/beswib.svg`
 
 	return new ImageResponse(
 		(
 			<div
 				style={{
-					width: '100%',
-					height: '100%',
-					position: 'relative',
-					backgroundColor: '#0B0D12',
+					width: `${size.width}px`,
+					height: `${size.height}px`,
 					display: 'flex',
+					flexDirection: 'column',
+					backgroundColor: '#000000',
+					position: 'relative',
 				}}
 			>
-				{/* Background image (mountain), dimmed */}
-				<img
-					src={bgDataUrl}
-					alt=""
-					style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.22 }}
-				/>
+				{/* Background image */}
+				{/* eslint-disable-next-line @next/next/no-img-element */}
+				<img src={src} width={size.width} height={size.height} alt="" style={{ objectFit: 'cover' }} />
 
-				{/* Center watermark logo */}
-				<img
-					src={logoDataUrl}
-					alt=""
-					style={{
-						position: 'absolute',
-						top: '50%',
-						left: '50%',
-						transform: 'translate(-50%, -50%)',
-						width: '70%',
-						height: '70%',
-						opacity: 0.1,
-						objectFit: 'contain',
-					}}
-				/>
-
-				{/* Dark gradient overlay for readability */}
+				{/* Text overlay container */}
 				<div
 					style={{
 						position: 'absolute',
-						inset: 0,
-						background: 'linear-gradient(180deg, rgba(0,0,0,0.48), rgba(0,0,0,0.68))',
-					}}
-				/>
-
-				{/* Safe zone wrapper (80% centered) */}
-				<div
-					style={{
-						position: 'relative',
-						zIndex: 1,
-						width: '80%',
-						margin: '0 auto',
-						height: '100%',
+						left: 70,
+						top: 169,
 						display: 'flex',
 						flexDirection: 'column',
+						color: '#ffffff',
 					}}
 				>
-					<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', paddingTop: 18, gap: 8 }}>
-						{/* Top visual anchor: logo + brand text */}
-						<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', paddingTop: 18, gap: 8 }}>
-							<img src={logoDataUrl} alt="" style={{ width: 56, height: 56, opacity: 0.9 }} />
-							<div style={{ fontSize: 62, fontWeight: 700, color: '#B3C8D9', letterSpacing: 0.2 }}>F.A.Q</div>
+					{/* Localized main title (multiple lines) */}
+					{titleLines.map((line, idx) => (
+						<div
+							key={line}
+							style={{
+								display: 'flex',
+								fontSize: 50,
+								fontWeight: 700,
+								lineHeight: 1.1,
+								marginBottom: idx === titleLines.length - 1 ? 40 : 16,
+							}}
+						>
+							{line}
 						</div>
-					</div>
+					))}
 
-					{/* Main content row */}
-					<div
-						style={{
-							display: 'flex',
-							flex: 1,
-							alignItems: 'center',
-							gap: 128,
-						}}
-					>
-						{/* Left: headline + tagline */}
-						<div style={{ display: 'flex', flexDirection: 'column', gap: 18, width: '55%' }}>
-							<div style={{ fontSize: 48, fontWeight: 800, color: '#B3C8D9', lineHeight: 1.1 }}>
-								Tout ce que vous devez savoir sur Beswib
-							</div>
-							<div style={{ fontSize: 28, color: '#A0A0AA' }}>
-								La marketplace sécurisée pour les transferts de dossards. Notre objectif est de simplifier la revente de
-								dossards, en la rendant légale, sûre et plus rapide que jamais.
-							</div>
-						</div>
+					{/* Localized secondary text (one or more lines) */}
+					{secondaryLines.length > 0
+						? secondaryLines.map(line => (
+								<div
+									key={`secondary-${line}`}
+									style={{ display: 'flex', fontSize: 25, fontWeight: 500, opacity: 0.9, marginTop: 2 }}
+								>
+									{renderColoredBold(line)}
+								</div>
+							))
+						: null}
+				</div>
 
-						{/* Right: stats stack incl. logo first */}
-						<div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '45%' }}>
-							{/* Stat 1 */}
-							<div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-								<div style={{ fontSize: 24, opacity: 0.9 }}>🏅</div>
-								<div style={{ display: 'flex', flexDirection: 'column' }}>
-									<div style={{ fontSize: 40, fontWeight: 800, color: '#6A4CFF' }}>2500+</div>
-									<div style={{ fontSize: 20, color: '#A0A0AA' }}>Dossards vendus</div>
-								</div>
-							</div>
-							{/* Stat 2 */}
-							<div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-								<div style={{ fontSize: 24, opacity: 0.9 }}>🏃</div>
-								<div style={{ display: 'flex', flexDirection: 'column' }}>
-									<div style={{ fontSize: 40, fontWeight: 800, color: '#6A4CFF' }}>150+</div>
-									<div style={{ fontSize: 20, color: '#A0A0AA' }}>Courses partenaires</div>
-								</div>
-							</div>
-							{/* Stat 3 */}
-							<div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-								<div style={{ fontSize: 24, opacity: 0.9 }}>⭐</div>
-								<div style={{ display: 'flex', flexDirection: 'column' }}>
-									<div style={{ fontSize: 40, fontWeight: 800, color: '#6A4CFF' }}>98%</div>
-									<div style={{ fontSize: 20, color: '#A0A0AA' }}>Taux de satisfaction</div>
-								</div>
-							</div>
-						</div>
-					</div>
+				{/* Bottom-left social logos */}
+				<div
+					style={{
+						position: 'absolute',
+						left: 70,
+						top: 516,
+						display: 'flex',
+						flexDirection: 'row',
+						alignItems: 'center',
+						zIndex: 10,
+					}}
+				>
+					{/* eslint-disable-next-line @next/next/no-img-element */}
+					<img src={facebookUrl} width={30} height={30} alt="Facebook" style={{ marginRight: 16 }} />
+					{/* eslint-disable-next-line @next/next/no-img-element */}
+					<img src={instagramUrl} width={30} height={30} alt="Instagram" style={{ marginRight: 16 }} />
+					{/* eslint-disable-next-line @next/next/no-img-element */}
+					<img src={linkedinUrl} width={30} height={30} alt="LinkedIn" style={{ marginRight: 16 }} />
+					{/* eslint-disable-next-line @next/next/no-img-element */}
+					<img src={xUrl} width={30} height={30} alt="X" />
+				</div>
+
+				{/* Top-right Beswib logo */}
+				<div
+					style={{
+						position: 'absolute',
+						left: 1089,
+						top: 57,
+						display: 'flex',
+						alignItems: 'center',
+					}}
+				>
+					{/* eslint-disable-next-line @next/next/no-img-element */}
+					<img src={beswibLogoUrl} width={40} height={40} alt="Beswib" />
+				</div>
+
+				{/* Bottom-right domain text */}
+				<div
+					style={{
+						position: 'absolute',
+						left: 1018,
+						top: 516,
+						color: '#ffffff',
+						fontSize: 20,
+						fontWeight: 600,
+					}}
+				>
+					beswib.com
 				</div>
 			</div>
 		),
-		{ ...size, emoji: 'twemoji' }
+		{ ...size }
 	)
 }

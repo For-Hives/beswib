@@ -5,46 +5,25 @@ import * as React from 'react'
 import { type LocaleParams } from '@/lib/generateStaticParams'
 import pageTranslations from './locales.json'
 
-/**
- * Open Graph image route for localized pages.
- *
- * Renders a 1200x630 image using Next.js `ImageResponse` (Satori).
- * Satori fetches external assets over HTTP, so we must reference images/fonts
- * with absolute URLs. The background PNG lives in `/public/openGraph`.
- */
-
-/**
- * Alt text for the generated OG image.
- */
+// Metadata for the Open Graph image
 export const alt = 'Beswib Open Graph Image'
-/**
- * Standard Open Graph dimensions.
- */
 export const size = {
 	width: 1200,
 	height: 630,
 }
-/**
- * Output MIME type for the generated image.
- */
 export const contentType = 'image/png'
 
-/**
- * Generates the Open Graph image.
- *
- * - Derives protocol/host from request headers to build absolute URLs (works behind proxies)
- * - Attempts to load Bodoni Moda and Inter from Google Fonts CDN; falls back to system fonts if unavailable
- * - Composes the image with background, titles, social icons, and brand logo
- * - Returns a PNG response sized to standard OG dimensions
- */
+// Main function generating the OG image
 export default async function Image({ params }: { params: Promise<LocaleParams> }) {
-	// Resolve locale from the dynamic segment
+	// Extract the current locale from route parameters
 	const { locale } = await params
+
+	// Load translation data
 	const pageLocales = pageTranslations as unknown as Record<string, Record<string, unknown>>
 	const t = getTranslations(locale, pageLocales)
-	const tEn = getTranslations('en', pageLocales)
+	const tEn = getTranslations('en', pageLocales) // Fallback to English
 
-	// Narrow the translation shape we need for this OG image
+	// Type definition for OG-specific translations
 	type OgTexts = {
 		OG?: {
 			Main?: string
@@ -52,29 +31,30 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 		}
 	}
 
-	// Build absolute URLs using request headers (works behind proxies like Vercel).
-	// Required by Satori for fetching external assets.
+	// Retrieve request headers to detect host and protocol
 	const requestHeaders = await headers()
 	const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? 'localhost:3000'
 	const xfProto = requestHeaders.get('x-forwarded-proto')
 	const isLocal = host?.startsWith('localhost') || host?.startsWith('127.0.0.1')
 	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
 
-	// Absolute URL to the background PNG served from `/public/openGraph`
+	// Image background source
 	const fileName = 'OG image beswib.png'
 	const src = `${protocol}://${host}/openGraph/${encodeURIComponent(fileName)}`
 
-	// We no longer embed custom fonts here; use system defaults for simplicity
-
-	// Titles and secondary text from translations (OG namespace) with English fallback per key
+	// Prepare translations for OG text (main + secondary)
 	const tOg = t as OgTexts
 	const tOgEn = tEn as OgTexts
+
+	// Get the main title text (fallback to English if missing)
 	const titleRaw = tOg.OG?.Main ?? tOgEn.OG?.Main
 	const titleLines = (titleRaw ?? 'Achetez et vendez\nvos dossards\nen toute sérénité.')
-		.replace(/<br\s*\/?>/gi, '\n')
-		.split('\n')
-		.map(line => line.trim())
-		.filter(Boolean)
+		.replace(/<br\s*\/?>/gi, '\n') // Replace HTML line breaks with newlines
+		.split('\n') // Split into lines
+		.map(line => line.trim()) // Remove extra spaces
+		.filter(Boolean) // Remove empty lines
+
+	// Get the secondary text (also fallback to English if missing)
 	const secondaryRaw = tOg.OG?.Secondary ?? tOgEn.OG?.Secondary ?? ''
 	const secondaryLines = secondaryRaw
 		.replace(/<br\s*\/?>/gi, '\n')
@@ -82,56 +62,58 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 		.map(line => line.trim())
 		.filter(Boolean)
 
-	// Render helper: color words wrapped in **...** with #94b3b4 while keeping bold
+	/**
+	 * Helper function to render text where **bold** parts
+	 * are highlighted in a specific color.
+	 * Preserves spaces exactly as in the input.
+	 */
 	function renderColoredBold(text: string) {
-		const parts = text.split(/(\*\*.+?\*\*)/g)
-		const elements: React.ReactNode[] = []
-		let cursor = 0
-		for (const part of parts) {
-			const key = `${part}-${cursor}`
+		const regex = /(\*\*[^*]+\*\*)/g // Matches **bold** patterns
+		const parts = text.split(regex) // Split text into bold and normal parts
+
+		return parts.map((part, idx) => {
 			if (part.startsWith('**') && part.endsWith('**')) {
-				const inner = part.slice(2, -2)
-				elements.push(
-					<span key={key} style={{ color: '#94b3b4', fontWeight: 700, whiteSpace: 'pre' }}>
-						{inner}
-					</span>
-				)
-			} else {
-				elements.push(
-					<span key={key} style={{ whiteSpace: 'pre' }}>
-						{part}
+				const match = part.slice(2, -2) // Remove ** markers
+				return (
+					<span key={idx} style={{ color: '#94b3b4', fontWeight: 'bold', whiteSpace: 'pre' }}>
+						{match}
 					</span>
 				)
 			}
-			cursor += part.length
-		}
-		return elements
+			// Non-bold part — preserve spaces
+			return (
+				<span key={idx} style={{ whiteSpace: 'pre' }}>
+					{part}
+				</span>
+			)
+		})
 	}
 
-	// External icon URLs (served from `/public/openGraph/logos` and `/public`)
+	// URLs for social network logos
 	const facebookUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('white facebook.png')}`
 	const instagramUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('white instagram.png')}`
 	const linkedinUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('white linkedin.png')}`
 	const xUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('white X.png')}`
 	const beswibLogoUrl = `${protocol}://${host}/beswib.svg`
 
+	// Generate the Open Graph image response
 	return new ImageResponse(
 		(
 			<div
 				style={{
-					width: `${size.width}px`,
-					height: `${size.height}px`,
 					display: 'flex',
 					flexDirection: 'column',
-					backgroundColor: '#000000',
 					position: 'relative',
+
+					backgroundColor: 'black',
+					width: `${size.width}px`,
+					height: `${size.height}px`,
 				}}
 			>
 				{/* Background image */}
-				{/* eslint-disable-next-line @next/next/no-img-element */}
-				<img src={src} width={size.width} height={size.height} alt="" style={{ objectFit: 'cover' }} />
+				<img src={src} width={size.width} height={size.height} alt="" style={{ objectFit: 'cover', display: 'flex' }} />
 
-				{/* Text overlay container */}
+				{/* Main text */}
 				<div
 					style={{
 						position: 'absolute',
@@ -139,18 +121,18 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 						top: 169,
 						display: 'flex',
 						flexDirection: 'column',
-						color: '#ffffff',
+						color: 'white',
 					}}
 				>
-					{/* Localized main title (multiple lines) */}
+					{/* Main title lines */}
 					{titleLines.map((line, idx) => (
 						<div
 							key={line}
 							style={{
-								display: 'flex',
-								fontSize: 50,
-								fontWeight: 700,
+								display: 'block',
+								fontWeight: 'bold',
 								lineHeight: 1.1,
+								fontSize: 50,
 								marginBottom: idx === titleLines.length - 1 ? 40 : 16,
 							}}
 						>
@@ -158,20 +140,25 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 						</div>
 					))}
 
-					{/* Localized secondary text (one or more lines) */}
-					{secondaryLines.length > 0
-						? secondaryLines.map(line => (
-								<div
-									key={`secondary-${line}`}
-									style={{ display: 'flex', fontSize: 25, fontWeight: 500, opacity: 0.9, marginTop: 2 }}
-								>
-									{renderColoredBold(line)}
-								</div>
-							))
-						: null}
+					{/* Secondary lines with custom bold coloring */}
+					{secondaryLines.length > 0 &&
+						secondaryLines.map(line => (
+							<div
+								key={line}
+								style={{
+									display: 'flex',
+									fontSize: 25,
+									fontWeight: 500,
+									opacity: 0.9,
+									marginTop: 2,
+								}}
+							>
+								{renderColoredBold(line)}
+							</div>
+						))}
 				</div>
 
-				{/* Bottom-left social logos */}
+				{/* Social media icons */}
 				<div
 					style={{
 						position: 'absolute',
@@ -183,17 +170,13 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 						zIndex: 10,
 					}}
 				>
-					{/* eslint-disable-next-line @next/next/no-img-element */}
 					<img src={facebookUrl} width={30} height={30} alt="Facebook" style={{ marginRight: 16 }} />
-					{/* eslint-disable-next-line @next/next/no-img-element */}
 					<img src={instagramUrl} width={30} height={30} alt="Instagram" style={{ marginRight: 16 }} />
-					{/* eslint-disable-next-line @next/next/no-img-element */}
 					<img src={linkedinUrl} width={30} height={30} alt="LinkedIn" style={{ marginRight: 16 }} />
-					{/* eslint-disable-next-line @next/next/no-img-element */}
 					<img src={xUrl} width={30} height={30} alt="X" />
 				</div>
 
-				{/* Top-right Beswib logo */}
+				{/* Beswib logo in top-right */}
 				<div
 					style={{
 						position: 'absolute',
@@ -203,17 +186,17 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 						alignItems: 'center',
 					}}
 				>
-					{/* eslint-disable-next-line @next/next/no-img-element */}
 					<img src={beswibLogoUrl} width={40} height={40} alt="Beswib" />
 				</div>
 
-				{/* Bottom-right domain text */}
+				{/* Domain name in bottom-right */}
 				<div
 					style={{
 						position: 'absolute',
 						left: 1018,
 						top: 516,
-						color: '#ffffff',
+						display: 'flex',
+						color: 'white',
 						fontSize: 20,
 						fontWeight: 600,
 					}}
@@ -222,6 +205,6 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 				</div>
 			</div>
 		),
-		{ ...size }
+		{ ...size } // Output image size
 	)
 }

@@ -1,0 +1,56 @@
+{
+	"en": {
+		"contact": {
+			"titleOG": "Contact",
+			"descriptionOG": "Let's talk **together**! <br />Contact us via this **form**"
+		}
+	},
+	"fr": {
+		"contact": {
+			"titleOG": "Contact",
+			"descriptionOG": "Discutons **ensemble** ! <br />Contactez-nous via ce **formulaire**"
+		}
+	},
+	"ko": {
+		"contact": {
+			"titleOG": "연락처",
+			"descriptionOG": "**함께** 이야기해요! <br />이 **양식**을 통해 문의하세요"
+		}
+	},
+	"es": {
+		"contact": {
+			"titleOG": "Contacto",
+			"descriptionOG": "¡Hablemos **juntos**! <br />Contáctenos a través de este **formulario**"
+		}
+	},
+	"it": {
+		"contact": {
+			"titleOG": "Contatto",
+			"descriptionOG": "Parliamo **insieme**! <br />Contattaci tramite questo **modulo**"
+		}
+	},
+	"de": {
+		"contact": {
+			"titleOG": "Kontakt",
+			"descriptionOG": "Lassen Sie uns **gemeinsam** sprechen! <br />Kontaktieren Sie uns über dieses **Formular**"
+		}
+	},
+	"ro": {
+		"contact": {
+			"titleOG": "Contact",
+			"descriptionOG": "Să vorbim **împreună**! <br />Contactați-ne prin acest **formular**"
+		}
+	},
+	"pt": {
+		"contact": {
+			"titleOG": "Contato",
+			"descriptionOG": "Vamos conversar **juntos**! <br />Entre em contato conosco por este **formulário**"
+		}
+	},
+	"nl": {
+		"contact": {
+			"titleOG": "Contact",
+			"descriptionOG": "Laten we **samen** praten! <br />Neem contact met ons op via dit **formulier**"
+		}
+	}
+}
