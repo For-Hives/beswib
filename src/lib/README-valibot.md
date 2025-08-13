@@ -5,7 +5,9 @@ Ce projet utilise Valibot pour la validation des formulaires d'authentification.
 ## Fichiers créés
 
 ### 1. `validation-schemas.ts`
+
 Contient les schémas de validation Valibot :
+
 - `createEmailSchema()` - Validation email
 - `createSignInPasswordSchema()` - Validation mot de passe connexion
 - `createSignUpPasswordSchema()` - Validation mot de passe inscription (strict)
@@ -16,7 +18,9 @@ Contient les schémas de validation Valibot :
 - `analyzePasswordStrength()` - Analyse force du mot de passe
 
 ### 2. `validation-valibot.ts`
+
 Wrappers des schémas pour compatibilité avec le code existant :
+
 - `validateEmailValibot()`
 - `validatePasswordValibot()`
 - `validateNameValibot()`
@@ -25,51 +29,57 @@ Wrappers des schémas pour compatibilité avec le code existant :
 - `getPasswordStrengthValibot()`
 
 ### 3. `hooks/useValibot.ts`
+
 Hook React pour utiliser facilement Valibot dans les composants :
+
 ```tsx
 const { errors, validate, validateField, clearError } = useValibot(schema)
 ```
 
 ### 4. `components/auth/ValiboAuthExample.tsx`
+
 Exemple d'utilisation du hook dans un composant d'authentification.
 
 ## Usage
 
 ### Validation simple d'un champ
+
 ```ts
 import { validateEmailValibot } from '@/lib/validation-valibot'
 
 const error = validateEmailValibot('test@example.com', 'fr')
 if (error) {
-  console.log(error.message, error.code)
+	console.log(error.message, error.code)
 }
 ```
 
 ### Validation avec hook
+
 ```tsx
 import { useValibot } from '@/hooks/useValibot'
 import { createSignInSchema } from '@/lib/validation-schemas'
 
 function MyForm() {
-  const schema = createSignInSchema('fr')
-  const { errors, validate, validateField } = useValibot(schema)
-  
-  const handleSubmit = (data) => {
-    if (validate(data)) {
-      // Form valide
-    }
-  }
+	const schema = createSignInSchema('fr')
+	const { errors, validate, validateField } = useValibot(schema)
+
+	const handleSubmit = data => {
+		if (validate(data)) {
+			// Form valide
+		}
+	}
 }
 ```
 
 ### Validation en temps réel
+
 ```tsx
 const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-  const value = e.target.value
-  setFormData(prev => ({ ...prev, [field]: value }))
-  
-  // Validation en temps réel
-  validateField(field, value)
+	const value = e.target.value
+	setFormData(prev => ({ ...prev, [field]: value }))
+
+	// Validation en temps réel
+	validateField(field, value)
 }
 ```
 

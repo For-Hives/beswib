@@ -12,7 +12,12 @@ export default function SSOCallback() {
 	useEffect(() => {
 		async function handleCallback() {
 			try {
-				const locale = typeof params?.locale === 'string' ? params.locale : Array.isArray(params?.locale) ? params?.locale?.[0] : 'en'
+				const locale =
+					typeof params?.locale === 'string'
+						? params.locale
+						: Array.isArray(params?.locale)
+							? params?.locale?.[0]
+							: 'en'
 				await handleRedirectCallback({
 					redirectUrlComplete: `/${locale}/dashboard`,
 					signInUrl: `/${locale}/sign-in`,
@@ -21,7 +26,12 @@ export default function SSOCallback() {
 				router.push(`/${locale}/dashboard`)
 			} catch (error) {
 				console.error('SSO callback error:', error)
-				const locale = typeof params?.locale === 'string' ? params.locale : Array.isArray(params?.locale) ? params?.locale?.[0] : 'en'
+				const locale =
+					typeof params?.locale === 'string'
+						? params.locale
+						: Array.isArray(params?.locale)
+							? params?.locale?.[0]
+							: 'en'
 				router.push(`/${locale}/sign-in?error=sso_error`)
 			}
 		}

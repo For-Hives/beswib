@@ -20,10 +20,10 @@ export default function ValiboAuthExample({ mode }: ValiboAuthExampleProps) {
 
 	// Use the appropriate schema based on mode
 	const schema = mode === 'signin' ? createSignInSchema(locale) : createSignUpSchema(locale)
-	
+
 	// Initialize form data
 	const [formData, setFormData] = useState(
-		mode === 'signin' 
+		mode === 'signin'
 			? { email: '', password: '' }
 			: { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }
 	)
@@ -35,7 +35,7 @@ export default function ValiboAuthExample({ mode }: ValiboAuthExampleProps) {
 	const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
 		setFormData(prev => ({ ...prev, [field]: value }))
-		
+
 		// Clear error when user starts typing
 		if (errors[field]) {
 			clearError(field)
@@ -50,7 +50,7 @@ export default function ValiboAuthExample({ mode }: ValiboAuthExampleProps) {
 	// Handle form submission
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-		
+
 		if (validate(formData)) {
 			console.log('Form is valid!', formData)
 			// Proceed with authentication logic here
@@ -63,7 +63,7 @@ export default function ValiboAuthExample({ mode }: ValiboAuthExampleProps) {
 		return (
 			<form onSubmit={handleSubmit} className="space-y-4">
 				<h2 className="text-xl font-bold">{t.signIn.welcome}</h2>
-				
+
 				<FormInput
 					type="email"
 					label={t.fields.email}
@@ -95,7 +95,7 @@ export default function ValiboAuthExample({ mode }: ValiboAuthExampleProps) {
 	return (
 		<form onSubmit={handleSubmit} className="space-y-4">
 			<h2 className="text-xl font-bold">{t.signUp.title}</h2>
-			
+
 			<div className="grid grid-cols-2 gap-4">
 				<FormInput
 					type="text"
