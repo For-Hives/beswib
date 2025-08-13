@@ -96,8 +96,8 @@ importers:
         specifier: 2.1.0
         version: 2.1.0(@react-three/fiber@9.3.0(@types/react@19.1.10)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(three@0.179.1))(react@19.1.1)(three@0.179.1)
       '@rive-app/react-canvas':
-        specifier: 4.23.0
-        version: 4.23.0(react@19.1.1)
+        specifier: 4.23.1
+        version: 4.23.1(react@19.1.1)
       '@sentry/browser':
         specifier: ^10.4.0
         version: 10.5.0
@@ -2277,11 +2277,11 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
 
-  '@rive-app/canvas@2.31.0':
-    resolution: {integrity: sha512-JS8p0NVRHjvng6E54RMpQRW6aaAzV9R1t1MLKIiiJvrh8ZcnVUZ5yDvrYptD2rWhuq3aPlWQwz5iOdAHYbHQtA==}
+  '@rive-app/canvas@2.31.2':
+    resolution: {integrity: sha512-luOos9IW14vsS0M//rvBjIg9UIjQS3vwGlqzP2ceCvqa7ms70vgtTpa6cSiibWUVVWAJwnmJMI8WZYgoJ6V5ug==}
 
-  '@rive-app/react-canvas@4.23.0':
-    resolution: {integrity: sha512-qj3uYH6GYMpJ9hNjN6TCl+KqaCagEAgt9ZWoZ70ppMmdrMGytmPDP5dxJgP5+PVoVjzAroESJsmwa9TnVvLPug==}
+  '@rive-app/react-canvas@4.23.1':
+    resolution: {integrity: sha512-ApnGXtnUkv3LslO8KloBwDQ9QEzhgjPBx6+jml5Caeeiu3svi5bkgiQaK9oqk8WU548vL+k09yVNIcqUWs1QNA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0
 
@@ -7897,11 +7897,11 @@ snapshots:
     dependencies:
       react: 19.1.1
 
-  '@rive-app/canvas@2.31.0': {}
+  '@rive-app/canvas@2.31.2': {}
 
-  '@rive-app/react-canvas@4.23.0(react@19.1.1)':
+  '@rive-app/react-canvas@4.23.1(react@19.1.1)':
     dependencies:
-      '@rive-app/canvas': 2.31.0
+      '@rive-app/canvas': 2.31.2
       react: 19.1.1
 
   '@rolldown/pluginutils@1.0.0-beta.30': {}
