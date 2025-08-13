@@ -1,4 +1,4 @@
-import { Appearance } from '@clerk/types'
+import type { Appearance } from '@clerk/types'
 
 export type ClerkTheme = 'light' | 'dark'
 

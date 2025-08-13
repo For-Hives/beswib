@@ -2,20 +2,27 @@
 
 import { useEffect } from 'react'
 import { useClerk } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 export default function SSOCallback() {
 	const { handleRedirectCallback } = useClerk()
 	const router = useRouter()
+	const params = useParams()
 
 	useEffect(() => {
 		async function handleCallback() {
 			try {
-				await handleRedirectCallback()
-				router.push('/dashboard')
+				const locale = typeof params?.locale === 'string' ? params.locale : Array.isArray(params?.locale) ? params?.locale?.[0] : 'en'
+				await handleRedirectCallback({
+					redirectUrlComplete: `/${locale}/dashboard`,
+					signInUrl: `/${locale}/sign-in`,
+					signUpUrl: `/${locale}/sign-up`,
+				})
+				router.push(`/${locale}/dashboard`)
 			} catch (error) {
 				console.error('SSO callback error:', error)
-				router.push('/sign-in?error=sso_error')
+				const locale = typeof params?.locale === 'string' ? params.locale : Array.isArray(params?.locale) ? params?.locale?.[0] : 'en'
+				router.push(`/${locale}/sign-in?error=sso_error`)
 			}
 		}
 

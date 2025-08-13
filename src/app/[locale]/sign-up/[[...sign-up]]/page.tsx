@@ -7,10 +7,7 @@ import AuthGuard from '@/components/auth/AuthGuard'
 export default function Page() {
 	return (
 		<AuthGuard mode="guest-only">
-			<AuthSplitScreen
-				title="Créer un compte"
-				subtitle="Rejoignez la communauté Beswib et commencez à échanger vos dossards."
-			>
+			<AuthSplitScreen>
 				<CustomSignUp />
 			</AuthSplitScreen>
 		</AuthGuard>

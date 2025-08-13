@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { authTranslations } from '@/lib/translations/auth'
 import { Locale } from '@/lib/i18n-config'
 
-import MountainShader from './MountainShader'
+// import MountainShader from './MountainShader'
 
 interface AuthSplitScreenProps {
 	children: ReactNode
