@@ -223,6 +223,9 @@ importers:
       require-in-the-middle:
         specifier: 7.5.2
         version: 7.5.2
+      resend:
+        specifier: ^6.0.1
+        version: 6.0.1
       sonner:
         specifier: 2.0.7
         version: 2.0.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -5892,6 +5895,15 @@ packages:
   requires-port@1.0.0:
     resolution:
       { integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ== }
+
+  resend@6.0.1:
+    resolution: {integrity: sha512-xNZ0gKAOqQcH83lXsqNOwBbpKROnsZpQr9mXRdG6hrHTF9G9Il2pkoTRtq7rJzXMvCZX+I79oahsbSeaYOWRFA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@react-email/render': ^1.1.0
+    peerDependenciesMeta:
+      '@react-email/render':
+        optional: true
 
   resolve-from@4.0.0:
     resolution:
@@ -11774,6 +11786,8 @@ snapshots:
       - supports-color
 
   requires-port@1.0.0: {}
+
+  resend@6.0.1: {}
 
   resolve-from@4.0.0: {}
 

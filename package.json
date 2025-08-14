@@ -91,6 +91,7 @@
 		"react-dropzone": "14.3.8",
 		"react-hook-form": "7.62.0",
 		"require-in-the-middle": "7.5.2",
+		"resend": "^6.0.1",
 		"sonner": "2.0.7",
 		"svix": "1.71.0",
 		"tailwind-merge": "3.3.1",
