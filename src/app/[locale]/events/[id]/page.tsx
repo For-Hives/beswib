@@ -19,6 +19,7 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import { pbDateToLuxon } from '@/lib/utils/date'
 import { Locale } from '@/lib/i18n/config'
 
+import { WaitlistNotifications } from './components/WaitlistNotifications'
 import eventTranslations from './locales.json'
 
 type EventDetailPageProps = {
@@ -26,13 +27,11 @@ type EventDetailPageProps = {
 		id: string
 		locale: Locale
 	}>
-	searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default async function EventDetailPage({ searchParams, params }: EventDetailPageProps) {
+export default async function EventDetailPage({ params }: EventDetailPageProps) {
 	const { locale, id: eventId } = await params
 
-	const resolvedSearchParams = await searchParams
 	const { userId: clerkId } = await auth()
 
 	const event: Event | null = await fetchEventById(eventId)
@@ -78,10 +77,6 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 		}
 	}
 
-	const waitlistSuccess = resolvedSearchParams?.waitlist_success === 'true'
-	const waitlistError = resolvedSearchParams?.waitlist_error
-	const subscribedEmail = resolvedSearchParams?.email as string | undefined
-
 	// Local helpers for formatting various values
 	const formatPbDate = (date: Date | string | null | undefined) => {
 		const dt = pbDateToLuxon(date)
@@ -112,52 +107,10 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
+			<WaitlistNotifications eventId={eventId} eventName={event.name} t={t} />
+
 			<div className="relative pt-12 pb-12">
 				<div className="container mx-auto max-w-6xl p-6">
-					{/* Success Modal-like Notification */}
-					{waitlistSuccess && (
-						<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-							<div className="dark:border-border/50 bg-card/80 w-full max-w-md rounded-3xl border border-black/50 p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md">
-								<div className="mb-6 text-6xl text-green-600 dark:text-green-400">{t.event.waitlist.success.icon}</div>
-								<h1 className="text-foreground mb-4 text-3xl font-bold">{t.event.waitlist.success.title}</h1>
-								<p className="text-muted-foreground mb-6 text-lg">
-									{subscribedEmail != null
-										? `Great! You'll receive notifications at ${subscribedEmail} when bibs become available for ${event.name}.`
-										: t.event.waitlist.success.message.replace('{eventName}', event.name)}
-								</p>
-								<Link
-									className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
-									href={`/events/${eventId}`}
-								>
-									OK
-								</Link>
-							</div>
-						</div>
-					)}
-
-					{/* Error Modal-like Notification */}
-					{waitlistError != null && typeof waitlistError === 'string' && waitlistError !== '' && (
-						<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-							<div className="dark:border-border/50 bg-card/80 w-full max-w-md rounded-3xl border border-red-500/50 p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--destructive)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--destructive)/0.2)] backdrop-blur-md">
-								<div className="mb-6 text-6xl text-red-600 dark:text-red-400">{t.event.waitlist.error.icon}</div>
-								<h1 className="text-foreground mb-4 text-3xl font-bold">{t.event.waitlist.error.title}</h1>
-								<p className="text-muted-foreground mb-6 text-lg">
-									{waitlistError === 'already_added'
-										? t.event.waitlist.error.alreadyAdded.replace('{eventName}', event.name)
-										: waitlistError === 'already_added_email'
-											? 'You have already subscribed to notifications for this event with this email address.'
-											: t.event.waitlist.error.failed}
-								</p>
-								<Link
-									className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
-									href={`/events/${eventId}`}
-								>
-									OK
-								</Link>
-							</div>
-						</div>
-					)}
-
 					{/* Page Header */}
 					<div className="mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
 						<div className="text-center sm:text-left">
