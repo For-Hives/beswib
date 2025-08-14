@@ -27,7 +27,7 @@ export default function Loader({ text, size = 'md', showText = false, className 
 					}}
 				/>
 			</div>
-			{showText && text && <p className="text-muted-foreground text-sm">{text}</p>}
+			{showText === true && text != null && text !== '' && <p className="text-muted-foreground text-sm">{text}</p>}
 		</div>
 	)
 }

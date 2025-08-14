@@ -28,7 +28,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 		let mouseY = useMotionValue(0)
 
 		React.useEffect(() => {
-			if (type === 'password' && showPasswordToggle) {
+			if (type === 'password' && showPasswordToggle === true) {
 				setInputType(showPassword ? 'text' : 'password')
 			}
 		}, [showPassword, type, showPasswordToggle])
@@ -51,30 +51,31 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 					<motion.div
 						className={cn(
 							'group/input rounded-lg p-[2px] transition duration-300',
-							error && 'bg-destructive/20',
-							success && 'bg-emerald-500/20'
+							error != null && 'bg-destructive/20',
+							success === true && 'bg-emerald-500/20'
 						)}
 						onMouseEnter={() => setVisible(true)}
 						onMouseLeave={() => setVisible(false)}
 						onMouseMove={handleMouseMove}
 						style={{
-							background: error
-								? useMotionTemplate`
+							background:
+								error != null
+									? useMotionTemplate`
 									radial-gradient(
 										${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
 										hsl(var(--destructive) / 0.3),
 										transparent 80%
 									)
 								`
-								: success
-									? useMotionTemplate`
+									: success === true
+										? useMotionTemplate`
 									radial-gradient(
 										${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
 										hsl(142 76% 36% / 0.3),
 										transparent 80%
 									)
 								`
-									: useMotionTemplate`
+										: useMotionTemplate`
 									radial-gradient(
 										${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
 										var(--interactive-bubble),
@@ -88,9 +89,9 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 								id={inputId}
 								className={cn(
 									`shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input flex h-10 w-full rounded-md border px-3 py-2 text-sm transition duration-400 group-hover/input:shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600`,
-									error && 'border-destructive focus-visible:ring-destructive/20',
-									success && 'border-emerald-500 focus-visible:ring-emerald-500/20',
-									showPasswordToggle && 'pr-10',
+									error != null && 'border-destructive focus-visible:ring-destructive/20',
+									success === true && 'border-emerald-500 focus-visible:ring-emerald-500/20',
+									showPasswordToggle === true && 'pr-10',
 									className
 								)}
 								ref={ref}
@@ -98,7 +99,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 								{...props}
 							/>
 
-							{showPasswordToggle && type === 'password' && (
+							{showPasswordToggle === true && type === 'password' && (
 								<button
 									type="button"
 									className="text-muted-foreground hover:text-foreground absolute inset-y-0 right-0 flex w-10 items-center justify-center transition-colors"
@@ -120,7 +121,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 				)}
 
 				{/* Success message */}
-				{success && !error && (
+				{success === true && error == null && (
 					<p className="mt-1 flex items-center gap-1 text-xs text-emerald-600">
 						<span className="text-emerald-600">✓</span>
 						{validText}
@@ -128,7 +129,9 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 				)}
 
 				{/* Helper text */}
-				{helperText && !error && !success && <p className="text-muted-foreground mt-1 text-xs">{helperText}</p>}
+				{helperText != null && helperText !== '' && error == null && success !== true && (
+					<p className="text-muted-foreground mt-1 text-xs">{helperText}</p>
+				)}
 			</div>
 		)
 	}

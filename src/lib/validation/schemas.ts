@@ -149,13 +149,16 @@ export const analyzePasswordStrength = (password: string, locale: Locale = 'fr')
 // Utility type for form validation results
 export type ValidationResult = {
 	success: boolean
-	data?: any
+	data?: unknown
 	error?: string
 	fieldErrors?: Record<string, string>
 }
 
 // Helper function to validate and format results
-export const validateForm = <T>(schema: v.BaseSchema<any, T, any>, data: unknown): ValidationResult => {
+export const validateForm = <T>(
+	schema: v.BaseSchema<unknown, T, v.BaseIssue<unknown>>,
+	data: unknown
+): ValidationResult => {
 	const result = v.safeParse(schema, data)
 
 	if (result.success) {
@@ -168,11 +171,14 @@ export const validateForm = <T>(schema: v.BaseSchema<any, T, any>, data: unknown
 	const fieldErrors: Record<string, string> = {}
 	let globalError = ''
 
-	if (result.issues) {
+	if (result.issues != null) {
 		result.issues.forEach(issue => {
-			if (issue.path && issue.path.length > 0) {
-				const fieldName = issue.path[issue.path.length - 1].key as string
-				fieldErrors[fieldName] = issue.message
+			if (issue.path != null && issue.path.length > 0) {
+				const lastPath = issue.path[issue.path.length - 1]
+				if (lastPath != null && 'key' in lastPath) {
+					const fieldName = lastPath.key as string
+					fieldErrors[fieldName] = issue.message
+				}
 			} else {
 				globalError = issue.message
 			}

@@ -15,7 +15,31 @@
 				"price": "Price",
 				"participants": "Participants",
 				"distance": "Distance",
-				"allCities": "All cities"
+				"allCities": "All cities",
+				"sortPlaceholder": "Sort by...",
+				"sortByDate": "Sort by date",
+				"sortByPrice": "Sort by price",
+				"sortByParticipants": "Sort by participants",
+				"sortByDistance": "Sort by distance",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 participants",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
 			},
 			"raceTypes": {
 				"triathlon": "Triathlon",
@@ -69,7 +93,31 @@
 				"price": "Prix",
 				"participants": "Participants",
 				"distance": "Distance",
-				"allCities": "Toutes les villes"
+				"allCities": "Toutes les villes",
+				"sortPlaceholder": "Trier par...",
+				"sortByDate": "Trier par date",
+				"sortByPrice": "Trier par prix",
+				"sortByParticipants": "Trier par participants",
+				"sortByDistance": "Trier par distance",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 participants",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
 			},
 			"raceTypes": {
 				"triathlon": "Triathlon",
@@ -123,7 +171,31 @@
 				"price": "가격",
 				"participants": "참가자",
 				"distance": "거리",
-				"allCities": "모든 도시"
+				"allCities": "모든 도시",
+				"sortPlaceholder": "정렬 기준...",
+				"sortByDate": "날짜순 정렬",
+				"sortByPrice": "가격순 정렬",
+				"sortByParticipants": "참가자순 정렬",
+				"sortByDistance": "거리순 정렬",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100명 참가자",
+					"medium": "100 – 500명",
+					"large": "500 – 1 000명",
+					"veryLarge": "1 000명+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
 			},
 			"raceTypes": {
 				"triathlon": "트라이애슬론",
@@ -177,7 +249,31 @@
 				"price": "Precio",
 				"participants": "Participantes",
 				"distance": "Distancia",
-				"allCities": "Todas las ciudades"
+				"allCities": "Todas las ciudades",
+				"sortPlaceholder": "Ordenar por...",
+				"sortByDate": "Ordenar por fecha",
+				"sortByPrice": "Ordenar por precio",
+				"sortByParticipants": "Ordenar por participantes",
+				"sortByDistance": "Ordenar por distancia",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 participantes",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
 			},
 			"raceTypes": {
 				"triathlon": "Triatlón",
@@ -231,7 +327,31 @@
 				"price": "Prezzo",
 				"participants": "Partecipanti",
 				"distance": "Distanza",
-				"allCities": "Tutte le città"
+				"allCities": "Tutte le città",
+				"sortPlaceholder": "Ordina per...",
+				"sortByDate": "Ordina per data",
+				"sortByPrice": "Ordina per prezzo",
+				"sortByParticipants": "Ordina per partecipanti",
+				"sortByDistance": "Ordina per distanza",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 partecipanti",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
 			},
 			"raceTypes": {
 				"triathlon": "Triathlon",
@@ -285,7 +405,31 @@
 				"price": "Preis",
 				"participants": "Teilnehmer",
 				"distance": "Distanz",
-				"allCities": "Alle Städte"
+				"allCities": "Alle Städte",
+				"sortPlaceholder": "Sortieren nach...",
+				"sortByDate": "Nach Datum sortieren",
+				"sortByPrice": "Nach Preis sortieren",
+				"sortByParticipants": "Nach Teilnehmern sortieren",
+				"sortByDistance": "Nach Distanz sortieren",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 Teilnehmer",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
 			},
 			"raceTypes": {
 				"triathlon": "Triathlon",
@@ -339,7 +483,31 @@
 				"price": "Preț",
 				"participants": "Participanți",
 				"distance": "Distanță",
-				"allCities": "Toate orașele"
+				"allCities": "Toate orașele",
+				"sortPlaceholder": "Sortează după...",
+				"sortByDate": "Sortează după dată",
+				"sortByPrice": "Sortează după preț",
+				"sortByParticipants": "Sortează după participanți",
+				"sortByDistance": "Sortează după distanță",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 participanți",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
 			},
 			"raceTypes": {
 				"triathlon": "Triathlon",
@@ -393,7 +561,31 @@
 				"price": "Preço",
 				"participants": "Participantes",
 				"distance": "Distância",
-				"allCities": "Todas as cidades"
+				"allCities": "Todas as cidades",
+				"sortPlaceholder": "Ordenar por...",
+				"sortByDate": "Ordenar por data",
+				"sortByPrice": "Ordenar por preço",
+				"sortByParticipants": "Ordenar por participantes",
+				"sortByDistance": "Ordenar por distância",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 participantes",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
 			},
 			"raceTypes": {
 				"triathlon": "Triatlo",
@@ -447,7 +639,31 @@
 				"price": "Prijs",
 				"participants": "Deelnemers",
 				"distance": "Afstand",
-				"allCities": "Alle steden"
+				"allCities": "Alle steden",
+				"sortPlaceholder": "Sorteren op...",
+				"sortByDate": "Sorteren op datum",
+				"sortByPrice": "Sorteren op prijs",
+				"sortByParticipants": "Sorteren op deelnemers",
+				"sortByDistance": "Sorteren op afstand",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 deelnemers",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
 			},
 			"raceTypes": {
 				"triathlon": "Triathlon",

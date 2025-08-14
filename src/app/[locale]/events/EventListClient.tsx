@@ -42,6 +42,30 @@ interface EventTranslations {
 			participants?: string
 			distance?: string
 			allCities?: string
+			sortPlaceholder?: string
+			sortByDate?: string
+			sortByPrice?: string
+			sortByParticipants?: string
+			sortByDistance?: string
+			priceRanges?: {
+				low?: string
+				medium?: string
+				high?: string
+				veryHigh?: string
+			}
+			participantRanges?: {
+				small?: string
+				medium?: string
+				large?: string
+				veryLarge?: string
+			}
+			distanceRanges?: {
+				short?: string
+				halfMarathon?: string
+				marathon?: string
+				ultra?: string
+				veryLong?: string
+			}
 		}
 		raceTypes?: Record<string, string>
 		groupLabels?: {
@@ -204,10 +228,10 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 	// Sort options for SelectAnimated
 	const sortOptions: SelectOption[] = [
-		{ value: 'date', label: t.events?.filters?.date ?? 'Trier par date' },
-		{ value: 'price', label: t.events?.filters?.price ?? 'Trier par prix' },
-		{ value: 'participants', label: t.events?.filters?.participants ?? 'Trier par participants' },
-		{ value: 'distance', label: t.events?.filters?.distance ?? 'Trier par distance' },
+		{ value: 'date', label: t.events?.filters?.sortByDate ?? 'Trier par date' },
+		{ value: 'price', label: t.events?.filters?.sortByPrice ?? 'Trier par prix' },
+		{ value: 'participants', label: t.events?.filters?.sortByParticipants ?? 'Trier par participants' },
+		{ value: 'distance', label: t.events?.filters?.sortByDistance ?? 'Trier par distance' },
 	]
 
 	// Handlers for filter changes
@@ -387,10 +411,10 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			return buildRangeGrouper(
 				e => e.officialStandardPrice ?? null,
 				[
-					{ test: v => v >= 0 && v < 20, label: '0€ – 20€' },
-					{ test: v => v >= 20 && v < 50, label: '20€ – 50€' },
-					{ test: v => v >= 50 && v < 100, label: '50€ – 100€' },
-					{ test: v => v >= 100, label: '100€+' },
+					{ test: v => v >= 0 && v < 20, label: t.events?.filters?.priceRanges?.low ?? '0€ – 20€' },
+					{ test: v => v >= 20 && v < 50, label: t.events?.filters?.priceRanges?.medium ?? '20€ – 50€' },
+					{ test: v => v >= 50 && v < 100, label: t.events?.filters?.priceRanges?.high ?? '50€ – 100€' },
+					{ test: v => v >= 100, label: t.events?.filters?.priceRanges?.veryHigh ?? '100€+' },
 				],
 				t.events?.groupLabels?.unknownPrice ?? 'Unknown price'
 			)
@@ -400,10 +424,10 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			return buildRangeGrouper(
 				e => e.participants ?? null,
 				[
-					{ test: v => v <= 100, label: '≤ 100 participants' },
-					{ test: v => v > 100 && v <= 500, label: '100 – 500' },
-					{ test: v => v > 500 && v <= 1000, label: '500 – 1 000' },
-					{ test: v => v > 1000, label: '1 000+' },
+					{ test: v => v <= 100, label: t.events?.filters?.participantRanges?.small ?? '≤ 100 participants' },
+					{ test: v => v > 100 && v <= 500, label: t.events?.filters?.participantRanges?.medium ?? '100 – 500' },
+					{ test: v => v > 500 && v <= 1000, label: t.events?.filters?.participantRanges?.large ?? '500 – 1 000' },
+					{ test: v => v > 1000, label: t.events?.filters?.participantRanges?.veryLarge ?? '1 000+' },
 				],
 				t.events?.groupLabels?.unknownParticipants ?? 'Unknown participants'
 			)
@@ -413,11 +437,11 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		return buildRangeGrouper(
 			e => e.distanceKm ?? null,
 			[
-				{ test: v => v <= 10, label: '≤ 10 km' },
-				{ test: v => v > 10 && v <= 21, label: '10 – 21 km' },
-				{ test: v => v > 21 && v <= 42, label: '21 – 42 km' },
-				{ test: v => v > 42 && v <= 100, label: '42 – 100 km' },
-				{ test: v => v > 100, label: '100 km+' },
+				{ test: v => v <= 10, label: t.events?.filters?.distanceRanges?.short ?? '≤ 10 km' },
+				{ test: v => v > 10 && v <= 21, label: t.events?.filters?.distanceRanges?.halfMarathon ?? '10 – 21 km' },
+				{ test: v => v > 21 && v <= 42, label: t.events?.filters?.distanceRanges?.marathon ?? '21 – 42 km' },
+				{ test: v => v > 42 && v <= 100, label: t.events?.filters?.distanceRanges?.ultra ?? '42 – 100 km' },
+				{ test: v => v > 100, label: t.events?.filters?.distanceRanges?.veryLong ?? '100 km+' },
 			],
 			t.events?.groupLabels?.unknownDistance ?? 'Unknown distance'
 		)
@@ -617,7 +641,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							<SelectAnimated
 								onValueChange={handleSortChange}
 								options={sortOptions}
-								placeholder="Trier par..."
+								placeholder={t.events?.filters?.sortPlaceholder ?? 'Trier par...'}
 								value={sortBy}
 							/>
 						</div>

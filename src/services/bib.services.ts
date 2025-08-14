@@ -87,7 +87,7 @@ export async function fetchAvailableBibsForEvent(
 	}
 
 	// Check if already aborted before starting
-	if (abortSignal?.aborted) {
+	if (abortSignal != null && abortSignal.aborted === true) {
 		throw new Error('Request was aborted')
 	}
 
@@ -96,7 +96,7 @@ export async function fetchAvailableBibsForEvent(
 		const saleWindowFilter = `((eventId.transferDeadline != null && eventId.transferDeadline >= '${nowIso}') || (eventId.transferDeadline = null && eventId.eventDate >= '${nowIso}'))`
 
 		// Check for abort before making the request
-		if (abortSignal?.aborted) {
+		if (abortSignal != null && abortSignal.aborted === true) {
 			throw new Error('Request was aborted')
 		}
 
@@ -107,7 +107,7 @@ export async function fetchAvailableBibsForEvent(
 		})
 
 		// Check for abort after the request
-		if (abortSignal?.aborted) {
+		if (abortSignal != null && abortSignal.aborted === true) {
 			throw new Error('Request was aborted')
 		}
 

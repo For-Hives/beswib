@@ -10,7 +10,19 @@ interface UnauthorizedPageProps {
 
 export default async function UnauthorizedPage({ params }: UnauthorizedPageProps) {
 	const { locale } = await params
-	const t = getTranslations(locale, mainLocales) as any
+	const translations = getTranslations(locale, mainLocales)
+	const t = (
+		translations as unknown as {
+			unauthorized: {
+				title: string
+				description: string
+				adminRequired: string
+				backToHome: string
+				contactSupport: string
+				additionalHelp: string
+			}
+		}
+	).unauthorized
 
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">

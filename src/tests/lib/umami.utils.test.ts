@@ -1,13 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
-import { beforeSendHandler, umamiIdentify, umamiTrack } from '../../lib/umami.utils'
+import { beforeSendHandler, umamiIdentify, umamiTrack } from '../../lib/utils/umami'
 
 describe('umami.utils', () => {
 	it('beforeSendHandler returns false for invalid payloads', () => {
-		// @ts-expect-error testing invalid input
-		expect(beforeSendHandler('event', null)).toBe(false)
-		// @ts-expect-error testing invalid input
-		expect(beforeSendHandler('event', undefined)).toBe(false)
+		expect(beforeSendHandler('event', null as never)).toBe(false)
+		expect(beforeSendHandler('event', undefined as never)).toBe(false)
 	})
 
 	it('beforeSendHandler extracts locale and rewrites URL', () => {
@@ -17,7 +15,7 @@ describe('umami.utils', () => {
 		})
 
 		if (res === false) throw new Error('beforeSendHandler unexpectedly returned false')
-		expect(res.data?.locale).toBe('fr')
+		expect((res.data as { locale?: string })?.locale).toBe('fr')
 		expect(res.url).toBe('https://example.com/some/path')
 	})
 
