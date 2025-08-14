@@ -179,7 +179,7 @@ function nl2br(s: string): string {
 	return escapeHtml(s).replaceAll('\n', '<br/>')
 }
 
-export function renderContactMessageEmailHtml({ name, email, message }: ContactMessageEmailProps): string {
+export function renderContactMessageEmailHtml({ name, message, email }: ContactMessageEmailProps): string {
 	const safeName = (name ?? '').trim()
 	const safeEmail = (email ?? '').trim()
 	const safeMessage = message ?? ''
