@@ -176,6 +176,8 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 					className="absolute flex h-full w-full items-center justify-center"
 					ref={orbitRef}
 					style={{
+						willChange: 'transform',
+						transformStyle: 'preserve-3d',
 						perspective: '1000px',
 					}}
 				>
@@ -201,8 +203,11 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 
 						const nodeStyle = {
 							zIndex: isExpanded ? 200 : position.zIndex,
-							transform: `translate(${position.x}px, ${position.y}px)`,
+							willChange: 'transform, opacity' as const,
+							transformStyle: 'preserve-3d' as const,
+							transform: `translate3d(${position.x}px, ${position.y}px, 0px)`,
 							opacity: isExpanded ? 1 : position.opacity,
+							backfaceVisibility: 'hidden' as const,
 						}
 
 						return (
