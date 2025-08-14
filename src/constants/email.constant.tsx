@@ -56,7 +56,7 @@ export function EmailLayout({ title, preheader, children }: EmailLayoutProps) {
 									}}
 								>
 									<tbody>
-										{title ? (
+										{typeof title === 'string' && title.length > 0 ? (
 											<tr>
 												<td style={{ padding: '16px 24px', borderBottom: '1px solid #e5e7eb' }}>
 													<h1 style={{ margin: 0, lineHeight: '28px', fontSize: 20 }}>{title}</h1>
@@ -106,7 +106,8 @@ export function SaleAlertEmail({ orderId, currency, bibId, amount }: SaleAlertEm
 	const lines: Array<[string, string]> = []
 	if (typeof orderId === 'string' && orderId.length > 0) lines.push(['Order', orderId])
 	if (typeof bibId === 'string' && bibId.length > 0) lines.push(['Bib', bibId])
-	if (typeof amount === 'number') lines.push(['Amount', `${amount}${currency ? ` ${currency}` : ''}`])
+	if (typeof amount === 'number')
+		lines.push(['Amount', `${amount}${typeof currency === 'string' && currency.length > 0 ? ` ${currency}` : ''}`])
 
 	return (
 		<EmailLayout title="New sale completed" preheader="A new sale has been completed on Beswib">
