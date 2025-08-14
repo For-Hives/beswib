@@ -243,7 +243,7 @@ export default function CustomSignIn() {
 
 				<div className="flex items-center justify-end">
 					<Link
-						href={`/${locale}/forgot-password`}
+						href={`/${locale}/auth/forgot-password`}
 						className="text-primary hover:text-primary/80 text-sm transition-colors hover:underline"
 					>
 						{t.signIn.forgotPassword}
@@ -267,7 +267,7 @@ export default function CustomSignIn() {
 				<p className="text-muted-foreground text-sm">
 					{t.signIn.noAccount}{' '}
 					<Link
-						href={`/${locale}/sign-up`}
+						href={`/${locale}/auth/sign-up`}
 						className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
 					>
 						{t.signIn.createAccount}

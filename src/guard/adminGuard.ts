@@ -59,7 +59,7 @@ export async function requireAdminAccess(): Promise<User> {
 
 		// Check if user is authenticated ✅
 		if (clerkId === null || clerkId === undefined) {
-			redirect('/sign-in?redirectUrl=' + encodeURIComponent('/admin/event'))
+			redirect('/auth/sign-in?redirectUrl=' + encodeURIComponent('/admin/event'))
 		}
 
 		// Fetch user data from PocketBase 💾
@@ -67,12 +67,12 @@ export async function requireAdminAccess(): Promise<User> {
 
 		// Check if user exists in our database 🤔
 		if (!user) {
-			redirect('/unauthorized')
+			redirect('/auth/unauthorized')
 		}
 
 		// Check if user has admin role 👑
 		if (user.role !== 'admin') {
-			redirect('/unauthorized')
+			redirect('/auth/unauthorized')
 		}
 
 		return user
