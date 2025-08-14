@@ -11,6 +11,8 @@ import type { Locale } from '@/lib/i18n-config'
 
 import { SlidingPanel } from '@/components/ui/SlidingPanel'
 import { formatDateWithLocale } from '@/lib/dateUtils'
+import { getTranslations } from '@/lib/getDictionary'
+import mainLocales from '@/app/[locale]/locales.json'
 import { cn } from '@/lib/utils'
 
 interface PaymentPanelProps {
@@ -61,6 +63,7 @@ export default function PaymentPanel({
 	errorMessage,
 	bib,
 }: PaymentPanelProps) {
+	const paymentT = getTranslations(locale, mainLocales).payment
 	// Calculate the lowest reference price between original and official
 	const officialPrice = eventData?.officialStandardPrice ?? 0
 	const originalPrice = bib.originalPrice ?? 0
@@ -101,7 +104,13 @@ export default function PaymentPanel({
 	}
 
 	return (
-		<SlidingPanel className="z-[100]" isOpen={isOpen} onClose={onClose} title="Complete Your Purchase" variant="slide">
+		<SlidingPanel
+			className="z-[100]"
+			isOpen={isOpen}
+			onClose={onClose}
+			title={paymentT.title as string}
+			variant="slide"
+		>
 			<div className="bg-background p-6">
 				<div className="mx-auto max-w-4xl">
 					<div className="grid gap-8 lg:grid-cols-3">
@@ -109,7 +118,7 @@ export default function PaymentPanel({
 						<div className="space-y-6 lg:col-span-2">
 							{/* Event Summary Card */}
 							<div className="dark:border-border/50 bg-card/80 rounded-lg border border-black/50 p-6 backdrop-blur-sm">
-								<h3 className="text-foreground mb-4 text-sm font-medium">Event Details</h3>
+								<h3 className="text-foreground mb-4 text-sm font-medium">{paymentT.eventDetails as string}</h3>
 								<div className="flex items-start gap-4">
 									<div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg">
 										<Image alt="Event Image" className="object-cover" fill sizes="80px" src={bib.event.image} />
@@ -144,21 +153,21 @@ export default function PaymentPanel({
 
 							{/* Order Summary Details */}
 							<div className="dark:border-border/50 bg-card/80 rounded-lg border border-black/50 p-6 backdrop-blur-sm">
-								<h3 className="text-foreground mb-4 text-sm font-medium">Order Summary</h3>
+								<h3 className="text-foreground mb-4 text-sm font-medium">{paymentT.orderSummary as string}</h3>
 								<div className="space-y-3">
 									<div className="flex items-center justify-between">
-										<span className="text-foreground/80">Race bib transfer</span>
+										<span className="text-foreground/80">{paymentT.raceBibTransfer as string}</span>
 										<span className="text-foreground/80">€{bib.price}</span>
 									</div>
 									{hasValidReference && (
 										<div className="flex items-center justify-between text-green-400">
-											<span className="text-sm">Discount applied</span>
+											<span className="text-sm">{paymentT.discountApplied as string}</span>
 											<span className="text-sm">-€{(referencePrice - bib.price).toFixed(2)}</span>
 										</div>
 									)}
 									<div className="border-border/20 border-t pt-3">
 										<div className="flex items-center justify-between text-lg font-semibold">
-											<span className="text-foreground">Total</span>
+											<span className="text-foreground">{paymentT.total as string}</span>
 											<span className="text-foreground">€{bib.price}</span>
 										</div>
 									</div>
@@ -167,12 +176,12 @@ export default function PaymentPanel({
 
 							{/* What's Included */}
 							<div className="dark:border-border/50 bg-card/80 rounded-lg border border-black/50 p-6 backdrop-blur-sm">
-								<h3 className="text-foreground mb-4 text-sm font-medium">What's included</h3>
+								<h3 className="text-foreground mb-4 text-sm font-medium">{paymentT.whatsIncluded as string}</h3>
 								<ul className="text-foreground/80 space-y-2 text-sm">
-									<li>• Official race bib with your registered details</li>
-									<li>• All event materials (timing chip, race packet)</li>
-									<li>• Complete registration transfer service</li>
-									<li>• Dedicated multilingual assistance</li>
+									<li>• {paymentT.officialBib as string}</li>
+									<li>• {paymentT.eventMaterials as string}</li>
+									<li>• {paymentT.transferService as string}</li>
+									<li>• {paymentT.multilingualAssistance as string}</li>
 								</ul>
 							</div>
 						</div>
@@ -180,7 +189,7 @@ export default function PaymentPanel({
 						{/* Payment Section - Right Side */}
 						<div className="space-y-6">
 							<div className="dark:border-border/50 bg-card/80 rounded-lg border border-black/50 p-6 backdrop-blur-sm">
-								<h3 className="text-foreground mb-4 text-sm font-medium">Payment Method</h3>
+								<h3 className="text-foreground mb-4 text-sm font-medium">{paymentT.paymentMethod as string}</h3>
 
 								{/* Error Messages */}
 								{Boolean(errorMessage) && (
@@ -217,11 +226,8 @@ export default function PaymentPanel({
 							{/* Security Features */}
 							<div className="rounded-lg border border-green-500/40 bg-green-500/10 p-6 backdrop-blur-sm">
 								<div className="text-sm">
-									<p className="font-medium text-green-300">100% Secure Transaction</p>
-									<p className="mt-1 text-green-200">
-										Your payment is processed securely through PayPal's trusted platform. We never store your payment
-										details.
-									</p>
+									<p className="font-medium text-green-300">{paymentT.secureTransaction as string}</p>
+									<p className="mt-1 text-green-200">{paymentT.secureDescription as string}</p>
 								</div>
 							</div>
 
@@ -230,22 +236,22 @@ export default function PaymentPanel({
 								<div className="text-muted-foreground flex items-center justify-center gap-6 text-xs">
 									<div className="flex items-center gap-1">
 										<div className="h-2 w-2 rounded-full bg-green-400"></div>
-										<span>256-bit SSL</span>
+										<span>{paymentT.ssl256 as string}</span>
 									</div>
 									<div className="flex items-center gap-1">
 										<div className="h-2 w-2 rounded-full bg-blue-400"></div>
-										<span>PayPal Secured</span>
+										<span>{paymentT.paypalSecured as string}</span>
 									</div>
 									<div className="flex items-center gap-1">
 										<div className="h-2 w-2 rounded-full bg-purple-400"></div>
-										<span>PCI Compliant</span>
+										<span>{paymentT.pciCompliant as string}</span>
 									</div>
 								</div>
-								<p className="text-muted-foreground text-xs">Trusted by thousands of athletes worldwide</p>
+								<p className="text-muted-foreground text-xs">{paymentT.trustedAthletes as string}</p>
 								<div className="text-muted-foreground flex items-center justify-center gap-4 text-xs">
-									<span>Bank-level encryption</span>
-									<span>Instant confirmation</span>
-									<span>Fraud protection</span>
+									<span>{paymentT.bankEncryption as string}</span>
+									<span>{paymentT.instantConfirmation as string}</span>
+									<span>{paymentT.fraudProtection as string}</span>
 								</div>
 							</div>
 						</div>
