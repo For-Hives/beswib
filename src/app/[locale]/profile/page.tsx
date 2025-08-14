@@ -2,7 +2,7 @@ import { currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
 import { fetchUserByClerkId } from '@/services/user.services'
-import { LocaleParams } from '@/lib/generateStaticParams'
+import { LocaleParams } from '@/lib/generation/staticParams'
 
 import ProfileClient from './ProfileClient'
 

@@ -439,7 +439,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 						<p className="text-muted-foreground mb-6 text-lg">{t.events.ui.accessErrorDescription}</p>
 						<button
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
-							onClick={() => router.push('/sign-in')}
+							onClick={() => router.push('/auth/sign-in')}
 						>
 							{t.events.ui.signIn}
 						</button>

@@ -4,7 +4,7 @@ import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
 import { fetchUserByClerkId } from '@/services/user.services'
-import { LocaleParams } from '@/lib/generateStaticParams'
+import { LocaleParams } from '@/lib/generation/staticParams'
 
 import DashboardClient from './DashboardClient'
 
@@ -22,7 +22,7 @@ export default async function DashboardPage({ params }: { params: Promise<Locale
 	const clerkUser = await currentUser()
 
 	if (userId === null || userId === undefined || clerkUser === null) {
-		redirect('/sign-in')
+		redirect('/auth/sign-in')
 	}
 
 	// Fetch user data from our database

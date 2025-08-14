@@ -1,6 +1,6 @@
 import type { Event } from '@/models/event.model'
 
-import { generateLocaleParams, LocaleParams } from '@/lib/generateStaticParams'
+import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
 import { fetchApprovedPublicEvents } from '@/services/event.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
 

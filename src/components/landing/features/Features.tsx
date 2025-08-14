@@ -1,6 +1,6 @@
 import { Calendar, ChartBar, CreditCard, Globe, Mail, Search, Star, Users } from 'lucide-react'
 
-import { LocaleParams } from '@/lib/generateStaticParams'
+import { LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
 

@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation'
 import { fetchSellerTransactions } from '@/services/transaction.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { fetchBibsBySeller } from '@/services/bib.services'
-import { LocaleParams } from '@/lib/generateStaticParams'
+import { LocaleParams } from '@/lib/generation/staticParams'
 
 import SellerDashboardClient from './SellerDashboardClient'
 
@@ -24,7 +24,7 @@ export default async function SellerDashboardPage({ params }: { params: Promise<
 	const pbUser = await fetchUserByClerkId(clerkUser?.id)
 
 	if (clerkUser?.id === null || clerkUser?.id === undefined || pbUser === null) {
-		redirect('/sign-in')
+		redirect('/auth/sign-in')
 	}
 
 	// Fetch seller data

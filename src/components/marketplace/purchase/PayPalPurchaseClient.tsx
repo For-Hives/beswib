@@ -179,7 +179,7 @@ export default function PayPalPurchaseClient({
 	// Check if user is authenticated when trying to open payment modal
 	const handleBuyNowClick = async () => {
 		if (isSignedIn !== true) {
-			router.push(`/${locale}/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`)
+			router.push(`/${locale}/auth/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`)
 			return
 		}
 		if (isOwnBib) return // User trying to buy their own bib - button is disabled upstream

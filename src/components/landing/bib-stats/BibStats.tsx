@@ -1,4 +1,4 @@
-import { LocaleParams } from '@/lib/generateStaticParams'
+import { LocaleParams } from '@/lib/generation/staticParams'
 
 import BibStatsClient from './BibStatsClient'
 

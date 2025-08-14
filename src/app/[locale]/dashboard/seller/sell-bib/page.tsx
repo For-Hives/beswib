@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 
 import { fetchPartneredApprovedEvents } from '@/services/event.services'
 import { fetchUserByClerkId } from '@/services/user.services'
-import { LocaleParams } from '@/lib/generateStaticParams'
+import { LocaleParams } from '@/lib/generation/staticParams'
 
 import SellBibClient from './SellBibClient'
 
@@ -22,7 +22,7 @@ export default async function SellBibPage({ params }: { params: Promise<LocalePa
 	const { userId: clerkUserId } = await auth()
 
 	if (clerkUserId === null || clerkUserId === undefined) {
-		redirect('/sign-in')
+		redirect('/auth/sign-in')
 	}
 
 	const beswibUser = await fetchUserByClerkId(clerkUserId)

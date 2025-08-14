@@ -30,7 +30,7 @@ export default async function EditBibPage({ params }: EditBibPageProps) {
 	const t = getTranslations(locale, editBibTranslations)
 
 	if (clerkId == null || clerkId === '') {
-		redirect(`/sign-in?redirect_url=/dashboard/seller/edit-bib/${bibId}`)
+		redirect(`/auth/sign-in?redirect_url=/dashboard/seller/edit-bib/${bibId}`)
 	}
 
 	try {

@@ -301,7 +301,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 						<p className="text-muted-foreground mb-6 text-lg">{t.organizers.ui.accessErrorDescription}</p>
 						<button
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
-							onClick={() => router.push('/sign-in')}
+							onClick={() => router.push('/auth/sign-in')}
 						>
 							{t.organizers.ui.signIn}
 						</button>

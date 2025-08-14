@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticParams'
+import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import LegalNotice from '@/components/legals/legal-notice/LegalNotice'
 import globalTranslations from '@/components/global/locales.json'
 import { getTranslations } from '@/lib/i18n/dictionary'

@@ -1,4 +1,4 @@
-import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticParams'
+import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import SecurityProcess from '@/components/landing/security-process/SecurityProcess'
 import JourneyTabs from '@/components/landing/journey-tabs/JourneyTabs'
 import HeroAlternative from '@/components/landing/hero/HeroAlternative'

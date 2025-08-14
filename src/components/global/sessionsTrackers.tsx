@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 
 import { useUser } from '@clerk/nextjs'
 
-import { umamiIdentify } from '@/lib/umami.utils'
+import { umamiIdentify } from '@/lib/utils/umami'
 
 export function SessionsTracker() {
 	const { user, isSignedIn, isLoaded } = useUser()

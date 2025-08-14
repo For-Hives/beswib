@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useThemeStore } from '@/hooks/useTheme'
 
-import { umamiTrack } from '@/lib/umami.utils'
+import { umamiTrack } from '@/lib/utils/umami'
 
 // Global knobs
 // GLOBAL_SPEED: higher means faster traversal and faster internal animations

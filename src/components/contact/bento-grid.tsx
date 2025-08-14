@@ -5,7 +5,7 @@ import { motion } from 'motion/react'
 import { useState } from 'react'
 import type React from 'react'
 
-import { InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/socials'
+import { InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/utils/social'
 import globalTranslations from '@/components/global/locales.json'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'

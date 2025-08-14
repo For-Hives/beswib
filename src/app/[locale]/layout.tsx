@@ -10,7 +10,7 @@ import { shadcn } from '@clerk/themes'
 import { Toaster } from 'sonner'
 import Script from 'next/script'
 
-import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticParams'
+import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { getClerkLocalization } from '@/lib/i18n/clerk/localization'

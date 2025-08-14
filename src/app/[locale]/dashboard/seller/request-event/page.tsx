@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 
 import type { Locale } from '@/lib/i18n/config'
 
-import { generateLocaleParams } from '@/lib/generateStaticParams'
+import { generateLocaleParams } from '@/lib/generation/staticParams'
 
 import RequestEventClient from './RequestEventClient'
 
@@ -23,7 +23,7 @@ export default async function RequestEventPage({ params }: RequestEventPageProps
 	const { locale } = await params
 
 	if (userId === null || userId === undefined) {
-		redirect(`/${locale}/sign-in?redirect_url=/${locale}/dashboard/seller/request-event`)
+		redirect(`/${locale}/auth/sign-in?redirect_url=/${locale}/dashboard/seller/request-event`)
 	}
 
 	return <RequestEventClient locale={locale} />

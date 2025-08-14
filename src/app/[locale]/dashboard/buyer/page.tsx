@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation'
 import { fetchBuyerCompletedTransactions, fetchBuyerTransactions } from '@/services/transaction.services'
 import { fetchUserWaitlists } from '@/services/waitlist.services'
 import { fetchUserByClerkId } from '@/services/user.services'
-import { LocaleParams } from '@/lib/generateStaticParams'
+import { LocaleParams } from '@/lib/generation/staticParams'
 
 import BuyerDashboardClient from './BuyerDashboardClient'
 
@@ -31,7 +31,7 @@ export default async function BuyerDashboardPage({
 	const clerkUser = await currentUser()
 
 	if (userId === null || userId === undefined || clerkUser === null) {
-		redirect('/sign-in')
+		redirect('/auth/sign-in')
 	}
 
 	// Resolve PocketBase user from Clerk ID

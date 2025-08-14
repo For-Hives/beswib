@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticParams'
+import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import globalTranslations from '@/components/global/locales.json'
 import BesWibCTA from '@/components/landing/cta/CTASection'
 import { getTranslations } from '@/lib/i18n/dictionary'

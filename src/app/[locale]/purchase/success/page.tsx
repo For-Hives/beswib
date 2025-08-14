@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 
-import { LocaleParams } from '@/lib/generateStaticParams'
+import { LocaleParams } from '@/lib/generation/staticParams'
 
 import PurchaseSuccessClient from './purchaseSuccessClient'
 

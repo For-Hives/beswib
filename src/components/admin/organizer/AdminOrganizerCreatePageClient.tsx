@@ -49,7 +49,7 @@ export default function AdminOrganizerCreatePageClient({
 						<p className="text-muted-foreground mb-6 text-lg">{tCommon.organizers.ui.accessErrorDescription}</p>
 						<button
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
-							onClick={() => router.push('/sign-in')}
+							onClick={() => router.push('/auth/sign-in')}
 						>
 							{tCommon.organizers.ui.signIn}
 						</button>
