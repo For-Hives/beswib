@@ -78,10 +78,10 @@ const texts: Record<Locale, { title: string; description: string; tryAgain: stri
 }
 
 export default function LocaleSegmentError({
-    // Keep error for Sentry capture; UI mirrors 404 page
-    error,
+	// Keep error for Sentry capture; UI mirrors 404 page
+	error,
 }: Readonly<{
-    error: Error & { digest?: string }
+	error: Error & { digest?: string }
 }>) {
 	useEffect(() => {
 		Sentry.captureException(error)
@@ -110,41 +110,43 @@ export default function LocaleSegmentError({
 		else rive.play()
 	}, [rive])
 
-    return (
-        <div className="bg-background relative flex min-h-svh w-full flex-col justify-center p-6 md:p-10">
-            {/* Background Rive animation, dimmed for readability */}
-            <div className="pointer-events-none absolute z-10 flex h-full w-full justify-center lg:-top-24">
-                <div className="h-[450px] w-[450px] opacity-100 lg:h-[512px] lg:w-[512px] xl:h-[750px] xl:w-[750px]">
-                    <RiveComponent />
-                </div>
-            </div>
+	return (
+		<div className="bg-background relative flex min-h-svh w-full flex-col justify-center p-6 md:p-10">
+			{/* Background Rive animation, dimmed for readability */}
+			<div className="pointer-events-none absolute z-10 flex h-full w-full justify-center lg:-top-24">
+				<div className="h-[450px] w-[450px] opacity-100 lg:h-[512px] lg:w-[512px] xl:h-[750px] xl:w-[750px]">
+					<RiveComponent />
+				</div>
+			</div>
 
-            <div className="relative z-20 mx-auto mt-32 w-full max-w-5xl rounded-lg border border-black/20 bg-white/5 p-4 text-center backdrop-blur-xs">
-                <h1 className="text-foreground mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">{t.title}</h1>
-                <p className="text-muted-foreground mt-6 text-lg font-medium text-pretty sm:text-xl/8">{t.description}</p>
+			<div className="relative z-20 mx-auto mt-32 w-full max-w-5xl rounded-lg border border-black/20 bg-white/5 p-4 text-center backdrop-blur-xs">
+				<h1 className="text-foreground mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
+					{t.title}
+				</h1>
+				<p className="text-muted-foreground mt-6 text-lg font-medium text-pretty sm:text-xl/8">{t.description}</p>
 
-                <div className="mt-10 flex flex-col gap-x-6 gap-y-3 sm:flex-row sm:items-center sm:justify-center">
-                    <Button variant="secondary" asChild className="group" type="button">
-                        <Link
-                            href={`/${locale}`}
-                            onClick={() => (typeof window !== 'undefined' ? window.history.back() : undefined)}
-                        >
-                            <ArrowLeft
-                                className="ms-0 me-2 opacity-60 transition-transform group-hover:-translate-x-0.5"
-                                size={16}
-                                strokeWidth={2}
-                                aria-hidden="true"
-                            />
-                            {t.goBack}
-                        </Link>
-                    </Button>
-                    <Button asChild type="button">
-                        <Link href={`/${locale}`}>{t.home}</Link>
-                    </Button>
-                </div>
+				<div className="mt-10 flex flex-col gap-x-6 gap-y-3 sm:flex-row sm:items-center sm:justify-center">
+					<Button variant="secondary" asChild className="group" type="button">
+						<Link
+							href={`/${locale}`}
+							onClick={() => (typeof window !== 'undefined' ? window.history.back() : undefined)}
+						>
+							<ArrowLeft
+								className="ms-0 me-2 opacity-60 transition-transform group-hover:-translate-x-0.5"
+								size={16}
+								strokeWidth={2}
+								aria-hidden="true"
+							/>
+							{t.goBack}
+						</Link>
+					</Button>
+					<Button asChild type="button">
+						<Link href={`/${locale}`}>{t.home}</Link>
+					</Button>
+				</div>
 
-                {/* No extra error metadata displayed to mirror 404 UI */}
-            </div>
-        </div>
-    )
+				{/* No extra error metadata displayed to mirror 404 UI */}
+			</div>
+		</div>
+	)
 }
