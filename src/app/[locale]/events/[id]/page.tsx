@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { ArrowLeft, Bell } from 'lucide-react'
 
 import { notFound, redirect } from 'next/navigation'
+import { SignedIn, SignedOut } from '@clerk/nextjs'
 import { auth } from '@clerk/nextjs/server'
 import { DateTime } from 'luxon'
 import Link from 'next/link'
@@ -22,9 +23,8 @@ import { Locale } from '@/lib/i18n/config'
 import { WaitlistNotifications } from './components/WaitlistNotifications'
 import eventTranslations from './locales.json'
 
-// This page uses auth() and server actions; force dynamic rendering to avoid
-// DYNAMIC_SERVER_USAGE errors on production prerender.
-export const dynamic = 'force-dynamic'
+// Optionally enable ISR if you want periodic regeneration (does not force dynamic)
+export const revalidate = 300
 
 type EventDetailPageProps = {
 	params: Promise<{
@@ -35,8 +35,6 @@ type EventDetailPageProps = {
 
 export default async function EventDetailPage({ params }: EventDetailPageProps) {
 	const { locale, id: eventId } = await params
-
-	const { userId: clerkId } = await auth()
 
 	const event: Event | null = await fetchEventById(eventId)
 	const t = getTranslations(locale, eventTranslations)
@@ -51,6 +49,9 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 		'use server'
 		const eventIdFromForm = formData.get('eventId') as string
 		const userEmail = formData.get('email') as string | null
+
+		// Determine auth at action time to avoid dynamic usage during render
+		const { userId: clerkId } = await auth()
 
 		if (clerkId != null) {
 			// Authenticated user flow
@@ -286,8 +287,8 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 								<h3 className="text-foreground mb-4 text-xl font-semibold">{t.event.bibs.noBibsAvailable}</h3>
 								<p className="text-muted-foreground mb-6">{t.event.waitlist.joinDescription}</p>
 
-								{clerkId != null ? (
-									/* Authenticated user - simple join button */
+								<SignedIn>
+									{/* Authenticated user - simple join button */}
 									<form action={handleJoinWaitlist} className="mx-auto max-w-xs">
 										<input name="eventId" type="hidden" value={eventId} />
 										<button
@@ -298,8 +299,9 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 											{t.event.waitlist.joinButton}
 										</button>
 									</form>
-								) : (
-									/* Non-authenticated user - email input or login options */
+								</SignedIn>
+								<SignedOut>
+									{/* Non-authenticated user - email input or login options */}
 									<div className="mx-auto max-w-md space-y-4">
 										<form action={handleJoinWaitlist} className="space-y-4">
 											<input name="eventId" type="hidden" value={eventId} />
@@ -339,7 +341,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 											Sign in for full features
 										</Link>
 									</div>
-								)}
+								</SignedOut>
 							</div>
 						)}
 					</div>
