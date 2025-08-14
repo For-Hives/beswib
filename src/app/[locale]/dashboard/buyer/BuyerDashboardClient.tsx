@@ -20,7 +20,7 @@ interface BuyerDashboardClientProps {
 	buyerTransactions: (Transaction & { expand?: { bib_id?: Bib & { expand?: { eventId: Event } } } })[]
 	purchaseSuccess: boolean
 	successEventName: string
-	userWaitlists: (Waitlist & { expand?: { eventId: Event } })[]
+	userWaitlists: (Waitlist & { expand?: { event_id: Event } })[]
 	totalSpent: number
 }
 
@@ -220,7 +220,7 @@ export default function BuyerDashboardClient({
 												<div className="rounded-lg border p-4" key={waitlist.id}>
 													<div className="mb-2 flex items-start justify-between">
 														<h4 className="font-semibold">
-															{waitlist.expand?.eventId?.name ?? `Event ID: ${waitlist.event_id}`}
+															{waitlist.expand?.event_id?.name ?? `Event ID: ${waitlist.event_id}`}
 														</h4>
 														<span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400">
 															{t.waiting ?? 'Waiting'}
@@ -230,8 +230,8 @@ export default function BuyerDashboardClient({
 														<p className="flex items-center gap-2">
 															<Calendar className="h-4 w-4" />
 															{t.dateOfEvent ?? 'Date of Event'}:{' '}
-															{waitlist.expand?.eventId
-																? formatDateObjectForDisplay(new Date(waitlist.expand.eventId.eventDate), locale)
+															{waitlist.expand?.event_id
+																? formatDateObjectForDisplay(new Date(waitlist.expand.event_id.eventDate), locale)
 																: 'N/A'}
 														</p>
 														<p>
