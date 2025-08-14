@@ -1,8 +1,17 @@
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import mainLocales from '@/app/[locale]/locales.json'
 
-export default function UnauthorizedPage() {
+interface UnauthorizedPageProps {
+	params: Promise<{ locale: string }>
+}
+
+export default async function UnauthorizedPage({ params }: UnauthorizedPageProps) {
+	const { locale } = await params
+	const t = getTranslations(locale, mainLocales) as any
+
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -12,28 +21,28 @@ export default function UnauthorizedPage() {
 					<div className="mb-6 text-6xl text-red-600 dark:text-red-400">🚫</div>
 
 					{/* Title */}
-					<h1 className="text-foreground mb-4 text-3xl font-bold">Access Denied</h1>
+					<h1 className="text-foreground mb-4 text-3xl font-bold">{t.title}</h1>
 
 					{/* Messages */}
 					<div className="mb-6 space-y-3">
-						<p className="text-muted-foreground text-lg">You do not have permission to access this page.</p>
-						<p className="text-muted-foreground text-sm">Administrator privileges are required to view this content.</p>
+						<p className="text-muted-foreground text-lg">{t.description}</p>
+						<p className="text-muted-foreground text-sm">{t.adminRequired}</p>
 					</div>
 
 					{/* Action buttons */}
 					<div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
 						<Button asChild size="lg" variant="default">
-							<Link href="/">Back to Home</Link>
+							<Link href="/">{t.backToHome}</Link>
 						</Button>
 						<Button asChild size="lg" variant="outline">
-							<Link href="/contact">Contact Support</Link>
+							<Link href="/contact">{t.contactSupport}</Link>
 						</Button>
 					</div>
 
 					{/* Additional help text */}
 					<div className="border-border/30 mt-8 border-t pt-6">
 						<p className="text-muted-foreground text-xs">
-							If you believe this is an error, please contact the administrator.
+							{t.additionalHelp}
 						</p>
 					</div>
 				</div>

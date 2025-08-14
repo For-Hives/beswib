@@ -1298,6 +1298,14 @@
 				"loading": "A carregar...",
 				"redirecting": "A redirecionar...",
 				"valid": "Válido"
+			},
+			"unauthorized": {
+				"title": "Acesso Negado",
+				"description": "Não tens permissão para aceder a esta página.",
+				"adminRequired": "São necessários privilégios de administrador para ver este conteúdo.",
+				"backToHome": "Voltar à página inicial",
+				"contactSupport": "Contactar suporte",
+				"additionalHelp": "Se acreditas que isto é um erro, por favor contacta o administrador."
 			}
 		},
 		"runs": [
@@ -1475,6 +1483,14 @@
 				"loading": "Laden...",
 				"redirecting": "Doorsturen...",
 				"valid": "Geldig"
+			},
+			"unauthorized": {
+				"title": "Toegang Geweigerd",
+				"description": "Je hebt geen toestemming om deze pagina te bekijken.",
+				"adminRequired": "Beheerdersrechten zijn vereist om deze inhoud te bekijken.",
+				"backToHome": "Terug naar startpagina",
+				"contactSupport": "Contact opnemen met ondersteuning",
+				"additionalHelp": "Als je denkt dat dit een fout is, neem dan contact op met de beheerder."
 			}
 		},
 		"runs": [
@@ -1655,12 +1671,12 @@
 			}
 		},
 		"unauthorized": {
-			"title": "Access Denied",
-			"description": "You do not have permission to access this page.",
-			"adminRequired": "Administrator privileges are required to view this content.",
-			"backToHome": "Back to Home",
-			"contactSupport": "Contact Support",
-			"additionalHelp": "If you believe this is an error, please contact the administrator."
+			"title": "접근 거부됨",
+			"description": "이 페이지에 접근할 권한이 없습니다.",
+			"adminRequired": "이 콘텐츠를 보려면 관리자 권한이 필요합니다.",
+			"backToHome": "홈으로 돌아가기",
+			"contactSupport": "지원팀 문의",
+			"additionalHelp": "이것이 오류라고 생각되면 관리자에게 문의하세요."
 		},
 		"runs": [
 			{
