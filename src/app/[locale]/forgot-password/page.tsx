@@ -114,7 +114,7 @@ export default function ForgotPasswordPage() {
 	return (
 		<AuthSplitScreen>
 			<div className="w-full max-w-md space-y-6">
-				<div className="space-y-2 text-center">
+				<div className="space-y-2 text-start">
 					<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.forgotPassword.title}</h1>
 					{!successfulCreation && !complete && (
 						<p className="text-muted-foreground text-sm">{t.forgotPassword.subtitle}</p>
