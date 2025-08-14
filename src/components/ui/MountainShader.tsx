@@ -469,16 +469,16 @@ function MountainScene({ containerSize }: { containerSize: { width: number; heig
 	useEffect(() => {
 		if (meshRef.current?.material) {
 			const material = meshRef.current.material as THREE.ShaderMaterial
-			const materialUniforms = material.uniforms as { 
+			const materialUniforms = material.uniforms as {
 				iResolution?: { value: THREE.Vector2 }
 				iTime?: { value: number }
 			}
-			
+
 			// Update resolution
 			if (materialUniforms.iResolution) {
 				materialUniforms.iResolution.value.set(containerSize.width, containerSize.height)
 			}
-			
+
 			// Ensure iTime is properly initialized for animation continuity
 			if (materialUniforms.iTime) {
 				materialUniforms.iTime.value = performance.now() / 1000
@@ -540,7 +540,7 @@ export default function MountainShader({ className = '' }: MountainShaderProps) 
 			if (!containerRef.current) return
 
 			const { width, height } = containerRef.current.getBoundingClientRect()
-			
+
 			// Ne pas recalculer si les dimensions sont 0
 			if (width === 0 || height === 0) return
 
@@ -587,7 +587,7 @@ export default function MountainShader({ className = '' }: MountainShaderProps) 
 			if (!containerRef.current) return
 
 			const { width, height } = containerRef.current.getBoundingClientRect()
-			
+
 			if (width === 0 || height === 0) return
 
 			let finalWidth = width
@@ -612,11 +612,7 @@ export default function MountainShader({ className = '' }: MountainShaderProps) 
 		}
 
 		// Calculs échelonnés pour s'adapter aux différentes vitesses de rendu
-		const timeouts = [
-			setTimeout(calculateSize, 16),
-			setTimeout(calculateSize, 100),
-			setTimeout(calculateSize, 300)
-		]
+		const timeouts = [setTimeout(calculateSize, 16), setTimeout(calculateSize, 100), setTimeout(calculateSize, 300)]
 
 		return () => {
 			timeouts.forEach(clearTimeout)
