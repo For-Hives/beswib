@@ -11,6 +11,11 @@ interface UnauthorizedPageProps {
 export default async function UnauthorizedPage({ params }: UnauthorizedPageProps) {
 	const { locale } = await params
 	const translations = getTranslations(locale, mainLocales)
+
+	// Debug: log the structure
+	console.log('Locale:', locale)
+	console.log('Translations structure:', JSON.stringify(translations, null, 2))
+
 	const t = (
 		translations as unknown as {
 			unauthorized: {
@@ -23,6 +28,10 @@ export default async function UnauthorizedPage({ params }: UnauthorizedPageProps
 			}
 		}
 	).unauthorized
+
+	// Debug: log what we're trying to access
+	console.log('Unauthorized section:', t)
+	console.log('Title:', t?.title)
 
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
