@@ -3,7 +3,7 @@ import Link from 'next/link'
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 
-import { formatDateObjectForDisplay } from '@/lib/dateUtils'
+import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
 import calendarTranslations from './locales.json'

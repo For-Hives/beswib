@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import type { User } from '@/models/user.model'
 
-import { isUserProfileComplete } from '@/lib/userValidation'
+import { isUserProfileComplete } from '@/lib/validation/user'
 
 describe('isUserProfileComplete', () => {
 	const completeUser: User = {

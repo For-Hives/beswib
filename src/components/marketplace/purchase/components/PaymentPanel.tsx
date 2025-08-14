@@ -10,8 +10,8 @@ import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 
 import { SlidingPanel } from '@/components/ui/SlidingPanel'
-import { formatDateWithLocale } from '@/lib/dateUtils'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { formatDateWithLocale } from '@/lib/utils/date'
 import mainLocales from '@/app/[locale]/locales.json'
 import { cn } from '@/lib/utils'
 

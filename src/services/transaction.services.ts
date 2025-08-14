@@ -17,7 +17,7 @@ export async function getTransactionByOrderId(
 
 import type { Transaction, TransactionWithExpand } from '@/models/transaction.model'
 
-import { pb } from '@/lib/pocketbaseClient'
+import { pb } from '@/lib/services/pocketbase'
 
 // type moved to models/transaction.model
 

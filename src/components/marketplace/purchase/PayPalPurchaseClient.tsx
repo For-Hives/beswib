@@ -16,7 +16,7 @@ import type { Bib } from '@/models/bib.model'
 
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { createSale, captureOrder } from '@/app/[locale]/purchase/actions'
-import { isUserProfileComplete } from '@/lib/userValidation'
+import { isUserProfileComplete } from '@/lib/validation/user'
 import { isLocked, lockBib } from '@/services/bib.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Locale } from '@/lib/i18n/config'

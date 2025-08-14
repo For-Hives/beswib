@@ -7,7 +7,7 @@ import Link from 'next/link'
 import type { User } from '@/models/user.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { isSellerProfileComplete } from '@/lib/userValidation'
+import { isSellerProfileComplete } from '@/lib/validation/user'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n/config'

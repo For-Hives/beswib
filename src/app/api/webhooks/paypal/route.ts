@@ -9,7 +9,7 @@ import {
 	handleConsentRevoked,
 	handlePaymentCaptureCompleted,
 } from '@/services/paypal.services'
-import { verifyPayPalWebhookSignature } from '@/lib/paypalWebhookVerify'
+import { verifyPayPalWebhookSignature } from '@/lib/services/paypal'
 
 // Handle GET requests for webhook verification (PayPal may send GET requests to verify the endpoint)
 export function GET() {

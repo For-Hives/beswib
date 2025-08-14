@@ -13,7 +13,7 @@ import {
 	validateNameValibot,
 	validateVerificationCodeValibot,
 	validateConfirmPasswordValibot,
-} from '@/lib/validation-valibot'
+} from '@/lib/validation/valibot'
 import { PasswordStrength } from '@/components/ui/PasswordStrength'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { FormInput } from '@/components/ui/FormInput'

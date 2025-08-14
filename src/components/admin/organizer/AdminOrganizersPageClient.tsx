@@ -71,7 +71,7 @@ import { SelectAnimated, type SelectOption } from '@/components/ui/select-animat
 // Import translations
 import organizerTranslations from '@/app/[locale]/admin/organizer/locales.json'
 import { getAllOrganizersAction } from '@/app/[locale]/admin/actions'
-import { formatDateObjectForDisplay } from '@/lib/dateUtils'
+import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Organizer } from '@/models/organizer.model'
 import { Checkbox } from '@/components/ui/checkbox'

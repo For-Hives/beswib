@@ -5,7 +5,7 @@ import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
-import { pb } from '@/lib/pocketbaseClient'
+import { pb } from '@/lib/services/pocketbase'
 
 /**
  * Gets comprehensive dashboard statistics from all collections

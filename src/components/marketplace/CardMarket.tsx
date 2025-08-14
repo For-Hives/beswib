@@ -8,7 +8,7 @@ import clsx from 'clsx'
 
 import type { BibSale } from '@/models/marketplace.model'
 
-import { formatDateWithLocale } from '@/lib/dateUtils'
+import { formatDateWithLocale } from '@/lib/utils/date'
 import { cn } from '@/lib/utils'
 
 interface CardMarketProps {

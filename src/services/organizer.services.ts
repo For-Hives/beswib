@@ -1,5 +1,5 @@
 import { Organizer } from '@/models/organizer.model'
-import { pb } from '@/lib/pocketbaseClient'
+import { pb } from '@/lib/services/pocketbase'
 
 /**
  * Create a new organizer

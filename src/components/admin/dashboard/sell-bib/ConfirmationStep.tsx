@@ -9,7 +9,7 @@ import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
 import { getOrganizerLogoUrl } from '@/services/organizer.services'
-import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
+import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
 import CardMarket from '@/components/marketplace/CardMarket'
 import { Card, CardContent } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'

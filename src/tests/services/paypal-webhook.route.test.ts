@@ -14,7 +14,7 @@ vi.mock('@/services/paypal.services', () => ({
 
 import type { NextRequest } from 'next/server'
 
-import { verifyPayPalWebhookSignature } from '@/lib/paypalWebhookVerify'
+import { verifyPayPalWebhookSignature } from '@/lib/services/paypal'
 import * as paypalServices from '@/services/paypal.services'
 import { POST, GET } from '@/app/api/webhooks/paypal/route'
 

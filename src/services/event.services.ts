@@ -3,7 +3,7 @@
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 
-import { pb } from '@/lib/pocketbaseClient'
+import { pb } from '@/lib/services/pocketbase'
 
 /**
  * Creates a new event. This function is intended for use by organizers.

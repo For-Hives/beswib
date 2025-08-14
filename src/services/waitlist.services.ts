@@ -4,7 +4,7 @@ import type { Waitlist } from '@/models/waitlist.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 
-import { pb } from '@/lib/pocketbaseClient'
+import { pb } from '@/lib/services/pocketbase'
 
 /**
  * Adds a user to the waitlist for a specific event.

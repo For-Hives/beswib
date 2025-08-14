@@ -2,8 +2,8 @@
 import { DateTime } from 'luxon'
 
 import { User, type PbUserRecordMinimal } from '@/models/user.model'
-import { pbDateToLuxon } from '@/lib/dateUtils'
-import { pb } from '@/lib/pocketbaseClient'
+import { pbDateToLuxon } from '@/lib/utils/date'
+import { pb } from '@/lib/services/pocketbase'
 
 // Map PocketBase record to our User model
 

@@ -16,7 +16,7 @@ import { fetchUserByClerkId } from '@/services/user.services'
 import { addToWaitlist } from '@/services/waitlist.services'
 import { fetchEventById } from '@/services/event.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { pbDateToLuxon } from '@/lib/dateUtils'
+import { pbDateToLuxon } from '@/lib/utils/date'
 import { Locale } from '@/lib/i18n/config'
 
 import eventTranslations from './locales.json'

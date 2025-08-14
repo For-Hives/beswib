@@ -6,7 +6,7 @@ import { useRouter, useParams } from 'next/navigation'
 import { useSignIn } from '@clerk/nextjs'
 import Link from 'next/link'
 
-import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation-valibot'
+import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation/valibot'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { FormInput } from '@/components/ui/FormInput'
 import mainLocales from '@/app/[locale]/locales.json'

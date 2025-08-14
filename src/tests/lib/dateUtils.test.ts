@@ -6,7 +6,7 @@ import {
 	formatDateForInput,
 	getDateFormatPattern,
 	getDatePlaceholder,
-} from '@/lib/dateUtils'
+} from '@/lib/utils/date'
 
 describe('dateUtils', () => {
 	it('should convert datetime-local string to date string', () => {

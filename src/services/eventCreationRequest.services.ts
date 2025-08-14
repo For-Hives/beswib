@@ -1,6 +1,6 @@
 import type { EventCreationRequest } from '@/models/eventCreationRequest.model'
 
-import { pb } from '@/lib/pocketbaseClient'
+import { pb } from '@/lib/services/pocketbase'
 
 /**
  * Creates a new event creation request

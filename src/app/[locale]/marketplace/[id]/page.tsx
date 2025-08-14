@@ -15,7 +15,7 @@ import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider
 import { fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { fetchOrganizerById } from '@/services/organizer.services'
-import { mapEventTypeToBibSaleType } from '@/lib/bibTransformers'
+import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Locale } from '@/lib/i18n/config'

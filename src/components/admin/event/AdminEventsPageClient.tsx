@@ -69,7 +69,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination'
 import { getAllEventsAction, deleteEventAction } from '@/app/[locale]/admin/actions'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
-import { formatDateObjectForDisplay } from '@/lib/dateUtils'
+import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'

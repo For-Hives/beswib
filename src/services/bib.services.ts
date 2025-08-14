@@ -7,9 +7,9 @@ import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
-import { isSellerProfileComplete } from '@/lib/userValidation'
-import { pbDateToLuxon } from '@/lib/dateUtils'
-import { pb } from '@/lib/pocketbaseClient'
+import { isSellerProfileComplete } from '@/lib/validation/user'
+import { pbDateToLuxon } from '@/lib/utils/date'
+import { pb } from '@/lib/services/pocketbase'
 
 import { fetchUserById } from './user.services'
 
