@@ -15,26 +15,26 @@ export function EmailLayout({ title, preheader, children }: EmailLayoutProps) {
 		<html>
 			<body
 				style={{
-					margin: 0,
 					padding: 0,
-					backgroundColor: '#f3f4f6',
-					color: '#111827',
+					margin: 0,
 					fontFamily:
 						'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"',
+					color: '#111827',
+					backgroundColor: '#f3f4f6',
 				}}
 			>
 				{preheaderText.length > 0 ? (
 					<span
 						style={{
+							width: 0,
+							visibility: 'hidden',
+							overflow: 'hidden',
+							opacity: 0,
+							maxWidth: 0,
+							maxHeight: 0,
+							height: 0,
 							display: 'none',
 							color: 'transparent',
-							height: 0,
-							maxHeight: 0,
-							maxWidth: 0,
-							opacity: 0,
-							overflow: 'hidden',
-							visibility: 'hidden',
-							width: 0,
 						}}
 					>
 						{preheaderText}
@@ -48,18 +48,18 @@ export function EmailLayout({ title, preheader, children }: EmailLayoutProps) {
 									width="100%"
 									role="presentation"
 									style={{
+										overflow: 'hidden',
 										maxWidth: 600,
 										margin: '0 auto',
-										backgroundColor: '#ffffff',
 										borderRadius: 8,
-										overflow: 'hidden',
+										backgroundColor: '#ffffff',
 									}}
 								>
 									<tbody>
 										{title ? (
 											<tr>
 												<td style={{ padding: '16px 24px', borderBottom: '1px solid #e5e7eb' }}>
-													<h1 style={{ margin: 0, fontSize: 20, lineHeight: '28px' }}>{title}</h1>
+													<h1 style={{ margin: 0, lineHeight: '28px', fontSize: 20 }}>{title}</h1>
 												</td>
 											</tr>
 										) : null}
@@ -68,7 +68,7 @@ export function EmailLayout({ title, preheader, children }: EmailLayoutProps) {
 										</tr>
 									</tbody>
 								</table>
-								<p style={{ margin: '12px 0 0', textAlign: 'center', color: '#6b7280', fontSize: 12 }}>
+								<p style={{ textAlign: 'center', margin: '12px 0 0', fontSize: 12, color: '#6b7280' }}>
 									© {new Date().getFullYear()} Beswib. All rights reserved.
 								</p>
 							</td>
@@ -102,7 +102,7 @@ export type SaleAlertEmailProps = {
 	currency?: string | null
 }
 
-export function SaleAlertEmail({ orderId, bibId, amount, currency }: SaleAlertEmailProps) {
+export function SaleAlertEmail({ orderId, currency, bibId, amount }: SaleAlertEmailProps) {
 	const lines: Array<[string, string]> = []
 	if (typeof orderId === 'string' && orderId.length > 0) lines.push(['Order', orderId])
 	if (typeof bibId === 'string' && bibId.length > 0) lines.push(['Bib', bibId])
@@ -115,7 +115,7 @@ export function SaleAlertEmail({ orderId, bibId, amount, currency }: SaleAlertEm
 				<tbody>
 					{lines.map(([k, v]) => (
 						<tr key={k}>
-							<td style={{ padding: '6px 0', color: '#6b7280', width: 120 }}>{k}</td>
+							<td style={{ width: 120, padding: '6px 0', color: '#6b7280' }}>{k}</td>
 							<td style={{ padding: '6px 0' }}>{v}</td>
 						</tr>
 					))}
@@ -131,7 +131,7 @@ export type ContactMessageEmailProps = {
 	message: string
 }
 
-export function ContactMessageEmail({ name, email, message }: ContactMessageEmailProps) {
+export function ContactMessageEmail({ name, message, email }: ContactMessageEmailProps) {
 	return (
 		<EmailLayout title="New contact message" preheader={`From ${name || 'Anonymous'}`}>
 			<p style={{ margin: '0 0 8px' }}>
@@ -143,10 +143,10 @@ export function ContactMessageEmail({ name, email, message }: ContactMessageEmai
 			<div
 				style={{
 					whiteSpace: 'pre-wrap',
-					backgroundColor: '#f9fafb',
-					border: '1px solid #e5e7eb',
-					borderRadius: 6,
 					padding: 12,
+					borderRadius: 6,
+					border: '1px solid #e5e7eb',
+					backgroundColor: '#f9fafb',
 				}}
 			>
 				{message}
@@ -161,7 +161,7 @@ export type SimpleInfoEmailProps = {
 	preheader?: string
 }
 
-export function SimpleInfoEmail({ title, body, preheader }: SimpleInfoEmailProps) {
+export function SimpleInfoEmail({ title, preheader, body }: SimpleInfoEmailProps) {
 	return (
 		<EmailLayout title={title} preheader={preheader}>
 			<p style={{ margin: 0 }}>{body}</p>
