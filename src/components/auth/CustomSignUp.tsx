@@ -27,7 +27,8 @@ export default function CustomSignUp() {
 	const router = useRouter()
 	const params = useParams()
 	const locale = (params?.locale as Locale) || 'en'
-	const t = getTranslations(locale, mainLocales).auth
+	type AuthSection = (typeof mainLocales)['en']['auth']
+	const t = (getTranslations(locale, mainLocales) as { auth: AuthSection }).auth
 
 	// Local state instead of global store
 	const [formData, setFormData] = useState({
@@ -58,10 +59,10 @@ export default function CustomSignUp() {
 
 		switch (field) {
 			case 'firstName':
-				error = validateNameValibot(value, t.signUp.firstNameLabel.toString().toLowerCase(), locale)
+				error = validateNameValibot(value, String(t.signUp.firstNameLabel).toLowerCase(), locale)
 				break
 			case 'lastName':
-				error = validateNameValibot(value, t.signUp.lastNameLabel.toString().toLowerCase(), locale)
+				error = validateNameValibot(value, String(t.signUp.lastNameLabel).toLowerCase(), locale)
 				break
 			case 'email':
 				error = validateEmailValibot(value, locale)
