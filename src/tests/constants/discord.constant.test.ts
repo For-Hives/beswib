@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { saleAlertText, contactSummaryText, contactFullText } from '../../src/constants/discord.constant'
+import { saleAlertText, contactSummaryText, contactFullText } from '../../constants/discord.constant'
 
 describe('discord.constant templates', () => {
 	it('saleAlertText builds expected string', () => {

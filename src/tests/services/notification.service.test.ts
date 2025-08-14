@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import * as svc from '../../src/services/notification.service'
+import * as svc from '../../services/notification.service'
 
 describe('notification.service', () => {
 	beforeEach(() => {
