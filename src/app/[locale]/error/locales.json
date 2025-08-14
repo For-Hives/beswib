@@ -1,0 +1,83 @@
+{
+	"en": {
+		"error": {
+			"title": "Something went wrong",
+			"description": "An unexpected error occurred. You can try again or go back home.",
+			"tryAgain": "Try again",
+			"home": "Take me home",
+			"goBack": "Go back"
+		}
+	},
+	"fr": {
+		"error": {
+			"title": "Une erreur est survenue",
+			"description": "Un problème inattendu est survenu. Vous pouvez réessayer ou revenir à l'accueil.",
+			"tryAgain": "Réessayer",
+			"home": "Retour à l'accueil",
+			"goBack": "Revenir"
+		}
+	},
+	"es": {
+		"error": {
+			"title": "Algo salió mal",
+			"description": "Ocurrió un error inesperado. Intenta de nuevo o vuelve al inicio.",
+			"tryAgain": "Intentar de nuevo",
+			"home": "Ir al inicio",
+			"goBack": "Volver"
+		}
+	},
+	"it": {
+		"error": {
+			"title": "Qualcosa è andato storto",
+			"description": "Si è verificato un errore imprevisto. Riprova o torna alla home.",
+			"tryAgain": "Riprova",
+			"home": "Portami alla home",
+			"goBack": "Torna indietro"
+		}
+	},
+	"de": {
+		"error": {
+			"title": "Es ist ein Fehler aufgetreten",
+			"description": "Ein unerwarteter Fehler ist aufgetreten. Versuche es erneut oder gehe zur Startseite.",
+			"tryAgain": "Erneut versuchen",
+			"home": "Zur Startseite",
+			"goBack": "Zurück"
+		}
+	},
+	"ro": {
+		"error": {
+			"title": "Ceva nu a mers bine",
+			"description": "A apărut o eroare neașteptată. Încearcă din nou sau întoarce-te acasă.",
+			"tryAgain": "Încearcă din nou",
+			"home": "Înapoi acasă",
+			"goBack": "Înapoi"
+		}
+	},
+	"pt": {
+		"error": {
+			"title": "Algo correu mal",
+			"description": "Ocorreu um erro inesperado. Tente novamente ou volte à página inicial.",
+			"tryAgain": "Tentar novamente",
+			"home": "Leva‑me à página inicial",
+			"goBack": "Voltar"
+		}
+	},
+	"nl": {
+		"error": {
+			"title": "Er ging iets mis",
+			"description": "Er trad een onverwachte fout op. Probeer opnieuw of ga naar home.",
+			"tryAgain": "Opnieuw proberen",
+			"home": "Naar start",
+			"goBack": "Ga terug"
+		}
+	},
+	"ko": {
+		"error": {
+			"title": "문제가 발생했습니다",
+			"description": "예기치 못한 오류가 발생했습니다. 다시 시도하거나 홈으로 이동하세요.",
+			"tryAgain": "다시 시도",
+			"home": "홈으로",
+			"goBack": "뒤로 가기"
+		}
+	}
+}
