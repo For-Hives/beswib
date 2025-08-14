@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-vi.mock('@/lib/paypalWebhookVerify', () => ({
+vi.mock('@/lib/services/paypal', () => ({
 	verifyPayPalWebhookSignature: vi.fn(),
 }))
 
@@ -43,7 +43,8 @@ describe('PayPal webhook route', () => {
 	})
 
 	it('rejects invalid signature', async () => {
-		;(verifyPayPalWebhookSignature as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(false)
+		const mockVerify = verifyPayPalWebhookSignature as ReturnType<typeof vi.fn>
+		mockVerify.mockResolvedValue(false)
 		const req = new MockRequest(JSON.stringify(mkEvent('ANY')))
 		const res = await POST(req as unknown as NextRequest)
 		const json = (await res.json()) as { error?: string; status?: string }
@@ -52,7 +53,8 @@ describe('PayPal webhook route', () => {
 	})
 
 	it('routes PAYMENT.CAPTURE.COMPLETED', async () => {
-		;(verifyPayPalWebhookSignature as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(true)
+		const mockVerify = verifyPayPalWebhookSignature as ReturnType<typeof vi.fn>
+		mockVerify.mockResolvedValue(true)
 		const req = new MockRequest(JSON.stringify(mkEvent('PAYMENT.CAPTURE.COMPLETED')))
 		const res = await POST(req as unknown as NextRequest)
 		expect(paypalServices.handlePaymentCaptureCompleted).toHaveBeenCalled()
@@ -60,7 +62,8 @@ describe('PayPal webhook route', () => {
 	})
 
 	it('routes CHECKOUT.ORDER.APPROVED', async () => {
-		;(verifyPayPalWebhookSignature as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(true)
+		const mockVerify = verifyPayPalWebhookSignature as ReturnType<typeof vi.fn>
+		mockVerify.mockResolvedValue(true)
 		const req = new MockRequest(JSON.stringify(mkEvent('CHECKOUT.ORDER.APPROVED')))
 		const res = await POST(req as unknown as NextRequest)
 		expect(paypalServices.handleCheckoutOrderApproved).toHaveBeenCalled()

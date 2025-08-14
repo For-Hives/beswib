@@ -1,9 +1,15 @@
 import { vi } from 'vitest'
 
-export const mockPocketbase = {
+export const mockPocketbaseCollection = {
 	getOne: vi.fn(),
 	getFullList: vi.fn(),
 	getFirstListItem: vi.fn(),
 	create: vi.fn(),
-	collection: vi.fn().mockReturnThis(),
+	update: vi.fn(),
+	delete: vi.fn(),
+}
+
+export const mockPocketbase = {
+	collection: vi.fn().mockReturnValue(mockPocketbaseCollection),
+	...mockPocketbaseCollection,
 }
