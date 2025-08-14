@@ -56,6 +56,33 @@ describe('user.services', () => {
 		})
 	})
 
+	describe('fetchUserByEmail', () => {
+		it('should fetch a user by email', async () => {
+			mockPocketbase.getFirstListItem.mockResolvedValue(mockUser)
+			const user = await (await import('@/services/user.services')).fetchUserByEmail('test@example.com')
+			expect(user).toEqual(mockUser)
+			expect(mockPocketbase.collection).toHaveBeenCalledWith('users')
+			expect(mockPocketbase.getFirstListItem).toHaveBeenCalledWith('email = "test@example.com"')
+		})
+
+		it('should return null if email is not provided', async () => {
+			const user = await (await import('@/services/user.services')).fetchUserByEmail('')
+			expect(user).toBeNull()
+		})
+
+		it('should return null if user is not found', async () => {
+			mockPocketbase.getFirstListItem.mockRejectedValue({ status: 404 })
+			const user = await (await import('@/services/user.services')).fetchUserByEmail('nonexistent@example.com')
+			expect(user).toBeNull()
+		})
+
+		it('should return null if fetching fails for other reasons', async () => {
+			mockPocketbase.getFirstListItem.mockRejectedValue(new Error('Fetch failed'))
+			const user = await (await import('@/services/user.services')).fetchUserByEmail('test@example.com')
+			expect(user).toBeNull()
+		})
+	})
+
 	describe('fetchUserById', () => {
 		it('should fetch a user by ID', async () => {
 			mockPocketbaseCollection.getOne.mockResolvedValue(mockUser)

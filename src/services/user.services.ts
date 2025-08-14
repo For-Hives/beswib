@@ -93,6 +93,24 @@ export async function fetchUserByClerkId(clerkId: string | undefined): Promise<n
 	}
 }
 
+export async function fetchUserByEmail(email: string): Promise<null | User> {
+	if (email == null || email.trim() === '') {
+		console.error('Email is required to fetch user by email')
+		return null
+	}
+	try {
+		const user = await pb.collection('users').getFirstListItem<PbUserRecordMinimal>(`email = "${email.trim()}"`)
+		return mapPbRecordToUser(user)
+	} catch (error) {
+		// If no user found (404), return null - this is expected behavior
+		if (error != null && typeof error === 'object' && 'status' in error && error.status === 404) {
+			return null
+		}
+		console.error('Error fetching user by email:', error)
+		return null
+	}
+}
+
 export async function fetchUserById(id: string): Promise<null | User> {
 	if (id === '') {
 		console.error('User ID (PocketBase record ID) is required to fetch user data.')
