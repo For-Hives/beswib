@@ -17,8 +17,7 @@ export function EmailLayout({ title, preheader, children }: EmailLayoutProps) {
 				style={{
 					padding: 0,
 					margin: 0,
-					fontFamily:
-						'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"',
+					fontFamily: 'Arial, Helvetica, sans-serif',
 					color: '#111827',
 					backgroundColor: '#f3f4f6',
 				}}
@@ -168,4 +167,56 @@ export function SimpleInfoEmail({ title, preheader, body }: SimpleInfoEmailProps
 			<p style={{ margin: 0 }}>{body}</p>
 		</EmailLayout>
 	)
+}
+
+// --- String-based HTML renderers for Server Actions (no react-dom/server) ---
+
+function escapeHtml(s: string): string {
+	return s.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+}
+
+function nl2br(s: string): string {
+	return escapeHtml(s).replaceAll('\n', '<br/>')
+}
+
+export function renderContactMessageEmailHtml({ name, email, message }: ContactMessageEmailProps): string {
+	const safeName = (name ?? '').trim()
+	const safeEmail = (email ?? '').trim()
+	const safeMessage = message ?? ''
+	const preheader = `From ${safeName || 'Anonymous'}`
+	return `
+<html>
+	<body style="padding:0;margin:0;font-family: Arial, Helvetica, sans-serif;color:#111827;background-color:#f3f4f6;">
+		<span style="width:0;visibility:hidden;overflow:hidden;opacity:0;max-width:0;max-height:0;height:0;display:none;color:transparent;">${escapeHtml(
+			preheader
+		)}</span>
+		<table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+			<tbody>
+				<tr>
+					<td style="padding:24px 0">
+						<table width="100%" role="presentation" style="overflow:hidden;max-width:600px;margin:0 auto;border-radius:8px;background-color:#ffffff;">
+							<tbody>
+								<tr>
+									<td style="padding:16px 24px;border-bottom:1px solid #e5e7eb">
+										<h1 style="margin:0;line-height:28px;font-size:20px">New contact message</h1>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding:24px">
+										<p style="margin:0 0 8px"><strong>From:</strong> ${escapeHtml(safeName || 'Anonymous')}</p>
+										<p style="margin:0 0 12px"><strong>Email:</strong> ${escapeHtml(safeEmail || 'n/a')}</p>
+										<div style="white-space:pre-wrap;padding:12px;border-radius:6px;border:1px solid #e5e7eb;background-color:#f9fafb;">${nl2br(
+											safeMessage
+										)}</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<p style="text-align:center;margin:12px 0 0;font-size:12px;color:#6b7280">© ${new Date().getFullYear()} Beswib. All rights reserved.</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>`
 }

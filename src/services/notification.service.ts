@@ -6,7 +6,11 @@
 
 import { Resend } from 'resend'
 
-import { saleAlertText, contactSummaryText, contactFullText } from '../constants/discord.constant'
+import { renderContactMessageEmailHtml as renderContactMessageEmailHtmlUnsafe } from '../constants/email.constant'
+import { contactSummaryText, contactFullText, saleAlertText } from '../constants/discord.constant'
+
+const renderContactMessageEmailHtml = (p: { name: string; email: string; message: string }): string =>
+	(renderContactMessageEmailHtmlUnsafe as unknown as (p: { name: string; email: string; message: string }) => string)(p)
 
 type SaleAlertInfo = {
 	orderId?: string | null
@@ -52,7 +56,11 @@ export async function sendContactMessage(info: ContactMessageInfo): Promise<bool
 		sendAdminAlertEmail({
 			text: `From: ${info.name || 'Anonymous'}\\nEmail: ${info.email || 'n/a'}\\n\\n${info.message}`,
 			subject: '[Beswib] New contact message',
-			html: contactHtml({ name: info.name ?? '', message: info.message ?? '', email: info.email ?? '' }),
+			html: renderContactMessageEmailHtml({
+				name: info.name ?? '',
+				message: info.message ?? '',
+				email: info.email ?? '',
+			}),
 		}),
 	])
 
@@ -196,18 +204,7 @@ function escapeHtml(s: string): string {
 	return s.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 }
 
-function contactHtml(info: { name: string; email: string; message: string }): string {
-	const nl2br = (t: string) => escapeHtml(t).replaceAll('\n', '<br/>')
-	return `
-	<div style="font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, \"Apple Color Emoji\", \"Segoe UI Emoji\"; line-height: 1.5; color: #111827">
-		<h2 style="margin:0 0 12px">New contact message</h2>
-		<p style="margin:0 0 8px"><strong>From:</strong> ${escapeHtml(info.name || 'Anonymous')}</p>
-		<p style="margin:0 0 8px"><strong>Email:</strong> ${escapeHtml(info.email || 'n/a')}</p>
-		<hr style="border:none;border-top:1px solid #e5e7eb;margin:12px 0"/>
-		<div>${nl2br(info.message)}</div>
-	</div>
-	`
-}
+// (Email HTML for contact messages now rendered via ContactMessageEmail component)
 
 function stripTags(html: string): string {
 	return html
