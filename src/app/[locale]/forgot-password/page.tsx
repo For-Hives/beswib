@@ -2,17 +2,17 @@
 
 import { useState } from 'react'
 
-import { useSignIn } from '@clerk/nextjs'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
-import { SignedOut, RedirectToSignIn } from '@clerk/nextjs'
+import { useSignIn, SignedOut, RedirectToSignIn } from '@clerk/nextjs'
+
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
-import { authTranslations } from '@/lib/translations/auth'
-import { Locale } from '@/lib/i18n-config'
 import { translateClerkError } from '@/lib/clerkErrorTranslations'
+import { Locale } from '@/lib/i18n-config'
+import { authTranslations } from '@/lib/translations/auth'
 
 export default function ForgotPasswordPage() {
 	const [email, setEmail] = useState('')

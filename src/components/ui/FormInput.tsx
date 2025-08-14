@@ -14,10 +14,11 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	success?: boolean
 	helperText?: string
 	showPasswordToggle?: boolean
+	validText?: string
 }
 
 const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
-	({ type, success, showPasswordToggle, label, helperText, error, className, ...props }, ref) => {
+	({ validText = 'Valid', type, success, showPasswordToggle, label, helperText, error, className, ...props }, ref) => {
 		const radius = 100
 		const [visible, setVisible] = React.useState(false)
 		const [showPassword, setShowPassword] = React.useState(false)
@@ -122,7 +123,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 				{success && !error && (
 					<p className="mt-1 flex items-center gap-1 text-xs text-emerald-600">
 						<span className="text-emerald-600">✓</span>
-						Valide
+						{validText}
 					</p>
 				)}
 

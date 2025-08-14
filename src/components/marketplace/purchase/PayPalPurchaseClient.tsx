@@ -24,7 +24,6 @@ import { Locale } from '@/lib/i18n-config'
 // Import sub-components
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
 import { LockTimer } from './LockTimer'
-// import { pbDateToLuxon } from '@/lib/dateUtils'
 
 interface PayPalPurchaseClientProps {
 	bib: BibSale
@@ -39,7 +38,6 @@ interface PayPalPurchaseClientProps {
 /**
  * Main component for PayPal purchase flow
  * Orchestrates the complete purchase experience including:
- * - Interactive 3D lanyard display
  * - Event information and pricing
  * - User authentication and profile validation
  * - PayPal payment processing
@@ -271,7 +269,6 @@ export default function PayPalPurchaseClient({
 					<LockTimer seconds={secondsLeft} />
 				</div>
 			)}
-			{/* Interactive Price Lanyard with dynamic price display */}
 			<div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 				<div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
 					{/* Event Image */}

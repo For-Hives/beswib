@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server'
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 import { i18n } from '@/lib/i18n-config'
 
@@ -79,15 +79,18 @@ export default clerkMiddleware((auth, request: NextRequest) => {
 
 	// Extract locale from pathname for proper redirects
 	const currentLocale =
-		i18n.locales.find(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) || i18n.defaultLocale
+		i18n.locales.find(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) ?? i18n.defaultLocale
+
+	// Get auth once for both checks
+	const authResult = auth()
 
 	// Protect routes that require authentication
 	if (isProtectedRoute(request)) {
-		auth().protect()
+		authResult.protect()
 	}
 
 	// Redirect authenticated users away from auth pages
-	if (isPublicAuthRoute(request) && auth().userId) {
+	if (isPublicAuthRoute(request) && authResult.userId) {
 		return NextResponse.redirect(new URL(`/${currentLocale}/dashboard`, request.url))
 	}
 
