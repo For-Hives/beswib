@@ -82,6 +82,14 @@
 				"confirmPassword": "••••••••"
 			},
 			"somethingWentWrong": "Something went wrong. Please try again.",
+			"unauthorized": {
+				"title": "Access Denied",
+				"description": "You don't have permission to access this page.",
+				"adminRequired": "Administrator access is required for this section.",
+				"backToHome": "Back to Home",
+				"contactSupport": "Contact Support",
+				"additionalHelp": "If you believe this is an error, please contact our support team."
+			},
 			"legal": {
 				"termsText": "By creating an account, you agree to our",
 				"termsOfService": "Terms of Service",
@@ -615,7 +623,7 @@
 			{ "name": "Ironman Niza", "location": "Niza" },
 			{ "name": "Medio Maratón de Thonon", "location": "Thonon-les-Bains" },
 			{ "name": "Maratón de París", "location": "París" },
-			{ "name": "Ultra Trail del Mont Blanc", "location": "Chamonix" }
+			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
 		]
 	},
 	"it": {
@@ -948,7 +956,7 @@
 				"resetCodePlaceholder": "123456",
 				"sendCodeButton": "Code senden",
 				"resetPasswordButton": "Passwort zurücksetzen",
-				"backToSignIn": "← Zur Anmeldung",
+				"backToSignIn": "← Terug naar inloggen",
 				"continueToDashboard": "Weiter zum Dashboard"
 			},
 			"passwordStrength": {
