@@ -27,7 +27,7 @@ export default function ForgotPasswordPage() {
 	const { signIn, setActive } = useSignIn()
 	const params = useParams()
 	const locale = ((params?.locale as string) || 'en') as Locale
-    const t = getTranslations(locale, authLocales).auth
+	const t = getTranslations(locale, authLocales).auth
 
 	// Send the password reset code to the user's email
 	async function create(e: React.FormEvent) {
@@ -79,105 +79,105 @@ export default function ForgotPasswordPage() {
 			})
 	}
 
-    return (
-        <AuthSplitScreen>
-					<div className="w-full max-w-md space-y-6">
-						<div className="space-y-2 text-center">
-							<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.forgotPassword.title}</h1>
-							{!successfulCreation && !complete && (
-								<p className="text-muted-foreground text-sm">{t.forgotPassword.subtitle}</p>
-							)}
-							{successfulCreation && !complete && (
-								<p className="text-muted-foreground text-sm">{t.forgotPassword.emailSentSubtitle}</p>
-							)}
-							{complete && <p className="text-sm text-emerald-600">{t.forgotPassword.successSubtitle}</p>}
-						</div>
+	return (
+		<AuthSplitScreen>
+			<div className="w-full max-w-md space-y-6">
+				<div className="space-y-2 text-center">
+					<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.forgotPassword.title}</h1>
+					{!successfulCreation && !complete && (
+						<p className="text-muted-foreground text-sm">{t.forgotPassword.subtitle}</p>
+					)}
+					{successfulCreation && !complete && (
+						<p className="text-muted-foreground text-sm">{t.forgotPassword.emailSentSubtitle}</p>
+					)}
+					{complete && <p className="text-sm text-emerald-600">{t.forgotPassword.successSubtitle}</p>}
+				</div>
 
-						{!successfulCreation && !complete && (
-							<form onSubmit={e => void create(e)} className="space-y-4">
-								{error && (
-									<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm">
-										{error}
-									</div>
-								)}
-
-								<div className="space-y-2">
-									<label htmlFor="email" className="text-foreground text-sm font-medium">
-										{t.forgotPassword.emailLabel}
-									</label>
-									<Input
-										type="email"
-										placeholder={t.forgotPassword.emailPlaceholder}
-										value={email}
-										onChange={e => setEmail(e.target.value)}
-										required
-									/>
-								</div>
-
-								<Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-									{t.forgotPassword.sendCodeButton}
-								</Button>
-							</form>
-						)}
-
-						{successfulCreation && !complete && (
-							<form onSubmit={e => void reset(e)} className="space-y-4">
-								{error && (
-									<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm">
-										{error}
-									</div>
-								)}
-
-								<div className="space-y-2">
-									<label htmlFor="password" className="text-foreground text-sm font-medium">
-										{t.forgotPassword.newPasswordLabel}
-									</label>
-									<Input
-										type="password"
-										placeholder={t.placeholders.password}
-										value={password}
-										onChange={e => setPassword(e.target.value)}
-										required
-									/>
-								</div>
-
-								<div className="space-y-2">
-									<label htmlFor="code" className="text-foreground text-sm font-medium">
-										{t.forgotPassword.resetCodeLabel}
-									</label>
-									<Input
-										type="text"
-										placeholder={t.forgotPassword.resetCodePlaceholder}
-										value={code}
-										onChange={e => setCode(e.target.value)}
-										required
-										className="text-center font-mono text-lg tracking-wider"
-									/>
-								</div>
-
-								<Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-									{t.forgotPassword.resetPasswordButton}
-								</Button>
-							</form>
-						)}
-
-						{complete && (
-							<div className="text-center">
-								<Button asChild size="lg" className="w-full">
-									<Link href={`/${locale}/dashboard`}>{t.forgotPassword.continueToDashboard}</Link>
-								</Button>
+				{!successfulCreation && !complete && (
+					<form onSubmit={e => void create(e)} className="space-y-4">
+						{error && (
+							<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm">
+								{error}
 							</div>
 						)}
 
-						<div className="text-center">
-							<Link
-								href={`/${locale}/sign-in`}
-								className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-							>
-								{t.forgotPassword.backToSignIn}
-							</Link>
+						<div className="space-y-2">
+							<label htmlFor="email" className="text-foreground text-sm font-medium">
+								{t.forgotPassword.emailLabel}
+							</label>
+							<Input
+								type="email"
+								placeholder={t.forgotPassword.emailPlaceholder}
+								value={email}
+								onChange={e => setEmail(e.target.value)}
+								required
+							/>
 						</div>
+
+						<Button type="submit" size="lg" className="w-full" disabled={isLoading}>
+							{t.forgotPassword.sendCodeButton}
+						</Button>
+					</form>
+				)}
+
+				{successfulCreation && !complete && (
+					<form onSubmit={e => void reset(e)} className="space-y-4">
+						{error && (
+							<div className="border-destructive/20 bg-destructive/10 text-destructive rounded-lg border p-3 text-sm">
+								{error}
+							</div>
+						)}
+
+						<div className="space-y-2">
+							<label htmlFor="password" className="text-foreground text-sm font-medium">
+								{t.forgotPassword.newPasswordLabel}
+							</label>
+							<Input
+								type="password"
+								placeholder={t.placeholders.password}
+								value={password}
+								onChange={e => setPassword(e.target.value)}
+								required
+							/>
+						</div>
+
+						<div className="space-y-2">
+							<label htmlFor="code" className="text-foreground text-sm font-medium">
+								{t.forgotPassword.resetCodeLabel}
+							</label>
+							<Input
+								type="text"
+								placeholder={t.forgotPassword.resetCodePlaceholder}
+								value={code}
+								onChange={e => setCode(e.target.value)}
+								required
+								className="text-center font-mono text-lg tracking-wider"
+							/>
+						</div>
+
+						<Button type="submit" size="lg" className="w-full" disabled={isLoading}>
+							{t.forgotPassword.resetPasswordButton}
+						</Button>
+					</form>
+				)}
+
+				{complete && (
+					<div className="text-center">
+						<Button asChild size="lg" className="w-full">
+							<Link href={`/${locale}/dashboard`}>{t.forgotPassword.continueToDashboard}</Link>
+						</Button>
 					</div>
-                </AuthSplitScreen>
+				)}
+
+				<div className="text-center">
+					<Link
+						href={`/${locale}/sign-in`}
+						className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+					>
+						{t.forgotPassword.backToSignIn}
+					</Link>
+				</div>
+			</div>
+		</AuthSplitScreen>
 	)
 }
