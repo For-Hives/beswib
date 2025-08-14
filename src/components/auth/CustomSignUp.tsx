@@ -28,9 +28,10 @@ export default function CustomSignUp() {
 	const params = useParams()
 	const locale = (params?.locale as Locale) || 'en'
 	type AuthSection = (typeof mainLocales)['en']['auth']
-	const t = (getTranslations(locale, mainLocales) as { auth: AuthSection; clerkErrors: Record<string, string> }).auth
-	const errorsT = (getTranslations(locale, mainLocales) as { auth: AuthSection; clerkErrors: Record<string, string> })
-		.clerkErrors
+	const { clerkErrors: errorsT, auth: t } = getTranslations(locale, mainLocales) as {
+		auth: AuthSection
+		clerkErrors: Record<string, string>
+	}
 
 	function translateClerkErrorLocal(error: unknown): string {
 		const e = (error ?? {}) as Partial<{

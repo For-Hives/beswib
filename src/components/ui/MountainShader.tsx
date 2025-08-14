@@ -459,8 +459,22 @@ function MountainScene({ containerSize }: { containerSize: { width: number; heig
 				type: 't',
 			},
 		}),
-		[]
+		[containerSize.width, containerSize.height]
 	)
+
+	/**
+	 * Effect to update iResolution uniform when container size changes
+	 * This ensures the shader renders correctly after navigation or resize
+	 */
+	useEffect(() => {
+		if (meshRef.current?.material) {
+			const material = meshRef.current.material as THREE.ShaderMaterial
+			const uniforms = material.uniforms as { iResolution?: { value: THREE.Vector2 } }
+			if (uniforms.iResolution) {
+				uniforms.iResolution.value.set(containerSize.width, containerSize.height)
+			}
+		}
+	}, [containerSize.width, containerSize.height])
 
 	// Don't render until shaders are loaded
 	if (!vertexShader || !fragmentShader) return null
@@ -568,6 +582,43 @@ export default function MountainShader({ className = '' }: MountainShaderProps) 
 			clearTimeout(timeoutId)
 		}
 	}, [])
+
+	/**
+	 * Additional effect to handle navigation-based resize
+	 * This triggers when pathname changes (sign-in <-> sign-up navigation)
+	 */
+	useEffect(() => {
+		if (!containerRef.current) return
+
+		// Small delay to allow DOM to settle after navigation
+		const timeoutId = setTimeout(() => {
+			if (containerRef.current) {
+				const { width, height } = containerRef.current.getBoundingClientRect()
+
+				let finalWidth = width
+				let finalHeight = height
+
+				const containerAspect = width / height
+				const targetAspect = 16 / 9
+
+				if (containerAspect > targetAspect) {
+					finalHeight = height
+					finalWidth = height * targetAspect
+				} else {
+					finalWidth = width
+					finalHeight = width / targetAspect
+				}
+
+				const coverageMultiplier = 2.6
+				setContainerSize({
+					width: finalWidth * coverageMultiplier,
+					height: finalHeight * coverageMultiplier,
+				})
+			}
+		}, 150)
+
+		return () => clearTimeout(timeoutId)
+	}, [pathname])
 
 	return (
 		<div ref={containerRef} className={className} style={{ width: '100%', height: '100%' }}>

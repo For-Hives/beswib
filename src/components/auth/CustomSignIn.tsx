@@ -24,8 +24,11 @@ export default function CustomSignIn() {
 	const router = useRouter()
 	const params = useParams()
 	const locale = (params?.locale as Locale) || 'en'
-	const t = getTranslations(locale, mainLocales).auth
-	const errorsT = getTranslations(locale, mainLocales).clerkErrors as Record<string, string>
+	type AuthSection = (typeof mainLocales)['en']['auth']
+	const { clerkErrors: errorsT, auth: t } = getTranslations(locale, mainLocales) as {
+		auth: AuthSection
+		clerkErrors: Record<string, string>
+	}
 
 	function translateClerkErrorLocal(error: unknown): string {
 		const e = (error ?? {}) as Partial<{
@@ -63,7 +66,7 @@ export default function CustomSignIn() {
 
 	// Validate fields in real-time
 	const validateField = (field: 'email' | 'password', value: string) => {
-		let error = null
+		let error: FieldError | null = null
 
 		switch (field) {
 			case 'email':
