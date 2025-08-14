@@ -115,6 +115,7 @@ const OrbitalNode = memo(
 		const handleClick = useCallback(
 			(e: React.MouseEvent) => {
 				e.stopPropagation()
+				// eslint-disable-next-line no-console
 				console.log('🔥 Click sur:', item.title) // Debug pour vérifier les clics
 				onToggle(item.id)
 			},
@@ -171,7 +172,10 @@ const OrbitalNode = memo(
 					role="button"
 					tabIndex={0}
 					aria-label={`Icon for ${item.title}`}
-					style={{ pointerEvents: 'auto' }}
+					style={{
+						pointerEvents: 'auto',
+						boxShadow: '0 0 0 2px rgba(0, 255, 0, 0.3)', // Debug: bordure verte temporaire
+					}}
 				>
 					<div style={{ pointerEvents: 'none' }}>
 						<Icon size={20} />
@@ -188,11 +192,11 @@ const OrbitalNode = memo(
 					role="button"
 					tabIndex={0}
 					aria-label={`Title: ${item.title}`}
-					style={{ 
+					style={{
 						pointerEvents: 'auto',
 						padding: '4px 8px', // Zone de clic plus large
 						minWidth: '60px',
-						backgroundColor: 'rgba(255, 0, 0, 0.1)' // Debug: fond rouge temporaire
+						backgroundColor: 'rgba(255, 0, 0, 0.1)', // Debug: fond rouge temporaire
 					}}
 				>
 					{item.title}
