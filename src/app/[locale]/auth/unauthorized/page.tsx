@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-import { Button } from '@/components/ui/button'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import mainLocales from '@/app/[locale]/locales.json'
+import { Button } from '@/components/ui/button'
 
 interface UnauthorizedPageProps {
 	params: Promise<{ locale: string }>
@@ -41,9 +41,7 @@ export default async function UnauthorizedPage({ params }: UnauthorizedPageProps
 
 					{/* Additional help text */}
 					<div className="border-border/30 mt-8 border-t pt-6">
-						<p className="text-muted-foreground text-xs">
-							{t.additionalHelp}
-						</p>
+						<p className="text-muted-foreground text-xs">{t.additionalHelp}</p>
 					</div>
 				</div>
 			</div>
