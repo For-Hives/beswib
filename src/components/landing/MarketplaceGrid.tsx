@@ -5,7 +5,6 @@ import {
 	getBibColorsDistributed,
 	getRandomFirstName,
 	getRandomFutureDate,
-	getRandomLastName,
 	getRandomParticipantCount,
 	// generateFakeBibSales // Uncomment to use fully random data
 } from '@/lib/utils'
@@ -19,7 +18,6 @@ const bibColors = getBibColorsDistributed(5)
 const runsExample: BibSale[] = [
 	{
 		user: {
-			lastName: getRandomLastName(),
 			id: '1',
 			firstName: getRandomFirstName(),
 		},
@@ -41,7 +39,6 @@ const runsExample: BibSale[] = [
 	},
 	{
 		user: {
-			lastName: getRandomLastName(),
 			id: '2',
 			firstName: getRandomFirstName(),
 		},
@@ -63,7 +60,6 @@ const runsExample: BibSale[] = [
 	},
 	{
 		user: {
-			lastName: getRandomLastName(),
 			id: '3',
 			firstName: getRandomFirstName(),
 		},
@@ -85,7 +81,6 @@ const runsExample: BibSale[] = [
 	},
 	{
 		user: {
-			lastName: getRandomLastName(),
 			id: '4',
 			firstName: getRandomFirstName(),
 		},
@@ -107,7 +102,6 @@ const runsExample: BibSale[] = [
 	},
 	{
 		user: {
-			lastName: getRandomLastName(),
 			id: '5',
 			firstName: getRandomFirstName(),
 		},
