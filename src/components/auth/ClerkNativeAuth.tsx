@@ -24,7 +24,7 @@ export function ClerkNativeSignIn({ signUpUrl, redirectUrl }: ClerkNativeSignInP
 	const locale = (params?.locale as Locale) ?? 'en'
 
 	return (
-		<SignIn redirectUrl={redirectUrl ?? `/${locale}/dashboard`} signUpUrl={signUpUrl ?? `/${locale}/auth/sign-up`} />
+		<SignIn redirectUrl={redirectUrl ?? `/${locale}/dashboard`} signUpUrl={signUpUrl ?? `/${locale}/auth/auth/sign-up`} />
 	)
 }
 

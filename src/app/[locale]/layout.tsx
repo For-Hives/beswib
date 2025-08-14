@@ -20,7 +20,7 @@ import PageTransition from '@/components/ui/PageTransition'
 import Footer from '@/components/global/footer'
 import Header from '@/components/global/Header'
 
-import '@/lib/umami.utils'
+import '@/lib/utils/umami'
 import '@/app/[locale]/globals.css'
 
 const geistSans = Geist({
@@ -91,7 +91,7 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 			}}
 			localization={clerkLocalization}
 			signInUrl={`/${locale}/sign-in`}
-			signUpUrl={`/${locale}/sign-up`}
+			signUpUrl={`/${locale}/auth/sign-up`}
 			afterSignInUrl={`/${locale}/dashboard`}
 			afterSignUpUrl={`/${locale}/dashboard`}
 		>

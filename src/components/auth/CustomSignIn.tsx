@@ -267,7 +267,7 @@ export default function CustomSignIn() {
 				<p className="text-muted-foreground text-sm">
 					{t.signIn.noAccount}{' '}
 					<Link
-						href={`/${locale}/auth/sign-up`}
+						href={`/${locale}/auth/auth/sign-up`}
 						className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
 					>
 						{t.signIn.createAccount}

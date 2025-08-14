@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
-import globalLocales from '@/lib/globalLocales.json'
+import globalLocales from '@/lib/i18n/globalLocales.json'
 
 import Loader from './Loader'
 

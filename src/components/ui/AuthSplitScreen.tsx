@@ -75,7 +75,7 @@ export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenPr
 							{/* Clerk Authentication Form Container */}
 							{/*
 								This is where Clerk (authentication service) components are rendered.
-								The children prop contains the actual sign-in/sign-up forms.
+								The children prop contains the actual sign-in/auth/sign-up forms.
 								Spacing between form elements for better visual hierarchy.
 							*/}
 							<div className="space-y-6">{children}</div>

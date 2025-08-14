@@ -1,4 +1,4 @@
-import { cn } from './index'
+import { cn } from '../utils'
 
 export const SOCIALS = {
 	strava: 'https://strava.app.link/3wlVkUjzlUb',
