@@ -41,10 +41,10 @@ export async function addToWaitlist(
 			let filterQuery = ''
 			if (user != null) {
 				// Check for authenticated user
-				filterQuery = `userId = "${user.id}" && eventId = "${eventId}"`
+				filterQuery = `user_id = "${user.id}" && event_id = "${eventId}"`
 			} else if (email != null) {
 				// Check for email-only subscription
-				filterQuery = `email = "${email.trim()}" && eventId = "${eventId}"`
+				filterQuery = `email = "${email.trim()}" && event_id = "${eventId}"`
 			}
 
 			if (filterQuery !== '') {
@@ -68,7 +68,7 @@ export async function addToWaitlist(
 		const dataToCreate: Omit<Waitlist, 'id'> = {
 			user_id: user?.id ?? null,
 			optionPreferences: {},
-			mailNotification: true,
+			mail_notification: true,
 			event_id: eventId,
 			email: user == null ? email?.trim() : undefined,
 			added_at: new Date(),
@@ -100,17 +100,17 @@ export async function addToWaitlist(
  * Fetches all waitlist entries for a specific user.
  * @param userId The ID of the user whose waitlist entries are to be fetched.
  */
-export async function fetchUserWaitlists(userId: string): Promise<(Waitlist & { expand?: { eventId: Event } })[]> {
+export async function fetchUserWaitlists(userId: string): Promise<(Waitlist & { expand?: { event_id: Event } })[]> {
 	if (userId === '') {
 		console.error('User ID is required to fetch their waitlists.')
 		return []
 	}
 
 	try {
-		const records = await pb.collection('waitlists').getFullList<Waitlist & { expand?: { eventId: Event } }>({
-			sort: '-addedAt',
-			filter: `userId = "${userId}"`,
-			expand: 'eventId',
+		const records = await pb.collection('waitlists').getFullList<Waitlist & { expand?: { event_id: Event } }>({
+			sort: '-added_at',
+			filter: `user_id = "${userId}"`,
+			expand: 'event_id',
 		})
 		return records
 	} catch (error: unknown) {
@@ -134,9 +134,9 @@ export async function fetchWaitlistEmailsForEvent(eventId: string): Promise<stri
 
 	try {
 		// Fetch all waitlist entries for the event with user expansion
-		const waitlistEntries = await pb.collection('waitlists').getFullList<Waitlist & { expand?: { userId?: User } }>({
-			filter: `eventId = "${eventId}" && mailNotification = true`,
-			expand: 'userId',
+		const waitlistEntries = await pb.collection('waitlists').getFullList<Waitlist & { expand?: { user_id?: User } }>({
+			filter: `event_id = "${eventId}" && mail_notification = true`,
+			expand: 'user_id',
 		})
 
 		const emails: string[] = []
@@ -145,9 +145,9 @@ export async function fetchWaitlistEmailsForEvent(eventId: string): Promise<stri
 			if (entry.email != null && entry.email.trim() !== '') {
 				// Direct email subscription (non-authenticated user)
 				emails.push(entry.email.trim())
-			} else if (entry.expand?.userId?.email != null && entry.expand.userId.email.trim() !== '') {
+			} else if (entry.expand?.user_id?.email != null && entry.expand.user_id.email.trim() !== '') {
 				// Authenticated user email
-				emails.push(entry.expand.userId.email.trim())
+				emails.push(entry.expand.user_id.email.trim())
 			}
 		}
 
@@ -176,9 +176,9 @@ export async function removeFromWaitlist(eventId: string, user: null | User, ema
 	try {
 		let filterQuery = ''
 		if (user != null) {
-			filterQuery = `userId = "${user.id}" && eventId = "${eventId}"`
+			filterQuery = `user_id = "${user.id}" && event_id = "${eventId}"`
 		} else if (email != null) {
-			filterQuery = `email = "${email.trim()}" && eventId = "${eventId}"`
+			filterQuery = `email = "${email.trim()}" && event_id = "${eventId}"`
 		}
 
 		if (filterQuery === '') {
