@@ -17,8 +17,8 @@ interface MountainShaderProps {
  * Custom hook for automatic camera positioning
  *
  * This hook calculates the optimal camera position to frame the mountain landscape
- * perfectly within the viewport, taking into account the 16:9 aspect ratio of the
- * geometry and the canvas dimensions.
+ * perfectly within the viewport, taking into account the dynamic geometry size and
+ * the canvas dimensions.
  *
  * The camera automatically adjusts its Z position to ensure the entire mountain
  * range is visible without distortion, regardless of screen size.
@@ -27,13 +27,13 @@ function useAutoCamera() {
 	const { size, camera } = useThree()
 
 	useEffect(() => {
-		// Calculate optimal camera position based on 16:9 geometry and canvas size
+		// Calculate optimal camera position based on dynamic geometry and canvas size
 		const geometryWidth = 16
 		const geometryHeight = 9
 
 		// Calculate required Z distance to frame the entire plane
 		const aspectRatio = size.width / size.height
-		const fov = 35 // Field of view in degrees
+		const fov = 20 // Field of view in degrees
 		const fovRadians = (fov * Math.PI) / 180
 
 		// Calculate Z distance for perfect framing
@@ -46,12 +46,13 @@ function useAutoCamera() {
 			distanceZ = geometryWidth / 2 / Math.tan(fovRadians / 2) / aspectRatio
 		}
 
-		// Add slight margin for better visual composition
-		distanceZ *= 1.1
+		// Add larger margin for better visual composition with increased coverage
+		// This ensures the larger geometry is properly framed
+		distanceZ *= 1.9
 
 		// Y position to center the landscape vertically
 		// Mountains are at posY = 0.3, so we lower the camera slightly
-		const offsetY = -1.5
+		const offsetY = 10
 
 		// Set camera position and orientation
 		camera.position.set(0, offsetY, distanceZ)
@@ -69,7 +70,7 @@ function useAutoCamera() {
  * and animation loop. It's separated from the main component to keep
  * the Three.js logic isolated and maintainable.
  */
-function MountainScene() {
+function MountainScene({ containerSize }: { containerSize: { width: number; height: number } }) {
 	const meshRef = useRef<THREE.Mesh>(null)
 	const [vertexShader, setVertexShader] = useState('')
 	const [fragmentShader, setFragmentShader] = useState('')
@@ -391,7 +392,7 @@ function MountainScene() {
 	 *
 	 * These uniforms provide data to the shader:
 	 * - iTime: Current time for animations
-	 * - iResolution: Canvas dimensions
+	 * - iResolution: Canvas dimensions (now dynamic)
 	 * - iMouse: Mouse position for interactive effects
 	 * - iChannel*: Texture channels (unused but required for compatibility)
 	 *
@@ -413,7 +414,7 @@ function MountainScene() {
 				type: 'f',
 			},
 			iResolution: {
-				value: new THREE.Vector2(1920, 1080), // 16:9 resolution
+				value: new THREE.Vector2(containerSize.width, containerSize.height), // Dynamic resolution
 				type: 'v2',
 			},
 			iMouse: {
@@ -498,21 +499,74 @@ function MountainScene() {
  * @param className - CSS classes for styling the container
  */
 export default function MountainShader({ className = '' }: MountainShaderProps) {
+	const containerRef = useRef<HTMLDivElement>(null)
+	const [containerSize, setContainerSize] = useState({ width: 1920, height: 1080 })
+
+	/**
+	 * Resize observer to dynamically adapt to container size changes
+	 * This ensures the animation always fills 100% of the available space
+	 * while maintaining the 16:9 aspect ratio
+	 */
+	useEffect(() => {
+		if (!containerRef.current) return
+
+		const resizeObserver = new ResizeObserver(entries => {
+			for (const entry of entries) {
+				const { width, height } = entry.contentRect
+
+				// Calculate the optimal size that fits within the container
+				// while maintaining 16:9 aspect ratio
+				let finalWidth = width
+				let finalHeight = height
+
+				const containerAspect = width / height
+				const targetAspect = 16 / 9
+
+				if (containerAspect > targetAspect) {
+					// Container is wider than 16:9 - fit to height
+					finalHeight = height
+					finalWidth = height * targetAspect
+				} else {
+					// Container is taller than 16:9 - fit to width
+					finalWidth = width
+					finalHeight = width / targetAspect
+				}
+
+				// Use a larger multiplier to ensure complete coverage
+				// This prevents any gaps or empty spaces around the edges
+				const coverageMultiplier = 3
+				setContainerSize({
+					width: finalWidth * coverageMultiplier,
+					height: finalHeight * coverageMultiplier,
+				})
+			}
+		})
+
+		resizeObserver.observe(containerRef.current)
+
+		return () => {
+			resizeObserver.disconnect()
+		}
+	}, [])
+
 	return (
-		<div className={className}>
+		<div ref={containerRef} className={className} style={{ width: '100%', height: '100%' }}>
 			{/* 
 				Three.js Canvas setup
 				- camera: Initial camera position (will be overridden by useAutoCamera)
 				- fov: Field of view for perspective projection
-				- style: Full container dimensions
+				- style: Dynamic dimensions based on container size
 				- gl: Preserve drawing buffer for potential screenshots
 			*/}
 			<Canvas
-				camera={{ position: [0, 0, 10], fov: 35 }}
-				style={{ width: '100%', height: '100%' }}
+				camera={{ position: [0, 0, 25], fov: 10 }}
+				style={{
+					width: `${containerSize.width}px`,
+					height: `${containerSize.height}px`,
+				}}
 				gl={{ preserveDrawingBuffer: true }}
 			>
-				<MountainScene />
+				<MountainScene containerSize={containerSize} />
 			</Canvas>
 		</div>
 	)

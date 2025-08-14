@@ -40,18 +40,6 @@ export default function AuthGuard({ redirectTo, mode, children }: AuthGuardProps
 		}
 	}, [isSignedIn, isLoaded, router, redirectTo, mode, locale])
 
-	// Afficher un loader pendant le chargement
-	if (!isLoaded) {
-		return (
-			<div className="flex min-h-screen items-center justify-center">
-				<div className="space-y-4 text-center">
-					<div className="border-primary mx-auto h-8 w-8 animate-spin rounded-full border-b-2"></div>
-					<p className="text-muted-foreground text-sm">Chargement...</p>
-				</div>
-			</div>
-		)
-	}
-
 	// Conditions pour afficher le contenu
 	const shouldShowContent = (mode === 'guest-only' && !isSignedIn) || (mode === 'auth-required' && isSignedIn)
 
@@ -61,7 +49,6 @@ export default function AuthGuard({ redirectTo, mode, children }: AuthGuardProps
 			<div className="flex min-h-screen items-center justify-center">
 				<div className="space-y-4 text-center">
 					<div className="border-primary mx-auto h-8 w-8 animate-spin rounded-full border-b-2"></div>
-					<p className="text-muted-foreground text-sm">Redirection...</p>
 				</div>
 			</div>
 		)

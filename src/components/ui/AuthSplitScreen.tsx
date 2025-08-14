@@ -41,13 +41,13 @@ export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenPr
 
 	return (
 		// Main container: full height, centered, with padding and overflow handling
-		<div className="flex min-h-screen items-center justify-center overflow-hidden p-4">
+		<div className="flex min-h-screen items-center justify-center overflow-hidden">
 			{/* Card container: max width, rounded corners, shadow for depth */}
 			<div className="relative w-full max-w-6xl overflow-hidden rounded-3xl shadow-xl">
 				{/* Grid Layout: 12-column grid system for responsive design */}
-				<div className="grid min-h-[600px] md:grid-cols-12">
+				<div className="grid md:grid-cols-12">
 					{/* Left Side - Visual Panel with Mountain Shader Animation */}
-					<div className="relative overflow-hidden md:col-span-6">
+					<div className="relative h-full overflow-hidden md:col-span-6">
 						{/* Mountain Shader Animation Layer */}
 						{/*
 							This layer contains the animated mountain shader that provides
@@ -68,7 +68,7 @@ export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenPr
 					</div>
 
 					{/* Right Side - Form Panel for Authentication Components */}
-					<div className="bg-background/95 flex flex-col justify-center p-8 backdrop-blur-sm md:col-span-6 md:p-12">
+					<div className="bg-background/95 flex flex-col justify-center backdrop-blur-sm md:col-span-6 md:p-12">
 						{/* Form Container: centered with max width for optimal UX */}
 						<div className="mx-auto w-full max-w-md">
 							{/* Clerk Authentication Form Container */}
