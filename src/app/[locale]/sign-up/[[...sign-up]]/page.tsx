@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+
 import { useAuth, SignedOut } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
 import CustomSignUp from '@/components/auth/CustomSignUp'

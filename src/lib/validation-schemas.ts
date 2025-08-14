@@ -1,9 +1,9 @@
 import * as v from 'valibot'
 
 import { validationTranslations } from '@/lib/translations/validation'
-import { Locale } from '@/lib/i18n-config'
 import { getTranslations } from '@/lib/getDictionary'
 import mainLocales from '@/app/[locale]/locales.json'
+import { Locale } from '@/lib/i18n-config'
 
 // Email schema
 export const createEmailSchema = (locale: Locale = 'fr') => {

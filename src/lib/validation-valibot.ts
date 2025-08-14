@@ -3,8 +3,8 @@ import * as v from 'valibot'
 
 import { validationTranslations } from '@/lib/translations/validation'
 import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
 import mainLocales from '@/app/[locale]/locales.json'
+import { Locale } from '@/lib/i18n-config'
 
 import {
 	createEmailSchema,

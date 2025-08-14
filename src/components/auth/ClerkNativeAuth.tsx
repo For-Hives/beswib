@@ -19,7 +19,7 @@ interface ClerkNativeSignUpProps {
  * Native Clerk SignIn component with proper localization
  * Note: Localization is handled at the ClerkProvider level
  */
-export function ClerkNativeSignIn({ redirectUrl, signUpUrl }: ClerkNativeSignInProps) {
+export function ClerkNativeSignIn({ signUpUrl, redirectUrl }: ClerkNativeSignInProps) {
 	const params = useParams()
 	const locale = (params?.locale as Locale) ?? 'en'
 
@@ -30,7 +30,7 @@ export function ClerkNativeSignIn({ redirectUrl, signUpUrl }: ClerkNativeSignInP
  * Native Clerk SignUp component with proper localization
  * Note: Localization is handled at the ClerkProvider level
  */
-export function ClerkNativeSignUp({ redirectUrl, signInUrl }: ClerkNativeSignUpProps) {
+export function ClerkNativeSignUp({ signInUrl, redirectUrl }: ClerkNativeSignUpProps) {
 	const params = useParams()
 	const locale = (params?.locale as Locale) ?? 'en'
 

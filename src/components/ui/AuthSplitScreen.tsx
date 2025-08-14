@@ -6,8 +6,8 @@ import { useParams } from 'next/navigation'
 import Link from 'next/link'
 
 import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
 import mainLocales from '@/app/[locale]/locales.json'
+import { Locale } from '@/lib/i18n-config'
 
 import MountainShader from './MountainShader'
 

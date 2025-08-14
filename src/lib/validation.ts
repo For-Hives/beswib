@@ -2,8 +2,8 @@ import { FieldError } from '@/types/auth'
 
 import { validationTranslations } from '@/lib/translations/validation'
 import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
 import mainLocales from '@/app/[locale]/locales.json'
+import { Locale } from '@/lib/i18n-config'
 
 export const validateEmail = (email: string, locale: Locale = 'fr'): FieldError | null => {
 	const t = validationTranslations[locale]
