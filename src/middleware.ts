@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { clerkMiddleware } from '@clerk/nextjs/server'
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 
 import { i18n } from '@/lib/i18n-config'
 
@@ -58,20 +58,40 @@ export function getLocaleFromRequest(request: NextRequest): string {
 	}
 }
 
+// Define protected routes that require authentication
+const isProtectedRoute = createRouteMatcher(['/*/dashboard(.*)', '/*/profile(.*)', '/*/purchase(.*)', '/*/admin(.*)'])
+
+// Define public routes that should redirect authenticated users away
+const isPublicAuthRoute = createRouteMatcher(['/*/sign-in(.*)', '/*/sign-up(.*)', '/*/forgot-password(.*)'])
+
 export default clerkMiddleware((auth, request: NextRequest) => {
 	const { pathname } = request.nextUrl
 
 	// Check if there is any supported locale in the pathname 🗺️
 	const pathnameHasLocale = i18n.locales.some(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`)
 
-	if (pathnameHasLocale) {
-		return NextResponse.next()
+	if (!pathnameHasLocale) {
+		// Redirect if there is no locale - use smart locale detection 🧠
+		const locale = getLocaleFromRequest(request)
+		request.nextUrl.pathname = `/${locale}${pathname}`
+		return NextResponse.redirect(request.nextUrl)
 	}
 
-	// Redirect if there is no locale - use smart locale detection 🧠
-	const locale = getLocaleFromRequest(request)
-	request.nextUrl.pathname = `/${locale}${pathname}`
-	return NextResponse.redirect(request.nextUrl)
+	// Extract locale from pathname for proper redirects
+	const currentLocale =
+		i18n.locales.find(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) || i18n.defaultLocale
+
+	// Protect routes that require authentication
+	if (isProtectedRoute(request)) {
+		auth().protect()
+	}
+
+	// Redirect authenticated users away from auth pages
+	if (isPublicAuthRoute(request) && auth().userId) {
+		return NextResponse.redirect(new URL(`/${currentLocale}/dashboard`, request.url))
+	}
+
+	return NextResponse.next()
 })
 
 export const config = {

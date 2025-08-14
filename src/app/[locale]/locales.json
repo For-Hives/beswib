@@ -19,6 +19,29 @@
 				"learnMoreButton": "Learn More (FAQ)"
 			}
 		},
+		"payment": {
+			"title": "Complete Your Purchase",
+			"eventDetails": "Event Details",
+			"orderSummary": "Order Summary",
+			"raceBibTransfer": "Race bib transfer",
+			"discountApplied": "Discount applied",
+			"total": "Total",
+			"whatsIncluded": "What's included",
+			"officialBib": "Official race bib with your registered details",
+			"eventMaterials": "All event materials (timing chip, race packet)",
+			"transferService": "Complete registration transfer service",
+			"multilingualAssistance": "Dedicated multilingual assistance",
+			"paymentMethod": "Payment Method",
+			"secureTransaction": "100% Secure Transaction",
+			"secureDescription": "Your payment is processed securely through PayPal's trusted platform. We never store your payment details.",
+			"ssl256": "256-bit SSL",
+			"paypalSecured": "PayPal Secured",
+			"pciCompliant": "PCI Compliant",
+			"trustedAthletes": "Trusted by thousands of athletes worldwide",
+			"bankEncryption": "Bank-level encryption",
+			"instantConfirmation": "Instant confirmation",
+			"fraudProtection": "Fraud protection"
+		},
 		"runs": [
 			{
 				"name": "Nantes Marathon",
@@ -61,6 +84,29 @@
 				"description": "Apprenez-en plus sur le fonctionnement de Beswib ou commencez à parcourir les événements.",
 				"learnMoreButton": "En savoir plus (FAQ)"
 			}
+		},
+		"payment": {
+			"title": "Finaliser votre achat",
+			"eventDetails": "Détails de l'événement",
+			"orderSummary": "Résumé de la commande",
+			"raceBibTransfer": "Transfert de dossard",
+			"discountApplied": "Remise appliquée",
+			"total": "Total",
+			"whatsIncluded": "Ce qui est inclus",
+			"officialBib": "Dossard officiel avec vos informations enregistrées",
+			"eventMaterials": "Tous les matériaux de l'événement (puce de chronométrage, kit de course)",
+			"transferService": "Service complet de transfert d'inscription",
+			"multilingualAssistance": "Assistance multilingue dédiée",
+			"paymentMethod": "Méthode de paiement",
+			"secureTransaction": "Transaction 100% sécurisée",
+			"secureDescription": "Votre paiement est traité en toute sécurité via la plateforme de confiance PayPal. Nous ne stockons jamais vos informations de paiement.",
+			"ssl256": "SSL 256-bit",
+			"paypalSecured": "Sécurisé PayPal",
+			"pciCompliant": "Conforme PCI",
+			"trustedAthletes": "Fait confiance par des milliers d'athlètes dans le monde",
+			"bankEncryption": "Chiffrement bancaire",
+			"instantConfirmation": "Confirmation instantanée",
+			"fraudProtection": "Protection contre la fraude"
 		},
 		"runs": [
 			{
@@ -105,6 +151,29 @@
 				"learnMoreButton": "Saber más (FAQ)"
 			}
 		},
+		"payment": {
+			"title": "Completar tu compra",
+			"eventDetails": "Detalles del evento",
+			"orderSummary": "Resumen del pedido",
+			"raceBibTransfer": "Transferencia de dorsal",
+			"discountApplied": "Descuento aplicado",
+			"total": "Total",
+			"whatsIncluded": "Qué incluye",
+			"officialBib": "Dorsal oficial con tus datos registrados",
+			"eventMaterials": "Todos los materiales del evento (chip de cronometraje, kit de carrera)",
+			"transferService": "Servicio completo de transferencia de inscripción",
+			"multilingualAssistance": "Asistencia multilingüe dedicada",
+			"paymentMethod": "Método de pago",
+			"secureTransaction": "Transacción 100% segura",
+			"secureDescription": "Tu pago se procesa de forma segura a través de la plataforma de confianza de PayPal. Nunca almacenamos tus datos de pago.",
+			"ssl256": "SSL 256-bit",
+			"paypalSecured": "Securizado por PayPal",
+			"pciCompliant": "Cumple PCI",
+			"trustedAthletes": "Confiado por miles de atletas en todo el mundo",
+			"bankEncryption": "Encriptación bancaria",
+			"instantConfirmation": "Confirmación instantánea",
+			"fraudProtection": "Protección contra fraude"
+		},
 		"runs": [
 			{ "name": "Maratón de Nantes", "location": "Nantes" },
 			{ "name": "Ironman Niza", "location": "Niza" },
@@ -132,6 +201,29 @@
 				"description": "Scopri come funziona Beswib o inizia subito a esplorare gli eventi.",
 				"learnMoreButton": "Scopri di più (FAQ)"
 			}
+		},
+		"payment": {
+			"title": "Completa il tuo acquisto",
+			"eventDetails": "Dettagli evento",
+			"orderSummary": "Riepilogo ordine",
+			"raceBibTransfer": "Trasferimento pettorale",
+			"discountApplied": "Sconto applicato",
+			"total": "Totale",
+			"whatsIncluded": "Cosa è incluso",
+			"officialBib": "Pettorale ufficiale con i tuoi dati registrati",
+			"eventMaterials": "Tutti i materiali dell'evento (chip di cronometraggio, kit gara)",
+			"transferService": "Servizio completo di trasferimento iscrizione",
+			"multilingualAssistance": "Assistenza multilingue dedicata",
+			"paymentMethod": "Metodo di pagamento",
+			"secureTransaction": "Transazione 100% sicura",
+			"secureDescription": "Il tuo pagamento viene elaborato in sicurezza tramite la piattaforma affidabile di PayPal. Non memorizziamo mai i tuoi dati di pagamento.",
+			"ssl256": "SSL 256-bit",
+			"paypalSecured": "Securizzato PayPal",
+			"pciCompliant": "Conforme PCI",
+			"trustedAthletes": "Affidabile per migliaia di atleti in tutto il mondo",
+			"bankEncryption": "Crittografia bancaria",
+			"instantConfirmation": "Conferma istantanea",
+			"fraudProtection": "Protezione antifrode"
 		},
 		"runs": [
 			{ "name": "Maratona di Nantes", "location": "Nantes" },
@@ -161,6 +253,29 @@
 				"learnMoreButton": "Mehr erfahren (FAQ)"
 			}
 		},
+		"payment": {
+			"title": "Kauf abschließen",
+			"eventDetails": "Event-Details",
+			"orderSummary": "Bestellübersicht",
+			"raceBibTransfer": "Startnummer-Übertragung",
+			"discountApplied": "Rabatt angewendet",
+			"total": "Gesamt",
+			"whatsIncluded": "Was ist enthalten",
+			"officialBib": "Offizielle Startnummer mit Ihren registrierten Daten",
+			"eventMaterials": "Alle Event-Materialien (Zeitmesschip, Rennpaket)",
+			"transferService": "Vollständiger Registrierungsübertragungsservice",
+			"multilingualAssistance": "Dedizierte mehrsprachige Unterstützung",
+			"paymentMethod": "Zahlungsmethode",
+			"secureTransaction": "100% sichere Transaktion",
+			"secureDescription": "Ihre Zahlung wird sicher über die vertrauenswürdige PayPal-Plattform verarbeitet. Wir speichern niemals Ihre Zahlungsdaten.",
+			"ssl256": "256-bit SSL",
+			"paypalSecured": "PayPal-gesichert",
+			"pciCompliant": "PCI-konform",
+			"trustedAthletes": "Vertraut von Tausenden von Athleten weltweit",
+			"bankEncryption": "Bankverschlüsselung",
+			"instantConfirmation": "Sofortige Bestätigung",
+			"fraudProtection": "Betrugsschutz"
+		},
 		"runs": [
 			{ "name": "Marathon Nantes", "location": "Nantes" },
 			{ "name": "Ironman Nizza", "location": "Nizza" },
@@ -188,6 +303,29 @@
 				"description": "Află cum funcționează Beswib sau începe să explorezi evenimentele chiar acum.",
 				"learnMoreButton": "Află mai multe (FAQ)"
 			}
+		},
+		"payment": {
+			"title": "Finalizează-ți achiziția",
+			"eventDetails": "Detaliile evenimentului",
+			"orderSummary": "Rezumatul comenzii",
+			"raceBibTransfer": "Transfer număr de cursă",
+			"discountApplied": "Reducere aplicată",
+			"total": "Total",
+			"whatsIncluded": "Ce este inclus",
+			"officialBib": "Număr oficial cu datele tale înregistrate",
+			"eventMaterials": "Toate materialele evenimentului (cip cronometrare, pachet cursă)",
+			"transferService": "Serviciu complet de transfer înscriere",
+			"multilingualAssistance": "Asistență multilingvă dedicată",
+			"paymentMethod": "Metoda de plată",
+			"secureTransaction": "Tranzacție 100% sigură",
+			"secureDescription": "Plata ta este procesată în siguranță prin platforma de încredere PayPal. Nu stocăm niciodată detaliile tale de plată.",
+			"ssl256": "SSL 256-bit",
+			"paypalSecured": "Securizat PayPal",
+			"pciCompliant": "Conform PCI",
+			"trustedAthletes": "De încredere pentru mii de atleți din întreaga lume",
+			"bankEncryption": "Criptare bancară",
+			"instantConfirmation": "Confirmare instantanee",
+			"fraudProtection": "Protecție antifraudă"
 		},
 		"runs": [
 			{ "name": "Maratonul Nantes", "location": "Nantes" },
@@ -217,6 +355,29 @@
 				"learnMoreButton": "Saber mais (FAQ)"
 			}
 		},
+		"payment": {
+			"title": "Finalizar a tua compra",
+			"eventDetails": "Detalhes do evento",
+			"orderSummary": "Resumo da encomenda",
+			"raceBibTransfer": "Transferência de dorsal",
+			"discountApplied": "Desconto aplicado",
+			"total": "Total",
+			"whatsIncluded": "O que está incluído",
+			"officialBib": "Dorsal oficial com os teus dados registados",
+			"eventMaterials": "Todos os materiais do evento (chip de cronometragem, kit de prova)",
+			"transferService": "Serviço completo de transferência de inscrição",
+			"multilingualAssistance": "Assistência multilingue dedicada",
+			"paymentMethod": "Método de pagamento",
+			"secureTransaction": "Transação 100% segura",
+			"secureDescription": "O teu pagamento é processado de forma segura através da plataforma de confiança da PayPal. Nunca armazenamos os teus dados de pagamento.",
+			"ssl256": "SSL 256-bit",
+			"paypalSecured": "Securizado pela PayPal",
+			"pciCompliant": "Conforme PCI",
+			"trustedAthletes": "Confiável para milhares de atletas em todo o mundo",
+			"bankEncryption": "Encriptação bancária",
+			"instantConfirmation": "Confirmação instantânea",
+			"fraudProtection": "Proteção contra fraude"
+		},
 		"runs": [
 			{ "name": "Maratona de Nantes", "location": "Nantes" },
 			{ "name": "Ironman Nice", "location": "Nice" },
@@ -245,6 +406,29 @@
 				"learnMoreButton": "Meer info (FAQ)"
 			}
 		},
+		"payment": {
+			"title": "Voltooi je aankoop",
+			"eventDetails": "Eventdetails",
+			"orderSummary": "Besteloverzicht",
+			"raceBibTransfer": "Startnummer overdracht",
+			"discountApplied": "Korting toegepast",
+			"total": "Totaal",
+			"whatsIncluded": "Wat is inbegrepen",
+			"officialBib": "Officieel startnummer met je geregistreerde gegevens",
+			"eventMaterials": "Alle eventmaterialen (tijdschip, racepakket)",
+			"transferService": "Volledige registratieoverdrachtservice",
+			"multilingualAssistance": "Toegewijde meertalige ondersteuning",
+			"paymentMethod": "Betaalmethode",
+			"secureTransaction": "100% veilige transactie",
+			"secureDescription": "Je betaling wordt veilig verwerkt via het vertrouwde PayPal-platform. We slaan je betaalgegevens nooit op.",
+			"ssl256": "256-bit SSL",
+			"paypalSecured": "PayPal-beveiligd",
+			"pciCompliant": "PCI-conform",
+			"trustedAthletes": "Vertrouwd door duizenden atleten wereldwijd",
+			"bankEncryption": "Bankniveau encryptie",
+			"instantConfirmation": "Directe bevestiging",
+			"fraudProtection": "Fraudebescherming"
+		},
 		"runs": [
 			{ "name": "Marathon van Nantes", "location": "Nantes" },
 			{ "name": "Ironman Nice", "location": "Nice" },
@@ -272,6 +456,29 @@
 				"description": "Beswib 작동 방식에 대해 자세히 알아보거나 지금 바로 이벤트를 찾아보세요.",
 				"learnMoreButton": "더 알아보기 (FAQ)"
 			}
+		},
+		"payment": {
+			"title": "구매 완료",
+			"eventDetails": "이벤트 세부사항",
+			"orderSummary": "주문 요약",
+			"raceBibTransfer": "레이스 빕 전송",
+			"discountApplied": "할인 적용됨",
+			"total": "총계",
+			"whatsIncluded": "포함 사항",
+			"officialBib": "등록된 세부사항이 포함된 공식 레이스 빕",
+			"eventMaterials": "모든 이벤트 재료 (타이밍 칩, 레이스 패킷)",
+			"transferService": "완전한 등록 전송 서비스",
+			"multilingualAssistance": "전용 다국어 지원",
+			"paymentMethod": "결제 방법",
+			"secureTransaction": "100% 안전한 거래",
+			"secureDescription": "귀하의 결제는 PayPal의 신뢰할 수 있는 플랫폼을 통해 안전하게 처리됩니다. 우리는 결제 세부사항을 절대 저장하지 않습니다.",
+			"ssl256": "256비트 SSL",
+			"paypalSecured": "PayPal 보안",
+			"pciCompliant": "PCI 준수",
+			"trustedAthletes": "전 세계 수천 명의 운동선수들이 신뢰",
+			"bankEncryption": "은행 수준 암호화",
+			"instantConfirmation": "즉시 확인",
+			"fraudProtection": "사기 방지"
 		},
 		"runs": [
 			{

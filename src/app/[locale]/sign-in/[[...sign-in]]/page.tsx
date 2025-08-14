@@ -1,15 +1,18 @@
 'use client'
 
+import { SignedOut, RedirectToSignIn } from '@clerk/nextjs'
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
 import CustomSignIn from '@/components/auth/CustomSignIn'
-import AuthGuard from '@/components/auth/AuthGuard'
 
 export default function Page() {
 	return (
-		<AuthGuard mode="guest-only">
-			<AuthSplitScreen>
-				<CustomSignIn />
-			</AuthSplitScreen>
-		</AuthGuard>
+		<>
+			<SignedOut>
+				<AuthSplitScreen>
+					<CustomSignIn />
+				</AuthSplitScreen>
+			</SignedOut>
+			<RedirectToSignIn />
+		</>
 	)
 }
