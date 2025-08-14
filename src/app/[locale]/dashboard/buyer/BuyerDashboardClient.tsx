@@ -220,7 +220,7 @@ export default function BuyerDashboardClient({
 												<div className="rounded-lg border p-4" key={waitlist.id}>
 													<div className="mb-2 flex items-start justify-between">
 														<h4 className="font-semibold">
-															{waitlist.expand?.eventId?.name ?? `Event ID: ${waitlist.eventId}`}
+															{waitlist.expand?.eventId?.name ?? `Event ID: ${waitlist.event_id}`}
 														</h4>
 														<span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400">
 															{t.waiting ?? 'Waiting'}
@@ -236,7 +236,7 @@ export default function BuyerDashboardClient({
 														</p>
 														<p>
 															{t.dateAddedToWaitlist ?? 'Date Added to Waitlist'}:{' '}
-															{formatDateObjectForDisplay(new Date(waitlist.addedAt), locale)}
+															{formatDateObjectForDisplay(new Date(waitlist.added_at), locale)}
 														</p>
 														<p className="flex items-center gap-2">
 															<Users className="h-4 w-4" />

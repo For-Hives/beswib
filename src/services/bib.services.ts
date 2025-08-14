@@ -65,6 +65,39 @@ export async function createBib(bibData: Omit<Bib, 'id'>): Promise<Bib | null> {
 		}
 
 		const record = await pb.collection('bibs').create<Bib>(dataToCreate)
+
+		// Send notifications to waitlisted users if the bib is publicly listed
+		if (record.listed === 'public' && record.status === 'available') {
+			// Import notification service here to avoid circular dependencies
+			const { sendNewBibNotification } = await import('./notification.service')
+			const { fetchWaitlistEmailsForEvent } = await import('./waitlist.services')
+			const { fetchEventById } = await import('./event.services')
+
+			try {
+				const [event, waitlistEmails] = await Promise.all([
+					fetchEventById(record.eventId),
+					fetchWaitlistEmailsForEvent(record.eventId),
+				])
+
+				if (event != null && waitlistEmails.length > 0) {
+					await sendNewBibNotification(
+						{
+							eventName: event.name,
+							eventLocation: event.location,
+							eventId: record.eventId,
+							eventDate: event.eventDate,
+							bibPrice: record.price,
+							bibId: record.id,
+						},
+						waitlistEmails
+					)
+				}
+			} catch (notificationError) {
+				// Log the error but don't fail the bib creation
+				console.error('Failed to send waitlist notifications for new bib:', notificationError)
+			}
+		}
+
 		return record
 	} catch (error: unknown) {
 		throw new Error('Error creating bib listing: ' + (error instanceof Error ? error.message : String(error)))

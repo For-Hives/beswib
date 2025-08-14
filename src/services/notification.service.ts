@@ -67,6 +67,139 @@ export async function sendContactMessage(info: ContactMessageInfo): Promise<bool
 	return Boolean((d1 && d2) || emailOk)
 }
 
+type NewBibNotificationInfo = {
+	eventName: string
+	eventId: string
+	bibPrice: number
+	bibId: string
+	eventLocation?: string
+	eventDate?: Date | string
+}
+
+/**
+ * Sends notifications to all waitlisted users when a new bib becomes available for an event.
+ * Sends both email notifications to waitlisted users and Discord alerts to admins.
+ * @param bibInfo Information about the new bib that was listed
+ * @param waitlistedEmails Array of email addresses of users on the waitlist
+ * @returns Success status and counts of sent/failed notifications
+ */
+export async function sendNewBibNotification(
+	bibInfo: NewBibNotificationInfo,
+	waitlistedEmails: string[]
+): Promise<{ success: boolean; emailsSent: number; emailsFailed: number; adminNotified: boolean }> {
+	if (waitlistedEmails.length === 0) {
+		return { success: true, emailsSent: 0, emailsFailed: 0, adminNotified: false }
+	}
+
+	const formatPrice = (price: number) => {
+		try {
+			return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' }).format(price)
+		} catch {
+			return `€${price.toFixed(2)}`
+		}
+	}
+
+	const formatDate = (date?: Date | string) => {
+		if (date == null || date === '') return ''
+		try {
+			const d = new Date(date)
+			return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+		} catch {
+			return ''
+		}
+	}
+
+	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
+
+	// Email content for waitlisted users
+	const userEmailSubject = `🏃 New bib available for ${bibInfo.eventName}!`
+	const userEmailText = `Great news! A new bib is now available for ${bibInfo.eventName}.
+
+Event: ${bibInfo.eventName}
+${bibInfo.eventLocation != null && bibInfo.eventLocation.trim() !== '' ? `Location: ${bibInfo.eventLocation}` : ''}
+${bibInfo.eventDate != null ? `Date: ${formatDate(bibInfo.eventDate)}` : ''}
+Price: ${formatPrice(bibInfo.bibPrice)}
+
+Don't wait - check it out now: ${baseUrl}/events/${bibInfo.eventId}
+
+This notification was sent because you're on the waitlist for this event. You can manage your waitlist preferences in your dashboard.
+
+Happy running!
+The Beswib Team`
+
+	const userEmailHtml = `
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+	<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px 12px 0 0; text-align: center;">
+		<h1 style="color: white; margin: 0; font-size: 24px;">🏃 New Bib Available!</h1>
+	</div>
+	
+	<div style="background: white; padding: 30px; border: 1px solid #e0e0e0; border-radius: 0 0 12px 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+		<p style="font-size: 16px; color: #333; margin: 0 0 20px;">Great news! A new bib is now available for <strong>${escapeHtml(bibInfo.eventName)}</strong>.</p>
+		
+		<div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+			<h3 style="margin: 0 0 15px; color: #333;">Event Details:</h3>
+			<p style="margin: 5px 0; color: #555;"><strong>Event:</strong> ${escapeHtml(bibInfo.eventName)}</p>
+			${bibInfo.eventLocation != null && bibInfo.eventLocation.trim() !== '' ? `<p style="margin: 5px 0; color: #555;"><strong>Location:</strong> ${escapeHtml(bibInfo.eventLocation)}</p>` : ''}
+			${bibInfo.eventDate != null ? `<p style="margin: 5px 0; color: #555;"><strong>Date:</strong> ${formatDate(bibInfo.eventDate)}</p>` : ''}
+			<p style="margin: 5px 0; color: #555;"><strong>Price:</strong> ${formatPrice(bibInfo.bibPrice)}</p>
+		</div>
+		
+		<div style="text-align: center; margin: 30px 0;">
+			<a href="${baseUrl}/events/${bibInfo.eventId}" 
+			   style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+				View Bib Now
+			</a>
+		</div>
+		
+		<p style="font-size: 14px; color: #666; margin: 20px 0 0; text-align: center;">
+			This notification was sent because you're on the waitlist for this event.<br>
+			You can manage your waitlist preferences in your dashboard.
+		</p>
+		
+		<p style="font-size: 14px; color: #666; margin: 20px 0 0; text-align: center;">
+			Happy running!<br>
+			<strong>The Beswib Team</strong>
+		</p>
+	</div>
+</div>`
+
+	// Admin Discord notification
+	const adminDiscordContent = `🚨 **New Bib Listed - Waitlist Notified**
+
+📋 **Bib ID:** ${bibInfo.bibId}
+🏃 **Event:** ${bibInfo.eventName}
+📍 **Location:** ${bibInfo.eventLocation ?? 'Not specified'}
+💰 **Price:** ${formatPrice(bibInfo.bibPrice)}
+📧 **Waitlisted Users Notified:** ${waitlistedEmails.length}
+
+Event Link: ${baseUrl}/events/${bibInfo.eventId}`
+
+	// Send emails to waitlisted users
+	const emailResults = await sendBatchEmail(waitlistedEmails, {
+		text: userEmailText,
+		subject: userEmailSubject,
+		html: userEmailHtml,
+	})
+
+	// Send admin notification
+	const adminNotified = await notifyAdmins({
+		text: `New bib listed for ${bibInfo.eventName}. ${waitlistedEmails.length} waitlisted users have been notified.`,
+		subject: `[Beswib] New bib listed - ${waitlistedEmails.length} users notified`,
+		html: userEmailHtml.replace(
+			'Great news! A new bib is now available',
+			`Admin Alert: New bib listed for ${bibInfo.eventName}. ${waitlistedEmails.length} waitlisted users have been notified.`
+		),
+		discordContent: adminDiscordContent,
+	})
+
+	return {
+		success: emailResults.sent > 0 || emailResults.failed === 0,
+		emailsSent: emailResults.sent,
+		emailsFailed: emailResults.failed,
+		adminNotified,
+	}
+}
+
 // --- Internal utilities ----------------------------------------------------
 
 // Admin-only webhook (Discord); true if posted, false otherwise.
