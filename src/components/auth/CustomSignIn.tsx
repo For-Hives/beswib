@@ -128,18 +128,10 @@ export default function CustomSignIn() {
 		})
 	}
 
-	if (!isLoaded) {
-		return (
-			<div className="flex h-96 items-center justify-center">
-				<div className="border-primary h-8 w-8 animate-spin rounded-full border-b-2"></div>
-			</div>
-		)
-	}
-
 	return (
 		<div className="w-full max-w-md space-y-6">
 			{/* Header */}
-			<div className="space-y-2 text-center">
+			<div className="space-y-2 text-start">
 				<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.signIn.welcome}</h1>
 				<p className="text-muted-foreground text-sm">{t.signIn.subtitle}</p>
 			</div>

@@ -281,7 +281,7 @@ export default function CustomSignUp() {
 	return (
 		<div className="w-full max-w-md space-y-6">
 			{/* Header */}
-			<div className="space-y-2 text-center">
+			<div className="space-y-2 text-start">
 				<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.signUp.title}</h1>
 				<p className="text-muted-foreground text-sm">{t.signUp.subtitle}</p>
 			</div>
