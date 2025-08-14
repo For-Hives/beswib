@@ -69,7 +69,7 @@ const isProtectedRoute = createRouteMatcher([
 // Define public routes that should redirect authenticated users away
 const isPublicAuthRoute = createRouteMatcher([
 	'/(.*)/auth/sign-in(.*)',
-	'/(.*)/auth/auth/sign-up(.*)',
+	'/(.*)/auth/sign-up(.*)',
 	'/(.*)/auth/forgot-password',
 ])
 
