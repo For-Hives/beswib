@@ -39,7 +39,7 @@ const mockUser: User = {
 	address: null,
 }
 
-import { addToWaitlist, fetchUserWaitlists } from '@/services/waitlist.services'
+import { addToWaitlist, fetchUserWaitlists, linkEmailWaitlistsToUser } from '@/services/waitlist.services'
 
 describe('waitlist.services', () => {
 	beforeEach(() => {
@@ -147,6 +147,76 @@ describe('waitlist.services', () => {
 		it('should return an empty array if the user ID is empty', async () => {
 			const result = await fetchUserWaitlists('')
 			expect(result).toEqual([])
+		})
+	})
+
+	describe('linkEmailWaitlistsToUser', () => {
+		it('should link email-only waitlist entries to a user account', async () => {
+			const emailWaitlistEntries = [
+				{ user_id: null, id: 'waitlist1', event_id: 'event1', email: 'test@test.com' },
+				{ user_id: null, id: 'waitlist2', event_id: 'event2', email: 'test@test.com' },
+			]
+			mockPocketbase.getFullList.mockResolvedValue(emailWaitlistEntries)
+			mockPocketbase.update.mockResolvedValue({})
+
+			const result = await linkEmailWaitlistsToUser('test@test.com', mockUser)
+
+			expect(mockPocketbase.collection).toHaveBeenCalledWith('waitlists')
+			expect(mockPocketbase.getFullList).toHaveBeenCalledWith({
+				filter: 'email = "test@test.com" && user_id = null',
+			})
+			expect(mockPocketbase.update).toHaveBeenCalledTimes(2)
+			expect(mockPocketbase.update).toHaveBeenCalledWith('waitlist1', {
+				user_id: 'user1',
+				email: undefined,
+			})
+			expect(mockPocketbase.update).toHaveBeenCalledWith('waitlist2', {
+				user_id: 'user1',
+				email: undefined,
+			})
+			expect(result).toBe(2)
+		})
+
+		it('should return 0 if no email-only waitlist entries found', async () => {
+			mockPocketbase.getFullList.mockResolvedValue([])
+
+			const result = await linkEmailWaitlistsToUser('test@test.com', mockUser)
+
+			expect(mockPocketbase.getFullList).toHaveBeenCalledWith({
+				filter: 'email = "test@test.com" && user_id = null',
+			})
+			expect(mockPocketbase.update).not.toHaveBeenCalled()
+			expect(result).toBe(0)
+		})
+
+		it('should return 0 if email is not provided', async () => {
+			const result = await linkEmailWaitlistsToUser('', mockUser)
+
+			expect(mockPocketbase.getFullList).not.toHaveBeenCalled()
+			expect(result).toBe(0)
+		})
+
+		it('should return 0 if user is not provided', async () => {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+			const result = await linkEmailWaitlistsToUser('test@test.com', null as any)
+
+			expect(mockPocketbase.getFullList).not.toHaveBeenCalled()
+			expect(result).toBe(0)
+		})
+
+		it('should handle partial failures when updating entries', async () => {
+			const emailWaitlistEntries = [
+				{ user_id: null, id: 'waitlist1', event_id: 'event1', email: 'test@test.com' },
+				{ user_id: null, id: 'waitlist2', event_id: 'event2', email: 'test@test.com' },
+			]
+			mockPocketbase.getFullList.mockResolvedValue(emailWaitlistEntries)
+			// First update succeeds, second fails
+			mockPocketbase.update.mockResolvedValueOnce({}).mockRejectedValueOnce(new Error('Update failed'))
+
+			const result = await linkEmailWaitlistsToUser('test@test.com', mockUser)
+
+			expect(mockPocketbase.update).toHaveBeenCalledTimes(2)
+			expect(result).toBe(1) // Only one successful update
 		})
 	})
 })

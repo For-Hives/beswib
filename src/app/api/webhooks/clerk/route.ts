@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 import { Webhook } from 'svix'
 
+import { linkEmailWaitlistsToUser } from '@/services/waitlist.services'
 import { createUser } from '@/services/user.services' // Adjust path as necessary
 import { User } from '@/models/user.model'
 
@@ -137,7 +138,19 @@ async function processUserCreation(
 			return NextResponse.json({ error: 'Failed to create user in database' }, { status: 500 })
 		}
 
-		return NextResponse.json({ message: 'User created and metadata updated successfully' }, { status: 200 })
+		// Link any existing email-only waitlist entries to this new user account
+		const linkedCount = await linkEmailWaitlistsToUser(userData.email, newUserInDb)
+		if (linkedCount > 0) {
+			console.info(`Linked ${linkedCount} existing waitlist entries to new user ${newUserInDb.id}`)
+		}
+
+		return NextResponse.json(
+			{
+				message: 'User created and metadata updated successfully',
+				linkedWaitlistEntries: linkedCount,
+			},
+			{ status: 200 }
+		)
 	} catch (error) {
 		console.error(`Error processing user.created event for ${clerkId}:`, error)
 		const errorMessage = error instanceof Error ? error.message : 'Internal server error processing user creation.'
