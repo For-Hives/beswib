@@ -5,14 +5,15 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
-import { useSignIn, SignedOut, RedirectToSignIn } from '@clerk/nextjs'
+import { useSignIn } from '@clerk/nextjs'
 
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 import { translateClerkError } from '@/lib/clerkErrorTranslations'
 import { Locale } from '@/lib/i18n-config'
-import { authTranslations } from '@/lib/translations/auth'
+import { getTranslations } from '@/lib/getDictionary'
+import authLocales from '@/components/auth/locales.json'
 
 export default function ForgotPasswordPage() {
 	const [email, setEmail] = useState('')
@@ -26,7 +27,7 @@ export default function ForgotPasswordPage() {
 	const { signIn, setActive } = useSignIn()
 	const params = useParams()
 	const locale = ((params?.locale as string) || 'en') as Locale
-	const t = authTranslations[locale]
+    const t = getTranslations(locale, authLocales).auth
 
 	// Send the password reset code to the user's email
 	async function create(e: React.FormEvent) {
@@ -78,10 +79,8 @@ export default function ForgotPasswordPage() {
 			})
 	}
 
-	return (
-		<>
-			<SignedOut>
-				<AuthSplitScreen>
+    return (
+        <AuthSplitScreen>
 					<div className="w-full max-w-md space-y-6">
 						<div className="space-y-2 text-center">
 							<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.forgotPassword.title}</h1>
@@ -179,9 +178,6 @@ export default function ForgotPasswordPage() {
 							</Link>
 						</div>
 					</div>
-				</AuthSplitScreen>
-			</SignedOut>
-			<RedirectToSignIn />
-		</>
+                </AuthSplitScreen>
 	)
 }

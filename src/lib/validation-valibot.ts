@@ -2,8 +2,9 @@ import { FieldError } from '@/stores/authStore'
 import * as v from 'valibot'
 
 import { validationTranslations } from '@/lib/translations/validation'
-import { authTranslations } from '@/lib/translations/auth'
+import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
+import authLocales from '@/components/auth/locales.json'
 
 import {
 	createEmailSchema,
@@ -153,7 +154,7 @@ export const validateSignUpForm = (
 	},
 	locale: Locale = 'fr'
 ) => {
-	const t = authTranslations[locale]
+	const t = getTranslations(locale, authLocales).auth
 
 	const firstNameError = validateNameValibot(data.firstName, t.signUp.firstNameLabel.toLowerCase(), locale)
 	const lastNameError = validateNameValibot(data.lastName, t.signUp.lastNameLabel.toLowerCase(), locale)
