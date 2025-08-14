@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import Image from 'next/image'
 
@@ -22,359 +22,472 @@ interface TimelineItem {
 	title: string
 }
 
-export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTimelineProps) {
-	// State to manage timeline item expansion
-	const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({})
+// Composant mémorisé pour chaque nœud orbital - évite les re-renders inutiles
+const OrbitalNode = memo(
+	({
+		total,
+		onToggle,
+		item,
+		isRelated,
+		isPulsing,
+		isMobile,
+		isExpanded,
+		index,
+		globalElapsed,
+		frozenRotation,
+		autoRotate,
+	}: {
+		item: TimelineItem
+		index: number
+		total: number
+		isExpanded: boolean
+		isRelated: boolean
+		isPulsing: boolean
+		isMobile: boolean
+		onToggle: (id: number) => void
+		autoRotate: boolean
+		globalElapsed: number
+		frozenRotation: number
+	}) => {
+		const Icon = item.icon
+		const nodeRef = useRef<HTMLDivElement>(null)
 
-	// Current rotation angle of the orbit (in degrees)
-	const [rotationAngle, setRotationAngle] = useState<number>(0)
+		// Position initiale calculée une seule fois
+		const initialAngle = useMemo(() => (index / total) * 360, [index, total])
+		const radius = isMobile ? 160 : 200
 
-	// Controls whether the orbit rotates automatically or is stopped
-	const [autoRotate, setAutoRotate] = useState<boolean>(true)
+		// Calcul unique des positions initiales
+		const { y, x } = useMemo(() => {
+			const radian = (initialAngle * Math.PI) / 180
+			return {
+				y: radius * Math.sin(radian),
+				x: radius * Math.cos(radian),
+			}
+		}, [initialAngle, radius])
 
-	// Pulse effect for items related to the active element
-	const [pulseEffect, setPulseEffect] = useState<Record<number, boolean>>({})
+		// Propriétés visuelles simplifiées - pas de gestion du temps local
+		const [visualProps, setVisualProps] = useState({ zIndex: 100, opacity: 1 })
 
-	// ID of the currently active/expanded element
-	const [activeNodeId, setActiveNodeId] = useState<null | number>(null)
-
-	// Detects if we're on mobile to adjust orbit size
-	const [isMobile, setIsMobile] = useState<boolean>(false)
-
-	// DOM element references for interactions
-	const containerRef = useRef<HTMLDivElement>(null) // Main container
-	const orbitRef = useRef<HTMLDivElement>(null) // Orbit container
-	const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({}) // Individual node references
-
-	// Pre-calculate trigonometric values for better performance (Solution 4)
-	const sinValues = useMemo(() => {
-		const values: number[] = []
-		for (let i = 0; i < 360; i += 0.3) {
-			values.push(Math.sin((i * Math.PI) / 180))
-		}
-		return values
-	}, [])
-
-	const cosValues = useMemo(() => {
-		const values: number[] = []
-		for (let i = 0; i < 360; i += 0.3) {
-			values.push(Math.cos((i * Math.PI) / 180))
-		}
-		return values
-	}, [])
-
-	// Click handler for the main container (closes all expanded items)
-	const handleContainerClick = (e: React.KeyboardEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) => {
-		// If we click on the main container or orbit (not on a node)
-		if (e.target === containerRef.current || e.target === orbitRef.current) {
-			setExpandedItems({}) // Closes all expanded items
-			setActiveNodeId(null) // Deactivates the active node
-			setPulseEffect({}) // Stops all pulse effects
-			setAutoRotate(true) // Restarts automatic rotation
-		}
-	}
-
-	// Toggles the expansion state of a timeline item
-	const toggleItem = (id: number) => {
-		setExpandedItems(prev => {
-			const newState = { ...prev }
-
-			// Closes all other items (only one can be expanded at a time)
-			Object.keys(newState).forEach(key => {
-				if (parseInt(key) !== id) {
-					newState[parseInt(key)] = false
-				}
-			})
-
-			// Toggles the clicked item's state
-			newState[id] = !prev[id]
-
-			if (!prev[id]) {
-				// If we're opening the item
-				setActiveNodeId(id) // Sets this item as active
-				setAutoRotate(false) // Stops automatic rotation
-
-				// Gets related items and activates pulse effect
-				const relatedItems = getRelatedItems(id)
-				const newPulseEffect: Record<number, boolean> = {}
-				relatedItems.forEach(relId => {
-					newPulseEffect[relId] = true
-				})
-				setPulseEffect(newPulseEffect)
-
-				// Centers the view on the selected node
-				centerViewOnNode(id)
-			} else {
-				// If we're closing the item
-				setActiveNodeId(null) // Deactivates the active node
-				setAutoRotate(true) // Restarts automatic rotation
-				setPulseEffect({}) // Stops all pulse effects
+		useEffect(() => {
+			if (!autoRotate) {
+				// Si pas d'auto-rotation, on fixe les propriétés visuelles et on reset
+				setVisualProps({ zIndex: isExpanded ? 200 : 100, opacity: 1 })
+				return
 			}
 
-			return newState
-		})
-	}
+			// Animation frame pour calculer les propriétés visuelles pendant la rotation CSS
+			let animationId: number
 
-	// Hook to detect screen size and adjust orbit
-	useEffect(() => {
-		const checkIsMobile = () => {
-			setIsMobile(window.innerWidth < 768) // Considers mobile below 768px
-		}
+			const updateVisualProps = () => {
+				// Utilise le temps global pour calculer l'angle actuel
+				const currentAngle = (initialAngle + globalElapsed * 3) % 360 // 3deg/s exactement comme l'animation CSS
 
-		// Check on component mount
-		checkIsMobile()
+				const cosValue = Math.cos((currentAngle * Math.PI) / 180)
+				const sinValue = Math.sin((currentAngle * Math.PI) / 180)
 
-		// Listen to resize events
-		window.addEventListener('resize', checkIsMobile)
+				const zIndex = Math.round(100 + 50 * cosValue)
+				const opacity = Math.max(0.4, Math.min(1, 0.4 + 0.6 * ((1 + sinValue) / 2)))
 
-		return () => {
-			window.removeEventListener('resize', checkIsMobile)
-		}
-	}, [])
+				setVisualProps({ zIndex, opacity })
 
-	// Hook to manage automatic orbit rotation (Solution 3: reduced frequency)
-	useEffect(() => {
-		let rotationTimer: NodeJS.Timeout
+				if (autoRotate) {
+					animationId = requestAnimationFrame(updateVisualProps)
+				}
+			}
 
-		if (autoRotate) {
-			// Creates an interval that updates rotation angle every 100ms (reduced from 50ms)
-			rotationTimer = setInterval(() => {
-				setRotationAngle(prev => {
-					// Increments angle by 0.3 degrees and keeps within [0, 360[ range
-					const newAngle = (prev + 0.3) % 360
-					// Rounds to 3 decimal places to avoid floating point precision errors
-					return Number(newAngle.toFixed(3))
-				})
-			}, 100) // 100ms = 10 FPS instead of 20 FPS for better performance
-		}
+			updateVisualProps()
 
-		return () => {
-			clearInterval(rotationTimer) // Cleans up the interval
-		}
-	}, [autoRotate])
+			return () => {
+				if (animationId) cancelAnimationFrame(animationId)
+			}
+		}, [autoRotate, initialAngle, isExpanded, globalElapsed])
 
-	// Centers the view on a specific node by calculating the optimal angle
-	const centerViewOnNode = (nodeId: number) => {
-		const nodeRef = nodeRefs.current[nodeId]
-		if (!nodeRef) return
+		const getNodeStyling = useCallback(() => {
+			if (isExpanded) {
+				return 'border-primary bg-primary/70 text-primary-foreground shadow-primary/50 scale-115 shadow-lg'
+			}
+			if (isRelated) {
+				return 'border-primary bg-primary/70 text-primary-foreground animate-pulse'
+			}
+			return 'border-muted bg-card/90 text-muted-foreground'
+		}, [isExpanded, isRelated])
 
-		// Finds the node index in the data array
-		const nodeIndex = timelineData.findIndex(item => item.id === nodeId)
-		const totalNodes = timelineData.length
+		const handleClick = useCallback(
+			(e: React.MouseEvent) => {
+				e.stopPropagation()
+				console.log('🔥 Click sur:', item.title) // Debug pour vérifier les clics
+				onToggle(item.id)
+			},
+			[item.id, onToggle]
+		)
 
-		// Calculates target angle: divides circle into equal parts based on number of nodes
-		const targetAngle = (nodeIndex / totalNodes) * 360
-
-		// Adjusts angle to center the node (270° = top of circle)
-		setRotationAngle(270 - targetAngle)
-	}
-
-	// Calculates the exact position of each node on the orbit (optimized with pre-calculated values)
-	const calculateNodePosition = useCallback(
-		(index: number, total: number) => {
-			// Calculates this node's angle based on its position and current rotation
-			const angle = ((index / total) * 360 + rotationAngle) % 360
-
-			// Orbit radius (smaller on mobile to fit small screens)
-			const radius = isMobile ? 160 : 200
-
-			// Converts angle to radians for trigonometric calculations
-			const radian = (angle * Math.PI) / 180
-
-			// Uses pre-calculated trigonometric values for better performance
-			const angleIndex = Math.round(angle / 0.3) % sinValues.length
-			const sinValue = sinValues[angleIndex] || Math.sin(radian)
-			const cosValue = cosValues[angleIndex] || Math.cos(radian)
-
-			// Calculates X and Y coordinates using pre-calculated values
-			// X = radius × cosine(angle), Y = radius × sine(angle)
-			// Rounds to 3 decimal places to avoid rendering issues
-			const x = Number((radius * cosValue).toFixed(3))
-			const y = Number((radius * sinValue).toFixed(3))
-
-			// Calculates z-index to create 3D depth effect
-			// The more the node is "in front" (positive cosine), the higher the z-index
-			const zIndex = Math.round(100 + 50 * cosValue)
-
-			// Calculates opacity to create visual depth effect
-			// Nodes "in front" are more opaque, those "behind" are more transparent
-			const opacity = Number(Math.max(0.4, Math.min(1, 0.4 + 0.6 * ((1 + sinValue) / 2))).toFixed(3))
-
-			return { zIndex, y, x, opacity, angle }
-		},
-		[rotationAngle, isMobile, sinValues, cosValues]
-	)
-
-	// Memoize node positions to avoid recalculating on every render (Solution 1)
-	const nodePositions = useMemo(() => {
-		return timelineData.map((_, index) => calculateNodePosition(index, timelineData.length))
-	}, [timelineData.length, calculateNodePosition])
-
-	// Gets the list of IDs of items related to a given item
-	const getRelatedItems = (itemId: number): number[] => {
-		const currentItem = timelineData.find(item => item.id === itemId)
-		return currentItem ? currentItem.relatedIds : []
-	}
-
-	// Checks if an item is related to the currently active element
-	const isRelatedToActive = (itemId: number): boolean => {
-		if (activeNodeId === null) return false
-		const relatedItems = getRelatedItems(activeNodeId)
-		return relatedItems.includes(itemId)
-	}
-
-	// Determines the CSS style of a node based on its state
-	const getNodeStyling = (isExpanded: boolean, isRelated: boolean): string => {
-		if (isExpanded) {
-			// Style for expanded item: primary border, semi-transparent background, shadow
-			return 'border-primary bg-primary/70 text-primary-foreground shadow-primary/50 scale-115 shadow-lg'
-		}
-		if (isRelated) {
-			// Style for related items: primary border, semi-transparent background, pulse
-			return 'border-primary bg-primary/70 text-primary-foreground animate-pulse'
-		}
-		// Default style: muted border, semi-transparent background
-		return 'border-muted bg-card/90 text-muted-foreground'
-	}
-
-	return (
-		<div
-			aria-label="Close expanded timeline items"
-			className="bg-background z-40 flex min-h-128 w-full -translate-x-2 flex-col items-center justify-center md:translate-x-0"
-			onClick={handleContainerClick}
-			onKeyDown={e => {
+		const handleKeyDown = useCallback(
+			(e: React.KeyboardEvent) => {
 				if (e.key === 'Enter' || e.key === ' ') {
 					e.preventDefault()
-					handleContainerClick(e)
+					e.stopPropagation()
+					onToggle(item.id)
 				}
-			}}
-			ref={containerRef}
-			role="button"
-			tabIndex={0}
-		>
-			<div className="relative flex h-full w-full max-w-6xl items-center justify-center md:scale-100">
-				{/* Main orbit container with 3D optimizations */}
+			},
+			[item.id, onToggle]
+		)
+
+		return (
+			<div
+				ref={nodeRef}
+				className={`absolute transition-opacity duration-700 ${autoRotate ? 'orbital-node' : ''}`}
+				style={
+					{
+						zIndex: visualProps.zIndex,
+						willChange: 'transform, opacity',
+						transform: `translate3d(${x}px, ${y}px, 0) rotate(${autoRotate ? -globalElapsed * 3 : -frozenRotation}deg)`, // Garde la rotation figée quand arrêté
+						opacity: isExpanded ? 1 : visualProps.opacity,
+						'--y-position': `${y}px`,
+						'--x-position': `${x}px`,
+						'--orbit-radius': `${radius}px`,
+						'--initial-angle': `${initialAngle}deg`,
+					} as React.CSSProperties
+				}
+			>
+				{/* Pulse effect */}
+				{isPulsing && (
+					<div
+						className="absolute -inset-1 animate-pulse rounded-full duration-1000"
+						style={{
+							width: `${item.energy * 0.5 + 50}px`,
+							top: `-${(item.energy * 0.5 + 50 - 40) / 2}px`,
+							left: `-${(item.energy * 0.5 + 50 - 40) / 2}px`,
+							height: `${item.energy * 0.5 + 50}px`,
+							background: `radial-gradient(circle, hsl(var(--primary) / 0.3) 0%, hsl(var(--primary) / 0) 70%)`,
+						}}
+					/>
+				)}
+
+				{/* Node with icon */}
 				<div
-					className="absolute flex h-full w-full items-center justify-center"
-					ref={orbitRef}
-					style={{
-						willChange: 'transform', // Tells browser that transform property will change
-						transformStyle: 'preserve-3d', // Optimizes 3D transformations
-						perspective: '1000px', // Creates 3D depth effect
+					className={`flex h-12 w-12 transform cursor-pointer items-center justify-center rounded-full border-2 transition-all duration-300 ${getNodeStyling()}`}
+					onClick={handleClick}
+					onKeyDown={handleKeyDown}
+					role="button"
+					tabIndex={0}
+					aria-label={`Icon for ${item.title}`}
+					style={{ pointerEvents: 'auto' }}
+				>
+					<div style={{ pointerEvents: 'none' }}>
+						<Icon size={20} />
+					</div>
+				</div>
+
+				{/* Node title */}
+				<div
+					className={`absolute top-14 cursor-pointer text-center text-xs font-semibold tracking-wider whitespace-nowrap transition-all duration-300 ${
+						isExpanded ? 'text-foreground scale-125' : 'text-muted-foreground'
+					}`}
+					onClick={handleClick}
+					onKeyDown={handleKeyDown}
+					role="button"
+					tabIndex={0}
+					aria-label={`Title: ${item.title}`}
+					style={{ 
+						pointerEvents: 'auto',
+						padding: '4px 8px', // Zone de clic plus large
+						minWidth: '60px',
+						backgroundColor: 'rgba(255, 0, 0, 0.1)' // Debug: fond rouge temporaire
 					}}
 				>
-					{/* Orbit center with logo and pulse rings */}
-					<div className="z-10 flex h-20 w-20 items-center justify-center rounded-full">
-						<Image alt="logo" height={100} src="/beswib.svg" width={100} />
-						{/* First pulse ring (closer to center) */}
-						<div className="border-primary-foreground/20 absolute h-24 w-24 animate-[ping_2s_ease-in-out_infinite] rounded-full border opacity-70"></div>
-						{/* Second pulse ring (further from center) */}
-						<div className="border-primary-foreground/10 absolute h-28 w-28 animate-[ping_2s_ease-in-out_infinite] rounded-full border opacity-50"></div>
-					</div>
+					{item.title}
+				</div>
 
-					{/* Orbit ring (reference circle) */}
-					<div
-						className={`border-border/30 absolute rounded-full border ${isMobile ? 'h-72 w-72' : 'h-96 w-96'}`}
-					></div>
-
-					{/* Rendering of all timeline nodes using memoized positions */}
-					{timelineData.map((item, index) => {
-						// Use memoized position instead of recalculating
-						const position = nodePositions[index]
-
-						// Determines the state of this node
-						const isExpanded = expandedItems[item.id]
-						const isRelated = isRelatedToActive(item.id)
-						const isPulsing = Boolean(pulseEffect[item.id])
-						const Icon = item.icon
-
-						// Dynamic node style with performance optimizations
-						const nodeStyle = {
-							zIndex: isExpanded ? 200 : position.zIndex, // High z-index for expanded element
-							willChange: 'transform, opacity' as const, // Tells browser which properties will change
-							transformStyle: 'preserve-3d' as const, // Optimizes 3D transformations
-							transform: `translate3d(${position.x}px, ${position.y}px, 0px)`, // 3D position with hardware acceleration
-							opacity: isExpanded ? 1 : position.opacity, // Maximum opacity for expanded element
-							backfaceVisibility: 'hidden' as const, // Hides back faces to optimize performance
-						}
-
-						return (
-							<div
-								aria-expanded={isExpanded}
-								aria-label={`Timeline item: ${item.title}. ${item.content}`}
-								className="absolute cursor-pointer transition-all duration-700"
-								key={item.id}
-								onClick={e => {
-									e.stopPropagation() // Prevents container from closing
-									toggleItem(item.id)
-								}}
-								onKeyDown={e => {
-									if (e.key === 'Enter' || e.key === ' ') {
-										e.preventDefault()
-										e.stopPropagation()
-										toggleItem(item.id)
-									}
-								}}
-								ref={el => {
-									nodeRefs.current[item.id] = el // Stores DOM reference
-								}}
-								role="button"
-								suppressHydrationWarning
-								style={nodeStyle}
-								tabIndex={0}
-							>
-								{/* Pulse effect around the node (for related items) */}
-								<div
-									className={`absolute -inset-1 rounded-full ${isPulsing ? 'animate-pulse duration-1000' : ''}`}
-									style={{
-										// Dynamic size based on item energy
-										width: `${item.energy * 0.5 + 50}px`,
-										top: `-${(item.energy * 0.5 + 50 - 40) / 2}px`, // Centers effect on node
-										left: `-${(item.energy * 0.5 + 50 - 40) / 2}px`,
-										height: `${item.energy * 0.5 + 50}px`,
-										// Radial gradient for pulse effect
-										background: `radial-gradient(circle, hsl(var(--primary) / 0.3) 0%, hsl(var(--primary) / 0) 70%)`,
-									}}
-								></div>
-
-								{/* Main node with icon */}
-								<div
-									className={`flex h-12 w-12 transform items-center justify-center rounded-full border-2 transition-all duration-300 ${getNodeStyling(
-										isExpanded,
-										isRelated
-									)}`}
-								>
-									<Icon size={20} />
-								</div>
-
-								{/* Node title (always visible) */}
-								<div
-									className={`absolute top-14 text-center text-xs font-semibold tracking-wider whitespace-nowrap transition-all duration-300 ${isExpanded ? 'text-foreground scale-125' : 'text-muted-foreground'}`}
-								>
-									{item.title}
-								</div>
-
-								{/* Expansion card with details (only visible if expanded) */}
-								{isExpanded && (
-									<Card className="border-primary/30 bg-card/95 shadow-primary/20 absolute top-20 left-1/2 w-72 -translate-x-1/2 overflow-visible shadow-xl backdrop-blur-lg">
-										{/* Connection line between node and card */}
-										<div className="bg-primary/50 absolute -top-3 left-1/2 h-3 w-px -translate-x-1/2"></div>
-										<CardHeader className="pb-2">
-											<div className="flex items-center justify-between">
-												<CardTitle className="text-foreground mt-2 text-sm">{item.title}</CardTitle>
-												<span className="text-muted-foreground font-mono text-xs">{item.date}</span>
-											</div>
-										</CardHeader>
-										<CardContent className="text-muted-foreground text-xs">
-											<p>{item.content}</p>
-										</CardContent>
-									</Card>
-								)}
+				{/* Expansion card */}
+				{isExpanded && (
+					<Card
+						className="border-primary/30 bg-card/95 shadow-primary/20 absolute left-1/2 w-72 -translate-x-1/2 overflow-visible shadow-xl backdrop-blur-lg"
+						style={{
+							top: '5rem', // Position fixe en bas du nœud
+							// Pas de rotation - la popup reste toujours droite
+						}}
+					>
+						<div className="bg-primary/50 absolute -top-3 left-1/2 h-3 w-px -translate-x-1/2"></div>
+						<CardHeader className="pb-2">
+							<div className="flex items-center justify-between">
+								<CardTitle className="text-foreground mt-2 text-sm">{item.title}</CardTitle>
+								<span className="text-muted-foreground font-mono text-xs">{item.date}</span>
 							</div>
-						)
-					})}
+						</CardHeader>
+						<CardContent className="text-muted-foreground text-xs">
+							<p>{item.content}</p>
+						</CardContent>
+					</Card>
+				)}
+			</div>
+		)
+	},
+	(prevProps, nextProps) => {
+		// Comparaison personnalisée pour éviter les re-renders inutiles
+		return (
+			prevProps.isExpanded === nextProps.isExpanded &&
+			prevProps.isRelated === nextProps.isRelated &&
+			prevProps.isPulsing === nextProps.isPulsing &&
+			prevProps.isMobile === nextProps.isMobile &&
+			prevProps.autoRotate === nextProps.autoRotate &&
+			prevProps.item.id === nextProps.item.id &&
+			prevProps.globalElapsed === nextProps.globalElapsed &&
+			prevProps.frozenRotation === nextProps.frozenRotation
+		)
+	}
+)
+
+OrbitalNode.displayName = 'OrbitalNode'
+
+export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTimelineProps) {
+	// Données de test par défaut si aucune donnée n'est fournie
+	const defaultTimelineData: TimelineItem[] = [
+		{
+			title: 'Sécurité',
+			status: 'completed' as const,
+			relatedIds: [2, 3],
+			id: 1,
+			icon: () => <div className="text-2xl">🔒</div>,
+			energy: 80,
+			date: '2024',
+			content: 'Protection des données et transactions sécurisées',
+			category: 'security',
+		},
+		{
+			title: 'Confiance',
+			status: 'completed' as const,
+			relatedIds: [1, 4],
+			id: 2,
+			icon: () => <div className="text-2xl">👥</div>,
+			energy: 75,
+			date: '2024',
+			content: 'Système de validation et vérification des utilisateurs',
+			category: 'trust',
+		},
+		{
+			title: 'Recherche',
+			status: 'in-progress' as const,
+			relatedIds: [1, 5],
+			id: 3,
+			icon: () => <div className="text-2xl">🔍</div>,
+			energy: 90,
+			date: '2024',
+			content: 'Moteur de recherche avancé pour les événements',
+			category: 'search',
+		},
+		{
+			title: 'Rentabilité',
+			status: 'completed' as const,
+			relatedIds: [2, 6],
+			id: 4,
+			icon: () => <div className="text-2xl">💰</div>,
+			energy: 85,
+			date: '2024',
+			content: 'Optimisation des prix et gestion des commissions',
+			category: 'profitability',
+		},
+	]
+
+	const finalTimelineData = timelineData.length > 0 ? timelineData : defaultTimelineData
+
+	const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({})
+	const [autoRotate, setAutoRotate] = useState<boolean>(true)
+	const [pulseEffect, setPulseEffect] = useState<Record<number, boolean>>({})
+	const [activeNodeId, setActiveNodeId] = useState<null | number>(null)
+	const [isMobile, setIsMobile] = useState<boolean>(false)
+	// Système de temps simple - reset complet
+	const [globalElapsed, setGlobalElapsed] = useState<number>(0)
+	// État pour figer la rotation au moment du clic
+	const [frozenRotation, setFrozenRotation] = useState<number>(0)
+
+	const containerRef = useRef<HTMLDivElement>(null)
+	const orbitRef = useRef<HTMLDivElement>(null)
+
+	// Gestion du mobile
+	useEffect(() => {
+		const checkIsMobile = () => setIsMobile(window.innerWidth < 768)
+		checkIsMobile()
+
+		const handleResize = () => checkIsMobile()
+		window.addEventListener('resize', handleResize, { passive: true })
+		return () => window.removeEventListener('resize', handleResize)
+	}, [])
+
+	// Référence du temps de démarrage pour synchronisation avec l'animation CSS
+	const startTimeRef = useRef<number>(Date.now())
+
+	// Système de temps synchronisé avec l'animation CSS
+	useEffect(() => {
+		if (!autoRotate) {
+			return
+		}
+
+		// Si c'est la première fois ou si on a un frozenRotation, on ajuste
+		if (frozenRotation > 0) {
+			// Reprendre de la rotation figée
+			startTimeRef.current = Date.now() - (frozenRotation / 3) * 1000
+		} else if (globalElapsed === 0) {
+			// Premier démarrage ou refresh - synchroniser avec l'animation CSS
+			startTimeRef.current = Date.now()
+		}
+		// Sinon on garde le startTime existant pour éviter les sauts
+
+		const interval = setInterval(() => {
+			const elapsed = (Date.now() - startTimeRef.current) / 1000
+			setGlobalElapsed(elapsed)
+		}, 16) // ~60fps
+
+		// Reset le frozenRotation après 2 secondes de rotation normale
+		const resetTimeout = setTimeout(() => {
+			if (frozenRotation > 0) {
+				setFrozenRotation(0)
+			}
+		}, 2000)
+
+		return () => {
+			clearInterval(interval)
+			clearTimeout(resetTimeout)
+		}
+	}, [autoRotate, frozenRotation])
+
+	// Handler optimisé avec useCallback
+	const handleContainerClick = useCallback(
+		(e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
+			if (e.target === containerRef.current || e.target === orbitRef.current) {
+				setExpandedItems({})
+				setActiveNodeId(null)
+				setPulseEffect({})
+				// Pas de reset brutal - on reprend juste la rotation normale
+				setAutoRotate(true)
+				// Le frozenRotation reste jusqu'à la prochaine rotation
+			}
+		},
+		[]
+	)
+
+	// Toggle optimisé
+	const toggleItem = useCallback(
+		(id: number) => {
+			setExpandedItems(prev => {
+				const newState: Record<number, boolean> = {}
+				const wasExpanded = prev[id]
+
+				if (!wasExpanded) {
+					newState[id] = true
+					setActiveNodeId(id)
+					// Figer la rotation actuelle au moment du clic
+					setFrozenRotation(globalElapsed * 3)
+					setAutoRotate(false)
+
+					const item = finalTimelineData.find(i => i.id === id)
+					if (item) {
+						const newPulseEffect: Record<number, boolean> = {}
+						item.relatedIds.forEach(relId => {
+							newPulseEffect[relId] = true
+						})
+						setPulseEffect(newPulseEffect)
+					}
+				} else {
+					setActiveNodeId(null)
+					setAutoRotate(true)
+					setPulseEffect({})
+				}
+
+				return newState
+			})
+		},
+		[finalTimelineData, globalElapsed]
+	)
+
+	// Mémoisation des relations
+	const relatedItemsMap = useMemo(() => {
+		const map = new Map<number, Set<number>>()
+		finalTimelineData.forEach(item => {
+			map.set(item.id, new Set(item.relatedIds))
+		})
+		return map
+	}, [finalTimelineData])
+
+	const isRelatedToActive = useCallback(
+		(itemId: number): boolean => {
+			if (activeNodeId === null) return false
+			const relatedSet = relatedItemsMap.get(activeNodeId)
+			return relatedSet?.has(itemId) ?? false
+		},
+		[activeNodeId, relatedItemsMap]
+	)
+
+	return (
+		<>
+			<style jsx global>{`
+				.orbital-node {
+					transform: rotate(var(--initial-angle)) translateX(var(--orbit-radius))
+						rotate(calc(-1 * var(--initial-angle)));
+					transform-origin: center;
+				}
+			`}</style>
+
+			<div
+				ref={containerRef}
+				className="bg-background z-40 flex min-h-128 w-full -translate-x-2 flex-col items-center justify-center md:translate-x-0"
+				onClick={handleContainerClick}
+				onKeyDown={e => {
+					if (e.key === 'Enter' || e.key === ' ') {
+						e.preventDefault()
+						handleContainerClick(e)
+					}
+				}}
+				role="button"
+				tabIndex={0}
+				aria-label="Close expanded timeline items"
+			>
+				<div className="relative flex h-full w-full max-w-6xl items-center justify-center md:scale-100">
+					<div
+						ref={orbitRef}
+						className="absolute flex h-full w-full items-center justify-center"
+						style={{
+							transition: 'transform 0.1s linear',
+							transformStyle: 'preserve-3d',
+							transform: autoRotate ? `rotate(${globalElapsed * 3}deg)` : `rotate(${frozenRotation}deg)`,
+							perspective: '1000px',
+						}}
+					>
+						{/* Center logo */}
+						<div
+							className="z-10 flex h-20 w-20 items-center justify-center rounded-full"
+							style={{
+								transition: 'transform 0.1s linear',
+								transform: autoRotate ? `rotate(${-globalElapsed * 3}deg)` : `rotate(${-frozenRotation}deg)`, // Garde la rotation figée
+							}}
+						>
+							<Image alt="logo" height={100} src="/beswib.svg" width={100} />
+							<div className="border-primary-foreground/20 absolute h-24 w-24 animate-[ping_2s_ease-in-out_infinite] rounded-full border opacity-70"></div>
+							<div className="border-primary-foreground/10 absolute h-28 w-28 animate-[ping_2s_ease-in-out_infinite] rounded-full border opacity-50"></div>
+						</div>
+
+						{/* Orbit ring */}
+						<div className={`border-border/30 absolute rounded-full border ${isMobile ? 'h-72 w-72' : 'h-96 w-96'}`} />
+
+						{/* Nodes */}
+						{finalTimelineData.map((item, index) => (
+							<OrbitalNode
+								key={item.id}
+								item={item}
+								index={index}
+								total={finalTimelineData.length}
+								isExpanded={expandedItems[item.id] || false}
+								isRelated={isRelatedToActive(item.id)}
+								isPulsing={pulseEffect[item.id] || false}
+								isMobile={isMobile}
+								onToggle={toggleItem}
+								autoRotate={autoRotate}
+								globalElapsed={globalElapsed}
+								frozenRotation={frozenRotation}
+							/>
+						))}
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }

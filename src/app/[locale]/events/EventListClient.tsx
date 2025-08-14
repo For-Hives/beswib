@@ -12,13 +12,13 @@ import type { Event } from '@/models/event.model'
 
 import { TriathlonIcon, TrailIcon, RouteIcon, CycleIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
 import { fetchAvailableBibsForEvent } from '@/services/bib.services'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Timeline } from '@/components/ui/timeline'
 import { Input } from '@/components/ui/inputAlt'
-import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
 
 import Translations from './locales.json'
 
