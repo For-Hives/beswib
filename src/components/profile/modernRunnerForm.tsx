@@ -182,7 +182,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<UserIcon className="text-primary h-5 w-5" />
-							Personal Information
+							{t.personalInfo ?? 'Personal Information'}
 						</CardTitle>
 					</CardHeader>
 					<CardContent className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -304,7 +304,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<Shield className="text-primary h-5 w-5" />
-							Emergency Contact
+							{t.emergencySection ?? 'Emergency Contact'}
 						</CardTitle>
 					</CardHeader>
 					<CardContent className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -372,7 +372,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<MapPin className="text-primary h-5 w-5" />
-							Address Information
+							{t.addressSection ?? 'Address Information'}
 						</CardTitle>
 					</CardHeader>
 					<CardContent className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -449,8 +449,8 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<FileText className="text-primary h-5 w-5" />
-							Documents & Affiliations
-							<span className="text-muted-foreground text-sm font-normal">(Optional)</span>
+							{t.documentsSection ?? 'Documents & Affiliations'}
+							<span className="text-muted-foreground text-sm font-normal">{t.optional ?? '(Optional)'}</span>
 						</CardTitle>
 					</CardHeader>
 					<CardContent className="grid grid-cols-1 gap-6">
