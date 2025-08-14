@@ -69,7 +69,7 @@ const isProtectedRoute = createRouteMatcher([
 // Define public routes that should redirect authenticated users away
 const isPublicAuthRoute = createRouteMatcher(['/(.*)/sign-in(.*)', '/(.*)/sign-up(.*)', '/(.*)/forgot-password'])
 
-export default clerkMiddleware((auth, request: NextRequest) => {
+export default clerkMiddleware(async (auth, request: NextRequest) => {
 	const { pathname } = request.nextUrl
 
 	// Check if there is any supported locale in the pathname 🗺️
@@ -86,16 +86,14 @@ export default clerkMiddleware((auth, request: NextRequest) => {
 	const currentLocale =
 		i18n.locales.find(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) ?? i18n.defaultLocale
 
-	// Get auth once for both checks
-	const authResult = auth()
-
 	// Protect routes that require authentication
 	if (isProtectedRoute(request)) {
-		authResult.protect()
+		await auth.protect()
 	}
 
 	// Redirect authenticated users away from auth pages
-	if (isPublicAuthRoute(request) && authResult.userId) {
+	const { userId } = await auth()
+	if (isPublicAuthRoute(request) && typeof userId === 'string' && userId.length > 0) {
 		return NextResponse.redirect(new URL(`/${currentLocale}/dashboard`, request.url))
 	}
 

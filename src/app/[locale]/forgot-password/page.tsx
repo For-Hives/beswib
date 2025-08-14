@@ -2,17 +2,15 @@
 
 import { useState, useEffect } from 'react'
 
-import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
-
 import { useAuth, useSignIn } from '@clerk/nextjs'
+import Link from 'next/link'
 
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/inputAlt'
 import mainLocales from '@/app/[locale]/locales.json'
-import { translateClerkError } from '@/lib/clerkErrorTranslations'
 import { getTranslations } from '@/lib/getDictionary'
+import { Input } from '@/components/ui/inputAlt'
+import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n-config'
 
 export default function ForgotPasswordPage() {
@@ -30,6 +28,31 @@ export default function ForgotPasswordPage() {
 	const params = useParams()
 	const locale = ((params?.locale as string) || 'en') as Locale
 	const t = getTranslations(locale, mainLocales).auth
+	const { clerkErrors: errorsT } = getTranslations(locale, mainLocales) as {
+		clerkErrors: Record<string, string>
+	}
+
+	function translateClerkErrorLocal(error: unknown): string {
+		const e = (error ?? {}) as Partial<{
+			code: string
+			message: string
+			errors: Array<Partial<{ code: string; message: string; longMessage: string }>>
+		}>
+		const code = e.code ?? e.errors?.[0]?.code
+		const message = e.message ?? e.errors?.[0]?.message ?? e.errors?.[0]?.longMessage
+		if (typeof code === 'string' && errorsT[code]) return errorsT[code]
+		if (typeof message === 'string') {
+			const m = message.toLowerCase()
+			if (m.includes('password') && m.includes('incorrect')) return errorsT.form_password_incorrect
+			if (m.includes('email') && m.includes('not found')) return errorsT.form_identifier_not_found
+			if (m.includes('already exists') || m.includes('already taken')) return errorsT.form_identifier_exists
+			if (m.includes('verification') && m.includes('code')) return errorsT.form_code_incorrect
+			if (m.includes('expired')) return errorsT.verification_expired
+			if (m.includes('rate limit') || m.includes('too many')) return errorsT.too_many_requests
+			return message
+		}
+		return errorsT.default_error
+	}
 
 	// Redirect if already signed in
 	useEffect(() => {
@@ -51,7 +74,7 @@ export default function ForgotPasswordPage() {
 				setError('')
 			})
 			.catch((err: any) => {
-				const msg = translateClerkError(err, locale)
+				const msg = translateClerkErrorLocal(err)
 				console.error('error', msg)
 				setError(msg)
 			})
@@ -82,7 +105,7 @@ export default function ForgotPasswordPage() {
 				}
 			})
 			.catch((err: any) => {
-				const msg = translateClerkError(err, locale)
+				const msg = translateClerkErrorLocal(err)
 				console.error('error', msg)
 				setError(msg)
 			})
