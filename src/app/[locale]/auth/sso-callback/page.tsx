@@ -21,7 +21,7 @@ export default function SSOCallbackPage({ params }: { params: Promise<{ locale: 
 				router.push(`/${locale}/dashboard`)
 			} else {
 				// Something went wrong, redirect to sign in
-				router.push(`/${locale}/sign-in`)
+				router.push(`/${locale}/auth/sign-in`)
 			}
 		}
 	}, [isLoaded, isSignedIn, router, locale])

@@ -203,7 +203,7 @@ export default function ForgotPasswordPage() {
 
 				<div className="text-center">
 					<Link
-						href={`/${locale}/sign-in`}
+						href={`/${locale}/auth/sign-in`}
 						className="text-muted-foreground hover:text-foreground text-sm transition-colors"
 					>
 						{t.forgotPassword.backToSignIn}

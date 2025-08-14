@@ -67,7 +67,7 @@ const isProtectedRoute = createRouteMatcher([
 ])
 
 // Define public routes that should redirect authenticated users away
-const isPublicAuthRoute = createRouteMatcher(['/(.*)/sign-in(.*)', '/(.*)/sign-up(.*)', '/(.*)/forgot-password'])
+const isPublicAuthRoute = createRouteMatcher(['/(.*)/auth/sign-in(.*)', '/(.*)/auth/sign-up(.*)', '/(.*)/auth/forgot-password'])
 
 export default clerkMiddleware(async (auth, request: NextRequest) => {
 	const { pathname } = request.nextUrl
