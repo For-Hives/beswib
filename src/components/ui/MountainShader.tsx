@@ -48,7 +48,7 @@ function useAutoCamera() {
 
 		// Add larger margin for better visual composition with increased coverage
 		// This ensures the larger geometry is properly framed
-		distanceZ *= 1.9
+		distanceZ *= 1.8
 
 		// Y position to center the landscape vertically
 		// Mountains are at posY = 0.3, so we lower the camera slightly
@@ -534,7 +534,7 @@ export default function MountainShader({ className = '' }: MountainShaderProps) 
 
 				// Use a larger multiplier to ensure complete coverage
 				// This prevents any gaps or empty spaces around the edges
-				const coverageMultiplier = 3
+				const coverageMultiplier = 2.6
 				setContainerSize({
 					width: finalWidth * coverageMultiplier,
 					height: finalHeight * coverageMultiplier,

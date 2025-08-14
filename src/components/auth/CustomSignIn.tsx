@@ -7,7 +7,6 @@ import { useSignIn } from '@clerk/nextjs'
 import Link from 'next/link'
 
 import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation-valibot'
-import { translateClerkError } from '@/lib/clerkErrorTranslations'
 import { getTranslations } from '@/lib/getDictionary'
 import { FormInput } from '@/components/ui/FormInput'
 import mainLocales from '@/app/[locale]/locales.json'

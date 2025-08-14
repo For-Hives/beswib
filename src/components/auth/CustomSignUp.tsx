@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { useRouter, useParams } from 'next/navigation'
 import { useSignUp } from '@clerk/nextjs'
+import { FieldError } from '@/types/auth'
 import Link from 'next/link'
 
 import {
@@ -14,14 +15,12 @@ import {
 	validateConfirmPasswordValibot,
 } from '@/lib/validation-valibot'
 import { PasswordStrength } from '@/components/ui/PasswordStrength'
-import { translateClerkError } from '@/lib/clerkErrorTranslations'
 import { getTranslations } from '@/lib/getDictionary'
 import { FormInput } from '@/components/ui/FormInput'
+import mainLocales from '@/app/[locale]/locales.json'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
 import { Locale } from '@/lib/i18n-config'
-import mainLocales from '@/app/[locale]/locales.json'
-import { FieldError } from '@/types/auth'
 
 export default function CustomSignUp() {
 	const { signUp, setActive, isLoaded } = useSignUp()
@@ -32,11 +31,11 @@ export default function CustomSignUp() {
 
 	// Local state instead of global store
 	const [formData, setFormData] = useState({
-		firstName: '',
-		lastName: '',
-		email: '',
 		password: '',
-		confirmPassword: ''
+		lastName: '',
+		firstName: '',
+		email: '',
+		confirmPassword: '',
 	})
 	const [verificationCode, setVerificationCode] = useState('')
 	const [pendingVerification, setPendingVerification] = useState(false)
@@ -55,14 +54,14 @@ export default function CustomSignUp() {
 
 	// Validate fields in real-time
 	const validateField = (field: keyof typeof formData | 'verificationCode', value: string) => {
-		let error = null
+		let error: FieldError | null = null
 
 		switch (field) {
 			case 'firstName':
-				error = validateNameValibot(value, t.signUp.firstNameLabel.toLowerCase(), locale)
+				error = validateNameValibot(value, t.signUp.firstNameLabel.toString().toLowerCase(), locale)
 				break
 			case 'lastName':
-				error = validateNameValibot(value, t.signUp.lastNameLabel.toLowerCase(), locale)
+				error = validateNameValibot(value, t.signUp.lastNameLabel.toString().toLowerCase(), locale)
 				break
 			case 'email':
 				error = validateEmailValibot(value, locale)
@@ -80,7 +79,7 @@ export default function CustomSignUp() {
 
 		setFieldErrors(prev => ({
 			...prev,
-			[field]: error
+			[field]: error,
 		}))
 		return error === null
 	}
@@ -151,10 +150,10 @@ export default function CustomSignUp() {
 
 		try {
 			await signUp.create({
-				firstName: formData.firstName,
-				lastName: formData.lastName,
-				emailAddress: formData.email,
 				password: formData.password,
+				lastName: formData.lastName,
+				firstName: formData.firstName,
+				emailAddress: formData.email,
 			})
 
 			// Prepare email verification
@@ -169,7 +168,7 @@ export default function CustomSignUp() {
 			if (err.errors?.[0]?.code === 'form_identifier_exists') {
 				setFieldErrors(prev => ({
 					...prev,
-					email: { message: translateClerkError(err, locale), code: 'exists' }
+					email: { message: translateClerkError(err, locale), code: 'exists' },
 				}))
 			}
 		} finally {
@@ -207,7 +206,7 @@ export default function CustomSignUp() {
 			setGlobalError(errorMessage)
 			setFieldErrors(prev => ({
 				...prev,
-				verificationCode: { message: translateClerkError(err, locale), code: 'incorrect' }
+				verificationCode: { message: translateClerkError(err, locale), code: 'incorrect' },
 			}))
 		} finally {
 			setIsVerifying(false)
