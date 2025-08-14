@@ -23,7 +23,9 @@ export function ClerkNativeSignIn({ signUpUrl, redirectUrl }: ClerkNativeSignInP
 	const params = useParams()
 	const locale = (params?.locale as Locale) ?? 'en'
 
-	return <SignIn redirectUrl={redirectUrl ?? `/${locale}/dashboard`} signUpUrl={signUpUrl ?? `/${locale}/auth/sign-up`} />
+	return (
+		<SignIn redirectUrl={redirectUrl ?? `/${locale}/dashboard`} signUpUrl={signUpUrl ?? `/${locale}/auth/sign-up`} />
+	)
 }
 
 /**
@@ -34,5 +36,7 @@ export function ClerkNativeSignUp({ signInUrl, redirectUrl }: ClerkNativeSignUpP
 	const params = useParams()
 	const locale = (params?.locale as Locale) ?? 'en'
 
-	return <SignUp redirectUrl={redirectUrl ?? `/${locale}/dashboard`} signInUrl={signInUrl ?? `/${locale}/auth/sign-in`} />
+	return (
+		<SignUp redirectUrl={redirectUrl ?? `/${locale}/dashboard`} signInUrl={signInUrl ?? `/${locale}/auth/sign-in`} />
+	)
 }
