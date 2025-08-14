@@ -42,20 +42,20 @@ describe('waitlist.services', () => {
 
 	describe('addToWaitlist', () => {
 		it('should add a user to the waitlist', async () => {
-			mockPocketbase.getFirstListItem.mockRejectedValue({ status: 404 })
-			mockPocketbase.create.mockResolvedValue({ userId: 'user1', id: 'waitlist1', eventId: 'event1' })
+			mockPocketbaseCollection.getFirstListItem.mockRejectedValue({ status: 404 })
+			mockPocketbaseCollection.create.mockResolvedValue({ userId: 'user1', id: 'waitlist1', eventId: 'event1' })
 
 			const result = await addToWaitlist('event1', mockUser)
 
 			expect(mockPocketbase.collection).toHaveBeenCalledWith('waitlists')
-			expect(mockPocketbase.getFirstListItem).toHaveBeenCalledWith('userId = "user1" && eventId = "event1"')
-			expect(mockPocketbase.create).toHaveBeenCalled()
+			expect(mockPocketbaseCollection.getFirstListItem).toHaveBeenCalledWith('userId = "user1" && eventId = "event1"')
+			expect(mockPocketbaseCollection.create).toHaveBeenCalled()
 			expect(result).toEqual({ userId: 'user1', id: 'waitlist1', eventId: 'event1' })
 		})
 
 		it('should return an error if the user is already on the waitlist', async () => {
 			const existingEntry = { userId: 'user1', id: 'waitlist1', eventId: 'event1' }
-			mockPocketbase.getFirstListItem.mockResolvedValue(existingEntry)
+			mockPocketbaseCollection.getFirstListItem.mockResolvedValue(existingEntry)
 
 			const result = await addToWaitlist('event1', mockUser)
 
@@ -72,12 +72,12 @@ describe('waitlist.services', () => {
 	describe('fetchUserWaitlists', () => {
 		it('should fetch user waitlists', async () => {
 			const waitlists = [{ id: 'waitlist1' }, { id: 'waitlist2' }]
-			mockPocketbase.getFullList.mockResolvedValue(waitlists)
+			mockPocketbaseCollection.getFullList.mockResolvedValue(waitlists)
 
 			const result = await fetchUserWaitlists('user1')
 
 			expect(mockPocketbase.collection).toHaveBeenCalledWith('waitlists')
-			expect(mockPocketbase.getFullList).toHaveBeenCalledWith({
+			expect(mockPocketbaseCollection.getFullList).toHaveBeenCalledWith({
 				sort: '-addedAt',
 				filter: 'userId = "user1"',
 				expand: 'eventId',
