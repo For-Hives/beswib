@@ -1,19 +1,19 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
-import { useSignIn } from '@clerk/nextjs'
+import { useAuth, useSignIn } from '@clerk/nextjs'
 
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
-import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/inputAlt'
+import mainLocales from '@/app/[locale]/locales.json'
 import { translateClerkError } from '@/lib/clerkErrorTranslations'
-import { Locale } from '@/lib/i18n-config'
 import { getTranslations } from '@/lib/getDictionary'
-import authLocales from '@/components/auth/locales.json'
+import { Locale } from '@/lib/i18n-config'
 
 export default function ForgotPasswordPage() {
 	const [email, setEmail] = useState('')
@@ -25,9 +25,18 @@ export default function ForgotPasswordPage() {
 	const [complete, setComplete] = useState(false)
 
 	const { signIn, setActive } = useSignIn()
+	const { isSignedIn, isLoaded } = useAuth()
+	const router = useRouter()
 	const params = useParams()
 	const locale = ((params?.locale as string) || 'en') as Locale
-	const t = getTranslations(locale, authLocales).auth
+	const t = getTranslations(locale, mainLocales).auth
+
+	// Redirect if already signed in
+	useEffect(() => {
+		if (isLoaded && isSignedIn) {
+			router.push(`/${locale}/dashboard`)
+		}
+	}, [isLoaded, isSignedIn, router, locale])
 
 	// Send the password reset code to the user's email
 	async function create(e: React.FormEvent) {

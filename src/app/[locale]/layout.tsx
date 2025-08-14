@@ -87,6 +87,10 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 			appearance={{
 				baseTheme: shadcn,
 			}}
+			signInUrl={`/${locale}/sign-in`}
+			signUpUrl={`/${locale}/sign-up`}
+			afterSignInUrl={`/${locale}/dashboard`}
+			afterSignUpUrl={`/${locale}/dashboard`}
 		>
 			<html lang={locale}>
 				<head>

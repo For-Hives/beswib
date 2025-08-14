@@ -5,7 +5,7 @@ import { LayoutDashboard, Settings, ShoppingBag, Tag, User } from 'lucide-react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 
-import { SignedIn, SignedOut, useUser } from '@clerk/nextjs'
+import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -246,7 +246,7 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 
 			{/* User Button 👤 */}
 			<div className="px-3 py-3">
-				<ThemedUserButton />
+				<UserButton showName={false} />
 			</div>
 		</>
 	)

@@ -21,14 +21,14 @@ import { FormInput } from '@/components/ui/FormInput'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
 import { Locale } from '@/lib/i18n-config'
-import authLocales from '@/components/auth/locales.json'
+import mainLocales from '@/app/[locale]/locales.json'
 
 export default function CustomSignUp() {
 	const { signUp, setActive, isLoaded } = useSignUp()
 	const router = useRouter()
 	const params = useParams()
 	const locale = (params?.locale as Locale) || 'en'
-	const t = getTranslations(locale, authLocales).auth
+	const t = getTranslations(locale, mainLocales).auth
 
 	const {
 		verificationEmail,

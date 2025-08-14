@@ -45,6 +45,108 @@
 		"form": {
 			"valid": "Valid"
 		},
+		"auth": {
+			"fields": {
+				"email": "Email address",
+				"password": "Password",
+				"firstName": "First name",
+				"lastName": "Last name",
+				"confirmPassword": "Confirm password"
+			},
+			"placeholders": {
+				"email": "your@email.com",
+				"password": "••••••••",
+				"firstName": "John",
+				"lastName": "Doe",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Something went wrong. Please try again.",
+			"legal": {
+				"termsText": "By creating an account, you agree to our",
+				"termsOfService": "Terms of Service",
+				"privacyPolicy": "Privacy Policy",
+				"and": "and"
+			},
+			"signIn": {
+				"title": "Welcome back!",
+				"subtitle": "Sign in to your account to continue",
+				"welcome": "Welcome back!",
+				"forgotPassword": "Forgot password?",
+				"signInButton": "Sign in",
+				"signingIn": "Signing in...",
+				"signIn": "Sign in",
+				"noAccount": "No account yet?",
+				"createAccount": "Create account",
+				"continueWithGoogle": "Sign in with Google",
+				"continueWithFacebook": "Sign in with Facebook",
+				"orContinueWith": "or continue with"
+			},
+			"signUp": {
+				"title": "Create account",
+				"subtitle": "Join the Beswib community and start exchanging your bibs",
+				"firstNameLabel": "First name",
+				"firstNamePlaceholder": "John",
+				"lastNameLabel": "Last name",
+				"lastNamePlaceholder": "Doe",
+				"emailLabel": "Email address",
+				"emailPlaceholder": "your@email.com",
+				"passwordLabel": "Password",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Confirm password",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Create account",
+				"signingUp": "Creating...",
+				"alreadyAccount": "Already have an account?",
+				"signIn": "Sign in",
+				"signUpWithGoogle": "Sign up with Google",
+				"signUpWithFacebook": "Sign up with Facebook",
+				"orCreateWith": "or create account with",
+				"verifyEmail": {
+					"title": "Verify your email",
+					"subtitle": "We sent a verification code to",
+					"codeLabel": "Verification code",
+					"codePlaceholder": "123456",
+					"verifyButton": "Verify",
+					"verifying": "Verifying...",
+					"backToForm": "← Back to signup form"
+				}
+			},
+			"forgotPassword": {
+				"title": "Forgot password",
+				"subtitle": "Enter your email address to receive a reset code",
+				"emailSentSubtitle": "We sent a reset code to your email",
+				"successSubtitle": "Your password has been successfully reset!",
+				"emailLabel": "Email address",
+				"emailPlaceholder": "your@email.com",
+				"newPasswordLabel": "New password",
+				"resetCodeLabel": "Reset code",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Send code",
+				"resetPasswordButton": "Reset password",
+				"backToSignIn": "← Back to sign in",
+				"continueToDashboard": "Continue to dashboard"
+			},
+			"passwordStrength": {
+				"label": "Password strength",
+				"veryWeak": "Very weak",
+				"weak": "Weak",
+				"medium": "Medium",
+				"good": "Good",
+				"strong": "Strong",
+				"veryStrong": "Very strong",
+				"suggestions": "Suggested improvements:",
+				"atLeast8Chars": "At least 8 characters",
+				"oneLowercase": "One lowercase letter",
+				"oneUppercase": "One uppercase letter",
+				"oneNumber": "One number",
+				"oneSpecialChar": "One special character (optional)"
+			},
+			"common": {
+				"loading": "Loading...",
+				"redirecting": "Redirecting...",
+				"valid": "Valid"
+			}
+		},
 		"runs": [
 			{
 				"name": "Nantes Marathon",
@@ -113,6 +215,108 @@
 		},
 		"form": {
 			"valid": "Valide"
+		},
+		"auth": {
+			"fields": {
+				"email": "Adresse email",
+				"password": "Mot de passe",
+				"firstName": "Prénom",
+				"lastName": "Nom",
+				"confirmPassword": "Confirmer le mot de passe"
+			},
+			"placeholders": {
+				"email": "votre@email.com",
+				"password": "••••••••",
+				"firstName": "Jean",
+				"lastName": "Dupont",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Quelque chose s'est mal passé. Veuillez réessayer.",
+			"legal": {
+				"termsText": "En créant un compte, vous acceptez nos",
+				"termsOfService": "Conditions d'utilisation",
+				"privacyPolicy": "Politique de confidentialité",
+				"and": "et"
+			},
+			"signIn": {
+				"title": "Bon retour !",
+				"subtitle": "Connectez-vous à votre compte pour continuer",
+				"welcome": "Bon retour !",
+				"forgotPassword": "Mot de passe oublié ?",
+				"signInButton": "Se connecter",
+				"signingIn": "Connexion...",
+				"signIn": "Se connecter",
+				"noAccount": "Pas encore de compte ?",
+				"createAccount": "Créer un compte",
+				"continueWithGoogle": "Se connecter avec Google",
+				"continueWithFacebook": "Se connecter avec Facebook",
+				"orContinueWith": "ou continuez avec"
+			},
+			"signUp": {
+				"title": "Créer un compte",
+				"subtitle": "Rejoignez la communauté Beswib et commencez à échanger vos dossards",
+				"firstNameLabel": "Prénom",
+				"firstNamePlaceholder": "Jean",
+				"lastNameLabel": "Nom",
+				"lastNamePlaceholder": "Dupont",
+				"emailLabel": "Adresse email",
+				"emailPlaceholder": "votre@email.com",
+				"passwordLabel": "Mot de passe",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Confirmer le mot de passe",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Créer un compte",
+				"signingUp": "Création...",
+				"alreadyAccount": "Déjà un compte ?",
+				"signIn": "Se connecter",
+				"signUpWithGoogle": "S'inscrire avec Google",
+				"signUpWithFacebook": "S'inscrire avec Facebook",
+				"orCreateWith": "ou créez un compte avec",
+				"verifyEmail": {
+					"title": "Vérifiez votre email",
+					"subtitle": "Nous avons envoyé un code de vérification à",
+					"codeLabel": "Code de vérification",
+					"codePlaceholder": "123456",
+					"verifyButton": "Vérifier",
+					"verifying": "Vérification...",
+					"backToForm": "← Retour au formulaire d'inscription"
+				}
+			},
+			"forgotPassword": {
+				"title": "Mot de passe oublié",
+				"subtitle": "Entrez votre adresse email pour recevoir un code de réinitialisation",
+				"emailSentSubtitle": "Nous avons envoyé un code de réinitialisation à votre email",
+				"successSubtitle": "Votre mot de passe a été réinitialisé avec succès !",
+				"emailLabel": "Adresse email",
+				"emailPlaceholder": "votre@email.com",
+				"newPasswordLabel": "Nouveau mot de passe",
+				"resetCodeLabel": "Code de réinitialisation",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Envoyer le code",
+				"resetPasswordButton": "Réinitialiser le mot de passe",
+				"backToSignIn": "← Retour à la connexion",
+				"continueToDashboard": "Continuer vers le tableau de bord"
+			},
+			"passwordStrength": {
+				"label": "Force du mot de passe",
+				"veryWeak": "Très faible",
+				"weak": "Faible",
+				"medium": "Moyen",
+				"good": "Bon",
+				"strong": "Fort",
+				"veryStrong": "Très fort",
+				"suggestions": "Améliorations suggérées :",
+				"atLeast8Chars": "Au moins 8 caractères",
+				"oneLowercase": "Une lettre minuscule",
+				"oneUppercase": "Une lettre majuscule",
+				"oneNumber": "Un chiffre",
+				"oneSpecialChar": "Un caractère spécial (optionnel)"
+			},
+			"common": {
+				"loading": "Chargement...",
+				"redirecting": "Redirection...",
+				"valid": "Valide"
+			}
 		},
 		"runs": [
 			{
@@ -183,6 +387,108 @@
 		"form": {
 			"valid": "Válido"
 		},
+		"auth": {
+			"fields": {
+				"email": "Correo electrónico",
+				"password": "Contraseña",
+				"firstName": "Nombre",
+				"lastName": "Apellido",
+				"confirmPassword": "Confirmar contraseña"
+			},
+			"placeholders": {
+				"email": "tu@email.com",
+				"password": "••••••••",
+				"firstName": "Juan",
+				"lastName": "Pérez",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Algo salió mal. Inténtalo de nuevo.",
+			"legal": {
+				"termsText": "Al crear una cuenta, aceptas",
+				"termsOfService": "los Términos del Servicio",
+				"privacyPolicy": "la Política de Privacidad",
+				"and": "y"
+			},
+			"signIn": {
+				"title": "¡Bienvenido de nuevo!",
+				"subtitle": "Inicia sesión en tu cuenta para continuar",
+				"welcome": "¡Bienvenido de nuevo!",
+				"forgotPassword": "¿Olvidaste tu contraseña?",
+				"signInButton": "Iniciar sesión",
+				"signingIn": "Iniciando sesión...",
+				"signIn": "Iniciar sesión",
+				"noAccount": "¿Aún no tienes cuenta?",
+				"createAccount": "Crear cuenta",
+				"continueWithGoogle": "Iniciar con Google",
+				"continueWithFacebook": "Iniciar con Facebook",
+				"orContinueWith": "o continúa con"
+			},
+			"signUp": {
+				"title": "Crear cuenta",
+				"subtitle": "Únete a la comunidad Beswib y empieza a intercambiar tus dorsales",
+				"firstNameLabel": "Nombre",
+				"firstNamePlaceholder": "Juan",
+				"lastNameLabel": "Apellido",
+				"lastNamePlaceholder": "Pérez",
+				"emailLabel": "Correo electrónico",
+				"emailPlaceholder": "tu@email.com",
+				"passwordLabel": "Contraseña",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Confirmar contraseña",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Crear cuenta",
+				"signingUp": "Creando...",
+				"alreadyAccount": "¿Ya tienes una cuenta?",
+				"signIn": "Iniciar sesión",
+				"signUpWithGoogle": "Registrarse con Google",
+				"signUpWithFacebook": "Registrarse con Facebook",
+				"orCreateWith": "o crea una cuenta con",
+				"verifyEmail": {
+					"title": "Verifica tu correo",
+					"subtitle": "Hemos enviado un código de verificación a",
+					"codeLabel": "Código de verificación",
+					"codePlaceholder": "123456",
+					"verifyButton": "Verificar",
+					"verifying": "Verificando...",
+					"backToForm": "← Volver al formulario de registro"
+				}
+			},
+			"forgotPassword": {
+				"title": "Olvidé mi contraseña",
+				"subtitle": "Introduce tu correo para recibir un código de restablecimiento",
+				"emailSentSubtitle": "Hemos enviado un código a tu correo",
+				"successSubtitle": "¡Tu contraseña se ha restablecido correctamente!",
+				"emailLabel": "Correo electrónico",
+				"emailPlaceholder": "tu@email.com",
+				"newPasswordLabel": "Nueva contraseña",
+				"resetCodeLabel": "Código de restablecimiento",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Enviar código",
+				"resetPasswordButton": "Restablecer contraseña",
+				"backToSignIn": "← Volver a iniciar sesión",
+				"continueToDashboard": "Continuar al panel"
+			},
+			"passwordStrength": {
+				"label": "Fortaleza de la contraseña",
+				"veryWeak": "Muy débil",
+				"weak": "Débil",
+				"medium": "Media",
+				"good": "Buena",
+				"strong": "Fuerte",
+				"veryStrong": "Muy fuerte",
+				"suggestions": "Mejoras sugeridas:",
+				"atLeast8Chars": "Al menos 8 caracteres",
+				"oneLowercase": "Una letra minúscula",
+				"oneUppercase": "Una letra mayúscula",
+				"oneNumber": "Un número",
+				"oneSpecialChar": "Un carácter especial (opcional)"
+			},
+			"common": {
+				"loading": "Cargando...",
+				"redirecting": "Redirigiendo...",
+				"valid": "Válido"
+			}
+		},
 		"runs": [
 			{ "name": "Maratón de Nantes", "location": "Nantes" },
 			{ "name": "Ironman Niza", "location": "Niza" },
@@ -236,6 +542,108 @@
 		},
 		"form": {
 			"valid": "Valido"
+		},
+		"auth": {
+			"fields": {
+				"email": "Indirizzo email",
+				"password": "Password",
+				"firstName": "Nome",
+				"lastName": "Cognome",
+				"confirmPassword": "Conferma password"
+			},
+			"placeholders": {
+				"email": "tua@email.com",
+				"password": "••••••••",
+				"firstName": "Mario",
+				"lastName": "Rossi",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Qualcosa è andato storto. Riprova.",
+			"legal": {
+				"termsText": "Creando un account accetti i nostri",
+				"termsOfService": "Termini di servizio",
+				"privacyPolicy": "Informativa sulla privacy",
+				"and": "e"
+			},
+			"signIn": {
+				"title": "Bentornato!",
+				"subtitle": "Accedi al tuo account per continuare",
+				"welcome": "Bentornato!",
+				"forgotPassword": "Password dimenticata?",
+				"signInButton": "Accedi",
+				"signingIn": "Accesso in corso...",
+				"signIn": "Accedi",
+				"noAccount": "Non hai un account?",
+				"createAccount": "Crea account",
+				"continueWithGoogle": "Accedi con Google",
+				"continueWithFacebook": "Accedi con Facebook",
+				"orContinueWith": "oppure continua con"
+			},
+			"signUp": {
+				"title": "Crea account",
+				"subtitle": "Unisciti alla community Beswib e inizia a scambiare i tuoi pettorali",
+				"firstNameLabel": "Nome",
+				"firstNamePlaceholder": "Mario",
+				"lastNameLabel": "Cognome",
+				"lastNamePlaceholder": "Rossi",
+				"emailLabel": "Indirizzo email",
+				"emailPlaceholder": "tua@email.com",
+				"passwordLabel": "Password",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Conferma password",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Crea account",
+				"signingUp": "Creazione...",
+				"alreadyAccount": "Hai già un account?",
+				"signIn": "Accedi",
+				"signUpWithGoogle": "Registrati con Google",
+				"signUpWithFacebook": "Registrati con Facebook",
+				"orCreateWith": "oppure crea un account con",
+				"verifyEmail": {
+					"title": "Verifica la tua email",
+					"subtitle": "Abbiamo inviato un codice di verifica a",
+					"codeLabel": "Codice di verifica",
+					"codePlaceholder": "123456",
+					"verifyButton": "Verifica",
+					"verifying": "Verifica in corso...",
+					"backToForm": "← Torna al modulo di registrazione"
+				}
+			},
+			"forgotPassword": {
+				"title": "Password dimenticata",
+				"subtitle": "Inserisci la tua email per ricevere un codice di reset",
+				"emailSentSubtitle": "Abbiamo inviato un codice alla tua email",
+				"successSubtitle": "La tua password è stata reimpostata con successo!",
+				"emailLabel": "Indirizzo email",
+				"emailPlaceholder": "tua@email.com",
+				"newPasswordLabel": "Nuova password",
+				"resetCodeLabel": "Codice di reset",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Invia codice",
+				"resetPasswordButton": "Reimposta password",
+				"backToSignIn": "← Torna all'accesso",
+				"continueToDashboard": "Continua alla dashboard"
+			},
+			"passwordStrength": {
+				"label": "Forza della password",
+				"veryWeak": "Molto debole",
+				"weak": "Debole",
+				"medium": "Media",
+				"good": "Buona",
+				"strong": "Forte",
+				"veryStrong": "Molto forte",
+				"suggestions": "Miglioramenti suggeriti:",
+				"atLeast8Chars": "Almeno 8 caratteri",
+				"oneLowercase": "Una lettera minuscola",
+				"oneUppercase": "Una lettera maiuscola",
+				"oneNumber": "Un numero",
+				"oneSpecialChar": "Un carattere speciale (opzionale)"
+			},
+			"common": {
+				"loading": "Caricamento...",
+				"redirecting": "Reindirizzamento...",
+				"valid": "Valido"
+			}
 		},
 		"runs": [
 			{ "name": "Maratona di Nantes", "location": "Nantes" },
@@ -291,6 +699,108 @@
 		"form": {
 			"valid": "Gültig"
 		},
+		"auth": {
+			"fields": {
+				"email": "E-Mail-Adresse",
+				"password": "Passwort",
+				"firstName": "Vorname",
+				"lastName": "Nachname",
+				"confirmPassword": "Passwort bestätigen"
+			},
+			"placeholders": {
+				"email": "dein@email.de",
+				"password": "••••••••",
+				"firstName": "Max",
+				"lastName": "Mustermann",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+			"legal": {
+				"termsText": "Mit der Erstellung eines Kontos stimmst du unseren",
+				"termsOfService": "Nutzungsbedingungen",
+				"privacyPolicy": "Datenschutzbestimmungen",
+				"and": "und"
+			},
+			"signIn": {
+				"title": "Willkommen zurück!",
+				"subtitle": "Melde dich in deinem Konto an, um fortzufahren",
+				"welcome": "Willkommen zurück!",
+				"forgotPassword": "Passwort vergessen?",
+				"signInButton": "Anmelden",
+				"signingIn": "Anmelden...",
+				"signIn": "Anmelden",
+				"noAccount": "Noch kein Konto?",
+				"createAccount": "Konto erstellen",
+				"continueWithGoogle": "Mit Google anmelden",
+				"continueWithFacebook": "Mit Facebook anmelden",
+				"orContinueWith": "oder fortfahren mit"
+			},
+			"signUp": {
+				"title": "Konto erstellen",
+				"subtitle": "Tritt der Beswib-Community bei und beginne, Startnummern zu tauschen",
+				"firstNameLabel": "Vorname",
+				"firstNamePlaceholder": "Max",
+				"lastNameLabel": "Nachname",
+				"lastNamePlaceholder": "Mustermann",
+				"emailLabel": "E-Mail-Adresse",
+				"emailPlaceholder": "dein@email.de",
+				"passwordLabel": "Passwort",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Passwort bestätigen",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Konto erstellen",
+				"signingUp": "Erstellen...",
+				"alreadyAccount": "Bereits ein Konto?",
+				"signIn": "Anmelden",
+				"signUpWithGoogle": "Mit Google registrieren",
+				"signUpWithFacebook": "Mit Facebook registrieren",
+				"orCreateWith": "oder Konto erstellen mit",
+				"verifyEmail": {
+					"title": "E-Mail verifizieren",
+					"subtitle": "Wir haben einen Verifizierungscode gesendet an",
+					"codeLabel": "Verifizierungscode",
+					"codePlaceholder": "123456",
+					"verifyButton": "Verifizieren",
+					"verifying": "Verifiziere...",
+					"backToForm": "← Zurück zum Registrierungsformular"
+				}
+			},
+			"forgotPassword": {
+				"title": "Passwort vergessen",
+				"subtitle": "Gib deine E-Mail ein, um einen Reset-Code zu erhalten",
+				"emailSentSubtitle": "Wir haben einen Code an deine E-Mail gesendet",
+				"successSubtitle": "Dein Passwort wurde erfolgreich zurückgesetzt!",
+				"emailLabel": "E-Mail-Adresse",
+				"emailPlaceholder": "dein@email.de",
+				"newPasswordLabel": "Neues Passwort",
+				"resetCodeLabel": "Reset-Code",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Code senden",
+				"resetPasswordButton": "Passwort zurücksetzen",
+				"backToSignIn": "← Zur Anmeldung",
+				"continueToDashboard": "Weiter zum Dashboard"
+			},
+			"passwordStrength": {
+				"label": "Passwortstärke",
+				"veryWeak": "Sehr schwach",
+				"weak": "Schwach",
+				"medium": "Mittel",
+				"good": "Gut",
+				"strong": "Stark",
+				"veryStrong": "Sehr stark",
+				"suggestions": "Vorgeschlagene Verbesserungen:",
+				"atLeast8Chars": "Mindestens 8 Zeichen",
+				"oneLowercase": "Ein Kleinbuchstabe",
+				"oneUppercase": "Ein Großbuchstabe",
+				"oneNumber": "Eine Zahl",
+				"oneSpecialChar": "Ein Sonderzeichen (optional)"
+			},
+			"common": {
+				"loading": "Lädt...",
+				"redirecting": "Weiterleiten...",
+				"valid": "Gültig"
+			}
+		},
 		"runs": [
 			{ "name": "Marathon Nantes", "location": "Nantes" },
 			{ "name": "Ironman Nizza", "location": "Nizza" },
@@ -344,6 +854,108 @@
 		},
 		"form": {
 			"valid": "Valid"
+		},
+		"auth": {
+			"fields": {
+				"email": "Adresă de email",
+				"password": "Parolă",
+				"firstName": "Prenume",
+				"lastName": "Nume",
+				"confirmPassword": "Confirmă parola"
+			},
+			"placeholders": {
+				"email": "tu@email.com",
+				"password": "••••••••",
+				"firstName": "Ion",
+				"lastName": "Popescu",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Ceva nu a mers bine. Încearcă din nou.",
+			"legal": {
+				"termsText": "Prin crearea unui cont, ești de acord cu",
+				"termsOfService": "Termenii și condițiile",
+				"privacyPolicy": "Politica de confidențialitate",
+				"and": "și"
+			},
+			"signIn": {
+				"title": "Bun venit înapoi!",
+				"subtitle": "Autentifică-te pentru a continua",
+				"welcome": "Bun venit înapoi!",
+				"forgotPassword": "Ai uitat parola?",
+				"signInButton": "Autentificare",
+				"signingIn": "Autentificare...",
+				"signIn": "Autentificare",
+				"noAccount": "Nu ai încă un cont?",
+				"createAccount": "Creează cont",
+				"continueWithGoogle": "Autentifică-te cu Google",
+				"continueWithFacebook": "Autentifică-te cu Facebook",
+				"orContinueWith": "sau continuă cu"
+			},
+			"signUp": {
+				"title": "Creează cont",
+				"subtitle": "Alătură-te comunității Beswib și începe să schimbi dossaruri",
+				"firstNameLabel": "Prenume",
+				"firstNamePlaceholder": "Ion",
+				"lastNameLabel": "Nume",
+				"lastNamePlaceholder": "Popescu",
+				"emailLabel": "Adresă de email",
+				"emailPlaceholder": "tu@email.com",
+				"passwordLabel": "Parolă",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Confirmă parola",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Creează cont",
+				"signingUp": "Se creează...",
+				"alreadyAccount": "Ai deja un cont?",
+				"signIn": "Autentificare",
+				"signUpWithGoogle": "Înregistrează-te cu Google",
+				"signUpWithFacebook": "Înregistrează-te cu Facebook",
+				"orCreateWith": "sau creează cont cu",
+				"verifyEmail": {
+					"title": "Verifică-ți emailul",
+					"subtitle": "Am trimis un cod de verificare la",
+					"codeLabel": "Cod de verificare",
+					"codePlaceholder": "123456",
+					"verifyButton": "Verifică",
+					"verifying": "Se verifică...",
+					"backToForm": "← Înapoi la formularul de înregistrare"
+				}
+			},
+			"forgotPassword": {
+				"title": "Parolă uitată",
+				"subtitle": "Introdu adresa de email pentru a primi un cod de resetare",
+				"emailSentSubtitle": "Am trimis un cod pe email",
+				"successSubtitle": "Parola ta a fost resetată cu succes!",
+				"emailLabel": "Adresă de email",
+				"emailPlaceholder": "tu@email.com",
+				"newPasswordLabel": "Parolă nouă",
+				"resetCodeLabel": "Cod de resetare",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Trimite codul",
+				"resetPasswordButton": "Resetează parola",
+				"backToSignIn": "← Înapoi la autentificare",
+				"continueToDashboard": "Continuă către dashboard"
+			},
+			"passwordStrength": {
+				"label": "Puterea parolei",
+				"veryWeak": "Foarte slabă",
+				"weak": "Slabă",
+				"medium": "Medie",
+				"good": "Bună",
+				"strong": "Puternică",
+				"veryStrong": "Foarte puternică",
+				"suggestions": "Îmbunătățiri sugerate:",
+				"atLeast8Chars": "Cel puțin 8 caractere",
+				"oneLowercase": "O literă mică",
+				"oneUppercase": "O literă mare",
+				"oneNumber": "O cifră",
+				"oneSpecialChar": "Un caracter special (opțional)"
+			},
+			"common": {
+				"loading": "Se încarcă...",
+				"redirecting": "Se redirecționează...",
+				"valid": "Valid"
+			}
 		},
 		"runs": [
 			{ "name": "Maratonul Nantes", "location": "Nantes" },
@@ -399,6 +1011,108 @@
 		"form": {
 			"valid": "Válido"
 		},
+		"auth": {
+			"fields": {
+				"email": "Endereço de email",
+				"password": "Palavra-passe",
+				"firstName": "Nome",
+				"lastName": "Apelido",
+				"confirmPassword": "Confirmar palavra-passe"
+			},
+			"placeholders": {
+				"email": "teu@email.com",
+				"password": "••••••••",
+				"firstName": "João",
+				"lastName": "Silva",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Algo correu mal. Tenta novamente.",
+			"legal": {
+				"termsText": "Ao criar uma conta, aceitas os nossos",
+				"termsOfService": "Termos de Serviço",
+				"privacyPolicy": "Política de Privacidade",
+				"and": "e"
+			},
+			"signIn": {
+				"title": "Bem-vindo de volta!",
+				"subtitle": "Inicia sessão na tua conta para continuar",
+				"welcome": "Bem-vindo de volta!",
+				"forgotPassword": "Esqueceste-te da palavra-passe?",
+				"signInButton": "Iniciar sessão",
+				"signingIn": "A iniciar sessão...",
+				"signIn": "Iniciar sessão",
+				"noAccount": "Ainda não tens conta?",
+				"createAccount": "Criar conta",
+				"continueWithGoogle": "Entrar com Google",
+				"continueWithFacebook": "Entrar com Facebook",
+				"orContinueWith": "ou continua com"
+			},
+			"signUp": {
+				"title": "Criar conta",
+				"subtitle": "Junta-te à comunidade Beswib e começa a trocar dorsais",
+				"firstNameLabel": "Nome",
+				"firstNamePlaceholder": "João",
+				"lastNameLabel": "Apelido",
+				"lastNamePlaceholder": "Silva",
+				"emailLabel": "Endereço de email",
+				"emailPlaceholder": "teu@email.com",
+				"passwordLabel": "Palavra-passe",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Confirmar palavra-passe",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Criar conta",
+				"signingUp": "A criar...",
+				"alreadyAccount": "Já tens uma conta?",
+				"signIn": "Iniciar sessão",
+				"signUpWithGoogle": "Registar com Google",
+				"signUpWithFacebook": "Registar com Facebook",
+				"orCreateWith": "ou cria conta com",
+				"verifyEmail": {
+					"title": "Verifica o teu email",
+					"subtitle": "Enviámos um código de verificação para",
+					"codeLabel": "Código de verificação",
+					"codePlaceholder": "123456",
+					"verifyButton": "Verificar",
+					"verifying": "A verificar...",
+					"backToForm": "← Voltar ao formulário de registo"
+				}
+			},
+			"forgotPassword": {
+				"title": "Esqueci-me da palavra-passe",
+				"subtitle": "Introduz o teu email para receberes um código de reposição",
+				"emailSentSubtitle": "Enviámos um código para o teu email",
+				"successSubtitle": "A tua palavra-passe foi reposta com sucesso!",
+				"emailLabel": "Endereço de email",
+				"emailPlaceholder": "teu@email.com",
+				"newPasswordLabel": "Nova palavra-passe",
+				"resetCodeLabel": "Código de reposição",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Enviar código",
+				"resetPasswordButton": "Repor palavra-passe",
+				"backToSignIn": "← Voltar ao início de sessão",
+				"continueToDashboard": "Continuar para o dashboard"
+			},
+			"passwordStrength": {
+				"label": "Força da palavra-passe",
+				"veryWeak": "Muito fraca",
+				"weak": "Fraca",
+				"medium": "Média",
+				"good": "Boa",
+				"strong": "Forte",
+				"veryStrong": "Muito forte",
+				"suggestions": "Melhorias sugeridas:",
+				"atLeast8Chars": "Pelo menos 8 caracteres",
+				"oneLowercase": "Uma letra minúscula",
+				"oneUppercase": "Uma letra maiúscula",
+				"oneNumber": "Um número",
+				"oneSpecialChar": "Um carácter especial (opcional)"
+			},
+			"common": {
+				"loading": "A carregar...",
+				"redirecting": "A redirecionar...",
+				"valid": "Válido"
+			}
+		},
 		"runs": [
 			{ "name": "Maratona de Nantes", "location": "Nantes" },
 			{ "name": "Ironman Nice", "location": "Nice" },
@@ -453,6 +1167,108 @@
 		"form": {
 			"valid": "Geldig"
 		},
+		"auth": {
+			"fields": {
+				"email": "E-mailadres",
+				"password": "Wachtwoord",
+				"firstName": "Voornaam",
+				"lastName": "Achternaam",
+				"confirmPassword": "Bevestig wachtwoord"
+			},
+			"placeholders": {
+				"email": "jij@email.com",
+				"password": "••••••••",
+				"firstName": "Jan",
+				"lastName": "Jansen",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Er is iets misgegaan. Probeer het opnieuw.",
+			"legal": {
+				"termsText": "Door een account aan te maken, ga je akkoord met onze",
+				"termsOfService": "Servicevoorwaarden",
+				"privacyPolicy": "Privacybeleid",
+				"and": "en"
+			},
+			"signIn": {
+				"title": "Welkom terug!",
+				"subtitle": "Log in op je account om door te gaan",
+				"welcome": "Welkom terug!",
+				"forgotPassword": "Wachtwoord vergeten?",
+				"signInButton": "Inloggen",
+				"signingIn": "Bezig met inloggen...",
+				"signIn": "Inloggen",
+				"noAccount": "Nog geen account?",
+				"createAccount": "Account aanmaken",
+				"continueWithGoogle": "Inloggen met Google",
+				"continueWithFacebook": "Inloggen met Facebook",
+				"orContinueWith": "of ga verder met"
+			},
+			"signUp": {
+				"title": "Account aanmaken",
+				"subtitle": "Word lid van de Beswib-community en begin met het ruilen van startnummers",
+				"firstNameLabel": "Voornaam",
+				"firstNamePlaceholder": "Jan",
+				"lastNameLabel": "Achternaam",
+				"lastNamePlaceholder": "Jansen",
+				"emailLabel": "E-mailadres",
+				"emailPlaceholder": "jij@email.com",
+				"passwordLabel": "Wachtwoord",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Bevestig wachtwoord",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Account aanmaken",
+				"signingUp": "Bezig met aanmaken...",
+				"alreadyAccount": "Al een account?",
+				"signIn": "Inloggen",
+				"signUpWithGoogle": "Registreren met Google",
+				"signUpWithFacebook": "Registreren met Facebook",
+				"orCreateWith": "of maak een account met",
+				"verifyEmail": {
+					"title": "Verifieer je e-mail",
+					"subtitle": "We hebben een verificatiecode gestuurd naar",
+					"codeLabel": "Verificatiecode",
+					"codePlaceholder": "123456",
+					"verifyButton": "Verifiëren",
+					"verifying": "Verifiëren...",
+					"backToForm": "← Terug naar registratieformulier"
+				}
+			},
+			"forgotPassword": {
+				"title": "Wachtwoord vergeten",
+				"subtitle": "Voer je e-mailadres in om een resetcode te ontvangen",
+				"emailSentSubtitle": "We hebben een code naar je e-mail gestuurd",
+				"successSubtitle": "Je wachtwoord is succesvol gereset!",
+				"emailLabel": "E-mailadres",
+				"emailPlaceholder": "jij@email.com",
+				"newPasswordLabel": "Nieuw wachtwoord",
+				"resetCodeLabel": "Resetcode",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Code verzenden",
+				"resetPasswordButton": "Wachtwoord resetten",
+				"backToSignIn": "← Terug naar inloggen",
+				"continueToDashboard": "Doorgaan naar dashboard"
+			},
+			"passwordStrength": {
+				"label": "Wachtwoordsterkte",
+				"veryWeak": "Zeer zwak",
+				"weak": "Zwak",
+				"medium": "Gemiddeld",
+				"good": "Goed",
+				"strong": "Sterk",
+				"veryStrong": "Zeer sterk",
+				"suggestions": "Aanbevolen verbeteringen:",
+				"atLeast8Chars": "Minstens 8 tekens",
+				"oneLowercase": "Een kleine letter",
+				"oneUppercase": "Een hoofdletter",
+				"oneNumber": "Een cijfer",
+				"oneSpecialChar": "Een speciaal teken (optioneel)"
+			},
+			"common": {
+				"loading": "Laden...",
+				"redirecting": "Doorsturen...",
+				"valid": "Geldig"
+			}
+		},
 		"runs": [
 			{ "name": "Marathon van Nantes", "location": "Nantes" },
 			{ "name": "Ironman Nice", "location": "Nice" },
@@ -506,6 +1322,108 @@
 		},
 		"form": {
 			"valid": "유효함"
+		},
+		"auth": {
+			"fields": {
+				"email": "이메일 주소",
+				"password": "비밀번호",
+				"firstName": "이름",
+				"lastName": "성",
+				"confirmPassword": "비밀번호 확인"
+			},
+			"placeholders": {
+				"email": "you@email.com",
+				"password": "••••••••",
+				"firstName": "홍길동",
+				"lastName": "",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "문제가 발생했습니다. 다시 시도해 주세요.",
+			"legal": {
+				"termsText": "계정을 생성하면 다음에 동의하게 됩니다:",
+				"termsOfService": "서비스 약관",
+				"privacyPolicy": "개인정보 처리방침",
+				"and": "및"
+			},
+			"signIn": {
+				"title": "다시 오신 것을 환영합니다!",
+				"subtitle": "계정에 로그인하여 계속하세요",
+				"welcome": "다시 오신 것을 환영합니다!",
+				"forgotPassword": "비밀번호를 잊으셨나요?",
+				"signInButton": "로그인",
+				"signingIn": "로그인 중...",
+				"signIn": "로그인",
+				"noAccount": "아직 계정이 없으신가요?",
+				"createAccount": "계정 만들기",
+				"continueWithGoogle": "Google로 로그인",
+				"continueWithFacebook": "Facebook으로 로그인",
+				"orContinueWith": "또는 다음으로 계속"
+			},
+			"signUp": {
+				"title": "계정 만들기",
+				"subtitle": "Beswib 커뮤니티에 가입하고 빕 교환을 시작하세요",
+				"firstNameLabel": "이름",
+				"firstNamePlaceholder": "홍길동",
+				"lastNameLabel": "성",
+				"lastNamePlaceholder": "",
+				"emailLabel": "이메일 주소",
+				"emailPlaceholder": "you@email.com",
+				"passwordLabel": "비밀번호",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "비밀번호 확인",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "계정 만들기",
+				"signingUp": "생성 중...",
+				"alreadyAccount": "이미 계정이 있으신가요?",
+				"signIn": "로그인",
+				"signUpWithGoogle": "Google로 가입",
+				"signUpWithFacebook": "Facebook으로 가입",
+				"orCreateWith": "또는 다음으로 계정 생성",
+				"verifyEmail": {
+					"title": "이메일 확인",
+					"subtitle": "다음으로 인증 코드를 보냈습니다:",
+					"codeLabel": "인증 코드",
+					"codePlaceholder": "123456",
+					"verifyButton": "확인",
+					"verifying": "확인 중...",
+					"backToForm": "← 가입 양식으로 돌아가기"
+				}
+			},
+			"forgotPassword": {
+				"title": "비밀번호 찾기",
+				"subtitle": "재설정 코드를 받으려면 이메일을 입력하세요",
+				"emailSentSubtitle": "이메일로 코드를 보냈습니다",
+				"successSubtitle": "비밀번호가 성공적으로 재설정되었습니다!",
+				"emailLabel": "이메일 주소",
+				"emailPlaceholder": "you@email.com",
+				"newPasswordLabel": "새 비밀번호",
+				"resetCodeLabel": "재설정 코드",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "코드 보내기",
+				"resetPasswordButton": "비밀번호 재설정",
+				"backToSignIn": "← 로그인으로 돌아가기",
+				"continueToDashboard": "대시보드로 계속"
+			},
+			"passwordStrength": {
+				"label": "비밀번호 강도",
+				"veryWeak": "매우 약함",
+				"weak": "약함",
+				"medium": "보통",
+				"good": "좋음",
+				"strong": "강함",
+				"veryStrong": "매우 강함",
+				"suggestions": "개선 사항:",
+				"atLeast8Chars": "최소 8자",
+				"oneLowercase": "소문자 1자",
+				"oneUppercase": "대문자 1자",
+				"oneNumber": "숫자 1자",
+				"oneSpecialChar": "특수문자 1자 (선택)"
+			},
+			"common": {
+				"loading": "로딩 중...",
+				"redirecting": "리디렉션 중...",
+				"valid": "유효함"
+			}
 		},
 		"runs": [
 			{

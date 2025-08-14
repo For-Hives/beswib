@@ -10,7 +10,7 @@ import { getTranslations } from '@/lib/getDictionary'
 import { FormInput } from '@/components/ui/FormInput'
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n-config'
-import authLocales from '@/components/auth/locales.json'
+import mainLocales from '@/app/[locale]/locales.json'
 
 interface ValiboAuthExampleProps {
 	mode: 'signin' | 'signup'
@@ -19,7 +19,7 @@ interface ValiboAuthExampleProps {
 export default function ValiboAuthExample({ mode }: ValiboAuthExampleProps) {
 	const params = useParams()
 	const locale = (params?.locale as Locale) || 'fr'
-	const t = getTranslations(locale, authLocales).auth
+	const t = getTranslations(locale, mainLocales).auth
 
 	// Use the appropriate schema based on mode
 	const schema = mode === 'signin' ? createSignInSchema(locale) : createSignUpSchema(locale)
