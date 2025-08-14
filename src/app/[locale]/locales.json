@@ -42,6 +42,9 @@
 			"instantConfirmation": "Instant confirmation",
 			"fraudProtection": "Fraud protection"
 		},
+		"form": {
+			"valid": "Valid"
+		},
 		"runs": [
 			{
 				"name": "Nantes Marathon",
@@ -107,6 +110,9 @@
 			"bankEncryption": "Chiffrement bancaire",
 			"instantConfirmation": "Confirmation instantanée",
 			"fraudProtection": "Protection contre la fraude"
+		},
+		"form": {
+			"valid": "Valide"
 		},
 		"runs": [
 			{
@@ -174,6 +180,9 @@
 			"instantConfirmation": "Confirmación instantánea",
 			"fraudProtection": "Protección contra fraude"
 		},
+		"form": {
+			"valid": "Válido"
+		},
 		"runs": [
 			{ "name": "Maratón de Nantes", "location": "Nantes" },
 			{ "name": "Ironman Niza", "location": "Niza" },
@@ -224,6 +233,9 @@
 			"bankEncryption": "Crittografia bancaria",
 			"instantConfirmation": "Conferma istantanea",
 			"fraudProtection": "Protezione antifrode"
+		},
+		"form": {
+			"valid": "Valido"
 		},
 		"runs": [
 			{ "name": "Maratona di Nantes", "location": "Nantes" },
@@ -276,6 +288,9 @@
 			"instantConfirmation": "Sofortige Bestätigung",
 			"fraudProtection": "Betrugsschutz"
 		},
+		"form": {
+			"valid": "Gültig"
+		},
 		"runs": [
 			{ "name": "Marathon Nantes", "location": "Nantes" },
 			{ "name": "Ironman Nizza", "location": "Nizza" },
@@ -326,6 +341,9 @@
 			"bankEncryption": "Criptare bancară",
 			"instantConfirmation": "Confirmare instantanee",
 			"fraudProtection": "Protecție antifraudă"
+		},
+		"form": {
+			"valid": "Valid"
 		},
 		"runs": [
 			{ "name": "Maratonul Nantes", "location": "Nantes" },
@@ -378,6 +396,9 @@
 			"instantConfirmation": "Confirmação instantânea",
 			"fraudProtection": "Proteção contra fraude"
 		},
+		"form": {
+			"valid": "Válido"
+		},
 		"runs": [
 			{ "name": "Maratona de Nantes", "location": "Nantes" },
 			{ "name": "Ironman Nice", "location": "Nice" },
@@ -429,6 +450,9 @@
 			"instantConfirmation": "Directe bevestiging",
 			"fraudProtection": "Fraudebescherming"
 		},
+		"form": {
+			"valid": "Geldig"
+		},
 		"runs": [
 			{ "name": "Marathon van Nantes", "location": "Nantes" },
 			{ "name": "Ironman Nice", "location": "Nice" },
@@ -479,6 +503,9 @@
 			"bankEncryption": "은행 수준 암호화",
 			"instantConfirmation": "즉시 확인",
 			"fraudProtection": "사기 방지"
+		},
+		"form": {
+			"valid": "유효함"
 		},
 		"runs": [
 			{
