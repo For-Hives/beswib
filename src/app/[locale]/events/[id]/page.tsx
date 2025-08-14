@@ -22,6 +22,10 @@ import { Locale } from '@/lib/i18n/config'
 import { WaitlistNotifications } from './components/WaitlistNotifications'
 import eventTranslations from './locales.json'
 
+// This page uses auth() and server actions; force dynamic rendering to avoid
+// DYNAMIC_SERVER_USAGE errors on production prerender.
+export const dynamic = 'force-dynamic'
+
 type EventDetailPageProps = {
 	params: Promise<{
 		id: string
@@ -366,6 +370,5 @@ export async function generateMetadata({ params }: EventDetailPageProps): Promis
 }
 
 // Generate static params for all locales
-export function generateStaticParams() {
-	return generateLocaleParams()
-}
+// Note: do not statically generate params for this page; it is dynamic.
+// If locale scaffolding is needed, use middleware or a parent layout instead.
