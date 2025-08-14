@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import Image from 'next/image'
 
@@ -45,6 +45,23 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 	const containerRef = useRef<HTMLDivElement>(null) // Main container
 	const orbitRef = useRef<HTMLDivElement>(null) // Orbit container
 	const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({}) // Individual node references
+
+	// Pre-calculate trigonometric values for better performance (Solution 4)
+	const sinValues = useMemo(() => {
+		const values: number[] = []
+		for (let i = 0; i < 360; i += 0.3) {
+			values.push(Math.sin((i * Math.PI) / 180))
+		}
+		return values
+	}, [])
+
+	const cosValues = useMemo(() => {
+		const values: number[] = []
+		for (let i = 0; i < 360; i += 0.3) {
+			values.push(Math.cos((i * Math.PI) / 180))
+		}
+		return values
+	}, [])
 
 	// Click handler for the main container (closes all expanded items)
 	const handleContainerClick = (e: React.KeyboardEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) => {
@@ -115,12 +132,12 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 		}
 	}, [])
 
-	// Hook to manage automatic orbit rotation
+	// Hook to manage automatic orbit rotation (Solution 3: reduced frequency)
 	useEffect(() => {
 		let rotationTimer: NodeJS.Timeout
 
 		if (autoRotate) {
-			// Creates an interval that updates rotation angle every 50ms
+			// Creates an interval that updates rotation angle every 100ms (reduced from 50ms)
 			rotationTimer = setInterval(() => {
 				setRotationAngle(prev => {
 					// Increments angle by 0.3 degrees and keeps within [0, 360[ range
@@ -128,7 +145,7 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 					// Rounds to 3 decimal places to avoid floating point precision errors
 					return Number(newAngle.toFixed(3))
 				})
-			}, 50) // 50ms = 20 FPS for smooth rotation
+			}, 100) // 100ms = 10 FPS instead of 20 FPS for better performance
 		}
 
 		return () => {
@@ -152,33 +169,46 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 		setRotationAngle(270 - targetAngle)
 	}
 
-	// Calculates the exact position of each node on the orbit
-	const calculateNodePosition = (index: number, total: number) => {
-		// Calculates this node's angle based on its position and current rotation
-		const angle = ((index / total) * 360 + rotationAngle) % 360
+	// Calculates the exact position of each node on the orbit (optimized with pre-calculated values)
+	const calculateNodePosition = useCallback(
+		(index: number, total: number) => {
+			// Calculates this node's angle based on its position and current rotation
+			const angle = ((index / total) * 360 + rotationAngle) % 360
 
-		// Orbit radius (smaller on mobile to fit small screens)
-		const radius = isMobile ? 160 : 200
+			// Orbit radius (smaller on mobile to fit small screens)
+			const radius = isMobile ? 160 : 200
 
-		// Converts angle to radians for trigonometric calculations
-		const radian = (angle * Math.PI) / 180
+			// Converts angle to radians for trigonometric calculations
+			const radian = (angle * Math.PI) / 180
 
-		// Calculates X and Y coordinates using trigonometry
-		// X = radius × cosine(angle), Y = radius × sine(angle)
-		// Rounds to 3 decimal places to avoid rendering issues
-		const x = Number((radius * Math.cos(radian)).toFixed(3))
-		const y = Number((radius * Math.sin(radian)).toFixed(3))
+			// Uses pre-calculated trigonometric values for better performance
+			const angleIndex = Math.round(angle / 0.3) % sinValues.length
+			const sinValue = sinValues[angleIndex] || Math.sin(radian)
+			const cosValue = cosValues[angleIndex] || Math.cos(radian)
 
-		// Calculates z-index to create 3D depth effect
-		// The more the node is "in front" (positive cosine), the higher the z-index
-		const zIndex = Math.round(100 + 50 * Math.cos(radian))
+			// Calculates X and Y coordinates using pre-calculated values
+			// X = radius × cosine(angle), Y = radius × sine(angle)
+			// Rounds to 3 decimal places to avoid rendering issues
+			const x = Number((radius * cosValue).toFixed(3))
+			const y = Number((radius * sinValue).toFixed(3))
 
-		// Calculates opacity to create visual depth effect
-		// Nodes "in front" are more opaque, those "behind" are more transparent
-		const opacity = Number(Math.max(0.4, Math.min(1, 0.4 + 0.6 * ((1 + Math.sin(radian)) / 2))).toFixed(3))
+			// Calculates z-index to create 3D depth effect
+			// The more the node is "in front" (positive cosine), the higher the z-index
+			const zIndex = Math.round(100 + 50 * cosValue)
 
-		return { zIndex, y, x, opacity, angle }
-	}
+			// Calculates opacity to create visual depth effect
+			// Nodes "in front" are more opaque, those "behind" are more transparent
+			const opacity = Number(Math.max(0.4, Math.min(1, 0.4 + 0.6 * ((1 + sinValue) / 2))).toFixed(3))
+
+			return { zIndex, y, x, opacity, angle }
+		},
+		[rotationAngle, isMobile, sinValues, cosValues]
+	)
+
+	// Memoize node positions to avoid recalculating on every render (Solution 1)
+	const nodePositions = useMemo(() => {
+		return timelineData.map((_, index) => calculateNodePosition(index, timelineData.length))
+	}, [timelineData.length, calculateNodePosition])
 
 	// Gets the list of IDs of items related to a given item
 	const getRelatedItems = (itemId: number): number[] => {
@@ -247,10 +277,10 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 						className={`border-border/30 absolute rounded-full border ${isMobile ? 'h-72 w-72' : 'h-96 w-96'}`}
 					></div>
 
-					{/* Rendering of all timeline nodes */}
+					{/* Rendering of all timeline nodes using memoized positions */}
 					{timelineData.map((item, index) => {
-						// Calculates the exact position of this node on the orbit
-						const position = calculateNodePosition(index, timelineData.length)
+						// Use memoized position instead of recalculating
+						const position = nodePositions[index]
 
 						// Determines the state of this node
 						const isExpanded = expandedItems[item.id]
