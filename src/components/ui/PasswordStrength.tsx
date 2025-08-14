@@ -16,8 +16,8 @@ interface PasswordStrengthProps {
 export function PasswordStrength({ show = true, password, locale = 'fr' }: PasswordStrengthProps) {
 	if (!show || !password) return null
 
-    const { score, feedback, color } = getPasswordStrengthValibot(password, locale)
-    const t = getTranslations(locale, authLocales).auth.passwordStrength
+	const { score, feedback, color } = getPasswordStrengthValibot(password, locale)
+	const t = getTranslations(locale, authLocales).auth.passwordStrength
 
 	const strengthLabels = {
 		5: t.veryStrong,

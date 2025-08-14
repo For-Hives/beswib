@@ -5,8 +5,9 @@ import { ReactNode } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 
-import { authTranslations } from '@/lib/translations/auth'
+import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
+import authLocales from '@/components/auth/locales.json'
 
 import MountainShader from './MountainShader'
 
@@ -37,7 +38,7 @@ export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenPr
 	const locale = (params?.locale as Locale) || 'en'
 
 	// Get translated text for the current locale
-	const t = authTranslations[locale]
+	const t = getTranslations(locale, authLocales).auth
 
 	return (
 		// Main container: full height, centered, with padding and overflow handling

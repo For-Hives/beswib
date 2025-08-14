@@ -18,8 +18,8 @@ interface ValiboAuthExampleProps {
 
 export default function ValiboAuthExample({ mode }: ValiboAuthExampleProps) {
 	const params = useParams()
-    const locale = (params?.locale as Locale) || 'fr'
-    const t = getTranslations(locale, authLocales).auth
+	const locale = (params?.locale as Locale) || 'fr'
+	const t = getTranslations(locale, authLocales).auth
 
 	// Use the appropriate schema based on mode
 	const schema = mode === 'signin' ? createSignInSchema(locale) : createSignUpSchema(locale)

@@ -20,8 +20,8 @@ export default function CustomSignIn() {
 	const { signIn, setActive, isLoaded } = useSignIn()
 	const router = useRouter()
 	const params = useParams()
-    const locale = (params?.locale as Locale) || 'en'
-    const t = getTranslations(locale, authLocales).auth
+	const locale = (params?.locale as Locale) || 'en'
+	const t = getTranslations(locale, authLocales).auth
 
 	const {
 		signInData,
@@ -100,7 +100,7 @@ export default function CustomSignIn() {
 				await setActive({ session: result.createdSessionId })
 				router.push(`/${locale}/dashboard`)
 			} else {
-                setGlobalError(t.somethingWentWrong)
+				setGlobalError(t.somethingWentWrong)
 			}
 		} catch (err: any) {
 			const errorMessage = translateClerkError(err, locale)
@@ -133,8 +133,8 @@ export default function CustomSignIn() {
 		<div className="w-full max-w-md space-y-6">
 			{/* Header */}
 			<div className="space-y-2 text-start">
-                <h1 className="text-foreground text-2xl font-bold tracking-tight">{t.signIn.welcome}</h1>
-                <p className="text-muted-foreground text-sm">{t.signIn.subtitle}</p>
+				<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.signIn.welcome}</h1>
+				<p className="text-muted-foreground text-sm">{t.signIn.subtitle}</p>
 			</div>
 
 			{/* OAuth Buttons */}

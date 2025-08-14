@@ -86,48 +86,48 @@ export const createSignUpSchema = (locale: Locale = 'fr') => {
 
 // Password strength analysis using Valibot
 export const analyzePasswordStrength = (password: string, locale: Locale = 'fr') => {
-    const tAuth = getTranslations(locale, authLocales).auth.passwordStrength
+	const tAuth = getTranslations(locale, authLocales).auth.passwordStrength
 	let score = 0
 	const feedback: string[] = []
 
 	// Length check
 	const lengthCheck = v.safeParse(v.pipe(v.string(), v.minLength(8)), password)
-    if (lengthCheck.success) {
+	if (lengthCheck.success) {
 		score++
 	} else {
-        feedback.push(tAuth.atLeast8Chars)
+		feedback.push(tAuth.atLeast8Chars)
 	}
 
 	// Lowercase check
 	const lowercaseCheck = v.safeParse(v.pipe(v.string(), v.regex(/(?=.*[a-z])/)), password)
-    if (lowercaseCheck.success) {
+	if (lowercaseCheck.success) {
 		score++
 	} else {
-        feedback.push(tAuth.oneLowercase)
+		feedback.push(tAuth.oneLowercase)
 	}
 
 	// Uppercase check
 	const uppercaseCheck = v.safeParse(v.pipe(v.string(), v.regex(/(?=.*[A-Z])/)), password)
-    if (uppercaseCheck.success) {
+	if (uppercaseCheck.success) {
 		score++
 	} else {
-        feedback.push(tAuth.oneUppercase)
+		feedback.push(tAuth.oneUppercase)
 	}
 
 	// Number check
 	const numberCheck = v.safeParse(v.pipe(v.string(), v.regex(/(?=.*\d)/)), password)
-    if (numberCheck.success) {
+	if (numberCheck.success) {
 		score++
 	} else {
-        feedback.push(tAuth.oneNumber)
+		feedback.push(tAuth.oneNumber)
 	}
 
 	// Special character check
 	const specialCheck = v.safeParse(v.pipe(v.string(), v.regex(/(?=.*[!@#$%^&*(),.?":{}|<>])/)), password)
-    if (specialCheck.success) {
+	if (specialCheck.success) {
 		score++
 	} else if (score >= 3) {
-        feedback.push(tAuth.oneSpecialChar)
+		feedback.push(tAuth.oneSpecialChar)
 	}
 
 	const colors: Record<number, 'red' | 'orange' | 'yellow' | 'green'> = {

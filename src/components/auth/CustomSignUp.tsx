@@ -27,8 +27,8 @@ export default function CustomSignUp() {
 	const { signUp, setActive, isLoaded } = useSignUp()
 	const router = useRouter()
 	const params = useParams()
-    const locale = (params?.locale as Locale) || 'en'
-    const t = getTranslations(locale, authLocales).auth
+	const locale = (params?.locale as Locale) || 'en'
+	const t = getTranslations(locale, authLocales).auth
 
 	const {
 		verificationEmail,
@@ -187,7 +187,7 @@ export default function CustomSignUp() {
 				void setActive({ session: completeSignUp.createdSessionId })
 				router.push(`/${locale}/dashboard`)
 			} else {
-                setGlobalError(t.somethingWentWrong)
+				setGlobalError(t.somethingWentWrong)
 			}
 		} catch (err: any) {
 			const errorMessage = translateClerkError(err, locale)
