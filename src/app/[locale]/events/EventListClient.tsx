@@ -500,12 +500,17 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 									return {}
 								}
 
-								// More detailed error logging without exposing sensitive info
-								const errorMessage = error instanceof Error ? error.message : String(error)
-								if (errorMessage.includes('unexpected response')) {
-									console.warn(`Server communication issue for event ${event.id}`)
+								// Limit error logging in production
+								if (process.env.NODE_ENV === 'development') {
+									const errorMessage = error instanceof Error ? error.message : String(error)
+									if (errorMessage.includes('unexpected response')) {
+										console.warn(`Server communication issue for event ${event.id}`)
+									} else {
+										console.warn(`Error loading bibs for event ${event.id}:`, errorMessage)
+									}
 								} else {
-									console.warn(`Error loading bibs for event ${event.id}:`, errorMessage)
+									// In production, log minimal info
+									console.warn(`Failed to load bibs for event`)
 								}
 								return { [event.id]: 0 }
 							}
@@ -599,11 +604,17 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				return 0
 			}
 
-			const errorMessage = error instanceof Error ? error.message : String(error)
-			if (errorMessage.includes('unexpected response')) {
-				console.warn(`Server communication issue for event ${eventId}`)
+			// Limit error logging in production
+			if (process.env.NODE_ENV === 'development') {
+				const errorMessage = error instanceof Error ? error.message : String(error)
+				if (errorMessage.includes('unexpected response')) {
+					console.warn(`Server communication issue for event ${eventId}`)
+				} else {
+					console.warn(`Error fetching bibs for event ${eventId}:`, errorMessage)
+				}
 			} else {
-				console.warn(`Error fetching bibs for event ${eventId}:`, errorMessage)
+				// In production, log minimal info
+				console.warn(`Failed to fetch bibs for event`)
 			}
 			// Cache the error result to avoid repeated failed requests
 			setEventBibsCache(prev => ({ ...prev, [eventId]: 0 }))
@@ -619,9 +630,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			if (bibCount > 0) {
 				// Redirect to marketplace with filters for this specific event
 				const searchParams = new URLSearchParams({
-					sport: event.typeCourse, // Filter by sport type
-					search: event.name, // Search by event name
-					geography: event.location.toLowerCase(), // Filter by location
+					sport: encodeURIComponent(event.typeCourse), // Filter by sport type
+					search: encodeURIComponent(event.name), // Search by event name
+					geography: event.location ? encodeURIComponent(event.location.toLowerCase()) : '', // Filter by location
 				})
 				router.push(`/${locale}/marketplace?${searchParams.toString()}`)
 			} else {
