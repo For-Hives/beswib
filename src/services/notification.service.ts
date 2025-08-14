@@ -166,21 +166,21 @@ async function sendEmail(params: {
 	if (!resend) return false
 
 	const to = normalizeEmails(params.to)
-		const from = (params.from ?? '').trim()
+	const from = (params.from ?? '').trim()
 	if (to.length === 0 || from.length === 0) return false
 
 	try {
 		const text = params.text ?? stripTags(params.html ?? '')
-			const result = await resend.emails.send({
-				to,
-				text,
-				subject: params.subject,
-				html: params.html,
-				from,
-			})
-			if (result.error) return false
-			const id = result.data?.id
-			return typeof id === 'string' && id.length > 0
+		const result = await resend.emails.send({
+			to,
+			text,
+			subject: params.subject,
+			html: params.html,
+			from,
+		})
+		if (result.error) return false
+		const id = result.data?.id
+		return typeof id === 'string' && id.length > 0
 	} catch {
 		return false
 	}
@@ -207,9 +207,7 @@ function normalizeEmails(value?: string | string[] | null): string[] {
 }
 
 function escapeHtml(s: string): string {
-	return s
-		.replaceAll('&', '&amp;').replaceAll('<', '&lt;')
-		.replaceAll('>', '&gt;')
+	return s.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 }
 
 function contactHtml(info: { name: string; email: string; message: string }): string {
