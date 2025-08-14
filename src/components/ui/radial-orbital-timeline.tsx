@@ -357,7 +357,18 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 	// Handler optimisé avec useCallback
 	const handleContainerClick = useCallback(
 		(e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
-			if (e.target === containerRef.current || e.target === orbitRef.current) {
+			// Ne fermer que si on clique vraiment sur le fond
+			const target = e.target as HTMLElement
+			const isBackgroundClick =
+				target === containerRef.current ||
+				target === orbitRef.current ||
+				target.classList.contains('orbital-container') ||
+				target.classList.contains('bg-background')
+
+			// eslint-disable-next-line no-console
+			console.log('🎯 Container click:', { target: target.className, isBackgroundClick }) // Debug
+
+			if (isBackgroundClick) {
 				setExpandedItems({})
 				setActiveNodeId(null)
 				setPulseEffect({})
