@@ -1,9 +1,9 @@
 'use client'
 
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useEffect, useRef, useMemo, useState, useCallback } from 'react'
-import { usePathname } from 'next/navigation'
+import { Canvas, useFrame, useThree, type RootState } from '@react-three/fiber'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
+import { usePathname } from 'next/navigation'
 import * as THREE from 'three'
 
 /**
@@ -378,7 +378,7 @@ function MountainScene({ containerSize }: { containerSize: { width: number; heig
 	 * This function runs every frame to update the shader uniforms,
 	 * specifically the time value that drives all animations.
 	 */
-	useFrame(state => {
+	useFrame((state: RootState) => {
 		if (meshRef.current?.material) {
 			const material = meshRef.current.material as THREE.ShaderMaterial
 			const uniforms = material.uniforms as { iTime?: { value: number } }
