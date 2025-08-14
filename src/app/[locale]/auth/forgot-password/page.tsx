@@ -73,7 +73,7 @@ export default function ForgotPasswordPage() {
 				setSuccessfulCreation(true)
 				setError('')
 			})
-			.catch((err: any) => {
+			.catch((err: unknown) => {
 				const msg = translateClerkErrorLocal(err)
 				console.error('error', msg)
 				setError(msg)
@@ -104,7 +104,7 @@ export default function ForgotPasswordPage() {
 					console.error(result)
 				}
 			})
-			.catch((err: any) => {
+			.catch((err: unknown) => {
 				const msg = translateClerkErrorLocal(err)
 				console.error('error', msg)
 				setError(msg)
