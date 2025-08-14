@@ -24,7 +24,26 @@ export default function CustomSignIn() {
 	const router = useRouter()
 	const params = useParams()
 	const locale = (params?.locale as Locale) || 'en'
-	const t = getTranslations(locale, mainLocales).auth
+  const t = getTranslations(locale, mainLocales).auth
+  const errorsT = getTranslations(locale, mainLocales).clerkErrors as Record<string, string>
+
+  function translateClerkErrorLocal(error: unknown): string {
+    const e = (error ?? {}) as Partial<{ code: string; message: string; errors: Array<Partial<{ code: string; message: string; longMessage: string }>> }>
+    const code = e.code ?? e.errors?.[0]?.code
+    const message = e.message ?? e.errors?.[0]?.message ?? e.errors?.[0]?.longMessage
+    if (typeof code === 'string' && errorsT[code]) return errorsT[code]
+    if (typeof message === 'string') {
+      const m = message.toLowerCase()
+      if (m.includes('password') && m.includes('incorrect')) return errorsT.form_password_incorrect
+      if (m.includes('email') && m.includes('not found')) return errorsT.form_identifier_not_found
+      if (m.includes('already exists') || m.includes('already taken')) return errorsT.form_identifier_exists
+      if (m.includes('verification') && m.includes('code')) return errorsT.form_code_incorrect
+      if (m.includes('expired')) return errorsT.verification_expired
+      if (m.includes('rate limit') || m.includes('too many')) return errorsT.too_many_requests
+      return message
+    }
+    return errorsT.default_error
+  }
 
 	// Local state instead of global store
 	const [formData, setFormData] = useState({
@@ -106,20 +125,22 @@ export default function CustomSignIn() {
 			} else {
 				setGlobalError(t.somethingWentWrong)
 			}
-		} catch (err: any) {
-			const errorMessage = translateClerkError(err, locale)
+    } catch (err: unknown) {
+      const errorMessage = translateClerkErrorLocal(err)
 			setGlobalError(errorMessage)
 
 			// Set specific field errors based on error codes
-			if (err.errors?.[0]?.code === 'form_identifier_not_found') {
+      const e = (err ?? {}) as Partial<{ errors: Array<Partial<{ code: string }>> }>
+      const code = e.errors?.[0]?.code
+      if (code === 'form_identifier_not_found') {
 				setFieldErrors(prev => ({
 					...prev,
-					email: { message: translateClerkError(err, locale), code: 'not_found' },
+          email: { message: translateClerkErrorLocal(err), code: 'not_found' },
 				}))
-			} else if (err.errors?.[0]?.code === 'form_password_incorrect') {
+      } else if (code === 'form_password_incorrect') {
 				setFieldErrors(prev => ({
 					...prev,
-					password: { message: translateClerkError(err, locale), code: 'incorrect' },
+          password: { message: translateClerkErrorLocal(err), code: 'incorrect' },
 				}))
 			}
 		} finally {
