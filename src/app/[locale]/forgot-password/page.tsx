@@ -4,11 +4,15 @@ import { useState } from 'react'
 
 import { useSignIn } from '@clerk/nextjs'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
 import AuthGuard from '@/components/auth/AuthGuard'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
+import { authTranslations } from '@/lib/translations/auth'
+import { Locale } from '@/lib/i18n-config'
+import { translateClerkError } from '@/lib/clerkErrorTranslations'
 
 export default function ForgotPasswordPage() {
 	const [email, setEmail] = useState('')
@@ -20,6 +24,9 @@ export default function ForgotPasswordPage() {
 	const [complete, setComplete] = useState(false)
 
 	const { signIn, setActive } = useSignIn()
+	const params = useParams()
+	const locale = ((params?.locale as string) || 'en') as Locale
+	const t = authTranslations[locale]
 
 	// Send the password reset code to the user's email
 	async function create(e: React.FormEvent) {
@@ -33,9 +40,10 @@ export default function ForgotPasswordPage() {
 				setSuccessfulCreation(true)
 				setError('')
 			})
-			.catch(err => {
-				console.error('error', err.errors[0].longMessage)
-				setError(err.errors[0].longMessage)
+			.catch((err: any) => {
+				const msg = translateClerkError(err, locale)
+				console.error('error', msg)
+				setError(msg)
 			})
 	}
 
@@ -63,9 +71,10 @@ export default function ForgotPasswordPage() {
 					console.error(result)
 				}
 			})
-			.catch(err => {
-				console.error('error', err.errors[0].longMessage)
-				setError(err.errors[0].longMessage)
+			.catch((err: any) => {
+				const msg = translateClerkError(err, locale)
+				console.error('error', msg)
+				setError(msg)
 			})
 	}
 
@@ -74,19 +83,15 @@ export default function ForgotPasswordPage() {
 			<AuthSplitScreen>
 				<div className="w-full max-w-md space-y-6">
 					<div className="space-y-2 text-center">
-						<h1 className="text-foreground text-2xl font-bold tracking-tight">Mot de passe oublié</h1>
+					<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.forgotPassword.title}</h1>
 						{!successfulCreation && !complete && (
-							<p className="text-muted-foreground text-sm">
-								Entrez votre adresse email pour recevoir un code de réinitialisation
-							</p>
+						<p className="text-muted-foreground text-sm">{t.forgotPassword.subtitle}</p>
 						)}
 						{successfulCreation && !complete && (
-							<p className="text-muted-foreground text-sm">
-								Nous avons envoyé un code de réinitialisation à votre email
-							</p>
+						<p className="text-muted-foreground text-sm">{t.forgotPassword.emailSentSubtitle}</p>
 						)}
 						{complete && (
-							<p className="text-sm text-emerald-600">Votre mot de passe a été réinitialisé avec succès !</p>
+						<p className="text-sm text-emerald-600">{t.forgotPassword.successSubtitle}</p>
 						)}
 					</div>
 
@@ -99,12 +104,10 @@ export default function ForgotPasswordPage() {
 							)}
 
 							<div className="space-y-2">
-								<label htmlFor="email" className="text-foreground text-sm font-medium">
-									Adresse email
-								</label>
+							<label htmlFor="email" className="text-foreground text-sm font-medium">{t.forgotPassword.emailLabel}</label>
 								<Input
 									type="email"
-									placeholder="votre@email.com"
+								placeholder={t.forgotPassword.emailPlaceholder}
 									value={email}
 									onChange={e => setEmail(e.target.value)}
 									required
@@ -112,7 +115,7 @@ export default function ForgotPasswordPage() {
 							</div>
 
 							<Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-								Envoyer le code
+							{t.forgotPassword.sendCodeButton}
 							</Button>
 						</form>
 					)}
@@ -126,19 +129,21 @@ export default function ForgotPasswordPage() {
 							)}
 
 							<div className="space-y-2">
-								<label htmlFor="password" className="text-foreground text-sm font-medium">
-									Nouveau mot de passe
-								</label>
-								<Input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
+							<label htmlFor="password" className="text-foreground text-sm font-medium">{t.forgotPassword.newPasswordLabel}</label>
+							<Input
+								type="password"
+								placeholder={t.placeholders.password}
+								value={password}
+								onChange={e => setPassword(e.target.value)}
+								required
+							/>
 							</div>
 
 							<div className="space-y-2">
-								<label htmlFor="code" className="text-foreground text-sm font-medium">
-									Code de réinitialisation
-								</label>
+							<label htmlFor="code" className="text-foreground text-sm font-medium">{t.forgotPassword.resetCodeLabel}</label>
 								<Input
 									type="text"
-									placeholder="123456"
+								placeholder={t.forgotPassword.resetCodePlaceholder}
 									value={code}
 									onChange={e => setCode(e.target.value)}
 									required
@@ -147,7 +152,7 @@ export default function ForgotPasswordPage() {
 							</div>
 
 							<Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-								Réinitialiser le mot de passe
+							{t.forgotPassword.resetPasswordButton}
 							</Button>
 						</form>
 					)}
@@ -155,15 +160,18 @@ export default function ForgotPasswordPage() {
 					{complete && (
 						<div className="text-center">
 							<Button asChild size="lg" className="w-full">
-								<Link href="/dashboard">Continuer vers le tableau de bord</Link>
+							<Link href={`/${locale}/dashboard`}>{t.forgotPassword.continueToDashboard}</Link>
 							</Button>
 						</div>
 					)}
 
 					<div className="text-center">
-						<Link href="/sign-in" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-							← Retour à la connexion
-						</Link>
+					<Link
+						href={`/${locale}/sign-in`}
+						className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+					>
+						{t.forgotPassword.backToSignIn}
+					</Link>
 					</div>
 				</div>
 			</AuthSplitScreen>
