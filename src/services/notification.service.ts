@@ -6,6 +6,8 @@
 
 import { Resend } from 'resend'
 
+import { saleAlertText, contactSummaryText, contactFullText } from '../constants/discord.constant'
+
 type SaleAlertInfo = {
 	orderId?: string | null
 	bibId?: string | null
@@ -19,15 +21,7 @@ type SaleAlertInfo = {
  * Fails silently and returns false if the webhook URL is not set or if the request fails.
  */
 export async function sendSaleAlert(info?: SaleAlertInfo): Promise<boolean> {
-	const parts: string[] = ['@here New sale completed']
-	if (typeof info?.orderId === 'string' && info.orderId.length > 0) parts.push(`order: ${info.orderId}`)
-	if (typeof info?.bibId === 'string' && info.bibId.length > 0) parts.push(`bib: ${info.bibId}`)
-	if (info?.amount !== null && info?.amount !== undefined) {
-		const hasCurrency = typeof info?.currency === 'string' && info.currency.length > 0
-		parts.push(`amount: ${info.amount}${hasCurrency ? ` ${info.currency}` : ''}`)
-	}
-
-	const content = parts.join(' | ')
+	const content = saleAlertText(info)
 	return notifyAdmins({
 		text: content,
 		subject: '[Beswib] New sale completed',
@@ -49,22 +43,16 @@ type ContactMessageInfo = {
  */
 export async function sendContactMessage(info: ContactMessageInfo): Promise<boolean> {
 	const webhookUrl = process.env.DISCORD_WEBHOOK_URL ?? ''
-
-	const safe = (s: string) => s.replaceAll('`', 'ˋ').slice(0, 5000)
-	const name = safe(info.name ?? '').trim()
-	const email = safe(info.email ?? '').trim()
-	const msg = safe(info.message ?? '').trim()
-
-	const summary = `@here New contact form message | from: ${name || 'Anonymous'} | email: ${email || 'n/a'}`
-	const full = ['```', msg.slice(0, 1900), '```'].join('\n')
+	const summary = contactSummaryText(info.name, info.email)
+	const full = contactFullText(info.message)
 
 	const [d1, d2, emailOk] = await Promise.all([
 		postDiscord(webhookUrl, summary),
 		postDiscord(webhookUrl, full),
 		sendAdminAlertEmail({
-			text: `From: ${name || 'Anonymous'}\\nEmail: ${email || 'n/a'}\\n\\n${info.message}`,
+			text: `From: ${info.name || 'Anonymous'}\\nEmail: ${info.email || 'n/a'}\\n\\n${info.message}`,
 			subject: '[Beswib] New contact message',
-			html: contactHtml({ name, message: msg, email }),
+			html: contactHtml({ name: info.name ?? '', message: info.message ?? '', email: info.email ?? '' }),
 		}),
 	])
 
