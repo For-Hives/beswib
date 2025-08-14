@@ -5,7 +5,7 @@ import { getTranslations } from '@/lib/getDictionary'
 import mainLocales from '@/app/[locale]/locales.json'
 import { Locale } from '@/lib/i18n-config'
 
-export const validateEmail = (email: string, locale: Locale = 'fr'): FieldError | null => {
+export const validateEmail = (email: string, locale: Locale = 'en'): FieldError | null => {
 	const t = validationTranslations[locale]
 	if (!email) {
 		return { message: t.email.required, code: 'required' }
@@ -19,7 +19,7 @@ export const validateEmail = (email: string, locale: Locale = 'fr'): FieldError 
 	return null
 }
 
-export const validatePassword = (password: string, isSignUp = false, locale: Locale = 'fr'): FieldError | null => {
+export const validatePassword = (password: string, isSignUp = false, locale: Locale = 'en'): FieldError | null => {
 	const t = validationTranslations[locale]
 	if (!password) {
 		return { message: t.password.required, code: 'required' }
@@ -49,7 +49,7 @@ export const validatePassword = (password: string, isSignUp = false, locale: Loc
 export const validateConfirmPassword = (
 	password: string,
 	confirmPassword: string,
-	locale: Locale = 'fr'
+	locale: Locale = 'en'
 ): FieldError | null => {
 	const t = validationTranslations[locale]
 	if (!confirmPassword) {
@@ -63,7 +63,7 @@ export const validateConfirmPassword = (
 	return null
 }
 
-export const validateName = (name: string, fieldName: string, locale: Locale = 'fr'): FieldError | null => {
+export const validateName = (name: string, fieldName: string, locale: Locale = 'en'): FieldError | null => {
 	const t = validationTranslations[locale]
 	if (!name) {
 		return { message: t.name.required(fieldName), code: 'required' }
@@ -87,7 +87,7 @@ export const validateName = (name: string, fieldName: string, locale: Locale = '
 	return null
 }
 
-export const validateVerificationCode = (code: string, locale: Locale = 'fr'): FieldError | null => {
+export const validateVerificationCode = (code: string, locale: Locale = 'en'): FieldError | null => {
 	const t = validationTranslations[locale]
 	if (!code) {
 		return { message: t.verificationCode.required, code: 'required' }
@@ -103,7 +103,7 @@ export const validateVerificationCode = (code: string, locale: Locale = 'fr'): F
 // Helper function to get password strength
 export const getPasswordStrength = (
 	password: string,
-	locale: Locale = 'fr'
+	locale: Locale = 'en'
 ): {
 	score: number
 	feedback: string[]

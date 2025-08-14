@@ -16,7 +16,7 @@ import {
 } from './validation-schemas'
 
 // Email validation using Valibot
-export const validateEmailValibot = (email: string, locale: Locale = 'fr'): FieldError | null => {
+export const validateEmailValibot = (email: string, locale: Locale = 'en'): FieldError | null => {
 	const schema = createEmailSchema(locale)
 	const result = v.safeParse(schema, email)
 
@@ -35,7 +35,7 @@ export const validateEmailValibot = (email: string, locale: Locale = 'fr'): Fiel
 export const validatePasswordValibot = (
 	password: string,
 	isSignUp = false,
-	locale: Locale = 'fr'
+	locale: Locale = 'en'
 ): FieldError | null => {
 	const schema = isSignUp ? createSignUpPasswordSchema(locale) : createSignInPasswordSchema(locale)
 	const result = v.safeParse(schema, password)
@@ -65,7 +65,7 @@ export const validatePasswordValibot = (
 export const validateConfirmPasswordValibot = (
 	password: string,
 	confirmPassword: string,
-	locale: Locale = 'fr'
+	locale: Locale = 'en'
 ): FieldError | null => {
 	const t = validationTranslations[locale]
 
@@ -81,7 +81,7 @@ export const validateConfirmPasswordValibot = (
 }
 
 // Name validation using Valibot
-export const validateNameValibot = (name: string, fieldName: string, locale: Locale = 'fr'): FieldError | null => {
+export const validateNameValibot = (name: string, fieldName: string, locale: Locale = 'en'): FieldError | null => {
 	const schema = createNameSchema(fieldName, locale)
 	const result = v.safeParse(schema, name)
 
@@ -103,7 +103,7 @@ export const validateNameValibot = (name: string, fieldName: string, locale: Loc
 }
 
 // Verification code validation using Valibot
-export const validateVerificationCodeValibot = (code: string, locale: Locale = 'fr'): FieldError | null => {
+export const validateVerificationCodeValibot = (code: string, locale: Locale = 'en'): FieldError | null => {
 	const schema = createVerificationCodeSchema(locale)
 	const result = v.safeParse(schema, code)
 
@@ -121,7 +121,7 @@ export const validateVerificationCodeValibot = (code: string, locale: Locale = '
 // Enhanced password strength using Valibot (wrapper around existing function)
 export const getPasswordStrengthValibot = (
 	password: string,
-	locale: Locale = 'fr'
+	locale: Locale = 'en'
 ): {
 	score: number
 	feedback: string[]
@@ -131,7 +131,7 @@ export const getPasswordStrengthValibot = (
 }
 
 // Form validation helpers
-export const validateSignInForm = (data: { email: string; password: string }, locale: Locale = 'fr') => {
+export const validateSignInForm = (data: { email: string; password: string }, locale: Locale = 'en') => {
 	const emailError = validateEmailValibot(data.email, locale)
 	const passwordError = validatePasswordValibot(data.password, false, locale)
 
@@ -152,7 +152,7 @@ export const validateSignUpForm = (
 		password: string
 		confirmPassword: string
 	},
-	locale: Locale = 'fr'
+	locale: Locale = 'en'
 ) => {
 	const t = getTranslations(locale, mainLocales).auth
 
