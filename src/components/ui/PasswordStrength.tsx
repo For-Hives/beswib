@@ -3,8 +3,9 @@
 import { motion } from 'motion/react'
 
 import { getPasswordStrengthValibot } from '@/lib/validation-valibot'
-import { authTranslations } from '@/lib/translations/auth'
+import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
+import authLocales from '@/components/auth/locales.json'
 
 interface PasswordStrengthProps {
 	password: string
@@ -15,8 +16,8 @@ interface PasswordStrengthProps {
 export function PasswordStrength({ show = true, password, locale = 'fr' }: PasswordStrengthProps) {
 	if (!show || !password) return null
 
-	const { score, feedback, color } = getPasswordStrengthValibot(password, locale)
-	const t = authTranslations[locale].passwordStrength
+    const { score, feedback, color } = getPasswordStrengthValibot(password, locale)
+    const t = getTranslations(locale, authLocales).auth.passwordStrength
 
 	const strengthLabels = {
 		5: t.veryStrong,

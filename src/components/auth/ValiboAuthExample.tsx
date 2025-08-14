@@ -6,10 +6,11 @@ import { useValibot } from '@/hooks/useValibot'
 import { useParams } from 'next/navigation'
 
 import { createSignInSchema, createSignUpSchema } from '@/lib/validation-schemas'
-import { authTranslations } from '@/lib/translations/auth'
+import { getTranslations } from '@/lib/getDictionary'
 import { FormInput } from '@/components/ui/FormInput'
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n-config'
+import authLocales from '@/components/auth/locales.json'
 
 interface ValiboAuthExampleProps {
 	mode: 'signin' | 'signup'
@@ -17,8 +18,8 @@ interface ValiboAuthExampleProps {
 
 export default function ValiboAuthExample({ mode }: ValiboAuthExampleProps) {
 	const params = useParams()
-	const locale = (params?.locale as Locale) || 'fr'
-	const t = authTranslations[locale]
+    const locale = (params?.locale as Locale) || 'fr'
+    const t = getTranslations(locale, authLocales).auth
 
 	// Use the appropriate schema based on mode
 	const schema = mode === 'signin' ? createSignInSchema(locale) : createSignUpSchema(locale)

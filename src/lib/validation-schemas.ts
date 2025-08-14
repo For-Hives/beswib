@@ -2,6 +2,8 @@ import * as v from 'valibot'
 
 import { validationTranslations } from '@/lib/translations/validation'
 import { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/getDictionary'
+import authLocales from '@/components/auth/locales.json'
 
 // Email schema
 export const createEmailSchema = (locale: Locale = 'fr') => {
@@ -83,48 +85,49 @@ export const createSignUpSchema = (locale: Locale = 'fr') => {
 }
 
 // Password strength analysis using Valibot
-export const analyzePasswordStrength = (password: string) => {
+export const analyzePasswordStrength = (password: string, locale: Locale = 'fr') => {
+    const tAuth = getTranslations(locale, authLocales).auth.passwordStrength
 	let score = 0
 	const feedback: string[] = []
 
 	// Length check
 	const lengthCheck = v.safeParse(v.pipe(v.string(), v.minLength(8)), password)
-	if (lengthCheck.success) {
+    if (lengthCheck.success) {
 		score++
 	} else {
-		feedback.push('Au moins 8 caractères')
+        feedback.push(tAuth.atLeast8Chars)
 	}
 
 	// Lowercase check
 	const lowercaseCheck = v.safeParse(v.pipe(v.string(), v.regex(/(?=.*[a-z])/)), password)
-	if (lowercaseCheck.success) {
+    if (lowercaseCheck.success) {
 		score++
 	} else {
-		feedback.push('Une minuscule')
+        feedback.push(tAuth.oneLowercase)
 	}
 
 	// Uppercase check
 	const uppercaseCheck = v.safeParse(v.pipe(v.string(), v.regex(/(?=.*[A-Z])/)), password)
-	if (uppercaseCheck.success) {
+    if (uppercaseCheck.success) {
 		score++
 	} else {
-		feedback.push('Une majuscule')
+        feedback.push(tAuth.oneUppercase)
 	}
 
 	// Number check
 	const numberCheck = v.safeParse(v.pipe(v.string(), v.regex(/(?=.*\d)/)), password)
-	if (numberCheck.success) {
+    if (numberCheck.success) {
 		score++
 	} else {
-		feedback.push('Un chiffre')
+        feedback.push(tAuth.oneNumber)
 	}
 
 	// Special character check
 	const specialCheck = v.safeParse(v.pipe(v.string(), v.regex(/(?=.*[!@#$%^&*(),.?":{}|<>])/)), password)
-	if (specialCheck.success) {
+    if (specialCheck.success) {
 		score++
 	} else if (score >= 3) {
-		feedback.push('Un caractère spécial')
+        feedback.push(tAuth.oneSpecialChar)
 	}
 
 	const colors: Record<number, 'red' | 'orange' | 'yellow' | 'green'> = {

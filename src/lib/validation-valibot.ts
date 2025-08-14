@@ -6,12 +6,12 @@ import { authTranslations } from '@/lib/translations/auth'
 import { Locale } from '@/lib/i18n-config'
 
 import {
-	createEmailSchema,
-	createSignInPasswordSchema,
-	createSignUpPasswordSchema,
-	createNameSchema,
-	createVerificationCodeSchema,
-	analyzePasswordStrength,
+    createEmailSchema,
+    createSignInPasswordSchema,
+    createSignUpPasswordSchema,
+    createNameSchema,
+    createVerificationCodeSchema,
+    analyzePasswordStrength,
 } from './validation-schemas'
 
 // Email validation using Valibot
@@ -119,14 +119,14 @@ export const validateVerificationCodeValibot = (code: string, locale: Locale = '
 
 // Enhanced password strength using Valibot (wrapper around existing function)
 export const getPasswordStrengthValibot = (
-	password: string,
-	locale: Locale = 'fr'
+    password: string,
+    locale: Locale = 'fr'
 ): {
 	score: number
 	feedback: string[]
 	color: 'red' | 'orange' | 'yellow' | 'green'
 } => {
-	return analyzePasswordStrength(password, locale)
+    return analyzePasswordStrength(password, locale)
 }
 
 // Form validation helpers
