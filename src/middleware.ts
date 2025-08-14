@@ -60,18 +60,14 @@ export function getLocaleFromRequest(request: NextRequest): string {
 
 // Define protected routes that require authentication
 const isProtectedRoute = createRouteMatcher([
-	'/(.*)/dashboard(.*)', 
-	'/(.*)/profile(.*)', 
-	'/(.*)/purchase(.*)', 
-	'/(.*)/admin(.*)'
+	'/(.*)/dashboard(.*)',
+	'/(.*)/profile(.*)',
+	'/(.*)/purchase(.*)',
+	'/(.*)/admin(.*)',
 ])
 
 // Define public routes that should redirect authenticated users away
-const isPublicAuthRoute = createRouteMatcher([
-	'/(.*)/sign-in(.*)', 
-	'/(.*)/sign-up(.*)', 
-	'/(.*)/forgot-password'
-])
+const isPublicAuthRoute = createRouteMatcher(['/(.*)/sign-in(.*)', '/(.*)/sign-up(.*)', '/(.*)/forgot-password'])
 
 export default clerkMiddleware((auth, request: NextRequest) => {
 	const { pathname } = request.nextUrl

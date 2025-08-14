@@ -25,7 +25,7 @@ export default function Page({ params }: { params: Promise<{ locale: string }> }
 	if (!isLoaded) {
 		return (
 			<div className="flex h-screen items-center justify-center">
-				<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+				<div className="border-primary h-8 w-8 animate-spin rounded-full border-b-2"></div>
 			</div>
 		)
 	}
@@ -35,6 +35,6 @@ export default function Page({ params }: { params: Promise<{ locale: string }> }
 			<AuthSplitScreen>
 				<CustomSignUp />
 			</AuthSplitScreen>
-			</SignedOut>
+		</SignedOut>
 	)
 }
