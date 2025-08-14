@@ -46,8 +46,11 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 
 	async function handleJoinWaitlist(formData: FormData) {
 		'use server'
+		const eventIdFromForm = formData.get('eventId') as string
+		const userEmail = formData.get('email') as string | null
+
 		if (clerkId != null) {
-			const eventIdFromForm = formData.get('eventId') as string
+			// Authenticated user flow
 			const user = await fetchUserByClerkId(clerkId)
 			const result = await addToWaitlist(eventIdFromForm, user)
 
@@ -58,14 +61,26 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 			} else {
 				redirect(`/events/${eventIdFromForm}?waitlist_error=failed`)
 			}
+		} else if (userEmail != null && userEmail.trim() !== '') {
+			// Email-only subscription flow
+			const result = await addToWaitlist(eventIdFromForm, null, userEmail.trim())
+
+			if (result && result.error === 'already_on_waitlist') {
+				redirect(`/events/${eventIdFromForm}?waitlist_error=already_added_email`)
+			} else if (result) {
+				redirect(`/events/${eventIdFromForm}?waitlist_success=true&email=${encodeURIComponent(userEmail.trim())}`)
+			} else {
+				redirect(`/events/${eventIdFromForm}?waitlist_error=failed`)
+			}
 		} else {
-			// Redirect to sign-in if user is not authenticated
+			// No authentication and no email provided - redirect to sign-in
 			redirect('/sign-in')
 		}
 	}
 
 	const waitlistSuccess = resolvedSearchParams?.waitlist_success === 'true'
 	const waitlistError = resolvedSearchParams?.waitlist_error
+	const subscribedEmail = resolvedSearchParams?.email as string | undefined
 
 	// Local helpers for formatting various values
 	const formatPbDate = (date: Date | string | null | undefined) => {
@@ -106,7 +121,9 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 								<div className="mb-6 text-6xl text-green-600 dark:text-green-400">{t.event.waitlist.success.icon}</div>
 								<h1 className="text-foreground mb-4 text-3xl font-bold">{t.event.waitlist.success.title}</h1>
 								<p className="text-muted-foreground mb-6 text-lg">
-									{t.event.waitlist.success.message.replace('{eventName}', event.name)}
+									{subscribedEmail != null
+										? `Great! You'll receive notifications at ${subscribedEmail} when bibs become available for ${event.name}.`
+										: t.event.waitlist.success.message.replace('{eventName}', event.name)}
 								</p>
 								<Link
 									className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
@@ -127,7 +144,9 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 								<p className="text-muted-foreground mb-6 text-lg">
 									{waitlistError === 'already_added'
 										? t.event.waitlist.error.alreadyAdded.replace('{eventName}', event.name)
-										: t.event.waitlist.error.failed}
+										: waitlistError === 'already_added_email'
+											? 'You have already subscribed to notifications for this event with this email address.'
+											: t.event.waitlist.error.failed}
 								</p>
 								<Link
 									className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
@@ -310,16 +329,60 @@ export default async function EventDetailPage({ searchParams, params }: EventDet
 								<h3 className="text-foreground mb-4 text-xl font-semibold">{t.event.bibs.noBibsAvailable}</h3>
 								<p className="text-muted-foreground mb-6">{t.event.waitlist.joinDescription}</p>
 
-								<form action={handleJoinWaitlist} className="mx-auto max-w-xs">
-									<input name="eventId" type="hidden" value={eventId} />
-									<button
-										className="bg-accent/20 hover:bg-accent/30 text-accent-foreground hover:text-foreground border-border flex w-full items-center justify-center gap-3 rounded-xl border px-6 py-3 font-medium backdrop-blur-md transition"
-										type="submit"
-									>
-										<Bell className="h-5 w-5" />
-										{t.event.waitlist.joinButton}
-									</button>
-								</form>
+								{clerkId != null ? (
+									/* Authenticated user - simple join button */
+									<form action={handleJoinWaitlist} className="mx-auto max-w-xs">
+										<input name="eventId" type="hidden" value={eventId} />
+										<button
+											className="bg-accent/20 hover:bg-accent/30 text-accent-foreground hover:text-foreground border-border flex w-full items-center justify-center gap-3 rounded-xl border px-6 py-3 font-medium backdrop-blur-md transition"
+											type="submit"
+										>
+											<Bell className="h-5 w-5" />
+											{t.event.waitlist.joinButton}
+										</button>
+									</form>
+								) : (
+									/* Non-authenticated user - email input or login options */
+									<div className="mx-auto max-w-md space-y-4">
+										<form action={handleJoinWaitlist} className="space-y-4">
+											<input name="eventId" type="hidden" value={eventId} />
+											<div className="space-y-2">
+												<label className="text-foreground block text-sm font-medium" htmlFor="waitlist-email">
+													Email address
+												</label>
+												<input
+													className="border-border bg-card/50 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 w-full rounded-lg border px-4 py-3 backdrop-blur-sm transition focus:ring-2 focus:outline-none"
+													id="waitlist-email"
+													name="email"
+													placeholder="Enter your email for notifications"
+													required
+													type="email"
+												/>
+											</div>
+											<button
+												className="bg-accent/20 hover:bg-accent/30 text-accent-foreground hover:text-foreground border-border flex w-full items-center justify-center gap-3 rounded-xl border px-6 py-3 font-medium backdrop-blur-md transition"
+												type="submit"
+											>
+												<Bell className="h-5 w-5" />
+												Subscribe to Notifications
+											</button>
+										</form>
+										<div className="relative">
+											<div className="absolute inset-0 flex items-center">
+												<div className="border-border w-full border-t" />
+											</div>
+											<div className="relative flex justify-center text-sm">
+												<span className="text-muted-foreground bg-background px-2">or</span>
+											</div>
+										</div>
+										<Link
+											className="bg-primary hover:bg-primary/90 text-primary-foreground flex w-full items-center justify-center gap-3 rounded-xl px-6 py-3 font-medium transition"
+											href="/sign-in"
+										>
+											Sign in for full features
+										</Link>
+									</div>
+								)}
 							</div>
 						)}
 					</div>

@@ -3,10 +3,11 @@ import type { User } from './user.model'
 
 export interface Waitlist {
 	id: string
-	addedAt: Date
-	eventId: Event['id']
+	added_at: Date | string
+	event_id: Event['id']
 	mailNotification: boolean
 
 	optionPreferences: Record<string, string>
-	userId: User['id']
+	user_id: User['id'] | null // Allow null for email-only subscriptions
+	email?: string // Direct email for non-authenticated users
 }
