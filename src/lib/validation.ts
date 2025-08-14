@@ -3,7 +3,7 @@ import { FieldError } from '@/stores/authStore'
 import { validationTranslations } from '@/lib/translations/validation'
 import { getTranslations } from '@/lib/getDictionary'
 import { Locale } from '@/lib/i18n-config'
-import authLocales from '@/components/auth/locales.json'
+import mainLocales from '@/app/[locale]/locales.json'
 
 export const validateEmail = (email: string, locale: Locale = 'fr'): FieldError | null => {
 	const t = validationTranslations[locale]
@@ -109,7 +109,7 @@ export const getPasswordStrength = (
 	feedback: string[]
 	color: 'red' | 'orange' | 'yellow' | 'green'
 } => {
-	const t = getTranslations(locale, authLocales).auth.passwordStrength
+	const t = getTranslations(locale, mainLocales).auth.passwordStrength
 	const feedback: string[] = []
 	let score = 0
 

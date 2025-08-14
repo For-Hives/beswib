@@ -3,7 +3,7 @@ import * as v from 'valibot'
 import { validationTranslations } from '@/lib/translations/validation'
 import { Locale } from '@/lib/i18n-config'
 import { getTranslations } from '@/lib/getDictionary'
-import authLocales from '@/components/auth/locales.json'
+import mainLocales from '@/app/[locale]/locales.json'
 
 // Email schema
 export const createEmailSchema = (locale: Locale = 'fr') => {
@@ -86,7 +86,7 @@ export const createSignUpSchema = (locale: Locale = 'fr') => {
 
 // Password strength analysis using Valibot
 export const analyzePasswordStrength = (password: string, locale: Locale = 'fr') => {
-	const tAuth = getTranslations(locale, authLocales).auth.passwordStrength
+	const tAuth = getTranslations(locale, mainLocales).auth.passwordStrength
 	let score = 0
 	const feedback: string[] = []
 
