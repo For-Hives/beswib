@@ -86,7 +86,7 @@ export default function NotFoundPage() {
 	})()
 
 	// Ensure Rive WASM is loaded from a local URL
-	RuntimeLoader.setWasmUrl('/svgs/rive_fallback.wasm')
+	RuntimeLoader.setWasmUrl('/rive/rive_fallback.wasm')
 
 	const { RiveComponent, rive } = useRive({
 		src: '/rive/vroum.riv',

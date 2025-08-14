@@ -292,7 +292,7 @@ export default function MarketplaceSidebar({
 				<div className="space-y-3">
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<Label className="flex cursor-help items-center gap-2 text-sm font-medium">
+							<Label className="flex items-center gap-2 text-sm font-medium">
 								<MapPin className="h-4 w-4" />
 								{t.region ?? 'Location'}
 							</Label>

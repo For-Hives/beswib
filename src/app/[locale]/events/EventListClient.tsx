@@ -666,7 +666,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 											// Delay hiding dropdown to allow clicks on items
 											setTimeout(() => setShowLocationDropdown(false), 200)
 										}}
-										className="cursor-help text-sm"
+										className="text-sm"
 									/>
 								</TooltipTrigger>
 								<TooltipContent>
