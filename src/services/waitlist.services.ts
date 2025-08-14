@@ -218,3 +218,56 @@ export async function removeFromWaitlist(eventId: string, user: null | User, ema
 		return false
 	}
 }
+
+/**
+ * Links existing email-only waitlist entries to a newly created user account.
+ * This is typically called when a user signs up and we want to convert their
+ * email-only waitlist subscriptions to user-linked subscriptions.
+ * @param email The email address to search for.
+ * @param user The newly created user to link the waitlist entries to.
+ * @returns The number of waitlist entries that were successfully linked.
+ */
+export async function linkEmailWaitlistsToUser(email: string, user: User): Promise<number> {
+	if (email == null || email.trim() === '') {
+		console.error('Email is required to link waitlist entries to user.')
+		return 0
+	}
+
+	if (user?.id == null || user.id.trim() === '') {
+		console.error('Valid user with ID is required to link waitlist entries.')
+		return 0
+	}
+
+	try {
+		// Find all email-only waitlist entries for this email
+		const emailWaitlistEntries = await pb.collection('waitlists').getFullList<Waitlist>({
+			filter: `email = "${email.trim()}" && user_id = null`,
+		})
+
+		if (emailWaitlistEntries.length === 0) {
+			console.info(`No email-only waitlist entries found for ${email}`)
+			return 0
+		}
+
+		let linkedCount = 0
+
+		// Update each entry to link to the user account
+		for (const entry of emailWaitlistEntries) {
+			try {
+				await pb.collection('waitlists').update(entry.id, {
+					user_id: user.id,
+					email: undefined, // Remove the email field since we now have a user_id
+				})
+				linkedCount++
+			} catch (error) {
+				console.error(`Failed to link waitlist entry ${entry.id} to user ${user.id}:`, error)
+			}
+		}
+
+		console.info(`Successfully linked ${linkedCount} waitlist entries from email ${email} to user ${user.id}`)
+		return linkedCount
+	} catch (error: unknown) {
+		console.error(`Error linking email waitlist entries for ${email} to user ${user.id}:`, error)
+		return 0
+	}
+}
