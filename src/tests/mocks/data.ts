@@ -12,7 +12,7 @@ export const mockUser: User = {
 
 	licenseNumber: null,
 	lastName: 'User',
-	id: 'user1',
+	id: 'test_user_123456',
 	gender: null,
 	firstName: 'Test',
 	emergencyContactRelationship: null,
@@ -35,7 +35,7 @@ export const mockEvent: Event = {
 	options: null,
 	name: 'Test Event',
 	location: 'Test Location',
-	id: 'event1',
+	id: 'test_event_123456',
 	eventDate: new Date('2025-12-31T23:59:59Z'),
 	description: 'Test Event Description',
 	bibPickupWindowEndDate: new Date('2025-12-31'),
@@ -45,16 +45,16 @@ export const mockEvent: Event = {
 export const mockBib: Bib & { expand?: { eventId: Event; sellerUserId: User } } = {
 	validated: false,
 	status: 'available',
-	sellerUserId: 'user1',
+	sellerUserId: 'test_user_123456',
 	registrationNumber: 'REG123',
 	price: 50,
 	originalPrice: 40,
 	optionValues: {},
 	listed: null,
-	id: 'bib1',
+	id: 'test_bib_123456',
 	expand: {
 		sellerUserId: mockUser,
 		eventId: mockEvent,
 	},
-	eventId: 'event1',
+	eventId: 'test_event_123456',
 }

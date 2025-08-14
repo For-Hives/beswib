@@ -43,7 +43,7 @@ describe('PayPal webhook route', () => {
 	})
 
 	it('rejects invalid signature', async () => {
-		const mockVerify = verifyPayPalWebhookSignature as ReturnType<typeof vi.fn>
+		const mockVerify = vi.mocked(verifyPayPalWebhookSignature)
 		mockVerify.mockResolvedValue(false)
 		const req = new MockRequest(JSON.stringify(mkEvent('ANY')))
 		const res = await POST(req as unknown as NextRequest)
@@ -53,7 +53,7 @@ describe('PayPal webhook route', () => {
 	})
 
 	it('routes PAYMENT.CAPTURE.COMPLETED', async () => {
-		const mockVerify = verifyPayPalWebhookSignature as ReturnType<typeof vi.fn>
+		const mockVerify = vi.mocked(verifyPayPalWebhookSignature)
 		mockVerify.mockResolvedValue(true)
 		const req = new MockRequest(JSON.stringify(mkEvent('PAYMENT.CAPTURE.COMPLETED')))
 		const res = await POST(req as unknown as NextRequest)
@@ -62,7 +62,7 @@ describe('PayPal webhook route', () => {
 	})
 
 	it('routes CHECKOUT.ORDER.APPROVED', async () => {
-		const mockVerify = verifyPayPalWebhookSignature as ReturnType<typeof vi.fn>
+		const mockVerify = vi.mocked(verifyPayPalWebhookSignature)
 		mockVerify.mockResolvedValue(true)
 		const req = new MockRequest(JSON.stringify(mkEvent('CHECKOUT.ORDER.APPROVED')))
 		const res = await POST(req as unknown as NextRequest)

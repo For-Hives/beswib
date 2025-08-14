@@ -174,7 +174,6 @@ const OrbitalNode = memo(
 					aria-label={`Icon for ${item.title}`}
 					style={{
 						pointerEvents: 'auto',
-						boxShadow: '0 0 0 2px rgba(0, 255, 0, 0.3)', // Debug: bordure verte temporaire
 					}}
 				>
 					<div style={{ pointerEvents: 'none' }}>
@@ -194,9 +193,8 @@ const OrbitalNode = memo(
 					aria-label={`Title: ${item.title}`}
 					style={{
 						pointerEvents: 'auto',
-						padding: '4px 8px', // Zone de clic plus large
+						padding: '4px 8px',
 						minWidth: '60px',
-						backgroundColor: 'rgba(255, 0, 0, 0.1)', // Debug: fond rouge temporaire
 					}}
 				>
 					{item.title}
