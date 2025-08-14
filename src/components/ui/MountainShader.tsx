@@ -2,6 +2,7 @@
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useEffect, useRef, useMemo, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 import * as THREE from 'three'
 
@@ -501,6 +502,7 @@ function MountainScene({ containerSize }: { containerSize: { width: number; heig
 export default function MountainShader({ className = '' }: MountainShaderProps) {
 	const containerRef = useRef<HTMLDivElement>(null)
 	const [containerSize, setContainerSize] = useState({ width: 1920, height: 1080 })
+	const pathname = usePathname()
 
 	/**
 	 * Resize observer to dynamically adapt to container size changes
@@ -510,42 +512,60 @@ export default function MountainShader({ className = '' }: MountainShaderProps) 
 	useEffect(() => {
 		if (!containerRef.current) return
 
+		const calculateSize = (container: HTMLDivElement) => {
+			const { width, height } = container.getBoundingClientRect()
+
+			// Calculate the optimal size that fits within the container
+			// while maintaining 16:9 aspect ratio
+			let finalWidth = width
+			let finalHeight = height
+
+			const containerAspect = width / height
+			const targetAspect = 16 / 9
+
+			if (containerAspect > targetAspect) {
+				// Container is wider than 16:9 - fit to height
+				finalHeight = height
+				finalWidth = height * targetAspect
+			} else {
+				// Container is taller than 16:9 - fit to width
+				finalWidth = width
+				finalHeight = width / targetAspect
+			}
+
+			// Use a larger multiplier to ensure complete coverage
+			// This prevents any gaps or empty spaces around the edges
+			const coverageMultiplier = 2.6
+			return {
+				width: finalWidth * coverageMultiplier,
+				height: finalHeight * coverageMultiplier,
+			}
+		}
+
+		// Initial size calculation on mount
+		const initialSize = calculateSize(containerRef.current)
+		setContainerSize(initialSize)
+
 		const resizeObserver = new ResizeObserver(entries => {
 			for (const entry of entries) {
-				const { width, height } = entry.contentRect
-
-				// Calculate the optimal size that fits within the container
-				// while maintaining 16:9 aspect ratio
-				let finalWidth = width
-				let finalHeight = height
-
-				const containerAspect = width / height
-				const targetAspect = 16 / 9
-
-				if (containerAspect > targetAspect) {
-					// Container is wider than 16:9 - fit to height
-					finalHeight = height
-					finalWidth = height * targetAspect
-				} else {
-					// Container is taller than 16:9 - fit to width
-					finalWidth = width
-					finalHeight = width / targetAspect
-				}
-
-				// Use a larger multiplier to ensure complete coverage
-				// This prevents any gaps or empty spaces around the edges
-				const coverageMultiplier = 2.6
-				setContainerSize({
-					width: finalWidth * coverageMultiplier,
-					height: finalHeight * coverageMultiplier,
-				})
+				const newSize = calculateSize(entry.target as HTMLDivElement)
+				setContainerSize(newSize)
 			}
 		})
 
 		resizeObserver.observe(containerRef.current)
 
+		// Force resize check after a short delay to handle navigation issues
+		const timeoutId = setTimeout(() => {
+			if (containerRef.current) {
+				const newSize = calculateSize(containerRef.current)
+				setContainerSize(newSize)
+			}
+		}, 100)
+
 		return () => {
 			resizeObserver.disconnect()
+			clearTimeout(timeoutId)
 		}
 	}, [])
 
