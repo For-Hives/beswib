@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useState } from 'react'
 
 import { useRouter, useParams } from 'next/navigation'
-import { useAuthStore } from '@/stores/authStore'
 import { useSignIn } from '@clerk/nextjs'
 import Link from 'next/link'
 
@@ -16,6 +15,11 @@ import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
 import { Locale } from '@/lib/i18n-config'
 
+interface FieldError {
+	message: string
+	code?: string
+}
+
 export default function CustomSignIn() {
 	const { signIn, setActive, isLoaded } = useSignIn()
 	const router = useRouter()
@@ -23,23 +27,17 @@ export default function CustomSignIn() {
 	const locale = (params?.locale as Locale) || 'en'
 	const t = getTranslations(locale, mainLocales).auth
 
-	const {
-		signInData,
-		setSigningIn,
-		setSignInData,
-		setGlobalError,
-		setFieldError,
-		resetSignInForm,
-		isSigningIn,
-		globalError,
-		fieldErrors,
-		clearFieldError,
-	} = useAuthStore()
-
-	// Reset form on component mount
-	useEffect(() => {
-		resetSignInForm()
-	}, [resetSignInForm])
+	// Local state instead of global store
+	const [formData, setFormData] = useState({
+		password: '',
+		email: '',
+	})
+	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [globalError, setGlobalError] = useState('')
+	const [fieldErrors, setFieldErrors] = useState<{
+		email?: FieldError
+		password?: FieldError
+	}>({})
 
 	// Validate fields in real-time
 	const validateField = (field: 'email' | 'password', value: string) => {
@@ -54,18 +52,25 @@ export default function CustomSignIn() {
 				break
 		}
 
-		setFieldError(field, error)
+		setFieldErrors(prev => ({
+			...prev,
+			[field]: error,
+		}))
 		return error === null
 	}
 
 	// Handle input changes
 	const handleInputChange = (field: 'email' | 'password') => (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
-		setSignInData({ [field]: value })
+		setFormData(prev => ({ ...prev, [field]: value }))
 
 		// Clear field error on input change
 		if (fieldErrors[field]) {
-			clearFieldError(field)
+			setFieldErrors(prev => {
+				const newErrors = { ...prev }
+				delete newErrors[field]
+				return newErrors
+			})
 		}
 
 		// Clear global error
@@ -77,23 +82,23 @@ export default function CustomSignIn() {
 	// Handle form submission
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		if (!isLoaded || isSigningIn) return
+		if (!isLoaded || isSubmitting) return
 
 		// Validate all fields
-		const emailValid = validateField('email', signInData.email)
-		const passwordValid = validateField('password', signInData.password)
+		const emailValid = validateField('email', formData.email)
+		const passwordValid = validateField('password', formData.password)
 
 		if (!emailValid || !passwordValid) {
 			return
 		}
 
-		setSigningIn(true)
+		setIsSubmitting(true)
 		setGlobalError('')
 
 		try {
 			const result = await signIn.create({
-				password: signInData.password,
-				identifier: signInData.email,
+				password: formData.password,
+				identifier: formData.email,
 			})
 
 			if (result.status === 'complete') {
@@ -108,12 +113,18 @@ export default function CustomSignIn() {
 
 			// Set specific field errors based on error codes
 			if (err.errors?.[0]?.code === 'form_identifier_not_found') {
-				setFieldError('email', { message: translateClerkError(err, locale), code: 'not_found' })
+				setFieldErrors(prev => ({
+					...prev,
+					email: { message: translateClerkError(err, locale), code: 'not_found' },
+				}))
 			} else if (err.errors?.[0]?.code === 'form_password_incorrect') {
-				setFieldError('password', { message: translateClerkError(err, locale), code: 'incorrect' })
+				setFieldErrors(prev => ({
+					...prev,
+					password: { message: translateClerkError(err, locale), code: 'incorrect' },
+				}))
 			}
 		} finally {
-			setSigningIn(false)
+			setIsSubmitting(false)
 		}
 	}
 
@@ -121,7 +132,7 @@ export default function CustomSignIn() {
 	const signInWith = (strategy: 'oauth_google' | 'oauth_facebook') => {
 		if (!signIn) return
 
-		setSigningIn(true)
+		setIsSubmitting(true)
 		void signIn.authenticateWithRedirect({
 			strategy,
 			redirectUrlComplete: `/${locale}/dashboard`,
@@ -144,7 +155,7 @@ export default function CustomSignIn() {
 					size="lg"
 					className="w-full"
 					onClick={() => signInWith('oauth_google')}
-					disabled={isSigningIn}
+					disabled={isSubmitting}
 				>
 					<Icons.google className="mr-2 h-4 w-4" />
 					{t.signIn.continueWithGoogle}
@@ -154,7 +165,7 @@ export default function CustomSignIn() {
 					size="lg"
 					className="w-full"
 					onClick={() => signInWith('oauth_facebook')}
-					disabled={isSigningIn}
+					disabled={isSubmitting}
 				>
 					<Icons.facebook className="mr-2 h-4 w-4" />
 					{t.signIn.continueWithFacebook}
@@ -184,10 +195,10 @@ export default function CustomSignIn() {
 					type="email"
 					label={t.fields.email}
 					placeholder={t.placeholders.email}
-					value={signInData.email}
+					value={formData.email}
 					onChange={handleInputChange('email')}
 					error={fieldErrors.email}
-					disabled={isSigningIn}
+					disabled={isSubmitting}
 					autoComplete="email"
 				/>
 
@@ -195,10 +206,10 @@ export default function CustomSignIn() {
 					type="password"
 					label={t.fields.password}
 					placeholder={t.placeholders.password}
-					value={signInData.password}
+					value={formData.password}
 					onChange={handleInputChange('password')}
 					error={fieldErrors.password}
-					disabled={isSigningIn}
+					disabled={isSubmitting}
 					showPasswordToggle
 					autoComplete="current-password"
 				/>
@@ -212,8 +223,8 @@ export default function CustomSignIn() {
 					</Link>
 				</div>
 
-				<Button type="submit" size="lg" className="w-full" disabled={isSigningIn}>
-					{isSigningIn ? (
+				<Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+					{isSubmitting ? (
 						<>
 							<div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
 							{t.signIn.signingIn}

@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useState } from 'react'
 
 import { useRouter, useParams } from 'next/navigation'
-import { useAuthStore } from '@/stores/authStore'
 import { useSignUp } from '@clerk/nextjs'
 import Link from 'next/link'
 
@@ -18,10 +17,11 @@ import { PasswordStrength } from '@/components/ui/PasswordStrength'
 import { translateClerkError } from '@/lib/clerkErrorTranslations'
 import { getTranslations } from '@/lib/getDictionary'
 import { FormInput } from '@/components/ui/FormInput'
-import mainLocales from '@/app/[locale]/locales.json'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
 import { Locale } from '@/lib/i18n-config'
+import mainLocales from '@/app/[locale]/locales.json'
+import { FieldError } from '@/types/auth'
 
 export default function CustomSignUp() {
 	const { signUp, setActive, isLoaded } = useSignUp()
@@ -30,33 +30,31 @@ export default function CustomSignUp() {
 	const locale = (params?.locale as Locale) || 'en'
 	const t = getTranslations(locale, mainLocales).auth
 
-	const {
-		verificationEmail,
-		verificationCode,
-		signUpData,
-		setVerifying,
-		setVerificationCode,
-		setSignUpData,
-		setSigningUp,
-		setPendingVerification,
-		setGlobalError,
-		setFieldError,
-		resetSignUpForm,
-		pendingVerification,
-		isVerifying,
-		isSigningUp,
-		globalError,
-		fieldErrors,
-		clearFieldError,
-	} = useAuthStore()
-
-	// Reset form on component mount
-	useEffect(() => {
-		resetSignUpForm()
-	}, [resetSignUpForm])
+	// Local state instead of global store
+	const [formData, setFormData] = useState({
+		firstName: '',
+		lastName: '',
+		email: '',
+		password: '',
+		confirmPassword: ''
+	})
+	const [verificationCode, setVerificationCode] = useState('')
+	const [pendingVerification, setPendingVerification] = useState(false)
+	const [verificationEmail, setVerificationEmail] = useState('')
+	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [isVerifying, setIsVerifying] = useState(false)
+	const [globalError, setGlobalError] = useState('')
+	const [fieldErrors, setFieldErrors] = useState<{
+		firstName?: FieldError
+		lastName?: FieldError
+		email?: FieldError
+		password?: FieldError
+		confirmPassword?: FieldError
+		verificationCode?: FieldError
+	}>({})
 
 	// Validate fields in real-time
-	const validateField = (field: keyof typeof signUpData | 'verificationCode', value: string) => {
+	const validateField = (field: keyof typeof formData | 'verificationCode', value: string) => {
 		let error = null
 
 		switch (field) {
@@ -73,25 +71,32 @@ export default function CustomSignUp() {
 				error = validatePasswordValibot(value, true, locale)
 				break
 			case 'confirmPassword':
-				error = validateConfirmPasswordValibot(signUpData.password, value, locale)
+				error = validateConfirmPasswordValibot(formData.password, value, locale)
 				break
 			case 'verificationCode':
 				error = validateVerificationCodeValibot(value, locale)
 				break
 		}
 
-		setFieldError(field, error)
+		setFieldErrors(prev => ({
+			...prev,
+			[field]: error
+		}))
 		return error === null
 	}
 
 	// Handle input changes
-	const handleInputChange = (field: keyof typeof signUpData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleInputChange = (field: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
-		setSignUpData({ [field]: value })
+		setFormData(prev => ({ ...prev, [field]: value }))
 
 		// Clear field error on input change
 		if (fieldErrors[field]) {
-			clearFieldError(field)
+			setFieldErrors(prev => {
+				const newErrors = { ...prev }
+				delete newErrors[field]
+				return newErrors
+			})
 		}
 
 		// Clear global error
@@ -100,8 +105,8 @@ export default function CustomSignUp() {
 		}
 
 		// Also validate confirm password when password changes
-		if (field === 'password' && signUpData.confirmPassword) {
-			validateField('confirmPassword', signUpData.confirmPassword)
+		if (field === 'password' && formData.confirmPassword) {
+			validateField('confirmPassword', formData.confirmPassword)
 		}
 	}
 
@@ -112,7 +117,11 @@ export default function CustomSignUp() {
 
 		// Clear field error on input change
 		if (fieldErrors.verificationCode) {
-			clearFieldError('verificationCode')
+			setFieldErrors(prev => {
+				const newErrors = { ...prev }
+				delete newErrors.verificationCode
+				return newErrors
+			})
 		}
 
 		// Clear global error
@@ -124,43 +133,47 @@ export default function CustomSignUp() {
 	// Handle form submission
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		if (!isLoaded || isSigningUp) return
+		if (!isLoaded || isSubmitting) return
 
 		// Validate all fields
-		const firstNameValid = validateField('firstName', signUpData.firstName)
-		const lastNameValid = validateField('lastName', signUpData.lastName)
-		const emailValid = validateField('email', signUpData.email)
-		const passwordValid = validateField('password', signUpData.password)
-		const confirmPasswordValid = validateField('confirmPassword', signUpData.confirmPassword)
+		const firstNameValid = validateField('firstName', formData.firstName)
+		const lastNameValid = validateField('lastName', formData.lastName)
+		const emailValid = validateField('email', formData.email)
+		const passwordValid = validateField('password', formData.password)
+		const confirmPasswordValid = validateField('confirmPassword', formData.confirmPassword)
 
 		if (!firstNameValid || !lastNameValid || !emailValid || !passwordValid || !confirmPasswordValid) {
 			return
 		}
 
-		setSigningUp(true)
+		setIsSubmitting(true)
 		setGlobalError('')
 
 		try {
 			await signUp.create({
-				password: signUpData.password,
-				lastName: signUpData.lastName,
-				firstName: signUpData.firstName,
-				emailAddress: signUpData.email,
+				firstName: formData.firstName,
+				lastName: formData.lastName,
+				emailAddress: formData.email,
+				password: formData.password,
 			})
 
 			// Prepare email verification
 			await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
-			setPendingVerification(true, signUpData.email)
+			setPendingVerification(true)
+			setVerificationEmail(formData.email)
 		} catch (err: any) {
 			const errorMessage = translateClerkError(err, locale)
 			setGlobalError(errorMessage)
 
 			// Set specific field errors based on error codes
 			if (err.errors?.[0]?.code === 'form_identifier_exists') {
-				setFieldError('email', { message: translateClerkError(err, locale), code: 'exists' })
+				setFieldErrors(prev => ({
+					...prev,
+					email: { message: translateClerkError(err, locale), code: 'exists' }
+				}))
 			}
 		} finally {
-			setSigningUp(false)
+			setIsSubmitting(false)
 		}
 	}
 
@@ -175,7 +188,7 @@ export default function CustomSignUp() {
 			return
 		}
 
-		setVerifying(true)
+		setIsVerifying(true)
 		setGlobalError('')
 
 		try {
@@ -184,7 +197,7 @@ export default function CustomSignUp() {
 			})
 
 			if (completeSignUp.status === 'complete') {
-				void setActive({ session: completeSignUp.createdSessionId })
+				await setActive({ session: completeSignUp.createdSessionId })
 				router.push(`/${locale}/dashboard`)
 			} else {
 				setGlobalError(t.somethingWentWrong)
@@ -192,9 +205,12 @@ export default function CustomSignUp() {
 		} catch (err: any) {
 			const errorMessage = translateClerkError(err, locale)
 			setGlobalError(errorMessage)
-			setFieldError('verificationCode', { message: translateClerkError(err, locale), code: 'incorrect' })
+			setFieldErrors(prev => ({
+				...prev,
+				verificationCode: { message: translateClerkError(err, locale), code: 'incorrect' }
+			}))
 		} finally {
-			setVerifying(false)
+			setIsVerifying(false)
 		}
 	}
 
@@ -202,7 +218,7 @@ export default function CustomSignUp() {
 	const signUpWith = (strategy: 'oauth_google' | 'oauth_facebook') => {
 		if (!signUp) return
 
-		setSigningUp(true)
+		setIsSubmitting(true)
 		void signUp.authenticateWithRedirect({
 			strategy,
 			redirectUrlComplete: `/${locale}/dashboard`,
@@ -266,8 +282,13 @@ export default function CustomSignUp() {
 						onClick={() => {
 							setPendingVerification(false)
 							setVerificationCode('')
+							setVerificationEmail('')
 							setGlobalError('')
-							clearFieldError('verificationCode')
+							setFieldErrors(prev => {
+								const newErrors = { ...prev }
+								delete newErrors.verificationCode
+								return newErrors
+							})
 						}}
 						className="text-muted-foreground hover:text-foreground text-sm transition-colors"
 					>
@@ -294,7 +315,7 @@ export default function CustomSignUp() {
 					size="lg"
 					className="w-full"
 					onClick={() => signUpWith('oauth_google')}
-					disabled={isSigningUp}
+					disabled={isSubmitting}
 				>
 					<Icons.google className="mr-2 h-4 w-4" />
 					{t.signUp.signUpWithGoogle}
@@ -304,7 +325,7 @@ export default function CustomSignUp() {
 					size="lg"
 					className="w-full"
 					onClick={() => signUpWith('oauth_facebook')}
-					disabled={isSigningUp}
+					disabled={isSubmitting}
 				>
 					<Icons.facebook className="mr-2 h-4 w-4" />
 					{t.signUp.signUpWithFacebook}
@@ -335,10 +356,10 @@ export default function CustomSignUp() {
 						type="text"
 						label={t.signUp.firstNameLabel}
 						placeholder={t.signUp.firstNamePlaceholder}
-						value={signUpData.firstName}
+						value={formData.firstName}
 						onChange={handleInputChange('firstName')}
 						error={fieldErrors.firstName}
-						disabled={isSigningUp}
+						disabled={isSubmitting}
 						autoComplete="given-name"
 					/>
 
@@ -346,10 +367,10 @@ export default function CustomSignUp() {
 						type="text"
 						label={t.signUp.lastNameLabel}
 						placeholder={t.signUp.lastNamePlaceholder}
-						value={signUpData.lastName}
+						value={formData.lastName}
 						onChange={handleInputChange('lastName')}
 						error={fieldErrors.lastName}
-						disabled={isSigningUp}
+						disabled={isSubmitting}
 						autoComplete="family-name"
 					/>
 				</div>
@@ -358,10 +379,10 @@ export default function CustomSignUp() {
 					type="email"
 					label={t.signUp.emailLabel}
 					placeholder={t.signUp.emailPlaceholder}
-					value={signUpData.email}
+					value={formData.email}
 					onChange={handleInputChange('email')}
 					error={fieldErrors.email}
-					disabled={isSigningUp}
+					disabled={isSubmitting}
 					autoComplete="email"
 				/>
 
@@ -370,30 +391,30 @@ export default function CustomSignUp() {
 						type="password"
 						label={t.signUp.passwordLabel}
 						placeholder={t.signUp.passwordPlaceholder}
-						value={signUpData.password}
+						value={formData.password}
 						onChange={handleInputChange('password')}
 						error={fieldErrors.password}
-						disabled={isSigningUp}
+						disabled={isSubmitting}
 						showPasswordToggle
 						autoComplete="new-password"
 					/>
-					<PasswordStrength password={signUpData.password} show={signUpData.password.length > 0} locale={locale} />
+					<PasswordStrength password={formData.password} show={formData.password.length > 0} locale={locale} />
 				</div>
 
 				<FormInput
 					type="password"
 					label={t.signUp.confirmPasswordLabel}
 					placeholder={t.signUp.confirmPasswordPlaceholder}
-					value={signUpData.confirmPassword}
+					value={formData.confirmPassword}
 					onChange={handleInputChange('confirmPassword')}
 					error={fieldErrors.confirmPassword}
-					disabled={isSigningUp}
+					disabled={isSubmitting}
 					showPasswordToggle
 					autoComplete="new-password"
 				/>
 
-				<Button type="submit" size="lg" className="w-full" disabled={isSigningUp}>
-					{isSigningUp ? (
+				<Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+					{isSubmitting ? (
 						<>
 							<div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
 							{t.signUp.signingUp}

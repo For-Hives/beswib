@@ -4,7 +4,7 @@ import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
 import { Eye, EyeOff } from 'lucide-react'
 import * as React from 'react'
 
-import { FieldError } from '@/stores/authStore'
+import { FieldError } from '@/types/auth'
 
 import { cn } from '@/lib/utils'
 

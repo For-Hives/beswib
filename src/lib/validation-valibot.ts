@@ -1,4 +1,4 @@
-import { FieldError } from '@/stores/authStore'
+import { FieldError } from '@/types/auth'
 import * as v from 'valibot'
 
 import { validationTranslations } from '@/lib/translations/validation'
