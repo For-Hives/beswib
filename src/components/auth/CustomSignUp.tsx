@@ -18,10 +18,10 @@ import { PasswordStrength } from '@/components/ui/PasswordStrength'
 import { translateClerkError } from '@/lib/clerkErrorTranslations'
 import { getTranslations } from '@/lib/getDictionary'
 import { FormInput } from '@/components/ui/FormInput'
+import mainLocales from '@/app/[locale]/locales.json'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
 import { Locale } from '@/lib/i18n-config'
-import mainLocales from '@/app/[locale]/locales.json'
 
 export default function CustomSignUp() {
 	const { signUp, setActive, isLoaded } = useSignUp()

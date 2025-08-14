@@ -1,3 +1,5 @@
+import { getTranslations } from '@/lib/getDictionary'
+import mainLocales from '@/app/[locale]/locales.json'
 import { Locale } from '@/lib/i18n-config'
 
 export interface ClerkErrorTranslations {
@@ -236,9 +238,29 @@ export const clerkErrorTranslations: Record<Locale, ClerkErrorTranslations> = {
 	},
 }
 
+function getClerkTranslationsFromLocales(locale: Locale): ClerkErrorTranslations | null {
+	try {
+		const t = getTranslations(locale, mainLocales) as any
+		if (t?.clerkErrors) {
+			return t.clerkErrors as ClerkErrorTranslations
+		}
+		return null
+	} catch {
+		return null
+	}
+}
+
+function getClerkTranslations(locale: Locale): ClerkErrorTranslations {
+	const jsonBased = getClerkTranslationsFromLocales(locale)
+	if (jsonBased) return jsonBased
+
+	// fallback to TS map for requested locale, then to English
+	return clerkErrorTranslations[locale] ?? clerkErrorTranslations['en']
+}
+
 // Function to translate Clerk error messages
 export function translateClerkError(error: any, locale: Locale = 'fr'): string {
-	const translations = clerkErrorTranslations[locale]
+	const translations = getClerkTranslations(locale)
 	if (!error) return translations.default_error
 
 	// Extract error code and message
@@ -246,8 +268,8 @@ export function translateClerkError(error: any, locale: Locale = 'fr'): string {
 	const errorMessage = error.message ?? error.errors?.[0]?.message ?? error.errors?.[0]?.longMessage
 
 	// Try to find a translation for the error code
-	if (errorCode && translations[errorCode as keyof ClerkErrorTranslations]) {
-		return translations[errorCode as keyof ClerkErrorTranslations]
+	if (errorCode && (translations as any)[errorCode as keyof ClerkErrorTranslations]) {
+		return (translations as any)[errorCode as keyof ClerkErrorTranslations]
 	}
 
 	// Try to translate common English error messages
