@@ -7,6 +7,7 @@
 			"noEvents": "No events available",
 			"loading": "Loading events...",
 			"searchCityPlaceholder": "Search a city...",
+			"cityFilterTooltip": "Only cities with scheduled events are displayed",
 			"filters": {
 				"all": "All Events",
 				"location": "Location",
@@ -85,6 +86,7 @@
 			"noEvents": "Aucun événement disponible",
 			"loading": "Chargement des événements...",
 			"searchCityPlaceholder": "Rechercher une ville...",
+			"cityFilterTooltip": "Seules les villes avec des événements programmés sont affichées",
 			"filters": {
 				"all": "Tous les événements",
 				"location": "Lieu",
@@ -163,6 +165,7 @@
 			"noEvents": "사용 가능한 이벤트가 없습니다",
 			"loading": "이벤트 로딩 중...",
 			"searchCityPlaceholder": "도시 검색...",
+			"cityFilterTooltip": "예정된 이벤트가 있는 도시만 표시됩니다",
 			"filters": {
 				"all": "모든 이벤트",
 				"location": "위치",
@@ -241,6 +244,7 @@
 			"noEvents": "No hay eventos disponibles",
 			"loading": "Cargando eventos...",
 			"searchCityPlaceholder": "Buscar una ciudad...",
+			"cityFilterTooltip": "Solo se muestran las ciudades con eventos programados",
 			"filters": {
 				"all": "Todos los eventos",
 				"location": "Ubicación",
@@ -319,6 +323,7 @@
 			"noEvents": "Nessun evento disponibile",
 			"loading": "Caricamento eventi...",
 			"searchCityPlaceholder": "Cerca una città...",
+			"cityFilterTooltip": "Vengono mostrate solo le città con eventi programmati",
 			"filters": {
 				"all": "Tutti gli eventi",
 				"location": "Posizione",
@@ -397,6 +402,7 @@
 			"noEvents": "Keine Events verfügbar",
 			"loading": "Lade Events...",
 			"searchCityPlaceholder": "Stadt suchen...",
+			"cityFilterTooltip": "Nur Städte mit geplanten Veranstaltungen werden angezeigt",
 			"filters": {
 				"all": "Alle Events",
 				"location": "Ort",
@@ -475,6 +481,7 @@
 			"noEvents": "Nu există evenimente disponibile",
 			"loading": "Se încarcă evenimentele...",
 			"searchCityPlaceholder": "Caută un oraș...",
+			"cityFilterTooltip": "Sunt afișate doar orașele cu evenimente programate",
 			"filters": {
 				"all": "Toate evenimentele",
 				"location": "Locația",
@@ -553,6 +560,7 @@
 			"noEvents": "Não há eventos disponíveis",
 			"loading": "A carregar eventos...",
 			"searchCityPlaceholder": "Pesquisar uma cidade...",
+			"cityFilterTooltip": "São mostradas apenas as cidades com eventos agendados",
 			"filters": {
 				"all": "Todos os eventos",
 				"location": "Localização",
@@ -631,6 +639,7 @@
 			"noEvents": "Geen events beschikbaar",
 			"loading": "Events laden...",
 			"searchCityPlaceholder": "Zoek een stad...",
+			"cityFilterTooltip": "Alleen steden met geplande evenementen worden weergegeven",
 			"filters": {
 				"all": "Alle events",
 				"location": "Locatie",

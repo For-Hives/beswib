@@ -18,6 +18,7 @@ import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Timeline } from '@/components/ui/timeline'
 import { Input } from '@/components/ui/inputAlt'
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
 
 import Translations from './locales.json'
 
@@ -647,7 +648,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 						</div>
 						{/* Location autocomplete dropdown */}
 						<div className="relative w-48">
-							<Input
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Input
 								type="text"
 								placeholder={t.events?.searchCityPlaceholder ?? 'Search a city...'}
 								value={locationSearch !== '' ? locationSearch : selectedLocation}
@@ -663,8 +666,13 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 									// Delay hiding dropdown to allow clicks on items
 									setTimeout(() => setShowLocationDropdown(false), 200)
 								}}
-								className="text-sm"
-							/>
+									className="text-sm cursor-help"
+								/>
+								</TooltipTrigger>
+								<TooltipContent>
+									<p>{t.events?.cityFilterTooltip ?? 'Only cities with scheduled events are displayed'}</p>
+								</TooltipContent>
+							</Tooltip>
 							{showLocationDropdown && filteredLocations.length > 0 && (
 								<div className="bg-card border-border absolute top-full right-0 left-0 z-50 mt-1 max-h-40 overflow-y-auto rounded-lg border shadow-lg">
 									<button

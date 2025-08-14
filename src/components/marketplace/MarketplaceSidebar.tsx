@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
 import { Badge } from '@/components/ui/badge'
 import { Label } from '@/components/ui/label'
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
 
 import locales from './locales.json'
 
@@ -289,10 +290,17 @@ export default function MarketplaceSidebar({
 
 				{/* Geography Filter */}
 				<div className="space-y-3">
-					<Label className="flex items-center gap-2 text-sm font-medium">
-						<MapPin className="h-4 w-4" />
-						{t.region ?? 'Location'}
-					</Label>
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<Label className="flex items-center gap-2 text-sm font-medium cursor-help">
+								<MapPin className="h-4 w-4" />
+								{t.region ?? 'Location'}
+							</Label>
+						</TooltipTrigger>
+						<TooltipContent>
+							<p>{t.cityFilterTooltip ?? 'Only cities with available events are displayed'}</p>
+						</TooltipContent>
+					</Tooltip>
 					<div className="space-y-2">
 						<Input
 							placeholder={t.searchLocationsPlaceholder ?? 'Search locations...'}

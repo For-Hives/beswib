@@ -3,7 +3,7 @@ import SecurityProcess from '@/components/landing/security-process/SecurityProce
 import JourneyTabs from '@/components/landing/journey-tabs/JourneyTabs'
 import HeroAlternative from '@/components/landing/hero/HeroAlternative'
 import FeaturesBento from '@/components/landing/features/Features'
-import BibStats from '@/components/landing/bib-stats/BibStats'
+// import BibStats from '@/components/landing/bib-stats/BibStats'
 import BesWibCTA from '@/components/landing/cta/CTASection'
 // import Hero from '@/components/landing/hero/Hero'
 
@@ -21,7 +21,8 @@ export default async function Home({ params }: { params: Promise<LocaleParams> }
 			{/* Hero Section 🦸 */}
 			<HeroAlternative localeParams={params} />
 			{/* Stats Section 📊 */}
-			<BibStats localeParams={params} />
+			{/* TODO: Add stats section later */}
+			{/* <BibStats localeParams={params} /> */}
 			{/* Journey Section 🚶 */}
 			<JourneyTabs localeParams={params} />
 			{/* Features Section ✨ */}
