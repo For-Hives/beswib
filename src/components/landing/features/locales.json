@@ -19,17 +19,17 @@
 				"title": "Maximum Profitability",
 				"description": "Last-minute resale at free price with immediate fund reception."
 			},
-			"analytics": {
-				"title": "Analytics & Insights",
-				"description": "Track market trends in real time with average prices and forecasts."
+			"management": {
+				"title": "Simplified Management",
+				"description": "80% reduction in administrative time for organizers with automated transfers and real-time tracking."
+			},
+			"sustainability": {
+				"title": "Zero Waste",
+				"description": "Reduce cancellations and waste through responsible resale until the last minute."
 			},
 			"community": {
-				"title": "Global Community",
-				"description": "Connect with active runners from around the world."
-			},
-			"notifications": {
-				"title": "Smart Notifications",
-				"description": "Smart alerts for new bibs, price drops and important reminders."
+				"title": "By Runners, For Runners",
+				"description": "Platform created by passionate runners who understand your needs and challenges."
 			},
 			"support": {
 				"title": "Dedicated multilingual assistance",
@@ -57,17 +57,17 @@
 				"title": "Rentabilité Maximum",
 				"description": "Revente dernière minute à prix libre avec réception immédiate des fonds."
 			},
-			"analytics": {
-				"title": "Analytics & Insights",
-				"description": "Suivez les tendances du marché en temps réel avec prix moyens et prévisions."
+			"management": {
+				"title": "Gestion Simplifiée",
+				"description": "Réduction de 80% du temps administratif pour les organisateurs avec transferts automatisés et suivi en temps réel."
+			},
+			"sustainability": {
+				"title": "Zéro Gaspillage",
+				"description": "Réduction des annulations et du gaspillage grâce à une revente responsable jusqu'à la dernière minute."
 			},
 			"community": {
-				"title": "Communauté Globale",
-				"description": "Avec des runners actifs du monde entier."
-			},
-			"notifications": {
-				"title": "Notifications Smart",
-				"description": "Alertes intelligentes pour nouveaux dossards, baisses de prix et rappels importants."
+				"title": "Par des Coureurs, Pour des Coureurs",
+				"description": "Plateforme créée par des passionnés qui comprennent vos besoins et défis de runner."
 			},
 			"support": {
 				"title": "Assistance dédiée multilingue",
@@ -95,17 +95,17 @@
 				"title": "최대 수익성",
 				"description": "자유 가격으로 막판 재판매 및 즉시 자금 수령."
 			},
-			"analytics": {
-				"title": "분석 및 통찰력",
-				"description": "평균 가격 및 예측과 함께 실시간으로 시장 동향을 추적하세요."
+			"management": {
+				"title": "관리 간소화",
+				"description": "자동화된 전송과 실시간 추적으로 주최자의 관리 시간을 80% 단축."
+			},
+			"sustainability": {
+				"title": "제로 웨이스트",
+				"description": "막판까지 책임감 있는 재판매를 통해 취소와 낭비를 줄입니다."
 			},
 			"community": {
-				"title": "글로벌 커뮤니티",
-				"description": "전 세계의 활동적인 러너들과 연결하세요."
-			},
-			"notifications": {
-				"title": "스마트 알림",
-				"description": "새로운 빕, 가격 하락 및 중요한 알림을 위한 스마트 알림."
+				"title": "러너에 의한, 러너를 위한",
+				"description": "러너의 요구와 도전을 이해하는 열정적인 사람들이 만든 플랫폼."
 			},
 			"support": {
 				"title": "전담 다국어 지원",
@@ -133,17 +133,17 @@
 				"title": "Rentabilidad Máxima",
 				"description": "Reventa de último minuto a precio libre con recepción inmediata de fondos."
 			},
-			"analytics": {
-				"title": "Análisis e Insights",
-				"description": "Sigue las tendencias del mercado en tiempo real con precios promedio y pronósticos."
+			"management": {
+				"title": "Gestión Simplificada",
+				"description": "Reducción del 80% del tiempo administrativo para organizadores con transferencias automatizadas y seguimiento en tiempo real."
+			},
+			"sustainability": {
+				"title": "Cero Desperdicio",
+				"description": "Reduce cancelaciones y desperdicio mediante reventa responsable hasta el último minuto."
 			},
 			"community": {
-				"title": "Comunidad Global",
-				"description": "Conéctate con corredores activos de todo el mundo."
-			},
-			"notifications": {
-				"title": "Notificaciones Inteligentes",
-				"description": "Alertas inteligentes para nuevos dorsales, bajadas de precios y recordatorios importantes."
+				"title": "Por Corredores, Para Corredores",
+				"description": "Plataforma creada por apasionados que entienden tus necesidades y desafíos como runner."
 			},
 			"support": {
 				"title": "Asistencia multilingüe dedicada",
@@ -171,17 +171,17 @@
 				"title": "Redditività Massima",
 				"description": "Rivendita dell'ultimo minuto a prezzo libero con ricezione immediata dei fondi."
 			},
-			"analytics": {
-				"title": "Analytics e Insights",
-				"description": "Traccia le tendenze del mercato in tempo reale con prezzi medi e previsioni."
+			"management": {
+				"title": "Gestione Semplificata",
+				"description": "Riduzione dell'80% del tempo amministrativo per organizzatori con trasferimenti automatizzati e monitoraggio in tempo reale."
+			},
+			"sustainability": {
+				"title": "Zero Spreco",
+				"description": "Riduci cancellazioni e sprechi attraverso rivendita responsabile fino all'ultimo minuto."
 			},
 			"community": {
-				"title": "Comunità Globale",
-				"description": "Connettiti con runner attivi in tutto il mondo."
-			},
-			"notifications": {
-				"title": "Notifiche Intelligenti",
-				"description": "Avvisi intelligenti per nuovi pettorali, cali di prezzo e promemoria importanti."
+				"title": "Da Runner, Per Runner",
+				"description": "Piattaforma creata da appassionati che comprendono le tue esigenze e sfide da runner."
 			},
 			"support": {
 				"title": "Assistenza multilingue dedicata",
@@ -209,17 +209,17 @@
 				"title": "Maximale Rentabilität",
 				"description": "Last-Minute-Wiederverkauf zu freiem Preis mit sofortigem Geldeingang."
 			},
-			"analytics": {
-				"title": "Analytics & Insights",
-				"description": "Verfolgen Sie Markttrends in Echtzeit mit Durchschnittspreisen und Prognosen."
+			"management": {
+				"title": "Vereinfachte Verwaltung",
+				"description": "80% Reduzierung der Verwaltungszeit für Organisatoren durch automatisierte Übertragungen und Echtzeit-Tracking."
+			},
+			"sustainability": {
+				"title": "Null Verschwendung",
+				"description": "Reduzierung von Stornierungen und Verschwendung durch verantwortlichen Wiederverkauf bis zur letzten Minute."
 			},
 			"community": {
-				"title": "Globale Gemeinschaft",
-				"description": "Verbinden Sie sich mit aktiven Läufern weltweit."
-			},
-			"notifications": {
-				"title": "Intelligente Benachrichtigungen",
-				"description": "Intelligente Benachrichtigungen für neue Startnummern, Preissenkungen und wichtige Erinnerungen."
+				"title": "Von Läufern, Für Läufer",
+				"description": "Plattform erstellt von leidenschaftlichen Läufern, die Ihre Bedürfnisse und Herausforderungen verstehen."
 			},
 			"support": {
 				"title": "Dedizierte mehrsprachige Unterstützung",
@@ -247,17 +247,17 @@
 				"title": "Profitabilitate Maximă",
 				"description": "Revânzare de ultimă oară la preț liber cu primirea imediată a fondurilor."
 			},
-			"analytics": {
-				"title": "Analytics și Insights",
-				"description": "Urmărește tendințele pieței în timp real cu prețurile medii și prognozele."
+			"management": {
+				"title": "Gestionare Simplificată",
+				"description": "Reducerea cu 80% a timpului administrativ pentru organizatori prin transferuri automatizate și urmărire în timp real."
+			},
+			"sustainability": {
+				"title": "Zero Risipă",
+				"description": "Reducerea anulărilor și risipei prin revânzare responsabilă până în ultima clipă."
 			},
 			"community": {
-				"title": "Comunitate Globală",
-				"description": "Conectează-te cu alergători activi din întreaga lume."
-			},
-			"notifications": {
-				"title": "Notificări Inteligente",
-				"description": "Alerte inteligente pentru numere noi, scăderi de prețuri și reamintiri importante."
+				"title": "De Alergători, Pentru Alergători",
+				"description": "Platformă creată de pasionați care înțeleg nevoile și provocările tale de alergător."
 			},
 			"support": {
 				"title": "Asistență multilingvă dedicată",
@@ -285,17 +285,17 @@
 				"title": "Rentabilidade Máxima",
 				"description": "Revenda de última hora a preço livre com receção imediata de fundos."
 			},
-			"analytics": {
-				"title": "Analytics e Insights",
-				"description": "Acompanhe as tendências do mercado em tempo real com preços médios e previsões."
+			"management": {
+				"title": "Gestão Simplificada",
+				"description": "Redução de 80% do tempo administrativo para organizadores com transferências automatizadas e acompanhamento em tempo real."
+			},
+			"sustainability": {
+				"title": "Zero Desperdício",
+				"description": "Reduz cancelamentos e desperdício através de revenda responsável até ao último minuto."
 			},
 			"community": {
-				"title": "Comunidade Global",
-				"description": "Conecte-se com corredores ativos em todo o mundo."
-			},
-			"notifications": {
-				"title": "Notificações Inteligentes",
-				"description": "Alertas inteligentes para novos dorsais, quedas de preço e lembretes importantes."
+				"title": "Por Corredores, Para Corredores",
+				"description": "Plataforma criada por apaixonados que compreendem as tuas necessidades e desafios como corredor."
 			},
 			"support": {
 				"title": "Assistência multilingue dedicada",
@@ -323,17 +323,17 @@
 				"title": "Maximale Winstgevendheid",
 				"description": "Last-minute doorverkoop tegen vrije prijs met onmiddellijke ontvangst van gelden."
 			},
-			"analytics": {
-				"title": "Analytics & Insights",
-				"description": "Volg markttrends in realtime met gemiddelde prijzen en voorspellingen."
+			"management": {
+				"title": "Vereenvoudigde Beheer",
+				"description": "80% reductie van administratieve tijd voor organisatoren door geautomatiseerde overdrachten en realtime tracking."
+			},
+			"sustainability": {
+				"title": "Nul Verspilling",
+				"description": "Verminder annuleringen en verspilling door verantwoordelijke doorverkoop tot het laatste moment."
 			},
 			"community": {
-				"title": "Wereldwijde Gemeenschap",
-				"description": "Verbind met actieve hardlopers wereldwijd."
-			},
-			"notifications": {
-				"title": "Slimme Meldingen",
-				"description": "Slimme alerts voor nieuwe startnummers, prijsdalingen en belangrijke herinneringen."
+				"title": "Door Hardlopers, Voor Hardlopers",
+				"description": "Platform gemaakt door gepassioneerde hardlopers die jouw behoeften en uitdagingen begrijpen."
 			},
 			"support": {
 				"title": "Toegewijde meertalige ondersteuning",

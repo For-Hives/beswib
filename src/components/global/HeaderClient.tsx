@@ -52,11 +52,11 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 									<Image alt="Beswib" className="h-8 w-auto" height={32} src="/beswib.svg" width={32} />
 								</Link>
 							</div>
-							<div className="hidden sm:ml-6 sm:block">
+							<div className="hidden lg:ml-6 lg:block">
 								<div className="flex space-x-4">
 									{navigationLinks.map(link => (
 										<Link
-											className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+											className={`text-md rounded-md px-3 py-2 font-medium transition-colors ${
 												link.current
 													? 'bg-accent text-accent-foreground'
 													: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
@@ -70,7 +70,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 								</div>
 							</div>
 						</div>
-						<div className="hidden sm:ml-6 sm:block">
+						<div className="hidden lg:ml-6 lg:block">
 							<div className="text-foreground flex items-center">
 								<div className="flex items-center gap-4">
 									<ThemeToggle />
@@ -95,7 +95,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 								</div>
 							</div>
 						</div>
-						<div className="-mr-2 flex gap-4 sm:hidden">
+						<div className="-mr-2 flex gap-4 lg:hidden">
 							<div className="flex items-center gap-3">
 								<ThemeToggle />
 							</div>
@@ -111,7 +111,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 					</div>
 				</div>
 
-				<DisclosurePanel className="border-border bg-background absolute z-[101] w-full border-b shadow-lg sm:hidden">
+				<DisclosurePanel className="border-border bg-background absolute z-[101] w-full border-b shadow-lg lg:hidden">
 					<div className="space-y-1 px-2 pt-2 pb-3">
 						{/* Main Navigation Links 🔗 */}
 						{navigationLinks.map(link => (

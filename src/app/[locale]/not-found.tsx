@@ -102,7 +102,7 @@ export default function NotFoundPage() {
 	}, [rive])
 
 	return (
-		<div className="bg-background relative flex min-h-svh w-full flex-col justify-center p-6 md:p-10">
+		<div className="bg-background relative flex min-h-svh w-full flex-col justify-center p-6 lg:p-10">
 			{/* Background Rive animation, dimmed for readability */}
 			<div className="pointer-events-none absolute z-10 flex h-full w-full justify-center lg:-top-24">
 				<div className="h-[450px] w-[450px] opacity-100 lg:h-[512px] lg:w-[512px] xl:h-[750px] xl:w-[750px]">

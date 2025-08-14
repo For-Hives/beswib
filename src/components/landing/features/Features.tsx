@@ -1,4 +1,4 @@
-import { Calendar, ChartBar, CreditCard, Globe, Mail, Search, Star, Users } from 'lucide-react'
+import { Calendar, CreditCard, Globe, Heart, Leaf, Search, Settings, Star, Users } from 'lucide-react'
 
 import { LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -33,26 +33,26 @@ export default async function FeaturesBento({ localeParams }: { localeParams: Pr
 		{
 			title: t.features.profitability.title,
 			icon: <CreditCard />,
-			hoverColor: 'green',
+			hoverColor: 'indigo',
 			description: t.features.profitability.description,
 		},
 		{
-			title: t.features.analytics.title,
-			icon: <ChartBar />,
+			title: t.features.management.title,
+			icon: <Settings />,
 			hoverColor: 'orange',
-			description: t.features.analytics.description,
+			description: t.features.management.description,
+		},
+		{
+			title: t.features.sustainability.title,
+			icon: <Leaf />,
+			hoverColor: 'green',
+			description: t.features.sustainability.description,
 		},
 		{
 			title: t.features.community.title,
-			icon: <Globe />,
+			icon: <Heart />,
 			hoverColor: 'pink',
 			description: t.features.community.description,
-		},
-		{
-			title: t.features.notifications.title,
-			icon: <Mail />,
-			hoverColor: 'indigo',
-			description: t.features.notifications.description,
 		},
 		{
 			title: t.features.support.title,

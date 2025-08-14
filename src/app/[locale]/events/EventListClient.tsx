@@ -651,23 +651,23 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							<Tooltip>
 								<TooltipTrigger asChild>
 									<Input
-								type="text"
-								placeholder={t.events?.searchCityPlaceholder ?? 'Search a city...'}
-								value={locationSearch !== '' ? locationSearch : selectedLocation}
-								onChange={e => {
-									setLocationSearch(e.target.value)
-									setShowLocationDropdown(true)
-									if (e.target.value === '') {
-										handleLocationChange('')
-									}
-								}}
-								onFocus={() => setShowLocationDropdown(true)}
-								onBlur={() => {
-									// Delay hiding dropdown to allow clicks on items
-									setTimeout(() => setShowLocationDropdown(false), 200)
-								}}
-									className="text-sm cursor-help"
-								/>
+										type="text"
+										placeholder={t.events?.searchCityPlaceholder ?? 'Search a city...'}
+										value={locationSearch !== '' ? locationSearch : selectedLocation}
+										onChange={e => {
+											setLocationSearch(e.target.value)
+											setShowLocationDropdown(true)
+											if (e.target.value === '') {
+												handleLocationChange('')
+											}
+										}}
+										onFocus={() => setShowLocationDropdown(true)}
+										onBlur={() => {
+											// Delay hiding dropdown to allow clicks on items
+											setTimeout(() => setShowLocationDropdown(false), 200)
+										}}
+										className="cursor-help text-sm"
+									/>
 								</TooltipTrigger>
 								<TooltipContent>
 									<p>{t.events?.cityFilterTooltip ?? 'Only cities with scheduled events are displayed'}</p>
