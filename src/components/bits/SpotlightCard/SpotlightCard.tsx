@@ -34,13 +34,13 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
 	const getSpotlightSettings = () => {
 		if (theme === 'light') {
 			return {
-				size: '150px', // Larger, more diffuse radial in light mode for subtlety
-				opacity: 0.15, // Very subtle opacity in light mode
+				size: '300px', // Larger, more diffuse radial in light mode for subtlety
+				opacity: 0.25, // Very subtle opacity in light mode
 			}
 		}
 		return {
-			size: '80px', // Smaller, more focused radial in dark mode
-			opacity: 0.6, // Higher opacity for visibility on dark backgrounds
+			size: '300px', // Smaller, more focused radial in dark mode
+			opacity: 0.3, // Higher opacity for visibility on dark backgrounds
 		}
 	}
 
