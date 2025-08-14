@@ -14,7 +14,7 @@ export default function Page({ params }: { params: Promise<{ locale: string }> }
 	const [locale, setLocale] = useState('en')
 
 	useEffect(() => {
-		params.then(p => setLocale(p.locale || 'en'))
+		void params.then(p => setLocale(p.locale || 'en'))
 	}, [params])
 
 	useEffect(() => {
