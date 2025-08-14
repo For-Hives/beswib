@@ -5,8 +5,8 @@ import { redirect } from 'next/navigation'
 
 import { fetchSellerTransactions } from '@/services/transaction.services'
 import { fetchUserByClerkId } from '@/services/user.services'
-import { fetchBibsBySeller } from '@/services/bib.services'
 import { LocaleParams } from '@/lib/generation/staticParams'
+import { fetchBibsBySeller } from '@/services/bib.services'
 
 import SellerDashboardClient from './SellerDashboardClient'
 
