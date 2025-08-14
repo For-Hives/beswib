@@ -17,7 +17,7 @@ import {
 	StepNavigation,
 } from '@/components/admin/dashboard/sell-bib'
 import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
-import { isSellerProfileComplete } from '@/lib/userValidation'
+import { isSellerProfileComplete } from '@/lib/validation/user'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Separator } from '@/components/ui/separator'
 import { createBib } from '@/services/bib.services'
