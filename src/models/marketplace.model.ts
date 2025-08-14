@@ -9,7 +9,6 @@ export interface BibSale {
 	user: {
 		id: string
 		firstName: string
-		lastName: string
 	}
 	event: {
 		id: string
