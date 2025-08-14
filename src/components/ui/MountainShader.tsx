@@ -1,7 +1,7 @@
 'use client'
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useEffect, useRef, useMemo, useState } from 'react'
+import { useEffect, useRef, useMemo, useState, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 
 import * as THREE from 'three'
@@ -459,7 +459,7 @@ function MountainScene({ containerSize }: { containerSize: { width: number; heig
 				type: 't',
 			},
 		}),
-		[containerSize.width, containerSize.height]
+		[] // Ne pas dépendre de containerSize pour éviter la recréation du matériau
 	)
 
 	/**
@@ -469,9 +469,19 @@ function MountainScene({ containerSize }: { containerSize: { width: number; heig
 	useEffect(() => {
 		if (meshRef.current?.material) {
 			const material = meshRef.current.material as THREE.ShaderMaterial
-			const uniforms = material.uniforms as { iResolution?: { value: THREE.Vector2 } }
-			if (uniforms.iResolution) {
-				uniforms.iResolution.value.set(containerSize.width, containerSize.height)
+			const materialUniforms = material.uniforms as { 
+				iResolution?: { value: THREE.Vector2 }
+				iTime?: { value: number }
+			}
+			
+			// Update resolution
+			if (materialUniforms.iResolution) {
+				materialUniforms.iResolution.value.set(containerSize.width, containerSize.height)
+			}
+			
+			// Ensure iTime is properly initialized for animation continuity
+			if (materialUniforms.iTime) {
+				materialUniforms.iTime.value = performance.now() / 1000
 			}
 		}
 	}, [containerSize.width, containerSize.height])
@@ -526,11 +536,14 @@ export default function MountainShader({ className = '' }: MountainShaderProps) 
 	useEffect(() => {
 		if (!containerRef.current) return
 
-		const calculateSize = (container: HTMLDivElement) => {
-			const { width, height } = container.getBoundingClientRect()
+		const calculateSize = () => {
+			if (!containerRef.current) return
 
-			// Calculate the optimal size that fits within the container
-			// while maintaining 16:9 aspect ratio
+			const { width, height } = containerRef.current.getBoundingClientRect()
+			
+			// Ne pas recalculer si les dimensions sont 0
+			if (width === 0 || height === 0) return
+
 			let finalWidth = width
 			let finalHeight = height
 
@@ -538,86 +551,76 @@ export default function MountainShader({ className = '' }: MountainShaderProps) 
 			const targetAspect = 16 / 9
 
 			if (containerAspect > targetAspect) {
-				// Container is wider than 16:9 - fit to height
 				finalHeight = height
 				finalWidth = height * targetAspect
 			} else {
-				// Container is taller than 16:9 - fit to width
 				finalWidth = width
 				finalHeight = width / targetAspect
 			}
 
-			// Use a larger multiplier to ensure complete coverage
-			// This prevents any gaps or empty spaces around the edges
 			const coverageMultiplier = 2.6
-			return {
+			setContainerSize({
 				width: finalWidth * coverageMultiplier,
 				height: finalHeight * coverageMultiplier,
-			}
+			})
 		}
 
-		// Initial size calculation on mount
-		const initialSize = calculateSize(containerRef.current)
-		setContainerSize(initialSize)
+		// Initial calculation
+		calculateSize()
 
-		const resizeObserver = new ResizeObserver(entries => {
-			for (const entry of entries) {
-				const newSize = calculateSize(entry.target as HTMLDivElement)
-				setContainerSize(newSize)
-			}
-		})
-
+		const resizeObserver = new ResizeObserver(calculateSize)
 		resizeObserver.observe(containerRef.current)
-
-		// Force resize check after a short delay to handle navigation issues
-		const timeoutId = setTimeout(() => {
-			if (containerRef.current) {
-				const newSize = calculateSize(containerRef.current)
-				setContainerSize(newSize)
-			}
-		}, 100)
 
 		return () => {
 			resizeObserver.disconnect()
-			clearTimeout(timeoutId)
 		}
 	}, [])
 
 	/**
-	 * Additional effect to handle navigation-based resize
+	 * Effect to handle navigation-based resize
 	 * This triggers when pathname changes (sign-in <-> sign-up navigation)
 	 */
 	useEffect(() => {
 		if (!containerRef.current) return
 
-		// Small delay to allow DOM to settle after navigation
-		const timeoutId = setTimeout(() => {
-			if (containerRef.current) {
-				const { width, height } = containerRef.current.getBoundingClientRect()
+		const calculateSize = () => {
+			if (!containerRef.current) return
 
-				let finalWidth = width
-				let finalHeight = height
+			const { width, height } = containerRef.current.getBoundingClientRect()
+			
+			if (width === 0 || height === 0) return
 
-				const containerAspect = width / height
-				const targetAspect = 16 / 9
+			let finalWidth = width
+			let finalHeight = height
 
-				if (containerAspect > targetAspect) {
-					finalHeight = height
-					finalWidth = height * targetAspect
-				} else {
-					finalWidth = width
-					finalHeight = width / targetAspect
-				}
+			const containerAspect = width / height
+			const targetAspect = 16 / 9
 
-				const coverageMultiplier = 2.6
-				setContainerSize({
-					width: finalWidth * coverageMultiplier,
-					height: finalHeight * coverageMultiplier,
-				})
+			if (containerAspect > targetAspect) {
+				finalHeight = height
+				finalWidth = height * targetAspect
+			} else {
+				finalWidth = width
+				finalHeight = width / targetAspect
 			}
-		}, 150)
 
-		return () => clearTimeout(timeoutId)
+			const coverageMultiplier = 2.6
+			setContainerSize({
+				width: finalWidth * coverageMultiplier,
+				height: finalHeight * coverageMultiplier,
+			})
+		}
+
+		// Calculs échelonnés pour s'adapter aux différentes vitesses de rendu
+		const timeouts = [
+			setTimeout(calculateSize, 16),
+			setTimeout(calculateSize, 100),
+			setTimeout(calculateSize, 300)
+		]
+
+		return () => {
+			timeouts.forEach(clearTimeout)
+		}
 	}, [pathname])
 
 	return (
@@ -630,6 +633,7 @@ export default function MountainShader({ className = '' }: MountainShaderProps) 
 				- gl: Preserve drawing buffer for potential screenshots
 			*/}
 			<Canvas
+				key={`${pathname}-${containerSize.width}-${containerSize.height}`} // Force remount sur navigation et resize
 				camera={{ position: [0, 0, 25], fov: 10 }}
 				style={{
 					width: `${containerSize.width}px`,
