@@ -4,6 +4,7 @@ import type { Waitlist } from '@/models/waitlist.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 
+import { fetchUserByEmail } from '@/services/user.services'
 import { pb } from '@/lib/services/pocketbase'
 
 /**
@@ -35,15 +36,32 @@ export async function addToWaitlist(
 		}
 	}
 
+	let actualUser = user
+
+	// If no user is provided but we have an email, check if this email belongs to an existing user
+	if (user == null && email != null) {
+		try {
+			const existingUser = await fetchUserByEmail(email.trim())
+			if (existingUser != null) {
+				// Email belongs to an existing user, use the user instead of email-only subscription
+				actualUser = existingUser
+				console.info(`Email ${email} belongs to existing user ${existingUser.id}, linking to user account`)
+			}
+		} catch (error) {
+			console.error('Error checking for existing user by email:', error)
+			// Continue with email-only subscription if we can't check
+		}
+	}
+
 	try {
 		// Check for existing waitlist entry 🤔
 		try {
 			let filterQuery = ''
-			if (user != null) {
-				// Check for authenticated user
-				filterQuery = `user_id = "${user.id}" && event_id = "${eventId}"`
+			if (actualUser != null) {
+				// Check for authenticated user or user found by email
+				filterQuery = `user_id = "${actualUser.id}" && event_id = "${eventId}"`
 			} else if (email != null) {
-				// Check for email-only subscription
+				// Check for email-only subscription (only if no user was found for this email)
 				filterQuery = `email = "${email.trim()}" && event_id = "${eventId}"`
 			}
 
@@ -66,11 +84,11 @@ export async function addToWaitlist(
 		}
 
 		const dataToCreate: Omit<Waitlist, 'id'> = {
-			user_id: user?.id ?? null,
+			user_id: actualUser?.id ?? null,
 			optionPreferences: {},
 			mail_notification: true,
 			event_id: eventId,
-			email: user == null ? email?.trim() : undefined,
+			email: actualUser == null ? email?.trim() : undefined,
 			added_at: new Date(),
 		}
 
@@ -88,7 +106,7 @@ export async function addToWaitlist(
 				}
 			}
 		}
-		const userInfo = user != null ? `user ${user.id}` : `email ${email ?? 'unknown'}`
+		const userInfo = actualUser != null ? `user ${actualUser.id}` : `email ${email ?? 'unknown'}`
 		throw new Error(
 			`Error adding ${userInfo} to waitlist for event ${eventId}: ` +
 				(error instanceof Error ? error.message : String(error))

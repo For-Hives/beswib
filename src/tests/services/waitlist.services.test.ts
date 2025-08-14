@@ -7,6 +7,12 @@ vi.mock('@/lib/services/pocketbase', () => ({
 	pb: mockPocketbase,
 }))
 
+vi.mock('@/services/user.services', () => ({
+	fetchUserByEmail: vi.fn(),
+}))
+
+const { fetchUserByEmail: mockFetchUserByEmail } = vi.mocked(await import('@/services/user.services'))
+
 const mockUser: User = {
 	updated: new Date('2024-01-01T00:00:00.000Z'),
 	role: 'user',
@@ -38,6 +44,7 @@ import { addToWaitlist, fetchUserWaitlists } from '@/services/waitlist.services'
 describe('waitlist.services', () => {
 	beforeEach(() => {
 		vi.clearAllMocks()
+		mockFetchUserByEmail.mockResolvedValue(null) // Default to no user found
 	})
 
 	describe('addToWaitlist', () => {
@@ -66,6 +73,58 @@ describe('waitlist.services', () => {
 			const result = await addToWaitlist('event1', null)
 
 			expect(result).toBeNull()
+		})
+
+		it('should link to existing user when email belongs to registered user', async () => {
+			// Mock that the email belongs to an existing user
+			mockFetchUserByEmail.mockResolvedValue(mockUser)
+			mockPocketbase.getFirstListItem.mockRejectedValue({ status: 404 }) // No existing waitlist entry
+			mockPocketbase.create.mockResolvedValue({ user_id: 'user1', id: 'waitlist1', event_id: 'event1' })
+
+			const result = await addToWaitlist('event1', null, 'test@test.com')
+
+			expect(mockFetchUserByEmail).toHaveBeenCalledWith('test@test.com')
+			expect(mockPocketbase.getFirstListItem).toHaveBeenCalledWith('user_id = "user1" && event_id = "event1"')
+			expect(mockPocketbase.create).toHaveBeenCalledWith({
+				user_id: 'user1',
+				optionPreferences: {},
+				mail_notification: true,
+				event_id: 'event1',
+				email: undefined, // Should be undefined since we linked to a user
+				added_at: expect.any(Date) as Date,
+			})
+			expect(result).toEqual({ user_id: 'user1', id: 'waitlist1', event_id: 'event1' })
+		})
+
+		it('should create email-only subscription when email does not belong to registered user', async () => {
+			// Mock that the email does not belong to any existing user
+			mockFetchUserByEmail.mockResolvedValue(null)
+			mockPocketbase.getFirstListItem.mockRejectedValue({ status: 404 }) // No existing waitlist entry
+			mockPocketbase.create.mockResolvedValue({
+				user_id: null,
+				id: 'waitlist1',
+				event_id: 'event1',
+				email: 'new@test.com',
+			})
+
+			const result = await addToWaitlist('event1', null, 'new@test.com')
+
+			expect(mockFetchUserByEmail).toHaveBeenCalledWith('new@test.com')
+			expect(mockPocketbase.getFirstListItem).toHaveBeenCalledWith('email = "new@test.com" && event_id = "event1"')
+			expect(mockPocketbase.create).toHaveBeenCalledWith({
+				user_id: null,
+				optionPreferences: {},
+				mail_notification: true,
+				event_id: 'event1',
+				email: 'new@test.com',
+				added_at: expect.any(Date) as Date,
+			})
+			expect(result).toEqual({
+				user_id: null,
+				id: 'waitlist1',
+				event_id: 'event1',
+				email: 'new@test.com',
+			})
 		})
 	})
 
