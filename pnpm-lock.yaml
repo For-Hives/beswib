@@ -11,6 +11,9 @@ importers:
       '@c15t/nextjs':
         specifier: 1.5.0
         version: 1.5.0(@babel/core@7.28.0)(@types/pg@8.15.4)(@types/react-dom@19.1.7(@types/react@19.1.10))(@types/react@19.1.10)(next@15.4.6(@babel/core@7.28.0)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(use-sync-external-store@1.5.0(react@19.1.1))(ws@8.18.3)
+      '@clerk/localizations':
+        specifier: ^3.21.1
+        version: 3.21.1
       '@clerk/nextjs':
         specifier: 6.30.2
         version: 6.30.2(next@15.4.6(@babel/core@7.28.0)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -433,6 +436,10 @@ packages:
     peerDependencies:
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-0
       react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-0
+
+  '@clerk/localizations@3.21.1':
+    resolution: {integrity: sha512-tyRyd5J0hxyP5muH+ZroL9EtFwUksD83qksGKZyi/+p3Lgs7JQzqZpy9VAkJWQKz10kw2jDpmiPxh/sL69O6iw==}
+    engines: {node: '>=18.17.0'}
 
   '@clerk/nextjs@6.30.2':
     resolution: {integrity: sha512-E6jNrWM2pUkFS5ysTiSh3xqDK5HSGwENEkJgSDoCahbv2sifLH1OTUK/ey6GajebDGHqhjUiRi7ZzHoAs3Z0+g==}
@@ -6065,6 +6072,10 @@ snapshots:
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
       tslib: 2.8.1
+
+  '@clerk/localizations@3.21.1':
+    dependencies:
+      '@clerk/types': 4.77.0
 
   '@clerk/nextjs@6.30.2(next@15.4.6(@babel/core@7.28.0)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:

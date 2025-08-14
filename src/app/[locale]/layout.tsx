@@ -11,6 +11,7 @@ import { Toaster } from 'sonner'
 import Script from 'next/script'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticParams'
+import { getClerkLocalization } from '@/lib/clerkLocalization'
 import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import QueryProvider from '@/components/providers/QueryProvider'
@@ -81,12 +82,14 @@ export function generateStaticParams() {
 export default async function RootLayout(props: { params: Promise<LocaleParams>; children: ReactNode }) {
 	const localeParams = await props.params
 	const { locale } = localeParams
+	const clerkLocalization = getClerkLocalization(locale)
 
 	return (
 		<ClerkProvider
 			appearance={{
 				baseTheme: shadcn,
 			}}
+			localization={clerkLocalization}
 			signInUrl={`/${locale}/sign-in`}
 			signUpUrl={`/${locale}/sign-up`}
 			afterSignInUrl={`/${locale}/dashboard`}
