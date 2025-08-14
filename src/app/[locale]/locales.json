@@ -379,6 +379,14 @@
 				"loading": "Chargement...",
 				"redirecting": "Redirection...",
 				"valid": "Valide"
+			},
+			"unauthorized": {
+				"title": "Accès Refusé",
+				"description": "Vous n'avez pas la permission d'accéder à cette page.",
+				"adminRequired": "Des privilèges d'administrateur sont requis pour voir ce contenu.",
+				"backToHome": "Retour à l'accueil",
+				"contactSupport": "Contacter le support",
+				"additionalHelp": "Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur."
 			}
 		},
 		"runs": [
@@ -592,6 +600,14 @@
 				"loading": "Cargando...",
 				"redirecting": "Redirigiendo...",
 				"valid": "Válido"
+			},
+			"unauthorized": {
+				"title": "Acceso Denegado",
+				"description": "No tienes permiso para acceder a esta página.",
+				"adminRequired": "Se requieren privilegios de administrador para ver este contenido.",
+				"backToHome": "Volver al inicio",
+				"contactSupport": "Contactar soporte",
+				"additionalHelp": "Si crees que esto es un error, por favor contacta al administrador."
 			}
 		},
 		"runs": [
@@ -769,6 +785,14 @@
 				"loading": "Caricamento...",
 				"redirecting": "Reindirizzamento...",
 				"valid": "Valido"
+			},
+			"unauthorized": {
+				"title": "Accesso Negato",
+				"description": "Non hai i permessi per accedere a questa pagina.",
+				"adminRequired": "Sono richiesti privilegi di amministratore per visualizzare questo contenuto.",
+				"backToHome": "Torna alla home",
+				"contactSupport": "Contatta il supporto",
+				"additionalHelp": "Se ritieni che questo sia un errore, contatta l'amministratore."
 			}
 		},
 		"runs": [
@@ -946,6 +970,14 @@
 				"loading": "Lädt...",
 				"redirecting": "Weiterleiten...",
 				"valid": "Gültig"
+			},
+			"unauthorized": {
+				"title": "Zugriff Verweigert",
+				"description": "Du hast keine Berechtigung, auf diese Seite zuzugreifen.",
+				"adminRequired": "Administratorrechte sind erforderlich, um diesen Inhalt anzuzeigen.",
+				"backToHome": "Zurück zur Startseite",
+				"contactSupport": "Support kontaktieren",
+				"additionalHelp": "Wenn du glaubst, dass dies ein Fehler ist, kontaktiere bitte den Administrator."
 			}
 		},
 		"runs": [
@@ -1102,6 +1134,14 @@
 				"loading": "Se încarcă...",
 				"redirecting": "Se redirecționează...",
 				"valid": "Valid"
+			},
+			"unauthorized": {
+				"title": "Acces Refuzat",
+				"description": "Nu ai permisiunea de a accesa această pagină.",
+				"adminRequired": "Sunt necesare privilegii de administrator pentru a vedea acest conținut.",
+				"backToHome": "Înapoi la pagina principală",
+				"contactSupport": "Contactează suportul",
+				"additionalHelp": "Dacă crezi că aceasta este o eroare, te rugăm să contactezi administratorul."
 			}
 		},
 		"runs": [
@@ -1613,6 +1653,14 @@
 				"redirecting": "리디렉션 중...",
 				"valid": "유효함"
 			}
+		},
+		"unauthorized": {
+			"title": "Access Denied",
+			"description": "You do not have permission to access this page.",
+			"adminRequired": "Administrator privileges are required to view this content.",
+			"backToHome": "Back to Home",
+			"contactSupport": "Contact Support",
+			"additionalHelp": "If you believe this is an error, please contact the administrator."
 		},
 		"runs": [
 			{

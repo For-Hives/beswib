@@ -65,11 +65,11 @@ export default function EmptyResultsRive({ locale }: Readonly<Props>) {
 
 	// Ensure Rive WASM is loaded from a local URL to avoid CDN failures
 	if (typeof window !== 'undefined') {
-		RuntimeLoader.setWasmUrl('/svgs/rive_fallback.wasm')
+		RuntimeLoader.setWasmUrl('/rive/rive_fallback.wasm')
 	}
 
 	const { RiveComponent, rive } = useRive({
-		src: '/svgs/impatient_placeholder.riv',
+		src: '/rive/impatient_placeholder.riv',
 		layout: new Layout({ fit: Fit.Contain, alignment: Alignment.Center }),
 		autoplay: true,
 	})

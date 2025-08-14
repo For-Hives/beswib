@@ -89,7 +89,7 @@ export default function NotFoundPage() {
 	RuntimeLoader.setWasmUrl('/svgs/rive_fallback.wasm')
 
 	const { RiveComponent, rive } = useRive({
-		src: '/vroum.riv',
+		src: '/rive/vroum.riv',
 		layout: new Layout({ fit: Fit.Cover, alignment: Alignment.Center }),
 		autoplay: true,
 	})
