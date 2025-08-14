@@ -15,7 +15,7 @@ type SaleAlertInfo = {
 
 /**
  * Sends a simple @here alert to a Discord webhook when a sale completes.
- * The webhook URL must be provided via env var DISCORD_SALES_WEBHOOK_URL.
+ * The webhook URL must be provided via env var DISCORD_WEBHOOK_URL.
  * Fails silently and returns false if the webhook URL is not set or if the request fails.
  */
 export async function sendSaleAlert(info?: SaleAlertInfo): Promise<boolean> {
@@ -43,14 +43,12 @@ type ContactMessageInfo = {
 }
 
 /**
- * Sends a contact form message to a dedicated Discord webhook.
- * Uses DISCORD_CONTACT_WEBHOOK_URL env var. If not provided, falls back to DISCORD_SALES_WEBHOOK_URL.
+ * Sends a contact form message to the configured Discord webhook.
+ * Uses DISCORD_WEBHOOK_URL env var (single channel).
  * Posts two messages: a summary line with @here, then the full message as a code block.
  */
 export async function sendContactMessage(info: ContactMessageInfo): Promise<boolean> {
-	const primary = process.env.DISCORD_CONTACT_WEBHOOK_URL ?? ''
-	const fallback = process.env.DISCORD_SALES_WEBHOOK_URL ?? ''
-	const webhookUrl = primary.length > 0 ? primary : fallback
+	const webhookUrl = process.env.DISCORD_WEBHOOK_URL ?? ''
 
 	const safe = (s: string) => s.replaceAll('`', 'ˋ').slice(0, 5000)
 	const name = safe(info.name ?? '').trim()
@@ -77,7 +75,7 @@ export async function sendContactMessage(info: ContactMessageInfo): Promise<bool
 
 // Admin-only webhook (Discord); true if posted, false otherwise.
 export async function sendAdminWebhook(content: string, opts?: { webhookUrl?: string }): Promise<boolean> {
-	const url = opts?.webhookUrl ?? process.env.DISCORD_SALES_WEBHOOK_URL ?? ''
+	const url = opts?.webhookUrl ?? process.env.DISCORD_WEBHOOK_URL ?? ''
 	return postDiscord(url, content)
 }
 
