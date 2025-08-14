@@ -5,9 +5,9 @@ import { ReactNode } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import mainLocales from '@/app/[locale]/locales.json'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 import MountainShader from './MountainShader'
 

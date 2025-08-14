@@ -8,8 +8,8 @@ import type { Bib } from '@/models/bib.model'
 
 import { fetchBibByIdForSeller } from '@/services/bib.services'
 import { fetchUserByClerkId } from '@/services/user.services'
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { Locale } from '@/lib/i18n/config'
 
 import editBibTranslations from './locales.json'
 import EditBibClient from './EditBibClient'

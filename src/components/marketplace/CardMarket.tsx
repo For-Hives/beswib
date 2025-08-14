@@ -20,8 +20,8 @@ interface CardMarketProps {
 import type { Event } from '@/models/event.model'
 
 import marketplaceTranslations from '@/components/marketplace/locales.json'
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { Locale } from '@/lib/i18n/config'
 
 export default function CardMarket({ locale, eventData, bibSale }: Readonly<CardMarketProps>) {
 	const translations = getTranslations(locale, marketplaceTranslations)

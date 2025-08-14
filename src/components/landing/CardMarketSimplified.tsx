@@ -9,8 +9,8 @@ import type { Event } from '@/models/event.model'
 
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { formatDateWithLocale } from '@/lib/dateUtils'
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { Locale } from '@/lib/i18n/config'
 import { cn } from '@/lib/utils'
 
 interface CardMarketSimplifiedProps {

@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { SOCIALS, InstagramIcon, LinkedinIcon, StravaIcon } from '@/lib/socials'
 import { LocaleParams } from '@/lib/generateStaticParams'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import LanguageSelector from './LanguageSelector'
 import translations from './locales.json'

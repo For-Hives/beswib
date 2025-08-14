@@ -14,7 +14,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 import OrganizerFakerButton from './OrganizerFakerButton'
 
@@ -33,7 +33,7 @@ export interface OrganizerCreationFormProps {
 	onSuccess?: (organizer: Organizer) => void
 }
 import organizerCreateTranslations from '@/app/[locale]/admin/organizer/create/locales.json'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 type OrganizerFormData = v.InferOutput<typeof OrganizerCreationSchema>
 
 export default function OrganizerCreationForm({ onSuccess, onCancel, locale }: Readonly<OrganizerCreationFormProps>) {

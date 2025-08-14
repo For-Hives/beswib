@@ -3,8 +3,8 @@ import React, { useRef, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { motion } from 'motion/react'
 
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { Locale } from '@/lib/i18n/config'
 import { cn } from '@/lib/utils'
 
 const mainVariant = {

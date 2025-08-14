@@ -2,7 +2,7 @@ import { SelectAnimated, type SelectOption } from '@/components/ui/select-animat
 import Translations from '@/app/[locale]/admin/locales.json'
 import { Textarea } from '@/components/ui/textareaAlt'
 import { DateInput } from '@/components/ui/date-input'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
 

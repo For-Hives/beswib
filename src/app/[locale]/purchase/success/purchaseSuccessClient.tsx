@@ -4,8 +4,8 @@ import React from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { Locale } from '@/lib/i18n/config'
 
 import translations from './locales.json'
 

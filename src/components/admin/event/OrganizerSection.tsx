@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { getAllOrganizersAction } from '@/app/[locale]/admin/actions'
 import Translations from '@/app/[locale]/admin/locales.json'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Organizer } from '@/models/organizer.model'
 import { Label } from '@/components/ui/label'
 

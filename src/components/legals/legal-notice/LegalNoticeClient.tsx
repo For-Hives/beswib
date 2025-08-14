@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Badge } from '@/components/ui/badge'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 import Translations from './locales.json'
 

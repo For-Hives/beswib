@@ -14,12 +14,12 @@ import profileTranslations from '@/components/profile/locales.json'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import { isUserProfileComplete } from '@/lib/userValidation'
 import { formatDateForHTMLInput } from '@/lib/dateUtils'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { User } from '@/models/user.model'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 type RunnerFormData = {
 	firstName: string

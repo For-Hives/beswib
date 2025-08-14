@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import landingTranslations from '@/app/[locale]/locales.json'
 import { LocaleParams } from '@/lib/generateStaticParams'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import { AnimatedLife } from './AnimatedLife'
 import TemplateRun from './TemplateRun'

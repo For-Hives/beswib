@@ -7,13 +7,13 @@ import Link from 'next/link'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 interface FAQClientProps {
 	locale: Locale
 }
 
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import Translations from './locales.json'
 export default function FAQClient({ locale }: Readonly<FAQClientProps>) {

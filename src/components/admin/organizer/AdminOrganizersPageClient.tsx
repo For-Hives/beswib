@@ -41,7 +41,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-import type { Locale } from '@/lib/i18n-config'
+import type { Locale } from '@/lib/i18n/config'
 
 import {
 	AlertDialog,
@@ -72,7 +72,7 @@ import { SelectAnimated, type SelectOption } from '@/components/ui/select-animat
 import organizerTranslations from '@/app/[locale]/admin/organizer/locales.json'
 import { getAllOrganizersAction } from '@/app/[locale]/admin/actions'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Organizer } from '@/models/organizer.model'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'

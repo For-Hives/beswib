@@ -30,8 +30,8 @@ interface AdminDashboardClientProps {
 }
 
 import translations from '@/app/[locale]/admin/locales.json'
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { Locale } from '@/lib/i18n/config'
 
 export default function AdminDashboardClient({ locale, currentUser }: Readonly<AdminDashboardClientProps>) {
 	const t = getTranslations(locale, translations)

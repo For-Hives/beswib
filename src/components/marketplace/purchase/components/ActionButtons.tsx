@@ -5,11 +5,11 @@ import React from 'react'
 
 import Link from 'next/link'
 
-import type { Locale } from '@/lib/i18n-config'
+import type { Locale } from '@/lib/i18n/config'
 
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 interface ActionButtonsProps {
 	/** Whether user is signed in */

@@ -11,7 +11,7 @@ import type { Bib } from '@/models/bib.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
 
 interface BuyerDashboardClientProps {
@@ -33,7 +33,7 @@ interface SerializedClerkUser {
 	username: null | string
 }
 
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 import buyerTranslations from './locales.json'
 

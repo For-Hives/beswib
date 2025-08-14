@@ -3,7 +3,7 @@
 import { SignIn, SignUp } from '@clerk/nextjs'
 import { useParams } from 'next/navigation'
 
-import { type Locale } from '@/lib/i18n-config'
+import { type Locale } from '@/lib/i18n/config'
 
 interface ClerkNativeSignInProps {
 	redirectUrl?: string

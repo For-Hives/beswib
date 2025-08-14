@@ -1,5 +1,5 @@
 'use server'
-import { i18n, type Locale } from './i18n-config'
+import { i18n, type Locale } from './config'
 
 /**
  * @deprecated Use getLocaleFromParams in your pages/layouts instead ⚠️
@@ -9,7 +9,7 @@ import { i18n, type Locale } from './i18n-config'
  *
  * @example
  * ```tsx
- * import { getLocaleFromParams } from '@/lib/getLocaleUtils' 📥
+ * import { getLocaleFromParams } from '@/lib/i18n/localeUtils' 📥
  *
  * export default async function MyPage({ params }: { params: Promise<{ locale: string }> }) {
  *   const locale = getLocaleFromParams(await params)

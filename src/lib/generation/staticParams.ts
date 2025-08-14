@@ -1,4 +1,4 @@
-import { i18n, type Locale } from './i18n-config'
+import { i18n, type Locale } from '../i18n/config'
 
 /**
  * Type for locale params 🌐

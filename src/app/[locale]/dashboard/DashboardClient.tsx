@@ -7,7 +7,7 @@ import Link from 'next/link'
 import type { User } from '@/models/user.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
 
 interface DashboardClientProps {
@@ -26,7 +26,7 @@ interface SerializedClerkUser {
 }
 
 import UserHeader from '@/components/dashboard/user-header'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 import dashboardTranslations from './locales.json'
 

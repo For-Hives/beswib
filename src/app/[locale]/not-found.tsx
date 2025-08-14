@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 
 import Link from 'next/link'
 
-import type { Locale } from '@/lib/i18n-config'
+import type { Locale } from '@/lib/i18n/config'
 
 import { Button } from '@/components/ui/button'
 

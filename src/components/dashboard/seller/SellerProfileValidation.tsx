@@ -8,9 +8,9 @@ import type { User } from '@/models/user.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { isSellerProfileComplete } from '@/lib/userValidation'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 import sellerTranslations from './locales.json'
 

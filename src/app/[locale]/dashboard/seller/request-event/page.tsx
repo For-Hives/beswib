@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
-import type { Locale } from '@/lib/i18n-config'
+import type { Locale } from '@/lib/i18n/config'
 
 import { generateLocaleParams } from '@/lib/generateStaticParams'
 

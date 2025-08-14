@@ -7,11 +7,11 @@ import Image from 'next/image'
 
 import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
-import type { Locale } from '@/lib/i18n-config'
+import type { Locale } from '@/lib/i18n/config'
 
 import { SlidingPanel } from '@/components/ui/SlidingPanel'
 import { formatDateWithLocale } from '@/lib/dateUtils'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import mainLocales from '@/app/[locale]/locales.json'
 import { cn } from '@/lib/utils'
 

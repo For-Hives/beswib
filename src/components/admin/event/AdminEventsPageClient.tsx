@@ -70,7 +70,7 @@ import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/p
 import { getAllEventsAction, deleteEventAction } from '@/app/[locale]/admin/actions'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -190,7 +190,7 @@ const multiColumnFilterFn: FilterFn<AppEvent & { expand?: { organizer?: Organize
 import { toast } from 'sonner'
 
 import translations from '@/app/[locale]/admin/event/locales.json'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 export default function AdminEventsPageClient({ locale, currentUser }: AdminEventsPageClientProps) {
 	const t = getTranslations(locale, translations)

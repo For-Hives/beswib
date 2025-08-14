@@ -16,8 +16,8 @@ interface StepNavigationProps {
 }
 
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { Locale } from '@/lib/i18n/config'
 
 export default function StepNavigation({
 	onSubmit,

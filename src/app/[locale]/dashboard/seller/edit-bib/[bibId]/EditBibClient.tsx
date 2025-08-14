@@ -10,8 +10,8 @@ import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { Locale } from '@/lib/i18n/config'
 
 import { handleToggleListingStatus, handleUpdateBibDetails, handleWithdrawBib } from './actions'
 import editBibTranslations from './locales.json'

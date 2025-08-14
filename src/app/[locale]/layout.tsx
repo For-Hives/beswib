@@ -14,7 +14,7 @@ import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticPar
 import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import QueryProvider from '@/components/providers/QueryProvider'
-import { getClerkLocalization } from '@/lib/clerkLocalization'
+import { getClerkLocalization } from '@/lib/i18n/clerk/localization'
 import SentryClientInit from '@/app/[locale]/SentryClientInit'
 import PageTransition from '@/components/ui/PageTransition'
 import Footer from '@/components/global/footer'

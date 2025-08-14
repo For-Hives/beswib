@@ -8,10 +8,10 @@ import Link from 'next/link'
 
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
 import mainLocales from '@/app/[locale]/locales.json'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 export default function ForgotPasswordPage() {
 	const [email, setEmail] = useState('')

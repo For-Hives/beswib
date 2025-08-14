@@ -3,7 +3,7 @@
 import { useRive, Layout, Fit, Alignment, RuntimeLoader } from '@rive-app/react-canvas'
 import { useEffect } from 'react'
 
-import type { Locale } from '@/lib/i18n-config'
+import type { Locale } from '@/lib/i18n/config'
 
 interface Props {
 	locale: Locale

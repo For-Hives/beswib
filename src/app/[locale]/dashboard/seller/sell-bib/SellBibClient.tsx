@@ -19,9 +19,9 @@ import {
 import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
 import { isSellerProfileComplete } from '@/lib/userValidation'
 import { Separator } from '@/components/ui/separator'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { createBib } from '@/services/bib.services'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 interface FormData {
 	acceptedTerms: boolean

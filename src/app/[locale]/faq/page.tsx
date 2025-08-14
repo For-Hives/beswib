@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generateStaticParams'
 import globalTranslations from '@/components/global/locales.json'
 import BesWibCTA from '@/components/landing/cta/CTASection'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import FAQ from '@/components/landing/faq/FAQ'
 
 export default function FAQPage({ params }: { params: Promise<LocaleParams> }) {

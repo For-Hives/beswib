@@ -15,12 +15,12 @@ import {
 	validateConfirmPasswordValibot,
 } from '@/lib/validation-valibot'
 import { PasswordStrength } from '@/components/ui/PasswordStrength'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { FormInput } from '@/components/ui/FormInput'
 import mainLocales from '@/app/[locale]/locales.json'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 export default function CustomSignUp() {
 	const { signUp, setActive, isLoaded } = useSignUp()

@@ -2,7 +2,7 @@ import type { Event } from '@/models/event.model'
 
 import { generateLocaleParams, LocaleParams } from '@/lib/generateStaticParams'
 import { fetchApprovedPublicEvents } from '@/services/event.services'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import EventListClient from './EventListClient'
 import eventsTranslations from './locales.json'

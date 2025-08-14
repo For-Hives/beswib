@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-import type { Locale } from '@/lib/i18n-config'
+import type { Locale } from '@/lib/i18n/config'
 
 import { DateInput } from '@/components/ui/date-input'
 import { Textarea } from '@/components/ui/textareaAlt'
@@ -35,7 +35,7 @@ interface RequestEventClientProps {
 }
 
 import requestEventTranslations from '@/app/[locale]/dashboard/seller/request-event/locales.json'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 export default function RequestEventClient({ locale }: RequestEventClientProps) {
 	const t = getTranslations(locale, requestEventTranslations)

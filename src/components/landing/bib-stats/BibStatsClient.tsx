@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from 'react'
 import NumberFlow from '@number-flow/react'
 
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 interface BibStatsClientProps {
 	locale: Locale
 }
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import translations from './locales.json'
 interface StatItem {

@@ -12,7 +12,7 @@ interface EventOptionsSectionProps extends EventSectionProps {
 }
 
 import Translations from '@/app/[locale]/admin/locales.json'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 export default function EventOptionsSection({
 	setValue,

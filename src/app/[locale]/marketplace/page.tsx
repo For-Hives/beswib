@@ -3,13 +3,13 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import type { BibSale } from '@/models/marketplace.model'
-import type { Locale } from '@/lib/i18n-config'
+import type { Locale } from '@/lib/i18n/config'
 
 import { fetchAvailableBibsForMarketplace, unlockExpiredBibs } from '@/services/bib.services'
 import MarketplaceClient from '@/components/marketplace/MarketplaceClient'
 import { generateLocaleParams } from '@/lib/generateStaticParams'
 import { transformBibsToBibSales } from '@/lib/bibTransformers'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import marketplaceTranslations from './locales.json'
 

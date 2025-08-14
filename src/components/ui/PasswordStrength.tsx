@@ -3,9 +3,9 @@
 import { motion } from 'motion/react'
 
 import { getPasswordStrengthValibot } from '@/lib/validation-valibot'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import mainLocales from '@/app/[locale]/locales.json'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 interface PasswordStrengthProps {
 	password: string

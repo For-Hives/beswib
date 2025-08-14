@@ -6,10 +6,10 @@ import { useRouter } from 'next/navigation'
 
 import organizerCreateTranslations from '@/app/[locale]/admin/organizer/create/locales.json'
 import organizerCommonTranslations from '@/app/[locale]/admin/organizer/locales.json'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Organizer } from '@/models/organizer.model'
 import { User } from '@/models/user.model'
-import { Locale } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n/config'
 
 import OrganizerCreationForm from './OrganizerCreationForm'
 interface AdminOrganizerCreatePageClientProps {

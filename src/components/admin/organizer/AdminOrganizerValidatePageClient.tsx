@@ -25,8 +25,8 @@ interface ValidationStats {
 
 import organizerTranslations from '@/app/[locale]/admin/organizer/locales.json'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
-import { getTranslations } from '@/lib/getDictionary'
-import { Locale } from '@/lib/i18n-config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { Locale } from '@/lib/i18n/config'
 export default function AdminOrganizerValidatePageClient({
 	locale,
 	currentUser,

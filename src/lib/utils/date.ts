@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { Locale } from './i18n-config'
+import { Locale } from '../i18n/config'
 
 /**
  * Parse une date PocketBase (string ou Date) en Luxon.DateTime

@@ -15,7 +15,7 @@ import { SelectAnimated, type SelectOption } from '@/components/ui/select-animat
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
 import { fetchAvailableBibsForEvent } from '@/services/bib.services'
 import { formatDateObjectForDisplay } from '@/lib/dateUtils'
-import { getTranslations } from '@/lib/getDictionary'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Timeline } from '@/components/ui/timeline'
 import { Input } from '@/components/ui/inputAlt'
 
