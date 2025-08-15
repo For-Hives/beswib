@@ -1,7 +1,7 @@
 'use client'
 
 import { ChevronDown } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -18,6 +18,7 @@ type DropdownMenuProps = {
 
 const DropdownMenuAnimated = ({ options, children }: DropdownMenuProps) => {
 	const [isOpen, setIsOpen] = useState(false)
+	const dropdownRef = useRef<HTMLDivElement>(null)
 
 	const toggleDropdown = () => {
 		setIsOpen(!isOpen)
@@ -28,8 +29,25 @@ const DropdownMenuAnimated = ({ options, children }: DropdownMenuProps) => {
 		setIsOpen(false) // Close the dropdown
 	}
 
+	// Close dropdown when clicking outside
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+				setIsOpen(false)
+			}
+		}
+
+		if (isOpen) {
+			document.addEventListener('mousedown', handleClickOutside)
+		}
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+	}, [isOpen])
+
 	return (
-		<div className="relative z-50">
+		<div ref={dropdownRef} className="relative z-50">
 			<Button
 				className="text-muted-foreground hover:bg-accent hover:text-accent-foreground z-50 inline-flex items-center gap-x-1 rounded-md px-3 py-2 text-sm font-medium transition-colors"
 				onClick={toggleDropdown}
