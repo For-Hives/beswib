@@ -127,18 +127,26 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 							{isRunnerProfileComplete && (
 								<div className="mt-4 rounded-lg border border-yellow-500/75 bg-yellow-500/15 p-1 text-sm text-yellow-700 lg:p-3 dark:border-yellow-500/50 dark:bg-yellow-500/10 dark:text-yellow-500">
 									<Link className="flex items-center gap-2 text-xs lg:text-sm" href="/profile">
-										<AlertTriangle className="h-5 w-5" />
-										{t.dashboard.runnerProfileIncomplete ??
-											'Your runner profile is incomplete. Please update it to be able to buy bibs.'}
+										<p>
+											<AlertTriangle className="h-4 w-4 md:h-5 md:w-5" />
+										</p>
+										<p>
+											{t.dashboard.runnerProfileIncomplete ??
+												'Your runner profile is incomplete. Please update it to be able to buy bibs.'}
+										</p>
 									</Link>
 								</div>
 							)}
 							{isSellerProfileComplete && (
 								<div className="mt-4 rounded-lg border border-blue-500/75 bg-blue-500/15 p-1 text-sm text-blue-700 lg:p-3 dark:border-blue-500/50 dark:bg-blue-500/10 dark:text-blue-500">
 									<Link className="flex items-center gap-2 text-xs lg:text-sm" href="/profile">
-										<ShieldCheck className="h-5 w-5" />
-										{t.dashboard.sellerProfileIncomplete ??
-											'Your seller profile is incomplete. Please update it to be able to sell bibs.'}
+										<p>
+											<ShieldCheck className="h-4 w-4 md:h-5 md:w-5" />
+										</p>
+										<p>
+											{t.dashboard.sellerProfileIncomplete ??
+												'Your seller profile is incomplete. Please update it to be able to sell bibs.'}
+										</p>
 									</Link>
 								</div>
 							)}
