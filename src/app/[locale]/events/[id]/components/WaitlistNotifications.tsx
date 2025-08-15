@@ -4,13 +4,7 @@ import { useQueryState } from 'nuqs'
 import Link from 'next/link'
 import { CheckCircle, AlertCircle, Mail } from 'lucide-react'
 
-import { 
-	Dialog, 
-	DialogContent, 
-	DialogHeader, 
-	DialogTitle, 
-	DialogFooter 
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 
 interface WaitlistNotificationsProps {
@@ -77,7 +71,7 @@ export function WaitlistNotifications({ t, eventName, eventId, locale }: Waitlis
 	const getSuccessSubMessage = () => {
 		switch (locale) {
 			case 'fr':
-				return 'Nous vous contacterons dès qu\'un dossard sera disponible !'
+				return "Nous vous contacterons dès qu'un dossard sera disponible !"
 			case 'es':
 				return '¡Te contactaremos tan pronto como haya un dorsal disponible!'
 			case 'it':
@@ -93,7 +87,7 @@ export function WaitlistNotifications({ t, eventName, eventId, locale }: Waitlis
 			case 'ko':
 				return '빕이 사용 가능해지면 즉시 연락드리겠습니다!'
 			default:
-				return 'We\'ll contact you as soon as a bib becomes available!'
+				return "We'll contact you as soon as a bib becomes available!"
 		}
 	}
 
@@ -123,23 +117,86 @@ export function WaitlistNotifications({ t, eventName, eventId, locale }: Waitlis
 	const getButtonTexts = () => {
 		switch (locale) {
 			case 'fr':
-				return { success: 'Parfait !', understood: 'Compris', retry: 'Réessayer', contactSupport: 'Contacter le support', info: 'Pas de souci ! Vous recevrez toujours une notification si un dossard devient disponible.', error: 'Une erreur s\'est produite. Veuillez réessayer ou contactez notre support.' }
+				return {
+					success: 'Parfait !',
+					understood: 'Compris',
+					retry: 'Réessayer',
+					contactSupport: 'Contacter le support',
+					info: 'Pas de souci ! Vous recevrez toujours une notification si un dossard devient disponible.',
+					error: "Une erreur s'est produite. Veuillez réessayer ou contactez notre support.",
+				}
 			case 'es':
-				return { success: '¡Perfecto!', understood: 'Entendido', retry: 'Reintentar', contactSupport: 'Contactar soporte', info: '¡No te preocupes! Aún recibirás una notificación si un dorsal está disponible.', error: 'Ha ocurrido un error. Inténtalo de nuevo o contacta nuestro soporte.' }
+				return {
+					success: '¡Perfecto!',
+					understood: 'Entendido',
+					retry: 'Reintentar',
+					contactSupport: 'Contactar soporte',
+					info: '¡No te preocupes! Aún recibirás una notificación si un dorsal está disponible.',
+					error: 'Ha ocurrido un error. Inténtalo de nuevo o contacta nuestro soporte.',
+				}
 			case 'it':
-				return { success: 'Perfetto!', understood: 'Capito', retry: 'Riprova', contactSupport: 'Contatta il supporto', info: 'Non preoccuparti! Riceverai comunque una notifica se un pettorale diventa disponibile.', error: 'Si è verificato un errore. Riprova o contatta il nostro supporto.' }
+				return {
+					success: 'Perfetto!',
+					understood: 'Capito',
+					retry: 'Riprova',
+					contactSupport: 'Contatta il supporto',
+					info: 'Non preoccuparti! Riceverai comunque una notifica se un pettorale diventa disponibile.',
+					error: 'Si è verificato un errore. Riprova o contatta il nostro supporto.',
+				}
 			case 'de':
-				return { success: 'Perfekt!', understood: 'Verstanden', retry: 'Erneut versuchen', contactSupport: 'Support kontaktieren', info: 'Kein Problem! Sie erhalten trotzdem eine Benachrichtigung, wenn eine Startnummer verfügbar wird.', error: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie unseren Support.' }
+				return {
+					success: 'Perfekt!',
+					understood: 'Verstanden',
+					retry: 'Erneut versuchen',
+					contactSupport: 'Support kontaktieren',
+					info: 'Kein Problem! Sie erhalten trotzdem eine Benachrichtigung, wenn eine Startnummer verfügbar wird.',
+					error: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie unseren Support.',
+				}
 			case 'ro':
-				return { success: 'Perfect!', understood: 'Înțeles', retry: 'Încercați din nou', contactSupport: 'Contactați suportul', info: 'Nu-i problemă! Veți primi în continuare o notificare dacă un număr de concurs devine disponibil.', error: 'A apărut o eroare. Vă rugăm să încercați din nou sau contactați suportul nostru.' }
+				return {
+					success: 'Perfect!',
+					understood: 'Înțeles',
+					retry: 'Încercați din nou',
+					contactSupport: 'Contactați suportul',
+					info: 'Nu-i problemă! Veți primi în continuare o notificare dacă un număr de concurs devine disponibil.',
+					error: 'A apărut o eroare. Vă rugăm să încercați din nou sau contactați suportul nostru.',
+				}
 			case 'pt':
-				return { success: 'Perfeito!', understood: 'Compreendido', retry: 'Tentar novamente', contactSupport: 'Contactar suporte', info: 'Não se preocupe! Ainda receberás uma notificação se um dorsal ficar disponível.', error: 'Ocorreu um erro. Tente novamente ou contacte o nosso suporte.' }
+				return {
+					success: 'Perfeito!',
+					understood: 'Compreendido',
+					retry: 'Tentar novamente',
+					contactSupport: 'Contactar suporte',
+					info: 'Não se preocupe! Ainda receberás uma notificação se um dorsal ficar disponível.',
+					error: 'Ocorreu um erro. Tente novamente ou contacte o nosso suporte.',
+				}
 			case 'nl':
-				return { success: 'Perfect!', understood: 'Begrepen', retry: 'Opnieuw proberen', contactSupport: 'Contact opnemen met ondersteuning', info: 'Geen probleem! Je ontvangt nog steeds een melding als een startnummer beschikbaar komt.', error: 'Er is een fout opgetreden. Probeer het opnieuw of neem contact op met onze ondersteuning.' }
+				return {
+					success: 'Perfect!',
+					understood: 'Begrepen',
+					retry: 'Opnieuw proberen',
+					contactSupport: 'Contact opnemen met ondersteuning',
+					info: 'Geen probleem! Je ontvangt nog steeds een melding als een startnummer beschikbaar komt.',
+					error: 'Er is een fout opgetreden. Probeer het opnieuw of neem contact op met onze ondersteuning.',
+				}
 			case 'ko':
-				return { success: '완벽합니다!', understood: '이해했습니다', retry: '다시 시도', contactSupport: '지원팀 문의', info: '괜찮습니다! 빕이 사용 가능해지면 여전히 알림을 받으실 것입니다.', error: '오류가 발생했습니다. 다시 시도하거나 지원팀에 문의해주세요.' }
+				return {
+					success: '완벽합니다!',
+					understood: '이해했습니다',
+					retry: '다시 시도',
+					contactSupport: '지원팀 문의',
+					info: '괜찮습니다! 빕이 사용 가능해지면 여전히 알림을 받으실 것입니다.',
+					error: '오류가 발생했습니다. 다시 시도하거나 지원팀에 문의해주세요.',
+				}
 			default:
-				return { success: 'Perfect!', understood: 'Understood', retry: 'Try Again', contactSupport: 'Contact Support', info: 'No worries! You\'ll still receive a notification if a bib becomes available.', error: 'An error occurred. Please try again or contact our support.' }
+				return {
+					success: 'Perfect!',
+					understood: 'Understood',
+					retry: 'Try Again',
+					contactSupport: 'Contact Support',
+					info: "No worries! You'll still receive a notification if a bib becomes available.",
+					error: 'An error occurred. Please try again or contact our support.',
+				}
 		}
 	}
 
@@ -153,29 +210,25 @@ export function WaitlistNotifications({ t, eventName, eventId, locale }: Waitlis
 		<>
 			{/* Success Dialog */}
 			{isWaitlistSuccess && (
-				<Dialog open={true} onOpenChange={(open) => !open && handleClose()}>
+				<Dialog open={true} onOpenChange={open => !open && handleClose()}>
 					<DialogContent className="sm:max-w-md">
 						<DialogHeader>
-							<div className="flex items-center gap-3 mb-4">
+							<div className="mb-4 flex items-center gap-3">
 								<div className="rounded-full bg-green-100 p-2">
 									<CheckCircle className="h-6 w-6 text-green-600" />
 								</div>
-								<DialogTitle className="text-green-600">
-									{t.event.waitlist.success.title}
-								</DialogTitle>
+								<DialogTitle className="text-green-600">{t.event.waitlist.success.title}</DialogTitle>
 							</div>
 						</DialogHeader>
 						<div className="space-y-4">
 							<div className="text-center">
 								{subscribedEmail ? (
 									<div className="space-y-3">
-										<div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+										<div className="text-muted-foreground flex items-center justify-center gap-2 text-sm">
 											<Mail className="h-4 w-4" />
 											<span>{subscribedEmail}</span>
 										</div>
-										<p className="text-muted-foreground">
-											{getSuccessEmailMessage()}
-										</p>
+										<p className="text-muted-foreground">{getSuccessEmailMessage()}</p>
 									</div>
 								) : (
 									<p className="text-muted-foreground">
@@ -183,10 +236,8 @@ export function WaitlistNotifications({ t, eventName, eventId, locale }: Waitlis
 									</p>
 								)}
 							</div>
-							<div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-								<p className="text-sm text-green-700">
-									{getSuccessSubMessage()}
-								</p>
+							<div className="rounded-lg border border-green-200 bg-green-50 p-4 text-center">
+								<p className="text-sm text-green-700">{getSuccessSubMessage()}</p>
 							</div>
 						</div>
 						<DialogFooter className="sm:justify-center">
@@ -200,16 +251,14 @@ export function WaitlistNotifications({ t, eventName, eventId, locale }: Waitlis
 
 			{/* Error Dialog */}
 			{hasError && (
-				<Dialog open={true} onOpenChange={(open) => !open && handleClose()}>
+				<Dialog open={true} onOpenChange={open => !open && handleClose()}>
 					<DialogContent className="sm:max-w-md">
 						<DialogHeader>
-							<div className="flex items-center gap-3 mb-4">
+							<div className="mb-4 flex items-center gap-3">
 								<div className="rounded-full bg-red-100 p-2">
 									<AlertCircle className="h-6 w-6 text-red-600" />
 								</div>
-								<DialogTitle className="text-red-600">
-									{t.event.waitlist.error.title}
-								</DialogTitle>
+								<DialogTitle className="text-red-600">{t.event.waitlist.error.title}</DialogTitle>
 							</div>
 						</DialogHeader>
 						<div className="space-y-4">
@@ -223,16 +272,12 @@ export function WaitlistNotifications({ t, eventName, eventId, locale }: Waitlis
 								</p>
 							</div>
 							{waitlistError === 'already_added' || waitlistError === 'already_added_email' ? (
-								<div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-									<p className="text-sm text-blue-700">
-										{buttonTexts.info}
-									</p>
+								<div className="rounded-lg border border-blue-200 bg-blue-50 p-4 text-center">
+									<p className="text-sm text-blue-700">{buttonTexts.info}</p>
 								</div>
 							) : (
-								<div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-									<p className="text-sm text-red-700">
-										{buttonTexts.error}
-									</p>
+								<div className="rounded-lg border border-red-200 bg-red-50 p-4 text-center">
+									<p className="text-sm text-red-700">{buttonTexts.error}</p>
 								</div>
 							)}
 						</div>
