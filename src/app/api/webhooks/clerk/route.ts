@@ -146,7 +146,7 @@ async function processUserCreation(
 		}
 
 		// Fire-and-forget welcome email; don't block webhook success on email failures
-		void sendWelcomeEmail({ to: userData.email, firstName: userData.firstName })
+		void sendWelcomeEmail({ to: userData.email, firstName: userData.firstName ?? undefined })
 
 		return NextResponse.json(
 			{
