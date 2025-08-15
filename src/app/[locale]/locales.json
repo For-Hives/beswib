@@ -40,7 +40,18 @@
 			"trustedAthletes": "Trusted by thousands of athletes worldwide",
 			"bankEncryption": "Bank-level encryption",
 			"instantConfirmation": "Instant confirmation",
-			"fraudProtection": "Fraud protection"
+			"fraudProtection": "Fraud protection",
+			"paymentSuccess": "Payment Successful!",
+			"paymentSuccessMessage": "Your payment has been processed successfully. You will receive a confirmation email shortly.",
+			"paymentError": "Payment Error",
+			"paymentCancelled": "Payment Cancelled",
+			"paymentCancelledMessage": "The payment was cancelled. You can try again or contact support if needed.",
+			"goToDashboard": "Go to Dashboard",
+			"tryAgain": "Try Again",
+			"contactSupport": "Contact Support",
+			"orderProcessing": "Processing Order...",
+			"paymentProcessing": "Processing Payment...",
+			"closeDialog": "Close"
 		},
 		"form": {
 			"valid": "Valid"
@@ -241,7 +252,18 @@
 			"trustedAthletes": "Fait confiance par des milliers d'athlètes dans le monde",
 			"bankEncryption": "Chiffrement bancaire",
 			"instantConfirmation": "Confirmation instantanée",
-			"fraudProtection": "Protection contre la fraude"
+			"fraudProtection": "Protection contre la fraude",
+			"paymentSuccess": "Paiement réussi !",
+			"paymentSuccessMessage": "Votre paiement a été traité avec succès. Vous recevrez un e-mail de confirmation sous peu.",
+			"paymentError": "Erreur de paiement",
+			"paymentCancelled": "Paiement annulé",
+			"paymentCancelledMessage": "Le paiement a été annulé. Vous pouvez réessayer ou contacter le support si nécessaire.",
+			"goToDashboard": "Aller au tableau de bord",
+			"tryAgain": "Réessayer",
+			"contactSupport": "Contacter le support",
+			"orderProcessing": "Traitement de la commande...",
+			"paymentProcessing": "Traitement du paiement...",
+			"closeDialog": "Fermer"
 		},
 		"form": {
 			"valid": "Valide"
@@ -420,7 +442,18 @@
 			"trustedAthletes": "Confiado por miles de atletas en todo el mundo",
 			"bankEncryption": "Encriptación bancaria",
 			"instantConfirmation": "Confirmación instantánea",
-			"fraudProtection": "Protección contra fraude"
+			"fraudProtection": "Protección contra fraude",
+			"paymentSuccess": "¡Pago exitoso!",
+			"paymentSuccessMessage": "Su pago se ha procesado exitosamente. Recibirá un correo electrónico de confirmación en breve.",
+			"paymentError": "Error de pago",
+			"paymentCancelled": "Pago cancelado",
+			"paymentCancelledMessage": "El pago fue cancelado. Puede intentar de nuevo o contactar soporte si es necesario.",
+			"goToDashboard": "Ir al panel",
+			"tryAgain": "Intentar de nuevo",
+			"contactSupport": "Contactar soporte",
+			"orderProcessing": "Procesando pedido...",
+			"paymentProcessing": "Procesando pago...",
+			"closeDialog": "Cerrar"
 		},
 		"form": {
 			"valid": "Válido"
@@ -605,7 +638,18 @@
 			"trustedAthletes": "Affidabile per migliaia di atleti in tutto il mondo",
 			"bankEncryption": "Crittografia bancaria",
 			"instantConfirmation": "Conferma istantanea",
-			"fraudProtection": "Protezione antifrode"
+			"fraudProtection": "Protezione antifrode",
+			"paymentSuccess": "Pagamento riuscito!",
+			"paymentSuccessMessage": "Il pagamento è stato elaborato con successo. Riceverai un'email di conferma a breve.",
+			"paymentError": "Errore di pagamento",
+			"paymentCancelled": "Pagamento annullato",
+			"paymentCancelledMessage": "Il pagamento è stato annullato. Puoi riprovare o contattare il supporto se necessario.",
+			"goToDashboard": "Vai alla dashboard",
+			"tryAgain": "Riprova",
+			"contactSupport": "Contatta il supporto",
+			"orderProcessing": "Elaborazione ordine...",
+			"paymentProcessing": "Elaborazione pagamento...",
+			"closeDialog": "Chiudi"
 		},
 		"form": {
 			"valid": "Valido"
@@ -790,7 +834,18 @@
 			"trustedAthletes": "Vertraut von Tausenden von Athleten weltweit",
 			"bankEncryption": "Bankverschlüsselung",
 			"instantConfirmation": "Sofortige Bestätigung",
-			"fraudProtection": "Betrugsschutz"
+			"fraudProtection": "Betrugsschutz",
+			"paymentSuccess": "Zahlung erfolgreich!",
+			"paymentSuccessMessage": "Ihre Zahlung wurde erfolgreich verarbeitet. Sie erhalten in Kürze eine Bestätigungs-E-Mail.",
+			"paymentError": "Zahlungsfehler",
+			"paymentCancelled": "Zahlung abgebrochen",
+			"paymentCancelledMessage": "Die Zahlung wurde abgebrochen. Sie können es erneut versuchen oder den Support kontaktieren, falls nötig.",
+			"goToDashboard": "Zum Dashboard",
+			"tryAgain": "Erneut versuchen",
+			"contactSupport": "Support kontaktieren",
+			"orderProcessing": "Bestellung wird verarbeitet...",
+			"paymentProcessing": "Zahlung wird verarbeitet...",
+			"closeDialog": "Schließen"
 		},
 		"form": {
 			"valid": "Gültig"
@@ -975,7 +1030,18 @@
 			"trustedAthletes": "De încredere pentru mii de atleți din întreaga lume",
 			"bankEncryption": "Criptare bancară",
 			"instantConfirmation": "Confirmare instantanee",
-			"fraudProtection": "Protecție antifraudă"
+			"fraudProtection": "Protecție antifraudă",
+			"paymentSuccess": "Plata reușită!",
+			"paymentSuccessMessage": "Plata dvs. a fost procesată cu succes. Veți primi un email de confirmare în scurt timp.",
+			"paymentError": "Eroare de plată",
+			"paymentCancelled": "Plată anulată",
+			"paymentCancelledMessage": "Plata a fost anulată. Puteți încerca din nou sau contactați suportul dacă este necesar.",
+			"goToDashboard": "Du-te la panou",
+			"tryAgain": "Încearcă din nou",
+			"contactSupport": "Contactează suportul",
+			"orderProcessing": "Se procesează comanda...",
+			"paymentProcessing": "Se procesează plata...",
+			"closeDialog": "Închide"
 		},
 		"form": {
 			"valid": "Valid"
@@ -1139,7 +1205,18 @@
 			"trustedAthletes": "Confiável para milhares de atletas em todo o mundo",
 			"bankEncryption": "Encriptação bancária",
 			"instantConfirmation": "Confirmação instantânea",
-			"fraudProtection": "Proteção contra fraude"
+			"fraudProtection": "Proteção contra fraude",
+			"paymentSuccess": "Pagamento bem-sucedido!",
+			"paymentSuccessMessage": "O seu pagamento foi processado com sucesso. Receberá um email de confirmação em breve.",
+			"paymentError": "Erro de pagamento",
+			"paymentCancelled": "Pagamento cancelado",
+			"paymentCancelledMessage": "O pagamento foi cancelado. Pode tentar novamente ou contactar o suporte se necessário.",
+			"goToDashboard": "Ir para o painel",
+			"tryAgain": "Tentar novamente",
+			"contactSupport": "Contactar suporte",
+			"orderProcessing": "A processar pedido...",
+			"paymentProcessing": "A processar pagamento...",
+			"closeDialog": "Fechar"
 		},
 		"form": {
 			"valid": "Válido"
@@ -1303,7 +1380,18 @@
 			"trustedAthletes": "Vertrouwd door duizenden atleten wereldwijd",
 			"bankEncryption": "Bankniveau encryptie",
 			"instantConfirmation": "Directe bevestiging",
-			"fraudProtection": "Fraudebescherming"
+			"fraudProtection": "Fraudebescherming",
+			"paymentSuccess": "Betaling succesvol!",
+			"paymentSuccessMessage": "Uw betaling is succesvol verwerkt. U ontvangt binnenkort een bevestigingsmail.",
+			"paymentError": "Betalingsfout",
+			"paymentCancelled": "Betaling geannuleerd",
+			"paymentCancelledMessage": "De betaling is geannuleerd. U kunt het opnieuw proberen of contact opnemen met de ondersteuning indien nodig.",
+			"goToDashboard": "Naar dashboard",
+			"tryAgain": "Opnieuw proberen",
+			"contactSupport": "Contact opnemen met ondersteuning",
+			"orderProcessing": "Bestelling verwerken...",
+			"paymentProcessing": "Betaling verwerken...",
+			"closeDialog": "Sluiten"
 		},
 		"form": {
 			"valid": "Geldig"
@@ -1488,7 +1576,18 @@
 			"trustedAthletes": "전 세계 수천 명의 운동선수들이 신뢰",
 			"bankEncryption": "은행 수준 암호화",
 			"instantConfirmation": "즉시 확인",
-			"fraudProtection": "사기 방지"
+			"fraudProtection": "사기 방지",
+			"paymentSuccess": "결제 성공!",
+			"paymentSuccessMessage": "결제가 성공적으로 처리되었습니다. 곧 확인 이메일을 받게 됩니다.",
+			"paymentError": "결제 오류",
+			"paymentCancelled": "결제 취소됨",
+			"paymentCancelledMessage": "결제가 취소되었습니다. 다시 시도하거나 필요한 경우 지원팀에 문의할 수 있습니다.",
+			"goToDashboard": "대시보드로 이동",
+			"tryAgain": "다시 시도",
+			"contactSupport": "지원팀 문의",
+			"orderProcessing": "주문 처리 중...",
+			"paymentProcessing": "결제 처리 중...",
+			"closeDialog": "닫기"
 		},
 		"form": {
 			"valid": "유효함"

@@ -44,7 +44,7 @@ export default function AuthSplitScreen({ children }: Readonly<AuthSplitScreenPr
 		// Main container: full height, centered, with padding and overflow handling
 		<div className="flex min-h-screen items-center justify-center overflow-hidden">
 			{/* Card container: max width, rounded corners, shadow for depth */}
-			<div className="relative w-full max-w-6xl overflow-hidden rounded-3xl shadow-xl">
+			<div className="relative mx-4 w-full max-w-6xl overflow-hidden rounded-3xl p-8 shadow-xl md:p-0 lg:mx-0">
 				{/* Grid Layout: 12-column grid system for responsive design */}
 				<div className="grid md:grid-cols-12">
 					{/* Left Side - Visual Panel with Mountain Shader Animation */}

@@ -22,7 +22,8 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import { Locale } from '@/lib/i18n/config'
 
 // Import sub-components
-import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs, PaymentPanel } from './components'
+import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs } from './components'
+import PaymentDialog from './components/PaymentDialog'
 import { LockTimer } from './LockTimer'
 
 interface PayPalPurchaseClientProps {
@@ -329,7 +330,7 @@ export default function PayPalPurchaseClient({
 				{/* Tabbed Content Section */}
 				<ContentTabs bib={bib} eventData={eventData} locale={locale} />
 			</div>
-			<PaymentPanel
+			<PaymentDialog
 				isOpen={isPanelOpen}
 				onClose={() => setIsPanelOpen(false)}
 				bib={bib}
