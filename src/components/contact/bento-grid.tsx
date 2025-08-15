@@ -2,7 +2,7 @@
 
 import { ArrowRight, Handshake, Mail, MessageCircle, Users } from 'lucide-react'
 import { motion } from 'motion/react'
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import type React from 'react'
 
 import { InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/utils/social'
@@ -96,7 +96,9 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 				<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
 				<div className="h-full p-8">
 					<h2 className="text-card-foreground text-2xl font-bold">{t.getInTouch}</h2>
-					<ContactForm t={t} />
+					<Suspense fallback={<div className="animate-pulse bg-gray-200 rounded h-64 mt-4"></div>}>
+						<ContactForm t={t} />
+					</Suspense>
 				</div>
 				<div className="from-primary/25 via-primary/5 pointer-events-none absolute right-0 bottom-0 h-45 w-45 rounded-tl-full bg-gradient-to-tl to-transparent"></div>
 			</motion.div>

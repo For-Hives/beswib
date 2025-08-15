@@ -1,11 +1,11 @@
 'use client'
 
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
-import { LayoutDashboard, Settings, ShoppingBag, Tag, User } from 'lucide-react'
+import { LayoutDashboard, LogOut, Settings, ShoppingBag, Tag, User } from 'lucide-react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 
-import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs'
+import { SignedIn, SignedOut, UserButton, useClerk, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -163,6 +163,7 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 	const t = getTranslations(locale, pageTranslationsData)
 
 	const { user: clerkUser, isLoaded } = useUser()
+	const { signOut } = useClerk()
 	const [isAdmin, setIsAdmin] = useState(false)
 
 	useEffect(() => {
@@ -242,6 +243,16 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 					{t.navbar.adminLink}
 				</DisclosureButton>
 			)}
+
+			{/* Sign Out Button 🚪 */}
+			<DisclosureButton
+				as="button"
+				onClick={() => void signOut({ redirectUrl: '/' })}
+				className="text-destructive hover:bg-destructive/10 flex w-full items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+			>
+				<LogOut className="h-4 w-4" />
+				{t.navbar.signOut}
+			</DisclosureButton>
 
 			{/* User Button 👤 */}
 			<div className="px-3 py-3">

@@ -2,7 +2,8 @@
 
 import { Loader2, Send } from 'lucide-react'
 import { motion } from 'motion/react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import type React from 'react'
 
 import { toast } from 'sonner'
@@ -17,11 +18,23 @@ interface ContactFormProps {
 }
 
 export default function ContactForm({ t }: ContactFormProps) {
+	const searchParams = useSearchParams()
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [isSubmitted, setIsSubmitted] = useState(false)
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [message, setMessage] = useState('')
+
+	// Pre-fill form with URL parameters
+	useEffect(() => {
+		const nameParam = searchParams.get('name')
+		const emailParam = searchParams.get('email')
+		const messageParam = searchParams.get('message')
+
+		if (nameParam) setName(decodeURIComponent(nameParam))
+		if (emailParam) setEmail(decodeURIComponent(emailParam))
+		if (messageParam) setMessage(decodeURIComponent(messageParam))
+	}, [searchParams])
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()

@@ -13,7 +13,8 @@
 			"faqLink": "FAQ",
 			"contactLink": "Contact",
 			"signIn": "Sign In",
-			"signUp": "Sign Up"
+			"signUp": "Sign Up",
+			"signOut": "Sign Out"
 		},
 		"footer": {
 			"madeWith": "Made with",
@@ -108,7 +109,8 @@
 			"faqLink": "FAQ",
 			"contactLink": "Contact",
 			"signIn": "Se connecter",
-			"signUp": "S'inscrire"
+			"signUp": "S'inscrire",
+			"signOut": "Se déconnecter"
 		},
 		"footer": {
 			"madeWith": "Fait avec",
@@ -203,7 +205,8 @@
 			"faqLink": "FAQ",
 			"contactLink": "Contacto",
 			"signIn": "Iniciar sesión",
-			"signUp": "Registrarse"
+			"signUp": "Registrarse",
+			"signOut": "Cerrar sesión"
 		},
 		"footer": {
 			"madeWith": "Hecho con",
@@ -298,7 +301,8 @@
 			"faqLink": "FAQ",
 			"contactLink": "Contatto",
 			"signIn": "Accedi",
-			"signUp": "Registrati"
+			"signUp": "Registrati",
+			"signOut": "Esci"
 		},
 		"footer": {
 			"madeWith": "Fatto con",
@@ -393,7 +397,8 @@
 			"faqLink": "FAQ",
 			"contactLink": "Kontakt",
 			"signIn": "Anmelden",
-			"signUp": "Registrieren"
+			"signUp": "Registrieren",
+			"signOut": "Abmelden"
 		},
 		"footer": {
 			"madeWith": "Gemacht mit",
@@ -488,7 +493,8 @@
 			"faqLink": "Întrebări frecvente",
 			"contactLink": "Contact",
 			"signIn": "Autentificare",
-			"signUp": "Înregistrare"
+			"signUp": "Înregistrare",
+			"signOut": "Deconectare"
 		},
 		"footer": {
 			"madeWith": "Realizat cu",
@@ -583,7 +589,8 @@
 			"faqLink": "FAQ",
 			"contactLink": "Contacto",
 			"signIn": "Iniciar sessão",
-			"signUp": "Registar-se"
+			"signUp": "Registar-se",
+			"signOut": "Terminar sessão"
 		},
 		"footer": {
 			"madeWith": "Feito com",
@@ -678,7 +685,8 @@
 			"faqLink": "FAQ",
 			"contactLink": "Contact",
 			"signIn": "Inloggen",
-			"signUp": "Registreren"
+			"signUp": "Registreren",
+			"signOut": "Uitloggen"
 		},
 		"footer": {
 			"madeWith": "Gemaakt met",
@@ -773,7 +781,8 @@
 			"faqLink": "자주 묻는 질문",
 			"contactLink": "연락처",
 			"signIn": "로그인",
-			"signUp": "회원가입"
+			"signUp": "회원가입",
+			"signOut": "로그아웃"
 		},
 		"footer": {
 			"madeWith": "다음으로 제작",

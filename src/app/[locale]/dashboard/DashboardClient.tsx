@@ -38,7 +38,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 			<UserHeader clerkUser={clerkUser} user={user} locale={locale} />
 
-			<div className="relative pt-40 pb-12">
+			<div className="relative pb-12 md:pt-12">
 				<div className="container mx-auto max-w-6xl p-6">
 					{/* Header */}
 					<div className="mb-12 space-y-2 text-center">
@@ -174,7 +174,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 					</div>
 
 					{/* Featured Section */}
-					<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+					<div className="grid grid-cols-1 gap-8">
 						{/* Getting Started */}
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader>
@@ -209,7 +209,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 						</Card>
 
 						{/* Platform Stats */}
-						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
+						{/* <Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader>
 								<CardTitle className="flex items-center gap-2">
 									<TrendingUp className="h-5 w-5" />
@@ -233,7 +233,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 									<span className="text-primary font-semibold">{t.dashboard.growingDaily ?? 'Growing Daily'}</span>
 								</div>
 							</CardContent>
-						</Card>
+						</Card> */}
 					</div>
 				</div>
 			</div>

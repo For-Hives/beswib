@@ -1,11 +1,11 @@
 'use client'
 
-import { AlertTriangle, ShieldCheck, Settings, User, LayoutDashboard } from 'lucide-react'
+import { AlertTriangle, ShieldCheck, Settings, User as UserIcon, LayoutDashboard } from 'lucide-react'
 
 import { useClerk } from '@clerk/nextjs'
 import Link from 'next/link'
 
-import type { User } from '@/models/user.model'
+import type { User as UserType } from '@/models/user.model'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import dashboardTranslations from '@/app/[locale]/dashboard/locales.json'
@@ -25,7 +25,7 @@ interface SerializedClerkUser {
 
 interface UserHeaderProps {
 	clerkUser: SerializedClerkUser
-	user: null | User
+	user: null | UserType
 	locale?: Locale
 }
 
@@ -63,78 +63,89 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 	const isSellerProfileComplete = user?.paypalMerchantId != null
 
 	return (
-		<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
-			<div className="flex items-center justify-between">
-				<div>
-					<p className="text-muted-foreground text-sm">{t.dashboard.welcomeBack ?? 'Welcome back'}</p>
-					<div className="flex gap-2">
-						{!isRunnerProfileComplete && (
-							<div className="mt-4 rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-3 text-sm text-yellow-500">
-								<Link className="flex items-center gap-2" href="/profile">
-									<AlertTriangle className="h-5 w-5" />
-									{t.dashboard.runnerProfileIncomplete ??
-										'Your runner profile is incomplete. Please update it to be able to buy bibs.'}
+		<div className="py-4 lg:py-0">
+			<div className="bg-card/25 border-border/30 top-2 right-0 left-0 z-20 mx-4 rounded-2xl border p-4 backdrop-blur-sm lg:absolute">
+				<div className="flex flex-wrap items-start justify-between gap-2 lg:flex-nowrap">
+					<div>
+						<p className="text-muted-foreground text-sm">{t.dashboard.welcomeBack ?? 'Welcome back'}</p>
+					</div>
+
+					<div className="flex flex-col-reverse flex-wrap items-end justify-start gap-2 lg:flex-row lg:flex-nowrap lg:items-center">
+						<div className="flex gap-2">
+							<Button variant="outline" asChild>
+								<Link href="/dashboard">
+									<LayoutDashboard className="h-4 w-4" />
+									{t.dashboard.dashboardButton ?? 'Dashboard'}
 								</Link>
-							</div>
-						)}
-						{!isSellerProfileComplete && (
-							<div className="mt-4 rounded-lg border border-blue-500/50 bg-blue-500/10 p-3 text-sm text-blue-500">
-								<Link className="flex items-center gap-2" href="/profile">
-									<ShieldCheck className="h-5 w-5" />
-									{t.dashboard.sellerProfileIncomplete ??
-										'Your seller profile is incomplete. Please update it to be able to sell bibs.'}
+							</Button>
+							<Button variant="outline" asChild>
+								<Link href="/profile">
+									<UserIcon className="h-4 w-4" />
+									{t.dashboard.profileButton ?? 'Profile'}
 								</Link>
+							</Button>
+						</div>
+
+						<button
+							type="button"
+							onClick={handleOpenAccount}
+							onKeyDown={e => {
+								if (e.key === 'Enter' || e.key === ' ') {
+									e.preventDefault()
+									handleOpenAccount()
+								}
+							}}
+							className="hover:bg-accent/40 focus-visible:ring-ring group border-border/40 bg-background/40 flex items-center gap-3 rounded-xl border p-2 pr-3 text-left shadow-sm backdrop-blur-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
+							aria-label="Open account menu"
+						>
+							<Avatar className="h-9 w-9">
+								<AvatarImage src={clerkUser.imageUrl} alt={userName} />
+								<AvatarFallback>{(userName || 'U').slice(0, 1).toUpperCase()}</AvatarFallback>
+							</Avatar>
+							<div className="flex flex-col items-start">
+								<div className="bg-primary/10 text-primary w-fit rounded-full px-2 py-0.5 text-[10px] leading-4 font-medium">
+									{t.dashboard.memberBadge ?? 'MEMBER'}
+								</div>
+								<p className="text-foreground flex items-center gap-2 text-sm font-medium">
+									<span>{userName}</span>
+									{clerkUser.emailAddresses[0] !== undefined && (
+										<span className="text-muted-foreground hidden text-xs sm:inline">
+											({clerkUser.emailAddresses[0].emailAddress})
+										</span>
+									)}
+								</p>
 							</div>
-						)}
+							<Settings className="text-muted-foreground/80 group-hover:text-foreground h-4 w-4 shrink-0" />
+						</button>
 					</div>
 				</div>
-
-				<div className="flex items-center justify-end gap-2">
-					<Button variant="outline" asChild>
-						<Link href="/dashboard">
-							<LayoutDashboard className="h-4 w-4" />
-							{t.dashboard.dashboardButton ?? 'Dashboard'}
-						</Link>
-					</Button>
-					<Button variant="outline" asChild>
-						<Link href="/profile">
-							<User className="h-4 w-4" />
-							{t.dashboard.profileButton ?? 'Profile'}
-						</Link>
-					</Button>
-					<button
-						type="button"
-						onClick={handleOpenAccount}
-						onKeyDown={e => {
-							if (e.key === 'Enter' || e.key === ' ') {
-								e.preventDefault()
-								handleOpenAccount()
-							}
-						}}
-						className="hover:bg-accent/40 focus-visible:ring-ring group border-border/40 bg-background/40 flex items-center gap-3 rounded-xl border p-2 pr-3 text-left shadow-sm backdrop-blur-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
-						aria-label="Open account menu"
-					>
-						<Avatar className="h-9 w-9">
-							<AvatarImage src={clerkUser.imageUrl} alt={userName} />
-							<AvatarFallback>{(userName || 'U').slice(0, 1).toUpperCase()}</AvatarFallback>
-						</Avatar>
-						<div className="flex flex-col items-start">
-							<div className="bg-primary/10 text-primary w-fit rounded-full px-2 py-0.5 text-[10px] leading-4 font-medium">
-								{t.dashboard.memberBadge ?? 'MEMBER'}
-							</div>
-							<p className="text-foreground flex items-center gap-2 text-sm font-medium">
-								<span>{userName}</span>
-								{clerkUser.emailAddresses[0] !== undefined && (
-									<span className="text-muted-foreground hidden text-xs sm:inline">
-										({clerkUser.emailAddresses[0].emailAddress})
-									</span>
-								)}
-							</p>
-						</div>
-						<Settings className="text-muted-foreground/80 group-hover:text-foreground h-4 w-4 shrink-0" />
-					</button>
-				</div>
 			</div>
+			{(isRunnerProfileComplete || isSellerProfileComplete) && (
+				<>
+					<div className="mx-4 pt-4 md:pt-24 xl:pt-32">
+						<div className="flex justify-center gap-2">
+							{isRunnerProfileComplete && (
+								<div className="mt-4 rounded-lg border border-yellow-500/75 bg-yellow-500/15 p-1 text-sm text-yellow-700 lg:p-3 dark:border-yellow-500/50 dark:bg-yellow-500/10 dark:text-yellow-500">
+									<Link className="flex items-center gap-2 text-xs lg:text-sm" href="/profile">
+										<AlertTriangle className="h-5 w-5" />
+										{t.dashboard.runnerProfileIncomplete ??
+											'Your runner profile is incomplete. Please update it to be able to buy bibs.'}
+									</Link>
+								</div>
+							)}
+							{isSellerProfileComplete && (
+								<div className="mt-4 rounded-lg border border-blue-500/75 bg-blue-500/15 p-1 text-sm text-blue-700 lg:p-3 dark:border-blue-500/50 dark:bg-blue-500/10 dark:text-blue-500">
+									<Link className="flex items-center gap-2 text-xs lg:text-sm" href="/profile">
+										<ShieldCheck className="h-5 w-5" />
+										{t.dashboard.sellerProfileIncomplete ??
+											'Your seller profile is incomplete. Please update it to be able to sell bibs.'}
+									</Link>
+								</div>
+							)}
+						</div>
+					</div>
+				</>
+			)}
 		</div>
 	)
 }
