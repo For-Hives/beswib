@@ -1,8 +1,9 @@
 'use client'
 
-import { UserIcon } from 'lucide-react'
 import React, { useState } from 'react'
+import { UserIcon } from 'lucide-react'
 
+import type { VerifiedEmail } from '@/models/verifiedEmail.model'
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
@@ -11,11 +12,18 @@ import type { Bib } from '@/models/bib.model'
 import {
 	BibDetailsStep,
 	ConfirmationStep,
+	EmailVerificationStep,
 	EventSelectionStep,
 	PricingStep,
 	ProgressSteps,
 	StepNavigation,
 } from '@/components/admin/dashboard/sell-bib'
+import {
+	createVerifiedEmail,
+	fetchVerifiedEmailsByUserId,
+	verifyEmail,
+	resendVerificationCode,
+} from '@/services/verifiedEmail.services'
 import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
 import { isSellerProfileComplete } from '@/lib/validation/user'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -25,6 +33,7 @@ import { Locale } from '@/lib/i18n/config'
 
 interface FormData {
 	acceptedTerms: boolean
+	linkedEmailId?: string
 	listingType: 'private' | 'public'
 	optionValues: Record<string, string>
 	originalPrice: string
@@ -39,7 +48,7 @@ interface SellBibClientProps {
 	user: User
 }
 
-const STEPS = ['eventSelection', 'bibDetails', 'pricing', 'confirmation'] as const
+const STEPS = ['eventSelection', 'emailVerification', 'bibDetails', 'pricing', 'confirmation'] as const
 type Step = (typeof STEPS)[number]
 
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
@@ -51,6 +60,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [errors, setErrors] = useState<Record<string, string>>({})
 	const [createdBib, setCreatedBib] = useState<Bib | null>(null)
+	const [verifiedEmails, setVerifiedEmails] = useState<VerifiedEmail[]>([])
 
 	// Check if seller profile is complete
 	const isSellerProfileValid = isSellerProfileComplete(user)
@@ -62,12 +72,82 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 		originalPrice: '',
 		optionValues: {},
 		listingType: 'public',
+		linkedEmailId: undefined,
 		acceptedTerms: false,
 	})
 
 	const currentStepIndex = STEPS.indexOf(currentStep)
 	const isFirstStep = currentStepIndex === 0
 	const isLastStep = currentStepIndex === STEPS.length - 1
+
+	// Load verified emails on component mount
+	React.useEffect(() => {
+		const loadVerifiedEmails = async () => {
+			try {
+				const emails = await fetchVerifiedEmailsByUserId(user.id)
+				setVerifiedEmails(emails)
+
+				// Auto-select the user's main email if it exists as verified
+				const mainEmailVerified = emails.find(email => email.email === user.email)
+				if (mainEmailVerified !== undefined && formData.linkedEmailId === undefined) {
+					setFormData(prev => ({ ...prev, linkedEmailId: mainEmailVerified.id }))
+				} else if (formData.linkedEmailId === undefined) {
+					// Default to 'main-email' (user's account email)
+					setFormData(prev => ({ ...prev, linkedEmailId: 'main-email' }))
+				}
+			} catch (error) {
+				console.error('Error loading verified emails:', error)
+			}
+		}
+
+		void loadVerifiedEmails()
+	}, [user.id]) // Handler for adding a new email
+	const handleAddEmail = (email: string) => {
+		void createVerifiedEmail({ userId: user.id, email })
+			.then(result => {
+				if (result) {
+					setVerifiedEmails(prev => [...prev, result])
+				}
+			})
+			.catch(error => {
+				console.error('Error adding email:', error)
+				setErrors({ emailVerification: 'Failed to add email. Please try again.' })
+			})
+	}
+
+	// Handler for verifying an email
+	const handleVerifyEmail = (emailId: string, code: string) => {
+		void verifyEmail({ verifiedEmailId: emailId, verificationCode: code })
+			.then(result => {
+				if (result) {
+					setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? result : email)))
+					setErrors({})
+				} else {
+					setErrors({ emailVerification: 'Invalid verification code. Please try again.' })
+				}
+			})
+			.catch(error => {
+				console.error('Error verifying email:', error)
+				setErrors({ emailVerification: 'Failed to verify email. Please try again.' })
+			})
+	}
+
+	// Handler for resending verification code
+	const handleResendCode = (emailId: string) => {
+		void resendVerificationCode(emailId)
+			.then(success => {
+				if (success) {
+					setErrors({})
+					// You might want to show a success message here
+				} else {
+					setErrors({ emailVerification: 'Failed to resend code. Please try again.' })
+				}
+			})
+			.catch(error => {
+				console.error('Error resending code:', error)
+				setErrors({ emailVerification: 'Failed to resend code. Please try again.' })
+			})
+	}
 
 	const validateStep = (step: Step): boolean => {
 		const newErrors: Record<string, string> = {}
@@ -85,14 +165,26 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				}
 				break
 
+			case 'emailVerification':
+				if (formData.linkedEmailId === undefined || formData.linkedEmailId === null || formData.linkedEmailId === '') {
+					newErrors.linkedEmailId = 'Please select an email address.'
+				} else if (formData.linkedEmailId !== 'main-email') {
+					// Check if the selected email is verified
+					const selectedEmail = verifiedEmails.find(email => email.id === formData.linkedEmailId)
+					if (selectedEmail?.isVerified !== true) {
+						newErrors.linkedEmailId = 'Please verify the selected email address.'
+					}
+				}
+				break
+
 			case 'eventSelection':
-				if (!formData.selectedEvent) {
+				if (formData.selectedEvent === null || formData.selectedEvent === undefined) {
 					newErrors.selectedEvent = t.validation.eventRequired
 				}
 				break
 
 			case 'pricing':
-				if (!formData.sellingPrice.trim()) {
+				if (formData.sellingPrice.trim() === '') {
 					newErrors.sellingPrice = t.validation.priceRequired
 				} else {
 					const price = parseFloat(formData.sellingPrice)
@@ -141,6 +233,16 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 		setIsSubmitting(true)
 
 		try {
+			// Determine the actual linkedEmailId to use
+			let linkedEmailId: string | undefined = undefined
+			if (
+				formData.linkedEmailId !== undefined &&
+				formData.linkedEmailId !== null &&
+				formData.linkedEmailId !== 'main-email'
+			) {
+				linkedEmailId = formData.linkedEmailId
+			}
+
 			const bibData: Omit<Bib, 'id'> = {
 				validated: false,
 				status: 'available',
@@ -150,6 +252,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				originalPrice: formData.originalPrice ? parseFloat(formData.originalPrice) : undefined,
 				optionValues: formData.optionValues,
 				listed: formData.listingType === 'public' ? 'public' : 'private',
+				linkedEmailId,
 				eventId: formData.selectedEvent.id,
 			}
 
@@ -188,6 +291,20 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 						locale={locale}
 						onChange={updateFormData}
 						user={user}
+					/>
+				)
+
+			case 'emailVerification':
+				return (
+					<EmailVerificationStep
+						user={user}
+						verifiedEmails={verifiedEmails}
+						selectedEmailId={formData.linkedEmailId}
+						onEmailSelect={(emailId: string) => updateFormData({ linkedEmailId: emailId })}
+						onAddEmail={handleAddEmail}
+						onVerifyEmail={handleVerifyEmail}
+						onResendCode={handleResendCode}
+						error={errors.linkedEmailId || errors.emailVerification}
 					/>
 				)
 
