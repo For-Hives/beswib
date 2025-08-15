@@ -1,7 +1,7 @@
 'use client'
 
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { LayoutDashboard, LogOut, Settings, ShoppingBag, Tag, User } from 'lucide-react'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 

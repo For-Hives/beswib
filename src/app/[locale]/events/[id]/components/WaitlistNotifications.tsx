@@ -1,8 +1,8 @@
 'use client'
 
-import { useQueryState } from 'nuqs'
-import Link from 'next/link'
 import { CheckCircle, AlertCircle, Mail } from 'lucide-react'
+
+import { useQueryState } from 'nuqs'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
@@ -30,7 +30,7 @@ interface WaitlistNotificationsProps {
 	}
 }
 
-export function WaitlistNotifications({ t, eventName, eventId, locale }: WaitlistNotificationsProps) {
+export function WaitlistNotifications({ t, locale, eventName, eventId }: WaitlistNotificationsProps) {
 	const [waitlistSuccess] = useQueryState('waitlist_success')
 	const [waitlistError] = useQueryState('waitlist_error')
 	const [subscribedEmail] = useQueryState('email')
@@ -118,84 +118,84 @@ export function WaitlistNotifications({ t, eventName, eventId, locale }: Waitlis
 		switch (locale) {
 			case 'fr':
 				return {
-					success: 'Parfait !',
 					understood: 'Compris',
+					success: 'Parfait !',
 					retry: 'Réessayer',
-					contactSupport: 'Contacter le support',
 					info: 'Pas de souci ! Vous recevrez toujours une notification si un dossard devient disponible.',
 					error: "Une erreur s'est produite. Veuillez réessayer ou contactez notre support.",
+					contactSupport: 'Contacter le support',
 				}
 			case 'es':
 				return {
-					success: '¡Perfecto!',
 					understood: 'Entendido',
+					success: '¡Perfecto!',
 					retry: 'Reintentar',
-					contactSupport: 'Contactar soporte',
 					info: '¡No te preocupes! Aún recibirás una notificación si un dorsal está disponible.',
 					error: 'Ha ocurrido un error. Inténtalo de nuevo o contacta nuestro soporte.',
+					contactSupport: 'Contactar soporte',
 				}
 			case 'it':
 				return {
-					success: 'Perfetto!',
 					understood: 'Capito',
+					success: 'Perfetto!',
 					retry: 'Riprova',
-					contactSupport: 'Contatta il supporto',
 					info: 'Non preoccuparti! Riceverai comunque una notifica se un pettorale diventa disponibile.',
 					error: 'Si è verificato un errore. Riprova o contatta il nostro supporto.',
+					contactSupport: 'Contatta il supporto',
 				}
 			case 'de':
 				return {
-					success: 'Perfekt!',
 					understood: 'Verstanden',
+					success: 'Perfekt!',
 					retry: 'Erneut versuchen',
-					contactSupport: 'Support kontaktieren',
 					info: 'Kein Problem! Sie erhalten trotzdem eine Benachrichtigung, wenn eine Startnummer verfügbar wird.',
 					error: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie unseren Support.',
+					contactSupport: 'Support kontaktieren',
 				}
 			case 'ro':
 				return {
-					success: 'Perfect!',
 					understood: 'Înțeles',
+					success: 'Perfect!',
 					retry: 'Încercați din nou',
-					contactSupport: 'Contactați suportul',
 					info: 'Nu-i problemă! Veți primi în continuare o notificare dacă un număr de concurs devine disponibil.',
 					error: 'A apărut o eroare. Vă rugăm să încercați din nou sau contactați suportul nostru.',
+					contactSupport: 'Contactați suportul',
 				}
 			case 'pt':
 				return {
-					success: 'Perfeito!',
 					understood: 'Compreendido',
+					success: 'Perfeito!',
 					retry: 'Tentar novamente',
-					contactSupport: 'Contactar suporte',
 					info: 'Não se preocupe! Ainda receberás uma notificação se um dorsal ficar disponível.',
 					error: 'Ocorreu um erro. Tente novamente ou contacte o nosso suporte.',
+					contactSupport: 'Contactar suporte',
 				}
 			case 'nl':
 				return {
-					success: 'Perfect!',
 					understood: 'Begrepen',
+					success: 'Perfect!',
 					retry: 'Opnieuw proberen',
-					contactSupport: 'Contact opnemen met ondersteuning',
 					info: 'Geen probleem! Je ontvangt nog steeds een melding als een startnummer beschikbaar komt.',
 					error: 'Er is een fout opgetreden. Probeer het opnieuw of neem contact op met onze ondersteuning.',
+					contactSupport: 'Contact opnemen met ondersteuning',
 				}
 			case 'ko':
 				return {
-					success: '완벽합니다!',
 					understood: '이해했습니다',
+					success: '완벽합니다!',
 					retry: '다시 시도',
-					contactSupport: '지원팀 문의',
 					info: '괜찮습니다! 빕이 사용 가능해지면 여전히 알림을 받으실 것입니다.',
 					error: '오류가 발생했습니다. 다시 시도하거나 지원팀에 문의해주세요.',
+					contactSupport: '지원팀 문의',
 				}
 			default:
 				return {
-					success: 'Perfect!',
 					understood: 'Understood',
+					success: 'Perfect!',
 					retry: 'Try Again',
-					contactSupport: 'Contact Support',
 					info: "No worries! You'll still receive a notification if a bib becomes available.",
 					error: 'An error occurred. Please try again or contact our support.',
+					contactSupport: 'Contact Support',
 				}
 		}
 	}
