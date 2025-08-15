@@ -20,6 +20,12 @@ export default function ProgressSteps({ steps, locale, currentStepIndex }: Reado
 					const isCompleted = index < currentStepIndex
 					const stepData = t[step as keyof typeof t]
 
+					// Fallback for missing step data
+					if (stepData === undefined || stepData === null) {
+						console.warn(`Missing translation data for step: ${step}`)
+						return null
+					}
+
 					let stepClasses = 'bg-muted text-muted-foreground'
 					if (isCompleted) {
 						stepClasses = 'bg-primary text-primary-foreground shadow-lg'
