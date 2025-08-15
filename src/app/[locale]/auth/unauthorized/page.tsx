@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
+import { getTranslations } from '@/lib/i18n/dictionary'
 // import { getTranslations } from '@/lib/i18n/dictionary'
 import mainLocales from '@/app/[locale]/locales.json'
 import { Button } from '@/components/ui/button'
-import { getTranslations } from '@/lib/i18n/dictionary'
 
 interface UnauthorizedPageProps {
 	params: Promise<{ locale: string }>

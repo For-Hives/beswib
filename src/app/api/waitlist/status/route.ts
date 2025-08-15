@@ -25,9 +25,7 @@ export async function GET(request: Request) {
 		}
 
 		try {
-			await pb
-				.collection('waitlists')
-				.getFirstListItem<Waitlist>(`user_id = \"${user.id}\" && event_id = \"${eventId}\"`)
+			await pb.collection('waitlists').getFirstListItem<Waitlist>(`user_id = "${user.id}" && event_id = "${eventId}"`)
 			return NextResponse.json({ inWaitlist: true })
 		} catch (err: unknown) {
 			// PocketBase throws 404 if not found
