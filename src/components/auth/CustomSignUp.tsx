@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { useRouter, useParams } from 'next/navigation'
 import { useSignUp } from '@clerk/nextjs'
@@ -28,10 +28,9 @@ export default function CustomSignUp() {
 	const params = useParams()
 	const locale = (params?.locale as Locale) || 'en'
 	type AuthSection = (typeof mainLocales)['en']['auth']
-	const { clerkErrors: errorsT, auth: t } = getTranslations(locale, mainLocales) as {
-		auth: AuthSection
-		clerkErrors: Record<string, string>
-	}
+	const translations = getTranslations(locale, mainLocales)
+	const t = translations.auth as AuthSection
+	const errorsT = translations.clerkErrors as Record<string, string> | undefined
 
 	function translateClerkErrorLocal(error: unknown): string {
 		const e = (error ?? {}) as Partial<{
@@ -41,18 +40,25 @@ export default function CustomSignUp() {
 		}>
 		const code = e.code ?? e.errors?.[0]?.code
 		const message = e.message ?? e.errors?.[0]?.message ?? e.errors?.[0]?.longMessage
+		
+		// Ensure errorsT exists, otherwise return a fallback
+		if (!errorsT) {
+			console.warn('Translation object errorsT is undefined')
+			return typeof message === 'string' ? message : 'An error occurred. Please try again.'
+		}
+		
 		if (typeof code === 'string' && errorsT[code]) return errorsT[code]
 		if (typeof message === 'string') {
 			const m = message.toLowerCase()
-			if (m.includes('password') && m.includes('incorrect')) return errorsT.form_password_incorrect
-			if (m.includes('email') && m.includes('not found')) return errorsT.form_identifier_not_found
-			if (m.includes('already exists') || m.includes('already taken')) return errorsT.form_identifier_exists
-			if (m.includes('verification') && m.includes('code')) return errorsT.form_code_incorrect
-			if (m.includes('expired')) return errorsT.verification_expired
-			if (m.includes('rate limit') || m.includes('too many')) return errorsT.too_many_requests
+			if (m.includes('password') && m.includes('incorrect')) return errorsT.form_password_incorrect || 'Incorrect password'
+			if (m.includes('email') && m.includes('not found')) return errorsT.form_identifier_not_found || 'Email not found'
+			if (m.includes('already exists') || m.includes('already taken')) return errorsT.form_identifier_exists || 'Email already exists'
+			if (m.includes('verification') && m.includes('code')) return errorsT.form_code_incorrect || 'Incorrect verification code'
+			if (m.includes('expired')) return errorsT.verification_expired || 'Code expired'
+			if (m.includes('rate limit') || m.includes('too many')) return errorsT.too_many_requests || 'Too many requests'
 			return message
 		}
-		return errorsT.default_error
+		return errorsT.default_error || 'An error occurred. Please try again.'
 	}
 
 	// Local state instead of global store
@@ -175,28 +181,71 @@ export default function CustomSignUp() {
 		setGlobalError('')
 
 		try {
-			await signUp.create({
-				password: formData.password,
+			console.log('🚀 Starting signup process...')
+			console.log('📝 Form data:', { 
+				email: formData.email, 
+				firstName: formData.firstName, 
 				lastName: formData.lastName,
-				firstName: formData.firstName,
-				emailAddress: formData.email,
+				passwordLength: formData.password.length 
 			})
 
-			// Prepare email verification
-			await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
+			const result = await signUp.create({
+				password: formData.password,
+				emailAddress: formData.email,
+				// firstName: formData.firstName,  // Disabled until enabled in Clerk Dashboard
+				// lastName: formData.lastName,   // Disabled until enabled in Clerk Dashboard
+			})
+			console.log('✅ Signup created:', result.status)
+
+			// Handle different signup statuses
+			if (result.status === 'complete') {
+				// Account is already verified, can directly sign in
+				console.log('🎯 Account already complete, activating session')
+				await setActive({ session: result.createdSessionId })
+				router.push(`/${locale}/dashboard`)
+				return
+			} else if (result.status === 'missing_requirements') {
+				// Need additional information
+				console.log('⚠️ Missing requirements:', result.missingFields)
+				setGlobalError('Additional information required. Please complete your profile.')
+				return
+			}
+
+			// Prepare email verification for accounts needing verification
+			const verificationResult = await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
+			console.log('📧 Email verification prepared:', verificationResult)
+			
 			setPendingVerification(true)
 			setVerificationEmail(formData.email)
+			console.log('🎯 Switched to verification mode')
 		} catch (err: unknown) {
+			console.error('Signup error:', JSON.stringify(err, null, 2))
 			const errorMessage = translateClerkErrorLocal(err)
 			setGlobalError(errorMessage)
 
 			// Set specific field errors based on error codes
-			const e = (err ?? {}) as Partial<{ errors: Array<Partial<{ code: string }>> }>
-			if (e.errors?.[0]?.code === 'form_identifier_exists') {
-				setFieldErrors(prev => ({
-					...prev,
-					email: { message: translateClerkErrorLocal(err), code: 'exists' },
-				}))
+			const e = (err ?? {}) as Partial<{ 
+				errors: Array<Partial<{ code: string; message: string; meta?: { paramName?: string } }>> 
+			}>
+			
+			if (e.errors) {
+				e.errors.forEach(error => {
+					if (error.code === 'form_identifier_exists') {
+						// Account already exists - suggest sign in instead
+						setFieldErrors(prev => ({
+							...prev,
+							email: { message: translateClerkErrorLocal(err), code: 'exists' },
+						}))
+						setGlobalError(
+							`This email is already registered. Try signing in instead or use a different email.`
+						)
+					} else if (error.code === 'form_param_unknown' && error.meta?.paramName) {
+						// Handle unknown parameter errors
+						console.warn(`Unknown parameter: ${error.meta.paramName}`)
+					} else if (error.code === 'captcha_invalid') {
+						setGlobalError(errorsT?.captcha_invalid || 'CAPTCHA verification failed. Please try again.')
+					}
+				})
 			}
 		} finally {
 			setIsSubmitting(false)
@@ -218,17 +267,28 @@ export default function CustomSignUp() {
 		setGlobalError('')
 
 		try {
+			console.log('🔐 Attempting email verification with code:', verificationCode)
 			const completeSignUp = await signUp.attemptEmailAddressVerification({
 				code: verificationCode,
 			})
+			console.log('✅ Verification result:', completeSignUp.status)
 
 			if (completeSignUp.status === 'complete') {
+				console.log('🎯 Verification complete, setting active session')
 				await setActive({ session: completeSignUp.createdSessionId })
+				
+				// Success message before redirect
+				console.log('✅ Account successfully created and verified!')
 				router.push(`/${locale}/dashboard`)
+			} else if (completeSignUp.status === 'missing_requirements') {
+				console.log('⚠️ Missing requirements after verification:', completeSignUp.missingFields)
+				setGlobalError('Please complete your profile to finish registration.')
 			} else {
-				setGlobalError(t.somethingWentWrong)
+				console.log('⚠️ Verification incomplete, status:', completeSignUp.status)
+				setGlobalError(t.somethingWentWrong || 'Something went wrong. Please try again.')
 			}
 		} catch (err: unknown) {
+			console.error('❌ Verification error:', JSON.stringify(err, null, 2))
 			const errorMessage = translateClerkErrorLocal(err)
 			setGlobalError(errorMessage)
 			setFieldErrors(prev => ({
@@ -251,6 +311,7 @@ export default function CustomSignUp() {
 			redirectUrl: `/${locale}/sso-callback`,
 		})
 	}
+
 
 	if (!isLoaded) {
 		return (
@@ -368,9 +429,6 @@ export default function CustomSignUp() {
 				</div>
 			</div>
 
-			{/* CAPTCHA Element */}
-			<div id="clerk-captcha"></div>
-
 			{/* Form */}
 			<form onSubmit={e => void handleSubmit(e)} className="space-y-4">
 				{globalError && (
@@ -442,6 +500,21 @@ export default function CustomSignUp() {
 					autoComplete="new-password"
 				/>
 
+				{/* CAPTCHA Element */}
+				<div 
+					id="clerk-captcha" 
+					data-cl-theme="auto" 
+					data-cl-size="normal" 
+					data-cl-language="auto"
+					style={{ 
+						marginBottom: '1rem',
+						minHeight: '65px',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center'
+					}}
+				></div>
+
 				<Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
 					{isSubmitting ? (
 						<>
@@ -465,6 +538,18 @@ export default function CustomSignUp() {
 						{t.signUp.signIn}
 					</Link>
 				</p>
+				
+				{/* Show sign in link if email already exists */}
+				{fieldErrors.email?.code === 'exists' && (
+					<p className="text-sm mt-2">
+						<Link
+							href={`/${locale}/auth/sign-in`}
+							className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
+						>
+							→ Sign in with this email instead
+						</Link>
+					</p>
+				)}
 			</div>
 		</div>
 	)
