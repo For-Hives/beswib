@@ -220,3 +220,67 @@ export function renderContactMessageEmailHtml({ name, message, email }: ContactM
 	</body>
 </html>`
 }
+
+// --- Welcome email (string-based) -------------------------------------------------
+
+export type WelcomeEmailProps = {
+		firstName?: string
+		baseUrl?: string
+}
+
+export function renderWelcomeEmailHtml({ firstName, baseUrl }: WelcomeEmailProps): string {
+		const safeName = (firstName ?? '').trim()
+		const namePart = safeName.length > 0 ? `, ${escapeHtml(safeName)}` : ''
+		const siteUrl = (baseUrl ?? 'https://beswib.com').replace(/\/$/, '')
+		const logoUrl = `${siteUrl}/beswib.svg`
+		const preheader = `Welcome${namePart} to Beswib!`
+		return `
+<html>
+	<body style="padding:0;margin:0;font-family: Arial, Helvetica, sans-serif;color:#E5E7EB;background-color:#0F0F23;">
+		<span style="width:0;visibility:hidden;overflow:hidden;opacity:0;max-width:0;max-height:0;height:0;display:none;color:transparent;">${escapeHtml(
+			preheader
+		)}</span>
+		<table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+			<tbody>
+				<tr>
+					<td style="padding:24px 0">
+						<table width="100%" role="presentation" style="overflow:hidden;max-width:600px;margin:0 auto;border-radius:12px;background-color:#1A1A2E;box-shadow:0 10px 25px rgba(0,0,0,0.3);">
+							<tbody>
+								<tr>
+									<td style="padding:0;background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);">
+										<div style="padding:24px; text-align:center;">
+											<img src="${logoUrl}" alt="Beswib" height="28" style="display:inline-block;vertical-align:middle;filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));"/>
+											<div style="height:12px"></div>
+											<h1 style="margin:0;color:#FFFFFF;font-size:22px;line-height:28px;">Welcome${namePart} 👋</h1>
+											<p style="margin:8px 0 0;color:#E5E7EB;font-size:14px;">Your marketplace for race bibs</p>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding:24px">
+										<p style="margin:0 0 12px;color:#FFFFFF;font-size:16px;">We're excited to have you at <strong>Beswib</strong>.</p>
+										<p style="margin:0 0 16px;color:#E5E7EB;">Buy or sell race bibs with ease. Track your listings, manage your waitlists, and find your next challenge.</p>
+										<div style="text-align:center;margin:28px 0;">
+											<a href="${siteUrl}/marketplace" style="background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%); color: #FFFFFF; padding: 12px 24px; text-decoration: none; border-radius: 9999px; font-weight: 600; display: inline-block; box-shadow: 0 4px 8px rgba(59,130,246,0.3);">Explore Marketplace</a>
+										</div>
+										<div style="border:1px solid rgba(156,163,175,0.2);background:#16213E;border-radius:8px;padding:16px;">
+											<p style="margin:0 0 8px;color:#E5E7EB;font-weight:600;">Next steps</p>
+											<ul style="margin:0;padding-left:18px;color:#E5E7EB;">
+												<li style="margin:6px 0;">Complete your profile for faster checkout</li>
+												<li style="margin:6px 0;">Browse events and set up waitlist alerts</li>
+												<li style="margin:6px 0;">List a bib in minutes with secure payments</li>
+											</ul>
+										</div>
+										<p style="margin:16px 0 0;color:#9CA3AF;font-size:12px;text-align:center;">Need help? Visit <a href="${siteUrl}" style="color:#60A5FA;text-decoration:none;">beswib.com</a></p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<p style="text-align:center;margin:12px 0 0;font-size:12px;color:#6b7280">© ${new Date().getFullYear()} Beswib. All rights reserved.</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>`
+}
