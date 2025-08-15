@@ -124,11 +124,15 @@
 					"title": "Verify your email",
 					"subtitle": "We sent a verification code to",
 					"codeLabel": "Verification code",
-					"codePlaceholder": "123456",
+					"codePlaceholder": "Enter your verification code",
 					"verifyButton": "Verify",
 					"verifying": "Verifying...",
 					"backToForm": "← Back to signup form"
-				}
+				},
+				"emailAlreadyExists": "This email is already registered. Try signing in instead or use a different email.",
+				"signInWithEmailInstead": "→ Sign in with this email instead",
+				"completeProfileRequired": "Please complete your profile to finish registration.",
+				"additionalInfoRequired": "Additional information required. Please complete your profile."
 			},
 			"forgotPassword": {
 				"title": "Forgot password",
@@ -186,6 +190,8 @@
 			"signin_failed": "Sign in failed. Check your credentials.",
 			"signup_failed": "Sign up failed. Please try again.",
 			"captcha_invalid": "CAPTCHA verification failed. Please try again.",
+			"form_param_unknown": "Unknown parameter error. Please try again.",
+			"form_param_invalid": "Invalid form data. Please check your inputs.",
 			"default_error": "An error occurred. Please try again."
 		},
 
@@ -329,11 +335,15 @@
 					"title": "Vérifiez votre email",
 					"subtitle": "Nous avons envoyé un code de vérification à",
 					"codeLabel": "Code de vérification",
-					"codePlaceholder": "123456",
+					"codePlaceholder": "Entrez votre code de vérification",
 					"verifyButton": "Vérifier",
 					"verifying": "Vérification...",
 					"backToForm": "← Retour au formulaire d'inscription"
-				}
+				},
+				"emailAlreadyExists": "Cet email est déjà enregistré. Essayez de vous connecter ou utilisez un autre email.",
+				"signInWithEmailInstead": "→ Se connecter avec cet email à la place",
+				"completeProfileRequired": "Veuillez compléter votre profil pour terminer l'inscription.",
+				"additionalInfoRequired": "Informations supplémentaires requises. Veuillez compléter votre profil."
 			},
 			"forgotPassword": {
 				"title": "Mot de passe oublié",
@@ -540,11 +550,15 @@
 					"title": "Verifica tu correo",
 					"subtitle": "Hemos enviado un código de verificación a",
 					"codeLabel": "Código de verificación",
-					"codePlaceholder": "123456",
+					"codePlaceholder": "Ingresa tu código de verificación",
 					"verifyButton": "Verificar",
 					"verifying": "Verificando...",
 					"backToForm": "← Volver al formulario de registro"
-				}
+				},
+				"emailAlreadyExists": "Este correo ya está registrado. Intenta iniciar sesión o usa un correo diferente.",
+				"signInWithEmailInstead": "→ Iniciar sesión con este correo en su lugar",
+				"completeProfileRequired": "Por favor completa tu perfil para terminar el registro.",
+				"additionalInfoRequired": "Se requiere información adicional. Por favor completa tu perfil."
 			},
 			"forgotPassword": {
 				"title": "Olvidé mi contraseña",
@@ -736,11 +750,15 @@
 					"title": "Verifica la tua email",
 					"subtitle": "Abbiamo inviato un codice di verifica a",
 					"codeLabel": "Codice di verifica",
-					"codePlaceholder": "123456",
+					"codePlaceholder": "Inserisci il tuo codice di verifica",
 					"verifyButton": "Verifica",
 					"verifying": "Verifica in corso...",
 					"backToForm": "← Torna al modulo di registrazione"
-				}
+				},
+				"emailAlreadyExists": "Questa email è già registrata. Prova a effettuare l'accesso o usa un'email diversa.",
+				"signInWithEmailInstead": "→ Accedi con questa email invece",
+				"completeProfileRequired": "Completa il tuo profilo per terminare la registrazione.",
+				"additionalInfoRequired": "Informazioni aggiuntive richieste. Completa il tuo profilo."
 			},
 			"forgotPassword": {
 				"title": "Password dimenticata",
@@ -932,11 +950,15 @@
 					"title": "E-Mail verifizieren",
 					"subtitle": "Wir haben einen Verifizierungscode gesendet an",
 					"codeLabel": "Verifizierungscode",
-					"codePlaceholder": "123456",
+					"codePlaceholder": "Geben Sie Ihren Verifizierungscode ein",
 					"verifyButton": "Verifizieren",
 					"verifying": "Verifiziere...",
 					"backToForm": "← Zurück zum Registrierungsformular"
-				}
+				},
+				"emailAlreadyExists": "Diese E-Mail ist bereits registriert. Versuchen Sie sich anzumelden oder verwenden Sie eine andere E-Mail.",
+				"signInWithEmailInstead": "→ Mit dieser E-Mail anmelden",
+				"completeProfileRequired": "Bitte vervollständigen Sie Ihr Profil, um die Registrierung abzuschließen.",
+				"additionalInfoRequired": "Zusätzliche Informationen erforderlich. Bitte vervollständigen Sie Ihr Profil."
 			},
 			"forgotPassword": {
 				"title": "Passwort vergessen",
@@ -1107,11 +1129,15 @@
 					"title": "Verifică-ți emailul",
 					"subtitle": "Am trimis un cod de verificare la",
 					"codeLabel": "Cod de verificare",
-					"codePlaceholder": "123456",
+					"codePlaceholder": "Introduceți codul de verificare",
 					"verifyButton": "Verifică",
 					"verifying": "Se verifică...",
 					"backToForm": "← Înapoi la formularul de înregistrare"
-				}
+				},
+				"emailAlreadyExists": "Acest email este deja înregistrat. Încercați să vă autentificați sau folosiți un alt email.",
+				"signInWithEmailInstead": "→ Autentificați-vă cu acest email în schimb",
+				"completeProfileRequired": "Vă rugăm să completați profilul pentru a finaliza înregistrarea.",
+				"additionalInfoRequired": "Informații suplimentare necesare. Vă rugăm să completați profilul."
 			},
 			"forgotPassword": {
 				"title": "Parolă uitată",
@@ -1282,11 +1308,15 @@
 					"title": "Verifica o teu email",
 					"subtitle": "Enviámos um código de verificação para",
 					"codeLabel": "Código de verificação",
-					"codePlaceholder": "123456",
+					"codePlaceholder": "Insira o seu código de verificação",
 					"verifyButton": "Verificar",
 					"verifying": "A verificar...",
 					"backToForm": "← Voltar ao formulário de registo"
-				}
+				},
+				"emailAlreadyExists": "Este email já está registado. Tenta iniciar sessão ou usa um email diferente.",
+				"signInWithEmailInstead": "→ Iniciar sessão com este email em vez disso",
+				"completeProfileRequired": "Por favor, completa o teu perfil para finalizar o registo.",
+				"additionalInfoRequired": "Informações adicionais necessárias. Por favor, completa o teu perfil."
 			},
 			"forgotPassword": {
 				"title": "Esqueci-me da palavra-passe",
@@ -1478,11 +1508,15 @@
 					"title": "Verifieer je e-mail",
 					"subtitle": "We hebben een verificatiecode gestuurd naar",
 					"codeLabel": "Verificatiecode",
-					"codePlaceholder": "123456",
+					"codePlaceholder": "Voer je verificatiecode in",
 					"verifyButton": "Verifiëren",
 					"verifying": "Verifiëren...",
 					"backToForm": "← Terug naar registratieformulier"
-				}
+				},
+				"emailAlreadyExists": "Dit e-mailadres is al geregistreerd. Probeer in te loggen of gebruik een ander e-mailadres.",
+				"signInWithEmailInstead": "→ In plaats daarvan inloggen met dit e-mailadres",
+				"completeProfileRequired": "Vul je profiel aan om de registratie af te ronden.",
+				"additionalInfoRequired": "Aanvullende informatie vereist. Vul je profiel aan."
 			},
 			"forgotPassword": {
 				"title": "Wachtwoord vergeten",
@@ -1674,11 +1708,15 @@
 					"title": "이메일 확인",
 					"subtitle": "다음으로 인증 코드를 보냈습니다:",
 					"codeLabel": "인증 코드",
-					"codePlaceholder": "123456",
+					"codePlaceholder": "인증 코드를 입력하세요",
 					"verifyButton": "확인",
 					"verifying": "확인 중...",
 					"backToForm": "← 가입 양식으로 돌아가기"
-				}
+				},
+				"emailAlreadyExists": "이 이메일은 이미 등록되어 있습니다. 로그인을 시도하거나 다른 이메일을 사용하세요.",
+				"signInWithEmailInstead": "→ 대신 이 이메일로 로그인",
+				"completeProfileRequired": "등록을 완료하려면 프로필을 완성해주세요.",
+				"additionalInfoRequired": "추가 정보가 필요합니다. 프로필을 완성해주세요."
 			},
 			"forgotPassword": {
 				"title": "비밀번호 찾기",

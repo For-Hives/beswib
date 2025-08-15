@@ -6,21 +6,9 @@ import mainLocales from '@/app/[locale]/locales.json'
 import { Locale } from '@/lib/i18n/config'
 
 // Email schema
-// The default valibot v.email() uses a permissive regex, but "ŋ" is not a valid ASCII character for email domains.
-// To ensure only valid ASCII emails, we add an extra regex to restrict the domain part to ASCII letters/numbers/hyphens/dots.
 export const createEmailSchema = (locale: Locale = 'fr') => {
 	const t = validationTranslations[locale]
-	return v.pipe(
-		v.string(),
-		v.trim(),
-		v.nonEmpty(t.email.required),
-		// Only allow ASCII characters in the email (no unicode in domain)
-		v.regex(
-			/^[\w.!#$%&'*+/=?^`{|}~-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/,
-			t.email.invalid
-		),
-		v.email(t.email.invalid)
-	)
+	return v.pipe(v.string(), v.trim(), v.nonEmpty(t.email.required), v.email(t.email.invalid))
 }
 
 // Password schema for sign-in (less strict)

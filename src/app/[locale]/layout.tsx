@@ -92,16 +92,14 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 			localization={clerkLocalization}
 			signInUrl={`/${locale}/sign-in`}
 			signUpUrl={`/${locale}/auth/sign-up`}
-			afterSignInUrl={`/${locale}/dashboard`}
-			afterSignUpUrl={`/${locale}/dashboard`}
+			fallbackRedirectUrl={`/${locale}/dashboard`}
 		>
 			<html lang={locale}>
 				<head>
 					{/* Apply persisted/system theme BEFORE paint to prevent flash */}
-					<Script
-						id="theme-init"
+					<script
 						dangerouslySetInnerHTML={{
-							__html: `!function(){try{var s=localStorage.getItem("theme"),e=null;if(s)try{var t=JSON.parse(s);e=t&&t.state&&t.state.theme}catch(r){e=s}e||(e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var o=document.documentElement;o.classList.remove("light","dark"),o.classList.add(e),o.style.colorScheme=e}catch(r){}}();`,
+							__html: `(function(){try{var s=localStorage.getItem("theme"),e=null;if(s)try{var t=JSON.parse(s);e=t&&t.state&&t.state.theme}catch(r){e=s}e||(e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var o=document.documentElement;o.classList.remove("light","dark"),o.classList.add(e),o.style.colorScheme=e}catch(r){}})();`,
 						}}
 					/>
 					<Script
