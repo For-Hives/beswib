@@ -9,14 +9,7 @@ import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 
-import { 
-	Dialog, 
-	DialogContent, 
-	DialogHeader, 
-	DialogTitle, 
-	DialogFooter,
-	DialogClose 
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { formatDateWithLocale } from '@/lib/utils/date'
@@ -73,7 +66,7 @@ export default function PaymentDialog({
 	bib,
 }: PaymentDialogProps) {
 	const paymentT = getTranslations(locale, mainLocales).payment
-	
+
 	// Calculate the lowest reference price between original and official
 	const officialPrice = eventData?.officialStandardPrice ?? 0
 	const originalPrice = bib.originalPrice ?? 0
@@ -116,26 +109,20 @@ export default function PaymentDialog({
 	// Show success dialog
 	if (successMessage) {
 		return (
-			<Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+			<Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
 				<DialogContent className="sm:max-w-md">
 					<DialogHeader>
-						<div className="flex items-center gap-3 mb-4">
+						<div className="mb-4 flex items-center gap-3">
 							<div className="rounded-full bg-green-100 p-2">
 								<CheckCircle className="h-6 w-6 text-green-600" />
 							</div>
-							<DialogTitle className="text-green-600">
-								{paymentT.paymentSuccess}
-							</DialogTitle>
+							<DialogTitle className="text-green-600">{paymentT.paymentSuccess}</DialogTitle>
 						</div>
 					</DialogHeader>
 					<div className="space-y-4">
-						<p className="text-center text-muted-foreground">
-							{paymentT.paymentSuccessMessage}
-						</p>
-						<div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-							<p className="text-sm text-green-700 font-medium">
-								{successMessage}
-							</p>
+						<p className="text-muted-foreground text-center">{paymentT.paymentSuccessMessage}</p>
+						<div className="rounded-lg border border-green-200 bg-green-50 p-4 text-center">
+							<p className="text-sm font-medium text-green-700">{successMessage}</p>
 						</div>
 					</div>
 					<DialogFooter className="sm:justify-center">
@@ -151,10 +138,10 @@ export default function PaymentDialog({
 	// Show error dialog
 	if (errorMessage) {
 		return (
-			<Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+			<Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
 				<DialogContent className="sm:max-w-md">
 					<DialogHeader>
-						<div className="flex items-center gap-3 mb-4">
+						<div className="mb-4 flex items-center gap-3">
 							<div className="rounded-full bg-red-100 p-2">
 								{errorMessage.toLowerCase().includes('cancel') ? (
 									<XCircle className="h-6 w-6 text-red-600" />
@@ -163,26 +150,20 @@ export default function PaymentDialog({
 								)}
 							</div>
 							<DialogTitle className="text-red-600">
-								{errorMessage.toLowerCase().includes('cancel') 
-									? paymentT.paymentCancelled 
-									: paymentT.paymentError}
+								{errorMessage.toLowerCase().includes('cancel') ? paymentT.paymentCancelled : paymentT.paymentError}
 							</DialogTitle>
 						</div>
 					</DialogHeader>
 					<div className="space-y-4">
-						<p className="text-center text-muted-foreground">
-							{errorMessage.toLowerCase().includes('cancel') 
-								? paymentT.paymentCancelledMessage 
-								: errorMessage}
+						<p className="text-muted-foreground text-center">
+							{errorMessage.toLowerCase().includes('cancel') ? paymentT.paymentCancelledMessage : errorMessage}
 						</p>
 					</div>
 					<DialogFooter className="gap-2">
 						<Button variant="outline" onClick={onClose}>
 							{paymentT.contactSupport}
 						</Button>
-						<Button onClick={onClose}>
-							{paymentT.tryAgain}
-						</Button>
+						<Button onClick={onClose}>{paymentT.tryAgain}</Button>
 					</DialogFooter>
 				</DialogContent>
 			</Dialog>
@@ -191,12 +172,12 @@ export default function PaymentDialog({
 
 	// Show main payment dialog
 	return (
-		<Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-			<DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
+		<Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
+			<DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-4xl">
 				<DialogHeader>
 					<DialogTitle>{paymentT.title}</DialogTitle>
 				</DialogHeader>
-				
+
 				<div className="grid gap-6 lg:grid-cols-3">
 					{/* Order Summary - Left Side */}
 					<div className="space-y-6 lg:col-span-2">
@@ -205,13 +186,7 @@ export default function PaymentDialog({
 							<h3 className="text-foreground mb-4 text-sm font-medium">{paymentT.eventDetails}</h3>
 							<div className="flex items-start gap-4">
 								<div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg">
-									<Image 
-										alt="Event Image" 
-										className="object-cover" 
-										fill 
-										sizes="64px" 
-										src={bib.event.image} 
-									/>
+									<Image alt="Event Image" className="object-cover" fill sizes="64px" src={bib.event.image} />
 								</div>
 								<div className="min-w-0 flex-1">
 									<h4 className="text-foreground truncate text-lg font-semibold">{bib.event.name}</h4>
@@ -227,15 +202,14 @@ export default function PaymentDialog({
 											{bib.event.type.charAt(0).toUpperCase() + bib.event.type.slice(1)}
 										</span>
 										<span className="text-muted-foreground text-xs">
-											{bib.event.distance}{bib.event.distanceUnit}
+											{bib.event.distance}
+											{bib.event.distanceUnit}
 										</span>
 									</div>
 								</div>
 								<div className="flex-shrink-0 text-right">
 									<p className="text-foreground text-2xl font-bold">€{bib.price}</p>
-									{hasValidReference && (
-										<p className="text-muted-foreground text-sm line-through">€{referencePrice}</p>
-									)}
+									{hasValidReference && <p className="text-muted-foreground text-sm line-through">€{referencePrice}</p>}
 								</div>
 							</div>
 						</div>
@@ -280,13 +254,11 @@ export default function PaymentDialog({
 						<div className="bg-card/80 rounded-lg border p-4 backdrop-blur-sm">
 							<h3 className="text-foreground mb-4 text-sm font-medium">{paymentT.paymentMethod}</h3>
 
-							<div className="border rounded-lg p-4">
+							<div className="rounded-lg border p-4">
 								{loading && (
 									<div className="flex items-center justify-center py-8">
-										<Loader2 className="h-6 w-6 animate-spin mr-2" />
-										<span className="text-sm text-muted-foreground">
-											{paymentT.paymentProcessing}
-										</span>
+										<Loader2 className="mr-2 h-6 w-6 animate-spin" />
+										<span className="text-muted-foreground text-sm">{paymentT.paymentProcessing}</span>
 									</div>
 								)}
 								{!loading && (
