@@ -298,7 +298,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 							/>
 
 							{/* Grid of bib cards, responsive layout 🖼️ */}
-							<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+							<div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
 								{filteredAndSortedBibs.map(bib => (
 									<CardMarket bibSale={bib} key={bib.id} locale={locale} />
 								))}
