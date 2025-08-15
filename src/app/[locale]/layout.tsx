@@ -92,7 +92,7 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 			localization={clerkLocalization}
 			signInUrl={`/${locale}/sign-in`}
 			signUpUrl={`/${locale}/auth/sign-up`}
-			fallbackRedirectUrl={`/${locale}/dashboard`}
+			signInFallbackRedirectUrl={`/${locale}/dashboard`}
 		>
 			<html lang={locale}>
 				<head>
