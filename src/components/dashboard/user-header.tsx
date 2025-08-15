@@ -1,6 +1,6 @@
 'use client'
 
-import { AlertTriangle, ShieldCheck, Settings } from 'lucide-react'
+import { AlertTriangle, ShieldCheck, Settings, User, LayoutDashboard } from 'lucide-react'
 
 import { useClerk } from '@clerk/nextjs'
 import Link from 'next/link'
@@ -11,6 +11,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import dashboardTranslations from '@/app/[locale]/dashboard/locales.json'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Locale } from '@/lib/i18n/config'
+
+import { Button } from '../ui/button'
 
 interface SerializedClerkUser {
 	emailAddresses: { emailAddress: string; id: string }[]
@@ -65,7 +67,7 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 			<div className="flex items-center justify-between">
 				<div>
 					<p className="text-muted-foreground text-sm">{t.dashboard.welcomeBack ?? 'Welcome back'}</p>
-					<div className="flex">
+					<div className="flex gap-2">
 						{!isRunnerProfileComplete && (
 							<div className="mt-4 rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-3 text-sm text-yellow-500">
 								<Link className="flex items-center gap-2" href="/profile">
@@ -87,7 +89,19 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 					</div>
 				</div>
 
-				<div className="flex items-center justify-end">
+				<div className="flex items-center justify-end gap-2">
+					<Button variant="outline" asChild>
+						<Link href="/dashboard">
+							<LayoutDashboard className="h-4 w-4" />
+							{t.dashboard.dashboardButton ?? 'Dashboard'}
+						</Link>
+					</Button>
+					<Button variant="outline" asChild>
+						<Link href="/profile">
+							<User className="h-4 w-4" />
+							{t.dashboard.profileButton ?? 'Profile'}
+						</Link>
+					</Button>
 					<button
 						type="button"
 						onClick={handleOpenAccount}
