@@ -59,6 +59,7 @@ export async function createBib(bibData: Omit<Bib, 'id'>): Promise<Bib | null> {
 			originalPrice: bibData.originalPrice,
 			optionValues: bibData.optionValues,
 			listed: bibData.listed,
+			linkedEmailId: bibData.linkedEmailId,
 			eventId: finalEventId,
 
 			buyerUserId: undefined,
