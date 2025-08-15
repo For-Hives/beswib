@@ -894,7 +894,7 @@
 				"resetCodePlaceholder": "123456",
 				"sendCodeButton": "Code senden",
 				"resetPasswordButton": "Passwort zurücksetzen",
-				"backToSignIn": "← Terug naar inloggen",
+				"backToSignIn": "← Zurück zum Anmelden",
 				"continueToDashboard": "Weiter zum Dashboard"
 			},
 			"passwordStrength": {
