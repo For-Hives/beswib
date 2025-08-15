@@ -1,7 +1,6 @@
 import Link from 'next/link'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
-// import { getTranslations } from '@/lib/i18n/dictionary'
 import mainLocales from '@/app/[locale]/locales.json'
 import { Button } from '@/components/ui/button'
 
@@ -12,11 +11,6 @@ interface UnauthorizedPageProps {
 export default async function UnauthorizedPage({ params }: UnauthorizedPageProps) {
 	const { locale } = await params
 	const t = getTranslations(locale, mainLocales).auth.unauthorized
-	// console.log('Locale:', locale)
-	// console.log('Translations structure:', JSON.stringify(translations, null, 2))
-
-	// Debug: log what we're trying to access
-	// console.log('Title:', t.title)
 
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
