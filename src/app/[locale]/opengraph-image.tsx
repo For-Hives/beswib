@@ -95,11 +95,9 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 	const instagramUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('instagram.png')}`
 	const beswibLogoUrl = `${protocol}://${host}/beswib.svg`
 
-
 	// Mountain outlined
 	const fileNameMountain = 'mountain-outlined.png'
 	const mountain = `${protocol}://${host}/openGraph/${encodeURIComponent(fileNameMountain)}`
-	
 
 	// Generate the Open Graph image response
 	return new ImageResponse(
@@ -182,22 +180,23 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 
 				{/* Mountain outline */}
 				<div
-				style={{
-					position: 'absolute',
-					left: 702,
-					top: 108,
-					display: 'flex',
-					flexDirection: 'row',
-					alignItems: 'center',
-					zIndex: 10,
-				}}>
+					style={{
+						position: 'absolute',
+						left: 702,
+						top: 108,
+						display: 'flex',
+						flexDirection: 'row',
+						alignItems: 'center',
+						zIndex: 10,
+					}}
+				>
 					<img src={mountain} width={440} height={305} alt="mountain" style={{ objectFit: 'cover', display: 'flex' }} />
 				</div>
 
 				{/* Beswib logo in bottom-right */}
 				<div
 					style={{
-						position: 'absolute', 
+						position: 'absolute',
 						left: 1070,
 						top: 528,
 						display: 'flex',
@@ -206,7 +205,6 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 				>
 					<img src={beswibLogoUrl} width={72} height={72} alt="Beswib" />
 				</div>
-
 			</div>
 		),
 		{ ...size } // Output image size
