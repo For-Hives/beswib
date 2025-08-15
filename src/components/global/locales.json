@@ -27,7 +27,8 @@
 			"links": {
 				"legalNotice": "Legal Notice",
 				"privacy": "Privacy Policy",
-				"terms": "Terms of Service"
+				"terms": "Terms of Service",
+				"dataDeletion": "Data Deletion"
 			}
 		},
 		"pages": {
@@ -49,7 +50,11 @@
 			},
 			"terms": {
 				"title": "Terms of Service | Beswib",
-				"description": "The terms that govern access and use of Beswib’s C2B2C platform and services."
+				"description": "The terms that govern access and use of Beswib's C2B2C platform and services."
+			},
+			"dataDeletion": {
+				"title": "Data Deletion | Beswib",
+				"description": "How to request complete deletion of your personal data from Beswib's platform."
 			},
 			"contact": {
 				"title": "Contact | Beswib",
@@ -117,7 +122,8 @@
 			"links": {
 				"legalNotice": "Mentions légales",
 				"privacy": "Politique de confidentialité",
-				"terms": "Conditions d’utilisation"
+				"terms": "Conditions d'utilisation",
+				"dataDeletion": "Suppression des données"
 			}
 		},
 		"pages": {
@@ -138,8 +144,12 @@
 				"description": "Comment Beswib collecte, utilise et protège vos données personnelles, les cookies et vos droits."
 			},
 			"terms": {
-				"title": "Conditions d’utilisation | Beswib",
-				"description": "Les conditions qui régissent l’accès et l’utilisation de la plateforme C2B2C Beswib."
+				"title": "Conditions d'utilisation | Beswib",
+				"description": "Les conditions qui régissent l'accès et l'utilisation de la plateforme C2B2C Beswib."
+			},
+			"dataDeletion": {
+				"title": "Suppression des données | Beswib",
+				"description": "Comment demander la suppression complète de vos données personnelles de la plateforme Beswib."
 			},
 			"contact": {
 				"title": "Contact | Beswib",
@@ -207,7 +217,8 @@
 			"links": {
 				"legalNotice": "Aviso legal",
 				"privacy": "Política de privacidad",
-				"terms": "Términos del servicio"
+				"terms": "Términos del servicio",
+				"dataDeletion": "Eliminación de datos"
 			}
 		},
 		"pages": {
@@ -230,6 +241,10 @@
 			"terms": {
 				"title": "Términos del Servicio | Beswib",
 				"description": "Los términos que rigen el acceso y uso de la plataforma C2B2C de Beswib."
+			},
+			"dataDeletion": {
+				"title": "Eliminación de datos | Beswib",
+				"description": "Cómo solicitar la eliminación completa de sus datos personales de la plataforma Beswib."
 			},
 			"contact": {
 				"title": "Contacto | Beswib",
@@ -297,7 +312,8 @@
 			"links": {
 				"legalNotice": "Note legali",
 				"privacy": "Informativa privacy",
-				"terms": "Termini di servizio"
+				"terms": "Termini di servizio",
+				"dataDeletion": "Cancellazione dati"
 			}
 		},
 		"pages": {
@@ -320,6 +336,10 @@
 			"terms": {
 				"title": "Termini di servizio | Beswib",
 				"description": "I termini che regolano l'accesso e l'uso della piattaforma C2B2C di Beswib."
+			},
+			"dataDeletion": {
+				"title": "Cancellazione dati | Beswib",
+				"description": "Come richiedere la cancellazione completa dei vostri dati personali dalla piattaforma Beswib."
 			},
 			"contact": {
 				"title": "Contatto | Beswib",
@@ -387,7 +407,8 @@
 			"links": {
 				"legalNotice": "Impressum",
 				"privacy": "Datenschutz",
-				"terms": "Nutzungsbedingungen"
+				"terms": "Nutzungsbedingungen",
+				"dataDeletion": "Datenlöschung"
 			}
 		},
 		"pages": {
@@ -410,6 +431,10 @@
 			"terms": {
 				"title": "Nutzungsbedingungen | Beswib",
 				"description": "Die Bedingungen für den Zugriff und die Nutzung der C2B2C-Plattform von Beswib."
+			},
+			"dataDeletion": {
+				"title": "Datenlöschung | Beswib",
+				"description": "Wie Sie die vollständige Löschung Ihrer persönlichen Daten von der Beswib-Plattform beantragen können."
 			},
 			"contact": {
 				"title": "Kontakt | Beswib",
@@ -477,7 +502,8 @@
 			"links": {
 				"legalNotice": "Mențiuni legale",
 				"privacy": "Politica de confidențialitate",
-				"terms": "Termeni și condiții"
+				"terms": "Termeni și condiții",
+				"dataDeletion": "Ștergere date"
 			}
 		},
 		"pages": {
@@ -500,6 +526,10 @@
 			"terms": {
 				"title": "Termeni și condiții | Beswib",
 				"description": "Termenii care guvernează accesul și utilizarea platformei C2B2C Beswib."
+			},
+			"dataDeletion": {
+				"title": "Ștergere date | Beswib",
+				"description": "Cum să solicitați ștergerea completă a datelor dumneavoastră personale de pe platforma Beswib."
 			},
 			"contact": {
 				"title": "Contact | Beswib",
@@ -567,7 +597,8 @@
 			"links": {
 				"legalNotice": "Aviso legal",
 				"privacy": "Política de Privacidade",
-				"terms": "Termos de Serviço"
+				"terms": "Termos de Serviço",
+				"dataDeletion": "Eliminação de dados"
 			}
 		},
 		"pages": {
@@ -590,6 +621,10 @@
 			"terms": {
 				"title": "Termos de Serviço | Beswib",
 				"description": "Os termos que regem o acesso e a utilização da plataforma C2B2C da Beswib."
+			},
+			"dataDeletion": {
+				"title": "Eliminação de dados | Beswib",
+				"description": "Como solicitar a eliminação completa dos seus dados pessoais da plataforma Beswib."
 			},
 			"contact": {
 				"title": "Contacto | Beswib",
@@ -657,7 +692,8 @@
 			"links": {
 				"legalNotice": "Juridische kennisgeving",
 				"privacy": "Privacybeleid",
-				"terms": "Servicevoorwaarden"
+				"terms": "Servicevoorwaarden",
+				"dataDeletion": "Gegevensverwijdering"
 			}
 		},
 		"pages": {
@@ -680,6 +716,10 @@
 			"terms": {
 				"title": "Servicevoorwaarden | Beswib",
 				"description": "De voorwaarden voor toegang tot en gebruik van het C2B2C-platform van Beswib."
+			},
+			"dataDeletion": {
+				"title": "Gegevensverwijdering | Beswib",
+				"description": "Hoe de volledige verwijdering van uw persoonlijke gegevens van het Beswib-platform aan te vragen."
 			},
 			"contact": {
 				"title": "Contact | Beswib",
@@ -747,7 +787,8 @@
 			"links": {
 				"legalNotice": "법적 고지",
 				"privacy": "개인정보 보호정책",
-				"terms": "서비스 약관"
+				"terms": "서비스 약관",
+				"dataDeletion": "데이터 삭제"
 			}
 		},
 		"pages": {
@@ -770,6 +811,10 @@
 			"terms": {
 				"title": "서비스 약관 | Beswib",
 				"description": "Beswib의 C2B2C 플랫폼 및 서비스 액세스와 사용을 관리하는 약관입니다."
+			},
+			"dataDeletion": {
+				"title": "데이터 삭제 | Beswib",
+				"description": "Beswib 플랫폼에서 개인 데이터의 완전한 삭제를 요청하는 방법입니다."
 			},
 			"contact": {
 				"title": "연락처 | Beswib",
