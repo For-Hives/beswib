@@ -1,6 +1,8 @@
 {
 	"en": {
 		"dashboard": {
+			"profileButton": "Profile",
+			"dashboardButton": "Dashboard",
 			"title": "Dashboard",
 			"chooseHowToUse": "Choose how you want to use Beswib",
 			"buyCta": "I want to buy a bib",
@@ -48,6 +50,8 @@
 	},
 	"fr": {
 		"dashboard": {
+			"profileButton": "Profil",
+			"dashboardButton": "Tableau de bord",
 			"title": "Tableau de bord",
 			"chooseHowToUse": "Choisissez comment vous voulez utiliser Beswib",
 			"buyCta": "Je veux acheter un dossard",
@@ -95,6 +99,8 @@
 	},
 	"ko": {
 		"dashboard": {
+			"profileButton": "프로필",
+			"dashboardButton": "대시보드",
 			"title": "대시보드",
 			"chooseHowToUse": "Beswib을 사용하는 방법을 선택하세요",
 			"buyCta": "빕을 구매하고 싶어요",
@@ -142,6 +148,8 @@
 	},
 	"es": {
 		"dashboard": {
+			"profileButton": "Perfil",
+			"dashboardButton": "Panel",
 			"title": "Panel",
 			"chooseHowToUse": "Elige cómo quieres usar Beswib",
 			"buyCta": "Quiero comprar un dorsal",
@@ -189,6 +197,8 @@
 	},
 	"it": {
 		"dashboard": {
+			"profileButton": "Profilo",
+			"dashboardButton": "Dashboard",
 			"title": "Dashboard",
 			"chooseHowToUse": "Scegli come vuoi usare Beswib",
 			"buyCta": "Voglio comprare un pettorale",
@@ -236,6 +246,8 @@
 	},
 	"de": {
 		"dashboard": {
+			"profileButton": "Profil",
+			"dashboardButton": "Dashboard",
 			"title": "Dashboard",
 			"chooseHowToUse": "Wähle, wie du Beswib nutzen möchtest",
 			"buyCta": "Ich möchte eine Startnummer kaufen",
@@ -283,6 +295,8 @@
 	},
 	"ro": {
 		"dashboard": {
+			"profileButton": "Profil",
+			"dashboardButton": "Panou",
 			"title": "Panou",
 			"chooseHowToUse": "Alege cum vrei să folosești Beswib",
 			"buyCta": "Vreau să cumpăr un număr",
