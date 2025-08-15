@@ -96,7 +96,7 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 				<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
 				<div className="h-full p-8">
 					<h2 className="text-card-foreground text-2xl font-bold">{t.getInTouch}</h2>
-					<Suspense fallback={<div className="animate-pulse bg-gray-200 rounded h-64 mt-4"></div>}>
+					<Suspense fallback={<div className="mt-4 h-64 animate-pulse rounded bg-gray-200"></div>}>
 						<ContactForm t={t} />
 					</Suspense>
 				</div>

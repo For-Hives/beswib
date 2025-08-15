@@ -23,6 +23,11 @@ const DropdownMenuAnimated = ({ options, children }: DropdownMenuProps) => {
 		setIsOpen(!isOpen)
 	}
 
+	const handleOptionClick = (onClick: () => void) => {
+		onClick() // Execute the original onClick function
+		setIsOpen(false) // Close the dropdown
+	}
+
 	return (
 		<div className="relative z-50">
 			<Button
@@ -67,7 +72,7 @@ const DropdownMenuAnimated = ({ options, children }: DropdownMenuProps) => {
 										filter: 'blur(10px)',
 									}}
 									key={option.label}
-									onClick={option.onClick}
+									onClick={() => handleOptionClick(option.onClick)}
 									transition={{
 										type: 'spring',
 										ease: 'easeInOut',
