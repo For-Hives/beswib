@@ -76,6 +76,11 @@ const isPublicAuthRoute = createRouteMatcher([
 export default clerkMiddleware(async (auth, request: NextRequest) => {
 	const { pathname } = request.nextUrl
 
+	// Let API routes pass through without locale rewrites, but still run Clerk middleware for auth context
+	if (pathname.startsWith('/api')) {
+		return NextResponse.next()
+	}
+
 	// Check if there is any supported locale in the pathname 🗺️
 	const pathnameHasLocale = i18n.locales.some(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`)
 
@@ -106,7 +111,9 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 
 export const config = {
 	matcher: [
-		// Skip all internal paths (_next/static, _next/image, api), the Sentry tunnel (monitoring), and files with extensions ⏭️
-		'/((?!api|monitoring|_next/static|_next/image|.*\\..*).*)',
+		// Include API and tRPC routes explicitly so Clerk auth() works there
+		'/(api|trpc)(.*)',
+		// Match all other routes except Next internals and files with extensions
+		'/((?!.+\\.[\\w]+$|_next).*)',
 	],
 }

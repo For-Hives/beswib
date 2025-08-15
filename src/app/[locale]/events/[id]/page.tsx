@@ -21,6 +21,7 @@ import { pbDateToLuxon } from '@/lib/utils/date'
 import { Locale } from '@/lib/i18n/config'
 
 import { WaitlistNotifications } from './components/WaitlistNotifications'
+import WaitlistStatusClient from './components/WaitlistStatusClient'
 import eventTranslations from './locales.json'
 
 // Optionally enable ISR if you want periodic regeneration (does not force dynamic)
@@ -59,26 +60,28 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 			const result = await addToWaitlist(eventIdFromForm, user)
 
 			if (result && result.error === 'already_on_waitlist') {
-				redirect(`/events/${eventIdFromForm}?waitlist_error=already_added`)
+				redirect(`/${locale}/events/${eventIdFromForm}?waitlist_error=already_added`)
 			} else if (result) {
-				redirect(`/events/${eventIdFromForm}?waitlist_success=true`)
+				redirect(`/${locale}/events/${eventIdFromForm}?waitlist_success=true`)
 			} else {
-				redirect(`/events/${eventIdFromForm}?waitlist_error=failed`)
+				redirect(`/${locale}/events/${eventIdFromForm}?waitlist_error=failed`)
 			}
 		} else if (userEmail != null && userEmail.trim() !== '') {
 			// Email-only subscription flow
 			const result = await addToWaitlist(eventIdFromForm, null, userEmail.trim())
 
 			if (result && result.error === 'already_on_waitlist') {
-				redirect(`/events/${eventIdFromForm}?waitlist_error=already_added_email`)
+				redirect(`/${locale}/events/${eventIdFromForm}?waitlist_error=already_added_email`)
 			} else if (result) {
-				redirect(`/events/${eventIdFromForm}?waitlist_success=true&email=${encodeURIComponent(userEmail.trim())}`)
+				redirect(
+					`/${locale}/events/${eventIdFromForm}?waitlist_success=true&email=${encodeURIComponent(userEmail.trim())}`
+				)
 			} else {
-				redirect(`/events/${eventIdFromForm}?waitlist_error=failed`)
+				redirect(`/${locale}/events/${eventIdFromForm}?waitlist_error=failed`)
 			}
 		} else {
 			// No authentication and no email provided - redirect to sign-in
-			redirect('/sign-in')
+			redirect(`/${locale}/sign-in`)
 		}
 	}
 
@@ -288,17 +291,17 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 								<p className="text-muted-foreground mb-6">{t.event.waitlist.joinDescription}</p>
 
 								<SignedIn>
-									{/* Authenticated user - simple join button */}
-									<form action={handleJoinWaitlist} className="mx-auto max-w-xs">
-										<input name="eventId" type="hidden" value={eventId} />
-										<button
-											className="bg-accent/20 hover:bg-accent/30 text-accent-foreground hover:text-foreground border-border flex w-full items-center justify-center gap-3 rounded-xl border px-6 py-3 font-medium backdrop-blur-md transition"
-											type="submit"
-										>
+									<div className="mx-auto max-w-md space-y-3">
+										<div className="flex items-center gap-2">
 											<Bell className="h-5 w-5" />
-											{t.event.waitlist.joinButton}
-										</button>
-									</form>
+											<span className="font-medium">{t.event.waitlist.joinButton}</span>
+										</div>
+										<WaitlistStatusClient
+											eventId={eventId}
+											action={handleJoinWaitlist}
+											joinLabel={t.event.waitlist.joinButton}
+										/>
+									</div>
 								</SignedIn>
 								<SignedOut>
 									{/* Non-authenticated user - email input or login options */}
@@ -336,7 +339,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 										</div>
 										<Link
 											className="bg-primary hover:bg-primary/90 text-primary-foreground flex w-full items-center justify-center gap-3 rounded-xl px-6 py-3 font-medium transition"
-											href="/sign-in"
+											href={`/${locale}/sign-in`}
 										>
 											Sign in for full features
 										</Link>
@@ -350,7 +353,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 					<div className="mt-8 text-center">
 						<Link
 							className="bg-accent/20 hover:bg-accent/30 text-accent-foreground hover:text-foreground border-border inline-flex items-center gap-3 rounded-xl border px-6 py-3 font-medium backdrop-blur-md transition"
-							href="/events"
+							href={`/${locale}/events`}
 						>
 							<ArrowLeft className="h-5 w-5" />
 							{t.event.backToEvents}
