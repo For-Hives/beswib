@@ -185,6 +185,7 @@
 			"too_many_requests": "Too many attempts. Please wait before trying again.",
 			"signin_failed": "Sign in failed. Check your credentials.",
 			"signup_failed": "Sign up failed. Please try again.",
+			"captcha_invalid": "CAPTCHA verification failed. Please try again.",
 			"default_error": "An error occurred. Please try again."
 		},
 
