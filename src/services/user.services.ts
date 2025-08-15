@@ -16,7 +16,7 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 
 	if (parsed?.isValid === true) {
 		birthDate = parsed.toFormat('yyyy-LL-dd')
-	} else {
+	} else if (rawBirthDate != null) {
 		console.warn('mapPbRecordToUser - Invalid birthDate:', rawBirthDate)
 	}
 
@@ -86,6 +86,9 @@ export async function fetchUserByClerkId(clerkId: string | undefined): Promise<n
 	}
 	try {
 		const user = await pb.collection('users').getFirstListItem<PbUserRecordMinimal>(`clerkId = "${clerkId}"`)
+		if (!user) {
+			return null
+		}
 		return mapPbRecordToUser(user)
 	} catch (error) {
 		console.error('Error fetching user by clerk ID:', error)
@@ -100,6 +103,9 @@ export async function fetchUserByEmail(email: string): Promise<null | User> {
 	}
 	try {
 		const user = await pb.collection('users').getFirstListItem<PbUserRecordMinimal>(`email = "${email.trim()}"`)
+		if (!user) {
+			return null
+		}
 		return mapPbRecordToUser(user)
 	} catch (error) {
 		// If no user found (404), return null - this is expected behavior
@@ -118,6 +124,9 @@ export async function fetchUserById(id: string): Promise<null | User> {
 	}
 	try {
 		const user = await pb.collection('users').getOne<PbUserRecordMinimal>(id)
+		if (!user) {
+			return null
+		}
 		return mapPbRecordToUser(user)
 	} catch (error) {
 		console.error('Error fetching user by ID:', error)
@@ -128,6 +137,9 @@ export async function fetchUserById(id: string): Promise<null | User> {
 export async function getUserData(userId: string): Promise<null | User> {
 	try {
 		const user = await pb.collection('users').getOne<PbUserRecordMinimal>(userId)
+		if (!user) {
+			return null
+		}
 		return mapPbRecordToUser(user)
 	} catch (error) {
 		console.error('Error fetching user data:', error)
