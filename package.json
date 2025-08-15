@@ -11,6 +11,7 @@
 		"lint:fix": "next lint --fix",
 		"format": "prettier --write .",
 		"prettier": "prettier --write .",
+		"prepare": "husky",
 		"tsc": "tsc --noEmit",
 		"tsc:watch": "tsc --noEmit --watch",
 		"test": "vitest",
