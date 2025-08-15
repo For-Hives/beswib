@@ -14,6 +14,7 @@ const VERIFICATION_EXPIRY_HOURS = 24
  */
 function handlePocketBaseError(error: unknown, operation: string): void {
 	console.error(`Error ${operation}:`, error)
+	console.error(error.response || error)
 
 	// Provide helpful error message for missing collection
 	if (error instanceof Error && error.message.includes('404')) {
@@ -75,9 +76,12 @@ function mapPbVerifiedEmailToModel(record: unknown): VerifiedEmail {
 export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Promise<VerifiedEmail | null> {
 	try {
 		// Check if email already exists for this user
-		const existing = await pb
-			.collection('verifiedEmails')
-			.getFirstListItem(`userId="${data.userId}" && email="${data.email}"`)
+		const existingRecords = await pb.collection('verifiedEmails').getFullList({
+			perPage: 1,
+			filter: `userId = "${data.userId}" && email = "${data.email}"`,
+		})
+
+		const existing = existingRecords.length > 0 ? existingRecords[0] : null
 
 		if (existing !== null && existing !== undefined && Boolean(existing.isVerified) === true) {
 			// Email already verified, return existing record
@@ -161,7 +165,7 @@ export async function fetchVerifiedEmailsByUserId(userId: string): Promise<Verif
 	try {
 		const records = await pb.collection('verifiedEmails').getFullList({
 			sort: '-created',
-			filter: `userId="${userId}" && isVerified=true`,
+			filter: `userId = "${userId}" && isVerified = true`,
 		})
 
 		return records.map(mapPbVerifiedEmailToModel)
