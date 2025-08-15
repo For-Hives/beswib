@@ -368,6 +368,9 @@ export default function CustomSignUp() {
 				</div>
 			</div>
 
+			{/* CAPTCHA Element */}
+			<div id="clerk-captcha"></div>
+
 			{/* Form */}
 			<form onSubmit={e => void handleSubmit(e)} className="space-y-4">
 				{globalError && (
