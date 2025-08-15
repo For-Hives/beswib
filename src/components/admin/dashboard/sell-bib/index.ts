@@ -1,5 +1,6 @@
 export { default as BibDetailsStep } from './BibDetailsStep'
 export { default as ConfirmationStep } from './ConfirmationStep'
+export { default as EmailVerificationStep } from './EmailVerificationStep'
 export { default as EventSelectionStep } from './EventSelectionStep'
 export { default as PricingStep } from './PricingStep'
 export { default as ProgressSteps } from './ProgressSteps'
