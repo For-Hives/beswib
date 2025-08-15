@@ -224,17 +224,17 @@ export function renderContactMessageEmailHtml({ name, message, email }: ContactM
 // --- Welcome email (string-based) -------------------------------------------------
 
 export type WelcomeEmailProps = {
-		firstName?: string
-		baseUrl?: string
+	firstName?: string
+	baseUrl?: string
 }
 
 export function renderWelcomeEmailHtml({ firstName, baseUrl }: WelcomeEmailProps): string {
-		const safeName = (firstName ?? '').trim()
-		const namePart = safeName.length > 0 ? `, ${escapeHtml(safeName)}` : ''
-		const siteUrl = (baseUrl ?? 'https://beswib.com').replace(/\/$/, '')
-		const logoUrl = `${siteUrl}/beswib.svg`
-		const preheader = `Welcome${namePart} to Beswib!`
-		return `
+	const safeName = (firstName ?? '').trim()
+	const namePart = safeName.length > 0 ? `, ${escapeHtml(safeName)}` : ''
+	const siteUrl = (baseUrl ?? 'https://beswib.com').replace(/\/$/, '')
+	const logoUrl = `${siteUrl}/beswib.svg`
+	const preheader = `Welcome${namePart} to Beswib!`
+	return `
 <html>
 	<body style="padding:0;margin:0;font-family: Arial, Helvetica, sans-serif;color:#E5E7EB;background-color:#0F0F23;">
 		<span style="width:0;visibility:hidden;overflow:hidden;opacity:0;max-width:0;max-height:0;height:0;display:none;color:transparent;">${escapeHtml(
