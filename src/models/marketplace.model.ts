@@ -8,6 +8,7 @@ export interface BibSale {
 	lockedAt: Date | string | null
 	user: {
 		id: string
+		lastName?: string
 		firstName: string
 	}
 	event: {

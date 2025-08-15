@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 import type { Waitlist } from '@/models/waitlist.model'
 
 import { fetchUserByClerkId } from '@/services/user.services'
-import { pb } from '@/lib/pocketbaseClient'
+import { pb } from '@/lib/services/pocketbase'
 
 export async function GET(request: Request) {
 	try {

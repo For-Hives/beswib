@@ -12,7 +12,6 @@ import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
 import { fetchPubliclyListedBibsForEvent } from '@/services/bib.services'
-import { generateLocaleParams } from '@/lib/generation/staticParams'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { addToWaitlist } from '@/services/waitlist.services'
 import { fetchEventById } from '@/services/event.services'

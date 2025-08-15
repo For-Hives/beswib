@@ -50,18 +50,18 @@ describe('waitlist.services', () => {
 	describe('addToWaitlist', () => {
 		it('should add a user to the waitlist', async () => {
 			mockPocketbaseCollection.getFirstListItem.mockRejectedValue({ status: 404 })
-			mockPocketbaseCollection.create.mockResolvedValue({ userId: 'user1', id: 'waitlist1', eventId: 'event1' })
+			mockPocketbaseCollection.create.mockResolvedValue({ user_id: 'user1', id: 'waitlist1', event_id: 'event1' })
 
 			const result = await addToWaitlist('event1', mockUser)
 
 			expect(mockPocketbase.collection).toHaveBeenCalledWith('waitlists')
-			expect(mockPocketbaseCollection.getFirstListItem).toHaveBeenCalledWith('userId = "user1" && eventId = "event1"')
+			expect(mockPocketbaseCollection.getFirstListItem).toHaveBeenCalledWith('user_id = "user1" && event_id = "event1"')
 			expect(mockPocketbaseCollection.create).toHaveBeenCalled()
-			expect(result).toEqual({ userId: 'user1', id: 'waitlist1', eventId: 'event1' })
+			expect(result).toEqual({ user_id: 'user1', id: 'waitlist1', event_id: 'event1' })
 		})
 
 		it('should return an error if the user is already on the waitlist', async () => {
-			const existingEntry = { userId: 'user1', id: 'waitlist1', eventId: 'event1' }
+			const existingEntry = { user_id: 'user1', id: 'waitlist1', event_id: 'event1' }
 			mockPocketbaseCollection.getFirstListItem.mockResolvedValue(existingEntry)
 
 			const result = await addToWaitlist('event1', mockUser)
@@ -137,9 +137,9 @@ describe('waitlist.services', () => {
 
 			expect(mockPocketbase.collection).toHaveBeenCalledWith('waitlists')
 			expect(mockPocketbaseCollection.getFullList).toHaveBeenCalledWith({
-				sort: '-addedAt',
-				filter: 'userId = "user1"',
-				expand: 'eventId',
+				sort: '-added_at',
+				filter: 'user_id = "user1"',
+				expand: 'event_id',
 			})
 			expect(result).toEqual(waitlists)
 		})
