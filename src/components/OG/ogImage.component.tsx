@@ -3,7 +3,7 @@ import { headers } from 'next/headers'
 import { getTranslations } from '@/lib/getDictionary'
 import * as React from 'react'
 import { type LocaleParams } from '@/lib/generateStaticParams'
-import pageTranslations from './locales.json'
+// import pageTranslations from './locales.json'
 
 // Metadata for the Open Graph image
 export const alt = 'Beswib Open Graph Image'
