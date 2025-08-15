@@ -1,8 +1,8 @@
 'use client'
 
 import { ArrowRight, Handshake, Mail, MessageCircle, Users } from 'lucide-react'
-import { motion } from 'motion/react'
 import { useState, Suspense } from 'react'
+import { motion } from 'motion/react'
 import type React from 'react'
 
 import { InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/utils/social'

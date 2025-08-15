@@ -1,11 +1,11 @@
 'use client'
 
 import { Loader2, Send } from 'lucide-react'
-import { motion } from 'motion/react'
 import { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { motion } from 'motion/react'
 import type React from 'react'
 
+import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 
 import globalTranslations from '@/components/global/locales.json'

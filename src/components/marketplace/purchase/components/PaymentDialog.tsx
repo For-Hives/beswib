@@ -1,5 +1,6 @@
 'use client'
 
+import { CheckCircle, AlertCircle, XCircle, Loader2 } from 'lucide-react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
 import React from 'react'
 
@@ -9,13 +10,12 @@ import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { formatDateWithLocale } from '@/lib/utils/date'
 import mainLocales from '@/app/[locale]/locales.json'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { CheckCircle, AlertCircle, XCircle, Loader2 } from 'lucide-react'
 
 interface PaymentDialogProps {
 	/** Whether the payment dialog is open */
