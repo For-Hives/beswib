@@ -1,8 +1,9 @@
 import Link from 'next/link'
 
-import { getTranslations } from '@/lib/i18n/dictionary'
+// import { getTranslations } from '@/lib/i18n/dictionary'
 import mainLocales from '@/app/[locale]/locales.json'
 import { Button } from '@/components/ui/button'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 interface UnauthorizedPageProps {
 	params: Promise<{ locale: string }>
@@ -10,18 +11,12 @@ interface UnauthorizedPageProps {
 
 export default async function UnauthorizedPage({ params }: UnauthorizedPageProps) {
 	const { locale } = await params
-	const translations = getTranslations(locale, mainLocales)
-
-	// Debug: log the structure
+	const t = getTranslations(locale, mainLocales).auth.unauthorized
 	// console.log('Locale:', locale)
 	// console.log('Translations structure:', JSON.stringify(translations, null, 2))
 
-	// Accès direct aux traductions comme dans HeroAlternative.tsx
-	const t = translations as any
-
 	// Debug: log what we're trying to access
-	// console.log('Unauthorized section:', t?.auth?.unauthorized)
-	// console.log('Title:', t?.auth?.unauthorized?.title)
+	// console.log('Title:', t.title)
 
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
@@ -32,27 +27,27 @@ export default async function UnauthorizedPage({ params }: UnauthorizedPageProps
 					<div className="mb-6 text-6xl text-red-600 dark:text-red-400">🚫</div>
 
 					{/* Title */}
-					<h1 className="text-foreground mb-4 text-3xl font-bold">{t?.auth?.unauthorized?.title}</h1>
+					<h1 className="text-foreground mb-4 text-3xl font-bold">{t.title}</h1>
 
 					{/* Messages */}
 					<div className="mb-6 space-y-3">
-						<p className="text-muted-foreground text-lg">{t?.auth?.unauthorized?.description}</p>
-						<p className="text-muted-foreground text-sm">{t?.auth?.unauthorized?.adminRequired}</p>
+						<p className="text-muted-foreground text-lg">{t.description}</p>
+						<p className="text-muted-foreground text-sm">{t.adminRequired}</p>
 					</div>
 
 					{/* Action buttons */}
 					<div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
 						<Button asChild size="lg" variant="default">
-							<Link href="/">{t?.auth?.unauthorized?.backToHome}</Link>
+							<Link href="/">{t.backToHome}</Link>
 						</Button>
 						<Button asChild size="lg" variant="outline">
-							<Link href="/contact">{t?.auth?.unauthorized?.contactSupport}</Link>
+							<Link href="/contact">{t.contactSupport}</Link>
 						</Button>
 					</div>
 
 					{/* Additional help text */}
 					<div className="border-border/30 mt-8 border-t pt-6">
-						<p className="text-muted-foreground text-xs">{t?.auth?.unauthorized?.additionalHelp}</p>
+						<p className="text-muted-foreground text-xs">{t.additionalHelp}</p>
 					</div>
 				</div>
 			</div>

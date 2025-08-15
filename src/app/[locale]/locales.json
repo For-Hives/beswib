@@ -45,27 +45,6 @@
 		"form": {
 			"valid": "Valid"
 		},
-		"clerkErrors": {
-			"form_identifier_not_found": "Nu s-a găsit niciun cont cu această adresă de email.",
-			"form_password_incorrect": "Parolă incorectă.",
-			"form_identifier_exists": "Există deja un cont cu această adresă de email.",
-			"session_exists": "Ești deja conectat.",
-			"clerk_js_error": "A apărut o eroare tehnică. Te rugăm să încerci din nou.",
-			"form_code_incorrect": "Cod de verificare incorect.",
-			"verification_expired": "Codul de verificare a expirat. Solicită un cod nou.",
-			"verification_failed": "Verificarea a eșuat. Te rugăm să încerci din nou.",
-			"form_param_nil": "Toate câmpurile sunt obligatorii.",
-			"form_password_pwned": "Această parolă a fost compromisă într-o breșă de securitate. Te rugăm să alegi alta.",
-			"form_password_too_common": "Această parolă este prea comună. Te rugăm să alegi una mai sigură.",
-			"oauth_access_denied": "Accesul a fost refuzat. Te rugăm să încerci din nou.",
-			"oauth_email_domain_reserved_by_saml": "Această adresă de email este rezervată pentru conectarea SAML.",
-			"network_error": "Eroare de conexiune. Verifică conexiunea la internet.",
-			"unexpected_error": "A apărut o eroare neașteptată. Te rugăm să încerci din nou.",
-			"too_many_requests": "Prea multe încercări. Te rugăm să aștepți înainte de a încerca din nou.",
-			"signin_failed": "Conectarea a eșuat. Verifică acreditările.",
-			"signup_failed": "Înregistrarea a eșuat. Te rugăm să încerci din nou.",
-			"default_error": "A apărut o eroare. Te rugăm să încerci din nou."
-		},
 		"auth": {
 			"fields": {
 				"email": "Email address",
@@ -197,27 +176,7 @@
 			"signup_failed": "Sign up failed. Please try again.",
 			"default_error": "An error occurred. Please try again."
 		},
-		"clerkErrors": {
-			"form_identifier_not_found": "Aucun compte trouvé avec cette adresse email.",
-			"form_password_incorrect": "Mot de passe incorrect.",
-			"form_identifier_exists": "Un compte existe déjà avec cette adresse email.",
-			"session_exists": "Vous êtes déjà connecté.",
-			"clerk_js_error": "Une erreur technique est survenue. Veuillez réessayer.",
-			"form_code_incorrect": "Code de vérification incorrect.",
-			"verification_expired": "Le code de vérification a expiré. Demandez un nouveau code.",
-			"verification_failed": "La vérification a échoué. Veuillez réessayer.",
-			"form_param_nil": "Tous les champs sont requis.",
-			"form_password_pwned": "Ce mot de passe a été compromis dans une faille de sécurité. Veuillez en choisir un autre.",
-			"form_password_too_common": "Ce mot de passe est trop commun. Veuillez en choisir un plus sécurisé.",
-			"oauth_access_denied": "L'accès a été refusé. Veuillez réessayer.",
-			"oauth_email_domain_reserved_by_saml": "Cette adresse email est réservée pour la connexion SAML.",
-			"network_error": "Erreur de connexion. Vérifiez votre connexion internet.",
-			"unexpected_error": "Une erreur inattendue s'est produite. Veuillez réessayer.",
-			"too_many_requests": "Trop de tentatives. Veuillez attendre avant de réessayer.",
-			"signin_failed": "Échec de la connexion. Vérifiez vos identifiants.",
-			"signup_failed": "Échec de l'inscription. Veuillez réessayer.",
-			"default_error": "Une erreur s'est produite. Veuillez réessayer."
-		},
+
 		"runs": [
 			{
 				"name": "Nantes Marathon",
@@ -465,27 +424,6 @@
 		},
 		"form": {
 			"valid": "Válido"
-		},
-		"clerkErrors": {
-			"form_identifier_not_found": "Nenhuma conta encontrada com este endereço de email.",
-			"form_password_incorrect": "Senha incorreta.",
-			"form_identifier_exists": "Já existe uma conta com este endereço de email.",
-			"session_exists": "Você já está conectado.",
-			"clerk_js_error": "Ocorreu um erro técnico. Tente novamente.",
-			"form_code_incorrect": "Código de verificação incorreto.",
-			"verification_expired": "O código de verificação expirou. Solicite um novo código.",
-			"verification_failed": "Verificação falhou. Tente novamente.",
-			"form_param_nil": "Todos os campos são obrigatórios.",
-			"form_password_pwned": "Esta senha foi comprometida em uma violação de segurança. Escolha outra.",
-			"form_password_too_common": "Esta senha é muito comum. Escolha uma mais segura.",
-			"oauth_access_denied": "O acesso foi negado. Tente novamente.",
-			"oauth_email_domain_reserved_by_saml": "Este endereço de email é reservado para login SAML.",
-			"network_error": "Erro de conexão. Verifique sua conexão com a internet.",
-			"unexpected_error": "Ocorreu um erro inesperado. Tente novamente.",
-			"too_many_requests": "Muitas tentativas. Aguarde antes de tentar novamente.",
-			"signin_failed": "Login falhou. Verifique suas credenciais.",
-			"signup_failed": "Registro falhou. Tente novamente.",
-			"default_error": "Ocorreu um erro. Tente novamente."
 		},
 		"clerkErrors": {
 			"form_identifier_not_found": "No se encontró ninguna cuenta con esta dirección de correo.",
@@ -1676,15 +1614,15 @@
 				"loading": "로딩 중...",
 				"redirecting": "리디렉션 중...",
 				"valid": "유효함"
+			},
+			"unauthorized": {
+				"title": "접근 거부됨",
+				"description": "이 페이지에 접근할 권한이 없습니다.",
+				"adminRequired": "이 콘텐츠를 보려면 관리자 권한이 필요합니다.",
+				"backToHome": "홈으로 돌아가기",
+				"contactSupport": "지원팀 문의",
+				"additionalHelp": "이것이 오류라고 생각되면 관리자에게 문의하세요."
 			}
-		},
-		"unauthorized": {
-			"title": "접근 거부됨",
-			"description": "이 페이지에 접근할 권한이 없습니다.",
-			"adminRequired": "이 콘텐츠를 보려면 관리자 권한이 필요합니다.",
-			"backToHome": "홈으로 돌아가기",
-			"contactSupport": "지원팀 문의",
-			"additionalHelp": "이것이 오류라고 생각되면 관리자에게 문의하세요."
 		},
 		"runs": [
 			{
