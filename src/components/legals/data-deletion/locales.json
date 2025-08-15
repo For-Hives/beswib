@@ -1,0 +1,281 @@
+{
+	"en": {
+		"dataDeletion": {
+			"badge": "Data Deletion",
+			"title": "Data Deletion Request",
+			"intro": "We respect your right to privacy and data control. If you wish to have all your personal data permanently deleted from our platform, we will honor your request in compliance with applicable data protection laws.",
+			"commitment": {
+				"title": "Our Commitment",
+				"content": "Beswib is committed to protecting your privacy and ensuring you have full control over your personal data. We will process all data deletion requests promptly and completely."
+			},
+			"scope": {
+				"title": "What Data Will Be Deleted",
+				"content": "Upon your request, we will permanently delete all personal data associated with your account, including profile information, transaction history, messages, and any other personal information stored in our systems."
+			},
+			"process": {
+				"title": "How to Request Data Deletion",
+				"content": "To request the complete deletion of your data, please contact our support team at support@beswib.com with your deletion request. Please include your account email address and specify that you want all your data permanently deleted."
+			},
+			"contact": {
+				"title": "Contact Information",
+				"content": "For all data deletion requests, please email us at support@beswib.com. Our team will verify your identity and process your request as quickly as possible."
+			},
+			"timeline": {
+				"title": "Processing Timeline",
+				"content": "We will process your data deletion request within 30 days of receiving it. You will receive a confirmation email once the deletion is complete. Please note that some cached data may take additional time to be fully purged from all systems."
+			},
+			"exceptions": {
+				"title": "Legal Retention Requirements",
+				"content": "In some cases, we may be required by law to retain certain data for specified periods (e.g., for tax or legal compliance purposes). Where applicable, we will inform you of any data that cannot be immediately deleted and the retention period required."
+			}
+		}
+	},
+	"fr": {
+		"dataDeletion": {
+			"badge": "Suppression des données",
+			"title": "Demande de suppression des données",
+			"intro": "Nous respectons votre droit à la confidentialité et au contrôle de vos données. Si vous souhaitez que toutes vos données personnelles soient définitivement supprimées de notre plateforme, nous honorerons votre demande en conformité avec les lois applicables sur la protection des données.",
+			"commitment": {
+				"title": "Notre engagement",
+				"content": "Beswib s'engage à protéger votre vie privée et à vous assurer un contrôle total sur vos données personnelles. Nous traiterons toutes les demandes de suppression de données rapidement et complètement."
+			},
+			"scope": {
+				"title": "Quelles données seront supprimées",
+				"content": "Sur votre demande, nous supprimerons définitivement toutes les données personnelles associées à votre compte, y compris les informations de profil, l'historique des transactions, les messages et toute autre information personnelle stockée dans nos systèmes."
+			},
+			"process": {
+				"title": "Comment demander la suppression des données",
+				"content": "Pour demander la suppression complète de vos données, veuillez contacter notre équipe de support à support@beswib.com avec votre demande de suppression. Veuillez inclure l'adresse e-mail de votre compte et préciser que vous voulez que toutes vos données soient définitivement supprimées."
+			},
+			"contact": {
+				"title": "Informations de contact",
+				"content": "Pour toutes les demandes de suppression de données, veuillez nous envoyer un e-mail à support@beswib.com. Notre équipe vérifiera votre identité et traitera votre demande aussi rapidement que possible."
+			},
+			"timeline": {
+				"title": "Délai de traitement",
+				"content": "Nous traiterons votre demande de suppression de données dans les 30 jours suivant sa réception. Vous recevrez un e-mail de confirmation une fois la suppression terminée. Veuillez noter que certaines données en cache peuvent prendre du temps supplémentaire pour être entièrement purgées de tous les systèmes."
+			},
+			"exceptions": {
+				"title": "Exigences légales de conservation",
+				"content": "Dans certains cas, nous pouvons être tenus par la loi de conserver certaines données pendant des périodes spécifiées (par exemple, à des fins de conformité fiscale ou légale). Le cas échéant, nous vous informerons de toute donnée qui ne peut pas être immédiatement supprimée et de la période de conservation requise."
+			}
+		}
+	},
+	"es": {
+		"dataDeletion": {
+			"badge": "Eliminación de datos",
+			"title": "Solicitud de eliminación de datos",
+			"intro": "Respetamos su derecho a la privacidad y al control de sus datos. Si desea que todos sus datos personales sean eliminados permanentemente de nuestra plataforma, honraremos su solicitud en cumplimiento con las leyes aplicables de protección de datos.",
+			"commitment": {
+				"title": "Nuestro compromiso",
+				"content": "Beswib se compromete a proteger su privacidad y asegurar que tenga control total sobre sus datos personales. Procesaremos todas las solicitudes de eliminación de datos de manera rápida y completa."
+			},
+			"scope": {
+				"title": "Qué datos serán eliminados",
+				"content": "A su solicitud, eliminaremos permanentemente todos los datos personales asociados con su cuenta, incluyendo información de perfil, historial de transacciones, mensajes y cualquier otra información personal almacenada en nuestros sistemas."
+			},
+			"process": {
+				"title": "Cómo solicitar la eliminación de datos",
+				"content": "Para solicitar la eliminación completa de sus datos, por favor contacte a nuestro equipo de soporte en support@beswib.com con su solicitud de eliminación. Por favor incluya la dirección de correo electrónico de su cuenta y especifique que desea que todos sus datos sean eliminados permanentemente."
+			},
+			"contact": {
+				"title": "Información de contacto",
+				"content": "Para todas las solicitudes de eliminación de datos, por favor envíenos un correo electrónico a support@beswib.com. Nuestro equipo verificará su identidad y procesará su solicitud lo más rápido posible."
+			},
+			"timeline": {
+				"title": "Cronograma de procesamiento",
+				"content": "Procesaremos su solicitud de eliminación de datos dentro de 30 días de recibirla. Recibirá un correo electrónico de confirmación una vez que la eliminación esté completa. Tenga en cuenta que algunos datos en caché pueden tomar tiempo adicional para ser completamente purgados de todos los sistemas."
+			},
+			"exceptions": {
+				"title": "Requisitos legales de retención",
+				"content": "En algunos casos, podemos estar obligados por ley a retener ciertos datos por períodos especificados (por ejemplo, para propósitos de cumplimiento fiscal o legal). Cuando sea aplicable, le informaremos sobre cualquier dato que no pueda ser eliminado inmediatamente y el período de retención requerido."
+			}
+		}
+	},
+	"it": {
+		"dataDeletion": {
+			"badge": "Cancellazione dati",
+			"title": "Richiesta di cancellazione dati",
+			"intro": "Rispettiamo il vostro diritto alla privacy e al controllo dei vostri dati. Se desiderate che tutti i vostri dati personali vengano cancellati permanentemente dalla nostra piattaforma, onoreremo la vostra richiesta in conformità con le leggi applicabili sulla protezione dei dati.",
+			"commitment": {
+				"title": "Il nostro impegno",
+				"content": "Beswib si impegna a proteggere la vostra privacy e assicurare che abbiate il controllo completo sui vostri dati personali. Elaboreremo tutte le richieste di cancellazione dati in modo rapido e completo."
+			},
+			"scope": {
+				"title": "Quali dati verranno cancellati",
+				"content": "Su vostra richiesta, cancelleremo permanentemente tutti i dati personali associati al vostro account, incluse le informazioni del profilo, la cronologia delle transazioni, i messaggi e qualsiasi altra informazione personale memorizzata nei nostri sistemi."
+			},
+			"process": {
+				"title": "Come richiedere la cancellazione dei dati",
+				"content": "Per richiedere la cancellazione completa dei vostri dati, contattate il nostro team di supporto a support@beswib.com con la vostra richiesta di cancellazione. Includete l'indirizzo email del vostro account e specificate che volete che tutti i vostri dati vengano cancellati permanentemente."
+			},
+			"contact": {
+				"title": "Informazioni di contatto",
+				"content": "Per tutte le richieste di cancellazione dati, inviateci un'email a support@beswib.com. Il nostro team verificherà la vostra identità e elaborerà la vostra richiesta il più rapidamente possibile."
+			},
+			"timeline": {
+				"title": "Tempi di elaborazione",
+				"content": "Elaboreremo la vostra richiesta di cancellazione dati entro 30 giorni dal ricevimento. Riceverete un'email di conferma una volta completata la cancellazione. Si prega di notare che alcuni dati memorizzati nella cache potrebbero richiedere tempo aggiuntivo per essere completamente eliminati da tutti i sistemi."
+			},
+			"exceptions": {
+				"title": "Requisiti legali di conservazione",
+				"content": "In alcuni casi, potremmo essere tenuti per legge a conservare certi dati per periodi specificati (ad esempio, per scopi di conformità fiscale o legale). Quando applicabile, vi informeremo di eventuali dati che non possono essere immediatamente cancellati e del periodo di conservazione richiesto."
+			}
+		}
+	},
+	"de": {
+		"dataDeletion": {
+			"badge": "Datenlöschung",
+			"title": "Antrag auf Datenlöschung",
+			"intro": "Wir respektieren Ihr Recht auf Privatsphäre und Datenkontrolle. Wenn Sie möchten, dass alle Ihre persönlichen Daten dauerhaft von unserer Plattform gelöscht werden, werden wir Ihrem Antrag in Übereinstimmung mit den geltenden Datenschutzgesetzen nachkommen.",
+			"commitment": {
+				"title": "Unser Engagement",
+				"content": "Beswib verpflichtet sich, Ihre Privatsphäre zu schützen und sicherzustellen, dass Sie die volle Kontrolle über Ihre persönlichen Daten haben. Wir werden alle Anträge auf Datenlöschung prompt und vollständig bearbeiten."
+			},
+			"scope": {
+				"title": "Welche Daten werden gelöscht",
+				"content": "Auf Ihren Antrag hin werden wir alle persönlichen Daten, die mit Ihrem Konto verbunden sind, dauerhaft löschen, einschließlich Profilinformationen, Transaktionshistorie, Nachrichten und alle anderen in unseren Systemen gespeicherten persönlichen Informationen."
+			},
+			"process": {
+				"title": "So beantragen Sie die Datenlöschung",
+				"content": "Um die vollständige Löschung Ihrer Daten zu beantragen, kontaktieren Sie bitte unser Support-Team unter support@beswib.com mit Ihrem Löschungsantrag. Bitte geben Sie die E-Mail-Adresse Ihres Kontos an und spezifizieren Sie, dass Sie alle Ihre Daten dauerhaft gelöscht haben möchten."
+			},
+			"contact": {
+				"title": "Kontaktinformationen",
+				"content": "Für alle Anträge auf Datenlöschung senden Sie uns bitte eine E-Mail an support@beswib.com. Unser Team wird Ihre Identität überprüfen und Ihren Antrag so schnell wie möglich bearbeiten."
+			},
+			"timeline": {
+				"title": "Bearbeitungszeit",
+				"content": "Wir werden Ihren Antrag auf Datenlöschung innerhalb von 30 Tagen nach Erhalt bearbeiten. Sie erhalten eine Bestätigungs-E-Mail, sobald die Löschung abgeschlossen ist. Bitte beachten Sie, dass einige zwischengespeicherte Daten zusätzliche Zeit benötigen können, um vollständig aus allen Systemen entfernt zu werden."
+			},
+			"exceptions": {
+				"title": "Gesetzliche Aufbewahrungspflichten",
+				"content": "In einigen Fällen können wir gesetzlich verpflichtet sein, bestimmte Daten für festgelegte Zeiträume aufzubewahren (z.B. für steuerliche oder rechtliche Compliance-Zwecke). Gegebenenfalls werden wir Sie über alle Daten informieren, die nicht sofort gelöscht werden können, und über die erforderliche Aufbewahrungszeit."
+			}
+		}
+	},
+	"ro": {
+		"dataDeletion": {
+			"badge": "Ștergere date",
+			"title": "Cerere de ștergere a datelor",
+			"intro": "Respectăm dreptul dumneavoastră la confidențialitate și controlul datelor. Dacă doriți ca toate datele dumneavoastră personale să fie șterse permanent de pe platforma noastră, vom onora cererea dumneavoastră în conformitate cu legile aplicabile de protecție a datelor.",
+			"commitment": {
+				"title": "Angajamentul nostru",
+				"content": "Beswib se angajează să vă protejeze confidențialitatea și să se asigure că aveți controlul complet asupra datelor dumneavoastră personale. Vom procesa toate cererile de ștergere a datelor prompt și complet."
+			},
+			"scope": {
+				"title": "Ce date vor fi șterse",
+				"content": "La cererea dumneavoastră, vom șterge permanent toate datele personale asociate cu contul dumneavoastră, incluzând informațiile de profil, istoricul tranzacțiilor, mesajele și orice alte informații personale stocate în sistemele noastre."
+			},
+			"process": {
+				"title": "Cum să solicitați ștergerea datelor",
+				"content": "Pentru a solicita ștergerea completă a datelor dumneavoastră, vă rugăm să contactați echipa noastră de suport la support@beswib.com cu cererea dumneavoastră de ștergere. Vă rugăm să includeți adresa de email a contului dumneavoastră și să specificați că doriți ca toate datele dumneavoastră să fie șterse permanent."
+			},
+			"contact": {
+				"title": "Informații de contact",
+				"content": "Pentru toate cererile de ștergere a datelor, vă rugăm să ne trimiteți un email la support@beswib.com. Echipa noastră vă va verifica identitatea și va procesa cererea dumneavoastră cât mai rapid posibil."
+			},
+			"timeline": {
+				"title": "Cronologia procesării",
+				"content": "Vom procesa cererea dumneavoastră de ștergere a datelor în termen de 30 de zile de la primire. Veți primi un email de confirmare odată ce ștergerea este completă. Vă rugăm să rețineți că unele date din cache pot necesita timp suplimentar pentru a fi complet eliminate din toate sistemele."
+			},
+			"exceptions": {
+				"title": "Cerințe legale de păstrare",
+				"content": "În unele cazuri, am putea fi obligați prin lege să păstrăm anumite date pentru perioade specificate (de exemplu, în scopuri de conformitate fiscală sau legală). Unde este aplicabil, vă vom informa despre orice date care nu pot fi șterse imediat și perioada de păstrare necesară."
+			}
+		}
+	},
+	"pt": {
+		"dataDeletion": {
+			"badge": "Eliminação de dados",
+			"title": "Pedido de eliminação de dados",
+			"intro": "Respeitamos o seu direito à privacidade e controlo dos seus dados. Se desejar que todos os seus dados pessoais sejam eliminados permanentemente da nossa plataforma, honraremos o seu pedido em conformidade com as leis aplicáveis de proteção de dados.",
+			"commitment": {
+				"title": "O nosso compromisso",
+				"content": "A Beswib compromete-se a proteger a sua privacidade e garantir que tenha controlo total sobre os seus dados pessoais. Processaremos todos os pedidos de eliminação de dados de forma rápida e completa."
+			},
+			"scope": {
+				"title": "Que dados serão eliminados",
+				"content": "A seu pedido, eliminaremos permanentemente todos os dados pessoais associados à sua conta, incluindo informações de perfil, histórico de transações, mensagens e qualquer outra informação pessoal armazenada nos nossos sistemas."
+			},
+			"process": {
+				"title": "Como solicitar a eliminação de dados",
+				"content": "Para solicitar a eliminação completa dos seus dados, por favor contacte a nossa equipa de suporte em support@beswib.com com o seu pedido de eliminação. Por favor inclua o endereço de email da sua conta e especifique que quer que todos os seus dados sejam eliminados permanentemente."
+			},
+			"contact": {
+				"title": "Informações de contacto",
+				"content": "Para todos os pedidos de eliminação de dados, por favor envie-nos um email para support@beswib.com. A nossa equipa verificará a sua identidade e processará o seu pedido o mais rapidamente possível."
+			},
+			"timeline": {
+				"title": "Cronograma de processamento",
+				"content": "Processaremos o seu pedido de eliminação de dados no prazo de 30 dias após o recebermos. Receberá um email de confirmação assim que a eliminação estiver completa. Note que alguns dados em cache podem demorar tempo adicional para serem completamente removidos de todos os sistemas."
+			},
+			"exceptions": {
+				"title": "Requisitos legais de retenção",
+				"content": "Nalguns casos, podemos ser obrigados por lei a reter certos dados por períodos especificados (por exemplo, para fins de conformidade fiscal ou legal). Quando aplicável, informá-lo-emos sobre quaisquer dados que não possam ser imediatamente eliminados e o período de retenção necessário."
+			}
+		}
+	},
+	"nl": {
+		"dataDeletion": {
+			"badge": "Gegevensverwijdering",
+			"title": "Verzoek tot gegevensverwijdering",
+			"intro": "We respecteren uw recht op privacy en controle over uw gegevens. Als u wilt dat al uw persoonlijke gegevens permanent worden verwijderd van ons platform, zullen we uw verzoek honoreren in overeenstemming met de geldende gegevensbeschermingswetten.",
+			"commitment": {
+				"title": "Onze toezegging",
+				"content": "Beswib verbindt zich ertoe uw privacy te beschermen en ervoor te zorgen dat u volledige controle heeft over uw persoonlijke gegevens. We zullen alle verzoeken tot gegevensverwijdering snel en volledig verwerken."
+			},
+			"scope": {
+				"title": "Welke gegevens worden verwijderd",
+				"content": "Op uw verzoek zullen we alle persoonlijke gegevens die aan uw account zijn gekoppeld permanent verwijderen, inclusief profielinformatie, transactiegeschiedenis, berichten en alle andere persoonlijke informatie die in onze systemen is opgeslagen."
+			},
+			"process": {
+				"title": "Hoe gegevensverwijdering aanvragen",
+				"content": "Om de volledige verwijdering van uw gegevens aan te vragen, neemt u contact op met ons supportteam op support@beswib.com met uw verwijderingsverzoek. Voeg het e-mailadres van uw account toe en specificeer dat u al uw gegevens permanent wilt laten verwijderen."
+			},
+			"contact": {
+				"title": "Contactinformatie",
+				"content": "Voor alle verzoeken tot gegevensverwijdering stuurt u ons een e-mail naar support@beswib.com. Ons team zal uw identiteit verifiëren en uw verzoek zo snel mogelijk verwerken."
+			},
+			"timeline": {
+				"title": "Verwerkingstijdlijn",
+				"content": "We zullen uw verzoek tot gegevensverwijdering binnen 30 dagen na ontvangst verwerken. U ontvangt een bevestigingsmail zodra de verwijdering is voltooid. Houd er rekening mee dat sommige gecachte gegevens extra tijd kunnen kosten om volledig uit alle systemen te worden gewist."
+			},
+			"exceptions": {
+				"title": "Wettelijke bewaarvereisten",
+				"content": "In sommige gevallen kunnen we wettelijk verplicht zijn om bepaalde gegevens voor gespecificeerde periodes te bewaren (bijvoorbeeld voor belasting- of juridische nalevingsdoeleinden). Waar van toepassing, zullen we u informeren over gegevens die niet onmiddellijk kunnen worden verwijderd en de vereiste bewaarperiode."
+			}
+		}
+	},
+	"ko": {
+		"dataDeletion": {
+			"badge": "데이터 삭제",
+			"title": "데이터 삭제 요청",
+			"intro": "귀하의 개인정보 보호 및 데이터 통제 권리를 존중합니다. 귀하의 모든 개인 데이터를 저희 플랫폼에서 영구적으로 삭제하기를 원하신다면, 해당 데이터 보호법에 따라 귀하의 요청을 수용하겠습니다.",
+			"commitment": {
+				"title": "저희의 약속",
+				"content": "Beswib은 귀하의 개인정보를 보호하고 귀하가 개인 데이터에 대한 완전한 통제권을 가질 수 있도록 보장하는 데 전념하고 있습니다. 모든 데이터 삭제 요청을 신속하고 완전하게 처리하겠습니다."
+			},
+			"scope": {
+				"title": "삭제될 데이터",
+				"content": "귀하의 요청에 따라 귀하의 계정과 연관된 모든 개인 데이터를 영구적으로 삭제하겠습니다. 여기에는 프로필 정보, 거래 내역, 메시지 및 저희 시스템에 저장된 기타 모든 개인 정보가 포함됩니다."
+			},
+			"process": {
+				"title": "데이터 삭제 요청 방법",
+				"content": "귀하의 데이터 완전 삭제를 요청하려면 support@beswib.com으로 삭제 요청을 포함하여 저희 지원팀에 연락해 주세요. 귀하의 계정 이메일 주소를 포함하고 모든 데이터의 영구 삭제를 원한다고 명시해 주세요."
+			},
+			"contact": {
+				"title": "연락처 정보",
+				"content": "모든 데이터 삭제 요청은 support@beswib.com으로 이메일을 보내주세요. 저희 팀이 귀하의 신원을 확인하고 가능한 한 신속하게 요청을 처리하겠습니다."
+			},
+			"timeline": {
+				"title": "처리 일정",
+				"content": "귀하의 데이터 삭제 요청을 접수한 후 30일 이내에 처리하겠습니다. 삭제가 완료되면 확인 이메일을 받으실 것입니다. 일부 캐시된 데이터는 모든 시스템에서 완전히 제거되는 데 추가 시간이 걸릴 수 있음을 참고해 주세요."
+			},
+			"exceptions": {
+				"title": "법적 보관 요구사항",
+				"content": "경우에 따라 법률에 의해 특정 데이터를 지정된 기간 동안 보관해야 할 수 있습니다(예: 세무 또는 법적 준수 목적). 해당되는 경우, 즉시 삭제할 수 없는 데이터와 필요한 보관 기간에 대해 알려드리겠습니다."
+			}
+		}
+	}
+}
