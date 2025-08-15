@@ -56,8 +56,13 @@
 			},
 			"dangerZone": {
 				"title": "Danger Zone",
-				"description": "Sign out from your account. You can sign back in anytime.",
-				"signOut": "Disconnect"
+				"description": "Sign out from your account or permanently delete your data.",
+				"signOut": "Sign Out",
+				"deleteAccount": "Delete Account",
+				"deleteDescription": "Permanently delete your account and all associated data. This action cannot be undone.",
+				"deleteWarning": "This will delete your account forever. Are you sure?",
+				"confirmDelete": "Yes, delete my account",
+				"cancelDelete": "Cancel"
 			},
 			"title": "My Profile"
 		}
@@ -119,8 +124,13 @@
 			},
 			"dangerZone": {
 				"title": "Zone dangereuse",
-				"description": "Déconnectez-vous de votre compte. Vous pourrez vous reconnecter à tout moment.",
-				"signOut": "Se déconnecter"
+				"description": "Déconnectez-vous de votre compte ou supprimez définitivement vos données.",
+				"signOut": "Se déconnecter",
+				"deleteAccount": "Supprimer le compte",
+				"deleteDescription": "Supprimez définitivement votre compte et toutes les données associées. Cette action ne peut pas être annulée.",
+				"deleteWarning": "Ceci supprimera votre compte définitivement. Êtes-vous sûr ?",
+				"confirmDelete": "Oui, supprimer mon compte",
+				"cancelDelete": "Annuler"
 			},
 			"title": "Mon Profil"
 		}
@@ -181,9 +191,14 @@
 				"title": "Información del Vendedor"
 			},
 			"dangerZone": {
-				"title": "Danger Zone",
-				"description": "Sign out from your account. You can sign back in anytime.",
-				"signOut": "Disconnect"
+				"title": "Zona de peligro",
+				"description": "Cierra sesión de tu cuenta o elimina permanentemente tus datos.",
+				"signOut": "Cerrar sesión",
+				"deleteAccount": "Eliminar cuenta",
+				"deleteDescription": "Elimina permanentemente tu cuenta y todos los datos asociados. Esta acción no se puede deshacer.",
+				"deleteWarning": "Esto eliminará tu cuenta para siempre. ¿Estás seguro?",
+				"confirmDelete": "Sí, eliminar mi cuenta",
+				"cancelDelete": "Cancelar"
 			},
 			"title": "Mi Perfil"
 		}
@@ -244,9 +259,14 @@
 				"title": "Informazioni Venditore"
 			},
 			"dangerZone": {
-				"title": "Danger Zone",
-				"description": "Sign out from your account. You can sign back in anytime.",
-				"signOut": "Disconnect"
+				"title": "Zona pericolosa",
+				"description": "Esci dal tuo account o elimina permanentemente i tuoi dati.",
+				"signOut": "Esci",
+				"deleteAccount": "Elimina account",
+				"deleteDescription": "Elimina permanentemente il tuo account e tutti i dati associati. Questa azione non può essere annullata.",
+				"deleteWarning": "Questo eliminerà il tuo account per sempre. Sei sicuro?",
+				"confirmDelete": "Sì, elimina il mio account",
+				"cancelDelete": "Annulla"
 			},
 			"title": "Il Mio Profilo"
 		}
@@ -307,9 +327,14 @@
 				"title": "Verkäuferinformationen"
 			},
 			"dangerZone": {
-				"title": "Danger Zone",
-				"description": "Sign out from your account. You can sign back in anytime.",
-				"signOut": "Disconnect"
+				"title": "Gefahrenbereich",
+				"description": "Melde dich von deinem Konto ab oder lösche deine Daten dauerhaft.",
+				"signOut": "Abmelden",
+				"deleteAccount": "Konto löschen",
+				"deleteDescription": "Lösche dein Konto und alle zugehörigen Daten dauerhaft. Diese Aktion kann nicht rückgängig gemacht werden.",
+				"deleteWarning": "Dadurch wird dein Konto für immer gelöscht. Bist du sicher?",
+				"confirmDelete": "Ja, mein Konto löschen",
+				"cancelDelete": "Abbrechen"
 			},
 			"title": "Mein Profil"
 		}
@@ -370,9 +395,14 @@
 				"title": "Informații Vânzător"
 			},
 			"dangerZone": {
-				"title": "Danger Zone",
-				"description": "Sign out from your account. You can sign back in anytime.",
-				"signOut": "Disconnect"
+				"title": "Zonă periculoasă",
+				"description": "Deconectează-te din cont sau șterge definitiv datele tale.",
+				"signOut": "Deconectare",
+				"deleteAccount": "Șterge contul",
+				"deleteDescription": "Șterge definitiv contul tău și toate datele asociate. Această acțiune nu poate fi anulată.",
+				"deleteWarning": "Acest lucru va șterge contul tău pentru totdeauna. Ești sigur?",
+				"confirmDelete": "Da, șterge-mi contul",
+				"cancelDelete": "Anulează"
 			},
 			"title": "Profilul Meu"
 		}
@@ -433,9 +463,14 @@
 				"title": "Informações do Vendedor"
 			},
 			"dangerZone": {
-				"title": "Danger Zone",
-				"description": "Sign out from your account. You can sign back in anytime.",
-				"signOut": "Disconnect"
+				"title": "Zona perigosa",
+				"description": "Faz logout da tua conta ou elimina permanentemente os teus dados.",
+				"signOut": "Fazer logout",
+				"deleteAccount": "Eliminar conta",
+				"deleteDescription": "Elimina permanentemente a tua conta e todos os dados associados. Esta ação não pode ser desfeita.",
+				"deleteWarning": "Isto eliminará a tua conta para sempre. Tens a certeza?",
+				"confirmDelete": "Sim, eliminar a minha conta",
+				"cancelDelete": "Cancelar"
 			},
 			"title": "Meu Perfil"
 		}
@@ -496,9 +531,14 @@
 				"title": "Verkoper Informatie"
 			},
 			"dangerZone": {
-				"title": "Danger Zone",
-				"description": "Sign out from your account. You can sign back in anytime.",
-				"signOut": "Disconnect"
+				"title": "Gevarenzone",
+				"description": "Log uit van je account of verwijder je gegevens permanent.",
+				"signOut": "Uitloggen",
+				"deleteAccount": "Account verwijderen",
+				"deleteDescription": "Verwijder je account en alle bijbehorende gegevens permanent. Deze actie kan niet ongedaan worden gemaakt.",
+				"deleteWarning": "Dit zal je account voor altijd verwijderen. Weet je het zeker?",
+				"confirmDelete": "Ja, verwijder mijn account",
+				"cancelDelete": "Annuleren"
 			},
 			"title": "Mijn Profiel"
 		}
@@ -560,8 +600,13 @@
 			},
 			"dangerZone": {
 				"title": "주의 구역",
-				"description": "계정에서 로그아웃합니다. 언제든지 다시 로그인할 수 있습니다.",
-				"signOut": "로그아웃"
+				"description": "계정에서 로그아웃하거나 데이터를 영구적으로 삭제합니다.",
+				"signOut": "로그아웃",
+				"deleteAccount": "계정 삭제",
+				"deleteDescription": "계정과 관련된 모든 데이터를 영구적으로 삭제합니다. 이 작업은 되돌릴 수 없습니다.",
+				"deleteWarning": "이렇게 하면 계정이 영원히 삭제됩니다. 확실합니까?",
+				"confirmDelete": "네, 내 계정을 삭제합니다",
+				"cancelDelete": "취소"
 			},
 			"title": "내 프로필"
 		}

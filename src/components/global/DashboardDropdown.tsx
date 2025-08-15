@@ -1,10 +1,10 @@
 'use client'
 
-import { LayoutDashboard, Settings, ShoppingBag, Tag, User } from 'lucide-react'
+import { LayoutDashboard, LogOut, Settings, ShoppingBag, Tag, User } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
-import { useUser } from '@clerk/nextjs'
+import { useClerk, useUser } from '@clerk/nextjs'
 
 import { DropdownMenuAnimated } from '@/components/ui/dropdown-menu-animated'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -22,6 +22,7 @@ export default function DashboardDropdown({ locale }: Readonly<DashboardDropdown
 	const t = getTranslations(locale, pageTranslationsData)
 
 	const { user: clerkUser, isLoaded } = useUser()
+	const { signOut } = useClerk()
 	const [isAdmin, setIsAdmin] = useState(false)
 	const router = useRouter()
 
@@ -64,6 +65,11 @@ export default function DashboardDropdown({ locale }: Readonly<DashboardDropdown
 			onClick: () => router.push(`/${locale}/dashboard/seller/sell-bib`),
 			label: t.navbar.sellBibLink,
 			Icon: <Tag className="h-4 w-4" />,
+		},
+		{
+			onClick: () => void signOut({ redirectUrl: '/' }),
+			label: t.navbar.signOut,
+			Icon: <LogOut className="h-4 w-4" />,
 		},
 	]
 

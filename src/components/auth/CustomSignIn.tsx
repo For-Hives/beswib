@@ -163,7 +163,6 @@ export default function CustomSignIn() {
 		void signIn.authenticateWithRedirect({
 			strategy,
 			redirectUrlComplete: `/${locale}/dashboard`,
-			redirectUrl: `/${locale}/sso-callback`,
 		})
 	}
 
