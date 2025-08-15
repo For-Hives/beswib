@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 import { Webhook } from 'svix'
 
 import { linkEmailWaitlistsToUser } from '@/services/waitlist.services'
+import { sendWelcomeEmail } from '@/services/notification.service'
 import { createUser } from '@/services/user.services' // Adjust path as necessary
 import { User } from '@/models/user.model'
 
@@ -144,8 +145,12 @@ async function processUserCreation(
 			console.info(`Linked ${linkedCount} existing waitlist entries to new user ${newUserInDb.id}`)
 		}
 
+		// Fire-and-forget welcome email; don't block webhook success on email failures
+		void sendWelcomeEmail({ to: userData.email, firstName: userData.firstName })
+
 		return NextResponse.json(
 			{
+				welcomeEmailQueued: true,
 				message: 'User created and metadata updated successfully',
 				linkedWaitlistEntries: linkedCount,
 			},
