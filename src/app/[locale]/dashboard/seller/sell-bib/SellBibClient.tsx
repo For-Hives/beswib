@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { UserIcon } from 'lucide-react'
 
 import type { VerifiedEmail } from '@/models/verifiedEmail.model'
@@ -81,7 +81,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 	const isLastStep = currentStepIndex === STEPS.length - 1
 
 	// Load verified emails on component mount
-	React.useEffect(() => {
+	useEffect(() => {
 		const loadVerifiedEmails = async () => {
 			try {
 				const emails = await fetchVerifiedEmailsByUserId(user.id)
