@@ -19,6 +19,7 @@ import SentryClientInit from '@/app/[locale]/SentryClientInit'
 import PageTransition from '@/components/ui/PageTransition'
 import Footer from '@/components/global/footer'
 import Header from '@/components/global/Header'
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 
 import '@/lib/utils/umami'
 import '@/app/[locale]/globals.css'
@@ -112,6 +113,7 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 						data-before-send="beforeSendHandler"
 						strategy="afterInteractive"
 					></Script>
+					<GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
 				</head>
 				<body
 					className={`${geistSans.variable} ${geistMono.variable} ${bowlbyOneSC.variable} bg-background text-foreground font-geist antialiased`}
