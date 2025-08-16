@@ -37,6 +37,8 @@ const nextConfig: NextConfig = {
 			'https://umami.wadefade.fr',
 			'https://browser.sentry-cdn.com',
 			'https://*.ingest.sentry.io',
+			'https://www.googletagmanager.com',
+			'https://www.googletagmanager.com/gtag/js',
 		].join(' ')
 
 		const connectSrc = [
@@ -58,6 +60,8 @@ const nextConfig: NextConfig = {
 			'https://sentry.io',
 			'https://cloudflare-turnstile.com',
 			'https://*.cloudflare-turnstile.com',
+			'https://www.googletagmanager.com',
+			'https://www.googletagmanager.com/gtag/js',
 		].join(' ')
 
 		const frameSrc = [
@@ -72,6 +76,8 @@ const nextConfig: NextConfig = {
 			'https://hooks.stripe.com',
 			'https://cloudflare-turnstile.com',
 			'https://*.cloudflare-turnstile.com',
+			'https://www.googletagmanager.com',
+			'https://www.googletagmanager.com/gtag/js',
 		].join(' ')
 
 		const csp = [
