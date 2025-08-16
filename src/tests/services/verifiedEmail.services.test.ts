@@ -8,20 +8,14 @@ vi.mock('@/services/notification.service', () => ({
 }))
 
 // Mock the PocketBase service
-const mockGetFullList = vi.fn()
-const mockCreate = vi.fn()
-const mockUpdate = vi.fn()
-const mockGetOne = vi.fn()
-const mockCollection = vi.fn().mockReturnValue({
-	update: mockUpdate,
-	getOne: mockGetOne,
-	getFullList: mockGetFullList,
-	create: mockCreate,
-})
-
 vi.mock('@/lib/services/pocketbase', () => ({
 	pb: {
-		collection: mockCollection,
+		collection: vi.fn().mockReturnValue({
+			update: vi.fn(),
+			getOne: vi.fn(),
+			getFullList: vi.fn(),
+			create: vi.fn(),
+		}),
 	},
 }))
 
@@ -33,8 +27,31 @@ vi.mock('@/lib/utils/date', () => ({
 }))
 
 describe('verifiedEmail.services', () => {
-	beforeEach(() => {
+	let mockCollection: ReturnType<typeof vi.fn>
+	let mockGetFullList: ReturnType<typeof vi.fn>
+	let mockCreate: ReturnType<typeof vi.fn>
+	let mockUpdate: ReturnType<typeof vi.fn>
+	let mockGetOne: ReturnType<typeof vi.fn>
+
+	beforeEach(async () => {
 		vi.clearAllMocks()
+		
+		// Get references to the mocked functions
+		const { pb } = await import('@/lib/services/pocketbase')
+		mockCollection = vi.mocked(pb.collection)
+		
+		// Set up the mock return values for collection methods
+		mockGetFullList = vi.fn()
+		mockCreate = vi.fn()
+		mockUpdate = vi.fn()
+		mockGetOne = vi.fn()
+		
+		mockCollection.mockReturnValue({
+			create: mockCreate,
+			getFullList: mockGetFullList,
+			getOne: mockGetOne,
+			update: mockUpdate,
+		})
 	})
 
 	describe('createVerifiedEmail', () => {
