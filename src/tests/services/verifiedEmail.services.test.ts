@@ -13,10 +13,10 @@ const mockCreate = vi.fn()
 const mockUpdate = vi.fn()
 const mockGetOne = vi.fn()
 const mockCollection = vi.fn().mockReturnValue({
-	create: mockCreate,
-	getFullList: mockGetFullList,
-	getOne: mockGetOne,
 	update: mockUpdate,
+	getOne: mockGetOne,
+	getFullList: mockGetFullList,
+	create: mockCreate,
 })
 
 vi.mock('@/lib/services/pocketbase', () => ({
@@ -46,15 +46,15 @@ describe('verifiedEmail.services', () => {
 			mockGetFullList.mockResolvedValueOnce([]) // Daily attempts check
 			mockGetFullList.mockResolvedValueOnce([]) // Existing email check
 			mockCreate.mockResolvedValueOnce({
-				created: new Date().toISOString(),
-				email: 'test@example.com',
-				expiresAt: new Date().toISOString(),
-				id: 'test-id',
-				isVerified: false,
-				updated: new Date().toISOString(),
-				userId: 'user-123',
-				verificationCode: '123456',
 				verifiedAt: null,
+				verificationCode: '123456',
+				userId: 'user-123',
+				updated: new Date().toISOString(),
+				isVerified: false,
+				id: 'test-id',
+				expiresAt: new Date().toISOString(),
+				email: 'test@example.com',
+				created: new Date().toISOString(),
 			})
 
 			const result = await createVerifiedEmail({
@@ -71,7 +71,7 @@ describe('verifiedEmail.services', () => {
 
 		it('should enforce spam protection for recent attempts', async () => {
 			// Mock spam check - recent attempt found
-			mockGetFullList.mockResolvedValueOnce([{ id: 'recent-record', updated: new Date().toISOString() }])
+			mockGetFullList.mockResolvedValueOnce([{ updated: new Date().toISOString(), id: 'recent-record' }])
 
 			const result = await createVerifiedEmail({
 				userId: 'user-123',
@@ -88,15 +88,15 @@ describe('verifiedEmail.services', () => {
 			const mockSendVerificationEmail = (await import('@/services/notification.service')).sendVerificationEmail
 
 			mockGetOne.mockResolvedValueOnce({
-				created: new Date().toISOString(),
-				email: 'test@example.com',
-				expiresAt: new Date().toISOString(),
-				id: 'test-id',
-				isVerified: false,
-				updated: new Date().toISOString(),
-				userId: 'user-123',
-				verificationCode: '123456',
 				verifiedAt: null,
+				verificationCode: '123456',
+				userId: 'user-123',
+				updated: new Date().toISOString(),
+				isVerified: false,
+				id: 'test-id',
+				expiresAt: new Date().toISOString(),
+				email: 'test@example.com',
+				created: new Date().toISOString(),
 			})
 
 			// Mock spam check - no recent attempts
@@ -104,15 +104,15 @@ describe('verifiedEmail.services', () => {
 			mockGetFullList.mockResolvedValueOnce([]) // Daily attempts check
 
 			mockUpdate.mockResolvedValueOnce({
-				created: new Date().toISOString(),
-				email: 'test@example.com',
-				expiresAt: new Date().toISOString(),
-				id: 'test-id',
-				isVerified: false,
-				updated: new Date().toISOString(),
-				userId: 'user-123',
-				verificationCode: '654321',
 				verifiedAt: null,
+				verificationCode: '654321',
+				userId: 'user-123',
+				updated: new Date().toISOString(),
+				isVerified: false,
+				id: 'test-id',
+				expiresAt: new Date().toISOString(),
+				email: 'test@example.com',
+				created: new Date().toISOString(),
 			})
 
 			const result = await resendVerificationCode('test-id')
