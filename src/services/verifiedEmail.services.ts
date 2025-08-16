@@ -4,17 +4,19 @@ import { DateTime } from 'luxon'
 
 import type { CreateVerifiedEmailRequest, VerifiedEmail, VerifyEmailRequest } from '@/models/verifiedEmail.model'
 
+import { VERIFICATION_EXPIRY_MINUTES } from '@/constants/verifiedEmail.constant'
+import { sendVerificationEmail } from '@/services/notification.service'
+import { canSendVerificationEmail } from '@/lib/utils/verificationSpam'
 import { pbDateToLuxon } from '@/lib/utils/date'
 import { pb } from '@/lib/services/pocketbase'
-
-const VERIFICATION_EXPIRY_HOURS = 24
 
 /**
  * Helper function to handle PocketBase errors consistently
  */
 function handlePocketBaseError(error: unknown, operation: string): void {
 	console.error(`Error ${operation}:`, error)
-	console.error(error.response || error)
+	const errorObj = error as { response?: unknown }
+	console.error(errorObj.response ?? error)
 
 	// Provide helpful error message for missing collection
 	if (error instanceof Error && error.message.includes('404')) {
@@ -75,6 +77,13 @@ function mapPbVerifiedEmailToModel(record: unknown): VerifiedEmail {
  */
 export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Promise<VerifiedEmail | null> {
 	try {
+		// Check spam protection
+		const spamCheck = await canSendVerificationEmail(data.userId, data.email)
+		if (!spamCheck.canSend) {
+			console.warn(`Verification email blocked for ${data.email}: ${spamCheck.reason}`)
+			throw new Error(spamCheck.reason)
+		}
+
 		// Check if email already exists for this user
 		const existingRecords = await pb.collection('verifiedEmails').getFullList({
 			perPage: 1,
@@ -89,7 +98,7 @@ export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Pro
 		}
 
 		const verificationCode = generateVerificationCode()
-		const expiresAt = DateTime.now().plus({ hours: VERIFICATION_EXPIRY_HOURS }).toISO()
+		const expiresAt = DateTime.now().plus({ minutes: VERIFICATION_EXPIRY_MINUTES }).toISO()
 
 		let record: unknown
 
@@ -112,8 +121,11 @@ export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Pro
 			})
 		}
 
-		// TODO: Send verification email with code
-		// await sendVerificationEmail(data.email, verificationCode)
+		// Send verification email
+		const emailSent = await sendVerificationEmail(data.email, verificationCode, VERIFICATION_EXPIRY_MINUTES)
+		if (!emailSent) {
+			console.warn(`Failed to send verification email to ${data.email}`)
+		}
 
 		return mapPbVerifiedEmailToModel(record)
 	} catch (error) {
@@ -212,18 +224,32 @@ export async function resendVerificationCode(verifiedEmailId: string): Promise<b
 			throw new Error('Email is already verified')
 		}
 
+		// Check spam protection
+		const spamCheck = await canSendVerificationEmail(record.userId as string, record.email as string)
+		if (!spamCheck.canSend) {
+			console.warn(`Resend verification email blocked for ${record.email as string}: ${spamCheck.reason}`)
+			throw new Error(spamCheck.reason)
+		}
+
 		const newVerificationCode = generateVerificationCode()
-		const newExpiresAt = DateTime.now().plus({ hours: VERIFICATION_EXPIRY_HOURS }).toISO()
+		const newExpiresAt = DateTime.now().plus({ minutes: VERIFICATION_EXPIRY_MINUTES }).toISO()
 
 		await pb.collection('verifiedEmails').update(verifiedEmailId, {
 			verificationCode: newVerificationCode,
 			expiresAt: newExpiresAt,
 		})
 
-		// TODO: Send verification email with new code
-		// await sendVerificationEmail(record.email, newVerificationCode)
+		// Send verification email with new code
+		const emailSent = await sendVerificationEmail(
+			record.email as string,
+			newVerificationCode,
+			VERIFICATION_EXPIRY_MINUTES
+		)
+		if (!emailSent) {
+			console.warn(`Failed to resend verification email to ${record.email as string}`)
+		}
 
-		return true
+		return emailSent
 	} catch (error) {
 		handlePocketBaseError(error, 'resending verification code')
 		return false
