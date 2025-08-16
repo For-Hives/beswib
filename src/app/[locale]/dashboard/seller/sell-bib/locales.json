@@ -77,7 +77,9 @@
 			"next": "Next",
 			"previous": "Previous",
 			"finish": "List My Bib",
-			"cancel": "Cancel"
+			"cancel": "Cancel",
+			"backToDashboard": "Back to Dashboard",
+			"complete": "Finish"
 		},
 		"messages": {
 			"success": "Your bib has been listed successfully!",
@@ -171,7 +173,9 @@
 			"next": "Suivant",
 			"previous": "Précédent",
 			"finish": "Mettre en vente",
-			"cancel": "Annuler"
+			"cancel": "Annuler",
+			"backToDashboard": "Retour au Dashboard",
+			"complete": "Terminer"
 		},
 		"messages": {
 			"success": "Votre dossard a été mis en vente avec succès !",
@@ -265,7 +269,9 @@
 			"next": "다음",
 			"previous": "이전",
 			"finish": "내 비브 등록",
-			"cancel": "취소"
+			"cancel": "취소",
+			"backToDashboard": "대시보드로 돌아가기",
+			"complete": "완료"
 		},
 		"messages": {
 			"success": "비브가 성공적으로 등록되었습니다!",
@@ -359,7 +365,9 @@
 			"next": "Siguiente",
 			"previous": "Anterior",
 			"finish": "Listar Mi Dorsal",
-			"cancel": "Cancelar"
+			"cancel": "Cancelar",
+			"backToDashboard": "Volver al Panel",
+			"complete": "Finalizar"
 		},
 		"messages": {
 			"success": "¡Tu dorsal ha sido listado exitosamente!",
@@ -453,7 +461,9 @@
 			"next": "Avanti",
 			"previous": "Indietro",
 			"finish": "Elenca il Mio Pettorale",
-			"cancel": "Annulla"
+			"cancel": "Annulla",
+			"backToDashboard": "Torna alla Dashboard",
+			"complete": "Completa"
 		},
 		"messages": {
 			"success": "Il tuo pettorale è stato elencato con successo!",
@@ -547,7 +557,9 @@
 			"next": "Weiter",
 			"previous": "Zurück",
 			"finish": "Meine Startnummer Listen",
-			"cancel": "Abbrechen"
+			"cancel": "Abbrechen",
+			"backToDashboard": "Zurück zum Dashboard",
+			"complete": "Abschließen"
 		},
 		"messages": {
 			"success": "Ihre Startnummer wurde erfolgreich gelistet!",
@@ -641,7 +653,9 @@
 			"next": "Următorul",
 			"previous": "Anteriorul",
 			"finish": "Listează Numărul Meu",
-			"cancel": "Anulează"
+			"cancel": "Anulează",
+			"backToDashboard": "Înapoi la Dashboard",
+			"complete": "Finalizează"
 		},
 		"messages": {
 			"success": "Numărul tău a fost listat cu succes!",
@@ -735,7 +749,9 @@
 			"next": "Próximo",
 			"previous": "Anterior",
 			"finish": "Listar o meu Dorsal",
-			"cancel": "Cancelar"
+			"cancel": "Cancelar",
+			"backToDashboard": "Voltar ao Painel",
+			"complete": "Finalizar"
 		},
 		"messages": {
 			"success": "O seu dorsal foi listado com sucesso!",
@@ -829,7 +845,9 @@
 			"next": "Volgende",
 			"previous": "Vorige",
 			"finish": "Mijn Startnummer Plaatsen",
-			"cancel": "Annuleren"
+			"cancel": "Annuleren",
+			"backToDashboard": "Terug naar Dashboard",
+			"complete": "Voltooien"
 		},
 		"messages": {
 			"success": "Uw startnummer is succesvol geplaatst!",
