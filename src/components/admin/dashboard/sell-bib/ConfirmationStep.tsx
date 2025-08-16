@@ -152,29 +152,33 @@ export default function ConfirmationStep({
 						<CardContent className="space-y-4 p-6">
 							<div className="space-y-2">
 								<Label className="text-foreground text-base font-medium">
-									{formData.listingType === 'private' ? t.form.confirmation.privateLink : t.form.confirmation.publicLink}
+									{formData.listingType === 'private'
+										? t.form.confirmation.privateLink
+										: t.form.confirmation.publicLink}
 								</Label>
 								<p className="text-muted-foreground text-sm">
-									{formData.listingType === 'private' ? t.form.confirmation.privateLinkMessage : t.form.confirmation.publicLinkMessage}
+									{formData.listingType === 'private'
+										? t.form.confirmation.privateLinkMessage
+										: t.form.confirmation.publicLinkMessage}
 								</p>
 							</div>
 							<div className="flex gap-2">
-								<Input 
-									className="flex-1" 
-									readOnly 
-									value={formData.listingType === 'private' ? generatePrivateLink() : generatePublicLink()} 
+								<Input
+									className="flex-1"
+									readOnly
+									value={formData.listingType === 'private' ? generatePrivateLink() : generatePublicLink()}
 								/>
-								<Button 
-									onClick={() => void (formData.listingType === 'private' ? copyPrivateLink() : copyPublicLink())} 
-									size="sm" 
+								<Button
+									onClick={() => void (formData.listingType === 'private' ? copyPrivateLink() : copyPublicLink())}
+									size="sm"
 									variant="outline"
 								>
 									<Copy className="h-4 w-4" />
 								</Button>
 								<Button asChild size="sm" variant="outline">
-									<Link 
-										href={formData.listingType === 'private' ? generatePrivateLink() : generatePublicLink()} 
-										rel="noopener noreferrer" 
+									<Link
+										href={formData.listingType === 'private' ? generatePrivateLink() : generatePublicLink()}
+										rel="noopener noreferrer"
 										target="_blank"
 									>
 										<ExternalLink className="h-4 w-4" />
@@ -182,7 +186,9 @@ export default function ConfirmationStep({
 								</Button>
 							</div>
 							<p className="text-muted-foreground text-sm">
-								{formData.listingType === 'private' ? t.form.confirmation.privateLinkHelp : t.form.confirmation.publicLinkHelp}
+								{formData.listingType === 'private'
+									? t.form.confirmation.privateLinkHelp
+									: t.form.confirmation.publicLinkHelp}
 							</p>
 						</CardContent>
 					</Card>
@@ -238,7 +244,6 @@ export default function ConfirmationStep({
 							</div>
 						</CardContent>
 					</Card>
-
 
 					{/* Terms */}
 					<div className="bg-card/50 dark:border-border/50 space-y-4 rounded-lg border border-black/50 p-4">
