@@ -22,6 +22,7 @@ import Header from '@/components/global/Header'
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 
 import '@/lib/utils/umami'
+import '@/lib/utils/consent-debug'
 import '@/app/[locale]/globals.css'
 
 const geistSans = Geist({
@@ -113,7 +114,10 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 						data-before-send="beforeSendHandler"
 						strategy="afterInteractive"
 					></Script>
-					<GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
+					<GoogleAnalytics 
+						measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} 
+						enableDebugMode={process.env.NODE_ENV === 'development'}
+					/>
 				</head>
 				<body
 					className={`${geistSans.variable} ${geistMono.variable} ${bowlbyOneSC.variable} bg-background text-foreground font-geist antialiased`}
