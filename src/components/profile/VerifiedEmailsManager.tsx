@@ -6,12 +6,6 @@ import React, { useEffect, useState } from 'react'
 import type { VerifiedEmail } from '@/models/verifiedEmail.model'
 import type { User } from '@/models/user.model'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Badge } from '@/components/ui/badge'
 import {
 	createVerifiedEmail,
 	deleteVerifiedEmail,
@@ -19,6 +13,11 @@ import {
 	resendVerificationCode,
 	verifyEmail,
 } from '@/services/verifiedEmail.services'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
 
 interface VerifiedEmailsManagerProps {
 	user: User
@@ -205,7 +204,7 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
-					{error && (
+					{error != null && error.length > 0 && (
 						<Alert variant="destructive">
 							<AlertDescription>{error}</AlertDescription>
 						</Alert>
