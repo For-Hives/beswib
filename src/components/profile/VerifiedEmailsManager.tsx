@@ -18,13 +18,50 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import pageLocales from './locales.json'
 
 interface VerifiedEmailsManagerProps {
 	user: User
 	locale: string
 }
 
-export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerProps) {
+// Local i18n typing for this component's slice
+type VerifiedEmailsNamespace = {
+	title: string
+	description: string
+	loading: string
+	primary: string
+	codePlaceholder: string
+	info: string
+	confirmDelete: string
+	buttons: {
+		verify: string
+		resend: string
+		addEmail: string
+		enterEmailPlaceholder: string
+		add: string
+		cancel: string
+	}
+	errors: {
+		loadFailed: string
+		addInvalidEmail: string
+		addFailed: string
+		verifyInvalidCode: string
+		verifyInvalid: string
+		verifyFailed: string
+		resendFailed: string
+		deleteFailed: string
+	}
+}
+
+type ProfileLocales = Record<string, unknown> & {
+	verifiedEmails?: VerifiedEmailsNamespace
+}
+
+export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsManagerProps) {
+	const t = getTranslations(locale, pageLocales)
+
 	const [verifiedEmails, setVerifiedEmails] = useState<VerifiedEmail[]>([])
 	const [newEmail, setNewEmail] = useState('')
 	const [verificationCodes, setVerificationCodes] = useState<Record<string, string>>({})
@@ -42,7 +79,7 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 				setVerifiedEmails(emails)
 			} catch (error) {
 				console.error('Error loading verified emails:', error)
-				setError('Failed to load verified emails')
+				setError(t.verifiedEmails.errors.loadFailed)
 			} finally {
 				setLoading(false)
 			}
@@ -53,7 +90,7 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 
 	const handleAddEmail = async () => {
 		if (!newEmail.trim() || !newEmail.includes('@')) {
-			setError('Please enter a valid email address')
+			setError(t.verifiedEmails.errors.addInvalidEmail ?? 'Please enter a valid email address')
 			return
 		}
 
@@ -67,12 +104,11 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 				setNewEmail('')
 				setShowAddEmail(false)
 			} else {
-				setError('Failed to add email. Please try again.')
+				setError(t.verifiedEmails.errors.addFailed ?? 'Failed to add email. Please try again.')
 			}
 		} catch (error) {
 			console.error('Error adding email:', error)
-			const errorMessage = error instanceof Error ? error.message : 'Failed to add email. Please try again.'
-			setError(errorMessage)
+			setError(t.verifiedEmails.errors.addFailed ?? 'Failed to add email. Please try again.')
 		} finally {
 			setProcessingEmails(prev => {
 				const next = new Set(prev)
@@ -85,7 +121,7 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 	const handleVerifyEmail = async (emailId: string) => {
 		const code = verificationCodes[emailId]
 		if (!code || code.length !== 6) {
-			setError('Please enter a valid 6-digit verification code')
+			setError(t.verifiedEmails.errors.verifyInvalidCode ?? 'Please enter a valid 6-digit verification code')
 			return
 		}
 
@@ -102,12 +138,11 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 					return next
 				})
 			} else {
-				setError('Invalid verification code or code has expired')
+				setError(t.verifiedEmails.errors.verifyInvalid ?? 'Invalid verification code or code has expired')
 			}
 		} catch (error) {
 			console.error('Error verifying email:', error)
-			const errorMessage = error instanceof Error ? error.message : 'Failed to verify email. Please try again.'
-			setError(errorMessage)
+			setError(t.verifiedEmails.errors.verifyFailed ?? 'Failed to verify email. Please try again.')
 		} finally {
 			setProcessingEmails(prev => {
 				const next = new Set(prev)
@@ -124,13 +159,11 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 		try {
 			const success = await resendVerificationCode(emailId)
 			if (!success) {
-				setError('Failed to resend verification code. Please try again.')
+				setError(t.verifiedEmails.errors.resendFailed ?? 'Failed to resend verification code. Please try again.')
 			}
 		} catch (error) {
 			console.error('Error resending code:', error)
-			const errorMessage =
-				error instanceof Error ? error.message : 'Failed to resend verification code. Please try again.'
-			setError(errorMessage)
+			setError(t.verifiedEmails.errors.resendFailed ?? 'Failed to resend verification code. Please try again.')
 		} finally {
 			setProcessingEmails(prev => {
 				const next = new Set(prev)
@@ -141,7 +174,7 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 	}
 
 	const handleDeleteEmail = async (emailId: string) => {
-		if (!confirm('Are you sure you want to delete this email?')) {
+		if (!confirm(t.verifiedEmails.confirmDelete ?? 'Are you sure you want to delete this email?')) {
 			return
 		}
 
@@ -153,11 +186,11 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 			if (success) {
 				setVerifiedEmails(prev => prev.filter(email => email.id !== emailId))
 			} else {
-				setError('Failed to delete email. Please try again.')
+				setError(t.verifiedEmails.errors.deleteFailed ?? 'Failed to delete email. Please try again.')
 			}
 		} catch (error) {
 			console.error('Error deleting email:', error)
-			setError('Failed to delete email. Please try again.')
+			setError(t.verifiedEmails.errors.deleteFailed ?? 'Failed to delete email. Please try again.')
 		} finally {
 			setProcessingEmails(prev => {
 				const next = new Set(prev)
@@ -180,11 +213,11 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<MailIcon className="h-5 w-5" />
-						Verified Email Addresses
+						{t.verifiedEmails.title ?? 'Verified Email Addresses'}
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<p className="text-muted-foreground">Loading...</p>
+					<p className="text-muted-foreground">{t.verifiedEmails.loading ?? 'Loading...'}</p>
 				</CardContent>
 			</Card>
 		)
@@ -196,11 +229,11 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<MailIcon className="h-5 w-5" />
-						Verified Email Addresses
+						{t.verifiedEmails.title ?? 'Verified Email Addresses'}
 					</CardTitle>
 					<CardDescription>
-						Manage the email addresses associated with your account. Verified emails can be used for event
-						registrations.
+						{t.verifiedEmails.description ??
+							'Manage the email addresses associated with your account. Verified emails can be used for event registrations.'}
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
@@ -215,7 +248,7 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 						<div className="flex items-center gap-3">
 							<div className="flex items-center gap-2">
 								<span>{user.email}</span>
-								<Badge variant="secondary">Primary</Badge>
+								<Badge variant="secondary">{t.verifiedEmails.primary ?? 'Primary'}</Badge>
 								<CheckIcon className="h-4 w-4 text-green-600" />
 							</div>
 						</div>
@@ -235,7 +268,7 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 									<>
 										<Input
 											type="text"
-											placeholder="6-digit code"
+											placeholder={t.verifiedEmails.codePlaceholder ?? '6-digit code'}
 											value={verificationCodes[email.id] || ''}
 											onChange={e => updateVerificationCode(email.id, e.target.value)}
 											className="w-32"
@@ -251,7 +284,7 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 												verificationCodes[email.id].length !== 6
 											}
 										>
-											Verify
+											{t.verifiedEmails.buttons.verify ?? 'Verify'}
 										</Button>
 										<Button
 											size="sm"
@@ -259,7 +292,7 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 											onClick={() => void handleResendCode(email.id)}
 											disabled={processingEmails.has(email.id)}
 										>
-											Resend
+											{t.verifiedEmails.buttons.resend ?? 'Resend'}
 										</Button>
 									</>
 								)}
@@ -279,14 +312,14 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 					{!showAddEmail ? (
 						<Button variant="outline" onClick={() => setShowAddEmail(true)} className="w-full">
 							<PlusIcon className="mr-2 h-4 w-4" />
-							Add Email Address
+							{t.verifiedEmails.buttons.addEmail ?? 'Add Email Address'}
 						</Button>
 					) : (
 						<div className="space-y-4">
 							<div className="flex gap-2">
 								<Input
 									type="email"
-									placeholder="Enter email address"
+									placeholder={t.verifiedEmails.buttons.enterEmailPlaceholder ?? 'Enter email address'}
 									value={newEmail}
 									onChange={e => setNewEmail(e.target.value)}
 									onKeyPress={e => e.key === 'Enter' && !processingEmails.has('new') && void handleAddEmail()}
@@ -297,7 +330,7 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 									onClick={() => void handleAddEmail()}
 									disabled={processingEmails.has('new') || !newEmail.trim() || !newEmail.includes('@')}
 								>
-									Add
+									{t.verifiedEmails.buttons.add ?? 'Add'}
 								</Button>
 								<Button
 									variant="outline"
@@ -308,11 +341,12 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 									}}
 									disabled={processingEmails.has('new')}
 								>
-									Cancel
+									{t.verifiedEmails.buttons.cancel ?? 'Cancel'}
 								</Button>
 							</div>
 							<p className="text-muted-foreground text-sm">
-								A verification code will be sent to this email address. The code expires in 15 minutes.
+								{t.verifiedEmails.info ??
+									'A verification code will be sent to this email address. The code expires in 15 minutes.'}
 							</p>
 						</div>
 					)}
