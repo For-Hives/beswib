@@ -3,13 +3,6 @@
  * Based on: https://developers.google.com/tag-platform/security/guides/consent-debugging
  */
 
-declare global {
-	interface Window {
-		gtag?: (...args: unknown[]) => void
-		dataLayer?: unknown[]
-	}
-}
-
 interface ConsentState {
 	ad_storage: 'granted' | 'denied'
 	ad_user_data: 'granted' | 'denied'
@@ -34,8 +27,9 @@ export function enableGoogleConsentDebug() {
 	window.history.replaceState({}, '', url.toString())
 
 	// Enable gtag debug mode
-	if (window.gtag) {
-		window.gtag('config', 'G-PGSND15ZCT', {
+	const gtag = (window as any)?.gtag
+	if (gtag) {
+		gtag('config', 'G-PGSND15ZCT', {
 			debug_mode: true,
 		})
 	}
@@ -52,12 +46,13 @@ export function enableGoogleConsentDebug() {
  */
 export function getConsentState(): Promise<ConsentState | null> {
 	return new Promise(resolve => {
-		if (typeof window === 'undefined' || !window.gtag) {
+		const gtag = (window as any)?.gtag
+		if (typeof window === 'undefined' || !gtag) {
 			resolve(null)
 			return
 		}
 
-		window.gtag('get', 'G-PGSND15ZCT', 'consent', (consentState: ConsentState) => {
+		gtag('get', 'G-PGSND15ZCT', 'consent', (consentState: ConsentState) => {
 			console.info('🔍 Current Google Consent State:', consentState)
 			resolve(consentState)
 		})
@@ -68,13 +63,14 @@ export function getConsentState(): Promise<ConsentState | null> {
  * Test consent update with different scenarios
  */
 export function testConsentScenarios() {
-	if (typeof window === 'undefined' || !window.gtag) return
+	const gtag = (window as any)?.gtag
+	if (typeof window === 'undefined' || !gtag) return
 
 	console.info('🧪 Testing consent scenarios...')
 
 	// Scenario 1: All denied
 	console.info('1. All denied')
-	window.gtag('consent', 'update', {
+	gtag('consent', 'update', {
 		personalization_storage: 'denied',
 		functionality_storage: 'denied',
 		analytics_storage: 'denied',
@@ -86,7 +82,7 @@ export function testConsentScenarios() {
 	setTimeout(() => {
 		// Scenario 2: Analytics only
 		console.info('2. Analytics only')
-		window.gtag('consent', 'update', {
+		gtag('consent', 'update', {
 			analytics_storage: 'granted',
 		})
 	}, 2000)
@@ -94,7 +90,7 @@ export function testConsentScenarios() {
 	setTimeout(() => {
 		// Scenario 3: All granted
 		console.info('3. All granted')
-		window.gtag('consent', 'update', {
+		gtag('consent', 'update', {
 			personalization_storage: 'granted',
 			functionality_storage: 'granted',
 			analytics_storage: 'granted',
@@ -111,7 +107,7 @@ export function testConsentScenarios() {
 export function monitorConsentEvents() {
 	if (typeof window === 'undefined') return
 
-	const dataLayer = window.dataLayer
+	const dataLayer = (window as any)?.dataLayer
 	if (!dataLayer?.push) return
 
 	const originalPush = dataLayer.push.bind(dataLayer)
