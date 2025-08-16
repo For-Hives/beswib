@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/dialog'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import profileTranslations from '@/app/[locale]/profile/locales.json'
+import VerifiedEmailsManager from '@/components/profile/VerifiedEmailsManager'
 import PayPalOnboarding from '@/components/profile/PayPalOnboarding'
 import ModernRunnerForm from '@/components/profile/modernRunnerForm'
 import UserHeader from '@/components/dashboard/user-header'
@@ -89,8 +90,9 @@ ${clerkUser.firstName ?? ''} ${clerkUser.lastName ?? ''}`)
 					</div>
 
 					<div className="grid gap-8 lg:grid-cols-3">
-						<div className="lg:col-span-2">
+						<div className="lg:col-span-2 space-y-8">
 							<ModernRunnerForm user={user} locale={locale} />
+							<VerifiedEmailsManager user={user} locale={locale} />
 						</div>
 						<div>
 							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
