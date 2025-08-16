@@ -31,9 +31,9 @@ export default function ContactForm({ t }: ContactFormProps) {
 		const emailParam = searchParams.get('email')
 		const messageParam = searchParams.get('message')
 
-		if (nameParam) setName(decodeURIComponent(nameParam))
-		if (emailParam) setEmail(decodeURIComponent(emailParam))
-		if (messageParam) setMessage(decodeURIComponent(messageParam))
+		if (nameParam != null && nameParam !== '') setName(decodeURIComponent(nameParam))
+		if (emailParam != null && emailParam !== '') setEmail(decodeURIComponent(emailParam))
+		if (messageParam != null && messageParam !== '') setMessage(decodeURIComponent(messageParam))
 	}, [searchParams])
 
 	const handleSubmit = async (e: React.FormEvent) => {
