@@ -86,7 +86,7 @@ export async function fetchUserByClerkId(clerkId: string | undefined): Promise<n
 	}
 	try {
 		const user = await pb.collection('users').getFirstListItem<PbUserRecordMinimal>(`clerkId = "${clerkId}"`)
-		if (!user) {
+		if (user == null) {
 			return null
 		}
 		return mapPbRecordToUser(user)
@@ -103,7 +103,7 @@ export async function fetchUserByEmail(email: string): Promise<null | User> {
 	}
 	try {
 		const user = await pb.collection('users').getFirstListItem<PbUserRecordMinimal>(`email = "${email.trim()}"`)
-		if (!user) {
+		if (user == null) {
 			return null
 		}
 		return mapPbRecordToUser(user)
@@ -124,7 +124,7 @@ export async function fetchUserById(id: string): Promise<null | User> {
 	}
 	try {
 		const user = await pb.collection('users').getOne<PbUserRecordMinimal>(id)
-		if (!user) {
+		if (user == null) {
 			return null
 		}
 		return mapPbRecordToUser(user)
@@ -137,7 +137,7 @@ export async function fetchUserById(id: string): Promise<null | User> {
 export async function getUserData(userId: string): Promise<null | User> {
 	try {
 		const user = await pb.collection('users').getOne<PbUserRecordMinimal>(userId)
-		if (!user) {
+		if (user == null) {
 			return null
 		}
 		return mapPbRecordToUser(user)
@@ -148,7 +148,7 @@ export async function getUserData(userId: string): Promise<null | User> {
 }
 
 export async function isUserAdmin(id: string): Promise<boolean> {
-	if (!id) {
+	if (id == null || id === '') {
 		return false
 	}
 	const user = await fetchUserById(id)
