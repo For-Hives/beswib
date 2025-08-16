@@ -4,6 +4,7 @@ import type { ReactNode } from 'react'
 
 import { ConsentManagerProvider, CookieBanner, ConsentManagerDialog } from '@c15t/nextjs'
 import { Geist, Geist_Mono, Bowlby_One_SC } from 'next/font/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { ClerkProvider } from '@clerk/nextjs'
 import { shadcn } from '@clerk/themes'
@@ -11,7 +12,6 @@ import { Toaster } from 'sonner'
 import Script from 'next/script'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
-import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { getClerkLocalization } from '@/lib/i18n/clerk/localization'
@@ -22,7 +22,6 @@ import Footer from '@/components/global/footer'
 import Header from '@/components/global/Header'
 
 import '@/lib/utils/umami'
-import '@/lib/utils/consent-debug'
 import '@/app/[locale]/globals.css'
 
 const geistSans = Geist({
@@ -114,10 +113,7 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 						data-before-send="beforeSendHandler"
 						strategy="afterInteractive"
 					></Script>
-					<GoogleAnalytics
-						measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? ''}
-						enableDebugMode={process.env.NODE_ENV === 'development'}
-					/>
+					<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID as string} />
 				</head>
 				<body
 					className={`${geistSans.variable} ${geistMono.variable} ${bowlbyOneSC.variable} bg-background text-foreground font-geist antialiased`}
