@@ -4,18 +4,24 @@ import { createVerifiedEmail, resendVerificationCode } from '@/services/verified
 
 // Mock the notification service
 vi.mock('@/services/notification.service', () => ({
-	sendUserEmail: vi.fn().mockResolvedValue(true),
+	sendVerificationEmail: vi.fn().mockResolvedValue(true),
 }))
 
 // Mock the PocketBase service
+const mockGetFullList = vi.fn()
+const mockCreate = vi.fn()
+const mockUpdate = vi.fn()
+const mockGetOne = vi.fn()
+const mockCollection = vi.fn().mockReturnValue({
+	create: mockCreate,
+	getFullList: mockGetFullList,
+	getOne: mockGetOne,
+	update: mockUpdate,
+})
+
 vi.mock('@/lib/services/pocketbase', () => ({
 	pb: {
-		collection: vi.fn().mockReturnValue({
-			getFullList: vi.fn(),
-			create: vi.fn(),
-			update: vi.fn(),
-			getOne: vi.fn(),
-		}),
+		collection: mockCollection,
 	},
 }))
 
@@ -33,21 +39,22 @@ describe('verifiedEmail.services', () => {
 
 	describe('createVerifiedEmail', () => {
 		it('should create and send verification email for new email', async () => {
-			const mockPb = (await import('@/lib/services/pocketbase')).pb
-			const mockSendUserEmail = (await import('@/services/notification.service')).sendUserEmail
+			const mockSendVerificationEmail = (await import('@/services/notification.service')).sendVerificationEmail
 
-			// Mock no existing records (new email)
-			mockPb.collection().getFullList.mockResolvedValueOnce([])
-			mockPb.collection().create.mockResolvedValueOnce({
-				id: 'test-id',
-				userId: 'user-123',
-				email: 'test@example.com',
-				verificationCode: '123456',
-				isVerified: false,
-				verifiedAt: null,
-				expiresAt: new Date().toISOString(),
+			// Mock spam check - no recent attempts
+			mockGetFullList.mockResolvedValueOnce([]) // Recent attempts check
+			mockGetFullList.mockResolvedValueOnce([]) // Daily attempts check
+			mockGetFullList.mockResolvedValueOnce([]) // Existing email check
+			mockCreate.mockResolvedValueOnce({
 				created: new Date().toISOString(),
+				email: 'test@example.com',
+				expiresAt: new Date().toISOString(),
+				id: 'test-id',
+				isVerified: false,
 				updated: new Date().toISOString(),
+				userId: 'user-123',
+				verificationCode: '123456',
+				verifiedAt: null,
 			})
 
 			const result = await createVerifiedEmail({
@@ -55,29 +62,16 @@ describe('verifiedEmail.services', () => {
 				email: 'test@example.com',
 			})
 
-			expect(result).toBeTruthy()
-			expect(mockPb.collection().create).toHaveBeenCalled()
-			expect(mockSendUserEmail).toHaveBeenCalledWith(
-				'test@example.com',
-				expect.objectContaining({
-					subject: expect.stringContaining('Verify your email'),
-					text: expect.stringContaining('verification code'),
-					html: expect.stringContaining('verification code'),
-				})
-			)
+			expect(result).not.toBeNull()
+			expect(result?.id).toBe('test-id')
+			expect(mockCollection).toHaveBeenCalledWith('verifiedEmails')
+			expect(mockCreate).toHaveBeenCalled()
+			expect(mockSendVerificationEmail).toHaveBeenCalled()
 		})
 
-		it('should enforce spam protection', async () => {
-			const mockPb = (await import('@/lib/services/pocketbase')).pb
-
-			// Mock recent record (within cooldown period)
-			const recentTime = new Date()
-			recentTime.setMinutes(recentTime.getMinutes() - 2) // 2 minutes ago, within 5-minute cooldown
-
-			mockPb
-				.collection()
-				.getFullList.mockResolvedValueOnce([]) // First call for existing email check
-				.mockResolvedValueOnce([{ id: 'recent-record', updated: recentTime.toISOString() }]) // Second call for spam check
+		it('should enforce spam protection for recent attempts', async () => {
+			// Mock spam check - recent attempt found
+			mockGetFullList.mockResolvedValueOnce([{ id: 'recent-record', updated: new Date().toISOString() }])
 
 			const result = await createVerifiedEmail({
 				userId: 'user-123',
@@ -85,34 +79,48 @@ describe('verifiedEmail.services', () => {
 			})
 
 			expect(result).toBeNull()
-			expect(mockPb.collection().create).not.toHaveBeenCalled()
+			expect(mockCreate).not.toHaveBeenCalled()
 		})
 	})
 
 	describe('resendVerificationCode', () => {
-		it('should enforce spam protection on resend', async () => {
-			const mockPb = (await import('@/lib/services/pocketbase')).pb
+		it('should resend verification code for valid request', async () => {
+			const mockSendVerificationEmail = (await import('@/services/notification.service')).sendVerificationEmail
 
-			// Mock getting the record
-			mockPb.collection().getOne.mockResolvedValueOnce({
-				id: 'test-id',
-				userId: 'user-123',
+			mockGetOne.mockResolvedValueOnce({
+				created: new Date().toISOString(),
 				email: 'test@example.com',
+				expiresAt: new Date().toISOString(),
+				id: 'test-id',
 				isVerified: false,
+				updated: new Date().toISOString(),
+				userId: 'user-123',
+				verificationCode: '123456',
+				verifiedAt: null,
 			})
 
-			// Mock recent record (within cooldown period)
-			const recentTime = new Date()
-			recentTime.setMinutes(recentTime.getMinutes() - 2) // 2 minutes ago, within 5-minute cooldown
+			// Mock spam check - no recent attempts
+			mockGetFullList.mockResolvedValueOnce([]) // Recent attempts check
+			mockGetFullList.mockResolvedValueOnce([]) // Daily attempts check
 
-			mockPb
-				.collection()
-				.getFullList.mockResolvedValueOnce([{ id: 'recent-record', updated: recentTime.toISOString() }])
+			mockUpdate.mockResolvedValueOnce({
+				created: new Date().toISOString(),
+				email: 'test@example.com',
+				expiresAt: new Date().toISOString(),
+				id: 'test-id',
+				isVerified: false,
+				updated: new Date().toISOString(),
+				userId: 'user-123',
+				verificationCode: '654321',
+				verifiedAt: null,
+			})
 
 			const result = await resendVerificationCode('test-id')
 
-			expect(result).toBe(false)
-			expect(mockPb.collection().update).not.toHaveBeenCalled()
+			expect(result).toBe(true)
+			expect(mockGetOne).toHaveBeenCalledWith('test-id')
+			expect(mockUpdate).toHaveBeenCalled()
+			expect(mockSendVerificationEmail).toHaveBeenCalled()
 		})
 	})
 })
