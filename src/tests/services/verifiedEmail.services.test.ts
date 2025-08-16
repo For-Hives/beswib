@@ -35,17 +35,17 @@ describe('verifiedEmail.services', () => {
 
 	beforeEach(async () => {
 		vi.clearAllMocks()
-		
+
 		// Get references to the mocked functions
 		const { pb } = await import('@/lib/services/pocketbase')
 		mockCollection = vi.mocked(pb.collection)
-		
+
 		// Set up the mock return values for collection methods
 		mockGetFullList = vi.fn()
 		mockCreate = vi.fn()
 		mockUpdate = vi.fn()
 		mockGetOne = vi.fn()
-		
+
 		mockCollection.mockReturnValue({
 			create: mockCreate,
 			getFullList: mockGetFullList,
