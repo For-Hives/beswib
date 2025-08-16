@@ -564,12 +564,33 @@ export async function updateBibStatusByAdmin(bibId: string, newStatus: Bib['stat
  * @returns A 32-character random string 🎲
  */
 function generatePrivateListingToken(): string {
-	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-	let result = ''
-	for (let i = 0; i < 32; i++) {
-		result += chars.charAt(Math.floor(Math.random() * chars.length))
+	const cryptoObj: Crypto | undefined = (globalThis as unknown as { crypto?: Crypto }).crypto
+	if (!cryptoObj || typeof cryptoObj.getRandomValues !== 'function') {
+		throw new Error('Secure random generator is unavailable')
 	}
-	return result
+
+	const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+	const alphabetLen = alphabet.length // 62
+	const resultLength = 32
+	const resultChars: string[] = []
+
+	// Rejection sampling to avoid modulo bias
+	const maxByte = 256
+	const acceptableRange = Math.floor(maxByte / alphabetLen) * alphabetLen // 248
+
+	while (resultChars.length < resultLength) {
+		const buf = new Uint8Array(16)
+		cryptoObj.getRandomValues(buf)
+		for (let i = 0; i < buf.length && resultChars.length < resultLength; i++) {
+			const v = buf[i]
+			if (v < acceptableRange) {
+				const idx = v % alphabetLen
+				resultChars.push(alphabet.charAt(idx))
+			}
+		}
+	}
+
+	return resultChars.join('')
 }
 
 /**

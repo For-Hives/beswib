@@ -93,8 +93,27 @@ interface VerifiedEmailRecord extends PocketBaseRecord {
  * Generates a random verification code
  */
 function generateVerificationCode(): string {
-	// Generate a 6-digit numeric code
-	return Math.floor(100000 + Math.random() * 900000).toString()
+	// Generate a 6-digit numeric code using a CSPRNG (Web Crypto API)
+	const cryptoObj: Crypto | undefined = (globalThis as unknown as { crypto?: Crypto }).crypto
+	if (!cryptoObj || typeof cryptoObj.getRandomValues !== 'function') {
+		// In the extremely unlikely case Web Crypto is unavailable in this runtime, fail fast
+		throw new Error('Secure random generator is unavailable')
+	}
+
+	const min = 100_000
+	const max = 1_000_000 // exclusive
+	const range = max - min // 900_000
+	const arr = new Uint32Array(1)
+	const maxUnsigned = 0x1_0000_0000 // 2^32
+	const limit = Math.floor(maxUnsigned / range) * range
+
+	let x = 0
+	do {
+		cryptoObj.getRandomValues(arr)
+		x = arr[0]
+	} while (x >= limit)
+
+	return (min + (x % range)).toString()
 }
 
 /**
