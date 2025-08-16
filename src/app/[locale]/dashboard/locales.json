@@ -344,6 +344,8 @@
 	},
 	"pt": {
 		"dashboard": {
+			"profileButton": "Perfil",
+			"dashboardButton": "Painel",
 			"title": "Painel",
 			"chooseHowToUse": "Escolha como quer usar o Beswib",
 			"buyCta": "Quero comprar um dorsal",
@@ -391,6 +393,8 @@
 	},
 	"nl": {
 		"dashboard": {
+			"profileButton": "Profiel",
+			"dashboardButton": "Dashboard",
 			"title": "Dashboard",
 			"chooseHowToUse": "Kies hoe u Beswib wilt gebruiken",
 			"buyCta": "Ik wil een startnummer kopen",
