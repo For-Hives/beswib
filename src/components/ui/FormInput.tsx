@@ -2,6 +2,7 @@
 
 import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
 import { Eye, EyeOff } from 'lucide-react'
+import { useEffect } from 'react'
 import * as React from 'react'
 
 import { FieldError } from '@/types/auth'
@@ -27,7 +28,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 		let mouseX = useMotionValue(0)
 		let mouseY = useMotionValue(0)
 
-		React.useEffect(() => {
+		useEffect(() => {
 			if (type === 'password' && showPasswordToggle === true) {
 				setInputType(showPassword ? 'text' : 'password')
 			}
