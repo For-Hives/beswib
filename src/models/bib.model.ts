@@ -1,3 +1,4 @@
+import { VerifiedEmail } from './verifiedEmail.model'
 import { Event } from './event.model'
 import { User } from './user.model'
 
@@ -14,6 +15,7 @@ export interface Bib {
 	registrationNumber: string
 
 	sellerUserId: User['id']
+	linkedEmailId?: VerifiedEmail['id'] // Email used for registration on event website
 	status: 'available' | 'expired' | 'sold' | 'validation_failed' | 'withdrawn'
 
 	listed: 'private' | 'public' | null

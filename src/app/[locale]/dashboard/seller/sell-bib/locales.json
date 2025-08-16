@@ -7,6 +7,10 @@
 				"title": "Select Event",
 				"description": "Choose the event for which you want to sell your bib"
 			},
+			"emailVerification": {
+				"title": "Email Verification",
+				"description": "Verify the email used for event registration"
+			},
 			"bibDetails": {
 				"title": "Bib Details",
 				"description": "Provide details about your race bib"
@@ -108,6 +112,10 @@
 			"eventSelection": {
 				"title": "Sélectionner l'événement",
 				"description": "Choisissez l'événement pour lequel vous souhaitez vendre votre dossard"
+			},
+			"emailVerification": {
+				"title": "Vérification Email",
+				"description": "Vérifiez l'email utilisé pour l'inscription à l'événement"
 			},
 			"bibDetails": {
 				"title": "Détails du dossard",

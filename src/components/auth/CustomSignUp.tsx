@@ -207,7 +207,9 @@ export default function CustomSignUp() {
 			await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
 
 			setPendingVerification(true)
-			setVerificationEmail(formData.email)
+			if (formData.email != null && formData.email !== '') {
+				setVerificationEmail(formData.email)
+			}
 		} catch (err: unknown) {
 			console.error('Signup error:', JSON.stringify(err, null, 2))
 			const errorMessage = translateClerkErrorLocal(err)
@@ -218,7 +220,7 @@ export default function CustomSignUp() {
 				errors: Array<Partial<{ code: string; message: string; meta?: { paramName?: string } }>>
 			}>
 
-			if (e.errors) {
+			if (Array.isArray(e.errors) && e.errors.length > 0) {
 				e.errors.forEach(error => {
 					if (error.code === 'form_identifier_exists') {
 						// Account already exists - suggest sign in instead
@@ -227,9 +229,9 @@ export default function CustomSignUp() {
 							email: { message: translateClerkErrorLocal(err), code: 'exists' },
 						}))
 						setGlobalError(`This email is already registered. Try signing in instead or use a different email.`)
-					} else if (error.code === 'form_param_unknown' && error.meta?.paramName) {
+					} else if (error.code === 'form_param_unknown' && (error.meta?.paramName ?? '') !== '') {
 						// Handle unknown parameter errors
-						console.warn(`Unknown parameter: ${error.meta.paramName}`)
+						console.warn(`Unknown parameter: ${error.meta?.paramName ?? 'unknown'}`)
 					} else if (error.code === 'captcha_invalid') {
 						setGlobalError(errorsT?.captcha_invalid ?? 'CAPTCHA verification failed. Please try again.')
 					}

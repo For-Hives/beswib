@@ -6,11 +6,22 @@
 
 import { Resend } from 'resend'
 
-import { renderContactMessageEmailHtml as renderContactMessageEmailHtmlUnsafe } from '../constants/email.constant'
+import {
+	renderContactMessageEmailHtml as renderContactMessageEmailHtmlUnsafe,
+	renderWelcomeEmailHtml as renderWelcomeEmailHtmlUnsafe,
+} from '../constants/email.constant'
+import {
+	VERIFICATION_EMAIL_HTML_TEMPLATE,
+	VERIFICATION_EMAIL_SUBJECT,
+	VERIFICATION_EMAIL_TEXT_TEMPLATE,
+} from '../constants/verifiedEmail.constant'
 import { contactSummaryText, contactFullText, saleAlertText } from '../constants/discord.constant'
 
 const renderContactMessageEmailHtml = (p: { name: string; email: string; message: string }): string =>
 	(renderContactMessageEmailHtmlUnsafe as unknown as (p: { name: string; email: string; message: string }) => string)(p)
+
+const renderWelcomeEmailHtml = (p: { firstName?: string; baseUrl?: string }): string =>
+	(renderWelcomeEmailHtmlUnsafe as unknown as (p: { firstName?: string; baseUrl?: string }) => string)(p)
 
 type SaleAlertInfo = {
 	orderId?: string | null
@@ -344,4 +355,34 @@ function stripTags(html: string): string {
 		.replace(/<[^>]*>/g, ' ')
 		.replace(/\s+/g, ' ')
 		.trim()
+}
+
+// --- Welcome email --------------------------------------------------------------
+
+export async function sendWelcomeEmail(params: { to: string; firstName?: string }): Promise<boolean> {
+	const to = (params.to ?? '').trim()
+	if (to.length === 0) return false
+	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
+	const safeFirst = (params.firstName ?? '').trim()
+	const commaName = safeFirst.length > 0 ? `, ${safeFirst}` : ''
+	const html = renderWelcomeEmailHtml({ firstName: safeFirst, baseUrl })
+	const subject = `Welcome to Beswib${commaName}!`
+	const text = `Welcome${commaName} to Beswib!\n\nExplore the marketplace: ${baseUrl}/marketplace\n\nBeswib Team`
+	const from = process.env.NOTIFY_EMAIL_FROM ?? ''
+	return sendEmail({ to, text, subject, html, from })
+}
+
+/**
+ * Sends verification email with code
+ */
+export async function sendVerificationEmail(
+	email: string,
+	verificationCode: string,
+	expiryMinutes: number
+): Promise<boolean> {
+	const subject = VERIFICATION_EMAIL_SUBJECT
+	const text = VERIFICATION_EMAIL_TEXT_TEMPLATE(verificationCode, expiryMinutes)
+	const html = VERIFICATION_EMAIL_HTML_TEMPLATE(verificationCode, expiryMinutes)
+
+	return sendUserEmail(email, { text, subject, html })
 }
