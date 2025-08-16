@@ -129,7 +129,8 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 			}
 		} catch (error) {
 			console.error('Error resending code:', error)
-			const errorMessage = error instanceof Error ? error.message : 'Failed to resend verification code. Please try again.'
+			const errorMessage =
+				error instanceof Error ? error.message : 'Failed to resend verification code. Please try again.'
 			setError(errorMessage)
 		} finally {
 			setProcessingEmails(prev => {
@@ -199,7 +200,8 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 						Verified Email Addresses
 					</CardTitle>
 					<CardDescription>
-						Manage the email addresses associated with your account. Verified emails can be used for event registrations.
+						Manage the email addresses associated with your account. Verified emails can be used for event
+						registrations.
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
@@ -210,7 +212,7 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 					)}
 
 					{/* Primary account email */}
-					<div className="flex items-center justify-between p-4 border rounded-lg">
+					<div className="flex items-center justify-between rounded-lg border p-4">
 						<div className="flex items-center gap-3">
 							<div className="flex items-center gap-2">
 								<span>{user.email}</span>
@@ -222,7 +224,7 @@ export default function VerifiedEmailsManager({ user }: VerifiedEmailsManagerPro
 
 					{/* Verified emails */}
 					{verifiedEmails.map(email => (
-						<div key={email.id} className="flex items-center justify-between p-4 border rounded-lg">
+						<div key={email.id} className="flex items-center justify-between rounded-lg border p-4">
 							<div className="flex items-center gap-3">
 								<div className="flex items-center gap-2">
 									<span>{email.email}</span>
