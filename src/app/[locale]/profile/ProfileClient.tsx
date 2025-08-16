@@ -16,8 +16,8 @@ import {
 	DialogTitle,
 } from '@/components/ui/dialog'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import profileTranslations from '@/app/[locale]/profile/locales.json'
 import VerifiedEmailsManager from '@/components/profile/VerifiedEmailsManager'
+import profileTranslations from '@/app/[locale]/profile/locales.json'
 import PayPalOnboarding from '@/components/profile/PayPalOnboarding'
 import ModernRunnerForm from '@/components/profile/modernRunnerForm'
 import UserHeader from '@/components/dashboard/user-header'
