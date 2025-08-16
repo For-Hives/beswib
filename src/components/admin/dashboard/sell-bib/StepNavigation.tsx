@@ -34,9 +34,9 @@ export default function StepNavigation({
 	const router = useRouter()
 
 	return (
-		<div className="flex items-center justify-between pt-8">
+		<div className="flex flex-wrap items-center justify-between gap-4 pt-8">
 			<Button disabled={isSubmitting} onClick={() => router.push('/dashboard/seller')} size="lg" variant="outline">
-				{createdBib ? 'Retour au Dashboard' : t.actions.cancel}
+				{createdBib ? t.actions.backToDashboard : t.actions.cancel}
 			</Button>
 
 			<div className="flex gap-4">
@@ -67,7 +67,7 @@ export default function StepNavigation({
 
 					return (
 						<Button onClick={() => router.push('/dashboard/seller')} size="lg">
-							Terminer
+							{t.actions.complete}
 						</Button>
 					)
 				})()}
