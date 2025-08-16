@@ -5,8 +5,8 @@
 
 declare global {
 	interface Window {
-		gtag?: (...args: any[]) => void
-		dataLayer?: any[]
+		gtag?: (...args: unknown[]) => void
+		dataLayer?: unknown[]
 	}
 }
 
@@ -40,11 +40,11 @@ export function enableGoogleConsentDebug() {
 		})
 	}
 
-	console.log('🐛 Google Consent Debug Mode enabled')
-	console.log('📍 Check Network tab for:')
-	console.log('  - /gtag/debug calls')
-	console.log('  - /collect calls with consent parameters')
-	console.log('📊 Use getConsentState() to check current consent status')
+	console.info('🐛 Google Consent Debug Mode enabled')
+	console.info('📍 Check Network tab for:')
+	console.info('  - /gtag/debug calls')
+	console.info('  - /collect calls with consent parameters')
+	console.info('📊 Use getConsentState() to check current consent status')
 }
 
 /**
@@ -58,7 +58,7 @@ export function getConsentState(): Promise<ConsentState | null> {
 		}
 
 		window.gtag('get', 'G-PGSND15ZCT', 'consent', (consentState: ConsentState) => {
-			console.log('🔍 Current Google Consent State:', consentState)
+			console.info('🔍 Current Google Consent State:', consentState)
 			resolve(consentState)
 		})
 	})
@@ -70,10 +70,10 @@ export function getConsentState(): Promise<ConsentState | null> {
 export function testConsentScenarios() {
 	if (typeof window === 'undefined' || !window.gtag) return
 
-	console.log('🧪 Testing consent scenarios...')
+	console.info('🧪 Testing consent scenarios...')
 
 	// Scenario 1: All denied
-	console.log('1. All denied')
+	console.info('1. All denied')
 	window.gtag('consent', 'update', {
 		personalization_storage: 'denied',
 		functionality_storage: 'denied',
@@ -85,7 +85,7 @@ export function testConsentScenarios() {
 
 	setTimeout(() => {
 		// Scenario 2: Analytics only
-		console.log('2. Analytics only')
+		console.info('2. Analytics only')
 		window.gtag('consent', 'update', {
 			analytics_storage: 'granted',
 		})
@@ -93,7 +93,7 @@ export function testConsentScenarios() {
 
 	setTimeout(() => {
 		// Scenario 3: All granted
-		console.log('3. All granted')
+		console.info('3. All granted')
 		window.gtag('consent', 'update', {
 			personalization_storage: 'granted',
 			functionality_storage: 'granted',
@@ -111,29 +111,41 @@ export function testConsentScenarios() {
 export function monitorConsentEvents() {
 	if (typeof window === 'undefined') return
 
-	const originalPush = window.dataLayer?.push
-	if (!originalPush) return
+	const dataLayer = window.dataLayer
+	if (!dataLayer?.push) return
 
-	window.dataLayer!.push = function (...args: any[]) {
+	const originalPush = dataLayer.push.bind(dataLayer)
+
+	dataLayer.push = (...args: unknown[]) => {
 		// Log consent-related events
 		args.forEach(item => {
-			if (item && typeof item === 'object') {
-				if (item[0] === 'consent' || item.event?.includes('consent')) {
-					console.log('🍪 Consent Event:', item)
+			if (item !== null && typeof item === 'object') {
+				const objItem = item as Record<string, unknown>
+				const isConsentEvent =
+					objItem[0] === 'consent' || (typeof objItem.event === 'string' && objItem.event.includes('consent'))
+				if (isConsentEvent) {
+					console.info('🍪 Consent Event:', item)
 				}
 			}
 		})
 
-		return originalPush.apply(this, args)
+		return originalPush(...args)
 	}
 
-	console.log('👂 Monitoring dataLayer for consent events')
+	console.info('👂 Monitoring dataLayer for consent events')
 }
 
 // Make functions available globally for console debugging
 if (typeof window !== 'undefined') {
-	;(window as any).enableGoogleConsentDebug = enableGoogleConsentDebug
-	;(window as any).getConsentState = getConsentState
-	;(window as any).testConsentScenarios = testConsentScenarios
-	;(window as any).monitorConsentEvents = monitorConsentEvents
+	interface GlobalWindow extends Window {
+		enableGoogleConsentDebug: typeof enableGoogleConsentDebug
+		getConsentState: typeof getConsentState
+		testConsentScenarios: typeof testConsentScenarios
+		monitorConsentEvents: typeof monitorConsentEvents
+	}
+
+	;(window as unknown as GlobalWindow).enableGoogleConsentDebug = enableGoogleConsentDebug
+	;(window as unknown as GlobalWindow).getConsentState = getConsentState
+	;(window as unknown as GlobalWindow).testConsentScenarios = testConsentScenarios
+	;(window as unknown as GlobalWindow).monitorConsentEvents = monitorConsentEvents
 }

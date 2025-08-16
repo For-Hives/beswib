@@ -4,12 +4,21 @@ import { useEffect } from 'react'
 
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useConsent } from '@c15t/nextjs'
+
+type UseConsentReturn = {
+	hasConsented: boolean
+	consent: {
+		analytics?: boolean
+		marketing?: boolean
+		functional?: boolean
+	} | null
+}
 import Script from 'next/script'
 
 declare global {
 	interface Window {
-		gtag?: (command: string, ...args: any[]) => void
-		dataLayer?: any[]
+		gtag?: (command: string, ...args: unknown[]) => void
+		dataLayer?: unknown[]
 	}
 }
 
@@ -21,15 +30,17 @@ interface GoogleAnalyticsProps {
 export function GoogleAnalytics({ measurementId, enableDebugMode = false }: GoogleAnalyticsProps) {
 	const pathname = usePathname()
 	const searchParams = useSearchParams()
-	const { hasConsented, consent } = useConsent()
+	const consentResult = useConsent()
+	// Type assertion needed due to library typing issues
+	const { hasConsented, consent } = consentResult as UseConsentReturn
 
 	// Initialize Google Consent Mode
 	useEffect(() => {
 		if (typeof window === 'undefined') return
 
 		// Initialize gtag with consent mode
-		window.dataLayer = window.dataLayer || []
-		function gtag(...args: any[]) {
+		window.dataLayer = window.dataLayer ?? []
+		function gtag(...args: unknown[]) {
 			window.dataLayer?.push(args)
 		}
 		window.gtag = gtag
@@ -56,28 +67,28 @@ export function GoogleAnalytics({ measurementId, enableDebugMode = false }: Goog
 
 	// Update consent when user preferences change
 	useEffect(() => {
-		if (!window.gtag || !hasConsented) return
+		if (!window.gtag || hasConsented !== true || !consent) return
 
 		const consentUpdate: Record<string, string> = {
-			personalization_storage: consent?.functional ? 'granted' : 'denied',
-			functionality_storage: consent?.functional ? 'granted' : 'denied',
-			analytics_storage: consent?.analytics ? 'granted' : 'denied',
-			ad_user_data: consent?.marketing ? 'granted' : 'denied',
-			ad_storage: consent?.marketing ? 'granted' : 'denied',
-			ad_personalization: consent?.marketing ? 'granted' : 'denied',
+			personalization_storage: consent.functional === true ? 'granted' : 'denied',
+			functionality_storage: consent.functional === true ? 'granted' : 'denied',
+			analytics_storage: consent.analytics === true ? 'granted' : 'denied',
+			ad_user_data: consent.marketing === true ? 'granted' : 'denied',
+			ad_storage: consent.marketing === true ? 'granted' : 'denied',
+			ad_personalization: consent.marketing === true ? 'granted' : 'denied',
 		}
 
 		window.gtag('consent', 'update', consentUpdate)
 
 		// Debug consent state
 		if (enableDebugMode) {
-			console.log('🍪 Google Consent Mode Updated:', consentUpdate)
+			console.info('🍪 Google Consent Mode Updated:', consentUpdate)
 		}
 	}, [consent, hasConsented, enableDebugMode])
 
 	// Track page views when consent is granted and route changes
 	useEffect(() => {
-		if (!measurementId || !window.gtag || !consent?.analytics) return
+		if (!measurementId || !window.gtag || !consent || consent.analytics !== true) return
 
 		const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '')
 
@@ -92,7 +103,7 @@ export function GoogleAnalytics({ measurementId, enableDebugMode = false }: Goog
 		})
 
 		if (enableDebugMode) {
-			console.log('📊 GA Page View:', url)
+			console.info('📊 GA Page View:', url)
 		}
 	}, [pathname, searchParams, measurementId, consent?.analytics, enableDebugMode])
 
@@ -139,8 +150,8 @@ export function trackEvent(action: string, category: string, label?: string, val
 export function getConsentState() {
 	if (typeof window === 'undefined' || !window.gtag) return null
 
-	window.gtag('get', 'G-PGSND15ZCT', 'consent', (consentState: any) => {
-		console.log('🔍 Current Consent State:', consentState)
+	window.gtag('get', 'G-PGSND15ZCT', 'consent', (consentState: unknown) => {
+		console.info('🔍 Current Consent State:', consentState)
 	})
 }
 
@@ -152,5 +163,5 @@ export function enableConsentDebugMode() {
 	url.searchParams.set('gtag_debug', '1')
 	window.history.replaceState({}, '', url.toString())
 
-	console.log('🐛 Google Consent Debug Mode enabled. Check Network tab for gtag/debug calls.')
+	console.info('🐛 Google Consent Debug Mode enabled. Check Network tab for gtag/debug calls.')
 }
