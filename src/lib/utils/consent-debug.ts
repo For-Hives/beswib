@@ -51,7 +51,7 @@ export function enableGoogleConsentDebug() {
  * Get current consent state from Google Analytics
  */
 export function getConsentState(): Promise<ConsentState | null> {
-	return new Promise((resolve) => {
+	return new Promise(resolve => {
 		if (typeof window === 'undefined' || !window.gtag) {
 			resolve(null)
 			return
@@ -116,14 +116,14 @@ export function monitorConsentEvents() {
 
 	window.dataLayer!.push = function (...args: any[]) {
 		// Log consent-related events
-		args.forEach((item) => {
+		args.forEach(item => {
 			if (item && typeof item === 'object') {
 				if (item[0] === 'consent' || item.event?.includes('consent')) {
 					console.log('🍪 Consent Event:', item)
 				}
 			}
 		})
-		
+
 		return originalPush.apply(this, args)
 	}
 

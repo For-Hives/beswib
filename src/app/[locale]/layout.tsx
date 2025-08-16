@@ -114,8 +114,8 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 						data-before-send="beforeSendHandler"
 						strategy="afterInteractive"
 					></Script>
-					<GoogleAnalytics 
-						measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} 
+					<GoogleAnalytics
+						measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''}
 						enableDebugMode={process.env.NODE_ENV === 'development'}
 					/>
 				</head>
