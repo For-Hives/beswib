@@ -43,8 +43,10 @@ export default function SellerProfileValidation({ user, locale }: SellerProfileV
 		<Card className="border-orange-200 bg-orange-50 dark:border-orange-800 dark:bg-orange-950">
 			<CardHeader className="pb-3">
 				<CardTitle className="flex items-center gap-2 text-orange-800 dark:text-orange-200">
-					<AlertCircle className="h-5 w-5" />
-					{t.sellerProfile.incomplete.title}
+					<p>
+						<AlertCircle className="h-5 w-5" />
+					</p>
+					<p>{t.sellerProfile.incomplete.title}</p>
 				</CardTitle>
 				<CardDescription className="text-orange-700 dark:text-orange-300">
 					{t.sellerProfile.incomplete.description}

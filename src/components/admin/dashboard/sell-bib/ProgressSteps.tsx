@@ -14,7 +14,7 @@ export default function ProgressSteps({ steps, locale, currentStepIndex }: Reado
 
 	return (
 		<div className="mb-16">
-			<div className="mx-auto flex max-w-4xl items-center justify-between">
+			<div className="mx-auto flex max-w-4xl items-center justify-between overflow-x-auto pb-8 md:pb-0">
 				{steps.map((step, index) => {
 					const isActive = index === currentStepIndex
 					const isCompleted = index < currentStepIndex
@@ -44,7 +44,7 @@ export default function ProgressSteps({ steps, locale, currentStepIndex }: Reado
 							</div>
 							{index < steps.length - 1 && (
 								<div
-									className={`mx-8 h-px w-24 transition-all duration-200 ${isCompleted ? 'bg-primary' : 'bg-muted'}`}
+									className={`mx-8 h-[1px] w-18 transition-all duration-200 md:w-16 lg:w-24 ${isCompleted ? 'bg-primary' : 'bg-black/20 lg:bg-black/10'}`}
 								/>
 							)}
 						</div>

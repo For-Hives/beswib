@@ -478,8 +478,17 @@ body {
 
 body *,
 body {
-	--sb-track-color: oklch(0.3211 0 0) !important;
-	--sb-thumb-color: oklch(0.9219 0 0) !important;
+	/* Light theme (default): inverted colors */
+	--sb-track-color: oklch(0.9219 0 0) !important; /* light track */
+	--sb-thumb-color: oklch(0.3211 0 0) !important; /* dark thumb */
+	--sb-size: 6px !important;
+}
+
+/* Dark theme: use original colors */
+.dark body *,
+.dark body {
+	--sb-track-color: oklch(0.3211 0 0) !important; /* dark track */
+	--sb-thumb-color: oklch(0.9219 0 0) !important; /* light thumb */
 	--sb-size: 6px !important;
 }
 
@@ -511,6 +520,10 @@ body *::-webkit-scrollbar-thumb {
 @supports not selector(::-webkit-scrollbar) {
 	body,
 	body * {
+		scrollbar-color: var(--sb-thumb-color) var(--sb-track-color) !important;
+	}
+	.dark body,
+	.dark body * {
 		scrollbar-color: var(--sb-thumb-color) var(--sb-track-color) !important;
 	}
 }
