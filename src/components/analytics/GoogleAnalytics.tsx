@@ -1,9 +1,10 @@
 'use client'
 
 import { useEffect } from 'react'
-import Script from 'next/script'
+
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useConsent } from '@c15t/nextjs'
+import Script from 'next/script'
 
 declare global {
 	interface Window {
@@ -20,7 +21,7 @@ interface GoogleAnalyticsProps {
 export function GoogleAnalytics({ measurementId, enableDebugMode = false }: GoogleAnalyticsProps) {
 	const pathname = usePathname()
 	const searchParams = useSearchParams()
-	const { consent, hasConsented } = useConsent()
+	const { hasConsented, consent } = useConsent()
 
 	// Initialize Google Consent Mode
 	useEffect(() => {
@@ -35,14 +36,14 @@ export function GoogleAnalytics({ measurementId, enableDebugMode = false }: Goog
 
 		// Set default consent state (denied) before any scripts load
 		gtag('consent', 'default', {
-			ad_storage: 'denied',
-			ad_user_data: 'denied',
-			ad_personalization: 'denied',
-			analytics_storage: 'denied',
-			functionality_storage: 'denied',
-			personalization_storage: 'denied',
-			security_storage: 'granted', // Always allow security cookies
 			wait_for_update: 500, // Wait up to 500ms for consent update
+			security_storage: 'granted', // Always allow security cookies
+			personalization_storage: 'denied',
+			functionality_storage: 'denied',
+			analytics_storage: 'denied',
+			ad_user_data: 'denied',
+			ad_storage: 'denied',
+			ad_personalization: 'denied',
 		})
 
 		// Enable debug mode if requested
@@ -58,12 +59,12 @@ export function GoogleAnalytics({ measurementId, enableDebugMode = false }: Goog
 		if (!window.gtag || !hasConsented) return
 
 		const consentUpdate: Record<string, string> = {
-			analytics_storage: consent?.analytics ? 'granted' : 'denied',
-			ad_storage: consent?.marketing ? 'granted' : 'denied',
-			ad_user_data: consent?.marketing ? 'granted' : 'denied',
-			ad_personalization: consent?.marketing ? 'granted' : 'denied',
-			functionality_storage: consent?.functional ? 'granted' : 'denied',
 			personalization_storage: consent?.functional ? 'granted' : 'denied',
+			functionality_storage: consent?.functional ? 'granted' : 'denied',
+			analytics_storage: consent?.analytics ? 'granted' : 'denied',
+			ad_user_data: consent?.marketing ? 'granted' : 'denied',
+			ad_storage: consent?.marketing ? 'granted' : 'denied',
+			ad_personalization: consent?.marketing ? 'granted' : 'denied',
 		}
 
 		window.gtag('consent', 'update', consentUpdate)
@@ -86,8 +87,8 @@ export function GoogleAnalytics({ measurementId, enableDebugMode = false }: Goog
 		})
 
 		window.gtag('event', 'page_view', {
-			page_path: url,
 			page_title: document.title,
+			page_path: url,
 		})
 
 		if (enableDebugMode) {
@@ -127,9 +128,9 @@ export function GoogleAnalytics({ measurementId, enableDebugMode = false }: Goog
 export function trackEvent(action: string, category: string, label?: string, value?: number) {
 	if (typeof window !== 'undefined' && window.gtag) {
 		window.gtag('event', action, {
-			event_category: category,
-			event_label: label,
 			value: value,
+			event_label: label,
+			event_category: category,
 		})
 	}
 }

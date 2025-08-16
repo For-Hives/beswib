@@ -75,12 +75,12 @@ export function testConsentScenarios() {
 	// Scenario 1: All denied
 	console.log('1. All denied')
 	window.gtag('consent', 'update', {
-		ad_storage: 'denied',
-		ad_user_data: 'denied',
-		ad_personalization: 'denied',
-		analytics_storage: 'denied',
-		functionality_storage: 'denied',
 		personalization_storage: 'denied',
+		functionality_storage: 'denied',
+		analytics_storage: 'denied',
+		ad_user_data: 'denied',
+		ad_storage: 'denied',
+		ad_personalization: 'denied',
 	})
 
 	setTimeout(() => {
@@ -95,12 +95,12 @@ export function testConsentScenarios() {
 		// Scenario 3: All granted
 		console.log('3. All granted')
 		window.gtag('consent', 'update', {
-			ad_storage: 'granted',
-			ad_user_data: 'granted',
-			ad_personalization: 'granted',
-			analytics_storage: 'granted',
-			functionality_storage: 'granted',
 			personalization_storage: 'granted',
+			functionality_storage: 'granted',
+			analytics_storage: 'granted',
+			ad_user_data: 'granted',
+			ad_storage: 'granted',
+			ad_personalization: 'granted',
 		})
 	}, 4000)
 }
