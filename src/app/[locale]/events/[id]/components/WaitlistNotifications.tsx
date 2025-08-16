@@ -37,6 +37,7 @@ export function WaitlistNotifications({ t, locale, eventName, eventId }: Waitlis
 
 	const isWaitlistSuccess = waitlistSuccess === 'true'
 	const hasError = waitlistError != null && waitlistError !== ''
+	const hasSubscribedEmail = subscribedEmail != null && subscribedEmail !== ''
 
 	// Close handlers
 	const handleClose = () => {
@@ -222,7 +223,7 @@ export function WaitlistNotifications({ t, locale, eventName, eventId }: Waitlis
 						</DialogHeader>
 						<div className="space-y-4">
 							<div className="text-center">
-								{subscribedEmail ? (
+								{hasSubscribedEmail ? (
 									<div className="space-y-3">
 										<div className="text-muted-foreground flex items-center justify-center gap-2 text-sm">
 											<Mail className="h-4 w-4" />

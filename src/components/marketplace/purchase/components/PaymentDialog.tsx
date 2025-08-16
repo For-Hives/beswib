@@ -107,7 +107,7 @@ export default function PaymentDialog({
 	}
 
 	// Show success dialog
-	if (successMessage) {
+	if (successMessage != null && successMessage !== '') {
 		return (
 			<Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
 				<DialogContent className="sm:max-w-md">
@@ -136,27 +136,27 @@ export default function PaymentDialog({
 	}
 
 	// Show error dialog
-	if (errorMessage) {
+	if (errorMessage != null && errorMessage !== '') {
 		return (
 			<Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
 				<DialogContent className="sm:max-w-md">
 					<DialogHeader>
 						<div className="mb-4 flex items-center gap-3">
 							<div className="rounded-full bg-red-100 p-2">
-								{errorMessage.toLowerCase().includes('cancel') ? (
+								{errorMessage?.toLowerCase().includes('cancel') ? (
 									<XCircle className="h-6 w-6 text-red-600" />
 								) : (
 									<AlertCircle className="h-6 w-6 text-red-600" />
 								)}
 							</div>
 							<DialogTitle className="text-red-600">
-								{errorMessage.toLowerCase().includes('cancel') ? paymentT.paymentCancelled : paymentT.paymentError}
+								{errorMessage?.toLowerCase().includes('cancel') ? paymentT.paymentCancelled : paymentT.paymentError}
 							</DialogTitle>
 						</div>
 					</DialogHeader>
 					<div className="space-y-4">
 						<p className="text-muted-foreground text-center">
-							{errorMessage.toLowerCase().includes('cancel') ? paymentT.paymentCancelledMessage : errorMessage}
+							{errorMessage?.toLowerCase().includes('cancel') ? paymentT.paymentCancelledMessage : errorMessage}
 						</p>
 					</div>
 					<DialogFooter className="gap-2">
