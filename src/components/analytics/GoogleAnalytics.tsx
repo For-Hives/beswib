@@ -1,26 +1,12 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useConsent } from '@c15t/nextjs'
-
-type UseConsentReturn = {
-	hasConsented: boolean
-	consent: {
-		analytics?: boolean
-		marketing?: boolean
-		functional?: boolean
-	} | null
-}
 import Script from 'next/script'
 
-declare global {
-	interface Window {
-		gtag?: (command: string, ...args: unknown[]) => void
-		dataLayer?: unknown[]
-	}
-}
+// Type for gtag function
+type GtagFunction = (...args: unknown[]) => void
 
 interface GoogleAnalyticsProps {
 	measurementId: string
@@ -30,74 +16,37 @@ interface GoogleAnalyticsProps {
 export function GoogleAnalytics({ measurementId, enableDebugMode = false }: GoogleAnalyticsProps) {
 	const pathname = usePathname()
 	const searchParams = useSearchParams()
-	const consentResult = useConsent()
-	// Type assertion needed due to library typing issues
-	const { hasConsented, consent } = consentResult as UseConsentReturn
-
-	// Initialize Google Consent Mode
-	useEffect(() => {
-		if (typeof window === 'undefined') return
-
-		// Initialize gtag with consent mode
-		window.dataLayer = window.dataLayer ?? []
-		function gtag(...args: unknown[]) {
-			window.dataLayer?.push(args)
-		}
-		window.gtag = gtag
-
-		// Set default consent state (denied) before any scripts load
-		gtag('consent', 'default', {
-			wait_for_update: 500, // Wait up to 500ms for consent update
-			security_storage: 'granted', // Always allow security cookies
-			personalization_storage: 'denied',
-			functionality_storage: 'denied',
-			analytics_storage: 'denied',
-			ad_user_data: 'denied',
-			ad_storage: 'denied',
-			ad_personalization: 'denied',
-		})
-
-		// Enable debug mode if requested
-		if (enableDebugMode) {
-			gtag('config', measurementId, {
-				debug_mode: true,
-			})
-		}
-	}, [measurementId, enableDebugMode])
 
 	// Update consent when user preferences change
 	useEffect(() => {
-		if (!window.gtag || hasConsented !== true || !consent) return
+		const gtag = (window as any).gtag as GtagFunction | undefined
+		if (!gtag || !consentGranted) return
 
 		const consentUpdate: Record<string, string> = {
-			personalization_storage: consent.functional === true ? 'granted' : 'denied',
-			functionality_storage: consent.functional === true ? 'granted' : 'denied',
-			analytics_storage: consent.analytics === true ? 'granted' : 'denied',
-			ad_user_data: consent.marketing === true ? 'granted' : 'denied',
-			ad_storage: consent.marketing === true ? 'granted' : 'denied',
-			ad_personalization: consent.marketing === true ? 'granted' : 'denied',
+			analytics_storage: 'granted',
 		}
 
-		window.gtag('consent', 'update', consentUpdate)
+		gtag('consent', 'update', consentUpdate)
 
 		// Debug consent state
 		if (enableDebugMode) {
 			console.info('🍪 Google Consent Mode Updated:', consentUpdate)
 		}
-	}, [consent, hasConsented, enableDebugMode])
+	}, [consentGranted, enableDebugMode])
 
 	// Track page views when consent is granted and route changes
 	useEffect(() => {
-		if (!measurementId || !window.gtag || !consent || consent.analytics !== true) return
+		const gtag = (window as any).gtag as GtagFunction | undefined
+		if (!measurementId || !gtag || !consentGranted) return
 
 		const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '')
 
-		window.gtag('config', measurementId, {
+		gtag('config', measurementId, {
 			page_path: url,
 			cookie_flags: 'SameSite=None;Secure',
 		})
 
-		window.gtag('event', 'page_view', {
+		gtag('event', 'page_view', {
 			page_title: document.title,
 			page_path: url,
 		})
@@ -105,7 +54,7 @@ export function GoogleAnalytics({ measurementId, enableDebugMode = false }: Goog
 		if (enableDebugMode) {
 			console.info('📊 GA Page View:', url)
 		}
-	}, [pathname, searchParams, measurementId, consent?.analytics, enableDebugMode])
+	}, [pathname, searchParams, measurementId, consentGranted, enableDebugMode])
 
 	if (!measurementId) return null
 
@@ -137,8 +86,9 @@ export function GoogleAnalytics({ measurementId, enableDebugMode = false }: Goog
 }
 
 export function trackEvent(action: string, category: string, label?: string, value?: number) {
-	if (typeof window !== 'undefined' && window.gtag) {
-		window.gtag('event', action, {
+	const gtag = (window as any)?.gtag as GtagFunction | undefined
+	if (typeof window !== 'undefined' && gtag) {
+		gtag('event', action, {
 			value: value,
 			event_label: label,
 			event_category: category,
@@ -148,9 +98,10 @@ export function trackEvent(action: string, category: string, label?: string, val
 
 // Consent debugging utilities
 export function getConsentState() {
-	if (typeof window === 'undefined' || !window.gtag) return null
+	const gtag = (window as any)?.gtag as GtagFunction | undefined
+	if (typeof window === 'undefined' || !gtag) return null
 
-	window.gtag('get', 'G-PGSND15ZCT', 'consent', (consentState: unknown) => {
+	gtag('get', 'G-PGSND15ZCT', 'consent', (consentState: unknown) => {
 		console.info('🔍 Current Consent State:', consentState)
 	})
 }
