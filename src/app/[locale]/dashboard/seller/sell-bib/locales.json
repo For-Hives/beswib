@@ -58,6 +58,8 @@
 			},
 			"confirmation": {
 				"reviewTitle": "Review Your Listing",
+				"successTitle": "Listing Created Successfully!",
+				"successMessage": "Your bib has been listed on the marketplace. You can share the link below or wait for buyers to find it.",
 				"event": "Event",
 				"bibNumber": "Bib Number",
 				"originalPrice": "Original Price",
@@ -69,6 +71,10 @@
 				"termsRequired": "You must accept the terms to continue",
 				"privateLink": "Private Link",
 				"privateLinkHelp": "Share this link to allow others to purchase your bib privately",
+				"publicLink": "Public Link",
+				"publicLinkHelp": "Your bib is publicly visible and can be found by anyone on the marketplace",
+				"privateLinkMessage": "This is a private listing - only people with this direct link can access and purchase your bib",
+				"publicLinkMessage": "This is a public listing - your bib is searchable and visible to all marketplace visitors",
 				"copyLink": "Copy Link",
 				"marketplacePreview": "Marketplace Preview"
 			}
@@ -154,6 +160,8 @@
 			},
 			"confirmation": {
 				"reviewTitle": "Vérifiez votre annonce",
+				"successTitle": "Annonce créée avec succès !",
+				"successMessage": "Votre dossard a été mis en vente sur le marketplace. Vous pouvez partager le lien ci-dessous ou attendre que les acheteurs le trouvent.",
 				"event": "Événement",
 				"bibNumber": "Numéro de dossard",
 				"originalPrice": "Prix d'origine",
@@ -165,6 +173,10 @@
 				"termsRequired": "Vous devez accepter les conditions pour continuer",
 				"privateLink": "Lien privé",
 				"privateLinkHelp": "Partagez ce lien pour permettre aux autres d'acheter votre dossard en privé",
+				"publicLink": "Lien public",
+				"publicLinkHelp": "Votre dossard est visible publiquement et peut être trouvé par tout le monde sur le marketplace",
+				"privateLinkMessage": "Ceci est une annonce privée - seules les personnes avec ce lien direct peuvent accéder et acheter votre dossard",
+				"publicLinkMessage": "Ceci est une annonce publique - votre dossard est recherchable et visible par tous les visiteurs du marketplace",
 				"copyLink": "Copier le lien",
 				"marketplacePreview": "Aperçu marketplace"
 			}
@@ -250,6 +262,8 @@
 			},
 			"confirmation": {
 				"reviewTitle": "리스팅 검토",
+				"successTitle": "리스팅이 성공적으로 생성되었습니다!",
+				"successMessage": "비브가 마켓플레이스에 등록되었습니다. 아래 링크를 공유하거나 구매자가 찾을 때까지 기다릴 수 있습니다.",
 				"event": "이벤트",
 				"bibNumber": "비브 번호",
 				"originalPrice": "원래 가격",
@@ -261,6 +275,10 @@
 				"termsRequired": "계속하려면 약관에 동의해야 합니다",
 				"privateLink": "비공개 링크",
 				"privateLinkHelp": "이 링크를 공유하여 다른 사람들이 비공개로 비브를 구매할 수 있게 하세요",
+				"publicLink": "공개 링크",
+				"publicLinkHelp": "당신의 비브는 공개적으로 보이며 마켓플레이스에서 누구나 찾을 수 있습니다",
+				"privateLinkMessage": "이것은 비공개 리스팅입니다 - 이 직접 링크를 가진 사람만 접근하고 비브를 구매할 수 있습니다",
+				"publicLinkMessage": "이것은 공개 리스팅입니다 - 당신의 비브는 검색 가능하며 모든 마켓플레이스 방문자에게 보입니다",
 				"copyLink": "링크 복사",
 				"marketplacePreview": "마켓플레이스 미리보기"
 			}
@@ -346,6 +364,8 @@
 			},
 			"confirmation": {
 				"reviewTitle": "Revisar Tu Anuncio",
+				"successTitle": "¡Anuncio Creado Exitosamente!",
+				"successMessage": "Tu dorsal ha sido listado en el marketplace. Puedes compartir el enlace a continuación o esperar a que los compradores lo encuentren.",
 				"event": "Evento",
 				"bibNumber": "Número de Dorsal",
 				"originalPrice": "Precio Original",
@@ -357,6 +377,10 @@
 				"termsRequired": "Debes aceptar los términos para continuar",
 				"privateLink": "Enlace Privado",
 				"privateLinkHelp": "Comparte este enlace para permitir que otros compren tu dorsal de forma privada",
+				"publicLink": "Enlace Público",
+				"publicLinkHelp": "Tu dorsal es visible públicamente y puede ser encontrado por cualquiera en el marketplace",
+				"privateLinkMessage": "Este es un anuncio privado - solo las personas con este enlace directo pueden acceder y comprar tu dorsal",
+				"publicLinkMessage": "Este es un anuncio público - tu dorsal es buscable y visible para todos los visitantes del marketplace",
 				"copyLink": "Copiar Enlace",
 				"marketplacePreview": "Vista Previa del Mercado"
 			}
@@ -442,6 +466,8 @@
 			},
 			"confirmation": {
 				"reviewTitle": "Rivedi il Tuo Annuncio",
+				"successTitle": "Annuncio Creato con Successo!",
+				"successMessage": "Il tuo pettorale è stato inserito nel marketplace. Puoi condividere il link qui sotto o aspettare che i compratori lo trovino.",
 				"event": "Evento",
 				"bibNumber": "Numero Pettorale",
 				"originalPrice": "Prezzo Originale",
@@ -453,6 +479,10 @@
 				"termsRequired": "Devi accettare i termini per continuare",
 				"privateLink": "Link Privato",
 				"privateLinkHelp": "Condividi questo link per permettere ad altri di acquistare il tuo pettorale privatamente",
+				"publicLink": "Link Pubblico",
+				"publicLinkHelp": "Il tuo pettorale è visibile pubblicamente e può essere trovato da chiunque sul marketplace",
+				"privateLinkMessage": "Questo è un annuncio privato - solo le persone con questo link diretto possono accedere e acquistare il tuo pettorale",
+				"publicLinkMessage": "Questo è un annuncio pubblico - il tuo pettorale è ricercabile e visibile a tutti i visitatori del marketplace",
 				"copyLink": "Copia Link",
 				"marketplacePreview": "Anteprima Marketplace"
 			}
@@ -538,6 +568,8 @@
 			},
 			"confirmation": {
 				"reviewTitle": "Ihr Angebot Überprüfen",
+				"successTitle": "Angebot Erfolgreich Erstellt!",
+				"successMessage": "Ihre Startnummer wurde im Marketplace gelistet. Sie können den Link unten teilen oder warten, bis Käufer sie finden.",
 				"event": "Veranstaltung",
 				"bibNumber": "Startnummer",
 				"originalPrice": "Originalpreis",
@@ -549,6 +581,10 @@
 				"termsRequired": "Sie müssen die Bedingungen akzeptieren, um fortzufahren",
 				"privateLink": "Privater Link",
 				"privateLinkHelp": "Teilen Sie diesen Link, um anderen zu ermöglichen, Ihre Startnummer privat zu kaufen",
+				"publicLink": "Öffentlicher Link",
+				"publicLinkHelp": "Ihre Startnummer ist öffentlich sichtbar und kann von jedem im Marketplace gefunden werden",
+				"privateLinkMessage": "Dies ist eine private Auflistung - nur Personen mit diesem direkten Link können auf Ihre Startnummer zugreifen und sie kaufen",
+				"publicLinkMessage": "Dies ist eine öffentliche Auflistung - Ihre Startnummer ist suchbar und für alle Marketplace-Besucher sichtbar",
 				"copyLink": "Link Kopieren",
 				"marketplacePreview": "Marketplace-Vorschau"
 			}
@@ -634,6 +670,8 @@
 			},
 			"confirmation": {
 				"reviewTitle": "Revizuiește-ți Anunțul",
+				"successTitle": "Anunț Creat cu Succes!",
+				"successMessage": "Numărul tău a fost listat pe marketplace. Poți partaja linkul de mai jos sau să aștepți ca cumpărătorii să-l găsească.",
 				"event": "Eveniment",
 				"bibNumber": "Număr de Concurs",
 				"originalPrice": "Preț Original",
@@ -645,6 +683,10 @@
 				"termsRequired": "Trebuie să accepți termenii pentru a continua",
 				"privateLink": "Link Privat",
 				"privateLinkHelp": "Partajează acest link pentru a permite altora să cumpere numărul tău privat",
+				"publicLink": "Link Public",
+				"publicLinkHelp": "Numărul tău este vizibil public și poate fi găsit de oricine pe marketplace",
+				"privateLinkMessage": "Acesta este un anunț privat - doar persoanele cu acest link direct pot accesa și cumpăra numărul tău",
+				"publicLinkMessage": "Acesta este un anunț public - numărul tău este căutabil și vizibil pentru toți vizitatorii marketplace-ului",
 				"copyLink": "Copiază Linkul",
 				"marketplacePreview": "Previzualizare piață"
 			}
@@ -730,6 +772,8 @@
 			},
 			"confirmation": {
 				"reviewTitle": "Revise o seu Anúncio",
+				"successTitle": "Anúncio Criado com Sucesso!",
+				"successMessage": "O seu dorsal foi listado no marketplace. Pode partilhar o link abaixo ou esperar que os compradores o encontrem.",
 				"event": "Evento",
 				"bibNumber": "Número do Dorsal",
 				"originalPrice": "Preço Original",
@@ -741,6 +785,10 @@
 				"termsRequired": "Deve aceitar os termos para continuar",
 				"privateLink": "Link Privado",
 				"privateLinkHelp": "Partilhe este link para permitir que outros comprem o seu dorsal de forma privada",
+				"publicLink": "Link Público",
+				"publicLinkHelp": "O seu dorsal é visível publicamente e pode ser encontrado por qualquer pessoa no marketplace",
+				"privateLinkMessage": "Este é um anúncio privado - apenas pessoas com este link direto podem aceder e comprar o seu dorsal",
+				"publicLinkMessage": "Este é um anúncio público - o seu dorsal é pesquisável e visível para todos os visitantes do marketplace",
 				"copyLink": "Copiar Link",
 				"marketplacePreview": "Pré-visualização do Marketplace"
 			}
@@ -826,6 +874,8 @@
 			},
 			"confirmation": {
 				"reviewTitle": "Controleer uw Aanbieding",
+				"successTitle": "Aanbieding Succesvol Aangemaakt!",
+				"successMessage": "Uw startnummer is geplaatst op de marktplaats. U kunt de onderstaande link delen of wachten tot kopers het vinden.",
 				"event": "Evenement",
 				"bibNumber": "Startnummer",
 				"originalPrice": "Oorspronkelijke Prijs",
@@ -837,6 +887,10 @@
 				"termsRequired": "U moet de voorwaarden accepteren om door te gaan",
 				"privateLink": "Privé Link",
 				"privateLinkHelp": "Deel deze link om anderen in staat te stellen uw startnummer privé te kopen",
+				"publicLink": "Openbare Link",
+				"publicLinkHelp": "Uw startnummer is openbaar zichtbaar en kan door iedereen op de marktplaats worden gevonden",
+				"privateLinkMessage": "Dit is een privé aanbieding - alleen mensen met deze directe link kunnen toegang krijgen en uw startnummer kopen",
+				"publicLinkMessage": "Dit is een openbare aanbieding - uw startnummer is doorzoekbaar en zichtbaar voor alle marktplaatsbezoekers",
 				"copyLink": "Link Kopiëren",
 				"marketplacePreview": "Marktplaats Voorbeeld"
 			}

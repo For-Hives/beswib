@@ -6,8 +6,8 @@ import Link from 'next/link'
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 
+import { formatDateSimple, pbDateToLuxon } from '@/lib/utils/date'
 import { Card, CardContent } from '@/components/ui/card'
-import { formatDateSimple } from '@/lib/utils/date'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 
@@ -34,14 +34,39 @@ export default function EventSelectionStep({
 
 	const [searchQuery, setSearchQuery] = useState('')
 
-	// Filter events: exclude past events and apply search query
+	// Filter events: exclude unavailable events and apply search query
 	const filteredEvents = availableEvents.filter(event => {
-		// Filter out past events (events before today)
-		const eventDate = new Date(event.eventDate)
-		const today = new Date()
-		today.setHours(0, 0, 0, 0) // Reset time to compare only dates
+		const now = pbDateToLuxon(new Date())
+		if (!now) return false
 
-		const isNotPastEvent = eventDate >= today
+		// Check if event is available for sale based on multiple date criteria
+		const isEventAvailable = () => {
+			// 1. Check if event date has passed
+			if (event.eventDate != null) {
+				const eventDate = pbDateToLuxon(event.eventDate)
+				if (eventDate != null && eventDate <= now) {
+					return false // Event has already occurred
+				}
+			}
+
+			// 2. Check if transfer deadline has passed
+			if (event.transferDeadline != null) {
+				const transferDeadline = pbDateToLuxon(event.transferDeadline)
+				if (transferDeadline != null && transferDeadline <= now) {
+					return false // Transfer deadline has passed
+				}
+			}
+
+			// 3. Check if bib pickup window has ended
+			if (event.bibPickupWindowEndDate != null) {
+				const bibPickupEnd = pbDateToLuxon(event.bibPickupWindowEndDate)
+				if (bibPickupEnd != null && bibPickupEnd <= now) {
+					return false // Bib pickup window has ended
+				}
+			}
+
+			return true
+		}
 
 		// Apply search filter
 		const matchesSearch =
@@ -49,7 +74,7 @@ export default function EventSelectionStep({
 			event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
 			event.location.toLowerCase().includes(searchQuery.toLowerCase())
 
-		return isNotPastEvent && matchesSearch
+		return isEventAvailable() && matchesSearch
 	})
 
 	return (
