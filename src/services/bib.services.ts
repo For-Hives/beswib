@@ -426,7 +426,7 @@ export async function fetchPrivateBibByToken(
  * Fetches all publicly listed bibs for a specific event.
  * @param eventId The ID of the event.
  */
-export async function fetchPubliclyListedBibsForEvent(eventId: string): Promise<Bib[]> {
+export async function fetchPubliclyListedBibsForEvent(eventId: string): Promise<(Bib & { expand?: { sellerUserId?: User } })[]> {
 	if (eventId === '') {
 		console.error('Event ID is required to fetch publicly listed bibs.')
 		return []
@@ -434,10 +434,10 @@ export async function fetchPubliclyListedBibsForEvent(eventId: string): Promise<
 	try {
 		const nowIso = formatDateToPbIso(new Date())
 		const saleWindowFilter = `((eventId.transferDeadline != null && eventId.transferDeadline >= '${nowIso}') || (eventId.transferDeadline = null && eventId.eventDate >= '${nowIso}'))`
-		const records = await pb.collection('bibs').getFullList<Bib>({
+		const records = await pb.collection('bibs').getFullList<Bib & { expand?: { sellerUserId?: User } }>({
 			sort: 'price',
 			filter: `eventId = "${eventId}" && status = 'available' && listed = 'public' && lockedAt = null && ${saleWindowFilter}`,
-			expand: 'eventId',
+			expand: 'eventId,sellerUserId',
 		})
 		return records
 	} catch (error: unknown) {
