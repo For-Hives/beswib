@@ -1,154 +1,289 @@
 {
 	"en": {
+		"categoryActive": "On Sale",
+		"categorySold": "Sold",
+		"categoryExpired": "Expired",
+		"categoryArchived": "Archived",
+		"noBibsActive": "No bibs on sale",
+		"noBibsSold": "No bibs sold",
+		"noBibsExpired": "No expired bibs",
+		"noBibsArchived": "No bibs archived",
+		"startListingFirst": "Start by listing your first bib",
+		"soldBibsWillAppear": "Your sold bibs will appear here",
+		"expiredBibsWillAppear": "Bibs that have passed the transfer deadline will appear here",
+		"archivedBibsWillAppear": "Expired or withdrawn bibs will appear here",
+		"registrationNumber": "Registration Number",
+		"size": "Size",
+		"gender": "Gender",
 		"sellerProfile": {
 			"complete": {
-				"title": "Seller Profile Complete",
-				"description": "Your merchant profile is complete. You can now sell bibs on the marketplace."
+				"title": "Profile Complete",
+				"description": "Your seller profile is complete and ready for business."
 			},
 			"incomplete": {
-				"title": "Complete Your Seller Profile",
-				"description": "To sell bibs, you need to complete your merchant profile with the following information:",
-				"whyRequired": "Why is this required?",
-				"paypalMerchantId": "PayPal Merchant ID: Required to receive payments from buyers",
-				"contactInfo": "Contact Information: Required for transaction processing and customer support",
-				"addressInfo": "Address Information: Required for legal compliance and payment processing",
+				"title": "Profile Incomplete",
+				"description": "Please complete your profile to start selling bibs.",
+				"whyRequired": "The following information is required to ensure secure transactions:",
+				"paypalMerchantId": "PayPal Merchant ID for payments",
+				"contactInfo": "Valid contact information",
+				"addressInfo": "Complete address details",
 				"completeProfileButton": "Complete Profile"
 			}
 		}
 	},
 	"fr": {
+		"categoryActive": "En cours de vente",
+		"categorySold": "Vendus",
+		"categoryExpired": "Dépassés",
+		"categoryArchived": "Archivés",
+		"noBibsActive": "Aucun dossard en vente",
+		"noBibsSold": "Aucun dossard vendu",
+		"noBibsExpired": "Aucun dossard dépassé",
+		"noBibsArchived": "Aucun dossard archivé",
+		"startListingFirst": "Commencez par lister votre premier dossard",
+		"soldBibsWillAppear": "Vos dossards vendus apparaîtront ici",
+		"expiredBibsWillAppear": "Les dossards qui ont dépassé la date limite de transfert apparaîtront ici",
+		"archivedBibsWillAppear": "Les dossards expirés ou retirés apparaîtront ici",
+		"registrationNumber": "Numéro d'inscription",
+		"size": "Taille",
+		"gender": "Genre",
 		"sellerProfile": {
 			"complete": {
-				"title": "Profil Vendeur Complet",
-				"description": "Votre profil marchand est complet. Vous pouvez maintenant vendre des dossards sur le marché."
+				"title": "Profil Complet",
+				"description": "Votre profil vendeur est complet et prêt pour les affaires."
 			},
 			"incomplete": {
-				"title": "Complétez Votre Profil Vendeur",
-				"description": "Pour vendre des dossards, vous devez compléter votre profil marchand avec les informations suivantes :",
-				"whyRequired": "Pourquoi est-ce requis ?",
-				"paypalMerchantId": "ID Marchand PayPal : Requis pour recevoir les paiements des acheteurs",
-				"contactInfo": "Informations de contact : Requises pour le traitement des transactions et le support client",
-				"addressInfo": "Informations d'adresse : Requises pour la conformité légale et le traitement des paiements",
+				"title": "Profil Incomplet",
+				"description": "Veuillez compléter votre profil pour commencer à vendre des dossards.",
+				"whyRequired": "Les informations suivantes sont requises pour assurer des transactions sécurisées :",
+				"paypalMerchantId": "ID Marchand PayPal pour les paiements",
+				"contactInfo": "Informations de contact valides",
+				"addressInfo": "Détails d'adresse complets",
 				"completeProfileButton": "Compléter le Profil"
 			}
 		}
 	},
-	"ko": {
-		"sellerProfile": {
-			"complete": {
-				"title": "판매자 프로필 완성",
-				"description": "상인 프로필이 완성되었습니다. 이제 마켓플레이스에서 빕을 판매할 수 있습니다."
-			},
-			"incomplete": {
-				"title": "판매자 프로필 완성하기",
-				"description": "빕을 판매하려면 다음 정보로 상인 프로필을 완성해야 합니다:",
-				"whyRequired": "왜 이것이 필요한가요?",
-				"paypalMerchantId": "PayPal 상인 ID: 구매자로부터 결제를 받기 위해 필요",
-				"contactInfo": "연락처 정보: 거래 처리 및 고객 지원을 위해 필요",
-				"addressInfo": "주소 정보: 법적 준수 및 결제 처리를 위해 필요",
-				"completeProfileButton": "프로필 완성"
-			}
-		}
-	},
 	"es": {
+		"categoryActive": "En Venta",
+		"categorySold": "Vendidos",
+		"categoryExpired": "Expirados",
+		"categoryArchived": "Archivados",
+		"noBibsActive": "No hay dorsales en venta",
+		"noBibsSold": "No hay dorsales vendidos",
+		"noBibsExpired": "No hay dorsales expirados",
+		"noBibsArchived": "No hay dorsales archivados",
+		"startListingFirst": "Comienza listando tu primer dorsal",
+		"soldBibsWillAppear": "Tus dorsales vendidos aparecerán aquí",
+		"expiredBibsWillAppear": "Los dorsales que han pasado la fecha límite de transferencia aparecerán aquí",
+		"archivedBibsWillAppear": "Los dorsales expirados o retirados aparecerán aquí",
+		"registrationNumber": "Número de Registro",
+		"size": "Talla",
+		"gender": "Género",
 		"sellerProfile": {
 			"complete": {
-				"title": "Perfil de Vendedor Completo",
-				"description": "Tu perfil de comerciante está completo. Ahora puedes vender dorsales en el mercado."
+				"title": "Perfil Completo",
+				"description": "Tu perfil de vendedor está completo y listo para los negocios."
 			},
 			"incomplete": {
-				"title": "Completa tu Perfil de Vendedor",
-				"description": "Para vender dorsales, necesitas completar tu perfil de comerciante con la siguiente información:",
-				"whyRequired": "¿Por qué es necesario?",
-				"paypalMerchantId": "ID de Comerciante PayPal: Necesario para recibir pagos de compradores",
-				"contactInfo": "Información de contacto: Necesaria para el procesamiento de transacciones y soporte al cliente",
-				"addressInfo": "Información de dirección: Necesaria para el cumplimiento legal y procesamiento de pagos",
+				"title": "Perfil Incompleto",
+				"description": "Por favor completa tu perfil para comenzar a vender dorsales.",
+				"whyRequired": "La siguiente información es requerida para asegurar transacciones seguras:",
+				"paypalMerchantId": "ID de Comerciante PayPal para pagos",
+				"contactInfo": "Información de contacto válida",
+				"addressInfo": "Detalles de dirección completos",
 				"completeProfileButton": "Completar Perfil"
 			}
 		}
 	},
 	"it": {
+		"categoryActive": "In Vendita",
+		"categorySold": "Venduti",
+		"categoryExpired": "Scaduti",
+		"categoryArchived": "Archiviati",
+		"noBibsActive": "Nessun pettorale in vendita",
+		"noBibsSold": "Nessun pettorale venduto",
+		"noBibsExpired": "Nessun pettorale scaduto",
+		"noBibsArchived": "Nessun pettorale archiviato",
+		"startListingFirst": "Inizia elencando il tuo primo pettorale",
+		"soldBibsWillAppear": "I tuoi pettorali venduti appariranno qui",
+		"expiredBibsWillAppear": "I pettorali che hanno superato la scadenza di trasferimento appariranno qui",
+		"archivedBibsWillAppear": "I pettorali scaduti o ritirati appariranno qui",
+		"registrationNumber": "Numero di Registrazione",
+		"size": "Taglia",
+		"gender": "Genere",
 		"sellerProfile": {
 			"complete": {
-				"title": "Profilo Venditore Completato",
-				"description": "Il tuo profilo commerciante è completo. Ora puoi vendere pettorali sul mercato."
+				"title": "Profilo Completo",
+				"description": "Il tuo profilo venditore è completo e pronto per gli affari."
 			},
 			"incomplete": {
-				"title": "Completa il Tuo Profilo Venditore",
-				"description": "Per vendere pettorali, devi completare il tuo profilo commerciante con le seguenti informazioni:",
-				"whyRequired": "Perché è richiesto?",
-				"paypalMerchantId": "ID Commerciante PayPal: Richiesto per ricevere pagamenti dai compratori",
-				"contactInfo": "Informazioni di contatto: Richieste per l'elaborazione delle transazioni e supporto clienti",
-				"addressInfo": "Informazioni sull'indirizzo: Richieste per la conformità legale e l'elaborazione dei pagamenti",
+				"title": "Profilo Incompleto",
+				"description": "Per favore completa il tuo profilo per iniziare a vendere pettorali.",
+				"whyRequired": "Le seguenti informazioni sono richieste per garantire transazioni sicure:",
+				"paypalMerchantId": "ID Commerciante PayPal per i pagamenti",
+				"contactInfo": "Informazioni di contatto valide",
+				"addressInfo": "Dettagli dell'indirizzo completi",
 				"completeProfileButton": "Completa Profilo"
 			}
 		}
 	},
 	"de": {
+		"categoryActive": "Zum Verkauf",
+		"categorySold": "Verkauft",
+		"categoryExpired": "Abgelaufen",
+		"categoryArchived": "Archiviert",
+		"noBibsActive": "Keine Startnummern zum Verkauf",
+		"noBibsSold": "Keine Startnummern verkauft",
+		"noBibsExpired": "Keine abgelaufenen Startnummern",
+		"noBibsArchived": "Keine archivierten Startnummern",
+		"startListingFirst": "Beginnen Sie mit der Auflistung Ihrer ersten Startnummer",
+		"soldBibsWillAppear": "Ihre verkauften Startnummern werden hier angezeigt",
+		"expiredBibsWillAppear": "Startnummern, die das Übertragungsdatum überschritten haben, werden hier angezeigt",
+		"archivedBibsWillAppear": "Abgelaufene oder zurückgezogene Startnummern werden hier angezeigt",
+		"registrationNumber": "Registrierungsnummer",
+		"size": "Größe",
+		"gender": "Geschlecht",
 		"sellerProfile": {
 			"complete": {
-				"title": "Verkäuferprofil Vervollständigt",
-				"description": "Ihr Händlerprofil ist vollständig. Sie können jetzt Startnummern auf dem Marktplatz verkaufen."
+				"title": "Profil Vollständig",
+				"description": "Ihr Verkäuferprofil ist vollständig und bereit für Geschäfte."
 			},
 			"incomplete": {
-				"title": "Vervollständigen Sie Ihr Verkäuferprofil",
-				"description": "Um Startnummern zu verkaufen, müssen Sie Ihr Händlerprofil mit den folgenden Informationen vervollständigen:",
-				"whyRequired": "Warum ist das erforderlich?",
-				"paypalMerchantId": "PayPal Händler-ID: Erforderlich, um Zahlungen von Käufern zu erhalten",
-				"contactInfo": "Kontaktinformationen: Erforderlich für Transaktionsverarbeitung und Kundensupport",
-				"addressInfo": "Adressinformationen: Erforderlich für rechtliche Compliance und Zahlungsverarbeitung",
+				"title": "Profil Unvollständig",
+				"description": "Bitte vervollständigen Sie Ihr Profil, um mit dem Verkauf von Startnummern zu beginnen.",
+				"whyRequired": "Die folgenden Informationen sind erforderlich, um sichere Transaktionen zu gewährleisten:",
+				"paypalMerchantId": "PayPal Händler-ID für Zahlungen",
+				"contactInfo": "Gültige Kontaktinformationen",
+				"addressInfo": "Vollständige Adressdetails",
 				"completeProfileButton": "Profil Vervollständigen"
 			}
 		}
 	},
 	"ro": {
+		"categoryActive": "În Vânzare",
+		"categorySold": "Vândute",
+		"categoryExpired": "Expirate",
+		"categoryArchived": "Arhivate",
+		"noBibsActive": "Nu există numere de start în vânzare",
+		"noBibsSold": "Nu există numere de start vândute",
+		"noBibsExpired": "Nu există numere de start expirate",
+		"noBibsArchived": "Nu există numere de start arhivate",
+		"startListingFirst": "Începe prin a-ți lista primul număr de start",
+		"soldBibsWillAppear": "Numerele tale de start vândute vor apărea aici",
+		"expiredBibsWillAppear": "Numerele de start care au depășit termenul limită de transfer vor apărea aici",
+		"archivedBibsWillAppear": "Numerele de start expirate sau retrase vor apărea aici",
+		"registrationNumber": "Numărul de Înregistrare",
+		"size": "Mărimea",
+		"gender": "Genul",
 		"sellerProfile": {
 			"complete": {
-				"title": "Profil Vânzător Complet",
-				"description": "Profilul tău de comerciant este complet. Acum poți vinde numerele de concurs pe piață."
+				"title": "Profil Complet",
+				"description": "Profilul tău de vânzător este complet și gata pentru afaceri."
 			},
 			"incomplete": {
-				"title": "Completează-ți Profilul de Vânzător",
-				"description": "Pentru a vinde numerele de concurs, trebuie să completezi profilul tău de comerciant cu următoarele informații:",
-				"whyRequired": "De ce este necesar?",
-				"paypalMerchantId": "ID Comerciant PayPal: Necesar pentru a primi plăți de la cumpărători",
-				"contactInfo": "Informații de contact: Necesare pentru procesarea tranzacțiilor și suportul clienților",
-				"addressInfo": "Informații de adresă: Necesare pentru conformitatea legală și procesarea plăților",
+				"title": "Profil Incomplet",
+				"description": "Te rog să-ți completezi profilul pentru a începe să vinzi numere de start.",
+				"whyRequired": "Următoarele informații sunt necesare pentru a asigura tranzacții sigure:",
+				"paypalMerchantId": "ID-ul de Comerciant PayPal pentru plăți",
+				"contactInfo": "Informații de contact valide",
+				"addressInfo": "Detalii complete ale adresei",
 				"completeProfileButton": "Completează Profilul"
 			}
 		}
 	},
 	"pt": {
+		"categoryActive": "À Venda",
+		"categorySold": "Vendidos",
+		"categoryExpired": "Expirados",
+		"categoryArchived": "Arquivados",
+		"noBibsActive": "Nenhum dorsal à venda",
+		"noBibsSold": "Nenhum dorsal vendido",
+		"noBibsExpired": "Nenhum dorsal expirado",
+		"noBibsArchived": "Nenhum dorsal arquivado",
+		"startListingFirst": "Comece listando seu primeiro dorsal",
+		"soldBibsWillAppear": "Seus dorsais vendidos aparecerão aqui",
+		"expiredBibsWillAppear": "Dorsais que passaram do prazo limite de transferência aparecerão aqui",
+		"archivedBibsWillAppear": "Dorsais expirados ou retirados aparecerão aqui",
+		"registrationNumber": "Número de Registro",
+		"size": "Tamanho",
+		"gender": "Gênero",
 		"sellerProfile": {
 			"complete": {
-				"title": "Perfil de Vendedor Completo",
-				"description": "O teu perfil de comerciante está completo. Agora podes vender dorsais no mercado."
+				"title": "Perfil Completo",
+				"description": "Seu perfil de vendedor está completo e pronto para negócios."
 			},
 			"incomplete": {
-				"title": "Completa o Teu Perfil de Vendedor",
-				"description": "Para venderes dorsais, precisas de completar o teu perfil de comerciante com as seguintes informações:",
-				"whyRequired": "Por que é necessário?",
-				"paypalMerchantId": "ID de Comerciante PayPal: Necessário para receber pagamentos dos compradores",
-				"contactInfo": "Informações de contacto: Necessárias para o processamento de transações e apoio ao cliente",
-				"addressInfo": "Informações de endereço: Necessárias para conformidade legal e processamento de pagamentos",
+				"title": "Perfil Incompleto",
+				"description": "Por favor, complete seu perfil para começar a vender dorsais.",
+				"whyRequired": "As seguintes informações são necessárias para garantir transações seguras:",
+				"paypalMerchantId": "ID de Comerciante PayPal para pagamentos",
+				"contactInfo": "Informações de contato válidas",
+				"addressInfo": "Detalhes completos do endereço",
 				"completeProfileButton": "Completar Perfil"
 			}
 		}
 	},
 	"nl": {
+		"categoryActive": "Te Koop",
+		"categorySold": "Verkocht",
+		"categoryExpired": "Verlopen",
+		"categoryArchived": "Gearchiveerd",
+		"noBibsActive": "Geen startnummers te koop",
+		"noBibsSold": "Geen startnummers verkocht",
+		"noBibsExpired": "Geen verlopen startnummers",
+		"noBibsArchived": "Geen gearchiveerde startnummers",
+		"startListingFirst": "Begin met het aanbieden van je eerste startnummer",
+		"soldBibsWillAppear": "Je verkochte startnummers verschijnen hier",
+		"expiredBibsWillAppear": "Startnummers die de overdrachtsdeadline hebben overschreden verschijnen hier",
+		"archivedBibsWillAppear": "Verlopen of ingetrokken startnummers verschijnen hier",
+		"registrationNumber": "Registratienummer",
+		"size": "Maat",
+		"gender": "Geslacht",
 		"sellerProfile": {
 			"complete": {
-				"title": "Verkoper Profiel Voltooid",
-				"description": "Je handelaarsprofiel is compleet. Je kunt nu startnummers verkopen op de marktplaats."
+				"title": "Profiel Voltooid",
+				"description": "Je verkoperprofiel is voltooid en klaar voor zaken."
 			},
 			"incomplete": {
-				"title": "Voltooi je Verkoper Profiel",
-				"description": "Om startnummers te verkopen, moet je je handelaarsprofiel voltooien met de volgende informatie:",
-				"whyRequired": "Waarom is dit vereist?",
-				"paypalMerchantId": "PayPal Handelaar ID: Vereist om betalingen van kopers te ontvangen",
-				"contactInfo": "Contactgegevens: Vereist voor transactieverwerking en klantenservice",
-				"addressInfo": "Adresgegevens: Vereist voor wettelijke naleving en betalingsverwerking",
+				"title": "Profiel Onvoltooid",
+				"description": "Vul je profiel aan om te beginnen met het verkopen van startnummers.",
+				"whyRequired": "De volgende informatie is vereist om veilige transacties te garanderen:",
+				"paypalMerchantId": "PayPal Merchant ID voor betalingen",
+				"contactInfo": "Geldige contactgegevens",
+				"addressInfo": "Volledige adresgegevens",
 				"completeProfileButton": "Profiel Voltooien"
+			}
+		}
+	},
+	"ko": {
+		"categoryActive": "판매 중",
+		"categorySold": "판매됨",
+		"categoryExpired": "만료됨",
+		"categoryArchived": "보관됨",
+		"noBibsActive": "판매 중인 배번이 없습니다",
+		"noBibsSold": "판매된 배번이 없습니다",
+		"noBibsExpired": "만료된 배번이 없습니다",
+		"noBibsArchived": "보관된 배번이 없습니다",
+		"startListingFirst": "첫 번째 배번을 등록하여 시작하세요",
+		"soldBibsWillAppear": "판매된 배번이 여기에 표시됩니다",
+		"expiredBibsWillAppear": "양도 마감일을 지난 배번이 여기에 표시됩니다",
+		"archivedBibsWillAppear": "만료되거나 철회된 배번이 여기에 표시됩니다",
+		"registrationNumber": "등록 번호",
+		"size": "사이즈",
+		"gender": "성별",
+		"sellerProfile": {
+			"complete": {
+				"title": "프로필 완성",
+				"description": "판매자 프로필이 완성되어 비즈니스를 시작할 준비가 되었습니다."
+			},
+			"incomplete": {
+				"title": "프로필 미완성",
+				"description": "배번 판매를 시작하려면 프로필을 완성해 주세요.",
+				"whyRequired": "안전한 거래를 위해 다음 정보가 필요합니다:",
+				"paypalMerchantId": "결제를 위한 PayPal 상인 ID",
+				"contactInfo": "유효한 연락처 정보",
+				"addressInfo": "완전한 주소 정보",
+				"completeProfileButton": "프로필 완성"
 			}
 		}
 	}

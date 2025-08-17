@@ -1,23 +1,23 @@
 'use client'
 
-import { Calendar, Edit3, MapPinned, Tag, User } from 'lucide-react'
+import { Calendar, Edit3, MapPinned, Tag } from 'lucide-react'
 
-import Link from 'next/link'
 import Image from 'next/image'
-import clsx from 'clsx'
+import Link from 'next/link'
 
-import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
+import type { Bib } from '@/models/bib.model'
 
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { getBibImageUrl } from '@/lib/utils/images'
 import { cn } from '@/lib/utils'
 
-import sellerTranslations from '@/app/[locale]/dashboard/seller/locales.json'
+import sellerTranslations from './locales.json'
 
 interface SellerBibCardProps {
-	bib: Bib & { expand?: { eventId: Event } }
+	bib: Bib & { expand?: { eventId: Event & { expand?: { organizer?: { logo?: string } } } } }
 	locale: Locale
 }
 
@@ -39,10 +39,13 @@ const getStatusDisplay = (status: string) => {
 	}
 }
 
-export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
+export default function SellerBibCard({ locale, bib }: SellerBibCardProps) {
 	const t = getTranslations(locale, sellerTranslations)
 
-	if (!bib?.id) return null
+	// Early return with explicit null for invalid bibs
+	if (!bib || !bib.id) {
+		return null
+	}
 
 	const statusDisplay = getStatusDisplay(bib.status ?? 'unknown')
 	const canEdit = bib.status === 'available' || bib.status === 'validation_failed'
@@ -64,7 +67,7 @@ export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
 				{/* Edit overlay on hover */}
 				{canEdit && (
 					<div className="absolute inset-0 z-30 flex items-center justify-center opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:backdrop-blur-sm">
-						<div className="absolute inset-0 bg-black/30 rounded-2xl" />
+						<div className="absolute inset-0 rounded-2xl bg-black/30" />
 						<Link href={`/dashboard/seller/edit-bib/${bib.id}`} className="relative z-10">
 							<div className="bg-primary flex items-center justify-center rounded-full p-4 shadow-xl transition-all duration-200 hover:scale-110 hover:shadow-2xl">
 								<Edit3 className="text-primary-foreground h-6 w-6" />
@@ -76,19 +79,13 @@ export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
 				{/* Event image */}
 				<div className="relative flex justify-center px-4 pt-4">
 					<div className="from-primary/20 via-accent/20 to-secondary/20 before:from-primary before:via-accent before:via-secondary before:to-ring relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gradient-to-br shadow-[inset_0_0_20px_hsl(var(--primary)/0.3),inset_0_0_40px_hsl(var(--accent)/0.2),0_0_30px_hsl(var(--primary)/0.4)] before:absolute before:inset-0 before:-z-10 before:m-[-1px] before:rounded-xl before:bg-gradient-to-br before:p-0.5">
-						{bib.expand?.eventId?.image ? (
-							<Image
-								alt={bib.expand.eventId.name || 'Event image'}
-								className="-z-10 rounded-2xl object-cover p-3"
-								fill
-								sizes="100vw"
-								src={bib.expand.eventId.image}
-							/>
-						) : (
-							<div className="absolute inset-0 z-10 opacity-10">
-								<div className="h-full w-full animate-pulse bg-[linear-gradient(90deg,hsl(var(--foreground)/0.3)_1px,transparent_1px),linear-gradient(hsl(var(--foreground)/0.3)_1px,transparent_1px)] bg-[length:15px_15px]" />
-							</div>
-						)}
+						<Image
+							alt={bib.expand?.eventId?.name || 'Event image'}
+							className="-z-10 rounded-2xl object-cover p-3"
+							fill
+							sizes="100vw"
+							src={getBibImageUrl(bib)}
+						/>
 
 						{/* Status badge */}
 						<div className="absolute top-0 right-0 z-20 m-2">
@@ -104,7 +101,7 @@ export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
 					{/* Event name and price */}
 					<div className="flex w-full justify-between gap-2">
 						<h3 className="text-foreground truncate text-lg font-bold">
-							{bib.expand?.eventId?.name || 'Événement inconnu'}
+							{bib.expand?.eventId?.name ?? 'Unknown Event'}
 						</h3>
 						<div className="relative flex flex-col items-center gap-2">
 							<p className="text-foreground text-2xl font-bold">€{bib.price?.toFixed(2) ?? '0.00'}</p>
@@ -124,7 +121,15 @@ export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
 						<div className="flex items-center gap-2">
 							<Calendar className="text-muted-foreground h-4 w-4" />
 							<p className="text-muted-foreground text-sm">
-								{formatDateObjectForDisplay(new Date(bib.expand.eventId.eventDate), locale)}
+								{(() => {
+									try {
+										const eventDate = new Date(bib.expand.eventId.eventDate)
+										if (isNaN(eventDate.getTime())) return 'Invalid date'
+										return formatDateObjectForDisplay(eventDate, locale)
+									} catch {
+										return 'Invalid date'
+									}
+								})()}
 							</p>
 						</div>
 					)}

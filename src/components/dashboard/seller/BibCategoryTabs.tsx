@@ -1,20 +1,20 @@
 'use client'
 
-import { useState } from 'react'
 import { ShoppingCart, CheckCircle, Archive, Tag, Clock } from 'lucide-react'
+import { useState } from 'react'
 
-import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
+import type { Bib } from '@/models/bib.model'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
+
+import sellerTranslations from './locales.json'
 import SellerBibCard from './SellerBibCard'
 
-import sellerTranslations from '@/app/[locale]/dashboard/seller/locales.json'
-
 interface BibCategoryTabsProps {
-	bibs: (Bib & { expand?: { eventId: Event } })[]
+	bibs?: (Bib & { expand?: { eventId: Event & { expand?: { organizer?: { logo?: string } } } } })[]
 	locale: Locale
 }
 
@@ -29,45 +29,59 @@ interface Category {
 }
 
 // Function to check if a bib is expired based on transfer deadline
-const isBibExpired = (bib: Bib & { expand?: { eventId: Event } }): boolean => {
+const isBibExpired = (
+	bib: Bib & { expand?: { eventId: Event & { expand?: { organizer?: { logo?: string } } } } }
+): boolean => {
 	const transferDeadline = bib.expand?.eventId?.transferDeadline
 	if (!transferDeadline) return false
-	
-	const now = new Date()
-	const deadline = new Date(transferDeadline)
-	return now > deadline
+
+	try {
+		const now = new Date()
+		const deadline = new Date(transferDeadline)
+
+		// Validate dates
+		if (isNaN(deadline.getTime())) return false
+
+		return now > deadline
+	} catch {
+		return false
+	}
 }
 
-export default function BibCategoryTabs({ bibs, locale }: BibCategoryTabsProps) {
+export default function BibCategoryTabs({ locale, bibs = [] }: BibCategoryTabsProps) {
 	const t = getTranslations(locale, sellerTranslations)
 	const [activeCategory, setActiveCategory] = useState<CategoryKey>('active')
 
+	// Ensure bibs is always an array and filter out invalid entries
+	const validBibs = (bibs || []).filter(bib => bib && bib.id)
+
 	const categories: Category[] = [
 		{
+			label: t?.categoryActive ?? 'On Sale',
 			key: 'active',
-			label: t?.categoryActive ?? 'En cours de vente',
 			icon: ShoppingCart,
 			filter: bib => (bib.status === 'available' || bib.status === 'validation_failed') && !isBibExpired(bib),
 			color:
 				'text-green-600 border-green-200 bg-green-50 dark:text-green-400 dark:border-green-800 dark:bg-green-950/30',
 		},
 		{
+			label: t?.categorySold ?? 'Sold',
 			key: 'sold',
-			label: t?.categorySold ?? 'Vendus',
 			icon: CheckCircle,
 			filter: bib => bib.status === 'sold',
 			color: 'text-blue-600 border-blue-200 bg-blue-50 dark:text-blue-400 dark:border-blue-800 dark:bg-blue-950/30',
 		},
 		{
+			label: t?.categoryExpired ?? 'Expired',
 			key: 'expired',
-			label: t?.categoryExpired ?? 'Dépassés',
 			icon: Clock,
 			filter: bib => (bib.status === 'available' || bib.status === 'validation_failed') && isBibExpired(bib),
-			color: 'text-orange-600 border-orange-200 bg-orange-50 dark:text-orange-400 dark:border-orange-800 dark:bg-orange-950/30',
+			color:
+				'text-orange-600 border-orange-200 bg-orange-50 dark:text-orange-400 dark:border-orange-800 dark:bg-orange-950/30',
 		},
 		{
+			label: t?.categoryArchived ?? 'Archived',
 			key: 'archived',
-			label: t?.categoryArchived ?? 'Archivés',
 			icon: Archive,
 			filter: bib => bib.status === 'expired' || bib.status === 'withdrawn',
 			color: 'text-gray-600 border-gray-200 bg-gray-50 dark:text-gray-400 dark:border-gray-800 dark:bg-gray-950/30',
@@ -75,50 +89,54 @@ export default function BibCategoryTabs({ bibs, locale }: BibCategoryTabsProps) 
 	]
 
 	// Filter bibs by category
-	const filteredBibs = bibs.filter(categories.find(cat => cat.key === activeCategory)?.filter || (() => false))
+	const currentCategoryFilter = categories.find(cat => cat.key === activeCategory)?.filter
+	const filteredBibs = currentCategoryFilter ? validBibs.filter(currentCategoryFilter) : []
 
 	// Calculate counts for each category
 	const categoryCounts = categories.map(category => ({
 		...category,
-		count: bibs.filter(category.filter).length,
+		count: validBibs.filter(category.filter).length,
 	}))
 
 	return (
 		<div className="space-y-6">
 			{/* Category Navigation */}
 			<div className="flex flex-wrap gap-2">
-				{categoryCounts.map(category => {
-					const Icon = category.icon
-					const isActive = activeCategory === category.key
+				{categoryCounts
+					.filter(category => {
+						const isActive = activeCategory === category.key
+						// Only show category if it has bibs or is currently active
+						return category.count > 0 || isActive
+					})
+					.map(category => {
+						const Icon = category.icon
+						const isActive = activeCategory === category.key
 
-					// Only show category if it has bibs or is currently active
-					if (category.count === 0 && !isActive) return null
-
-					return (
-						<button
-							key={category.key}
-							onClick={() => setActiveCategory(category.key)}
-							className={cn(
-								'flex items-center gap-2 rounded-lg border px-4 py-2 transition-all duration-200',
-								'hover:scale-105 hover:shadow-md',
-								isActive ? category.color : 'text-muted-foreground border-border bg-card/50 hover:bg-card/80'
-							)}
-						>
-							<Icon className="h-4 w-4" />
-							<span className="font-medium">{category.label}</span>
-							{category.count > 0 && (
-								<span
-									className={cn(
-										'rounded-full px-2 py-0.5 text-xs font-bold',
-										isActive ? 'bg-white/20 text-current' : 'bg-muted-foreground/10 text-muted-foreground'
-									)}
-								>
-									{category.count}
-								</span>
-							)}
-						</button>
-					)
-				})}
+						return (
+							<button
+								key={category.key}
+								onClick={() => setActiveCategory(category.key)}
+								className={cn(
+									'flex items-center gap-2 rounded-lg border px-4 py-2 transition-all duration-200',
+									'hover:scale-105 hover:shadow-md',
+									isActive ? category.color : 'text-muted-foreground border-border bg-card/50 hover:bg-card/80'
+								)}
+							>
+								<Icon className="h-4 w-4" />
+								<span className="font-medium">{category.label}</span>
+								{category.count > 0 && (
+									<span
+										className={cn(
+											'rounded-full px-2 py-0.5 text-xs font-bold',
+											isActive ? 'bg-white/20 text-current' : 'bg-muted-foreground/10 text-muted-foreground'
+										)}
+									>
+										{category.count}
+									</span>
+								)}
+							</button>
+						)
+					})}
 			</div>
 
 			{/* Category Content */}
@@ -140,17 +158,18 @@ export default function BibCategoryTabs({ bibs, locale }: BibCategoryTabsProps) 
 							})()}
 						</div>
 						<h3 className="mb-2 text-lg font-semibold">
-							{activeCategory === 'active' && (t?.noBibsActive ?? 'Aucun dossard en vente')}
-							{activeCategory === 'sold' && (t?.noBibsSold ?? 'Aucun dossard vendu')}
-							{activeCategory === 'expired' && (t?.noBibsExpired ?? 'Aucun dossard dépassé')}
-							{activeCategory === 'archived' && (t?.noBibsArchived ?? 'Aucun dossard archivé')}
+							{activeCategory === 'active' && (t?.noBibsActive ?? 'No bibs on sale')}
+							{activeCategory === 'sold' && (t?.noBibsSold ?? 'No bibs sold')}
+							{activeCategory === 'expired' && (t?.noBibsExpired ?? 'No expired bibs')}
+							{activeCategory === 'archived' && (t?.noBibsArchived ?? 'No bibs archived')}
 						</h3>
 						<p className="text-muted-foreground mb-6">
-							{activeCategory === 'active' && (t?.startListingFirst ?? 'Commencez par lister votre premier dossard')}
-							{activeCategory === 'sold' && (t?.soldBibsWillAppear ?? 'Vos dossards vendus apparaîtront ici')}
-							{activeCategory === 'expired' && (t?.expiredBibsWillAppear ?? 'Les dossards qui ont dépassé la date limite de transfert apparaîtront ici')}
+							{activeCategory === 'active' && (t?.startListingFirst ?? 'Start by listing your first bib')}
+							{activeCategory === 'sold' && (t?.soldBibsWillAppear ?? 'Your sold bibs will appear here')}
+							{activeCategory === 'expired' &&
+								(t?.expiredBibsWillAppear ?? 'Bibs that have passed the transfer deadline will appear here')}
 							{activeCategory === 'archived' &&
-								(t?.archivedBibsWillAppear ?? 'Les dossards expirés ou retirés apparaîtront ici')}
+								(t?.archivedBibsWillAppear ?? 'Expired or withdrawn bibs will appear here')}
 						</p>
 					</div>
 				)}
