@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ShoppingCart, CheckCircle, Archive, Tag } from 'lucide-react'
+import { ShoppingCart, CheckCircle, Archive, Tag, Clock } from 'lucide-react'
 
 import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
@@ -18,7 +18,7 @@ interface BibCategoryTabsProps {
 	locale: Locale
 }
 
-type CategoryKey = 'active' | 'sold' | 'archived'
+type CategoryKey = 'active' | 'sold' | 'expired' | 'archived'
 
 interface Category {
 	key: CategoryKey
@@ -26,6 +26,16 @@ interface Category {
 	icon: React.ComponentType<{ className?: string }>
 	filter: (bib: Bib) => boolean
 	color: string
+}
+
+// Function to check if a bib is expired based on transfer deadline
+const isBibExpired = (bib: Bib & { expand?: { eventId: Event } }): boolean => {
+	const transferDeadline = bib.expand?.eventId?.transferDeadline
+	if (!transferDeadline) return false
+	
+	const now = new Date()
+	const deadline = new Date(transferDeadline)
+	return now > deadline
 }
 
 export default function BibCategoryTabs({ bibs, locale }: BibCategoryTabsProps) {
@@ -37,7 +47,7 @@ export default function BibCategoryTabs({ bibs, locale }: BibCategoryTabsProps) 
 			key: 'active',
 			label: t?.categoryActive ?? 'En cours de vente',
 			icon: ShoppingCart,
-			filter: bib => bib.status === 'available' || bib.status === 'validation_failed',
+			filter: bib => (bib.status === 'available' || bib.status === 'validation_failed') && !isBibExpired(bib),
 			color:
 				'text-green-600 border-green-200 bg-green-50 dark:text-green-400 dark:border-green-800 dark:bg-green-950/30',
 		},
@@ -47,6 +57,13 @@ export default function BibCategoryTabs({ bibs, locale }: BibCategoryTabsProps) 
 			icon: CheckCircle,
 			filter: bib => bib.status === 'sold',
 			color: 'text-blue-600 border-blue-200 bg-blue-50 dark:text-blue-400 dark:border-blue-800 dark:bg-blue-950/30',
+		},
+		{
+			key: 'expired',
+			label: t?.categoryExpired ?? 'Dépassés',
+			icon: Clock,
+			filter: bib => (bib.status === 'available' || bib.status === 'validation_failed') && isBibExpired(bib),
+			color: 'text-orange-600 border-orange-200 bg-orange-50 dark:text-orange-400 dark:border-orange-800 dark:bg-orange-950/30',
 		},
 		{
 			key: 'archived',
@@ -125,11 +142,13 @@ export default function BibCategoryTabs({ bibs, locale }: BibCategoryTabsProps) 
 						<h3 className="mb-2 text-lg font-semibold">
 							{activeCategory === 'active' && (t?.noBibsActive ?? 'Aucun dossard en vente')}
 							{activeCategory === 'sold' && (t?.noBibsSold ?? 'Aucun dossard vendu')}
+							{activeCategory === 'expired' && (t?.noBibsExpired ?? 'Aucun dossard dépassé')}
 							{activeCategory === 'archived' && (t?.noBibsArchived ?? 'Aucun dossard archivé')}
 						</h3>
 						<p className="text-muted-foreground mb-6">
 							{activeCategory === 'active' && (t?.startListingFirst ?? 'Commencez par lister votre premier dossard')}
 							{activeCategory === 'sold' && (t?.soldBibsWillAppear ?? 'Vos dossards vendus apparaîtront ici')}
+							{activeCategory === 'expired' && (t?.expiredBibsWillAppear ?? 'Les dossards qui ont dépassé la date limite de transfert apparaîtront ici')}
 							{activeCategory === 'archived' &&
 								(t?.archivedBibsWillAppear ?? 'Les dossards expirés ou retirés apparaîtront ici')}
 						</p>

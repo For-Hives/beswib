@@ -24,12 +24,15 @@
 		"bibFor": "Bib for:",
 		"categoryActive": "On Sale",
 		"categorySold": "Sold",
+		"categoryExpired": "Expired",
 		"categoryArchived": "Archived",
 		"noBibsActive": "No bibs on sale",
 		"noBibsSold": "No bibs sold",
+		"noBibsExpired": "No expired bibs",
 		"noBibsArchived": "No bibs archived",
 		"startListingFirst": "Start by listing your first bib",
 		"soldBibsWillAppear": "Your sold bibs will appear here",
+		"expiredBibsWillAppear": "Bibs that have passed the transfer deadline will appear here",
 		"archivedBibsWillAppear": "Expired or withdrawn bibs will appear here"
 	},
 	"fr": {
@@ -57,12 +60,15 @@
 		"bibFor": "Dossard pour :",
 		"categoryActive": "En cours de vente",
 		"categorySold": "Vendus",
+		"categoryExpired": "Dépassés",
 		"categoryArchived": "Archivés",
 		"noBibsActive": "Aucun dossard en vente",
 		"noBibsSold": "Aucun dossard vendu",
+		"noBibsExpired": "Aucun dossard dépassé",
 		"noBibsArchived": "Aucun dossard archivé",
 		"startListingFirst": "Commencez par lister votre premier dossard",
 		"soldBibsWillAppear": "Vos dossards vendus apparaîtront ici",
+		"expiredBibsWillAppear": "Les dossards qui ont dépassé la date limite de transfert apparaîtront ici",
 		"archivedBibsWillAppear": "Les dossards expirés ou retirés apparaîtront ici"
 	},
 	"ko": {

@@ -61,23 +61,16 @@ export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
 				/>
 				<div className="bg-background pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] opacity-25 dark:bg-black"></div>
 
-				{/* Blur overlay and edit button on hover */}
+				{/* Edit overlay on hover */}
 				{canEdit && (
-					<>
-						{/* Blur overlay */}
-						<div className="absolute inset-0 z-30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-							<div className="h-full w-full rounded-2xl bg-black/20 backdrop-blur-sm" />
-						</div>
-
-						{/* Edit button */}
-						<div className="absolute inset-0 z-40 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-							<Link href={`/dashboard/seller/edit-bib/${bib.id}`}>
-								<div className="bg-primary/90 flex items-center justify-center rounded-full p-4 shadow-lg transition-transform duration-200 hover:scale-110">
-									<Edit3 className="text-primary-foreground h-6 w-6" />
-								</div>
-							</Link>
-						</div>
-					</>
+					<div className="absolute inset-0 z-30 flex items-center justify-center opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:backdrop-blur-sm">
+						<div className="absolute inset-0 bg-black/30 rounded-2xl" />
+						<Link href={`/dashboard/seller/edit-bib/${bib.id}`} className="relative z-10">
+							<div className="bg-primary flex items-center justify-center rounded-full p-4 shadow-xl transition-all duration-200 hover:scale-110 hover:shadow-2xl">
+								<Edit3 className="text-primary-foreground h-6 w-6" />
+							</div>
+						</Link>
+					</div>
 				)}
 
 				{/* Event image */}
@@ -111,7 +104,7 @@ export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
 					{/* Event name and price */}
 					<div className="flex w-full justify-between gap-2">
 						<h3 className="text-foreground truncate text-lg font-bold">
-							{bib.expand?.eventId?.name ?? `Event ID: ${bib.eventId ?? 'Unknown'}`}
+							{bib.expand?.eventId?.name || 'Événement inconnu'}
 						</h3>
 						<div className="relative flex flex-col items-center gap-2">
 							<p className="text-foreground text-2xl font-bold">€{bib.price?.toFixed(2) ?? '0.00'}</p>
