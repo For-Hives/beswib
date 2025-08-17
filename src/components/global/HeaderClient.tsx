@@ -5,7 +5,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 
-import { SignedIn, SignedOut, UserButton, useClerk, useUser } from '@clerk/nextjs'
+import { SignedIn, SignedOut, useClerk, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -56,7 +56,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 								<div className="flex space-x-4">
 									{navigationLinks.map(link => (
 										<Link
-											className={`text-md cursor-pointer rounded-md px-3 py-2 font-medium transition-colors ${
+											className={`text-md rounded-md px-3 py-2 font-medium transition-colors ${
 												link.current
 													? 'bg-accent text-accent-foreground'
 													: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
@@ -115,17 +115,17 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 					<div className="space-y-1 px-2 pt-2 pb-3">
 						{/* Main Navigation Links 🔗 */}
 						{navigationLinks.map(link => (
-							<DisclosureButton key={link.href}>
-								<Link
-									className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${
-										link.current
-											? 'bg-accent text-accent-foreground'
-											: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-									}`}
-									href={link.href}
-								>
-									{link.label}
-								</Link>
+							<DisclosureButton
+								as={Link}
+								className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${
+									link.current
+										? 'bg-accent text-accent-foreground'
+										: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+								}`}
+								href={link.href}
+								key={link.href}
+							>
+								{link.label}
 							</DisclosureButton>
 						))}
 
@@ -193,59 +193,54 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 			</div>
 
 			{/* Dashboard Main Link 🏠 */}
-			<DisclosureButton>
-				<Link
-					className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
-					href="/dashboard"
-				>
-					<LayoutDashboard className="h-4 w-4" />
-					{t.navbar.dashboardLink}
-				</Link>
+			<DisclosureButton
+				as={Link}
+				className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+				href="/dashboard"
+			>
+				<LayoutDashboard className="h-4 w-4" />
+				{t.navbar.dashboardLink}
 			</DisclosureButton>
 
 			{/* Profile Link */}
-			<DisclosureButton>
-				<Link
-					className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
-					href="/profile"
-				>
-					<User className="h-4 w-4" />
-					{t.navbar.profileLink}
-				</Link>
+			<DisclosureButton
+				as={Link}
+				className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+				href="/profile"
+			>
+				<User className="h-4 w-4" />
+				{t.navbar.profileLink}
 			</DisclosureButton>
 
 			{/* Buy Bib Link 🛍️ */}
-			<DisclosureButton>
-				<Link
-					className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
-					href="/marketplace"
-				>
-					<ShoppingBag className="h-4 w-4" />
-					{t.navbar.buyBibLink}
-				</Link>
+			<DisclosureButton
+				as={Link}
+				className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+				href="/marketplace"
+			>
+				<ShoppingBag className="h-4 w-4" />
+				{t.navbar.buyBibLink}
 			</DisclosureButton>
 
 			{/* Sell Bib Link 🏷️ */}
-			<DisclosureButton>
-				<Link
-					className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
-					href="/dashboard/seller/sell-bib"
-				>
-					<Tag className="h-4 w-4" />
-					{t.navbar.sellBibLink}
-				</Link>
+			<DisclosureButton
+				as={Link}
+				className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+				href="/dashboard/seller/sell-bib"
+			>
+				<Tag className="h-4 w-4" />
+				{t.navbar.sellBibLink}
 			</DisclosureButton>
 
 			{/* Admin Link - Only show if user is admin 👑 */}
 			{isAdmin && (
-				<DisclosureButton>
-					<Link
-						className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
-						href="/admin"
-					>
-						<Settings className="h-4 w-4" />
-						{t.navbar.adminLink}
-					</Link>
+				<DisclosureButton
+					as={Link}
+					className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+					href="/admin"
+				>
+					<Settings className="h-4 w-4" />
+					{t.navbar.adminLink}
 				</DisclosureButton>
 			)}
 
