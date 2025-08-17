@@ -8,9 +8,13 @@
 			"tokenLabel": "Private Token",
 			"tokenPlaceholder": "Enter your private token...",
 			"validateButton": "Access Private Listing",
-			"invalidToken": "Invalid private token",
+			"invalidToken": "Invalid private token. Please check your token and try again.",
 			"requiredToken": "Private token is required",
-			"backToMarketplace": "Back to Marketplace"
+			"backToMarketplace": "Back to Marketplace",
+			"errorTitle": "Access Denied",
+			"validationFailedTitle": "Token Validation Failed",
+			"validationFailedDesc": "The private token you entered is invalid or has expired. Please check the token and try again.",
+			"tryAgainButton": "Try Again"
 		},
 		"allDistances": "All distances",
 		"allPrices": "All prices",
@@ -155,9 +159,13 @@
 			"tokenLabel": "Token privé",
 			"tokenPlaceholder": "Entrez votre token privé...",
 			"validateButton": "Accéder à l'annonce privée",
-			"invalidToken": "Token privé invalide",
+			"invalidToken": "Token privé invalide. Veuillez vérifier votre token et réessayer.",
 			"requiredToken": "Le token privé est requis",
-			"backToMarketplace": "Retour au marketplace"
+			"backToMarketplace": "Retour au marketplace",
+			"errorTitle": "Accès refusé",
+			"validationFailedTitle": "Validation du token échouée",
+			"validationFailedDesc": "Le token privé que vous avez saisi est invalide ou a expiré. Veuillez vérifier le token et réessayer.",
+			"tryAgainButton": "Réessayer"
 		},
 		"allDistances": "Toutes les distances",
 		"allPrices": "Tous les prix",
