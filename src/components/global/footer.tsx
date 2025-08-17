@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { SOCIALS, InstagramIcon, LinkedinIcon, StravaIcon } from '@/lib/utils/social'
 import { LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { getVersion } from '@/lib/utils/version'
 
 import LanguageSelector from './LanguageSelector'
 import translations from './locales.json'
@@ -52,6 +53,9 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 							<StravaIcon className="h-5 w-5" />
 						</Link>
 					</div>
+
+					{/* version */}
+					<div className="text-muted-foreground text-sm">{`Version ${getVersion()}`}</div>
 				</div>
 
 				{/* Explore */}

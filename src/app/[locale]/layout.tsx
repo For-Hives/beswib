@@ -18,12 +18,12 @@ import { getClerkLocalization } from '@/lib/i18n/clerk/localization'
 import QueryProvider from '@/components/providers/QueryProvider'
 import SentryClientInit from '@/app/[locale]/SentryClientInit'
 import PageTransition from '@/components/ui/PageTransition'
+import { getVersion } from '@/lib/utils/version'
 import Footer from '@/components/global/footer'
 import Header from '@/components/global/Header'
 
 import '@/lib/utils/umami'
 import '@/app/[locale]/globals.css'
-import { getVersion } from '@/lib/utils/version'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
