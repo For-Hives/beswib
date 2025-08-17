@@ -95,7 +95,7 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 			signUpUrl={`/${locale}/auth/sign-up`}
 			signInFallbackRedirectUrl={`/${locale}/dashboard`}
 		>
-			<html lang={locale}>
+			<html lang={locale} suppressHydrationWarning>
 				<head>
 					{/* Apply persisted/system theme BEFORE paint to prevent flash */}
 					<script

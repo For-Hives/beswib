@@ -188,7 +188,7 @@ export default function BuyerDashboardClient({
 											{t.noPurchases ?? "You haven't made any purchases yet"}
 										</p>
 										<Link href="/events">
-											<Button>{t.browseEvents}</Button>
+											<Button className="cursor-pointer">{t.browseEvents}</Button>
 										</Link>
 									</div>
 								)}
@@ -264,13 +264,13 @@ export default function BuyerDashboardClient({
 
 					{/* Quick Actions */}
 					<div className="mt-8">
-						<h2 className="text-foreground mb-6 text-xl font-bold">Quick Actions</h2>
+						<h2 className="text-foreground mb-6 text-xl font-bold">{t.quickActions}</h2>
 						<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
 							<Link href="/marketplace">
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<ShoppingCart className="text-primary mb-2 h-8 w-8" />
-										<p className="text-sm font-medium">Browse Marketplace</p>
+										<p className="text-sm font-medium">{t.browseMarketplace}</p>
 									</CardContent>
 								</Card>
 							</Link>
@@ -279,7 +279,7 @@ export default function BuyerDashboardClient({
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<Calendar className="text-primary mb-2 h-8 w-8" />
-										<p className="text-sm font-medium">Browse Events</p>
+										<p className="text-sm font-medium">{t.browseEvents}</p>
 									</CardContent>
 								</Card>
 							</Link>
@@ -288,7 +288,7 @@ export default function BuyerDashboardClient({
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<Users className="text-primary mb-2 h-8 w-8" />
-										<p className="text-sm font-medium">Main Dashboard</p>
+										<p className="text-sm font-medium">{t.mainDashboard}</p>
 									</CardContent>
 								</Card>
 							</Link>
@@ -297,7 +297,7 @@ export default function BuyerDashboardClient({
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<Clock className="text-primary mb-2 h-8 w-8" />
-										<p className="text-sm font-medium">Get Help</p>
+										<p className="text-sm font-medium">{t.getHelp}</p>
 									</CardContent>
 								</Card>
 							</Link>

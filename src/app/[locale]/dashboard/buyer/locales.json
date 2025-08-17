@@ -29,7 +29,11 @@
 		"waitingForNotification": "Waiting for notification",
 		"totalPurchasesLabel": "Total Purchases",
 		"waitlistEntriesLabel": "Waitlist Entries",
-		"totalSpentLabel": "Total Spent"
+		"totalSpentLabel": "Total Spent",
+		"quickActions": "Quick Actions",
+		"browseMarketplace": "Browse Marketplace",
+		"mainDashboard": "Main Dashboard",
+		"getHelp": "Get Help"
 	},
 	"fr": {
 		"title": "Tableau de bord acheteur",
@@ -61,7 +65,11 @@
 		"waitingForNotification": "En attente de notification",
 		"totalPurchasesLabel": "Achats totaux",
 		"waitlistEntriesLabel": "Listes d'attente",
-		"totalSpentLabel": "Dépenses totales"
+		"totalSpentLabel": "Dépenses totales",
+		"quickActions": "Actions rapides",
+		"browseMarketplace": "Parcourir le marché",
+		"mainDashboard": "Tableau de bord principal",
+		"getHelp": "Obtenir de l'aide"
 	},
 	"ko": {
 		"title": "구매자 대시보드",
@@ -93,7 +101,11 @@
 		"waitingForNotification": "알림 대기 중",
 		"totalPurchasesLabel": "총 구매",
 		"waitlistEntriesLabel": "대기 목록",
-		"totalSpentLabel": "총 지출"
+		"totalSpentLabel": "총 지출",
+		"quickActions": "빠른 작업",
+		"browseMarketplace": "마켓플레이스 둘러보기",
+		"mainDashboard": "메인 대시보드",
+		"getHelp": "도움 받기"
 	},
 	"es": {
 		"title": "Panel de Comprador",
@@ -125,7 +137,11 @@
 		"waitingForNotification": "Esperando notificación",
 		"totalPurchasesLabel": "Compras totales",
 		"waitlistEntriesLabel": "Listas de espera",
-		"totalSpentLabel": "Gasto total"
+		"totalSpentLabel": "Gasto total",
+		"quickActions": "Acciones rápidas",
+		"browseMarketplace": "Explorar Mercado",
+		"mainDashboard": "Panel Principal",
+		"getHelp": "Obtener Ayuda"
 	},
 	"it": {
 		"title": "Dashboard Acquirente",
@@ -157,7 +173,11 @@
 		"waitingForNotification": "In attesa di notifica",
 		"totalPurchasesLabel": "Acquisti totali",
 		"waitlistEntriesLabel": "Liste d'attesa",
-		"totalSpentLabel": "Totale speso"
+		"totalSpentLabel": "Totale speso",
+		"quickActions": "Azioni rapide",
+		"browseMarketplace": "Sfoglia Mercato",
+		"mainDashboard": "Dashboard Principale",
+		"getHelp": "Ottieni Aiuto"
 	},
 	"de": {
 		"title": "Käufer-Dashboard",
@@ -189,7 +209,11 @@
 		"waitingForNotification": "Warten auf Benachrichtigung",
 		"totalPurchasesLabel": "Gesamtkäufe",
 		"waitlistEntriesLabel": "Wartelisten",
-		"totalSpentLabel": "Gesamtausgaben"
+		"totalSpentLabel": "Gesamtausgaben",
+		"quickActions": "Schnellaktionen",
+		"browseMarketplace": "Marktplatz durchstöbern",
+		"mainDashboard": "Haupt-Dashboard",
+		"getHelp": "Hilfe erhalten"
 	},
 	"ro": {
 		"title": "Panou Cumpărător",
@@ -221,7 +245,11 @@
 		"waitingForNotification": "Așteptând notificare",
 		"totalPurchasesLabel": "Achiziții totale",
 		"waitlistEntriesLabel": "Liste de așteptare",
-		"totalSpentLabel": "Total cheltuit"
+		"totalSpentLabel": "Total cheltuit",
+		"quickActions": "Acțiuni rapide",
+		"browseMarketplace": "Răsfoiește Piața",
+		"mainDashboard": "Panou Principal",
+		"getHelp": "Obține Ajutor"
 	},
 	"pt": {
 		"title": "Painel do Comprador",
@@ -253,7 +281,11 @@
 		"waitingForNotification": "A aguardar notificação",
 		"totalPurchasesLabel": "Compras totais",
 		"waitlistEntriesLabel": "Listas de espera",
-		"totalSpentLabel": "Total gasto"
+		"totalSpentLabel": "Total gasto",
+		"quickActions": "Ações rápidas",
+		"browseMarketplace": "Explorar Mercado",
+		"mainDashboard": "Painel Principal",
+		"getHelp": "Obter Ajuda"
 	},
 	"nl": {
 		"title": "Koper Dashboard",
@@ -285,6 +317,10 @@
 		"waitingForNotification": "Wachten op notificatie",
 		"totalPurchasesLabel": "Totale aankopen",
 		"waitlistEntriesLabel": "Wachtlijsten",
-		"totalSpentLabel": "Totaal besteed"
+		"totalSpentLabel": "Totaal besteed",
+		"quickActions": "Snelle acties",
+		"browseMarketplace": "Marktplaats bekijken",
+		"mainDashboard": "Hoofddashboard",
+		"getHelp": "Hulp krijgen"
 	}
 }
