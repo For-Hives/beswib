@@ -531,6 +531,18 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		}
 	}
 
+	// Function to map event type to marketplace sport filter values
+	const mapEventTypeToSportFilter = (eventType: Event['typeCourse']): string => {
+		switch (eventType) {
+			case 'cycle':
+				return 'cycling' // Map 'cycle' to 'cycling' for marketplace compatibility
+			case 'road':
+				return 'running' // Map 'road' to 'running' for marketplace compatibility
+			default:
+				return eventType // trail, triathlon stay the same
+		}
+	}
+
 	// Function to handle event button clicks
 	const handleEventAction = async (event: Event) => {
 		try {
@@ -538,8 +550,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 			if (bibCount > 0) {
 				// Redirect to marketplace with filters for this specific event
+				const mappedSport = mapEventTypeToSportFilter(event.typeCourse)
 				const searchParams = new URLSearchParams({
-					sport: encodeURIComponent(event.typeCourse), // Filter by sport type
+					sport: encodeURIComponent(mappedSport), // Filter by sport type (mapped)
 					search: encodeURIComponent(event.name), // Search by event name
 					geography: event.location ? encodeURIComponent(event.location.toLowerCase()) : '', // Filter by location
 				})

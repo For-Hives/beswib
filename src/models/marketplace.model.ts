@@ -20,7 +20,7 @@ export interface BibSale {
 		distanceUnit: 'km' | 'mi'
 		location: string
 		participantCount: number
-		type: 'cycling' | 'other' | 'running' | 'swimming' | 'trail' | 'triathlon'
+		type: 'cycle' | 'other' | 'road' | 'trail' | 'triathlon'
 	}
 }
 
