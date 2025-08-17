@@ -15,7 +15,7 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 	const { locale } = await params
 
 	// Récupération des traductions de la page
-	const pageLocales = pageTranslations as unknown as Record<string, Record<string, any>>
+	const pageLocales = pageTranslations as unknown as Record<string, Record<string, string>>
 	const t = getTranslations(locale, pageLocales)
 	const tEn = getTranslations('en', pageLocales)
 
