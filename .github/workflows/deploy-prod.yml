@@ -1,0 +1,37 @@
+name: Build and Deploy on prod
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get the version from the tag
+        id: get_tag_version
+        run: echo "::set-output name=version::${GITHUB_REF#refs/tags/v}"
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "forvoyez@forvoyez.com"
+          git config --global user.name "ForVoyez"
+
+      - name: Update package.json version
+        run: |
+          npm version ${GITHUB_REF#refs/tags/v} --no-git-tag-version
+          git add package.json
+          git commit -m "⬆️VERSION⬆️ ❇️${GITHUB_REF#refs/tags/v}❇️"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.8.0
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          branch: main
+      - name: Deploy to Coolify
+        run: |
+          curl --request GET '${{ secrets.COOLIFY_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'
