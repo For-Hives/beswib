@@ -733,8 +733,8 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 							{t.regenerateTokenDialog?.description ??
 								'This action will generate a new private token and invalidate the current one.'}
 						</p>
-						<div className="bg-orange-50 border border-orange-200 rounded-lg p-3 dark:bg-orange-900/20 dark:border-orange-800/50">
-							<p className="text-orange-800 text-sm dark:text-orange-200">
+						<div className="rounded-lg border border-orange-200 bg-orange-50 p-3 dark:border-orange-800/50 dark:bg-orange-900/20">
+							<p className="text-sm text-orange-800 dark:text-orange-200">
 								<AlertTriangle className="mr-2 inline h-4 w-4" />
 								{t.regenerateTokenDialog?.warning ?? 'Any existing private links will stop working immediately.'}
 							</p>
@@ -744,7 +744,11 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 						<Button variant="outline" onClick={() => setShowRegenerateDialog(false)} disabled={isLoading}>
 							{t.regenerateTokenDialog?.cancel ?? 'Cancel'}
 						</Button>
-						<Button onClick={handleRegenerateTokenAction} disabled={isLoading} className="bg-orange-600 hover:bg-orange-700">
+						<Button
+							onClick={handleRegenerateTokenAction}
+							disabled={isLoading}
+							className="bg-orange-600 hover:bg-orange-700"
+						>
 							{isLoading ? (
 								<>
 									<div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-white"></div>
