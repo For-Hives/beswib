@@ -69,7 +69,23 @@
 			"sellerDashboard": "Seller Dashboard"
 		},
 		"eventId": "Event ID:",
-		"statusSold": "Sold"
+		"statusSold": "Sold",
+		"categories": {
+			"active": "On Sale",
+			"sold": "Sold",
+			"expired": "Expired",
+			"archived": "Archived"
+		},
+		"messages": {
+			"noBibsActive": "No bibs on sale",
+			"noBibsSold": "No bibs sold",
+			"noBibsExpired": "No expired bibs",
+			"noBibsArchived": "No bibs archived",
+			"startListingFirst": "Start by listing your first bib",
+			"soldBibsWillAppear": "Your sold bibs will appear here",
+			"expiredBibsWillAppear": "Bibs that have passed the transfer deadline will appear here",
+			"archivedBibsWillAppear": "Expired or withdrawn bibs will appear here"
+		}
 	},
 	"fr": {
 		"title": "Tableau de bord vendeur",
@@ -141,7 +157,23 @@
 			"sellerDashboard": "Tableau de Bord Vendeur"
 		},
 		"eventId": "ID Événement :",
-		"statusSold": "Vendu"
+		"statusSold": "Vendu",
+		"categories": {
+			"active": "En Vente",
+			"sold": "Vendu",
+			"expired": "Expiré",
+			"archived": "Archivé"
+		},
+		"messages": {
+			"noBibsActive": "Aucun dossard en vente",
+			"noBibsSold": "Aucun dossard vendu",
+			"noBibsExpired": "Aucun dossard expiré",
+			"noBibsArchived": "Aucun dossard archivé",
+			"startListingFirst": "Commencez par lister votre premier dossard",
+			"soldBibsWillAppear": "Vos dossards vendus apparaîtront ici",
+			"expiredBibsWillAppear": "Les dossards expirés ou retirés apparaîtront ici",
+			"archivedBibsWillAppear": "Les dossards expirés ou retirés apparaîtront ici"
+		}
 	},
 	"ko": {
 		"title": "판매자 대시보드",
@@ -213,7 +245,23 @@
 			"sellerDashboard": "판매자 대시보드"
 		},
 		"eventId": "이벤트 ID:",
-		"statusSold": "판매완료"
+		"statusSold": "판매완료",
+		"categories": {
+			"active": "판매중",
+			"sold": "판매완료",
+			"expired": "만료됨",
+			"archived": "철회됨"
+		},
+		"messages": {
+			"noBibsActive": "판매중인 비브가 없습니다",
+			"noBibsSold": "판매완료된 비브가 없습니다",
+			"noBibsExpired": "만료된 비브가 없습니다",
+			"noBibsArchived": "철회된 비브가 없습니다",
+			"startListingFirst": "첫 번째 비브를 등록하세요",
+			"soldBibsWillAppear": "판매완료된 비브가 여기에 표시됩니다",
+			"expiredBibsWillAppear": "전송 기한이 지난 비브가 여기에 표시됩니다",
+			"archivedBibsWillAppear": "만료되거나 철회된 비브가 여기에 표시됩니다"
+		}
 	},
 	"es": {
 		"title": "Panel de Vendedor",
@@ -285,7 +333,23 @@
 			"sellerDashboard": "Panel de Vendedor"
 		},
 		"eventId": "ID Evento:",
-		"statusSold": "Vendido"
+		"statusSold": "Vendido",
+		"categories": {
+			"active": "En Venta",
+			"sold": "Vendido",
+			"expired": "Expirado",
+			"archived": "Archivado"
+		},
+		"messages": {
+			"noBibsActive": "No hay dorsales en venta",
+			"noBibsSold": "No hay dorsales vendidas",
+			"noBibsExpired": "No hay dorsales expiradas",
+			"noBibsArchived": "No hay dorsales archivadas",
+			"startListingFirst": "Comience por publicar su primer dorsal",
+			"soldBibsWillAppear": "Sus dorsales vendidas aparecerán aquí",
+			"expiredBibsWillAppear": "Los dorsales expirados o retirados aparecerán aquí",
+			"archivedBibsWillAppear": "Los dorsales expirados o retirados aparecerán aquí"
+		}
 	},
 	"it": {
 		"title": "Dashboard Venditore",
@@ -357,7 +421,23 @@
 			"sellerDashboard": "Dashboard Venditore"
 		},
 		"eventId": "ID Evento:",
-		"statusSold": "Venduto"
+		"statusSold": "Venduto",
+		"categories": {
+			"active": "In Vendita",
+			"sold": "Venduto",
+			"expired": "Scaduto",
+			"archived": "Archiviato"
+		},
+		"messages": {
+			"noBibsActive": "Nessun pettorale in vendita",
+			"noBibsSold": "Nessun pettorale venduto",
+			"noBibsExpired": "Nessun pettorale scaduto",
+			"noBibsArchived": "Nessun pettorale archiviato",
+			"startListingFirst": "Inizia pubblicando il tuo primo pettorale",
+			"soldBibsWillAppear": "I tuoi pettorali venduti appariranno qui",
+			"expiredBibsWillAppear": "I pettorali scaduti o ritirati appariranno qui",
+			"archivedBibsWillAppear": "I pettorali scaduti o ritirati appariranno qui"
+		}
 	},
 	"de": {
 		"title": "Verkäufer-Dashboard",
@@ -429,7 +509,23 @@
 			"sellerDashboard": "Verkäufer-Dashboard"
 		},
 		"eventId": "Event-ID:",
-		"statusSold": "Verkauft"
+		"statusSold": "Verkauft",
+		"categories": {
+			"active": "Verfügbar",
+			"sold": "Verkauft",
+			"expired": "Abgelaufen",
+			"archived": "Archiviert"
+		},
+		"messages": {
+			"noBibsActive": "Keine Startnummern verfügbar",
+			"noBibsSold": "Keine Startnummern verkauft",
+			"noBibsExpired": "Keine Startnummern abgelaufen",
+			"noBibsArchived": "Keine Startnummern archiviert",
+			"startListingFirst": "Beginnen Sie mit dem Auflisten Ihrer ersten Startnummer",
+			"soldBibsWillAppear": "Ihre verkauften Startnummern erscheinen hier",
+			"expiredBibsWillAppear": "Startnummern, die den Übergabedatum überschritten haben, erscheinen hier",
+			"archivedBibsWillAppear": "Abgelaufene oder zurückgezogene Startnummern erscheinen hier"
+		}
 	},
 	"ro": {
 		"title": "Panou Vânzător",
@@ -501,7 +597,23 @@
 			"sellerDashboard": "Panou Vânzător"
 		},
 		"eventId": "ID Eveniment:",
-		"statusSold": "Vândut"
+		"statusSold": "Vândut",
+		"categories": {
+			"active": "Disponibil",
+			"sold": "Vândut",
+			"expired": "Expirat",
+			"archived": "Archivat"
+		},
+		"messages": {
+			"noBibsActive": "Nu ai listat încă niciun număr disponibil",
+			"noBibsSold": "Nu ai listat încă niciun număr vândut",
+			"noBibsExpired": "Nu ai listat încă niciun număr expirat",
+			"noBibsArchived": "Nu ai listat încă niciun număr archivat",
+			"startListingFirst": "Începe prin a publica primul tău număr",
+			"soldBibsWillAppear": "Numerele tale vândute vor apărea aici",
+			"expiredBibsWillAppear": "Numerele expirate sau retrase vor apărea aici",
+			"archivedBibsWillAppear": "Numerele expirate sau retrase vor apărea aici"
+		}
 	},
 	"pt": {
 		"title": "Painel do Vendedor",
@@ -573,7 +685,23 @@
 			"sellerDashboard": "Painel do Vendedor"
 		},
 		"eventId": "ID Evento:",
-		"statusSold": "Vendido"
+		"statusSold": "Vendido",
+		"categories": {
+			"active": "Disponível",
+			"sold": "Vendido",
+			"expired": "Expirado",
+			"archived": "Retirado"
+		},
+		"messages": {
+			"noBibsActive": "Ainda não listaste nenhum dorsal disponível",
+			"noBibsSold": "Ainda não listaste nenhum dorsal vendido",
+			"noBibsExpired": "Ainda não listaste nenhum dorsal expirado",
+			"noBibsArchived": "Ainda não listaste nenhum dorsal arquivado",
+			"startListingFirst": "Comece por publicar o seu primeiro dorsal",
+			"soldBibsWillAppear": "Os teus dorsais vendidos aparecerão aqui",
+			"expiredBibsWillAppear": "Os dorsais expirados ou retirados aparecerão aqui",
+			"archivedBibsWillAppear": "Os dorsais expirados ou retirados aparecerão aqui"
+		}
 	},
 	"nl": {
 		"title": "Verkoper Dashboard",
@@ -645,6 +773,22 @@
 			"sellerDashboard": "Verkoper Dashboard"
 		},
 		"eventId": "Event-ID:",
-		"statusSold": "Verkocht"
+		"statusSold": "Verkocht",
+		"categories": {
+			"active": "Beschikbaar",
+			"sold": "Verkocht",
+			"expired": "Verlopen",
+			"archived": "Archivé"
+		},
+		"messages": {
+			"noBibsActive": "Je hebt nog geen startnummers geplaatst",
+			"noBibsSold": "Je hebt nog geen startnummers geplaatst",
+			"noBibsExpired": "Je hebt nog geen startnummers geplaatst",
+			"noBibsArchived": "Je hebt nog geen startnummers geplaatst",
+			"startListingFirst": "Begin met het plaatsen van je eerste startnummer",
+			"soldBibsWillAppear": "Je geplaatste startnummers zullen hier verschijnen",
+			"expiredBibsWillAppear": "Startnummers die de overdrachtsdatum overschrijden zullen hier verschijnen",
+			"archivedBibsWillAppear": "Startnummers die verlopen of zijn teruggetrokken zullen hier verschijnen"
+		}
 	}
 }

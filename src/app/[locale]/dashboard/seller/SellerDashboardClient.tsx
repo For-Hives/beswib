@@ -195,44 +195,49 @@ export default function SellerDashboardClient({
 							</CardContent>
 						</Card>
 
-						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
-							<CardHeader className="flex items-center gap-2 pb-2">
-								<CardTitle className="text-muted-foreground flex items-center gap-2 text-sm">
-									{t.stats?.netRevenue ?? 'Net Revenue'}
-									<Tooltip>
-										<TooltipTrigger>{t.tooltip?.hover ?? 'Hover'}</TooltipTrigger>
-										<TooltipContent>
-											<span>
-												{t.tooltip?.feesExplanation ?? 'How fees work:'} <br />
-												<strong>{t.tooltip?.netFormula ?? 'Net = Amount − Platform fees − PayPal fees.'}</strong>
-												<br />
-												{t.tooltip?.platformFeesInfo ?? 'Platform fees are 10% of the listing price.'}
-												<br />
-												{t.tooltip?.paypalFeesInfo ??
-													'PayPal fees are provided by PayPal in the capture and may vary by country and payment method.'}
-											</span>
-										</TooltipContent>
-									</Tooltip>
-								</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<div className="text-2xl font-bold">€{totals.net.toFixed(2)}</div>
-								<p className="text-muted-foreground text-xs">
-									{t.stats?.netRevenueDesc ?? 'After platform and PayPal fees'}
-								</p>
-								<div className="text-muted-foreground mt-2 space-y-1 text-xs">
-									<p>
-										{t.stats?.gross ?? 'Gross:'} €{totals.gross.toFixed(2)}
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-help border-black/50 backdrop-blur-sm transition-colors">
+									<CardHeader className="flex items-center gap-2 pb-2">
+										<CardTitle className="text-muted-foreground flex items-center gap-2 text-sm">
+											{t.stats?.netRevenue ?? 'Net Revenue'}
+										</CardTitle>
+									</CardHeader>
+									<CardContent>
+										<div className="text-2xl font-bold">€{totals.net.toFixed(2)}</div>
+										<p className="text-muted-foreground text-xs">
+											{t.stats?.netRevenueDesc ?? 'After platform and PayPal fees'}
+										</p>
+										<div className="text-muted-foreground mt-2 space-y-1 text-xs">
+											<p>
+												{t.stats?.gross ?? 'Gross:'} €{totals.gross.toFixed(2)}
+											</p>
+											<p>
+												{t.stats?.platformFees ?? 'Platform fees:'} −€{totals.platform.toFixed(2)}
+											</p>
+											<p>
+												{t.stats?.paypalFees ?? 'PayPal fees:'} −€{totals.paypal.toFixed(2)}
+											</p>
+										</div>
+									</CardContent>
+								</Card>
+							</TooltipTrigger>
+							<TooltipContent>
+								<div className="max-w-xs">
+									<p className="font-medium">{t.tooltip?.feesExplanation ?? 'How fees work:'}</p>
+									<p className="mt-1 text-sm">
+										<strong>{t.tooltip?.netFormula ?? 'Net = Amount − Platform fees − PayPal fees.'}</strong>
 									</p>
-									<p>
-										{t.stats?.platformFees ?? 'Platform fees:'} −€{totals.platform.toFixed(2)}
+									<p className="mt-1 text-xs">
+										{t.tooltip?.platformFeesInfo ?? 'Platform fees are 10% of the listing price.'}
 									</p>
-									<p>
-										{t.stats?.paypalFees ?? 'PayPal fees:'} −€{totals.paypal.toFixed(2)}
+									<p className="mt-1 text-xs">
+										{t.tooltip?.paypalFeesInfo ??
+											'PayPal fees are provided by PayPal in the capture and may vary by country and payment method.'}
 									</p>
 								</div>
-							</CardContent>
-						</Card>
+							</TooltipContent>
+						</Tooltip>
 					</div>
 
 					{/* Quick Actions */}

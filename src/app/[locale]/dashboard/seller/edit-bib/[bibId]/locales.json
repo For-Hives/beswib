@@ -39,6 +39,22 @@
 		"private": "Private",
 		"privateListingToken": "Private Listing Token",
 		"privateTokenHelp": "Required to make the listing private. Share this token with specific buyers.",
+		"privateTokenDisplay": "Current Private Token",
+		"privateTokenCopy": "Copy Token",
+		"privateTokenCopySuccess": "Token copied to clipboard!",
+		"privateTokenRegenerate": "Generate New Token",
+		"privateTokenRegenerateConfirm": "Are you sure? This will invalidate the current link.",
+		"regenerateTokenDialog": {
+			"title": "Regenerate Private Token",
+			"description": "This action will generate a new private token and invalidate the current one.",
+			"warning": "Any existing private links will stop working immediately.",
+			"confirm": "Yes, regenerate token",
+			"cancel": "Cancel"
+		},
+		"privateTokenHelperText": "Share this token with specific buyers to give them access to your private listing.",
+		"privateLink": "Private Link",
+		"privateLinkCopy": "Copy Private Link",
+		"privateLinkCopySuccess": "Private link copied to clipboard!",
 		"public": "Public",
 		"registrationNumber": "Registration Number",
 		"size": "Size",
@@ -48,7 +64,8 @@
 		"successMessages": {
 			"detailsUpdated": "Details updated successfully!",
 			"statusUpdated": "Listing status updated successfully!",
-			"bibWithdrawn": "Bib withdrawn successfully!"
+			"bibWithdrawn": "Bib withdrawn successfully!",
+			"tokenRegenerated": "New private token generated successfully!"
 		},
 		"title": "Edit Bib Listing",
 		"updateDetails": "Update Details",
@@ -100,6 +117,22 @@
 		"private": "Privé",
 		"privateListingToken": "Jeton d'annonce privée",
 		"privateTokenHelp": "Requis pour rendre l'annonce privée. Partagez ce jeton avec des acheteurs spécifiques.",
+		"privateTokenDisplay": "Jeton privé actuel",
+		"privateTokenCopy": "Copier le jeton",
+		"privateTokenCopySuccess": "Jeton copié dans le presse-papiers !",
+		"privateTokenRegenerate": "Générer un nouveau jeton",
+		"privateTokenRegenerateConfirm": "Êtes-vous sûr ? Cela invalidera le lien actuel.",
+		"regenerateTokenDialog": {
+			"title": "Régénérer le jeton privé",
+			"description": "Cette action va générer un nouveau jeton privé et invalider l'actuel.",
+			"warning": "Tous les liens privés existants cesseront de fonctionner immédiatement.",
+			"confirm": "Oui, régénérer le jeton",
+			"cancel": "Annuler"
+		},
+		"privateTokenHelperText": "Partagez ce jeton avec des acheteurs spécifiques pour leur donner accès à votre annonce privée.",
+		"privateLink": "Lien privé",
+		"privateLinkCopy": "Copier le lien privé",
+		"privateLinkCopySuccess": "Lien privé copié dans le presse-papiers !",
 		"public": "Public",
 		"registrationNumber": "Numéro d'inscription",
 		"size": "Taille",
@@ -109,7 +142,8 @@
 		"successMessages": {
 			"detailsUpdated": "Détails mis à jour avec succès !",
 			"statusUpdated": "Statut de l'annonce mis à jour avec succès !",
-			"bibWithdrawn": "Dossard retiré avec succès !"
+			"bibWithdrawn": "Dossard retiré avec succès !",
+			"tokenRegenerated": "Nouveau jeton privé généré avec succès !"
 		},
 		"title": "Modifier l'annonce du dossard",
 		"updateDetails": "Mettre à jour les détails",
