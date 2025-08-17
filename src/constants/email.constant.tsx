@@ -289,7 +289,6 @@ export type WelcomeEmailProps = {
 
 export function renderWelcomeEmailHtml({ locale, firstName, baseUrl }: WelcomeEmailProps): string {
 	const safeName = (firstName ?? '').trim()
-	const namePart = safeName.length > 0 ? `, ${escapeHtml(safeName)}` : ''
 	const siteUrl = (baseUrl ?? 'https://beswib.com').replace(/\/$/, '')
 	const logoUrl = `${siteUrl}/beswib.svg`
 	const v = em(locale)
