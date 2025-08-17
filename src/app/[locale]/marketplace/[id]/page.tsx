@@ -93,8 +93,10 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	if (bibStatus.listed === 'private') {
 		isPrivate = true
 		if (tkn) {
+			console.log('Fetching private bib with token:', { bibId: id, token: tkn })
 			// Try to fetch with the provided token
 			bib = await fetchPrivateBibByToken(id, tkn)
+			console.log('Private bib fetch result:', { bib: !!bib, hasExpand: !!bib?.expand })
 		}
 		// If no token or invalid token, bib will remain null and we'll show the validation form
 	} else if (bibStatus.listed === 'public') {
