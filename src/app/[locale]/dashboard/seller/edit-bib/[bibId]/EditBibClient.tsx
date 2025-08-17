@@ -210,10 +210,10 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 			})
 	}
 
-	function handleToggleListingStatusAction(newListed: 'private' | 'public', formData: FormData) {
+	function handleToggleListingStatusAction(newListed: 'private' | 'public') {
 		setIsLoading(true)
 
-		handleToggleListingStatus(bibId, newListed, formData)
+		handleToggleListingStatus(bibId, newListed)
 			.then(updatedBib => {
 				toast.success(t.successMessages?.statusUpdated ?? 'Listing status updated successfully!')
 				const newEventId = updatedBib.eventId
@@ -606,9 +606,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 
 										{bib.listed === 'public' || bib.listed === 'private' ? (
 											<form
-												action={formData =>
-													handleToggleListingStatusAction(bib.listed === 'public' ? 'private' : 'public', formData)
-												}
+												action={() => handleToggleListingStatusAction(bib.listed === 'public' ? 'private' : 'public')}
 												className="space-y-4"
 											>
 												<Button type="submit" disabled={isLoading} variant="outline" className="w-full">
@@ -625,13 +623,13 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 											</form>
 										) : (
 											<div className="grid grid-cols-2 gap-4">
-												<form action={formData => handleToggleListingStatusAction('public', formData)}>
+												<form action={() => handleToggleListingStatusAction('public')}>
 													<Button type="submit" disabled={isLoading} className="w-full">
 														<Eye className="mr-2 h-4 w-4" />
 														{t.makePublic ?? 'Make Public'}
 													</Button>
 												</form>
-												<form action={formData => handleToggleListingStatusAction('private', formData)}>
+												<form action={() => handleToggleListingStatusAction('private')}>
 													<Button type="submit" disabled={isLoading} variant="outline" className="w-full">
 														<EyeOff className="mr-2 h-4 w-4" />
 														{t.makePrivate ?? 'Make Private'}
