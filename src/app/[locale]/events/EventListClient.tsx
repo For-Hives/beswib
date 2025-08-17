@@ -1,6 +1,6 @@
 'use client'
 
-import { MapPin, Users, Search, ShoppingCart, Bell, Route, Mountain } from 'lucide-react'
+import { MapPin, Users, Search, ShoppingCart, Bell, Route, Mountain, Loader2 } from 'lucide-react'
 import React, { useMemo, useState, useEffect } from 'react'
 
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
@@ -197,7 +197,10 @@ function EventCard({
 								</>
 							)
 						) : (
-							(t.events?.eventCard?.checkBibs ?? 'Check bibs...')
+							<>
+								<Loader2 className="h-4 w-4 animate-spin" />
+								{t.events?.eventCard?.checkBibs ?? 'Check bibs...'}
+							</>
 						)}
 					</button>
 				</div>
