@@ -503,11 +503,19 @@ export async function fetchPrivateBibByToken(
 		return null
 	}
 	try {
+		console.log('fetchPrivateBibByToken called with:', { bibId, token })
 		const record = await pb
 			.collection('bibs')
 			.getOne<Bib & { expand?: { eventId: Event; sellerUserId: User } }>(bibId, {
 				expand: 'eventId,sellerUserId',
 			})
+
+		console.log('PocketBase record fetched:', {
+			id: record.id,
+			listed: record.listed,
+			hasPrivateToken: !!record.privateListingToken,
+			tokenMatch: record.privateListingToken === token
+		})
 
 		// Verify the token matches and this is a private listing ✅
 		if (record.listed !== 'private' || record.privateListingToken !== token) {
@@ -515,8 +523,10 @@ export async function fetchPrivateBibByToken(
 			return null
 		}
 
+		console.log('Token validation successful, returning record')
 		return record
 	} catch (error: unknown) {
+		console.error('Error in fetchPrivateBibByToken:', error)
 		throw new Error(
 			`Error fetching private bib with ID "${bibId}": ` + (error instanceof Error ? error.message : String(error))
 		)

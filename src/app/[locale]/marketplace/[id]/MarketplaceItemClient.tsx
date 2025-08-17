@@ -70,14 +70,16 @@ export default function MarketplaceItemClient({
 		hasValidToken,
 		hasBibSale: !!bibSale,
 		hasEventData: !!eventData,
-		bibData: !!bibData
+		bibData: !!bibData,
 	})
 
 	const handleValidToken = (token: string) => {
 		// Redirect to the same page with the token as a query parameter
 		const url = new URL(window.location.href)
 		url.searchParams.set('tkn', token)
-		router.push(url.toString())
+		
+		// Force a complete page reload to ensure server-side processing
+		window.location.href = url.toString()
 	}
 
 	// If it's a private bib and no valid token, show the validation form
