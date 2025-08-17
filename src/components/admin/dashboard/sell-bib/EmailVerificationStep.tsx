@@ -5,16 +5,15 @@ import type { VerifiedEmail } from '@/models/verifiedEmail.model'
 import type { User } from '@/models/user.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { Locale } from '@/lib/i18n/config'
-
-import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
 
 interface EmailVerificationStepProps {
 	user: User
@@ -32,11 +31,11 @@ export default function EmailVerificationStep({
 	verifiedEmails,
 	user,
 	selectedEmailId,
-	locale,
 	onVerifyEmail,
 	onResendCode,
 	onEmailSelect,
 	onAddEmail,
+	locale,
 	error,
 }: EmailVerificationStepProps) {
 	const t = getTranslations(locale, sellBibTranslations)

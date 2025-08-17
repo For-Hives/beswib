@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+
 import { useRouter } from 'next/navigation'
 
 import type { Event as EventModel } from '@/models/event.model'
@@ -42,17 +43,17 @@ interface MarketplaceItemClientProps {
 }
 
 export default function MarketplaceItemClient({
-	bibId,
-	locale,
-	initialToken,
-	isPrivate,
-	bibSale,
-	sellerUser,
 	user,
-	eventData,
-	organizerData,
-	bibData,
 	translations: t,
+	sellerUser,
+	organizerData,
+	locale,
+	isPrivate,
+	initialToken,
+	eventData,
+	bibSale,
+	bibId,
+	bibData,
 }: MarketplaceItemClientProps) {
 	const [hasValidToken, setHasValidToken] = useState(!!initialToken)
 	const router = useRouter()
@@ -64,12 +65,12 @@ export default function MarketplaceItemClient({
 
 	// Debug logs
 	console.log('MarketplaceItemClient Debug:', {
-		bibId,
-		initialToken,
 		isPrivate,
+		initialToken,
 		hasValidToken,
-		hasBibSale: !!bibSale,
 		hasEventData: !!eventData,
+		hasBibSale: !!bibSale,
+		bibId,
 		bibData: !!bibData,
 	})
 
@@ -77,7 +78,7 @@ export default function MarketplaceItemClient({
 		// Redirect to the same page with the token as a query parameter
 		const url = new URL(window.location.href)
 		url.searchParams.set('tkn', token)
-		
+
 		// Force a complete page reload to ensure server-side processing
 		window.location.href = url.toString()
 	}
