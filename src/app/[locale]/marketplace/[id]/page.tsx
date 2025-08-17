@@ -50,7 +50,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 
 	// First, check if the bib exists and if it's private or public
 	const bibStatus = await checkBibListingStatus(id)
-	
+
 	if (!bibStatus || !bibStatus.exists) {
 		return <div>{t.bibNotFound ?? 'Bib not found or event data missing'}</div>
 	}
@@ -86,7 +86,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 		const eventDate = new Date(bib.expand.eventId.eventDate)
 		const transferDeadline = bib.expand.eventId.transferDeadline ? new Date(bib.expand.eventId.transferDeadline) : null
 		const isSaleOpen = transferDeadline != null ? transferDeadline >= now : eventDate >= now
-		
+
 		if (!isSaleOpen) {
 			return (
 				<div className="mx-auto max-w-lg p-6 text-center">
