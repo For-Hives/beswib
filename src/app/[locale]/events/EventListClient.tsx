@@ -217,19 +217,19 @@ function EventCard({
 										{availabilityStatus === 'available' && (
 											<span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-1 text-sm font-medium text-green-800 italic dark:bg-green-900/30 dark:text-green-300">
 												<CheckCircle className="h-3 w-3" />
-												Available
+												{t.events?.eventCard?.available ?? 'Available'}
 											</span>
 										)}
 										{availabilityStatus === 'waitlist' && (
 											<span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2 py-1 text-sm font-medium text-orange-800 italic dark:bg-orange-900/30 dark:text-orange-300">
 												<Clock className="h-3 w-3" />
-												Waitlist
+												{t.events?.eventCard?.waitlist ?? 'Waitlist'}
 											</span>
 										)}
 										{availabilityStatus === 'loading' && (
 											<span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 italic dark:bg-gray-700 dark:text-gray-300">
 												<Loader2 className="h-3 w-3 animate-spin" />
-												Loading...
+												{t.events?.eventCard?.loading ?? 'Loading...'}
 											</span>
 										)}
 									</div>
@@ -260,7 +260,7 @@ function EventCard({
 							</div>
 						)
 					})()}
-					
+
 					{/* Button with proper state handling */}
 					{(() => {
 						// Determine button content and styling based on availability status
@@ -280,11 +280,11 @@ function EventCard({
 							return (
 								<button
 									onClick={() => onAction(event)}
-									className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-green-300 bg-green-100 px-4 py-2 text-sm font-medium text-green-800 transition-colors hover:bg-green-200 hover:border-green-400"
+									className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-green-300 bg-green-100 px-4 py-2 text-sm font-medium text-green-800 transition-colors hover:border-green-400 hover:bg-green-200"
 								>
 									<ShoppingCart className="h-4 w-4" />
-									{t.events?.eventCard?.viewBibs?.replace('{count}', (bibsCount || 0).toString()) ??
-										`View bibs (${bibsCount || 0})`}
+									{t.events?.eventCard?.viewBibs?.replace('{count}', (bibsCount ?? 0).toString()) ??
+										`View bibs (${bibsCount ?? 0})`}
 								</button>
 							)
 						}
@@ -293,7 +293,7 @@ function EventCard({
 							return (
 								<button
 									onClick={() => onAction(event)}
-									className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-orange-300 bg-orange-100 px-4 py-2 text-sm font-medium text-orange-800 transition-colors hover:bg-orange-200 hover:border-orange-400"
+									className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-orange-300 bg-orange-100 px-4 py-2 text-sm font-medium text-orange-800 transition-colors hover:border-orange-400 hover:bg-orange-200"
 								>
 									<Bell className="h-4 w-4" />
 									{t.events?.eventCard?.joinWaitlist ?? 'Join waitlist'}
@@ -305,7 +305,7 @@ function EventCard({
 						return (
 							<button
 								onClick={() => onAction(event)}
-								className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-300 bg-transparent px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:border-gray-400"
+								className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-300 bg-transparent px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:border-gray-400 hover:bg-gray-100"
 							>
 								<Search className="h-4 w-4" />
 								{t.events?.eventCard?.viewDetails ?? 'View details'}
