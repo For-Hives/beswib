@@ -23,6 +23,7 @@ import Header from '@/components/global/Header'
 
 import '@/lib/utils/umami'
 import '@/app/[locale]/globals.css'
+import { getVersion } from '@/lib/utils/version'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -85,6 +86,8 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 	const { locale } = localeParams
 	const clerkLocalization = getClerkLocalization(locale)
 
+	const version: string = getVersion()
+
 	return (
 		<ClerkProvider
 			appearance={{
@@ -109,7 +112,7 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 						data-domains={'beswib.com'}
 						data-website-id="e9168017-b73b-491b-b7b0-fee64f07c847"
 						src="https://umami.wadefade.fr/script.js"
-						data-tag="alpha"
+						data-tag={version}
 						data-before-send="beforeSendHandler"
 						strategy="afterInteractive"
 					></Script>
