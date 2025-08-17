@@ -249,7 +249,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 						<h2 className="text-foreground mb-6 text-2xl font-bold">{t.event.bibs.title}</h2>
 
 						{bibSales.length > 0 ? (
-							<div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
+							<div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
 								{bibSales.map(bibSale => (
 									<CardMarket key={bibSale.id} bibSale={bibSale} locale={locale} />
 								))}
