@@ -1,48 +1,59 @@
+// Define the props for the computeFontSize function
 type TextProps = {
-	text: string // The text string that needs to fit within a box
+	text: string // The text content to measure
 	maxWidth: number // Maximum allowed width for the text
 	maxHeight: number // Maximum allowed height for the text
-	initialFontSize?: number // Optional starting font size, defaults to 16
+	initialFontSize?: number // Optional starting font size (default is 16)
 }
 
-// This function computes the largest possible font size for a given text
-// so that it fits within the specified width and height constraints.
-// It also splits the text into multiple lines if necessary.
+// Main function to compute the largest possible font size that fits within maxWidth and maxHeight
 export default function computeFontSize({ text, maxWidth, maxHeight, initialFontSize = 16 }: TextProps) {
-	if (!text) text = '' // Ensure text is a string
+	// Ensure text is defined
+	if (!text) text = ''
 
+	// Start with the initial font size
 	let fontSize = initialFontSize
-	let fits = true
-	let lines: string[] = []
+	const charWidthCoef = 0.6 // Approximate width of a character relative to font size
+	let lines: string[] = [] // Array to hold lines after wrapping
 
-	do {
-		// Estimate maximum characters per line based on font size and width
-		const maxCharsPerLine = Math.floor(maxWidth / (0.55 * fontSize))
-		const words = text.split(' ')
-		lines = []
-		let currentLine = ''
+	// Helper function to check if the text fits within the given dimensions at a specific font size
+	const fitsText = (size: number) => {
+		const words = text.split(' ') // Split text into words
+		lines = [] // Reset lines array
+		let currentLine = '' // Current line being built
 
-		// Build lines by adding words until maxCharsPerLine is reached
+		// Iterate through each word to build lines
 		for (const w of words) {
-			if ((currentLine + ' ' + w).trim().length > maxCharsPerLine) {
-				if (currentLine) lines.push(currentLine.trim())
-				currentLine = w
+			const wordWidth = w.length * charWidthCoef * size // Approximate width of the word
+			if (wordWidth > maxWidth * 0.9) return false // Word is too long to fit
+
+			// Check if adding the word exceeds the max width
+			if ((currentLine + ' ' + w).trim().length * charWidthCoef * size > maxWidth * 0.8) {
+				if (currentLine) lines.push(currentLine.trim()) // Push current line
+				currentLine = w // Start new line with current word
 			} else {
-				currentLine += ' ' + w
+				currentLine += ' ' + w // Add word to current line
 			}
 		}
+
+		// Push any remaining line
 		if (currentLine) lines.push(currentLine.trim())
 
-		// Calculate total height required by the current font size
-		const totalHeight = lines.length * fontSize * 1.1
-		fits = totalHeight <= maxHeight
+		// Compute total height required for all lines
+		const totalHeight = lines.length * size * 1.1 // 1.1 = line height multiplier
+		return totalHeight <= maxHeight // Return true if fits within maxHeight
+	}
 
-		// If it still fits, try increasing the font size
-		if (fits) fontSize += 2
-	} while (fits)
+	// Increase font size while the text still fits
+	while (fitsText(fontSize + 1)) {
+		fontSize += 1
+	}
 
-	// Step back one increment to get the largest fitting font size
-	fontSize = Math.max(fontSize - 2, 1)
+	// Decrease font size if it doesn't fit
+	while (!fitsText(fontSize) && fontSize > 1) {
+		fontSize -= 1
+	}
 
-	return { fontSize, text: lines.join('\n') } // Return the final font size and formatted text
+	// Return the computed font size and wrapped text
+	return { fontSize, text: lines.join('\n') }
 }
