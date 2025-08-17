@@ -272,7 +272,7 @@ function EventCard({
 										return (
 											<button
 												disabled
-												className="flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-500 opacity-70"
+												className="bg-muted text-muted-foreground flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium opacity-70 transition-colors"
 											>
 												<Loader2 className="h-4 w-4 animate-spin" />
 												{t.events?.eventCard?.checkBibs ?? 'Check bibs...'}
@@ -284,7 +284,7 @@ function EventCard({
 										return (
 											<button
 												onClick={() => onAction(event)}
-												className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-green-300 bg-green-100 px-4 py-2 text-sm font-medium text-green-800 transition-colors hover:border-green-400 hover:bg-green-200"
+												className="bg-primary text-primary-foreground hover:bg-primary/90 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
 											>
 												<ShoppingCart className="h-4 w-4" />
 												{t.events?.eventCard?.viewBibs?.replace('{count}', (bibsCount ?? 0).toString()) ??
@@ -297,7 +297,7 @@ function EventCard({
 										return (
 											<button
 												onClick={() => onAction(event)}
-												className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-orange-300 bg-orange-100 px-4 py-2 text-sm font-medium text-orange-800 transition-colors hover:border-orange-400 hover:bg-orange-200"
+												className="border-input bg-background hover:bg-accent hover:text-accent-foreground flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
 											>
 												<Bell className="h-4 w-4" />
 												{t.events?.eventCard?.joinWaitlist ?? 'Join waitlist'}
@@ -309,7 +309,7 @@ function EventCard({
 									return (
 										<button
 											onClick={() => onAction(event)}
-											className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-300 bg-transparent px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:border-gray-400 hover:bg-gray-100"
+											className="border-input bg-background hover:bg-accent hover:text-accent-foreground flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
 										>
 											<Search className="h-4 w-4" />
 											{t.events?.eventCard?.viewDetails ?? 'View details'}
