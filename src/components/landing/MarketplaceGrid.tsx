@@ -26,8 +26,8 @@ const runsExample: BibSale[] = [
 		lockedAt: null,
 		id: '1',
 		event: {
-			type: 'running',
-			participantCount: getRandomParticipantCount('running', 42),
+			type: 'road',
+			participantCount: getRandomParticipantCount('road', 42),
 			name: 'Marathon de Nantes',
 			location: 'Nantes',
 			image: bibColors[0], // First distributed color 1️⃣
@@ -68,8 +68,8 @@ const runsExample: BibSale[] = [
 		lockedAt: null,
 		id: '3',
 		event: {
-			type: 'running',
-			participantCount: getRandomParticipantCount('running', 21),
+			type: 'road',
+			participantCount: getRandomParticipantCount('road', 21),
 			name: 'Semi-marathon de Thonon',
 			location: 'Thonon-les-bains',
 			image: bibColors[2], // Third distributed color 3️⃣
@@ -89,8 +89,8 @@ const runsExample: BibSale[] = [
 		lockedAt: null,
 		id: '4',
 		event: {
-			type: 'running',
-			participantCount: getRandomParticipantCount('running', 42),
+			type: 'road',
+			participantCount: getRandomParticipantCount('road', 42),
 			name: 'Marathon de Paris',
 			location: 'Paris',
 			image: bibColors[3], // Fourth distributed color 4️⃣

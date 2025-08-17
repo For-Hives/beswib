@@ -9,6 +9,8 @@ import { DateTime } from 'luxon'
 import Fuse from 'fuse.js'
 
 import type { Event } from '@/models/event.model'
+import type { Bib } from '@/models/bib.model'
+import type { User } from '@/models/user.model'
 
 import { TriathlonIcon, TrailIcon, RouteIcon, CycleIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
@@ -115,10 +117,12 @@ function EventCard({
 	locale,
 	event,
 	bibsCount,
+	bibsData,
 }: {
 	event: Event
 	locale: string
 	bibsCount: number | undefined
+	bibsData?: (Bib & { expand?: { eventId: Event; sellerUserId: User } })[]
 	onAction: (event: Event) => void | Promise<void>
 	t: EventTranslations
 }) {
@@ -171,14 +175,25 @@ function EventCard({
 				</div>
 
 				<div className="mt-auto">
-					{event.officialStandardPrice != null && (
-						<div className="mb-3 text-right">
-							<span className="text-lg font-bold text-emerald-600 dark:text-green-400">
-								{t.events?.eventCard?.fromPrice?.replace('{price}', event.officialStandardPrice?.toString() ?? '0') ??
-									`From ${event.officialStandardPrice}€`}
-							</span>
-						</div>
-					)}
+					{(() => {
+						// Calculate price to display: lowest bib price if available, otherwise default event price
+						let priceToDisplay = event.officialStandardPrice
+						
+						if (bibsData && bibsData.length > 0) {
+							// Get the lowest price from available bibs
+							const lowestBibPrice = Math.min(...bibsData.map(bib => bib.price))
+							priceToDisplay = lowestBibPrice
+						}
+						
+						return priceToDisplay != null ? (
+							<div className="mb-3 text-right">
+								<span className="text-lg font-bold text-emerald-600 dark:text-green-400">
+									{t.events?.eventCard?.fromPrice?.replace('{price}', priceToDisplay.toString()) ??
+										`From ${priceToDisplay}€`}
+								</span>
+							</div>
+						) : null
+					})()}
 					<button
 						onClick={() => void onAction(event)}
 						className="bg-primary/20 text-primary hover:bg-primary/30 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
@@ -253,8 +268,8 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		void setQuery({ location: val })
 	}
 
-	// Extract unique locations for the filter
-	const uniqueLocations = Array.from(new Set(prefetchedEvents.map(event => event.location))).sort((a, b) =>
+	// Extract unique locations for the filter from future events only
+	const uniqueLocations = Array.from(new Set(futureEvents.map(event => event.location))).sort((a, b) =>
 		a.localeCompare(b)
 	)
 
@@ -264,6 +279,8 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 	// State to track bibs availability for each event
 	const [eventBibsCache, setEventBibsCache] = useState<Record<string, number>>({})
+	// State to store actual bib data for price calculation
+	const [eventBibsData, setEventBibsData] = useState<Record<string, (Bib & { expand?: { eventId: Event; sellerUserId: User } })[]>>({})
 
 	// Fuse.js instance for fuzzy search on events
 	const fuse = useMemo(
@@ -283,14 +300,37 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		? locationFuse.search(locationSearch).map(result => result.item)
 		: uniqueLocations.slice(0, 10)
 
+	// Filter out past events first
+	const futureEvents = useMemo(() => {
+		const now = DateTime.now()
+		return prefetchedEvents.filter(event => {
+			const eventDate = (() => {
+				if (event.eventDate instanceof Date) {
+					const dt = DateTime.fromJSDate(event.eventDate)
+					return dt.isValid ? dt : null
+				}
+				if (typeof event.eventDate === 'string' || typeof event.eventDate === 'number') {
+					const iso = DateTime.fromISO(String(event.eventDate))
+					if (iso.isValid) return iso
+					const js = DateTime.fromJSDate(new Date(event.eventDate))
+					return js.isValid ? js : null
+				}
+				return null
+			})()
+			
+			// Only include events that are in the future or today
+			return eventDate ? eventDate >= now.startOf('day') : true
+		})
+	}, [prefetchedEvents])
+
 	// Filtering and sorting logic
 	const filteredEvents = useMemo(() => {
-		let filtered = prefetchedEvents
+		let filtered = futureEvents
 
 		// Fuzzy search with Fuse.js
 		if (searchTerm !== '') {
 			const fuseResults = fuse.search(searchTerm)
-			filtered = fuseResults.map(result => result.item)
+			filtered = fuseResults.map(result => result.item).filter(item => futureEvents.includes(item))
 		}
 
 		// Filter by type
@@ -304,7 +344,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		}
 
 		return filtered
-	}, [searchTerm, selectedType, selectedLocation, prefetchedEvents, fuse])
+	}, [searchTerm, selectedType, selectedLocation, futureEvents, fuse])
 
 	const sortedEvents = useMemo(() => {
 		const parseEventDate = (value: unknown): DateTime | null => {
@@ -453,8 +493,8 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 	// Race type summary cards as quick-access buttons - dynamically generated from actual events
 	const raceTypeSummary = useMemo(() => {
-		// Get unique event types from actual events
-		const uniqueTypes = Array.from(new Set(prefetchedEvents.map(e => e.typeCourse)))
+		// Get unique event types from actual future events
+		const uniqueTypes = Array.from(new Set(futureEvents.map(e => e.typeCourse)))
 
 		// Start with "all" option
 		const summary = [
@@ -462,7 +502,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				label: (t.events?.raceTypes as Record<string, string>)?.all ?? 'All',
 				key: 'all',
 				icon: <AllTypesIcon className="h-5 w-5" />,
-				count: prefetchedEvents.length,
+				count: futureEvents.length,
 				colorDisabled: 'opacity-25',
 				color: 'bg-muted/80 border-border text-muted-foreground',
 			},
@@ -475,7 +515,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 					label: (t.events?.raceTypes as Record<string, string>)?.[type] || type.toUpperCase(),
 					key: type,
 					icon: eventTypeIcons[type],
-					count: prefetchedEvents.filter(e => e.typeCourse === type).length,
+					count: futureEvents.filter(e => e.typeCourse === type).length,
 					colorDisabled: eventTypeColorsDisabled[type],
 					color: eventTypeColors[type],
 				})
@@ -483,7 +523,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		})
 
 		return summary
-	}, [prefetchedEvents])
+	}, [futureEvents])
 
 	// Pre-load bib counts for the first 16 sorted events (stable regardless of grouping)
 	useEffect(() => {
@@ -494,20 +534,30 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				if (eventBibsCache[event.id] === undefined) {
 					try {
 						const availableBibs = await fetchAvailableBibsForEvent(event.id)
-						return { [event.id]: availableBibs.length }
+						return { 
+							count: { [event.id]: availableBibs.length },
+							data: { [event.id]: availableBibs }
+						}
 					} catch (error) {
 						console.error('Error loading bibs for event:', event.id, error)
-						return { [event.id]: 0 }
+						return { 
+							count: { [event.id]: 0 },
+							data: { [event.id]: [] }
+						}
 					}
 				}
-				return {}
+				return { count: {}, data: {} }
 			})
 
 			const results = await Promise.all(promises)
-			const newCache = results.reduce((acc, curr) => ({ ...acc, ...curr }), {})
+			const newCountCache = results.reduce((acc, curr) => ({ ...acc, ...curr.count }), {})
+			const newDataCache = results.reduce((acc, curr) => ({ ...acc, ...curr.data }), {})
 
-			if (Object.keys(newCache).length > 0) {
-				setEventBibsCache(prev => ({ ...prev, ...newCache }))
+			if (Object.keys(newCountCache).length > 0) {
+				setEventBibsCache(prev => ({ ...prev, ...newCountCache }))
+			}
+			if (Object.keys(newDataCache).length > 0) {
+				setEventBibsData(prev => ({ ...prev, ...newDataCache }))
 			}
 		}
 
@@ -531,18 +581,6 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		}
 	}
 
-	// Function to map event type to marketplace sport filter values
-	const mapEventTypeToSportFilter = (eventType: Event['typeCourse']): string => {
-		switch (eventType) {
-			case 'cycle':
-				return 'cycling' // Map 'cycle' to 'cycling' for marketplace compatibility
-			case 'road':
-				return 'running' // Map 'road' to 'running' for marketplace compatibility
-			default:
-				return eventType // trail, triathlon stay the same
-		}
-	}
-
 	// Function to handle event button clicks
 	const handleEventAction = async (event: Event) => {
 		try {
@@ -550,9 +588,8 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 			if (bibCount > 0) {
 				// Redirect to marketplace with filters for this specific event
-				const mappedSport = mapEventTypeToSportFilter(event.typeCourse)
 				const searchParams = new URLSearchParams({
-					sport: encodeURIComponent(mappedSport), // Filter by sport type (mapped)
+					sport: encodeURIComponent(event.typeCourse), // Filter by sport type
 					search: encodeURIComponent(event.name), // Search by event name
 					geography: event.location ? encodeURIComponent(event.location.toLowerCase()) : '', // Filter by location
 				})
@@ -734,6 +771,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 											event={e}
 											locale={locale}
 											bibsCount={eventBibsCache[e.id]}
+											bibsData={eventBibsData[e.id]}
 											onAction={handleEventAction}
 											t={t}
 										/>

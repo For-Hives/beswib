@@ -35,14 +35,12 @@ export default function EventImage({ locale, eventData, bib }: Readonly<EventIma
 	 */
 	function bgFromType(type: BibSale['event']['type']) {
 		switch (type) {
-			case 'cycling':
+			case 'cycle':
 				return 'bg-cyan-100/40 border-cyan-500/60 dark:bg-cyan-500/15 dark:border-cyan-500/50'
 			case 'other':
 				return 'bg-gray-100/40 border-gray-500/60 dark:bg-gray-500/15 dark:border-gray-500/50'
-			case 'running':
+			case 'road':
 				return 'bg-green-100/40 border-green-500/60 dark:bg-green-500/15 dark:border-green-500/50'
-			case 'swimming':
-				return 'bg-blue-100/40 border-blue-500/60 dark:bg-blue-500/15 dark:border-blue-500/50'
 			case 'trail':
 				return 'bg-yellow-100/40 border-yellow-500/60 dark:bg-yellow-500/15 dark:border-yellow-500/50'
 			case 'triathlon':
@@ -92,11 +90,11 @@ export default function EventImage({ locale, eventData, bib }: Readonly<EventIma
 						switch (bib.event.type) {
 							case 'trail':
 								return t.trail ?? 'Trail'
-							case 'running':
+							case 'road':
 								return t.road ?? 'Road'
 							case 'triathlon':
 								return t.triathlon ?? 'Triathlon'
-							case 'cycling':
+							case 'cycle':
 								return typeof (t as { cycling?: unknown }).cycling === 'string'
 									? (t as { cycling?: string }).cycling
 									: 'Cycling'

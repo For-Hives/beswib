@@ -35,7 +35,7 @@ export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateO
 		lockedAt: bib.lockedAt ?? null,
 		id: bib.id,
 		event: {
-			type: 'running',
+			type: 'road',
 			participantCount: 0,
 			name: '',
 			location: '',
