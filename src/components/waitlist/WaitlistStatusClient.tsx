@@ -2,13 +2,20 @@
 
 import { useEffect, useState } from 'react'
 
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { Locale } from '@/lib/i18n/config'
+
+import waitlistTranslations from './locales.json'
+
 interface Props {
 	joinLabel: string
 	eventId: string
 	action: (formData: FormData) => Promise<void>
+	locale: Locale
 }
 
-export default function WaitlistStatusClient({ joinLabel, eventId, action }: Props) {
+export default function WaitlistStatusClient({ locale, joinLabel, eventId, action }: Props) {
+	const t = getTranslations(locale, waitlistTranslations)
 	const [inWaitlist, setInWaitlist] = useState<boolean | null>(null)
 	const [error, setError] = useState<string | null>(null)
 
@@ -44,15 +51,15 @@ export default function WaitlistStatusClient({ joinLabel, eventId, action }: Pro
 	}, [eventId])
 
 	if (error != null && error !== '') {
-		return <p className="text-destructive text-sm">Failed to check waitlist status.</p>
+		return <p className="text-destructive text-sm">{t.status.failed}</p>
 	}
 
 	if (inWaitlist === null) {
-		return <p className="text-muted-foreground text-sm">Checking waitlist status…</p>
+		return <p className="text-muted-foreground text-sm">{t.status.checking}</p>
 	}
 
 	if (inWaitlist) {
-		return <p className="text-sm text-green-600 dark:text-green-400">You’re already on the waitlist for this event.</p>
+		return <p className="text-sm text-green-600 dark:text-green-400">{t.status.alreadyOn}</p>
 	}
 
 	return (
