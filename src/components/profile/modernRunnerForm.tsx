@@ -241,6 +241,20 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 						</div>
 
 						<div>
+							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="gender">
+								{t.gender ?? 'Gender'} *
+							</Label>
+							<SelectAnimated
+								onValueChange={value => form.setValue('gender', value as 'male' | 'female' | 'other')}
+								options={genderOptions}
+								placeholder="Select your gender"
+								value={form.watch('gender')}
+							/>
+							{form.formState.errors.gender && (
+								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.gender.message}</p>
+							)}
+						</div>
+						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="phoneNumber">
 								{t.phoneNumber ?? 'Phone Number'}
 								<span className="text-muted-foreground ml-1 text-xs">
@@ -279,21 +293,6 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
 									{form.formState.errors.contactEmail.message as string}
 								</p>
-							)}
-						</div>
-
-						<div>
-							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="gender">
-								{t.gender ?? 'Gender'} *
-							</Label>
-							<SelectAnimated
-								onValueChange={value => form.setValue('gender', value as 'male' | 'female' | 'other')}
-								options={genderOptions}
-								placeholder="Select your gender"
-								value={form.watch('gender')}
-							/>
-							{form.formState.errors.gender && (
-								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.gender.message}</p>
 							)}
 						</div>
 					</CardContent>
