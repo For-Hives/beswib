@@ -110,6 +110,6 @@ export function getBibImageUrl(bib?: {
 		}
 	}
 }): string {
-	const seed = bib?.id || 'default'
+	const seed = bib?.id ?? 'default'
 	return getEventImageUrl(bib?.expand?.eventId, seed)
 }
