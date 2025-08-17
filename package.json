@@ -104,7 +104,6 @@
 		"svix": "1.74.1",
 		"tailwind-merge": "3.3.1",
 		"three": "0.179.1",
-		"twind": "^0.16.19",
 		"valibot": "1.1.0",
 		"zustand": "5.0.8"
 	},

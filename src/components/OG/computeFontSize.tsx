@@ -55,5 +55,5 @@ export default function computeFontSize({ text, maxWidth, maxHeight, initialFont
 	}
 
 	// Return the computed font size and wrapped text
-	return { fontSize, text: lines.join('\n') }
+	return { text: lines.join('\n'), fontSize }
 }

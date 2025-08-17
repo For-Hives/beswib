@@ -1,9 +1,11 @@
-import { headers } from 'next/headers'
 // import { getTranslations } from '@/lib/getDictionary'
 import * as React from 'react'
+
+import { ImageResponse } from 'next/og'
+import { headers } from 'next/headers'
+
 // import { type LocaleParams } from '@/lib/generateStaticParams'
 import { fetchBibById } from '@/services/bib.services'
-import { ImageResponse } from 'next/og'
 
 export const size = {
 	width: 1200,
@@ -36,21 +38,18 @@ export default async function Image({ params }: { params: { id: string } }) {
 	const date = new Date(event.eventDate).toLocaleDateString('fr-FR')
 	const distance = `${event.distanceKm} km`
 	const elevation = event.elevationGain ? `${event.elevationGain} m D+` : ''
-	const typeCourse = event.typeCourse
 	const validated = bib.validated
-	const price = `${bib.price} €`
-	const originalPrice = bib.originalPrice ? `${bib.originalPrice} €` : ''
 
 	return new ImageResponse(
 		(
 			<div
 				style={{
 					width: `${size.width}px`,
-					height: `${size.height}px`,
-					display: 'flex',
-					flexDirection: 'column',
-					backgroundColor: '#000000',
 					position: 'relative',
+					height: `${size.height}px`,
+					flexDirection: 'column',
+					display: 'flex',
+					backgroundColor: '#000000',
 				}}
 			>
 				{/* Image de fond */}
@@ -60,31 +59,31 @@ export default async function Image({ params }: { params: { id: string } }) {
 					height={size.height}
 					alt=""
 					style={{
-						objectFit: 'cover',
-						position: 'absolute',
-						top: 0,
-						left: 0,
 						zIndex: 0,
+						top: 0,
+						position: 'absolute',
+						objectFit: 'cover',
+						left: 0,
 					}}
 				/>
 
 				{/* Div Title */}
 				<div
 					style={{
-						color: '#fff',
 						zIndex: 1,
+						flexDirection: 'column',
 						flex: 1,
 						display: 'flex',
-						flexDirection: 'column',
+						color: '#fff',
 					}}
 				>
 					{/* Title */}
 					<h1
 						style={{
-							fontSize: 50,
 							marginTop: 60, // 🔹 60px du haut
 							marginLeft: 60, // 🔹 60px de la gauche
 							marginBottom: 20,
+							fontSize: 50,
 						}}
 					>
 						{name}
@@ -94,11 +93,11 @@ export default async function Image({ params }: { params: { id: string } }) {
 				{/* Div Infos */}
 				<div
 					style={{
-						color: '#fff',
 						zIndex: 1,
+						flexDirection: 'column',
 						flex: 1,
 						display: 'flex',
-						flexDirection: 'column',
+						color: '#fff',
 					}}
 				>
 					{/* Infos */}
@@ -116,16 +115,16 @@ export default async function Image({ params }: { params: { id: string } }) {
 					<div
 						style={{
 							width: 60,
+							marginLeft: 60,
+							justifyContent: 'center',
 							height: 60,
+							fontWeight: 'bold',
+							fontSize: 24,
+							display: 'flex',
+							color: '#fff',
 							borderRadius: '100%',
 							backgroundColor: validated ? '#4CAF50' : '#F44336',
-							display: 'flex',
 							alignItems: 'center',
-							justifyContent: 'center',
-							color: '#fff',
-							fontSize: 24,
-							fontWeight: 'bold',
-							marginLeft: 60,
 						}}
 					>
 						{validated ? '\u2714' : '\u2716'}

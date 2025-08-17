@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 
 // Function to split the text into parts and apply a special color to words between **
@@ -36,7 +37,7 @@ type OGImageProps = {
 }
 
 // Main component for generating an Open Graph image
-export default function OGImage({ title, secondary, host, protocol, size }: Readonly<OGImageProps>) {
+export default function OGImage({ title, size, secondary, protocol, host }: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
 	const MAX_WIDTH_Secondary = 440
@@ -80,12 +81,12 @@ export default function OGImage({ title, secondary, host, protocol, size }: Read
 	return (
 		<div
 			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				position: 'relative',
-				backgroundColor: 'black',
 				width: `${size.width}px`,
+				position: 'relative',
 				height: `${size.height}px`,
+				flexDirection: 'column',
+				display: 'flex',
+				backgroundColor: 'black',
 			}}
 		>
 			{/* Background image */}
@@ -94,29 +95,29 @@ export default function OGImage({ title, secondary, host, protocol, size }: Read
 			{/* Main text container */}
 			<div
 				style={{
+					top: 108,
 					position: 'absolute',
 					left: 58,
-					top: 108,
-					display: 'flex',
 					gap: 20,
 					flexDirection: 'column',
+					display: 'flex',
 					color: '#111E3B',
 				}}
 			>
 				{/* Main title */}
 				<div
 					style={{
-						display: 'flex',
-						justifyContent: 'flex-start',
-						alignItems: 'center',
 						width: MAX_WIDTH_Main,
+						whiteSpace: 'pre-wrap',
+						textAlign: 'left',
+						overflow: 'hidden',
+						lineHeight: 1.1,
+						justifyContent: 'flex-start',
 						height: MAX_HEIGHT_Main,
 						fontWeight: 'bold',
-						lineHeight: 1.1,
 						fontSize: mainFontSize,
-						textAlign: 'left',
-						whiteSpace: 'pre-wrap',
-						overflow: 'hidden',
+						display: 'flex',
+						alignItems: 'center',
 					}}
 				>
 					{/* Render highlighted text parts */}
@@ -131,16 +132,16 @@ export default function OGImage({ title, secondary, host, protocol, size }: Read
 				<div
 					style={{
 						width: MAX_WIDTH_Main,
+						whiteSpace: 'pre-wrap',
+						textAlign: 'left',
+						overflow: 'hidden',
+						lineHeight: 1.1,
 						height: MAX_HEIGHT_Main,
 						fontWeight: 'bold',
-						lineHeight: 1.1,
 						fontSize: secondaryFontSize,
-						textAlign: 'left',
-						whiteSpace: 'pre-wrap',
-						overflow: 'hidden',
-						display: 'flex', // required for @vercel/og
-						flexDirection: 'row', // keep spans on the same line
 						flexWrap: 'wrap', // wrap if needed
+						flexDirection: 'row', // keep spans on the same line
+						display: 'flex', // required for @vercel/og
 					}}
 				>
 					{/* Render highlighted text parts */}
@@ -155,17 +156,17 @@ export default function OGImage({ title, secondary, host, protocol, size }: Read
 			{/* Footer with social links */}
 			<div
 				style={{
+					zIndex: 10,
+					top: 494,
 					position: 'absolute',
 					left: 58,
-					top: 494,
-					display: 'flex',
 					flexDirection: 'column',
+					display: 'flex',
 					alignItems: 'flex-start',
-					zIndex: 10,
 				}}
 			>
 				<p>beswib.com</p>
-				<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', zIndex: 10 }}>
+				<div style={{ zIndex: 10, flexDirection: 'row', display: 'flex', alignItems: 'center' }}>
 					<img src={instagramUrl} width={50} height={50} alt="Instagram" style={{ marginRight: 16 }} />
 					<img src={stravaUrl} width={50} height={50} alt="Strava" style={{ marginRight: 16 }} />
 					<img src={linkedinUrl} width={50} height={50} alt="LinkedIn" style={{ marginRight: 16 }} />
@@ -175,13 +176,13 @@ export default function OGImage({ title, secondary, host, protocol, size }: Read
 			{/* Mountain image */}
 			<div
 				style={{
+					zIndex: 10,
+					top: 108,
 					position: 'absolute',
 					left: 702,
-					top: 108,
-					display: 'flex',
 					flexDirection: 'row',
+					display: 'flex',
 					alignItems: 'center',
-					zIndex: 10,
 				}}
 			>
 				<img src={mountain} width={440} height={305} alt="mountain" style={{ objectFit: 'cover', display: 'flex' }} />
@@ -190,9 +191,9 @@ export default function OGImage({ title, secondary, host, protocol, size }: Read
 			{/* Beswib logo */}
 			<div
 				style={{
+					top: 528,
 					position: 'absolute',
 					left: 1070,
-					top: 528,
 					display: 'flex',
 					alignItems: 'center',
 				}}
