@@ -34,11 +34,17 @@
 				"size": "Size",
 				"gender": "Gender",
 				"buyButton": "Buy Bib",
+				"viewListing": "View Listing",
 				"noBibsAvailable": "No bibs currently listed for resale for this event."
 			},
 			"waitlist": {
 				"joinButton": "Join Waitlist",
 				"joinDescription": "Be notified if a bib becomes available.",
+				"emailLabel": "Email address",
+				"emailPlaceholder": "Enter your email for notifications",
+				"subscribeButton": "Subscribe to Notifications",
+				"or": "or",
+				"signInButton": "Sign in for full features",
 				"success": {
 					"title": "Success!",
 					"message": "You've been successfully added to the waitlist for {eventName}! We'll notify you if a bib becomes available.",
@@ -88,11 +94,17 @@
 				"size": "Taille",
 				"gender": "Sexe",
 				"buyButton": "Acheter le dossard",
+				"viewListing": "Voir l'annonce",
 				"noBibsAvailable": "Aucun dossard actuellement en vente pour cet événement."
 			},
 			"waitlist": {
 				"joinButton": "Rejoindre la liste d'attente",
 				"joinDescription": "Soyez notifié si un dossard devient disponible.",
+				"emailLabel": "Adresse e-mail",
+				"emailPlaceholder": "Entrez votre e-mail pour les notifications",
+				"subscribeButton": "S'abonner aux notifications",
+				"or": "ou",
+				"signInButton": "Se connecter pour toutes les fonctionnalités",
 				"success": {
 					"title": "Succès !",
 					"message": "Vous avez été ajouté avec succès à la liste d'attente pour {eventName} ! Nous vous notifierons si un dossard devient disponible.",
@@ -142,11 +154,17 @@
 				"size": "Talla",
 				"gender": "Género",
 				"buyButton": "Comprar dorsal",
+				"viewListing": "Ver anuncio",
 				"noBibsAvailable": "No hay dorsales disponibles para la venta en este evento."
 			},
 			"waitlist": {
 				"joinButton": "Unirse a la lista de espera",
 				"joinDescription": "Recibe una notificación si un dorsal está disponible.",
+				"emailLabel": "Dirección de correo electrónico",
+				"emailPlaceholder": "Ingresa tu correo para notificaciones",
+				"subscribeButton": "Suscribirse a las notificaciones",
+				"or": "o",
+				"signInButton": "Iniciar sesión para todas las funciones",
 				"success": {
 					"title": "¡Éxito!",
 					"message": "¡Has sido añadido exitosamente a la lista de espera para {eventName}! Te notificaremos si un dorsal está disponible.",
@@ -196,11 +214,17 @@
 				"size": "Taglia",
 				"gender": "Genere",
 				"buyButton": "Compra pettorina",
+				"viewListing": "Vedi annuncio",
 				"noBibsAvailable": "Nessuna pettorina attualmente in vendita per questo evento."
 			},
 			"waitlist": {
 				"joinButton": "Unisciti alla lista d'attesa",
 				"joinDescription": "Ricevi una notifica se una pettorina diventa disponibile.",
+				"emailLabel": "Indirizzo email",
+				"emailPlaceholder": "Inserisci la tua email per le notifiche",
+				"subscribeButton": "Iscriviti alle notifiche",
+				"or": "o",
+				"signInButton": "Accedi per tutte le funzionalità",
 				"success": {
 					"title": "Successo!",
 					"message": "Sei stato aggiunto con successo alla lista d'attesa per {eventName}! Ti avviseremo se una pettorina diventa disponibile.",
@@ -250,11 +274,17 @@
 				"size": "Größe",
 				"gender": "Geschlecht",
 				"buyButton": "Startnummer kaufen",
+				"viewListing": "Anzeige ansehen",
 				"noBibsAvailable": "Derzeit keine Startnummern zum Verkauf für dieses Event verfügbar."
 			},
 			"waitlist": {
 				"joinButton": "Auf Warteliste setzen",
 				"joinDescription": "Benachrichtigung erhalten, wenn eine Startnummer verfügbar wird.",
+				"emailLabel": "E-Mail-Adresse",
+				"emailPlaceholder": "Geben Sie Ihre E-Mail für Benachrichtigungen ein",
+				"subscribeButton": "Für Benachrichtigungen anmelden",
+				"or": "oder",
+				"signInButton": "Anmelden für alle Funktionen",
 				"success": {
 					"title": "Erfolg!",
 					"message": "Sie wurden erfolgreich zur Warteliste für {eventName} hinzugefügt! Wir benachrichtigen Sie, wenn eine Startnummer verfügbar wird.",
@@ -304,11 +334,17 @@
 				"size": "Mărime",
 				"gender": "Gen",
 				"buyButton": "Cumpără numărul",
+				"viewListing": "Vezi anunțul",
 				"noBibsAvailable": "Nu sunt numere de concurs disponibile pentru vânzare la acest eveniment."
 			},
 			"waitlist": {
 				"joinButton": "Alătură-te listei de așteptare",
 				"joinDescription": "Fii notificat dacă un număr de concurs devine disponibil.",
+				"emailLabel": "Adresa de e-mail",
+				"emailPlaceholder": "Introduceți e-mailul pentru notificări",
+				"subscribeButton": "Abonează-te la notificări",
+				"or": "sau",
+				"signInButton": "Conectează-te pentru toate funcționalitățile",
 				"success": {
 					"title": "Succes!",
 					"message": "Ai fost adăugat cu succes pe lista de așteptare pentru {eventName}! Te vom anunța dacă un număr de concurs devine disponibil.",
@@ -358,11 +394,17 @@
 				"size": "Tamanho",
 				"gender": "Género",
 				"buyButton": "Comprar dorsal",
+				"viewListing": "Ver anúncio",
 				"noBibsAvailable": "Nenhum dorsal atualmente à venda para este evento."
 			},
 			"waitlist": {
 				"joinButton": "Juntar-se à lista de espera",
 				"joinDescription": "Seja notificado se um dorsal ficar disponível.",
+				"emailLabel": "Endereço de e-mail",
+				"emailPlaceholder": "Digite seu e-mail para notificações",
+				"subscribeButton": "Inscrever-se para notificações",
+				"or": "ou",
+				"signInButton": "Entrar para todas as funcionalidades",
 				"success": {
 					"title": "Sucesso!",
 					"message": "Foste adicionado com sucesso à lista de espera para {eventName}! Vamos notificar-te se um dorsal ficar disponível.",
@@ -412,11 +454,17 @@
 				"size": "Maat",
 				"gender": "Geslacht",
 				"buyButton": "Startnummer kopen",
+				"viewListing": "Bekijk advertentie",
 				"noBibsAvailable": "Momenteel geen startnummers te koop voor dit evenement."
 			},
 			"waitlist": {
 				"joinButton": "Aan wachtlijst toevoegen",
 				"joinDescription": "Ontvang een melding als een startnummer beschikbaar komt.",
+				"emailLabel": "E-mailadres",
+				"emailPlaceholder": "Voer uw e-mail in voor meldingen",
+				"subscribeButton": "Aanmelden voor meldingen",
+				"or": "of",
+				"signInButton": "Inloggen voor alle functies",
 				"success": {
 					"title": "Gelukt!",
 					"message": "Je bent succesvol toegevoegd aan de wachtlijst voor {eventName}! We sturen je een melding als een startnummer beschikbaar komt.",
@@ -466,11 +514,17 @@
 				"size": "사이즈",
 				"gender": "성별",
 				"buyButton": "빕 구매",
+				"viewListing": "목록 보기",
 				"noBibsAvailable": "현재 이 이벤트에 판매중인 빕이 없습니다."
 			},
 			"waitlist": {
 				"joinButton": "대기 목록에 참여",
 				"joinDescription": "빕이 사용 가능해지면 알림을 받으세요.",
+				"emailLabel": "이메일 주소",
+				"emailPlaceholder": "알림을 위한 이메일을 입력하세요",
+				"subscribeButton": "알림 구독",
+				"or": "또는",
+				"signInButton": "모든 기능을 위해 로그인",
 				"success": {
 					"title": "성공!",
 					"message": "{eventName} 대기 목록에 성공적으로 추가되었습니다! 빕이 사용 가능해지면 알려드리겠습니다.",
