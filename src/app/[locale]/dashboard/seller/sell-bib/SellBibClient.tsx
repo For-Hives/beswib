@@ -167,12 +167,12 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 
 			case 'emailVerification':
 				if (formData.linkedEmailId === undefined || formData.linkedEmailId === null || formData.linkedEmailId === '') {
-					newErrors.linkedEmailId = 'Please select an email address.'
+					newErrors.linkedEmailId = t.form.emailVerification.selectEmailError
 				} else if (formData.linkedEmailId !== 'main-email') {
 					// Check if the selected email is verified
 					const selectedEmail = verifiedEmails.find(email => email.id === formData.linkedEmailId)
 					if (selectedEmail?.isVerified !== true) {
-						newErrors.linkedEmailId = 'Please verify the selected email address.'
+						newErrors.linkedEmailId = t.form.emailVerification.verifyEmailError
 					}
 				}
 				break
@@ -299,6 +299,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				return (
 					<EmailVerificationStep
 						user={user}
+						locale={locale}
 						verifiedEmails={verifiedEmails}
 						selectedEmailId={formData.linkedEmailId}
 						onEmailSelect={(emailId: string) => updateFormData({ linkedEmailId: emailId })}
@@ -355,7 +356,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 			<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
 				<div className="flex items-center justify-between">
 					<div>
-						<p className="text-muted-foreground text-sm">Selling as</p>
+						<p className="text-muted-foreground text-sm">{t.common.sellingAs}</p>
 						<div className="text-foreground flex-col items-start justify-start gap-2 font-medium md:flex md:flex-row md:items-center">
 							<div className="flex items-center gap-2">
 								<p>
@@ -368,7 +369,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 							<p>{user.email && <span className="text-muted-foreground text-sm">({user.email})</span>}</p>
 						</div>
 					</div>
-					<div className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-medium">SELLER</div>
+					<div className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-medium">{t.common.sellerBadge}</div>
 				</div>
 			</div>
 
