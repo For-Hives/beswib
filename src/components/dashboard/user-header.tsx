@@ -61,7 +61,7 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 	const isSellerProfileComplete = user?.paypalMerchantId != null
 
 	return (
-		<div className="py-4 lg:py-0">
+		<div className="py-4 lg:py-8">
 			<div className="bg-card/25 border-border/30 top-2 right-0 left-0 z-20 mx-4 rounded-2xl border p-4 backdrop-blur-sm lg:absolute">
 				<div className="flex flex-wrap items-start justify-between gap-2 lg:flex-nowrap">
 					<div>
@@ -120,11 +120,11 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 					</div>
 				</div>
 			</div>
-			{(isRunnerProfileComplete || isSellerProfileComplete) && (
+			{!isRunnerProfileComplete || !isSellerProfileComplete ? (
 				<>
 					<div className="mx-4 pt-4 md:pt-24 xl:pt-32">
 						<div className="flex justify-center gap-2">
-							{isRunnerProfileComplete && (
+							{!isRunnerProfileComplete && (
 								<div className="mt-4 rounded-lg border border-yellow-500/75 bg-yellow-500/15 p-1 text-sm text-yellow-700 lg:p-3 dark:border-yellow-500/50 dark:bg-yellow-500/10 dark:text-yellow-500">
 									<Link className="flex items-center gap-2 text-xs lg:text-sm" href="/profile">
 										<p>
@@ -137,7 +137,7 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 									</Link>
 								</div>
 							)}
-							{isSellerProfileComplete && (
+							{!isSellerProfileComplete && (
 								<div className="mt-4 rounded-lg border border-blue-500/75 bg-blue-500/15 p-1 text-sm text-blue-700 lg:p-3 dark:border-blue-500/50 dark:bg-blue-500/10 dark:text-blue-500">
 									<Link className="flex items-center gap-2 text-xs lg:text-sm" href="/profile">
 										<p>
@@ -153,7 +153,7 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 						</div>
 					</div>
 				</>
-			)}
+			) : null}
 		</div>
 	)
 }

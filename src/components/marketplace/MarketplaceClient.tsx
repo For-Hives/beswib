@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useCallback } from 'react'
 import { Search } from 'lucide-react'
 
 import { parseAsArrayOf, parseAsFloat, parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
@@ -66,6 +66,29 @@ const sortBibs = (bibs: BibSale[], sort: string) => {
 	}
 }
 
+// --- Custom parser for search that handles URL encoding/decoding safely 🔒
+const parseAsSearchString = {
+	...parseAsString,
+	serialize: (value: string) => {
+		try {
+			// Encode special characters for URL safety
+			return encodeURIComponent(value || '')
+		} catch {
+			// If encoding fails, return the original value
+			return value || ''
+		}
+	},
+	parse: (value: string) => {
+		try {
+			// Decode URL-encoded characters safely
+			return decodeURIComponent(value || '')
+		} catch {
+			// If decoding fails, return the original value
+			return value || ''
+		}
+	},
+}
+
 // --- Main client component for the marketplace grid and filters 🖼️
 
 export default function MarketplaceClient({ locale, bibs }: Readonly<MarketplaceClientProps>) {
@@ -76,7 +99,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 			{
 				sport: parseAsString, // null when not set, string when set
 				sort: parseAsStringLiteral(['date', 'distance', 'price-asc', 'price-desc'] as const).withDefault('date'),
-				search: parseAsString.withDefault(''),
+				search: parseAsSearchString.withDefault(''), // Use custom parser for search
 				priceMin: parseAsFloat.withDefault(0),
 				priceMax: parseAsFloat.withDefault(500),
 				geography: parseAsArrayOf(parseAsString, ',').withDefault([]),
@@ -106,6 +129,16 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 	const handleSortChange = React.useCallback(
 		(sortOption: string) => {
 			void setFilters({ sort: sortOption as 'date' | 'distance' | 'price-asc' | 'price-desc' })
+		},
+		[setFilters]
+	)
+
+	// --- Handler for search input that safely handles special characters 🔍
+	const handleSearchChange = useCallback(
+		(inputValue: string) => {
+			// Trim whitespace and ensure safe handling of special characters
+			const sanitizedValue = inputValue.trim()
+			void setFilters({ search: sanitizedValue })
 		},
 		[setFilters]
 	)
@@ -155,8 +188,10 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		let filtered = bibs
 
 		// --- Fuzzy search with Fuse.js on search term 🔍
-		if (search !== '') {
-			const fuseResults = fuse.search(search)
+		if (search && search.trim() !== '') {
+			// Ensure search term is properly handled for fuzzy search
+			const searchTerm = search.trim()
+			const fuseResults = fuse.search(searchTerm)
 			filtered = fuseResults.map(result => result.item)
 		}
 
@@ -210,7 +245,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 							className="pl-10 text-sm"
 							placeholder={translations.searchPlaceholder ?? 'Quick search by name, location, sport...'}
 							value={search}
-							onChange={e => void setFilters({ search: e.target.value })}
+							onChange={e => handleSearchChange(e.target.value)}
 						/>
 					</div>
 					{/* Mobile-only Filters button (outside relative container to keep icon centered) */}
