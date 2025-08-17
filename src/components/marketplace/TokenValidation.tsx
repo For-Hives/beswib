@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Lock, Shield, AlertTriangle, ArrowLeft } from 'lucide-react'
+import { Lock, Shield, AlertTriangle, ArrowLeft, CheckCircle } from 'lucide-react'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
@@ -22,6 +23,10 @@ interface TokenValidationProps {
 		invalidToken?: string
 		requiredToken?: string
 		backToMarketplace?: string
+		errorTitle?: string
+		validationFailedTitle?: string
+		validationFailedDesc?: string
+		tryAgainButton?: string
 	}
 }
 
@@ -29,6 +34,7 @@ export default function TokenValidation({ bibId, locale, onValidToken, translati
 	const [token, setToken] = useState('')
 	const [isValidating, setIsValidating] = useState(false)
 	const [error, setError] = useState('')
+	const [isSuccess, setIsSuccess] = useState(false)
 	const router = useRouter()
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -114,10 +120,11 @@ export default function TokenValidation({ bibId, locale, onValidToken, translati
 							</div>
 
 							{error && (
-								<div className="flex items-center gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-800 dark:bg-red-900/20 dark:text-red-200">
-									<AlertTriangle className="h-4 w-4 flex-shrink-0" />
-									{error}
-								</div>
+								<Alert variant="destructive">
+									<AlertTriangle className="h-4 w-4" />
+									<AlertTitle>{t.errorTitle || 'Access Denied'}</AlertTitle>
+									<AlertDescription>{error}</AlertDescription>
+								</Alert>
 							)}
 
 							<Button type="submit" className="w-full" disabled={isValidating || !token.trim()}>
