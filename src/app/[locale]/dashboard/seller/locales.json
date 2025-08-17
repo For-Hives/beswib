@@ -21,7 +21,16 @@
 		"gender": "Gender:",
 		"status": "Status:",
 		"editBib": "Edit Bib",
-		"bibFor": "Bib for:"
+		"bibFor": "Bib for:",
+		"categoryActive": "On Sale",
+		"categorySold": "Sold",
+		"categoryArchived": "Archived",
+		"noBibsActive": "No bibs on sale",
+		"noBibsSold": "No bibs sold",
+		"noBibsArchived": "No bibs archived",
+		"startListingFirst": "Start by listing your first bib",
+		"soldBibsWillAppear": "Your sold bibs will appear here",
+		"archivedBibsWillAppear": "Expired or withdrawn bibs will appear here"
 	},
 	"fr": {
 		"title": "Tableau de bord vendeur",
@@ -45,7 +54,16 @@
 		"gender": "Genre :",
 		"status": "Statut :",
 		"editBib": "Modifier le dossard",
-		"bibFor": "Dossard pour :"
+		"bibFor": "Dossard pour :",
+		"categoryActive": "En cours de vente",
+		"categorySold": "Vendus",
+		"categoryArchived": "Archivés",
+		"noBibsActive": "Aucun dossard en vente",
+		"noBibsSold": "Aucun dossard vendu",
+		"noBibsArchived": "Aucun dossard archivé",
+		"startListingFirst": "Commencez par lister votre premier dossard",
+		"soldBibsWillAppear": "Vos dossards vendus apparaîtront ici",
+		"archivedBibsWillAppear": "Les dossards expirés ou retirés apparaîtront ici"
 	},
 	"ko": {
 		"title": "판매자 대시보드",
