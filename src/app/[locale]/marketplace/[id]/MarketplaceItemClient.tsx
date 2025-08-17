@@ -78,7 +78,20 @@ export default function MarketplaceItemClient({
 
 	// If no bib data (invalid token or bib not found), show error
 	if (!bibSale || !eventData) {
-		return <div>{t.bibNotFound ?? 'Bib not found or event data missing'}</div>
+		return (
+			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
+				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+				<div className="relative pb-12 pt-32">
+					<div className="container mx-auto max-w-2xl p-6">
+						<div className="mb-12 space-y-2 text-center">
+							<h1 className="text-foreground text-4xl font-bold tracking-tight">
+								{t.bibNotFound ?? 'Dossard introuvable ou données manquantes'}
+							</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
 	}
 
 	// Show the normal purchase interface

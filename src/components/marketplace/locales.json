@@ -1,7 +1,7 @@
 {
 	"en": {
 		"aboutEvent": "About this event",
-		"bibNotFound": "Bib not found or event data missing",
+		"bibNotFound": "Bib not found, event data missing, or invalid access token",
 		"tokenValidation": {
 			"title": "Private Listing Access",
 			"description": "This is a private bib listing. Please enter the private token to access it.",
@@ -152,7 +152,7 @@
 	},
 	"fr": {
 		"aboutEvent": "À propos de cet événement",
-		"bibNotFound": "Dossard introuvable ou données manquantes",
+		"bibNotFound": "Dossard introuvable, données manquantes ou token d'accès invalide",
 		"tokenValidation": {
 			"title": "Accès à l'annonce privée",
 			"description": "Ceci est une annonce de dossard privée. Veuillez entrer le token privé pour y accéder.",
@@ -303,7 +303,7 @@
 	},
 	"es": {
 		"aboutEvent": "Acerca de este evento",
-		"bibNotFound": "Dorsal no encontrado o datos faltantes",
+		"bibNotFound": "Dorsal no encontrado, datos faltantes o token de acceso inválido",
 		"allDistances": "Todas las distancias",
 		"allPrices": "Todos los precios",
 		"allSports": "Todos los deportes",
@@ -440,7 +440,7 @@
 	},
 	"it": {
 		"aboutEvent": "Su questo evento",
-		"bibNotFound": "Pettorale non trovato o dati mancanti",
+		"bibNotFound": "Pettorale non trovato, dati mancanti o token di accesso non valido",
 		"allDistances": "Tutte le distanze",
 		"allPrices": "Tutti i prezzi",
 		"allSports": "Tutti gli sport",
@@ -577,7 +577,7 @@
 	},
 	"de": {
 		"aboutEvent": "Über diese Veranstaltung",
-		"bibNotFound": "Startnummer nicht gefunden oder Daten fehlen",
+		"bibNotFound": "Startnummer nicht gefunden, Daten fehlen oder ungültiger Zugangstoken",
 		"allDistances": "Alle Distanzen",
 		"allPrices": "Alle Preise",
 		"allSports": "Alle Sportarten",
@@ -714,7 +714,7 @@
 	},
 	"ro": {
 		"aboutEvent": "Despre acest eveniment",
-		"bibNotFound": "Număr de concurs lipsă sau date insuficiente",
+		"bibNotFound": "Număr de concurs lipsă, date insuficiente sau token de acces invalid",
 		"allDistances": "Toate distanțele",
 		"allPrices": "Toate prețurile",
 		"allSports": "Toate sporturile",
@@ -851,7 +851,7 @@
 	},
 	"pt": {
 		"aboutEvent": "Sobre este evento",
-		"bibNotFound": "Dorsal não encontrado ou dados em falta",
+		"bibNotFound": "Dorsal não encontrado, dados em falta ou token de acesso inválido",
 		"allDistances": "Todas as distâncias",
 		"allPrices": "Todos os preços",
 		"allSports": "Todos os desportos",
@@ -988,7 +988,7 @@
 	},
 	"nl": {
 		"aboutEvent": "Over dit evenement",
-		"bibNotFound": "Startnummer niet gevonden of ontbrekende gegevens",
+		"bibNotFound": "Startnummer niet gevonden, ontbrekende gegevens of ongeldige toegangstoken",
 		"allDistances": "Alle afstanden",
 		"allPrices": "Alle prijzen",
 		"allSports": "Alle sporten",
@@ -1125,7 +1125,7 @@
 	},
 	"ko": {
 		"aboutEvent": "이 이벤트 정보",
-		"bibNotFound": "빕을 찾을 수 없거나 데이터가 없습니다",
+		"bibNotFound": "빕을 찾을 수 없거나 데이터가 없거나 잘못된 액세스 토큰입니다",
 		"allDistances": "모든 거리",
 		"allPrices": "모든 가격",
 		"allSports": "모든 종목",
