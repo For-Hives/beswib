@@ -1,0 +1,299 @@
+{
+	"en": {
+		"waitlist": {
+			"success": {
+				"icon": "✅",
+				"title": "Successfully added to waitlist!",
+				"message": "Great! You'll receive notifications when bibs become available for {eventName}."
+			},
+			"error": {
+				"icon": "❌",
+				"title": "Error adding to waitlist",
+				"alreadyAdded": "You're already on the waitlist for {eventName}.",
+				"failed": "Failed to add to waitlist"
+			}
+		},
+		"messages": {
+			"successEmail": "Great! You'll receive notifications at this email address when bibs become available for {eventName}.",
+			"successSub": "We'll contact you as soon as a bib becomes available!",
+			"alreadyAddedEmail": "You have already subscribed to notifications for this event with this email address.",
+			"info": "No worries! You'll still receive a notification if a bib becomes available.",
+			"error": "An error occurred. Please try again or contact our support."
+		},
+		"buttons": {
+			"understood": "Understood",
+			"success": "Perfect!",
+			"retry": "Try Again",
+			"contactSupport": "Contact Support"
+		},
+		"status": {
+			"checking": "Checking waitlist status…",
+			"alreadyOn": "You're already on the waitlist for this event.",
+			"failed": "Failed to check waitlist status."
+		}
+	},
+	"fr": {
+		"waitlist": {
+			"success": {
+				"icon": "✅",
+				"title": "Ajouté à la liste d'attente !",
+				"message": "Parfait ! Vous recevrez des notifications lorsque des dossards deviendront disponibles pour {eventName}."
+			},
+			"error": {
+				"icon": "❌",
+				"title": "Erreur lors de l'ajout à la liste d'attente",
+				"alreadyAdded": "Vous êtes déjà sur la liste d'attente pour {eventName}.",
+				"failed": "Échec de l'ajout à la liste d'attente"
+			}
+		},
+		"messages": {
+			"successEmail": "Parfait ! Vous recevrez des notifications à cette adresse email lorsque des dossards deviendront disponibles pour {eventName}.",
+			"successSub": "Nous vous contacterons dès qu'un dossard sera disponible !",
+			"alreadyAddedEmail": "Vous êtes déjà inscrit aux notifications pour cet événement avec cette adresse email.",
+			"info": "Pas de souci ! Vous recevrez toujours une notification si un dossard devient disponible.",
+			"error": "Une erreur s'est produite. Veuillez réessayer ou contactez notre support."
+		},
+		"buttons": {
+			"understood": "Compris",
+			"success": "Parfait !",
+			"retry": "Réessayer",
+			"contactSupport": "Contacter le support"
+		},
+		"status": {
+			"checking": "Vérification du statut de la liste d'attente…",
+			"alreadyOn": "Vous êtes déjà sur la liste d'attente pour cet événement.",
+			"failed": "Échec de la vérification du statut de la liste d'attente."
+		}
+	},
+	"es": {
+		"waitlist": {
+			"success": {
+				"icon": "✅",
+				"title": "¡Añadido a la lista de espera!",
+				"message": "¡Perfecto! Recibirás notificaciones cuando los dorsales estén disponibles para {eventName}."
+			},
+			"error": {
+				"icon": "❌",
+				"title": "Error al añadir a la lista de espera",
+				"alreadyAdded": "Ya estás en la lista de espera para {eventName}.",
+				"failed": "Error al añadir a la lista de espera"
+			}
+		},
+		"messages": {
+			"successEmail": "¡Perfecto! Recibirás notificaciones en esta dirección de email cuando los dorsales estén disponibles para {eventName}.",
+			"successSub": "¡Te contactaremos tan pronto como haya un dorsal disponible!",
+			"alreadyAddedEmail": "Ya estás registrado para recibir notificaciones de este evento con esta dirección de email.",
+			"info": "¡No te preocupes! Aún recibirás una notificación si un dorsal está disponible.",
+			"error": "Ha ocurrido un error. Inténtalo de nuevo o contacta nuestro soporte."
+		},
+		"buttons": {
+			"understood": "Entendido",
+			"success": "¡Perfecto!",
+			"retry": "Reintentar",
+			"contactSupport": "Contactar soporte"
+		},
+		"status": {
+			"checking": "Verificando estado de la lista de espera…",
+			"alreadyOn": "Ya estás en la lista de espera para este evento.",
+			"failed": "Error al verificar el estado de la lista de espera."
+		}
+	},
+	"it": {
+		"waitlist": {
+			"success": {
+				"icon": "✅",
+				"title": "Aggiunto alla lista d'attesa!",
+				"message": "Perfetto! Riceverai notifiche quando i pettorali saranno disponibili per {eventName}."
+			},
+			"error": {
+				"icon": "❌",
+				"title": "Errore nell'aggiunta alla lista d'attesa",
+				"alreadyAdded": "Sei già nella lista d'attesa per {eventName}.",
+				"failed": "Impossibile aggiungere alla lista d'attesa"
+			}
+		},
+		"messages": {
+			"successEmail": "Perfetto! Riceverai notifiche a questo indirizzo email quando i pettorali saranno disponibili per {eventName}.",
+			"successSub": "Ti contatteremo appena sarà disponibile un pettorale!",
+			"alreadyAddedEmail": "Sei già registrato per ricevere notifiche per questo evento con questo indirizzo email.",
+			"info": "Non preoccuparti! Riceverai comunque una notifica se un pettorale diventa disponibile.",
+			"error": "Si è verificato un errore. Riprova o contatta il nostro supporto."
+		},
+		"buttons": {
+			"understood": "Capito",
+			"success": "Perfetto!",
+			"retry": "Riprova",
+			"contactSupport": "Contatta il supporto"
+		},
+		"status": {
+			"checking": "Verifica dello stato della lista d'attesa…",
+			"alreadyOn": "Sei già nella lista d'attesa per questo evento.",
+			"failed": "Impossibile verificare lo stato della lista d'attesa."
+		}
+	},
+	"de": {
+		"waitlist": {
+			"success": {
+				"icon": "✅",
+				"title": "Erfolgreich zur Warteliste hinzugefügt!",
+				"message": "Perfekt! Sie erhalten Benachrichtigungen, wenn Startnummern für {eventName} verfügbar werden."
+			},
+			"error": {
+				"icon": "❌",
+				"title": "Fehler beim Hinzufügen zur Warteliste",
+				"alreadyAdded": "Sie sind bereits auf der Warteliste für {eventName}.",
+				"failed": "Fehler beim Hinzufügen zur Warteliste"
+			}
+		},
+		"messages": {
+			"successEmail": "Perfekt! Sie erhalten Benachrichtigungen an diese E-Mail-Adresse, wenn Startnummern für {eventName} verfügbar werden.",
+			"successSub": "Wir kontaktieren Sie, sobald eine Startnummer verfügbar ist!",
+			"alreadyAddedEmail": "Sie sind bereits für Benachrichtigungen zu diesem Event mit dieser E-Mail-Adresse registriert.",
+			"info": "Kein Problem! Sie erhalten trotzdem eine Benachrichtigung, wenn eine Startnummer verfügbar wird.",
+			"error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie unseren Support."
+		},
+		"buttons": {
+			"understood": "Verstanden",
+			"success": "Perfekt!",
+			"retry": "Erneut versuchen",
+			"contactSupport": "Support kontaktieren"
+		},
+		"status": {
+			"checking": "Wartelistenstatus wird überprüft…",
+			"alreadyOn": "Sie sind bereits auf der Warteliste für dieses Event.",
+			"failed": "Fehler beim Überprüfen des Wartelistenstatus."
+		}
+	},
+	"ro": {
+		"waitlist": {
+			"success": {
+				"icon": "✅",
+				"title": "Adăugat la lista de așteptare!",
+				"message": "Perfect! Veți primi notificări când numerele de concurs vor fi disponibile pentru {eventName}."
+			},
+			"error": {
+				"icon": "❌",
+				"title": "Eroare la adăugarea la lista de așteptare",
+				"alreadyAdded": "Sunteți deja pe lista de așteptare pentru {eventName}.",
+				"failed": "Eșec la adăugarea la lista de așteptare"
+			}
+		},
+		"messages": {
+			"successEmail": "Perfect! Veți primi notificări la această adresă de email când numerele de concurs vor fi disponibile pentru {eventName}.",
+			"successSub": "Vă vom contacta de îndată ce un număr de concurs va fi disponibil!",
+			"alreadyAddedEmail": "Sunteți deja înregistrat pentru notificări pentru acest eveniment cu această adresă de email.",
+			"info": "Nu-i problemă! Veți primi în continuare o notificare dacă un număr de concurs devine disponibil.",
+			"error": "A apărut o eroare. Vă rugăm să încercați din nou sau contactați suportul nostru."
+		},
+		"buttons": {
+			"understood": "Înțeles",
+			"success": "Perfect!",
+			"retry": "Încercați din nou",
+			"contactSupport": "Contactați suportul"
+		},
+		"status": {
+			"checking": "Verificarea stării listei de așteptare…",
+			"alreadyOn": "Sunteți deja pe lista de așteptare pentru acest eveniment.",
+			"failed": "Eșec la verificarea stării listei de așteptare."
+		}
+	},
+	"pt": {
+		"waitlist": {
+			"success": {
+				"icon": "✅",
+				"title": "Adicionado à lista de espera!",
+				"message": "Perfeito! Receberás notificações quando os dorsais estiverem disponíveis para {eventName}."
+			},
+			"error": {
+				"icon": "❌",
+				"title": "Erro ao adicionar à lista de espera",
+				"alreadyAdded": "Já estás na lista de espera para {eventName}.",
+				"failed": "Falha ao adicionar à lista de espera"
+			}
+		},
+		"messages": {
+			"successEmail": "Perfeito! Receberás notificações neste endereço de email quando os dorsais estiverem disponíveis para {eventName}.",
+			"successSub": "Entraremos em contacto assim que um dorsal estiver disponível!",
+			"alreadyAddedEmail": "Já estás registado para receber notificações deste evento com este endereço de email.",
+			"info": "Não se preocupe! Ainda receberás uma notificação se um dorsal ficar disponível.",
+			"error": "Ocorreu um erro. Tente novamente ou contacte o nosso suporte."
+		},
+		"buttons": {
+			"understood": "Compreendido",
+			"success": "Perfeito!",
+			"retry": "Tentar novamente",
+			"contactSupport": "Contactar suporte"
+		},
+		"status": {
+			"checking": "A verificar estado da lista de espera…",
+			"alreadyOn": "Já estás na lista de espera para este evento.",
+			"failed": "Falha ao verificar o estado da lista de espera."
+		}
+	},
+	"nl": {
+		"waitlist": {
+			"success": {
+				"icon": "✅",
+				"title": "Succesvol toegevoegd aan wachtlijst!",
+				"message": "Perfect! Je ontvangt meldingen wanneer startnummers beschikbaar komen voor {eventName}."
+			},
+			"error": {
+				"icon": "❌",
+				"title": "Fout bij toevoegen aan wachtlijst",
+				"alreadyAdded": "Je staat al op de wachtlijst voor {eventName}.",
+				"failed": "Fout bij toevoegen aan wachtlijst"
+			}
+		},
+		"messages": {
+			"successEmail": "Perfect! Je ontvangt meldingen op dit e-mailadres wanneer startnummers beschikbaar komen voor {eventName}.",
+			"successSub": "We nemen contact op zodra er een startnummer beschikbaar is!",
+			"alreadyAddedEmail": "Je bent al geregistreerd voor meldingen voor dit evenement met dit e-mailadres.",
+			"info": "Geen probleem! Je ontvangt nog steeds een melding als een startnummer beschikbaar komt.",
+			"error": "Er is een fout opgetreden. Probeer het opnieuw of neem contact op met onze ondersteuning."
+		},
+		"buttons": {
+			"understood": "Begrepen",
+			"success": "Perfect!",
+			"retry": "Opnieuw proberen",
+			"contactSupport": "Contact opnemen met ondersteuning"
+		},
+		"status": {
+			"checking": "Wachtlijststatus wordt gecontroleerd…",
+			"alreadyOn": "Je staat al op de wachtlijst voor dit evenement.",
+			"failed": "Fout bij controleren van wachtlijststatus."
+		}
+	},
+	"ko": {
+		"waitlist": {
+			"success": {
+				"icon": "✅",
+				"title": "대기자 명단에 성공적으로 추가되었습니다!",
+				"message": "완벽합니다! {eventName}에 빕이 사용 가능해지면 알림을 받으실 것입니다."
+			},
+			"error": {
+				"icon": "❌",
+				"title": "대기자 명단 추가 오류",
+				"alreadyAdded": "이미 {eventName}의 대기자 명단에 있습니다.",
+				"failed": "대기자 명단 추가 실패"
+			}
+		},
+		"messages": {
+			"successEmail": "완벽합니다! {eventName}에 빕이 사용 가능해지면 이 이메일 주소로 알림을 받으실 것입니다.",
+			"successSub": "빕이 사용 가능해지면 즉시 연락드리겠습니다!",
+			"alreadyAddedEmail": "이미 이 이메일 주소로 이 이벤트에 대한 알림에 등록되어 있습니다.",
+			"info": "괜찮습니다! 빕이 사용 가능해지면 여전히 알림을 받으실 것입니다.",
+			"error": "오류가 발생했습니다. 다시 시도하거나 지원팀에 문의해주세요."
+		},
+		"buttons": {
+			"understood": "이해했습니다",
+			"success": "완벽합니다!",
+			"retry": "다시 시도",
+			"contactSupport": "지원팀 문의"
+		},
+		"status": {
+			"checking": "대기자 명단 상태 확인 중…",
+			"alreadyOn": "이미 이 이벤트의 대기자 명단에 있습니다.",
+			"failed": "대기자 명단 상태 확인 실패."
+		}
+	}
+}

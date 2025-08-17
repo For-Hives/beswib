@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation'
 import { DateTime } from 'luxon'
 import Fuse from 'fuse.js'
 
-import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 
 import { TriathlonIcon, TrailIcon, RouteIcon, CycleIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
@@ -119,10 +119,10 @@ function EventCard({
 	bibsCount,
 	bibsData,
 }: {
-	event: Event
-	locale: string
 	bibsCount: number | undefined
 	bibsData?: (Bib & { expand?: { eventId: Event; sellerUserId: User } })[]
+	event: Event
+	locale: string
 	onAction: (event: Event) => void | Promise<void>
 	t: EventTranslations
 }) {
@@ -268,12 +268,6 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		void setQuery({ location: val })
 	}
 
-	// Extract unique locations for the filter from future events only
-	const uniqueLocations = useMemo(
-		() => Array.from(new Set(futureEvents.map(event => event.location))).sort((a, b) => a.localeCompare(b)),
-		[futureEvents]
-	)
-
 	// State for location autocomplete
 	const [locationSearch, setLocationSearch] = useState('')
 	const [showLocationDropdown, setShowLocationDropdown] = useState(false)
@@ -294,14 +288,6 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			}),
 		[prefetchedEvents]
 	)
-
-	// Fuse.js instance for location autocomplete
-	const locationFuse = useMemo(() => new Fuse(uniqueLocations, { threshold: 0.4 }), [uniqueLocations])
-
-	// Filtered locations for autocomplete
-	const filteredLocations = locationSearch
-		? locationFuse.search(locationSearch).map(result => result.item)
-		: uniqueLocations.slice(0, 10)
 
 	// Filter out past events first
 	const futureEvents = useMemo(() => {
@@ -325,6 +311,20 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			return eventDate ? eventDate >= now.startOf('day') : true
 		})
 	}, [prefetchedEvents])
+
+	// Extract unique locations for the filter from future events only
+	const uniqueLocations = useMemo(
+		() => Array.from(new Set(futureEvents.map(event => event.location))).sort((a, b) => a.localeCompare(b)),
+		[futureEvents]
+	)
+
+	// Fuse.js instance for location autocomplete
+	const locationFuse = useMemo(() => new Fuse(uniqueLocations, { threshold: 0.4 }), [uniqueLocations])
+
+	// Filtered locations for autocomplete
+	const filteredLocations = locationSearch
+		? locationFuse.search(locationSearch).map(result => result.item)
+		: uniqueLocations.slice(0, 10)
 
 	// Filtering and sorting logic
 	const filteredEvents = useMemo(() => {
@@ -538,18 +538,18 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 					try {
 						const availableBibs = await fetchAvailableBibsForEvent(event.id)
 						return {
-							count: { [event.id]: availableBibs.length },
 							data: { [event.id]: availableBibs },
+							count: { [event.id]: availableBibs.length },
 						}
 					} catch (error) {
 						console.error('Error loading bibs for event:', event.id, error)
 						return {
-							count: { [event.id]: 0 },
 							data: { [event.id]: [] },
+							count: { [event.id]: 0 },
 						}
 					}
 				}
-				return { count: {}, data: {} }
+				return { data: {}, count: {} }
 			})
 
 			const results = await Promise.all(promises)
