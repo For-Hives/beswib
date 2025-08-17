@@ -2,6 +2,10 @@
 	"en": {
 		"title": "Sell Your Bib",
 		"subtitle": "List your race bib for sale in a few simple steps",
+		"common": {
+			"sellingAs": "Selling as",
+			"sellerBadge": "SELLER"
+		},
 		"steps": {
 			"eventSelection": {
 				"title": "Select Event",
@@ -108,6 +112,10 @@
 	"fr": {
 		"title": "Vendre votre dossard",
 		"subtitle": "Mettez votre dossard de course en vente en quelques étapes simples",
+		"common": {
+			"sellingAs": "Vendre en tant que",
+			"sellerBadge": "VENDEUR"
+		},
 		"steps": {
 			"eventSelection": {
 				"title": "Sélectionner l'événement",
@@ -145,6 +153,26 @@
 				"requestNewEvent": "Vous ne trouvez pas votre événement ?",
 				"requestNewEventDescription": "Demandez à ce qu'il soit répertorié - nous nous occupons de tout !",
 				"requestNewEventButton": "Demander un nouvel événement"
+			},
+			"emailVerification": {
+				"title": "Vérification Email",
+				"description": "Choisissez l'email utilisé pour vous inscrire à cet événement. Cela aide à vérifier votre inscription.",
+				"selectEmailTitle": "Sélectionner l'Email d'Inscription",
+				"selectEmailDescription": "Choisissez l'adresse email que vous avez utilisée lors de l'inscription à cet événement.",
+				"accountEmail": "Email du Compte",
+				"codeInput": "Code à 6 chiffres",
+				"verify": "Vérifier",
+				"resend": "Renvoyer",
+				"addEmailTitle": "Ajouter un Autre Email",
+				"addEmailDescription": "Si vous avez utilisé un email différent pour l'inscription, ajoutez-le ici.",
+				"addEmailButton": "Ajouter une Adresse Email",
+				"enterEmail": "Entrez l'adresse email",
+				"add": "Ajouter",
+				"cancel": "Annuler",
+				"codeInfo": "Un code de vérification sera envoyé à cette adresse email.",
+				"selected": "Sélectionné :",
+				"selectEmailError": "Veuillez sélectionner une adresse email.",
+				"verifyEmailError": "Veuillez vérifier l'adresse email sélectionnée."
 			},
 			"bibDetails": {
 				"registrationNumber": "Numéro d'inscription",
@@ -214,10 +242,18 @@
 	"ko": {
 		"title": "비브 판매하기",
 		"subtitle": "몇 가지 간단한 단계로 레이스 비브를 판매하세요",
+		"common": {
+			"sellingAs": "판매자",
+			"sellerBadge": "판매자"
+		},
 		"steps": {
 			"eventSelection": {
 				"title": "이벤트 선택",
 				"description": "비브를 판매할 이벤트를 선택하세요"
+			},
+			"emailVerification": {
+				"title": "이메일 확인",
+				"description": "이 이벤트에 등록할 때 사용한 이메일을 선택하세요. 이것은 등록을 확인하는 데 도움이 됩니다."
 			},
 			"bibDetails": {
 				"title": "비브 세부정보",
@@ -247,6 +283,26 @@
 				"requestNewEvent": "이벤트를 찾을 수 없나요?",
 				"requestNewEventDescription": "등록 요청을 해주세요 - 저희가 모든 것을 처리해드립니다!",
 				"requestNewEventButton": "새 이벤트 요청"
+			},
+			"emailVerification": {
+				"title": "이메일 확인",
+				"description": "이 이벤트에 등록할 때 사용한 이메일을 선택하세요. 이것은 등록을 확인하는 데 도움이 됩니다.",
+				"selectEmailTitle": "등록 이메일 선택",
+				"selectEmailDescription": "이 이벤트에 등록할 때 사용한 이메일 주소를 선택하세요.",
+				"accountEmail": "계정 이메일",
+				"codeInput": "6자리 코드",
+				"verify": "확인",
+				"resend": "재전송",
+				"addEmailTitle": "다른 이메일 추가",
+				"addEmailDescription": "등록에 다른 이메일을 사용했다면 여기에 추가하세요.",
+				"addEmailButton": "이메일 주소 추가",
+				"enterEmail": "이메일 주소 입력",
+				"add": "추가",
+				"cancel": "취소",
+				"codeInfo": "이 이메일 주소로 확인 코드가 전송됩니다.",
+				"selected": "선택됨:",
+				"selectEmailError": "이메일 주소를 선택해주세요.",
+				"verifyEmailError": "선택한 이메일 주소를 확인해주세요."
 			},
 			"bibDetails": {
 				"registrationNumber": "등록 번호",
@@ -316,10 +372,18 @@
 	"es": {
 		"title": "Vender Tu Dorsal",
 		"subtitle": "Pon tu dorsal de carrera a la venta en unos pocos pasos simples",
+		"common": {
+			"sellingAs": "Vendiendo como",
+			"sellerBadge": "VENDEDOR"
+		},
 		"steps": {
 			"eventSelection": {
 				"title": "Seleccionar Evento",
 				"description": "Elige el evento para el cual quieres vender tu dorsal"
+			},
+			"emailVerification": {
+				"title": "Verificación de Email",
+				"description": "Verifica el email usado para el registro del evento"
 			},
 			"bibDetails": {
 				"title": "Detalles del Dorsal",
@@ -349,6 +413,26 @@
 				"requestNewEvent": "¿No encuentras tu evento?",
 				"requestNewEventDescription": "Solicita que lo incluyamos - ¡nos encargaremos de todo!",
 				"requestNewEventButton": "Solicitar Nuevo Evento"
+			},
+			"emailVerification": {
+				"title": "Verificación de Email",
+				"description": "Elige el email que usaste para registrarte en este evento. Esto ayuda a verificar tu registro.",
+				"selectEmailTitle": "Seleccionar Email de Registro",
+				"selectEmailDescription": "Elige la dirección de email que usaste al registrarte para este evento.",
+				"accountEmail": "Email de la Cuenta",
+				"codeInput": "Código de 6 dígitos",
+				"verify": "Verificar",
+				"resend": "Reenviar",
+				"addEmailTitle": "Agregar Otro Email",
+				"addEmailDescription": "Si usaste un email diferente para el registro, agrégalo aquí.",
+				"addEmailButton": "Agregar Dirección de Email",
+				"enterEmail": "Ingresa dirección de email",
+				"add": "Agregar",
+				"cancel": "Cancelar",
+				"codeInfo": "Se enviará un código de verificación a esta dirección de email.",
+				"selected": "Seleccionado:",
+				"selectEmailError": "Por favor selecciona una dirección de email.",
+				"verifyEmailError": "Por favor verifica la dirección de email seleccionada."
 			},
 			"bibDetails": {
 				"registrationNumber": "Número de Inscripción",
@@ -418,10 +502,18 @@
 	"it": {
 		"title": "Vendi il Tuo Pettorale",
 		"subtitle": "Metti in vendita il tuo pettorale di gara in pochi semplici passaggi",
+		"common": {
+			"sellingAs": "Vendendo come",
+			"sellerBadge": "VENDITORE"
+		},
 		"steps": {
 			"eventSelection": {
 				"title": "Seleziona Evento",
 				"description": "Scegli l'evento per il quale vuoi vendere il tuo pettorale"
+			},
+			"emailVerification": {
+				"title": "Verifica Email",
+				"description": "Verifica l'email usato per la registrazione all'evento"
 			},
 			"bibDetails": {
 				"title": "Dettagli del Pettorale",
@@ -451,6 +543,26 @@
 				"requestNewEvent": "Non trovi il tuo evento?",
 				"requestNewEventDescription": "Richiedi di averlo elencato - ci pensiamo noi a tutto!",
 				"requestNewEventButton": "Richiedi Nuovo Evento"
+			},
+			"emailVerification": {
+				"title": "Verifica Email",
+				"description": "Scegli l'email che hai usato per registrarti a questo evento. Questo aiuta a verificare la tua registrazione.",
+				"selectEmailTitle": "Seleziona Email di Registrazione",
+				"selectEmailDescription": "Scegli l'indirizzo email che hai usato quando ti sei registrato per questo evento.",
+				"accountEmail": "Email dell'Account",
+				"codeInput": "Codice a 6 cifre",
+				"verify": "Verifica",
+				"resend": "Reinvia",
+				"addEmailTitle": "Aggiungi un Altro Email",
+				"addEmailDescription": "Se hai usato un email diverso per la registrazione, aggiungilo qui.",
+				"addEmailButton": "Aggiungi Indirizzo Email",
+				"enterEmail": "Inserisci indirizzo email",
+				"add": "Aggiungi",
+				"cancel": "Annulla",
+				"codeInfo": "Un codice di verifica sarà inviato a questo indirizzo email.",
+				"selected": "Selezionato:",
+				"selectEmailError": "Per favore seleziona un indirizzo email.",
+				"verifyEmailError": "Per favore verifica l'indirizzo email selezionato."
 			},
 			"bibDetails": {
 				"registrationNumber": "Numero di Iscrizione",
@@ -520,10 +632,18 @@
 	"de": {
 		"title": "Ihre Startnummer Verkaufen",
 		"subtitle": "Listen Sie Ihre Lauf-Startnummer in wenigen einfachen Schritten zum Verkauf auf",
+		"common": {
+			"sellingAs": "Verkaufend als",
+			"sellerBadge": "VERKÄUFER"
+		},
 		"steps": {
 			"eventSelection": {
 				"title": "Veranstaltung Auswählen",
 				"description": "Wählen Sie die Veranstaltung, für die Sie Ihre Startnummer verkaufen möchten"
+			},
+			"emailVerification": {
+				"title": "E-Mail-Verifizierung",
+				"description": "Verifizieren Sie die für die Veranstaltungsregistrierung verwendete E-Mail"
 			},
 			"bibDetails": {
 				"title": "Startnummer-Details",
@@ -553,6 +673,26 @@
 				"requestNewEvent": "Finden Sie Ihre Veranstaltung nicht?",
 				"requestNewEventDescription": "Fordern Sie deren Auflistung an - wir kümmern uns um alles!",
 				"requestNewEventButton": "Neue Veranstaltung Anfordern"
+			},
+			"emailVerification": {
+				"title": "E-Mail-Verifizierung",
+				"description": "Wählen Sie die E-Mail, die Sie für die Registrierung zu dieser Veranstaltung verwendet haben. Dies hilft bei der Verifizierung Ihrer Registrierung.",
+				"selectEmailTitle": "Registrierungs-E-Mail Auswählen",
+				"selectEmailDescription": "Wählen Sie die E-Mail-Adresse, die Sie bei der Registrierung für diese Veranstaltung verwendet haben.",
+				"accountEmail": "Konto-E-Mail",
+				"codeInput": "6-stelliger Code",
+				"verify": "Verifizieren",
+				"resend": "Erneut Senden",
+				"addEmailTitle": "Weitere E-Mail Hinzufügen",
+				"addEmailDescription": "Falls Sie eine andere E-Mail für die Registrierung verwendet haben, fügen Sie sie hier hinzu.",
+				"addEmailButton": "E-Mail-Adresse Hinzufügen",
+				"enterEmail": "E-Mail-Adresse eingeben",
+				"add": "Hinzufügen",
+				"cancel": "Abbrechen",
+				"codeInfo": "Ein Verifizierungscode wird an diese E-Mail-Adresse gesendet.",
+				"selected": "Ausgewählt:",
+				"selectEmailError": "Bitte wählen Sie eine E-Mail-Adresse aus.",
+				"verifyEmailError": "Bitte verifizieren Sie die ausgewählte E-Mail-Adresse."
 			},
 			"bibDetails": {
 				"registrationNumber": "Anmeldenummer",
@@ -622,10 +762,18 @@
 	"ro": {
 		"title": "Vinde-ți Numărul",
 		"subtitle": "Listează-ți numărul de concurs pentru vânzare în câțiva pași simpli",
+		"common": {
+			"sellingAs": "Vânzând ca",
+			"sellerBadge": "VÂNZĂTOR"
+		},
 		"steps": {
 			"eventSelection": {
 				"title": "Selectează Evenimentul",
 				"description": "Alege evenimentul pentru care vrei să-ți vinzi numărul"
+			},
+			"emailVerification": {
+				"title": "Verificare Email",
+				"description": "Verifică email-ul folosit pentru înregistrarea la eveniment"
 			},
 			"bibDetails": {
 				"title": "Detalii Număr",
@@ -655,6 +803,26 @@
 				"requestNewEvent": "Nu găsești evenimentul tău?",
 				"requestNewEventDescription": "Solicită listarea acestuia - ne ocupăm noi de tot!",
 				"requestNewEventButton": "Solicită Eveniment Nou"
+			},
+			"emailVerification": {
+				"title": "Verificare Email",
+				"description": "Alege email-ul pe care l-ai folosit pentru a te înregistra la acest eveniment. Acest lucru ajută la verificarea înregistrării tale.",
+				"selectEmailTitle": "Selectează Email-ul de Înregistrare",
+				"selectEmailDescription": "Alege adresa de email pe care ai folosit-o când te-ai înregistrat pentru acest eveniment.",
+				"accountEmail": "Email-ul Contului",
+				"codeInput": "Cod de 6 cifre",
+				"verify": "Verifică",
+				"resend": "Retrimite",
+				"addEmailTitle": "Adaugă Alt Email",
+				"addEmailDescription": "Dacă ai folosit un email diferit pentru înregistrare, adaugă-l aici.",
+				"addEmailButton": "Adaugă Adresă Email",
+				"enterEmail": "Introdu adresa de email",
+				"add": "Adaugă",
+				"cancel": "Anulează",
+				"codeInfo": "Un cod de verificare va fi trimis la această adresă de email.",
+				"selected": "Selectat:",
+				"selectEmailError": "Te rugăm să selectezi o adresă de email.",
+				"verifyEmailError": "Te rugăm să verifici adresa de email selectată."
 			},
 			"bibDetails": {
 				"registrationNumber": "Număr de Înregistrare",
@@ -724,10 +892,18 @@
 	"pt": {
 		"title": "Venda o seu Dorsal",
 		"subtitle": "Liste o seu dorsal para venda em alguns passos simples",
+		"common": {
+			"sellingAs": "Vendendo como",
+			"sellerBadge": "VENDEDOR"
+		},
 		"steps": {
 			"eventSelection": {
 				"title": "Selecionar Evento",
 				"description": "Escolha o evento para o qual quer vender o seu dorsal"
+			},
+			"emailVerification": {
+				"title": "Verificação de Email",
+				"description": "Verifique o email usado para o registo do evento"
 			},
 			"bibDetails": {
 				"title": "Detalhes do Dorsal",
@@ -757,6 +933,26 @@
 				"requestNewEvent": "Não consegue encontrar o seu evento?",
 				"requestNewEventDescription": "Solicite que seja listado - nós tratamos de tudo!",
 				"requestNewEventButton": "Solicitar Novo Evento"
+			},
+			"emailVerification": {
+				"title": "Verificação de Email",
+				"description": "Escolha o email que usou para se registar neste evento. Isto ajuda a verificar o seu registo.",
+				"selectEmailTitle": "Selecionar Email de Registo",
+				"selectEmailDescription": "Escolha o endereço de email que usou quando se registou para este evento.",
+				"accountEmail": "Email da Conta",
+				"codeInput": "Código de 6 dígitos",
+				"verify": "Verificar",
+				"resend": "Reenviar",
+				"addEmailTitle": "Adicionar Outro Email",
+				"addEmailDescription": "Se usou um email diferente para o registo, adicione-o aqui.",
+				"addEmailButton": "Adicionar Endereço de Email",
+				"enterEmail": "Insira endereço de email",
+				"add": "Adicionar",
+				"cancel": "Cancelar",
+				"codeInfo": "Um código de verificação será enviado para este endereço de email.",
+				"selected": "Selecionado:",
+				"selectEmailError": "Por favor, selecione um endereço de email.",
+				"verifyEmailError": "Por favor, verifique o endereço de email selecionado."
 			},
 			"bibDetails": {
 				"registrationNumber": "Número de Inscrição",
@@ -826,10 +1022,18 @@
 	"nl": {
 		"title": "Verkoop uw Startnummer",
 		"subtitle": "Plaats uw startnummer te koop in een paar eenvoudige stappen",
+		"common": {
+			"sellingAs": "Verkopend als",
+			"sellerBadge": "VERKOPER"
+		},
 		"steps": {
 			"eventSelection": {
 				"title": "Evenement Selecteren",
 				"description": "Kies het evenement waarvoor u uw startnummer wilt verkopen"
+			},
+			"emailVerification": {
+				"title": "E-mail Verificatie",
+				"description": "Verifieer de e-mail gebruikt voor evenement registratie"
 			},
 			"bibDetails": {
 				"title": "Startnummer Details",
@@ -859,6 +1063,26 @@
 				"requestNewEvent": "Kunt u uw evenement niet vinden?",
 				"requestNewEventDescription": "Vraag om het te laten vermelden - wij regelen alles!",
 				"requestNewEventButton": "Nieuw Evenement Aanvragen"
+			},
+			"emailVerification": {
+				"title": "E-mail Verificatie",
+				"description": "Kies de e-mail die u gebruikte om u voor dit evenement te registreren. Dit helpt bij het verifiëren van uw registratie.",
+				"selectEmailTitle": "Registratie E-mail Selecteren",
+				"selectEmailDescription": "Kies het e-mailadres dat u gebruikte toen u zich registreerde voor dit evenement.",
+				"accountEmail": "Account E-mail",
+				"codeInput": "6-cijferige code",
+				"verify": "Verifiëren",
+				"resend": "Opnieuw Verzenden",
+				"addEmailTitle": "Andere E-mail Toevoegen",
+				"addEmailDescription": "Als u een andere e-mail voor registratie gebruikte, voeg deze hier toe.",
+				"addEmailButton": "E-mailadres Toevoegen",
+				"enterEmail": "Voer e-mailadres in",
+				"add": "Toevoegen",
+				"cancel": "Annuleren",
+				"codeInfo": "Een verificatiecode wordt naar dit e-mailadres gestuurd.",
+				"selected": "Geselecteerd:",
+				"selectEmailError": "Selecteer alstublieft een e-mailadres.",
+				"verifyEmailError": "Verifieer alstublieft het geselecteerde e-mailadres."
 			},
 			"bibDetails": {
 				"registrationNumber": "Registratienummer",

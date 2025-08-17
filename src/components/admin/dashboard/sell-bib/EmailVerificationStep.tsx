@@ -11,11 +11,16 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { Locale } from '@/lib/i18n/config'
+
+import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
 
 interface EmailVerificationStepProps {
 	user: User
 	verifiedEmails: VerifiedEmail[]
 	selectedEmailId?: string
+	locale: Locale
 	onEmailSelect: (emailId: string) => void
 	onAddEmail: (email: string) => void
 	onVerifyEmail: (emailId: string, code: string) => void
@@ -27,12 +32,14 @@ export default function EmailVerificationStep({
 	verifiedEmails,
 	user,
 	selectedEmailId,
+	locale,
 	onVerifyEmail,
 	onResendCode,
 	onEmailSelect,
 	onAddEmail,
 	error,
 }: EmailVerificationStepProps) {
+	const t = getTranslations(locale, sellBibTranslations)
 	const [newEmail, setNewEmail] = useState('')
 	const [verificationCodes, setVerificationCodes] = useState<Record<string, string>>({})
 	const [showAddEmail, setShowAddEmail] = useState(false)
@@ -85,9 +92,9 @@ export default function EmailVerificationStep({
 	return (
 		<div className="space-y-6">
 			<div>
-				<h2 className="text-2xl font-bold tracking-tight">Email Verification</h2>
+				<h2 className="text-2xl font-bold tracking-tight">{t.form.emailVerification.title}</h2>
 				<p className="text-muted-foreground mt-2">
-					Choose which email was used to register for this event. This helps verify your registration.
+					{t.form.emailVerification.description}
 				</p>
 			</div>
 			{error !== undefined && error !== null && error !== '' && (
@@ -99,9 +106,9 @@ export default function EmailVerificationStep({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<MailIcon className="h-5 w-5" />
-						Select Registration Email
+						{t.form.emailVerification.selectEmailTitle}
 					</CardTitle>
-					<CardDescription>Choose the email address you used when registering for this event.</CardDescription>
+					<CardDescription>{t.form.emailVerification.selectEmailDescription}</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<RadioGroup value={selectedEmailId} onValueChange={onEmailSelect}>
@@ -113,14 +120,14 @@ export default function EmailVerificationStep({
 										<div className="flex items-center justify-between">
 											<div className="flex items-center gap-2">
 												<span>{emailOption.email}</span>
-												{emailOption.isDefault && <Badge variant="secondary">Account Email</Badge>}
+												{emailOption.isDefault && <Badge variant="secondary">{t.form.emailVerification.accountEmail}</Badge>}
 												{emailOption.isVerified && <CheckIcon className="h-4 w-4 text-green-600" />}
 											</div>
 											{!emailOption.isVerified && !emailOption.isDefault && (
 												<div className="flex items-center gap-2">
 													<Input
 														type="text"
-														placeholder="6-digit code"
+														placeholder={t.form.emailVerification.codeInput}
 														value={verificationCodes[emailOption.id] || ''}
 														onChange={e => updateVerificationCode(emailOption.id, e.target.value)}
 														className="w-32"
@@ -135,10 +142,10 @@ export default function EmailVerificationStep({
 															verificationCodes[emailOption.id].length !== 6
 														}
 													>
-														Verify
+														{t.form.emailVerification.verify}
 													</Button>
 													<Button size="sm" variant="outline" onClick={() => onResendCode(emailOption.id)}>
-														Resend
+														{t.form.emailVerification.resend}
 													</Button>
 												</div>
 											)}
@@ -152,28 +159,28 @@ export default function EmailVerificationStep({
 			</Card>
 			<Card>
 				<CardHeader>
-					<CardTitle>Add Another Email</CardTitle>
-					<CardDescription>If you used a different email for registration, add it here.</CardDescription>
+					<CardTitle>{t.form.emailVerification.addEmailTitle}</CardTitle>
+					<CardDescription>{t.form.emailVerification.addEmailDescription}</CardDescription>
 				</CardHeader>
 				<CardContent>
 					{!showAddEmail ? (
 						<Button variant="outline" onClick={() => setShowAddEmail(true)} className="w-full">
 							<PlusIcon className="mr-2 h-4 w-4" />
-							Add Email Address
+							{t.form.emailVerification.addEmailButton}
 						</Button>
 					) : (
 						<div className="space-y-4">
 							<div className="flex gap-2">
 								<Input
 									type="email"
-									placeholder="Enter email address"
+									placeholder={t.form.emailVerification.enterEmail}
 									value={newEmail}
 									onChange={e => setNewEmail(e.target.value)}
 									onKeyPress={e => e.key === 'Enter' && handleAddEmail()}
 									className="flex-1"
 								/>
 								<Button onClick={handleAddEmail} disabled={newEmail.trim() === '' || !newEmail.includes('@')}>
-									Add
+									{t.form.emailVerification.add}
 								</Button>
 								<Button
 									variant="outline"
@@ -182,10 +189,10 @@ export default function EmailVerificationStep({
 										setNewEmail('')
 									}}
 								>
-									Cancel
+									{t.form.emailVerification.cancel}
 								</Button>
 							</div>
-							<p className="text-muted-foreground text-sm">A verification code will be sent to this email address.</p>
+							<p className="text-muted-foreground text-sm">{t.form.emailVerification.codeInfo}</p>
 						</div>
 					)}
 				</CardContent>
@@ -193,7 +200,7 @@ export default function EmailVerificationStep({
 			{selectedEmailId !== undefined && selectedEmailId !== null && selectedEmailId !== '' && (
 				<Alert>
 					<CheckIcon className="h-4 w-4" />
-					<AlertDescription>Selected: {allEmailOptions.find(e => e.id === selectedEmailId)?.email}</AlertDescription>
+					<AlertDescription>{t.form.emailVerification.selected} {allEmailOptions.find(e => e.id === selectedEmailId)?.email}</AlertDescription>
 				</Alert>
 			)}
 		</div>
