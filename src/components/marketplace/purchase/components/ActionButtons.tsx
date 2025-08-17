@@ -22,6 +22,8 @@ interface ActionButtonsProps {
 	locale: Locale
 	/** Handler for buy button click */
 	onBuyNowClick: () => void
+	/** Event ID for navigation */
+	eventId: string
 }
 
 /**
@@ -34,6 +36,7 @@ export default function ActionButtons({
 	isSignedIn,
 	isProfileComplete,
 	isOwnBib,
+	eventId,
 }: Readonly<ActionButtonsProps>) {
 	const t = getTranslations(locale, marketplaceTranslations)
 	return (
@@ -76,7 +79,7 @@ export default function ActionButtons({
 				<button
 					type="button"
 					onClick={onBuyNowClick}
-					className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary w-full rounded-md px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-50"
+					className="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary w-full cursor-pointer rounded-md px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-50"
 					disabled={isOwnBib}
 				>
 					{isSignedIn !== true ? (t.signInToPurchase ?? 'Sign In to Purchase') : (t.purchaseBib ?? 'Purchase Bib')}
@@ -85,12 +88,14 @@ export default function ActionButtons({
 
 			{/* Event Details Button - Only show if user can potentially purchase */}
 			{(isSignedIn !== true || (isSignedIn === true && isProfileComplete && !isOwnBib)) && (
-				<button
-					type="button"
-					className="border-border bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus:ring-primary w-full rounded-md border px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none"
-				>
-					{t.eventDetails ?? 'Event Details'}
-				</button>
+				<Link href={`/${locale}/events/${eventId}`}>
+					<button
+						type="button"
+						className="border-border bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus:ring-primary w-full cursor-pointer rounded-md border px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none"
+					>
+						{t.eventDetails ?? 'Event Details'}
+					</button>
+				</Link>
 			)}
 		</div>
 	)
