@@ -369,7 +369,9 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 							<p>{user.email && <span className="text-muted-foreground text-sm">({user.email})</span>}</p>
 						</div>
 					</div>
-					<div className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-medium">{t.common.sellerBadge}</div>
+					<div className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-medium">
+						{t.common.sellerBadge}
+					</div>
 				</div>
 			</div>
 

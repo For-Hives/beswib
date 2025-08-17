@@ -93,9 +93,7 @@ export default function EmailVerificationStep({
 		<div className="space-y-6">
 			<div>
 				<h2 className="text-2xl font-bold tracking-tight">{t.form.emailVerification.title}</h2>
-				<p className="text-muted-foreground mt-2">
-					{t.form.emailVerification.description}
-				</p>
+				<p className="text-muted-foreground mt-2">{t.form.emailVerification.description}</p>
 			</div>
 			{error !== undefined && error !== null && error !== '' && (
 				<Alert variant="destructive">
@@ -120,7 +118,9 @@ export default function EmailVerificationStep({
 										<div className="flex items-center justify-between">
 											<div className="flex items-center gap-2">
 												<span>{emailOption.email}</span>
-												{emailOption.isDefault && <Badge variant="secondary">{t.form.emailVerification.accountEmail}</Badge>}
+												{emailOption.isDefault && (
+													<Badge variant="secondary">{t.form.emailVerification.accountEmail}</Badge>
+												)}
 												{emailOption.isVerified && <CheckIcon className="h-4 w-4 text-green-600" />}
 											</div>
 											{!emailOption.isVerified && !emailOption.isDefault && (
@@ -200,7 +200,9 @@ export default function EmailVerificationStep({
 			{selectedEmailId !== undefined && selectedEmailId !== null && selectedEmailId !== '' && (
 				<Alert>
 					<CheckIcon className="h-4 w-4" />
-					<AlertDescription>{t.form.emailVerification.selected} {allEmailOptions.find(e => e.id === selectedEmailId)?.email}</AlertDescription>
+					<AlertDescription>
+						{t.form.emailVerification.selected} {allEmailOptions.find(e => e.id === selectedEmailId)?.email}
+					</AlertDescription>
 				</Alert>
 			)}
 		</div>
