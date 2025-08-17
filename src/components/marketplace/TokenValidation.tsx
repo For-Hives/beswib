@@ -27,6 +27,8 @@ interface TokenValidationProps {
 		validationFailedTitle?: string
 		validationFailedDesc?: string
 		tryAgainButton?: string
+		successTitle?: string
+		successDesc?: string
 	}
 }
 
@@ -42,11 +44,13 @@ export default function TokenValidation({ bibId, locale, onValidToken, translati
 
 		if (!token.trim()) {
 			setError(t.requiredToken ?? 'Private token is required')
+			setIsSuccess(false)
 			return
 		}
 
 		setIsValidating(true)
 		setError('')
+		setIsSuccess(false)
 
 		try {
 			// Validate token by attempting to fetch the private bib
@@ -57,14 +61,21 @@ export default function TokenValidation({ bibId, locale, onValidToken, translati
 			})
 
 			if (response.ok) {
-				// Token is valid, redirect with token in URL
-				onValidToken(token.trim())
+				// Token is valid, show success message briefly before redirect
+				setIsSuccess(true)
+				setTimeout(() => {
+					onValidToken(token.trim())
+				}, 1000)
 			} else {
-				setError(t.invalidToken ?? 'Invalid private token')
+				const errorData = await response.json()
+				const errorMessage = errorData.error === 'Invalid token or bib not found' 
+					? (t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
+					: (t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
+				setError(errorMessage)
 			}
 		} catch (error) {
 			console.error('Token validation error:', error)
-			setError(t.invalidToken ?? 'Invalid private token')
+			setError(t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
 		} finally {
 			setIsValidating(false)
 		}
@@ -88,61 +99,95 @@ export default function TokenValidation({ bibId, locale, onValidToken, translati
 				</div>
 			</div>
 
-			<div className="relative flex min-h-screen items-center justify-center pt-32 pb-12">
-				<Card className="bg-card/80 dark:border-border/50 mx-4 w-full max-w-md border-black/50 backdrop-blur-sm">
-					<CardHeader className="text-center">
-						<div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
-							<Shield className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-						</div>
-						<CardTitle className="flex items-center justify-center gap-2 text-xl">
-							<Lock className="h-5 w-5" />
+			<div className="relative pb-12 pt-32">
+				<div className="container mx-auto max-w-2xl p-6">
+					<div className="mb-12 space-y-2 text-center">
+						<h1 className="text-foreground text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
+							<Shield className="h-10 w-10 text-blue-600 dark:text-blue-400" />
 							{t.title ?? 'Private Listing Access'}
-						</CardTitle>
-						<CardDescription className="text-center">
+						</h1>
+						<p className="text-muted-foreground text-lg">
 							{t.description ?? 'This is a private bib listing. Please enter the private token to access it.'}
-						</CardDescription>
-					</CardHeader>
+						</p>
+					</div>
 
-					<CardContent>
-						<form onSubmit={handleSubmit} className="space-y-4">
-							<div className="space-y-2">
-								<Label htmlFor="token">{t.tokenLabel ?? 'Private Token'}</Label>
-								<Input
-									id="token"
-									type="text"
-									value={token}
-									onChange={e => setToken(e.target.value)}
-									placeholder={t.tokenPlaceholder ?? 'Enter your private token...'}
-									disabled={isValidating}
-									className="font-mono"
-									autoFocus
-								/>
-							</div>
+					<div className="space-y-8">
+						{/* Success Message */}
+						{isSuccess && (
+							<Alert className="border-green-500/50 bg-green-500/10">
+								<CheckCircle className="h-4 w-4 text-green-500" />
+								<AlertTitle className="text-green-700 dark:text-green-300">
+									{t.successTitle ?? 'Token Valid'}
+								</AlertTitle>
+								<AlertDescription className="text-green-600 dark:text-green-400">
+									{t.successDesc ?? 'Access granted! Redirecting you to the private listing...'}
+								</AlertDescription>
+							</Alert>
+						)}
 
-							{error && (
-								<Alert variant="destructive">
-									<AlertTriangle className="h-4 w-4" />
-									<AlertTitle>{t.errorTitle || 'Access Denied'}</AlertTitle>
-									<AlertDescription>{error}</AlertDescription>
-								</Alert>
-							)}
+						{/* Error Message */}
+						{error && !isSuccess && (
+							<Alert variant="destructive">
+								<AlertTriangle className="h-4 w-4" />
+								<AlertTitle>{t.errorTitle ?? 'Access Denied'}</AlertTitle>
+								<AlertDescription>{error}</AlertDescription>
+							</Alert>
+						)}
 
-							<Button type="submit" className="w-full" disabled={isValidating || !token.trim()}>
-								{isValidating ? (
-									<>
-										<div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-white"></div>
-										Validating...
-									</>
-								) : (
-									<>
-										<Shield className="mr-2 h-4 w-4" />
-										{t.validateButton ?? 'Access Private Listing'}
-									</>
-								)}
-							</Button>
-						</form>
-					</CardContent>
-				</Card>
+						<Card className="bg-card/80 dark:border-border/50 border-black/50 backdrop-blur-sm">
+							<CardHeader>
+								<CardTitle className="flex items-center gap-2">
+									<Lock className="h-5 w-5" />
+									{t.tokenLabel ?? 'Private Token'}
+								</CardTitle>
+								<CardDescription>
+									Please enter the private token provided by the seller to access this listing.
+								</CardDescription>
+							</CardHeader>
+							
+							<CardContent>
+								<form onSubmit={handleSubmit} className="space-y-6">
+									<div className="space-y-2">
+										<Label htmlFor="token">{t.tokenLabel ?? 'Private Token'}</Label>
+										<Input
+											id="token"
+											type="text"
+											value={token}
+											onChange={e => setToken(e.target.value)}
+											placeholder={t.tokenPlaceholder ?? 'Enter your private token...'}
+											disabled={isValidating || isSuccess}
+											className="font-mono"
+											autoFocus
+										/>
+									</div>
+
+									<Button 
+										type="submit" 
+										className="w-full" 
+										disabled={isValidating || !token.trim() || isSuccess}
+									>
+										{isValidating ? (
+											<>
+												<div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-white"></div>
+												Validating...
+											</>
+										) : isSuccess ? (
+											<>
+												<CheckCircle className="mr-2 h-4 w-4" />
+												Redirecting...
+											</>
+										) : (
+											<>
+												<Shield className="mr-2 h-4 w-4" />
+												{t.validateButton ?? 'Access Private Listing'}
+											</>
+										)}
+									</Button>
+								</form>
+							</CardContent>
+						</Card>
+					</div>
+				</div>
 			</div>
 		</div>
 	)
