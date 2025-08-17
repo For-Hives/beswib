@@ -7,14 +7,14 @@ import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 import type { Bib } from '@/models/bib.model'
 
+import sellerTranslations from '@/app/[locale]/dashboard/seller/locales.json'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
 
-import sellerTranslations from './locales.json'
 import SellerBibCard from './SellerBibCard'
 
 interface BibCategoryTabsProps {
-	bibs?: (Bib & { expand?: { eventId: Event & { expand?: { organizer?: { logo?: string } } } } })[]
+	bibs?: (Bib & { expand?: { eventId: Event } })[]
 	locale: Locale
 }
 
@@ -29,9 +29,7 @@ interface Category {
 }
 
 // Function to check if a bib is expired based on transfer deadline
-const isBibExpired = (
-	bib: Bib & { expand?: { eventId: Event & { expand?: { organizer?: { logo?: string } } } } }
-): boolean => {
+const isBibExpired = (bib: Bib & { expand?: { eventId: Event } }): boolean => {
 	const transferDeadline = bib.expand?.eventId?.transferDeadline
 	if (!transferDeadline) return false
 
@@ -57,7 +55,7 @@ export default function BibCategoryTabs({ locale, bibs = [] }: BibCategoryTabsPr
 
 	const categories: Category[] = [
 		{
-			label: t?.categoryActive ?? 'On Sale',
+			label: t?.categories?.active ?? 'On Sale',
 			key: 'active',
 			icon: ShoppingCart,
 			filter: bib => (bib.status === 'available' || bib.status === 'validation_failed') && !isBibExpired(bib),
@@ -65,26 +63,25 @@ export default function BibCategoryTabs({ locale, bibs = [] }: BibCategoryTabsPr
 				'text-green-600 border-green-200 bg-green-50 dark:text-green-400 dark:border-green-800 dark:bg-green-950/30',
 		},
 		{
-			label: t?.categorySold ?? 'Sold',
+			label: t?.categories?.sold ?? 'Sold',
 			key: 'sold',
 			icon: CheckCircle,
 			filter: bib => bib.status === 'sold',
 			color: 'text-blue-600 border-blue-200 bg-blue-50 dark:text-blue-400 dark:border-blue-800 dark:bg-blue-950/30',
 		},
 		{
-			label: t?.categoryExpired ?? 'Expired',
+			label: t?.categories?.expired ?? 'Expired',
 			key: 'expired',
 			icon: Clock,
 			filter: bib => (bib.status === 'available' || bib.status === 'validation_failed') && isBibExpired(bib),
-			color:
-				'text-orange-600 border-orange-200 bg-orange-50 dark:text-orange-400 dark:border-orange-800 dark:bg-orange-950/30',
+			color: 'text-orange-600 border-orange-200 bg-orange-50 dark:text-orange-800 dark:bg-orange-950/30',
 		},
 		{
-			label: t?.categoryArchived ?? 'Archived',
+			label: t?.categories?.archived ?? 'Archived',
 			key: 'archived',
 			icon: Archive,
 			filter: bib => bib.status === 'expired' || bib.status === 'withdrawn',
-			color: 'text-gray-600 border-gray-200 bg-gray-50 dark:text-gray-400 dark:border-gray-800 dark:bg-gray-950/30',
+			color: 'text-gray-600 border-gray-200 bg-gray-50 dark:text-gray-800 dark:bg-gray-950/30',
 		},
 	]
 
@@ -158,18 +155,18 @@ export default function BibCategoryTabs({ locale, bibs = [] }: BibCategoryTabsPr
 							})()}
 						</div>
 						<h3 className="mb-2 text-lg font-semibold">
-							{activeCategory === 'active' && (t?.noBibsActive ?? 'No bibs on sale')}
-							{activeCategory === 'sold' && (t?.noBibsSold ?? 'No bibs sold')}
-							{activeCategory === 'expired' && (t?.noBibsExpired ?? 'No expired bibs')}
-							{activeCategory === 'archived' && (t?.noBibsArchived ?? 'No bibs archived')}
+							{activeCategory === 'active' && (t?.messages?.noBibsActive ?? 'No bibs on sale')}
+							{activeCategory === 'sold' && (t?.messages?.noBibsSold ?? 'No bibs sold')}
+							{activeCategory === 'expired' && (t?.messages?.noBibsExpired ?? 'No expired bibs')}
+							{activeCategory === 'archived' && (t?.messages?.noBibsArchived ?? 'No bibs archived')}
 						</h3>
 						<p className="text-muted-foreground mb-6">
-							{activeCategory === 'active' && (t?.startListingFirst ?? 'Start by listing your first bib')}
-							{activeCategory === 'sold' && (t?.soldBibsWillAppear ?? 'Your sold bibs will appear here')}
+							{activeCategory === 'active' && (t?.messages?.startListingFirst ?? 'Start by listing your first bib')}
+							{activeCategory === 'sold' && (t?.messages?.soldBibsWillAppear ?? 'Your sold bibs will appear here')}
 							{activeCategory === 'expired' &&
-								(t?.expiredBibsWillAppear ?? 'Bibs that have passed the transfer deadline will appear here')}
+								(t?.messages?.expiredBibsWillAppear ?? 'Bibs that have passed the transfer deadline will appear here')}
 							{activeCategory === 'archived' &&
-								(t?.archivedBibsWillAppear ?? 'Expired or withdrawn bibs will appear here')}
+								(t?.messages?.archivedBibsWillAppear ?? 'Expired or withdrawn bibs will appear here')}
 						</p>
 					</div>
 				)}

@@ -45,7 +45,7 @@ export async function createBib(bibData: Omit<Bib, 'id'>): Promise<Bib | null> {
 
 	try {
 		// Generate private listing token if this is a private listing 🤫
-		const privateListingToken = bibData.listed === 'private' ? generatePrivateListingToken() : undefined
+		const privateListingToken = bibData.listed === 'private' ? await generatePrivateListingToken() : undefined
 
 		const dataToCreate: Omit<Bib, 'id'> = {
 			validated: false,
@@ -280,6 +280,63 @@ export async function unlockExpiredBibs(): Promise<number> {
 		return count
 	} catch (error: unknown) {
 		throw new Error('Error unlocking expired bibs: ' + (error instanceof Error ? error.message : String(error)))
+	}
+}
+
+/**
+ * Automatically updates bibs to 'withdrawn' status when their events have expired.
+ * This function checks for bibs that are still marked as 'available' but belong to events
+ * that have passed their transfer deadline or event date.
+ * @param sellerUserId Optional parameter to limit the check to a specific seller
+ * @returns Number of bibs that were updated to withdrawn status
+ */
+export async function updateExpiredBibsToWithdrawn(sellerUserId?: string): Promise<number> {
+	try {
+		const nowIso = formatDateToPbIso(new Date())
+
+		// Build filter to find available bibs with expired events
+		let filter = `status = 'available' && ((eventId.transferDeadline != null && eventId.transferDeadline < '${nowIso}') || (eventId.transferDeadline = null && eventId.eventDate < '${nowIso}'))`
+
+		// If sellerUserId is provided, limit to that seller's bibs
+		if (sellerUserId && sellerUserId !== '') {
+			filter += ` && sellerUserId = '${sellerUserId}'`
+		}
+
+		console.info(`Checking for expired bibs to withdraw${sellerUserId ? ` for seller ${sellerUserId}` : ''}...`)
+
+		const expiredBibs = await pb.collection('bibs').getFullList<Bib & { expand?: { eventId: Event } }>({
+			filter,
+			expand: 'eventId',
+		})
+
+		let count = 0
+		for (const bib of expiredBibs) {
+			try {
+				await pb.collection('bibs').update<Bib>(bib.id, {
+					status: 'withdrawn',
+					// Clear any lock and buyer info since it's being withdrawn
+					lockedAt: null,
+					buyerUserId: undefined,
+				})
+				count++
+				console.info(
+					`Updated expired bib ${bib.id} to withdrawn status (event: ${bib.expand?.eventId?.name ?? bib.eventId})`
+				)
+			} catch (updateError) {
+				console.error(`Failed to update bib ${bib.id} to withdrawn:`, updateError)
+			}
+		}
+
+		if (count > 0) {
+			console.info(`Successfully updated ${count} expired bibs to withdrawn status`)
+		}
+
+		return count
+	} catch (error: unknown) {
+		console.error('Error updating expired bibs to withdrawn:', error)
+		throw new Error(
+			'Error updating expired bibs to withdrawn: ' + (error instanceof Error ? error.message : String(error))
+		)
 	}
 }
 
@@ -574,34 +631,37 @@ export async function updateBibStatusByAdmin(bibId: string, newStatus: Bib['stat
  * Generates a cryptographically secure random token for private listings 🤫
  * @returns A 32-character random string 🎲
  */
-function generatePrivateListingToken(): string {
-	const cryptoObj: Crypto | undefined = (globalThis as unknown as { crypto?: Crypto }).crypto
-	if (!cryptoObj || typeof cryptoObj.getRandomValues !== 'function') {
-		throw new Error('Secure random generator is unavailable')
-	}
+export async function generatePrivateListingToken(): Promise<string> {
+	return new Promise((resolve, reject) => {
+		const cryptoObj: Crypto | undefined = (globalThis as unknown as { crypto?: Crypto }).crypto
+		if (!cryptoObj || typeof cryptoObj.getRandomValues !== 'function') {
+			throw new Error('Secure random generator is unavailable')
+		}
 
-	const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-	const alphabetLen = alphabet.length // 62
-	const resultLength = 32
-	const resultChars: string[] = []
+		const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+		const alphabetLen = alphabet.length // 62
+		const resultLength = 32
+		const resultChars: string[] = []
 
-	// Rejection sampling to avoid modulo bias
-	const maxByte = 256
-	const acceptableRange = Math.floor(maxByte / alphabetLen) * alphabetLen // 248
+		// Rejection sampling to avoid modulo bias
+		const maxByte = 256
+		const acceptableRange = Math.floor(maxByte / alphabetLen) * alphabetLen // 248
 
-	while (resultChars.length < resultLength) {
-		const buf = new Uint8Array(16)
-		cryptoObj.getRandomValues(buf)
-		for (let i = 0; i < buf.length && resultChars.length < resultLength; i++) {
-			const v = buf[i]
-			if (v < acceptableRange) {
-				const idx = v % alphabetLen
-				resultChars.push(alphabet.charAt(idx))
+		while (resultChars.length < resultLength) {
+			const buf = new Uint8Array(16)
+			cryptoObj.getRandomValues(buf)
+			for (let i = 0; i < buf.length && resultChars.length < resultLength; i++) {
+				const v = buf[i]
+				if (v < acceptableRange) {
+					const idx = v % alphabetLen
+					resultChars.push(alphabet.charAt(idx))
+				}
 			}
 		}
-	}
 
-	return resultChars.join('')
+		resolve(resultChars.join(''))
+		reject(new Error('Secure random generator is unavailable'))
+	})
 }
 
 /**

@@ -3,10 +3,10 @@ import type { Metadata } from 'next'
 import { currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
+import { fetchBibsBySeller, updateExpiredBibsToWithdrawn } from '@/services/bib.services'
 import { fetchSellerTransactions } from '@/services/transaction.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { LocaleParams } from '@/lib/generation/staticParams'
-import { fetchBibsBySeller } from '@/services/bib.services'
 
 import SellerDashboardClient from './SellerDashboardClient'
 
@@ -25,6 +25,17 @@ export default async function SellerDashboardPage({ params }: { params: Promise<
 
 	if (clerkUser?.id === null || clerkUser?.id === undefined || pbUser === null) {
 		redirect('/auth/sign-in')
+	}
+
+	// Check and update any expired bibs for this seller before fetching data
+	try {
+		const expiredCount = await updateExpiredBibsToWithdrawn(pbUser.id)
+		if (expiredCount > 0) {
+			console.info(`Updated ${expiredCount} expired bibs to withdrawn status for seller ${pbUser.id}`)
+		}
+	} catch (error) {
+		console.error('Failed to update expired bibs:', error)
+		// Don't block the page load if this fails
 	}
 
 	// Fetch seller data

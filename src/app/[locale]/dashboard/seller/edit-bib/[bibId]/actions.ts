@@ -4,7 +4,7 @@ import { auth } from '@clerk/nextjs/server'
 
 import type { Bib } from '@/models/bib.model'
 
-import { fetchBibByIdForSeller, updateBibBySeller } from '@/services/bib.services'
+import { fetchBibByIdForSeller, updateBibBySeller, generatePrivateListingToken } from '@/services/bib.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 
 export async function handleToggleListingStatus(
@@ -37,16 +37,17 @@ export async function handleToggleListingStatus(
 	}
 
 	try {
+		let privateListingToken: string | undefined = undefined
+
+		if (newListed === 'private') {
+			// Generate a new token automatically for private listings
+			privateListingToken = await generatePrivateListingToken()
+		}
+
 		const newBibData: Bib = {
 			...bibWithEvent,
-			privateListingToken: newListed === 'private' ? (formData.get('privateListingToken') as string) : undefined,
+			privateListingToken: privateListingToken,
 			listed: newListed,
-		}
-		if (
-			newListed === 'private' &&
-			(newBibData.privateListingToken == null || newBibData.privateListingToken.trim() === '')
-		) {
-			throw new Error('Private listing token is required for private listings.')
 		}
 		const partialUpdatedBib = await updateBibBySeller(bibId, newBibData, sellerUser.id)
 
@@ -126,6 +127,56 @@ export async function handleUpdateBibDetails(bibId: string, formData: FormData):
 	} catch (e: unknown) {
 		const error = e instanceof Error ? e.message : String(e)
 		throw new Error(`An error occurred while updating the bib: ${error}`)
+	}
+}
+
+export async function handleRegeneratePrivateToken(bibId: string): Promise<Bib> {
+	const { userId: clerkId } = await auth()
+
+	if (clerkId == null || clerkId === '') {
+		throw new Error('Authentication required.')
+	}
+
+	const sellerUser = await fetchUserByClerkId(clerkId)
+	if (sellerUser == null) {
+		throw new Error('User not found.')
+	}
+
+	const currentBib = await fetchBibByIdForSeller(bibId, sellerUser.id)
+	if (!currentBib) {
+		throw new Error('Bib not found or not owned by user.')
+	}
+
+	if (currentBib.status === 'sold' || currentBib.status === 'expired' || currentBib.status === 'withdrawn') {
+		throw new Error(`Cannot regenerate token for bib with status: ${currentBib.status}.`)
+	}
+
+	if (currentBib.listed !== 'private') {
+		throw new Error('Can only regenerate token for private listings.')
+	}
+
+	try {
+		const newToken = await generatePrivateListingToken()
+		const updatedBibData: Bib = {
+			...currentBib,
+			privateListingToken: newToken,
+		}
+
+		const partialUpdatedBib = await updateBibBySeller(bibId, updatedBibData, sellerUser.id)
+
+		if (!partialUpdatedBib) {
+			throw new Error('Failed to regenerate private token.')
+		}
+
+		const fullUpdatedBib = await fetchBibByIdForSeller(bibId, sellerUser.id)
+		if (!fullUpdatedBib) {
+			throw new Error('Failed to retrieve full bib details after token regeneration.')
+		}
+
+		return fullUpdatedBib as Bib
+	} catch (e: unknown) {
+		const error = e instanceof Error ? e.message : String(e)
+		throw new Error(`An error occurred while regenerating the private token: ${error}`)
 	}
 }
 

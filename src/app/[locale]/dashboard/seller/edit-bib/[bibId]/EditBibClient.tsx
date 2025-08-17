@@ -1,10 +1,5 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
-import Link from 'next/link'
 import {
 	ArrowLeft,
 	Calendar,
@@ -18,23 +13,124 @@ import {
 	DollarSign,
 	Hash,
 	AlertTriangle,
+	Copy,
+	RefreshCw,
+	Link as LinkIcon,
 } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import Link from 'next/link'
 
 import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
+import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
+import { Locale } from '@/lib/i18n/config'
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+} from '@/components/ui/dialog'
 
-import { handleToggleListingStatus, handleUpdateBibDetails, handleWithdrawBib } from './actions'
+import {
+	handleToggleListingStatus,
+	handleUpdateBibDetails,
+	handleWithdrawBib,
+	handleRegeneratePrivateToken,
+} from './actions'
 import editBibTranslations from './locales.json'
+
+interface EditBibTranslations {
+	[key: string]: unknown
+	actions?: string
+	backToDashboard?: string
+	bibDetails?: string
+	bibDetailsDescription?: string
+	bibNotFound?: string
+	bibNotFoundOrNoPermission?: string
+	bibStatus?: {
+		available?: string
+		expired?: string
+		sold?: string
+		validationFailed?: string
+		withdrawn?: string
+	}
+	confirmWithdraw?: string
+	currentStatus?: string
+	currentVisibility?: string
+	errorFetchingBib?: string
+	eventDate?: string
+	eventDescription?: string
+	eventDetails?: string
+	eventLocation?: string
+	eventName?: string
+	expiredDescription?: string
+	gender?: string
+	genderOptions?: {
+		female?: string
+		male?: string
+		placeholder?: string
+		unisex?: string
+	}
+	listingStatus?: string
+	listingStatusDescription?: string
+	makePrivate?: string
+	makePublic?: string
+	originalPrice?: string
+	price?: string
+	private?: string
+	privateListingToken?: string
+	privateTokenHelp?: string
+	privateTokenDisplay?: string
+	privateTokenCopy?: string
+	privateTokenCopySuccess?: string
+	privateTokenRegenerate?: string
+	privateTokenRegenerateConfirm?: string
+	regenerateTokenDialog?: {
+		title?: string
+		description?: string
+		warning?: string
+		confirm?: string
+		cancel?: string
+	}
+	privateTokenHelperText?: string
+	privateLink?: string
+	privateLinkCopy?: string
+	privateLinkCopySuccess?: string
+	public?: string
+	registrationNumber?: string
+	size?: string
+	soldDescription?: string
+	statusInformation?: string
+	subtitle?: string
+	successMessages?: {
+		detailsUpdated?: string
+		statusUpdated?: string
+		bibWithdrawn?: string
+		tokenRegenerated?: string
+	}
+	title?: string
+	updateDetails?: string
+	updating?: string
+	userNotFound?: string
+	withdrawDescription?: string
+	withdrawListing?: string
+	withdrawWarning?: string
+	withdrawing?: string
+	withdrawnDescription?: string
+}
 
 interface EditBibClientProps {
 	bibId: string
@@ -48,49 +144,50 @@ const getStatusDisplay = (status: string, t: any) => {
 	switch (status) {
 		case 'available':
 			return {
+				variant: 'secondary' as const,
 				label: t.bibStatus?.available ?? 'Available',
 				color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
-				variant: 'secondary' as const,
 			}
 		case 'expired':
 			return {
+				variant: 'secondary' as const,
 				label: t.bibStatus?.expired ?? 'Expired',
 				color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400',
-				variant: 'secondary' as const,
 			}
 		case 'sold':
 			return {
+				variant: 'secondary' as const,
 				label: t.bibStatus?.sold ?? 'Sold',
 				color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400',
-				variant: 'secondary' as const,
 			}
 		case 'validation_failed':
 			return {
+				variant: 'destructive' as const,
 				label: t.bibStatus?.validationFailed ?? 'Validation Failed',
 				color: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400',
-				variant: 'destructive' as const,
 			}
 		case 'withdrawn':
 			return {
+				variant: 'secondary' as const,
 				label: t.bibStatus?.withdrawn ?? 'Withdrawn',
 				color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400',
-				variant: 'secondary' as const,
 			}
 		default:
 			return {
+				variant: 'secondary' as const,
 				label: status,
 				color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400',
-				variant: 'secondary' as const,
 			}
 	}
 }
 
 export default function EditBibClient({ locale, initialError, initialBibWithEvent, bibId }: EditBibClientProps) {
-	const t = getTranslations(locale, editBibTranslations)
+	const t = getTranslations<EditBibTranslations>(locale, editBibTranslations)
 
 	const router = useRouter()
 	const [bib, setBib] = useState<(Bib & { expand?: { eventId?: Event } }) | null>(initialBibWithEvent)
 	const [isLoading, setIsLoading] = useState(false)
+	const [showRegenerateDialog, setShowRegenerateDialog] = useState(false)
 
 	useEffect(() => {
 		if (initialError != null) {
@@ -152,6 +249,58 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 				toast.error(error instanceof Error ? error.message : String(error))
 				setIsLoading(false)
 			})
+	}
+
+	function handleRegenerateTokenAction() {
+		setIsLoading(true)
+		handleRegeneratePrivateToken(bibId)
+			.then(updatedBib => {
+				toast.success(t.successMessages?.tokenRegenerated ?? 'New private token generated successfully!')
+				const newEventId = updatedBib.eventId
+				const nextState: Bib & { expand?: { eventId?: Event } } = {
+					...updatedBib,
+					expand: bib?.expand,
+					eventId: newEventId,
+				}
+				setBib(nextState)
+				setIsLoading(false)
+				setShowRegenerateDialog(false)
+			})
+			.catch((error: unknown) => {
+				toast.error(error instanceof Error ? error.message : String(error))
+				setIsLoading(false)
+				setShowRegenerateDialog(false)
+			})
+	}
+
+	const generatePrivateLink = () => {
+		if (!bib?.privateListingToken || !bib?.id) return ''
+		const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
+		const currentLocale = locale || 'fr'
+		return `${baseUrl}/${currentLocale}/marketplace/${bib.id}?tkn=${bib.privateListingToken}`
+	}
+
+	const copyToClipboard = async (text: string, successMessage: string) => {
+		try {
+			await navigator.clipboard.writeText(text)
+			toast.success(successMessage)
+		} catch (error) {
+			console.error('Failed to copy to clipboard:', error)
+			toast.error('Failed to copy to clipboard')
+		}
+	}
+
+	const copyToken = () => {
+		if (bib?.privateListingToken) {
+			copyToClipboard(bib.privateListingToken, t.privateTokenCopySuccess ?? 'Token copied to clipboard!')
+		}
+	}
+
+	const copyPrivateLink = () => {
+		const link = generatePrivateLink()
+		if (link) {
+			copyToClipboard(link, t.privateLinkCopySuccess ?? 'Private link copied to clipboard!')
+		}
 	}
 
 	if (bib == null && initialError == null) {
@@ -388,7 +537,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 											{t.listingStatusDescription ?? 'Control who can see your bib listing'}
 										</CardDescription>
 									</CardHeader>
-									<CardContent className="space-y-4">
+									<CardContent className="space-y-6">
 										<div className="flex items-center justify-between">
 											<span className="font-medium">{t.currentVisibility ?? 'Current Visibility'}:</span>
 											<Badge variant={bib.listed === 'public' ? 'default' : 'secondary'}>
@@ -404,6 +553,56 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 											</Badge>
 										</div>
 
+										{/* Display private token information when in private mode */}
+										{bib.listed === 'private' && bib.privateListingToken && (
+											<div className="bg-muted/50 space-y-4 rounded-lg p-4">
+												<div className="space-y-2">
+													<Label className="text-sm font-medium">
+														{t.privateTokenDisplay ?? 'Current Private Token'}
+													</Label>
+													<div className="flex items-center gap-2">
+														<Input
+															value={bib.privateListingToken}
+															readOnly
+															className="bg-background font-mono text-sm"
+														/>
+														<Button type="button" variant="outline" size="sm" onClick={copyToken} disabled={isLoading}>
+															<Copy className="h-4 w-4" />
+														</Button>
+														<Button
+															type="button"
+															variant="outline"
+															size="sm"
+															onClick={() => setShowRegenerateDialog(true)}
+															disabled={isLoading}
+														>
+															<RefreshCw className="h-4 w-4" />
+														</Button>
+													</div>
+													<p className="text-muted-foreground text-xs">
+														{t.privateTokenHelperText ??
+															'Share this token with specific buyers to give them access to your private listing.'}
+													</p>
+												</div>
+
+												<div className="space-y-2">
+													<Label className="text-sm font-medium">{t.privateLink ?? 'Private Link'}</Label>
+													<div className="flex items-center gap-2">
+														<Input value={generatePrivateLink()} readOnly className="bg-background text-sm" />
+														<Button
+															type="button"
+															variant="outline"
+															size="sm"
+															onClick={copyPrivateLink}
+															disabled={isLoading}
+														>
+															<LinkIcon className="h-4 w-4" />
+														</Button>
+													</div>
+												</div>
+											</div>
+										)}
+
 										{bib.listed === 'public' || bib.listed === 'private' ? (
 											<form
 												action={formData =>
@@ -411,24 +610,6 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 												}
 												className="space-y-4"
 											>
-												{bib.listed === 'public' && (
-													<div className="space-y-2">
-														<Label htmlFor="privateListingToken">
-															{t.privateListingToken ?? 'Private Listing Token'}
-															<span className="text-destructive">*</span>
-														</Label>
-														<Input
-															id="privateListingToken"
-															name="privateListingToken"
-															disabled={isLoading}
-															placeholder="Enter a secure token for private access"
-														/>
-														<p className="text-muted-foreground text-xs">
-															{t.privateTokenHelp ??
-																'Required to make the listing private. Share this token with specific buyers.'}
-														</p>
-													</div>
-												)}
 												<Button type="submit" disabled={isLoading} variant="outline" className="w-full">
 													{bib.listed === 'public' ? (
 														<>
@@ -442,30 +623,14 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 												</Button>
 											</form>
 										) : (
-											<div className="space-y-4">
+											<div className="grid grid-cols-2 gap-4">
 												<form action={formData => handleToggleListingStatusAction('public', formData)}>
 													<Button type="submit" disabled={isLoading} className="w-full">
 														<Eye className="mr-2 h-4 w-4" />
 														{t.makePublic ?? 'Make Public'}
 													</Button>
 												</form>
-												<form
-													action={formData => handleToggleListingStatusAction('private', formData)}
-													className="space-y-4"
-												>
-													<div className="space-y-2">
-														<Label htmlFor="privateListingTokenToggle">
-															{t.privateListingToken ?? 'Private Listing Token'}
-															<span className="text-destructive">*</span>
-														</Label>
-														<Input
-															id="privateListingTokenToggle"
-															name="privateListingToken"
-															disabled={isLoading}
-															required
-															placeholder="Enter a secure token for private access"
-														/>
-													</div>
+												<form action={formData => handleToggleListingStatusAction('private', formData)}>
 													<Button type="submit" disabled={isLoading} variant="outline" className="w-full">
 														<EyeOff className="mr-2 h-4 w-4" />
 														{t.makePrivate ?? 'Make Private'}
@@ -549,6 +714,52 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 					</div>
 				</div>
 			</div>
+
+			{/* Regenerate Token Confirmation Dialog */}
+			<Dialog open={showRegenerateDialog} onOpenChange={setShowRegenerateDialog}>
+				<DialogContent className="sm:max-w-md">
+					<DialogHeader>
+						<div className="mb-4 flex items-center gap-3">
+							<div className="rounded-full bg-orange-100 p-2 dark:bg-orange-900/30">
+								<RefreshCw className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+							</div>
+							<DialogTitle className="text-orange-600 dark:text-orange-400">
+								{t.regenerateTokenDialog?.title ?? 'Regenerate Private Token'}
+							</DialogTitle>
+						</div>
+					</DialogHeader>
+					<div className="space-y-4">
+						<p className="text-muted-foreground">
+							{t.regenerateTokenDialog?.description ??
+								'This action will generate a new private token and invalidate the current one.'}
+						</p>
+						<div className="bg-orange-50 border border-orange-200 rounded-lg p-3 dark:bg-orange-900/20 dark:border-orange-800/50">
+							<p className="text-orange-800 text-sm dark:text-orange-200">
+								<AlertTriangle className="mr-2 inline h-4 w-4" />
+								{t.regenerateTokenDialog?.warning ?? 'Any existing private links will stop working immediately.'}
+							</p>
+						</div>
+					</div>
+					<DialogFooter className="gap-2">
+						<Button variant="outline" onClick={() => setShowRegenerateDialog(false)} disabled={isLoading}>
+							{t.regenerateTokenDialog?.cancel ?? 'Cancel'}
+						</Button>
+						<Button onClick={handleRegenerateTokenAction} disabled={isLoading} className="bg-orange-600 hover:bg-orange-700">
+							{isLoading ? (
+								<>
+									<div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-white"></div>
+									Generating...
+								</>
+							) : (
+								<>
+									<RefreshCw className="mr-2 h-4 w-4" />
+									{t.regenerateTokenDialog?.confirm ?? 'Yes, regenerate token'}
+								</>
+							)}
+						</Button>
+					</DialogFooter>
+				</DialogContent>
+			</Dialog>
 		</div>
 	)
 }
