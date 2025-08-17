@@ -33,6 +33,7 @@ import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Timeline } from '@/components/ui/timeline'
 import { Input } from '@/components/ui/inputAlt'
+import { Button } from '@/components/ui/button'
 
 import Translations from './locales.json'
 
@@ -270,50 +271,38 @@ function EventCard({
 									// Determine button content and styling based on availability status
 									if (availabilityStatus === 'loading') {
 										return (
-											<button
-												disabled
-												className="bg-muted text-muted-foreground flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium opacity-70 transition-colors"
-											>
+											<Button disabled variant="secondary" className="w-full opacity-70">
 												<Loader2 className="h-4 w-4 animate-spin" />
 												{t.events?.eventCard?.checkBibs ?? 'Check bibs...'}
-											</button>
+											</Button>
 										)
 									}
 
 									if (availabilityStatus === 'available') {
 										return (
-											<button
-												onClick={() => onAction(event)}
-												className="bg-primary text-primary-foreground hover:bg-primary/90 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
-											>
+											<Button onClick={() => onAction(event)} variant="default" className="w-full cursor-pointer">
 												<ShoppingCart className="h-4 w-4" />
 												{t.events?.eventCard?.viewBibs?.replace('{count}', (bibsCount ?? 0).toString()) ??
 													`View bibs (${bibsCount ?? 0})`}
-											</button>
+											</Button>
 										)
 									}
 
 									if (availabilityStatus === 'waitlist') {
 										return (
-											<button
-												onClick={() => onAction(event)}
-												className="border-input bg-background hover:bg-accent hover:text-accent-foreground flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
-											>
+											<Button onClick={() => onAction(event)} variant="outline" className="w-full cursor-pointer">
 												<Bell className="h-4 w-4" />
 												{t.events?.eventCard?.joinWaitlist ?? 'Join waitlist'}
-											</button>
+											</Button>
 										)
 									}
 
 									// Fallback for unexpected states
 									return (
-										<button
-											onClick={() => onAction(event)}
-											className="border-input bg-background hover:bg-accent hover:text-accent-foreground flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
-										>
+										<Button onClick={() => onAction(event)} variant="outline" className="w-full cursor-pointer">
 											<Search className="h-4 w-4" />
 											{t.events?.eventCard?.viewDetails ?? 'View details'}
-										</button>
+										</Button>
 									)
 								})()}
 							</>
@@ -788,28 +777,30 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							</Tooltip>
 							{showLocationDropdown && filteredLocations.length > 0 && (
 								<div className="bg-card border-border absolute top-full right-0 left-0 z-50 mt-1 max-h-40 overflow-y-auto rounded-lg border shadow-lg">
-									<button
+									<Button
+										variant="ghost"
 										onClick={() => {
 											handleLocationChange('')
 											setLocationSearch('')
 											setShowLocationDropdown(false)
 										}}
-										className="hover:bg-muted/50 border-border block w-full cursor-pointer border-b px-3 py-2 text-left text-sm"
+										className="w-full justify-start rounded-none border-b"
 									>
 										{t.events?.filters?.allCities ?? 'All cities'}
-									</button>
+									</Button>
 									{filteredLocations.map(location => (
-										<button
+										<Button
 											key={location}
+											variant="ghost"
 											onClick={() => {
 												handleLocationChange(location)
 												setLocationSearch(location)
 												setShowLocationDropdown(false)
 											}}
-											className="hover:bg-muted/50 block w-full cursor-pointer px-3 py-2 text-left text-sm"
+											className="w-full justify-start rounded-none"
 										>
 											{location}
-										</button>
+										</Button>
 									))}
 								</div>
 							)}
