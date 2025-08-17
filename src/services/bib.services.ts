@@ -162,18 +162,20 @@ export async function fetchAvailableBibsForEvent(
  * Returns bibs with expanded event and user (seller) details.
  */
 export async function fetchAvailableBibsForMarketplace(): Promise<
-	(Bib & { expand?: { eventId: Event; sellerUserId: User } })[]
+	(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } })[]
 > {
 	try {
 		// Only fetch bibs that are not locked or whose lock has expired and with future event or active transfer window
 		const nowIso = formatDateToPbIso(new Date())
 		const saleWindowFilter = `((eventId.transferDeadline != null && eventId.transferDeadline >= '${nowIso}') || (eventId.transferDeadline = null && eventId.eventDate >= '${nowIso}'))`
 		const filter = `status = 'available' && listed = 'public' && lockedAt = null && ${saleWindowFilter}`
-		const records = await pb.collection('bibs').getFullList<Bib & { expand?: { eventId: Event; sellerUserId: User } }>({
-			sort: '-created',
-			filter,
-			expand: 'eventId,sellerUserId',
-		})
+		const records = await pb
+			.collection('bibs')
+			.getFullList<Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }>({
+				sort: '-created',
+				filter,
+				expand: 'eventId,sellerUserId,eventId.organizer',
+			})
 
 		return records
 	} catch (error: unknown) {
@@ -368,17 +370,22 @@ export async function fetchBibsByBuyer(buyerUserId: string): Promise<(Bib & { ex
  * Optionally expands event details if your PocketBase setup allows and it's needed.
  * @param sellerUserId The PocketBase ID of the seller whose bibs are to be fetched.
  */
-export async function fetchBibsBySeller(sellerUserId: string): Promise<Bib[]> {
+export async function fetchBibsBySeller(
+	sellerUserId: string
+): Promise<(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } } } })[]> {
 	if (sellerUserId === '') {
 		console.error('Seller ID is required to fetch their bibs.')
 		return []
 	}
 
 	try {
-		const records = await pb.collection('bibs').getFullList<Bib & { expand?: { eventId: Event } }>({
-			sort: '-created',
-			filter: `sellerUserId = "${sellerUserId}"`,
-		})
+		const records = await pb
+			.collection('bibs')
+			.getFullList<Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } } } }>({
+				sort: '-created',
+				filter: `sellerUserId = "${sellerUserId}"`,
+				expand: 'eventId,eventId.organizer',
+			})
 
 		return records
 	} catch (error: unknown) {

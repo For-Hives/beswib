@@ -1,6 +1,6 @@
 'use client'
 
-import { Edit3, List, Plus, Search, Tag, Users } from 'lucide-react'
+import { List, Plus, Search, Tag, Users } from 'lucide-react'
 
 import Link from 'next/link'
 
@@ -11,9 +11,8 @@ import type { Bib } from '@/models/bib.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
-import BibCategoryTabs from '@/components/dashboard/seller/BibCategoryTabs'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { formatDateObjectForDisplay } from '@/lib/utils/date'
+import BibCategoryTabs from '@/components/dashboard/seller/BibCategoryTabs'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n/config'
@@ -38,7 +37,7 @@ interface SerializedClerkUser {
 }
 
 // Status display mapping
-const getStatusDisplay = (status: string) => {
+export const getStatusDisplay = (status: string) => {
 	switch (status) {
 		case 'available':
 			return { label: 'Available', color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' }
@@ -67,9 +66,10 @@ export default function SellerDashboardClient({
 	const userName = clerkUser?.firstName ?? clerkUser?.emailAddresses?.[0]?.emailAddress ?? 'Seller'
 
 	// Calculate statistics with safety checks
-	const totalListings = Array.isArray(sellerBibs) ? sellerBibs.length : 0
-	const availableBibs = Array.isArray(sellerBibs) ? sellerBibs.filter(bib => bib.status === 'available').length : 0
-	const soldBibs = Array.isArray(sellerBibs) ? sellerBibs.filter(bib => bib.status === 'sold').length : 0
+	const safeSellerBibs = Array.isArray(sellerBibs) ? sellerBibs.filter(bib => bib && bib.id) : []
+	const totalListings = safeSellerBibs.length
+	const availableBibs = safeSellerBibs.filter(bib => bib.status === 'available').length
+	const soldBibs = safeSellerBibs.filter(bib => bib.status === 'sold').length
 	const succeededTransactions = sellerTransactions.filter(tx => tx.status === 'succeeded')
 
 	// Extract PayPal fees from webhook payload when present
@@ -331,7 +331,7 @@ export default function SellerDashboardClient({
 						</CardHeader>
 						<CardContent>
 							{totalListings > 0 ? (
-								<BibCategoryTabs bibs={sellerBibs} locale={locale} />
+								<BibCategoryTabs bibs={safeSellerBibs} locale={locale} />
 							) : (
 								<div className="py-12 text-center">
 									<Tag className="text-muted-foreground mx-auto mb-4 h-16 w-16" />
