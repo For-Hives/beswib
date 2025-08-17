@@ -7,11 +7,7 @@ import type { Bib } from '@/models/bib.model'
 import { fetchBibByIdForSeller, updateBibBySeller, generatePrivateListingToken } from '@/services/bib.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 
-export async function handleToggleListingStatus(
-	bibId: string,
-	newListed: 'private' | 'public',
-	formData: FormData
-): Promise<Bib> {
+export async function handleToggleListingStatus(bibId: string, newListed: 'private' | 'public'): Promise<Bib> {
 	const { userId: clerkId } = await auth()
 
 	if (clerkId == null || clerkId === '') {
