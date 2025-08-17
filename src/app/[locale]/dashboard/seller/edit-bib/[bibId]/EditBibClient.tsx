@@ -5,7 +5,20 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import Link from 'next/link'
-import { ArrowLeft, Calendar, MapPin, Edit3, Eye, EyeOff, Trash2, Save, Tag, DollarSign, Hash, AlertTriangle } from 'lucide-react'
+import {
+	ArrowLeft,
+	Calendar,
+	MapPin,
+	Edit3,
+	Eye,
+	EyeOff,
+	Trash2,
+	Save,
+	Tag,
+	DollarSign,
+	Hash,
+	AlertTriangle,
+} from 'lucide-react'
 
 import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
@@ -64,8 +77,8 @@ const getStatusDisplay = (status: string, t: any) => {
 				variant: 'secondary' as const,
 			}
 		default:
-			return { 
-				label: status, 
+			return {
+				label: status,
 				color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400',
 				variant: 'secondary' as const,
 			}
@@ -192,7 +205,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 				<div className="relative flex min-h-screen items-center justify-center">
 					<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 						<CardContent className="p-8 text-center">
-							<div className="animate-spin mx-auto mb-4 h-8 w-8 rounded-full border-4 border-gray-300 border-t-blue-600"></div>
+							<div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div>
 							<p className="text-lg">Loading bib details...</p>
 						</CardContent>
 					</Card>
@@ -235,9 +248,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 							</p>
 						</div>
 					</div>
-					<Badge className={statusDisplay.color}>
-						{statusDisplay.label}
-					</Badge>
+					<Badge className={statusDisplay.color}>{statusDisplay.label}</Badge>
 				</div>
 			</div>
 
@@ -258,16 +269,12 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 								<Calendar className="h-5 w-5" />
 								{t.eventDetails ?? 'Event Details'}
 							</CardTitle>
-							<CardDescription>
-								{t.eventDescription ?? 'Information about the race event'}
-							</CardDescription>
+							<CardDescription>{t.eventDescription ?? 'Information about the race event'}</CardDescription>
 						</CardHeader>
 						<CardContent>
 							<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
 								<div className="space-y-2">
-									<Label className="text-muted-foreground text-sm font-medium">
-										{t.eventName ?? 'Event Name'}
-									</Label>
+									<Label className="text-muted-foreground text-sm font-medium">{t.eventName ?? 'Event Name'}</Label>
 									<p className="font-semibold">{eventName}</p>
 								</div>
 								<div className="space-y-2">
@@ -296,9 +303,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 									<Edit3 className="h-5 w-5" />
 									{t.bibDetails ?? 'Bib Details'}
 								</CardTitle>
-								<CardDescription>
-									{t.bibDetailsDescription ?? 'Update your bib listing information'}
-								</CardDescription>
+								<CardDescription>{t.bibDetailsDescription ?? 'Update your bib listing information'}</CardDescription>
 							</CardHeader>
 							<CardContent>
 								<form action={handleUpdateDetailsAction} className="space-y-6">
@@ -352,11 +357,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 										/>
 									</div>
 
-									<Button
-										type="submit"
-										disabled={isLoading || isEditDisabled}
-										className="w-full"
-									>
+									<Button type="submit" disabled={isLoading || isEditDisabled} className="w-full">
 										{isLoading ? (
 											<>
 												<div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-white"></div>
@@ -389,14 +390,17 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 									</CardHeader>
 									<CardContent className="space-y-4">
 										<div className="flex items-center justify-between">
-											<span className="font-medium">
-												{t.currentVisibility ?? 'Current Visibility'}:
-											</span>
+											<span className="font-medium">{t.currentVisibility ?? 'Current Visibility'}:</span>
 											<Badge variant={bib.listed === 'public' ? 'default' : 'secondary'}>
-												{bib.listed === 'public' ? 
-													<><Eye className="mr-1 h-3 w-3" /> {t.public ?? 'Public'}</> : 
-													<><EyeOff className="mr-1 h-3 w-3" /> {t.private ?? 'Private'}</>
-												}
+												{bib.listed === 'public' ? (
+													<>
+														<Eye className="mr-1 h-3 w-3" /> {t.public ?? 'Public'}
+													</>
+												) : (
+													<>
+														<EyeOff className="mr-1 h-3 w-3" /> {t.private ?? 'Private'}
+													</>
+												)}
 											</Badge>
 										</div>
 
@@ -420,20 +424,20 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 															placeholder="Enter a secure token for private access"
 														/>
 														<p className="text-muted-foreground text-xs">
-															{t.privateTokenHelp ?? 'Required to make the listing private. Share this token with specific buyers.'}
+															{t.privateTokenHelp ??
+																'Required to make the listing private. Share this token with specific buyers.'}
 														</p>
 													</div>
 												)}
-												<Button
-													type="submit"
-													disabled={isLoading}
-													variant="outline"
-													className="w-full"
-												>
+												<Button type="submit" disabled={isLoading} variant="outline" className="w-full">
 													{bib.listed === 'public' ? (
-														<><EyeOff className="mr-2 h-4 w-4" /> {t.makePrivate ?? 'Make Private'}</>
+														<>
+															<EyeOff className="mr-2 h-4 w-4" /> {t.makePrivate ?? 'Make Private'}
+														</>
 													) : (
-														<><Eye className="mr-2 h-4 w-4" /> {t.makePublic ?? 'Make Public'}</>
+														<>
+															<Eye className="mr-2 h-4 w-4" /> {t.makePublic ?? 'Make Public'}
+														</>
 													)}
 												</Button>
 											</form>
@@ -445,7 +449,10 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 														{t.makePublic ?? 'Make Public'}
 													</Button>
 												</form>
-												<form action={formData => handleToggleListingStatusAction('private', formData)} className="space-y-4">
+												<form
+													action={formData => handleToggleListingStatusAction('private', formData)}
+													className="space-y-4"
+												>
 													<div className="space-y-2">
 														<Label htmlFor="privateListingTokenToggle">
 															{t.privateListingToken ?? 'Private Listing Token'}
@@ -484,7 +491,8 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 										<div className="space-y-4">
 											<div className="bg-destructive/10 border-destructive/20 rounded-lg border p-4">
 												<p className="text-destructive text-sm">
-													{t.withdrawWarning ?? 'Warning: This action cannot be undone. Your bib will be removed from the marketplace and buyers will no longer be able to purchase it.'}
+													{t.withdrawWarning ??
+														'Warning: This action cannot be undone. Your bib will be removed from the marketplace and buyers will no longer be able to purchase it.'}
 												</p>
 											</div>
 											<Button
@@ -524,14 +532,15 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 									<div className="space-y-4">
 										<div className="flex items-center justify-between">
 											<span className="font-medium">{t.currentStatus ?? 'Current Status'}:</span>
-											<Badge className={statusDisplay.color}>
-												{statusDisplay.label}
-											</Badge>
+											<Badge className={statusDisplay.color}>{statusDisplay.label}</Badge>
 										</div>
 										<p className="text-muted-foreground text-sm">
-											{bib.status === 'sold' && (t.soldDescription ?? 'This bib has been successfully sold and cannot be edited.')}
-											{bib.status === 'expired' && (t.expiredDescription ?? 'This bib listing has expired and cannot be edited.')}
-											{bib.status === 'withdrawn' && (t.withdrawnDescription ?? 'This bib has been withdrawn from the marketplace.')}
+											{bib.status === 'sold' &&
+												(t.soldDescription ?? 'This bib has been successfully sold and cannot be edited.')}
+											{bib.status === 'expired' &&
+												(t.expiredDescription ?? 'This bib listing has expired and cannot be edited.')}
+											{bib.status === 'withdrawn' &&
+												(t.withdrawnDescription ?? 'This bib has been withdrawn from the marketplace.')}
 										</p>
 									</div>
 								</CardContent>
