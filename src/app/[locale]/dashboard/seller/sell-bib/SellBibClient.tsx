@@ -278,11 +278,11 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 	const renderStepContent = () => {
 		switch (currentStep) {
 			case 'bibDetails':
-				// step 2
+				// step 3
 				return <BibDetailsStep errors={errors} formData={formData} locale={locale} onChange={updateFormData} />
 
 			case 'confirmation':
-				// step 4
+				// step 5
 				return (
 					<ConfirmationStep
 						createdBib={createdBib}
@@ -295,6 +295,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				)
 
 			case 'emailVerification':
+				// step 2
 				return (
 					<EmailVerificationStep
 						user={user}
@@ -323,7 +324,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				)
 
 			case 'pricing':
-				// step 3
+				// step 4
 				return <PricingStep errors={errors} formData={formData} locale={locale} onChange={updateFormData} />
 		}
 	}
