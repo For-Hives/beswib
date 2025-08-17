@@ -1,7 +1,10 @@
 import type { Event } from '@/models/event.model'
+import type { Bib } from '@/models/bib.model'
+import type { User } from '@/models/user.model'
+import type { Organizer } from '@/models/organizer.model'
 
 import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
-import { fetchApprovedPublicEvents } from '@/services/event.services'
+import { fetchApprovedPublicEventsWithBibs } from '@/services/event.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
 import EventListClient from './EventListClient'
@@ -11,11 +14,16 @@ export default async function EventsPage({ params }: { params: Promise<LocalePar
 	const { locale } = await params
 	const t = getTranslations(locale, eventsTranslations)
 
-	let events: Event[] = []
+	let events: (Event & { 
+		expand?: { 
+			organizer?: Organizer
+			'bibs_via_eventId'?: (Bib & { expand?: { sellerUserId: User } })[]
+		} 
+	})[] = []
 	let error: null | string = null
 
 	try {
-		events = await fetchApprovedPublicEvents()
+		events = await fetchApprovedPublicEventsWithBibs()
 	} catch (e: unknown) {
 		error = e instanceof Error ? e.message : String(e)
 		console.error('Error fetching events:', error)
