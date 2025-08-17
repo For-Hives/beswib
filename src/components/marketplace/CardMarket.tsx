@@ -1,6 +1,6 @@
 'use client'
 
-import { Calendar, MapPinned, ShoppingCart, User } from 'lucide-react'
+import { Calendar, MapPinned, ShoppingCart, User, Eye } from 'lucide-react'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -156,13 +156,22 @@ export default function CardMarket({ locale, eventData, bibSale }: Readonly<Card
 						</p>
 					</div>
 					<div className="flex h-full items-end justify-center py-2">
-						<Link
-							className="border-border bg-accent/20 text-accent-foreground hover:bg-accent/30 hover:text-foreground flex w-full items-center justify-center gap-2 rounded-lg border px-3 py-1.5 text-xs font-medium backdrop-blur-md transition"
-							href={`/marketplace/${bibSale.id}`}
-						>
-							<ShoppingCart className="h-5 w-5" />
-							{translations.wantThisBib ?? 'I want this bib'}
-						</Link>
+						<div className="flex w-full flex-col gap-2 md:flex-row">
+							<Link
+								className="border-border text-foreground hover:bg-accent/10 flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border px-3 py-1.5 text-xs font-medium transition"
+								href={`/${locale}/events/${bibSale.event.id}`}
+							>
+								<Eye className="h-4 w-4" />
+								{translations.viewEvent ?? 'View event'}
+							</Link>
+							<Link
+								className="bg-primary text-primary-foreground hover:bg-primary/90 flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-xs font-medium transition"
+								href={`/${locale}/marketplace/${bibSale.id}`}
+							>
+								<ShoppingCart className="h-4 w-4" />
+								{translations.wantThisBib ?? 'I want this bib'}
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>
