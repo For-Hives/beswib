@@ -2,8 +2,11 @@
 
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
+import type { Bib } from '@/models/bib.model'
+import type { User } from '@/models/user.model'
 
 import { pb } from '@/lib/services/pocketbase'
+import { dateToPbDateString } from '@/lib/utils/date'
 
 /**
  * Creates a new event. This function is intended for use by organizers.
@@ -63,6 +66,48 @@ export async function fetchApprovedPublicEvents(
 	} catch (error: unknown) {
 		throw new Error(
 			'Error fetching approved public events: ' + (error instanceof Error ? error.message : String(error))
+		)
+	}
+}
+
+/**
+ * Fetches all approved public events with their available bibs in a single optimized call.
+ * Uses PocketBase back-relations to avoid multiple API calls.
+ * @param expandOrganizer Whether to expand organizer data
+ */
+export async function fetchApprovedPublicEventsWithBibs(
+	expandOrganizer = false
+): Promise<(Event & { 
+	expand?: { 
+		organizer?: Organizer
+		'bibs_via_eventId'?: (Bib & { expand?: { sellerUserId: User } })[]
+	} 
+})[]> {
+	try {
+		const nowIso = dateToPbDateString(new Date())
+		const saleWindowFilter = `((transferDeadline != null && transferDeadline >= '${nowIso}') || (transferDeadline = null && eventDate >= '${nowIso}'))`
+		
+		// Use back-relations to get events with their available bibs
+		const expandFields = ['bibs_via_eventId(status="available" && listed="public" && lockedAt=null).sellerUserId']
+		if (expandOrganizer) {
+			expandFields.push('organizer')
+		}
+
+		const records = await pb.collection('events').getFullList<Event & { 
+			expand?: { 
+				organizer?: Organizer
+				'bibs_via_eventId'?: (Bib & { expand?: { sellerUserId: User } })[]
+			} 
+		}>({
+			sort: 'eventDate',
+			filter: saleWindowFilter,
+			expand: expandFields.join(','),
+		})
+
+		return records
+	} catch (error: unknown) {
+		throw new Error(
+			'Error fetching approved public events with bibs: ' + (error instanceof Error ? error.message : String(error))
 		)
 	}
 }
@@ -173,4 +218,16 @@ export async function deleteEventById(id: string): Promise<boolean> {
 	} catch (error: unknown) {
 		throw new Error('Error deleting event: ' + (error instanceof Error ? error.message : String(error)))
 	}
+}
+
+/**
+ * Formats a Date object to PocketBase compatible ISO string: YYYY-MM-DD HH:mm:ss.mmmZ (UTC)
+ */
+function formatDateToPbIso(date: Date): string {
+	const d = new Date(date.getTime())
+	const pad = (n: number, width = 2) => n.toString().padStart(width, '0')
+	const padMs = (n: number) => n.toString().padStart(3, '0')
+	return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())} ${pad(d.getUTCHours())}:${pad(
+		d.getUTCMinutes()
+	)}:${pad(d.getUTCSeconds())}.${padMs(d.getUTCMilliseconds())}Z`
 }

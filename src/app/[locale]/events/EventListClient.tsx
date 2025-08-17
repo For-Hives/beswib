@@ -1,6 +1,6 @@
 'use client'
 
-import { MapPin, Users, Search, ShoppingCart, Bell, Route, Mountain, Loader2 } from 'lucide-react'
+import { MapPin, Users, Search, ShoppingCart, Bell, Route, Mountain, Loader2, Tag, Clock, CheckCircle } from 'lucide-react'
 import React, { useMemo, useState, useEffect } from 'react'
 
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
@@ -11,12 +11,12 @@ import Fuse from 'fuse.js'
 import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
+import type { Organizer } from '@/models/organizer.model'
 
 import { TriathlonIcon, TrailIcon, RouteIcon, CycleIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
-import { fetchAvailableBibsForEvent } from '@/services/bib.services'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Timeline } from '@/components/ui/timeline'
@@ -83,7 +83,12 @@ interface EventTranslations {
 }
 
 interface EventsPageProps {
-	prefetchedEvents: Event[]
+	prefetchedEvents: (Event & { 
+		expand?: { 
+			organizer?: Organizer
+			'bibs_via_eventId'?: (Bib & { expand?: { sellerUserId: User } })[]
+		} 
+	})[]
 	locale: string
 }
 
@@ -176,23 +181,72 @@ function EventCard({
 
 				<div className="mt-auto">
 					{(() => {
-						// Calculate price to display: lowest bib price if available, otherwise default event price
+						// Calculate price to display and determine source
 						let priceToDisplay = event.officialStandardPrice
+						let isFromBib = false
+						let availabilityStatus: 'available' | 'waitlist' | 'loading' = 'loading'
+
+						if (bibsCount !== undefined) {
+							availabilityStatus = bibsCount > 0 ? 'available' : 'waitlist'
+						}
 
 						if (bibsData && bibsData.length > 0) {
 							// Get the lowest price from available bibs
 							const lowestBibPrice = Math.min(...bibsData.map(bib => bib.price))
 							priceToDisplay = lowestBibPrice
+							isFromBib = true
 						}
 
-						return priceToDisplay != null ? (
-							<div className="mb-3 text-right">
-								<span className="text-lg font-bold text-emerald-600 dark:text-green-400">
-									{t.events?.eventCard?.fromPrice?.replace('{price}', priceToDisplay.toString()) ??
-										`From ${priceToDisplay}€`}
-								</span>
+						return (
+							<div className="mb-3 space-y-2">
+								{/* Status Badge */}
+								<div className="flex justify-between items-center">
+									<div className="flex gap-2">
+										{availabilityStatus === 'available' && (
+											<span className="inline-flex items-center gap-1 rounded-full bg-green-100 dark:bg-green-900/30 px-2 py-1 text-xs font-medium text-green-800 dark:text-green-300">
+												<CheckCircle className="h-3 w-3" />
+												Available
+											</span>
+										)}
+										{availabilityStatus === 'waitlist' && (
+											<span className="inline-flex items-center gap-1 rounded-full bg-orange-100 dark:bg-orange-900/30 px-2 py-1 text-xs font-medium text-orange-800 dark:text-orange-300">
+												<Clock className="h-3 w-3" />
+												Waitlist
+											</span>
+										)}
+										{availabilityStatus === 'loading' && (
+											<span className="inline-flex items-center gap-1 rounded-full bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300">
+												<Loader2 className="h-3 w-3 animate-spin" />
+												Loading...
+											</span>
+										)}
+									</div>
+								</div>
+
+								{/* Price Display */}
+								{priceToDisplay != null && (
+									<div className="text-right">
+										<div className="flex items-center justify-end gap-1 mb-1">
+											{isFromBib ? (
+												<span className="inline-flex items-center gap-1 rounded-full bg-blue-100 dark:bg-blue-900/30 px-2 py-1 text-xs font-medium text-blue-800 dark:text-blue-300">
+													<Tag className="h-3 w-3" />
+													Best price
+												</span>
+											) : (
+												<span className="inline-flex items-center gap-1 rounded-full bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300">
+													<Tag className="h-3 w-3" />
+													Official price
+												</span>
+											)}
+										</div>
+										<span className="text-lg font-bold text-emerald-600 dark:text-green-400">
+											{t.events?.eventCard?.fromPrice?.replace('{price}', priceToDisplay.toString()) ??
+												`From ${priceToDisplay}€`}
+										</span>
+									</div>
+								)}
 							</div>
-						) : null
+						)
 					})()}
 					<button
 						onClick={() => void onAction(event)}

@@ -36,6 +36,7 @@ export function dateToPbDateString(date: Date | DateTime): string {
 	const dt = date instanceof DateTime ? date : DateTime.fromJSDate(date).toUTC()
 	return dt.toFormat("yyyy-MM-dd HH:mm:ss.SSS'Z'")
 }
+
 /**
  * Converts a datetime-local string to a date string (YYYY-MM-DD) 🗓️
  * @param datetimeString - The datetime string (YYYY-MM-DDTHH:mm format) 🕰️
