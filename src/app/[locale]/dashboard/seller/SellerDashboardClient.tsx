@@ -11,6 +11,7 @@ import type { Bib } from '@/models/bib.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
+import BibCategoryTabs from '@/components/dashboard/seller/BibCategoryTabs'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -317,7 +318,7 @@ export default function SellerDashboardClient({
 						</CardContent>
 					</Card>
 
-					{/* Bib Listings */}
+					{/* Bib Listings with Categories */}
 					<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 						<CardHeader>
 							<CardTitle className="flex items-center gap-2">
@@ -330,66 +331,7 @@ export default function SellerDashboardClient({
 						</CardHeader>
 						<CardContent>
 							{totalListings > 0 ? (
-								<div className="space-y-4">
-									{sellerBibs.map(bib => {
-										if (!bib?.id) return null
-
-										const statusDisplay = getStatusDisplay(bib.status ?? 'unknown')
-										return (
-											<div className="rounded-lg border p-4" key={bib.id}>
-												<div className="mb-3 flex items-start justify-between">
-													<div>
-														<h4 className="font-semibold">
-															{t?.bibFor ?? 'Bib for'}{' '}
-															{bib.expand?.eventId?.name ?? `Event ID: ${bib.eventId ?? 'Unknown'}`}
-														</h4>
-														<p className="text-muted-foreground text-sm">
-															{t?.registrationNumber ?? 'Registration Number'}: {bib.registrationNumber ?? 'N/A'}
-														</p>
-													</div>
-													<span className={`rounded-full px-3 py-1 text-xs font-medium ${statusDisplay.color}`}>
-														{statusDisplay.label}
-													</span>
-												</div>
-
-												<div className="grid grid-cols-2 gap-4 text-sm md:grid-cols-4">
-													<div>
-														<p className="text-muted-foreground">{t?.price ?? 'Price'}</p>
-														<p className="font-medium">€{bib.price?.toFixed(2) ?? '0.00'}</p>
-													</div>
-													<div>
-														<p className="text-muted-foreground">{t?.size ?? 'Size'}</p>
-														<p className="font-medium">{bib.optionValues?.size ?? 'N/A'}</p>
-													</div>
-													<div>
-														<p className="text-muted-foreground">{t?.gender ?? 'Gender'}</p>
-														<p className="font-medium">{bib.optionValues?.gender ?? 'N/A'}</p>
-													</div>
-													<div>
-														<p className="text-muted-foreground">Event Date</p>
-														<p className="font-medium">
-															{bib.expand?.eventId?.eventDate
-																? formatDateObjectForDisplay(new Date(bib.expand.eventId.eventDate), locale)
-																: 'N/A'}
-														</p>
-													</div>
-												</div>
-
-												{/* Edit button - only show for certain statuses */}
-												{(bib.status === 'available' || bib.status === 'validation_failed') && (
-													<div className="mt-3 flex justify-end">
-														<Link href={`/dashboard/seller/edit-bib/${bib.id}`}>
-															<Button size="sm" variant="outline">
-																<Edit3 className="mr-2 h-4 w-4" />
-																{t?.editBib ?? 'Edit Bib'}
-															</Button>
-														</Link>
-													</div>
-												)}
-											</div>
-										)
-									})}
-								</div>
+								<BibCategoryTabs bibs={sellerBibs} locale={locale} />
 							) : (
 								<div className="py-12 text-center">
 									<Tag className="text-muted-foreground mx-auto mb-4 h-16 w-16" />
