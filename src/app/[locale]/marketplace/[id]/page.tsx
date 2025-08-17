@@ -11,10 +11,7 @@ import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
 import { fetchBibById, fetchPrivateBibByToken, checkBibListingStatus } from '@/services/bib.services'
-import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
-import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
-import TokenValidation from '@/components/marketplace/TokenValidation'
 import { fetchOrganizerById } from '@/services/organizer.services'
 import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
 import { fetchUserByClerkId } from '@/services/user.services'
@@ -94,10 +91,8 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	if (bibStatus.listed === 'private') {
 		isPrivate = true
 		if (tkn) {
-			console.log('Fetching private bib with token:', { token: tkn, bibId: id })
 			// Try to fetch with the provided token
 			bib = await fetchPrivateBibByToken(id, tkn)
-			console.log('Private bib fetch result:', { hasExpand: !!bib?.expand, bib: !!bib })
 		}
 		// If no token or invalid token, bib will remain null and we'll show the validation form
 	} else if (bibStatus.listed === 'public') {
