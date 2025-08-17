@@ -1,17 +1,29 @@
 'use client'
 
-import { MapPin, Users, Search, ShoppingCart, Bell, Route, Mountain, Loader2, Tag, Clock, CheckCircle } from 'lucide-react'
-import React, { useMemo, useState, useEffect } from 'react'
+import {
+	MapPin,
+	Users,
+	Search,
+	ShoppingCart,
+	Bell,
+	Route,
+	Mountain,
+	Loader2,
+	Tag,
+	Clock,
+	CheckCircle,
+} from 'lucide-react'
+import React, { useMemo, useState } from 'react'
 
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
 import { useRouter } from 'next/navigation'
 import { DateTime } from 'luxon'
 import Fuse from 'fuse.js'
 
-import type { Bib } from '@/models/bib.model'
+import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
-import type { Organizer } from '@/models/organizer.model'
+import type { Bib } from '@/models/bib.model'
 
 import { TriathlonIcon, TrailIcon, RouteIcon, CycleIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
@@ -83,11 +95,11 @@ interface EventTranslations {
 }
 
 interface EventsPageProps {
-	prefetchedEvents: (Event & { 
-		expand?: { 
+	prefetchedEvents: (Event & {
+		expand?: {
 			organizer?: Organizer
-			'bibs_via_eventId'?: (Bib & { expand?: { sellerUserId: User } })[]
-		} 
+			bibs_via_eventId?: (Bib & { expand?: { sellerUserId: User } })[]
+		}
 	})[]
 	locale: string
 }
@@ -121,14 +133,14 @@ function EventCard({
 	onAction,
 	locale,
 	event,
-	bibsCount,
 	bibsData,
+	bibsCount,
 }: {
+	bibsData?: (Bib & { expand?: { sellerUserId: User } })[]
 	bibsCount: number | undefined
-	bibsData?: (Bib & { expand?: { eventId: Event; sellerUserId: User } })[]
 	event: Event
 	locale: string
-	onAction: (event: Event) => void | Promise<void>
+	onAction: (event: Event) => void
 	t: EventTranslations
 }) {
 	return (
@@ -200,22 +212,22 @@ function EventCard({
 						return (
 							<div className="mb-3 space-y-2">
 								{/* Status Badge */}
-								<div className="flex justify-between items-center">
+								<div className="absolute top-0 right-0 m-2 flex items-center justify-between">
 									<div className="flex gap-2">
 										{availabilityStatus === 'available' && (
-											<span className="inline-flex items-center gap-1 rounded-full bg-green-100 dark:bg-green-900/30 px-2 py-1 text-xs font-medium text-green-800 dark:text-green-300">
+											<span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-1 text-sm font-medium text-green-800 italic dark:bg-green-900/30 dark:text-green-300">
 												<CheckCircle className="h-3 w-3" />
 												Available
 											</span>
 										)}
 										{availabilityStatus === 'waitlist' && (
-											<span className="inline-flex items-center gap-1 rounded-full bg-orange-100 dark:bg-orange-900/30 px-2 py-1 text-xs font-medium text-orange-800 dark:text-orange-300">
+											<span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2 py-1 text-sm font-medium text-orange-800 italic dark:bg-orange-900/30 dark:text-orange-300">
 												<Clock className="h-3 w-3" />
 												Waitlist
 											</span>
 										)}
 										{availabilityStatus === 'loading' && (
-											<span className="inline-flex items-center gap-1 rounded-full bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300">
+											<span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 italic dark:bg-gray-700 dark:text-gray-300">
 												<Loader2 className="h-3 w-3 animate-spin" />
 												Loading...
 											</span>
@@ -226,14 +238,14 @@ function EventCard({
 								{/* Price Display */}
 								{priceToDisplay != null && (
 									<div className="text-right">
-										<div className="flex items-center justify-end gap-1 mb-1">
+										<div className="mb-1 flex items-center justify-end gap-1">
 											{isFromBib ? (
-												<span className="inline-flex items-center gap-1 rounded-full bg-blue-100 dark:bg-blue-900/30 px-2 py-1 text-xs font-medium text-blue-800 dark:text-blue-300">
+												<span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
 													<Tag className="h-3 w-3" />
 													Best price
 												</span>
 											) : (
-												<span className="inline-flex items-center gap-1 rounded-full bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300">
+												<span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300">
 													<Tag className="h-3 w-3" />
 													Official price
 												</span>
@@ -248,30 +260,58 @@ function EventCard({
 							</div>
 						)
 					})()}
-					<button
-						onClick={() => void onAction(event)}
-						className="bg-primary/20 text-primary hover:bg-primary/30 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
-					>
-						{bibsCount !== undefined ? (
-							bibsCount > 0 ? (
-								<>
+					
+					{/* Button with proper state handling */}
+					{(() => {
+						// Determine button content and styling based on availability status
+						if (availabilityStatus === 'loading') {
+							return (
+								<button
+									disabled
+									className="flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-500 opacity-70"
+								>
+									<Loader2 className="h-4 w-4 animate-spin" />
+									{t.events?.eventCard?.checkBibs ?? 'Check bibs...'}
+								</button>
+							)
+						}
+
+						if (availabilityStatus === 'available') {
+							return (
+								<button
+									onClick={() => onAction(event)}
+									className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-green-300 bg-green-100 px-4 py-2 text-sm font-medium text-green-800 transition-colors hover:bg-green-200 hover:border-green-400"
+								>
 									<ShoppingCart className="h-4 w-4" />
-									{t.events?.eventCard?.viewBibs?.replace('{count}', bibsCount.toString()) ??
-										`View bibs (${bibsCount})`}
-								</>
-							) : (
-								<>
+									{t.events?.eventCard?.viewBibs?.replace('{count}', (bibsCount || 0).toString()) ??
+										`View bibs (${bibsCount || 0})`}
+								</button>
+							)
+						}
+
+						if (availabilityStatus === 'waitlist') {
+							return (
+								<button
+									onClick={() => onAction(event)}
+									className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-orange-300 bg-orange-100 px-4 py-2 text-sm font-medium text-orange-800 transition-colors hover:bg-orange-200 hover:border-orange-400"
+								>
 									<Bell className="h-4 w-4" />
 									{t.events?.eventCard?.joinWaitlist ?? 'Join waitlist'}
-								</>
+								</button>
 							)
-						) : (
-							<>
-								<Loader2 className="h-4 w-4 animate-spin" />
-								{t.events?.eventCard?.checkBibs ?? 'Check bibs...'}
-							</>
-						)}
-					</button>
+						}
+
+						// Fallback for unexpected states
+						return (
+							<button
+								onClick={() => onAction(event)}
+								className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-300 bg-transparent px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:border-gray-400"
+							>
+								<Search className="h-4 w-4" />
+								{t.events?.eventCard?.viewDetails ?? 'View details'}
+							</button>
+						)
+					})()}
 				</div>
 			</div>
 		</SpotlightCard>
@@ -326,12 +366,23 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	const [locationSearch, setLocationSearch] = useState('')
 	const [showLocationDropdown, setShowLocationDropdown] = useState(false)
 
-	// State to track bibs availability for each event
-	const [eventBibsCache, setEventBibsCache] = useState<Record<string, number>>({})
-	// State to store actual bib data for price calculation
-	const [eventBibsData, setEventBibsData] = useState<
-		Record<string, (Bib & { expand?: { eventId: Event; sellerUserId: User } })[]>
-	>({})
+	// Extract bibs data from prefetched events with optimized structure
+	const eventBibsInfo = useMemo(() => {
+		const dataMap: Record<string, (Bib & { expand?: { sellerUserId: User } })[]> = {}
+		const countsMap: Record<string, number> = {}
+
+		prefetchedEvents.forEach(event => {
+			const bibs = event.expand?.bibs_via_eventId ?? []
+			dataMap[event.id] = bibs
+			countsMap[event.id] = bibs.length
+		})
+
+		return { dataMap, countsMap }
+	}, [prefetchedEvents])
+
+	// Extract for easier access in components
+	const eventBibsData = eventBibsInfo.dataMap
+	const eventBibsCache = eventBibsInfo.countsMap
 
 	// Fuse.js instance for fuzzy search on events
 	const fuse = useMemo(
@@ -582,82 +633,27 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		return summary
 	}, [futureEvents])
 
-	// Pre-load bib counts for the first 16 sorted events (stable regardless of grouping)
-	useEffect(() => {
-		const loadBibCounts = async () => {
-			const eventsToLoad = sortedEvents.slice(0, 16)
+	// No longer needed - bibs data is already loaded with events!
 
-			const promises = eventsToLoad.map(async event => {
-				if (eventBibsCache[event.id] === undefined) {
-					try {
-						const availableBibs = await fetchAvailableBibsForEvent(event.id)
-						return {
-							data: { [event.id]: availableBibs },
-							count: { [event.id]: availableBibs.length },
-						}
-					} catch (error) {
-						console.error('Error loading bibs for event:', event.id, error)
-						return {
-							data: { [event.id]: [] },
-							count: { [event.id]: 0 },
-						}
-					}
-				}
-				return { data: {}, count: {} }
-			})
-
-			const results = await Promise.all(promises)
-			const newCountCache = results.reduce((acc, curr) => ({ ...acc, ...curr.count }), {})
-			const newDataCache = results.reduce((acc, curr) => ({ ...acc, ...curr.data }), {})
-
-			if (Object.keys(newCountCache).length > 0) {
-				setEventBibsCache(prev => ({ ...prev, ...newCountCache }))
-			}
-			if (Object.keys(newDataCache).length > 0) {
-				setEventBibsData(prev => ({ ...prev, ...newDataCache }))
-			}
-		}
-
-		void loadBibCounts()
-	}, [sortedEvents, eventBibsCache])
-
-	// Function to get bib count for an event (with caching)
-	const getBibCountForEvent = async (eventId: string): Promise<number> => {
-		if (eventBibsCache[eventId] !== undefined) {
-			return eventBibsCache[eventId]
-		}
-
-		try {
-			const availableBibs = await fetchAvailableBibsForEvent(eventId)
-			const count = availableBibs.length
-			setEventBibsCache(prev => ({ ...prev, [eventId]: count }))
-			return count
-		} catch (error) {
-			console.error('Error fetching bibs for event:', error)
-			return 0
-		}
+	// Optimized function to get bib count for an event (no API calls needed)
+	const getBibCountForEvent = (eventId: string): number => {
+		return eventBibsCache[eventId] || 0
 	}
 
-	// Function to handle event button clicks
-	const handleEventAction = async (event: Event) => {
-		try {
-			const bibCount = await getBibCountForEvent(event.id)
+	// Optimized function to handle event button clicks (no async needed)
+	const handleEventAction = (event: Event) => {
+		const bibCount = getBibCountForEvent(event.id)
 
-			if (bibCount > 0) {
-				// Redirect to marketplace with filters for this specific event
-				const searchParams = new URLSearchParams({
-					sport: encodeURIComponent(event.typeCourse), // Filter by sport type
-					search: encodeURIComponent(event.name), // Search by event name
-					geography: event.location ? encodeURIComponent(event.location.toLowerCase()) : '', // Filter by location
-				})
-				router.push(`/${locale}/marketplace?${searchParams.toString()}`)
-			} else {
-				// Redirect to event detail page (which has the waitlist functionality)
-				router.push(`/${locale}/events/${event.id}`)
-			}
-		} catch (error) {
-			console.error('Error checking event bibs:', error)
-			// Fallback: redirect to event detail page
+		if (bibCount > 0) {
+			// Redirect to marketplace with filters for this specific event
+			const searchParams = new URLSearchParams({
+				sport: encodeURIComponent(event.typeCourse), // Filter by sport type
+				search: encodeURIComponent(event.name), // Search by event name
+				geography: event.location ? encodeURIComponent(event.location.toLowerCase()) : '', // Filter by location
+			})
+			router.push(`/${locale}/marketplace?${searchParams.toString()}`)
+		} else {
+			// Redirect to event detail page (which has the waitlist functionality)
 			router.push(`/${locale}/events/${event.id}`)
 		}
 	}

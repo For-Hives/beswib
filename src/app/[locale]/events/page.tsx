@@ -1,7 +1,7 @@
-import type { Event } from '@/models/event.model'
-import type { Bib } from '@/models/bib.model'
-import type { User } from '@/models/user.model'
 import type { Organizer } from '@/models/organizer.model'
+import type { Event } from '@/models/event.model'
+import type { User } from '@/models/user.model'
+import type { Bib } from '@/models/bib.model'
 
 import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
 import { fetchApprovedPublicEventsWithBibs } from '@/services/event.services'
@@ -14,11 +14,11 @@ export default async function EventsPage({ params }: { params: Promise<LocalePar
 	const { locale } = await params
 	const t = getTranslations(locale, eventsTranslations)
 
-	let events: (Event & { 
-		expand?: { 
+	let events: (Event & {
+		expand?: {
 			organizer?: Organizer
-			'bibs_via_eventId'?: (Bib & { expand?: { sellerUserId: User } })[]
-		} 
+			bibs_via_eventId?: (Bib & { expand?: { sellerUserId: User } })[]
+		}
 	})[] = []
 	let error: null | string = null
 
