@@ -1,50 +1,43 @@
 import * as React from 'react'
+import computeFontSizeAndRender from '@/components/OG/computeFontSize' // Function to dynamically calculate font size to fit text
 
+// Props type definition for the OGImage component
 type OGImageProps = {
-	title?: string
-	secondary?: string
-	host: string
-	protocol: string
-	size: { width: number; height: number }
+	title?: string // Optional main title text
+	secondary?: string // Optional secondary text
+	host: string // Hostname for building absolute URLs for assets
+	protocol: string // Protocol for URLs (http/https)
+	size: { width: number; height: number } // Dimensions of the OpenGraph image
 }
 
 export default function OGImage({ title, secondary, host, protocol, size }: OGImageProps) {
-	// Formatage des textes
-	// const titleLines = (title ?? 'Achetez et vendez\nvos dossards\nen toute sérénité.')
-	// 	.replace(/<br\s*\/?>/gi, '\n')
-	// 	.split('\n')
-	// 	.map(line => line.trim())
-	// 	.filter(Boolean)
+	// Maximum dimensions for the main and secondary text blocks
+	const MAX_WIDTH_Main = 440
+	const MAX_HEIGHT_Main = 197
+	const MAX_WIDTH_Secondary = 440
+	const MAX_HEIGHT_Secondary = 88
 
-	const secondaryLines = (secondary ?? '')
-		.replace(/<br\s*\/?>/gi, '\n')
-		.split('\n')
+	// Default text if no title or secondary text is provided
+	const titleMain = String(title ?? 'Achetez et vendez vos dossards en toute sérénité.')
+	const Secondarydesc = String(secondary ?? "Plateforme d'achats et de revente de dossards sécurisée")
 
-		.map(line => line.trim())
-		.filter(Boolean)
+	// Calculate font size for the main title dynamically
+	const { fontSize: mainFontSize } = computeFontSizeAndRender({
+		text: titleMain,
+		maxWidth: MAX_WIDTH_Main,
+		maxHeight: MAX_HEIGHT_Main,
+		initialFontSize: 36,
+	})
 
-	function renderColoredBold(text: string) {
-		const regex = /(\*\*[^*]+\*\*)/g
-		const parts = text.split(regex)
+	// Calculate font size for the secondary text dynamically
+	const { fontSize: secondaryFontSize } = computeFontSizeAndRender({
+		text: Secondarydesc,
+		maxWidth: MAX_WIDTH_Secondary,
+		maxHeight: MAX_HEIGHT_Secondary,
+		initialFontSize: 24,
+	})
 
-		return parts.map((part, idx) => {
-			if (part.startsWith('**') && part.endsWith('**')) {
-				const match = part.slice(2, -2)
-				return (
-					<span key={idx} style={{ color: '#94b3b4', fontWeight: 'bold', whiteSpace: 'pre' }}>
-						{match}
-					</span>
-				)
-			}
-			return (
-				<span key={idx} style={{ whiteSpace: 'pre' }}>
-					{part}
-				</span>
-			)
-		})
-	}
-
-	// Construction des URLs
+	// Construct absolute URLs for images/assets
 	const src = `${protocol}://${host}/openGraph/${encodeURIComponent('fond pattern.png')}`
 	const stravaUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('strava.png')}`
 	const linkedinUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('linkedin.png')}`
@@ -63,9 +56,10 @@ export default function OGImage({ title, secondary, host, protocol, size }: OGIm
 				height: `${size.height}px`,
 			}}
 		>
+			{/* Background image */}
 			<img src={src} width={size.width} height={size.height} alt="" style={{ objectFit: 'cover', display: 'flex' }} />
 
-			{/* Main text */}
+			{/* Main text container */}
 			<div
 				style={{
 					position: 'absolute',
@@ -73,53 +67,45 @@ export default function OGImage({ title, secondary, host, protocol, size }: OGIm
 					top: 108,
 					display: 'flex',
 					flexDirection: 'column',
-					color: '#111E3B',
+					color: '#111E3B', // Dark blue color for text
 				}}
 			>
-				{/* {titleLines.map((line, idx) => (
-					<div
-						key={line}
-						style={{
-							display: 'block',
-							fontWeight: 'bold',
-							lineHeight: 1.1,
-							fontSize: 50,
-							marginBottom: idx === titleLines.length - 1 ? 40 : 16,
-						}}
-					>
-						{line}
-					</div>
-				))} */}
-
+				{/* Main title with dynamic font size */}
 				<div
 					style={{
-						display: 'block',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						width: MAX_WIDTH_Main,
+						height: MAX_HEIGHT_Main,
 						fontWeight: 'bold',
 						lineHeight: 1.1,
-						fontSize: 50,
+						fontSize: mainFontSize,
+						textAlign: 'left',
+						whiteSpace: 'pre-wrap',
+						overflow: 'hidden',
 					}}
 				>
-					{title}
+					{titleMain}
 				</div>
 
-				{secondaryLines.length > 0 &&
-					secondaryLines.map(line => (
-						<div
-							key={line}
-							style={{
-								display: 'flex',
-								fontSize: 24,
-								fontWeight: 500,
-								opacity: 0.9,
-								marginTop: 2,
-							}}
-						>
-							{renderColoredBold(line)}
-						</div>
-					))}
+				{/* Secondary text with dynamic font size */}
+				<div
+					style={{
+						width: MAX_WIDTH_Secondary,
+						height: MAX_HEIGHT_Secondary,
+						textAlign: 'left',
+						whiteSpace: 'pre-wrap',
+						overflow: 'hidden',
+						fontSize: secondaryFontSize,
+						display: 'flex', // Keeps text vertically centered if needed
+					}}
+				>
+					{Secondarydesc}
+				</div>
 			</div>
 
-			{/* Réseaux sociaux */}
+			{/* Social media links and website */}
 			<div
 				style={{
 					position: 'absolute',
@@ -146,7 +132,7 @@ export default function OGImage({ title, secondary, host, protocol, size }: OGIm
 				</div>
 			</div>
 
-			{/* Montagne */}
+			{/* Decorative mountain image on the right */}
 			<div
 				style={{
 					position: 'absolute',
@@ -161,7 +147,7 @@ export default function OGImage({ title, secondary, host, protocol, size }: OGIm
 				<img src={mountain} width={440} height={305} alt="mountain" style={{ objectFit: 'cover', display: 'flex' }} />
 			</div>
 
-			{/* Logo Beswib */}
+			{/* Beswib logo in bottom-right corner */}
 			<div
 				style={{
 					position: 'absolute',
