@@ -81,7 +81,7 @@
 			},
 			"OG": {
 				"titleOG": "Events",
-				"descriptionOG": "Browse our **events** <br />and find **race bibs** <br />for upcoming events!"
+				"descriptionOG": "Browse our **events** and find **race bibs** for upcoming events!"
 			},
 			"noEventsToDisplay": "No events to display.",
 			"eventListTitleClient": "Event List (Client Component):"
@@ -169,7 +169,7 @@
 			},
 			"OG": {
 				"titleOG": "Évènements",
-				"descriptionOG": "Parcourez nos **évènements** <br />et Trouvez des **dossards** <br />pour les événements à **venir** !"
+				"descriptionOG": "Parcourez nos **évènements** et Trouvez des **dossards** pour les événements à **venir** !"
 			},
 			"noEventsToDisplay": "Aucun événement à afficher.",
 			"eventListTitleClient": "Liste des événements (Composant Client) :"
@@ -257,7 +257,7 @@
 			},
 			"OG": {
 				"titleOG": "이벤트",
-				"descriptionOG": "우리의 **이벤트**를 둘러보고 <br />다가오는 이벤트를 위한 **레이스 비브**를 찾아보세요!"
+				"descriptionOG": "우리의 **이벤트**를 둘러보고 다가오는 이벤트를 위한 **레이스 비브**를 찾아보세요!"
 			},
 			"noEventsToDisplay": "표시할 이벤트가 없습니다.",
 			"eventListTitleClient": "이벤트 목록 (클라이언트 컴포넌트):"
@@ -345,7 +345,7 @@
 			},
 			"OG": {
 				"titleOG": "Eventos",
-				"descriptionOG": "Explora nuestros **eventos** <br />y encuentra **dorsales** <br />para eventos próximos!"
+				"descriptionOG": "Explora nuestros **eventos** y encuentra **dorsales** para eventos próximos!"
 			},
 			"noEventsToDisplay": "No hay eventos para mostrar.",
 			"eventListTitleClient": "Lista de eventos (Componente Cliente):"
@@ -433,7 +433,7 @@
 			},
 			"OG": {
 				"titleOG": "Eventi",
-				"descriptionOG": "Sfoglia i nostri **eventi** <br />e trova i **pettorali** <br />per gli eventi in arrivo!"
+				"descriptionOG": "Sfoglia i nostri **eventi** e trova i **pettorali** per gli eventi in arrivo!"
 			},
 			"noEventsToDisplay": "Nessun evento da mostrare.",
 			"eventListTitleClient": "Elenco eventi (Componente client):"
@@ -521,7 +521,7 @@
 			},
 			"OG": {
 				"titleOG": "Veranstaltungen",
-				"descriptionOG": "Durchsuchen Sie unsere **Veranstaltungen** <br />und finden Sie **Startnummern** <br />für kommende Veranstaltungen!"
+				"descriptionOG": "Durchsuchen Sie unsere **Veranstaltungen** und finden Sie **Startnummern** für kommende Veranstaltungen!"
 			},
 			"noEventsToDisplay": "Keine Events zum Anzeigen.",
 			"eventListTitleClient": "Event-Liste (Client-Komponente):"
@@ -609,7 +609,7 @@
 			},
 			"OG": {
 				"titleOG": "Evenimente",
-				"descriptionOG": "Răsfoiește **evenimentele** noastre <br />și găsește **numere de concurs** <br />pentru evenimente viitoare!"
+				"descriptionOG": "Răsfoiește **evenimentele** noastre și găsește **numere de concurs** pentru evenimente viitoare!"
 			},
 			"noEventsToDisplay": "Nu există evenimente de afișat.",
 			"eventListTitleClient": "Lista evenimente (Componenta client):"
@@ -697,7 +697,7 @@
 			},
 			"OG": {
 				"titleOG": "Eventos",
-				"descriptionOG": "Navegue pelos nossos **eventos** <br />e encontre **números de corrida** <br />para eventos futuros!"
+				"descriptionOG": "Navegue pelos nossos **eventos** e encontre **números de corrida** para eventos futuros!"
 			},
 			"noEventsToDisplay": "Não há eventos para mostrar.",
 			"eventListTitleClient": "Lista de eventos (Componente cliente):"
@@ -785,7 +785,7 @@
 			},
 			"OG": {
 				"titleOG": "Evenementen",
-				"descriptionOG": "Blader door onze **evenementen** <br />en vind **startnummers** <br />voor aankomende evenementen!"
+				"descriptionOG": "Blader door onze **evenementen** en vind **startnummers** voor aankomende evenementen!"
 			},
 			"noEventsToDisplay": "Geen events om weer te geven.",
 			"eventListTitleClient": "Event-lijst (Client-component):"
