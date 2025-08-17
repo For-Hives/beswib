@@ -341,6 +341,38 @@ export async function updateExpiredBibsToWithdrawn(sellerUserId?: string): Promi
 }
 
 /**
+ * Checks if a bib is private without revealing sensitive data.
+ * @param bibId The ID of the bib to check.
+ * @returns Object containing listing status and availability.
+ */
+export async function checkBibListingStatus(
+	bibId: string
+): Promise<{ listed: 'private' | 'public' | null; exists: boolean; available: boolean } | null> {
+	if (bibId === '') {
+		console.error('Bib ID is required.')
+		return null
+	}
+	try {
+		const record = await pb.collection('bibs').getOne<Pick<Bib, 'id' | 'listed' | 'status'>>(bibId, {
+			fields: 'id,listed,status',
+		})
+
+		return {
+			listed: record.listed,
+			exists: true,
+			available: record.status === 'available'
+		}
+	} catch (error: unknown) {
+		// If bib doesn't exist or there's an error
+		return {
+			listed: null,
+			exists: false,
+			available: false
+		}
+	}
+}
+
+/**
  * Fetches a single bib by its ID for public display or pre-purchase.
  * @param bibId The ID of the bib to fetch.
  */
@@ -359,6 +391,11 @@ export async function fetchBibById(
 			>(bibId, {
 				expand: 'eventId,sellerUserId,eventId.organizer',
 			})
+
+		// Only return if it's a public listing
+		if (record.listed !== 'public') {
+			return null
+		}
 
 		return record
 	} catch (error: unknown) {

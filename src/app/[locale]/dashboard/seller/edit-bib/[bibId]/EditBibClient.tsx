@@ -26,6 +26,14 @@ import Link from 'next/link'
 import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+} from '@/components/ui/dialog'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -35,14 +43,6 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Locale } from '@/lib/i18n/config'
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-} from '@/components/ui/dialog'
 
 import {
 	handleToggleListingStatus,
@@ -292,14 +292,22 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 
 	const copyToken = () => {
 		if (bib?.privateListingToken) {
-			copyToClipboard(bib.privateListingToken, t.privateTokenCopySuccess ?? 'Token copied to clipboard!')
+			copyToClipboard(bib.privateListingToken, t.privateTokenCopySuccess ?? 'Token copied to clipboard!').catch(
+				error => {
+					console.error('Failed to copy to clipboard:', error)
+					toast.error('Failed to copy to clipboard')
+				}
+			)
 		}
 	}
 
 	const copyPrivateLink = () => {
 		const link = generatePrivateLink()
 		if (link) {
-			copyToClipboard(link, t.privateLinkCopySuccess ?? 'Private link copied to clipboard!')
+			copyToClipboard(link, t.privateLinkCopySuccess ?? 'Private link copied to clipboard!').catch(error => {
+				console.error('Failed to copy to clipboard:', error)
+				toast.error('Failed to copy to clipboard')
+			})
 		}
 	}
 
