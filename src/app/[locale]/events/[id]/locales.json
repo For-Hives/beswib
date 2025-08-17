@@ -35,6 +35,8 @@
 				"gender": "Gender",
 				"buyButton": "Buy Bib",
 				"viewListing": "View Listing",
+				"soldBy": "Sold by",
+				"availableBib": "Available Bib",
 				"noBibsAvailable": "No bibs currently listed for resale for this event."
 			},
 			"waitlist": {
@@ -95,6 +97,8 @@
 				"gender": "Sexe",
 				"buyButton": "Acheter le dossard",
 				"viewListing": "Voir l'annonce",
+				"soldBy": "Vendu par",
+				"availableBib": "Dossard disponible",
 				"noBibsAvailable": "Aucun dossard actuellement en vente pour cet événement."
 			},
 			"waitlist": {
@@ -155,6 +159,8 @@
 				"gender": "Género",
 				"buyButton": "Comprar dorsal",
 				"viewListing": "Ver anuncio",
+				"soldBy": "Vendido por",
+				"availableBib": "Dorsal disponible",
 				"noBibsAvailable": "No hay dorsales disponibles para la venta en este evento."
 			},
 			"waitlist": {
@@ -215,6 +221,8 @@
 				"gender": "Genere",
 				"buyButton": "Compra pettorina",
 				"viewListing": "Vedi annuncio",
+				"soldBy": "Venduto da",
+				"availableBib": "Pettorina disponibile",
 				"noBibsAvailable": "Nessuna pettorina attualmente in vendita per questo evento."
 			},
 			"waitlist": {
@@ -275,6 +283,8 @@
 				"gender": "Geschlecht",
 				"buyButton": "Startnummer kaufen",
 				"viewListing": "Anzeige ansehen",
+				"soldBy": "Verkauft von",
+				"availableBib": "Startnummer verfügbar",
 				"noBibsAvailable": "Derzeit keine Startnummern zum Verkauf für dieses Event verfügbar."
 			},
 			"waitlist": {
@@ -335,6 +345,8 @@
 				"gender": "Gen",
 				"buyButton": "Cumpără numărul",
 				"viewListing": "Vezi anunțul",
+				"soldBy": "Vândut de",
+				"availableBib": "Număr de concurs disponibil",
 				"noBibsAvailable": "Nu sunt numere de concurs disponibile pentru vânzare la acest eveniment."
 			},
 			"waitlist": {
@@ -395,6 +407,8 @@
 				"gender": "Género",
 				"buyButton": "Comprar dorsal",
 				"viewListing": "Ver anúncio",
+				"soldBy": "Vendido por",
+				"availableBib": "Dorsal disponível",
 				"noBibsAvailable": "Nenhum dorsal atualmente à venda para este evento."
 			},
 			"waitlist": {
@@ -455,6 +469,8 @@
 				"gender": "Geslacht",
 				"buyButton": "Startnummer kopen",
 				"viewListing": "Bekijk advertentie",
+				"soldBy": "Verkocht door",
+				"availableBib": "Startnummer beschikbaar",
 				"noBibsAvailable": "Momenteel geen startnummers te koop voor dit evenement."
 			},
 			"waitlist": {
@@ -515,6 +531,8 @@
 				"gender": "성별",
 				"buyButton": "빕 구매",
 				"viewListing": "목록 보기",
+				"soldBy": "판매자",
+				"availableBib": "빕 사용 가능",
 				"noBibsAvailable": "현재 이 이벤트에 판매중인 빕이 없습니다."
 			},
 			"waitlist": {

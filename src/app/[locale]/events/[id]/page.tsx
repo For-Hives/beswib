@@ -12,6 +12,7 @@ import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
 import { fetchPubliclyListedBibsForEvent } from '@/services/bib.services'
+import CardEventBib from '@/components/marketplace/CardEventBib'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { addToWaitlist } from '@/services/waitlist.services'
 import { fetchEventById } from '@/services/event.services'
@@ -246,41 +247,9 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 						<h2 className="text-foreground mb-6 text-2xl font-bold">{t.event.bibs.title}</h2>
 
 						{publiclyListedBibs.length > 0 ? (
-							<div className="grid gap-4">
+							<div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 								{publiclyListedBibs.map(bib => (
-									<div
-										className="dark:border-border/30 bg-card/40 hover:bg-card/60 flex flex-col justify-between rounded-2xl border p-6 transition-colors sm:flex-row sm:items-center"
-										key={bib.id}
-									>
-										<div className="space-y-2">
-											<div className="text-2xl font-bold text-[var(--accent-sporty)]">
-												{t.event.bibs.price}: ${bib.price.toFixed(2)}
-											</div>
-											{bib.originalPrice != null && bib.originalPrice !== 0 && !isNaN(bib.originalPrice) && (
-												<p className="text-muted-foreground text-sm">
-													{t.event.bibs.originalPrice}: ${bib.originalPrice.toFixed(2)}
-												</p>
-											)}
-											<div className="flex gap-4">
-												{bib.optionValues.size != null && bib.optionValues.size !== '' && (
-													<p className="text-muted-foreground text-sm">
-														{t.event.bibs.size}: {bib.optionValues.size}
-													</p>
-												)}
-												{bib.optionValues.gender != null && (
-													<p className="text-muted-foreground text-sm">
-														{t.event.bibs.gender}: {bib.optionValues.gender}
-													</p>
-												)}
-											</div>
-										</div>
-										<Link
-											className="bg-primary hover:bg-primary/90 text-primary-foreground mt-4 rounded-xl px-6 py-3 font-medium transition sm:mt-0"
-											href={`/purchase/${bib.id}`}
-										>
-											{t.event.bibs.buyButton}
-										</Link>
-									</div>
+									<CardEventBib key={bib.id} bib={bib} locale={locale} />
 								))}
 							</div>
 						) : (
@@ -309,13 +278,13 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 											<input name="eventId" type="hidden" value={eventId} />
 											<div className="space-y-2">
 												<label className="text-foreground block text-sm font-medium" htmlFor="waitlist-email">
-													Email address
+													{t.event.waitlist.emailLabel}
 												</label>
 												<input
 													className="border-border bg-card/50 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 w-full rounded-lg border px-4 py-3 backdrop-blur-sm transition focus:ring-2 focus:outline-none"
 													id="waitlist-email"
 													name="email"
-													placeholder="Enter your email for notifications"
+													placeholder={t.event.waitlist.emailPlaceholder}
 													required
 													type="email"
 												/>
@@ -325,7 +294,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 												type="submit"
 											>
 												<Bell className="h-5 w-5" />
-												Subscribe to Notifications
+												{t.event.waitlist.subscribeButton}
 											</button>
 										</form>
 										<div className="relative">
@@ -333,14 +302,14 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 												<div className="border-border w-full border-t" />
 											</div>
 											<div className="relative flex justify-center text-sm">
-												<span className="text-muted-foreground bg-background px-2">or</span>
+												<span className="text-muted-foreground bg-background px-2">{t.event.waitlist.or}</span>
 											</div>
 										</div>
 										<Link
 											className="bg-primary hover:bg-primary/90 text-primary-foreground flex w-full items-center justify-center gap-3 rounded-xl px-6 py-3 font-medium transition"
 											href={`/${locale}/sign-in`}
 										>
-											Sign in for full features
+											{t.event.waitlist.signInButton}
 										</Link>
 									</div>
 								</SignedOut>
