@@ -16,8 +16,8 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 
 import pageLocales from './locales.json'
@@ -239,13 +239,14 @@ export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsMa
 											placeholder={t.verifiedEmails.codePlaceholder ?? '6-digit code'}
 											value={verificationCodes[email.id] || ''}
 											onChange={e => updateVerificationCode(email.id, e.target.value)}
-											className="w-32"
+											className="h-12 w-32"
 											maxLength={6}
 											disabled={processingEmails.has(email.id)}
 										/>
 										<Button
 											size="sm"
 											onClick={() => void handleVerifyEmail(email.id)}
+											className="h-12"
 											disabled={
 												processingEmails.has(email.id) ||
 												!verificationCodes[email.id] ||
@@ -258,6 +259,7 @@ export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsMa
 											size="sm"
 											variant="outline"
 											onClick={() => void handleResendCode(email.id)}
+											className="h-12"
 											disabled={processingEmails.has(email.id)}
 										>
 											{t.verifiedEmails.buttons.resend ?? 'Resend'}
@@ -267,6 +269,7 @@ export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsMa
 								<Button
 									size="sm"
 									variant="destructive"
+									className="h-12 w-12"
 									onClick={() => void handleDeleteEmail(email.id)}
 									disabled={processingEmails.has(email.id)}
 								>
@@ -284,18 +287,19 @@ export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsMa
 						</Button>
 					) : (
 						<div className="space-y-4">
-							<div className="flex gap-2">
+							<div className="flex items-center gap-2">
 								<Input
 									type="email"
 									placeholder={t.verifiedEmails.buttons.enterEmailPlaceholder ?? 'Enter email address'}
 									value={newEmail}
 									onChange={e => setNewEmail(e.target.value)}
 									onKeyPress={e => e.key === 'Enter' && !processingEmails.has('new') && void handleAddEmail()}
-									className="flex-1"
+									className="h-12 w-full md:w-72"
 									disabled={processingEmails.has('new')}
 								/>
 								<Button
 									onClick={() => void handleAddEmail()}
+									className="h-12 border-black/50"
 									disabled={processingEmails.has('new') || !newEmail.trim() || !newEmail.includes('@')}
 								>
 									{t.verifiedEmails.buttons.add ?? 'Add'}
@@ -307,6 +311,7 @@ export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsMa
 										setNewEmail('')
 										setError(null)
 									}}
+									className="h-12 border-black/50 py-0"
 									disabled={processingEmails.has('new')}
 								>
 									{t.verifiedEmails.buttons.cancel ?? 'Cancel'}
