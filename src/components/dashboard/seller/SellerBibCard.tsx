@@ -50,7 +50,6 @@ export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
 	return (
 		<div className="group relative h-full w-full">
 			<div className="bg-card/80 border-border hover:border-foreground/35 relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md transition-all duration-300">
-				
 				{/* Background pattern */}
 				<div
 					className={cn(
@@ -67,14 +66,14 @@ export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
 					<>
 						{/* Blur overlay */}
 						<div className="absolute inset-0 z-30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-							<div className="h-full w-full backdrop-blur-sm bg-black/20 rounded-2xl" />
+							<div className="h-full w-full rounded-2xl bg-black/20 backdrop-blur-sm" />
 						</div>
-						
+
 						{/* Edit button */}
 						<div className="absolute inset-0 z-40 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
 							<Link href={`/dashboard/seller/edit-bib/${bib.id}`}>
-								<div className="flex items-center justify-center rounded-full bg-primary/90 p-4 shadow-lg transition-transform duration-200 hover:scale-110">
-									<Edit3 className="h-6 w-6 text-primary-foreground" />
+								<div className="bg-primary/90 flex items-center justify-center rounded-full p-4 shadow-lg transition-transform duration-200 hover:scale-110">
+									<Edit3 className="text-primary-foreground h-6 w-6" />
 								</div>
 							</Link>
 						</div>
@@ -111,7 +110,7 @@ export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
 				<div className="flex flex-1 flex-col gap-2 px-4 py-4">
 					{/* Event name and price */}
 					<div className="flex w-full justify-between gap-2">
-						<h3 className="text-foreground text-lg font-bold truncate">
+						<h3 className="text-foreground truncate text-lg font-bold">
 							{bib.expand?.eventId?.name ?? `Event ID: ${bib.eventId ?? 'Unknown'}`}
 						</h3>
 						<div className="relative flex flex-col items-center gap-2">
@@ -121,7 +120,7 @@ export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
 
 					{/* Registration number */}
 					<div className="flex items-center gap-2">
-						<Tag className="h-4 w-4 text-muted-foreground" />
+						<Tag className="text-muted-foreground h-4 w-4" />
 						<p className="text-muted-foreground text-sm">
 							{t?.registrationNumber ?? 'Registration Number'}: {bib.registrationNumber ?? 'N/A'}
 						</p>
@@ -130,7 +129,7 @@ export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
 					{/* Event date */}
 					{bib.expand?.eventId?.eventDate && (
 						<div className="flex items-center gap-2">
-							<Calendar className="h-4 w-4 text-muted-foreground" />
+							<Calendar className="text-muted-foreground h-4 w-4" />
 							<p className="text-muted-foreground text-sm">
 								{formatDateObjectForDisplay(new Date(bib.expand.eventId.eventDate), locale)}
 							</p>
@@ -140,10 +139,8 @@ export default function SellerBibCard({ bib, locale }: SellerBibCardProps) {
 					{/* Location if available */}
 					{bib.expand?.eventId?.location && (
 						<div className="flex items-center gap-2">
-							<MapPinned className="h-4 w-4 text-muted-foreground" />
-							<p className="text-muted-foreground text-sm truncate">
-								{bib.expand.eventId.location}
-							</p>
+							<MapPinned className="text-muted-foreground h-4 w-4" />
+							<p className="text-muted-foreground truncate text-sm">{bib.expand.eventId.location}</p>
 						</div>
 					)}
 
