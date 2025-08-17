@@ -117,23 +117,25 @@ export default function NotFoundPage() {
 				<p className="text-muted-foreground mt-6 text-lg font-medium text-pretty sm:text-xl/8">{t.description}</p>
 
 				<div className="mt-10 flex flex-col gap-x-6 gap-y-3 sm:flex-row sm:items-center sm:justify-center">
-					<Button variant="secondary" asChild className="group" type="button">
-						<Link
-							href={`/${locale}`}
-							onClick={() => (typeof window !== 'undefined' ? window.history.back() : undefined)}
-						>
-							<ArrowLeft
-								className="ms-0 me-2 opacity-60 transition-transform group-hover:-translate-x-0.5"
-								size={16}
-								strokeWidth={2}
-								aria-hidden="true"
-							/>
-							{t.goBack}
-						</Link>
-					</Button>
-					<Button asChild type="button">
-						<Link href={`/${locale}`}>{t.home}</Link>
-					</Button>
+					<Link
+						href={`/${locale}`}
+						onClick={() => (typeof window !== 'undefined' ? window.history.back() : undefined)}
+						className="group inline-flex h-10 items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground ring-offset-background transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+					>
+						<ArrowLeft
+							className="ms-0 me-2 opacity-60 transition-transform group-hover:-translate-x-0.5"
+							size={16}
+							strokeWidth={2}
+							aria-hidden="true"
+						/>
+						{t.goBack}
+					</Link>
+					<Link 
+						href={`/${locale}`}
+						className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+					>
+						{t.home}
+					</Link>
 				</div>
 			</div>
 		</div>
