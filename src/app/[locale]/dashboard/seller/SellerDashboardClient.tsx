@@ -40,15 +40,30 @@ interface SerializedClerkUser {
 export const getStatusDisplay = (status: string, t: any) => {
 	switch (status) {
 		case 'available':
-			return { label: t.bibStatus?.available ?? 'Available', color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' }
+			return {
+				label: t.bibStatus?.available ?? 'Available',
+				color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
+			}
 		case 'expired':
-			return { label: t.bibStatus?.expired ?? 'Expired', color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400' }
+			return {
+				label: t.bibStatus?.expired ?? 'Expired',
+				color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400',
+			}
 		case 'sold':
-			return { label: t.bibStatus?.sold ?? 'Sold', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400' }
+			return {
+				label: t.bibStatus?.sold ?? 'Sold',
+				color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400',
+			}
 		case 'validation_failed':
-			return { label: t.bibStatus?.validationFailed ?? 'Validation Failed', color: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400' }
+			return {
+				label: t.bibStatus?.validationFailed ?? 'Validation Failed',
+				color: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400',
+			}
 		case 'withdrawn':
-			return { label: t.bibStatus?.withdrawn ?? 'Withdrawn', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400' }
+			return {
+				label: t.bibStatus?.withdrawn ?? 'Withdrawn',
+				color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400',
+			}
 		default:
 			return { label: status, color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400' }
 	}
@@ -116,7 +131,7 @@ export default function SellerDashboardClient({
 			<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
 				<div className="flex items-center justify-between">
 					<div>
-						<p className="text-muted-foreground text-sm">{t.sellerDashboard ?? 'Seller Dashboard'}</p>
+						<p className="text-muted-foreground text-sm">{t.userHeader?.sellerDashboard ?? 'Seller Dashboard'}</p>
 						<p className="text-foreground flex items-center gap-2 font-medium">
 							<Tag className="h-4 w-4" />
 							{userName}
@@ -150,47 +165,51 @@ export default function SellerDashboardClient({
 					<div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-4">
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader className="pb-2">
-								<CardTitle className="text-muted-foreground text-sm">Total Listings</CardTitle>
+								<CardTitle className="text-muted-foreground text-sm">
+									{t.stats?.totalListings ?? 'Total Listings'}
+								</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<div className="text-2xl font-bold">{totalListings}</div>
-								<p className="text-muted-foreground text-xs">Bibs listed for sale</p>
+								<p className="text-muted-foreground text-xs">{t.stats?.totalListingsDesc ?? 'Bibs listed for sale'}</p>
 							</CardContent>
 						</Card>
 
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader className="pb-2">
-								<CardTitle className="text-muted-foreground text-sm">Available</CardTitle>
+								<CardTitle className="text-muted-foreground text-sm">{t.stats?.available ?? 'Available'}</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<div className="text-2xl font-bold">{availableBibs}</div>
-								<p className="text-muted-foreground text-xs">Currently for sale</p>
+								<p className="text-muted-foreground text-xs">{t.stats?.availableDesc ?? 'Currently for sale'}</p>
 							</CardContent>
 						</Card>
 
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader className="pb-2">
-								<CardTitle className="text-muted-foreground text-sm">Sold</CardTitle>
+								<CardTitle className="text-muted-foreground text-sm">{t.stats?.sold ?? 'Sold'}</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<div className="text-2xl font-bold">{soldBibs}</div>
-								<p className="text-muted-foreground text-xs">Successfully sold</p>
+								<p className="text-muted-foreground text-xs">{t.stats?.soldDesc ?? 'Successfully sold'}</p>
 							</CardContent>
 						</Card>
 
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader className="flex items-center gap-2 pb-2">
 								<CardTitle className="text-muted-foreground flex items-center gap-2 text-sm">
-									Net Revenue
+									{t.stats?.netRevenue ?? 'Net Revenue'}
 									<Tooltip>
-										<TooltipTrigger>Hover</TooltipTrigger>
+										<TooltipTrigger>{t.tooltip?.hover ?? 'Hover'}</TooltipTrigger>
 										<TooltipContent>
 											<span>
-												How fees work: <br />
-												<strong>Net = Amount − Platform fees − PayPal fees.</strong>
+												{t.tooltip?.feesExplanation ?? 'How fees work:'} <br />
+												<strong>{t.tooltip?.netFormula ?? 'Net = Amount − Platform fees − PayPal fees.'}</strong>
 												<br />
-												Platform fees are <strong>10% of the listing price</strong>.<br />
-												PayPal fees are provided by PayPal in the capture and may vary by country and payment method.
+												{t.tooltip?.platformFeesInfo ?? 'Platform fees are 10% of the listing price.'}
+												<br />
+												{t.tooltip?.paypalFeesInfo ??
+													'PayPal fees are provided by PayPal in the capture and may vary by country and payment method.'}
 											</span>
 										</TooltipContent>
 									</Tooltip>
@@ -198,11 +217,19 @@ export default function SellerDashboardClient({
 							</CardHeader>
 							<CardContent>
 								<div className="text-2xl font-bold">€{totals.net.toFixed(2)}</div>
-								<p className="text-muted-foreground text-xs">After platform and PayPal fees</p>
+								<p className="text-muted-foreground text-xs">
+									{t.stats?.netRevenueDesc ?? 'After platform and PayPal fees'}
+								</p>
 								<div className="text-muted-foreground mt-2 space-y-1 text-xs">
-									<p>Gross: €{totals.gross.toFixed(2)}</p>
-									<p>Platform fees: −€{totals.platform.toFixed(2)}</p>
-									<p>PayPal fees: −€{totals.paypal.toFixed(2)}</p>
+									<p>
+										{t.stats?.gross ?? 'Gross:'} €{totals.gross.toFixed(2)}
+									</p>
+									<p>
+										{t.stats?.platformFees ?? 'Platform fees:'} −€{totals.platform.toFixed(2)}
+									</p>
+									<p>
+										{t.stats?.paypalFees ?? 'PayPal fees:'} −€{totals.paypal.toFixed(2)}
+									</p>
 								</div>
 							</CardContent>
 						</Card>
@@ -210,7 +237,7 @@ export default function SellerDashboardClient({
 
 					{/* Quick Actions */}
 					<div className="mb-8">
-						<h2 className="text-foreground mb-6 text-xl font-bold">Quick Actions</h2>
+						<h2 className="text-foreground mb-6 text-xl font-bold">{t.quickActions ?? 'Quick Actions'}</h2>
 						<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
 							<Link href="/dashboard/seller/sell-bib">
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
@@ -218,7 +245,7 @@ export default function SellerDashboardClient({
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<Plus className="h-6 w-6" />
 										</div>
-										<p className="text-sm font-medium">{t?.sellBib ?? 'Sell New Bib'}</p>
+										<p className="text-sm font-medium">{t.actions?.sellNewBib ?? 'Sell New Bib'}</p>
 									</CardContent>
 								</Card>
 							</Link>
@@ -229,7 +256,7 @@ export default function SellerDashboardClient({
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<List className="h-6 w-6" />
 										</div>
-										<p className="text-sm font-medium">My Listings</p>
+										<p className="text-sm font-medium">{t.actions?.myListings ?? 'My Listings'}</p>
 									</CardContent>
 								</Card>
 							</Link>
@@ -240,7 +267,7 @@ export default function SellerDashboardClient({
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<Search className="h-6 w-6" />
 										</div>
-										<p className="text-sm font-medium">View Marketplace</p>
+										<p className="text-sm font-medium">{t.actions?.viewMarketplace ?? 'View Marketplace'}</p>
 									</CardContent>
 								</Card>
 							</Link>
@@ -251,7 +278,7 @@ export default function SellerDashboardClient({
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<Users className="h-6 w-6" />
 										</div>
-										<p className="text-sm font-medium">Main Dashboard</p>
+										<p className="text-sm font-medium">{t.actions?.mainDashboard ?? 'Main Dashboard'}</p>
 									</CardContent>
 								</Card>
 							</Link>
@@ -263,9 +290,9 @@ export default function SellerDashboardClient({
 						<CardHeader>
 							<CardTitle className="flex items-center gap-2">
 								<List className="h-5 w-5" />
-								Recent Sales
+								{t.recentSales?.title ?? 'Recent Sales'}
 							</CardTitle>
-							<CardDescription>Completed transactions for your bibs</CardDescription>
+							<CardDescription>{t.recentSales?.description ?? 'Completed transactions for your bibs'}</CardDescription>
 						</CardHeader>
 						<CardContent>
 							{succeededTransactions.length > 0 ? (
@@ -276,9 +303,11 @@ export default function SellerDashboardClient({
 										return (
 											<div className="rounded-lg border p-4" key={tx.id}>
 												<div className="mb-2 flex items-start justify-between">
-													<h4 className="font-semibold">{bib.expand?.eventId?.name ?? `Event ID: ${bib.eventId}`}</h4>
+													<h4 className="font-semibold">
+														{bib.expand?.eventId?.name ?? `${t.eventId ?? 'Event ID:'} ${bib.eventId}`}
+													</h4>
 													<span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/20 dark:text-blue-400">
-														Sold
+														{t.statusSold ?? 'Sold'}
 													</span>
 												</div>
 												<div className="text-muted-foreground space-y-1 text-sm">
@@ -290,12 +319,15 @@ export default function SellerDashboardClient({
 														const net = (tx.amount ?? 0) - (tx.platform_fee ?? 0) - paypalFee
 														return (
 															<div className="space-y-0.5">
-																<p>Amount: €{tx.amount?.toFixed(2) ?? 'N/A'}</p>
 																<p>
-																	Net: <span className="font-medium">€{net.toFixed(2)}</span>{' '}
+																	{t.stats?.amount ?? 'Amount:'} €{tx.amount?.toFixed(2) ?? 'N/A'}
+																</p>
+																<p>
+																	{t.stats?.net ?? 'Net:'} <span className="font-medium">€{net.toFixed(2)}</span>{' '}
 																	<span className="text-xs">
-																		(Amount €{(tx.amount ?? 0).toFixed(2)} − Platform €
-																		{(tx.platform_fee ?? 0).toFixed(2)} − PayPal €{paypalFee.toFixed(2)})
+																		({t.stats?.amount ?? 'Amount'} €{(tx.amount ?? 0).toFixed(2)} −{' '}
+																		{t.stats?.platformFees ?? 'Platform'} €{(tx.platform_fee ?? 0).toFixed(2)} −{' '}
+																		{t.stats?.paypalFees ?? 'PayPal'} €{paypalFee.toFixed(2)})
 																	</span>
 																</p>
 															</div>
@@ -309,9 +341,9 @@ export default function SellerDashboardClient({
 							) : (
 								<div className="py-8 text-center">
 									<List className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
-									<p className="text-muted-foreground mb-4">No completed sales yet</p>
+									<p className="text-muted-foreground mb-4">{t.recentSales?.noSales ?? 'No completed sales yet'}</p>
 									<Link href="/dashboard/seller/sell-bib">
-										<Button>List a bib</Button>
+										<Button>{t.recentSales?.listABib ?? 'List a bib'}</Button>
 									</Link>
 								</div>
 							)}
