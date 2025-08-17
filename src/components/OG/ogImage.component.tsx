@@ -36,7 +36,7 @@ type OGImageProps = {
 }
 
 // Main component for generating an Open Graph image
-export default function OGImage({ title, secondary, host, protocol, size }: OGImageProps) {
+export default function OGImage({ title, secondary, host, protocol, size }: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
 	const MAX_WIDTH_Secondary = 440
@@ -120,8 +120,8 @@ export default function OGImage({ title, secondary, host, protocol, size }: OGIm
 					}}
 				>
 					{/* Render highlighted text parts */}
-					{titleParts.map((part, i) => (
-						<span key={i} style={{ color: part.color }}>
+					{titleParts.map(part => (
+						<span key={part.text} style={{ color: part.color }}>
 							{part.text}
 						</span>
 					))}
@@ -144,8 +144,8 @@ export default function OGImage({ title, secondary, host, protocol, size }: OGIm
 					}}
 				>
 					{/* Render highlighted text parts */}
-					{secondaryParts.map((part, i) => (
-						<span key={i} style={{ color: part.color }}>
+					{secondaryParts.map(part => (
+						<span key={part.text} style={{ color: part.color }}>
 							{part.text}
 						</span>
 					))}
