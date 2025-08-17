@@ -12,8 +12,6 @@ import dashboardTranslations from '@/app/[locale]/dashboard/locales.json'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Locale } from '@/lib/i18n/config'
 
-import { Button } from '../ui/button'
-
 interface SerializedClerkUser {
 	emailAddresses: { emailAddress: string; id: string }[]
 	firstName: null | string

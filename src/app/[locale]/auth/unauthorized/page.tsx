@@ -2,7 +2,6 @@ import Link from 'next/link'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 import mainLocales from '@/app/[locale]/locales.json'
-import { Button } from '@/components/ui/button'
 
 interface UnauthorizedPageProps {
 	params: Promise<{ locale: string }>
@@ -31,12 +30,18 @@ export default async function UnauthorizedPage({ params }: UnauthorizedPageProps
 
 					{/* Action buttons */}
 					<div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-						<Button asChild size="lg" variant="default">
-							<Link href="/">{t.backToHome}</Link>
-						</Button>
-						<Button asChild size="lg" variant="outline">
-							<Link href="/contact">{t.contactSupport}</Link>
-						</Button>
+						<Link 
+							href="/"
+							className="inline-flex h-11 items-center justify-center rounded-md bg-primary px-8 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+						>
+							{t.backToHome}
+						</Link>
+						<Link 
+							href="/contact"
+							className="inline-flex h-11 items-center justify-center rounded-md border border-input bg-background px-8 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+						>
+							{t.contactSupport}
+						</Link>
 					</div>
 
 					{/* Additional help text */}
