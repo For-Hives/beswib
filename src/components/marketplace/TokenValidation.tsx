@@ -1,13 +1,14 @@
 'use client'
 
-import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Lock, Shield, AlertTriangle, ArrowLeft, CheckCircle } from 'lucide-react'
+import React, { useState } from 'react'
+
+import { useRouter } from 'next/navigation'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/inputAlt'
+import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 
 interface TokenValidationProps {
@@ -32,7 +33,7 @@ interface TokenValidationProps {
 	}
 }
 
-export default function TokenValidation({ bibId, locale, onValidToken, translations: t }: TokenValidationProps) {
+export default function TokenValidation({ translations: t, onValidToken, locale, bibId }: TokenValidationProps) {
 	const [token, setToken] = useState('')
 	const [isValidating, setIsValidating] = useState(false)
 	const [error, setError] = useState('')
@@ -57,7 +58,7 @@ export default function TokenValidation({ bibId, locale, onValidToken, translati
 			const response = await fetch(`/api/validate-private-token`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ bibId, token: token.trim() }),
+				body: JSON.stringify({ token: token.trim(), bibId }),
 			})
 
 			if (response.ok) {

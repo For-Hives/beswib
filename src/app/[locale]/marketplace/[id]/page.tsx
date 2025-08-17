@@ -10,16 +10,17 @@ import type { BibSale } from '@/models/marketplace.model'
 import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
+import { fetchBibById, fetchPrivateBibByToken, checkBibListingStatus } from '@/services/bib.services'
 import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
 import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider'
-import TokenValidation from '@/components/marketplace/TokenValidation'
-import { fetchBibById, fetchPrivateBibByToken, checkBibListingStatus } from '@/services/bib.services'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
+import TokenValidation from '@/components/marketplace/TokenValidation'
 import { fetchOrganizerById } from '@/services/organizer.services'
 import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Locale } from '@/lib/i18n/config'
+
 import MarketplaceItemClient from './MarketplaceItemClient'
 
 export const metadata: Metadata = {
@@ -51,7 +52,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	// First, check if the bib exists and if it's private or public
 	const bibStatus = await checkBibListingStatus(id)
 
-	if (!bibStatus || !bibStatus.exists) {
+	if (!bibStatus?.exists) {
 		return (
 			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -93,10 +94,10 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	if (bibStatus.listed === 'private') {
 		isPrivate = true
 		if (tkn) {
-			console.log('Fetching private bib with token:', { bibId: id, token: tkn })
+			console.log('Fetching private bib with token:', { token: tkn, bibId: id })
 			// Try to fetch with the provided token
 			bib = await fetchPrivateBibByToken(id, tkn)
-			console.log('Private bib fetch result:', { bib: !!bib, hasExpand: !!bib?.expand })
+			console.log('Private bib fetch result:', { hasExpand: !!bib?.expand, bib: !!bib })
 		}
 		// If no token or invalid token, bib will remain null and we'll show the validation form
 	} else if (bibStatus.listed === 'public') {

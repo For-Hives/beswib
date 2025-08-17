@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
+
 import { fetchPrivateBibByToken } from '@/services/bib.services'
 
 export async function POST(request: NextRequest) {
 	try {
-		const { bibId, token } = await request.json()
+		const { token, bibId } = await request.json()
 
 		if (!bibId || !token) {
 			return NextResponse.json({ error: 'Bib ID and token are required' }, { status: 400 })

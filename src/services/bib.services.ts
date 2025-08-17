@@ -503,7 +503,7 @@ export async function fetchPrivateBibByToken(
 		return null
 	}
 	try {
-		console.log('fetchPrivateBibByToken called with:', { bibId, token })
+		console.log('fetchPrivateBibByToken called with:', { token, bibId })
 		const record = await pb
 			.collection('bibs')
 			.getOne<Bib & { expand?: { eventId: Event; sellerUserId: User } }>(bibId, {
@@ -511,10 +511,10 @@ export async function fetchPrivateBibByToken(
 			})
 
 		console.log('PocketBase record fetched:', {
-			id: record.id,
+			tokenMatch: record.privateListingToken === token,
 			listed: record.listed,
+			id: record.id,
 			hasPrivateToken: !!record.privateListingToken,
-			tokenMatch: record.privateListingToken === token
 		})
 
 		// Verify the token matches and this is a private listing ✅
