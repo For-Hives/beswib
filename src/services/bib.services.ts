@@ -435,7 +435,7 @@ export async function fetchPrivateBibByToken(
  */
 export async function fetchPubliclyListedBibsForEvent(
 	eventId: string
-): Promise<(Bib & { expand?: { eventId: Event; sellerUserId: User } })[]> {
+): Promise<(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } })[]> {
 	if (eventId === '') {
 		console.error('Event ID is required to fetch publicly listed bibs.')
 		return []
@@ -443,11 +443,13 @@ export async function fetchPubliclyListedBibsForEvent(
 	try {
 		const nowIso = formatDateToPbIso(new Date())
 		const saleWindowFilter = `((eventId.transferDeadline != null && eventId.transferDeadline >= '${nowIso}') || (eventId.transferDeadline = null && eventId.eventDate >= '${nowIso}'))`
-		const records = await pb.collection('bibs').getFullList<Bib & { expand?: { eventId: Event; sellerUserId: User } }>({
-			sort: '-created',
-			filter: `eventId = "${eventId}" && status = 'available' && listed = 'public' && lockedAt = null && ${saleWindowFilter}`,
-			expand: 'eventId,sellerUserId',
-		})
+		const records = await pb
+			.collection('bibs')
+			.getFullList<Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }>({
+				sort: '-created',
+				filter: `eventId = "${eventId}" && status = 'available' && listed = 'public' && lockedAt = null && ${saleWindowFilter}`,
+				expand: 'eventId,sellerUserId,eventId.organizer',
+			})
 		return records
 	} catch (error: unknown) {
 		throw new Error(

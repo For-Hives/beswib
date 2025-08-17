@@ -78,9 +78,9 @@ export default function SellerBibCard({ locale, bib }: SellerBibCardProps) {
 
 				{/* Event image */}
 				<div className="relative flex justify-center px-4 pt-4">
-					<div className="from-primary/20 via-accent/20 to-secondary/20 before:from-primary before:via-accent before:via-secondary before:to-ring relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gradient-to-br shadow-[inset_0_0_20px_hsl(var(--primary)/0.3),inset_0_0_40px_hsl(var(--accent)/0.2),0_0_30px_hsl(var(--primary)/0.4)] before:absolute before:inset-0 before:-z-10 before:m-[-1px] before:rounded-xl before:bg-gradient-to-br before:p-0.5">
+					<div className="from-primary/20 via-accent/20 to-secondary/20 before:from-primary before:via-secondary before:to-ring relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gradient-to-br shadow-[inset_0_0_20px_hsl(var(--primary)/0.3),inset_0_0_40px_hsl(var(--accent)/0.2),0_0_30px_hsl(var(--primary)/0.4)] before:absolute before:inset-0 before:-z-10 before:m-[-1px] before:rounded-xl before:bg-gradient-to-br before:p-0.5">
 						<Image
-							alt={bib.expand?.eventId?.name || 'Event image'}
+							alt={bib.expand?.eventId?.name ?? 'Event image'}
 							className="-z-10 rounded-2xl object-cover p-3"
 							fill
 							sizes="100vw"
