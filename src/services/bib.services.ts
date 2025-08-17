@@ -360,14 +360,14 @@ export async function checkBibListingStatus(
 		return {
 			listed: record.listed,
 			exists: true,
-			available: record.status === 'available'
+			available: record.status === 'available',
 		}
 	} catch (error: unknown) {
 		// If bib doesn't exist or there's an error
 		return {
 			listed: null,
 			exists: false,
-			available: false
+			available: false,
 		}
 	}
 }
