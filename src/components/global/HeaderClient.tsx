@@ -115,17 +115,17 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 					<div className="space-y-1 px-2 pt-2 pb-3">
 						{/* Main Navigation Links 🔗 */}
 						{navigationLinks.map(link => (
-							<DisclosureButton
-								as={Link}
-								className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${
-									link.current
-										? 'bg-accent text-accent-foreground'
-										: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-								}`}
-								href={link.href}
-								key={link.href}
-							>
-								{link.label}
+							<DisclosureButton key={link.href}>
+								<Link
+									className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${
+										link.current
+											? 'bg-accent text-accent-foreground'
+											: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+									}`}
+									href={link.href}
+								>
+									{link.label}
+								</Link>
 							</DisclosureButton>
 						))}
 
@@ -193,54 +193,59 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 			</div>
 
 			{/* Dashboard Main Link 🏠 */}
-			<DisclosureButton
-				as={Link}
-				className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
-				href="/dashboard"
-			>
-				<LayoutDashboard className="h-4 w-4" />
-				{t.navbar.dashboardLink}
+			<DisclosureButton>
+				<Link
+					className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+					href="/dashboard"
+				>
+					<LayoutDashboard className="h-4 w-4" />
+					{t.navbar.dashboardLink}
+				</Link>
 			</DisclosureButton>
 
 			{/* Profile Link */}
-			<DisclosureButton
-				as={Link}
-				className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
-				href="/profile"
-			>
-				<User className="h-4 w-4" />
-				{t.navbar.profileLink}
+			<DisclosureButton>
+				<Link
+					className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+					href="/profile"
+				>
+					<User className="h-4 w-4" />
+					{t.navbar.profileLink}
+				</Link>
 			</DisclosureButton>
 
 			{/* Buy Bib Link 🛍️ */}
-			<DisclosureButton
-				as={Link}
-				className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
-				href="/marketplace"
-			>
-				<ShoppingBag className="h-4 w-4" />
-				{t.navbar.buyBibLink}
+			<DisclosureButton>
+				<Link
+					className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+					href="/marketplace"
+				>
+					<ShoppingBag className="h-4 w-4" />
+					{t.navbar.buyBibLink}
+				</Link>
 			</DisclosureButton>
 
 			{/* Sell Bib Link 🏷️ */}
-			<DisclosureButton
-				as={Link}
-				className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
-				href="/dashboard/seller/sell-bib"
-			>
-				<Tag className="h-4 w-4" />
-				{t.navbar.sellBibLink}
+			<DisclosureButton>
+				<Link
+					className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+					href="/dashboard/seller/sell-bib"
+				>
+					<Tag className="h-4 w-4" />
+					{t.navbar.sellBibLink}
+				</Link>
 			</DisclosureButton>
 
 			{/* Admin Link - Only show if user is admin 👑 */}
 			{isAdmin && (
-				<DisclosureButton
-					as={Link}
-					className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
-					href="/admin"
-				>
-					<Settings className="h-4 w-4" />
-					{t.navbar.adminLink}
+				<DisclosureButton>
+					<Link
+						className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+						href="/admin"
+					>
+						<Settings className="h-4 w-4" />
+						{t.navbar.adminLink}
+					</Link>
 				</DisclosureButton>
 			)}
 
