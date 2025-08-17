@@ -116,13 +116,13 @@ export async function fetchApprovedPublicEventsWithBibs(expandOrganizer = false)
 					(!bib.lockedAt || bib.lockedAt === null || bib.lockedAt === '')
 				)
 			})
-			
+
 			return {
 				...event,
 				expand: {
 					...event.expand,
-					bibs_via_eventId: availableBibs
-				}
+					bibs_via_eventId: availableBibs,
+				},
 			}
 		})
 
