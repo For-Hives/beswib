@@ -12,7 +12,7 @@ import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
 import { fetchPubliclyListedBibsForEvent } from '@/services/bib.services'
-import CardEventBib from '@/components/marketplace/CardEventBib'
+import { transformBibsToBibSales } from '@/lib/transformers/bib'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { addToWaitlist } from '@/services/waitlist.services'
 import { fetchEventById } from '@/services/event.services'
@@ -23,6 +23,8 @@ import { Locale } from '@/lib/i18n/config'
 import { WaitlistNotifications } from '../../../../components/waitlist/WaitlistNotifications'
 import WaitlistStatusClient from '../../../../components/waitlist/WaitlistStatusClient'
 import eventTranslations from './locales.json'
+
+import CardMarket from '@/components/marketplace/CardMarket'
 
 // Optionally enable ISR if you want periodic regeneration (does not force dynamic)
 export const revalidate = 300
@@ -45,6 +47,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 	}
 
 	const publiclyListedBibs: Bib[] = await fetchPubliclyListedBibsForEvent(eventId)
+	const bibSales = transformBibsToBibSales(publiclyListedBibs)
 
 	async function handleJoinWaitlist(formData: FormData) {
 		'use server'
@@ -246,10 +249,10 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 					<div className="dark:border-border/50 bg-card/80 rounded-3xl border border-black/50 p-8 shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-sm">
 						<h2 className="text-foreground mb-6 text-2xl font-bold">{t.event.bibs.title}</h2>
 
-						{publiclyListedBibs.length > 0 ? (
-							<div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-								{publiclyListedBibs.map(bib => (
-									<CardEventBib key={bib.id} bib={bib} locale={locale} />
+						{bibSales.length > 0 ? (
+							<div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
+								{bibSales.map(bibSale => (
+									<CardMarket key={bibSale.id} bibSale={bibSale} locale={locale} />
 								))}
 							</div>
 						) : (
