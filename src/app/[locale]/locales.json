@@ -218,8 +218,8 @@
 			}
 		],
 		"OG": {
-			"Main": "Buy and sell <br />your race bibs <br />with peace of mind.",
-			"Secondary": "A secure platform <br />to **buy** and **resell** **race bibs**"
+			"Main": "Buy and sell your race bibs with peace of mind.",
+			"Secondary": "A secure platform to **buy** and **resell** **race bibs**"
 		}
 	},
 	"fr": {
@@ -620,8 +620,8 @@
 			{ "name": "Ultra Trail del Mont Blanc", "location": "Chamonix" }
 		],
 		"OG": {
-			"Main": "Compra y vende <br />tus dorsales <br />con total tranquilidad.",
-			"Secondary": "Plataforma segura <br />para **comprar** y **revender** **dorsales**"
+			"Main": "Compra y vende tus dorsales con total tranquilidad.",
+			"Secondary": "Plataforma segura para **comprar** y **revender** **dorsales**"
 		}
 	},
 	"it": {
@@ -824,8 +824,8 @@
 			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
 		],
 		"OG": {
-			"Main": "Compra e vendi <br />i tuoi pettorali <br />in tutta serenità.",
-			"Secondary": "Piattaforma sicura <br />per **acquistare** e **rivendere** **pettorali**"
+			"Main": "Compra e vendi i tuoi pettorali in tutta serenità.",
+			"Secondary": "Piattaforma sicura per **acquistare** e **rivendere** **pettorali**"
 		}
 	},
 	"de": {
@@ -1028,8 +1028,8 @@
 			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
 		],
 		"OG": {
-			"Main": "Kaufe und verkaufe <br />deine Startnummern <br />ganz sorgenfrei.",
-			"Secondary": "Sichere Plattform <br />zum **Kauf** und **Weiterverkauf** von **Startnummern**"
+			"Main": "Kaufe und verkaufe deine Startnummern ganz sorgenfrei.",
+			"Secondary": "Sichere Plattform zum **Kauf** und **Weiterverkauf** von **Startnummern**"
 		}
 	},
 	"ro": {
@@ -1211,8 +1211,8 @@
 			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
 		],
 		"OG": {
-			"Main": "Cumpără și vinde <br />numerele de concurs <br />fără griji.",
-			"Secondary": "Platformă sigură <br />pentru **cumpărarea** și **revânzarea** **numerelor de concurs**"
+			"Main": "Cumpără și vinde numerele de concurs fără griji.",
+			"Secondary": "Platformă sigură pentru **cumpărarea** și **revânzarea** **numerelor de concurs**"
 		}
 	},
 	"pt": {
@@ -1394,8 +1394,8 @@
 			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
 		],
 		"OG": {
-			"Main": "Compra e vende <br />os teus dorsais <br />com toda a tranquilidade.",
-			"Secondary": "Plataforma segura <br />para **comprar** e **revender** **dorsais**"
+			"Main": "Compra e vende os teus dorsais com toda a tranquilidade.",
+			"Secondary": "Plataforma segura para **comprar** e **revender** **dorsais**"
 		}
 	},
 	"nl": {
@@ -1598,8 +1598,8 @@
 			{ "name": "Ultra Trail du Mont Blanc", "location": "Chamonix" }
 		],
 		"OG": {
-			"Main": "Koop en verkoop <br />je startnummers <br />zonder zorgen.",
-			"Secondary": "Een veilig platform <br />voor het **kopen** en **doorverkopen** van **startnummers**"
+			"Main": "Koop en verkoop je startnummers zonder zorgen.",
+			"Secondary": "Een veilig platform voor het **kopen** en **doorverkopen** van **startnummers**"
 		}
 	},
 	"ko": {
@@ -1817,8 +1817,8 @@
 			}
 		],
 		"OG": {
-			"Main": "안심하고 <br />빕을 <br />사고파세요.",
-			"Secondary": "**빕**을 안전하게 <br />**구매**하고 **되팔** 수 있는 플랫폼"
+			"Main": "안심하고 빕을 사고파세요.",
+			"Secondary": "**빕**을 안전하게 **구매**하고 **되팔** 수 있는 플랫폼"
 		}
 	}
 }

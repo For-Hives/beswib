@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og'
 import { headers } from 'next/headers'
-import OGImage from '@/components/OG/ogImage.component.tsx'
+import OGImage from '@/components/OG/ogImage.component'
 import pageTranslations from './locales.json'
 import { getTranslations } from '@/lib/getDictionary'
 

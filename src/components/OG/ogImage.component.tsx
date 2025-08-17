@@ -1,27 +1,55 @@
 import * as React from 'react'
-import computeFontSizeAndRender from '@/components/OG/computeFontSize' // Function to dynamically calculate font size to fit text
+import computeFontSizeAndRender from '@/components/OG/computeFontSize'
+
+// Function to split the text into parts and apply a special color to words between **
+function formatTextWithColor(text: string, highlightColor = '#4C639A') {
+	const parts: { text: string; color: string }[] = []
+	const regex = /\*\*(.*?)\*\*/g
+	let lastIndex = 0
+	let match: RegExpExecArray | null
+
+	while ((match = regex.exec(text)) !== null) {
+		// Text before the **
+		if (match.index > lastIndex) {
+			parts.push({ text: text.slice(lastIndex, match.index), color: '#111E3B' })
+		}
+		// Text inside **
+		parts.push({ text: match[1], color: highlightColor })
+		lastIndex = regex.lastIndex
+	}
+
+	// Text after the last match
+	if (lastIndex < text.length) {
+		parts.push({ text: text.slice(lastIndex), color: '#111E3B' })
+	}
+
+	return parts
+}
 
 // Props type definition for the OGImage component
 type OGImageProps = {
-	title?: string // Optional main title text
-	secondary?: string // Optional secondary text
-	host: string // Hostname for building absolute URLs for assets
-	protocol: string // Protocol for URLs (http/https)
-	size: { width: number; height: number } // Dimensions of the OpenGraph image
+	title?: string // Optional main title
+	secondary?: string // Optional secondary description
+	host: string // Hostname for assets
+	protocol: string // Protocol (http/https) for assets
+	size: { width: number; height: number } // OG image dimensions
 }
 
+// Main component for generating an Open Graph image
 export default function OGImage({ title, secondary, host, protocol, size }: OGImageProps) {
-	// Maximum dimensions for the main and secondary text blocks
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
 	const MAX_WIDTH_Secondary = 440
 	const MAX_HEIGHT_Secondary = 88
 
-	// Default text if no title or secondary text is provided
-	const titleMain = String(title ?? 'Achetez et vendez vos dossards en toute sérénité.')
-	const Secondarydesc = String(secondary ?? "Plateforme d'achats et de revente de dossards sécurisée")
+	// Default text if props are missing
+	const titleMain = String(title ?? 'Achetez et vendez vos **dossards** en toute sérénité.')
+	const secondaryDesc = String(secondary ?? "Plateforme d'achats et de revente de **dossards** sécurisée")
 
-	// Calculate font size for the main title dynamically
+	// Remove ** before calculating font size
+	const plainSecondary = secondaryDesc.replace(/\*\*(.*?)\*\*/g, '$1')
+
+	// Compute the font size for the main title based on container limits
 	const { fontSize: mainFontSize } = computeFontSizeAndRender({
 		text: titleMain,
 		maxWidth: MAX_WIDTH_Main,
@@ -29,21 +57,25 @@ export default function OGImage({ title, secondary, host, protocol, size }: OGIm
 		initialFontSize: 36,
 	})
 
-	// Calculate font size for the secondary text dynamically
+	// Compute the font size for the secondary description
 	const { fontSize: secondaryFontSize } = computeFontSizeAndRender({
-		text: Secondarydesc,
+		text: plainSecondary,
 		maxWidth: MAX_WIDTH_Secondary,
 		maxHeight: MAX_HEIGHT_Secondary,
 		initialFontSize: 24,
 	})
 
-	// Construct absolute URLs for images/assets
+	// URLs for images used in the OG image
 	const src = `${protocol}://${host}/openGraph/${encodeURIComponent('fond pattern.png')}`
 	const stravaUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('strava.png')}`
 	const linkedinUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('linkedin.png')}`
 	const instagramUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('instagram.png')}`
 	const beswibLogoUrl = `${protocol}://${host}/beswib.svg`
 	const mountain = `${protocol}://${host}/openGraph/${encodeURIComponent('mountain-outlined.png')}`
+
+	// Split text into parts with color for highlights
+	const titleParts = formatTextWithColor(titleMain)
+	const secondaryParts = formatTextWithColor(secondaryDesc)
 
 	return (
 		<div
@@ -66,15 +98,16 @@ export default function OGImage({ title, secondary, host, protocol, size }: OGIm
 					left: 58,
 					top: 108,
 					display: 'flex',
+					gap: 20,
 					flexDirection: 'column',
-					color: '#111E3B', // Dark blue color for text
+					color: '#111E3B',
 				}}
 			>
-				{/* Main title with dynamic font size */}
+				{/* Main title */}
 				<div
 					style={{
 						display: 'flex',
-						justifyContent: 'center',
+						justifyContent: 'flex-start',
 						alignItems: 'center',
 						width: MAX_WIDTH_Main,
 						height: MAX_HEIGHT_Main,
@@ -86,26 +119,40 @@ export default function OGImage({ title, secondary, host, protocol, size }: OGIm
 						overflow: 'hidden',
 					}}
 				>
-					{titleMain}
+					{/* Render highlighted text parts */}
+					{titleParts.map((part, i) => (
+						<span key={i} style={{ color: part.color }}>
+							{part.text}
+						</span>
+					))}
 				</div>
 
-				{/* Secondary text with dynamic font size */}
+				{/* Secondary description */}
 				<div
 					style={{
-						width: MAX_WIDTH_Secondary,
-						height: MAX_HEIGHT_Secondary,
+						width: MAX_WIDTH_Main,
+						height: MAX_HEIGHT_Main,
+						fontWeight: 'bold',
+						lineHeight: 1.1,
+						fontSize: secondaryFontSize,
 						textAlign: 'left',
 						whiteSpace: 'pre-wrap',
 						overflow: 'hidden',
-						fontSize: secondaryFontSize,
-						display: 'flex', // Keeps text vertically centered if needed
+						display: 'flex', // required for @vercel/og
+						flexDirection: 'row', // keep spans on the same line
+						flexWrap: 'wrap', // wrap if needed
 					}}
 				>
-					{Secondarydesc}
+					{/* Render highlighted text parts */}
+					{secondaryParts.map((part, i) => (
+						<span key={i} style={{ color: part.color }}>
+							{part.text}
+						</span>
+					))}
 				</div>
 			</div>
 
-			{/* Social media links and website */}
+			{/* Footer with social links */}
 			<div
 				style={{
 					position: 'absolute',
@@ -118,21 +165,14 @@ export default function OGImage({ title, secondary, host, protocol, size }: OGIm
 				}}
 			>
 				<p>beswib.com</p>
-				<div
-					style={{
-						display: 'flex',
-						flexDirection: 'row',
-						alignItems: 'center',
-						zIndex: 10,
-					}}
-				>
+				<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', zIndex: 10 }}>
 					<img src={instagramUrl} width={50} height={50} alt="Instagram" style={{ marginRight: 16 }} />
 					<img src={stravaUrl} width={50} height={50} alt="Strava" style={{ marginRight: 16 }} />
 					<img src={linkedinUrl} width={50} height={50} alt="LinkedIn" style={{ marginRight: 16 }} />
 				</div>
 			</div>
 
-			{/* Decorative mountain image on the right */}
+			{/* Mountain image */}
 			<div
 				style={{
 					position: 'absolute',
@@ -147,7 +187,7 @@ export default function OGImage({ title, secondary, host, protocol, size }: OGIm
 				<img src={mountain} width={440} height={305} alt="mountain" style={{ objectFit: 'cover', display: 'flex' }} />
 			</div>
 
-			{/* Beswib logo in bottom-right corner */}
+			{/* Beswib logo */}
 			<div
 				style={{
 					position: 'absolute',
