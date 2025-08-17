@@ -15,48 +15,16 @@ import {
 } from '@/services/verifiedEmail.services'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { getTranslations } from '@/lib/i18n/dictionary'
+
 import pageLocales from './locales.json'
 
 interface VerifiedEmailsManagerProps {
 	user: User
 	locale: string
-}
-
-// Local i18n typing for this component's slice
-type VerifiedEmailsNamespace = {
-	title: string
-	description: string
-	loading: string
-	primary: string
-	codePlaceholder: string
-	info: string
-	confirmDelete: string
-	buttons: {
-		verify: string
-		resend: string
-		addEmail: string
-		enterEmailPlaceholder: string
-		add: string
-		cancel: string
-	}
-	errors: {
-		loadFailed: string
-		addInvalidEmail: string
-		addFailed: string
-		verifyInvalidCode: string
-		verifyInvalid: string
-		verifyFailed: string
-		resendFailed: string
-		deleteFailed: string
-	}
-}
-
-type ProfileLocales = Record<string, unknown> & {
-	verifiedEmails?: VerifiedEmailsNamespace
 }
 
 export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsManagerProps) {
