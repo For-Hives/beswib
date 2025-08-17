@@ -52,7 +52,7 @@ export default function MarketplaceItemClient({
 	eventData,
 	organizerData,
 	bibData,
-	translations: t
+	translations: t,
 }: MarketplaceItemClientProps) {
 	const [hasValidToken, setHasValidToken] = useState(!!initialToken)
 	const router = useRouter()
