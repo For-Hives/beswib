@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 
-import { useRouter } from 'next/navigation'
-
 import type { Event as EventModel } from '@/models/event.model'
 import type { Organizer } from '@/models/organizer.model'
 import type { BibSale } from '@/models/marketplace.model'
@@ -13,6 +11,7 @@ import type { Bib } from '@/models/bib.model'
 import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
 import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider'
 import TokenValidation from '@/components/marketplace/TokenValidation'
+import { Locale } from '@/lib/i18n/config'
 
 interface MarketplaceItemClientProps {
 	bibId: string
@@ -56,23 +55,11 @@ export default function MarketplaceItemClient({
 	bibData,
 }: MarketplaceItemClientProps) {
 	const [hasValidToken, setHasValidToken] = useState(!!initialToken)
-	const router = useRouter()
 
 	// Update hasValidToken when initialToken changes (after redirect)
 	useEffect(() => {
 		setHasValidToken(!!initialToken)
 	}, [initialToken])
-
-	// Debug logs
-	console.log('MarketplaceItemClient Debug:', {
-		isPrivate,
-		initialToken,
-		hasValidToken,
-		hasEventData: !!eventData,
-		hasBibSale: !!bibSale,
-		bibId,
-		bibData: !!bibData,
-	})
 
 	const handleValidToken = (token: string) => {
 		// Redirect to the same page with the token as a query parameter
@@ -90,7 +77,7 @@ export default function MarketplaceItemClient({
 				bibId={bibId}
 				locale={locale}
 				onValidToken={handleValidToken}
-				translations={t.tokenValidation || {}}
+				translations={t.tokenValidation ?? {}}
 			/>
 		)
 	}
@@ -120,7 +107,7 @@ export default function MarketplaceItemClient({
 			<PayPalProvider>
 				<PayPalPurchaseClient
 					bib={bibSale}
-					locale={locale}
+					locale={locale as Locale}
 					sellerUser={sellerUser ?? null}
 					user={user ?? null}
 					eventData={eventData}

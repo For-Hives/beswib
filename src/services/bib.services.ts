@@ -362,13 +362,10 @@ export async function checkBibListingStatus(
 			exists: true,
 			available: record.status === 'available',
 		}
-	} catch (error: unknown) {
-		// If bib doesn't exist or there's an error
-		return {
-			listed: null,
-			exists: false,
-			available: false,
-		}
+	} catch (error) {
+		throw new Error(
+			`Error checking bib listing status for bib ${bibId}: ` + (error instanceof Error ? error.message : String(error))
+		)
 	}
 }
 
@@ -503,19 +500,11 @@ export async function fetchPrivateBibByToken(
 		return null
 	}
 	try {
-		console.log('fetchPrivateBibByToken called with:', { token, bibId })
 		const record = await pb
 			.collection('bibs')
 			.getOne<Bib & { expand?: { eventId: Event; sellerUserId: User } }>(bibId, {
 				expand: 'eventId,sellerUserId',
 			})
-
-		console.log('PocketBase record fetched:', {
-			tokenMatch: record.privateListingToken === token,
-			listed: record.listed,
-			id: record.id,
-			hasPrivateToken: !!record.privateListingToken,
-		})
 
 		// Verify the token matches and this is a private listing ✅
 		if (record.listed !== 'private' || record.privateListingToken !== token) {
@@ -523,7 +512,6 @@ export async function fetchPrivateBibByToken(
 			return null
 		}
 
-		console.log('Token validation successful, returning record')
 		return record
 	} catch (error: unknown) {
 		console.error('Error in fetchPrivateBibByToken:', error)

@@ -40,7 +40,7 @@ export default function TokenValidation({ translations: t, onValidToken, locale,
 	const [isSuccess, setIsSuccess] = useState(false)
 	const router = useRouter()
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 
 		if (!token.trim()) {
@@ -53,34 +53,37 @@ export default function TokenValidation({ translations: t, onValidToken, locale,
 		setError('')
 		setIsSuccess(false)
 
-		try {
-			// Validate token by attempting to fetch the private bib
-			const response = await fetch(`/api/validate-private-token`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ token: token.trim(), bibId }),
-			})
+		// Use an IIFE to handle the async logic
+		void (async () => {
+			try {
+				// Validate token by attempting to fetch the private bib
+				const response = await fetch(`/api/validate-private-token`, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ token: token.trim(), bibId }),
+				})
 
-			if (response.ok) {
-				// Token is valid, show success message briefly before redirect
-				setIsSuccess(true)
-				setTimeout(() => {
-					onValidToken(token.trim())
-				}, 1000)
-			} else {
-				const errorData = await response.json()
-				const errorMessage =
-					errorData.error === 'Invalid token or bib not found'
-						? (t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
-						: (t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
-				setError(errorMessage)
+				if (response.ok) {
+					// Token is valid, show success message briefly before redirect
+					setIsSuccess(true)
+					setTimeout(() => {
+						onValidToken(token.trim())
+					}, 1000)
+				} else {
+					const errorData = await response.json()
+					const errorMessage =
+						errorData.error === 'Invalid token or bib not found'
+							? (t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
+							: (t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
+					setError(errorMessage)
+				}
+			} catch (error) {
+				console.error('Token validation error:', error)
+				setError(t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
+			} finally {
+				setIsValidating(false)
 			}
-		} catch (error) {
-			console.error('Token validation error:', error)
-			setError(t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
-		} finally {
-			setIsValidating(false)
-		}
+		})()
 	}
 
 	const handleBackToMarketplace = () => {
