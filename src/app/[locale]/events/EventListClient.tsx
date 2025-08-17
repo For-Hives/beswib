@@ -47,6 +47,11 @@ interface EventTranslations {
 			joinWaitlist?: string
 			fromPrice?: string
 			elevationGain?: string
+			available?: string
+			waitlist?: string
+			loading?: string
+			bestPrice?: string
+			officialPrice?: string
 		}
 		filters?: {
 			all?: string
@@ -151,7 +156,7 @@ function EventCard({
 						className={`inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium ${eventTypeColors[event.typeCourse]}`}
 					>
 						{eventTypeIcons[event.typeCourse]}
-						{(t.events?.raceTypes as Record<string, string>)?.[event.typeCourse] || event.typeCourse.toUpperCase()}
+						{(t.events?.raceTypes as Record<string, string>)?.[event.typeCourse] ?? event.typeCourse.toUpperCase()}
 					</span>
 					<span className="text-muted-foreground text-xs">{formatDateObjectForDisplay(event.eventDate, locale)}</span>
 				</div>
@@ -210,106 +215,108 @@ function EventCard({
 						}
 
 						return (
-							<div className="mb-3 space-y-2">
-								{/* Status Badge */}
-								<div className="absolute top-0 right-0 m-2 flex items-center justify-between">
-									<div className="flex gap-2">
-										{availabilityStatus === 'available' && (
-											<span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-1 text-sm font-medium text-green-800 italic dark:bg-green-900/30 dark:text-green-300">
-												<CheckCircle className="h-3 w-3" />
-												{t.events?.eventCard?.available ?? 'Available'}
-											</span>
-										)}
-										{availabilityStatus === 'waitlist' && (
-											<span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2 py-1 text-sm font-medium text-orange-800 italic dark:bg-orange-900/30 dark:text-orange-300">
-												<Clock className="h-3 w-3" />
-												{t.events?.eventCard?.waitlist ?? 'Waitlist'}
-											</span>
-										)}
-										{availabilityStatus === 'loading' && (
-											<span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 italic dark:bg-gray-700 dark:text-gray-300">
-												<Loader2 className="h-3 w-3 animate-spin" />
-												{t.events?.eventCard?.loading ?? 'Loading...'}
-											</span>
-										)}
-									</div>
-								</div>
-
-								{/* Price Display */}
-								{priceToDisplay != null && (
-									<div className="text-right">
-										<div className="mb-1 flex items-center justify-end gap-1">
-											{isFromBib ? (
-												<span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-													<Tag className="h-3 w-3" />
-													Best price
+							<>
+								<div className="mb-3 space-y-2">
+									{/* Status Badge */}
+									<div className="absolute top-0 right-0 m-2 flex items-center justify-between">
+										<div className="flex gap-2">
+											{availabilityStatus === 'available' && (
+												<span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-1 text-sm font-medium text-green-800 italic dark:bg-green-900/30 dark:text-green-300">
+													<CheckCircle className="h-3 w-3" />
+													{t.events?.eventCard?.available ?? 'Available'}
 												</span>
-											) : (
-												<span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300">
-													<Tag className="h-3 w-3" />
-													Official price
+											)}
+											{availabilityStatus === 'waitlist' && (
+												<span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2 py-1 text-sm font-medium text-orange-800 italic dark:bg-orange-900/30 dark:text-orange-300">
+													<Clock className="h-3 w-3" />
+													{t.events?.eventCard?.waitlist ?? 'Waitlist'}
+												</span>
+											)}
+											{availabilityStatus === 'loading' && (
+												<span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 italic dark:bg-gray-700 dark:text-gray-300">
+													<Loader2 className="h-3 w-3 animate-spin" />
+													{t.events?.eventCard?.loading ?? 'Loading...'}
 												</span>
 											)}
 										</div>
-										<span className="text-lg font-bold text-emerald-600 dark:text-green-400">
-											{t.events?.eventCard?.fromPrice?.replace('{price}', priceToDisplay.toString()) ??
-												`From ${priceToDisplay}€`}
-										</span>
 									</div>
-								)}
-							</div>
-						)
-					})()}
 
-					{/* Button with proper state handling */}
-					{(() => {
-						// Determine button content and styling based on availability status
-						if (availabilityStatus === 'loading') {
-							return (
-								<button
-									disabled
-									className="flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-500 opacity-70"
-								>
-									<Loader2 className="h-4 w-4 animate-spin" />
-									{t.events?.eventCard?.checkBibs ?? 'Check bibs...'}
-								</button>
-							)
-						}
+									{/* Price Display */}
+									{priceToDisplay != null && (
+										<div className="text-right">
+											<div className="mb-1 flex items-center justify-end gap-1">
+												{isFromBib ? (
+													<span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+														<Tag className="h-3 w-3" />
+														{t.events?.eventCard?.bestPrice ?? 'Best price'}
+													</span>
+												) : (
+													<span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+														<Tag className="h-3 w-3" />
+														{t.events?.eventCard?.officialPrice ?? 'Official price'}
+													</span>
+												)}
+											</div>
+											<span className="text-lg font-bold text-emerald-600 dark:text-green-400">
+												{t.events?.eventCard?.fromPrice?.replace('{price}', priceToDisplay.toString()) ??
+													`From ${priceToDisplay}€`}
+											</span>
+										</div>
+									)}
+								</div>
 
-						if (availabilityStatus === 'available') {
-							return (
-								<button
-									onClick={() => onAction(event)}
-									className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-green-300 bg-green-100 px-4 py-2 text-sm font-medium text-green-800 transition-colors hover:border-green-400 hover:bg-green-200"
-								>
-									<ShoppingCart className="h-4 w-4" />
-									{t.events?.eventCard?.viewBibs?.replace('{count}', (bibsCount ?? 0).toString()) ??
-										`View bibs (${bibsCount ?? 0})`}
-								</button>
-							)
-						}
+								{/* Button with proper state handling */}
+								{(() => {
+									// Determine button content and styling based on availability status
+									if (availabilityStatus === 'loading') {
+										return (
+											<button
+												disabled
+												className="flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-500 opacity-70"
+											>
+												<Loader2 className="h-4 w-4 animate-spin" />
+												{t.events?.eventCard?.checkBibs ?? 'Check bibs...'}
+											</button>
+										)
+									}
 
-						if (availabilityStatus === 'waitlist') {
-							return (
-								<button
-									onClick={() => onAction(event)}
-									className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-orange-300 bg-orange-100 px-4 py-2 text-sm font-medium text-orange-800 transition-colors hover:border-orange-400 hover:bg-orange-200"
-								>
-									<Bell className="h-4 w-4" />
-									{t.events?.eventCard?.joinWaitlist ?? 'Join waitlist'}
-								</button>
-							)
-						}
+									if (availabilityStatus === 'available') {
+										return (
+											<button
+												onClick={() => onAction(event)}
+												className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-green-300 bg-green-100 px-4 py-2 text-sm font-medium text-green-800 transition-colors hover:border-green-400 hover:bg-green-200"
+											>
+												<ShoppingCart className="h-4 w-4" />
+												{t.events?.eventCard?.viewBibs?.replace('{count}', (bibsCount ?? 0).toString()) ??
+													`View bibs (${bibsCount ?? 0})`}
+											</button>
+										)
+									}
 
-						// Fallback for unexpected states
-						return (
-							<button
-								onClick={() => onAction(event)}
-								className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-300 bg-transparent px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:border-gray-400 hover:bg-gray-100"
-							>
-								<Search className="h-4 w-4" />
-								{t.events?.eventCard?.viewDetails ?? 'View details'}
-							</button>
+									if (availabilityStatus === 'waitlist') {
+										return (
+											<button
+												onClick={() => onAction(event)}
+												className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-orange-300 bg-orange-100 px-4 py-2 text-sm font-medium text-orange-800 transition-colors hover:border-orange-400 hover:bg-orange-200"
+											>
+												<Bell className="h-4 w-4" />
+												{t.events?.eventCard?.joinWaitlist ?? 'Join waitlist'}
+											</button>
+										)
+									}
+
+									// Fallback for unexpected states
+									return (
+										<button
+											onClick={() => onAction(event)}
+											className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-300 bg-transparent px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:border-gray-400 hover:bg-gray-100"
+										>
+											<Search className="h-4 w-4" />
+											{t.events?.eventCard?.viewDetails ?? 'View details'}
+										</button>
+									)
+								})()}
+							</>
 						)
 					})()}
 				</div>
@@ -341,10 +348,10 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 	// Sort options for SelectAnimated
 	const sortOptions: SelectOption[] = [
-		{ value: 'date', label: t.events?.filters?.sortByDate ?? 'Trier par date' },
-		{ value: 'price', label: t.events?.filters?.sortByPrice ?? 'Trier par prix' },
-		{ value: 'participants', label: t.events?.filters?.sortByParticipants ?? 'Trier par participants' },
-		{ value: 'distance', label: t.events?.filters?.sortByDistance ?? 'Trier par distance' },
+		{ value: 'date', label: t.events?.filters?.sortByDate ?? 'Sort by date' },
+		{ value: 'price', label: t.events?.filters?.sortByPrice ?? 'Sort by price' },
+		{ value: 'participants', label: t.events?.filters?.sortByParticipants ?? 'Sort by participants' },
+		{ value: 'distance', label: t.events?.filters?.sortByDistance ?? 'Sort by distance' },
 	]
 
 	// Handlers for filter changes
@@ -620,7 +627,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		uniqueTypes.forEach(type => {
 			if ((t.events?.raceTypes as Record<string, string>)?.[type] && eventTypeColors[type]) {
 				summary.push({
-					label: (t.events?.raceTypes as Record<string, string>)?.[type] || type.toUpperCase(),
+					label: (t.events?.raceTypes as Record<string, string>)?.[type] ?? type.toUpperCase(),
 					key: type,
 					icon: eventTypeIcons[type],
 					count: futureEvents.filter(e => e.typeCourse === type).length,
@@ -748,7 +755,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 							<SelectAnimated
 								onValueChange={handleSortChange}
 								options={sortOptions}
-								placeholder={t.events?.filters?.sortPlaceholder ?? 'Trier par...'}
+								placeholder={t.events?.filters?.sortPlaceholder ?? 'Sort by...'}
 								value={sortBy}
 							/>
 						</div>
