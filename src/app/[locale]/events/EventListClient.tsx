@@ -178,13 +178,13 @@ function EventCard({
 					{(() => {
 						// Calculate price to display: lowest bib price if available, otherwise default event price
 						let priceToDisplay = event.officialStandardPrice
-						
+
 						if (bibsData && bibsData.length > 0) {
 							// Get the lowest price from available bibs
 							const lowestBibPrice = Math.min(...bibsData.map(bib => bib.price))
 							priceToDisplay = lowestBibPrice
 						}
-						
+
 						return priceToDisplay != null ? (
 							<div className="mb-3 text-right">
 								<span className="text-lg font-bold text-emerald-600 dark:text-green-400">
@@ -269,8 +269,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	}
 
 	// Extract unique locations for the filter from future events only
-	const uniqueLocations = Array.from(new Set(futureEvents.map(event => event.location))).sort((a, b) =>
-		a.localeCompare(b)
+	const uniqueLocations = useMemo(
+		() => Array.from(new Set(futureEvents.map(event => event.location))).sort((a, b) => a.localeCompare(b)),
+		[futureEvents]
 	)
 
 	// State for location autocomplete
@@ -280,7 +281,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	// State to track bibs availability for each event
 	const [eventBibsCache, setEventBibsCache] = useState<Record<string, number>>({})
 	// State to store actual bib data for price calculation
-	const [eventBibsData, setEventBibsData] = useState<Record<string, (Bib & { expand?: { eventId: Event; sellerUserId: User } })[]>>({})
+	const [eventBibsData, setEventBibsData] = useState<
+		Record<string, (Bib & { expand?: { eventId: Event; sellerUserId: User } })[]>
+	>({})
 
 	// Fuse.js instance for fuzzy search on events
 	const fuse = useMemo(
@@ -317,7 +320,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				}
 				return null
 			})()
-			
+
 			// Only include events that are in the future or today
 			return eventDate ? eventDate >= now.startOf('day') : true
 		})
@@ -534,15 +537,15 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				if (eventBibsCache[event.id] === undefined) {
 					try {
 						const availableBibs = await fetchAvailableBibsForEvent(event.id)
-						return { 
+						return {
 							count: { [event.id]: availableBibs.length },
-							data: { [event.id]: availableBibs }
+							data: { [event.id]: availableBibs },
 						}
 					} catch (error) {
 						console.error('Error loading bibs for event:', event.id, error)
-						return { 
+						return {
 							count: { [event.id]: 0 },
-							data: { [event.id]: [] }
+							data: { [event.id]: [] },
 						}
 					}
 				}
