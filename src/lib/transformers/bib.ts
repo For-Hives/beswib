@@ -8,14 +8,14 @@ import type { Bib } from '@/models/bib.model'
  */
 export function mapEventTypeToBibSaleType(
 	eventType: 'road' | 'trail' | 'triathlon' | 'cycle' | undefined
-): 'cycling' | 'other' | 'running' | 'swimming' | 'trail' | 'triathlon' {
+): 'cycle' | 'other' | 'road' | 'trail' | 'triathlon' {
 	if (!eventType) return 'other'
 
-	const typeMap: Record<string, 'cycling' | 'other' | 'running' | 'swimming' | 'trail' | 'triathlon'> = {
+	const typeMap: Record<string, 'cycle' | 'other' | 'road' | 'trail' | 'triathlon'> = {
 		triathlon: 'triathlon',
 		trail: 'trail',
-		road: 'running',
-		cycle: 'cycling',
+		road: 'road',
+		cycle: 'cycle',
 	}
 
 	return typeMap[eventType] ?? 'other'
