@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 import type { Event as EventModel } from '@/models/event.model'
@@ -56,6 +56,22 @@ export default function MarketplaceItemClient({
 }: MarketplaceItemClientProps) {
 	const [hasValidToken, setHasValidToken] = useState(!!initialToken)
 	const router = useRouter()
+
+	// Update hasValidToken when initialToken changes (after redirect)
+	useEffect(() => {
+		setHasValidToken(!!initialToken)
+	}, [initialToken])
+
+	// Debug logs
+	console.log('MarketplaceItemClient Debug:', {
+		bibId,
+		initialToken,
+		isPrivate,
+		hasValidToken,
+		hasBibSale: !!bibSale,
+		hasEventData: !!eventData,
+		bibData: !!bibData
+	})
 
 	const handleValidToken = (token: string) => {
 		// Redirect to the same page with the token as a query parameter
