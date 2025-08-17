@@ -22,9 +22,8 @@ import { Locale } from '@/lib/i18n/config'
 
 import { WaitlistNotifications } from '../../../../components/waitlist/WaitlistNotifications'
 import WaitlistStatusClient from '../../../../components/waitlist/WaitlistStatusClient'
-import eventTranslations from './locales.json'
-
 import CardMarket from '@/components/marketplace/CardMarket'
+import eventTranslations from './locales.json'
 
 // Optionally enable ISR if you want periodic regeneration (does not force dynamic)
 export const revalidate = 300
