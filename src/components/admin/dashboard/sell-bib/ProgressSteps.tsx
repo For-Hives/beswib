@@ -9,6 +9,7 @@ interface ProgressStepsProps {
 	steps: readonly string[]
 }
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
+
 export default function ProgressSteps({ steps, locale, currentStepIndex }: Readonly<ProgressStepsProps>) {
 	const t = getTranslations(locale, sellBibTranslations).steps
 
