@@ -1,0 +1,407 @@
+{
+	"en": {
+		"verifiedEmail": {
+			"subject": "🔐 Verify your email address - Beswib",
+			"title": "🔐 Email Verification",
+			"greeting": "Hi there!",
+			"codeIntro": "Your verification code is:",
+			"expires": "This code will expire in {minutes} minutes.",
+			"ignore": "If you didn't request this verification, please ignore this email.",
+			"regards": "Best regards,",
+			"team": "The Beswib Team"
+		},
+		"emails": {
+			"layout": {
+				"copyright": "© {year} Beswib. All rights reserved."
+			},
+			"welcome": {
+				"title": "Welcome, {firstName}!",
+				"preheader": "Welcome to Beswib, {firstName}!",
+				"body1": "We’re glad you’re here.",
+				"heroSubtitle": "Your marketplace for race bibs",
+				"cta": "Explore Marketplace",
+				"nextStepsTitle": "Next steps",
+				"nextStep1": "Complete your profile for faster checkout",
+				"nextStep2": "Browse events and set up waitlist alerts",
+				"nextStep3": "List a bib in minutes with secure payments",
+				"help": "Need help? Visit beswib.com"
+			},
+			"saleAlert": {
+				"title": "New sale completed",
+				"preheader": "A new sale has been completed on Beswib",
+				"body": "A new sale has been completed.",
+				"order": "Order",
+				"bib": "Bib",
+				"amount": "Amount"
+			},
+			"contact": {
+				"title": "New contact message",
+				"preheader": "From {name}",
+				"from": "From",
+				"email": "Email",
+				"anonymous": "Anonymous",
+				"na": "n/a"
+			}
+		}
+	},
+	"fr": {
+		"verifiedEmail": {
+			"subject": "🔐 Vérifiez votre adresse e-mail - Beswib",
+			"title": "🔐 Vérification de l’e‑mail",
+			"greeting": "Bonjour !",
+			"codeIntro": "Votre code de vérification est :",
+			"expires": "Ce code expirera dans {minutes} minutes.",
+			"ignore": "Si vous n’avez pas demandé cette vérification, veuillez ignorer cet e‑mail.",
+			"regards": "Cordialement,",
+			"team": "L’équipe Beswib"
+		},
+		"emails": {
+			"layout": {
+				"copyright": "© {year} Beswib. Tous droits réservés."
+			},
+			"welcome": {
+				"title": "Bienvenue, {firstName} !",
+				"preheader": "Bienvenue chez Beswib, {firstName} !",
+				"body1": "Nous sommes ravis de vous compter parmi nous.",
+				"heroSubtitle": "Votre marketplace pour les dossards",
+				"cta": "Découvrir le Marketplace",
+				"nextStepsTitle": "Prochaines étapes",
+				"nextStep1": "Complétez votre profil pour un paiement plus rapide",
+				"nextStep2": "Parcourez les événements et activez les alertes de liste d’attente",
+				"nextStep3": "Mettez un dossard en vente en quelques minutes avec des paiements sécurisés",
+				"help": "Besoin d’aide ? Rendez‑vous sur beswib.com"
+			},
+			"saleAlert": {
+				"title": "Nouvelle vente terminée",
+				"preheader": "Une nouvelle vente a été effectuée sur Beswib",
+				"body": "Une nouvelle vente a été effectuée.",
+				"order": "Commande",
+				"bib": "Dossard",
+				"amount": "Montant"
+			},
+			"contact": {
+				"title": "Nouveau message de contact",
+				"preheader": "De la part de {name}",
+				"from": "De",
+				"email": "Email",
+				"anonymous": "Anonyme",
+				"na": "n/d"
+			}
+		}
+	},
+	"ko": {
+		"verifiedEmail": {
+			"subject": "🔐 이메일 주소 확인 - Beswib",
+			"title": "🔐 이메일 인증",
+			"greeting": "안녕하세요!",
+			"codeIntro": "인증 코드는 다음과 같습니다:",
+			"expires": "이 코드는 {minutes}분 후에 만료됩니다.",
+			"ignore": "요청하지 않은 경우 이 이메일을 무시해 주세요.",
+			"regards": "감사합니다,",
+			"team": "Beswib 팀"
+		},
+		"emails": {
+			"layout": {
+				"copyright": "© {year} Beswib. 모든 권리 보유."
+			},
+			"welcome": {
+				"title": "환영합니다, {firstName}님!",
+				"preheader": "Beswib에 오신 것을 환영합니다, {firstName}님!",
+				"body1": "함께하게 되어 기쁩니다.",
+				"heroSubtitle": "레이스 비브 마켓플레이스",
+				"cta": "마켓플레이스 둘러보기",
+				"nextStepsTitle": "다음 단계",
+				"nextStep1": "더 빠른 결제를 위해 프로필을 완료하세요",
+				"nextStep2": "이벤트를 살펴보고 대기열 알림을 설정하세요",
+				"nextStep3": "안전한 결제로 몇 분 만에 비브를 등록하세요",
+				"help": "도움이 필요하신가요? beswib.com을 방문하세요"
+			},
+			"saleAlert": {
+				"title": "새로운 판매 완료",
+				"preheader": "Beswib에서 새로운 판매가 완료되었습니다",
+				"body": "새로운 판매가 완료되었습니다.",
+				"order": "주문",
+				"bib": "비브",
+				"amount": "금액"
+			},
+			"contact": {
+				"title": "새 문의 메시지",
+				"preheader": "보낸 사람: {name}",
+				"from": "보낸 사람",
+				"email": "이메일",
+				"anonymous": "익명",
+				"na": "해당 없음"
+			}
+		}
+	},
+	"es": {
+		"verifiedEmail": {
+			"subject": "🔐 Verifica tu correo electrónico - Beswib",
+			"title": "🔐 Verificación de correo",
+			"greeting": "¡Hola!",
+			"codeIntro": "Tu código de verificación es:",
+			"expires": "Este código caduca en {minutes} minutos.",
+			"ignore": "Si no solicitaste esta verificación, ignora este correo.",
+			"regards": "Saludos,",
+			"team": "El equipo de Beswib"
+		},
+		"emails": {
+			"layout": {
+				"copyright": "© {year} Beswib. Todos los derechos reservados."
+			},
+			"welcome": {
+				"title": "¡Bienvenido, {firstName}!",
+				"preheader": "¡Bienvenido a Beswib, {firstName}!",
+				"body1": "Nos alegra que estés aquí.",
+				"heroSubtitle": "Tu marketplace de dorsales",
+				"cta": "Explorar Marketplace",
+				"nextStepsTitle": "Próximos pasos",
+				"nextStep1": "Completa tu perfil para un pago más rápido",
+				"nextStep2": "Explora eventos y activa alertas de lista de espera",
+				"nextStep3": "Publica un dorsal en minutos con pagos seguros",
+				"help": "¿Necesitas ayuda? Visita beswib.com"
+			},
+			"saleAlert": {
+				"title": "Nueva venta completada",
+				"preheader": "Se ha completado una nueva venta en Beswib",
+				"body": "Se ha completado una nueva venta.",
+				"order": "Pedido",
+				"bib": "Dorsal",
+				"amount": "Importe"
+			},
+			"contact": {
+				"title": "Nuevo mensaje de contacto",
+				"preheader": "De {name}",
+				"from": "De",
+				"email": "Correo",
+				"anonymous": "Anónimo",
+				"na": "n/d"
+			}
+		}
+	},
+	"it": {
+		"verifiedEmail": {
+			"subject": "🔐 Verifica il tuo indirizzo email - Beswib",
+			"title": "🔐 Verifica email",
+			"greeting": "Ciao!",
+			"codeIntro": "Il tuo codice di verifica è:",
+			"expires": "Questo codice scade tra {minutes} minuti.",
+			"ignore": "Se non hai richiesto questa verifica, ignora questa email.",
+			"regards": "Cordiali saluti,",
+			"team": "Il team Beswib"
+		},
+		"emails": {
+			"layout": {
+				"copyright": "© {year} Beswib. Tutti i diritti riservati."
+			},
+			"welcome": {
+				"title": "Benvenuto, {firstName}!",
+				"preheader": "Benvenuto su Beswib, {firstName}!",
+				"body1": "Siamo felici che tu sia qui.",
+				"heroSubtitle": "Il tuo marketplace per pettorali",
+				"cta": "Esplora il Marketplace",
+				"nextStepsTitle": "Prossimi passi",
+				"nextStep1": "Completa il profilo per un checkout più rapido",
+				"nextStep2": "Sfoglia gli eventi e attiva gli avvisi di lista d’attesa",
+				"nextStep3": "Metti in vendita un pettorale in pochi minuti con pagamenti sicuri",
+				"help": "Hai bisogno di aiuto? Visita beswib.com"
+			},
+			"saleAlert": {
+				"title": "Nuova vendita completata",
+				"preheader": "È stata completata una nuova vendita su Beswib",
+				"body": "È stata completata una nuova vendita.",
+				"order": "Ordine",
+				"bib": "Pettorale",
+				"amount": "Importo"
+			},
+			"contact": {
+				"title": "Nuovo messaggio di contatto",
+				"preheader": "Da {name}",
+				"from": "Da",
+				"email": "Email",
+				"anonymous": "Anonimo",
+				"na": "n/d"
+			}
+		}
+	},
+	"de": {
+		"verifiedEmail": {
+			"subject": "🔐 Bestätige deine E-Mail-Adresse - Beswib",
+			"title": "🔐 E-Mail-Bestätigung",
+			"greeting": "Hallo!",
+			"codeIntro": "Dein Bestätigungscode lautet:",
+			"expires": "Dieser Code läuft in {minutes} Minuten ab.",
+			"ignore": "Wenn du diese Bestätigung nicht angefordert hast, ignoriere diese E-Mail.",
+			"regards": "Mit freundlichen Grüßen,",
+			"team": "Das Beswib-Team"
+		},
+		"emails": {
+			"layout": {
+				"copyright": "© {year} Beswib. Alle Rechte vorbehalten."
+			},
+			"welcome": {
+				"title": "Willkommen, {firstName}!",
+				"preheader": "Willkommen bei Beswib, {firstName}!",
+				"body1": "Schön, dass du da bist.",
+				"heroSubtitle": "Dein Marktplatz für Startnummern",
+				"cta": "Marketplace entdecken",
+				"nextStepsTitle": "Nächste Schritte",
+				"nextStep1": "Vervollständige dein Profil für einen schnelleren Checkout",
+				"nextStep2": "Stöbere in Events und richte Wartelisten‑Benachrichtigungen ein",
+				"nextStep3": "Stelle eine Startnummer in wenigen Minuten mit sicheren Zahlungen ein",
+				"help": "Brauchst du Hilfe? Besuche beswib.com"
+			},
+			"saleAlert": {
+				"title": "Neuer Verkauf abgeschlossen",
+				"preheader": "Ein neuer Verkauf wurde auf Beswib abgeschlossen",
+				"body": "Ein neuer Verkauf wurde abgeschlossen.",
+				"order": "Bestellung",
+				"bib": "Startnummer",
+				"amount": "Betrag"
+			},
+			"contact": {
+				"title": "Neue Kontaktanfrage",
+				"preheader": "Von {name}",
+				"from": "Von",
+				"email": "E-Mail",
+				"anonymous": "Anonym",
+				"na": "n/v"
+			}
+		}
+	},
+	"ro": {
+		"verifiedEmail": {
+			"subject": "🔐 Verifică-ți adresa de e-mail - Beswib",
+			"title": "🔐 Verificare e-mail",
+			"greeting": "Salut!",
+			"codeIntro": "Codul tău de verificare este:",
+			"expires": "Acest cod va expira în {minutes} minute.",
+			"ignore": "Dacă nu ai solicitat această verificare, ignoră acest e-mail.",
+			"regards": "Cu stimă,",
+			"team": "Echipa Beswib"
+		},
+		"emails": {
+			"layout": {
+				"copyright": "© {year} Beswib. Toate drepturile rezervate."
+			},
+			"welcome": {
+				"title": "Bun venit, {firstName}!",
+				"preheader": "Bun venit la Beswib, {firstName}!",
+				"body1": "Ne bucurăm că ești aici.",
+				"heroSubtitle": "Marketplace-ul tău pentru numere de concurs",
+				"cta": "Explorează Marketplace-ul",
+				"nextStepsTitle": "Pașii următori",
+				"nextStep1": "Completează profilul pentru o plată mai rapidă",
+				"nextStep2": "Caută evenimente și activează alertele pentru lista de așteptare",
+				"nextStep3": "Publică un număr de concurs în câteva minute cu plăți sigure",
+				"help": "Ai nevoie de ajutor? Vizitează beswib.com"
+			},
+			"saleAlert": {
+				"title": "Vânzare nouă finalizată",
+				"preheader": "O nouă vânzare a fost finalizată pe Beswib",
+				"body": "O nouă vânzare a fost finalizată.",
+				"order": "Comandă",
+				"bib": "Număr",
+				"amount": "Suma"
+			},
+			"contact": {
+				"title": "Mesaj de contact nou",
+				"preheader": "De la {name}",
+				"from": "De la",
+				"email": "Email",
+				"anonymous": "Anonim",
+				"na": "n/d"
+			}
+		}
+	},
+	"pt": {
+		"verifiedEmail": {
+			"subject": "🔐 Verifica o teu endereço de e-mail - Beswib",
+			"title": "🔐 Verificação de e-mail",
+			"greeting": "Olá!",
+			"codeIntro": "O teu código de verificação é:",
+			"expires": "Este código expira em {minutes} minutos.",
+			"ignore": "Se não pediste esta verificação, ignora este e-mail.",
+			"regards": "Cumprimentos,",
+			"team": "Equipa Beswib"
+		},
+		"emails": {
+			"layout": {
+				"copyright": "© {year} Beswib. Todos os direitos reservados."
+			},
+			"welcome": {
+				"title": "Bem-vindo, {firstName}!",
+				"preheader": "Bem-vindo ao Beswib, {firstName}!",
+				"body1": "Temos todo o gosto em ter-te connosco.",
+				"heroSubtitle": "O teu marketplace de dorsais",
+				"cta": "Explorar o Marketplace",
+				"nextStepsTitle": "Próximos passos",
+				"nextStep1": "Completa o teu perfil para um checkout mais rápido",
+				"nextStep2": "Explora eventos e ativa alertas de lista de espera",
+				"nextStep3": "Lista um dorsal em minutos com pagamentos seguros",
+				"help": "Precisas de ajuda? Visita beswib.com"
+			},
+			"saleAlert": {
+				"title": "Nova venda concluída",
+				"preheader": "Uma nova venda foi concluída no Beswib",
+				"body": "Uma nova venda foi concluída.",
+				"order": "Pedido",
+				"bib": "Dorsal",
+				"amount": "Montante"
+			},
+			"contact": {
+				"title": "Nova mensagem de contacto",
+				"preheader": "De {name}",
+				"from": "De",
+				"email": "Email",
+				"anonymous": "Anónimo",
+				"na": "n/d"
+			}
+		}
+	},
+	"nl": {
+		"verifiedEmail": {
+			"subject": "🔐 Bevestig je e-mailadres - Beswib",
+			"title": "🔐 E-mailverificatie",
+			"greeting": "Hallo!",
+			"codeIntro": "Je verificatiecode is:",
+			"expires": "Deze code verloopt over {minutes} minuten.",
+			"ignore": "Als je deze verificatie niet hebt aangevraagd, negeer dan deze e-mail.",
+			"regards": "Met vriendelijke groet,",
+			"team": "Het Beswib-team"
+		},
+		"emails": {
+			"layout": {
+				"copyright": "© {year} Beswib. Alle rechten voorbehouden."
+			},
+			"welcome": {
+				"title": "Welkom, {firstName}!",
+				"preheader": "Welkom bij Beswib, {firstName}!",
+				"body1": "Leuk dat je er bent.",
+				"heroSubtitle": "Jouw marktplaats voor startnummers",
+				"cta": "Marketplace verkennen",
+				"nextStepsTitle": "Volgende stappen",
+				"nextStep1": "Maak je profiel compleet voor sneller afrekenen",
+				"nextStep2": "Bekijk evenementen en stel wachtlijstmeldingen in",
+				"nextStep3": "Plaats een startnummer in enkele minuten met veilige betalingen",
+				"help": "Hulp nodig? Bezoek beswib.com"
+			},
+			"saleAlert": {
+				"title": "Nieuwe verkoop voltooid",
+				"preheader": "Er is een nieuwe verkoop voltooid op Beswib",
+				"body": "Er is een nieuwe verkoop voltooid.",
+				"order": "Bestelling",
+				"bib": "Startnummer",
+				"amount": "Bedrag"
+			},
+			"contact": {
+				"title": "Nieuw contactbericht",
+				"preheader": "Van {name}",
+				"from": "Van",
+				"email": "E‑mail",
+				"anonymous": "Anoniem",
+				"na": "n/b"
+			}
+		}
+	}
+}
