@@ -137,11 +137,11 @@ export default function Searchbar({
 	// Sport options for SelectAnimated
 	const sportOptions: SelectOption[] = [
 		{ value: 'all', label: t.allSports },
-		{ value: 'running', label: 'Running' },
+		{ value: 'road', label: 'Road' },
 		{ value: 'trail', label: 'Trail' },
 		{ value: 'triathlon', label: 'Triathlon' },
-		{ value: 'cycling', label: t.cycling },
-		{ value: 'swimming', label: t.swimming },
+		{ value: 'cycle', label: t.cycling },
+		{ value: 'other', label: t.other },
 	]
 
 	// Distance options for SelectAnimated

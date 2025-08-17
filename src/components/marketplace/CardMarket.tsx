@@ -83,11 +83,11 @@ export default function CardMarket({ locale, eventData, bibSale }: Readonly<Card
 									switch (type) {
 										case 'trail':
 											return translations.trail ?? 'Trail'
-										case 'running':
+										case 'road':
 											return translations.road ?? 'Road'
 										case 'triathlon':
 											return translations.triathlon ?? 'Triathlon'
-										case 'cycling':
+										case 'cycle':
 											return typeof (translations as { cycling?: unknown }).cycling === 'string'
 												? (translations as { cycling?: string }).cycling
 												: 'Cycling'
@@ -172,14 +172,12 @@ export default function CardMarket({ locale, eventData, bibSale }: Readonly<Card
 
 function bgFromType(type: BibSale['event']['type']) {
 	switch (type) {
-		case 'cycling':
+		case 'cycle':
 			return 'bg-cyan-500/15 border-cyan-500/50'
 		case 'other':
 			return 'bg-gray-500/15 border-gray-500/50'
-		case 'running':
+		case 'road':
 			return 'bg-green-500/15 border-green-500/50'
-		case 'swimming':
-			return 'bg-blue-500/15 border-blue-500/50'
 		case 'trail':
 			return 'bg-yellow-500/15 border-yellow-500/50'
 		case 'triathlon':
