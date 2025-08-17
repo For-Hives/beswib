@@ -72,16 +72,16 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 
 					<div className="flex flex-col-reverse flex-wrap items-end justify-start gap-2 lg:flex-row lg:flex-nowrap lg:items-center">
 						<div className="flex gap-2">
-							<Link 
+							<Link
 								href="/dashboard"
-								className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+								className="border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md border px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
 							>
 								<LayoutDashboard className="h-4 w-4" />
 								{t.dashboard.dashboardButton ?? 'Dashboard'}
 							</Link>
-							<Link 
+							<Link
 								href="/profile"
-								className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+								className="border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md border px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
 							>
 								<UserIcon className="h-4 w-4" />
 								{t.dashboard.profileButton ?? 'Profile'}
