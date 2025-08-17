@@ -37,23 +37,24 @@ export default function BibCategoryTabs({ bibs, locale }: BibCategoryTabsProps) 
 			key: 'active',
 			label: t?.categoryActive ?? 'En cours de vente',
 			icon: ShoppingCart,
-			filter: (bib) => bib.status === 'available' || bib.status === 'validation_failed',
-			color: 'text-green-600 border-green-200 bg-green-50 dark:text-green-400 dark:border-green-800 dark:bg-green-950/30'
+			filter: bib => bib.status === 'available' || bib.status === 'validation_failed',
+			color:
+				'text-green-600 border-green-200 bg-green-50 dark:text-green-400 dark:border-green-800 dark:bg-green-950/30',
 		},
 		{
 			key: 'sold',
 			label: t?.categorySold ?? 'Vendus',
 			icon: CheckCircle,
-			filter: (bib) => bib.status === 'sold',
-			color: 'text-blue-600 border-blue-200 bg-blue-50 dark:text-blue-400 dark:border-blue-800 dark:bg-blue-950/30'
+			filter: bib => bib.status === 'sold',
+			color: 'text-blue-600 border-blue-200 bg-blue-50 dark:text-blue-400 dark:border-blue-800 dark:bg-blue-950/30',
 		},
 		{
 			key: 'archived',
 			label: t?.categoryArchived ?? 'Archivés',
 			icon: Archive,
-			filter: (bib) => bib.status === 'expired' || bib.status === 'withdrawn',
-			color: 'text-gray-600 border-gray-200 bg-gray-50 dark:text-gray-400 dark:border-gray-800 dark:bg-gray-950/30'
-		}
+			filter: bib => bib.status === 'expired' || bib.status === 'withdrawn',
+			color: 'text-gray-600 border-gray-200 bg-gray-50 dark:text-gray-400 dark:border-gray-800 dark:bg-gray-950/30',
+		},
 	]
 
 	// Filter bibs by category
@@ -62,17 +63,17 @@ export default function BibCategoryTabs({ bibs, locale }: BibCategoryTabsProps) 
 	// Calculate counts for each category
 	const categoryCounts = categories.map(category => ({
 		...category,
-		count: bibs.filter(category.filter).length
+		count: bibs.filter(category.filter).length,
 	}))
 
 	return (
 		<div className="space-y-6">
 			{/* Category Navigation */}
 			<div className="flex flex-wrap gap-2">
-				{categoryCounts.map((category) => {
+				{categoryCounts.map(category => {
 					const Icon = category.icon
 					const isActive = activeCategory === category.key
-					
+
 					// Only show category if it has bibs or is currently active
 					if (category.count === 0 && !isActive) return null
 
@@ -81,22 +82,20 @@ export default function BibCategoryTabs({ bibs, locale }: BibCategoryTabsProps) 
 							key={category.key}
 							onClick={() => setActiveCategory(category.key)}
 							className={cn(
-								'flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-200',
-								'hover:shadow-md hover:scale-105',
-								isActive 
-									? category.color
-									: 'text-muted-foreground border-border bg-card/50 hover:bg-card/80'
+								'flex items-center gap-2 rounded-lg border px-4 py-2 transition-all duration-200',
+								'hover:scale-105 hover:shadow-md',
+								isActive ? category.color : 'text-muted-foreground border-border bg-card/50 hover:bg-card/80'
 							)}
 						>
 							<Icon className="h-4 w-4" />
 							<span className="font-medium">{category.label}</span>
 							{category.count > 0 && (
-								<span className={cn(
-									'px-2 py-0.5 rounded-full text-xs font-bold',
-									isActive 
-										? 'bg-white/20 text-current' 
-										: 'bg-muted-foreground/10 text-muted-foreground'
-								)}>
+								<span
+									className={cn(
+										'rounded-full px-2 py-0.5 text-xs font-bold',
+										isActive ? 'bg-white/20 text-current' : 'bg-muted-foreground/10 text-muted-foreground'
+									)}
+								>
 									{category.count}
 								</span>
 							)}
@@ -131,7 +130,8 @@ export default function BibCategoryTabs({ bibs, locale }: BibCategoryTabsProps) 
 						<p className="text-muted-foreground mb-6">
 							{activeCategory === 'active' && (t?.startListingFirst ?? 'Commencez par lister votre premier dossard')}
 							{activeCategory === 'sold' && (t?.soldBibsWillAppear ?? 'Vos dossards vendus apparaîtront ici')}
-							{activeCategory === 'archived' && (t?.archivedBibsWillAppear ?? 'Les dossards expirés ou retirés apparaîtront ici')}
+							{activeCategory === 'archived' &&
+								(t?.archivedBibsWillAppear ?? 'Les dossards expirés ou retirés apparaîtront ici')}
 						</p>
 					</div>
 				)}
