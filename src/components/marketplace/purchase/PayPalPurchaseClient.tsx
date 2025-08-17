@@ -323,6 +323,7 @@ export default function PayPalPurchaseClient({
 							onBuyNowClick={() => {
 								void handleBuyNowClick()
 							}}
+							eventId={bib.event.id}
 						/>
 					</div>
 				</div>
