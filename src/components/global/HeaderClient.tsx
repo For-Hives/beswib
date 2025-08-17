@@ -258,11 +258,6 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 				<LogOut className="h-4 w-4" />
 				{t.navbar.signOut}
 			</DisclosureButton>
-
-			{/* User Button 👤 */}
-			<div className="px-3 py-3">
-				<UserButton showName={false} />
-			</div>
 		</>
 	)
 }
