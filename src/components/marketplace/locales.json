@@ -2,6 +2,16 @@
 	"en": {
 		"aboutEvent": "About this event",
 		"bibNotFound": "Bib not found or event data missing",
+		"tokenValidation": {
+			"title": "Private Listing Access",
+			"description": "This is a private bib listing. Please enter the private token to access it.",
+			"tokenLabel": "Private Token",
+			"tokenPlaceholder": "Enter your private token...",
+			"validateButton": "Access Private Listing",
+			"invalidToken": "Invalid private token",
+			"requiredToken": "Private token is required",
+			"backToMarketplace": "Back to Marketplace"
+		},
 		"allDistances": "All distances",
 		"allPrices": "All prices",
 		"allSports": "All sports",
@@ -139,6 +149,16 @@
 	"fr": {
 		"aboutEvent": "À propos de cet événement",
 		"bibNotFound": "Dossard introuvable ou données manquantes",
+		"tokenValidation": {
+			"title": "Accès à l'annonce privée",
+			"description": "Ceci est une annonce de dossard privée. Veuillez entrer le token privé pour y accéder.",
+			"tokenLabel": "Token privé",
+			"tokenPlaceholder": "Entrez votre token privé...",
+			"validateButton": "Accéder à l'annonce privée",
+			"invalidToken": "Token privé invalide",
+			"requiredToken": "Le token privé est requis",
+			"backToMarketplace": "Retour au marketplace"
+		},
 		"allDistances": "Toutes les distances",
 		"allPrices": "Tous les prix",
 		"allSports": "Tous les sports",
