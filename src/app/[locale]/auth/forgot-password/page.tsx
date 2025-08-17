@@ -195,9 +195,12 @@ export default function ForgotPasswordPage() {
 
 				{complete && (
 					<div className="text-center">
-						<Button asChild size="lg" className="w-full">
-							<Link href={`/${locale}/dashboard`}>{t.forgotPassword.continueToDashboard}</Link>
-						</Button>
+						<Link 
+							href={`/${locale}/dashboard`}
+							className="inline-flex h-11 w-full items-center justify-center rounded-md bg-primary px-8 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+						>
+							{t.forgotPassword.continueToDashboard}
+						</Link>
 					</div>
 				)}
 

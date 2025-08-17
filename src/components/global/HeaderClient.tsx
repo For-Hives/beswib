@@ -56,7 +56,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 								<div className="flex space-x-4">
 									{navigationLinks.map(link => (
 										<Link
-											className={`text-md rounded-md px-3 py-2 font-medium transition-colors ${
+											className={`text-md cursor-pointer rounded-md px-3 py-2 font-medium transition-colors ${
 												link.current
 													? 'bg-accent text-accent-foreground'
 													: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'

@@ -9,7 +9,6 @@ import Link from 'next/link'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Locale, i18n } from '@/lib/i18n/config'
-import { Button } from '@/components/ui/button'
 
 import errorTranslations from './error/locales.json'
 

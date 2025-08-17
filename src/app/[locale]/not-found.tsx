@@ -8,8 +8,6 @@ import Link from 'next/link'
 
 import type { Locale } from '@/lib/i18n/config'
 
-import { Button } from '@/components/ui/button'
-
 const texts: Record<Locale, { title: string; description: string; search: string; goBack: string; home: string }> = {
 	ro: {
 		title: 'Pagină negăsită',

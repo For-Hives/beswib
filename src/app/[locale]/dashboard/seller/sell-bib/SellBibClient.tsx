@@ -355,7 +355,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				<div className="flex items-center justify-between">
 					<div>
 						<p className="text-muted-foreground text-sm">Selling as</p>
-						<p className="text-foreground flex-col items-start justify-start gap-2 font-medium md:flex md:flex-row md:items-center">
+						<div className="text-foreground flex-col items-start justify-start gap-2 font-medium md:flex md:flex-row md:items-center">
 							<div className="flex items-center gap-2">
 								<p>
 									<UserIcon className="h-4 w-4" />
@@ -365,7 +365,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 								</p>
 							</div>
 							<p>{user.email && <span className="text-muted-foreground text-sm">({user.email})</span>}</p>
-						</p>
+						</div>
 					</div>
 					<div className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-medium">SELLER</div>
 				</div>
