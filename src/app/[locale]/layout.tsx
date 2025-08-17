@@ -112,11 +112,11 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 						data-domains={'beswib.com'}
 						data-website-id="e9168017-b73b-491b-b7b0-fee64f07c847"
 						src="https://umami.wadefade.fr/script.js"
-						data-tag={"v" + version}
+						data-tag={'v' + version}
 						data-before-send="beforeSendHandler"
 						strategy="afterInteractive"
 					></Script>
-					{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+					{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID != null && (
 						<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
 					)}
 				</head>
