@@ -5,6 +5,7 @@ import { Eye } from 'lucide-react'
 import Link from 'next/link'
 
 import type { Locale } from '@/lib/i18n/config'
+import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
 import eventTranslations from '@/app/[locale]/events/[id]/locales.json'
@@ -12,7 +13,7 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
 
 interface CardEventBibProps {
-	bib: Bib
+	bib: Bib & { expand?: { sellerUserId?: User } }
 	locale: Locale
 }
 
@@ -62,7 +63,7 @@ export default function CardEventBib({ locale, bib }: Readonly<CardEventBibProps
 				<div className="flex w-full items-center justify-center py-2">
 					<div className="flex w-full items-center justify-center">
 						<p className="text-muted-foreground text-xs leading-relaxed italic">
-							{t.event.bibs.soldBy} {bib.sellerUserId ?? 'Anonymous'}
+							{t.event.bibs.soldBy} {bib.expand?.sellerUserId?.firstName ?? 'Anonymous'}
 						</p>
 					</div>
 				</div>
@@ -72,8 +73,7 @@ export default function CardEventBib({ locale, bib }: Readonly<CardEventBibProps
 				{/* Content */}
 				<div className="flex flex-1 flex-col gap-2 px-4 py-2">
 					{/* Price section */}
-					<div className="flex w-full justify-between gap-2">
-						<h3 className="text-foreground text-lg font-bold">{t.event.bibs.availableBib}</h3>
+					<div className="flex w-full justify-center gap-2">
 						<div className="relative flex flex-col items-center gap-2">
 							<p className="text-foreground text-2xl font-bold">{bib.price}€</p>
 							{originalPrice > 0 && originalPrice > bib.price && (
