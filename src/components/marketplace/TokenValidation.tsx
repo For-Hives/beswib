@@ -68,9 +68,10 @@ export default function TokenValidation({ bibId, locale, onValidToken, translati
 				}, 1000)
 			} else {
 				const errorData = await response.json()
-				const errorMessage = errorData.error === 'Invalid token or bib not found' 
-					? (t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
-					: (t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
+				const errorMessage =
+					errorData.error === 'Invalid token or bib not found'
+						? (t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
+						: (t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
 				setError(errorMessage)
 			}
 		} catch (error) {
@@ -99,10 +100,10 @@ export default function TokenValidation({ bibId, locale, onValidToken, translati
 				</div>
 			</div>
 
-			<div className="relative pb-12 pt-32">
+			<div className="relative pt-32 pb-12">
 				<div className="container mx-auto max-w-2xl p-6">
 					<div className="mb-12 space-y-2 text-center">
-						<h1 className="text-foreground text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
+						<h1 className="text-foreground flex items-center justify-center gap-3 text-4xl font-bold tracking-tight">
 							<Shield className="h-10 w-10 text-blue-600 dark:text-blue-400" />
 							{t.title ?? 'Private Listing Access'}
 						</h1>
@@ -144,7 +145,7 @@ export default function TokenValidation({ bibId, locale, onValidToken, translati
 									Please enter the private token provided by the seller to access this listing.
 								</CardDescription>
 							</CardHeader>
-							
+
 							<CardContent>
 								<form onSubmit={handleSubmit} className="space-y-6">
 									<div className="space-y-2">
@@ -161,11 +162,7 @@ export default function TokenValidation({ bibId, locale, onValidToken, translati
 										/>
 									</div>
 
-									<Button 
-										type="submit" 
-										className="w-full" 
-										disabled={isValidating || !token.trim() || isSuccess}
-									>
+									<Button type="submit" className="w-full" disabled={isValidating || !token.trim() || isSuccess}>
 										{isValidating ? (
 											<>
 												<div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-white"></div>
