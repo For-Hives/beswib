@@ -91,14 +91,12 @@ export default function PaymentDialog({
 	 */
 	function bgFromType(type: BibSale['event']['type']) {
 		switch (type) {
-			case 'cycling':
+			case 'cycle':
 				return 'bg-cyan-500/15 border-cyan-500/50'
 			case 'other':
 				return 'bg-gray-500/15 border-gray-500/50'
-			case 'running':
+			case 'road':
 				return 'bg-green-500/15 border-green-500/50'
-			case 'swimming':
-				return 'bg-blue-500/15 border-blue-500/50'
 			case 'trail':
 				return 'bg-yellow-500/15 border-yellow-500/50'
 			case 'triathlon':

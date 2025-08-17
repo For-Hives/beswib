@@ -50,10 +50,10 @@ export default function MarketplaceSidebar({
 
 	// Sports options
 	const sportsOptions = [
-		{ value: 'running', label: t.road ?? 'Road', icon: '🏃' },
+		{ value: 'road', label: t.road ?? 'Road', icon: '🏃' },
 		{ value: 'trail', label: t.trail ?? 'Trail', icon: '🏔️' },
 		{ value: 'triathlon', label: t.triathlon ?? 'Triathlon', icon: '🏊‍♂️' },
-		{ value: 'cycling', label: t.cycling ?? 'Cycling', icon: '🚴' },
+		{ value: 'cycle', label: t.cycling ?? 'Cycling', icon: '🚴' },
 		{ value: 'other', label: t.other ?? 'Other', icon: '🏅' },
 	]
 

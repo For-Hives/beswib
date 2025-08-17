@@ -28,10 +28,10 @@ interface ActiveFiltersBadgesProps {
 export default function ActiveFiltersBadges({ onRemoveFilter, maxPrice, locale, filters }: ActiveFiltersBadgesProps) {
 	const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
 	const sportsOptions = [
-		{ value: 'running', label: t.road ?? 'Road', icon: '🏃' },
+		{ value: 'road', label: t.road ?? 'Road', icon: '🏃' },
 		{ value: 'trail', label: t.trail ?? 'Trail', icon: '🏔️' },
 		{ value: 'triathlon', label: t.triathlon ?? 'Triathlon', icon: '🏊‍♂️' },
-		{ value: 'cycling', label: (t as { cycling?: string }).cycling ?? 'Cycling', icon: '🚴' },
+		{ value: 'cycle', label: (t as { cycling?: string }).cycling ?? 'Cycling', icon: '🚴' },
 		{ value: 'other', label: t.other ?? 'Other', icon: '🏅' },
 	]
 
