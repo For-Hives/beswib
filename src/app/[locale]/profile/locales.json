@@ -52,7 +52,8 @@
 				"paypalNotVerified": "Not Verified",
 				"paypalVerified": "Verified",
 				"testingPayment": "Ready to test payments with your merchant ID.",
-				"title": "Seller Information"
+				"title": "Seller Information",
+				"completeProfileFirst": "Please complete your profile first."
 			},
 			"dangerZone": {
 				"title": "Danger Zone",
@@ -62,7 +63,8 @@
 				"deleteDescription": "Permanently delete your account and all associated data. This action cannot be undone.",
 				"deleteWarning": "This will delete your account forever. Are you sure?",
 				"confirmDelete": "Yes, delete my account",
-				"cancelDelete": "Cancel"
+				"cancelDelete": "Cancel",
+				"deleteDialogDescription": "This action will redirect you to our contact form where you can submit a deletion request. Our support team will process your request and confirm when your account has been permanently deleted."
 			},
 			"title": "My Profile"
 		}
@@ -120,7 +122,8 @@
 				"paypalNotVerified": "Non Vérifié",
 				"paypalVerified": "Vérifié",
 				"testingPayment": "Prêt à tester les paiements avec votre ID marchand.",
-				"title": "Informations Vendeur"
+				"title": "Informations Vendeur",
+				"completeProfileFirst": "Veuillez d'abord compléter votre profil."
 			},
 			"dangerZone": {
 				"title": "Zone dangereuse",
@@ -130,9 +133,80 @@
 				"deleteDescription": "Supprimez définitivement votre compte et toutes les données associées. Cette action ne peut pas être annulée.",
 				"deleteWarning": "Ceci supprimera votre compte définitivement. Êtes-vous sûr ?",
 				"confirmDelete": "Oui, supprimer mon compte",
-				"cancelDelete": "Annuler"
+				"cancelDelete": "Annuler",
+				"deleteDialogDescription": "Cette action vous redirigera vers notre formulaire de contact où vous pourrez soumettre une demande de suppression. Notre équipe de support traitera votre demande et confirmera quand votre compte aura été définitivement supprimé."
 			},
 			"title": "Mon Profil"
+		}
+	},
+	"ko": {
+		"profile": {
+			"description": "개인 정보 및 러너 정보를 업데이트하세요.",
+			"notifications": {
+				"profileUpdateError": "프로필 업데이트 중 오류가 발생했습니다.",
+				"profileUpdated": "프로필이 성공적으로 업데이트되었습니다."
+			},
+			"runnerInfo": {
+				"address": "주소",
+				"birthDate": "생년월일",
+				"city": "도시",
+				"clubAffiliation": "클럽 소속",
+				"country": "국가",
+				"description": "마켓플레이스에서 빕을 구매하려면 러너 프로필을 완성하세요.",
+				"emergencyContactName": "비상 연락처 이름",
+				"emergencyContactPhone": "비상 연락처 전화번호",
+				"emergencyContactRelationship": "비상 연락처 관계",
+				"female": "여성",
+				"firstName": "이름",
+				"gender": "성별",
+				"lastName": "성",
+				"licenseNumber": "라이선스 번호",
+				"male": "남성",
+				"medicalCertificateUrl": "의료 증명서 URL",
+				"other": "기타",
+				"phoneNumber": "전화번호",
+				"postalCode": "우편번호",
+				"save": "변경 사항 저장",
+				"selectGender": "성별 선택",
+				"selectTshirtSize": "티셔츠 사이즈 선택",
+				"title": "러너 정보",
+				"tshirtSize": "티셔츠 사이즈"
+			},
+			"sellerInfo": {
+				"cancel": "취소",
+				"completeSetup": "PayPal 설정 완료",
+				"confirm": "확인",
+				"connectPayPal": "PayPal 연결",
+				"createSellerButton": "판매자 계정 생성",
+				"description": "빕을 판매하고 결제를 받으려면 판매자 프로필을 완성하세요.",
+				"disconnectButton": "PayPal 판매자 계정 연결 해제",
+				"disconnectDescription": "PayPal 판매자 계정을 다시 연결할 때까지 결제를 받을 수 없습니다.",
+				"disconnectTitle": "PayPal 연결 해제?",
+				"disconnecting": "연결 해제 중...",
+				"onboardingDescription": "빕 판매 시 결제를 받으려면 PayPal 계정을 연결하세요.",
+				"onboardingTitle": "PayPal 온보딩",
+				"paymentTestDescription": "샘플 결제로 PayPal 통합을 테스트하세요.",
+				"paymentTestTitle": "결제 테스트",
+				"paypalConnectionStatus": "PayPal 연결 상태:",
+				"paypalMerchantId": "PayPal 판매자 ID",
+				"paypalNotVerified": "확인되지 않음",
+				"paypalVerified": "확인됨",
+				"testingPayment": "판매자 ID로 결제를 테스트할 준비가 되었습니다.",
+				"title": "판매자 정보",
+				"completeProfileFirst": "먼저 프로필을 완성해 주세요."
+			},
+			"dangerZone": {
+				"title": "주의 구역",
+				"description": "계정에서 로그아웃하거나 데이터를 영구적으로 삭제합니다.",
+				"signOut": "로그아웃",
+				"deleteAccount": "계정 삭제",
+				"deleteDescription": "계정과 관련된 모든 데이터를 영구적으로 삭제합니다. 이 작업은 되돌릴 수 없습니다.",
+				"deleteWarning": "이렇게 하면 계정이 영원히 삭제됩니다. 확실합니까?",
+				"confirmDelete": "네, 내 계정을 삭제합니다",
+				"cancelDelete": "취소",
+				"deleteDialogDescription": "이 작업은 계정 삭제 요청을 제출할 수 있는 연락처 양식으로 리디렉션합니다. 지원팀이 요청을 처리하고 계정이 영구적으로 삭제되었을 때 확인해 드립니다."
+			},
+			"title": "내 프로필"
 		}
 	},
 	"es": {
@@ -188,7 +262,8 @@
 				"paypalNotVerified": "No Verificado",
 				"paypalVerified": "Verificado",
 				"testingPayment": "Listo para probar pagos con tu ID de comerciante.",
-				"title": "Información del Vendedor"
+				"title": "Información del Vendedor",
+				"completeProfileFirst": "Por favor, completa tu perfil primero."
 			},
 			"dangerZone": {
 				"title": "Zona de peligro",
@@ -198,7 +273,8 @@
 				"deleteDescription": "Elimina permanentemente tu cuenta y todos los datos asociados. Esta acción no se puede deshacer.",
 				"deleteWarning": "Esto eliminará tu cuenta para siempre. ¿Estás seguro?",
 				"confirmDelete": "Sí, eliminar mi cuenta",
-				"cancelDelete": "Cancelar"
+				"cancelDelete": "Cancelar",
+				"deleteDialogDescription": "Esta acción te redirigirá a nuestro formulario de contacto donde puedes enviar una solicitud de eliminación. Nuestro equipo de soporte procesará tu solicitud y confirmará cuando tu cuenta haya sido eliminada permanentemente."
 			},
 			"title": "Mi Perfil"
 		}
@@ -253,10 +329,11 @@
 				"paymentTestTitle": "Test Pagamento",
 				"paypalConnectionStatus": "Stato Connessione PayPal:",
 				"paypalMerchantId": "ID Commerciante PayPal",
-				"paypalNotVerified": "Non Verificato",
 				"paypalVerified": "Verificato",
+				"paypalNotVerified": "Non Verificato",
 				"testingPayment": "Pronto a testare i pagamenti con il tuo ID commerciante.",
-				"title": "Informazioni Venditore"
+				"title": "Informazioni Venditore",
+				"completeProfileFirst": "Per favore, completa prima il tuo profilo."
 			},
 			"dangerZone": {
 				"title": "Zona pericolosa",
@@ -266,7 +343,8 @@
 				"deleteDescription": "Elimina permanentemente il tuo account e tutti i dati associati. Questa azione non può essere annullata.",
 				"deleteWarning": "Questo eliminerà il tuo account per sempre. Sei sicuro?",
 				"confirmDelete": "Sì, elimina il mio account",
-				"cancelDelete": "Annulla"
+				"cancelDelete": "Annulla",
+				"deleteDialogDescription": "Questa azione ti reindirizzerà al nostro modulo di contatto dove puoi inviare una richiesta di eliminazione. Il nostro team di supporto elaborerà la tua richiesta e confermerà quando il tuo account sarà stato eliminato permanentemente."
 			},
 			"title": "Il Mio Profilo"
 		}
@@ -324,7 +402,8 @@
 				"paypalNotVerified": "Nicht verifiziert",
 				"paypalVerified": "Verifiziert",
 				"testingPayment": "Bereit, Zahlungen mit Ihrer Händler-ID zu testen.",
-				"title": "Verkäuferinformationen"
+				"title": "Verkäuferinformationen",
+				"completeProfileFirst": "Bitte vervollständige zuerst dein Profil."
 			},
 			"dangerZone": {
 				"title": "Gefahrenbereich",
@@ -334,7 +413,8 @@
 				"deleteDescription": "Lösche dein Konto und alle zugehörigen Daten dauerhaft. Diese Aktion kann nicht rückgängig gemacht werden.",
 				"deleteWarning": "Dadurch wird dein Konto für immer gelöscht. Bist du sicher?",
 				"confirmDelete": "Ja, mein Konto löschen",
-				"cancelDelete": "Abbrechen"
+				"cancelDelete": "Abbrechen",
+				"deleteDialogDescription": "Diese Aktion leitet Sie zu unserem Kontaktformular weiter, wo Sie eine Löschanfrage einreichen können. Unser Support-Team bearbeitet Ihre Anfrage und bestätigt, wann Ihr Konto dauerhaft gelöscht wurde."
 			},
 			"title": "Mein Profil"
 		}
@@ -392,7 +472,8 @@
 				"paypalNotVerified": "Neconfirmat",
 				"paypalVerified": "Confirmat",
 				"testingPayment": "Gata de testat plățile cu ID-ul tău de comerciant.",
-				"title": "Informații Vânzător"
+				"title": "Informații Vânzător",
+				"completeProfileFirst": "Te rugăm să îți completezi mai întâi profilul."
 			},
 			"dangerZone": {
 				"title": "Zonă periculoasă",
@@ -402,7 +483,8 @@
 				"deleteDescription": "Șterge definitiv contul tău și toate datele asociate. Această acțiune nu poate fi anulată.",
 				"deleteWarning": "Acest lucru va șterge contul tău pentru totdeauna. Ești sigur?",
 				"confirmDelete": "Da, șterge-mi contul",
-				"cancelDelete": "Anulează"
+				"cancelDelete": "Anulează",
+				"deleteDialogDescription": "Această acțiune te va redirecționa către formularul nostru de contact unde poți trimite o cerere de ștergere. Echipa noastră de suport va procesa cererea ta și va confirma când contul tău a fost șters definitiv."
 			},
 			"title": "Profilul Meu"
 		}
@@ -460,7 +542,8 @@
 				"paypalNotVerified": "Não Verificado",
 				"paypalVerified": "Verificado",
 				"testingPayment": "Pronto para testar pagamentos com o teu ID de comerciante.",
-				"title": "Informações do Vendedor"
+				"title": "Informações do Vendedor",
+				"completeProfileFirst": "Por favor, completa primeiro o teu perfil."
 			},
 			"dangerZone": {
 				"title": "Zona perigosa",
@@ -470,7 +553,8 @@
 				"deleteDescription": "Elimina permanentemente a tua conta e todos os dados associados. Esta ação não pode ser desfeita.",
 				"deleteWarning": "Isto eliminará a tua conta para sempre. Tens a certeza?",
 				"confirmDelete": "Sim, eliminar a minha conta",
-				"cancelDelete": "Cancelar"
+				"cancelDelete": "Cancelar",
+				"deleteDialogDescription": "Esta ação irá redirecionar-te para o nosso formulário de contacto onde podes enviar um pedido de eliminação. A nossa equipa de suporte processará o teu pedido e confirmará quando a tua conta foi permanentemente eliminada."
 			},
 			"title": "Meu Perfil"
 		}
@@ -528,7 +612,8 @@
 				"paypalNotVerified": "Niet Geverifieerd",
 				"paypalVerified": "Geverifieerd",
 				"testingPayment": "Klaar om betalingen te testen met uw merchant ID.",
-				"title": "Verkoper Informatie"
+				"title": "Verkoper Informatie",
+				"completeProfileFirst": "Vul eerst je profiel in."
 			},
 			"dangerZone": {
 				"title": "Gevarenzone",
@@ -538,77 +623,10 @@
 				"deleteDescription": "Verwijder je account en alle bijbehorende gegevens permanent. Deze actie kan niet ongedaan worden gemaakt.",
 				"deleteWarning": "Dit zal je account voor altijd verwijderen. Weet je het zeker?",
 				"confirmDelete": "Ja, verwijder mijn account",
-				"cancelDelete": "Annuleren"
+				"cancelDelete": "Annuleren",
+				"deleteDialogDescription": "Deze actie zal je doorverwijzen naar ons contactformulier waar je een verwijderingsverzoek kunt indienen. Ons ondersteuningsteam zal je verzoek verwerken en bevestigen wanneer je account permanent is verwijderd."
 			},
 			"title": "Mijn Profiel"
-		}
-	},
-	"ko": {
-		"profile": {
-			"description": "개인 정보 및 러너 정보를 업데이트하세요.",
-			"notifications": {
-				"profileUpdateError": "프로필 업데이트 중 오류가 발생했습니다.",
-				"profileUpdated": "프로필이 성공적으로 업데이트되었습니다."
-			},
-			"runnerInfo": {
-				"address": "주소",
-				"birthDate": "생년월일",
-				"city": "도시",
-				"clubAffiliation": "클럽 소속",
-				"country": "국가",
-				"description": "마켓플레이스에서 빕을 구매하려면 러너 프로필을 완성하세요.",
-				"emergencyContactName": "비상 연락처 이름",
-				"emergencyContactPhone": "비상 연락처 전화번호",
-				"emergencyContactRelationship": "비상 연락처 관계",
-				"female": "여성",
-				"firstName": "이름",
-				"gender": "성별",
-				"lastName": "성",
-				"licenseNumber": "라이선스 번호",
-				"male": "남성",
-				"medicalCertificateUrl": "의료 증명서 URL",
-				"other": "기타",
-				"phoneNumber": "전화번호",
-				"postalCode": "우편번호",
-				"save": "변경 사항 저장",
-				"selectGender": "성별 선택",
-				"selectTshirtSize": "티셔츠 사이즈 선택",
-				"title": "러너 정보",
-				"tshirtSize": "티셔츠 사이즈"
-			},
-			"sellerInfo": {
-				"cancel": "취소",
-				"completeSetup": "PayPal 설정 완료",
-				"confirm": "확인",
-				"connectPayPal": "PayPal 연결",
-				"createSellerButton": "판매자 계정 생성",
-				"description": "빕을 판매하고 결제를 받으려면 판매자 프로필을 완성하세요.",
-				"disconnectButton": "PayPal 판매자 계정 연결 해제",
-				"disconnectDescription": "PayPal 판매자 계정을 다시 연결할 때까지 결제를 받을 수 없습니다.",
-				"disconnectTitle": "PayPal 연결 해제?",
-				"disconnecting": "연결 해제 중...",
-				"onboardingDescription": "빕 판매 시 결제를 받으려면 PayPal 계정을 연결하세요.",
-				"onboardingTitle": "PayPal 온보딩",
-				"paymentTestDescription": "샘플 결제로 PayPal 통합을 테스트하세요.",
-				"paymentTestTitle": "결제 테스트",
-				"paypalConnectionStatus": "PayPal 연결 상태:",
-				"paypalMerchantId": "PayPal 판매자 ID",
-				"paypalNotVerified": "확인되지 않음",
-				"paypalVerified": "확인됨",
-				"testingPayment": "판매자 ID로 결제를 테스트할 준비가 되었습니다.",
-				"title": "판매자 정보"
-			},
-			"dangerZone": {
-				"title": "주의 구역",
-				"description": "계정에서 로그아웃하거나 데이터를 영구적으로 삭제합니다.",
-				"signOut": "로그아웃",
-				"deleteAccount": "계정 삭제",
-				"deleteDescription": "계정과 관련된 모든 데이터를 영구적으로 삭제합니다. 이 작업은 되돌릴 수 없습니다.",
-				"deleteWarning": "이렇게 하면 계정이 영원히 삭제됩니다. 확실합니까?",
-				"confirmDelete": "네, 내 계정을 삭제합니다",
-				"cancelDelete": "취소"
-			},
-			"title": "내 프로필"
 		}
 	}
 }

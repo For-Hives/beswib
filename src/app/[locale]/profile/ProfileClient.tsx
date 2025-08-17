@@ -104,7 +104,7 @@ ${clerkUser.firstName ?? ''} ${clerkUser.lastName ?? ''}`)
 									{user != null ? (
 										<PayPalOnboarding locale={locale} userId={user.id} />
 									) : (
-										<p className="text-muted-foreground text-sm">Please complete your profile first.</p>
+										<p className="text-muted-foreground text-sm">{t.profile.sellerInfo.completeProfileFirst}</p>
 									)}
 								</CardContent>
 							</Card>
@@ -154,11 +154,7 @@ ${clerkUser.firstName ?? ''} ${clerkUser.lastName ?? ''}`)
 									</DialogHeader>
 									<div className="py-4">
 										<div className="bg-destructive/10 border-destructive/20 rounded-lg border p-4">
-											<p className="text-muted-foreground text-sm">
-												This action will redirect you to our contact form where you can submit a deletion request. Our
-												support team will process your request and confirm when your account has been permanently
-												deleted.
-											</p>
+											<p className="text-muted-foreground text-sm">{t.profile.dangerZone.deleteDialogDescription}</p>
 										</div>
 									</div>
 									<DialogFooter>
