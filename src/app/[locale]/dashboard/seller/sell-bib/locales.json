@@ -44,6 +44,26 @@
 				"requestNewEventDescription": "Request to have it listed - we'll take care of everything!",
 				"requestNewEventButton": "Request New Event"
 			},
+			"emailVerification": {
+				"title": "Email Verification",
+				"description": "Choose which email was used to register for this event. This helps verify your registration.",
+				"selectEmailTitle": "Select Registration Email",
+				"selectEmailDescription": "Choose the email address you used when registering for this event.",
+				"accountEmail": "Account Email",
+				"codeInput": "6-digit code",
+				"verify": "Verify",
+				"resend": "Resend",
+				"addEmailTitle": "Add Another Email",
+				"addEmailDescription": "If you used a different email for registration, add it here.",
+				"addEmailButton": "Add Email Address",
+				"enterEmail": "Enter email address",
+				"add": "Add",
+				"cancel": "Cancel",
+				"codeInfo": "A verification code will be sent to this email address.",
+				"selected": "Selected:",
+				"selectEmailError": "Please select an email address.",
+				"verifyEmailError": "Please verify the selected email address."
+			},
 			"bibDetails": {
 				"registrationNumber": "Registration Number",
 				"registrationNumberPlaceholder": "Enter your bib number",
