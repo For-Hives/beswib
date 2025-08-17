@@ -21,7 +21,50 @@
 		"gender": "Gender:",
 		"status": "Status:",
 		"editBib": "Edit Bib",
-		"bibFor": "Bib for:"
+		"bibFor": "Bib for:",
+		"sellerDashboard": "Seller Dashboard",
+		"stats": {
+			"totalListings": "Total Listings",
+			"totalListingsDesc": "Bibs listed for sale",
+			"available": "Available",
+			"availableDesc": "Currently for sale",
+			"sold": "Sold",
+			"soldDesc": "Successfully sold",
+			"netRevenue": "Net Revenue",
+			"netRevenueDesc": "After platform and PayPal fees",
+			"gross": "Gross:",
+			"platformFees": "Platform fees:",
+			"paypalFees": "PayPal fees:",
+			"amount": "Amount:",
+			"net": "Net:"
+		},
+		"tooltip": {
+			"hover": "Hover",
+			"feesExplanation": "How fees work:",
+			"netFormula": "Net = Amount − Platform fees − PayPal fees.",
+			"platformFeesInfo": "Platform fees are 10% of the listing price.",
+			"paypalFeesInfo": "PayPal fees are provided by PayPal in the capture and may vary by country and payment method."
+		},
+		"quickActions": "Quick Actions",
+		"actions": {
+			"sellNewBib": "Sell New Bib",
+			"myListings": "My Listings",
+			"viewMarketplace": "View Marketplace",
+			"mainDashboard": "Main Dashboard"
+		},
+		"recentSales": {
+			"title": "Recent Sales",
+			"description": "Completed transactions for your bibs",
+			"noSales": "No completed sales yet",
+			"listABib": "List a bib"
+		},
+		"bibStatus": {
+			"available": "Available",
+			"expired": "Expired",
+			"sold": "Sold",
+			"validationFailed": "Validation Failed",
+			"withdrawn": "Withdrawn"
+		}
 	},
 	"fr": {
 		"title": "Tableau de bord vendeur",
@@ -45,7 +88,50 @@
 		"gender": "Genre :",
 		"status": "Statut :",
 		"editBib": "Modifier le dossard",
-		"bibFor": "Dossard pour :"
+		"bibFor": "Dossard pour :",
+		"sellerDashboard": "Tableau de Bord Vendeur",
+		"stats": {
+			"totalListings": "Total Annonces",
+			"totalListingsDesc": "Dossards mis en vente",
+			"available": "Disponible",
+			"availableDesc": "Actuellement en vente",
+			"sold": "Vendu",
+			"soldDesc": "Vendu avec succès",
+			"netRevenue": "Revenus Nets",
+			"netRevenueDesc": "Après frais plateforme et PayPal",
+			"gross": "Brut :",
+			"platformFees": "Frais plateforme :",
+			"paypalFees": "Frais PayPal :",
+			"amount": "Montant :",
+			"net": "Net :"
+		},
+		"tooltip": {
+			"hover": "Survoler",
+			"feesExplanation": "Comment fonctionnent les frais :",
+			"netFormula": "Net = Montant − Frais plateforme − Frais PayPal.",
+			"platformFeesInfo": "Les frais de plateforme sont 10% du prix de vente.",
+			"paypalFeesInfo": "Les frais PayPal sont fournis par PayPal lors de la capture et peuvent varier selon le pays et la méthode de paiement."
+		},
+		"quickActions": "Actions Rapides",
+		"actions": {
+			"sellNewBib": "Vendre Nouveau Dossard",
+			"myListings": "Mes Annonces",
+			"viewMarketplace": "Voir Marketplace",
+			"mainDashboard": "Dashboard Principal"
+		},
+		"recentSales": {
+			"title": "Ventes Récentes",
+			"description": "Transactions réalisées pour vos dossards",
+			"noSales": "Aucune vente réalisée pour le moment",
+			"listABib": "Mettre en vente un dossard"
+		},
+		"bibStatus": {
+			"available": "Disponible",
+			"expired": "Expiré",
+			"sold": "Vendu",
+			"validationFailed": "Validation Échouée",
+			"withdrawn": "Retiré"
+		}
 	},
 	"ko": {
 		"title": "판매자 대시보드",
@@ -69,7 +155,50 @@
 		"gender": "성별:",
 		"status": "상태:",
 		"editBib": "비브 편집",
-		"bibFor": "비브 대상:"
+		"bibFor": "비브 대상:",
+		"sellerDashboard": "판매자 대시보드",
+		"stats": {
+			"totalListings": "총 등록수",
+			"totalListingsDesc": "판매용 비브 등록",
+			"available": "판매중",
+			"availableDesc": "현재 판매중",
+			"sold": "판매완료",
+			"soldDesc": "성공적으로 판매됨",
+			"netRevenue": "순수익",
+			"netRevenueDesc": "플랫폼 및 PayPal 수수료 차감 후",
+			"gross": "총액:",
+			"platformFees": "플랫폼 수수료:",
+			"paypalFees": "PayPal 수수료:",
+			"amount": "금액:",
+			"net": "순액:"
+		},
+		"tooltip": {
+			"hover": "호버",
+			"feesExplanation": "수수료 작동 방식:",
+			"netFormula": "순액 = 금액 − 플랫폼 수수료 − PayPal 수수료.",
+			"platformFeesInfo": "플랫폼 수수료는 등록 가격의 10%입니다.",
+			"paypalFeesInfo": "PayPal 수수료는 PayPal에서 제공되며 국가 및 결제 방법에 따라 달라질 수 있습니다."
+		},
+		"quickActions": "빠른 작업",
+		"actions": {
+			"sellNewBib": "새 비브 판매",
+			"myListings": "내 등록목록",
+			"viewMarketplace": "마켓플레이스 보기",
+			"mainDashboard": "메인 대시보드"
+		},
+		"recentSales": {
+			"title": "최근 판매",
+			"description": "비브 거래 완료 내역",
+			"noSales": "아직 완료된 판매가 없습니다",
+			"listABib": "비브 등록하기"
+		},
+		"bibStatus": {
+			"available": "판매중",
+			"expired": "만료됨",
+			"sold": "판매완료",
+			"validationFailed": "검증 실패",
+			"withdrawn": "철회됨"
+		}
 	},
 	"es": {
 		"title": "Panel de Vendedor",
@@ -93,7 +222,50 @@
 		"gender": "Género:",
 		"status": "Estado:",
 		"editBib": "Editar dorsal",
-		"bibFor": "Dorsal para:"
+		"bibFor": "Dorsal para:",
+		"sellerDashboard": "Panel de Vendedor",
+		"stats": {
+			"totalListings": "Total Anuncios",
+			"totalListingsDesc": "Dorsales puestos en venta",
+			"available": "Disponible",
+			"availableDesc": "Actualmente en venta",
+			"sold": "Vendido",
+			"soldDesc": "Vendido exitosamente",
+			"netRevenue": "Ingresos Netos",
+			"netRevenueDesc": "Después de comisiones de plataforma y PayPal",
+			"gross": "Bruto:",
+			"platformFees": "Comisiones plataforma:",
+			"paypalFees": "Comisiones PayPal:",
+			"amount": "Cantidad:",
+			"net": "Neto:"
+		},
+		"tooltip": {
+			"hover": "Pasar el ratón",
+			"feesExplanation": "Cómo funcionan las comisiones:",
+			"netFormula": "Neto = Cantidad − Comisiones plataforma − Comisiones PayPal.",
+			"platformFeesInfo": "Las comisiones de plataforma son el 10% del precio de venta.",
+			"paypalFeesInfo": "Las comisiones de PayPal son proporcionadas por PayPal en la captura y pueden variar según el país y método de pago."
+		},
+		"quickActions": "Acciones Rápidas",
+		"actions": {
+			"sellNewBib": "Vender Nuevo Dorsal",
+			"myListings": "Mis Anuncios",
+			"viewMarketplace": "Ver Marketplace",
+			"mainDashboard": "Panel Principal"
+		},
+		"recentSales": {
+			"title": "Ventas Recientes",
+			"description": "Transacciones completadas para tus dorsales",
+			"noSales": "Aún no hay ventas completadas",
+			"listABib": "Publicar un dorsal"
+		},
+		"bibStatus": {
+			"available": "Disponible",
+			"expired": "Expirado",
+			"sold": "Vendido",
+			"validationFailed": "Validación Fallida",
+			"withdrawn": "Retirado"
+		}
 	},
 	"it": {
 		"title": "Dashboard Venditore",

@@ -37,18 +37,18 @@ interface SerializedClerkUser {
 }
 
 // Status display mapping
-export const getStatusDisplay = (status: string) => {
+export const getStatusDisplay = (status: string, t: any) => {
 	switch (status) {
 		case 'available':
-			return { label: 'Available', color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' }
+			return { label: t.bibStatus?.available ?? 'Available', color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' }
 		case 'expired':
-			return { label: 'Expired', color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400' }
+			return { label: t.bibStatus?.expired ?? 'Expired', color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400' }
 		case 'sold':
-			return { label: 'Sold', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400' }
+			return { label: t.bibStatus?.sold ?? 'Sold', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400' }
 		case 'validation_failed':
-			return { label: 'Validation Failed', color: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400' }
+			return { label: t.bibStatus?.validationFailed ?? 'Validation Failed', color: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400' }
 		case 'withdrawn':
-			return { label: 'Withdrawn', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400' }
+			return { label: t.bibStatus?.withdrawn ?? 'Withdrawn', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400' }
 		default:
 			return { label: status, color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400' }
 	}
@@ -116,7 +116,7 @@ export default function SellerDashboardClient({
 			<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
 				<div className="flex items-center justify-between">
 					<div>
-						<p className="text-muted-foreground text-sm">Seller Dashboard</p>
+						<p className="text-muted-foreground text-sm">{t.sellerDashboard ?? 'Seller Dashboard'}</p>
 						<p className="text-foreground flex items-center gap-2 font-medium">
 							<Tag className="h-4 w-4" />
 							{userName}
