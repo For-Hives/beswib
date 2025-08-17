@@ -64,7 +64,12 @@
 			"sold": "Sold",
 			"validationFailed": "Validation Failed",
 			"withdrawn": "Withdrawn"
-		}
+		},
+		"userHeader": {
+			"sellerDashboard": "Seller Dashboard"
+		},
+		"eventId": "Event ID:",
+		"statusSold": "Sold"
 	},
 	"fr": {
 		"title": "Tableau de bord vendeur",
@@ -131,7 +136,12 @@
 			"sold": "Vendu",
 			"validationFailed": "Validation Échouée",
 			"withdrawn": "Retiré"
-		}
+		},
+		"userHeader": {
+			"sellerDashboard": "Tableau de Bord Vendeur"
+		},
+		"eventId": "ID Événement :",
+		"statusSold": "Vendu"
 	},
 	"ko": {
 		"title": "판매자 대시보드",
@@ -198,7 +208,12 @@
 			"sold": "판매완료",
 			"validationFailed": "검증 실패",
 			"withdrawn": "철회됨"
-		}
+		},
+		"userHeader": {
+			"sellerDashboard": "판매자 대시보드"
+		},
+		"eventId": "이벤트 ID:",
+		"statusSold": "판매완료"
 	},
 	"es": {
 		"title": "Panel de Vendedor",
@@ -265,7 +280,12 @@
 			"sold": "Vendido",
 			"validationFailed": "Validación Fallida",
 			"withdrawn": "Retirado"
-		}
+		},
+		"userHeader": {
+			"sellerDashboard": "Panel de Vendedor"
+		},
+		"eventId": "ID Evento:",
+		"statusSold": "Vendido"
 	},
 	"it": {
 		"title": "Dashboard Venditore",
@@ -289,7 +309,55 @@
 		"gender": "Genere:",
 		"status": "Stato:",
 		"editBib": "Modifica pettorale",
-		"bibFor": "Pettorale per:"
+		"bibFor": "Pettorale per:",
+		"sellerDashboard": "Dashboard Venditore",
+		"stats": {
+			"totalListings": "Totale Annunci",
+			"totalListingsDesc": "Pettorali messi in vendita",
+			"available": "Disponibile",
+			"availableDesc": "Attualmente in vendita",
+			"sold": "Venduto",
+			"soldDesc": "Venduto con successo",
+			"netRevenue": "Ricavi Netti",
+			"netRevenueDesc": "Dopo commissioni piattaforma e PayPal",
+			"gross": "Lordo:",
+			"platformFees": "Commissioni piattaforma:",
+			"paypalFees": "Commissioni PayPal:",
+			"amount": "Importo:",
+			"net": "Netto:"
+		},
+		"tooltip": {
+			"hover": "Passa sopra",
+			"feesExplanation": "Come funzionano le commissioni:",
+			"netFormula": "Netto = Importo − Commissioni piattaforma − Commissioni PayPal.",
+			"platformFeesInfo": "Le commissioni della piattaforma sono il 10% del prezzo di vendita.",
+			"paypalFeesInfo": "Le commissioni PayPal sono fornite da PayPal nella cattura e possono variare per paese e metodo di pagamento."
+		},
+		"quickActions": "Azioni Rapide",
+		"actions": {
+			"sellNewBib": "Vendi Nuovo Pettorale",
+			"myListings": "I Miei Annunci",
+			"viewMarketplace": "Vedi Marketplace",
+			"mainDashboard": "Dashboard Principale"
+		},
+		"recentSales": {
+			"title": "Vendite Recenti",
+			"description": "Transazioni completate per i tuoi pettorali",
+			"noSales": "Nessuna vendita completata ancora",
+			"listABib": "Inserisci un pettorale"
+		},
+		"bibStatus": {
+			"available": "Disponibile",
+			"expired": "Scaduto",
+			"sold": "Venduto",
+			"validationFailed": "Validazione Fallita",
+			"withdrawn": "Ritirato"
+		},
+		"userHeader": {
+			"sellerDashboard": "Dashboard Venditore"
+		},
+		"eventId": "ID Evento:",
+		"statusSold": "Venduto"
 	},
 	"de": {
 		"title": "Verkäufer-Dashboard",
@@ -313,7 +381,55 @@
 		"gender": "Geschlecht:",
 		"status": "Status:",
 		"editBib": "Startnummer bearbeiten",
-		"bibFor": "Startnummer für:"
+		"bibFor": "Startnummer für:",
+		"sellerDashboard": "Verkäufer-Dashboard",
+		"stats": {
+			"totalListings": "Gesamt Anzeigen",
+			"totalListingsDesc": "Startnummern zum Verkauf inseriert",
+			"available": "Verfügbar",
+			"availableDesc": "Aktuell zum Verkauf",
+			"sold": "Verkauft",
+			"soldDesc": "Erfolgreich verkauft",
+			"netRevenue": "Nettoeinnahmen",
+			"netRevenueDesc": "Nach Plattform- und PayPal-Gebühren",
+			"gross": "Brutto:",
+			"platformFees": "Plattform-Gebühren:",
+			"paypalFees": "PayPal-Gebühren:",
+			"amount": "Betrag:",
+			"net": "Netto:"
+		},
+		"tooltip": {
+			"hover": "Darüber fahren",
+			"feesExplanation": "Wie Gebühren funktionieren:",
+			"netFormula": "Netto = Betrag − Plattform-Gebühren − PayPal-Gebühren.",
+			"platformFeesInfo": "Plattform-Gebühren sind 10% des Verkaufspreises.",
+			"paypalFeesInfo": "PayPal-Gebühren werden von PayPal bei der Erfassung bereitgestellt und können je nach Land und Zahlungsmethode variieren."
+		},
+		"quickActions": "Schnelle Aktionen",
+		"actions": {
+			"sellNewBib": "Neue Startnummer verkaufen",
+			"myListings": "Meine Anzeigen",
+			"viewMarketplace": "Marketplace anzeigen",
+			"mainDashboard": "Haupt-Dashboard"
+		},
+		"recentSales": {
+			"title": "Letzte Verkäufe",
+			"description": "Abgeschlossene Transaktionen für deine Startnummern",
+			"noSales": "Noch keine abgeschlossenen Verkäufe",
+			"listABib": "Startnummer inserieren"
+		},
+		"bibStatus": {
+			"available": "Verfügbar",
+			"expired": "Abgelaufen",
+			"sold": "Verkauft",
+			"validationFailed": "Validierung fehlgeschlagen",
+			"withdrawn": "Zurückgezogen"
+		},
+		"userHeader": {
+			"sellerDashboard": "Verkäufer-Dashboard"
+		},
+		"eventId": "Event-ID:",
+		"statusSold": "Verkauft"
 	},
 	"ro": {
 		"title": "Panou Vânzător",
@@ -337,7 +453,55 @@
 		"gender": "Gen:",
 		"status": "Stare:",
 		"editBib": "Editează numărul",
-		"bibFor": "Număr pentru:"
+		"bibFor": "Număr pentru:",
+		"sellerDashboard": "Panou Vânzător",
+		"stats": {
+			"totalListings": "Total Anunțuri",
+			"totalListingsDesc": "Numere puse în vânzare",
+			"available": "Disponibil",
+			"availableDesc": "În prezent în vânzare",
+			"sold": "Vândut",
+			"soldDesc": "Vândut cu succes",
+			"netRevenue": "Venituri Nete",
+			"netRevenueDesc": "După comisioane platformă și PayPal",
+			"gross": "Brut:",
+			"platformFees": "Comisioane platformă:",
+			"paypalFees": "Comisioane PayPal:",
+			"amount": "Suma:",
+			"net": "Net:"
+		},
+		"tooltip": {
+			"hover": "Trece peste",
+			"feesExplanation": "Cum funcționează comisioanele:",
+			"netFormula": "Net = Suma − Comisioane platformă − Comisioane PayPal.",
+			"platformFeesInfo": "Comisioanele platformei sunt 10% din prețul de vânzare.",
+			"paypalFeesInfo": "Comisioanele PayPal sunt furnizate de PayPal în captură și pot varia în funcție de țară și metoda de plată."
+		},
+		"quickActions": "Acțiuni Rapide",
+		"actions": {
+			"sellNewBib": "Vinde Număr Nou",
+			"myListings": "Anunțurile Mele",
+			"viewMarketplace": "Vezi Marketplace",
+			"mainDashboard": "Dashboard Principal"
+		},
+		"recentSales": {
+			"title": "Vânzări Recente",
+			"description": "Tranzacții finalizate pentru numerele tale",
+			"noSales": "Încă nu sunt vânzări finalizate",
+			"listABib": "Listează un număr"
+		},
+		"bibStatus": {
+			"available": "Disponibil",
+			"expired": "Expirat",
+			"sold": "Vândut",
+			"validationFailed": "Validare Eșuată",
+			"withdrawn": "Retras"
+		},
+		"userHeader": {
+			"sellerDashboard": "Panou Vânzător"
+		},
+		"eventId": "ID Eveniment:",
+		"statusSold": "Vândut"
 	},
 	"pt": {
 		"title": "Painel do Vendedor",
@@ -361,7 +525,55 @@
 		"gender": "Género:",
 		"status": "Estado:",
 		"editBib": "Editar dorsal",
-		"bibFor": "Dorsal para:"
+		"bibFor": "Dorsal para:",
+		"sellerDashboard": "Painel do Vendedor",
+		"stats": {
+			"totalListings": "Total Anúncios",
+			"totalListingsDesc": "Dorsais postos à venda",
+			"available": "Disponível",
+			"availableDesc": "Atualmente à venda",
+			"sold": "Vendido",
+			"soldDesc": "Vendido com sucesso",
+			"netRevenue": "Receitas Líquidas",
+			"netRevenueDesc": "Após comissões da plataforma e PayPal",
+			"gross": "Bruto:",
+			"platformFees": "Comissões plataforma:",
+			"paypalFees": "Comissões PayPal:",
+			"amount": "Montante:",
+			"net": "Líquido:"
+		},
+		"tooltip": {
+			"hover": "Passar por cima",
+			"feesExplanation": "Como funcionam as comissões:",
+			"netFormula": "Líquido = Montante − Comissões plataforma − Comissões PayPal.",
+			"platformFeesInfo": "As comissões da plataforma são 10% do preço de venda.",
+			"paypalFeesInfo": "As comissões PayPal são fornecidas pelo PayPal na captura e podem variar por país e método de pagamento."
+		},
+		"quickActions": "Ações Rápidas",
+		"actions": {
+			"sellNewBib": "Vender Novo Dorsal",
+			"myListings": "Os Meus Anúncios",
+			"viewMarketplace": "Ver Marketplace",
+			"mainDashboard": "Painel Principal"
+		},
+		"recentSales": {
+			"title": "Vendas Recentes",
+			"description": "Transações concluídas para os teus dorsais",
+			"noSales": "Ainda não há vendas concluídas",
+			"listABib": "Listar um dorsal"
+		},
+		"bibStatus": {
+			"available": "Disponível",
+			"sold": "Vendido",
+			"expired": "Expirado",
+			"validationFailed": "Validação Falhada",
+			"withdrawn": "Retirado"
+		},
+		"userHeader": {
+			"sellerDashboard": "Painel do Vendedor"
+		},
+		"eventId": "ID Evento:",
+		"statusSold": "Vendido"
 	},
 	"nl": {
 		"title": "Verkoper Dashboard",
@@ -380,11 +592,59 @@
 		"noBibsListed": "Je hebt nog geen startnummers geplaatst.",
 		"registrationNumber": "Registratienummer:",
 		"price": "Prijs:",
-		"originalPrice": "Oorspronkelijke prijs:",
+		"originalPrice": "Originele prijs:",
 		"size": "Maat:",
 		"gender": "Geslacht:",
 		"status": "Status:",
 		"editBib": "Startnummer bewerken",
-		"bibFor": "Startnummer voor:"
+		"bibFor": "Startnummer voor:",
+		"sellerDashboard": "Verkoper Dashboard",
+		"stats": {
+			"totalListings": "Totaal Advertenties",
+			"totalListingsDesc": "Startnummers te koop geplaatst",
+			"available": "Beschikbaar",
+			"availableDesc": "Momenteel te koop",
+			"sold": "Verkocht",
+			"soldDesc": "Succesvol verkocht",
+			"netRevenue": "Netto Inkomsten",
+			"netRevenueDesc": "Na platform- en PayPal-kosten",
+			"gross": "Bruto:",
+			"platformFees": "Platform-kosten:",
+			"paypalFees": "PayPal-kosten:",
+			"amount": "Bedrag:",
+			"net": "Netto:"
+		},
+		"tooltip": {
+			"hover": "Hover",
+			"feesExplanation": "Hoe kosten werken:",
+			"netFormula": "Netto = Bedrag − Platform-kosten − PayPal-kosten.",
+			"platformFeesInfo": "Platform-kosten zijn 10% van de verkoopprijs.",
+			"paypalFeesInfo": "PayPal-kosten worden door PayPal geleverd bij de vangst en kunnen variëren per land en betaalmethode."
+		},
+		"quickActions": "Snelle Acties",
+		"actions": {
+			"sellNewBib": "Nieuw Startnummer Verkopen",
+			"myListings": "Mijn Advertenties",
+			"viewMarketplace": "Marketplace Bekijken",
+			"mainDashboard": "Hoofd Dashboard"
+		},
+		"recentSales": {
+			"title": "Recente Verkopen",
+			"description": "Voltooide transacties voor je startnummers",
+			"noSales": "Nog geen voltooide verkopen",
+			"listABib": "Startnummer plaatsen"
+		},
+		"bibStatus": {
+			"available": "Beschikbaar",
+			"expired": "Verlopen",
+			"sold": "Verkocht",
+			"validationFailed": "Validatie Mislukt",
+			"withdrawn": "Teruggetrokken"
+		},
+		"userHeader": {
+			"sellerDashboard": "Verkoper Dashboard"
+		},
+		"eventId": "Event-ID:",
+		"statusSold": "Verkocht"
 	}
 }
