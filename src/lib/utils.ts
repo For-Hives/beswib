@@ -193,14 +193,14 @@ export const getRandomParticipantCount = (eventType: string, distance: number): 
 
 // Event templates for more realistic faker data 🎲
 const EVENT_TEMPLATES = [
-	{ type: 'running', name: 'Marathon de {city}', distance: 42, basePrice: 120 },
-	{ type: 'running', name: 'Semi-marathon de {city}', distance: 21, basePrice: 35 },
-	{ type: 'running', name: '10km de {city}', distance: 10, basePrice: 20 },
+	{ type: 'road', name: 'Marathon de {city}', distance: 42, basePrice: 120 },
+	{ type: 'road', name: 'Semi-marathon de {city}', distance: 21, basePrice: 35 },
+	{ type: 'road', name: '10km de {city}', distance: 10, basePrice: 20 },
 	{ type: 'trail', name: 'Trail de {city}', distance: 25, basePrice: 45 },
 	{ type: 'trail', name: 'Ultra Trail de {city}', distance: 100, basePrice: 150 },
 	{ type: 'triathlon', name: 'Ironman {city}', distance: 226, basePrice: 600 },
 	{ type: 'triathlon', name: 'Triathlon de {city}', distance: 51, basePrice: 80 },
-	{ type: 'cycling', name: 'Cyclosportive de {city}', distance: 120, basePrice: 40 },
+	{ type: 'cycle', name: 'Cyclosportive de {city}', distance: 120, basePrice: 40 },
 ] as const
 
 // French cities for event locations 🇫🇷

@@ -241,7 +241,7 @@ export function WaitlistNotifications({ t, locale, eventName, eventId }: Waitlis
 								<p className="text-sm text-green-700">{getSuccessSubMessage()}</p>
 							</div>
 						</div>
-						<DialogFooter className="sm:justify-center">
+						<DialogFooter className="justify-end">
 							<Button onClick={handleClose} className="w-full sm:w-auto">
 								{buttonTexts.success}
 							</Button>

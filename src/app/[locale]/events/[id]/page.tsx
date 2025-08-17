@@ -11,6 +11,8 @@ import Link from 'next/link'
 import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
+import { WaitlistNotifications } from '@/components/waitlist/WaitlistNotifications'
+import WaitlistStatusClient from '@/components/waitlist/WaitlistStatusClient'
 import { fetchPubliclyListedBibsForEvent } from '@/services/bib.services'
 import { transformBibsToBibSales } from '@/lib/transformers/bib'
 import { fetchUserByClerkId } from '@/services/user.services'
@@ -21,8 +23,6 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import { pbDateToLuxon } from '@/lib/utils/date'
 import { Locale } from '@/lib/i18n/config'
 
-import { WaitlistNotifications } from '../../../../components/waitlist/WaitlistNotifications'
-import WaitlistStatusClient from '../../../../components/waitlist/WaitlistStatusClient'
 import eventTranslations from './locales.json'
 
 // Optionally enable ISR if you want periodic regeneration (does not force dynamic)
