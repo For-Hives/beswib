@@ -135,7 +135,7 @@ export default function SellerBibCard({ locale, bib }: SellerBibCardProps) {
 					)}
 
 					{/* Location if available */}
-					{bib.expand?.eventId?.location && (
+					{bib.expand?.eventId?.location != null && (
 						<div className="flex items-center gap-2">
 							<MapPinned className="text-muted-foreground h-4 w-4" />
 							<p className="text-muted-foreground truncate text-sm">{bib.expand.eventId.location}</p>
