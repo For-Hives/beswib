@@ -70,12 +70,11 @@ export default function TokenValidation({ translations: t, onValidToken, locale,
 						onValidToken(token.trim())
 					}, 1000)
 				} else {
-					const errorData = await response.json()
-					const errorMessage =
-						errorData.error === 'Invalid token or bib not found'
-							? (t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
-							: (t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
-					setError(errorMessage)
+					if (!!t.invalidToken) {
+						setError(t.invalidToken)
+					} else {
+						setError('Invalid private token. Please check your token and try again.')
+					}
 				}
 			} catch (error) {
 				console.error('Token validation error:', error)
