@@ -45,86 +45,6 @@ import {
 } from './actions'
 import editBibTranslations from './locales.json'
 
-interface EditBibTranslations {
-	[key: string]: unknown
-	actions?: string
-	backToDashboard?: string
-	bibDetails?: string
-	bibDetailsDescription?: string
-	bibNotFound?: string
-	bibNotFoundOrNoPermission?: string
-	bibStatus?: {
-		available?: string
-		expired?: string
-		sold?: string
-		validationFailed?: string
-		withdrawn?: string
-	}
-	confirmWithdraw?: string
-	currentStatus?: string
-	currentVisibility?: string
-	errorFetchingBib?: string
-	eventDate?: string
-	eventDescription?: string
-	eventDetails?: string
-	eventLocation?: string
-	eventName?: string
-	expiredDescription?: string
-	gender?: string
-	genderOptions?: {
-		female?: string
-		male?: string
-		placeholder?: string
-		unisex?: string
-	}
-	listingStatus?: string
-	listingStatusDescription?: string
-	makePrivate?: string
-	makePublic?: string
-	originalPrice?: string
-	price?: string
-	private?: string
-	privateListingToken?: string
-	privateTokenHelp?: string
-	privateTokenDisplay?: string
-	privateTokenCopy?: string
-	privateTokenCopySuccess?: string
-	privateTokenRegenerate?: string
-	privateTokenRegenerateConfirm?: string
-	regenerateTokenDialog?: {
-		title?: string
-		description?: string
-		warning?: string
-		confirm?: string
-		cancel?: string
-	}
-	privateTokenHelperText?: string
-	privateLink?: string
-	privateLinkCopy?: string
-	privateLinkCopySuccess?: string
-	public?: string
-	registrationNumber?: string
-	size?: string
-	soldDescription?: string
-	statusInformation?: string
-	subtitle?: string
-	successMessages?: {
-		detailsUpdated?: string
-		statusUpdated?: string
-		bibWithdrawn?: string
-		tokenRegenerated?: string
-	}
-	title?: string
-	updateDetails?: string
-	updating?: string
-	userNotFound?: string
-	withdrawDescription?: string
-	withdrawListing?: string
-	withdrawWarning?: string
-	withdrawing?: string
-	withdrawnDescription?: string
-}
-
 interface EditBibClientProps {
 	bibId: string
 	initialBibWithEvent: (Bib & { expand?: { eventId?: Event } }) | null
@@ -133,36 +53,38 @@ interface EditBibClientProps {
 }
 
 // Status display mapping
-const getStatusDisplay = (status: string, t: any) => {
+const getStatusDisplay = (status: string, locale: Locale) => {
+	const t = getTranslations(locale, editBibTranslations)
+
 	switch (status) {
 		case 'available':
 			return {
 				variant: 'secondary' as const,
-				label: t.bibStatus?.available ?? 'Available',
+				label: t.bibStatus.available ?? 'Available',
 				color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
 			}
 		case 'expired':
 			return {
 				variant: 'secondary' as const,
-				label: t.bibStatus?.expired ?? 'Expired',
+				label: t.bibStatus.expired ?? 'Expired',
 				color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400',
 			}
 		case 'sold':
 			return {
 				variant: 'secondary' as const,
-				label: t.bibStatus?.sold ?? 'Sold',
+				label: t.bibStatus.sold ?? 'Sold',
 				color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400',
 			}
 		case 'validation_failed':
 			return {
 				variant: 'destructive' as const,
-				label: t.bibStatus?.validationFailed ?? 'Validation Failed',
+				label: t.bibStatus.validationFailed ?? 'Validation Failed',
 				color: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400',
 			}
 		case 'withdrawn':
 			return {
 				variant: 'secondary' as const,
-				label: t.bibStatus?.withdrawn ?? 'Withdrawn',
+				label: t.bibStatus.withdrawn ?? 'Withdrawn',
 				color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400',
 			}
 		default:
@@ -175,7 +97,7 @@ const getStatusDisplay = (status: string, t: any) => {
 }
 
 export default function EditBibClient({ locale, initialError, initialBibWithEvent, bibId }: EditBibClientProps) {
-	const t = getTranslations<EditBibTranslations>(locale, editBibTranslations)
+	const t = getTranslations(locale, editBibTranslations)
 
 	const router = useRouter()
 	const [bib, setBib] = useState<(Bib & { expand?: { eventId?: Event } }) | null>(initialBibWithEvent)
@@ -193,7 +115,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 
 		handleUpdateBibDetails(bibId, formData)
 			.then(updatedBib => {
-				toast.success(t.successMessages?.detailsUpdated ?? 'Details updated successfully!')
+				toast.success(t.successMessages.detailsUpdated ?? 'Details updated successfully!')
 				const newEventId = updatedBib.eventId
 
 				const nextState: Bib & { expand?: { eventId?: Event } } = {
@@ -364,7 +286,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 		)
 	}
 
-	const statusDisplay = getStatusDisplay(bib.status, t)
+	const statusDisplay = getStatusDisplay(bib.status, locale)
 	const eventName = bib.expand?.eventId?.name ?? 'N/A'
 	const eventDate =
 		bib.expand?.eventId?.eventDate != null
