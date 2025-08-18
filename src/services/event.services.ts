@@ -221,6 +221,56 @@ export async function getAllEvents(
 }
 
 /**
+ * Updates an event by its ID.
+ * This should only be called from trusted server actions (admin-only flows).
+ * @param id The ID of the event to update
+ * @param eventData Partial data to update the event with
+ * @returns Updated event record if successful, null otherwise
+ */
+export async function updateEventById(id: string, eventData: Partial<Event>): Promise<Event | null> {
+	if (!id || typeof id !== 'string') {
+		throw new Error('Valid event ID is required to update an event')
+	}
+
+	try {
+		const dataToUpdate: Record<string, unknown> = {}
+
+		// Map the event data to the format expected by PocketBase
+		if (eventData.name !== undefined) dataToUpdate.name = eventData.name
+		if (eventData.description !== undefined) dataToUpdate.description = eventData.description
+		if (eventData.location !== undefined) dataToUpdate.location = eventData.location
+		if (eventData.eventDate !== undefined) dataToUpdate.eventDate = eventData.eventDate
+		if (eventData.distanceKm !== undefined) dataToUpdate.distanceKm = eventData.distanceKm
+		if (eventData.elevationGainM !== undefined) dataToUpdate.elevationGainM = eventData.elevationGainM
+		if (eventData.typeCourse !== undefined) dataToUpdate.typeCourse = eventData.typeCourse
+		if (eventData.participants !== undefined) dataToUpdate.participants = eventData.participants
+		if (eventData.officialStandardPrice !== undefined)
+			dataToUpdate.officialStandardPrice = eventData.officialStandardPrice
+		if (eventData.registrationUrl !== undefined) dataToUpdate.registrationUrl = eventData.registrationUrl
+		if (eventData.parcoursUrl !== undefined) dataToUpdate.parcoursUrl = eventData.parcoursUrl
+		if (eventData.bibPickupLocation !== undefined) dataToUpdate.bibPickupLocation = eventData.bibPickupLocation
+		if (eventData.bibPickupWindowBeginDate !== undefined)
+			dataToUpdate.bibPickupWindowBeginDate = eventData.bibPickupWindowBeginDate
+		if (eventData.bibPickupWindowEndDate !== undefined)
+			dataToUpdate.bibPickupWindowEndDate = eventData.bibPickupWindowEndDate
+		if (eventData.transferDeadline !== undefined) dataToUpdate.transferDeadline = eventData.transferDeadline
+		if (eventData.organizer !== undefined) dataToUpdate.organizer = eventData.organizer
+		if (eventData.options !== undefined) {
+			dataToUpdate.options =
+				eventData.options && eventData.options.length > 0 ? JSON.stringify(eventData.options) : null
+		}
+
+		const record = await pb.collection('events').update<Event>(id, dataToUpdate)
+
+		console.info('Event updated successfully:', record.id)
+		return record
+	} catch (error: unknown) {
+		console.error('PocketBase error details:', error)
+		throw new Error('Error updating event: ' + (error instanceof Error ? error.message : String(error)))
+	}
+}
+
+/**
  * Deletes an event by its ID.
  * This should only be called from trusted server actions (admin-only flows).
  * @param id The ID of the event to delete

@@ -240,3 +240,43 @@ export function formatDateSimple(date: unknown): string {
 		return ''
 	}
 }
+
+/**
+ * Formats a date for HTML datetime-local inputs (YYYY-MM-DDTHH:mm) 📅⏰
+ * @param date - The date (Date object, string, or any date-like value)
+ * @returns Date string in YYYY-MM-DDTHH:mm format for datetime-local inputs
+ */
+export function formatDateTimeForHTMLInput(date: unknown): string {
+	if (date == null || date === '') return ''
+
+	try {
+		let dt: DateTime
+
+		if (typeof date === 'string') {
+			// Try different string formats
+			dt = DateTime.fromISO(date)
+			if (!dt.isValid) {
+				dt = DateTime.fromSQL(date)
+			}
+			if (!dt.isValid) {
+				dt = DateTime.fromJSDate(new Date(date))
+			}
+		} else if (date instanceof Date) {
+			dt = DateTime.fromJSDate(date)
+		} else {
+			// Try to convert whatever it is to a Date first
+			dt = DateTime.fromJSDate(new Date(date as string))
+		}
+
+		if (!dt.isValid) {
+			console.warn('formatDateTimeForHTMLInput: Invalid date received:', date)
+			return ''
+		}
+
+		// Return in local timezone for datetime-local input
+		return dt.toLocal().toFormat("yyyy-LL-dd'T'HH:mm")
+	} catch (error) {
+		console.warn('formatDateTimeForHTMLInput: Error formatting date:', date, error)
+		return ''
+	}
+}

@@ -8,7 +8,7 @@ import {
 	fetchAllOrganizersWithEventsCount,
 	updateOrganizer,
 } from '@/services/organizer.services'
-import { createEvent, deleteEventById, getAllEvents } from '@/services/event.services'
+import { createEvent, deleteEventById, getAllEvents, fetchEventById, updateEventById } from '@/services/event.services'
 import { getDashboardStats, getRecentActivity } from '@/services/dashboard.services'
 import { Organizer } from '@/models/organizer.model'
 import { Event } from '@/models/event.model'
@@ -256,6 +256,117 @@ export async function rejectOrganizerAction(id: string): Promise<{ success: bool
 		return { success: false, error: error instanceof Error ? error.message : 'Failed to reject organizer' }
 	}
 }
+/**
+ * Server action to get an event by ID (admin only)
+ */
+export async function getEventByIdAction(id: string): Promise<{
+	data?: Event
+	error?: string
+	success: boolean
+}> {
+	try {
+		const adminUser = await checkAdminAccess()
+
+		if (adminUser === null) {
+			return {
+				success: false,
+				error: 'Unauthorized: Admin access required',
+			}
+		}
+
+		if (!id || typeof id !== 'string') {
+			return {
+				success: false,
+				error: 'Valid event ID is required',
+			}
+		}
+
+		const event = await fetchEventById(id, true) // Expand organizer data
+
+		if (event) {
+			return {
+				success: true,
+				data: event,
+			}
+		} else {
+			return {
+				success: false,
+				error: 'Event not found',
+			}
+		}
+	} catch (error) {
+		console.error('Error in getEventByIdAction:', error)
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to fetch event',
+		}
+	}
+}
+
+/**
+ * Server action to update an event (admin only)
+ */
+export async function updateEventAction(
+	id: string,
+	eventData: Partial<Event>
+): Promise<{
+	data?: Event
+	error?: string
+	success: boolean
+}> {
+	try {
+		const adminUser = await checkAdminAccess()
+
+		if (adminUser === null) {
+			return {
+				success: false,
+				error: 'Unauthorized: Admin access required',
+			}
+		}
+
+		if (!id || typeof id !== 'string') {
+			return {
+				success: false,
+				error: 'Valid event ID is required',
+			}
+		}
+
+		// Validate required fields if they are being updated
+		if (eventData.name !== undefined && !eventData.name) {
+			return {
+				success: false,
+				error: 'Event name is required',
+			}
+		}
+
+		if (eventData.eventDate !== undefined && (eventData.eventDate === null || isNaN(eventData.eventDate.getTime()))) {
+			return {
+				success: false,
+				error: 'Valid event date is required',
+			}
+		}
+
+		// Update the event with PocketBase service
+		const result = await updateEventById(id, eventData)
+
+		if (result !== null) {
+			console.info(`Admin ${adminUser.email} updated event: ${result.name} (${id})`)
+			return {
+				success: true,
+				data: result,
+			}
+		} else {
+			throw new Error('Failed to update event')
+		}
+	} catch (error) {
+		console.error('Error in updateEventAction:', error)
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to update event',
+		}
+	}
+}
+
 /**
  * Server action to delete an event by ID (admin only)
  */
