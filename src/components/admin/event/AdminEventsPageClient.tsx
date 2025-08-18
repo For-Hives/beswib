@@ -72,11 +72,10 @@ import { SelectAnimated, type SelectOption } from '@/components/ui/select-animat
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { cn } from '@/lib/utils'
 
 interface AdminEventsPageClientProps {
 	currentUser: null | User
@@ -191,6 +190,7 @@ import { toast } from 'sonner'
 
 import translations from '@/app/[locale]/admin/event/locales.json'
 import { Locale } from '@/lib/i18n/config'
+import { cn } from '@/lib/utils'
 
 export default function AdminEventsPageClient({ locale, currentUser }: AdminEventsPageClientProps) {
 	const t = getTranslations(locale, translations)
@@ -200,7 +200,6 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	const [events, setEvents] = useState<(AppEvent & { expand?: { organizer?: Organizer } })[]>([])
-	const [isLoading, setIsLoading] = useState(true)
 	const [stats, setStats] = useState<EventsStats | null>(null)
 
 	// Table state
@@ -335,7 +334,6 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 	useEffect(() => {
 		const fetchEvents = async () => {
 			try {
-				setIsLoading(true)
 				const result = await getAllEventsAction()
 
 				if (result.success && result.data) {
@@ -367,8 +365,6 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 					totalEvents: 0,
 					pastEvents: 0,
 				})
-			} finally {
-				setIsLoading(false)
 			}
 		}
 
@@ -443,33 +439,6 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 						>
 							{t.events.ui.signIn}
 						</button>
-					</div>
-				</div>
-			</div>
-		)
-	}
-
-	if (isLoading) {
-		return (
-			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
-				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-				<div className="relative pt-32 pb-12">
-					<div className="container mx-auto max-w-7xl p-6">
-						<div className="space-y-8">
-							<div className="space-y-2 text-center">
-								<div className="mx-auto h-12 w-96 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-								<div className="mx-auto h-6 w-64 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-							</div>
-							<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-								{Array.from({ length: 6 }).map((_, i) => (
-									<div
-										className="h-32 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"
-										key={`skeleton-${i}`}
-									></div>
-								))}
-							</div>
-							<div className="h-96 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
-						</div>
 					</div>
 				</div>
 			</div>

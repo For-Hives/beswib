@@ -44,6 +44,23 @@
 				},
 				"title": "Create New Organizer"
 			},
+			"edit": {
+				"title": "Edit Organizer",
+				"subtitle": "Modify organizer information",
+				"form": {
+					"submitButton": "Update Organizer",
+					"loadingButton": "Updating...",
+					"currentLogo": "Current logo"
+				},
+				"success": {
+					"title": "Organizer Updated!",
+					"message": "Organizer \"{organizerName}\" has been successfully updated.",
+					"backButton": "Back to List"
+				},
+				"errors": {
+					"updateFailed": "Failed to update organizer"
+				}
+			},
 			"sections": {
 				"actions": {
 					"description": "Add or manage event organizers for bib resale control",
@@ -101,6 +118,8 @@
 				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
 				"connectedAs": "Connected as",
 				"loading": "Loading...",
+				"loadingOrganizer": "Loading organizer...",
+				"error": "Error",
 				"signIn": "Sign In"
 			},
 			"validate": {
@@ -175,6 +194,23 @@
 				},
 				"title": "Créer un nouvel organisateur"
 			},
+			"edit": {
+				"title": "Modifier l'organisateur",
+				"subtitle": "Modifiez les informations de l'organisateur",
+				"form": {
+					"submitButton": "Modifier l'organisateur",
+					"loadingButton": "Modification...",
+					"currentLogo": "Logo actuel"
+				},
+				"success": {
+					"title": "Organisateur modifié !",
+					"message": "L'organisateur \"{organizerName}\" a été modifié avec succès.",
+					"backButton": "Retour à la liste"
+				},
+				"errors": {
+					"updateFailed": "Échec de la modification de l'organisateur"
+				}
+			},
 			"sections": {
 				"actions": {
 					"description": "Ajoutez ou gérez des organisateurs d'événements pour le contrôle de la revente de dossards",
@@ -232,6 +268,8 @@
 				"accessErrorDescription": "Impossible de vérifier l'accès administrateur. Veuillez vous reconnecter.",
 				"connectedAs": "Connecté en tant que",
 				"loading": "Chargement...",
+				"loadingOrganizer": "Chargement de l'organisateur...",
+				"error": "Erreur",
 				"signIn": "Se connecter"
 			},
 			"validate": {
@@ -306,6 +344,23 @@
 				},
 				"title": "Crear nuevo organizador"
 			},
+			"edit": {
+				"title": "Editar organizador",
+				"subtitle": "Modificar información del organizador",
+				"form": {
+					"submitButton": "Actualizar organizador",
+					"loadingButton": "Actualizando...",
+					"currentLogo": "Logo actual"
+				},
+				"success": {
+					"title": "¡Organizador actualizado!",
+					"message": "El organizador \"{organizerName}\" ha sido actualizado con éxito.",
+					"backButton": "Volver a la lista"
+				},
+				"errors": {
+					"updateFailed": "Error al actualizar el organizador"
+				}
+			},
 			"sections": {
 				"actions": {
 					"description": "Añade o gestiona organizadores de eventos para el control de la reventa de dorsales",
@@ -363,6 +418,8 @@
 				"accessErrorDescription": "No se puede verificar el acceso de administrador. Por favor, intente iniciar sesión nuevamente.",
 				"connectedAs": "Conectado como",
 				"loading": "Cargando...",
+				"loadingOrganizer": "Cargando organizador...",
+				"error": "Error",
 				"signIn": "Iniciar sesión"
 			},
 			"validate": {
@@ -437,6 +494,23 @@
 				},
 				"title": "Crea nuovo organizzatore"
 			},
+			"edit": {
+				"title": "Modifica organizzatore",
+				"subtitle": "Modifica informazioni organizzatore",
+				"form": {
+					"submitButton": "Aggiorna organizzatore",
+					"loadingButton": "Aggiornamento...",
+					"currentLogo": "Logo attuale"
+				},
+				"success": {
+					"title": "Organizzatore aggiornato!",
+					"message": "L'organizzatore \"{organizerName}\" è stato aggiornato con successo.",
+					"backButton": "Torna alla lista"
+				},
+				"errors": {
+					"updateFailed": "Impossibile aggiornare l'organizzatore"
+				}
+			},
 			"sections": {
 				"actions": {
 					"description": "Aggiungi o gestisci organizzatori di eventi per il controllo della rivendita di pettorali",
@@ -494,6 +568,8 @@
 				"accessErrorDescription": "Impossibile verificare l'accesso amministratore. Prova ad accedere di nuovo.",
 				"connectedAs": "Connesso come",
 				"loading": "Caricamento...",
+				"loadingOrganizer": "Caricamento organizzatore...",
+				"error": "Errore",
 				"signIn": "Accedi"
 			},
 			"validate": {
@@ -568,6 +644,23 @@
 				},
 				"title": "Neuen Veranstalter erstellen"
 			},
+			"edit": {
+				"title": "Veranstalter bearbeiten",
+				"subtitle": "Veranstalterinformationen ändern",
+				"form": {
+					"submitButton": "Veranstalter aktualisieren",
+					"loadingButton": "Aktualisiert...",
+					"currentLogo": "Aktuelles Logo"
+				},
+				"success": {
+					"title": "Veranstalter aktualisiert!",
+					"message": "Veranstalter \"{organizerName}\" wurde erfolgreich aktualisiert.",
+					"backButton": "Zurück zur Liste"
+				},
+				"errors": {
+					"updateFailed": "Fehler beim Aktualisieren des Veranstalters"
+				}
+			},
 			"sections": {
 				"actions": {
 					"description": "Fügen Sie Eventveranstalter hinzu oder verwalten Sie sie für die Kontrolle des Startnummernverkaufs",
@@ -625,6 +718,8 @@
 				"accessErrorDescription": "Admin-Zugriff konnte nicht verifiziert werden. Bitte versuchen Sie, sich erneut anzumelden.",
 				"connectedAs": "Verbunden als",
 				"loading": "Lädt...",
+				"loadingOrganizer": "Veranstalter lädt...",
+				"error": "Fehler",
 				"signIn": "Anmelden"
 			},
 			"validate": {
@@ -699,6 +794,23 @@
 				},
 				"title": "Creează organizator nou"
 			},
+			"edit": {
+				"title": "Editează organizator",
+				"subtitle": "Modifică informațiile organizatorului",
+				"form": {
+					"submitButton": "Actualizează organizator",
+					"loadingButton": "Se actualizează...",
+					"currentLogo": "Logo curent"
+				},
+				"success": {
+					"title": "Organizator actualizat!",
+					"message": "Organizatorul \"{organizerName}\" a fost actualizat cu succes.",
+					"backButton": "Înapoi la listă"
+				},
+				"errors": {
+					"updateFailed": "Eroare la actualizarea organizatorului"
+				}
+			},
 			"sections": {
 				"actions": {
 					"description": "Adaugă sau gestionează organizatori de evenimente pentru controlul revânzării numerelor",
@@ -756,6 +868,8 @@
 				"accessErrorDescription": "Nu s-a putut verifica accesul de administrator. Vă rugăm să încercați să vă conectați din nou.",
 				"connectedAs": "Conectat ca",
 				"loading": "Se încarcă...",
+				"loadingOrganizer": "Se încarcă organizatorul...",
+				"error": "Eroare",
 				"signIn": "Conectare"
 			},
 			"validate": {
@@ -830,6 +944,23 @@
 				},
 				"title": "Criar novo organizador"
 			},
+			"edit": {
+				"title": "Editar organizador",
+				"subtitle": "Modificar informações do organizador",
+				"form": {
+					"submitButton": "Atualizar organizador",
+					"loadingButton": "Atualizando...",
+					"currentLogo": "Logo atual"
+				},
+				"success": {
+					"title": "Organizador atualizado!",
+					"message": "Organizador \"{organizerName}\" foi atualizado com sucesso.",
+					"backButton": "Voltar à lista"
+				},
+				"errors": {
+					"updateFailed": "Falha ao atualizar organizador"
+				}
+			},
 			"sections": {
 				"actions": {
 					"description": "Adicione ou gerencie organizadores de eventos para controle de revenda de números",
@@ -887,6 +1018,8 @@
 				"accessErrorDescription": "Não foi possível verificar o acesso de administrador. Por favor, tente fazer login novamente.",
 				"connectedAs": "Conectado como",
 				"loading": "Carregando...",
+				"loadingOrganizer": "Carregando organizador...",
+				"error": "Erro",
 				"signIn": "Entrar"
 			},
 			"validate": {
@@ -961,6 +1094,23 @@
 				},
 				"title": "Nieuwe organisator aanmaken"
 			},
+			"edit": {
+				"title": "Organisator bewerken",
+				"subtitle": "Organisatorinformatie wijzigen",
+				"form": {
+					"submitButton": "Organisator bijwerken",
+					"loadingButton": "Bijwerken...",
+					"currentLogo": "Huidig logo"
+				},
+				"success": {
+					"title": "Organisator bijgewerkt!",
+					"message": "Organisator \"{organizerName}\" is succesvol bijgewerkt.",
+					"backButton": "Terug naar lijst"
+				},
+				"errors": {
+					"updateFailed": "Organisator kon niet worden bijgewerkt"
+				}
+			},
 			"sections": {
 				"actions": {
 					"description": "Voeg organisatoren van evenementen toe of beheer ze voor controle van doorverkoop van startnummers",
@@ -1018,6 +1168,8 @@
 				"accessErrorDescription": "Kan admin-toegang niet verifiëren. Probeer opnieuw in te loggen.",
 				"connectedAs": "Verbonden als",
 				"loading": "Laden...",
+				"loadingOrganizer": "Organisator laden...",
+				"error": "Fout",
 				"signIn": "Inloggen"
 			},
 			"validate": {
@@ -1092,6 +1244,23 @@
 				},
 				"title": "새 주최자 생성"
 			},
+			"edit": {
+				"title": "주최자 편집",
+				"subtitle": "주최자 정보 수정",
+				"form": {
+					"submitButton": "주최자 업데이트",
+					"loadingButton": "업데이트 중...",
+					"currentLogo": "현재 로고"
+				},
+				"success": {
+					"title": "주최자가 업데이트되었습니다!",
+					"message": "주최자 \"{organizerName}\"이(가) 성공적으로 업데이트되었습니다.",
+					"backButton": "목록으로 돌아가기"
+				},
+				"errors": {
+					"updateFailed": "주최자 업데이트에 실패했습니다"
+				}
+			},
 			"sections": {
 				"actions": {
 					"description": "번호표 재판매 제어를 위한 이벤트 주최자 추가 또는 관리",
@@ -1149,6 +1318,8 @@
 				"accessErrorDescription": "관리자 접근을 확인할 수 없습니다. 다시 로그인해 보세요.",
 				"connectedAs": "연결됨",
 				"loading": "로딩 중...",
+				"loadingOrganizer": "주최자 로딩 중...",
+				"error": "오류",
 				"signIn": "로그인"
 			},
 			"validate": {

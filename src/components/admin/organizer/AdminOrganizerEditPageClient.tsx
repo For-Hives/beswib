@@ -94,8 +94,8 @@ export default function AdminOrganizerEditPageClient({
 				<div className="relative flex min-h-screen items-center justify-center">
 					<div className="dark:border-border/50 bg-card/80 w-full max-w-md rounded-3xl border border-black/50 p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md">
 						<div className="mb-6 text-6xl text-blue-600 dark:text-blue-400">⏳</div>
-						<h1 className="text-foreground mb-4 text-3xl font-bold">Loading...</h1>
-						<p className="text-muted-foreground mb-6 text-lg">Chargement de l'organisateur...</p>
+						<h1 className="text-foreground mb-4 text-3xl font-bold">{tCommon.organizers.ui.loading}</h1>
+						<p className="text-muted-foreground mb-6 text-lg">{tCommon.organizers.ui.loadingOrganizer}</p>
 					</div>
 				</div>
 			</div>
@@ -110,10 +110,10 @@ export default function AdminOrganizerEditPageClient({
 				<div className="relative flex min-h-screen items-center justify-center">
 					<div className="dark:border-border/50 bg-card/80 w-full max-w-md rounded-3xl border border-black/50 p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--destructive)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--destructive)/0.2)] backdrop-blur-md">
 						<div className="mb-6 text-6xl text-red-600 dark:text-red-400">⚠</div>
-						<h1 className="text-foreground mb-4 text-3xl font-bold">Erreur</h1>
+						<h1 className="text-foreground mb-4 text-3xl font-bold">{tCommon.organizers.ui.error}</h1>
 						<p className="text-muted-foreground mb-6 text-lg">{error}</p>
 						<button className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white" onClick={handleCancel}>
-							Retour à la liste
+							{tCommon.organizers.edit.success.backButton}
 						</button>
 					</div>
 				</div>
@@ -129,12 +129,12 @@ export default function AdminOrganizerEditPageClient({
 				<div className="relative flex min-h-screen items-center justify-center">
 					<div className="dark:border-border/50 bg-card/80 w-full max-w-md rounded-3xl border border-black/50 p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md">
 						<div className="mb-6 text-6xl text-green-600 dark:text-green-400">✓</div>
-						<h1 className="text-foreground mb-4 text-3xl font-bold">Organisateur modifié !</h1>
+						<h1 className="text-foreground mb-4 text-3xl font-bold">{tCommon.organizers.edit.success.title}</h1>
 						<p className="text-muted-foreground mb-6 text-lg">
-							L'organisateur "{updatedOrganizer.name}" a été modifié avec succès.
+							{tCommon.organizers.edit.success.message.replace('{organizerName}', updatedOrganizer.name)}
 						</p>
 						<button className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white" onClick={handleCancel}>
-							Retour à la liste
+							{tCommon.organizers.edit.success.backButton}
 						</button>
 					</div>
 				</div>
