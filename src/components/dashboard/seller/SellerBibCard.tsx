@@ -43,7 +43,7 @@ export default function SellerBibCard({ locale, bib }: SellerBibCardProps) {
 	const t = getTranslations(locale, sellerTranslations)
 
 	// Early return with explicit null for invalid bibs
-	if (!bib || !bib.id) {
+	if (bib?.id == null) {
 		return null
 	}
 

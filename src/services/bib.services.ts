@@ -298,11 +298,11 @@ export async function updateExpiredBibsToWithdrawn(sellerUserId?: string): Promi
 		let filter = `status = 'available' && ((eventId.transferDeadline != null && eventId.transferDeadline < '${nowIso}') || (eventId.transferDeadline = null && eventId.eventDate < '${nowIso}'))`
 
 		// If sellerUserId is provided, limit to that seller's bibs
-		if (sellerUserId && sellerUserId !== '') {
+		if (sellerUserId != null && sellerUserId !== '') {
 			filter += ` && sellerUserId = '${sellerUserId}'`
 		}
 
-		console.info(`Checking for expired bibs to withdraw${sellerUserId ? ` for seller ${sellerUserId}` : ''}...`)
+		console.info(`Checking for expired bibs to withdraw${sellerUserId != null ? ` for seller ${sellerUserId}` : ''}...`)
 
 		const expiredBibs = await pb.collection('bibs').getFullList<Bib & { expand?: { eventId: Event } }>({
 			filter,
