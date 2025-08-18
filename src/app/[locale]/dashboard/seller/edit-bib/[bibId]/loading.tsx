@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Loading() {
 	return (
 		<div className="container mx-auto max-w-3xl animate-pulse p-4">
