@@ -13,6 +13,8 @@ import { PLATFORM_FEE } from '@/constants/global.constant'
 
 import { getTransactionByOrderId, updateTransaction } from './transaction.services'
 
+const PAYPAL_MERCHANT_ID = () => { return process.env.PAYPAL_MERCHANT_ID }
+
 export async function handlePaymentCaptureCompleted(event: unknown) {
 	if (typeof event !== 'object' || event === null) {
 		throw new Error('Invalid webhook event')
@@ -174,7 +176,7 @@ export async function createOrder(sellerId: string, bib: BibSale): Promise<{ err
 					payment_instruction: {
 						platform_fees: [
 							{
-								payee: { merchant_id: 'ZBXWM6RWP6NE4' }, // Platform receives fee
+								payee: { merchant_id: PAYPAL_MERCHANT_ID }, // Platform receives fee
 								amount: {
 									value: (bib.price * PLATFORM_FEE).toFixed(2), // 10% Platform commission
 									currency_code: 'EUR',
