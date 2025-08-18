@@ -189,7 +189,13 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 	}
 
 	const generatePrivateLink = () => {
-		if (!bib?.privateListingToken || !bib?.id || bib.privateListingToken === '' || bib.id === '') return ''
+		if (
+			bib?.privateListingToken === undefined ||
+			bib?.id === undefined ||
+			bib.privateListingToken === '' ||
+			bib.id === ''
+		)
+			return ''
 		const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
 		const currentLocale = locale || 'fr'
 		return `${baseUrl}/${currentLocale}/marketplace/${bib.id}?tkn=${bib.privateListingToken}`
@@ -206,7 +212,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 	}
 
 	const copyToken = () => {
-		if (bib?.privateListingToken && bib.privateListingToken !== '') {
+		if (bib?.privateListingToken !== undefined && bib.privateListingToken !== '') {
 			copyToClipboard(bib.privateListingToken, t.privateTokenCopySuccess ?? 'Token copied to clipboard!').catch(
 				error => {
 					console.error('Failed to copy to clipboard:', error)

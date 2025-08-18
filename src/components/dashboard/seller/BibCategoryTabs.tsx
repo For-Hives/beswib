@@ -51,7 +51,7 @@ export default function BibCategoryTabs({ locale, bibs = [] }: BibCategoryTabsPr
 	const [activeCategory, setActiveCategory] = useState<CategoryKey>('active')
 
 	// Ensure bibs is always an array and filter out invalid entries
-	const validBibs = (bibs || []).filter(bib => bib && bib.id)
+	const validBibs = bibs.filter(bib => bib.id != null)
 
 	const categories: Category[] = [
 		{
