@@ -52,7 +52,7 @@ describe('updateExpiredBibsToWithdrawn', () => {
 			]),
 		}
 
-		pb.collection = vi.fn(() => mockCollection)
+		pb.collection = vi.fn(() => mockCollection) as unknown as typeof pb.collection
 
 		const result = await updateExpiredBibsToWithdrawn()
 
@@ -76,7 +76,7 @@ describe('updateExpiredBibsToWithdrawn', () => {
 			getFullList: vi.fn().mockResolvedValue([]),
 		}
 
-		pb.collection = vi.fn(() => mockCollection)
+		pb.collection = vi.fn(() => mockCollection) as unknown as typeof pb.collection
 
 		await updateExpiredBibsToWithdrawn('seller123')
 
@@ -93,7 +93,7 @@ describe('updateExpiredBibsToWithdrawn', () => {
 			getFullList: vi.fn().mockRejectedValue(new Error('Database error')),
 		}
 
-		pb.collection = vi.fn(() => mockCollection) as typeof pb.collection
+		pb.collection = vi.fn(() => mockCollection) as unknown as typeof pb.collection
 
 		await expect(updateExpiredBibsToWithdrawn()).rejects.toThrow('Error updating expired bibs to withdrawn')
 	})
@@ -111,7 +111,7 @@ describe('updateExpiredBibsToWithdrawn', () => {
 			]),
 		}
 
-		pb.collection = vi.fn(() => mockCollection) as typeof pb.collection
+		pb.collection = vi.fn(() => mockCollection) as unknown as typeof pb.collection
 
 		const result = await updateExpiredBibsToWithdrawn()
 
