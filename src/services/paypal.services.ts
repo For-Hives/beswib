@@ -13,7 +13,9 @@ import { PLATFORM_FEE } from '@/constants/global.constant'
 
 import { getTransactionByOrderId, updateTransaction } from './transaction.services'
 
-const PAYPAL_MERCHANT_ID = () => { return process.env.PAYPAL_MERCHANT_ID }
+const PAYPAL_MERCHANT_ID = () => {
+	return process.env.PAYPAL_MERCHANT_ID
+}
 
 export async function handlePaymentCaptureCompleted(event: unknown) {
 	if (typeof event !== 'object' || event === null) {
