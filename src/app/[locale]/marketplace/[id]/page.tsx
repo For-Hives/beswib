@@ -49,7 +49,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	// First, check if the bib exists and if it's private or public
 	const bibStatus = await checkBibListingStatus(id)
 
-	if (!bibStatus?.exists) {
+	if (bibStatus?.exists == null) {
 		return (
 			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -90,7 +90,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	// Handle private bibs
 	if (bibStatus.listed === 'private') {
 		isPrivate = true
-		if (tkn) {
+		if (tkn != null) {
 			// Try to fetch with the provided token
 			bib = await fetchPrivateBibByToken(id, tkn)
 		}

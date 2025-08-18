@@ -63,7 +63,7 @@ export default function ConfirmationStep({
 	}
 
 	const generatePublicLink = () => {
-		if (!createdBib?.id) return ''
+		if (createdBib?.id == null) return ''
 		const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
 		// Get current locale from URL or default to 'fr'
 		const currentLocale = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] || 'fr' : 'fr'

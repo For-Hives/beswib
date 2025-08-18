@@ -54,11 +54,11 @@ export default function MarketplaceItemClient({
 	bibId,
 	bibData,
 }: MarketplaceItemClientProps) {
-	const [hasValidToken, setHasValidToken] = useState(!!initialToken)
+	const [hasValidToken, setHasValidToken] = useState(initialToken != null)
 
 	// Update hasValidToken when initialToken changes (after redirect)
 	useEffect(() => {
-		setHasValidToken(!!initialToken)
+		setHasValidToken(initialToken != null)
 	}, [initialToken])
 
 	const handleValidToken = (token: string) => {
