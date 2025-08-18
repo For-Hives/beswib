@@ -186,7 +186,13 @@
 		"title": "Editar Anuncio de Dorsal",
 		"updateDetails": "Actualizar Detalles",
 		"userNotFound": "Usuario no encontrado.",
-		"withdrawListing": "Retirar Anuncio"
+		"withdrawListing": "Retirar Anuncio",
+		"successMessages": {
+			"detailsUpdated": "¡Detalles actualizados correctamente!",
+			"statusUpdated": "¡Estado del anuncio actualizado correctamente!",
+			"bibWithdrawn": "¡Dorsal retirado correctamente!",
+			"tokenRegenerated": "¡Nuevo token privado generado correctamente!"
+		}
 	},
 	"it": {
 		"actions": "Azioni",
@@ -219,7 +225,13 @@
 		"title": "Modifica Annuncio Pettorale",
 		"updateDetails": "Aggiorna Dettagli",
 		"userNotFound": "Utente non trovato.",
-		"withdrawListing": "Ritira Annuncio"
+		"withdrawListing": "Ritira Annuncio",
+		"successMessages": {
+			"detailsUpdated": "Dettagli aggiornati con successo!",
+			"statusUpdated": "Stato dell'annuncio aggiornato con successo!",
+			"bibWithdrawn": "Pettorale ritirato con successo!",
+			"tokenRegenerated": "Nuovo token privato generato con successo!"
+		}
 	},
 	"de": {
 		"actions": "Aktionen",
@@ -252,7 +264,13 @@
 		"title": "Startnummer-Angebot bearbeiten",
 		"updateDetails": "Details aktualisieren",
 		"userNotFound": "Benutzer nicht gefunden.",
-		"withdrawListing": "Angebot zurückziehen"
+		"withdrawListing": "Angebot zurückziehen",
+		"successMessages": {
+			"detailsUpdated": "Details erfolgreich aktualisiert!",
+			"statusUpdated": "Angebotsstatus erfolgreich aktualisiert!",
+			"bibWithdrawn": "Startnummer erfolgreich zurückgezogen!",
+			"tokenRegenerated": "Neuer privater Token erfolgreich generiert!"
+		}
 	},
 	"ro": {
 		"actions": "Acțiuni",
@@ -285,7 +303,13 @@
 		"title": "Editează Anunțul Numărului",
 		"updateDetails": "Actualizează Detaliile",
 		"userNotFound": "Utilizator negăsit.",
-		"withdrawListing": "Retrage Anunțul"
+		"withdrawListing": "Retrage Anunțul",
+		"successMessages": {
+			"detailsUpdated": "Detaliile au fost actualizate cu succes!",
+			"statusUpdated": "Statusul anunțului a fost actualizat cu succes!",
+			"bibWithdrawn": "Numărul de concurs a fost retras cu succes!",
+			"tokenRegenerated": "Tokenul privat nou a fost generat cu succes!"
+		}
 	},
 	"pt": {
 		"actions": "Ações",
@@ -318,7 +342,13 @@
 		"title": "Editar Anúncio do Dorsal",
 		"updateDetails": "Atualizar Detalhes",
 		"userNotFound": "Utilizador não encontrado.",
-		"withdrawListing": "Retirar Anúncio"
+		"withdrawListing": "Retirar Anúncio",
+		"successMessages": {
+			"detailsUpdated": "Detalhes atualizados com sucesso!",
+			"statusUpdated": "Status do anúncio atualizado com sucesso!",
+			"bibWithdrawn": "Dorsal retirado com sucesso!",
+			"tokenRegenerated": "Novo token privado gerado com sucesso!"
+		}
 	},
 	"nl": {
 		"actions": "Acties",
@@ -351,7 +381,13 @@
 		"title": "Startnummer Advertentie Bewerken",
 		"updateDetails": "Details Bijwerken",
 		"userNotFound": "Gebruiker niet gevonden.",
-		"withdrawListing": "Advertentie Intrekken"
+		"withdrawListing": "Advertentie Intrekken",
+		"successMessages": {
+			"detailsUpdated": "Details succesvol bijgewerkt!",
+			"statusUpdated": "Advertentiestatus succesvol bijgewerkt!",
+			"bibWithdrawn": "Startnummer succesvol ingetrokken!",
+			"tokenRegenerated": "Nieuwe privé-token succesvol gegenereerd!"
+		}
 	},
 	"ko": {
 		"actions": "작업",
@@ -384,6 +420,12 @@
 		"title": "빕 목록 편집",
 		"updateDetails": "세부 정보 업데이트",
 		"userNotFound": "사용자를 찾을 수 없습니다.",
-		"withdrawListing": "목록 철회"
+		"withdrawListing": "목록 철회",
+		"successMessages": {
+			"detailsUpdated": "세부 정보가 성공적으로 업데이트되었습니다!",
+			"statusUpdated": "목록 상태가 성공적으로 업데이트되었습니다!",
+			"bibWithdrawn": "빕이 성공적으로 철회되었습니다!",
+			"tokenRegenerated": "새 비공개 토큰이 성공적으로 생성되었습니다!"
+		}
 	}
 }
