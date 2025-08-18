@@ -52,13 +52,13 @@ describe('updateExpiredBibsToWithdrawn', () => {
 			]),
 		}
 
-		pb.collection = vi.fn(() => mockCollection) as any
+		pb.collection = vi.fn(() => mockCollection)
 
 		const result = await updateExpiredBibsToWithdrawn()
 
 		expect(result).toBe(2)
 		expect(mockCollection.getFullList).toHaveBeenCalledWith({
-			filter: expect.stringContaining("status = 'available'"),
+			filter: expect.stringContaining("status = 'available'") as string,
 			expand: 'eventId',
 		})
 		expect(mockCollection.update).toHaveBeenCalledTimes(2)
@@ -76,12 +76,12 @@ describe('updateExpiredBibsToWithdrawn', () => {
 			getFullList: vi.fn().mockResolvedValue([]),
 		}
 
-		pb.collection = vi.fn(() => mockCollection) as any
+		pb.collection = vi.fn(() => mockCollection)
 
 		await updateExpiredBibsToWithdrawn('seller123')
 
 		expect(mockCollection.getFullList).toHaveBeenCalledWith({
-			filter: expect.stringContaining("sellerUserId = 'seller123'"),
+			filter: expect.stringContaining("sellerUserId = 'seller123'") as string,
 			expand: 'eventId',
 		})
 	})
@@ -93,7 +93,7 @@ describe('updateExpiredBibsToWithdrawn', () => {
 			getFullList: vi.fn().mockRejectedValue(new Error('Database error')),
 		}
 
-		pb.collection = vi.fn(() => mockCollection) as any
+		pb.collection = vi.fn(() => mockCollection) as typeof pb.collection
 
 		await expect(updateExpiredBibsToWithdrawn()).rejects.toThrow('Error updating expired bibs to withdrawn')
 	})
@@ -111,7 +111,7 @@ describe('updateExpiredBibsToWithdrawn', () => {
 			]),
 		}
 
-		pb.collection = vi.fn(() => mockCollection) as any
+		pb.collection = vi.fn(() => mockCollection) as typeof pb.collection
 
 		const result = await updateExpiredBibsToWithdrawn()
 
