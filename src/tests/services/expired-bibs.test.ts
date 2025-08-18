@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { updateExpiredBibsToWithdrawn } from '@/services/bib.services'
 
 // Mock PocketBase
-vi.mock('@/services/pocketbase', () => ({
+vi.mock('@/lib/services/pocketbase', () => ({
 	pb: {
 		collection: vi.fn(() => ({
 			update: vi.fn(),
@@ -23,7 +23,7 @@ describe('updateExpiredBibsToWithdrawn', () => {
 	})
 
 	it('should update expired bibs to withdrawn status', async () => {
-		const { pb } = await import('@/services/pocketbase')
+		const { pb } = await import('@/lib/services/pocketbase')
 		const mockCollection = {
 			update: vi.fn().mockResolvedValue({}),
 			getFullList: vi.fn().mockResolvedValue([
@@ -70,7 +70,7 @@ describe('updateExpiredBibsToWithdrawn', () => {
 	})
 
 	it('should limit to specific seller when sellerUserId is provided', async () => {
-		const { pb } = await import('@/services/pocketbase')
+		const { pb } = await import('@/lib/services/pocketbase')
 		const mockCollection = {
 			update: vi.fn(),
 			getFullList: vi.fn().mockResolvedValue([]),
