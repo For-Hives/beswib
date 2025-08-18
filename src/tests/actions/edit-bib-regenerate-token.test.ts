@@ -83,12 +83,12 @@ describe('handleRegeneratePrivateToken', () => {
 
 		const mockBib = {
 			validated: true,
-			status: 'sold',
+			status: 'sold' as const,
 			sellerUserId: 'user-123',
 			registrationNumber: '12345',
 			price: 50.0,
 			optionValues: {},
-			listed: 'private',
+			listed: 'private' as const,
 			id: 'bib-123',
 			eventId: 'event-123',
 		}
