@@ -13,13 +13,11 @@ export default function OrganizerSection({ setValue, locale, formData, errors }:
 	const translations = getTranslations(locale, Translations)
 
 	const [organizers, setOrganizers] = useState<Organizer[]>([])
-	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState<null | string>(null)
 
 	useEffect(() => {
 		const loadOrganizers = async () => {
 			try {
-				setIsLoading(true)
 				setError(null)
 				const result = await getAllOrganizersAction()
 
@@ -33,8 +31,6 @@ export default function OrganizerSection({ setValue, locale, formData, errors }:
 				console.error('Error loading organizers:', error)
 				setError('Failed to load organizers')
 				setOrganizers([])
-			} finally {
-				setIsLoading(false)
 			}
 		}
 
@@ -73,14 +69,9 @@ export default function OrganizerSection({ setValue, locale, formData, errors }:
 						)}
 
 						<SelectAnimated
-							disabled={isLoading}
 							onValueChange={(value: string) => setValue('organizer', value)}
 							options={organizerOptions}
-							placeholder={
-								isLoading
-									? translations.event.fields.organizer.loading
-									: translations.event.fields.organizer.placeholder
-							}
+							placeholder={translations.event.fields.organizer.placeholder}
 							value={formData.organizer ?? ''}
 						/>
 						{errors.organizer && (

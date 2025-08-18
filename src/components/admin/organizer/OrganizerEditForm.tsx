@@ -33,6 +33,7 @@ export interface OrganizerEditFormProps {
 }
 
 import organizerCreateTranslations from '@/app/[locale]/admin/organizer/create/locales.json'
+import organizerCommonTranslations from '@/app/[locale]/admin/organizer/locales.json'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
 type OrganizerFormData = v.InferOutput<typeof OrganizerEditSchema>
@@ -45,7 +46,8 @@ export default function OrganizerEditForm({
 }: Readonly<OrganizerEditFormProps>) {
 	const [isLoading, setIsLoading] = useState(false)
 
-	const translations = getTranslations(locale, organizerCreateTranslations)
+	const translationsCommon = getTranslations(locale, organizerCommonTranslations)
+	const translationsCreate = getTranslations(locale, organizerCreateTranslations)
 
 	const {
 		watch,
@@ -114,7 +116,7 @@ export default function OrganizerEditForm({
 			const result = await updateOrganizerAction(organizer.id, organizerData)
 
 			if (result.success && result.data) {
-				toast.success(`L'organisateur "${data.name}" a été modifié avec succès !`)
+				toast.success(translationsCommon.organizers.edit.success.message.replace('{organizerName}', data.name))
 				onSuccess?.(result.data)
 			} else {
 				throw new Error(result.error ?? 'Failed to update organizer')
@@ -137,9 +139,11 @@ export default function OrganizerEditForm({
 					onSubmit={handleSubmit(onSubmit)}
 				>
 					<div className="mb-12 text-left">
-						<h1 className="text-foreground text-4xl font-bold tracking-tight md:text-5xl">Modifier l'organisateur</h1>
+						<h1 className="text-foreground text-4xl font-bold tracking-tight md:text-5xl">
+							{translationsCommon.organizers.edit.title}
+						</h1>
 						<p className="text-muted-foreground mt-4 text-lg">
-							Modifiez les informations de l'organisateur "{organizer.name}"
+							{translationsCommon.organizers.edit.subtitle} "{organizer.name}"
 						</p>
 					</div>
 
@@ -154,10 +158,10 @@ export default function OrganizerEditForm({
 					<div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-3">
 						<div>
 							<h2 className="text-foreground text-2xl font-semibold">
-								{translations.organizers.create.sections.basicInformation.title}
+								{translationsCreate.organizers.create.sections.basicInformation.title}
 							</h2>
 							<p className="text-muted-foreground mt-2 text-base leading-7">
-								{translations.organizers.create.sections.basicInformation.description}
+								{translationsCreate.organizers.create.sections.basicInformation.description}
 							</p>
 						</div>
 						<div className="sm:max-w-4xl md:col-span-2">
@@ -165,12 +169,12 @@ export default function OrganizerEditForm({
 								{/* Organizer Name */}
 								<div className="col-span-full sm:col-span-3">
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="name">
-										{translations.organizers.create.form.nameLabel} *
+										{translationsCreate.organizers.create.form.nameLabel} *
 									</Label>
 									<Input
 										id="name"
 										{...register('name')}
-										placeholder={translations.organizers.create.form.namePlaceholder}
+										placeholder={translationsCreate.organizers.create.form.namePlaceholder}
 										type="text"
 									/>
 									{errors.name && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name.message}</p>}
@@ -179,12 +183,12 @@ export default function OrganizerEditForm({
 								{/* Email */}
 								<div className="col-span-full sm:col-span-3">
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="email">
-										{translations.organizers.create.form.emailLabel} *
+										{translationsCreate.organizers.create.form.emailLabel} *
 									</Label>
 									<Input
 										id="email"
 										{...register('email')}
-										placeholder={translations.organizers.create.form.emailPlaceholder}
+										placeholder={translationsCreate.organizers.create.form.emailPlaceholder}
 										type="email"
 									/>
 									{errors.email && (
@@ -195,12 +199,12 @@ export default function OrganizerEditForm({
 								{/* Website */}
 								<div className="col-span-full">
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="website">
-										{translations.organizers.create.form.websiteLabel}
+										{translationsCreate.organizers.create.form.websiteLabel}
 									</Label>
 									<Input
 										id="website"
 										{...register('website')}
-										placeholder={translations.organizers.create.form.websitePlaceholder}
+										placeholder={translationsCreate.organizers.create.form.websitePlaceholder}
 										type="url"
 									/>
 									{errors.website && (
@@ -211,13 +215,13 @@ export default function OrganizerEditForm({
 								{/* Logo Upload */}
 								<div className="col-span-full">
 									<Label className="text-foreground mb-2 block text-base font-medium">
-										{translations.organizers.create.form.logoUpload.label}
+										{translationsCreate.organizers.create.form.logoUpload.label}
 									</Label>
 									<p className="text-muted-foreground mb-4 text-sm">
-										{translations.organizers.create.form.logoUpload.description}
+										{translationsCreate.organizers.create.form.logoUpload.description}
 										{organizer.logo != null && organizer.logo !== '' && (
 											<span className="mt-2 block text-blue-600 dark:text-blue-400">
-												Logo actuel : {organizer.logo}
+												{translationsCommon.organizers.edit.form.currentLogo} : {organizer.logo}
 											</span>
 										)}
 									</p>
@@ -238,11 +242,11 @@ export default function OrganizerEditForm({
 												onCheckedChange={checked => setValue('isPartnered', checked === true)}
 											/>
 											<Label className="text-foreground text-base font-medium" htmlFor="isPartnered">
-												{translations.organizers.create.form.partnerLabel}
+												{translationsCreate.organizers.create.form.partnerLabel}
 											</Label>
 										</div>
 										<p className="text-muted-foreground text-sm">
-											{translations.organizers.create.form.partnerDescription}
+											{translationsCreate.organizers.create.form.partnerDescription}
 										</p>
 									</div>
 								</div>
@@ -253,10 +257,12 @@ export default function OrganizerEditForm({
 					{/* Form Actions */}
 					<div className="flex items-center justify-end space-x-6 pt-12">
 						<Button disabled={isLoading} onClick={onCancel} size="lg" type="button" variant="outline">
-							{translations.organizers.create.form.cancelButton}
+							{translationsCreate.organizers.create.form.cancelButton}
 						</Button>
 						<Button disabled={isLoading} size="lg" type="submit">
-							{isLoading ? 'Modification...' : "Modifier l'organisateur"}
+							{isLoading
+								? translationsCommon.organizers.edit.form.loadingButton
+								: translationsCommon.organizers.edit.form.submitButton}
 						</Button>
 					</div>
 				</form>
