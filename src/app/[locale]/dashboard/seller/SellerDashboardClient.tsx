@@ -37,31 +37,33 @@ interface SerializedClerkUser {
 }
 
 // Status display mapping
-export const getStatusDisplay = (status: string, t: any) => {
+export const getStatusDisplay = (status: string, locale: Locale) => {
+	const t = getTranslations(locale, sellerTranslations)
+
 	switch (status) {
 		case 'available':
 			return {
-				label: t.bibStatus?.available ?? 'Available',
+				label: t.bibStatus.available ?? 'Available',
 				color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
 			}
 		case 'expired':
 			return {
-				label: t.bibStatus?.expired ?? 'Expired',
+				label: t.bibStatus.expired ?? 'Expired',
 				color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400',
 			}
 		case 'sold':
 			return {
-				label: t.bibStatus?.sold ?? 'Sold',
+				label: t.bibStatus.sold ?? 'Sold',
 				color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400',
 			}
 		case 'validation_failed':
 			return {
-				label: t.bibStatus?.validationFailed ?? 'Validation Failed',
+				label: t.bibStatus.validationFailed ?? 'Validation Failed',
 				color: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400',
 			}
 		case 'withdrawn':
 			return {
-				label: t.bibStatus?.withdrawn ?? 'Withdrawn',
+				label: t.bibStatus.withdrawn ?? 'Withdrawn',
 				color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400',
 			}
 		default:
@@ -81,7 +83,7 @@ export default function SellerDashboardClient({
 	const userName = clerkUser?.firstName ?? clerkUser?.emailAddresses?.[0]?.emailAddress ?? 'Seller'
 
 	// Calculate statistics with safety checks
-	const safeSellerBibs = Array.isArray(sellerBibs) ? sellerBibs.filter(bib => bib && bib.id) : []
+	const safeSellerBibs = Array.isArray(sellerBibs) ? sellerBibs.filter(bib => bib.id) : []
 	const totalListings = safeSellerBibs.length
 	const availableBibs = safeSellerBibs.filter(bib => bib.status === 'available').length
 	const soldBibs = safeSellerBibs.filter(bib => bib.status === 'sold').length
@@ -304,7 +306,7 @@ export default function SellerDashboardClient({
 								<div className="space-y-4">
 									{succeededTransactions.map(tx => {
 										const bib = tx.expand?.bib_id
-										if (!tx?.id || !bib?.id || bib.id === '') return null
+										if (!tx?.id || !bib || bib.id === '') return null
 										return (
 											<div className="rounded-lg border p-4" key={tx.id}>
 												<div className="mb-2 flex items-start justify-between">

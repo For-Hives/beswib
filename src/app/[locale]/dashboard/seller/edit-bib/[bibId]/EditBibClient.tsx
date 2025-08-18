@@ -477,7 +477,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 										</div>
 
 										{/* Display private token information when in private mode */}
-										{bib.listed === 'private' && bib.privateListingToken && (
+										{bib.listed === 'private' && (
 											<div className="bg-muted/50 space-y-4 rounded-lg p-4">
 												<div className="space-y-2">
 													<Label className="text-sm font-medium">
@@ -645,25 +645,25 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 								<RefreshCw className="h-6 w-6 text-orange-600 dark:text-orange-400" />
 							</div>
 							<DialogTitle className="text-orange-600 dark:text-orange-400">
-								{t.regenerateTokenDialog?.title ?? 'Regenerate Private Token'}
+								{t.regenerateTokenDialog.title ?? 'Regenerate Private Token'}
 							</DialogTitle>
 						</div>
 					</DialogHeader>
 					<div className="space-y-4">
 						<p className="text-muted-foreground">
-							{t.regenerateTokenDialog?.description ??
+							{t.regenerateTokenDialog.description ??
 								'This action will generate a new private token and invalidate the current one.'}
 						</p>
 						<div className="rounded-lg border border-orange-200 bg-orange-50 p-3 dark:border-orange-800/50 dark:bg-orange-900/20">
 							<p className="text-sm text-orange-800 dark:text-orange-200">
 								<AlertTriangle className="mr-2 inline h-4 w-4" />
-								{t.regenerateTokenDialog?.warning ?? 'Any existing private links will stop working immediately.'}
+								{t.regenerateTokenDialog.warning ?? 'Any existing private links will stop working immediately.'}
 							</p>
 						</div>
 					</div>
 					<DialogFooter className="gap-2">
 						<Button variant="outline" onClick={() => setShowRegenerateDialog(false)} disabled={isLoading}>
-							{t.regenerateTokenDialog?.cancel ?? 'Cancel'}
+							{t.regenerateTokenDialog.cancel ?? 'Cancel'}
 						</Button>
 						<Button
 							onClick={handleRegenerateTokenAction}
@@ -678,7 +678,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 							) : (
 								<>
 									<RefreshCw className="mr-2 h-4 w-4" />
-									{t.regenerateTokenDialog?.confirm ?? 'Yes, regenerate token'}
+									{t.regenerateTokenDialog.confirm ?? 'Yes, regenerate token'}
 								</>
 							)}
 						</Button>
