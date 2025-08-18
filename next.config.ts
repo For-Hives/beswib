@@ -39,6 +39,8 @@ const nextConfig: NextConfig = {
 			'https://*.ingest.sentry.io',
 			'https://www.googletagmanager.com',
 			'https://www.googletagmanager.com/gtag/js',
+			'https://*.beswib.com',
+			'https://clerk.beswib.com',
 		].join(' ')
 
 		const connectSrc = [
@@ -62,6 +64,8 @@ const nextConfig: NextConfig = {
 			'https://*.cloudflare-turnstile.com',
 			'https://www.googletagmanager.com',
 			'https://www.googletagmanager.com/gtag/js',
+			'https://*.beswib.com',
+			'https://clerk.beswib.com',
 		].join(' ')
 
 		const frameSrc = [
@@ -78,6 +82,8 @@ const nextConfig: NextConfig = {
 			'https://*.cloudflare-turnstile.com',
 			'https://www.googletagmanager.com',
 			'https://www.googletagmanager.com/gtag/js',
+			'https://*.beswib.com',
+			'https://clerk.beswib.com',
 		].join(' ')
 
 		const csp = [
