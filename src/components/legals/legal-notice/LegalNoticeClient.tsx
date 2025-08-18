@@ -81,6 +81,9 @@ export default function LegalNoticeClient({ locale }: Readonly<Props>) {
 								{t.legal.hosting.website}
 							</Link>
 						</p>
+						<p>
+							<strong>{t.legal.hosting.complianceLabel}</strong> {t.legal.hosting.compliance}
+						</p>
 					</div>
 				</section>
 

@@ -36,7 +36,9 @@
 				"companyLabel": "Company:",
 				"title": "Hosting",
 				"website": "https://www.netcup.com/en/",
-				"websiteLabel": "Website:"
+				"websiteLabel": "Website:",
+				"compliance": "GDPR compliant hosting. We comply with current data protection and privacy laws.",
+				"complianceLabel": "Compliance:"
 			},
 			"intro": "Beswib, a platform operated by the company Beswib. Below are the mandatory legal disclosures.",
 			"ipr": {
@@ -87,7 +89,9 @@
 				"companyLabel": "Société :",
 				"title": "Hébergement",
 				"website": "https://www.netcup.com/",
-				"websiteLabel": "Site web :"
+				"websiteLabel": "Site web :",
+				"compliance": "Hébergement conforme RGPD. Nous respectons les lois en vigueur sur la protection des données et de la vie privée.",
+				"complianceLabel": "Conformité :"
 			},
 			"intro": "Beswib, une plateforme opérée par la société Beswib. Vous trouverez ci-dessous les mentions légales obligatoires.",
 			"ipr": {
@@ -139,7 +143,9 @@
 				"companyLabel": "Empresa:",
 				"title": "Alojamiento",
 				"website": "https://www.netcup.com/es/",
-				"websiteLabel": "Sitio web:"
+				"websiteLabel": "Sitio web:",
+				"compliance": "Alojamiento conforme GDPR. Cumplimos con las leyes vigentes sobre protección de datos y privacidad.",
+				"complianceLabel": "Cumplimiento:"
 			},
 			"intro": "Beswib, una plataforma operada por la empresa Beswib. A continuación se presentan las divulgaciones legales obligatorias.",
 			"ipr": {
@@ -191,7 +197,9 @@
 				"companyLabel": "Azienda:",
 				"title": "Hosting",
 				"website": "https://www.netcup.com/en/",
-				"websiteLabel": "Sito web:"
+				"websiteLabel": "Sito web:",
+				"compliance": "Hosting conforme GDPR. Rispettiamo le leggi vigenti sulla protezione dei dati e della privacy.",
+				"complianceLabel": "Conformità:"
 			},
 			"intro": "Beswib, una piattaforma gestita dall'azienda Beswib. Di seguito le informative legali obbligatorie.",
 			"ipr": {
@@ -243,7 +251,9 @@
 				"companyLabel": "Unternehmen:",
 				"title": "Hosting",
 				"website": "https://www.netcup.com/de/",
-				"websiteLabel": "Webseite:"
+				"websiteLabel": "Webseite:",
+				"compliance": "DSGVO-konformes Hosting. Wir befolgen die geltenden Gesetze zum Datenschutz und zur Privatsphäre.",
+				"complianceLabel": "Compliance:"
 			},
 			"intro": "Beswib, eine Plattform, die von der Firma Beswib betrieben wird. Nachfolgend finden Sie die obligatorischen rechtlichen Hinweise.",
 			"ipr": {
@@ -295,7 +305,9 @@
 				"companyLabel": "Companie:",
 				"title": "Găzduire",
 				"website": "https://www.netcup.com/ro/",
-				"websiteLabel": "Site web:"
+				"websiteLabel": "Site web:",
+				"compliance": "Găzduire conformă GDPR. Ne conformăm legilor în vigoare privind protecția datelor și a vieții private.",
+				"complianceLabel": "Conformitate:"
 			},
 			"intro": "Beswib, o platformă operată de compania Beswib. Mai jos sunt dezvăluirile legale obligatorii.",
 			"ipr": {
@@ -347,7 +359,9 @@
 				"companyLabel": "Empresa:",
 				"title": "Alojamento",
 				"website": "https://www.netcup.com/pt/",
-				"websiteLabel": "Website:"
+				"websiteLabel": "Website:",
+				"compliance": "Alojamento conforme GDPR. Cumprimos com as leis vigentes sobre proteção de dados e privacidade.",
+				"complianceLabel": "Conformidade:"
 			},
 			"intro": "Beswib, uma plataforma operada pela empresa Beswib. Abaixo estão as divulgações legais obrigatórias.",
 			"ipr": {
@@ -399,7 +413,9 @@
 				"companyLabel": "Bedrijf:",
 				"title": "Hosting",
 				"website": "https://www.netcup.com/nl/",
-				"websiteLabel": "Website:"
+				"websiteLabel": "Website:",
+				"compliance": "AVG-conforme hosting. Wij voldoen aan de geldende wetten inzake gegevensbescherming en privacy.",
+				"complianceLabel": "Naleving:"
 			},
 			"intro": "Beswib, een platform beheerd door het bedrijf Beswib. Hieronder vindt u de verplichte juridische mededelingen.",
 			"ipr": {
@@ -451,7 +467,9 @@
 				"companyLabel": "회사:",
 				"title": "호스팅",
 				"website": "https://www.netcup.com/en/",
-				"websiteLabel": "웹사이트:"
+				"websiteLabel": "웹사이트:",
+				"compliance": "GDPR 준수 호스팅. 데이터 보호 및 개인정보 보호에 관한 현행 법률을 준수합니다.",
+				"complianceLabel": "준수:"
 			},
 			"intro": "Beswib은 Beswib사가 운영하는 플랫폼입니다. 아래는 의무적으로 고지해야 하는 법적 고지 사항입니다.",
 			"ipr": {
