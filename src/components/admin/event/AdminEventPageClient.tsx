@@ -28,7 +28,7 @@ export default function AdminEventPageClient({ locale, currentUser }: AdminEvent
 	}
 
 	const handleCancel = () => {
-		router.push('/admin/events')
+		router.push('/admin/')
 	}
 
 	// Safety check - if currentUser is null, show error

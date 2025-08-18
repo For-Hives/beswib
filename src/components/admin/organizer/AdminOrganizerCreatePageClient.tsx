@@ -34,7 +34,7 @@ export default function AdminOrganizerCreatePageClient({
 	}
 
 	const handleCancel = () => {
-		router.push('/admin/organizer')
+		router.push('/admin/')
 	}
 
 	// Safety check - if currentUser is null, show error
