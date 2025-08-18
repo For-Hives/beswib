@@ -4,7 +4,7 @@ import { fetchPrivateBibByToken } from '@/services/bib.services'
 
 export async function POST(request: NextRequest) {
 	try {
-		const { token, bibId } = await request.json()
+		const { token, bibId } = (await request.json()) as { token: string; bibId: string }
 
 		if (!bibId || !token) {
 			return NextResponse.json({ error: 'Bib ID and token are required' }, { status: 400 })

@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 		// Optional: Add authentication/authorization here if needed
 		// For now, we'll allow any POST request to trigger this
 
-		const body = await request.json().catch(() => ({}))
+		const body = (await request.json().catch(() => ({}))) as { sellerUserId?: string }
 		const sellerUserId = body?.sellerUserId // Optional: limit to specific seller
 
 		const updatedCount = await updateExpiredBibsToWithdrawn(sellerUserId)
