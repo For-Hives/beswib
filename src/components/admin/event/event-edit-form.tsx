@@ -42,7 +42,6 @@ export default function EventEditForm({ onSuccess, onCancel, locale, event }: Re
 		setValue,
 		reset,
 		register,
-		handleSubmit,
 		formState: { errors },
 	} = useForm<EventFormData>({
 		resolver: valibotResolver(EventCreationSchema),
@@ -121,7 +120,8 @@ export default function EventEditForm({ onSuccess, onCancel, locale, event }: Re
 			const result = await updateEventAction(event.id, eventData)
 
 			if (result?.success && result?.data) {
-				toast.success('Event updated successfully!')
+				const updateMessage = getUpdateMessage()
+				toast.success(updateMessage.replace('{eventName}', data.name))
 				onSuccess?.(result.data)
 			} else {
 				throw new Error(result?.error ?? 'Failed to update event')
@@ -134,20 +134,56 @@ export default function EventEditForm({ onSuccess, onCancel, locale, event }: Re
 		}
 	}
 
+	// Helper functions to safely access translations with fallbacks
+	const getEditTitle = (): string => {
+		const eventTranslations = translations.event as Record<string, unknown>
+		const editTitle = eventTranslations?.editTitle
+		return typeof editTitle === 'string' ? editTitle : "Modifier l'événement"
+	}
+
+	const getEditSubtitle = (): string => {
+		const eventTranslations = translations.event as Record<string, unknown>
+		const editSubtitle = eventTranslations?.editSubtitle
+		return typeof editSubtitle === 'string' ? editSubtitle : 'Modifiez les informations de l\'événement "{eventName}"'
+	}
+
+	const getUpdateMessage = (): string => {
+		const successTranslations = translations.event.success as Record<string, unknown>
+		const updateMessage = successTranslations?.updateMessage
+		return typeof updateMessage === 'string' ? updateMessage : 'L\'événement "{eventName}" a été modifié avec succès !'
+	}
+
+	const getEditingText = (): string => {
+		const buttonTranslations = translations.event.buttons as Record<string, unknown>
+		const editingText = buttonTranslations?.editing
+		return typeof editingText === 'string' ? editingText : 'Modification...'
+	}
+
+	const getModifyEventText = (): string => {
+		const buttonTranslations = translations.event.buttons as Record<string, unknown>
+		const modifyEventText = buttonTranslations?.modifyEvent
+		return typeof modifyEventText === 'string' ? modifyEventText : "Modifier l'événement"
+	}
+
+	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+		e.preventDefault()
+		const formData = new FormData(e.currentTarget)
+		const data = Object.fromEntries(formData) as unknown as EventFormData
+
+		onSubmit(data).catch(console.error)
+	}
+
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br pt-24">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 			<div className="relative flex items-center justify-center p-6 md:p-10">
 				<form
 					className="dark:border-border/50 bg-card/80 relative w-full max-w-7xl rounded-3xl border border-black/50 p-8 shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md md:p-12"
-					// eslint-disable-next-line @typescript-eslint/no-misused-promises
-					onSubmit={handleSubmit(onSubmit)}
+					onSubmit={handleFormSubmit}
 				>
 					<div className="mb-12 text-left">
-						<h1 className="text-foreground text-4xl font-bold tracking-tight md:text-5xl">Modifier l'événement</h1>
-						<p className="text-muted-foreground mt-4 text-lg">
-							Modifiez les informations de l'événement "{event.name}"
-						</p>
+						<h1 className="text-foreground text-4xl font-bold tracking-tight md:text-5xl">{getEditTitle()}</h1>
+						<p className="text-muted-foreground mt-4 text-lg">{getEditSubtitle().replace('{eventName}', event.name)}</p>
 					</div>
 
 					{/* Global form error */}
@@ -222,7 +258,7 @@ export default function EventEditForm({ onSuccess, onCancel, locale, event }: Re
 							</Button>
 						)}
 						<Button disabled={isLoading} size="lg" type="submit">
-							{isLoading ? 'Modification...' : "Modifier l'événement"}
+							{isLoading ? getEditingText() : getModifyEventText()}
 						</Button>
 					</div>
 				</form>

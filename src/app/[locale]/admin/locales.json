@@ -79,7 +79,10 @@
 			"buttons": {
 				"cancel": "Cancel",
 				"createEvent": "Create Event",
-				"creating": "Creating Event..."
+				"creating": "Creating Event...",
+				"editEvent": "Edit Event",
+				"editing": "Editing Event...",
+				"modifyEvent": "Modify Event"
 			},
 			"errors": {
 				"creationFailed": "Failed to create event. Please try again.",
@@ -234,9 +237,13 @@
 			"success": {
 				"message": "\"{eventName}\" has been created and is now available on the platform.",
 				"redirecting": "Redirecting to admin dashboard...",
-				"title": "Event Created Successfully!"
+				"title": "Event Created Successfully!",
+				"updateMessage": "\"{eventName}\" has been updated successfully!",
+				"updateTitle": "Event Updated Successfully!"
 			},
-			"title": "Create New Event"
+			"title": "Create New Event",
+			"editTitle": "Edit Event",
+			"editSubtitle": "Edit event information for \"{eventName}\""
 		}
 	},
 	"fr": {
@@ -319,7 +326,10 @@
 			"buttons": {
 				"cancel": "Annuler",
 				"createEvent": "Créer l'Événement",
-				"creating": "Création de l'Événement..."
+				"creating": "Création de l'Événement...",
+				"editEvent": "Modifier l'Événement",
+				"editing": "Modification de l'Événement...",
+				"modifyEvent": "Modifier l'Événement"
 			},
 			"errors": {
 				"creationFailed": "Échec de la création de l'événement. Veuillez réessayer.",
@@ -474,9 +484,13 @@
 			"success": {
 				"message": "\"{eventName}\" a été créé et est maintenant disponible sur la plateforme.",
 				"redirecting": "Redirection vers le tableau de bord admin...",
-				"title": "Événement Créé avec Succès !"
+				"title": "Événement Créé avec Succès !",
+				"updateMessage": "\"{eventName}\" a été modifié avec succès !",
+				"updateTitle": "Événement Modifié avec Succès !"
 			},
-			"title": "Créer un Nouvel Événement"
+			"title": "Créer un Nouvel Événement",
+			"editTitle": "Modifier l'Événement",
+			"editSubtitle": "Modifiez les informations de l'événement \"{eventName}\""
 		}
 	},
 	"es": {

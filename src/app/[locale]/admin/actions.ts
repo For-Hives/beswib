@@ -10,6 +10,7 @@ import {
 } from '@/services/organizer.services'
 import { createEvent, deleteEventById, getAllEvents, fetchEventById, updateEventById } from '@/services/event.services'
 import { getDashboardStats, getRecentActivity } from '@/services/dashboard.services'
+import { fetchOrganizerById } from '@/services/organizer.services'
 import { Organizer } from '@/models/organizer.model'
 import { Event } from '@/models/event.model'
 
@@ -363,6 +364,117 @@ export async function updateEventAction(
 		return {
 			success: false,
 			error: error instanceof Error ? error.message : 'Failed to update event',
+		}
+	}
+}
+
+/**
+ * Server action to get an organizer by ID (admin only)
+ */
+export async function getOrganizerByIdAction(id: string): Promise<{
+	data?: Organizer
+	error?: string
+	success: boolean
+}> {
+	try {
+		const adminUser = await checkAdminAccess()
+
+		if (adminUser === null) {
+			return {
+				success: false,
+				error: 'Unauthorized: Admin access required',
+			}
+		}
+
+		if (!id || typeof id !== 'string') {
+			return {
+				success: false,
+				error: 'Valid organizer ID is required',
+			}
+		}
+
+		const organizer = await fetchOrganizerById(id)
+
+		if (organizer) {
+			return {
+				success: true,
+				data: organizer,
+			}
+		} else {
+			return {
+				success: false,
+				error: 'Organizer not found',
+			}
+		}
+	} catch (error) {
+		console.error('Error in getOrganizerByIdAction:', error)
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to fetch organizer',
+		}
+	}
+}
+
+/**
+ * Server action to update an organizer (admin only)
+ */
+export async function updateOrganizerAction(
+	id: string,
+	organizerData: Partial<Organizer> & { logoFile?: File }
+): Promise<{
+	data?: Organizer
+	error?: string
+	success: boolean
+}> {
+	try {
+		const adminUser = await checkAdminAccess()
+
+		if (adminUser === null) {
+			return {
+				success: false,
+				error: 'Unauthorized: Admin access required',
+			}
+		}
+
+		if (!id || typeof id !== 'string') {
+			return {
+				success: false,
+				error: 'Valid organizer ID is required',
+			}
+		}
+
+		// Validate required fields if they are being updated
+		if (organizerData.name !== undefined && !organizerData.name) {
+			return {
+				success: false,
+				error: 'Organizer name is required',
+			}
+		}
+
+		if (organizerData.email !== undefined && !organizerData.email) {
+			return {
+				success: false,
+				error: 'Organizer email is required',
+			}
+		}
+
+		// Update the organizer with PocketBase service
+		const result = await updateOrganizer(id, organizerData)
+
+		if (result !== null) {
+			console.info(`Admin ${adminUser.email} updated organizer: ${result.name} (${id})`)
+			return {
+				success: true,
+				data: result,
+			}
+		} else {
+			throw new Error('Failed to update organizer')
+		}
+	} catch (error) {
+		console.error('Error in updateOrganizerAction:', error)
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to update organizer',
 		}
 	}
 }

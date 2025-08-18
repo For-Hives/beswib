@@ -106,7 +106,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 						<h1 className="text-foreground mb-4 text-3xl font-bold">{t.dashboard.errors.accessError}</h1>
 						<p className="text-muted-foreground mb-6 text-lg">{t.dashboard.errors.accessErrorMessage}</p>
 						<button
-							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
+							className="bg-primary hover:bg-primary/90 cursor-pointer rounded-lg px-4 py-2 text-white"
 							onClick={() => router.push('/auth/sign-in')}
 						>
 							{t.dashboard.ui.signIn}
@@ -214,7 +214,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 								</CardHeader>
 								<CardContent className="text-center">
 									<Link href="/admin/event/create">
-										<Button className="w-full">
+										<Button className="w-full cursor-pointer">
 											<Plus className="mr-2 h-4 w-4" />
 											{t.dashboard.actions.createEvent}
 										</Button>
@@ -233,7 +233,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 								</CardHeader>
 								<CardContent className="text-center">
 									<Link href="/admin/event">
-										<Button className="w-full">
+										<Button className="w-full cursor-pointer">
 											<Eye className="mr-2 h-4 w-4" />
 											{t.dashboard.actions.viewEvents}
 										</Button>
@@ -252,7 +252,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 								</CardHeader>
 								<CardContent className="text-center">
 									<Link href="/admin/organizer/create">
-										<Button className="w-full">
+										<Button className="w-full cursor-pointer">
 											<Building className="mr-2 h-4 w-4" />
 											{t.dashboard.actions.createOrganizer}
 										</Button>
@@ -271,7 +271,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 								</CardHeader>
 								<CardContent className="text-center">
 									<Link href="/admin/organizer">
-										<Button className="w-full">
+										<Button className="w-full cursor-pointer">
 											<Users className="mr-2 h-4 w-4" />
 											{t.dashboard.actions.viewOrganizers}
 										</Button>

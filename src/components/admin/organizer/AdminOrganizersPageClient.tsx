@@ -107,7 +107,6 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	const [organizers, setOrganizers] = useState<(Organizer & { eventsCount: number })[]>([])
-	const [isLoading, setIsLoading] = useState(true)
 	const [stats, setStats] = useState<null | OrganizersStats>(null)
 
 	// Table state
@@ -225,7 +224,6 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 	useEffect(() => {
 		const fetchOrganizers = async () => {
 			try {
-				setIsLoading(true)
 				const result = await getAllOrganizersAction()
 
 				if (result.success && result.data) {
@@ -253,8 +251,6 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 					totalOrganizers: 0,
 					partneredOrganizers: 0,
 				})
-			} finally {
-				setIsLoading(false)
 			}
 		}
 
@@ -305,33 +301,6 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 						>
 							{t.organizers.ui.signIn}
 						</button>
-					</div>
-				</div>
-			</div>
-		)
-	}
-
-	if (isLoading) {
-		return (
-			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
-				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-				<div className="relative pt-32 pb-12">
-					<div className="container mx-auto max-w-7xl p-6">
-						<div className="space-y-8">
-							<div className="space-y-2 text-center">
-								<div className="mx-auto h-12 w-96 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-								<div className="mx-auto h-6 w-64 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-							</div>
-							<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
-								{Array.from({ length: 2 }).map((_, i) => (
-									<div
-										className="h-32 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"
-										key={`skeleton-${i}`}
-									></div>
-								))}
-							</div>
-							<div className="h-96 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -450,7 +419,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 											table.getColumn('name')?.getFilterValue() !== '' && (
 												<button
 													aria-label={t.organizers.table.controls.clearFilter}
-													className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+													className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 cursor-pointer items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
 													onClick={() => {
 														table.getColumn('name')?.setFilterValue('')
 														if (inputRef.current) {
@@ -750,7 +719,7 @@ function RowActions({
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end">
 					<DropdownMenuGroup>
-						<DropdownMenuItem className="cursor-not-allowed opacity-50" disabled>
+						<DropdownMenuItem onClick={() => (window.location.href = `/admin/organizer/edit/${row.original.id}`)}>
 							<Edit className="mr-2 h-4 w-4" />
 							{t.organizers.actionsLabels.edit}
 						</DropdownMenuItem>
