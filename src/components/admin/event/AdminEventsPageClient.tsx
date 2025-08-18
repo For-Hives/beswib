@@ -899,7 +899,7 @@ function RowActions({ t, row }: { row: Row<AppEvent>; t: EventsTranslations }) {
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end">
 					<DropdownMenuGroup>
-						<DropdownMenuItem className="cursor-not-allowed opacity-50" disabled>
+						<DropdownMenuItem onClick={() => (window.location.href = `/admin/event/edit/${row.original.id}`)}>
 							<Edit className="mr-2 h-4 w-4" />
 							{t.events.table.actions.edit}
 						</DropdownMenuItem>
