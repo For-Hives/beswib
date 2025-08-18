@@ -75,10 +75,13 @@ const isPublicAuthRoute = createRouteMatcher([
 
 export default clerkMiddleware(async (auth, request: NextRequest) => {
 	const { pathname } = request.nextUrl
-	
+
 	console.info('🚀 Middleware triggered for:', pathname)
 	console.info('📍 Full URL:', request.url)
 	console.info('🔍 Method:', request.method)
+	console.info('🎯 User-Agent:', request.headers.get('user-agent'))
+	console.info('📝 Available locales:', i18n.locales)
+	console.info('🏠 Default locale:', i18n.defaultLocale)
 
 	// Let API routes and webhooks pass through without any processing
 	// This ensures webhooks are never redirected
