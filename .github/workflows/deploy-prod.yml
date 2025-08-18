@@ -32,6 +32,7 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           branch: main
+          force: true
       - name: Deploy to Coolify
         run: |
           curl --request GET '${{ secrets.COOLIFY_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'
