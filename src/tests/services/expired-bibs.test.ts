@@ -52,7 +52,7 @@ describe('updateExpiredBibsToWithdrawn', () => {
 			]),
 		}
 
-		pb.collection = vi.fn(() => mockCollection)
+		pb.collection = vi.fn(() => mockCollection) as any
 
 		const result = await updateExpiredBibsToWithdrawn()
 
@@ -76,7 +76,7 @@ describe('updateExpiredBibsToWithdrawn', () => {
 			getFullList: vi.fn().mockResolvedValue([]),
 		}
 
-		pb.collection = vi.fn(() => mockCollection)
+		pb.collection = vi.fn(() => mockCollection) as any
 
 		await updateExpiredBibsToWithdrawn('seller123')
 
@@ -87,19 +87,19 @@ describe('updateExpiredBibsToWithdrawn', () => {
 	})
 
 	it('should handle errors gracefully', async () => {
-		const { pb } = await import('@/services/pocketbase')
+		const { pb } = await import('@/lib/services/pocketbase')
 		const mockCollection = {
 			update: vi.fn(),
 			getFullList: vi.fn().mockRejectedValue(new Error('Database error')),
 		}
 
-		pb.collection = vi.fn(() => mockCollection)
+		pb.collection = vi.fn(() => mockCollection) as any
 
 		await expect(updateExpiredBibsToWithdrawn()).rejects.toThrow('Error updating expired bibs to withdrawn')
 	})
 
 	it('should continue processing even if individual bib update fails', async () => {
-		const { pb } = await import('@/services/pocketbase')
+		const { pb } = await import('@/lib/services/pocketbase')
 		const mockCollection = {
 			update: vi
 				.fn()
@@ -111,7 +111,7 @@ describe('updateExpiredBibsToWithdrawn', () => {
 			]),
 		}
 
-		pb.collection = vi.fn(() => mockCollection)
+		pb.collection = vi.fn(() => mockCollection) as any
 
 		const result = await updateExpiredBibsToWithdrawn()
 
