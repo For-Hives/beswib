@@ -20,7 +20,7 @@ const BIB_PLACEHOLDERS = [
  * @param seed Optional seed for consistent randomness (e.g., use bib.id)
  */
 export function getRandomBibPlaceholder(seed?: string): string {
-	if (seed) {
+	if (seed != null) {
 		// Use seed to get consistent random image for the same seed
 		let hash = 0
 		for (let i = 0; i < seed.length; i++) {
@@ -44,10 +44,10 @@ export function getRandomBibPlaceholder(seed?: string): string {
  */
 export function getOrganizerImageUrl(organizer?: Organizer | { logo?: string; id?: string }, seed?: string): string {
 	// If organizer has logo and id, use the proper PocketBase URL function
-	if (organizer?.logo && organizer.id) {
+	if (organizer?.logo != null && organizer.id != null) {
 		try {
 			const url = getOrganizerLogoUrl(organizer as Organizer)
-			if (url) {
+			if (url != null) {
 				return url
 			}
 		} catch (error) {
@@ -75,17 +75,17 @@ export function getEventImageUrl(
 	seed?: string
 ): string {
 	// Priority 1: Event has its own image
-	if (event?.image) {
+	if (event?.image != null) {
 		return `/api/files/events/${event.image}`
 	}
 
 	// Priority 2: Event has imageUrl field
-	if (event?.imageUrl) {
+	if (event?.imageUrl != null) {
 		return event.imageUrl
 	}
 
 	// Priority 3: Use organizer logo
-	if (event?.expand?.organizer?.logo) {
+	if (event?.expand?.organizer?.logo != null) {
 		return getOrganizerImageUrl(event.expand.organizer, seed)
 	}
 

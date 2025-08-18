@@ -70,7 +70,7 @@ export default function TokenValidation({ translations: t, onValidToken, locale,
 						onValidToken(token.trim())
 					}, 1000)
 				} else {
-					if (!!t.invalidToken) {
+					if (t.invalidToken != null) {
 						setError(t.invalidToken)
 					} else {
 						setError('Invalid private token. Please check your token and try again.')
