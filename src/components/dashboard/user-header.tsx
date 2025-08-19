@@ -45,21 +45,6 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 		(user?.phoneNumber != null && String(user.phoneNumber).trim() !== '') ||
 		(user?.contactEmail != null && String(user.contactEmail).trim() !== '')
 
-	const isRunnerProfileComplete =
-		user?.firstName != null &&
-		user?.lastName != null &&
-		user?.birthDate != null &&
-		(user.birthDate instanceof Date ? !isNaN(user.birthDate.getTime()) : String(user.birthDate).trim() !== '') &&
-		hasAtLeastOneContact &&
-		user?.emergencyContactName != null &&
-		user?.emergencyContactPhone != null &&
-		user?.address != null &&
-		user?.postalCode != null &&
-		user?.city != null &&
-		user?.country != null
-
-	const isSellerProfileComplete = user?.paypalMerchantId != null
-
 	return (
 		<div className="py-4 lg:py-8">
 			<div className="bg-card/25 border-border/30 top-2 right-0 left-0 z-20 mx-4 rounded-2xl border p-4 backdrop-blur-sm lg:absolute">
@@ -120,40 +105,6 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 					</div>
 				</div>
 			</div>
-			{!isRunnerProfileComplete || !isSellerProfileComplete ? (
-				<>
-					<div className="mx-4 pt-4 md:pt-24 xl:pt-32">
-						<div className="flex justify-center gap-2">
-							{!isRunnerProfileComplete && (
-								<div className="mt-4 rounded-lg border border-yellow-500/75 bg-yellow-500/15 p-1 text-sm text-yellow-700 lg:p-3 dark:border-yellow-500/50 dark:bg-yellow-500/10 dark:text-yellow-500">
-									<Link className="flex items-center gap-2 text-xs lg:text-sm" href="/profile">
-										<p>
-											<AlertTriangle className="h-4 w-4 md:h-5 md:w-5" />
-										</p>
-										<p>
-											{t.dashboard.runnerProfileIncomplete ??
-												'Your runner profile is incomplete. Please update it to be able to buy bibs.'}
-										</p>
-									</Link>
-								</div>
-							)}
-							{!isSellerProfileComplete && (
-								<div className="mt-4 rounded-lg border border-blue-500/75 bg-blue-500/15 p-1 text-sm text-blue-700 lg:p-3 dark:border-blue-500/50 dark:bg-blue-500/10 dark:text-blue-500">
-									<Link className="flex items-center gap-2 text-xs lg:text-sm" href="/profile">
-										<p>
-											<ShieldCheck className="h-4 w-4 md:h-5 md:w-5" />
-										</p>
-										<p>
-											{t.dashboard.sellerProfileIncomplete ??
-												'Your seller profile is incomplete. Please update it to be able to sell bibs.'}
-										</p>
-									</Link>
-								</div>
-							)}
-						</div>
-					</div>
-				</>
-			) : null}
 		</div>
 	)
 }
