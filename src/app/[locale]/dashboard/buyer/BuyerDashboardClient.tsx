@@ -6,20 +6,23 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import type { Transaction } from '@/models/transaction.model'
+import type { Organizer } from '@/models/organizer.model'
 import type { Waitlist } from '@/models/waitlist.model'
 import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { getOrganizerImageUrl, getRandomBibPlaceholder } from '@/lib/utils/images'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { getOrganizerImageUrl, getRandomBibPlaceholder } from '@/lib/utils/images'
 import { Button } from '@/components/ui/button'
 
 interface BuyerDashboardClientProps {
 	clerkUser: SerializedClerkUser
 	locale: Locale
-	buyerTransactions: (Transaction & { expand?: { bib_id?: Bib & { expand?: { eventId: Event } } } })[]
+	buyerTransactions: (Transaction & {
+		expand?: { bib_id?: Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } } } } }
+	})[]
 	purchaseSuccess: boolean
 	successEventName: string
 	userWaitlists: (Waitlist & { expand?: { event_id: Event } })[]
@@ -49,9 +52,9 @@ export default function BuyerDashboardClient({
 	buyerTransactions = [],
 }: BuyerDashboardClientProps) {
 	const t = getTranslations(locale, buyerTranslations)
-	
+
 	// Helper function to get event image from organizer or placeholder
-	const getEventImage = (bib: any) => {
+	const getEventImage = (bib: Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } } } }) => {
 		const organizer = bib.expand?.eventId?.expand?.organizer
 		if (organizer != null) {
 			return getOrganizerImageUrl(organizer, bib.id)
@@ -90,7 +93,7 @@ export default function BuyerDashboardClient({
 			</div>
 
 			<div className="relative pt-32 pb-12">
-				<div className="container mx-auto max-w-6xl p-6">
+				<div className="container mx-auto max-w-7xl p-6">
 					{/* Success Message */}
 					{purchaseSuccess && successEventName && (
 						<div className="mb-8 rounded-lg border border-green-300 bg-green-50 p-4 dark:border-green-900/50 dark:bg-green-900/20">
@@ -186,7 +189,7 @@ export default function BuyerDashboardClient({
 					</div>
 
 					{/* Main Content */}
-					<div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+					<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
 						{/* Purchase History */}
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 							<CardHeader>
@@ -198,10 +201,14 @@ export default function BuyerDashboardClient({
 							</CardHeader>
 							<CardContent>
 								{totalPurchases > 0 ? (
-									<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+									<div
+										className={`grid max-h-[100vh] grid-cols-1 gap-6 overflow-y-auto md:grid-cols-2 ${totalPurchases > 6 ? 'pr-4' : ''}`}
+									>
+										{/* multiply (copy)transations by 10 for testing */}
+										{/* // {Array.from({ length: 10 }).map((_, index) => { */}
+
 										{succeededTransactions.map(tx => {
 											const bib = tx.expand?.bib_id
-											if (!tx?.id || !bib || !bib.id) return null
 											return (
 												<div className="group relative h-full w-full" key={tx.id}>
 													<div className="bg-card/80 border-border hover:border-foreground/35 relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md transition-all duration-300">
@@ -211,7 +218,7 @@ export default function BuyerDashboardClient({
 
 														{/* Status badge */}
 														<div className="absolute top-0 right-0 z-20 m-4">
-															<span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 dark:bg-green-900/20 dark:text-green-400">
+															<span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 dark:bg-green-700 dark:text-white">
 																{t.purchased ?? 'Purchased'}
 															</span>
 														</div>
@@ -239,7 +246,7 @@ export default function BuyerDashboardClient({
 															</div>
 
 															{/* Price paid highlight */}
-															<div className="from-green/10 via-emerald/10 to-teal/10 rounded-xl bg-gradient-to-r p-3">
+															<div className="from-green/25 via-emerald/25 to-teal/25 rounded-xl bg-gradient-to-r">
 																<div className="flex items-center justify-between">
 																	<div>
 																		<p className="text-muted-foreground text-xs">{t.pricePaid ?? 'Price Paid'}</p>
@@ -283,7 +290,9 @@ export default function BuyerDashboardClient({
 															<div className="border-border/50 mt-auto border-t pt-2">
 																<p className="text-muted-foreground text-xs">
 																	{t.purchaseDate ?? 'Purchased on'}:{' '}
-																	{tx.created != null ? formatDateObjectForDisplay(new Date(tx.created), locale) : 'N/A'}
+																	{tx.created != null
+																		? formatDateObjectForDisplay(new Date(tx.created), locale)
+																		: 'N/A'}
 																</p>
 															</div>
 														</div>
