@@ -86,11 +86,17 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 				height: `${size.height}px`,
 				flexDirection: 'column',
 				display: 'flex',
-				backgroundColor: 'black',
+				backgroundColor: 'white',
 			}}
 		>
 			{/* Background image */}
-			<img src={src} width={size.width} height={size.height} alt="" style={{ objectFit: 'cover', display: 'flex' }} />
+			<img
+				src={src}
+				width={size.width}
+				height={size.height}
+				alt=""
+				style={{ opacity: 0.5, objectFit: 'cover', display: 'flex' }}
+			/>
 
 			{/* Main text container */}
 			<div
@@ -113,7 +119,6 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 						overflow: 'hidden',
 						lineHeight: 1.1,
 						justifyContent: 'flex-start',
-						height: MAX_HEIGHT_Main,
 						fontWeight: 'bold',
 						fontSize: mainFontSize,
 						fontFamily: 'BowlbyOneSC',
@@ -137,10 +142,9 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 						textAlign: 'left',
 						overflow: 'hidden',
 						lineHeight: 1.1,
-						height: MAX_HEIGHT_Main,
 						fontWeight: 'bold',
 						fontSize: secondaryFontSize,
-						fontFamily: 'BowlbyOneSC',
+						fontFamily: 'Geist',
 						flexWrap: 'wrap', // wrap if needed
 						flexDirection: 'row', // keep spans on the same line
 						display: 'flex', // required for @vercel/og
@@ -167,11 +171,11 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 					alignItems: 'flex-start',
 				}}
 			>
-				<p style={{ fontFamily: 'BowlbyOneSC' }}>beswib.com</p>
+				<p style={{ fontSize: 16, fontFamily: 'Geist' }}>beswib.com</p>
 				<div style={{ zIndex: 10, flexDirection: 'row', display: 'flex', alignItems: 'center' }}>
-					<img src={instagramUrl} width={50} height={50} alt="Instagram" style={{ marginRight: 16 }} />
-					<img src={stravaUrl} width={50} height={50} alt="Strava" style={{ marginRight: 16 }} />
-					<img src={linkedinUrl} width={50} height={50} alt="LinkedIn" style={{ marginRight: 16 }} />
+					<img src={instagramUrl} width={45} height={45} alt="Instagram" style={{ marginRight: 16 }} />
+					<img src={stravaUrl} width={45} height={45} alt="Strava" style={{ marginRight: 16 }} />
+					<img src={linkedinUrl} width={45} height={45} alt="LinkedIn" style={{ marginRight: 16 }} />
 				</div>
 			</div>
 

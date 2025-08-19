@@ -35,6 +35,7 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 	// Charger les polices pour @vercel/og avec gestion d'erreur
 	try {
 		const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/BowlbyOneSC-Regular.ttf'))
+		const geistFont = readFileSync(join(process.cwd(), 'src/components/OG/Geist-Regular.ttf'))
 
 		return new ImageResponse(
 			<OGImage title={t.OG.Main} secondary={t.OG.Secondary} host={host} protocol={protocol} size={size} />,
@@ -44,6 +45,12 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 					{
 						name: 'BowlbyOneSC',
 						data: bowlbyFont,
+						style: 'normal',
+						weight: 400,
+					},
+					{
+						name: 'Geist',
+						data: geistFont,
 						style: 'normal',
 						weight: 400,
 					},
