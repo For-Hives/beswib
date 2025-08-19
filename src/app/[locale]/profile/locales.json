@@ -51,6 +51,7 @@
 				"paypalMerchantId": "PayPal Merchant ID",
 				"paypalNotVerified": "Not Verified",
 				"paypalVerified": "Verified",
+				"paypalNotReadyAlert": "Your PayPal account is linked but not ready to receive payments yet. Please complete the verification steps in PayPal, then click \"Refresh status\" above. This can take a little while after onboarding.",
 				"testingPayment": "Ready to test payments with your merchant ID.",
 				"title": "Seller Information",
 				"completeProfileFirst": "Please complete your profile first.",
@@ -65,7 +66,9 @@
 
 					"paypalEmail": "PayPal Email",
 					"paypalEmailCheckTooltip": "Your PayPal email is verified on PayPal.",
-					"paypalEmailNotCheckTooltip": "Your PayPal email is not verified. Please verify your email on PayPal to receive payments."
+					"paypalEmailNotCheckTooltip": "Your PayPal email is not verified. Please verify your email on PayPal to receive payments.",
+					"refreshStatus": "Refresh status",
+					"refreshChecking": "Checking…"
 				}
 			},
 			"dangerZone": {
@@ -134,6 +137,7 @@
 				"paypalMerchantId": "ID Marchand PayPal",
 				"paypalNotVerified": "Non Vérifié",
 				"paypalVerified": "Vérifié",
+				"paypalNotReadyAlert": "Votre compte PayPal est lié mais pas encore prêt à recevoir des paiements. Veuillez terminer la vérification sur PayPal, puis cliquez sur « Actualiser le statut » ci-dessus. Cela peut prendre un peu de temps après l’onboarding.",
 				"testingPayment": "Prêt à tester les paiements avec votre ID marchand.",
 				"title": "Informations Vendeur",
 				"completeProfileFirst": "Veuillez d'abord compléter votre profil.",
@@ -146,7 +150,9 @@
 					"paypalKYC": "KYC PayPal",
 					"paypalEmail": "E-mail PayPal",
 					"paypalEmailCheckTooltip": "Votre e-mail PayPal est vérifié sur PayPal.",
-					"paypalEmailNotCheckTooltip": "Votre e-mail PayPal n'est pas vérifié. Veuillez vérifier votre e-mail sur PayPal pour recevoir des paiements."
+					"paypalEmailNotCheckTooltip": "Votre e-mail PayPal n'est pas vérifié. Veuillez vérifier votre e-mail sur PayPal pour recevoir des paiements.",
+					"refreshStatus": "Actualiser le statut",
+					"refreshChecking": "Vérification…"
 				}
 			},
 			"dangerZone": {
@@ -215,6 +221,7 @@
 				"paypalMerchantId": "PayPal 판매자 ID",
 				"paypalNotVerified": "확인되지 않음",
 				"paypalVerified": "확인됨",
+				"paypalNotReadyAlert": "PayPal 계정이 연결되었지만 아직 결제를 받을 준비가 되지 않았습니다. PayPal에서 인증 절차를 완료한 후 위의 \"상태 새로고침\"을 클릭하세요. 온보딩 후 잠시 시간이 걸릴 수 있습니다.",
 				"testingPayment": "판매자 ID로 결제를 테스트할 준비가 되었습니다.",
 				"title": "판매자 정보",
 				"completeProfileFirst": "먼저 프로필을 완성해 주세요.",
@@ -227,7 +234,9 @@
 					"paypalKYC": "PayPal KYC",
 					"paypalEmail": "PayPal 이메일",
 					"paypalEmailCheckTooltip": "PayPal 이메일이 PayPal에서 인증되었습니다.",
-					"paypalEmailNotCheckTooltip": "PayPal 이메일이 인증되지 않았습니다. 결제를 받으려면 PayPal에서 이메일을 인증하세요."
+					"paypalEmailNotCheckTooltip": "PayPal 이메일이 인증되지 않았습니다. 결제를 받으려면 PayPal에서 이메일을 인증하세요.",
+					"refreshStatus": "상태 새로고침",
+					"refreshChecking": "확인 중…"
 				}
 			},
 			"dangerZone": {
@@ -296,6 +305,7 @@
 				"paypalMerchantId": "ID de Comerciante PayPal",
 				"paypalNotVerified": "No Verificado",
 				"paypalVerified": "Verificado",
+				"paypalNotReadyAlert": "Tu cuenta de PayPal está vinculada pero todavía no está lista para recibir pagos. Completa la verificación en PayPal y luego haz clic en \"Actualizar estado\" arriba. Esto puede tardar un poco después del onboarding.",
 				"testingPayment": "Listo para probar pagos con tu ID de comerciante.",
 				"title": "Información del Vendedor",
 				"completeProfileFirst": "Por favor, completa tu perfil primero.",
@@ -308,7 +318,9 @@
 					"paypalKYC": "KYC de PayPal",
 					"paypalEmail": "Correo electrónico de PayPal",
 					"paypalEmailCheckTooltip": "Tu correo electrónico de PayPal está verificado en PayPal.",
-					"paypalEmailNotCheckTooltip": "Tu correo electrónico de PayPal no está verificado. Verifícalo en PayPal para recibir pagos."
+					"paypalEmailNotCheckTooltip": "Tu correo electrónico de PayPal no está verificado. Verifícalo en PayPal para recibir pagos.",
+					"refreshStatus": "Actualizar estado",
+					"refreshChecking": "Comprobando…"
 				}
 			},
 			"dangerZone": {
@@ -377,6 +389,7 @@
 				"paypalMerchantId": "ID Commerciante PayPal",
 				"paypalVerified": "Verificato",
 				"paypalNotVerified": "Non Verificato",
+				"paypalNotReadyAlert": "Il tuo conto PayPal è collegato ma non è ancora pronto a ricevere pagamenti. Completa la verifica su PayPal, quindi fai clic su \"Aggiorna stato\" sopra. Potrebbe richiedere un po’ di tempo dopo l’onboarding.",
 				"testingPayment": "Pronto a testare i pagamenti con il tuo ID commerciante.",
 				"title": "Informazioni Venditore",
 				"completeProfileFirst": "Per favore, completa prima il tuo profilo.",
@@ -389,7 +402,9 @@
 					"paypalKYC": "KYC PayPal",
 					"paypalEmail": "Email PayPal",
 					"paypalEmailCheckTooltip": "La tua email PayPal è verificata su PayPal.",
-					"paypalEmailNotCheckTooltip": "La tua email PayPal non è verificata. Verifica la tua email su PayPal per ricevere pagamenti."
+					"paypalEmailNotCheckTooltip": "La tua email PayPal non è verificata. Verifica la tua email su PayPal per ricevere pagamenti.",
+					"refreshStatus": "Aggiorna stato",
+					"refreshChecking": "Verifica in corso…"
 				}
 			},
 			"dangerZone": {
@@ -458,6 +473,7 @@
 				"paypalMerchantId": "PayPal Händler-ID",
 				"paypalNotVerified": "Nicht verifiziert",
 				"paypalVerified": "Verifiziert",
+				"paypalNotReadyAlert": "Ihr PayPal-Konto ist verknüpft, aber noch nicht bereit, Zahlungen zu empfangen. Bitte schließen Sie die Verifizierung bei PayPal ab und klicken Sie anschließend oben auf \"Status aktualisieren\". Dies kann nach dem Onboarding etwas dauern.",
 				"testingPayment": "Bereit, Zahlungen mit Ihrer Händler-ID zu testen.",
 				"title": "Verkäuferinformationen",
 				"completeProfileFirst": "Bitte vervollständige zuerst dein Profil.",
@@ -470,7 +486,9 @@
 					"paypalKYC": "PayPal-KYC",
 					"paypalEmail": "PayPal-E-Mail",
 					"paypalEmailCheckTooltip": "Ihre PayPal-E-Mail ist bei PayPal verifiziert.",
-					"paypalEmailNotCheckTooltip": "Ihre PayPal-E-Mail ist nicht verifiziert. Bitte verifizieren Sie Ihre E-Mail bei PayPal, um Zahlungen zu erhalten."
+					"paypalEmailNotCheckTooltip": "Ihre PayPal-E-Mail ist nicht verifiziert. Bitte verifizieren Sie Ihre E-Mail bei PayPal, um Zahlungen zu erhalten.",
+					"refreshStatus": "Status aktualisieren",
+					"refreshChecking": "Wird geprüft…"
 				}
 			},
 			"dangerZone": {
@@ -539,6 +557,7 @@
 				"paypalMerchantId": "ID Comerciant PayPal",
 				"paypalNotVerified": "Neconfirmat",
 				"paypalVerified": "Confirmat",
+				"paypalNotReadyAlert": "Contul tău PayPal este conectat, dar nu este încă pregătit să primească plăți. Te rugăm să finalizezi verificarea în PayPal, apoi apasă \"Actualizează statusul\" de mai sus. Acest lucru poate dura puțin după onboarding.",
 				"testingPayment": "Gata de testat plățile cu ID-ul tău de comerciant.",
 				"title": "Informații Vânzător",
 				"completeProfileFirst": "Te rugăm să îți completezi mai întâi profilul.",
@@ -551,7 +570,9 @@
 					"paypalKYC": "KYC PayPal",
 					"paypalEmail": "E-mail PayPal",
 					"paypalEmailCheckTooltip": "E-mailul tău PayPal este verificat pe PayPal.",
-					"paypalEmailNotCheckTooltip": "E-mailul tău PayPal nu este verificat. Te rugăm să îți verifici e-mailul pe PayPal pentru a primi plăți."
+					"paypalEmailNotCheckTooltip": "E-mailul tău PayPal nu este verificat. Te rugăm să îți verifici e-mailul pe PayPal pentru a primi plăți.",
+					"refreshStatus": "Actualizează statusul",
+					"refreshChecking": "Se verifică…"
 				}
 			},
 			"dangerZone": {
@@ -620,6 +641,7 @@
 				"paypalMerchantId": "ID de Comerciante PayPal",
 				"paypalNotVerified": "Não Verificado",
 				"paypalVerified": "Verificado",
+				"paypalNotReadyAlert": "A tua conta PayPal está ligada mas ainda não está pronta para receber pagamentos. Conclui a verificação no PayPal e depois clica em \"Atualizar estado\" acima. Isto pode demorar um pouco após o onboarding.",
 				"testingPayment": "Pronto para testar pagamentos com o teu ID de comerciante.",
 				"title": "Informações do Vendedor",
 				"completeProfileFirst": "Por favor, completa primeiro o teu perfil.",
@@ -632,7 +654,9 @@
 					"paypalKYC": "KYC PayPal",
 					"paypalEmail": "E-mail PayPal",
 					"paypalEmailCheckTooltip": "O teu e-mail PayPal está verificado no PayPal.",
-					"paypalEmailNotCheckTooltip": "O teu e-mail PayPal não está verificado. Verifica-o no PayPal para receber pagamentos."
+					"paypalEmailNotCheckTooltip": "O teu e-mail PayPal não está verificado. Verifica-o no PayPal para receber pagamentos.",
+					"refreshStatus": "Atualizar estado",
+					"refreshChecking": "A verificar…"
 				}
 			},
 			"dangerZone": {
@@ -701,6 +725,7 @@
 				"paypalMerchantId": "PayPal Merchant ID",
 				"paypalNotVerified": "Niet Geverifieerd",
 				"paypalVerified": "Geverifieerd",
+				"paypalNotReadyAlert": "Je PayPal-account is gekoppeld maar nog niet klaar om betalingen te ontvangen. Voltooi de verificatie bij PayPal en klik daarna hierboven op \"Status vernieuwen\". Dit kan na het onboardingproces even duren.",
 				"testingPayment": "Klaar om betalingen te testen met uw merchant ID.",
 				"title": "Verkoper Informatie",
 				"completeProfileFirst": "Vul eerst je profiel in.",
@@ -713,7 +738,9 @@
 					"paypalKYC": "PayPal-KYC",
 					"paypalEmail": "PayPal-e-mailadres",
 					"paypalEmailCheckTooltip": "Je PayPal-e-mailadres is geverifieerd op PayPal.",
-					"paypalEmailNotCheckTooltip": "Je PayPal-e-mailadres is niet geverifieerd. Verifieer je e-mailadres op PayPal om betalingen te ontvangen."
+					"paypalEmailNotCheckTooltip": "Je PayPal-e-mailadres is niet geverifieerd. Verifieer je e-mailadres op PayPal om betalingen te ontvangen.",
+					"refreshStatus": "Status vernieuwen",
+					"refreshChecking": "Controleren…"
 				}
 			},
 			"dangerZone": {

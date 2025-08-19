@@ -296,11 +296,11 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 								>
 									{merchantStatusQuery.isFetching ? (
 										<>
-											<RefreshCw className="mr-2 h-3 w-3 animate-spin" /> Checking…
+											<RefreshCw className="mr-2 h-3 w-3 animate-spin" /> {t.paypalLinkInfo.refreshChecking}
 										</>
 									) : (
 										<>
-											<RefreshCw className="mr-2 h-3 w-3" /> Refresh status
+											<RefreshCw className="mr-2 h-3 w-3" /> {t.paypalLinkInfo.refreshStatus}
 										</>
 									)}
 								</Button>
@@ -321,8 +321,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 						<Alert variant="destructive">
 							<XCircle className="h-4 w-4" />
 							<AlertDescription>
-								Your PayPal account is linked but not ready to receive payments yet. Please complete the verification
-								steps in PayPal, then click "Refresh status" above. This can take a little while after onboarding.
+								{t.paypalNotReadyAlert}
 							</AlertDescription>
 						</Alert>
 					) : null}
