@@ -605,17 +605,17 @@ export async function updateBib(bibId: string, data: Partial<Omit<Bib, 'id'>>): 
 export async function updateBibBySeller(
 	bibId: string,
 	dataToUpdate: Partial<Bib>, // Allow specific status updates or general data updates ✅
-	sellerUserId: string
+	_sellerUserId: string
 ): Promise<Bib | null> {
-	if (bibId === '' || sellerUserId === '') {
+	if (bibId === '' || _sellerUserId === '') {
 		console.error('Bib ID and Seller ID are required for update.')
 		return null
 	}
 
 	try {
 		const currentBib = await pb.collection('bibs').getOne<Bib>(bibId)
-		if (currentBib.sellerUserId !== sellerUserId) {
-			console.warn(`Unauthorized attempt by seller ${sellerUserId} to update bib ${bibId}.`)
+		if (currentBib.sellerUserId !== _sellerUserId) {
+			console.warn(`Unauthorized attempt by seller ${_sellerUserId} to update bib ${bibId}.`)
 			return null
 		}
 
@@ -648,7 +648,7 @@ export async function updateBibBySeller(
 
 		// Sanitize payload: disallow registrationNumber, eventId, sellerUserId modifications by seller
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { sellerUserId, registrationNumber, eventId, ...payload } = dataToUpdate
+		let { sellerUserId, registrationNumber, eventId, ...payload } = dataToUpdate
 
 		const updatedRecord = await pb.collection('bibs').update<Bib>(bibId, payload)
 		return updatedRecord
