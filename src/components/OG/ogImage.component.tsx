@@ -183,15 +183,21 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 			<div
 				style={{
 					zIndex: 10,
-					top: 108,
+					top: 50,
 					position: 'absolute',
-					left: 702,
+					left: 550,
 					flexDirection: 'row',
 					display: 'flex',
 					alignItems: 'center',
 				}}
 			>
-				<img src={mountain} width={440} height={305} alt="mountain" style={{ objectFit: 'cover', display: 'flex' }} />
+				<img
+					src={mountain}
+					width={600}
+					height={450}
+					alt="mountain"
+					style={{ opacity: 0.75, objectFit: 'cover', display: 'flex' }}
+				/>
 			</div>
 
 			{/* Beswib logo */}
