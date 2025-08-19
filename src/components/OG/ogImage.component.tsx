@@ -2,7 +2,8 @@ import * as React from 'react'
 
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 
-import Pattern from './pattern'
+import BeswibLogo from './icons/BeswibLogo'
+import Pattern from './icons/Pattern'
 
 // Function to split the text into parts and apply a special color to words between **
 function formatTextWithColor(text: string, highlightColor = '#4C639A') {
@@ -69,7 +70,6 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 	})
 
 	// URLs for images used in the OG image
-	const beswibLogoUrl = `${protocol}://${host}/beswib.svg`
 	const mountainUrl = `${protocol}://${host}/openGraph/${encodeURIComponent('mountain-outlined.png')}`
 
 	// Split text into parts with color for highlights
@@ -278,7 +278,7 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 							alignItems: 'center',
 						}}
 					>
-						<img src={beswibLogoUrl} width={60} height={60} alt="Beswib" />
+						<BeswibLogo />
 					</div>
 				</div>
 			</div>
