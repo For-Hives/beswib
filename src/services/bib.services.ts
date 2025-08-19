@@ -373,7 +373,7 @@ export async function checkBibListingStatus(
  * Fetches a single bib by its ID for public display or pre-purchase.
  * @param bibId The ID of the bib to fetch.
  */
-export async function fetchBibById(
+export async function fetchPublicBibById(
 	bibId: string
 ): Promise<(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }) | null> {
 	if (bibId === '') {
@@ -381,13 +381,11 @@ export async function fetchBibById(
 		return null
 	}
 	try {
-		const record = await pb
-			.collection('bibs')
-			.getOne<
-				Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }
-			>(bibId, {
-				expand: 'eventId,sellerUserId,eventId.organizer',
-			})
+		const record = await fetchBibById(bibId)
+
+		if (record == null) {
+			return null
+		}
 
 		// Only return if it's a public listing
 		if (record.listed !== 'public') {
@@ -406,7 +404,7 @@ export async function fetchBibById(
  * Fetches a single bib by its ID for public display or pre-purchase.
  * @param bibId The ID of the bib to fetch.
  */
-export async function fetchAllBibById(
+export async function fetchBibById(
 	bibId: string
 ): Promise<(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }) | null> {
 	if (bibId === '') {

@@ -10,7 +10,7 @@ import type { BibSale } from '@/models/marketplace.model'
 import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
-import { fetchBibById, fetchPrivateBibByToken, checkBibListingStatus } from '@/services/bib.services'
+import { fetchPrivateBibByToken, checkBibListingStatus, fetchPublicBibById } from '@/services/bib.services'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { fetchOrganizerById } from '@/services/organizer.services'
 import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
@@ -97,7 +97,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 		// If no token or invalid token, bib will remain null and we'll show the validation form
 	} else if (bibStatus.listed === 'public') {
 		// Fetch public bib
-		bib = await fetchBibById(id)
+		bib = await fetchPublicBibById(id)
 	}
 
 	// If we have bib data, process it

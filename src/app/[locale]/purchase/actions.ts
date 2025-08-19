@@ -4,7 +4,7 @@ import { auth } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 
 import { getTransactionByOrderId, createTransaction } from '@/services/transaction.services'
-import { fetchBibById, isLocked } from '@/services/bib.services'
+import { fetchPublicBibById, isLocked } from '@/services/bib.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { capturePayment } from '@/services/paypal.services'
 import { PLATFORM_FEE } from '@/constants/global.constant'
@@ -18,7 +18,7 @@ export async function handlePaymentPageOpened(paymentIntentId: string, bibId: st
 	}
 
 	try {
-		const bib = await fetchBibById(bibId)
+		const bib = await fetchPublicBibById(bibId)
 		if (!bib) {
 			throw new Error('Bib not found.')
 		}
@@ -107,7 +107,7 @@ export async function captureOrder(orderId: string, lockKey: string | null = nul
 		}
 
 		// Verify the bib is still available and locked by this user with the provided lock key
-		const bib = await fetchBibById(tx.bib_id)
+		const bib = await fetchPublicBibById(tx.bib_id)
 		if (!bib) {
 			return { error: 'Bib not found.' }
 		}
