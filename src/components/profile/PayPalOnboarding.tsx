@@ -65,12 +65,7 @@ type DisconnectText = {
 // Badge indicating current PayPal connection status
 function StatusBadge({ t, hasMerchantId }: { hasMerchantId: boolean; t: StatusText }) {
 	if (hasMerchantId) {
-		return (
-			<Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" variant="default">
-				<CheckCircle className="mr-1 h-3 w-3" />
-				{t.paypalVerified}
-			</Badge>
-		)
+		return null
 	}
 	return (
 		<Badge variant="destructive">
@@ -211,14 +206,22 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 									<Badge
 										variant={hasMerchantId ? 'default' : 'destructive'}
 										className={`flex w-full items-center justify-between ${
-											hasMerchantId ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''
+											hasMerchantId
+												? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
+												: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
 										}`}
 									>
-										<span>Account Linked</span>
-										{!merchantStatusQuery.isLoading && hasMerchantId ? <CircleCheckBig className="h-4 w-4" /> : null}
+										<span>{t.paypalLinkInfo.accountLinked}</span>
+										{!merchantStatusQuery.isLoading ? (
+											hasMerchantId ? <CircleCheckBig className="h-4 w-4" /> : <XCircle className="h-4 w-4" />
+										) : null}
 									</Badge>
 								</TooltipTrigger>
-								<TooltipContent side="right">Votre compte PayPal est correctement relié.</TooltipContent>
+								<TooltipContent side="right">
+									{!merchantStatusQuery.isLoading && hasMerchantId
+										? t.paypalLinkInfo.accountLinkedTooltip
+										: t.paypalLinkInfo.accountNotLinkedTooltip}
+								</TooltipContent>
 							</Tooltip>
 
 							{/* 2 - Paypal KYC (payments receivable) */}
@@ -227,19 +230,21 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 									<Badge
 										variant={paymentsReceivable ? 'default' : 'destructive'}
 										className={`flex w-full items-center justify-between ${
-											paymentsReceivable ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''
+											paymentsReceivable
+												? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
+												: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
 										}`}
 									>
-										<span>Paypal KYC</span>
-										{!merchantStatusQuery.isLoading && paymentsReceivable ? (
-											<CircleCheckBig className="h-4 w-4" />
+										<span>{t.paypalLinkInfo.paypalKYC}</span>
+										{!merchantStatusQuery.isLoading ? (
+											paymentsReceivable ? <CircleCheckBig className="h-4 w-4" /> : <XCircle className="h-4 w-4" />
 										) : null}
 									</Badge>
 								</TooltipTrigger>
 								<TooltipContent side="right">
 									{paymentsReceivable
-										? 'KYC vérifié chez PayPal.'
-										: "Finalisez la vérification d'identité et les informations de votre activité dans votre compte PayPal, puis cliquez sur Rafraîchir."}
+										? t.paypalLinkInfo.paypalKYCCheckTooltip
+										: t.paypalLinkInfo.paypalKYCNotCheckTooltip}
 								</TooltipContent>
 							</Tooltip>
 
@@ -249,17 +254,21 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 									<Badge
 										variant={emailConfirmed ? 'default' : 'destructive'}
 										className={`flex w-full items-center justify-between ${
-											emailConfirmed ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''
+											emailConfirmed
+												? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
+												: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
 										}`}
 									>
-										<span>Paypal Email</span>
-										{!merchantStatusQuery.isLoading && emailConfirmed ? <CircleCheckBig className="h-4 w-4" /> : null}
+										<span>{t.paypalLinkInfo.paypalEmail}</span>
+										{!merchantStatusQuery.isLoading ? (
+											emailConfirmed ? <CircleCheckBig className="h-4 w-4" /> : <XCircle className="h-4 w-4" />
+										) : null}
 									</Badge>
 								</TooltipTrigger>
 								<TooltipContent side="right">
 									{emailConfirmed
-										? 'Adresse e-mail principale confirmée.'
-										: 'Confirmez votre adresse e-mail principale dans PayPal (Paramètres > E-mail), puis cliquez sur Rafraîchir.'}
+										? t.paypalLinkInfo.paypalEmailCheckTooltip
+										: t.paypalLinkInfo.paypalEmailNotCheckTooltip}
 								</TooltipContent>
 							</Tooltip>
 
@@ -305,39 +314,6 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 					) : null}
 					{/* PayPal Merchant ID Display (if available) */}
 					{hasMerchantId && <MerchantIdPanel merchantId={user.paypalMerchantId as string} />}
-
-					{/* Detailed product vetting info */}
-					{hasMerchantId &&
-					Array.isArray(merchantStatusQuery.data?.products) &&
-					merchantStatusQuery.data!.products!.length > 0 ? (
-						<div className="rounded-md border p-3">
-							<div className="mb-2 text-sm font-medium">Products</div>
-							<ul className="space-y-2">
-								{merchantStatusQuery.data!.products!.map((p, idx) => {
-									const name = p?.name ?? 'Unknown product'
-									const s = (p?.vetting_status ?? '').toString()
-									const isGood = /approved|subscribed|complete|enabled/i.test(s)
-									const isPending = /pending|in_review/i.test(s)
-									return (
-										<li key={`${name}-${idx}`} className="flex items-center justify-between text-sm">
-											<span>{name}</span>
-											{isGood ? (
-												<Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
-													{s || 'OK'}
-												</Badge>
-											) : isPending ? (
-												<Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
-													{s || 'Pending'}
-												</Badge>
-											) : (
-												<Badge variant="destructive">{s || 'Needs attention'}</Badge>
-											)}
-										</li>
-									)
-								})}
-							</ul>
-						</div>
-					) : null}
 
 					{/* Connect/Disconnect Button or Loader */}
 					{isOnboardingPending ? (
