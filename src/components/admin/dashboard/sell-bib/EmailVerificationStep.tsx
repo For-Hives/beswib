@@ -109,6 +109,14 @@ export default function EmailVerificationStep({
 		}
 	}
 
+	// Check if the current email is valid for button state
+	const isEmailValid = () => {
+		const emailToValidate = newEmail.trim()
+		if (emailToValidate === '') return false
+		const validationError = validateEmailValibot(emailToValidate, locale)
+		return validationError === null
+	}
+
 	// Add user's main email as default option if not already in verified emails
 	const hasMainEmail = verifiedEmails.some(ve => ve.email === user.email)
 	const defaultEmailOptions = hasMainEmail
@@ -228,7 +236,7 @@ export default function EmailVerificationStep({
 									/>
 									{emailValidationError !== null && <p className="mt-1 text-sm text-red-500">{emailValidationError}</p>}
 								</div>
-								<Button onClick={handleAddEmail} disabled={newEmail.trim() === ''}>
+								<Button onClick={handleAddEmail} disabled={!isEmailValid()}>
 									{t.form.emailVerification.add}
 								</Button>
 								<Button
