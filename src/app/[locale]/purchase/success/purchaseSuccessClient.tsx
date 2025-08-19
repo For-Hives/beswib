@@ -1,14 +1,15 @@
 'use client'
+import { CheckCircle, Package, ArrowRight } from 'lucide-react'
 import React, { useEffect, useRef } from 'react'
 
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { CheckCircle, Package, ArrowRight, Sparkles } from 'lucide-react'
 
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 import { Confetti, ConfettiRef } from '@/components/ui/confetti'
 import { Card, CardContent } from '@/components/ui/card'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { Button } from '@/components/ui/button'
+import { Locale } from '@/lib/i18n/config'
 
 import translations from './locales.json'
 
@@ -17,18 +18,10 @@ function SuccessIcon() {
 		<motion.div
 			initial={{ scale: 0, rotate: -45 }}
 			animate={{ scale: 1, rotate: 0 }}
-			transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.2 }}
-			className="relative mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-green-500/20 ring-8 ring-green-500/10"
+			transition={{ type: 'spring', stiffness: 300, delay: 0.2, damping: 20 }}
+			className="relative mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-green-500/15 ring-8 ring-green-500/10"
 		>
-			<CheckCircle className="h-12 w-12 text-green-500" />
-			<motion.div
-				initial={{ scale: 0, opacity: 0 }}
-				animate={{ scale: 1, opacity: 1 }}
-				transition={{ duration: 0.6, delay: 1.2 }}
-				className="absolute -top-2 -right-2"
-			>
-				<Sparkles className="h-6 w-6 text-yellow-400" />
-			</motion.div>
+			<CheckCircle className="h-12 w-12 text-green-600 dark:text-green-500" />
 		</motion.div>
 	)
 }
@@ -91,8 +84,8 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 		// First confetti burst
 		const timer1 = setTimeout(() => {
 			confettiRef.current?.fire({
-				particleCount: 100,
 				spread: 70,
+				particleCount: 100,
 				origin: { y: 0.6 },
 				colors: ['#10b981', '#f59e0b', '#3b82f6', '#8b5cf6'],
 			})
@@ -101,8 +94,8 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 		// Second confetti burst
 		const timer2 = setTimeout(() => {
 			confettiRef.current?.fire({
-				particleCount: 50,
 				spread: 60,
+				particleCount: 50,
 				origin: { y: 0.7, x: 0.2 },
 				colors: ['#f59e0b', '#ef4444', '#8b5cf6'],
 			})
@@ -111,8 +104,8 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 		// Third confetti burst
 		const timer3 = setTimeout(() => {
 			confettiRef.current?.fire({
-				particleCount: 50,
 				spread: 60,
+				particleCount: 50,
 				origin: { y: 0.7, x: 0.8 },
 				colors: ['#10b981', '#3b82f6', '#f59e0b'],
 			})
@@ -132,10 +125,18 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 			<Confetti
 				ref={confettiRef}
 				manualstart
-				className="pointer-events-none fixed inset-0 z-50"
+				style={{
+					zIndex: 9999,
+					width: '100%',
+					top: 0,
+					position: 'absolute',
+					pointerEvents: 'none',
+					left: 0,
+					height: '100%',
+				}}
 				options={{
-					particleCount: 50,
 					spread: 45,
+					particleCount: 50,
 					origin: { y: 0.7 },
 				}}
 			/>
@@ -153,9 +154,9 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 							rotate: [0, 2, -2, 0],
 						}}
 						transition={{
-							duration: 6,
 							repeat: Infinity,
 							ease: 'easeInOut',
+							duration: 6,
 							delay: 2,
 						}}
 					>
@@ -195,73 +196,51 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 						transition={{ duration: 0.8, delay: 1.2 }}
 						className="flex flex-col gap-4 sm:flex-row sm:justify-center"
 					>
-						<motion.button
-							whileHover={{
-								scale: 1.05,
-								boxShadow: '0 10px 30px rgba(34, 197, 94, 0.3)',
-							}}
-							whileTap={{ scale: 0.95 }}
-							animate={{
-								boxShadow: [
-									'0 4px 20px rgba(34, 197, 94, 0.1)',
-									'0 6px 25px rgba(34, 197, 94, 0.2)',
-									'0 4px 20px rgba(34, 197, 94, 0.1)',
-								],
-							}}
-							transition={{
-								boxShadow: {
-									duration: 3,
-									repeat: Infinity,
-									ease: 'easeInOut',
-								},
-							}}
-							className="relative flex items-center justify-center gap-2 overflow-hidden rounded-lg bg-green-600 px-8 py-3 font-semibold text-white shadow-lg transition-all hover:bg-green-700"
-							onClick={() => {
-								confettiRef.current?.fire({
-									particleCount: 80,
-									spread: 80,
-									origin: { y: 0.8 },
-									colors: ['#10b981', '#f59e0b', '#3b82f6'],
-								})
-								router.push('/dashboard/buyer/')
-							}}
-						>
+						<motion.div className="relative overflow-hidden">
 							<motion.div
 								className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
 								initial={{ x: '-100%' }}
 								animate={{ x: '200%' }}
 								transition={{
-									duration: 2,
-									repeat: Infinity,
 									repeatDelay: 3,
+									repeat: Infinity,
 									ease: 'linear',
+									duration: 2,
 								}}
 							/>
-							<Package className="relative z-10 h-5 w-5" />
-							<span className="relative z-10">{t.success.viewBibs}</span>
-						</motion.button>
-
-						<motion.button
-							whileHover={{
-								scale: 1.05,
-								backgroundColor: 'var(--card)',
-							}}
-							whileTap={{ scale: 0.95 }}
-							className="bg-card/80 border-border text-foreground flex items-center justify-center gap-2 rounded-lg border px-8 py-3 font-medium backdrop-blur-sm transition-all hover:shadow-lg"
-							onClick={() => router.push('/marketplace')}
-						>
-							{t.success.backMarketplace}
-							<motion.div
-								animate={{ x: [0, 4, 0] }}
-								transition={{
-									duration: 2,
-									repeat: Infinity,
-									ease: 'easeInOut',
+							<Button
+								size="lg"
+								className="relative z-10 gap-2"
+								onClick={() => {
+									confettiRef.current?.fire({
+										spread: 80,
+										particleCount: 80,
+										origin: { y: 0.8 },
+										colors: ['#10b981', '#f59e0b', '#3b82f6'],
+									})
+									router.push('/dashboard/buyer/')
 								}}
 							>
-								<ArrowRight className="h-4 w-4" />
-							</motion.div>
-						</motion.button>
+								<Package className="h-5 w-5" />
+								{t.success.viewBibs}
+							</Button>
+						</motion.div>
+
+						<motion.div>
+							<Button variant="outline" size="lg" className="gap-2" onClick={() => router.push('/marketplace')}>
+								{t.success.backMarketplace}
+								<motion.div
+									animate={{ x: [0, 4, 0] }}
+									transition={{
+										repeat: Infinity,
+										ease: 'easeInOut',
+										duration: 2,
+									}}
+								>
+									<ArrowRight className="h-4 w-4" />
+								</motion.div>
+							</Button>
+						</motion.div>
 					</motion.div>
 				</div>
 			</motion.div>
