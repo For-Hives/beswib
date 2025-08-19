@@ -1,6 +1,7 @@
 import type {
 	PayPalAccessToken,
 	PayPalCaptureResponse,
+	PayPalMerchantIntegrationStatus,
 	PayPalOrderResponse,
 	PayPalPartnerReferralResponse,
 	PayPalPaymentCaptureResource,
@@ -440,8 +441,6 @@ async function getAccessToken(): Promise<string> {
 
 // --- Merchant Integration Status -------------------------------------------------
 
-import type { PayPalMerchantIntegrationStatus } from '@/models/paypal.model'
-
 /**
  * Fetch merchant integration status from PayPal to verify KYC/payments readiness.
  * Uses GET /v1/customer/partners/{partner_id}/merchant-integrations/{merchant_id}
@@ -449,7 +448,7 @@ import type { PayPalMerchantIntegrationStatus } from '@/models/paypal.model'
 export async function getMerchantIntegrationStatus(
 	merchantId: string
 ): Promise<
-	| { error: string; status?: undefined }
+	| { error: string; status: undefined }
 	| { status: PayPalMerchantIntegrationStatus & { primary_email_confirmed: boolean; payments_receivable: boolean } }
 > {
 	try {
