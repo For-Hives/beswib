@@ -98,7 +98,7 @@ export async function handleOnboardingCompleted(event: PayPalWebhookEvent) {
 
 	// Optionally, verify merchant readiness right away (best-effort)
 	void getMerchantIntegrationStatus(merchantId).catch(err => {
-		console.warn('Merchant status check after onboarding failed:', err)
+		console.error('Merchant status check after onboarding failed:', err)
 	})
 
 	return { userId, merchantId }
@@ -131,7 +131,9 @@ export async function handleSellerConsentGranted(event: PayPalWebhookEvent) {
 			)
 
 			// Best-effort immediate status check
-			void getMerchantIntegrationStatus(merchantId).catch(() => {})
+			void getMerchantIntegrationStatus(merchantId).catch(err => {
+				console.error('Error checking merchant integration status:', err)
+			})
 			success = true
 		} catch (err) {
 			attempts++
@@ -458,9 +460,8 @@ export async function getMerchantIntegrationStatus(
 		// Partner ID should be the partner's PayPal merchant (payer) ID.
 		// Fall back to platform merchant ID if explicit partner ID isn't provided,
 		// and lastly to the client_id (less reliable for this endpoint).
-		const partnerId =
-			(process.env.PAYPAL_PARTNER_ID ?? PAYPAL_MERCHANT_ID() ?? process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? '') || ''
-		if (!partnerId) return { error: 'Missing PAYPAL_PARTNER_ID' }
+		const partnerId = PAYPAL_MERCHANT_ID()
+		if (!partnerId) return { error: 'Missing PAYPAL_MERCHANT_ID' }
 
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
 
