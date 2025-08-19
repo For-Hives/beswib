@@ -4,7 +4,7 @@ import type { SalesCreateInput, SalesCreateOutput, SalesCompleteInput, SalesComp
 import type { BibSale } from '@/models/marketplace.model'
 
 import { createTransaction, updateTransaction, getTransactionByOrderId } from './transaction.services'
-import { fetchBibById, updateBib } from './bib.services'
+import { fetchAllBibById, fetchBibById, updateBib } from './bib.services'
 import { sendSaleAlert } from './notification.service'
 import { fetchUserByClerkId } from './user.services'
 import { createOrder } from './paypal.services'
@@ -19,7 +19,7 @@ export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateO
 	}
 
 	// Fetch bib for details and price/seller
-	const bib = await fetchBibById(bibId)
+	const bib = await fetchAllBibById(bibId)
 	if (!bib) throw new Error('Bib not found')
 
 	// Build the BibSale lightweight object expected by createOrder
