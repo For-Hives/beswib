@@ -32,8 +32,9 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 	const isLocal = host?.startsWith('localhost') || host?.startsWith('127.0.0.1')
 	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
 
-	// Charger la police BowlbyOneSC pour @vercel/og
+	// Charger les polices pour @vercel/og
 	const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/BowlbyOneSC-Regular.ttf'))
+	const geistFont = readFileSync(join(process.cwd(), 'src/components/OG/Geist-VariableFont_wght.ttf'))
 
 	return new ImageResponse(
 		<OGImage title={t.OG.Main} secondary={t.OG.Secondary} host={host} protocol={protocol} size={size} />,
@@ -41,9 +42,14 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 			...size,
 			fonts: [
 				{
+					style: 'normal',
 					name: 'BowlbyOneSC',
 					data: bowlbyFont,
+				},
+				{
 					style: 'normal',
+					name: 'Geist',
+					data: geistFont,
 				},
 			],
 		}
