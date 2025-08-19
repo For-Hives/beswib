@@ -2,13 +2,12 @@ import * as React from 'react'
 
 import localFont from 'next/font/local'
 
-import { Bib } from '@/models/bib.model'
 import type { BibSale } from '@/models/marketplace.model'
 import type { Locale } from '@/lib/i18n/config'
 
-import CardMarket from '@/components/marketplace/CardMarket'
-
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
+import CardMarket from '@/components/marketplace/CardMarket'
+import { Bib } from '@/models/bib.model'
 
 // Function to split the text into parts and apply a special color to words between **
 function formatTextWithColor(text: string, highlightColor = '#4C639A') {
@@ -55,10 +54,10 @@ export default function OGImage({
 	size,
 	secondary,
 	protocol,
-	host,
-	bib,
-	bibsale,
 	locale,
+	host,
+	bibsale,
+	bib,
 }: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197

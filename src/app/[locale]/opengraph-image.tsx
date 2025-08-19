@@ -23,10 +23,6 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 	// Récupération des traductions de la page
 	const t = getTranslations(locale, pageTranslations)
 
-	// Texte OG avec fallback anglais
-	const ogTitle = t.OG?.Main ?? 'Beswib'
-	const ogSecondary = t.OG?.Secondary ?? 'Achetez et vendez vos dossards'
-
 	// Construction de l’URL absolue (utile pour Satori)
 	const requestHeaders = await headers()
 	const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? 'localhost:3000'
@@ -35,7 +31,7 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
 
 	return new ImageResponse(
-		<OGImage title={ogTitle} secondary={ogSecondary} host={host} protocol={protocol} size={size} />,
+		<OGImage title={t.OG.Main} secondary={t.OG.Secondary} host={host} protocol={protocol} size={size} />,
 		size
 	)
 }
