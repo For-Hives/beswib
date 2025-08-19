@@ -1,6 +1,6 @@
 'use client'
 
-import { Calendar, List, Plus, Search, Tag, Users } from 'lucide-react'
+import { List, Plus, Search, Tag, Users } from 'lucide-react'
 
 import Link from 'next/link'
 

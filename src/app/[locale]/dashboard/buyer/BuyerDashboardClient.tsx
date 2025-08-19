@@ -1,6 +1,6 @@
 'use client'
 
-import { Calendar, CheckCircle, Clock, Package, ShoppingCart, Users } from 'lucide-react'
+import { Calendar, CheckCircle, Clock, MapPinned, Package, ShoppingCart, Tag, Users } from 'lucide-react'
 
 import Link from 'next/link'
 
