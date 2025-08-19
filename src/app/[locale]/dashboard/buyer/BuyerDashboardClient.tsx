@@ -2,6 +2,7 @@
 
 import { Calendar, CheckCircle, Clock, MapPinned, Package, ShoppingCart, Tag, Users } from 'lucide-react'
 
+import Image from 'next/image'
 import Link from 'next/link'
 
 import type { Transaction } from '@/models/transaction.model'
@@ -12,6 +13,7 @@ import type { Bib } from '@/models/bib.model'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { getBibImageUrl } from '@/lib/utils/images'
 import { Button } from '@/components/ui/button'
 
 interface BuyerDashboardClientProps {
@@ -145,7 +147,7 @@ export default function BuyerDashboardClient({
 							</CardHeader>
 							<CardContent>
 								{totalPurchases > 0 ? (
-									<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-1">
+									<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
 										{succeededTransactions.map(tx => {
 											const bib = tx.expand?.bib_id
 											if (!tx?.id || !bib || !bib.id) return null
@@ -161,6 +163,19 @@ export default function BuyerDashboardClient({
 															<span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 dark:bg-green-900/20 dark:text-green-400">
 																{t.purchased ?? 'Purchased'}
 															</span>
+														</div>
+
+														{/* Event Image */}
+														<div className="relative flex justify-center px-4 pt-4">
+															<div className="from-green/20 via-emerald/20 to-teal/20 before:from-green before:via-emerald before:to-teal before:to-ring relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gradient-to-br shadow-[inset_0_0_20px_hsl(var(--primary)/0.3),inset_0_0_40px_hsl(var(--accent)/0.2),0_0_30px_hsl(var(--primary)/0.4)] before:absolute before:inset-0 before:-z-10 before:m-[-1px] before:rounded-xl before:bg-gradient-to-br before:p-0.5">
+																<Image
+																	src={getBibImageUrl(bib)}
+																	alt={bib.expand?.eventId?.name ?? 'Event'}
+																	fill
+																	className="object-cover"
+																	sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+																/>
+															</div>
 														</div>
 
 														{/* Content */}
@@ -218,9 +233,6 @@ export default function BuyerDashboardClient({
 																<p className="text-muted-foreground text-xs">
 																	{t.purchaseDate ?? 'Purchased on'}:{' '}
 																	{formatDateObjectForDisplay(new Date(tx.created), locale)}
-																</p>
-																<p className="text-muted-foreground text-xs">
-																	{t.keepRecords ?? '(Keep this for your records)'}
 																</p>
 															</div>
 														</div>

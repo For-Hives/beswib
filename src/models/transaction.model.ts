@@ -1,6 +1,7 @@
 import type { Event } from './event.model'
 import type { User } from './user.model'
 import type { Bib } from './bib.model'
+import type { Organizer } from './organizer.model'
 
 export interface Transaction {
 	id: string
@@ -28,5 +29,5 @@ export interface Transaction {
 
 // Richer transaction type with PocketBase expand for bib and event
 export type TransactionWithExpand = Transaction & {
-	expand?: { bib_id?: Bib & { expand?: { eventId: Event } } }
+	expand?: { bib_id?: Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } } } } }
 }
