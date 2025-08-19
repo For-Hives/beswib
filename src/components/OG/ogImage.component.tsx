@@ -1,7 +1,5 @@
 import * as React from 'react'
 
-import localFont from 'next/font/local'
-
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 
 // Function to split the text into parts and apply a special color to words between **
@@ -38,7 +36,6 @@ type OGImageProps = {
 	size: { width: number; height: number } // OG image dimensions
 }
 
-const BowlbyOneSC = localFont({ src: './BowlbyOneSC-Regular.ttf' })
 
 // Main component for generating an Open Graph image
 export default function OGImage({ title, size, secondary, protocol, host }: Readonly<OGImageProps>) {
@@ -120,6 +117,7 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 						height: MAX_HEIGHT_Main,
 						fontWeight: 'bold',
 						fontSize: mainFontSize,
+						fontFamily: 'BowlbyOneSC',
 						display: 'flex',
 						alignItems: 'center',
 					}}
@@ -143,6 +141,7 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 						height: MAX_HEIGHT_Main,
 						fontWeight: 'bold',
 						fontSize: secondaryFontSize,
+						fontFamily: 'BowlbyOneSC',
 						flexWrap: 'wrap', // wrap if needed
 						flexDirection: 'row', // keep spans on the same line
 						display: 'flex', // required for @vercel/og
