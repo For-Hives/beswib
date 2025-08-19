@@ -60,6 +60,7 @@ function buildUserData(evt: WebhookEvent, primaryEmail: string): Omit<User, 'cre
 		postalCode: '',
 		phoneNumber: '',
 		paypalMerchantId: null,
+		paypal_kyc: false,
 		medicalCertificateUrl: null,
 		licenseNumber: null,
 		lastName: last_name ?? '',

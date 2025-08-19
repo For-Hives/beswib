@@ -92,6 +92,7 @@ export async function handleOnboardingCompleted(event: PayPalWebhookEvent) {
 	await import('./user.services').then(m =>
 		m.updateUser(userId, {
 			paypalMerchantId: merchantId,
+			paypal_kyc: false,
 		})
 	)
 
@@ -125,6 +126,7 @@ export async function handleSellerConsentGranted(event: PayPalWebhookEvent) {
 			await import('./user.services').then(m =>
 				m.updateUser(userId, {
 					paypalMerchantId: merchantId,
+					paypal_kyc: false,
 				})
 			)
 

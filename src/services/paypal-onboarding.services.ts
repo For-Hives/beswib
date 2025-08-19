@@ -2,7 +2,7 @@
 
 export async function disconnectPayPalAccount(userId: string): Promise<{ error?: string; success?: boolean }> {
 	try {
-		await updateUser(userId, { paypalMerchantId: null })
+		await updateUser(userId, { paypalMerchantId: null, paypal_kyc: false })
 		revalidatePath('/profile')
 		return { success: true }
 	} catch (error) {

@@ -19,6 +19,7 @@ const mockUser: User = {
 	postalCode: null,
 	phoneNumber: null,
 	paypalMerchantId: null,
+	paypal_kyc: false,
 	medicalCertificateUrl: null,
 	licenseNumber: null,
 	lastName: 'User',

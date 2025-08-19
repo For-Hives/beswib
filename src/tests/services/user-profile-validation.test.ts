@@ -11,6 +11,7 @@ describe('isUserProfileComplete', () => {
 		postalCode: '75001',
 		phoneNumber: '+33123456789',
 		paypalMerchantId: null,
+		paypal_kyc: false,
 		medicalCertificateUrl: null,
 		licenseNumber: null,
 		lastName: 'Doe',

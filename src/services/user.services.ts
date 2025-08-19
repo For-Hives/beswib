@@ -26,6 +26,7 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 		postalCode: record.postalCode,
 		phoneNumber: record.phoneNumber,
 		paypalMerchantId: record.paypalMerchantId,
+		paypal_kyc: record.paypal_kyc === true,
 		medicalCertificateUrl: record.medicalCertificateUrl,
 		licenseNumber: record.licenseNumber,
 		lastName: record.lastName,
@@ -50,6 +51,10 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 // Map our User partial (birthDate) to PB payload (birthDate)
 function mapUserToPbPayload(user: Partial<User>): Record<string, unknown> {
 	const payload: Record<string, unknown> = { ...user }
+	// Normalize undefined -> null for boolean to avoid leaving stale values when clearing
+	if ('paypal_kyc' in payload && payload.paypal_kyc == null) {
+		payload.paypal_kyc = false
+	}
 	if ('birthDate' in payload) {
 		const birthDate = payload.birthDate
 		delete payload.birthDate

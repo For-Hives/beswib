@@ -2,6 +2,8 @@ export interface User {
 	id: string
 	clerkId: null | string
 	paypalMerchantId: null | string
+	/** True when PayPal KYC is complete (payments receivable and email confirmed) */
+	paypal_kyc: boolean
 	role: 'admin' | 'user'
 
 	email: string
@@ -35,6 +37,7 @@ export interface PbUserRecordMinimal {
 	id: string
 	clerkId: string | null
 	paypalMerchantId: string | null
+	paypal_kyc: boolean | null
 	role: 'admin' | 'user'
 	email: string
 	contactEmail: string | null
