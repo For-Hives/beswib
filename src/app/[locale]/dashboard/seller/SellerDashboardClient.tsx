@@ -1,6 +1,6 @@
 'use client'
 
-import { List, Plus, Search, Tag, Users } from 'lucide-react'
+import { Calendar, List, Plus, Search, Tag, Users } from 'lucide-react'
 
 import Link from 'next/link'
 
@@ -293,69 +293,98 @@ export default function SellerDashboardClient({
 					</div>
 
 					{/* Recent Sales */}
-					<Card className="dark:border-border/50 bg-card/80 mb-8 border-black/50 backdrop-blur-sm">
-						<CardHeader>
-							<CardTitle className="flex items-center gap-2">
-								<List className="h-5 w-5" />
-								{t.recentSales?.title ?? 'Recent Sales'}
-							</CardTitle>
-							<CardDescription>{t.recentSales?.description ?? 'Completed transactions for your bibs'}</CardDescription>
-						</CardHeader>
-						<CardContent>
-							{succeededTransactions.length > 0 ? (
-								<div className="space-y-4">
-									{succeededTransactions.map(tx => {
-										const bib = tx.expand?.bib_id
-										if (!tx?.id || !bib || bib.id === '') return null
-										return (
-											<div className="rounded-lg border p-4" key={tx.id}>
-												<div className="mb-2 flex items-start justify-between">
-													<h4 className="font-semibold">
-														{bib.expand?.eventId?.name ?? `${t.eventId ?? 'Event ID:'} ${bib.eventId}`}
-													</h4>
-													<span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/20 dark:text-blue-400">
+					<div className="mb-8">
+						<div className="mb-6 flex items-center gap-2">
+							<List className="h-5 w-5" />
+							<h2 className="text-foreground text-xl font-bold">{t.recentSales?.title ?? 'Recent Sales'}</h2>
+						</div>
+						<p className="text-muted-foreground mb-6 text-sm">
+							{t.recentSales?.description ?? 'Completed transactions for your bibs'}
+						</p>
+
+						{succeededTransactions.length > 0 ? (
+							<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+								{succeededTransactions.map(tx => {
+									const bib = tx.expand?.bib_id
+									if (!tx?.id || !bib || bib.id === '') return null
+
+									const paypalFee = extractPaypalFee(tx.raw_webhook_payload)
+									const net = (tx.amount ?? 0) - (tx.platform_fee ?? 0) - paypalFee
+
+									return (
+										<div className="group relative h-full w-full" key={tx.id}>
+											<div className="bg-card/80 border-border hover:border-foreground/35 relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md transition-all duration-300">
+												{/* Background pattern */}
+												<div className="absolute inset-0 -z-20 [background-image:radial-gradient(var(--border)_1px,transparent_1px)] [background-size:20px_20px] opacity-50 dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]" />
+												<div className="bg-background pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] opacity-25 dark:bg-black" />
+
+												{/* Status badge */}
+												<div className="absolute top-0 right-0 z-20 m-4">
+													<span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/20 dark:text-blue-400">
 														{t.statusSold ?? 'Sold'}
 													</span>
 												</div>
-												<div className="text-muted-foreground space-y-1 text-sm">
-													<p>
-														{t.registrationNumber ?? 'Registration Number'}: {bib.registrationNumber}
-													</p>
-													{(() => {
-														const paypalFee = extractPaypalFee(tx.raw_webhook_payload)
-														const net = (tx.amount ?? 0) - (tx.platform_fee ?? 0) - paypalFee
-														return (
-															<div className="space-y-0.5">
-																<p>
-																	{t.stats?.amount ?? 'Amount:'} €{tx.amount?.toFixed(2) ?? 'N/A'}
-																</p>
-																<p>
-																	{t.stats?.net ?? 'Net:'} <span className="font-medium">€{net.toFixed(2)}</span>{' '}
-																	<span className="text-xs">
-																		({t.stats?.amount ?? 'Amount'} €{(tx.amount ?? 0).toFixed(2)} −{' '}
-																		{t.stats?.platformFees ?? 'Platform'} €{(tx.platform_fee ?? 0).toFixed(2)} −{' '}
-																		{t.stats?.paypalFees ?? 'PayPal'} €{paypalFee.toFixed(2)})
-																	</span>
-																</p>
+
+												{/* Content */}
+												<div className="flex flex-1 flex-col gap-4 p-4">
+													{/* Event name and amount */}
+													<div className="flex w-full flex-col gap-2">
+														<h3 className="text-foreground truncate text-lg font-bold">
+															{bib.expand?.eventId?.name ?? `${t.eventId ?? 'Event ID:'} ${bib.eventId}`}
+														</h3>
+													</div>
+
+													{/* Net earnings highlight */}
+													<div className="from-primary/10 via-accent/10 to-secondary/10 rounded-xl bg-gradient-to-r p-3">
+														<div className="flex items-center justify-between">
+															<div>
+																<p className="text-muted-foreground text-xs">{t.stats?.netEarned ?? 'Net Earned'}</p>
+																<p className="text-foreground text-lg font-bold">€{net.toFixed(2)}</p>
 															</div>
-														)
-													})()}
+															<div className="text-right">
+																<div className="text-muted-foreground space-y-0.5 text-xs">
+																	<p>
+																		{t.stats?.platformFees ?? 'Platform'}: -€{(tx.platform_fee ?? 0).toFixed(2)}
+																	</p>
+																	<p>
+																		{t.stats?.paypalFees ?? 'PayPal'}: -€{paypalFee.toFixed(2)}
+																	</p>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													{/* Registration number */}
+													<div className="flex items-center gap-2">
+														<Tag className="text-muted-foreground h-4 w-4" />
+														<p className="text-muted-foreground text-sm">
+															{t.registrationNumber ?? 'Registration Number'}: {bib.registrationNumber ?? 'N/A'}
+														</p>
+													</div>
 												</div>
 											</div>
-										)
-									})}
-								</div>
-							) : (
-								<div className="py-8 text-center">
-									<List className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
-									<p className="text-muted-foreground mb-4">{t.recentSales?.noSales ?? 'No completed sales yet'}</p>
+										</div>
+									)
+								})}
+							</div>
+						) : (
+							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
+								<CardContent className="py-12 text-center">
+									<List className="text-muted-foreground mx-auto mb-4 h-16 w-16" />
+									<h3 className="mb-2 text-lg font-semibold">{t.recentSales?.noSales ?? 'No completed sales yet'}</h3>
+									<p className="text-muted-foreground mb-6">
+										{t.recentSales?.startSellingMessage ?? 'Start selling your race bibs to see your sales here'}
+									</p>
 									<Link href="/dashboard/seller/sell-bib">
-										<Button>{t.recentSales?.listABib ?? 'List a bib'}</Button>
+										<Button size="lg">
+											<Plus className="mr-2 h-4 w-4" />
+											{t.recentSales?.listABib ?? 'List a bib'}
+										</Button>
 									</Link>
-								</div>
-							)}
-						</CardContent>
-					</Card>
+								</CardContent>
+							</Card>
+						)}
+					</div>
 
 					{/* Bib Listings with Categories */}
 					<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
