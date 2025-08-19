@@ -4,8 +4,11 @@ import type { PayPalMerchantIntegrationStatus } from '@/models/paypal.model'
 
 export function usePayPalMerchantStatus(userId: string | null | undefined) {
 	return useQuery({
-		refetchOnWindowFocus: true,
-		refetchInterval: 15000,
+		// Fetch once on mount; only refresh manually via refetch()
+		staleTime: Infinity,
+		refetchOnWindowFocus: false,
+		refetchOnReconnect: false,
+		refetchInterval: false,
 		queryKey: ['paypal-merchant-status', userId],
 		queryFn: async () => {
 			if (userId == null || userId === '') return null

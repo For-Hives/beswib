@@ -1,5 +1,5 @@
 'use client'
-import { CheckCircle, ExternalLink, RefreshCw, Unlink, XCircle } from 'lucide-react'
+import { CheckCircle, CircleCheckBig, ExternalLink, RefreshCw, Unlink, XCircle } from 'lucide-react'
 import { Suspense } from 'react'
 import React from 'react'
 
@@ -203,53 +203,59 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 						<StatusBadge hasMerchantId={hasMerchantId} t={t} />
 					</div>
 					{hasMerchantId ? (
-						<div className="mt-2">
-							<Button
-								variant="outline"
-								size="sm"
-								onClick={() => merchantStatusQuery.refetch()}
-								disabled={merchantStatusQuery.isFetching}
-							>
-								{merchantStatusQuery.isFetching ? (
-									<>
-										<RefreshCw className="mr-2 h-3 w-3 animate-spin" /> Checking…
-									</>
-								) : (
-									<>
-										<RefreshCw className="mr-2 h-3 w-3" /> Refresh status
-									</>
-								)}
-							</Button>
-						</div>
-					) : null}
-					{hasMerchantId ? (
-						<div className="mt-3 flex flex-wrap gap-2">
-							{/* Link verified */}
+						<div className="mt-3 flex flex-col gap-2">
+							{/* 1 - Account Linked */}
 							<Badge
 								variant={hasMerchantId ? 'default' : 'destructive'}
-								className={hasMerchantId ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''}
+								className={`flex w-full items-center justify-between ${
+									hasMerchantId ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''
+								}`}
 							>
-								{merchantStatusQuery.isLoading
-									? 'Link: checking…'
-									: hasMerchantId
-										? 'Link: vérifié'
-										: 'Link: non vérifié'}
+								<span>Account Linked</span>
+								{!merchantStatusQuery.isLoading && hasMerchantId ? <CircleCheckBig className="h-4 w-4" /> : null}
 							</Badge>
-							{/* KYC verified (payments receivable + email confirmed) */}
+
+							{/* 2 - Paypal KYC (payments receivable) */}
 							<Badge
-								variant={paymentsReceivable && emailConfirmed ? 'default' : 'destructive'}
-								className={
-									paymentsReceivable && emailConfirmed
-										? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
-										: ''
-								}
+								variant={paymentsReceivable ? 'default' : 'destructive'}
+								className={`flex w-full items-center justify-between ${
+									paymentsReceivable ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''
+								}`}
 							>
-								{merchantStatusQuery.isLoading
-									? 'KYC: checking…'
-									: paymentsReceivable && emailConfirmed
-										? 'KYC: vérifié'
-										: 'KYC: incomplet'}
+								<span>Paypal KYC</span>
+								{!merchantStatusQuery.isLoading && paymentsReceivable ? <CircleCheckBig className="h-4 w-4" /> : null}
 							</Badge>
+
+							{/* 3 - Paypal Email */}
+							<Badge
+								variant={emailConfirmed ? 'default' : 'destructive'}
+								className={`flex w-full items-center justify-between ${
+									emailConfirmed ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''
+								}`}
+							>
+								<span>Paypal Email</span>
+								{!merchantStatusQuery.isLoading && emailConfirmed ? <CircleCheckBig className="h-4 w-4" /> : null}
+							</Badge>
+
+							{/* 4 - Refresh button */}
+							<div className="pt-1">
+								<Button
+									variant="outline"
+									size="sm"
+									onClick={() => merchantStatusQuery.refetch()}
+									disabled={merchantStatusQuery.isFetching}
+								>
+									{merchantStatusQuery.isFetching ? (
+										<>
+											<RefreshCw className="mr-2 h-3 w-3 animate-spin" /> Checking…
+										</>
+									) : (
+										<>
+											<RefreshCw className="mr-2 h-3 w-3" /> Refresh status
+										</>
+									)}
+								</Button>
+							</div>
 						</div>
 					) : null}
 				</CardHeader>
