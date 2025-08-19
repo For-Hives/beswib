@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og'
 import { headers } from 'next/headers'
+import { readFileSync } from 'fs'
+import { join } from 'path'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import OGImage from '@/components/OG/ogImage.component'
@@ -30,8 +32,20 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 	const isLocal = host?.startsWith('localhost') || host?.startsWith('127.0.0.1')
 	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
 
+	// Charger la police BowlbyOneSC pour @vercel/og
+	const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/BowlbyOneSC-Regular.ttf'))
+
 	return new ImageResponse(
 		<OGImage title={t.OG.Main} secondary={t.OG.Secondary} host={host} protocol={protocol} size={size} />,
-		size
+		{
+			...size,
+			fonts: [
+				{
+					name: 'BowlbyOneSC',
+					data: bowlbyFont,
+					style: 'normal',
+				},
+			],
+		}
 	)
 }
