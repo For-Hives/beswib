@@ -62,15 +62,11 @@ function ProgressSteps({ steps }: ProgressBarProps) {
 								animate={{ scale: 1 }}
 								transition={{ type: 'spring', stiffness: 200, damping: 15 }}
 							>
-								{step.done ? (
-									<CheckCircle className="h-5 w-5" />
-								) : (
-									<Package className="h-5 w-5" />
-								)}
+								{step.done ? <CheckCircle className="h-5 w-5" /> : <Package className="h-5 w-5" />}
 							</motion.div>
 							<div className="flex-1">
-								<div className="font-medium text-foreground">{step.label}</div>
-								<div className="text-sm text-muted-foreground">{step.description}</div>
+								<div className="text-foreground font-medium">{step.label}</div>
+								<div className="text-muted-foreground text-sm">{step.description}</div>
 							</div>
 						</motion.div>
 					))}
@@ -132,7 +128,7 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-			
+
 			<Confetti
 				ref={confettiRef}
 				manualstart
@@ -152,34 +148,34 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 			>
 				<div className="container mx-auto max-w-2xl text-center">
 					<motion.div
-						animate={{ 
+						animate={{
 							y: [0, -10, 0],
-							rotate: [0, 2, -2, 0]
+							rotate: [0, 2, -2, 0],
 						}}
-						transition={{ 
-							duration: 6, 
-							repeat: Infinity, 
-							ease: "easeInOut",
-							delay: 2
+						transition={{
+							duration: 6,
+							repeat: Infinity,
+							ease: 'easeInOut',
+							delay: 2,
 						}}
 					>
 						<SuccessIcon />
 					</motion.div>
-					
+
 					<motion.h1
 						initial={{ y: -30, opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
 						transition={{ duration: 0.8, delay: 0.3 }}
-						className="mb-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl"
+						className="text-foreground mb-4 text-4xl font-bold tracking-tight md:text-5xl"
 					>
 						{t.success.title}
 					</motion.h1>
-					
+
 					<motion.p
 						initial={{ y: 20, opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
 						transition={{ duration: 0.8, delay: 0.5 }}
-						className="mb-12 text-xl text-muted-foreground"
+						className="text-muted-foreground mb-12 text-xl"
 					>
 						{t.success.thanks}
 					</motion.p>
@@ -200,24 +196,24 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 						className="flex flex-col gap-4 sm:flex-row sm:justify-center"
 					>
 						<motion.button
-							whileHover={{ 
+							whileHover={{
 								scale: 1.05,
-								boxShadow: "0 10px 30px rgba(34, 197, 94, 0.3)"
+								boxShadow: '0 10px 30px rgba(34, 197, 94, 0.3)',
 							}}
 							whileTap={{ scale: 0.95 }}
 							animate={{
 								boxShadow: [
-									"0 4px 20px rgba(34, 197, 94, 0.1)",
-									"0 6px 25px rgba(34, 197, 94, 0.2)",
-									"0 4px 20px rgba(34, 197, 94, 0.1)"
-								]
+									'0 4px 20px rgba(34, 197, 94, 0.1)',
+									'0 6px 25px rgba(34, 197, 94, 0.2)',
+									'0 4px 20px rgba(34, 197, 94, 0.1)',
+								],
 							}}
 							transition={{
 								boxShadow: {
 									duration: 3,
 									repeat: Infinity,
-									ease: "easeInOut"
-								}
+									ease: 'easeInOut',
+								},
 							}}
 							className="relative flex items-center justify-center gap-2 overflow-hidden rounded-lg bg-green-600 px-8 py-3 font-semibold text-white shadow-lg transition-all hover:bg-green-700"
 							onClick={() => {
@@ -238,20 +234,20 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 									duration: 2,
 									repeat: Infinity,
 									repeatDelay: 3,
-									ease: "linear"
+									ease: 'linear',
 								}}
 							/>
 							<Package className="relative z-10 h-5 w-5" />
 							<span className="relative z-10">{t.success.viewBibs}</span>
 						</motion.button>
-						
+
 						<motion.button
-							whileHover={{ 
+							whileHover={{
 								scale: 1.05,
-								backgroundColor: "var(--card)"
+								backgroundColor: 'var(--card)',
 							}}
 							whileTap={{ scale: 0.95 }}
-							className="bg-card/80 flex items-center justify-center gap-2 rounded-lg border border-border px-8 py-3 font-medium text-foreground backdrop-blur-sm transition-all hover:shadow-lg"
+							className="bg-card/80 border-border text-foreground flex items-center justify-center gap-2 rounded-lg border px-8 py-3 font-medium backdrop-blur-sm transition-all hover:shadow-lg"
 							onClick={() => router.push('/marketplace')}
 						>
 							{t.success.backMarketplace}
@@ -260,7 +256,7 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 								transition={{
 									duration: 2,
 									repeat: Infinity,
-									ease: "easeInOut"
+									ease: 'easeInOut',
 								}}
 							>
 								<ArrowRight className="h-4 w-4" />
