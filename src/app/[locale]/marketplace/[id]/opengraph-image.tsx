@@ -1,15 +1,13 @@
 import { ImageResponse } from 'next/og'
 import { headers } from 'next/headers'
 
+import type { Bib, EventModel, User } from '@/lib/db/types'
 import type { BibSale } from '@/models/marketplace.model'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
-import OGImage from '@/components/OG/ogImageBib.component'
-import { transformBibsToBibSales } from '@/lib/transformers/bib'
-
 import { fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
-
-import type { Bib, EventModel, User } from '@/lib/db/types'
+import { transformBibsToBibSales } from '@/lib/transformers/bib'
+import OGImage from '@/components/OG/ogImageBib.component'
 
 // 👇 Config OG
 export const alt = 'Beswib Open Graph Image'
@@ -21,7 +19,7 @@ export function generateStaticParams() {
 }
 
 export default async function Image({ params }: { params: Promise<LocaleParams & { id?: string; tkn?: string }> }) {
-	const { id, tkn, locale } = await params
+	const { tkn, locale, id } = await params
 
 	// 📌 Récupération du dossard
 	let bib: (Bib & { expand?: { eventId: EventModel; sellerUserId: User } }) | null = null
