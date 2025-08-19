@@ -222,18 +222,28 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 							</Button>
 						</div>
 					) : null}
-					{hasMerchantId && (
-						<div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
-							<div className="rounded-md border p-3 text-sm">
-								<span className="font-medium">Payments receivable:</span>{' '}
-								{merchantStatusQuery.isLoading ? 'Checking…' : paymentsReceivable ? 'Yes' : 'No'}
-							</div>
-							<div className="rounded-md border p-3 text-sm">
-								<span className="font-medium">Primary email confirmed:</span>{' '}
-								{merchantStatusQuery.isLoading ? 'Checking…' : emailConfirmed ? 'Yes' : 'No'}
-							</div>
+					{hasMerchantId ? (
+						<div className="mt-3 flex flex-wrap gap-2">
+							{/* Link verified */}
+							<Badge
+								variant={hasMerchantId ? 'default' : 'destructive'}
+								className={hasMerchantId ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''}
+							>
+								{merchantStatusQuery.isLoading ? 'Link: checking…' : hasMerchantId ? 'Link: vérifié' : 'Link: non vérifié'}
+							</Badge>
+							{/* KYC verified (payments receivable + email confirmed) */}
+							<Badge
+								variant={paymentsReceivable && emailConfirmed ? 'default' : 'destructive'}
+								className={paymentsReceivable && emailConfirmed ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''}
+							>
+								{merchantStatusQuery.isLoading
+									? 'KYC: checking…'
+									: paymentsReceivable && emailConfirmed
+									? 'KYC: vérifié'
+									: 'KYC: incomplet'}
+							</Badge>
 						</div>
-					)}
+					) : null}
 				</CardHeader>
 			</Card>
 
@@ -248,9 +258,8 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 						<Alert variant="destructive">
 							<XCircle className="h-4 w-4" />
 							<AlertDescription>
-								Your PayPal account is linked but not ready to receive payments yet.
-								Please complete the verification steps in PayPal, then click "Refresh status" above.
-								This can take a little while after onboarding.
+								Your PayPal account is linked but not ready to receive payments yet. Please complete the verification
+								steps in PayPal, then click "Refresh status" above. This can take a little while after onboarding.
 							</AlertDescription>
 						</Alert>
 					) : null}
@@ -258,7 +267,8 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 					{hasMerchantId && <MerchantIdPanel merchantId={user.paypalMerchantId as string} />}
 
 					{/* Detailed product vetting info */}
-					{hasMerchantId && Array.isArray(merchantStatusQuery.data?.products) &&
+					{hasMerchantId &&
+					Array.isArray(merchantStatusQuery.data?.products) &&
 					merchantStatusQuery.data!.products!.length > 0 ? (
 						<div className="rounded-md border p-3">
 							<div className="mb-2 text-sm font-medium">Products</div>
