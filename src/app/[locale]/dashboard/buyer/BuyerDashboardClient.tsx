@@ -145,38 +145,86 @@ export default function BuyerDashboardClient({
 							</CardHeader>
 							<CardContent>
 								{totalPurchases > 0 ? (
-									<div className="space-y-4">
+									<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-1">
 										{succeededTransactions.map(tx => {
 											const bib = tx.expand?.bib_id
-											if (!tx?.id || bib?.id != '' || bib?.id != null) return null
+											if (!tx?.id || !bib || !bib.id) return null
 											return (
-												<div className="rounded-lg border p-4" key={tx.id}>
-													<div className="mb-2 flex items-start justify-between">
-														<h4 className="font-semibold">
-															{t.bibForLabel ?? 'Bib for'} {bib.expand?.eventId?.name ?? `Event ID: ${bib.eventId}`}
-														</h4>
-														<span className="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800 dark:bg-green-900/20 dark:text-green-400">
-															{t.purchased ?? 'Purchased'}
-														</span>
+												<div className="group relative h-full w-full" key={tx.id}>
+													<div className="bg-card/80 border-border hover:border-foreground/35 relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md transition-all duration-300">
+														{/* Background pattern */}
+														<div className="absolute inset-0 -z-20 [background-image:radial-gradient(var(--border)_1px,transparent_1px)] [background-size:20px_20px] opacity-50 dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]" />
+														<div className="bg-background pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] opacity-25 dark:bg-black" />
+
+														{/* Status badge */}
+														<div className="absolute top-0 right-0 z-20 m-4">
+															<span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 dark:bg-green-900/20 dark:text-green-400">
+																{t.purchased ?? 'Purchased'}
+															</span>
+														</div>
+
+														{/* Content */}
+														<div className="flex flex-1 flex-col gap-4 p-4">
+															{/* Event name */}
+															<div className="flex w-full flex-col gap-2">
+																<h3 className="text-foreground truncate text-lg font-bold">
+																	{bib.expand?.eventId?.name ?? `${t.eventId ?? 'Event ID:'} ${bib.eventId}`}
+																</h3>
+															</div>
+
+															{/* Price paid highlight */}
+															<div className="from-green/10 via-emerald/10 to-teal/10 rounded-xl bg-gradient-to-r p-3">
+																<div className="flex items-center justify-between">
+																	<div>
+																		<p className="text-muted-foreground text-xs">{t.pricePaid ?? 'Price Paid'}</p>
+																		<p className="text-foreground text-lg font-bold">
+																			€{tx.amount?.toFixed(2) ?? 'N/A'}
+																		</p>
+																	</div>
+																	<div className="text-right">
+																		<div className="text-muted-foreground space-y-0.5 text-xs">
+																			<p className="flex items-center gap-1">
+																				<Calendar className="h-3 w-3" />
+																				{bib.expand?.eventId
+																					? formatDateObjectForDisplay(new Date(bib.expand.eventId.eventDate), locale)
+																					: 'N/A'}
+																			</p>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+															{/* Registration details */}
+															<div className="space-y-2">
+																<div className="flex items-center gap-2">
+																	<Tag className="text-muted-foreground h-4 w-4" />
+																	<p className="text-muted-foreground text-sm">
+																		{t.registrationNumber ?? 'Registration Number'}: {bib.registrationNumber ?? 'N/A'}
+																	</p>
+																</div>
+
+																{bib.expand?.eventId?.location && (
+																	<div className="flex items-center gap-2">
+																		<MapPinned className="text-muted-foreground h-4 w-4" />
+																		<p className="text-muted-foreground truncate text-sm">
+																			{bib.expand.eventId.location}
+																		</p>
+																	</div>
+																)}
+															</div>
+
+															{/* Purchase date */}
+															<div className="border-border/50 mt-auto border-t pt-2">
+																<p className="text-muted-foreground text-xs">
+																	{t.purchaseDate ?? 'Purchased on'}:{' '}
+																	{formatDateObjectForDisplay(new Date(tx.created), locale)}
+																</p>
+																<p className="text-muted-foreground text-xs">
+																	{t.keepRecords ?? '(Keep this for your records)'}
+																</p>
+															</div>
+														</div>
 													</div>
-													<div className="text-muted-foreground space-y-1 text-sm">
-														<p className="flex items-center gap-2">
-															<Calendar className="h-4 w-4" />
-															{t.dateOfEvent ?? 'Date of Event'}:{' '}
-															{bib.expand?.eventId
-																? formatDateObjectForDisplay(new Date(bib.expand.eventId.eventDate), locale)
-																: 'N/A'}
-														</p>
-														<p>
-															{t.registrationNumber ?? 'Registration Number'}: {bib.registrationNumber}
-														</p>
-														<p>
-															{t.pricePaid ?? 'Price Paid'}: €{tx.amount?.toFixed(2) ?? 'N/A'}
-														</p>
-													</div>
-													<p className="text-muted-foreground mt-2 text-xs">
-														{t.keepRecords ?? '(Keep this for your records)'}
-													</p>
 												</div>
 											)
 										})}

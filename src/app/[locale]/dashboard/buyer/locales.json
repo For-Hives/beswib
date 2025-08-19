@@ -33,7 +33,9 @@
 		"quickActions": "Quick Actions",
 		"browseMarketplace": "Browse Marketplace",
 		"mainDashboard": "Main Dashboard",
-		"getHelp": "Get Help"
+		"getHelp": "Get Help",
+		"eventId": "Event ID:",
+		"purchaseDate": "Purchased on"
 	},
 	"fr": {
 		"title": "Tableau de bord acheteur",
@@ -69,7 +71,9 @@
 		"quickActions": "Actions rapides",
 		"browseMarketplace": "Parcourir le marché",
 		"mainDashboard": "Tableau de bord principal",
-		"getHelp": "Obtenir de l'aide"
+		"getHelp": "Obtenir de l'aide",
+		"eventId": "ID événement :",
+		"purchaseDate": "Acheté le"
 	},
 	"ko": {
 		"title": "구매자 대시보드",
@@ -105,7 +109,9 @@
 		"quickActions": "빠른 작업",
 		"browseMarketplace": "마켓플레이스 둘러보기",
 		"mainDashboard": "메인 대시보드",
-		"getHelp": "도움 받기"
+		"getHelp": "도움 받기",
+		"eventId": "이벤트 ID:",
+		"purchaseDate": "구매 날짜"
 	},
 	"es": {
 		"title": "Panel de Comprador",
@@ -141,7 +147,9 @@
 		"quickActions": "Acciones rápidas",
 		"browseMarketplace": "Explorar Mercado",
 		"mainDashboard": "Panel Principal",
-		"getHelp": "Obtener Ayuda"
+		"getHelp": "Obtener Ayuda",
+		"eventId": "ID del Evento:",
+		"purchaseDate": "Comprado el"
 	},
 	"it": {
 		"title": "Dashboard Acquirente",
@@ -177,7 +185,9 @@
 		"quickActions": "Azioni rapide",
 		"browseMarketplace": "Sfoglia Mercato",
 		"mainDashboard": "Dashboard Principale",
-		"getHelp": "Ottieni Aiuto"
+		"getHelp": "Ottieni Aiuto",
+		"eventId": "ID Evento:",
+		"purchaseDate": "Acquistato il"
 	},
 	"de": {
 		"title": "Käufer-Dashboard",
@@ -213,7 +223,9 @@
 		"quickActions": "Schnellaktionen",
 		"browseMarketplace": "Marktplatz durchstöbern",
 		"mainDashboard": "Haupt-Dashboard",
-		"getHelp": "Hilfe erhalten"
+		"getHelp": "Hilfe erhalten",
+		"eventId": "Event-ID:",
+		"purchaseDate": "Gekauft am"
 	},
 	"ro": {
 		"title": "Panou Cumpărător",
@@ -249,7 +261,9 @@
 		"quickActions": "Acțiuni rapide",
 		"browseMarketplace": "Răsfoiește Piața",
 		"mainDashboard": "Panou Principal",
-		"getHelp": "Obține Ajutor"
+		"getHelp": "Obține Ajutor",
+		"eventId": "ID Eveniment:",
+		"purchaseDate": "Cumpărat pe"
 	},
 	"pt": {
 		"title": "Painel do Comprador",
@@ -285,7 +299,9 @@
 		"quickActions": "Ações rápidas",
 		"browseMarketplace": "Explorar Mercado",
 		"mainDashboard": "Painel Principal",
-		"getHelp": "Obter Ajuda"
+		"getHelp": "Obter Ajuda",
+		"eventId": "ID do Evento:",
+		"purchaseDate": "Comprado em"
 	},
 	"nl": {
 		"title": "Koper Dashboard",
@@ -321,6 +337,8 @@
 		"quickActions": "Snelle acties",
 		"browseMarketplace": "Marktplaats bekijken",
 		"mainDashboard": "Hoofddashboard",
-		"getHelp": "Hulp krijgen"
+		"getHelp": "Hulp krijgen",
+		"eventId": "Evenement ID:",
+		"purchaseDate": "Gekocht op"
 	}
 }
