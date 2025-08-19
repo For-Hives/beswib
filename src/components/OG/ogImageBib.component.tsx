@@ -1,7 +1,5 @@
 import * as React from 'react'
 
-import localFont from 'next/font/local'
-
 import type { BibSale } from '@/models/marketplace.model'
 import type { Locale } from '@/lib/i18n/config'
 
@@ -41,24 +39,13 @@ type OGImageProps = {
 	host: string // Hostname for assets
 	protocol: string // Protocol (http/https) for assets
 	size: { width: number; height: number } // OG image dimensions
-	bib: Bib
-	bibsale: BibSale
+	bib: Bib | null
+	bibsale: BibSale | null
 	locale: Locale
 }
 
-const BowlbyOneSC = localFont({ src: './BowlbyOneSC-Regular.ttf' })
-
 // Main component for generating an Open Graph image
-export default function OGImage({
-	title,
-	size,
-	secondary,
-	protocol,
-	locale,
-	host,
-	bibsale,
-	bib,
-}: Readonly<OGImageProps>) {
+export default function OGImage({ title, size, secondary, protocol, locale, host, bibsale }: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
 	const MAX_WIDTH_Secondary = 440
@@ -92,7 +79,6 @@ export default function OGImage({
 	const stravaUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('strava.png')}`
 	const linkedinUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('linkedin.png')}`
 	const instagramUrl = `${protocol}://${host}/openGraph/logos/${encodeURIComponent('instagram.png')}`
-	const beswibLogoUrl = `${protocol}://${host}/beswib.svg`
 	const mountain = `${protocol}://${host}/openGraph/${encodeURIComponent('mountain-outlined.png')}`
 
 	// Split text into parts with color for highlights
@@ -223,7 +209,7 @@ export default function OGImage({
 			</div> */}
 
 			{/* todo: utiliser le composant de carte de dossard */}
-			<CardMarket bibSale={bibsale} key={bibsale.id} locale={locale} />
+			{bibsale && <CardMarket bibSale={bibsale} key={bibsale.id} locale={locale} />}
 		</div>
 	)
 }

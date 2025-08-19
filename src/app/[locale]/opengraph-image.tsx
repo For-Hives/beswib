@@ -43,16 +43,16 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 				...size,
 				fonts: [
 					{
+						weight: 400,
+						style: 'normal',
 						name: 'BowlbyOneSC',
 						data: bowlbyFont,
-						style: 'normal',
-						weight: 400,
 					},
 					{
+						weight: 400,
+						style: 'normal',
 						name: 'Geist',
 						data: geistFont,
-						style: 'normal',
-						weight: 400,
 					},
 				],
 			}
