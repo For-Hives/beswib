@@ -32,26 +32,30 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 	const isLocal = host?.startsWith('localhost') || host?.startsWith('127.0.0.1')
 	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
 
-	// Charger les polices pour @vercel/og
-	const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/BowlbyOneSC-Regular.ttf'))
-	const geistFont = readFileSync(join(process.cwd(), 'src/components/OG/Geist-VariableFont_wght.ttf'))
+	// Charger les polices pour @vercel/og avec gestion d'erreur
+	try {
+		const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/BowlbyOneSC-Regular.ttf'))
 
-	return new ImageResponse(
-		<OGImage title={t.OG.Main} secondary={t.OG.Secondary} host={host} protocol={protocol} size={size} />,
-		{
-			...size,
-			fonts: [
-				{
-					style: 'normal',
-					name: 'BowlbyOneSC',
-					data: bowlbyFont,
-				},
-				{
-					style: 'normal',
-					name: 'Geist',
-					data: geistFont,
-				},
-			],
-		}
-	)
+		return new ImageResponse(
+			<OGImage title={t.OG.Main} secondary={t.OG.Secondary} host={host} protocol={protocol} size={size} />,
+			{
+				...size,
+				fonts: [
+					{
+						name: 'BowlbyOneSC',
+						data: bowlbyFont,
+						style: 'normal',
+						weight: 400,
+					},
+				],
+			}
+		)
+	} catch (error) {
+		console.error('Erreur lors du chargement des polices:', error)
+		// Fallback sans polices personnalisées
+		return new ImageResponse(
+			<OGImage title={t.OG.Main} secondary={t.OG.Secondary} host={host} protocol={protocol} size={size} />,
+			size
+		)
+	}
 }

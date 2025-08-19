@@ -140,7 +140,7 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 						height: MAX_HEIGHT_Main,
 						fontWeight: 'bold',
 						fontSize: secondaryFontSize,
-						fontFamily: 'Geist',
+						fontFamily: 'BowlbyOneSC',
 						flexWrap: 'wrap', // wrap if needed
 						flexDirection: 'row', // keep spans on the same line
 						display: 'flex', // required for @vercel/og
@@ -167,7 +167,7 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 					alignItems: 'flex-start',
 				}}
 			>
-				<p style={{ fontFamily: 'Geist' }}>beswib.com</p>
+				<p style={{ fontFamily: 'BowlbyOneSC' }}>beswib.com</p>
 				<div style={{ zIndex: 10, flexDirection: 'row', display: 'flex', alignItems: 'center' }}>
 					<img src={instagramUrl} width={50} height={50} alt="Instagram" style={{ marginRight: 16 }} />
 					<img src={stravaUrl} width={50} height={50} alt="Strava" style={{ marginRight: 16 }} />
