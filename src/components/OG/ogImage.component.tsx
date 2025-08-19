@@ -173,9 +173,63 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 			>
 				<p style={{ fontSize: 16, fontFamily: 'Geist' }}>beswib.com</p>
 				<div style={{ zIndex: 10, flexDirection: 'row', display: 'flex', alignItems: 'center' }}>
-					<img src={instagramUrl} width={45} height={45} alt="Instagram" style={{ marginRight: 16 }} />
-					<img src={stravaUrl} width={45} height={45} alt="Strava" style={{ marginRight: 16 }} />
-					<img src={linkedinUrl} width={45} height={45} alt="LinkedIn" style={{ marginRight: 16 }} />
+					<div
+						style={{
+							width: 16,
+							marginRight: 16,
+							justifyContent: 'flex-start',
+							height: 16,
+							gap: 16,
+							display: 'flex',
+							alignItems: 'center',
+						}}
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							id="Layer_1"
+							width={32}
+							height={32}
+							data-name="Layer 1"
+							viewBox="0 0 24 24"
+						>
+							<rect
+								width={21}
+								height={21}
+								x={1.5}
+								y={1.5}
+								className="cls-1"
+								rx={3.82}
+								style={{ strokeWidth: 1.91, strokeMiterlimit: 10, stroke: '#111E3B', fill: 'none' }}
+							/>
+							<circle
+								cx={12}
+								cy={12}
+								r={4.77}
+								className="cls-1"
+								style={{ strokeWidth: 1.91, strokeMiterlimit: 10, stroke: '#111E3B', fill: 'none' }}
+							/>
+							<circle
+								cx={18.2}
+								cy={5.8}
+								r={1.43}
+								style={{
+									fill: '#111E3B',
+								}}
+							/>
+						</svg>
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 14 14">
+							<path
+								fill="#111E3B"
+								d="M8.694 9.972 7.649 7.914H6.117L8.694 13l2.574-5.086H9.736m-3.503-2.8 1.418 2.8h2.086L6.23 1l-3.5 6.914h2.085"
+							></path>
+						</svg>
+						<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="-5.5 0 32 32">
+							<path
+								fill="#111E3B"
+								d="M0 8.219v15.563a2.6 2.6 0 0 0 2.625 2.625h15.563c.719 0 1.406-.344 1.844-.781.469-.469.781-1.063.781-1.844V8.219a2.6 2.6 0 0 0-2.625-2.625H2.625c-.781 0-1.375.313-1.844.781C.343 6.813 0 7.5 0 8.219m2.813 2.062c0-1 .813-1.875 1.813-1.875 1.031 0 1.875.875 1.875 1.875 0 1.031-.844 1.844-1.875 1.844-1 0-1.813-.813-1.813-1.844m5.031 12.844v-9.531c0-.219.219-.406.375-.406h2.656c.375 0 .375.438.375.719.75-.75 1.719-.938 2.719-.938 2.438 0 4 1.156 4 3.719v6.438c0 .219-.188.406-.375.406h-2.75c-.219 0-.375-.219-.375-.406v-5.813c0-.969-.281-1.5-1.375-1.5-1.375 0-1.719.906-1.719 2.125v5.188c0 .219-.219.406-.438.406H8.218c-.156 0-.375-.219-.375-.406zm-4.969 0v-9.531c0-.219.219-.406.375-.406h2.719c.25 0 .406.156.406.406v9.531a.414.414 0 0 1-.406.406H3.25c-.188 0-.375-.219-.375-.406"
+							></path>
+						</svg>
+					</div>
 				</div>
 			</div>
 
