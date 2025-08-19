@@ -1,12 +1,12 @@
 'use client'
-import { CheckCircle, CircleCheckBig, ExternalLink, RefreshCw, Unlink, XCircle } from 'lucide-react'
+import { CircleCheckBig, ExternalLink, RefreshCw, Unlink, XCircle } from 'lucide-react'
 import { Suspense } from 'react'
 import React from 'react'
 
+import { usePayPalMerchantStatus } from '@/hooks/usePayPalMerchantStatus'
 import { usePayPalOnboarding } from '@/hooks/usePayPalOnboarding'
 import { usePayPalDisconnect } from '@/hooks/usePayPalDisconnect'
 import { useUser } from '@/hooks/useUser'
-import { usePayPalMerchantStatus } from '@/hooks/usePayPalMerchantStatus'
 
 import {
 	AlertDialog,
@@ -19,12 +19,12 @@ import {
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import profileTranslations from '@/app/[locale]/profile/locales.json'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Locale } from '@/lib/i18n/config'
 
 import PayPalOnboardingSkeleton from './PayPalOnboardingSkeleton'
