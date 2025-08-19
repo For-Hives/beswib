@@ -16,18 +16,9 @@ import { getOrganizerImageUrl, getRandomBibPlaceholder } from '@/lib/utils/image
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
+import { Locale } from '@/lib/i18n/config'
 
-interface BuyerDashboardClientProps {
-	clerkUser: SerializedClerkUser
-	locale: Locale
-	buyerTransactions: (Transaction & {
-		expand?: { bib_id?: Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } } } } }
-	})[]
-	purchaseSuccess: boolean
-	successEventName: string
-	userWaitlists: (Waitlist & { expand?: { event_id: Event } })[]
-	totalSpent: number
-}
+import buyerTranslations from './locales.json'
 
 interface SerializedClerkUser {
 	emailAddresses: { emailAddress: string; id: string }[]
@@ -38,9 +29,25 @@ interface SerializedClerkUser {
 	username: null | string
 }
 
-import { Locale } from '@/lib/i18n/config'
-
-import buyerTranslations from './locales.json'
+interface BuyerDashboardClientProps {
+	clerkUser: SerializedClerkUser
+	locale: Locale
+	buyerTransactions: (Transaction & {
+		expand?: {
+			bib_id?: Bib & {
+				expand?: {
+					eventId: Event & {
+						expand?: { organizer: Organizer }
+					}
+				}
+			}
+		}
+	})[]
+	purchaseSuccess: boolean
+	successEventName: string
+	userWaitlists: (Waitlist & { expand?: { event_id: Event } })[]
+	totalSpent: number
+}
 
 export default function BuyerDashboardClient({
 	userWaitlists = [],
@@ -204,9 +211,6 @@ export default function BuyerDashboardClient({
 									<div
 										className={`grid max-h-[100vh] grid-cols-1 gap-6 overflow-y-auto md:grid-cols-2 ${totalPurchases > 6 ? 'pr-4' : ''}`}
 									>
-										{/* multiply (copy)transations by 10 for testing */}
-										{/* // {Array.from({ length: 10 }).map((_, index) => { */}
-
 										{succeededTransactions.map(tx => {
 											if (!tx) return null
 											const bib = tx.expand?.bib_id
@@ -260,8 +264,8 @@ export default function BuyerDashboardClient({
 																		<div className="text-muted-foreground space-y-0.5 text-xs">
 																			<p className="flex items-center gap-1">
 																				<Calendar className="h-3 w-3" />
-																				{bib.expand?.eventId
-																					? formatDateObjectForDisplay(new Date(bib.expand.eventId.eventDate), locale)
+																				{bib.expand?.eventId?.eventDate
+																					? formatDateObjectForDisplay(bib.expand.eventId.eventDate, locale)
 																					: 'N/A'}
 																			</p>
 																		</div>
@@ -278,22 +282,24 @@ export default function BuyerDashboardClient({
 																	</p>
 																</div>
 
-																{bib.expand?.eventId?.location != null && bib.expand.eventId.location !== '' && (
-																	<div className="flex items-center gap-2">
-																		<MapPinned className="text-muted-foreground h-4 w-4" />
-																		<p className="text-muted-foreground truncate text-sm">
-																			{bib.expand.eventId.location}
-																		</p>
-																	</div>
-																)}
+																{bib.expand?.eventId?.location &&
+																	typeof bib.expand.eventId.location === 'string' &&
+																	bib.expand.eventId.location.trim() !== '' && (
+																		<div className="flex items-center gap-2">
+																			<MapPinned className="text-muted-foreground h-4 w-4" />
+																			<p className="text-muted-foreground truncate text-sm">
+																				{bib.expand.eventId.location}
+																			</p>
+																		</div>
+																	)}
 															</div>
 
 															{/* Purchase date */}
 															<div className="border-border/50 mt-auto border-t pt-2">
 																<p className="text-muted-foreground text-xs">
 																	{t.purchaseDate ?? 'Purchased on'}:{' '}
-																	{tx.created != null && tx.created !== ''
-																		? formatDateObjectForDisplay(new Date(tx.created), locale)
+																	{tx.created && typeof tx.created === 'string' && tx.created.trim() !== ''
+																		? formatDateObjectForDisplay(tx.created, locale)
 																		: 'N/A'}
 																</p>
 															</div>
@@ -352,13 +358,13 @@ export default function BuyerDashboardClient({
 														<p className="flex items-center gap-2">
 															<Calendar className="h-4 w-4" />
 															{t.dateOfEvent ?? 'Date of Event'}:{' '}
-															{waitlist.expand?.event_id
-																? formatDateObjectForDisplay(new Date(waitlist.expand.event_id.eventDate), locale)
+															{waitlist.expand?.event_id?.eventDate
+																? formatDateObjectForDisplay(waitlist.expand.event_id.eventDate, locale)
 																: 'N/A'}
 														</p>
 														<p>
 															{t.dateAddedToWaitlist ?? 'Date Added to Waitlist'}:{' '}
-															{formatDateObjectForDisplay(new Date(waitlist.added_at), locale)}
+															{formatDateObjectForDisplay(waitlist.added_at, locale)}
 														</p>
 														<p className="flex items-center gap-2">
 															<Users className="h-4 w-4" />
