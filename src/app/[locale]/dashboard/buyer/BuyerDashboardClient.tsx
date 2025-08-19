@@ -74,14 +74,14 @@ export default function BuyerDashboardClient({
 	// Calculate statistics with safety checks
 	const succeededTransactions = buyerTransactions.filter(tx => tx.status === 'succeeded')
 	const totalPurchases = succeededTransactions.length
-	
+
 	// Filter waitlist to show only future events
-	const futureWaitlists = Array.isArray(userWaitlists) 
+	const futureWaitlists = Array.isArray(userWaitlists)
 		? userWaitlists.filter(waitlist => {
-			const eventDate = waitlist.expand?.event_id?.eventDate
-			if (!eventDate) return true // Keep events without date to be safe
-			return new Date(eventDate) > new Date()
-		})
+				const eventDate = waitlist.expand?.event_id?.eventDate
+				if (!eventDate) return true // Keep events without date to be safe
+				return new Date(eventDate) > new Date()
+			})
 		: []
 	const waitlistEntries = futureWaitlists.length
 
