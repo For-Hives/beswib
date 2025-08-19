@@ -320,9 +320,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 					{hasMerchantId && merchantStatusQuery.isSuccess && paymentsReceivable === false ? (
 						<Alert variant="destructive">
 							<XCircle className="h-4 w-4" />
-							<AlertDescription>
-								{t.paypalNotReadyAlert}
-							</AlertDescription>
+							<AlertDescription>{t.paypalNotReadyAlert}</AlertDescription>
 						</Alert>
 					) : null}
 					{/* PayPal Merchant ID Display (if available) */}
