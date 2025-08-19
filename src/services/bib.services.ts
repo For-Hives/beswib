@@ -604,7 +604,7 @@ export async function updateBib(bibId: string, data: Partial<Omit<Bib, 'id'>>): 
  */
 export async function updateBibBySeller(
 	bibId: string,
-	dataToUpdate: Bib, // Allow specific status updates or general data updates ✅
+	dataToUpdate: Partial<Bib>, // Allow specific status updates or general data updates ✅
 	sellerUserId: string
 ): Promise<Bib | null> {
 	if (bibId === '' || sellerUserId === '') {
@@ -619,11 +619,11 @@ export async function updateBibBySeller(
 			return null
 		}
 
-		// Prevent changing eventId or sellerUserId directly with this function. 🚫
+		// Prevent changing immutable fields with this function. 🚫
 		// Certain status transitions might also be restricted (e.g., can't change sold bib). ⚠️
 		if (currentBib.status === 'sold' || currentBib.status === 'expired') {
 			console.warn(`Attempt to update a bib that is already ${currentBib.status} (Bib ID: ${bibId})`)
-			// Consider throwing an error or returning specific result if update is not allowed. 🤔
+			throw new Error(`Bib is already ${currentBib.status} and cannot be updated.`)
 		}
 
 		// If 'status' is part of dataToUpdate, ensure it's a valid transition ✅
@@ -631,20 +631,34 @@ export async function updateBibBySeller(
 			const newStatus = dataToUpdate.status
 			const allowedStatusChanges: Record<Bib['status'], Bib['status'][]> = {
 				withdrawn: ['available'],
-				validation_failed: ['withdrawn'],
+				validation_failed: ['available'],
 				sold: [], // Cannot be changed by seller 🚫
-				expired: ['withdrawn'],
+				expired: [], // Cannot be changed by seller 🚫
 				available: ['sold', 'withdrawn', 'expired'],
 			}
 
-			const allowedChanges = allowedStatusChanges[currentBib.status]
-			if (!allowedChanges?.includes(newStatus)) {
-				console.warn(`Invalid status transition from ${currentBib.status} to ${newStatus} for bib ${bibId}.`)
-				// Consider throwing an error for invalid transitions. 🤔
+			if (newStatus != null) {
+				const allowedChanges = allowedStatusChanges[currentBib.status]
+				if (!allowedChanges?.includes(newStatus)) {
+					console.warn(`Invalid status transition from ${currentBib.status} to ${newStatus} for bib ${bibId}.`)
+					throw new Error(`Invalid status transition from ${currentBib.status} to ${newStatus} for bib ${bibId}.`)
+				}
 			}
 		}
 
-		const updatedRecord = await pb.collection('bibs').update<Bib>(bibId, dataToUpdate)
+		// Sanitize payload: disallow registrationNumber, eventId, sellerUserId modifications by seller
+		const payload: Partial<Bib> = { ...dataToUpdate }
+		if ('registrationNumber' in payload) {
+			delete (payload as Partial<Bib> & { registrationNumber?: string }).registrationNumber
+		}
+		if ('eventId' in payload) {
+			delete (payload as Partial<Bib> & { eventId?: string }).eventId
+		}
+		if ('sellerUserId' in payload) {
+			delete (payload as Partial<Bib> & { sellerUserId?: string }).sellerUserId
+		}
+
+		const updatedRecord = await pb.collection('bibs').update<Bib>(bibId, payload)
 		return updatedRecord
 	} catch (error: unknown) {
 		throw new Error(`Error updating bib ${bibId}: ` + (error instanceof Error ? error.message : String(error)))

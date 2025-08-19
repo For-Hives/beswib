@@ -390,11 +390,13 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 											<Hash className="h-4 w-4" />
 											{t.registrationNumber ?? 'Registration Number'}
 										</Label>
+
 										<Input
 											id="registrationNumber"
 											name="registrationNumber"
 											defaultValue={bib.registrationNumber}
-											disabled={isLoading || isEditDisabled}
+											disabled
+											readOnly
 											required
 											placeholder="Enter registration number"
 										/>

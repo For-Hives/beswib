@@ -76,12 +76,6 @@ export async function handleUpdateBibDetails(bibId: string, formData: FormData):
 	const priceValue = formData.get('price') as string
 	const originalPriceValue = formData.get('originalPrice') as string
 
-	const registrationNumber = formData.get('registrationNumber') as null | string
-
-	if (registrationNumber == null || registrationNumber.trim() === '') {
-		throw new Error('Registration number is required.')
-	}
-
 	const price = parseFloat(priceValue)
 	if (isNaN(price) || price <= 0) {
 		throw new Error('Valid price is required.')
@@ -92,9 +86,8 @@ export async function handleUpdateBibDetails(bibId: string, formData: FormData):
 		throw new Error('Original bib not found.')
 	}
 
-	const dataToUpdate: Bib = {
-		...currentBib,
-		registrationNumber: registrationNumber,
+	// Do not allow changing registrationNumber. Only update allowed fields.
+	const dataToUpdate: Partial<Bib> = {
 		price: price,
 	}
 
