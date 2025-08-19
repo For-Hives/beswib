@@ -53,7 +53,20 @@
 				"paypalVerified": "Verified",
 				"testingPayment": "Ready to test payments with your merchant ID.",
 				"title": "Seller Information",
-				"completeProfileFirst": "Please complete your profile first."
+				"completeProfileFirst": "Please complete your profile first.",
+				"paypalLinkInfo": {
+					"accountLinked": "Account Linked",
+					"accountLinkedTooltip": "Your PayPal account is successfully linked.",
+					"accountNotLinkedTooltip": "You need to link your PayPal account.",
+
+					"paypalKYCCheckTooltip": "Your PayPal account is verified and ready for transactions.",
+					"paypalKYCNotCheckTooltip": "Your PayPal account is not fully verified. Please complete the KYC process on PayPal to receive payments.",
+					"paypalKYC": "PayPal KYC",
+
+					"paypalEmail": "PayPal Email",
+					"paypalEmailCheckTooltip": "Your PayPal email is verified on PayPal.",
+					"paypalEmailNotCheckTooltip": "Your PayPal email is not verified. Please verify your email on PayPal to receive payments."
+				}
 			},
 			"dangerZone": {
 				"title": "Danger Zone",
@@ -123,7 +136,18 @@
 				"paypalVerified": "Vérifié",
 				"testingPayment": "Prêt à tester les paiements avec votre ID marchand.",
 				"title": "Informations Vendeur",
-				"completeProfileFirst": "Veuillez d'abord compléter votre profil."
+				"completeProfileFirst": "Veuillez d'abord compléter votre profil.",
+				"paypalLinkInfo": {
+					"accountLinked": "Compte lié",
+					"accountLinkedTooltip": "Votre compte PayPal est correctement lié.",
+					"accountNotLinkedTooltip": "Vous devez lier votre compte PayPal.",
+					"paypalKYCCheckTooltip": "Votre compte PayPal est vérifié et prêt pour les transactions.",
+					"paypalKYCNotCheckTooltip": "Votre compte PayPal n'est pas entièrement vérifié. Veuillez terminer le processus KYC sur PayPal pour recevoir des paiements.",
+					"paypalKYC": "KYC PayPal",
+					"paypalEmail": "E-mail PayPal",
+					"paypalEmailCheckTooltip": "Votre e-mail PayPal est vérifié sur PayPal.",
+					"paypalEmailNotCheckTooltip": "Votre e-mail PayPal n'est pas vérifié. Veuillez vérifier votre e-mail sur PayPal pour recevoir des paiements."
+				}
 			},
 			"dangerZone": {
 				"title": "Zone dangereuse",
@@ -193,7 +217,18 @@
 				"paypalVerified": "확인됨",
 				"testingPayment": "판매자 ID로 결제를 테스트할 준비가 되었습니다.",
 				"title": "판매자 정보",
-				"completeProfileFirst": "먼저 프로필을 완성해 주세요."
+				"completeProfileFirst": "먼저 프로필을 완성해 주세요.",
+				"paypalLinkInfo": {
+					"accountLinked": "계정 연결됨",
+					"accountLinkedTooltip": "PayPal 계정이 성공적으로 연결되었습니다.",
+					"accountNotLinkedTooltip": "PayPal 계정을 연결해야 합니다.",
+					"paypalKYCCheckTooltip": "PayPal 계정이 인증되어 거래가 가능합니다.",
+					"paypalKYCNotCheckTooltip": "PayPal 계정이 완전히 인증되지 않았습니다. 결제를 받으려면 PayPal에서 KYC 절차를 완료하세요.",
+					"paypalKYC": "PayPal KYC",
+					"paypalEmail": "PayPal 이메일",
+					"paypalEmailCheckTooltip": "PayPal 이메일이 PayPal에서 인증되었습니다.",
+					"paypalEmailNotCheckTooltip": "PayPal 이메일이 인증되지 않았습니다. 결제를 받으려면 PayPal에서 이메일을 인증하세요."
+				}
 			},
 			"dangerZone": {
 				"title": "주의 구역",
@@ -263,7 +298,18 @@
 				"paypalVerified": "Verificado",
 				"testingPayment": "Listo para probar pagos con tu ID de comerciante.",
 				"title": "Información del Vendedor",
-				"completeProfileFirst": "Por favor, completa tu perfil primero."
+				"completeProfileFirst": "Por favor, completa tu perfil primero.",
+				"paypalLinkInfo": {
+					"accountLinked": "Cuenta vinculada",
+					"accountLinkedTooltip": "Tu cuenta de PayPal está vinculada correctamente.",
+					"accountNotLinkedTooltip": "Necesitas vincular tu cuenta de PayPal.",
+					"paypalKYCCheckTooltip": "Tu cuenta de PayPal está verificada y lista para transacciones.",
+					"paypalKYCNotCheckTooltip": "Tu cuenta de PayPal no está completamente verificada. Completa el proceso KYC en PayPal para recibir pagos.",
+					"paypalKYC": "KYC de PayPal",
+					"paypalEmail": "Correo electrónico de PayPal",
+					"paypalEmailCheckTooltip": "Tu correo electrónico de PayPal está verificado en PayPal.",
+					"paypalEmailNotCheckTooltip": "Tu correo electrónico de PayPal no está verificado. Verifícalo en PayPal para recibir pagos."
+				}
 			},
 			"dangerZone": {
 				"title": "Zona de peligro",
@@ -333,7 +379,18 @@
 				"paypalNotVerified": "Non Verificato",
 				"testingPayment": "Pronto a testare i pagamenti con il tuo ID commerciante.",
 				"title": "Informazioni Venditore",
-				"completeProfileFirst": "Per favore, completa prima il tuo profilo."
+				"completeProfileFirst": "Per favore, completa prima il tuo profilo.",
+				"paypalLinkInfo": {
+					"accountLinked": "Account collegato",
+					"accountLinkedTooltip": "Il tuo account PayPal è stato collegato correttamente.",
+					"accountNotLinkedTooltip": "Devi collegare il tuo account PayPal.",
+					"paypalKYCCheckTooltip": "Il tuo account PayPal è verificato ed è pronto per le transazioni.",
+					"paypalKYCNotCheckTooltip": "Il tuo account PayPal non è completamente verificato. Completa il processo KYC su PayPal per ricevere pagamenti.",
+					"paypalKYC": "KYC PayPal",
+					"paypalEmail": "Email PayPal",
+					"paypalEmailCheckTooltip": "La tua email PayPal è verificata su PayPal.",
+					"paypalEmailNotCheckTooltip": "La tua email PayPal non è verificata. Verifica la tua email su PayPal per ricevere pagamenti."
+				}
 			},
 			"dangerZone": {
 				"title": "Zona pericolosa",
@@ -403,7 +460,18 @@
 				"paypalVerified": "Verifiziert",
 				"testingPayment": "Bereit, Zahlungen mit Ihrer Händler-ID zu testen.",
 				"title": "Verkäuferinformationen",
-				"completeProfileFirst": "Bitte vervollständige zuerst dein Profil."
+				"completeProfileFirst": "Bitte vervollständige zuerst dein Profil.",
+				"paypalLinkInfo": {
+					"accountLinked": "Konto verknüpft",
+					"accountLinkedTooltip": "Ihr PayPal-Konto ist erfolgreich verknüpft.",
+					"accountNotLinkedTooltip": "Sie müssen Ihr PayPal-Konto verknüpfen.",
+					"paypalKYCCheckTooltip": "Ihr PayPal-Konto ist verifiziert und für Transaktionen bereit.",
+					"paypalKYCNotCheckTooltip": "Ihr PayPal-Konto ist nicht vollständig verifiziert. Bitte schließen Sie den KYC-Prozess bei PayPal ab, um Zahlungen zu erhalten.",
+					"paypalKYC": "PayPal-KYC",
+					"paypalEmail": "PayPal-E-Mail",
+					"paypalEmailCheckTooltip": "Ihre PayPal-E-Mail ist bei PayPal verifiziert.",
+					"paypalEmailNotCheckTooltip": "Ihre PayPal-E-Mail ist nicht verifiziert. Bitte verifizieren Sie Ihre E-Mail bei PayPal, um Zahlungen zu erhalten."
+				}
 			},
 			"dangerZone": {
 				"title": "Gefahrenbereich",
@@ -473,7 +541,18 @@
 				"paypalVerified": "Confirmat",
 				"testingPayment": "Gata de testat plățile cu ID-ul tău de comerciant.",
 				"title": "Informații Vânzător",
-				"completeProfileFirst": "Te rugăm să îți completezi mai întâi profilul."
+				"completeProfileFirst": "Te rugăm să îți completezi mai întâi profilul.",
+				"paypalLinkInfo": {
+					"accountLinked": "Cont conectat",
+					"accountLinkedTooltip": "Contul tău PayPal este conectat cu succes.",
+					"accountNotLinkedTooltip": "Trebuie să-ți conectezi contul PayPal.",
+					"paypalKYCCheckTooltip": "Contul tău PayPal este verificat și pregătit pentru tranzacții.",
+					"paypalKYCNotCheckTooltip": "Contul tău PayPal nu este complet verificat. Te rugăm să finalizezi procesul KYC pe PayPal pentru a primi plăți.",
+					"paypalKYC": "KYC PayPal",
+					"paypalEmail": "E-mail PayPal",
+					"paypalEmailCheckTooltip": "E-mailul tău PayPal este verificat pe PayPal.",
+					"paypalEmailNotCheckTooltip": "E-mailul tău PayPal nu este verificat. Te rugăm să îți verifici e-mailul pe PayPal pentru a primi plăți."
+				}
 			},
 			"dangerZone": {
 				"title": "Zonă periculoasă",
@@ -543,7 +622,18 @@
 				"paypalVerified": "Verificado",
 				"testingPayment": "Pronto para testar pagamentos com o teu ID de comerciante.",
 				"title": "Informações do Vendedor",
-				"completeProfileFirst": "Por favor, completa primeiro o teu perfil."
+				"completeProfileFirst": "Por favor, completa primeiro o teu perfil.",
+				"paypalLinkInfo": {
+					"accountLinked": "Conta ligada",
+					"accountLinkedTooltip": "A tua conta PayPal está ligada com sucesso.",
+					"accountNotLinkedTooltip": "Precisas ligar a tua conta PayPal.",
+					"paypalKYCCheckTooltip": "A tua conta PayPal está verificada e pronta para transações.",
+					"paypalKYCNotCheckTooltip": "A tua conta PayPal não está totalmente verificada. Conclui o processo KYC no PayPal para receber pagamentos.",
+					"paypalKYC": "KYC PayPal",
+					"paypalEmail": "E-mail PayPal",
+					"paypalEmailCheckTooltip": "O teu e-mail PayPal está verificado no PayPal.",
+					"paypalEmailNotCheckTooltip": "O teu e-mail PayPal não está verificado. Verifica-o no PayPal para receber pagamentos."
+				}
 			},
 			"dangerZone": {
 				"title": "Zona perigosa",
@@ -613,7 +703,18 @@
 				"paypalVerified": "Geverifieerd",
 				"testingPayment": "Klaar om betalingen te testen met uw merchant ID.",
 				"title": "Verkoper Informatie",
-				"completeProfileFirst": "Vul eerst je profiel in."
+				"completeProfileFirst": "Vul eerst je profiel in.",
+				"paypalLinkInfo": {
+					"accountLinked": "Account gekoppeld",
+					"accountLinkedTooltip": "Je PayPal-account is succesvol gekoppeld.",
+					"accountNotLinkedTooltip": "Je moet je PayPal-account koppelen.",
+					"paypalKYCCheckTooltip": "Je PayPal-account is geverifieerd en klaar voor transacties.",
+					"paypalKYCNotCheckTooltip": "Je PayPal-account is niet volledig geverifieerd. Voltooi het KYC-proces op PayPal om betalingen te ontvangen.",
+					"paypalKYC": "PayPal-KYC",
+					"paypalEmail": "PayPal-e-mailadres",
+					"paypalEmailCheckTooltip": "Je PayPal-e-mailadres is geverifieerd op PayPal.",
+					"paypalEmailNotCheckTooltip": "Je PayPal-e-mailadres is niet geverifieerd. Verifieer je e-mailadres op PayPal om betalingen te ontvangen."
+				}
 			},
 			"dangerZone": {
 				"title": "Gevarenzone",
