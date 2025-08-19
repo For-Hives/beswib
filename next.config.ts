@@ -14,6 +14,9 @@ const nextConfig: NextConfig = {
 		],
 	},
 	async headers() {
+		// Using async to satisfy Next.js type requirements
+		await Promise.resolve()
+
 		const scriptSrc = [
 			"'self'",
 			"'unsafe-inline'",
@@ -137,7 +140,7 @@ export default withSentryConfig(nextConfig, {
 	tunnelRoute: '/monitoring',
 
 	// Only print logs for uploading source maps in CI
-	silent: !process.env.CI,
+	silent: !Boolean(process.env.CI),
 
 	// For all available options, see:
 	// https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/

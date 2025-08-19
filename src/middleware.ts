@@ -76,7 +76,8 @@ const isPublicAuthRoute = createRouteMatcher([
 export default clerkMiddleware(async (auth, request: NextRequest) => {
 	const { pathname } = request.nextUrl
 
-	// Let API routes pass through without locale rewrites, but still run Clerk middleware for auth context
+	// CRITICAL: Let API routes pass through completely without any processing
+	// This prevents any redirects or locale handling for webhooks and API endpoints
 	if (pathname.startsWith('/api')) {
 		return NextResponse.next()
 	}
@@ -111,9 +112,10 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 
 export const config = {
 	matcher: [
-		// Include API and tRPC routes explicitly so Clerk auth() works there
-		'/(api|trpc)(.*)',
-		// Match all other routes except Next internals and files with extensions
-		'/((?!.+\\.[\\w]+$|_next).*)',
+		// Include only specific API routes that need auth context (not all API routes)
+		// Most webhooks don't need auth, so we exclude them from middleware processing
+		'/(api/maintenance|api/validate-private-token)(.*)',
+		// Match all other routes except Next internals, files with extensions, and webhook APIs
+		'/((?!api/webhooks|.+\\.[\\w]+$|_next).*)',
 	],
 }
