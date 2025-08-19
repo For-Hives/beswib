@@ -5,6 +5,7 @@
 import type { Organizer } from '@/models/organizer.model'
 
 import { getOrganizerLogoUrl } from '@/services/organizer.services'
+import { pb } from '@/lib/services/pocketbase'
 
 // Available placeholder bib images
 const BIB_PLACEHOLDERS = [
@@ -76,7 +77,7 @@ export function getEventImageUrl(
 ): string {
 	// Priority 1: Event has its own image
 	if (event?.image != null) {
-		return `/api/files/events/${event.image}`
+		return `${pb.baseUrl}/api/files/events/${event.image}`
 	}
 
 	// Priority 2: Event has imageUrl field
