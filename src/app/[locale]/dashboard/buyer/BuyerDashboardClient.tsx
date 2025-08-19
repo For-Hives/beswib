@@ -212,7 +212,7 @@ export default function BuyerDashboardClient({
 										className={`grid max-h-[100vh] grid-cols-1 gap-6 overflow-y-auto md:grid-cols-2 ${totalPurchases > 6 ? 'pr-4' : ''}`}
 									>
 										{succeededTransactions.map(tx => {
-											if (!tx) return null
+											if (tx == null) return null
 											const bib = tx.expand?.bib_id
 											if (!bib || !bib.id) return null
 											return (
@@ -265,7 +265,7 @@ export default function BuyerDashboardClient({
 																			<p className="flex items-center gap-1">
 																				<Calendar className="h-3 w-3" />
 																				{bib.expand?.eventId?.eventDate
-																					? formatDateObjectForDisplay(bib.expand.eventId.eventDate, locale)
+																					? formatDateObjectForDisplay(new Date(bib.expand.eventId.eventDate), locale)
 																					: 'N/A'}
 																			</p>
 																		</div>
@@ -282,7 +282,7 @@ export default function BuyerDashboardClient({
 																	</p>
 																</div>
 
-																{bib.expand?.eventId?.location &&
+																{bib.expand?.eventId?.location != null &&
 																	typeof bib.expand.eventId.location === 'string' &&
 																	bib.expand.eventId.location.trim() !== '' && (
 																		<div className="flex items-center gap-2">
@@ -298,9 +298,7 @@ export default function BuyerDashboardClient({
 															<div className="border-border/50 mt-auto border-t pt-2">
 																<p className="text-muted-foreground text-xs">
 																	{t.purchaseDate ?? 'Purchased on'}:{' '}
-																	{tx.created && typeof tx.created === 'string' && tx.created.trim() !== ''
-																		? formatDateObjectForDisplay(tx.created, locale)
-																		: 'N/A'}
+																	{formatDateObjectForDisplay(new Date(tx.created as string), locale)}
 																</p>
 															</div>
 														</div>
