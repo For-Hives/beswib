@@ -448,7 +448,7 @@ async function getAccessToken(): Promise<string> {
 export async function getMerchantIntegrationStatus(
 	merchantId: string
 ): Promise<
-	| { error: string; status: undefined }
+	| { error: string; status?: undefined }
 	| { status: PayPalMerchantIntegrationStatus & { primary_email_confirmed: boolean; payments_receivable: boolean } }
 > {
 	try {
