@@ -403,6 +403,34 @@ export async function fetchBibById(
 }
 
 /**
+ * Fetches a single bib by its ID for public display or pre-purchase.
+ * @param bibId The ID of the bib to fetch.
+ */
+export async function fetchAllBibById(
+	bibId: string
+): Promise<(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }) | null> {
+	if (bibId === '') {
+		console.error('Bib ID is required.')
+		return null
+	}
+	try {
+		const record = await pb
+			.collection('bibs')
+			.getOne<
+				Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }
+			>(bibId, {
+				expand: 'eventId,sellerUserId,eventId.organizer',
+			})
+
+		return record
+	} catch (error: unknown) {
+		throw new Error(
+			`Error fetching bib with ID "${bibId}": ` + (error instanceof Error ? error.message : String(error))
+		)
+	}
+}
+
+/**
  * Fetches a single bib by its ID for a specific seller, ensuring ownership.
  * @param bibId The ID of the bib to fetch.
  * @param sellerUserId The PocketBase ID of the seller claiming ownership.
