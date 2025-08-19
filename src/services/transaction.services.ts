@@ -34,7 +34,7 @@ export async function fetchBuyerTransactions(buyerUserId: string): Promise<Trans
 		const records = await pb.collection('transactions').getFullList<TransactionWithExpand>({
 			sort: '-created',
 			filter: `buyer_user_id = "${buyerUserId}"`,
-			expand: 'bib_id,bib_id.eventId',
+			expand: 'bib_id,bib_id.eventId,bib_id.eventId.organizer',
 		})
 		return records
 	} catch (error: unknown) {
@@ -57,7 +57,7 @@ export async function fetchBuyerCompletedTransactions(buyerUserId: string): Prom
 		const records = await pb.collection('transactions').getFullList<TransactionWithExpand>({
 			sort: '-created',
 			filter: `buyer_user_id = "${buyerUserId}" && status = 'succeeded'`,
-			expand: 'bib_id,bib_id.eventId',
+			expand: 'bib_id,bib_id.eventId,bib_id.eventId.organizer',
 		})
 		return records
 	} catch (error: unknown) {
