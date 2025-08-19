@@ -36,7 +36,6 @@ type OGImageProps = {
 	size: { width: number; height: number } // OG image dimensions
 }
 
-
 // Main component for generating an Open Graph image
 export default function OGImage({ title, size, secondary, protocol, host }: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
