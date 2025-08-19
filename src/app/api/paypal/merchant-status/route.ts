@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { getMerchantIntegrationStatus } from '@/services/paypal.services'
-import { getUserData } from '@/services/user.services'
+import { getUserData, updateUser } from '@/services/user.services'
 
 // GET /api/paypal/merchant-status?userId=...
 export async function GET(request: NextRequest) {
@@ -23,6 +23,13 @@ export async function GET(request: NextRequest) {
 			return NextResponse.json({ error: result.error }, { status: 502 })
 		}
 
+		// Best-effort: if KYC is complete, persist on user
+		const status = result.status
+		const kycComplete = status.payments_receivable === true && status.primary_email_confirmed === true
+		if (kycComplete) {
+			// Fire and forget (do not block API)
+			void updateUser(userId, { paypal_kyc: true }).catch(() => {})
+		}
 		return NextResponse.json({ status: result.status })
 	} catch (e) {
 		console.error('merchant-status error', e)

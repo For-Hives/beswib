@@ -54,6 +54,11 @@ export function isSellerProfileComplete(user: User | null): boolean {
 		return false
 	}
 
+	// Ensure PayPal KYC is complete (payments receivable + email confirmed)
+	if (user.paypal_kyc !== true) {
+		return false
+	}
+
 	// Accept either phoneNumber or contactEmail as a valid contact method
 	const hasAtLeastOneContact =
 		(typeof user.phoneNumber === 'string' && user.phoneNumber.trim() !== '') ||
