@@ -450,7 +450,9 @@ export async function getMerchantIntegrationStatus(
 > {
 	try {
 		if (!merchantId) return { error: 'Missing merchantId' }
+		console.log('params', { merchantId })
 		const token = await getAccessToken()
+		console.log('token', token)
 		// Partner ID should be the partner's PayPal merchant (payer) ID.
 		// Fall back to platform merchant ID if explicit partner ID isn't provided,
 		// and lastly to the client_id (less reliable for this endpoint).
@@ -458,6 +460,7 @@ export async function getMerchantIntegrationStatus(
 			(process.env.PAYPAL_PARTNER_ID ?? PAYPAL_MERCHANT_ID() ?? process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? '') || ''
 		if (!partnerId) return { error: 'Missing PAYPAL_PARTNER_ID' }
 
+		console.log('partnerId', { partnerId })
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
 		const res = await fetch(
 			`${paypalApiUrl}/v1/customer/partners/${encodeURIComponent(partnerId)}/merchant-integrations/${encodeURIComponent(

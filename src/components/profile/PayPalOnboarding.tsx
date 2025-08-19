@@ -229,18 +229,26 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 								variant={hasMerchantId ? 'default' : 'destructive'}
 								className={hasMerchantId ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''}
 							>
-								{merchantStatusQuery.isLoading ? 'Link: checking…' : hasMerchantId ? 'Link: vérifié' : 'Link: non vérifié'}
+								{merchantStatusQuery.isLoading
+									? 'Link: checking…'
+									: hasMerchantId
+										? 'Link: vérifié'
+										: 'Link: non vérifié'}
 							</Badge>
 							{/* KYC verified (payments receivable + email confirmed) */}
 							<Badge
 								variant={paymentsReceivable && emailConfirmed ? 'default' : 'destructive'}
-								className={paymentsReceivable && emailConfirmed ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''}
+								className={
+									paymentsReceivable && emailConfirmed
+										? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
+										: ''
+								}
 							>
 								{merchantStatusQuery.isLoading
 									? 'KYC: checking…'
 									: paymentsReceivable && emailConfirmed
-									? 'KYC: vérifié'
-									: 'KYC: incomplet'}
+										? 'KYC: vérifié'
+										: 'KYC: incomplet'}
 							</Badge>
 						</div>
 					) : null}
