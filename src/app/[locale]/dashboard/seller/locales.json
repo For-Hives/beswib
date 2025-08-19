@@ -36,7 +36,8 @@
 			"platformFees": "Platform fees:",
 			"paypalFees": "PayPal fees:",
 			"amount": "Amount:",
-			"net": "Net:"
+			"net": "Net:",
+			"netEarned": "Net Earned"
 		},
 		"tooltip": {
 			"hover": "Hover",
@@ -56,7 +57,8 @@
 			"title": "Recent Sales",
 			"description": "Completed transactions for your bibs",
 			"noSales": "No completed sales yet",
-			"listABib": "List a bib"
+			"listABib": "List a bib",
+			"startSellingMessage": "Start selling your race bibs to see your sales here"
 		},
 		"bibStatus": {
 			"available": "Available",
@@ -124,7 +126,8 @@
 			"platformFees": "Frais plateforme :",
 			"paypalFees": "Frais PayPal :",
 			"amount": "Montant :",
-			"net": "Net :"
+			"net": "Net :",
+			"netEarned": "Net Gagné"
 		},
 		"tooltip": {
 			"hover": "Survoler",
@@ -144,7 +147,8 @@
 			"title": "Ventes Récentes",
 			"description": "Transactions réalisées pour vos dossards",
 			"noSales": "Aucune vente réalisée pour le moment",
-			"listABib": "Mettre en vente un dossard"
+			"listABib": "Mettre en vente un dossard",
+			"startSellingMessage": "Commencez à vendre vos dossards pour voir vos ventes ici"
 		},
 		"bibStatus": {
 			"available": "Disponible",
@@ -212,7 +216,8 @@
 			"platformFees": "플랫폼 수수료:",
 			"paypalFees": "PayPal 수수료:",
 			"amount": "금액:",
-			"net": "순액:"
+			"net": "순액:",
+			"netEarned": "순수익"
 		},
 		"tooltip": {
 			"hover": "호버",
@@ -232,7 +237,8 @@
 			"title": "최근 판매",
 			"description": "비브 거래 완료 내역",
 			"noSales": "아직 완료된 판매가 없습니다",
-			"listABib": "비브 등록하기"
+			"listABib": "비브 등록하기",
+			"startSellingMessage": "비브를 판매하여 여기에서 판매 내역을 확인하세요"
 		},
 		"bibStatus": {
 			"available": "판매중",
@@ -300,7 +306,8 @@
 			"platformFees": "Comisiones plataforma:",
 			"paypalFees": "Comisiones PayPal:",
 			"amount": "Cantidad:",
-			"net": "Neto:"
+			"net": "Neto:",
+			"netEarned": "Neto Ganado"
 		},
 		"tooltip": {
 			"hover": "Pasar el ratón",
@@ -320,7 +327,8 @@
 			"title": "Ventas Recientes",
 			"description": "Transacciones completadas para tus dorsales",
 			"noSales": "Aún no hay ventas completadas",
-			"listABib": "Publicar un dorsal"
+			"listABib": "Publicar un dorsal",
+			"startSellingMessage": "Comienza a vender tus dorsales para ver tus ventas aquí"
 		},
 		"bibStatus": {
 			"available": "Disponible",
@@ -388,7 +396,8 @@
 			"platformFees": "Commissioni piattaforma:",
 			"paypalFees": "Commissioni PayPal:",
 			"amount": "Importo:",
-			"net": "Netto:"
+			"net": "Netto:",
+			"netEarned": "Netto Guadagnato"
 		},
 		"tooltip": {
 			"hover": "Passa sopra",
@@ -408,7 +417,8 @@
 			"title": "Vendite Recenti",
 			"description": "Transazioni completate per i tuoi pettorali",
 			"noSales": "Nessuna vendita completata ancora",
-			"listABib": "Inserisci un pettorale"
+			"listABib": "Inserisci un pettorale",
+			"startSellingMessage": "Inizia a vendere i tuoi pettorali per vedere le tue vendite qui"
 		},
 		"bibStatus": {
 			"available": "Disponibile",
@@ -476,7 +486,8 @@
 			"platformFees": "Plattform-Gebühren:",
 			"paypalFees": "PayPal-Gebühren:",
 			"amount": "Betrag:",
-			"net": "Netto:"
+			"net": "Netto:",
+			"netEarned": "Netto Verdient"
 		},
 		"tooltip": {
 			"hover": "Darüber fahren",
@@ -496,7 +507,8 @@
 			"title": "Letzte Verkäufe",
 			"description": "Abgeschlossene Transaktionen für deine Startnummern",
 			"noSales": "Noch keine abgeschlossenen Verkäufe",
-			"listABib": "Startnummer inserieren"
+			"listABib": "Startnummer inserieren",
+			"startSellingMessage": "Beginne mit dem Verkauf deiner Startnummern, um deine Verkäufe hier zu sehen"
 		},
 		"bibStatus": {
 			"available": "Verfügbar",
@@ -564,7 +576,8 @@
 			"platformFees": "Comisioane platformă:",
 			"paypalFees": "Comisioane PayPal:",
 			"amount": "Suma:",
-			"net": "Net:"
+			"net": "Net:",
+			"netEarned": "Net Câștigat"
 		},
 		"tooltip": {
 			"hover": "Trece peste",
@@ -584,7 +597,8 @@
 			"title": "Vânzări Recente",
 			"description": "Tranzacții finalizate pentru numerele tale",
 			"noSales": "Încă nu sunt vânzări finalizate",
-			"listABib": "Listează un număr"
+			"listABib": "Listează un număr",
+			"startSellingMessage": "Începe să îți vinzi numerele pentru a vedea vânzările aici"
 		},
 		"bibStatus": {
 			"available": "Disponibil",
@@ -652,7 +666,8 @@
 			"platformFees": "Comissões plataforma:",
 			"paypalFees": "Comissões PayPal:",
 			"amount": "Montante:",
-			"net": "Líquido:"
+			"net": "Líquido:",
+			"netEarned": "Líquido Ganho"
 		},
 		"tooltip": {
 			"hover": "Passar por cima",
@@ -672,7 +687,8 @@
 			"title": "Vendas Recentes",
 			"description": "Transações concluídas para os teus dorsais",
 			"noSales": "Ainda não há vendas concluídas",
-			"listABib": "Listar um dorsal"
+			"listABib": "Listar um dorsal",
+			"startSellingMessage": "Começa a vender os teus dorsais para veres as tuas vendas aqui"
 		},
 		"bibStatus": {
 			"available": "Disponível",
@@ -740,7 +756,8 @@
 			"platformFees": "Platform-kosten:",
 			"paypalFees": "PayPal-kosten:",
 			"amount": "Bedrag:",
-			"net": "Netto:"
+			"net": "Netto:",
+			"netEarned": "Netto Verdiend"
 		},
 		"tooltip": {
 			"hover": "Hover",
@@ -760,7 +777,8 @@
 			"title": "Recente Verkopen",
 			"description": "Voltooide transacties voor je startnummers",
 			"noSales": "Nog geen voltooide verkopen",
-			"listABib": "Startnummer plaatsen"
+			"listABib": "Startnummer plaatsen",
+			"startSellingMessage": "Begin met het verkopen van je startnummers om je verkopen hier te zien"
 		},
 		"bibStatus": {
 			"available": "Beschikbaar",
