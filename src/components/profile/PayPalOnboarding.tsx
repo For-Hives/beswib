@@ -24,6 +24,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Locale } from '@/lib/i18n/config'
 
 import PayPalOnboardingSkeleton from './PayPalOnboardingSkeleton'
@@ -154,7 +155,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	const disconnectMutation = usePayPalDisconnect()
 	const [showDisconnectConfirm, setShowDisconnectConfirm] = React.useState(false)
 
-	// Merchant KYC / payments readiness status (polls every 15s)
+	// Merchant KYC / payments readiness status (fetched once; manual refresh only)
 	const merchantStatusQuery = usePayPalMerchantStatus(userId)
 
 	const handlePayPalConnect = () => {
@@ -205,37 +206,62 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 					{hasMerchantId ? (
 						<div className="mt-3 flex flex-col gap-2">
 							{/* 1 - Account Linked */}
-							<Badge
-								variant={hasMerchantId ? 'default' : 'destructive'}
-								className={`flex w-full items-center justify-between ${
-									hasMerchantId ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''
-								}`}
-							>
-								<span>Account Linked</span>
-								{!merchantStatusQuery.isLoading && hasMerchantId ? <CircleCheckBig className="h-4 w-4" /> : null}
-							</Badge>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Badge
+										variant={hasMerchantId ? 'default' : 'destructive'}
+										className={`flex w-full items-center justify-between ${
+											hasMerchantId ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''
+										}`}
+									>
+										<span>Account Linked</span>
+										{!merchantStatusQuery.isLoading && hasMerchantId ? <CircleCheckBig className="h-4 w-4" /> : null}
+									</Badge>
+								</TooltipTrigger>
+								<TooltipContent side="right">Votre compte PayPal est correctement relié.</TooltipContent>
+							</Tooltip>
 
 							{/* 2 - Paypal KYC (payments receivable) */}
-							<Badge
-								variant={paymentsReceivable ? 'default' : 'destructive'}
-								className={`flex w-full items-center justify-between ${
-									paymentsReceivable ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''
-								}`}
-							>
-								<span>Paypal KYC</span>
-								{!merchantStatusQuery.isLoading && paymentsReceivable ? <CircleCheckBig className="h-4 w-4" /> : null}
-							</Badge>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Badge
+										variant={paymentsReceivable ? 'default' : 'destructive'}
+										className={`flex w-full items-center justify-between ${
+											paymentsReceivable ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''
+										}`}
+									>
+										<span>Paypal KYC</span>
+										{!merchantStatusQuery.isLoading && paymentsReceivable ? (
+											<CircleCheckBig className="h-4 w-4" />
+										) : null}
+									</Badge>
+								</TooltipTrigger>
+								<TooltipContent side="right">
+									{paymentsReceivable
+										? 'KYC vérifié chez PayPal.'
+										: "Finalisez la vérification d'identité et les informations de votre activité dans votre compte PayPal, puis cliquez sur Rafraîchir."}
+								</TooltipContent>
+							</Tooltip>
 
 							{/* 3 - Paypal Email */}
-							<Badge
-								variant={emailConfirmed ? 'default' : 'destructive'}
-								className={`flex w-full items-center justify-between ${
-									emailConfirmed ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''
-								}`}
-							>
-								<span>Paypal Email</span>
-								{!merchantStatusQuery.isLoading && emailConfirmed ? <CircleCheckBig className="h-4 w-4" /> : null}
-							</Badge>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Badge
+										variant={emailConfirmed ? 'default' : 'destructive'}
+										className={`flex w-full items-center justify-between ${
+											emailConfirmed ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''
+										}`}
+									>
+										<span>Paypal Email</span>
+										{!merchantStatusQuery.isLoading && emailConfirmed ? <CircleCheckBig className="h-4 w-4" /> : null}
+									</Badge>
+								</TooltipTrigger>
+								<TooltipContent side="right">
+									{emailConfirmed
+										? 'Adresse e-mail principale confirmée.'
+										: 'Confirmez votre adresse e-mail principale dans PayPal (Paramètres > E-mail), puis cliquez sur Rafraîchir.'}
+								</TooltipContent>
+							</Tooltip>
 
 							{/* 4 - Refresh button */}
 							<div className="pt-1">
