@@ -93,7 +93,8 @@
 				"messageResponse": "We'll get back to you as soon as possible.",
 				"sendAnotherMessage": "Send another message"
 			}
-		}
+		},
+		"goBackToTop": "Go back to top of the page"
 	},
 	"fr": {
 		"navbar": {
@@ -189,7 +190,8 @@
 				"messageResponse": "Nous vous répondrons dès que possible.",
 				"sendAnotherMessage": "Envoyer un autre message"
 			}
-		}
+		},
+		"goBackToTop": "Retour en haut de la page"
 	},
 	"es": {
 		"navbar": {
@@ -285,7 +287,8 @@
 				"messageResponse": "Te responderemos lo antes posible.",
 				"sendAnotherMessage": "Enviar otro mensaje"
 			}
-		}
+		},
+		"goBackToTop": "Volver al principio de la página"
 	},
 	"it": {
 		"navbar": {
@@ -381,7 +384,8 @@
 				"messageResponse": "Ti risponderemo al più presto.",
 				"sendAnotherMessage": "Invia un altro messaggio"
 			}
-		}
+		},
+		"goBackToTop": "Torna all'inizio della pagina"
 	},
 	"de": {
 		"navbar": {
@@ -477,7 +481,8 @@
 				"messageResponse": "Wir melden uns so schnell wie möglich.",
 				"sendAnotherMessage": "Weitere Nachricht senden"
 			}
-		}
+		},
+		"goBackToTop": "Zurück zum Seitenanfang"
 	},
 	"ro": {
 		"navbar": {
@@ -573,7 +578,8 @@
 				"messageResponse": "Îți vom răspunde cât mai curând.",
 				"sendAnotherMessage": "Trimite un alt mesaj"
 			}
-		}
+		},
+		"goBackToTop": "Înapoi în partea de sus a paginii"
 	},
 	"pt": {
 		"navbar": {
@@ -669,7 +675,8 @@
 				"messageResponse": "Responderemos o mais rapidamente possível.",
 				"sendAnotherMessage": "Enviar outra mensagem"
 			}
-		}
+		},
+		"goBackToTop": "Voltar ao topo da página"
 	},
 	"nl": {
 		"navbar": {
@@ -765,7 +772,8 @@
 				"messageResponse": "We reageren zo snel mogelijk.",
 				"sendAnotherMessage": "Nog een bericht sturen"
 			}
-		}
+		},
+		"goBackToTop": "Terug naar boven"
 	},
 	"ko": {
 		"navbar": {
@@ -861,6 +869,7 @@
 				"messageResponse": "최대한 빨리 답변해 드리겠습니다.",
 				"sendAnotherMessage": "다른 메시지 보내기"
 			}
-		}
+		},
+		"goBackToTop": "페이지 상단으로 이동"
 	}
 }
