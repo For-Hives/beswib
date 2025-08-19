@@ -1,6 +1,6 @@
 'use client'
 
-import { Calendar, CheckCircle, Clock, MapPinned, Package, ShoppingCart, Tag, Users } from 'lucide-react'
+import { Calendar, CheckCircle, Clock, HelpCircle, MapPinned, Package, ShoppingCart, Tag, Users } from 'lucide-react'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,7 +13,7 @@ import type { Bib } from '@/models/bib.model'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { getBibImageUrl } from '@/lib/utils/images'
+import { getOrganizerImageUrl, getRandomBibPlaceholder } from '@/lib/utils/images'
 import { Button } from '@/components/ui/button'
 
 interface BuyerDashboardClientProps {
@@ -49,6 +49,15 @@ export default function BuyerDashboardClient({
 	buyerTransactions = [],
 }: BuyerDashboardClientProps) {
 	const t = getTranslations(locale, buyerTranslations)
+	
+	// Helper function to get event image from organizer or placeholder
+	const getEventImage = (bib: any) => {
+		const organizer = bib.expand?.eventId?.expand?.organizer
+		if (organizer != null) {
+			return getOrganizerImageUrl(organizer, bib.id)
+		}
+		return getRandomBibPlaceholder(bib.id)
+	}
 
 	const userName = clerkUser?.firstName ?? clerkUser?.emailAddresses?.[0]?.emailAddress ?? 'Buyer'
 
@@ -134,6 +143,48 @@ export default function BuyerDashboardClient({
 						</Card>
 					</div>
 
+					{/* Quick Actions */}
+					<div className="my-8">
+						<h2 className="text-foreground mb-6 text-xl font-bold">{t.quickActions}</h2>
+						<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+							<Link href="/marketplace">
+								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+									<CardContent className="flex flex-col items-center p-4 text-center">
+										<ShoppingCart className="text-primary mb-2 h-8 w-8" />
+										<p className="text-sm font-medium">{t.browseMarketplace}</p>
+									</CardContent>
+								</Card>
+							</Link>
+
+							<Link href="/events">
+								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+									<CardContent className="flex flex-col items-center p-4 text-center">
+										<Calendar className="text-primary mb-2 h-8 w-8" />
+										<p className="text-sm font-medium">{t.browseEvents}</p>
+									</CardContent>
+								</Card>
+							</Link>
+
+							<Link href="/dashboard">
+								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+									<CardContent className="flex flex-col items-center p-4 text-center">
+										<Users className="text-primary mb-2 h-8 w-8" />
+										<p className="text-sm font-medium">{t.mainDashboard}</p>
+									</CardContent>
+								</Card>
+							</Link>
+
+							<Link href="/contact">
+								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+									<CardContent className="flex flex-col items-center p-4 text-center">
+										<HelpCircle className="text-primary mb-2 h-8 w-8" />
+										<p className="text-sm font-medium">{t.getHelp}</p>
+									</CardContent>
+								</Card>
+							</Link>
+						</div>
+					</div>
+
 					{/* Main Content */}
 					<div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
 						{/* Purchase History */}
@@ -169,7 +220,7 @@ export default function BuyerDashboardClient({
 														<div className="relative flex justify-center px-4 pt-4">
 															<div className="from-green/20 via-emerald/20 to-teal/20 before:from-green before:via-emerald before:to-teal before:to-ring relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gradient-to-br shadow-[inset_0_0_20px_hsl(var(--primary)/0.3),inset_0_0_40px_hsl(var(--accent)/0.2),0_0_30px_hsl(var(--primary)/0.4)] before:absolute before:inset-0 before:-z-10 before:m-[-1px] before:rounded-xl before:bg-gradient-to-br before:p-0.5">
 																<Image
-																	src={getBibImageUrl(bib)}
+																	src={getEventImage(bib)}
 																	alt={bib.expand?.eventId?.name ?? 'Event'}
 																	fill
 																	className="object-cover"
@@ -218,7 +269,7 @@ export default function BuyerDashboardClient({
 																	</p>
 																</div>
 
-																{bib.expand?.eventId?.location && (
+																{bib.expand?.eventId?.location != null && bib.expand.eventId.location !== '' && (
 																	<div className="flex items-center gap-2">
 																		<MapPinned className="text-muted-foreground h-4 w-4" />
 																		<p className="text-muted-foreground truncate text-sm">
@@ -232,7 +283,7 @@ export default function BuyerDashboardClient({
 															<div className="border-border/50 mt-auto border-t pt-2">
 																<p className="text-muted-foreground text-xs">
 																	{t.purchaseDate ?? 'Purchased on'}:{' '}
-																	{formatDateObjectForDisplay(new Date(tx.created), locale)}
+																	{tx.created != null ? formatDateObjectForDisplay(new Date(tx.created), locale) : 'N/A'}
 																</p>
 															</div>
 														</div>
@@ -320,48 +371,6 @@ export default function BuyerDashboardClient({
 								)}
 							</CardContent>
 						</Card>
-					</div>
-
-					{/* Quick Actions */}
-					<div className="mt-8">
-						<h2 className="text-foreground mb-6 text-xl font-bold">{t.quickActions}</h2>
-						<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-							<Link href="/marketplace">
-								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<ShoppingCart className="text-primary mb-2 h-8 w-8" />
-										<p className="text-sm font-medium">{t.browseMarketplace}</p>
-									</CardContent>
-								</Card>
-							</Link>
-
-							<Link href="/events">
-								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<Calendar className="text-primary mb-2 h-8 w-8" />
-										<p className="text-sm font-medium">{t.browseEvents}</p>
-									</CardContent>
-								</Card>
-							</Link>
-
-							<Link href="/dashboard">
-								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<Users className="text-primary mb-2 h-8 w-8" />
-										<p className="text-sm font-medium">{t.mainDashboard}</p>
-									</CardContent>
-								</Card>
-							</Link>
-
-							<Link href="/contact">
-								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<Clock className="text-primary mb-2 h-8 w-8" />
-										<p className="text-sm font-medium">{t.getHelp}</p>
-									</CardContent>
-								</Card>
-							</Link>
-						</div>
 					</div>
 				</div>
 			</div>
