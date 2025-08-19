@@ -23,6 +23,8 @@ const nextConfig: NextConfig = {
 			"'unsafe-eval'",
 			'wasm-unsafe-eval',
 			'https://www.paypal.com',
+			'https://paypalobjects.com',
+			'https://*.paypalobjects.com',
 			'https://www.sandbox.paypal.com',
 			'https://clerk.com',
 			'https://clerk-telemetry.com',
@@ -51,6 +53,8 @@ const nextConfig: NextConfig = {
 			"'self'",
 			'https://api-m.sandbox.paypal.com',
 			'https://api-m.paypal.com',
+			'https://paypalobjects.com',
+			'https://*.paypalobjects.com',
 			'https://www.sandbox.paypal.com',
 			'https://www.paypal.com',
 			'https://*.cloudflare.com',
@@ -90,6 +94,8 @@ const nextConfig: NextConfig = {
 			'https://*.beswib.com',
 			'https://clerk.beswib.com',
 			'https://*.paypal.com',
+			'https://paypalobjects.com',
+			'https://*.paypalobjects.com',
 		].join(' ')
 
 		const csp = [

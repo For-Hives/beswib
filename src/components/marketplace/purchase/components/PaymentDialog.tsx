@@ -11,6 +11,7 @@ import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { formatDateWithLocale } from '@/lib/utils/date'
 import mainLocales from '@/app/[locale]/locales.json'
@@ -107,64 +108,75 @@ export default function PaymentDialog({
 	// Show success dialog
 	if (successMessage != null && successMessage !== '') {
 		return (
-			<Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
-				<DialogContent className="sm:max-w-md">
-					<DialogHeader>
-						<div className="mb-4 flex items-center gap-3">
-							<div className="rounded-full bg-green-100 p-2">
-								<CheckCircle className="h-6 w-6 text-green-600" />
+			<AlertDialog open={isOpen}>
+				<AlertDialogContent className="sm:max-w-md">
+					<AlertDialogHeader>
+						<div className="mb-4 flex items-center justify-center">
+							<div className="rounded-full bg-green-100 dark:bg-green-900/20 p-3">
+								<CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
 							</div>
-							<DialogTitle className="text-green-600">{paymentT.paymentSuccess}</DialogTitle>
 						</div>
-					</DialogHeader>
-					<div className="space-y-4">
-						<p className="text-muted-foreground text-center">{paymentT.paymentSuccessMessage}</p>
-						<div className="rounded-lg border border-green-200 bg-green-50 p-4 text-center">
-							<p className="text-sm font-medium text-green-700">{successMessage}</p>
+						<AlertDialogTitle className="text-center text-green-600 dark:text-green-400">{paymentT.paymentSuccess}</AlertDialogTitle>
+						<AlertDialogDescription className="text-center">
+							{paymentT.paymentSuccessMessage}
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<div className="my-4">
+						<div className="rounded-lg border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/10 p-4 text-center">
+							<p className="text-sm font-medium text-green-700 dark:text-green-300">{successMessage}</p>
 						</div>
 					</div>
-					<DialogFooter className="sm:justify-center">
-						<Button onClick={onClose} className="w-full sm:w-auto">
+					<AlertDialogFooter className="sm:justify-center">
+						<AlertDialogAction onClick={onClose} className="w-full sm:w-auto">
 							{paymentT.goToDashboard}
-						</Button>
-					</DialogFooter>
-				</DialogContent>
-			</Dialog>
+						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
 		)
 	}
 
 	// Show error dialog
 	if (errorMessage != null && errorMessage !== '') {
+		const isCancelled = errorMessage?.toLowerCase().includes('cancel')
 		return (
-			<Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
-				<DialogContent className="sm:max-w-md">
-					<DialogHeader>
-						<div className="mb-4 flex items-center gap-3">
-							<div className="rounded-full bg-red-100 p-2">
-								{errorMessage?.toLowerCase().includes('cancel') ? (
-									<XCircle className="h-6 w-6 text-red-600" />
+			<AlertDialog open={isOpen}>
+				<AlertDialogContent className="sm:max-w-md">
+					<AlertDialogHeader>
+						<div className="mb-4 flex items-center justify-center">
+							<div className={`rounded-full p-3 ${
+								isCancelled 
+									? 'bg-orange-100 dark:bg-orange-900/20' 
+									: 'bg-red-100 dark:bg-red-900/20'
+							}`}>
+								{isCancelled ? (
+									<XCircle className="h-8 w-8 text-orange-600 dark:text-orange-400" />
 								) : (
-									<AlertCircle className="h-6 w-6 text-red-600" />
+									<AlertCircle className="h-8 w-8 text-red-600 dark:text-red-400" />
 								)}
 							</div>
-							<DialogTitle className="text-red-600">
-								{errorMessage?.toLowerCase().includes('cancel') ? paymentT.paymentCancelled : paymentT.paymentError}
-							</DialogTitle>
 						</div>
-					</DialogHeader>
-					<div className="space-y-4">
-						<p className="text-muted-foreground text-center">
-							{errorMessage?.toLowerCase().includes('cancel') ? paymentT.paymentCancelledMessage : errorMessage}
-						</p>
-					</div>
-					<DialogFooter className="gap-2">
-						<Button variant="outline" onClick={onClose}>
+						<AlertDialogTitle className={`text-center ${
+							isCancelled 
+								? 'text-orange-600 dark:text-orange-400' 
+								: 'text-red-600 dark:text-red-400'
+						}`}>
+							{isCancelled ? paymentT.paymentCancelled : paymentT.paymentError}
+						</AlertDialogTitle>
+						<AlertDialogDescription className="text-center">
+							{isCancelled ? paymentT.paymentCancelledMessage : errorMessage}
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter className="gap-2 sm:justify-center">
+						<AlertDialogCancel onClick={onClose}>
 							{paymentT.contactSupport}
-						</Button>
-						<Button onClick={onClose}>{paymentT.tryAgain}</Button>
-					</DialogFooter>
-				</DialogContent>
-			</Dialog>
+						</AlertDialogCancel>
+						<AlertDialogAction onClick={onClose}>
+							{paymentT.tryAgain}
+						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
 		)
 	}
 
@@ -253,30 +265,22 @@ export default function PaymentDialog({
 							<h3 className="text-foreground mb-4 text-sm font-medium">{paymentT.paymentMethod}</h3>
 
 							<div className="rounded-lg">
-								{loading && (
-									<div className="flex items-center justify-center py-8">
-										<Loader2 className="mr-2 h-6 w-6 animate-spin" />
-										<span className="text-muted-foreground text-sm">{paymentT.paymentProcessing}</span>
-									</div>
-								)}
-								{!loading && (
-									<div className="rounded-lg bg-white p-4" style={{ colorScheme: 'none' }}>
-										<PayPalButtons
-											createOrder={onCreateOrder}
-											disabled={loading || !isProfileComplete}
-											onApprove={onApprove}
-											onCancel={onCancel}
-											onError={onError}
-											style={{
-												shape: 'rect' as const,
-												layout: 'vertical' as const,
-												label: 'paypal' as const,
-												height: 50,
-												color: 'blue' as const,
-											}}
-										/>
-									</div>
-								)}
+								<div className="rounded-lg bg-white p-4" style={{ colorScheme: 'none' }}>
+									<PayPalButtons
+										createOrder={onCreateOrder}
+										disabled={loading || !isProfileComplete}
+										onApprove={onApprove}
+										onCancel={onCancel}
+										onError={onError}
+										style={{
+											shape: 'rect' as const,
+											layout: 'vertical' as const,
+											label: 'paypal' as const,
+											height: 50,
+											color: 'blue' as const,
+										}}
+									/>
+								</div>
 							</div>
 						</div>
 
