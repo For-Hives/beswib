@@ -225,7 +225,7 @@ export default function EmailVerificationStep({
 					) : (
 						<div className="space-y-4">
 							<div className="flex gap-2">
-								<div className="">
+								<div>
 									<Input
 										type="email"
 										placeholder={t.form.emailVerification.enterEmail}
