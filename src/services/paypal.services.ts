@@ -13,9 +13,7 @@ import { PLATFORM_FEE } from '@/constants/global.constant'
 
 import { getTransactionByOrderId, updateTransaction } from './transaction.services'
 
-const PAYPAL_MERCHANT_ID = () => {
-	return process.env.PAYPAL_MERCHANT_ID
-}
+const PAYPAL_MERCHANT_ID = () => process.env.PAYPAL_MERCHANT_ID ?? ''
 
 export async function handlePaymentCaptureCompleted(event: unknown) {
 	if (typeof event !== 'object' || event === null) {
@@ -97,6 +95,11 @@ export async function handleOnboardingCompleted(event: PayPalWebhookEvent) {
 		})
 	)
 
+	// Optionally, verify merchant readiness right away (best-effort)
+	void getMerchantIntegrationStatus(merchantId).catch(err => {
+		console.warn('Merchant status check after onboarding failed:', err)
+	})
+
 	return { userId, merchantId }
 }
 
@@ -124,6 +127,9 @@ export async function handleSellerConsentGranted(event: PayPalWebhookEvent) {
 					paypalMerchantId: merchantId,
 				})
 			)
+
+			// Best-effort immediate status check
+			void getMerchantIntegrationStatus(merchantId).catch(() => {})
 			success = true
 		} catch (err) {
 			attempts++
@@ -171,6 +177,18 @@ export async function capturePayment(orderID: string): Promise<{ data?: PayPalCa
 
 export async function createOrder(sellerId: string, bib: BibSale): Promise<{ error?: string; id?: string }> {
 	try {
+		// Ensure the seller can actually receive payments (KYC done / account enabled)
+		const statusRes = await getMerchantIntegrationStatus(sellerId)
+		if ('error' in statusRes) {
+			return { error: 'Unable to verify seller PayPal status. Please try again later.' }
+		}
+		if (statusRes.status.payments_receivable !== true) {
+			return {
+				error:
+					"Seller's PayPal account isn't ready to receive payments yet. Please complete verification on PayPal and retry.",
+			}
+		}
+
 		const token = await getAccessToken()
 		const orderData = {
 			purchase_units: [
@@ -178,7 +196,7 @@ export async function createOrder(sellerId: string, bib: BibSale): Promise<{ err
 					payment_instruction: {
 						platform_fees: [
 							{
-								payee: { merchant_id: PAYPAL_MERCHANT_ID }, // Platform receives fee
+								payee: { merchant_id: PAYPAL_MERCHANT_ID() }, // Platform receives fee
 								amount: {
 									value: (bib.price * PLATFORM_FEE).toFixed(2), // 10% Platform commission
 									currency_code: 'EUR',
@@ -414,4 +432,58 @@ async function getAccessToken(): Promise<string> {
 	}
 	const data = (await response.json()) as PayPalAccessToken
 	return data.access_token
+}
+
+// --- Merchant Integration Status -------------------------------------------------
+
+import type { PayPalMerchantIntegrationStatus } from '@/models/paypal.model'
+
+/**
+ * Fetch merchant integration status from PayPal to verify KYC/payments readiness.
+ * Uses GET /v1/customer/partners/{partner_id}/merchant-integrations/{merchant_id}
+ */
+export async function getMerchantIntegrationStatus(
+	merchantId: string
+): Promise<
+	| { error: string; status?: undefined }
+	| { status: PayPalMerchantIntegrationStatus & { primary_email_confirmed: boolean; payments_receivable: boolean } }
+> {
+	try {
+		if (!merchantId) return { error: 'Missing merchantId' }
+		const token = await getAccessToken()
+		const partnerId = process.env.PAYPAL_PARTNER_ID ?? process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? ''
+		if (!partnerId) return { error: 'Missing PAYPAL_PARTNER_ID' }
+
+		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
+		const res = await fetch(
+			`${paypalApiUrl}/v1/customer/partners/${encodeURIComponent(partnerId)}/merchant-integrations/${encodeURIComponent(
+				merchantId
+			)}`,
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
+
+		if (!res.ok) {
+			let msg = 'Failed to fetch merchant integration status'
+			try {
+				const j = (await res.json()) as unknown
+				msg = JSON.stringify(j)
+			} catch {}
+			return { error: msg }
+		}
+
+		const data = (await res.json()) as PayPalMerchantIntegrationStatus
+		// Ensure booleans present with defaults
+		const payments_receivable = data.payments_receivable === true
+		const primary_email_confirmed = data.primary_email_confirmed === true
+		return { status: { ...data, primary_email_confirmed, payments_receivable } }
+	} catch (e) {
+		console.error('getMerchantIntegrationStatus error:', e)
+		return { error: 'Failed to fetch merchant status' }
+	}
 }

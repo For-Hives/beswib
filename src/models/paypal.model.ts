@@ -66,3 +66,16 @@ export interface PayPalWebhook {
 	id: string
 	url: string
 }
+
+// Merchant integration status (GET /v1/customer/partners/{partner_id}/merchant-integrations/{merchant_id})
+export interface PayPalMerchantProduct {
+	name?: string
+	vetting_status?: string
+}
+
+export interface PayPalMerchantIntegrationStatus {
+	merchant_id?: string
+	payments_receivable?: boolean
+	primary_email_confirmed?: boolean
+	products?: PayPalMerchantProduct[]
+}

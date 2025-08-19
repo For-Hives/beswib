@@ -6,6 +6,7 @@ import React from 'react'
 import { usePayPalOnboarding } from '@/hooks/usePayPalOnboarding'
 import { usePayPalDisconnect } from '@/hooks/usePayPalDisconnect'
 import { useUser } from '@/hooks/useUser'
+import { usePayPalMerchantStatus } from '@/hooks/usePayPalMerchantStatus'
 
 import {
 	AlertDialog,
@@ -153,6 +154,9 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	const disconnectMutation = usePayPalDisconnect()
 	const [showDisconnectConfirm, setShowDisconnectConfirm] = React.useState(false)
 
+	// Merchant KYC / payments readiness status (polls every 15s)
+	const merchantStatusQuery = usePayPalMerchantStatus(userId)
+
 	const handlePayPalConnect = () => {
 		onboardingMutation.mutate(userId)
 	}
@@ -185,6 +189,9 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	const isOnboardingSuccess = onboardingMutation.isSuccess
 	const isDisconnectPending = disconnectMutation.isPending
 
+	const paymentsReceivable = merchantStatusQuery.data?.payments_receivable === true
+	const emailConfirmed = merchantStatusQuery.data?.primary_email_confirmed === true
+
 	return (
 		<div className="space-y-6">
 			{/* Status Overview */}
@@ -195,6 +202,38 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 					<div>
 						<StatusBadge hasMerchantId={hasMerchantId} t={t} />
 					</div>
+					{hasMerchantId ? (
+						<div className="mt-2">
+							<Button
+								variant="outline"
+								size="sm"
+								onClick={() => merchantStatusQuery.refetch()}
+								disabled={merchantStatusQuery.isFetching}
+							>
+								{merchantStatusQuery.isFetching ? (
+									<>
+										<RefreshCw className="mr-2 h-3 w-3 animate-spin" /> Checking…
+									</>
+								) : (
+									<>
+										<RefreshCw className="mr-2 h-3 w-3" /> Refresh status
+									</>
+								)}
+							</Button>
+						</div>
+					) : null}
+					{hasMerchantId && (
+						<div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
+							<div className="rounded-md border p-3 text-sm">
+								<span className="font-medium">Payments receivable:</span>{' '}
+								{merchantStatusQuery.isLoading ? 'Checking…' : paymentsReceivable ? 'Yes' : 'No'}
+							</div>
+							<div className="rounded-md border p-3 text-sm">
+								<span className="font-medium">Primary email confirmed:</span>{' '}
+								{merchantStatusQuery.isLoading ? 'Checking…' : emailConfirmed ? 'Yes' : 'No'}
+							</div>
+						</div>
+					)}
 				</CardHeader>
 			</Card>
 
@@ -205,8 +244,50 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 					<CardDescription>{t.onboardingDescription}</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
+					{hasMerchantId && merchantStatusQuery.isSuccess && paymentsReceivable === false ? (
+						<Alert variant="destructive">
+							<XCircle className="h-4 w-4" />
+							<AlertDescription>
+								Your PayPal account is linked but not ready to receive payments yet.
+								Please complete the verification steps in PayPal, then click "Refresh status" above.
+								This can take a little while after onboarding.
+							</AlertDescription>
+						</Alert>
+					) : null}
 					{/* PayPal Merchant ID Display (if available) */}
 					{hasMerchantId && <MerchantIdPanel merchantId={user.paypalMerchantId as string} />}
+
+					{/* Detailed product vetting info */}
+					{hasMerchantId && Array.isArray(merchantStatusQuery.data?.products) &&
+					merchantStatusQuery.data!.products!.length > 0 ? (
+						<div className="rounded-md border p-3">
+							<div className="mb-2 text-sm font-medium">Products</div>
+							<ul className="space-y-2">
+								{merchantStatusQuery.data!.products!.map((p, idx) => {
+									const name = p?.name ?? 'Unknown product'
+									const s = (p?.vetting_status ?? '').toString()
+									const isGood = /approved|subscribed|complete|enabled/i.test(s)
+									const isPending = /pending|in_review/i.test(s)
+									return (
+										<li key={`${name}-${idx}`} className="flex items-center justify-between text-sm">
+											<span>{name}</span>
+											{isGood ? (
+												<Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
+													{s || 'OK'}
+												</Badge>
+											) : isPending ? (
+												<Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
+													{s || 'Pending'}
+												</Badge>
+											) : (
+												<Badge variant="destructive">{s || 'Needs attention'}</Badge>
+											)}
+										</li>
+									)
+								})}
+							</ul>
+						</div>
+					) : null}
 
 					{/* Connect/Disconnect Button or Loader */}
 					{isOnboardingPending ? (
