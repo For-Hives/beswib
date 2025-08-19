@@ -2,6 +2,13 @@ import * as React from 'react'
 
 import localFont from 'next/font/local'
 
+import { Bib } from '@/models/bib.model'
+import type { BibSale } from '@/models/marketplace.model'
+import type { Locale } from '@/lib/i18n/config'
+
+
+import CardMarket from '@/components/marketplace/CardMarket'
+
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 
 // Function to split the text into parts and apply a special color to words between **
@@ -36,13 +43,15 @@ type OGImageProps = {
 	host: string // Hostname for assets
 	protocol: string // Protocol (http/https) for assets
 	size: { width: number; height: number } // OG image dimensions
+	bib: Bib
+	bibsale: BibSale
+	locale: Locale
 }
 
 const BowlbyOneSC = localFont({ src: './BowlbyOneSC-Regular.ttf' })
 
 // Main component for generating an Open Graph image
-export default function OGImage({ title, size, secondary, protocol, host }: Readonly<OGImageProps>) {
-	
+export default function OGImage({ title, size, secondary, protocol, host, bib, bibsale, locale }: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
 	const MAX_WIDTH_Secondary = 440
@@ -193,7 +202,7 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 				<img src={mountain} width={440} height={305} alt="mountain" style={{ objectFit: 'cover', display: 'flex' }} />
 			</div>
 
-			{/* Beswib logo */}
+			{/* Beswib logo
 			<div
 				style={{
 					top: 528,
@@ -204,7 +213,11 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 				}}
 			>
 				<img src={beswibLogoUrl} width={72} height={72} alt="Beswib" />
-			</div>
+			</div> */}
+
+			{/* todo: utiliser le composant de carte de dossard */}
+			<CardMarket bibSale={bibsale} key={bibsale.id} locale={locale}/>
+
 		</div>
 	)
 }
