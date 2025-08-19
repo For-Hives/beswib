@@ -7,8 +7,6 @@ import { generateLocaleParams, type LocaleParams } from '@/lib/generation/static
 import OGImage from '@/components/OG/ogImageBib.component'
 import { transformBibsToBibSales } from '@/lib/transformers/bib'
 
-
-
 import { fetchBibById, fetchPrivateBibByToken } from '@/services/bib.services'
 
 import type { Bib, EventModel, User } from '@/lib/db/types'
@@ -22,11 +20,7 @@ export function generateStaticParams() {
 	return generateLocaleParams()
 }
 
-export default async function Image({
-	params,
-}: {
-	params: Promise<LocaleParams & { id?: string; tkn?: string }>
-}) {
+export default async function Image({ params }: { params: Promise<LocaleParams & { id?: string; tkn?: string }> }) {
 	const { id, tkn, locale } = await params
 
 	// 📌 Récupération du dossard
@@ -58,9 +52,8 @@ export default async function Image({
 	// console.info('📌 bib:', JSON.stringify(bib, null, 2))
 
 	// console.info('📌 bibsale:', JSON.stringify(bibsale, null, 2))
-	
-	// console.info(locale)
 
+	// console.info(locale)
 
 	// 📌 Construction du titre / sous-titre à afficher
 	const ogTitle = bib.expand.eventId.name
@@ -74,7 +67,18 @@ export default async function Image({
 	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
 
 	return new ImageResponse(
-		<OGImage title={ogTitle} secondary={ogSecondary} bib={bib} bibsale={bibsale} locale={locale} host={host} protocol={protocol} size={size} />,
+		(
+			<OGImage
+				title={ogTitle}
+				secondary={ogSecondary}
+				bib={bib}
+				bibsale={bibsale}
+				locale={locale}
+				host={host}
+				protocol={protocol}
+				size={size}
+			/>
+		),
 		size
 	)
 }
