@@ -289,7 +289,9 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 								<Button
 									variant="outline"
 									size="sm"
-									onClick={() => merchantStatusQuery.refetch()}
+									onClick={() => {
+										void merchantStatusQuery.refetch()
+									}}
 									disabled={merchantStatusQuery.isFetching}
 								>
 									{merchantStatusQuery.isFetching ? (
