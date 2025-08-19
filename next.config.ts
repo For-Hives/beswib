@@ -44,6 +44,7 @@ const nextConfig: NextConfig = {
 			'https://www.googletagmanager.com/gtag/js',
 			'https://*.beswib.com',
 			'https://clerk.beswib.com',
+			'https://*.paypal.com',
 		].join(' ')
 
 		const connectSrc = [
@@ -69,6 +70,7 @@ const nextConfig: NextConfig = {
 			'https://www.googletagmanager.com/gtag/js',
 			'https://*.beswib.com',
 			'https://clerk.beswib.com',
+			'https://*.paypal.com',
 		].join(' ')
 
 		const frameSrc = [
@@ -87,6 +89,7 @@ const nextConfig: NextConfig = {
 			'https://www.googletagmanager.com/gtag/js',
 			'https://*.beswib.com',
 			'https://clerk.beswib.com',
+			'https://*.paypal.com',
 		].join(' ')
 
 		const csp = [

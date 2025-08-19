@@ -92,15 +92,15 @@ export default function PaymentDialog({
 	function bgFromType(type: BibSale['event']['type']) {
 		switch (type) {
 			case 'cycle':
-				return 'bg-cyan-500/15 border-cyan-500/50'
+				return 'bg-cyan-500/15 border-cyan-500/50 text-dark dark:text-white'
 			case 'other':
-				return 'bg-gray-500/15 border-gray-500/50'
+				return 'bg-gray-500/15 border-gray-500/50 text-dark dark:text-white'
 			case 'road':
-				return 'bg-green-500/15 border-green-500/50'
+				return 'bg-green-500/15 border-green-500/50 text-dark dark:text-white'
 			case 'trail':
-				return 'bg-yellow-500/15 border-yellow-500/50'
+				return 'bg-yellow-500/15 border-yellow-500/50 text-dark dark:text-white'
 			case 'triathlon':
-				return 'bg-purple-500/15 border-purple-500/50'
+				return 'bg-purple-500/15 border-purple-500/50 text-dark dark:text-white'
 		}
 	}
 
@@ -249,10 +249,10 @@ export default function PaymentDialog({
 
 					{/* Payment Section - Right Side */}
 					<div className="space-y-6">
-						<div className="bg-card/80 rounded-lg border p-4 backdrop-blur-sm">
+						<div className="bg-card/100 rounded-lg border p-4">
 							<h3 className="text-foreground mb-4 text-sm font-medium">{paymentT.paymentMethod}</h3>
 
-							<div className="rounded-lg border p-4">
+							<div className="rounded-lg">
 								{loading && (
 									<div className="flex items-center justify-center py-8">
 										<Loader2 className="mr-2 h-6 w-6 animate-spin" />
@@ -260,20 +260,22 @@ export default function PaymentDialog({
 									</div>
 								)}
 								{!loading && (
-									<PayPalButtons
-										createOrder={onCreateOrder}
-										disabled={loading || !isProfileComplete}
-										onApprove={onApprove}
-										onCancel={onCancel}
-										onError={onError}
-										style={{
-											shape: 'rect' as const,
-											layout: 'vertical' as const,
-											label: 'paypal' as const,
-											height: 50,
-											color: 'blue' as const,
-										}}
-									/>
+									<div className="rounded-lg bg-white p-4" style={{ colorScheme: 'none' }}>
+										<PayPalButtons
+											createOrder={onCreateOrder}
+											disabled={loading || !isProfileComplete}
+											onApprove={onApprove}
+											onCancel={onCancel}
+											onError={onError}
+											style={{
+												shape: 'rect' as const,
+												layout: 'vertical' as const,
+												label: 'paypal' as const,
+												height: 50,
+												color: 'blue' as const,
+											}}
+										/>
+									</div>
 								)}
 							</div>
 						</div>
@@ -281,8 +283,8 @@ export default function PaymentDialog({
 						{/* Security Features */}
 						<div className="rounded-lg border border-green-500/40 bg-green-500/10 p-4 backdrop-blur-sm">
 							<div className="text-sm">
-								<p className="font-medium text-green-300">{paymentT.secureTransaction}</p>
-								<p className="mt-1 text-green-200">{paymentT.secureDescription}</p>
+								<p className="font-medium text-green-700 dark:text-green-300">{paymentT.secureTransaction}</p>
+								<p className="mt-1 text-green-600 dark:text-green-200">{paymentT.secureDescription}</p>
 							</div>
 						</div>
 
