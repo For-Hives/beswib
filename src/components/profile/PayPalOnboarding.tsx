@@ -213,7 +213,11 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 									>
 										<span>{t.paypalLinkInfo.accountLinked}</span>
 										{!merchantStatusQuery.isLoading ? (
-											hasMerchantId ? <CircleCheckBig className="h-4 w-4" /> : <XCircle className="h-4 w-4" />
+											hasMerchantId ? (
+												<CircleCheckBig className="h-4 w-4" />
+											) : (
+												<XCircle className="h-4 w-4" />
+											)
 										) : null}
 									</Badge>
 								</TooltipTrigger>
@@ -237,7 +241,11 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 									>
 										<span>{t.paypalLinkInfo.paypalKYC}</span>
 										{!merchantStatusQuery.isLoading ? (
-											paymentsReceivable ? <CircleCheckBig className="h-4 w-4" /> : <XCircle className="h-4 w-4" />
+											paymentsReceivable ? (
+												<CircleCheckBig className="h-4 w-4" />
+											) : (
+												<XCircle className="h-4 w-4" />
+											)
 										) : null}
 									</Badge>
 								</TooltipTrigger>
@@ -261,7 +269,11 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 									>
 										<span>{t.paypalLinkInfo.paypalEmail}</span>
 										{!merchantStatusQuery.isLoading ? (
-											emailConfirmed ? <CircleCheckBig className="h-4 w-4" /> : <XCircle className="h-4 w-4" />
+											emailConfirmed ? (
+												<CircleCheckBig className="h-4 w-4" />
+											) : (
+												<XCircle className="h-4 w-4" />
+											)
 										) : null}
 									</Badge>
 								</TooltipTrigger>
