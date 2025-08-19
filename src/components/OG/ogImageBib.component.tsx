@@ -6,7 +6,6 @@ import { Bib } from '@/models/bib.model'
 import type { BibSale } from '@/models/marketplace.model'
 import type { Locale } from '@/lib/i18n/config'
 
-
 import CardMarket from '@/components/marketplace/CardMarket'
 
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
@@ -51,7 +50,16 @@ type OGImageProps = {
 const BowlbyOneSC = localFont({ src: './BowlbyOneSC-Regular.ttf' })
 
 // Main component for generating an Open Graph image
-export default function OGImage({ title, size, secondary, protocol, host, bib, bibsale, locale }: Readonly<OGImageProps>) {
+export default function OGImage({
+	title,
+	size,
+	secondary,
+	protocol,
+	host,
+	bib,
+	bibsale,
+	locale,
+}: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
 	const MAX_WIDTH_Secondary = 440
@@ -216,8 +224,7 @@ export default function OGImage({ title, size, secondary, protocol, host, bib, b
 			</div> */}
 
 			{/* todo: utiliser le composant de carte de dossard */}
-			<CardMarket bibSale={bibsale} key={bibsale.id} locale={locale}/>
-
+			<CardMarket bibSale={bibsale} key={bibsale.id} locale={locale} />
 		</div>
 	)
 }

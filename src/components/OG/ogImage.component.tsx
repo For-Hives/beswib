@@ -42,7 +42,6 @@ const BowlbyOneSC = localFont({ src: './BowlbyOneSC-Regular.ttf' })
 
 // Main component for generating an Open Graph image
 export default function OGImage({ title, size, secondary, protocol, host }: Readonly<OGImageProps>) {
-	
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
 	const MAX_WIDTH_Secondary = 440
