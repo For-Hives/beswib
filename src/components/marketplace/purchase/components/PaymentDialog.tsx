@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckCircle, AlertCircle, XCircle, Loader2 } from 'lucide-react'
+import { CheckCircle, AlertCircle, XCircle } from 'lucide-react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
 import React from 'react'
 
@@ -10,12 +10,20 @@ import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog'
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { formatDateWithLocale } from '@/lib/utils/date'
 import mainLocales from '@/app/[locale]/locales.json'
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 interface PaymentDialogProps {
@@ -112,17 +120,17 @@ export default function PaymentDialog({
 				<AlertDialogContent className="sm:max-w-md">
 					<AlertDialogHeader>
 						<div className="mb-4 flex items-center justify-center">
-							<div className="rounded-full bg-green-100 dark:bg-green-900/20 p-3">
+							<div className="rounded-full bg-green-100 p-3 dark:bg-green-900/20">
 								<CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
 							</div>
 						</div>
-						<AlertDialogTitle className="text-center text-green-600 dark:text-green-400">{paymentT.paymentSuccess}</AlertDialogTitle>
-						<AlertDialogDescription className="text-center">
-							{paymentT.paymentSuccessMessage}
-						</AlertDialogDescription>
+						<AlertDialogTitle className="text-center text-green-600 dark:text-green-400">
+							{paymentT.paymentSuccess}
+						</AlertDialogTitle>
+						<AlertDialogDescription className="text-center">{paymentT.paymentSuccessMessage}</AlertDialogDescription>
 					</AlertDialogHeader>
 					<div className="my-4">
-						<div className="rounded-lg border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/10 p-4 text-center">
+						<div className="rounded-lg border border-green-200 bg-green-50 p-4 text-center dark:border-green-800 dark:bg-green-900/10">
 							<p className="text-sm font-medium text-green-700 dark:text-green-300">{successMessage}</p>
 						</div>
 					</div>
@@ -144,11 +152,11 @@ export default function PaymentDialog({
 				<AlertDialogContent className="sm:max-w-md">
 					<AlertDialogHeader>
 						<div className="mb-4 flex items-center justify-center">
-							<div className={`rounded-full p-3 ${
-								isCancelled 
-									? 'bg-orange-100 dark:bg-orange-900/20' 
-									: 'bg-red-100 dark:bg-red-900/20'
-							}`}>
+							<div
+								className={`rounded-full p-3 ${
+									isCancelled ? 'bg-orange-100 dark:bg-orange-900/20' : 'bg-red-100 dark:bg-red-900/20'
+								}`}
+							>
 								{isCancelled ? (
 									<XCircle className="h-8 w-8 text-orange-600 dark:text-orange-400" />
 								) : (
@@ -156,11 +164,11 @@ export default function PaymentDialog({
 								)}
 							</div>
 						</div>
-						<AlertDialogTitle className={`text-center ${
-							isCancelled 
-								? 'text-orange-600 dark:text-orange-400' 
-								: 'text-red-600 dark:text-red-400'
-						}`}>
+						<AlertDialogTitle
+							className={`text-center ${
+								isCancelled ? 'text-orange-600 dark:text-orange-400' : 'text-red-600 dark:text-red-400'
+							}`}
+						>
 							{isCancelled ? paymentT.paymentCancelled : paymentT.paymentError}
 						</AlertDialogTitle>
 						<AlertDialogDescription className="text-center">
@@ -168,12 +176,8 @@ export default function PaymentDialog({
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter className="gap-2 sm:justify-center">
-						<AlertDialogCancel onClick={onClose}>
-							{paymentT.contactSupport}
-						</AlertDialogCancel>
-						<AlertDialogAction onClick={onClose}>
-							{paymentT.tryAgain}
-						</AlertDialogAction>
+						<AlertDialogCancel onClick={onClose}>{paymentT.contactSupport}</AlertDialogCancel>
+						<AlertDialogAction onClick={onClose}>{paymentT.tryAgain}</AlertDialogAction>
 					</AlertDialogFooter>
 				</AlertDialogContent>
 			</AlertDialog>
