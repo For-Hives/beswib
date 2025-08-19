@@ -76,30 +76,17 @@ const isPublicAuthRoute = createRouteMatcher([
 export default clerkMiddleware(async (auth, request: NextRequest) => {
 	const { pathname } = request.nextUrl
 
-	console.info('🚀 Middleware triggered for:', pathname)
-	console.info('📍 Full URL:', request.url)
-	console.info('🔍 Method:', request.method)
-	console.info('🎯 User-Agent:', request.headers.get('user-agent'))
-	console.info('📝 Available locales:', i18n.locales)
-	console.info('🏠 Default locale:', i18n.defaultLocale)
-
-	// Let API routes and webhooks pass through without any processing
-	// This ensures webhooks are never redirected
-	if (pathname.startsWith('/api/') || pathname === '/api') {
-		console.info('✅ API route detected, passing through:', pathname)
+	// Let API routes pass through without locale rewrites, but still run Clerk middleware for auth context
+	if (pathname.startsWith('/api')) {
 		return NextResponse.next()
 	}
 
-	console.info('🌐 Processing non-API route:', pathname)
-
 	// Check if there is any supported locale in the pathname 🗺️
 	const pathnameHasLocale = i18n.locales.some(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`)
-	console.info('🔤 Pathname has locale:', pathnameHasLocale, 'for path:', pathname)
 
 	if (!pathnameHasLocale) {
 		// Redirect if there is no locale - use smart locale detection 🧠
 		const locale = getLocaleFromRequest(request)
-		console.info('🔄 Redirecting to add locale:', locale, 'to path:', pathname)
 		request.nextUrl.pathname = `/${locale}${pathname}`
 		return NextResponse.redirect(request.nextUrl)
 	}
@@ -107,32 +94,26 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 	// Extract locale from pathname for proper redirects
 	const currentLocale =
 		i18n.locales.find(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) ?? i18n.defaultLocale
-	console.info('🌍 Current locale:', currentLocale)
 
 	// Protect routes that require authentication
 	if (isProtectedRoute(request)) {
-		console.info('🔒 Protected route, checking auth for:', pathname)
 		await auth.protect()
 	}
 
 	// Redirect authenticated users away from auth pages
 	const { userId } = await auth()
 	if (isPublicAuthRoute(request) && typeof userId === 'string' && userId.length > 0) {
-		console.info('👤 Authenticated user on auth page, redirecting to dashboard')
 		return NextResponse.redirect(new URL(`/${currentLocale}/dashboard`, request.url))
 	}
 
-	console.info('✅ Middleware complete, passing through:', pathname)
 	return NextResponse.next()
 })
 
 export const config = {
 	matcher: [
-		// Skip all internal Next.js paths and static files
-		'/((?!_next/static|_next/image|favicon.ico|.*\\..*).*)/',
-		// Include API routes explicitly for Clerk auth context
-		'/api/(.*)',
-		// Include tRPC routes if needed
-		'/trpc/(.*)',
+		// Include API and tRPC routes explicitly so Clerk auth() works there
+		'/(api|trpc)(.*)',
+		// Match all other routes except Next internals and files with extensions
+		'/((?!.+\\.[\\w]+$|_next).*)',
 	],
 }
