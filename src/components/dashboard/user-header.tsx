@@ -1,6 +1,6 @@
 'use client'
 
-import { AlertTriangle, ShieldCheck, Settings, User as UserIcon, LayoutDashboard } from 'lucide-react'
+import { Settings, User as UserIcon, LayoutDashboard } from 'lucide-react'
 
 import { useClerk } from '@clerk/nextjs'
 import Link from 'next/link'
@@ -32,6 +32,8 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 	const userName = clerkUser.firstName ?? clerkUser.emailAddresses[0]?.emailAddress ?? 'User'
 	const { openUserProfile } = useClerk()
 
+	console.info(user)
+
 	const handleOpenAccount = () => {
 		// Open Clerk's user profile modal as a clear way to manage account & sign out
 		try {
@@ -40,10 +42,6 @@ export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHea
 			// no-op: gracefully ignore if Clerk hasn't initialized yet
 		}
 	}
-
-	const hasAtLeastOneContact =
-		(user?.phoneNumber != null && String(user.phoneNumber).trim() !== '') ||
-		(user?.contactEmail != null && String(user.contactEmail).trim() !== '')
 
 	return (
 		<div className="py-4 lg:py-8">
