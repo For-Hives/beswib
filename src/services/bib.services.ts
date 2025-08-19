@@ -647,16 +647,8 @@ export async function updateBibBySeller(
 		}
 
 		// Sanitize payload: disallow registrationNumber, eventId, sellerUserId modifications by seller
-		const payload: Partial<Bib> = { ...dataToUpdate }
-		if ('registrationNumber' in payload) {
-			delete (payload as Partial<Bib> & { registrationNumber?: string }).registrationNumber
-		}
-		if ('eventId' in payload) {
-			delete (payload as Partial<Bib> & { eventId?: string }).eventId
-		}
-		if ('sellerUserId' in payload) {
-			delete (payload as Partial<Bib> & { sellerUserId?: string }).sellerUserId
-		}
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { sellerUserId, registrationNumber, eventId, ...payload } = dataToUpdate
 
 		const updatedRecord = await pb.collection('bibs').update<Bib>(bibId, payload)
 		return updatedRecord
