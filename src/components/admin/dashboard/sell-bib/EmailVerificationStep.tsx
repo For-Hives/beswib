@@ -182,11 +182,11 @@ export default function EmailVerificationStep({
 															placeholder={t.form.emailVerification.codeInput}
 															value={verificationCodes[emailOption.id] || ''}
 															onChange={e => updateVerificationCode(emailOption.id, e.target.value)}
-															className={`w-32 ${codeValidationErrors[emailOption.id] ? 'border-red-500' : ''}`}
+															className={`h-12 w-32 ${codeValidationErrors[emailOption.id] ? 'border-red-500' : ''}`}
 															maxLength={6}
 														/>
 														<Button
-															size="sm"
+															className="h-12"
 															onClick={() => handleVerifyEmail(emailOption.id)}
 															disabled={
 																!verificationCodes[emailOption.id] || verificationCodes[emailOption.id].length !== 6
@@ -194,7 +194,7 @@ export default function EmailVerificationStep({
 														>
 															{t.form.emailVerification.verify}
 														</Button>
-														<Button size="sm" variant="outline" onClick={() => onResendCode(emailOption.id)}>
+														<Button className="h-12" variant="outline" onClick={() => onResendCode(emailOption.id)}>
 															{t.form.emailVerification.resend}
 														</Button>
 													</div>
