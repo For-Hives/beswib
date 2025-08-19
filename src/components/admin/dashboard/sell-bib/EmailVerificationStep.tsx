@@ -5,12 +5,13 @@ import type { VerifiedEmail } from '@/models/verifiedEmail.model'
 import type { User } from '@/models/user.model'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { validateEmailValibot, validateVerificationCodeValibot } from '@/lib/validation/valibot'
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Locale } from '@/lib/i18n/config'
@@ -42,27 +43,70 @@ export default function EmailVerificationStep({
 	const [newEmail, setNewEmail] = useState('')
 	const [verificationCodes, setVerificationCodes] = useState<Record<string, string>>({})
 	const [showAddEmail, setShowAddEmail] = useState(false)
+	const [emailValidationError, setEmailValidationError] = useState<string | null>(null)
+	const [codeValidationErrors, setCodeValidationErrors] = useState<Record<string, string>>({})
 
 	const handleAddEmail = () => {
-		if (newEmail.trim() !== '' && newEmail.includes('@')) {
-			onAddEmail(newEmail.trim())
-			setNewEmail('')
-			setShowAddEmail(false)
+		const emailToAdd = newEmail.trim()
+		const validationError = validateEmailValibot(emailToAdd, locale)
+
+		if (validationError) {
+			setEmailValidationError(validationError.message)
+			return
 		}
+
+		setEmailValidationError(null)
+		onAddEmail(emailToAdd)
+		setNewEmail('')
+		setShowAddEmail(false)
 	}
 
 	const handleVerifyEmail = (emailId: string) => {
 		const code = verificationCodes[emailId]
-		if (code !== undefined && code !== null && code.length === 6) {
-			onVerifyEmail(emailId, code)
+		if (!code) return
+
+		const validationError = validateVerificationCodeValibot(code, locale)
+
+		if (validationError) {
+			setCodeValidationErrors(prev => ({
+				...prev,
+				[emailId]: validationError.message,
+			}))
+			return
 		}
+
+		setCodeValidationErrors(prev => {
+			const newErrors = { ...prev }
+			delete newErrors[emailId]
+			return newErrors
+		})
+
+		onVerifyEmail(emailId, code)
 	}
 
 	const updateVerificationCode = (emailId: string, code: string) => {
+		const cleanCode = code.replace(/\D/g, '').slice(0, 6) // Only allow 6 digits
 		setVerificationCodes(prev => ({
 			...prev,
-			[emailId]: code.replace(/\D/g, '').slice(0, 6), // Only allow 6 digits
+			[emailId]: cleanCode,
 		}))
+
+		// Clear validation error when user starts typing
+		if (codeValidationErrors[emailId]) {
+			setCodeValidationErrors(prev => {
+				const newErrors = { ...prev }
+				delete newErrors[emailId]
+				return newErrors
+			})
+		}
+	}
+
+	const handleNewEmailChange = (email: string) => {
+		setNewEmail(email)
+		// Clear validation error when user starts typing
+		if (emailValidationError !== null) {
+			setEmailValidationError(null)
+		}
 	}
 
 	// Add user's main email as default option if not already in verified emails
@@ -123,29 +167,32 @@ export default function EmailVerificationStep({
 												{emailOption.isVerified && <CheckIcon className="h-4 w-4 text-green-600" />}
 											</div>
 											{!emailOption.isVerified && !emailOption.isDefault && (
-												<div className="flex items-center gap-2">
-													<Input
-														type="text"
-														placeholder={t.form.emailVerification.codeInput}
-														value={verificationCodes[emailOption.id] || ''}
-														onChange={e => updateVerificationCode(emailOption.id, e.target.value)}
-														className="w-32"
-														maxLength={6}
-													/>
-													<Button
-														size="sm"
-														onClick={() => handleVerifyEmail(emailOption.id)}
-														disabled={
-															verificationCodes[emailOption.id] === undefined ||
-															verificationCodes[emailOption.id] === null ||
-															verificationCodes[emailOption.id].length !== 6
-														}
-													>
-														{t.form.emailVerification.verify}
-													</Button>
-													<Button size="sm" variant="outline" onClick={() => onResendCode(emailOption.id)}>
-														{t.form.emailVerification.resend}
-													</Button>
+												<div className="flex flex-col gap-2">
+													<div className="flex items-center gap-2">
+														<Input
+															type="text"
+															placeholder={t.form.emailVerification.codeInput}
+															value={verificationCodes[emailOption.id] || ''}
+															onChange={e => updateVerificationCode(emailOption.id, e.target.value)}
+															className={`w-32 ${codeValidationErrors[emailOption.id] ? 'border-red-500' : ''}`}
+															maxLength={6}
+														/>
+														<Button
+															size="sm"
+															onClick={() => handleVerifyEmail(emailOption.id)}
+															disabled={
+																!verificationCodes[emailOption.id] || verificationCodes[emailOption.id].length !== 6
+															}
+														>
+															{t.form.emailVerification.verify}
+														</Button>
+														<Button size="sm" variant="outline" onClick={() => onResendCode(emailOption.id)}>
+															{t.form.emailVerification.resend}
+														</Button>
+													</div>
+													{codeValidationErrors[emailOption.id] && (
+														<p className="text-sm text-red-500">{codeValidationErrors[emailOption.id]}</p>
+													)}
 												</div>
 											)}
 										</div>
@@ -170,15 +217,18 @@ export default function EmailVerificationStep({
 					) : (
 						<div className="space-y-4">
 							<div className="flex gap-2">
-								<Input
-									type="email"
-									placeholder={t.form.emailVerification.enterEmail}
-									value={newEmail}
-									onChange={e => setNewEmail(e.target.value)}
-									onKeyPress={e => e.key === 'Enter' && handleAddEmail()}
-									className="flex-1"
-								/>
-								<Button onClick={handleAddEmail} disabled={newEmail.trim() === '' || !newEmail.includes('@')}>
+								<div className="">
+									<Input
+										type="email"
+										placeholder={t.form.emailVerification.enterEmail}
+										value={newEmail}
+										onChange={e => handleNewEmailChange(e.target.value)}
+										onKeyPress={e => e.key === 'Enter' && handleAddEmail()}
+										className={`h-12 md:w-64 ${emailValidationError !== null ? 'border-red-500' : ''}`}
+									/>
+									{emailValidationError !== null && <p className="mt-1 text-sm text-red-500">{emailValidationError}</p>}
+								</div>
+								<Button onClick={handleAddEmail} disabled={newEmail.trim() === ''}>
 									{t.form.emailVerification.add}
 								</Button>
 								<Button
@@ -186,6 +236,7 @@ export default function EmailVerificationStep({
 									onClick={() => {
 										setShowAddEmail(false)
 										setNewEmail('')
+										setEmailValidationError(null)
 									}}
 								>
 									{t.form.emailVerification.cancel}
