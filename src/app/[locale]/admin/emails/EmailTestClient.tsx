@@ -85,7 +85,7 @@ export default function EmailTestClient() {
 				body: JSON.stringify(payload),
 			})
 
-			const result = await response.json()
+			const result = (await response.json()) as { error?: string }
 
 			if (response.ok) {
 				toast.success(`Email ${template} envoyé avec succès à ${email}`)
@@ -205,7 +205,7 @@ export default function EmailTestClient() {
 
 						<div className="flex gap-2">
 							<Button
-								onClick={() => sendTestEmail('verification')}
+								onClick={() => void sendTestEmail('verification')}
 								disabled={isLoading === 'verification' || !email}
 								className="flex-1"
 							>
@@ -237,7 +237,7 @@ export default function EmailTestClient() {
 
 						<div className="flex gap-2">
 							<Button
-								onClick={() => sendTestEmail('welcome')}
+								onClick={() => void sendTestEmail('welcome')}
 								disabled={isLoading === 'welcome' || !email}
 								className="flex-1"
 							>
@@ -310,7 +310,7 @@ export default function EmailTestClient() {
 
 						<div className="flex gap-2">
 							<Button
-								onClick={() => sendTestEmail('sale-confirmation')}
+								onClick={() => void sendTestEmail('sale-confirmation')}
 								disabled={isLoading === 'sale-confirmation' || !email}
 								className="flex-1"
 							>
@@ -382,7 +382,7 @@ export default function EmailTestClient() {
 
 						<div className="flex gap-2">
 							<Button
-								onClick={() => sendTestEmail('purchase-confirmation')}
+								onClick={() => void sendTestEmail('purchase-confirmation')}
 								disabled={isLoading === 'purchase-confirmation' || !email}
 								className="flex-1"
 							>
@@ -444,7 +444,7 @@ export default function EmailTestClient() {
 
 						<div className="flex gap-2">
 							<Button
-								onClick={() => sendTestEmail('sale-alert')}
+								onClick={() => void sendTestEmail('sale-alert')}
 								disabled={isLoading === 'sale-alert' || !email}
 								className="flex-1"
 							>

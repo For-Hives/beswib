@@ -21,9 +21,9 @@ export interface PhoneInputProps {
 }
 
 export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
-	({ value, placeholder, onChange, onBlur, error, disabled, defaultCountry = 'US', className }, ref) => {
+	({ value, placeholder, onChange, onBlur, error, disabled, defaultCountry = 'US', className }) => {
 		const handleChange = (val?: E164Number) => {
-			onChange?.(val || '')
+			onChange?.(val ?? '')
 		}
 
 		return (
@@ -35,35 +35,42 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
 					defaultCountry={defaultCountry}
 					placeholder={placeholder}
 					disabled={disabled}
-					inputComponent={forwardRef<HTMLInputElement, any>(({ className: inputClassName, ...props }, inputRef) => (
-						<input
-							{...props}
-							ref={inputRef}
-							className={cn(
-								'border-input bg-background ring-offset-background file:text-foreground placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-								error && 'border-red-500 focus-visible:ring-red-500',
-								inputClassName
-							)}
-						/>
-					))}
+					inputComponent={forwardRef<HTMLInputElement, Record<string, unknown>>(
+						({ className: inputClassName, ...props }, inputRef) => (
+							<input
+								{...props}
+								ref={inputRef}
+								className={cn(
+									'border-input bg-background ring-offset-background file:text-foreground placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+									error === true && 'border-red-500 focus-visible:ring-red-500',
+									inputClassName as string
+								)}
+							/>
+						)
+					)}
 					countrySelectComponent={({
 						value: countryValue,
 						options,
 						onChange: onCountryChange,
 						...selectProps
-					}: any) => (
+					}: {
+						value: string
+						options: Array<{ value: string; label: string }>
+						onChange: (value: string) => void
+						[key: string]: unknown
+					}) => (
 						<select
 							{...selectProps}
 							value={countryValue}
-							onChange={onCountryChange}
+							onChange={e => onCountryChange(e.target.value)}
 							className={cn(
 								'absolute top-1/2 left-1 z-10 -translate-y-1/2',
 								'h-8 w-8 cursor-pointer appearance-none border-0 bg-transparent text-transparent',
 								'focus-visible:ring-ring focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1',
-								disabled && 'cursor-not-allowed opacity-50'
+								disabled === true && 'cursor-not-allowed opacity-50'
 							)}
 						>
-							{options.map(({ value: optionValue, label }: any) => (
+							{options.map(({ value: optionValue, label }: { value: string; label: string }) => (
 								<option key={optionValue} value={optionValue}>
 									{label}
 								</option>
@@ -82,7 +89,7 @@ PhoneInput.displayName = 'PhoneInput'
 export const validatePhoneNumber = (phone: string, country?: string): boolean => {
 	if (!phone) return false
 	try {
-		return isValidPhoneNumber(phone, country as any)
+		return isValidPhoneNumber(phone, country as CountryCode | undefined)
 	} catch {
 		return false
 	}
@@ -91,7 +98,7 @@ export const validatePhoneNumber = (phone: string, country?: string): boolean =>
 export const formatPhoneNumber = (phone: string, country?: string): string => {
 	if (!phone) return ''
 	try {
-		const phoneNumber = parsePhoneNumber(phone, country as any)
+		const phoneNumber = parsePhoneNumber(phone, country as CountryCode | undefined)
 		return phoneNumber?.formatInternational() || phone
 	} catch {
 		return phone

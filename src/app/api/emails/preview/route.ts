@@ -11,14 +11,14 @@ import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 export async function GET(request: NextRequest) {
 	const { searchParams } = new URL(request.url)
 	const template = searchParams.get('template')
-	const code = searchParams.get('code') || 'ABC-123'
-	const firstName = searchParams.get('firstName') || 'Marie'
-	const sellerName = searchParams.get('sellerName') || 'Marie Dupont'
-	const buyerName = searchParams.get('buyerName') || 'Jean Martin'
-	const eventName = searchParams.get('eventName') || 'Marathon de Paris 2024'
+	const code = searchParams.get('code') ?? 'ABC-123'
+	const firstName = searchParams.get('firstName') ?? 'Marie'
+	const sellerName = searchParams.get('sellerName') ?? 'Marie Dupont'
+	const buyerName = searchParams.get('buyerName') ?? 'Jean Martin'
+	const eventName = searchParams.get('eventName') ?? 'Marathon de Paris 2024'
 	const bibPrice = Number(searchParams.get('bibPrice')) || 150
-	const orderId = searchParams.get('orderId') || 'BW123456789'
-	const locale = searchParams.get('locale') || 'fr'
+	const orderId = searchParams.get('orderId') ?? 'BW123456789'
+	const locale = searchParams.get('locale') ?? 'fr'
 
 	try {
 		let emailComponent: React.ReactElement

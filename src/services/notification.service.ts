@@ -114,7 +114,8 @@ export async function sendNewBibNotification(
 
 	// Calculate time remaining until event
 	const calculateTimeRemaining = (eventDate?: Date | string): string => {
-		if (!eventDate) return '7 jours'
+		if (eventDate === undefined || eventDate === null || (typeof eventDate === 'string' && eventDate.trim() === ''))
+			return '7 jours'
 		try {
 			const event = new Date(eventDate)
 			const now = new Date()
@@ -135,7 +136,7 @@ export async function sendNewBibNotification(
 	}
 
 	const formatEventDate = (date?: Date | string) => {
-		if (!date) return ''
+		if (date === undefined || date === null || (typeof date === 'string' && date.trim() === '')) return ''
 		try {
 			const d = new Date(date)
 			return d.toLocaleDateString('fr-FR', {

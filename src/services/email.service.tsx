@@ -30,7 +30,16 @@ async function sendEmail({ to, text, subject, react, html, from }: SendEmailPara
 	try {
 		const fromEmail = from ?? process.env.NOTIFY_EMAIL_FROM ?? 'noreply@beswib.com'
 
-		let emailData: any = {
+		interface EmailData {
+			to: string | string[]
+			subject: string
+			from: string
+			react?: React.ReactElement
+			html?: string
+			text?: string
+		}
+
+		let emailData: EmailData = {
 			to,
 			subject,
 			from: fromEmail,
@@ -38,21 +47,21 @@ async function sendEmail({ to, text, subject, react, html, from }: SendEmailPara
 
 		if (react) {
 			emailData.react = react
-		} else if (html) {
+		} else if (html !== undefined && html !== null && typeof html === 'string' && html.trim() !== '') {
 			emailData.html = html
-			emailData.text = text || stripHtml(html)
+			emailData.text = text ?? stripHtml(html)
 		} else {
 			throw new Error('Either react component or html content must be provided')
 		}
 
-		const { error, data } = await resend.emails.send(emailData)
+		const { error, data } = await resend.emails.send(emailData as Parameters<typeof resend.emails.send>[0])
 
 		if (error) {
 			console.error('Email sending error:', error)
 			return false
 		}
 
-		console.log('Email sent successfully:', data?.id)
+		console.info('Email sent successfully:', data?.id)
 		return true
 	} catch (error) {
 		console.error('Email service error:', error)
@@ -84,8 +93,8 @@ export async function sendVerificationEmail(
 export async function sendWelcomeEmail(email: string, firstName?: string, locale: string = 'fr'): Promise<boolean> {
 	const subject =
 		locale === 'fr'
-			? `Bienvenue sur Beswib${firstName ? `, ${firstName}` : ''} ! 🏃‍♂️`
-			: `Welcome to Beswib${firstName ? `, ${firstName}` : ''} ! 🏃‍♂️`
+			? `Bienvenue sur Beswib${firstName !== undefined && firstName !== null && typeof firstName === 'string' && firstName.trim() !== '' ? `, ${firstName}` : ''} ! 🏃‍♂️`
+			: `Welcome to Beswib${firstName !== undefined && firstName !== null && typeof firstName === 'string' && firstName.trim() !== '' ? `, ${firstName}` : ''} ! 🏃‍♂️`
 
 	return sendEmail({
 		to: email,
@@ -265,7 +274,11 @@ interface SaleAlertParams {
 export async function sendSaleAlertEmail(params: SaleAlertParams): Promise<boolean> {
 	const adminEmails = process.env.NOTIFY_SALES_EMAIL_TO ?? process.env.NOTIFY_CONTACT_EMAIL_TO
 
-	if (!adminEmails) {
+	if (
+		adminEmails === undefined ||
+		adminEmails === null ||
+		(typeof adminEmails === 'string' && adminEmails.trim() === '')
+	) {
 		console.warn('No admin emails configured for sale alerts')
 		return false
 	}
@@ -323,7 +336,7 @@ export async function sendWaitlistAlertEmail(
 	}
 
 	const getLocalizedSubject = (locale: string) => {
-		const eventName = params.eventName || 'votre événement'
+		const eventName = params.eventName ?? 'votre événement'
 		switch (locale) {
 			case 'en':
 				return `🎯 Bib available for ${eventName}!`
@@ -348,7 +361,7 @@ export async function sendWaitlistAlertEmail(
 
 	return sendBatchEmails(
 		emails,
-		getLocalizedSubject(params.locale || 'fr'),
+		getLocalizedSubject(params.locale ?? 'fr'),
 		<BeswibWaitlistAlert
 			eventName={params.eventName}
 			eventId={params.eventId}
@@ -422,7 +435,11 @@ export async function sendAdminNotification(
 ): Promise<boolean> {
 	const adminEmails = options?.to ?? process.env.NOTIFY_CONTACT_EMAIL_TO ?? process.env.NOTIFY_SALES_EMAIL_TO
 
-	if (!adminEmails) {
+	if (
+		adminEmails === undefined ||
+		adminEmails === null ||
+		(typeof adminEmails === 'string' && adminEmails.trim() === '')
+	) {
 		console.warn('No admin email configured for notifications')
 		return false
 	}

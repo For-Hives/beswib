@@ -50,11 +50,15 @@ export const BeswibWaitlistAlert = ({
 
 	const getLocalizedText = (key: string): string => {
 		const keys = key.split('.')
-		let value: any = t.emails.waitlistAlert
+		let value: Record<string, unknown> | string = t.emails.waitlistAlert
 		for (const k of keys) {
-			value = value?.[k]
+			if (typeof value === 'object' && value !== null && k in value) {
+				value = value[k] as Record<string, unknown> | string
+			} else {
+				return key
+			}
 		}
-		return (value as string) ?? key
+		return typeof value === 'string' ? value : key
 	}
 
 	return (
