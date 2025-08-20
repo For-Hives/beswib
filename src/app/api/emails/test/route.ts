@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { sendVerificationEmail, sendWelcomeEmail, sendSaleConfirmationEmail, sendPurchaseConfirmationEmail, sendSaleAlertEmail, sendWaitlistAlertEmail, sendBibApprovalEmail } from '@/services/email.service'
+import { sendVerificationEmail, sendWelcomeEmail, sendSaleConfirmationEmail, sendPurchaseConfirmationEmail, sendSaleAlertEmail, sendWaitlistAlertEmail, sendBibApprovalEmail, sendPurchaseApprovalEmail } from '@/services/email.service'
 
 export async function POST(request: NextRequest) {
 	try {
@@ -114,8 +114,25 @@ export async function POST(request: NextRequest) {
 					locale: params.locale || 'fr'
 				})
 				break
+			case 'purchase-approval':
+				const purchaseApprovalBibPrice = Number(params.bibPrice) || 150
+				
+				success = await sendPurchaseApprovalEmail({
+					buyerEmail: email,
+					buyerName: params.buyerName || 'Jean Martin',
+					eventName: params.eventName || 'Marathon de Paris 2024',
+					eventDate: params.eventDate || '14 avril 2024',
+					eventLocation: params.eventLocation || 'Paris, France',
+					bibPrice: purchaseApprovalBibPrice,
+					eventDistance: params.eventDistance || '42.2 km',
+					bibCategory: params.bibCategory || 'Marathon',
+					organizerName: params.organizerName || 'ASO Events',
+					orderId: params.orderId || 'BW123456789',
+					locale: params.locale || 'fr'
+				})
+				break
 			default:
-				return NextResponse.json({ error: 'Template not found. Available: verification, welcome, sale-confirmation, purchase-confirmation, sale-alert, waitlist-alert, bib-approval' }, { status: 400 })
+				return NextResponse.json({ error: 'Template not found. Available: verification, welcome, sale-confirmation, purchase-confirmation, sale-alert, waitlist-alert, bib-approval, purchase-approval' }, { status: 400 })
 		}
 
 		if (success) {

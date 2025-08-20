@@ -10,6 +10,7 @@ import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfir
 import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 import BeswibWaitlistAlert from '@/components/emails/BeswibWaitlistAlert'
 import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
+import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -476,6 +477,68 @@ export async function sendBibApprovalEmail({
 			eventDistance={eventDistance}
 			bibCategory={bibCategory}
 			organizerName={organizerName}
+			locale={locale}
+		/>,
+	})
+}
+
+interface PurchaseApprovalParams {
+	buyerEmail: string
+	buyerName?: string
+	eventName?: string
+	eventDate?: string
+	eventLocation?: string
+	bibPrice?: number
+	eventDistance?: string
+	bibCategory?: string
+	organizerName?: string
+	orderId?: string
+	locale?: string
+}
+
+/**
+ * Sends a purchase approval notification email to the buyer when their purchase is validated by the organizer
+ */
+export async function sendPurchaseApprovalEmail({
+	buyerEmail,
+	buyerName,
+	eventName,
+	eventDate,
+	eventLocation,
+	bibPrice,
+	eventDistance,
+	bibCategory,
+	organizerName,
+	orderId,
+	locale = 'fr'
+}: PurchaseApprovalParams): Promise<boolean> {
+	const getLocalizedSubject = (locale: string) => {
+		switch (locale) {
+			case 'en': return 'All set! Your purchase has been validated 🎉'
+			case 'es': return '¡Todo listo! Tu compra ha sido validada 🎉'
+			case 'it': return 'Tutto a posto! Il tuo acquisto è stato validato 🎉'
+			case 'de': return 'Alles bereit! Ihr Kauf wurde validiert 🎉'
+			case 'pt': return 'Tudo pronto! A sua compra foi validada 🎉'
+			case 'nl': return 'Alles klaar! Uw aankoop is gevalideerd 🎉'
+			case 'ko': return '모든 준비 완료! 구매가 확인되었습니다 🎉'
+			case 'ro': return 'Totul este gata! Achiziția ta a fost validată 🎉'
+			default: return 'Tout est en ordre ! Votre achat a été validé 🎉'
+		}
+	}
+
+	return sendEmail({
+		to: buyerEmail,
+		subject: getLocalizedSubject(locale),
+		react: <BeswibPurchaseApproval 
+			buyerName={buyerName}
+			eventName={eventName}
+			eventDate={eventDate}
+			eventLocation={eventLocation}
+			bibPrice={bibPrice}
+			eventDistance={eventDistance}
+			bibCategory={bibCategory}
+			organizerName={organizerName}
+			orderId={orderId}
 			locale={locale}
 		/>,
 	})
