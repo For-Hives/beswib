@@ -11,7 +11,7 @@ export interface Organizer {
 	updated: Date
 }
 
-// For creation forms that include file upload 📤
+// For creation forms that include file upload 📤 - server-safe
 export interface OrganizerWithLogoFile extends Omit<Organizer, 'created' | 'id' | 'updated'> {
-	logoFile?: File
+	logoFile?: unknown
 }
