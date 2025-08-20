@@ -15,8 +15,8 @@ import {
 } from '@react-email/components'
 import type * as React from 'react'
 
-import { getEmailTranslations, type EmailTranslations } from '@/lib/i18n/email-translations'
-import { type Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import constantsLocales from '@/constants/locales.json'
 
 interface BeswibWelcomeEmailProps {
 	firstName?: string
@@ -42,51 +42,51 @@ export const BeswibWelcomeEmail = ({
 	locale = 'fr',
 	firstName = 'Coureur',
 }: BeswibWelcomeEmailProps) => {
-	const t: EmailTranslations = getEmailTranslations(locale as Locale)
+	const t = getTranslations(locale, constantsLocales)
 
 	// Default steps with translations from locales.json - FULLY TYPE SAFE! ✨
 	const defaultSteps = [
 		{
-			id: 1,
-			title: t.welcome.steps.marketplace.title,
-			description: t.welcome.steps.marketplace.description,
+			title: t.emails.welcome.steps.marketplace.title,
 			link: `${baseUrl}/marketplace`,
+			id: 1,
+			description: t.emails.welcome.steps.marketplace.description,
 		},
 		{
-			id: 2,
-			title: t.welcome.steps.profile.title,
-			description: t.welcome.steps.profile.description,
+			title: t.emails.welcome.steps.profile.title,
 			link: `${baseUrl}/profile`,
+			id: 2,
+			description: t.emails.welcome.steps.profile.description,
 		},
 		{
-			id: 3,
-			title: t.welcome.steps.sell.title,
-			description: t.welcome.steps.sell.description,
+			title: t.emails.welcome.steps.sell.title,
 			link: `${baseUrl}/dashboard/seller`,
+			id: 3,
+			description: t.emails.welcome.steps.sell.description,
 		},
 		{
-			id: 4,
 			title: t.welcome.steps.community.title,
-			description: t.welcome.steps.community.description,
 			link: `${baseUrl}/events`,
+			id: 4,
+			description: t.welcome.steps.community.description,
 		},
 	]
 
 	const defaultQuickLinks = [
 		{
-			title: t.welcome.quickLinks.support.title,
+			title: t.emails.welcome.quickLinks.support.title,
 			href: `${baseUrl}/contact`,
-			description: t.welcome.quickLinks.support.description,
+			description: t.emails.welcome.quickLinks.support.description,
 		},
 		{
-			title: t.welcome.quickLinks.guide.title,
+			title: t.emails.welcome.quickLinks.guide.title,
 			href: `${baseUrl}/guide`,
-			description: t.welcome.quickLinks.guide.description,
+			description: t.emails.welcome.quickLinks.guide.description,
 		},
 		{
-			title: t.welcome.quickLinks.events.title,
+			title: t.emails.welcome.quickLinks.events.title,
 			href: `${baseUrl}/events`,
-			description: t.welcome.quickLinks.events.description,
+			description: t.emails.welcome.quickLinks.events.description,
 		},
 	]
 	return (
@@ -115,7 +115,7 @@ export const BeswibWelcomeEmail = ({
 					},
 				}}
 			>
-				<Preview>{t.welcome.preheader.replace('{firstName}', firstName)}</Preview>
+				<Preview>{t.emails.welcome.preheader.replace('{firstName}', firstName)}</Preview>
 				<Body className="bg-background font-sans">
 					{/* Header avec gradient */}
 					<Section className="from-primary to-accent mb-0 bg-gradient-to-r py-8">
@@ -123,19 +123,19 @@ export const BeswibWelcomeEmail = ({
 							<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
 
 							<Heading className="text-primary mb-2 text-center text-3xl font-bold">
-								🎉&nbsp;{t.welcome.title.replace('{firstName}', firstName)}&nbsp;🎉
+								🎉&nbsp;{t.emails.welcome.title.replace('{firstName}', firstName)}&nbsp;🎉
 							</Heading>
-							<Text className="text-primary text-center text-lg opacity-90">{t.welcome.heroSubtitle}</Text>
+							<Text className="text-primary text-center text-lg opacity-90">{t.emails.welcome.heroSubtitle}</Text>
 						</Container>
 					</Section>
 
 					<Container className="mx-auto max-w-[600px] px-4 py-8">
 						{/* Message de bienvenue */}
 						<Section>
-													<Text className="text-foreground mb-4 text-base leading-relaxed">{t.welcome.body1}</Text>
-						<Text className="text-foreground mb-6 text-base leading-relaxed">
-							{t.welcome.nextStepsTitle} :
-						</Text>
+							<Text className="text-foreground mb-4 text-base leading-relaxed">{t.emails.welcome.body1}</Text>
+							<Text className="text-foreground mb-6 text-base leading-relaxed">
+								{t.emails.welcome.nextStepsTitle} :
+							</Text>
 						</Section>
 
 						{/* Étapes */}
@@ -156,25 +156,7 @@ export const BeswibWelcomeEmail = ({
 												color: 'oklch(0.6231 0.188 259.8145)',
 											}}
 										>
-											{locale === 'fr'
-												? 'En savoir plus →'
-												: locale === 'en'
-													? 'Learn more →'
-													: locale === 'es'
-														? 'Saber más →'
-														: locale === 'it'
-															? 'Scopri di più →'
-															: locale === 'de'
-																? 'Mehr erfahren →'
-																: locale === 'pt'
-																	? 'Saber mais →'
-																	: locale === 'nl'
-																		? 'Meer weten →'
-																		: locale === 'ko'
-																			? '더 알아보기 →'
-																			: locale === 'ro'
-																				? 'Află mai multe →'
-																				: 'Learn more →'}
+											{t.emails.layout.footer.learnMore}
 										</Link>
 									)}
 								</Section>
@@ -194,7 +176,7 @@ export const BeswibWelcomeEmail = ({
 						{/* Liens rapides - same structure as EmailVerification */}
 						<Section className="bg-muted rounded-lg p-6">
 							<Heading className="text-foreground mb-4 text-center text-lg font-semibold">
-								{(t.emails as any)?.welcome?.footer?.usefulLinks ?? 'Useful links'}
+								{t.emails.welcome.footer.usefulLinks}
 							</Heading>
 							<Section className="flex justify-center gap-8">
 								{(quickLinks ?? defaultQuickLinks).map(link => (
@@ -320,7 +302,7 @@ export const BeswibWelcomeEmail = ({
 									<Text className="text-muted-foreground text-start text-xs">
 										{t.emails.layout.copyright.replace('{year}', new Date().getFullYear().toString())}
 										<br />
-										{(t.emails as any)?.welcome?.footer?.platformDescription ?? 'Race bib marketplace platform.'}
+										{t.emails.welcome.footer.platformDescription}
 									</Text>
 								</Column>
 								<Column align="right" className="mt-4 flex flex-row items-center justify-end gap-2">

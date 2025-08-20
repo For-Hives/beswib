@@ -7,6 +7,14 @@
 import { Resend } from 'resend'
 
 import {
+	sendVerificationEmail as sendModernVerificationEmail,
+	sendWelcomeEmail as sendModernWelcomeEmail,
+	sendSaleConfirmationEmail,
+	sendPurchaseConfirmationEmail,
+	sendSaleAlertEmail,
+	sendWaitlistAlertEmail,
+} from './email.service'
+import {
 	renderContactMessageEmailHtml as renderContactMessageEmailHtmlUnsafe,
 	renderWelcomeEmailHtml as renderWelcomeEmailHtmlUnsafe,
 } from '../constants/email.constant'
@@ -15,14 +23,6 @@ import {
 	VERIFICATION_EMAIL_SUBJECT,
 	VERIFICATION_EMAIL_TEXT_TEMPLATE,
 } from '../constants/verifiedEmail.constant'
-import {
-	sendVerificationEmail as sendModernVerificationEmail,
-	sendWelcomeEmail as sendModernWelcomeEmail,
-	sendSaleConfirmationEmail,
-	sendPurchaseConfirmationEmail,
-	sendSaleAlertEmail,
-	sendWaitlistAlertEmail,
-} from './email.service'
 import { contactSummaryText, contactFullText, saleAlertText } from '../constants/discord.constant'
 
 const renderContactMessageEmailHtml = (p: { name: string; email: string; message: string }): string =>
@@ -151,16 +151,16 @@ export async function sendNewBibNotification(
 	// Use modern React Email template for waitlist notifications
 	const timeRemaining = calculateTimeRemaining(bibInfo.eventDate)
 	const emailResults = await sendWaitlistAlertEmail(waitlistedEmails, {
-		eventName: bibInfo.eventName,
-		eventId: bibInfo.eventId,
-		bibPrice: bibInfo.bibPrice,
-		eventDate: formatEventDate(bibInfo.eventDate),
-		eventLocation: bibInfo.eventLocation,
-		eventDistance: bibInfo.eventDistance,
-		bibCategory: bibInfo.bibCategory,
-		sellerName: bibInfo.sellerName,
 		timeRemaining,
+		sellerName: bibInfo.sellerName,
 		locale,
+		eventName: bibInfo.eventName,
+		eventLocation: bibInfo.eventLocation,
+		eventId: bibInfo.eventId,
+		eventDistance: bibInfo.eventDistance,
+		eventDate: formatEventDate(bibInfo.eventDate),
+		bibPrice: bibInfo.bibPrice,
+		bibCategory: bibInfo.bibCategory,
 	})
 
 	// Admin Discord notification

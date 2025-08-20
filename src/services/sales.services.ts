@@ -3,15 +3,15 @@
 import type { SalesCreateInput, SalesCreateOutput, SalesCompleteInput, SalesCompleteOutput } from '@/models/sales.model'
 import type { BibSale } from '@/models/marketplace.model'
 
-import { createTransaction, updateTransaction, getTransactionByOrderId } from './transaction.services'
-import { fetchBibById, updateBib } from './bib.services'
 import {
 	sendSaleAlert,
 	sendSellerSaleConfirmation,
 	sendBuyerPurchaseConfirmation,
 	sendAdminSaleAlert,
 } from './notification.service'
+import { createTransaction, updateTransaction, getTransactionByOrderId } from './transaction.services'
 import { fetchUserByClerkId, fetchUserById } from './user.services'
+import { fetchBibById, updateBib } from './bib.services'
 import { createOrder } from './paypal.services'
 
 // Create PayPal order and persist a pending Transaction linked to that order
@@ -136,73 +136,76 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 	void sendSaleAlert({ orderId, currency, bibId, amount })
 
 	// Send comprehensive admin alert email and user confirmations
-	if (found?.seller_user_id && bibId) {
+	if (found?.seller_user_id != null && bibId != null) {
 		try {
-			const sellerUser = await fetchUserById(found.seller_user_id)
+			// Type assertion is safe here because we checked for null above
+			const sellerUserId = found.seller_user_id
+			const sellerUser = await fetchUserById(sellerUserId)
 			const bib = await fetchBibById(bibId)
-			const buyerUser = found.buyer_user_id ? await fetchUserById(found.buyer_user_id) : null
+			const buyerUser = found.buyer_user_id != null ? await fetchUserById(found.buyer_user_id) : null
 
-			if (sellerUser && bib?.event) {
+			if (sellerUser != null && bib?.expand?.eventId != null) {
 				const platformFee = Number((amount * 0.1).toFixed(2))
 				const totalReceived = Number((amount - platformFee).toFixed(2))
 
 				// Format event date
-				const eventDate = bib.event.date
-					? new Date(bib.event.date).toLocaleDateString('fr-FR', {
-							year: 'numeric',
-							month: 'long',
-							day: 'numeric',
-						})
-					: undefined
+				const eventDate =
+					bib.expand.eventId.eventDate != null
+						? new Date(bib.expand.eventId.eventDate).toLocaleDateString('fr-FR', {
+								year: 'numeric',
+								month: 'long',
+								day: 'numeric',
+							})
+						: undefined
 
 				// Send comprehensive admin alert
 				void sendAdminSaleAlert({
-					sellerName: `${sellerUser.firstName || ''} ${sellerUser.lastName || ''}`.trim(),
+					transactionId: transactionId ?? undefined,
+					sellerName: `${sellerUser.firstName ?? ''} ${sellerUser.lastName ?? ''}`.trim(),
 					sellerEmail: sellerUser.email,
-					buyerName: buyerUser ? `${buyerUser.firstName || ''} ${buyerUser.lastName || ''}`.trim() : 'Acheteur',
-					buyerEmail: buyerUser?.email,
-					eventName: bib.event.name,
-					bibPrice: amount,
 					platformFee,
-					netRevenue: totalReceived,
-					orderId,
-					eventDate,
-					eventLocation: bib.event.location,
-					eventDistance: bib.event.distance ? `${bib.event.distance} ${bib.event.distanceUnit || 'km'}` : undefined,
-					bibCategory: bib.event.type || 'Course',
-					transactionId: transactionId || undefined,
 					paypalCaptureId: captureId,
+					orderId,
+					netRevenue: totalReceived,
+					eventName: bib.expand.eventId.name,
+					eventLocation: bib.expand.eventId.location,
+					eventDistance: bib.expand.eventId.distanceKm != null ? `${bib.expand.eventId.distanceKm} km` : undefined,
+					eventDate,
+					buyerName: buyerUser != null ? `${buyerUser.firstName ?? ''} ${buyerUser.lastName ?? ''}`.trim() : 'Acheteur',
+					buyerEmail: buyerUser?.email,
+					bibPrice: amount,
+					bibCategory: bib.expand.eventId.typeCourse ?? 'road',
 				})
 
 				// Send seller sale confirmation
 				void sendSellerSaleConfirmation({
-					sellerEmail: sellerUser.email,
-					sellerName: `${sellerUser.firstName || ''} ${sellerUser.lastName || ''}`.trim(),
-					buyerName: buyerUser ? `${buyerUser.firstName || ''} ${buyerUser.lastName || ''}`.trim() : 'Acheteur',
-					eventName: bib.event.name,
-					bibPrice: amount,
-					platformFee,
 					totalReceived,
+					sellerName: `${sellerUser.firstName ?? ''} ${sellerUser.lastName ?? ''}`.trim(),
+					sellerEmail: sellerUser.email,
+					platformFee,
 					orderId,
+					locale: 'fr', // Default locale since User model doesn't have locale field
+					eventName: bib.expand.eventId.name,
+					eventLocation: bib.expand.eventId.location,
 					eventDate,
-					eventLocation: bib.event.location,
-					locale: sellerUser.locale || 'fr',
+					buyerName: buyerUser != null ? `${buyerUser.firstName ?? ''} ${buyerUser.lastName ?? ''}`.trim() : 'Acheteur',
+					bibPrice: amount,
 				})
 
 				// Send purchase confirmation email to buyer
-				if (buyerUser) {
+				if (buyerUser != null) {
 					void sendBuyerPurchaseConfirmation({
-						buyerEmail: buyerUser.email,
-						buyerName: `${buyerUser.firstName || ''} ${buyerUser.lastName || ''}`.trim(),
-						sellerName: `${sellerUser.firstName || ''} ${sellerUser.lastName || ''}`.trim(),
-						eventName: bib.event.name,
-						bibPrice: amount,
+						sellerName: `${sellerUser.firstName ?? ''} ${sellerUser.lastName ?? ''}`.trim(),
 						orderId,
+						locale: 'fr', // Default locale since User model doesn't have locale field
+						eventName: bib.expand.eventId.name,
+						eventLocation: bib.expand.eventId.location,
+						eventDistance: bib.expand.eventId.distanceKm != null ? `${bib.expand.eventId.distanceKm} km` : undefined,
 						eventDate,
-						eventLocation: bib.event.location,
-						eventDistance: bib.event.distance ? `${bib.event.distance} ${bib.event.distanceUnit || 'km'}` : undefined,
-						bibCategory: bib.event.type || 'Course',
-						locale: buyerUser.locale || 'fr',
+						buyerName: `${buyerUser.firstName ?? ''} ${buyerUser.lastName ?? ''}`.trim(),
+						buyerEmail: buyerUser.email,
+						bibPrice: amount,
+						bibCategory: bib.expand.eventId.typeCourse ?? 'road',
 					})
 				}
 			}

@@ -12,7 +12,10 @@
 		},
 		"emails": {
 			"layout": {
-				"copyright": "© {year} Beswib. All rights reserved."
+				"copyright": "© {year} Beswib. All rights reserved.",
+				"footer": {
+					"learnMore": "Learn more →"
+				}
 			},
 			"welcome": {
 				"title": "Welcome, {firstName}!",
@@ -237,7 +240,10 @@
 		},
 		"emails": {
 			"layout": {
-				"copyright": "© {year} Beswib. Tous droits réservés."
+				"copyright": "© {year} Beswib. Tous droits réservés.",
+				"footer": {
+					"learnMore": "En savoir plus →"
+				}
 			},
 			"welcome": {
 				"title": "Bienvenue, {firstName} !",
@@ -462,7 +468,10 @@
 		},
 		"emails": {
 			"layout": {
-				"copyright": "© {year} Beswib. 모든 권리 보유."
+				"copyright": "© {year} Beswib. 모든 권리 보유.",
+				"footer": {
+					"learnMore": "더 알아보기 →"
+				}
 			},
 			"welcome": {
 				"title": "환영합니다, {firstName}님!",
@@ -687,7 +696,10 @@
 		},
 		"emails": {
 			"layout": {
-				"copyright": "© {year} Beswib. Todos los derechos reservados."
+				"copyright": "© {year} Beswib. Todos los derechos reservados.",
+				"footer": {
+					"learnMore": "Saber más →"
+				}
 			},
 			"welcome": {
 				"title": "¡Bienvenido, {firstName}!",
@@ -912,7 +924,10 @@
 		},
 		"emails": {
 			"layout": {
-				"copyright": "© {year} Beswib. Tutti i diritti riservati."
+				"copyright": "© {year} Beswib. Tutti i diritti riservati.",
+				"footer": {
+					"learnMore": "Scopri di più →"
+				}
 			},
 			"welcome": {
 				"title": "Benvenuto, {firstName}!",
@@ -1137,7 +1152,10 @@
 		},
 		"emails": {
 			"layout": {
-				"copyright": "© {year} Beswib. Alle Rechte vorbehalten."
+				"copyright": "© {year} Beswib. Alle Rechte vorbehalten.",
+				"footer": {
+					"learnMore": "Mehr erfahren →"
+				}
 			},
 			"welcome": {
 				"title": "Willkommen, {firstName}!",
@@ -1362,7 +1380,10 @@
 		},
 		"emails": {
 			"layout": {
-				"copyright": "© {year} Beswib. Toate drepturile rezervate."
+				"copyright": "© {year} Beswib. Toate drepturile rezervate.",
+				"footer": {
+					"learnMore": "Află mai multe →"
+				}
 			},
 			"welcome": {
 				"title": "Bun venit, {firstName}!",
@@ -1587,7 +1608,10 @@
 		},
 		"emails": {
 			"layout": {
-				"copyright": "© {year} Beswib. Todos os direitos reservados."
+				"copyright": "© {year} Beswib. Todos os direitos reservados.",
+				"footer": {
+					"learnMore": "Saber mais →"
+				}
 			},
 			"welcome": {
 				"title": "Bem-vindo, {firstName}!",
@@ -1812,7 +1836,10 @@
 		},
 		"emails": {
 			"layout": {
-				"copyright": "© {year} Beswib. Alle rechten voorbehouden."
+				"copyright": "© {year} Beswib. Alle rechten voorbehouden.",
+				"footer": {
+					"learnMore": "Meer weten →"
+				}
 			},
 			"welcome": {
 				"title": "Welkom, {firstName}!",

@@ -4,13 +4,13 @@ import { render } from '@react-email/components'
 
 import { Resend } from 'resend'
 
+import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
 import { BeswibEmailVerification, BeswibWelcomeEmail } from '@/components/emails'
 import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
-import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
-import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
+import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
 import BeswibWaitlistAlert from '@/components/emails/BeswibWaitlistAlert'
 import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
-import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
+import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -112,17 +112,17 @@ interface SaleConfirmationParams {
  * Sends a sale confirmation email to the seller using the React Email template
  */
 export async function sendSaleConfirmationEmail({
-	sellerEmail,
-	sellerName,
-	buyerName,
-	eventName,
-	bibPrice,
-	platformFee,
 	totalReceived,
+	sellerName,
+	sellerEmail,
+	platformFee,
 	orderId,
-	eventDate,
-	eventLocation,
 	locale = 'fr',
+	eventName,
+	eventLocation,
+	eventDate,
+	buyerName,
+	bibPrice,
 }: SaleConfirmationParams): Promise<boolean> {
 	const getLocalizedSubject = (locale: string) => {
 		switch (locale) {
@@ -185,17 +185,17 @@ interface PurchaseConfirmationParams {
  * Sends a purchase confirmation email to the buyer using the React Email template
  */
 export async function sendPurchaseConfirmationEmail({
-	buyerEmail,
-	buyerName,
 	sellerName,
-	eventName,
-	bibPrice,
 	orderId,
-	eventDate,
+	locale = 'fr',
+	eventName,
 	eventLocation,
 	eventDistance,
+	eventDate,
+	buyerName,
+	buyerEmail,
+	bibPrice,
 	bibCategory,
-	locale = 'fr',
 }: PurchaseConfirmationParams): Promise<boolean> {
 	const getLocalizedSubject = (locale: string) => {
 		switch (locale) {
@@ -473,16 +473,16 @@ interface BibApprovalParams {
  * Sends a bib approval notification email to the seller when their bib is approved by the organizer
  */
 export async function sendBibApprovalEmail({
-	sellerEmail,
 	sellerName,
-	eventName,
-	eventDate,
-	eventLocation,
-	bibPrice,
-	eventDistance,
-	bibCategory,
+	sellerEmail,
 	organizerName,
 	locale = 'fr',
+	eventName,
+	eventLocation,
+	eventDistance,
+	eventDate,
+	bibPrice,
+	bibCategory,
 }: BibApprovalParams): Promise<boolean> {
 	const getLocalizedSubject = (locale: string) => {
 		switch (locale) {
@@ -544,17 +544,17 @@ interface PurchaseApprovalParams {
  * Sends a purchase approval notification email to the buyer when their purchase is validated by the organizer
  */
 export async function sendPurchaseApprovalEmail({
-	buyerEmail,
-	buyerName,
-	eventName,
-	eventDate,
-	eventLocation,
-	bibPrice,
-	eventDistance,
-	bibCategory,
 	organizerName,
 	orderId,
 	locale = 'fr',
+	eventName,
+	eventLocation,
+	eventDistance,
+	eventDate,
+	buyerName,
+	buyerEmail,
+	bibPrice,
+	bibCategory,
 }: PurchaseApprovalParams): Promise<boolean> {
 	const getLocalizedSubject = (locale: string) => {
 		switch (locale) {

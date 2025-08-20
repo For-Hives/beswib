@@ -13,8 +13,7 @@ import {
 	Hr,
 } from '@react-email/components'
 
-import { getTranslations } from '@/lib/i18n/dictionary'
-import constantsLocales from '@/constants/locales.json'
+import { getEmailTranslations, type EmailTranslations } from '@/lib/i18n/email-helpers'
 
 interface BeswibBibApprovalProps {
 	sellerName?: string
@@ -39,11 +38,12 @@ export default function BeswibBibApproval({
 	bibPrice = 0,
 	bibCategory = '',
 }: BeswibBibApprovalProps) {
-	const t = getTranslations(locale, constantsLocales)
+	const t: EmailTranslations = getEmailTranslations(locale)
 
 	const getLocalizedText = (key: string) => {
 		const keys = key.split('.')
-		let value = (t.emails as any)?.bibApproval
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		let value: any = t.bibApproval
 		for (const k of keys) {
 			value = value?.[k]
 		}

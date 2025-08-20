@@ -2,12 +2,15 @@
 // Helper: Find transaction by PayPal orderId
 export async function getTransactionByOrderId(
 	orderId: string
-): Promise<{ id: string; bib_id: string; buyer_user_id: string } | null> {
+): Promise<{ id: string; bib_id: string; buyer_user_id: string; seller_user_id: string } | null> {
 	if (!orderId) return null
 	try {
-		const record = await pb
-			.collection('transactions')
-			.getFirstListItem<{ id: string; bib_id: string; buyer_user_id: string }>(`paypal_order_id = "${orderId}"`)
+		const record = await pb.collection('transactions').getFirstListItem<{
+			id: string
+			bib_id: string
+			buyer_user_id: string
+			seller_user_id: string
+		}>(`paypal_order_id = "${orderId}"`)
 		return record ?? null
 	} catch {
 		// Not found or query error

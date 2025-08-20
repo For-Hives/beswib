@@ -36,34 +36,34 @@ export async function POST(request: NextRequest) {
 				const totalReceived = Number((bibPrice - platformFee).toFixed(2))
 
 				success = await sendSaleConfirmationEmail({
-					sellerEmail: email,
-					sellerName: params.sellerName || 'Marie Dupont',
-					buyerName: params.buyerName || 'Jean Martin',
-					eventName: params.eventName || 'Marathon de Paris 2024',
-					bibPrice,
-					platformFee,
 					totalReceived,
+					sellerName: params.sellerName || 'Marie Dupont',
+					sellerEmail: email,
+					platformFee,
 					orderId: params.orderId || 'BW123456789',
-					eventDate: params.eventDate || '14 avril 2024',
-					eventLocation: params.eventLocation || 'Paris, France',
 					locale: params.locale || 'fr',
+					eventName: params.eventName || 'Marathon de Paris 2024',
+					eventLocation: params.eventLocation || 'Paris, France',
+					eventDate: params.eventDate || '14 avril 2024',
+					buyerName: params.buyerName || 'Jean Martin',
+					bibPrice,
 				})
 				break
 			case 'purchase-confirmation':
 				const purchaseBibPrice = Number(params.bibPrice) || 150
 
 				success = await sendPurchaseConfirmationEmail({
-					buyerEmail: email,
-					buyerName: params.buyerName || 'Jean Martin',
 					sellerName: params.sellerName || 'Marie Dupont',
-					eventName: params.eventName || 'Marathon de Paris 2024',
-					bibPrice: purchaseBibPrice,
 					orderId: params.orderId || 'BW123456789',
-					eventDate: params.eventDate || '14 avril 2024',
+					locale: params.locale || 'fr',
+					eventName: params.eventName || 'Marathon de Paris 2024',
 					eventLocation: params.eventLocation || 'Paris, France',
 					eventDistance: params.eventDistance || '42.2 km',
+					eventDate: params.eventDate || '14 avril 2024',
+					buyerName: params.buyerName || 'Jean Martin',
+					buyerEmail: email,
+					bibPrice: purchaseBibPrice,
 					bibCategory: params.bibCategory || 'Marathon',
-					locale: params.locale || 'fr',
 				})
 				break
 			case 'sale-alert':
@@ -72,38 +72,38 @@ export async function POST(request: NextRequest) {
 				const alertNetRevenue = Number((alertBibPrice - alertPlatformFee).toFixed(2))
 
 				success = await sendSaleAlertEmail({
+					transactionId: params.transactionId || 'tx_abc123def',
 					sellerName: params.sellerName || 'Marie Dupont',
 					sellerEmail: params.sellerEmail || 'seller@example.com',
-					buyerName: params.buyerName || 'Jean Martin',
-					buyerEmail: params.buyerEmail || 'buyer@example.com',
-					eventName: params.eventName || 'Marathon de Paris 2024',
-					bibPrice: alertBibPrice,
+					saleTimestamp: new Date().toLocaleString('fr-FR'),
 					platformFee: alertPlatformFee,
-					netRevenue: alertNetRevenue,
+					paypalCaptureId: params.paypalCaptureId || 'CAPTURE123456789',
 					orderId: params.orderId || 'BW123456789',
-					eventDate: params.eventDate || '14 avril 2024',
+					netRevenue: alertNetRevenue,
+					eventName: params.eventName || 'Marathon de Paris 2024',
 					eventLocation: params.eventLocation || 'Paris, France',
 					eventDistance: params.eventDistance || '42.2 km',
+					eventDate: params.eventDate || '14 avril 2024',
+					buyerName: params.buyerName || 'Jean Martin',
+					buyerEmail: params.buyerEmail || 'buyer@example.com',
+					bibPrice: alertBibPrice,
 					bibCategory: params.bibCategory || 'Marathon',
-					transactionId: params.transactionId || 'tx_abc123def',
-					paypalCaptureId: params.paypalCaptureId || 'CAPTURE123456789',
-					saleTimestamp: new Date().toLocaleString('fr-FR'),
 				})
 				break
 			case 'waitlist-alert':
 				const waitlistBibPrice = Number(params.bibPrice) || 150
 
 				const waitlistResult = await sendWaitlistAlertEmail([email], {
-					eventName: params.eventName || 'Marathon de Paris 2024',
-					eventId: params.eventId || 'event_123456',
-					bibPrice: waitlistBibPrice,
-					eventDate: params.eventDate || '14 avril 2024',
-					eventLocation: params.eventLocation || 'Paris, France',
-					eventDistance: params.eventDistance || '42.2 km',
-					bibCategory: params.bibCategory || 'Marathon',
-					sellerName: params.sellerName || 'Marie Dupont',
 					timeRemaining: params.timeRemaining || '2 semaines',
+					sellerName: params.sellerName || 'Marie Dupont',
 					locale: params.locale || 'fr',
+					eventName: params.eventName || 'Marathon de Paris 2024',
+					eventLocation: params.eventLocation || 'Paris, France',
+					eventId: params.eventId || 'event_123456',
+					eventDistance: params.eventDistance || '42.2 km',
+					eventDate: params.eventDate || '14 avril 2024',
+					bibPrice: waitlistBibPrice,
+					bibCategory: params.bibCategory || 'Marathon',
 				})
 				success = waitlistResult.sent > 0
 				break
@@ -111,33 +111,33 @@ export async function POST(request: NextRequest) {
 				const approvalBibPrice = Number(params.bibPrice) || 150
 
 				success = await sendBibApprovalEmail({
-					sellerEmail: email,
 					sellerName: params.sellerName || 'Marie Dupont',
-					eventName: params.eventName || 'Marathon de Paris 2024',
-					eventDate: params.eventDate || '14 avril 2024',
-					eventLocation: params.eventLocation || 'Paris, France',
-					bibPrice: approvalBibPrice,
-					eventDistance: params.eventDistance || '42.2 km',
-					bibCategory: params.bibCategory || 'Marathon',
+					sellerEmail: email,
 					organizerName: params.organizerName || 'ASO Events',
 					locale: params.locale || 'fr',
+					eventName: params.eventName || 'Marathon de Paris 2024',
+					eventLocation: params.eventLocation || 'Paris, France',
+					eventDistance: params.eventDistance || '42.2 km',
+					eventDate: params.eventDate || '14 avril 2024',
+					bibPrice: approvalBibPrice,
+					bibCategory: params.bibCategory || 'Marathon',
 				})
 				break
 			case 'purchase-approval':
 				const purchaseApprovalBibPrice = Number(params.bibPrice) || 150
 
 				success = await sendPurchaseApprovalEmail({
-					buyerEmail: email,
-					buyerName: params.buyerName || 'Jean Martin',
-					eventName: params.eventName || 'Marathon de Paris 2024',
-					eventDate: params.eventDate || '14 avril 2024',
-					eventLocation: params.eventLocation || 'Paris, France',
-					bibPrice: purchaseApprovalBibPrice,
-					eventDistance: params.eventDistance || '42.2 km',
-					bibCategory: params.bibCategory || 'Marathon',
 					organizerName: params.organizerName || 'ASO Events',
 					orderId: params.orderId || 'BW123456789',
 					locale: params.locale || 'fr',
+					eventName: params.eventName || 'Marathon de Paris 2024',
+					eventLocation: params.eventLocation || 'Paris, France',
+					eventDistance: params.eventDistance || '42.2 km',
+					eventDate: params.eventDate || '14 avril 2024',
+					buyerName: params.buyerName || 'Jean Martin',
+					buyerEmail: email,
+					bibPrice: purchaseApprovalBibPrice,
+					bibCategory: params.bibCategory || 'Marathon',
 				})
 				break
 			default:

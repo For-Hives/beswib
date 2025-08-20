@@ -3,9 +3,9 @@ import React from 'react'
 
 import { NextRequest, NextResponse } from 'next/server'
 
+import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
 import { BeswibEmailVerification, BeswibWelcomeEmail } from '@/components/emails'
 import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
-import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
 import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 
 export async function GET(request: NextRequest) {
@@ -28,58 +28,58 @@ export async function GET(request: NextRequest) {
 				emailComponent = React.createElement(BeswibEmailVerification, { validationCode: code, locale })
 				break
 			case 'welcome':
-				emailComponent = React.createElement(BeswibWelcomeEmail, { firstName, locale })
+				emailComponent = React.createElement(BeswibWelcomeEmail, { locale, firstName })
 				break
 			case 'sale-confirmation':
 				const platformFee = Number((bibPrice * 0.1).toFixed(2))
 				const totalReceived = Number((bibPrice - platformFee).toFixed(2))
 				emailComponent = React.createElement(BeswibSaleConfirmation, {
-					sellerName,
-					buyerName,
-					eventName,
-					bibPrice,
-					platformFee,
 					totalReceived,
+					sellerName,
+					platformFee,
 					orderId,
-					eventDate: '14 avril 2024',
-					eventLocation: 'Paris, France',
 					locale,
+					eventName,
+					eventLocation: 'Paris, France',
+					eventDate: '14 avril 2024',
+					buyerName,
+					bibPrice,
 				})
 				break
 			case 'purchase-confirmation':
 				emailComponent = React.createElement(BeswibPurchaseConfirmation, {
-					buyerName,
 					sellerName,
-					eventName,
-					bibPrice,
 					orderId,
-					eventDate: '14 avril 2024',
+					locale,
+					eventName,
 					eventLocation: 'Paris, France',
 					eventDistance: '42.2 km',
+					eventDate: '14 avril 2024',
+					buyerName,
+					bibPrice,
 					bibCategory: 'Marathon',
-					locale,
 				})
 				break
 			case 'sale-alert':
 				const platformFeeAlert = Number((bibPrice * 0.1).toFixed(2))
 				const netRevenue = Number((bibPrice - platformFeeAlert).toFixed(2))
 				emailComponent = React.createElement(BeswibSaleAlert, {
+					transactionId: 'tx_abc123def',
 					sellerName,
 					sellerEmail: 'seller@example.com',
-					buyerName,
-					buyerEmail: 'buyer@example.com',
-					eventName,
-					bibPrice,
+					saleTimestamp: new Date().toLocaleString('fr-FR'),
 					platformFee: platformFeeAlert,
-					netRevenue,
+					paypalCaptureId: 'CAPTURE123456789',
 					orderId,
-					eventDate: '14 avril 2024',
+					netRevenue,
+					eventName,
 					eventLocation: 'Paris, France',
 					eventDistance: '42.2 km',
+					eventDate: '14 avril 2024',
+					buyerName,
+					buyerEmail: 'buyer@example.com',
+					bibPrice,
 					bibCategory: 'Marathon',
-					transactionId: 'tx_abc123def',
-					paypalCaptureId: 'CAPTURE123456789',
-					saleTimestamp: new Date().toLocaleString('fr-FR'),
 				})
 				break
 			default:
