@@ -68,7 +68,7 @@ export async function sendVerificationEmail(
 	return sendEmail({
 		to: email,
 		subject,
-		react: <BeswibEmailVerification validationCode={verificationCode} />,
+		react: <BeswibEmailVerification validationCode={verificationCode} locale={locale} />,
 	})
 }
 
