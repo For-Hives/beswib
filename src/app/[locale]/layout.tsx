@@ -113,7 +113,7 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 						data-domains={'beswib.com'}
 						data-website-id="e9168017-b73b-491b-b7b0-fee64f07c847"
 						src="https://umami.wadefade.fr/script.js"
-						data-tag={'v' + version}
+						data-tag={version}
 						data-before-send="beforeSendHandler"
 						strategy="afterInteractive"
 					></Script>
