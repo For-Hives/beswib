@@ -6319,9 +6319,9 @@ packages:
     peerDependencies:
       react: '>=17.0'
 
-  svix@1.73.0:
+  svix@1.74.1:
     resolution:
-      { integrity: sha512-EqaQcuJezFxJBWvtjfRhhDtVYcrYdzLiVqc2Naw3aGwd3FrCzqLUwLHEWo8LE2MoPEUGm/2xSt8b9W7NLQr25w== }
+      { integrity: sha512-99J8jSsk0viwkoAENVy/zpVoZxwn3kBdUvvpFaWiKjCkkTcqNZdoBqMmariDFceL4Q41ntWfUYxaWD37IAk9Kg== }
 
   swr@2.3.4:
     resolution:
