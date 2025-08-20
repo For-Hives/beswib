@@ -39,8 +39,19 @@ export const FileUpload = ({ onChange, locale }: { locale: Locale; onChange?: (f
 	const t = translations.organizers.create.form.logoUpload
 
 	const handleFileChange = (newFiles: File[]) => {
-		setFiles(prevFiles => [...prevFiles, ...newFiles])
-		onChange?.(newFiles)
+		// Single file mode: replace any existing file with the new one
+		const next = newFiles.slice(0, 1)
+		setFiles(next)
+		onChange?.(next)
+	}
+
+	const handleRemove = (index: number) => {
+		setFiles(prev => {
+			const next = prev.filter((_, i) => i !== index)
+			// Notify parent; empty array indicates clear
+			onChange?.(next)
+			return next
+		})
 	}
 
 	const handleClick = () => {
@@ -69,6 +80,7 @@ export const FileUpload = ({ onChange, locale }: { locale: Locale; onChange?: (f
 					onChange={e => handleFileChange(Array.from(e.target.files ?? []))}
 					ref={fileInputRef}
 					type="file"
+					accept="image/png,image/jpeg,image/jpg,image/svg+xml,image/webp"
 				/>
 				<div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]">
 					<GridPattern />
@@ -87,6 +99,16 @@ export const FileUpload = ({ onChange, locale }: { locale: Locale; onChange?: (f
 									key={'file' + idx}
 									layoutId={idx === 0 ? 'file-upload' : 'file-upload-' + idx}
 								>
+									<button
+										className="text-muted-foreground/80 hover:text-foreground absolute top-2 right-2 rounded px-2 py-1 text-xs text-red-600"
+										onClick={e => {
+											e.stopPropagation()
+											handleRemove(idx)
+										}}
+										type="button"
+									>
+										x
+									</button>
 									<div className="flex w-full items-center justify-between gap-4">
 										<motion.p
 											animate={{ opacity: 1 }}

@@ -18,11 +18,14 @@ import { Locale } from '@/lib/i18n/config'
 
 import OrganizerFakerButton from './OrganizerFakerButton'
 
+// Build a File schema that's safe on the server (where File is undefined)
+const FileSchemaSafe = typeof window !== 'undefined' && typeof File !== 'undefined' ? v.instance(File) : v.any()
+
 // Validation Schema using Valibot
 const OrganizerCreationSchema = v.object({
 	website: v.optional(v.union([v.pipe(v.string(), v.url('Must be a valid URL')), v.literal('')])),
 	name: v.pipe(v.string(), v.minLength(1, 'Organizer name is required')),
-	logoFile: v.optional(v.instance(File)),
+	logoFile: v.optional(FileSchemaSafe),
 	isPartnered: v.boolean(),
 	email: v.pipe(v.string(), v.email('Please enter a valid email address')),
 })
@@ -57,24 +60,28 @@ export default function OrganizerCreationForm({ onSuccess, onCancel, locale }: R
 	const formData = watch()
 
 	const handleFileUploadWithValidation = (files: File[]) => {
-		if (files.length > 0) {
-			const file = files[0]
-			// Validate file type and size
-			const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/webp']
-			const maxSize = 5 * 1024 * 1024 // 5MB
-
-			if (!allowedTypes.includes(file.type)) {
-				toast.error('Invalid file type. Please upload PNG, JPG, WEBP, or SVG files only.')
-				return
-			}
-
-			if (file.size > maxSize) {
-				toast.error('File size too large. Maximum size is 5MB.')
-				return
-			}
-
-			setValue('logoFile', file)
+		if (files.length === 0) {
+			// Clear selection
+			setValue('logoFile', undefined)
+			return
 		}
+
+		const file = files[0]
+		// Validate file type and size
+		const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/webp']
+		const maxSize = 5 * 1024 * 1024 // 5MB
+
+		if (!allowedTypes.includes(file.type)) {
+			toast.error('Invalid file type. Please upload PNG, JPG, WEBP, or SVG files only.')
+			return
+		}
+
+		if (file.size > maxSize) {
+			toast.error('File size too large. Maximum size is 5MB.')
+			return
+		}
+
+		setValue('logoFile', file)
 	}
 
 	const onSubmit = async (data: OrganizerFormData) => {
@@ -201,7 +208,7 @@ export default function OrganizerCreationForm({ onSuccess, onCancel, locale }: R
 										<FileUpload locale={locale} onChange={handleFileUploadWithValidation} />
 									</div>
 									{errors.logoFile && (
-										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.logoFile.message}</p>
+										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.logoFile.message?.toString()}</p>
 									)}
 								</div>
 
