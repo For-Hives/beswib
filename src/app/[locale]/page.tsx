@@ -3,7 +3,6 @@ import SecurityProcess from '@/components/landing/security-process/SecurityProce
 import JourneyTabs from '@/components/landing/journey-tabs/JourneyTabs'
 import HeroAlternative from '@/components/landing/hero/HeroAlternative'
 import FeaturesBento from '@/components/landing/features/Features'
-import { GoBackToTop } from '@/components/global/go-back-to-top'
 // import BibStats from '@/components/landing/bib-stats/BibStats'
 import BesWibCTA from '@/components/landing/cta/CTASection'
 // import Hero from '@/components/landing/hero/Hero'
@@ -15,7 +14,7 @@ export function generateStaticParams() {
 
 export default async function Home({ params }: { params: Promise<LocaleParams> }) {
 	// Locale will be used when components are updated for i18n 🗺️
-	const { locale } = await params
+	await params
 
 	return (
 		<div className="relative">
@@ -32,9 +31,6 @@ export default async function Home({ params }: { params: Promise<LocaleParams> }
 			<SecurityProcess localeParams={params} />
 			{/* CTA Section 📣 */}
 			<BesWibCTA localeParams={params} />
-
-			{/* Go Back to Top Button 🔝 */}
-			<GoBackToTop locale={locale} />
 		</div>
 	)
 }

@@ -16,6 +16,7 @@ import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { getClerkLocalization } from '@/lib/i18n/clerk/localization'
 import QueryProvider from '@/components/providers/QueryProvider'
+import { GoBackToTop } from '@/components/global/go-back-to-top'
 import SentryClientInit from '@/app/[locale]/SentryClientInit'
 import PageTransition from '@/components/ui/PageTransition'
 import { getVersion } from '@/lib/utils/version'
@@ -139,6 +140,7 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 									<CookieBanner />
 									<ConsentManagerDialog />
 									<Footer localeParams={props.params} />
+									<GoBackToTop locale={locale} />
 									<Toaster />
 								</NuqsAdapter>
 							</QueryProvider>
