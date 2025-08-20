@@ -14,10 +14,21 @@ export default function EmailTestClient() {
 	const [email, setEmail] = useState('')
 	const [firstName, setFirstName] = useState('')
 	const [code, setCode] = useState('TEST-123')
+	const [sellerName, setSellerName] = useState('Marie Dupont')
+	const [buyerName, setBuyerName] = useState('Jean Martin')
+	const [eventName, setEventName] = useState('Marathon de Paris 2024')
+	const [bibPrice, setBibPrice] = useState(150)
+	const [orderId, setOrderId] = useState('BW123456789')
+	const [eventDistance, setEventDistance] = useState('42.2 km')
+	const [bibCategory, setBibCategory] = useState('Marathon')
+	const [sellerEmail, setSellerEmail] = useState('seller@example.com')
+	const [buyerEmail, setBuyerEmail] = useState('buyer@example.com')
+	const [transactionId, setTransactionId] = useState('tx_abc123def')
+	const [paypalCaptureId, setPaypalCaptureId] = useState('CAPTURE123456789')
 	const [locale, setLocale] = useState('fr')
 	const [isLoading, setIsLoading] = useState<string | null>(null)
 
-	const sendTestEmail = async (template: 'verification' | 'welcome') => {
+	const sendTestEmail = async (template: 'verification' | 'welcome' | 'sale-confirmation' | 'purchase-confirmation' | 'sale-alert') => {
 		if (!email) {
 			toast.error('Veuillez saisir une adresse email')
 			return
@@ -26,7 +37,7 @@ export default function EmailTestClient() {
 		setIsLoading(template)
 
 		try {
-			const payload: any = {
+			const payload: Record<string, string> = {
 				template,
 				locale,
 				email,
@@ -36,6 +47,32 @@ export default function EmailTestClient() {
 				payload.code = code
 			} else if (template === 'welcome') {
 				payload.firstName = firstName
+			} else if (template === 'sale-confirmation') {
+				payload.sellerName = sellerName
+				payload.buyerName = buyerName
+				payload.eventName = eventName
+				payload.bibPrice = bibPrice.toString()
+				payload.orderId = orderId
+			} else if (template === 'purchase-confirmation') {
+				payload.buyerName = buyerName
+				payload.sellerName = sellerName
+				payload.eventName = eventName
+				payload.bibPrice = bibPrice.toString()
+				payload.orderId = orderId
+				payload.eventDistance = eventDistance
+				payload.bibCategory = bibCategory
+			} else if (template === 'sale-alert') {
+				payload.sellerName = sellerName
+				payload.sellerEmail = sellerEmail
+				payload.buyerName = buyerName
+				payload.buyerEmail = buyerEmail
+				payload.eventName = eventName
+				payload.bibPrice = bibPrice.toString()
+				payload.orderId = orderId
+				payload.eventDistance = eventDistance
+				payload.bibCategory = bibCategory
+				payload.transactionId = transactionId
+				payload.paypalCaptureId = paypalCaptureId
 			}
 
 			const response = await fetch('/api/emails/test', {
@@ -61,12 +98,41 @@ export default function EmailTestClient() {
 		}
 	}
 
-	const openPreview = (template: 'verification' | 'welcome') => {
+	const openPreview = (template: 'verification' | 'welcome' | 'sale-confirmation' | 'purchase-confirmation' | 'sale-alert') => {
 		const params = new URLSearchParams({
 			template,
 			locale,
 			...(template === 'verification' && { code }),
 			...(template === 'welcome' && { firstName }),
+			...(template === 'sale-confirmation' && { 
+				sellerName, 
+				buyerName, 
+				eventName, 
+				bibPrice: bibPrice.toString(), 
+				orderId 
+			}),
+			...(template === 'purchase-confirmation' && { 
+				buyerName, 
+				sellerName, 
+				eventName, 
+				bibPrice: bibPrice.toString(), 
+				orderId,
+				eventDistance,
+				bibCategory
+			}),
+			...(template === 'sale-alert' && { 
+				sellerName, 
+				sellerEmail,
+				buyerName, 
+				buyerEmail,
+				eventName, 
+				bibPrice: bibPrice.toString(), 
+				orderId,
+				eventDistance,
+				bibCategory,
+				transactionId,
+				paypalCaptureId
+			}),
 		})
 
 		window.open(`/api/emails/preview?${params}`, '_blank')
@@ -120,7 +186,7 @@ export default function EmailTestClient() {
 			</Card>
 
 			{/* Tests d'emails */}
-			<div className="grid gap-6 md:grid-cols-2">
+			<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
 				{/* Email de vérification */}
 				<Card>
 					<CardHeader>
@@ -174,6 +240,213 @@ export default function EmailTestClient() {
 								{isLoading === 'welcome' ? 'Envoi...' : 'Envoyer'}
 							</Button>
 							<Button variant="outline" onClick={() => openPreview('welcome')}>
+								Aperçu
+							</Button>
+						</div>
+					</CardContent>
+				</Card>
+
+				{/* Email de confirmation de vente */}
+				<Card>
+					<CardHeader>
+						<CardTitle>Email de confirmation de vente</CardTitle>
+						<CardDescription>Template envoyé au vendeur après une vente réussie</CardDescription>
+					</CardHeader>
+					<CardContent className="space-y-4">
+						<div>
+							<Label htmlFor="sellerName">Nom du vendeur</Label>
+							<Input 
+								id="sellerName" 
+								placeholder="Marie Dupont" 
+								value={sellerName} 
+								onChange={e => setSellerName(e.target.value)} 
+							/>
+						</div>
+						
+						<div>
+							<Label htmlFor="buyerName">Nom de l'acheteur</Label>
+							<Input 
+								id="buyerName" 
+								placeholder="Jean Martin" 
+								value={buyerName} 
+								onChange={e => setBuyerName(e.target.value)} 
+							/>
+						</div>
+						
+						<div>
+							<Label htmlFor="eventName">Nom de l'événement</Label>
+							<Input 
+								id="eventName" 
+								placeholder="Marathon de Paris 2024" 
+								value={eventName} 
+								onChange={e => setEventName(e.target.value)} 
+							/>
+						</div>
+						
+						<div>
+							<Label htmlFor="bibPrice">Prix du dossard (€)</Label>
+							<Input 
+								id="bibPrice" 
+								type="number" 
+								placeholder="150" 
+								value={bibPrice} 
+								onChange={e => setBibPrice(Number(e.target.value))} 
+							/>
+						</div>
+						
+						<div>
+							<Label htmlFor="orderId">N° de commande</Label>
+							<Input 
+								id="orderId" 
+								placeholder="BW123456789" 
+								value={orderId} 
+								onChange={e => setOrderId(e.target.value)} 
+							/>
+						</div>
+
+						<div className="flex gap-2">
+							<Button
+								onClick={() => sendTestEmail('sale-confirmation')}
+								disabled={isLoading === 'sale-confirmation' || !email}
+								className="flex-1"
+							>
+								{isLoading === 'sale-confirmation' ? 'Envoi...' : 'Envoyer'}
+							</Button>
+							<Button variant="outline" onClick={() => openPreview('sale-confirmation')}>
+								Aperçu
+							</Button>
+						</div>
+					</CardContent>
+				</Card>
+
+				{/* Email de confirmation d'achat */}
+				<Card>
+					<CardHeader>
+						<CardTitle>Email de confirmation d'achat</CardTitle>
+						<CardDescription>Template envoyé à l'acheteur après un achat réussi</CardDescription>
+					</CardHeader>
+					<CardContent className="space-y-4">
+						<div>
+							<Label htmlFor="buyerNamePurchase">Nom de l'acheteur</Label>
+							<Input 
+								id="buyerNamePurchase" 
+								placeholder="Jean Martin" 
+								value={buyerName} 
+								onChange={e => setBuyerName(e.target.value)} 
+							/>
+						</div>
+						
+						<div>
+							<Label htmlFor="sellerNamePurchase">Nom du vendeur</Label>
+							<Input 
+								id="sellerNamePurchase" 
+								placeholder="Marie Dupont" 
+								value={sellerName} 
+								onChange={e => setSellerName(e.target.value)} 
+							/>
+						</div>
+						
+						<div>
+							<Label htmlFor="eventNamePurchase">Nom de l'événement</Label>
+							<Input 
+								id="eventNamePurchase" 
+								placeholder="Marathon de Paris 2024" 
+								value={eventName} 
+								onChange={e => setEventName(e.target.value)} 
+							/>
+						</div>
+						
+						<div>
+							<Label htmlFor="eventDistance">Distance</Label>
+							<Input 
+								id="eventDistance" 
+								placeholder="42.2 km" 
+								value={eventDistance} 
+								onChange={e => setEventDistance(e.target.value)} 
+							/>
+						</div>
+						
+						<div>
+							<Label htmlFor="bibCategory">Catégorie</Label>
+							<Input 
+								id="bibCategory" 
+								placeholder="Marathon" 
+								value={bibCategory} 
+								onChange={e => setBibCategory(e.target.value)} 
+							/>
+						</div>
+
+						<div className="flex gap-2">
+							<Button
+								onClick={() => sendTestEmail('purchase-confirmation')}
+								disabled={isLoading === 'purchase-confirmation' || !email}
+								className="flex-1"
+							>
+								{isLoading === 'purchase-confirmation' ? 'Envoi...' : 'Envoyer'}
+							</Button>
+							<Button variant="outline" onClick={() => openPreview('purchase-confirmation')}>
+								Aperçu
+							</Button>
+						</div>
+					</CardContent>
+				</Card>
+
+				{/* Email d'alerte admin */}
+				<Card>
+					<CardHeader>
+						<CardTitle>Email d'alerte admin</CardTitle>
+						<CardDescription>Template d'alerte envoyé aux administrateurs lors d'une vente</CardDescription>
+					</CardHeader>
+					<CardContent className="space-y-4">
+						<div>
+							<Label htmlFor="sellerEmailAdmin">Email vendeur</Label>
+							<Input 
+								id="sellerEmailAdmin" 
+								placeholder="seller@example.com" 
+								value={sellerEmail} 
+								onChange={e => setSellerEmail(e.target.value)} 
+							/>
+						</div>
+						
+						<div>
+							<Label htmlFor="buyerEmailAdmin">Email acheteur</Label>
+							<Input 
+								id="buyerEmailAdmin" 
+								placeholder="buyer@example.com" 
+								value={buyerEmail} 
+								onChange={e => setBuyerEmail(e.target.value)} 
+							/>
+						</div>
+						
+						<div>
+							<Label htmlFor="transactionId">ID Transaction</Label>
+							<Input 
+								id="transactionId" 
+								placeholder="tx_abc123def" 
+								value={transactionId} 
+								onChange={e => setTransactionId(e.target.value)} 
+							/>
+						</div>
+						
+						<div>
+							<Label htmlFor="paypalCaptureId">PayPal Capture ID</Label>
+							<Input 
+								id="paypalCaptureId" 
+								placeholder="CAPTURE123456789" 
+								value={paypalCaptureId} 
+								onChange={e => setPaypalCaptureId(e.target.value)} 
+							/>
+						</div>
+
+						<div className="flex gap-2">
+							<Button
+								onClick={() => sendTestEmail('sale-alert')}
+								disabled={isLoading === 'sale-alert' || !email}
+								className="flex-1"
+							>
+								{isLoading === 'sale-alert' ? 'Envoi...' : 'Envoyer'}
+							</Button>
+							<Button variant="outline" onClick={() => openPreview('sale-alert')}>
 								Aperçu
 							</Button>
 						</div>
