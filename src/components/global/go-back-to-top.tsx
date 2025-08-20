@@ -119,7 +119,7 @@ export function GoBackToTop({
 		fallbackTimeoutId = window.setTimeout(() => {
 			setIsAnimating(false)
 			window.removeEventListener('scroll', handleScroll)
-		}, animationResetTimeoutMs) as number
+		}, animationResetTimeoutMs)
 	}, [animationResetTimeoutMs])
 
 	return (
