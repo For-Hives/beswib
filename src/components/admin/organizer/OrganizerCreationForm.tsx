@@ -88,10 +88,14 @@ export default function OrganizerCreationForm({ onSuccess, onCancel, locale }: R
 		setIsLoading(true)
 
 		try {
+			// Narrow potential any from schema fallback into a concrete type
+			const safeLogoFile: File | undefined =
+				typeof window !== 'undefined' && data.logoFile instanceof File ? data.logoFile : undefined
+
 			const organizerData = {
 				website: data.website ?? undefined,
 				name: data.name,
-				logoFile: data.logoFile,
+				logoFile: safeLogoFile,
 				isPartnered: data.isPartnered,
 				email: data.email,
 			}
