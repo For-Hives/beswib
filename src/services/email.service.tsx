@@ -5,6 +5,11 @@ import { render } from '@react-email/components'
 import { Resend } from 'resend'
 
 import { BeswibEmailVerification, BeswibWelcomeEmail } from '@/components/emails'
+import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
+import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
+import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
+import BeswibWaitlistAlert from '@/components/emails/BeswibWaitlistAlert'
+import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -86,6 +91,243 @@ export async function sendWelcomeEmail(email: string, firstName?: string, locale
 		subject,
 		react: <BeswibWelcomeEmail firstName={firstName} locale={locale} />,
 	})
+}
+
+interface SaleConfirmationParams {
+	sellerEmail: string
+	sellerName?: string
+	buyerName?: string
+	eventName?: string
+	bibPrice?: number
+	platformFee?: number
+	totalReceived?: number
+	orderId?: string
+	eventDate?: string
+	eventLocation?: string
+	locale?: string
+}
+
+/**
+ * Sends a sale confirmation email to the seller using the React Email template
+ */
+export async function sendSaleConfirmationEmail({
+	sellerEmail,
+	sellerName,
+	buyerName,
+	eventName,
+	bibPrice,
+	platformFee,
+	totalReceived,
+	orderId,
+	eventDate,
+	eventLocation,
+	locale = 'fr'
+}: SaleConfirmationParams): Promise<boolean> {
+	const getLocalizedSubject = (locale: string) => {
+		switch (locale) {
+			case 'en': return 'Congratulations! Your bib has been sold 💰'
+			case 'es': return '¡Felicidades! Tu dorsal ha sido vendido 💰'
+			case 'it': return 'Congratulazioni! Il tuo pettorale è stato venduto 💰'
+			case 'de': return 'Glückwunsch! Ihre Startnummer wurde verkauft 💰'
+			case 'pt': return 'Parabéns! O seu dorsal foi vendido 💰'
+			case 'nl': return 'Gefeliciteerd! Uw startnummer is verkocht 💰'
+			case 'ko': return '축하합니다! 레이스 번호가 판매되었습니다 💰'
+			case 'ro': return 'Felicitări! Numărul tău de concurs a fost vândut 💰'
+			default: return 'Félicitations ! Votre dossard a été vendu 💰'
+		}
+	}
+
+	return sendEmail({
+		to: sellerEmail,
+		subject: getLocalizedSubject(locale),
+		react: <BeswibSaleConfirmation 
+			sellerName={sellerName}
+			buyerName={buyerName}
+			eventName={eventName}
+			bibPrice={bibPrice}
+			platformFee={platformFee}
+			totalReceived={totalReceived}
+			orderId={orderId}
+			eventDate={eventDate}
+			eventLocation={eventLocation}
+			locale={locale}
+		/>,
+	})
+}
+
+interface PurchaseConfirmationParams {
+	buyerEmail: string
+	buyerName?: string
+	sellerName?: string
+	eventName?: string
+	bibPrice?: number
+	orderId?: string
+	eventDate?: string
+	eventLocation?: string
+	eventDistance?: string
+	bibCategory?: string
+	locale?: string
+}
+
+/**
+ * Sends a purchase confirmation email to the buyer using the React Email template
+ */
+export async function sendPurchaseConfirmationEmail({
+	buyerEmail,
+	buyerName,
+	sellerName,
+	eventName,
+	bibPrice,
+	orderId,
+	eventDate,
+	eventLocation,
+	eventDistance,
+	bibCategory,
+	locale = 'fr'
+}: PurchaseConfirmationParams): Promise<boolean> {
+	const getLocalizedSubject = (locale: string) => {
+		switch (locale) {
+			case 'en': return 'Congratulations! Your purchase has been confirmed 🏃‍♂️'
+			case 'es': return '¡Felicidades! Tu compra ha sido confirmada 🏃‍♂️'
+			case 'it': return 'Congratulazioni! Il tuo acquisto è stato confermato 🏃‍♂️'
+			case 'de': return 'Glückwunsch! Ihr Kauf wurde bestätigt 🏃‍♂️'
+			case 'pt': return 'Parabéns! A sua compra foi confirmada 🏃‍♂️'
+			case 'nl': return 'Gefeliciteerd! Uw aankoop is bevestigd 🏃‍♂️'
+			case 'ko': return '축하합니다! 구매가 확인되었습니다 🏃‍♂️'
+			case 'ro': return 'Felicitări! Achiziția ta a fost confirmată 🏃‍♂️'
+			default: return 'Félicitations ! Votre achat a été confirmé 🏃‍♂️'
+		}
+	}
+
+	return sendEmail({
+		to: buyerEmail,
+		subject: getLocalizedSubject(locale),
+		react: <BeswibPurchaseConfirmation 
+			buyerName={buyerName}
+			sellerName={sellerName}
+			eventName={eventName}
+			bibPrice={bibPrice}
+			orderId={orderId}
+			eventDate={eventDate}
+			eventLocation={eventLocation}
+			eventDistance={eventDistance}
+			bibCategory={bibCategory}
+			locale={locale}
+		/>,
+	})
+}
+
+interface SaleAlertParams {
+	sellerName?: string
+	sellerEmail?: string
+	buyerName?: string
+	buyerEmail?: string
+	eventName?: string
+	bibPrice?: number
+	platformFee?: number
+	netRevenue?: number
+	orderId?: string
+	eventDate?: string
+	eventLocation?: string
+	eventDistance?: string
+	bibCategory?: string
+	transactionId?: string
+	paypalCaptureId?: string
+	saleTimestamp?: string
+}
+
+/**
+ * Sends a sale alert email to administrators with transaction details
+ */
+export async function sendSaleAlertEmail(params: SaleAlertParams): Promise<boolean> {
+	const adminEmails = process.env.NOTIFY_SALES_EMAIL_TO ?? process.env.NOTIFY_CONTACT_EMAIL_TO
+	
+	if (!adminEmails) {
+		console.warn('No admin emails configured for sale alerts')
+		return false
+	}
+
+	const subject = `🚨 Nouvelle Vente • ${params.eventName} • ${params.bibPrice?.toFixed(2)}€`
+	
+	return sendEmail({
+		to: adminEmails.split(',').map(email => email.trim()),
+		subject,
+		react: <BeswibSaleAlert 
+			sellerName={params.sellerName}
+			sellerEmail={params.sellerEmail}
+			buyerName={params.buyerName}
+			buyerEmail={params.buyerEmail}
+			eventName={params.eventName}
+			bibPrice={params.bibPrice}
+			platformFee={params.platformFee}
+			netRevenue={params.netRevenue}
+			orderId={params.orderId}
+			eventDate={params.eventDate}
+			eventLocation={params.eventLocation}
+			eventDistance={params.eventDistance}
+			bibCategory={params.bibCategory}
+			transactionId={params.transactionId}
+			paypalCaptureId={params.paypalCaptureId}
+			saleTimestamp={params.saleTimestamp}
+		/>,
+	})
+}
+
+interface WaitlistAlertParams {
+	eventName?: string
+	eventId?: string
+	bibPrice?: number
+	eventDate?: string
+	eventLocation?: string
+	eventDistance?: string
+	bibCategory?: string
+	sellerName?: string
+	timeRemaining?: string
+	locale?: string
+}
+
+/**
+ * Sends a waitlist alert email to users when a new bib becomes available for their event
+ */
+export async function sendWaitlistAlertEmail(
+	emails: string[],
+	params: WaitlistAlertParams
+): Promise<{ sent: number; failed: number }> {
+	if (emails.length === 0) {
+		return { sent: 0, failed: 0 }
+	}
+
+	const getLocalizedSubject = (locale: string) => {
+		const eventName = params.eventName || 'votre événement'
+		switch (locale) {
+			case 'en': return `🎯 Bib available for ${eventName}!`
+			case 'es': return `🎯 ¡Dorsal disponible para ${eventName}!`
+			case 'it': return `🎯 Pettorale disponibile per ${eventName}!`
+			case 'de': return `🎯 Startnummer verfügbar für ${eventName}!`
+			case 'pt': return `🎯 Dorsal disponível para ${eventName}!`
+			case 'nl': return `🎯 Startnummer beschikbaar voor ${eventName}!`
+			case 'ko': return `🎯 ${eventName} 레이스 번호 이용 가능!`
+			case 'ro': return `🎯 Număr de concurs disponibil pentru ${eventName}!`
+			default: return `🎯 Dossard disponible pour ${eventName} !`
+		}
+	}
+
+	return sendBatchEmails(
+		emails,
+		getLocalizedSubject(params.locale || 'fr'),
+		<BeswibWaitlistAlert 
+			eventName={params.eventName}
+			eventId={params.eventId}
+			bibPrice={params.bibPrice}
+			eventDate={params.eventDate}
+			eventLocation={params.eventLocation}
+			eventDistance={params.eventDistance}
+			bibCategory={params.bibCategory}
+			sellerName={params.sellerName}
+			timeRemaining={params.timeRemaining}
+			locale={params.locale}
+		/>
+	)
 }
 
 /**
@@ -178,6 +420,65 @@ function stripHtml(html: string): string {
 		.replace(/<[^>]*>/g, ' ')
 		.replace(/\s+/g, ' ')
 		.trim()
+}
+
+interface BibApprovalParams {
+	sellerEmail: string
+	sellerName?: string
+	eventName?: string
+	eventDate?: string
+	eventLocation?: string
+	bibPrice?: number
+	eventDistance?: string
+	bibCategory?: string
+	organizerName?: string
+	locale?: string
+}
+
+/**
+ * Sends a bib approval notification email to the seller when their bib is approved by the organizer
+ */
+export async function sendBibApprovalEmail({
+	sellerEmail,
+	sellerName,
+	eventName,
+	eventDate,
+	eventLocation,
+	bibPrice,
+	eventDistance,
+	bibCategory,
+	organizerName,
+	locale = 'fr'
+}: BibApprovalParams): Promise<boolean> {
+	const getLocalizedSubject = (locale: string) => {
+		switch (locale) {
+			case 'en': return 'Congratulations! Your bib has been approved 🎉'
+			case 'es': return '¡Felicidades! Tu dorsal ha sido aprobado 🎉'
+			case 'it': return 'Congratulazioni! Il tuo pettorale è stato approvato 🎉'
+			case 'de': return 'Glückwunsch! Ihre Startnummer wurde genehmigt 🎉'
+			case 'pt': return 'Parabéns! O seu dorsal foi aprovado 🎉'
+			case 'nl': return 'Gefeliciteerd! Uw startnummer is goedgekeurd 🎉'
+			case 'ko': return '축하합니다! 레이스 번호가 승인되었습니다 🎉'
+			case 'ro': return 'Felicitări! Numărul tău de concurs a fost aprobat 🎉'
+			default: return 'Félicitations ! Votre dossard a été approuvé 🎉'
+		}
+	}
+
+	return sendEmail({
+		to: sellerEmail,
+		subject: getLocalizedSubject(locale),
+		react: <BeswibBibApproval 
+			sellerName={sellerName}
+			eventName={eventName}
+			eventDate={eventDate}
+			eventLocation={eventLocation}
+			bibPrice={bibPrice}
+			eventDistance={eventDistance}
+			bibCategory={bibCategory}
+			organizerName={organizerName}
+			locale={locale}
+		/>,
+	})
 }
 
 // Export the main send function for custom use cases

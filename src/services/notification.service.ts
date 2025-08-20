@@ -18,6 +18,10 @@ import {
 import {
 	sendVerificationEmail as sendModernVerificationEmail,
 	sendWelcomeEmail as sendModernWelcomeEmail,
+	sendSaleConfirmationEmail,
+	sendPurchaseConfirmationEmail,
+	sendSaleAlertEmail,
+	sendWaitlistAlertEmail,
 } from './email.service'
 import { contactSummaryText, contactFullText, saleAlertText } from '../constants/discord.constant'
 
@@ -92,93 +96,76 @@ type NewBibNotificationInfo = {
 }
 
 /**
- * Sends notifications to all waitlisted users when a new bib becomes available for an event.
- * Sends both email notifications to waitlisted users and Discord alerts to admins.
+ * Sends modern waitlist notifications to all waitlisted users when a new bib becomes available for an event.
+ * Uses React Email templates with full multilingual support and Discord alerts to admins.
  * @param bibInfo Information about the new bib that was listed
  * @param waitlistedEmails Array of email addresses of users on the waitlist
+ * @param locale Language for the email template (defaults to 'fr')
  * @returns Success status and counts of sent/failed notifications
  */
 export async function sendNewBibNotification(
-	bibInfo: NewBibNotificationInfo,
-	waitlistedEmails: string[]
+	bibInfo: NewBibNotificationInfo & { bibCategory?: string; eventDistance?: string; sellerName?: string },
+	waitlistedEmails: string[],
+	locale: string = 'fr'
 ): Promise<{ success: boolean; emailsSent: number; emailsFailed: number; adminNotified: boolean }> {
 	if (waitlistedEmails.length === 0) {
 		return { success: true, emailsSent: 0, emailsFailed: 0, adminNotified: false }
 	}
 
-	const formatPrice = (price: number) => {
+	// Calculate time remaining until event
+	const calculateTimeRemaining = (eventDate?: Date | string): string => {
+		if (!eventDate) return '7 jours'
 		try {
-			return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' }).format(price)
+			const event = new Date(eventDate)
+			const now = new Date()
+			const diffTime = event.getTime() - now.getTime()
+			const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+			
+			if (diffDays <= 0) return '0 jour'
+			if (diffDays === 1) return '1 jour'
+			if (diffDays < 7) return `${diffDays} jours`
+			const weeks = Math.floor(diffDays / 7)
+			if (weeks === 1) return '1 semaine'
+			if (weeks < 4) return `${weeks} semaines`
+			const months = Math.floor(diffDays / 30)
+			return months === 1 ? '1 mois' : `${months} mois`
 		} catch {
-			return `€${price.toFixed(2)}`
+			return '7 jours'
 		}
 	}
 
-	const formatDate = (date?: Date | string) => {
-		if (date == null || date === '') return ''
+	const formatEventDate = (date?: Date | string) => {
+		if (!date) return ''
 		try {
 			const d = new Date(date)
-			return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+			return d.toLocaleDateString('fr-FR', { 
+				year: 'numeric', 
+				month: 'long', 
+				day: 'numeric' 
+			})
 		} catch {
 			return ''
 		}
 	}
 
-	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
-
-	// Email content for waitlisted users
-	const userEmailSubject = `🏃 New bib available for ${bibInfo.eventName}!`
-	const userEmailText = `Great news! A new bib is now available for ${bibInfo.eventName}.
-
-Event: ${bibInfo.eventName}
-${bibInfo.eventLocation != null && bibInfo.eventLocation.trim() !== '' ? `Location: ${bibInfo.eventLocation}` : ''}
-${bibInfo.eventDate != null ? `Date: ${formatDate(bibInfo.eventDate)}` : ''}
-Price: ${formatPrice(bibInfo.bibPrice)}
-
-Don't wait - check it out now: ${baseUrl}/events/${bibInfo.eventId}
-
-This notification was sent because you're on the waitlist for this event. You can manage your waitlist preferences in your dashboard.
-
-Happy running!
-The Beswib Team`
-
-	const userEmailHtml = `
-<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-	<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px 12px 0 0; text-align: center;">
-		<h1 style="color: white; margin: 0; font-size: 24px;">🏃 New Bib Available!</h1>
-	</div>
-	
-	<div style="background: white; padding: 30px; border: 1px solid #e0e0e0; border-radius: 0 0 12px 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-		<p style="font-size: 16px; color: #333; margin: 0 0 20px;">Great news! A new bib is now available for <strong>${escapeHtml(bibInfo.eventName)}</strong>.</p>
-		
-		<div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-			<h3 style="margin: 0 0 15px; color: #333;">Event Details:</h3>
-			<p style="margin: 5px 0; color: #555;"><strong>Event:</strong> ${escapeHtml(bibInfo.eventName)}</p>
-			${bibInfo.eventLocation != null && bibInfo.eventLocation.trim() !== '' ? `<p style="margin: 5px 0; color: #555;"><strong>Location:</strong> ${escapeHtml(bibInfo.eventLocation)}</p>` : ''}
-			${bibInfo.eventDate != null ? `<p style="margin: 5px 0; color: #555;"><strong>Date:</strong> ${formatDate(bibInfo.eventDate)}</p>` : ''}
-			<p style="margin: 5px 0; color: #555;"><strong>Price:</strong> ${formatPrice(bibInfo.bibPrice)}</p>
-		</div>
-		
-		<div style="text-align: center; margin: 30px 0;">
-			<a href="${baseUrl}/events/${bibInfo.eventId}" 
-			   style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
-				View Bib Now
-			</a>
-		</div>
-		
-		<p style="font-size: 14px; color: #666; margin: 20px 0 0; text-align: center;">
-			This notification was sent because you're on the waitlist for this event.<br>
-			You can manage your waitlist preferences in your dashboard.
-		</p>
-		
-		<p style="font-size: 14px; color: #666; margin: 20px 0 0; text-align: center;">
-			Happy running!<br>
-			<strong>The Beswib Team</strong>
-		</p>
-	</div>
-</div>`
+	// Use modern React Email template for waitlist notifications
+	const timeRemaining = calculateTimeRemaining(bibInfo.eventDate)
+	const emailResults = await sendWaitlistAlertEmail(waitlistedEmails, {
+		eventName: bibInfo.eventName,
+		eventId: bibInfo.eventId,
+		bibPrice: bibInfo.bibPrice,
+		eventDate: formatEventDate(bibInfo.eventDate),
+		eventLocation: bibInfo.eventLocation,
+		eventDistance: bibInfo.eventDistance,
+		bibCategory: bibInfo.bibCategory,
+		sellerName: bibInfo.sellerName,
+		timeRemaining,
+		locale,
+	})
 
 	// Admin Discord notification
+	const formatPrice = (price: number) => `${price.toFixed(2)}€`
+	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 	const adminDiscordContent = `🚨 **New Bib Listed - Waitlist Notified**
 
 📋 **Bib ID:** ${bibInfo.bibId}
@@ -189,21 +176,11 @@ The Beswib Team`
 
 Event Link: ${baseUrl}/events/${bibInfo.eventId}`
 
-	// Send emails to waitlisted users
-	const emailResults = await sendBatchEmail(waitlistedEmails, {
-		text: userEmailText,
-		subject: userEmailSubject,
-		html: userEmailHtml,
-	})
-
 	// Send admin notification
 	const adminNotified = await notifyAdmins({
 		text: `New bib listed for ${bibInfo.eventName}. ${waitlistedEmails.length} waitlisted users have been notified.`,
 		subject: `[Beswib] New bib listed - ${waitlistedEmails.length} users notified`,
-		html: userEmailHtml.replace(
-			'Great news! A new bib is now available',
-			`Admin Alert: New bib listed for ${bibInfo.eventName}. ${waitlistedEmails.length} waitlisted users have been notified.`
-		),
+		html: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;"><div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px; text-align: center;"><h1 style="color: white; margin: 0; font-size: 24px;">🚨 Admin Alert: New Bib Listed</h1></div><div style="background: white; padding: 30px; border: 1px solid #e0e0e0; border-radius: 0 0 12px 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"><p style="font-size: 16px; color: #333; margin: 0 0 20px;">A new bib has been listed for <strong>${escapeHtml(bibInfo.eventName)}</strong> and <strong>${waitlistedEmails.length}</strong> waitlisted users have been notified.</p></div></div>`,
 		discordContent: adminDiscordContent,
 	})
 
@@ -401,4 +378,86 @@ export async function sendVerificationEmail(
 	const html = VERIFICATION_EMAIL_HTML_TEMPLATE(verificationCode, expiryMinutes)
 
 	return sendUserEmail(email, { text, subject, html })
+}
+
+/**
+ * Sends a sale confirmation email to the seller with all transaction details
+ */
+export async function sendSellerSaleConfirmation(params: {
+	sellerEmail: string
+	sellerName?: string
+	buyerName?: string
+	eventName?: string
+	bibPrice?: number
+	platformFee?: number
+	totalReceived?: number
+	orderId?: string
+	eventDate?: string
+	eventLocation?: string
+	locale?: string
+}): Promise<boolean> {
+	try {
+		// Use modern React Email template
+		return await sendSaleConfirmationEmail(params)
+	} catch (error) {
+		console.error('Error sending sale confirmation email:', error)
+		return false
+	}
+}
+
+/**
+ * Sends a purchase confirmation email to the buyer with all transaction details
+ */
+export async function sendBuyerPurchaseConfirmation(params: {
+	buyerEmail: string
+	buyerName?: string
+	sellerName?: string
+	eventName?: string
+	bibPrice?: number
+	orderId?: string
+	eventDate?: string
+	eventLocation?: string
+	eventDistance?: string
+	bibCategory?: string
+	locale?: string
+}): Promise<boolean> {
+	try {
+		// Use modern React Email template
+		return await sendPurchaseConfirmationEmail(params)
+	} catch (error) {
+		console.error('Error sending purchase confirmation email:', error)
+		return false
+	}
+}
+
+/**
+ * Sends a comprehensive sale alert email to administrators with all transaction details
+ */
+export async function sendAdminSaleAlert(params: {
+	sellerName?: string
+	sellerEmail?: string
+	buyerName?: string
+	buyerEmail?: string
+	eventName?: string
+	bibPrice?: number
+	platformFee?: number
+	netRevenue?: number
+	orderId?: string
+	eventDate?: string
+	eventLocation?: string
+	eventDistance?: string
+	bibCategory?: string
+	transactionId?: string
+	paypalCaptureId?: string
+}): Promise<boolean> {
+	try {
+		// Use modern React Email template
+		return await sendSaleAlertEmail({
+			...params,
+			saleTimestamp: new Date().toLocaleString('fr-FR'),
+		})
+	} catch (error) {
+		console.error('Error sending admin sale alert email:', error)
+		return false
+	}
 }

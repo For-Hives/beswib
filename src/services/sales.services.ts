@@ -5,8 +5,8 @@ import type { BibSale } from '@/models/marketplace.model'
 
 import { createTransaction, updateTransaction, getTransactionByOrderId } from './transaction.services'
 import { fetchBibById, updateBib } from './bib.services'
-import { sendSaleAlert } from './notification.service'
-import { fetchUserByClerkId } from './user.services'
+import { sendSaleAlert, sendSellerSaleConfirmation, sendBuyerPurchaseConfirmation, sendAdminSaleAlert } from './notification.service'
+import { fetchUserByClerkId, fetchUserById } from './user.services'
 import { createOrder } from './paypal.services'
 
 // Create PayPal order and persist a pending Transaction linked to that order
@@ -127,8 +127,82 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 		})
 	}
 
-	// Fire-and-forget sale alert to Discord (silent if not configured)
+	// Fire-and-forget sale alert to Discord (legacy - for backup)
 	void sendSaleAlert({ orderId, currency, bibId, amount })
+
+	// Send comprehensive admin alert email and user confirmations
+	if (found?.seller_user_id && bibId) {
+		try {
+			const sellerUser = await fetchUserById(found.seller_user_id)
+			const bib = await fetchBibById(bibId)
+			const buyerUser = found.buyer_user_id ? await fetchUserById(found.buyer_user_id) : null
+			
+			if (sellerUser && bib?.event) {
+				const platformFee = Number((amount * 0.1).toFixed(2))
+				const totalReceived = Number((amount - platformFee).toFixed(2))
+				
+				// Format event date
+				const eventDate = bib.event.date ? new Date(bib.event.date).toLocaleDateString('fr-FR', {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+				}) : undefined
+
+				// Send comprehensive admin alert
+				void sendAdminSaleAlert({
+					sellerName: `${sellerUser.firstName || ''} ${sellerUser.lastName || ''}`.trim(),
+					sellerEmail: sellerUser.email,
+					buyerName: buyerUser ? `${buyerUser.firstName || ''} ${buyerUser.lastName || ''}`.trim() : 'Acheteur',
+					buyerEmail: buyerUser?.email,
+					eventName: bib.event.name,
+					bibPrice: amount,
+					platformFee,
+					netRevenue: totalReceived,
+					orderId,
+					eventDate,
+					eventLocation: bib.event.location,
+					eventDistance: bib.event.distance ? `${bib.event.distance} ${bib.event.distanceUnit || 'km'}` : undefined,
+					bibCategory: bib.event.type || 'Course',
+					transactionId: transactionId || undefined,
+					paypalCaptureId: captureId,
+				})
+
+				// Send seller sale confirmation
+				void sendSellerSaleConfirmation({
+					sellerEmail: sellerUser.email,
+					sellerName: `${sellerUser.firstName || ''} ${sellerUser.lastName || ''}`.trim(),
+					buyerName: buyerUser ? `${buyerUser.firstName || ''} ${buyerUser.lastName || ''}`.trim() : 'Acheteur',
+					eventName: bib.event.name,
+					bibPrice: amount,
+					platformFee,
+					totalReceived,
+					orderId,
+					eventDate,
+					eventLocation: bib.event.location,
+					locale: sellerUser.locale || 'fr'
+				})
+
+				// Send purchase confirmation email to buyer
+				if (buyerUser) {
+					void sendBuyerPurchaseConfirmation({
+						buyerEmail: buyerUser.email,
+						buyerName: `${buyerUser.firstName || ''} ${buyerUser.lastName || ''}`.trim(),
+						sellerName: `${sellerUser.firstName || ''} ${sellerUser.lastName || ''}`.trim(),
+						eventName: bib.event.name,
+						bibPrice: amount,
+						orderId,
+						eventDate,
+						eventLocation: bib.event.location,
+						eventDistance: bib.event.distance ? `${bib.event.distance} ${bib.event.distanceUnit || 'km'}` : undefined,
+						bibCategory: bib.event.type || 'Course',
+						locale: buyerUser.locale || 'fr'
+					})
+				}
+			}
+		} catch (error) {
+			console.error('Error sending confirmation emails:', error)
+		}
+	}
 
 	return { transactionId, bibId }
 }
