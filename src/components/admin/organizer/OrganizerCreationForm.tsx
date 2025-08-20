@@ -18,11 +18,11 @@ import { Locale } from '@/lib/i18n/config'
 
 import OrganizerFakerButton from './OrganizerFakerButton'
 
-// Validation Schema using Valibot
+// Validation Schema using Valibot - côté client seulement
 const OrganizerCreationSchema = v.object({
 	website: v.optional(v.union([v.pipe(v.string(), v.url('Must be a valid URL')), v.literal('')])),
 	name: v.pipe(v.string(), v.minLength(1, 'Organizer name is required')),
-	logoFile: v.optional(v.union([v.instance(File), v.undefined()])),
+	logoFile: v.optional(v.any()), // Use v.any() for File objects to avoid server-side issues
 	isPartnered: v.boolean(),
 	email: v.pipe(v.string(), v.email('Please enter a valid email address')),
 })
@@ -95,7 +95,7 @@ export default function OrganizerCreationForm({ onSuccess, onCancel, locale }: R
 				formData.append('website', data.website.trim())
 			}
 
-			if (data.logoFile != null) {
+			if (data.logoFile != null && data.logoFile instanceof File) {
 				formData.append('logoFile', data.logoFile)
 			}
 
