@@ -43,19 +43,6 @@ export default function BeswibPurchaseApproval({
 }: BeswibPurchaseApprovalProps) {
 	const t = getTranslations(locale, constantsLocales)
 
-	const getLocalizedText = (key: string): string => {
-		const keys = key.split('.')
-		let value: Record<string, unknown> | string = t.emails.purchaseApproval
-		for (const k of keys) {
-			if (typeof value === 'object' && value !== null && k in value) {
-				value = value[k] as Record<string, unknown> | string
-			} else {
-				return key
-			}
-		}
-		return typeof value === 'string' ? value : key
-	}
-
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
@@ -64,7 +51,7 @@ export default function BeswibPurchaseApproval({
 			<Head>
 				<Font fontFamily="Inter" fontWeight={400} fontStyle="normal" fallbackFontFamily="Arial" />
 			</Head>
-			<Preview>{getLocalizedText('subject')}</Preview>
+			<Preview>{t.emails.purchaseApproval.subject}</Preview>
 			<Body style={{ fontFamily: 'Inter, Arial, sans-serif', backgroundColor: 'hsl(var(--background))' }}>
 				<Container style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
 					{/* Header */}
@@ -82,7 +69,7 @@ export default function BeswibPurchaseApproval({
 						}}
 					>
 						<Text style={{ margin: '0', fontWeight: '700', fontSize: '24px', color: 'white' }}>
-							🎉 {getLocalizedText('subject').replace(' 🎉', '')}
+							🎉 {t.emails.purchaseApproval.subject.replace(' 🎉', '')}
 						</Text>
 					</Section>
 
@@ -98,7 +85,7 @@ export default function BeswibPurchaseApproval({
 					>
 						{/* Greeting */}
 						<Text style={{ marginBottom: '16px', fontSize: '16px', color: 'hsl(var(--foreground))' }}>
-							{getLocalizedText('greeting')}
+							{t.emails.purchaseApproval.greeting}
 							{buyerName ? ` ${buyerName}` : ''} 👋
 						</Text>
 
@@ -106,7 +93,7 @@ export default function BeswibPurchaseApproval({
 						<Text
 							style={{ marginBottom: '24px', lineHeight: '1.6', fontSize: '16px', color: 'hsl(var(--foreground))' }}
 						>
-							{getLocalizedText('mainMessage')} <strong>{getLocalizedText('readyToRun')}</strong>
+							{t.emails.purchaseApproval.mainMessage} <strong>{t.emails.purchaseApproval.readyToRun}</strong>
 						</Text>
 
 						{/* Validation Status */}
@@ -120,10 +107,11 @@ export default function BeswibPurchaseApproval({
 							}}
 						>
 							<Text style={{ margin: '0 0 12px 0', fontWeight: '600', fontSize: '18px', color: 'hsl(var(--success))' }}>
-								✅ {getLocalizedText('validationDetails')}
+								✅ {t.emails.purchaseApproval.validationDetails}
 							</Text>
 							<Text style={{ margin: '0', fontSize: '14px', color: 'hsl(var(--success))' }}>
-								<strong>{getLocalizedText('validatedBy')}:</strong> {organizerName || "Organisateur de l'événement"}
+								<strong>{t.emails.purchaseApproval.validatedBy}:</strong>{' '}
+								{organizerName || "Organisateur de l'événement"}
 							</Text>
 						</Section>
 
@@ -139,42 +127,42 @@ export default function BeswibPurchaseApproval({
 							<Heading
 								style={{ margin: '0 0 16px 0', fontWeight: '600', fontSize: '16px', color: 'hsl(var(--foreground))' }}
 							>
-								{getLocalizedText('purchaseDetails')}
+								{t.emails.purchaseApproval.purchaseDetails}
 							</Heading>
 
 							{eventName && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('event')}:</strong> {eventName}
+									<strong>{t.emails.purchaseApproval.event}:</strong> {eventName}
 								</Text>
 							)}
 							{eventDate && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('date')}:</strong> {eventDate}
+									<strong>{t.emails.purchaseApproval.date}:</strong> {eventDate}
 								</Text>
 							)}
 							{eventLocation && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('location')}:</strong> {eventLocation}
+									<strong>{t.emails.purchaseApproval.location}:</strong> {eventLocation}
 								</Text>
 							)}
 							{eventDistance && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('distance')}:</strong> {eventDistance}
+									<strong>{t.emails.purchaseApproval.distance}:</strong> {eventDistance}
 								</Text>
 							)}
 							{bibCategory && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('category')}:</strong> {bibCategory}
+									<strong>{t.emails.purchaseApproval.category}:</strong> {bibCategory}
 								</Text>
 							)}
 							{bibPrice > 0 && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('pricePaid')}:</strong> {formatPrice(bibPrice)}
+									<strong>{t.emails.purchaseApproval.pricePaid}:</strong> {formatPrice(bibPrice)}
 								</Text>
 							)}
 							{orderId && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('orderId')}:</strong> {orderId}
+									<strong>{t.emails.purchaseApproval.orderId}:</strong> {orderId}
 								</Text>
 							)}
 						</Section>
@@ -184,7 +172,7 @@ export default function BeswibPurchaseApproval({
 							<Heading
 								style={{ marginBottom: '16px', fontWeight: '600', fontSize: '16px', color: 'hsl(var(--foreground))' }}
 							>
-								🏁 {getLocalizedText('finalSteps')}
+								🏁 {t.emails.purchaseApproval.finalSteps}
 							</Heading>
 
 							<Text
@@ -195,7 +183,7 @@ export default function BeswibPurchaseApproval({
 									color: 'hsl(var(--muted-foreground))',
 								}}
 							>
-								• {getLocalizedText('step1')}
+								• {t.emails.purchaseApproval.step1}
 							</Text>
 							<Text
 								style={{
@@ -205,7 +193,7 @@ export default function BeswibPurchaseApproval({
 									color: 'hsl(var(--muted-foreground))',
 								}}
 							>
-								• {getLocalizedText('step2')}
+								• {t.emails.purchaseApproval.step2}
 							</Text>
 							<Text
 								style={{
@@ -215,7 +203,7 @@ export default function BeswibPurchaseApproval({
 									color: 'hsl(var(--muted-foreground))',
 								}}
 							>
-								• {getLocalizedText('step3')}
+								• {t.emails.purchaseApproval.step3}
 							</Text>
 							<Text
 								style={{
@@ -225,7 +213,7 @@ export default function BeswibPurchaseApproval({
 									color: 'hsl(var(--muted-foreground))',
 								}}
 							>
-								• {getLocalizedText('step4')}
+								• {t.emails.purchaseApproval.step4}
 							</Text>
 						</Section>
 
@@ -244,7 +232,7 @@ export default function BeswibPurchaseApproval({
 									background: 'linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 35%) 100%)',
 								}}
 							>
-								{getLocalizedText('viewEventButton')}
+								{t.emails.purchaseApproval.viewEventButton}
 							</Button>
 						</Section>
 
@@ -259,17 +247,17 @@ export default function BeswibPurchaseApproval({
 							}}
 						>
 							<Heading style={{ margin: '0 0 16px 0', fontWeight: '600', fontSize: '16px', color: 'hsl(var(--info))' }}>
-								🏃‍♂️ {getLocalizedText('preparationTips')}
+								🏃‍♂️ {t.emails.purchaseApproval.preparationTips}
 							</Heading>
 
 							<Text style={{ paddingLeft: '16px', margin: '8px 0', fontSize: '14px', color: 'hsl(var(--info))' }}>
-								• {getLocalizedText('tip1')}
+								• {t.emails.purchaseApproval.tip1}
 							</Text>
 							<Text style={{ paddingLeft: '16px', margin: '8px 0', fontSize: '14px', color: 'hsl(var(--info))' }}>
-								• {getLocalizedText('tip2')}
+								• {t.emails.purchaseApproval.tip2}
 							</Text>
 							<Text style={{ paddingLeft: '16px', margin: '8px 0', fontSize: '14px', color: 'hsl(var(--info))' }}>
-								• {getLocalizedText('tip3')}
+								• {t.emails.purchaseApproval.tip3}
 							</Text>
 						</Section>
 
@@ -285,7 +273,7 @@ export default function BeswibPurchaseApproval({
 							}}
 						>
 							<Text style={{ margin: '0', fontWeight: '500', fontSize: '14px', color: 'hsl(var(--primary))' }}>
-								🌟 {getLocalizedText('congratulations')}
+								🌟 {t.emails.purchaseApproval.congratulations}
 							</Text>
 						</Section>
 
@@ -294,10 +282,10 @@ export default function BeswibPurchaseApproval({
 						{/* Help Section */}
 						<Section style={{ textAlign: 'center', marginBottom: '24px' }}>
 							<Text style={{ marginBottom: '8px', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-								<strong>{getLocalizedText('helpText')}</strong>
+								<strong>{t.emails.purchaseApproval.helpText}</strong>
 							</Text>
 							<Text style={{ marginBottom: '16px', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-								{getLocalizedText('helpDescription')}
+								{t.emails.purchaseApproval.helpDescription}
 							</Text>
 							<Button
 								href={`${baseUrl}/contact`}
@@ -309,17 +297,17 @@ export default function BeswibPurchaseApproval({
 									background: 'transparent',
 								}}
 							>
-								{getLocalizedText('contactSupport')}
+								{t.emails.purchaseApproval.contactSupport}
 							</Button>
 						</Section>
 
 						{/* Footer */}
 						<Section style={{ textAlign: 'center' }}>
 							<Text style={{ margin: '0 0 8px 0', fontSize: '16px', color: 'hsl(var(--foreground))' }}>
-								{getLocalizedText('footer')}
+								{t.emails.purchaseApproval.footer}
 							</Text>
 							<Text style={{ margin: '0', fontWeight: '600', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-								{getLocalizedText('teamSignature')}
+								{t.emails.purchaseApproval.teamSignature}
 							</Text>
 						</Section>
 					</Section>

@@ -1,6 +1,5 @@
 import {
 	Body,
-	Button,
 	Container,
 	Head,
 	Heading,
@@ -36,12 +35,7 @@ interface BeswibWelcomeEmailProps {
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
-export const BeswibWelcomeEmail = ({
-	steps,
-	quickLinks,
-	locale = 'fr',
-	firstName = 'Coureur',
-}: BeswibWelcomeEmailProps) => {
+export const BeswibWelcomeEmail = ({ steps, locale = 'fr', firstName = 'Coureur' }: BeswibWelcomeEmailProps) => {
 	const t = getTranslations(locale, constantsLocales)
 
 	// Default steps with translations from locales.json - SIMPLE AND DIRECT! ✨
@@ -72,23 +66,6 @@ export const BeswibWelcomeEmail = ({
 		},
 	]
 
-	const defaultQuickLinks = [
-		{
-			title: t.emails.welcome.quickLinks.support.title,
-			href: `${baseUrl}/contact`,
-			description: t.emails.welcome.quickLinks.support.description,
-		},
-		{
-			title: t.emails.welcome.quickLinks.guide.title,
-			href: `${baseUrl}/guide`,
-			description: t.emails.welcome.quickLinks.guide.description,
-		},
-		{
-			title: t.emails.welcome.quickLinks.events.title,
-			href: `${baseUrl}/events`,
-			description: t.emails.welcome.quickLinks.events.description,
-		},
-	]
 	return (
 		<Html>
 			<Head />

@@ -74,7 +74,7 @@ export const BeswibPurchaseConfirmation = ({
 				}}
 			>
 				<Body className="bg-background font-sans">
-					<Preview>{getLocalizedText('subject')}</Preview>
+					<Preview>{t.emails.purchaseConfirmation.subject}</Preview>
 					<Container className="mx-auto max-w-[600px] px-4 py-8">
 						{/* Header avec logo */}
 						<Section className="mb-8">
@@ -86,49 +86,65 @@ export const BeswibPurchaseConfirmation = ({
 							{/* Icon et titre */}
 							<Section className="mb-6 text-center">
 								<Text className="text-success mb-4 text-4xl">🏃‍♂️</Text>
-								<Heading className="text-foreground mb-2 text-2xl font-bold">{getLocalizedText('title')}</Heading>
-								<Text className="text-muted-foreground text-base">{getLocalizedText('subtitle')}</Text>
+								<Heading className="text-foreground mb-2 text-2xl font-bold">
+									{t.emails.purchaseConfirmation.title}
+								</Heading>
+								<Text className="text-muted-foreground text-base">{t.emails.purchaseConfirmation.subtitle}</Text>
 							</Section>
 
 							{/* Informations de l'achat */}
 							<Section className="bg-muted border-border mb-6 rounded-lg border p-6">
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
-									{getLocalizedText('purchaseDetails')}
+									{t.emails.purchaseConfirmation.purchaseDetails}
 								</Heading>
 
 								<Section className="space-y-3">
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('event')}:</Text>
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.purchaseConfirmation.event}:
+										</Text>
 										<Text className="text-foreground text-sm font-semibold">{eventName}</Text>
 									</Section>
 
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('category')}:</Text>
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.purchaseConfirmation.category}:
+										</Text>
 										<Text className="text-foreground text-sm">{bibCategory}</Text>
 									</Section>
 
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('distance')}:</Text>
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.purchaseConfirmation.distance}:
+										</Text>
 										<Text className="text-foreground text-sm">{eventDistance}</Text>
 									</Section>
 
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('date')}:</Text>
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.purchaseConfirmation.date}:
+										</Text>
 										<Text className="text-foreground text-sm">{eventDate}</Text>
 									</Section>
 
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('location')}:</Text>
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.purchaseConfirmation.location}:
+										</Text>
 										<Text className="text-foreground text-sm">{eventLocation}</Text>
 									</Section>
 
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('seller')}:</Text>
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.purchaseConfirmation.seller}:
+										</Text>
 										<Text className="text-foreground text-sm">{sellerName}</Text>
 									</Section>
 
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('orderId')}:</Text>
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.purchaseConfirmation.orderId}:
+										</Text>
 										<Text className="text-foreground font-mono text-sm">{orderId}</Text>
 									</Section>
 								</Section>
@@ -137,23 +153,27 @@ export const BeswibPurchaseConfirmation = ({
 							{/* Détails du paiement */}
 							<Section className="bg-muted border-border mb-6 rounded-lg border p-6">
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
-									{getLocalizedText('paymentSummary')}
+									{t.emails.purchaseConfirmation.paymentSummary}
 								</Heading>
 
 								<Section className="space-y-3">
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm">{getLocalizedText('bibPrice')}:</Text>
+										<Text className="text-muted-foreground text-sm">{t.emails.purchaseConfirmation.bibPrice}:</Text>
 										<Text className="text-foreground text-sm">{formatPrice(bibPrice)}</Text>
 									</Section>
 
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm">{getLocalizedText('processingFee')}:</Text>
-										<Text className="text-foreground text-sm">{getLocalizedText('included')}</Text>
+										<Text className="text-muted-foreground text-sm">
+											{t.emails.purchaseConfirmation.processingFee}:
+										</Text>
+										<Text className="text-foreground text-sm">{t.emails.purchaseConfirmation.included}</Text>
 									</Section>
 
 									<Section className="border-border border-t pt-3">
 										<Section className="flex justify-between">
-											<Text className="text-foreground text-base font-bold">{getLocalizedText('totalPaid')}:</Text>
+											<Text className="text-foreground text-base font-bold">
+												{t.emails.purchaseConfirmation.totalPaid}:
+											</Text>
 											<Text className="text-success text-base font-bold">{formatPrice(bibPrice)}</Text>
 										</Section>
 									</Section>
@@ -163,21 +183,21 @@ export const BeswibPurchaseConfirmation = ({
 							{/* Message de félicitations */}
 							<Section className="mb-6 text-center">
 								<Text className="text-muted-foreground text-base leading-relaxed">
-									{getLocalizedText('congratulations').replace('{buyerName}', buyerName || '')}
+									{t.emails.purchaseConfirmation.congratulations.replace('{buyerName}', buyerName || '')}
 								</Text>
 							</Section>
 
 							{/* Prochaines étapes */}
 							<Section className="bg-card border-border rounded-lg border p-6">
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
-									{getLocalizedText('nextSteps')}
+									{t.emails.purchaseConfirmation.nextSteps}
 								</Heading>
 
 								<Section className="space-y-3">
-									<Text className="text-muted-foreground text-sm">• {getLocalizedText('step1')}</Text>
-									<Text className="text-muted-foreground text-sm">• {getLocalizedText('step2')}</Text>
-									<Text className="text-muted-foreground text-sm">• {getLocalizedText('step3')}</Text>
-									<Text className="text-muted-foreground text-sm">• {getLocalizedText('step4')}</Text>
+									<Text className="text-muted-foreground text-sm">• {t.emails.purchaseConfirmation.step1}</Text>
+									<Text className="text-muted-foreground text-sm">• {t.emails.purchaseConfirmation.step2}</Text>
+									<Text className="text-muted-foreground text-sm">• {t.emails.purchaseConfirmation.step3}</Text>
+									<Text className="text-muted-foreground text-sm">• {t.emails.purchaseConfirmation.step4}</Text>
 								</Section>
 							</Section>
 						</Section>
@@ -186,19 +206,19 @@ export const BeswibPurchaseConfirmation = ({
 						<Section className="bg-card border-border rounded-lg border px-8 py-6 shadow-sm">
 							<Section className="text-center">
 								<Link href={`${baseUrl}`} className="text-muted-foreground text-xs underline">
-									{getLocalizedText('ourSite')}
+									{t.emails.purchaseConfirmation.ourSite}
 								</Link>
 								&nbsp;&nbsp;|&nbsp;&nbsp;
 								<Link href={`${baseUrl}/contact`} className="text-muted-foreground text-xs underline">
-									{getLocalizedText('contact')}
+									{t.emails.purchaseConfirmation.contact}
 								</Link>
 								&nbsp;&nbsp;|&nbsp;&nbsp;
 								<Link href={`${baseUrl}/dashboard/buyer`} className="text-muted-foreground text-xs underline">
-									{getLocalizedText('dashboard')}
+									{t.emails.purchaseConfirmation.dashboard}
 								</Link>
 								&nbsp;&nbsp;|&nbsp;&nbsp;
 								<Link href={`${baseUrl}/legals/privacy`} className="text-muted-foreground text-xs underline">
-									{getLocalizedText('privacy')}
+									{t.emails.purchaseConfirmation.privacy}
 								</Link>
 							</Section>
 
@@ -207,7 +227,7 @@ export const BeswibPurchaseConfirmation = ({
 									<Text className="text-muted-foreground text-xs">
 										{t.emails.layout.copyright.replace('{year}', new Date().getFullYear().toString())}
 										<br />
-										{getLocalizedText('tagline')}
+										{t.emails.purchaseConfirmation.tagline}
 									</Text>
 								</Column>
 								<Column align="right" className="mt-4 flex flex-row items-center justify-end gap-2">
