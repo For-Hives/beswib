@@ -10,7 +10,6 @@ import {
 	Section,
 	Text,
 	Tailwind,
-	Row,
 	Column,
 } from '@react-email/components'
 
