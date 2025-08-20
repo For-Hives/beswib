@@ -55,7 +55,7 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 					</div>
 
 					{/* version */}
-					<div className="text-muted-foreground text-sm">{`Version ${getVersion()}`}</div>
+					<div className="text-muted-foreground text-sm">{`${getVersion()}`}</div>
 				</div>
 
 				{/* Explore */}
