@@ -13,7 +13,8 @@ import {
 	Hr,
 } from '@react-email/components'
 
-import { getEmailTranslations, type EmailTranslations } from '@/lib/i18n/email-helpers'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import constantsLocales from '@/constants/locales.json'
 
 interface BeswibBibApprovalProps {
 	sellerName?: string
@@ -38,30 +39,24 @@ export default function BeswibBibApproval({
 	bibPrice = 0,
 	bibCategory = '',
 }: BeswibBibApprovalProps) {
-	const t: EmailTranslations = getEmailTranslations(locale)
+	const t = getTranslations(locale, constantsLocales)
 
-	const getLocalizedText = (key: string) => {
+	const getLocalizedText = (key: string): string => {
 		const keys = key.split('.')
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let value: any = t.bibApproval
+		let value: any = t.emails.bibApproval
 		for (const k of keys) {
 			value = value?.[k]
 		}
-		return value ?? key
+		return (value as string) ?? key
 	}
 
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
-	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://beswib.com'
+	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
 	return (
 		<Html lang={locale}>
 			<Head>
-				<Font
-					fontFamily="Inter"
-					src="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-					fontWeight={400}
-					fontStyle="normal"
-				/>
+				<Font fontFamily="Inter" fontWeight={400} fontStyle="normal" fallbackFontFamily="Arial" />
 			</Head>
 			<Preview>{getLocalizedText('subject')}</Preview>
 			<Body style={{ fontFamily: 'Inter, Arial, sans-serif', backgroundColor: 'hsl(var(--background))' }}>

@@ -13,7 +13,8 @@ import {
 	Column,
 } from '@react-email/components'
 
-import { getEmailTranslations, type EmailTranslations } from '@/lib/i18n/email-helpers'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import constantsLocales from '@/constants/locales.json'
 
 interface BeswibPurchaseConfirmationProps {
 	buyerName?: string
@@ -42,18 +43,17 @@ export const BeswibPurchaseConfirmation = ({
 	bibPrice = 150,
 	bibCategory = 'Marathon',
 }: BeswibPurchaseConfirmationProps) => {
-	const t: EmailTranslations = getEmailTranslations(locale)
+	const t = getTranslations(locale, constantsLocales)
 
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
 
-	const getLocalizedText = (key: string) => {
+	const getLocalizedText = (key: string): string => {
 		const keys = key.split('.')
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let value: any = t.purchaseConfirmation
+		let value: any = t.emails.purchaseConfirmation
 		for (const k of keys) {
 			value = value?.[k]
 		}
-		return value ?? key
+		return (value as string) ?? key
 	}
 
 	return (
