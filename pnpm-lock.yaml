@@ -240,8 +240,8 @@ importers:
         specifier: 2.0.7
         version: 2.0.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       svix:
-        specifier: 1.74.0
-        version: 1.74.0
+        specifier: 1.74.1
+        version: 1.74.1
       tailwind-merge:
         specifier: 3.3.1
         version: 3.3.1
@@ -5323,8 +5323,8 @@ packages:
     peerDependencies:
       react: '>=17.0'
 
-  svix@1.74.0:
-    resolution: {integrity: sha512-NtL2SbrbymP4BRrJnXrbacRFVQGQz+hGUg6K7koBbZM6faVlcqUquoJx+d5N7rtVfqTG7crQzDy0bnV5pD2K1w==}
+  svix@1.74.1:
+    resolution: {integrity: sha512-99J8jSsk0viwkoAENVy/zpVoZxwn3kBdUvvpFaWiKjCkkTcqNZdoBqMmariDFceL4Q41ntWfUYxaWD37IAk9Kg==}
 
   swr@2.3.4:
     resolution: {integrity: sha512-bYd2lrhc+VarcpkgWclcUi92wYCpOgMws9Sd1hG1ntAu0NEy+14CbotuFjshBU2kt9rYj9TSmDcybpxpeTU1fg==}
@@ -11201,7 +11201,7 @@ snapshots:
     dependencies:
       react: 19.1.1
 
-  svix@1.74.0:
+  svix@1.74.1:
     dependencies:
       '@stablelib/base64': 1.0.1
       '@types/node': 22.17.2
