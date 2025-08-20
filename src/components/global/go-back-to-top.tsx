@@ -36,27 +36,25 @@ interface GoBackToTopProps {
  * - Accessible with keyboard navigation
  * - Automatic internationalization
  */
-export function GoBackToTop({
-	threshold = 100,
-	locale,
-	className,
-}: GoBackToTopProps) {
+export function GoBackToTop({ threshold = 100, locale, className }: GoBackToTopProps) {
 	// Get translations for the current locale
 	const t = getTranslations(locale, translations)
 
 	// Custom icon component using Lucide's ArrowUp
 	const CustomIcon = () => (
-		<div className={cn(
-			'h-11 w-11 rounded-full shadow-lg transition-all duration-300',
-			'sm:h-12 sm:w-12',
-			'bg-background/90 border border-border/60 backdrop-blur-md',
-			'hover:bg-background/95 hover:scale-110 hover:shadow-xl',
-			'focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2',
-			'active:scale-95',
-			'dark:bg-background/95 dark:border-border/40',
-			'flex items-center justify-center cursor-pointer',
-			className
-		)}>
+		<div
+			className={cn(
+				'h-11 w-11 rounded-full shadow-lg transition-all duration-300',
+				'sm:h-12 sm:w-12',
+				'bg-background/90 border-border/60 border backdrop-blur-md',
+				'hover:bg-background/95 hover:scale-110 hover:shadow-xl',
+				'focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2',
+				'active:scale-95',
+				'dark:bg-background/95 dark:border-border/40',
+				'flex cursor-pointer items-center justify-center',
+				className
+			)}
+		>
 			<ArrowUp className="h-4 w-4 sm:h-5 sm:w-5" />
 		</div>
 	)
@@ -70,13 +68,13 @@ export function GoBackToTop({
 						top={threshold}
 						component={<CustomIcon />}
 						style={{
-							position: 'fixed',
-							bottom: '1rem',
-							right: '1rem',
 							zIndex: 50,
-							backgroundColor: 'transparent',
-							border: 'none',
+							right: '1rem',
+							position: 'fixed',
 							padding: 0,
+							bottom: '1rem',
+							border: 'none',
+							backgroundColor: 'transparent',
 						}}
 						aria-label={t.goBackToTop}
 					/>
