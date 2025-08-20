@@ -9,11 +9,11 @@ interface OrganizerFakerButtonProps {
 	setValue: UseFormSetValue<OrganizerFormData>
 }
 
-// Type for organizer form data
+// Type for organizer form data - server-safe
 interface OrganizerFormData {
 	email: string
 	isPartnered: boolean
-	logoFile?: File
+	logoFile?: unknown
 	name: string
 	website?: string
 }

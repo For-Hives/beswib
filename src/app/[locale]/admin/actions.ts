@@ -80,32 +80,42 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 	success: boolean
 }> {
 	try {
+		console.info('🚀 [ACTION] Starting createOrganizerAction')
+
 		// Verify admin access (checks Clerk auth, platform registration, and admin role)
+		console.info('🔐 [ACTION] Checking admin access...')
 		const adminUser = await checkAdminAccess()
 
 		if (adminUser === null) {
+			console.error('❌ [ACTION] Unauthorized access attempt')
 			return {
 				success: false,
 				error: 'Unauthorized: Admin access required',
 			}
 		}
+		console.info('✅ [ACTION] Admin access verified:', adminUser.email)
 
 		// Extract data from FormData
+		console.info('📊 [ACTION] Extracting data from FormData...')
 		const name = formData.get('name') as string
 		const email = formData.get('email') as string
 		const website = formData.get('website') as string
 		const isPartnered = formData.get('isPartnered') === 'true'
 		const logoFile = formData.get('logoFile')
 
-		console.info('Creating organizer:', {
+		console.info('📝 [ACTION] Extracted data:', {
 			email,
 			hasFile: logoFile != null,
 			isPartnered,
+			logoFileType: logoFile != null ? typeof logoFile : 'undefined',
+			logoFileConstructor: logoFile?.constructor?.name ?? 'undefined',
 			name,
+			website: website || 'empty',
 		})
 
 		// Validate required fields
 		if (!name || !email) {
+			console.error('❌ [ACTION] Missing required fields')
 			return {
 				success: false,
 				error: 'Name and email are required',
@@ -113,6 +123,7 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 		}
 
 		// Prepare organizer data for creation
+		console.info('🔧 [ACTION] Preparing organizer data...')
 		const organizerData = {
 			email,
 			isPartnered,
@@ -121,20 +132,29 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 			website: website ?? undefined,
 		}
 
+		console.info('📋 [ACTION] Final organizer data:', {
+			...organizerData,
+			logoFile: organizerData.logoFile ? `[Object: ${organizerData.logoFile.constructor?.name}]` : 'undefined',
+		})
+
 		// Create the organizer with PocketBase service
+		console.info('💾 [ACTION] Calling createOrganizer service...')
 		const result = await createOrganizer(organizerData)
 
 		if (result !== null) {
+			console.info('🎉 [ACTION] Organizer created successfully:', result.name)
 			console.info(`Admin ${adminUser.email} created organizer: ${result.name}`)
 			return {
 				success: true,
 				data: result,
 			}
 		} else {
+			console.error('❌ [ACTION] Service returned null')
 			throw new Error('Failed to create organizer')
 		}
 	} catch (error) {
-		console.error('Error in createOrganizerAction:', error)
+		console.error('💥 [ACTION] Error in createOrganizerAction:', error)
+		console.error('📍 [ACTION] Stack trace:', error instanceof Error ? error.stack : 'No stack available')
 		return {
 			success: false,
 			error: error instanceof Error ? error.message : 'Failed to create organizer',
@@ -463,7 +483,7 @@ export async function updateOrganizerAction(
 		const email = formData.get('email') as string
 		const website = formData.get('website') as string
 		const isPartnered = formData.get('isPartnered') === 'true'
-		const logoFile = formData.get('logoFile') as File | null
+		const logoFile = formData.get('logoFile')
 
 		// Validate required fields
 		if (!name || !email) {
