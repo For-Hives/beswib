@@ -95,7 +95,14 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 		const email = formData.get('email') as string
 		const website = formData.get('website') as string
 		const isPartnered = formData.get('isPartnered') === 'true'
-		const logoFile = formData.get('logoFile') as File | null
+		const logoFile = formData.get('logoFile')
+
+		console.info('Creating organizer:', {
+			email,
+			hasFile: logoFile != null,
+			isPartnered,
+			name,
+		})
 
 		// Validate required fields
 		if (!name || !email) {
@@ -109,7 +116,7 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 		const organizerData = {
 			email,
 			isPartnered,
-			logoFile: logoFile ?? undefined,
+			logoFile: logoFile != null && typeof logoFile === 'object' ? logoFile : undefined,
 			name,
 			website: website ?? undefined,
 		}
