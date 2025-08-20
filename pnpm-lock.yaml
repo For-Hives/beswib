@@ -230,6 +230,9 @@ importers:
       react-hook-form:
         specifier: 7.62.0
         version: 7.62.0(react@19.1.1)
+      react-scroll-to-top:
+        specifier: ^3.1.0
+        version: 3.1.0(react@19.1.1)
       require-in-the-middle:
         specifier: 7.5.2
         version: 7.5.2
@@ -4996,6 +4999,11 @@ packages:
       '@types/react':
         optional: true
 
+  react-scroll-to-top@3.1.0:
+    resolution: {integrity: sha512-hD3bJQgCblywG2gcI515BcxP43MZkBidsYEVt9ak5pu1UOoQDJzIJp89zwccbpFuqeHZ29Lxs00T9DSxQr4cmw==}
+    peerDependencies:
+      react: ^16.8.0 || 17.x || ^18 || ^19
+
   react-style-singleton@2.2.3:
     resolution: {integrity: sha512-b6jSvxvVnyptAiLjbkWLE/lOnR4lfTtDAl+eUC7RZy+QQWc6wRzIV2CE6xBuMmDxc2qIihtDCZD5NPOFl7fRBQ==}
     engines: {node: '>=10'}
@@ -5323,8 +5331,8 @@ packages:
     peerDependencies:
       react: '>=17.0'
 
-  svix@1.74.1:
-    resolution: {integrity: sha512-99J8jSsk0viwkoAENVy/zpVoZxwn3kBdUvvpFaWiKjCkkTcqNZdoBqMmariDFceL4Q41ntWfUYxaWD37IAk9Kg==}
+  svix@1.73.0:
+    resolution: {integrity: sha512-EqaQcuJezFxJBWvtjfRhhDtVYcrYdzLiVqc2Naw3aGwd3FrCzqLUwLHEWo8LE2MoPEUGm/2xSt8b9W7NLQr25w==}
 
   swr@2.3.4:
     resolution: {integrity: sha512-bYd2lrhc+VarcpkgWclcUi92wYCpOgMws9Sd1hG1ntAu0NEy+14CbotuFjshBU2kt9rYj9TSmDcybpxpeTU1fg==}
@@ -10774,6 +10782,10 @@ snapshots:
       use-sidecar: 1.1.3(@types/react@19.1.10)(react@19.1.1)
     optionalDependencies:
       '@types/react': 19.1.10
+
+  react-scroll-to-top@3.1.0(react@19.1.1):
+    dependencies:
+      react: 19.1.1
 
   react-style-singleton@2.2.3(@types/react@19.1.10)(react@19.1.1):
     dependencies:
