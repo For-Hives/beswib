@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og'
 import { headers } from 'next/headers'
+import { readFileSync } from 'fs'
+import { join } from 'path'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import OGImage from '@/components/OG/ogImage.component'
@@ -23,9 +25,9 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 	// Récupération des traductions de la page
 	const t = getTranslations(locale, pageTranslations)
 
-	// Texte OG avec fallback anglais
-	const ogTitle = t.title ?? 'Beswib'
-	const ogSecondary = t.descriptionOG ?? 'Achetez et vendez vos dossards'
+	// // Texte OG avec fallback anglais
+	// const ogTitle = t.title ?? 'Beswib'
+	// const ogSecondary = t.descriptionOG ?? 'Achetez et vendez vos dossards'
 
 	// Construction de l’URL absolue (utile pour Satori)
 	const requestHeaders = await headers()
@@ -34,8 +36,41 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 	const isLocal = host?.startsWith('localhost') || host?.startsWith('127.0.0.1')
 	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
 
-	return new ImageResponse(
-		<OGImage title={ogTitle} secondary={ogSecondary} host={host} protocol={protocol} size={size} />,
-		size
-	)
+	// return new ImageResponse(
+	// 	<OGImage title={ogTitle} secondary={ogSecondary} host={host} protocol={protocol} size={size} />,
+	// 	size
+	// )
+	// Charger les polices pour @vercel/og avec gestion d'erreur
+	try {
+		const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/BowlbyOneSC-Regular.ttf'))
+		const geistFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/Geist-Regular.ttf'))
+
+		return new ImageResponse(
+			<OGImage title={t.title} secondary={t.descriptionOG} host={host} protocol={protocol} size={size} />,
+			{
+				...size,
+				fonts: [
+					{
+						weight: 400,
+						style: 'normal',
+						name: 'BowlbyOneSC',
+						data: bowlbyFont,
+					},
+					{
+						weight: 400,
+						style: 'normal',
+						name: 'Geist',
+						data: geistFont,
+					},
+				],
+			}
+		)
+	} catch (error) {
+		console.error('Erreur lors du chargement des polices:', error)
+		// Fallback sans polices personnalisées
+		return new ImageResponse(
+			<OGImage title={t.title} secondary={t.descriptionOG} host={host} protocol={protocol} size={size} />,
+			size
+		)
+	}
 }
