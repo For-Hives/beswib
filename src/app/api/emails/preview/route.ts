@@ -69,14 +69,14 @@ export async function GET(request: NextRequest) {
 				const listingPrice = bibPrice
 				const platformFeePreview = Number((listingPrice * customPlatformRate).toFixed(2)) // % du prix affiché
 				const paypalFeePreview = Number((listingPrice * customPaypalRate).toFixed(2)) // % approximation PayPal
-				const totalAmountPreview = Number((listingPrice + platformFeePreview + paypalFeePreview).toFixed(2)) // Total payé par l'acheteur
+				const totalAmountPreview = listingPrice // L'acheteur paie seulement le prix affiché
 				const netAmountPreview = Number((listingPrice - platformFeePreview - paypalFeePreview).toFixed(2)) // Net reçu par le vendeur
 
 				console.log(`📊 Calcul des frais pour ${eventName}:`)
 				console.log(`   📝 Prix affiché (listing): ${listingPrice}€`)
 				console.log(`   🏢 Frais plateforme (${(customPlatformRate * 100).toFixed(1)}%): ${platformFeePreview}€`)
 				console.log(`   💳 Frais PayPal (${(customPaypalRate * 100).toFixed(1)}%): ${paypalFeePreview}€`)
-				console.log(`   💰 Total acheteur: ${totalAmountPreview}€`)
+				console.log(`   💰 Total acheteur (prix affiché): ${totalAmountPreview}€`)
 				console.log(`   💵 Net vendeur: ${netAmountPreview}€`)
 				console.log(
 					`   ✅ Formule: ${listingPrice}€ - ${platformFeePreview}€ - ${paypalFeePreview}€ = ${netAmountPreview}€`

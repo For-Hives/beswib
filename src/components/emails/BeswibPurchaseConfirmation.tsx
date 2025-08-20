@@ -50,7 +50,8 @@ export const BeswibPurchaseConfirmation = ({
 	const t = getTranslations(locale, constantsLocales)
 
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
-	const totalAmount = listingPrice + platformFee + paypalFee
+	// L'acheteur paie seulement le prix affiché
+	const totalAmount = listingPrice
 	const netAmount = listingPrice - platformFee - paypalFee
 
 	return (
@@ -88,10 +89,9 @@ export const BeswibPurchaseConfirmation = ({
 						</Section>
 
 						{/* Card principale */}
-						<Section className="bg-card border-border rounded-lg border px-8 py-6 shadow-sm">
+						<Section className="bg-card border-border rounded-lg border px-8 pt-6 shadow-sm">
 							{/* Icon et titre */}
-							<Section className="mb-6 text-center">
-								<Text className="text-success mb-4 text-4xl">🏃‍♂️</Text>
+							<Section className="text-center">
 								<Heading className="text-foreground mb-2 text-2xl font-bold">
 									{t.emails.purchaseConfirmation.title}
 								</Heading>
@@ -104,7 +104,7 @@ export const BeswibPurchaseConfirmation = ({
 									{t.emails.purchaseConfirmation.purchaseDetails}
 								</Heading>
 
-								<Section className="space-y-3">
+								<Section>
 									<Section className="flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
 											{t.emails.purchaseConfirmation.event}:
@@ -112,42 +112,42 @@ export const BeswibPurchaseConfirmation = ({
 										<Text className="text-foreground text-sm font-semibold">{eventName}</Text>
 									</Section>
 
-									<Section className="flex justify-between">
+									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
 											{t.emails.purchaseConfirmation.category}:
 										</Text>
 										<Text className="text-foreground text-sm">{bibCategory}</Text>
 									</Section>
 
-									<Section className="flex justify-between">
+									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
 											{t.emails.purchaseConfirmation.distance}:
 										</Text>
 										<Text className="text-foreground text-sm">{eventDistance}</Text>
 									</Section>
 
-									<Section className="flex justify-between">
+									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
 											{t.emails.purchaseConfirmation.date}:
 										</Text>
 										<Text className="text-foreground text-sm">{eventDate}</Text>
 									</Section>
 
-									<Section className="flex justify-between">
+									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
 											{t.emails.purchaseConfirmation.location}:
 										</Text>
 										<Text className="text-foreground text-sm">{eventLocation}</Text>
 									</Section>
 
-									<Section className="flex justify-between">
+									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
 											{t.emails.purchaseConfirmation.seller}:
 										</Text>
 										<Text className="text-foreground text-sm">{sellerName}</Text>
 									</Section>
 
-									<Section className="flex justify-between">
+									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
 											{t.emails.purchaseConfirmation.orderId}:
 										</Text>
@@ -162,29 +162,12 @@ export const BeswibPurchaseConfirmation = ({
 									{t.emails.purchaseConfirmation.paymentSummary}
 								</Heading>
 
-								<Section className="space-y-3">
+								<Section>
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm">{t.emails.purchaseConfirmation.listingPrice}:</Text>
-										<Text className="text-muted-foreground text-sm">{formatPrice(listingPrice)}</Text>
-									</Section>
-
-									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm">{t.emails.purchaseConfirmation.platformFee}:</Text>
-										<Text className="text-muted-foreground text-sm">{formatPrice(platformFee)}</Text>
-									</Section>
-
-									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm">{t.emails.purchaseConfirmation.paypalFee}:</Text>
-										<Text className="text-muted-foreground text-sm">{formatPrice(paypalFee)}</Text>
-									</Section>
-
-									<Section className="border-border border-t pt-3">
-										<Section className="flex justify-between">
-											<Text className="text-foreground text-base font-bold">
-												{t.emails.purchaseConfirmation.totalPaid}:
-											</Text>
-											<Text className="text-success text-base font-bold">{formatPrice(totalAmount)}</Text>
-										</Section>
+										<Text className="text-foreground text-base font-bold">
+											{t.emails.purchaseConfirmation.totalPaid}:
+										</Text>
+										<Text className="text-success text-base font-bold">{formatPrice(totalAmount)}</Text>
 									</Section>
 								</Section>
 							</Section>
@@ -220,11 +203,11 @@ export const BeswibPurchaseConfirmation = ({
 									{t.emails.purchaseConfirmation.nextSteps}
 								</Heading>
 
-								<Section className="space-y-3">
+								<Section>
 									<Text className="text-muted-foreground text-sm">• {t.emails.purchaseConfirmation.step1}</Text>
-									<Text className="text-muted-foreground text-sm">• {t.emails.purchaseConfirmation.step2}</Text>
-									<Text className="text-muted-foreground text-sm">• {t.emails.purchaseConfirmation.step3}</Text>
-									<Text className="text-muted-foreground text-sm">• {t.emails.purchaseConfirmation.step4}</Text>
+									<Text className="text-muted-foreground mt-3 text-sm">• {t.emails.purchaseConfirmation.step2}</Text>
+									<Text className="text-muted-foreground mt-3 text-sm">• {t.emails.purchaseConfirmation.step3}</Text>
+									<Text className="text-muted-foreground mt-3 text-sm">• {t.emails.purchaseConfirmation.step4}</Text>
 								</Section>
 							</Section>
 						</Section>

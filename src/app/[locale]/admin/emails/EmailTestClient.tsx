@@ -487,26 +487,25 @@ export default function EmailTestClient() {
 
 						<div className="bg-muted rounded-lg p-3">
 							<div className="space-y-1 text-sm">
-								<div className="flex justify-between">
-									<span>Prix affiché:</span>
-									<span className="font-medium">{bibPrice.toFixed(2)}€</span>
+								<div className="border-border text-primary flex justify-between border-b pb-1 font-semibold">
+									<span>💰 Acheteur paie:</span>
+									<span className="font-bold text-lg">{bibPrice.toFixed(2)}€</span>
 								</div>
-								<div className="text-muted-foreground flex justify-between">
-									<span>+ Frais plateforme ({platformRate}%):</span>
-									<span>{((bibPrice * platformRate) / 100).toFixed(2)}€</span>
+								<div className="mt-3 pt-2">
+									<p className="text-muted-foreground text-xs">
+										Détail vendeur (frais déduits du prix affiché):
+									</p>
 								</div>
-								<div className="text-muted-foreground flex justify-between">
-									<span>+ Frais PayPal ({paypalRate}%):</span>
-									<span>{((bibPrice * paypalRate) / 100).toFixed(2)}€</span>
+								<div className="text-muted-foreground flex justify-between text-xs">
+									<span>- Frais plateforme ({platformRate}%):</span>
+									<span>-{((bibPrice * platformRate) / 100).toFixed(2)}€</span>
 								</div>
-								<div className="border-border text-primary mt-2 flex justify-between border-t pt-1 font-semibold">
-									<span>Total acheteur:</span>
-									<span>
-										{(bibPrice + (bibPrice * platformRate) / 100 + (bibPrice * paypalRate) / 100).toFixed(2)}€
-									</span>
+								<div className="text-muted-foreground flex justify-between text-xs">
+									<span>- Frais PayPal ({paypalRate}%):</span>
+									<span>-{((bibPrice * paypalRate) / 100).toFixed(2)}€</span>
 								</div>
 								<div className="flex justify-between font-semibold text-green-600">
-									<span>Net vendeur:</span>
+									<span>💵 Vendeur reçoit:</span>
 									<span>
 										{(bibPrice - (bibPrice * platformRate) / 100 - (bibPrice * paypalRate) / 100).toFixed(2)}€
 									</span>
