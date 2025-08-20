@@ -10,16 +10,17 @@ export async function GET(request: NextRequest) {
 	const template = searchParams.get('template')
 	const code = searchParams.get('code') || 'ABC-123'
 	const firstName = searchParams.get('firstName') || 'Marie'
+	const locale = searchParams.get('locale') || 'fr'
 
 	try {
 		let emailComponent: React.ReactElement
 
 		switch (template) {
 			case 'verification':
-				emailComponent = React.createElement(BeswibEmailVerification, { validationCode: code })
+				emailComponent = React.createElement(BeswibEmailVerification, { validationCode: code, locale })
 				break
 			case 'welcome':
-				emailComponent = React.createElement(BeswibWelcomeEmail, { firstName })
+				emailComponent = React.createElement(BeswibWelcomeEmail, { firstName, locale })
 				break
 			default:
 				return NextResponse.json({ error: 'Template not found. Available: verification, welcome' }, { status: 400 })

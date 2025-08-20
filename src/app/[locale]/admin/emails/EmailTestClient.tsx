@@ -64,6 +64,7 @@ export default function EmailTestClient() {
 	const openPreview = (template: 'verification' | 'welcome') => {
 		const params = new URLSearchParams({
 			template,
+			locale,
 			...(template === 'verification' && { code }),
 			...(template === 'welcome' && { firstName }),
 		})
@@ -105,6 +106,13 @@ export default function EmailTestClient() {
 							<SelectContent>
 								<SelectItem value="fr">Français</SelectItem>
 								<SelectItem value="en">English</SelectItem>
+								<SelectItem value="es">Español</SelectItem>
+								<SelectItem value="it">Italiano</SelectItem>
+								<SelectItem value="de">Deutsch</SelectItem>
+								<SelectItem value="pt">Português</SelectItem>
+								<SelectItem value="nl">Nederlands</SelectItem>
+								<SelectItem value="ko">한국어</SelectItem>
+								<SelectItem value="ro">Română</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>

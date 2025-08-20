@@ -84,7 +84,7 @@ export async function sendWelcomeEmail(email: string, firstName?: string, locale
 	return sendEmail({
 		to: email,
 		subject,
-		react: <BeswibWelcomeEmail firstName={firstName} />,
+		react: <BeswibWelcomeEmail firstName={firstName} locale={locale} />,
 	})
 }
 
