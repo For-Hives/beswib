@@ -47,49 +47,47 @@ export const BeswibWelcomeEmail = ({
 	// Default steps with translations from locales.json
 	const defaultSteps = [
 		{
-			title: (t.emails as any)?.welcome?.steps?.marketplace?.title ?? 'Explore the marketplace',
+			title: t?.emails?.welcome?.steps?.marketplace?.title ?? 'Marketplace',
 			link: `${baseUrl}/marketplace`,
 			id: 1,
 			description:
-				(t.emails as any)?.welcome?.steps?.marketplace?.description ?? 'Discover available bibs for your next races.',
+				t?.emails?.welcome?.steps?.marketplace?.description ?? 'Discover available bibs for your next races.',
 		},
 		{
-			title: (t.emails as any)?.welcome?.steps?.profile?.title ?? 'Complete your profile',
+			title: t.emails.welcome.steps.profile.title ?? 'Complete your profile',
 			link: `${baseUrl}/profile`,
 			id: 2,
-			description:
-				(t.emails as any)?.welcome?.steps?.profile?.description ?? 'Add your information to facilitate your purchases.',
+			description: t.emails.welcome.steps.profile.description ?? 'Add your information to facilitate your purchases.',
 		},
 		{
-			title: (t.emails as any)?.welcome?.steps?.sell?.title ?? 'Sell your bibs',
+			title: t.emails.welcome.steps.sell.title ?? 'Sell your bibs',
 			link: `${baseUrl}/dashboard/seller`,
 			id: 3,
-			description: (t.emails as any)?.welcome?.steps?.sell?.description ?? 'Resell your bib in just a few clicks.',
+			description: t.emails.welcome.steps.sell.description ?? 'Resell your bib in just a few clicks.',
 		},
 		{
-			title: (t.emails as any)?.welcome?.steps?.community?.title ?? 'Join the community',
+			title: t.emails.welcome.steps.community.title ?? 'Join the community',
 			link: `${baseUrl}/events`,
 			id: 4,
-			description:
-				(t.emails as any)?.welcome?.steps?.community?.description ?? 'Discover events and connect with other runners.',
+			description: t.emails.welcome.steps.community.description ?? 'Discover events and connect with other runners.',
 		},
 	]
 
 	const defaultQuickLinks = [
 		{
-			title: (t.emails as any)?.welcome?.quickLinks?.support?.title ?? 'Support',
+			title: t.emails.welcome.quickLinks.support.title ?? 'Support',
 			href: `${baseUrl}/contact`,
-			description: (t.emails as any)?.welcome?.quickLinks?.support?.description ?? 'Need help?',
+			description: t.emails.welcome.quickLinks.support.description ?? 'Need help?',
 		},
 		{
-			title: (t.emails as any)?.welcome?.quickLinks?.guide?.title ?? 'Guide',
+			title: t.emails.welcome.quickLinks.guide.title ?? 'Guide',
 			href: `${baseUrl}/guide`,
-			description: (t.emails as any)?.welcome?.quickLinks?.guide?.description ?? 'How it works',
+			description: t.emails.welcome.quickLinks.guide.description ?? 'How it works',
 		},
 		{
-			title: (t.emails as any)?.welcome?.quickLinks?.events?.title ?? 'Events',
+			title: t.emails.welcome.quickLinks.events.title ?? 'Events',
 			href: `${baseUrl}/events`,
-			description: (t.emails as any)?.welcome?.quickLinks?.events?.description ?? 'Upcoming races',
+			description: t.emails.welcome.quickLinks.events.description ?? 'Upcoming races',
 		},
 	]
 	return (
@@ -134,7 +132,7 @@ export const BeswibWelcomeEmail = ({
 
 					<Container className="mx-auto max-w-[600px] px-4 py-8">
 						{/* Message de bienvenue */}
-						<Section className="mb-8">
+						<Section>
 							<Text className="text-foreground mb-4 text-base leading-relaxed">{t.emails.welcome.body1}</Text>
 							<Text className="text-foreground mb-6 text-base leading-relaxed">
 								{t.emails.welcome.nextStepsTitle} :
@@ -142,9 +140,9 @@ export const BeswibWelcomeEmail = ({
 						</Section>
 
 						{/* Étapes */}
-						<Section className="mb-8">
+						<Section>
 							{(steps ?? defaultSteps).map(step => (
-								<Section key={step.id} className="bg-card border-border mb-4 rounded-lg border p-6">
+								<Section key={step.id} className="bg-card border-border mb-4 rounded-lg border p-0">
 									<Heading className="text-foreground mb-2 text-lg font-semibold">
 										{step.id}. {step.title}
 									</Heading>
