@@ -13,8 +13,10 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import profileTranslations from '@/components/profile/locales.json'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import { isUserProfileComplete } from '@/lib/validation/user'
+import { createPhoneSchema } from '@/lib/validation/schemas'
 import { AddressInput } from '@/components/ui/address-input'
 import { formatDateForHTMLInput } from '@/lib/utils/date'
+import { PhoneInput } from '@/components/ui/phone-input'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
@@ -41,24 +43,25 @@ type RunnerFormData = {
 	licenseNumber?: string
 }
 
-const runnerFormSchema = object({
-	postalCode: pipe(string(), minLength(4, 'Invalid postal code')),
-	phoneNumber: pipe(string(), minLength(0)),
-	medicalCertificateUrl: optional(string()),
-	licenseNumber: optional(string()),
-	lastName: pipe(string(), minLength(2, 'Last name must be at least 2 characters')),
-	gender: picklist(['male', 'female', 'other'], 'Invalid gender'),
-	firstName: pipe(string(), minLength(2, 'First name must be at least 2 characters')),
-	emergencyContactRelationship: pipe(string(), minLength(2, 'Please specify the relationship')),
-	emergencyContactPhone: pipe(string(), minLength(8, 'Invalid phone number')),
-	emergencyContactName: pipe(string(), minLength(2, 'Contact name must be at least 2 characters')),
-	country: pipe(string(), minLength(2, 'Country name too short')),
-	contactEmail: optional(pipe(string(), emailValidator('Invalid email address'))),
-	clubAffiliation: optional(string()),
-	city: pipe(string(), minLength(2, 'City name too short')),
-	birthDate: pipe(string(), minLength(10, 'Birth date is required')),
-	address: pipe(string(), minLength(4, 'Address too short')),
-})
+const createRunnerFormSchema = (locale: Locale) =>
+	object({
+		postalCode: pipe(string(), minLength(4, 'Invalid postal code')),
+		phoneNumber: createPhoneSchema(locale, false),
+		medicalCertificateUrl: optional(string()),
+		licenseNumber: optional(string()),
+		lastName: pipe(string(), minLength(2, 'Last name must be at least 2 characters')),
+		gender: picklist(['male', 'female', 'other'], 'Invalid gender'),
+		firstName: pipe(string(), minLength(2, 'First name must be at least 2 characters')),
+		emergencyContactRelationship: pipe(string(), minLength(2, 'Please specify the relationship')),
+		emergencyContactPhone: createPhoneSchema(locale, true),
+		emergencyContactName: pipe(string(), minLength(2, 'Contact name must be at least 2 characters')),
+		country: pipe(string(), minLength(2, 'Country name too short')),
+		contactEmail: optional(pipe(string(), emailValidator('Invalid email address'))),
+		clubAffiliation: optional(string()),
+		city: pipe(string(), minLength(2, 'City name too short')),
+		birthDate: pipe(string(), minLength(10, 'Birth date is required')),
+		address: pipe(string(), minLength(4, 'Address too short')),
+	})
 
 export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Readonly<{ user: User; locale?: Locale }>) {
 	const t = getTranslations(locale, profileTranslations)
@@ -74,7 +77,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 	]
 
 	const form = useForm<RunnerFormData>({
-		resolver: valibotResolver(runnerFormSchema),
+		resolver: valibotResolver(createRunnerFormSchema(locale)),
 		defaultValues: {
 			postalCode: user?.postalCode ?? '',
 			phoneNumber: user?.phoneNumber ?? '',
@@ -262,12 +265,19 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 									{t.atLeastOneContact ?? '(at least one of phone or contact email)'}
 								</span>
 							</Label>
-							<Input
-								{...form.register('phoneNumber')}
-								className={form.formState.errors.phoneNumber ? 'border-red-500' : ''}
-								id="phoneNumber"
-								placeholder="+1 234 567 8900"
-								type="tel"
+							<Controller
+								name="phoneNumber"
+								control={form.control}
+								render={({ field }) => (
+									<PhoneInput
+										value={field.value || ''}
+										onChange={field.onChange}
+										onBlur={field.onBlur}
+										placeholder={t.phonePlaceholder ?? 'Enter your phone number'}
+										defaultCountry="FR"
+										error={!!form.formState.errors.phoneNumber}
+									/>
+								)}
 							/>
 							{form.formState.errors.phoneNumber && (
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
@@ -330,12 +340,19 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="emergencyContactPhone">
 								{t.contactPhone ?? 'Contact Phone'} *
 							</Label>
-							<Input
-								{...form.register('emergencyContactPhone')}
-								className={form.formState.errors.emergencyContactPhone ? 'border-red-500' : ''}
-								id="emergencyContactPhone"
-								placeholder="+1 234 567 8900"
-								type="tel"
+							<Controller
+								name="emergencyContactPhone"
+								control={form.control}
+								render={({ field }) => (
+									<PhoneInput
+										value={field.value || ''}
+										onChange={field.onChange}
+										onBlur={field.onBlur}
+										placeholder={t.emergencyPhonePlaceholder ?? 'Enter emergency contact phone'}
+										defaultCountry="FR"
+										error={!!form.formState.errors.emergencyContactPhone}
+									/>
+								)}
 							/>
 							{form.formState.errors.emergencyContactPhone && (
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">

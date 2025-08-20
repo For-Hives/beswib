@@ -85,7 +85,9 @@
 		"firstNamePlaceholder": "Enter your first name",
 		"lastNamePlaceholder": "Enter your last name",
 		"cityPlaceholder": "Enter your city",
-		"countryPlaceholder": "Enter your country"
+		"countryPlaceholder": "Enter your country",
+		"phonePlaceholder": "Enter your phone number",
+		"emergencyPhonePlaceholder": "Enter emergency contact phone"
 	},
 	"fr": {
 		"verifiedEmails": {
@@ -173,7 +175,9 @@
 		"firstNamePlaceholder": "Entrez votre prénom",
 		"lastNamePlaceholder": "Entrez votre nom",
 		"cityPlaceholder": "Entrez votre ville",
-		"countryPlaceholder": "Entrez votre pays"
+		"countryPlaceholder": "Entrez votre pays",
+		"phonePlaceholder": "Entrez votre numéro de téléphone",
+		"emergencyPhonePlaceholder": "Entrez le téléphone du contact d'urgence"
 	},
 	"ko": {
 		"verifiedEmails": {
@@ -261,7 +265,9 @@
 		"firstNamePlaceholder": "이름을 입력하세요",
 		"lastNamePlaceholder": "성을 입력하세요",
 		"cityPlaceholder": "도시를 입력하세요",
-		"countryPlaceholder": "국가를 입력하세요"
+		"countryPlaceholder": "국가를 입력하세요",
+		"phonePlaceholder": "전화번호를 입력하세요",
+		"emergencyPhonePlaceholder": "비상연락처 전화번호를 입력하세요"
 	},
 	"es": {
 		"verifiedEmails": {
@@ -349,7 +355,9 @@
 		"firstNamePlaceholder": "Introduce tu nombre",
 		"lastNamePlaceholder": "Introduce tu apellido",
 		"cityPlaceholder": "Introduce tu ciudad",
-		"countryPlaceholder": "Introduce tu país"
+		"countryPlaceholder": "Introduce tu país",
+		"phonePlaceholder": "Introduce tu número de teléfono",
+		"emergencyPhonePlaceholder": "Introduce el teléfono de contacto de emergencia"
 	},
 	"it": {
 		"verifiedEmails": {
@@ -437,7 +445,9 @@
 		"firstNamePlaceholder": "Inserisci il tuo nome",
 		"lastNamePlaceholder": "Inserisci il tuo cognome",
 		"cityPlaceholder": "Inserisci la tua città",
-		"countryPlaceholder": "Inserisci il tuo paese"
+		"countryPlaceholder": "Inserisci il tuo paese",
+		"phonePlaceholder": "Inserisci il tuo numero di telefono",
+		"emergencyPhonePlaceholder": "Inserisci il telefono del contatto di emergenza"
 	},
 	"de": {
 		"verifiedEmails": {
@@ -525,7 +535,9 @@
 		"firstNamePlaceholder": "Gib deinen Vornamen ein",
 		"lastNamePlaceholder": "Gib deinen Nachnamen ein",
 		"cityPlaceholder": "Gib deine Stadt ein",
-		"countryPlaceholder": "Gib dein Land ein"
+		"countryPlaceholder": "Gib dein Land ein",
+		"phonePlaceholder": "Gib deine Telefonnummer ein",
+		"emergencyPhonePlaceholder": "Gib die Notfall-Kontakt-Telefonnummer ein"
 	},
 	"ro": {
 		"verifiedEmails": {
@@ -613,7 +625,9 @@
 		"firstNamePlaceholder": "Introdu prenumele",
 		"lastNamePlaceholder": "Introdu numele",
 		"cityPlaceholder": "Introdu orașul",
-		"countryPlaceholder": "Introdu țara"
+		"countryPlaceholder": "Introdu țara",
+		"phonePlaceholder": "Introdu numărul de telefon",
+		"emergencyPhonePlaceholder": "Introdu telefonul de contact de urgență"
 	},
 	"pt": {
 		"verifiedEmails": {
@@ -701,7 +715,9 @@
 		"firstNamePlaceholder": "Introduz o teu primeiro nome",
 		"lastNamePlaceholder": "Introduz o teu último nome",
 		"cityPlaceholder": "Introduz a tua cidade",
-		"countryPlaceholder": "Introduz o teu país"
+		"countryPlaceholder": "Introduz o teu país",
+		"phonePlaceholder": "Introduz o teu número de telefone",
+		"emergencyPhonePlaceholder": "Introduz o telefone de contacto de emergência"
 	},
 	"nl": {
 		"verifiedEmails": {
@@ -789,6 +805,8 @@
 		"firstNamePlaceholder": "Voer je voornaam in",
 		"lastNamePlaceholder": "Voer je achternaam in",
 		"cityPlaceholder": "Voer je stad in",
-		"countryPlaceholder": "Voer je land in"
+		"countryPlaceholder": "Voer je land in",
+		"phonePlaceholder": "Voer je telefoonnummer in",
+		"emergencyPhonePlaceholder": "Voer het noodcontact telefoonnummer in"
 	}
 }
