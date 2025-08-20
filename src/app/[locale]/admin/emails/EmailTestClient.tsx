@@ -315,7 +315,7 @@ export default function EmailTestClient() {
 						</div>
 
 						<div className="border-border border-t pt-4">
-							<Label className="text-sm font-medium text-primary">⚙️ Configuration des frais (Vendeur)</Label>
+							<Label className="text-primary text-sm font-medium">⚙️ Configuration des frais (Vendeur)</Label>
 						</div>
 
 						<div>
@@ -330,7 +330,7 @@ export default function EmailTestClient() {
 								value={platformRate}
 								onChange={e => setPlatformRate(Number(e.target.value))}
 							/>
-							<p className="text-xs text-muted-foreground mt-1">
+							<p className="text-muted-foreground mt-1 text-xs">
 								Frais Beswib: {((bibPrice * platformRate) / 100).toFixed(2)}€
 							</p>
 						</div>
@@ -347,28 +347,30 @@ export default function EmailTestClient() {
 								value={paypalRate}
 								onChange={e => setPaypalRate(Number(e.target.value))}
 							/>
-							<p className="text-xs text-muted-foreground mt-1">
+							<p className="text-muted-foreground mt-1 text-xs">
 								Frais PayPal: {((bibPrice * paypalRate) / 100).toFixed(2)}€
 							</p>
 						</div>
 
-						<div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-3 border border-green-200 dark:border-green-800">
-							<div className="text-sm space-y-1">
+						<div className="rounded-lg border border-green-200 bg-green-50 p-3 dark:border-green-800 dark:bg-green-950/30">
+							<div className="space-y-1 text-sm">
 								<div className="flex justify-between">
 									<span>Prix vendu:</span>
 									<span className="font-medium">{bibPrice.toFixed(2)}€</span>
 								</div>
-								<div className="flex justify-between text-muted-foreground">
+								<div className="text-muted-foreground flex justify-between">
 									<span>- Frais plateforme ({platformRate}%):</span>
 									<span>-{((bibPrice * platformRate) / 100).toFixed(2)}€</span>
 								</div>
-								<div className="flex justify-between text-muted-foreground">
+								<div className="text-muted-foreground flex justify-between">
 									<span>- Frais PayPal ({paypalRate}%):</span>
 									<span>-{((bibPrice * paypalRate) / 100).toFixed(2)}€</span>
 								</div>
-								<div className="border-border border-t pt-1 mt-2 flex justify-between font-semibold text-green-600">
+								<div className="border-border mt-2 flex justify-between border-t pt-1 font-semibold text-green-600">
 									<span>💰 Net vendeur:</span>
-									<span>{(bibPrice - ((bibPrice * platformRate) / 100) - ((bibPrice * paypalRate) / 100)).toFixed(2)}€</span>
+									<span>
+										{(bibPrice - (bibPrice * platformRate) / 100 - (bibPrice * paypalRate) / 100).toFixed(2)}€
+									</span>
 								</div>
 							</div>
 						</div>
@@ -446,7 +448,7 @@ export default function EmailTestClient() {
 						</div>
 
 						<div className="border-border border-t pt-4">
-							<Label className="text-sm font-medium text-primary">⚙️ Configuration des frais</Label>
+							<Label className="text-primary text-sm font-medium">⚙️ Configuration des frais</Label>
 						</div>
 
 						<div>
@@ -461,7 +463,7 @@ export default function EmailTestClient() {
 								value={platformRate}
 								onChange={e => setPlatformRate(Number(e.target.value))}
 							/>
-							<p className="text-xs text-muted-foreground mt-1">
+							<p className="text-muted-foreground mt-1 text-xs">
 								Frais Beswib: {((bibPrice * platformRate) / 100).toFixed(2)}€
 							</p>
 						</div>
@@ -478,32 +480,36 @@ export default function EmailTestClient() {
 								value={paypalRate}
 								onChange={e => setPaypalRate(Number(e.target.value))}
 							/>
-							<p className="text-xs text-muted-foreground mt-1">
+							<p className="text-muted-foreground mt-1 text-xs">
 								Frais PayPal: {((bibPrice * paypalRate) / 100).toFixed(2)}€
 							</p>
 						</div>
 
 						<div className="bg-muted rounded-lg p-3">
-							<div className="text-sm space-y-1">
+							<div className="space-y-1 text-sm">
 								<div className="flex justify-between">
 									<span>Prix affiché:</span>
 									<span className="font-medium">{bibPrice.toFixed(2)}€</span>
 								</div>
-								<div className="flex justify-between text-muted-foreground">
+								<div className="text-muted-foreground flex justify-between">
 									<span>+ Frais plateforme ({platformRate}%):</span>
 									<span>{((bibPrice * platformRate) / 100).toFixed(2)}€</span>
 								</div>
-								<div className="flex justify-between text-muted-foreground">
+								<div className="text-muted-foreground flex justify-between">
 									<span>+ Frais PayPal ({paypalRate}%):</span>
 									<span>{((bibPrice * paypalRate) / 100).toFixed(2)}€</span>
 								</div>
-								<div className="border-border border-t pt-1 mt-2 flex justify-between font-semibold text-primary">
+								<div className="border-border text-primary mt-2 flex justify-between border-t pt-1 font-semibold">
 									<span>Total acheteur:</span>
-									<span>{(bibPrice + ((bibPrice * platformRate) / 100) + ((bibPrice * paypalRate) / 100)).toFixed(2)}€</span>
+									<span>
+										{(bibPrice + (bibPrice * platformRate) / 100 + (bibPrice * paypalRate) / 100).toFixed(2)}€
+									</span>
 								</div>
 								<div className="flex justify-between font-semibold text-green-600">
 									<span>Net vendeur:</span>
-									<span>{(bibPrice - ((bibPrice * platformRate) / 100) - ((bibPrice * paypalRate) / 100)).toFixed(2)}€</span>
+									<span>
+										{(bibPrice - (bibPrice * platformRate) / 100 - (bibPrice * paypalRate) / 100).toFixed(2)}€
+									</span>
 								</div>
 							</div>
 						</div>
@@ -601,11 +607,20 @@ export default function EmailTestClient() {
 						</p>
 						<p>• Vérifiez vos spams si vous ne recevez pas l'email</p>
 						<p>• Utilisez "Aperçu" pour voir le rendu sans envoyer</p>
-						<p>• Pour Purchase Confirmation: les frais sont personnalisables via les paramètres d'URL</p>
 						<p>
-							• Exemple URL avec frais personnalisés:{' '}
+							• Pour Purchase Confirmation et Sale Confirmation: les frais sont personnalisables via les paramètres
+							d'URL
+						</p>
+						<p>
+							• Exemple URL acheteur:{' '}
 							<code className="text-xs">
 								/api/emails/preview?template=purchase-confirmation&bibPrice=150&platformRate=0.1&paypalRate=0.035
+							</code>
+						</p>
+						<p>
+							• Exemple URL vendeur:{' '}
+							<code className="text-xs">
+								/api/emails/preview?template=sale-confirmation&bibPrice=150&platformRate=0.1&paypalRate=0.035
 							</code>
 						</p>
 					</div>
