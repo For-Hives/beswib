@@ -253,36 +253,33 @@ export interface EmailTranslations {
 
 /**
  * Get type-safe email translations for the specified locale.
- * 
+ *
  * @param locale - The locale code (e.g., 'en', 'fr', 'es')
  * @param defaultLocale - Fallback locale if requested locale not found
  * @returns Fully typed email translations object
  */
-export function getEmailTranslations(
-	locale: Locale | string,
-	defaultLocale: Locale = 'en'
-): EmailTranslations {
+export function getEmailTranslations(locale: Locale | string, defaultLocale: Locale = 'en'): EmailTranslations {
 	// Type-safe access to constantsLocales
 	const typedLocales = constantsLocales as Record<string, { emails: EmailTranslations }>
-	
+
 	// Get the requested locale's translations
 	let emailTranslations = typedLocales[locale]?.emails
-	
+
 	// Fallback to default locale if not found
 	if (!emailTranslations) {
 		emailTranslations = typedLocales[defaultLocale]?.emails
 	}
-	
+
 	// Final fallback to English if default locale not found
 	if (!emailTranslations) {
 		emailTranslations = typedLocales['en']?.emails
 	}
-	
+
 	// Last resort fallback with empty strings
 	if (!emailTranslations) {
 		throw new Error(`No email translations found for locale: ${locale}`)
 	}
-	
+
 	return emailTranslations
 }
 
@@ -292,28 +289,24 @@ export function getEmailTranslations(
 
 /**
  * Get a specific email translation text with type safety and fallback.
- * 
+ *
  * @param locale - The locale code
  * @param path - Dot-notation path to the translation (e.g., 'welcome.title')
  * @param fallback - Fallback text if translation not found
  * @returns The translated text or fallback
  */
-export function getEmailText(
-	locale: Locale | string,
-	path: string,
-	fallback: string = ''
-): string {
+export function getEmailText(locale: Locale | string, path: string, fallback: string = ''): string {
 	try {
 		const translations = getEmailTranslations(locale)
-		
+
 		// Navigate the path (e.g., 'welcome.title' -> translations.welcome.title)
 		const keys = path.split('.')
 		let value: any = translations
-		
+
 		for (const key of keys) {
 			value = value?.[key]
 		}
-		
+
 		return typeof value === 'string' ? value : fallback
 	} catch {
 		return fallback
@@ -350,7 +343,7 @@ export interface EmailComponentProps {
 /**
  * Legacy compatibility function that matches the existing getTranslations signature
  * but provides type-safe email translations.
- * 
+ *
  * @deprecated Use getEmailTranslations instead for better type safety
  */
 export function getTranslations(
@@ -358,11 +351,11 @@ export function getTranslations(
 	localesData: typeof constantsLocales
 ): { emails: EmailTranslations } & Record<string, any> {
 	const emailTranslations = getEmailTranslations(locale)
-	
+
 	// Return in the expected format for backward compatibility
 	return {
 		emails: emailTranslations,
 		// Add other fields from the locales if they exist
-		...((localesData[locale as keyof typeof localesData] || localesData.en) as any)
+		...((localesData[locale as keyof typeof localesData] || localesData.en) as any),
 	}
 }

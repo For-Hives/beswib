@@ -125,17 +125,17 @@ export const BeswibWelcomeEmail = ({
 							<Heading className="text-primary mb-2 text-center text-3xl font-bold">
 								🎉&nbsp;{t.welcome.title.replace('{firstName}', firstName)}&nbsp;🎉
 							</Heading>
-							<Text className="text-primary text-center text-lg opacity-90">{t.emails.welcome.heroSubtitle}</Text>
+							<Text className="text-primary text-center text-lg opacity-90">{t.welcome.heroSubtitle}</Text>
 						</Container>
 					</Section>
 
 					<Container className="mx-auto max-w-[600px] px-4 py-8">
 						{/* Message de bienvenue */}
 						<Section>
-							<Text className="text-foreground mb-4 text-base leading-relaxed">{t.emails.welcome.body1}</Text>
-							<Text className="text-foreground mb-6 text-base leading-relaxed">
-								{t.emails.welcome.nextStepsTitle} :
-							</Text>
+													<Text className="text-foreground mb-4 text-base leading-relaxed">{t.welcome.body1}</Text>
+						<Text className="text-foreground mb-6 text-base leading-relaxed">
+							{t.welcome.nextStepsTitle} :
+						</Text>
 						</Section>
 
 						{/* Étapes */}
