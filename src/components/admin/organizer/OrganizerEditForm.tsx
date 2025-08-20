@@ -80,7 +80,7 @@ export default function OrganizerEditForm({
 		}
 	}, [organizer, reset])
 
-	const formData = watch()
+	const isPartneredValue = watch('isPartnered')
 
 	const handleFileUploadWithValidation = (files: File[]) => {
 		if (files.length === 0) {
@@ -235,8 +235,8 @@ export default function OrganizerEditForm({
 									<div className="bg-card/50 border-border/30 rounded-xl border backdrop-blur-sm">
 										<FileUpload locale={locale} onChange={handleFileUploadWithValidation} />
 									</div>
-									{errors.logoFile && (
-										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.logoFile.message?.toString()}</p>
+									{typeof errors.logoFile?.message === 'string' && (
+										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.logoFile.message}</p>
 									)}
 								</div>
 
@@ -244,7 +244,7 @@ export default function OrganizerEditForm({
 									<div className="space-y-4">
 										<div className="flex items-center space-x-3">
 											<Checkbox
-												checked={formData.isPartnered}
+												checked={isPartneredValue}
 												id="isPartnered"
 												onCheckedChange={checked => setValue('isPartnered', checked === true)}
 											/>
