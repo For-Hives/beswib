@@ -110,32 +110,32 @@ export default function EmailTestClient() {
 			...(template === 'welcome' && { firstName }),
 			...(template === 'sale-confirmation' && {
 				sellerName,
-				buyerName,
-				eventName,
-				bibPrice: bibPrice.toString(),
 				orderId,
+				eventName,
+				buyerName,
+				bibPrice: bibPrice.toString(),
 			}),
 			...(template === 'purchase-confirmation' && {
-				buyerName,
 				sellerName,
-				eventName,
-				bibPrice: bibPrice.toString(),
 				orderId,
+				eventName,
 				eventDistance,
+				buyerName,
+				bibPrice: bibPrice.toString(),
 				bibCategory,
 			}),
 			...(template === 'sale-alert' && {
+				transactionId,
 				sellerName,
 				sellerEmail,
+				paypalCaptureId,
+				orderId,
+				eventName,
+				eventDistance,
 				buyerName,
 				buyerEmail,
-				eventName,
 				bibPrice: bibPrice.toString(),
-				orderId,
-				eventDistance,
 				bibCategory,
-				transactionId,
-				paypalCaptureId,
 			}),
 		})
 
@@ -143,7 +143,7 @@ export default function EmailTestClient() {
 	}
 
 	return (
-		<div className="container mx-auto max-w-4xl p-6">
+		<div className="container mx-auto max-w-7xl p-6">
 			<div className="mb-8">
 				<h1 className="text-3xl font-bold">Test des emails Beswib</h1>
 				<p className="text-muted-foreground mt-2">Interface de test pour les templates d'emails React Email</p>
