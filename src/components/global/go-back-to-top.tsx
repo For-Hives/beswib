@@ -51,30 +51,27 @@ export function GoBackToTop({ threshold = 100, showOnScroll = true, locale, clas
 	const t = getTranslations(locale, translations)
 
 	// Throttle function to improve scroll performance
-	const throttle = useCallback(<T extends unknown[]>(func: (...args: T) => void, limit: number) => {
-		let inThrottle: boolean
+	const throttle = useCallback(<T extends unknown[]>(func: (...args: T) => void) => {
+		let scheduled = false
 		return function (...args: T) {
-			if (!inThrottle) {
+			if (scheduled) return
+			scheduled = true
+			requestAnimationFrame(() => {
 				func(...args)
-				inThrottle = true
-				setTimeout(() => (inThrottle = false), limit)
-			}
+				scheduled = false
+			})
 		}
 	}, [])
 
 	const toggleVisibility = useCallback(() => {
 		const scrolled = window.scrollY
-		const shouldShow = showOnScroll ? scrolled > 10 : scrolled > threshold
+		// Hide strictly when back at the very top; otherwise apply threshold logic
+		const shouldShow = showOnScroll ? scrolled > 0 : scrolled > threshold
+		setIsVisible(prev => (prev !== shouldShow ? shouldShow : prev))
+	}, [threshold, showOnScroll])
 
-		if (shouldShow && !isVisible) {
-			setIsVisible(true)
-		} else if (!shouldShow && isVisible) {
-			setIsVisible(false)
-		}
-	}, [threshold, showOnScroll, isVisible])
-
-	// Create throttled version of toggleVisibility
-	const throttledToggleVisibility = useCallback(throttle(toggleVisibility, 100), [toggleVisibility, throttle])
+	// Create throttled version of toggleVisibility (animation-frame throttled)
+	const throttledToggleVisibility = useCallback(throttle(toggleVisibility), [toggleVisibility, throttle])
 
 	useEffect(() => {
 		// Add scroll event listener with throttling
