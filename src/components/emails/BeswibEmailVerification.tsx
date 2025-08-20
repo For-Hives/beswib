@@ -63,7 +63,7 @@ export const BeswibEmailVerification = ({ validationCode = 'DJZ-TLX' }: BeswibEm
 						</Text>
 
 						{/* Code de vérification */}
-						<Section className="bg-muted border-border mb-6 rounded-lg border p-6">
+						<Section className="bg-muted border-border text-foreground mb-6 rounded-lg border p-6 text-center font-mono text-3xl font-bold tracking-wider">
 							<Text className="text-foreground text-center font-mono text-3xl font-bold tracking-wider">
 								{validationCode}
 							</Text>
