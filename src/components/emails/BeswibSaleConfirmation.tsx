@@ -22,6 +22,7 @@ interface BeswibSaleConfirmationProps {
 	eventName?: string
 	bibPrice?: number
 	platformFee?: number
+	paypalFee?: number
 	totalReceived?: number
 	orderId?: string
 	eventDate?: string
@@ -32,9 +33,10 @@ interface BeswibSaleConfirmationProps {
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
 export const BeswibSaleConfirmation = ({
-	totalReceived = 135,
+	totalReceived = 129.75,
 	sellerName = 'Marie',
 	platformFee = 15,
+	paypalFee = 5.25,
 	orderId = 'BW123456789',
 	locale = 'fr',
 	eventName = 'Marathon de Paris 2024',
@@ -150,14 +152,17 @@ export const BeswibSaleConfirmation = ({
 										<Text className="text-foreground text-sm">{formatPrice(bibPrice)}</Text>
 									</Section>
 
-									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm">
-											{t.emails.saleConfirmation.platformFee} (10%):
-										</Text>
+									<Section className="mt-3 flex justify-between">
+										<Text className="text-muted-foreground text-sm">{t.emails.saleConfirmation.platformFee}:</Text>
 										<Text className="text-foreground text-sm">-{formatPrice(platformFee)}</Text>
 									</Section>
 
-									<Section className="border-border border-t">
+									<Section className="mt-3 flex justify-between">
+										<Text className="text-muted-foreground text-sm">{t.emails.saleConfirmation.paypalFee}:</Text>
+										<Text className="text-foreground text-sm">-{formatPrice(paypalFee)}</Text>
+									</Section>
+
+									<Section className="border-border mt-3 border-t pt-3">
 										<Section className="flex justify-between">
 											<Text className="text-foreground text-base font-bold">
 												{t.emails.saleConfirmation.totalReceived}:
@@ -231,9 +236,10 @@ export const BeswibSaleConfirmation = ({
 }
 
 BeswibSaleConfirmation.PreviewProps = {
-	totalReceived: 135,
+	totalReceived: 129.75,
 	sellerName: 'Marie Dupont',
 	platformFee: 15,
+	paypalFee: 5.25,
 	orderId: 'BW123456789',
 	locale: 'fr',
 	eventName: 'Marathon de Paris 2024',

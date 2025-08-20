@@ -112,23 +112,23 @@ export default function EmailTestClient() {
 			...(template === 'welcome' && { firstName }),
 			...(template === 'sale-confirmation' && {
 				sellerName,
+				platformRate: (platformRate / 100).toString(), // Convertir en décimal
+				paypalRate: (paypalRate / 100).toString(), // Convertir en décimal
 				orderId,
 				eventName,
 				buyerName,
 				bibPrice: bibPrice.toString(),
-				platformRate: (platformRate / 100).toString(), // Convertir en décimal
-				paypalRate: (paypalRate / 100).toString(), // Convertir en décimal
 			}),
 			...(template === 'purchase-confirmation' && {
 				sellerName,
+				platformRate: (platformRate / 100).toString(), // Convertir en décimal
+				paypalRate: (paypalRate / 100).toString(), // Convertir en décimal
 				orderId,
 				eventName,
 				eventDistance,
 				buyerName,
 				bibPrice: bibPrice.toString(),
 				bibCategory,
-				platformRate: (platformRate / 100).toString(), // Convertir en décimal
-				paypalRate: (paypalRate / 100).toString(), // Convertir en décimal
 			}),
 			...(template === 'sale-alert' && {
 				transactionId,

@@ -110,6 +110,7 @@ interface SaleConfirmationParams {
 	eventName?: string
 	bibPrice?: number
 	platformFee?: number
+	paypalFee?: number
 	totalReceived?: number
 	orderId?: string
 	eventDate?: string
@@ -125,6 +126,7 @@ export async function sendSaleConfirmationEmail({
 	sellerName,
 	sellerEmail,
 	platformFee,
+	paypalFee,
 	orderId,
 	locale = 'fr',
 	eventName,
@@ -166,6 +168,7 @@ export async function sendSaleConfirmationEmail({
 				eventName={eventName}
 				bibPrice={bibPrice}
 				platformFee={platformFee}
+				paypalFee={paypalFee}
 				totalReceived={totalReceived}
 				orderId={orderId}
 				eventDate={eventDate}

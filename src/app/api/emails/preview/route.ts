@@ -54,6 +54,7 @@ export async function GET(request: NextRequest) {
 					totalReceived: totalReceivedSale,
 					sellerName,
 					platformFee: platformFeeSale,
+					paypalFee: paypalFeeSale,
 					orderId,
 					locale,
 					eventName,
