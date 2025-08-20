@@ -76,7 +76,6 @@ export function GoBackToTop({ threshold = 100, locale, className }: GoBackToTopP
 							border: 'none',
 							backgroundColor: 'transparent',
 						}}
-						aria-label={t.goBackToTop}
 					/>
 				</div>
 			</TooltipTrigger>
