@@ -48,7 +48,7 @@ export const BeswibEmailVerification = ({ validationCode = 'DJZ-TLX' }: BeswibEm
 				<Container className="mx-auto max-w-[600px] px-4 py-8">
 					{/* Header avec logo */}
 					<Section className="mb-8">
-						<Img src={`/beswib.svg`} width="100" height="100" alt="Beswib" className="mx-auto" />
+						<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
 					</Section>
 
 					{/* Card principale */}
@@ -102,13 +102,13 @@ export const BeswibEmailVerification = ({ validationCode = 'DJZ-TLX' }: BeswibEm
 							</Column>
 							<Column align="right" className="mt-4 flex flex-row items-center justify-end gap-2">
 								<Link href="/">
-									<Img src={`/svgs/instagram.svg`} width="24" height="24" alt="Instagram" className="opacity-80" />
+									<Img src={`/mails/instagram.png`} width="24" height="24" alt="Instagram" className="opacity-80" />
 								</Link>
 								<Link href="/">
-									<Img src={`/svgs/strava.svg`} width="24" height="24" alt="Strava" className="opacity-80" />
+									<Img src={`/mails/strava.png`} width="24" height="24" alt="Strava" className="opacity-80" />
 								</Link>
 								<Link href="/">
-									<Img src={`/svgs/linkedin.svg`} width="24" height="24" alt="LinkedIn" className="opacity-80" />
+									<Img src={`/mails/linkedin.png`} width="24" height="24" alt="LinkedIn" className="opacity-80" />
 								</Link>
 							</Column>
 						</Section>
