@@ -111,7 +111,7 @@ export function GoBackToTop({
 			if (window.scrollY === 0) {
 				setIsAnimating(false)
 				window.removeEventListener('scroll', handleScroll)
-				if (fallbackTimeoutId) clearTimeout(fallbackTimeoutId)
+				if (fallbackTimeoutId != null) clearTimeout(fallbackTimeoutId)
 			}
 		}
 		window.addEventListener('scroll', handleScroll, { passive: true })
