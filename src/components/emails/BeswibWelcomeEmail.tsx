@@ -44,59 +44,49 @@ export const BeswibWelcomeEmail = ({
 }: BeswibWelcomeEmailProps) => {
 	const t = getTranslations(locale, constantsLocales)
 
-	// Helper function to safely get translations
-	const getEmailText = (path: string): string => {
-		const keys = path.split('.')
-		let value = t.emails.welcome
-		for (const key of keys) {
-			value = value[key as keyof typeof value] as unknown
-		}
-		return (value as string) ?? path
-	}
-
-	// Default steps with translations from locales.json - FULLY TYPE SAFE! ✨
+	// Default steps with translations from locales.json - SIMPLE AND DIRECT! ✨
 	const defaultSteps = [
 		{
-			title: getEmailText('steps.marketplace.title'),
+			title: t.emails.welcome.steps.marketplace.title,
 			link: `${baseUrl}/marketplace`,
 			id: 1,
-			description: getEmailText('steps.marketplace.description'),
+			description: t.emails.welcome.steps.marketplace.description,
 		},
 		{
-			title: getEmailText('steps.profile.title'),
+			title: t.emails.welcome.steps.profile.title,
 			link: `${baseUrl}/profile`,
 			id: 2,
-			description: getEmailText('steps.profile.description'),
+			description: t.emails.welcome.steps.profile.description,
 		},
 		{
-			title: getEmailText('steps.sell.title'),
+			title: t.emails.welcome.steps.sell.title,
 			link: `${baseUrl}/dashboard/seller`,
 			id: 3,
-			description: getEmailText('steps.sell.description'),
+			description: t.emails.welcome.steps.sell.description,
 		},
 		{
-			title: getEmailText('steps.community.title'),
+			title: t.emails.welcome.steps.community.title,
 			link: `${baseUrl}/events`,
 			id: 4,
-			description: getEmailText('steps.community.description'),
+			description: t.emails.welcome.steps.community.description,
 		},
 	]
 
 	const defaultQuickLinks = [
 		{
-			title: getEmailText('quickLinks.support.title'),
+			title: t.emails.welcome.quickLinks.support.title,
 			href: `${baseUrl}/contact`,
-			description: getEmailText('quickLinks.support.description'),
+			description: t.emails.welcome.quickLinks.support.description,
 		},
 		{
-			title: getEmailText('quickLinks.guide.title'),
+			title: t.emails.welcome.quickLinks.guide.title,
 			href: `${baseUrl}/guide`,
-			description: getEmailText('quickLinks.guide.description'),
+			description: t.emails.welcome.quickLinks.guide.description,
 		},
 		{
-			title: getEmailText('quickLinks.events.title'),
+			title: t.emails.welcome.quickLinks.events.title,
 			href: `${baseUrl}/events`,
-			description: getEmailText('quickLinks.events.description'),
+			description: t.emails.welcome.quickLinks.events.description,
 		},
 	]
 	return (
@@ -125,7 +115,7 @@ export const BeswibWelcomeEmail = ({
 					},
 				}}
 			>
-				<Preview>{getEmailText('preheader').replace('{firstName}', firstName)}</Preview>
+				<Preview>{t.emails.welcome.preheader.replace('{firstName}', firstName)}</Preview>
 				<Body className="bg-background font-sans">
 					{/* Header avec gradient */}
 					<Section className="from-primary to-accent mb-0 bg-gradient-to-r py-8">
@@ -133,17 +123,19 @@ export const BeswibWelcomeEmail = ({
 							<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
 
 							<Heading className="text-primary mb-2 text-center text-3xl font-bold">
-								🎉&nbsp;{getEmailText('title').replace('{firstName}', firstName)}&nbsp;🎉
+								🎉&nbsp;{t.emails.welcome.title.replace('{firstName}', firstName)}&nbsp;🎉
 							</Heading>
-							<Text className="text-primary text-center text-lg opacity-90">{getEmailText('heroSubtitle')}</Text>
+							<Text className="text-primary text-center text-lg opacity-90">{t.emails.welcome.heroSubtitle}</Text>
 						</Container>
 					</Section>
 
 					<Container className="mx-auto max-w-[600px] px-4 py-8">
 						{/* Message de bienvenue */}
 						<Section>
-							<Text className="text-foreground mb-4 text-base leading-relaxed">{getEmailText('body1')}</Text>
-							<Text className="text-foreground mb-6 text-base leading-relaxed">{getEmailText('nextStepsTitle')} :</Text>
+							<Text className="text-foreground mb-4 text-base leading-relaxed">{t.emails.welcome.body1}</Text>
+							<Text className="text-foreground mb-6 text-base leading-relaxed">
+								{t.emails.welcome.nextStepsTitle} :
+							</Text>
 						</Section>
 
 						{/* Étapes */}
@@ -164,7 +156,7 @@ export const BeswibWelcomeEmail = ({
 												color: 'oklch(0.6231 0.188 259.8145)',
 											}}
 										>
-											{getEmailText('footer.learnMore')}
+											{t.emails.welcome.footer.learnMore}
 										</Link>
 									)}
 								</Section>
@@ -177,14 +169,14 @@ export const BeswibWelcomeEmail = ({
 								href={`${baseUrl}/marketplace`}
 								className="bg-primary text-primary-foreground rounded-lg px-8 py-4 text-lg font-semibold no-underline"
 							>
-								{getEmailText('cta')}
+								{t.emails.welcome.cta}
 							</Button>
 						</Section>
 
 						{/* Liens rapides - same structure as EmailVerification */}
 						<Section className="bg-muted rounded-lg p-6">
 							<Heading className="text-foreground mb-4 text-center text-lg font-semibold">
-								{getEmailText('footer.usefulLinks')}
+								{t.emails.welcome.footer.usefulLinks}
 							</Heading>
 							<Section className="flex justify-center gap-8">
 								{(quickLinks ?? defaultQuickLinks).map(link => (
@@ -308,10 +300,9 @@ export const BeswibWelcomeEmail = ({
 							<Section className="bg-card border-border mt-4 rounded-lg border shadow-sm">
 								<Column style={{ width: '66%' }}>
 									<Text className="text-muted-foreground text-start text-xs">
-										{(t.emails?.layout as any)?.copyright.replace('{year}', new Date().getFullYear().toString()) ??
-											`© ${new Date().getFullYear()} Beswib. All rights reserved.`}
+										© {new Date().getFullYear()} Beswib. Tous droits réservés.
 										<br />
-										{getEmailText('footer.platformDescription')}
+										{t.emails.welcome.footer.platformDescription}
 									</Text>
 								</Column>
 								<Column align="right" className="mt-4 flex flex-row items-center justify-end gap-2">

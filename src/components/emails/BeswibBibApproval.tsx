@@ -41,14 +41,7 @@ export default function BeswibBibApproval({
 }: BeswibBibApprovalProps) {
 	const t = getTranslations(locale, constantsLocales)
 
-	const getLocalizedText = (key: string): string => {
-		const keys = key.split('.')
-		let value: any = t.emails.bibApproval
-		for (const k of keys) {
-			value = value?.[k]
-		}
-		return (value as string) ?? key
-	}
+	// Plus besoin de fonction helper, on utilise directement t.emails.bibApproval comme HeroAlternative !
 
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
@@ -58,7 +51,7 @@ export default function BeswibBibApproval({
 			<Head>
 				<Font fontFamily="Inter" fontWeight={400} fontStyle="normal" fallbackFontFamily="Arial" />
 			</Head>
-			<Preview>{getLocalizedText('subject')}</Preview>
+			<Preview>{t.emails.bibApproval.subject}</Preview>
 			<Body style={{ fontFamily: 'Inter, Arial, sans-serif', backgroundColor: 'hsl(var(--background))' }}>
 				<Container style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
 					{/* Header */}
@@ -76,7 +69,7 @@ export default function BeswibBibApproval({
 						}}
 					>
 						<Text style={{ margin: '0', fontWeight: '700', fontSize: '24px', color: 'white' }}>
-							🎉 {getLocalizedText('subject').replace(' 🎉', '')}
+							🎉 {t.emails.bibApproval.subject.replace(' 🎉', '')}
 						</Text>
 					</Section>
 
@@ -92,7 +85,7 @@ export default function BeswibBibApproval({
 					>
 						{/* Greeting */}
 						<Text style={{ marginBottom: '16px', fontSize: '16px', color: 'hsl(var(--foreground))' }}>
-							{getLocalizedText('greeting')}
+							{t.emails.bibApproval.greeting}
 							{sellerName ? ` ${sellerName}` : ''} 👋
 						</Text>
 
@@ -100,7 +93,7 @@ export default function BeswibBibApproval({
 						<Text
 							style={{ marginBottom: '24px', lineHeight: '1.6', fontSize: '16px', color: 'hsl(var(--foreground))' }}
 						>
-							{getLocalizedText('mainMessage')} <strong>{getLocalizedText('canNowSell')}</strong>
+							{t.emails.bibApproval.mainMessage} <strong>{t.emails.bibApproval.canNowSell}</strong>
 						</Text>
 
 						{/* Approval Status */}
@@ -114,10 +107,10 @@ export default function BeswibBibApproval({
 							}}
 						>
 							<Text style={{ margin: '0 0 12px 0', fontWeight: '600', fontSize: '18px', color: 'hsl(var(--success))' }}>
-								✅ {getLocalizedText('approvalDetails')}
+								✅ {t.emails.bibApproval.approvalDetails}
 							</Text>
 							<Text style={{ margin: '0', fontSize: '14px', color: 'hsl(var(--success))' }}>
-								<strong>{getLocalizedText('approvedBy')}:</strong> {organizerName || "Organisateur de l'événement"}
+								<strong>{t.emails.bibApproval.approvedBy}:</strong> {organizerName || "Organisateur de l'événement"}
 							</Text>
 						</Section>
 
@@ -133,37 +126,37 @@ export default function BeswibBibApproval({
 							<Heading
 								style={{ margin: '0 0 16px 0', fontWeight: '600', fontSize: '16px', color: 'hsl(var(--foreground))' }}
 							>
-								{getLocalizedText('bibDetails')}
+								{t.emails.bibApproval.bibDetails}
 							</Heading>
 
 							{eventName && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('event')}:</strong> {eventName}
+									<strong>{t.emails.bibApproval.event}:</strong> {eventName}
 								</Text>
 							)}
 							{eventDate && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('date')}:</strong> {eventDate}
+									<strong>{t.emails.bibApproval.date}:</strong> {eventDate}
 								</Text>
 							)}
 							{eventLocation && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('location')}:</strong> {eventLocation}
+									<strong>{t.emails.bibApproval.location}:</strong> {eventLocation}
 								</Text>
 							)}
 							{eventDistance && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('distance')}:</strong> {eventDistance}
+									<strong>{t.emails.bibApproval.distance}:</strong> {eventDistance}
 								</Text>
 							)}
 							{bibCategory && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('category')}:</strong> {bibCategory}
+									<strong>{t.emails.bibApproval.category}:</strong> {bibCategory}
 								</Text>
 							)}
 							{bibPrice > 0 && (
 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-									<strong>{getLocalizedText('price')}:</strong> {formatPrice(bibPrice)}
+									<strong>{t.emails.bibApproval.price}:</strong> {formatPrice(bibPrice)}
 								</Text>
 							)}
 						</Section>
@@ -173,7 +166,7 @@ export default function BeswibBibApproval({
 							<Heading
 								style={{ marginBottom: '16px', fontWeight: '600', fontSize: '16px', color: 'hsl(var(--foreground))' }}
 							>
-								🚀 {getLocalizedText('nextSteps')}
+								🚀 {t.emails.bibApproval.nextSteps}
 							</Heading>
 
 							<Text
@@ -184,7 +177,7 @@ export default function BeswibBibApproval({
 									color: 'hsl(var(--muted-foreground))',
 								}}
 							>
-								• {getLocalizedText('step1')}
+								• {t.emails.bibApproval.step1}
 							</Text>
 							<Text
 								style={{
@@ -194,7 +187,7 @@ export default function BeswibBibApproval({
 									color: 'hsl(var(--muted-foreground))',
 								}}
 							>
-								• {getLocalizedText('step2')}
+								• {t.emails.bibApproval.step2}
 							</Text>
 							<Text
 								style={{
@@ -204,7 +197,7 @@ export default function BeswibBibApproval({
 									color: 'hsl(var(--muted-foreground))',
 								}}
 							>
-								• {getLocalizedText('step3')}
+								• {t.emails.bibApproval.step3}
 							</Text>
 							<Text
 								style={{
@@ -214,7 +207,7 @@ export default function BeswibBibApproval({
 									color: 'hsl(var(--muted-foreground))',
 								}}
 							>
-								• {getLocalizedText('step4')}
+								• {t.emails.bibApproval.step4}
 							</Text>
 						</Section>
 
@@ -233,7 +226,7 @@ export default function BeswibBibApproval({
 									background: 'linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 35%) 100%)',
 								}}
 							>
-								{getLocalizedText('sellNowButton')}
+								{t.emails.bibApproval.sellNowButton}
 							</Button>
 						</Section>
 
@@ -249,7 +242,7 @@ export default function BeswibBibApproval({
 							}}
 						>
 							<Text style={{ margin: '0', fontWeight: '500', fontSize: '14px', color: 'hsl(var(--primary))' }}>
-								🌟 {getLocalizedText('congratulations')}
+								🌟 {t.emails.bibApproval.congratulations}
 							</Text>
 						</Section>
 
@@ -258,10 +251,10 @@ export default function BeswibBibApproval({
 						{/* Help Section */}
 						<Section style={{ textAlign: 'center', marginBottom: '24px' }}>
 							<Text style={{ marginBottom: '8px', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-								<strong>{getLocalizedText('helpText')}</strong>
+								<strong>{t.emails.bibApproval.helpText}</strong>
 							</Text>
 							<Text style={{ marginBottom: '16px', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-								{getLocalizedText('helpDescription')}
+								{t.emails.bibApproval.helpDescription}
 							</Text>
 							<Button
 								href={`${baseUrl}/contact`}
@@ -273,17 +266,17 @@ export default function BeswibBibApproval({
 									background: 'transparent',
 								}}
 							>
-								{getLocalizedText('contactSupport')}
+								{t.emails.bibApproval.contactSupport}
 							</Button>
 						</Section>
 
 						{/* Footer */}
 						<Section style={{ textAlign: 'center' }}>
 							<Text style={{ margin: '0 0 8px 0', fontSize: '16px', color: 'hsl(var(--foreground))' }}>
-								{getLocalizedText('footer')}
+								{t.emails.bibApproval.footer}
 							</Text>
 							<Text style={{ margin: '0', fontWeight: '600', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-								{getLocalizedText('teamSignature')}
+								{t.emails.bibApproval.teamSignature}
 							</Text>
 						</Section>
 					</Section>
