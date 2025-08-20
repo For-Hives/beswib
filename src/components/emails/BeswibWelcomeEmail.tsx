@@ -15,8 +15,8 @@ import {
 } from '@react-email/components'
 import type * as React from 'react'
 
-import { getTranslations } from '@/lib/i18n/dictionary'
-import constantsLocales from '@/constants/locales.json'
+import { getEmailTranslations, type EmailTranslations } from '@/lib/i18n/email-translations'
+import { type Locale } from '@/lib/i18n/config'
 
 interface BeswibWelcomeEmailProps {
 	firstName?: string
@@ -42,52 +42,51 @@ export const BeswibWelcomeEmail = ({
 	locale = 'fr',
 	firstName = 'Coureur',
 }: BeswibWelcomeEmailProps) => {
-	const t = getTranslations(locale, constantsLocales)
+	const t: EmailTranslations = getEmailTranslations(locale as Locale)
 
-	// Default steps with translations from locales.json
+	// Default steps with translations from locales.json - FULLY TYPE SAFE! ✨
 	const defaultSteps = [
 		{
-			title: t?.emails?.welcome?.steps?.marketplace?.title ?? 'Marketplace',
-			link: `${baseUrl}/marketplace`,
 			id: 1,
-			description:
-				t?.emails?.welcome?.steps?.marketplace?.description ?? 'Discover available bibs for your next races.',
+			title: t.welcome.steps.marketplace.title,
+			description: t.welcome.steps.marketplace.description,
+			link: `${baseUrl}/marketplace`,
 		},
 		{
-			title: t.emails.welcome.steps.profile.title ?? 'Complete your profile',
-			link: `${baseUrl}/profile`,
 			id: 2,
-			description: t.emails.welcome.steps.profile.description ?? 'Add your information to facilitate your purchases.',
+			title: t.welcome.steps.profile.title,
+			description: t.welcome.steps.profile.description,
+			link: `${baseUrl}/profile`,
 		},
 		{
-			title: t.emails.welcome.steps.sell.title ?? 'Sell your bibs',
-			link: `${baseUrl}/dashboard/seller`,
 			id: 3,
-			description: t.emails.welcome.steps.sell.description ?? 'Resell your bib in just a few clicks.',
+			title: t.welcome.steps.sell.title,
+			description: t.welcome.steps.sell.description,
+			link: `${baseUrl}/dashboard/seller`,
 		},
 		{
-			title: t.emails.welcome.steps.community.title ?? 'Join the community',
-			link: `${baseUrl}/events`,
 			id: 4,
-			description: t.emails.welcome.steps.community.description ?? 'Discover events and connect with other runners.',
+			title: t.welcome.steps.community.title,
+			description: t.welcome.steps.community.description,
+			link: `${baseUrl}/events`,
 		},
 	]
 
 	const defaultQuickLinks = [
 		{
-			title: t.emails.welcome.quickLinks.support.title ?? 'Support',
+			title: t.welcome.quickLinks.support.title,
 			href: `${baseUrl}/contact`,
-			description: t.emails.welcome.quickLinks.support.description ?? 'Need help?',
+			description: t.welcome.quickLinks.support.description,
 		},
 		{
-			title: t.emails.welcome.quickLinks.guide.title ?? 'Guide',
+			title: t.welcome.quickLinks.guide.title,
 			href: `${baseUrl}/guide`,
-			description: t.emails.welcome.quickLinks.guide.description ?? 'How it works',
+			description: t.welcome.quickLinks.guide.description,
 		},
 		{
-			title: t.emails.welcome.quickLinks.events.title ?? 'Events',
+			title: t.welcome.quickLinks.events.title,
 			href: `${baseUrl}/events`,
-			description: t.emails.welcome.quickLinks.events.description ?? 'Upcoming races',
+			description: t.welcome.quickLinks.events.description,
 		},
 	]
 	return (
@@ -116,7 +115,7 @@ export const BeswibWelcomeEmail = ({
 					},
 				}}
 			>
-				<Preview>{t.emails.welcome.preheader.replace('{firstName}', firstName)}</Preview>
+				<Preview>{t.welcome.preheader.replace('{firstName}', firstName)}</Preview>
 				<Body className="bg-background font-sans">
 					{/* Header avec gradient */}
 					<Section className="from-primary to-accent mb-0 bg-gradient-to-r py-8">
@@ -124,7 +123,7 @@ export const BeswibWelcomeEmail = ({
 							<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
 
 							<Heading className="text-primary mb-2 text-center text-3xl font-bold">
-								🎉&nbsp;{t.emails.welcome.title.replace('{firstName}', firstName)}&nbsp;🎉
+								🎉&nbsp;{t.welcome.title.replace('{firstName}', firstName)}&nbsp;🎉
 							</Heading>
 							<Text className="text-primary text-center text-lg opacity-90">{t.emails.welcome.heroSubtitle}</Text>
 						</Container>
