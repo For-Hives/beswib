@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { IconUpload } from '@tabler/icons-react'
 import { useDropzone } from 'react-dropzone'
 import { motion } from 'motion/react'
@@ -48,11 +48,17 @@ export const FileUpload = ({ onChange, locale }: { locale: Locale; onChange?: (f
 		setFiles(prev => prev.filter((_, i) => i !== index))
 	}
 
+	const emitChange = useCallback(
+		(payload: File[]) => {
+			onChange?.(payload)
+		},
+		[onChange]
+	)
+
 	// Notify parent when local files state changes (post-render, safe)
 	useEffect(() => {
-		onChange?.(files)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [files])
+		emitChange(files)
+	}, [files, emitChange])
 
 	const handleClick = () => {
 		fileInputRef.current?.click()
