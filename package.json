@@ -101,7 +101,7 @@
 		"three": "0.179.1",
 		"valibot": "1.1.0",
 		"zod": "4.0.17",
-		"zustand": "5.0.7"
+		"zustand": "5.0.8"
 	},
 	"devDependencies": {
 		"@clerk/types": "4.80.0",
