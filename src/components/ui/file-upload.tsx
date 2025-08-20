@@ -1,5 +1,5 @@
-import { IconUpload } from '@tabler/icons-react'
 import React, { useEffect, useRef, useState } from 'react'
+import { IconUpload } from '@tabler/icons-react'
 import { useDropzone } from 'react-dropzone'
 import { motion } from 'motion/react'
 
