@@ -78,7 +78,7 @@ export function GoBackToTop({
 		const scrolled = window.scrollY
 		// Hide strictly when back at the very top; otherwise apply threshold logic
 		const shouldShow = showOnScroll ? scrolled > 0 : scrolled > threshold
-		setIsVisible(prev => (prev !== shouldShow ? shouldShow : prev))
+		setIsVisible(shouldShow)
 	}, [threshold, showOnScroll])
 
 	// Create throttled version of toggleVisibility (animation-frame throttled)
