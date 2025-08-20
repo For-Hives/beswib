@@ -20,6 +20,10 @@ export async function GET(request: NextRequest) {
 	const orderId = searchParams.get('orderId') ?? 'BW123456789'
 	const locale = searchParams.get('locale') ?? 'fr'
 
+	// Paramètres optionnels pour personnaliser les frais
+	const customPlatformRate = Number(searchParams.get('platformRate')) || 0.1 // Default 10%
+	const customPaypalRate = Number(searchParams.get('paypalRate')) || 0.035 // Default 3.5%
+
 	try {
 		let emailComponent: React.ReactElement
 
@@ -31,32 +35,64 @@ export async function GET(request: NextRequest) {
 				emailComponent = React.createElement(BeswibWelcomeEmail, { locale, firstName })
 				break
 			case 'sale-confirmation':
-				const platformFee = Number((bibPrice * 0.1).toFixed(2))
-				const totalReceived = Number((bibPrice - platformFee).toFixed(2))
+				// Calcul complet des frais pour le vendeur
+				const listingPriceSale = bibPrice
+				const platformFeeSale = Number((listingPriceSale * customPlatformRate).toFixed(2)) // % du prix affiché
+				const paypalFeeSale = Number((listingPriceSale * customPaypalRate).toFixed(2)) // % approximation PayPal
+				const totalReceivedSale = Number((listingPriceSale - platformFeeSale - paypalFeeSale).toFixed(2)) // Net reçu par le vendeur
+
+				console.log(`📊 Calcul des frais pour ${eventName} (Vendeur):`)
+				console.log(`   📝 Prix affiché (listing): ${listingPriceSale}€`)
+				console.log(`   🏢 Frais plateforme (${(customPlatformRate * 100).toFixed(1)}%): ${platformFeeSale}€`)
+				console.log(`   💳 Frais PayPal (${(customPaypalRate * 100).toFixed(1)}%): ${paypalFeeSale}€`)
+				console.log(`   💵 Net vendeur: ${totalReceivedSale}€`)
+				console.log(
+					`   ✅ Formule: ${listingPriceSale}€ - ${platformFeeSale}€ - ${paypalFeeSale}€ = ${totalReceivedSale}€`
+				)
+
 				emailComponent = React.createElement(BeswibSaleConfirmation, {
-					totalReceived,
+					totalReceived: totalReceivedSale,
 					sellerName,
-					platformFee,
+					platformFee: platformFeeSale,
 					orderId,
 					locale,
 					eventName,
 					eventLocation: 'Paris, France',
 					eventDate: '14 avril 2024',
 					buyerName,
-					bibPrice,
+					bibPrice: listingPriceSale,
 				})
 				break
 			case 'purchase-confirmation':
+				// Calcul complet des frais selon votre logique métier
+				const listingPrice = bibPrice
+				const platformFeePreview = Number((listingPrice * customPlatformRate).toFixed(2)) // % du prix affiché
+				const paypalFeePreview = Number((listingPrice * customPaypalRate).toFixed(2)) // % approximation PayPal
+				const totalAmountPreview = Number((listingPrice + platformFeePreview + paypalFeePreview).toFixed(2)) // Total payé par l'acheteur
+				const netAmountPreview = Number((listingPrice - platformFeePreview - paypalFeePreview).toFixed(2)) // Net reçu par le vendeur
+
+				console.log(`📊 Calcul des frais pour ${eventName}:`)
+				console.log(`   📝 Prix affiché (listing): ${listingPrice}€`)
+				console.log(`   🏢 Frais plateforme (${(customPlatformRate * 100).toFixed(1)}%): ${platformFeePreview}€`)
+				console.log(`   💳 Frais PayPal (${(customPaypalRate * 100).toFixed(1)}%): ${paypalFeePreview}€`)
+				console.log(`   💰 Total acheteur: ${totalAmountPreview}€`)
+				console.log(`   💵 Net vendeur: ${netAmountPreview}€`)
+				console.log(
+					`   ✅ Formule: ${listingPrice}€ - ${platformFeePreview}€ - ${paypalFeePreview}€ = ${netAmountPreview}€`
+				)
+
 				emailComponent = React.createElement(BeswibPurchaseConfirmation, {
 					sellerName,
+					platformFee: platformFeePreview,
+					paypalFee: paypalFeePreview,
 					orderId,
 					locale,
+					listingPrice: listingPrice,
 					eventName,
 					eventLocation: 'Paris, France',
 					eventDistance: '42.2 km',
 					eventDate: '14 avril 2024',
 					buyerName,
-					bibPrice,
 					bibCategory: 'Marathon',
 				})
 				break

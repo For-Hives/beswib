@@ -106,7 +106,7 @@ export const BeswibWelcomeEmail = ({ steps, locale = 'fr', firstName = 'Coureur'
 						</Container>
 					</Section>
 
-					<Container className="mx-auto max-w-[600px] px-4 py-8">
+					<Container className="mx-auto max-w-[600px] px-8 py-8">
 						{/* Message de bienvenue */}
 						<Section>
 							<Text className="text-foreground mb-4 text-base leading-relaxed">{t.emails.welcome.body1}</Text>
@@ -146,94 +146,22 @@ export const BeswibWelcomeEmail = ({ steps, locale = 'fr', firstName = 'Coureur'
 						<Section className="bg-card border-border rounded-lg border px-8 shadow-sm">
 							<Section className="">
 								<Link href={`${baseUrl}`} className="text-muted-foreground text-center text-xs underline">
-									{locale === 'fr'
-										? 'Notre site'
-										: locale === 'en'
-											? 'Our site'
-											: locale === 'es'
-												? 'Nuestro sitio'
-												: locale === 'it'
-													? 'Il nostro sito'
-													: locale === 'de'
-														? 'Unsere Seite'
-														: locale === 'pt'
-															? 'O nosso site'
-															: locale === 'nl'
-																? 'Onze site'
-																: locale === 'ko'
-																	? '우리 사이트'
-																	: locale === 'ro'
-																		? 'Situl nostru'
-																		: 'Our site'}
+									{t.emails.welcome.footer.ourSite}
 								</Link>
 								&nbsp;&nbsp;|&nbsp;&nbsp;
 								<Link href={`${baseUrl}/contact`} className="text-muted-foreground text-center text-xs underline">
-									{locale === 'fr'
-										? 'Contact'
-										: locale === 'en'
-											? 'Contact'
-											: locale === 'es'
-												? 'Contacto'
-												: locale === 'it'
-													? 'Contatto'
-													: locale === 'de'
-														? 'Kontakt'
-														: locale === 'pt'
-															? 'Contacto'
-															: locale === 'nl'
-																? 'Contact'
-																: locale === 'ko'
-																	? '연락처'
-																	: locale === 'ro'
-																		? 'Contact'
-																		: 'Contact'}
+									{t.emails.welcome.footer.contact}
 								</Link>
 								&nbsp;&nbsp;|&nbsp;&nbsp;
 								<Link
 									href={`${baseUrl}/legals/privacy`}
 									className="text-muted-foreground text-center text-xs underline"
 								>
-									{locale === 'fr'
-										? 'Confidentialité'
-										: locale === 'en'
-											? 'Privacy'
-											: locale === 'es'
-												? 'Privacidad'
-												: locale === 'it'
-													? 'Privacy'
-													: locale === 'de'
-														? 'Datenschutz'
-														: locale === 'pt'
-															? 'Privacidade'
-															: locale === 'nl'
-																? 'Privacy'
-																: locale === 'ko'
-																	? '개인정보보호'
-																	: locale === 'ro'
-																		? 'Confidențialitate'
-																		: 'Privacy'}
+									{t.emails.welcome.footer.privacy}
 								</Link>
 								&nbsp;&nbsp;|&nbsp;&nbsp;
 								<Link href={`${baseUrl}/legals/terms`} className="text-muted-foreground text-center text-xs underline">
-									{locale === 'fr'
-										? "Conditions d'utilisation"
-										: locale === 'en'
-											? 'Terms of Service'
-											: locale === 'es'
-												? 'Términos de Servicio'
-												: locale === 'it'
-													? 'Termini di Servizio'
-													: locale === 'de'
-														? 'Nutzungsbedingungen'
-														: locale === 'pt'
-															? 'Termos de Serviço'
-															: locale === 'nl'
-																? 'Servicevoorwaarden'
-																: locale === 'ko'
-																	? '서비스 약관'
-																	: locale === 'ro'
-																		? 'Termeni de Utilizare'
-																		: 'Terms of Service'}
+									{t.emails.welcome.footer.terms}
 								</Link>
 							</Section>
 							<Section className="bg-card border-border mt-4 rounded-lg border shadow-sm">

@@ -67,6 +67,10 @@
 					"managePreferences": "Manage preferences",
 					"unsubscribe": "Unsubscribe",
 					"learnMore": "Learn more →",
+					"ourSite": "Our site",
+					"contact": "Contact",
+					"privacy": "Privacy",
+					"terms": "Terms of Service",
 					"platformDescription": "Race bib marketplace platform."
 				}
 			},
@@ -144,10 +148,16 @@
 				"seller": "Seller",
 				"orderId": "Order ID",
 				"paymentSummary": "Payment Summary",
+				"listingPrice": "Listing Price",
+				"platformFee": "Platform Fee",
+				"paypalFee": "PayPal Fee",
 				"bibPrice": "Bib Price",
 				"processingFee": "Processing Fee",
 				"included": "Included",
 				"totalPaid": "Total Paid",
+				"feeBreakdown": "Fee Breakdown",
+				"feeExplanation": "Platform fees are 10% of the listing price. PayPal fees are provided by PayPal and may vary by country and payment method.",
+				"netAmount": "Seller receives",
 				"congratulations": "Congratulations {buyerName}! Your purchase has been confirmed successfully. You are now registered for this exceptional event!",
 				"nextSteps": "Next Steps",
 				"step1": "Contact the organizer for bib pickup details",
@@ -158,6 +168,7 @@
 				"contact": "Contact",
 				"dashboard": "Dashboard",
 				"privacy": "Privacy",
+				"terms": "Terms of Service",
 				"tagline": "Race bib marketplace platform."
 			},
 			"saleConfirmation": {
@@ -183,6 +194,7 @@
 				"contact": "Contact",
 				"dashboard": "Dashboard",
 				"privacy": "Privacy",
+				"terms": "Terms of Service",
 				"tagline": "Race bib marketplace platform."
 			},
 			"waitlistAlert": {
@@ -207,6 +219,7 @@
 				"contact": "Contact",
 				"dashboard": "Dashboard",
 				"privacy": "Privacy",
+				"terms": "Terms of Service",
 				"tagline": "Race bib marketplace platform."
 			},
 			"saleAlert": {
@@ -295,6 +308,10 @@
 					"managePreferences": "Gérer les préférences",
 					"unsubscribe": "Se désabonner",
 					"learnMore": "En savoir plus →",
+					"ourSite": "Notre site",
+					"contact": "Contact",
+					"privacy": "Confidentialité",
+					"terms": "Conditions d'utilisation",
 					"platformDescription": "Plateforme de revente de dossards de course à pied."
 				}
 			},
@@ -372,10 +389,16 @@
 				"seller": "Vendeur",
 				"orderId": "N° de commande",
 				"paymentSummary": "Résumé du paiement",
+				"listingPrice": "Prix affiché",
+				"platformFee": "Frais de plateforme",
+				"paypalFee": "Frais PayPal",
 				"bibPrice": "Prix du dossard",
 				"processingFee": "Frais de traitement",
 				"included": "Inclus",
 				"totalPaid": "Total payé",
+				"feeBreakdown": "Détail des frais",
+				"feeExplanation": "Les frais de plateforme représentent 10% du prix affiché. Les frais PayPal sont fournis par PayPal et peuvent varier selon le pays et le mode de paiement.",
+				"netAmount": "Le vendeur reçoit",
 				"congratulations": "Félicitations {buyerName} ! Votre achat a été confirmé avec succès. Vous êtes maintenant inscrit(e) pour cet événement exceptionnel !",
 				"nextSteps": "Prochaines étapes",
 				"step1": "Contactez l'organisateur pour les détails de retrait du dossard",
@@ -386,6 +409,7 @@
 				"contact": "Contact",
 				"dashboard": "Tableau de bord",
 				"privacy": "Confidentialité",
+				"terms": "Conditions d'utilisation",
 				"tagline": "Plateforme de revente de dossards."
 			},
 			"saleConfirmation": {
@@ -411,6 +435,7 @@
 				"contact": "Contact",
 				"dashboard": "Tableau de bord",
 				"privacy": "Confidentialité",
+				"terms": "Conditions d'utilisation",
 				"tagline": "Plateforme de revente de dossards."
 			},
 			"waitlistAlert": {
@@ -435,6 +460,7 @@
 				"contact": "Contact",
 				"dashboard": "Tableau de bord",
 				"privacy": "Confidentialité",
+				"terms": "Conditions d'utilisation",
 				"tagline": "Plateforme de revente de dossards."
 			},
 			"saleAlert": {
@@ -523,6 +549,10 @@
 					"managePreferences": "환경설정 관리",
 					"unsubscribe": "구독 취소",
 					"learnMore": "더 알아보기 →",
+					"ourSite": "저희 사이트",
+					"contact": "연락처",
+					"privacy": "개인정보보호",
+					"terms": "서비스 약관",
 					"platformDescription": "레이스 비브 마켓플레이스 플랫폼."
 				}
 			},
@@ -600,10 +630,16 @@
 				"seller": "판매자",
 				"orderId": "주문 ID",
 				"paymentSummary": "결제 요약",
+				"listingPrice": "표시 가격",
+				"platformFee": "플랫폼 수수료",
+				"paypalFee": "PayPal 수수료",
 				"bibPrice": "레이스 번호 가격",
 				"processingFee": "처리 수수료",
 				"included": "포함",
 				"totalPaid": "총 결제금액",
+				"feeBreakdown": "수수료 내역",
+				"feeExplanation": "플랫폼 수수료는 표시 가격의 10%입니다. PayPal 수수료는 PayPal에서 제공하며 국가 및 결제 방법에 따라 다를 수 있습니다.",
+				"netAmount": "판매자가 받는 금액",
 				"congratulations": "축하합니다 {buyerName}님! 귀하의 구매가 성공적으로 확인되었습니다. 이제 이 특별한 이벤트에 등록되었습니다!",
 				"nextSteps": "다음 단계",
 				"step1": "레이스 번호 수령 세부사항을 위해 주최자에게 연락하세요",
@@ -614,6 +650,7 @@
 				"contact": "연락처",
 				"dashboard": "대시보드",
 				"privacy": "개인정보보호",
+				"terms": "서비스 약관",
 				"tagline": "레이스 비브 마켓플레이스 플랫폼."
 			},
 			"saleConfirmation": {
@@ -639,6 +676,7 @@
 				"contact": "연락처",
 				"dashboard": "대시보드",
 				"privacy": "개인정보보호",
+				"terms": "서비스 약관",
 				"tagline": "레이스 비브 마켓플레이스 플랫폼."
 			},
 			"waitlistAlert": {
@@ -663,6 +701,7 @@
 				"contact": "연락처",
 				"dashboard": "대시보드",
 				"privacy": "개인정보보호",
+				"terms": "서비스 약관",
 				"tagline": "레이스 비브 마켓플레이스 플랫폼."
 			},
 			"saleAlert": {
@@ -751,6 +790,10 @@
 					"managePreferences": "Gestionar preferencias",
 					"unsubscribe": "Darse de baja",
 					"learnMore": "Saber más →",
+					"ourSite": "Nuestro sitio",
+					"contact": "Contacto",
+					"privacy": "Privacidad",
+					"terms": "Términos de Servicio",
 					"platformDescription": "Plataforma de mercado de dorsales de carrera."
 				}
 			},
@@ -842,7 +885,14 @@
 				"contact": "Contacto",
 				"dashboard": "Panel",
 				"privacy": "Privacidad",
-				"tagline": "Plataforma de mercado de dorsales de carrera."
+				"terms": "Términos de Servicio",
+				"tagline": "Plataforma de mercado de dorsales de carrera.",
+				"listingPrice": "Precio listado",
+				"platformFee": "Tarifa de plataforma",
+				"paypalFee": "Tarifa PayPal",
+				"feeBreakdown": "Desglose de tarifas",
+				"feeExplanation": "Las tarifas de plataforma son el 10% del precio listado. Las tarifas de PayPal son proporcionadas por PayPal y pueden variar según el país y método de pago.",
+				"netAmount": "El vendedor recibe"
 			},
 			"saleConfirmation": {
 				"subject": "¡Felicidades! Tu dorsal ha sido vendido",
@@ -867,6 +917,7 @@
 				"contact": "Contacto",
 				"dashboard": "Panel",
 				"privacy": "Privacidad",
+				"terms": "Términos de Servicio",
 				"tagline": "Plataforma de mercado de dorsales de carrera."
 			},
 			"waitlistAlert": {
@@ -891,6 +942,7 @@
 				"contact": "Contacto",
 				"dashboard": "Panel",
 				"privacy": "Privacidad",
+				"terms": "Términos de Servicio",
 				"tagline": "Plataforma de mercado de dorsales de carrera."
 			},
 			"saleAlert": {
@@ -979,6 +1031,10 @@
 					"managePreferences": "Gestisci preferenze",
 					"unsubscribe": "Disiscriviti",
 					"learnMore": "Scopri di più →",
+					"ourSite": "Il nostro sito",
+					"contact": "Contatti",
+					"privacy": "Privacy",
+					"terms": "Termini di Servizio",
 					"platformDescription": "Piattaforma marketplace per pettorali da corsa."
 				}
 			},
@@ -1070,7 +1126,14 @@
 				"contact": "Contatti",
 				"dashboard": "Dashboard",
 				"privacy": "Privacy",
-				"tagline": "Piattaforma marketplace per pettorali da corsa."
+				"terms": "Termini di Servizio",
+				"tagline": "Piattaforma marketplace per pettorali da corsa.",
+				"listingPrice": "Prezzo di listino",
+				"platformFee": "Commissione piattaforma",
+				"paypalFee": "Commissione PayPal",
+				"feeBreakdown": "Dettaglio commissioni",
+				"feeExplanation": "Le commissioni della piattaforma sono il 10% del prezzo di listino. Le commissioni PayPal sono fornite da PayPal e possono variare per paese e metodo di pagamento.",
+				"netAmount": "Il venditore riceve"
 			},
 			"saleConfirmation": {
 				"subject": "Congratulazioni! Il tuo pettorale è stato venduto",
@@ -1095,6 +1158,7 @@
 				"contact": "Contatti",
 				"dashboard": "Dashboard",
 				"privacy": "Privacy",
+				"terms": "Termini di Servizio",
 				"tagline": "Piattaforma marketplace per pettorali da corsa."
 			},
 			"waitlistAlert": {
@@ -1119,6 +1183,7 @@
 				"contact": "Contatti",
 				"dashboard": "Dashboard",
 				"privacy": "Privacy",
+				"terms": "Termini di Servizio",
 				"tagline": "Piattaforma marketplace per pettorali da corsa."
 			},
 			"saleAlert": {
@@ -1207,6 +1272,10 @@
 					"managePreferences": "Einstellungen verwalten",
 					"unsubscribe": "Abmelden",
 					"learnMore": "Mehr erfahren →",
+					"ourSite": "Unsere Website",
+					"contact": "Kontakt",
+					"privacy": "Datenschutz",
+					"terms": "Nutzungsbedingungen",
 					"platformDescription": "Marketplace-Plattform für Lauf-Startnummern."
 				}
 			},
@@ -1298,7 +1367,14 @@
 				"contact": "Kontakt",
 				"dashboard": "Dashboard",
 				"privacy": "Datenschutz",
-				"tagline": "Marketplace-Plattform für Lauf-Startnummern."
+				"terms": "Nutzungsbedingungen",
+				"tagline": "Marketplace-Plattform für Lauf-Startnummern.",
+				"listingPrice": "Listenpreis",
+				"platformFee": "Plattformgebühr",
+				"paypalFee": "PayPal-Gebühr",
+				"feeBreakdown": "Gebührenaufschlüsselung",
+				"feeExplanation": "Plattformgebühren betragen 10% des Listenpreises. PayPal-Gebühren werden von PayPal bereitgestellt und können je nach Land und Zahlungsmethode variieren.",
+				"netAmount": "Verkäufer erhält"
 			},
 			"saleConfirmation": {
 				"subject": "Glückwunsch! Deine Startnummer wurde verkauft",
@@ -1323,6 +1399,7 @@
 				"contact": "Kontakt",
 				"dashboard": "Dashboard",
 				"privacy": "Datenschutz",
+				"terms": "Nutzungsbedingungen",
 				"tagline": "Marketplace-Plattform für Lauf-Startnummern."
 			},
 			"waitlistAlert": {
@@ -1347,6 +1424,7 @@
 				"contact": "Kontakt",
 				"dashboard": "Dashboard",
 				"privacy": "Datenschutz",
+				"terms": "Nutzungsbedingungen",
 				"tagline": "Marketplace-Plattform für Lauf-Startnummern."
 			},
 			"saleAlert": {
@@ -1435,6 +1513,10 @@
 					"managePreferences": "Gestionează preferințele",
 					"unsubscribe": "Dezabonare",
 					"learnMore": "Află mai multe →",
+					"ourSite": "Site-ul nostru",
+					"contact": "Contact",
+					"privacy": "Confidențialitate",
+					"terms": "Termeni de Utilizare",
 					"platformDescription": "Platformă marketplace pentru numere de concurs."
 				}
 			},
@@ -1526,7 +1608,14 @@
 				"contact": "Contact",
 				"dashboard": "Panou",
 				"privacy": "Confidențialitate",
-				"tagline": "Platformă marketplace pentru numere de concurs."
+				"terms": "Termeni de Utilizare",
+				"tagline": "Platformă marketplace pentru numere de concurs.",
+				"listingPrice": "Preț afișat",
+				"platformFee": "Taxa platformă",
+				"paypalFee": "Taxa PayPal",
+				"feeBreakdown": "Detaliere taxe",
+				"feeExplanation": "Taxele de platformă sunt 10% din prețul afișat. Taxele PayPal sunt furnizate de PayPal și pot varia în funcție de țară și metoda de plată.",
+				"netAmount": "Vânzătorul primește"
 			},
 			"saleConfirmation": {
 				"subject": "Felicitări! Numărul tău de concurs a fost vândut",
@@ -1551,6 +1640,7 @@
 				"contact": "Contact",
 				"dashboard": "Panou",
 				"privacy": "Confidențialitate",
+				"terms": "Termeni de Utilizare",
 				"tagline": "Platformă marketplace pentru numere de concurs."
 			},
 			"waitlistAlert": {
@@ -1575,6 +1665,7 @@
 				"contact": "Contact",
 				"dashboard": "Panou",
 				"privacy": "Confidențialitate",
+				"terms": "Termeni de Utilizare",
 				"tagline": "Platformă marketplace pentru numere de concurs."
 			},
 			"saleAlert": {
@@ -1663,6 +1754,10 @@
 					"managePreferences": "Gerir preferências",
 					"unsubscribe": "Cancelar subscrição",
 					"learnMore": "Saber mais →",
+					"ourSite": "O nosso site",
+					"contact": "Contacto",
+					"privacy": "Privacidade",
+					"terms": "Termos de Serviço",
 					"platformDescription": "Plataforma marketplace de dorsais de corrida."
 				}
 			},
@@ -1754,7 +1849,14 @@
 				"contact": "Contacto",
 				"dashboard": "Painel",
 				"privacy": "Privacidade",
-				"tagline": "Plataforma marketplace de dorsais de corrida."
+				"terms": "Termos de Serviço",
+				"tagline": "Plataforma marketplace de dorsais de corrida.",
+				"listingPrice": "Preço listado",
+				"platformFee": "Taxa da plataforma",
+				"paypalFee": "Taxa PayPal",
+				"feeBreakdown": "Detalhamento de taxas",
+				"feeExplanation": "As taxas da plataforma são 10% do preço listado. As taxas do PayPal são fornecidas pelo PayPal e podem variar por país e método de pagamento.",
+				"netAmount": "O vendedor recebe"
 			},
 			"saleConfirmation": {
 				"subject": "Parabéns! O teu dorsal foi vendido",
@@ -1779,6 +1881,7 @@
 				"contact": "Contacto",
 				"dashboard": "Painel",
 				"privacy": "Privacidade",
+				"terms": "Termos de Serviço",
 				"tagline": "Plataforma marketplace de dorsais de corrida."
 			},
 			"waitlistAlert": {
@@ -1803,6 +1906,7 @@
 				"contact": "Contacto",
 				"dashboard": "Painel",
 				"privacy": "Privacidade",
+				"terms": "Termos de Serviço",
 				"tagline": "Plataforma marketplace de dorsais de corrida."
 			},
 			"saleAlert": {
@@ -1891,6 +1995,10 @@
 					"managePreferences": "Voorkeuren beheren",
 					"unsubscribe": "Uitschrijven",
 					"learnMore": "Meer weten →",
+					"ourSite": "Onze site",
+					"contact": "Contact",
+					"privacy": "Privacy",
+					"terms": "Servicevoorwaarden",
 					"platformDescription": "Marketplace platform voor hardloop startnummers."
 				}
 			},
@@ -1982,7 +2090,14 @@
 				"contact": "Contact",
 				"dashboard": "Dashboard",
 				"privacy": "Privacy",
-				"tagline": "Marketplace platform voor hardloop startnummers."
+				"terms": "Servicevoorwaarden",
+				"tagline": "Marketplace platform voor hardloop startnummers.",
+				"listingPrice": "Advertentieprijs",
+				"platformFee": "Platformkosten",
+				"paypalFee": "PayPal-kosten",
+				"feeBreakdown": "Kostenuitsplitsing",
+				"feeExplanation": "Platformkosten zijn 10% van de advertentieprijs. PayPal-kosten worden geleverd door PayPal en kunnen variëren per land en betaalmethode.",
+				"netAmount": "Verkoper ontvangt"
 			},
 			"saleConfirmation": {
 				"subject": "Gefeliciteerd! Je startnummer is verkocht",
@@ -2007,6 +2122,7 @@
 				"contact": "Contact",
 				"dashboard": "Dashboard",
 				"privacy": "Privacy",
+				"terms": "Servicevoorwaarden",
 				"tagline": "Marketplace platform voor hardloop startnummers."
 			},
 			"waitlistAlert": {
@@ -2031,6 +2147,7 @@
 				"contact": "Contact",
 				"dashboard": "Dashboard",
 				"privacy": "Privacy",
+				"terms": "Servicevoorwaarden",
 				"tagline": "Marketplace platform voor hardloop startnummers."
 			},
 			"saleAlert": {

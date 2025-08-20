@@ -20,7 +20,9 @@ interface BeswibPurchaseConfirmationProps {
 	buyerName?: string
 	sellerName?: string
 	eventName?: string
-	bibPrice?: number
+	listingPrice?: number // Prix affiché par le vendeur
+	platformFee?: number // Frais de plateforme (10% du listing price)
+	paypalFee?: number // Frais PayPal (variable selon le pays/méthode)
 	orderId?: string
 	eventDate?: string
 	eventLocation?: string
@@ -33,19 +35,23 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
 export const BeswibPurchaseConfirmation = ({
 	sellerName = 'Marie',
+	platformFee = 15, // 10% de 150€
+	paypalFee = 5.5,
 	orderId = 'BW123456789',
 	locale = 'fr',
+	listingPrice = 150,
 	eventName = 'Marathon de Paris 2024',
 	eventLocation = 'Paris, France',
 	eventDistance = '42.2 km',
 	eventDate = '14 avril 2024',
 	buyerName = 'Jean',
-	bibPrice = 150,
 	bibCategory = 'Marathon',
 }: BeswibPurchaseConfirmationProps) => {
 	const t = getTranslations(locale, constantsLocales)
 
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
+	const totalAmount = listingPrice + platformFee + paypalFee
+	const netAmount = listingPrice - platformFee - paypalFee
 
 	return (
 		<Html>
@@ -158,15 +164,18 @@ export const BeswibPurchaseConfirmation = ({
 
 								<Section className="space-y-3">
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm">{t.emails.purchaseConfirmation.bibPrice}:</Text>
-										<Text className="text-foreground text-sm">{formatPrice(bibPrice)}</Text>
+										<Text className="text-muted-foreground text-sm">{t.emails.purchaseConfirmation.listingPrice}:</Text>
+										<Text className="text-muted-foreground text-sm">{formatPrice(listingPrice)}</Text>
 									</Section>
 
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm">
-											{t.emails.purchaseConfirmation.processingFee}:
-										</Text>
-										<Text className="text-foreground text-sm">{t.emails.purchaseConfirmation.included}</Text>
+										<Text className="text-muted-foreground text-sm">{t.emails.purchaseConfirmation.platformFee}:</Text>
+										<Text className="text-muted-foreground text-sm">{formatPrice(platformFee)}</Text>
+									</Section>
+
+									<Section className="flex justify-between">
+										<Text className="text-muted-foreground text-sm">{t.emails.purchaseConfirmation.paypalFee}:</Text>
+										<Text className="text-muted-foreground text-sm">{formatPrice(paypalFee)}</Text>
 									</Section>
 
 									<Section className="border-border border-t pt-3">
@@ -174,7 +183,7 @@ export const BeswibPurchaseConfirmation = ({
 											<Text className="text-foreground text-base font-bold">
 												{t.emails.purchaseConfirmation.totalPaid}:
 											</Text>
-											<Text className="text-success text-base font-bold">{formatPrice(bibPrice)}</Text>
+											<Text className="text-success text-base font-bold">{formatPrice(totalAmount)}</Text>
 										</Section>
 									</Section>
 								</Section>
@@ -185,6 +194,24 @@ export const BeswibPurchaseConfirmation = ({
 								<Text className="text-muted-foreground text-base leading-relaxed">
 									{t.emails.purchaseConfirmation.congratulations.replace('{buyerName}', buyerName || '')}
 								</Text>
+							</Section>
+
+							{/* Information sur le calcul des frais */}
+							<Section className="bg-muted border-border mb-6 rounded-lg border p-6">
+								<Heading className="text-foreground mb-4 text-lg font-semibold">
+									{t.emails.purchaseConfirmation.feeBreakdown}
+								</Heading>
+								<Text className="text-muted-foreground text-sm leading-relaxed">
+									{t.emails.purchaseConfirmation.feeExplanation}
+								</Text>
+								<Section className="bg-card mt-3 rounded border p-3">
+									<Text className="text-foreground text-sm font-medium">
+										{t.emails.purchaseConfirmation.netAmount}: {formatPrice(netAmount)}
+									</Text>
+									<Text className="text-muted-foreground text-xs">
+										{listingPrice}€ - {platformFee}€ - {paypalFee}€ = {netAmount}€
+									</Text>
+								</Section>
 							</Section>
 
 							{/* Prochaines étapes */}
@@ -252,14 +279,16 @@ export const BeswibPurchaseConfirmation = ({
 
 BeswibPurchaseConfirmation.PreviewProps = {
 	sellerName: 'Marie Dupont',
+	platformFee: 15, // 10% de 150€
+	paypalFee: 5.5,
 	orderId: 'BW123456789',
 	locale: 'fr',
+	listingPrice: 150,
 	eventName: 'Marathon de Paris 2024',
 	eventLocation: 'Paris, France',
 	eventDistance: '42.2 km',
 	eventDate: '14 avril 2024',
 	buyerName: 'Jean Martin',
-	bibPrice: 150,
 	bibCategory: 'Marathon',
 } as BeswibPurchaseConfirmationProps
 

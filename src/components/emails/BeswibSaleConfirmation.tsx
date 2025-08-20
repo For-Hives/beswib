@@ -77,26 +77,32 @@ export const BeswibSaleConfirmation = ({
 					<Preview>{t.emails.saleConfirmation.subject}</Preview>
 					<Container className="mx-auto max-w-[600px] px-4 py-8">
 						{/* Header avec logo */}
-						<Section className="mb-8">
+						<Section className="">
 							<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
 						</Section>
 
 						{/* Card principale */}
 						<Section className="bg-card border-border rounded-lg border px-8 py-6 shadow-sm">
 							{/* Icon et titre */}
-							<Section className="mb-6 text-center">
-								<Text className="text-success mb-4 text-4xl">💰</Text>
-								<Heading className="text-foreground mb-2 text-2xl font-bold">{t.emails.saleConfirmation.title}</Heading>
+							<Section className="text-center">
+								<Heading className="text-foreground text-2xl font-bold">{t.emails.saleConfirmation.title}</Heading>
 								<Text className="text-muted-foreground text-base">{t.emails.saleConfirmation.subtitle}</Text>
+							</Section>
+
+							{/* Message de félicitations */}
+							<Section className="text-start">
+								<Text className="text-muted-foreground text-sm leading-relaxed">
+									{t.emails.saleConfirmation.congratulations.replace('{sellerName}', sellerName || '')}
+								</Text>
 							</Section>
 
 							{/* Informations de la vente */}
 							<Section className="bg-muted border-border mb-6 rounded-lg border p-6">
-								<Heading className="text-foreground mb-4 text-lg font-semibold">
+								<Heading className="text-foreground mb-1 text-lg font-semibold">
 									{t.emails.saleConfirmation.saleDetails}
 								</Heading>
 
-								<Section className="space-y-3">
+								<Section>
 									<Section className="flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
 											{t.emails.saleConfirmation.event}:
@@ -138,7 +144,7 @@ export const BeswibSaleConfirmation = ({
 									{t.emails.saleConfirmation.financialBreakdown}
 								</Heading>
 
-								<Section className="space-y-3">
+								<Section>
 									<Section className="flex justify-between">
 										<Text className="text-muted-foreground text-sm">{t.emails.saleConfirmation.salePrice}:</Text>
 										<Text className="text-foreground text-sm">{formatPrice(bibPrice)}</Text>
@@ -151,7 +157,7 @@ export const BeswibSaleConfirmation = ({
 										<Text className="text-foreground text-sm">-{formatPrice(platformFee)}</Text>
 									</Section>
 
-									<Section className="border-border border-t pt-3">
+									<Section className="border-border border-t">
 										<Section className="flex justify-between">
 											<Text className="text-foreground text-base font-bold">
 												{t.emails.saleConfirmation.totalReceived}:
@@ -162,20 +168,13 @@ export const BeswibSaleConfirmation = ({
 								</Section>
 							</Section>
 
-							{/* Message de félicitations */}
-							<Section className="mb-6 text-center">
-								<Text className="text-muted-foreground text-base leading-relaxed">
-									{t.emails.saleConfirmation.congratulations.replace('{sellerName}', sellerName || '')}
-								</Text>
-							</Section>
-
 							{/* Prochaines étapes */}
-							<Section className="bg-card border-border rounded-lg border p-6">
-								<Heading className="text-foreground mb-4 text-lg font-semibold">
+							<Section className="bg-card border-border rounded-lg border">
+								<Heading className="text-foreground text-lg font-semibold">
 									{t.emails.saleConfirmation.nextSteps}
 								</Heading>
 
-								<Section className="space-y-3">
+								<Section>
 									<Text className="text-muted-foreground text-sm">• {t.emails.saleConfirmation.step1}</Text>
 									<Text className="text-muted-foreground text-sm">• {t.emails.saleConfirmation.step2}</Text>
 									<Text className="text-muted-foreground text-sm">• {t.emails.saleConfirmation.step3}</Text>

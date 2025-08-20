@@ -181,7 +181,9 @@ interface PurchaseConfirmationParams {
 	buyerName?: string
 	sellerName?: string
 	eventName?: string
-	bibPrice?: number
+	listingPrice?: number
+	platformFee?: number
+	paypalFee?: number
 	orderId?: string
 	eventDate?: string
 	eventLocation?: string
@@ -195,15 +197,17 @@ interface PurchaseConfirmationParams {
  */
 export async function sendPurchaseConfirmationEmail({
 	sellerName,
+	platformFee,
+	paypalFee,
 	orderId,
 	locale = 'fr',
+	listingPrice,
 	eventName,
 	eventLocation,
 	eventDistance,
 	eventDate,
 	buyerName,
 	buyerEmail,
-	bibPrice,
 	bibCategory,
 }: PurchaseConfirmationParams): Promise<boolean> {
 	const getLocalizedSubject = (locale: string) => {
@@ -237,7 +241,9 @@ export async function sendPurchaseConfirmationEmail({
 				buyerName={buyerName}
 				sellerName={sellerName}
 				eventName={eventName}
-				bibPrice={bibPrice}
+				listingPrice={listingPrice}
+				platformFee={platformFee}
+				paypalFee={paypalFee}
 				orderId={orderId}
 				eventDate={eventDate}
 				eventLocation={eventLocation}

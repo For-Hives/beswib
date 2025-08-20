@@ -25,6 +25,8 @@ export default function EmailTestClient() {
 	const [buyerEmail, setBuyerEmail] = useState('buyer@example.com')
 	const [transactionId, setTransactionId] = useState('tx_abc123def')
 	const [paypalCaptureId, setPaypalCaptureId] = useState('CAPTURE123456789')
+	const [platformRate, setPlatformRate] = useState(10) // Pourcentage (10% par défaut)
+	const [paypalRate, setPaypalRate] = useState(3.5) // Pourcentage (3.5% par défaut)
 	const [locale, setLocale] = useState('fr')
 	const [isLoading, setIsLoading] = useState<string | null>(null)
 
@@ -114,6 +116,8 @@ export default function EmailTestClient() {
 				eventName,
 				buyerName,
 				bibPrice: bibPrice.toString(),
+				platformRate: (platformRate / 100).toString(), // Convertir en décimal
+				paypalRate: (paypalRate / 100).toString(), // Convertir en décimal
 			}),
 			...(template === 'purchase-confirmation' && {
 				sellerName,
@@ -123,6 +127,8 @@ export default function EmailTestClient() {
 				buyerName,
 				bibPrice: bibPrice.toString(),
 				bibCategory,
+				platformRate: (platformRate / 100).toString(), // Convertir en décimal
+				paypalRate: (paypalRate / 100).toString(), // Convertir en décimal
 			}),
 			...(template === 'sale-alert' && {
 				transactionId,
@@ -308,6 +314,65 @@ export default function EmailTestClient() {
 							/>
 						</div>
 
+						<div className="border-border border-t pt-4">
+							<Label className="text-sm font-medium text-primary">⚙️ Configuration des frais (Vendeur)</Label>
+						</div>
+
+						<div>
+							<Label htmlFor="platformRateSale">Frais plateforme (%)</Label>
+							<Input
+								id="platformRateSale"
+								type="number"
+								step="0.1"
+								min="0"
+								max="100"
+								placeholder="10"
+								value={platformRate}
+								onChange={e => setPlatformRate(Number(e.target.value))}
+							/>
+							<p className="text-xs text-muted-foreground mt-1">
+								Frais Beswib: {((bibPrice * platformRate) / 100).toFixed(2)}€
+							</p>
+						</div>
+
+						<div>
+							<Label htmlFor="paypalRateSale">Frais PayPal (%)</Label>
+							<Input
+								id="paypalRateSale"
+								type="number"
+								step="0.1"
+								min="0"
+								max="100"
+								placeholder="3.5"
+								value={paypalRate}
+								onChange={e => setPaypalRate(Number(e.target.value))}
+							/>
+							<p className="text-xs text-muted-foreground mt-1">
+								Frais PayPal: {((bibPrice * paypalRate) / 100).toFixed(2)}€
+							</p>
+						</div>
+
+						<div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-3 border border-green-200 dark:border-green-800">
+							<div className="text-sm space-y-1">
+								<div className="flex justify-between">
+									<span>Prix vendu:</span>
+									<span className="font-medium">{bibPrice.toFixed(2)}€</span>
+								</div>
+								<div className="flex justify-between text-muted-foreground">
+									<span>- Frais plateforme ({platformRate}%):</span>
+									<span>-{((bibPrice * platformRate) / 100).toFixed(2)}€</span>
+								</div>
+								<div className="flex justify-between text-muted-foreground">
+									<span>- Frais PayPal ({paypalRate}%):</span>
+									<span>-{((bibPrice * paypalRate) / 100).toFixed(2)}€</span>
+								</div>
+								<div className="border-border border-t pt-1 mt-2 flex justify-between font-semibold text-green-600">
+									<span>💰 Net vendeur:</span>
+									<span>{(bibPrice - ((bibPrice * platformRate) / 100) - ((bibPrice * paypalRate) / 100)).toFixed(2)}€</span>
+								</div>
+							</div>
+						</div>
+
 						<div className="flex gap-2">
 							<Button
 								onClick={() => void sendTestEmail('sale-confirmation')}
@@ -378,6 +443,69 @@ export default function EmailTestClient() {
 								value={bibCategory}
 								onChange={e => setBibCategory(e.target.value)}
 							/>
+						</div>
+
+						<div className="border-border border-t pt-4">
+							<Label className="text-sm font-medium text-primary">⚙️ Configuration des frais</Label>
+						</div>
+
+						<div>
+							<Label htmlFor="platformRate">Frais plateforme (%)</Label>
+							<Input
+								id="platformRate"
+								type="number"
+								step="0.1"
+								min="0"
+								max="100"
+								placeholder="10"
+								value={platformRate}
+								onChange={e => setPlatformRate(Number(e.target.value))}
+							/>
+							<p className="text-xs text-muted-foreground mt-1">
+								Frais Beswib: {((bibPrice * platformRate) / 100).toFixed(2)}€
+							</p>
+						</div>
+
+						<div>
+							<Label htmlFor="paypalRate">Frais PayPal (%)</Label>
+							<Input
+								id="paypalRate"
+								type="number"
+								step="0.1"
+								min="0"
+								max="100"
+								placeholder="3.5"
+								value={paypalRate}
+								onChange={e => setPaypalRate(Number(e.target.value))}
+							/>
+							<p className="text-xs text-muted-foreground mt-1">
+								Frais PayPal: {((bibPrice * paypalRate) / 100).toFixed(2)}€
+							</p>
+						</div>
+
+						<div className="bg-muted rounded-lg p-3">
+							<div className="text-sm space-y-1">
+								<div className="flex justify-between">
+									<span>Prix affiché:</span>
+									<span className="font-medium">{bibPrice.toFixed(2)}€</span>
+								</div>
+								<div className="flex justify-between text-muted-foreground">
+									<span>+ Frais plateforme ({platformRate}%):</span>
+									<span>{((bibPrice * platformRate) / 100).toFixed(2)}€</span>
+								</div>
+								<div className="flex justify-between text-muted-foreground">
+									<span>+ Frais PayPal ({paypalRate}%):</span>
+									<span>{((bibPrice * paypalRate) / 100).toFixed(2)}€</span>
+								</div>
+								<div className="border-border border-t pt-1 mt-2 flex justify-between font-semibold text-primary">
+									<span>Total acheteur:</span>
+									<span>{(bibPrice + ((bibPrice * platformRate) / 100) + ((bibPrice * paypalRate) / 100)).toFixed(2)}€</span>
+								</div>
+								<div className="flex justify-between font-semibold text-green-600">
+									<span>Net vendeur:</span>
+									<span>{(bibPrice - ((bibPrice * platformRate) / 100) - ((bibPrice * paypalRate) / 100)).toFixed(2)}€</span>
+								</div>
+							</div>
 						</div>
 
 						<div className="flex gap-2">
@@ -473,6 +601,13 @@ export default function EmailTestClient() {
 						</p>
 						<p>• Vérifiez vos spams si vous ne recevez pas l'email</p>
 						<p>• Utilisez "Aperçu" pour voir le rendu sans envoyer</p>
+						<p>• Pour Purchase Confirmation: les frais sont personnalisables via les paramètres d'URL</p>
+						<p>
+							• Exemple URL avec frais personnalisés:{' '}
+							<code className="text-xs">
+								/api/emails/preview?template=purchase-confirmation&bibPrice=150&platformRate=0.1&paypalRate=0.035
+							</code>
+						</p>
 					</div>
 				</CardContent>
 			</Card>
