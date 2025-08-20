@@ -10,13 +10,15 @@ import {
 	Section,
 	Text,
 	Tailwind,
+	Row,
+	Column,
 } from '@react-email/components'
 
 interface BeswibEmailVerificationProps {
 	validationCode?: string
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ? `${process.env.NEXT_PUBLIC_BASE_URL}` : 'https://beswib.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
 export const BeswibEmailVerification = ({ validationCode = 'DJZ-TLX' }: BeswibEmailVerificationProps) => (
 	<Html>
@@ -46,17 +48,17 @@ export const BeswibEmailVerification = ({ validationCode = 'DJZ-TLX' }: BeswibEm
 				<Preview>Confirmez votre adresse email - Beswib</Preview>
 				<Container className="mx-auto max-w-[600px] px-4 py-8">
 					{/* Header avec logo */}
-					<Section className="mb-8 text-center">
-						<Img src={`${baseUrl}/beswib.svg`} width="140" height="40" alt="Beswib" className="mx-auto" />
+					<Section className="mb-8">
+						<Img src={`/beswib.svg`} width="100" height="100" alt="Beswib" className="mx-auto" />
 					</Section>
 
 					{/* Card principale */}
-					<Section className="bg-card border-border rounded-lg border p-8 shadow-sm">
-						<Heading className="text-foreground mb-6 text-center text-2xl font-bold">
+					<Section className="bg-card border-border rounded-lg border px-8 shadow-sm">
+						<Heading className="text-foreground mb-6 text-start text-2xl font-bold">
 							Confirmez votre adresse email
 						</Heading>
 
-						<Text className="text-muted-foreground mb-6 text-center text-base leading-relaxed">
+						<Text className="text-muted-foreground mb-6 text-start text-base leading-relaxed">
 							Votre code de confirmation est ci-dessous. Entrez-le dans votre navigateur ouvert et nous vous aiderons à
 							vous connecter.
 						</Text>
@@ -68,39 +70,48 @@ export const BeswibEmailVerification = ({ validationCode = 'DJZ-TLX' }: BeswibEm
 							</Text>
 						</Section>
 
-						<Text className="text-muted-foreground mb-6 text-center text-sm">
+						<Text className="text-muted-foreground mb-6 text-start text-sm">
 							Si vous n'avez pas demandé cet email, vous pouvez l'ignorer en toute sécurité.
 						</Text>
-
-						{/* CTA Button */}
-						<Section className="mb-6 text-center">
-							<Link
-								href={`${baseUrl}/dashboard`}
-								className="bg-primary text-primary-foreground inline-block rounded-lg px-8 py-3 font-semibold no-underline"
-							>
-								Accéder à votre tableau de bord
-							</Link>
-						</Section>
 					</Section>
 
-					{/* Footer */}
-					<Section className="mt-8">
-						<Text className="text-muted-foreground text-center text-xs">
-							©{new Date().getFullYear()} Beswib. Tous droits réservés.
-							<br />
-							Plateforme de revente de dossards de course à pied.
-						</Text>
-
-						<Section className="mt-4 text-center">
-							<Link href={`${baseUrl}/contact`} className="text-muted-foreground mr-4 text-xs no-underline">
+					<Section className="bg-card border-border rounded-lg border px-8 shadow-sm">
+						<Section className="">
+							<Link href={`${baseUrl}`} className="text-muted-foreground text-center text-xs underline">
+								Our site
+							</Link>
+							&nbsp;&nbsp;|&nbsp;&nbsp;
+							<Link href={`${baseUrl}/contact`} className="text-muted-foreground text-center text-xs underline">
 								Contact
 							</Link>
-							<Link href={`${baseUrl}/legals/privacy`} className="text-muted-foreground mr-4 text-xs no-underline">
+							&nbsp;&nbsp;|&nbsp;&nbsp;
+							<Link href={`${baseUrl}/legals/privacy`} className="text-muted-foreground text-center text-xs underline">
 								Confidentialité
 							</Link>
-							<Link href={`${baseUrl}/legals/terms`} className="text-muted-foreground text-xs no-underline">
+							&nbsp;&nbsp;|&nbsp;&nbsp;
+							<Link href={`${baseUrl}/legals/terms`} className="text-muted-foreground text-center text-xs underline">
 								Conditions d'utilisation
 							</Link>
+						</Section>
+						<Section className="bg-card border-border mt-4 rounded-lg border shadow-sm">
+							<Column style={{ width: '66%' }}>
+								<Text className="text-muted-foreground text-start text-xs">
+									©{new Date().getFullYear()} Beswib. Tous droits réservés.
+									<br />
+									Plateforme de revente de dossards.
+								</Text>
+							</Column>
+							<Column align="right" className="mt-4 flex flex-row items-center justify-end gap-2">
+								<Link href="/">
+									<Img src={`/svgs/instagram.svg`} width="24" height="24" alt="Instagram" className="opacity-80" />
+								</Link>
+								<Link href="/">
+									<Img src={`/svgs/strava.svg`} width="24" height="24" alt="Strava" className="opacity-80" />
+								</Link>
+								<Link href="/">
+									<Img src={`/svgs/linkedin.svg`} width="24" height="24" alt="LinkedIn" className="opacity-80" />
+								</Link>
+							</Column>
 						</Section>
 					</Section>
 				</Container>
