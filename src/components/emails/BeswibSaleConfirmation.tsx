@@ -44,11 +44,11 @@ export const BeswibSaleConfirmation = ({
 	locale = 'fr',
 }: BeswibSaleConfirmationProps) => {
 	const t = getTranslations(locale, constantsLocales)
-	
+
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
 
 	const getLocalizedText = (key: keyof typeof localizedTexts) => {
-		return localizedTexts[key][locale as keyof typeof localizedTexts[typeof key]] || localizedTexts[key]['fr']
+		return localizedTexts[key][locale as keyof (typeof localizedTexts)[typeof key]] || localizedTexts[key]['fr']
 	}
 
 	return (
@@ -90,12 +90,8 @@ export const BeswibSaleConfirmation = ({
 							{/* Icon et titre */}
 							<Section className="mb-6 text-center">
 								<Text className="text-success mb-4 text-4xl">💰</Text>
-								<Heading className="text-foreground mb-2 text-2xl font-bold">
-									{getLocalizedText('title')}
-								</Heading>
-								<Text className="text-muted-foreground text-base">
-									{getLocalizedText('subtitle')}
-								</Text>
+								<Heading className="text-foreground mb-2 text-2xl font-bold">{getLocalizedText('title')}</Heading>
+								<Text className="text-muted-foreground text-base">{getLocalizedText('subtitle')}</Text>
 							</Section>
 
 							{/* Informations de la vente */}
@@ -103,51 +99,31 @@ export const BeswibSaleConfirmation = ({
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
 									{getLocalizedText('saleDetails')}
 								</Heading>
-								
+
 								<Section className="space-y-3">
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('event')}:
-										</Text>
-										<Text className="text-foreground text-sm font-semibold">
-											{eventName}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('event')}:</Text>
+										<Text className="text-foreground text-sm font-semibold">{eventName}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('date')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{eventDate}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('date')}:</Text>
+										<Text className="text-foreground text-sm">{eventDate}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('location')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{eventLocation}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('location')}:</Text>
+										<Text className="text-foreground text-sm">{eventLocation}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('buyer')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{buyerName}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('buyer')}:</Text>
+										<Text className="text-foreground text-sm">{buyerName}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('orderId')}:
-										</Text>
-										<Text className="text-foreground text-sm font-mono">
-											{orderId}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('orderId')}:</Text>
+										<Text className="text-foreground font-mono text-sm">{orderId}</Text>
 									</Section>
 								</Section>
 							</Section>
@@ -157,34 +133,22 @@ export const BeswibSaleConfirmation = ({
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
 									{getLocalizedText('financialBreakdown')}
 								</Heading>
-								
+
 								<Section className="space-y-3">
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm">
-											{getLocalizedText('salePrice')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{formatPrice(bibPrice)}
-										</Text>
+										<Text className="text-muted-foreground text-sm">{getLocalizedText('salePrice')}:</Text>
+										<Text className="text-foreground text-sm">{formatPrice(bibPrice)}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm">
-											{getLocalizedText('platformFee')} (10%):
-										</Text>
-										<Text className="text-foreground text-sm">
-											-{formatPrice(platformFee)}
-										</Text>
+										<Text className="text-muted-foreground text-sm">{getLocalizedText('platformFee')} (10%):</Text>
+										<Text className="text-foreground text-sm">-{formatPrice(platformFee)}</Text>
 									</Section>
-									
+
 									<Section className="border-border border-t pt-3">
 										<Section className="flex justify-between">
-											<Text className="text-foreground text-base font-bold">
-												{getLocalizedText('totalReceived')}:
-											</Text>
-											<Text className="text-success text-base font-bold">
-												{formatPrice(totalReceived)}
-											</Text>
+											<Text className="text-foreground text-base font-bold">{getLocalizedText('totalReceived')}:</Text>
+											<Text className="text-success text-base font-bold">{formatPrice(totalReceived)}</Text>
 										</Section>
 									</Section>
 								</Section>
@@ -202,17 +166,11 @@ export const BeswibSaleConfirmation = ({
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
 									{getLocalizedText('nextSteps')}
 								</Heading>
-								
+
 								<Section className="space-y-3">
-									<Text className="text-muted-foreground text-sm">
-										• {getLocalizedText('step1')}
-									</Text>
-									<Text className="text-muted-foreground text-sm">
-										• {getLocalizedText('step2')}
-									</Text>
-									<Text className="text-muted-foreground text-sm">
-										• {getLocalizedText('step3')}
-									</Text>
+									<Text className="text-muted-foreground text-sm">• {getLocalizedText('step1')}</Text>
+									<Text className="text-muted-foreground text-sm">• {getLocalizedText('step2')}</Text>
+									<Text className="text-muted-foreground text-sm">• {getLocalizedText('step3')}</Text>
 								</Section>
 							</Section>
 						</Section>
@@ -236,7 +194,7 @@ export const BeswibSaleConfirmation = ({
 									{getLocalizedText('privacy')}
 								</Link>
 							</Section>
-							
+
 							<Section className="bg-card border-border mt-4 rounded-lg border shadow-sm">
 								<Column style={{ width: '66%' }}>
 									<Text className="text-muted-foreground text-xs">
@@ -414,7 +372,7 @@ const localizedTexts = {
 		fr: 'Félicitations {sellerName} ! Votre dossard a été vendu avec succès. Le montant sera crédité sur votre compte PayPal sous 24-48h.',
 		en: 'Congratulations {sellerName}! Your bib has been sold successfully. The amount will be credited to your PayPal account within 24-48h.',
 		es: '¡Felicidades {sellerName}! Tu dorsal se ha vendido con éxito. El importe se acreditará en tu cuenta PayPal en 24-48h.',
-		it: 'Congratulazioni {sellerName}! Il tuo pettorale è stato venduto con successo. L\'importo verrà accreditato sul tuo conto PayPal entro 24-48h.',
+		it: "Congratulazioni {sellerName}! Il tuo pettorale è stato venduto con successo. L'importo verrà accreditato sul tuo conto PayPal entro 24-48h.",
 		de: 'Glückwunsch {sellerName}! Ihre Startnummer wurde erfolgreich verkauft. Der Betrag wird innerhalb von 24-48h auf Ihr PayPal-Konto gutgeschrieben.',
 		pt: 'Parabéns {sellerName}! O seu dorsal foi vendido com sucesso. O valor será creditado na sua conta PayPal em 24-48h.',
 		nl: 'Gefeliciteerd {sellerName}! Uw startnummer is succesvol verkocht. Het bedrag wordt binnen 24-48u gecrediteerd op uw PayPal-account.',

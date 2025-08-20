@@ -143,6 +143,28 @@ curl -X POST "$BASE_URL/api/emails/test" \
   -w "\n"
 
 echo ""
+
+# Test email d'approbation d'achat
+echo "🎯 Test email d'approbation d'achat ($LOCALE)..."
+curl -X POST "$BASE_URL/api/emails/test" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"template\": \"purchase-approval\",
+    \"email\": \"$EMAIL\",
+    \"buyerName\": \"Test Buyer\",
+    \"eventName\": \"Test Marathon 2024\",
+    \"eventDate\": \"15 juin 2024\",
+    \"eventLocation\": \"Paris, France\",
+    \"bibPrice\": 150,
+    \"eventDistance\": \"42.2 km\",
+    \"bibCategory\": \"Marathon\",
+    \"organizerName\": \"ASO Events\",
+    \"orderId\": \"BW123456789\",
+    \"locale\": \"$LOCALE\"
+  }" \
+  -w "\n"
+
+echo ""
 echo "✅ Tests terminés ! Vérifie ta boîte email: $EMAIL"
 echo ""
 echo "💡 Langues supportées:"
@@ -167,3 +189,4 @@ echo "   • Confirmation d'achat (acheteur)"
 echo "   • Alerte de vente (admin)"
 echo "   • Notification waitlist (disponibilité dossard)"
 echo "   • Approbation de dossard (validation organisateur)"
+echo "   • Approbation d'achat (validation changement propriétaire)"

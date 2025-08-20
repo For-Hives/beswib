@@ -122,37 +122,48 @@ export async function sendSaleConfirmationEmail({
 	orderId,
 	eventDate,
 	eventLocation,
-	locale = 'fr'
+	locale = 'fr',
 }: SaleConfirmationParams): Promise<boolean> {
 	const getLocalizedSubject = (locale: string) => {
 		switch (locale) {
-			case 'en': return 'Congratulations! Your bib has been sold 💰'
-			case 'es': return '¡Felicidades! Tu dorsal ha sido vendido 💰'
-			case 'it': return 'Congratulazioni! Il tuo pettorale è stato venduto 💰'
-			case 'de': return 'Glückwunsch! Ihre Startnummer wurde verkauft 💰'
-			case 'pt': return 'Parabéns! O seu dorsal foi vendido 💰'
-			case 'nl': return 'Gefeliciteerd! Uw startnummer is verkocht 💰'
-			case 'ko': return '축하합니다! 레이스 번호가 판매되었습니다 💰'
-			case 'ro': return 'Felicitări! Numărul tău de concurs a fost vândut 💰'
-			default: return 'Félicitations ! Votre dossard a été vendu 💰'
+			case 'en':
+				return 'Congratulations! Your bib has been sold 💰'
+			case 'es':
+				return '¡Felicidades! Tu dorsal ha sido vendido 💰'
+			case 'it':
+				return 'Congratulazioni! Il tuo pettorale è stato venduto 💰'
+			case 'de':
+				return 'Glückwunsch! Ihre Startnummer wurde verkauft 💰'
+			case 'pt':
+				return 'Parabéns! O seu dorsal foi vendido 💰'
+			case 'nl':
+				return 'Gefeliciteerd! Uw startnummer is verkocht 💰'
+			case 'ko':
+				return '축하합니다! 레이스 번호가 판매되었습니다 💰'
+			case 'ro':
+				return 'Felicitări! Numărul tău de concurs a fost vândut 💰'
+			default:
+				return 'Félicitations ! Votre dossard a été vendu 💰'
 		}
 	}
 
 	return sendEmail({
 		to: sellerEmail,
 		subject: getLocalizedSubject(locale),
-		react: <BeswibSaleConfirmation 
-			sellerName={sellerName}
-			buyerName={buyerName}
-			eventName={eventName}
-			bibPrice={bibPrice}
-			platformFee={platformFee}
-			totalReceived={totalReceived}
-			orderId={orderId}
-			eventDate={eventDate}
-			eventLocation={eventLocation}
-			locale={locale}
-		/>,
+		react: (
+			<BeswibSaleConfirmation
+				sellerName={sellerName}
+				buyerName={buyerName}
+				eventName={eventName}
+				bibPrice={bibPrice}
+				platformFee={platformFee}
+				totalReceived={totalReceived}
+				orderId={orderId}
+				eventDate={eventDate}
+				eventLocation={eventLocation}
+				locale={locale}
+			/>
+		),
 	})
 }
 
@@ -184,37 +195,48 @@ export async function sendPurchaseConfirmationEmail({
 	eventLocation,
 	eventDistance,
 	bibCategory,
-	locale = 'fr'
+	locale = 'fr',
 }: PurchaseConfirmationParams): Promise<boolean> {
 	const getLocalizedSubject = (locale: string) => {
 		switch (locale) {
-			case 'en': return 'Congratulations! Your purchase has been confirmed 🏃‍♂️'
-			case 'es': return '¡Felicidades! Tu compra ha sido confirmada 🏃‍♂️'
-			case 'it': return 'Congratulazioni! Il tuo acquisto è stato confermato 🏃‍♂️'
-			case 'de': return 'Glückwunsch! Ihr Kauf wurde bestätigt 🏃‍♂️'
-			case 'pt': return 'Parabéns! A sua compra foi confirmada 🏃‍♂️'
-			case 'nl': return 'Gefeliciteerd! Uw aankoop is bevestigd 🏃‍♂️'
-			case 'ko': return '축하합니다! 구매가 확인되었습니다 🏃‍♂️'
-			case 'ro': return 'Felicitări! Achiziția ta a fost confirmată 🏃‍♂️'
-			default: return 'Félicitations ! Votre achat a été confirmé 🏃‍♂️'
+			case 'en':
+				return 'Congratulations! Your purchase has been confirmed 🏃‍♂️'
+			case 'es':
+				return '¡Felicidades! Tu compra ha sido confirmada 🏃‍♂️'
+			case 'it':
+				return 'Congratulazioni! Il tuo acquisto è stato confermato 🏃‍♂️'
+			case 'de':
+				return 'Glückwunsch! Ihr Kauf wurde bestätigt 🏃‍♂️'
+			case 'pt':
+				return 'Parabéns! A sua compra foi confirmada 🏃‍♂️'
+			case 'nl':
+				return 'Gefeliciteerd! Uw aankoop is bevestigd 🏃‍♂️'
+			case 'ko':
+				return '축하합니다! 구매가 확인되었습니다 🏃‍♂️'
+			case 'ro':
+				return 'Felicitări! Achiziția ta a fost confirmată 🏃‍♂️'
+			default:
+				return 'Félicitations ! Votre achat a été confirmé 🏃‍♂️'
 		}
 	}
 
 	return sendEmail({
 		to: buyerEmail,
 		subject: getLocalizedSubject(locale),
-		react: <BeswibPurchaseConfirmation 
-			buyerName={buyerName}
-			sellerName={sellerName}
-			eventName={eventName}
-			bibPrice={bibPrice}
-			orderId={orderId}
-			eventDate={eventDate}
-			eventLocation={eventLocation}
-			eventDistance={eventDistance}
-			bibCategory={bibCategory}
-			locale={locale}
-		/>,
+		react: (
+			<BeswibPurchaseConfirmation
+				buyerName={buyerName}
+				sellerName={sellerName}
+				eventName={eventName}
+				bibPrice={bibPrice}
+				orderId={orderId}
+				eventDate={eventDate}
+				eventLocation={eventLocation}
+				eventDistance={eventDistance}
+				bibCategory={bibCategory}
+				locale={locale}
+			/>
+		),
 	})
 }
 
@@ -242,35 +264,37 @@ interface SaleAlertParams {
  */
 export async function sendSaleAlertEmail(params: SaleAlertParams): Promise<boolean> {
 	const adminEmails = process.env.NOTIFY_SALES_EMAIL_TO ?? process.env.NOTIFY_CONTACT_EMAIL_TO
-	
+
 	if (!adminEmails) {
 		console.warn('No admin emails configured for sale alerts')
 		return false
 	}
 
 	const subject = `🚨 Nouvelle Vente • ${params.eventName} • ${params.bibPrice?.toFixed(2)}€`
-	
+
 	return sendEmail({
 		to: adminEmails.split(',').map(email => email.trim()),
 		subject,
-		react: <BeswibSaleAlert 
-			sellerName={params.sellerName}
-			sellerEmail={params.sellerEmail}
-			buyerName={params.buyerName}
-			buyerEmail={params.buyerEmail}
-			eventName={params.eventName}
-			bibPrice={params.bibPrice}
-			platformFee={params.platformFee}
-			netRevenue={params.netRevenue}
-			orderId={params.orderId}
-			eventDate={params.eventDate}
-			eventLocation={params.eventLocation}
-			eventDistance={params.eventDistance}
-			bibCategory={params.bibCategory}
-			transactionId={params.transactionId}
-			paypalCaptureId={params.paypalCaptureId}
-			saleTimestamp={params.saleTimestamp}
-		/>,
+		react: (
+			<BeswibSaleAlert
+				sellerName={params.sellerName}
+				sellerEmail={params.sellerEmail}
+				buyerName={params.buyerName}
+				buyerEmail={params.buyerEmail}
+				eventName={params.eventName}
+				bibPrice={params.bibPrice}
+				platformFee={params.platformFee}
+				netRevenue={params.netRevenue}
+				orderId={params.orderId}
+				eventDate={params.eventDate}
+				eventLocation={params.eventLocation}
+				eventDistance={params.eventDistance}
+				bibCategory={params.bibCategory}
+				transactionId={params.transactionId}
+				paypalCaptureId={params.paypalCaptureId}
+				saleTimestamp={params.saleTimestamp}
+			/>
+		),
 	})
 }
 
@@ -301,22 +325,31 @@ export async function sendWaitlistAlertEmail(
 	const getLocalizedSubject = (locale: string) => {
 		const eventName = params.eventName || 'votre événement'
 		switch (locale) {
-			case 'en': return `🎯 Bib available for ${eventName}!`
-			case 'es': return `🎯 ¡Dorsal disponible para ${eventName}!`
-			case 'it': return `🎯 Pettorale disponibile per ${eventName}!`
-			case 'de': return `🎯 Startnummer verfügbar für ${eventName}!`
-			case 'pt': return `🎯 Dorsal disponível para ${eventName}!`
-			case 'nl': return `🎯 Startnummer beschikbaar voor ${eventName}!`
-			case 'ko': return `🎯 ${eventName} 레이스 번호 이용 가능!`
-			case 'ro': return `🎯 Număr de concurs disponibil pentru ${eventName}!`
-			default: return `🎯 Dossard disponible pour ${eventName} !`
+			case 'en':
+				return `🎯 Bib available for ${eventName}!`
+			case 'es':
+				return `🎯 ¡Dorsal disponible para ${eventName}!`
+			case 'it':
+				return `🎯 Pettorale disponibile per ${eventName}!`
+			case 'de':
+				return `🎯 Startnummer verfügbar für ${eventName}!`
+			case 'pt':
+				return `🎯 Dorsal disponível para ${eventName}!`
+			case 'nl':
+				return `🎯 Startnummer beschikbaar voor ${eventName}!`
+			case 'ko':
+				return `🎯 ${eventName} 레이스 번호 이용 가능!`
+			case 'ro':
+				return `🎯 Număr de concurs disponibil pentru ${eventName}!`
+			default:
+				return `🎯 Dossard disponible pour ${eventName} !`
 		}
 	}
 
 	return sendBatchEmails(
 		emails,
 		getLocalizedSubject(params.locale || 'fr'),
-		<BeswibWaitlistAlert 
+		<BeswibWaitlistAlert
 			eventName={params.eventName}
 			eventId={params.eventId}
 			bibPrice={params.bibPrice}
@@ -449,36 +482,47 @@ export async function sendBibApprovalEmail({
 	eventDistance,
 	bibCategory,
 	organizerName,
-	locale = 'fr'
+	locale = 'fr',
 }: BibApprovalParams): Promise<boolean> {
 	const getLocalizedSubject = (locale: string) => {
 		switch (locale) {
-			case 'en': return 'Congratulations! Your bib has been approved 🎉'
-			case 'es': return '¡Felicidades! Tu dorsal ha sido aprobado 🎉'
-			case 'it': return 'Congratulazioni! Il tuo pettorale è stato approvato 🎉'
-			case 'de': return 'Glückwunsch! Ihre Startnummer wurde genehmigt 🎉'
-			case 'pt': return 'Parabéns! O seu dorsal foi aprovado 🎉'
-			case 'nl': return 'Gefeliciteerd! Uw startnummer is goedgekeurd 🎉'
-			case 'ko': return '축하합니다! 레이스 번호가 승인되었습니다 🎉'
-			case 'ro': return 'Felicitări! Numărul tău de concurs a fost aprobat 🎉'
-			default: return 'Félicitations ! Votre dossard a été approuvé 🎉'
+			case 'en':
+				return 'Congratulations! Your bib has been approved 🎉'
+			case 'es':
+				return '¡Felicidades! Tu dorsal ha sido aprobado 🎉'
+			case 'it':
+				return 'Congratulazioni! Il tuo pettorale è stato approvato 🎉'
+			case 'de':
+				return 'Glückwunsch! Ihre Startnummer wurde genehmigt 🎉'
+			case 'pt':
+				return 'Parabéns! O seu dorsal foi aprovado 🎉'
+			case 'nl':
+				return 'Gefeliciteerd! Uw startnummer is goedgekeurd 🎉'
+			case 'ko':
+				return '축하합니다! 레이스 번호가 승인되었습니다 🎉'
+			case 'ro':
+				return 'Felicitări! Numărul tău de concurs a fost aprobat 🎉'
+			default:
+				return 'Félicitations ! Votre dossard a été approuvé 🎉'
 		}
 	}
 
 	return sendEmail({
 		to: sellerEmail,
 		subject: getLocalizedSubject(locale),
-		react: <BeswibBibApproval 
-			sellerName={sellerName}
-			eventName={eventName}
-			eventDate={eventDate}
-			eventLocation={eventLocation}
-			bibPrice={bibPrice}
-			eventDistance={eventDistance}
-			bibCategory={bibCategory}
-			organizerName={organizerName}
-			locale={locale}
-		/>,
+		react: (
+			<BeswibBibApproval
+				sellerName={sellerName}
+				eventName={eventName}
+				eventDate={eventDate}
+				eventLocation={eventLocation}
+				bibPrice={bibPrice}
+				eventDistance={eventDistance}
+				bibCategory={bibCategory}
+				organizerName={organizerName}
+				locale={locale}
+			/>
+		),
 	})
 }
 
@@ -510,37 +554,48 @@ export async function sendPurchaseApprovalEmail({
 	bibCategory,
 	organizerName,
 	orderId,
-	locale = 'fr'
+	locale = 'fr',
 }: PurchaseApprovalParams): Promise<boolean> {
 	const getLocalizedSubject = (locale: string) => {
 		switch (locale) {
-			case 'en': return 'All set! Your purchase has been validated 🎉'
-			case 'es': return '¡Todo listo! Tu compra ha sido validada 🎉'
-			case 'it': return 'Tutto a posto! Il tuo acquisto è stato validato 🎉'
-			case 'de': return 'Alles bereit! Ihr Kauf wurde validiert 🎉'
-			case 'pt': return 'Tudo pronto! A sua compra foi validada 🎉'
-			case 'nl': return 'Alles klaar! Uw aankoop is gevalideerd 🎉'
-			case 'ko': return '모든 준비 완료! 구매가 확인되었습니다 🎉'
-			case 'ro': return 'Totul este gata! Achiziția ta a fost validată 🎉'
-			default: return 'Tout est en ordre ! Votre achat a été validé 🎉'
+			case 'en':
+				return 'All set! Your purchase has been validated 🎉'
+			case 'es':
+				return '¡Todo listo! Tu compra ha sido validada 🎉'
+			case 'it':
+				return 'Tutto a posto! Il tuo acquisto è stato validato 🎉'
+			case 'de':
+				return 'Alles bereit! Ihr Kauf wurde validiert 🎉'
+			case 'pt':
+				return 'Tudo pronto! A sua compra foi validada 🎉'
+			case 'nl':
+				return 'Alles klaar! Uw aankoop is gevalideerd 🎉'
+			case 'ko':
+				return '모든 준비 완료! 구매가 확인되었습니다 🎉'
+			case 'ro':
+				return 'Totul este gata! Achiziția ta a fost validată 🎉'
+			default:
+				return 'Tout est en ordre ! Votre achat a été validé 🎉'
 		}
 	}
 
 	return sendEmail({
 		to: buyerEmail,
 		subject: getLocalizedSubject(locale),
-		react: <BeswibPurchaseApproval 
-			buyerName={buyerName}
-			eventName={eventName}
-			eventDate={eventDate}
-			eventLocation={eventLocation}
-			bibPrice={bibPrice}
-			eventDistance={eventDistance}
-			bibCategory={bibCategory}
-			organizerName={organizerName}
-			orderId={orderId}
-			locale={locale}
-		/>,
+		react: (
+			<BeswibPurchaseApproval
+				buyerName={buyerName}
+				eventName={eventName}
+				eventDate={eventDate}
+				eventLocation={eventLocation}
+				bibPrice={bibPrice}
+				eventDistance={eventDistance}
+				bibCategory={bibCategory}
+				organizerName={organizerName}
+				orderId={orderId}
+				locale={locale}
+			/>
+		),
 	})
 }
 

@@ -45,11 +45,11 @@ export const BeswibWaitlistAlert = ({
 	locale = 'fr',
 }: BeswibWaitlistAlertProps) => {
 	const t = getTranslations(locale, constantsLocales)
-	
+
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
 
 	const getLocalizedText = (key: keyof typeof localizedTexts) => {
-		return localizedTexts[key][locale as keyof typeof localizedTexts[typeof key]] || localizedTexts[key]['fr']
+		return localizedTexts[key][locale as keyof (typeof localizedTexts)[typeof key]] || localizedTexts[key]['fr']
 	}
 
 	return (
@@ -93,9 +93,7 @@ export const BeswibWaitlistAlert = ({
 							{/* Icon et titre */}
 							<Section className="mb-6 text-center">
 								<Text className="text-success mb-4 text-4xl">🎯</Text>
-								<Heading className="text-foreground mb-2 text-2xl font-bold">
-									{getLocalizedText('title')}
-								</Heading>
+								<Heading className="text-foreground mb-2 text-2xl font-bold">{getLocalizedText('title')}</Heading>
 								<Text className="text-muted-foreground text-base">
 									{getLocalizedText('subtitle').replace('{eventName}', eventName || '')}
 								</Text>
@@ -116,60 +114,38 @@ export const BeswibWaitlistAlert = ({
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
 									🏃‍♂️ {getLocalizedText('eventDetails')}
 								</Heading>
-								
+
 								<Section className="space-y-3">
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('event')}:
-										</Text>
-										<Text className="text-foreground text-sm font-semibold">
-											{eventName}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('event')}:</Text>
+										<Text className="text-foreground text-sm font-semibold">{eventName}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('category')}:
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('category')}:</Text>
 										<Text className="text-foreground text-sm">
 											{bibCategory} • {eventDistance}
 										</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('date')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{eventDate}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('date')}:</Text>
+										<Text className="text-foreground text-sm">{eventDate}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('location')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{eventLocation}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('location')}:</Text>
+										<Text className="text-foreground text-sm">{eventLocation}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('price')}:
-										</Text>
-										<Text className="text-success text-sm font-bold">
-											{formatPrice(bibPrice)}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('price')}:</Text>
+										<Text className="text-success text-sm font-bold">{formatPrice(bibPrice)}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('seller')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{sellerName}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('seller')}:</Text>
+										<Text className="text-foreground text-sm">{sellerName}</Text>
 									</Section>
 								</Section>
 							</Section>
@@ -196,7 +172,7 @@ export const BeswibWaitlistAlert = ({
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
 									{getLocalizedText('quickActions')}
 								</Heading>
-								
+
 								<Section className="flex flex-col space-y-2">
 									<Link href={`${baseUrl}/events`} className="text-primary text-sm underline">
 										→ {getLocalizedText('browseOtherEvents')}
@@ -204,7 +180,10 @@ export const BeswibWaitlistAlert = ({
 									<Link href={`${baseUrl}/dashboard/buyer`} className="text-primary text-sm underline">
 										→ {getLocalizedText('manageDashboard')}
 									</Link>
-									<Link href={`${baseUrl}/waitlist/unsubscribe?event=${eventId}`} className="text-muted-foreground text-xs underline">
+									<Link
+										href={`${baseUrl}/waitlist/unsubscribe?event=${eventId}`}
+										className="text-muted-foreground text-xs underline"
+									>
 										{getLocalizedText('unsubscribe')}
 									</Link>
 								</Section>
@@ -230,7 +209,7 @@ export const BeswibWaitlistAlert = ({
 									{getLocalizedText('privacy')}
 								</Link>
 							</Section>
-							
+
 							<Section className="bg-card border-border mt-4 rounded-lg border shadow-sm">
 								<Column style={{ width: '66%' }}>
 									<Text className="text-muted-foreground text-xs">
@@ -295,10 +274,10 @@ const localizedTexts = {
 		ro: 'Un număr de concurs este acum disponibil pentru {eventName}',
 	},
 	urgencyMessage: {
-		fr: 'Ne tardez pas ! Plus que {timeRemaining} avant l\'événement',
-		en: 'Don\'t wait! Only {timeRemaining} left before the event',
+		fr: "Ne tardez pas ! Plus que {timeRemaining} avant l'événement",
+		en: "Don't wait! Only {timeRemaining} left before the event",
 		es: '¡No esperes! Solo quedan {timeRemaining} antes del evento',
-		it: 'Non aspettare! Mancano solo {timeRemaining} all\'evento',
+		it: "Non aspettare! Mancano solo {timeRemaining} all'evento",
 		de: 'Warten Sie nicht! Nur noch {timeRemaining} bis zur Veranstaltung',
 		pt: 'Não espere! Restam apenas {timeRemaining} antes do evento',
 		nl: 'Wacht niet! Nog maar {timeRemaining} tot het evenement',
@@ -306,10 +285,10 @@ const localizedTexts = {
 		ro: 'Nu aștepta! Mai sunt doar {timeRemaining} până la eveniment',
 	},
 	eventDetails: {
-		fr: 'Détails de l\'événement',
+		fr: "Détails de l'événement",
 		en: 'Event Details',
 		es: 'Detalles del evento',
-		it: 'Dettagli dell\'evento',
+		it: "Dettagli dell'evento",
 		de: 'Veranstaltungsdetails',
 		pt: 'Detalhes do evento',
 		nl: 'Evenementdetails',
@@ -383,10 +362,10 @@ const localizedTexts = {
 		ro: 'Vânzător',
 	},
 	personalMessage: {
-		fr: 'Vous étiez sur notre liste d\'attente pour cet événement. Ce dossard correspond exactement à ce que vous recherchiez !',
+		fr: "Vous étiez sur notre liste d'attente pour cet événement. Ce dossard correspond exactement à ce que vous recherchiez !",
 		en: 'You were on our waitlist for this event. This bib is exactly what you were looking for!',
 		es: 'Estabas en nuestra lista de espera para este evento. ¡Este dorsal es exactamente lo que buscabas!',
-		it: 'Eri nella nostra lista d\'attesa per questo evento. Questo pettorale è esattamente quello che stavi cercando!',
+		it: "Eri nella nostra lista d'attesa per questo evento. Questo pettorale è esattamente quello che stavi cercando!",
 		de: 'Sie standen auf unserer Warteliste für diese Veranstaltung. Diese Startnummer ist genau das, wonach Sie gesucht haben!',
 		pt: 'Estava na nossa lista de espera para este evento. Este dorsal é exactamente o que procurava!',
 		nl: 'U stond op onze wachtlijst voor dit evenement. Dit startnummer is precies wat u zocht!',
@@ -416,7 +395,7 @@ const localizedTexts = {
 		ro: 'Acțiuni rapide',
 	},
 	browseOtherEvents: {
-		fr: 'Parcourir d\'autres événements',
+		fr: "Parcourir d'autres événements",
 		en: 'Browse other events',
 		es: 'Explorar otros eventos',
 		it: 'Sfoglia altri eventi',

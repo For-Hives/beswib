@@ -33,7 +33,7 @@ const constantsLocales = {
 		purchaseApproval: {
 			subject: 'Tout est en ordre ! Votre achat a été validé 🎉',
 			greeting: 'Bonjour',
-			mainMessage: 'Excellente nouvelle ! L\'organisateur a validé le changement de propriétaire de votre dossard.',
+			mainMessage: "Excellente nouvelle ! L'organisateur a validé le changement de propriétaire de votre dossard.",
 			readyToRun: 'Vous êtes officiellement inscrit(e) et prêt(e) à courir !',
 			validationDetails: 'Validation officielle',
 			purchaseDetails: 'Détails de votre achat',
@@ -50,8 +50,8 @@ const constantsLocales = {
 			step1: 'Votre inscription est maintenant officielle',
 			step2: 'Vous recevrez bientôt vos instructions pré-course',
 			step3: 'Préparez-vous pour le jour J !',
-			step4: 'Consultez le site de l\'événement pour plus de détails',
-			viewEventButton: 'Voir les détails de l\'événement',
+			step4: "Consultez le site de l'événement pour plus de détails",
+			viewEventButton: "Voir les détails de l'événement",
 			preparationTips: 'Conseils de préparation',
 			tip1: 'Vérifiez les consignes de retrait de dossard',
 			tip2: 'Consultez le parcours et les points de ravitaillement',
@@ -60,9 +60,9 @@ const constantsLocales = {
 			helpDescription: 'Notre équipe de support est là pour vous aider.',
 			contactSupport: 'Contacter le support',
 			footer: 'Excellente course !',
-			teamSignature: 'L\'équipe Beswib',
-			congratulations: 'Félicitations, c\'est officiel ! 🏃‍♂️'
-		}
+			teamSignature: "L'équipe Beswib",
+			congratulations: "Félicitations, c'est officiel ! 🏃‍♂️",
+		},
 	},
 	en: {
 		purchaseApproval: {
@@ -96,8 +96,8 @@ const constantsLocales = {
 			contactSupport: 'Contact support',
 			footer: 'Have a great race!',
 			teamSignature: 'The Beswib Team',
-			congratulations: 'Congratulations, it\'s official! 🏃‍♂️'
-		}
+			congratulations: "Congratulations, it's official! 🏃‍♂️",
+		},
 	},
 	es: {
 		purchaseApproval: {
@@ -131,14 +131,14 @@ const constantsLocales = {
 			contactSupport: 'Contactar soporte',
 			footer: '¡Que tengas una gran carrera!',
 			teamSignature: 'El equipo Beswib',
-			congratulations: '¡Felicidades, es oficial! 🏃‍♂️'
-		}
+			congratulations: '¡Felicidades, es oficial! 🏃‍♂️',
+		},
 	},
 	it: {
 		purchaseApproval: {
 			subject: 'Tutto a posto! Il tuo acquisto è stato validato 🎉',
 			greeting: 'Ciao',
-			mainMessage: 'Ottima notizia! L\'organizzatore ha validato il cambio di proprietà del tuo pettorale.',
+			mainMessage: "Ottima notizia! L'organizzatore ha validato il cambio di proprietà del tuo pettorale.",
 			readyToRun: 'Sei ufficialmente iscritto/a e pronto/a a correre!',
 			validationDetails: 'Validazione ufficiale',
 			purchaseDetails: 'Dettagli del tuo acquisto',
@@ -155,7 +155,7 @@ const constantsLocales = {
 			step1: 'La tua iscrizione è ora ufficiale',
 			step2: 'Riceverai presto le tue istruzioni pre-gara',
 			step3: 'Preparati per il giorno della gara!',
-			step4: 'Consulta il sito dell\'evento per maggiori dettagli',
+			step4: "Consulta il sito dell'evento per maggiori dettagli",
 			viewEventButton: 'Visualizza dettagli evento',
 			preparationTips: 'Consigli per la preparazione',
 			tip1: 'Verifica le istruzioni per il ritiro del pettorale',
@@ -166,8 +166,8 @@ const constantsLocales = {
 			contactSupport: 'Contatta il supporto',
 			footer: 'Buona gara!',
 			teamSignature: 'Il team Beswib',
-			congratulations: 'Congratulazioni, è ufficiale! 🏃‍♂️'
-		}
+			congratulations: 'Congratulazioni, è ufficiale! 🏃‍♂️',
+		},
 	},
 	de: {
 		purchaseApproval: {
@@ -201,8 +201,8 @@ const constantsLocales = {
 			contactSupport: 'Support kontaktieren',
 			footer: 'Einen großartigen Lauf!',
 			teamSignature: 'Das Beswib Team',
-			congratulations: 'Herzlichen Glückwunsch, es ist offiziell! 🏃‍♂️'
-		}
+			congratulations: 'Herzlichen Glückwunsch, es ist offiziell! 🏃‍♂️',
+		},
 	},
 	pt: {
 		purchaseApproval: {
@@ -236,8 +236,8 @@ const constantsLocales = {
 			contactSupport: 'Contactar suporte',
 			footer: 'Excelente corrida!',
 			teamSignature: 'A equipa Beswib',
-			congratulations: 'Parabéns, é oficial! 🏃‍♂️'
-		}
+			congratulations: 'Parabéns, é oficial! 🏃‍♂️',
+		},
 	},
 	nl: {
 		purchaseApproval: {
@@ -271,8 +271,8 @@ const constantsLocales = {
 			contactSupport: 'Contact opnemen met support',
 			footer: 'Veel succes met de race!',
 			teamSignature: 'Het Beswib Team',
-			congratulations: 'Gefeliciteerd, het is officieel! 🏃‍♂️'
-		}
+			congratulations: 'Gefeliciteerd, het is officieel! 🏃‍♂️',
+		},
 	},
 	ko: {
 		purchaseApproval: {
@@ -306,8 +306,8 @@ const constantsLocales = {
 			contactSupport: '지원팀 문의',
 			footer: '훌륭한 레이스 되세요!',
 			teamSignature: 'Beswib 팀',
-			congratulations: '축하합니다, 공식적입니다! 🏃‍♂️'
-		}
+			congratulations: '축하합니다, 공식적입니다! 🏃‍♂️',
+		},
 	},
 	ro: {
 		purchaseApproval: {
@@ -341,9 +341,9 @@ const constantsLocales = {
 			contactSupport: 'Contactează suportul',
 			footer: 'O cursă excelentă!',
 			teamSignature: 'Echipa Beswib',
-			congratulations: 'Felicitări, este oficial! 🏃‍♂️'
-		}
-	}
+			congratulations: 'Felicitări, este oficial! 🏃‍♂️',
+		},
+	},
 }
 
 export default function BeswibPurchaseApproval({
@@ -356,10 +356,10 @@ export default function BeswibPurchaseApproval({
 	bibCategory = '',
 	organizerName = '',
 	orderId = '',
-	locale = 'fr'
+	locale = 'fr',
 }: BeswibPurchaseApprovalProps) {
 	const t = getTranslations(locale, constantsLocales)
-	
+
 	const getLocalizedText = (key: string) => {
 		const keys = key.split('.')
 		let value = t.purchaseApproval
@@ -387,72 +387,79 @@ export default function BeswibPurchaseApproval({
 				<Container style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
 					{/* Header */}
 					<Section style={{ textAlign: 'center', marginBottom: '32px' }}>
-						<Img
-							src={`${baseUrl}/beswib-logo.png`}
-							width="120"
-							height="40"
-							alt="Beswib"
-							style={{ margin: '0 auto' }}
-						/>
+						<Img src={`${baseUrl}/beswib-logo.png`} width="120" height="40" alt="Beswib" style={{ margin: '0 auto' }} />
 					</Section>
 
 					{/* Success Header */}
-					<Section style={{ 
-						background: 'linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 35%) 100%)', 
-						padding: '30px', 
-						borderRadius: '12px 12px 0 0', 
-						textAlign: 'center' 
-					}}>
+					<Section
+						style={{
+							background: 'linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 35%) 100%)',
+							padding: '30px',
+							borderRadius: '12px 12px 0 0',
+							textAlign: 'center',
+						}}
+					>
 						<Text style={{ fontSize: '24px', fontWeight: '700', color: 'white', margin: '0' }}>
 							🎉 {getLocalizedText('subject').replace(' 🎉', '')}
 						</Text>
 					</Section>
 
 					{/* Main Content */}
-					<Section style={{ 
-						background: 'hsl(var(--card))', 
-						padding: '30px', 
-						border: '1px solid hsl(var(--border))', 
-						borderRadius: '0 0 12px 12px',
-						boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
-					}}>
+					<Section
+						style={{
+							background: 'hsl(var(--card))',
+							padding: '30px',
+							border: '1px solid hsl(var(--border))',
+							borderRadius: '0 0 12px 12px',
+							boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+						}}
+					>
 						{/* Greeting */}
 						<Text style={{ fontSize: '16px', color: 'hsl(var(--foreground))', marginBottom: '16px' }}>
-							{getLocalizedText('greeting')}{buyerName ? ` ${buyerName}` : ''} 👋
+							{getLocalizedText('greeting')}
+							{buyerName ? ` ${buyerName}` : ''} 👋
 						</Text>
 
 						{/* Main Message */}
-						<Text style={{ fontSize: '16px', color: 'hsl(var(--foreground))', lineHeight: '1.6', marginBottom: '24px' }}>
+						<Text
+							style={{ fontSize: '16px', color: 'hsl(var(--foreground))', lineHeight: '1.6', marginBottom: '24px' }}
+						>
 							{getLocalizedText('mainMessage')} <strong>{getLocalizedText('readyToRun')}</strong>
 						</Text>
 
 						{/* Validation Status */}
-						<Section style={{ 
-							background: 'hsl(var(--success-foreground))', 
-							border: '2px solid hsl(var(--success))', 
-							padding: '20px', 
-							borderRadius: '8px', 
-							marginBottom: '24px' 
-						}}>
+						<Section
+							style={{
+								background: 'hsl(var(--success-foreground))',
+								border: '2px solid hsl(var(--success))',
+								padding: '20px',
+								borderRadius: '8px',
+								marginBottom: '24px',
+							}}
+						>
 							<Text style={{ fontSize: '18px', fontWeight: '600', color: 'hsl(var(--success))', margin: '0 0 12px 0' }}>
 								✅ {getLocalizedText('validationDetails')}
 							</Text>
 							<Text style={{ fontSize: '14px', color: 'hsl(var(--success))', margin: '0' }}>
-								<strong>{getLocalizedText('validatedBy')}:</strong> {organizerName || 'Organisateur de l\'événement'}
+								<strong>{getLocalizedText('validatedBy')}:</strong> {organizerName || "Organisateur de l'événement"}
 							</Text>
 						</Section>
 
 						{/* Purchase Details */}
-						<Section style={{ 
-							background: 'hsl(var(--muted))', 
-							padding: '20px', 
-							borderRadius: '8px', 
-							marginBottom: '24px' 
-						}}>
-							<Heading style={{ fontSize: '16px', fontWeight: '600', color: 'hsl(var(--foreground))', margin: '0 0 16px 0' }}>
+						<Section
+							style={{
+								background: 'hsl(var(--muted))',
+								padding: '20px',
+								borderRadius: '8px',
+								marginBottom: '24px',
+							}}
+						>
+							<Heading
+								style={{ fontSize: '16px', fontWeight: '600', color: 'hsl(var(--foreground))', margin: '0 0 16px 0' }}
+							>
 								{getLocalizedText('purchaseDetails')}
 							</Heading>
-							
+
 							{eventName && (
 								<Text style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))', margin: '4px 0' }}>
 									<strong>{getLocalizedText('event')}:</strong> {eventName}
@@ -492,20 +499,50 @@ export default function BeswibPurchaseApproval({
 
 						{/* Final Steps */}
 						<Section style={{ marginBottom: '24px' }}>
-							<Heading style={{ fontSize: '16px', fontWeight: '600', color: 'hsl(var(--foreground))', marginBottom: '16px' }}>
+							<Heading
+								style={{ fontSize: '16px', fontWeight: '600', color: 'hsl(var(--foreground))', marginBottom: '16px' }}
+							>
 								🏁 {getLocalizedText('finalSteps')}
 							</Heading>
-							
-							<Text style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))', margin: '8px 0', paddingLeft: '16px' }}>
+
+							<Text
+								style={{
+									fontSize: '14px',
+									color: 'hsl(var(--muted-foreground))',
+									margin: '8px 0',
+									paddingLeft: '16px',
+								}}
+							>
 								• {getLocalizedText('step1')}
 							</Text>
-							<Text style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))', margin: '8px 0', paddingLeft: '16px' }}>
+							<Text
+								style={{
+									fontSize: '14px',
+									color: 'hsl(var(--muted-foreground))',
+									margin: '8px 0',
+									paddingLeft: '16px',
+								}}
+							>
 								• {getLocalizedText('step2')}
 							</Text>
-							<Text style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))', margin: '8px 0', paddingLeft: '16px' }}>
+							<Text
+								style={{
+									fontSize: '14px',
+									color: 'hsl(var(--muted-foreground))',
+									margin: '8px 0',
+									paddingLeft: '16px',
+								}}
+							>
 								• {getLocalizedText('step3')}
 							</Text>
-							<Text style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))', margin: '8px 0', paddingLeft: '16px' }}>
+							<Text
+								style={{
+									fontSize: '14px',
+									color: 'hsl(var(--muted-foreground))',
+									margin: '8px 0',
+									paddingLeft: '16px',
+								}}
+							>
 								• {getLocalizedText('step4')}
 							</Text>
 						</Section>
@@ -522,7 +559,7 @@ export default function BeswibPurchaseApproval({
 									textDecoration: 'none',
 									fontWeight: '600',
 									fontSize: '16px',
-									display: 'inline-block'
+									display: 'inline-block',
 								}}
 							>
 								{getLocalizedText('viewEventButton')}
@@ -530,17 +567,19 @@ export default function BeswibPurchaseApproval({
 						</Section>
 
 						{/* Preparation Tips */}
-						<Section style={{ 
-							background: 'hsl(var(--info-foreground))', 
-							border: '1px solid hsl(var(--info))', 
-							padding: '20px', 
-							borderRadius: '8px', 
-							marginBottom: '24px' 
-						}}>
+						<Section
+							style={{
+								background: 'hsl(var(--info-foreground))',
+								border: '1px solid hsl(var(--info))',
+								padding: '20px',
+								borderRadius: '8px',
+								marginBottom: '24px',
+							}}
+						>
 							<Heading style={{ fontSize: '16px', fontWeight: '600', color: 'hsl(var(--info))', margin: '0 0 16px 0' }}>
 								🏃‍♂️ {getLocalizedText('preparationTips')}
 							</Heading>
-							
+
 							<Text style={{ fontSize: '14px', color: 'hsl(var(--info))', margin: '8px 0', paddingLeft: '16px' }}>
 								• {getLocalizedText('tip1')}
 							</Text>
@@ -553,14 +592,16 @@ export default function BeswibPurchaseApproval({
 						</Section>
 
 						{/* Congratulations Message */}
-						<Section style={{ 
-							background: 'hsl(var(--primary-foreground))', 
-							border: '1px solid hsl(var(--primary))', 
-							padding: '16px', 
-							borderRadius: '6px', 
-							textAlign: 'center',
-							marginBottom: '24px'
-						}}>
+						<Section
+							style={{
+								background: 'hsl(var(--primary-foreground))',
+								border: '1px solid hsl(var(--primary))',
+								padding: '16px',
+								borderRadius: '6px',
+								textAlign: 'center',
+								marginBottom: '24px',
+							}}
+						>
 							<Text style={{ fontSize: '14px', color: 'hsl(var(--primary))', margin: '0', fontWeight: '500' }}>
 								🌟 {getLocalizedText('congratulations')}
 							</Text>
@@ -583,7 +624,7 @@ export default function BeswibPurchaseApproval({
 									textDecoration: 'underline',
 									fontSize: '14px',
 									background: 'transparent',
-									border: 'none'
+									border: 'none',
 								}}
 							>
 								{getLocalizedText('contactSupport')}

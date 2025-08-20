@@ -28,7 +28,9 @@ export default function EmailTestClient() {
 	const [locale, setLocale] = useState('fr')
 	const [isLoading, setIsLoading] = useState<string | null>(null)
 
-	const sendTestEmail = async (template: 'verification' | 'welcome' | 'sale-confirmation' | 'purchase-confirmation' | 'sale-alert') => {
+	const sendTestEmail = async (
+		template: 'verification' | 'welcome' | 'sale-confirmation' | 'purchase-confirmation' | 'sale-alert'
+	) => {
 		if (!email) {
 			toast.error('Veuillez saisir une adresse email')
 			return
@@ -98,40 +100,42 @@ export default function EmailTestClient() {
 		}
 	}
 
-	const openPreview = (template: 'verification' | 'welcome' | 'sale-confirmation' | 'purchase-confirmation' | 'sale-alert') => {
+	const openPreview = (
+		template: 'verification' | 'welcome' | 'sale-confirmation' | 'purchase-confirmation' | 'sale-alert'
+	) => {
 		const params = new URLSearchParams({
 			template,
 			locale,
 			...(template === 'verification' && { code }),
 			...(template === 'welcome' && { firstName }),
-			...(template === 'sale-confirmation' && { 
-				sellerName, 
-				buyerName, 
-				eventName, 
-				bibPrice: bibPrice.toString(), 
-				orderId 
+			...(template === 'sale-confirmation' && {
+				sellerName,
+				buyerName,
+				eventName,
+				bibPrice: bibPrice.toString(),
+				orderId,
 			}),
-			...(template === 'purchase-confirmation' && { 
-				buyerName, 
-				sellerName, 
-				eventName, 
-				bibPrice: bibPrice.toString(), 
+			...(template === 'purchase-confirmation' && {
+				buyerName,
+				sellerName,
+				eventName,
+				bibPrice: bibPrice.toString(),
 				orderId,
 				eventDistance,
-				bibCategory
+				bibCategory,
 			}),
-			...(template === 'sale-alert' && { 
-				sellerName, 
+			...(template === 'sale-alert' && {
+				sellerName,
 				sellerEmail,
-				buyerName, 
+				buyerName,
 				buyerEmail,
-				eventName, 
-				bibPrice: bibPrice.toString(), 
+				eventName,
+				bibPrice: bibPrice.toString(),
 				orderId,
 				eventDistance,
 				bibCategory,
 				transactionId,
-				paypalCaptureId
+				paypalCaptureId,
 			}),
 		})
 
@@ -255,52 +259,52 @@ export default function EmailTestClient() {
 					<CardContent className="space-y-4">
 						<div>
 							<Label htmlFor="sellerName">Nom du vendeur</Label>
-							<Input 
-								id="sellerName" 
-								placeholder="Marie Dupont" 
-								value={sellerName} 
-								onChange={e => setSellerName(e.target.value)} 
+							<Input
+								id="sellerName"
+								placeholder="Marie Dupont"
+								value={sellerName}
+								onChange={e => setSellerName(e.target.value)}
 							/>
 						</div>
-						
+
 						<div>
 							<Label htmlFor="buyerName">Nom de l'acheteur</Label>
-							<Input 
-								id="buyerName" 
-								placeholder="Jean Martin" 
-								value={buyerName} 
-								onChange={e => setBuyerName(e.target.value)} 
+							<Input
+								id="buyerName"
+								placeholder="Jean Martin"
+								value={buyerName}
+								onChange={e => setBuyerName(e.target.value)}
 							/>
 						</div>
-						
+
 						<div>
 							<Label htmlFor="eventName">Nom de l'événement</Label>
-							<Input 
-								id="eventName" 
-								placeholder="Marathon de Paris 2024" 
-								value={eventName} 
-								onChange={e => setEventName(e.target.value)} 
+							<Input
+								id="eventName"
+								placeholder="Marathon de Paris 2024"
+								value={eventName}
+								onChange={e => setEventName(e.target.value)}
 							/>
 						</div>
-						
+
 						<div>
 							<Label htmlFor="bibPrice">Prix du dossard (€)</Label>
-							<Input 
-								id="bibPrice" 
-								type="number" 
-								placeholder="150" 
-								value={bibPrice} 
-								onChange={e => setBibPrice(Number(e.target.value))} 
+							<Input
+								id="bibPrice"
+								type="number"
+								placeholder="150"
+								value={bibPrice}
+								onChange={e => setBibPrice(Number(e.target.value))}
 							/>
 						</div>
-						
+
 						<div>
 							<Label htmlFor="orderId">N° de commande</Label>
-							<Input 
-								id="orderId" 
-								placeholder="BW123456789" 
-								value={orderId} 
-								onChange={e => setOrderId(e.target.value)} 
+							<Input
+								id="orderId"
+								placeholder="BW123456789"
+								value={orderId}
+								onChange={e => setOrderId(e.target.value)}
 							/>
 						</div>
 
@@ -328,51 +332,51 @@ export default function EmailTestClient() {
 					<CardContent className="space-y-4">
 						<div>
 							<Label htmlFor="buyerNamePurchase">Nom de l'acheteur</Label>
-							<Input 
-								id="buyerNamePurchase" 
-								placeholder="Jean Martin" 
-								value={buyerName} 
-								onChange={e => setBuyerName(e.target.value)} 
+							<Input
+								id="buyerNamePurchase"
+								placeholder="Jean Martin"
+								value={buyerName}
+								onChange={e => setBuyerName(e.target.value)}
 							/>
 						</div>
-						
+
 						<div>
 							<Label htmlFor="sellerNamePurchase">Nom du vendeur</Label>
-							<Input 
-								id="sellerNamePurchase" 
-								placeholder="Marie Dupont" 
-								value={sellerName} 
-								onChange={e => setSellerName(e.target.value)} 
+							<Input
+								id="sellerNamePurchase"
+								placeholder="Marie Dupont"
+								value={sellerName}
+								onChange={e => setSellerName(e.target.value)}
 							/>
 						</div>
-						
+
 						<div>
 							<Label htmlFor="eventNamePurchase">Nom de l'événement</Label>
-							<Input 
-								id="eventNamePurchase" 
-								placeholder="Marathon de Paris 2024" 
-								value={eventName} 
-								onChange={e => setEventName(e.target.value)} 
+							<Input
+								id="eventNamePurchase"
+								placeholder="Marathon de Paris 2024"
+								value={eventName}
+								onChange={e => setEventName(e.target.value)}
 							/>
 						</div>
-						
+
 						<div>
 							<Label htmlFor="eventDistance">Distance</Label>
-							<Input 
-								id="eventDistance" 
-								placeholder="42.2 km" 
-								value={eventDistance} 
-								onChange={e => setEventDistance(e.target.value)} 
+							<Input
+								id="eventDistance"
+								placeholder="42.2 km"
+								value={eventDistance}
+								onChange={e => setEventDistance(e.target.value)}
 							/>
 						</div>
-						
+
 						<div>
 							<Label htmlFor="bibCategory">Catégorie</Label>
-							<Input 
-								id="bibCategory" 
-								placeholder="Marathon" 
-								value={bibCategory} 
-								onChange={e => setBibCategory(e.target.value)} 
+							<Input
+								id="bibCategory"
+								placeholder="Marathon"
+								value={bibCategory}
+								onChange={e => setBibCategory(e.target.value)}
 							/>
 						</div>
 
@@ -400,41 +404,41 @@ export default function EmailTestClient() {
 					<CardContent className="space-y-4">
 						<div>
 							<Label htmlFor="sellerEmailAdmin">Email vendeur</Label>
-							<Input 
-								id="sellerEmailAdmin" 
-								placeholder="seller@example.com" 
-								value={sellerEmail} 
-								onChange={e => setSellerEmail(e.target.value)} 
+							<Input
+								id="sellerEmailAdmin"
+								placeholder="seller@example.com"
+								value={sellerEmail}
+								onChange={e => setSellerEmail(e.target.value)}
 							/>
 						</div>
-						
+
 						<div>
 							<Label htmlFor="buyerEmailAdmin">Email acheteur</Label>
-							<Input 
-								id="buyerEmailAdmin" 
-								placeholder="buyer@example.com" 
-								value={buyerEmail} 
-								onChange={e => setBuyerEmail(e.target.value)} 
+							<Input
+								id="buyerEmailAdmin"
+								placeholder="buyer@example.com"
+								value={buyerEmail}
+								onChange={e => setBuyerEmail(e.target.value)}
 							/>
 						</div>
-						
+
 						<div>
 							<Label htmlFor="transactionId">ID Transaction</Label>
-							<Input 
-								id="transactionId" 
-								placeholder="tx_abc123def" 
-								value={transactionId} 
-								onChange={e => setTransactionId(e.target.value)} 
+							<Input
+								id="transactionId"
+								placeholder="tx_abc123def"
+								value={transactionId}
+								onChange={e => setTransactionId(e.target.value)}
 							/>
 						</div>
-						
+
 						<div>
 							<Label htmlFor="paypalCaptureId">PayPal Capture ID</Label>
-							<Input 
-								id="paypalCaptureId" 
-								placeholder="CAPTURE123456789" 
-								value={paypalCaptureId} 
-								onChange={e => setPaypalCaptureId(e.target.value)} 
+							<Input
+								id="paypalCaptureId"
+								placeholder="CAPTURE123456789"
+								value={paypalCaptureId}
+								onChange={e => setPaypalCaptureId(e.target.value)}
 							/>
 						</div>
 

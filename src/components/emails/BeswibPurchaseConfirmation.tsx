@@ -44,11 +44,11 @@ export const BeswibPurchaseConfirmation = ({
 	locale = 'fr',
 }: BeswibPurchaseConfirmationProps) => {
 	const t = getTranslations(locale, constantsLocales)
-	
+
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
 
 	const getLocalizedText = (key: keyof typeof localizedTexts) => {
-		return localizedTexts[key][locale as keyof typeof localizedTexts[typeof key]] || localizedTexts[key]['fr']
+		return localizedTexts[key][locale as keyof (typeof localizedTexts)[typeof key]] || localizedTexts[key]['fr']
 	}
 
 	return (
@@ -90,12 +90,8 @@ export const BeswibPurchaseConfirmation = ({
 							{/* Icon et titre */}
 							<Section className="mb-6 text-center">
 								<Text className="text-success mb-4 text-4xl">🏃‍♂️</Text>
-								<Heading className="text-foreground mb-2 text-2xl font-bold">
-									{getLocalizedText('title')}
-								</Heading>
-								<Text className="text-muted-foreground text-base">
-									{getLocalizedText('subtitle')}
-								</Text>
+								<Heading className="text-foreground mb-2 text-2xl font-bold">{getLocalizedText('title')}</Heading>
+								<Text className="text-muted-foreground text-base">{getLocalizedText('subtitle')}</Text>
 							</Section>
 
 							{/* Informations de l'achat */}
@@ -103,69 +99,41 @@ export const BeswibPurchaseConfirmation = ({
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
 									{getLocalizedText('purchaseDetails')}
 								</Heading>
-								
+
 								<Section className="space-y-3">
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('event')}:
-										</Text>
-										<Text className="text-foreground text-sm font-semibold">
-											{eventName}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('event')}:</Text>
+										<Text className="text-foreground text-sm font-semibold">{eventName}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('category')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{bibCategory}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('category')}:</Text>
+										<Text className="text-foreground text-sm">{bibCategory}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('distance')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{eventDistance}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('distance')}:</Text>
+										<Text className="text-foreground text-sm">{eventDistance}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('date')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{eventDate}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('date')}:</Text>
+										<Text className="text-foreground text-sm">{eventDate}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('location')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{eventLocation}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('location')}:</Text>
+										<Text className="text-foreground text-sm">{eventLocation}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('seller')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{sellerName}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('seller')}:</Text>
+										<Text className="text-foreground text-sm">{sellerName}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{getLocalizedText('orderId')}:
-										</Text>
-										<Text className="text-foreground text-sm font-mono">
-											{orderId}
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{getLocalizedText('orderId')}:</Text>
+										<Text className="text-foreground font-mono text-sm">{orderId}</Text>
 									</Section>
 								</Section>
 							</Section>
@@ -175,34 +143,22 @@ export const BeswibPurchaseConfirmation = ({
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
 									{getLocalizedText('paymentSummary')}
 								</Heading>
-								
+
 								<Section className="space-y-3">
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm">
-											{getLocalizedText('bibPrice')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{formatPrice(bibPrice)}
-										</Text>
+										<Text className="text-muted-foreground text-sm">{getLocalizedText('bibPrice')}:</Text>
+										<Text className="text-foreground text-sm">{formatPrice(bibPrice)}</Text>
 									</Section>
-									
+
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm">
-											{getLocalizedText('processingFee')}:
-										</Text>
-										<Text className="text-foreground text-sm">
-											{getLocalizedText('included')}
-										</Text>
+										<Text className="text-muted-foreground text-sm">{getLocalizedText('processingFee')}:</Text>
+										<Text className="text-foreground text-sm">{getLocalizedText('included')}</Text>
 									</Section>
-									
+
 									<Section className="border-border border-t pt-3">
 										<Section className="flex justify-between">
-											<Text className="text-foreground text-base font-bold">
-												{getLocalizedText('totalPaid')}:
-											</Text>
-											<Text className="text-success text-base font-bold">
-												{formatPrice(bibPrice)}
-											</Text>
+											<Text className="text-foreground text-base font-bold">{getLocalizedText('totalPaid')}:</Text>
+											<Text className="text-success text-base font-bold">{formatPrice(bibPrice)}</Text>
 										</Section>
 									</Section>
 								</Section>
@@ -220,20 +176,12 @@ export const BeswibPurchaseConfirmation = ({
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
 									{getLocalizedText('nextSteps')}
 								</Heading>
-								
+
 								<Section className="space-y-3">
-									<Text className="text-muted-foreground text-sm">
-										• {getLocalizedText('step1')}
-									</Text>
-									<Text className="text-muted-foreground text-sm">
-										• {getLocalizedText('step2')}
-									</Text>
-									<Text className="text-muted-foreground text-sm">
-										• {getLocalizedText('step3')}
-									</Text>
-									<Text className="text-muted-foreground text-sm">
-										• {getLocalizedText('step4')}
-									</Text>
+									<Text className="text-muted-foreground text-sm">• {getLocalizedText('step1')}</Text>
+									<Text className="text-muted-foreground text-sm">• {getLocalizedText('step2')}</Text>
+									<Text className="text-muted-foreground text-sm">• {getLocalizedText('step3')}</Text>
+									<Text className="text-muted-foreground text-sm">• {getLocalizedText('step4')}</Text>
 								</Section>
 							</Section>
 						</Section>
@@ -257,7 +205,7 @@ export const BeswibPurchaseConfirmation = ({
 									{getLocalizedText('privacy')}
 								</Link>
 							</Section>
-							
+
 							<Section className="bg-card border-border mt-4 rounded-lg border shadow-sm">
 								<Column style={{ width: '66%' }}>
 									<Text className="text-muted-foreground text-xs">
@@ -322,10 +270,10 @@ const localizedTexts = {
 		ro: 'Numărul tău de concurs te așteaptă!',
 	},
 	purchaseDetails: {
-		fr: 'Détails de l\'achat',
+		fr: "Détails de l'achat",
 		en: 'Purchase Details',
 		es: 'Detalles de la compra',
-		it: 'Dettagli dell\'acquisto',
+		it: "Dettagli dell'acquisto",
 		de: 'Kaufdetails',
 		pt: 'Detalhes da compra',
 		nl: 'Aankoopdetails',
@@ -487,10 +435,10 @@ const localizedTexts = {
 		ro: 'Pașii următori',
 	},
 	step1: {
-		fr: 'Contactez l\'organisateur pour les détails de retrait du dossard',
+		fr: "Contactez l'organisateur pour les détails de retrait du dossard",
 		en: 'Contact the organizer for bib pickup details',
 		es: 'Contacta con el organizador para los detalles de recogida del dorsal',
-		it: 'Contatta l\'organizzatore per i dettagli del ritiro del pettorale',
+		it: "Contatta l'organizzatore per i dettagli del ritiro del pettorale",
 		de: 'Kontaktieren Sie den Veranstalter für Details zur Startnummer-Abholung',
 		pt: 'Contacte o organizador para os detalhes de levantamento do dorsal',
 		nl: 'Neem contact op met de organisator voor startnummer ophaaldetails',
@@ -498,7 +446,7 @@ const localizedTexts = {
 		ro: 'Contactați organizatorul pentru detaliile ridicării numărului de concurs',
 	},
 	step2: {
-		fr: 'Préparez-vous pour la course avec nos conseils d\'entraînement',
+		fr: "Préparez-vous pour la course avec nos conseils d'entraînement",
 		en: 'Prepare for the race with our training tips',
 		es: 'Prepárate para la carrera con nuestros consejos de entrenamiento',
 		it: 'Preparati per la gara con i nostri consigli di allenamento',

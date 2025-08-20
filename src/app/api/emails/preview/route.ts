@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
 			case 'sale-confirmation':
 				const platformFee = Number((bibPrice * 0.1).toFixed(2))
 				const totalReceived = Number((bibPrice - platformFee).toFixed(2))
-				emailComponent = React.createElement(BeswibSaleConfirmation, { 
+				emailComponent = React.createElement(BeswibSaleConfirmation, {
 					sellerName,
 					buyerName,
 					eventName,
@@ -43,11 +43,11 @@ export async function GET(request: NextRequest) {
 					orderId,
 					eventDate: '14 avril 2024',
 					eventLocation: 'Paris, France',
-					locale 
+					locale,
 				})
 				break
 			case 'purchase-confirmation':
-				emailComponent = React.createElement(BeswibPurchaseConfirmation, { 
+				emailComponent = React.createElement(BeswibPurchaseConfirmation, {
 					buyerName,
 					sellerName,
 					eventName,
@@ -57,13 +57,13 @@ export async function GET(request: NextRequest) {
 					eventLocation: 'Paris, France',
 					eventDistance: '42.2 km',
 					bibCategory: 'Marathon',
-					locale 
+					locale,
 				})
 				break
 			case 'sale-alert':
 				const platformFeeAlert = Number((bibPrice * 0.1).toFixed(2))
 				const netRevenue = Number((bibPrice - platformFeeAlert).toFixed(2))
-				emailComponent = React.createElement(BeswibSaleAlert, { 
+				emailComponent = React.createElement(BeswibSaleAlert, {
 					sellerName,
 					sellerEmail: 'seller@example.com',
 					buyerName,
@@ -83,7 +83,13 @@ export async function GET(request: NextRequest) {
 				})
 				break
 			default:
-				return NextResponse.json({ error: 'Template not found. Available: verification, welcome, sale-confirmation, purchase-confirmation, sale-alert' }, { status: 400 })
+				return NextResponse.json(
+					{
+						error:
+							'Template not found. Available: verification, welcome, sale-confirmation, purchase-confirmation, sale-alert',
+					},
+					{ status: 400 }
+				)
 		}
 
 		const html = await render(emailComponent)

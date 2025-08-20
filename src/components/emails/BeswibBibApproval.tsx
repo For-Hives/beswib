@@ -32,9 +32,9 @@ const constantsLocales = {
 		bibApproval: {
 			subject: 'Félicitations ! Votre dossard a été approuvé 🎉',
 			greeting: 'Bonjour',
-			mainMessage: 'Excellente nouvelle ! L\'organisateur de l\'événement a approuvé votre dossard.',
+			mainMessage: "Excellente nouvelle ! L'organisateur de l'événement a approuvé votre dossard.",
 			canNowSell: 'Vous pouvez maintenant le mettre en vente sur Beswib.',
-			approvalDetails: 'Détails de l\'approbation',
+			approvalDetails: "Détails de l'approbation",
 			bibDetails: 'Détails du dossard',
 			event: 'Événement',
 			date: 'Date',
@@ -47,16 +47,16 @@ const constantsLocales = {
 			nextSteps: 'Prochaines étapes',
 			step1: 'Votre dossard est désormais visible sur la marketplace',
 			step2: 'Les coureurs intéressés peuvent maintenant le découvrir',
-			step3: 'Vous recevrez une notification dès qu\'un acheteur se manifeste',
+			step3: "Vous recevrez une notification dès qu'un acheteur se manifeste",
 			step4: 'Le paiement sera sécurisé via notre plateforme',
 			sellNowButton: 'Voir mon dossard en vente',
-			helpText: 'Besoin d\'aide ?',
+			helpText: "Besoin d'aide ?",
 			helpDescription: 'Notre équipe est là pour vous accompagner dans le processus de vente.',
 			contactSupport: 'Contacter le support',
 			footer: 'Bonne vente !',
-			teamSignature: 'L\'équipe Beswib',
-			congratulations: 'Félicitations pour cette validation !'
-		}
+			teamSignature: "L'équipe Beswib",
+			congratulations: 'Félicitations pour cette validation !',
+		},
 	},
 	en: {
 		bibApproval: {
@@ -77,7 +77,7 @@ const constantsLocales = {
 			nextSteps: 'Next Steps',
 			step1: 'Your bib is now visible on the marketplace',
 			step2: 'Interested runners can now discover it',
-			step3: 'You\'ll receive a notification as soon as a buyer shows interest',
+			step3: "You'll receive a notification as soon as a buyer shows interest",
 			step4: 'Payment will be secured through our platform',
 			sellNowButton: 'View my bib for sale',
 			helpText: 'Need help?',
@@ -85,8 +85,8 @@ const constantsLocales = {
 			contactSupport: 'Contact support',
 			footer: 'Happy selling!',
 			teamSignature: 'The Beswib Team',
-			congratulations: 'Congratulations on this validation!'
-		}
+			congratulations: 'Congratulations on this validation!',
+		},
 	},
 	es: {
 		bibApproval: {
@@ -115,16 +115,16 @@ const constantsLocales = {
 			contactSupport: 'Contactar soporte',
 			footer: '¡Feliz venta!',
 			teamSignature: 'El equipo Beswib',
-			congratulations: '¡Felicitaciones por esta validación!'
-		}
+			congratulations: '¡Felicitaciones por esta validación!',
+		},
 	},
 	it: {
 		bibApproval: {
 			subject: 'Congratulazioni! Il tuo pettorale è stato approvato 🎉',
 			greeting: 'Ciao',
-			mainMessage: 'Ottima notizia! L\'organizzatore dell\'evento ha approvato il tuo pettorale.',
+			mainMessage: "Ottima notizia! L'organizzatore dell'evento ha approvato il tuo pettorale.",
 			canNowSell: 'Ora puoi metterlo in vendita su Beswib.',
-			approvalDetails: 'Dettagli dell\'approvazione',
+			approvalDetails: "Dettagli dell'approvazione",
 			bibDetails: 'Dettagli del pettorale',
 			event: 'Evento',
 			date: 'Data',
@@ -145,8 +145,8 @@ const constantsLocales = {
 			contactSupport: 'Contatta il supporto',
 			footer: 'Buona vendita!',
 			teamSignature: 'Il team Beswib',
-			congratulations: 'Congratulazioni per questa validazione!'
-		}
+			congratulations: 'Congratulazioni per questa validazione!',
+		},
 	},
 	de: {
 		bibApproval: {
@@ -175,8 +175,8 @@ const constantsLocales = {
 			contactSupport: 'Support kontaktieren',
 			footer: 'Viel Erfolg beim Verkauf!',
 			teamSignature: 'Das Beswib Team',
-			congratulations: 'Herzlichen Glückwunsch zu dieser Validierung!'
-		}
+			congratulations: 'Herzlichen Glückwunsch zu dieser Validierung!',
+		},
 	},
 	pt: {
 		bibApproval: {
@@ -205,8 +205,8 @@ const constantsLocales = {
 			contactSupport: 'Contactar suporte',
 			footer: 'Boa venda!',
 			teamSignature: 'A equipa Beswib',
-			congratulations: 'Parabéns por esta validação!'
-		}
+			congratulations: 'Parabéns por esta validação!',
+		},
 	},
 	nl: {
 		bibApproval: {
@@ -235,8 +235,8 @@ const constantsLocales = {
 			contactSupport: 'Contact opnemen met ondersteuning',
 			footer: 'Veel succes met verkopen!',
 			teamSignature: 'Het Beswib Team',
-			congratulations: 'Gefeliciteerd met deze validatie!'
-		}
+			congratulations: 'Gefeliciteerd met deze validatie!',
+		},
 	},
 	ko: {
 		bibApproval: {
@@ -265,8 +265,8 @@ const constantsLocales = {
 			contactSupport: '지원팀 문의',
 			footer: '성공적인 판매 되세요!',
 			teamSignature: 'Beswib 팀',
-			congratulations: '이 검증을 축하드립니다!'
-		}
+			congratulations: '이 검증을 축하드립니다!',
+		},
 	},
 	ro: {
 		bibApproval: {
@@ -295,9 +295,9 @@ const constantsLocales = {
 			contactSupport: 'Contactează suportul',
 			footer: 'Vânzare cu succes!',
 			teamSignature: 'Echipa Beswib',
-			congratulations: 'Felicitări pentru această validare!'
-		}
-	}
+			congratulations: 'Felicitări pentru această validare!',
+		},
+	},
 }
 
 export default function BeswibBibApproval({
@@ -309,10 +309,10 @@ export default function BeswibBibApproval({
 	eventDistance = '',
 	bibCategory = '',
 	organizerName = '',
-	locale = 'fr'
+	locale = 'fr',
 }: BeswibBibApprovalProps) {
 	const t = getTranslations(locale, constantsLocales)
-	
+
 	const getLocalizedText = (key: string) => {
 		const keys = key.split('.')
 		let value = t.bibApproval
@@ -340,72 +340,79 @@ export default function BeswibBibApproval({
 				<Container style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
 					{/* Header */}
 					<Section style={{ textAlign: 'center', marginBottom: '32px' }}>
-						<Img
-							src={`${baseUrl}/beswib-logo.png`}
-							width="120"
-							height="40"
-							alt="Beswib"
-							style={{ margin: '0 auto' }}
-						/>
+						<Img src={`${baseUrl}/beswib-logo.png`} width="120" height="40" alt="Beswib" style={{ margin: '0 auto' }} />
 					</Section>
 
 					{/* Success Header */}
-					<Section style={{ 
-						background: 'linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 35%) 100%)', 
-						padding: '30px', 
-						borderRadius: '12px 12px 0 0', 
-						textAlign: 'center' 
-					}}>
+					<Section
+						style={{
+							background: 'linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 35%) 100%)',
+							padding: '30px',
+							borderRadius: '12px 12px 0 0',
+							textAlign: 'center',
+						}}
+					>
 						<Text style={{ fontSize: '24px', fontWeight: '700', color: 'white', margin: '0' }}>
 							🎉 {getLocalizedText('subject').replace(' 🎉', '')}
 						</Text>
 					</Section>
 
 					{/* Main Content */}
-					<Section style={{ 
-						background: 'hsl(var(--card))', 
-						padding: '30px', 
-						border: '1px solid hsl(var(--border))', 
-						borderRadius: '0 0 12px 12px',
-						boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
-					}}>
+					<Section
+						style={{
+							background: 'hsl(var(--card))',
+							padding: '30px',
+							border: '1px solid hsl(var(--border))',
+							borderRadius: '0 0 12px 12px',
+							boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+						}}
+					>
 						{/* Greeting */}
 						<Text style={{ fontSize: '16px', color: 'hsl(var(--foreground))', marginBottom: '16px' }}>
-							{getLocalizedText('greeting')}{sellerName ? ` ${sellerName}` : ''} 👋
+							{getLocalizedText('greeting')}
+							{sellerName ? ` ${sellerName}` : ''} 👋
 						</Text>
 
 						{/* Main Message */}
-						<Text style={{ fontSize: '16px', color: 'hsl(var(--foreground))', lineHeight: '1.6', marginBottom: '24px' }}>
+						<Text
+							style={{ fontSize: '16px', color: 'hsl(var(--foreground))', lineHeight: '1.6', marginBottom: '24px' }}
+						>
 							{getLocalizedText('mainMessage')} <strong>{getLocalizedText('canNowSell')}</strong>
 						</Text>
 
 						{/* Approval Status */}
-						<Section style={{ 
-							background: 'hsl(var(--success-foreground))', 
-							border: '2px solid hsl(var(--success))', 
-							padding: '20px', 
-							borderRadius: '8px', 
-							marginBottom: '24px' 
-						}}>
+						<Section
+							style={{
+								background: 'hsl(var(--success-foreground))',
+								border: '2px solid hsl(var(--success))',
+								padding: '20px',
+								borderRadius: '8px',
+								marginBottom: '24px',
+							}}
+						>
 							<Text style={{ fontSize: '18px', fontWeight: '600', color: 'hsl(var(--success))', margin: '0 0 12px 0' }}>
 								✅ {getLocalizedText('approvalDetails')}
 							</Text>
 							<Text style={{ fontSize: '14px', color: 'hsl(var(--success))', margin: '0' }}>
-								<strong>{getLocalizedText('approvedBy')}:</strong> {organizerName || 'Organisateur de l\'événement'}
+								<strong>{getLocalizedText('approvedBy')}:</strong> {organizerName || "Organisateur de l'événement"}
 							</Text>
 						</Section>
 
 						{/* Bib Details */}
-						<Section style={{ 
-							background: 'hsl(var(--muted))', 
-							padding: '20px', 
-							borderRadius: '8px', 
-							marginBottom: '24px' 
-						}}>
-							<Heading style={{ fontSize: '16px', fontWeight: '600', color: 'hsl(var(--foreground))', margin: '0 0 16px 0' }}>
+						<Section
+							style={{
+								background: 'hsl(var(--muted))',
+								padding: '20px',
+								borderRadius: '8px',
+								marginBottom: '24px',
+							}}
+						>
+							<Heading
+								style={{ fontSize: '16px', fontWeight: '600', color: 'hsl(var(--foreground))', margin: '0 0 16px 0' }}
+							>
 								{getLocalizedText('bibDetails')}
 							</Heading>
-							
+
 							{eventName && (
 								<Text style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))', margin: '4px 0' }}>
 									<strong>{getLocalizedText('event')}:</strong> {eventName}
@@ -440,20 +447,50 @@ export default function BeswibBibApproval({
 
 						{/* Next Steps */}
 						<Section style={{ marginBottom: '24px' }}>
-							<Heading style={{ fontSize: '16px', fontWeight: '600', color: 'hsl(var(--foreground))', marginBottom: '16px' }}>
+							<Heading
+								style={{ fontSize: '16px', fontWeight: '600', color: 'hsl(var(--foreground))', marginBottom: '16px' }}
+							>
 								🚀 {getLocalizedText('nextSteps')}
 							</Heading>
-							
-							<Text style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))', margin: '8px 0', paddingLeft: '16px' }}>
+
+							<Text
+								style={{
+									fontSize: '14px',
+									color: 'hsl(var(--muted-foreground))',
+									margin: '8px 0',
+									paddingLeft: '16px',
+								}}
+							>
 								• {getLocalizedText('step1')}
 							</Text>
-							<Text style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))', margin: '8px 0', paddingLeft: '16px' }}>
+							<Text
+								style={{
+									fontSize: '14px',
+									color: 'hsl(var(--muted-foreground))',
+									margin: '8px 0',
+									paddingLeft: '16px',
+								}}
+							>
 								• {getLocalizedText('step2')}
 							</Text>
-							<Text style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))', margin: '8px 0', paddingLeft: '16px' }}>
+							<Text
+								style={{
+									fontSize: '14px',
+									color: 'hsl(var(--muted-foreground))',
+									margin: '8px 0',
+									paddingLeft: '16px',
+								}}
+							>
 								• {getLocalizedText('step3')}
 							</Text>
-							<Text style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))', margin: '8px 0', paddingLeft: '16px' }}>
+							<Text
+								style={{
+									fontSize: '14px',
+									color: 'hsl(var(--muted-foreground))',
+									margin: '8px 0',
+									paddingLeft: '16px',
+								}}
+							>
 								• {getLocalizedText('step4')}
 							</Text>
 						</Section>
@@ -470,7 +507,7 @@ export default function BeswibBibApproval({
 									textDecoration: 'none',
 									fontWeight: '600',
 									fontSize: '16px',
-									display: 'inline-block'
+									display: 'inline-block',
 								}}
 							>
 								{getLocalizedText('sellNowButton')}
@@ -478,14 +515,16 @@ export default function BeswibBibApproval({
 						</Section>
 
 						{/* Congratulations Message */}
-						<Section style={{ 
-							background: 'hsl(var(--primary-foreground))', 
-							border: '1px solid hsl(var(--primary))', 
-							padding: '16px', 
-							borderRadius: '6px', 
-							textAlign: 'center',
-							marginBottom: '24px'
-						}}>
+						<Section
+							style={{
+								background: 'hsl(var(--primary-foreground))',
+								border: '1px solid hsl(var(--primary))',
+								padding: '16px',
+								borderRadius: '6px',
+								textAlign: 'center',
+								marginBottom: '24px',
+							}}
+						>
 							<Text style={{ fontSize: '14px', color: 'hsl(var(--primary))', margin: '0', fontWeight: '500' }}>
 								🌟 {getLocalizedText('congratulations')}
 							</Text>
@@ -508,7 +547,7 @@ export default function BeswibBibApproval({
 									textDecoration: 'underline',
 									fontSize: '14px',
 									background: 'transparent',
-									border: 'none'
+									border: 'none',
 								}}
 							>
 								{getLocalizedText('contactSupport')}

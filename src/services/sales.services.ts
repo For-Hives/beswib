@@ -5,7 +5,12 @@ import type { BibSale } from '@/models/marketplace.model'
 
 import { createTransaction, updateTransaction, getTransactionByOrderId } from './transaction.services'
 import { fetchBibById, updateBib } from './bib.services'
-import { sendSaleAlert, sendSellerSaleConfirmation, sendBuyerPurchaseConfirmation, sendAdminSaleAlert } from './notification.service'
+import {
+	sendSaleAlert,
+	sendSellerSaleConfirmation,
+	sendBuyerPurchaseConfirmation,
+	sendAdminSaleAlert,
+} from './notification.service'
 import { fetchUserByClerkId, fetchUserById } from './user.services'
 import { createOrder } from './paypal.services'
 
@@ -136,17 +141,19 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 			const sellerUser = await fetchUserById(found.seller_user_id)
 			const bib = await fetchBibById(bibId)
 			const buyerUser = found.buyer_user_id ? await fetchUserById(found.buyer_user_id) : null
-			
+
 			if (sellerUser && bib?.event) {
 				const platformFee = Number((amount * 0.1).toFixed(2))
 				const totalReceived = Number((amount - platformFee).toFixed(2))
-				
+
 				// Format event date
-				const eventDate = bib.event.date ? new Date(bib.event.date).toLocaleDateString('fr-FR', {
-					year: 'numeric',
-					month: 'long',
-					day: 'numeric'
-				}) : undefined
+				const eventDate = bib.event.date
+					? new Date(bib.event.date).toLocaleDateString('fr-FR', {
+							year: 'numeric',
+							month: 'long',
+							day: 'numeric',
+						})
+					: undefined
 
 				// Send comprehensive admin alert
 				void sendAdminSaleAlert({
@@ -179,7 +186,7 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 					orderId,
 					eventDate,
 					eventLocation: bib.event.location,
-					locale: sellerUser.locale || 'fr'
+					locale: sellerUser.locale || 'fr',
 				})
 
 				// Send purchase confirmation email to buyer
@@ -195,7 +202,7 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 						eventLocation: bib.event.location,
 						eventDistance: bib.event.distance ? `${bib.event.distance} ${bib.event.distanceUnit || 'km'}` : undefined,
 						bibCategory: bib.event.type || 'Course',
-						locale: buyerUser.locale || 'fr'
+						locale: buyerUser.locale || 'fr',
 					})
 				}
 			}

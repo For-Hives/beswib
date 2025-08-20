@@ -120,7 +120,7 @@ export async function sendNewBibNotification(
 			const now = new Date()
 			const diffTime = event.getTime() - now.getTime()
 			const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-			
+
 			if (diffDays <= 0) return '0 jour'
 			if (diffDays === 1) return '1 jour'
 			if (diffDays < 7) return `${diffDays} jours`
@@ -138,10 +138,10 @@ export async function sendNewBibNotification(
 		if (!date) return ''
 		try {
 			const d = new Date(date)
-			return d.toLocaleDateString('fr-FR', { 
-				year: 'numeric', 
-				month: 'long', 
-				day: 'numeric' 
+			return d.toLocaleDateString('fr-FR', {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
 			})
 		} catch {
 			return ''
