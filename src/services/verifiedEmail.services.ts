@@ -187,7 +187,7 @@ export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Pro
 		}
 
 		// Send verification email
-		const emailSent = await sendVerificationEmail(data.email, verificationCode, VERIFICATION_EXPIRY_MINUTES)
+		const emailSent = await sendVerificationEmail(data.email, verificationCode, VERIFICATION_EXPIRY_MINUTES, 'fr')
 		if (!emailSent) {
 			console.warn(`Failed to send verification email to ${data.email}`)
 		}
@@ -308,7 +308,8 @@ export async function resendVerificationCode(verifiedEmailId: string): Promise<b
 		const emailSent = await sendVerificationEmail(
 			record.email as string,
 			newVerificationCode,
-			VERIFICATION_EXPIRY_MINUTES
+			VERIFICATION_EXPIRY_MINUTES,
+			'fr'
 		)
 		if (!emailSent) {
 			console.warn(`Failed to resend verification email to ${record.email as string}`)

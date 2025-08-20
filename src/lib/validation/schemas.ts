@@ -1,3 +1,4 @@
+import { isValidPhoneNumber } from 'libphonenumber-js'
 import * as v from 'valibot'
 
 import { validationTranslations } from '@/lib/i18n/translations/validation'
@@ -52,6 +53,32 @@ export const createVerificationCodeSchema = (locale: Locale = 'fr') => {
 		v.nonEmpty(t.verificationCode.required),
 		v.regex(/^\d{6}$/, t.verificationCode.invalid)
 	)
+}
+
+// Phone number schema with international validation
+export const createPhoneSchema = (locale: Locale = 'fr', required: boolean = false) => {
+	const t = validationTranslations[locale]
+
+	const baseValidation = v.pipe(
+		v.string(),
+		v.trim(),
+		v.check((value: string) => {
+			if (!value && !required) return true
+			if (!value && required) return false
+			return isValidPhoneNumber(value)
+		}, t.phone?.invalid || 'Invalid phone number')
+	)
+
+	if (required) {
+		return v.pipe(
+			v.string(),
+			v.trim(),
+			v.nonEmpty(t.phone?.required || 'Phone number is required'),
+			v.check((value: string) => isValidPhoneNumber(value), t.phone?.invalid || 'Invalid phone number')
+		)
+	}
+
+	return baseValidation
 }
 
 // Sign-in form schema

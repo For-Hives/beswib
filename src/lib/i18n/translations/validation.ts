@@ -26,6 +26,10 @@ export interface ValidationTranslations {
 		required: string
 		invalid: string
 	}
+	phone: {
+		required: string
+		invalid: string
+	}
 }
 
 export const validationTranslations: Record<Locale, ValidationTranslations> = {
@@ -33,6 +37,10 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 		verificationCode: {
 			required: 'Codul de verificare este obligatoriu',
 			invalid: 'Codul trebuie să conțină exact 6 cifre',
+		},
+		phone: {
+			required: 'Numărul de telefon este obligatoriu',
+			invalid: 'Vă rugăm să introduceți un număr de telefon valid',
 		},
 		password: {
 			tooShort: 'Parola trebuie să aibă cel puțin 8 caractere',
@@ -63,6 +71,10 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: 'O código de verificação é obrigatório',
 			invalid: 'O código deve conter exatamente 6 dígitos',
 		},
+		phone: {
+			required: 'O número de telefone é obrigatório',
+			invalid: 'Por favor, insira um número de telefone válido',
+		},
 		password: {
 			tooShort: 'A senha deve ter pelo menos 8 caracteres',
 			required: 'A senha é obrigatória',
@@ -91,6 +103,10 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 		verificationCode: {
 			required: 'Verificatiecode is verplicht',
 			invalid: 'Code moet precies 6 cijfers bevatten',
+		},
+		phone: {
+			required: 'Telefoonnummer is verplicht',
+			invalid: 'Voer een geldig telefoonnummer in',
 		},
 		password: {
 			tooShort: 'Wachtwoord moet minstens 8 tekens lang zijn',
@@ -121,6 +137,10 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: '인증 코드는 필수입니다',
 			invalid: '코드는 정확히 6자리 숫자여야 합니다',
 		},
+		phone: {
+			required: '전화번호는 필수입니다',
+			invalid: '유효한 전화번호를 입력해주세요',
+		},
 		password: {
 			tooShort: '비밀번호는 최소 8자 이상이어야 합니다',
 			required: '비밀번호는 필수입니다',
@@ -149,6 +169,10 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 		verificationCode: {
 			required: 'Il codice di verifica è richiesto',
 			invalid: 'Il codice deve contenere esattamente 6 cifre',
+		},
+		phone: {
+			required: 'Il numero di telefono è richiesto',
+			invalid: 'Inserisci un numero di telefono valido',
 		},
 		password: {
 			tooShort: 'La password deve essere di almeno 8 caratteri',
@@ -179,6 +203,10 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: 'Le code de vérification est requis',
 			invalid: 'Le code doit contenir exactement 6 chiffres',
 		},
+		phone: {
+			required: 'Le numéro de téléphone est requis',
+			invalid: 'Veuillez entrer un numéro de téléphone valide',
+		},
 		password: {
 			tooShort: 'Le mot de passe doit contenir au moins 8 caractères',
 			required: 'Le mot de passe est requis',
@@ -207,6 +235,10 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 		verificationCode: {
 			required: 'El código de verificación es obligatorio',
 			invalid: 'El código debe contener exactamente 6 dígitos',
+		},
+		phone: {
+			required: 'El número de teléfono es obligatorio',
+			invalid: 'Por favor ingresa un número de teléfono válido',
 		},
 		password: {
 			tooShort: 'La contraseña debe tener al menos 8 caracteres',
@@ -237,6 +269,10 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 			required: 'Verification code is required',
 			invalid: 'Code must contain exactly 6 digits',
 		},
+		phone: {
+			required: 'Phone number is required',
+			invalid: 'Please enter a valid phone number',
+		},
 		password: {
 			tooShort: 'Password must be at least 8 characters long',
 			required: 'Password is required',
@@ -265,6 +301,10 @@ export const validationTranslations: Record<Locale, ValidationTranslations> = {
 		verificationCode: {
 			required: 'Verifizierungscode ist erforderlich',
 			invalid: 'Code muss genau 6 Ziffern enthalten',
+		},
+		phone: {
+			required: 'Telefonnummer ist erforderlich',
+			invalid: 'Bitte gib eine gültige Telefonnummer ein',
 		},
 		password: {
 			tooShort: 'Passwort muss mindestens 8 Zeichen lang sein',

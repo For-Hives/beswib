@@ -15,6 +15,10 @@ import {
 	VERIFICATION_EMAIL_SUBJECT,
 	VERIFICATION_EMAIL_TEXT_TEMPLATE,
 } from '../constants/verifiedEmail.constant'
+import {
+	sendVerificationEmail as sendModernVerificationEmail,
+	sendWelcomeEmail as sendModernWelcomeEmail,
+} from './email.service'
 import { contactSummaryText, contactFullText, saleAlertText } from '../constants/discord.constant'
 
 const renderContactMessageEmailHtml = (p: { name: string; email: string; message: string }): string =>
@@ -359,9 +363,15 @@ function stripTags(html: string): string {
 
 // --- Welcome email --------------------------------------------------------------
 
-export async function sendWelcomeEmail(params: { to: string; firstName?: string }): Promise<boolean> {
+export async function sendWelcomeEmail(params: { to: string; firstName?: string; locale?: string }): Promise<boolean> {
 	const to = (params.to ?? '').trim()
 	if (to.length === 0) return false
+
+	// Use modern React Email template
+	const success = await sendModernWelcomeEmail(to, params.firstName, params.locale)
+	if (success) return true
+
+	// Fallback to legacy template
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 	const safeFirst = (params.firstName ?? '').trim()
 	const commaName = safeFirst.length > 0 ? `, ${safeFirst}` : ''
@@ -378,8 +388,14 @@ export async function sendWelcomeEmail(params: { to: string; firstName?: string 
 export async function sendVerificationEmail(
 	email: string,
 	verificationCode: string,
-	expiryMinutes: number
+	expiryMinutes: number,
+	locale?: string
 ): Promise<boolean> {
+	// Use modern React Email template
+	const success = await sendModernVerificationEmail(email, verificationCode, locale)
+	if (success) return true
+
+	// Fallback to legacy template
 	const subject = VERIFICATION_EMAIL_SUBJECT
 	const text = VERIFICATION_EMAIL_TEXT_TEMPLATE(verificationCode, expiryMinutes)
 	const html = VERIFICATION_EMAIL_HTML_TEMPLATE(verificationCode, expiryMinutes)
