@@ -51,7 +51,7 @@ export function GoBackToTop({ threshold = 100, locale, className }: GoBackToTopP
 				'focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2',
 				'active:scale-95',
 				'dark:bg-background/95 dark:border-border/40',
-				'flex cursor-pointer items-center justify-center',
+				'flex items-center justify-center',
 				className
 			)}
 		>
