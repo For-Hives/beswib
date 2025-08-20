@@ -74,9 +74,7 @@ export async function createEventAction(eventData: Omit<Event, 'id'>): Promise<{
  * Server action to create a new organizer (admin only)
  * Verifies authentication via Clerk, platform registration, and admin permissions
  */
-export async function createOrganizerAction(
-	organizerData: Omit<Organizer, 'created' | 'id' | 'updated'> & { logoFile?: File }
-): Promise<{
+export async function createOrganizerAction(formData: FormData): Promise<{
 	data?: Organizer
 	error?: string
 	success: boolean
@@ -92,8 +90,15 @@ export async function createOrganizerAction(
 			}
 		}
 
+		// Extract data from FormData
+		const name = formData.get('name') as string
+		const email = formData.get('email') as string
+		const website = formData.get('website') as string
+		const isPartnered = formData.get('isPartnered') === 'true'
+		const logoFile = formData.get('logoFile') as File | null
+
 		// Validate required fields
-		if (!organizerData.name || !organizerData.email) {
+		if (!name || !email) {
 			return {
 				success: false,
 				error: 'Name and email are required',
@@ -101,13 +106,16 @@ export async function createOrganizerAction(
 		}
 
 		// Prepare organizer data for creation
-		const { logoFile, ...baseOrganizerData } = organizerData
+		const organizerData = {
+			email,
+			isPartnered,
+			logoFile: logoFile ?? undefined,
+			name,
+			website: website ?? undefined,
+		}
 
 		// Create the organizer with PocketBase service
-		const result = await createOrganizer({
-			...baseOrganizerData,
-			logoFile: logoFile, // PocketBase service will handle the file upload
-		})
+		const result = await createOrganizer(organizerData)
 
 		if (result !== null) {
 			console.info(`Admin ${adminUser.email} created organizer: ${result.name}`)
@@ -420,7 +428,7 @@ export async function getOrganizerByIdAction(id: string): Promise<{
  */
 export async function updateOrganizerAction(
 	id: string,
-	organizerData: Partial<Organizer> & { logoFile?: File }
+	formData: FormData
 ): Promise<{
 	data?: Organizer
 	error?: string
@@ -443,19 +451,28 @@ export async function updateOrganizerAction(
 			}
 		}
 
-		// Validate required fields if they are being updated
-		if (organizerData.name !== undefined && !organizerData.name) {
+		// Extract data from FormData
+		const name = formData.get('name') as string
+		const email = formData.get('email') as string
+		const website = formData.get('website') as string
+		const isPartnered = formData.get('isPartnered') === 'true'
+		const logoFile = formData.get('logoFile') as File | null
+
+		// Validate required fields
+		if (!name || !email) {
 			return {
 				success: false,
-				error: 'Organizer name is required',
+				error: 'Name and email are required',
 			}
 		}
 
-		if (organizerData.email !== undefined && !organizerData.email) {
-			return {
-				success: false,
-				error: 'Organizer email is required',
-			}
+		// Prepare organizer data for update
+		const organizerData = {
+			email,
+			isPartnered,
+			logoFile: logoFile ?? undefined,
+			name,
+			website: website ?? undefined,
 		}
 
 		// Update the organizer with PocketBase service

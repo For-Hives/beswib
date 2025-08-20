@@ -16,14 +16,11 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Locale } from '@/lib/i18n/config'
 
-// Build a File schema that's safe on the server (where File is undefined)
-const FileSchemaSafe = typeof window !== 'undefined' && typeof File !== 'undefined' ? v.instance(File) : v.any()
-
 // Validation Schema using Valibot (same as creation)
 const OrganizerEditSchema = v.object({
 	website: v.optional(v.union([v.pipe(v.string(), v.url('Must be a valid URL')), v.literal('')])),
 	name: v.pipe(v.string(), v.minLength(1, 'Organizer name is required')),
-	logoFile: v.optional(FileSchemaSafe),
+	logoFile: v.optional(v.union([v.instance(File), v.undefined()])),
 	isPartnered: v.boolean(),
 	email: v.pipe(v.string(), v.email('Please enter a valid email address')),
 })
@@ -111,20 +108,21 @@ export default function OrganizerEditForm({
 		setIsLoading(true)
 
 		try {
-			// Narrow potential any from schema fallback into a concrete type
-			const safeLogoFile: File | undefined =
-				typeof window !== 'undefined' && data.logoFile instanceof File ? data.logoFile : undefined
+			// Create FormData for file upload
+			const formData = new FormData()
+			formData.append('name', data.name)
+			formData.append('email', data.email)
+			formData.append('isPartnered', String(data.isPartnered))
 
-			const organizerData = {
-				website: data.website ?? undefined,
-				name: data.name,
-				logoFile: safeLogoFile,
-				isPartnered: data.isPartnered,
-				id: organizer.id, // Include the ID for update
-				email: data.email,
+			if (data.website != null && data.website.trim() !== '') {
+				formData.append('website', data.website.trim())
 			}
 
-			const result = await updateOrganizerAction(organizer.id, organizerData)
+			if (data.logoFile != null) {
+				formData.append('logoFile', data.logoFile)
+			}
+
+			const result = await updateOrganizerAction(organizer.id, formData)
 
 			if (result.success && result.data) {
 				toast.success(translationsCommon.organizers.edit.success.message.replace('{organizerName}', data.name))
