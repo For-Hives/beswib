@@ -6,9 +6,11 @@ import { pb } from '@/lib/services/pocketbase'
  * Uses multipart/form-data for file upload as per PocketBase documentation
  */
 export async function createOrganizer(
-	organizerData: Omit<Organizer, 'created' | 'id' | 'updated'> & { logoFile?: File }
+	organizerData: Omit<Organizer, 'created' | 'id' | 'updated'> & { logoFile?: unknown }
 ): Promise<null | Organizer> {
 	try {
+		console.info('Creating organizer in PocketBase:', organizerData.name)
+
 		// Prepare form data for PocketBase (multipart/form-data) 📄
 		const formData = new FormData()
 
@@ -22,23 +24,35 @@ export async function createOrganizer(
 			formData.append('website', organizerData.website.trim())
 		}
 
-		// Handle logo file upload - PocketBase expects File instance for new uploads 🖼️
-		if (organizerData.logoFile instanceof File) {
-			formData.append('logo', organizerData.logoFile)
+		// Handle logo file upload - server-safe check
+		if (organizerData.logoFile != null) {
+			const isFileObject =
+				organizerData.logoFile != null &&
+				typeof organizerData.logoFile === 'object' &&
+				((typeof File !== 'undefined' && organizerData.logoFile instanceof File) ||
+					Object.prototype.hasOwnProperty.call(organizerData.logoFile, 'stream') ||
+					(organizerData.logoFile as Record<string, unknown>).constructor?.name === 'File')
+
+			if (isFileObject) {
+				formData.append('logo', organizerData.logoFile as Blob)
+				console.info('Added logo file to PocketBase request')
+			} else {
+				console.warn('logoFile is not a proper File object, skipping file upload')
+			}
 		}
 
 		// Create record using multipart/form-data 💾
 		const record = await pb.collection('organizer').create(formData)
 
 		return {
-			website: (record.website as string) ?? null,
-			updated: new Date(record.updated as string),
-			name: record.name as string,
-			logo: (record.logo as string) ?? null,
-			isPartnered: record.isPartnered as boolean,
-			id: record.id,
-			email: record.email as string,
 			created: new Date(record.created as string),
+			email: record.email as string,
+			id: record.id,
+			isPartnered: record.isPartnered as boolean,
+			logo: (record.logo as string) ?? null,
+			name: record.name as string,
+			updated: new Date(record.updated as string),
+			website: (record.website as string) ?? null,
 		}
 	} catch (error) {
 		console.error('Error creating organizer:', error)
@@ -225,11 +239,18 @@ export function getOrganizerLogoUrl(organizer: Organizer, thumbSize?: string): n
  */
 export async function updateOrganizer(
 	id: string,
-	organizerData: Partial<Omit<Organizer, 'created' | 'id' | 'updated'>> & { logoFile?: File }
+	organizerData: Partial<Omit<Organizer, 'created' | 'id' | 'updated'>> & { logoFile?: unknown }
 ): Promise<null | Organizer> {
 	try {
-		// For updates with file uploads, use FormData 📄
-		if (organizerData.logoFile instanceof File) {
+		// Check if we have a file to upload - server-safe check
+		const hasFile =
+			organizerData.logoFile != null &&
+			typeof organizerData.logoFile === 'object' &&
+			((typeof File !== 'undefined' && organizerData.logoFile instanceof File) ||
+				Object.prototype.hasOwnProperty.call(organizerData.logoFile, 'stream') ||
+				(organizerData.logoFile as Record<string, unknown>).constructor?.name === 'File')
+
+		if (hasFile) {
 			const formData = new FormData()
 
 			// Add text fields if provided ✅
@@ -251,7 +272,7 @@ export async function updateOrganizer(
 			}
 
 			// Add logo file 🖼️
-			formData.append('logo', organizerData.logoFile)
+			formData.append('logo', organizerData.logoFile as Blob)
 
 			const record = await pb.collection('organizer').update(id, formData)
 
