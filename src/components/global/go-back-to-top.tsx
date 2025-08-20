@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowUp } from 'lucide-react'
 
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
@@ -11,24 +11,42 @@ import { cn } from '@/lib/utils'
 
 import translations from './locales.json'
 
+// Animation-frame-based throttle to keep scroll handler responsive and cheap
+const rAFThrottle = <T extends unknown[]>(func: (...args: T) => void) => {
+	let scheduled = false
+	return (...args: T) => {
+		if (scheduled) return
+		scheduled = true
+		requestAnimationFrame(() => {
+			func(...args)
+			scheduled = false
+		})
+	}
+}
+
 interface GoBackToTopProps {
 	/**
 	 * Current locale for translation
 	 */
-	locale: Locale
+	readonly locale: Locale
 	/**
 	 * Scroll threshold in pixels. When the user scrolls past this point,
 	 * the button becomes visible. Default is 100px.
 	 */
-	threshold?: number
+	readonly threshold?: number
 	/**
 	 * Additional CSS classes to apply to the button container
 	 */
-	className?: string
+	readonly className?: string
 	/**
 	 * Show immediately when user starts scrolling (even before threshold)
 	 */
-	showOnScroll?: boolean
+	readonly showOnScroll?: boolean
+	/**
+	 * Optional safety fallback in ms to reset animation state if the scroll event
+	 * doesn't fire when reaching the top (e.g., browser quirks). Default 2000ms.
+	 */
+	readonly animationResetTimeoutMs?: number
 }
 
 /**
@@ -43,25 +61,18 @@ interface GoBackToTopProps {
  * - Throttled scroll events for better performance
  * - Smooth fade-in/out animations
  */
-export function GoBackToTop({ threshold = 100, showOnScroll = true, locale, className }: GoBackToTopProps) {
+export function GoBackToTop({
+	threshold = 100,
+	showOnScroll = true,
+	locale,
+	className,
+	animationResetTimeoutMs = 2000,
+}: GoBackToTopProps) {
 	const [isVisible, setIsVisible] = useState(false)
 	const [isAnimating, setIsAnimating] = useState(false)
 
 	// Get translations for the current locale
 	const t = getTranslations(locale, translations)
-
-	// Throttle function to improve scroll performance
-	const throttle = useCallback(<T extends unknown[]>(func: (...args: T) => void) => {
-		let scheduled = false
-		return function (...args: T) {
-			if (scheduled) return
-			scheduled = true
-			requestAnimationFrame(() => {
-				func(...args)
-				scheduled = false
-			})
-		}
-	}, [])
 
 	const toggleVisibility = useCallback(() => {
 		const scrolled = window.scrollY
@@ -71,7 +82,7 @@ export function GoBackToTop({ threshold = 100, showOnScroll = true, locale, clas
 	}, [threshold, showOnScroll])
 
 	// Create throttled version of toggleVisibility (animation-frame throttled)
-	const throttledToggleVisibility = useCallback(throttle(toggleVisibility), [toggleVisibility, throttle])
+	const throttledToggleVisibility = useMemo(() => rAFThrottle(toggleVisibility), [toggleVisibility])
 
 	useEffect(() => {
 		// Add scroll event listener with throttling
@@ -94,16 +105,27 @@ export function GoBackToTop({ threshold = 100, showOnScroll = true, locale, clas
 			behavior: 'smooth',
 		})
 
-		// Reset animation state after scroll completes
-		setTimeout(() => {
+		// Reset animation state when scroll reaches the top
+		let fallbackTimeoutId: number | undefined
+		const handleScroll = () => {
+			if (window.scrollY === 0) {
+				setIsAnimating(false)
+				window.removeEventListener('scroll', handleScroll)
+				if (fallbackTimeoutId) clearTimeout(fallbackTimeoutId)
+			}
+		}
+		window.addEventListener('scroll', handleScroll, { passive: true })
+		// Safety fallback in case the browser doesn't fire the event as expected
+		fallbackTimeoutId = window.setTimeout(() => {
 			setIsAnimating(false)
-		}, 800)
-	}, [])
+			window.removeEventListener('scroll', handleScroll)
+		}, animationResetTimeoutMs)
+	}, [animationResetTimeoutMs])
 
 	return (
 		<>
 			{isVisible && (
-				<div className="fixed right-4 bottom-4 z-[999999] sm:right-6 sm:bottom-6">
+				<div className="fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6">
 					<Tooltip>
 						<TooltipTrigger asChild>
 							<Button
