@@ -250,7 +250,7 @@
 				"preheader": "Bienvenue chez Beswib, {firstName} !",
 				"body1": "Nous sommes ravis de vous compter parmi nous.",
 				"heroSubtitle": "Beswib, votre marketplace pour vos dossards",
-				"cta": "Découvrir le Marketplace",
+				"cta": "Découvrir la marketplace",
 				"nextStepsTitle": "Prochaines étapes",
 				"nextStep1": "Complétez votre profil pour un paiement plus rapide",
 				"nextStep2": "Parcourez les événements et activez les alertes de liste d'attente",
@@ -258,7 +258,7 @@
 				"help": "Besoin d'aide ? Rendez‑vous sur beswib.com",
 				"steps": {
 					"marketplace": {
-						"title": "Explorez le marketplace",
+						"title": "Explorez la marketplace",
 						"description": "Découvrez les dossards disponibles pour vos prochaines courses. Filtrez par distance, lieu et date."
 					},
 					"profile": {

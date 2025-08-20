@@ -47,19 +47,6 @@ export const BeswibPurchaseConfirmation = ({
 
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
 
-	const getLocalizedText = (key: string): string => {
-		const keys = key.split('.')
-		let value: Record<string, unknown> | string = t.emails.purchaseConfirmation
-		for (const k of keys) {
-			if (typeof value === 'object' && value !== null && k in value) {
-				value = value[k] as Record<string, unknown> | string
-			} else {
-				return key
-			}
-		}
-		return typeof value === 'string' ? value : key
-	}
-
 	return (
 		<Html>
 			<Head />

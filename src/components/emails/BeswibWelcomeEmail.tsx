@@ -118,12 +118,12 @@ export const BeswibWelcomeEmail = ({
 				<Preview>{t.emails.welcome.preheader.replace('{firstName}', firstName)}</Preview>
 				<Body className="bg-background font-sans">
 					{/* Header avec gradient */}
-					<Section className="from-primary to-accent mb-0 bg-gradient-to-r py-8">
+					<Section className="from-primary to-accent mb-0 bg-gradient-to-r pt-8">
 						<Container className="mx-auto max-w-[600px] px-4">
 							<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
 
 							<Heading className="text-primary mb-2 text-center text-3xl font-bold">
-								🎉&nbsp;{t.emails.welcome.title.replace('{firstName}', firstName)}&nbsp;🎉
+								🎉&nbsp;&nbsp;{t.emails.welcome.title.replace('{firstName}', firstName)}&nbsp;&nbsp;🎉
 							</Heading>
 							<Text className="text-primary text-center text-lg opacity-90">{t.emails.welcome.heroSubtitle}</Text>
 						</Container>
@@ -161,44 +161,6 @@ export const BeswibWelcomeEmail = ({
 									)}
 								</Section>
 							))}
-						</Section>
-
-						{/* CTA principal */}
-						<Section className="mb-8 text-center">
-							<Button
-								href={`${baseUrl}/marketplace`}
-								className="bg-primary text-primary-foreground rounded-lg px-8 py-4 text-lg font-semibold no-underline"
-							>
-								{t.emails.welcome.cta}
-							</Button>
-						</Section>
-
-						{/* Liens rapides - same structure as EmailVerification */}
-						<Section className="bg-muted rounded-lg p-6">
-							<Heading className="text-foreground mb-4 text-center text-lg font-semibold">
-								{t.emails.welcome.footer.usefulLinks}
-							</Heading>
-							<Section className="flex justify-center gap-8">
-								{(quickLinks ?? defaultQuickLinks).map(link => (
-									<Section key={link.title} className="text-center">
-										<Link
-											href={link.href}
-											style={{
-												textDecoration: 'none',
-												marginBottom: '4px',
-												fontWeight: '600',
-												display: 'block',
-												color: 'oklch(0.6231 0.188 259.8145)',
-											}}
-										>
-											{link.title}
-										</Link>
-										{link.description !== null && link.description !== undefined && link.description !== '' && (
-											<Text className="text-muted-foreground text-xs">{link.description}</Text>
-										)}
-									</Section>
-								))}
-							</Section>
 						</Section>
 					</Container>
 

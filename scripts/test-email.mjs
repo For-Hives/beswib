@@ -6,8 +6,9 @@
  */
 
 import { render } from '@react-email/components'
-import { Resend } from 'resend'
 import React from 'react'
+
+import { Resend } from 'resend'
 
 // Simple implementation for testing
 const BeswibEmailVerification = ({ validationCode = 'TEST-123' }) => {
@@ -19,20 +20,20 @@ const BeswibEmailVerification = ({ validationCode = 'TEST-123' }) => {
 			{ style: { fontFamily: 'Arial, sans-serif' } },
 			React.createElement(
 				'div',
-				{ style: { maxWidth: '600px', margin: '0 auto', padding: '20px' } },
+				{ style: { padding: '20px', maxWidth: '600px', margin: '0 auto' } },
 				React.createElement('h1', { style: { color: '#3B82F6' } }, '🔐 Vérification email - Beswib'),
 				React.createElement('p', null, 'Votre code de vérification :'),
 				React.createElement(
 					'div',
 					{
 						style: {
-							background: '#f3f4f6',
-							padding: '20px',
 							textAlign: 'center',
-							fontSize: '24px',
-							fontWeight: 'bold',
+							padding: '20px',
 							margin: '20px 0',
+							fontWeight: 'bold',
+							fontSize: '24px',
 							borderRadius: '8px',
+							background: '#f3f4f6',
 						},
 					},
 					validationCode
@@ -40,7 +41,7 @@ const BeswibEmailVerification = ({ validationCode = 'TEST-123' }) => {
 				React.createElement('p', null, 'Ce code expire dans 15 minutes.'),
 				React.createElement(
 					'p',
-					{ style: { color: '#666', fontSize: '14px' } },
+					{ style: { fontSize: '14px', color: '#666' } },
 					"Si vous n'avez pas demandé cette vérification, ignorez cet email."
 				)
 			)
@@ -57,14 +58,14 @@ const BeswibWelcomeEmail = ({ firstName = 'Coureur' }) => {
 			{ style: { fontFamily: 'Arial, sans-serif' } },
 			React.createElement(
 				'div',
-				{ style: { maxWidth: '600px', margin: '0 auto', padding: '20px' } },
+				{ style: { padding: '20px', maxWidth: '600px', margin: '0 auto' } },
 				React.createElement('h1', { style: { color: '#3B82F6' } }, `Bienvenue sur Beswib, ${firstName} ! 🏃‍♂️`),
 				React.createElement('p', null, 'Félicitations ! Vous rejoignez une communauté de coureurs passionnés.'),
 				React.createElement('h2', null, 'Prochaines étapes :'),
 				React.createElement(
 					'ul',
 					null,
-					React.createElement('li', null, '📋 Explorez le marketplace'),
+					React.createElement('li', null, '📋 Explorez la marketplace'),
 					React.createElement('li', null, '👤 Complétez votre profil'),
 					React.createElement('li', null, '🏃 Trouvez votre prochaine course'),
 					React.createElement('li', null, '💝 Vendez vos dossards inutilisés')
@@ -80,22 +81,22 @@ const BeswibWelcomeEmail = ({ firstName = 'Coureur' }) => {
 					React.createElement(
 						'a',
 						{
-							href: 'https://beswib.com/marketplace',
 							style: {
-								background: '#3B82F6',
-								color: 'white',
-								padding: '12px 24px',
 								textDecoration: 'none',
-								borderRadius: '8px',
+								padding: '12px 24px',
 								fontWeight: 'bold',
+								color: 'white',
+								borderRadius: '8px',
+								background: '#3B82F6',
 							},
+							href: 'https://beswib.com/marketplace',
 						},
-						'Explorer le marketplace'
+						'Explorer la marketplace'
 					)
 				),
 				React.createElement(
 					'p',
-					{ style: { color: '#666', fontSize: '14px' } },
+					{ style: { fontSize: '14px', color: '#666' } },
 					'Bonnes courses !',
 					React.createElement('br'),
 					"L'équipe Beswib"
@@ -144,11 +145,11 @@ async function sendTestEmail() {
 
 		console.log(`📧 Envoi de l'email ${template} vers ${email}...`)
 
-		const { data, error } = await resend.emails.send({
-			from: fromEmail,
+		const { error, data } = await resend.emails.send({
 			to: email,
 			subject,
 			react: emailComponent,
+			from: fromEmail,
 		})
 
 		if (error) {

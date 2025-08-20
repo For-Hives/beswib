@@ -217,7 +217,7 @@
 			"confirmation": {
 				"reviewTitle": "Vérifiez votre annonce",
 				"successTitle": "Annonce créée avec succès !",
-				"successMessage": "Votre dossard a été mis en vente sur le marketplace. Vous pouvez partager le lien ci-dessous ou attendre que les acheteurs le trouvent.",
+				"successMessage": "Votre dossard a été mis en vente sur la marketplace. Vous pouvez partager le lien ci-dessous ou attendre que les acheteurs le trouvent.",
 				"event": "Événement",
 				"bibNumber": "Numéro de dossard",
 				"originalPrice": "Prix d'origine",
@@ -230,7 +230,7 @@
 				"privateLink": "Lien privé",
 				"privateLinkHelp": "Partagez ce lien pour permettre aux autres d'acheter votre dossard en privé",
 				"publicLink": "Lien public",
-				"publicLinkHelp": "Votre dossard est visible publiquement et peut être trouvé par tout le monde sur le marketplace",
+				"publicLinkHelp": "Votre dossard est visible publiquement et peut être trouvé par tout le monde sur la marketplace",
 				"privateLinkMessage": "Ceci est une annonce privée - seules les personnes avec ce lien direct peuvent accéder et acheter votre dossard",
 				"publicLinkMessage": "Ceci est une annonce publique - votre dossard est recherchable et visible par tous les visiteurs du marketplace",
 				"copyLink": "Copier le lien",
@@ -752,7 +752,7 @@
 				"publicLink": "Öffentlicher Link",
 				"publicLinkHelp": "Ihre Startnummer ist öffentlich sichtbar und kann von jedem im Marketplace gefunden werden",
 				"privateLinkMessage": "Dies ist eine private Auflistung - nur Personen mit diesem direkten Link können auf Ihre Startnummer zugreifen und sie kaufen",
-				"publicLinkMessage": "Dies ist eine öffentliche Auflistung - Ihre Startnummer ist suchbar und für alle Marketplace-Besucher sichtbar",
+				"publicLinkMessage": "Dies ist eine öffentliche Auflistung - Ihre Startnummer ist suchbar und für alla marketplace-Besucher sichtbar",
 				"copyLink": "Link Kopieren",
 				"marketplacePreview": "Marketplace-Vorschau"
 			}
