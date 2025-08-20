@@ -1,5 +1,5 @@
 import { IconUpload } from '@tabler/icons-react'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { motion } from 'motion/react'
 
@@ -42,17 +42,17 @@ export const FileUpload = ({ onChange, locale }: { locale: Locale; onChange?: (f
 		// Single file mode: replace any existing file with the new one
 		const next = newFiles.slice(0, 1)
 		setFiles(next)
-		onChange?.(next)
 	}
 
 	const handleRemove = (index: number) => {
-		setFiles(prev => {
-			const next = prev.filter((_, i) => i !== index)
-			// Notify parent; empty array indicates clear
-			onChange?.(next)
-			return next
-		})
+		setFiles(prev => prev.filter((_, i) => i !== index))
 	}
+
+	// Notify parent when local files state changes (post-render, safe)
+	useEffect(() => {
+		onChange?.(files)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [files])
 
 	const handleClick = () => {
 		fileInputRef.current?.click()
@@ -77,7 +77,12 @@ export const FileUpload = ({ onChange, locale }: { locale: Locale; onChange?: (f
 				<input
 					className="hidden"
 					id="file-upload-handle"
-					onChange={e => handleFileChange(Array.from(e.target.files ?? []))}
+					onChange={e => {
+						const list = Array.from(e.target.files ?? [])
+						handleFileChange(list)
+						// Allow selecting the same file again
+						e.currentTarget.value = ''
+					}}
 					ref={fileInputRef}
 					type="file"
 					accept="image/png,image/jpeg,image/jpg,image/svg+xml,image/webp"
@@ -100,7 +105,7 @@ export const FileUpload = ({ onChange, locale }: { locale: Locale; onChange?: (f
 									layoutId={idx === 0 ? 'file-upload' : 'file-upload-' + idx}
 								>
 									<button
-										className="text-muted-foreground/80 hover:text-foreground absolute top-2 right-2 rounded px-2 py-1 text-xs text-red-600"
+										className="hover:text-foreground absolute top-2 right-2 rounded px-2 py-1 text-xs text-red-600"
 										onClick={e => {
 											e.stopPropagation()
 											handleRemove(idx)
