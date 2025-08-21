@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import { ImageResponse } from 'next/og'
-import { headers } from 'next/headers'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
