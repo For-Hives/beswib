@@ -3,6 +3,10 @@
 import { useEffect, useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 
+import { useUser } from '@clerk/nextjs'
+
+import { updateUserLocalePreference } from '@/app/[locale]/actions/locale'
+
 interface Language {
 	code: string
 	flag: string
@@ -28,16 +32,29 @@ interface LanguageSelectorProps {
 export default function LanguageSelector({ currentLocale = 'en' }: LanguageSelectorProps) {
 	const [isOpen, setIsOpen] = useState(false)
 	const [selectedLocale, setSelectedLocale] = useState(currentLocale)
+	const [isUpdating, setIsUpdating] = useState(false)
+	const { isSignedIn } = useUser()
 
 	const currentLanguage = languages.find(lang => lang.code === selectedLocale) ?? languages[0]
 
-	const handleLanguageChange = (newLocale: string) => {
+	const handleLanguageChange = async (newLocale: string) => {
 		try {
+			setIsUpdating(true)
+
 			// Set cookie to persist language preference 🍪
 			document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=lax`
 
 			setSelectedLocale(newLocale)
 			setIsOpen(false)
+
+			// If user is signed in, update their locale preference in the database
+			if (isSignedIn === true) {
+				const result = await updateUserLocalePreference(newLocale)
+				if (!result.success) {
+					console.warn('Failed to update user locale preference:', result.error)
+					// Continue with the UI update even if the database update fails
+				}
+			}
 
 			// replace the current URL with the new locale (  /en/path/to/page -> /fr/path/to/page ) 🔄
 			const url = new URL(window.location.href)
@@ -54,6 +71,7 @@ export default function LanguageSelector({ currentLocale = 'en' }: LanguageSelec
 			window.location.reload()
 		} catch (error) {
 			console.error('Error changing language:', error)
+			setIsUpdating(false)
 		}
 	}
 
@@ -78,8 +96,9 @@ export default function LanguageSelector({ currentLocale = 'en' }: LanguageSelec
 				aria-expanded={isOpen}
 				aria-haspopup="true"
 				aria-label="Select language"
-				className="flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+				className="flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
 				onClick={() => setIsOpen(!isOpen)}
+				disabled={isUpdating}
 			>
 				<span className="flex items-center gap-1">
 					<span>{currentLanguage.flag}</span>
@@ -93,18 +112,19 @@ export default function LanguageSelector({ currentLocale = 'en' }: LanguageSelec
 					<div className="py-1">
 						{languages.map(language => (
 							<button
-								className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 ${
+								className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-gray-700 ${
 									selectedLocale === language.code
 										? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300'
 										: 'text-gray-700 dark:text-gray-300'
 								}`}
 								key={language.code}
-								onClick={() => handleLanguageChange(language.code)}
+								onClick={() => void handleLanguageChange(language.code)}
+								disabled={isUpdating}
 							>
 								<span>{language.flag}</span>
 								<span>{language.name}</span>
 								{selectedLocale === language.code && (
-									<span className="ml-auto text-blue-600 dark:text-blue-400">✓</span>
+									<span className="ml-auto text-blue-600 dark:text-blue-400">{isUpdating ? '⏳' : '✓'}</span>
 								)}
 							</button>
 						))}

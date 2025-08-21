@@ -12,3 +12,12 @@ export async function updateUserProfile(userId: string, data: Partial<User>) {
 		throw error
 	}
 }
+
+export async function updateUserLocale(userId: string, locale: string) {
+	try {
+		return await updateUser(userId, { locale })
+	} catch (error) {
+		console.error('Error updating user locale:', error)
+		throw error
+	}
+}
