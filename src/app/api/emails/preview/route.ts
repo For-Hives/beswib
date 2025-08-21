@@ -4,7 +4,7 @@ import React from 'react'
 import { NextRequest, NextResponse } from 'next/server'
 
 import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
-import { BeswibEmailVerification, BeswibWelcomeEmail } from '@/components/emails'
+import { BeswibEmailVerification, BeswibWelcomeEmail, BeswibWaitlistConfirmation } from '@/components/emails'
 import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
 import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 
@@ -15,7 +15,9 @@ export async function GET(request: NextRequest) {
 	const firstName = searchParams.get('firstName') ?? 'Marie'
 	const sellerName = searchParams.get('sellerName') ?? 'Marie Dupont'
 	const buyerName = searchParams.get('buyerName') ?? 'Jean Martin'
+	const userName = searchParams.get('userName') ?? 'Jean Martin'
 	const eventName = searchParams.get('eventName') ?? 'Marathon de Paris 2024'
+	const eventId = searchParams.get('eventId') ?? 'event123'
 	const bibPrice = Number(searchParams.get('bibPrice')) || 150
 	const orderId = searchParams.get('orderId') ?? 'BW123456789'
 	const locale = searchParams.get('locale') ?? 'fr'
@@ -119,11 +121,24 @@ export async function GET(request: NextRequest) {
 					bibCategory: 'Marathon',
 				})
 				break
+			case 'waitlist-confirmation':
+				emailComponent = React.createElement(BeswibWaitlistConfirmation, {
+					userName,
+					eventName,
+					eventId,
+					eventDate: '14 avril 2024',
+					eventLocation: 'Paris, France',
+					eventDistance: '42.2 km',
+					bibCategory: 'Marathon',
+					createdAt: new Date().toLocaleDateString('fr-FR'),
+					locale,
+				})
+				break
 			default:
 				return NextResponse.json(
 					{
 						error:
-							'Template not found. Available: verification, welcome, sale-confirmation, purchase-confirmation, sale-alert',
+							'Template not found. Available: verification, welcome, sale-confirmation, purchase-confirmation, sale-alert, waitlist-confirmation',
 					},
 					{ status: 400 }
 				)

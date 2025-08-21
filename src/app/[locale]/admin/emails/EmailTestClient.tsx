@@ -27,11 +27,13 @@ export default function EmailTestClient() {
 	const [paypalCaptureId, setPaypalCaptureId] = useState('CAPTURE123456789')
 	const [platformRate, setPlatformRate] = useState(10) // Pourcentage (10% par défaut)
 	const [paypalRate, setPaypalRate] = useState(3.5) // Pourcentage (3.5% par défaut)
+	const [userName, setUserName] = useState('Jean Martin')
+	const [eventId, setEventId] = useState('event123')
 	const [locale, setLocale] = useState('fr')
 	const [isLoading, setIsLoading] = useState<string | null>(null)
 
 	const sendTestEmail = async (
-		template: 'verification' | 'welcome' | 'sale-confirmation' | 'purchase-confirmation' | 'sale-alert'
+		template: 'verification' | 'welcome' | 'sale-confirmation' | 'purchase-confirmation' | 'sale-alert' | 'waitlist-confirmation'
 	) => {
 		if (!email) {
 			toast.error('Veuillez saisir une adresse email')
@@ -77,6 +79,12 @@ export default function EmailTestClient() {
 				payload.bibCategory = bibCategory
 				payload.transactionId = transactionId
 				payload.paypalCaptureId = paypalCaptureId
+			} else if (template === 'waitlist-confirmation') {
+				payload.userName = userName
+				payload.eventName = eventName
+				payload.eventId = eventId
+				payload.eventDistance = eventDistance
+				payload.bibCategory = bibCategory
 			}
 
 			const response = await fetch('/api/emails/test', {
@@ -103,7 +111,7 @@ export default function EmailTestClient() {
 	}
 
 	const openPreview = (
-		template: 'verification' | 'welcome' | 'sale-confirmation' | 'purchase-confirmation' | 'sale-alert'
+		template: 'verification' | 'welcome' | 'sale-confirmation' | 'purchase-confirmation' | 'sale-alert' | 'waitlist-confirmation'
 	) => {
 		const params = new URLSearchParams({
 			template,
@@ -141,6 +149,13 @@ export default function EmailTestClient() {
 				buyerName,
 				buyerEmail,
 				bibPrice: bibPrice.toString(),
+				bibCategory,
+			}),
+			...(template === 'waitlist-confirmation' && {
+				userName,
+				eventName,
+				eventId,
+				eventDistance,
 				bibCategory,
 			}),
 		})
@@ -196,7 +211,7 @@ export default function EmailTestClient() {
 			</Card>
 
 			{/* Tests d'emails */}
-			<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+			<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
 				{/* Email de vérification */}
 				<Card>
 					<CardHeader>
@@ -250,6 +265,78 @@ export default function EmailTestClient() {
 								{isLoading === 'welcome' ? 'Envoi...' : 'Envoyer'}
 							</Button>
 							<Button variant="outline" onClick={() => openPreview('welcome')}>
+								Aperçu
+							</Button>
+						</div>
+					</CardContent>
+				</Card>
+
+				{/* Email de confirmation waitlist */}
+				<Card>
+					<CardHeader>
+						<CardTitle>Email de confirmation waitlist</CardTitle>
+						<CardDescription>Template de confirmation d'inscription à la liste d'attente</CardDescription>
+					</CardHeader>
+					<CardContent className="space-y-4">
+						<div>
+							<Label htmlFor="userName">Nom de l'utilisateur</Label>
+							<Input
+								id="userName"
+								placeholder="Jean Martin"
+								value={userName}
+								onChange={e => setUserName(e.target.value)}
+							/>
+						</div>
+
+						<div>
+							<Label htmlFor="eventNameWaitlist">Nom de l'événement</Label>
+							<Input
+								id="eventNameWaitlist"
+								placeholder="Marathon de Paris 2024"
+								value={eventName}
+								onChange={e => setEventName(e.target.value)}
+							/>
+						</div>
+
+						<div>
+							<Label htmlFor="eventId">ID de l'événement</Label>
+							<Input
+								id="eventId"
+								placeholder="event123"
+								value={eventId}
+								onChange={e => setEventId(e.target.value)}
+							/>
+						</div>
+
+						<div>
+							<Label htmlFor="eventDistanceWaitlist">Distance</Label>
+							<Input
+								id="eventDistanceWaitlist"
+								placeholder="42.2 km"
+								value={eventDistance}
+								onChange={e => setEventDistance(e.target.value)}
+							/>
+						</div>
+
+						<div>
+							<Label htmlFor="bibCategoryWaitlist">Catégorie</Label>
+							<Input
+								id="bibCategoryWaitlist"
+								placeholder="Marathon"
+								value={bibCategory}
+								onChange={e => setBibCategory(e.target.value)}
+							/>
+						</div>
+
+						<div className="flex gap-2">
+							<Button
+								onClick={() => void sendTestEmail('waitlist-confirmation')}
+								disabled={isLoading === 'waitlist-confirmation' || !email}
+								className="flex-1"
+							>
+								{isLoading === 'waitlist-confirmation' ? 'Envoi...' : 'Envoyer'}
+							</Button>
+							<Button variant="outline" onClick={() => openPreview('waitlist-confirmation')}>
 								Aperçu
 							</Button>
 						</div>
