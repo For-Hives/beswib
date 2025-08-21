@@ -33,17 +33,17 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 
 	// Helpers for translations with safe fallbacks
 	const txt = {
-		currencyEstimate: t.currencyEstimate ?? '~ {converted} ({currency})',
-		officialPrice: t.officialPrice ?? 'Official price',
-		originalPrice: t.originalPrice ?? 'Original price',
-		savePrefix: t.savePrefix ?? 'Save',
 		saveVs: t.saveVs ?? 'vs.',
-		official: t.official ?? 'official',
-		original: t.original ?? 'original',
+		savePrefix: t.savePrefix ?? 'Save',
 		price: t.price ?? 'price',
-		off: t.off ?? 'off',
 		originalSellerPrice: t.originalSellerPrice ?? 'Original seller price',
+		originalPrice: t.originalPrice ?? 'Original price',
+		original: t.original ?? 'original',
+		officialPrice: t.officialPrice ?? 'Official price',
 		officialEventPrice: t.officialEventPrice ?? 'Official event price',
+		official: t.official ?? 'official',
+		off: t.off ?? 'off',
+		currencyEstimate: t.currencyEstimate ?? '~ {converted} ({currency})',
 	}
 
 	// Should show currency conversion if we have a converted price and it's not EUR (original currency)
@@ -71,7 +71,7 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 
 	const referenceLabel = isComparingAgainstOfficial ? txt.officialPrice : txt.originalPrice
 
-	const savingsAmount = hasValidReference ? (referencePrice - bib.price) : 0
+	const savingsAmount = hasValidReference ? referencePrice - bib.price : 0
 	const savingsPercent = hasValidReference ? Math.round(((referencePrice - bib.price) / referencePrice) * 100) : 0
 
 	return (
@@ -93,9 +93,7 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 			{shouldShowConversion && !isLoading && convertedFormatted && (
 				<div className="mt-2">
 					<p className="text-muted-foreground text-xl">
-						{txt.currencyEstimate
-							.replace('{converted}', convertedFormatted)
-							.replace('{currency}', currencyName)}
+						{txt.currencyEstimate.replace('{converted}', convertedFormatted).replace('{currency}', currencyName)}
 					</p>
 				</div>
 			)}
@@ -105,8 +103,7 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 				<div className="mt-2">
 					<p className="text-sm font-medium text-green-400">
 						{txt.savePrefix} €{savingsAmount.toFixed(2)} {txt.saveVs}{' '}
-						{isComparingAgainstOfficial ? txt.official : txt.original} {txt.price}{' '}
-						({savingsPercent}% {txt.off})
+						{isComparingAgainstOfficial ? txt.official : txt.original} {txt.price} ({savingsPercent}% {txt.off})
 					</p>
 				</div>
 			)}
