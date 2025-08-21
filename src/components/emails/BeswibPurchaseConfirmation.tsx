@@ -73,18 +73,24 @@ export const BeswibPurchaseConfirmation = ({
 					<Preview>{t.emails.purchaseConfirmation.subject}</Preview>
 					<Container className="mx-auto max-w-[600px] px-4 py-8">
 						{/* Header avec logo */}
-						<Section className="mb-8">
+						<Section>
 							<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
 						</Section>
 
 						{/* Card principale */}
-						<Section className="bg-card border-border rounded-lg border px-8 pt-6 shadow-sm">
+						<Section className="bg-card border-border rounded-lg border px-8 py-6 shadow-sm">
 							{/* Icon et titre */}
 							<Section className="text-center">
 								<Heading className="text-foreground mb-2 text-2xl font-bold">
 									{t.emails.purchaseConfirmation.title}
 								</Heading>
 								<Text className="text-muted-foreground text-base">{t.emails.purchaseConfirmation.subtitle}</Text>
+							</Section>
+							{/* Message de félicitations */}
+							<Section className="text-start">
+								<Text className="text-muted-foreground text-base leading-relaxed">
+									{t.emails.purchaseConfirmation.congratulations.replace('{buyerName}', buyerName || '')}
+								</Text>
 							</Section>
 
 							{/* Informations de l'achat */}
@@ -159,13 +165,6 @@ export const BeswibPurchaseConfirmation = ({
 										<Text className="text-success text-base font-bold">{formatPrice(totalAmount)}</Text>
 									</Section>
 								</Section>
-							</Section>
-
-							{/* Message de félicitations */}
-							<Section className="mb-6 text-center">
-								<Text className="text-muted-foreground text-base leading-relaxed">
-									{t.emails.purchaseConfirmation.congratulations.replace('{buyerName}', buyerName || '')}
-								</Text>
 							</Section>
 
 							{/* Information sur le calcul des frais */}
