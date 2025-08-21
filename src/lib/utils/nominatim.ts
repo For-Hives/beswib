@@ -1,3 +1,5 @@
+import { NOMINATIM_API_URL } from '@/constants/api.constant'
+
 export interface NominatimAddress {
 	house_number?: string
 	road?: string
@@ -51,14 +53,11 @@ export async function searchAddresses(query: string): Promise<NominatimResult[]>
 
 	try {
 		const encodedQuery = encodeURIComponent(query.trim())
-		const response = await fetch(
-			`https://nominatim.openstreetmap.org/search?q=${encodedQuery}&format=json&addressdetails=1&limit=5`,
-			{
-				headers: {
-					'User-Agent': 'Beswib-App/1.0 (https://beswib.com)',
-				},
-			}
-		)
+		const response = await fetch(`${NOMINATIM_API_URL}?q=${encodedQuery}&format=json&addressdetails=1&limit=5`, {
+			headers: {
+				'User-Agent': 'Beswib-App/1.0 (https://beswib.com)',
+			},
+		})
 
 		if (!response.ok) {
 			console.warn('Nominatim API error:', response.status, response.statusText)
