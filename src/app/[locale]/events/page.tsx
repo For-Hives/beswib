@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
@@ -6,9 +7,38 @@ import type { Bib } from '@/models/bib.model'
 import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
 import { fetchApprovedPublicEventsWithBibs } from '@/services/event.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { getBaseMetadata } from '@/lib/seo/metadata'
 
 import EventListClient from './EventListClient'
 import eventsTranslations from './locales.json'
+
+// Métadonnées SEO dynamiques par langue
+export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
+	const { locale } = await params
+	const baseMetadata = getBaseMetadata(locale)
+	
+	// Personnaliser les métadonnées pour la page des événements
+	return {
+		...baseMetadata,
+		title: `Events - ${baseMetadata.title?.default || 'Beswib'}`,
+		description: `Discover all available race events. ${baseMetadata.description}`,
+		openGraph: {
+			...baseMetadata.openGraph,
+			title: `Events - ${baseMetadata.openGraph?.title || 'Beswib'}`,
+			description: `Discover all available race events. ${baseMetadata.openGraph?.description}`,
+			url: `https://beswib.com/${locale}/events`,
+		},
+		twitter: {
+			...baseMetadata.twitter,
+			title: `Events - ${baseMetadata.twitter?.title || 'Beswib'}`,
+			description: `Discover all available race events. ${baseMetadata.twitter?.description}`,
+		},
+		alternates: {
+			canonical: `https://beswib.com/${locale}/events`,
+			languages: baseMetadata.alternates?.languages || {},
+		},
+	}
+}
 
 export default async function EventsPage({ params }: { params: Promise<LocaleParams> }) {
 	const { locale } = await params
