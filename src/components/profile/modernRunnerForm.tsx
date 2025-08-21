@@ -398,15 +398,31 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 										form.setValue('address', components.street)
 									}
 
-									// Fill other fields if they're empty OR if they don't match what's already there
+									// Smart fill: only update other fields if they're empty or significantly different
+									const currentCity = form.getValues('city')?.trim() ?? ''
+									const currentPostalCode = form.getValues('postalCode')?.trim() ?? ''
+									const currentCountry = form.getValues('country')?.trim() ?? ''
+
+									// Fill city if empty or if it's very different from the suggested one
 									if (components.city && components.city.trim() !== '') {
-										form.setValue('city', components.city)
+										const suggestedCity = components.city.trim()
+										if (!currentCity?.toLowerCase().includes(suggestedCity.toLowerCase())) {
+											form.setValue('city', suggestedCity)
+										}
 									}
+
+									// Fill postal code if empty or different
 									if (components.postalCode && components.postalCode.trim() !== '') {
-										form.setValue('postalCode', components.postalCode)
+										if (!currentPostalCode || currentPostalCode !== components.postalCode.trim()) {
+											form.setValue('postalCode', components.postalCode)
+										}
 									}
+
+									// Fill country if empty or different
 									if (components.country && components.country.trim() !== '') {
-										form.setValue('country', components.country)
+										if (!currentCountry || currentCountry !== components.country.trim()) {
+											form.setValue('country', components.country)
+										}
 									}
 								}}
 							/>

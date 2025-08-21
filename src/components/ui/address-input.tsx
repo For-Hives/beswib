@@ -51,17 +51,18 @@ export const AddressInput = forwardRef<HTMLInputElement, AddressInputProps>(
 			isLoading,
 			hideSuggestions,
 		} = useAddressAutocomplete({
+			minWords: 3, // Require at least 3 words for better address matching
 			minLength: 3,
 			maxResults: 5,
 			debounceMs: 1000,
 		})
 
-		// Sync with external value
+		// Sync with external value - but avoid triggering if we just set it ourselves
 		useEffect(() => {
 			if (value !== query) {
 				setQuery(value)
 			}
-		}, [value, query, setQuery])
+		}, [value, setQuery]) // Remove query from deps to avoid circular updates
 
 		// Check if other address fields are already completed
 		const areOtherFieldsComplete = () => {
@@ -114,8 +115,10 @@ export const AddressInput = forwardRef<HTMLInputElement, AddressInputProps>(
 
 			// Use the extracted street address instead of the full display name
 			const streetAddress = components.street || formatAddressDisplay(suggestion)
-			onChange(streetAddress)
+
+			// Update both query and parent value in a controlled way to avoid race conditions
 			setQuery(streetAddress)
+			onChange(streetAddress)
 
 			// Notify parent component with structured data
 			onAddressSelect?.(components)
