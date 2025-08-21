@@ -1,16 +1,4 @@
-import {
-	Body,
-	Container,
-	Head,
-	Heading,
-	Html,
-	Img,
-	Link,
-	Preview,
-	Section,
-	Text,
-	Tailwind,
-} from '@react-email/components'
+import { Body, Container, Head, Heading, Html, Img, Preview, Section, Text, Tailwind } from '@react-email/components'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
@@ -46,24 +34,16 @@ export const BeswibSaleAlert = ({
 	sellerName = 'Marie Dupont',
 	sellerEmail = 'marie@example.com',
 	saleTimestamp = new Date().toLocaleString('fr-FR'),
-	platformFee = 15,
-	paypalFee = 5.5,
 	paypalCaptureId = 'CAPTURE123',
 	orderId = 'BW123456789',
 	netRevenue = 135,
 	locale = 'fr',
-	eventName = 'Marathon de Paris 2024',
-	eventLocation = 'Paris, France',
-	eventDistance = '42.2 km',
-	eventDate = '14 avril 2024',
 	buyerName = 'Jean Martin',
 	buyerEmail = 'jean@example.com',
 	bibPrice = 150,
-	bibCategory = 'Marathon',
 }: BeswibSaleAlertProps) => {
 	const t = getTranslations(locale, constantsLocales)
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
-	const conversionRate = bibPrice > 0 ? ((platformFee / bibPrice) * 100).toFixed(1) : '0.0'
 
 	return (
 		<Html>
