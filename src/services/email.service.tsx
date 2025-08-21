@@ -366,33 +366,11 @@ export async function sendWaitlistAlertEmail(
 		return { sent: 0, failed: 0 }
 	}
 
-	const getLocalizedSubject = (locale: string) => {
-		const eventName = params.eventName ?? 'votre événement'
-		switch (locale) {
-			case 'en':
-				return `🎯 Bib available for ${eventName}!`
-			case 'es':
-				return `🎯 ¡Dorsal disponible para ${eventName}!`
-			case 'it':
-				return `🎯 Pettorale disponibile per ${eventName}!`
-			case 'de':
-				return `🎯 Startnummer verfügbar für ${eventName}!`
-			case 'pt':
-				return `🎯 Dorsal disponível para ${eventName}!`
-			case 'nl':
-				return `🎯 Startnummer beschikbaar voor ${eventName}!`
-			case 'ko':
-				return `🎯 ${eventName} 레이스 번호 이용 가능!`
-			case 'ro':
-				return `🎯 Număr de concurs disponibil pentru ${eventName}!`
-			default:
-				return `🎯 Dossard disponible pour ${eventName} !`
-		}
-	}
+	const subject = getLocalizedSubject('waitlistAlert', params.locale ?? 'fr', { eventName: params.eventName })
 
 	return sendBatchEmails(
 		emails,
-		getLocalizedSubject(params.locale ?? 'fr'),
+		subject,
 		<BeswibWaitlistAlert
 			eventName={params.eventName}
 			eventId={params.eventId}
@@ -532,32 +510,11 @@ export async function sendBibApprovalEmail({
 	bibPrice,
 	bibCategory,
 }: BibApprovalParams): Promise<boolean> {
-	const getLocalizedSubject = (locale: string) => {
-		switch (locale) {
-			case 'en':
-				return 'Congratulations! Your bib has been approved 🎉'
-			case 'es':
-				return '¡Felicidades! Tu dorsal ha sido aprobado 🎉'
-			case 'it':
-				return 'Congratulazioni! Il tuo pettorale è stato approvato 🎉'
-			case 'de':
-				return 'Glückwunsch! Ihre Startnummer wurde genehmigt 🎉'
-			case 'pt':
-				return 'Parabéns! O seu dorsal foi aprovado 🎉'
-			case 'nl':
-				return 'Gefeliciteerd! Uw startnummer is goedgekeurd 🎉'
-			case 'ko':
-				return '축하합니다! 레이스 번호가 승인되었습니다 🎉'
-			case 'ro':
-				return 'Felicitări! Numărul tău de concurs a fost aprobat 🎉'
-			default:
-				return 'Félicitations ! Votre dossard a été approuvé 🎉'
-		}
-	}
+	const subject = getLocalizedSubject('bibApproval', locale)
 
 	return sendEmail({
 		to: sellerEmail,
-		subject: getLocalizedSubject(locale),
+		subject,
 		react: (
 			<BeswibBibApproval
 				sellerName={sellerName}
@@ -604,32 +561,11 @@ export async function sendPurchaseApprovalEmail({
 	bibPrice,
 	bibCategory,
 }: PurchaseApprovalParams): Promise<boolean> {
-	const getLocalizedSubject = (locale: string) => {
-		switch (locale) {
-			case 'en':
-				return 'All set! Your purchase has been validated 🎉'
-			case 'es':
-				return '¡Todo listo! Tu compra ha sido validada 🎉'
-			case 'it':
-				return 'Tutto a posto! Il tuo acquisto è stato validato 🎉'
-			case 'de':
-				return 'Alles bereit! Ihr Kauf wurde validiert 🎉'
-			case 'pt':
-				return 'Tudo pronto! A sua compra foi validada 🎉'
-			case 'nl':
-				return 'Alles klaar! Uw aankoop is gevalideerd 🎉'
-			case 'ko':
-				return '모든 준비 완료! 구매가 확인되었습니다 🎉'
-			case 'ro':
-				return 'Totul este gata! Achiziția ta a fost validată 🎉'
-			default:
-				return 'Tout est en ordre ! Votre achat a été validé 🎉'
-		}
-	}
+	const subject = getLocalizedSubject('purchaseApproval', locale)
 
 	return sendEmail({
 		to: buyerEmail,
-		subject: getLocalizedSubject(locale),
+		subject,
 		react: (
 			<BeswibPurchaseApproval
 				buyerName={buyerName}
