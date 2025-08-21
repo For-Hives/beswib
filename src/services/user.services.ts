@@ -28,6 +28,7 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 		paypalMerchantId: record.paypalMerchantId,
 		paypal_kyc: record.paypal_kyc === true,
 		medicalCertificateUrl: record.medicalCertificateUrl,
+		locale: record.locale,
 		licenseNumber: record.licenseNumber,
 		lastName: record.lastName,
 		id: record.id,
@@ -149,6 +150,23 @@ export async function getUserData(userId: string): Promise<null | User> {
 	} catch (error) {
 		console.error('Error fetching user data:', error)
 		return null
+	}
+}
+
+/**
+ * Get user locale by email address, fallback to 'fr' if not found or no locale set
+ */
+export async function getUserLocaleByEmail(email: string): Promise<string> {
+	if (!email || email.trim() === '') {
+		return 'fr' // Default locale
+	}
+
+	try {
+		const user = await fetchUserByEmail(email.trim())
+		return user?.locale ?? 'fr' // Fallback to 'fr' if no locale set
+	} catch (error) {
+		console.warn('Failed to get user locale by email:', error)
+		return 'fr' // Fallback to 'fr' on error
 	}
 }
 

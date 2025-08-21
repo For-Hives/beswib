@@ -10,6 +10,7 @@ export interface User {
 	contactEmail: null | string
 	firstName: null | string
 	lastName: null | string
+	locale: null | string
 
 	birthDate: null | string | Date
 	phoneNumber: null | string
@@ -43,6 +44,7 @@ export interface PbUserRecordMinimal {
 	contactEmail: string | null
 	firstName: string | null
 	lastName: string | null
+	locale: string | null
 	birthDate: string | Date | null
 	phoneNumber: string | null
 	emergencyContactName: string | null

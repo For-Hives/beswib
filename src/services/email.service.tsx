@@ -5,12 +5,14 @@ import { render } from '@react-email/components'
 import { Resend } from 'resend'
 
 import { BeswibEmailVerification, BeswibWelcomeEmail, BeswibWaitlistConfirmation } from '@/components/emails'
+import { getLocalizedEmailSubject, getSafeLocale } from '@/lib/utils/email-localization'
 import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
 import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
 import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
 import BeswibWaitlistAlert from '@/components/emails/BeswibWaitlistAlert'
 import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
 import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
+import { getUserLocaleByEmail } from '@/services/user.services'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -24,56 +26,15 @@ interface SendEmailParams {
 }
 
 /**
- * Helper function to get localized email subjects from locales
+ * Helper function to automatically detect user locale and get localized subject
  */
-function getLocalizedSubject(
+async function getLocalizedSubjectForUser(
 	template: string,
-	locale: string,
+	email: string,
 	params: Record<string, string | number | undefined> = {}
-): string {
-	// For now, use a simple approach to avoid TypeScript complexity
-	// We'll implement the full translation system in a future iteration
-	switch (template) {
-		case 'verifiedEmail':
-			return locale === 'fr' ? '🔐 Confirmez votre adresse email - Beswib' : '🔐 Verify your email address - Beswib'
-		case 'welcome':
-			const firstName = params.firstName ?? ''
-			return locale === 'fr'
-				? `Bienvenue sur Beswib${firstName !== '' ? `, ${firstName}` : ''} ! 🏃‍♂️`
-				: `Welcome to Beswib${firstName !== '' ? `, ${firstName}` : ''} ! 🏃‍♂️`
-		case 'waitlistConfirmation':
-			const eventName = params.eventName ?? (locale === 'fr' ? 'votre événement' : 'your event')
-			return locale === 'fr'
-				? `🎯 Inscription en liste d'attente confirmée - ${eventName}`
-				: `🎯 Waitlist registration confirmed - ${eventName}`
-		case 'saleConfirmation':
-			return locale === 'fr'
-				? 'Félicitations ! Votre dossard a été vendu 💰'
-				: 'Congratulations! Your bib has been sold 💰'
-		case 'purchaseConfirmation':
-			return locale === 'fr'
-				? 'Félicitations ! Votre achat a été confirmé 🏃‍♂️'
-				: 'Congratulations! Your purchase has been confirmed 🏃‍♂️'
-		case 'saleAlert':
-			const eventNameAlert = params.eventName ?? 'Event'
-			const bibPrice = params.bibPrice ?? 0
-			return `🚨 ${locale === 'fr' ? 'Alerte Nouvelle Vente' : 'New Sale Alert'} - ${eventNameAlert} • ${bibPrice}€`
-		case 'waitlistAlert':
-			const eventNameWaitlist = params.eventName ?? (locale === 'fr' ? 'votre événement' : 'your event')
-			return locale === 'fr'
-				? `🎯 Dossard disponible pour ${eventNameWaitlist} !`
-				: `🎯 Bib available for ${eventNameWaitlist}!`
-		case 'bibApproval':
-			return locale === 'fr'
-				? 'Félicitations ! Votre dossard a été approuvé 🎉'
-				: 'Congratulations! Your bib has been approved 🎉'
-		case 'purchaseApproval':
-			return locale === 'fr'
-				? 'Tout est en ordre ! Votre achat a été validé 🎉'
-				: 'All set! Your purchase has been validated 🎉'
-		default:
-			return 'Beswib Email'
-	}
+): Promise<string> {
+	const userLocale = await getUserLocaleByEmail(email)
+	return getLocalizedEmailSubject(template, userLocale, params)
 }
 
 /**
@@ -128,27 +89,33 @@ async function sendEmail({ to, text, subject, react, html, from }: SendEmailPara
 export async function sendVerificationEmail(
 	email: string,
 	verificationCode: string,
-	locale: string = 'fr'
+	locale?: string
 ): Promise<boolean> {
-	const subject = getLocalizedSubject('verifiedEmail', locale)
+	// Auto-detect user locale if not provided
+	const userLocale = locale ?? (await getUserLocaleByEmail(email))
+	const safeLocale = getSafeLocale(userLocale)
+	const subject = await getLocalizedSubjectForUser('verifiedEmail', email)
 
 	return sendEmail({
 		to: email,
 		subject,
-		react: <BeswibEmailVerification validationCode={verificationCode} locale={locale} />,
+		react: <BeswibEmailVerification validationCode={verificationCode} locale={safeLocale} />,
 	})
 }
 
 /**
  * Sends a welcome email using the React Email template
  */
-export async function sendWelcomeEmail(email: string, firstName?: string, locale: string = 'fr'): Promise<boolean> {
-	const subject = getLocalizedSubject('welcome', locale, { firstName })
+export async function sendWelcomeEmail(email: string, firstName?: string, locale?: string): Promise<boolean> {
+	// Auto-detect user locale if not provided
+	const userLocale = locale ?? (await getUserLocaleByEmail(email))
+	const safeLocale = getSafeLocale(userLocale)
+	const subject = await getLocalizedSubjectForUser('welcome', email, { firstName })
 
 	return sendEmail({
 		to: email,
 		subject,
-		react: <BeswibWelcomeEmail firstName={firstName} locale={locale} />,
+		react: <BeswibWelcomeEmail firstName={firstName} locale={safeLocale} />,
 	})
 }
 
@@ -162,9 +129,12 @@ export async function sendWaitlistConfirmationEmail(
 	eventId?: string,
 	eventDistance?: string,
 	bibCategory?: string,
-	locale: string = 'fr'
+	locale?: string
 ): Promise<boolean> {
-	const subject = getLocalizedSubject('waitlistConfirmation', locale, { eventName })
+	// Auto-detect user locale if not provided
+	const userLocale = locale ?? (await getUserLocaleByEmail(email))
+	const safeLocale = getSafeLocale(userLocale)
+	const subject = await getLocalizedSubjectForUser('waitlistConfirmation', email, { eventName })
 
 	return sendEmail({
 		to: email,
@@ -178,8 +148,8 @@ export async function sendWaitlistConfirmationEmail(
 				eventLocation="Paris, France"
 				eventDistance={eventDistance}
 				bibCategory={bibCategory}
-				createdAt={new Date().toLocaleDateString('fr-FR')}
-				locale={locale}
+				createdAt={new Date().toLocaleDateString(safeLocale === 'fr' ? 'fr-FR' : 'en-US')}
+				locale={safeLocale}
 			/>
 		),
 	})
@@ -210,14 +180,17 @@ export async function sendSaleConfirmationEmail({
 	platformFee,
 	paypalFee,
 	orderId,
-	locale = 'fr',
+	locale,
 	eventName,
 	eventLocation,
 	eventDate,
 	buyerName,
 	bibPrice,
 }: SaleConfirmationParams): Promise<boolean> {
-	const subject = getLocalizedSubject('saleConfirmation', locale)
+	// Auto-detect user locale if not provided
+	const userLocale = locale ?? (await getUserLocaleByEmail(sellerEmail))
+	const safeLocale = getSafeLocale(userLocale)
+	const subject = await getLocalizedSubjectForUser('saleConfirmation', sellerEmail)
 
 	return sendEmail({
 		to: sellerEmail,
@@ -234,7 +207,7 @@ export async function sendSaleConfirmationEmail({
 				orderId={orderId}
 				eventDate={eventDate}
 				eventLocation={eventLocation}
-				locale={locale}
+				locale={safeLocale}
 			/>
 		),
 	})
@@ -264,7 +237,7 @@ export async function sendPurchaseConfirmationEmail({
 	platformFee,
 	paypalFee,
 	orderId,
-	locale = 'fr',
+	locale,
 	listingPrice,
 	eventName,
 	eventLocation,
@@ -274,7 +247,10 @@ export async function sendPurchaseConfirmationEmail({
 	buyerEmail,
 	bibCategory,
 }: PurchaseConfirmationParams): Promise<boolean> {
-	const subject = getLocalizedSubject('purchaseConfirmation', locale)
+	// Auto-detect user locale if not provided
+	const userLocale = locale ?? (await getUserLocaleByEmail(buyerEmail))
+	const safeLocale = getSafeLocale(userLocale)
+	const subject = await getLocalizedSubjectForUser('purchaseConfirmation', buyerEmail)
 
 	return sendEmail({
 		to: buyerEmail,
@@ -292,7 +268,7 @@ export async function sendPurchaseConfirmationEmail({
 				eventLocation={eventLocation}
 				eventDistance={eventDistance}
 				bibCategory={bibCategory}
-				locale={locale}
+				locale={safeLocale}
 			/>
 		),
 	})
@@ -333,7 +309,10 @@ export async function sendSaleAlertEmail(params: SaleAlertParams): Promise<boole
 		return false
 	}
 
-	const subject = getLocalizedSubject('saleAlert', params.locale ?? 'fr', {
+	// Use French as default for admin emails, but allow override
+	const locale = params.locale ?? 'fr'
+	const safeLocale = getSafeLocale(locale)
+	const subject = getLocalizedEmailSubject('saleAlert', safeLocale, {
 		eventName: params.eventName,
 		bibPrice: params.bibPrice,
 	})
@@ -388,7 +367,11 @@ export async function sendWaitlistAlertEmail(
 		return { sent: 0, failed: 0 }
 	}
 
-	const subject = getLocalizedSubject('waitlistAlert', params.locale ?? 'fr', { eventName: params.eventName })
+	// For batch emails, we'll use a default locale or the provided one
+	// In the future, we could optimize by grouping emails by user locale
+	const locale = params.locale ?? 'fr'
+	const safeLocale = getSafeLocale(locale)
+	const subject = getLocalizedEmailSubject('waitlistAlert', safeLocale, { eventName: params.eventName })
 
 	return sendBatchEmails(
 		emails,
@@ -403,7 +386,7 @@ export async function sendWaitlistAlertEmail(
 			bibCategory={params.bibCategory}
 			sellerName={params.sellerName}
 			timeRemaining={params.timeRemaining}
-			locale={params.locale}
+			locale={safeLocale}
 		/>
 	)
 }
@@ -524,7 +507,7 @@ export async function sendBibApprovalEmail({
 	sellerName,
 	sellerEmail,
 	organizerName,
-	locale = 'fr',
+	locale,
 	eventName,
 	eventLocation,
 	eventDistance,
@@ -532,7 +515,10 @@ export async function sendBibApprovalEmail({
 	bibPrice,
 	bibCategory,
 }: BibApprovalParams): Promise<boolean> {
-	const subject = getLocalizedSubject('bibApproval', locale)
+	// Auto-detect user locale if not provided
+	const userLocale = locale ?? (await getUserLocaleByEmail(sellerEmail))
+	const safeLocale = getSafeLocale(userLocale)
+	const subject = await getLocalizedSubjectForUser('bibApproval', sellerEmail)
 
 	return sendEmail({
 		to: sellerEmail,
@@ -547,7 +533,7 @@ export async function sendBibApprovalEmail({
 				eventDistance={eventDistance}
 				bibCategory={bibCategory}
 				organizerName={organizerName}
-				locale={locale}
+				locale={safeLocale}
 			/>
 		),
 	})
