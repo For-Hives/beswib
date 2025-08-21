@@ -1,5 +1,9 @@
+import * as React from 'react'
+
 import { ImageResponse } from 'next/og'
 import { headers } from 'next/headers'
+import { readFileSync } from 'fs'
+import { join } from 'path'
 
 import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
@@ -42,12 +46,17 @@ export default async function Image({ params }: { params: Promise<LocaleParams &
 				<OGImage
 					title="Dossard introuvable"
 					secondary="Aucun événement lié"
-					host="localhost"
-					protocol="http"
 					size={size}
 					bib={null}
-					bibsale={null}
 					locale={locale}
+					bibEventName="Événement inconnu"
+					bibPrice={0}
+					bibEventDistance={0}
+					bibEventLocation="Lieu inconnu"
+					bibSeller="inconnu"
+					bibEventDate={new Date()}
+					bibEventParticipants={0}
+					discount={0}
 				/>
 			),
 			size
@@ -58,31 +67,89 @@ export default async function Image({ params }: { params: Promise<LocaleParams &
 	const bibsales: BibSale[] = transformBibsToBibSales([bib])
 	const bibsale = bibsales[0] ?? null
 
+	const bibEventName = bibsale.event.name
+	const bibPrice = bibsale.price
+	const bibEventDistance = bibsale.event.distance
+	const bibEventLocation = bibsale.event.location
+	const bibSeller = bibsale.user.firstName
+	const bibEventDate = bibsale.event.date
+	const bibEventParticipants = bibsale.event.participantCount
+	// if bibsale.originalPrice is defined and greater than bibsale.price, calculate the discount
+	let discount = 0
+	if (bibsale.originalPrice && bibsale.price < bibsale.originalPrice) {
+		// Calculate the percentage discount
+		discount = Math.round(((bibsale.originalPrice - bibsale.price) / bibsale.originalPrice) * 100)
+	}
+
 	// Build the OG title and secondary text
 	const ogTitle = bib.expand.eventId.name
 	const ogSecondary = `${bib.price}€ • ${bib.expand.eventId.distanceKm ?? 0} km • ${bib.expand.eventId.location}`
 
-	// Build host and protocol for the OG image
-	const requestHeaders = await headers()
-	const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? 'localhost:3000'
-	const xfProto = requestHeaders.get('x-forwarded-proto')
-	const isLocal = host?.startsWith('localhost') || host?.startsWith('127.0.0.1')
-	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
+	try {
+		// Load custom fonts from the filesystem
+		const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/BowlbyOneSC-Regular.ttf'))
+		const geistFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/Geist-Regular.ttf'))
 
-	// Return the OG image with all props
-	return new ImageResponse(
-		(
-			<OGImage
-				title={ogTitle}
-				secondary={ogSecondary}
-				bib={bib}
-				bibsale={bibsale}
-				locale={locale}
-				host={host}
-				protocol={protocol}
-				size={size}
-			/>
-		),
-		size
-	)
+		// Return the Open Graph image with custom fonts
+		return new ImageResponse(
+			(
+				<OGImage
+					title={ogTitle}
+					secondary={ogSecondary}
+					bib={bib}
+					locale={locale}
+					size={size}
+					bibEventName={bibEventName}
+					bibPrice={bibPrice}
+					bibEventDistance={bibEventDistance}
+					bibEventLocation={bibEventLocation}
+					bibSeller={bibSeller}
+					bibEventDate={bibEventDate}
+					bibEventParticipants={bibEventParticipants}
+					discount={discount}
+				/>
+			),
+			{
+				...size,
+				fonts: [
+					{
+						weight: 400,
+						style: 'normal',
+						name: 'BowlbyOneSC',
+						data: bowlbyFont,
+					},
+					{
+						weight: 400,
+						style: 'normal',
+						name: 'Geist',
+						data: geistFont,
+					},
+				],
+			}
+		)
+	} catch (error) {
+		// Log error if font loading fails
+		console.error('Error loading fonts:', error)
+		// Fallback: return the image without custom fonts
+		return new ImageResponse(
+			(
+				<OGImage
+					title={ogTitle}
+					secondary={ogSecondary}
+					bib={bib}
+					locale={locale}
+					size={size}
+					bibEventName={bibEventName}
+					bibPrice={bibPrice}
+					bibEventDistance={bibEventDistance}
+					bibEventLocation={bibEventLocation}
+					bibSeller={bibSeller}
+					bibEventDate={bibEventDate}
+					bibEventParticipants={bibEventParticipants}
+					discount={discount}
+				/>
+			),
+			size
+		)
+	}
 }
