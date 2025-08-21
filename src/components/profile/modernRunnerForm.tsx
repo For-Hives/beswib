@@ -15,6 +15,7 @@ import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import { isUserProfileComplete } from '@/lib/validation/user'
 import { formatDateForHTMLInput } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { AddressInput } from '@/components/ui/address-input'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -379,12 +380,35 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="address">
 								{t.street ?? 'Street Address'} *
 							</Label>
-							<Input
-								{...form.register('address')}
+							<AddressInput
 								className={form.formState.errors.address ? 'border-red-500' : ''}
 								id="address"
 								placeholder="123 Main Street"
-								type="text"
+								value={form.watch('address')}
+								onChange={value => form.setValue('address', value)}
+								otherFields={{
+									city: form.watch('city'),
+									country: form.watch('country'),
+									postalCode: form.watch('postalCode'),
+								}}
+								onAddressSelect={components => {
+									// Auto-fill ALL fields when user selects an address
+									// Always fill street address (this is the main input)
+									if (components.street && components.street.trim() !== '') {
+										form.setValue('address', components.street)
+									}
+
+									// Fill other fields if they're empty OR if they don't match what's already there
+									if (components.city && components.city.trim() !== '') {
+										form.setValue('city', components.city)
+									}
+									if (components.postalCode && components.postalCode.trim() !== '') {
+										form.setValue('postalCode', components.postalCode)
+									}
+									if (components.country && components.country.trim() !== '') {
+										form.setValue('country', components.country)
+									}
+								}}
 							/>
 							{form.formState.errors.address && (
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">{form.formState.errors.address.message}</p>
