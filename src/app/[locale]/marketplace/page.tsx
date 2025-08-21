@@ -14,12 +14,14 @@ import MarketplaceClient from '@/components/marketplace/MarketplaceClient'
 import { generateLocaleParams } from '@/lib/generation/staticParams'
 import { transformBibsToBibSales } from '@/lib/transformers/bib'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { getMarketplaceMetadata } from '@/lib/seo/metadata'
 
 import marketplaceTranslations from './locales.json'
 
-export const metadata: Metadata = {
-	title: 'Marketplace | Beswib',
-	description: 'Browse and buy race bibs from our marketplace.',
+// Métadonnées SEO dynamiques par langue
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+	const { locale } = await params
+	return getMarketplaceMetadata(locale)
 }
 
 export function generateStaticParams() {

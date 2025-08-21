@@ -22,6 +22,9 @@ import { fetchEventById } from '@/services/event.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { pbDateToLuxon } from '@/lib/utils/date'
 import { Locale } from '@/lib/i18n/config'
+import { getEventMetadata } from '@/lib/seo/metadata'
+import EventSchema from '@/components/seo/EventSchema'
+import { EventBreadcrumbs } from '@/components/seo/Breadcrumbs'
 
 import eventTranslations from './locales.json'
 
@@ -114,13 +117,22 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 	}
 
 	return (
-		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
-			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+		<>
+			{/* Schema.org pour le SEO */}
+			<EventSchema event={event} locale={locale} />
+			
+			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
+				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
-			<WaitlistNotifications eventId={eventId} eventName={event.name} locale={locale} />
+				<WaitlistNotifications eventId={eventId} eventName={event.name} locale={locale} />
 
 			<div className="relative pt-12 pb-12">
 				<div className="container mx-auto max-w-6xl p-6">
+					{/* Breadcrumbs */}
+					<div className="mb-6">
+						<EventBreadcrumbs eventName={event.name} locale={locale} />
+					</div>
+					
 					{/* Page Header */}
 					<div className="mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
 						<div className="text-center sm:text-left">
@@ -333,16 +345,23 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 				</div>
 			</div>
 		</div>
+		</>
 	)
 }
 
 export async function generateMetadata({ params }: EventDetailPageProps): Promise<Metadata> {
-	const { id } = await params
+	const { id, locale } = await params
 	const event = await fetchEventById(id)
-	return {
-		title: event ? `${event.name} | Event Details` : 'Event Not Found',
-		description: event?.description ?? 'Details for the event.',
+	
+	if (!event) {
+		return {
+			title: 'Event Not Found',
+			description: 'The requested event could not be found.',
+		}
 	}
+	
+	// Utiliser les métadonnées SEO spécialisées pour les événements
+	return getEventMetadata(locale, event)
 }
 
 // Generate static params for all locales
