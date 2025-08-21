@@ -186,9 +186,9 @@ export default function CustomSignUp() {
 		try {
 			const result = await signUp.create({
 				password: formData.password,
+				lastName: formData.lastName,
+				firstName: formData.firstName,
 				emailAddress: formData.email,
-				// firstName: formData.firstName,  // Disabled until enabled in Clerk Dashboard
-				// lastName: formData.lastName,   // Disabled until enabled in Clerk Dashboard
 			})
 
 			// Handle different signup statuses
