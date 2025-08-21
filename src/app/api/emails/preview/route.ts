@@ -7,6 +7,7 @@ import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfir
 import { BeswibEmailVerification, BeswibWelcomeEmail, BeswibWaitlistConfirmation } from '@/components/emails'
 import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
 import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
+import BeswibWaitlistAlert from '@/components/emails/BeswibWaitlistAlert'
 
 export async function GET(request: NextRequest) {
 	const { searchParams } = new URL(request.url)
@@ -21,6 +22,8 @@ export async function GET(request: NextRequest) {
 	const bibPrice = Number(searchParams.get('bibPrice')) || 150
 	const orderId = searchParams.get('orderId') ?? 'BW123456789'
 	const locale = searchParams.get('locale') ?? 'fr'
+	const timeRemaining = searchParams.get('timeRemaining') ?? '2 jours'
+	const listingId = searchParams.get('listingId') ?? 'listing123'
 
 	// Paramètres optionnels pour personnaliser les frais
 	const customPlatformRate = Number(searchParams.get('platformRate')) || 0.1 // Default 10%
@@ -134,11 +137,26 @@ export async function GET(request: NextRequest) {
 					locale,
 				})
 				break
+			case 'waitlist-alert':
+				emailComponent = React.createElement(BeswibWaitlistAlert, {
+					eventName,
+					eventId,
+					bibPrice,
+					eventDate: '14 avril 2024',
+					eventLocation: 'Paris, France',
+					eventDistance: '42.2 km',
+					bibCategory: 'Marathon',
+					sellerName,
+					timeRemaining,
+					listingId,
+					locale,
+				})
+				break
 			default:
 				return NextResponse.json(
 					{
 						error:
-							'Template not found. Available: verification, welcome, sale-confirmation, purchase-confirmation, sale-alert, waitlist-confirmation',
+							'Template not found. Available: verification, welcome, sale-confirmation, purchase-confirmation, sale-alert, waitlist-confirmation, waitlist-alert',
 					},
 					{ status: 400 }
 				)

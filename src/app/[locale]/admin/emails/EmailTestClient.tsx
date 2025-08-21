@@ -29,6 +29,8 @@ export default function EmailTestClient() {
 	const [paypalRate, setPaypalRate] = useState(3.5) // Pourcentage (3.5% par défaut)
 	const [userName, setUserName] = useState('Jean Martin')
 	const [eventId, setEventId] = useState('event123')
+	const [timeRemaining, setTimeRemaining] = useState('2 jours')
+	const [listingId, setListingId] = useState('listing123')
 	const [locale, setLocale] = useState('fr')
 	const [isLoading, setIsLoading] = useState<string | null>(null)
 
@@ -40,6 +42,7 @@ export default function EmailTestClient() {
 			| 'purchase-confirmation'
 			| 'sale-alert'
 			| 'waitlist-confirmation'
+			| 'waitlist-alert'
 	) => {
 		if (!email) {
 			toast.error('Veuillez saisir une adresse email')
@@ -91,6 +94,15 @@ export default function EmailTestClient() {
 				payload.eventId = eventId
 				payload.eventDistance = eventDistance
 				payload.bibCategory = bibCategory
+			} else if (template === 'waitlist-alert') {
+				payload.eventName = eventName
+				payload.eventId = eventId
+				payload.bibPrice = bibPrice.toString()
+				payload.sellerName = sellerName
+				payload.timeRemaining = timeRemaining
+				payload.listingId = listingId
+				payload.eventDistance = eventDistance
+				payload.bibCategory = bibCategory
 			}
 
 			const response = await fetch('/api/emails/test', {
@@ -124,6 +136,7 @@ export default function EmailTestClient() {
 			| 'purchase-confirmation'
 			| 'sale-alert'
 			| 'waitlist-confirmation'
+			| 'waitlist-alert'
 	) => {
 		const params = new URLSearchParams({
 			template,
@@ -167,6 +180,16 @@ export default function EmailTestClient() {
 				userName,
 				eventName,
 				eventId,
+				eventDistance,
+				bibCategory,
+			}),
+			...(template === 'waitlist-alert' && {
+				eventName,
+				eventId,
+				bibPrice: bibPrice.toString(),
+				sellerName,
+				timeRemaining,
+				listingId,
 				eventDistance,
 				bibCategory,
 			}),
@@ -223,7 +246,7 @@ export default function EmailTestClient() {
 			</Card>
 
 			{/* Tests d'emails */}
-			<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+			<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{/* Email de vérification */}
 				<Card>
 					<CardHeader>
@@ -676,6 +699,48 @@ export default function EmailTestClient() {
 								{isLoading === 'sale-alert' ? 'Envoi...' : 'Envoyer'}
 							</Button>
 							<Button variant="outline" onClick={() => openPreview('sale-alert')}>
+								Aperçu
+							</Button>
+						</div>
+					</CardContent>
+				</Card>
+
+				{/* Email d'alerte de waitlist */}
+				<Card>
+					<CardHeader>
+						<CardTitle>Email d'alerte de waitlist</CardTitle>
+						<CardDescription>Template envoyé quand un dossard devient disponible</CardDescription>
+					</CardHeader>
+					<CardContent className="space-y-4">
+						<div>
+							<Label htmlFor="timeRemaining-alert">Temps restant</Label>
+							<Input
+								id="timeRemaining-alert"
+								placeholder="2 jours"
+								value={timeRemaining}
+								onChange={e => setTimeRemaining(e.target.value)}
+							/>
+						</div>
+
+						<div>
+							<Label htmlFor="listingId-alert">ID de l'annonce</Label>
+							<Input
+								id="listingId-alert"
+								placeholder="listing123"
+								value={listingId}
+								onChange={e => setListingId(e.target.value)}
+							/>
+						</div>
+
+						<div className="flex gap-2">
+							<Button
+								onClick={() => void sendTestEmail('waitlist-alert')}
+								disabled={isLoading === 'waitlist-alert' || !email}
+								className="flex-1"
+							>
+								{isLoading === 'waitlist-alert' ? 'Envoi...' : 'Envoyer'}
+							</Button>
+							<Button variant="outline" onClick={() => openPreview('waitlist-alert')}>
 								Aperçu
 							</Button>
 						</div>

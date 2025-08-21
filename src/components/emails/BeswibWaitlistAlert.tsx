@@ -102,150 +102,151 @@ export const BeswibWaitlistAlert = ({
 								</Section>
 							</Section>
 
-// 							{/* Détails de l'événement */}
-// 							<Section className="bg-muted border-border mb-6 rounded-lg border p-6">
-// 								<Heading className="text-foreground mb-4 text-lg font-semibold">
-// 									🏃‍♂️ {t.emails.waitlistAlert.eventDetails}
-// 								</Heading>
+							{/* Détails de l'événement */}
+							<Section className="bg-muted border-border mb-6 rounded-lg border p-6">
+								<Heading className="text-foreground mb-4 text-lg font-semibold">
+									🏃‍♂️ {t.emails.waitlistAlert.eventDetails}
+								</Heading>
 
-// 								<Section className="space-y-3">
-// 									<Section className="flex justify-between">
-// 										<Text className="text-muted-foreground text-sm font-medium">{t.emails.waitlistAlert.event}:</Text>
-// 										<Text className="text-foreground text-sm font-semibold">{eventName}</Text>
-// 									</Section>
+								<Section>
+									<Section className="flex justify-between">
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.waitlistAlert.event}:
+										</Text>
+										<Text className="text-foreground text-sm font-semibold">{eventName}</Text>
+									</Section>
 
-// 									<Section className="flex justify-between">
-// 										<Text className="text-muted-foreground text-sm font-medium">
-// 											{t.emails.waitlistAlert.category}:
-// 										</Text>
-// 										<Text className="text-foreground text-sm">
-// 											{bibCategory} • {eventDistance}
-// 										</Text>
-// 									</Section>
+									<Section className="mt-3 flex justify-between">
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.waitlistAlert.category}:
+										</Text>
+										<Text className="text-foreground text-sm">{bibCategory}</Text>
+									</Section>
 
-// 									<Section className="flex justify-between">
-// 										<Text className="text-muted-foreground text-sm font-medium">{t.emails.waitlistAlert.date}:</Text>
-// 										<Text className="text-foreground text-sm">{eventDate}</Text>
-// 									</Section>
+									<Section className="mt-3 flex justify-between">
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.waitlistAlert.distance}:
+										</Text>
+										<Text className="text-foreground text-sm">{eventDistance}</Text>
+									</Section>
 
-// 									<Section className="flex justify-between">
-// 										<Text className="text-muted-foreground text-sm font-medium">
-// 											{t.emails.waitlistAlert.location}:
-// 										</Text>
-// 										<Text className="text-foreground text-sm">{eventLocation}</Text>
-// 									</Section>
+									<Section className="mt-3 flex justify-between">
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.waitlistAlert.date}:
+										</Text>
+										<Text className="text-foreground text-sm">{eventDate}</Text>
+									</Section>
 
-// 									<Section className="flex justify-between">
-// 										<Text className="text-muted-foreground text-sm font-medium">{t.emails.waitlistAlert.price}:</Text>
-// 										<Text className="text-success text-sm font-bold">{formatPrice(bibPrice)}</Text>
-// 									</Section>
+									<Section className="mt-3 flex justify-between">
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.waitlistAlert.location}:
+										</Text>
+										<Text className="text-foreground text-sm">{eventLocation}</Text>
+									</Section>
 
-// 									<Section className="flex justify-between">
-// 										<Text className="text-muted-foreground text-sm font-medium">{t.emails.waitlistAlert.seller}:</Text>
-// 										<Text className="text-foreground text-sm">{sellerName}</Text>
-// 									</Section>
-// 								</Section>
-// 							</Section>
+									<Section className="mt-3 flex justify-between">
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.waitlistAlert.price}:
+										</Text>
+										<Text className="text-success text-sm font-bold">{formatPrice(bibPrice || 0)}</Text>
+									</Section>
 
-// 							{/* Message personnel */}
-// 							<Section className="mb-6 text-center">
-// 								<Text className="text-muted-foreground text-base leading-relaxed">
-// 									{t.emails.waitlistAlert.personalMessage}
-// 								</Text>
-// 							</Section>
+									<Section className="mt-3 flex justify-between">
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.waitlistAlert.seller}:
+										</Text>
+										<Text className="text-foreground text-sm">{sellerName}</Text>
+									</Section>
+								</Section>
+							</Section>
 
-// 							{/* Button principal */}
-// 							<Section className="mb-6 text-center">
-// 								<Button
-// 									href={`${baseUrl}/events/${eventId}`}
-// 									className="bg-primary text-primary-foreground inline-block rounded-lg px-8 py-4 text-lg font-semibold no-underline"
-// 								>
-// 									{t.emails.waitlistAlert.ctaButton}
-// 								</Button>
-// 							</Section>
+							{/* Bouton principal */}
+							<Section className="mb-6 text-center">
+								<Link
+									href={`${baseUrl}/marketplace/${eventId}/${listingId}`}
+									style={{
+										backgroundColor: 'oklch(0.6231 0.188 259.8145)',
+										color: 'oklch(1 0 0)',
+										textDecoration: 'none',
+										padding: '16px 32px',
+										borderRadius: '8px',
+										fontSize: '18px',
+										fontWeight: '600',
+										display: 'inline-block',
+									}}
+								>
+									{t.emails.waitlistAlert.ctaButton}
+								</Link>
+							</Section>
 
-// 							{/* Actions secondaires */}
-// 							<Section className="border-border border-t pt-6">
-// 								<Heading className="text-foreground mb-4 text-lg font-semibold">
-// 									{t.emails.waitlistAlert.quickActions}
-// 								</Heading>
+							{/* Actions rapides */}
+							<Section className="bg-card border-border rounded-lg border p-6">
+								<Heading className="text-foreground mb-4 text-lg font-semibold">
+									{t.emails.waitlistAlert.quickActions}
+								</Heading>
 
-// 								<Section className="flex flex-col space-y-2">
-// 									<Link href={`${baseUrl}/events`} className="text-primary text-sm underline">
-// 										→ {t.emails.waitlistAlert.browseOtherEvents}
-// 									</Link>
-// 									<Link href={`${baseUrl}/dashboard/buyer`} className="text-primary text-sm underline">
-// 										→ {t.emails.waitlistAlert.manageDashboard}
-// 									</Link>
-// 									<Link
-// 										href={`${baseUrl}/waitlist/unsubscribe?event=${eventId}`}
-// 										className="text-muted-foreground text-xs underline"
-// 									>
-// 										{t.emails.waitlistAlert.unsubscribe}
-// 									</Link>
-// 								</Section>
-// 							</Section>
-// 						</Section>
+								<Section className="space-y-3">
+									<Section>
+										<Link
+											href={`${baseUrl}/marketplace`}
+											style={{
+												color: 'oklch(0.6231 0.188 259.8145)',
+												fontSize: '14px',
+												textDecoration: 'underline',
+											}}
+										>
+											→ {t.emails.waitlistAlert.browseOtherEvents}
+										</Link>
+									</Section>
+									<Section>
+										<Link
+											href={`${baseUrl}/dashboard/buyer`}
+											style={{
+												color: 'oklch(0.6231 0.188 259.8145)',
+												fontSize: '14px',
+												textDecoration: 'underline',
+											}}
+										>
+											→ {t.emails.waitlistAlert.manageDashboard}
+										</Link>
+									</Section>
+									<Section>
+										<Link
+											href={`${baseUrl}/waitlist/unsubscribe?event=${eventId}`}
+											style={{
+												color: 'oklch(0.46 0.02 264.36)',
+												fontSize: '12px',
+												textDecoration: 'underline',
+											}}
+										>
+											{t.emails.waitlistAlert.unsubscribe}
+										</Link>
+									</Section>
+								</Section>
+							</Section>
+						</Section>
 
-// 						{/* Footer */}
-// 						<Section className="bg-card border-border rounded-lg border px-8 py-6 shadow-sm">
-// 							<Section className="text-center">
-// 								<Link href={`${baseUrl}`} className="text-muted-foreground text-xs underline">
-// 									{t.emails.waitlistAlert.ourSite}
-// 								</Link>
-// 								&nbsp;&nbsp;|&nbsp;&nbsp;
-// 								<Link href={`${baseUrl}/contact`} className="text-muted-foreground text-xs underline">
-// 									{t.emails.waitlistAlert.contact}
-// 								</Link>
-// 								&nbsp;&nbsp;|&nbsp;&nbsp;
-// 								<Link href={`${baseUrl}/dashboard/buyer`} className="text-muted-foreground text-xs underline">
-// 									{t.emails.waitlistAlert.dashboard}
-// 								</Link>
-// 								&nbsp;&nbsp;|&nbsp;&nbsp;
-// 								<Link href={`${baseUrl}/legals/privacy`} className="text-muted-foreground text-xs underline">
-// 									{t.emails.waitlistAlert.privacy}
-// 								</Link>
-// 							</Section>
+						{/* Footer */}
+						<Footer locale={locale} baseUrl={baseUrl} />
+					</Container>
+				</Body>
+			</Tailwind>
+		</Html>
+	)
+}
 
-// 							<Section className="bg-card border-border mt-4 rounded-lg border shadow-sm">
-// 								<Column style={{ width: '66%' }}>
-// 									<Text className="text-muted-foreground text-xs">
-// 										{t.emails.layout.copyright.replace('{year}', new Date().getFullYear().toString())}
-// 										<br />
-// 										{t.emails.waitlistAlert.tagline}
-// 									</Text>
-// 								</Column>
-// 								<Column align="right" className="mt-4 flex flex-row items-center justify-end gap-2">
-// 									<Link href="/">
-// 										<Img src={`/mails/instagram.png`} width="24" height="24" alt="Instagram" className="opacity-80" />
-// 									</Link>
-// 									<Link href="/">
-// 										<Img src={`/mails/strava.png`} width="24" height="24" alt="Strava" className="opacity-80" />
-// 									</Link>
-// 									<Link href="/">
-// 										<Img src={`/mails/linkedin.png`} width="24" height="24" alt="LinkedIn" className="opacity-80" />
-// 									</Link>
-// 								</Column>
-// 							</Section>
-// 						</Section>
-// 					</Container>
-// 				</Body>
-// 			</Tailwind>
-// 		</Html>
-// 	)
-// }
+BeswibWaitlistAlert.PreviewProps = {
+	bibCategory: 'Marathon',
+	bibPrice: 150,
+	eventDate: '14 avril 2024',
+	eventDistance: '42.2 km',
+	eventId: 'event123',
+	eventLocation: 'Paris, France',
+	eventName: 'Marathon de Paris 2024',
+	listingId: 'listing123',
+	locale: 'fr',
+	sellerName: 'Marie Dupont',
+	timeRemaining: '2 jours',
+} as BeswibWaitlistAlertProps
 
-// BeswibWaitlistAlert.PreviewProps = {
-// 	timeRemaining: '2 jours',
-// 	sellerName: 'Marie Dupont',
-// 	locale: 'fr',
-// 	eventName: 'Marathon de Paris 2024',
-// 	eventLocation: 'Paris, France',
-// 	eventId: 'event123',
-// 	eventDistance: '42.2 km',
-// 	eventDate: '14 avril 2024',
-// 	bibPrice: 150,
-// 	bibCategory: 'Marathon',
-// } as BeswibWaitlistAlertProps
-
-// export default BeswibWaitlistAlert
+export default BeswibWaitlistAlert
