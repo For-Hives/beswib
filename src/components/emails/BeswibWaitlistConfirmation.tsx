@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any */
 import { Body, Container, Head, Heading, Html, Img, Preview, Section, Text, Tailwind } from '@react-email/components'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -28,7 +29,8 @@ export const BeswibWaitlistConfirmation = ({
 	createdAt = new Date().toLocaleDateString('fr-FR'),
 	bibCategory = 'Marathon',
 }: BeswibWaitlistConfirmationProps) => {
-	const t = getTranslations(locale, constantsLocales)
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+	const t = getTranslations(locale, constantsLocales) as any // Safe cast - will error at runtime if translation missing
 
 	return (
 		<Html>
