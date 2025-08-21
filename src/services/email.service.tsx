@@ -4,8 +4,8 @@ import { render } from '@react-email/components'
 
 import { Resend } from 'resend'
 
+import { BeswibEmailVerification, BeswibWelcomeEmail, BeswibWaitlistConfirmation } from '@/components/emails'
 import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
-import { BeswibEmailVerification, BeswibWelcomeEmail } from '@/components/emails'
 import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
 import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
 import BeswibWaitlistAlert from '@/components/emails/BeswibWaitlistAlert'
@@ -100,6 +100,42 @@ export async function sendWelcomeEmail(email: string, firstName?: string, locale
 		to: email,
 		subject,
 		react: <BeswibWelcomeEmail firstName={firstName} locale={locale} />,
+	})
+}
+
+/**
+ * Sends a waitlist confirmation email using the React Email template
+ */
+export async function sendWaitlistConfirmationEmail(
+	email: string,
+	userName?: string,
+	eventName?: string,
+	eventId?: string,
+	eventDistance?: string,
+	bibCategory?: string,
+	locale: string = 'fr'
+): Promise<boolean> {
+	const subject =
+		locale === 'fr'
+			? `🎯 Inscription en liste d'attente confirmée - ${eventName ?? 'votre événement'}`
+			: `🎯 Waitlist registration confirmed - ${eventName ?? 'your event'}`
+
+	return sendEmail({
+		to: email,
+		subject,
+		react: (
+			<BeswibWaitlistConfirmation
+				userName={userName}
+				eventName={eventName}
+				eventId={eventId}
+				eventDate="14 avril 2024"
+				eventLocation="Paris, France"
+				eventDistance={eventDistance}
+				bibCategory={bibCategory}
+				createdAt={new Date().toLocaleDateString('fr-FR')}
+				locale={locale}
+			/>
+		),
 	})
 }
 

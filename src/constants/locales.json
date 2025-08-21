@@ -18,6 +18,7 @@
 				}
 			},
 			"welcome": {
+				"subject": "Welcome to Beswib, {firstName}! 🏃‍♂️",
 				"title": "Welcome, {firstName}!",
 				"preheader": "Welcome to Beswib, {firstName}!",
 				"body1": "We're glad you're here.",
@@ -225,7 +226,7 @@
 				"tagline": "Race bib marketplace platform."
 			},
 			"waitlistConfirmation": {
-				"subject": "✅ Alert created for {eventName} - Beswib",
+				"subject": "🎯 Waitlist registration confirmed - {eventName}",
 				"title": "Alert activated!",
 				"subtitle": "You are now on the waitlist",
 				"preheader": "You will receive an email as soon as a bib becomes available",
@@ -283,7 +284,7 @@
 				"teamSignature": "The Beswib Team"
 			},
 			"saleAlert": {
-				"subject": "🚨 New Sale Alert - Beswib Admin",
+				"subject": "🚨 New Sale Alert - {eventName} • {bibPrice}€",
 				"title": "New Sale Completed",
 				"subtitle": "Administrative alert for sale tracking",
 				"preheader": "A new sale has been completed on Beswib",
