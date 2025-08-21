@@ -81,7 +81,7 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 			</div>
 
 			{/* Currency Conversion Display */}
-			{shouldShowConversion != null && !isLoading && (
+			{shouldShowConversion && !isLoading && (
 				<div className="mt-2">
 					<p className="text-muted-foreground text-xl">
 						{t.currencyEstimate?.replace('{converted}', convertedFormatted).replace('{currency}', currencyName) ??
