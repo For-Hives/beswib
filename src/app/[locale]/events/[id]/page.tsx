@@ -23,7 +23,7 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import { pbDateToLuxon } from '@/lib/utils/date'
 import { Locale } from '@/lib/i18n/config'
 import { getEventMetadata } from '@/lib/seo/metadata'
-import EventSchema from '@/components/seo/EventSchema'
+import EventPageSEO from '@/components/seo/EventPageSEO'
 import { EventBreadcrumbs } from '@/components/seo/Breadcrumbs'
 
 import eventTranslations from './locales.json'
@@ -118,8 +118,8 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
 	return (
 		<>
-			{/* Schema.org pour le SEO */}
-			<EventSchema event={event} locale={locale} />
+			{/* SEO optimisé pour la page d'événement */}
+			<EventPageSEO event={event} locale={locale} />
 			
 			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
