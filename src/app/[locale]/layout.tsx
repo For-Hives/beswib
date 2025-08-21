@@ -73,23 +73,23 @@ export const metadata: Metadata = {
 			sizes: '180x180',
 		},
 	},
-	openGraph: {
-		type: 'website',
-		locale: 'en_US',
-		alternateLocale: ['fr_FR', 'de_DE', 'es_ES', 'it_IT', 'pt_PT', 'nl_NL', 'pl_PL', 'sv_SE', 'ko_KR'],
-		siteName: 'Beswib',
-		title: 'Beswib - Transfer Race Bibs | Buy & Sell Running, Trail, Triathlon Bibs',
-		description: 'Transfer race bibs safely with Beswib. Buy and sell running, trail, triathlon, and cycling race bibs. Join thousands of athletes worldwide.',
-		url: 'https://beswib.com',
-		images: [
-			{
-				url: '/og-image.jpg',
-				width: 1200,
-				height: 630,
-				alt: 'Beswib - Transfer Race Bibs',
-			},
-		],
-	},
+			openGraph: {
+			type: 'website',
+			locale: 'en_US',
+			alternateLocale: ['fr_FR', 'de_DE', 'es_ES', 'it_IT', 'pt_PT', 'nl_NL', 'ro_RO', 'ko_KR'],
+			siteName: 'Beswib',
+			title: 'Beswib - Transfer Race Bibs | Buy & Sell Running, Trail, Triathlon Bibs',
+			description: 'Transfer race bibs safely with Beswib. Buy and sell running, trail, triathlon, and cycling race bibs. Join thousands of athletes worldwide.',
+			url: 'https://beswib.com',
+			images: [
+				{
+					url: '/og-image.jpg',
+					width: 1200,
+					height: 630,
+					alt: 'Beswib - Transfer Race Bibs',
+				},
+			],
+		},
 	twitter: {
 		card: 'summary_large_image',
 		title: 'Beswib - Transfer Race Bibs | Buy & Sell Running, Trail, Triathlon Bibs',
@@ -98,21 +98,20 @@ export const metadata: Metadata = {
 		creator: '@beswib',
 		site: '@beswib',
 	},
-	alternates: {
-		canonical: 'https://beswib.com',
-		languages: {
-			'en': '/en',
-			'fr': '/fr',
-			'de': '/de',
-			'es': '/es',
-			'it': '/it',
-			'pt': '/pt',
-			'nl': '/nl',
-			'pl': '/pl',
-			'sv': '/sv',
-			'ko': '/ko'
+			alternates: {
+			canonical: 'https://beswib.com',
+			languages: {
+				'en': '/en',
+				'fr': '/fr',
+				'de': '/de',
+				'es': '/es',
+				'it': '/it',
+				'pt': '/pt',
+				'nl': '/nl',
+				'ro': '/ro',
+				'ko': '/ko'
+			},
 		},
-	},
 	verification: {
 		google: 'your-google-verification-code',
 		yandex: 'your-yandex-verification-code',

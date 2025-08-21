@@ -15,8 +15,7 @@ export const seoConfig = {
       'it': '/it',
       'pt': '/pt',
       'nl': '/nl',
-      'pl': '/pl',
-      'sv': '/sv',
+      'ro': '/ro',
       'ko': '/ko'
     }
   },
@@ -32,8 +31,7 @@ export const seoConfig = {
       'it': '/it',
       'pt': '/pt',
       'nl': '/nl',
-      'pl': '/pl',
-      'sv': '/sv',
+      'ro': '/ro',
       'ko': '/ko'
     }
   },
@@ -49,8 +47,7 @@ export const seoConfig = {
       'it': '/it', 
       'pt': '/pt',
       'nl': '/nl',
-      'pl': '/pl',
-      'sv': '/sv',
+      'ro': '/ro',
       'ko': '/ko'
     }
   },
@@ -66,8 +63,7 @@ export const seoConfig = {
       'it': '/it',
       'pt': '/pt',
       'nl': '/nl',
-      'pl': '/pl',
-      'sv': '/sv',
+      'ro': '/ro',
       'ko': '/ko'
     }
   },
@@ -83,14 +79,13 @@ export const seoConfig = {
       'es': '/es',
       'pt': '/pt',
       'nl': '/nl',
-      'pl': '/pl',
-      'sv': '/sv',
+      'ro': '/ro',
       'ko': '/ko'
     }
   },
   pt: {
     defaultTitle: 'Beswib - Transferência de Peitos | Comprar e Vender Peitos de Corrida',
-    defaultDescription: 'Transfira seus peitos de corrida com segurança com Beswib. Compre e venda peitos para running, trail, triatlo e ciclismo.',
+    description: 'Transfira seus peitos de corrida com segurança com Beswib. Compre e venda peitos para running, trail, triatlo e ciclismo.',
     keywords: 'peitos, corrida, trail running, triatlo, ciclismo, transferência peito, comprar peito, vender peito, maratona, ultra trail',
     locale: 'pt_PT',
     alternateLanguages: {
@@ -100,8 +95,7 @@ export const seoConfig = {
       'es': '/es',
       'it': '/it',
       'nl': '/nl',
-      'pl': '/pl',
-      'sv': '/sv',
+      'ro': '/ro',
       'ko': '/ko'
     }
   },
@@ -117,8 +111,7 @@ export const seoConfig = {
       'es': '/es',
       'it': '/it',
       'pt': '/pt',
-      'pl': '/pl',
-      'sv': '/sv',
+      'ro': '/ro',
       'ko': '/ko'
     }
   },
@@ -156,6 +149,22 @@ export const seoConfig = {
       'ko': '/ko'
     }
   },
+  ro: {
+    defaultTitle: 'Beswib - Transfer Numere de Start | Cumpără și Vinde Numere de Cursă',
+    defaultDescription: 'Transferă-ți numerele de start în siguranță cu Beswib. Cumpără și vinde numere pentru alergare, trail, triatlon și ciclism.',
+    keywords: 'numere de start, alergare, trail running, triatlon, ciclism, transfer număr, cumpără număr, vinde număr, maraton, ultra trail',
+    locale: 'ro_RO',
+    alternateLanguages: {
+      'en': '/en',
+      'fr': '/fr',
+      'de': '/de',
+      'es': '/es',
+      'it': '/it',
+      'pt': '/pt',
+      'nl': '/nl',
+      'ko': '/ko'
+    }
+  },
   ko: {
     defaultTitle: 'Beswib - 경주 번호 이전 | 러닝, 트레일, 트라이애슬론 번호 구매 및 판매',
     defaultDescription: 'Beswib으로 경주 번호를 안전하게 이전하세요. 러닝, 트레일, 트라이애슬론, 사이클링 경주 번호를 구매하고 판매하세요.',
@@ -169,8 +178,7 @@ export const seoConfig = {
       'it': '/it',
       'pt': '/pt',
       'nl': '/nl',
-      'pl': '/pl',
-      'sv': '/sv'
+      'ro': '/ro'
     }
   }
 }

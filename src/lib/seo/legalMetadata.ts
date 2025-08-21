@@ -158,48 +158,27 @@ const legalPageConfig = {
       keywords: 'juridische mededeling, bedrijfsinformatie, vrijwaringen, beswib juridisch'
     }
   },
-  pl: {
+
+  ro: {
     terms: {
-      title: 'Warunki Użytkowania',
-      description: 'Warunki korzystania z usług Beswib. Przeczytaj nasze warunki, aby zrozumieć swoje prawa i obowiązki.',
-      keywords: 'warunki użytkowania, warunki ogólne, umowa użytkownika, warunki prawne, warunki beswib'
+      title: 'Termeni și Condiții',
+      description: 'Termeni și condiții pentru utilizarea serviciilor Beswib. Citiți termenii noștri pentru a înțelege drepturile și obligațiile dvs.',
+      keywords: 'termeni și condiții, termeni de utilizare, acord utilizator, termeni legali, termeni beswib'
     },
     privacy: {
-      title: 'Polityka Prywatności',
-      description: 'Dowiedz się, jak Beswib zbiera, używa i chroni Twoje dane osobowe. Nasza polityka prywatności wyjaśnia Twoje prawa.',
-      keywords: 'polityka prywatności, ochrona danych, dane osobowe, GDPR, prywatność, beswib prywatność'
+      title: 'Politica de Confidențialitate',
+      description: 'Aflați cum Beswib colectează, folosește și protejează informațiile dvs. personale. Politica noastră de confidențialitate explică drepturile dvs.',
+      keywords: 'politica de confidențialitate, protecția datelor, informații personale, GDPR, confidențialitate, beswib confidențialitate'
     },
     cookies: {
-      title: 'Polityka Ciasteczek',
-      description: 'Zrozum, jak Beswib używa ciasteczek i podobnych technologii, aby poprawić Twoje doświadczenie na naszej platformie.',
-      keywords: 'polityka ciasteczek, ciasteczka, śledzenie, analiza web, ciasteczka beswib'
+      title: 'Politica de Cookie-uri',
+      description: 'Înțelegeți cum Beswib folosește cookie-urile și tehnologii similare pentru a vă îmbunătăți experiența pe platforma noastră.',
+      keywords: 'politica de cookie-uri, cookie-uri, urmărire, analiză web, cookie-uri beswib'
     },
     legalNotice: {
-      title: 'Informacje Prawne',
-      description: 'Informacje prawne o Beswib, w tym szczegóły firmy, informacje kontaktowe i wyłączenia odpowiedzialności.',
-      keywords: 'informacje prawne, informacje o firmie, wyłączenia odpowiedzialności, beswib prawny'
-    }
-  },
-  sv: {
-    terms: {
-      title: 'Användarvillkor',
-      description: 'Villkor för användning av Beswib-tjänster. Läs våra villkor för att förstå dina rättigheter och skyldigheter.',
-      keywords: 'användarvillkor, allmänna villkor, användaravtal, juridiska villkor, beswib villkor'
-    },
-    privacy: {
-      title: 'Integritetspolicy',
-      description: 'Lär dig hur Beswib samlar in, använder och skyddar din personliga information. Vår integritetspolicy förklarar dina rättigheter.',
-      keywords: 'integritetspolicy, dataskydd, personlig information, GDPR, integritet, beswib integritet'
-    },
-    cookies: {
-      title: 'Cookie-policy',
-      description: 'Förstå hur Beswib använder cookies och liknande teknologier för att förbättra din upplevelse på vår plattform.',
-      keywords: 'cookie-policy, cookies, spårning, webbanalys, beswib cookies'
-    },
-    legalNotice: {
-      title: 'Juridisk Information',
-      description: 'Juridisk information om Beswib, inklusive företagsdetaljer, kontaktinformation och juridiska ansvarsfriskrivningar.',
-      keywords: 'juridisk information, företagsinformation, ansvarsfriskrivningar, beswib juridisk'
+      title: 'Avis Legal',
+      description: 'Informații legale despre Beswib, inclusiv detalii companie, informații de contact și excluderi de răspundere.',
+      keywords: 'avis legal, informații companie, excluderi de răspundere, beswib legal'
     }
   },
   ko: {

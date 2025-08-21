@@ -21,8 +21,7 @@ Sitemap: ${baseUrl}/es/sitemap.xml
 Sitemap: ${baseUrl}/it/sitemap.xml
 Sitemap: ${baseUrl}/pt/sitemap.xml
 Sitemap: ${baseUrl}/nl/sitemap.xml
-Sitemap: ${baseUrl}/pl/sitemap.xml
-Sitemap: ${baseUrl}/sv/sitemap.xml
+Sitemap: ${baseUrl}/ro/sitemap.xml
 Sitemap: ${baseUrl}/ko/sitemap.xml
 
 # Pages importantes à indexer
@@ -33,8 +32,7 @@ Allow: /es/
 Allow: /it/
 Allow: /pt/
 Allow: /nl/
-Allow: /pl/
-Allow: /sv/
+Allow: /ro/
 Allow: /ko/
 
 # Pages d'événements
@@ -45,8 +43,7 @@ Allow: /es/events/
 Allow: /it/events/
 Allow: /pt/events/
 Allow: /nl/events/
-Allow: /pl/events/
-Allow: /sv/events/
+Allow: /ro/events/
 Allow: /ko/events/
 
 # Marketplace
@@ -57,8 +54,7 @@ Allow: /es/marketplace/
 Allow: /it/marketplace/
 Allow: /pt/marketplace/
 Allow: /nl/marketplace/
-Allow: /pl/marketplace/
-Allow: /sv/marketplace/
+Allow: /ro/marketplace/
 Allow: /ko/marketplace/
 
 # FAQ et pages d'information
@@ -69,8 +65,7 @@ Allow: /es/faq/
 Allow: /it/faq/
 Allow: /pt/faq/
 Allow: /nl/faq/
-Allow: /pl/faq/
-Allow: /sv/faq/
+Allow: /ro/faq/
 Allow: /ko/faq/
 
 # Pages légales
@@ -81,8 +76,7 @@ Allow: /es/legals/
 Allow: /it/legals/
 Allow: /pt/legals/
 Allow: /nl/legals/
-Allow: /pl/legals/
-Allow: /sv/legals/
+Allow: /ro/legals/
 Allow: /ko/legals/
 
 # Pages de contact
@@ -93,8 +87,7 @@ Allow: /es/contact/
 Allow: /it/contact/
 Allow: /pt/contact/
 Allow: /nl/contact/
-Allow: /pl/contact/
-Allow: /sv/contact/
+Allow: /ro/contact/
 Allow: /ko/contact/
 
 # Bloquer les pages sensibles
@@ -197,7 +190,7 @@ Crawl-delay: 1
 # Site: ${baseUrl}
 # Contact: contact@beswib.com
 # Description: Marketplace de transfert de dossards de course (running, trail, triathlon, cyclisme)
-# Langues: EN, FR, DE, ES, IT, PT, NL, PL, SV, KO
+# Langues: EN, FR, DE, ES, IT, PT, NL, RO, KO
 `
 
   return new NextResponse(robotsTxt, {
