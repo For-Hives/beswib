@@ -62,10 +62,10 @@ export const BeswibPurchaseApproval = ({
 								success: 'oklch(0.626 0.124 142.5)',
 								'primary-foreground': 'oklch(1 0 0)',
 								primary: 'oklch(0.6231 0.188 259.8145)',
-								info: 'oklch(0.701 0.11 221.2)',
-								'info-foreground': 'oklch(0.97 0.013 221.2)',
 								'muted-foreground': 'oklch(0.46 0.02 264.36)',
 								muted: 'oklch(0.985 0.0015 247.8)',
+								'info-foreground': 'oklch(0.97 0.013 221.2)',
+								info: 'oklch(0.701 0.11 221.2)',
 								foreground: 'oklch(0.24 0 0)',
 								card: 'oklch(1 0 0)',
 								border: 'oklch(0.89 0.004 264.53)',
@@ -191,14 +191,14 @@ export const BeswibPurchaseApproval = ({
 								<Link
 									href={`${baseUrl}/events/${eventName?.toLowerCase().replace(/\s+/g, '-') || 'event'}`}
 									style={{
-										backgroundColor: 'oklch(0.6231 0.188 259.8145)',
-										color: 'oklch(1 0 0)',
 										textDecoration: 'none',
 										padding: '16px 32px',
-										borderRadius: '8px',
-										fontSize: '18px',
 										fontWeight: '600',
+										fontSize: '18px',
 										display: 'inline-block',
+										color: 'oklch(1 0 0)',
+										borderRadius: '8px',
+										backgroundColor: 'oklch(0.6231 0.188 259.8145)',
 									}}
 								>
 									{t.emails.purchaseApproval.viewEventButton}
@@ -244,9 +244,9 @@ export const BeswibPurchaseApproval = ({
 								<Link
 									href={`${baseUrl}/contact`}
 									style={{
-										color: 'oklch(0.6231 0.188 259.8145)',
-										fontSize: '14px',
 										textDecoration: 'underline',
+										fontSize: '14px',
+										color: 'oklch(0.6231 0.188 259.8145)',
 									}}
 								>
 									{t.emails.purchaseApproval.contactSupport}

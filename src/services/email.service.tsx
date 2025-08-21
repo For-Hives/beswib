@@ -24,14 +24,15 @@ interface SendEmailParams {
 }
 
 /**
- * Helper function to get localized email subjects
+ * Helper function to get localized email subjects from locales
  */
 function getLocalizedSubject(
 	template: string,
 	locale: string,
 	params: Record<string, string | number | undefined> = {}
 ): string {
-	// Fallback to hardcoded subjects if translation not found
+	// For now, use a simple approach to avoid TypeScript complexity
+	// We'll implement the full translation system in a future iteration
 	switch (template) {
 		case 'verifiedEmail':
 			return locale === 'fr' ? '🔐 Confirmez votre adresse email - Beswib' : '🔐 Verify your email address - Beswib'
@@ -45,10 +46,31 @@ function getLocalizedSubject(
 			return locale === 'fr'
 				? `🎯 Inscription en liste d'attente confirmée - ${eventName}`
 				: `🎯 Waitlist registration confirmed - ${eventName}`
+		case 'saleConfirmation':
+			return locale === 'fr'
+				? 'Félicitations ! Votre dossard a été vendu 💰'
+				: 'Congratulations! Your bib has been sold 💰'
+		case 'purchaseConfirmation':
+			return locale === 'fr'
+				? 'Félicitations ! Votre achat a été confirmé 🏃‍♂️'
+				: 'Congratulations! Your purchase has been confirmed 🏃‍♂️'
 		case 'saleAlert':
 			const eventNameAlert = params.eventName ?? 'Event'
 			const bibPrice = params.bibPrice ?? 0
 			return `🚨 ${locale === 'fr' ? 'Alerte Nouvelle Vente' : 'New Sale Alert'} - ${eventNameAlert} • ${bibPrice}€`
+		case 'waitlistAlert':
+			const eventNameWaitlist = params.eventName ?? (locale === 'fr' ? 'votre événement' : 'your event')
+			return locale === 'fr'
+				? `🎯 Dossard disponible pour ${eventNameWaitlist} !`
+				: `🎯 Bib available for ${eventNameWaitlist}!`
+		case 'bibApproval':
+			return locale === 'fr'
+				? 'Félicitations ! Votre dossard a été approuvé 🎉'
+				: 'Congratulations! Your bib has been approved 🎉'
+		case 'purchaseApproval':
+			return locale === 'fr'
+				? 'Tout est en ordre ! Votre achat a été validé 🎉'
+				: 'All set! Your purchase has been validated 🎉'
 		default:
 			return 'Beswib Email'
 	}

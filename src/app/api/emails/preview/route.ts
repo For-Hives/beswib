@@ -3,13 +3,13 @@ import React from 'react'
 
 import { NextRequest, NextResponse } from 'next/server'
 
-import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
 import { BeswibEmailVerification, BeswibWelcomeEmail, BeswibWaitlistConfirmation } from '@/components/emails'
+import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
 import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
-import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
+import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
 import BeswibWaitlistAlert from '@/components/emails/BeswibWaitlistAlert'
 import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
-import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
+import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 
 export async function GET(request: NextRequest) {
 	const { searchParams } = new URL(request.url)
@@ -134,29 +134,29 @@ export async function GET(request: NextRequest) {
 			case 'waitlist-confirmation':
 				emailComponent = React.createElement(BeswibWaitlistConfirmation, {
 					userName,
-					eventName,
-					eventId,
-					eventDate: '14 avril 2024',
-					eventLocation: 'Paris, France',
-					eventDistance: '42.2 km',
-					bibCategory: 'Marathon',
-					createdAt: new Date().toLocaleDateString('fr-FR'),
 					locale,
+					eventName,
+					eventLocation: 'Paris, France',
+					eventId,
+					eventDistance: '42.2 km',
+					eventDate: '14 avril 2024',
+					createdAt: new Date().toLocaleDateString('fr-FR'),
+					bibCategory: 'Marathon',
 				})
 				break
 			case 'waitlist-alert':
 				emailComponent = React.createElement(BeswibWaitlistAlert, {
-					eventName,
-					eventId,
-					bibPrice,
-					eventDate: '14 avril 2024',
-					eventLocation: 'Paris, France',
-					eventDistance: '42.2 km',
-					bibCategory: 'Marathon',
-					sellerName,
 					timeRemaining,
-					listingId,
+					sellerName,
 					locale,
+					listingId,
+					eventName,
+					eventLocation: 'Paris, France',
+					eventId,
+					eventDistance: '42.2 km',
+					eventDate: '14 avril 2024',
+					bibPrice,
+					bibCategory: 'Marathon',
 				})
 				break
 			case 'bib-approval':
