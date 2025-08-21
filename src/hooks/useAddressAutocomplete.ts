@@ -5,6 +5,8 @@ import { type NominatimResult, searchAddresses } from '@/lib/utils/nominatim'
 interface UseAddressAutocompleteOptions {
 	/** Minimum number of characters before triggering search */
 	minLength?: number
+	/** Minimum number of words before triggering search */
+	minWords?: number
 	/** Debounce delay in milliseconds */
 	debounceMs?: number
 	/** Maximum number of results to show */
@@ -37,7 +39,7 @@ interface UseAddressAutocompleteReturn {
  * Includes debouncing and rate limiting to be respectful to the API
  */
 export function useAddressAutocomplete(options: UseAddressAutocompleteOptions = {}): UseAddressAutocompleteReturn {
-	const { minLength = 3, maxResults = 5, debounceMs = 1000 } = options
+	const { minWords = 3, minLength = 3, maxResults = 5, debounceMs = 1000 } = options
 
 	const [isLoading, setIsLoading] = useState(false)
 	const [query, setQuery] = useState('')
@@ -54,16 +56,16 @@ export function useAddressAutocomplete(options: UseAddressAutocompleteOptions = 
 				return
 			}
 
-			// Check minimum length
+			// Check minimum length (this is also checked in searchAddresses)
 			if (searchQuery.trim().length < minLength) {
 				setSuggestions([])
 				setIsLoading(false)
 				return
 			}
 
-			// Check if query has at least 3 words (as requested)
+			// Check if query has the minimum number of words required
 			const wordCount = searchQuery.trim().split(/\s+/).length
-			if (wordCount < 3) {
+			if (wordCount < minWords) {
 				setSuggestions([])
 				setIsLoading(false)
 				return
@@ -92,7 +94,7 @@ export function useAddressAutocomplete(options: UseAddressAutocompleteOptions = 
 				}
 			}
 		},
-		[maxResults, minLength]
+		[maxResults, minLength, minWords]
 	)
 
 	// Debounced search effect
@@ -117,8 +119,7 @@ export function useAddressAutocomplete(options: UseAddressAutocompleteOptions = 
 
 	const selectSuggestion = useCallback((suggestion: NominatimResult) => {
 		// This callback can be used by parent components to handle selection
-		// For now, we just clear the internal state
-		setQuery('')
+		// Clear the internal state without modifying query (to avoid race conditions)
 		setSuggestions([])
 		setShowSuggestions(false)
 		lastRequestRef.current = ''
