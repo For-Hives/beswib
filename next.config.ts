@@ -81,6 +81,7 @@ const nextConfig: NextConfig = {
 			'https://clerk.beswib.com',
 			'https://*.paypal.com',
 			'https://nominatim.openstreetmap.org',
+			'https://latest.currency-api.pages.dev',
 		].join(' ')
 
 		const frameSrc = [

@@ -131,6 +131,7 @@
 		"off": "off",
 		"originalSellerPrice": "Original seller price",
 		"officialEventPrice": "Official event price",
+		"currencyEstimate": "Approx. {converted} ({currency})",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -282,6 +283,7 @@
 		"off": "de remise",
 		"originalSellerPrice": "Prix vendeur initial",
 		"officialEventPrice": "Prix officiel de l'événement",
+		"currencyEstimate": "Environ {converted} ({currency})",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -419,6 +421,7 @@
 		"off": "menos",
 		"originalSellerPrice": "Precio original del vendedor",
 		"officialEventPrice": "Precio oficial del evento",
+		"currencyEstimate": "Aprox. {converted} ({currency})",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -556,6 +559,7 @@
 		"off": "in meno",
 		"originalSellerPrice": "Prezzo originale del venditore",
 		"officialEventPrice": "Prezzo ufficiale dell'evento",
+		"currencyEstimate": "Circa {converted} ({currency})",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -693,6 +697,7 @@
 		"off": "Rabatt",
 		"originalSellerPrice": "Ursprünglicher Verkäuferpreis",
 		"officialEventPrice": "Offizieller Eventpreis",
+		"currencyEstimate": "Ca. {converted} ({currency})",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -830,6 +835,7 @@
 		"off": "reducere",
 		"originalSellerPrice": "Prețul inițial al vânzătorului",
 		"officialEventPrice": "Preț oficial al evenimentului",
+		"currencyEstimate": "Aproximativ {converted} ({currency})",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -967,6 +973,7 @@
 		"off": "de desconto",
 		"originalSellerPrice": "Preço original do vendedor",
 		"officialEventPrice": "Preço oficial do evento",
+		"currencyEstimate": "Aprox. {converted} ({currency})",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -1104,6 +1111,7 @@
 		"off": "korting",
 		"originalSellerPrice": "Oorspronkelijke verkopersprijs",
 		"officialEventPrice": "Officiële evenementprijs",
+		"currencyEstimate": "Ongeveer {converted} ({currency})",
 		"distances": {
 			"fiveKm": "5 km",
 			"fiveKmRange": "4-6 km",
@@ -1241,6 +1249,7 @@
 		"off": "할인",
 		"originalSellerPrice": "판매자 원가",
 		"officialEventPrice": "이벤트 공식 가격",
+		"currencyEstimate": "약 {converted} ({currency})",
 		"distances": {
 			"fiveKm": "5km",
 			"fiveKmRange": "4-6 km",

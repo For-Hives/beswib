@@ -2,6 +2,8 @@
 
 import React from 'react'
 
+import { useCurrencyConversion } from '@/hooks/useCurrencyConversion'
+
 import type { BibSale } from '@/models/marketplace.model'
 import type { Event } from '@/models/event.model'
 
@@ -15,7 +17,7 @@ interface PriceDisplayProps {
 	/** Optional event data for official price comparison */
 	eventData?: Event
 	/** Locale for translations */
-	locale?: Locale
+	locale: Locale
 }
 
 /**
@@ -24,7 +26,16 @@ interface PriceDisplayProps {
  * (either original seller price or official event price)
  */
 export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceDisplayProps>) {
-	const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
+	const t = getTranslations(locale, marketplaceTranslations)
+
+	// Currency conversion hook
+	const { isLoading, currencyName, convertedFormatted } = useCurrencyConversion(bib.price, locale)
+	console.log(isLoading, currencyName, convertedFormatted)
+
+	// Should show currency conversion if we have a converted price and it's not EUR (original currency)
+	const shouldShowConversion = convertedFormatted && currencyName !== 'EUR'
+	console.log('shouldShowConversion', shouldShowConversion)
+
 	// Calculate the lowest reference price between original and official
 	const officialPrice = eventData?.officialStandardPrice ?? 0
 	const originalPrice = bib.originalPrice ?? 0
@@ -70,6 +81,16 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 					</div>
 				)}
 			</div>
+
+			{/* Currency Conversion Display */}
+			{shouldShowConversion && !isLoading && (
+				<div className="mt-2">
+					<p className="text-muted-foreground text-xl">
+						{t.currencyEstimate?.replace('{converted}', convertedFormatted).replace('{currency}', currencyName) ??
+							`Approx. ${convertedFormatted} (${currencyName})`}
+					</p>
+				</div>
+			)}
 
 			{/* Savings Display */}
 			{hasValidReference && (
