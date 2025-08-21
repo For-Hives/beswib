@@ -21,7 +21,7 @@
 	"dependencies": {
 		"@c15t/nextjs": "1.5.0",
 		"@clerk/localizations": "3.22.0",
-		"@clerk/nextjs": "6.31.3",
+		"@clerk/nextjs": "6.31.4",
 		"@clerk/themes": "2.4.12",
 		"@faker-js/faker": "9.9.0",
 		"@formatjs/intl-localematcher": "0.6.1",
