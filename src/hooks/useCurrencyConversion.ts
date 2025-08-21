@@ -43,34 +43,32 @@ export function useCurrencyConversion(priceInEur: number, locale: Locale): UseCu
 		let isMounted = true
 
 		async function fetchRates() {
-			try {
-				const rates = await fetchExchangeRates()
-
-				if (isMounted) {
-					setExchangeRates(rates)
-					setIsLoading(false)
-				}
-			} catch (error) {
-				console.error('Failed to fetch exchange rates:', error)
-				if (isMounted) {
-					setIsLoading(false)
-				}
+			const rates = await fetchExchangeRates()
+			if (isMounted) {
+				setExchangeRates(rates)
+				setIsLoading(false)
 			}
 		}
 
-		void fetchRates()
+		fetchRates().catch(error => {
+			console.error('Failed to fetch exchange rates:', error)
+			if (isMounted) {
+				setIsLoading(false)
+			}
+		})
 
 		return () => {
 			isMounted = false
 		}
 	}, [targetCurrency])
 
-	// Calculate converted price
-	const convertedPrice = exchangeRates
-		? convertPrice(priceInEur, targetCurrency, exchangeRates)
-		: targetCurrency === 'eur'
-			? priceInEur
-			: null
+	// Calculate converted price (avoid nested ternary for readability)
+	let convertedPrice: number | null = null
+	if (exchangeRates) {
+		convertedPrice = convertPrice(priceInEur, targetCurrency, exchangeRates)
+	} else if (targetCurrency === 'eur') {
+		convertedPrice = priceInEur
+	}
 
 	// Format the converted price
 	const convertedFormatted = convertedPrice !== null ? formatPrice(convertedPrice, targetCurrency) : null
