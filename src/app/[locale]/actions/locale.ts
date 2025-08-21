@@ -6,6 +6,51 @@ import { updateUserLocale } from '@/app/[locale]/profile/actions'
 import { fetchUserByClerkId } from '@/services/user.services'
 
 /**
+ * Synchronizes user locale from cookie to database if user has no locale set
+ * @param cookieLocale - The locale from the NEXT_LOCALE cookie
+ * @returns Result of the synchronization
+ */
+export async function syncUserLocaleFromCookie(
+	cookieLocale: string
+): Promise<{ success: boolean; error?: string; updated?: boolean }> {
+	try {
+		// Check if user is authenticated
+		const { userId: clerkId } = await auth()
+		if (clerkId === null || clerkId === undefined) {
+			return { success: false, error: 'User not authenticated' }
+		}
+
+		// Validate locale
+		const supportedLocales = ['en', 'fr', 'ko', 'es', 'it', 'de', 'ro', 'pt', 'nl']
+		if (!supportedLocales.includes(cookieLocale)) {
+			return { success: false, error: 'Unsupported locale from cookie' }
+		}
+
+		// Get user from database
+		const user = await fetchUserByClerkId(clerkId)
+		if (!user) {
+			return { success: false, error: 'User not found in database' }
+		}
+
+		// Only update if user doesn't have a locale set (null or empty)
+		if (user.locale === null || user.locale === undefined || user.locale.trim() === '') {
+			await updateUserLocale(user.id, cookieLocale)
+			return { updated: true, success: true }
+		}
+
+		// User already has a locale set, no need to update
+		return { updated: false, success: true }
+	} catch (error) {
+		const errorMessage = error instanceof Error ? error.message : 'Failed to sync locale from cookie'
+		console.error('Error syncing user locale from cookie:', errorMessage)
+		return {
+			success: false,
+			error: errorMessage,
+		}
+	}
+}
+
+/**
  * Updates the user's locale preference in the database
  * Only works for authenticated users
  */

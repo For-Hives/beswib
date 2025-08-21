@@ -12,6 +12,7 @@ import { Toaster } from 'sonner'
 import Script from 'next/script'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
+import LocaleSynchronizer from '@/components/global/LocaleSynchronizer'
 import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { getClerkLocalization } from '@/lib/i18n/clerk/localization'
@@ -133,6 +134,7 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 							<QueryProvider>
 								<NuqsAdapter>
 									<SessionsTracker />
+									<LocaleSynchronizer />
 									<Header localeParams={props.params} />
 									<PageTransition>{props.children}</PageTransition>
 									{/* Ensure Sentry client init runs on the browser */}
