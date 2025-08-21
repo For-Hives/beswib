@@ -1,3 +1,4 @@
+import { CURRENCY_API_URL } from '@/constants/api.constant'
 import type { Locale } from '@/lib/i18n/config'
 
 /**
@@ -41,7 +42,7 @@ export const CURRENCY_NAMES: Record<string, string> = {
  */
 export async function fetchExchangeRates(): Promise<Record<string, number> | null> {
 	try {
-		const response = await fetch('https://latest.currency-api.pages.dev/v1/currencies/eur.json', {
+		const response = await fetch(CURRENCY_API_URL, {
 			next: { revalidate: 3600 }, // Cache for 1 hour
 		})
 
