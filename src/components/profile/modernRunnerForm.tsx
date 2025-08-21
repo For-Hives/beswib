@@ -13,9 +13,9 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import profileTranslations from '@/components/profile/locales.json'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import { isUserProfileComplete } from '@/lib/validation/user'
+import { AddressInput } from '@/components/ui/address-input'
 import { formatDateForHTMLInput } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { AddressInput } from '@/components/ui/address-input'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -387,9 +387,9 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 								value={form.watch('address')}
 								onChange={value => form.setValue('address', value)}
 								otherFields={{
-									city: form.watch('city'),
-									country: form.watch('country'),
 									postalCode: form.watch('postalCode'),
+									country: form.watch('country'),
+									city: form.watch('city'),
 								}}
 								onAddressSelect={components => {
 									// Auto-fill ALL fields when user selects an address
