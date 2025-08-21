@@ -31,8 +31,23 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 	// Currency conversion hook
 	const { isLoading, currencyName, convertedFormatted } = useCurrencyConversion(bib.price, locale)
 
+	// Helpers for translations with safe fallbacks
+	const txt = {
+		currencyEstimate: t.currencyEstimate ?? '~ {converted} ({currency})',
+		officialPrice: t.officialPrice ?? 'Official price',
+		originalPrice: t.originalPrice ?? 'Original price',
+		savePrefix: t.savePrefix ?? 'Save',
+		saveVs: t.saveVs ?? 'vs.',
+		official: t.official ?? 'official',
+		original: t.original ?? 'original',
+		price: t.price ?? 'price',
+		off: t.off ?? 'off',
+		originalSellerPrice: t.originalSellerPrice ?? 'Original seller price',
+		officialEventPrice: t.officialEventPrice ?? 'Official event price',
+	}
+
 	// Should show currency conversion if we have a converted price and it's not EUR (original currency)
-	const shouldShowConversion = convertedFormatted != null && currencyName !== 'EUR'
+	const shouldShowConversion = !!convertedFormatted && currencyName !== 'EUR'
 
 	// Calculate the lowest reference price between original and official
 	const officialPrice = eventData?.officialStandardPrice ?? 0
@@ -52,14 +67,12 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 	const hasValidReference = referencePrice > 0 && referencePrice !== bib.price && referencePrice > bib.price
 
 	// Determine which price type we're comparing against for display
-	let isComparingAgainstOfficial = false
-	if (officialPrice > 0) {
-		if (originalPrice === 0) {
-			isComparingAgainstOfficial = true
-		} else if (officialPrice <= originalPrice) {
-			isComparingAgainstOfficial = true
-		}
-	}
+	const isComparingAgainstOfficial = officialPrice > 0 && (originalPrice === 0 || officialPrice <= originalPrice)
+
+	const referenceLabel = isComparingAgainstOfficial ? txt.officialPrice : txt.originalPrice
+
+	const savingsAmount = hasValidReference ? (referencePrice - bib.price) : 0
+	const savingsPercent = hasValidReference ? Math.round(((referencePrice - bib.price) / referencePrice) * 100) : 0
 
 	return (
 		<div className="mt-6">
@@ -70,22 +83,19 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 				{/* Reference Price Display (lowest between original and official) */}
 				{hasValidReference && (
 					<div className="flex flex-col">
-						<p className="text-muted-foreground text-sm">
-							{isComparingAgainstOfficial
-								? (t.officialPrice ?? 'Official price')
-								: (t.originalPrice ?? 'Original price')}
-						</p>
+						<p className="text-muted-foreground text-sm">{referenceLabel}</p>
 						<p className="text-muted-foreground text-lg line-through">€{referencePrice}</p>
 					</div>
 				)}
 			</div>
 
 			{/* Currency Conversion Display */}
-			{shouldShowConversion && !isLoading && (
+			{shouldShowConversion && !isLoading && convertedFormatted && (
 				<div className="mt-2">
 					<p className="text-muted-foreground text-xl">
-						{t.currencyEstimate?.replace('{converted}', convertedFormatted).replace('{currency}', currencyName) ??
-							`~ ${convertedFormatted} (${currencyName})`}
+						{txt.currencyEstimate
+							.replace('{converted}', convertedFormatted)
+							.replace('{currency}', currencyName)}
 					</p>
 				</div>
 			)}
@@ -94,9 +104,9 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 			{hasValidReference && (
 				<div className="mt-2">
 					<p className="text-sm font-medium text-green-400">
-						{t.savePrefix ?? 'Save'} €{(referencePrice - bib.price).toFixed(2)} {t.saveVs ?? 'vs.'}{' '}
-						{isComparingAgainstOfficial ? (t.official ?? 'official') : (t.original ?? 'original')} {t.price ?? 'price'}{' '}
-						({(((referencePrice - bib.price) / referencePrice) * 100).toFixed(0)}% {t.off ?? 'off'})
+						{txt.savePrefix} €{savingsAmount.toFixed(2)} {txt.saveVs}{' '}
+						{isComparingAgainstOfficial ? txt.official : txt.original} {txt.price}{' '}
+						({savingsPercent}% {txt.off})
 					</p>
 				</div>
 			)}
@@ -106,8 +116,8 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 				<div className="mt-1">
 					<p className="text-muted-foreground text-xs">
 						{isComparingAgainstOfficial
-							? `${t.originalSellerPrice ?? 'Original seller price'}: €${originalPrice}`
-							: `${t.officialEventPrice ?? 'Official event price'}: €${officialPrice}`}
+							? `${txt.originalSellerPrice}: €${originalPrice}`
+							: `${txt.officialEventPrice}: €${officialPrice}`}
 					</p>
 				</div>
 			)}
