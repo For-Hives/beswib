@@ -1,4 +1,16 @@
-import { Body, Container, Head, Heading, Html, Img, Link, Preview, Section, Text, Tailwind } from '@react-email/components'
+import {
+	Body,
+	Container,
+	Head,
+	Heading,
+	Html,
+	Img,
+	Link,
+	Preview,
+	Section,
+	Text,
+	Tailwind,
+} from '@react-email/components'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
@@ -80,7 +92,19 @@ export const BeswibPurchaseApproval = ({
 									{t.emails.purchaseApproval.subject.replace(' 🎉', '')}
 								</Heading>
 								<Text className="text-muted-foreground text-base">
-									{locale === 'fr' ? 'Bonjour' : locale === 'en' ? 'Hello' : locale === 'es' ? 'Hola' : locale === 'it' ? 'Ciao' : locale === 'de' ? 'Hallo' : locale === 'ko' ? '안녕하세요' : 'Bonjour'}
+									{locale === 'fr'
+										? 'Bonjour'
+										: locale === 'en'
+											? 'Hello'
+											: locale === 'es'
+												? 'Hola'
+												: locale === 'it'
+													? 'Ciao'
+													: locale === 'de'
+														? 'Hallo'
+														: locale === 'ko'
+															? '안녕하세요'
+															: 'Bonjour'}
 									{buyerName ? ` ${buyerName}` : ''} 👋
 								</Text>
 							</Section>
@@ -131,9 +155,7 @@ export const BeswibPurchaseApproval = ({
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.purchaseApproval.date}:
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{t.emails.purchaseApproval.date}:</Text>
 										<Text className="text-foreground text-sm">{eventDate}</Text>
 									</Section>
 
@@ -212,9 +234,7 @@ export const BeswibPurchaseApproval = ({
 
 							{/* Message de félicitations */}
 							<Section className="bg-primary/10 border-primary/30 mb-6 rounded-lg border p-4 text-center">
-								<Text className="text-primary text-sm font-medium">
-									🌟 {t.emails.purchaseApproval.congratulations}
-								</Text>
+								<Text className="text-primary text-sm font-medium">🌟 {t.emails.purchaseApproval.congratulations}</Text>
 							</Section>
 
 							{/* Aide */}

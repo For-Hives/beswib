@@ -1,4 +1,16 @@
-import { Body, Container, Head, Heading, Html, Img, Link, Preview, Section, Text, Tailwind } from '@react-email/components'
+import {
+	Body,
+	Container,
+	Head,
+	Heading,
+	Html,
+	Img,
+	Link,
+	Preview,
+	Section,
+	Text,
+	Tailwind,
+} from '@react-email/components'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
@@ -76,7 +88,19 @@ export const BeswibBibApproval = ({
 									{t.emails.bibApproval.subject.replace(' 🎉', '')}
 								</Heading>
 								<Text className="text-muted-foreground text-base">
-									{locale === 'fr' ? 'Bonjour' : locale === 'en' ? 'Hello' : locale === 'es' ? 'Hola' : locale === 'it' ? 'Ciao' : locale === 'de' ? 'Hallo' : locale === 'ko' ? '안녕하세요' : 'Bonjour'}
+									{locale === 'fr'
+										? 'Bonjour'
+										: locale === 'en'
+											? 'Hello'
+											: locale === 'es'
+												? 'Hola'
+												: locale === 'it'
+													? 'Ciao'
+													: locale === 'de'
+														? 'Hallo'
+														: locale === 'ko'
+															? '안녕하세요'
+															: 'Bonjour'}
 									{sellerName ? ` ${sellerName}` : ''} 👋
 								</Text>
 							</Section>
@@ -106,45 +130,33 @@ export const BeswibBibApproval = ({
 
 								<Section>
 									<Section className="flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.bibApproval.event}:
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{t.emails.bibApproval.event}:</Text>
 										<Text className="text-foreground text-sm font-semibold">{eventName}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.bibApproval.category}:
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{t.emails.bibApproval.category}:</Text>
 										<Text className="text-foreground text-sm">{bibCategory}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.bibApproval.distance}:
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{t.emails.bibApproval.distance}:</Text>
 										<Text className="text-foreground text-sm">{eventDistance}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.bibApproval.date}:
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{t.emails.bibApproval.date}:</Text>
 										<Text className="text-foreground text-sm">{eventDate}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
-										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.bibApproval.location}:
-										</Text>
+										<Text className="text-muted-foreground text-sm font-medium">{t.emails.bibApproval.location}:</Text>
 										<Text className="text-foreground text-sm">{eventLocation}</Text>
 									</Section>
 
 									{bibPrice > 0 && (
 										<Section className="mt-3 flex justify-between">
-											<Text className="text-muted-foreground text-sm font-medium">
-												{t.emails.bibApproval.price}:
-											</Text>
+											<Text className="text-muted-foreground text-sm font-medium">{t.emails.bibApproval.price}:</Text>
 											<Text className="text-success text-sm font-bold">{formatPrice(bibPrice)}</Text>
 										</Section>
 									)}
@@ -186,9 +198,7 @@ export const BeswibBibApproval = ({
 
 							{/* Message de félicitations */}
 							<Section className="bg-primary/10 border-primary/30 mb-6 rounded-lg border p-4 text-center">
-								<Text className="text-primary text-sm font-medium">
-									🌟 {t.emails.bibApproval.congratulations}
-								</Text>
+								<Text className="text-primary text-sm font-medium">🌟 {t.emails.bibApproval.congratulations}</Text>
 							</Section>
 
 							{/* Aide */}
