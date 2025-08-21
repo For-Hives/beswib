@@ -1,28 +1,17 @@
-import {
-	Body,
-	Container,
-	Head,
-	Heading,
-	Html,
-	Img,
-	Link,
-	Preview,
-	Section,
-	Text,
-	Tailwind,
-	Column,
-} from '@react-email/components'
+import { Body, Container, Head, Heading, Html, Img, Preview, Section, Text, Tailwind } from '@react-email/components'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
+
+import { Footer } from './Footer'
 
 interface BeswibPurchaseConfirmationProps {
 	buyerName?: string
 	sellerName?: string
 	eventName?: string
-	listingPrice?: number // Prix affiché par le vendeur
-	platformFee?: number // Frais de plateforme (10% du listing price)
-	paypalFee?: number // Frais PayPal (variable selon le pays/méthode)
+	listingPrice?: number
+	platformFee?: number
+	paypalFee?: number
 	orderId?: string
 	eventDate?: string
 	eventLocation?: string
@@ -213,46 +202,7 @@ export const BeswibPurchaseConfirmation = ({
 						</Section>
 
 						{/* Footer */}
-						<Section className="bg-card border-border rounded-lg border px-8 py-6 shadow-sm">
-							<Section className="text-center">
-								<Link href={`${baseUrl}`} className="text-muted-foreground text-xs underline">
-									{t.emails.purchaseConfirmation.ourSite}
-								</Link>
-								&nbsp;&nbsp;|&nbsp;&nbsp;
-								<Link href={`${baseUrl}/contact`} className="text-muted-foreground text-xs underline">
-									{t.emails.purchaseConfirmation.contact}
-								</Link>
-								&nbsp;&nbsp;|&nbsp;&nbsp;
-								<Link href={`${baseUrl}/dashboard/buyer`} className="text-muted-foreground text-xs underline">
-									{t.emails.purchaseConfirmation.dashboard}
-								</Link>
-								&nbsp;&nbsp;|&nbsp;&nbsp;
-								<Link href={`${baseUrl}/legals/privacy`} className="text-muted-foreground text-xs underline">
-									{t.emails.purchaseConfirmation.privacy}
-								</Link>
-							</Section>
-
-							<Section className="bg-card border-border mt-4 rounded-lg border shadow-sm">
-								<Column style={{ width: '66%' }}>
-									<Text className="text-muted-foreground text-xs">
-										{t.emails.layout.copyright.replace('{year}', new Date().getFullYear().toString())}
-										<br />
-										{t.emails.purchaseConfirmation.tagline}
-									</Text>
-								</Column>
-								<Column align="right" className="mt-4 flex flex-row items-center justify-end gap-2">
-									<Link href="/">
-										<Img src={`/mails/instagram.png`} width="24" height="24" alt="Instagram" className="opacity-80" />
-									</Link>
-									<Link href="/">
-										<Img src={`/mails/strava.png`} width="24" height="24" alt="Strava" className="opacity-80" />
-									</Link>
-									<Link href="/">
-										<Img src={`/mails/linkedin.png`} width="24" height="24" alt="LinkedIn" className="opacity-80" />
-									</Link>
-								</Column>
-							</Section>
-						</Section>
+						<Footer locale={locale} baseUrl={baseUrl} />
 					</Container>
 				</Body>
 			</Tailwind>

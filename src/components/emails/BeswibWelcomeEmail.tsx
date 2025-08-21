@@ -17,6 +17,8 @@ import type * as React from 'react'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
 
+import { Footer } from './Footer'
+
 interface BeswibWelcomeEmailProps {
 	firstName?: string
 	locale?: string
@@ -85,106 +87,65 @@ export const BeswibWelcomeEmail = ({ steps, locale = 'fr', firstName = 'Coureur'
 								card: 'oklch(1 0 0)',
 								border: 'oklch(0.89 0.004 264.53)',
 								background: 'oklch(1 0 0)',
-								'accent-foreground': 'oklch(0.28 0.12 265.52)',
-								accent: 'oklch(0.96 0.02 236.82)',
 							},
 						},
 					},
 				}}
 			>
-				<Preview>{t.emails.welcome.preheader.replace('{firstName}', firstName)}</Preview>
 				<Body className="bg-background font-sans">
-					{/* Header avec gradient */}
-					<Section className="from-primary to-accent mb-0 bg-gradient-to-r pt-8">
-						<Container className="mx-auto max-w-[600px] px-4">
+					<Preview>{t.emails.welcome.preheader.replace('{firstName}', firstName)}</Preview>
+					<Container className="mx-auto max-w-[600px] px-4 py-8">
+						{/* Header avec logo */}
+						<Section className="mb-8">
 							<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
+						</Section>
 
-							<Heading className="text-primary mb-2 text-center text-3xl font-bold">
+						{/* Card principale */}
+						<Section className="bg-card border-border rounded-lg border px-8 shadow-sm">
+							<Heading className="text-foreground mb-6 text-center text-3xl font-bold">
 								🎉&nbsp;&nbsp;{t.emails.welcome.title.replace('{firstName}', firstName)}&nbsp;&nbsp;🎉
 							</Heading>
-							<Text className="text-primary text-center text-lg opacity-90">{t.emails.welcome.heroSubtitle}</Text>
-						</Container>
-					</Section>
+							<Text className="text-muted-foreground mb-6 text-start text-lg opacity-90">
+								{t.emails.welcome.heroSubtitle}
+							</Text>
 
-					<Container className="mx-auto max-w-[600px] px-8 py-8">
-						{/* Message de bienvenue */}
-						<Section>
-							<Text className="text-foreground mb-4 text-base leading-relaxed">{t.emails.welcome.body1}</Text>
-							<Text className="text-foreground mb-6 text-base leading-relaxed">
+							<Text className="text-muted-foreground mb-6 text-start text-base leading-relaxed">
+								{t.emails.welcome.body1}
+							</Text>
+
+							<Text className="text-muted-foreground mb-6 text-start text-base leading-relaxed">
 								{t.emails.welcome.nextStepsTitle} :
 							</Text>
+
+							<Section className="bg-muted border-border text-foreground mb-6 rounded-lg border p-3 font-mono">
+								{(steps ?? defaultSteps).map(step => (
+									<Section key={step.id} className="bg-card border-border mb-4 rounded-lg border p-2">
+										<Heading className="text-foreground mb-2 text-lg font-semibold">
+											{step.id}. {step.title}
+										</Heading>
+										<Text className="text-muted-foreground mb-3 text-sm leading-relaxed">{step.description}</Text>
+										{step.link !== null && step.link !== undefined && step.link !== '' && (
+											<Link
+												href={step.link}
+												style={{
+													textDecoration: 'none',
+													fontWeight: '500',
+													fontSize: '14px',
+													color: 'oklch(0.6231 0.188 259.8145)',
+												}}
+											>
+												{t.emails.welcome.footer.learnMore}
+											</Link>
+										)}
+									</Section>
+								))}
+							</Section>
+
+							<Text className="text-muted-foreground mb-6 text-start text-sm">{t.verifiedEmail.ignore}</Text>
 						</Section>
 
-						{/* Étapes */}
-						<Section>
-							{(steps ?? defaultSteps).map(step => (
-								<Section key={step.id} className="bg-card border-border mb-4 rounded-lg border p-0">
-									<Heading className="text-foreground mb-2 text-lg font-semibold">
-										{step.id}. {step.title}
-									</Heading>
-									<Text className="text-muted-foreground mb-3 text-sm leading-relaxed">{step.description}</Text>
-									{step.link !== null && step.link !== undefined && step.link !== '' && (
-										<Link
-											href={step.link}
-											style={{
-												textDecoration: 'none',
-												fontWeight: '500',
-												fontSize: '14px',
-												color: 'oklch(0.6231 0.188 259.8145)',
-											}}
-										>
-											{t.emails.welcome.footer.learnMore}
-										</Link>
-									)}
-								</Section>
-							))}
-						</Section>
-					</Container>
-
-					{/* Footer - same structure as EmailVerification */}
-					<Container className="mx-auto max-w-[600px] px-4 pb-8">
-						<Section className="bg-card border-border rounded-lg border px-8 shadow-sm">
-							<Section className="">
-								<Link href={`${baseUrl}`} className="text-muted-foreground text-center text-xs underline">
-									{t.emails.welcome.footer.ourSite}
-								</Link>
-								&nbsp;&nbsp;|&nbsp;&nbsp;
-								<Link href={`${baseUrl}/contact`} className="text-muted-foreground text-center text-xs underline">
-									{t.emails.welcome.footer.contact}
-								</Link>
-								&nbsp;&nbsp;|&nbsp;&nbsp;
-								<Link
-									href={`${baseUrl}/legals/privacy`}
-									className="text-muted-foreground text-center text-xs underline"
-								>
-									{t.emails.welcome.footer.privacy}
-								</Link>
-								&nbsp;&nbsp;|&nbsp;&nbsp;
-								<Link href={`${baseUrl}/legals/terms`} className="text-muted-foreground text-center text-xs underline">
-									{t.emails.welcome.footer.terms}
-								</Link>
-							</Section>
-							<Section className="bg-card border-border mt-4 rounded-lg border shadow-sm">
-								<Column style={{ width: '66%' }}>
-									<Text className="text-muted-foreground text-start text-xs">
-										© {new Date().getFullYear()} Beswib. Tous droits réservés.
-										<br />
-										{t.emails.welcome.footer.platformDescription}
-									</Text>
-								</Column>
-								<Column align="right" className="mt-4 flex flex-row items-center justify-end gap-2">
-									<Link href="/">
-										<Img src={`/mails/instagram.png`} width="24" height="24" alt="Instagram" className="opacity-80" />
-									</Link>
-									<Link href="/">
-										<Img src={`/mails/strava.png`} width="24" height="24" alt="Strava" className="opacity-80" />
-									</Link>
-									<Link href="/">
-										<Img src={`/mails/linkedin.png`} width="24" height="24" alt="LinkedIn" className="opacity-80" />
-									</Link>
-								</Column>
-							</Section>
-						</Section>
+						{/* Footer */}
+						<Footer locale={locale} baseUrl={baseUrl} />
 					</Container>
 				</Body>
 			</Tailwind>

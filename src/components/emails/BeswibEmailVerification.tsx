@@ -16,6 +16,8 @@ import {
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
 
+import { Footer } from './Footer'
+
 interface BeswibEmailVerificationProps {
 	validationCode?: string
 	locale?: string
@@ -85,138 +87,8 @@ export const BeswibEmailVerification = ({
 							<Text className="text-muted-foreground mb-6 text-start text-sm">{t.verifiedEmail.ignore}</Text>
 						</Section>
 
-						<Section className="bg-card border-border rounded-lg border px-8 shadow-sm">
-							<Section className="">
-								<Link href={`${baseUrl}`} className="text-muted-foreground text-center text-xs underline">
-									{locale === 'fr'
-										? 'Notre site'
-										: locale === 'en'
-											? 'Our site'
-											: locale === 'es'
-												? 'Nuestro sitio'
-												: locale === 'it'
-													? 'Il nostro sito'
-													: locale === 'de'
-														? 'Unsere Seite'
-														: locale === 'pt'
-															? 'O nosso site'
-															: locale === 'nl'
-																? 'Onze site'
-																: locale === 'ko'
-																	? '우리 사이트'
-																	: locale === 'ro'
-																		? 'Situl nostru'
-																		: 'Our site'}
-								</Link>
-								&nbsp;&nbsp;|&nbsp;&nbsp;
-								<Link href={`${baseUrl}/contact`} className="text-muted-foreground text-center text-xs underline">
-									{locale === 'fr'
-										? 'Contact'
-										: locale === 'en'
-											? 'Contact'
-											: locale === 'es'
-												? 'Contacto'
-												: locale === 'it'
-													? 'Contatto'
-													: locale === 'de'
-														? 'Kontakt'
-														: locale === 'pt'
-															? 'Contacto'
-															: locale === 'nl'
-																? 'Contact'
-																: locale === 'ko'
-																	? '연락처'
-																	: locale === 'ro'
-																		? 'Contact'
-																		: 'Contact'}
-								</Link>
-								&nbsp;&nbsp;|&nbsp;&nbsp;
-								<Link
-									href={`${baseUrl}/legals/privacy`}
-									className="text-muted-foreground text-center text-xs underline"
-								>
-									{locale === 'fr'
-										? 'Confidentialité'
-										: locale === 'en'
-											? 'Privacy'
-											: locale === 'es'
-												? 'Privacidad'
-												: locale === 'it'
-													? 'Privacy'
-													: locale === 'de'
-														? 'Datenschutz'
-														: locale === 'pt'
-															? 'Privacidade'
-															: locale === 'nl'
-																? 'Privacy'
-																: locale === 'ko'
-																	? '개인정보보호'
-																	: locale === 'ro'
-																		? 'Confidențialitate'
-																		: 'Privacy'}
-								</Link>
-								&nbsp;&nbsp;|&nbsp;&nbsp;
-								<Link href={`${baseUrl}/legals/terms`} className="text-muted-foreground text-center text-xs underline">
-									{locale === 'fr'
-										? "Conditions d'utilisation"
-										: locale === 'en'
-											? 'Terms of Service'
-											: locale === 'es'
-												? 'Términos de Servicio'
-												: locale === 'it'
-													? 'Termini di Servizio'
-													: locale === 'de'
-														? 'Nutzungsbedingungen'
-														: locale === 'pt'
-															? 'Termos de Serviço'
-															: locale === 'nl'
-																? 'Servicevoorwaarden'
-																: locale === 'ko'
-																	? '서비스 약관'
-																	: locale === 'ro'
-																		? 'Termeni de Utilizare'
-																		: 'Terms of Service'}
-								</Link>
-							</Section>
-							<Section className="bg-card border-border mt-4 rounded-lg border shadow-sm">
-								<Column style={{ width: '66%' }}>
-									<Text className="text-muted-foreground text-start text-xs">
-										{t.emails.layout.copyright.replace('{year}', new Date().getFullYear().toString())}
-										<br />
-										{locale === 'fr'
-											? 'Plateforme de revente de dossards.'
-											: locale === 'en'
-												? 'Race bib marketplace platform.'
-												: locale === 'es'
-													? 'Plataforma de mercado de dorsales.'
-													: locale === 'it'
-														? 'Piattaforma marketplace pettorali.'
-														: locale === 'de'
-															? 'Startnummern-Marktplatz.'
-															: locale === 'pt'
-																? 'Plataforma de marketplace de dorsais.'
-																: locale === 'nl'
-																	? 'Startnummer marktplaats platform.'
-																	: locale === 'ko'
-																		? '레이스 비브 마켓플레이스 플랫폼.'
-																		: locale === 'ro'
-																			? 'Platforma marketplace numere de concurs.'
-																			: 'Race bib marketplace platform.'}
-									</Text>
-								</Column>
-								<Column align="right" className="mt-4 flex flex-row items-center justify-end gap-2">
-									<Link href="/">
-										<Img src={`/mails/instagram.png`} width="24" height="24" alt="Instagram" className="opacity-80" />
-									</Link>
-									<Link href="/">
-										<Img src={`/mails/strava.png`} width="24" height="24" alt="Strava" className="opacity-80" />
-									</Link>
-									<Link href="/">
-										<Img src={`/mails/linkedin.png`} width="24" height="24" alt="LinkedIn" className="opacity-80" />
-									</Link>
-								</Column>
-							</Section>
-						</Section>
+						{/* Footer */}
+						<Footer locale={locale} baseUrl={baseUrl} />
 					</Container>
 				</Body>
 			</Tailwind>
