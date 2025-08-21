@@ -252,32 +252,11 @@ export async function sendPurchaseConfirmationEmail({
 	buyerEmail,
 	bibCategory,
 }: PurchaseConfirmationParams): Promise<boolean> {
-	const getLocalizedSubject = (locale: string) => {
-		switch (locale) {
-			case 'en':
-				return 'Congratulations! Your purchase has been confirmed 🏃‍♂️'
-			case 'es':
-				return '¡Felicidades! Tu compra ha sido confirmada 🏃‍♂️'
-			case 'it':
-				return 'Congratulazioni! Il tuo acquisto è stato confermato 🏃‍♂️'
-			case 'de':
-				return 'Glückwunsch! Ihr Kauf wurde bestätigt 🏃‍♂️'
-			case 'pt':
-				return 'Parabéns! A sua compra foi confirmada 🏃‍♂️'
-			case 'nl':
-				return 'Gefeliciteerd! Uw aankoop is bevestigd 🏃‍♂️'
-			case 'ko':
-				return '축하합니다! 구매가 확인되었습니다 🏃‍♂️'
-			case 'ro':
-				return 'Felicitări! Achiziția ta a fost confirmată 🏃‍♂️'
-			default:
-				return 'Félicitations ! Votre achat a été confirmé 🏃‍♂️'
-		}
-	}
+	const subject = getLocalizedSubject('purchaseConfirmation', locale)
 
 	return sendEmail({
 		to: buyerEmail,
-		subject: getLocalizedSubject(locale),
+		subject,
 		react: (
 			<BeswibPurchaseConfirmation
 				buyerName={buyerName}
