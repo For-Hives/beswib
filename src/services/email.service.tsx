@@ -108,8 +108,8 @@ export async function sendVerificationEmail(
 export async function sendWelcomeEmail(email: string, firstName?: string, locale?: string): Promise<boolean> {
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(email))
-	// userLocale is already handled by getTranslations with fallback
-	const subject = await getLocalizedSubjectForUser('welcome', email, { firstName })
+	// Use the detected locale directly (avoid double call to getUserLocaleByEmail)
+	const subject = getLocalizedEmailSubject('welcome', userLocale, { firstName })
 
 	return sendEmail({
 		to: email,

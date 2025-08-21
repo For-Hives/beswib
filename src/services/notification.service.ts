@@ -349,13 +349,23 @@ export async function sendWelcomeEmail(params: { to: string; firstName?: string;
 	const success = await sendModernWelcomeEmail(to, params.firstName, params.locale)
 	if (success) return true
 
-	// Fallback to legacy template
+	// Fallback to legacy template (with localized subject)
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 	const safeFirst = (params.firstName ?? '').trim()
-	const commaName = safeFirst.length > 0 ? `, ${safeFirst}` : ''
+	const fallbackLocale = params.locale ?? 'fr'
+	
+	// Try to get localized subject even for fallback
+	let subject = `Welcome to Beswib!`
+	try {
+		const { getLocalizedEmailSubject } = await import('@/lib/utils/email-localization')
+		subject = getLocalizedEmailSubject('welcome', fallbackLocale, { firstName: safeFirst })
+	} catch (error) {
+		console.warn('Failed to get localized subject for fallback welcome email:', error)
+		// Keep default hardcoded subject
+	}
+	
 	const html = renderWelcomeEmailHtml({ firstName: safeFirst, baseUrl })
-	const subject = `Welcome to Beswib${commaName}!`
-	const text = `Welcome${commaName} to Beswib!\n\nExplore the marketplace: ${baseUrl}/marketplace\n\nBeswib Team`
+	const text = `Welcome to Beswib!\n\nExplore the marketplace: ${baseUrl}/marketplace\n\nBeswib Team`
 	const from = process.env.NOTIFY_EMAIL_FROM ?? ''
 	return sendEmail({ to, text, subject, html, from })
 }

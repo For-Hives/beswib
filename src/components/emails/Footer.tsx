@@ -12,7 +12,7 @@ export const Footer = ({ locale, baseUrl }: { baseUrl: string; locale: string })
 			const keys = path.split('.')
 			let value: unknown = t
 			for (const key of keys) {
-				if (value && typeof value === 'object' && key in value) {
+				if (value !== null && value !== undefined && typeof value === 'object' && key in value) {
 					value = (value as Record<string, unknown>)[key]
 				} else {
 					return fallback
