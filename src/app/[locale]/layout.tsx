@@ -43,19 +43,65 @@ const bowlbyOneSC = Bowlby_One_SC({
 })
 
 export const metadata: Metadata = {
-	title: 'Beswib - Application in development',
+	title: 'Beswib - Marketplace de revente de dossards sportifs | Course à pied, Trail, Triathlon',
+	description: 'Plateforme sécurisée de revente de dossards pour courses de running, trail, triathlon et cyclisme. Revendez ou achetez des dossards en toute légalité avec protection PayPal.',
+	keywords: 'dossard course, revente dossard, course à pied, trail running, triathlon, cyclisme, marketplace sport, bib transfer',
+	authors: [{ name: 'Beswib Team' }],
+	creator: 'Beswib',
+	publisher: 'Beswib',
+	formatDetection: {
+		email: false,
+		address: false,
+		telephone: false,
+	},
 	robots: {
-		nocache: true,
-		index: false,
+		index: true,
+		follow: true,
+		nocache: false,
 		googleBot: {
-			noimageindex: true,
-			'max-video-preview': -1,
+			index: true,
+			follow: true,
+			noimageindex: false,
+			'max-video-preview': 0,
 			'max-snippet': -1,
-			'max-image-preview': 'none',
-			index: false,
-			follow: false,
+			'max-image-preview': 'large',
 		},
-		follow: false,
+	},
+	alternates: {
+		canonical: 'https://beswib.com',
+		languages: {
+			'en': 'https://beswib.com/en',
+			'fr': 'https://beswib.com/fr',
+			'es': 'https://beswib.com/es',
+			'it': 'https://beswib.com/it',
+			'de': 'https://beswib.com/de',
+			'pt': 'https://beswib.com/pt',
+			'nl': 'https://beswib.com/nl',
+			'ko': 'https://beswib.com/ko',
+			'ro': 'https://beswib.com/ro',
+		},
+	},
+	openGraph: {
+		title: 'Beswib - Marketplace de revente de dossards sportifs',
+		description: 'Plateforme sécurisée de revente de dossards pour courses de running, trail, triathlon et cyclisme. Revendez ou achetez des dossards en toute légalité.',
+		url: 'https://beswib.com',
+		siteName: 'Beswib',
+		images: [
+			{
+				url: '/og-image.jpg',
+				width: 1200,
+				height: 630,
+				alt: 'Beswib - Marketplace de dossards sportifs',
+			},
+		],
+		locale: 'fr_FR',
+		type: 'website',
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: 'Beswib - Marketplace de revente de dossards sportifs',
+		description: 'Plateforme sécurisée de revente de dossards pour courses de running, trail, triathlon et cyclisme.',
+		images: ['/og-image.jpg'],
 	},
 	manifest: '/site.webmanifest',
 	icons: {
@@ -71,9 +117,11 @@ export const metadata: Metadata = {
 			sizes: '180x180',
 		},
 	},
-	description: 'Application in development - Not accessible to the public',
 	appleWebApp: {
-		title: 'BeSwib',
+		title: 'Beswib',
+	},
+	other: {
+		'google-site-verification': 'your-google-verification-code',
 	},
 }
 
