@@ -30,11 +30,9 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 
 	// Currency conversion hook
 	const { isLoading, currencyName, convertedFormatted } = useCurrencyConversion(bib.price, locale)
-	console.log(isLoading, currencyName, convertedFormatted)
 
 	// Should show currency conversion if we have a converted price and it's not EUR (original currency)
-	const shouldShowConversion = convertedFormatted && currencyName !== 'EUR'
-	console.log('shouldShowConversion', shouldShowConversion)
+	const shouldShowConversion = convertedFormatted != null && currencyName !== 'EUR'
 
 	// Calculate the lowest reference price between original and official
 	const officialPrice = eventData?.officialStandardPrice ?? 0
@@ -83,7 +81,7 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 			</div>
 
 			{/* Currency Conversion Display */}
-			{shouldShowConversion && !isLoading && (
+			{shouldShowConversion != null && !isLoading && (
 				<div className="mt-2">
 					<p className="text-muted-foreground text-xl">
 						{t.currencyEstimate?.replace('{converted}', convertedFormatted).replace('{currency}', currencyName) ??
