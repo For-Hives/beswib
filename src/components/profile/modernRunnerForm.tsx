@@ -3,6 +3,7 @@
 import { CheckCircle, User as UserIcon, Shield, MapPin, FileText, AlertTriangle, Save } from 'lucide-react'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { useState, useTransition } from 'react'
+import * as React from 'react'
 
 import { object, string, minLength, picklist, pipe, optional, email as emailValidator, custom } from 'valibot'
 import { valibotResolver } from '@hookform/resolvers/valibot'
@@ -51,7 +52,7 @@ const runnerFormSchema = object({
 	gender: picklist(['male', 'female', 'other'], 'Invalid gender'),
 	firstName: pipe(string(), minLength(2, 'First name must be at least 2 characters')),
 	emergencyContactRelationship: pipe(string(), minLength(2, 'Please specify the relationship')),
-	emergencyContactPhone: pipe(string(), custom(validatePhoneNumber, 'Please enter a valid emergency contact phone number')),
+	emergencyContactPhone: pipe(string(), minLength(1, 'Emergency contact phone is required'), custom(validatePhoneNumber, 'Please enter a valid emergency contact phone number')),
 	emergencyContactName: pipe(string(), minLength(2, 'Contact name must be at least 2 characters')),
 	country: pipe(string(), minLength(2, 'Country name too short')),
 	contactEmail: optional(pipe(string(), emailValidator('Invalid email address'))),
@@ -96,12 +97,42 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 		},
 	})
 
+	// Clear contact errors when user starts typing in either field
+	const phoneValue = form.watch('phoneNumber')
+	const emailValue = form.watch('contactEmail')
+	
+	React.useEffect(() => {
+		const hasPhone = phoneValue && phoneValue.trim() !== ''
+		const hasEmail = emailValue && emailValue.trim() !== ''
+		
+		if (hasPhone || hasEmail) {
+			// Clear manual errors if at least one contact method is provided
+			if (form.formState.errors.phoneNumber?.type === 'manual') {
+				form.clearErrors('phoneNumber')
+			}
+			if (form.formState.errors.contactEmail?.type === 'manual') {
+				form.clearErrors('contactEmail')
+			}
+		}
+	}, [phoneValue, emailValue, form])
+
 	const onSubmit: SubmitHandler<RunnerFormData> = values => {
 		if (user === null) return
+		
 		// Enforce at least one contact: if both are empty, surface client-side error
 		const hasPhone = typeof values.phoneNumber === 'string' && values.phoneNumber.trim() !== ''
 		const hasEmail = typeof values.contactEmail === 'string' && values.contactEmail.trim() !== ''
+		
 		if (!hasPhone && !hasEmail) {
+			// Set errors on both fields to indicate at least one is required
+			form.setError('phoneNumber', { 
+				type: 'manual', 
+				message: 'Au moins un numéro de téléphone ou un email de contact est requis' 
+			})
+			form.setError('contactEmail', { 
+				type: 'manual', 
+				message: 'Au moins un numéro de téléphone ou un email de contact est requis' 
+			})
 			setSubmitStatus('error')
 			return
 		}
@@ -257,30 +288,28 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 							)}
 						</div>
 						<div>
-							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="phoneNumber">
-								{t.phoneNumber ?? 'Phone Number'}
-								<span className="text-muted-foreground ml-1 text-xs">
-									{t.atLeastOneContact ?? '(at least one of phone or contact email)'}
-								</span>
-							</Label>
 							<Controller
 								name="phoneNumber"
 								control={form.control}
 								render={({ field }) => (
 									<PhoneInput
+										label={
+											<>
+												{t.phoneNumber ?? 'Numéro de téléphone'}
+												<span className="text-muted-foreground ml-1 text-xs font-normal">
+													{t.atLeastOneContact ?? '(au moins un contact requis)'}
+												</span>
+											</>
+										}
 										value={field.value || ''}
 										onChange={field.onChange}
-										placeholder={t.phoneNumber ?? 'Phone Number'}
+										placeholder="Votre numéro de téléphone"
 										disabled={false}
 										error={!!form.formState.errors.phoneNumber}
+										helperText={form.formState.errors.phoneNumber?.message}
 									/>
 								)}
 							/>
-							{form.formState.errors.phoneNumber && (
-								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
-									{form.formState.errors.phoneNumber.message}
-								</p>
-							)}
 						</div>
 
 						<div>
@@ -334,27 +363,21 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 						</div>
 
 						<div>
-							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="emergencyContactPhone">
-								{t.contactPhone ?? 'Contact Phone'} *
-							</Label>
 							<Controller
 								name="emergencyContactPhone"
 								control={form.control}
 								render={({ field }) => (
 									<PhoneInput
+										label={`${t.contactPhone ?? 'Téléphone de contact'} *`}
 										value={field.value || ''}
 										onChange={field.onChange}
-										placeholder={t.contactPhone ?? 'Emergency Contact Phone'}
+										placeholder="Téléphone du contact d'urgence"
 										disabled={false}
 										error={!!form.formState.errors.emergencyContactPhone}
+										helperText={form.formState.errors.emergencyContactPhone?.message}
 									/>
 								)}
 							/>
-							{form.formState.errors.emergencyContactPhone && (
-								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
-									{form.formState.errors.emergencyContactPhone.message}
-								</p>
-							)}
 						</div>
 
 						<div className="sm:col-span-2">

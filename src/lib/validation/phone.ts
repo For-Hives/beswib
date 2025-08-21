@@ -1,7 +1,7 @@
 import { isValidPhoneNumber, parsePhoneNumber } from 'react-phone-number-input'
 
-export function validatePhoneNumber(value: string | undefined): boolean {
-	if (!value || value.trim() === '') {
+export function validatePhoneNumber(value: unknown): boolean {
+	if (!value || typeof value !== 'string' || value.trim() === '') {
 		return true // Allow empty values (optional field)
 	}
 	
