@@ -4,7 +4,7 @@ import { CheckCircle, User as UserIcon, Shield, MapPin, FileText, AlertTriangle,
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { useState, useTransition } from 'react'
 
-import { object, string, minLength, picklist, pipe, optional, email as emailValidator } from 'valibot'
+import { object, string, minLength, picklist, pipe, optional, email as emailValidator, custom } from 'valibot'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
@@ -15,6 +15,8 @@ import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import { isUserProfileComplete } from '@/lib/validation/user'
 import { formatDateForHTMLInput } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { validatePhoneNumber } from '@/lib/validation/phone'
+import { PhoneInput } from '@/components/ui/phone-input'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -25,7 +27,7 @@ type RunnerFormData = {
 	firstName: string
 	lastName: string
 	birthDate: string // YYYY-MM-DD
-	phoneNumber: string
+	phoneNumber?: string
 	contactEmail?: string
 	emergencyContactName: string
 	emergencyContactPhone: string
@@ -42,14 +44,14 @@ type RunnerFormData = {
 
 const runnerFormSchema = object({
 	postalCode: pipe(string(), minLength(4, 'Invalid postal code')),
-	phoneNumber: pipe(string(), minLength(0)),
+	phoneNumber: optional(pipe(string(), custom(validatePhoneNumber, 'Please enter a valid phone number'))),
 	medicalCertificateUrl: optional(string()),
 	licenseNumber: optional(string()),
 	lastName: pipe(string(), minLength(2, 'Last name must be at least 2 characters')),
 	gender: picklist(['male', 'female', 'other'], 'Invalid gender'),
 	firstName: pipe(string(), minLength(2, 'First name must be at least 2 characters')),
 	emergencyContactRelationship: pipe(string(), minLength(2, 'Please specify the relationship')),
-	emergencyContactPhone: pipe(string(), minLength(8, 'Invalid phone number')),
+	emergencyContactPhone: pipe(string(), custom(validatePhoneNumber, 'Please enter a valid emergency contact phone number')),
 	emergencyContactName: pipe(string(), minLength(2, 'Contact name must be at least 2 characters')),
 	country: pipe(string(), minLength(2, 'Country name too short')),
 	contactEmail: optional(pipe(string(), emailValidator('Invalid email address'))),
@@ -261,12 +263,18 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 									{t.atLeastOneContact ?? '(at least one of phone or contact email)'}
 								</span>
 							</Label>
-							<Input
-								{...form.register('phoneNumber')}
-								className={form.formState.errors.phoneNumber ? 'border-red-500' : ''}
-								id="phoneNumber"
-								placeholder="+1 234 567 8900"
-								type="tel"
+							<Controller
+								name="phoneNumber"
+								control={form.control}
+								render={({ field }) => (
+									<PhoneInput
+										value={field.value || ''}
+										onChange={field.onChange}
+										placeholder={t.phoneNumber ?? 'Phone Number'}
+										disabled={false}
+										error={!!form.formState.errors.phoneNumber}
+									/>
+								)}
 							/>
 							{form.formState.errors.phoneNumber && (
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
@@ -329,12 +337,18 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="emergencyContactPhone">
 								{t.contactPhone ?? 'Contact Phone'} *
 							</Label>
-							<Input
-								{...form.register('emergencyContactPhone')}
-								className={form.formState.errors.emergencyContactPhone ? 'border-red-500' : ''}
-								id="emergencyContactPhone"
-								placeholder="+1 234 567 8900"
-								type="tel"
+							<Controller
+								name="emergencyContactPhone"
+								control={form.control}
+								render={({ field }) => (
+									<PhoneInput
+										value={field.value || ''}
+										onChange={field.onChange}
+										placeholder={t.contactPhone ?? 'Emergency Contact Phone'}
+										disabled={false}
+										error={!!form.formState.errors.emergencyContactPhone}
+									/>
+								)}
 							/>
 							{form.formState.errors.emergencyContactPhone && (
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
