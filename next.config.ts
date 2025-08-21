@@ -80,6 +80,7 @@ const nextConfig: NextConfig = {
 			'https://*.beswib.com',
 			'https://clerk.beswib.com',
 			'https://*.paypal.com',
+			'https://nominatim.openstreetmap.org',
 		].join(' ')
 
 		const frameSrc = [
