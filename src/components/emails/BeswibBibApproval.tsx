@@ -76,7 +76,7 @@ export const BeswibBibApproval = ({
 					<Container className="mx-auto max-w-[600px] px-4 py-8">
 						{/* Header avec logo */}
 						<Section>
-							<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
+							<Img src={`${baseUrl}/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
 						</Section>
 
 						{/* Card principale */}
@@ -88,19 +88,7 @@ export const BeswibBibApproval = ({
 									{t.emails.bibApproval.subject.replace(' 🎉', '')}
 								</Heading>
 								<Text className="text-muted-foreground text-base">
-									{locale === 'fr'
-										? 'Bonjour'
-										: locale === 'en'
-											? 'Hello'
-											: locale === 'es'
-												? 'Hola'
-												: locale === 'it'
-													? 'Ciao'
-													: locale === 'de'
-														? 'Hallo'
-														: locale === 'ko'
-															? '안녕하세요'
-															: 'Bonjour'}
+									{t.emails.bibApproval.greeting}
 									{sellerName ? ` ${sellerName}` : ''} 👋
 								</Text>
 							</Section>
@@ -168,14 +156,14 @@ export const BeswibBibApproval = ({
 								<Link
 									href={`${baseUrl}/dashboard/seller`}
 									style={{
-										backgroundColor: 'oklch(0.6231 0.188 259.8145)',
-										color: 'oklch(1 0 0)',
 										textDecoration: 'none',
 										padding: '16px 32px',
-										borderRadius: '8px',
-										fontSize: '18px',
 										fontWeight: '600',
+										fontSize: '18px',
 										display: 'inline-block',
+										color: 'oklch(1 0 0)',
+										borderRadius: '8px',
+										backgroundColor: 'oklch(0.6231 0.188 259.8145)',
 									}}
 								>
 									{t.emails.bibApproval.sellNowButton}
@@ -208,9 +196,9 @@ export const BeswibBibApproval = ({
 								<Link
 									href={`${baseUrl}/contact`}
 									style={{
-										color: 'oklch(0.6231 0.188 259.8145)',
-										fontSize: '14px',
 										textDecoration: 'underline',
+										fontSize: '14px',
+										color: 'oklch(0.6231 0.188 259.8145)',
 									}}
 								>
 									{t.emails.bibApproval.contactSupport}

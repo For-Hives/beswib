@@ -37,13 +37,13 @@ export const Footer = ({ locale, baseUrl }: { baseUrl: string; locale: string })
 						</Text>
 					</Column>
 					<Column align="right" className="mt-4 flex flex-row items-center justify-end gap-2">
-						<Link href="/">
+						<Link href="https://www.instagram.com/beswib_official">
 							<Img src={`/mails/instagram.png`} width="24" height="24" alt="Instagram" className="opacity-80" />
 						</Link>
-						<Link href="/">
+						<Link href="https://strava.app.link/3wlVkUjzlUb">
 							<Img src={`/mails/strava.png`} width="24" height="24" alt="Strava" className="opacity-80" />
 						</Link>
-						<Link href="/">
+						<Link href="https://www.linkedin.com/company/beswib">
 							<Img src={`/mails/linkedin.png`} width="24" height="24" alt="LinkedIn" className="opacity-80" />
 						</Link>
 					</Column>

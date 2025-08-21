@@ -1,17 +1,4 @@
-import {
-	Body,
-	Container,
-	Head,
-	Heading,
-	Html,
-	Img,
-	Link,
-	Preview,
-	Section,
-	Text,
-	Tailwind,
-	Column,
-} from '@react-email/components'
+import { Body, Container, Head, Heading, Html, Img, Preview, Section, Text, Tailwind } from '@react-email/components'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
@@ -60,7 +47,7 @@ export const BeswibEmailVerification = ({
 					<Container className="mx-auto max-w-[600px] px-4 py-8">
 						{/* Header avec logo */}
 						<Section className="mb-8">
-							<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
+							<Img src={`${baseUrl}/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
 						</Section>
 
 						{/* Card principale */}
