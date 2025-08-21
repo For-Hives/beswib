@@ -1,318 +1,259 @@
-// import {
-// 	Html,
-// 	Head,
-// 	Font,
-// 	Preview,
-// 	Body,
-// 	Container,
-// 	Section,
-// 	Img,
-// 	Heading,
-// 	Text,
-// 	Button,
-// 	Hr,
-// } from '@react-email/components'
+import { Body, Container, Head, Heading, Html, Img, Link, Preview, Section, Text, Tailwind } from '@react-email/components'
 
-// import { getTranslations } from '@/lib/i18n/dictionary'
-// import constantsLocales from '@/constants/locales.json'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import constantsLocales from '@/constants/locales.json'
 
-// interface BeswibPurchaseApprovalProps {
-// 	buyerName?: string
-// 	eventName?: string
-// 	eventDate?: string
-// 	eventLocation?: string
-// 	bibPrice?: number
-// 	eventDistance?: string
-// 	bibCategory?: string
-// 	organizerName?: string
-// 	orderId?: string
-// 	locale?: string
-// }
+import { Footer } from './Footer'
 
-// export default function BeswibPurchaseApproval({
-// 	organizerName = '',
-// 	orderId = '',
-// 	locale = 'fr',
-// 	eventName = '',
-// 	eventLocation = '',
-// 	eventDistance = '',
-// 	eventDate = '',
-// 	buyerName = '',
-// 	bibPrice = 0,
-// 	bibCategory = '',
-// }: BeswibPurchaseApprovalProps) {
-// 	const t = getTranslations(locale, constantsLocales)
+interface BeswibPurchaseApprovalProps {
+	buyerName?: string
+	eventName?: string
+	eventDate?: string
+	eventLocation?: string
+	bibPrice?: number
+	eventDistance?: string
+	bibCategory?: string
+	organizerName?: string
+	orderId?: string
+	locale?: string
+}
 
-// 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
-// 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
-// 	return (
-// 		<Html lang={locale}>
-// 			<Head>
-// 				<Font fontFamily="Inter" fontWeight={400} fontStyle="normal" fallbackFontFamily="Arial" />
-// 			</Head>
-// 			<Preview>{t.emails.purchaseApproval.subject}</Preview>
-// 			<Body style={{ fontFamily: 'Inter, Arial, sans-serif', backgroundColor: 'hsl(var(--background))' }}>
-// 				<Container style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
-// 					{/* Header */}
-// 					<Section style={{ textAlign: 'center', marginBottom: '32px' }}>
-// 						<Img src={`${baseUrl}/beswib-logo.png`} width="120" height="40" alt="Beswib" style={{ margin: '0 auto' }} />
-// 					</Section>
+export const BeswibPurchaseApproval = ({
+	organizerName = 'Organisateur marathon',
+	orderId = 'BW123456789',
+	locale = 'fr',
+	eventName = 'Marathon de Paris 2024',
+	eventLocation = 'Paris, France',
+	eventDistance = '42.2 km',
+	eventDate = '14 avril 2024',
+	buyerName = 'Jean Martin',
+	bibPrice = 150,
+	bibCategory = 'Marathon',
+}: BeswibPurchaseApprovalProps) => {
+	const t = getTranslations(locale, constantsLocales)
+	const formatPrice = (price: number) => `${price.toFixed(2)}€`
 
-// 					{/* Success Header */}
-// 					<Section
-// 						style={{
-// 							textAlign: 'center',
-// 							padding: '30px',
-// 							borderRadius: '12px 12px 0 0',
-// 							background: 'linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 35%) 100%)',
-// 						}}
-// 					>
-// 						<Text style={{ margin: '0', fontWeight: '700', fontSize: '24px', color: 'white' }}>
-// 							🎉 {t.emails.purchaseApproval.subject.replace(' 🎉', '')}
-// 						</Text>
-// 					</Section>
+	return (
+		<Html>
+			<Head />
+			<Tailwind
+				config={{
+					theme: {
+						extend: {
+							fontFamily: {
+								sans: ['Geist', 'Arial', 'sans-serif'],
+							},
+							colors: {
+								'success-foreground': 'oklch(0.972 0.027 138.27)',
+								success: 'oklch(0.626 0.124 142.5)',
+								'primary-foreground': 'oklch(1 0 0)',
+								primary: 'oklch(0.6231 0.188 259.8145)',
+								info: 'oklch(0.701 0.11 221.2)',
+								'info-foreground': 'oklch(0.97 0.013 221.2)',
+								'muted-foreground': 'oklch(0.46 0.02 264.36)',
+								muted: 'oklch(0.985 0.0015 247.8)',
+								foreground: 'oklch(0.24 0 0)',
+								card: 'oklch(1 0 0)',
+								border: 'oklch(0.89 0.004 264.53)',
+								background: 'oklch(1 0 0)',
+							},
+						},
+					},
+				}}
+			>
+				<Body className="bg-background font-sans">
+					<Preview>{t.emails.purchaseApproval.subject}</Preview>
+					<Container className="mx-auto max-w-[600px] px-4 py-8">
+						{/* Header avec logo */}
+						<Section>
+							<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
+						</Section>
 
-// 					{/* Main Content */}
-// 					<Section
-// 						style={{
-// 							padding: '30px',
-// 							boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-// 							borderRadius: '0 0 12px 12px',
-// 							border: '1px solid hsl(var(--border))',
-// 							background: 'hsl(var(--card))',
-// 						}}
-// 					>
-// 						{/* Greeting */}
-// 						<Text style={{ marginBottom: '16px', fontSize: '16px', color: 'hsl(var(--foreground))' }}>
-// 							{t.emails.purchaseApproval.greeting}
-// 							{buyerName ? ` ${buyerName}` : ''} 👋
-// 						</Text>
+						{/* Card principale */}
+						<Section className="bg-card border-border rounded-lg border px-8 py-6 shadow-sm">
+							{/* Icon et titre */}
+							<Section className="text-center">
+								<Text className="text-success mb-2 text-4xl">🎉</Text>
+								<Heading className="text-foreground mb-2 text-2xl font-bold">
+									{t.emails.purchaseApproval.subject.replace(' 🎉', '')}
+								</Heading>
+								<Text className="text-muted-foreground text-base">
+									{locale === 'fr' ? 'Bonjour' : locale === 'en' ? 'Hello' : locale === 'es' ? 'Hola' : locale === 'it' ? 'Ciao' : locale === 'de' ? 'Hallo' : locale === 'ko' ? '안녕하세요' : 'Bonjour'}
+									{buyerName ? ` ${buyerName}` : ''} 👋
+								</Text>
+							</Section>
 
-// 						{/* Main Message */}
-// 						<Text
-// 							style={{ marginBottom: '24px', lineHeight: '1.6', fontSize: '16px', color: 'hsl(var(--foreground))' }}
-// 						>
-// 							{t.emails.purchaseApproval.mainMessage} <strong>{t.emails.purchaseApproval.readyToRun}</strong>
-// 						</Text>
+							{/* Message principal */}
+							<Section className="text-start">
+								<Text className="text-muted-foreground text-base leading-relaxed">
+									{t.emails.purchaseApproval.mainMessage} <strong>{t.emails.purchaseApproval.readyToRun}</strong>
+								</Text>
+							</Section>
 
-// 						{/* Validation Status */}
-// 						<Section
-// 							style={{
-// 								padding: '20px',
-// 								marginBottom: '24px',
-// 								borderRadius: '8px',
-// 								border: '2px solid hsl(var(--success))',
-// 								background: 'hsl(var(--success-foreground))',
-// 							}}
-// 						>
-// 							<Text style={{ margin: '0 0 12px 0', fontWeight: '600', fontSize: '18px', color: 'hsl(var(--success))' }}>
-// 								✅ {t.emails.purchaseApproval.validationDetails}
-// 							</Text>
-// 							<Text style={{ margin: '0', fontSize: '14px', color: 'hsl(var(--success))' }}>
-// 								<strong>{t.emails.purchaseApproval.validatedBy}:</strong>{' '}
-// 								{organizerName || "Organisateur de l'événement"}
-// 							</Text>
-// 						</Section>
+							{/* Statut de validation */}
+							<Section className="bg-success-foreground border-success/20 mb-6 rounded-lg border-2 p-6">
+								<Heading className="text-success mb-4 text-lg font-semibold">
+									✅ {t.emails.purchaseApproval.validationDetails}
+								</Heading>
+								<Text className="text-success text-sm">
+									<strong>{t.emails.purchaseApproval.validatedBy}:</strong> {organizerName}
+								</Text>
+							</Section>
 
-// 						{/* Purchase Details */}
-// 						<Section
-// 							style={{
-// 								padding: '20px',
-// 								marginBottom: '24px',
-// 								borderRadius: '8px',
-// 								background: 'hsl(var(--muted))',
-// 							}}
-// 						>
-// 							<Heading
-// 								style={{ margin: '0 0 16px 0', fontWeight: '600', fontSize: '16px', color: 'hsl(var(--foreground))' }}
-// 							>
-// 								{t.emails.purchaseApproval.purchaseDetails}
-// 							</Heading>
+							{/* Détails de l'achat */}
+							<Section className="bg-muted border-border mb-6 rounded-lg border p-6">
+								<Heading className="text-foreground mb-4 text-lg font-semibold">
+									🎫 {t.emails.purchaseApproval.purchaseDetails}
+								</Heading>
 
-// 							{eventName && (
-// 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-// 									<strong>{t.emails.purchaseApproval.event}:</strong> {eventName}
-// 								</Text>
-// 							)}
-// 							{eventDate && (
-// 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-// 									<strong>{t.emails.purchaseApproval.date}:</strong> {eventDate}
-// 								</Text>
-// 							)}
-// 							{eventLocation && (
-// 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-// 									<strong>{t.emails.purchaseApproval.location}:</strong> {eventLocation}
-// 								</Text>
-// 							)}
-// 							{eventDistance && (
-// 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-// 									<strong>{t.emails.purchaseApproval.distance}:</strong> {eventDistance}
-// 								</Text>
-// 							)}
-// 							{bibCategory && (
-// 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-// 									<strong>{t.emails.purchaseApproval.category}:</strong> {bibCategory}
-// 								</Text>
-// 							)}
-// 							{bibPrice > 0 && (
-// 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-// 									<strong>{t.emails.purchaseApproval.pricePaid}:</strong> {formatPrice(bibPrice)}
-// 								</Text>
-// 							)}
-// 							{orderId && (
-// 								<Text style={{ margin: '4px 0', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-// 									<strong>{t.emails.purchaseApproval.orderId}:</strong> {orderId}
-// 								</Text>
-// 							)}
-// 						</Section>
+								<Section>
+									<Section className="flex justify-between">
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.purchaseApproval.event}:
+										</Text>
+										<Text className="text-foreground text-sm font-semibold">{eventName}</Text>
+									</Section>
 
-// 						{/* Final Steps */}
-// 						<Section style={{ marginBottom: '24px' }}>
-// 							<Heading
-// 								style={{ marginBottom: '16px', fontWeight: '600', fontSize: '16px', color: 'hsl(var(--foreground))' }}
-// 							>
-// 								🏁 {t.emails.purchaseApproval.finalSteps}
-// 							</Heading>
+									<Section className="mt-3 flex justify-between">
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.purchaseApproval.category}:
+										</Text>
+										<Text className="text-foreground text-sm">{bibCategory}</Text>
+									</Section>
 
-// 							<Text
-// 								style={{
-// 									paddingLeft: '16px',
-// 									margin: '8px 0',
-// 									fontSize: '14px',
-// 									color: 'hsl(var(--muted-foreground))',
-// 								}}
-// 							>
-// 								• {t.emails.purchaseApproval.step1}
-// 							</Text>
-// 							<Text
-// 								style={{
-// 									paddingLeft: '16px',
-// 									margin: '8px 0',
-// 									fontSize: '14px',
-// 									color: 'hsl(var(--muted-foreground))',
-// 								}}
-// 							>
-// 								• {t.emails.purchaseApproval.step2}
-// 							</Text>
-// 							<Text
-// 								style={{
-// 									paddingLeft: '16px',
-// 									margin: '8px 0',
-// 									fontSize: '14px',
-// 									color: 'hsl(var(--muted-foreground))',
-// 								}}
-// 							>
-// 								• {t.emails.purchaseApproval.step3}
-// 							</Text>
-// 							<Text
-// 								style={{
-// 									paddingLeft: '16px',
-// 									margin: '8px 0',
-// 									fontSize: '14px',
-// 									color: 'hsl(var(--muted-foreground))',
-// 								}}
-// 							>
-// 								• {t.emails.purchaseApproval.step4}
-// 							</Text>
-// 						</Section>
+									<Section className="mt-3 flex justify-between">
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.purchaseApproval.distance}:
+										</Text>
+										<Text className="text-foreground text-sm">{eventDistance}</Text>
+									</Section>
 
-// 						{/* Action Button */}
-// 						<Section style={{ textAlign: 'center', margin: '32px 0' }}>
-// 							<Button
-// 								href={`${baseUrl}/events/${eventName?.toLowerCase().replace(/\s+/g, '-') || 'event'}`}
-// 								style={{
-// 									textDecoration: 'none',
-// 									padding: '12px 24px',
-// 									fontWeight: '600',
-// 									fontSize: '16px',
-// 									display: 'inline-block',
-// 									color: 'white',
-// 									borderRadius: '6px',
-// 									background: 'linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 35%) 100%)',
-// 								}}
-// 							>
-// 								{t.emails.purchaseApproval.viewEventButton}
-// 							</Button>
-// 						</Section>
+									<Section className="mt-3 flex justify-between">
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.purchaseApproval.date}:
+										</Text>
+										<Text className="text-foreground text-sm">{eventDate}</Text>
+									</Section>
 
-// 						{/* Preparation Tips */}
-// 						<Section
-// 							style={{
-// 								padding: '20px',
-// 								marginBottom: '24px',
-// 								borderRadius: '8px',
-// 								border: '1px solid hsl(var(--info))',
-// 								background: 'hsl(var(--info-foreground))',
-// 							}}
-// 						>
-// 							<Heading style={{ margin: '0 0 16px 0', fontWeight: '600', fontSize: '16px', color: 'hsl(var(--info))' }}>
-// 								🏃‍♂️ {t.emails.purchaseApproval.preparationTips}
-// 							</Heading>
+									<Section className="mt-3 flex justify-between">
+										<Text className="text-muted-foreground text-sm font-medium">
+											{t.emails.purchaseApproval.location}:
+										</Text>
+										<Text className="text-foreground text-sm">{eventLocation}</Text>
+									</Section>
 
-// 							<Text style={{ paddingLeft: '16px', margin: '8px 0', fontSize: '14px', color: 'hsl(var(--info))' }}>
-// 								• {t.emails.purchaseApproval.tip1}
-// 							</Text>
-// 							<Text style={{ paddingLeft: '16px', margin: '8px 0', fontSize: '14px', color: 'hsl(var(--info))' }}>
-// 								• {t.emails.purchaseApproval.tip2}
-// 							</Text>
-// 							<Text style={{ paddingLeft: '16px', margin: '8px 0', fontSize: '14px', color: 'hsl(var(--info))' }}>
-// 								• {t.emails.purchaseApproval.tip3}
-// 							</Text>
-// 						</Section>
+									{bibPrice > 0 && (
+										<Section className="mt-3 flex justify-between">
+											<Text className="text-muted-foreground text-sm font-medium">
+												{t.emails.purchaseApproval.pricePaid}:
+											</Text>
+											<Text className="text-success text-sm font-bold">{formatPrice(bibPrice)}</Text>
+										</Section>
+									)}
 
-// 						{/* Congratulations Message */}
-// 						<Section
-// 							style={{
-// 								textAlign: 'center',
-// 								padding: '16px',
-// 								marginBottom: '24px',
-// 								borderRadius: '6px',
-// 								border: '1px solid hsl(var(--primary))',
-// 								background: 'hsl(var(--primary-foreground))',
-// 							}}
-// 						>
-// 							<Text style={{ margin: '0', fontWeight: '500', fontSize: '14px', color: 'hsl(var(--primary))' }}>
-// 								🌟 {t.emails.purchaseApproval.congratulations}
-// 							</Text>
-// 						</Section>
+									{orderId && (
+										<Section className="mt-3 flex justify-between">
+											<Text className="text-muted-foreground text-sm font-medium">
+												{t.emails.purchaseApproval.orderId}:
+											</Text>
+											<Text className="text-foreground font-mono text-sm">{orderId}</Text>
+										</Section>
+									)}
+								</Section>
+							</Section>
 
-// 						<Hr style={{ margin: '24px 0', borderColor: 'hsl(var(--border))' }} />
+							{/* Bouton principal */}
+							<Section className="mb-6 text-center">
+								<Link
+									href={`${baseUrl}/events/${eventName?.toLowerCase().replace(/\s+/g, '-') || 'event'}`}
+									style={{
+										backgroundColor: 'oklch(0.6231 0.188 259.8145)',
+										color: 'oklch(1 0 0)',
+										textDecoration: 'none',
+										padding: '16px 32px',
+										borderRadius: '8px',
+										fontSize: '18px',
+										fontWeight: '600',
+										display: 'inline-block',
+									}}
+								>
+									{t.emails.purchaseApproval.viewEventButton}
+								</Link>
+							</Section>
 
-// 						{/* Help Section */}
-// 						<Section style={{ textAlign: 'center', marginBottom: '24px' }}>
-// 							<Text style={{ marginBottom: '8px', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-// 								<strong>{t.emails.purchaseApproval.helpText}</strong>
-// 							</Text>
-// 							<Text style={{ marginBottom: '16px', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-// 								{t.emails.purchaseApproval.helpDescription}
-// 							</Text>
-// 							<Button
-// 								href={`${baseUrl}/contact`}
-// 								style={{
-// 									textDecoration: 'underline',
-// 									fontSize: '14px',
-// 									color: 'hsl(var(--primary))',
-// 									border: 'none',
-// 									background: 'transparent',
-// 								}}
-// 							>
-// 								{t.emails.purchaseApproval.contactSupport}
-// 							</Button>
-// 						</Section>
+							{/* Étapes finales */}
+							<Section className="bg-card border-border mb-6 rounded-lg border p-6">
+								<Heading className="text-foreground mb-4 text-lg font-semibold">
+									🏁 {t.emails.purchaseApproval.finalSteps}
+								</Heading>
 
-// 						{/* Footer */}
-// 						<Section style={{ textAlign: 'center' }}>
-// 							<Text style={{ margin: '0 0 8px 0', fontSize: '16px', color: 'hsl(var(--foreground))' }}>
-// 								{t.emails.purchaseApproval.footer}
-// 							</Text>
-// 							<Text style={{ margin: '0', fontWeight: '600', fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-// 								{t.emails.purchaseApproval.teamSignature}
-// 							</Text>
-// 						</Section>
-// 					</Section>
-// 				</Container>
-// 			</Body>
-// 		</Html>
-// 	)
-// }
+								<Section>
+									<Text className="text-muted-foreground text-sm">• {t.emails.purchaseApproval.step1}</Text>
+									<Text className="text-muted-foreground mt-3 text-sm">• {t.emails.purchaseApproval.step2}</Text>
+									<Text className="text-muted-foreground mt-3 text-sm">• {t.emails.purchaseApproval.step3}</Text>
+									<Text className="text-muted-foreground mt-3 text-sm">• {t.emails.purchaseApproval.step4}</Text>
+								</Section>
+							</Section>
+
+							{/* Conseils de préparation */}
+							<Section className="bg-info-foreground border-info/20 mb-6 rounded-lg border p-6">
+								<Heading className="text-info mb-4 text-lg font-semibold">
+									🏃‍♂️ {t.emails.purchaseApproval.preparationTips}
+								</Heading>
+
+								<Section>
+									<Text className="text-info text-sm">• {t.emails.purchaseApproval.tip1}</Text>
+									<Text className="text-info mt-3 text-sm">• {t.emails.purchaseApproval.tip2}</Text>
+									<Text className="text-info mt-3 text-sm">• {t.emails.purchaseApproval.tip3}</Text>
+								</Section>
+							</Section>
+
+							{/* Message de félicitations */}
+							<Section className="bg-primary/10 border-primary/30 mb-6 rounded-lg border p-4 text-center">
+								<Text className="text-primary text-sm font-medium">
+									🌟 {t.emails.purchaseApproval.congratulations}
+								</Text>
+							</Section>
+
+							{/* Aide */}
+							<Section className="mt-6 text-center">
+								<Text className="text-foreground text-sm font-medium">{t.emails.purchaseApproval.helpText}</Text>
+								<Text className="text-muted-foreground text-sm">{t.emails.purchaseApproval.helpDescription}</Text>
+								<Link
+									href={`${baseUrl}/contact`}
+									style={{
+										color: 'oklch(0.6231 0.188 259.8145)',
+										fontSize: '14px',
+										textDecoration: 'underline',
+									}}
+								>
+									{t.emails.purchaseApproval.contactSupport}
+								</Link>
+							</Section>
+						</Section>
+
+						{/* Footer */}
+						<Footer locale={locale} baseUrl={baseUrl} />
+					</Container>
+				</Body>
+			</Tailwind>
+		</Html>
+	)
+}
+
+BeswibPurchaseApproval.PreviewProps = {
+	organizerName: 'Organisateur Marathon',
+	orderId: 'BW123456789',
+	locale: 'fr',
+	eventName: 'Marathon de Paris 2024',
+	eventLocation: 'Paris, France',
+	eventDistance: '42.2 km',
+	eventDate: '14 avril 2024',
+	buyerName: 'Jean Martin',
+	bibPrice: 150,
+	bibCategory: 'Marathon',
+} as BeswibPurchaseApprovalProps
+
+export default BeswibPurchaseApproval

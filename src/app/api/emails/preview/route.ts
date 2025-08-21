@@ -8,6 +8,8 @@ import { BeswibEmailVerification, BeswibWelcomeEmail, BeswibWaitlistConfirmation
 import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
 import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 import BeswibWaitlistAlert from '@/components/emails/BeswibWaitlistAlert'
+import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
+import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
 
 export async function GET(request: NextRequest) {
 	const { searchParams } = new URL(request.url)
@@ -24,6 +26,11 @@ export async function GET(request: NextRequest) {
 	const locale = searchParams.get('locale') ?? 'fr'
 	const timeRemaining = searchParams.get('timeRemaining') ?? '2 jours'
 	const listingId = searchParams.get('listingId') ?? 'listing123'
+	const organizerName = searchParams.get('organizerName') ?? 'Organisateur Marathon'
+	const eventLocation = searchParams.get('eventLocation') ?? 'Paris, France'
+	const eventDistance = searchParams.get('eventDistance') ?? '42.2 km'
+	const eventDate = searchParams.get('eventDate') ?? '14 avril 2024'
+	const bibCategory = searchParams.get('bibCategory') ?? 'Marathon'
 
 	// Paramètres optionnels pour personnaliser les frais
 	const customPlatformRate = Number(searchParams.get('platformRate')) || 0.1 // Default 10%
@@ -152,11 +159,38 @@ export async function GET(request: NextRequest) {
 					locale,
 				})
 				break
+			case 'bib-approval':
+				emailComponent = React.createElement(BeswibBibApproval, {
+					sellerName,
+					organizerName,
+					locale,
+					eventName,
+					eventLocation,
+					eventDistance,
+					eventDate,
+					bibPrice,
+					bibCategory,
+				})
+				break
+			case 'purchase-approval':
+				emailComponent = React.createElement(BeswibPurchaseApproval, {
+					organizerName,
+					orderId,
+					locale,
+					eventName,
+					eventLocation,
+					eventDistance,
+					eventDate,
+					buyerName,
+					bibPrice,
+					bibCategory,
+				})
+				break
 			default:
 				return NextResponse.json(
 					{
 						error:
-							'Template not found. Available: verification, welcome, sale-confirmation, purchase-confirmation, sale-alert, waitlist-confirmation, waitlist-alert',
+							'Template not found. Available: verification, welcome, sale-confirmation, purchase-confirmation, sale-alert, waitlist-confirmation, waitlist-alert, bib-approval, purchase-approval',
 					},
 					{ status: 400 }
 				)

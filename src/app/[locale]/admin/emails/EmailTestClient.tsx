@@ -43,6 +43,8 @@ export default function EmailTestClient() {
 			| 'sale-alert'
 			| 'waitlist-confirmation'
 			| 'waitlist-alert'
+			| 'bib-approval'
+			| 'purchase-approval'
 	) => {
 		if (!email) {
 			toast.error('Veuillez saisir une adresse email')
@@ -103,6 +105,20 @@ export default function EmailTestClient() {
 				payload.listingId = listingId
 				payload.eventDistance = eventDistance
 				payload.bibCategory = bibCategory
+			} else if (template === 'bib-approval') {
+				payload.sellerName = sellerName
+				payload.eventName = eventName
+				payload.bibPrice = bibPrice.toString()
+				payload.orderId = orderId
+				payload.eventDistance = eventDistance
+				payload.bibCategory = bibCategory
+			} else if (template === 'purchase-approval') {
+				payload.buyerName = buyerName
+				payload.eventName = eventName
+				payload.bibPrice = bibPrice.toString()
+				payload.orderId = orderId
+				payload.eventDistance = eventDistance
+				payload.bibCategory = bibCategory
 			}
 
 			const response = await fetch('/api/emails/test', {
@@ -137,6 +153,8 @@ export default function EmailTestClient() {
 			| 'sale-alert'
 			| 'waitlist-confirmation'
 			| 'waitlist-alert'
+			| 'bib-approval'
+			| 'purchase-approval'
 	) => {
 		const params = new URLSearchParams({
 			template,
@@ -190,6 +208,22 @@ export default function EmailTestClient() {
 				sellerName,
 				timeRemaining,
 				listingId,
+				eventDistance,
+				bibCategory,
+			}),
+			...(template === 'bib-approval' && {
+				sellerName,
+				eventName,
+				bibPrice: bibPrice.toString(),
+				orderId,
+				eventDistance,
+				bibCategory,
+			}),
+			...(template === 'purchase-approval' && {
+				buyerName,
+				eventName,
+				bibPrice: bibPrice.toString(),
+				orderId,
 				eventDistance,
 				bibCategory,
 			}),
@@ -741,6 +775,132 @@ export default function EmailTestClient() {
 								{isLoading === 'waitlist-alert' ? 'Envoi...' : 'Envoyer'}
 							</Button>
 							<Button variant="outline" onClick={() => openPreview('waitlist-alert')}>
+								Aperçu
+							</Button>
+						</div>
+					</CardContent>
+				</Card>
+
+				{/* Email d'approbation de dossard */}
+				<Card>
+					<CardHeader>
+						<CardTitle>Email d'approbation de dossard</CardTitle>
+						<CardDescription>Template envoyé quand le dossard est approuvé pour la vente</CardDescription>
+					</CardHeader>
+					<CardContent className="space-y-4">
+						<div>
+							<Label htmlFor="sellerNameApproval">Nom du vendeur</Label>
+							<Input
+								id="sellerNameApproval"
+								placeholder="Marie Dupont"
+								value={sellerName}
+								onChange={e => setSellerName(e.target.value)}
+							/>
+						</div>
+
+						<div>
+							<Label htmlFor="eventNameApproval">Nom de l'événement</Label>
+							<Input
+								id="eventNameApproval"
+								placeholder="Marathon de Paris 2024"
+								value={eventName}
+								onChange={e => setEventName(e.target.value)}
+							/>
+						</div>
+
+						<div>
+							<Label htmlFor="bibPriceApproval">Prix du dossard (€)</Label>
+							<Input
+								id="bibPriceApproval"
+								type="number"
+								placeholder="150"
+								value={bibPrice}
+								onChange={e => setBibPrice(Number(e.target.value))}
+							/>
+						</div>
+
+						<div>
+							<Label htmlFor="orderIdApproval">N° de commande</Label>
+							<Input
+								id="orderIdApproval"
+								placeholder="BW123456789"
+								value={orderId}
+								onChange={e => setOrderId(e.target.value)}
+							/>
+						</div>
+
+						<div className="flex gap-2">
+							<Button
+								onClick={() => void sendTestEmail('bib-approval')}
+								disabled={isLoading === 'bib-approval' || !email}
+								className="flex-1"
+							>
+								{isLoading === 'bib-approval' ? 'Envoi...' : 'Envoyer'}
+							</Button>
+							<Button variant="outline" onClick={() => openPreview('bib-approval')}>
+								Aperçu
+							</Button>
+						</div>
+					</CardContent>
+				</Card>
+
+				{/* Email d'approbation d'achat */}
+				<Card>
+					<CardHeader>
+						<CardTitle>Email d'approbation d'achat</CardTitle>
+						<CardDescription>Template envoyé quand la transaction est approuvée par l'organisateur</CardDescription>
+					</CardHeader>
+					<CardContent className="space-y-4">
+						<div>
+							<Label htmlFor="buyerNameApproval">Nom de l'acheteur</Label>
+							<Input
+								id="buyerNameApproval"
+								placeholder="Jean Martin"
+								value={buyerName}
+								onChange={e => setBuyerName(e.target.value)}
+							/>
+						</div>
+
+						<div>
+							<Label htmlFor="eventNamePurchaseApproval">Nom de l'événement</Label>
+							<Input
+								id="eventNamePurchaseApproval"
+								placeholder="Marathon de Paris 2024"
+								value={eventName}
+								onChange={e => setEventName(e.target.value)}
+							/>
+						</div>
+
+						<div>
+							<Label htmlFor="bibPricePurchaseApproval">Prix payé (€)</Label>
+							<Input
+								id="bibPricePurchaseApproval"
+								type="number"
+								placeholder="150"
+								value={bibPrice}
+								onChange={e => setBibPrice(Number(e.target.value))}
+							/>
+						</div>
+
+						<div>
+							<Label htmlFor="orderIdPurchaseApproval">N° de commande</Label>
+							<Input
+								id="orderIdPurchaseApproval"
+								placeholder="BW123456789"
+								value={orderId}
+								onChange={e => setOrderId(e.target.value)}
+							/>
+						</div>
+
+						<div className="flex gap-2">
+							<Button
+								onClick={() => void sendTestEmail('purchase-approval')}
+								disabled={isLoading === 'purchase-approval' || !email}
+								className="flex-1"
+							>
+								{isLoading === 'purchase-approval' ? 'Envoi...' : 'Envoyer'}
+							</Button>
+							<Button variant="outline" onClick={() => openPreview('purchase-approval')}>
 								Aperçu
 							</Button>
 						</div>
