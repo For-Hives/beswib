@@ -19,7 +19,7 @@ export const Footer = ({ locale, baseUrl }: { baseUrl: string; locale: string })
 						{t.emails.saleConfirmation.contact}
 					</Link>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
-					<Link href={`${baseUrl}/dashboard/`} className="text-muted-foreground text-xs underline">
+					<Link href={`${baseUrl}/dashboard`} className="text-muted-foreground text-xs underline">
 						{t.emails.saleConfirmation.dashboard}
 					</Link>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
