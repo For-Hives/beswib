@@ -11,6 +11,7 @@ export const mockUser: User = {
 	paypal_kyc: false,
 	medicalCertificateUrl: null,
 
+	locale: 'fr',
 	licenseNumber: null,
 	lastName: 'User',
 	id: 'test_user_123456',

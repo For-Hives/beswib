@@ -4,8 +4,8 @@ import { render } from '@react-email/components'
 
 import { Resend } from 'resend'
 
+import { getLocalizedEmailSubject, getSafeLocale, type EmailTemplateKey } from '@/lib/utils/email-localization'
 import { BeswibEmailVerification, BeswibWelcomeEmail, BeswibWaitlistConfirmation } from '@/components/emails'
-import { getLocalizedEmailSubject, getSafeLocale } from '@/lib/utils/email-localization'
 import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
 import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
 import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
@@ -29,7 +29,7 @@ interface SendEmailParams {
  * Helper function to automatically detect user locale and get localized subject
  */
 async function getLocalizedSubjectForUser(
-	template: string,
+	template: EmailTemplateKey | 'verifiedEmail',
 	email: string,
 	params: Record<string, string | number | undefined> = {}
 ): Promise<string> {
@@ -559,7 +559,7 @@ interface PurchaseApprovalParams {
 export async function sendPurchaseApprovalEmail({
 	organizerName,
 	orderId,
-	locale = 'fr',
+	locale,
 	eventName,
 	eventLocation,
 	eventDistance,
@@ -569,7 +569,10 @@ export async function sendPurchaseApprovalEmail({
 	bibPrice,
 	bibCategory,
 }: PurchaseApprovalParams): Promise<boolean> {
-	const subject = getLocalizedSubject('purchaseApproval', locale)
+	// Auto-detect user locale if not provided
+	const userLocale = locale ?? (await getUserLocaleByEmail(buyerEmail))
+	const safeLocale = getSafeLocale(userLocale)
+	const subject = await getLocalizedSubjectForUser('purchaseApproval', buyerEmail)
 
 	return sendEmail({
 		to: buyerEmail,
@@ -585,7 +588,7 @@ export async function sendPurchaseApprovalEmail({
 				bibCategory={bibCategory}
 				organizerName={organizerName}
 				orderId={orderId}
-				locale={locale}
+				locale={safeLocale}
 			/>
 		),
 	})

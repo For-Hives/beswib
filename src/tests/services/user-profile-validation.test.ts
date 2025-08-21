@@ -13,6 +13,7 @@ describe('isUserProfileComplete', () => {
 		paypalMerchantId: null,
 		paypal_kyc: false,
 		medicalCertificateUrl: null,
+		locale: 'fr',
 		licenseNumber: null,
 		lastName: 'Doe',
 		id: '1',
