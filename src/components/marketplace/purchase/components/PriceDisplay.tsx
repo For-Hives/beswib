@@ -85,7 +85,7 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 				<div className="mt-2">
 					<p className="text-muted-foreground text-xl">
 						{t.currencyEstimate?.replace('{converted}', convertedFormatted).replace('{currency}', currencyName) ??
-							`Approx. ${convertedFormatted} (${currencyName})`}
+							`~ ${convertedFormatted} (${currencyName})`}
 					</p>
 				</div>
 			)}
