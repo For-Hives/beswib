@@ -47,7 +47,7 @@ export default function PriceDisplay({ locale, eventData, bib }: Readonly<PriceD
 	}
 
 	// Should show currency conversion if we have a converted price and it's not EUR (original currency)
-	const shouldShowConversion = !!convertedFormatted && currencyName !== 'EUR'
+	const shouldShowConversion = convertedFormatted != null && convertedFormatted !== '' && currencyName !== 'EUR'
 
 	// Calculate the lowest reference price between original and official
 	const officialPrice = eventData?.officialStandardPrice ?? 0
