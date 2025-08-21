@@ -1,67 +1,40 @@
+import { getTranslations } from '@/lib/i18n/dictionary'
 import locales from '@/constants/locales.json'
 
 // Type definitions for locales structure
 type LocaleData = typeof locales
-type LocaleKey = keyof LocaleData
-type EmailTemplates = LocaleData[LocaleKey]['emails']
-export type EmailTemplateKey = keyof EmailTemplates
+export type EmailTemplateKey = keyof LocaleData[keyof LocaleData]['emails']
 
 /**
- * Supported locales in the application
- */
-export const SUPPORTED_LOCALES = ['en', 'fr', 'ko', 'es', 'it', 'de', 'ro', 'pt', 'nl'] as const
-export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]
-
-/**
- * Check if a locale is supported
- */
-export function isSupportedLocale(locale: string): locale is SupportedLocale {
-	return SUPPORTED_LOCALES.includes(locale as SupportedLocale)
-}
-
-/**
- * Get a safe locale, fallback to 'fr' if not supported
- */
-export function getSafeLocale(locale: string | null | undefined): SupportedLocale {
-	if (!locale || locale.trim() === '') return 'fr'
-	return isSupportedLocale(locale) ? locale : 'fr'
-}
-
-/**
- * Get localized email subject with parameter substitution
+ * Get localized email subject with parameter substitution using the same system as the rest of the app
  */
 export function getLocalizedEmailSubject(
 	template: EmailTemplateKey | 'verifiedEmail',
 	locale: string,
 	params: Record<string, string | number | undefined> = {}
 ): string {
-	const safeLocale = getSafeLocale(locale)
-	const localeData = locales[safeLocale]
-
-	if (!localeData) {
-		throw new Error(`Locale '${safeLocale}' not found in locales.json`)
-	}
+	const translations = getTranslations(locale, locales) as any
 
 	// Special case for verifiedEmail which is at root level, not in emails
 	if (template === 'verifiedEmail') {
-		const subject = localeData.verifiedEmail?.subject
+		const subject = translations.verifiedEmail?.subject as string
 		if (!subject) {
-			throw new Error(`Missing verifiedEmail subject for locale: ${safeLocale}`)
+			throw new Error(`Missing verifiedEmail subject for locale: ${locale}`)
 		}
 		return interpolateString(subject, params)
 	}
 
 	// For all other templates, they should be in emails section
-	const emailTemplate = localeData.emails?.[template]?.subject
+	const emailTemplate = translations.emails?.[template]?.subject as string
 	if (!emailTemplate) {
-		throw new Error(`Missing email template subject: ${template} for locale: ${safeLocale}`)
+		throw new Error(`Missing email template subject: ${template} for locale: ${locale}`)
 	}
 
 	return interpolateString(emailTemplate, params)
 }
 
 /**
- * Get localized email text/content with parameter substitution
+ * Get localized email text/content with parameter substitution using the same system as the rest of the app
  */
 export function getLocalizedEmailText(
 	template: EmailTemplateKey,
@@ -69,16 +42,11 @@ export function getLocalizedEmailText(
 	locale: string,
 	params: Record<string, string | number | undefined> = {}
 ): string {
-	const safeLocale = getSafeLocale(locale)
-	const localeData = locales[safeLocale]
+	const translations = getTranslations(locale, locales) as any
 
-	if (!localeData) {
-		throw new Error(`Locale '${safeLocale}' not found in locales.json`)
-	}
-
-	const templateData = localeData.emails?.[template]
+	const templateData = translations.emails?.[template]
 	if (!templateData) {
-		throw new Error(`Missing email template: ${template} for locale: ${safeLocale}`)
+		throw new Error(`Missing email template: ${template} for locale: ${locale}`)
 	}
 
 	// Navigate through nested keys (e.g., 'layout.footer.learnMore')
@@ -91,7 +59,7 @@ export function getLocalizedEmailText(
 	}
 
 	if (typeof value !== 'string') {
-		throw new Error(`Missing email text: ${template}.${textKey} for locale: ${safeLocale}`)
+		throw new Error(`Missing email text: ${template}.${textKey} for locale: ${locale}`)
 	}
 
 	return interpolateString(value, params)

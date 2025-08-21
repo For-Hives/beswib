@@ -4,8 +4,8 @@ import { render } from '@react-email/components'
 
 import { Resend } from 'resend'
 
-import { getLocalizedEmailSubject, getSafeLocale, type EmailTemplateKey } from '@/lib/utils/email-localization'
 import { BeswibEmailVerification, BeswibWelcomeEmail, BeswibWaitlistConfirmation } from '@/components/emails'
+import { getLocalizedEmailSubject, type EmailTemplateKey } from '@/lib/utils/email-localization'
 import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
 import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
 import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
@@ -93,13 +93,12 @@ export async function sendVerificationEmail(
 ): Promise<boolean> {
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(email))
-	const safeLocale = getSafeLocale(userLocale)
 	const subject = await getLocalizedSubjectForUser('verifiedEmail', email)
 
 	return sendEmail({
 		to: email,
 		subject,
-		react: <BeswibEmailVerification validationCode={verificationCode} locale={safeLocale} />,
+		react: <BeswibEmailVerification validationCode={verificationCode} locale={userLocale} />,
 	})
 }
 
@@ -109,13 +108,13 @@ export async function sendVerificationEmail(
 export async function sendWelcomeEmail(email: string, firstName?: string, locale?: string): Promise<boolean> {
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(email))
-	const safeLocale = getSafeLocale(userLocale)
+	// userLocale is already handled by getTranslations with fallback
 	const subject = await getLocalizedSubjectForUser('welcome', email, { firstName })
 
 	return sendEmail({
 		to: email,
 		subject,
-		react: <BeswibWelcomeEmail firstName={firstName} locale={safeLocale} />,
+		react: <BeswibWelcomeEmail firstName={firstName} locale={userLocale} />,
 	})
 }
 
@@ -133,7 +132,7 @@ export async function sendWaitlistConfirmationEmail(
 ): Promise<boolean> {
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(email))
-	const safeLocale = getSafeLocale(userLocale)
+	// userLocale is already handled by getTranslations with fallback
 	const subject = await getLocalizedSubjectForUser('waitlistConfirmation', email, { eventName })
 
 	return sendEmail({
@@ -148,8 +147,8 @@ export async function sendWaitlistConfirmationEmail(
 				eventLocation="Paris, France"
 				eventDistance={eventDistance}
 				bibCategory={bibCategory}
-				createdAt={new Date().toLocaleDateString(safeLocale === 'fr' ? 'fr-FR' : 'en-US')}
-				locale={safeLocale}
+				createdAt={new Date().toLocaleDateString(userLocale === 'fr' ? 'fr-FR' : 'en-US')}
+				locale={userLocale}
 			/>
 		),
 	})
@@ -189,7 +188,7 @@ export async function sendSaleConfirmationEmail({
 }: SaleConfirmationParams): Promise<boolean> {
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(sellerEmail))
-	const safeLocale = getSafeLocale(userLocale)
+	// userLocale is already handled by getTranslations with fallback
 	const subject = await getLocalizedSubjectForUser('saleConfirmation', sellerEmail)
 
 	return sendEmail({
@@ -207,7 +206,7 @@ export async function sendSaleConfirmationEmail({
 				orderId={orderId}
 				eventDate={eventDate}
 				eventLocation={eventLocation}
-				locale={safeLocale}
+				locale={userLocale}
 			/>
 		),
 	})
@@ -249,7 +248,7 @@ export async function sendPurchaseConfirmationEmail({
 }: PurchaseConfirmationParams): Promise<boolean> {
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(buyerEmail))
-	const safeLocale = getSafeLocale(userLocale)
+	// userLocale is already handled by getTranslations with fallback
 	const subject = await getLocalizedSubjectForUser('purchaseConfirmation', buyerEmail)
 
 	return sendEmail({
@@ -268,7 +267,7 @@ export async function sendPurchaseConfirmationEmail({
 				eventLocation={eventLocation}
 				eventDistance={eventDistance}
 				bibCategory={bibCategory}
-				locale={safeLocale}
+				locale={userLocale}
 			/>
 		),
 	})
@@ -311,8 +310,8 @@ export async function sendSaleAlertEmail(params: SaleAlertParams): Promise<boole
 
 	// Use French as default for admin emails, but allow override
 	const locale = params.locale ?? 'fr'
-	const safeLocale = getSafeLocale(locale)
-	const subject = getLocalizedEmailSubject('saleAlert', safeLocale, {
+	// locale is already handled by getTranslations with fallback
+	const subject = getLocalizedEmailSubject('saleAlert', locale, {
 		eventName: params.eventName,
 		bibPrice: params.bibPrice,
 	})
@@ -370,8 +369,8 @@ export async function sendWaitlistAlertEmail(
 	// For batch emails, we'll use a default locale or the provided one
 	// In the future, we could optimize by grouping emails by user locale
 	const locale = params.locale ?? 'fr'
-	const safeLocale = getSafeLocale(locale)
-	const subject = getLocalizedEmailSubject('waitlistAlert', safeLocale, { eventName: params.eventName })
+	// locale is already handled by getTranslations with fallback
+	const subject = getLocalizedEmailSubject('waitlistAlert', locale, { eventName: params.eventName })
 
 	return sendBatchEmails(
 		emails,
@@ -386,7 +385,7 @@ export async function sendWaitlistAlertEmail(
 			bibCategory={params.bibCategory}
 			sellerName={params.sellerName}
 			timeRemaining={params.timeRemaining}
-			locale={safeLocale}
+			locale={locale}
 		/>
 	)
 }
@@ -517,7 +516,7 @@ export async function sendBibApprovalEmail({
 }: BibApprovalParams): Promise<boolean> {
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(sellerEmail))
-	const safeLocale = getSafeLocale(userLocale)
+	// userLocale is already handled by getTranslations with fallback
 	const subject = await getLocalizedSubjectForUser('bibApproval', sellerEmail)
 
 	return sendEmail({
@@ -533,7 +532,7 @@ export async function sendBibApprovalEmail({
 				eventDistance={eventDistance}
 				bibCategory={bibCategory}
 				organizerName={organizerName}
-				locale={safeLocale}
+				locale={userLocale}
 			/>
 		),
 	})
@@ -571,7 +570,7 @@ export async function sendPurchaseApprovalEmail({
 }: PurchaseApprovalParams): Promise<boolean> {
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(buyerEmail))
-	const safeLocale = getSafeLocale(userLocale)
+	// userLocale is already handled by getTranslations with fallback
 	const subject = await getLocalizedSubjectForUser('purchaseApproval', buyerEmail)
 
 	return sendEmail({
@@ -588,7 +587,7 @@ export async function sendPurchaseApprovalEmail({
 				bibCategory={bibCategory}
 				organizerName={organizerName}
 				orderId={orderId}
-				locale={safeLocale}
+				locale={userLocale}
 			/>
 		),
 	})
