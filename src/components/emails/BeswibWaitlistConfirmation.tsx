@@ -1,16 +1,4 @@
-import {
-	Body,
-	Container,
-	Head,
-	Heading,
-	Html,
-	Img,
-	Link,
-	Preview,
-	Section,
-	Text,
-	Tailwind,
-} from '@react-email/components'
+import { Body, Container, Head, Heading, Html, Img, Preview, Section, Text, Tailwind } from '@react-email/components'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
@@ -32,15 +20,13 @@ interface BeswibWaitlistConfirmationProps {
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
 export const BeswibWaitlistConfirmation = ({
-	bibCategory = 'Marathon',
-	createdAt = new Date().toLocaleDateString('fr-FR'),
-	eventDate = '14 avril 2024',
-	eventDistance = '42.2 km',
-	eventId = 'event123',
-	eventLocation = 'Paris, France',
-	eventName = 'Marathon de Paris 2024',
 	locale = 'fr',
-	userName = 'Jean',
+	eventName = 'Marathon de Paris 2024',
+	eventLocation = 'Paris, France',
+	eventDistance = '42.2 km',
+	eventDate = '14 avril 2024',
+	createdAt = new Date().toLocaleDateString('fr-FR'),
+	bibCategory = 'Marathon',
 }: BeswibWaitlistConfirmationProps) => {
 	const t = getTranslations(locale, constantsLocales)
 
@@ -82,7 +68,6 @@ export const BeswibWaitlistConfirmation = ({
 						<Section className="bg-card border-border rounded-lg border px-8 py-6 shadow-sm">
 							{/* Icon et titre */}
 							<Section className="text-center">
-								<Text className="text-success mb-2 text-4xl">✅</Text>
 								<Heading className="text-foreground mb-2 text-2xl font-bold">
 									{t.emails.waitlistConfirmation.title}
 								</Heading>
@@ -184,43 +169,6 @@ export const BeswibWaitlistConfirmation = ({
 								</Section>
 							</Section>
 
-							{/* Actions rapides */}
-							<Section className="bg-card border-border rounded-lg border p-6">
-								<Section className="flex justify-center gap-4">
-									<Link
-										href={`${baseUrl}/dashboard/buyer`}
-										style={{
-											backgroundColor: 'oklch(0.6231 0.188 259.8145)',
-											color: 'oklch(1 0 0)',
-											textDecoration: 'none',
-											padding: '12px 24px',
-											borderRadius: '8px',
-											fontSize: '14px',
-											fontWeight: '500',
-											display: 'inline-block',
-										}}
-									>
-										{t.emails.waitlistConfirmation.manageDashboard}
-									</Link>
-									<Link
-										href={`${baseUrl}/marketplace`}
-										style={{
-											backgroundColor: 'oklch(0.985 0.0015 247.8)',
-											color: 'oklch(0.46 0.02 264.36)',
-											textDecoration: 'none',
-											padding: '12px 24px',
-											borderRadius: '8px',
-											fontSize: '14px',
-											fontWeight: '500',
-											display: 'inline-block',
-											border: '1px solid oklch(0.89 0.004 264.53)',
-										}}
-									>
-										{t.emails.waitlistConfirmation.viewMarketplace}
-									</Link>
-								</Section>
-							</Section>
-
 							{/* Information sur la désinscription */}
 							<Section className="bg-muted border-border mt-6 rounded-lg border p-4">
 								<Text className="text-muted-foreground text-center text-xs">
@@ -246,14 +194,14 @@ export const BeswibWaitlistConfirmation = ({
 
 BeswibWaitlistConfirmation.PreviewProps = {
 	userName: 'Jean Martin',
-	eventName: 'Marathon de Paris 2024',
-	eventId: 'event123',
-	eventDate: '14 avril 2024',
-	eventLocation: 'Paris, France',
-	eventDistance: '42.2 km',
-	bibCategory: 'Marathon',
-	createdAt: new Date().toLocaleDateString('fr-FR'),
 	locale: 'fr',
+	eventName: 'Marathon de Paris 2024',
+	eventLocation: 'Paris, France',
+	eventId: 'event123',
+	eventDistance: '42.2 km',
+	eventDate: '14 avril 2024',
+	createdAt: new Date().toLocaleDateString('fr-FR'),
+	bibCategory: 'Marathon',
 } as BeswibWaitlistConfirmationProps
 
 export default BeswibWaitlistConfirmation

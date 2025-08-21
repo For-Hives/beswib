@@ -1,109 +1,106 @@
-// import {
-// 	Body,
-// 	Container,
-// 	Head,
-// 	Heading,
-// 	Html,
-// 	Img,
-// 	Link,
-// 	Preview,
-// 	Section,
-// 	Text,
-// 	Tailwind,
-// 	Column,
-// 	Button,
-// } from '@react-email/components'
+import { Body, Container, Head, Heading, Html, Img, Link, Preview, Section, Text, Tailwind } from '@react-email/components'
 
-// import { getTranslations } from '@/lib/i18n/dictionary'
-// import constantsLocales from '@/constants/locales.json'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import constantsLocales from '@/constants/locales.json'
 
-// interface BeswibWaitlistAlertProps {
-// 	eventName?: string
-// 	eventId?: string
-// 	bibPrice?: number
-// 	eventDate?: string
-// 	eventLocation?: string
-// 	eventDistance?: string
-// 	bibCategory?: string
-// 	sellerName?: string
-// 	timeRemaining?: string
-// 	locale?: string
-// }
+import { Footer } from './Footer'
 
-// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
+interface BeswibWaitlistAlertProps {
+	eventName?: string
+	eventId?: string
+	bibPrice?: number
+	eventDate?: string
+	eventLocation?: string
+	eventDistance?: string
+	bibCategory?: string
+	sellerName?: string
+	timeRemaining?: string
+	listingId?: string
+	locale?: string
+}
 
-// export const BeswibWaitlistAlert = ({
-// 	timeRemaining = '2 jours',
-// 	sellerName = 'Marie',
-// 	locale = 'fr',
-// 	eventName = 'Marathon de Paris 2024',
-// 	eventLocation = 'Paris, France',
-// 	eventId = 'event123',
-// 	eventDistance = '42.2 km',
-// 	eventDate = '14 avril 2024',
-// 	bibPrice = 150,
-// 	bibCategory = 'Marathon',
-// }: BeswibWaitlistAlertProps) => {
-// 	const t = getTranslations(locale, constantsLocales)
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
-// 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
+export const BeswibWaitlistAlert = ({
+	bibCategory = 'Marathon',
+	bibPrice = 150,
+	eventDate = '14 avril 2024',
+	eventDistance = '42.2 km',
+	eventId = 'event123',
+	eventLocation = 'Paris, France',
+	eventName = 'Marathon de Paris 2024',
+	listingId = 'listing123',
+	locale = 'fr',
+	sellerName = 'Marie',
+	timeRemaining = '2 jours',
+}: BeswibWaitlistAlertProps) => {
+	const t = getTranslations(locale, constantsLocales)
+	const formatPrice = (price: number) => `${price.toFixed(2)}€`
 
-// 	return (
-// 		<Html>
-// 			<Head />
-// 			<Tailwind
-// 				config={{
-// 					theme: {
-// 						extend: {
-// 							fontFamily: {
-// 								sans: ['Geist', 'Arial', 'sans-serif'],
-// 							},
-// 							colors: {
-// 								'warning-foreground': 'oklch(0.12 0.0453 83.87)',
-// 								warning: 'oklch(0.838 0.199 83.87)',
-// 								'success-foreground': 'oklch(0.972 0.027 138.27)',
-// 								success: 'oklch(0.626 0.124 142.5)',
-// 								'primary-foreground': 'oklch(1 0 0)',
-// 								primary: 'oklch(0.6231 0.188 259.8145)',
-// 								'muted-foreground': 'oklch(0.46 0.02 264.36)',
-// 								muted: 'oklch(0.985 0.0015 247.8)',
-// 								foreground: 'oklch(0.24 0 0)',
-// 								card: 'oklch(1 0 0)',
-// 								border: 'oklch(0.89 0.004 264.53)',
-// 								background: 'oklch(1 0 0)',
-// 							},
-// 						},
-// 					},
-// 				}}
-// 			>
-// 				<Body className="bg-background font-sans">
-// 					<Preview>{t.emails.waitlistAlert.subject.replace('{eventName}', eventName || '')}</Preview>
-// 					<Container className="mx-auto max-w-[600px] px-4 py-8">
-// 						{/* Header avec logo */}
-// 						<Section className="mb-8">
-// 							<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
-// 						</Section>
+	return (
+		<Html>
+			<Head />
+			<Tailwind
+				config={{
+					theme: {
+						extend: {
+							fontFamily: {
+								sans: ['Geist', 'Arial', 'sans-serif'],
+							},
+							colors: {
+								warning: 'oklch(0.838 0.199 83.87)',
+								'success-foreground': 'oklch(0.972 0.027 138.27)',
+								success: 'oklch(0.626 0.124 142.5)',
+								'primary-foreground': 'oklch(1 0 0)',
+								primary: 'oklch(0.6231 0.188 259.8145)',
+								'muted-foreground': 'oklch(0.46 0.02 264.36)',
+								muted: 'oklch(0.985 0.0015 247.8)',
+								foreground: 'oklch(0.24 0 0)',
+								card: 'oklch(1 0 0)',
+								border: 'oklch(0.89 0.004 264.53)',
+								background: 'oklch(1 0 0)',
+							},
+						},
+					},
+				}}
+			>
+				<Body className="bg-background font-sans">
+					<Preview>{t.emails.waitlistAlert.subject.replace('{eventName}', eventName || '')}</Preview>
+					<Container className="mx-auto max-w-[600px] px-4 py-8">
+						{/* Header avec logo */}
+						<Section>
+							<Img src={`/beswib.png`} width="100" height="100" alt="Beswib" className="mx-auto" />
+						</Section>
 
-// 						{/* Card principale */}
-// 						<Section className="bg-card border-border rounded-lg border px-8 py-6 shadow-sm">
-// 							{/* Icon et titre */}
-// 							<Section className="mb-6 text-center">
-// 								<Text className="text-success mb-4 text-4xl">🎯</Text>
-// 								<Heading className="text-foreground mb-2 text-2xl font-bold">{t.emails.waitlistAlert.title}</Heading>
-// 								<Text className="text-muted-foreground text-base">
-// 									{t.emails.waitlistAlert.subtitle.replace('{eventName}', eventName || '')}
-// 								</Text>
-// 							</Section>
+						{/* Card principale */}
+						<Section className="bg-card border-border rounded-lg border px-8 py-6 shadow-sm">
+							{/* Icon et titre */}
+							<Section className="text-center">
+								<Text className="text-success mb-2 text-4xl">🎯</Text>
+								<Heading className="text-foreground mb-2 text-2xl font-bold">
+									{t.emails.waitlistAlert.title}
+								</Heading>
+								<Text className="text-muted-foreground text-base">
+									{t.emails.waitlistAlert.subtitle.replace('{eventName}', eventName || '')}
+								</Text>
+							</Section>
 
-// 							{/* Alerte urgence */}
-// 							<Section className="bg-warning-foreground border-warning mb-6 rounded-lg border-2 p-6">
-// 								<Section className="flex items-center justify-center">
-// 									<Text className="text-warning mr-2 text-2xl">⏰</Text>
-// 									<Text className="text-warning text-lg font-bold">
-// 										{t.emails.waitlistAlert.urgencyMessage.replace('{timeRemaining}', timeRemaining || '')}
-// 									</Text>
-// 								</Section>
-// 							</Section>
+							{/* Message personnel */}
+							<Section className="text-start">
+								<Text className="text-muted-foreground text-base leading-relaxed">
+									{t.emails.waitlistAlert.personalMessage}
+								</Text>
+							</Section>
+
+							{/* Alerte urgence */}
+							<Section className="bg-warning/10 border-warning/30 mb-6 rounded-lg border-2 p-6">
+								<Section className="text-center">
+									<Text className="text-warning mr-2 text-2xl">⏰</Text>
+									<Text className="text-warning text-lg font-bold">
+										{t.emails.waitlistAlert.urgencyMessage.replace('{timeRemaining}', timeRemaining || '')}
+									</Text>
+								</Section>
+							</Section>
 
 // 							{/* Détails de l'événement */}
 // 							<Section className="bg-muted border-border mb-6 rounded-lg border p-6">

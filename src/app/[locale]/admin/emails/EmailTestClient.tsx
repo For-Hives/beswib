@@ -33,7 +33,13 @@ export default function EmailTestClient() {
 	const [isLoading, setIsLoading] = useState<string | null>(null)
 
 	const sendTestEmail = async (
-		template: 'verification' | 'welcome' | 'sale-confirmation' | 'purchase-confirmation' | 'sale-alert' | 'waitlist-confirmation'
+		template:
+			| 'verification'
+			| 'welcome'
+			| 'sale-confirmation'
+			| 'purchase-confirmation'
+			| 'sale-alert'
+			| 'waitlist-confirmation'
 	) => {
 		if (!email) {
 			toast.error('Veuillez saisir une adresse email')
@@ -111,7 +117,13 @@ export default function EmailTestClient() {
 	}
 
 	const openPreview = (
-		template: 'verification' | 'welcome' | 'sale-confirmation' | 'purchase-confirmation' | 'sale-alert' | 'waitlist-confirmation'
+		template:
+			| 'verification'
+			| 'welcome'
+			| 'sale-confirmation'
+			| 'purchase-confirmation'
+			| 'sale-alert'
+			| 'waitlist-confirmation'
 	) => {
 		const params = new URLSearchParams({
 			template,
@@ -300,12 +312,7 @@ export default function EmailTestClient() {
 
 						<div>
 							<Label htmlFor="eventId">ID de l'événement</Label>
-							<Input
-								id="eventId"
-								placeholder="event123"
-								value={eventId}
-								onChange={e => setEventId(e.target.value)}
-							/>
+							<Input id="eventId" placeholder="event123" value={eventId} onChange={e => setEventId(e.target.value)} />
 						</div>
 
 						<div>
