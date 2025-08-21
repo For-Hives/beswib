@@ -22,6 +22,8 @@ import { fetchEventById } from '@/services/event.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { pbDateToLuxon } from '@/lib/utils/date'
 import { Locale } from '@/lib/i18n/config'
+import { generateEventMetadata, generateEventSEO } from '@/lib/seo/event-seo'
+import type { Locale as LocaleType } from '@/lib/i18n/config'
 
 import eventTranslations from './locales.json'
 
@@ -113,9 +115,22 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 		return `${Math.round(value)} m`
 	}
 
+	// Générer les données structurées pour le SEO
+	const seoData = generateEventSEO(event, locale)
+
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+
+			{/* Données structurées JSON-LD pour le SEO */}
+			{seoData.structuredData && (
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify(seoData.structuredData, null, 0),
+					}}
+				/>
+			)}
 
 			<WaitlistNotifications eventId={eventId} eventName={event.name} locale={locale} />
 
@@ -337,12 +352,17 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 }
 
 export async function generateMetadata({ params }: EventDetailPageProps): Promise<Metadata> {
-	const { id } = await params
+	const { locale, id } = await params
 	const event = await fetchEventById(id)
-	return {
-		title: event ? `${event.name} | Event Details` : 'Event Not Found',
-		description: event?.description ?? 'Details for the event.',
+
+	if (!event) {
+		return {
+			title: 'Event Not Found | Beswib',
+			description: 'The requested event could not be found.',
+		}
 	}
+
+	return generateEventMetadata(event, locale as Locale)
 }
 
 // Generate static params for all locales

@@ -1,9 +1,11 @@
+import type { Metadata } from 'next'
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
 import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
+import { generateStaticPageSEO } from '@/lib/seo/static-pages-seo'
 import { fetchApprovedPublicEventsWithBibs } from '@/services/event.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -47,6 +49,12 @@ export default async function EventsPage({ params }: { params: Promise<LocalePar
 // Generate static params for all locales
 export function generateStaticParams() {
 	return generateLocaleParams()
+}
+
+// Generate SEO metadata for events page
+export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
+	const { locale } = await params
+	return generateStaticPageSEO('events', locale)
 }
 
 // Disable static generation to avoid build failures when PocketBase is unavailable

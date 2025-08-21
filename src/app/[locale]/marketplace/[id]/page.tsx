@@ -17,12 +17,50 @@ import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Locale } from '@/lib/i18n/config'
+import { generateMarketplaceMetadata, generateMarketplaceSEO } from '@/lib/seo/marketplace-seo'
+import type { Locale as LocaleType } from '@/lib/i18n/config'
 
 import MarketplaceItemClient from './MarketplaceItemClient'
 
-export const metadata: Metadata = {
-	title: 'Purchase Bib',
-	description: 'Complete your purchase.',
+// Fonction de génération des métadonnées SEO dynamiques
+export async function generateMetadata({ params, searchParams }: MarketplaceItemPageProps): Promise<Metadata> {
+	const { locale, id } = await params
+	const { tkn } = await searchParams
+
+	try {
+		// Récupérer les informations du bib
+		const bibStatus = await checkBibListingStatus(id)
+
+		if (!bibStatus?.exists || !bibStatus.available) {
+			return {
+				title: 'Bib Not Found | Beswib',
+				description: 'The requested bib is not available or does not exist.',
+			}
+		}
+
+		let bib: (Bib & { expand?: { eventId: EventModel; sellerUserId: User } }) | null = null
+
+		if (bibStatus.listed === 'private' && tkn) {
+			bib = await fetchPrivateBibByToken(id, tkn)
+		} else if (bibStatus.listed === 'public') {
+			bib = await fetchPublicBibById(id)
+		}
+
+		if (!bib) {
+			return {
+				title: 'Access Required | Beswib',
+				description: 'Please provide a valid access token to view this bib listing.',
+			}
+		}
+
+		return generateMarketplaceMetadata(bib, locale as Locale)
+	} catch (error) {
+		console.error('Error generating marketplace metadata:', error)
+		return {
+			title: 'Marketplace | Beswib',
+			description: 'Buy and sell race bibs safely on Beswib.',
+		}
+	}
 }
 
 interface MarketplaceItemPageProps {
@@ -168,19 +206,34 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 		} satisfies BibSale
 	}
 
+	// Générer les données structurées pour le SEO si le bib est disponible
+	const seoData = bib ? generateMarketplaceSEO(bib, locale) : null
+
 	return (
-		<MarketplaceItemClient
-			bibId={id}
-			locale={locale}
-			initialToken={tkn}
-			isPrivate={isPrivate}
-			bibSale={bibSale}
-			sellerUser={bib?.expand?.sellerUserId ?? null}
-			user={user}
-			eventData={bib?.expand?.eventId}
-			organizerData={organizer ?? undefined}
-			bibData={bib ?? undefined}
-			translations={t}
-		/>
+		<>
+			{/* Données structurées JSON-LD pour le SEO */}
+			{seoData?.structuredData && (
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify(seoData.structuredData, null, 0),
+					}}
+				/>
+			)}
+
+			<MarketplaceItemClient
+				bibId={id}
+				locale={locale}
+				initialToken={tkn}
+				isPrivate={isPrivate}
+				bibSale={bibSale}
+				sellerUser={bib?.expand?.sellerUserId ?? null}
+				user={user}
+				eventData={bib?.expand?.eventId}
+				organizerData={organizer ?? undefined}
+				bibData={bib ?? undefined}
+				translations={t}
+			/>
+		</>
 	)
 }

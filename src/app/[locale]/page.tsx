@@ -1,4 +1,7 @@
+import type { Metadata } from 'next'
+
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
+import { generateStaticPageSEO } from '@/lib/seo/static-pages-seo'
 import SecurityProcess from '@/components/landing/security-process/SecurityProcess'
 import JourneyTabs from '@/components/landing/journey-tabs/JourneyTabs'
 import HeroAlternative from '@/components/landing/hero/HeroAlternative'
@@ -10,6 +13,12 @@ import BesWibCTA from '@/components/landing/cta/CTASection'
 // Generate static params for all locales 🌍
 export function generateStaticParams() {
 	return generateLocaleParams()
+}
+
+// Generate SEO metadata for homepage
+export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
+	const { locale } = await params
+	return generateStaticPageSEO('home', locale)
 }
 
 export default async function Home({ params }: { params: Promise<LocaleParams> }) {
