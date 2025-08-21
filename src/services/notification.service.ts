@@ -353,7 +353,7 @@ export async function sendWelcomeEmail(params: { to: string; firstName?: string;
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 	const safeFirst = (params.firstName ?? '').trim()
 	const fallbackLocale = params.locale ?? 'fr'
-	
+
 	// Try to get localized subject even for fallback
 	let subject = `Welcome to Beswib!`
 	try {
@@ -363,7 +363,7 @@ export async function sendWelcomeEmail(params: { to: string; firstName?: string;
 		console.warn('Failed to get localized subject for fallback welcome email:', error)
 		// Keep default hardcoded subject
 	}
-	
+
 	const html = renderWelcomeEmailHtml({ firstName: safeFirst, baseUrl })
 	const text = `Welcome to Beswib!\n\nExplore the marketplace: ${baseUrl}/marketplace\n\nBeswib Team`
 	const from = process.env.NOTIFY_EMAIL_FROM ?? ''
