@@ -24,6 +24,37 @@ interface SendEmailParams {
 }
 
 /**
+ * Helper function to get localized email subjects
+ */
+function getLocalizedSubject(
+	template: string,
+	locale: string,
+	params: Record<string, string | number | undefined> = {}
+): string {
+	// Fallback to hardcoded subjects if translation not found
+	switch (template) {
+		case 'verifiedEmail':
+			return locale === 'fr' ? '🔐 Confirmez votre adresse email - Beswib' : '🔐 Verify your email address - Beswib'
+		case 'welcome':
+			const firstName = params.firstName ?? ''
+			return locale === 'fr'
+				? `Bienvenue sur Beswib${firstName !== '' ? `, ${firstName}` : ''} ! 🏃‍♂️`
+				: `Welcome to Beswib${firstName !== '' ? `, ${firstName}` : ''} ! 🏃‍♂️`
+		case 'waitlistConfirmation':
+			const eventName = params.eventName ?? (locale === 'fr' ? 'votre événement' : 'your event')
+			return locale === 'fr'
+				? `🎯 Inscription en liste d'attente confirmée - ${eventName}`
+				: `🎯 Waitlist registration confirmed - ${eventName}`
+		case 'saleAlert':
+			const eventNameAlert = params.eventName ?? 'Event'
+			const bibPrice = params.bibPrice ?? 0
+			return `🚨 ${locale === 'fr' ? 'Alerte Nouvelle Vente' : 'New Sale Alert'} - ${eventNameAlert} • ${bibPrice}€`
+		default:
+			return 'Beswib Email'
+	}
+}
+
+/**
  * Sends an email using Resend with React Email components
  */
 async function sendEmail({ to, text, subject, react, html, from }: SendEmailParams): Promise<boolean> {
@@ -77,8 +108,7 @@ export async function sendVerificationEmail(
 	verificationCode: string,
 	locale: string = 'fr'
 ): Promise<boolean> {
-	const subject =
-		locale === 'fr' ? '🔐 Confirmez votre adresse email - Beswib' : '🔐 Verify your email address - Beswib'
+	const subject = getLocalizedSubject('verifiedEmail', locale)
 
 	return sendEmail({
 		to: email,
@@ -91,10 +121,7 @@ export async function sendVerificationEmail(
  * Sends a welcome email using the React Email template
  */
 export async function sendWelcomeEmail(email: string, firstName?: string, locale: string = 'fr'): Promise<boolean> {
-	const subject =
-		locale === 'fr'
-			? `Bienvenue sur Beswib${firstName !== undefined && firstName !== null && typeof firstName === 'string' && firstName.trim() !== '' ? `, ${firstName}` : ''} ! 🏃‍♂️`
-			: `Welcome to Beswib${firstName !== undefined && firstName !== null && typeof firstName === 'string' && firstName.trim() !== '' ? `, ${firstName}` : ''} ! 🏃‍♂️`
+	const subject = getLocalizedSubject('welcome', locale, { firstName })
 
 	return sendEmail({
 		to: email,
@@ -115,10 +142,7 @@ export async function sendWaitlistConfirmationEmail(
 	bibCategory?: string,
 	locale: string = 'fr'
 ): Promise<boolean> {
-	const subject =
-		locale === 'fr'
-			? `🎯 Inscription en liste d'attente confirmée - ${eventName ?? 'votre événement'}`
-			: `🎯 Waitlist registration confirmed - ${eventName ?? 'your event'}`
+	const subject = getLocalizedSubject('waitlistConfirmation', locale, { eventName })
 
 	return sendEmail({
 		to: email,
@@ -171,32 +195,11 @@ export async function sendSaleConfirmationEmail({
 	buyerName,
 	bibPrice,
 }: SaleConfirmationParams): Promise<boolean> {
-	const getLocalizedSubject = (locale: string) => {
-		switch (locale) {
-			case 'en':
-				return 'Congratulations! Your bib has been sold 💰'
-			case 'es':
-				return '¡Felicidades! Tu dorsal ha sido vendido 💰'
-			case 'it':
-				return 'Congratulazioni! Il tuo pettorale è stato venduto 💰'
-			case 'de':
-				return 'Glückwunsch! Ihre Startnummer wurde verkauft 💰'
-			case 'pt':
-				return 'Parabéns! O seu dorsal foi vendido 💰'
-			case 'nl':
-				return 'Gefeliciteerd! Uw startnummer is verkocht 💰'
-			case 'ko':
-				return '축하합니다! 레이스 번호가 판매되었습니다 💰'
-			case 'ro':
-				return 'Felicitări! Numărul tău de concurs a fost vândut 💰'
-			default:
-				return 'Félicitations ! Votre dossard a été vendu 💰'
-		}
-	}
+	const subject = getLocalizedSubject('saleConfirmation', locale)
 
 	return sendEmail({
 		to: sellerEmail,
-		subject: getLocalizedSubject(locale),
+		subject,
 		react: (
 			<BeswibSaleConfirmation
 				sellerName={sellerName}
@@ -311,6 +314,7 @@ interface SaleAlertParams {
 	transactionId?: string
 	paypalCaptureId?: string
 	saleTimestamp?: string
+	locale?: string
 }
 
 /**
@@ -328,7 +332,10 @@ export async function sendSaleAlertEmail(params: SaleAlertParams): Promise<boole
 		return false
 	}
 
-	const subject = `🚨 Nouvelle Vente • ${params.eventName} • ${params.bibPrice?.toFixed(2)}€`
+	const subject = getLocalizedSubject('saleAlert', params.locale ?? 'fr', {
+		eventName: params.eventName,
+		bibPrice: params.bibPrice,
+	})
 
 	return sendEmail({
 		to: adminEmails.split(',').map(email => email.trim()),

@@ -344,6 +344,7 @@
 				}
 			},
 			"welcome": {
+				"subject": "Bienvenue sur Beswib, {firstName} ! 🏃‍♂️",
 				"title": "Bienvenue, {firstName} !",
 				"preheader": "Bienvenue chez Beswib, {firstName} !",
 				"body1": "Nous sommes ravis de vous compter parmi nous.",
@@ -551,7 +552,7 @@
 				"tagline": "Plateforme de revente de dossards."
 			},
 			"waitlistConfirmation": {
-				"subject": "✅ Alerte créée pour {eventName} - Beswib",
+				"subject": "🎯 Inscription en liste d'attente confirmée - {eventName}",
 				"title": "Alerte activée !",
 				"subtitle": "Vous êtes maintenant sur la liste d'attente",
 				"preheader": "Vous recevrez un email dès qu'un dossard sera disponible",
@@ -579,7 +580,7 @@
 				"helpDescription": "Notre équipe est là pour vous accompagner."
 			},
 			"saleAlert": {
-				"subject": "🚨 Alerte Nouvelle Vente - Admin Beswib",
+				"subject": "🚨 Alerte Nouvelle Vente - {eventName} • {bibPrice}€",
 				"title": "Nouvelle Vente Terminée",
 				"subtitle": "Alerte administrative pour le suivi des ventes",
 				"preheader": "Une nouvelle vente a été effectuée sur Beswib",
