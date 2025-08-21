@@ -15,6 +15,7 @@ import { Locale } from '@/lib/i18n/config'
 import { checkIsCurrentUserAdmin } from './adminActions'
 import DashboardDropdown from './DashboardDropdown'
 import { ThemeToggle } from './ThemeToggle'
+import LanguageSwitcher from '@/components/seo/LanguageSwitcher'
 
 interface HeaderClientProps {
 	locale: Locale
@@ -73,6 +74,13 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 						<div className="hidden lg:ml-6 lg:block">
 							<div className="text-foreground flex items-center">
 								<div className="flex items-center gap-4">
+									{/* Language Switcher */}
+									<LanguageSwitcher 
+										currentLocale={locale} 
+										currentPath={`/${locale}`}
+										className="mr-2"
+									/>
+									
 									<ThemeToggle />
 									<SignedIn>
 										{/* Dashboard Dropdown Menu 📊 */}
