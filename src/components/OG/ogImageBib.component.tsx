@@ -55,7 +55,7 @@ export default function OGImage({
 	title,
 	size,
 	secondary,
-	locale,
+	// locale,
 	discount,
 	bibSeller,
 	bibPrice,
@@ -276,7 +276,6 @@ export default function OGImage({
 						alignItems: 'center',
 					}}
 				>
-					{/* todo: Refaire la cardmarket ici */}
 					<div
 						style={{
 							width: 340,
