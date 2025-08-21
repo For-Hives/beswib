@@ -17,8 +17,7 @@ const languages = {
   it: { name: 'Italian', native: 'Italiano', flag: '🇮🇹' },
   pt: { name: 'Portuguese', native: 'Português', flag: '🇵🇹' },
   nl: { name: 'Dutch', native: 'Nederlands', flag: '🇳🇱' },
-  pl: { name: 'Polish', native: 'Polski', flag: '🇵🇱' },
-  sv: { name: 'Swedish', native: 'Svenska', flag: '🇸🇪' },
+  ro: { name: 'Romanian', native: 'Română', flag: '🇷🇴' },
   ko: { name: 'Korean', native: '한국어', flag: '🇰🇷' }
 }
 

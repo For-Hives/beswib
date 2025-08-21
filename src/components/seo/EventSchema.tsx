@@ -55,17 +55,11 @@ export default function EventSchema({ event, organizer, locale }: EventSchemaPro
       triathlon: 'Triatlon',
       cycle: 'Wielrennen'
     },
-    pl: {
-      road: 'Bieg Szosowy',
-      trail: 'Bieg Terenowy',
+    ro: {
+      road: 'Alergare pe Șosea',
+      trail: 'Alergare pe Trail',
       triathlon: 'Triatlon',
-      cycle: 'Kolarstwo'
-    },
-    sv: {
-      road: 'Vägkörning',
-      trail: 'Terrängkörning',
-      triathlon: 'Triathlon',
-      cycle: 'Cykling'
+      cycle: 'Ciclism'
     },
     ko: {
       road: '도로 달리기',

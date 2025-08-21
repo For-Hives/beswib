@@ -20,15 +20,15 @@ export default function OrganizationSchema() {
     },
     sameAs: [
       'https://twitter.com/beswib',
-      'https://facebook.com/beswib',
-      'https://instagram.com/beswib',
-      'https://linkedin.com/company/beswib'
+      'https://www.instagram.com/beswib_official',
+      'https://www.linkedin.com/company/beswib',
+      'https://www.strava.com/clubs/1590099?share_sig=EE3575891750401205'
     ],
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
       email: 'contact@beswib.com',
-      availableLanguage: ['English', 'French', 'German', 'Spanish', 'Italian', 'Portuguese', 'Dutch', 'Polish', 'Swedish', 'Korean']
+      availableLanguage: ['English', 'French', 'German', 'Spanish', 'Italian', 'Portuguese', 'Dutch', 'Romanian', 'Korean']
     },
     address: {
       '@type': 'PostalAddress',

@@ -4,7 +4,7 @@ import { generateLocaleParams } from '@/lib/generation/staticParams'
 import { fetchAllEvents } from '@/services/event.services'
 
 // Configuration des langues supportées
-const supportedLocales: Locale[] = ['en', 'fr', 'de', 'es', 'it', 'pt', 'nl', 'pl', 'sv', 'ko']
+const supportedLocales: Locale[] = ['en', 'fr', 'de', 'es', 'it', 'pt', 'nl', 'ro', 'ko']
 
 // Pages statiques principales
 const staticPages = [
