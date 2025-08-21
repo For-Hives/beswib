@@ -184,7 +184,7 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 					sellerEmail: sellerUser.email,
 					platformFee,
 					orderId,
-					locale: 'fr', // Default locale since User model doesn't have locale field
+					locale: sellerUser.locale ?? undefined, // Use seller's locale from DB, fallback will be handled by email service
 					eventName: bib.expand.eventId.name,
 					eventLocation: bib.expand.eventId.location,
 					eventDate,
@@ -197,7 +197,7 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 					void sendBuyerPurchaseConfirmation({
 						sellerName: `${sellerUser.firstName ?? ''} ${sellerUser.lastName ?? ''}`.trim(),
 						orderId,
-						locale: 'fr', // Default locale since User model doesn't have locale field
+						locale: buyerUser.locale ?? undefined, // Use buyer's locale from DB, fallback will be handled by email service
 						eventName: bib.expand.eventId.name,
 						eventLocation: bib.expand.eventId.location,
 						eventDistance: bib.expand.eventId.distanceKm != null ? `${bib.expand.eventId.distanceKm} km` : undefined,

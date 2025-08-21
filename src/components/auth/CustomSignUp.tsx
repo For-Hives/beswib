@@ -191,6 +191,8 @@ export default function CustomSignUp() {
 				emailAddress: formData.email,
 			})
 
+			console.info('Signup result:', JSON.stringify(result, null, 2))
+
 			// Handle different signup statuses
 			if (result.status === 'complete') {
 				// Account is already verified, can directly sign in
@@ -198,14 +200,27 @@ export default function CustomSignUp() {
 				router.push(`/${locale}/dashboard`)
 				return
 			} else if (result.status === 'missing_requirements') {
-				// Need additional information
-				setGlobalError('Additional information required. Please complete your profile.')
-				return
+				// Check if it's specifically email verification that's missing
+				const hasUnverifiedEmail = result.unverifiedFields?.includes('email_address')
+				const emailVerificationNull = result.verifications?.emailAddress === null
+
+				if (hasUnverifiedEmail || emailVerificationNull) {
+					// Email verification needed - prepare verification
+					await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
+					setPendingVerification(true)
+					if (formData.email != null && formData.email !== '') {
+						setVerificationEmail(formData.email)
+					}
+					return
+				} else {
+					// Some other requirement is missing
+					setGlobalError('Additional information required. Please complete your profile.')
+					return
+				}
 			}
 
-			// Prepare email verification for accounts needing verification
+			// For any other status that might need email verification
 			await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
-
 			setPendingVerification(true)
 			if (formData.email != null && formData.email !== '') {
 				setVerificationEmail(formData.email)

@@ -71,16 +71,16 @@ export async function createBib(bibData: Omit<Bib, 'id'>): Promise<Bib | null> {
 		if (record.listed === 'public' && record.status === 'available') {
 			// Import notification service here to avoid circular dependencies
 			const { sendNewBibNotification } = await import('./notification.service')
-			const { fetchWaitlistEmailsForEvent } = await import('./waitlist.services')
+			const { fetchWaitlistEmailsWithLocalesForEvent } = await import('./waitlist.services')
 			const { fetchEventById } = await import('./event.services')
 
 			try {
-				const [event, waitlistEmails] = await Promise.all([
+				const [event, waitlistEmailsWithLocales] = await Promise.all([
 					fetchEventById(record.eventId),
-					fetchWaitlistEmailsForEvent(record.eventId),
+					fetchWaitlistEmailsWithLocalesForEvent(record.eventId),
 				])
 
-				if (event != null && waitlistEmails.length > 0) {
+				if (event != null && waitlistEmailsWithLocales.length > 0) {
 					await sendNewBibNotification(
 						{
 							eventName: event.name,
@@ -90,7 +90,7 @@ export async function createBib(bibData: Omit<Bib, 'id'>): Promise<Bib | null> {
 							bibPrice: record.price,
 							bibId: record.id,
 						},
-						waitlistEmails
+						waitlistEmailsWithLocales
 					)
 				}
 			} catch (notificationError) {

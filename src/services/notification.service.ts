@@ -12,7 +12,7 @@ import {
 	sendSaleConfirmationEmail,
 	sendPurchaseConfirmationEmail,
 	sendSaleAlertEmail,
-	sendWaitlistAlertEmail,
+	sendLocalizedWaitlistAlertEmails,
 } from './email.service'
 import {
 	renderContactMessageEmailHtml as renderContactMessageEmailHtmlUnsafe,
@@ -99,16 +99,14 @@ type NewBibNotificationInfo = {
  * Sends modern waitlist notifications to all waitlisted users when a new bib becomes available for an event.
  * Uses React Email templates with full multilingual support and Discord alerts to admins.
  * @param bibInfo Information about the new bib that was listed
- * @param waitlistedEmails Array of email addresses of users on the waitlist
- * @param locale Language for the email template (defaults to 'fr')
+ * @param waitlistedEmailsWithLocales Array of email addresses with their preferred locales
  * @returns Success status and counts of sent/failed notifications
  */
 export async function sendNewBibNotification(
 	bibInfo: NewBibNotificationInfo & { bibCategory?: string; eventDistance?: string; sellerName?: string },
-	waitlistedEmails: string[],
-	locale: string = 'fr'
+	waitlistedEmailsWithLocales: Array<{ email: string; locale?: string }>
 ): Promise<{ success: boolean; emailsSent: number; emailsFailed: number; adminNotified: boolean }> {
-	if (waitlistedEmails.length === 0) {
+	if (waitlistedEmailsWithLocales.length === 0) {
 		return { success: true, emailsSent: 0, emailsFailed: 0, adminNotified: false }
 	}
 
@@ -149,12 +147,11 @@ export async function sendNewBibNotification(
 		}
 	}
 
-	// Use modern React Email template for waitlist notifications
+	// Use modern React Email template for waitlist notifications with proper localization
 	const timeRemaining = calculateTimeRemaining(bibInfo.eventDate)
-	const emailResults = await sendWaitlistAlertEmail(waitlistedEmails, {
+	const emailResults = await sendLocalizedWaitlistAlertEmails(waitlistedEmailsWithLocales, {
 		timeRemaining,
 		sellerName: bibInfo.sellerName,
-		locale,
 		eventName: bibInfo.eventName,
 		eventLocation: bibInfo.eventLocation,
 		eventId: bibInfo.eventId,
@@ -173,15 +170,15 @@ export async function sendNewBibNotification(
 🏃 **Event:** ${bibInfo.eventName}
 📍 **Location:** ${bibInfo.eventLocation ?? 'Not specified'}
 💰 **Price:** ${formatPrice(bibInfo.bibPrice)}
-📧 **Waitlisted Users Notified:** ${waitlistedEmails.length}
+📧 **Waitlisted Users Notified:** ${waitlistedEmailsWithLocales.length}
 
 Event Link: ${baseUrl}/events/${bibInfo.eventId}`
 
 	// Send admin notification
 	const adminNotified = await notifyAdmins({
-		text: `New bib listed for ${bibInfo.eventName}. ${waitlistedEmails.length} waitlisted users have been notified.`,
-		subject: `[Beswib] New bib listed - ${waitlistedEmails.length} users notified`,
-		html: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;"><div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px; text-align: center;"><h1 style="color: white; margin: 0; font-size: 24px;">🚨 Admin Alert: New Bib Listed</h1></div><div style="background: white; padding: 30px; border: 1px solid #e0e0e0; border-radius: 0 0 12px 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"><p style="font-size: 16px; color: #333; margin: 0 0 20px;">A new bib has been listed for <strong>${escapeHtml(bibInfo.eventName)}</strong> and <strong>${waitlistedEmails.length}</strong> waitlisted users have been notified.</p></div></div>`,
+		text: `New bib listed for ${bibInfo.eventName}. ${waitlistedEmailsWithLocales.length} waitlisted users have been notified.`,
+		subject: `[Beswib] New bib listed - ${waitlistedEmailsWithLocales.length} users notified`,
+		html: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;"><div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px; text-align: center;"><h1 style="color: white; margin: 0; font-size: 24px;">🚨 Admin Alert: New Bib Listed</h1></div><div style="background: white; padding: 30px; border: 1px solid #e0e0e0; border-radius: 0 0 12px 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"><p style="font-size: 16px; color: #333; margin: 0 0 20px;">A new bib has been listed for <strong>${escapeHtml(bibInfo.eventName)}</strong> and <strong>${waitlistedEmailsWithLocales.length}</strong> waitlisted users have been notified.</p></div></div>`,
 		discordContent: adminDiscordContent,
 	})
 

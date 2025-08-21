@@ -25,10 +25,9 @@ export default function CustomSignIn() {
 	const params = useParams()
 	const locale = (params?.locale as Locale) || 'en'
 	type AuthSection = (typeof mainLocales)['en']['auth']
-	const { clerkErrors: errorsT, auth: t } = getTranslations(locale, mainLocales) as {
-		auth: AuthSection
-		clerkErrors: Record<string, string>
-	}
+	const translations = getTranslations(locale, mainLocales)
+	const t = translations.auth as AuthSection
+	const errorsT = translations.GLOBAL?.errors as Record<string, string> | undefined
 
 	function translateClerkErrorLocal(error: unknown): string {
 		const e = (error ?? {}) as Partial<{
@@ -38,18 +37,35 @@ export default function CustomSignIn() {
 		}>
 		const code = e.code ?? e.errors?.[0]?.code
 		const message = e.message ?? e.errors?.[0]?.message ?? e.errors?.[0]?.longMessage
-		if (typeof code === 'string' && errorsT[code]) return errorsT[code]
+
+		// Ensure errorsT exists, otherwise return a fallback
+		if (!errorsT) {
+			console.warn('Translation object errorsT is undefined')
+			return typeof message === 'string' ? message : 'An error occurred. Please try again.'
+		}
+
+		// Handle specific error codes
+		if (typeof code === 'string') {
+			if (code === 'session_exists') {
+				return 'You are already signed in. Redirecting...'
+			}
+			if (errorsT[code]) return errorsT[code]
+		}
+
 		if (typeof message === 'string') {
 			const m = message.toLowerCase()
-			if (m.includes('password') && m.includes('incorrect')) return errorsT.form_password_incorrect
-			if (m.includes('email') && m.includes('not found')) return errorsT.form_identifier_not_found
-			if (m.includes('already exists') || m.includes('already taken')) return errorsT.form_identifier_exists
-			if (m.includes('verification') && m.includes('code')) return errorsT.form_code_incorrect
-			if (m.includes('expired')) return errorsT.verification_expired
-			if (m.includes('rate limit') || m.includes('too many')) return errorsT.too_many_requests
+			if (m.includes('password') && m.includes('incorrect'))
+				return errorsT.form_password_incorrect || 'Incorrect password'
+			if (m.includes('email') && m.includes('not found')) return errorsT.form_identifier_not_found || 'Email not found'
+			if (m.includes('already exists') || m.includes('already taken'))
+				return errorsT.form_identifier_exists || 'Email already exists'
+			if (m.includes('verification') && m.includes('code'))
+				return errorsT.form_code_incorrect || 'Incorrect verification code'
+			if (m.includes('expired')) return errorsT.verification_expired || 'Code expired'
+			if (m.includes('rate limit') || m.includes('too many')) return errorsT.too_many_requests || 'Too many requests'
 			return message
 		}
-		return errorsT.default_error
+		return errorsT.default_error || 'An error occurred. Please try again.'
 	}
 
 	// Local state instead of global store
@@ -133,12 +149,21 @@ export default function CustomSignIn() {
 				setGlobalError(t.somethingWentWrong)
 			}
 		} catch (err: unknown) {
+			// Check for session_exists error specifically
+			const e = (err ?? {}) as Partial<{ errors: Array<Partial<{ code: string }>> }>
+			const code = e.errors?.[0]?.code
+
+			if (code === 'session_exists') {
+				// User is already signed in, redirect to dashboard
+				console.info('User already signed in, redirecting to dashboard')
+				router.push(`/${locale}/dashboard`)
+				return
+			}
+
 			const errorMessage = translateClerkErrorLocal(err)
 			setGlobalError(errorMessage)
 
 			// Set specific field errors based on error codes
-			const e = (err ?? {}) as Partial<{ errors: Array<Partial<{ code: string }>> }>
-			const code = e.errors?.[0]?.code
 			if (code === 'form_identifier_not_found') {
 				setFieldErrors(prev => ({
 					...prev,

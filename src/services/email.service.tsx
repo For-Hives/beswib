@@ -5,11 +5,11 @@ import { render } from '@react-email/components'
 import { Resend } from 'resend'
 
 import { BeswibEmailVerification, BeswibWelcomeEmail, BeswibWaitlistConfirmation } from '@/components/emails'
-import { getLocalizedEmailSubject, type EmailTemplateKey } from '@/lib/utils/email-localization'
 import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
-import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
 import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
+import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
 import BeswibWaitlistAlert from '@/components/emails/BeswibWaitlistAlert'
+import { getLocalizedEmailSubject } from '@/lib/utils/email-localization'
 import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
 import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 import { getUserLocaleByEmail } from '@/services/user.services'
@@ -23,18 +23,6 @@ interface SendEmailParams {
 	html?: string
 	text?: string
 	from?: string
-}
-
-/**
- * Helper function to automatically detect user locale and get localized subject
- */
-async function getLocalizedSubjectForUser(
-	template: EmailTemplateKey | 'verifiedEmail',
-	email: string,
-	params: Record<string, string | number | undefined> = {}
-): Promise<string> {
-	const userLocale = await getUserLocaleByEmail(email)
-	return getLocalizedEmailSubject(template, userLocale, params)
 }
 
 /**
@@ -93,7 +81,7 @@ export async function sendVerificationEmail(
 ): Promise<boolean> {
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(email))
-	const subject = await getLocalizedSubjectForUser('verifiedEmail', email)
+	const subject = getLocalizedEmailSubject('verifiedEmail', userLocale)
 
 	return sendEmail({
 		to: email,
@@ -133,7 +121,7 @@ export async function sendWaitlistConfirmationEmail(
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(email))
 	// userLocale is already handled by getTranslations with fallback
-	const subject = await getLocalizedSubjectForUser('waitlistConfirmation', email, { eventName })
+	const subject = getLocalizedEmailSubject('waitlistConfirmation', userLocale, { eventName })
 
 	return sendEmail({
 		to: email,
@@ -189,7 +177,7 @@ export async function sendSaleConfirmationEmail({
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(sellerEmail))
 	// userLocale is already handled by getTranslations with fallback
-	const subject = await getLocalizedSubjectForUser('saleConfirmation', sellerEmail)
+	const subject = getLocalizedEmailSubject('saleConfirmation', userLocale)
 
 	return sendEmail({
 		to: sellerEmail,
@@ -249,7 +237,7 @@ export async function sendPurchaseConfirmationEmail({
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(buyerEmail))
 	// userLocale is already handled by getTranslations with fallback
-	const subject = await getLocalizedSubjectForUser('purchaseConfirmation', buyerEmail)
+	const subject = getLocalizedEmailSubject('purchaseConfirmation', userLocale)
 
 	return sendEmail({
 		to: buyerEmail,
@@ -357,6 +345,7 @@ interface WaitlistAlertParams {
 
 /**
  * Sends a waitlist alert email to users when a new bib becomes available for their event
+ * @deprecated Use sendLocalizedWaitlistAlertEmails for proper localization
  */
 export async function sendWaitlistAlertEmail(
 	emails: string[],
@@ -388,6 +377,104 @@ export async function sendWaitlistAlertEmail(
 			locale={locale}
 		/>
 	)
+}
+
+/**
+ * Sends localized waitlist alert emails to users when a new bib becomes available for their event
+ * Each user receives the email in their preferred language
+ */
+export async function sendLocalizedWaitlistAlertEmails(
+	emailsWithLocales: Array<{ email: string; locale?: string }>,
+	params: Omit<WaitlistAlertParams, 'locale'>
+): Promise<{ sent: number; failed: number }> {
+	if (emailsWithLocales.length === 0) {
+		return { sent: 0, failed: 0 }
+	}
+
+	// Group emails by locale for efficient batching
+	const emailsByLocale = new Map<string, string[]>()
+
+	for (const { locale, email } of emailsWithLocales) {
+		// Auto-detect locale if not provided (will be handled by getUserLocaleByEmail in sendEmail)
+		const effectiveLocale = locale ?? 'auto-detect'
+
+		if (!emailsByLocale.has(effectiveLocale)) {
+			emailsByLocale.set(effectiveLocale, [])
+		}
+		emailsByLocale.get(effectiveLocale)!.push(email)
+	}
+
+	let totalSent = 0
+	let totalFailed = 0
+
+	// Send emails grouped by locale
+	for (const [locale, emails] of emailsByLocale) {
+		try {
+			if (locale === 'auto-detect') {
+				// For auto-detect emails, send individually to properly detect each user's locale
+				for (const email of emails) {
+					try {
+						const userLocale = await getUserLocaleByEmail(email)
+						const subject = getLocalizedEmailSubject('waitlistAlert', userLocale, { eventName: params.eventName })
+
+						const success = await sendEmail({
+							to: email,
+							subject,
+							react: (
+								<BeswibWaitlistAlert
+									eventName={params.eventName}
+									eventId={params.eventId}
+									bibPrice={params.bibPrice}
+									eventDate={params.eventDate}
+									eventLocation={params.eventLocation}
+									eventDistance={params.eventDistance}
+									bibCategory={params.bibCategory}
+									sellerName={params.sellerName}
+									timeRemaining={params.timeRemaining}
+									locale={userLocale}
+								/>
+							),
+						})
+
+						if (success) {
+							totalSent++
+						} else {
+							totalFailed++
+						}
+					} catch (error) {
+						console.error(`Failed to send waitlist alert to ${email}:`, error)
+						totalFailed++
+					}
+				}
+			} else {
+				// For emails with known locales, send in batch
+				const subject = getLocalizedEmailSubject('waitlistAlert', locale, { eventName: params.eventName })
+				const result = await sendBatchEmails(
+					emails,
+					subject,
+					<BeswibWaitlistAlert
+						eventName={params.eventName}
+						eventId={params.eventId}
+						bibPrice={params.bibPrice}
+						eventDate={params.eventDate}
+						eventLocation={params.eventLocation}
+						eventDistance={params.eventDistance}
+						bibCategory={params.bibCategory}
+						sellerName={params.sellerName}
+						timeRemaining={params.timeRemaining}
+						locale={locale}
+					/>
+				)
+				totalSent += result.sent
+				totalFailed += result.failed
+			}
+		} catch (error) {
+			console.error(`Failed to send waitlist alerts for locale ${locale}:`, error)
+			totalFailed += emails.length
+		}
+	}
+
+	return { sent: totalSent, failed: totalFailed }
 }
 
 /**
@@ -517,7 +604,7 @@ export async function sendBibApprovalEmail({
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(sellerEmail))
 	// userLocale is already handled by getTranslations with fallback
-	const subject = await getLocalizedSubjectForUser('bibApproval', sellerEmail)
+	const subject = getLocalizedEmailSubject('bibApproval', userLocale)
 
 	return sendEmail({
 		to: sellerEmail,
@@ -571,7 +658,7 @@ export async function sendPurchaseApprovalEmail({
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(buyerEmail))
 	// userLocale is already handled by getTranslations with fallback
-	const subject = await getLocalizedSubjectForUser('purchaseApproval', buyerEmail)
+	const subject = getLocalizedEmailSubject('purchaseApproval', userLocale)
 
 	return sendEmail({
 		to: buyerEmail,

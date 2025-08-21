@@ -4,6 +4,7 @@ import type { Waitlist } from '@/models/waitlist.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 
+import { sendWaitlistConfirmationEmail } from '@/services/email.service'
 import { fetchUserByEmail } from '@/services/user.services'
 import { pb } from '@/lib/services/pocketbase'
 
@@ -93,6 +94,34 @@ export async function addToWaitlist(
 		}
 
 		const record = await pb.collection('waitlists').create<Waitlist>(dataToCreate)
+
+		// Send waitlist confirmation email with proper locale detection
+		try {
+			const emailToUse = actualUser?.email ?? email?.trim()
+			const userName = actualUser ? `${actualUser.firstName ?? ''} ${actualUser.lastName ?? ''}`.trim() : undefined
+			const userLocale = actualUser?.locale ?? undefined // Use user's locale from DB if available
+
+			if (emailToUse !== undefined && emailToUse !== null && emailToUse.trim() !== '') {
+				// Get event details for the email (we need to fetch the event)
+				const eventRecord = await pb.collection('events').getOne<Event>(eventId)
+
+				void sendWaitlistConfirmationEmail(
+					emailToUse,
+					userName ?? 'Runner', // Fallback name
+					eventRecord.name,
+					eventId,
+					eventRecord.distanceKm !== null && eventRecord.distanceKm !== undefined
+						? `${eventRecord.distanceKm} km`
+						: undefined,
+					eventRecord.typeCourse ?? 'road',
+					userLocale // This will auto-detect if undefined
+				)
+			}
+		} catch (emailError: unknown) {
+			// Don't fail the waitlist creation if email fails, just log the error
+			console.error('Failed to send waitlist confirmation email:', emailError)
+		}
+
 		return record
 	} catch (error: unknown) {
 		if (error != null && typeof error === 'object') {
@@ -135,6 +164,57 @@ export async function fetchUserWaitlists(userId: string): Promise<(Waitlist & { 
 		throw new Error(
 			`Error fetching waitlists for user ID "${userId}": ` + (error instanceof Error ? error.message : String(error))
 		)
+	}
+}
+
+/**
+ * Fetches all email addresses with their locales for users on the waitlist for a specific event.
+ * Returns both user emails (from user records) and direct email subscriptions.
+ * @param eventId The ID of the event.
+ * @returns Array of unique email addresses with their preferred locales.
+ */
+export async function fetchWaitlistEmailsWithLocalesForEvent(
+	eventId: string
+): Promise<Array<{ email: string; locale?: string }>> {
+	if (eventId === '') {
+		console.error('Event ID is required to fetch waitlist emails.')
+		return []
+	}
+
+	try {
+		// Fetch all waitlist entries for the event with user expansion
+		const waitlistEntries = await pb.collection('waitlists').getFullList<Waitlist & { expand?: { user_id?: User } }>({
+			filter: `event_id = "${eventId}" && mail_notification = true`,
+			expand: 'user_id',
+		})
+
+		const emailsWithLocales: Array<{ email: string; locale?: string }> = []
+		const seenEmails = new Set<string>()
+
+		for (const entry of waitlistEntries) {
+			let email: string | null = null
+			let locale: string | undefined
+
+			if (entry.email != null && entry.email.trim() !== '') {
+				// Direct email subscription (non-authenticated user)
+				email = entry.email.trim()
+				locale = undefined // No user account, will auto-detect
+			} else if (entry.expand?.user_id?.email != null && entry.expand.user_id.email.trim() !== '') {
+				// Authenticated user email
+				email = entry.expand.user_id.email.trim()
+				locale = entry.expand.user_id.locale ?? undefined // Use user's locale from DB
+			}
+
+			if (email !== null && email !== undefined && email.trim() !== '' && !seenEmails.has(email)) {
+				seenEmails.add(email)
+				emailsWithLocales.push({ locale, email })
+			}
+		}
+
+		return emailsWithLocales
+	} catch (error: unknown) {
+		console.error(`Error fetching waitlist emails with locales for event "${eventId}":`, error)
+		return []
 	}
 }
 
