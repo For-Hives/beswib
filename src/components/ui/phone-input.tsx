@@ -1,8 +1,8 @@
 'use client'
 
 import PhoneInputComponent from 'react-phone-number-input'
+import { forwardRef, type ComponentProps } from 'react'
 import 'react-phone-number-input/style.css'
-import { forwardRef } from 'react'
 
 import { parsePhoneNumber, isValidPhoneNumber, type CountryCode, type E164Number } from 'libphonenumber-js'
 
@@ -20,8 +20,65 @@ export interface PhoneInputProps {
 	error?: boolean
 }
 
+interface CustomInputProps extends ComponentProps<'input'> {
+	className?: string
+}
+
+const PhoneInputField = forwardRef<HTMLInputElement, CustomInputProps>(({ className, ...props }, ref) => (
+	<input
+		{...props}
+		ref={ref}
+		className={cn(
+			'border-input bg-background ring-offset-background file:text-foreground placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+			className
+		)}
+	/>
+))
+
+PhoneInputField.displayName = 'PhoneInputField'
+
+interface CountrySelectProps extends Omit<ComponentProps<'select'>, 'onChange'> {
+	value: string
+	options: Array<{ value: string; label: string }>
+	onChange: (value: string) => void
+	disabled?: boolean
+}
+
+const CountrySelect = forwardRef<HTMLSelectElement, CountrySelectProps>(
+	({ value, options, onChange, disabled, className, ...props }, ref) => {
+		// Filter out non-DOM props that might be passed by react-phone-number-input
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { iconComponent, ...domProps } = props as Record<string, unknown>
+
+		return (
+			<select
+				{...domProps}
+				ref={ref}
+				value={value}
+				onChange={e => onChange(e.target.value)}
+				disabled={disabled}
+				className={cn(
+					'absolute top-1/2 left-1 z-10 -translate-y-1/2',
+					'h-8 w-8 cursor-pointer appearance-none border-0 bg-transparent text-transparent',
+					'focus-visible:ring-ring focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1',
+					disabled === true && 'cursor-not-allowed opacity-50',
+					className
+				)}
+			>
+				{options.map(({ value: optionValue, label }) => (
+					<option key={optionValue} value={optionValue}>
+						{label}
+					</option>
+				))}
+			</select>
+		)
+	}
+)
+
+CountrySelect.displayName = 'CountrySelect'
+
 export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
-	({ value, placeholder, onChange, onBlur, error, disabled, defaultCountry = 'US', className }) => {
+	({ value, placeholder, onChange, onBlur, error, disabled, defaultCountry = 'FR', className }) => {
 		const handleChange = (val?: E164Number) => {
 			onChange?.(val ?? '')
 		}
@@ -35,48 +92,9 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
 					defaultCountry={defaultCountry}
 					placeholder={placeholder}
 					disabled={disabled}
-					inputComponent={forwardRef<HTMLInputElement, Record<string, unknown>>(
-						({ className: inputClassName, ...props }, inputRef) => (
-							<input
-								{...props}
-								ref={inputRef}
-								className={cn(
-									'border-input bg-background ring-offset-background file:text-foreground placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-									error === true && 'border-red-500 focus-visible:ring-red-500',
-									inputClassName as string
-								)}
-							/>
-						)
-					)}
-					countrySelectComponent={({
-						value: countryValue,
-						options,
-						onChange: onCountryChange,
-						...selectProps
-					}: {
-						value: string
-						options: Array<{ value: string; label: string }>
-						onChange: (value: string) => void
-						[key: string]: unknown
-					}) => (
-						<select
-							{...selectProps}
-							value={countryValue}
-							onChange={e => onCountryChange(e.target.value)}
-							className={cn(
-								'absolute top-1/2 left-1 z-10 -translate-y-1/2',
-								'h-8 w-8 cursor-pointer appearance-none border-0 bg-transparent text-transparent',
-								'focus-visible:ring-ring focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1',
-								disabled === true && 'cursor-not-allowed opacity-50'
-							)}
-						>
-							{options.map(({ value: optionValue, label }: { value: string; label: string }) => (
-								<option key={optionValue} value={optionValue}>
-									{label}
-								</option>
-							))}
-						</select>
-					)}
+					inputComponent={PhoneInputField}
+					countrySelectComponent={CountrySelect}
+					className={cn(error === true && '[&>input]:border-red-500 [&>input]:focus-visible:ring-red-500')}
 				/>
 			</div>
 		)
