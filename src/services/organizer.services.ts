@@ -29,16 +29,16 @@ export async function createOrganizer(
 
 		// Handle logo file upload - server-safe check
 		console.info('🖼️ [SERVICE] Processing logo file...', {
-			hasLogoFile: organizerData.logoFile != null,
-			isFileGlobalDefined: typeof File !== 'undefined',
 			logoFileType: organizerData.logoFile != null ? typeof organizerData.logoFile : 'undefined',
+			isFileGlobalDefined: typeof File !== 'undefined',
+			hasLogoFile: organizerData.logoFile != null,
 		})
 
 		if (organizerData.logoFile != null) {
 			console.info('📋 [SERVICE] Logo file details:', {
-				constructor: organizerData.logoFile?.constructor?.name ?? 'undefined',
-				hasStream: Object.prototype.hasOwnProperty.call(organizerData.logoFile, 'stream'),
 				type: typeof organizerData.logoFile,
+				hasStream: Object.prototype.hasOwnProperty.call(organizerData.logoFile, 'stream'),
+				constructor: organizerData.logoFile?.constructor?.name ?? 'undefined',
 			})
 
 			// COMPLETELY avoid using instanceof File - use only string checks
@@ -53,9 +53,9 @@ export async function createOrganizer(
 				Object.prototype.hasOwnProperty.call(organizerData.logoFile, 'stream')
 
 			console.info('🔍 [SERVICE] File checks:', {
-				hasFileConstructorName,
-				hasStreamProperty,
 				willUpload: hasFileConstructorName || hasStreamProperty,
+				hasStreamProperty,
+				hasFileConstructorName,
 			})
 
 			if (hasFileConstructorName || hasStreamProperty) {
@@ -75,14 +75,14 @@ export async function createOrganizer(
 		console.info('✅ [SERVICE] PocketBase record created:', record.id)
 
 		const result = {
-			created: new Date(record.created as string),
-			email: record.email as string,
-			id: record.id,
-			isPartnered: record.isPartnered as boolean,
-			logo: (record.logo as string) ?? null,
-			name: record.name as string,
-			updated: new Date(record.updated as string),
 			website: (record.website as string) ?? null,
+			updated: new Date(record.updated as string),
+			name: record.name as string,
+			logo: (record.logo as string) ?? null,
+			isPartnered: record.isPartnered as boolean,
+			id: record.id,
+			email: record.email as string,
+			created: new Date(record.created as string),
 		}
 
 		console.info('🎉 [SERVICE] createOrganizer completed successfully')

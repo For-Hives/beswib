@@ -104,13 +104,13 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 		const logoFile = formData.get('logoFile')
 
 		console.info('📝 [ACTION] Extracted data:', {
-			email,
-			hasFile: logoFile != null,
-			isPartnered,
+			website: website || 'empty',
+			name,
 			logoFileType: logoFile != null ? typeof logoFile : 'undefined',
 			logoFileConstructor: logoFile?.constructor?.name ?? 'undefined',
-			name,
-			website: website || 'empty',
+			isPartnered,
+			hasFile: logoFile != null,
+			email,
 		})
 
 		// Validate required fields
@@ -125,11 +125,11 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 		// Prepare organizer data for creation
 		console.info('🔧 [ACTION] Preparing organizer data...')
 		const organizerData = {
-			email,
-			isPartnered,
-			logoFile: logoFile != null && typeof logoFile === 'object' ? logoFile : undefined,
-			name,
 			website: website ?? undefined,
+			name,
+			logoFile: logoFile != null && typeof logoFile === 'object' ? logoFile : undefined,
+			isPartnered,
+			email,
 		}
 
 		console.info('📋 [ACTION] Final organizer data:', {
@@ -495,11 +495,11 @@ export async function updateOrganizerAction(
 
 		// Prepare organizer data for update
 		const organizerData = {
-			email,
-			isPartnered,
-			logoFile: logoFile ?? undefined,
-			name,
 			website: website ?? undefined,
+			name,
+			logoFile: logoFile ?? undefined,
+			isPartnered,
+			email,
 		}
 
 		// Update the organizer with PocketBase service
