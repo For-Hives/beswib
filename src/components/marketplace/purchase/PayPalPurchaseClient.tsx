@@ -314,7 +314,7 @@ export default function PayPalPurchaseClient({
 						<EventDetails bib={bib} eventData={eventData} organizerData={organizerData} locale={locale} />
 
 						{/* Price */}
-						<PriceDisplay bib={bib} eventData={eventData} />
+						<PriceDisplay bib={bib} eventData={eventData} locale={locale} />
 						<ActionButtons
 							isSignedIn={isSignedIn}
 							isProfileComplete={isProfileComplete}
