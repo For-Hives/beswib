@@ -62,13 +62,13 @@ export function useCurrencyConversion(priceInEur: number, locale: Locale): UseCu
 		}
 	}, [targetCurrency])
 
-	// Calculate converted price (avoid nested ternary for readability)
-	let convertedPrice: number | null = null
-	if (exchangeRates) {
-		convertedPrice = convertPrice(priceInEur, targetCurrency, exchangeRates)
-	} else if (targetCurrency === 'eur') {
-		convertedPrice = priceInEur
-	}
+	// Calculate converted price: handle EUR first, then use exchange rates
+	const convertedPrice: number | null =
+		targetCurrency === 'eur'
+			? priceInEur
+			: exchangeRates
+				? convertPrice(priceInEur, targetCurrency, exchangeRates)
+				: null
 
 	// Format the converted price
 	const convertedFormatted = convertedPrice !== null ? formatPrice(convertedPrice, targetCurrency) : null

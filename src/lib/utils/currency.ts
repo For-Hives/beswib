@@ -38,26 +38,46 @@ export const CURRENCY_NAMES: Record<string, string> = {
 	eur: 'EUR',
 }
 
+// In-memory cache for exchange rates (works on both server and client)
+const RATES_TTL_MS = 60 * 60 * 1000 // 1 hour
+let cachedRates: Record<string, number> | null = null
+let cachedAt = 0
+let inFlight: Promise<Record<string, number> | null> | null = null
+
 /**
  * Fetches current exchange rates from EUR to other currencies
  */
 export async function fetchExchangeRates(): Promise<Record<string, number> | null> {
-	try {
-		const response = await fetch(CURRENCY_API_URL, {
-			next: { revalidate: 3600 }, // Cache for 1 hour
-		})
-
-		if (!response.ok) {
-			console.error('Failed to fetch exchange rates:', response.status)
-			return null
-		}
-
-		const data = (await response.json()) as { eur: Record<string, number> }
-		return data.eur
-	} catch (error) {
-		console.error('Error fetching exchange rates:', error)
-		return null
+	const now = Date.now()
+	if (cachedRates && now - cachedAt < RATES_TTL_MS) {
+		return cachedRates
 	}
+
+	if (inFlight) {
+		return inFlight
+	}
+
+	inFlight = (async () => {
+		try {
+			const response = await fetch(CURRENCY_API_URL)
+			if (!response.ok) {
+				console.error('Failed to fetch exchange rates:', response.status)
+				return null
+			}
+
+			const data = (await response.json()) as { eur: Record<string, number> }
+			cachedRates = data.eur
+			cachedAt = Date.now()
+			return cachedRates
+		} catch (error) {
+			console.error('Error fetching exchange rates:', error)
+			return null
+		} finally {
+			inFlight = null
+		}
+	})()
+
+	return inFlight
 }
 
 /**
@@ -82,7 +102,9 @@ export function convertPrice(
 		return null
 	}
 
-	return priceInEur * rate
+	const converted = priceInEur * rate
+	// Round to 2 decimals to avoid FP precision issues (e.g., 110.00000000000001)
+	return Math.round(converted * 100) / 100
 }
 
 /**
