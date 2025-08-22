@@ -1,11 +1,13 @@
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 
-import { SEO_KEYWORDS, SEO_TITLES } from '../constants/seo-translations'
+import type { SEOLocales } from '../types/seo-locales'
+
+import seoLocales from '../constants/seo-locales.json'
 
 // Generate SEO keywords for events
 export function generateEventKeywords(locale: Locale, event: Event): string {
-	const localKeywords = SEO_KEYWORDS[locale]
+	const localKeywords = (seoLocales as SEOLocales)[locale].seo.keywords
 	const baseKeywords = [...localKeywords.global] as string[]
 
 	// Add event-specific keywords
@@ -45,27 +47,25 @@ export function generateEventKeywords(locale: Locale, event: Event): string {
 
 // Generate SEO title for events
 export function generateEventTitle(locale: Locale, event: Event): string {
-	const titles = SEO_TITLES[locale]
+	const titles = (seoLocales as SEOLocales)[locale].seo.titles
 
 	if (event.location) {
-		return titles.eventWithLocation(event.name, event.location)
+		return `${event.name} ${titles.eventWithLocation} ${event.location} | ${titles.event}`
 	}
 
-	return titles.event(event.name)
+	return `${event.name} | ${titles.event}`
 }
 
 // Generate SEO description for events
 export function generateEventDescription(locale: Locale, event: Event): string {
-	const keywords = SEO_KEYWORDS[locale]
+	const keywords = (seoLocales as SEOLocales)[locale].seo.keywords
+	const generators = (seoLocales as SEOLocales)[locale].seo.generators
 	const raceType = keywords.raceTypes[event.typeCourse] ?? event.typeCourse
 
 	let description = `${event.name} - ${raceType}`
 
 	if (event.location) {
-		description +=
-			locale === 'ko'
-				? ` ${event.location}에서`
-				: ` ${locale === 'en' ? 'in' : locale === 'fr' ? 'à' : locale === 'es' ? 'en' : locale === 'it' ? 'a' : locale === 'de' ? 'in' : locale === 'ro' ? 'în' : locale === 'pt' ? 'em' : 'in'} ${event.location}`
+		description += ` ${generators.prepositions.in} ${event.location}`
 	}
 
 	// Add event date
@@ -76,17 +76,17 @@ export function generateEventDescription(locale: Locale, event: Event): string {
 			month: 'long',
 			day: 'numeric',
 		})
-		description += ` ${locale === 'ko' ? '일시:' : locale === 'en' ? 'on' : locale === 'fr' ? 'le' : locale === 'es' ? 'el' : locale === 'it' ? 'il' : locale === 'de' ? 'am' : locale === 'ro' ? 'pe' : locale === 'pt' ? 'em' : locale === 'nl' ? 'op' : 'on'} ${formattedDate}`
+		description += ` ${generators.prepositions.on} ${formattedDate}`
 	}
 
 	// Add distance if available
 	if (event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0) {
-		description += `. ${event.distanceKm}km ${locale === 'ko' ? '코스' : locale === 'en' ? 'course' : locale === 'fr' ? 'parcours' : locale === 'es' ? 'recorrido' : locale === 'it' ? 'percorso' : locale === 'de' ? 'Strecke' : locale === 'ro' ? 'traseu' : locale === 'pt' ? 'percurso' : locale === 'nl' ? 'parcours' : 'course'}`
+		description += `. ${event.distanceKm}km ${generators.course}`
 	}
 
 	// Add elevation if available
 	if (event.elevationGainM !== null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
-		description += `. ${event.elevationGainM}m ${locale === 'ko' ? '고도 상승' : locale === 'en' ? 'elevation gain' : locale === 'fr' ? 'dénivelé' : locale === 'es' ? 'desnivel' : locale === 'it' ? 'dislivello' : locale === 'de' ? 'Höhenmeter' : locale === 'ro' ? 'denivelări' : locale === 'pt' ? 'desnível' : locale === 'nl' ? 'hoogteverschil' : 'elevation'}`
+		description += `. ${event.elevationGainM}m ${generators.elevation}`
 	}
 
 	// Add event description if available
@@ -97,7 +97,7 @@ export function generateEventDescription(locale: Locale, event: Event): string {
 	// Add call-to-action
 	const buyAction = keywords.actions.buy
 	const sellAction = keywords.actions.sell
-	description += `. ${buyAction} ${locale === 'ko' ? '또는' : locale === 'en' ? 'or' : locale === 'fr' ? 'ou' : locale === 'es' ? 'o' : locale === 'it' ? 'o' : locale === 'de' ? 'oder' : locale === 'ro' ? 'sau' : locale === 'pt' ? 'ou' : locale === 'nl' ? 'of' : 'or'} ${sellAction} ${locale === 'ko' ? '빕을' : locale === 'en' ? 'race bibs' : locale === 'fr' ? 'dossards' : locale === 'es' ? 'dorsales' : locale === 'it' ? 'pettorali' : locale === 'de' ? 'Startnummern' : locale === 'ro' ? 'numere' : locale === 'pt' ? 'peitos' : locale === 'nl' ? 'startnummers' : 'bibs'} ${locale === 'ko' ? 'Beswib에서' : locale === 'en' ? 'on Beswib' : locale === 'fr' ? 'sur Beswib' : locale === 'es' ? 'en Beswib' : locale === 'it' ? 'su Beswib' : locale === 'de' ? 'bei Beswib' : locale === 'ro' ? 'pe Beswib' : locale === 'pt' ? 'no Beswib' : locale === 'nl' ? 'op Beswib' : 'on Beswib'}.`
+	description += `. ${buyAction} ${generators.or} ${sellAction} ${generators.raceBibs} ${generators.onBeswib}.`
 
 	return description
 }

@@ -147,69 +147,67 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 	const version: string = getVersion()
 
 	return (
-		<>
-			<ClerkProvider
-				appearance={{
-					baseTheme: shadcn,
-				}}
-				localization={clerkLocalization}
-				signInUrl={`/${locale}/sign-in`}
-				signUpUrl={`/${locale}/dashboard`}
-				signInFallbackRedirectUrl={`/${locale}/dashboard`}
-			>
-				<html lang={locale} suppressHydrationWarning>
-					<head>
-						<Script
-							async
-							id="umami-script"
-							data-domains={'beswib.com'}
-							data-website-id="e9168017-b73b-491b-b7b0-fee64f07c847"
-							src="https://umami.wadefade.fr/script.js"
-							data-tag={version}
-							data-before-send="beforeSendHandler"
-							strategy="afterInteractive"
-						/>
-						{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID != null && (
-							<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
-						)}
-					</head>
-					<body
-						className={`${geistSans.variable} ${geistMono.variable} ${bowlbyOneSC.variable} bg-background text-foreground font-geist antialiased`}
-					>
-						{/* Apply persisted/system theme BEFORE paint to prevent flash */}
-						<Script
-							id="theme-script"
-							strategy="beforeInteractive"
-							dangerouslySetInnerHTML={{
-								__html: `(function(){try{var s=localStorage.getItem("theme"),e=null;if(s)try{var t=JSON.parse(s);e=t&&t.state&&t.state.theme}catch(r){e=s}e||(e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var o=document.documentElement;o.classList.remove("light","dark"),o.classList.add(e),o.style.colorScheme=e}catch(r){}})();`,
+		<ClerkProvider
+			appearance={{
+				baseTheme: shadcn,
+			}}
+			localization={clerkLocalization}
+			signInUrl={`/${locale}/sign-in`}
+			signUpUrl={`/${locale}/dashboard`}
+			signInFallbackRedirectUrl={`/${locale}/dashboard`}
+		>
+			<html lang={locale} suppressHydrationWarning>
+				<head>
+					<Script
+						async
+						id="umami-script"
+						data-domains={'beswib.com'}
+						data-website-id="e9168017-b73b-491b-b7b0-fee64f07c847"
+						src="https://umami.wadefade.fr/script.js"
+						data-tag={version}
+						data-before-send="beforeSendHandler"
+						strategy="afterInteractive"
+					/>
+					{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID != null && (
+						<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+					)}
+				</head>
+				<body
+					className={`${geistSans.variable} ${geistMono.variable} ${bowlbyOneSC.variable} bg-background text-foreground font-geist antialiased`}
+				>
+					{/* Apply persisted/system theme BEFORE paint to prevent flash */}
+					<Script
+						id="theme-script"
+						strategy="beforeInteractive"
+						dangerouslySetInnerHTML={{
+							__html: `(function(){try{var s=localStorage.getItem("theme"),e=null;if(s)try{var t=JSON.parse(s);e=t&&t.state&&t.state.theme}catch(r){e=s}e||(e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var o=document.documentElement;o.classList.remove("light","dark"),o.classList.add(e),o.style.colorScheme=e}catch(r){}})();`,
+						}}
+					/>
+					<ThemeProvider>
+						<ConsentManagerProvider
+							options={{
+								mode: 'offline',
 							}}
-						/>
-						<ThemeProvider>
-							<ConsentManagerProvider
-								options={{
-									mode: 'offline',
-								}}
-							>
-								<QueryProvider>
-									<NuqsAdapter>
-										<SessionsTracker />
-										<LocaleSynchronizer />
-										<Header localeParams={typedLocaleParams} />
-										<PageTransition>{props.children}</PageTransition>
-										{/* Ensure Sentry client init runs on the browser */}
-										<SentryClientInit />
-										<CookieBanner />
-										<ConsentManagerDialog />
-										<Footer localeParams={typedLocaleParams} />
-										<GoBackToTop locale={locale} />
-										<Toaster />
-									</NuqsAdapter>
-								</QueryProvider>
-							</ConsentManagerProvider>
-						</ThemeProvider>
-					</body>
-				</html>
-			</ClerkProvider>
-		</>
+						>
+							<QueryProvider>
+								<NuqsAdapter>
+									<SessionsTracker />
+									<LocaleSynchronizer />
+									<Header localeParams={typedLocaleParams} />
+									<PageTransition>{props.children}</PageTransition>
+									{/* Ensure Sentry client init runs on the browser */}
+									<SentryClientInit />
+									<CookieBanner />
+									<ConsentManagerDialog />
+									<Footer localeParams={typedLocaleParams} />
+									<GoBackToTop locale={locale} />
+									<Toaster />
+								</NuqsAdapter>
+							</QueryProvider>
+						</ConsentManagerProvider>
+					</ThemeProvider>
+				</body>
+			</html>
+		</ClerkProvider>
 	)
 }
