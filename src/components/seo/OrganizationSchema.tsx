@@ -1,13 +1,22 @@
-export default function OrganizationSchema() {
+import { Locale } from '@/lib/i18n/config'
+
+import organizationTranslations from './organizationSchema.locales.json'
+
+interface OrganizationSchemaProps {
+	locale: Locale
+}
+
+export default function OrganizationSchema({ locale }: OrganizationSchemaProps) {
+	const t = organizationTranslations[locale]?.organization ?? organizationTranslations.en.organization
+
 	const schema = {
 		vatID: 'FR12345678901',
 		url: 'https://beswib.com',
 		taxID: 'FR12345678901',
 		subcategory: 'Event Services',
-		serviceType: 'Race Bib Marketplace',
+		serviceType: t.serviceType,
 		sector: 'Technology',
 		sameAs: [
-			'https://twitter.com/beswib',
 			'https://www.instagram.com/beswib_official',
 			'https://www.linkedin.com/company/beswib',
 			'https://www.strava.com/clubs/1590099?share_sig=EE3575891750401205',
@@ -17,16 +26,16 @@ export default function OrganizationSchema() {
 		makesOffer: [
 			{
 				itemOffered: {
-					name: 'Secure Payment Processing',
-					description: 'Safe and secure payment handling for bib transfers',
+					name: t.services.securePayment.name,
+					description: t.services.securePayment.description,
 					'@type': 'Service',
 				},
 				'@type': 'Offer',
 			},
 			{
 				itemOffered: {
-					name: 'Multilingual Support',
-					description: 'Customer support in 10 different languages',
+					name: t.services.multilingualSupport.name,
+					description: t.services.multilingualSupport.description,
 					'@type': 'Service',
 				},
 				'@type': 'Offer',
@@ -38,23 +47,13 @@ export default function OrganizationSchema() {
 			height: 512,
 			'@type': 'ImageObject',
 		},
-		leiCode: '12345678901234567890',
 		legalName: 'Beswib',
-		knowsAbout: [
-			'Race Bib Transfer',
-			'Running Events',
-			'Trail Running',
-			'Triathlon',
-			'Cycling Events',
-			'Sports Marketplace',
-			'Event Registration',
-			'Athlete Services',
-		],
-		keywords: 'race bibs, running, trail, triathlon, cycling, marketplace, transfer, sports, events',
-		isicV4: '47990',
-		industry: 'Sports & Recreation',
+		knowsAbout: t.knowsAbout,
+		keywords: t.keywords,
+		industry: t.industry,
 		image: {
 			width: 1200,
+			// todo: add og-image.jpg
 			url: 'https://beswib.com/og-image.jpg',
 			height: 630,
 			'@type': 'ImageObject',
@@ -64,16 +63,16 @@ export default function OrganizationSchema() {
 			itemListElement: [
 				{
 					itemOffered: {
-						name: 'Race Bib Transfer Service',
-						description: 'Secure transfer of race bibs between athletes',
+						name: t.services.bibTransfer.name,
+						description: t.services.bibTransfer.description,
 						'@type': 'Service',
 					},
 					'@type': 'Offer',
 				},
 				{
 					itemOffered: {
-						name: 'Event Listing Service',
-						description: 'Platform for organizers to list their events',
+						name: t.services.eventListing.name,
+						description: t.services.eventListing.description,
 						'@type': 'Service',
 					},
 					'@type': 'Offer',
@@ -90,28 +89,27 @@ export default function OrganizationSchema() {
 		employee: {
 			worksFor: {
 				name: 'Beswib',
-				'@type': 'Organization',
+				'@type': 'Person',
 			},
 			name: 'Beswib Team',
 			jobTitle: 'Development Team',
 			'@type': 'Person',
 		},
-		duns: '123456789',
-		description: 'Marketplace de transfert de dossards de course (running, trail, triathlon, cyclisme)',
+		description: t.description,
 		department: [
 			{
-				name: 'Customer Support',
-				description: 'Multilingual customer support team',
+				name: t.departments.customerSupport.name,
+				description: t.departments.customerSupport.description,
 				'@type': 'Organization',
 			},
 			{
-				name: 'Event Management',
-				description: 'Event listing and management services',
+				name: t.departments.eventManagement.name,
+				description: t.departments.eventManagement.description,
 				'@type': 'Organization',
 			},
 			{
-				name: 'Payment Processing',
-				description: 'Secure payment handling and verification',
+				name: t.departments.paymentProcessing.name,
+				description: t.departments.paymentProcessing.description,
 				'@type': 'Organization',
 			},
 		],
@@ -131,9 +129,9 @@ export default function OrganizationSchema() {
 			],
 			'@type': 'ContactPoint',
 		},
-		category: 'Sports & Recreation',
+		category: t.category,
 		brand: {
-			slogan: 'Transfer Race Bibs Safely',
+			slogan: t.slogan,
 			name: 'Beswib',
 			'@type': 'Brand',
 		},
@@ -142,7 +140,7 @@ export default function OrganizationSchema() {
 				name: 'Europe and International',
 				'@type': 'Place',
 			},
-			audienceType: 'Athletes and Sports Enthusiasts',
+			audienceType: t.audienceType,
 			'@type': 'Audience',
 		},
 		areaServed: [
