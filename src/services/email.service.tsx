@@ -14,7 +14,15 @@ import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
 import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 import { getUserLocaleByEmail } from '@/services/user.services'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function getResend(): Resend | null {
+	const key = process.env.RESEND_API_KEY
+	if (typeof key !== 'string' || key.length === 0) return null
+	try {
+		return new Resend(key)
+	} catch {
+		return null
+	}
+}
 
 interface SendEmailParams {
 	to: string | string[]
@@ -29,6 +37,12 @@ interface SendEmailParams {
  * Sends an email using Resend with React Email components
  */
 async function sendEmail({ to, text, subject, react, html, from }: SendEmailParams): Promise<boolean> {
+	const resend = getResend()
+	if (!resend) {
+		console.warn('Resend not configured, skipping email send')
+		return false
+	}
+
 	try {
 		const fromEmail = from ?? process.env.NOTIFY_EMAIL_FROM ?? 'noreply@beswib.com'
 
