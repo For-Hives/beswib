@@ -46,7 +46,10 @@ export default function CustomSignUp() {
 			return typeof message === 'string' ? message : 'An error occurred. Please try again.'
 		}
 
-		if (typeof code === 'string' && errorsT[code]) return errorsT[code]
+		if (typeof code === 'string') {
+			const errorMessage = errorsT?.[code as keyof typeof errorsT]
+			if (errorMessage) return errorMessage
+		}
 		if (typeof message === 'string') {
 			const m = message.toLowerCase()
 			if (m.includes('password') && m.includes('incorrect'))

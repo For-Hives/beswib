@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { getTranslations } from '@/lib/i18n/translations'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { Locale, i18n } from '@/lib/i18n/config'
 
 /**

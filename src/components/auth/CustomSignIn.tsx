@@ -48,7 +48,8 @@ export default function CustomSignIn() {
 			if (code === 'session_exists') {
 				return 'You are already signed in. Redirecting...'
 			}
-			if (errorsT[code]) return errorsT[code]
+			const errorMessage = errorsT?.[code as keyof typeof errorsT]
+			if (errorMessage) return errorMessage
 		}
 
 		if (typeof message === 'string') {

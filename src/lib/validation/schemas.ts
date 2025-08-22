@@ -175,7 +175,8 @@ export const analyzePasswordStrength = (password: string, locale: Locale = 'en')
 
 // Runner profile form schema
 export const createRunnerFormSchema = (locale: Locale = 'en') => {
-	const t = validationTranslations[locale]
+	// Note: 't' could be used for future localized validation messages
+	// const t = validationTranslations[locale]
 	return v.object({
 		postalCode: v.pipe(
 			v.string(),

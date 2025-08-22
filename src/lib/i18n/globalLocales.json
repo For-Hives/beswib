@@ -6,7 +6,15 @@
 			"welcomeMessage": "Welcome!",
 			"loading": "Loading...",
 			"errors": {
-				"unexpected": "An unexpected error occurred."
+				"unexpected": "An unexpected error occurred.",
+				"form_password_incorrect": "Incorrect password",
+				"form_identifier_not_found": "Email not found",
+				"form_identifier_exists": "Email already exists",
+				"form_code_incorrect": "Incorrect verification code",
+				"verification_expired": "Verification code expired",
+				"too_many_requests": "Too many requests, please try again later",
+				"default_error": "An error occurred, please try again",
+				"captcha_invalid": "Invalid captcha"
 			},
 			"timeUnits": {
 				"defaultDays": "7 days",
@@ -27,7 +35,15 @@
 			"welcomeMessage": "Bienvenue !",
 			"loading": "Chargement...",
 			"errors": {
-				"unexpected": "Une erreur inattendue s'est produite."
+				"unexpected": "Une erreur inattendue s'est produite.",
+				"form_password_incorrect": "Mot de passe incorrect",
+				"form_identifier_not_found": "Email non trouvé",
+				"form_identifier_exists": "Email déjà existant",
+				"form_code_incorrect": "Code de vérification incorrect",
+				"verification_expired": "Code de vérification expiré",
+				"too_many_requests": "Trop de tentatives, veuillez réessayer plus tard",
+				"default_error": "Une erreur s'est produite, veuillez réessayer",
+				"captcha_invalid": "Captcha invalide"
 			},
 			"timeUnits": {
 				"defaultDays": "7 jours",
@@ -48,7 +64,15 @@
 			"welcomeMessage": "¡Bienvenido!",
 			"loading": "Cargando...",
 			"errors": {
-				"unexpected": "Ocurrió un error inesperado."
+				"unexpected": "Ocurrió un error inesperado.",
+				"form_password_incorrect": "Contraseña incorrecta",
+				"form_identifier_not_found": "Email no encontrado",
+				"form_identifier_exists": "Email ya existe",
+				"form_code_incorrect": "Código de verificación incorrecto",
+				"verification_expired": "Código de verificación expirado",
+				"too_many_requests": "Demasiadas solicitudes, inténtelo más tarde",
+				"default_error": "Ocurrió un error, inténtelo de nuevo",
+				"captcha_invalid": "Captcha inválido"
 			},
 			"timeUnits": {
 				"defaultDays": "7 días",
@@ -69,7 +93,15 @@
 			"welcomeMessage": "Benvenuto!",
 			"loading": "Caricamento...",
 			"errors": {
-				"unexpected": "Si è verificato un errore imprevisto."
+				"unexpected": "Si è verificato un errore imprevisto.",
+				"form_password_incorrect": "Password incorretta",
+				"form_identifier_not_found": "Email non trovata",
+				"form_identifier_exists": "Email già esistente",
+				"form_code_incorrect": "Codice di verifica incorretto",
+				"verification_expired": "Codice di verifica scaduto",
+				"too_many_requests": "Troppe richieste, riprova più tardi",
+				"default_error": "Si è verificato un errore, riprova",
+				"captcha_invalid": "Captcha non valido"
 			},
 			"timeUnits": {
 				"defaultDays": "7 giorni",
@@ -90,7 +122,15 @@
 			"welcomeMessage": "Willkommen!",
 			"loading": "Lädt...",
 			"errors": {
-				"unexpected": "Ein unerwarteter Fehler ist aufgetreten."
+				"unexpected": "Ein unerwarteter Fehler ist aufgetreten.",
+				"form_password_incorrect": "Falsches Passwort",
+				"form_identifier_not_found": "E-Mail nicht gefunden",
+				"form_identifier_exists": "E-Mail bereits vorhanden",
+				"form_code_incorrect": "Falscher Bestätigungscode",
+				"verification_expired": "Bestätigungscode abgelaufen",
+				"too_many_requests": "Zu viele Anfragen, bitte später versuchen",
+				"default_error": "Ein Fehler ist aufgetreten, bitte erneut versuchen",
+				"captcha_invalid": "Ungültiges Captcha"
 			},
 			"timeUnits": {
 				"defaultDays": "7 Tage",
@@ -111,7 +151,15 @@
 			"welcomeMessage": "Bun venit!",
 			"loading": "Se încarcă...",
 			"errors": {
-				"unexpected": "A apărut o eroare neașteptată."
+				"unexpected": "A apărut o eroare neașteptată.",
+				"form_password_incorrect": "Parolă incorectă",
+				"form_identifier_not_found": "Email-ul nu a fost găsit",
+				"form_identifier_exists": "Email-ul există deja",
+				"form_code_incorrect": "Cod de verificare incorect",
+				"verification_expired": "Cod de verificare expirat",
+				"too_many_requests": "Prea multe încercări, încercați mai târziu",
+				"default_error": "A apărut o eroare, încercați din nou",
+				"captcha_invalid": "Captcha invalid"
 			},
 			"timeUnits": {
 				"defaultDays": "7 zile",
@@ -132,7 +180,15 @@
 			"welcomeMessage": "Bem-vindo!",
 			"loading": "Carregando...",
 			"errors": {
-				"unexpected": "Ocorreu um erro inesperado."
+				"unexpected": "Ocorreu um erro inesperado.",
+				"form_password_incorrect": "Palavra-passe incorreta",
+				"form_identifier_not_found": "Email não encontrado",
+				"form_identifier_exists": "Email já existe",
+				"form_code_incorrect": "Código de verificação incorrecto",
+				"verification_expired": "Código de verificação expirado",
+				"too_many_requests": "Demasiadas tentativas, tente mais tarde",
+				"default_error": "Ocorreu um erro, tente novamente",
+				"captcha_invalid": "Captcha inválido"
 			},
 			"timeUnits": {
 				"defaultDays": "7 dias",
@@ -153,7 +209,15 @@
 			"welcomeMessage": "Welkom!",
 			"loading": "Laden...",
 			"errors": {
-				"unexpected": "Er is een onverwachte fout opgetreden."
+				"unexpected": "Er is een onverwachte fout opgetreden.",
+				"form_password_incorrect": "Onjuist wachtwoord",
+				"form_identifier_not_found": "E-mail niet gevonden",
+				"form_identifier_exists": "E-mail bestaat al",
+				"form_code_incorrect": "Onjuiste verificatiecode",
+				"verification_expired": "Verificatiecode verlopen",
+				"too_many_requests": "Te veel verzoeken, probeer later opnieuw",
+				"default_error": "Er is een fout opgetreden, probeer opnieuw",
+				"captcha_invalid": "Ongeldige captcha"
 			},
 			"timeUnits": {
 				"defaultDays": "7 dagen",
@@ -174,7 +238,15 @@
 			"welcomeMessage": "환영합니다!",
 			"loading": "로딩 중...",
 			"errors": {
-				"unexpected": "예상치 못한 오류가 발생했습니다."
+				"unexpected": "예상치 못한 오류가 발생했습니다.",
+				"form_password_incorrect": "잘못된 비밀번호",
+				"form_identifier_not_found": "이메일을 찾을 수 없음",
+				"form_identifier_exists": "이메일이 이미 존재함",
+				"form_code_incorrect": "잘못된 인증 코드",
+				"verification_expired": "인증 코드 만료",
+				"too_many_requests": "요청이 너무 많습니다. 나중에 다시 시도하세요",
+				"default_error": "오류가 발생했습니다. 다시 시도하세요",
+				"captcha_invalid": "유효하지 않은 캡차"
 			},
 			"timeUnits": {
 				"defaultDays": "7일",

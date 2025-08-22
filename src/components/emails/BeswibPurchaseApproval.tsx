@@ -92,7 +92,7 @@ export const BeswibPurchaseApproval = ({
 									{t.emails.purchaseApproval.subject.replace(' 🎉', '')}
 								</Heading>
 								<Text className="text-muted-foreground text-base">
-									{t.emails.greeting}
+									{t.emails.purchaseApproval.greeting}
 									{buyerName ? ` ${buyerName}` : ''} 👋
 								</Text>
 							</Section>

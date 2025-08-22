@@ -25,7 +25,6 @@ import {
 } from '../constants/verifiedEmail.constant'
 import { contactSummaryText, contactFullText, saleAlertText } from '../constants/discord.constant'
 import { calculateTimeRemaining } from '../lib/utils/date'
-import { getTranslations } from '../lib/i18n/dictionary'
 
 const renderContactMessageEmailHtml = (p: { name: string; email: string; message: string }): string =>
 	(renderContactMessageEmailHtmlUnsafe as unknown as (p: { name: string; email: string; message: string }) => string)(p)
