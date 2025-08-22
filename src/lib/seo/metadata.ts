@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 
 import type { Locale } from '@/lib/i18n/config'
 
-import { 
-	generateBaseMetadata, 
+import {
+	generateBaseMetadata,
 	generateHomeMetadata,
 	generateEventMetadata,
-	generateMarketplaceMetadata 
+	generateMarketplaceMetadata,
 } from './metadata-generators'
 
 // Legacy SEO configuration - DEPRECATED: Use metadata-generators.ts instead
@@ -271,8 +271,14 @@ export function getBaseMetadataLegacy(locale: Locale): Metadata {
 	}
 }
 
-// Event-specific metadata
+// DEPRECATED: Use generateEventMetadata from metadata-generators.ts
 export function getEventMetadata(locale: Locale, event: Event): Metadata {
+	return generateEventMetadata(locale, event)
+}
+
+// DEPRECATED: Use generateEventMetadata from metadata-generators.ts
+// Event-specific metadata
+export function getEventMetadataLegacy(locale: Locale, event: Event): Metadata {
 	const baseMetadata = getBaseMetadata(locale)
 	const config = seoConfig[locale]
 

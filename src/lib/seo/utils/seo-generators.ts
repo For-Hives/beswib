@@ -63,7 +63,10 @@ export function generateEventDescription(locale: Locale, event: Event): string {
 	let description = `${event.name} - ${raceType}`
 
 	if (event.location) {
-		description += locale === 'ko' ? ` ${event.location}에서` : ` ${locale === 'en' ? 'in' : locale === 'fr' ? 'à' : locale === 'es' ? 'en' : locale === 'it' ? 'a' : locale === 'de' ? 'in' : locale === 'ro' ? 'în' : locale === 'pt' ? 'em' : 'in'} ${event.location}`
+		description +=
+			locale === 'ko'
+				? ` ${event.location}에서`
+				: ` ${locale === 'en' ? 'in' : locale === 'fr' ? 'à' : locale === 'es' ? 'en' : locale === 'it' ? 'a' : locale === 'de' ? 'in' : locale === 'ro' ? 'în' : locale === 'pt' ? 'em' : 'in'} ${event.location}`
 	}
 
 	// Add event date
