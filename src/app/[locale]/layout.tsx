@@ -16,7 +16,6 @@ import LocaleSynchronizer from '@/components/global/LocaleSynchronizer'
 import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { getClerkLocalization } from '@/lib/i18n/clerk/localization'
-import OrganizationSchema from '@/components/seo/OrganizationSchema'
 import QueryProvider from '@/components/providers/QueryProvider'
 import { GoBackToTop } from '@/components/global/go-back-to-top'
 import SentryClientInit from '@/app/[locale]/SentryClientInit'
@@ -149,8 +148,6 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 
 	return (
 		<>
-			<OrganizationSchema locale={locale} />
-
 			<ClerkProvider
 				appearance={{
 					baseTheme: shadcn,
