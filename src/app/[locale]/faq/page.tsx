@@ -24,19 +24,19 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 	const baseMetadata = getBaseMetadata(locale)
 	const t = getTranslations(locale, globalTranslations)
 
-	// Personnaliser les métadonnées pour la page FAQ
+	// Customize metadata for the FAQ page
 	return {
 		...baseMetadata,
 		twitter: {
 			...baseMetadata.twitter,
-			title: `${t.pages.faq.title} - ${baseMetadata.twitter?.title ?? 'Beswib'}`,
+			title: `${t.pages.faq.title} - Beswib`,
 			description: t.pages.faq.description,
 		},
 		title: `${t.pages.faq.title} - Beswib`,
 		openGraph: {
 			...baseMetadata.openGraph,
 			url: `https://beswib.com/${locale}/faq`,
-			title: `${t.pages.faq.title} - ${baseMetadata.openGraph?.title ?? 'Beswib'}`,
+			title: `${t.pages.faq.title} - Beswib`,
 			description: t.pages.faq.description,
 		},
 		description: t.pages.faq.description,
