@@ -4,7 +4,6 @@ import { CheckCircle, User as UserIcon, Shield, MapPin, FileText, AlertTriangle,
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { useState, useTransition } from 'react'
 
-import { object, string, minLength, picklist, pipe, optional, email as emailValidator } from 'valibot'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
@@ -13,7 +12,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import profileTranslations from '@/components/profile/locales.json'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import { isUserProfileComplete } from '@/lib/validation/user'
-import { createPhoneSchema } from '@/lib/validation/schemas'
+import { createRunnerFormSchema } from '@/lib/validation/schemas'
 import { AddressInput } from '@/components/ui/address-input'
 import { formatDateForHTMLInput } from '@/lib/utils/date'
 import { PhoneInput } from '@/components/ui/phone-input'
@@ -45,25 +44,6 @@ type RunnerFormData = {
 	licenseNumber?: string
 }
 
-const createRunnerFormSchema = (locale: Locale) =>
-	object({
-		postalCode: pipe(string(), minLength(4, 'Invalid postal code')),
-		phoneNumber: createPhoneSchema(locale, false),
-		medicalCertificateUrl: optional(string()),
-		licenseNumber: optional(string()),
-		lastName: pipe(string(), minLength(2, 'Last name must be at least 2 characters')),
-		gender: picklist(['male', 'female', 'other'], 'Invalid gender'),
-		firstName: pipe(string(), minLength(2, 'First name must be at least 2 characters')),
-		emergencyContactRelationship: pipe(string(), minLength(2, 'Please specify the relationship')),
-		emergencyContactPhone: createPhoneSchema(locale, true),
-		emergencyContactName: pipe(string(), minLength(2, 'Contact name must be at least 2 characters')),
-		country: pipe(string(), minLength(2, 'Country name too short')),
-		contactEmail: optional(pipe(string(), emailValidator('Invalid email address'))),
-		clubAffiliation: optional(string()),
-		city: pipe(string(), minLength(2, 'City name too short')),
-		birthDate: pipe(string(), minLength(10, 'Birth date is required')),
-		address: pipe(string(), minLength(4, 'Address too short')),
-	})
 
 export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Readonly<{ user: User; locale?: Locale }>) {
 	const t = getTranslations(locale, profileTranslations)

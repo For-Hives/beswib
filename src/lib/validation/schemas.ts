@@ -7,19 +7,19 @@ import mainLocales from '@/app/[locale]/locales.json'
 import { Locale } from '@/lib/i18n/config'
 
 // Email schema
-export const createEmailSchema = (locale: Locale = 'fr') => {
+export const createEmailSchema = (locale: Locale = 'en') => {
 	const t = validationTranslations[locale]
 	return v.pipe(v.string(), v.trim(), v.nonEmpty(t.email.required), v.email(t.email.invalid))
 }
 
 // Password schema for sign-in (less strict)
-export const createSignInPasswordSchema = (locale: Locale = 'fr') => {
+export const createSignInPasswordSchema = (locale: Locale = 'en') => {
 	const t = validationTranslations[locale]
 	return v.pipe(v.string(), v.nonEmpty(t.password.required))
 }
 
 // Password schema for sign-up (strict requirements)
-export const createSignUpPasswordSchema = (locale: Locale = 'fr') => {
+export const createSignUpPasswordSchema = (locale: Locale = 'en') => {
 	const t = validationTranslations[locale]
 	return v.pipe(
 		v.string(),
@@ -32,7 +32,7 @@ export const createSignUpPasswordSchema = (locale: Locale = 'fr') => {
 }
 
 // Name schema (first name / last name)
-export const createNameSchema = (fieldName: string, locale: Locale = 'fr') => {
+export const createNameSchema = (fieldName: string, locale: Locale = 'en') => {
 	const t = validationTranslations[locale]
 	return v.pipe(
 		v.string(),
@@ -45,7 +45,7 @@ export const createNameSchema = (fieldName: string, locale: Locale = 'fr') => {
 }
 
 // Verification code schema
-export const createVerificationCodeSchema = (locale: Locale = 'fr') => {
+export const createVerificationCodeSchema = (locale: Locale = 'en') => {
 	const t = validationTranslations[locale]
 	return v.pipe(
 		v.string(),
@@ -56,7 +56,7 @@ export const createVerificationCodeSchema = (locale: Locale = 'fr') => {
 }
 
 // Phone number schema with international validation
-export const createPhoneSchema = (locale: Locale = 'fr', required: boolean = false) => {
+export const createPhoneSchema = (locale: Locale = 'en', required: boolean = false) => {
 	const t = validationTranslations[locale]
 
 	const baseValidation = v.pipe(
@@ -82,7 +82,7 @@ export const createPhoneSchema = (locale: Locale = 'fr', required: boolean = fal
 }
 
 // Sign-in form schema
-export const createSignInSchema = (locale: Locale = 'fr') => {
+export const createSignInSchema = (locale: Locale = 'en') => {
 	return v.object({
 		password: createSignInPasswordSchema(locale),
 		email: createEmailSchema(locale),
@@ -90,7 +90,7 @@ export const createSignInSchema = (locale: Locale = 'fr') => {
 }
 
 // Sign-up form schema
-export const createSignUpSchema = (locale: Locale = 'fr') => {
+export const createSignUpSchema = (locale: Locale = 'en') => {
 	const t = validationTranslations[locale]
 	return v.pipe(
 		v.object({
@@ -112,7 +112,7 @@ export const createSignUpSchema = (locale: Locale = 'fr') => {
 }
 
 // Password strength analysis using Valibot
-export const analyzePasswordStrength = (password: string, locale: Locale = 'fr') => {
+export const analyzePasswordStrength = (password: string, locale: Locale = 'en') => {
 	const tAuth = getTranslations(locale, mainLocales).auth.passwordStrength
 	let score = 0
 	const feedback: string[] = []
@@ -171,6 +171,29 @@ export const analyzePasswordStrength = (password: string, locale: Locale = 'fr')
 		feedback,
 		color: colors[score] || 'red',
 	}
+}
+
+// Runner profile form schema
+export const createRunnerFormSchema = (locale: Locale = 'en') => {
+	const t = validationTranslations[locale]
+	return v.object({
+		firstName: createNameSchema('first name', locale),
+		lastName: createNameSchema('last name', locale),
+		birthDate: v.pipe(v.string(), v.trim(), v.nonEmpty('Birth date is required'), v.minLength(10, 'Birth date is required')),
+		phoneNumber: createPhoneSchema(locale, false),
+		contactEmail: v.optional(createEmailSchema(locale)),
+		emergencyContactName: v.pipe(v.string(), v.trim(), v.nonEmpty('Emergency contact name is required'), v.minLength(2, 'Contact name must be at least 2 characters')),
+		emergencyContactPhone: createPhoneSchema(locale, true),
+		emergencyContactRelationship: v.pipe(v.string(), v.trim(), v.nonEmpty('Emergency contact relationship is required'), v.minLength(2, 'Please specify the relationship')),
+		address: v.pipe(v.string(), v.trim(), v.nonEmpty('Address is required'), v.minLength(4, 'Address too short')),
+		postalCode: v.pipe(v.string(), v.trim(), v.nonEmpty('Postal code is required'), v.minLength(4, 'Invalid postal code')),
+		city: v.pipe(v.string(), v.trim(), v.nonEmpty('City is required'), v.minLength(2, 'City name too short')),
+		country: v.pipe(v.string(), v.trim(), v.nonEmpty('Country is required'), v.minLength(2, 'Country name too short')),
+		gender: v.picklist(['male', 'female', 'other'], 'Invalid gender'),
+		medicalCertificateUrl: v.optional(v.string()),
+		clubAffiliation: v.optional(v.string()),
+		licenseNumber: v.optional(v.string()),
+	})
 }
 
 // Utility type for form validation results
