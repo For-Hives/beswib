@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation'
 import { checkAdminAccess } from '@/guard/adminGuard'
+import { redirect } from 'next/navigation'
 
 import AdminEventsPageClient from '@/components/admin/event/AdminEventsPageClient'
 import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
