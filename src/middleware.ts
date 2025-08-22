@@ -68,8 +68,8 @@ const isProtectedRoute = createRouteMatcher([
 
 // Define public routes that should never redirect to auth
 const isPublicRoute = createRouteMatcher([
-	'/(.*)', // Home pages in all locales
-	'/(.*)/(events|marketplace|faq|contact|legals)(.*)', // Public content pages
+	'/(en|fr|de|es|it|pt|nl|ro|ko)$', // Home pages in all locales exactly
+	'/(en|fr|de|es|it|pt|nl|ro|ko)/(events|marketplace|faq|contact|legals)(.*)', // Public content pages
 ])
 
 // Define public routes that should redirect authenticated users away
@@ -113,6 +113,11 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 	if (isPublicRoute(request) && !isProtectedRoute(request)) {
 		// Let public pages access auth state without forcing authentication
 		// This allows bots to crawl and users to see content
+		return NextResponse.next()
+	}
+
+	// Skip auth for robots.txt and other static files
+	if (pathname.startsWith('/robot') || pathname.includes('.')) {
 		return NextResponse.next()
 	}
 
