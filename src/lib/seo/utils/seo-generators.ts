@@ -128,18 +128,30 @@ export function generateCanonicalUrl(locale: Locale, path: string): string {
 	return `${baseUrl}${localePath}${path}`
 }
 
-// Generate alternate language links
+// Generate alternate language links with proper URLs and locale codes
 export function generateAlternateLanguages(path: string): Record<string, string> {
-	const languages = ['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko'] as const
+	const baseUrl = 'https://beswib.com'
+	const languages = [
+		{ path: '', locale: 'en-US', code: 'en' },
+		{ path: '/fr', locale: 'fr-FR', code: 'fr' },
+		{ path: '/es', locale: 'es-ES', code: 'es' },
+		{ path: '/it', locale: 'it-IT', code: 'it' },
+		{ path: '/de', locale: 'de-DE', code: 'de' },
+		{ path: '/ro', locale: 'ro-RO', code: 'ro' },
+		{ path: '/pt', locale: 'pt-PT', code: 'pt' },
+		{ path: '/nl', locale: 'nl-NL', code: 'nl' },
+		{ path: '/ko', locale: 'ko-KR', code: 'ko' },
+	] as const
+
 	const alternates: Record<string, string> = {}
 
-	languages.forEach(lang => {
-		if (lang === 'en') {
-			alternates[lang] = path
-		} else {
-			alternates[lang] = `/${lang}${path}`
-		}
+	// Add all language versions
+	languages.forEach(({ path: langPath, locale }) => {
+		alternates[locale] = `${baseUrl}${langPath}${path}`
 	})
+
+	// Add x-default pointing to English version
+	alternates['x-default'] = `${baseUrl}${path}`
 
 	return alternates
 }

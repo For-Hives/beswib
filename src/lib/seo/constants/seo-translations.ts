@@ -284,13 +284,14 @@ export const SEO_TITLES = {
 		event: (eventName: string) => `${eventName} | Pettorali di Gara`,
 	},
 	fr: {
-		site: 'Beswib',
-		marketplace: 'Marketplace | Dossards de Course à Vendre',
-		legal: (pageName: string) => `${pageName} | Informations Légales`,
-		home: 'Transfert de Dossards | Acheter & Vendre des Dossards de Course',
-		eventWithLocation: (eventName: string, location: string) => `${eventName} à ${location} | Dossards`,
-		events: 'Parcourir les Événements | Trouver des Dossards',
-		event: (eventName: string) => `${eventName} | Dossards de Course`,
+		site: 'Beswib - Transfert Légal de Dossards',
+		marketplace: 'Marketplace | Acheter & Vendre Dossards | Running, Trail, Triathlon',
+		legal: (pageName: string) => `${pageName} | Informations Légales | Marketplace Beswib`,
+		home: 'Beswib | Transfert Sécurisé de Dossards | Acheter & Vendre Running, Trail, Triathlon',
+		eventWithLocation: (eventName: string, location: string) =>
+			`${eventName} à ${location} | Transfert Dossards | Beswib`,
+		events: 'Parcourir Événements Running | Trouver Dossards Trail, Marathon, Triathlon | Beswib',
+		event: (eventName: string) => `${eventName} | Transfert Dossards | Acheter & Vendre sur Beswib`,
 	},
 	es: {
 		site: 'Beswib',
@@ -302,13 +303,14 @@ export const SEO_TITLES = {
 		event: (eventName: string) => `${eventName} | Dorsales de Carrera`,
 	},
 	en: {
-		site: 'Beswib',
-		marketplace: 'Marketplace | Race Bibs for Sale',
-		legal: (pageName: string) => `${pageName} | Legal Information`,
-		home: 'Transfer Race Bibs | Buy & Sell Running, Trail, Triathlon Bibs',
-		eventWithLocation: (eventName: string, location: string) => `${eventName} in ${location} | Race Bibs`,
-		events: 'Browse Events | Find Race Bibs',
-		event: (eventName: string) => `${eventName} | Race Bibs`,
+		site: 'Beswib - Legal Race Bib Transfers',
+		marketplace: 'Marketplace | Buy & Sell Race Bibs | Running, Trail, Triathlon',
+		legal: (pageName: string) => `${pageName} | Legal Information | Beswib Race Bib Marketplace`,
+		home: 'Beswib | Transfer Race Bibs Safely | Buy & Sell Running, Trail, Triathlon Bibs',
+		eventWithLocation: (eventName: string, location: string) =>
+			`${eventName} in ${location} | Race Bibs Transfer | Beswib`,
+		events: 'Browse Running Events | Find Race Bibs for Trail, Marathon, Triathlon | Beswib',
+		event: (eventName: string) => `${eventName} | Race Bibs Transfer | Buy & Sell on Beswib`,
 	},
 	de: {
 		site: 'Beswib',
@@ -364,12 +366,12 @@ export const SEO_DESCRIPTIONS = {
 	},
 	fr: {
 		marketplace:
-			'Parcourez les dossards disponibles de vendeurs vérifiés. Paiement sécurisé et confirmation de transfert instantanée.',
+			'Parcourez des milliers de dossards disponibles de vendeurs vérifiés sur la marketplace Beswib. Paiements PayPal sécurisés et confirmation instantanée pour les événements running, trail, triathlon et cyclisme. Rejoignez les athlètes du monde entier qui font confiance à Beswib.',
 		legal:
-			'Informations légales, conditions de service, politique de confidentialité et protection des données pour Beswib.',
-		home: 'Transférez vos dossards de course en toute sécurité avec Beswib. Achetez et vendez des dossards de running, trail, triathlon et cyclisme.',
+			"Informations légales complètes, conditions de service, politique de confidentialité et protection des données pour la marketplace Beswib. Comprenez vos droits et obligations lors de l'achat ou la vente de dossards via notre plateforme sécurisée.",
+		home: "Transférez vos dossards de course en toute sécurité avec Beswib, la marketplace de confiance pour les athlètes. Achetez et vendez des dossards pour running, trail, triathlon et cyclisme. Paiements sécurisés, vendeurs vérifiés et confirmation instantanée. Rejoignez les milliers d'athlètes qui choisissent Beswib.",
 		events:
-			'Trouvez et achetez des dossards pour les prochains événements de course, trail, triathlon et cyclisme. Transferts sécurisés avec Beswib.',
+			'Découvrez et achetez des dossards pour les prochains événements running, trail, triathlon et cyclisme dans le monde entier. Recherchez par lieu, date et type de course. Transferts sûrs et sécurisés avec protection PayPal et approbation organisateur. Trouvez votre prochaine aventure avec Beswib.',
 	},
 	es: {
 		marketplace:
@@ -381,11 +383,12 @@ export const SEO_DESCRIPTIONS = {
 	},
 	en: {
 		marketplace:
-			'Browse available race bibs from verified sellers. Secure payment and instant transfer confirmation for running, trail and triathlon events.',
-		legal: 'Legal information, terms of service, privacy policy and data protection for Beswib race bib marketplace.',
-		home: 'Transfer race bibs safely with Beswib. Buy and sell running, trail, triathlon, and cycling race bibs. Join thousands of athletes worldwide.',
+			'Browse thousands of available race bibs from verified sellers on Beswib marketplace. Secure PayPal payments and instant transfer confirmation for running, trail, triathlon and cycling events. Join athletes worldwide who trust Beswib for safe bib transfers.',
+		legal:
+			'Complete legal information, terms of service, privacy policy and data protection details for Beswib race bib marketplace. Understand your rights and obligations when buying or selling race bibs through our secure platform.',
+		home: 'Transfer race bibs safely with Beswib, the trusted marketplace for athletes. Buy and sell race bibs for running, trail running, triathlon, and cycling events. Secure payments, verified sellers, and instant confirmation. Join thousands of athletes worldwide who choose Beswib for legal bib transfers.',
 		events:
-			'Find and purchase race bibs for upcoming running, trail, triathlon and cycling events. Safe and secure transfers with Beswib.',
+			'Discover and purchase race bibs for upcoming running, trail, triathlon and cycling events worldwide. Browse by location, date, and race type. Safe and secure transfers with PayPal protection and organizer approval. Find your next adventure with Beswib.',
 	},
 	de: {
 		marketplace:

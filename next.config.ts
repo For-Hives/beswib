@@ -121,11 +121,14 @@ const nextConfig: NextConfig = {
 			`script-src ${scriptSrc}`,
 			`object-src 'none'`,
 			`frame-src ${frameSrc}`,
+			`frame-ancestors 'none'`,
 			`connect-src ${connectSrc}`,
 			`img-src ${imgSrc}`,
 			`style-src 'self' 'unsafe-inline'`,
 			`worker-src 'self' blob:`,
 			`form-action 'self'`,
+			`base-uri 'self'`,
+			`manifest-src 'self'`,
 		].join('; ')
 
 		return [
@@ -137,12 +140,32 @@ const nextConfig: NextConfig = {
 						key: 'X-Content-Type-Options',
 					},
 					{
+						value: 'DENY',
+						key: 'X-Frame-Options',
+					},
+					{
+						value: 'max-age=63072000; includeSubDomains; preload',
+						key: 'Strict-Transport-Security',
+					},
+					{
+						value: 'strict-origin-when-cross-origin',
+						key: 'Referrer-Policy',
+					},
+					{
 						value: csp,
 						key: 'Content-Security-Policy',
 					},
 					{
-						value: csp,
-						key: 'Content-Security-Policy-Report-Only',
+						value: '1; mode=block',
+						key: 'X-XSS-Protection',
+					},
+					{
+						value: 'require-corp',
+						key: 'Cross-Origin-Embedder-Policy',
+					},
+					{
+						value: 'same-origin',
+						key: 'Cross-Origin-Opener-Policy',
 					},
 				],
 			},
