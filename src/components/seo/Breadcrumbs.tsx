@@ -3,6 +3,7 @@ import { ChevronRight, Home } from 'lucide-react'
 import Link from 'next/link'
 
 import type { Locale } from '@/lib/i18n/config'
+import { Fragment } from 'react'
 
 interface BreadcrumbItem {
 	label: string
@@ -21,7 +22,7 @@ export default function Breadcrumbs({ locale, items, className = '' }: Breadcrum
 
 	return (
 		<nav className={`text-muted-foreground flex items-center space-x-1 text-sm ${className}`} aria-label="Breadcrumb">
-			<ol className="flex items-center space-x-1">
+			<ol className="flex w-full items-center space-x-1">
 				{/* Home */}
 				<li>
 					<Link
@@ -43,7 +44,7 @@ export default function Breadcrumbs({ locale, items, className = '' }: Breadcrum
 
 				{/* Navigation items */}
 				{items.map((item, index) => (
-					<li key={index}>
+					<Fragment key={index}>
 						{item.current === true ? (
 							<span className="text-foreground font-medium" aria-current="page">
 								{item.label}
@@ -58,7 +59,7 @@ export default function Breadcrumbs({ locale, items, className = '' }: Breadcrum
 
 						{/* Separator (except for last item) */}
 						{index < items.length - 1 && <ChevronRight className="ml-1 h-4 w-4" />}
-					</li>
+					</Fragment>
 				))}
 			</ol>
 		</nav>

@@ -28,12 +28,11 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 
 	// Navigation links data 🧭
 	const navigationLinks = [
-		{ label: t.navbar.homeLink, href: '/', current: false },
-		{ label: t.navbar.racesLink, href: '/events', current: false },
-
-		{ label: t.navbar.marketplaceLink, href: '/marketplace', current: false },
-		{ label: t.navbar.faqLink, href: '/faq', current: false },
-		{ label: t.navbar.contactLink, href: '/contact', current: false },
+		{ label: t.navbar.homeLink, href: `/${locale}`, current: false },
+		{ label: t.navbar.racesLink, href: `/${locale}/events`, current: false },
+		{ label: t.navbar.marketplaceLink, href: `/${locale}/marketplace`, current: false },
+		{ label: t.navbar.faqLink, href: `/${locale}/faq`, current: false },
+		{ label: t.navbar.contactLink, href: `/${locale}/contact`, current: false },
 	]
 
 	return (
@@ -49,7 +48,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 					<div className="flex h-16 items-center justify-between">
 						<div className="flex items-center">
 							<div className="">
-								<Link href="/">
+								<Link href={`/${locale}`}>
 									<Image alt="Beswib" className="h-8 w-auto" height={32} src="/beswib.svg" width={32} />
 								</Link>
 							</div>
@@ -74,9 +73,6 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 						<div className="hidden lg:ml-6 lg:block">
 							<div className="text-foreground flex items-center">
 								<div className="flex items-center gap-4">
-									{/* Language Switcher */}
-									<LanguageSwitcher currentLocale={locale} currentPath={`/${locale}`} className="mr-2" />
-
 									<ThemeToggle />
 									<SignedIn>
 										{/* Dashboard Dropdown Menu 📊 */}
@@ -96,6 +92,8 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 											{t.navbar.signUp}
 										</Link>
 									</SignedOut>
+									{/* Language Switcher */}
+									<LanguageSwitcher currentLocale={locale} currentPath={`/${locale}`} className="mr-2" />
 								</div>
 							</div>
 						</div>
