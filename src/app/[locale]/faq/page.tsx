@@ -23,26 +23,26 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 	const { locale } = await params
 	const baseMetadata = getBaseMetadata(locale)
 	const t = getTranslations(locale, globalTranslations)
-	
+
 	// Personnaliser les métadonnées pour la page FAQ
 	return {
 		...baseMetadata,
-		title: `${t.pages.faq.title} - ${baseMetadata.title?.default || 'Beswib'}`,
-		description: t.pages.faq.description,
-		openGraph: {
-			...baseMetadata.openGraph,
-			title: `${t.pages.faq.title} - ${baseMetadata.openGraph?.title || 'Beswib'}`,
-			description: t.pages.faq.description,
-			url: `https://beswib.com/${locale}/faq`,
-		},
 		twitter: {
 			...baseMetadata.twitter,
 			title: `${t.pages.faq.title} - ${baseMetadata.twitter?.title || 'Beswib'}`,
 			description: t.pages.faq.description,
 		},
+		title: `${t.pages.faq.title} - ${baseMetadata.title?.default || 'Beswib'}`,
+		openGraph: {
+			...baseMetadata.openGraph,
+			url: `https://beswib.com/${locale}/faq`,
+			title: `${t.pages.faq.title} - ${baseMetadata.openGraph?.title || 'Beswib'}`,
+			description: t.pages.faq.description,
+		},
+		description: t.pages.faq.description,
 		alternates: {
-			canonical: `https://beswib.com/${locale}/faq`,
 			languages: baseMetadata.alternates?.languages || {},
+			canonical: `https://beswib.com/${locale}/faq`,
 		},
 	}
 }
