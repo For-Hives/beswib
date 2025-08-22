@@ -16,10 +16,10 @@ export default async function AdminOrganizerValidatePage({ params }: { params: P
 	// Verify admin access before rendering the page
 	// This will automatically redirect if user is not authenticated or not admin
 	const { locale } = await params
-	
+
 	// Check admin access without throwing redirect errors
 	const adminUser = await checkAdminAccess()
-	
+
 	// Handle redirection manually if not admin
 	if (!adminUser) {
 		redirect(`/${locale}/auth/sign-in?redirectUrl=${encodeURIComponent(`/${locale}/admin`)}`)
