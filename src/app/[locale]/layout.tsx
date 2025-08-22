@@ -83,10 +83,13 @@ export function generateStaticParams() {
 	return generateLocaleParams()
 }
 
-export default async function RootLayout(props: { params: Promise<LocaleParams>; children: ReactNode }) {
+export default async function RootLayout(props: { params: Promise<{ locale: string }>; children: ReactNode }) {
 	const localeParams = await props.params
-	const { locale } = localeParams
+	const { locale } = localeParams as LocaleParams
 	const clerkLocalization = getClerkLocalization(locale)
+
+	// Create properly typed localeParams for components
+	const typedLocaleParams: Promise<LocaleParams> = Promise.resolve({ locale })
 
 	const version: string = getVersion()
 
@@ -135,13 +138,13 @@ export default async function RootLayout(props: { params: Promise<LocaleParams>;
 								<NuqsAdapter>
 									<SessionsTracker />
 									<LocaleSynchronizer />
-									<Header localeParams={props.params} />
+									<Header localeParams={typedLocaleParams} />
 									<PageTransition>{props.children}</PageTransition>
 									{/* Ensure Sentry client init runs on the browser */}
 									<SentryClientInit />
 									<CookieBanner />
 									<ConsentManagerDialog />
-									<Footer localeParams={props.params} />
+									<Footer localeParams={typedLocaleParams} />
 									<GoBackToTop locale={locale} />
 									<Toaster />
 								</NuqsAdapter>
