@@ -4,9 +4,10 @@ import { generateLocaleParams, type LocaleParams } from '@/lib/generation/static
 import SecurityProcess from '@/components/landing/security-process/SecurityProcess'
 import JourneyTabs from '@/components/landing/journey-tabs/JourneyTabs'
 import HeroAlternative from '@/components/landing/hero/HeroAlternative'
+import { generateHomeMetadata } from '@/lib/seo/metadata-generators'
 import FeaturesBento from '@/components/landing/features/Features'
 import BesWibCTA from '@/components/landing/cta/CTASection'
-import { getBaseMetadata } from '@/lib/seo/metadata'
+import { StructuredData } from '@/lib/seo'
 
 // Generate static params for all locales 🌍
 export function generateStaticParams() {
@@ -15,7 +16,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
 	const { locale } = await params
-	return getBaseMetadata(locale)
+	return generateHomeMetadata(locale)
 }
 
 export default async function Home({ params }: { params: Promise<LocaleParams> }) {

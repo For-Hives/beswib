@@ -20,7 +20,7 @@ export default async function AdminOrganizerValidatePage({ params }: { params: P
 
 	// Handle redirection manually if not admin
 	if (!adminUser) {
-		redirect(`/${locale}/auth/sign-in?redirectUrl=${encodeURIComponent(`/${locale}/admin`)}`)
+		redirect(`/not-found`)
 	}
 
 	return <AdminOrganizerValidatePageClient currentUser={adminUser} locale={locale} />

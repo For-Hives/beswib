@@ -18,7 +18,6 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 
 import marketplaceTranslations from './locales.json'
 
-// Métadonnées SEO dynamiques par langue
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
 	const { locale } = await params
 	return generateMarketplaceMetadata(locale)

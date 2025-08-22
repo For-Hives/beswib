@@ -20,7 +20,7 @@ export default async function AdminEventsPage({ params }: { params: Promise<Loca
 
 	// Handle redirection manually if not admin
 	if (!adminUser) {
-		redirect(`/${locale}/auth/sign-in?redirectUrl=${encodeURIComponent(`/${locale}/admin`)}`)
+		redirect(`/not-found`)
 	}
 
 	return <AdminEventsPageClient currentUser={adminUser} locale={locale} />

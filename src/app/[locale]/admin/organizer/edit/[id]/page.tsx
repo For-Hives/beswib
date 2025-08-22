@@ -20,7 +20,7 @@ export default async function AdminOrganizerEditPage({ params }: { params: Promi
 
 	// Handle redirection manually if not admin
 	if (!adminUser) {
-		redirect(`/${locale}/auth/sign-in?redirectUrl=${encodeURIComponent(`/${locale}/admin`)}`)
+		redirect(`/not-found`)
 	}
 
 	return <AdminOrganizerEditPageClient currentUser={adminUser} locale={locale} organizerId={id} />

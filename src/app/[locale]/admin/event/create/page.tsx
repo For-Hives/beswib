@@ -20,7 +20,7 @@ export default async function AdminEventCreatePage({ params }: { params: Promise
 
 	// Handle redirection manually if not admin
 	if (!adminUser) {
-		redirect(`/${locale}/auth/sign-in?redirectUrl=${encodeURIComponent(`/${locale}/admin`)}`)
+		redirect(`/not-found`)
 	}
 
 	return <AdminEventPageClient currentUser={adminUser} locale={locale} />

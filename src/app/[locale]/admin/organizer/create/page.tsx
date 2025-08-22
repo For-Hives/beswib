@@ -20,7 +20,7 @@ export default async function AdminOrganizerCreatePage({ params }: { params: Pro
 
 	// Handle redirection manually if not admin
 	if (!adminUser) {
-		redirect(`/${locale}/auth/sign-in?redirectUrl=${encodeURIComponent(`/${locale}/admin`)}`)
+		redirect(`/not-found`)
 	}
 
 	return <AdminOrganizerCreatePageClient currentUser={adminUser} locale={locale} />

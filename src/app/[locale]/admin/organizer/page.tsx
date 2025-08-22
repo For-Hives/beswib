@@ -20,7 +20,7 @@ export default async function AdminOrganizersPage({ params }: { params: Promise<
 
 	// Handle redirection manually if not admin
 	if (!adminUser) {
-		redirect(`/${locale}/auth/sign-in?redirectUrl=${encodeURIComponent(`/${locale}/admin`)}`)
+		redirect(`/not-found`)
 	}
 
 	return <AdminOrganizersPageClient currentUser={adminUser} locale={locale} />
