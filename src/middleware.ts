@@ -66,6 +66,12 @@ const isProtectedRoute = createRouteMatcher([
 	'/(.*)/admin(.*)',
 ])
 
+// Define public routes that should never redirect to auth
+const isPublicRoute = createRouteMatcher([
+	'/(.*)', // Home pages in all locales
+	'/(.*)/(events|marketplace|faq|contact|legals)(.*)', // Public content pages
+])
+
 // Define public routes that should redirect authenticated users away
 const isPublicAuthRoute = createRouteMatcher([
 	'/(.*)/auth/sign-in(.*)',
@@ -103,6 +109,13 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 		i18n?.defaultLocale ??
 		'en'
 
+	// For public routes, don't force authentication but still get auth context
+	if (isPublicRoute(request) && !isProtectedRoute(request)) {
+		// Let public pages access auth state without forcing authentication
+		// This allows bots to crawl and users to see content
+		return NextResponse.next()
+	}
+
 	// Protect routes that require authentication
 	if (isProtectedRoute(request)) {
 		await auth.protect()
@@ -122,7 +135,8 @@ export const config = {
 		// Include only specific API routes that need auth context (not all API routes)
 		// Most webhooks don't need auth, so we exclude them from middleware processing
 		'/(api/maintenance|api/validate-private-token)(.*)',
-		// Match all other routes except Next internals, files with extensions, and webhook APIs
+		// Match all other routes except Next internals, files with extensions, webhook APIs
+		// Exclude public pages that don't need auth protection but still need locale handling
 		'/((?!api/webhooks|.+\\.[\\w]+$|_next).*)',
 	],
 }
