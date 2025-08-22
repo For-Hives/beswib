@@ -17,11 +17,11 @@ const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 		const [visible, setVisible] = React.useState(false)
 		const dateFormat = getDateFormatPattern(locale)
 
-		let mouseX = useMotionValue(0)
-		let mouseY = useMotionValue(0)
+		const mouseX = useMotionValue(0)
+		const mouseY = useMotionValue(0)
 
 		function handleMouseMove({ currentTarget, clientY, clientX }: React.MouseEvent<HTMLDivElement>) {
-			let { top, left } = currentTarget.getBoundingClientRect()
+			const { top, left } = currentTarget.getBoundingClientRect()
 
 			mouseX.set(clientX - left)
 			mouseY.set(clientY - top)

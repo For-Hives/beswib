@@ -385,7 +385,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 							<ExternalLink className="h-4 w-4" />
 							<AlertDescription>
 								<div className="space-y-2">
-									<p>PayPal onboarding window opened. If it didn't open automatically:</p>
+									<p>PayPal onboarding window opened. If it didn&apos;t open automatically:</p>
 									<a
 										className="inline-flex items-center text-sm font-medium text-blue-600 underline hover:text-blue-800"
 										href={actionUrl}

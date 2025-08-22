@@ -13,11 +13,11 @@ const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLI
 		const radius = 100 // change this to increase the radius of the hover effect 💫
 		const [visible, setVisible] = React.useState(false)
 
-		let mouseX = useMotionValue(0)
-		let mouseY = useMotionValue(0)
+		const mouseX = useMotionValue(0)
+		const mouseY = useMotionValue(0)
 
 		function handleMouseMove({ currentTarget, clientY, clientX }: React.MouseEvent<HTMLDivElement>) {
-			let { top, left } = currentTarget.getBoundingClientRect()
+			const { top, left } = currentTarget.getBoundingClientRect()
 
 			mouseX.set(clientX - left)
 			mouseY.set(clientY - top)

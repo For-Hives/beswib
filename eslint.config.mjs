@@ -6,23 +6,30 @@ import queryPlugin from '@tanstack/eslint-plugin-query'
 import perfectionist from 'eslint-plugin-perfectionist'
 import tsPlugin from '@typescript-eslint/eslint-plugin'
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y'
-import nextPlugin from '@next/eslint-plugin-next'
 import promisePlugin from 'eslint-plugin-promise'
 import tsParser from '@typescript-eslint/parser'
+import { FlatCompat } from '@eslint/eslintrc'
+import { fileURLToPath } from 'url'
 import * as espree from 'espree'
+import { dirname } from 'path'
 
-// Configuration commune des règles
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+const compat = new FlatCompat({
+	baseDirectory: __dirname,
+})
+
+// Configuration commune des règles (Next.js rules are included by compat.extends)
 const baseRules = {
 	'react-hooks/exhaustive-deps': 'off',
+	'promise/always-return': 'off',
 	'prettier/prettier': 'error',
 	'no-only-tests/no-only-tests': 'error',
 	'no-console': ['error', { allow: ['warn', 'error', 'info', 'debug'] }],
-	'@next/next/no-img-element': 'off',
-	...nextPlugin.configs.recommended.rules,
-	...nextPlugin.configs['core-web-vitals'].rules,
-	'promise/always-return': 'off',
 	'jsx-a11y/anchor-has-content': 'off',
 	'jsx-a11y/alt-text': 'off',
+	'@next/next/no-img-element': 'off',
 }
 
 // Configuration commune des règles perfectionist
@@ -75,13 +82,12 @@ const perfectionistRules = {
 	],
 }
 
-// Plugins communs
+// Plugins communs (without @next/next as it's already included by compat.extends)
 const basePlugins = {
 	reactHooks: reactHooksPlugin,
 	perfectionist,
 	'no-only-tests': noOnlyTestsPlugin,
 	jsxA11y: jsxA11yPlugin,
-	'@next/next': nextPlugin,
 }
 
 // Options communes du parser
@@ -91,13 +97,14 @@ const baseParserOptions = {
 	ecmaFeatures: { jsx: true },
 }
 
-export default [
-	//	perfectionist.configs['recommended-natural'],
+const eslintConfig = [
+	...compat.extends('next/core-web-vitals', 'next/typescript'),
+	{
+		ignores: ['node_modules/**', '.next/**', 'out/**', 'build/**', 'next-env.d.ts'],
+	}, //	perfectionist.configs['recommended-natural'],
 	eslintPluginPrettierRecommended,
 	...queryPlugin.configs['flat/recommended'],
-	promisePlugin.configs['flat/recommended'],
-
-	// Configuration pour JavaScript
+	promisePlugin.configs['flat/recommended'], // Configuration pour JavaScript
 	{
 		rules: {
 			...baseRules,
@@ -109,9 +116,7 @@ export default [
 			parser: espree,
 		},
 		files: ['**/*.{js,jsx,mjs,cjs}'],
-	},
-
-	// Configuration pour TypeScript
+	}, // Configuration pour TypeScript
 	{
 		rules: {
 			...baseRules,
@@ -143,3 +148,5 @@ export default [
 		files: ['**/*.{ts,tsx}'],
 	},
 ]
+
+export default eslintConfig

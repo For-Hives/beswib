@@ -41,7 +41,7 @@ async function sendEmail({ to, text, subject, react, html, from }: SendEmailPara
 			text?: string
 		}
 
-		let emailData: EmailData = {
+		const emailData: EmailData = {
 			to,
 			subject,
 			from: fromEmail,

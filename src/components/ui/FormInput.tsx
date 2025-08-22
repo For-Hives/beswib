@@ -25,8 +25,8 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 		const [showPassword, setShowPassword] = React.useState(false)
 		const [inputType, setInputType] = React.useState(type)
 
-		let mouseX = useMotionValue(0)
-		let mouseY = useMotionValue(0)
+		const mouseX = useMotionValue(0)
+		const mouseY = useMotionValue(0)
 
 		useEffect(() => {
 			if (type === 'password' && showPasswordToggle === true) {
@@ -35,7 +35,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 		}, [showPassword, type, showPasswordToggle])
 
 		function handleMouseMove({ currentTarget, clientY, clientX }: React.MouseEvent<HTMLDivElement>) {
-			let { top, left } = currentTarget.getBoundingClientRect()
+			const { top, left } = currentTarget.getBoundingClientRect()
 			mouseX.set(clientX - left)
 			mouseY.set(clientY - top)
 		}

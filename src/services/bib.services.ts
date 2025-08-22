@@ -40,8 +40,8 @@ export async function createBib(bibData: Omit<Bib, 'id'>): Promise<Bib | null> {
 		return null
 	}
 
-	let status: Bib['status'] = 'available'
-	let finalEventId: string = bibData.eventId
+	const status: Bib['status'] = 'available'
+	const finalEventId: string = bibData.eventId
 
 	try {
 		// Generate private listing token if this is a private listing 🤫
@@ -648,7 +648,7 @@ export async function updateBibBySeller(
 
 		// Sanitize payload: disallow registrationNumber, eventId, sellerUserId modifications by seller
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		let { sellerUserId, registrationNumber, eventId, ...payload } = dataToUpdate
+		const { sellerUserId, registrationNumber, eventId, ...payload } = dataToUpdate
 
 		const updatedRecord = await pb.collection('bibs').update<Bib>(bibId, payload)
 		return updatedRecord
