@@ -10,10 +10,10 @@ import {
 	unlockExpiredBibs,
 	updateExpiredBibsToWithdrawn,
 } from '@/services/bib.services'
+import { generateMarketplaceMetadata } from '@/lib/seo/metadata-generators'
 import MarketplaceClient from '@/components/marketplace/MarketplaceClient'
 import { generateLocaleParams } from '@/lib/generation/staticParams'
 import { transformBibsToBibSales } from '@/lib/transformers/bib'
-import { generateMarketplaceMetadata } from '@/lib/seo/metadata-generators'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
 import marketplaceTranslations from './locales.json'

@@ -7,8 +7,8 @@ import type { Bib } from '@/models/bib.model'
 
 import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
 import { fetchApprovedPublicEventsWithBibs } from '@/services/event.services'
+import { generateEventsMetadata } from '@/lib/seo/metadata-generators'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { getBaseMetadata } from '@/lib/seo/metadata'
 
 import EventListClient from './EventListClient'
 import eventsTranslations from './locales.json'
@@ -16,29 +16,7 @@ import eventsTranslations from './locales.json'
 // Dynamic SEO metadata
 export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
 	const { locale } = await params
-	const baseMetadata = getBaseMetadata(locale)
-
-	// Customize metadata for the events page
-	return {
-		...baseMetadata,
-		twitter: {
-			...baseMetadata.twitter,
-			title: 'Events - Beswib',
-			description: `Discover all available race events. ${baseMetadata.twitter?.description ?? ''}`,
-		},
-		title: `Events - Beswib`,
-		openGraph: {
-			...baseMetadata.openGraph,
-			url: `https://beswib.com/${locale}/events`,
-			title: 'Events - Beswib',
-			description: `Discover all available race events. ${baseMetadata.openGraph?.description ?? ''}`,
-		},
-		description: `Discover all available race events. ${baseMetadata.description}`,
-		alternates: {
-			languages: baseMetadata.alternates?.languages ?? {},
-			canonical: `https://beswib.com/${locale}/events`,
-		},
-	}
+	return generateEventsMetadata(locale)
 }
 
 export default async function EventsPage({ params }: { params: Promise<LocaleParams> }) {

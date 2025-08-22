@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
+import { generateSimplePageMetadata } from '@/lib/seo/metadata-generators'
 import globalTranslations from '@/components/global/locales.json'
 import Privacy from '@/components/legals/privacy/Privacy'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { generateSimplePageMetadata } from '@/lib/seo/metadata-generators'
 
 export default function PrivacyPolicyPage({ params }: { params: Promise<LocaleParams> }) {
 	return (
