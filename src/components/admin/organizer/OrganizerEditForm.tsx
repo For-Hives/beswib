@@ -152,7 +152,7 @@ export default function OrganizerEditForm({
 							{translationsCommon.organizers.edit.title}
 						</h1>
 						<p className="text-muted-foreground mt-4 text-lg">
-							{translationsCommon.organizers.edit.subtitle} "{organizer.name}"
+							{translationsCommon.organizers.edit.subtitle} &quot;{organizer.name}&quot;
 						</p>
 					</div>
 

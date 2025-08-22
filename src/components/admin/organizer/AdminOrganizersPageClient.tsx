@@ -748,8 +748,8 @@ function RowActions({
 						<AlertDialogHeader>
 							<AlertDialogTitle>{t.organizers.table.controls.confirmDelete}</AlertDialogTitle>
 							<AlertDialogDescription>
-								{t.organizers.table.controls.deleteDescription} "
-								{row.original.name || t.organizers.common.unknownOrganizer}"
+								{t.organizers.table.controls.deleteDescription} &quot;
+								{row.original.name || t.organizers.common.unknownOrganizer}&quot;
 							</AlertDialogDescription>
 						</AlertDialogHeader>
 					</div>

@@ -107,7 +107,7 @@ export default function AdminEventEditPageClient({ locale, eventId, currentUser 
 						<div className="mb-6 text-6xl text-green-600 dark:text-green-400">✓</div>
 						<h1 className="text-foreground mb-4 text-3xl font-bold">Événement modifié !</h1>
 						<p className="text-muted-foreground mb-6 text-lg">
-							L'événement "{updatedEvent.name}" a été modifié avec succès.
+							L&apos;événement &quot;{updatedEvent.name}&quot; a été modifié avec succès.
 						</p>
 						<button className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white" onClick={handleCancel}>
 							Retour à la liste

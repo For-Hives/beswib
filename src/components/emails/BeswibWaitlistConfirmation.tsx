@@ -19,6 +19,37 @@ interface BeswibWaitlistConfirmationProps {
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
+// Define type for email translations structure
+interface EmailTranslations {
+	emails: {
+		waitlistConfirmation: {
+			subject: string
+			title: string
+			subtitle: string
+			congratulations: string
+			mainMessage: string
+			eventDetails: string
+			event: string
+			category: string
+			distance: string
+			date: string
+			location: string
+			waitlistInfo: string
+			createdAt: string
+			status: string
+			active: string
+			nextSteps: string
+			step1: string
+			step2: string
+			step3: string
+			step4: string
+			unsubscribeInfo: string
+			helpText: string
+			helpDescription: string
+		}
+	}
+}
+
 export const BeswibWaitlistConfirmation = ({
 	locale = 'fr',
 	eventName = 'Marathon de Paris 2024',
@@ -28,7 +59,56 @@ export const BeswibWaitlistConfirmation = ({
 	createdAt = new Date().toLocaleDateString('fr-FR'),
 	bibCategory = 'Marathon',
 }: BeswibWaitlistConfirmationProps) => {
-	const t = getTranslations(locale, constantsLocales)
+	// Type-safe translation with fallback
+	const getRawTranslations = () => {
+		try {
+			return getTranslations(locale, constantsLocales)
+		} catch {
+			// Fallback to default French translations if getTranslations fails
+			return getTranslations('fr', constantsLocales)
+		}
+	}
+
+	const rawTranslations = getRawTranslations()
+	const t = rawTranslations as EmailTranslations
+
+	// Fallback values if translation structure is incomplete
+	const safeTranslations = {
+		emails: {
+			waitlistConfirmation: {
+				waitlistInfo: t.emails?.waitlistConfirmation?.waitlistInfo || "Informations sur votre liste d'attente :",
+				unsubscribeInfo:
+					t.emails?.waitlistConfirmation?.unsubscribeInfo ||
+					"Vous pouvez vous désinscrire de cette liste d'attente à tout moment.",
+				title: t.emails?.waitlistConfirmation?.title || 'Inscription confirmée !',
+				subtitle: t.emails?.waitlistConfirmation?.subtitle || "Vous êtes maintenant sur la liste d'attente",
+				subject:
+					t.emails?.waitlistConfirmation?.subject || "Confirmation d'inscription sur liste d'attente - {eventName}",
+				step4: t.emails?.waitlistConfirmation?.step4 || '4. Préparez-vous pour la course !',
+				step3:
+					t.emails?.waitlistConfirmation?.step3 || '3. Une fois confirmé, vous recevrez vos informations de dossard',
+				step2: t.emails?.waitlistConfirmation?.step2 || '2. Vous aurez 24h pour confirmer votre achat',
+				step1: t.emails?.waitlistConfirmation?.step1 || "1. Nous vous contacterons dès qu'un dossard se libère",
+				status: t.emails?.waitlistConfirmation?.status || 'Statut',
+				nextSteps: t.emails?.waitlistConfirmation?.nextSteps || 'Prochaines étapes :',
+				mainMessage:
+					t.emails?.waitlistConfirmation?.mainMessage || "Nous vous préviendrons dès qu'un dossard se libère.",
+				location: t.emails?.waitlistConfirmation?.location || 'Lieu',
+				helpText: t.emails?.waitlistConfirmation?.helpText || "Besoin d'aide ?",
+				helpDescription: t.emails?.waitlistConfirmation?.helpDescription || 'Contactez notre équipe support.',
+				eventDetails: t.emails?.waitlistConfirmation?.eventDetails || "Détails de l'événement :",
+				event: t.emails?.waitlistConfirmation?.event || 'Événement',
+				distance: t.emails?.waitlistConfirmation?.distance || 'Distance',
+				date: t.emails?.waitlistConfirmation?.date || 'Date',
+				createdAt: t.emails?.waitlistConfirmation?.createdAt || 'Inscrit le',
+				congratulations:
+					t.emails?.waitlistConfirmation?.congratulations ||
+					"Félicitations ! Vous avez été ajouté(e) à la liste d'attente pour {eventName}.",
+				category: t.emails?.waitlistConfirmation?.category || 'Catégorie',
+				active: t.emails?.waitlistConfirmation?.active || 'Actif',
+			},
+		},
+	}
 
 	return (
 		<Html>
@@ -57,7 +137,7 @@ export const BeswibWaitlistConfirmation = ({
 				}}
 			>
 				<Body className="bg-background font-sans">
-					<Preview>{t.emails.waitlistConfirmation.subject.replace('{eventName}', eventName)}</Preview>
+					<Preview>{safeTranslations.emails.waitlistConfirmation.subject.replace('{eventName}', eventName)}</Preview>
 					<Container className="mx-auto max-w-[600px] px-4 py-8">
 						{/* Header avec logo */}
 						<Section>
@@ -69,63 +149,65 @@ export const BeswibWaitlistConfirmation = ({
 							{/* Icon et titre */}
 							<Section className="text-center">
 								<Heading className="text-foreground mb-2 text-2xl font-bold">
-									{t.emails.waitlistConfirmation.title}
+									{safeTranslations.emails.waitlistConfirmation.title}
 								</Heading>
-								<Text className="text-muted-foreground text-base">{t.emails.waitlistConfirmation.subtitle}</Text>
+								<Text className="text-muted-foreground text-base">
+									{safeTranslations.emails.waitlistConfirmation.subtitle}
+								</Text>
 							</Section>
 
 							{/* Message de félicitations */}
 							<Section className="text-start">
 								<Text className="text-muted-foreground text-base leading-relaxed">
-									{t.emails.waitlistConfirmation.congratulations.replace('{eventName}', eventName || '')}
+									{safeTranslations.emails.waitlistConfirmation.congratulations.replace('{eventName}', eventName || '')}
 								</Text>
 							</Section>
 
 							{/* Message principal */}
 							<Section className="text-start">
 								<Text className="text-muted-foreground text-base leading-relaxed">
-									{t.emails.waitlistConfirmation.mainMessage}
+									{safeTranslations.emails.waitlistConfirmation.mainMessage}
 								</Text>
 							</Section>
 
 							{/* Détails de l'événement */}
 							<Section className="bg-muted border-border mb-6 rounded-lg border p-6">
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
-									🏃‍♂️ {t.emails.waitlistConfirmation.eventDetails}
+									🏃‍♂️ {safeTranslations.emails.waitlistConfirmation.eventDetails}
 								</Heading>
 
 								<Section>
 									<Section className="flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.waitlistConfirmation.event}:
+											{safeTranslations.emails.waitlistConfirmation.event}:
 										</Text>
 										<Text className="text-foreground text-sm font-semibold">{eventName}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.waitlistConfirmation.category}:
+											{safeTranslations.emails.waitlistConfirmation.category}:
 										</Text>
 										<Text className="text-foreground text-sm">{bibCategory}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.waitlistConfirmation.distance}:
+											{safeTranslations.emails.waitlistConfirmation.distance}:
 										</Text>
 										<Text className="text-foreground text-sm">{eventDistance}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.waitlistConfirmation.date}:
+											{safeTranslations.emails.waitlistConfirmation.date}:
 										</Text>
 										<Text className="text-foreground text-sm">{eventDate}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.waitlistConfirmation.location}:
+											{safeTranslations.emails.waitlistConfirmation.location}:
 										</Text>
 										<Text className="text-foreground text-sm">{eventLocation}</Text>
 									</Section>
@@ -135,22 +217,24 @@ export const BeswibWaitlistConfirmation = ({
 							{/* Informations sur l'alerte */}
 							<Section className="bg-success-foreground border-success/20 mb-6 rounded-lg border p-6">
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
-									🔔 {t.emails.waitlistConfirmation.waitlistInfo}
+									🔔 {safeTranslations.emails.waitlistConfirmation.waitlistInfo}
 								</Heading>
 
 								<Section>
 									<Section className="flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.waitlistConfirmation.createdAt}:
+											{safeTranslations.emails.waitlistConfirmation.createdAt}:
 										</Text>
 										<Text className="text-foreground text-sm">{createdAt}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
-											{t.emails.waitlistConfirmation.status}:
+											{safeTranslations.emails.waitlistConfirmation.status}:
 										</Text>
-										<Text className="text-success text-sm font-bold">{t.emails.waitlistConfirmation.active}</Text>
+										<Text className="text-success text-sm font-bold">
+											{safeTranslations.emails.waitlistConfirmation.active}
+										</Text>
 									</Section>
 								</Section>
 							</Section>
@@ -158,31 +242,42 @@ export const BeswibWaitlistConfirmation = ({
 							{/* Prochaines étapes */}
 							<Section className="bg-card border-border mb-6 rounded-lg border p-6">
 								<Heading className="text-foreground mb-4 text-lg font-semibold">
-									{t.emails.waitlistConfirmation.nextSteps}
+									{safeTranslations.emails.waitlistConfirmation.nextSteps}
 								</Heading>
 
 								<Section>
-									<Text className="text-muted-foreground text-sm">• {t.emails.waitlistConfirmation.step1}</Text>
-									<Text className="text-muted-foreground mt-3 text-sm">• {t.emails.waitlistConfirmation.step2}</Text>
-									<Text className="text-muted-foreground mt-3 text-sm">• {t.emails.waitlistConfirmation.step3}</Text>
-									<Text className="text-muted-foreground mt-3 text-sm">• {t.emails.waitlistConfirmation.step4}</Text>
+									<Text className="text-muted-foreground text-sm">
+										• {safeTranslations.emails.waitlistConfirmation.step1}
+									</Text>
+									<Text className="text-muted-foreground mt-3 text-sm">
+										• {safeTranslations.emails.waitlistConfirmation.step2}
+									</Text>
+									<Text className="text-muted-foreground mt-3 text-sm">
+										• {safeTranslations.emails.waitlistConfirmation.step3}
+									</Text>
+									<Text className="text-muted-foreground mt-3 text-sm">
+										• {safeTranslations.emails.waitlistConfirmation.step4}
+									</Text>
 								</Section>
 							</Section>
 
 							{/* Information sur la désinscription */}
 							<Section className="bg-muted border-border mt-6 rounded-lg border p-4">
 								<Text className="text-muted-foreground text-center text-xs">
-									{t.emails.waitlistConfirmation.unsubscribeInfo}
+									{safeTranslations.emails.waitlistConfirmation.unsubscribeInfo}
 								</Text>
 							</Section>
 
 							{/* Aide */}
 							<Section className="mt-6 text-center">
-								<Text className="text-foreground text-sm font-medium">{t.emails.waitlistConfirmation.helpText}</Text>
-								<Text className="text-muted-foreground text-sm">{t.emails.waitlistConfirmation.helpDescription}</Text>
+								<Text className="text-foreground text-sm font-medium">
+									{safeTranslations.emails.waitlistConfirmation.helpText}
+								</Text>
+								<Text className="text-muted-foreground text-sm">
+									{safeTranslations.emails.waitlistConfirmation.helpDescription}
+								</Text>
 							</Section>
 						</Section>
-
 						{/* Footer */}
 						<Footer locale={locale} baseUrl={baseUrl} />
 					</Container>

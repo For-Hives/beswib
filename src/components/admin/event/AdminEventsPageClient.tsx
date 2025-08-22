@@ -897,7 +897,7 @@ function RowActions({ t, row }: { row: Row<AppEvent>; t: EventsTranslations }) {
 						<AlertDialogHeader>
 							<AlertDialogTitle>{t.events.table.controls.confirmDelete}</AlertDialogTitle>
 							<AlertDialogDescription>
-								{t.events.table.controls.deleteDescription} "{row.original.name || 'Unknown Event'}".
+								{t.events.table.controls.deleteDescription} &quot;{row.original.name || 'Unknown Event'}&quot;.
 							</AlertDialogDescription>
 						</AlertDialogHeader>
 					</div>
