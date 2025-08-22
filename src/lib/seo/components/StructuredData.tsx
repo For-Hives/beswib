@@ -33,11 +33,7 @@ export function OrganizationSchema() {
 			email: 'support@beswib.com',
 			availableLanguage: ['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko'],
 		},
-		sameAs: [
-			'https://twitter.com/beswib',
-			'https://instagram.com/beswib',
-			'https://linkedin.com/company/beswib',
-		],
+		sameAs: ['https://twitter.com/beswib', 'https://instagram.com/beswib', 'https://linkedin.com/company/beswib'],
 		serviceType: 'Race Bib Transfer Marketplace',
 		areaServed: {
 			'@type': 'Country',
@@ -75,15 +71,7 @@ export function WebsiteSchema({ locale }: { locale: Locale }) {
 }
 
 // Event schema
-export function EventSchema({
-	locale,
-	event,
-	organizer,
-}: {
-	locale: Locale
-	event: Event
-	organizer?: Organizer
-}) {
+export function EventSchema({ locale, event, organizer }: { locale: Locale; event: Event; organizer?: Organizer }) {
 	const schema = generateEventStructuredData(locale, event)
 
 	// Add organizer information if available
@@ -119,13 +107,7 @@ export function EventSchema({
 }
 
 // Breadcrumb schema
-export function BreadcrumbSchema({
-	locale,
-	items,
-}: {
-	locale: Locale
-	items: Array<{ name: string; item: string }>
-}) {
+export function BreadcrumbSchema({ locale, items }: { locale: Locale; items: Array<{ name: string; item: string }> }) {
 	const schema = {
 		'@context': 'https://schema.org',
 		'@type': 'BreadcrumbList',
@@ -141,11 +123,7 @@ export function BreadcrumbSchema({
 }
 
 // FAQ schema
-export function FAQSchema({
-	faqs,
-}: {
-	faqs: Array<{ question: string; answer: string }>
-}) {
+export function FAQSchema({ faqs }: { faqs: Array<{ question: string; answer: string }> }) {
 	const schema = {
 		'@context': 'https://schema.org',
 		'@type': 'FAQPage',
@@ -227,16 +205,12 @@ export function StructuredData({
 			{/* Type-specific schemas */}
 			{type === 'home' && <ServiceSchema locale={locale} />}
 
-			{type === 'event' && event && (
-				<EventSchema locale={locale} event={event} organizer={organizer} />
-			)}
+			{type === 'event' && event && <EventSchema locale={locale} event={event} organizer={organizer} />}
 
 			{type === 'faq' && faqs && <FAQSchema faqs={faqs} />}
 
 			{/* Breadcrumbs if provided */}
-			{breadcrumbs && breadcrumbs.length > 0 && (
-				<BreadcrumbSchema locale={locale} items={breadcrumbs} />
-			)}
+			{breadcrumbs && breadcrumbs.length > 0 && <BreadcrumbSchema locale={locale} items={breadcrumbs} />}
 		</>
 	)
 }
