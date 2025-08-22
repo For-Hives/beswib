@@ -92,19 +92,7 @@ export const BeswibPurchaseApproval = ({
 									{t.emails.purchaseApproval.subject.replace(' 🎉', '')}
 								</Heading>
 								<Text className="text-muted-foreground text-base">
-									{locale === 'fr'
-										? 'Bonjour'
-										: locale === 'en'
-											? 'Hello'
-											: locale === 'es'
-												? 'Hola'
-												: locale === 'it'
-													? 'Ciao'
-													: locale === 'de'
-														? 'Hallo'
-														: locale === 'ko'
-															? '안녕하세요'
-															: 'Bonjour'}
+									{t.emails.greeting}
 									{buyerName ? ` ${buyerName}` : ''} 👋
 								</Text>
 							</Section>

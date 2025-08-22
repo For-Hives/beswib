@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { Locale } from '../i18n/config'
+import { Locale, i18n } from '../i18n/config'
 import { getTranslations } from '../i18n/translations'
 
 /**
@@ -171,20 +171,25 @@ export function formatDateWithLocale(date: Date, locale: Locale): string {
 
 /**
  * Gets the locale-specific date format pattern 🗺️
- * @param locale - The locale ('en', 'fr', 'ko') 🌐
+ * @param locale - The locale (any supported locale from i18n config) 🌐
  * @returns Date format pattern 📄
  */
 export function getDateFormatPattern(locale: string = 'en'): string {
-	switch (locale) {
-		case 'en':
-			return 'mm/dd/yyyy'
-		case 'fr':
-			return 'dd/mm/yyyy'
-		case 'ko':
-			return 'yyyy/mm/dd'
-		default:
-			return 'dd/mm/yyyy'
+	// Validate locale and fallback to default if not supported
+	const validLocale = i18n.locales.includes(locale as Locale) ? locale : i18n.defaultLocale
+	
+	// US format for English
+	if (validLocale === 'en') {
+		return 'mm/dd/yyyy'
 	}
+	
+	// Korean format
+	if (validLocale === 'ko') {
+		return 'yyyy/mm/dd'
+	}
+	
+	// European format for all other languages (fr, es, it, de, ro, pt, nl)
+	return 'dd/mm/yyyy'
 }
 
 /**
