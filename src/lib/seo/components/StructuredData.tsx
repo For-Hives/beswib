@@ -2,6 +2,7 @@ import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 
+import structuredDataTranslations from './structuredData.locales.json'
 import { generateEventStructuredData } from '../utils/seo-generators'
 
 // Organization schema for Beswib
