@@ -186,7 +186,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 
 			<form onSubmit={handleSubmit} className="space-y-8">
 				{/* Personal Information Section */}
-				<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm relative z-20">
+				<Card className="dark:border-border/50 bg-card/80 relative z-20 border-black/50 backdrop-blur-sm">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<UserIcon className="text-primary h-5 w-5" />
@@ -314,7 +314,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 				</Card>
 
 				{/* Emergency Contact Section */}
-				<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm relative z-10">
+				<Card className="dark:border-border/50 bg-card/80 relative z-10 border-black/50 backdrop-blur-sm">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<Shield className="text-primary h-5 w-5" />
