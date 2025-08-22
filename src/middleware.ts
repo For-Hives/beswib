@@ -1,25 +1,20 @@
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextRequest, NextResponse } from 'next/server'
 
-// Simple regex patterns for route matching
-const isPublicRoute = (pathname: string): boolean => {
-	return (
-		/^\/(en|fr|de|es|it|pt|nl|ro|ko)$/.test(pathname) || // Home pages in all locales
-		/^\/(en|fr|de|es|it|pt|nl|ro|ko)\/(events|marketplace|faq|contact|legals)/.test(pathname) || // Public content pages
-		/^\/(en|fr|de|es|it|pt|nl|ro|ko)\/events\/[^\/]+$/.test(pathname) || // Event detail pages
-		/^\/(en|fr|de|es|it|pt|nl|ro|ko)\/marketplace\/[^\/]+$/.test(pathname) || // Marketplace detail pages
-		pathname === '/robots.txt' ||
-		pathname === '/sitemap.xml' ||
-		pathname.startsWith('/api') // All API routes
-	)
-}
+// Create route matchers for better performance and cleaner code
+const isPublicRoute = createRouteMatcher([
+	'/(en|fr|de|es|it|pt|nl|ro|ko)',
+	'/(en|fr|de|es|it|pt|nl|ro|ko)/(events|marketplace|faq|contact|legals)',
+	'/(en|fr|de|es|it|pt|nl|ro|ko)/events/(.*)',
+	'/(en|fr|de|es|it|pt|nl|ro|ko)/marketplace/(.*)',
+	'/robots.txt',
+	'/sitemap.xml',
+	'/api/(.*)',
+])
 
-const isProtectedRoute = (pathname: string): boolean => {
-	return /^\/(en|fr|de|es|it|pt|nl|ro|ko)\/(admin|profile|dashboard|purchase)/.test(pathname)
-}
+const isProtectedRoute = createRouteMatcher(['/(en|fr|de|es|it|pt|nl|ro|ko)/(admin|profile|dashboard|purchase)'])
 
-const isAuthRoute = (pathname: string): boolean => {
-	return /^\/(en|fr|de|es|it|pt|nl|ro|ko)\/auth\/(sign-in|sign-up|forgot-password)/.test(pathname)
-}
+const isAuthRoute = createRouteMatcher(['/(en|fr|de|es|it|pt|nl|ro|ko)/auth/(sign-in|sign-up|forgot-password)'])
 
 // Handle root page redirection for language detection
 function handleRootRedirect(request: NextRequest) {
@@ -50,18 +45,9 @@ function handleRootRedirect(request: NextRequest) {
 	return null
 }
 
-// Main middleware function - NOT using clerkMiddleware for public routes
-export default function middleware(request: NextRequest) {
+// Export the Clerk middleware with proper route protection
+export default clerkMiddleware(async (auth, request: NextRequest) => {
 	const { pathname } = request.nextUrl
-
-	// Skip static files and internal Next.js routes
-	if (
-		pathname.startsWith('/_next') ||
-		pathname.startsWith('/favicon.ico') ||
-		/\.(svg|png|jpg|jpeg|gif|webp|ico|css|js)$/.test(pathname)
-	) {
-		return NextResponse.next()
-	}
 
 	// Handle root page redirection first
 	const rootRedirect = handleRootRedirect(request)
@@ -69,41 +55,48 @@ export default function middleware(request: NextRequest) {
 		return rootRedirect
 	}
 
-	// Check if this is a public route - allow access without ANY Clerk interference
-	if (isPublicRoute(pathname)) {
+	// Check if this is a public route - allow access without authentication
+	if (isPublicRoute(request)) {
 		console.info('🌐 Public route accessed:', pathname)
 		return NextResponse.next()
 	}
 
 	// Check if this is an auth route - allow access without authentication
-	if (isAuthRoute(pathname)) {
+	if (isAuthRoute(request)) {
 		console.info('🔐 Auth route accessed:', pathname)
 		return NextResponse.next()
 	}
 
-	// For protected routes ONLY, apply Clerk authentication
-	if (isProtectedRoute(pathname)) {
+	// For protected routes, require authentication
+	if (isProtectedRoute(request)) {
 		console.info('🔒 Protected route accessed:', pathname)
-		// For now, redirect to sign-in for protected routes
-		// This will be handled by Clerk at the page level
-		const localeMatch = pathname.match(/^\/(en|fr|de|es|it|pt|nl|ro|ko)/)
-		const currentLocale = localeMatch?.[1]
-		if (currentLocale !== undefined && currentLocale.length > 0) {
-			const signInUrl = new URL(`/${currentLocale}/auth/sign-in`, request.url)
-			return NextResponse.redirect(signInUrl)
+		// Get auth info and redirect if not authenticated
+		const { userId, redirectToSignIn } = await auth()
+
+		if (userId === null || userId === undefined) {
+			// Extract locale from pathname for proper redirect
+			const localeMatch = pathname.match(/^\/(en|fr|de|es|it|pt|nl|ro|ko)/)
+			const currentLocale = localeMatch?.[1]
+			if (currentLocale !== undefined && currentLocale.length > 0) {
+				// Redirect to sign-in page in the correct locale
+				return redirectToSignIn()
+			}
 		}
+
 		return NextResponse.next()
 	}
 
 	// For all other routes, let them pass through normally
 	console.info('🔍 Other route processed normally:', pathname)
 	return NextResponse.next()
-}
+})
 
-// Configure middleware matcher
+// Configure Clerk to use our public routes
 export const config = {
 	matcher: [
-		// Skip static files and API routes
-		'/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js)$).*)',
+		// Skip Next.js internals and all static files
+		'/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+		// Always run for API routes
+		'/(api|trpc)(.*)',
 	],
 }
