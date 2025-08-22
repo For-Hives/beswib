@@ -13,8 +13,7 @@ export function generateStaticParams() {
 export const dynamic = 'force-dynamic'
 
 export default async function AdminOrganizerEditPage({ params }: { params: Promise<LocaleParams & { id: string }> }) {
-	// Verify admin access before rendering the page
-	// This will automatically redirect if user is not authenticated or not admin
+	const { locale } = await params
 
 	// Check admin access without throwing redirect errors
 	const adminUser = await checkAdminAccess()
