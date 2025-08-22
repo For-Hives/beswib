@@ -35,7 +35,7 @@ export default function LocaleSegmentError({
 	// Runtime locale detection for client component
 	const [t, locale] = ((): [ErrorTranslations, Locale] => {
 		const lang = typeof document !== 'undefined' ? (document.documentElement.lang as Locale) : ('en' as Locale)
-		const safeLocale = i18n.locales.includes(lang) ? lang : i18n.defaultLocale
+		const safeLocale = (i18n?.locales as readonly string[])?.includes(lang) ? lang : (i18n?.defaultLocale ?? 'en')
 		const translations = getTranslations(safeLocale, errorTranslations) as ErrorTranslations
 		return [translations, safeLocale]
 	})()

@@ -252,20 +252,20 @@ export function getLegalPageMetadata(
 	pageType: 'terms' | 'privacy' | 'cookies' | 'legalNotice'
 ): Metadata {
 	const baseMetadata = getBaseMetadata(locale)
-	const pageConfig = legalPageConfig[locale]?.[pageType] || legalPageConfig.en[pageType]
+	const pageConfig = legalPageConfig[locale]?.[pageType] ?? legalPageConfig.en[pageType]
 
 	return {
 		...baseMetadata,
 		twitter: {
 			...baseMetadata.twitter,
-			title: `${pageConfig.title} - ${baseMetadata.twitter?.title ?? 'Beswib'}`,
+			title: `${pageConfig.title} - Beswib`,
 			description: pageConfig.description,
 		},
-		title: `${pageConfig.title} - ${baseMetadata.title?.default ?? 'Beswib'}`,
+		title: `${pageConfig.title} - Beswib`,
 		openGraph: {
 			...baseMetadata.openGraph,
 			url: `https://beswib.com/${locale}/legals/${pageType}`,
-			title: `${pageConfig.title} - ${baseMetadata.openGraph?.title ?? 'Beswib'}`,
+			title: `${pageConfig.title} - Beswib`,
 			description: pageConfig.description,
 		},
 		keywords: pageConfig.keywords,

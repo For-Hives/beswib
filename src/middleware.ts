@@ -17,7 +17,7 @@ export function getLocaleFromRequest(request: NextRequest): string {
 			}, {})
 
 			const cookieLocale = cookies['NEXT_LOCALE']
-			if (cookieLocale && (i18n.locales as readonly string[]).includes(cookieLocale)) {
+			if (cookieLocale && (i18n?.locales as readonly string[])?.includes(cookieLocale)) {
 				return cookieLocale
 			}
 		}
@@ -43,18 +43,18 @@ export function getLocaleFromRequest(request: NextRequest): string {
 		// Find the first supported language 🥇
 		if (languages.length > 0) {
 			for (const lang of languages) {
-				if ((i18n.locales as readonly string[]).includes(lang.code)) {
+				if ((i18n?.locales as readonly string[])?.includes(lang.code)) {
 					return lang.code
 				}
 			}
 		}
 
 		// 3. Return default locale as fallback 🤷
-		return i18n.defaultLocale
+		return i18n?.defaultLocale ?? 'en'
 	} catch {
 		// During static generation or if any error occurs 🏗️
 		// Return default locale 🤷‍♂️
-		return i18n.defaultLocale
+		return i18n?.defaultLocale ?? 'en'
 	}
 }
 
@@ -83,7 +83,10 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 	}
 
 	// Check if there is any supported locale in the pathname 🗺️
-	const pathnameHasLocale = i18n.locales.some(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`)
+	const pathnameHasLocale =
+		(i18n?.locales as readonly string[])?.some(
+			locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+		) ?? false
 
 	if (!pathnameHasLocale) {
 		// Redirect if there is no locale - use smart locale detection 🧠
@@ -94,7 +97,11 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 
 	// Extract locale from pathname for proper redirects
 	const currentLocale =
-		i18n.locales.find(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) ?? i18n.defaultLocale
+		(i18n?.locales as readonly string[])?.find(
+			locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+		) ??
+		i18n?.defaultLocale ??
+		'en'
 
 	// Protect routes that require authentication
 	if (isProtectedRoute(request)) {
