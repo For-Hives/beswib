@@ -1,0 +1,479 @@
+{
+	"en": {
+		"organization": {
+			"description": "Marketplace for transferring race bibs (running, trail, triathlon, cycling)",
+			"slogan": "Transfer Race Bibs Safely",
+			"audienceType": "Athletes and Sports Enthusiasts",
+			"serviceType": "Race Bib Marketplace",
+			"industry": "Sports Marketplace",
+			"category": "Sports & Recreation",
+			"keywords": "race bibs, running, trail, triathlon, cycling, marketplace, transfer, sports, events",
+			"knowsAbout": [
+				"Race Bib Transfer",
+				"Running Events",
+				"Trail Running",
+				"Triathlon",
+				"Cycling Events",
+				"Sports Marketplace",
+				"Event Registration",
+				"Athlete Services"
+			],
+			"services": {
+				"securePayment": {
+					name: "Secure Payment Processing",
+					description: "Safe and secure payment handling for bib transfers"
+				},
+				"multilingualSupport": {
+					name: "Multilingual Support",
+					description: "Customer support in 10 different languages"
+				},
+				"bibTransfer": {
+					name: "Race Bib Transfer Service",
+					description: "Secure transfer of race bibs between athletes"
+				},
+				"eventListing": {
+					name: "Event Listing Service",
+					description: "Platform for organizers to list their events"
+				}
+			},
+			"departments": {
+				"customerSupport": {
+					name: "Customer Support",
+					description: "Multilingual customer support team"
+				},
+				"eventManagement": {
+					name: "Event Management",
+					description: "Event listing and management services"
+				},
+				"paymentProcessing": {
+					name: "Payment Processing",
+					description: "Secure payment handling and verification"
+				}
+			}
+		}
+	},
+	"fr": {
+		"organization": {
+			"description": "Marketplace de transfert de dossards de course (running, trail, triathlon, cyclisme)",
+			"slogan": "Transférez vos dossards en toute sécurité",
+			"audienceType": "Athlètes et passionnés de sport",
+			"serviceType": "Marketplace de dossards de course",
+			"industry": "Marketplace sportive",
+			"category": "Sports et loisirs",
+			"keywords": "dossards, running, trail, triathlon, cyclisme, marketplace, transfert, sport, événements",
+			"knowsAbout": [
+				"Transfert de dossards",
+				"Événements de course",
+				"Course en trail",
+				"Triathlon",
+				"Événements cyclistes",
+				"Marketplace sportive",
+				"Inscription aux événements",
+				"Services aux athlètes"
+			],
+			"services": {
+				"securePayment": {
+					name: "Traitement sécurisé des paiements",
+					description: "Gestion sécurisée des paiements pour les transferts de dossards"
+				},
+				"multilingualSupport": {
+					name: "Support multilingue",
+					description: "Support client dans 10 langues différentes"
+				},
+				"bibTransfer": {
+					name: "Service de transfert de dossards",
+					description: "Transfert sécurisé de dossards entre athlètes"
+				},
+				"eventListing": {
+					name: "Service de listing d'événements",
+					description: "Plateforme pour les organisateurs de lister leurs événements"
+				}
+			},
+			"departments": {
+				"customerSupport": {
+					name: "Support client",
+					description: "Équipe de support client multilingue"
+				},
+				"eventManagement": {
+					name: "Gestion d'événements",
+					description: "Services de listing et de gestion d'événements"
+				},
+				"paymentProcessing": {
+					name: "Traitement des paiements",
+					description: "Gestion sécurisée et vérification des paiements"
+				}
+			}
+		}
+	},
+	"de": {
+		"organization": {
+			"description": "Marktplatz für die Übertragung von Startnummern (Laufen, Trail, Triathlon, Radfahren)",
+			"slogan": "Übertragen Sie Startnummern sicher",
+			"audienceType": "Athleten und Sportbegeisterte",
+			"serviceType": "Startnummern-Marktplatz",
+			"industry": "Sport-Marktplatz",
+			"category": "Sport und Freizeit",
+			"keywords": "startnummern, laufen, trail, triathlon, radfahren, marktplatz, übertragung, sport, veranstaltungen",
+			"knowsAbout": [
+				"Startnummer überdracht",
+				"Laufveranstaltungen",
+				"Traillaufen",
+				"Triathlon",
+				"Radveranstaltungen",
+				"Sport-Marktplatz",
+				"Veranstaltungsanmeldung",
+				"Athleten-Services"
+			],
+			"services": {
+				"securePayment": {
+					name: "Sichere Zahlungsabwicklung",
+					description: "Sichere Zahlungsabwicklung für Startnummern-Übertragungen"
+				},
+				"multilingualSupport": {
+					name: "Mehrsprachiger Support",
+					description: "Kundensupport in 10 verschiedenen Sprachen"
+				},
+				"bibTransfer": {
+					name: "Startnummer überdracht service",
+					description: "Sichere Übertragung von Startnummern zwischen Athleten"
+				},
+				"eventListing": {
+					name: "Veranstaltungslisting-Service",
+					description: "Plattform für Organisatoren zum Auflisten ihrer Veranstaltungen"
+				}
+			},
+			"departments": {
+				"customerSupport": {
+					name: "Kundensupport",
+					description: "Mehrsprachiges Kundensupport-Team"
+				},
+				"eventManagement": {
+					name: "Veranstaltungsmanagement",
+					description: "Veranstaltungslisting- und Management-Services"
+				},
+				"paymentProcessing": {
+					name: "Zahlungsabwicklung",
+					description: "Sichere Zahlungsabwicklung und -verifizierung"
+				}
+			}
+		}
+	},
+	"es": {
+		"organization": {
+			"description": "Marketplace para la transferencia de dorsales de carrera (running, trail, triatlón, ciclismo)",
+			"slogan": "Transfiere dorsales de forma segura",
+			"audienceType": "Atletas y entusiastas del deporte",
+			"serviceType": "Marketplace de dorsales de carrera",
+			"industry": "Marketplace deportivo",
+			"category": "Deportes y recreación",
+			"keywords": "dorsales, running, trail, triatlón, ciclismo, marketplace, transferencia, deportes, eventos",
+			"knowsAbout": [
+				"Transferencia de dorsales",
+				"Eventos de carrera",
+				"Carrera en trail",
+				"Triatlón",
+				"Eventos ciclistas",
+				"Marketplace deportivo",
+				"Registro de eventos",
+				"Servicios para atletas"
+			],
+			"services": {
+				"securePayment": {
+					name: "Procesamiento seguro de pagos",
+					description: "Manejo seguro de pagos para transferencias de dorsales"
+				},
+				"multilingualSupport": {
+					name: "Soporte multilingüe",
+					description: "Soporte al cliente en 10 idiomas diferentes"
+				},
+				"bibTransfer": {
+					name: "Servicio de transferencia de dorsales",
+					description: "Transferencia segura de dorsales entre atletas"
+				},
+				"eventListing": {
+					name: "Servicio de listado de eventos",
+					description: "Plataforma para que los organizadores listen sus eventos"
+				}
+			},
+			"departments": {
+				"customerSupport": {
+					name: "Soporte al cliente",
+					description: "Equipo de soporte al cliente multilingüe"
+				},
+				"eventManagement": {
+					name: "Gestión de eventos",
+					description: "Servicios de listado y gestión de eventos"
+				},
+				"paymentProcessing": {
+					name: "Procesamiento de pagos",
+					description: "Manejo seguro y verificación de pagos"
+				}
+			}
+		}
+	},
+	"it": {
+		"organization": {
+			"description": "Marketplace per il trasferimento di pettorali di gara (running, trail, triathlon, ciclismo)",
+			"slogan": "Trasferisci pettorali in sicurezza",
+			"audienceType": "Atleti e appassionati di sport",
+			"serviceType": "Marketplace di pettorali di gara",
+			"industry": "Marketplace sportivo",
+			"category": "Sport e ricreazione",
+			"keywords": "pettorali, running, trail, triathlon, ciclismo, marketplace, trasferimento, sport, eventi",
+			"knowsAbout": [
+				"Trasferimento di pettorali",
+				"Eventi di corsa",
+				"Corsa in trail",
+				"Triathlon",
+				"Eventi ciclisti",
+				"Marketplace sportivo",
+				"Registrazione eventi",
+				"Servizi per atleti"
+			],
+			"services": {
+				"securePayment": {
+					name: "Elaborazione sicura dei pagamenti",
+					description: "Gestione sicura dei pagamenti per i trasferimenti di pettorali"
+				},
+				"multilingualSupport": {
+					name: "Supporto multilingue",
+					description: "Supporto clienti in 10 lingue diverse"
+				},
+				"bibTransfer": {
+					name: "Servizio di trasferimento pettorali",
+					description: "Trasferimento sicuro di pettorali tra atleti"
+				},
+				"eventListing": {
+					name: "Servizio di listino eventi",
+					description: "Piattaforma per gli organizzatori per elencare i loro eventi"
+				}
+			},
+			"departments": {
+				"customerSupport": {
+					name: "Supporto clienti",
+					description: "Team di supporto clienti multilingue"
+				},
+				"eventManagement": {
+					name: "Gestione eventi",
+					description: "Servizi di listino e gestione eventi"
+				},
+				"paymentProcessing": {
+					name: "Elaborazione pagamenti",
+					description: "Gestione sicura e verifica dei pagamenti"
+				}
+			}
+		}
+	},
+	"pt": {
+		"organization": {
+			"description": "Marketplace para transferência de dorsais de corrida (running, trail, triatlo, ciclismo)",
+			"slogan": "Transfira dorsais de forma segura",
+			"audienceType": "Atletas e entusiastas do desporto",
+			"serviceType": "Marketplace de dorsais de corrida",
+			"industry": "Marketplace desportivo",
+			"category": "Desporto e recreação",
+			"keywords": "dorsais, running, trail, triatlo, ciclismo, marketplace, transferência, desporto, eventos",
+			"knowsAbout": [
+				"Transferência de dorsais",
+				"Eventos de corrida",
+				"Corrida em trail",
+				"Triatlo",
+				"Eventos ciclistas",
+				"Marketplace desportivo",
+				"Registo de eventos",
+				"Serviços para atletas"
+			],
+			"services": {
+				"securePayment": {
+					name: "Processamento seguro de pagamentos",
+					description: "Gestão segura de pagamentos para transferências de dorsais"
+				},
+				"multilingualSupport": {
+					name: "Suporte multilingue",
+					description: "Suporte ao cliente em 10 idiomas diferentes"
+				},
+				"bibTransfer": {
+					name: "Serviço de transferência de dorsais",
+					description: "Transferência segura de dorsais entre atletas"
+				},
+				"eventListing": {
+					name: "Serviço de listagem de eventos",
+					description: "Plataforma para organizadores listarem os seus eventos"
+				}
+			},
+			"departments": {
+				"customerSupport": {
+					name: "Suporte ao cliente",
+					description: "Equipa de suporte ao cliente multilingue"
+				},
+				"eventManagement": {
+					name: "Gestão de eventos",
+					description: "Serviços de listagem e gestão de eventos"
+				},
+				"paymentProcessing": {
+					name: "Processamento de pagamentos",
+					description: "Gestão segura e verificação de pagamentos"
+				}
+			}
+		}
+	},
+	"nl": {
+		"organization": {
+			"description": "Marketplace voor het overdragen van startnummers (hardlopen, trail, triatlon, wielrennen)",
+			"slogan": "Draag startnummers veilig over",
+			"audienceType": "Atleten en sportliefhebbers",
+			"serviceType": "Startnummer marketplace",
+			"industry": "Sport marketplace",
+			"category": "Sport en recreatie",
+			"keywords": "startnummers, hardlopen, trail, triatlon, wielrennen, marketplace, overdracht, sport, evenementen",
+			"knowsAbout": [
+				"Startnummer overdracht",
+				"Hardloop evenementen",
+				"Trail hardlopen",
+				"Triatlon",
+				"Wielren evenementen",
+				"Sport marketplace",
+				"Evenement registratie",
+				"Atleet diensten"
+			],
+			"services": {
+				"securePayment": {
+					name: "Veilige betalingsverwerking",
+					description: "Veilige betalingsafhandeling voor startnummer overdrachten"
+				},
+				"multilingualSupport": {
+					name: "Meertalige ondersteuning",
+					description: "Klantondersteuning in 10 verschillende talen"
+				},
+				"bibTransfer": {
+					name: "Startnummer overdracht service",
+					description: "Veilige overdracht van startnummers tussen atleten"
+				},
+				"eventListing": {
+					name: "Evenement listing service",
+					description: "Platform voor organisatoren om hun evenementen te vermelden"
+				}
+			},
+			"departments": {
+				"customerSupport": {
+					name: "Klantondersteuning",
+					description: "Meertalig klantondersteuningsteam"
+				},
+				"eventManagement": {
+					name: "Evenementbeheer",
+					description: "Evenement listing en beheerdiensten"
+				},
+				"paymentProcessing": {
+					name: "Betalingsverwerking",
+					description: "Veilige betalingsafhandeling en verificatie"
+				}
+			}
+		}
+	},
+	"ro": {
+		"organization": {
+			"description": "Marketplace pentru transferul numerelor de start (alergare, trail, triatlon, ciclism)",
+			"slogan": "Transferă numerele de start în siguranță",
+			"audienceType": "Atleți și pasionați de sport",
+			"serviceType": "Marketplace pentru numere de start",
+			"industry": "Marketplace sportiv",
+			"category": "Sport și recreere",
+			"keywords": "numere de start, alergare, trail, triatlon, ciclism, marketplace, transfer, sport, evenimente",
+			"knowsAbout": [
+				"Transfer numere de start",
+				"Evenimente de alergare",
+				"Alergare în trail",
+				"Triatlon",
+				"Evenimente cicliste",
+				"Marketplace sportiv",
+				"Înregistrare evenimente",
+				"Servicii pentru atleți"
+			],
+			"services": {
+				"securePayment": {
+					name: "Procesare sigură a plăților",
+					description: "Gestionarea sigură a plăților pentru transferurile de numere de start"
+				},
+				"multilingualSupport": {
+					name: "Suport multilingv",
+					description: "Suport pentru clienți în 10 limbi diferite"
+				},
+				"bibTransfer": {
+					name: "Serviciu de transfer numere de start",
+					description: "Transfer sigur al numerelor de start între atleți"
+				},
+				"eventListing": {
+					name: "Serviciu de listare evenimente",
+					description: "Platformă pentru organizatori să-și listeze evenimentele"
+				}
+			},
+			"departments": {
+				"customerSupport": {
+					name: "Suport pentru clienți",
+					description: "Echipă de suport pentru clienți multilingv"
+				},
+				"eventManagement": {
+					name: "Gestionarea evenimentelor",
+					description: "Servicii de listare și gestionare a evenimentelor"
+				},
+				"paymentProcessing": {
+					name: "Procesarea plăților",
+					description: "Gestionarea sigură și verificarea plăților"
+				}
+			}
+		}
+	},
+	"ko": {
+		"organization": {
+			"description": "레이스 번호표 이전을 위한 마켓플레이스 (러닝, 트레일, 트라이애슬론, 사이클링)",
+			"slogan": "레이스 번호표를 안전하게 이전하세요",
+			"audienceType": "운동선수와 스포츠 애호가",
+			"serviceType": "레이스 번호표 마켓플레이스",
+			"industry": "스포츠 마켓플레이스",
+			"category": "스포츠 및 레크리에이션",
+			"keywords": "레이스 번호표, 러닝, 트레일, 트라이애슬론, 사이클링, 마켓플레이스, 이전, 스포츠, 이벤트",
+			"knowsAbout": [
+				"레이스 번호표 이전",
+				"러닝 이벤트",
+				"트레일 러닝",
+				"트라이애슬론",
+				"사이클링 이벤트",
+				"스포츠 마켓플레이스",
+				"이벤트 등록",
+				"운동선수 서비스"
+			],
+			"services": {
+				"securePayment": {
+					name: "안전한 결제 처리",
+					description: "번호표 이전을 위한 안전한 결제 처리"
+				},
+				"multilingualSupport": {
+					name: "다국어 지원",
+					description: "10개 언어로 고객 지원"
+				},
+				"bibTransfer": {
+					name: "레이스 번호표 이전 서비스",
+					description: "운동선수 간 안전한 번호표 이전"
+				},
+				"eventListing": {
+					name: "이벤트 리스팅 서비스",
+					description: "주최자가 이벤트를 등록할 수 있는 플랫폼"
+				}
+			},
+			"departments": {
+				"customerSupport": {
+					name: "고객 지원",
+					description: "다국어 고객 지원팀"
+				},
+				"eventManagement": {
+					name: "이벤트 관리",
+					description: "이벤트 리스팅 및 관리 서비스"
+				},
+				"paymentProcessing": {
+					name: "결제 처리",
+					description: "안전한 결제 처리 및 검증"
+				}
+			}
+		}
+	}
+}

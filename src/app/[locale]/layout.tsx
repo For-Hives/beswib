@@ -149,7 +149,7 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 
 	return (
 		<>
-			<OrganizationSchema />
+			<OrganizationSchema locale={locale} />
 
 			<ClerkProvider
 				appearance={{
