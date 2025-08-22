@@ -91,7 +91,7 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 	// TEMPORARY: For SEO testing, bypass ALL Clerk processing
 	// This allows bots to crawl without any Clerk authentication redirects
 	const isPublicPage =
-		pathname === '/' ||
+		pathname === '/' || // Root page redirects to /en
 		pathname === '/robots.txt' ||
 		pathname === '/sitemap.xml' ||
 		pathname.match(/^\/(en|fr|de|es|it|pt|nl|ro|ko)(\/.*)?$/) !== null
