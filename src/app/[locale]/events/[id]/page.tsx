@@ -20,9 +20,10 @@ import { fetchUserByClerkId } from '@/services/user.services'
 import { addToWaitlist } from '@/services/waitlist.services'
 import CardMarket from '@/components/marketplace/CardMarket'
 import { fetchEventById } from '@/services/event.services'
-import EventPageSEO from '@/components/seo/EventPageSEO'
+
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { getEventMetadata } from '@/lib/seo/metadata'
+import { generateEventMetadata } from '@/lib/seo/metadata-generators'
+import { StructuredData } from '@/lib/seo'
 import { pbDateToLuxon } from '@/lib/utils/date'
 import { Locale } from '@/lib/i18n/config'
 
@@ -43,6 +44,9 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
 	const event: Event | null = await fetchEventById(eventId)
 	const t = getTranslations(locale, eventTranslations)
+	
+	// TODO: Fetch organizer if needed for SEO
+	const organizer = undefined
 
 	if (!event) {
 		notFound()
@@ -118,7 +122,17 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
 	return (
 		<>
-			<EventPageSEO event={event} locale={locale} />
+			{/* SEO Structured Data */}
+			<StructuredData 
+				locale={locale} 
+				type="event" 
+				event={event} 
+				organizer={organizer}
+				breadcrumbs={[
+					{ name: 'Events', item: '/events' },
+					{ name: event.name, item: `/events/${event.id}` }
+				]}
+			/>
 
 			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -359,5 +373,5 @@ export async function generateMetadata({ params }: EventDetailPageProps): Promis
 		}
 	}
 
-	return getEventMetadata(locale, event)
+	return generateEventMetadata(locale, event)
 }
