@@ -9,7 +9,7 @@ import { SignedIn, SignedOut, useClerk, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import LanguageSwitcher from '@/components/seo/LanguageSwitcher'
+import LanguageSwitcher, { LanguageSwitcherMobile } from '@/components/seo/LanguageSwitcher'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Locale } from '@/lib/i18n/config'
 
@@ -117,6 +117,11 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 
 				<DisclosurePanel className="border-border bg-background absolute z-[101] w-full border-b shadow-lg lg:hidden">
 					<div className="space-y-1 px-2 pt-2 pb-3">
+						{/* Language Switcher for Mobile 🌐 */}
+						<div className="border-border mb-3 border-b pb-3">
+							<LanguageSwitcherMobile currentLocale={locale} currentPath={`/${locale}`} />
+						</div>
+
 						{/* Main Navigation Links 🔗 */}
 						{navigationLinks.map(link => (
 							<DisclosureButton

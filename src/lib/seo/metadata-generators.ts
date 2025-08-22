@@ -34,10 +34,7 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 			template: `%s | ${titles.site}`,
 			default: titles.home,
 		},
-		themeColor: [
-			{ media: '(prefers-color-scheme: light)', color: '#ffffff' },
-			{ media: '(prefers-color-scheme: dark)', color: '#000000' },
-		],
+
 		robots: {
 			index: true,
 			googleBot: {

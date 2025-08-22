@@ -213,10 +213,6 @@ export function getBaseMetadataLegacy(locale: Locale): Metadata {
 			template: '%s | Beswib',
 			default: config.defaultTitle,
 		},
-		themeColor: [
-			{ media: '(prefers-color-scheme: light)', color: '#ffffff' },
-			{ media: '(prefers-color-scheme: dark)', color: '#000000' },
-		],
 		robots: {
 			index: true,
 			googleBot: {
