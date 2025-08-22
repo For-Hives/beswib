@@ -1,30 +1,29 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextRequest, NextResponse } from 'next/server'
+import { clerkMiddleware } from '@clerk/nextjs/server'
 
 // Define route patterns
 const PUBLIC_FILE = /\.(.*)$/
-const PUBLIC_ROUTES = ['/robots.txt', '/sitemap.xml', '/api']
 
-// Create route matchers for better performance
-const isPublicRoute = createRouteMatcher([
-	'/:locale(?:en|fr|de|es|it|pt|nl|ro|ko)',
-	'/:locale(?:en|fr|de|es|it|pt|nl|ro|ko)/(events|marketplace|faq|contact|legals)',
-	'/:locale(?:en|fr|de|es|it|pt|nl|ro|ko)/events/:id*',
-	'/:locale(?:en|fr|de|es|it|pt|nl|ro|ko)/marketplace/:id*',
-	'/:locale(?:en|fr|de|es|it|pt|nl|ro|ko)/auth/(sign-in|sign-up|forgot-password)',
-	'/:locale(?:en|fr|de|es|it|pt|nl|ro|ko)/unauthorized',
-	'/api/:path*',
-	'/robots.txt',
-	'/sitemap.xml',
-])
+// Simple regex patterns for route matching
+const isPublicRoute = (pathname: string): boolean => {
+	return (
+		/^\/(en|fr|de|es|it|pt|nl|ro|ko)$/.test(pathname) || // Home pages in all locales
+		/^\/(en|fr|de|es|it|pt|nl|ro|ko)\/(events|marketplace|faq|contact|legals)/.test(pathname) || // Public content pages
+		/^\/(en|fr|de|es|it|pt|nl|ro|ko)\/events\/[^\/]+$/.test(pathname) || // Event detail pages
+		/^\/(en|fr|de|es|it|pt|nl|ro|ko)\/marketplace\/[^\/]+$/.test(pathname) || // Marketplace detail pages
+		pathname === '/robots.txt' ||
+		pathname === '/sitemap.xml' ||
+		pathname.startsWith('/api') // All API routes
+	)
+}
 
-const isProtectedRoute = createRouteMatcher([
-	'/:locale(?:en|fr|de|es|it|pt|nl|ro|ko)/(admin|profile|dashboard|purchase)',
-])
+const isProtectedRoute = (pathname: string): boolean => {
+	return /^\/(en|fr|de|es|it|pt|nl|ro|ko)\/(admin|profile|dashboard|purchase)/.test(pathname)
+}
 
-const isAuthRoute = createRouteMatcher([
-	'/:locale(?:en|fr|de|es|it|pt|nl|ro|ko)/auth/(sign-in|sign-up|forgot-password)',
-])
+const isAuthRoute = (pathname: string): boolean => {
+	return /^\/(en|fr|de|es|it|pt|nl|ro|ko)\/auth\/(sign-in|sign-up|forgot-password)/.test(pathname)
+}
 
 // Handle root page redirection for language detection
 function handleRootRedirect(request: NextRequest) {
