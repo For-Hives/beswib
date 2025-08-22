@@ -1,44 +1,44 @@
-import type { Locale } from '@/lib/i18n/config'
-import type { Event } from '@/models/event.model'
 import type { Organizer } from '@/models/organizer.model'
+import type { Event } from '@/models/event.model'
+import type { Locale } from '@/lib/i18n/config'
 
 import { generateEventStructuredData } from '../utils/seo-generators'
 
 // Organization schema for Beswib
 export function OrganizationSchema() {
 	const schema = {
-		'@context': 'https://schema.org',
-		'@type': 'Organization',
-		name: 'Beswib',
 		url: 'https://beswib.com',
+		serviceType: 'Race Bib Transfer Marketplace',
+		sameAs: ['https://twitter.com/beswib', 'https://instagram.com/beswib', 'https://linkedin.com/company/beswib'],
+		name: 'Beswib',
 		logo: {
-			'@type': 'ImageObject',
-			url: 'https://beswib.com/beswib.svg',
 			width: 200,
+			url: 'https://beswib.com/beswib.svg',
 			height: 50,
+			'@type': 'ImageObject',
 		},
-		description: 'Safe and secure race bib transfer marketplace for running, trail, triathlon and cycling events.',
 		foundingDate: '2023',
 		founder: {
-			'@type': 'Organization',
 			name: 'Beswib Team',
+			'@type': 'Organization',
+		},
+		description: 'Safe and secure race bib transfer marketplace for running, trail, triathlon and cycling events.',
+		contactPoint: {
+			email: 'support@beswib.com',
+			contactType: 'customer service',
+			availableLanguage: ['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko'],
+			'@type': 'ContactPoint',
+		},
+		areaServed: {
+			name: 'Worldwide',
+			'@type': 'Country',
 		},
 		address: {
-			'@type': 'PostalAddress',
 			addressCountry: 'FR',
+			'@type': 'PostalAddress',
 		},
-		contactPoint: {
-			'@type': 'ContactPoint',
-			contactType: 'customer service',
-			email: 'support@beswib.com',
-			availableLanguage: ['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko'],
-		},
-		sameAs: ['https://twitter.com/beswib', 'https://instagram.com/beswib', 'https://linkedin.com/company/beswib'],
-		serviceType: 'Race Bib Transfer Marketplace',
-		areaServed: {
-			'@type': 'Country',
-			name: 'Worldwide',
-		},
+		'@type': 'Organization',
+		'@context': 'https://schema.org',
 	}
 
 	return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
@@ -47,49 +47,49 @@ export function OrganizationSchema() {
 // Website schema
 export function WebsiteSchema({ locale }: { locale: Locale }) {
 	const schema = {
-		'@context': 'https://schema.org',
-		'@type': 'WebSite',
-		name: 'Beswib',
 		url: `https://beswib.com${locale === 'en' ? '' : `/${locale}`}`,
-		description: 'Transfer race bibs safely. Buy and sell running, trail, triathlon and cycling race bibs.',
-		inLanguage: locale,
 		publisher: {
-			'@type': 'Organization',
 			name: 'Beswib',
+			'@type': 'Organization',
 		},
 		potentialAction: {
-			'@type': 'SearchAction',
 			target: {
-				'@type': 'EntryPoint',
 				urlTemplate: `https://beswib.com${locale === 'en' ? '' : `/${locale}`}/events?search={search_term_string}`,
+				'@type': 'EntryPoint',
 			},
 			'query-input': 'required name=search_term_string',
+			'@type': 'SearchAction',
 		},
+		name: 'Beswib',
+		inLanguage: locale,
+		description: 'Transfer race bibs safely. Buy and sell running, trail, triathlon and cycling race bibs.',
+		'@type': 'WebSite',
+		'@context': 'https://schema.org',
 	}
 
 	return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 }
 
 // Event schema
-export function EventSchema({ locale, event, organizer }: { locale: Locale; event: Event; organizer?: Organizer }) {
+export function EventSchema({ organizer, locale, event }: { locale: Locale; event: Event; organizer?: Organizer }) {
 	const schema = generateEventStructuredData(locale, event)
 
 	// Add organizer information if available
 	if (organizer) {
 		schema.organizer = {
-			'@type': 'Organization',
-			name: organizer.name,
 			url: organizer.website || undefined,
+			name: organizer.name,
+			'@type': 'Organization',
 		}
 	}
 
 	// Add offer information for bib transfer
 	schema.offers = {
-		'@type': 'Offer',
-		description: 'Race bib transfer service',
-		priceCurrency: 'EUR',
-		availability: 'https://schema.org/InStock',
 		validFrom: new Date().toISOString(),
+		priceCurrency: 'EUR',
+		description: 'Race bib transfer service',
+		availability: 'https://schema.org/InStock',
+		'@type': 'Offer',
 		...(event.transferDeadline && {
 			validThrough: new Date(event.transferDeadline).toISOString(),
 		}),
@@ -98,8 +98,8 @@ export function EventSchema({ locale, event, organizer }: { locale: Locale; even
 				price: event.officialStandardPrice,
 			}),
 		seller: {
-			'@type': 'Organization',
 			name: 'Beswib',
+			'@type': 'Organization',
 		},
 	}
 
@@ -109,14 +109,14 @@ export function EventSchema({ locale, event, organizer }: { locale: Locale; even
 // Breadcrumb schema
 export function BreadcrumbSchema({ locale, items }: { locale: Locale; items: Array<{ name: string; item: string }> }) {
 	const schema = {
-		'@context': 'https://schema.org',
-		'@type': 'BreadcrumbList',
 		itemListElement: items.map((breadcrumb, index) => ({
-			'@type': 'ListItem',
 			position: index + 1,
 			name: breadcrumb.name,
 			item: `https://beswib.com${locale === 'en' ? '' : `/${locale}`}${breadcrumb.item}`,
+			'@type': 'ListItem',
 		})),
+		'@type': 'BreadcrumbList',
+		'@context': 'https://schema.org',
 	}
 
 	return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
@@ -125,16 +125,16 @@ export function BreadcrumbSchema({ locale, items }: { locale: Locale; items: Arr
 // FAQ schema
 export function FAQSchema({ faqs }: { faqs: Array<{ question: string; answer: string }> }) {
 	const schema = {
-		'@context': 'https://schema.org',
-		'@type': 'FAQPage',
 		mainEntity: faqs.map(faq => ({
-			'@type': 'Question',
 			name: faq.question,
 			acceptedAnswer: {
-				'@type': 'Answer',
 				text: faq.answer,
+				'@type': 'Answer',
 			},
+			'@type': 'Question',
 		})),
+		'@type': 'FAQPage',
+		'@context': 'https://schema.org',
 	}
 
 	return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
@@ -143,38 +143,38 @@ export function FAQSchema({ faqs }: { faqs: Array<{ question: string; answer: st
 // Service schema for race bib transfer marketplace
 export function ServiceSchema({ locale }: { locale: Locale }) {
 	const schema = {
-		'@context': 'https://schema.org',
-		'@type': 'Service',
-		name: 'Race Bib Transfer Service',
-		description: 'Safe and secure transfer of race bibs for running, trail, triathlon and cycling events.',
-		provider: {
-			'@type': 'Organization',
-			name: 'Beswib',
-			url: 'https://beswib.com',
-		},
 		serviceType: 'Race Bib Transfer',
-		category: 'Sports & Recreation',
-		areaServed: {
-			'@type': 'Country',
-			name: 'Worldwide',
+		provider: {
+			url: 'https://beswib.com',
+			name: 'Beswib',
+			'@type': 'Organization',
 		},
-		availableChannel: {
-			'@type': 'ServiceChannel',
-			availableLanguage: ['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko'],
-			processingTime: 'P1D', // 1 day processing time
-			serviceUrl: `https://beswib.com${locale === 'en' ? '' : `/${locale}`}`,
-		},
+		name: 'Race Bib Transfer Service',
 		hasOfferCatalog: {
-			'@type': 'OfferCatalog',
 			name: 'Race Bib Marketplace',
 			itemListElement: {
-				'@type': 'Offer',
 				itemOffered: {
-					'@type': 'Service',
 					name: 'Race Bib Transfer',
+					'@type': 'Service',
 				},
+				'@type': 'Offer',
 			},
+			'@type': 'OfferCatalog',
 		},
+		description: 'Safe and secure transfer of race bibs for running, trail, triathlon and cycling events.',
+		category: 'Sports & Recreation',
+		availableChannel: {
+			serviceUrl: `https://beswib.com${locale === 'en' ? '' : `/${locale}`}`,
+			processingTime: 'P1D', // 1 day processing time
+			availableLanguage: ['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko'],
+			'@type': 'ServiceChannel',
+		},
+		areaServed: {
+			name: 'Worldwide',
+			'@type': 'Country',
+		},
+		'@type': 'Service',
+		'@context': 'https://schema.org',
 	}
 
 	return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
@@ -182,12 +182,12 @@ export function ServiceSchema({ locale }: { locale: Locale }) {
 
 // Combined structured data component for easy usage
 export function StructuredData({
-	locale,
 	type,
-	event,
 	organizer,
-	breadcrumbs,
+	locale,
 	faqs,
+	event,
+	breadcrumbs,
 }: {
 	locale: Locale
 	type: 'home' | 'events' | 'event' | 'marketplace' | 'faq' | 'legal'

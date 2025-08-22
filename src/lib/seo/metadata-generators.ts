@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import type { Locale } from '@/lib/i18n/config'
-import type { Event } from '@/models/event.model'
 
-import { SEO_TITLES, SEO_DESCRIPTIONS, SEO_KEYWORDS } from './constants/seo-translations'
+import type { Event } from '@/models/event.model'
+import type { Locale } from '@/lib/i18n/config'
+
 import {
 	generateEventKeywords,
 	generateEventTitle,
@@ -11,6 +11,7 @@ import {
 	generateCanonicalUrl,
 	generateAlternateLanguages,
 } from './utils/seo-generators'
+import { SEO_TITLES, SEO_DESCRIPTIONS, SEO_KEYWORDS } from './constants/seo-translations'
 
 // Base metadata configuration for all pages
 export function generateBaseMetadata(locale: Locale): Metadata {
@@ -19,65 +20,65 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 	const keywords = SEO_KEYWORDS[locale]
 
 	return {
-		metadataBase: new URL('https://beswib.com'),
+		verification: {
+			yandex: 'your-yandex-verification-code',
+			yahoo: 'your-yahoo-verification-code',
+			google: 'your-google-verification-code',
+		},
+		twitter: {
+			title: titles.home,
+			site: '@beswib',
+			images: [generateOGImageConfig()],
+			description: descriptions.home,
+			creator: '@beswib',
+			card: 'summary_large_image',
+		},
 		title: {
 			template: `%s | ${titles.site}`,
 			default: titles.home,
 		},
-		description: descriptions.home,
-		keywords: keywords.global.join(', '),
-		authors: [{ name: 'Beswib Team' }],
-		creator: 'Beswib',
-		publisher: 'Beswib',
-		category: 'Sports & Recreation',
-		classification: 'Race Bib Marketplace',
-		referrer: 'origin-when-cross-origin',
-		colorScheme: 'light dark',
 		themeColor: [
 			{ media: '(prefers-color-scheme: light)', color: '#ffffff' },
 			{ media: '(prefers-color-scheme: dark)', color: '#000000' },
 		],
-		verification: {
-			google: 'your-google-verification-code',
-			yandex: 'your-yandex-verification-code',
-			yahoo: 'your-yahoo-verification-code',
-		},
 		robots: {
 			index: true,
-			follow: true,
 			googleBot: {
+				'max-video-preview': -1,
+				'max-snippet': -1,
+				'max-image-preview': 'large',
 				index: true,
 				follow: true,
-				'max-video-preview': -1,
-				'max-image-preview': 'large',
-				'max-snippet': -1,
 			},
+			follow: true,
 		},
+		referrer: 'origin-when-cross-origin',
+		publisher: 'Beswib',
+		openGraph: {
+			url: generateCanonicalUrl(locale, '/'),
+			type: 'website',
+			title: titles.home,
+			siteName: titles.site,
+			locale: locale.replace('-', '_'),
+			images: [generateOGImageConfig()],
+			description: descriptions.home,
+		},
+		metadataBase: new URL('https://beswib.com'),
+		keywords: keywords.global.join(', '),
 		formatDetection: {
 			telephone: false,
 			email: false,
 			address: false,
 		},
+		description: descriptions.home,
+		creator: 'Beswib',
+		colorScheme: 'light dark',
+		classification: 'Race Bib Marketplace',
+		category: 'Sports & Recreation',
+		authors: [{ name: 'Beswib Team' }],
 		alternates: {
-			canonical: generateCanonicalUrl(locale, '/'),
 			languages: generateAlternateLanguages('/'),
-		},
-		openGraph: {
-			type: 'website',
-			locale: locale.replace('-', '_'),
-			url: generateCanonicalUrl(locale, '/'),
-			title: titles.home,
-			description: descriptions.home,
-			siteName: titles.site,
-			images: [generateOGImageConfig()],
-		},
-		twitter: {
-			card: 'summary_large_image',
-			site: '@beswib',
-			creator: '@beswib',
-			title: titles.home,
-			description: descriptions.home,
-			images: [generateOGImageConfig()],
+			canonical: generateCanonicalUrl(locale, '/'),
 		},
 	}
 }
@@ -90,23 +91,23 @@ export function generateHomeMetadata(locale: Locale): Metadata {
 
 	return {
 		...baseMetadata,
-		title: titles.home,
-		description: descriptions.home,
-		alternates: {
-			...baseMetadata.alternates,
-			canonical: generateCanonicalUrl(locale, '/'),
-			languages: generateAlternateLanguages('/'),
-		},
-		openGraph: {
-			...baseMetadata.openGraph,
-			title: titles.home,
-			description: descriptions.home,
-			url: generateCanonicalUrl(locale, '/'),
-		},
 		twitter: {
 			...baseMetadata.twitter,
 			title: titles.home,
 			description: descriptions.home,
+		},
+		title: titles.home,
+		openGraph: {
+			...baseMetadata.openGraph,
+			url: generateCanonicalUrl(locale, '/'),
+			title: titles.home,
+			description: descriptions.home,
+		},
+		description: descriptions.home,
+		alternates: {
+			...baseMetadata.alternates,
+			languages: generateAlternateLanguages('/'),
+			canonical: generateCanonicalUrl(locale, '/'),
 		},
 	}
 }
@@ -119,23 +120,23 @@ export function generateEventsMetadata(locale: Locale): Metadata {
 
 	return {
 		...baseMetadata,
-		title: titles.events,
-		description: descriptions.events,
-		alternates: {
-			...baseMetadata.alternates,
-			canonical: generateCanonicalUrl(locale, '/events'),
-			languages: generateAlternateLanguages('/events'),
-		},
-		openGraph: {
-			...baseMetadata.openGraph,
-			title: titles.events,
-			description: descriptions.events,
-			url: generateCanonicalUrl(locale, '/events'),
-		},
 		twitter: {
 			...baseMetadata.twitter,
 			title: titles.events,
 			description: descriptions.events,
+		},
+		title: titles.events,
+		openGraph: {
+			...baseMetadata.openGraph,
+			url: generateCanonicalUrl(locale, '/events'),
+			title: titles.events,
+			description: descriptions.events,
+		},
+		description: descriptions.events,
+		alternates: {
+			...baseMetadata.alternates,
+			languages: generateAlternateLanguages('/events'),
+			canonical: generateCanonicalUrl(locale, '/events'),
 		},
 	}
 }
@@ -150,38 +151,18 @@ export function generateEventMetadata(locale: Locale, event: Event): Metadata {
 
 	return {
 		...baseMetadata,
-		title: eventTitle,
-		description: eventDescription,
-		keywords: eventKeywords,
-		alternates: {
-			...baseMetadata.alternates,
-			canonical: generateCanonicalUrl(locale, eventPath),
-			languages: generateAlternateLanguages(eventPath),
-		},
-		openGraph: {
-			...baseMetadata.openGraph,
-			type: 'article',
-			title: eventTitle,
-			description: eventDescription,
-			url: generateCanonicalUrl(locale, eventPath),
-			images: [generateOGImageConfig(event)],
-			article: {
-				publishedTime: new Date(event.eventDate).toISOString(),
-				section: 'Sports Events',
-				tags: eventKeywords.split(', '),
-			},
-		},
 		twitter: {
 			...baseMetadata.twitter,
 			title: eventTitle,
-			description: eventDescription,
 			images: [generateOGImageConfig(event)],
+			description: eventDescription,
 		},
+		title: eventTitle,
 		other: {
 			'event:type': 'sports_event',
 			'event:start_time': new Date(event.eventDate).toISOString(),
-			'event:end_time': new Date(event.eventDate).toISOString(),
 			'event:location': event.location,
+			'event:end_time': new Date(event.eventDate).toISOString(),
 			...(event.distanceKm &&
 				event.distanceKm > 0 && {
 					'event:distance': `${event.distanceKm}km`,
@@ -195,6 +176,26 @@ export function generateEventMetadata(locale: Locale, event: Event): Metadata {
 					'event:capacity': event.participants.toString(),
 				}),
 		},
+		openGraph: {
+			...baseMetadata.openGraph,
+			url: generateCanonicalUrl(locale, eventPath),
+			type: 'article',
+			title: eventTitle,
+			images: [generateOGImageConfig(event)],
+			description: eventDescription,
+			article: {
+				tags: eventKeywords.split(', '),
+				section: 'Sports Events',
+				publishedTime: new Date(event.eventDate).toISOString(),
+			},
+		},
+		keywords: eventKeywords,
+		description: eventDescription,
+		alternates: {
+			...baseMetadata.alternates,
+			languages: generateAlternateLanguages(eventPath),
+			canonical: generateCanonicalUrl(locale, eventPath),
+		},
 	}
 }
 
@@ -206,23 +207,23 @@ export function generateMarketplaceMetadata(locale: Locale): Metadata {
 
 	return {
 		...baseMetadata,
-		title: titles.marketplace,
-		description: descriptions.marketplace,
-		alternates: {
-			...baseMetadata.alternates,
-			canonical: generateCanonicalUrl(locale, '/marketplace'),
-			languages: generateAlternateLanguages('/marketplace'),
-		},
-		openGraph: {
-			...baseMetadata.openGraph,
-			title: titles.marketplace,
-			description: descriptions.marketplace,
-			url: generateCanonicalUrl(locale, '/marketplace'),
-		},
 		twitter: {
 			...baseMetadata.twitter,
 			title: titles.marketplace,
 			description: descriptions.marketplace,
+		},
+		title: titles.marketplace,
+		openGraph: {
+			...baseMetadata.openGraph,
+			url: generateCanonicalUrl(locale, '/marketplace'),
+			title: titles.marketplace,
+			description: descriptions.marketplace,
+		},
+		description: descriptions.marketplace,
+		alternates: {
+			...baseMetadata.alternates,
+			languages: generateAlternateLanguages('/marketplace'),
+			canonical: generateCanonicalUrl(locale, '/marketplace'),
 		},
 	}
 }
@@ -241,27 +242,27 @@ export function generateLegalMetadata(
 
 	return {
 		...baseMetadata,
-		title: pageTitle,
-		description: descriptions.legal,
-		alternates: {
-			...baseMetadata.alternates,
-			canonical: generateCanonicalUrl(locale, legalPath),
-			languages: generateAlternateLanguages(legalPath),
-		},
-		openGraph: {
-			...baseMetadata.openGraph,
-			title: pageTitle,
-			description: descriptions.legal,
-			url: generateCanonicalUrl(locale, legalPath),
-		},
 		twitter: {
 			...baseMetadata.twitter,
 			title: pageTitle,
 			description: descriptions.legal,
 		},
+		title: pageTitle,
 		robots: {
 			index: true,
 			follow: true,
+		},
+		openGraph: {
+			...baseMetadata.openGraph,
+			url: generateCanonicalUrl(locale, legalPath),
+			title: pageTitle,
+			description: descriptions.legal,
+		},
+		description: descriptions.legal,
+		alternates: {
+			...baseMetadata.alternates,
+			languages: generateAlternateLanguages(legalPath),
+			canonical: generateCanonicalUrl(locale, legalPath),
 		},
 	}
 }
@@ -274,23 +275,23 @@ export function generateFAQMetadata(locale: Locale): Metadata {
 
 	return {
 		...baseMetadata,
-		title: faqTitle,
-		description: faqDescription,
-		alternates: {
-			...baseMetadata.alternates,
-			canonical: generateCanonicalUrl(locale, '/faq'),
-			languages: generateAlternateLanguages('/faq'),
-		},
-		openGraph: {
-			...baseMetadata.openGraph,
-			title: faqTitle,
-			description: faqDescription,
-			url: generateCanonicalUrl(locale, '/faq'),
-		},
 		twitter: {
 			...baseMetadata.twitter,
 			title: faqTitle,
 			description: faqDescription,
+		},
+		title: faqTitle,
+		openGraph: {
+			...baseMetadata.openGraph,
+			url: generateCanonicalUrl(locale, '/faq'),
+			title: faqTitle,
+			description: faqDescription,
+		},
+		description: faqDescription,
+		alternates: {
+			...baseMetadata.alternates,
+			languages: generateAlternateLanguages('/faq'),
+			canonical: generateCanonicalUrl(locale, '/faq'),
 		},
 	}
 }
@@ -299,9 +300,9 @@ export function generateFAQMetadata(locale: Locale): Metadata {
 export function generateErrorMetadata(locale: Locale, errorType: '404' | '500' | 'error'): Metadata {
 	const baseMetadata = generateBaseMetadata(locale)
 	const errorTitles = {
-		'404': 'Page Not Found',
-		'500': 'Server Error',
 		error: 'Error',
+		'500': 'Server Error',
+		'404': 'Page Not Found',
 	}
 
 	const errorTitle = `${errorTitles[errorType]} | ${SEO_TITLES[locale].site}`

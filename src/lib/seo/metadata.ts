@@ -2,12 +2,7 @@ import type { Metadata } from 'next'
 
 import type { Locale } from '@/lib/i18n/config'
 
-import {
-	generateBaseMetadata,
-	generateHomeMetadata,
-	generateEventMetadata,
-	generateMarketplaceMetadata,
-} from './metadata-generators'
+import { generateBaseMetadata, generateEventMetadata, generateMarketplaceMetadata } from './metadata-generators'
 
 // Legacy SEO configuration - DEPRECATED: Use metadata-generators.ts instead
 // TODO: Remove this file after migration is complete
@@ -177,7 +172,9 @@ export const seoConfig = {
 }
 
 // Event interface for proper typing
-interface Event {
+// DEPRECATED: This interface is for backward compatibility only
+// Use Event from @/models/event.model instead
+interface LegacyEvent {
 	id: string
 	name: string
 	description?: string
@@ -271,14 +268,35 @@ export function getBaseMetadataLegacy(locale: Locale): Metadata {
 	}
 }
 
+// Helper function to convert legacy event format to new Event model
+function convertLegacyEventToEventModel(legacyEvent: LegacyEvent): import('@/models/event.model').Event {
+	return {
+		typeCourse: 'road' as const,
+		organizer: 'default-organizer-id',
+		options: null,
+		name: legacyEvent.name,
+		location: legacyEvent.location,
+		id: legacyEvent.id,
+		eventDate: new Date(legacyEvent.eventDate),
+		description: legacyEvent.description ?? '',
+		bibPickupWindowEndDate: new Date(legacyEvent.eventDate),
+		bibPickupWindowBeginDate: new Date(legacyEvent.eventDate),
+	}
+}
+
 // DEPRECATED: Use generateEventMetadata from metadata-generators.ts
-export function getEventMetadata(locale: Locale, event: Event): Metadata {
-	return generateEventMetadata(locale, event)
+export function getEventMetadata(locale: Locale, event: LegacyEvent | import('@/models/event.model').Event): Metadata {
+	// Check if it's a legacy event format
+	if ('eventDate' in event && typeof event.eventDate === 'string') {
+		const convertedEvent = convertLegacyEventToEventModel(event as LegacyEvent)
+		return generateEventMetadata(locale, convertedEvent)
+	}
+	return generateEventMetadata(locale, event as import('@/models/event.model').Event)
 }
 
 // DEPRECATED: Use generateEventMetadata from metadata-generators.ts
 // Event-specific metadata
-export function getEventMetadataLegacy(locale: Locale, event: Event): Metadata {
+export function getEventMetadataLegacy(locale: Locale, event: LegacyEvent): Metadata {
 	const baseMetadata = getBaseMetadata(locale)
 	const config = seoConfig[locale]
 
@@ -325,8 +343,14 @@ export function getEventMetadataLegacy(locale: Locale, event: Event): Metadata {
 	}
 }
 
-// Marketplace page metadata
+// DEPRECATED: Use generateMarketplaceMetadata from metadata-generators.ts
 export function getMarketplaceMetadata(locale: Locale): Metadata {
+	return generateMarketplaceMetadata(locale)
+}
+
+// DEPRECATED: Use generateMarketplaceMetadata from metadata-generators.ts
+// Marketplace page metadata
+export function getMarketplaceMetadataLegacy(locale: Locale): Metadata {
 	const baseMetadata = getBaseMetadata(locale)
 	const config = seoConfig[locale]
 

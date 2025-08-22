@@ -1,12 +1,12 @@
-import type { Locale } from '@/lib/i18n/config'
 import type { Event } from '@/models/event.model'
+import type { Locale } from '@/lib/i18n/config'
 
-import { SEO_KEYWORDS, SEO_TITLES, SEO_DESCRIPTIONS } from '../constants/seo-translations'
+import { SEO_KEYWORDS, SEO_TITLES } from '../constants/seo-translations'
 
 // Generate SEO keywords for events
 export function generateEventKeywords(locale: Locale, event: Event): string {
 	const localKeywords = SEO_KEYWORDS[locale]
-	const baseKeywords = [...localKeywords.global]
+	const baseKeywords = [...localKeywords.global] as string[]
 
 	// Add event-specific keywords
 	if (event.name) {
@@ -24,19 +24,19 @@ export function generateEventKeywords(locale: Locale, event: Event): string {
 	}
 
 	// Add distance-based keywords
-	if (event.distanceKm && event.distanceKm > 0) {
+	if (event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0) {
 		baseKeywords.push(`${event.distanceKm}km`)
 		if (event.distanceKm <= 10) {
-			baseKeywords.push(locale === 'en' ? 'short distance' : localKeywords.actions.transfer)
+			baseKeywords.push('short distance')
 		} else if (event.distanceKm >= 42) {
-			baseKeywords.push(locale === 'en' ? 'marathon distance' : 'marathon')
+			baseKeywords.push('marathon')
 		}
 	}
 
 	// Add elevation-based keywords
-	if (event.elevationGainM && event.elevationGainM > 0) {
+	if (event.elevationGainM !== null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
 		if (event.elevationGainM > 1000) {
-			baseKeywords.push(locale === 'en' ? 'mountain running' : 'montagne')
+			baseKeywords.push('mountain')
 		}
 	}
 
@@ -56,9 +56,8 @@ export function generateEventTitle(locale: Locale, event: Event): string {
 
 // Generate SEO description for events
 export function generateEventDescription(locale: Locale, event: Event): string {
-	const descriptions = SEO_DESCRIPTIONS[locale]
 	const keywords = SEO_KEYWORDS[locale]
-	const raceType = keywords.raceTypes[event.typeCourse] || event.typeCourse
+	const raceType = keywords.raceTypes[event.typeCourse] ?? event.typeCourse
 
 	let description = `${event.name} - ${raceType}`
 
@@ -70,7 +69,7 @@ export function generateEventDescription(locale: Locale, event: Event): string {
 	}
 
 	// Add event date
-	if (event.eventDate) {
+	if (event.eventDate !== null && event.eventDate !== undefined) {
 		const eventDate = new Date(event.eventDate)
 		const formattedDate = eventDate.toLocaleDateString(locale, {
 			year: 'numeric',
@@ -81,12 +80,12 @@ export function generateEventDescription(locale: Locale, event: Event): string {
 	}
 
 	// Add distance if available
-	if (event.distanceKm && event.distanceKm > 0) {
+	if (event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0) {
 		description += `. ${event.distanceKm}km ${locale === 'ko' ? '코스' : locale === 'en' ? 'course' : locale === 'fr' ? 'parcours' : locale === 'es' ? 'recorrido' : locale === 'it' ? 'percorso' : locale === 'de' ? 'Strecke' : locale === 'ro' ? 'traseu' : locale === 'pt' ? 'percurso' : locale === 'nl' ? 'parcours' : 'course'}`
 	}
 
 	// Add elevation if available
-	if (event.elevationGainM && event.elevationGainM > 0) {
+	if (event.elevationGainM !== null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
 		description += `. ${event.elevationGainM}m ${locale === 'ko' ? '고도 상승' : locale === 'en' ? 'elevation gain' : locale === 'fr' ? 'dénivelé' : locale === 'es' ? 'desnivel' : locale === 'it' ? 'dislivello' : locale === 'de' ? 'Höhenmeter' : locale === 'ro' ? 'denivelări' : locale === 'pt' ? 'desnível' : locale === 'nl' ? 'hoogteverschil' : 'elevation'}`
 	}
 
@@ -116,11 +115,11 @@ export function generateOGImageConfig(
 } {
 	// TODO: OG IMAGE - Replace with actual event-specific image generation
 	return {
-		url: customImage || '/placeholder-og-image.jpg',
 		width: 1200,
+		url: customImage ?? '/placeholder-og-image.jpg',
+		type: 'image/jpeg',
 		height: 630,
 		alt: event ? `${event.name} - Race Bib Transfer` : 'Beswib - Race Bib Transfer',
-		type: 'image/jpeg',
 	}
 }
 
@@ -150,55 +149,59 @@ export function generateAlternateLanguages(path: string): Record<string, string>
 // Generate structured data for events
 export function generateEventStructuredData(locale: Locale, event: Event) {
 	return {
-		'@context': 'https://schema.org',
-		'@type': 'SportsEvent',
-		name: event.name,
-		description: event.description || generateEventDescription(locale, event),
 		startDate: new Date(event.eventDate).toISOString(),
-		endDate: new Date(event.eventDate).toISOString(),
+		sport: SEO_KEYWORDS[locale].raceTypes[event.typeCourse] || event.typeCourse,
+		organizer: {
+			name: 'Event Organizer',
+			'@type': 'Organization',
+		},
+		name: event.name,
 		location: {
-			'@type': 'Place',
 			name: event.location,
 			address: {
-				'@type': 'PostalAddress',
 				addressLocality: event.location,
+				'@type': 'PostalAddress',
 			},
+			'@type': 'Place',
 		},
-		organizer: {
-			'@type': 'Organization',
-			name: 'Event Organizer',
-		},
-		sport: SEO_KEYWORDS[locale].raceTypes[event.typeCourse] || event.typeCourse,
+		endDate: new Date(event.eventDate).toISOString(),
+		description: event.description || generateEventDescription(locale, event),
 		category: 'Sports & Recreation',
 		audience: {
-			'@type': 'Audience',
 			audienceType: 'Athletes and Sports Enthusiasts',
+			'@type': 'Audience',
 		},
-		...(event.distanceKm &&
+		'@type': 'SportsEvent',
+		'@context': 'https://schema.org',
+		...(event.distanceKm !== null &&
+			event.distanceKm !== undefined &&
 			event.distanceKm > 0 && {
 				distance: {
-					'@type': 'QuantitativeValue',
 					value: event.distanceKm,
 					unitCode: 'KMT',
+					'@type': 'QuantitativeValue',
 				},
 			}),
-		...(event.elevationGainM &&
+		...(event.elevationGainM !== null &&
+			event.elevationGainM !== undefined &&
 			event.elevationGainM > 0 && {
 				elevation: {
-					'@type': 'QuantitativeValue',
 					value: event.elevationGainM,
 					unitCode: 'MTR',
+					'@type': 'QuantitativeValue',
 				},
 			}),
-		...(event.participants &&
+		...(event.participants !== null &&
+			event.participants !== undefined &&
 			event.participants > 0 && {
 				maximumAttendeeCapacity: event.participants,
 			}),
 		offers: {
-			'@type': 'Offer',
-			description: 'Race bib transfer service',
 			priceCurrency: 'EUR',
-			...(event.officialStandardPrice &&
+			description: 'Race bib transfer service',
+			'@type': 'Offer',
+			...(event.officialStandardPrice !== null &&
+				event.officialStandardPrice !== undefined &&
 				event.officialStandardPrice > 0 && {
 					price: event.officialStandardPrice,
 				}),
