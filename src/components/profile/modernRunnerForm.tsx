@@ -24,6 +24,8 @@ import { Label } from '@/components/ui/label'
 import { User } from '@/models/user.model'
 import { Locale } from '@/lib/i18n/config'
 
+import VerifiedEmailsManager from './VerifiedEmailsManager'
+
 type RunnerFormData = {
 	firstName: string
 	lastName: string
@@ -180,16 +182,18 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 				</Alert>
 			)}
 
+			<VerifiedEmailsManager user={user} locale={locale} />
+
 			<form onSubmit={handleSubmit} className="space-y-8">
 				{/* Personal Information Section */}
-				<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
+				<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm relative z-20">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<UserIcon className="text-primary h-5 w-5" />
 							{t.personalInfo ?? 'Personal Information'}
 						</CardTitle>
 					</CardHeader>
-					<CardContent className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+					<CardContent className="z-auto grid grid-cols-1 gap-6 sm:grid-cols-2">
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="firstName">
 								{t.firstName ?? 'First Name'} *
@@ -274,7 +278,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 										onChange={field.onChange}
 										onBlur={field.onBlur}
 										placeholder={t.phonePlaceholder ?? 'Enter your phone number'}
-										defaultCountry="FR"
+										defaultCountry="fr"
 										error={!!form.formState.errors.phoneNumber}
 									/>
 								)}
@@ -310,7 +314,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 				</Card>
 
 				{/* Emergency Contact Section */}
-				<Card className="dark:border-border/50 bg-card/80 -z-10 border-black/50 backdrop-blur-sm">
+				<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm relative z-10">
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<Shield className="text-primary h-5 w-5" />
@@ -349,7 +353,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 										onChange={field.onChange}
 										onBlur={field.onBlur}
 										placeholder={t.emergencyPhonePlaceholder ?? 'Enter emergency contact phone'}
-										defaultCountry="FR"
+										defaultCountry="fr"
 										error={!!form.formState.errors.emergencyContactPhone}
 									/>
 								)}

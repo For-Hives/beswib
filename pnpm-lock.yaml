@@ -238,9 +238,9 @@ importers:
       react-hook-form:
         specifier: 7.62.0
         version: 7.62.0(react@19.1.1)
-      react-phone-number-input:
-        specifier: ^3.4.12
-        version: 3.4.12(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      react-international-phone:
+        specifier: ^4.6.0
+        version: 4.6.0(react@19.1.1)
       react-scroll-to-top:
         specifier: ^3.1.0
         version: 3.1.0(react@19.1.1)
@@ -4160,10 +4160,6 @@ packages:
     resolution:
       { integrity: sha512-Ka+9Trutv7G8M6WT6SeiRWz792K5qEqIGEGzXKhAE6xOWAY6pPH8U+9IY3oCMv6kqTmLsv7Xh/2w2RigkePMsg== }
 
-  classnames@2.5.1:
-    resolution:
-      { integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow== }
-
   cli-cursor@5.0.0:
     resolution:
       { integrity: sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw== }
@@ -4262,10 +4258,6 @@ packages:
     resolution:
       { integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g== }
     engines: { node: '>= 0.10' }
-
-  country-flag-icons@1.5.19:
-    resolution:
-      { integrity: sha512-D/ZkRyj+ywJC6b2IrAN3/tpbReMUqmuRLlcKFoY/o0+EPQN9Ev/e8tV+D3+9scvu/tarxwLErNwS73C3yzxs/g== }
 
   cross-env@7.0.3:
     resolution:
@@ -5211,18 +5203,6 @@ packages:
     resolution:
       { integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA== }
     engines: { node: '>=0.8.19' }
-
-  input-format@0.3.14:
-    resolution:
-      { integrity: sha512-gHMrgrbCgmT4uK5Um5eVDUohuV9lcs95ZUUN9Px2Y0VIfjTzT2wF8Q3Z4fwLFm7c5Z2OXCm53FHoovj6SlOKdg== }
-    peerDependencies:
-      react: '>=18.1.0'
-      react-dom: '>=18.1.0'
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
 
   internal-slot@1.1.0:
     resolution:
@@ -6371,16 +6351,15 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
 
+  react-international-phone@4.6.0:
+    resolution:
+      { integrity: sha512-lzj5fLfACRKeaitggFIHWl6LM69aO2uivJbEVyVBjAe0+kkvZjToduqnK2/dm9Zu+l8XfVjd+Fn1ZAyG/t8XAg== }
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   react-is@16.13.1:
     resolution:
       { integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ== }
-
-  react-phone-number-input@3.4.12:
-    resolution:
-      { integrity: sha512-Raob77KdtLGm49iC6nuOX9qy6Mg16idkgC7Y1mHmvG2WBYoauHpzxYNlfmFskQKeiztrJIwPhPzBhjFwjenNCA== }
-    peerDependencies:
-      react: '>=16.8'
-      react-dom: '>=16.8'
 
   react-promise-suspense@0.3.4:
     resolution:
@@ -11081,8 +11060,6 @@ snapshots:
     dependencies:
       clsx: 2.1.1
 
-  classnames@2.5.1: {}
-
   cli-cursor@5.0.0:
     dependencies:
       restore-cursor: 5.1.0
@@ -11155,8 +11132,6 @@ snapshots:
     dependencies:
       object-assign: 4.1.1
       vary: 1.1.2
-
-  country-flag-icons@1.5.19: {}
 
   cross-env@7.0.3:
     dependencies:
@@ -12002,13 +11977,6 @@ snapshots:
 
   imurmurhash@0.1.4: {}
 
-  input-format@0.3.14(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
-    dependencies:
-      prop-types: 15.8.1
-    optionalDependencies:
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
-
   internal-slot@1.1.0:
     dependencies:
       es-errors: 1.3.0
@@ -12843,17 +12811,11 @@ snapshots:
     dependencies:
       react: 19.1.1
 
-  react-is@16.13.1: {}
-
-  react-phone-number-input@3.4.12(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  react-international-phone@4.6.0(react@19.1.1):
     dependencies:
-      classnames: 2.5.1
-      country-flag-icons: 1.5.19
-      input-format: 0.3.14(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      libphonenumber-js: 1.12.12
-      prop-types: 15.8.1
       react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
+
+  react-is@16.13.1: {}
 
   react-promise-suspense@0.3.4:
     dependencies:

@@ -4,11 +4,6 @@ import { withSentryConfig } from '@sentry/nextjs'
 
 const nextConfig: NextConfig = {
 	trailingSlash: false,
-	experimental: {
-		serverActions: {
-			bodySizeLimit: '10mb',
-		},
-	},
 	images: {
 		remotePatterns: [
 			{ protocol: 'https', hostname: 'images.unsplash.com' },
@@ -16,6 +11,7 @@ const nextConfig: NextConfig = {
 			{ protocol: 'https', hostname: 'picsum.photos' },
 			{ protocol: 'https', hostname: '*.andy-cinquin.fr' },
 			{ protocol: 'https', hostname: '*.beswib.com' },
+			{ protocol: 'https', hostname: 'cdnjs.cloudflare.com' },
 		],
 	},
 	async headers() {
@@ -52,6 +48,7 @@ const nextConfig: NextConfig = {
 			'https://*.beswib.com',
 			'https://clerk.beswib.com',
 			'https://*.paypal.com',
+			'https://cdnjs.cloudflare.com',
 		].join(' ')
 
 		const connectSrc = [
@@ -80,6 +77,7 @@ const nextConfig: NextConfig = {
 			'https://*.beswib.com',
 			'https://clerk.beswib.com',
 			'https://*.paypal.com',
+			'https://cdnjs.cloudflare.com',
 			'https://nominatim.openstreetmap.org',
 			'https://latest.currency-api.pages.dev',
 		].join(' ')
@@ -103,6 +101,7 @@ const nextConfig: NextConfig = {
 			'https://*.paypal.com',
 			'https://paypalobjects.com',
 			'https://*.paypalobjects.com',
+			'https://cdnjs.cloudflare.com',
 		].join(' ')
 
 		const csp = [
@@ -111,7 +110,7 @@ const nextConfig: NextConfig = {
 			`object-src 'none'`,
 			`frame-src ${frameSrc}`,
 			`connect-src ${connectSrc}`,
-			`img-src 'self' https://img.clerk.com https://challenges.cloudflare.com data: https://images.unsplash.com https://loremflickr.com https://picsum.photos`,
+			`img-src 'self' https://img.clerk.com https://challenges.cloudflare.com data: https://images.unsplash.com https://loremflickr.com https://picsum.photos https://cdnjs.cloudflare.com`,
 			`style-src 'self' 'unsafe-inline'`,
 			`worker-src 'self' blob:`,
 			`form-action 'self'`,
@@ -140,6 +139,11 @@ const nextConfig: NextConfig = {
 				],
 			},
 		]
+	},
+	experimental: {
+		serverActions: {
+			bodySizeLimit: '10mb',
+		},
 	},
 }
 
