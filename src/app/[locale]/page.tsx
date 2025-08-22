@@ -7,7 +7,6 @@ import HeroAlternative from '@/components/landing/hero/HeroAlternative'
 import { generateHomeMetadata } from '@/lib/seo/metadata-generators'
 import FeaturesBento from '@/components/landing/features/Features'
 import BesWibCTA from '@/components/landing/cta/CTASection'
-import { StructuredData } from '@/lib/seo'
 
 // Generate static params for all locales 🌍
 export function generateStaticParams() {
@@ -19,29 +18,22 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 	return generateHomeMetadata(locale)
 }
 
-export default async function Home({ params }: { params: Promise<LocaleParams> }) {
-	const { locale } = await params
-
+export default function Home({ params }: { params: Promise<LocaleParams> }) {
 	return (
-		<>
-			{/* SEO Structured Data */}
-			<StructuredData locale={locale} type="home" />
-
-			<div className="relative">
-				{/* Hero Section 🦸 */}
-				<HeroAlternative localeParams={params} />
-				{/* Stats Section 📊 */}
-				{/* TODO : Add stats section later */}
-				{/* <BibStats localeParams={params} /> */}
-				{/* Journey Section 🚶 */}
-				<JourneyTabs localeParams={params} />
-				{/* Features Section ✨ */}
-				<FeaturesBento localeParams={params} />
-				{/* Security Process Section 🛡️ */}
-				<SecurityProcess localeParams={params} />
-				{/* CTA Section 📣 */}
-				<BesWibCTA localeParams={params} />
-			</div>
-		</>
+		<div className="relative">
+			{/* Hero Section 🦸 */}
+			<HeroAlternative localeParams={params} />
+			{/* Stats Section 📊 */}
+			{/* TODO : Add stats section later */}
+			{/* <BibStats localeParams={params} /> */}
+			{/* Journey Section 🚶 */}
+			<JourneyTabs localeParams={params} />
+			{/* Features Section ✨ */}
+			<FeaturesBento localeParams={params} />
+			{/* Security Process Section 🛡️ */}
+			<SecurityProcess localeParams={params} />
+			{/* CTA Section 📣 */}
+			<BesWibCTA localeParams={params} />
+		</div>
 	)
 }

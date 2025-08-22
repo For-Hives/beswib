@@ -11,7 +11,6 @@ import {
 	updateExpiredBibsToWithdrawn,
 } from '@/services/bib.services'
 import { generateMarketplaceMetadata } from '@/lib/seo/metadata-generators'
-import { StructuredData } from '@/lib/seo'
 import MarketplaceClient from '@/components/marketplace/MarketplaceClient'
 import { generateLocaleParams } from '@/lib/generation/staticParams'
 import { transformBibsToBibSales } from '@/lib/transformers/bib'
@@ -49,36 +48,25 @@ export default async function MarketplacePage({ params }: { params: Promise<{ lo
 	const availableBibs = await fetchAvailableBibsForMarketplace()
 	const bibs: BibSale[] = transformBibsToBibSales(availableBibs)
 	return (
-		<>
-			{/* SEO Structured Data */}
-			<StructuredData 
-				locale={locale} 
-				type="marketplace"
-				breadcrumbs={[
-					{ name: 'Marketplace', item: '/marketplace' }
-				]}
-			/>
-			
-			<div className="min-h-screen">
-				<header className="border-border bg-card/50 border-b px-6 py-4">
-					<div className="w-full">
-						<h1 className="text-2xl font-bold">{t.title}</h1>
-						<p className="text-muted-foreground text-sm">{t.description}</p>
-					</div>
-				</header>
-				<Suspense
-					fallback={
-						<div className="flex h-64 items-center justify-center">
-							<div className="text-center">
-								<div className="border-primary mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2"></div>
-								<p className="text-muted-foreground">{t.loading}</p>
-							</div>
+		<div className="min-h-screen">
+			<header className="border-border bg-card/50 border-b px-6 py-4">
+				<div className="w-full">
+					<h1 className="text-2xl font-bold">{t.title}</h1>
+					<p className="text-muted-foreground text-sm">{t.description}</p>
+				</div>
+			</header>
+			<Suspense
+				fallback={
+					<div className="flex h-64 items-center justify-center">
+						<div className="text-center">
+							<div className="border-primary mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2"></div>
+							<p className="text-muted-foreground">{t.loading}</p>
 						</div>
-					}
-				>
-					<MarketplaceClient bibs={bibs} locale={locale} />
-				</Suspense>
-			</div>
-		</>
+					</div>
+				}
+			>
+				<MarketplaceClient bibs={bibs} locale={locale} />
+			</Suspense>
+		</div>
 	)
 }

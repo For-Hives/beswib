@@ -7,19 +7,9 @@ interface SocialMetaProps {
 	url: string
 	locale: string
 	type?: 'website' | 'article' | 'event'
-	twitterHandle?: string
-	facebookAppId?: string
 }
 
-export default function SocialMeta({
-	url,
-	type = 'website',
-	twitterHandle = '@beswib',
-	title,
-	locale,
-	image,
-	description,
-}: SocialMetaProps) {
+export default function SocialMeta({ url, type = 'website', title, locale, image, description }: SocialMetaProps) {
 	return (
 		<Head>
 			{/* Open Graph  */}
@@ -41,8 +31,6 @@ export default function SocialMeta({
 			<meta name="twitter:description" content={description} />
 			<meta name="twitter:image" content={image} />
 			<meta name="twitter:image:alt" content={title} />
-			<meta name="twitter:site" content={twitterHandle} />
-			<meta name="twitter:creator" content={twitterHandle} />
 
 			{/* LinkedIn */}
 			<meta property="og:image:secure_url" content={image} />
