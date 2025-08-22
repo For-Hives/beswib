@@ -79,7 +79,8 @@ const isPublicAuthRoute = createRouteMatcher([
 	'/(.*)/auth/forgot-password',
 ])
 
-export default async function middleware(request: NextRequest) {
+// Create a custom middleware function that handles public pages before Clerk
+function customMiddleware(request: NextRequest) {
 	const { pathname } = request.nextUrl
 
 	// CRITICAL: Let API routes pass through completely without any processing
@@ -129,57 +130,66 @@ export default async function middleware(request: NextRequest) {
 		return NextResponse.next()
 	}
 
-	// For all other routes, apply Clerk middleware
-	return clerkMiddleware(async (auth, req: NextRequest) => {
-		const { pathname: reqPathname } = req.nextUrl
-
-		// Check if there is any supported locale in the pathname 🗺️
-		const pathnameHasLocale =
-			(i18n?.locales as readonly string[])?.some(
-				locale => reqPathname.startsWith(`/${locale}/`) || reqPathname === `/${locale}`
-			) ?? false
-
-		if (!pathnameHasLocale) {
-			// Redirect if there is no locale - use smart locale detection 🧠
-			const locale = getLocaleFromRequest(req)
-			req.nextUrl.pathname = `/${locale}${reqPathname}`
-			return NextResponse.redirect(req.nextUrl)
-		}
-
-		// Extract locale from pathname for proper redirects
-		const currentLocale =
-			(i18n?.locales as readonly string[])?.find(
-				locale => reqPathname.startsWith(`/${locale}/`) || reqPathname === `/${locale}`
-			) ??
-			i18n?.defaultLocale ??
-			'en'
-
-		// For public routes, don't force authentication but still get auth context
-		if (isPublicRoute(req) && !isProtectedRoute(req)) {
-			// Let public pages access auth state without forcing authentication
-			// This allows bots to crawl and users to see content
-			return NextResponse.next()
-		}
-
-		// Skip auth for robots.txt and other static files
-		if (reqPathname.startsWith('/robot') || reqPathname.includes('.')) {
-			return NextResponse.next()
-		}
-
-		// Protect routes that require authentication
-		if (isProtectedRoute(req)) {
-			await auth.protect()
-		}
-
-		// Redirect authenticated users away from auth pages
-		const { userId } = await auth()
-		if (isPublicAuthRoute(req) && typeof userId === 'string' && userId.length > 0) {
-			return NextResponse.redirect(new URL(`/${currentLocale}/dashboard`, req.url))
-		}
-
-		return NextResponse.next()
-	})(request)
+	// For all other routes, let Clerk handle them
+	return NextResponse.next()
 }
+
+// Export the Clerk middleware wrapped with our custom logic
+export default clerkMiddleware(async (auth, request: NextRequest) => {
+	// First, run our custom middleware logic
+	const customResponse = customMiddleware(request)
+	if (customResponse !== NextResponse.next()) {
+		return customResponse
+	}
+
+	const { pathname } = request.nextUrl
+
+	// Check if there is any supported locale in the pathname 🗺️
+	const pathnameHasLocale =
+		(i18n?.locales as readonly string[])?.some(
+			locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+		) ?? false
+
+	if (!pathnameHasLocale) {
+		// Redirect if there is no locale - use smart locale detection 🧠
+		const locale = getLocaleFromRequest(request)
+		request.nextUrl.pathname = `/${locale}${pathname}`
+		return NextResponse.redirect(request.nextUrl)
+	}
+
+	// Extract locale from pathname for proper redirects
+	const currentLocale =
+		(i18n?.locales as readonly string[])?.find(
+			locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+		) ??
+		i18n?.defaultLocale ??
+		'en'
+
+	// For public routes, don't force authentication but still get auth context
+	if (isPublicRoute(request) && !isProtectedRoute(request)) {
+		// Let public pages access auth state without forcing authentication
+		// This allows bots to crawl and users to see content
+		return NextResponse.next()
+	}
+
+	// Skip auth for robots.txt and other static files
+	if (pathname.startsWith('/robot') || pathname.includes('.')) {
+		return NextResponse.next()
+	}
+
+	// Protect routes that require authentication
+	if (isProtectedRoute(request)) {
+		await auth.protect()
+	}
+
+	// Redirect authenticated users away from auth pages
+	const { userId } = await auth()
+	if (isPublicAuthRoute(request) && typeof userId === 'string' && userId.length > 0) {
+		return NextResponse.redirect(new URL(`/${currentLocale}/dashboard`, request.url))
+	}
+
+	return NextResponse.next()
+})
 
 export const config = {
 	matcher: [
