@@ -13,19 +13,17 @@ import type { Bib } from '@/models/bib.model'
 
 import { WaitlistNotifications } from '@/components/waitlist/WaitlistNotifications'
 import WaitlistStatusClient from '@/components/waitlist/WaitlistStatusClient'
-import { EventBreadcrumbs } from '@/components/seo/Breadcrumbs'
-import CardMarket from '@/components/marketplace/CardMarket'
-
+import { fetchPubliclyListedBibsForEvent } from '@/services/bib.services'
 import { generateEventMetadata } from '@/lib/seo/metadata-generators'
+import { transformBibsToBibSales } from '@/lib/transformers/bib'
+import { EventBreadcrumbs } from '@/components/seo/Breadcrumbs'
+import { fetchUserByClerkId } from '@/services/user.services'
+import CardMarket from '@/components/marketplace/CardMarket'
+import { addToWaitlist } from '@/services/waitlist.services'
+import { fetchEventById } from '@/services/event.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { pbDateToLuxon } from '@/lib/utils/date'
 import { Locale } from '@/lib/i18n/config'
-import { transformBibsToBibSales } from '@/lib/transformers/bib'
-
-import { fetchPubliclyListedBibsForEvent } from '@/services/bib.services'
-import { fetchUserByClerkId } from '@/services/user.services'
-import { addToWaitlist } from '@/services/waitlist.services'
-import { fetchEventById } from '@/services/event.services'
 
 import eventTranslations from './locales.json'
 
