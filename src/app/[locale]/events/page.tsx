@@ -13,25 +13,25 @@ import { getBaseMetadata } from '@/lib/seo/metadata'
 import EventListClient from './EventListClient'
 import eventsTranslations from './locales.json'
 
-// Métadonnées SEO dynamiques par langue
+// Dynamic SEO metadata
 export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
 	const { locale } = await params
 	const baseMetadata = getBaseMetadata(locale)
 
-	// Personnaliser les métadonnées pour la page des événements
+	// Customize metadata for the events page
 	return {
 		...baseMetadata,
 		twitter: {
 			...baseMetadata.twitter,
-			title: `Events - ${baseMetadata.twitter?.title ?? 'Beswib'}`,
-			description: `Discover all available race events. ${baseMetadata.twitter?.description}`,
+			title: 'Events - Beswib',
+			description: `Discover all available race events. ${baseMetadata.twitter?.description ?? ''}`,
 		},
 		title: `Events - Beswib`,
 		openGraph: {
 			...baseMetadata.openGraph,
 			url: `https://beswib.com/${locale}/events`,
-			title: `Events - ${baseMetadata.openGraph?.title ?? 'Beswib'}`,
-			description: `Discover all available race events. ${baseMetadata.openGraph?.description}`,
+			title: 'Events - Beswib',
+			description: `Discover all available race events. ${baseMetadata.openGraph?.description ?? ''}`,
 		},
 		description: `Discover all available race events. ${baseMetadata.description}`,
 		alternates: {
@@ -75,10 +75,10 @@ export default async function EventsPage({ params }: { params: Promise<LocalePar
 	)
 }
 
-// Generate static params for all locales
+// Generate static params for all locales (for sitemap)
 export function generateStaticParams() {
 	return generateLocaleParams()
 }
 
-// Disable static generation to avoid build failures when PocketBase is unavailable
+// Disable static generation to avoid build failures when PocketBase is unavailable (for sitemap)
 export const dynamic = 'force-dynamic'

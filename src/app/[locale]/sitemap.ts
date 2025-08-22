@@ -4,10 +4,10 @@ import type { Locale } from '@/lib/i18n/config'
 
 import { getAllEvents } from '@/services/event.services'
 
-// Configuration des langues supportées
+// Supported locales
 const supportedLocales: Locale[] = ['en', 'fr', 'de', 'es', 'it', 'pt', 'nl', 'ro', 'ko']
 
-// Pages statiques principales
+// Main static pages
 const staticPages = [
 	'',
 	'events',
@@ -20,20 +20,20 @@ const staticPages = [
 	'legals/legal-notice',
 ]
 
-// Priorités SEO pour différentes pages
+// Page priorities
 const pagePriorities = {
 	marketplace: 0.8, // Marketplace
-	'legals/terms': 0.3, // Conditions
-	'legals/privacy': 0.3, // Confidentialité
-	'legals/legal-notice': 0.3, // Mentions légales
+	'legals/terms': 0.3, // Terms
+	'legals/privacy': 0.3, // Privacy
+	'legals/legal-notice': 0.3, // Legal notice
 	'legals/cookies': 0.3, // Cookies
 	faq: 0.6, // FAQ
-	events: 0.9, // Liste des événements
+	events: 0.9, // Events
 	contact: 0.5, // Contact
-	'': 1.0, // Page d'accueil
+	'': 1.0, // Home
 }
 
-// Fréquences de mise à jour
+// Change frequencies
 const changeFreq = {
 	marketplace: 'hourly' as const,
 	'legals/terms': 'monthly' as const,
@@ -46,6 +46,7 @@ const changeFreq = {
 	'': 'daily' as const,
 }
 
+// Sitemap
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const sitemap: MetadataRoute.Sitemap = []
 	const baseUrl = 'https://beswib.com'
@@ -74,11 +75,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 				})
 			}
 
-			// Pages d'événements dynamiques
-			if (allEvents && allEvents.length > 0) {
+			// Dynamic events pages
+			if (Array.isArray(allEvents) && allEvents.length > 0) {
 				for (const event of allEvents) {
 					const eventUrl = `${baseUrl}/${locale}/events/${event.id}`
-					const eventLastModified = event.eventDate ? new Date(event.eventDate) : new Date()
+					const eventLastModified =
+						event.eventDate !== null && event.eventDate !== undefined ? new Date(event.eventDate) : new Date()
 
 					sitemap.push({
 						url: eventUrl,
@@ -93,7 +95,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			}
 		}
 
-		// Ajouter des pages spéciales
+		// Add special pages
 		sitemap.push({
 			url: `${baseUrl}/sitemap.xml`,
 			priority: 0.1,
@@ -108,9 +110,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			changeFrequency: 'monthly',
 		})
 	} catch (error) {
-		console.error('Erreur lors de la génération du sitemap:', error)
+		console.error('Error generating sitemap:', error)
 
-		// En cas d'erreur, générer au moins les pages statiques
+		// If error, generate at least static pages
 		for (const locale of supportedLocales) {
 			for (const page of staticPages) {
 				const url = page === '' ? `${baseUrl}/${locale}` : `${baseUrl}/${locale}/${page}`
