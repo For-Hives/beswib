@@ -113,13 +113,58 @@ export async function sendNewBibNotification(
 
 	// Calculate time remaining until event
 	const calculateTimeRemaining = (eventDate?: Date | string, locale: string = 'fr'): string => {
-		// Use translations to get the time units following the same pattern as components
-		const translations = getTranslations(locale, {})
-		const timeUnits = translations.GLOBAL.timeUnits
-
-		if (eventDate === undefined || eventDate === null || (typeof eventDate === 'string' && eventDate.trim() === ''))
-			return timeUnits.defaultDays
 		try {
+			// Use translations to get the time units following the same pattern as components
+			const translations = getTranslations(locale, {})
+
+			// Type-safe access to timeUnits with fallback
+			const timeUnits = translations.GLOBAL?.timeUnits as
+				| {
+						defaultDays: string
+						zeroDays: string
+						oneDay: string
+						days: string
+						oneWeek: string
+						weeks: string
+						oneMonth: string
+						months: string
+				  }
+				| undefined
+
+			// Fallback if timeUnits are not available
+			if (!timeUnits) {
+				const fallbackDays = locale === 'en' ? '7 days' : '7 jours'
+				if (eventDate === undefined || eventDate === null || (typeof eventDate === 'string' && eventDate.trim() === ''))
+					return fallbackDays
+
+				try {
+					const event = new Date(eventDate)
+					const now = new Date()
+					const diffTime = event.getTime() - now.getTime()
+					const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+					if (diffDays <= 0) return locale === 'en' ? '0 day' : '0 jour'
+					if (diffDays === 1) return locale === 'en' ? '1 day' : '1 jour'
+					if (diffDays < 7) return locale === 'en' ? `${diffDays} days` : `${diffDays} jours`
+					const weeks = Math.floor(diffDays / 7)
+					if (weeks === 1) return locale === 'en' ? '1 week' : '1 semaine'
+					if (weeks < 4) return locale === 'en' ? `${weeks} weeks` : `${weeks} semaines`
+					const months = Math.floor(diffDays / 30)
+					return months === 1
+						? locale === 'en'
+							? '1 month'
+							: '1 mois'
+						: locale === 'en'
+							? `${months} months`
+							: `${months} mois`
+				} catch {
+					return fallbackDays
+				}
+			}
+
+			if (eventDate === undefined || eventDate === null || (typeof eventDate === 'string' && eventDate.trim() === ''))
+				return timeUnits.defaultDays
+
 			const event = new Date(eventDate)
 			const now = new Date()
 			const diffTime = event.getTime() - now.getTime()
@@ -134,7 +179,8 @@ export async function sendNewBibNotification(
 			const months = Math.floor(diffDays / 30)
 			return months === 1 ? timeUnits.oneMonth : `${months} ${timeUnits.months}`
 		} catch {
-			return timeUnits.defaultDays
+			// Ultimate fallback
+			return locale === 'en' ? '7 days' : '7 jours'
 		}
 	}
 
