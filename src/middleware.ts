@@ -110,7 +110,6 @@ function customMiddleware(request: NextRequest) {
 		const targetLocale = languageMap[preferredLanguage] ?? 'en'
 		const redirectUrl = new URL(`/${targetLocale}`, request.url)
 
-		console.info('🌐 Redirecting / to:', redirectUrl.pathname)
 		return NextResponse.redirect(redirectUrl)
 	}
 
@@ -126,7 +125,6 @@ function customMiddleware(request: NextRequest) {
 		pathname.match(/^\/(en|fr|de|es|it|pt|nl|ro|ko)\/(events|marketplace|faq|contact|legals)(.*)$/) !== null // Public content pages
 
 	if (isPublicPage) {
-		console.info('🚫 Bypassing Clerk for public page:', pathname)
 		return NextResponse.next()
 	}
 
@@ -168,10 +166,8 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 
 	// CRITICAL: Protect routes that require authentication FIRST
 	if (isProtectedRoute(request)) {
-		console.info('🔒 Protecting route:', pathname)
 		const { userId } = await auth()
 		if (typeof userId !== 'string' || userId.length === 0) {
-			console.info('🔒 No user ID, redirecting to sign-in')
 			const signInUrl = new URL(`/${currentLocale}/auth/sign-in`, request.url)
 			return NextResponse.redirect(signInUrl)
 		}
