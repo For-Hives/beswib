@@ -27,6 +27,10 @@ export default function LanguageSwitcher({ currentPath, currentLocale, className
 	// Extract path without locale
 	const pathWithoutLocale = currentPath.replace(`/${currentLocale}`, '') || '/'
 
+	// Fallback for invalid locale
+	const safeLocale = currentLocale in languages ? currentLocale : 'en'
+	const currentLang = languages[safeLocale]
+
 	return (
 		<div className={`group relative ${className}`}>
 			<button
@@ -36,8 +40,8 @@ export default function LanguageSwitcher({ currentPath, currentLocale, className
 				aria-haspopup="true"
 			>
 				<Globe className="h-4 w-4" />
-				<span className="hidden sm:inline">{languages[currentLocale].native}</span>
-				<span className="sm:hidden">{languages[currentLocale].flag}</span>
+				<span className="hidden sm:inline">{currentLang.native}</span>
+				<span className="sm:hidden">{currentLang.flag}</span>
 			</button>
 
 			<div className="bg-background border-border invisible absolute top-full right-0 z-50 mt-2 w-64 rounded-lg border opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:opacity-100">
