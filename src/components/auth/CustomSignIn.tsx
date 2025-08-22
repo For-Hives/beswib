@@ -38,7 +38,7 @@ export default function CustomSignIn() {
 		const message = e.message ?? e.errors?.[0]?.message ?? e.errors?.[0]?.longMessage
 
 		// Ensure errorsT exists, otherwise return a fallback
-		if (!errorsT) {
+		if (errorsT == null) {
 			console.warn('Translation object errorsT is undefined')
 			return typeof message === 'string' ? message : 'An error occurred. Please try again.'
 		}

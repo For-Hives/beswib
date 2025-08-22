@@ -2,7 +2,7 @@
  * Utility functions for handling cookies on the client side
  */
 
-import { i18n } from '../i18n/config'
+import { i18n, type Locale } from '../i18n/config'
 
 /**
  * Get a cookie value by name
@@ -40,6 +40,6 @@ export function getLocaleFromCookie(): string | null {
 /**
  * Check if a locale is supported
  */
-export function isSupportedLocale(locale: string): boolean {
-	return i18n.locales.includes(locale as any)
+export function isSupportedLocale(locale: string): locale is Locale {
+	return i18n.locales.includes(locale as Locale)
 }
