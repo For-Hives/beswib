@@ -88,6 +88,19 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 		return NextResponse.next()
 	}
 
+	// TEMPORARY: For SEO testing, bypass Clerk completely on public pages
+	// This allows bots to crawl without Clerk authentication redirects
+	const isPublicPage =
+		pathname === '/' ||
+		pathname === '/robots.txt' ||
+		pathname === '/sitemap.xml' ||
+		pathname.match(/^\/(en|fr|de|es|it|pt|nl|ro|ko)(\/.*)?$/) !== null
+
+	if (isPublicPage) {
+		// Skip all Clerk processing for public pages during SEO testing
+		return NextResponse.next()
+	}
+
 	// Check if there is any supported locale in the pathname 🗺️
 	const pathnameHasLocale =
 		(i18n?.locales as readonly string[])?.some(
