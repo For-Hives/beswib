@@ -5,7 +5,7 @@ import seoLocales from '../constants/seo-locales.json'
 
 // Generate SEO keywords for events
 export function generateEventKeywords(locale: Locale, event: Event): string {
-	const localKeywords = (seoLocales as SEOLocales)[locale].seo.keywords
+	const localKeywords = seoLocales[locale].seo.keywords
 	const baseKeywords = [...localKeywords.global] as string[]
 
 	// Add event-specific keywords
@@ -45,7 +45,7 @@ export function generateEventKeywords(locale: Locale, event: Event): string {
 
 // Generate SEO title for events
 export function generateEventTitle(locale: Locale, event: Event): string {
-	const titles = (seoLocales as SEOLocales)[locale].seo.titles
+	const titles = seoLocales[locale].seo.titles
 
 	if (event.location) {
 		return `${event.name} ${titles.eventWithLocation} ${event.location} | ${titles.event}`
@@ -56,8 +56,8 @@ export function generateEventTitle(locale: Locale, event: Event): string {
 
 // Generate SEO description for events
 export function generateEventDescription(locale: Locale, event: Event): string {
-	const keywords = (seoLocales as SEOLocales)[locale].seo.keywords
-	const generators = (seoLocales as SEOLocales)[locale].seo.generators
+	const keywords = seoLocales[locale].seo.keywords
+	const generators = seoLocales[locale].seo.generators
 	const raceType = keywords.raceTypes[event.typeCourse] ?? event.typeCourse
 
 	let description = `${event.name} - ${raceType}`
