@@ -258,20 +258,20 @@ export function getLegalPageMetadata(
 		...baseMetadata,
 		twitter: {
 			...baseMetadata.twitter,
-			title: `${pageConfig.title} - ${baseMetadata.twitter?.title || 'Beswib'}`,
+			title: `${pageConfig.title} - ${baseMetadata.twitter?.title ?? 'Beswib'}`,
 			description: pageConfig.description,
 		},
-		title: `${pageConfig.title} - ${baseMetadata.title?.default || 'Beswib'}`,
+		title: `${pageConfig.title} - ${baseMetadata.title?.default ?? 'Beswib'}`,
 		openGraph: {
 			...baseMetadata.openGraph,
 			url: `https://beswib.com/${locale}/legals/${pageType}`,
-			title: `${pageConfig.title} - ${baseMetadata.openGraph?.title || 'Beswib'}`,
+			title: `${pageConfig.title} - ${baseMetadata.openGraph?.title ?? 'Beswib'}`,
 			description: pageConfig.description,
 		},
 		keywords: pageConfig.keywords,
 		description: pageConfig.description,
 		alternates: {
-			languages: baseMetadata.alternates?.languages || {},
+			languages: baseMetadata.alternates?.languages ?? {},
 			canonical: `https://beswib.com/${locale}/legals/${pageType}`,
 		},
 	}
