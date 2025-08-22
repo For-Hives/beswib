@@ -179,14 +179,34 @@ export const createRunnerFormSchema = (locale: Locale = 'en') => {
 	return v.object({
 		firstName: createNameSchema('first name', locale),
 		lastName: createNameSchema('last name', locale),
-		birthDate: v.pipe(v.string(), v.trim(), v.nonEmpty('Birth date is required'), v.minLength(10, 'Birth date is required')),
+		birthDate: v.pipe(
+			v.string(),
+			v.trim(),
+			v.nonEmpty('Birth date is required'),
+			v.minLength(10, 'Birth date is required')
+		),
 		phoneNumber: createPhoneSchema(locale, false),
 		contactEmail: v.optional(createEmailSchema(locale)),
-		emergencyContactName: v.pipe(v.string(), v.trim(), v.nonEmpty('Emergency contact name is required'), v.minLength(2, 'Contact name must be at least 2 characters')),
+		emergencyContactName: v.pipe(
+			v.string(),
+			v.trim(),
+			v.nonEmpty('Emergency contact name is required'),
+			v.minLength(2, 'Contact name must be at least 2 characters')
+		),
 		emergencyContactPhone: createPhoneSchema(locale, true),
-		emergencyContactRelationship: v.pipe(v.string(), v.trim(), v.nonEmpty('Emergency contact relationship is required'), v.minLength(2, 'Please specify the relationship')),
+		emergencyContactRelationship: v.pipe(
+			v.string(),
+			v.trim(),
+			v.nonEmpty('Emergency contact relationship is required'),
+			v.minLength(2, 'Please specify the relationship')
+		),
 		address: v.pipe(v.string(), v.trim(), v.nonEmpty('Address is required'), v.minLength(4, 'Address too short')),
-		postalCode: v.pipe(v.string(), v.trim(), v.nonEmpty('Postal code is required'), v.minLength(4, 'Invalid postal code')),
+		postalCode: v.pipe(
+			v.string(),
+			v.trim(),
+			v.nonEmpty('Postal code is required'),
+			v.minLength(4, 'Invalid postal code')
+		),
 		city: v.pipe(v.string(), v.trim(), v.nonEmpty('City is required'), v.minLength(2, 'City name too short')),
 		country: v.pipe(v.string(), v.trim(), v.nonEmpty('Country is required'), v.minLength(2, 'Country name too short')),
 		gender: v.picklist(['male', 'female', 'other'], 'Invalid gender'),

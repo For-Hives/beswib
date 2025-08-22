@@ -44,7 +44,6 @@ type RunnerFormData = {
 	licenseNumber?: string
 }
 
-
 export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Readonly<{ user: User; locale?: Locale }>) {
 	const t = getTranslations(locale, profileTranslations)
 	const [isPending, startTransition] = useTransition()
