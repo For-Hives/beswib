@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
-import ContactPageClient from '@/app/[locale]/contact/contact-page-client'
-import globalTranslations from '@/components/global/locales.json'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
-import { getTranslations } from '@/lib/i18n/dictionary'
+import ContactPageClient from '@/app/[locale]/contact/contact-page-client'
 import { generateSimplePageMetadata } from '@/lib/seo/metadata-generators'
+import globalTranslations from '@/components/global/locales.json'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 export default async function ContactPage({ params }: { params: Promise<LocaleParams> }) {
 	const { locale } = await params
