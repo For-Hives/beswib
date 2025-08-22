@@ -2,7 +2,15 @@ import type { Metadata } from 'next'
 
 import type { Locale } from '@/lib/i18n/config'
 
-// SEO configuration by language
+import { 
+	generateBaseMetadata, 
+	generateHomeMetadata,
+	generateEventMetadata,
+	generateMarketplaceMetadata 
+} from './metadata-generators'
+
+// Legacy SEO configuration - DEPRECATED: Use metadata-generators.ts instead
+// TODO: Remove this file after migration is complete
 export const seoConfig = {
 	ro: {
 		locale: 'ro_RO',
@@ -178,8 +186,15 @@ interface Event {
 	location: string
 }
 
-// Base metadata for all pages
+// DEPRECATED: Use generateBaseMetadata from metadata-generators.ts
+// This function is kept for backward compatibility
 export function getBaseMetadata(locale: Locale): Metadata {
+	return generateBaseMetadata(locale)
+}
+
+// DEPRECATED: Use generateBaseMetadata from metadata-generators.ts
+// Base metadata for all pages
+export function getBaseMetadataLegacy(locale: Locale): Metadata {
 	const config = seoConfig[locale]
 
 	return {
