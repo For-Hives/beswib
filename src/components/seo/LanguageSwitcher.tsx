@@ -1,4 +1,4 @@
-import { Globe } from 'lucide-react'
+import { Languages } from 'lucide-react'
 
 import Link from 'next/link'
 
@@ -39,17 +39,13 @@ export default function LanguageSwitcher({ currentPath, currentLocale, className
 				aria-expanded="false"
 				aria-haspopup="true"
 			>
-				<Globe className="h-4 w-4" />
+				<Languages className="h-4 w-4" />
 				<span className="hidden sm:inline">{currentLang.native}</span>
 				<span className="sm:hidden">{currentLang.flag}</span>
 			</button>
 
 			<div className="bg-background border-border invisible absolute top-full right-0 z-50 mt-2 w-64 rounded-lg border opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:opacity-100">
 				<div className="p-2">
-					<div className="text-muted-foreground border-border border-b px-3 py-2 text-xs font-medium">
-						Select Language / Choisir la langue
-					</div>
-
 					<div className="space-y-1 py-2">
 						{Object.entries(languages).map(([code, lang]) => {
 							const isCurrent = code === currentLocale
