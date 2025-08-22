@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import type { Locale } from '@/lib/i18n/config'
 
-import { getBaseMetadata } from './metadata'
+import { generateBaseMetadata } from './metadata-generators'
 
 // Configuration des métadonnées pour les pages légales par langue
 const legalPageConfig = {
@@ -251,7 +251,7 @@ export function getLegalPageMetadata(
 	locale: Locale,
 	pageType: 'terms' | 'privacy' | 'cookies' | 'legalNotice'
 ): Metadata {
-	const baseMetadata = getBaseMetadata(locale)
+	const baseMetadata = generateBaseMetadata(locale)
 	const pageConfig = legalPageConfig[locale]?.[pageType] ?? legalPageConfig.en[pageType]
 
 	return {
