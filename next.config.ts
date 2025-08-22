@@ -104,13 +104,24 @@ const nextConfig: NextConfig = {
 			'https://cdnjs.cloudflare.com',
 		].join(' ')
 
+		const imgSrc = [
+			"'self'",
+			'https://img.clerk.com',
+			'https://challenges.cloudflare.com',
+			'data:',
+			'https://images.unsplash.com',
+			'https://loremflickr.com',
+			'https://picsum.photos',
+			'https://cdnjs.cloudflare.com',
+		].join(' ')
+
 		const csp = [
 			`default-src 'self'`,
 			`script-src ${scriptSrc}`,
 			`object-src 'none'`,
 			`frame-src ${frameSrc}`,
 			`connect-src ${connectSrc}`,
-			`img-src 'self' https://img.clerk.com https://challenges.cloudflare.com data: https://images.unsplash.com https://loremflickr.com https://picsum.photos https://cdnjs.cloudflare.com`,
+			`img-src ${imgSrc}`,
 			`style-src 'self' 'unsafe-inline'`,
 			`worker-src 'self' blob:`,
 			`form-action 'self'`,

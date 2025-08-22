@@ -1,26 +1,19 @@
 'use server'
+
+import type { Transaction, TransactionWithExpand } from '@/models/transaction.model'
+import { pb } from '@/lib/services/pocketbase'
+
 // Helper: Find transaction by PayPal orderId
-export async function getTransactionByOrderId(
-	orderId: string
-): Promise<{ id: string; bib_id: string; buyer_user_id: string; seller_user_id: string } | null> {
+export async function getTransactionByOrderId(orderId: string): Promise<Transaction | null> {
 	if (!orderId) return null
 	try {
-		const record = await pb.collection('transactions').getFirstListItem<{
-			id: string
-			bib_id: string
-			buyer_user_id: string
-			seller_user_id: string
-		}>(`paypal_order_id = "${orderId}"`)
+		const record = await pb.collection('transactions').getFirstListItem<Transaction>(`paypal_order_id = "${orderId}"`)
 		return record ?? null
 	} catch {
 		// Not found or query error
 		return null
 	}
 }
-
-import type { Transaction, TransactionWithExpand } from '@/models/transaction.model'
-
-import { pb } from '@/lib/services/pocketbase'
 
 // type moved to models/transaction.model
 

@@ -400,7 +400,7 @@ export async function sendWelcomeEmail(params: { to: string; firstName?: string;
 	// Fallback to legacy template (with localized subject)
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 	const safeFirst = (params.firstName ?? '').trim()
-	const fallbackLocale = params.locale ?? 'fr'
+	const fallbackLocale = params.locale ?? 'en'
 
 	// Try to get localized subject even for fallback
 	let subject = `Welcome to Beswib!`

@@ -154,19 +154,19 @@ export async function getUserData(userId: string): Promise<null | User> {
 }
 
 /**
- * Get user locale by email address, fallback to 'fr' if not found or no locale set
+ * Get user locale by email address, fallback to 'en' if not found or no locale set
  */
 export async function getUserLocaleByEmail(email: string): Promise<string> {
 	if (!email || email.trim() === '') {
-		return 'fr' // Default locale
+		return 'en' // Default locale
 	}
 
 	try {
 		const user = await fetchUserByEmail(email.trim())
-		return user?.locale ?? 'fr' // Fallback to 'fr' if no locale set
+		return user?.locale ?? 'en' // Fallback to 'en' if no locale set
 	} catch (error) {
 		console.warn('Failed to get user locale by email:', error)
-		return 'fr' // Fallback to 'fr' on error
+		return 'en' // Fallback to 'en' on error
 	}
 }
 
