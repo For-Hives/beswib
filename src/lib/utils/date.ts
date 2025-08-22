@@ -177,37 +177,77 @@ export function formatDateWithLocale(date: Date, locale: Locale): string {
 export function getDateFormatPattern(locale: string = 'en'): string {
 	// Validate locale and fallback to default if not supported
 	const validLocale = i18n.locales.includes(locale as Locale) ? locale : i18n.defaultLocale
-	
+
 	// US format for English
 	if (validLocale === 'en') {
 		return 'mm/dd/yyyy'
 	}
-	
+
 	// Korean format
 	if (validLocale === 'ko') {
 		return 'yyyy/mm/dd'
 	}
-	
+
 	// European format for all other languages (fr, es, it, de, ro, pt, nl)
 	return 'dd/mm/yyyy'
 }
 
 /**
  * Gets the locale-specific placeholder for date inputs 🗺️
- * @param locale - The locale ('en', 'fr', 'ko') 🌐
+ * @param locale - The locale (any supported locale from i18n config) 🌐
  * @returns Placeholder text 📄
  */
 export function getDatePlaceholder(locale: string = 'en'): string {
-	switch (locale) {
-		case 'en':
-			return 'mm/dd/yyyy'
-		case 'fr':
-			return 'jj/mm/aaaa'
-		case 'ko':
-			return 'yyyy/mm/dd'
-		default:
-			return 'jj/mm/aaaa'
+	// Validate locale and fallback to default if not supported
+	const validLocale = i18n.locales.includes(locale as Locale) ? locale : i18n.defaultLocale
+
+	// US format for English
+	if (validLocale === 'en') {
+		return 'mm/dd/yyyy'
 	}
+
+	// Korean format
+	if (validLocale === 'ko') {
+		return 'yyyy/mm/dd'
+	}
+
+	// French format
+	if (validLocale === 'fr') {
+		return 'jj/mm/aaaa'
+	}
+
+	// Spanish format
+	if (validLocale === 'es') {
+		return 'dd/mm/aaaa'
+	}
+
+	// Italian format
+	if (validLocale === 'it') {
+		return 'gg/mm/aaaa'
+	}
+
+	// German format
+	if (validLocale === 'de') {
+		return 'tt.mm.jjjj'
+	}
+
+	// Romanian format
+	if (validLocale === 'ro') {
+		return 'zz/ll/aaaa'
+	}
+
+	// Portuguese format
+	if (validLocale === 'pt') {
+		return 'dd/mm/aaaa'
+	}
+
+	// Dutch format
+	if (validLocale === 'nl') {
+		return 'dd/mm/jjjj'
+	}
+
+	// Default European format
+	return 'dd/mm/yyyy'
 }
 
 /**
@@ -312,9 +352,9 @@ export function calculateTimeRemaining(eventDate?: Date | string, locale: string
 			  }
 			| undefined
 
-		// Fallback if timeUnits are not available
+		// Fallback if timeUnits are not available - use English as default site language
 		if (!timeUnits) {
-			const fallbackDays = locale === 'en' ? '7 days' : '7 jours'
+			const fallbackDays = '7 days'
 			if (eventDate === undefined || eventDate === null || (typeof eventDate === 'string' && eventDate.trim() === ''))
 				return fallbackDays
 
@@ -324,20 +364,14 @@ export function calculateTimeRemaining(eventDate?: Date | string, locale: string
 				const diffTime = event.getTime() - now.getTime()
 				const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 
-				if (diffDays <= 0) return locale === 'en' ? '0 day' : '0 jour'
-				if (diffDays === 1) return locale === 'en' ? '1 day' : '1 jour'
-				if (diffDays < 7) return locale === 'en' ? `${diffDays} days` : `${diffDays} jours`
+				if (diffDays <= 0) return '0 day'
+				if (diffDays === 1) return '1 day'
+				if (diffDays < 7) return `${diffDays} days`
 				const weeks = Math.floor(diffDays / 7)
-				if (weeks === 1) return locale === 'en' ? '1 week' : '1 semaine'
-				if (weeks < 4) return locale === 'en' ? `${weeks} weeks` : `${weeks} semaines`
+				if (weeks === 1) return '1 week'
+				if (weeks < 4) return `${weeks} weeks`
 				const months = Math.floor(diffDays / 30)
-				return months === 1
-					? locale === 'en'
-						? '1 month'
-						: '1 mois'
-					: locale === 'en'
-						? `${months} months`
-						: `${months} mois`
+				return months === 1 ? '1 month' : `${months} months`
 			} catch {
 				return fallbackDays
 			}
@@ -360,7 +394,7 @@ export function calculateTimeRemaining(eventDate?: Date | string, locale: string
 		const months = Math.floor(diffDays / 30)
 		return months === 1 ? timeUnits.oneMonth : `${months} ${timeUnits.months}`
 	} catch {
-		// Ultimate fallback
-		return locale === 'en' ? '7 days' : '7 jours'
+		// Ultimate fallback - use English as default site language
+		return '7 days'
 	}
 }
