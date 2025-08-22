@@ -23,19 +23,19 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 		...baseMetadata,
 		twitter: {
 			...baseMetadata.twitter,
-			title: `Events - ${baseMetadata.twitter?.title || 'Beswib'}`,
+			title: `Events - ${baseMetadata.twitter?.title ?? 'Beswib'}`,
 			description: `Discover all available race events. ${baseMetadata.twitter?.description}`,
 		},
-		title: `Events - ${baseMetadata.title?.default || 'Beswib'}`,
+		title: `Events - ${baseMetadata.title ?? 'Beswib'}`,
 		openGraph: {
 			...baseMetadata.openGraph,
 			url: `https://beswib.com/${locale}/events`,
-			title: `Events - ${baseMetadata.openGraph?.title || 'Beswib'}`,
+			title: `Events - ${baseMetadata.openGraph?.title ?? 'Beswib'}`,
 			description: `Discover all available race events. ${baseMetadata.openGraph?.description}`,
 		},
 		description: `Discover all available race events. ${baseMetadata.description}`,
 		alternates: {
-			languages: baseMetadata.alternates?.languages || {},
+			languages: baseMetadata.alternates?.languages ?? {},
 			canonical: `https://beswib.com/${locale}/events`,
 		},
 	}

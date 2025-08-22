@@ -1,5 +1,3 @@
-import type { Locale } from '@/lib/i18n/config'
-
 // SEO keywords by language and category
 export const SEO_KEYWORDS = {
 	ro: {
@@ -236,7 +234,7 @@ export const SEO_KEYWORDS = {
 			buy: 'kaufen',
 		},
 	},
-} as const satisfies Record<Locale, any>
+} as const
 
 // SEO titles templates by language
 export const SEO_TITLES = {
@@ -321,7 +319,7 @@ export const SEO_TITLES = {
 		events: 'Events Durchsuchen | Startnummern Finden',
 		event: (eventName: string) => `${eventName} | Startnummern`,
 	},
-} as const satisfies Record<Locale, any>
+} as const
 
 // SEO descriptions by language
 export const SEO_DESCRIPTIONS = {
@@ -397,4 +395,4 @@ export const SEO_DESCRIPTIONS = {
 		events:
 			'Finden und kaufen Sie Startnummern für kommende Lauf-, Trail-, Triathlon- und Radsport-Events. Sichere Übertragungen mit Beswib.',
 	},
-} as const satisfies Record<Locale, any>
+} as const
