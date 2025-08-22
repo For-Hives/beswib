@@ -118,7 +118,6 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
 	return (
 		<>
-			{/* SEO optimisé pour la page d'événement */}
 			<EventPageSEO event={event} locale={locale} />
 
 			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
@@ -360,10 +359,5 @@ export async function generateMetadata({ params }: EventDetailPageProps): Promis
 		}
 	}
 
-	// Utiliser les métadonnées SEO spécialisées pour les événements
 	return getEventMetadata(locale, event)
 }
-
-// Generate static params for all locales
-// Note: do not statically generate params for this page; it is dynamic.
-// If locale scaffolding is needed, use middleware or a parent layout instead.

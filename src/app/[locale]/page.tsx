@@ -5,17 +5,14 @@ import SecurityProcess from '@/components/landing/security-process/SecurityProce
 import JourneyTabs from '@/components/landing/journey-tabs/JourneyTabs'
 import HeroAlternative from '@/components/landing/hero/HeroAlternative'
 import FeaturesBento from '@/components/landing/features/Features'
-// import BibStats from '@/components/landing/bib-stats/BibStats'
 import BesWibCTA from '@/components/landing/cta/CTASection'
 import { getBaseMetadata } from '@/lib/seo/metadata'
-// import Hero from '@/components/landing/hero/Hero'
 
 // Generate static params for all locales 🌍
 export function generateStaticParams() {
 	return generateLocaleParams()
 }
 
-// Métadonnées SEO dynamiques par langue
 export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
 	const { locale } = await params
 	return getBaseMetadata(locale)
@@ -30,7 +27,7 @@ export default async function Home({ params }: { params: Promise<LocaleParams> }
 			{/* Hero Section 🦸 */}
 			<HeroAlternative localeParams={params} />
 			{/* Stats Section 📊 */}
-			{/* TODO: Add stats section later */}
+			{/* TODO : Add stats section later */}
 			{/* <BibStats localeParams={params} /> */}
 			{/* Journey Section 🚶 */}
 			<JourneyTabs localeParams={params} />
