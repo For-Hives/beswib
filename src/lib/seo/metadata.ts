@@ -2,27 +2,8 @@ import type { Metadata } from 'next'
 
 import type { Locale } from '@/lib/i18n/config'
 
-// Configuration SEO par langue
+// SEO configuration by language
 export const seoConfig = {
-	sv: {
-		locale: 'sv_SE',
-		keywords:
-			'startnummer, löpning, trail running, triathlon, cykling, startnummer överföring, köp startnummer, sälj startnummer, maraton, ultra trail',
-		defaultTitle: 'Beswib - Startnummer Överföring | Köp och Sälj Löp-, Trail- och Triathlon Startnummer',
-		defaultDescription:
-			'Överför dina startnummer säkert med Beswib. Köp och sälj startnummer för löpning, trail, triathlon och cykling.',
-		alternateLanguages: {
-			pt: '/pt',
-			pl: '/pl',
-			nl: '/nl',
-			ko: '/ko',
-			it: '/it',
-			fr: '/fr',
-			es: '/es',
-			en: '/en',
-			de: '/de',
-		},
-	},
 	ro: {
 		locale: 'ro_RO',
 		keywords:
@@ -50,25 +31,6 @@ export const seoConfig = {
 			'Transfira seus peitos de corrida com segurança com Beswib. Compre e venda peitos para running, trail, triatlo e ciclismo.',
 		alternateLanguages: {
 			ro: '/ro',
-			nl: '/nl',
-			ko: '/ko',
-			it: '/it',
-			fr: '/fr',
-			es: '/es',
-			en: '/en',
-			de: '/de',
-		},
-	},
-	pl: {
-		locale: 'pl_PL',
-		keywords:
-			'numery startowe, bieganie, trail running, triathlon, kolarstwo, transfer numeru, kup numer, sprzedaj numer, maraton, ultra trail',
-		defaultTitle: 'Beswib - Transfer Numerów Startowych | Kupuj i Sprzedawaj Numery Biegowe, Trail i Triathlon',
-		defaultDescription:
-			'Bezpiecznie przekaż swoje numery startowe z Beswib. Kupuj i sprzedawaj numery do biegania, trail, triathlonu i kolarstwa.',
-		alternateLanguages: {
-			sv: '/sv',
-			pt: '/pt',
 			nl: '/nl',
 			ko: '/ko',
 			it: '/it',
@@ -216,7 +178,7 @@ interface Event {
 	location: string
 }
 
-// Métadonnées de base pour toutes les pages
+// Base metadata for all pages
 export function getBaseMetadata(locale: Locale): Metadata {
 	const config = seoConfig[locale]
 
@@ -294,7 +256,7 @@ export function getBaseMetadata(locale: Locale): Metadata {
 	}
 }
 
-// Métadonnées spécifiques pour les pages d'événements
+// Event-specific metadata
 export function getEventMetadata(locale: Locale, event: Event): Metadata {
 	const baseMetadata = getBaseMetadata(locale)
 	const config = seoConfig[locale]
@@ -342,13 +304,13 @@ export function getEventMetadata(locale: Locale, event: Event): Metadata {
 	}
 }
 
-// Métadonnées pour les pages de marketplace
+// Marketplace page metadata
 export function getMarketplaceMetadata(locale: Locale): Metadata {
 	const baseMetadata = getBaseMetadata(locale)
 	const config = seoConfig[locale]
 
 	const marketplaceTitle = `Marketplace - ${config.defaultTitle}`
-	const marketplaceDescription = `Découvrez notre marketplace de dossards de course. ${config.defaultDescription}`
+	const marketplaceDescription = config.defaultDescription
 
 	return {
 		...baseMetadata,

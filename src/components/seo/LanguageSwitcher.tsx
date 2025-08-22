@@ -10,7 +10,7 @@ interface LanguageSwitcherProps {
 	className?: string
 }
 
-// Configuration des langues avec leurs noms natifs
+// Language configuration with native names
 const languages = {
 	ro: { native: 'Română', name: 'Romanian', flag: '🇷🇴' },
 	pt: { native: 'Português', name: 'Portuguese', flag: '🇵🇹' },
@@ -24,7 +24,7 @@ const languages = {
 }
 
 export default function LanguageSwitcher({ currentPath, currentLocale, className = '' }: LanguageSwitcherProps) {
-	// Extraire le chemin sans la langue
+	// Extract path without locale
 	const pathWithoutLocale = currentPath.replace(`/${currentLocale}`, '') || '/'
 
 	return (
@@ -59,7 +59,7 @@ export default function LanguageSwitcher({ currentPath, currentLocale, className
 										isCurrent ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-accent/10 text-foreground'
 									}`}
 									lang={code}
-									hreflang={code}
+									hrefLang={code}
 									rel={isCurrent ? undefined : 'alternate'}
 									aria-current={isCurrent ? 'true' : undefined}
 								>
@@ -79,7 +79,7 @@ export default function LanguageSwitcher({ currentPath, currentLocale, className
 	)
 }
 
-// Composant alternatif pour les petits écrans (dropdown)
+// Alternative component for small screens (dropdown)
 export function LanguageSwitcherMobile({ currentPath, currentLocale }: LanguageSwitcherProps) {
 	const pathWithoutLocale = currentPath.replace(`/${currentLocale}`, '') || '/'
 
@@ -101,7 +101,7 @@ export function LanguageSwitcherMobile({ currentPath, currentLocale }: LanguageS
 								: 'bg-background text-foreground border-border hover:bg-accent/10'
 						}`}
 						lang={code}
-						hreflang={code}
+						hrefLang={code}
 						rel={isCurrent ? undefined : 'alternate'}
 						aria-current={isCurrent ? 'true' : undefined}
 					>

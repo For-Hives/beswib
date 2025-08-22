@@ -19,7 +19,7 @@ export default function EventPageSEO({ organizer, locale, event }: EventPageSEOP
 		day: 'numeric',
 	})
 
-	// Traductions des types de course par langue
+	// Race type translations by language
 	const courseTypeTranslations = {
 		ro: {
 			triathlon: 'Triatlon',
@@ -79,7 +79,7 @@ export default function EventPageSEO({ organizer, locale, event }: EventPageSEOP
 
 	const courseType = courseTypeTranslations[locale]?.[event.typeCourse] || event.typeCourse
 
-	// Génération des mots-clés SEO spécifiques à l'événement
+	// Generate event-specific SEO keywords
 	const generateEventKeywords = () => {
 		const baseKeywords = [
 			event.name.toLowerCase(),
@@ -108,7 +108,7 @@ export default function EventPageSEO({ organizer, locale, event }: EventPageSEOP
 		return baseKeywords.join(', ')
 	}
 
-	// Génération de la description SEO optimisée
+	// Generate optimized SEO description
 	const generateEventDescription = () => {
 		let description = `${event.name} - ${courseType} event in ${event.location} on ${formattedDate}.`
 
@@ -129,7 +129,7 @@ export default function EventPageSEO({ organizer, locale, event }: EventPageSEOP
 		return description
 	}
 
-	// Génération du titre SEO optimisé
+	// Generate optimized SEO title
 	const generateEventTitle = () => {
 		let title = `${event.name} - ${courseType}`
 
@@ -155,7 +155,7 @@ export default function EventPageSEO({ organizer, locale, event }: EventPageSEOP
 			<EventSocialMeta
 				eventName={event.name}
 				eventDescription={generateEventDescription()}
-				eventImage={event.imageUrl || '/og-image.jpg'}
+				eventImage={event.imageUrl ?? '/og-image.jpg'}
 				eventUrl={`https://beswib.com/${locale}/events/${event.id}`}
 				locale={locale}
 				eventDate={eventDate.toISOString()}

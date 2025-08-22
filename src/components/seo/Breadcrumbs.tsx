@@ -22,7 +22,7 @@ export default function Breadcrumbs({ locale, items, className = '' }: Breadcrum
 	return (
 		<nav className={`text-muted-foreground flex items-center space-x-1 text-sm ${className}`} aria-label="Breadcrumb">
 			<ol className="flex items-center space-x-1">
-				{/* Accueil */}
+				{/* Home */}
 				<li>
 					<Link
 						href={`/${locale}`}
@@ -34,14 +34,14 @@ export default function Breadcrumbs({ locale, items, className = '' }: Breadcrum
 					</Link>
 				</li>
 
-				{/* Séparateur */}
+				{/* Separator */}
 				{items.length > 0 && (
 					<li>
 						<ChevronRight className="h-4 w-4" />
 					</li>
 				)}
 
-				{/* Items de navigation */}
+				{/* Navigation items */}
 				{items.map((item, index) => (
 					<li key={index}>
 						{item.current ? (
@@ -56,7 +56,7 @@ export default function Breadcrumbs({ locale, items, className = '' }: Breadcrum
 							<span>{item.label}</span>
 						)}
 
-						{/* Séparateur (sauf pour le dernier item) */}
+						{/* Separator (except for last item) */}
 						{index < items.length - 1 && <ChevronRight className="ml-1 h-4 w-4" />}
 					</li>
 				))}
@@ -65,7 +65,7 @@ export default function Breadcrumbs({ locale, items, className = '' }: Breadcrum
 	)
 }
 
-// Composant spécialisé pour les pages d'événements
+// Specialized component for event pages
 export function EventBreadcrumbs({
 	locale,
 	eventName,
@@ -89,7 +89,7 @@ export function EventBreadcrumbs({
 	return <Breadcrumbs items={items} locale={locale} className={className} />
 }
 
-// Composant spécialisé pour les pages de marketplace
+// Specialized component for marketplace pages
 export function MarketplaceBreadcrumbs({ locale, className = '' }: { locale: Locale; className?: string }) {
 	const items: BreadcrumbItem[] = [
 		{
@@ -101,7 +101,7 @@ export function MarketplaceBreadcrumbs({ locale, className = '' }: { locale: Loc
 	return <Breadcrumbs items={items} locale={locale} className={className} />
 }
 
-// Composant spécialisé pour les pages légales
+// Specialized component for legal pages
 export function LegalBreadcrumbs({
 	pageName,
 	locale,
