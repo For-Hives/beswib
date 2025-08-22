@@ -133,7 +133,7 @@ export default function EventSchema({ organizer, locale, event }: EventSchemaPro
 		'@context': 'https://schema.org',
 	}
 
-	// Ajouter des propriétés conditionnelles
+	// Add conditional properties
 	if (event.distanceKm) {
 		schema['distance'] = {
 			value: event.distanceKm,

@@ -66,7 +66,7 @@ export default function SocialMeta({
 	)
 }
 
-// Composant spécialisé pour les événements
+// Specialized component for events
 export function EventSocialMeta({
 	locale,
 	eventUrl,
@@ -89,7 +89,7 @@ export function EventSocialMeta({
 
 	return (
 		<Head>
-			{/* Open Graph pour événements */}
+			{/* Open Graph for events */}
 			<meta property="og:type" content="event" />
 			<meta property="og:url" content={eventUrl} />
 			<meta property="og:title" content={title} />
@@ -101,13 +101,13 @@ export function EventSocialMeta({
 			<meta property="og:locale" content={locale} />
 			<meta property="og:site_name" content="Beswib" />
 
-			{/* Métadonnées d'événement */}
+			{/* Event metadata */}
 			<meta property="event:start_time" content={eventDate} />
 			<meta property="event:end_time" content={eventDate} />
 			<meta property="event:location" content={eventLocation} />
 			<meta property="event:type" content="sports_event" />
 
-			{/* Twitter pour événements */}
+			{/* Twitter for events */}
 			<meta name="twitter:card" content="summary_large_image" />
 			<meta name="twitter:url" content={eventUrl} />
 			<meta name="twitter:title" content={title} />
@@ -120,7 +120,7 @@ export function EventSocialMeta({
 	)
 }
 
-// Composant pour les articles/blog
+// Component for articles/blog
 export function ArticleSocialMeta({
 	url,
 	title,
@@ -144,7 +144,7 @@ export function ArticleSocialMeta({
 }) {
 	return (
 		<Head>
-			{/* Open Graph pour articles */}
+			{/* Open Graph for articles */}
 			<meta property="og:type" content="article" />
 			<meta property="og:url" content={url} />
 			<meta property="og:title" content={title} />
@@ -156,7 +156,7 @@ export function ArticleSocialMeta({
 			<meta property="og:locale" content={locale} />
 			<meta property="og:site_name" content="Beswib" />
 
-			{/* Métadonnées d'article */}
+			{/* Article metadata */}
 			<meta property="article:author" content={author} />
 			<meta property="article:published_time" content={publishedTime} />
 			{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
@@ -164,7 +164,7 @@ export function ArticleSocialMeta({
 				<meta key={index} property="article:tag" content={tag} />
 			))}
 
-			{/* Twitter pour articles */}
+			{/* Twitter for articles */}
 			<meta name="twitter:card" content="summary_large_image" />
 			<meta name="twitter:url" content={url} />
 			<meta name="twitter:title" content={title} />
