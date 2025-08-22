@@ -88,8 +88,8 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 		return NextResponse.next()
 	}
 
-	// TEMPORARY: For SEO testing, bypass Clerk completely on public pages
-	// This allows bots to crawl without Clerk authentication redirects
+	// TEMPORARY: For SEO testing, bypass ALL Clerk processing
+	// This allows bots to crawl without any Clerk authentication redirects
 	const isPublicPage =
 		pathname === '/' ||
 		pathname === '/robots.txt' ||
@@ -97,7 +97,8 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 		pathname.match(/^\/(en|fr|de|es|it|pt|nl|ro|ko)(\/.*)?$/) !== null
 
 	if (isPublicPage) {
-		// Skip all Clerk processing for public pages during SEO testing
+		// Skip ENTIRE Clerk middleware for public pages during SEO testing
+		// This bypasses all auth checks and redirects
 		return NextResponse.next()
 	}
 
