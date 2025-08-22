@@ -112,9 +112,8 @@ export async function sendNewBibNotification(
 	}
 
 	// Calculate time remaining until event
-	const calculateTimeRemaining = async (eventDate?: Date | string, locale: string = 'fr'): Promise<string> => {
-		// Import translations to get the time units
-		const { getTranslations } = await import('../lib/i18n/dictionary')
+	const calculateTimeRemaining = (eventDate?: Date | string, locale: string = 'fr'): string => {
+		// Use translations to get the time units following the same pattern as components
 		const translations = getTranslations(locale, {})
 		const timeUnits = translations.GLOBAL.timeUnits
 
