@@ -20,24 +20,28 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 }
 
 export default async function Home({ params }: { params: Promise<LocaleParams> }) {
-	// Locale will be used when components are updated for i18n 🗺️
-	await params
+	const { locale } = await params
 
 	return (
-		<div className="relative">
-			{/* Hero Section 🦸 */}
-			<HeroAlternative localeParams={params} />
-			{/* Stats Section 📊 */}
-			{/* TODO : Add stats section later */}
-			{/* <BibStats localeParams={params} /> */}
-			{/* Journey Section 🚶 */}
-			<JourneyTabs localeParams={params} />
-			{/* Features Section ✨ */}
-			<FeaturesBento localeParams={params} />
-			{/* Security Process Section 🛡️ */}
-			<SecurityProcess localeParams={params} />
-			{/* CTA Section 📣 */}
-			<BesWibCTA localeParams={params} />
-		</div>
+		<>
+			{/* SEO Structured Data */}
+			<StructuredData locale={locale} type="home" />
+
+			<div className="relative">
+				{/* Hero Section 🦸 */}
+				<HeroAlternative localeParams={params} />
+				{/* Stats Section 📊 */}
+				{/* TODO : Add stats section later */}
+				{/* <BibStats localeParams={params} /> */}
+				{/* Journey Section 🚶 */}
+				<JourneyTabs localeParams={params} />
+				{/* Features Section ✨ */}
+				<FeaturesBento localeParams={params} />
+				{/* Security Process Section 🛡️ */}
+				<SecurityProcess localeParams={params} />
+				{/* CTA Section 📣 */}
+				<BesWibCTA localeParams={params} />
+			</div>
+		</>
 	)
 }
