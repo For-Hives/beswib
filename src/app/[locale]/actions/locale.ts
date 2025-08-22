@@ -4,6 +4,7 @@ import { auth } from '@clerk/nextjs/server'
 
 import { updateUserLocale } from '@/app/[locale]/profile/actions'
 import { fetchUserByClerkId } from '@/services/user.services'
+import { i18n } from '@/lib/i18n/config'
 
 /**
  * Synchronizes user locale from cookie to database if user has no locale set
@@ -21,8 +22,7 @@ export async function syncUserLocaleFromCookie(
 		}
 
 		// Validate locale
-		const supportedLocales = ['en', 'fr', 'ko', 'es', 'it', 'de', 'ro', 'pt', 'nl']
-		if (!supportedLocales.includes(cookieLocale)) {
+		if (!i18n.locales.includes(cookieLocale as any)) {
 			return { success: false, error: 'Unsupported locale from cookie' }
 		}
 
@@ -63,8 +63,7 @@ export async function updateUserLocalePreference(locale: string): Promise<{ succ
 		}
 
 		// Validate locale
-		const supportedLocales = ['en', 'fr', 'ko', 'es', 'it', 'de', 'ro', 'pt', 'nl']
-		if (!supportedLocales.includes(locale)) {
+		if (!i18n.locales.includes(locale as any)) {
 			return { success: false, error: 'Unsupported locale' }
 		}
 
