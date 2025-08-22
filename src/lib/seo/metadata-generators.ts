@@ -15,16 +15,13 @@ import { SEO_TITLES, SEO_DESCRIPTIONS, SEO_KEYWORDS } from './constants/seo-tran
 
 // Base metadata configuration for all pages
 export function generateBaseMetadata(locale: Locale): Metadata {
-	const titles = SEO_TITLES[locale]
-	const descriptions = SEO_DESCRIPTIONS[locale]
-	const keywords = SEO_KEYWORDS[locale]
+	// Fallback to English if locale not found
+	const safeLocale = locale in SEO_TITLES ? locale : 'en'
+	const titles = SEO_TITLES[safeLocale]
+	const descriptions = SEO_DESCRIPTIONS[safeLocale]
+	const keywords = SEO_KEYWORDS[safeLocale]
 
 	return {
-		verification: {
-			yandex: 'your-yandex-verification-code',
-			yahoo: 'your-yahoo-verification-code',
-			google: 'your-google-verification-code',
-		},
 		twitter: {
 			title: titles.home,
 			site: '@beswib',
