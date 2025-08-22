@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
 			{ protocol: 'https', hostname: '*.beswib.com' },
 			{ protocol: 'https', hostname: 'cdnjs.cloudflare.com' },
 		],
+		qualities: [75, 90, 100], // Add quality configurations
 	},
 	async headers() {
 		// Using async to satisfy Next.js type requirements
