@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 			title: `${t.pages.faq.title} - ${baseMetadata.twitter?.title || 'Beswib'}`,
 			description: t.pages.faq.description,
 		},
-		title: `${t.pages.faq.title} - ${baseMetadata.title?.default || 'Beswib'}`,
+		title: `${t.pages.faq.title} - Beswib`,
 		openGraph: {
 			...baseMetadata.openGraph,
 			url: `https://beswib.com/${locale}/faq`,

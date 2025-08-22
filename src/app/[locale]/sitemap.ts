@@ -35,15 +35,15 @@ const pagePriorities = {
 
 // Fréquences de mise à jour
 const changeFreq = {
-	marketplace: 'hourly',
-	'legals/terms': 'monthly',
-	'legals/privacy': 'monthly',
-	'legals/legal-notice': 'monthly',
-	'legals/cookies': 'monthly',
-	faq: 'weekly',
-	events: 'hourly',
-	contact: 'monthly',
-	'': 'daily',
+	marketplace: 'hourly' as const,
+	'legals/terms': 'monthly' as const,
+	'legals/privacy': 'monthly' as const,
+	'legals/legal-notice': 'monthly' as const,
+	'legals/cookies': 'monthly' as const,
+	faq: 'weekly' as const,
+	events: 'hourly' as const,
+	contact: 'monthly' as const,
+	'': 'daily' as const,
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -78,7 +78,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			if (allEvents && allEvents.length > 0) {
 				for (const event of allEvents) {
 					const eventUrl = `${baseUrl}/${locale}/events/${event.id}`
-					const eventLastModified = event.updatedAt ? new Date(event.updatedAt) : new Date()
+					const eventLastModified = event.eventDate ? new Date(event.eventDate) : new Date()
 
 					sitemap.push({
 						url: eventUrl,
