@@ -1,7 +1,6 @@
 // Export all SEO utilities and components
 export * from './constants/seo-translations'
 export { default as seoLocales } from './constants/seo-locales.json'
-export * from './types'
 export * from './utils/seo-generators'
 export * from './metadata-generators'
 
