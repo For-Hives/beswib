@@ -60,10 +60,6 @@ export const metadata: Metadata = {
 		card: 'summary_large_image',
 	},
 	title: 'Beswib - Transfer Race Bibs | Buy & Sell Running, Trail, Triathlon Bibs',
-	themeColor: [
-		{ media: '(prefers-color-scheme: light)', color: '#ffffff' },
-		{ media: '(prefers-color-scheme: dark)', color: '#000000' },
-	],
 	robots: {
 		index: true,
 		googleBot: {
@@ -112,7 +108,6 @@ export const metadata: Metadata = {
 	},
 	description:
 		'Transfer race bibs safely with Beswib. Buy and sell running, trail, triathlon, and cycling race bibs. Join thousands of athletes worldwide.',
-	colorScheme: 'light dark',
 	classification: 'Race Bib Marketplace',
 	category: 'Sports & Recreation',
 	alternates: {
@@ -129,6 +124,17 @@ export const metadata: Metadata = {
 		},
 		canonical: 'https://beswib.com',
 	},
+}
+
+// Generate viewport metadata for theme and color scheme 🎨
+export function generateViewport() {
+	return {
+		themeColor: [
+			{ media: '(prefers-color-scheme: light)', color: '#ffffff' },
+			{ media: '(prefers-color-scheme: dark)', color: '#000000' },
+		],
+		colorScheme: 'light dark',
+	}
 }
 
 // Generate static params for all locales 🌐
