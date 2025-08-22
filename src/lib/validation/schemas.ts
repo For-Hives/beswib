@@ -177,42 +177,42 @@ export const analyzePasswordStrength = (password: string, locale: Locale = 'en')
 export const createRunnerFormSchema = (locale: Locale = 'en') => {
 	const t = validationTranslations[locale]
 	return v.object({
-		firstName: createNameSchema('first name', locale),
-		lastName: createNameSchema('last name', locale),
-		birthDate: v.pipe(
-			v.string(),
-			v.trim(),
-			v.nonEmpty('Birth date is required'),
-			v.minLength(10, 'Birth date is required')
-		),
-		phoneNumber: createPhoneSchema(locale, false),
-		contactEmail: v.optional(createEmailSchema(locale)),
-		emergencyContactName: v.pipe(
-			v.string(),
-			v.trim(),
-			v.nonEmpty('Emergency contact name is required'),
-			v.minLength(2, 'Contact name must be at least 2 characters')
-		),
-		emergencyContactPhone: createPhoneSchema(locale, true),
-		emergencyContactRelationship: v.pipe(
-			v.string(),
-			v.trim(),
-			v.nonEmpty('Emergency contact relationship is required'),
-			v.minLength(2, 'Please specify the relationship')
-		),
-		address: v.pipe(v.string(), v.trim(), v.nonEmpty('Address is required'), v.minLength(4, 'Address too short')),
 		postalCode: v.pipe(
 			v.string(),
 			v.trim(),
 			v.nonEmpty('Postal code is required'),
 			v.minLength(4, 'Invalid postal code')
 		),
-		city: v.pipe(v.string(), v.trim(), v.nonEmpty('City is required'), v.minLength(2, 'City name too short')),
-		country: v.pipe(v.string(), v.trim(), v.nonEmpty('Country is required'), v.minLength(2, 'Country name too short')),
-		gender: v.picklist(['male', 'female', 'other'], 'Invalid gender'),
+		phoneNumber: createPhoneSchema(locale, false),
 		medicalCertificateUrl: v.optional(v.string()),
-		clubAffiliation: v.optional(v.string()),
 		licenseNumber: v.optional(v.string()),
+		lastName: createNameSchema('last name', locale),
+		gender: v.picklist(['male', 'female', 'other'], 'Invalid gender'),
+		firstName: createNameSchema('first name', locale),
+		emergencyContactRelationship: v.pipe(
+			v.string(),
+			v.trim(),
+			v.nonEmpty('Emergency contact relationship is required'),
+			v.minLength(2, 'Please specify the relationship')
+		),
+		emergencyContactPhone: createPhoneSchema(locale, true),
+		emergencyContactName: v.pipe(
+			v.string(),
+			v.trim(),
+			v.nonEmpty('Emergency contact name is required'),
+			v.minLength(2, 'Contact name must be at least 2 characters')
+		),
+		country: v.pipe(v.string(), v.trim(), v.nonEmpty('Country is required'), v.minLength(2, 'Country name too short')),
+		contactEmail: v.optional(createEmailSchema(locale)),
+		clubAffiliation: v.optional(v.string()),
+		city: v.pipe(v.string(), v.trim(), v.nonEmpty('City is required'), v.minLength(2, 'City name too short')),
+		birthDate: v.pipe(
+			v.string(),
+			v.trim(),
+			v.nonEmpty('Birth date is required'),
+			v.minLength(10, 'Birth date is required')
+		),
+		address: v.pipe(v.string(), v.trim(), v.nonEmpty('Address is required'), v.minLength(4, 'Address too short')),
 	})
 }
 
