@@ -87,8 +87,6 @@ export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateO
 	return { transaction: tx, orderId: order.id }
 }
 
-// Types moved to src/models/sales.model
-
 // Finalize the Transaction and mark the bib as sold based on PayPal capture webhook
 export async function salesComplete(input: SalesCompleteInput): Promise<SalesCompleteOutput> {
 	const resource = input.event.resource
@@ -132,13 +130,10 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 		})
 	}
 
-	// Fire-and-forget sale alert to Discord (legacy - for backup)
 	void sendSaleAlert({ orderId, currency, bibId, amount })
 
-	// Send comprehensive admin alert email and user confirmations
 	if (found?.seller_user_id != null && bibId != null) {
 		try {
-			// Type assertion is safe here because we checked for null above
 			const sellerUserId = found.seller_user_id
 			const sellerUser = await fetchUserById(sellerUserId)
 			const bib = await fetchBibById(bibId)
