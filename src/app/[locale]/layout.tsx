@@ -45,11 +45,6 @@ const bowlbyOneSC = Bowlby_One_SC({
 })
 
 export const metadata: Metadata = {
-	verification: {
-		yandex: 'your-yandex-verification-code',
-		yahoo: 'your-yahoo-verification-code',
-		google: 'your-google-verification-code',
-	},
 	twitter: {
 		title: 'Beswib - Transfer Race Bibs | Buy & Sell Running, Trail, Triathlon Bibs',
 		site: '@beswib',
@@ -154,7 +149,6 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 
 	return (
 		<>
-			{/* Schema.org pour l'organisation */}
 			<OrganizationSchema />
 
 			<ClerkProvider
