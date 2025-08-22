@@ -15,7 +15,6 @@ export const dynamic = 'force-dynamic'
 export default async function AdminEventsPage({ params }: { params: Promise<LocaleParams> }) {
 	// Verify admin access before rendering the page
 	// This will automatically redirect if user is not authenticated or not admin
-	const { locale } = await params
 
 	// Check admin access without throwing redirect errors
 	const adminUser = await checkAdminAccess()
@@ -24,8 +23,6 @@ export default async function AdminEventsPage({ params }: { params: Promise<Loca
 	if (!adminUser) {
 		redirect(`/${locale}/auth/sign-in?redirectUrl=${encodeURIComponent(`/${locale}/admin`)}`)
 	}
-
-	const { locale } = await params
 
 	return <AdminEventsPageClient currentUser={adminUser} locale={locale} />
 }
