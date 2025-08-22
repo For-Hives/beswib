@@ -57,6 +57,3 @@ export default async function EventsPage({ params }: { params: Promise<LocalePar
 export function generateStaticParams() {
 	return generateLocaleParams()
 }
-
-// Disable static generation to avoid build failures when PocketBase is unavailable (for sitemap)
-export const dynamic = 'force-dynamic'
