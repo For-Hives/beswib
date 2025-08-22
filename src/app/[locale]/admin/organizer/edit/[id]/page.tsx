@@ -13,7 +13,7 @@ export function generateStaticParams() {
 export const dynamic = 'force-dynamic'
 
 export default async function AdminOrganizerEditPage({ params }: { params: Promise<LocaleParams & { id: string }> }) {
-	const { locale } = await params
+	const { locale, id } = await params
 
 	// Check admin access without throwing redirect errors
 	const adminUser = await checkAdminAccess()
@@ -22,8 +22,6 @@ export default async function AdminOrganizerEditPage({ params }: { params: Promi
 	if (!adminUser) {
 		redirect(`/${locale}/auth/sign-in?redirectUrl=${encodeURIComponent(`/${locale}/admin`)}`)
 	}
-
-	const { locale, id } = await params
 
 	return <AdminOrganizerEditPageClient currentUser={adminUser} locale={locale} organizerId={id} />
 }
