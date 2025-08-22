@@ -66,7 +66,6 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 		},
 		description: descriptions.home,
 		creator: 'Beswib',
-		colorScheme: 'light dark',
 		classification: 'Race Bib Marketplace',
 		category: 'Sports & Recreation',
 		authors: [{ name: 'Beswib Team' }],

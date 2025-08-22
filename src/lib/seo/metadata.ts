@@ -253,7 +253,6 @@ export function getBaseMetadataLegacy(locale: Locale): Metadata {
 		},
 		description: config.defaultDescription,
 		creator: 'Beswib',
-		colorScheme: 'light dark',
 		classification: 'Race Bib Marketplace',
 		category: 'Sports & Recreation',
 		authors: [{ name: 'Beswib Team' }],
