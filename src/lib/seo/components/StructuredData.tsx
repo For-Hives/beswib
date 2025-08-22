@@ -76,15 +76,17 @@ export function EventSchema({ organizer, locale, event }: { locale: Locale; even
 
 	// Add organizer information if available
 	if (organizer) {
-		schema.organizer = {
-			url: organizer.website || undefined,
+		const dynamicSchema = schema as any
+		dynamicSchema.organizer = {
+			...(organizer.website && { url: organizer.website }),
 			name: organizer.name,
 			'@type': 'Organization',
 		}
 	}
 
 	// Add offer information for bib transfer
-	schema.offers = {
+	const dynamicSchema = schema as any
+	dynamicSchema.offers = {
 		validFrom: new Date().toISOString(),
 		priceCurrency: 'EUR',
 		description: 'Race bib transfer service',
@@ -103,7 +105,7 @@ export function EventSchema({ organizer, locale, event }: { locale: Locale; even
 		},
 	}
 
-	return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+	return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(dynamicSchema) }} />
 }
 
 // Breadcrumb schema
