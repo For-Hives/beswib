@@ -79,7 +79,7 @@ const isPublicAuthRoute = createRouteMatcher([
 	'/(.*)/auth/forgot-password',
 ])
 
-export default clerkMiddleware(async (auth, request: NextRequest) => {
+export default async function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl
 
 	// CRITICAL: Let API routes pass through completely without any processing
@@ -88,66 +88,98 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 		return NextResponse.next()
 	}
 
-	// TEMPORARY: For SEO testing, bypass ALL Clerk processing
-	// This allows bots to crawl without any Clerk authentication redirects
+	// Handle root page redirection BEFORE Clerk middleware
+	// This ensures bots get redirected to /en before Clerk can interfere
+	if (pathname === '/') {
+		const acceptLanguage = request.headers.get('accept-language') ?? 'en'
+		const preferredLanguage = acceptLanguage.split(',')[0]?.split('-')[0] ?? 'en'
+
+		const languageMap: Record<string, string> = {
+			ro: 'ro',
+			pt: 'pt',
+			nl: 'nl',
+			ko: 'ko',
+			it: 'it',
+			fr: 'fr',
+			es: 'es',
+			en: 'en',
+			de: 'de',
+		}
+
+		const targetLocale = languageMap[preferredLanguage] ?? 'en'
+		const redirectUrl = new URL(`/${targetLocale}`, request.url)
+
+		console.info('🌐 Redirecting / to:', redirectUrl.pathname)
+		return NextResponse.redirect(redirectUrl)
+	}
+
+	// Handle other public pages (robots.txt, sitemap.xml, etc.)
+	if (pathname === '/robots.txt' || pathname === '/sitemap.xml') {
+		return NextResponse.next()
+	}
+
+	// Check if this is a public page that should bypass Clerk completely
+	// This includes all locale home pages and public content pages
 	const isPublicPage =
-		pathname === '/' || // Root page redirects to /en
-		pathname === '/robots.txt' ||
-		pathname === '/sitemap.xml' ||
-		pathname.match(/^\/(en|fr|de|es|it|pt|nl|ro|ko)(\/.*)?$/) !== null
+		pathname.match(/^\/(en|fr|de|es|it|pt|nl|ro|ko)$/) !== null || // Home pages in all locales
+		pathname.match(/^\/(en|fr|de|es|it|pt|nl|ro|ko)\/(events|marketplace|faq|contact|legals)(.*)$/) !== null // Public content pages
 
 	if (isPublicPage) {
-		// Skip ENTIRE Clerk middleware for public pages during SEO testing
-		// This bypasses all auth checks and redirects
+		console.info('🚫 Bypassing Clerk for public page:', pathname)
 		return NextResponse.next()
 	}
 
-	// Check if there is any supported locale in the pathname 🗺️
-	const pathnameHasLocale =
-		(i18n?.locales as readonly string[])?.some(
-			locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-		) ?? false
+	// For all other routes, apply Clerk middleware
+	return clerkMiddleware(async (auth, req: NextRequest) => {
+		const { pathname: reqPathname } = req.nextUrl
 
-	if (!pathnameHasLocale) {
-		// Redirect if there is no locale - use smart locale detection 🧠
-		const locale = getLocaleFromRequest(request)
-		request.nextUrl.pathname = `/${locale}${pathname}`
-		return NextResponse.redirect(request.nextUrl)
-	}
+		// Check if there is any supported locale in the pathname 🗺️
+		const pathnameHasLocale =
+			(i18n?.locales as readonly string[])?.some(
+				locale => reqPathname.startsWith(`/${locale}/`) || reqPathname === `/${locale}`
+			) ?? false
 
-	// Extract locale from pathname for proper redirects
-	const currentLocale =
-		(i18n?.locales as readonly string[])?.find(
-			locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-		) ??
-		i18n?.defaultLocale ??
-		'en'
+		if (!pathnameHasLocale) {
+			// Redirect if there is no locale - use smart locale detection 🧠
+			const locale = getLocaleFromRequest(req)
+			req.nextUrl.pathname = `/${locale}${reqPathname}`
+			return NextResponse.redirect(req.nextUrl)
+		}
 
-	// For public routes, don't force authentication but still get auth context
-	if (isPublicRoute(request) && !isProtectedRoute(request)) {
-		// Let public pages access auth state without forcing authentication
-		// This allows bots to crawl and users to see content
+		// Extract locale from pathname for proper redirects
+		const currentLocale =
+			(i18n?.locales as readonly string[])?.find(
+				locale => reqPathname.startsWith(`/${locale}/`) || reqPathname === `/${locale}`
+			) ??
+			i18n?.defaultLocale ??
+			'en'
+
+		// For public routes, don't force authentication but still get auth context
+		if (isPublicRoute(req) && !isProtectedRoute(req)) {
+			// Let public pages access auth state without forcing authentication
+			// This allows bots to crawl and users to see content
+			return NextResponse.next()
+		}
+
+		// Skip auth for robots.txt and other static files
+		if (reqPathname.startsWith('/robot') || reqPathname.includes('.')) {
+			return NextResponse.next()
+		}
+
+		// Protect routes that require authentication
+		if (isProtectedRoute(req)) {
+			await auth.protect()
+		}
+
+		// Redirect authenticated users away from auth pages
+		const { userId } = await auth()
+		if (isPublicAuthRoute(req) && typeof userId === 'string' && userId.length > 0) {
+			return NextResponse.redirect(new URL(`/${currentLocale}/dashboard`, req.url))
+		}
+
 		return NextResponse.next()
-	}
-
-	// Skip auth for robots.txt and other static files
-	if (pathname.startsWith('/robot') || pathname.includes('.')) {
-		return NextResponse.next()
-	}
-
-	// Protect routes that require authentication
-	if (isProtectedRoute(request)) {
-		await auth.protect()
-	}
-
-	// Redirect authenticated users away from auth pages
-	const { userId } = await auth()
-	if (isPublicAuthRoute(request) && typeof userId === 'string' && userId.length > 0) {
-		return NextResponse.redirect(new URL(`/${currentLocale}/dashboard`, request.url))
-	}
-
-	return NextResponse.next()
-})
+	})(request)
+}
 
 export const config = {
 	matcher: [
