@@ -13,8 +13,8 @@ import {
 import MarketplaceClient from '@/components/marketplace/MarketplaceClient'
 import { generateLocaleParams } from '@/lib/generation/staticParams'
 import { transformBibsToBibSales } from '@/lib/transformers/bib'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { getMarketplaceMetadata } from '@/lib/seo/metadata'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import marketplaceTranslations from './locales.json'
 

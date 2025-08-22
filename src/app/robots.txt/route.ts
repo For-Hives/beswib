@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
-  const baseUrl = 'https://beswib.com'
-  
-  const robotsTxt = `# Beswib - Robots.txt
+	const baseUrl = 'https://beswib.com'
+
+	const robotsTxt = `# Beswib - Robots.txt
 # Marketplace de transfert de dossards de course
 
 # User-agent: *
@@ -193,10 +193,10 @@ Crawl-delay: 1
 # Langues: EN, FR, DE, ES, IT, PT, NL, RO, KO
 `
 
-  return new NextResponse(robotsTxt, {
-    headers: {
-      'Content-Type': 'text/plain',
-      'Cache-Control': 'public, max-age=3600, s-maxage=86400',
-    },
-  })
+	return new NextResponse(robotsTxt, {
+		headers: {
+			'Content-Type': 'text/plain',
+			'Cache-Control': 'public, max-age=3600, s-maxage=86400',
+		},
+	})
 }
