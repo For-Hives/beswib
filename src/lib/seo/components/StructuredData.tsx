@@ -73,29 +73,32 @@ export function WebsiteSchema({ locale }: { locale: Locale }) {
 // Event schema
 export function EventSchema({ organizer, locale, event }: { locale: Locale; event: Event; organizer?: Organizer }) {
 	const schema = generateEventStructuredData(locale, event)
+	const dynamicSchema = schema as Record<string, unknown>
 
 	// Add organizer information if available
 	if (organizer) {
-		const dynamicSchema = schema as any
 		dynamicSchema.organizer = {
-			...(organizer.website && { url: organizer.website }),
+			...(organizer.website !== null &&
+				organizer.website !== undefined &&
+				organizer.website.length > 0 && { url: organizer.website }),
 			name: organizer.name,
 			'@type': 'Organization',
 		}
 	}
 
 	// Add offer information for bib transfer
-	const dynamicSchema = schema as any
 	dynamicSchema.offers = {
 		validFrom: new Date().toISOString(),
 		priceCurrency: 'EUR',
 		description: 'Race bib transfer service',
 		availability: 'https://schema.org/InStock',
 		'@type': 'Offer',
-		...(event.transferDeadline && {
-			validThrough: new Date(event.transferDeadline).toISOString(),
-		}),
-		...(event.officialStandardPrice &&
+		...(event.transferDeadline !== null &&
+			event.transferDeadline !== undefined && {
+				validThrough: new Date(event.transferDeadline).toISOString(),
+			}),
+		...(event.officialStandardPrice !== null &&
+			event.officialStandardPrice !== undefined &&
 			event.officialStandardPrice > 0 && {
 				price: event.officialStandardPrice,
 			}),

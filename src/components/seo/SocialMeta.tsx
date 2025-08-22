@@ -18,12 +18,11 @@ export default function SocialMeta({
 	title,
 	locale,
 	image,
-	facebookAppId,
 	description,
 }: SocialMetaProps) {
 	return (
 		<Head>
-			{/* Open Graph / Facebook */}
+			{/* Open Graph  */}
 			<meta property="og:type" content={type} />
 			<meta property="og:url" content={url} />
 			<meta property="og:title" content={title} />
@@ -34,9 +33,6 @@ export default function SocialMeta({
 			<meta property="og:image:alt" content={title} />
 			<meta property="og:locale" content={locale} />
 			<meta property="og:site_name" content="Beswib" />
-
-			{/* Facebook App ID */}
-			{facebookAppId && <meta property="fb:app_id" content={facebookAppId} />}
 
 			{/* Twitter */}
 			<meta name="twitter:card" content="summary_large_image" />
@@ -159,7 +155,9 @@ export function ArticleSocialMeta({
 			{/* Article metadata */}
 			<meta property="article:author" content={author} />
 			<meta property="article:published_time" content={publishedTime} />
-			{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+			{modifiedTime !== null && modifiedTime !== undefined && (
+				<meta property="article:modified_time" content={modifiedTime} />
+			)}
 			{tags?.map((tag, index) => (
 				<meta key={index} property="article:tag" content={tag} />
 			))}

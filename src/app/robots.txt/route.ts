@@ -1,19 +1,19 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
-export async function GET(request: NextRequest) {
+export function GET() {
 	const baseUrl = 'https://beswib.com'
 
 	const robotsTxt = `# Beswib - Robots.txt
-# Marketplace de transfert de dossards de course
+# Race bib transfer service
 
 # User-agent: *
 User-agent: *
 Allow: /
 
-# Sitemaps pour toutes les langues
+# Sitemaps for all locales
 Sitemap: ${baseUrl}/sitemap.xml
 
-# Sitemaps spécifiques par langue
+# Sitemaps for all locales
 Sitemap: ${baseUrl}/en/sitemap.xml
 Sitemap: ${baseUrl}/fr/sitemap.xml
 Sitemap: ${baseUrl}/de/sitemap.xml
@@ -24,7 +24,7 @@ Sitemap: ${baseUrl}/nl/sitemap.xml
 Sitemap: ${baseUrl}/ro/sitemap.xml
 Sitemap: ${baseUrl}/ko/sitemap.xml
 
-# Pages importantes à indexer
+# Important pages to index
 Allow: /en/
 Allow: /fr/
 Allow: /de/
@@ -35,7 +35,7 @@ Allow: /nl/
 Allow: /ro/
 Allow: /ko/
 
-# Pages d'événements
+# Events pages
 Allow: /en/events/
 Allow: /fr/events/
 Allow: /de/events/
@@ -57,7 +57,7 @@ Allow: /nl/marketplace/
 Allow: /ro/marketplace/
 Allow: /ko/marketplace/
 
-# FAQ et pages d'information
+# FAQ and information pages
 Allow: /en/faq/
 Allow: /fr/faq/
 Allow: /de/faq/
@@ -68,7 +68,7 @@ Allow: /nl/faq/
 Allow: /ro/faq/
 Allow: /ko/faq/
 
-# Pages légales
+# Legal pages
 Allow: /en/legals/
 Allow: /fr/legals/
 Allow: /de/legals/
@@ -79,7 +79,7 @@ Allow: /nl/legals/
 Allow: /ro/legals/
 Allow: /ko/legals/
 
-# Pages de contact
+# Contact pages
 Allow: /en/contact/
 Allow: /fr/contact/
 Allow: /de/contact/
@@ -90,7 +90,7 @@ Allow: /nl/contact/
 Allow: /ro/contact/
 Allow: /ko/contact/
 
-# Bloquer les pages sensibles
+# Block sensitive pages
 Disallow: /admin/
 Disallow: /api/
 Disallow: /dashboard/
@@ -101,53 +101,53 @@ Disallow: /error/
 Disallow: /_next/
 Disallow: /static/
 
-# Bloquer les paramètres d'URL sensibles
+# Block sensitive URL parameters
 Disallow: /*?waitlist_error=*
 Disallow: /*?waitlist_success=*
 Disallow: /*?email=*
 Disallow: /*?error=*
 Disallow: /*?success=*
 
-# Bloquer les fichiers de développement
+# Block development files
 Disallow: /*.map
 Disallow: /*.js.map
 Disallow: /*.css.map
 
-# Bloquer les fichiers de cache
+# Block cache files
 Disallow: /_next/static/
 Disallow: /_next/image/
 
-# Bloquer les endpoints d'API sensibles
+# Block sensitive API endpoints
 Disallow: /api/auth/
 Disallow: /api/webhooks/
 Disallow: /api/admin/
 
-# Configuration pour Googlebot
+# Googlebot configuration
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
 
-# Configuration pour Bingbot
+# Bingbot configuration
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
-# Configuration pour DuckDuckBot
+# DuckDuckBot configuration
 User-agent: DuckDuckBot
 Allow: /
 Crawl-delay: 1
 
-# Configuration pour Yandex
+# Yandex configuration
 User-agent: Yandex
 Allow: /
 Crawl-delay: 1
 
-# Configuration pour Baiduspider
+# Baiduspider configuration
 User-agent: Baiduspider
 Allow: /
 Crawl-delay: 2
 
-# Configuration pour les bots de réseaux sociaux
+# Social media bots configuration
 User-agent: facebookexternalhit
 Allow: /
 Crawl-delay: 1
@@ -160,7 +160,7 @@ User-agent: LinkedInBot
 Allow: /
 Crawl-delay: 1
 
-# Configuration pour les bots d'analyse
+# Analysis bots configuration
 User-agent: AhrefsBot
 Allow: /
 Crawl-delay: 2
@@ -173,7 +173,10 @@ User-agent: MJ12bot
 Allow: /
 Crawl-delay: 2
 
-# Bloquer les bots malveillants
+# Crawl delay
+Crawl-delay: 1
+
+# Other bots 
 User-agent: *
 Disallow: /admin/
 Disallow: /api/
@@ -182,17 +185,25 @@ Disallow: /profile/
 Disallow: /auth/
 Disallow: /purchase/
 Disallow: /error/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /*?waitlist_error=*
+Disallow: /*?waitlist_success=*
+Disallow: /*?email=*
+Disallow: /*?error=*
+Disallow: /*?success=*
+Disallow: /*.map
+Disallow: /*.js.map
+Disallow: /*.css.map
+Disallow: /_next/static/
+Disallow: /_next/image/
 
-# Paramètres de crawl
-Crawl-delay: 1
-
-# Informations sur le site
+# Site information
 # Site: ${baseUrl}
 # Contact: contact@beswib.com
-# Description: Marketplace de transfert de dossards de course (running, trail, triathlon, cyclisme)
-# Langues: EN, FR, DE, ES, IT, PT, NL, RO, KO
+# Description: Race bib transfer service (running, trail, triathlon, cycling)
+# Languages: EN, FR, DE, ES, IT, PT, NL, RO, KO
 `
-
 	return new NextResponse(robotsTxt, {
 		headers: {
 			'Content-Type': 'text/plain',
