@@ -135,7 +135,7 @@ export async function GET() {
 	for (const entry of sitemap) {
 		xml += '  <url>\n'
 		xml += `    <loc>${entry.url}</loc>\n`
-		xml += `    <lastmod>${entry.lastModified.toISOString()}</lastmod>\n`
+		xml += `    <lastmod>${entry.lastModified != null ? new Date(entry.lastModified).toISOString() : new Date().toISOString()}</lastmod>\n`
 		xml += `    <changefreq>${entry.changeFrequency}</changefreq>\n`
 		xml += `    <priority>${entry.priority}</priority>\n`
 
