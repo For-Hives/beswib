@@ -130,8 +130,8 @@ function customMiddleware(request: NextRequest) {
 		return NextResponse.next()
 	}
 
-	// For all other routes, let Clerk handle them
-	return NextResponse.next()
+	// For all other routes, let Clerk handle them (don't bypass)
+	return null
 }
 
 // Export the Clerk middleware wrapped with our custom logic
@@ -165,8 +165,20 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 		i18n?.defaultLocale ??
 		'en'
 
+	// CRITICAL: Protect routes that require authentication FIRST
+	if (isProtectedRoute(request)) {
+		console.info('🔒 Protecting route:', pathname)
+		const { userId } = await auth()
+		if (typeof userId !== 'string' || userId.length === 0) {
+			console.info('🔒 No user ID, redirecting to sign-in')
+			const signInUrl = new URL(`/${currentLocale}/auth/sign-in`, request.url)
+			return NextResponse.redirect(signInUrl)
+		}
+		return NextResponse.next()
+	}
+
 	// For public routes, don't force authentication but still get auth context
-	if (isPublicRoute(request) && !isProtectedRoute(request)) {
+	if (isPublicRoute(request)) {
 		// Let public pages access auth state without forcing authentication
 		// This allows bots to crawl and users to see content
 		return NextResponse.next()
@@ -175,11 +187,6 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 	// Skip auth for robots.txt and other static files
 	if (pathname.startsWith('/robot') || pathname.includes('.')) {
 		return NextResponse.next()
-	}
-
-	// Protect routes that require authentication
-	if (isProtectedRoute(request)) {
-		await auth.protect()
 	}
 
 	// Redirect authenticated users away from auth pages
