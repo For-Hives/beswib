@@ -3,7 +3,7 @@ import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 
 import { EventSocialMeta } from './SocialMeta'
-import { EventSchema } from './EventSchema'
+import EventSchema from './EventSchema'
 
 interface EventPageSEOProps {
 	event: Event
@@ -93,15 +93,15 @@ export default function EventPageSEO({ organizer, locale, event }: EventPageSEOP
 			'cycling event',
 		]
 
-		if (event.distanceKm) {
+		if (event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0) {
 			baseKeywords.push(`${event.distanceKm}km`, 'distance running')
 		}
 
-		if (event.elevationGainM) {
+		if (event.elevationGainM !== null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
 			baseKeywords.push('elevation gain', 'mountain running')
 		}
 
-		if (event.participants) {
+		if (event.participants !== null && event.participants !== undefined && event.participants > 0) {
 			baseKeywords.push('participants', 'race capacity')
 		}
 
@@ -116,11 +116,11 @@ export default function EventPageSEO({ organizer, locale, event }: EventPageSEOP
 			description += ` ${event.description}`
 		}
 
-		if (event.distanceKm) {
+		if (event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0) {
 			description += ` ${event.distanceKm}km course.`
 		}
 
-		if (event.elevationGainM) {
+		if (event.elevationGainM !== null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
 			description += ` ${event.elevationGainM}m elevation gain.`
 		}
 
@@ -137,7 +137,7 @@ export default function EventPageSEO({ organizer, locale, event }: EventPageSEOP
 			title += ` in ${event.location}`
 		}
 
-		if (event.distanceKm) {
+		if (event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0) {
 			title += ` (${event.distanceKm}km)`
 		}
 
@@ -146,58 +146,71 @@ export default function EventPageSEO({ organizer, locale, event }: EventPageSEOP
 		return title
 	}
 
+	// Use the generated title for metadata
+	const eventTitle = generateEventTitle()
+
 	return (
 		<>
-			{/* Schema.org structuré pour l'événement */}
+			{/* Structured Schema.org for the event */}
 			<EventSchema event={event} organizer={organizer} locale={locale} />
 
-			{/* Métadonnées pour les réseaux sociaux */}
+			{/* Social media metadata */}
 			<EventSocialMeta
 				eventName={event.name}
 				eventDescription={generateEventDescription()}
-				eventImage={event.imageUrl ?? '/og-image.jpg'}
+				eventImage={'/placeholder-og-image.jpg'} // TODO: OG IMAGE - Add imageUrl property to Event model
 				eventUrl={`https://beswib.com/${locale}/events/${event.id}`}
 				locale={locale}
 				eventDate={eventDate.toISOString()}
 				eventLocation={event.location}
 			/>
 
-			{/* Métadonnées HTML supplémentaires pour le SEO */}
+			{/* Additional HTML metadata for SEO */}
 			<meta name="keywords" content={generateEventKeywords()} />
+			<meta name="description" content={generateEventDescription()} />
+			<meta name="title" content={eventTitle} />
 			<meta name="author" content="Beswib" />
 			<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
-			{/* Métadonnées spécifiques aux événements sportifs */}
+			{/* Sports event specific metadata */}
 			<meta name="event:start_time" content={eventDate.toISOString()} />
 			<meta name="event:end_time" content={eventDate.toISOString()} />
 			<meta name="event:location" content={event.location} />
 			<meta name="event:type" content="sports_event" />
 
-			{/* Métadonnées de localisation */}
+			{/* Location metadata */}
 			<meta name="geo.region" content="FR" />
 			<meta name="geo.placename" content={event.location} />
 
-			{/* Métadonnées de catégorisation */}
+			{/* Categorization metadata */}
 			<meta name="category" content="Sports & Recreation" />
 			<meta name="subcategory" content={courseType} />
 
-			{/* Métadonnées de prix (si disponible) */}
-			{event.officialStandardPrice && (
-				<>
-					<meta name="product:price:amount" content={event.officialStandardPrice.toString()} />
-					<meta name="product:price:currency" content="EUR" />
-				</>
+			{/* Price metadata (if available) */}
+			{event.officialStandardPrice !== null &&
+				event.officialStandardPrice !== undefined &&
+				event.officialStandardPrice > 0 && (
+					<>
+						<meta name="product:price:amount" content={event.officialStandardPrice.toString()} />
+						<meta name="product:price:currency" content="EUR" />
+					</>
+				)}
+
+			{/* Distance and elevation metadata */}
+			{event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0 && (
+				<meta name="distance" content={`${event.distanceKm}km`} />
 			)}
 
-			{/* Métadonnées de distance et d'élévation */}
-			{event.distanceKm && <meta name="distance" content={`${event.distanceKm}km`} />}
+			{event.elevationGainM !== null && event.elevationGainM !== undefined && event.elevationGainM > 0 && (
+				<meta name="elevation" content={`${event.elevationGainM}m`} />
+			)}
 
-			{event.elevationGainM && <meta name="elevation" content={`${event.elevationGainM}m`} />}
+			{/* Capacity metadata */}
+			{event.participants !== null && event.participants !== undefined && event.participants > 0 && (
+				<meta name="capacity" content={event.participants.toString()} />
+			)}
 
-			{/* Métadonnées de capacité */}
-			{event.participants && <meta name="capacity" content={event.participants.toString()} />}
-
-			{/* Métadonnées de deadline de transfert */}
+			{/* Transfer deadline metadata */}
 			{event.transferDeadline && (
 				<meta name="transfer_deadline" content={new Date(event.transferDeadline).toISOString()} />
 			)}

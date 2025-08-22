@@ -94,7 +94,7 @@ export default function EventSchema({ organizer, locale, event }: EventSchemaPro
 		},
 		organizer: organizer
 			? {
-					url: organizer.website || undefined,
+					url: organizer.website ?? undefined,
 					name: organizer.name,
 					'@type': 'Organization',
 				}
@@ -133,38 +133,41 @@ export default function EventSchema({ organizer, locale, event }: EventSchemaPro
 		'@context': 'https://schema.org',
 	}
 
-	// Add conditional properties
-	if (event.distanceKm) {
-		schema['distance'] = {
+	// Add conditional properties with proper typing
+	const dynamicSchema: Record<string, unknown> = { ...schema }
+
+	if (event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0) {
+		dynamicSchema['distance'] = {
 			value: event.distanceKm,
 			unitCode: 'KMT',
 			'@type': 'QuantitativeValue',
 		}
 	}
 
-	if (event.elevationGainM) {
-		schema['elevation'] = {
+	if (event.elevationGainM !== null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
+		dynamicSchema['elevation'] = {
 			value: event.elevationGainM,
 			unitCode: 'MTR',
 			'@type': 'QuantitativeValue',
 		}
 	}
 
-	if (event.participants) {
-		schema['maximumAttendeeCapacity'] = event.participants
+	if (event.participants !== null && event.participants !== undefined && event.participants > 0) {
+		dynamicSchema['maximumAttendeeCapacity'] = event.participants
 	}
 
-	if (event.parcoursUrl) {
-		schema['courseMap'] = event.parcoursUrl
+	if (event.parcoursUrl !== null && event.parcoursUrl !== undefined && event.parcoursUrl.length > 0) {
+		dynamicSchema['courseMap'] = event.parcoursUrl
 	}
 
-	if (event.bibPickupLocation) {
-		schema['location']['additionalProperty'] = {
+	if (event.bibPickupLocation !== null && event.bibPickupLocation !== undefined && event.bibPickupLocation.length > 0) {
+		const locationSchema = dynamicSchema['location'] as Record<string, unknown>
+		locationSchema['additionalProperty'] = {
 			value: event.bibPickupLocation,
 			name: 'Bib Pickup Location',
 			'@type': 'PropertyValue',
 		}
 	}
 
-	return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+	return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(dynamicSchema) }} />
 }
