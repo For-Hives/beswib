@@ -212,9 +212,8 @@ export async function fetchWaitlistEmailsWithLocalesForEvent(
 		}
 
 		return emailsWithLocales
-	} catch (error: unknown) {
-		console.error(`Error fetching waitlist emails with locales for event "${eventId}":`, error)
-		return []
+	} catch (error) {
+		throw new Error(error instanceof Error ? error.message : String(error))
 	}
 }
 
