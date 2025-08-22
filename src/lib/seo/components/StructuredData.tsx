@@ -6,32 +6,38 @@ import structuredDataTranslations from './structuredData.locales.json'
 import { generateEventStructuredData } from '../utils/seo-generators'
 
 // Organization schema for Beswib
-export function OrganizationSchema() {
+export function OrganizationSchema({ locale }: { locale: Locale }) {
+	const t = structuredDataTranslations[locale]?.organization ?? structuredDataTranslations.en.organization
+
 	const schema = {
 		url: 'https://beswib.com',
-		serviceType: 'Race Bib Transfer Marketplace',
-		sameAs: ['https://twitter.com/beswib', 'https://instagram.com/beswib', 'https://linkedin.com/company/beswib'],
+		serviceType: t.serviceType,
+		sameAs: [
+			'https://www.instagram.com/beswib_official',
+			'https://www.linkedin.com/company/beswib',
+			'https://strava.app.link/3wlVkUjzlUb',
+		],
 		name: 'Beswib',
 		logo: {
-			width: 200,
+			width: t.logo.width,
 			url: 'https://beswib.com/beswib.svg',
-			height: 50,
+			height: t.logo.height,
 			'@type': 'ImageObject',
 		},
-		foundingDate: '2023',
+		foundingDate: t.foundingDate,
 		founder: {
-			name: 'Beswib Team',
-			'@type': 'Organization',
+			name: t.founder,
+			'@type': 'Person',
 		},
-		description: 'Safe and secure race bib transfer marketplace for running, trail, triathlon and cycling events.',
+		description: t.description,
 		contactPoint: {
-			email: 'support@beswib.com',
+			email: t.contactEmail,
 			contactType: 'customer service',
 			availableLanguage: ['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko'],
 			'@type': 'ContactPoint',
 		},
 		areaServed: {
-			name: 'Worldwide',
+			name: t.areaServed,
 			'@type': 'Country',
 		},
 		address: {
@@ -47,6 +53,8 @@ export function OrganizationSchema() {
 
 // Website schema
 export function WebsiteSchema({ locale }: { locale: Locale }) {
+	const t = structuredDataTranslations[locale]?.website ?? structuredDataTranslations.en.website
+
 	const schema = {
 		url: `https://beswib.com${locale === 'en' ? '' : `/${locale}`}`,
 		publisher: {
@@ -63,7 +71,7 @@ export function WebsiteSchema({ locale }: { locale: Locale }) {
 		},
 		name: 'Beswib',
 		inLanguage: locale,
-		description: 'Transfer race bibs safely. Buy and sell running, trail, triathlon and cycling race bibs.',
+		description: t.description,
 		'@type': 'WebSite',
 		'@context': 'https://schema.org',
 	}
@@ -88,10 +96,12 @@ export function EventSchema({ organizer, locale, event }: { locale: Locale; even
 	}
 
 	// Add offer information for bib transfer
+	const eventT = structuredDataTranslations[locale]?.event ?? structuredDataTranslations.en.event
+
 	dynamicSchema.offers = {
 		validFrom: new Date().toISOString(),
 		priceCurrency: 'EUR',
-		description: 'Race bib transfer service',
+		description: eventT.transferService,
 		availability: 'https://schema.org/InStock',
 		'@type': 'Offer',
 		...(event.transferDeadline !== null &&
@@ -148,6 +158,8 @@ export function FAQSchema({ faqs }: { faqs: Array<{ question: string; answer: st
 
 // Service schema for race bib transfer marketplace
 export function ServiceSchema({ locale }: { locale: Locale }) {
+	const t = structuredDataTranslations[locale]?.service ?? structuredDataTranslations.en.service
+
 	const schema = {
 		serviceType: 'Race Bib Transfer',
 		provider: {
@@ -155,7 +167,7 @@ export function ServiceSchema({ locale }: { locale: Locale }) {
 			name: 'Beswib',
 			'@type': 'Organization',
 		},
-		name: 'Race Bib Transfer Service',
+		name: t.name,
 		hasOfferCatalog: {
 			name: 'Race Bib Marketplace',
 			itemListElement: {
@@ -167,8 +179,8 @@ export function ServiceSchema({ locale }: { locale: Locale }) {
 			},
 			'@type': 'OfferCatalog',
 		},
-		description: 'Safe and secure transfer of race bibs for running, trail, triathlon and cycling events.',
-		category: 'Sports & Recreation',
+		description: t.description,
+		category: t.category,
 		availableChannel: {
 			serviceUrl: `https://beswib.com${locale === 'en' ? '' : `/${locale}`}`,
 			processingTime: 'P1D', // 1 day processing time
@@ -205,7 +217,7 @@ export function StructuredData({
 	return (
 		<>
 			{/* Always include organization and website schemas */}
-			<OrganizationSchema />
+			<OrganizationSchema locale={locale} />
 			<WebsiteSchema locale={locale} />
 
 			{/* Type-specific schemas */}
