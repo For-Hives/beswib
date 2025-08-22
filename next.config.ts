@@ -127,10 +127,6 @@ const nextConfig: NextConfig = {
 			`form-action 'self'`,
 		].join('; ')
 
-		// Only apply restrictive headers in development environment
-		const isDevelopment = process.env.NODE_ENV === 'development'
-		const isLocalhost = process.env.VERCEL_URL === undefined
-
 		return [
 			{
 				source: '/(.*)',
