@@ -55,18 +55,20 @@ export default function CustomSignIn() {
 		if (typeof message === 'string') {
 			const m = message.toLowerCase()
 			if (m.includes('password') && m.includes('incorrect'))
-				return errorsT?.form_password_incorrect ?? 'Incorrect password'
-			if (m.includes('email') && m.includes('not found')) return errorsT?.form_identifier_not_found ?? 'Email not found'
+				return (errorsT?.form_password_incorrect as string) ?? 'Incorrect password'
+			if (m.includes('email') && m.includes('not found'))
+				return (errorsT?.form_identifier_not_found as string) ?? 'Email not found'
 			if (m.includes('already exists') || m.includes('already taken'))
-				return errorsT?.form_identifier_exists ?? 'Email already exists'
+				return (errorsT?.form_identifier_exists as string) ?? 'Email already exists'
 			if (m.includes('verification') && m.includes('code'))
-				return errorsT?.form_code_incorrect ?? 'Incorrect verification code'
-			if (m.includes('expired')) return errorsT?.verification_expired ?? 'Code expired'
-			if (m.includes('rate limit') || m.includes('too many')) return errorsT?.too_many_requests ?? 'Too many requests'
+				return (errorsT?.form_code_incorrect as string) ?? 'Incorrect verification code'
+			if (m.includes('expired')) return (errorsT?.verification_expired as string) ?? 'Code expired'
+			if (m.includes('rate limit') || m.includes('too many'))
+				return (errorsT?.too_many_requests as string) ?? 'Too many requests'
 			return message
 		}
 
-		return errorsT?.default_error ?? 'An error occurred. Please try again.'
+		return (errorsT?.default_error as string) ?? 'An error occurred. Please try again.'
 	}
 
 	// Local state instead of global store

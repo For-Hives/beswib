@@ -44,11 +44,11 @@ export default function Breadcrumbs({ locale, items, className = '' }: Breadcrum
 				{/* Navigation items */}
 				{items.map((item, index) => (
 					<li key={index}>
-						{item.current ? (
+						{item.current === true ? (
 							<span className="text-foreground font-medium" aria-current="page">
 								{item.label}
 							</span>
-						) : item.href ? (
+						) : item.href !== null && item.href !== undefined && item.href.length > 0 ? (
 							<Link href={item.href} className="hover:text-foreground transition-colors">
 								{item.label}
 							</Link>
