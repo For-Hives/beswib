@@ -29,19 +29,19 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 		...baseMetadata,
 		twitter: {
 			...baseMetadata.twitter,
-			title: `${t.pages.faq.title} - ${baseMetadata.twitter?.title || 'Beswib'}`,
+			title: `${t.pages.faq.title} - ${baseMetadata.twitter?.title ?? 'Beswib'}`,
 			description: t.pages.faq.description,
 		},
 		title: `${t.pages.faq.title} - Beswib`,
 		openGraph: {
 			...baseMetadata.openGraph,
 			url: `https://beswib.com/${locale}/faq`,
-			title: `${t.pages.faq.title} - ${baseMetadata.openGraph?.title || 'Beswib'}`,
+			title: `${t.pages.faq.title} - ${baseMetadata.openGraph?.title ?? 'Beswib'}`,
 			description: t.pages.faq.description,
 		},
 		description: t.pages.faq.description,
 		alternates: {
-			languages: baseMetadata.alternates?.languages || {},
+			languages: baseMetadata.alternates?.languages ?? {},
 			canonical: `https://beswib.com/${locale}/faq`,
 		},
 	}
