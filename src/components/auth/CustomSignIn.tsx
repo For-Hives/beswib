@@ -24,10 +24,9 @@ export default function CustomSignIn() {
 	const router = useRouter()
 	const params = useParams()
 	const locale = (params?.locale as Locale) || 'en'
-	type AuthSection = (typeof mainLocales)['en']['auth']
 	const translations = getTranslations(locale, mainLocales)
-	const t = translations.auth as AuthSection
-	const errorsT = translations.GLOBAL?.errors as Record<string, string> | undefined
+	const t = translations.auth
+	const errorsT = translations.GLOBAL?.errors
 
 	function translateClerkErrorLocal(error: unknown): string {
 		const e = (error ?? {}) as Partial<{
