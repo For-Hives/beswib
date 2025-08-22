@@ -138,7 +138,8 @@ function customMiddleware(request: NextRequest) {
 export default clerkMiddleware(async (auth, request: NextRequest) => {
 	// First, run our custom middleware logic
 	const customResponse = customMiddleware(request)
-	if (customResponse !== NextResponse.next()) {
+	// If custom middleware returned a concrete response, short-circuit
+	if (customResponse !== null) {
 		return customResponse
 	}
 
