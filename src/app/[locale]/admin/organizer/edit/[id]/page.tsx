@@ -1,4 +1,5 @@
-import { requireAdminAccess } from '@/guard/adminGuard'
+import { redirect } from 'next/navigation'
+import { checkAdminAccess } from '@/guard/adminGuard'
 
 import AdminOrganizerEditPageClient from '@/components/admin/organizer/AdminOrganizerEditPageClient'
 import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
@@ -14,7 +15,15 @@ export const dynamic = 'force-dynamic'
 export default async function AdminOrganizerEditPage({ params }: { params: Promise<LocaleParams & { id: string }> }) {
 	// Verify admin access before rendering the page
 	// This will automatically redirect if user is not authenticated or not admin
-	const adminUser = await requireAdminAccess()
+	const { locale } = await params
+	
+	// Check admin access without throwing redirect errors
+	const adminUser = await checkAdminAccess()
+	
+	// Handle redirection manually if not admin
+	if (!adminUser) {
+		redirect(`/${locale}/auth/sign-in?redirectUrl=${encodeURIComponent(`/${locale}/admin`)}`)
+	}
 
 	const { locale, id } = await params
 

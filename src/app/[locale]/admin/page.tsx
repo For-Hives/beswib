@@ -1,4 +1,5 @@
-import { requireAdminAccess } from '@/guard/adminGuard'
+import { checkAdminAccess } from '@/guard/adminGuard'
+import { redirect } from 'next/navigation'
 
 import AdminDashboardClient from '@/components/admin/dashboard/AdminDashboardClient'
 import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
@@ -12,11 +13,15 @@ export function generateStaticParams() {
 export const dynamic = 'force-dynamic'
 
 export default async function AdminDashboardPage({ params }: { params: Promise<LocaleParams> }) {
-	// Verify admin access before rendering the page
-	// This will automatically redirect if user is not authenticated or not admin
-	const adminUser = await requireAdminAccess()
-
 	const { locale } = await params
+
+	// Check admin access without throwing redirect errors
+	const adminUser = await checkAdminAccess()
+
+	// Handle redirection manually if not admin
+	if (!adminUser) {
+		redirect(`/${locale}/auth/sign-in?redirectUrl=${encodeURIComponent(`/${locale}/admin`)}`)
+	}
 
 	return <AdminDashboardClient currentUser={adminUser} locale={locale} />
 }
