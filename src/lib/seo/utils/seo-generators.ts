@@ -1,8 +1,6 @@
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 
-import type { SEOLocales } from '../types/seo-locales'
-
 import seoLocales from '../constants/seo-locales.json'
 
 // Generate SEO keywords for events
