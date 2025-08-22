@@ -20,34 +20,34 @@
 			],
 			"services": {
 				"securePayment": {
-					name: "Secure Payment Processing",
-					description: "Safe and secure payment handling for bib transfers"
+					"name": "Secure Payment Processing",
+					"description": "Safe and secure payment handling for bib transfers"
 				},
 				"multilingualSupport": {
-					name: "Multilingual Support",
-					description: "Customer support in 10 different languages"
+					"name": "Multilingual Support",
+					"description": "Customer support in 10 different languages"
 				},
 				"bibTransfer": {
-					name: "Race Bib Transfer Service",
-					description: "Secure transfer of race bibs between athletes"
+					"name": "Race Bib Transfer Service",
+					"description": "Secure transfer of race bibs between athletes"
 				},
 				"eventListing": {
-					name: "Event Listing Service",
-					description: "Platform for organizers to list their events"
+					"name": "Event Listing Service",
+					"description": "Platform for organizers to list their events"
 				}
 			},
 			"departments": {
 				"customerSupport": {
-					name: "Customer Support",
-					description: "Multilingual customer support team"
+					"name": "Customer Support",
+					"description": "Multilingual customer support team"
 				},
 				"eventManagement": {
-					name: "Event Management",
-					description: "Event listing and management services"
+					"name": "Event Management",
+					"description": "Event listing and management services"
 				},
 				"paymentProcessing": {
-					name: "Payment Processing",
-					description: "Secure payment handling and verification"
+					"name": "Payment Processing",
+					"description": "Secure payment handling and verification"
 				}
 			}
 		}
@@ -73,34 +73,34 @@
 			],
 			"services": {
 				"securePayment": {
-					name: "Traitement sécurisé des paiements",
-					description: "Gestion sécurisée des paiements pour les transferts de dossards"
+					"name": "Traitement sécurisé des paiements",
+					"description": "Gestion sécurisée des paiements pour les transferts de dossards"
 				},
 				"multilingualSupport": {
-					name: "Support multilingue",
-					description: "Support client dans 10 langues différentes"
+					"name": "Support multilingue",
+					"description": "Support client dans 10 langues différentes"
 				},
 				"bibTransfer": {
-					name: "Service de transfert de dossards",
-					description: "Transfert sécurisé de dossards entre athlètes"
+					"name": "Service de transfert de dossards",
+					"description": "Transfert sécurisé de dossards entre athlètes"
 				},
 				"eventListing": {
-					name: "Service de listing d'événements",
-					description: "Plateforme pour les organisateurs de lister leurs événements"
+					"name": "Service de listing d'événements",
+					"description": "Plateforme pour les organisateurs de lister leurs événements"
 				}
 			},
 			"departments": {
 				"customerSupport": {
-					name: "Support client",
-					description: "Équipe de support client multilingue"
+					"name": "Support client",
+					"description": "Équipe de support client multilingue"
 				},
 				"eventManagement": {
-					name: "Gestion d'événements",
-					description: "Services de listing et de gestion d'événements"
+					"name": "Gestion d'événements",
+					"description": "Services de listing et de gestion d'événements"
 				},
 				"paymentProcessing": {
-					name: "Traitement des paiements",
-					description: "Gestion sécurisée et vérification des paiements"
+					"name": "Traitement des paiements",
+					"description": "Gestion sécurisée et vérification des paiements"
 				}
 			}
 		}
@@ -126,34 +126,34 @@
 			],
 			"services": {
 				"securePayment": {
-					name: "Sichere Zahlungsabwicklung",
-					description: "Sichere Zahlungsabwicklung für Startnummern-Übertragungen"
+					"name": "Sichere Zahlungsabwicklung",
+					"description": "Sichere Zahlungsabwicklung für Startnummern-Übertragungen"
 				},
 				"multilingualSupport": {
-					name: "Mehrsprachiger Support",
-					description: "Kundensupport in 10 verschiedenen Sprachen"
+					"name": "Mehrsprachiger Support",
+					"description": "Kundensupport in 10 verschiedenen Sprachen"
 				},
 				"bibTransfer": {
-					name: "Startnummer überdracht service",
-					description: "Sichere Übertragung von Startnummern zwischen Athleten"
+					"name": "Startnummer überdracht service",
+					"description": "Sichere Übertragung von Startnummern zwischen Athleten"
 				},
 				"eventListing": {
-					name: "Veranstaltungslisting-Service",
-					description: "Plattform für Organisatoren zum Auflisten ihrer Veranstaltungen"
+					"name": "Veranstaltungslisting-Service",
+					"description": "Plattform für Organisatoren zum Auflisten ihrer Veranstaltungen"
 				}
 			},
 			"departments": {
 				"customerSupport": {
-					name: "Kundensupport",
-					description: "Mehrsprachiges Kundensupport-Team"
+					"name": "Kundensupport",
+					"description": "Mehrsprachiges Kundensupport-Team"
 				},
 				"eventManagement": {
-					name: "Veranstaltungsmanagement",
-					description: "Veranstaltungslisting- und Management-Services"
+					"name": "Veranstaltungsmanagement",
+					"description": "Veranstaltungslisting- und Management-Services"
 				},
 				"paymentProcessing": {
-					name: "Zahlungsabwicklung",
-					description: "Sichere Zahlungsabwicklung und -verifizierung"
+					"name": "Zahlungsabwicklung",
+					"description": "Sichere Zahlungsabwicklung und -verifizierung"
 				}
 			}
 		}
@@ -179,34 +179,34 @@
 			],
 			"services": {
 				"securePayment": {
-					name: "Procesamiento seguro de pagos",
-					description: "Manejo seguro de pagos para transferencias de dorsales"
+					"name": "Procesamiento seguro de pagos",
+					"description": "Manejo seguro de pagos para transferencias de dorsales"
 				},
 				"multilingualSupport": {
-					name: "Soporte multilingüe",
-					description: "Soporte al cliente en 10 idiomas diferentes"
+					"name": "Soporte multilingüe",
+					"description": "Soporte al cliente en 10 idiomas diferentes"
 				},
 				"bibTransfer": {
-					name: "Servicio de transferencia de dorsales",
-					description: "Transferencia segura de dorsales entre atletas"
+					"name": "Servicio de transferencia de dorsales",
+					"description": "Transferencia segura de dorsales entre atletas"
 				},
 				"eventListing": {
-					name: "Servicio de listado de eventos",
-					description: "Plataforma para que los organizadores listen sus eventos"
+					"name": "Servicio de listado de eventos",
+					"description": "Plataforma para que los organizadores listen sus eventos"
 				}
 			},
 			"departments": {
 				"customerSupport": {
-					name: "Soporte al cliente",
-					description: "Equipo de soporte al cliente multilingüe"
+					"name": "Soporte al cliente",
+					"description": "Equipo de soporte al cliente multilingüe"
 				},
 				"eventManagement": {
-					name: "Gestión de eventos",
-					description: "Servicios de listado y gestión de eventos"
+					"name": "Gestión de eventos",
+					"description": "Servicios de listado y gestión de eventos"
 				},
 				"paymentProcessing": {
-					name: "Procesamiento de pagos",
-					description: "Manejo seguro y verificación de pagos"
+					"name": "Procesamiento de pagos",
+					"description": "Manejo seguro y verificación de pagos"
 				}
 			}
 		}
@@ -232,34 +232,34 @@
 			],
 			"services": {
 				"securePayment": {
-					name: "Elaborazione sicura dei pagamenti",
-					description: "Gestione sicura dei pagamenti per i trasferimenti di pettorali"
+					"name": "Elaborazione sicura dei pagamenti",
+					"description": "Gestione sicura dei pagamenti per i trasferimenti di pettorali"
 				},
 				"multilingualSupport": {
-					name: "Supporto multilingue",
-					description: "Supporto clienti in 10 lingue diverse"
+					"name": "Supporto multilingue",
+					"description": "Supporto clienti in 10 lingue diverse"
 				},
 				"bibTransfer": {
-					name: "Servizio di trasferimento pettorali",
-					description: "Trasferimento sicuro di pettorali tra atleti"
+					"name": "Servizio di trasferimento pettorali",
+					"description": "Trasferimento sicuro di pettorali tra atleti"
 				},
 				"eventListing": {
-					name: "Servizio di listino eventi",
-					description: "Piattaforma per gli organizzatori per elencare i loro eventi"
+					"name": "Servizio di listino eventi",
+					"description": "Piattaforma per gli organizzatori per elencare i loro eventi"
 				}
 			},
 			"departments": {
 				"customerSupport": {
-					name: "Supporto clienti",
-					description: "Team di supporto clienti multilingue"
+					"name": "Supporto clienti",
+					"description": "Team di supporto clienti multilingue"
 				},
 				"eventManagement": {
-					name: "Gestione eventi",
-					description: "Servizi di listino e gestione eventi"
+					"name": "Gestione eventi",
+					"description": "Servizi di listino e gestione eventi"
 				},
 				"paymentProcessing": {
-					name: "Elaborazione pagamenti",
-					description: "Gestione sicura e verifica dei pagamenti"
+					"name": "Elaborazione pagamenti",
+					"description": "Gestione sicura e verifica dei pagamenti"
 				}
 			}
 		}
@@ -285,34 +285,34 @@
 			],
 			"services": {
 				"securePayment": {
-					name: "Processamento seguro de pagamentos",
-					description: "Gestão segura de pagamentos para transferências de dorsais"
+					"name": "Processamento seguro de pagamentos",
+					"description": "Gestão segura de pagamentos para transferências de dorsais"
 				},
 				"multilingualSupport": {
-					name: "Suporte multilingue",
-					description: "Suporte ao cliente em 10 idiomas diferentes"
+					"name": "Suporte multilingue",
+					"description": "Suporte ao cliente em 10 idiomas diferentes"
 				},
 				"bibTransfer": {
-					name: "Serviço de transferência de dorsais",
-					description: "Transferência segura de dorsais entre atletas"
+					"name": "Serviço de transferência de dorsais",
+					"description": "Transferência segura de dorsais entre atletas"
 				},
 				"eventListing": {
-					name: "Serviço de listagem de eventos",
-					description: "Plataforma para organizadores listarem os seus eventos"
+					"name": "Serviço de listagem de eventos",
+					"description": "Plataforma para organizadores listarem os seus eventos"
 				}
 			},
 			"departments": {
 				"customerSupport": {
-					name: "Suporte ao cliente",
-					description: "Equipa de suporte ao cliente multilingue"
+					"name": "Suporte ao cliente",
+					"description": "Equipa de suporte ao cliente multilingue"
 				},
 				"eventManagement": {
-					name: "Gestão de eventos",
-					description: "Serviços de listagem e gestão de eventos"
+					"name": "Gestão de eventos",
+					"description": "Serviços de listagem e gestão de eventos"
 				},
 				"paymentProcessing": {
-					name: "Processamento de pagamentos",
-					description: "Gestão segura e verificação de pagamentos"
+					"name": "Processamento de pagamentos",
+					"description": "Gestão segura e verificação de pagamentos"
 				}
 			}
 		}
@@ -338,34 +338,34 @@
 			],
 			"services": {
 				"securePayment": {
-					name: "Veilige betalingsverwerking",
-					description: "Veilige betalingsafhandeling voor startnummer overdrachten"
+					"name": "Veilige betalingsverwerking",
+					"description": "Veilige betalingsafhandeling voor startnummer overdrachten"
 				},
 				"multilingualSupport": {
-					name: "Meertalige ondersteuning",
-					description: "Klantondersteuning in 10 verschillende talen"
+					"name": "Meertalige ondersteuning",
+					"description": "Klantondersteuning in 10 verschillende talen"
 				},
 				"bibTransfer": {
-					name: "Startnummer overdracht service",
-					description: "Veilige overdracht van startnummers tussen atleten"
+					"name": "Startnummer overdracht service",
+					"description": "Veilige overdracht van startnummers tussen atleten"
 				},
 				"eventListing": {
-					name: "Evenement listing service",
-					description: "Platform voor organisatoren om hun evenementen te vermelden"
+					"name": "Evenement listing service",
+					"description": "Platform voor organisatoren om hun evenementen te vermelden"
 				}
 			},
 			"departments": {
 				"customerSupport": {
-					name: "Klantondersteuning",
-					description: "Meertalig klantondersteuningsteam"
+					"name": "Klantondersteuning",
+					"description": "Meertalig klantondersteuningsteam"
 				},
 				"eventManagement": {
-					name: "Evenementbeheer",
-					description: "Evenement listing en beheerdiensten"
+					"name": "Evenementbeheer",
+					"description": "Evenement listing en beheerdiensten"
 				},
 				"paymentProcessing": {
-					name: "Betalingsverwerking",
-					description: "Veilige betalingsafhandeling en verificatie"
+					"name": "Betalingsverwerking",
+					"description": "Veilige betalingsafhandeling en verificatie"
 				}
 			}
 		}
@@ -391,34 +391,34 @@
 			],
 			"services": {
 				"securePayment": {
-					name: "Procesare sigură a plăților",
-					description: "Gestionarea sigură a plăților pentru transferurile de numere de start"
+					"name": "Procesare sigură a plăților",
+					"description": "Gestionarea sigură a plăților pentru transferurile de numere de start"
 				},
 				"multilingualSupport": {
-					name: "Suport multilingv",
-					description: "Suport pentru clienți în 10 limbi diferite"
+					"name": "Suport multilingv",
+					"description": "Suport pentru clienți în 10 limbi diferite"
 				},
 				"bibTransfer": {
-					name: "Serviciu de transfer numere de start",
-					description: "Transfer sigur al numerelor de start între atleți"
+					"name": "Serviciu de transfer numere de start",
+					"description": "Transfer sigur al numerelor de start între atleți"
 				},
 				"eventListing": {
-					name: "Serviciu de listare evenimente",
-					description: "Platformă pentru organizatori să-și listeze evenimentele"
+					"name": "Serviciu de listare evenimente",
+					"description": "Platformă pentru organizatori să-și listeze evenimentele"
 				}
 			},
 			"departments": {
 				"customerSupport": {
-					name: "Suport pentru clienți",
-					description: "Echipă de suport pentru clienți multilingv"
+					"name": "Suport pentru clienți",
+					"description": "Echipă de suport pentru clienți multilingv"
 				},
 				"eventManagement": {
-					name: "Gestionarea evenimentelor",
-					description: "Servicii de listare și gestionare a evenimentelor"
+					"name": "Gestionarea evenimentelor",
+					"description": "Servicii de listare și gestionare a evenimentelor"
 				},
 				"paymentProcessing": {
-					name: "Procesarea plăților",
-					description: "Gestionarea sigură și verificarea plăților"
+					"name": "Procesarea plăților",
+					"description": "Gestionarea sigură și verificarea plăților"
 				}
 			}
 		}
@@ -444,34 +444,34 @@
 			],
 			"services": {
 				"securePayment": {
-					name: "안전한 결제 처리",
-					description: "번호표 이전을 위한 안전한 결제 처리"
+					"name": "안전한 결제 처리",
+					"description": "번호표 이전을 위한 안전한 결제 처리"
 				},
 				"multilingualSupport": {
-					name: "다국어 지원",
-					description: "10개 언어로 고객 지원"
+					"name": "다국어 지원",
+					"description": "10개 언어로 고객 지원"
 				},
 				"bibTransfer": {
-					name: "레이스 번호표 이전 서비스",
-					description: "운동선수 간 안전한 번호표 이전"
+					"name": "레이스 번호표 이전 서비스",
+					"description": "운동선수 간 안전한 번호표 이전"
 				},
 				"eventListing": {
-					name: "이벤트 리스팅 서비스",
-					description: "주최자가 이벤트를 등록할 수 있는 플랫폼"
+					"name": "이벤트 리스팅 서비스",
+					"description": "주최자가 이벤트를 등록할 수 있는 플랫폼"
 				}
 			},
 			"departments": {
 				"customerSupport": {
-					name: "고객 지원",
-					description: "다국어 고객 지원팀"
+					"name": "고객 지원",
+					"description": "다국어 고객 지원팀"
 				},
 				"eventManagement": {
-					name: "이벤트 관리",
-					description: "이벤트 리스팅 및 관리 서비스"
+					"name": "이벤트 관리",
+					"description": "이벤트 리스팅 및 관리 서비스"
 				},
 				"paymentProcessing": {
-					name: "결제 처리",
-					description: "안전한 결제 처리 및 검증"
+					"name": "결제 처리",
+					"description": "안전한 결제 처리 및 검증"
 				}
 			}
 		}
