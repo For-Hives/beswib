@@ -7,6 +7,16 @@
 			"loading": "Loading...",
 			"errors": {
 				"unexpected": "An unexpected error occurred."
+			},
+			"timeUnits": {
+				"defaultDays": "7 days",
+				"zeroDays": "0 day",
+				"oneDay": "1 day",
+				"days": "days",
+				"oneWeek": "1 week",
+				"weeks": "weeks",
+				"oneMonth": "1 month",
+				"months": "months"
 			}
 		}
 	},
@@ -18,6 +28,16 @@
 			"loading": "Chargement...",
 			"errors": {
 				"unexpected": "Une erreur inattendue s'est produite."
+			},
+			"timeUnits": {
+				"defaultDays": "7 jours",
+				"zeroDays": "0 jour",
+				"oneDay": "1 jour",
+				"days": "jours",
+				"oneWeek": "1 semaine",
+				"weeks": "semaines",
+				"oneMonth": "1 mois",
+				"months": "mois"
 			}
 		}
 	},
@@ -29,6 +49,16 @@
 			"loading": "Cargando...",
 			"errors": {
 				"unexpected": "Ocurrió un error inesperado."
+			},
+			"timeUnits": {
+				"defaultDays": "7 días",
+				"zeroDays": "0 día",
+				"oneDay": "1 día",
+				"days": "días",
+				"oneWeek": "1 semana",
+				"weeks": "semanas",
+				"oneMonth": "1 mes",
+				"months": "meses"
 			}
 		}
 	},
@@ -40,6 +70,16 @@
 			"loading": "Caricamento...",
 			"errors": {
 				"unexpected": "Si è verificato un errore imprevisto."
+			},
+			"timeUnits": {
+				"defaultDays": "7 giorni",
+				"zeroDays": "0 giorno",
+				"oneDay": "1 giorno",
+				"days": "giorni",
+				"oneWeek": "1 settimana",
+				"weeks": "settimane",
+				"oneMonth": "1 mese",
+				"months": "mesi"
 			}
 		}
 	},
@@ -51,6 +91,16 @@
 			"loading": "Lädt...",
 			"errors": {
 				"unexpected": "Ein unerwarteter Fehler ist aufgetreten."
+			},
+			"timeUnits": {
+				"defaultDays": "7 Tage",
+				"zeroDays": "0 Tag",
+				"oneDay": "1 Tag",
+				"days": "Tage",
+				"oneWeek": "1 Woche",
+				"weeks": "Wochen",
+				"oneMonth": "1 Monat",
+				"months": "Monate"
 			}
 		}
 	},
@@ -62,6 +112,16 @@
 			"loading": "Se încarcă...",
 			"errors": {
 				"unexpected": "A apărut o eroare neașteptată."
+			},
+			"timeUnits": {
+				"defaultDays": "7 zile",
+				"zeroDays": "0 zi",
+				"oneDay": "1 zi",
+				"days": "zile",
+				"oneWeek": "1 săptămână",
+				"weeks": "săptămâni",
+				"oneMonth": "1 lună",
+				"months": "luni"
 			}
 		}
 	},
@@ -73,6 +133,16 @@
 			"loading": "Carregando...",
 			"errors": {
 				"unexpected": "Ocorreu um erro inesperado."
+			},
+			"timeUnits": {
+				"defaultDays": "7 dias",
+				"zeroDays": "0 dia",
+				"oneDay": "1 dia",
+				"days": "dias",
+				"oneWeek": "1 semana",
+				"weeks": "semanas",
+				"oneMonth": "1 mês",
+				"months": "meses"
 			}
 		}
 	},
@@ -84,6 +154,16 @@
 			"loading": "Laden...",
 			"errors": {
 				"unexpected": "Er is een onverwachte fout opgetreden."
+			},
+			"timeUnits": {
+				"defaultDays": "7 dagen",
+				"zeroDays": "0 dag",
+				"oneDay": "1 dag",
+				"days": "dagen",
+				"oneWeek": "1 week",
+				"weeks": "weken",
+				"oneMonth": "1 maand",
+				"months": "maanden"
 			}
 		}
 	},
@@ -95,6 +175,16 @@
 			"loading": "로딩 중...",
 			"errors": {
 				"unexpected": "예상치 못한 오류가 발생했습니다."
+			},
+			"timeUnits": {
+				"defaultDays": "7일",
+				"zeroDays": "0일",
+				"oneDay": "1일",
+				"days": "일",
+				"oneWeek": "1주",
+				"weeks": "주",
+				"oneMonth": "1개월",
+				"months": "개월"
 			}
 		}
 	}

@@ -341,6 +341,8 @@ interface WaitlistAlertParams {
 	sellerName?: string
 	timeRemaining?: string
 	locale?: string
+	eventDateRaw?: Date | string // Raw date for timeRemaining calculation
+	calculateTimeRemaining?: (eventDate?: Date | string, locale?: string) => string // Function to calculate timeRemaining
 }
 
 /**
@@ -417,6 +419,11 @@ export async function sendLocalizedWaitlistAlertEmails(
 						const userLocale = await getUserLocaleByEmail(email)
 						const subject = getLocalizedEmailSubject('waitlistAlert', userLocale, { eventName: params.eventName })
 
+						// Calculate timeRemaining with user's locale
+						const timeRemaining = params.calculateTimeRemaining
+							? params.calculateTimeRemaining(params.eventDateRaw, userLocale)
+							: params.timeRemaining
+
 						const success = await sendEmail({
 							to: email,
 							subject,
@@ -430,7 +437,7 @@ export async function sendLocalizedWaitlistAlertEmails(
 									eventDistance={params.eventDistance}
 									bibCategory={params.bibCategory}
 									sellerName={params.sellerName}
-									timeRemaining={params.timeRemaining}
+									timeRemaining={timeRemaining}
 									locale={userLocale}
 								/>
 							),
@@ -449,6 +456,12 @@ export async function sendLocalizedWaitlistAlertEmails(
 			} else {
 				// For emails with known locales, send in batch
 				const subject = getLocalizedEmailSubject('waitlistAlert', locale, { eventName: params.eventName })
+
+				// Calculate timeRemaining with the specified locale
+				const timeRemaining = params.calculateTimeRemaining
+					? params.calculateTimeRemaining(params.eventDateRaw, locale)
+					: params.timeRemaining
+
 				const result = await sendBatchEmails(
 					emails,
 					subject,
@@ -461,7 +474,7 @@ export async function sendLocalizedWaitlistAlertEmails(
 						eventDistance={params.eventDistance}
 						bibCategory={params.bibCategory}
 						sellerName={params.sellerName}
-						timeRemaining={params.timeRemaining}
+						timeRemaining={timeRemaining}
 						locale={locale}
 					/>
 				)

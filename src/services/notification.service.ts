@@ -111,25 +111,30 @@ export async function sendNewBibNotification(
 	}
 
 	// Calculate time remaining until event
-	const calculateTimeRemaining = (eventDate?: Date | string): string => {
+	const calculateTimeRemaining = (eventDate?: Date | string, locale: string = 'fr'): string => {
+		// Import translations to get the time units
+		const { getTranslations } = require('../lib/i18n/dictionary')
+		const translations = getTranslations(locale, {})
+		const timeUnits = translations.GLOBAL.timeUnits
+
 		if (eventDate === undefined || eventDate === null || (typeof eventDate === 'string' && eventDate.trim() === ''))
-			return '7 jours'
+			return timeUnits.defaultDays
 		try {
 			const event = new Date(eventDate)
 			const now = new Date()
 			const diffTime = event.getTime() - now.getTime()
 			const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 
-			if (diffDays <= 0) return '0 jour'
-			if (diffDays === 1) return '1 jour'
-			if (diffDays < 7) return `${diffDays} jours`
+			if (diffDays <= 0) return timeUnits.zeroDays
+			if (diffDays === 1) return timeUnits.oneDay
+			if (diffDays < 7) return `${diffDays} ${timeUnits.days}`
 			const weeks = Math.floor(diffDays / 7)
-			if (weeks === 1) return '1 semaine'
-			if (weeks < 4) return `${weeks} semaines`
+			if (weeks === 1) return timeUnits.oneWeek
+			if (weeks < 4) return `${weeks} ${timeUnits.weeks}`
 			const months = Math.floor(diffDays / 30)
-			return months === 1 ? '1 mois' : `${months} mois`
+			return months === 1 ? timeUnits.oneMonth : `${months} ${timeUnits.months}`
 		} catch {
-			return '7 jours'
+			return timeUnits.defaultDays
 		}
 	}
 
@@ -148,15 +153,15 @@ export async function sendNewBibNotification(
 	}
 
 	// Use modern React Email template for waitlist notifications with proper localization
-	const timeRemaining = calculateTimeRemaining(bibInfo.eventDate)
 	const emailResults = await sendLocalizedWaitlistAlertEmails(waitlistedEmailsWithLocales, {
-		timeRemaining,
 		sellerName: bibInfo.sellerName,
 		eventName: bibInfo.eventName,
 		eventLocation: bibInfo.eventLocation,
 		eventId: bibInfo.eventId,
 		eventDistance: bibInfo.eventDistance,
+		eventDateRaw: bibInfo.eventDate, // Pass raw date for timeRemaining calculation
 		eventDate: formatEventDate(bibInfo.eventDate),
+		calculateTimeRemaining, // Pass the function so each email can calculate with its locale
 		bibPrice: bibInfo.bibPrice,
 		bibCategory: bibInfo.bibCategory,
 	})
