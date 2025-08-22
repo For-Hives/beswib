@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
-import globalTranslations from '@/components/global/locales.json'
+import { generateFAQMetadata } from '@/lib/seo/metadata-generators'
 import BesWibCTA from '@/components/landing/cta/CTASection'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { getBaseMetadata } from '@/lib/seo/metadata'
 import FAQ from '@/components/landing/faq/FAQ'
 
 export default function FAQPage({ params }: { params: Promise<LocaleParams> }) {
@@ -21,30 +19,7 @@ export default function FAQPage({ params }: { params: Promise<LocaleParams> }) {
 
 export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
 	const { locale } = await params
-	const baseMetadata = getBaseMetadata(locale)
-	const t = getTranslations(locale, globalTranslations)
-
-	// Customize metadata for the FAQ page
-	return {
-		...baseMetadata,
-		twitter: {
-			...baseMetadata.twitter,
-			title: `${t.pages.faq.title} - Beswib`,
-			description: t.pages.faq.description,
-		},
-		title: `${t.pages.faq.title} - Beswib`,
-		openGraph: {
-			...baseMetadata.openGraph,
-			url: `https://beswib.com/${locale}/faq`,
-			title: `${t.pages.faq.title} - Beswib`,
-			description: t.pages.faq.description,
-		},
-		description: t.pages.faq.description,
-		alternates: {
-			languages: baseMetadata.alternates?.languages ?? {},
-			canonical: `https://beswib.com/${locale}/faq`,
-		},
-	}
+	return generateFAQMetadata(locale)
 }
 
 // Generate static params for all locales

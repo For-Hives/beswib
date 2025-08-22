@@ -4,6 +4,7 @@ import { generateLocaleParams, type LocaleParams } from '@/lib/generation/static
 import DataDeletion from '@/components/legals/data-deletion/DataDeletion'
 import globalTranslations from '@/components/global/locales.json'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { generateSimplePageMetadata } from '@/lib/seo/metadata-generators'
 
 export default function DataDeletionPage({ params }: { params: Promise<LocaleParams> }) {
 	return (
@@ -17,10 +18,12 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 	const { locale } = await params
 	const t = getTranslations(locale, globalTranslations)
 
-	return {
-		title: t.pages.dataDeletion.title,
-		description: t.pages.dataDeletion.description,
-	}
+	return generateSimplePageMetadata(
+		locale,
+		t.pages.dataDeletion.title,
+		t.pages.dataDeletion.description,
+		'/legals/data-deletion'
+	)
 }
 
 export function generateStaticParams() {

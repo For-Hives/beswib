@@ -13,7 +13,7 @@ import {
 import MarketplaceClient from '@/components/marketplace/MarketplaceClient'
 import { generateLocaleParams } from '@/lib/generation/staticParams'
 import { transformBibsToBibSales } from '@/lib/transformers/bib'
-import { getMarketplaceMetadata } from '@/lib/seo/metadata'
+import { generateMarketplaceMetadata } from '@/lib/seo/metadata-generators'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
 import marketplaceTranslations from './locales.json'
@@ -21,7 +21,7 @@ import marketplaceTranslations from './locales.json'
 // Métadonnées SEO dynamiques par langue
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
 	const { locale } = await params
-	return getMarketplaceMetadata(locale)
+	return generateMarketplaceMetadata(locale)
 }
 
 export function generateStaticParams() {
