@@ -2,8 +2,7 @@ import type { MetadataRoute } from 'next'
 
 import type { Locale } from '@/lib/i18n/config'
 
-import { generateLocaleParams } from '@/lib/generation/staticParams'
-import { fetchAllEvents } from '@/services/event.services'
+import { getAllEvents } from '@/services/event.services'
 
 // Configuration des langues supportées
 const supportedLocales: Locale[] = ['en', 'fr', 'de', 'es', 'it', 'pt', 'nl', 'ro', 'ko']
@@ -52,12 +51,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const baseUrl = 'https://beswib.com'
 
 	try {
-		// Récupérer tous les événements pour les inclure dans le sitemap
-		const allEvents = await fetchAllEvents()
+		// Fetch all events
+		const allEvents = await getAllEvents()
 
-		// Générer les entrées pour chaque langue et page
+		// Generate entries for each language and page
 		for (const locale of supportedLocales) {
-			// Pages statiques
+			// Static pages
 			for (const page of staticPages) {
 				const url = page === '' ? `${baseUrl}/${locale}` : `${baseUrl}/${locale}/${page}`
 				const lastModified = new Date()
@@ -66,7 +65,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 					url,
 					priority: pagePriorities[page as keyof typeof pagePriorities] || 0.5,
 					lastModified,
-					changeFrequency: changeFreq[page as keyof typeof changeFreq] as any,
+					changeFrequency: changeFreq[page as keyof typeof changeFreq] ?? 'weekly',
 					alternates: {
 						languages: Object.fromEntries(
 							supportedLocales.map(loc => [loc, page === '' ? `${baseUrl}/${loc}` : `${baseUrl}/${loc}/${page}`])
