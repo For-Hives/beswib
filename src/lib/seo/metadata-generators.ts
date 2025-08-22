@@ -291,6 +291,40 @@ export function generateFAQMetadata(locale: Locale): Metadata {
 	}
 }
 
+// Simple page metadata (contact, etc.)
+export function generateSimplePageMetadata(
+	locale: Locale,
+	title: string,
+	description: string,
+	path: string = '/'
+): Metadata {
+	const baseMetadata = generateBaseMetadata(locale)
+	const safeLocale = locale in SEO_TITLES ? locale : 'en'
+	const siteTitle = SEO_TITLES[safeLocale].site
+
+	return {
+		...baseMetadata,
+		twitter: {
+			...baseMetadata.twitter,
+			title: `${title} | ${siteTitle}`,
+			description,
+		},
+		title: `${title} | ${siteTitle}`,
+		openGraph: {
+			...baseMetadata.openGraph,
+			url: generateCanonicalUrl(locale, path),
+			title: `${title} | ${siteTitle}`,
+			description,
+		},
+		description,
+		alternates: {
+			...baseMetadata.alternates,
+			languages: generateAlternateLanguages(path),
+			canonical: generateCanonicalUrl(locale, path),
+		},
+	}
+}
+
 // Error page metadata
 export function generateErrorMetadata(locale: Locale, errorType: '404' | '500' | 'error'): Metadata {
 	const baseMetadata = generateBaseMetadata(locale)
