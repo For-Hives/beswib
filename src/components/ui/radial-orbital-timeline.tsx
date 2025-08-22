@@ -115,8 +115,6 @@ const OrbitalNode = memo(
 		const handleClick = useCallback(
 			(e: React.MouseEvent) => {
 				e.stopPropagation()
-				// eslint-disable-next-line no-console
-				console.log('🔥 Click sur:', item.title) // Debug pour vérifier les clics
 				onToggle(item.id)
 			},
 			[item.id, onToggle]
@@ -362,9 +360,6 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 				target === orbitRef.current ||
 				target.classList.contains('orbital-container') ||
 				target.classList.contains('bg-background')
-
-			// eslint-disable-next-line no-console
-			console.log('🎯 Container click:', { target: target.className, isBackgroundClick }) // Debug
 
 			if (isBackgroundClick) {
 				setExpandedItems({})
