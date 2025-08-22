@@ -4,6 +4,7 @@ import { generateLocaleParams, type LocaleParams } from '@/lib/generation/static
 import globalTranslations from '@/components/global/locales.json'
 import Privacy from '@/components/legals/privacy/Privacy'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { generateSimplePageMetadata } from '@/lib/seo/metadata-generators'
 
 export default function PrivacyPolicyPage({ params }: { params: Promise<LocaleParams> }) {
 	return (
@@ -17,10 +18,12 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 	const { locale } = await params
 	const t = getTranslations(locale, globalTranslations)
 
-	return {
-		title: t.pages.privacy.title,
-		description: t.pages.privacy.description,
-	}
+	return generateSimplePageMetadata(
+		locale,
+		t.pages.privacy.title,
+		t.pages.privacy.description,
+		'/legals/privacy-policy'
+	)
 }
 
 export function generateStaticParams() {
