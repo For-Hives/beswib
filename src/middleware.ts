@@ -76,6 +76,12 @@ const isPublicAuthRoute = createRouteMatcher([
 export default clerkMiddleware(async (auth, request: NextRequest) => {
 	const { pathname } = request.nextUrl
 
+	// CRITICAL: Let SEO files pass through completely without any processing
+	// This prevents any redirects or locale handling for SEO files
+	if (pathname === '/robots.txt' || pathname === '/sitemap.xml') {
+		return NextResponse.next()
+	}
+
 	// CRITICAL: Let API routes pass through completely without any processing
 	// This prevents any redirects or locale handling for webhooks and API endpoints
 	if (pathname.startsWith('/api')) {
