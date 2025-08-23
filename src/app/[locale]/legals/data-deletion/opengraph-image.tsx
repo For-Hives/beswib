@@ -10,7 +10,7 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import pageTranslations from './locales.json'
 
 // Alt text for the Open Graph image
-export const alt = 'Beswib Terms of Service - Legal Conditions'
+export const alt = 'Beswib Data Deletion - Privacy Rights'
 // Image size for Open Graph
 export const size = { width: 1200, height: 630 }
 // Content type for the image
@@ -43,7 +43,15 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			<OGImage title={t.terms.titleOG} secondary={t.terms.descriptionOG} host={host} protocol={protocol} size={size} />,
+			(
+				<OGImage
+					title={t.dataDeletion.titleOG}
+					secondary={t.dataDeletion.descriptionOG}
+					host={host}
+					protocol={protocol}
+					size={size}
+				/>
+			),
 			{
 				...size,
 				fonts: [
@@ -67,7 +75,15 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 		console.error('Error loading fonts:', error)
 		// Fallback: return the image without custom fonts
 		return new ImageResponse(
-			<OGImage title={t.terms.titleOG} secondary={t.terms.descriptionOG} host={host} protocol={protocol} size={size} />,
+			(
+				<OGImage
+					title={t.dataDeletion.titleOG}
+					secondary={t.dataDeletion.descriptionOG}
+					host={host}
+					protocol={protocol}
+					size={size}
+				/>
+			),
 			size
 		)
 	}
