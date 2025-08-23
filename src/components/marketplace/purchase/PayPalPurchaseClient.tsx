@@ -281,7 +281,9 @@ export default function PayPalPurchaseClient({
 					<div className="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
 						<div className="flex flex-col-reverse">
 							<div className="mt-4">
-								<h1 className="text-foreground text-2xl font-bold tracking-tight sm:text-3xl">{bib.event.name}</h1>
+								<h1 className="text-foreground text-2xl font-bold tracking-tight sm:text-3xl">
+									{bib.event.name} - {t.purchase?.bibTitle ?? 'Race Bib Purchase'}
+								</h1>
 								<h2 id="information-heading" className="sr-only">
 									Bib information
 								</h2>

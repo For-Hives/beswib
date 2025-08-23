@@ -11,6 +11,7 @@ import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
 import { fetchPrivateBibByToken, checkBibListingStatus, fetchPublicBibById } from '@/services/bib.services'
+import { generateCanonicalUrl, generateAlternateLanguages } from '@/lib/seo/utils/seo-generators'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { fetchOrganizerById } from '@/services/organizer.services'
 import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
@@ -20,9 +21,64 @@ import { Locale } from '@/lib/i18n/config'
 
 import MarketplaceItemClient from './MarketplaceItemClient'
 
-export const metadata: Metadata = {
-	title: 'Purchase Bib',
-	description: 'Complete your purchase.',
+export async function generateMetadata({
+	params,
+}: {
+	params: Promise<{ id: string; locale: Locale }>
+}): Promise<Metadata> {
+	const { locale, id } = await params
+
+	try {
+		// Try to fetch bib data for better SEO
+		const bibStatus = await checkBibListingStatus(id)
+		if (bibStatus?.exists === true && bibStatus.available) {
+			const bib = await fetchPublicBibById(id)
+
+			if (bib?.expand?.eventId) {
+				const eventName = bib.expand.eventId.name
+				const location = bib.expand.eventId.location
+				const price = bib.price
+
+				const title = location
+					? `${eventName} Bib in ${location} | €${price} | Race Bib Transfer | Beswib`
+					: `${eventName} Race Bib | €${price} | Buy Secure Transfer | Beswib`
+
+				const description = `Purchase ${eventName}${location ? ` in ${location}` : ''} race bib for €${price}. Secure PayPal payment, organizer approved transfer, instant confirmation. Legal race bib marketplace with verified sellers.`
+
+				return {
+					title: title.length > 60 ? `${eventName} Race Bib | €${price} | Beswib` : title,
+					openGraph: {
+						type: 'website',
+						title: `${eventName} Race Bib - €${price}`,
+						description: `Secure race bib transfer for ${eventName}${location ? ` in ${location}` : ''}`,
+					},
+					description: description.length > 160 ? description.substring(0, 157) + '...' : description,
+					alternates: {
+						languages: generateAlternateLanguages(`/marketplace/${id}`),
+						canonical: generateCanonicalUrl(locale, `/marketplace/${id}`),
+					},
+				}
+			}
+		}
+	} catch (error) {
+		console.warn('Could not generate dynamic metadata for marketplace item:', error)
+	}
+
+	// Fallback metadata if we can't fetch bib data
+	return {
+		title: 'Race Bib Purchase | Secure Transfer | Beswib Marketplace',
+		openGraph: {
+			type: 'website',
+			title: 'Race Bib Purchase | Beswib',
+			description: 'Secure race bib marketplace with verified sellers',
+		},
+		description:
+			'Purchase verified race bibs from trusted sellers. Secure PayPal payments, organizer approved transfers, instant confirmation. Legal marketplace for running, trail, triathlon events.',
+		alternates: {
+			languages: generateAlternateLanguages(`/marketplace/${id}`),
+			canonical: generateCanonicalUrl(locale, `/marketplace/${id}`),
+		},
+	}
 }
 
 interface MarketplaceItemPageProps {

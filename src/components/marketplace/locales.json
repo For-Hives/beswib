@@ -83,6 +83,9 @@
 		"sellerDashboard": "seller dashboard",
 		"signInToPurchase": "Sign In to Purchase",
 		"purchaseBib": "Purchase Bib",
+		"purchase": {
+			"bibTitle": "Race Bib Purchase"
+		},
 		"eventDetails": "Event Details",
 		"faqQ1": "How does the bib transfer process work?",
 		"faqA1": "Once you complete your purchase, we'll coordinate with the seller to transfer the bib registration to your name. You'll receive all necessary confirmation details and pickup instructions.",
@@ -235,6 +238,9 @@
 		"sellerDashboard": "tableau vendeur",
 		"signInToPurchase": "Se connecter pour acheter",
 		"purchaseBib": "Acheter le dossard",
+		"purchase": {
+			"bibTitle": "Achat de dossard"
+		},
 		"eventDetails": "Détails de l'événement",
 		"faqQ1": "Comment fonctionne le transfert de dossard ?",
 		"faqA1": "Après votre achat, nous coordonnons avec le vendeur pour transférer l'inscription du dossard à votre nom. Vous recevrez toutes les informations nécessaires et les instructions de retrait.",
@@ -373,6 +379,9 @@
 		"sellerDashboard": "panel de vendedor",
 		"signInToPurchase": "Inicia sesión para comprar",
 		"purchaseBib": "Comprar dorsal",
+		"purchase": {
+			"bibTitle": "Compra de dorsal"
+		},
 		"eventDetails": "Detalles del evento",
 		"faqQ1": "¿Cómo funciona el traspaso del dorsal?",
 		"faqA1": "Tras completar tu compra, coordinaremos con el vendedor para transferir el dorsal a tu nombre. Recibirás la confirmación e instrucciones de recogida.",
@@ -511,6 +520,9 @@
 		"sellerDashboard": "dashboard venditore",
 		"signInToPurchase": "Accedi per acquistare",
 		"purchaseBib": "Acquista pettorale",
+		"purchase": {
+			"bibTitle": "Acquisto pettorale"
+		},
 		"eventDetails": "Dettagli evento",
 		"faqQ1": "Come funziona il trasferimento del pettorale?",
 		"faqA1": "Dopo l'acquisto, coordineremo con il venditore il trasferimento dell'iscrizione a tuo nome. Riceverai conferma e istruzioni per il ritiro.",
@@ -649,6 +661,9 @@
 		"sellerDashboard": "Verkäufer-Dashboard",
 		"signInToPurchase": "Zum Kauf anmelden",
 		"purchaseBib": "Startnummer kaufen",
+		"purchase": {
+			"bibTitle": "Startnummer-Kauf"
+		},
 		"eventDetails": "Event-Details",
 		"faqQ1": "Wie funktioniert die Übertragung der Startnummer?",
 		"faqA1": "Nach dem Kauf koordinieren wir mit dem Verkäufer die Übertragung auf deinen Namen. Du erhältst Bestätigung und Abholhinweise.",
@@ -787,6 +802,9 @@
 		"sellerDashboard": "dashboard vânzător",
 		"signInToPurchase": "Autentifică-te pentru a cumpăra",
 		"purchaseBib": "Cumpără numărul",
+		"purchase": {
+			"bibTitle": "Cumpărare număr"
+		},
 		"eventDetails": "Detalii eveniment",
 		"faqQ1": "Cum funcționează transferul numărului?",
 		"faqA1": "După achiziție, coordonăm cu vânzătorul transferul înregistrării pe numele tău. Vei primi confirmări și instrucțiuni de ridicare.",
@@ -925,6 +943,9 @@
 		"sellerDashboard": "painel de vendedor",
 		"signInToPurchase": "Inicia sessão para comprar",
 		"purchaseBib": "Comprar dorsal",
+		"purchase": {
+			"bibTitle": "Compra de dorsal"
+		},
 		"eventDetails": "Detalhes do evento",
 		"faqQ1": "Como funciona a transferência do dorsal?",
 		"faqA1": "Após a compra, coordenamos com o vendedor a transferência para o teu nome. Receberás confirmação e instruções.",
@@ -1063,6 +1084,9 @@
 		"sellerDashboard": "verkopersdashboard",
 		"signInToPurchase": "Inloggen om te kopen",
 		"purchaseBib": "Startnummer kopen",
+		"purchase": {
+			"bibTitle": "Startnummer aankoop"
+		},
 		"eventDetails": "Evenementdetails",
 		"faqQ1": "Hoe werkt het overdragen van een startnummer?",
 		"faqA1": "Na aankoop regelen wij met de verkoper de overdracht op jouw naam. Je ontvangt bevestiging en ophaalinstructies.",
@@ -1201,6 +1225,9 @@
 		"sellerDashboard": "판매자 대시보드",
 		"signInToPurchase": "구매하려면 로그인",
 		"purchaseBib": "빕 구매",
+		"purchase": {
+			"bibTitle": "빕 구매하기"
+		},
 		"eventDetails": "이벤트 상세",
 		"faqQ1": "빕 양도는 어떻게 진행되나요?",
 		"faqA1": "구매 완료 후 판매자와 협의하여 등록을 귀하의 이름으로 이전합니다. 확인 및 수령 안내를 받게 됩니다.",
