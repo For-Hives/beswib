@@ -330,6 +330,24 @@ export const SEO_TITLES = {
 	},
 } as const
 
+// Fonction de validation pour s'assurer que toutes les clés sont présentes
+export function validateSEOTitles() {
+	const requiredKeys = ['site', 'marketplace', 'legal', 'home', 'eventWithLocation', 'events', 'event']
+	const locales = Object.keys(SEO_TITLES) as Array<keyof typeof SEO_TITLES>
+
+	for (const locale of locales) {
+		const localeTitles = SEO_TITLES[locale]
+		for (const key of requiredKeys) {
+			if (!(key in localeTitles)) {
+				console.error(`Missing key '${key}' for locale '${locale}' in SEO_TITLES`)
+			}
+		}
+	}
+}
+
+// Appeler la validation au chargement du module
+validateSEOTitles()
+
 // SEO descriptions by language
 export const SEO_DESCRIPTIONS = {
 	ro: {
@@ -414,3 +432,21 @@ export const SEO_DESCRIPTIONS = {
 			'Entdecken und kaufen Sie Startnummern für kommende Lauf-, Trail-, Triathlon- und Radsport-Events weltweit. Suchen Sie nach Ort, Datum und Renntyp. Sichere Übertragungen mit PayPal-Schutz und Veranstalter-Genehmigung. Finden Sie Ihr nächstes Abenteuer mit Beswib.',
 	},
 } as const
+
+// Fonction de validation pour SEO_DESCRIPTIONS
+export function validateSEODescriptions() {
+	const requiredKeys = ['marketplace', 'legal', 'home', 'events']
+	const locales = Object.keys(SEO_DESCRIPTIONS) as Array<keyof typeof SEO_DESCRIPTIONS>
+
+	for (const locale of locales) {
+		const localeDescriptions = SEO_DESCRIPTIONS[locale]
+		for (const key of requiredKeys) {
+			if (!(key in localeDescriptions)) {
+				console.error(`Missing key '${key}' for locale '${locale}' in SEO_DESCRIPTIONS`)
+			}
+		}
+	}
+}
+
+// Appeler la validation au chargement du module
+validateSEODescriptions()

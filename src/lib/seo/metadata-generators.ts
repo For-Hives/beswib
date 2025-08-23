@@ -79,8 +79,30 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 // Home page metadata
 export function generateHomeMetadata(locale: Locale): Metadata {
 	const baseMetadata = generateBaseMetadata(locale)
+
+	// Vérification de sécurité pour éviter l'erreur undefined
+	if (!SEO_TITLES[locale]?.home || !SEO_DESCRIPTIONS[locale]?.home) {
+		console.error(`Missing SEO data for locale: ${locale}, falling back to 'en'`)
+		locale = 'en' as Locale
+	}
+
 	const titles = SEO_TITLES[locale]
 	const descriptions = SEO_DESCRIPTIONS[locale]
+
+	// Vérification supplémentaire des clés requises
+	if (!titles.home || !descriptions.home) {
+		console.error(`Missing 'home' key for locale: ${locale}, using fallback`)
+		return {
+			...baseMetadata,
+			title: 'Beswib | Transfer Race Bibs Safely',
+			openGraph: {
+				...baseMetadata.openGraph,
+				title: 'Beswib | Transfer Race Bibs Safely',
+				description: 'Transfer race bibs safely with Beswib, the trusted marketplace for athletes.',
+			},
+			description: 'Transfer race bibs safely with Beswib, the trusted marketplace for athletes.',
+		}
+	}
 
 	return {
 		...baseMetadata,
@@ -112,8 +134,38 @@ export function generateHomeMetadata(locale: Locale): Metadata {
 // Events listing page metadata
 export function generateEventsMetadata(locale: Locale): Metadata {
 	const baseMetadata = generateBaseMetadata(locale)
+
+	// Vérification de sécurité pour éviter l'erreur undefined
+	if (!SEO_TITLES[locale]?.events || !SEO_DESCRIPTIONS[locale]?.events) {
+		console.error(`Missing SEO data for locale: ${locale}, falling back to 'en'`)
+		locale = 'en' as Locale
+	}
+
 	const titles = SEO_TITLES[locale]
 	const descriptions = SEO_DESCRIPTIONS[locale]
+
+	// Vérification supplémentaire des clés requises
+	if (!titles.events || !descriptions.events) {
+		console.error(`Missing 'events' key for locale: ${locale}, using fallback`)
+		return {
+			...baseMetadata,
+			title: 'Browse Running Events | Find Race Bibs for Trail, Marathon, Triathlon | Beswib',
+			openGraph: {
+				...baseMetadata.openGraph,
+				url: generateCanonicalUrl(locale, '/events'),
+				title: 'Browse Running Events | Find Race Bibs for Trail, Marathon, Triathlon | Beswib',
+				description:
+					'Discover and purchase race bibs for upcoming running, trail, triathlon and cycling events worldwide.',
+			},
+			description:
+				'Discover and purchase race bibs for upcoming running, trail, triathlon and cycling events worldwide.',
+			alternates: {
+				...baseMetadata.alternates,
+				languages: generateAlternateLanguages('/events'),
+				canonical: generateCanonicalUrl(locale, '/events'),
+			},
+		}
+	}
 
 	return {
 		...baseMetadata,
@@ -197,8 +249,36 @@ export function generateEventMetadata(locale: Locale, event: Event): Metadata {
 // Marketplace page metadata
 export function generateMarketplaceMetadata(locale: Locale): Metadata {
 	const baseMetadata = generateBaseMetadata(locale)
+
+	// Vérification de sécurité pour éviter l'erreur undefined
+	if (!SEO_TITLES[locale]?.marketplace || !SEO_DESCRIPTIONS[locale]?.marketplace) {
+		console.error(`Missing SEO data for locale: ${locale}, falling back to 'en'`)
+		locale = 'en' as Locale
+	}
+
 	const titles = SEO_TITLES[locale]
 	const descriptions = SEO_DESCRIPTIONS[locale]
+
+	// Vérification supplémentaire des clés requises
+	if (!titles.marketplace || !descriptions.marketplace) {
+		console.error(`Missing 'marketplace' key for locale: ${locale}, using fallback`)
+		return {
+			...baseMetadata,
+			title: 'Marketplace | Buy & Sell Race Bibs | Running, Trail, Triathlon',
+			openGraph: {
+				...baseMetadata.openGraph,
+				url: generateCanonicalUrl(locale, '/marketplace'),
+				title: 'Marketplace | Buy & Sell Race Bibs | Running, Trail, Triathlon',
+				description: 'Browse thousands of available race bibs from verified sellers on Beswib marketplace.',
+			},
+			description: 'Browse thousands of available race bibs from verified sellers on Beswib marketplace.',
+			alternates: {
+				...baseMetadata.alternates,
+				languages: generateAlternateLanguages('/marketplace'),
+				canonical: generateCanonicalUrl(locale, '/marketplace'),
+			},
+		}
+	}
 
 	return {
 		...baseMetadata,
@@ -265,8 +345,36 @@ export function generateLegalMetadata(
 // FAQ page metadata
 export function generateFAQMetadata(locale: Locale): Metadata {
 	const baseMetadata = generateBaseMetadata(locale)
+
+	// Vérification de sécurité pour éviter l'erreur undefined
+	if (!SEO_TITLES[locale]?.site || !SEO_DESCRIPTIONS[locale]?.home) {
+		console.error(`Missing SEO data for locale: ${locale}, falling back to 'en'`)
+		locale = 'en' as Locale
+	}
+
 	const faqTitle = `FAQ | ${SEO_TITLES[locale].site}`
 	const faqDescription = SEO_DESCRIPTIONS[locale].home
+
+	// Vérification supplémentaire des clés requises
+	if (!SEO_TITLES[locale].site || !SEO_DESCRIPTIONS[locale].home) {
+		console.error(`Missing 'site' or 'home' key for locale: ${locale}, using fallback`)
+		return {
+			...baseMetadata,
+			title: 'FAQ | Beswib - Legal Race Bib Transfers',
+			openGraph: {
+				...baseMetadata.openGraph,
+				url: generateCanonicalUrl(locale, '/faq'),
+				title: 'FAQ | Beswib - Legal Race Bib Transfers',
+				description: 'Frequently asked questions about Beswib race bib marketplace.',
+			},
+			description: 'Frequently asked questions about Beswib race bib marketplace.',
+			alternates: {
+				...baseMetadata.alternates,
+				languages: generateAlternateLanguages('/faq'),
+				canonical: generateCanonicalUrl(locale, '/faq'),
+			},
+		}
+	}
 
 	return {
 		...baseMetadata,
