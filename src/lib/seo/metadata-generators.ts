@@ -34,18 +34,6 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 			template: `%s | ${titles.site}`,
 			default: titles.home,
 		},
-
-		robots: {
-			index: true,
-			googleBot: {
-				'max-video-preview': -1,
-				'max-snippet': -1,
-				'max-image-preview': 'large',
-				index: true,
-				follow: true,
-			},
-			follow: true,
-		},
 		referrer: 'origin-when-cross-origin',
 		publisher: 'Beswib',
 		openGraph: {
@@ -323,10 +311,6 @@ export function generateLegalMetadata(
 			description: descriptions.legal,
 		},
 		title: pageTitle,
-		robots: {
-			index: true,
-			follow: true,
-		},
 		openGraph: {
 			...baseMetadata.openGraph,
 			url: generateCanonicalUrl(locale, legalPath),

@@ -131,7 +131,9 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 					{/* Page Header */}
 					<div className="mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
 						<div className="text-center sm:text-left">
-							<h1 className="text-foreground text-4xl font-bold tracking-tight">{event.name}</h1>
+							<h1 className="text-foreground text-4xl font-bold tracking-tight">
+								{event.name} - {t.event.pageTitle ?? 'Event Information'}
+							</h1>
 							<p className="text-muted-foreground text-lg">{t.event.title}</p>
 						</div>
 						<div className="text-right">

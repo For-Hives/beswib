@@ -293,8 +293,7 @@ export const SEO_TITLES = {
 		marketplace: 'Acheter & Vendre Dossards | Running, Trail | Beswib',
 		legal: (pageName: string) => `${pageName} | Légal | Beswib`,
 		home: 'Transfert Dossards Sécurisé | Running, Trail | Beswib',
-		eventWithLocation: (eventName: string, location: string) =>
-			`${eventName} à ${location} | Beswib`,
+		eventWithLocation: (eventName: string, location: string) => `${eventName} à ${location} | Beswib`,
 		events: 'Événements Running | Dossards Trail, Marathon | Beswib',
 		event: (eventName: string) => `${eventName} | Dossards | Beswib`,
 	},
@@ -313,8 +312,7 @@ export const SEO_TITLES = {
 		marketplace: 'Buy & Sell Race Bibs | Running, Trail, Triathlon | Beswib',
 		legal: (pageName: string) => `${pageName} | Legal | Beswib`,
 		home: 'Transfer Race Bibs Safely | Running, Trail, Triathlon | Beswib',
-		eventWithLocation: (eventName: string, location: string) =>
-			`${eventName} in ${location} | Beswib`,
+		eventWithLocation: (eventName: string, location: string) => `${eventName} in ${location} | Beswib`,
 		events: 'Running Events | Race Bibs for Trail, Marathon | Beswib',
 		event: (eventName: string) => `${eventName} | Race Bibs | Beswib`,
 	},
@@ -323,8 +321,7 @@ export const SEO_TITLES = {
 		marketplace: 'Startnummern Kaufen & Verkaufen | Laufen, Trail | Beswib',
 		legal: (pageName: string) => `${pageName} | Rechtlich | Beswib`,
 		home: 'Startnummern Transfer | Laufen, Trail, Triathlon | Beswib',
-		eventWithLocation: (eventName: string, location: string) =>
-			`${eventName} in ${location} | Beswib`,
+		eventWithLocation: (eventName: string, location: string) => `${eventName} in ${location} | Beswib`,
 		events: 'Lauf-Events | Startnummern für Trail, Marathon | Beswib',
 		event: (eventName: string) => `${eventName} | Startnummern | Beswib`,
 	},

@@ -2,6 +2,7 @@
 	"en": {
 		"event": {
 			"title": "Event Details",
+			"pageTitle": "Event Information",
 			"date": "Date",
 			"location": "Location",
 			"typeCourse": "Discipline",
@@ -64,6 +65,7 @@
 	"fr": {
 		"event": {
 			"title": "Détails de l'événement",
+			"pageTitle": "Informations sur l'événement",
 			"date": "Date",
 			"location": "Lieu",
 			"typeCourse": "Discipline",
@@ -126,6 +128,7 @@
 	"es": {
 		"event": {
 			"title": "Detalles del evento",
+			"pageTitle": "Información del evento",
 			"date": "Fecha",
 			"location": "Ubicación",
 			"typeCourse": "Disciplina",
@@ -188,6 +191,7 @@
 	"it": {
 		"event": {
 			"title": "Dettagli dell'evento",
+			"pageTitle": "Informazioni sull'evento",
 			"date": "Data",
 			"location": "Posizione",
 			"typeCourse": "Disciplina",
@@ -250,6 +254,7 @@
 	"de": {
 		"event": {
 			"title": "Event-Details",
+			"pageTitle": "Event-Informationen",
 			"date": "Datum",
 			"location": "Ort",
 			"typeCourse": "Disziplin",
@@ -312,6 +317,7 @@
 	"ro": {
 		"event": {
 			"title": "Detaliile evenimentului",
+			"pageTitle": "Informații despre eveniment",
 			"date": "Data",
 			"location": "Locația",
 			"typeCourse": "Disciplină",
@@ -374,6 +380,7 @@
 	"pt": {
 		"event": {
 			"title": "Detalhes do evento",
+			"pageTitle": "Informações do evento",
 			"date": "Data",
 			"location": "Localização",
 			"typeCourse": "Disciplina",
@@ -436,6 +443,7 @@
 	"nl": {
 		"event": {
 			"title": "Evenement details",
+			"pageTitle": "Evenement informatie",
 			"date": "Datum",
 			"location": "Locatie",
 			"typeCourse": "Discipline",
@@ -498,6 +506,7 @@
 	"ko": {
 		"event": {
 			"title": "이벤트 세부사항",
+			"pageTitle": "이벤트 정보",
 			"date": "날짜",
 			"location": "위치",
 			"typeCourse": "종목",
