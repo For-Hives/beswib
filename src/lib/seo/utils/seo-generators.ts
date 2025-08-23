@@ -63,40 +63,33 @@ export function generateEventDescription(locale: Locale, event: Event): string {
 
 	let description = `${event.name} - ${raceType}`
 
+	// Add location (only city name, not full address)
 	if (event.location) {
-		description += ` in ${event.location}`
+		const cityName = event.location.split(',')[0]
+		description += ` in ${cityName}`
 	}
 
-	// Add event date
-	if (event.eventDate !== null && event.eventDate !== undefined) {
-		const eventDate = new Date(event.eventDate)
-		const formattedDate = eventDate.toLocaleDateString(locale, {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric',
-		})
-		description += ` on ${formattedDate}`
-	}
-
-	// Add distance if available
+	// Add distance and elevation in compact format
+	const details = []
 	if (event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0) {
-		description += `. ${event.distanceKm}km distance`
+		details.push(`${event.distanceKm}km`)
 	}
-
-	// Add elevation if available
 	if (event.elevationGainM !== null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
-		description += `. ${event.elevationGainM}m elevation`
+		details.push(`${event.elevationGainM}m elevation`)
 	}
-
-	// Add event description if available
-	if (event.description) {
-		description += `. ${event.description.substring(0, 100)}`
+	if (details.length > 0) {
+		description += `. ${details.join(', ')}`
 	}
 
 	// Add call-to-action
 	const buyAction = keywords.actions.buy
 	const sellAction = keywords.actions.sell
 	description += `. ${buyAction} or ${sellAction} race bibs on Beswib.`
+
+	// Ensure description stays under 160 characters
+	if (description.length > 160) {
+		description = description.substring(0, 157) + '...'
+	}
 
 	return description
 }
@@ -128,7 +121,10 @@ export function generateCanonicalUrl(locale: Locale, path: string): string {
 	const localePath = `/${locale}`
 	// Ensure path starts with / if not empty
 	const cleanPath = path.startsWith('/') ? path : `/${path}`
-	return `${baseUrl}${localePath}${cleanPath}`
+	const fullPath = `${localePath}${cleanPath}`
+	// Ensure trailing slash for consistency with Next.js routing
+	const normalizedPath = fullPath.endsWith('/') ? fullPath : `${fullPath}/`
+	return `${baseUrl}${normalizedPath}`
 }
 
 // Generate alternate language links with proper URLs and locale codes
@@ -150,13 +146,18 @@ export function generateAlternateLanguages(path: string): Record<string, string>
 	const cleanPath = path.startsWith('/') ? path : `/${path}`
 	const alternates: Record<string, string> = {}
 
-	// Add all language versions
+	// Add all language versions with proper trailing slashes
 	languages.forEach(({ path: langPath, locale }) => {
-		alternates[locale] = `${baseUrl}${langPath}${cleanPath}`
+		const fullPath = `${langPath}${cleanPath}`
+		// Ensure trailing slash for consistency with Next.js routing
+		const normalizedPath = fullPath.endsWith('/') ? fullPath : `${fullPath}/`
+		alternates[locale] = `${baseUrl}${normalizedPath}`
 	})
 
 	// Add x-default pointing to English version for fallback
-	alternates['x-default'] = `${baseUrl}/en${cleanPath}`
+	const englishPath = `/en${cleanPath}`
+	const normalizedEnglishPath = englishPath.endsWith('/') ? englishPath : `${englishPath}/`
+	alternates['x-default'] = `${baseUrl}${normalizedEnglishPath}`
 
 	return alternates
 }
