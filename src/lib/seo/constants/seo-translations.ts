@@ -244,7 +244,7 @@ export const SEO_TITLES = {
 		legal: (pageName: string) => `${pageName} | Informații Legale | Beswib Marketplace Numere`,
 		home: 'Beswib | Transfer Sigur Numere Cursă | Cumpără & Vinde Running, Trail, Triatlon',
 		eventWithLocation: (eventName: string, location: string) =>
-			`${eventName} în ${location} | Transfer Numere | Beswib`,
+			`${eventName} în ${location.split(',')[0]} | Numere de Cursă`,
 		events: 'Explorează Evenimente Running | Găsește Numere Trail, Maraton, Triatlon | Beswib',
 		event: (eventName: string) => `${eventName} | Transfer Numere | Cumpără & Vinde pe Beswib`,
 	},
@@ -254,7 +254,7 @@ export const SEO_TITLES = {
 		legal: (pageName: string) => `${pageName} | Informações Legais | Beswib Marketplace Dorsais`,
 		home: 'Beswib | Transferência Segura Dorsais | Comprar & Vender Running, Trail, Triatlo',
 		eventWithLocation: (eventName: string, location: string) =>
-			`${eventName} em ${location} | Transferência Dorsais | Beswib`,
+			`${eventName} em ${location.split(',')[0]} | Peitos de Corrida`,
 		events: 'Explorar Eventos Running | Encontrar Dorsais Trail, Maratona, Triatlo | Beswib',
 		event: (eventName: string) => `${eventName} | Transferência Dorsais | Comprar & Vender no Beswib`,
 	},
@@ -264,7 +264,7 @@ export const SEO_TITLES = {
 		legal: (pageName: string) => `${pageName} | Juridische Informatie | Beswib Startnummer Platform`,
 		home: 'Beswib | Veilige Startnummer Overdracht | Koop & Verkoop Hardlopen, Trail, Triatlon',
 		eventWithLocation: (eventName: string, location: string) =>
-			`${eventName} in ${location} | Startnummer Overdracht | Beswib`,
+			`${eventName} in ${location.split(',')[0]} | Startnummers`,
 		events: 'Bekijk Hardloop Evenementen | Vind Startnummers Trail, Marathon, Triatlon | Beswib',
 		event: (eventName: string) => `${eventName} | Startnummer Overdracht | Koop & Verkoop op Beswib`,
 	},
@@ -274,7 +274,7 @@ export const SEO_TITLES = {
 		legal: (pageName: string) => `${pageName} | 법적 | Beswib`,
 		home: '경주 번호 이전 | 러닝, 트레일, 트라이애슬론 | Beswib',
 		eventWithLocation: (eventName: string, location: string) =>
-			`${eventName} ${location}에서 | 경주 번호 이전 | Beswib`,
+			`${eventName} 에서 ${location.split(',')[0]} | 경주 번호`,
 		events: '러닝 이벤트 탐색 | 트레일, 마라톤, 트라이애슬론 경주 번호 찾기 | Beswib',
 		event: (eventName: string) => `${eventName} | 경주 번호 이전 | Beswib에서 구매 & 판매`,
 	},
@@ -284,7 +284,7 @@ export const SEO_TITLES = {
 		legal: (pageName: string) => `${pageName} | Legale | Beswib`,
 		home: 'Trasferimento Pettorali | Running, Trail, Triathlon | Beswib',
 		eventWithLocation: (eventName: string, location: string) =>
-			`${eventName} a ${location} | Trasferimento Pettorali | Beswib`,
+			`${eventName} a ${location.split(',')[0]} | Pettorali di Gara`,
 		events: 'Esplora Eventi Running | Trova Pettorali Trail, Maratona, Triathlon | Beswib',
 		event: (eventName: string) => `${eventName} | Trasferimento Pettorali | Compra & Vendi su Beswib`,
 	},
@@ -293,7 +293,8 @@ export const SEO_TITLES = {
 		marketplace: 'Acheter & Vendre Dossards | Running, Trail | Beswib',
 		legal: (pageName: string) => `${pageName} | Légal | Beswib`,
 		home: 'Transfert Dossards Sécurisé | Running, Trail | Beswib',
-		eventWithLocation: (eventName: string, location: string) => `${eventName} à ${location} | Beswib`,
+		eventWithLocation: (eventName: string, location: string) =>
+			`${eventName} à ${location.split(',')[0]} | Dossards de Course`,
 		events: 'Événements Running | Dossards Trail, Marathon | Beswib',
 		event: (eventName: string) => `${eventName} | Dossards | Beswib`,
 	},
@@ -303,7 +304,7 @@ export const SEO_TITLES = {
 		legal: (pageName: string) => `${pageName} | Legal | Beswib`,
 		home: 'Transferencia Dorsales | Running, Trail, Triatlón | Beswib',
 		eventWithLocation: (eventName: string, location: string) =>
-			`${eventName} en ${location} | Transferencia Dorsales | Beswib`,
+			`${eventName} en ${location.split(',')[0]} | Dorsales de Carrera`,
 		events: 'Explorar Eventos Running | Encontrar Dorsales Trail, Maratón, Triatlón | Beswib',
 		event: (eventName: string) => `${eventName} | Transferencia Dorsales | Comprar & Vender en Beswib`,
 	},
@@ -312,7 +313,7 @@ export const SEO_TITLES = {
 		marketplace: 'Buy & Sell Race Bibs | Running, Trail, Triathlon | Beswib',
 		legal: (pageName: string) => `${pageName} | Legal | Beswib`,
 		home: 'Transfer Race Bibs Safely | Running, Trail, Triathlon | Beswib',
-		eventWithLocation: (eventName: string, location: string) => `${eventName} in ${location} | Beswib`,
+		eventWithLocation: (eventName: string, location: string) => `${eventName} in ${location.split(',')[0]} | Race Bibs`,
 		events: 'Running Events | Race Bibs for Trail, Marathon | Beswib',
 		event: (eventName: string) => `${eventName} | Race Bibs | Beswib`,
 	},
@@ -321,7 +322,8 @@ export const SEO_TITLES = {
 		marketplace: 'Startnummern Kaufen & Verkaufen | Laufen, Trail | Beswib',
 		legal: (pageName: string) => `${pageName} | Rechtlich | Beswib`,
 		home: 'Startnummern Transfer | Laufen, Trail, Triathlon | Beswib',
-		eventWithLocation: (eventName: string, location: string) => `${eventName} in ${location} | Beswib`,
+		eventWithLocation: (eventName: string, location: string) =>
+			`${eventName} in ${location.split(',')[0]} | Startnummern`,
 		events: 'Lauf-Events | Startnummern für Trail, Marathon | Beswib',
 		event: (eventName: string) => `${eventName} | Startnummern | Beswib`,
 	},
