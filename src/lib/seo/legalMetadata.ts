@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 import type { Locale } from '@/lib/i18n/config'
 
+import { generateAlternateLanguages, generateCanonicalUrl } from './utils/seo-generators'
 import { generateBaseMetadata } from './metadata-generators'
 
 // Configuration des métadonnées pour les pages légales par langue
@@ -271,8 +272,8 @@ export function getLegalPageMetadata(
 		keywords: pageConfig.keywords,
 		description: pageConfig.description,
 		alternates: {
-			languages: baseMetadata.alternates?.languages ?? {},
-			canonical: `https://beswib.com/${locale}/legals/${pageType}`,
+			languages: generateAlternateLanguages(`/legals/${pageType}`, locale),
+			canonical: generateCanonicalUrl(locale, `/legals/${pageType}`),
 		},
 	}
 }
