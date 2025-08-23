@@ -5,8 +5,49 @@ import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 import BeswibLogo from './icons/BeswibLogo'
 import Pattern from './icons/Pattern'
 
-// Function to split the text into parts and apply a special color to words between **
+// Function to split the text into lines and apply a special color to words between **
 function formatTextWithColor(text: string, highlightColor = '#4C639A') {
+	console.info('🔍 Input text:', text)
+
+	// Split text into sentences ending with ? or !
+	const sentences = text.split(/([?!])/).filter(part => part.trim())
+	console.info('📝 Sentences after split:', sentences)
+
+	const lines: { parts: { text: string; color: string }[] }[] = []
+	let currentSentence = ''
+
+	for (let i = 0; i < sentences.length; i++) {
+		const part = sentences[i]
+
+		if (/^[?!]$/.test(part)) {
+			// This is punctuation, add it to current sentence
+			currentSentence += part
+
+			// Process the complete sentence for ** highlighting
+			const lineParts = processTextForHighlighting(currentSentence, highlightColor)
+			lines.push({ parts: lineParts })
+
+			console.info(`✅ Created line ${lines.length}:`, currentSentence)
+			currentSentence = ''
+		} else {
+			// This is text, add it to current sentence
+			currentSentence += part
+		}
+	}
+
+	// Handle any remaining text that doesn't end with ? or !
+	if (currentSentence.trim()) {
+		const lineParts = processTextForHighlighting(currentSentence, highlightColor)
+		lines.push({ parts: lineParts })
+		console.info(`✅ Created final line ${lines.length}:`, currentSentence)
+	}
+
+	console.info('🎯 Final lines structure:', lines)
+	return lines
+}
+
+// Helper function to process text for ** highlighting
+function processTextForHighlighting(text: string, highlightColor: string) {
 	const parts: { text: string; color: string }[] = []
 	const regex = /\*\*(.*?)\*\*/g
 	let lastIndex = 0
@@ -73,7 +114,6 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 	const mountainUrl = `${protocol}://${host}/openGraph/${encodeURIComponent('mountain-outlined.png')}`
 
 	// Split text into parts with color for highlights
-	const titleParts = formatTextWithColor(titleMain)
 	const secondaryParts = formatTextWithColor(secondaryDesc)
 
 	return (
@@ -149,30 +189,47 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 								display: 'flex',
 							}}
 						>
-							{titleParts.map((part, index) => (
-								<span key={`${part.text}-${index}`} style={{ color: part.color }}>
-									{part.text}
-								</span>
-							))}
+							{titleMain}
 						</div>
 
 						{/* Secondary description */}
 						<div
 							style={{
-								whiteSpace: 'pre-wrap',
+								width: '100%',
 								textAlign: 'left',
+								maxWidth: '800px',
 								lineHeight: 1.1,
+								gap: '0.5em',
 								fontWeight: 'bold',
 								fontSize: secondaryFontSize,
 								fontFamily: 'Geist',
-								flexWrap: 'wrap',
+								flexDirection: 'column',
 								display: 'flex',
 							}}
 						>
-							{secondaryParts.map((part, index) => (
-								<span key={`${part.text}-${index}`} style={{ color: part.color }}>
-									{part.text}
-								</span>
+							{secondaryParts.map((line, lineIndex) => (
+								<div
+									key={`line-${lineIndex}`}
+									style={{
+										maxWidth: '100%',
+										flexWrap: 'wrap',
+										display: 'flex',
+									}}
+								>
+									{line.parts.map((part, partIndex) => (
+										<span
+											key={`${part.text}-${partIndex}`}
+											style={{
+												whiteSpace: 'normal',
+												marginRight: part.color === '#4C639A' ? '0.2em' : '0',
+												marginLeft: part.color === '#4C639A' ? '0.2em' : '0',
+												color: part.color,
+											}}
+										>
+											{part.text}
+										</span>
+									))}
+								</div>
 							))}
 						</div>
 					</div>
