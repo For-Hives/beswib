@@ -70,7 +70,7 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 		category: 'Sports & Recreation',
 		authors: [{ name: 'Beswib Team' }],
 		alternates: {
-			languages: generateAlternateLanguages('/', locale),
+			languages: generateAlternateLanguages('/'),
 			canonical: generateCanonicalUrl(locale, '/'),
 		},
 	}
@@ -103,7 +103,7 @@ export function generateHomeMetadata(locale: Locale): Metadata {
 		description: descriptions.home,
 		alternates: {
 			...baseMetadata.alternates,
-			languages: generateAlternateLanguages('/', locale),
+			languages: generateAlternateLanguages('/'),
 			canonical: generateCanonicalUrl(locale, '/'),
 		},
 	}
@@ -132,7 +132,7 @@ export function generateEventsMetadata(locale: Locale): Metadata {
 		description: descriptions.events,
 		alternates: {
 			...baseMetadata.alternates,
-			languages: generateAlternateLanguages('/events', locale),
+			languages: generateAlternateLanguages('/events'),
 			canonical: generateCanonicalUrl(locale, '/events'),
 		},
 	}
@@ -188,7 +188,7 @@ export function generateEventMetadata(locale: Locale, event: Event): Metadata {
 		description: eventDescription,
 		alternates: {
 			...baseMetadata.alternates,
-			languages: generateAlternateLanguages(eventPath, locale),
+			languages: generateAlternateLanguages(eventPath),
 			canonical: generateCanonicalUrl(locale, eventPath),
 		},
 	}
@@ -217,7 +217,7 @@ export function generateMarketplaceMetadata(locale: Locale): Metadata {
 		description: descriptions.marketplace,
 		alternates: {
 			...baseMetadata.alternates,
-			languages: generateAlternateLanguages('/marketplace', locale),
+			languages: generateAlternateLanguages('/marketplace'),
 			canonical: generateCanonicalUrl(locale, '/marketplace'),
 		},
 	}
@@ -285,7 +285,7 @@ export function generateFAQMetadata(locale: Locale): Metadata {
 		description: faqDescription,
 		alternates: {
 			...baseMetadata.alternates,
-			languages: generateAlternateLanguages('/faq', locale),
+			languages: generateAlternateLanguages('/faq'),
 			canonical: generateCanonicalUrl(locale, '/faq'),
 		},
 	}
@@ -319,7 +319,7 @@ export function generateSimplePageMetadata(
 		description,
 		alternates: {
 			...baseMetadata.alternates,
-			languages: generateAlternateLanguages(path, locale),
+			languages: generateAlternateLanguages(path),
 			canonical: generateCanonicalUrl(locale, path),
 		},
 	}
