@@ -175,7 +175,7 @@ export default function BuyerDashboardClient({
 								</Card>
 							</Link>
 
-							<Link href="/events">
+							<Link href={`/${locale}/events`}>
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<Calendar className="text-primary mb-2 h-8 w-8" />
@@ -193,7 +193,7 @@ export default function BuyerDashboardClient({
 								</Card>
 							</Link>
 
-							<Link href="/contact">
+							<Link href={`/${locale}/contact`}>
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<HelpCircle className="text-primary mb-2 h-8 w-8" />
@@ -322,7 +322,7 @@ export default function BuyerDashboardClient({
 										<p className="text-muted-foreground mb-4">
 											{t.noPurchases ?? "You haven't made any purchases yet"}
 										</p>
-										<Link href="/events">
+										<Link href={`/${locale}/events`}>
 											<Button className="cursor-pointer">{t.browseEvents}</Button>
 										</Link>
 									</div>
@@ -388,7 +388,7 @@ export default function BuyerDashboardClient({
 										<p className="text-muted-foreground mb-4">
 											{t.noWaitlistEntries ?? 'You are not currently on any waitlists.'}
 										</p>
-										<Link href="/events">
+										<Link href={`/${locale}/events`}>
 											<Button variant="outline">{t.browseEvents}</Button>
 										</Link>
 									</div>

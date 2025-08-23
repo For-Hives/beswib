@@ -125,7 +125,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 
 							{/* Browse Events */}
 							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-								<Link href="/events">
+								<Link href={`/${locale}/events`}>
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<Calendar className="h-6 w-6" />
@@ -161,7 +161,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 
 							{/* Contact */}
 							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-								<Link href="/contact">
+								<Link href={`/${locale}/contact`}>
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<MapPin className="h-6 w-6" />

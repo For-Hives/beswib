@@ -35,9 +35,9 @@ export default function FAQClient({ locale }: Readonly<FAQClientProps>) {
 									{t.faq.description}
 								</p>
 							</div>
-							<div className="">
+							<div>
 								<Button asChild className="gap-4" variant="outline">
-									<Link href={t.faq.support.buttonUrl}>
+									<Link href={`/${locale}/contact`}>
 										{t.faq.contactButton} <PhoneCall className="h-4 w-4" />
 									</Link>
 								</Button>

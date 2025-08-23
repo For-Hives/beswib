@@ -62,7 +62,7 @@ export default function ContentTabs({ locale, eventData, bib }: Readonly<Content
 		summary:
 			t.termsSummary ??
 			"By purchasing this bib, you agree to our terms of service and the event organizer's participation rules.",
-		href: '/legals/terms/',
+		href: `/${locale}/legals/terms/`,
 	}
 
 	return (

@@ -30,7 +30,7 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 						<div>
 							<Link
 								className="border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md border px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none md:px-8 dark:shadow-none"
-								href="/contact"
+								href={`/${locale}/contact`}
 							>
 								{landingT.home.hero.organizerButton}
 							</Link>
@@ -38,7 +38,7 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 						<div>
 							<Link
 								className="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none md:px-8 dark:shadow-none"
-								href="/events"
+								href={`/${locale}/events`}
 							>
 								{landingT.home.hero.consultRacesButton}
 							</Link>
@@ -72,7 +72,7 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 							<div>
 								<Link
 									className="border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md border px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none lg:px-8 dark:shadow-none"
-									href="/contact"
+									href={`/${locale}/contact`}
 								>
 									{landingT.home.hero.organizerButton}
 								</Link>
@@ -80,7 +80,7 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 							<div>
 								<Link
 									className="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none lg:px-8 dark:shadow-none"
-									href="/events"
+									href={`/${locale}/events`}
 								>
 									{landingT.home.hero.consultRacesButton}
 								</Link>
