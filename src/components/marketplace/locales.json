@@ -86,6 +86,7 @@
 		"purchase": {
 			"bibTitle": "Race Bib Purchase"
 		},
+		"bibInformation": "Bib information",
 		"eventDetails": "Event Details",
 		"faqQ1": "How does the bib transfer process work?",
 		"faqA1": "Once you complete your purchase, we'll coordinate with the seller to transfer the bib registration to your name. You'll receive all necessary confirmation details and pickup instructions.",
@@ -241,6 +242,7 @@
 		"purchase": {
 			"bibTitle": "Achat de dossard"
 		},
+		"bibInformation": "Informations du dossard",
 		"eventDetails": "Détails de l'événement",
 		"faqQ1": "Comment fonctionne le transfert de dossard ?",
 		"faqA1": "Après votre achat, nous coordonnons avec le vendeur pour transférer l'inscription du dossard à votre nom. Vous recevrez toutes les informations nécessaires et les instructions de retrait.",
@@ -382,6 +384,7 @@
 		"purchase": {
 			"bibTitle": "Compra de dorsal"
 		},
+		"bibInformation": "Información del dorsal",
 		"eventDetails": "Detalles del evento",
 		"faqQ1": "¿Cómo funciona el traspaso del dorsal?",
 		"faqA1": "Tras completar tu compra, coordinaremos con el vendedor para transferir el dorsal a tu nombre. Recibirás la confirmación e instrucciones de recogida.",
@@ -523,6 +526,7 @@
 		"purchase": {
 			"bibTitle": "Acquisto pettorale"
 		},
+		"bibInformation": "Informazioni pettorale",
 		"eventDetails": "Dettagli evento",
 		"faqQ1": "Come funziona il trasferimento del pettorale?",
 		"faqA1": "Dopo l'acquisto, coordineremo con il venditore il trasferimento dell'iscrizione a tuo nome. Riceverai conferma e istruzioni per il ritiro.",
@@ -664,6 +668,7 @@
 		"purchase": {
 			"bibTitle": "Startnummer-Kauf"
 		},
+		"bibInformation": "Startnummer-Informationen",
 		"eventDetails": "Event-Details",
 		"faqQ1": "Wie funktioniert die Übertragung der Startnummer?",
 		"faqA1": "Nach dem Kauf koordinieren wir mit dem Verkäufer die Übertragung auf deinen Namen. Du erhältst Bestätigung und Abholhinweise.",
@@ -805,6 +810,7 @@
 		"purchase": {
 			"bibTitle": "Cumpărare număr"
 		},
+		"bibInformation": "Informații număr",
 		"eventDetails": "Detalii eveniment",
 		"faqQ1": "Cum funcționează transferul numărului?",
 		"faqA1": "După achiziție, coordonăm cu vânzătorul transferul înregistrării pe numele tău. Vei primi confirmări și instrucțiuni de ridicare.",
@@ -946,6 +952,7 @@
 		"purchase": {
 			"bibTitle": "Compra de dorsal"
 		},
+		"bibInformation": "Informações do dorsal",
 		"eventDetails": "Detalhes do evento",
 		"faqQ1": "Como funciona a transferência do dorsal?",
 		"faqA1": "Após a compra, coordenamos com o vendedor a transferência para o teu nome. Receberás confirmação e instruções.",
@@ -1087,6 +1094,7 @@
 		"purchase": {
 			"bibTitle": "Startnummer aankoop"
 		},
+		"bibInformation": "Startnummer informatie",
 		"eventDetails": "Evenementdetails",
 		"faqQ1": "Hoe werkt het overdragen van een startnummer?",
 		"faqA1": "Na aankoop regelen wij met de verkoper de overdracht op jouw naam. Je ontvangt bevestiging en ophaalinstructies.",
@@ -1228,6 +1236,7 @@
 		"purchase": {
 			"bibTitle": "빕 구매하기"
 		},
+		"bibInformation": "빕 정보",
 		"eventDetails": "이벤트 상세",
 		"faqQ1": "빕 양도는 어떻게 진행되나요?",
 		"faqA1": "구매 완료 후 판매자와 협의하여 등록을 귀하의 이름으로 이전합니다. 확인 및 수령 안내를 받게 됩니다.",

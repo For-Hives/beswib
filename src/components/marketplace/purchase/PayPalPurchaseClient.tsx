@@ -285,7 +285,7 @@ export default function PayPalPurchaseClient({
 									{bib.event.name} - {t.purchase?.bibTitle ?? 'Race Bib Purchase'}
 								</h1>
 								<h2 id="information-heading" className="sr-only">
-									Bib information
+									{t.bibInformation ?? 'Bib information'}
 								</h2>
 								<p className="text-muted-foreground mt-2 text-sm">
 									Event Date: {bib.event.date.toLocaleDateString()} • {bib.event.location}
