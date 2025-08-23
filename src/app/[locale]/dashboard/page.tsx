@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
-import { generateDashboardAlternateLanguages } from '@/lib/seo/utils/seo-generators'
+import { generateAlternateLanguages } from '@/lib/seo/utils/seo-generators'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { LocaleParams } from '@/lib/generation/staticParams'
 
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 	return {
 		title: 'Dashboard | Beswib',
 		alternates: {
-			languages: generateDashboardAlternateLanguages('/dashboard'),
+			languages: generateAlternateLanguages('/dashboard'),
 			canonical: `https://beswib.com/${locale}/dashboard`,
 		},
 	}
