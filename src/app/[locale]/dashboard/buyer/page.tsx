@@ -4,7 +4,7 @@ import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
 import { fetchBuyerCompletedTransactions, fetchBuyerTransactions } from '@/services/transaction.services'
-import { generateDashboardAlternateLanguages } from '@/lib/seo/utils/seo-generators'
+import { generateAlternateLanguages } from '@/lib/seo/utils/seo-generators'
 import { fetchUserWaitlists } from '@/services/waitlist.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { LocaleParams } from '@/lib/generation/staticParams'
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 	return {
 		title: 'Buyer Dashboard | Beswib',
 		alternates: {
-			languages: generateDashboardAlternateLanguages('/dashboard/buyer'),
+			languages: generateAlternateLanguages('/dashboard/buyer'),
 			canonical: `https://beswib.com/${locale}/dashboard/buyer`,
 		},
 	}
