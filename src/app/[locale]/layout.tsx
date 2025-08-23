@@ -147,7 +147,10 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 			signInFallbackRedirectUrl={`/${locale}/dashboard`}
 		>
 			<html lang={locale} suppressHydrationWarning>
-				<head>
+				<body
+					className={`${geistSans.variable} ${geistMono.variable} ${bowlbyOneSC.variable} bg-background text-foreground font-geist antialiased`}
+				>
+					{/* Scripts moved to body to avoid head conflicts */}
 					<Script
 						async
 						id="umami-script"
@@ -161,10 +164,6 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 					{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID != null && (
 						<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
 					)}
-				</head>
-				<body
-					className={`${geistSans.variable} ${geistMono.variable} ${bowlbyOneSC.variable} bg-background text-foreground font-geist antialiased`}
-				>
 					{/* Apply persisted/system theme BEFORE paint to prevent flash */}
 					<Script
 						id="theme-script"

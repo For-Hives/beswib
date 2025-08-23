@@ -111,10 +111,7 @@ export function generateHomeMetadata(locale: Locale): Metadata {
 			description: descriptions.home,
 		},
 		title: titles.home,
-		// Ensure canonical link element is present
-		other: {
-			'canonical-link': generateCanonicalUrl(locale, '/'),
-		},
+
 		openGraph: {
 			...baseMetadata.openGraph,
 			url: generateCanonicalUrl(locale, '/'),
