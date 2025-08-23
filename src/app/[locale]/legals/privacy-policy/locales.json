@@ -1,0 +1,56 @@
+{
+	"en": {
+		"privacy": {
+			"titleOG": "Privacy Policy",
+			"descriptionOG": "How we **collect, use and protect** your personal data on Beswib"
+		}
+	},
+	"fr": {
+		"privacy": {
+			"titleOG": "Politique de confidentialité",
+			"descriptionOG": "Comment nous **collectons, utilisons et protégeons** vos données personnelles sur Beswib"
+		}
+	},
+	"ko": {
+		"privacy": {
+			"titleOG": "개인정보 보호정책",
+			"descriptionOG": "Beswib에서 개인 데이터를 **수집, 사용 및 보호**하는 방법"
+		}
+	},
+	"es": {
+		"privacy": {
+			"titleOG": "Política de Privacidad",
+			"descriptionOG": "Cómo **recopilamos, usamos y protegemos** tus datos personales en Beswib"
+		}
+	},
+	"it": {
+		"privacy": {
+			"titleOG": "Privacy",
+			"descriptionOG": "Come **raccogliamo, utilizziamo e proteggiamo** i tuoi dati personali su Beswib"
+		}
+	},
+	"de": {
+		"privacy": {
+			"titleOG": "Datenschutzerklärung",
+			"descriptionOG": "Wie wir deine personenbezogenen Daten auf Beswib **sammeln, nutzen und schützen**"
+		}
+	},
+	"ro": {
+		"privacy": {
+			"titleOG": "Politica de confidențialitate",
+			"descriptionOG": "Cum **colectăm, folosim și protejăm** datele tale personale pe Beswib"
+		}
+	},
+	"pt": {
+		"privacy": {
+			"titleOG": "Política de Privacidade",
+			"descriptionOG": "Como **recolhemos, utilizamos e protegemos** os seus dados pessoais no Beswib"
+		}
+	},
+	"nl": {
+		"privacy": {
+			"titleOG": "Privacybeleid",
+			"descriptionOG": "Hoe we je persoonsgegevens **verzamelen, gebruiken en beschermen** op Beswib"
+		}
+	}
+}

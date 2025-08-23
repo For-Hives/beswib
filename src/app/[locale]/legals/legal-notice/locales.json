@@ -1,0 +1,56 @@
+{
+	"en": {
+		"legalNotice": {
+			"titleOG": "Legal Notice",
+			"descriptionOG": "**Company information** and legal disclosures for Beswib platform"
+		}
+	},
+	"fr": {
+		"legalNotice": {
+			"titleOG": "Mentions légales",
+			"descriptionOG": "**Informations légales** et mentions obligatoires de la plateforme Beswib"
+		}
+	},
+	"ko": {
+		"legalNotice": {
+			"titleOG": "법적 고지",
+			"descriptionOG": "Beswib 플랫폼의 **회사 정보** 및 법적 공개사항"
+		}
+	},
+	"es": {
+		"legalNotice": {
+			"titleOG": "Aviso Legal",
+			"descriptionOG": "**Información de la empresa** y avisos legales de la plataforma Beswib"
+		}
+	},
+	"it": {
+		"legalNotice": {
+			"titleOG": "Note legali",
+			"descriptionOG": "**Informazioni aziendali** e note legali della piattaforma Beswib"
+		}
+	},
+	"de": {
+		"legalNotice": {
+			"titleOG": "Impressum",
+			"descriptionOG": "**Unternehmensangaben** und rechtliche Hinweise für die Beswib-Plattform"
+		}
+	},
+	"ro": {
+		"legalNotice": {
+			"titleOG": "Mențiuni legale",
+			"descriptionOG": "**Informații despre companie** și mențiuni legale pentru platforma Beswib"
+		}
+	},
+	"pt": {
+		"legalNotice": {
+			"titleOG": "Aviso Legal",
+			"descriptionOG": "**Informações da empresa** e avisos legais da plataforma Beswib"
+		}
+	},
+	"nl": {
+		"legalNotice": {
+			"titleOG": "Juridische kennisgeving",
+			"descriptionOG": "**Bedrijfsinformatie** en juridische vermeldingen voor het Beswib-platform"
+		}
+	}
+}
