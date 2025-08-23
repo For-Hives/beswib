@@ -49,7 +49,7 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 	if (event) {
 		// Use event name as main title
 		title = event.name
-		
+
 		// Create a descriptive secondary text with event details
 		const eventDetails = []
 		if (event.location) eventDetails.push(event.location)
@@ -60,10 +60,11 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 				eventDetails.push(eventDate.toLocaleDateString(locale))
 			}
 		}
-		
-		secondary = eventDetails.length > 0 
-			? `**${eventDetails.join(' • ')}** - Available bibs and event details`
-			: 'Event details and **available bibs** for registration'
+
+		secondary =
+			eventDetails.length > 0
+				? `**${eventDetails.join(' • ')}** - Available bibs and event details`
+				: 'Event details and **available bibs** for registration'
 	}
 
 	// Load custom fonts for @vercel/og with error handling
@@ -73,15 +74,7 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			(
-				<OGImage
-					title={title}
-					secondary={secondary}
-					host={host}
-					protocol={protocol}
-					size={size}
-				/>
-			),
+			<OGImage title={title} secondary={secondary} host={host} protocol={protocol} size={size} />,
 			{
 				...size,
 				fonts: [
@@ -105,15 +98,7 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 		console.error('Error loading fonts:', error)
 		// Fallback: return the image without custom fonts
 		return new ImageResponse(
-			(
-				<OGImage
-					title={title}
-					secondary={secondary}
-					host={host}
-					protocol={protocol}
-					size={size}
-				/>
-			),
+			<OGImage title={title} secondary={secondary} host={host} protocol={protocol} size={size} />,
 			size
 		)
 	}

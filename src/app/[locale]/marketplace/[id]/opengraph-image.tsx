@@ -25,11 +25,11 @@ export function generateStaticParams() {
 type MarketplaceOpenGraphParams = LocaleParams & { id: string; tkn?: string }
 
 // Default export: async function to generate the Open Graph image
-export default async function Image({ 
-	params, 
-	searchParams 
-}: { 
-	params: Promise<MarketplaceOpenGraphParams>,
+export default async function Image({
+	params,
+	searchParams,
+}: {
+	params: Promise<MarketplaceOpenGraphParams>
 	searchParams: Promise<{ tkn?: string }>
 }) {
 	// Retrieve the dynamic locale and bib ID from params
@@ -47,7 +47,7 @@ export default async function Image({
 	try {
 		// Check bib status first
 		const bibStatus = await checkBibListingStatus(id)
-		
+
 		if (bibStatus?.exists && bibStatus.available) {
 			// Try to fetch bib data
 			if (bibStatus.listed === 'private' && tkn) {
@@ -72,9 +72,10 @@ export default async function Image({
 				if (distance) details.push(`${distance}km`)
 				if (price) details.push(`€${price}`)
 
-				secondary = details.length > 0 
-					? `**${details.join(' • ')}** - Secure race bib transfer`
-					: 'Secure **race bib transfer** with verified seller'
+				secondary =
+					details.length > 0
+						? `**${details.join(' • ')}** - Secure race bib transfer`
+						: 'Secure **race bib transfer** with verified seller'
 			}
 		}
 	} catch (error) {
@@ -96,15 +97,7 @@ export default async function Image({
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			(
-				<OGImage
-					title={title}
-					secondary={secondary}
-					host={host}
-					protocol={protocol}
-					size={size}
-				/>
-			),
+			<OGImage title={title} secondary={secondary} host={host} protocol={protocol} size={size} />,
 			{
 				...size,
 				fonts: [
@@ -128,15 +121,7 @@ export default async function Image({
 		console.error('Error loading fonts:', error)
 		// Fallback: return the image without custom fonts
 		return new ImageResponse(
-			(
-				<OGImage
-					title={title}
-					secondary={secondary}
-					host={host}
-					protocol={protocol}
-					size={size}
-				/>
-			),
+			<OGImage title={title} secondary={secondary} host={host} protocol={protocol} size={size} />,
 			size
 		)
 	}
