@@ -1,0 +1,56 @@
+{
+	"en": {
+		"terms": {
+			"titleOG": "Terms of Service",
+			"descriptionOG": "Legal **terms and conditions** for using Beswib's marketplace platform"
+		}
+	},
+	"fr": {
+		"terms": {
+			"titleOG": "Conditions d'utilisation",
+			"descriptionOG": "**Conditions générales** d'utilisation de la plateforme Beswib"
+		}
+	},
+	"ko": {
+		"terms": {
+			"titleOG": "서비스 약관",
+			"descriptionOG": "Beswib 마켓플레이스 플랫폼 이용을 위한 법적 **약관 및 조건**"
+		}
+	},
+	"es": {
+		"terms": {
+			"titleOG": "Términos del Servicio",
+			"descriptionOG": "**Términos y condiciones** legales para usar la plataforma Beswib"
+		}
+	},
+	"it": {
+		"terms": {
+			"titleOG": "Termini di servizio",
+			"descriptionOG": "**Termini e condizioni** legali per utilizzare la piattaforma Beswib"
+		}
+	},
+	"de": {
+		"terms": {
+			"titleOG": "Nutzungsbedingungen",
+			"descriptionOG": "Rechtliche **Geschäftsbedingungen** für die Nutzung der Beswib-Plattform"
+		}
+	},
+	"ro": {
+		"terms": {
+			"titleOG": "Termeni și condiții",
+			"descriptionOG": "**Termenii și condițiile** legale pentru utilizarea platformei Beswib"
+		}
+	},
+	"pt": {
+		"terms": {
+			"titleOG": "Termos de Serviço",
+			"descriptionOG": "**Termos e condições** legais para usar a plataforma Beswib"
+		}
+	},
+	"nl": {
+		"terms": {
+			"titleOG": "Servicevoorwaarden",
+			"descriptionOG": "Juridische **algemene voorwaarden** voor het gebruik van het Beswib-platform"
+		}
+	}
+}

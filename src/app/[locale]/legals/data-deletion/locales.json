@@ -1,0 +1,56 @@
+{
+	"en": {
+		"dataDeletion": {
+			"titleOG": "Data Deletion",
+			"descriptionOG": "How to **request permanent deletion** of your personal data from Beswib"
+		}
+	},
+	"fr": {
+		"dataDeletion": {
+			"titleOG": "Suppression des données",
+			"descriptionOG": "Comment **demander la suppression définitive** de vos données personnelles de Beswib"
+		}
+	},
+	"ko": {
+		"dataDeletion": {
+			"titleOG": "데이터 삭제",
+			"descriptionOG": "Beswib에서 개인 데이터의 **영구 삭제 요청** 방법"
+		}
+	},
+	"es": {
+		"dataDeletion": {
+			"titleOG": "Eliminación de datos",
+			"descriptionOG": "Cómo **solicitar la eliminación permanente** de tus datos personales de Beswib"
+		}
+	},
+	"it": {
+		"dataDeletion": {
+			"titleOG": "Cancellazione dati",
+			"descriptionOG": "Come **richiedere la cancellazione permanente** dei tuoi dati personali da Beswib"
+		}
+	},
+	"de": {
+		"dataDeletion": {
+			"titleOG": "Datenlöschung",
+			"descriptionOG": "Wie du die **dauerhafte Löschung** deiner persönlichen Daten von Beswib beantragen kannst"
+		}
+	},
+	"ro": {
+		"dataDeletion": {
+			"titleOG": "Ștergere date",
+			"descriptionOG": "Cum să **soliciți ștergerea permanentă** a datelor tale personale de la Beswib"
+		}
+	},
+	"pt": {
+		"dataDeletion": {
+			"titleOG": "Eliminação de dados",
+			"descriptionOG": "Como **solicitar a eliminação permanente** dos seus dados pessoais do Beswib"
+		}
+	},
+	"nl": {
+		"dataDeletion": {
+			"titleOG": "Gegevensverwijdering",
+			"descriptionOG": "Hoe je **permanente verwijdering** van je persoonsgegevens van Beswib kunt aanvragen"
+		}
+	}
+}
