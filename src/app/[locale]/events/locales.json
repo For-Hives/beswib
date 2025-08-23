@@ -80,7 +80,7 @@
 				"officialPrice": "Official price"
 			},
 			"OG": {
-				"titleOG": "Events",
+				"titleOG": "Your Sporting Events",
 				"descriptionOG": "Browse our **events** and find **race bibs** for upcoming events!"
 			},
 			"noEventsToDisplay": "No events to display.",
@@ -168,7 +168,7 @@
 				"officialPrice": "Prix officiel"
 			},
 			"OG": {
-				"titleOG": "Évènements",
+				"titleOG": "Vos évènements sportifs",
 				"descriptionOG": "Parcourez nos **évènements** et Trouvez des **dossards** pour les événements à **venir** !"
 			},
 			"noEventsToDisplay": "Aucun événement à afficher.",

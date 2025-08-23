@@ -26,7 +26,7 @@
 		"sortByPriceDesc": "Price descending",
 		"sport": "Sport",
 		"start": "Start",
-		"title": "Marketplace"
+		"title": "Marketplace Beswib"
 	},
 	"fr": {
 		"allDistances": "Toutes les distances",
@@ -55,7 +55,7 @@
 		"sortByPriceDesc": "Prix décroissant",
 		"sport": "Sport",
 		"start": "Début",
-		"title": "Marché"
+		"title": "Marché Beswib"
 	},
 	"es": {
 		"allDistances": "Todas las distancias",
@@ -84,7 +84,7 @@
 		"sortByPriceDesc": "Precio descendente",
 		"sport": "Deporte",
 		"start": "Inicio",
-		"title": "Mercado"
+		"title": "Mercado Beswib"
 	},
 	"it": {
 		"allDistances": "Tutte le distanze",
@@ -113,7 +113,7 @@
 		"sortByPriceDesc": "Prezzo decrescente",
 		"sport": "Sport",
 		"start": "Inizio",
-		"title": "Mercato"
+		"title": "Mercato Beswib"
 	},
 	"de": {
 		"allDistances": "Alle Distanzen",
@@ -142,7 +142,7 @@
 		"sortByPriceDesc": "Preis absteigend",
 		"sport": "Sport",
 		"start": "Start",
-		"title": "Marktplatz"
+		"title": "Marktplatz Beswib"
 	},
 	"ro": {
 		"allDistances": "Toate distanțele",
@@ -171,7 +171,7 @@
 		"sortByPriceDesc": "Preț descrescător",
 		"sport": "Sport",
 		"start": "Început",
-		"title": "Piață"
+		"title": "Piața Beswib"
 	},
 	"pt": {
 		"allDistances": "Todas as distâncias",
@@ -200,7 +200,7 @@
 		"sortByPriceDesc": "Preço descendente",
 		"sport": "Desporto",
 		"start": "Início",
-		"title": "Marketplace"
+		"title": "Mercado Beswib"
 	},
 	"nl": {
 		"allDistances": "Alle afstanden",
@@ -229,7 +229,7 @@
 		"sortByPriceDesc": "Prijs aflopend",
 		"sport": "Sport",
 		"start": "Start",
-		"title": "Marktplaats"
+		"title": "Marktplaats Beswib"
 	},
 	"ko": {
 		"allDistances": "모든 거리",
@@ -258,6 +258,6 @@
 		"sortByPriceDesc": "가격 내림차순",
 		"sport": "스포츠",
 		"start": "시작",
-		"title": "마켓플레이스"
+		"title": "베스윕 마켓플레이스"
 	}
 }
