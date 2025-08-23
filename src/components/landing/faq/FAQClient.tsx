@@ -30,7 +30,7 @@ export default function FAQClient({ locale }: Readonly<FAQClientProps>) {
 								<Badge variant="outline">{t.faq.badge}</Badge>
 							</div>
 							<div className="flex flex-col gap-2">
-								<h4 className="font-regular max-w-xl text-left text-3xl tracking-tighter md:text-5xl">{t.faq.title}</h4>
+								<h1 className="font-regular max-w-xl text-left text-3xl tracking-tighter md:text-5xl">{t.faq.title}</h1>
 								<p className="text-muted-foreground max-w-xl text-left leading-relaxed tracking-tight lg:max-w-lg lg:text-lg">
 									{t.faq.description}
 								</p>
