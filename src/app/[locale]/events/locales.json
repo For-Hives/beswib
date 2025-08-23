@@ -256,7 +256,7 @@
 				"officialPrice": "공식 가격"
 			},
 			"OG": {
-				"titleOG": "이벤트",
+				"titleOG": "당신의 스포츠 이벤트",
 				"descriptionOG": "우리의 **이벤트**를 둘러보고 다가오는 이벤트를 위한 **레이스 비브**를 찾아보세요!"
 			},
 			"noEventsToDisplay": "표시할 이벤트가 없습니다.",
@@ -344,7 +344,7 @@
 				"officialPrice": "Precio oficial"
 			},
 			"OG": {
-				"titleOG": "Eventos",
+				"titleOG": "Tus Eventos Deportivos",
 				"descriptionOG": "Explora nuestros **eventos** y encuentra **dorsales** para eventos próximos!"
 			},
 			"noEventsToDisplay": "No hay eventos para mostrar.",
@@ -432,7 +432,7 @@
 				"officialPrice": "Prezzo ufficiale"
 			},
 			"OG": {
-				"titleOG": "Eventi",
+				"titleOG": "I Tuoi Eventi Sportivi",
 				"descriptionOG": "Sfoglia i nostri **eventi** e trova i **pettorali** per gli eventi in arrivo!"
 			},
 			"noEventsToDisplay": "Nessun evento da mostrare.",
@@ -520,7 +520,7 @@
 				"officialPrice": "Offizieller Preis"
 			},
 			"OG": {
-				"titleOG": "Veranstaltungen",
+				"titleOG": "Ihre Sportveranstaltungen",
 				"descriptionOG": "Durchsuchen Sie unsere **Veranstaltungen** und finden Sie **Startnummern** für kommende Veranstaltungen!"
 			},
 			"noEventsToDisplay": "Keine Events zum Anzeigen.",
@@ -608,7 +608,7 @@
 				"officialPrice": "Prețul oficial"
 			},
 			"OG": {
-				"titleOG": "Evenimente",
+				"titleOG": "Evenimentele Tale Sportive",
 				"descriptionOG": "Răsfoiește **evenimentele** noastre și găsește **numere de concurs** pentru evenimente viitoare!"
 			},
 			"noEventsToDisplay": "Nu există evenimente de afișat.",
@@ -696,7 +696,7 @@
 				"officialPrice": "Preço oficial"
 			},
 			"OG": {
-				"titleOG": "Eventos",
+				"titleOG": "Os Teus Eventos Desportivos",
 				"descriptionOG": "Navegue pelos nossos **eventos** e encontre **números de corrida** para eventos futuros!"
 			},
 			"noEventsToDisplay": "Não há eventos para mostrar.",
@@ -784,7 +784,7 @@
 				"officialPrice": "Officiële prijs"
 			},
 			"OG": {
-				"titleOG": "Evenementen",
+				"titleOG": "Jouw Sportevenementen",
 				"descriptionOG": "Blader door onze **evenementen** en vind **startnummers** voor aankomende evenementen!"
 			},
 			"noEventsToDisplay": "Geen events om weer te geven.",
