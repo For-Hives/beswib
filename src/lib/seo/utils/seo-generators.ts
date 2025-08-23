@@ -131,7 +131,7 @@ export function generateCanonicalUrl(locale: Locale, path: string): string {
 }
 
 // Generate alternate language links with proper URLs and locale codes
-export function generateAlternateLanguages(path: string, currentLocale?: string): Record<string, string> {
+export function generateAlternateLanguages(path: string): Record<string, string> {
 	const baseUrl = 'https://beswib.com'
 	const languages = [
 		{ path: '/en', locale: 'en-US', code: 'en' },
