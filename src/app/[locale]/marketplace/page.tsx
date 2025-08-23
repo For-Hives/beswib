@@ -70,3 +70,5 @@ export default async function MarketplacePage({ params }: { params: Promise<{ lo
 		</div>
 	)
 }
+
+export const dynamic = 'force-dynamic'

@@ -57,3 +57,5 @@ export default async function EventsPage({ params }: { params: Promise<LocalePar
 export function generateStaticParams() {
 	return generateLocaleParams()
 }
+
+export const dynamic = 'force-dynamic'
