@@ -2,8 +2,8 @@
 	"en": {
 		"home": {
 			"hero": {
-				"title": "An unexpected event? <span>Transfer</span> your bib!",
-				"description": "Whether you're into running, trail, triathlon or cycling. <br />Find your favorite race or sell your bib with confidence.",
+				"title": "Can't Attend Your Race? <span>Transfer</span> Your Bib Safely!",
+				"description": "Legal race bib transfers for running, trail, triathlon & cycling events worldwide. <br />Secure PayPal payments, verified sellers, and instant organizer approval. Join thousands of athletes who trust Beswib.",
 				"organizerButton": "Organizer? List your race",
 				"consultRacesButton": "Browse races",
 				"workInProgress": "Work in progress"
@@ -14,9 +14,9 @@
 				"bibsExchanged": "Bibs Exchanged"
 			},
 			"callToAction": {
-				"title": "Ready to Dive In?",
-				"description": "Learn more about how Beswib works or start browsing events now.",
-				"learnMoreButton": "Learn More (FAQ)"
+				"title": "Ready to Transfer Your Race Bib?",
+				"description": "Join thousands of athletes who safely buy and sell race bibs on Beswib. 100% secure transfers with PayPal protection and organizer approval.",
+				"learnMoreButton": "View Beswib FAQ Guide"
 			}
 		},
 		"payment": {
@@ -235,7 +235,7 @@
 			"callToAction": {
 				"title": "Prêt à commencer ?",
 				"description": "Apprenez-en plus sur le fonctionnement de Beswib ou commencez à parcourir les événements.",
-				"learnMoreButton": "En savoir plus (FAQ)"
+				"learnMoreButton": "Consulter le guide FAQ Beswib"
 			}
 		},
 		"payment": {

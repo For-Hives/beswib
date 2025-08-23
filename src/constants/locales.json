@@ -14,7 +14,7 @@
 			"layout": {
 				"copyright": "© {year} Beswib. All rights reserved.",
 				"footer": {
-					"learnMore": "Learn more →"
+					"learnMore": "Discover Beswib Platform →"
 				}
 			},
 			"welcome": {
@@ -67,7 +67,7 @@
 					"usefulLinks": "Useful links",
 					"managePreferences": "Manage preferences",
 					"unsubscribe": "Unsubscribe",
-					"learnMore": "Learn more →",
+					"learnMore": "Discover Beswib Platform →",
 					"ourSite": "beswib.com",
 					"contact": "Contact",
 					"privacy": "Privacy",

@@ -1,11 +1,11 @@
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 
-import seoLocales from '../constants/seo-locales.json'
+import { SEO_TITLES, SEO_KEYWORDS } from '../constants/seo-translations'
 
 // Generate SEO keywords for events
 export function generateEventKeywords(locale: Locale, event: Event): string {
-	const localKeywords = seoLocales[locale].seo.keywords
+	const localKeywords = SEO_KEYWORDS[locale]
 	const baseKeywords = [...localKeywords.global] as string[]
 
 	// Add event-specific keywords
@@ -45,25 +45,26 @@ export function generateEventKeywords(locale: Locale, event: Event): string {
 
 // Generate SEO title for events
 export function generateEventTitle(locale: Locale, event: Event): string {
-	const titles = seoLocales[locale].seo.titles
+	const titles = SEO_TITLES[locale]
 
 	if (event.location) {
-		return `${event.name} ${titles.eventWithLocation} ${event.location} | ${titles.event}`
+		return typeof titles.eventWithLocation === 'function'
+			? titles.eventWithLocation(event.name, event.location)
+			: `${event.name} in ${event.location} | ${typeof titles.event === 'function' ? titles.event(event.name) : titles.event}`
 	}
 
-	return `${event.name} | ${titles.event}`
+	return typeof titles.event === 'function' ? titles.event(event.name) : `${event.name} | ${titles.site}`
 }
 
 // Generate SEO description for events
 export function generateEventDescription(locale: Locale, event: Event): string {
-	const keywords = seoLocales[locale].seo.keywords
-	const generators = seoLocales[locale].seo.generators
+	const keywords = SEO_KEYWORDS[locale]
 	const raceType = keywords.raceTypes[event.typeCourse] ?? event.typeCourse
 
 	let description = `${event.name} - ${raceType}`
 
 	if (event.location) {
-		description += ` ${generators.prepositions.in} ${event.location}`
+		description += ` in ${event.location}`
 	}
 
 	// Add event date
@@ -74,28 +75,28 @@ export function generateEventDescription(locale: Locale, event: Event): string {
 			month: 'long',
 			day: 'numeric',
 		})
-		description += ` ${generators.prepositions.on} ${formattedDate}`
+		description += ` on ${formattedDate}`
 	}
 
 	// Add distance if available
 	if (event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0) {
-		description += `. ${event.distanceKm}km ${generators.course}`
+		description += `. ${event.distanceKm}km distance`
 	}
 
 	// Add elevation if available
 	if (event.elevationGainM !== null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
-		description += `. ${event.elevationGainM}m ${generators.elevation}`
+		description += `. ${event.elevationGainM}m elevation`
 	}
 
 	// Add event description if available
 	if (event.description) {
-		description += `. ${event.description}`
+		description += `. ${event.description.substring(0, 100)}`
 	}
 
 	// Add call-to-action
 	const buyAction = keywords.actions.buy
 	const sellAction = keywords.actions.sell
-	description += `. ${buyAction} ${generators.or} ${sellAction} ${generators.raceBibs} ${generators.onBeswib}.`
+	description += `. ${buyAction} or ${sellAction} race bibs on Beswib.`
 
 	return description
 }
