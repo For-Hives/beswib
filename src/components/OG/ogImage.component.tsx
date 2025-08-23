@@ -243,7 +243,6 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 				{/* Right Column - Images */}
 				<div
 					style={{
-						zIndex: 1,
 						width: '60%',
 						position: 'relative',
 						justifyContent: 'center',
