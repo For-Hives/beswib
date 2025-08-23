@@ -121,18 +121,20 @@ export function generateOGImageConfig(
 	}
 }
 
-// Generate canonical URL
+// Generate canonical URL - always include locale in path for consistency
 export function generateCanonicalUrl(locale: Locale, path: string): string {
 	const baseUrl = 'https://beswib.com'
-	const localePath = locale === 'en' ? '' : `/${locale}`
-	return `${baseUrl}${localePath}${path}`
+	const localePath = `/${locale}`
+	// Ensure path starts with / if not empty
+	const cleanPath = path.startsWith('/') ? path : `/${path}`
+	return `${baseUrl}${localePath}${cleanPath}`
 }
 
 // Generate alternate language links with proper URLs and locale codes
-export function generateAlternateLanguages(path: string): Record<string, string> {
+export function generateAlternateLanguages(path: string, currentLocale?: string): Record<string, string> {
 	const baseUrl = 'https://beswib.com'
 	const languages = [
-		{ path: '', locale: 'en-US', code: 'en' },
+		{ path: '/en', locale: 'en-US', code: 'en' },
 		{ path: '/fr', locale: 'fr-FR', code: 'fr' },
 		{ path: '/es', locale: 'es-ES', code: 'es' },
 		{ path: '/it', locale: 'it-IT', code: 'it' },
@@ -143,15 +145,17 @@ export function generateAlternateLanguages(path: string): Record<string, string>
 		{ path: '/ko', locale: 'ko-KR', code: 'ko' },
 	] as const
 
+	// Ensure path starts with / if not empty
+	const cleanPath = path.startsWith('/') ? path : `/${path}`
 	const alternates: Record<string, string> = {}
 
 	// Add all language versions
 	languages.forEach(({ path: langPath, locale }) => {
-		alternates[locale] = `${baseUrl}${langPath}${path}`
+		alternates[locale] = `${baseUrl}${langPath}${cleanPath}`
 	})
 
-	// Add x-default pointing to English version
-	alternates['x-default'] = `${baseUrl}${path}`
+	// Add x-default pointing to English version for fallback
+	alternates['x-default'] = `${baseUrl}/en${cleanPath}`
 
 	return alternates
 }
