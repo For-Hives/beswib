@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
-import { generateDashboardAlternateLanguages } from '@/lib/seo/utils/seo-generators'
+import { generateAlternateLanguages } from '@/lib/seo/utils/seo-generators'
 import { fetchPartneredApprovedEvents } from '@/services/event.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { LocaleParams } from '@/lib/generation/staticParams'
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 	return {
 		title: 'Sell Bib | Beswib',
 		alternates: {
-			languages: generateDashboardAlternateLanguages('/dashboard/seller/sell-bib'),
+			languages: generateAlternateLanguages('/dashboard/seller/sell-bib'),
 			canonical: `https://beswib.com/${locale}/dashboard/seller/sell-bib`,
 		},
 	}

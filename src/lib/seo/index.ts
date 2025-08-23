@@ -23,5 +23,4 @@ export {
 	generateOGImageConfig,
 	generateCanonicalUrl,
 	generateAlternateLanguages,
-	generateDashboardAlternateLanguages,
 } from './utils/seo-generators'
