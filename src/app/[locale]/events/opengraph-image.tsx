@@ -43,7 +43,15 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			<OGImage title={t.events.OG.titleOG} secondary={t.events.OG.descriptionOG} host={host} protocol={protocol} size={size} />,
+			(
+				<OGImage
+					title={t.events.OG.titleOG}
+					secondary={t.events.OG.descriptionOG}
+					host={host}
+					protocol={protocol}
+					size={size}
+				/>
+			),
 			{
 				...size,
 				fonts: [
@@ -67,7 +75,15 @@ export default async function Image({ params }: { params: Promise<LocaleParams> 
 		console.error('Error loading fonts:', error)
 		// Fallback: return the image without custom fonts
 		return new ImageResponse(
-			<OGImage title={t.events.OG.titleOG} secondary={t.events.OG.descriptionOG} host={host} protocol={protocol} size={size} />,
+			(
+				<OGImage
+					title={t.events.OG.titleOG}
+					secondary={t.events.OG.descriptionOG}
+					host={host}
+					protocol={protocol}
+					size={size}
+				/>
+			),
 			size
 		)
 	}
