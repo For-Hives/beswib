@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
+import { generateDashboardAlternateLanguages } from '@/lib/seo/utils/seo-generators'
 import { fetchPartneredApprovedEvents } from '@/services/event.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { LocaleParams } from '@/lib/generation/staticParams'
@@ -12,8 +13,15 @@ import SellBibClient from './SellBibClient'
 // Force dynamic rendering for dashboard routes
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
-	title: 'Sell Bib | Beswib',
+export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
+	const { locale } = await params
+	return {
+		title: 'Sell Bib | Beswib',
+		alternates: {
+			languages: generateDashboardAlternateLanguages('/dashboard/seller/sell-bib'),
+			canonical: `https://beswib.com/${locale}/dashboard/seller/sell-bib`,
+		},
+	}
 }
 
 export default async function SellBibPage({ params }: { params: Promise<LocaleParams> }) {

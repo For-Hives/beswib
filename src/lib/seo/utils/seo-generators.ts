@@ -161,3 +161,38 @@ export function generateAlternateLanguages(path: string): Record<string, string>
 
 	return alternates
 }
+
+// Generate dashboard-specific alternate languages with proper paths
+export function generateDashboardAlternateLanguages(path: string): Record<string, string> {
+	const baseUrl = 'https://beswib.com'
+	const languages = [
+		{ path: '/en', locale: 'en-US', code: 'en' },
+		{ path: '/fr', locale: 'fr-FR', code: 'fr' },
+		{ path: '/es', locale: 'es-ES', code: 'es' },
+		{ path: '/it', locale: 'it-IT', code: 'it' },
+		{ path: '/de', locale: 'de-DE', code: 'de' },
+		{ path: '/ro', locale: 'ro-RO', code: 'ro' },
+		{ path: '/pt', locale: 'pt-PT', code: 'pt' },
+		{ path: '/nl', locale: 'nl-NL', code: 'nl' },
+		{ path: '/ko', locale: 'ko-KR', code: 'ko' },
+	] as const
+
+	// Ensure path starts with / if not empty
+	const cleanPath = path.startsWith('/') ? path : `/${path}`
+	const alternates: Record<string, string> = {}
+
+	// Add all language versions with proper trailing slashes
+	languages.forEach(({ path: langPath, locale }) => {
+		const fullPath = `${langPath}${cleanPath}`
+		// Ensure trailing slash for consistency with Next.js routing
+		const normalizedPath = fullPath.endsWith('/') ? fullPath : `${fullPath}/`
+		alternates[locale] = `${baseUrl}${normalizedPath}`
+	})
+
+	// Add x-default pointing to English version for fallback
+	const englishPath = `/en${cleanPath}`
+	const normalizedEnglishPath = englishPath.endsWith('/') ? englishPath : `${englishPath}/`
+	alternates['x-default'] = `${baseUrl}${normalizedEnglishPath}`
+
+	return alternates
+}
