@@ -272,7 +272,7 @@ export function getLegalPageMetadata(
 		keywords: pageConfig.keywords,
 		description: pageConfig.description,
 		alternates: {
-			languages: generateAlternateLanguages(`/legals/${pageType}`, locale),
+			languages: generateAlternateLanguages(`/legals/${pageType}`),
 			canonical: generateCanonicalUrl(locale, `/legals/${pageType}`),
 		},
 	}
