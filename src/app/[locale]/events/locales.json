@@ -1,8 +1,8 @@
 {
 	"en": {
 		"events": {
-			"title": "Browse Events",
-			"description": "Find and purchase race bibs for upcoming events",
+			"title": "Browse Running Events & Race Bibs | Trail, Marathon, Triathlon Bibs Available",
+			"description": "Discover thousands of running events worldwide on Europe's leading race bib marketplace. Our comprehensive database features verified events from trail running adventures in the Alps to major city marathons across Europe. Find and purchase authenticated race bibs for trail running, road marathons, triathlon competitions, and cycling events. Each listing is verified by event organizers to ensure authenticity and legal compliance. Benefits include secure PayPal payment protection, instant transfer confirmation, organizer approval, and dedicated multilingual customer support. Whether you're looking for sold-out events or last-minute race opportunities, Beswib connects you with legitimate race bib sellers. Browse by location, date, race type, difficulty level, and price range to find your perfect match. Join our community of passionate athletes who choose Beswib for safe, legal, and transparent race bib transfers.",
 			"searchPlaceholder": "Search events...",
 			"noEvents": "No events available",
 			"loading": "Loading events...",
@@ -85,8 +85,8 @@
 	},
 	"fr": {
 		"events": {
-			"title": "Parcourir les événements",
-			"description": "Trouvez et achetez des dossards pour les événements à venir",
+			"title": "Parcourir Événements Running & Dossards | Trail, Marathon, Triathlon Disponibles",
+			"description": "Découvrez des milliers d'événements de course dans le monde entier. Trouvez et achetez des dossards vérifiés pour trail, marathon, triathlon et cyclisme. Paiements PayPal sécurisés et confirmation instantanée.",
 			"searchPlaceholder": "Rechercher des événements...",
 			"noEvents": "Aucun événement disponible",
 			"loading": "Chargement des événements...",
@@ -169,8 +169,8 @@
 	},
 	"ko": {
 		"events": {
-			"title": "이벤트 둘러보기",
-			"description": "예정된 이벤트의 빕을 찾고 구매하세요",
+			"title": "러닝 이벤트 & 경주 번호 둘러보기 | 트레일, 마라톤, 트라이애슬론 번호 사용 가능",
+			"description": "전 세계 수천 개의 러닝 이벤트를 발견하세요. 트레일 러닝, 마라톤, 트라이애슬론, 사이클링 이벤트를 위한 검증된 경주 번호를 찾고 구매하세요. 안전한 PayPal 결제와 즉시 이전 확인.",
 			"searchPlaceholder": "이벤트 검색...",
 			"noEvents": "사용 가능한 이벤트가 없습니다",
 			"loading": "이벤트를 로딩 중...",
@@ -253,8 +253,8 @@
 	},
 	"es": {
 		"events": {
-			"title": "Explorar Eventos",
-			"description": "Encuentra y compra dorsales para eventos próximos",
+			"title": "Explorar Eventos Running & Dorsales | Trail, Maratón, Triatlón Disponibles",
+			"description": "Descubre miles de eventos de running en todo el mundo. Encuentra y compra dorsales verificados para trail running, maratón, triatlón y ciclismo. Pagos PayPal seguros y confirmación instantánea.",
 			"searchPlaceholder": "Buscar eventos...",
 			"noEvents": "No hay eventos disponibles",
 			"loading": "Cargando eventos...",
@@ -337,8 +337,8 @@
 	},
 	"it": {
 		"events": {
-			"title": "Sfoglia Eventi",
-			"description": "Trova e acquista pettorali per eventi imminenti",
+			"title": "Sfoglia Eventi Running & Pettorali | Trail, Maratona, Triathlon Disponibili",
+			"description": "Scopri migliaia di eventi di corsa in tutto il mondo. Trova e acquista pettorali verificati per trail running, maratona, triathlon e ciclismo. Pagamenti PayPal sicuri e conferma istantanea.",
 			"searchPlaceholder": "Cerca eventi...",
 			"noEvents": "Nessun evento disponibile",
 			"loading": "Caricamento eventi...",
@@ -421,8 +421,8 @@
 	},
 	"de": {
 		"events": {
-			"title": "Veranstaltungen durchsuchen",
-			"description": "Finde und kaufe Startnummern für bevorstehende Veranstaltungen",
+			"title": "Lauf-Events & Startnummern Durchsuchen | Trail, Marathon, Triathlon Verfügbar",
+			"description": "Entdecke tausende Lauf-Events weltweit. Finde und kaufe verifizierte Startnummern für Trail Running, Marathon, Triathlon und Radsport. Sichere PayPal-Zahlungen und sofortige Übertragungsbestätigung.",
 			"searchPlaceholder": "Veranstaltungen suchen...",
 			"noEvents": "Keine Veranstaltungen verfügbar",
 			"loading": "Veranstaltungen werden geladen...",
@@ -505,8 +505,8 @@
 	},
 	"ro": {
 		"events": {
-			"title": "Răsfoiește evenimentele",
-			"description": "Găsește și cumpără numere de concurs pentru evenimente viitoare",
+			"title": "Răsfoiește Evenimente Running & Numere | Trail, Maraton, Triatlon Disponibile",
+			"description": "Descoperă mii de evenimente de alergare din întreaga lume. Găsește și cumpără numere verificate pentru trail running, maraton, triatlon și ciclism. Plăți PayPal sigure și confirmare instantanee.",
 			"searchPlaceholder": "Caută evenimente...",
 			"noEvents": "Nu sunt evenimente disponibile",
 			"loading": "Se încarcă evenimentele...",
@@ -589,8 +589,8 @@
 	},
 	"pt": {
 		"events": {
-			"title": "Navegar Eventos",
-			"description": "Encontra e compra dorsais para eventos próximos",
+			"title": "Navegar Eventos Running & Dorsais | Trail, Maratona, Triatlo Disponíveis",
+			"description": "Descobre milhares de eventos de corrida em todo o mundo. Encontra e compra dorsais verificados para trail running, maratona, triatlo e ciclismo. Pagamentos PayPal seguros e confirmação instantânea.",
 			"searchPlaceholder": "Pesquisar eventos...",
 			"noEvents": "Nenhum evento disponível",
 			"loading": "A carregar eventos...",
@@ -673,8 +673,8 @@
 	},
 	"nl": {
 		"events": {
-			"title": "Evenementen doorbladeren",
-			"description": "Vind en koop startnummers voor aankomende evenementen",
+			"title": "Hardloop Evenementen & Startnummers Doorbladeren | Trail, Marathon, Triatlon Beschikbaar",
+			"description": "Ontdek duizenden hardloop evenementen wereldwijd. Vind en koop geverifieerde startnummers voor trail running, marathon, triatlon en wielrennen. Veilige PayPal betalingen en directe overdrachtsbevestiging.",
 			"searchPlaceholder": "Evenementen zoeken...",
 			"noEvents": "Geen evenementen beschikbaar",
 			"loading": "Evenementen laden...",
