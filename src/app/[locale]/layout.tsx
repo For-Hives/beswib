@@ -107,17 +107,17 @@ export const metadata: Metadata = {
 	category: 'Sports & Recreation',
 	alternates: {
 		languages: {
-			ro: '/ro',
-			pt: '/pt',
-			nl: '/nl',
-			ko: '/ko',
-			it: '/it',
-			fr: '/fr',
-			es: '/es',
-			en: '/en',
-			de: '/de',
+			'x-default': 'https://beswib.com/en',
+			'ro-RO': 'https://beswib.com/ro',
+			'pt-PT': 'https://beswib.com/pt',
+			'nl-NL': 'https://beswib.com/nl',
+			'ko-KR': 'https://beswib.com/ko',
+			'it-IT': 'https://beswib.com/it',
+			'fr-FR': 'https://beswib.com/fr',
+			'es-ES': 'https://beswib.com/es',
+			'en-US': 'https://beswib.com/en',
+			'de-DE': 'https://beswib.com/de',
 		},
-		canonical: 'https://beswib.com',
 	},
 }
 
