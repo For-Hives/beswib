@@ -4,6 +4,7 @@ import { currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
 import { fetchBibsBySeller, updateExpiredBibsToWithdrawn } from '@/services/bib.services'
+import { generateDashboardAlternateLanguages } from '@/lib/seo/utils/seo-generators'
 import { fetchSellerTransactions } from '@/services/transaction.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { LocaleParams } from '@/lib/generation/staticParams'
@@ -13,8 +14,15 @@ import SellerDashboardClient from './SellerDashboardClient'
 // Force dynamic rendering for dashboard routes
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
-	title: 'Seller Dashboard | Beswib',
+export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
+	const { locale } = await params
+	return {
+		title: 'Seller Dashboard | Beswib',
+		alternates: {
+			languages: generateDashboardAlternateLanguages('/dashboard/seller'),
+			canonical: `https://beswib.com/${locale}/dashboard/seller`,
+		},
+	}
 }
 
 export default async function SellerDashboardPage({ params }: { params: Promise<LocaleParams> }) {

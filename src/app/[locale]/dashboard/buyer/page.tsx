@@ -4,6 +4,7 @@ import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
 import { fetchBuyerCompletedTransactions, fetchBuyerTransactions } from '@/services/transaction.services'
+import { generateDashboardAlternateLanguages } from '@/lib/seo/utils/seo-generators'
 import { fetchUserWaitlists } from '@/services/waitlist.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { LocaleParams } from '@/lib/generation/staticParams'
@@ -13,8 +14,15 @@ import BuyerDashboardClient from './BuyerDashboardClient'
 // Force dynamic rendering for dashboard routes
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
-	title: 'Buyer Dashboard | Beswib',
+export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
+	const { locale } = await params
+	return {
+		title: 'Buyer Dashboard | Beswib',
+		alternates: {
+			languages: generateDashboardAlternateLanguages('/dashboard/buyer'),
+			canonical: `https://beswib.com/${locale}/dashboard/buyer`,
+		},
+	}
 }
 
 export default async function BuyerDashboardPage({
