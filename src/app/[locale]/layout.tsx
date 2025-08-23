@@ -55,17 +55,6 @@ export const metadata: Metadata = {
 		card: 'summary_large_image',
 	},
 	title: 'Beswib - Transfer Race Bibs | Buy & Sell Running, Trail, Triathlon Bibs',
-	robots: {
-		index: true,
-		googleBot: {
-			'max-video-preview': -1,
-			'max-snippet': -1,
-			'max-image-preview': 'large',
-			index: true,
-			follow: true,
-		},
-		follow: true,
-	},
 	referrer: 'origin-when-cross-origin',
 	openGraph: {
 		url: 'https://beswib.com',
