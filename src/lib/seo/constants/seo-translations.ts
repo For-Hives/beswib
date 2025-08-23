@@ -239,49 +239,54 @@ export const SEO_KEYWORDS = {
 // SEO titles templates by language
 export const SEO_TITLES = {
 	ro: {
-		site: 'Beswib',
-		marketplace: 'Marketplace | Numere de Cursă de Vânzare',
-		legal: (pageName: string) => `${pageName} | Informații Legale`,
-		home: 'Transfer Numere de Start | Cumpără și Vinde Numere de Cursă',
-		eventWithLocation: (eventName: string, location: string) => `${eventName} în ${location} | Numere`,
-		events: 'Răsfoiește Evenimente | Găsește Numere',
-		event: (eventName: string) => `${eventName} | Numere de Cursă`,
+		site: 'Beswib - Platformă Legală Transfer Numere Cursă',
+		marketplace: 'Marketplace | Cumpără & Vinde Numere | Running, Trail, Triatlon',
+		legal: (pageName: string) => `${pageName} | Informații Legale | Beswib Marketplace Numere`,
+		home: 'Beswib | Transfer Sigur Numere Cursă | Cumpără & Vinde Running, Trail, Triatlon',
+		eventWithLocation: (eventName: string, location: string) =>
+			`${eventName} în ${location} | Transfer Numere | Beswib`,
+		events: 'Explorează Evenimente Running | Găsește Numere Trail, Maraton, Triatlon | Beswib',
+		event: (eventName: string) => `${eventName} | Transfer Numere | Cumpără & Vinde pe Beswib`,
 	},
 	pt: {
-		site: 'Beswib',
-		marketplace: 'Marketplace | Peitos de Corrida à Venda',
-		legal: (pageName: string) => `${pageName} | Informações Legais`,
-		home: 'Transferência de Peitos | Comprar e Vender Peitos de Corrida',
-		eventWithLocation: (eventName: string, location: string) => `${eventName} em ${location} | Peitos`,
-		events: 'Explorar Eventos | Encontrar Peitos',
-		event: (eventName: string) => `${eventName} | Peitos de Corrida`,
+		site: 'Beswib - Plataforma Legal Transferência Dorsais',
+		marketplace: 'Marketplace | Comprar & Vender Dorsais | Running, Trail, Triatlo',
+		legal: (pageName: string) => `${pageName} | Informações Legais | Beswib Marketplace Dorsais`,
+		home: 'Beswib | Transferência Segura Dorsais | Comprar & Vender Running, Trail, Triatlo',
+		eventWithLocation: (eventName: string, location: string) =>
+			`${eventName} em ${location} | Transferência Dorsais | Beswib`,
+		events: 'Explorar Eventos Running | Encontrar Dorsais Trail, Maratona, Triatlo | Beswib',
+		event: (eventName: string) => `${eventName} | Transferência Dorsais | Comprar & Vender no Beswib`,
 	},
 	nl: {
-		site: 'Beswib',
-		marketplace: 'Marketplace | Startnummers te Koop',
-		legal: (pageName: string) => `${pageName} | Juridische Informatie`,
-		home: 'Startnummer Overdracht | Koop en Verkoop Startnummers',
-		eventWithLocation: (eventName: string, location: string) => `${eventName} in ${location} | Startnummers`,
-		events: 'Evenementen Bekijken | Startnummers Vinden',
-		event: (eventName: string) => `${eventName} | Startnummers`,
+		site: 'Beswib - Legale Startnummer Overdracht Platform',
+		marketplace: 'Marketplace | Koop & Verkoop Startnummers | Hardlopen, Trail, Triatlon',
+		legal: (pageName: string) => `${pageName} | Juridische Informatie | Beswib Startnummer Platform`,
+		home: 'Beswib | Veilige Startnummer Overdracht | Koop & Verkoop Hardlopen, Trail, Triatlon',
+		eventWithLocation: (eventName: string, location: string) =>
+			`${eventName} in ${location} | Startnummer Overdracht | Beswib`,
+		events: 'Bekijk Hardloop Evenementen | Vind Startnummers Trail, Marathon, Triatlon | Beswib',
+		event: (eventName: string) => `${eventName} | Startnummer Overdracht | Koop & Verkoop op Beswib`,
 	},
 	ko: {
-		site: 'Beswib',
-		marketplace: '마켓플레이스 | 경주 번호 판매',
-		legal: (pageName: string) => `${pageName} | 법적 정보`,
-		home: '경주 번호 이전 | 러닝, 트레일, 트라이애슬론 번호 구매 및 판매',
-		eventWithLocation: (eventName: string, location: string) => `${eventName} ${location}에서 | 경주 번호`,
-		events: '이벤트 탐색 | 경주 번호 찾기',
-		event: (eventName: string) => `${eventName} | 경주 번호`,
+		site: 'Beswib - 합법적인 경주 번호 이전 플랫폼',
+		marketplace: '마켓플레이스 | 경주 번호 구매 & 판매 | 러닝, 트레일, 트라이애슬론',
+		legal: (pageName: string) => `${pageName} | 법적 정보 | Beswib 경주 번호 마켓플레이스`,
+		home: 'Beswib | 안전한 경주 번호 이전 | 러닝, 트레일, 트라이애슬론 번호 구매 & 판매',
+		eventWithLocation: (eventName: string, location: string) =>
+			`${eventName} ${location}에서 | 경주 번호 이전 | Beswib`,
+		events: '러닝 이벤트 탐색 | 트레일, 마라톤, 트라이애슬론 경주 번호 찾기 | Beswib',
+		event: (eventName: string) => `${eventName} | 경주 번호 이전 | Beswib에서 구매 & 판매`,
 	},
 	it: {
-		site: 'Beswib',
-		marketplace: 'Marketplace | Pettorali di Gara in Vendita',
-		legal: (pageName: string) => `${pageName} | Informazioni Legali`,
-		home: 'Trasferimento Petti | Compra e Vendi Pettorali di Gara',
-		eventWithLocation: (eventName: string, location: string) => `${eventName} a ${location} | Pettorali`,
-		events: 'Sfoglia Eventi | Trova Pettorali',
-		event: (eventName: string) => `${eventName} | Pettorali di Gara`,
+		site: 'Beswib - Piattaforma Legale Trasferimento Pettorali',
+		marketplace: 'Marketplace | Compra & Vendi Pettorali | Running, Trail, Triathlon',
+		legal: (pageName: string) => `${pageName} | Informazioni Legali | Beswib Marketplace Pettorali`,
+		home: 'Beswib | Trasferimento Sicuro Pettorali | Compra & Vendi Running, Trail, Triathlon',
+		eventWithLocation: (eventName: string, location: string) =>
+			`${eventName} a ${location} | Trasferimento Pettorali | Beswib`,
+		events: 'Esplora Eventi Running | Trova Pettorali Trail, Maratona, Triathlon | Beswib',
+		event: (eventName: string) => `${eventName} | Trasferimento Pettorali | Compra & Vendi su Beswib`,
 	},
 	fr: {
 		site: 'Beswib - Transfert Légal de Dossards',
@@ -294,13 +299,14 @@ export const SEO_TITLES = {
 		event: (eventName: string) => `${eventName} | Transfert Dossards | Acheter & Vendre sur Beswib`,
 	},
 	es: {
-		site: 'Beswib',
-		marketplace: 'Marketplace | Dorsales de Carrera en Venta',
-		legal: (pageName: string) => `${pageName} | Información Legal`,
-		home: 'Transferencia de Dorsales | Comprar y Vender Dorsales de Carrera',
-		eventWithLocation: (eventName: string, location: string) => `${eventName} en ${location} | Dorsales`,
-		events: 'Explorar Eventos | Encontrar Dorsales',
-		event: (eventName: string) => `${eventName} | Dorsales de Carrera`,
+		site: 'Beswib - Plataforma Legal Transferencia Dorsales',
+		marketplace: 'Marketplace | Comprar & Vender Dorsales | Running, Trail, Triatlón',
+		legal: (pageName: string) => `${pageName} | Información Legal | Beswib Marketplace Dorsales`,
+		home: 'Beswib | Transferencia Segura Dorsales | Comprar & Vender Running, Trail, Triatlón',
+		eventWithLocation: (eventName: string, location: string) =>
+			`${eventName} en ${location} | Transferencia Dorsales | Beswib`,
+		events: 'Explorar Eventos Running | Encontrar Dorsales Trail, Maratón, Triatlón | Beswib',
+		event: (eventName: string) => `${eventName} | Transferencia Dorsales | Comprar & Vender en Beswib`,
 	},
 	en: {
 		site: 'Beswib - Legal Race Bib Transfers',
@@ -313,13 +319,14 @@ export const SEO_TITLES = {
 		event: (eventName: string) => `${eventName} | Race Bibs Transfer | Buy & Sell on Beswib`,
 	},
 	de: {
-		site: 'Beswib',
-		marketplace: 'Marketplace | Startnummern zum Verkauf',
-		legal: (pageName: string) => `${pageName} | Rechtliche Informationen`,
-		home: 'Startnummern Transfer | Kaufen & Verkaufen von Lauf-Startnummern',
-		eventWithLocation: (eventName: string, location: string) => `${eventName} in ${location} | Startnummern`,
-		events: 'Events Durchsuchen | Startnummern Finden',
-		event: (eventName: string) => `${eventName} | Startnummern`,
+		site: 'Beswib - Legale Startnummern Transfer Plattform',
+		marketplace: 'Marketplace | Startnummern Kaufen & Verkaufen | Laufen, Trail, Triathlon',
+		legal: (pageName: string) => `${pageName} | Rechtliche Informationen | Beswib Startnummern Marketplace`,
+		home: 'Beswib | Sicherer Startnummern Transfer | Kaufen & Verkaufen Laufen, Trail, Triathlon',
+		eventWithLocation: (eventName: string, location: string) =>
+			`${eventName} in ${location} | Startnummern Transfer | Beswib`,
+		events: 'Lauf-Events Durchsuchen | Startnummern für Trail, Marathon, Triathlon finden | Beswib',
+		event: (eventName: string) => `${eventName} | Startnummern Transfer | Kaufen & Verkaufen bei Beswib`,
 	},
 } as const
 
@@ -327,42 +334,48 @@ export const SEO_TITLES = {
 export const SEO_DESCRIPTIONS = {
 	ro: {
 		marketplace:
-			'Răsfoiește numerele disponibile de la vânzători verificați. Plată sigură și confirmare instantanee a transferului.',
-		legal: 'Informații legale, termeni de serviciu, politica de confidențialitate și protecția datelor pentru Beswib.',
-		home: 'Transferă-ți numerele de start în siguranță cu Beswib. Cumpără și vinde numere pentru alergare, trail, triatlon și ciclism.',
+			'Explorează mii de numere de cursă disponibile de la vânzători verificați pe marketplace-ul Beswib. Plăți PayPal sigure și confirmare instantanee pentru evenimente de alergare, trail, triatlon și ciclism. Alătură-te sportivilor din întreaga lume care au încredere în Beswib pentru transferuri sigure.',
+		legal:
+			'Informații legale complete, termeni de serviciu, politica de confidențialitate și detalii despre protecția datelor pentru marketplace-ul Beswib. Înțelege-ți drepturile și obligațiile când cumperi sau vinzi numere prin platforma noastră sigură.',
+		home: 'Transferă numerele de cursă în siguranță cu Beswib, marketplace-ul de încredere pentru sportivi. Cumpără și vinde numere pentru alergare, trail, triatlon și ciclism. Plăți sigure, vânzători verificați și confirmare instantanee. Alătură-te miilor de sportivi care aleg Beswib.',
 		events:
-			'Găsește și cumpără numere pentru viitoarele evenimente de alergare, trail, triatlon și ciclism. Transferuri sigure cu Beswib.',
+			'Descoperă și cumpără numere pentru viitoarele evenimente de alergare, trail, triatlon și ciclism din întreaga lume. Caută după locație, dată și tipul de cursă. Transferuri sigure cu protecție PayPal și aprobare organizator. Găsește-ți următoarea aventură cu Beswib.',
 	},
 	pt: {
 		marketplace:
-			'Navegue pelos peitos disponíveis de vendedores verificados. Pagamento seguro e confirmação instantânea de transferência.',
-		legal: 'Informações legais, termos de serviço, política de privacidade e proteção de dados para Beswib.',
-		home: 'Transfira seus peitos de corrida com segurança com Beswib. Compre e venda peitos para running, trail, triatlo e ciclismo.',
+			'Explore milhares de dorsais de corrida disponíveis de vendedores verificados no marketplace Beswib. Pagamentos PayPal seguros e confirmação instantânea para eventos de running, trail, triatlo e ciclismo. Junte-se a atletas do mundo inteiro que confiam no Beswib para transferências seguras.',
+		legal:
+			'Informações legais completas, termos de serviço, política de privacidade e detalhes de proteção de dados para o marketplace Beswib. Compreenda seus direitos e obrigações ao comprar ou vender dorsais através da nossa plataforma segura.',
+		home: 'Transfira dorsais de corrida com segurança com Beswib, o marketplace confiável para atletas. Compre e venda dorsais para running, trail, triatlo e ciclismo. Pagamentos seguros, vendedores verificados e confirmação instantânea. Junte-se a milhares de atletas que escolhem Beswib.',
 		events:
-			'Encontre e compre peitos para próximos eventos de corrida, trail, triatlo e ciclismo. Transferências seguras com Beswib.',
+			'Descubra e compre dorsais para próximos eventos de running, trail, triatlo e ciclismo em todo o mundo. Pesquise por localização, data e tipo de corrida. Transferências seguras com proteção PayPal e aprovação do organizador. Encontre sua próxima aventura com Beswib.',
 	},
 	nl: {
 		marketplace:
-			'Bekijk beschikbare startnummers van geverifieerde verkopers. Veilige betaling en directe overdrachtsbevestiging.',
-		legal: 'Juridische informatie, servicevoorwaarden, privacybeleid en gegevensbescherming voor Beswib.',
-		home: 'Draag je startnummers veilig over met Beswib. Koop en verkoop startnummers voor hardlopen, trail, triatlon en wielrennen.',
+			'Verken duizenden beschikbare startnummers van geverifieerde verkopers op Beswib marketplace. Veilige PayPal betalingen en directe overdrachtsbevestiging voor hardloop-, trail-, triatlon- en wielrenevenementen. Sluit je aan bij atleten wereldwijd die Beswib vertrouwen voor veilige overdrachten.',
+		legal:
+			'Complete juridische informatie, servicevoorwaarden, privacybeleid en gegevensbescherming details voor Beswib startnummer marketplace. Begrijp je rechten en verplichtingen bij het kopen of verkopen van startnummers via ons veilige platform.',
+		home: 'Draag startnummers veilig over met Beswib, de vertrouwde marketplace voor atleten. Koop en verkoop startnummers voor hardlopen, trail, triatlon en wielrennen. Veilige betalingen, geverifieerde verkopers en directe bevestiging. Sluit je aan bij duizenden atleten die Beswib kiezen.',
 		events:
-			'Vind en koop startnummers voor aankomende hardloop-, trail-, triatlon- en wielerevenementen. Veilige overdrachten met Beswib.',
+			'Ontdek en koop startnummers voor aankomende hardloop-, trail-, triatlon- en wielrenevenementen wereldwijd. Zoek op locatie, datum en racetype. Veilige overdrachten met PayPal bescherming en organisator goedkeuring. Vind je volgende avontuur met Beswib.',
 	},
 	ko: {
-		marketplace: '검증된 판매자의 사용 가능한 경주 번호를 탐색하세요. 안전한 결제와 즉시 이전 확인.',
-		legal: 'Beswib 경주 번호 마켓플레이스의 법적 정보, 서비스 약관, 개인정보 보호정책 및 데이터 보호.',
-		home: 'Beswib으로 경주 번호를 안전하게 이전하세요. 러닝, 트레일, 트라이애슬론, 사이클링 경주 번호를 구매하고 판매하세요.',
+		marketplace:
+			'Beswib 마켓플레이스에서 검증된 판매자의 수천 개 경주 번호를 탐색하세요. 러닝, 트레일, 트라이애슬론, 사이클링 이벤트를 위한 안전한 PayPal 결제와 즉시 이전 확인. 안전한 번호 이전을 위해 Beswib을 신뢰하는 전 세계 운동선수들과 함께하세요.',
+		legal:
+			'Beswib 경주 번호 마켓플레이스를 위한 완전한 법적 정보, 서비스 약관, 개인정보 보호정책 및 데이터 보호 세부사항. 안전한 플랫폼을 통해 경주 번호를 구매하거나 판매할 때의 권리와 의무를 이해하세요.',
+		home: '운동선수를 위한 신뢰할 수 있는 마켓플레이스 Beswib으로 경주 번호를 안전하게 이전하세요. 러닝, 트레일, 트라이애슬론, 사이클링 이벤트용 경주 번호를 구매하고 판매하세요. 안전한 결제, 검증된 판매자, 즉시 확인. Beswib을 선택하는 수천 명의 운동선수와 함께하세요.',
 		events:
-			'다가오는 러닝, 트레일, 트라이애슬론, 사이클링 이벤트의 경주 번호를 찾고 구매하세요. Beswib으로 안전한 이전.',
+			'전 세계 다가오는 러닝, 트레일, 트라이애슬론, 사이클링 이벤트의 경주 번호를 발견하고 구매하세요. 위치, 날짜, 경주 유형별로 검색하세요. PayPal 보호와 주최자 승인으로 안전한 이전. Beswib과 함께 다음 모험을 찾아보세요.',
 	},
 	it: {
 		marketplace:
-			'Sfoglia pettorali disponibili da venditori verificati. Pagamento sicuro e conferma di trasferimento istantanea.',
-		legal: 'Informazioni legali, termini di servizio, politica sulla privacy e protezione dei dati per Beswib.',
-		home: 'Trasferisci i tuoi pettorali di gara in sicurezza con Beswib. Compra e vendi pettorali per running, trail, triathlon e ciclismo.',
+			'Esplora migliaia di pettorali di gara disponibili da venditori verificati su Beswib marketplace. Pagamenti PayPal sicuri e conferma istantanea per eventi di running, trail, triathlon e ciclismo. Unisciti agli atleti di tutto il mondo che si fidano di Beswib per trasferimenti sicuri.',
+		legal:
+			'Informazioni legali complete, termini di servizio, politica sulla privacy e dettagli protezione dati per Beswib marketplace pettorali. Comprendi i tuoi diritti e obblighi quando acquisti o vendi pettorali attraverso la nostra piattaforma sicura.',
+		home: 'Trasferisci pettorali di gara in sicurezza con Beswib, il marketplace di fiducia per atleti. Compra e vendi pettorali per running, trail, triathlon e ciclismo. Pagamenti sicuri, venditori verificati e conferma istantanea. Unisciti a migliaia di atleti che scelgono Beswib.',
 		events:
-			'Trova e acquista pettorali per prossimi eventi di corsa, trail, triathlon e ciclismo. Trasferimenti sicuri con Beswib.',
+			'Scopri e acquista pettorali per prossimi eventi di running, trail, triathlon e ciclismo in tutto il mondo. Cerca per località, data e tipo di gara. Trasferimenti sicuri con protezione PayPal e approvazione organizzatore. Trova la tua prossima avventura con Beswib.',
 	},
 	fr: {
 		marketplace:
@@ -375,11 +388,12 @@ export const SEO_DESCRIPTIONS = {
 	},
 	es: {
 		marketplace:
-			'Explora dorsales disponibles de vendedores verificados. Pago seguro y confirmación de transferencia instantánea.',
-		legal: 'Información legal, términos de servicio, política de privacidad y protección de datos para Beswib.',
-		home: 'Transfiere tus dorsales de carrera de forma segura con Beswib. Compra y vende dorsales de running, trail, triatlón y ciclismo.',
+			'Explora miles de dorsales de carrera disponibles de vendedores verificados en Beswib marketplace. Pagos PayPal seguros y confirmación instantánea para eventos de running, trail, triatlón y ciclismo. Únete a atletas de todo el mundo que confían en Beswib para transferencias seguras.',
+		legal:
+			'Información legal completa, términos de servicio, política de privacidad y detalles de protección de datos para Beswib marketplace dorsales. Comprende tus derechos y obligaciones al comprar o vender dorsales a través de nuestra plataforma segura.',
+		home: 'Transfiere dorsales de carrera de forma segura con Beswib, el marketplace confiable para atletas. Compra y vende dorsales para running, trail, triatlón y ciclismo. Pagos seguros, vendedores verificados y confirmación instantánea. Únete a miles de atletas que eligen Beswib.',
 		events:
-			'Encuentra y compra dorsales para próximos eventos de carrera, trail, triatlón y ciclismo. Transferencias seguras con Beswib.',
+			'Descubre y compra dorsales para próximos eventos de running, trail, triatlón y ciclismo en todo el mundo. Busca por ubicación, fecha y tipo de carrera. Transferencias seguras con protección PayPal y aprobación del organizador. Encuentra tu próxima aventura con Beswib.',
 	},
 	en: {
 		marketplace:
@@ -392,10 +406,11 @@ export const SEO_DESCRIPTIONS = {
 	},
 	de: {
 		marketplace:
-			'Durchsuchen Sie verfügbare Startnummern von verifizierten Verkäufern. Sichere Zahlung und sofortige Übertragungsbestätigung.',
-		legal: 'Rechtliche Informationen, Nutzungsbedingungen, Datenschutzrichtlinie und Datenschutz für Beswib.',
-		home: 'Übertragen Sie Ihre Startnummern sicher mit Beswib. Kaufen und verkaufen Sie Startnummern für Laufen, Trail, Triathlon und Radfahren.',
+			'Durchsuchen Sie tausende verfügbare Startnummern von verifizierten Verkäufern auf Beswib Marketplace. Sichere PayPal-Zahlungen und sofortige Übertragungsbestätigung für Lauf-, Trail-, Triathlon- und Radsport-Events. Schließen Sie sich Athleten weltweit an, die Beswib für sichere Startnummern-Transfers vertrauen.',
+		legal:
+			'Vollständige rechtliche Informationen, Nutzungsbedingungen, Datenschutzrichtlinie und Datenschutz-Details für Beswib Startnummern Marketplace. Verstehen Sie Ihre Rechte und Pflichten beim Kauf oder Verkauf von Startnummern über unsere sichere Plattform.',
+		home: 'Übertragen Sie Startnummern sicher mit Beswib, dem vertrauenswürdigen Marketplace für Athleten. Kaufen und verkaufen Sie Startnummern für Laufen, Trail, Triathlon und Radsport. Sichere Zahlungen, verifizierte Verkäufer und sofortige Bestätigung. Schließen Sie sich tausenden Athleten an, die Beswib wählen.',
 		events:
-			'Finden und kaufen Sie Startnummern für kommende Lauf-, Trail-, Triathlon- und Radsport-Events. Sichere Übertragungen mit Beswib.',
+			'Entdecken und kaufen Sie Startnummern für kommende Lauf-, Trail-, Triathlon- und Radsport-Events weltweit. Suchen Sie nach Ort, Datum und Renntyp. Sichere Übertragungen mit PayPal-Schutz und Veranstalter-Genehmigung. Finden Sie Ihr nächstes Abenteuer mit Beswib.',
 	},
 } as const
