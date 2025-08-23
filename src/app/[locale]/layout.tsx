@@ -42,6 +42,11 @@ const bowlbyOneSC = Bowlby_One_SC({
 	subsets: ['latin'],
 })
 
+// Generate static params for all locales 🌐
+export function generateStaticParams() {
+	return generateLocaleParams()
+}
+
 // Generate viewport metadata for theme and color scheme 🎨
 export function generateViewport() {
 	return {
@@ -51,11 +56,6 @@ export function generateViewport() {
 		],
 		colorScheme: 'light dark',
 	}
-}
-
-// Generate static params for all locales 🌐
-export function generateStaticParams() {
-	return generateLocaleParams()
 }
 
 export default async function RootLayout(props: { params: Promise<{ locale: string }>; children: ReactNode }) {
@@ -82,6 +82,9 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 				<body
 					className={`${geistSans.variable} ${geistMono.variable} ${bowlbyOneSC.variable} bg-background text-foreground font-geist antialiased`}
 				>
+					{/* Organization Schema moved to body to avoid head conflicts */}
+					<OrganizationSchema locale={locale} />
+
 					{/* Scripts moved to body to avoid head conflicts */}
 					<Script
 						async
@@ -114,7 +117,6 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 								<NuqsAdapter>
 									<SessionsTracker />
 									<LocaleSynchronizer />
-									<OrganizationSchema locale={locale} />
 									<Header localeParams={typedLocaleParams} />
 									<PageTransition>{props.children}</PageTransition>
 									{/* Ensure Sentry client init runs on the browser */}
