@@ -1,5 +1,3 @@
-import type { Metadata } from 'next'
-
 import type { ReactNode } from 'react'
 
 import { ConsentManagerProvider, CookieBanner, ConsentManagerDialog } from '@c15t/nextjs'
