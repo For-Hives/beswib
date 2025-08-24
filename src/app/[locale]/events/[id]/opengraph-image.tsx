@@ -4,9 +4,9 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
+import { fetchEventById } from '@/services/event.services'
 import OGImage from '@/components/OG/ogImage.component'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { fetchEventById } from '@/services/event.services'
 
 import pageTranslations from './locales.json'
 

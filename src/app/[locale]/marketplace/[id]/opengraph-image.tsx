@@ -4,11 +4,12 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
+import { fetchPublicBibById, checkBibListingStatus } from '@/services/bib.services'
+import OGImageBib from '@/components/OG/ogImageBib.component'
 import OGImage from '@/components/OG/ogImage.component'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { fetchPublicBibById, fetchPrivateBibByToken, checkBibListingStatus } from '@/services/bib.services'
 
-import marketplaceTranslations from '@/components/marketplace/locales.json'
+import marketplaceTranslations from '../locales.json'
 
 // Alt text for the Open Graph image
 export const alt = 'Beswib Race Bib Purchase'
@@ -25,24 +26,17 @@ export function generateStaticParams() {
 type MarketplaceOpenGraphParams = LocaleParams & { id: string; tkn?: string }
 
 // Default export: async function to generate the Open Graph image
-export default async function Image({
-	params,
-	searchParams,
-}: {
-	params: Promise<MarketplaceOpenGraphParams>
-	searchParams: Promise<{ tkn?: string }>
-}) {
+export default async function Image({ params }: { params: Promise<MarketplaceOpenGraphParams> }) {
 	// Retrieve the dynamic locale and bib ID from params
 	const { locale, id } = await params
-	const { tkn } = await searchParams
 
 	// Get the translations for the current page and locale
 	const t = getTranslations(locale, marketplaceTranslations)
 
 	// Try to fetch the bib details
 	let bib = null
-	let title = t.title || 'Marketplace'
-	let secondary = t.descriptionOG || '**Browse** and **buy** race **bibs** from our marketplace'
+	let title = t.title ?? 'Marketplace'
+	let secondary = t.descriptionOG ?? '**Browse** and **buy** race **bibs** from our marketplace'
 
 	try {
 		// Check bib status first
@@ -50,11 +44,7 @@ export default async function Image({
 
 		if (bibStatus?.exists && bibStatus.available) {
 			// Try to fetch bib data
-			if (bibStatus.listed === 'private' && tkn) {
-				bib = await fetchPrivateBibByToken(id, tkn)
-			} else if (bibStatus.listed === 'public') {
-				bib = await fetchPublicBibById(id)
-			}
+			bib = await fetchPublicBibById(id)
 
 			// If we successfully got bib data, customize the title and description
 			if (bib?.expand?.eventId) {
@@ -97,7 +87,7 @@ export default async function Image({
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			<OGImage title={title} secondary={secondary} host={host} protocol={protocol} size={size} />,
+			<OGImageBib title={title} secondary={secondary} host={host} protocol={protocol} size={size} />,
 			{
 				...size,
 				fonts: [
