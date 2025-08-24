@@ -1,9 +1,19 @@
 import * as React from 'react'
 
+import type { BibSale } from '@/models/marketplace.model'
+import type { Event } from '@/models/event.model'
+import type { User } from '@/models/user.model'
+import type { Locale } from '@/lib/i18n/config'
+import type { Bib } from '@/models/bib.model'
+
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
+
+// Flexible type that works with both BibSale and actual service response
+type BibData = BibSale | (Bib & { expand?: { eventId: Event; sellerUserId: User } }) | null
 
 import BeswibLogo from './icons/BeswibLogo'
 import Pattern from './icons/Pattern'
+import BibCard from './BibCard'
 
 // Function to split the text into lines and apply a special color to words between **
 function formatTextWithColor(text: string, highlightColor = '#4C639A') {
@@ -78,10 +88,12 @@ type OGImageProps = {
 	host: string // Hostname for assets
 	protocol: string // Protocol (http/https) for assets
 	size: { width: number; height: number } // OG image dimensions
+	bib?: BibData // Optional bib data to display
+	locale?: Locale // Optional locale for translations
 }
 
 // Main component for generating an Open Graph image
-export default function OGImageBib({ title, size, secondary, protocol, host }: Readonly<OGImageProps>) {
+export default function OGImageBib({ title, size, secondary, locale, bib }: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
 	const MAX_WIDTH_Secondary = 440
@@ -305,8 +317,12 @@ export default function OGImageBib({ title, size, secondary, protocol, host }: R
 						alignItems: 'center',
 					}}
 				>
-					{/* Mountain image */}
-					<div style={{ width: '300px', height: '400px', borderRadius: '20px', backgroundColor: 'red' }}></div>
+					{/* Bib card or placeholder */}
+					{bib && locale ? (
+						<BibCard bib={bib} locale={locale} />
+					) : (
+						<div style={{ width: '300px', height: '400px', borderRadius: '20px', backgroundColor: '#f3f4f6' }}></div>
+					)}
 
 					{/* Beswib logo positioned at bottom right of right column */}
 					<div
