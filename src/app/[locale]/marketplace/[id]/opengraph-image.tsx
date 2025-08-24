@@ -87,7 +87,17 @@ export default async function Image({ params }: { params: Promise<MarketplaceOpe
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			<OGImageBib title={title} secondary={secondary} host={host} protocol={protocol} size={size} />,
+			(
+				<OGImageBib
+					title={title}
+					secondary={secondary}
+					host={host}
+					protocol={protocol}
+					size={size}
+					bib={bib}
+					locale={locale}
+				/>
+			),
 			{
 				...size,
 				fonts: [
