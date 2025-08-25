@@ -102,7 +102,7 @@ export default function EventEditForm({ onSuccess, onCancel, locale, event }: Re
 				organizer: data.organizer,
 				options:
 					data.options != null && data.options !== undefined && data.options.length > 0
-						? (data.options.filter((option: any) => option !== undefined) as EventOption[])
+						? (data.options.filter((option: unknown) => option !== undefined) as EventOption[])
 						: null,
 				officialStandardPrice: data.officialStandardPrice,
 				name: data.name,
