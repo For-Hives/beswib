@@ -1,6 +1,20 @@
 'use client'
 
-import { Calendar, CheckCircle, Clock, HelpCircle, MapPinned, Package, ShoppingCart, Tag, Users } from 'lucide-react'
+import {
+	Calendar,
+	CheckCircle,
+	Clock,
+	HelpCircle,
+	MapPinned,
+	Package,
+	ShoppingCart,
+	Tag,
+	Users,
+	X,
+	ChevronLeft,
+	ChevronRight,
+} from 'lucide-react'
+import { useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -11,6 +25,16 @@ import type { Waitlist } from '@/models/waitlist.model'
 import type { Event } from '@/models/event.model'
 import type { Bib } from '@/models/bib.model'
 
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { getOrganizerImageUrl, getRandomBibPlaceholder } from '@/lib/utils/images'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
@@ -60,6 +84,15 @@ export default function BuyerDashboardClient({
 }: BuyerDashboardClientProps) {
 	const t = getTranslations(locale, buyerTranslations)
 
+	// Pagination state
+	const [currentPage, setCurrentPage] = useState(1)
+	const itemsPerPage = 5
+
+	// Delete confirmation state
+	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+	const [waitlistToDelete, setWaitlistToDelete] = useState<Waitlist | null>(null)
+	const [isDeleting, setIsDeleting] = useState(false)
+
 	// Helper function to get event image from organizer or placeholder
 	const getEventImage = (bib: Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } } } }) => {
 		const organizer = bib.expand?.eventId?.expand?.organizer
@@ -85,6 +118,70 @@ export default function BuyerDashboardClient({
 		: []
 	const waitlistEntries = futureWaitlists.length
 
+	// Pagination calculations
+	const totalPages = Math.ceil(futureWaitlists.length / itemsPerPage)
+	const startIndex = (currentPage - 1) * itemsPerPage
+	const endIndex = startIndex + itemsPerPage
+	const currentWaitlists = futureWaitlists.slice(startIndex, endIndex)
+
+	// Handle page change
+	const handlePageChange = (page: number) => {
+		setCurrentPage(page)
+	}
+
+	// Handle delete confirmation
+	const handleDeleteClick = (waitlist: Waitlist) => {
+		setWaitlistToDelete(waitlist)
+		setDeleteDialogOpen(true)
+	}
+
+	// Handle delete confirmation
+	const handleDeleteConfirm = async () => {
+		if (!waitlistToDelete) return
+
+		console.info('🔍 Client: Starting delete confirmation for waitlist:', waitlistToDelete)
+		setIsDeleting(true)
+		try {
+			const requestBody = {
+				eventId: waitlistToDelete.event_id,
+			}
+			console.info('🔍 Client: Sending request with body:', requestBody)
+
+			const response = await fetch('/api/waitlist/remove', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(requestBody),
+			})
+
+			console.info('🔍 Client: Response status:', response.status)
+			console.info('🔍 Client: Response ok:', response.ok)
+
+			if (response.ok) {
+				const responseData = (await response.json()) as { success: boolean }
+				console.info('🔍 Client: Response data:', responseData)
+				console.info('✅ Client: Successfully disabled notifications, reloading page')
+				// Reload the page to update the waitlist
+				window.location.reload()
+			} else {
+				const errorData = (await response.json().catch(() => 'No error data')) as unknown
+				console.error(
+					'❌ Client: Failed to disable waitlist notifications. Status:',
+					response.status,
+					'Error:',
+					errorData
+				)
+			}
+		} catch (error) {
+			console.error('❌ Client: Error disabling waitlist notifications:', error)
+		} finally {
+			setIsDeleting(false)
+			setDeleteDialogOpen(false)
+			setWaitlistToDelete(null)
+		}
+	}
+
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -98,88 +195,94 @@ export default function BuyerDashboardClient({
 							<ShoppingCart className="h-4 w-4" />
 							{userName}
 							{clerkUser?.emailAddresses?.[0] !== undefined && (
-								<span className="text-muted-foreground ml-2 text-sm">({clerkUser.emailAddresses[0].emailAddress})</span>
+								<span className="text-muted-foreground text-sm">({clerkUser.emailAddresses[0].emailAddress})</span>
 							)}
 						</p>
 					</div>
-					<div className="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-500">
-						{t.badge ?? 'BUYER'}
+					<div className="text-right">
+						<div className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-medium">
+							{t.badge ?? 'BUYER'}
+						</div>
 					</div>
 				</div>
 			</div>
 
-			<div className="relative pt-32 pb-12">
-				<div className="container mx-auto max-w-7xl p-6">
-					{/* Success Message */}
-					{purchaseSuccess && successEventName && (
-						<div className="mb-8 rounded-lg border border-green-300 bg-green-50 p-4 dark:border-green-900/50 dark:bg-green-900/20">
-							<div className="flex items-center gap-3">
-								<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
-								<div>
-									<p className="font-medium text-green-800 dark:text-green-200">
-										{t.purchaseSuccess ?? 'Congratulations! You have successfully purchased the bib for'}{' '}
-										<strong>{successEventName}</strong>
-									</p>
-									<p className="text-sm text-green-700 dark:text-green-300">
-										{t.purchaseSuccessDetails ?? 'Your new bib details are listed below.'}
-									</p>
-								</div>
-							</div>
+			{/* Success Message */}
+			{purchaseSuccess && (
+				<div className="absolute top-24 left-1/2 z-30 mx-4 -translate-x-1/2 rounded-2xl border border-green-200 bg-green-50 p-4 backdrop-blur-sm dark:border-green-800 dark:bg-green-900/20">
+					<div className="flex items-center gap-3">
+						<CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+						<div>
+							<p className="font-medium text-green-800 dark:text-green-200">
+								{t.purchaseSuccess ?? 'Congratulations! You have successfully purchased the bib for'} {successEventName}
+							</p>
+							<p className="text-sm text-green-700 dark:text-green-300">
+								{t.purchaseSuccessDetails ?? 'Your new bib details are listed below.'}
+							</p>
 						</div>
-					)}
+					</div>
+				</div>
+			)}
 
-					{/* Statistics Cards */}
-					<div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+			{/* Main Content */}
+			<div className="relative pt-32 pb-12">
+				<div className="container mx-auto max-w-6xl p-6">
+					{/* Stats Cards */}
+					<div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
-							<CardHeader className="pb-2">
-								<CardTitle className="text-muted-foreground text-sm">
-									{t.totalPurchasesLabel ?? 'Total Purchases'}
-								</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<div className="text-2xl font-bold">{totalPurchases}</div>
+							<CardContent className="p-6">
+								<div className="flex items-center gap-3">
+									<div className="rounded-full bg-blue-500/10 p-3 text-blue-500">
+										<ShoppingCart className="h-6 w-6" />
+									</div>
+									<div>
+										<p className="text-muted-foreground text-sm">{t.totalPurchasesLabel ?? 'Total Purchases'}</p>
+										<p className="text-2xl font-bold">{totalPurchases}</p>
+									</div>
+								</div>
 							</CardContent>
 						</Card>
 
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
-							<CardHeader className="pb-2">
-								<CardTitle className="text-muted-foreground text-sm">
-									{t.waitlistEntriesLabel ?? 'Waitlist Entries'}
-								</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<div className="text-2xl font-bold">{waitlistEntries}</div>
+							<CardContent className="p-6">
+								<div className="flex items-center gap-3">
+									<div className="rounded-full bg-yellow-500/10 p-3 text-yellow-500">
+										<Clock className="h-6 w-6" />
+									</div>
+									<div>
+										<p className="text-muted-foreground text-sm">{t.waitlistEntriesLabel ?? 'Waitlist Entries'}</p>
+										<p className="text-2xl font-bold">{waitlistEntries}</p>
+									</div>
+								</div>
 							</CardContent>
 						</Card>
 
 						<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
-							<CardHeader className="pb-2">
-								<CardTitle className="text-muted-foreground text-sm">{t.totalSpentLabel ?? 'Total Spent'}</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<div className="text-2xl font-bold">€{totalSpent.toFixed(2)}</div>
+							<CardContent className="p-6">
+								<div className="flex items-center gap-3">
+									<div className="rounded-full bg-green-500/10 p-3 text-green-500">
+										<Tag className="h-6 w-6" />
+									</div>
+									<div>
+										<p className="text-muted-foreground text-sm">{t.totalSpentLabel ?? 'Total Spent'}</p>
+										<p className="text-2xl font-bold">€{totalSpent?.toFixed(2) ?? '0.00'}</p>
+									</div>
+								</div>
 							</CardContent>
 						</Card>
 					</div>
 
 					{/* Quick Actions */}
-					<div className="my-8">
-						<h2 className="text-foreground mb-6 text-xl font-bold">{t.quickActions}</h2>
+					<div className="mb-8">
+						<h2 className="text-foreground mb-4 text-xl font-semibold">{t.quickActions ?? 'Quick Actions'}</h2>
 						<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
 							<Link href="/marketplace">
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
-										<ShoppingCart className="text-primary mb-2 h-8 w-8" />
-										<p className="text-sm font-medium">{t.browseMarketplace}</p>
-									</CardContent>
-								</Card>
-							</Link>
-
-							<Link href={`/${locale}/events`}>
-								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<Calendar className="text-primary mb-2 h-8 w-8" />
-										<p className="text-sm font-medium">{t.browseEvents}</p>
+										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+											<ShoppingCart className="h-6 w-6" />
+										</div>
+										<p className="text-sm font-medium">{t.browseMarketplace ?? 'Browse Marketplace'}</p>
 									</CardContent>
 								</Card>
 							</Link>
@@ -187,8 +290,10 @@ export default function BuyerDashboardClient({
 							<Link href={`/${locale}/dashboard`}>
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
-										<Users className="text-primary mb-2 h-8 w-8" />
-										<p className="text-sm font-medium">{t.mainDashboard}</p>
+										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+											<CheckCircle className="h-6 w-6" />
+										</div>
+										<p className="text-sm font-medium">{t.mainDashboard ?? 'Main Dashboard'}</p>
 									</CardContent>
 								</Card>
 							</Link>
@@ -196,8 +301,10 @@ export default function BuyerDashboardClient({
 							<Link href={`/${locale}/contact`}>
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
-										<HelpCircle className="text-primary mb-2 h-8 w-8" />
-										<p className="text-sm font-medium">{t.getHelp}</p>
+										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+											<HelpCircle className="h-6 w-6" />
+										</div>
+										<p className="text-sm font-medium">{t.getHelp ?? 'Get Help'}</p>
 									</CardContent>
 								</Card>
 							</Link>
@@ -349,7 +456,7 @@ export default function BuyerDashboardClient({
 							<CardContent>
 								{waitlistEntries > 0 ? (
 									<div className="space-y-4">
-										{futureWaitlists.map(waitlist => {
+										{currentWaitlists.map(waitlist => {
 											if (!waitlist?.id) return null
 											return (
 												<div className="rounded-lg border p-4" key={waitlist.id}>
@@ -357,30 +464,81 @@ export default function BuyerDashboardClient({
 														<h4 className="font-semibold">
 															{waitlist.expand?.event_id?.name ?? `Event ID: ${waitlist.event_id}`}
 														</h4>
-														<span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400">
-															{t.waiting ?? 'Waiting'}
-														</span>
+														<div className="flex items-center gap-2">
+															<span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400">
+																{t.waiting ?? 'Waiting'}
+															</span>
+															<button
+																onClick={() => handleDeleteClick(waitlist)}
+																className="text-muted-foreground hover:text-destructive cursor-pointer rounded-full p-1 transition-colors"
+																title={t.removeFromWaitlist ?? 'Remove from waitlist'}
+															>
+																<X className="h-4 w-4" />
+															</button>
+														</div>
 													</div>
 													<div className="text-muted-foreground space-y-1 text-sm">
 														<p className="flex items-center gap-2">
 															<Calendar className="h-4 w-4" />
-															{t.dateOfEvent ?? 'Date of Event'}:{' '}
+															{t.dateOfEvent ?? 'Date of Event'}{' '}
 															{waitlist.expand?.event_id?.eventDate
-																? formatDateObjectForDisplay(waitlist.expand.event_id.eventDate, locale)
+																? formatDateObjectForDisplay(new Date(waitlist.expand.event_id.eventDate), locale)
 																: 'N/A'}
 														</p>
 														<p>
-															{t.dateAddedToWaitlist ?? 'Date Added to Waitlist'}:{' '}
-															{formatDateObjectForDisplay(waitlist.added_at, locale)}
+															{t.dateAddedToWaitlist ?? 'Date Added to Waitlist'}{' '}
+															{waitlist.added_at
+																? formatDateObjectForDisplay(new Date(waitlist.added_at), locale)
+																: 'N/A'}
 														</p>
 														<p className="flex items-center gap-2">
 															<Users className="h-4 w-4" />
-															{t.status ?? 'Status'}: {t.waitingForNotification ?? 'Waiting for notification'}
+															{t.status ?? 'Status'} {t.waitingForNotification ?? 'Waiting for notification'}
 														</p>
+														{/* Fallback info if expansion failed */}
+														{!waitlist.expand?.event_id && (
+															<p className="text-xs text-orange-600 dark:text-orange-400">
+																Event ID: {waitlist.event_id} (Event details loading...)
+															</p>
+														)}
 													</div>
 												</div>
 											)
 										})}
+
+										{/* Pagination Controls */}
+										{totalPages > 1 && (
+											<div className="flex items-center justify-between border-t pt-4">
+												<div className="text-muted-foreground text-sm">
+													{t.pagination.showing} {startIndex + 1} {t.pagination.to}{' '}
+													{Math.min(endIndex, futureWaitlists.length)} {t.pagination.ofTotal} {futureWaitlists.length}{' '}
+													{t.pagination.entries}
+												</div>
+												<div className="flex items-center gap-2">
+													<Button
+														variant="outline"
+														size="sm"
+														onClick={() => handlePageChange(currentPage - 1)}
+														disabled={currentPage === 1}
+													>
+														<ChevronLeft className="mr-1 h-4 w-4" />
+														{t.pagination.previous}
+													</Button>
+													<span className="text-muted-foreground text-sm">
+														{t.pagination.page} {currentPage} {t.pagination.of} {totalPages}
+													</span>
+													<Button
+														variant="outline"
+														size="sm"
+														onClick={() => handlePageChange(currentPage + 1)}
+														disabled={currentPage === totalPages}
+													>
+														{t.pagination.next}
+														<ChevronRight className="ml-1 h-4 w-4" />
+													</Button>
+												</div>
+											</div>
+										)}
 									</div>
 								) : (
 									<div className="py-8 text-center">
@@ -398,6 +556,29 @@ export default function BuyerDashboardClient({
 					</div>
 				</div>
 			</div>
+
+			{/* Disable Notifications Confirmation Dialog */}
+			<AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+				<AlertDialogContent>
+					<AlertDialogHeader>
+						<AlertDialogTitle>Désactiver les notifications de waitlist</AlertDialogTitle>
+						<AlertDialogDescription>
+							Êtes-vous sûr de vouloir désactiver les notifications pour cet événement ? Vous ne recevrez plus d'alertes
+							quand des dossards deviendront disponibles.
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
+						<AlertDialogCancel disabled={isDeleting}>Annuler</AlertDialogCancel>
+						<AlertDialogAction
+							onClick={void handleDeleteConfirm}
+							disabled={isDeleting}
+							className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+						>
+							{isDeleting ? 'Désactivation...' : 'Désactiver'}
+						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
 		</div>
 	)
 }
