@@ -103,6 +103,7 @@ const nextConfig: NextConfig = {
 			'https://paypalobjects.com',
 			'https://*.paypalobjects.com',
 			'https://cdnjs.cloudflare.com',
+			'https://umami.wadefade.fr',
 		].join(' ')
 
 		const imgSrc = [
@@ -160,7 +161,7 @@ const nextConfig: NextConfig = {
 						key: 'X-XSS-Protection',
 					},
 					{
-						value: 'require-corp',
+						value: 'same-origin',
 						key: 'Cross-Origin-Embedder-Policy',
 					},
 					{
