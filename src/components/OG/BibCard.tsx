@@ -9,6 +9,10 @@ import type { Bib } from '@/models/bib.model'
 
 import { getOrganizerImageUrl } from '@/lib/utils/images'
 import { formatDateWithLocale } from '@/lib/utils/date'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { formatPrice, getCurrencyForLocale } from '@/lib/utils/currency'
+
+import marketplaceTranslations from '@/app/[locale]/marketplace/locales.json'
 
 // Flexible type that works with both BibSale and actual service response
 type BibData = BibSale | (Bib & { expand?: { eventId: Event; sellerUserId: User } })
@@ -29,27 +33,11 @@ function getTypeColor(type: BibSale['event']['type']) {
 	}
 }
 
-// Helper function to get event type label
+// Helper function to get event type label using translations
 function getTypeLabel(type: BibSale['event']['type'], locale: Locale) {
-	const labels: Record<string, Record<string, string>> = {
-		fr: {
-			triathlon: 'Triathlon',
-			trail: 'Trail',
-			road: 'Route',
-			other: 'Autre',
-			cycle: 'Cyclisme',
-		},
-		en: {
-			triathlon: 'Triathlon',
-			trail: 'Trail',
-			road: 'Road',
-			other: 'Other',
-			cycle: 'Cycling',
-		},
-	}
-
-	const localeLabels = labels[locale] ?? labels.en
-	return localeLabels[type] ?? localeLabels.other
+	const t = getTranslations(locale, marketplaceTranslations)
+	const sportTypes = t.sportTypes as Record<string, string> | undefined
+	return sportTypes?.[type] ?? type
 }
 
 // Helper function to format participant count
@@ -101,11 +89,31 @@ interface BibCardProps {
 	bib: BibData
 	locale: Locale
 	organizer?: Organizer
+	exchangeRates?: Record<string, number> | null
 }
 
-export default function BibCard({ organizer, locale, bib }: Readonly<BibCardProps>) {
+// Helper function to convert price with fallback to EUR
+function convertPriceWithFallback(priceInEur: number, currency: string, rates: Record<string, number> | null | undefined): string {
+	if (currency === 'eur' || !rates) {
+		return formatPrice(priceInEur, 'eur')
+	}
+	const rate = rates[currency]
+	if (!rate) {
+		return formatPrice(priceInEur, 'eur')
+	}
+	const converted = Math.round(priceInEur * rate * 100) / 100
+	return formatPrice(converted, currency)
+}
+
+export default function BibCard({ organizer, locale, bib, exchangeRates }: Readonly<BibCardProps>) {
 	const event = getEventFromBib(bib)
 	const user = getUserFromBib(bib)
+	const t = getTranslations(locale, marketplaceTranslations)
+
+	// Currency conversion
+	const targetCurrency = getCurrencyForLocale(locale)
+	const convertedPrice = convertPriceWithFallback(bib.price, targetCurrency, exchangeRates)
+	const convertedOriginalPrice = bib.originalPrice ? convertPriceWithFallback(bib.originalPrice, targetCurrency, exchangeRates) : null
 
 	if (!event || !user) {
 		return <div style={{ width: '280px', height: '380px', borderRadius: '16px', backgroundColor: '#f3f4f6' }} />
@@ -218,7 +226,7 @@ export default function BibCard({ organizer, locale, bib }: Readonly<BibCardProp
 						color: '#6b7280',
 					}}
 				>
-					vendu par {user.firstName ?? 'Anonymous'}
+					{t.soldBy} {user.firstName ?? 'Anonymous'}
 				</div>
 
 				{/* Title and price */}
@@ -259,7 +267,7 @@ export default function BibCard({ organizer, locale, bib }: Readonly<BibCardProp
 								color: '#111827',
 							}}
 						>
-							{bib.price}€
+							{convertedPrice}
 						</div>
 						{originalPrice > 0 && originalPrice > bib.price && (
 							<div
@@ -272,7 +280,7 @@ export default function BibCard({ organizer, locale, bib }: Readonly<BibCardProp
 									color: '#6b7280',
 								}}
 							>
-								{originalPrice}€
+								{convertedOriginalPrice}
 							</div>
 						)}
 					</div>
@@ -362,7 +370,7 @@ export default function BibCard({ organizer, locale, bib }: Readonly<BibCardProp
 								color: '#6b7280',
 							}}
 						>
-							{formatParticipantCount(event.participantCount)} participants
+							{formatParticipantCount(event.participantCount)} {t.participants}
 						</div>
 					</div>
 				</div>

@@ -171,7 +171,6 @@ export default function OGImageBib({ title, size, secondary, organizer, locale, 
 				{/* Left Column - Content */}
 				<div
 					style={{
-						zIndex: 1,
 						width: '40%',
 						justifyContent: 'space-between',
 						height: '100%',
