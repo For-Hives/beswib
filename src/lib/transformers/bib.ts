@@ -30,7 +30,7 @@ export function mapEventTypeToBibSaleType(
 export function transformBibsToBibSales(
 	bibs: (Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } })[]
 ): BibSale[] {
-	return bibs.map(bib => transformBibToBibSale(bib)).filter((bibSale): bibSale is BibSale => bibSale !== null)
+	return bibs.map(bib => transformBibToBibSale(bib)).filter((bibSale): bibSale is BibSale => bibSale != null)
 }
 
 /**

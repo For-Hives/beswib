@@ -418,7 +418,7 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 
 	const isRelatedToActive = useCallback(
 		(itemId: number): boolean => {
-			if (activeNodeId === null) return false
+			if (activeNodeId == null) return false
 			const relatedSet = relatedItemsMap.get(activeNodeId)
 			return relatedSet?.has(itemId) ?? false
 		},

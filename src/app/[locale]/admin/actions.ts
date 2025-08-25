@@ -27,7 +27,7 @@ export async function createEventAction(eventData: Omit<Event, 'id'>): Promise<{
 		// Verify admin access (checks Clerk auth, platform registration, and admin role)
 		const adminUser = await checkAdminAccess()
 
-		if (adminUser === null) {
+		if (adminUser == null) {
 			return {
 				success: false,
 				error: 'Unauthorized: Admin access required',
@@ -42,7 +42,7 @@ export async function createEventAction(eventData: Omit<Event, 'id'>): Promise<{
 			}
 		}
 
-		if (eventData.eventDate === null || eventData.eventDate === undefined || isNaN(eventData.eventDate.getTime())) {
+		if (eventData.eventDate == null || eventData.eventDate === undefined || isNaN(eventData.eventDate.getTime())) {
 			return {
 				success: false,
 				error: 'Valid event date is required',
@@ -52,7 +52,7 @@ export async function createEventAction(eventData: Omit<Event, 'id'>): Promise<{
 		// Create the event with PocketBase service
 		const result = await createEvent(eventData)
 
-		if (result !== null) {
+		if (result != null) {
 			console.info(`Admin ${adminUser.email} created event: ${result.name}`)
 			return {
 				success: true,
@@ -86,7 +86,7 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 		console.info('🔐 [ACTION] Checking admin access...')
 		const adminUser = await checkAdminAccess()
 
-		if (adminUser === null) {
+		if (adminUser == null) {
 			console.error('❌ [ACTION] Unauthorized access attempt')
 			return {
 				success: false,
@@ -141,7 +141,7 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 		console.info('💾 [ACTION] Calling createOrganizer service...')
 		const result = await createOrganizer(organizerData)
 
-		if (result !== null) {
+		if (result != null) {
 			console.info('🎉 [ACTION] Organizer created successfully:', result.name)
 			console.info(`Admin ${adminUser.email} created organizer: ${result.name}`)
 			return {
@@ -247,7 +247,7 @@ export async function approveOrganizerAction(
 ): Promise<{ success: boolean; data?: Organizer; error?: string }> {
 	try {
 		const adminUser = await checkAdminAccess()
-		if (adminUser === null) {
+		if (adminUser == null) {
 			return { success: false, error: 'Unauthorized: Admin access required' }
 		}
 
@@ -273,7 +273,7 @@ export async function approveOrganizerAction(
 export async function rejectOrganizerAction(id: string): Promise<{ success: boolean; error?: string }> {
 	try {
 		const adminUser = await checkAdminAccess()
-		if (adminUser === null) {
+		if (adminUser == null) {
 			return { success: false, error: 'Unauthorized: Admin access required' }
 		}
 
@@ -303,7 +303,7 @@ export async function getEventByIdAction(id: string): Promise<{
 	try {
 		const adminUser = await checkAdminAccess()
 
-		if (adminUser === null) {
+		if (adminUser == null) {
 			return {
 				success: false,
 				error: 'Unauthorized: Admin access required',
@@ -353,7 +353,7 @@ export async function updateEventAction(
 	try {
 		const adminUser = await checkAdminAccess()
 
-		if (adminUser === null) {
+		if (adminUser == null) {
 			return {
 				success: false,
 				error: 'Unauthorized: Admin access required',
@@ -375,7 +375,7 @@ export async function updateEventAction(
 			}
 		}
 
-		if (eventData.eventDate !== undefined && (eventData.eventDate === null || isNaN(eventData.eventDate.getTime()))) {
+		if (eventData.eventDate !== undefined && (eventData.eventDate == null || isNaN(eventData.eventDate.getTime()))) {
 			return {
 				success: false,
 				error: 'Valid event date is required',
@@ -385,7 +385,7 @@ export async function updateEventAction(
 		// Update the event with PocketBase service
 		const result = await updateEventById(id, eventData)
 
-		if (result !== null) {
+		if (result != null) {
 			console.info(`Admin ${adminUser.email} updated event: ${result.name} (${id})`)
 			return {
 				success: true,
@@ -414,7 +414,7 @@ export async function getOrganizerByIdAction(id: string): Promise<{
 	try {
 		const adminUser = await checkAdminAccess()
 
-		if (adminUser === null) {
+		if (adminUser == null) {
 			return {
 				success: false,
 				error: 'Unauthorized: Admin access required',
@@ -464,7 +464,7 @@ export async function updateOrganizerAction(
 	try {
 		const adminUser = await checkAdminAccess()
 
-		if (adminUser === null) {
+		if (adminUser == null) {
 			return {
 				success: false,
 				error: 'Unauthorized: Admin access required',
@@ -505,7 +505,7 @@ export async function updateOrganizerAction(
 		// Update the organizer with PocketBase service
 		const result = await updateOrganizer(id, organizerData)
 
-		if (result !== null) {
+		if (result != null) {
 			console.info(`Admin ${adminUser.email} updated organizer: ${result.name} (${id})`)
 			return {
 				success: true,
@@ -530,7 +530,7 @@ export async function deleteEventAction(id: string): Promise<{ success: boolean;
 	try {
 		const adminUser = await checkAdminAccess()
 
-		if (adminUser === null) {
+		if (adminUser == null) {
 			return { success: false, error: 'Unauthorized: Admin access required' }
 		}
 

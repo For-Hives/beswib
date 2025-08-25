@@ -37,7 +37,7 @@ const useFormField = () => {
 
 	const fieldState = getFieldState(fieldContext.name, formState)
 
-	if (fieldContext === null || fieldContext === undefined) {
+	if (fieldContext == null || fieldContext === undefined) {
 		throw new Error('useFormField should be used within <FormField>')
 	}
 
@@ -111,9 +111,9 @@ FormDescription.displayName = 'FormDescription'
 const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
 	({ className, children, ...props }, ref) => {
 		const { formMessageId, error } = useFormField()
-		const body = error !== null && error !== undefined ? String(error?.message) : children
+		const body = error != null && error !== undefined ? String(error?.message) : children
 
-		if (body === null || body === undefined) {
+		if (body == null || body === undefined) {
 			return null
 		}
 

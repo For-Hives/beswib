@@ -82,7 +82,7 @@ export async function GET() {
 				for (const event of allEvents) {
 					const eventUrl = `${baseUrl}/${locale}/events/${event.id}`
 					const eventLastModified =
-						event.eventDate !== null && event.eventDate !== undefined ? new Date(event.eventDate) : new Date()
+						event.eventDate != null && event.eventDate !== undefined ? new Date(event.eventDate) : new Date()
 
 					sitemap.push({
 						url: eventUrl,

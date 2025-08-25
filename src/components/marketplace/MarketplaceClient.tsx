@@ -157,7 +157,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 					void setFilters({ priceMin: 0, priceMax: maxPrice })
 					break
 				case 'geography':
-					if (value !== null && value !== undefined && value !== '') {
+					if (value != null && value !== undefined && value !== '') {
 						const newGeography = geography.filter(loc => loc !== value)
 						void setFilters({ geography: newGeography })
 					}
@@ -196,12 +196,12 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		}
 
 		// --- Filter by selected sport 🏅
-		if (sport !== null && sport !== undefined && sport !== 'all') {
+		if (sport != null && sport !== undefined && sport !== 'all') {
 			filtered = filtered.filter(bib => bib.event.type === sport)
 		}
 
 		// --- Filter by selected distance 📏
-		if (distance !== null && distance !== undefined && distance !== 'all') {
+		if (distance != null && distance !== undefined && distance !== 'all') {
 			const [minDistance, maxDistance] = getDistanceRange(distance)
 			filtered = filtered.filter(bib => {
 				const eventDistance = bib.event.distance
@@ -218,13 +218,13 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		}
 
 		// --- Filter by start date 📅
-		if (dateStart !== null && dateStart !== undefined && dateStart !== '') {
+		if (dateStart != null && dateStart !== undefined && dateStart !== '') {
 			const start = new Date(dateStart)
 			filtered = filtered.filter(bib => new Date(bib.event.date) >= start)
 		}
 
 		// --- Filter by end date 📅
-		if (dateEnd !== null && dateEnd !== undefined && dateEnd !== '') {
+		if (dateEnd != null && dateEnd !== undefined && dateEnd !== '') {
 			const end = new Date(dateEnd)
 			filtered = filtered.filter(bib => new Date(bib.event.date) <= end)
 		}

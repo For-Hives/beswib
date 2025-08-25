@@ -72,7 +72,7 @@ const DropdownMenuAnimated = ({ options, children }: DropdownMenuProps) => {
 						initial={{ y: -5, scale: 0.95, filter: 'blur(10px)' }}
 						transition={{ type: 'spring', ease: 'circInOut', duration: 0.6 }}
 					>
-						{options !== null && options !== undefined && options.length > 0 ? (
+						{options != null && options !== undefined && options.length > 0 ? (
 							options.map((option, index) => (
 								<motion.button
 									animate={{ x: 0, scale: 1, opacity: 1, filter: 'blur(0px)' }}

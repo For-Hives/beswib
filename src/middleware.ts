@@ -7,7 +7,7 @@ export function getLocaleFromRequest(request: NextRequest): string {
 	try {
 		// 1. Check for language preference in cookies first 🍪
 		const cookieHeader = request.headers.get('cookie')
-		if (cookieHeader !== null && cookieHeader.length > 0) {
+		if (cookieHeader != null && cookieHeader.length > 0) {
 			const cookies = cookieHeader.split(';').reduce((acc: Record<string, string>, cookie) => {
 				const [key, value] = cookie.trim().split('=')
 				if (key && value) {

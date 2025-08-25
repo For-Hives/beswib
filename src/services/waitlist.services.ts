@@ -101,7 +101,7 @@ export async function addToWaitlist(
 			const userName = actualUser ? `${actualUser.firstName ?? ''} ${actualUser.lastName ?? ''}`.trim() : undefined
 			const userLocale = actualUser?.locale ?? undefined // Use user's locale from DB if available
 
-			if (emailToUse !== undefined && emailToUse !== null && emailToUse.trim() !== '') {
+			if (emailToUse !== undefined && emailToUse != null && emailToUse.trim() !== '') {
 				// Get event details for the email (we need to fetch the event)
 				const eventRecord = await pb.collection('events').getOne<Event>(eventId)
 
@@ -110,7 +110,7 @@ export async function addToWaitlist(
 					userName ?? 'Runner', // Fallback name
 					eventRecord.name,
 					eventId,
-					eventRecord.distanceKm !== null && eventRecord.distanceKm !== undefined
+					eventRecord.distanceKm != null && eventRecord.distanceKm !== undefined
 						? `${eventRecord.distanceKm} km`
 						: undefined,
 					eventRecord.typeCourse ?? 'road',
@@ -205,7 +205,7 @@ export async function fetchWaitlistEmailsWithLocalesForEvent(
 				locale = entry.expand.user_id.locale ?? undefined // Use user's locale from DB
 			}
 
-			if (email !== null && email !== undefined && email.trim() !== '' && !seenEmails.has(email)) {
+			if (email != null && email !== undefined && email.trim() !== '' && !seenEmails.has(email)) {
 				seenEmails.add(email)
 				emailsWithLocales.push({ locale, email })
 			}

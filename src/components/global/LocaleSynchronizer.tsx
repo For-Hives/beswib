@@ -25,7 +25,7 @@ export default function LocaleSynchronizer() {
 				// Get locale from cookie
 				const cookieLocale = getLocaleFromCookie()
 
-				if (cookieLocale === null || cookieLocale === undefined || !isSupportedLocale(cookieLocale)) {
+				if (cookieLocale == null || cookieLocale === undefined || !isSupportedLocale(cookieLocale)) {
 					// No valid locale in cookie, nothing to sync
 					return
 				}

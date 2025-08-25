@@ -53,7 +53,7 @@ function processTextForHighlighting(text: string, highlightColor: string) {
 	let lastIndex = 0
 	let match: RegExpExecArray | null
 
-	while ((match = regex.exec(text)) !== null) {
+	while ((match = regex.exec(text)) != null) {
 		// Text before the **
 		if (match.index > lastIndex) {
 			parts.push({ text: text.slice(lastIndex, match.index), color: '#111E3B' })

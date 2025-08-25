@@ -98,7 +98,7 @@ export default function CustomSignIn() {
 			...prev,
 			[field]: error,
 		}))
-		return error === null
+		return error == null
 	}
 
 	// Handle input changes

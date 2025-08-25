@@ -123,7 +123,7 @@ export const BeswibWelcomeEmail = ({ steps, locale = 'fr', firstName = 'Coureur'
 											{step.id}. {step.title}
 										</Heading>
 										<Text className="text-muted-foreground mb-3 text-sm leading-relaxed">{step.description}</Text>
-										{step.link !== null && step.link !== undefined && step.link !== '' && (
+										{step.link != null && step.link !== undefined && step.link !== '' && (
 											<Link
 												href={step.link}
 												style={{

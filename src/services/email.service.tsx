@@ -63,7 +63,7 @@ async function sendEmail({ to, text, subject, react, html, from }: SendEmailPara
 
 		if (react) {
 			emailData.react = react
-		} else if (html !== undefined && html !== null && typeof html === 'string' && html.trim() !== '') {
+		} else if (html !== undefined && html != null && typeof html === 'string' && html.trim() !== '') {
 			emailData.html = html
 			emailData.text = text ?? stripHtml(html)
 		} else {
@@ -303,7 +303,7 @@ export async function sendSaleAlertEmail(params: SaleAlertParams): Promise<boole
 
 	if (
 		adminEmails === undefined ||
-		adminEmails === null ||
+		adminEmails == null ||
 		(typeof adminEmails === 'string' && adminEmails.trim() === '')
 	) {
 		console.warn('No admin emails configured for sale alerts')
@@ -564,7 +564,7 @@ export async function sendAdminNotification(
 
 	if (
 		adminEmails === undefined ||
-		adminEmails === null ||
+		adminEmails == null ||
 		(typeof adminEmails === 'string' && adminEmails.trim() === '')
 	) {
 		console.warn('No admin email configured for notifications')

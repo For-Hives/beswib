@@ -22,7 +22,7 @@ export async function createOrganizer(
 		formData.append('isPartnered', String(organizerData.isPartnered))
 
 		// Add optional fields only if they exist 🤔
-		if (organizerData.website !== null && organizerData.website !== undefined && organizerData.website.trim() !== '') {
+		if (organizerData.website != null && organizerData.website !== undefined && organizerData.website.trim() !== '') {
 			console.info('🌐 [SERVICE] Adding website field...')
 			formData.append('website', organizerData.website.trim())
 		}
@@ -168,7 +168,7 @@ export async function fetchAllOrganizersWithEventsCount(): Promise<(Organizer & 
 			isPartnered: record.isPartnered as boolean,
 			id: record.id,
 			eventsCount:
-				record.expand?.events_via_organizer !== null &&
+				record.expand?.events_via_organizer != null &&
 				record.expand?.events_via_organizer !== undefined &&
 				Array.isArray(record.expand.events_via_organizer)
 					? record.expand.events_via_organizer.length
@@ -206,7 +206,7 @@ export async function fetchOrganizerById(id: string): Promise<null | Organizer> 
 	} catch (error) {
 		// Only log error if it's not a "not found" error
 		if (
-			error !== null &&
+			error != null &&
 			error !== undefined &&
 			typeof error === 'object' &&
 			'status' in error &&
@@ -251,7 +251,7 @@ export async function fetchPartneredOrganizers(): Promise<Organizer[]> {
  * @returns The full URL to the logo file
  */
 export function getOrganizerLogoUrl(organizer: Organizer, thumbSize?: string): null | string {
-	if (organizer.logo === null || organizer.logo === undefined || organizer.logo === '') {
+	if (organizer.logo == null || organizer.logo === undefined || organizer.logo === '') {
 		return null
 	}
 
@@ -261,7 +261,7 @@ export function getOrganizerLogoUrl(organizer: Organizer, thumbSize?: string): n
 	let url = `${baseUrl}/api/files/organizer/${organizer.id}/${organizer.logo}`
 
 	// Add thumbnail parameter if specified 👍
-	if (thumbSize !== null && thumbSize !== undefined && thumbSize !== '') {
+	if (thumbSize != null && thumbSize !== undefined && thumbSize !== '') {
 		url += `?thumb=${thumbSize}`
 	}
 
@@ -287,20 +287,16 @@ export async function updateOrganizer(
 			const formData = new FormData()
 
 			// Add text fields if provided ✅
-			if (organizerData.name !== null && organizerData.name !== undefined) {
+			if (organizerData.name != null && organizerData.name !== undefined) {
 				formData.append('name', organizerData.name)
 			}
-			if (organizerData.email !== null && organizerData.email !== undefined) {
+			if (organizerData.email != null && organizerData.email !== undefined) {
 				formData.append('email', organizerData.email)
 			}
 			if (organizerData.isPartnered !== undefined) {
 				formData.append('isPartnered', String(organizerData.isPartnered))
 			}
-			if (
-				organizerData.website !== null &&
-				organizerData.website !== undefined &&
-				organizerData.website.trim() !== ''
-			) {
+			if (organizerData.website != null && organizerData.website !== undefined && organizerData.website.trim() !== '') {
 				formData.append('website', organizerData.website.trim())
 			}
 

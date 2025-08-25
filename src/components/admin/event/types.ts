@@ -48,7 +48,7 @@ export const EventCreationSchema = v.pipe(
 			return false
 		}
 
-		if (data.transferDeadline !== undefined && data.transferDeadline !== null && data.transferDeadline !== '') {
+		if (data.transferDeadline !== undefined && data.transferDeadline != null && data.transferDeadline !== '') {
 			const transferDate = new Date(data.transferDeadline)
 			if (transferDate >= eventDate) {
 				return false

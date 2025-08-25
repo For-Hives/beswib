@@ -114,7 +114,7 @@ export async function sendNewBibNotification(
 	// Calculate time remaining until event (now imported from date utils)
 
 	const formatEventDate = (date?: Date | string) => {
-		if (date === undefined || date === null || (typeof date === 'string' && date.trim() === '')) return ''
+		if (date === undefined || date == null || (typeof date === 'string' && date.trim() === '')) return ''
 		try {
 			const d = new Date(date)
 			return d.toLocaleDateString('fr-FR', {
@@ -298,7 +298,7 @@ async function postDiscord(webhookUrl: string, content: string): Promise<boolean
 }
 
 function normalizeEmails(value?: string | string[] | null): string[] {
-	if (value === null || value === undefined) return []
+	if (value == null || value === undefined) return []
 	const arr = Array.isArray(value) ? value : String(value).split(',')
 	return arr.map(s => s.trim()).filter(s => s.length > 0)
 }

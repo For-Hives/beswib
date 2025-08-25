@@ -49,7 +49,7 @@ export default function Breadcrumbs({ locale, items, className = '' }: Breadcrum
 							<span className="text-foreground font-medium" aria-current="page">
 								{item.label}
 							</span>
-						) : item.href !== null && item.href !== undefined && item.href.length > 0 ? (
+						) : item.href != null && item.href !== undefined && item.href.length > 0 ? (
 							<Link href={item.href} className="hover:text-foreground transition-colors">
 								{item.label}
 							</Link>

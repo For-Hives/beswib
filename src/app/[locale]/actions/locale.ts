@@ -21,7 +21,7 @@ export async function syncUserLocaleFromCookie(
 	try {
 		// Check if user is authenticated
 		const { userId: clerkId } = await auth()
-		if (clerkId === null || clerkId === undefined) {
+		if (clerkId == null || clerkId === undefined) {
 			return { success: false, error: 'User not authenticated' }
 		}
 
@@ -37,7 +37,7 @@ export async function syncUserLocaleFromCookie(
 		}
 
 		// Only update if user doesn't have a locale set (null or empty)
-		if (user.locale === null || user.locale === undefined || user.locale.trim() === '') {
+		if (user.locale == null || user.locale === undefined || user.locale.trim() === '') {
 			await updateUserLocale(user.id, cookieLocale)
 			return { updated: true, success: true }
 		}
@@ -62,7 +62,7 @@ export async function updateUserLocalePreference(locale: string): Promise<{ succ
 	try {
 		// Check if user is authenticated
 		const { userId: clerkId } = await auth()
-		if (clerkId === null || clerkId === undefined) {
+		if (clerkId == null || clerkId === undefined) {
 			return { success: false, error: 'User not authenticated' }
 		}
 

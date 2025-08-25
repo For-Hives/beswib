@@ -274,7 +274,7 @@ export default function AdminOrganizerValidatePageClient({
 												</div>
 											</CardHeader>
 											<CardContent className="space-y-4">
-												{organizer.website !== null && organizer.website !== undefined && organizer.website !== '' && (
+												{organizer.website != null && organizer.website !== undefined && organizer.website !== '' && (
 													<div className="text-sm">
 														<span className="text-muted-foreground">Website: </span>
 														<a

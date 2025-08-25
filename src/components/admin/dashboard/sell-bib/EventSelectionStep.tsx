@@ -141,13 +141,13 @@ export default function EventSelectionStep({
 													<MapPin className="h-4 w-4" />
 													{event.location}
 												</div>
-												{event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0 && (
+												{event.distanceKm != null && event.distanceKm !== undefined && event.distanceKm > 0 && (
 													<div className="flex items-center gap-2">
 														<TrendingUp className="h-4 w-4" />
 														{event.distanceKm} km
 													</div>
 												)}
-												{event.participants !== null && event.participants !== undefined && event.participants > 0 && (
+												{event.participants != null && event.participants !== undefined && event.participants > 0 && (
 													<div className="flex items-center gap-2">
 														<Users className="h-4 w-4" />
 														{event.participants} participants
@@ -189,7 +189,7 @@ export default function EventSelectionStep({
 					</Card>
 				</div>
 
-				{error !== null && error !== undefined && error !== '' && (
+				{error != null && error !== undefined && error !== '' && (
 					<p className="mt-4 text-sm text-red-600 dark:text-red-400">{error}</p>
 				)}
 			</div>

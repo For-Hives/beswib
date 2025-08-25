@@ -12,13 +12,13 @@ export async function checkAdminAccess(): Promise<null | User> {
 	try {
 		const { userId: clerkId } = await auth()
 
-		if (clerkId === null || clerkId === undefined) {
+		if (clerkId == null || clerkId === undefined) {
 			return null
 		}
 
 		const user = await fetchUserByClerkId(clerkId)
 
-		if (user === null || user.role !== 'admin') {
+		if (user == null || user.role !== 'admin') {
 			return null
 		}
 
@@ -36,7 +36,7 @@ export async function getCurrentUser(): Promise<null | User> {
 	try {
 		const { userId: clerkId } = await auth()
 
-		if (clerkId === null || clerkId === undefined) {
+		if (clerkId == null || clerkId === undefined) {
 			return null
 		}
 
@@ -58,7 +58,7 @@ export async function requireAdminAccess(): Promise<User> {
 		const { userId: clerkId } = await auth()
 
 		// Check if user is authenticated ✅
-		if (clerkId === null || clerkId === undefined) {
+		if (clerkId == null || clerkId === undefined) {
 			redirect('/auth/sign-in?redirectUrl=' + encodeURIComponent('/admin/event'))
 		}
 

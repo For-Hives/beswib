@@ -22,7 +22,7 @@ export default function ProgressSteps({ steps, locale, currentStepIndex }: Reado
 					const stepData = t[step as keyof typeof t]
 
 					// Fallback for missing step data
-					if (stepData === undefined || stepData === null) {
+					if (stepData === undefined || stepData == null) {
 						console.warn(`Missing translation data for step: ${step}`)
 						return null
 					}

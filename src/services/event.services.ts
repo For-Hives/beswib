@@ -110,7 +110,7 @@ export async function fetchApprovedPublicEventsWithBibs(expandOrganizer = false)
 		const filteredRecords = records.map(event => {
 			const allBibs = event.expand?.bibs_via_eventId ?? []
 			const availableBibs = allBibs.filter(bib => {
-				return bib.status === 'available' && bib.listed === 'public' && (bib.lockedAt === null || bib.lockedAt === '')
+				return bib.status === 'available' && bib.listed === 'public' && (bib.lockedAt == null || bib.lockedAt === '')
 			})
 
 			return {

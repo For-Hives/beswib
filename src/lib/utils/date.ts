@@ -355,7 +355,7 @@ export function calculateTimeRemaining(eventDate?: Date | string, locale: string
 		// Fallback if timeUnits are not available - use English as default site language
 		if (!timeUnits) {
 			const fallbackDays = '7 days'
-			if (eventDate === undefined || eventDate === null || (typeof eventDate === 'string' && eventDate.trim() === ''))
+			if (eventDate === undefined || eventDate == null || (typeof eventDate === 'string' && eventDate.trim() === ''))
 				return fallbackDays
 
 			try {
@@ -377,7 +377,7 @@ export function calculateTimeRemaining(eventDate?: Date | string, locale: string
 			}
 		}
 
-		if (eventDate === undefined || eventDate === null || (typeof eventDate === 'string' && eventDate.trim() === ''))
+		if (eventDate === undefined || eventDate == null || (typeof eventDate === 'string' && eventDate.trim() === ''))
 			return timeUnits.defaultDays
 
 		const event = new Date(eventDate)

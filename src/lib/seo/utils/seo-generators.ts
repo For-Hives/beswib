@@ -24,7 +24,7 @@ export function generateEventKeywords(locale: Locale, event: Event): string {
 	}
 
 	// Add distance-based keywords
-	if (event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0) {
+	if (event.distanceKm != null && event.distanceKm !== undefined && event.distanceKm > 0) {
 		baseKeywords.push(`${event.distanceKm}km`)
 		if (event.distanceKm <= 10) {
 			baseKeywords.push('short distance')
@@ -34,7 +34,7 @@ export function generateEventKeywords(locale: Locale, event: Event): string {
 	}
 
 	// Add elevation-based keywords
-	if (event.elevationGainM !== null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
+	if (event.elevationGainM != null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
 		if (event.elevationGainM > 1000) {
 			baseKeywords.push('mountain')
 		}
@@ -71,10 +71,10 @@ export function generateEventDescription(locale: Locale, event: Event): string {
 
 	// Add distance and elevation in compact format
 	const details = []
-	if (event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0) {
+	if (event.distanceKm != null && event.distanceKm !== undefined && event.distanceKm > 0) {
 		details.push(`${event.distanceKm}km`)
 	}
-	if (event.elevationGainM !== null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
+	if (event.elevationGainM != null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
 		details.push(`${event.elevationGainM}m elevation`)
 	}
 	if (details.length > 0) {

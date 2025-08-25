@@ -31,7 +31,7 @@ export default async function SellerDashboardPage({ params }: { params: Promise<
 	const clerkUser = await currentUser()
 	const pbUser = await fetchUserByClerkId(clerkUser?.id)
 
-	if (clerkUser?.id === null || clerkUser?.id === undefined || pbUser === null) {
+	if (clerkUser?.id == null || clerkUser?.id === undefined || pbUser == null) {
 		redirect('/auth/sign-in')
 	}
 

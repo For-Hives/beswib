@@ -38,7 +38,7 @@ export default async function BuyerDashboardPage({
 	const { userId } = await auth()
 	const clerkUser = await currentUser()
 
-	if (userId === null || userId === undefined || clerkUser === null) {
+	if (userId == null || userId === undefined || clerkUser == null) {
 		redirect('/auth/sign-in')
 	}
 

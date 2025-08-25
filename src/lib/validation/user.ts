@@ -31,7 +31,7 @@ export function isUserProfileComplete(user: User | null): boolean {
 	]
 
 	return requiredFields.every(field => {
-		if (field === null || field === undefined) return false
+		if (field == null || field === undefined) return false
 		if (field instanceof Date) {
 			return !isNaN(field.getTime())
 		}
@@ -50,7 +50,7 @@ export function isSellerProfileComplete(user: User | null): boolean {
 	if (!user) return false
 
 	// Check if PayPal merchant ID is configured
-	if (user.paypalMerchantId === null || user.paypalMerchantId === undefined || user.paypalMerchantId.trim() === '') {
+	if (user.paypalMerchantId == null || user.paypalMerchantId === undefined || user.paypalMerchantId.trim() === '') {
 		return false
 	}
 
@@ -79,7 +79,7 @@ export function isSellerProfileComplete(user: User | null): boolean {
 	]
 
 	return requiredSellerFields.every(field => {
-		if (field === null || field === undefined) return false
+		if (field == null || field === undefined) return false
 		if (typeof field === 'string') {
 			return field.trim() !== ''
 		}
