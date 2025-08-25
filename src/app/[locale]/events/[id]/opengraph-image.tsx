@@ -35,7 +35,7 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 	const t = getTranslations(locale, pageTranslations)
 
 	// Fetch the event details and exchange rates in parallel
-	const [event, exchangeRates] = await Promise.all([fetchEventById(id), fetchExchangeRates()])
+	const [event, exchangeRates] = await Promise.all([fetchEventById(id, true), fetchExchangeRates()])
 
 	// Build the absolute URL (useful for Satori)
 	const requestHeaders = await headers()
@@ -45,14 +45,14 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
 
 	// Create dynamic title and description based on event data
-	let title = (t as any).event?.title ?? 'Event Details'
-	let secondary = (t as any).ctaOG ?? 'Discover this **amazing race** and join the adventure!'
+	let title = t.event?.title ?? 'Event Details'
+	let secondary = t.ctaOG ?? 'Discover this **amazing race** and join the adventure!'
 
 	if (event) {
 		// Use event name as main title
 		title = event.name
 		// Use the compelling CTA message from translations
-		secondary = (t as any).ctaOG ?? 'Join this **incredible race** and challenge yourself!'
+		secondary = t.ctaOG ?? 'Join this **incredible race** and challenge yourself!'
 	}
 
 	// Get organizer info if available

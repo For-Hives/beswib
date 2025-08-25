@@ -329,11 +329,14 @@ export default function BibCard({ organizer, locale, exchangeRates, bib }: Reado
 							alignItems: 'center',
 						}}
 					>
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
-							<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-							<line x1="16" y1="2" x2="16" y2="6" />
-							<line x1="8" y1="2" x2="8" y2="6" />
-							<line x1="3" y1="10" x2="21" y2="10" />
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
+							<path
+								stroke="#6b7280"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								d="M3 9h18M7 3v2m10-2v2M6 13h2m-2 4h2m3-4h2m-2 4h2m3-4h2m-2 4h2M6.2 21h11.6c1.12 0 1.68 0 2.108-.218a2 2 0 0 0 .874-.874C21 19.48 21 18.92 21 17.8V8.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C19.48 5 18.92 5 17.8 5H6.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C3 6.52 3 7.08 3 8.2v9.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C4.52 21 5.08 21 6.2 21"
+							></path>
 						</svg>
 						<div
 							style={{
