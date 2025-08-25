@@ -1,3 +1,5 @@
+import { type CourseType } from '@/types/course-types'
+
 import { EventOption } from './eventOption.model'
 import { Organizer } from './organizer.model'
 
@@ -22,7 +24,7 @@ export interface Event {
 	bibPickupLocation?: string
 	registrationUrl?: string // link to registration 🔗
 
-	typeCourse: 'road' | 'trail' | 'triathlon' | 'cycle' | 'other'
+	typeCourse: CourseType
 
 	// Organizer relation 🤝
 	organizer: Organizer['id'] // RELATION_RECORD_ID 🔗

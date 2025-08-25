@@ -1,3 +1,5 @@
+import type { CourseType } from '@/types/course-types'
+
 import type { BibSale } from '@/models/marketplace.model'
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
@@ -10,7 +12,7 @@ import { getBibImageUrl } from '@/lib/utils/images'
  * Maps database event type to BibSale event type
  */
 export function mapEventTypeToBibSaleType(
-	eventType: 'road' | 'trail' | 'triathlon' | 'cycle' | 'other' | undefined
+	eventType: CourseType | undefined
 ): 'cycle' | 'other' | 'road' | 'trail' | 'triathlon' {
 	if (!eventType) return 'other'
 

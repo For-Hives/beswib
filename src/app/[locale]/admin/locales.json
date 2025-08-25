@@ -148,12 +148,10 @@
 				"eventType": {
 					"label": "Event Type",
 					"options": {
-						"cycle": "Cycle",
-						"road": "Road",
-						"route": "Route",
-						"trail": "Trail",
+						"road": "Road Running",
+						"trail": "Trail Running",
 						"triathlon": "Triathlon",
-						"ultra": "Ultra",
+						"cycle": "Cycling",
 						"other": "Other"
 					},
 					"placeholder": "Select event type",
@@ -641,12 +639,10 @@
 				"eventType": {
 					"label": "Tipo de Evento",
 					"options": {
-						"cycle": "Ciclo",
-						"road": "Carretera",
-						"route": "Ruta",
-						"trail": "Sendero",
+						"road": "Carrera en Ruta",
+						"trail": "Carrera en Trail",
 						"triathlon": "Triatlón",
-						"ultra": "Ultra",
+						"cycle": "Ciclismo",
 						"other": "Otro"
 					},
 					"placeholder": "Seleccionar tipo de evento",
@@ -882,12 +878,10 @@
 				"eventType": {
 					"label": "Tipo Evento",
 					"options": {
-						"cycle": "Ciclo",
-						"road": "Strada",
-						"route": "Percorso",
-						"trail": "Sentiero",
+						"road": "Corsa su Strada",
+						"trail": "Corsa in Trail",
 						"triathlon": "Triathlon",
-						"ultra": "Ultra",
+						"cycle": "Ciclismo",
 						"other": "Altro"
 					},
 					"placeholder": "Seleziona tipo evento",
@@ -1123,13 +1117,11 @@
 				"eventType": {
 					"label": "Event-Typ",
 					"options": {
-						"cycle": "Radfahren",
-						"road": "Straße",
-						"route": "Route",
-						"trail": "Trail",
+						"road": "Straßenlauf",
+						"trail": "Traillauf",
 						"triathlon": "Triathlon",
-						"ultra": "Ultra",
-						"other": "Altro"
+						"cycle": "Radfahren",
+						"other": "Andere"
 					},
 					"placeholder": "Event-Typ auswählen",
 					"required": true
@@ -1364,13 +1356,11 @@
 				"eventType": {
 					"label": "Tipul Evenimentului",
 					"options": {
-						"cycle": "Ciclism",
-						"road": "Șosea",
-						"route": "Rută",
-						"trail": "Traseu",
+						"road": "Alergare pe Șosea",
+						"trail": "Alergare pe Trail",
 						"triathlon": "Triatlon",
-						"ultra": "Ultra",
-						"other": "Altro"
+						"cycle": "Ciclism",
+						"other": "Altele"
 					},
 					"placeholder": "Selectează tipul evenimentului",
 					"required": true
@@ -1605,13 +1595,11 @@
 				"eventType": {
 					"label": "Tipo de Evento",
 					"options": {
-						"cycle": "Ciclismo",
-						"road": "Estrada",
-						"route": "Rota",
-						"trail": "Trilha",
+						"road": "Corrida na Estrada",
+						"trail": "Corrida em Trilha",
 						"triathlon": "Triatlo",
-						"ultra": "Ultra",
-						"other": "Otro"
+						"cycle": "Ciclismo",
+						"other": "Outro"
 					},
 					"placeholder": "Selecionar tipo de evento",
 					"required": true
@@ -1846,12 +1834,10 @@
 				"eventType": {
 					"label": "Evenementtype",
 					"options": {
-						"cycle": "Fietsen",
-						"road": "Weg",
-						"route": "Route",
-						"trail": "Trail",
+						"road": "Weglopen",
+						"trail": "Traillopen",
 						"triathlon": "Triatlon",
-						"ultra": "Ultra",
+						"cycle": "Fietsen",
 						"other": "Andere"
 					},
 					"placeholder": "Selecteer evenementtype",
@@ -2087,12 +2073,10 @@
 				"eventType": {
 					"label": "이벤트 유형",
 					"options": {
-						"cycle": "Cycle",
-						"road": "Road",
-						"route": "로드",
-						"trail": "트레일",
+						"road": "도로 달리기",
+						"trail": "트레일 달리기",
 						"triathlon": "트라이애슬론",
-						"ultra": "울트라",
+						"cycle": "사이클링",
 						"other": "기타"
 					},
 					"placeholder": "이벤트 유형 선택",

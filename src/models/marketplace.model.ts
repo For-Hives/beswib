@@ -1,4 +1,5 @@
 // Centralized marketplace-related view models used by UI and services
+import type { CourseType } from '@/types/course-types'
 
 export interface BibSale {
 	id: string
@@ -20,7 +21,7 @@ export interface BibSale {
 		distanceUnit: 'km' | 'mi'
 		location: string
 		participantCount: number
-		type: 'cycle' | 'other' | 'road' | 'trail' | 'triathlon'
+		type: CourseType
 	}
 }
 
