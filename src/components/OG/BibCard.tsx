@@ -7,6 +7,7 @@ import type { User } from '@/models/user.model'
 import type { Locale } from '@/lib/i18n/config'
 import type { Bib } from '@/models/bib.model'
 
+import { getOrganizerImageUrl } from '@/lib/utils/images'
 import { formatDateWithLocale } from '@/lib/utils/date'
 
 // Flexible type that works with both BibSale and actual service response
@@ -74,7 +75,6 @@ function getEventFromBib(bib: BibData) {
 		participantCount: event.participants ?? 0,
 		name: event.name,
 		location: event.location,
-		image: 'https://via.placeholder.com/300x200', // Placeholder since Event model doesn't have image
 		id: event.id,
 		distanceUnit: 'km' as const,
 		distance: event.distanceKm ?? 0,
@@ -103,21 +103,6 @@ interface BibCardProps {
 	organizer?: Organizer
 }
 
-function formatImage(image: string) {
-	// If image is already a full URL, return it
-	if (image.startsWith('http')) {
-		return image
-	}
-
-	// If image is in the new format (filename only), construct the full URL
-	if (image?.includes('_')) {
-		return `https://api.staging.beswib.com/api/files/pbc_4261386219/4x60p60un9x29wm/${image}?token=`
-	}
-
-	// Default fallback image
-	return 'https://beswib.com/bib-blue.png'
-}
-
 export default function BibCard({ organizer, locale, bib }: Readonly<BibCardProps>) {
 	const event = getEventFromBib(bib)
 	const user = getUserFromBib(bib)
@@ -138,6 +123,7 @@ export default function BibCard({ organizer, locale, bib }: Readonly<BibCardProp
 		<div
 			style={{
 				width: '280px',
+				transform: 'rotate(3deg)',
 				position: 'relative',
 				overflow: 'hidden',
 				height: '380px',
@@ -155,16 +141,21 @@ export default function BibCard({ organizer, locale, bib }: Readonly<BibCardProp
 					position: 'relative',
 					margin: '16px',
 					justifyContent: 'center',
-					height: '160px',
 					display: 'flex',
-					borderRadius: '12px',
-					backgroundSize: 'cover',
-					backgroundPosition: 'center',
-					backgroundImage: `url(${formatImage(organizer?.logo ?? '')})`,
-					backgroundColor: '#f3f4f6',
 					alignItems: 'center',
 				}}
 			>
+				<img
+					src={getOrganizerImageUrl(organizer, bib.id)}
+					alt="Organizer logo"
+					style={{
+						width: '100%',
+						objectPosition: 'center',
+						objectFit: 'cover',
+						height: '160px',
+						borderRadius: '12px',
+					}}
+				/>
 				{/* Event type badge */}
 				<div
 					style={{
