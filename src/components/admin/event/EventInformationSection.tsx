@@ -1,3 +1,5 @@
+import { type CourseType } from '@/types/course-types'
+
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import Translations from '@/app/[locale]/admin/locales.json'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -18,10 +20,10 @@ export default function EventInformationSection({
 	const translations = getTranslations(locale, Translations)
 
 	const typeOptions: SelectOption[] = [
-		{ value: 'road', label: translations.event.fields.eventType.options.route },
+		{ value: 'road', label: translations.event.fields.eventType.options.road },
 		{ value: 'trail', label: translations.event.fields.eventType.options.trail },
 		{ value: 'triathlon', label: translations.event.fields.eventType.options.triathlon },
-		{ value: 'cycle', label: translations.event.fields.eventType.options.ultra },
+		{ value: 'cycle', label: translations.event.fields.eventType.options.cycle },
 		{ value: 'other', label: translations.event.fields.eventType.options.other },
 	]
 
@@ -77,9 +79,7 @@ export default function EventInformationSection({
 							{translations.event.fields.eventType.label} *
 						</Label>
 						<SelectAnimated
-							onValueChange={(value: string) =>
-								setValue('typeCourse', value as 'road' | 'trail' | 'triathlon' | 'cycle' | 'other')
-							}
+							onValueChange={(value: string) => setValue('typeCourse', value as CourseType)}
 							options={typeOptions}
 							placeholder={translations.event.fields.eventType.placeholder}
 							value={formData.typeCourse ?? 'road'}

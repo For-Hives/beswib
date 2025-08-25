@@ -1,5 +1,6 @@
 import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 
+import { COURSE_TYPES } from '@/types/course-types'
 import * as v from 'valibot'
 
 import adminTranslations from '@/app/[locale]/admin/locales.json'
@@ -9,7 +10,7 @@ import { Locale } from '@/lib/i18n/config'
 // Validation Schema using Valibot
 export const EventCreationSchema = v.pipe(
 	v.object({
-		typeCourse: v.picklist(['road', 'trail', 'triathlon', 'cycle', 'other']),
+		typeCourse: v.picklist(COURSE_TYPES),
 		transferDeadline: v.optional(v.string()),
 		registrationUrl: v.optional(v.union([v.pipe(v.string(), v.url('Must be a valid URL')), v.literal('')])),
 		participants: v.pipe(v.number(), v.minValue(1, 'Participant count must be at least 1')),
@@ -37,36 +38,28 @@ export const EventCreationSchema = v.pipe(
 		description: v.pipe(v.string(), v.minLength(1, 'Description is required')),
 		bibPickupWindowEndDate: v.pipe(v.string(), v.minLength(1, 'Bib pickup end date is required')),
 		bibPickupWindowBeginDate: v.pipe(v.string(), v.minLength(1, 'Bib pickup begin date is required')),
-		bibPickupLocation: v.optional(v.string()),
 	}),
-	v.check(data => {
-		const eventDate = new Date(data.eventDate)
-		const beginDate = new Date(data.bibPickupWindowBeginDate)
-		const endDate = new Date(data.bibPickupWindowEndDate)
-
-		if (beginDate >= endDate) {
-			return false
+	v.refine(
+		data => {
+			const beginDate = new Date(data.bibPickupWindowBeginDate)
+			const endDate = new Date(data.bibPickupWindowEndDate)
+			return beginDate < endDate
+		},
+		{
+			path: ['bibPickupWindowBeginDate'],
+			message: 'Bib pickup begin date must be before end date',
 		}
-
-		if (data.transferDeadline !== undefined && data.transferDeadline != null && data.transferDeadline !== '') {
-			const transferDate = new Date(data.transferDeadline)
-			if (transferDate >= eventDate) {
-				return false
-			}
-		}
-
-		return true
-	}, 'Invalid date relationships: pickup begin must be before end, and transfer deadline must be before event date')
+	)
 )
 
-export type EventFormData = v.InferOutput<typeof EventCreationSchema>
+export type EventCreationFormData = v.Output<typeof EventCreationSchema>
 
 export interface EventSectionProps {
-	errors: FieldErrors<EventFormData>
-	formData: EventFormData
+	register: UseFormRegister<EventCreationFormData>
+	setValue: UseFormSetValue<EventCreationFormData>
 	locale: Locale
-	register: UseFormRegister<EventFormData>
-	setValue: UseFormSetValue<EventFormData>
+	formData: EventCreationFormData
+	errors: FieldErrors<EventCreationFormData>
 }
 
 export type Translations = ReturnType<typeof getTranslations<(typeof adminTranslations)['en'], 'en'>>
