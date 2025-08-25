@@ -763,7 +763,7 @@ input[type='date'] {
 
 /* Override any default white background from react-international-phone */
 .react-international-phone-input {
-	background: #fff !important;
+	background: transparent !important;
 }
 
 .react-international-phone-input input {
@@ -788,16 +788,14 @@ input[type='date'] {
 	border-radius: 0 0.375rem 0.375rem 0 !important; /* Rounded only on the right */
 }
 
-/* Light theme inputs */
+/* Light theme inputs - using CSS variables for consistency */
 input[class*='react-international-phone'],
 [class*='react-international-phone'] input,
 .react-international-phone-input-container .react-international-phone-input input {
 	background-color: hsl(var(--background)) !important;
 	color: hsl(var(--foreground)) !important;
-	border-color: #fff !important;
-	box-shadow:
-		0 1px 3px 0 rgba(0, 0, 0, 0.1),
-		0 1px 2px 0 rgba(0, 0, 0, 0.06) !important; /* Same shadow as inputAlt light mode */
+	border-color: hsl(var(--border)) !important;
+	box-shadow: var(--shadow-sm) !important; /* Using CSS variable for consistency */
 	border-left: none !important; /* Remove left border to connect with flag button */
 	border-radius: 0 0.375rem 0.375rem 0 !important; /* Rounded only on the right */
 }
@@ -815,6 +813,82 @@ input[class*='react-international-phone'],
 }
 
 .dark .react-international-phone-input input:focus {
-	box-shadow: 0 0 0 2px rgb(148 163 184) !important; /* neutral-400 for dark mode focus */
+	box-shadow: 0 0 0 2px rgb(82 82 91) !important; /* neutral-600 for dark mode focus to match inputAlt */
 	outline: none !important;
+}
+
+/* Override any inline styles that might interfere with theming */
+.react-international-phone-country-selector-button[style*='background-color'] {
+	background-color: hsl(var(--background)) !important;
+}
+
+.dark .react-international-phone-country-selector-button[style*='background-color'] {
+	background-color: rgb(39 39 42) !important;
+}
+
+/* Ensure the phone input container background is transparent to show the radial gradient */
+.react-international-phone-input-container {
+	background: transparent !important;
+}
+
+/* Override any default backgrounds that might interfere with the radial gradient effect */
+.react-international-phone-input {
+	background: transparent !important;
+}
+
+/* Ensure the input field itself has the proper background */
+.react-international-phone-input input {
+	background-color: hsl(var(--background)) !important;
+}
+
+.dark .react-international-phone-input input {
+	background-color: rgb(39 39 42) !important;
+}
+
+/* Ensure the flag button background matches the theme */
+.react-international-phone-country-selector-button {
+	background-color: hsl(var(--background)) !important;
+	border-color: hsl(var(--border)) !important;
+	color: hsl(var(--foreground)) !important;
+	box-shadow: var(--shadow-sm) !important; /* Using CSS variable for consistency */
+}
+
+.react-international-phone-country-selector-button:hover {
+	background-color: hsl(var(--muted) / 0.5) !important;
+}
+
+/* Dark theme specific styling for the flag button */
+.dark .react-international-phone-country-selector-button {
+	background-color: rgb(39 39 42) !important; /* zinc-800 */
+	border-color: rgb(82 82 91) !important; /* zinc-600 */
+	color: white !important;
+	box-shadow: 0 0 1px 1px #404040 !important; /* Same shadow as inputAlt dark mode */
+}
+
+.dark .react-international-phone-country-selector-button:hover {
+	background-color: rgb(52 52 60) !important; /* zinc-700 */
+}
+
+/* Override any inline styles that might interfere with theming */
+.react-international-phone-country-selector-button[style*='background-color'] {
+	background-color: hsl(var(--background)) !important;
+}
+
+.dark .react-international-phone-country-selector-button[style*='background-color'] {
+	background-color: rgb(39 39 42) !important;
+}
+
+
+
+/* Ensure dropdown styling is consistent across themes */
+.react-international-phone-dropdown {
+	background-color: hsl(var(--background)) !important;
+	border-color: hsl(var(--border)) !important;
+	box-shadow: var(--shadow-lg) !important;
+}
+
+.dark .react-international-phone-dropdown {
+	background-color: hsl(var(--background)) !important;
+	border-color: hsl(var(--border)) !important;
+	box-shadow: var(--shadow-lg) !important;
 }
