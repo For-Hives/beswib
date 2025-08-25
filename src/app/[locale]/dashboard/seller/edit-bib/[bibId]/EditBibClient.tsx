@@ -425,7 +425,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 									</div>
 
 									<div className="space-y-2">
-										<Label htmlFor="originalPrice" className="flex items-center gap-2">
+										<Label htmlFor="originalPrice" className="text-muted-foreground flex items-center gap-2">
 											<Tag className="h-4 w-4" />
 											{t.originalPrice ?? 'Original Price'} (€)
 										</Label>
@@ -436,9 +436,14 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 											step="0.01"
 											min="0"
 											defaultValue={bib.originalPrice ?? ''}
-											disabled={isLoading || isEditDisabled}
+											disabled
+											readOnly
 											placeholder="0.00"
+											className="bg-muted/50 cursor-not-allowed opacity-75"
 										/>
+										<p className="text-muted-foreground text-xs">
+											{t.originalPriceReadonly ?? 'Original price cannot be modified'}
+										</p>
 									</div>
 
 									<Button type="submit" disabled={isLoading || isEditDisabled} className="w-full">
