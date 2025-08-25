@@ -386,7 +386,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 							<CardContent>
 								<form action={handleUpdateDetailsAction} className="space-y-6">
 									<div className="space-y-2">
-										<Label htmlFor="registrationNumber" className="flex items-center gap-2">
+										<Label htmlFor="registrationNumber" className="flex items-center gap-2 text-muted-foreground">
 											<Hash className="h-4 w-4" />
 											{t.registrationNumber ?? 'Registration Number'}
 										</Label>
@@ -399,7 +399,11 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 											readOnly
 											required
 											placeholder="Enter registration number"
+											className="bg-muted/50 cursor-not-allowed opacity-75"
 										/>
+										<p className="text-xs text-muted-foreground">
+											{t.registrationNumberReadonly ?? 'Registration number cannot be modified'}
+										</p>
 									</div>
 
 									<div className="space-y-2">
