@@ -140,8 +140,8 @@ const eventTypeIcons = {
 // Moved out to avoid defining components inside components (react/no-unstable-nested-components)
 function EventCard({
 	t,
-	onAction,
 	onViewEvent,
+	onAction,
 	locale,
 	event,
 	bibsData,
@@ -275,11 +275,7 @@ function EventCard({
 								{/* Two buttons side by side: View Event (left) and Action Button (right) */}
 								<div className="flex gap-2">
 									{/* Left button: Always visible "View Event" button */}
-									<Button 
-										onClick={() => onViewEvent(event)} 
-										variant="outline" 
-										className="flex-1 cursor-pointer"
-									>
+									<Button onClick={() => onViewEvent(event)} variant="outline" className="flex-1 cursor-pointer">
 										<Search className="h-4 w-4" />
 										{t.events?.eventCard?.viewEvent ?? 'View Event'}
 									</Button>
