@@ -7,12 +7,11 @@ import type { User } from '@/models/user.model'
 import type { Locale } from '@/lib/i18n/config'
 import type { Bib } from '@/models/bib.model'
 
+import marketplaceTranslations from '@/app/[locale]/marketplace/locales.json'
+import { getCurrencyForLocale } from '@/lib/utils/currency'
 import { getOrganizerImageUrl } from '@/lib/utils/images'
 import { formatDateWithLocale } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { formatPrice, getCurrencyForLocale } from '@/lib/utils/currency'
-
-import marketplaceTranslations from '@/app/[locale]/marketplace/locales.json'
 
 // Flexible type that works with both BibSale and actual service response
 type BibData = BibSale | (Bib & { expand?: { eventId: Event; sellerUserId: User } })
@@ -59,7 +58,7 @@ function getEventFromBib(bib: BibData) {
 
 	// Map Event model to BibSale event format
 	return {
-		type: event.typeCourse as 'cycle' | 'other' | 'road' | 'trail' | 'triathlon',
+		type: event.typeCourse,
 		participantCount: event.participants ?? 0,
 		name: event.name,
 		location: event.location,
@@ -128,7 +127,7 @@ function convertPriceWithFallback(
 	return formatPriceForOG(converted, currency)
 }
 
-export default function BibCard({ organizer, locale, bib, exchangeRates }: Readonly<BibCardProps>) {
+export default function BibCard({ organizer, locale, exchangeRates, bib }: Readonly<BibCardProps>) {
 	const event = getEventFromBib(bib)
 	const user = getUserFromBib(bib)
 	const t = getTranslations(locale, marketplaceTranslations)
@@ -136,9 +135,8 @@ export default function BibCard({ organizer, locale, bib, exchangeRates }: Reado
 	// Currency conversion
 	const targetCurrency = getCurrencyForLocale(locale)
 	const convertedPrice = convertPriceWithFallback(bib.price, targetCurrency, exchangeRates)
-	const convertedOriginalPrice = bib.originalPrice
-		? convertPriceWithFallback(bib.originalPrice, targetCurrency, exchangeRates)
-		: null
+	const convertedOriginalPrice =
+		bib.originalPrice != null ? convertPriceWithFallback(bib.originalPrice, targetCurrency, exchangeRates) : null
 
 	if (!event || !user) {
 		return <div style={{ width: '280px', height: '380px', borderRadius: '16px', backgroundColor: '#f3f4f6' }} />
@@ -179,7 +177,11 @@ export default function BibCard({ organizer, locale, bib, exchangeRates }: Reado
 				}}
 			>
 				<img
-					src={getOrganizerImageUrl(organizer, bib.id)}
+					src={
+						getOrganizerImageUrl(organizer, bib.id).startsWith('/')
+							? `https://beswib.com${getOrganizerImageUrl(organizer, bib.id)}`
+							: getOrganizerImageUrl(organizer, bib.id)
+					}
 					alt="Organizer logo"
 					style={{
 						width: '100%',
