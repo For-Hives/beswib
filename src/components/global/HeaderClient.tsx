@@ -14,8 +14,8 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import { Locale } from '@/lib/i18n/config'
 
 import { checkIsCurrentUserAdmin } from './adminActions'
-import DashboardDropdown from './DashboardDropdown'
 import LocaleSynchronizer from './LocaleSynchronizer'
+import DashboardDropdown from './DashboardDropdown'
 import { ThemeToggle } from './ThemeToggle'
 
 interface HeaderClientProps {

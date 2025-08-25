@@ -1,8 +1,14 @@
-import { Languages } from 'lucide-react'
+'use client'
 
-import Link from 'next/link'
+import { Languages } from 'lucide-react'
+import { useState } from 'react'
+
+import { useRouter } from 'next/navigation'
+import { useUser } from '@clerk/nextjs'
 
 import type { Locale } from '@/lib/i18n/config'
+
+import { updateUserLocalePreference } from '@/app/[locale]/actions/locale'
 
 interface LanguageSwitcherProps {
 	currentLocale: Locale
@@ -24,12 +30,38 @@ const languages = {
 }
 
 export default function LanguageSwitcher({ currentPath, currentLocale, className = '' }: LanguageSwitcherProps) {
+	const router = useRouter()
+	const { isSignedIn } = useUser()
+	const [isUpdating, setIsUpdating] = useState(false)
+
 	// Extract path without locale
 	const pathWithoutLocale = currentPath.replace(`/${currentLocale}`, '') || '/'
 
 	// Fallback for invalid locale
 	const safeLocale = currentLocale in languages ? currentLocale : 'en'
 	const currentLang = languages[safeLocale]
+
+	const handleLanguageChange = async (newLocale: string) => {
+		try {
+			setIsUpdating(true)
+
+			// If user is signed in, update their locale preference in the database
+			if (isSignedIn === true) {
+				const result = await updateUserLocalePreference(newLocale)
+				if (!result.success) {
+					console.warn('Failed to update user locale preference:', result.error)
+					// Continue with navigation even if DB update fails
+				}
+			}
+
+			// Navigate to the new locale URL
+			const href = newLocale === 'en' ? pathWithoutLocale : `/${newLocale}${pathWithoutLocale}`
+			router.push(href)
+		} catch (error) {
+			console.error('Error changing language:', error)
+			setIsUpdating(false)
+		}
+	}
 
 	return (
 		<div className={`group relative ${className}`}>
@@ -49,18 +81,18 @@ export default function LanguageSwitcher({ currentPath, currentLocale, className
 					<div className="space-y-1 py-2">
 						{Object.entries(languages).map(([code, lang]) => {
 							const isCurrent = code === currentLocale
-							const href = code === 'en' ? pathWithoutLocale : `/${code}${pathWithoutLocale}`
 
 							return (
-								<Link
+								<button
 									key={code}
-									href={href}
-									className={`flex items-center gap-3 rounded-md px-3 py-2 transition-colors ${
-										isCurrent ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-accent/10 text-foreground'
+									onClick={() => !isCurrent && !isUpdating && void handleLanguageChange(code)}
+									disabled={isCurrent || isUpdating}
+									className={`flex w-full items-center gap-3 rounded-md px-3 py-2 transition-colors ${
+										isCurrent
+											? 'bg-primary/10 text-primary font-medium'
+											: 'hover:bg-accent/10 text-foreground disabled:cursor-not-allowed disabled:opacity-50'
 									}`}
 									lang={code}
-									hrefLang={code}
-									rel={isCurrent ? undefined : 'alternate'}
 									aria-current={isCurrent ? 'true' : undefined}
 								>
 									<span className="text-lg">{lang.flag}</span>
@@ -69,7 +101,8 @@ export default function LanguageSwitcher({ currentPath, currentLocale, className
 										<div className="text-muted-foreground text-xs">{lang.name}</div>
 									</div>
 									{isCurrent && <div className="bg-primary h-2 w-2 rounded-full" />}
-								</Link>
+									{isUpdating && code === currentLocale && <div className="text-xs">⏳</div>}
+								</button>
 							)
 						})}
 					</div>
@@ -81,7 +114,33 @@ export default function LanguageSwitcher({ currentPath, currentLocale, className
 
 // Alternative component for small screens (dropdown)
 export function LanguageSwitcherMobile({ currentPath, currentLocale }: LanguageSwitcherProps) {
+	const router = useRouter()
+	const { isSignedIn } = useUser()
+	const [isUpdating, setIsUpdating] = useState(false)
+
 	const pathWithoutLocale = currentPath.replace(`/${currentLocale}`, '') || '/'
+
+	const handleLanguageChange = async (newLocale: string) => {
+		try {
+			setIsUpdating(true)
+
+			// If user is signed in, update their locale preference in the database
+			if (isSignedIn === true) {
+				const result = await updateUserLocalePreference(newLocale)
+				if (!result.success) {
+					console.warn('Failed to update user locale preference:', result.error)
+					// Continue with navigation even if DB update fails
+				}
+			}
+
+			// Navigate to the new locale URL
+			const href = newLocale === 'en' ? pathWithoutLocale : `/${newLocale}${pathWithoutLocale}`
+			router.push(href)
+		} catch (error) {
+			console.error('Error changing language:', error)
+			setIsUpdating(false)
+		}
+	}
 
 	return (
 		<div className="border-border flex flex-wrap gap-2 border-t p-4">
@@ -89,25 +148,24 @@ export function LanguageSwitcherMobile({ currentPath, currentLocale }: LanguageS
 
 			{Object.entries(languages).map(([code, lang]) => {
 				const isCurrent = code === currentLocale
-				const href = code === 'en' ? pathWithoutLocale : `/${code}${pathWithoutLocale}`
 
 				return (
-					<Link
+					<button
 						key={code}
-						href={href}
+						onClick={() => !isCurrent && !isUpdating && void handleLanguageChange(code)}
+						disabled={isCurrent || isUpdating}
 						className={`flex items-center gap-2 rounded-lg border px-3 py-2 transition-colors ${
 							isCurrent
 								? 'bg-primary text-primary-foreground border-primary'
-								: 'bg-background text-foreground border-border hover:bg-accent/10'
+								: 'bg-background text-foreground border-border hover:bg-accent/10 disabled:cursor-not-allowed disabled:opacity-50'
 						}`}
 						lang={code}
-						hrefLang={code}
-						rel={isCurrent ? undefined : 'alternate'}
 						aria-current={isCurrent ? 'true' : undefined}
 					>
 						<span>{lang.flag}</span>
 						<span className="text-sm font-medium">{lang.native}</span>
-					</Link>
+						{isUpdating && code === currentLocale && <span className="ml-1 text-xs">⏳</span>}
+					</button>
 				)
 			})}
 		</div>
