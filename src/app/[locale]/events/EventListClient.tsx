@@ -17,6 +17,7 @@ import React, { useMemo, useState } from 'react'
 
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
 import { useRouter } from 'next/navigation'
+import dynamic from 'next/dynamic'
 import { DateTime } from 'luxon'
 import Fuse from 'fuse.js'
 
@@ -31,11 +32,10 @@ import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 import { Timeline } from '@/components/ui/timeline'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
-import dynamic from 'next/dynamic'
+import { Locale } from '@/lib/i18n/config'
 
 import Translations from './locales.json'
 
