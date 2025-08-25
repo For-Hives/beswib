@@ -60,7 +60,8 @@
 					"icon": "⚠"
 				}
 			}
-		}
+		},
+		"ctaOG": "🏃‍♂️ **Join this race** and challenge yourself! Register now for an **unforgettable** athletic adventure."
 	},
 	"fr": {
 		"event": {
@@ -123,7 +124,8 @@
 					"icon": "⚠"
 				}
 			}
-		}
+		},
+		"ctaOG": "🏃‍♂️ **Rejoignez cette course** et défiez-vous ! Inscrivez-vous maintenant pour une aventure sportive **inoubliable**."
 	},
 	"es": {
 		"event": {
@@ -186,7 +188,8 @@
 					"icon": "⚠"
 				}
 			}
-		}
+		},
+		"ctaOG": "🏃‍♂️ **¡Únete a esta carrera** y desafíate a ti mismo! Inscríbete ahora para una aventura atlética **inolvidable**."
 	},
 	"it": {
 		"event": {
@@ -249,7 +252,8 @@
 					"icon": "⚠"
 				}
 			}
-		}
+		},
+		"ctaOG": "🏃‍♂️ **Unisciti a questa gara** e mettiti alla prova! Iscriviti ora per un'avventura atletica **indimenticabile**."
 	},
 	"de": {
 		"event": {
@@ -312,7 +316,8 @@
 					"icon": "⚠"
 				}
 			}
-		}
+		},
+		"ctaOG": "🏃‍♂️ **Nehmen Sie an diesem Rennen teil** und fordern Sie sich heraus! Melden Sie sich jetzt für ein **unvergessliches** Sporterlebnis an."
 	},
 	"ro": {
 		"event": {
@@ -375,7 +380,8 @@
 					"icon": "⚠"
 				}
 			}
-		}
+		},
+		"ctaOG": "🏃‍♂️ **Alătură-te acestei curse** și provoacă-te! Înscrie-te acum pentru o aventură atletică **de neuitat**."
 	},
 	"pt": {
 		"event": {
@@ -438,7 +444,8 @@
 					"icon": "⚠"
 				}
 			}
-		}
+		},
+		"ctaOG": "🏃‍♂️ **Junta-te a esta corrida** e desafia-te! Inscreve-te agora para uma aventura atlética **inesquecível**."
 	},
 	"nl": {
 		"event": {
@@ -501,7 +508,8 @@
 					"icon": "⚠"
 				}
 			}
-		}
+		},
+		"ctaOG": "🏃‍♂️ **Doe mee aan deze race** en daag jezelf uit! Meld je nu aan voor een **onvergetelijk** sportavontuur."
 	},
 	"ko": {
 		"event": {
@@ -564,6 +572,7 @@
 					"icon": "⚠"
 				}
 			}
-		}
+		},
+		"ctaOG": "🏃‍♂️ **이 레이스에 참여**하고 자신에게 도전하세요! 지금 등록하여 **잊지 못할** 운동 모험을 시작하세요."
 	}
 }

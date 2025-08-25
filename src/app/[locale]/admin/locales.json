@@ -888,7 +888,7 @@
 						"trail": "Sentiero",
 						"triathlon": "Triathlon",
 						"ultra": "Ultra",
-						"other": "Otro"
+						"other": "Altro"
 					},
 					"placeholder": "Seleziona tipo evento",
 					"required": true
@@ -2092,7 +2092,8 @@
 						"route": "로드",
 						"trail": "트레일",
 						"triathlon": "트라이애슬론",
-						"ultra": "울트라"
+						"ultra": "울트라",
+						"other": "기타"
 					},
 					"placeholder": "이벤트 유형 선택",
 					"required": true
