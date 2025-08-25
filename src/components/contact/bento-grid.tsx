@@ -46,7 +46,7 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 	}
 
 	return (
-		<div className="grid grid-cols-1 gap-6 md:grid-cols-6">
+		<div className="grid grid-cols-1 gap-6 md:grid-cols-7">
 			{/* Information card - spans full width ℹ️ */}
 			<motion.div
 				animate={{ y: 0, opacity: 1 }}
@@ -89,7 +89,7 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 			{/* Main contact form - spans 2 rows 📝 */}
 			<motion.div
 				animate={{ y: 0, opacity: 1 }}
-				className="bg-card border-border hover:border-primary/50 relative col-span-1 row-span-2 overflow-hidden rounded-3xl border shadow-xl transition-colors md:col-span-4"
+				className="bg-card border-border hover:border-primary/50 relative col-span-1 row-span-2 overflow-hidden rounded-3xl border shadow-xl transition-colors md:col-span-5"
 				initial={{ y: 20, opacity: 0 }}
 				transition={{ delay: 0.1 }}
 			>
