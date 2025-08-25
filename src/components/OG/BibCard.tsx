@@ -150,6 +150,8 @@ export default function BibCard({ organizer, locale, exchangeRates, bib }: Reado
 	const discountPercentage =
 		originalPrice > 0 && originalPrice > bib.price ? Math.round(((originalPrice - bib.price) / originalPrice) * 100) : 0
 
+	console.info('🔍 :', organizer)
+
 	return (
 		<div
 			style={{

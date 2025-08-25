@@ -6,9 +6,9 @@ import { join } from 'path'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { fetchPublicBibById, checkBibListingStatus } from '@/services/bib.services'
 import OGImageBib from '@/components/OG/ogImageBib.component'
+import { fetchExchangeRates } from '@/lib/utils/currency'
 import OGImage from '@/components/OG/ogImage.component'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { fetchExchangeRates } from '@/lib/utils/currency'
 
 import marketplaceTranslations from '../locales.json'
 
@@ -67,7 +67,7 @@ export default async function Image({ params }: { params: Promise<MarketplaceOpe
 				if (price) details.push(`€${price}`)
 
 				// Use the compelling CTA message from translations
-				secondary = t.ctaOG || 'Secure **race bib transfer** with verified seller'
+				secondary = t.ctaOG ?? 'Secure **race bib transfer** with verified seller'
 			}
 		}
 	} catch (error) {
