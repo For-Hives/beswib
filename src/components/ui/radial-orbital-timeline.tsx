@@ -120,6 +120,14 @@ const OrbitalNode = memo(
 			[item.id, onToggle]
 		)
 
+		const handleMouseEnter = useCallback(
+			(e: React.MouseEvent) => {
+				e.stopPropagation()
+				onToggle(item.id)
+			},
+			[item.id, onToggle]
+		)
+
 		const handleKeyDown = useCallback(
 			(e: React.KeyboardEvent) => {
 				if (e.key === 'Enter' || e.key === ' ') {
@@ -166,6 +174,7 @@ const OrbitalNode = memo(
 				<div
 					className={`flex h-12 w-12 transform cursor-pointer items-center justify-center rounded-full border-2 transition-all duration-300 ${getNodeStyling()}`}
 					onClick={handleClick}
+					onMouseEnter={handleMouseEnter}
 					onKeyDown={handleKeyDown}
 					role="button"
 					tabIndex={0}
@@ -185,6 +194,7 @@ const OrbitalNode = memo(
 						isExpanded ? 'text-foreground scale-125' : 'text-muted-foreground'
 					}`}
 					onClick={handleClick}
+					onMouseEnter={handleMouseEnter}
 					onKeyDown={handleKeyDown}
 					role="button"
 					tabIndex={0}
@@ -249,7 +259,7 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 			id: 1,
 			icon: () => <div className="text-2xl">🔒</div>,
 			energy: 80,
-			date: '2024',
+			date: '2025',
 			content: 'Protection des données et transactions sécurisées',
 			category: 'security',
 		},
@@ -260,7 +270,7 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 			id: 2,
 			icon: () => <div className="text-2xl">👥</div>,
 			energy: 75,
-			date: '2024',
+			date: '2025',
 			content: 'Système de validation et vérification des utilisateurs',
 			category: 'trust',
 		},
@@ -271,7 +281,7 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 			id: 3,
 			icon: () => <div className="text-2xl">🔍</div>,
 			energy: 90,
-			date: '2024',
+			date: '2025',
 			content: 'Moteur de recherche avancé pour les événements',
 			category: 'search',
 		},
@@ -282,7 +292,7 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 			id: 4,
 			icon: () => <div className="text-2xl">💰</div>,
 			energy: 85,
-			date: '2024',
+			date: '2025',
 			content: 'Optimisation des prix et gestion des commissions',
 			category: 'profitability',
 		},
