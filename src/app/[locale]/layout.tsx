@@ -120,7 +120,7 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 						id="locale-sync-script"
 						strategy="afterInteractive"
 						dangerouslySetInnerHTML={{
-							__html: `(function(){try{var s=localStorage.getItem("NEXT_LOCALE");var c=document.cookie.split(';').find(function(cookie){return cookie.trim().startsWith('NEXT_LOCALE=')});if(s&&s.length===2&&(!c||c.split('=')[1]!==s)){document.cookie='NEXT_LOCALE='+s+';path=/;max-age='+(60*60*24*365)+';SameSite=lax';console.log('Locale synchronized:',s)}}catch(r){}})();`,
+							__html: `(function(){try{var s=localStorage.getItem("NEXT_LOCALE");var c=document.cookie.split(';').find(function(cookie){return cookie.trim().startsWith('NEXT_LOCALE=')});if(s&&s.length===2&&(!c||c.split('=')[1]!==s)){document.cookie='NEXT_LOCALE='+s+';path=/;max-age='+(60*60*24*365)+';SameSite=lax';console.info('Locale synchronized:',s)}}catch(r){}})();`,
 						}}
 					/>
 					<ThemeProvider>
