@@ -93,10 +93,11 @@ type OGImageProps = {
 	bib?: BibData // Optional bib data to display
 	organizer?: Organizer // Optional organizer data to display
 	locale?: Locale // Optional locale for translations
+	exchangeRates?: Record<string, number> | null // Optional exchange rates for currency conversion
 }
 
 // Main component for generating an Open Graph image
-export default function OGImageBib({ title, size, secondary, organizer, locale, bib }: Readonly<OGImageProps>) {
+export default function OGImageBib({ title, size, secondary, organizer, locale, bib, exchangeRates }: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
 	const MAX_WIDTH_Secondary = 440
@@ -321,7 +322,7 @@ export default function OGImageBib({ title, size, secondary, organizer, locale, 
 				>
 					{/* Bib card or placeholder */}
 					{bib && locale && organizer ? (
-						<BibCard bib={bib} locale={locale} organizer={organizer} />
+						<BibCard bib={bib} locale={locale} organizer={organizer} exchangeRates={exchangeRates} />
 					) : (
 						<div style={{ width: '300px', height: '400px', borderRadius: '20px', backgroundColor: '#f3f4f6' }}></div>
 					)}

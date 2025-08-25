@@ -93,7 +93,11 @@ interface BibCardProps {
 }
 
 // Helper function to convert price with fallback to EUR
-function convertPriceWithFallback(priceInEur: number, currency: string, rates: Record<string, number> | null | undefined): string {
+function convertPriceWithFallback(
+	priceInEur: number,
+	currency: string,
+	rates: Record<string, number> | null | undefined
+): string {
 	if (currency === 'eur' || !rates) {
 		return formatPrice(priceInEur, 'eur')
 	}
@@ -113,7 +117,9 @@ export default function BibCard({ organizer, locale, bib, exchangeRates }: Reado
 	// Currency conversion
 	const targetCurrency = getCurrencyForLocale(locale)
 	const convertedPrice = convertPriceWithFallback(bib.price, targetCurrency, exchangeRates)
-	const convertedOriginalPrice = bib.originalPrice ? convertPriceWithFallback(bib.originalPrice, targetCurrency, exchangeRates) : null
+	const convertedOriginalPrice = bib.originalPrice
+		? convertPriceWithFallback(bib.originalPrice, targetCurrency, exchangeRates)
+		: null
 
 	if (!event || !user) {
 		return <div style={{ width: '280px', height: '380px', borderRadius: '16px', backgroundColor: '#f3f4f6' }} />
