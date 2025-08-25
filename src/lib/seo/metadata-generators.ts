@@ -591,6 +591,7 @@ export function generateAuthMetadata(
 		case 'unauthorized':
 			authTitle = 'Access Denied'
 			authDescription = 'You do not have permission to access this page'
+			authPath = '/auth/unauthorized'
 			break
 	}
 

@@ -162,5 +162,6 @@ export function getAllOGImagePaths(): string[] {
 
 // Helper function to check if a page has dynamic OG image generation
 export function isDynamicOGImage(pagePath: OGPagePath): boolean {
-	return OG_IMAGE_CONFIG[pagePath].dynamic === true
+	const config = OG_IMAGE_CONFIG[pagePath]
+	return 'dynamic' in config && config.dynamic === true
 }

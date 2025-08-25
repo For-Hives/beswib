@@ -18,7 +18,8 @@ export function generateEventKeywords(locale: Locale, event: Event): string {
 	}
 
 	// Add race type specific keywords
-	const raceTypeKeyword = localKeywords.raceTypes[event.typeCourse]
+	const raceTypeKeyword =
+		event.typeCourse in localKeywords.raceTypes ? localKeywords.raceTypes[event.typeCourse] : undefined
 	if (raceTypeKeyword) {
 		baseKeywords.push(raceTypeKeyword)
 	}
@@ -59,7 +60,7 @@ export function generateEventTitle(locale: Locale, event: Event): string {
 // Generate SEO description for events
 export function generateEventDescription(locale: Locale, event: Event): string {
 	const keywords = SEO_KEYWORDS[locale]
-	const raceType = keywords.raceTypes[event.typeCourse] ?? event.typeCourse
+	const raceType = event.typeCourse in keywords.raceTypes ? keywords.raceTypes[event.typeCourse] : event.typeCourse
 
 	let description = `${event.name} - ${raceType}`
 
@@ -107,7 +108,7 @@ export function generateOGImageConfig(
 	type?: string
 } {
 	// If custom image is provided, use it
-	if (customImage) {
+	if (customImage !== null && customImage !== undefined && customImage.trim() !== '') {
 		return {
 			width: 1200,
 			url: customImage,
@@ -118,7 +119,7 @@ export function generateOGImageConfig(
 	}
 
 	// Generate dynamic OG image URL based on page path
-	if (pagePath) {
+	if (pagePath !== null && pagePath !== undefined && pagePath.trim() !== '') {
 		// Remove locale prefix and trailing slash for clean path
 		const cleanPath = pagePath.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, '').replace(/\/$/, '')
 		const ogImagePath = cleanPath ? `/${cleanPath}/opengraph-image` : '/opengraph-image'

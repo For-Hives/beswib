@@ -3,11 +3,11 @@ import { headers } from 'next/headers'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
-import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
+import { generateLocaleParams } from '@/lib/generation/staticParams'
 import OGImage from '@/components/OG/ogImage.component'
-import { getTranslations } from '@/lib/i18n/dictionary'
+// import { getTranslations } from '@/lib/i18n/dictionary'
 
-import pageTranslations from './locales.json'
+// import pageTranslations from './locales.json'
 
 // Alt text for the Open Graph image
 export const alt = 'Beswib Error Page Open Graph Image'
@@ -22,12 +22,12 @@ export function generateStaticParams() {
 }
 
 // Default export: async function to generate the Open Graph image
-export default async function Image({ params }: { params: Promise<LocaleParams> }) {
+export default async function Image() {
 	// Retrieve the dynamic locale from params
-	const { locale } = await params
+	// const { locale } = await params
 
 	// Get the translations for the current page and locale
-	const t = getTranslations(locale, pageTranslations)
+	// const t = getTranslations(locale, pageTranslations) // TODO: Use when needed
 
 	// Build the absolute URL (useful for Satori)
 	const requestHeaders = await headers()

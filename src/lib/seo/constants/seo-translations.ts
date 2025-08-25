@@ -5,6 +5,7 @@ export const SEO_KEYWORDS = {
 			triathlon: 'triatlon',
 			trail: 'alergare pe trail',
 			road: 'alergare pe șosea',
+			other: 'altele',
 			cycle: 'ciclism',
 		},
 		global: [
@@ -31,6 +32,7 @@ export const SEO_KEYWORDS = {
 			triathlon: 'triatlo',
 			trail: 'trail running',
 			road: 'corrida de estrada',
+			other: 'outro',
 			cycle: 'ciclismo',
 		},
 		global: [
@@ -57,6 +59,7 @@ export const SEO_KEYWORDS = {
 			triathlon: 'triatlon',
 			trail: 'trail running',
 			road: 'wegwedstrijd',
+			other: 'anders',
 			cycle: 'wielrennen',
 		},
 		global: [
@@ -83,6 +86,7 @@ export const SEO_KEYWORDS = {
 			triathlon: '트라이애슬론',
 			trail: '트레일 러닝',
 			road: '로드 러닝',
+			other: '기타',
 			cycle: '사이클링',
 		},
 		global: [
@@ -109,6 +113,7 @@ export const SEO_KEYWORDS = {
 			triathlon: 'triathlon',
 			trail: 'trail running',
 			road: 'corsa su strada',
+			other: 'altro',
 			cycle: 'ciclismo',
 		},
 		global: [
@@ -135,6 +140,7 @@ export const SEO_KEYWORDS = {
 			triathlon: 'triathlon',
 			trail: 'course de trail',
 			road: 'course sur route',
+			other: 'autre',
 			cycle: 'cyclisme',
 		},
 		global: [
@@ -161,6 +167,7 @@ export const SEO_KEYWORDS = {
 			triathlon: 'triatlón',
 			trail: 'trail running',
 			road: 'carrera en ruta',
+			other: 'otro',
 			cycle: 'ciclismo',
 		},
 		global: [
@@ -187,6 +194,7 @@ export const SEO_KEYWORDS = {
 			triathlon: 'triathlon',
 			trail: 'trail running',
 			road: 'road running',
+			other: 'other',
 			cycle: 'cycling',
 		},
 		global: [
@@ -213,6 +221,7 @@ export const SEO_KEYWORDS = {
 			triathlon: 'triathlon',
 			trail: 'trail running',
 			road: 'straßenlauf',
+			other: 'andere',
 			cycle: 'radfahren',
 		},
 		global: [
