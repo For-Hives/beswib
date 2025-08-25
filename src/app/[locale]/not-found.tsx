@@ -47,10 +47,10 @@ const texts: Record<Locale, { title: string; description: string; search: string
 	fr: {
 		title: 'Page introuvable',
 		search: 'Rechercher',
-		home: 'Retour à l’accueil',
+		home: "Retour à l'accueil",
 		goBack: 'Revenir',
 		description:
-			'On s’est perdus sur le parcours… même les champions ratent une bifurcation. On repart de la ligne de départ ?',
+			"On s'est perdus sur le parcours… même les champions ratent une bifurcation. On repart de la ligne de départ ?",
 	},
 	es: {
 		title: 'Página no encontrada',
