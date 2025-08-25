@@ -42,11 +42,11 @@ export const calculateNetAmount = (amount: number): number => {
 export const getFeeBreakdown = (amount: number) => {
 	if (amount <= 0) {
 		return {
-			originalAmount: 0,
+			totalFees: 0,
 			platformFee: 0,
 			paypalFee: 0,
+			originalAmount: 0,
 			netAmount: 0,
-			totalFees: 0,
 			hasPlatformFees: false,
 			hasPayPalFees: false,
 		}
@@ -57,11 +57,11 @@ export const getFeeBreakdown = (amount: number) => {
 	const netAmount = calculateNetAmount(amount)
 
 	return {
-		originalAmount: amount,
+		totalFees: platformFee + paypalFee,
 		platformFee,
 		paypalFee,
+		originalAmount: amount,
 		netAmount,
-		totalFees: platformFee + paypalFee,
 		hasPlatformFees: platformFee > 0,
 		hasPayPalFees: paypalFee > 0,
 	}
@@ -81,18 +81,18 @@ export const areFeesApplicable = (amount: number): boolean => {
 export const getFeePercentages = (amount: number) => {
 	if (amount <= 0) {
 		return {
+			totalFeePercentage: 0,
 			platformFeePercentage: 0,
 			paypalFeePercentage: 0,
-			totalFeePercentage: 0,
 		}
 	}
 
 	const breakdown = getFeeBreakdown(amount)
 
 	return {
+		totalFeePercentage: (breakdown.totalFees / amount) * 100,
 		platformFeePercentage: breakdown.hasPlatformFees ? (breakdown.platformFee / amount) * 100 : 0,
 		paypalFeePercentage: breakdown.hasPayPalFees ? (breakdown.paypalFee / amount) * 100 : 0,
-		totalFeePercentage: (breakdown.totalFees / amount) * 100,
 	}
 }
 
@@ -106,9 +106,9 @@ export const formatFeeBreakdown = (amount: number) => {
 	return {
 		...breakdown,
 		...percentages,
+		isFreeTransaction: breakdown.totalFees === 0,
 		displayText: breakdown.hasPlatformFees
 			? `Platform: ${breakdown.platformFee}€ (${percentages.platformFeePercentage.toFixed(1)}%), PayPal: ${breakdown.paypalFee}€`
 			: `PayPal: ${breakdown.paypalFee}€`,
-		isFreeTransaction: breakdown.totalFees === 0,
 	}
 }
