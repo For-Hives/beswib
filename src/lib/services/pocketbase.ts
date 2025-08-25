@@ -3,8 +3,8 @@ import PocketBase from 'pocketbase'
 
 const { POCKETBASE_TOKEN, NEXT_PUBLIC_POCKETBASE_URL } = process.env
 
-// Use the provided URL or fallback to api.beswib.com for server-side operations 🌐
-const pocketbaseUrl = NEXT_PUBLIC_POCKETBASE_URL ?? 'https://api.beswib.com'
+// Use the provided URL or throw error if not configured 🌐
+const pocketbaseUrl = NEXT_PUBLIC_POCKETBASE_URL
 
 if (!pocketbaseUrl) {
 	throw new Error('PocketBase URL is required')
