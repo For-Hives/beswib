@@ -2,6 +2,7 @@ import { Body, Container, Head, Heading, Html, Img, Preview, Section, Text, Tail
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
+import { getFeeBreakdown } from '@/lib/utils/feeCalculations'
 
 import { Footer } from './Footer'
 
@@ -10,9 +11,6 @@ interface BeswibSaleConfirmationProps {
 	buyerName?: string
 	eventName?: string
 	bibPrice?: number
-	platformFee?: number
-	paypalFee?: number
-	totalReceived?: number
 	orderId?: string
 	eventDate?: string
 	eventLocation?: string
@@ -22,10 +20,7 @@ interface BeswibSaleConfirmationProps {
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
 export const BeswibSaleConfirmation = ({
-	totalReceived = 129.75,
 	sellerName = 'Marie',
-	platformFee = 15,
-	paypalFee = 5.25,
 	orderId = 'BW123456789',
 	locale = 'fr',
 	eventName = 'Marathon de Paris 2024',
@@ -37,6 +32,10 @@ export const BeswibSaleConfirmation = ({
 	const t = getTranslations(locale, constantsLocales)
 
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
+
+	// Calculate fees dynamically using the utility functions
+	const feeBreakdown = getFeeBreakdown(bibPrice)
+	const { platformFee, paypalFee, netAmount } = feeBreakdown
 
 	return (
 		<Html>
@@ -156,7 +155,7 @@ export const BeswibSaleConfirmation = ({
 											<Text className="text-foreground text-base font-bold">
 												{t.emails.saleConfirmation.totalReceived}:
 											</Text>
-											<Text className="text-success text-base font-bold">{formatPrice(totalReceived)}</Text>
+											<Text className="text-success text-base font-bold">{formatPrice(netAmount)}</Text>
 										</Section>
 									</Section>
 								</Section>
@@ -186,10 +185,7 @@ export const BeswibSaleConfirmation = ({
 }
 
 BeswibSaleConfirmation.PreviewProps = {
-	totalReceived: 129.75,
 	sellerName: 'Marie Dupont',
-	platformFee: 15,
-	paypalFee: 5.25,
 	orderId: 'BW123456789',
 	locale: 'fr',
 	eventName: 'Marathon de Paris 2024',
