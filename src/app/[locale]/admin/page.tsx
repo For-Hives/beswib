@@ -1,8 +1,11 @@
+import type { Metadata } from 'next'
+
 import { checkAdminAccess } from '@/guard/adminGuard'
 import { redirect } from 'next/navigation'
 
 import AdminDashboardClient from '@/components/admin/dashboard/AdminDashboardClient'
 import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
+import { generateAdminMetadata } from '@/lib/seo'
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -11,6 +14,11 @@ export function generateStaticParams() {
 
 // Force dynamic rendering for admin routes
 export const dynamic = 'force-dynamic'
+
+export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
+	const { locale } = await params
+	return generateAdminMetadata(locale)
+}
 
 export default async function AdminDashboardPage({ params }: { params: Promise<LocaleParams> }) {
 	const { locale } = await params
