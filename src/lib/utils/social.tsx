@@ -2,11 +2,8 @@ import { cn } from '../utils'
 
 export const SOCIALS = {
 	strava: 'https://strava.app.link/3wlVkUjzlUb',
-	// https://www.linkedin.com/company/beswib/
-	// https://www.instagram.com/beswib_official?igsh=dWVuOTBjOTE5N3I5&utm_source=qr
-	// https://strava.app.link/3wlVkUjzlUb
 	linkedin: 'https://www.linkedin.com/company/beswib/',
-	instagram: 'https://www.instagram.com/beswib_official?igsh=dWVuOTBjOTE5N3I5&utm_source=qr',
+	instagram: 'https://www.instagram.com/beswib_official',
 } as const
 
 export type SocialKey = keyof typeof SOCIALS
