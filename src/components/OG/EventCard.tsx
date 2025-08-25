@@ -1,15 +1,14 @@
 import * as React from 'react'
 
-import type { Event } from '@/models/event.model'
 import type { Organizer } from '@/models/organizer.model'
+import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
 
+import eventTranslations from '@/app/[locale]/events/[id]/locales.json'
+import { getCurrencyForLocale } from '@/lib/utils/currency'
 import { getOrganizerImageUrl } from '@/lib/utils/images'
 import { formatDateWithLocale } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { getCurrencyForLocale } from '@/lib/utils/currency'
-
-import eventTranslations from '@/app/[locale]/events/[id]/locales.json'
 
 // Helper function to get background color based on event type
 function getTypeColor(type: Event['typeCourse']) {
@@ -81,16 +80,17 @@ interface EventCardProps {
 	exchangeRates?: Record<string, number> | null
 }
 
-export default function EventCard({ organizer, locale, event, exchangeRates }: Readonly<EventCardProps>) {
+export default function EventCard({ organizer, locale, exchangeRates, event }: Readonly<EventCardProps>) {
 	const t = getTranslations(locale, eventTranslations)
 
 	// Currency conversion for official price
 	const targetCurrency = getCurrencyForLocale(locale)
-	const convertedPrice = event.officialPrice
-		? convertPriceWithFallback(event.officialPrice, targetCurrency, exchangeRates)
-		: null
+	const convertedPrice =
+		event.officialStandardPrice != null
+			? convertPriceWithFallback(event.officialStandardPrice, targetCurrency, exchangeRates)
+			: null
 
-	if (!event) {
+	if (event == null) {
 		return <div style={{ width: '280px', height: '380px', borderRadius: '16px', backgroundColor: '#f3f4f6' }} />
 	}
 
@@ -124,7 +124,11 @@ export default function EventCard({ organizer, locale, event, exchangeRates }: R
 				}}
 			>
 				<img
-					src={getOrganizerImageUrl(organizer, event.id)}
+					src={
+						getOrganizerImageUrl(organizer, event.id).startsWith('/')
+							? `https://beswib.com${getOrganizerImageUrl(organizer, event.id)}`
+							: getOrganizerImageUrl(organizer, event.id)
+					}
 					alt="Event image"
 					style={{
 						width: '100%',
@@ -144,6 +148,7 @@ export default function EventCard({ organizer, locale, event, exchangeRates }: R
 						fontWeight: '500',
 						fontSize: '11px',
 						fontFamily: 'Geist',
+						display: 'flex',
 						color: 'white',
 						borderRadius: '20px',
 						border: `1px solid ${typeColors.border}`,
@@ -154,7 +159,7 @@ export default function EventCard({ organizer, locale, event, exchangeRates }: R
 				</div>
 
 				{/* Official price badge */}
-				{convertedPrice && (
+				{convertedPrice != null && (
 					<div
 						style={{
 							top: '8px',
@@ -164,6 +169,7 @@ export default function EventCard({ organizer, locale, event, exchangeRates }: R
 							fontWeight: '500',
 							fontSize: '11px',
 							fontFamily: 'Geist',
+							display: 'flex',
 							color: 'white',
 							borderRadius: '20px',
 							border: '1px solid rgba(34, 197, 94, 0.5)',
@@ -196,7 +202,7 @@ export default function EventCard({ organizer, locale, event, exchangeRates }: R
 						color: '#6b7280',
 					}}
 				>
-					{organizer?.name || t.event?.title || 'Event'}
+					{organizer?.name ?? t.event?.title ?? 'Event'}
 				</div>
 
 				{/* Title and participants */}
@@ -228,7 +234,7 @@ export default function EventCard({ organizer, locale, event, exchangeRates }: R
 							alignItems: 'flex-end',
 						}}
 					>
-						{event.participants && (
+						{event.participants != null && (
 							<div
 								style={{
 									fontWeight: 'bold',
@@ -250,7 +256,7 @@ export default function EventCard({ organizer, locale, event, exchangeRates }: R
 								color: '#6b7280',
 							}}
 						>
-							{t.event?.participants || 'participants'}
+							{t.event?.participants ?? 'participants'}
 						</div>
 					</div>
 				</div>
@@ -311,7 +317,7 @@ export default function EventCard({ organizer, locale, event, exchangeRates }: R
 							}}
 						>
 							<span>{event.location}</span>
-							{event.distanceKm && (
+							{event.distanceKm != null && (
 								<>
 									<span>•</span>
 									<span>
@@ -324,7 +330,7 @@ export default function EventCard({ organizer, locale, event, exchangeRates }: R
 					</div>
 
 					{/* Elevation gain */}
-					{event.elevationGain && (
+					{event.elevationGainM != null && (
 						<div
 							style={{
 								gap: '8px',
@@ -345,7 +351,7 @@ export default function EventCard({ organizer, locale, event, exchangeRates }: R
 									color: '#6b7280',
 								}}
 							>
-								+{event.elevationGain}m {t.event?.elevationGain || 'elevation'}
+								+{event.elevationGainM}m {t.event?.elevationGain ?? 'elevation'}
 							</div>
 						</div>
 					)}

@@ -1,8 +1,8 @@
 import * as React from 'react'
 
+import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
-import type { Organizer } from '@/models/organizer.model'
 
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 
@@ -96,8 +96,8 @@ export default function OGImageEvent({
 	secondary,
 	organizer,
 	locale,
-	event,
 	exchangeRates,
+	event,
 }: Readonly<OGImageEventProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197

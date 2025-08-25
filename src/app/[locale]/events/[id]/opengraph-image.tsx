@@ -4,11 +4,11 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
-import { fetchEventById } from '@/services/event.services'
 import OGImageEvent from '@/components/OG/ogImageEvent.component'
+import { fetchEventById } from '@/services/event.services'
+import { fetchExchangeRates } from '@/lib/utils/currency'
 import OGImage from '@/components/OG/ogImage.component'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { fetchExchangeRates } from '@/lib/utils/currency'
 
 import pageTranslations from './locales.json'
 
@@ -45,14 +45,14 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
 
 	// Create dynamic title and description based on event data
-	let title = (t as any).event?.title || 'Event Details'
-	let secondary = (t as any).ctaOG || 'Discover this **amazing race** and join the adventure!'
+	let title = (t as any).event?.title ?? 'Event Details'
+	let secondary = (t as any).ctaOG ?? 'Discover this **amazing race** and join the adventure!'
 
 	if (event) {
 		// Use event name as main title
 		title = event.name
 		// Use the compelling CTA message from translations
-		secondary = (t as any).ctaOG || 'Join this **incredible race** and challenge yourself!'
+		secondary = (t as any).ctaOG ?? 'Join this **incredible race** and challenge yourself!'
 	}
 
 	// Get organizer info if available
