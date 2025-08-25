@@ -153,7 +153,8 @@
 						"route": "Route",
 						"trail": "Trail",
 						"triathlon": "Triathlon",
-						"ultra": "Ultra"
+						"ultra": "Ultra",
+						"other": "Other"
 					},
 					"placeholder": "Select event type",
 					"required": true
@@ -400,7 +401,8 @@
 						"route": "Route",
 						"trail": "Trail",
 						"triathlon": "Triathlon",
-						"ultra": "Ultra"
+						"ultra": "Ultra",
+						"other": "Autre"
 					},
 					"placeholder": "Sélectionnez le type d'événement",
 					"required": true
@@ -644,7 +646,8 @@
 						"route": "Ruta",
 						"trail": "Sendero",
 						"triathlon": "Triatlón",
-						"ultra": "Ultra"
+						"ultra": "Ultra",
+						"other": "Otro"
 					},
 					"placeholder": "Seleccionar tipo de evento",
 					"required": true
@@ -884,7 +887,8 @@
 						"route": "Percorso",
 						"trail": "Sentiero",
 						"triathlon": "Triathlon",
-						"ultra": "Ultra"
+						"ultra": "Ultra",
+						"other": "Otro"
 					},
 					"placeholder": "Seleziona tipo evento",
 					"required": true
@@ -1124,7 +1128,8 @@
 						"route": "Route",
 						"trail": "Trail",
 						"triathlon": "Triathlon",
-						"ultra": "Ultra"
+						"ultra": "Ultra",
+						"other": "Altro"
 					},
 					"placeholder": "Event-Typ auswählen",
 					"required": true
@@ -1364,7 +1369,8 @@
 						"route": "Rută",
 						"trail": "Traseu",
 						"triathlon": "Triatlon",
-						"ultra": "Ultra"
+						"ultra": "Ultra",
+						"other": "Altro"
 					},
 					"placeholder": "Selectează tipul evenimentului",
 					"required": true
@@ -1604,7 +1610,8 @@
 						"route": "Rota",
 						"trail": "Trilha",
 						"triathlon": "Triatlo",
-						"ultra": "Ultra"
+						"ultra": "Ultra",
+						"other": "Otro"
 					},
 					"placeholder": "Selecionar tipo de evento",
 					"required": true
@@ -1844,7 +1851,8 @@
 						"route": "Route",
 						"trail": "Trail",
 						"triathlon": "Triatlon",
-						"ultra": "Ultra"
+						"ultra": "Ultra",
+						"other": "Andere"
 					},
 					"placeholder": "Selecteer evenementtype",
 					"required": true

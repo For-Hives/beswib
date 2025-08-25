@@ -1,0 +1,356 @@
+import * as React from 'react'
+
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { Locale } from '@/lib/i18n/config'
+
+import { getOrganizerImageUrl } from '@/lib/utils/images'
+import { formatDateWithLocale } from '@/lib/utils/date'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { getCurrencyForLocale } from '@/lib/utils/currency'
+
+import eventTranslations from '@/app/[locale]/events/[id]/locales.json'
+
+// Helper function to get background color based on event type
+function getTypeColor(type: Event['typeCourse']) {
+	switch (type) {
+		case 'cycle':
+			return { border: 'rgba(6, 182, 212, 0.5)', bg: 'rgba(6, 182, 212, 0.15)' }
+		case 'other':
+			return { border: 'rgba(107, 114, 128, 0.5)', bg: 'rgba(107, 114, 128, 0.15)' }
+		case 'road':
+			return { border: 'rgba(34, 197, 94, 0.5)', bg: 'rgba(34, 197, 94, 0.15)' }
+		case 'trail':
+			return { border: 'rgba(234, 179, 8, 0.5)', bg: 'rgba(234, 179, 8, 0.15)' }
+		case 'triathlon':
+			return { border: 'rgba(147, 51, 234, 0.5)', bg: 'rgba(147, 51, 234, 0.15)' }
+	}
+}
+
+// Helper function to get event type label using translations
+function getTypeLabel(type: Event['typeCourse'], locale: Locale) {
+	const t = getTranslations(locale, eventTranslations)
+	const typeLabels = t.event?.typeLabels as Record<string, string> | undefined
+	return typeLabels?.[type] ?? type
+}
+
+// Helper function to format participant count
+function formatParticipantCount(participantCount: number) {
+	return participantCount.toLocaleString('en-US', {
+		minimumFractionDigits: 0,
+		maximumFractionDigits: 0,
+	})
+}
+
+// OpenGraph-compatible price formatting
+function formatPriceForOG(price: number, currencyCode: string): string {
+	switch (currencyCode) {
+		case 'krw':
+			return `${Math.round(price).toLocaleString()} KRW`
+		case 'ron':
+			return `${price.toFixed(2)} RON`
+		case 'usd':
+			return `$${price.toFixed(2)}`
+		case 'eur':
+		default:
+			return `€${price.toFixed(2)}`
+	}
+}
+
+// Helper function to convert price with fallback to EUR
+function convertPriceWithFallback(
+	priceInEur: number,
+	currency: string,
+	rates: Record<string, number> | null | undefined
+): string {
+	if (currency === 'eur' || !rates) {
+		return formatPriceForOG(priceInEur, 'eur')
+	}
+	const rate = rates[currency]
+	if (!rate) {
+		return formatPriceForOG(priceInEur, 'eur')
+	}
+	const converted = Math.round(priceInEur * rate * 100) / 100
+	return formatPriceForOG(converted, currency)
+}
+
+interface EventCardProps {
+	event: Event
+	locale: Locale
+	organizer?: Organizer
+	exchangeRates?: Record<string, number> | null
+}
+
+export default function EventCard({ organizer, locale, event, exchangeRates }: Readonly<EventCardProps>) {
+	const t = getTranslations(locale, eventTranslations)
+
+	// Currency conversion for official price
+	const targetCurrency = getCurrencyForLocale(locale)
+	const convertedPrice = event.officialPrice 
+		? convertPriceWithFallback(event.officialPrice, targetCurrency, exchangeRates)
+		: null
+
+	if (!event) {
+		return <div style={{ width: '280px', height: '380px', borderRadius: '16px', backgroundColor: '#f3f4f6' }} />
+	}
+
+	const typeColors = getTypeColor(event.typeCourse)
+	const typeLabel = getTypeLabel(event.typeCourse, locale)
+
+	return (
+		<div
+			style={{
+				width: '280px',
+				transform: 'rotate(3deg)',
+				position: 'relative',
+				overflow: 'hidden',
+				height: '380px',
+				flexDirection: 'column',
+				display: 'flex',
+				boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+				borderRadius: '16px',
+				border: '1px solid #e5e7eb',
+				backgroundColor: '#fff',
+			}}
+		>
+			{/* Image container */}
+			<div
+				style={{
+					position: 'relative',
+					margin: '16px',
+					justifyContent: 'center',
+					display: 'flex',
+					alignItems: 'center',
+				}}
+			>
+				<img
+					src={getOrganizerImageUrl(organizer, event.id)}
+					alt="Event image"
+					style={{
+						width: '100%',
+						objectPosition: 'center',
+						objectFit: 'cover',
+						height: '160px',
+						borderRadius: '12px',
+					}}
+				/>
+				{/* Event type badge */}
+				<div
+					style={{
+						top: '8px',
+						position: 'absolute',
+						padding: '4px 12px',
+						left: '8px',
+						fontWeight: '500',
+						fontSize: '11px',
+						fontFamily: 'Geist',
+						color: 'white',
+						borderRadius: '20px',
+						border: `1px solid ${typeColors.border}`,
+						backgroundColor: typeColors.bg,
+					}}
+				>
+					{typeLabel}
+				</div>
+
+				{/* Official price badge */}
+				{convertedPrice && (
+					<div
+						style={{
+							top: '8px',
+							right: '8px',
+							position: 'absolute',
+							padding: '4px 12px',
+							fontWeight: '500',
+							fontSize: '11px',
+							fontFamily: 'Geist',
+							color: 'white',
+							borderRadius: '20px',
+							border: '1px solid rgba(34, 197, 94, 0.5)',
+							backgroundColor: 'rgba(34, 197, 94, 0.15)',
+						}}
+					>
+						{convertedPrice}
+					</div>
+				)}
+			</div>
+
+			{/* Content */}
+			<div
+				style={{
+					padding: '0 16px 16px 16px',
+					flexDirection: 'column',
+					flex: 1,
+					display: 'flex',
+				}}
+			>
+				{/* Organizer info */}
+				<div
+					style={{
+						textAlign: 'center',
+						marginBottom: '16px',
+						fontStyle: 'italic',
+						fontSize: '10px',
+						fontFamily: 'Geist',
+						display: 'flex',
+						color: '#6b7280',
+					}}
+				>
+					{organizer?.name || t.event?.title || 'Event'}
+				</div>
+
+				{/* Title and participants */}
+				<div
+					style={{
+						marginBottom: '12px',
+						justifyContent: 'space-between',
+						display: 'flex',
+						alignItems: 'flex-start',
+					}}
+				>
+					<div
+						style={{
+							maxWidth: '180px',
+							lineHeight: 1.2,
+							fontWeight: 'bold',
+							fontSize: '16px',
+							fontFamily: 'Geist',
+							display: 'flex',
+							color: '#111827',
+						}}
+					>
+						{event.name}
+					</div>
+					<div
+						style={{
+							flexDirection: 'column',
+							display: 'flex',
+							alignItems: 'flex-end',
+						}}
+					>
+						{event.participants && (
+							<div
+								style={{
+									fontWeight: 'bold',
+									fontSize: '14px',
+									fontFamily: 'Geist',
+									display: 'flex',
+									color: '#111827',
+								}}
+							>
+								{formatParticipantCount(event.participants)}
+							</div>
+						)}
+						<div
+							style={{
+								fontStyle: 'italic',
+								fontSize: '10px',
+								fontFamily: 'Geist',
+								display: 'flex',
+								color: '#6b7280',
+							}}
+						>
+							{t.event?.participants || 'participants'}
+						</div>
+					</div>
+				</div>
+
+				{/* Event details */}
+				<div
+					style={{
+						gap: '8px',
+						flexDirection: 'column',
+						display: 'flex',
+					}}
+				>
+					{/* Date */}
+					<div
+						style={{
+							gap: '8px',
+							display: 'flex',
+							alignItems: 'center',
+						}}
+					>
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
+							<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+							<line x1="16" y1="2" x2="16" y2="6" />
+							<line x1="8" y1="2" x2="8" y2="6" />
+							<line x1="3" y1="10" x2="21" y2="10" />
+						</svg>
+						<div
+							style={{
+								fontSize: '11px',
+								fontFamily: 'Geist',
+								display: 'flex',
+								color: '#6b7280',
+							}}
+						>
+							{formatDateWithLocale(event.eventDate, locale)}
+						</div>
+					</div>
+					{/* Location and distance */}
+					<div
+						style={{
+							gap: '8px',
+							display: 'flex',
+							alignItems: 'center',
+						}}
+					>
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
+							<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+							<circle cx="12" cy="10" r="3" />
+						</svg>
+						<div
+							style={{
+								gap: '4px',
+								fontSize: '11px',
+								fontFamily: 'Geist',
+								display: 'flex',
+								color: '#6b7280',
+								alignItems: 'center',
+							}}
+						>
+							<span>{event.location}</span>
+							{event.distanceKm && (
+								<>
+									<span>•</span>
+									<span>
+										{event.distanceKm}
+										<span style={{ fontStyle: 'italic' }}>km</span>
+									</span>
+								</>
+							)}
+						</div>
+					</div>
+
+					{/* Elevation gain */}
+					{event.elevationGain && (
+						<div
+							style={{
+								gap: '8px',
+								display: 'flex',
+								alignItems: 'center',
+							}}
+						>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
+								<path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2z" />
+								<path d="M8 21l4-7 4 7" />
+								<path d="M16 5l2-2 2 2" />
+							</svg>
+							<div
+								style={{
+									fontSize: '11px',
+									fontFamily: 'Geist',
+									display: 'flex',
+									color: '#6b7280',
+								}}
+							>
+								+{event.elevationGain}m {t.event?.elevationGain || 'elevation'}
+							</div>
+						</div>
+					)}
+				</div>
+			</div>
+		</div>
+	)
+}

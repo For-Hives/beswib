@@ -10,7 +10,7 @@ import { getBibImageUrl } from '@/lib/utils/images'
  * Maps database event type to BibSale event type
  */
 export function mapEventTypeToBibSaleType(
-	eventType: 'road' | 'trail' | 'triathlon' | 'cycle' | undefined
+	eventType: 'road' | 'trail' | 'triathlon' | 'cycle' | 'other' | undefined
 ): 'cycle' | 'other' | 'road' | 'trail' | 'triathlon' {
 	if (!eventType) return 'other'
 
@@ -18,6 +18,7 @@ export function mapEventTypeToBibSaleType(
 		triathlon: 'triathlon',
 		trail: 'trail',
 		road: 'road',
+		other: 'other',
 		cycle: 'cycle',
 	}
 

@@ -22,6 +22,7 @@ export default function EventInformationSection({
 		{ value: 'trail', label: translations.event.fields.eventType.options.trail },
 		{ value: 'triathlon', label: translations.event.fields.eventType.options.triathlon },
 		{ value: 'cycle', label: translations.event.fields.eventType.options.ultra },
+		{ value: 'other', label: translations.event.fields.eventType.options.other },
 	]
 
 	return (
@@ -77,7 +78,7 @@ export default function EventInformationSection({
 						</Label>
 						<SelectAnimated
 							onValueChange={(value: string) =>
-								setValue('typeCourse', value as 'road' | 'trail' | 'triathlon' | 'cycle')
+								setValue('typeCourse', value as 'road' | 'trail' | 'triathlon' | 'cycle' | 'other')
 							}
 							options={typeOptions}
 							placeholder={translations.event.fields.eventType.placeholder}
