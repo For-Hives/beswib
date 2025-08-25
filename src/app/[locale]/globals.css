@@ -613,7 +613,7 @@ input[type='date'] {
 	border-radius: 0.375rem 0 0 0.375rem !important;
 	color: hsl(var(--foreground)) !important;
 	transition: background-color 0.15s ease-in-out !important;
-	height: 40px !important;
+	height: 41px !important;
 	min-width: 52px !important;
 	display: flex !important;
 	align-items: center !important;
@@ -751,7 +751,7 @@ input[type='date'] {
 	background-color: hsl(var(--background)) !important;
 	color: hsl(var(--foreground)) !important;
 	border-color: hsl(var(--border)) !important;
-	height: 40px !important;
+	height: 41px !important;
 }
 
 /* Dark theme specific overrides for phone input */
@@ -817,15 +817,6 @@ input[class*='react-international-phone'],
 	outline: none !important;
 }
 
-/* Override any inline styles that might interfere with theming */
-.react-international-phone-country-selector-button[style*='background-color'] {
-	background-color: hsl(var(--background)) !important;
-}
-
-.dark .react-international-phone-country-selector-button[style*='background-color'] {
-	background-color: rgb(39 39 42) !important;
-}
-
 /* Ensure the phone input container background is transparent to show the radial gradient */
 .react-international-phone-input-container {
 	background: transparent !important;
@@ -878,8 +869,6 @@ input[class*='react-international-phone'],
 	background-color: rgb(39 39 42) !important;
 }
 
-
-
 /* Ensure dropdown styling is consistent across themes */
 .react-international-phone-dropdown {
 	background-color: hsl(var(--background)) !important;
@@ -891,4 +880,40 @@ input[class*='react-international-phone'],
 	background-color: hsl(var(--background)) !important;
 	border-color: hsl(var(--border)) !important;
 	box-shadow: var(--shadow-lg) !important;
+}
+
+/* Final border consistency - ensuring phone input has same borders as inputAlt.tsx */
+.react-international-phone-input-container input {
+	border: 1px solid hsl(var(--border)) !important; /* Same as inputAlt.tsx */
+}
+
+.dark .react-international-phone-input-container input {
+	border: 1px solid rgb(82 82 91) !important; /* zinc-600 for dark theme */
+}
+
+/* Focus ring consistency - matching inputAlt.tsx exactly */
+.react-international-phone-input input:focus {
+	box-shadow: 0 0 0 2px hsl(var(--ring)) !important; /* Same as inputAlt.tsx */
+	outline: none !important;
+}
+
+.dark .react-international-phone-input input:focus {
+	box-shadow: 0 0 0 2px rgb(82 82 91) !important; /* neutral-600 for dark mode focus to match inputAlt */
+	outline: none !important;
+}
+
+/* Phone input specific border color variables for perfect consistency */
+:root {
+	--phone-input-border-light: hsl(var(--border));
+	--phone-input-border-dark: rgb(82 82 91); /* zinc-600 */
+	--phone-input-focus-ring-light: hsl(var(--ring));
+	--phone-input-focus-ring-dark: rgb(82 82 91); /* neutral-600 */
+}
+
+/* Dark theme overrides for phone input border variables */
+.dark {
+	--phone-input-border-light: rgb(82 82 91); /* zinc-600 */
+	--phone-input-border-dark: rgb(82 82 91); /* zinc-600 */
+	--phone-input-focus-ring-light: rgb(82 82 91); /* neutral-600 */
+	--phone-input-focus-ring-dark: rgb(82 82 91); /* neutral-600 */
 }

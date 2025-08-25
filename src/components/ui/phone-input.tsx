@@ -112,7 +112,7 @@ const PhoneInputWithMotion = ({
 					placeholder={placeholder}
 					disabled={disabled}
 					inputClassName={cn(
-						'shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input flex h-10 w-full rounded-r-md border-r border-t border-b border-l-0 px-3 py-2 text-sm transition duration-400 group-hover/input:shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600',
+						'border-input bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring flex h-10 w-full rounded-r-md border-r border-t border-b border-l-0 px-3 py-2 text-sm transition duration-400 group-hover/input:shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 shadow-input dark:placeholder-text-neutral-600 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600',
 						error === true && 'border-red-500 focus-visible:ring-red-500'
 					)}
 					countrySelectorStyleProps={{
