@@ -7,14 +7,20 @@
 			"primary": "Primary",
 			"codePlaceholder": "6-digit code",
 			"info": "A verification code will be sent to this email address. The code expires in 15 minutes.",
-			"confirmDelete": "Are you sure you want to delete this email?",
+			"confirmDelete": "Delete Email Address",
+			"confirmDeleteDescription": "Are you sure you want to delete this email address? This action cannot be undone.",
 			"buttons": {
 				"verify": "Verify",
 				"resend": "Resend",
 				"addEmail": "Add Email Address",
 				"enterEmailPlaceholder": "Enter email address",
 				"add": "Add",
-				"cancel": "Cancel"
+				"cancel": "Cancel",
+				"delete": "Delete"
+			},
+			"success": {
+				"addSuccess": "Verification code sent to your email",
+				"deleteSuccess": "Email deleted successfully"
 			},
 			"errors": {
 				"loadFailed": "Failed to load verified emails",
@@ -100,14 +106,20 @@
 			"primary": "Principale",
 			"codePlaceholder": "Code à 6 chiffres",
 			"info": "Un code de vérification sera envoyé à cette adresse e-mail. Le code expire dans 15 minutes.",
-			"confirmDelete": "Êtes-vous sûr de vouloir supprimer cet e-mail ?",
+			"confirmDelete": "Supprimer l'adresse e-mail",
+			"confirmDeleteDescription": "Êtes-vous sûr de vouloir supprimer cette adresse e-mail ? Cette action ne peut pas être annulée.",
 			"buttons": {
 				"verify": "Vérifier",
 				"resend": "Renvoyer",
 				"addEmail": "Ajouter une adresse e-mail",
 				"enterEmailPlaceholder": "Saisir une adresse e-mail",
 				"add": "Ajouter",
-				"cancel": "Annuler"
+				"cancel": "Annuler",
+				"delete": "Supprimer"
+			},
+			"success": {
+				"addSuccess": "Code de vérification envoyé à votre e-mail",
+				"deleteSuccess": "E-mail supprimé avec succès"
 			},
 			"errors": {
 				"loadFailed": "Échec du chargement des e-mails vérifiés",

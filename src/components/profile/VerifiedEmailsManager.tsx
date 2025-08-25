@@ -13,21 +13,43 @@ import {
 	resendVerificationCode,
 	verifyEmail,
 } from '@/services/verifiedEmail.services'
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Label } from '@/components/ui/label'
+import { toast } from 'sonner'
 
 import pageLocales from './locales.json'
 
 interface VerifiedEmailsManagerProps {
 	user: User
 	locale: string
+	showContactEmailSelector?: boolean
+	selectedContactEmailId?: string
+	onContactEmailSelect?: (emailId: string) => void
 }
 
-export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsManagerProps) {
+export default function VerifiedEmailsManager({ 
+	user, 
+	locale, 
+	showContactEmailSelector = false,
+	selectedContactEmailId,
+	onContactEmailSelect 
+}: VerifiedEmailsManagerProps) {
 	const t = getTranslations(locale, pageLocales)
 
 	const [verifiedEmails, setVerifiedEmails] = useState<VerifiedEmail[]>([])
@@ -37,6 +59,8 @@ export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsMa
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)
 	const [processingEmails, setProcessingEmails] = useState<Set<string>>(new Set())
+	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+	const [emailToDelete, setEmailToDelete] = useState<string | null>(null)
 
 	// Load verified emails on component mount
 	useEffect(() => {
@@ -71,12 +95,17 @@ export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsMa
 				setVerifiedEmails(prev => [...prev, result])
 				setNewEmail('')
 				setShowAddEmail(false)
+				toast.success('Verification code sent to your email')
 			} else {
-				setError(t.verifiedEmails.errors.addFailed ?? 'Failed to add email. Please try again.')
+				const errorMessage = t.verifiedEmails.errors.addFailed ?? 'Failed to add email. Please try again.'
+				setError(errorMessage)
+				toast.error(errorMessage)
 			}
 		} catch (error) {
 			console.error('Error adding email:', error)
-			setError(t.verifiedEmails.errors.addFailed ?? 'Failed to add email. Please try again.')
+			const errorMessage = error instanceof Error ? error.message : (t.verifiedEmails.errors.addFailed ?? 'Failed to add email. Please try again.')
+			setError(errorMessage)
+			toast.error(errorMessage)
 		} finally {
 			setProcessingEmails(prev => {
 				const next = new Set(prev)
@@ -142,29 +171,39 @@ export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsMa
 	}
 
 	const handleDeleteEmail = async (emailId: string) => {
-		if (!confirm(t.verifiedEmails.confirmDelete ?? 'Are you sure you want to delete this email?')) {
-			return
-		}
+		setEmailToDelete(emailId)
+		setDeleteDialogOpen(true)
+	}
 
-		setProcessingEmails(prev => new Set(prev).add(emailId))
+	const confirmDeleteEmail = async () => {
+		if (!emailToDelete) return
+
+		setProcessingEmails(prev => new Set(prev).add(emailToDelete))
 		setError(null)
 
 		try {
-			const success = await deleteVerifiedEmail(emailId)
+			const success = await deleteVerifiedEmail(emailToDelete)
 			if (success) {
-				setVerifiedEmails(prev => prev.filter(email => email.id !== emailId))
+				setVerifiedEmails(prev => prev.filter(email => email.id !== emailToDelete))
+				toast.success('Email deleted successfully')
 			} else {
-				setError(t.verifiedEmails.errors.deleteFailed ?? 'Failed to delete email. Please try again.')
+				const errorMessage = t.verifiedEmails.errors.deleteFailed ?? 'Failed to delete email. Please try again.'
+				setError(errorMessage)
+				toast.error(errorMessage)
 			}
 		} catch (error) {
 			console.error('Error deleting email:', error)
-			setError(t.verifiedEmails.errors.deleteFailed ?? 'Failed to delete email. Please try again.')
+			const errorMessage = t.verifiedEmails.errors.deleteFailed ?? 'Failed to delete email. Please try again.'
+			setError(errorMessage)
+			toast.error(errorMessage)
 		} finally {
 			setProcessingEmails(prev => {
 				const next = new Set(prev)
-				next.delete(emailId)
+				next.delete(emailToDelete)
 				return next
 			})
+			setDeleteDialogOpen(false)
+			setEmailToDelete(null)
 		}
 	}
 
@@ -193,6 +232,62 @@ export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsMa
 
 	return (
 		<div className="space-y-6">
+			{/* Contact Email Selector */}
+			{showContactEmailSelector && (
+				<Card>
+					<CardHeader>
+						<CardTitle className="flex items-center gap-2">
+							<MailIcon className="h-5 w-5" />
+							Select Contact Email
+						</CardTitle>
+						<CardDescription>
+							Choose which email address should be used for contact purposes
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<RadioGroup value={selectedContactEmailId} onValueChange={onContactEmailSelect}>
+							<div className="space-y-3">
+								{/* Primary account email option */}
+								<div className="flex items-center space-x-3">
+									<RadioGroupItem value="main-email" id="main-email-contact" />
+									<Label htmlFor="main-email-contact" className="flex-1 cursor-pointer">
+										<div className="flex items-center gap-2">
+											<span>{user.email}</span>
+											<Badge variant="secondary">{t.verifiedEmails.primary ?? 'Primary'}</Badge>
+											<CheckIcon className="h-4 w-4 text-green-600" />
+										</div>
+									</Label>
+								</div>
+								
+								{/* Verified emails */}
+								{verifiedEmails.filter(email => email.isVerified).map(email => (
+									<div key={email.id} className="flex items-center space-x-3">
+										<RadioGroupItem value={email.id} id={`contact-${email.id}`} />
+										<Label htmlFor={`contact-${email.id}`} className="flex-1 cursor-pointer">
+											<div className="flex items-center gap-2">
+												<span>{email.email}</span>
+												<CheckIcon className="h-4 w-4 text-green-600" />
+											</div>
+										</Label>
+									</div>
+								))}
+							</div>
+						</RadioGroup>
+						
+						{selectedContactEmailId && (
+							<Alert className="mt-4">
+								<CheckIcon className="h-4 w-4" />
+								<AlertDescription>
+									Selected contact email: {selectedContactEmailId === 'main-email' 
+										? user.email 
+										: verifiedEmails.find(e => e.id === selectedContactEmailId)?.email}
+								</AlertDescription>
+							</Alert>
+						)}
+					</CardContent>
+				</Card>
+			)}
+			
 			<Card>
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
@@ -325,6 +420,28 @@ export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsMa
 					)}
 				</CardContent>
 			</Card>
+			
+			{/* Delete Confirmation Dialog */}
+			<AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+				<AlertDialogContent>
+					<AlertDialogHeader>
+						<AlertDialogTitle>{t.verifiedEmails.confirmDelete ?? 'Delete Email Address'}</AlertDialogTitle>
+						<AlertDialogDescription>
+							{'Are you sure you want to delete this email address? This action cannot be undone.'}
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
+						<AlertDialogCancel>{t.verifiedEmails.buttons.cancel ?? 'Cancel'}</AlertDialogCancel>
+						<AlertDialogAction
+							className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+							onClick={confirmDeleteEmail}
+							disabled={emailToDelete ? processingEmails.has(emailToDelete) : false}
+						>
+							{'Delete'}
+						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
 		</div>
 	)
 }

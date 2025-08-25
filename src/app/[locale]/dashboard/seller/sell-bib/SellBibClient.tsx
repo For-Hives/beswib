@@ -30,6 +30,7 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import { Separator } from '@/components/ui/separator'
 import { createBib } from '@/services/bib.services'
 import { Locale } from '@/lib/i18n/config'
+import { toast } from 'sonner'
 
 interface FormData {
 	acceptedTerms: boolean
@@ -107,11 +108,14 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 			.then(result => {
 				if (result) {
 					setVerifiedEmails(prev => [...prev, result])
+					toast.success('Verification code sent to your email')
 				}
 			})
 			.catch(error => {
 				console.error('Error adding email:', error)
-				setErrors({ emailVerification: 'Failed to add email. Please try again.' })
+				const errorMessage = error instanceof Error ? error.message : 'Failed to add email. Please try again.'
+				setErrors({ emailVerification: errorMessage })
+				toast.error(errorMessage)
 			})
 	}
 

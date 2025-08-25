@@ -146,7 +146,7 @@ export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Pro
 		const spamCheck = await canSendVerificationEmail(data.userId, data.email)
 		if (!spamCheck.canSend) {
 			console.warn(`Verification email blocked for ${data.email}: ${spamCheck.reason}`)
-			throw new Error(spamCheck.reason)
+			throw new Error(spamCheck.reason ?? 'Rate limit exceeded')
 		}
 
 		// Check if email already exists for this user
@@ -158,8 +158,8 @@ export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Pro
 		const existing = existingRecords.length > 0 ? existingRecords[0] : null
 
 		if (existing != null && existing !== undefined && Boolean(existing.isVerified) === true) {
-			// Email already verified, return existing record
-			return mapPbVerifiedEmailToModel(existing)
+			// Email already verified, throw error instead of returning it
+			throw new Error('This email address is already verified for your account')
 		}
 
 		const verificationCode = generateVerificationCode()
@@ -190,12 +190,14 @@ export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Pro
 		const emailSent = await sendVerificationEmail(data.email, verificationCode, VERIFICATION_EXPIRY_MINUTES)
 		if (!emailSent) {
 			console.warn(`Failed to send verification email to ${data.email}`)
+			// Don't throw here, still return the record as it was created successfully
 		}
 
 		return mapPbVerifiedEmailToModel(record)
 	} catch (error) {
 		handlePocketBaseError(error, 'creating verified email')
-		return null
+		// Re-throw the error so it can be caught and handled by the calling code
+		throw error instanceof Error ? error : new Error('Failed to create verified email')
 	}
 }
 
