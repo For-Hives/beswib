@@ -3,11 +3,12 @@
 import { LayoutDashboard, LogOut, Settings, ShoppingBag, Tag, User } from 'lucide-react'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 
 import { SignedIn, SignedOut, useClerk, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 import LanguageSwitcher, { LanguageSwitcherMobile } from '@/components/seo/LanguageSwitcher'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -26,15 +27,16 @@ import pageTranslationsData from './locales.json'
 
 export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 	const t = getTranslations(locale, pageTranslationsData)
+	const currentPath = usePathname()
 
-	// Navigation links data 🧭
-	const navigationLinks = [
-		{ label: t.navbar.homeLink, href: `/${locale}`, current: false },
-		{ label: t.navbar.racesLink, href: `/${locale}/events`, current: false },
-		{ label: t.navbar.marketplaceLink, href: `/${locale}/marketplace`, current: false },
-		{ label: t.navbar.faqLink, href: `/${locale}/faq`, current: false },
-		{ label: t.navbar.contactLink, href: `/${locale}/contact`, current: false },
-	]
+	// Navigation links data with dynamic current state 🧭
+	const navigationLinks = useMemo(() => [
+		{ label: t.navbar.homeLink, href: `/${locale}`, current: currentPath === `/${locale}` || currentPath === `/${locale}/` },
+		{ label: t.navbar.racesLink, href: `/${locale}/events`, current: currentPath.startsWith(`/${locale}/events`) },
+		{ label: t.navbar.marketplaceLink, href: `/${locale}/marketplace`, current: currentPath.startsWith(`/${locale}/marketplace`) },
+		{ label: t.navbar.faqLink, href: `/${locale}/faq`, current: currentPath.startsWith(`/${locale}/faq`) },
+		{ label: t.navbar.contactLink, href: `/${locale}/contact`, current: currentPath.startsWith(`/${locale}/contact`) },
+	], [t, locale, currentPath])
 
 	return (
 		<>
@@ -97,7 +99,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 										</Link>
 									</SignedOut>
 									{/* Language Switcher */}
-									<LanguageSwitcher currentLocale={locale} currentPath={`/${locale}`} className="mr-2" />
+									<LanguageSwitcher currentLocale={locale} currentPath={currentPath} className="mr-2" />
 								</div>
 							</div>
 						</div>
@@ -121,7 +123,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 					<div className="space-y-1 px-2 pt-2 pb-3">
 						{/* Language Switcher for Mobile 🌐 */}
 						<div className="border-border mb-3 border-b pb-3">
-							<LanguageSwitcherMobile currentLocale={locale} currentPath={`/${locale}`} />
+							<LanguageSwitcherMobile currentLocale={locale} currentPath={currentPath} />
 						</div>
 
 						{/* Main Navigation Links 🔗 */}
@@ -172,6 +174,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 // Mobile Dashboard Component 📱
 function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 	const t = getTranslations(locale, pageTranslationsData)
+	const currentPath = usePathname()
 
 	const { user: clerkUser, isLoaded } = useUser()
 	const { signOut } = useClerk()
@@ -206,7 +209,11 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 			{/* Dashboard Main Link 🏠 */}
 			<DisclosureButton
 				as={Link}
-				className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+				className={`flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors ${
+					currentPath.startsWith('/dashboard') && !currentPath.startsWith('/dashboard/seller') && !currentPath.startsWith('/profile')
+						? 'bg-accent text-accent-foreground'
+						: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+				}`}
 				href="/dashboard"
 			>
 				<LayoutDashboard className="h-4 w-4" />
@@ -216,7 +223,11 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 			{/* Profile Link */}
 			<DisclosureButton
 				as={Link}
-				className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+				className={`flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors ${
+					currentPath.startsWith('/profile')
+						? 'bg-accent text-accent-foreground'
+						: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+				}`}
 				href="/profile"
 			>
 				<User className="h-4 w-4" />
@@ -226,7 +237,11 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 			{/* Buy Bib Link 🛍️ */}
 			<DisclosureButton
 				as={Link}
-				className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+				className={`flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors ${
+					currentPath.startsWith('/marketplace')
+						? 'bg-accent text-accent-foreground'
+						: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+				}`}
 				href="/marketplace"
 			>
 				<ShoppingBag className="h-4 w-4" />
@@ -236,7 +251,11 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 			{/* Sell Bib Link 🏷️ */}
 			<DisclosureButton
 				as={Link}
-				className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+				className={`flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors ${
+					currentPath.startsWith('/dashboard/seller/sell-bib')
+						? 'bg-accent text-accent-foreground'
+						: 'bg-primary text-primary-foreground hover:bg-primary/90'
+				}`}
 				href="/dashboard/seller/sell-bib"
 			>
 				<Tag className="h-4 w-4" />
@@ -247,7 +266,11 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 			{isAdmin && (
 				<DisclosureButton
 					as={Link}
-					className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
+					className={`flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors ${
+						currentPath.startsWith('/admin')
+							? 'bg-accent text-accent-foreground'
+							: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+					}`}
 					href="/admin"
 				>
 					<Settings className="h-4 w-4" />
