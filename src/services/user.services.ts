@@ -41,6 +41,7 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 		created: new Date(record.created),
 		country: record.country,
 		contactEmail: record.contactEmail,
+		consentMarket: record.consentMarket ?? false,
 		clubAffiliation: record.clubAffiliation,
 		clerkId: record.clerkId,
 		city: record.city,

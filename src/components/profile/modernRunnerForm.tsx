@@ -31,6 +31,7 @@ type RunnerFormData = {
 	birthDate: string // YYYY-MM-DD
 	phoneNumber: string
 	contactEmail?: string
+	consentMarket?: boolean
 	emergencyContactName: string
 	emergencyContactPhone: string
 	emergencyContactRelationship: string
@@ -72,6 +73,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 			emergencyContactName: user?.emergencyContactName ?? '',
 			country: user?.country ?? '',
 			contactEmail: user?.contactEmail ?? '',
+			consentMarket: user?.consentMarket ?? false,
 			clubAffiliation: user?.clubAffiliation ?? '',
 			city: user?.city ?? '',
 			birthDate: formatDateForHTMLInput(user?.birthDate),
@@ -285,11 +287,32 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 							/>
 							{form.formState.errors.contactEmail && (
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
-									{form.formState.errors.contactEmail.message as string}
+									{form.formState.errors.contactEmail.message ?? 'Invalid contact email'}
 								</p>
 							)}
 						</div>
+
+						<div className="sm:col-span-2">
+							<div className="flex items-center space-x-2">
+								<input
+									type="checkbox"
+									id="consentMarket"
+									{...form.register('consentMarket')}
+									className="text-primary focus:ring-primary h-4 w-4 rounded border-gray-300"
+								/>
+								<Label htmlFor="consentMarket" className="text-muted-foreground text-sm">
+									{t.consentMarket ?? 'I consent to receive marketing emails on my contact email address'}
+								</Label>
+							</div>
+							<p className="text-muted-foreground mt-1 text-xs">
+								{t.consentMarketHelp ?? 'This email may be used for commercial communications and promotional offers'}
+							</p>
+						</div>
 					</CardContent>
+					<div className="border-border/50 bg-muted/30 text-muted-foreground border-t px-6 py-3 text-xs">
+						{t.contactEmailNote ??
+							'Note: Your contact email may be used for commercial communications and promotional offers if you provide consent above.'}
+					</div>
 				</Card>
 
 				{/* Emergency Contact Section */}

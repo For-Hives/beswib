@@ -205,6 +205,7 @@ export const createRunnerFormSchema = (locale: Locale = 'en') => {
 		),
 		country: v.pipe(v.string(), v.trim(), v.nonEmpty('Country is required'), v.minLength(2, 'Country name too short')),
 		contactEmail: v.optional(createEmailSchema(locale)),
+		consentMarket: v.optional(v.boolean()),
 		clubAffiliation: v.optional(v.string()),
 		city: v.pipe(v.string(), v.trim(), v.nonEmpty('City is required'), v.minLength(2, 'City name too short')),
 		birthDate: v.pipe(

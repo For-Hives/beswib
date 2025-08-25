@@ -2,7 +2,7 @@
 	"en": {
 		"verifiedEmails": {
 			"title": "Verified Email Addresses",
-			"description": "Manage the email addresses associated with your account. Verified emails can be used for event registrations.",
+			"description": "Manage the email addresses associated with your account. Verified emails are used exclusively for important platform communications such as payment confirmations, event registrations, and security notifications. They will never be used for commercial marketing purposes.",
 			"loading": "Loading...",
 			"primary": "Primary",
 			"codePlaceholder": "6-digit code",
@@ -62,6 +62,9 @@
 		"atLeastOneContact": "(at least one of phone or contact email)",
 		"contactEmail": "Contact Email",
 		"optionalAlternative": "(optional alternative to phone)",
+		"consentMarket": "I consent to receive marketing emails on my contact email address",
+		"consentMarketHelp": "This email may be used for commercial communications and promotional offers",
+		"contactEmailNote": "Note: Your contact email may be used for commercial communications and promotional offers if you provide consent above.",
 		"gender": "Gender",
 		"emergencySection": "Emergency Contact",
 		"contactName": "Contact Name",
@@ -92,7 +95,7 @@
 	"fr": {
 		"verifiedEmails": {
 			"title": "Adresses e-mail vérifiées",
-			"description": "Gérez les adresses e-mail associées à votre compte. Les e-mails vérifiés peuvent être utilisés pour les inscriptions aux événements.",
+			"description": "Gérez les adresses e-mail associées à votre compte. Les e-mails vérifiés sont utilisés exclusivement pour les communications importantes de la plateforme telles que les confirmations de paiement, les inscriptions aux événements et les notifications de sécurité. Ils ne seront jamais utilisés à des fins commerciales de marketing.",
 			"loading": "Chargement...",
 			"primary": "Principale",
 			"codePlaceholder": "Code à 6 chiffres",
@@ -152,6 +155,9 @@
 		"atLeastOneContact": "(au moins l’un des deux: téléphone ou email)",
 		"contactEmail": "Email de contact",
 		"optionalAlternative": "(optionnel, alternative au téléphone)",
+		"consentMarket": "J'accepte de recevoir des emails commerciaux sur mon adresse email de contact",
+		"consentMarketHelp": "Cet email peut être utilisé pour des communications commerciales et des offres promotionnelles",
+		"contactEmailNote": "Note : Votre email de contact peut être utilisé pour des communications commerciales et des offres promotionnelles si vous donnez votre consentement ci-dessus.",
 		"gender": "Genre",
 		"emergencySection": "Contact d’urgence",
 		"contactName": "Nom du contact",
@@ -182,7 +188,7 @@
 	"ko": {
 		"verifiedEmails": {
 			"title": "인증된 이메일 주소",
-			"description": "계정에 연결된 이메일 주소를 관리하세요. 인증된 이메일은 이벤트 등록에 사용할 수 있습니다.",
+			"description": "계정에 연결된 이메일 주소를 관리하세요. 인증된 이메일은 결제 확인, 이벤트 등록, 보안 알림과 같은 중요한 플랫폼 커뮤니케이션에만 사용됩니다. 상업적 마케팅 목적으로는 절대 사용되지 않습니다.",
 			"loading": "로딩 중...",
 			"primary": "기본",
 			"codePlaceholder": "6자리 코드",
@@ -242,6 +248,9 @@
 		"atLeastOneContact": "(전화 또는 이메일 중 하나는 필수)",
 		"contactEmail": "연락처 이메일",
 		"optionalAlternative": "(선택 사항: 전화 대체)",
+		"consentMarket": "연락처 이메일로 마케팅 이메일 수신에 동의합니다",
+		"consentMarketHelp": "이 이메일은 상업적 커뮤니케이션 및 프로모션 오퍼에 사용될 수 있습니다",
+		"contactEmailNote": "참고: 위에서 동의를 제공하는 경우 연락처 이메일이 상업적 커뮤니케이션 및 프로모션 오퍼에 사용될 수 있습니다.",
 		"gender": "성별",
 		"emergencySection": "비상 연락처",
 		"contactName": "연락처 이름",
@@ -271,8 +280,8 @@
 	},
 	"es": {
 		"verifiedEmails": {
-			"title": "Direcciones de correo verificadas",
-			"description": "Gestiona las direcciones de correo asociadas a tu cuenta. Los correos verificados pueden usarse para inscripciones a eventos.",
+			"title": "Direcciones de correo electrónico verificadas",
+			"description": "Gestiona las direcciones de correo electrónico asociadas a tu cuenta. Los correos verificados se utilizan exclusivamente para comunicaciones importantes de la plataforma como confirmaciones de pago, registros de eventos y notificaciones de seguridad. Nunca se utilizarán para fines comerciales de marketing.",
 			"loading": "Cargando...",
 			"primary": "Principal",
 			"codePlaceholder": "Código de 6 dígitos",
@@ -332,6 +341,9 @@
 		"atLeastOneContact": "(al menos teléfono o correo de contacto)",
 		"contactEmail": "Correo de contacto",
 		"optionalAlternative": "(opcional, alternativa al teléfono)",
+		"consentMarket": "Consiento recibir correos electrónicos comerciales en mi correo de contacto",
+		"consentMarketHelp": "Este correo puede ser utilizado para comunicaciones comerciales y ofertas promocionales",
+		"contactEmailNote": "Nota: Su correo de contacto puede ser utilizado para comunicaciones comerciales y ofertas promocionales si proporciona su consentimiento arriba.",
 		"gender": "Género",
 		"emergencySection": "Contacto de emergencia",
 		"contactName": "Nombre del contacto",
@@ -361,8 +373,8 @@
 	},
 	"it": {
 		"verifiedEmails": {
-			"title": "Indirizzi e-mail verificati",
-			"description": "Gestisci gli indirizzi e-mail associati al tuo account. Le e-mail verificate possono essere utilizzate per l'iscrizione agli eventi.",
+			"title": "Indirizzi email verificati",
+			"description": "Gestisci gli indirizzi email associati al tuo account. Le email verificate sono utilizzate esclusivamente per comunicazioni importanti della piattaforma come conferme di pagamento, registrazioni agli eventi e notifiche di sicurezza. Non saranno mai utilizzate per scopi commerciali di marketing.",
 			"loading": "Caricamento...",
 			"primary": "Principale",
 			"codePlaceholder": "Codice a 6 cifre",
@@ -422,6 +434,9 @@
 		"atLeastOneContact": "(almeno uno tra telefono o email)",
 		"contactEmail": "Email di contatto",
 		"optionalAlternative": "(opzionale, alternativa al telefono)",
+		"consentMarket": "Accetto di ricevere email commerciali sul mio indirizzo email di contatto",
+		"consentMarketHelp": "Questa email può essere utilizzata per comunicazioni commerciali e offerte promozionali",
+		"contactEmailNote": "Nota: La tua email di contatto può essere utilizzata per comunicazioni commerciali e offerte promozionali se fornisci il tuo consenso sopra.",
 		"gender": "Genere",
 		"emergencySection": "Contatto di emergenza",
 		"contactName": "Nome contatto",
@@ -452,8 +467,8 @@
 	"de": {
 		"verifiedEmails": {
 			"title": "Verifizierte E-Mail-Adressen",
-			"description": "Verwalte die mit deinem Konto verknüpften E-Mail-Adressen. Verifizierte E-Mails können für Event-Anmeldungen verwendet werden.",
-			"loading": "Wird geladen...",
+			"description": "Beheren Sie die mit Ihrem Konto verknüpften E-Mail-Adressen. Verifizierte E-Mails werden ausschließlich für wichtige Plattform-Kommunikationen wie Zahlungsbestätigungen, Veranstaltungsregistrierungen und Sicherheitsbenachrichtigungen verwendet. Sie werden niemals für kommerzielle Marketing-Zwecke verwendet.",
+			"loading": "Laden...",
 			"primary": "Primär",
 			"codePlaceholder": "6-stelliger Code",
 			"info": "Ein Bestätigungscode wird an diese E-Mail-Adresse gesendet. Der Code läuft nach 15 Minuten ab.",
@@ -512,6 +527,9 @@
 		"atLeastOneContact": "(mindestens Telefon oder Kontakt‑E-Mail)",
 		"contactEmail": "Kontakt‑E-Mail",
 		"optionalAlternative": "(optional, Alternative zum Telefon)",
+		"consentMarket": "Ich stimme dem Erhalt von Marketing-E-Mails an meine Kontakt-E-Mail-Adresse zu",
+		"consentMarketHelp": "Diese E-Mail kann für kommerzielle Kommunikation und Werbeangebote verwendet werden",
+		"contactEmailNote": "Hinweis: Ihre Kontakt-E-Mail kann für kommerzielle Kommunikation und Werbeangebote verwendet werden, wenn Sie oben Ihre Zustimmung erteilen.",
 		"gender": "Geschlecht",
 		"emergencySection": "Notfallkontakt",
 		"contactName": "Kontaktname",
@@ -541,8 +559,8 @@
 	},
 	"ro": {
 		"verifiedEmails": {
-			"title": "Adrese de e-mail verificate",
-			"description": "Gestionează adresele de e-mail asociate contului tău. E-mailurile verificate pot fi folosite pentru înscrieri la evenimente.",
+			"title": "Adrese de email verificate",
+			"description": "Gestionați adresele de email asociate contului dvs. Emailurile verificate sunt folosite exclusiv pentru comunicările importante ale platformei, cum ar fi confirmările de plată, înscrierile la evenimente și notificările de securitate. Nu vor fi niciodată folosite în scopuri comerciale de marketing.",
 			"loading": "Se încarcă...",
 			"primary": "Principală",
 			"codePlaceholder": "Cod din 6 cifre",
@@ -577,8 +595,8 @@
 			"relationshipRequired": "Te rog să specifici relația",
 			"addressTooShort": "Adresa prea scurtă",
 			"invalidPostalCode": "Cod poștal nevalid",
-			"cityNameTooShort": "Numele orașului prea scurt",
-			"countryNameTooShort": "Numele țării prea scurt",
+			"cityNameTooShort": "Nume orașului prea scurt",
+			"countryNameTooShort": "Nume țării prea scurt",
 			"invalidGender": "Gen nevalid"
 		},
 		"genderOptions": {
@@ -602,6 +620,9 @@
 		"atLeastOneContact": "(cel puțin telefon sau email de contact)",
 		"contactEmail": "Email de contact",
 		"optionalAlternative": "(opțional, alternativă la telefon)",
+		"consentMarket": "Consimt să primesc emailuri comerciale pe adresa mea de email de contact",
+		"consentMarketHelp": "Acest email poate fi folosit pentru comunicări comerciale și oferte promoționale",
+		"contactEmailNote": "Notă: Emailul dvs. de contact poate fi folosit pentru comunicări comerciale și oferte promoționale dacă oferiți consimțământul de mai sus.",
 		"gender": "Gen",
 		"emergencySection": "Contact de urgență",
 		"contactName": "Nume contact",
@@ -631,8 +652,8 @@
 	},
 	"pt": {
 		"verifiedEmails": {
-			"title": "Endereços de e-mail verificados",
-			"description": "Gere os endereços de e-mail associados à tua conta. Os e-mails verificados podem ser usados para inscrições em eventos.",
+			"title": "Endereços de email verificados",
+			"description": "Gerir os endereços de email associados à sua conta. Os emails verificados são utilizados exclusivamente para comunicações importantes da plataforma, como confirmações de pagamento, registos de eventos e notificações de segurança. Nunca serão utilizados para fins comerciais de marketing.",
 			"loading": "A carregar...",
 			"primary": "Principal",
 			"codePlaceholder": "Código de 6 dígitos",
@@ -692,6 +713,9 @@
 		"atLeastOneContact": "(pelo menos telefone ou email de contacto)",
 		"contactEmail": "Email de contacto",
 		"optionalAlternative": "(opcional, alternativa ao telefone)",
+		"consentMarket": "Consinto em receber emails comerciais no meu endereço de email de contacto",
+		"consentMarketHelp": "Este email pode ser utilizado para comunicações comerciais e ofertas promocionais",
+		"contactEmailNote": "Nota: O seu email de contacto pode ser utilizado para comunicações comerciais e ofertas promocionais se der o seu consentimento acima.",
 		"gender": "Género",
 		"emergencySection": "Contacto de emergência",
 		"contactName": "Nome do contacto",
@@ -722,8 +746,8 @@
 	"nl": {
 		"verifiedEmails": {
 			"title": "Geverifieerde e-mailadressen",
-			"description": "Beheer de e-mailadressen die aan je account zijn gekoppeld. Geverifieerde e-mails kunnen worden gebruikt voor evenementinschrijvingen.",
-			"loading": "Bezig met laden...",
+			"description": "Beheer de e-mailadressen die aan uw account zijn gekoppeld. Geverifieerde e-mails worden uitsluitend gebruikt voor belangrijke platformcommunicatie zoals betalingsbevestigingen, evenementregistraties en beveiligingsmeldingen. Ze worden nooit gebruikt voor commerciële marketingdoeleinden.",
+			"loading": "Laden...",
 			"primary": "Primair",
 			"codePlaceholder": "6-cijferige code",
 			"info": "Er wordt een verificatiecode naar dit e-mailadres verzonden. De code verloopt over 15 minuten.",
@@ -782,6 +806,9 @@
 		"atLeastOneContact": "(minimaal telefoon of contact‑e‑mail)",
 		"contactEmail": "Contact‑e‑mail",
 		"optionalAlternative": "(optioneel, alternatief voor telefoon)",
+		"consentMarket": "Ik ga akkoord met het ontvangen van marketing-e-mails op mijn contact-e-mailadres",
+		"consentMarketHelp": "Deze e-mail kan worden gebruikt voor commerciële communicatie en promotieaanbiedingen",
+		"contactEmailNote": "Opmerking: Uw contact-e-mail kan worden gebruikt voor commerciële communicatie en promotieaanbiedingen als u hierboven toestemming geeft.",
 		"gender": "Geslacht",
 		"emergencySection": "Noodcontact",
 		"contactName": "Naam contactpersoon",
