@@ -17,7 +17,9 @@ import locales from './locales.json'
 
 interface MarketplaceSidebarProps {
 	readonly locale?: string
+	readonly minPrice?: number
 	readonly maxPrice?: number
+	readonly maxDistance?: number
 	readonly filters: MarketplaceFilters
 	readonly onFiltersChange: (filters: Partial<MarketplaceFilters>) => void
 	readonly regions?: string[]
@@ -26,6 +28,8 @@ interface MarketplaceSidebarProps {
 export type MarketplaceFilters = {
 	sport: string | null
 	distance: string | null
+	distanceMin: number
+	distanceMax: number
 	priceMin: number
 	priceMax: number
 	geography: string[]
@@ -36,14 +40,15 @@ export type MarketplaceFilters = {
 export default function MarketplaceSidebar({
 	regions = [],
 	onFiltersChange,
+	minPrice = 0,
 	maxPrice = 2000,
+	maxDistance = 200,
 	locale,
 	filters,
 }: MarketplaceSidebarProps) {
 	// UI states
 	const [regionSearch, setRegionSearch] = useState('')
 	const [showAllSports, setShowAllSports] = useState(false)
-	const [showAllDistances, setShowAllDistances] = useState(false)
 
 	const lang = locale ?? 'en'
 	const t = locales[lang as keyof typeof locales] ?? locales['en']
@@ -55,22 +60,6 @@ export default function MarketplaceSidebar({
 		{ value: 'triathlon', label: t.triathlon ?? 'Triathlon', icon: '🏊‍♂️' },
 		{ value: 'cycle', label: t.cycling ?? 'Cycling', icon: '🚴' },
 		{ value: 'other', label: t.other ?? 'Other', icon: '🏅' },
-	]
-
-	// Distance options
-	const distanceOptions = [
-		{ value: '5', range: t.distances?.fiveKmRange ?? '4-6 km', label: t.distances?.fiveKm ?? '5 km' },
-		{ value: '10', range: t.distances?.tenKmRange ?? '9-11 km', label: t.distances?.tenKm ?? '10 km' },
-		{
-			value: '21',
-			range: t.distances?.halfMarathonRange ?? '20-22 km',
-			label: t.distances?.halfMarathon ?? 'Half Marathon',
-		},
-		{ value: '42', range: t.distances?.marathonRange ?? '41-43 km', label: t.distances?.marathon ?? 'Marathon' },
-		{ value: '80', range: t.distances?.ultraRange ?? '80+ km', label: t.distances?.ultra ?? 'Ultra (+80 km)' },
-		{ value: 'tri-s', range: t.distances?.triSRange ?? '25-30 km', label: t.distances?.triS ?? 'Triathlon S' },
-		{ value: 'tri-m', range: t.distances?.triMRange ?? '50-55 km', label: t.distances?.triM ?? 'Triathlon M' },
-		{ value: 'tri-l', range: t.distances?.triLRange ?? '110-115 km', label: t.distances?.triL ?? 'Triathlon L' },
 	]
 
 	// Fuzzy search for regions
@@ -87,19 +76,14 @@ export default function MarketplaceSidebar({
 		onFiltersChange({ sport: next })
 	}
 
-	// Handle distance selection as toggle
-	const handleDistanceChange = (distance: string | null) => {
-		if (distance === 'all') {
-			onFiltersChange({ distance: null })
-			return
-		}
-		const next = filters.distance === distance ? null : distance
-		onFiltersChange({ distance: next })
-	}
-
 	// Handle price range changes
 	const handlePriceChange = (values: number[]) => {
 		onFiltersChange({ priceMin: values[0], priceMax: values[1] })
+	}
+
+	// Handle distance range changes
+	const handleDistanceChange = (values: number[]) => {
+		onFiltersChange({ distanceMin: values[0], distanceMax: values[1] })
 	}
 
 	// Handle geography selection
@@ -130,7 +114,8 @@ export default function MarketplaceSidebar({
 	const activeFiltersCount = [
 		filters.sport != null,
 		filters.distance != null,
-		filters.priceMin !== 0 || filters.priceMax !== maxPrice,
+		filters.distanceMin !== 0 || filters.distanceMax !== maxDistance,
+		filters.priceMin !== minPrice || filters.priceMax !== maxPrice,
 		filters.geography.length > 0,
 		filters.dateStart !== undefined,
 		filters.dateEnd !== undefined,
@@ -153,9 +138,11 @@ export default function MarketplaceSidebar({
 								onClick={() =>
 									onFiltersChange({
 										sport: null,
-										priceMin: 0,
+										priceMin: minPrice,
 										priceMax: maxPrice,
 										geography: [],
+										distanceMin: 0,
+										distanceMax: maxDistance,
 										distance: null,
 										dateStart: undefined,
 										dateEnd: undefined,
@@ -218,51 +205,25 @@ export default function MarketplaceSidebar({
 					</div>
 				</div>
 
-				{/* Distance Filter */}
+				{/* Distance Range */}
 				<div className="space-y-3">
 					<Label className="flex items-center gap-2 text-sm font-medium">
 						<SlidersHorizontal className="h-4 w-4" />
-						{t.distance ?? 'Distance'}
+						{t.distance ?? 'Distance Range'}
 					</Label>
-					<div className="space-y-2">
-						<div className="space-y-1">
-							{distanceOptions.slice(0, showAllDistances ? undefined : 4).map(distance => (
-								<Button
-									key={distance.value}
-									variant={filters.distance === distance.value ? 'default' : 'ghost'}
-									size="sm"
-									onClick={() => handleDistanceChange(distance.value)}
-									className="h-auto w-full justify-between p-2"
-								>
-									<span className="font-medium">{distance.label}</span>
-									<span className="text-muted-foreground text-xs">{distance.range}</span>
-								</Button>
-							))}
+					<div className="space-y-3">
+						<Slider
+							value={[filters.distanceMin, filters.distanceMax]}
+							onValueChange={handleDistanceChange}
+							max={maxDistance}
+							min={0}
+							step={1}
+							className="w-full"
+						/>
+						<div className="text-muted-foreground flex justify-between text-sm">
+							<span>{filters.distanceMin}km</span>
+							<span>{filters.distanceMax}km</span>
 						</div>
-						{distanceOptions.length > 4 && (
-							<Button
-								variant="ghost"
-								size="sm"
-								onClick={() => setShowAllDistances(!showAllDistances)}
-								className="text-muted-foreground w-full"
-							>
-								{showAllDistances
-									? (t.showLess ?? 'Show Less')
-									: t.showMoreCount
-										? t.showMoreCount.replace('{count}', String(distanceOptions.length - 4))
-										: `Show ${distanceOptions.length - 4} More`}
-							</Button>
-						)}
-						{filters.distance != null && (
-							<Button
-								variant="ghost"
-								size="sm"
-								onClick={() => handleDistanceChange(null)}
-								className="text-muted-foreground w-full"
-							>
-								{t.clearDistanceFilter ?? 'Clear Distance Filter'}
-							</Button>
-						)}
 					</div>
 				</div>
 
@@ -370,16 +331,19 @@ export default function MarketplaceSidebar({
 										<X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handleSportChange(null)} />
 									</Badge>
 								)}
-								{filters.distance != null && (
+								{(filters.distanceMin !== 0 || filters.distanceMax !== maxDistance) && (
 									<Badge variant="secondary" className="text-xs">
-										{distanceOptions.find(d => d.value === filters.distance)?.label}
-										<X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handleDistanceChange(null)} />
+										{filters.distanceMin}km - {filters.distanceMax}km
+										<X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handleDistanceChange([0, maxDistance])} />
 									</Badge>
 								)}
-								{(filters.priceMin !== 0 || filters.priceMax !== maxPrice) && (
+								{(filters.priceMin !== minPrice || filters.priceMax !== maxPrice) && (
 									<Badge variant="secondary" className="text-xs">
 										{filters.priceMin}€ - {filters.priceMax}€
-										<X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handlePriceChange([0, maxPrice])} />
+										<X
+											className="ml-1 h-3 w-3 cursor-pointer"
+											onClick={() => handlePriceChange([minPrice, maxPrice])}
+										/>
 									</Badge>
 								)}
 								{filters.dateStart !== undefined && filters.dateStart !== '' && (

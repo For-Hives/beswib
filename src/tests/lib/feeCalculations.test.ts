@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
+
 import {
 	calculatePayPalFee,
 	calculatePlatformFee,
@@ -84,11 +85,11 @@ describe('Fee Calculations', () => {
 			const breakdown = getFeeBreakdown(amount)
 
 			expect(breakdown).toEqual({
-				originalAmount: 100,
+				totalFees: 13.25,
 				platformFee: 10,
 				paypalFee: 3.25,
+				originalAmount: 100,
 				netAmount: 86.75,
-				totalFees: 13.25,
 				hasPlatformFees: true,
 				hasPayPalFees: true,
 			})
@@ -99,11 +100,11 @@ describe('Fee Calculations', () => {
 			const breakdown = getFeeBreakdown(amount)
 
 			expect(breakdown).toEqual({
-				originalAmount: 150,
+				totalFees: 19.7,
 				platformFee: 15,
 				paypalFee: 4.7,
+				originalAmount: 150,
 				netAmount: 130.3,
-				totalFees: 19.7,
 				hasPlatformFees: true,
 				hasPayPalFees: true,
 			})
@@ -112,11 +113,11 @@ describe('Fee Calculations', () => {
 		it('should handle zero amounts correctly', () => {
 			const breakdown = getFeeBreakdown(0)
 			expect(breakdown).toEqual({
-				originalAmount: 0,
+				totalFees: 0,
 				platformFee: 0,
 				paypalFee: 0,
+				originalAmount: 0,
 				netAmount: 0,
-				totalFees: 0,
 				hasPlatformFees: false,
 				hasPayPalFees: false,
 			})
@@ -125,11 +126,11 @@ describe('Fee Calculations', () => {
 		it('should handle negative amounts correctly', () => {
 			const breakdown = getFeeBreakdown(-100)
 			expect(breakdown).toEqual({
-				originalAmount: 0,
+				totalFees: 0,
 				platformFee: 0,
 				paypalFee: 0,
+				originalAmount: 0,
 				netAmount: 0,
-				totalFees: 0,
 				hasPlatformFees: false,
 				hasPayPalFees: false,
 			})

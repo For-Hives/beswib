@@ -12,20 +12,31 @@ interface ActiveFiltersBadgesProps {
 	readonly filters: {
 		sport: string | null
 		distance: string | null
+		distanceMin: number
+		distanceMax: number
 		priceMin: number
 		priceMax: number
 		geography: string[]
 		dateStart?: string
 		dateEnd?: string
 	}
+	readonly minPrice: number
 	readonly maxPrice: number
+	readonly maxDistance: number
 	readonly onRemoveFilter: (type: string, value?: string) => void
 	readonly locale?: Locale
 }
 
 // options are now built inside the component to leverage translations
 
-export default function ActiveFiltersBadges({ onRemoveFilter, maxPrice, locale, filters }: ActiveFiltersBadgesProps) {
+export default function ActiveFiltersBadges({
+	onRemoveFilter,
+	minPrice,
+	maxPrice,
+	maxDistance,
+	locale,
+	filters,
+}: ActiveFiltersBadgesProps) {
 	const t = getTranslations(locale ?? ('en' as Locale), marketplaceTranslations)
 	const sportsOptions = [
 		{ value: 'road', label: t.road ?? 'Road', icon: '🏃' },
@@ -75,8 +86,17 @@ export default function ActiveFiltersBadges({ onRemoveFilter, maxPrice, locale, 
 		}
 	}
 
+	// Distance range filter
+	if (filters.distanceMin !== 0 || filters.distanceMax !== maxDistance) {
+		activeFilters.push({
+			value: 'distanceRange',
+			type: 'distanceRange',
+			label: `${filters.distanceMin}km - ${filters.distanceMax}km`,
+		})
+	}
+
 	// Price filter
-	if (filters.priceMin !== 0 || filters.priceMax !== maxPrice) {
+	if (filters.priceMin !== minPrice || filters.priceMax !== maxPrice) {
 		activeFilters.push({
 			value: 'price',
 			type: 'price',
