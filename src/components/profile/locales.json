@@ -222,7 +222,8 @@
 				"addEmail": "이메일 주소 추가",
 				"enterEmailPlaceholder": "이메일 주소 입력",
 				"add": "추가",
-				"cancel": "취소"
+				"cancel": "취소",
+				"delete": "삭제"
 			},
 			"errors": {
 				"loadFailed": "인증된 이메일을 불러오지 못했습니다",
@@ -319,7 +320,8 @@
 				"addEmail": "Añadir dirección de correo",
 				"enterEmailPlaceholder": "Introduce la dirección de correo",
 				"add": "Añadir",
-				"cancel": "Cancelar"
+				"cancel": "Cancelar",
+				"delete": "Eliminar"
 			},
 			"errors": {
 				"loadFailed": "No se pudieron cargar los correos verificados",
@@ -416,7 +418,8 @@
 				"addEmail": "Aggiungi indirizzo e-mail",
 				"enterEmailPlaceholder": "Inserisci l'indirizzo e-mail",
 				"add": "Aggiungi",
-				"cancel": "Annulla"
+				"cancel": "Annulla",
+				"delete": "Elimina"
 			},
 			"errors": {
 				"loadFailed": "Impossibile caricare le e-mail verificate",
@@ -513,7 +516,8 @@
 				"addEmail": "E-Mail-Adresse hinzufügen",
 				"enterEmailPlaceholder": "E-Mail-Adresse eingeben",
 				"add": "Hinzufügen",
-				"cancel": "Abbrechen"
+				"cancel": "Abbrechen",
+				"delete": "Löschen"
 			},
 			"errors": {
 				"loadFailed": "Verifizierte E-Mails konnten nicht geladen werden",
@@ -610,7 +614,8 @@
 				"addEmail": "Adaugă adresă de e-mail",
 				"enterEmailPlaceholder": "Introdu adresa de e-mail",
 				"add": "Adaugă",
-				"cancel": "Anulează"
+				"cancel": "Anulează",
+				"delete": "Șterge"
 			},
 			"errors": {
 				"loadFailed": "Nu s-au putut încărca e-mailurile verificate",
@@ -707,7 +712,8 @@
 				"addEmail": "Adicionar endereço de e-mail",
 				"enterEmailPlaceholder": "Introduz o endereço de e-mail",
 				"add": "Adicionar",
-				"cancel": "Cancelar"
+				"cancel": "Cancelar",
+				"delete": "Eliminar"
 			},
 			"errors": {
 				"loadFailed": "Falha ao carregar os e-mails verificados",
@@ -804,7 +810,8 @@
 				"addEmail": "E-mailadres toevoegen",
 				"enterEmailPlaceholder": "Voer e-mailadres in",
 				"add": "Toevoegen",
-				"cancel": "Annuleren"
+				"cancel": "Annuleren",
+				"delete": "Verwijderen"
 			},
 			"errors": {
 				"loadFailed": "Geverifieerde e-mails konden niet worden geladen",
