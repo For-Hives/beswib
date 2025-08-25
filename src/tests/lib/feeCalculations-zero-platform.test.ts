@@ -5,7 +5,6 @@ import {
 	calculatePlatformFee,
 	calculateNetAmount,
 	getFeeBreakdown,
-	areFeesApplicable,
 	getFeePercentages,
 	formatFeeBreakdown,
 } from '@/lib/utils/feeCalculations'

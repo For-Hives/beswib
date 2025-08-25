@@ -84,6 +84,16 @@ export default function BuyerDashboardClient({
 }: BuyerDashboardClientProps) {
 	const t = getTranslations(locale, buyerTranslations)
 
+	// Helper function to safely get pagination translations
+	const getPaginationText = (key: string, fallback: string): string => {
+		try {
+			const pagination = t.pagination as Record<string, string> | undefined
+			return pagination?.[key] ?? fallback
+		} catch {
+			return fallback
+		}
+	}
+
 	// Pagination state
 	const [currentPage, setCurrentPage] = useState(1)
 	const itemsPerPage = 5
@@ -487,7 +497,7 @@ export default function BuyerDashboardClient({
 														</p>
 														<p>
 															{t.dateAddedToWaitlist ?? 'Date Added to Waitlist'}{' '}
-															{waitlist.added_at
+															{waitlist.added_at != null
 																? formatDateObjectForDisplay(new Date(waitlist.added_at), locale)
 																: 'N/A'}
 														</p>
@@ -510,9 +520,9 @@ export default function BuyerDashboardClient({
 										{totalPages > 1 && (
 											<div className="flex items-center justify-between border-t pt-4">
 												<div className="text-muted-foreground text-sm">
-													{t.pagination.showing} {startIndex + 1} {t.pagination.to}{' '}
-													{Math.min(endIndex, futureWaitlists.length)} {t.pagination.ofTotal} {futureWaitlists.length}{' '}
-													{t.pagination.entries}
+													{getPaginationText('showing', 'Showing')} {startIndex + 1} {getPaginationText('to', 'to')}{' '}
+													{Math.min(endIndex, futureWaitlists.length)} {getPaginationText('ofTotal', 'of')}{' '}
+													{futureWaitlists.length} {getPaginationText('entries', 'entries')}
 												</div>
 												<div className="flex items-center gap-2">
 													<Button
@@ -522,10 +532,11 @@ export default function BuyerDashboardClient({
 														disabled={currentPage === 1}
 													>
 														<ChevronLeft className="mr-1 h-4 w-4" />
-														{t.pagination.previous}
+														{getPaginationText('previous', 'Previous')}
 													</Button>
 													<span className="text-muted-foreground text-sm">
-														{t.pagination.page} {currentPage} {t.pagination.of} {totalPages}
+														{getPaginationText('page', 'Page')} {currentPage} {getPaginationText('of', 'of')}{' '}
+														{totalPages}
 													</span>
 													<Button
 														variant="outline"
@@ -533,7 +544,7 @@ export default function BuyerDashboardClient({
 														onClick={() => handlePageChange(currentPage + 1)}
 														disabled={currentPage === totalPages}
 													>
-														{t.pagination.next}
+														{getPaginationText('next', 'Next')}
 														<ChevronRight className="ml-1 h-4 w-4" />
 													</Button>
 												</div>
@@ -561,20 +572,17 @@ export default function BuyerDashboardClient({
 			<AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
 				<AlertDialogContent>
 					<AlertDialogHeader>
-						<AlertDialogTitle>Désactiver les notifications de waitlist</AlertDialogTitle>
-						<AlertDialogDescription>
-							Êtes-vous sûr de vouloir désactiver les notifications pour cet événement ? Vous ne recevrez plus d'alertes
-							quand des dossards deviendront disponibles.
-						</AlertDialogDescription>
+						<AlertDialogTitle>{t.disableWaitlistNotifications}</AlertDialogTitle>
+						<AlertDialogDescription>{t.disableWaitlistConfirm}</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>
-						<AlertDialogCancel disabled={isDeleting}>Annuler</AlertDialogCancel>
+						<AlertDialogCancel disabled={isDeleting}>{t.cancel}</AlertDialogCancel>
 						<AlertDialogAction
-							onClick={handleDeleteConfirm}
+							onClick={void handleDeleteConfirm}
 							disabled={isDeleting}
 							className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
 						>
-							{isDeleting ? 'Désactivation...' : 'Désactiver'}
+							{isDeleting ? t.disabling : t.disable}
 						</AlertDialogAction>
 					</AlertDialogFooter>
 				</AlertDialogContent>
