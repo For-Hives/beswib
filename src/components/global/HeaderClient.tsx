@@ -40,7 +40,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 		<>
 			{/* Locale synchronization for authenticated users */}
 			<LocaleSynchronizer />
-			
+
 			{/* Spacer div to prevent content from going under fixed header 📏 */}
 			<div className="h-16" />
 
