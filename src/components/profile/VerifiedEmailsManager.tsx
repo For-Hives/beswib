@@ -238,10 +238,10 @@ export default function VerifiedEmailsManager({
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<MailIcon className="h-5 w-5" />
-							Select Contact Email
+							{t.verifiedEmails.selectContactEmail ?? 'Select Contact Email'}
 						</CardTitle>
 						<CardDescription>
-							Choose which email address should be used for contact purposes
+							{t.verifiedEmails.selectContactEmailDescription ?? 'Choose which email address should be used for contact purposes'}
 						</CardDescription>
 					</CardHeader>
 					<CardContent>
@@ -278,7 +278,7 @@ export default function VerifiedEmailsManager({
 							<Alert className="mt-4">
 								<CheckIcon className="h-4 w-4" />
 								<AlertDescription>
-									Selected contact email: {selectedContactEmailId === 'main-email' 
+									{t.verifiedEmails.selectedContactEmail ?? 'Selected contact email'}: {selectedContactEmailId === 'main-email' 
 										? user.email 
 										: verifiedEmails.find(e => e.id === selectedContactEmailId)?.email}
 								</AlertDescription>
@@ -427,7 +427,7 @@ export default function VerifiedEmailsManager({
 					<AlertDialogHeader>
 						<AlertDialogTitle>{t.verifiedEmails.confirmDelete ?? 'Delete Email Address'}</AlertDialogTitle>
 						<AlertDialogDescription>
-							{'Are you sure you want to delete this email address? This action cannot be undone.'}
+							{t.verifiedEmails.confirmDeleteDescription ?? 'Are you sure you want to delete this email address? This action cannot be undone.'}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>
