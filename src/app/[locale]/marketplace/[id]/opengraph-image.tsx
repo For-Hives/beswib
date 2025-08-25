@@ -8,6 +8,7 @@ import { fetchPublicBibById, checkBibListingStatus } from '@/services/bib.servic
 import OGImageBib from '@/components/OG/ogImageBib.component'
 import OGImage from '@/components/OG/ogImage.component'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { fetchExchangeRates } from '@/lib/utils/currency'
 
 import marketplaceTranslations from '../locales.json'
 
@@ -33,15 +34,21 @@ export default async function Image({ params }: { params: Promise<MarketplaceOpe
 	// Get the translations for the current page and locale
 	const t = getTranslations(locale, marketplaceTranslations)
 
-	// Try to fetch the bib details
+	// Try to fetch the bib details and exchange rates
 	let bib = null
 	let organizer = null
+	let exchangeRates = null
 	let title = t.title ?? 'Marketplace'
 	let secondary = t.descriptionOG ?? '**Browse** and **buy** race **bibs** from our marketplace'
 
 	try {
-		// Check bib status first
-		const bibStatus = await checkBibListingStatus(id)
+		// Fetch exchange rates and check bib status in parallel
+		const [bibStatus, rates] = await Promise.all([
+			checkBibListingStatus(id),
+			fetchExchangeRates(),
+		])
+
+		exchangeRates = rates
 
 		if (bibStatus && bibStatus?.exists && bibStatus.available) {
 			// Try to fetch bib data with full expansion (event + organizer)
@@ -95,6 +102,7 @@ export default async function Image({ params }: { params: Promise<MarketplaceOpe
 					bib={bib}
 					locale={locale}
 					organizer={organizer ?? undefined}
+					exchangeRates={exchangeRates}
 				/>
 			),
 			{
