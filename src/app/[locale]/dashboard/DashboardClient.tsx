@@ -135,18 +135,6 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 								</Link>
 							</Card>
 
-							{/* Waitlist */}
-							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-								<Link href={`/${locale}/dashboard/waitlist`}>
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<List className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">Waitlist</p>
-									</CardContent>
-								</Link>
-							</Card>
-
 							{/* Marketplace */}
 							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 								<Link href="/marketplace">
