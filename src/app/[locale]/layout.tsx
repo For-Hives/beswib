@@ -9,8 +9,8 @@ import { shadcn } from '@clerk/themes'
 import { Toaster } from 'sonner'
 import Script from 'next/script'
 
+import LocaleSynchronizer, { GlobalLocaleSynchronizer } from '@/components/global/LocaleSynchronizer'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
-import LocaleSynchronizer from '@/components/global/LocaleSynchronizer'
 import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { getClerkLocalization } from '@/lib/i18n/clerk/localization'
@@ -107,6 +107,22 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 							__html: `(function(){try{var s=localStorage.getItem("theme"),e=null;if(s)try{var t=JSON.parse(s);e=t&&t.state&&t.state.theme}catch(r){e=s}e||(e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var o=document.documentElement;o.classList.remove("light","dark"),o.classList.add(e),o.style.colorScheme=e}catch(r){}})();`,
 						}}
 					/>
+					{/* Apply persisted locale preference BEFORE paint to prevent flash */}
+					<Script
+						id="locale-script"
+						strategy="beforeInteractive"
+						dangerouslySetInnerHTML={{
+							__html: `(function(){try{var s=localStorage.getItem("NEXT_LOCALE");if(s&&s.length===2){var c=document.cookie.split(';').some(function(cookie){return cookie.trim().startsWith('NEXT_LOCALE=')});if(!c){document.cookie='NEXT_LOCALE='+s+';path=/;max-age='+(60*60*24*365)+';SameSite=lax'}}}catch(r){}})();`,
+						}}
+					/>
+					{/* Ensure locale consistency between localStorage and cookies */}
+					<Script
+						id="locale-sync-script"
+						strategy="afterInteractive"
+						dangerouslySetInnerHTML={{
+							__html: `(function(){try{var s=localStorage.getItem("NEXT_LOCALE");var c=document.cookie.split(';').find(function(cookie){return cookie.trim().startsWith('NEXT_LOCALE=')});if(s&&s.length===2&&(!c||c.split('=')[1]!==s)){document.cookie='NEXT_LOCALE='+s+';path=/;max-age='+(60*60*24*365)+';SameSite=lax';console.log('Locale synchronized:',s)}}catch(r){}})();`,
+						}}
+					/>
 					<ThemeProvider>
 						<ConsentManagerProvider
 							options={{
@@ -117,6 +133,7 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 								<NuqsAdapter>
 									<SessionsTracker />
 									<LocaleSynchronizer />
+									<GlobalLocaleSynchronizer />
 									<Header localeParams={typedLocaleParams} />
 									<PageTransition>{props.children}</PageTransition>
 									{/* Ensure Sentry client init runs on the browser */}
