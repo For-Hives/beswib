@@ -570,7 +570,7 @@ export default function BuyerDashboardClient({
 					<AlertDialogFooter>
 						<AlertDialogCancel disabled={isDeleting}>Annuler</AlertDialogCancel>
 						<AlertDialogAction
-							onClick={void handleDeleteConfirm}
+							onClick={handleDeleteConfirm}
 							disabled={isDeleting}
 							className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
 						>
