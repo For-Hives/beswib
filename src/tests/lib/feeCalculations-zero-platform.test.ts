@@ -105,7 +105,7 @@ describe('Fee Calculations with Zero Platform Fees', () => {
 		it('should handle very small amounts', () => {
 			const amount = 0.01
 			const breakdown = getFeeBreakdown(amount)
-			
+
 			// PayPal fee should still apply even for very small amounts
 			expect(breakdown.paypalFee).toBeGreaterThan(0)
 			expect(breakdown.platformFee).toBe(0)
@@ -116,7 +116,7 @@ describe('Fee Calculations with Zero Platform Fees', () => {
 		it('should still be profitable for PayPal even with 0 platform fees', () => {
 			const amount = 100
 			const breakdown = getFeeBreakdown(amount)
-			
+
 			// PayPal still gets their fees
 			expect(breakdown.paypalFee).toBeGreaterThan(0)
 			// Platform gets nothing
