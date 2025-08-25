@@ -178,8 +178,7 @@ export const BeswibPurchaseConfirmation = ({
 										{t.emails.purchaseConfirmation.netAmount}: {formatPrice(netAmount)}
 									</Text>
 									<Text className="text-muted-foreground text-xs">
-										{listingPrice}€
-										{hasPlatformFees ? ` - ${formatPrice(platformFee)}` : ''}
+										{listingPrice}€{hasPlatformFees ? ` - ${formatPrice(platformFee)}` : ''}
 										{` - ${formatPrice(paypalFee)}`} = {formatPrice(netAmount)}€
 									</Text>
 								</Section>
