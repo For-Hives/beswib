@@ -65,6 +65,7 @@
 			"noResultsSubtitle": "Try changing your search criteria",
 			"calendarTitle": "Events Calendar",
 			"eventCard": {
+				"viewEvent": "View Event",
 				"viewDetails": "View Details",
 				"bibsAvailable": "bibs available",
 				"soldOut": "Sold Out",
@@ -153,6 +154,7 @@
 			"noResultsSubtitle": "Essayez de modifier vos critères de recherche",
 			"calendarTitle": "Calendrier des événements",
 			"eventCard": {
+				"viewEvent": "Voir l'événement",
 				"viewDetails": "Voir les détails",
 				"bibsAvailable": "dossards disponibles",
 				"soldOut": "Épuisé",
@@ -241,6 +243,7 @@
 			"noResultsSubtitle": "검색 기준을 변경해보세요",
 			"calendarTitle": "이벤트 캘린더",
 			"eventCard": {
+				"viewEvent": "이벤트 보기",
 				"viewDetails": "상세 보기",
 				"bibsAvailable": "사용 가능한 빕",
 				"soldOut": "매진",
@@ -329,6 +332,7 @@
 			"noResultsSubtitle": "Intenta cambiar tus criterios de búsqueda",
 			"calendarTitle": "Calendario de eventos",
 			"eventCard": {
+				"viewEvent": "Ver evento",
 				"viewDetails": "Ver detalles",
 				"bibsAvailable": "dorsales disponibles",
 				"soldOut": "Agotado",
@@ -417,6 +421,7 @@
 			"noResultsSubtitle": "Prova a cambiare i tuoi criteri di ricerca",
 			"calendarTitle": "Calendario eventi",
 			"eventCard": {
+				"viewEvent": "Vedi evento",
 				"viewDetails": "Vedi dettagli",
 				"bibsAvailable": "pettorali disponibili",
 				"soldOut": "Esaurito",
@@ -505,6 +510,7 @@
 			"noResultsSubtitle": "Versuche deine Suchkriterien zu ändern",
 			"calendarTitle": "Veranstaltungskalender",
 			"eventCard": {
+				"viewEvent": "Veranstaltung anzeigen",
 				"viewDetails": "Details anzeigen",
 				"bibsAvailable": "Startnummern verfügbar",
 				"soldOut": "Ausverkauft",
@@ -593,6 +599,7 @@
 			"noResultsSubtitle": "Încearcă să schimbi criteriile de căutare",
 			"calendarTitle": "Calendarul evenimentelor",
 			"eventCard": {
+				"viewEvent": "Vezi evenimentul",
 				"viewDetails": "Vezi detaliile",
 				"bibsAvailable": "numere disponibile",
 				"soldOut": "Epuiat",
@@ -681,6 +688,7 @@
 			"noResultsSubtitle": "Tenta alterar os teus critérios de pesquisa",
 			"calendarTitle": "Calendário de eventos",
 			"eventCard": {
+				"viewEvent": "Ver evento",
 				"viewDetails": "Ver detalhes",
 				"bibsAvailable": "dorsais disponíveis",
 				"soldOut": "Esgotado",
@@ -769,6 +777,7 @@
 			"noResultsSubtitle": "Probeer je zoekcriteria te wijzigen",
 			"calendarTitle": "Evenementenkalender",
 			"eventCard": {
+				"viewEvent": "Evenement bekijken",
 				"viewDetails": "Details bekijken",
 				"bibsAvailable": "startnummers beschikbaar",
 				"soldOut": "Uitverkocht",
