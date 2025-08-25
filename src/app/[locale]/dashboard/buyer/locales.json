@@ -35,7 +35,23 @@
 		"mainDashboard": "Main Dashboard",
 		"getHelp": "Get Help",
 		"eventId": "Event ID:",
-		"purchaseDate": "Purchased on"
+		"purchaseDate": "Purchased on",
+		"removeFromWaitlist": "Remove from waitlist",
+		"removeFromWaitlistConfirm": "Are you sure you want to remove this event from your waitlist?",
+		"removeFromWaitlistDescription": "You will no longer receive notifications when bibs become available for this event.",
+		"cancel": "Cancel",
+		"confirm": "Confirm",
+		"removing": "Removing...",
+		"pagination": {
+			"previous": "Previous",
+			"next": "Next",
+			"page": "Page",
+			"of": "of",
+			"showing": "Showing",
+			"to": "to",
+			"ofTotal": "of",
+			"entries": "entries"
+		}
 	},
 	"fr": {
 		"title": "Tableau de bord acheteur",
@@ -73,7 +89,23 @@
 		"mainDashboard": "Tableau de bord principal",
 		"getHelp": "Obtenir de l'aide",
 		"eventId": "ID événement :",
-		"purchaseDate": "Acheté le"
+		"purchaseDate": "Acheté le",
+		"removeFromWaitlist": "Retirer de la liste d'attente",
+		"removeFromWaitlistConfirm": "Êtes-vous sûr de vouloir retirer cet événement de votre liste d'attente ?",
+		"removeFromWaitlistDescription": "Vous ne recevrez plus de notifications lorsque des dossards deviendront disponibles pour cet événement.",
+		"cancel": "Annuler",
+		"confirm": "Confirmer",
+		"removing": "Suppression...",
+		"pagination": {
+			"previous": "Précédent",
+			"next": "Suivant",
+			"page": "Page",
+			"of": "sur",
+			"showing": "Affichage de",
+			"to": "à",
+			"ofTotal": "sur",
+			"entries": "entrées"
+		}
 	},
 	"ko": {
 		"title": "구매자 대시보드",
@@ -111,7 +143,23 @@
 		"mainDashboard": "메인 대시보드",
 		"getHelp": "도움 받기",
 		"eventId": "이벤트 ID:",
-		"purchaseDate": "구매 날짜"
+		"purchaseDate": "구매 날짜",
+		"removeFromWaitlist": "대기 목록에서 제거",
+		"removeFromWaitlistConfirm": "이 이벤트를 대기 목록에서 제거하시겠습니까?",
+		"removeFromWaitlistDescription": "이 이벤트에 대해 빕이 사용 가능해질 때 더 이상 알림을 받지 않습니다.",
+		"cancel": "취소",
+		"confirm": "확인",
+		"removing": "제거 중...",
+		"pagination": {
+			"previous": "이전",
+			"next": "다음",
+			"page": "페이지",
+			"of": "/",
+			"showing": "표시 중",
+			"to": "~",
+			"ofTotal": "/",
+			"entries": "항목"
+		}
 	},
 	"es": {
 		"title": "Panel de Comprador",
@@ -149,7 +197,23 @@
 		"mainDashboard": "Panel Principal",
 		"getHelp": "Obtener Ayuda",
 		"eventId": "ID del Evento:",
-		"purchaseDate": "Comprado el"
+		"purchaseDate": "Comprado el",
+		"removeFromWaitlist": "Eliminar de la lista de espera",
+		"removeFromWaitlistConfirm": "¿Estás seguro de que quieres eliminar este evento de tu lista de espera?",
+		"removeFromWaitlistDescription": "Ya no recibirás notificaciones cuando haya dorsales disponibles para este evento.",
+		"cancel": "Cancelar",
+		"confirm": "Confirmar",
+		"removing": "Eliminando...",
+		"pagination": {
+			"previous": "Anterior",
+			"next": "Siguiente",
+			"page": "Página",
+			"of": "de",
+			"showing": "Mostrando",
+			"to": "a",
+			"ofTotal": "de",
+			"entries": "entradas"
+		}
 	},
 	"it": {
 		"title": "Dashboard Acquirente",
@@ -187,7 +251,23 @@
 		"mainDashboard": "Dashboard Principale",
 		"getHelp": "Ottieni Aiuto",
 		"eventId": "ID Evento:",
-		"purchaseDate": "Acquistato il"
+		"purchaseDate": "Acquistato il",
+		"removeFromWaitlist": "Rimuovi dalla lista d'attesa",
+		"removeFromWaitlistConfirm": "Sei sicuro di voler rimuovere questo evento dalla tua lista d'attesa?",
+		"removeFromWaitlistDescription": "Non riceverai più notifiche quando i pettorali saranno disponibili per questo evento.",
+		"cancel": "Annulla",
+		"confirm": "Conferma",
+		"removing": "Rimozione...",
+		"pagination": {
+			"previous": "Precedente",
+			"next": "Successivo",
+			"page": "Pagina",
+			"of": "di",
+			"showing": "Mostrando",
+			"to": "a",
+			"ofTotal": "di",
+			"entries": "voci"
+		}
 	},
 	"de": {
 		"title": "Käufer-Dashboard",
@@ -225,7 +305,23 @@
 		"mainDashboard": "Haupt-Dashboard",
 		"getHelp": "Hilfe erhalten",
 		"eventId": "Event-ID:",
-		"purchaseDate": "Gekauft am"
+		"purchaseDate": "Gekauft am",
+		"removeFromWaitlist": "Von der Warteliste entfernen",
+		"removeFromWaitlistConfirm": "Sind Sie sicher, dass Sie dieses Event von Ihrer Warteliste entfernen möchten?",
+		"removeFromWaitlistDescription": "Sie erhalten keine Benachrichtigungen mehr, wenn Startnummern für dieses Event verfügbar werden.",
+		"cancel": "Abbrechen",
+		"confirm": "Bestätigen",
+		"removing": "Entfernen...",
+		"pagination": {
+			"previous": "Zurück",
+			"next": "Weiter",
+			"page": "Seite",
+			"of": "von",
+			"showing": "Zeige",
+			"to": "bis",
+			"ofTotal": "von",
+			"entries": "Einträge"
+		}
 	},
 	"ro": {
 		"title": "Panou Cumpărător",
@@ -263,7 +359,23 @@
 		"mainDashboard": "Panou Principal",
 		"getHelp": "Obține Ajutor",
 		"eventId": "ID Eveniment:",
-		"purchaseDate": "Cumpărat pe"
+		"purchaseDate": "Cumpărat pe",
+		"removeFromWaitlist": "Elimină din lista de așteptare",
+		"removeFromWaitlistConfirm": "Ești sigur că vrei să elimini acest eveniment din lista ta de așteptare?",
+		"removeFromWaitlistDescription": "Nu vei mai primi notificări când numerele de concurs vor fi disponibile pentru acest eveniment.",
+		"cancel": "Anulează",
+		"confirm": "Confirmă",
+		"removing": "Eliminare...",
+		"pagination": {
+			"previous": "Anterior",
+			"next": "Următor",
+			"page": "Pagina",
+			"of": "din",
+			"showing": "Se afișează",
+			"to": "până la",
+			"ofTotal": "din",
+			"entries": "intrări"
+		}
 	},
 	"pt": {
 		"title": "Painel do Comprador",
@@ -301,7 +413,23 @@
 		"mainDashboard": "Painel Principal",
 		"getHelp": "Obter Ajuda",
 		"eventId": "ID do Evento:",
-		"purchaseDate": "Comprado em"
+		"purchaseDate": "Comprado em",
+		"removeFromWaitlist": "Remover da lista de espera",
+		"removeFromWaitlistConfirm": "Tens a certeza de que queres remover este evento da tua lista de espera?",
+		"removeFromWaitlistDescription": "Não receberás mais notificações quando os dorsais estiverem disponíveis para este evento.",
+		"cancel": "Cancelar",
+		"confirm": "Confirmar",
+		"removing": "A remover...",
+		"pagination": {
+			"previous": "Anterior",
+			"next": "Seguinte",
+			"page": "Página",
+			"of": "de",
+			"showing": "A mostrar",
+			"to": "a",
+			"ofTotal": "de",
+			"entries": "entradas"
+		}
 	},
 	"nl": {
 		"title": "Koper Dashboard",
@@ -339,6 +467,22 @@
 		"mainDashboard": "Hoofddashboard",
 		"getHelp": "Hulp krijgen",
 		"eventId": "Evenement ID:",
-		"purchaseDate": "Gekocht op"
+		"purchaseDate": "Gekocht op",
+		"removeFromWaitlist": "Verwijderen van wachtlijst",
+		"removeFromWaitlistConfirm": "Weet je zeker dat je dit evenement van je wachtlijst wilt verwijderen?",
+		"removeFromWaitlistDescription": "Je ontvangt geen meldingen meer wanneer startnummers beschikbaar komen voor dit evenement.",
+		"cancel": "Annuleren",
+		"confirm": "Bevestigen",
+		"removing": "Verwijderen...",
+		"pagination": {
+			"previous": "Vorige",
+			"next": "Volgende",
+			"page": "Pagina",
+			"of": "van",
+			"showing": "Toont",
+			"to": "tot",
+			"ofTotal": "van",
+			"entries": "vermeldingen"
+		}
 	}
 }
