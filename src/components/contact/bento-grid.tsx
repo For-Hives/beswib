@@ -50,7 +50,7 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 			{/* Information card - spans full width ℹ️ */}
 			<motion.div
 				animate={{ y: 0, opacity: 1 }}
-				className="bg-foreground/5 hover:border-primary/50 relative col-span-1 overflow-hidden rounded-3xl border p-8 shadow-xl transition-colors md:col-span-6"
+				className="bg-foreground/5 hover:border-primary/50 relative col-span-1 overflow-hidden rounded-3xl border p-8 shadow-xl transition-colors md:col-span-7"
 				initial={{ y: 20, opacity: 0 }}
 			>
 				<div className="relative z-10">

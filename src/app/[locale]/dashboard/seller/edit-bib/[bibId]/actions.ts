@@ -86,7 +86,12 @@ export async function handleUpdateBibDetails(bibId: string, formData: FormData):
 		throw new Error('Original bib not found.')
 	}
 
-	// Do not allow changing registrationNumber. Only update allowed fields.
+	if (currentBib.status === 'sold' || currentBib.status === 'expired' || currentBib.status === 'withdrawn') {
+		throw new Error(`Cannot modify bib with status: ${currentBib.status}.`)
+	}
+
+	// SECURITY: Only allow modifying price-related fields
+	// Ignore any other form data to prevent tampering
 	const dataToUpdate: Partial<Bib> = {
 		price: price,
 	}
