@@ -3,6 +3,7 @@ import { Body, Container, Head, Heading, Html, Img, Preview, Section, Text, Tail
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
+import { getFeeBreakdown } from '@/lib/utils/feeCalculations'
 
 import { Footer } from './Footer'
 
@@ -13,9 +14,6 @@ interface BeswibSaleAlertProps {
 	buyerEmail?: string
 	eventName?: string
 	bibPrice?: number
-	platformFee?: number
-	paypalFee?: number
-	netRevenue?: number
 	orderId?: string
 	eventDate?: string
 	eventLocation?: string
@@ -31,13 +29,11 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
 export const BeswibSaleAlert = ({
 	transactionId = 'tx_abc123',
-
 	sellerName = 'Marie Dupont',
 	sellerEmail = 'marie@example.com',
 	saleTimestamp = new Date().toLocaleString('fr-FR'),
 	paypalCaptureId = 'CAPTURE123',
 	orderId = 'BW123456789',
-	netRevenue = 135,
 	locale = 'fr',
 	buyerName = 'Jean Martin',
 	buyerEmail = 'jean@example.com',
@@ -46,6 +42,10 @@ export const BeswibSaleAlert = ({
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 	const t = getTranslations(locale, constantsLocales) as any // Safe cast - will error at runtime if translation missing
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
+
+	// Calculate fees dynamically using the utility functions
+	const feeBreakdown = getFeeBreakdown(bibPrice)
+	const { netAmount } = feeBreakdown
 
 	return (
 		<Html>
@@ -105,7 +105,7 @@ export const BeswibSaleAlert = ({
 									<Text className="text-foreground text-sm font-semibold">{sellerName}</Text>
 									<Text className="text-muted-foreground text-xs">{sellerEmail}</Text>
 									<Text className="text-muted-foreground text-xs">
-										{t.emails.saleAlert.totalReceived}: {formatPrice(netRevenue || 0)}
+										{t.emails.saleAlert.totalReceived}: {formatPrice(netAmount)}
 									</Text>
 								</Section>
 
@@ -147,7 +147,7 @@ export const BeswibSaleAlert = ({
 
 									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-xs font-medium">{t.emails.saleAlert.timestamp}:</Text>
-										<Text className="text-foreground font-mono text-xs">{saleTimestamp}</Text>
+										<Text className="text-muted-foreground font-mono text-xs">{saleTimestamp}</Text>
 									</Section>
 								</Section>
 							</Section>
@@ -178,11 +178,8 @@ BeswibSaleAlert.PreviewProps = {
 	sellerName: 'Marie Dupont',
 	sellerEmail: 'marie.dupont@example.com',
 	saleTimestamp: new Date().toLocaleString('fr-FR'),
-	platformFee: 15,
-	paypalFee: 5.5,
 	paypalCaptureId: 'CAPTURE123456789',
 	orderId: 'BW123456789',
-	netRevenue: 135,
 	locale: 'fr',
 	eventName: 'Marathon de Paris 2024',
 	eventLocation: 'Paris, France',

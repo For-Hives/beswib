@@ -7,3 +7,11 @@ export type { default as BeswibEmailVerificationProps } from './BeswibEmailVerif
 export type { default as BeswibWelcomeEmailProps } from './BeswibWelcomeEmail'
 export type { default as BeswibSaleAlertProps } from './BeswibSaleAlert'
 export type { default as BeswibWaitlistConfirmationProps } from './BeswibWaitlistConfirmation'
+
+// Export fee calculation utilities
+export {
+	calculatePayPalFee,
+	calculatePlatformFee,
+	calculateNetAmount,
+	getFeeBreakdown,
+} from '@/lib/utils/feeCalculations'

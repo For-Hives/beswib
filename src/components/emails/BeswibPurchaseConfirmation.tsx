@@ -2,6 +2,7 @@ import { Body, Container, Head, Heading, Html, Img, Preview, Section, Text, Tail
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
+import { getFeeBreakdown } from '@/lib/utils/feeCalculations'
 
 import { Footer } from './Footer'
 
@@ -10,8 +11,6 @@ interface BeswibPurchaseConfirmationProps {
 	sellerName?: string
 	eventName?: string
 	listingPrice?: number
-	platformFee?: number
-	paypalFee?: number
 	orderId?: string
 	eventDate?: string
 	eventLocation?: string
@@ -24,8 +23,6 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://beswib.com'
 
 export const BeswibPurchaseConfirmation = ({
 	sellerName = 'Marie',
-	platformFee = 15, // 10% de 150€
-	paypalFee = 5.5,
 	orderId = 'BW123456789',
 	locale = 'fr',
 	listingPrice = 150,
@@ -39,9 +36,10 @@ export const BeswibPurchaseConfirmation = ({
 	const t = getTranslations(locale, constantsLocales)
 
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
-	// L'acheteur paie seulement le prix affiché
-	const totalAmount = listingPrice
-	const netAmount = listingPrice - platformFee - paypalFee
+
+	// Calculate fees dynamically using the utility functions
+	const feeBreakdown = getFeeBreakdown(listingPrice)
+	const { platformFee, paypalFee, netAmount } = feeBreakdown
 
 	return (
 		<Html>
@@ -111,28 +109,28 @@ export const BeswibPurchaseConfirmation = ({
 										<Text className="text-muted-foreground text-sm font-medium">
 											{t.emails.purchaseConfirmation.category}:
 										</Text>
-										<Text className="text-foreground text-sm">{bibCategory}</Text>
+										<Text className="text-muted-foreground text-sm">{bibCategory}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
 											{t.emails.purchaseConfirmation.distance}:
 										</Text>
-										<Text className="text-foreground text-sm">{eventDistance}</Text>
+										<Text className="text-muted-foreground text-sm">{eventDistance}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
 											{t.emails.purchaseConfirmation.date}:
 										</Text>
-										<Text className="text-foreground text-sm">{eventDate}</Text>
+										<Text className="text-muted-foreground text-sm">{eventDate}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
 										<Text className="text-muted-foreground text-sm font-medium">
 											{t.emails.purchaseConfirmation.location}:
 										</Text>
-										<Text className="text-foreground text-sm">{eventLocation}</Text>
+										<Text className="text-muted-foreground text-sm">{eventLocation}</Text>
 									</Section>
 
 									<Section className="mt-3 flex justify-between">
@@ -162,7 +160,7 @@ export const BeswibPurchaseConfirmation = ({
 										<Text className="text-foreground text-base font-bold">
 											{t.emails.purchaseConfirmation.totalPaid}:
 										</Text>
-										<Text className="text-success text-base font-bold">{formatPrice(totalAmount)}</Text>
+										<Text className="text-success text-base font-bold">{formatPrice(listingPrice)}</Text>
 									</Section>
 								</Section>
 							</Section>
@@ -180,7 +178,7 @@ export const BeswibPurchaseConfirmation = ({
 										{t.emails.purchaseConfirmation.netAmount}: {formatPrice(netAmount)}
 									</Text>
 									<Text className="text-muted-foreground text-xs">
-										{listingPrice}€ - {platformFee}€ - {paypalFee}€ = {netAmount}€
+										{listingPrice}€ - {formatPrice(platformFee)} - {formatPrice(paypalFee)} = {formatPrice(netAmount)}€
 									</Text>
 								</Section>
 							</Section>
@@ -211,8 +209,6 @@ export const BeswibPurchaseConfirmation = ({
 
 BeswibPurchaseConfirmation.PreviewProps = {
 	sellerName: 'Marie Dupont',
-	platformFee: 15, // 10% de 150€
-	paypalFee: 5.5,
 	orderId: 'BW123456789',
 	locale: 'fr',
 	listingPrice: 150,
