@@ -184,7 +184,7 @@ export default function BuyerDashboardClient({
 								</Card>
 							</Link>
 
-							<Link href="/dashboard">
+							<Link href={`/${locale}/dashboard`}>
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<Users className="text-primary mb-2 h-8 w-8" />

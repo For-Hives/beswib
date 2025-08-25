@@ -179,7 +179,7 @@ export default function EventSelectionStep({
 							<p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
 								{t.form.eventSelection.requestNewEventDescription}
 							</p>
-							<Link href="/dashboard/seller/request-event">
+							<Link href={`/${locale}/dashboard/seller/request-event`}>
 								<Button className="gap-2" variant="outline">
 									<Plus className="h-4 w-4" />
 									{t.form.eventSelection.requestNewEventButton}

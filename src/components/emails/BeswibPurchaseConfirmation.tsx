@@ -1,8 +1,8 @@
 import { Body, Container, Head, Heading, Html, Img, Preview, Section, Text, Tailwind } from '@react-email/components'
 
+import { getFeeBreakdown } from '@/lib/utils/feeCalculations'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
-import { getFeeBreakdown } from '@/lib/utils/feeCalculations'
 
 import { Footer } from './Footer'
 
@@ -39,7 +39,7 @@ export const BeswibPurchaseConfirmation = ({
 
 	// Calculate fees dynamically using the utility functions
 	const feeBreakdown = getFeeBreakdown(listingPrice)
-	const { platformFee, paypalFee, netAmount } = feeBreakdown
+	const { platformFee, paypalFee, netAmount, hasPlatformFees } = feeBreakdown
 
 	return (
 		<Html>
@@ -178,7 +178,9 @@ export const BeswibPurchaseConfirmation = ({
 										{t.emails.purchaseConfirmation.netAmount}: {formatPrice(netAmount)}
 									</Text>
 									<Text className="text-muted-foreground text-xs">
-										{listingPrice}€ - {formatPrice(platformFee)} - {formatPrice(paypalFee)} = {formatPrice(netAmount)}€
+										{listingPrice}€
+										{hasPlatformFees ? ` - ${formatPrice(platformFee)}` : ''}
+										{` - ${formatPrice(paypalFee)}`} = {formatPrice(netAmount)}€
 									</Text>
 								</Section>
 							</Section>
