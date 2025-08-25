@@ -86,7 +86,7 @@ export default function EventCard({ organizer, locale, event, exchangeRates }: R
 
 	// Currency conversion for official price
 	const targetCurrency = getCurrencyForLocale(locale)
-	const convertedPrice = event.officialPrice 
+	const convertedPrice = event.officialPrice
 		? convertPriceWithFallback(event.officialPrice, targetCurrency, exchangeRates)
 		: null
 
