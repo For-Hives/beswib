@@ -277,11 +277,14 @@ export default function EventCard({ organizer, locale, exchangeRates, event }: R
 							alignItems: 'center',
 						}}
 					>
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
-							<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-							<line x1="16" y1="2" x2="16" y2="6" />
-							<line x1="8" y1="2" x2="8" y2="6" />
-							<line x1="3" y1="10" x2="21" y2="10" />
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
+							<path
+								stroke="#6b7280"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								d="M3 9h18M7 3v2m10-2v2M6 13h2m-2 4h2m3-4h2m-2 4h2m3-4h2m-2 4h2M6.2 21h11.6c1.12 0 1.68 0 2.108-.218a2 2 0 0 0 .874-.874C21 19.48 21 18.92 21 17.8V8.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C19.48 5 18.92 5 17.8 5H6.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C3 6.52 3 7.08 3 8.2v9.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C4.52 21 5.08 21 6.2 21"
+							></path>
 						</svg>
 						<div
 							style={{
@@ -338,10 +341,8 @@ export default function EventCard({ organizer, locale, exchangeRates, event }: R
 								alignItems: 'center',
 							}}
 						>
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
-								<path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2z" />
-								<path d="M8 21l4-7 4 7" />
-								<path d="M16 5l2-2 2 2" />
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" fill="#6b7280">
+								<path d="m17.012 3.021-.912 1.66-6.522 11.856-1.916-1.916-.66 1.098-5.86 9.767L.235 27h31.284l-.598-1.395-3-7-.582-1.357-2.068 2.068-7.403-14.605zm-.073 4.282 3.04 5.996-.774.664-2.28-1.953-2.279 1.953-.93-.799zm-.013 7.34 2.28 1.953 1.702-1.46 3.2 6.315.622 1.233 1.932-1.932L28.482 25H3.766q2.146-3.578 4.293-7.154l1.988 1.988.642-1.166q1.022-1.857 2.043-3.713l1.914 1.64z"></path>
 							</svg>
 							<div
 								style={{
