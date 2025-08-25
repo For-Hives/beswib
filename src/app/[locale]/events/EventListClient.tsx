@@ -114,6 +114,7 @@ const eventTypeColors = {
 	triathlon: 'bg-purple-500/15 border-purple-500/50 text-purple-400',
 	trail: 'bg-yellow-500/15 border-yellow-500/50 text-yellow-400',
 	road: 'bg-blue-500/15 border-blue-500/50 text-blue-400',
+	other: 'bg-gray-500/15 border-gray-500/50 text-gray-400',
 	cycle: 'bg-red-500/15 border-red-500/50 text-red-400',
 } as const
 
@@ -121,6 +122,7 @@ const eventTypeColorsDisabled = {
 	triathlon: 'opacity-25',
 	trail: 'opacity-25',
 	road: 'opacity-25',
+	other: 'opacity-25',
 	cycle: 'opacity-25',
 } as const
 
@@ -130,6 +132,7 @@ const eventTypeIcons = {
 	triathlon: <TriathlonIcon className="h-5 w-5" />,
 	trail: <TrailIcon className="h-5 w-5" />,
 	road: <RouteIcon className="h-5 w-5" />,
+	other: <AllTypesIcon className="h-5 w-5" />,
 	cycle: <CycleIcon className="h-5 w-5" />,
 } as const
 
@@ -614,14 +617,16 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 		// Add categories that actually exist in the data
 		uniqueTypes.forEach(type => {
-			if ((t.events?.raceTypes as Record<string, string>)?.[type] && eventTypeColors[type]) {
+			const raceTypeLabel = (t.events?.raceTypes as Record<string, string>)?.[type]
+			if (raceTypeLabel && type in eventTypeColors && type in eventTypeIcons && type in eventTypeColorsDisabled) {
+				const validType = type
 				summary.push({
-					label: (t.events?.raceTypes as Record<string, string>)?.[type] ?? type.toUpperCase(),
+					label: raceTypeLabel,
 					key: type,
-					icon: eventTypeIcons[type],
+					icon: eventTypeIcons[validType],
 					count: futureEvents.filter(e => e.typeCourse === type).length,
-					colorDisabled: eventTypeColorsDisabled[type],
-					color: eventTypeColors[type],
+					colorDisabled: eventTypeColorsDisabled[validType],
+					color: eventTypeColors[validType],
 				})
 			}
 		})

@@ -10,7 +10,8 @@
 				"road": "Road",
 				"trail": "Trail",
 				"triathlon": "Triathlon",
-				"cycle": "Cycling"
+				"cycle": "Cycling",
+				"other": "Other"
 			},
 			"distance": "Distance",
 			"elevationGain": "Elevation gain",
@@ -74,7 +75,8 @@
 				"road": "Route",
 				"trail": "Trail",
 				"triathlon": "Triathlon",
-				"cycle": "Cyclisme"
+				"cycle": "Cyclisme",
+				"other": "Autre"
 			},
 			"distance": "Distance",
 			"elevationGain": "Dénivelé",
@@ -138,7 +140,8 @@
 				"road": "Carretera",
 				"trail": "Trail",
 				"triathlon": "Triatlón",
-				"cycle": "Ciclismo"
+				"cycle": "Ciclismo",
+				"other": "Otro"
 			},
 			"distance": "Distancia",
 			"elevationGain": "Desnivel",
@@ -202,7 +205,8 @@
 				"road": "Strada",
 				"trail": "Trail",
 				"triathlon": "Triathlon",
-				"cycle": "Ciclismo"
+				"cycle": "Ciclismo",
+				"other": "Altro"
 			},
 			"distance": "Distanza",
 			"elevationGain": "Dislivello",
@@ -266,7 +270,8 @@
 				"road": "Straße",
 				"trail": "Trail",
 				"triathlon": "Triathlon",
-				"cycle": "Radsport"
+				"cycle": "Radsport",
+				"other": "Andere"
 			},
 			"distance": "Distanz",
 			"elevationGain": "Höhenmeter",
@@ -330,7 +335,8 @@
 				"road": "Șosea",
 				"trail": "Trail",
 				"triathlon": "Triatlon",
-				"cycle": "Ciclism"
+				"cycle": "Ciclism",
+				"other": "Altele"
 			},
 			"distance": "Distanță",
 			"elevationGain": "Diferență de nivel",
@@ -394,7 +400,8 @@
 				"road": "Estrada",
 				"trail": "Trail",
 				"triathlon": "Triatlo",
-				"cycle": "Ciclismo"
+				"cycle": "Ciclismo",
+				"other": "Outro"
 			},
 			"distance": "Distância",
 			"elevationGain": "Desnível",
@@ -458,7 +465,8 @@
 				"road": "Weg",
 				"trail": "Trail",
 				"triathlon": "Triatlon",
-				"cycle": "Wielrennen"
+				"cycle": "Wielrennen",
+				"other": "Anders"
 			},
 			"distance": "Afstand",
 			"elevationGain": "Hoogtemeters",
@@ -522,7 +530,8 @@
 				"road": "도로",
 				"trail": "트레일",
 				"triathlon": "트라이애슬론",
-				"cycle": "사이클"
+				"cycle": "사이클",
+				"other": "기타"
 			},
 			"distance": "거리",
 			"elevationGain": "누적 상승고도",
