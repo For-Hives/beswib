@@ -162,9 +162,6 @@ interface SaleConfirmationParams {
 	buyerName?: string
 	eventName?: string
 	bibPrice?: number
-	platformFee?: number
-	paypalFee?: number
-	totalReceived?: number
 	orderId?: string
 	eventDate?: string
 	eventLocation?: string
@@ -175,11 +172,8 @@ interface SaleConfirmationParams {
  * Sends a sale confirmation email to the seller using the React Email template
  */
 export async function sendSaleConfirmationEmail({
-	totalReceived,
 	sellerName,
 	sellerEmail,
-	platformFee,
-	paypalFee,
 	orderId,
 	locale,
 	eventName,
@@ -202,9 +196,6 @@ export async function sendSaleConfirmationEmail({
 				buyerName={buyerName}
 				eventName={eventName}
 				bibPrice={bibPrice}
-				platformFee={platformFee}
-				paypalFee={paypalFee}
-				totalReceived={totalReceived}
 				orderId={orderId}
 				eventDate={eventDate}
 				eventLocation={eventLocation}
@@ -220,8 +211,6 @@ interface PurchaseConfirmationParams {
 	sellerName?: string
 	eventName?: string
 	listingPrice?: number
-	platformFee?: number
-	paypalFee?: number
 	orderId?: string
 	eventDate?: string
 	eventLocation?: string
@@ -235,8 +224,6 @@ interface PurchaseConfirmationParams {
  */
 export async function sendPurchaseConfirmationEmail({
 	sellerName,
-	platformFee,
-	paypalFee,
 	orderId,
 	locale,
 	listingPrice,
@@ -262,8 +249,6 @@ export async function sendPurchaseConfirmationEmail({
 				sellerName={sellerName}
 				eventName={eventName}
 				listingPrice={listingPrice}
-				platformFee={platformFee}
-				paypalFee={paypalFee}
 				orderId={orderId}
 				eventDate={eventDate}
 				eventLocation={eventLocation}
@@ -282,8 +267,6 @@ interface SaleAlertParams {
 	buyerEmail?: string
 	eventName?: string
 	bibPrice?: number
-	platformFee?: number
-	netRevenue?: number
 	orderId?: string
 	eventDate?: string
 	eventLocation?: string
@@ -329,8 +312,6 @@ export async function sendSaleAlertEmail(params: SaleAlertParams): Promise<boole
 				buyerEmail={params.buyerEmail}
 				eventName={params.eventName}
 				bibPrice={params.bibPrice}
-				platformFee={params.platformFee}
-				netRevenue={params.netRevenue}
 				orderId={params.orderId}
 				eventDate={params.eventDate}
 				eventLocation={params.eventLocation}

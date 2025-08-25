@@ -1,8 +1,13 @@
 // Fee calculation utilities
 export { calculatePayPalFee, calculatePlatformFee, calculateNetAmount, getFeeBreakdown } from './feeCalculations'
 
-// Re-export other utilities if they exist
+// Re-export other utilities
 export * from './cookies'
 export * from './currency'
 export * from './date'
-export * from './utils'
+export * from './social'
+export * from './umami'
+export * from './images'
+export * from './email-localization'
+export * from './nominatim'
+export * from './version'
