@@ -97,7 +97,15 @@ type OGImageProps = {
 }
 
 // Main component for generating an Open Graph image
-export default function OGImageBib({ title, size, secondary, organizer, locale, bib, exchangeRates }: Readonly<OGImageProps>) {
+export default function OGImageBib({
+	title,
+	size,
+	secondary,
+	organizer,
+	locale,
+	bib,
+	exchangeRates,
+}: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
 	const MAX_WIDTH_Secondary = 440

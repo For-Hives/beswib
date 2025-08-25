@@ -43,10 +43,7 @@ export default async function Image({ params }: { params: Promise<MarketplaceOpe
 
 	try {
 		// Fetch exchange rates and check bib status in parallel
-		const [bibStatus, rates] = await Promise.all([
-			checkBibListingStatus(id),
-			fetchExchangeRates(),
-		])
+		const [bibStatus, rates] = await Promise.all([checkBibListingStatus(id), fetchExchangeRates()])
 
 		exchangeRates = rates
 

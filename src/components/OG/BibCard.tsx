@@ -92,6 +92,25 @@ interface BibCardProps {
 	exchangeRates?: Record<string, number> | null
 }
 
+// OpenGraph-compatible price formatting (avoids special characters that need dynamic fonts)
+function formatPriceForOG(price: number, currencyCode: string): string {
+	switch (currencyCode) {
+		case 'krw':
+			// Use KRW instead of ₩ symbol to avoid font loading issues
+			return `${Math.round(price).toLocaleString()} KRW`
+		case 'ron':
+			// Use RON instead of lei to avoid font loading issues
+			return `${price.toFixed(2)} RON`
+		case 'usd':
+			// Use $ which is supported by default fonts
+			return `$${price.toFixed(2)}`
+		case 'eur':
+		default:
+			// Use EUR symbol which is supported by default fonts
+			return `€${price.toFixed(2)}`
+	}
+}
+
 // Helper function to convert price with fallback to EUR
 function convertPriceWithFallback(
 	priceInEur: number,
@@ -99,14 +118,14 @@ function convertPriceWithFallback(
 	rates: Record<string, number> | null | undefined
 ): string {
 	if (currency === 'eur' || !rates) {
-		return formatPrice(priceInEur, 'eur')
+		return formatPriceForOG(priceInEur, 'eur')
 	}
 	const rate = rates[currency]
 	if (!rate) {
-		return formatPrice(priceInEur, 'eur')
+		return formatPriceForOG(priceInEur, 'eur')
 	}
 	const converted = Math.round(priceInEur * rate * 100) / 100
-	return formatPrice(converted, currency)
+	return formatPriceForOG(converted, currency)
 }
 
 export default function BibCard({ organizer, locale, bib, exchangeRates }: Readonly<BibCardProps>) {
