@@ -62,10 +62,8 @@ export default async function Image({ params }: { params: Promise<MarketplaceOpe
 				if (event.distanceKm != null) details.push(`${event.distanceKm}km`)
 				if (price) details.push(`€${price}`)
 
-				secondary =
-					details.length > 0
-						? `**${details.join(' • ')}** - Secure race bib transfer`
-						: 'Secure **race bib transfer** with verified seller'
+				// Use the compelling CTA message from translations
+				secondary = t.ctaOG || 'Secure **race bib transfer** with verified seller'
 			}
 		}
 	} catch (error) {
