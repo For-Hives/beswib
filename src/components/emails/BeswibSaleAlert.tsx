@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any */
 import { Body, Container, Head, Heading, Html, Img, Preview, Section, Text, Tailwind } from '@react-email/components'
 
+import { getFeeBreakdown } from '@/lib/utils/feeCalculations'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
-import { getFeeBreakdown } from '@/lib/utils/feeCalculations'
 
 import { Footer } from './Footer'
 

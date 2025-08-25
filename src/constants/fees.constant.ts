@@ -36,8 +36,8 @@ export const FEE_CALCULATION_METHODS = {
 
 // Fee rounding strategies
 export const FEE_ROUNDING_STRATEGIES = {
-	INDIVIDUAL: 'individual', // Round each fee separately
 	TOTAL: 'total', // Round only the final total
+	INDIVIDUAL: 'individual', // Round each fee separately
 	BOTH: 'both', // Round both individual and total
 } as const
 
@@ -54,15 +54,15 @@ export const FEE_REPORTING_INTERVAL = 'daily' // 'hourly', 'daily', 'weekly', 'm
 
 // Fee exemption rules (if any)
 export const FEE_EXEMPTION_RULES = {
-	MIN_AMOUNT_THRESHOLD: 10, // No fees for transactions under €10
 	VIP_USERS: false, // VIP users get fee discounts
 	PROMOTIONAL_PERIODS: false, // Fee-free promotional periods
+	MIN_AMOUNT_THRESHOLD: 10, // No fees for transactions under €10
 } as const
 
 // Fee calculation validation
 export const FEE_VALIDATION_RULES = {
+	VALIDATE_FEE_PERCENTAGES: true,
 	REQUIRE_POSITIVE_AMOUNT: true,
 	REQUIRE_MINIMUM_AMOUNT: true,
-	VALIDATE_FEE_PERCENTAGES: true,
 	CHECK_FEE_THRESHOLDS: true,
 } as const

@@ -94,29 +94,61 @@ const parseAsSearchString = {
 export default function MarketplaceClient({ locale, bibs }: Readonly<MarketplaceClientProps>) {
 	const translations = getTranslations(locale, marketplaceTranslations)
 	// --- Query state management with URL sync using nuqs 🔗
-	const [{ sport, sort, search, priceMin, priceMax, geography, distance, dateStart, dateEnd }, setFilters] =
-		useQueryStates(
-			{
-				sport: parseAsString, // null when not set, string when set
-				sort: parseAsStringLiteral(['date', 'distance', 'price-asc', 'price-desc'] as const).withDefault('date'),
-				search: parseAsSearchString.withDefault(''), // Use custom parser for search
-				priceMin: parseAsFloat.withDefault(0),
-				priceMax: parseAsFloat.withDefault(500),
-				geography: parseAsArrayOf(parseAsString, ',').withDefault([]),
-				distance: parseAsString, // null when not set, string when set
-				dateStart: parseAsString, // ISO date string or null
-				dateEnd: parseAsString, // ISO date string or null
-			},
-			{
-				history: 'push', // Use push for better UX
-			}
-		)
+	const [
+		{ sport, sort, search, priceMin, priceMax, geography, distanceMin, distanceMax, distance, dateStart, dateEnd },
+		setFilters,
+	] = useQueryStates(
+		{
+			sport: parseAsString, // null when not set, string when set
+			sort: parseAsStringLiteral(['date', 'distance', 'price-asc', 'price-desc'] as const).withDefault('date'),
+			search: parseAsSearchString.withDefault(''), // Use custom parser for search
+			priceMin: parseAsFloat.withDefault(0),
+			priceMax: parseAsFloat.withDefault(Infinity),
+			geography: parseAsArrayOf(parseAsString, ',').withDefault([]),
+			distanceMin: parseAsFloat.withDefault(0),
+			distanceMax: parseAsFloat.withDefault(Infinity),
+			distance: parseAsString, // null when not set, string when set - kept for backward compatibility
+			dateStart: parseAsString, // ISO date string or null
+			dateEnd: parseAsString, // ISO date string or null
+		},
+		{
+			history: 'push', // Use push for better UX
+		}
+	)
 
 	// --- Extract unique locations from bibs for the region filter 🗺️
 	const uniqueLocations = Array.from(new Set(bibs.map(bib => bib.event.location))).sort((a, b) => a.localeCompare(b)) // Unique, sorted list of locations 📍
 
-	// --- Extract the maximum price from bibs for the price slider 💰
+	// --- Extract the min/max price from bibs for the price slider 💰
 	const maxPrice = Math.max(...bibs.map(bib => bib.price), 0) // Maximum price for slider 💸
+	const minPrice = Math.min(...bibs.map(bib => bib.price), 0) // Minimum price for slider 💰
+
+	// --- Extract the maximum distance from bibs for the distance slider 📏
+	const maxDistance = Math.max(...bibs.map(bib => bib.event.distance), 0) // Maximum distance for slider 🏃
+
+	// --- Initialize price and distance range with actual min/max values when first loading
+	React.useEffect(() => {
+		const needsPriceInit = bibs.length > 0 && priceMax === Infinity
+		const needsDistanceInit = bibs.length > 0 && distanceMax === Infinity
+
+		if (needsPriceInit || needsDistanceInit) {
+			const updates: { priceMin?: number; priceMax?: number; distanceMax?: number } = {}
+
+			if (needsPriceInit) {
+				const calculatedMinPrice = Math.min(...bibs.map(bib => bib.price), 0)
+				const calculatedMaxPrice = Math.max(...bibs.map(bib => bib.price), 0)
+				updates.priceMin = calculatedMinPrice
+				updates.priceMax = calculatedMaxPrice
+			}
+
+			if (needsDistanceInit) {
+				const calculatedMaxDistance = Math.max(...bibs.map(bib => bib.event.distance), 0)
+				updates.distanceMax = calculatedMaxDistance
+			}
+
+			void setFilters(updates)
+		}
+	}, [bibs.length, priceMax, distanceMax, setFilters])
 
 	// --- Handler function for sidebar filters 🔗
 	const handleFiltersChange = React.useCallback(
@@ -153,8 +185,11 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 				case 'distance':
 					void setFilters({ distance: null })
 					break
+				case 'distanceRange':
+					void setFilters({ distanceMin: 0, distanceMax: maxDistance })
+					break
 				case 'price':
-					void setFilters({ priceMin: 0, priceMax: maxPrice })
+					void setFilters({ priceMin: minPrice, priceMax: maxPrice })
 					break
 				case 'geography':
 					if (value != null && value !== undefined && value !== '') {
@@ -170,7 +205,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 					break
 			}
 		},
-		[setFilters, geography, maxPrice]
+		[setFilters, geography, minPrice, maxPrice, maxDistance]
 	)
 
 	// --- Fuse.js instance for fuzzy search on bibs (name, location, type) ✨
@@ -202,12 +237,15 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 
 		// --- Filter by selected distance 📏
 		if (distance != null && distance !== undefined && distance !== 'all') {
-			const [minDistance, maxDistance] = getDistanceRange(distance)
+			const [minDistance, maxDistanceRange] = getDistanceRange(distance)
 			filtered = filtered.filter(bib => {
 				const eventDistance = bib.event.distance
-				return eventDistance >= minDistance && eventDistance <= maxDistance
+				return eventDistance >= minDistance && eventDistance <= maxDistanceRange
 			})
 		}
+
+		// --- Filter by distance range slider 📏
+		filtered = filtered.filter(bib => bib.event.distance >= distanceMin && bib.event.distance <= distanceMax)
 
 		// --- Filter by price range 💰
 		filtered = filtered.filter(bib => bib.price >= priceMin && bib.price <= priceMax)
@@ -231,7 +269,21 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 
 		// --- Sort the filtered bibs 🔄
 		return sortBibs(filtered, sort)
-	}, [bibs, search, sport, distance, sort, priceMin, priceMax, geography, dateStart, dateEnd, fuse])
+	}, [
+		bibs,
+		search,
+		sport,
+		distance,
+		distanceMin,
+		distanceMax,
+		sort,
+		priceMin,
+		priceMax,
+		geography,
+		dateStart,
+		dateEnd,
+		fuse,
+	])
 
 	// --- Main render: classic layout with search bar at top and sidebar 🖼️
 	return (
@@ -263,12 +315,16 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 								<div className="max-h-[80vh] overflow-y-auto p-4">
 									<MarketplaceSidebar
 										locale={locale}
+										minPrice={minPrice}
 										maxPrice={maxPrice}
+										maxDistance={maxDistance}
 										filters={{
 											sport,
 											priceMin,
 											priceMax,
 											geography,
+											distanceMin,
+											distanceMax,
 											distance,
 											dateStart: dateStart ?? undefined,
 											dateEnd: dateEnd ?? undefined,
@@ -290,11 +346,15 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 					priceMin,
 					priceMax,
 					geography,
+					distanceMin,
+					distanceMax,
 					distance,
 					dateStart: dateStart ?? undefined,
 					dateEnd: dateEnd ?? undefined,
 				}}
+				minPrice={minPrice}
 				maxPrice={maxPrice}
+				maxDistance={maxDistance}
 				onRemoveFilter={handleRemoveFilter}
 				locale={locale}
 			/>
@@ -306,12 +366,16 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 					<div className="hidden w-80 flex-shrink-0 sm:block">
 						<MarketplaceSidebar
 							locale={locale}
+							minPrice={minPrice}
 							maxPrice={maxPrice}
+							maxDistance={maxDistance}
 							filters={{
 								sport,
 								priceMin,
 								priceMax,
 								geography,
+								distanceMin,
+								distanceMax,
 								distance,
 								dateStart: dateStart ?? undefined,
 								dateEnd: dateEnd ?? undefined,
