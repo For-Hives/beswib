@@ -437,7 +437,7 @@ export default function VerifiedEmailsManager({
 							onClick={confirmDeleteEmail}
 							disabled={emailToDelete ? processingEmails.has(emailToDelete) : false}
 						>
-							{'Delete'}
+							{t.verifiedEmails.buttons.delete ?? 'Delete'}
 						</AlertDialogAction>
 					</AlertDialogFooter>
 				</AlertDialogContent>
