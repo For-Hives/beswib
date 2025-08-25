@@ -36,6 +36,9 @@
 			"road": "Road",
 			"other": "Other",
 			"cycle": "Cycling"
+		},
+		"options": {
+			"other": "Other"
 		}
 	},
 	"fr": {
@@ -75,6 +78,9 @@
 			"road": "Route",
 			"other": "Autre",
 			"cycle": "Cyclisme"
+		},
+		"options": {
+			"other": "Autre"
 		}
 	},
 	"es": {
@@ -114,6 +120,9 @@
 			"road": "Ruta",
 			"other": "Otro",
 			"cycle": "Ciclismo"
+		},
+		"options": {
+			"other": "Otro"
 		}
 	},
 	"it": {
@@ -153,6 +162,9 @@
 			"road": "Strada",
 			"other": "Altro",
 			"cycle": "Ciclismo"
+		},
+		"options": {
+			"other": "Altro"
 		}
 	},
 	"de": {
@@ -192,6 +204,9 @@
 			"road": "Straße",
 			"other": "Andere",
 			"cycle": "Radsport"
+		},
+		"options": {
+			"other": "Andere"
 		}
 	},
 	"ro": {
@@ -231,6 +246,9 @@
 			"road": "Șosea",
 			"other": "Altul",
 			"cycle": "Ciclism"
+		},
+		"options": {
+			"other": "Altul"
 		}
 	},
 	"pt": {
@@ -270,6 +288,9 @@
 			"road": "Estrada",
 			"other": "Outro",
 			"cycle": "Ciclismo"
+		},
+		"options": {
+			"other": "Outro"
 		}
 	},
 	"nl": {
@@ -309,6 +330,9 @@
 			"road": "Weg",
 			"other": "Anders",
 			"cycle": "Wielrennen"
+		},
+		"options": {
+			"other": "Anders"
 		}
 	},
 	"ko": {
@@ -348,6 +372,9 @@
 			"road": "로드",
 			"other": "기타",
 			"cycle": "사이클"
+		},
+		"options": {
+			"other": "기타"
 		}
 	}
 }

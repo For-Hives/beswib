@@ -5,8 +5,10 @@ import { join } from 'path'
 
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { fetchEventById } from '@/services/event.services'
+import OGImageEvent from '@/components/OG/ogImageEvent.component'
 import OGImage from '@/components/OG/ogImage.component'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { fetchExchangeRates } from '@/lib/utils/currency'
 
 import pageTranslations from './locales.json'
 
@@ -32,8 +34,11 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 	// Get the translations for the current page and locale
 	const t = getTranslations(locale, pageTranslations)
 
-	// Fetch the event details
-	const event = await fetchEventById(id)
+	// Fetch the event details and exchange rates in parallel
+	const [event, exchangeRates] = await Promise.all([
+		fetchEventById(id),
+		fetchExchangeRates(),
+	])
 
 	// Build the absolute URL (useful for Satori)
 	const requestHeaders = await headers()
@@ -44,28 +49,17 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 
 	// Create dynamic title and description based on event data
 	let title = t.event.title || 'Event Details'
-	let secondary = 'Event information and available bibs'
+	let secondary = t.event.ctaOG || 'Discover this **amazing race** and join the adventure!'
 
 	if (event) {
 		// Use event name as main title
 		title = event.name
-
-		// Create a descriptive secondary text with event details
-		const eventDetails = []
-		if (event.location) eventDetails.push(event.location)
-		if (event.distanceKm) eventDetails.push(`${event.distanceKm}km`)
-		if (event.eventDate) {
-			const eventDate = new Date(event.eventDate)
-			if (!isNaN(eventDate.getTime())) {
-				eventDetails.push(eventDate.toLocaleDateString(locale))
-			}
-		}
-
-		secondary =
-			eventDetails.length > 0
-				? `**${eventDetails.join(' • ')}** - Available bibs and event details`
-				: 'Event details and **available bibs** for registration'
+		// Use the compelling CTA message from translations
+		secondary = t.event.ctaOG || 'Join this **incredible race** and challenge yourself!'
 	}
+
+	// Get organizer info if available
+	const organizer = event?.expand?.organizer
 
 	// Load custom fonts for @vercel/og with error handling
 	try {
@@ -74,7 +68,17 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			<OGImage title={title} secondary={secondary} host={host} protocol={protocol} size={size} />,
+			<OGImageEvent 
+				title={title} 
+				secondary={secondary} 
+				host={host} 
+				protocol={protocol} 
+				size={size}
+				event={event}
+				organizer={organizer}
+				locale={locale}
+				exchangeRates={exchangeRates}
+			/>,
 			{
 				...size,
 				fonts: [
