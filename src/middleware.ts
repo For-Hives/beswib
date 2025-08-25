@@ -6,6 +6,8 @@ import { i18n } from '@/lib/i18n/config'
 export function getLocaleFromRequest(request: NextRequest): string {
 	try {
 		// 1. Check for language preference in cookies first 🍪
+		// Note: localStorage is not accessible server-side, so we rely on cookies
+		// The client-side components will prioritize localStorage over cookies
 		const cookieHeader = request.headers.get('cookie')
 		if (cookieHeader != null && cookieHeader.length > 0) {
 			const cookies = cookieHeader.split(';').reduce((acc: Record<string, string>, cookie) => {

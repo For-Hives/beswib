@@ -1,18 +1,14 @@
 'use client'
 
 import { Languages } from 'lucide-react'
-import { useState } from 'react'
 
-import { useRouter } from 'next/navigation'
-import { useUser } from '@clerk/nextjs'
+import { useLocale } from '@/hooks/useLocale'
 
 import type { Locale } from '@/lib/i18n/config'
 
-import { updateUserLocalePreference } from '@/app/[locale]/actions/locale'
-
 interface LanguageSwitcherProps {
 	currentLocale: Locale
-	currentPath: string
+	currentPath?: string
 	className?: string
 }
 
@@ -29,13 +25,8 @@ const languages = {
 	de: { native: 'Deutsch', name: 'German', flag: '🇩🇪' },
 }
 
-export default function LanguageSwitcher({ currentPath, currentLocale, className = '' }: LanguageSwitcherProps) {
-	const router = useRouter()
-	const { isSignedIn } = useUser()
-	const [isUpdating, setIsUpdating] = useState(false)
-
-	// Extract path without locale
-	const pathWithoutLocale = currentPath.replace(`/${currentLocale}`, '') || '/'
+export default function LanguageSwitcher({ currentLocale, className = '' }: LanguageSwitcherProps) {
+	const { isUpdating, currentLocale: locale, changeLocale } = useLocale(currentLocale)
 
 	// Fallback for invalid locale
 	const safeLocale = currentLocale in languages ? currentLocale : 'en'
@@ -43,23 +34,9 @@ export default function LanguageSwitcher({ currentPath, currentLocale, className
 
 	const handleLanguageChange = async (newLocale: string) => {
 		try {
-			setIsUpdating(true)
-
-			// If user is signed in, update their locale preference in the database
-			if (isSignedIn === true) {
-				const result = await updateUserLocalePreference(newLocale)
-				if (!result.success) {
-					console.warn('Failed to update user locale preference:', result.error)
-					// Continue with navigation even if DB update fails
-				}
-			}
-
-			// Navigate to the new locale URL
-			const href = newLocale === 'en' ? pathWithoutLocale : `/${newLocale}${pathWithoutLocale}`
-			router.push(href)
+			await changeLocale(newLocale)
 		} catch (error) {
 			console.error('Error changing language:', error)
-			setIsUpdating(false)
 		}
 	}
 
@@ -80,7 +57,7 @@ export default function LanguageSwitcher({ currentPath, currentLocale, className
 				<div className="p-2">
 					<div className="space-y-1 py-2">
 						{Object.entries(languages).map(([code, lang]) => {
-							const isCurrent = code === currentLocale
+							const isCurrent = code === locale
 
 							return (
 								<button
@@ -101,7 +78,7 @@ export default function LanguageSwitcher({ currentPath, currentLocale, className
 										<div className="text-muted-foreground text-xs">{lang.name}</div>
 									</div>
 									{isCurrent && <div className="bg-primary h-2 w-2 rounded-full" />}
-									{isUpdating && code === currentLocale && <div className="text-xs">⏳</div>}
+									{isUpdating && code === locale && <div className="text-xs">⏳</div>}
 								</button>
 							)
 						})}
@@ -113,32 +90,14 @@ export default function LanguageSwitcher({ currentPath, currentLocale, className
 }
 
 // Alternative component for small screens (dropdown)
-export function LanguageSwitcherMobile({ currentPath, currentLocale }: LanguageSwitcherProps) {
-	const router = useRouter()
-	const { isSignedIn } = useUser()
-	const [isUpdating, setIsUpdating] = useState(false)
-
-	const pathWithoutLocale = currentPath.replace(`/${currentLocale}`, '') || '/'
+export function LanguageSwitcherMobile({ currentLocale }: LanguageSwitcherProps) {
+	const { isUpdating, currentLocale: locale, changeLocale } = useLocale(currentLocale)
 
 	const handleLanguageChange = async (newLocale: string) => {
 		try {
-			setIsUpdating(true)
-
-			// If user is signed in, update their locale preference in the database
-			if (isSignedIn === true) {
-				const result = await updateUserLocalePreference(newLocale)
-				if (!result.success) {
-					console.warn('Failed to update user locale preference:', result.error)
-					// Continue with navigation even if DB update fails
-				}
-			}
-
-			// Navigate to the new locale URL
-			const href = newLocale === 'en' ? pathWithoutLocale : `/${newLocale}${pathWithoutLocale}`
-			router.push(href)
+			await changeLocale(newLocale)
 		} catch (error) {
 			console.error('Error changing language:', error)
-			setIsUpdating(false)
 		}
 	}
 
@@ -147,7 +106,7 @@ export function LanguageSwitcherMobile({ currentPath, currentLocale }: LanguageS
 			<div className="text-muted-foreground mb-2 w-full text-xs font-medium">Language / Langue</div>
 
 			{Object.entries(languages).map(([code, lang]) => {
-				const isCurrent = code === currentLocale
+				const isCurrent = code === locale
 
 				return (
 					<button
@@ -164,7 +123,7 @@ export function LanguageSwitcherMobile({ currentPath, currentLocale }: LanguageS
 					>
 						<span>{lang.flag}</span>
 						<span className="text-sm font-medium">{lang.native}</span>
-						{isUpdating && code === currentLocale && <span className="ml-1 text-xs">⏳</span>}
+						{isUpdating && code === locale && <span className="ml-1 text-xs">⏳</span>}
 					</button>
 				)
 			})}
