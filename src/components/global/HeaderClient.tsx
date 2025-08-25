@@ -15,6 +15,7 @@ import { Locale } from '@/lib/i18n/config'
 
 import { checkIsCurrentUserAdmin } from './adminActions'
 import DashboardDropdown from './DashboardDropdown'
+import LocaleSynchronizer from './LocaleSynchronizer'
 import { ThemeToggle } from './ThemeToggle'
 
 interface HeaderClientProps {
@@ -37,6 +38,9 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 
 	return (
 		<>
+			{/* Locale synchronization for authenticated users */}
+			<LocaleSynchronizer />
+			
 			{/* Spacer div to prevent content from going under fixed header 📏 */}
 			<div className="h-16" />
 
