@@ -9,7 +9,12 @@ export default function OrganizationSchema({ locale }: OrganizationSchemaProps) 
 	const organizationSchema = {
 		url: 'https://beswib.com',
 		serviceType: 'Race Bib Transfer Service',
-		sameAs: ['https://twitter.com/beswib', 'https://instagram.com/beswib', 'https://linkedin.com/company/beswib'],
+		sameAs: [
+			'https://twitter.com/beswib',
+			'https://instagram.com/beswib',
+			'https://linkedin.com/company/beswib',
+			'https://www.facebook.com/beswib_official',
+		],
 		name: 'Beswib',
 		logo: {
 			width: 200,
