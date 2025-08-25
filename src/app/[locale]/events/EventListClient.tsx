@@ -40,6 +40,7 @@ import Translations from './locales.json'
 interface EventTranslations {
 	events?: {
 		eventCard?: {
+			viewEvent?: string
 			viewDetails?: string
 			bibsAvailable?: string
 			soldOut?: string
@@ -140,6 +141,7 @@ const eventTypeIcons = {
 function EventCard({
 	t,
 	onAction,
+	onViewEvent,
 	locale,
 	event,
 	bibsData,
@@ -150,6 +152,7 @@ function EventCard({
 	event: Event
 	locale: string
 	onAction: (event: Event) => void
+	onViewEvent: (event: Event) => void
 	t: EventTranslations
 }) {
 	return (
@@ -269,45 +272,58 @@ function EventCard({
 									)}
 								</div>
 
-								{/* Button with proper state handling */}
-								{(() => {
-									// Determine button content and styling based on availability status
-									if (availabilityStatus === 'loading') {
+								{/* Two buttons side by side: View Event (left) and Action Button (right) */}
+								<div className="flex gap-2">
+									{/* Left button: Always visible "View Event" button */}
+									<Button 
+										onClick={() => onViewEvent(event)} 
+										variant="outline" 
+										className="flex-1 cursor-pointer"
+									>
+										<Search className="h-4 w-4" />
+										{t.events?.eventCard?.viewEvent ?? 'View Event'}
+									</Button>
+
+									{/* Right button: Dynamic action button based on availability */}
+									{(() => {
+										// Determine button content and styling based on availability status
+										if (availabilityStatus === 'loading') {
+											return (
+												<Button disabled variant="secondary" className="flex-1 opacity-70">
+													<Loader2 className="h-4 w-4 animate-spin" />
+													{t.events?.eventCard?.checkBibs ?? 'Check bibs...'}
+												</Button>
+											)
+										}
+
+										if (availabilityStatus === 'available') {
+											return (
+												<Button onClick={() => onAction(event)} variant="default" className="flex-1 cursor-pointer">
+													<ShoppingCart className="h-4 w-4" />
+													{t.events?.eventCard?.viewBibs?.replace('{count}', (bibsCount ?? 0).toString()) ??
+														`View bibs (${bibsCount ?? 0})`}
+												</Button>
+											)
+										}
+
+										if (availabilityStatus === 'waitlist') {
+											return (
+												<Button onClick={() => onAction(event)} variant="outline" className="flex-1 cursor-pointer">
+													<Bell className="h-4 w-4" />
+													{t.events?.eventCard?.joinWaitlist ?? 'Join waitlist'}
+												</Button>
+											)
+										}
+
+										// Fallback for unexpected states
 										return (
-											<Button disabled variant="secondary" className="w-full opacity-70">
-												<Loader2 className="h-4 w-4 animate-spin" />
-												{t.events?.eventCard?.checkBibs ?? 'Check bibs...'}
+											<Button onClick={() => onAction(event)} variant="outline" className="flex-1 cursor-pointer">
+												<Search className="h-4 w-4" />
+												{t.events?.eventCard?.viewDetails ?? 'View details'}
 											</Button>
 										)
-									}
-
-									if (availabilityStatus === 'available') {
-										return (
-											<Button onClick={() => onAction(event)} variant="default" className="w-full cursor-pointer">
-												<ShoppingCart className="h-4 w-4" />
-												{t.events?.eventCard?.viewBibs?.replace('{count}', (bibsCount ?? 0).toString()) ??
-													`View bibs (${bibsCount ?? 0})`}
-											</Button>
-										)
-									}
-
-									if (availabilityStatus === 'waitlist') {
-										return (
-											<Button onClick={() => onAction(event)} variant="outline" className="w-full cursor-pointer">
-												<Bell className="h-4 w-4" />
-												{t.events?.eventCard?.joinWaitlist ?? 'Join waitlist'}
-											</Button>
-										)
-									}
-
-									// Fallback for unexpected states
-									return (
-										<Button onClick={() => onAction(event)} variant="outline" className="w-full cursor-pointer">
-											<Search className="h-4 w-4" />
-											{t.events?.eventCard?.viewDetails ?? 'View details'}
-										</Button>
-									)
-								})()}
+									})()}
+								</div>
 							</>
 						)
 					})()}
@@ -641,6 +657,11 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		return eventBibsCache[eventId] || 0
 	}
 
+	// Function to handle viewing event details
+	const handleViewEvent = (event: Event) => {
+		router.push(`/${locale}/events/${event.id}`)
+	}
+
 	// Optimized function to handle event button clicks (no async needed)
 	const handleEventAction = (event: Event) => {
 		const bibCount = getBibCountForEvent(event.id)
@@ -829,6 +850,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 											bibsCount={eventBibsCache[e.id]}
 											bibsData={eventBibsData[e.id]}
 											onAction={handleEventAction}
+											onViewEvent={handleViewEvent}
 											t={t}
 										/>
 									</div>
