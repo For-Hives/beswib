@@ -7,6 +7,7 @@ import type { Locale } from '@/lib/i18n/config'
 import type { Bib } from '@/models/bib.model'
 
 import { formatDateWithLocale } from '@/lib/utils/date'
+import { cn } from '@/lib/utils'
 
 // Flexible type that works with both BibSale and actual service response
 type BibData = BibSale | (Bib & { expand?: { eventId: Event; sellerUserId: User } })
@@ -121,6 +122,7 @@ export default function BibCard({ locale, bib }: Readonly<BibCardProps>) {
 		<div
 			style={{
 				width: '280px',
+				position: 'relative',
 				overflow: 'hidden',
 				height: '380px',
 				flexDirection: 'column',
@@ -128,7 +130,7 @@ export default function BibCard({ locale, bib }: Readonly<BibCardProps>) {
 				boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
 				borderRadius: '16px',
 				border: '1px solid #e5e7eb',
-				backgroundColor: 'white',
+				backgroundColor: '#fff',
 			}}
 		>
 			{/* Image container */}
@@ -201,7 +203,7 @@ export default function BibCard({ locale, bib }: Readonly<BibCardProps>) {
 				<div
 					style={{
 						textAlign: 'center',
-						marginBottom: '8px',
+						marginBottom: '16px',
 						fontStyle: 'italic',
 						fontSize: '10px',
 						fontFamily: 'Geist',
@@ -211,15 +213,6 @@ export default function BibCard({ locale, bib }: Readonly<BibCardProps>) {
 				>
 					vendu par {user.firstName ?? 'Anonymous'}
 				</div>
-
-				{/* Separator */}
-				<div
-					style={{
-						marginBottom: '12px',
-						height: '1px',
-						backgroundColor: '#e5e7eb',
-					}}
-				/>
 
 				{/* Title and price */}
 				<div
