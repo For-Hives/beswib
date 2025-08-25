@@ -12,13 +12,13 @@ export async function checkIsCurrentUserAdmin(): Promise<boolean> {
 	try {
 		const { userId: clerkId } = await auth()
 
-		if (clerkId === null || clerkId === undefined) {
+		if (clerkId == null || clerkId === undefined) {
 			return false
 		}
 
 		const user = await fetchUserByClerkId(clerkId)
 
-		if (user === null || user.role !== 'admin') {
+		if (user == null || user.role !== 'admin') {
 			return false
 		}
 

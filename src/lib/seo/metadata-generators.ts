@@ -222,17 +222,17 @@ export function generateEventMetadata(locale: Locale, event: Event): Metadata {
 			'event:start_time': new Date(event.eventDate).toISOString(),
 			'event:location': event.location,
 			'event:end_time': new Date(event.eventDate).toISOString(),
-			...(event.distanceKm !== null &&
+			...(event.distanceKm != null &&
 				event.distanceKm !== undefined &&
 				event.distanceKm > 0 && {
 					'event:distance': `${event.distanceKm}km`,
 				}),
-			...(event.elevationGainM !== null &&
+			...(event.elevationGainM != null &&
 				event.elevationGainM !== undefined &&
 				event.elevationGainM > 0 && {
 					'event:elevation': `${event.elevationGainM}m`,
 				}),
-			...(event.participants !== null &&
+			...(event.participants != null &&
 				event.participants !== undefined &&
 				event.participants > 0 && {
 					'event:capacity': event.participants.toString(),

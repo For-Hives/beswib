@@ -29,12 +29,12 @@ export default async function SellBibPage({ params }: { params: Promise<LocalePa
 
 	const { userId: clerkUserId } = await auth()
 
-	if (clerkUserId === null || clerkUserId === undefined) {
+	if (clerkUserId == null || clerkUserId === undefined) {
 		redirect('/auth/sign-in')
 	}
 
 	const beswibUser = await fetchUserByClerkId(clerkUserId)
-	if (beswibUser === null || beswibUser === undefined) {
+	if (beswibUser == null || beswibUser === undefined) {
 		redirect('/dashboard')
 	}
 

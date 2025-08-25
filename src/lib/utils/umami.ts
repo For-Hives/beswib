@@ -45,7 +45,7 @@ export type UmamiPayload = {
 
 // Basic payload guard (kept strict to avoid `any`/`unknown`)
 function isValidPayload(payload: UmamiPayload | false | null | undefined): payload is UmamiPayload {
-	return payload !== null && payload !== undefined && typeof payload === 'object'
+	return payload != null && payload !== undefined && typeof payload === 'object'
 }
 
 // Optional privacy filter: redacts common PII keys if present

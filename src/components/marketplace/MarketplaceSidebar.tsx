@@ -128,8 +128,8 @@ export default function MarketplaceSidebar({
 
 	// Count active filters
 	const activeFiltersCount = [
-		filters.sport !== null,
-		filters.distance !== null,
+		filters.sport != null,
+		filters.distance != null,
 		filters.priceMin !== 0 || filters.priceMax !== maxPrice,
 		filters.geography.length > 0,
 		filters.dateStart !== undefined,
@@ -205,7 +205,7 @@ export default function MarketplaceSidebar({
 										: `Show ${sportsOptions.length - 4} More`}
 							</Button>
 						)}
-						{filters.sport !== null && (
+						{filters.sport != null && (
 							<Button
 								variant="ghost"
 								size="sm"
@@ -253,7 +253,7 @@ export default function MarketplaceSidebar({
 										: `Show ${distanceOptions.length - 4} More`}
 							</Button>
 						)}
-						{filters.distance !== null && (
+						{filters.distance != null && (
 							<Button
 								variant="ghost"
 								size="sm"
@@ -364,13 +364,13 @@ export default function MarketplaceSidebar({
 										<X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handleRemoveGeography(location)} />
 									</Badge>
 								))}
-								{filters.sport !== null && (
+								{filters.sport != null && (
 									<Badge variant="secondary" className="text-xs">
 										{sportsOptions.find(s => s.value === filters.sport)?.label}
 										<X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handleSportChange(null)} />
 									</Badge>
 								)}
-								{filters.distance !== null && (
+								{filters.distance != null && (
 									<Badge variant="secondary" className="text-xs">
 										{distanceOptions.find(d => d.value === filters.distance)?.label}
 										<X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handleDistanceChange(null)} />

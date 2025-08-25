@@ -45,7 +45,7 @@ export default function PayPalOnboarding(props: PayPalOnboardingProps) {
 // Utility to normalize various error shapes into a message
 function formatError(error: unknown, fallback: string): string {
 	if (error instanceof Error) return error.message
-	if (typeof error === 'object' && error !== null && 'message' in error) {
+	if (typeof error === 'object' && error != null && 'message' in error) {
 		const maybe = (error as { message?: unknown }).message
 		if (typeof maybe === 'string') return maybe
 	}

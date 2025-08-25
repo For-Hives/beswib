@@ -166,7 +166,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				break
 
 			case 'emailVerification':
-				if (formData.linkedEmailId === undefined || formData.linkedEmailId === null || formData.linkedEmailId === '') {
+				if (formData.linkedEmailId === undefined || formData.linkedEmailId == null || formData.linkedEmailId === '') {
 					newErrors.linkedEmailId = t.form.emailVerification.selectEmailError
 				} else if (formData.linkedEmailId !== 'main-email') {
 					// Check if the selected email is verified
@@ -178,7 +178,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				break
 
 			case 'eventSelection':
-				if (formData.selectedEvent === null || formData.selectedEvent === undefined) {
+				if (formData.selectedEvent == null || formData.selectedEvent === undefined) {
 					newErrors.selectedEvent = t.validation.eventRequired
 				}
 				break
@@ -237,7 +237,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 			let linkedEmailId: string | undefined = undefined
 			if (
 				formData.linkedEmailId !== undefined &&
-				formData.linkedEmailId !== null &&
+				formData.linkedEmailId != null &&
 				formData.linkedEmailId !== 'main-email'
 			) {
 				linkedEmailId = formData.linkedEmailId

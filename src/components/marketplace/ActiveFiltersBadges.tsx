@@ -52,7 +52,7 @@ export default function ActiveFiltersBadges({ onRemoveFilter, maxPrice, locale, 
 	const activeFilters = []
 
 	// Sport filter
-	if (filters.sport !== null) {
+	if (filters.sport != null) {
 		const sport = sportsOptions.find(s => s.value === filters.sport)
 		if (sport) {
 			activeFilters.push({
@@ -64,7 +64,7 @@ export default function ActiveFiltersBadges({ onRemoveFilter, maxPrice, locale, 
 	}
 
 	// Distance filter
-	if (filters.distance !== null) {
+	if (filters.distance != null) {
 		const distance = distanceOptions.find(d => d.value === filters.distance)
 		if (distance) {
 			activeFilters.push({

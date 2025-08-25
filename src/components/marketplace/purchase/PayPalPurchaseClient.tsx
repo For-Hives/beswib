@@ -133,10 +133,10 @@ export default function PayPalPurchaseClient({
 	const updateLockStateFrom = useCallback(
 		(lockedAt: DateLike) => {
 			const lockedDt: DateTime | null = toLuxon(lockedAt)
-			setLockExpiration(lockedDt !== null ? lockedDt.plus({ minutes: 5 }) : null)
-			if (lockedDt !== null) {
+			setLockExpiration(lockedDt != null ? lockedDt.plus({ minutes: 5 }) : null)
+			if (lockedDt != null) {
 				const iso = lockedDt.toISO()
-				if (iso !== null) {
+				if (iso != null) {
 					setLockedAtParam(iso).catch(() => {
 						toast.error('Error with the lock mechanism')
 					})
@@ -158,7 +158,7 @@ export default function PayPalPurchaseClient({
 			try {
 				if (status === 'unlocked') {
 					const lockedBib = await lockBib(bib.id, user?.id ?? '')
-					if (lockedBib === null || lockedBib === undefined) {
+					if (lockedBib == null || lockedBib === undefined) {
 						toast.error('Failed to lock bib. It may have just been locked by another user.')
 						console.error('Failed to lock bib:', lockedBib)
 						return
@@ -194,7 +194,7 @@ export default function PayPalPurchaseClient({
 	const handleCreateOrder = useCallback(async () => {
 		// Get seller's PayPal merchant ID
 		const sellerId = sellerUser?.paypalMerchantId
-		if (sellerId === null || sellerId === undefined || sellerId === '') {
+		if (sellerId == null || sellerId === undefined || sellerId === '') {
 			const errorMsg = 'Seller PayPal account not configured'
 			setErrorMessage(errorMsg)
 			throw new Error(errorMsg)
@@ -230,7 +230,7 @@ export default function PayPalPurchaseClient({
 
 				// Pass the lock key (lockedAtParam) to enforce a last DB check server-side
 				const res = await captureOrder(data.orderID, lockedAtParam ?? null)
-				if (res.error !== null && res.error !== undefined && res.error !== '') {
+				if (res.error != null && res.error !== undefined && res.error !== '') {
 					throw new Error(res.error)
 				}
 
@@ -265,7 +265,7 @@ export default function PayPalPurchaseClient({
 	return (
 		<div className="relative">
 			{/* Lock timer in top left corner */}
-			{secondsLeft !== null && secondsLeft > 0 && (
+			{secondsLeft != null && secondsLeft > 0 && (
 				<div style={{ zIndex: 50, top: 24, position: 'fixed', left: 24 }}>
 					<LockTimer seconds={secondsLeft} />
 				</div>

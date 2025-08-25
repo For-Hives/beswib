@@ -268,7 +268,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 					const date = row.getValue('eventDate')
 					return (
 						<div>
-							{date !== null && date !== undefined && date !== ''
+							{date != null && date !== undefined && date !== ''
 								? formatDateObjectForDisplay(new Date(date as string), locale)
 								: 'N/A'}
 						</div>
@@ -283,7 +283,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 					const distance = row.getValue('distanceKm')
 					return (
 						<div>
-							{distance !== null && distance !== undefined && typeof distance === 'number' ? `${distance}km` : 'N/A'}
+							{distance != null && distance !== undefined && typeof distance === 'number' ? `${distance}km` : 'N/A'}
 						</div>
 					)
 				},
@@ -294,7 +294,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 				header: t.events.table.columns.type,
 				cell: ({ row }) => {
 					const type = row.getValue('typeCourse')
-					// if (type === null || type === undefined || type === '') return 'N/A'
+					// if (type == null || type === undefined || type === '') return 'N/A'
 					// if (typeof type !== 'string') return 'N/A'
 					return (
 						<Badge className="capitalize" variant="outline">
@@ -311,7 +311,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 					const participants = row.getValue('participants')
 					return (
 						<div>
-							{participants !== null && participants !== undefined && typeof participants === 'number'
+							{participants != null && participants !== undefined && typeof participants === 'number'
 								? participants.toLocaleString()
 								: 'N/A'}
 						</div>

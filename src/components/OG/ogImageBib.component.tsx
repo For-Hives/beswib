@@ -11,6 +11,8 @@ import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 // Flexible type that works with both BibSale and actual service response
 type BibData = BibSale | (Bib & { expand?: { eventId: Event; sellerUserId: User } }) | null
 
+import { Organizer } from '@/models/organizer.model'
+
 import BeswibLogo from './icons/BeswibLogo'
 import Pattern from './icons/Pattern'
 import BibCard from './BibCard'
@@ -63,7 +65,7 @@ function processTextForHighlighting(text: string, highlightColor: string) {
 	let lastIndex = 0
 	let match: RegExpExecArray | null
 
-	while ((match = regex.exec(text)) !== null) {
+	while ((match = regex.exec(text)) != null) {
 		// Text before the **
 		if (match.index > lastIndex) {
 			parts.push({ text: text.slice(lastIndex, match.index), color: '#111E3B' })
@@ -89,11 +91,12 @@ type OGImageProps = {
 	protocol: string // Protocol (http/https) for assets
 	size: { width: number; height: number } // OG image dimensions
 	bib?: BibData // Optional bib data to display
+	organizer?: Organizer // Optional organizer data to display
 	locale?: Locale // Optional locale for translations
 }
 
 // Main component for generating an Open Graph image
-export default function OGImageBib({ title, size, secondary, locale, bib }: Readonly<OGImageProps>) {
+export default function OGImageBib({ title, size, secondary, organizer, locale, bib }: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
 	const MAX_WIDTH_Secondary = 440
@@ -318,8 +321,8 @@ export default function OGImageBib({ title, size, secondary, locale, bib }: Read
 					}}
 				>
 					{/* Bib card or placeholder */}
-					{bib && locale ? (
-						<BibCard bib={bib} locale={locale} />
+					{bib && locale && organizer ? (
+						<BibCard bib={bib} locale={locale} organizer={organizer} />
 					) : (
 						<div style={{ width: '300px', height: '400px', borderRadius: '20px', backgroundColor: '#f3f4f6' }}></div>
 					)}

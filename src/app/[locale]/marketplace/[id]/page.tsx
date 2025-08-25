@@ -98,7 +98,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	const { userId } = await auth()
 
 	let user: null | User = null
-	if (userId !== null && userId !== undefined) {
+	if (userId != null && userId !== undefined) {
 		user = await fetchUserByClerkId(userId)
 	}
 

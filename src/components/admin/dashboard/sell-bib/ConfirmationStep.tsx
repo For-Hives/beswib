@@ -51,7 +51,7 @@ export default function ConfirmationStep({
 
 	const generatePrivateLink = () => {
 		if (
-			createdBib?.privateListingToken === null ||
+			createdBib?.privateListingToken == null ||
 			createdBib?.privateListingToken === undefined ||
 			createdBib?.privateListingToken === ''
 		)
@@ -131,7 +131,7 @@ export default function ConfirmationStep({
 	return (
 		<div className="space-y-8">
 			{/* Success Message - Only after creation */}
-			{createdBib !== null && createdBib !== undefined && (
+			{createdBib != null && createdBib !== undefined && (
 				<div className="space-y-6">
 					<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 						<CardContent className="p-6">
@@ -199,7 +199,7 @@ export default function ConfirmationStep({
 				{/* Left Column - Summary */}
 				<div>
 					<h2 className="text-foreground mb-6 text-2xl font-semibold">
-						{createdBib !== null && createdBib !== undefined
+						{createdBib != null && createdBib !== undefined
 							? t.form.confirmation.successTitle
 							: t.form.confirmation.reviewTitle}
 					</h2>
@@ -215,7 +215,7 @@ export default function ConfirmationStep({
 									<Label className="text-muted-foreground text-sm font-medium">{t.form.confirmation.bibNumber}</Label>
 									<p className="text-foreground font-semibold">{formData.registrationNumber}</p>
 								</div>
-								{formData.originalPrice !== null &&
+								{formData.originalPrice != null &&
 									formData.originalPrice !== undefined &&
 									formData.originalPrice !== '' && (
 										<div className="space-y-2">
@@ -271,7 +271,7 @@ export default function ConfirmationStep({
 				<div>
 					<h3 className="text-foreground mb-6 text-xl font-semibold">{t.form.confirmation.marketplacePreview}</h3>
 					<div className="pointer-events-none flex justify-center">
-						{bibSalePreview !== null && bibSalePreview !== undefined && (
+						{bibSalePreview != null && bibSalePreview !== undefined && (
 							<CardMarket bibSale={bibSalePreview} locale={locale} />
 						)}
 					</div>

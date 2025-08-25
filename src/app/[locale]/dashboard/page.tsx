@@ -29,7 +29,7 @@ export default async function DashboardPage({ params }: { params: Promise<Locale
 	const { userId } = await auth()
 	const clerkUser = await currentUser()
 
-	if (userId === null || userId === undefined || clerkUser === null) {
+	if (userId == null || userId === undefined || clerkUser == null) {
 		redirect('/auth/sign-in')
 	}
 

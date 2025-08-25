@@ -71,7 +71,7 @@ export function useCurrencyConversion(priceInEur: number, locale: Locale): UseCu
 				: null
 
 	// Format the converted price
-	const convertedFormatted = convertedPrice !== null ? formatPrice(convertedPrice, targetCurrency) : null
+	const convertedFormatted = convertedPrice != null ? formatPrice(convertedPrice, targetCurrency) : null
 
 	return {
 		isLoading: targetCurrency !== 'eur' && isLoading,

@@ -203,7 +203,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 				const date = row.getValue('created')
 				return (
 					<div>
-						{date !== null && date !== undefined && date !== ''
+						{date != null && date !== undefined && date !== ''
 							? formatDateObjectForDisplay(new Date(date as string), locale)
 							: t.organizers.common.na}
 					</div>
@@ -286,7 +286,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 	})
 
 	// Safety check - if currentUser is null, show error
-	if (currentUser === null || currentUser === undefined) {
+	if (currentUser == null || currentUser === undefined) {
 		return (
 			<div className="from-background via-destructive/5 to-background relative min-h-screen bg-gradient-to-br">
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>

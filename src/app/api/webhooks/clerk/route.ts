@@ -136,7 +136,7 @@ async function processUserCreation(
 	try {
 		const newUserInDb = await createUser(userData)
 
-		if (newUserInDb === null) {
+		if (newUserInDb == null) {
 			console.error(`Failed to create user ${clerkId} in PocketBase.`)
 			return NextResponse.json({ error: 'Failed to create user in database' }, { status: 500 })
 		}
@@ -166,7 +166,7 @@ async function processUserCreation(
 }
 
 function validateWebhookSecret(): NextResponse | null {
-	if (WEBHOOK_SECRET === undefined || WEBHOOK_SECRET === null || WEBHOOK_SECRET.trim() === '') {
+	if (WEBHOOK_SECRET === undefined || WEBHOOK_SECRET == null || WEBHOOK_SECRET.trim() === '') {
 		console.error('CLERK_WEBHOOK_SECRET is not set')
 		return NextResponse.json({ error: 'Internal Server Error: Webhook secret not configured' }, { status: 500 })
 	}

@@ -1,7 +1,7 @@
 export const DISCORD_MENTION = '@here'
 
 export function safeDiscordText(value: unknown, max = 5000): string {
-	if (value === null || value === undefined) return ''
+	if (value == null || value === undefined) return ''
 	if (typeof value === 'string') return value.replaceAll('`', 'ˋ').slice(0, max).trim()
 	if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint')
 		return String(value).replaceAll('`', 'ˋ').slice(0, max).trim()

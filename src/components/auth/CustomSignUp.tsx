@@ -118,7 +118,7 @@ export default function CustomSignUp() {
 			...prev,
 			[field]: error,
 		}))
-		return error === null
+		return error == null
 	}
 
 	// Handle input changes
@@ -204,7 +204,7 @@ export default function CustomSignUp() {
 			} else if (result.status === 'missing_requirements') {
 				// Check if it's specifically email verification that's missing
 				const hasUnverifiedEmail = result.unverifiedFields?.includes('email_address')
-				const emailVerificationNull = result.verifications?.emailAddress === null
+				const emailVerificationNull = result.verifications?.emailAddress == null
 
 				if (hasUnverifiedEmail || emailVerificationNull) {
 					// Email verification needed - prepare verification

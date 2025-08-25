@@ -1,13 +1,13 @@
 import * as React from 'react'
 
 import type { BibSale } from '@/models/marketplace.model'
+import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 import type { Locale } from '@/lib/i18n/config'
 import type { Bib } from '@/models/bib.model'
 
 import { formatDateWithLocale } from '@/lib/utils/date'
-import { cn } from '@/lib/utils'
 
 // Flexible type that works with both BibSale and actual service response
 type BibData = BibSale | (Bib & { expand?: { eventId: Event; sellerUserId: User } })
@@ -100,9 +100,25 @@ function getUserFromBib(bib: BibData) {
 interface BibCardProps {
 	bib: BibData
 	locale: Locale
+	organizer?: Organizer
 }
 
-export default function BibCard({ locale, bib }: Readonly<BibCardProps>) {
+function formatImage(image: string) {
+	// If image is already a full URL, return it
+	if (image.startsWith('http')) {
+		return image
+	}
+
+	// If image is in the new format (filename only), construct the full URL
+	if (image?.includes('_')) {
+		return `https://api.staging.beswib.com/api/files/pbc_4261386219/4x60p60un9x29wm/${image}?token=`
+	}
+
+	// Default fallback image
+	return 'https://beswib.com/bib-blue.png'
+}
+
+export default function BibCard({ organizer, locale, bib }: Readonly<BibCardProps>) {
 	const event = getEventFromBib(bib)
 	const user = getUserFromBib(bib)
 
@@ -144,7 +160,7 @@ export default function BibCard({ locale, bib }: Readonly<BibCardProps>) {
 					borderRadius: '12px',
 					backgroundSize: 'cover',
 					backgroundPosition: 'center',
-					backgroundImage: `url(${event.image})`,
+					backgroundImage: `url(${formatImage(organizer?.logo ?? '')})`,
 					backgroundColor: '#f3f4f6',
 					alignItems: 'center',
 				}}

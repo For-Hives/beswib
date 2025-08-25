@@ -136,7 +136,7 @@ export default function EventSchema({ organizer, locale, event }: EventSchemaPro
 	// Add conditional properties with proper typing
 	const dynamicSchema: Record<string, unknown> = { ...schema }
 
-	if (event.distanceKm !== null && event.distanceKm !== undefined && event.distanceKm > 0) {
+	if (event.distanceKm != null && event.distanceKm !== undefined && event.distanceKm > 0) {
 		dynamicSchema['distance'] = {
 			value: event.distanceKm,
 			unitCode: 'KMT',
@@ -144,7 +144,7 @@ export default function EventSchema({ organizer, locale, event }: EventSchemaPro
 		}
 	}
 
-	if (event.elevationGainM !== null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
+	if (event.elevationGainM != null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
 		dynamicSchema['elevation'] = {
 			value: event.elevationGainM,
 			unitCode: 'MTR',
@@ -152,15 +152,15 @@ export default function EventSchema({ organizer, locale, event }: EventSchemaPro
 		}
 	}
 
-	if (event.participants !== null && event.participants !== undefined && event.participants > 0) {
+	if (event.participants != null && event.participants !== undefined && event.participants > 0) {
 		dynamicSchema['maximumAttendeeCapacity'] = event.participants
 	}
 
-	if (event.parcoursUrl !== null && event.parcoursUrl !== undefined && event.parcoursUrl.length > 0) {
+	if (event.parcoursUrl != null && event.parcoursUrl !== undefined && event.parcoursUrl.length > 0) {
 		dynamicSchema['courseMap'] = event.parcoursUrl
 	}
 
-	if (event.bibPickupLocation !== null && event.bibPickupLocation !== undefined && event.bibPickupLocation.length > 0) {
+	if (event.bibPickupLocation != null && event.bibPickupLocation !== undefined && event.bibPickupLocation.length > 0) {
 		const locationSchema = dynamicSchema['location'] as Record<string, unknown>
 		locationSchema['additionalProperty'] = {
 			value: event.bibPickupLocation,

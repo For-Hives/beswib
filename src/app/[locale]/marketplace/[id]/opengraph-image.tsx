@@ -35,6 +35,7 @@ export default async function Image({ params }: { params: Promise<MarketplaceOpe
 
 	// Try to fetch the bib details
 	let bib = null
+	let organizer = null
 	let title = t.title ?? 'Marketplace'
 	let secondary = t.descriptionOG ?? '**Browse** and **buy** race **bibs** from our marketplace'
 
@@ -42,24 +43,23 @@ export default async function Image({ params }: { params: Promise<MarketplaceOpe
 		// Check bib status first
 		const bibStatus = await checkBibListingStatus(id)
 
-		if (bibStatus?.exists && bibStatus.available) {
-			// Try to fetch bib data
+		if (bibStatus && bibStatus?.exists && bibStatus.available) {
+			// Try to fetch bib data with full expansion (event + organizer)
 			bib = await fetchPublicBibById(id)
 
 			// If we successfully got bib data, customize the title and description
 			if (bib?.expand?.eventId) {
-				const eventName = bib.expand.eventId.name
-				const location = bib.expand.eventId.location
+				const event = bib.expand.eventId
+				organizer = event.expand?.organizer
 				const price = bib.price
-				const distance = bib.expand.eventId.distanceKm
 
 				// Use event name as the main title
-				title = eventName
+				title = event.name
 
 				// Create descriptive secondary text
 				const details = []
-				if (location) details.push(location)
-				if (distance) details.push(`${distance}km`)
+				if (event.location) details.push(event.location)
+				if (event.distanceKm != null) details.push(`${event.distanceKm}km`)
 				if (price) details.push(`€${price}`)
 
 				secondary =
@@ -96,6 +96,7 @@ export default async function Image({ params }: { params: Promise<MarketplaceOpe
 					size={size}
 					bib={bib}
 					locale={locale}
+					organizer={organizer ?? undefined}
 				/>
 			),
 			{

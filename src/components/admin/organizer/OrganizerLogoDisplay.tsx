@@ -23,7 +23,7 @@ export default function OrganizerLogoDisplay({ size = 'md', organizer, className
 
 	const logoUrl = getOrganizerLogoUrl(organizer, thumbnailSizes[size])
 
-	if (logoUrl === null || logoUrl === undefined || logoUrl === '') {
+	if (logoUrl == null || logoUrl === undefined || logoUrl === '') {
 		// Fallback when no logo is available
 		return (
 			<div className={`flex items-center justify-center rounded-lg bg-gray-100 ${getSizeClasses(size)} ${className}`}>

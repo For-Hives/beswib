@@ -62,7 +62,7 @@ export default function OrganizerSection({ setValue, locale, formData, errors }:
 							{translations.event.fields.organizer.label} *
 						</Label>
 
-						{error !== null && error !== '' && (
+						{error != null && error !== '' && (
 							<div className="mb-4 rounded-lg bg-red-50 p-3 text-red-700 dark:bg-red-900/20 dark:text-red-400">
 								{error}
 							</div>

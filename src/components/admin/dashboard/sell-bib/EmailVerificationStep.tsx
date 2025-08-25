@@ -104,7 +104,7 @@ export default function EmailVerificationStep({
 	const handleNewEmailChange = (email: string) => {
 		setNewEmail(email)
 		// Clear validation error when user starts typing
-		if (emailValidationError !== null) {
+		if (emailValidationError != null) {
 			setEmailValidationError(null)
 		}
 	}
@@ -114,7 +114,7 @@ export default function EmailVerificationStep({
 		const emailToValidate = newEmail.trim()
 		if (emailToValidate === '') return false
 		const validationError = validateEmailValibot(emailToValidate, locale)
-		return validationError === null
+		return validationError == null
 	}
 
 	// Add user's main email as default option if not already in verified emails
@@ -146,7 +146,7 @@ export default function EmailVerificationStep({
 				<h2 className="text-2xl font-bold tracking-tight">{t.form.emailVerification.title}</h2>
 				<p className="text-muted-foreground mt-2">{t.form.emailVerification.description}</p>
 			</div>
-			{error !== undefined && error !== null && error !== '' && (
+			{error !== undefined && error != null && error !== '' && (
 				<Alert variant="destructive">
 					<AlertDescription>{error}</AlertDescription>
 				</Alert>
@@ -232,9 +232,9 @@ export default function EmailVerificationStep({
 										value={newEmail}
 										onChange={e => handleNewEmailChange(e.target.value)}
 										onKeyPress={e => e.key === 'Enter' && handleAddEmail()}
-										className={`h-12 md:w-64 ${emailValidationError !== null ? 'border-red-500' : ''}`}
+										className={`h-12 md:w-64 ${emailValidationError != null ? 'border-red-500' : ''}`}
 									/>
-									{emailValidationError !== null && <p className="mt-1 text-sm text-red-500">{emailValidationError}</p>}
+									{emailValidationError != null && <p className="mt-1 text-sm text-red-500">{emailValidationError}</p>}
 								</div>
 								<Button onClick={handleAddEmail} disabled={!isEmailValid()}>
 									{t.form.emailVerification.add}
@@ -255,7 +255,7 @@ export default function EmailVerificationStep({
 					)}
 				</CardContent>
 			</Card>
-			{selectedEmailId !== undefined && selectedEmailId !== null && selectedEmailId !== '' && (
+			{selectedEmailId !== undefined && selectedEmailId != null && selectedEmailId !== '' && (
 				<Alert>
 					<CheckIcon className="h-4 w-4" />
 					<AlertDescription>

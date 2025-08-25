@@ -80,7 +80,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 	})
 
 	const onSubmit: SubmitHandler<RunnerFormData> = values => {
-		if (user === null) return
+		if (user == null) return
 		// Enforce at least one contact: if both are empty, surface client-side error
 		const hasPhone = typeof values.phoneNumber === 'string' && values.phoneNumber.trim() !== ''
 		const hasEmail = typeof values.contactEmail === 'string' && values.contactEmail.trim() !== ''

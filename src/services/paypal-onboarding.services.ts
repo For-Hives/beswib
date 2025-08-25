@@ -44,7 +44,7 @@ export async function initiatePayPalOnboarding(
 		// Call PayPal onboarding service
 		const result = await onboardSeller(trackingId)
 
-		if (result.error !== null && result.error !== undefined && result.error !== '') {
+		if (result.error != null && result.error !== undefined && result.error !== '') {
 			return { error: result.error }
 		}
 

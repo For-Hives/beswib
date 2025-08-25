@@ -123,7 +123,7 @@ function mapPbVerifiedEmailToModel(record: unknown): VerifiedEmail {
 	const typedRecord = record as VerifiedEmailRecord
 	return {
 		verifiedAt:
-			typedRecord.verifiedAt !== null && typedRecord.verifiedAt !== undefined && typedRecord.verifiedAt !== ''
+			typedRecord.verifiedAt != null && typedRecord.verifiedAt !== undefined && typedRecord.verifiedAt !== ''
 				? (pbDateToLuxon(typedRecord.verifiedAt)?.toJSDate() ?? null)
 				: null,
 		verificationCode: typedRecord.verificationCode,
@@ -157,7 +157,7 @@ export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Pro
 
 		const existing = existingRecords.length > 0 ? existingRecords[0] : null
 
-		if (existing !== null && existing !== undefined && Boolean(existing.isVerified) === true) {
+		if (existing != null && existing !== undefined && Boolean(existing.isVerified) === true) {
 			// Email already verified, return existing record
 			return mapPbVerifiedEmailToModel(existing)
 		}
@@ -167,7 +167,7 @@ export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Pro
 
 		let record: unknown
 
-		if (existing !== null && existing !== undefined) {
+		if (existing != null && existing !== undefined) {
 			// Update existing unverified record
 			record = await pb.collection('verifiedEmails').update(existing.id, {
 				verifiedAt: null,
@@ -213,7 +213,7 @@ export async function verifyEmail(data: VerifyEmailRequest): Promise<VerifiedEma
 
 		// Check if expired
 		const expiresAt = pbDateToLuxon(record.expiresAt as string)
-		if (expiresAt !== null && expiresAt.toJSDate() < new Date()) {
+		if (expiresAt != null && expiresAt.toJSDate() < new Date()) {
 			throw new Error('Verification code has expired')
 		}
 

@@ -17,11 +17,11 @@ import { getTransactionByOrderId, updateTransaction } from './transaction.servic
 const PAYPAL_MERCHANT_ID = () => process.env.PAYPAL_MERCHANT_ID ?? ''
 
 export async function handlePaymentCaptureCompleted(event: unknown) {
-	if (typeof event !== 'object' || event === null) {
+	if (typeof event !== 'object' || event == null) {
 		throw new Error('Invalid webhook event')
 	}
 	const resourceRaw = (event as { resource?: unknown }).resource
-	if (typeof resourceRaw !== 'object' || resourceRaw === null) {
+	if (typeof resourceRaw !== 'object' || resourceRaw == null) {
 		throw new Error('No resource in webhook event')
 	}
 	// Normalize the resource to the shape expected by salesComplete
@@ -36,11 +36,11 @@ export async function handlePaymentCaptureCompleted(event: unknown) {
 }
 
 export async function handleCheckoutOrderApproved(event: unknown) {
-	if (typeof event !== 'object' || event === null) {
+	if (typeof event !== 'object' || event == null) {
 		throw new Error('Invalid webhook event')
 	}
 	const resource = (event as { resource?: unknown }).resource
-	if (typeof resource !== 'object' || resource === null) {
+	if (typeof resource !== 'object' || resource == null) {
 		throw new Error('No resource in webhook event')
 	}
 	const orderId = (resource as { id?: string }).id ?? ''

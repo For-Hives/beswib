@@ -54,7 +54,7 @@ export default function WaitlistStatusClient({ locale, joinLabel, eventId, actio
 		return <p className="text-destructive text-sm">{t.status.failed}</p>
 	}
 
-	if (inWaitlist === null) {
+	if (inWaitlist == null) {
 		return <p className="text-muted-foreground text-sm">{t.status.checking}</p>
 	}
 

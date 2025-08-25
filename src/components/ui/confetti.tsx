@@ -34,7 +34,7 @@ const Confetti = forwardRef<ConfettiRef, Props>((props, ref) => {
 		// https://react.dev/reference/react-dom/components/common#ref-callback
 		// https://reactjs.org/docs/refs-and-the-dom.html#callback-refs
 		(node: HTMLCanvasElement) => {
-			if (node !== null) {
+			if (node != null) {
 				// <canvas> is mounted => create the confetti instance
 				if (instanceRef.current) return // if not already created
 				instanceRef.current = confetti.create(node, {
