@@ -103,48 +103,50 @@ const PhoneInputWithMotion = ({
 				`,
 			}}
 		>
-			<ReactInternationalPhoneInput
-				defaultCountry={defaultCountry}
-				value={value ?? ''}
-				onChange={onChange}
-				onBlur={onBlur}
-				placeholder={placeholder}
-				disabled={disabled}
-				inputClassName={cn(
-					'shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input flex h-10 w-full rounded-r-md border-r border-t border-b border-l-0 px-3 py-2 text-sm transition duration-400 group-hover/input:shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-400',
-					error === true && 'border-red-500 focus-visible:ring-red-500'
-				)}
-				countrySelectorStyleProps={{
-					dropdownStyleProps: {
-						style: {
-							zIndex: 9999,
-							overflowY: 'auto' as const,
-							minWidth: '250px',
-							maxHeight: '200px',
-							boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-							borderRadius: '0.5rem',
-							border: '1px solid hsl(var(--border))',
-							backgroundColor: 'hsl(var(--background))',
+			<div className="bg-background rounded-lg">
+				<ReactInternationalPhoneInput
+					defaultCountry={defaultCountry}
+					value={value ?? ''}
+					onChange={onChange}
+					onBlur={onBlur}
+					placeholder={placeholder}
+					disabled={disabled}
+					inputClassName={cn(
+						'shadow-input dark:placeholder-text-neutral-600 bg-background text-foreground placeholder:text-foreground/50 focus-visible:ring-ring border-input flex h-10 w-full rounded-r-md border-r border-t border-b border-l-0 px-3 py-2 text-sm transition duration-400 group-hover/input:shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[2px] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-400',
+						error === true && 'border-red-500 focus-visible:ring-red-500'
+					)}
+					countrySelectorStyleProps={{
+						dropdownStyleProps: {
+							style: {
+								zIndex: 9999,
+								overflowY: 'auto' as const,
+								minWidth: '250px',
+								maxHeight: '200px',
+								boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+								borderRadius: '0.5rem',
+								border: '1px solid hsl(var(--border))',
+								backgroundColor: 'hsl(var(--background))',
+							},
+							listItemStyle: {
+								transition: 'background-color 0.2s ease',
+								padding: '0.5rem 0.75rem',
+								fontSize: '0.875rem',
+								cursor: 'pointer',
+								color: 'hsl(var(--foreground))',
+								borderBottom: '1px solid hsl(var(--border) / 0.3)',
+							},
 						},
-						listItemStyle: {
-							transition: 'background-color 0.2s ease',
-							padding: '0.5rem 0.75rem',
-							fontSize: '0.875rem',
-							cursor: 'pointer',
+						buttonStyle: {
+							transition: 'background-color 0.15s ease-in-out',
 							color: 'hsl(var(--foreground))',
-							borderBottom: '1px solid hsl(var(--border) / 0.3)',
+							borderRadius: '0.375rem',
+							border: 'none',
+							backgroundColor: 'transparent',
 						},
-					},
-					buttonStyle: {
-						transition: 'background-color 0.15s ease-in-out',
-						color: 'hsl(var(--foreground))',
-						borderRadius: '0.375rem',
-						border: 'none',
-						backgroundColor: 'transparent',
-					},
-				}}
-				className="z-[9999]"
-			/>
+					}}
+					className="z-[9999]"
+				/>
+			</div>
 		</motion.div>
 	)
 }
