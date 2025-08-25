@@ -196,12 +196,12 @@ export default function VerifiedEmailsManager({ user, locale }: VerifiedEmailsMa
 			<Card>
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
-						<MailIcon className="h-5 w-5" />
+						<MailIcon className="text-primary h-5 w-5" />
 						{t.verifiedEmails.title ?? 'Verified Email Addresses'}
 					</CardTitle>
 					<CardDescription>
 						{t.verifiedEmails.description ??
-							'Manage the email addresses associated with your account. Verified emails can be used for event registrations.'}
+							'Manage the email addresses associated with your account. Verified emails are used exclusively for important platform communications such as payment confirmations, event registrations, and security notifications. They will never be used for commercial marketing purposes.'}
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">

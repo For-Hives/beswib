@@ -24,6 +24,7 @@ export const mockUser: User = {
 	created: new Date('2024-01-01T00:00:00.000Z'),
 	country: null,
 	contactEmail: null,
+	consentMarket: false,
 	clubAffiliation: null,
 	clerkId: 'clerk_user1',
 	city: null,

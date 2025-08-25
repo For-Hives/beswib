@@ -8,6 +8,8 @@ export interface User {
 
 	email: string
 	contactEmail: null | string
+	/** Whether the user consents to marketing emails on their contact email */
+	consentMarket: boolean
 	firstName: null | string
 	lastName: null | string
 	locale: null | string
@@ -42,6 +44,7 @@ export interface PbUserRecordMinimal {
 	role: 'admin' | 'user'
 	email: string
 	contactEmail: string | null
+	consentMarket: boolean | null
 	firstName: string | null
 	lastName: string | null
 	locale: string | null

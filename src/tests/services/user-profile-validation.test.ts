@@ -26,6 +26,7 @@ describe('isUserProfileComplete', () => {
 		created: new Date(),
 		country: 'France',
 		contactEmail: 'john.contact@example.com',
+		consentMarket: false,
 		clubAffiliation: null,
 		clerkId: 'clerk_123',
 		city: 'Paris',

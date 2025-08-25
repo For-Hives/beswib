@@ -63,18 +63,19 @@ function buildUserData(evt: WebhookEvent, primaryEmail: string): Omit<User, 'cre
 		paypal_kyc: false,
 		medicalCertificateUrl: null,
 		locale: 'en', // Default locale for new users
-		licenseNumber: null,
 
+		licenseNumber: null,
 		lastName: last_name ?? '',
 		gender: null,
 		firstName: first_name ?? '',
 		emergencyContactRelationship: null,
 		emergencyContactPhone: '',
 		emergencyContactName: '',
-		email: primaryEmail,
 
+		email: primaryEmail,
 		country: null,
 		contactEmail: null,
+		consentMarket: false,
 		clubAffiliation: null,
 		clerkId,
 		city: null,
