@@ -30,13 +30,28 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 	const currentPath = usePathname()
 
 	// Navigation links data with dynamic current state 🧭
-	const navigationLinks = useMemo(() => [
-		{ label: t.navbar.homeLink, href: `/${locale}`, current: currentPath === `/${locale}` || currentPath === `/${locale}/` },
-		{ label: t.navbar.racesLink, href: `/${locale}/events`, current: currentPath.startsWith(`/${locale}/events`) },
-		{ label: t.navbar.marketplaceLink, href: `/${locale}/marketplace`, current: currentPath.startsWith(`/${locale}/marketplace`) },
-		{ label: t.navbar.faqLink, href: `/${locale}/faq`, current: currentPath.startsWith(`/${locale}/faq`) },
-		{ label: t.navbar.contactLink, href: `/${locale}/contact`, current: currentPath.startsWith(`/${locale}/contact`) },
-	], [t, locale, currentPath])
+	const navigationLinks = useMemo(
+		() => [
+			{
+				label: t.navbar.homeLink,
+				href: `/${locale}`,
+				current: currentPath === `/${locale}` || currentPath === `/${locale}/`,
+			},
+			{ label: t.navbar.racesLink, href: `/${locale}/events`, current: currentPath.startsWith(`/${locale}/events`) },
+			{
+				label: t.navbar.marketplaceLink,
+				href: `/${locale}/marketplace`,
+				current: currentPath.startsWith(`/${locale}/marketplace`),
+			},
+			{ label: t.navbar.faqLink, href: `/${locale}/faq`, current: currentPath.startsWith(`/${locale}/faq`) },
+			{
+				label: t.navbar.contactLink,
+				href: `/${locale}/contact`,
+				current: currentPath.startsWith(`/${locale}/contact`),
+			},
+		],
+		[t, locale, currentPath]
+	)
 
 	return (
 		<>
@@ -210,7 +225,9 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 			<DisclosureButton
 				as={Link}
 				className={`flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors ${
-					currentPath.startsWith('/dashboard') && !currentPath.startsWith('/dashboard/seller') && !currentPath.startsWith('/profile')
+					currentPath.startsWith('/dashboard') &&
+					!currentPath.startsWith('/dashboard/seller') &&
+					!currentPath.startsWith('/profile')
 						? 'bg-accent text-accent-foreground'
 						: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
 				}`}
