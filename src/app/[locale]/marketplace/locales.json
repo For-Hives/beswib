@@ -26,7 +26,17 @@
 		"sortByPriceDesc": "Price descending",
 		"sport": "Sport",
 		"start": "Start",
-		"title": "Marketplace Beswib"
+		"title": "Marketplace Beswib",
+		"ctaOG": "🏃‍♂️ **Secure your spot** now and **join the race**! Buy this **verified bib** with confidence.",
+		"soldBy": "sold by",
+		"participants": "participants",
+		"sportTypes": {
+			"triathlon": "Triathlon",
+			"trail": "Trail",
+			"road": "Road",
+			"other": "Other",
+			"cycle": "Cycling"
+		}
 	},
 	"fr": {
 		"allDistances": "Toutes les distances",
@@ -55,7 +65,17 @@
 		"sortByPriceDesc": "Prix décroissant",
 		"sport": "Sport",
 		"start": "Début",
-		"title": "Marché Beswib"
+		"title": "Marché Beswib",
+		"ctaOG": "🏃‍♂️ **Réservez votre place** maintenant et **rejoignez la course** ! Achetez ce **dossard vérifié** en toute confiance.",
+		"soldBy": "vendu par",
+		"participants": "participants",
+		"sportTypes": {
+			"triathlon": "Triathlon",
+			"trail": "Trail",
+			"road": "Route",
+			"other": "Autre",
+			"cycle": "Cyclisme"
+		}
 	},
 	"es": {
 		"allDistances": "Todas las distancias",
@@ -84,7 +104,17 @@
 		"sortByPriceDesc": "Precio descendente",
 		"sport": "Deporte",
 		"start": "Inicio",
-		"title": "Mercado Beswib"
+		"title": "Mercado Beswib",
+		"ctaOG": "🏃‍♂️ **¡Asegura tu lugar** ahora y **únete a la carrera**! Compra este **dorsal verificado** con confianza.",
+		"soldBy": "vendido por",
+		"participants": "participantes",
+		"sportTypes": {
+			"triathlon": "Triatlón",
+			"trail": "Trail",
+			"road": "Ruta",
+			"other": "Otro",
+			"cycle": "Ciclismo"
+		}
 	},
 	"it": {
 		"allDistances": "Tutte le distanze",
@@ -113,7 +143,17 @@
 		"sortByPriceDesc": "Prezzo decrescente",
 		"sport": "Sport",
 		"start": "Inizio",
-		"title": "Mercato Beswib"
+		"title": "Mercato Beswib",
+		"ctaOG": "🏃‍♂️ **Assicurati il posto** ora e **unisciti alla gara**! Acquista questo **pettorale verificato** con sicurezza.",
+		"soldBy": "venduto da",
+		"participants": "partecipanti",
+		"sportTypes": {
+			"triathlon": "Triathlon",
+			"trail": "Trail",
+			"road": "Strada",
+			"other": "Altro",
+			"cycle": "Ciclismo"
+		}
 	},
 	"de": {
 		"allDistances": "Alle Distanzen",
@@ -142,7 +182,17 @@
 		"sortByPriceDesc": "Preis absteigend",
 		"sport": "Sport",
 		"start": "Start",
-		"title": "Marktplatz Beswib"
+		"title": "Marktplatz Beswib",
+		"ctaOG": "🏃‍♂️ **Sichere dir deinen Platz** jetzt und **nimm am Rennen teil**! Kaufe diese **verifizierte Startnummer** mit Vertrauen.",
+		"soldBy": "verkauft von",
+		"participants": "Teilnehmer",
+		"sportTypes": {
+			"triathlon": "Triathlon",
+			"trail": "Trail",
+			"road": "Straße",
+			"other": "Andere",
+			"cycle": "Radsport"
+		}
 	},
 	"ro": {
 		"allDistances": "Toate distanțele",
@@ -171,7 +221,17 @@
 		"sortByPriceDesc": "Preț descrescător",
 		"sport": "Sport",
 		"start": "Început",
-		"title": "Piața Beswib"
+		"title": "Piața Beswib",
+		"ctaOG": "🏃‍♂️ **Rezervă-ți locul** acum și **alătură-te cursei**! Cumpără acest **număr verificat** cu încredere.",
+		"soldBy": "vândut de",
+		"participants": "participanți",
+		"sportTypes": {
+			"triathlon": "Triathlon",
+			"trail": "Trail",
+			"road": "Șosea",
+			"other": "Altul",
+			"cycle": "Ciclism"
+		}
 	},
 	"pt": {
 		"allDistances": "Todas as distâncias",
@@ -200,7 +260,17 @@
 		"sortByPriceDesc": "Preço descendente",
 		"sport": "Desporto",
 		"start": "Início",
-		"title": "Mercado Beswib"
+		"title": "Mercado Beswib",
+		"ctaOG": "🏃‍♂️ **Assegura o teu lugar** agora e **junta-te à corrida**! Compra este **dorsal verificado** com confiança.",
+		"soldBy": "vendido por",
+		"participants": "participantes",
+		"sportTypes": {
+			"triathlon": "Triatlo",
+			"trail": "Trail",
+			"road": "Estrada",
+			"other": "Outro",
+			"cycle": "Ciclismo"
+		}
 	},
 	"nl": {
 		"allDistances": "Alle afstanden",
@@ -229,7 +299,17 @@
 		"sortByPriceDesc": "Prijs aflopend",
 		"sport": "Sport",
 		"start": "Start",
-		"title": "Marktplaats Beswib"
+		"title": "Marktplaats Beswib",
+		"ctaOG": "🏃‍♂️ **Zeker je plek** nu en **doe mee aan de wedstrijd**! Koop dit **geverifieerde startnummer** met vertrouwen.",
+		"soldBy": "verkocht door",
+		"participants": "deelnemers",
+		"sportTypes": {
+			"triathlon": "Triathlon",
+			"trail": "Trail",
+			"road": "Weg",
+			"other": "Anders",
+			"cycle": "Wielrennen"
+		}
 	},
 	"ko": {
 		"allDistances": "모든 거리",
@@ -258,6 +338,16 @@
 		"sortByPriceDesc": "가격 내림차순",
 		"sport": "스포츠",
 		"start": "시작",
-		"title": "베스윕 마켓플레이스"
+		"title": "베스윕 마켓플레이스",
+		"ctaOG": "🏃‍♂️ **지금 자리를 확보**하고 **레이스에 참여하세요**! 이 **검증된 배번호**를 확신을 가지고 구매하세요.",
+		"soldBy": "판매자",
+		"participants": "참가자",
+		"sportTypes": {
+			"triathlon": "철인3종",
+			"trail": "트레일",
+			"road": "로드",
+			"other": "기타",
+			"cycle": "사이클"
+		}
 	}
 }
