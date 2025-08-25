@@ -1,10 +1,18 @@
+import type { Metadata } from 'next'
+
 import { currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
 import { fetchUserByClerkId } from '@/services/user.services'
 import { LocaleParams } from '@/lib/generation/staticParams'
+import { generateProfileMetadata } from '@/lib/seo'
 
 import ProfileClient from './ProfileClient'
+
+export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
+	const { locale } = await params
+	return generateProfileMetadata(locale)
+}
 
 export default async function ProfilePage({ params }: { params: Promise<LocaleParams> }) {
 	const { locale } = await params

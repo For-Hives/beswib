@@ -25,7 +25,7 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 		twitter: {
 			title: titles.home,
 			site: '@beswib',
-			images: [generateOGImageConfig()],
+			images: [generateOGImageConfig(undefined, undefined, '/')],
 			description: descriptions.home,
 			creator: '@beswib',
 			card: 'summary_large_image',
@@ -53,7 +53,7 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 			title: titles.home,
 			siteName: titles.site,
 			locale: locale.replace('-', '_'),
-			images: [generateOGImageConfig()],
+			images: [generateOGImageConfig(undefined, undefined, '/')],
 			description: descriptions.home,
 		},
 		metadataBase: new URL('https://beswib.com'),
@@ -213,7 +213,7 @@ export function generateEventMetadata(locale: Locale, event: Event): Metadata {
 		twitter: {
 			...baseMetadata.twitter,
 			title: eventTitle,
-			images: [generateOGImageConfig(event)],
+			images: [generateOGImageConfig(event, undefined, eventPath)],
 			description: eventDescription,
 		},
 		title: eventTitle,
@@ -243,7 +243,7 @@ export function generateEventMetadata(locale: Locale, event: Event): Metadata {
 			url: generateCanonicalUrl(locale, eventPath),
 			type: 'website',
 			title: eventTitle,
-			images: [generateOGImageConfig(event)],
+			images: [generateOGImageConfig(event, undefined, eventPath)],
 			description: eventDescription,
 		},
 		keywords: eventKeywords,
@@ -442,20 +442,178 @@ export function generateSimplePageMetadata(
 // Error page metadata
 export function generateErrorMetadata(locale: Locale, errorType: '404' | '500' | 'error'): Metadata {
 	const baseMetadata = generateBaseMetadata(locale)
-	const errorTitles = {
-		error: 'Error',
-		'500': 'Server Error',
-		'404': 'Page Not Found',
-	}
 
-	const errorTitle = `${errorTitles[errorType]} | ${SEO_TITLES[locale].site}`
+	let errorTitle: string
+	let errorDescription: string
+
+	switch (errorType) {
+		case '404':
+			errorTitle = 'Page Not Found'
+			errorDescription = 'The page you are looking for does not exist.'
+			break
+		case '500':
+			errorTitle = 'Server Error'
+			errorDescription = 'Something went wrong on our end. Please try again later.'
+			break
+		default:
+			errorTitle = 'Error'
+			errorDescription = 'An error occurred. Please try again.'
+	}
 
 	return {
 		...baseMetadata,
+		twitter: {
+			...baseMetadata.twitter,
+			title: errorTitle,
+			description: errorDescription,
+		},
 		title: errorTitle,
-		robots: {
-			index: false,
-			follow: false,
+		openGraph: {
+			...baseMetadata.openGraph,
+			title: errorTitle,
+			description: errorDescription,
+		},
+		description: errorDescription,
+	}
+}
+
+// Dashboard page metadata
+export function generateDashboardMetadata(locale: Locale): Metadata {
+	const baseMetadata = generateBaseMetadata(locale)
+
+	return {
+		...baseMetadata,
+		twitter: {
+			...baseMetadata.twitter,
+			title: 'Dashboard',
+			description: 'Manage your Beswib account and race bibs',
+		},
+		title: 'Dashboard',
+		openGraph: {
+			...baseMetadata.openGraph,
+			url: generateCanonicalUrl(locale, '/dashboard'),
+			title: 'Dashboard',
+			images: [generateOGImageConfig(undefined, undefined, '/dashboard')],
+			description: 'Manage your Beswib account and race bibs',
+		},
+		description: 'Manage your Beswib account and race bibs',
+		alternates: {
+			...baseMetadata.alternates,
+			languages: generateAlternateLanguages('/dashboard'),
+			canonical: generateCanonicalUrl(locale, '/dashboard'),
+		},
+	}
+}
+
+// Profile page metadata
+export function generateProfileMetadata(locale: Locale): Metadata {
+	const baseMetadata = generateBaseMetadata(locale)
+
+	return {
+		...baseMetadata,
+		twitter: {
+			...baseMetadata.twitter,
+			title: 'My Profile',
+			description: 'Update your personal and runner information',
+		},
+		title: 'My Profile',
+		openGraph: {
+			...baseMetadata.openGraph,
+			url: generateCanonicalUrl(locale, '/profile'),
+			title: 'My Profile',
+			images: [generateOGImageConfig(undefined, undefined, '/profile')],
+			description: 'Update your personal and runner information',
+		},
+		description: 'Update your personal and runner information',
+		alternates: {
+			...baseMetadata.alternates,
+			languages: generateAlternateLanguages('/profile'),
+			canonical: generateCanonicalUrl(locale, '/profile'),
+		},
+	}
+}
+
+// Admin page metadata
+export function generateAdminMetadata(locale: Locale): Metadata {
+	const baseMetadata = generateBaseMetadata(locale)
+
+	return {
+		...baseMetadata,
+		twitter: {
+			...baseMetadata.twitter,
+			title: 'Admin Dashboard',
+			description: 'Manage your Beswib platform',
+		},
+		title: 'Admin Dashboard',
+		openGraph: {
+			...baseMetadata.openGraph,
+			url: generateCanonicalUrl(locale, '/admin'),
+			title: 'Admin Dashboard',
+			images: [generateOGImageConfig(undefined, undefined, '/admin')],
+			description: 'Manage your Beswib platform',
+		},
+		description: 'Manage your Beswib platform',
+		alternates: {
+			...baseMetadata.alternates,
+			languages: generateAlternateLanguages('/admin'),
+			canonical: generateCanonicalUrl(locale, '/admin'),
+		},
+	}
+}
+
+// Auth pages metadata
+export function generateAuthMetadata(
+	locale: Locale,
+	pageType: 'sign-in' | 'sign-up' | 'forgot-password' | 'unauthorized'
+): Metadata {
+	const baseMetadata = generateBaseMetadata(locale)
+
+	let authTitle: string
+	let authDescription: string
+	let authPath: string
+
+	switch (pageType) {
+		case 'sign-in':
+			authTitle = 'Sign In'
+			authDescription = 'Access your Beswib dashboard and manage your race bibs'
+			authPath = '/sign-in'
+			break
+		case 'sign-up':
+			authTitle = 'Sign Up'
+			authDescription = 'Join Beswib and start buying or selling race bibs safely'
+			authPath = '/sign-up'
+			break
+		case 'forgot-password':
+			authTitle = 'Forgot Password'
+			authDescription = 'Reset your Beswib account password securely'
+			authPath = '/forgot-password'
+			break
+		case 'unauthorized':
+			authTitle = 'Access Denied'
+			authDescription = 'You do not have permission to access this page'
+			break
+	}
+
+	return {
+		...baseMetadata,
+		twitter: {
+			...baseMetadata.twitter,
+			title: authTitle,
+			description: authDescription,
+		},
+		title: authTitle,
+		openGraph: {
+			...baseMetadata.openGraph,
+			url: generateCanonicalUrl(locale, authPath),
+			title: authTitle,
+			images: [generateOGImageConfig(undefined, undefined, authPath)],
+			description: authDescription,
+		},
+		description: authDescription,
+		alternates: {
+			...baseMetadata.alternates,
+			languages: generateAlternateLanguages(authPath),
+			canonical: generateCanonicalUrl(locale, authPath),
 		},
 	}
 }

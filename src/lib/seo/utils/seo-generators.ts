@@ -97,7 +97,8 @@ export function generateEventDescription(locale: Locale, event: Event): string {
 // Generate Open Graph images configuration
 export function generateOGImageConfig(
 	event?: Event,
-	customImage?: string
+	customImage?: string,
+	pagePath?: string
 ): {
 	url: string
 	width: number
@@ -105,11 +106,37 @@ export function generateOGImageConfig(
 	alt: string
 	type?: string
 } {
-	// TODO: OG IMAGE - Replace with actual event-specific image generation
+	// If custom image is provided, use it
+	if (customImage) {
+		return {
+			width: 1200,
+			url: customImage,
+			type: 'image/png',
+			height: 630,
+			alt: event ? `${event.name} - Race Bib Transfer` : 'Beswib - Race Bib Transfer',
+		}
+	}
+
+	// Generate dynamic OG image URL based on page path
+	if (pagePath) {
+		// Remove locale prefix and trailing slash for clean path
+		const cleanPath = pagePath.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, '').replace(/\/$/, '')
+		const ogImagePath = cleanPath ? `/${cleanPath}/opengraph-image` : '/opengraph-image'
+
+		return {
+			width: 1200,
+			url: ogImagePath,
+			type: 'image/png',
+			height: 630,
+			alt: event ? `${event.name} - Race Bib Transfer` : 'Beswib - Race Bib Transfer',
+		}
+	}
+
+	// Fallback to default OG image
 	return {
 		width: 1200,
-		url: customImage ?? '/placeholder-og-image.jpg',
-		type: 'image/jpeg',
+		url: '/opengraph-image',
+		type: 'image/png',
 		height: 630,
 		alt: event ? `${event.name} - Race Bib Transfer` : 'Beswib - Race Bib Transfer',
 	}

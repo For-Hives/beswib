@@ -35,10 +35,7 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 	const t = getTranslations(locale, pageTranslations)
 
 	// Fetch the event details and exchange rates in parallel
-	const [event, exchangeRates] = await Promise.all([
-		fetchEventById(id),
-		fetchExchangeRates(),
-	])
+	const [event, exchangeRates] = await Promise.all([fetchEventById(id), fetchExchangeRates()])
 
 	// Build the absolute URL (useful for Satori)
 	const requestHeaders = await headers()
@@ -48,14 +45,14 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
 
 	// Create dynamic title and description based on event data
-	let title = t.event.title || 'Event Details'
-	let secondary = t.event.ctaOG || 'Discover this **amazing race** and join the adventure!'
+	let title = (t as any).event?.title || 'Event Details'
+	let secondary = (t as any).ctaOG || 'Discover this **amazing race** and join the adventure!'
 
 	if (event) {
 		// Use event name as main title
 		title = event.name
 		// Use the compelling CTA message from translations
-		secondary = t.event.ctaOG || 'Join this **incredible race** and challenge yourself!'
+		secondary = (t as any).ctaOG || 'Join this **incredible race** and challenge yourself!'
 	}
 
 	// Get organizer info if available
@@ -68,17 +65,19 @@ export default async function Image({ params }: { params: Promise<EventOpenGraph
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			<OGImageEvent 
-				title={title} 
-				secondary={secondary} 
-				host={host} 
-				protocol={protocol} 
-				size={size}
-				event={event}
-				organizer={organizer}
-				locale={locale}
-				exchangeRates={exchangeRates}
-			/>,
+			(
+				<OGImageEvent
+					title={title}
+					secondary={secondary}
+					host={host}
+					protocol={protocol}
+					size={size}
+					event={event}
+					organizer={organizer}
+					locale={locale}
+					exchangeRates={exchangeRates}
+				/>
+			),
 			{
 				...size,
 				fonts: [
