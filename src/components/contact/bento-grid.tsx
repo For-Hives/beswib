@@ -5,7 +5,7 @@ import { useState, Suspense } from 'react'
 import { motion } from 'motion/react'
 import type React from 'react'
 
-import { InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/utils/social'
+import { FacebookIcon, InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/utils/social'
 import globalTranslations from '@/components/global/locales.json'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -175,6 +175,22 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
 						<div className="z-20 flex cursor-pointer items-center justify-center transition-all duration-300 hover:scale-110">
 							<StravaIcon className="text-foreground h-8 w-8" />
+						</div>
+					</div>
+					<div className="bg-primary/10 absolute -right-8 -bottom-8 h-24 w-24 rounded-full blur-xl"></div>
+				</Link>
+			</motion.div>
+			<motion.div
+				animate={{ y: 0, opacity: 1 }}
+				className="border-border bg-card hover:border-primary/50 relative col-span-1 flex cursor-pointer flex-col items-start justify-start overflow-hidden rounded-3xl border px-6 py-6 text-center shadow-xl transition-colors"
+				initial={{ y: 20, opacity: 0 }}
+			>
+				<Link className="h-full w-full" href={SOCIALS.facebook} rel="noopener noreferrer" target="_blank">
+					<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
+
+					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
+						<div className="z-20 flex cursor-pointer items-center justify-center transition-all duration-300 hover:scale-110">
+							<FacebookIcon className="text-foreground h-8 w-8" />
 						</div>
 					</div>
 					<div className="bg-primary/10 absolute -right-8 -bottom-8 h-24 w-24 rounded-full blur-xl"></div>

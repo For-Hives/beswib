@@ -73,6 +73,9 @@ export const Footer = ({ locale, baseUrl }: { baseUrl: string; locale: string })
 						<Link href="https://www.linkedin.com/company/beswib">
 							<Img src={`${baseUrl}/mails/linkedin.png`} width="24" height="24" alt="LinkedIn" className="opacity-80" />
 						</Link>
+						<Link href="https://www.facebook.com/beswib_official">
+							<Img src={`${baseUrl}/mails/facebook.png`} width="24" height="24" alt="Facebook" className="opacity-80" />
+						</Link>
 					</Column>
 				</Section>
 			</Section>

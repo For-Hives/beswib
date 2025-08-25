@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { SOCIALS, InstagramIcon, LinkedinIcon, StravaIcon } from '@/lib/utils/social'
+import { SOCIALS, FacebookIcon, InstagramIcon, LinkedinIcon, StravaIcon } from '@/lib/utils/social'
 import { LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { getVersion } from '@/lib/utils/version'
@@ -29,7 +29,7 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 							href={SOCIALS.linkedin}
 							target="_blank"
 							rel="noopener noreferrer"
-							aria-label="Twitter"
+							aria-label="LinkedIn"
 							className="text-muted-foreground hover:text-foreground transition-colors"
 						>
 							<LinkedinIcon className="h-5 w-5" />
@@ -38,7 +38,7 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 							href={SOCIALS.instagram}
 							target="_blank"
 							rel="noopener noreferrer"
-							aria-label="X"
+							aria-label="Instagram"
 							className="text-muted-foreground hover:text-foreground transition-colors"
 						>
 							<InstagramIcon className="h-5 w-5" />
@@ -47,10 +47,19 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 							href={SOCIALS.strava}
 							target="_blank"
 							rel="noopener noreferrer"
-							aria-label="Facebook"
+							aria-label="Strava"
 							className="text-muted-foreground hover:text-foreground transition-colors"
 						>
 							<StravaIcon className="h-5 w-5" />
+						</Link>
+						<Link
+							href={SOCIALS.facebook}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Facebook"
+							className="text-muted-foreground hover:text-foreground transition-colors"
+						>
+							<FacebookIcon className="h-5 w-5" />
 						</Link>
 					</div>
 
