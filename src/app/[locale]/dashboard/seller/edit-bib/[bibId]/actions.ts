@@ -74,7 +74,6 @@ export async function handleUpdateBibDetails(bibId: string, formData: FormData):
 	}
 
 	const priceValue = formData.get('price') as string
-	const originalPriceValue = formData.get('originalPrice') as string
 
 	const price = parseFloat(priceValue)
 	if (isNaN(price) || price <= 0) {
@@ -90,21 +89,10 @@ export async function handleUpdateBibDetails(bibId: string, formData: FormData):
 		throw new Error(`Cannot modify bib with status: ${currentBib.status}.`)
 	}
 
-	// SECURITY: Only allow modifying price-related fields
-	// Ignore any other form data to prevent tampering
+	// SECURITY: Only allow modifying the selling price
+	// Ignore all other form data including originalPrice to prevent tampering
 	const dataToUpdate: Partial<Bib> = {
 		price: price,
-	}
-
-	if (originalPriceValue != null && originalPriceValue.trim() !== '') {
-		const originalPrice = parseFloat(originalPriceValue)
-		if (!isNaN(originalPrice) && originalPrice >= 0) {
-			dataToUpdate.originalPrice = originalPrice
-		} else {
-			throw new Error('Invalid original price format.')
-		}
-	} else {
-		dataToUpdate.originalPrice = undefined
 	}
 
 	try {

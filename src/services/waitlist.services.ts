@@ -154,11 +154,36 @@ export async function fetchUserWaitlists(userId: string): Promise<(Waitlist & { 
 	}
 
 	try {
+		// Try to fetch with explicit expansion, only active waitlists (mail_notification: true)
 		const records = await pb.collection('waitlists').getFullList<Waitlist & { expand?: { event_id: Event } }>({
 			sort: '-added_at',
-			filter: `user_id = "${userId}"`,
+			filter: `user_id = "${userId}" && mail_notification = true`,
 			expand: 'event_id',
 		})
+
+		// If expansion didn't work, try to fetch events separately
+		if (records.length > 0 && !records[0].expand?.event_id) {
+			console.info('Expansion failed, fetching events separately')
+			const waitlistsWithEvents = await Promise.all(
+				records.map(async waitlist => {
+					try {
+						const event = await pb.collection('events').getOne<Event>(waitlist.event_id)
+						return {
+							...waitlist,
+							expand: {
+								...waitlist.expand,
+								event_id: event,
+							},
+						}
+					} catch (error) {
+						console.error(`Failed to fetch event ${waitlist.event_id}:`, error)
+						return waitlist
+					}
+				})
+			)
+			return waitlistsWithEvents
+		}
+
 		return records
 	} catch (error: unknown) {
 		throw new Error(
@@ -257,6 +282,54 @@ export async function fetchWaitlistEmailsForEvent(eventId: string): Promise<stri
 }
 
 /**
+ * Disables mail notifications for a user's waitlist entry for a specific event.
+ * This effectively "removes" them from the waitlist by stopping notifications.
+ * @param eventId The ID of the event.
+ * @param user The user to disable notifications for (null for email-only subscriptions).
+ * @param email Optional email for non-authenticated users.
+ * @returns True if successfully disabled, false otherwise.
+ */
+export async function disableWaitlistNotifications(
+	eventId: string,
+	user: null | User,
+	email?: string
+): Promise<boolean> {
+	if (user == null && (email == null || email.trim() === '')) {
+		console.error('Either user or email is required to disable waitlist notifications.')
+		return false
+	}
+
+	try {
+		let filterQuery = ''
+		if (user != null) {
+			filterQuery = `user_id = "${user.id}" && event_id = "${eventId}"`
+		} else if (email != null) {
+			filterQuery = `email = "${email.trim()}" && event_id = "${eventId}"`
+		}
+
+		if (filterQuery === '') {
+			return false
+		}
+
+		// Find the waitlist entry
+		const existingEntry = await pb.collection('waitlists').getFirstListItem<Waitlist>(filterQuery)
+
+		// Update the entry to disable notifications instead of deleting
+		await pb.collection('waitlists').update(existingEntry.id, {
+			mail_notification: false,
+		})
+		return true
+	} catch (error: unknown) {
+		// If the entry doesn't exist (404), consider it a success
+		if (error != null && typeof error === 'object' && 'status' in error && error.status === 404) {
+			return true
+		}
+		console.error('Error disabling waitlist notifications:', error)
+		return false
+	}
+}
+
+/**
  * Removes a user from the waitlist for a specific event.
  * Supports both authenticated users and email-only subscriptions.
  * @param eventId The ID of the event.
@@ -288,12 +361,8 @@ export async function removeFromWaitlist(eventId: string, user: null | User, ema
 		// Delete the entry
 		await pb.collection('waitlists').delete(existingEntry.id)
 		return true
-	} catch (error: unknown) {
+	} catch {
 		// If the entry doesn't exist (404), consider it a success
-		if (error != null && typeof error === 'object' && 'status' in error && error.status === 404) {
-			return true
-		}
-		console.error('Error removing from waitlist:', error)
 		return false
 	}
 }
@@ -348,5 +417,49 @@ export async function linkEmailWaitlistsToUser(email: string, user: User): Promi
 	} catch (error: unknown) {
 		console.error(`Error linking email waitlist entries for ${email} to user ${user.id}:`, error)
 		return 0
+	}
+}
+
+/**
+ * Re-enables mail notifications for a user's waitlist entry for a specific event.
+ * This allows users to rejoin a waitlist they previously left.
+ * @param eventId The ID of the event.
+ * @param user The user to re-enable notifications for (null for email-only subscriptions).
+ * @param email Optional email for non-authenticated users.
+ * @returns True if successfully re-enabled, false otherwise.
+ */
+export async function enableWaitlistNotifications(
+	eventId: string,
+	user: null | User,
+	email?: string
+): Promise<boolean> {
+	if (user == null && (email == null || email.trim() === '')) {
+		console.error('Either user or email is required to enable waitlist notifications.')
+		return false
+	}
+
+	try {
+		let filterQuery = ''
+		if (user != null) {
+			filterQuery = `user_id = "${user.id}" && event_id = "${eventId}"`
+		} else if (email != null) {
+			filterQuery = `email = "${email.trim()}" && event_id = "${eventId}"`
+		}
+
+		if (filterQuery === '') {
+			return false
+		}
+
+		// Find the waitlist entry
+		const existingEntry = await pb.collection('waitlists').getFirstListItem<Waitlist>(filterQuery)
+
+		// Update the entry to re-enable notifications
+		await pb.collection('waitlists').update(existingEntry.id, {
+			mail_notification: true,
+		})
+		return true
+	} catch (error: unknown) {
+		console.error('Error enabling waitlist notifications:', error)
+		return false
 	}
 }
