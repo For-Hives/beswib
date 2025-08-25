@@ -43,11 +43,11 @@ export function CTASection({ withGlow = true, locale, className }: CTAProps) {
 					{/* Action Buttons */}
 					<div className="animate-fade-in-up flex flex-col gap-4 opacity-0 delay-500 sm:flex-row">
 						<Button asChild className="text-base" size="lg" variant={'outline'}>
-							<Link href={'/contact'}>{translations.cta.organizerButton}</Link>
+							<Link href={`/${locale}/contact`}>{translations.cta.organizerButton}</Link>
 						</Button>
 
 						<Button asChild className="text-base" size="lg" variant={'default'}>
-							<Link href={'/dashboard/seller/sell-bib'}>{translations.cta.sellBibButton}</Link>
+							<Link href={`/${locale}/dashboard/seller/sell-bib`}>{translations.cta.sellBibButton}</Link>
 						</Button>
 					</div>
 

@@ -60,13 +60,13 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 								<CardDescription className="text-base">{t.dashboard.buyer.description}</CardDescription>
 							</CardHeader>
 							<CardContent className="flex justify-center gap-4 text-center">
-								<Link href="/dashboard/buyer" className="cursor-pointer">
+								<Link href={`/${locale}/dashboard/buyer`} className="cursor-pointer">
 									<Button className="w-full cursor-pointer" size="lg">
 										<ShoppingBag className="mr-2 h-5 w-5" />
 										<span className="text-xs">{t.dashboard.buyCta ?? 'I want to buy a bib'}</span>
 									</Button>
 								</Link>
-								<Link href="/dashboard/buyer" className="cursor-pointer">
+								<Link href={`/${locale}/dashboard/buyer`} className="cursor-pointer">
 									<Button className="w-full cursor-pointer" size="lg" variant="outline">
 										<ShoppingCart className="mr-2 h-5 w-5" />
 										<span className="text-xs">{t.dashboard.accessBuyer ?? 'Access my Buyer Dashboard'}</span>
@@ -87,13 +87,13 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 							<CardContent className="text-center">
 								<div className="flex h-full w-full flex-col items-center justify-end">
 									<div className="flex justify-between gap-4">
-										<Link className="w-full cursor-pointer" href="/dashboard/seller/sell-bib">
+										<Link className="w-full cursor-pointer" href={`/${locale}/dashboard/seller/sell-bib`}>
 											<Button className="w-full cursor-pointer" size="lg">
 												<Tag className="mr-2 h-5 w-5" />
 												<span className="text-xs">{t.dashboard.sellCta ?? 'I want to sell a bib'}</span>
 											</Button>
 										</Link>
-										<Link className="w-full cursor-pointer" href="/dashboard/seller">
+										<Link className="w-full cursor-pointer" href={`/${locale}/dashboard/seller`}>
 											<Button className="w-full cursor-pointer" size="lg" variant="outline">
 												<Tag className="mr-2 h-5 w-5" />
 												<span className="text-xs">{t.dashboard.accessSeller ?? 'Access my Seller Dashboard'}</span>
@@ -113,7 +113,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 						<div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-6">
 							{/* Sell Bib */}
 							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-								<Link href="/dashboard/seller/sell-bib">
+								<Link href={`/${locale}/dashboard/seller/sell-bib`}>
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<Plus className="h-6 w-6" />
@@ -149,7 +149,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 
 							{/* My Listings */}
 							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-								<Link href="/dashboard/seller/request-event">
+								<Link href={`/${locale}/dashboard/seller/request-event`}>
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
 											<List className="h-6 w-6" />

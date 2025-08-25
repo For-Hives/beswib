@@ -246,7 +246,7 @@ export default function SellerDashboardClient({
 					<div className="mb-8">
 						<h2 className="text-foreground mb-6 text-xl font-bold">{t.quickActions ?? 'Quick Actions'}</h2>
 						<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-							<Link href="/dashboard/seller/sell-bib">
+							<Link href={`/${locale}/dashboard/seller/sell-bib`}>
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
@@ -257,7 +257,7 @@ export default function SellerDashboardClient({
 								</Card>
 							</Link>
 
-							<Link href="/dashboard/seller/list-bib">
+							<Link href={`/${locale}/dashboard/seller/list-bib`}>
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
@@ -268,7 +268,7 @@ export default function SellerDashboardClient({
 								</Card>
 							</Link>
 
-							<Link href="/marketplace">
+							<Link href={`/${locale}/marketplace`}>
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
@@ -279,7 +279,7 @@ export default function SellerDashboardClient({
 								</Card>
 							</Link>
 
-							<Link href="/dashboard">
+							<Link href={`/${locale}/dashboard`}>
 								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 									<CardContent className="flex flex-col items-center p-4 text-center">
 										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
@@ -375,7 +375,7 @@ export default function SellerDashboardClient({
 									<p className="text-muted-foreground mb-6">
 										{t.recentSales?.startSellingMessage ?? 'Start selling your race bibs to see your sales here'}
 									</p>
-									<Link href="/dashboard/seller/sell-bib">
+									<Link href={`/${locale}/dashboard/seller/sell-bib`}>
 										<Button size="lg">
 											<Plus className="mr-2 h-4 w-4" />
 											{t.recentSales?.listABib ?? 'List a bib'}
@@ -407,7 +407,7 @@ export default function SellerDashboardClient({
 									<p className="text-muted-foreground mb-6">
 										{t.startSelling ?? 'Start selling your race bibs to connect with runners'}
 									</p>
-									<Link href="/dashboard/seller/sell-bib">
+									<Link href={`/${locale}/dashboard/seller/sell-bib`}>
 										<Button size="lg">
 											<Plus className="mr-2 h-4 w-4" />
 											{t?.sellBib ?? 'List Your First Bib'}

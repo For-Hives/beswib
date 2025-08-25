@@ -241,7 +241,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 						<CardContent className="p-8 text-center">
 							<AlertTriangle className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
 							<p className="text-lg">{t.bibNotFound ?? 'Bib not found.'}</p>
-							<Link href="/dashboard/seller">
+							<Link href={`/${locale}/dashboard/seller`}>
 								<Button className="mt-4" variant="outline">
 									<ArrowLeft className="mr-2 h-4 w-4" />
 									{t.backToDashboard ?? 'Back to Dashboard'}
@@ -263,7 +263,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 						<CardContent className="p-8 text-center">
 							<AlertTriangle className="text-destructive mx-auto mb-4 h-12 w-12" />
 							<p className="text-destructive mb-4 text-lg">{initialError}</p>
-							<Link href="/dashboard/seller">
+							<Link href={`/${locale}/dashboard/seller`}>
 								<Button variant="outline">
 									<ArrowLeft className="mr-2 h-4 w-4" />
 									{t.backToDashboard ?? 'Back to Dashboard'}
@@ -311,7 +311,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 			<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-4">
-						<Link href="/dashboard/seller">
+						<Link href={`/${locale}/dashboard/seller`}>
 							<Button variant="ghost" size="sm">
 								<ArrowLeft className="mr-2 h-4 w-4" />
 								{t.backToDashboard ?? 'Back to Dashboard'}

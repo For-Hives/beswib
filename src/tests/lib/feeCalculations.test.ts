@@ -18,14 +18,12 @@ describe('Fee Calculations', () => {
 	describe('calculatePayPalFee', () => {
 		it('should calculate PayPal fee correctly for €100', () => {
 			const amount = 100
-			const expectedFee = 3.25 // 2.9% of 100 = 2.90 + 0.35 = 3.25
-			expect(calculatePayPalFee(amount)).toBe(expectedFee)
+			expect(calculatePayPalFee(amount)).toBe(3.25) // 2.9% of 100 = 2.90 + 0.35 = 3.25
 		})
 
 		it('should calculate PayPal fee correctly for €150', () => {
 			const amount = 150
-			const expectedFee = 4.7 // 2.9% of 150 = 4.35 + 0.35 = 4.70
-			expect(calculatePayPalFee(amount)).toBe(expectedFee)
+			expect(calculatePayPalFee(amount)).toBe(4.7) // 2.9% of 150 = 4.35 + 0.35 = 4.70
 		})
 
 		it('should calculate PayPal fee correctly for €50', () => {
@@ -42,20 +40,17 @@ describe('Fee Calculations', () => {
 	describe('calculatePlatformFee', () => {
 		it('should calculate platform fee correctly for €100 (10%)', () => {
 			const amount = 100
-			const expectedFee = 10 // 10% of 100 = 10
-			expect(calculatePlatformFee(amount)).toBe(expectedFee)
+			expect(calculatePlatformFee(amount)).toBe(10) // 10% of 100 = 10
 		})
 
 		it('should calculate platform fee correctly for €150 (10%)', () => {
 			const amount = 150
-			const expectedFee = 15 // 10% of 150 = 15
-			expect(calculatePlatformFee(amount)).toBe(expectedFee)
+			expect(calculatePlatformFee(amount)).toBe(15) // 10% of 150 = 15
 		})
 
 		it('should calculate platform fee correctly for €75 (10%)', () => {
 			const amount = 75
-			const expectedFee = 7.5 // 10% of 75 = 7.5
-			expect(calculatePlatformFee(amount)).toBe(7.5)
+			expect(calculatePlatformFee(amount)).toBe(7.5) // 10% of 75 = 7.5
 		})
 
 		it('should return 0 for negative or zero amounts', () => {

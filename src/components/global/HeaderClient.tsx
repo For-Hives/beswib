@@ -6,9 +6,9 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState, useMemo } from 'react'
 
 import { SignedIn, SignedOut, useClerk, useUser } from '@clerk/nextjs'
+import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 
 import LanguageSwitcher, { LanguageSwitcherMobile } from '@/components/seo/LanguageSwitcher'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -231,7 +231,7 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 						? 'bg-accent text-accent-foreground'
 						: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
 				}`}
-				href="/dashboard"
+				href={`/${locale}/dashboard`}
 			>
 				<LayoutDashboard className="h-4 w-4" />
 				{t.navbar.dashboardLink}
@@ -245,7 +245,7 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 						? 'bg-accent text-accent-foreground'
 						: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
 				}`}
-				href="/profile"
+				href={`/${locale}/profile`}
 			>
 				<User className="h-4 w-4" />
 				{t.navbar.profileLink}
@@ -273,7 +273,7 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 						? 'bg-accent text-accent-foreground'
 						: 'bg-primary text-primary-foreground hover:bg-primary/90'
 				}`}
-				href="/dashboard/seller/sell-bib"
+				href={`/${locale}/dashboard/seller/sell-bib`}
 			>
 				<Tag className="h-4 w-4" />
 				{t.navbar.sellBibLink}
