@@ -31,11 +31,15 @@ import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { Locale } from '@/lib/i18n/config'
 import { Timeline } from '@/components/ui/timeline'
 import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
+import dynamic from 'next/dynamic'
 
 import Translations from './locales.json'
+
+const EmptyResultsRive = dynamic(() => import('@/components/marketplace/EmptyResultsRive'), { ssr: false })
 
 interface EventTranslations {
 	events?: {
@@ -98,6 +102,11 @@ interface EventTranslations {
 		}
 		searchPlaceholder?: string
 		searchCityPlaceholder?: string
+		emptyResults?: {
+			title?: string
+			subtitle?: string
+			cta?: string
+		}
 	}
 }
 
@@ -108,7 +117,7 @@ interface EventsPageProps {
 			bibs_via_eventId?: (Bib & { expand?: { sellerUserId: User } })[]
 		}
 	})[]
-	locale: string
+	locale: Locale
 }
 
 const eventTypeColors = {
@@ -833,28 +842,32 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 
 			{/* Timeline-only UI */}
 			<div className="px-6">
-				<Timeline
-					data={groupedSections.map(section => ({
-						title: section.title,
-						content: (
-							<div className="grid grid-cols-2 gap-4">
-								{section.events.slice(0, 8).map(e => (
-									<div key={e.id} className="col-span-2 lg:col-span-1">
-										<EventCard
-											event={e}
-											locale={locale}
-											bibsCount={eventBibsCache[e.id]}
-											bibsData={eventBibsData[e.id]}
-											onAction={handleEventAction}
-											onViewEvent={handleViewEvent}
-											t={t}
-										/>
-									</div>
-								))}
-							</div>
-						),
-					}))}
-				/>
+				{groupedSections.length === 0 ? (
+					<EmptyResultsRive locale={locale} />
+				) : (
+					<Timeline
+						data={groupedSections.map(section => ({
+							title: section.title,
+							content: (
+								<div className="grid grid-cols-2 gap-4">
+									{section.events.slice(0, 8).map(e => (
+										<div key={e.id} className="col-span-2 lg:col-span-1">
+											<EventCard
+												event={e}
+												locale={locale}
+												bibsCount={eventBibsCache[e.id]}
+												bibsData={eventBibsData[e.id]}
+												onAction={handleEventAction}
+												onViewEvent={handleViewEvent}
+												t={t}
+											/>
+										</div>
+									))}
+								</div>
+							),
+						}))}
+					/>
+				)}
 			</div>
 		</div>
 	)

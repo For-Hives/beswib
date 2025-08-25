@@ -85,7 +85,12 @@
 				"descriptionOG": "Browse our **events** and find **race bibs** for upcoming events!"
 			},
 			"noEventsToDisplay": "No events to display.",
-			"eventListTitleClient": "Event List (Client Component):"
+			"eventListTitleClient": "Event List (Client Component):",
+			"emptyResults": {
+				"title": "No events match your search",
+				"subtitle": "Try adjusting your filters. If you think we're missing an event you're interested in, feel free to contact us.",
+				"cta": "Contact us"
+			}
 		}
 	},
 	"fr": {
@@ -174,7 +179,12 @@
 				"descriptionOG": "Parcourez nos **évènements** et Trouvez des **dossards** pour les événements à **venir** !"
 			},
 			"noEventsToDisplay": "Aucun événement à afficher.",
-			"eventListTitleClient": "Liste des événements (Composant Client) :"
+			"eventListTitleClient": "Liste des événements (Composant Client) :",
+			"emptyResults": {
+				"title": "Aucun événement ne correspond à votre recherche",
+				"subtitle": "Ajustez vos filtres. Si vous pensez que nous n'avons pas encore la course qui vous intéresse, contactez-nous.",
+				"cta": "Nous contacter"
+			}
 		}
 	},
 	"ko": {
@@ -263,7 +273,12 @@
 				"descriptionOG": "우리의 **이벤트**를 둘러보고 다가오는 이벤트를 위한 **레이스 비브**를 찾아보세요!"
 			},
 			"noEventsToDisplay": "표시할 이벤트가 없습니다.",
-			"eventListTitleClient": "이벤트 목록 (클라이언트 컴포넌트):"
+			"eventListTitleClient": "이벤트 목록 (클라이언트 컴포넌트):",
+			"emptyResults": {
+				"title": "검색과 일치하는 이벤트가 없습니다",
+				"subtitle": "필터를 조정해 보세요. 관심 있는 이벤트가 없다면 문의해 주세요.",
+				"cta": "문의하기"
+			}
 		}
 	},
 	"es": {
@@ -352,7 +367,12 @@
 				"descriptionOG": "Explora nuestros **eventos** y encuentra **dorsales** para eventos próximos!"
 			},
 			"noEventsToDisplay": "No hay eventos para mostrar.",
-			"eventListTitleClient": "Lista de eventos (Componente Cliente):"
+			"eventListTitleClient": "Lista de eventos (Componente Cliente):",
+			"emptyResults": {
+				"title": "Ningún evento coincide con tu búsqueda",
+				"subtitle": "Prueba a ajustar los filtros. Si crees que falta un evento que te interesa, contáctanos.",
+				"cta": "Contáctanos"
+			}
 		}
 	},
 	"it": {
@@ -441,7 +461,12 @@
 				"descriptionOG": "Sfoglia i nostri **eventi** e trova i **pettorali** per gli eventi in arrivo!"
 			},
 			"noEventsToDisplay": "Nessun evento da mostrare.",
-			"eventListTitleClient": "Elenco eventi (Componente client):"
+			"eventListTitleClient": "Elenco eventi (Componente client):",
+			"emptyResults": {
+				"title": "Nessun evento corrisponde alla tua ricerca",
+				"subtitle": "Prova a modificare i filtri. Se pensi che manchi un evento di tuo interesse, contattaci.",
+				"cta": "Contattaci"
+			}
 		}
 	},
 	"de": {
@@ -530,7 +555,12 @@
 				"descriptionOG": "Durchsuchen Sie unsere **Veranstaltungen** und finden Sie **Startnummern** für kommende Veranstaltungen!"
 			},
 			"noEventsToDisplay": "Keine Events zum Anzeigen.",
-			"eventListTitleClient": "Event-Liste (Client-Komponente):"
+			"eventListTitleClient": "Event-Liste (Client-Komponente):",
+			"emptyResults": {
+				"title": "Keine Veranstaltungen für deine Suche",
+				"subtitle": "Versuche deine Filter anzupassen. Wenn ein interessantes Event fehlt, kontaktiere uns gerne.",
+				"cta": "Kontakt aufnehmen"
+			}
 		}
 	},
 	"ro": {
@@ -619,7 +649,12 @@
 				"descriptionOG": "Răsfoiește **evenimentele** noastre și găsește **numere de concurs** pentru evenimente viitoare!"
 			},
 			"noEventsToDisplay": "Nu există evenimente de afișat.",
-			"eventListTitleClient": "Lista evenimente (Componenta client):"
+			"eventListTitleClient": "Lista evenimente (Componenta client):",
+			"emptyResults": {
+				"title": "Niciun eveniment nu corespunde căutării tale",
+				"subtitle": "Încearcă să ajustezi filtrele. Dacă lipsește un eveniment care te interesează, contactează-ne.",
+				"cta": "Contactează-ne"
+			}
 		}
 	},
 	"pt": {
@@ -708,7 +743,12 @@
 				"descriptionOG": "Navegue pelos nossos **eventos** e encontre **números de corrida** para eventos futuros!"
 			},
 			"noEventsToDisplay": "Não há eventos para mostrar.",
-			"eventListTitleClient": "Lista de eventos (Componente cliente):"
+			"eventListTitleClient": "Lista de eventos (Componente cliente):",
+			"emptyResults": {
+				"title": "Nenhum evento corresponde à tua pesquisa",
+				"subtitle": "Tenta ajustar os filtros. Se achas que falta um evento do teu interesse, contacta-nos.",
+				"cta": "Contacta-nos"
+			}
 		}
 	},
 	"nl": {
@@ -797,7 +837,12 @@
 				"descriptionOG": "Blader door onze **evenementen** en vind **startnummers** voor aankomende evenementen!"
 			},
 			"noEventsToDisplay": "Geen events om weer te geven.",
-			"eventListTitleClient": "Event-lijst (Client-component):"
+			"eventListTitleClient": "Event-lijst (Client-component):",
+			"emptyResults": {
+				"title": "Geen resultaten voor je zoekopdracht",
+				"subtitle": "Probeer je filters aan te passen. Als er een event ontbreekt dat je interesseert, neem contact met ons op.",
+				"cta": "Neem contact op"
+			}
 		}
 	}
 }
