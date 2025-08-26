@@ -115,16 +115,16 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 			.then(result => {
 				if (result.success && result.data) {
 					setVerifiedEmails(prev => [...prev, result.data!])
-					toast.success('Verification code sent to your email')
+					toast.success(t.messages.emailVerificationSent)
 				} else {
-					const errorMessage = result.error ?? 'Failed to add email. Please try again.'
+					const errorMessage = result.error ?? t.messages.emailAddFailed
 					setErrors({ emailVerification: errorMessage })
 					toast.error(errorMessage)
 				}
 			})
 			.catch(error => {
 				console.error('Error adding email:', error)
-				const errorMessage = 'Failed to add email. Please try again.'
+				const errorMessage = t.messages.emailAddFailed
 				setErrors({ emailVerification: errorMessage })
 				toast.error(errorMessage)
 			})
@@ -137,16 +137,16 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				if (result.success && result.data) {
 					setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? result.data! : email)))
 					setErrors({})
-					toast.success('Email verified successfully')
+					toast.success(t.messages.emailVerified)
 				} else {
-					const errorMessage = result.error ?? 'Invalid verification code. Please try again.'
+					const errorMessage = result.error ?? t.messages.invalidVerificationCode
 					setErrors({ emailVerification: errorMessage })
 					toast.error(errorMessage)
 				}
 			})
 			.catch(error => {
 				console.error('Error verifying email:', error)
-				const errorMessage = 'Failed to verify email. Please try again.'
+				const errorMessage = t.messages.emailVerifyFailed
 				setErrors({ emailVerification: errorMessage })
 				toast.error(errorMessage)
 			})
@@ -158,16 +158,16 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 			.then(result => {
 				if (result.success) {
 					setErrors({})
-					toast.success('Verification code resent')
+					toast.success(t.messages.verificationCodeResent)
 				} else {
-					const errorMessage = result.error ?? 'Failed to resend code. Please try again.'
+					const errorMessage = result.error ?? t.messages.emailResendFailed
 					setErrors({ emailVerification: errorMessage })
 					toast.error(errorMessage)
 				}
 			})
 			.catch(error => {
 				console.error('Error resending code:', error)
-				const errorMessage = 'Failed to resend code. Please try again.'
+				const errorMessage = t.messages.emailResendFailed
 				setErrors({ emailVerification: errorMessage })
 				toast.error(errorMessage)
 			})

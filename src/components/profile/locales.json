@@ -245,6 +245,10 @@
 				"cancel": "취소",
 				"delete": "삭제"
 			},
+			"success": {
+				"addSuccess": "이메일로 인증 코드가 전송되었습니다",
+				"deleteSuccess": "이메일이 성공적으로 삭제되었습니다"
+			},
 			"errors": {
 				"loadFailed": "인증된 이메일을 불러오지 못했습니다",
 				"addInvalidEmail": "유효한 이메일 주소를 입력해주세요",
@@ -352,6 +356,10 @@
 				"add": "Añadir",
 				"cancel": "Cancelar",
 				"delete": "Eliminar"
+			},
+			"success": {
+				"addSuccess": "Código de verificación enviado a tu correo",
+				"deleteSuccess": "Correo eliminado exitosamente"
 			},
 			"errors": {
 				"loadFailed": "No se pudieron cargar los correos verificados",
@@ -461,6 +469,10 @@
 				"cancel": "Annulla",
 				"delete": "Elimina"
 			},
+			"success": {
+				"addSuccess": "Codice di verifica inviato alla tua email",
+				"deleteSuccess": "Email eliminata con successo"
+			},
 			"errors": {
 				"loadFailed": "Impossibile caricare le e-mail verificate",
 				"addInvalidEmail": "Inserisci un indirizzo e-mail valido",
@@ -568,6 +580,10 @@
 				"add": "Hinzufügen",
 				"cancel": "Abbrechen",
 				"delete": "Löschen"
+			},
+			"success": {
+				"addSuccess": "Bestätigungscode an Ihre E-Mail gesendet",
+				"deleteSuccess": "E-Mail erfolgreich gelöscht"
 			},
 			"errors": {
 				"loadFailed": "Verifizierte E-Mails konnten nicht geladen werden",
@@ -677,6 +693,10 @@
 				"cancel": "Anulează",
 				"delete": "Șterge"
 			},
+			"success": {
+				"addSuccess": "Cod de verificare trimis la e-mailul tău",
+				"deleteSuccess": "E-mail șters cu succes"
+			},
 			"errors": {
 				"loadFailed": "Nu s-au putut încărca e-mailurile verificate",
 				"addInvalidEmail": "Te rugăm să introduci o adresă de e-mail validă",
@@ -785,6 +805,10 @@
 				"cancel": "Cancelar",
 				"delete": "Eliminar"
 			},
+			"success": {
+				"addSuccess": "Código de verificação enviado para o seu email",
+				"deleteSuccess": "Email eliminado com sucesso"
+			},
 			"errors": {
 				"loadFailed": "Falha ao carregar os e-mails verificados",
 				"addInvalidEmail": "Introduz um endereço de e-mail válido",
@@ -892,6 +916,10 @@
 				"add": "Toevoegen",
 				"cancel": "Annuleren",
 				"delete": "Verwijderen"
+			},
+			"success": {
+				"addSuccess": "Verificatiecode verzonden naar uw email",
+				"deleteSuccess": "Email succesvol verwijderd"
 			},
 			"errors": {
 				"loadFailed": "Geverifieerde e-mails konden niet worden geladen",
