@@ -8,7 +8,7 @@ export default function SentryClientInit() {
 	useEffect(() => {
 		// relative from this file to project root
 		// eslint-disable-next-line @typescript-eslint/no-floating-promises
-		import('../../../sentry.client.config')
+		import('../../../instrumentation-client')
 	}, [])
 	return null
 }

@@ -11,3 +11,6 @@ Sentry.init({
 	dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? process.env.SENTRY_DSN,
 	debug: false,
 })
+
+// Export the router transition start hook as required by Sentry
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart
