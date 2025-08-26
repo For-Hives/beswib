@@ -80,7 +80,8 @@ describe('verifiedEmail.services', () => {
 			})
 
 			expect(result).not.toBeNull()
-			expect(result?.id).toBe('test-id')
+			expect(result.success).toBe(true)
+			expect(result.data?.id).toBe('test-id')
 			// Intentionally avoid asserting on pb.collection due to unbound-method lint rule
 			expect(mockCreate).toHaveBeenCalled()
 			expect(mockSendVerificationEmail).toHaveBeenCalled()
@@ -95,7 +96,8 @@ describe('verifiedEmail.services', () => {
 				email: 'test@example.com',
 			})
 
-			expect(result).toBeNull()
+			expect(result.success).toBe(false)
+			expect(result.error).toContain('wait')
 			expect(mockCreate).not.toHaveBeenCalled()
 		})
 	})
@@ -134,7 +136,8 @@ describe('verifiedEmail.services', () => {
 
 			const result = await resendVerificationCode('test-id')
 
-			expect(result).toBe(true)
+			expect(result.success).toBe(true)
+			expect(result.data).toBe(true)
 			expect(mockGetOne).toHaveBeenCalledWith('test-id')
 			expect(mockUpdate).toHaveBeenCalled()
 			expect(mockSendVerificationEmail).toHaveBeenCalled()

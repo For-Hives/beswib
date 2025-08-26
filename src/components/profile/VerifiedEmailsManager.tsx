@@ -53,6 +53,38 @@ export default function VerifiedEmailsManager({
 }: VerifiedEmailsManagerProps) {
 	const t = getTranslations(locale, pageLocales)
 
+	// Helper function to get translated error messages
+	const getErrorMessage = (errorCode: string): string => {
+		switch (errorCode) {
+			case 'RATE_LIMIT_EXCEEDED':
+				return t.verifiedEmails.errors.rateLimitExceeded ?? 'Please wait before requesting another verification code'
+			case 'EMAIL_ALREADY_VERIFIED':
+				return t.verifiedEmails.errors.emailAlreadyVerified ?? 'This email address is already verified for your account'
+			case 'CREATE_EMAIL_FAILED':
+				return t.verifiedEmails.errors.createEmailFailed ?? 'Failed to add email. Please try again.'
+			case 'VERIFICATION_CODE_EXPIRED':
+				return (
+					t.verifiedEmails.errors.verificationCodeExpired ?? 'Verification code has expired. Please request a new one.'
+				)
+			case 'INVALID_VERIFICATION_CODE':
+				return (
+					t.verifiedEmails.errors.invalidVerificationCode ?? 'Invalid verification code. Please check and try again.'
+				)
+			case 'VERIFY_EMAIL_FAILED':
+				return t.verifiedEmails.errors.verifyEmailFailed ?? 'Failed to verify email. Please try again.'
+			case 'FETCH_EMAILS_FAILED':
+				return t.verifiedEmails.errors.fetchEmailsFailed ?? 'Failed to load verified emails. Please refresh the page.'
+			case 'DELETE_EMAIL_FAILED':
+				return t.verifiedEmails.errors.deleteEmailFailed ?? 'Failed to delete email. Please try again.'
+			case 'EMAIL_SEND_FAILED':
+				return t.verifiedEmails.errors.emailSendFailed ?? 'Failed to send verification email. Please try again.'
+			case 'RESEND_CODE_FAILED':
+				return t.verifiedEmails.errors.resendCodeFailed ?? 'Failed to resend verification code. Please try again.'
+			default:
+				return errorCode // Fallback to the error code itself
+		}
+	}
+
 	const [verifiedEmails, setVerifiedEmails] = useState<VerifiedEmail[]>([])
 	const [newEmail, setNewEmail] = useState('')
 	const [verificationCodes, setVerificationCodes] = useState<Record<string, string>>({})
@@ -68,11 +100,16 @@ export default function VerifiedEmailsManager({
 		async function loadVerifiedEmails() {
 			try {
 				setLoading(true)
-				const emails = await fetchVerifiedEmailsByUserId(user.id)
-				setVerifiedEmails(emails)
+				const result = await fetchVerifiedEmailsByUserId(user.id)
+				if (result.success && result.data) {
+					setVerifiedEmails(result.data)
+				} else {
+					console.error('Error loading verified emails:', result.error)
+					setError(getErrorMessage(result.error ?? 'FETCH_EMAILS_FAILED'))
+				}
 			} catch (error) {
 				console.error('Error loading verified emails:', error)
-				setError(t.verifiedEmails.errors.loadFailed)
+				setError(t.verifiedEmails.errors.loadFailed ?? 'Failed to load verified emails')
 			} finally {
 				setLoading(false)
 			}
@@ -92,22 +129,19 @@ export default function VerifiedEmailsManager({
 
 		try {
 			const result = await createVerifiedEmail({ userId: user.id, email: newEmail.trim() })
-			if (result) {
-				setVerifiedEmails(prev => [...prev, result])
+			if (result.success && result.data) {
+				setVerifiedEmails(prev => [...prev, result.data!])
 				setNewEmail('')
 				setShowAddEmail(false)
 				toast.success('Verification code sent to your email')
 			} else {
-				const errorMessage = t.verifiedEmails.errors.addFailed ?? 'Failed to add email. Please try again.'
+				const errorMessage = getErrorMessage(result.error ?? 'CREATE_EMAIL_FAILED')
 				setError(errorMessage)
 				toast.error(errorMessage)
 			}
 		} catch (error) {
 			console.error('Error adding email:', error)
-			const errorMessage =
-				error instanceof Error
-					? error.message
-					: (t.verifiedEmails.errors.addFailed ?? 'Failed to add email. Please try again.')
+			const errorMessage = t.verifiedEmails.errors.addFailed ?? 'Failed to add email. Please try again.'
 			setError(errorMessage)
 			toast.error(errorMessage)
 		} finally {
@@ -131,19 +165,24 @@ export default function VerifiedEmailsManager({
 
 		try {
 			const result = await verifyEmail({ verifiedEmailId: emailId, verificationCode: code })
-			if (result) {
-				setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? result : email)))
+			if (result.success && result.data) {
+				setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? result.data! : email)))
 				setVerificationCodes(prev => {
 					const next = { ...prev }
 					delete next[emailId]
 					return next
 				})
+				toast.success('Email verified successfully')
 			} else {
-				setError(t.verifiedEmails.errors.verifyInvalid ?? 'Invalid verification code or code has expired')
+				const errorMessage = getErrorMessage(result.error ?? 'VERIFY_EMAIL_FAILED')
+				setError(errorMessage)
+				toast.error(errorMessage)
 			}
 		} catch (error) {
 			console.error('Error verifying email:', error)
-			setError(t.verifiedEmails.errors.verifyFailed ?? 'Failed to verify email. Please try again.')
+			const errorMessage = t.verifiedEmails.errors.verifyFailed ?? 'Failed to verify email. Please try again.'
+			setError(errorMessage)
+			toast.error(errorMessage)
 		} finally {
 			setProcessingEmails(prev => {
 				const next = new Set(prev)
@@ -158,13 +197,20 @@ export default function VerifiedEmailsManager({
 		setError(null)
 
 		try {
-			const success = await resendVerificationCode(emailId)
-			if (!success) {
-				setError(t.verifiedEmails.errors.resendFailed ?? 'Failed to resend verification code. Please try again.')
+			const result = await resendVerificationCode(emailId)
+			if (result.success) {
+				toast.success('Verification code sent')
+			} else {
+				const errorMessage = getErrorMessage(result.error ?? 'RESEND_CODE_FAILED')
+				setError(errorMessage)
+				toast.error(errorMessage)
 			}
 		} catch (error) {
 			console.error('Error resending code:', error)
-			setError(t.verifiedEmails.errors.resendFailed ?? 'Failed to resend verification code. Please try again.')
+			const errorMessage =
+				t.verifiedEmails.errors.resendFailed ?? 'Failed to resend verification code. Please try again.'
+			setError(errorMessage)
+			toast.error(errorMessage)
 		} finally {
 			setProcessingEmails(prev => {
 				const next = new Set(prev)
@@ -186,12 +232,12 @@ export default function VerifiedEmailsManager({
 		setError(null)
 
 		try {
-			const success = await deleteVerifiedEmail(emailToDelete)
-			if (success) {
+			const result = await deleteVerifiedEmail(emailToDelete)
+			if (result.success) {
 				setVerifiedEmails(prev => prev.filter(email => email.id !== emailToDelete))
 				toast.success('Email deleted successfully')
 			} else {
-				const errorMessage = t.verifiedEmails.errors.deleteFailed ?? 'Failed to delete email. Please try again.'
+				const errorMessage = getErrorMessage(result.error ?? 'DELETE_EMAIL_FAILED')
 				setError(errorMessage)
 				toast.error(errorMessage)
 			}

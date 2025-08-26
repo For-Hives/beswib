@@ -33,7 +33,17 @@
 				"verifyInvalid": "Invalid verification code or code has expired",
 				"verifyFailed": "Failed to verify email. Please try again.",
 				"resendFailed": "Failed to resend verification code. Please try again.",
-				"deleteFailed": "Failed to delete email. Please try again."
+				"deleteFailed": "Failed to delete email. Please try again.",
+				"rateLimitExceeded": "Please wait before requesting another verification code",
+				"emailAlreadyVerified": "This email address is already verified for your account",
+				"createEmailFailed": "Failed to add email. Please try again.",
+				"verificationCodeExpired": "Verification code has expired. Please request a new one.",
+				"invalidVerificationCode": "Invalid verification code. Please check and try again.",
+				"verifyEmailFailed": "Failed to verify email. Please try again.",
+				"fetchEmailsFailed": "Failed to load verified emails. Please refresh the page.",
+				"deleteEmailFailed": "Failed to delete email. Please try again.",
+				"emailSendFailed": "Failed to send verification email. Please try again.",
+				"resendCodeFailed": "Failed to resend verification code. Please try again."
 			}
 		},
 		"validation": {
@@ -135,7 +145,17 @@
 				"verifyInvalid": "Code de vérification invalide ou expiré",
 				"verifyFailed": "Échec de la vérification de l'e-mail. Veuillez réessayer.",
 				"resendFailed": "Échec de l'envoi du code de vérification. Veuillez réessayer.",
-				"deleteFailed": "Échec de la suppression de l'e-mail. Veuillez réessayer."
+				"deleteFailed": "Échec de la suppression de l'e-mail. Veuillez réessayer.",
+				"rateLimitExceeded": "Veuillez patienter avant de demander un nouveau code de vérification",
+				"emailAlreadyVerified": "Cette adresse e-mail est déjà vérifiée pour votre compte",
+				"createEmailFailed": "Échec de l'ajout de l'e-mail. Veuillez réessayer.",
+				"verificationCodeExpired": "Le code de vérification a expiré. Veuillez en demander un nouveau.",
+				"invalidVerificationCode": "Code de vérification invalide. Veuillez vérifier et réessayer.",
+				"verifyEmailFailed": "Échec de la vérification de l'e-mail. Veuillez réessayer.",
+				"fetchEmailsFailed": "Échec du chargement des e-mails vérifiés. Veuillez actualiser la page.",
+				"deleteEmailFailed": "Échec de la suppression de l'e-mail. Veuillez réessayer.",
+				"emailSendFailed": "Échec de l'envoi de l'e-mail de vérification. Veuillez réessayer.",
+				"resendCodeFailed": "Échec de l'envoi du code de vérification. Veuillez réessayer."
 			}
 		},
 		"validation": {
@@ -233,7 +253,17 @@
 				"verifyInvalid": "인증 코드가 올바르지 않거나 만료되었습니다",
 				"verifyFailed": "이메일 인증에 실패했습니다. 다시 시도해주세요.",
 				"resendFailed": "인증 코드 재전송에 실패했습니다. 다시 시도해주세요.",
-				"deleteFailed": "이메일 삭제에 실패했습니다. 다시 시도해주세요."
+				"deleteFailed": "이메일 삭제에 실패했습니다. 다시 시도해주세요.",
+				"rateLimitExceeded": "다음 인증 코드를 요청하기 전에 잠시 기다려주세요",
+				"emailAlreadyVerified": "이 이메일 주소는 이미 계정에 인증되어 있습니다",
+				"createEmailFailed": "이메일 추가에 실패했습니다. 다시 시도해주세요.",
+				"verificationCodeExpired": "인증 코드가 만료되었습니다. 새 코드를 요청해주세요.",
+				"invalidVerificationCode": "잘못된 인증 코드입니다. 확인 후 다시 시도해주세요.",
+				"verifyEmailFailed": "이메일 인증에 실패했습니다. 다시 시도해주세요.",
+				"fetchEmailsFailed": "인증된 이메일을 불러오지 못했습니다. 페이지를 새로고침해주세요.",
+				"deleteEmailFailed": "이메일 삭제에 실패했습니다. 다시 시도해주세요.",
+				"emailSendFailed": "인증 이메일 전송에 실패했습니다. 다시 시도해주세요.",
+				"resendCodeFailed": "인증 코드 재전송에 실패했습니다. 다시 시도해주세요."
 			}
 		},
 		"validation": {
@@ -331,7 +361,17 @@
 				"verifyInvalid": "Código de verificación inválido o caducado",
 				"verifyFailed": "No se pudo verificar el correo. Inténtalo de nuevo.",
 				"resendFailed": "No se pudo reenviar el código de verificación. Inténtalo de nuevo.",
-				"deleteFailed": "No se pudo eliminar el correo. Inténtalo de nuevo."
+				"deleteFailed": "No se pudo eliminar el correo. Inténtalo de nuevo.",
+				"rateLimitExceeded": "Espera antes de solicitar otro código de verificación",
+				"emailAlreadyVerified": "Esta dirección de correo ya está verificada para tu cuenta",
+				"createEmailFailed": "No se pudo añadir el correo. Inténtalo de nuevo.",
+				"verificationCodeExpired": "El código de verificación ha caducado. Solicita uno nuevo.",
+				"invalidVerificationCode": "Código de verificación inválido. Verifica e inténtalo de nuevo.",
+				"verifyEmailFailed": "No se pudo verificar el correo. Inténtalo de nuevo.",
+				"fetchEmailsFailed": "No se pudieron cargar los correos verificados. Actualiza la página.",
+				"deleteEmailFailed": "No se pudo eliminar el correo. Inténtalo de nuevo.",
+				"emailSendFailed": "No se pudo enviar el correo de verificación. Inténtalo de nuevo.",
+				"resendCodeFailed": "No se pudo reenviar el código de verificación. Inténtalo de nuevo."
 			}
 		},
 		"validation": {
@@ -429,7 +469,17 @@
 				"verifyInvalid": "Codice di verifica non valido o scaduto",
 				"verifyFailed": "Impossibile verificare l'e-mail. Riprova.",
 				"resendFailed": "Impossibile reinviare il codice di verifica. Riprova.",
-				"deleteFailed": "Impossibile eliminare l'e-mail. Riprova."
+				"deleteFailed": "Impossibile eliminare l'e-mail. Riprova.",
+				"rateLimitExceeded": "Attendi prima di richiedere un altro codice di verifica",
+				"emailAlreadyVerified": "Questo indirizzo e-mail è già verificato per il tuo account",
+				"createEmailFailed": "Impossibile aggiungere l'e-mail. Riprova.",
+				"verificationCodeExpired": "Il codice di verifica è scaduto. Richiedine uno nuovo.",
+				"invalidVerificationCode": "Codice di verifica non valido. Controlla e riprova.",
+				"verifyEmailFailed": "Impossibile verificare l'e-mail. Riprova.",
+				"fetchEmailsFailed": "Impossibile caricare le e-mail verificate. Aggiorna la pagina.",
+				"deleteEmailFailed": "Impossibile eliminare l'e-mail. Riprova.",
+				"emailSendFailed": "Impossibile inviare l'e-mail di verifica. Riprova.",
+				"resendCodeFailed": "Impossibile reinviare il codice di verifica. Riprova."
 			}
 		},
 		"validation": {
@@ -527,7 +577,17 @@
 				"verifyInvalid": "Bestätigungscode ungültig oder abgelaufen",
 				"verifyFailed": "E-Mail konnte nicht bestätigt werden. Bitte versuche es erneut.",
 				"resendFailed": "Bestätigungscode konnte nicht erneut gesendet werden. Bitte versuche es erneut.",
-				"deleteFailed": "E-Mail konnte nicht gelöscht werden. Bitte versuche es erneut."
+				"deleteFailed": "E-Mail konnte nicht gelöscht werden. Bitte versuche es erneut.",
+				"rateLimitExceeded": "Bitte warte, bevor du einen neuen Bestätigungscode anforderst",
+				"emailAlreadyVerified": "Diese E-Mail-Adresse ist bereits für dein Konto verifiziert",
+				"createEmailFailed": "E-Mail konnte nicht hinzugefügt werden. Bitte versuche es erneut.",
+				"verificationCodeExpired": "Der Bestätigungscode ist abgelaufen. Bitte fordere einen neuen an.",
+				"invalidVerificationCode": "Ungültiger Bestätigungscode. Bitte überprüfe und versuche es erneut.",
+				"verifyEmailFailed": "E-Mail konnte nicht bestätigt werden. Bitte versuche es erneut.",
+				"fetchEmailsFailed": "Verifizierte E-Mails konnten nicht geladen werden. Bitte aktualisiere die Seite.",
+				"deleteEmailFailed": "E-Mail konnte nicht gelöscht werden. Bitte versuche es erneut.",
+				"emailSendFailed": "Bestätigungs-E-Mail konnte nicht gesendet werden. Bitte versuche es erneut.",
+				"resendCodeFailed": "Bestätigungscode konnte nicht erneut gesendet werden. Bitte versuche es erneut."
 			}
 		},
 		"validation": {
@@ -625,7 +685,17 @@
 				"verifyInvalid": "Cod de verificare invalid sau expirat",
 				"verifyFailed": "Nu s-a putut verifica e-mailul. Încearcă din nou.",
 				"resendFailed": "Nu s-a putut retrimite codul de verificare. Încearcă din nou.",
-				"deleteFailed": "Nu s-a putut șterge e-mailul. Încearcă din nou."
+				"deleteFailed": "Nu s-a putut șterge e-mailul. Încearcă din nou.",
+				"rateLimitExceeded": "Te rugăm să aștepți înainte de a solicita un alt cod de verificare",
+				"emailAlreadyVerified": "Această adresă de e-mail este deja verificată pentru contul tău",
+				"createEmailFailed": "Nu s-a putut adăuga e-mailul. Încearcă din nou.",
+				"verificationCodeExpired": "Codul de verificare a expirat. Solicită unul nou.",
+				"invalidVerificationCode": "Cod de verificare invalid. Verifică și încearcă din nou.",
+				"verifyEmailFailed": "Nu s-a putut verifica e-mailul. Încearcă din nou.",
+				"fetchEmailsFailed": "Nu s-au putut încărca e-mailurile verificate. Actualizează pagina.",
+				"deleteEmailFailed": "Nu s-a putut șterge e-mailul. Încearcă din nou.",
+				"emailSendFailed": "Nu s-a putut trimite e-mailul de verificare. Încearcă din nou.",
+				"resendCodeFailed": "Nu s-a putut retrimite codul de verificare. Încearcă din nou."
 			}
 		},
 		"validation": {
@@ -723,7 +793,17 @@
 				"verifyInvalid": "Código de verificação inválido ou expirado",
 				"verifyFailed": "Falha ao verificar o e-mail. Tenta novamente.",
 				"resendFailed": "Falha ao reenviar o código de verificação. Tenta novamente.",
-				"deleteFailed": "Falha ao eliminar o e-mail. Tenta novamente."
+				"deleteFailed": "Falha ao eliminar o e-mail. Tenta novamente.",
+				"rateLimitExceeded": "Aguarda antes de solicitar outro código de verificação",
+				"emailAlreadyVerified": "Este endereço de e-mail já está verificado para a tua conta",
+				"createEmailFailed": "Falha ao adicionar o e-mail. Tenta novamente.",
+				"verificationCodeExpired": "O código de verificação expirou. Solicita um novo.",
+				"invalidVerificationCode": "Código de verificação inválido. Verifica e tenta novamente.",
+				"verifyEmailFailed": "Falha ao verificar o e-mail. Tenta novamente.",
+				"fetchEmailsFailed": "Falha ao carregar os e-mails verificados. Atualiza a página.",
+				"deleteEmailFailed": "Falha ao eliminar o e-mail. Tenta novamente.",
+				"emailSendFailed": "Falha ao enviar o e-mail de verificação. Tenta novamente.",
+				"resendCodeFailed": "Falha ao reenviar o código de verificação. Tenta novamente."
 			}
 		},
 		"validation": {
@@ -821,7 +901,17 @@
 				"verifyInvalid": "Verificatiecode ongeldig of verlopen",
 				"verifyFailed": "E-mail kon niet worden geverifieerd. Probeer het opnieuw.",
 				"resendFailed": "Verificatiecode kon niet opnieuw worden verzonden. Probeer het opnieuw.",
-				"deleteFailed": "E-mail kon niet worden verwijderd. Probeer het opnieuw."
+				"deleteFailed": "E-mail kon niet worden verwijderd. Probeer het opnieuw.",
+				"rateLimitExceeded": "Wacht even voordat je een nieuwe verificatiecode aanvraagt",
+				"emailAlreadyVerified": "Dit e-mailadres is al geverifieerd voor je account",
+				"createEmailFailed": "E-mail kon niet worden toegevoegd. Probeer het opnieuw.",
+				"verificationCodeExpired": "Verificatiecode is verlopen. Vraag een nieuwe aan.",
+				"invalidVerificationCode": "Ongeldige verificatiecode. Controleer en probeer opnieuw.",
+				"verifyEmailFailed": "E-mail kon niet worden geverifieerd. Probeer het opnieuw.",
+				"fetchEmailsFailed": "Geverifieerde e-mails konden niet worden geladen. Ververs de pagina.",
+				"deleteEmailFailed": "E-mail kon niet worden verwijderd. Probeer het opnieuw.",
+				"emailSendFailed": "Verificatie-e-mail kon niet worden verzonden. Probeer het opnieuw.",
+				"resendCodeFailed": "Verificatiecode kon niet opnieuw worden verzonden. Probeer het opnieuw."
 			}
 		},
 		"validation": {
