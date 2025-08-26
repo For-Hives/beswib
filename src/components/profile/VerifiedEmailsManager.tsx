@@ -133,7 +133,7 @@ export default function VerifiedEmailsManager({
 				setVerifiedEmails(prev => [...prev, result.data!])
 				setNewEmail('')
 				setShowAddEmail(false)
-				toast.success('Verification code sent to your email')
+				toast.success(t.verifiedEmails.success.addSuccess)
 			} else {
 				const errorMessage = getErrorMessage(result.error ?? 'CREATE_EMAIL_FAILED')
 				setError(errorMessage)
