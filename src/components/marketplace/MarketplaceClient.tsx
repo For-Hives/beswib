@@ -89,52 +89,25 @@ const parseAsSearchString = {
 	},
 }
 
-// --- Custom parser for dates that prevents 'undefined' strings in URLs 📅
-const parseAsDateString = {
-	...parseAsString,
-	serialize: (value: string | null) => {
-		// If value is null, undefined, empty string, or the string "undefined", don't serialize it
-		if (!value || value === 'undefined' || value === 'null') {
-			return null
-		}
-		return value
-	},
-	parse: (value: string) => {
-		// If value is the string "undefined", "null", empty, or invalid date format, return null
-		if (!value || value === 'undefined' || value === 'null' || value.trim() === '') {
-			return null
-		}
-		// Basic date format validation (YYYY-MM-DD)
-		const datePattern = /^\d{4}-\d{2}-\d{2}$/
-		if (!datePattern.test(value)) {
-			return null
-		}
-		return value
-	},
+// --- Helper function to sanitize date values from URL parameters 📅
+const sanitizeDateValue = (value: string | null): string | null => {
+	if (value == null || value === 'undefined' || value === 'null' || value.trim() === '') {
+		return null
+	}
+	// Basic date format validation (YYYY-MM-DD)
+	const datePattern = /^\d{4}-\d{2}-\d{2}$/
+	if (!datePattern.test(value)) {
+		return null
+	}
+	return value
 }
 
-// --- Custom parser for numbers that prevents 'undefined', 'NaN', and invalid values 💰
-const parseAsSafeFloat = {
-	...parseAsFloat,
-	serialize: (value: number) => {
-		// Don't serialize invalid numbers
-		if (isNaN(value) || !isFinite(value)) {
-			return null
-		}
-		return value.toString()
-	},
-	parse: (value: string) => {
-		// Handle 'undefined' and other invalid strings
-		if (!value || value === 'undefined' || value === 'null' || value === 'NaN') {
-			return null
-		}
-		const parsed = parseFloat(value)
-		// Return null for invalid numbers instead of NaN
-		if (isNaN(parsed) || !isFinite(parsed)) {
-			return null
-		}
-		return parsed
-	},
+// --- Helper function to sanitize numeric values from URL parameters 💰
+const sanitizeNumericValue = (value: number | null): number | null => {
+	if (value == null || isNaN(value) || !isFinite(value)) {
+		return null
+	}
+	return value
 }
 
 // --- Main client component for the marketplace grid and filters 🖼️
@@ -150,14 +123,14 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 			sport: parseAsString, // null when not set, string when set
 			sort: parseAsStringLiteral(['date', 'distance', 'price-asc', 'price-desc'] as const).withDefault('date'),
 			search: parseAsSearchString.withDefault(''), // Use custom parser for search
-			priceMin: parseAsSafeFloat.withDefault(0), // Use safe parser to prevent 'undefined' in URLs
-			priceMax: parseAsSafeFloat.withDefault(Infinity), // Use safe parser to prevent 'undefined' in URLs
+			priceMin: parseAsFloat.withDefault(0),
+			priceMax: parseAsFloat.withDefault(Infinity),
 			geography: parseAsArrayOf(parseAsString, ',').withDefault([]),
-			distanceMin: parseAsSafeFloat.withDefault(0), // Use safe parser for consistency
-			distanceMax: parseAsSafeFloat.withDefault(Infinity), // Use safe parser for consistency
+			distanceMin: parseAsFloat.withDefault(0),
+			distanceMax: parseAsFloat.withDefault(Infinity),
 			distance: parseAsString, // null when not set, string when set - kept for backward compatibility
-			dateStart: parseAsDateString, // Use custom parser for dates to prevent 'undefined' strings
-			dateEnd: parseAsDateString, // Use custom parser for dates to prevent 'undefined' strings
+			dateStart: parseAsString, // Will be sanitized after parsing
+			dateEnd: parseAsString, // Will be sanitized after parsing
 		},
 		{
 			history: 'push', // Use push for better UX
@@ -174,11 +147,49 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 	// --- Extract the maximum distance from bibs for the distance slider 📏
 	const maxDistance = Math.max(...bibs.map(bib => bib.event.distance), 0) // Maximum distance for slider 🏃
 
+	// --- Sanitize URL parameters on component mount to prevent 'undefined' values 🧹
+	React.useEffect(() => {
+		const sanitizedDateStart = sanitizeDateValue(dateStart)
+		const sanitizedDateEnd = sanitizeDateValue(dateEnd)
+		const sanitizedPriceMin = sanitizeNumericValue(priceMin)
+		const sanitizedPriceMax = sanitizeNumericValue(priceMax)
+		const sanitizedDistanceMin = sanitizeNumericValue(distanceMin)
+		const sanitizedDistanceMax = sanitizeNumericValue(distanceMax)
+
+		// Check if any values need to be cleaned up
+		const needsCleanup =
+			sanitizedDateStart !== dateStart ||
+			sanitizedDateEnd !== dateEnd ||
+			sanitizedPriceMin !== priceMin ||
+			sanitizedPriceMax !== priceMax ||
+			sanitizedDistanceMin !== distanceMin ||
+			sanitizedDistanceMax !== distanceMax
+
+		if (needsCleanup) {
+			const updates: Partial<{
+				dateStart: string | null
+				dateEnd: string | null
+				priceMin: number
+				priceMax: number
+				distanceMin: number
+				distanceMax: number
+			}> = {}
+			if (sanitizedDateStart !== dateStart) updates.dateStart = sanitizedDateStart
+			if (sanitizedDateEnd !== dateEnd) updates.dateEnd = sanitizedDateEnd
+			if (sanitizedPriceMin !== priceMin) updates.priceMin = sanitizedPriceMin ?? 0
+			if (sanitizedPriceMax !== priceMax) updates.priceMax = sanitizedPriceMax ?? Infinity
+			if (sanitizedDistanceMin !== distanceMin) updates.distanceMin = sanitizedDistanceMin ?? 0
+			if (sanitizedDistanceMax !== distanceMax) updates.distanceMax = sanitizedDistanceMax ?? Infinity
+
+			void setFilters(updates)
+		}
+	}, [dateStart, dateEnd, priceMin, priceMax, distanceMin, distanceMax, setFilters])
+
 	// --- Initialize price and distance range with actual min/max values when first loading
 	React.useEffect(() => {
 		const needsPriceInit = bibs.length > 0 && (priceMax === Infinity || priceMax == null)
 		const needsDistanceInit = bibs.length > 0 && (distanceMax === Infinity || distanceMax == null)
-		
+
 		// Also handle cases where values were undefined/null from URL
 		const needsPriceCleanup = priceMin == null || priceMax == null
 		const needsDistanceCleanup = distanceMin == null || distanceMax == null
@@ -246,7 +257,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 					break
 				case 'geography':
 					if (value != null && value !== undefined && value !== '') {
-						const newGeography = geography.filter(loc => loc !== value)
+						const newGeography = geography.filter((loc: string) => loc !== value)
 						void setFilters({ geography: newGeography })
 					}
 					break
@@ -389,8 +400,8 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 											distanceMin: distanceMin ?? 0,
 											distanceMax: distanceMax ?? maxDistance,
 											distance,
-											dateStart: dateStart && dateStart !== 'undefined' ? dateStart : undefined,
-											dateEnd: dateEnd && dateEnd !== 'undefined' ? dateEnd : undefined,
+											dateStart: dateStart != null && dateStart !== 'undefined' ? dateStart : undefined,
+											dateEnd: dateEnd != null && dateEnd !== 'undefined' ? dateEnd : undefined,
 										}}
 										onFiltersChange={handleFiltersChange}
 										regions={uniqueLocations}
@@ -412,8 +423,8 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 					distanceMin: distanceMin ?? 0,
 					distanceMax: distanceMax ?? maxDistance,
 					distance,
-					dateStart: dateStart && dateStart !== 'undefined' ? dateStart : undefined,
-					dateEnd: dateEnd && dateEnd !== 'undefined' ? dateEnd : undefined,
+					dateStart: dateStart != null && dateStart !== 'undefined' ? dateStart : undefined,
+					dateEnd: dateEnd != null && dateEnd !== 'undefined' ? dateEnd : undefined,
 				}}
 				minPrice={minPrice}
 				maxPrice={maxPrice}
@@ -440,8 +451,8 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 								distanceMin: distanceMin ?? 0,
 								distanceMax: distanceMax ?? maxDistance,
 								distance,
-								dateStart: dateStart && dateStart !== 'undefined' ? dateStart : undefined,
-								dateEnd: dateEnd && dateEnd !== 'undefined' ? dateEnd : undefined,
+								dateStart: dateStart != null && dateStart !== 'undefined' ? dateStart : undefined,
+								dateEnd: dateEnd != null && dateEnd !== 'undefined' ? dateEnd : undefined,
 							}}
 							onFiltersChange={handleFiltersChange}
 							regions={uniqueLocations}
