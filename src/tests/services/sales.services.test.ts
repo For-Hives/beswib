@@ -15,6 +15,7 @@ vi.mock('@/services/bib.services', () => ({
 }))
 vi.mock('@/services/user.services', () => ({
 	fetchUserByClerkId: vi.fn(),
+	getUserLocaleByEmail: vi.fn(() => Promise.resolve('fr')),
 }))
 
 import type { Transaction } from '@/models/transaction.model'
