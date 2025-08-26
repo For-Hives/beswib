@@ -8,12 +8,14 @@ import { valibotResolver } from '@hookform/resolvers/valibot'
 
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { fetchVerifiedEmailsByUserId } from '@/services/verifiedEmail.services'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import profileTranslations from '@/components/profile/locales.json'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import { createRunnerFormSchema } from '@/lib/validation/schemas'
 import { isUserProfileComplete } from '@/lib/validation/user'
 import { AddressInput } from '@/components/ui/address-input'
+import { VerifiedEmail } from '@/models/verifiedEmail.model'
 import { formatDateForHTMLInput } from '@/lib/utils/date'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -49,6 +51,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 	const t = getTranslations(locale, profileTranslations)
 	const [isPending, startTransition] = useTransition()
 	const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+	const [verifiedEmails, setVerifiedEmails] = useState<VerifiedEmail[]>([])
 
 	// Local user state that gets updated when profile is saved
 	const [localUser, setLocalUser] = useState<User>(user)
@@ -58,6 +61,21 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 		setLocalUser(user)
 	}, [user])
 
+	// Load verified emails for contact email selector
+	useEffect(() => {
+		async function loadVerifiedEmails() {
+			try {
+				const result = await fetchVerifiedEmailsByUserId(user.id)
+				if (result.success && result.data) {
+					setVerifiedEmails(result.data)
+				}
+			} catch (error) {
+				console.error('Failed to load verified emails:', error)
+			}
+		}
+		void loadVerifiedEmails()
+	}, [user.id])
+
 	// Calculate completion status from local user state
 	const isComplete = isUserProfileComplete(localUser)
 
@@ -66,6 +84,17 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 		{ value: 'male', label: t.genderOptions?.male ?? 'Male' },
 		{ value: 'female', label: t.genderOptions?.female ?? 'Female' },
 		{ value: 'other', label: t.genderOptions?.other ?? 'Other' },
+	]
+
+	// Contact email options for SelectAnimated
+	const contactEmailOptions: SelectOption[] = [
+		// Primary account email
+		{ value: user.email, label: `${user.email} (${t.primaryAccount ?? 'Primary account email'})` },
+		// Verified emails
+		...verifiedEmails.map(email => ({
+			value: email.email,
+			label: email.email,
+		})),
 	]
 
 	const form = useForm<RunnerFormData>({
@@ -82,7 +111,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 			emergencyContactPhone: user?.emergencyContactPhone ?? '',
 			emergencyContactName: user?.emergencyContactName ?? '',
 			country: user?.country ?? '',
-			contactEmail: user?.contactEmail ?? '',
+			contactEmail: user?.contactEmail ?? user?.email ?? '', // Use contactEmail first, fallback to email if contactEmail is empty
 			consentMarket: user?.consentMarket ?? false,
 			clubAffiliation: user?.clubAffiliation ?? '',
 			city: user?.city ?? '',
@@ -260,9 +289,6 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="phoneNumber">
 								{t.phoneNumber ?? 'Phone Number'}
-								<span className="text-muted-foreground ml-1 text-xs">
-									{t.atLeastOneContact ?? '(at least one of phone or contact email)'}
-								</span>
 							</Label>
 							<Controller
 								name="phoneNumber"
@@ -288,16 +314,12 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="contactEmail">
 								{t.contactEmail ?? 'Contact Email'}
-								<span className="text-muted-foreground ml-1 text-xs">
-									{t.optionalAlternative ?? '(optional alternative to phone)'}
-								</span>
 							</Label>
-							<Input
-								{...form.register('contactEmail')}
-								className={form.formState.errors.contactEmail ? 'border-red-500' : ''}
-								id="contactEmail"
-								placeholder="you@example.com"
-								type="email"
+							<SelectAnimated
+								onValueChange={value => form.setValue('contactEmail', value)}
+								options={contactEmailOptions}
+								placeholder={t.selectContactEmailPlaceholder ?? 'Select your contact email'}
+								value={form.watch('contactEmail')}
 							/>
 							{form.formState.errors.contactEmail && (
 								<p className="mt-1 text-sm text-red-600 dark:text-red-400">
