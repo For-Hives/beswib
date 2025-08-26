@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { getOrganizerLogoUrl } from '@/services/organizer.services'
+import { getOrganizerImageUrl } from '@/lib/utils/images'
 import { Organizer } from '@/models/organizer.model'
 
 interface OrganizerLogoDisplayProps {
@@ -15,13 +15,13 @@ interface OrganizerLogoDisplayProps {
  */
 export default function OrganizerLogoDisplay({ size = 'md', organizer, className = '' }: OrganizerLogoDisplayProps) {
 	// Define thumbnail sizes according to PocketBase documentation
-	const thumbnailSizes = {
-		sm: '64x64', // Small thumbnail
-		md: '128x128', // Medium thumbnail
-		lg: '256x256', // Large thumbnail
-	}
+	// const thumbnailSizes = {
+	// 	sm: '64x64', // Small thumbnail
+	// 	md: '128x128', // Medium thumbnail
+	// 	lg: '256x256', // Large thumbnail
+	// }
 
-	const logoUrl = getOrganizerLogoUrl(organizer, thumbnailSizes[size])
+	const logoUrl = getOrganizerImageUrl(organizer)
 
 	if (logoUrl == null || logoUrl === undefined || logoUrl === '') {
 		// Fallback when no logo is available

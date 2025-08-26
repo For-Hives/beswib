@@ -8,9 +8,9 @@ import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
 import type { Bib } from '@/models/bib.model'
 
-import { getOrganizerLogoUrl } from '@/services/organizer.services'
 import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
 import CardMarket from '@/components/marketplace/CardMarket'
+import { getOrganizerImageUrl } from '@/lib/utils/images'
 import { Card, CardContent } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/inputAlt'
@@ -96,7 +96,7 @@ export default function ConfirmationStep({
 
 		// Get organizer logo URL or fallback to default image
 		const organizerLogoUrl = formData.selectedEvent.expand?.organizer
-			? getOrganizerLogoUrl(formData.selectedEvent.expand.organizer)
+			? getOrganizerImageUrl(formData.selectedEvent.expand.organizer)
 			: null
 
 		return {
