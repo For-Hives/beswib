@@ -133,7 +133,10 @@ describe('waitlist.services', () => {
 
 	describe('fetchUserWaitlists', () => {
 		it('should fetch user waitlists', async () => {
-			const waitlists = [{ id: 'waitlist1' }, { id: 'waitlist2' }]
+			const waitlists = [
+				{ id: 'waitlist1', expand: { event_id: undefined } }, 
+				{ id: 'waitlist2', expand: { event_id: undefined } }
+			]
 			mockPocketbaseCollection.getFullList.mockResolvedValue(waitlists)
 
 			const result = await fetchUserWaitlists('user1')
@@ -141,7 +144,7 @@ describe('waitlist.services', () => {
 			expect(mockPocketbase.collection).toHaveBeenCalledWith('waitlists')
 			expect(mockPocketbaseCollection.getFullList).toHaveBeenCalledWith({
 				sort: '-added_at',
-				filter: 'user_id = "user1"',
+				filter: 'user_id = "user1" && mail_notification = true',
 				expand: 'event_id',
 			})
 			expect(result).toEqual(waitlists)
