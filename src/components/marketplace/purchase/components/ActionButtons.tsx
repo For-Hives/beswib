@@ -8,7 +8,6 @@ import Link from 'next/link'
 import type { Locale } from '@/lib/i18n/config'
 import type { User } from '@/models/user.model'
 
-import { EventWaitlistCard } from '@/components/marketplace/EventWaitlistCard'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -37,13 +36,11 @@ interface ActionButtonsProps {
  * Handles different user states: not signed in, incomplete profile, own bib, etc.
  */
 export default function ActionButtons({
-	user,
 	onBuyNowClick,
 	locale,
 	isSignedIn,
 	isProfileComplete,
 	isOwnBib,
-	eventName,
 	eventId,
 }: Readonly<ActionButtonsProps>) {
 	const t = getTranslations(locale, marketplaceTranslations)
@@ -105,11 +102,6 @@ export default function ActionButtons({
 					</button>
 				</Link>
 			)}
-
-			{/* Event Waitlist Card - Show on all marketplace pages */}
-			<div className="sm:col-span-2">
-				<EventWaitlistCard eventId={eventId} eventName={eventName} locale={locale} user={user} className="mt-6" />
-			</div>
 		</div>
 	)
 }
