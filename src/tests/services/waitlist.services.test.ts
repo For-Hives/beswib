@@ -134,8 +134,8 @@ describe('waitlist.services', () => {
 	describe('fetchUserWaitlists', () => {
 		it('should fetch user waitlists', async () => {
 			const waitlists = [
-				{ id: 'waitlist1', expand: { event_id: undefined } }, 
-				{ id: 'waitlist2', expand: { event_id: undefined } }
+				{ id: 'waitlist1', expand: { event_id: undefined } },
+				{ id: 'waitlist2', expand: { event_id: undefined } },
 			]
 			mockPocketbaseCollection.getFullList.mockResolvedValue(waitlists)
 
