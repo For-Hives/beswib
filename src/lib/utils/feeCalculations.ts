@@ -3,7 +3,7 @@ import { PLATFORM_FEE } from '@/constants/global.constant'
 
 /**
  * Calculate PayPal fees based on transaction amount
- * PayPal charges 2.9% + €0.35 per transaction (French standard rates)
+ * PayPal charges 3.49% + €0.39 per transaction (French standard rates)
  * Source: https://www.paypal.com/fr/webapps/mpp/merchant-fees
  */
 export const calculatePayPalFee = (amount: number): number => {
