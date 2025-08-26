@@ -31,14 +31,14 @@ describe('Fee Calculations with Zero Platform Fees', () => {
 	describe('calculateNetAmount', () => {
 		it('should only deduct PayPal fees when platform fees are 0', () => {
 			const amount = 100
-			const paypalFee = calculatePayPalFee(amount) // Should be 3.25
-			const expectedNet = amount - paypalFee // 100 - 3.25 = 96.75
+			const paypalFee = calculatePayPalFee(amount) // Should be 3.88
+			const expectedNet = amount - paypalFee // 100 - 3.88 = 96.12
 			expect(calculateNetAmount(amount)).toBe(expectedNet)
 		})
 
 		it('should handle different amounts correctly', () => {
-			expect(calculateNetAmount(50)).toBe(50 - calculatePayPalFee(50)) // 50 - 1.8 = 48.2
-			expect(calculateNetAmount(150)).toBe(150 - calculatePayPalFee(150)) // 150 - 4.7 = 145.3
+			expect(calculateNetAmount(50)).toBe(50 - calculatePayPalFee(50)) // 50 - 2.14 = 47.86
+			expect(calculateNetAmount(150)).toBe(150 - calculatePayPalFee(150)) // 150 - 5.63 = 144.37
 		})
 	})
 
