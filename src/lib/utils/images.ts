@@ -4,7 +4,6 @@
 
 import type { Organizer } from '@/models/organizer.model'
 
-import { getOrganizerLogoUrl } from '@/services/organizer.services'
 import { pb } from '@/lib/services/pocketbase'
 
 // Available placeholder bib images
@@ -45,12 +44,9 @@ export function getRandomBibPlaceholder(seed?: string): string {
  */
 export function getOrganizerImageUrl(organizer?: Organizer | { logo?: string; id?: string }, seed?: string): string {
 	// If organizer has logo and id, use the proper PocketBase URL function
-	if (organizer?.logo != null && organizer.id != null) {
+	if (organizer?.logo != null && organizer.id != null && organizer.logo != null && organizer.logo) {
 		try {
-			const url = getOrganizerLogoUrl(organizer as Organizer)
-			if (url != null) {
-				return url
-			}
+			return `${process.env.NEXT_PUBLIC_POCKETBASE_URL}/api/files/organizer/${organizer.id}/${organizer.logo}`
 		} catch (error) {
 			console.warn('Failed to generate organizer logo URL:', error)
 		}

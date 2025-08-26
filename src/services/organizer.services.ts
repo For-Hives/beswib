@@ -1,3 +1,5 @@
+'use server'
+
 import { Organizer } from '@/models/organizer.model'
 import { pb } from '@/lib/services/pocketbase'
 
@@ -242,30 +244,6 @@ export async function fetchPartneredOrganizers(): Promise<Organizer[]> {
 		console.error('Error fetching partnered organizers:', error)
 		return []
 	}
-}
-
-/**
- * Get logo URL for an organizer according to PocketBase file handling
- * @param organizer - The organizer record
- * @param thumbSize - Optional thumbnail size (e.g., '100x100', '200x0')
- * @returns The full URL to the logo file
- */
-export function getOrganizerLogoUrl(organizer: Organizer, thumbSize?: string): null | string {
-	if (organizer.logo == null || organizer.logo === undefined || organizer.logo === '') {
-		return null
-	}
-
-	// Generate file URL using PocketBase pattern: 🔗
-	// http://127.0.0.1:8090/api/files/COLLECTION_ID_OR_NAME/RECORD_ID/FILENAME 🌐
-	const baseUrl = pb.baseUrl
-	let url = `${baseUrl}/api/files/organizer/${organizer.id}/${organizer.logo}`
-
-	// Add thumbnail parameter if specified 👍
-	if (thumbSize != null && thumbSize !== undefined && thumbSize !== '') {
-		url += `?thumb=${thumbSize}`
-	}
-
-	return url
 }
 
 /**
