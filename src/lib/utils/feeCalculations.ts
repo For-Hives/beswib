@@ -59,7 +59,7 @@ export const getFeeBreakdown = (amount: number) => {
 	const netAmount = calculateNetAmount(amount)
 
 	return {
-		totalFees: platformFee + paypalFee,
+		totalFees: Math.round((platformFee + paypalFee) * 100) / 100,
 		platformFee,
 		paypalFee,
 		originalAmount: amount,
@@ -92,7 +92,7 @@ export const getFeePercentages = (amount: number) => {
 	const breakdown = getFeeBreakdown(amount)
 
 	return {
-		totalFeePercentage: (breakdown.totalFees / amount) * 100,
+		totalFeePercentage: Math.round((breakdown.totalFees / amount) * 100 * 100) / 100,
 		platformFeePercentage: breakdown.hasPlatformFees ? (breakdown.platformFee / amount) * 100 : 0,
 		paypalFeePercentage: breakdown.hasPayPalFees ? (breakdown.paypalFee / amount) * 100 : 0,
 	}

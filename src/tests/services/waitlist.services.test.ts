@@ -54,6 +54,12 @@ describe('waitlist.services', () => {
 		it('should add a user to the waitlist', async () => {
 			mockPocketbaseCollection.getFirstListItem.mockRejectedValue({ status: 404 })
 			mockPocketbaseCollection.create.mockResolvedValue({ user_id: 'user1', id: 'waitlist1', event_id: 'event1' })
+			mockPocketbaseCollection.getOne.mockResolvedValue({
+				typeCourse: 'trail',
+				name: 'Test Event',
+				id: 'event1',
+				distanceKm: 10,
+			})
 
 			const result = await addToWaitlist('event1', mockUser)
 
@@ -83,6 +89,12 @@ describe('waitlist.services', () => {
 			mockFetchUserByEmail.mockResolvedValue(mockUser)
 			mockPocketbase.getFirstListItem.mockRejectedValue({ status: 404 }) // No existing waitlist entry
 			mockPocketbase.create.mockResolvedValue({ user_id: 'user1', id: 'waitlist1', event_id: 'event1' })
+			mockPocketbaseCollection.getOne.mockResolvedValue({
+				typeCourse: 'trail',
+				name: 'Test Event',
+				id: 'event1',
+				distanceKm: 10,
+			})
 
 			const result = await addToWaitlist('event1', null, 'test@test.com')
 
@@ -134,10 +146,18 @@ describe('waitlist.services', () => {
 	describe('fetchUserWaitlists', () => {
 		it('should fetch user waitlists', async () => {
 			const waitlists = [
-				{ id: 'waitlist1', expand: { event_id: undefined } },
-				{ id: 'waitlist2', expand: { event_id: undefined } },
+				{ id: 'waitlist1', expand: { event_id: undefined }, event_id: 'event1' },
+				{ id: 'waitlist2', expand: { event_id: undefined }, event_id: 'event2' },
 			]
 			mockPocketbaseCollection.getFullList.mockResolvedValue(waitlists)
+			mockPocketbaseCollection.getOne.mockImplementation((eventId: string) =>
+				Promise.resolve({
+					typeCourse: 'trail' as const,
+					name: `Test Event ${eventId}`,
+					id: eventId,
+					distanceKm: 10,
+				})
+			)
 
 			const result = await fetchUserWaitlists('user1')
 
@@ -147,7 +167,32 @@ describe('waitlist.services', () => {
 				filter: 'user_id = "user1" && mail_notification = true',
 				expand: 'event_id',
 			})
-			expect(result).toEqual(waitlists)
+			expect(result).toEqual([
+				{
+					id: 'waitlist1',
+					expand: {
+						event_id: {
+							typeCourse: 'trail',
+							name: 'Test Event event1',
+							id: 'event1',
+							distanceKm: 10,
+						},
+					},
+					event_id: 'event1',
+				},
+				{
+					id: 'waitlist2',
+					expand: {
+						event_id: {
+							typeCourse: 'trail',
+							name: 'Test Event event2',
+							id: 'event2',
+							distanceKm: 10,
+						},
+					},
+					event_id: 'event2',
+				},
+			])
 		})
 
 		it('should return an empty array if the user ID is empty', async () => {
