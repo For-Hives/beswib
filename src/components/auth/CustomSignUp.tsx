@@ -194,12 +194,10 @@ export default function CustomSignUp() {
 			})
 
 			console.info('Signup result:', {
+				verifications: result.verifications?.emailAddress?.status,
+				unverifiedFields: result.unverifiedFields,
 				status: result.status,
 				id: result.id,
-				unverifiedFields: result.unverifiedFields,
-				verifications: result.verifications ? {
-					emailAddress: result.verifications.emailAddress?.status
-				} : undefined
 			})
 
 			// Handle different signup statuses
