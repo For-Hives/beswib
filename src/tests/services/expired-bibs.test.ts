@@ -95,7 +95,7 @@ describe('updateExpiredBibsToWithdrawn', () => {
 
 		pb.collection = vi.fn(() => mockCollection) as unknown as typeof pb.collection
 
-		await expect(updateExpiredBibsToWithdrawn()).rejects.toThrow('Error updating expired bibs to withdrawn')
+		await expect(updateExpiredBibsToWithdrawn()).rejects.toThrow(/Error updating expired bibs to withdrawn/)
 	})
 
 	it('should continue processing even if individual bib update fails', async () => {

@@ -19,17 +19,17 @@ describe('Fee Calculations', () => {
 	describe('calculatePayPalFee', () => {
 		it('should calculate PayPal fee correctly for €100', () => {
 			const amount = 100
-			expect(calculatePayPalFee(amount)).toBe(3.25) // 2.9% of 100 = 2.90 + 0.35 = 3.25
+			expect(calculatePayPalFee(amount)).toBe(3.88) // 3.49% of 100 = 3.49 + 0.39 = 3.88
 		})
 
 		it('should calculate PayPal fee correctly for €150', () => {
 			const amount = 150
-			expect(calculatePayPalFee(amount)).toBe(4.7) // 2.9% of 150 = 4.35 + 0.35 = 4.70
+			expect(calculatePayPalFee(amount)).toBe(5.63) // 3.49% of 150 = 5.235 + 0.39 = 5.625, rounded to 5.63
 		})
 
 		it('should calculate PayPal fee correctly for €50', () => {
 			const amount = 50
-			expect(calculatePayPalFee(amount)).toBe(1.8) // 2.9% of 50 = 1.45 + 0.35 = 1.80
+			expect(calculatePayPalFee(amount)).toBe(2.14) // 3.49% of 50 = 1.745 + 0.39 = 2.135, rounded to 2.14
 		})
 
 		it('should return 0 for negative or zero amounts', () => {
@@ -63,13 +63,13 @@ describe('Fee Calculations', () => {
 	describe('calculateNetAmount', () => {
 		it('should calculate net amount correctly for €100', () => {
 			const amount = 100
-			const expectedNet = 86.75 // 100 - 10 - 3.25 = 86.75
+			const expectedNet = 86.12 // 100 - 10 - 3.88 = 86.12
 			expect(calculateNetAmount(amount)).toBe(expectedNet)
 		})
 
 		it('should calculate net amount correctly for €150', () => {
 			const amount = 150
-			const expectedNet = 130.3 // 150 - 15 - 4.70 = 130.30
+			const expectedNet = 129.37 // 150 - 15 - 5.63 = 129.37
 			expect(calculateNetAmount(amount)).toBe(expectedNet)
 		})
 
@@ -85,11 +85,11 @@ describe('Fee Calculations', () => {
 			const breakdown = getFeeBreakdown(amount)
 
 			expect(breakdown).toEqual({
-				totalFees: 13.25,
+				totalFees: 13.88,
 				platformFee: 10,
-				paypalFee: 3.25,
+				paypalFee: 3.88,
 				originalAmount: 100,
-				netAmount: 86.75,
+				netAmount: 86.12,
 				hasPlatformFees: true,
 				hasPayPalFees: true,
 			})
@@ -100,11 +100,11 @@ describe('Fee Calculations', () => {
 			const breakdown = getFeeBreakdown(amount)
 
 			expect(breakdown).toEqual({
-				totalFees: 19.7,
+				totalFees: 20.63,
 				platformFee: 15,
-				paypalFee: 4.7,
+				paypalFee: 5.63,
 				originalAmount: 150,
-				netAmount: 130.3,
+				netAmount: 129.37,
 				hasPlatformFees: true,
 				hasPayPalFees: true,
 			})
@@ -153,8 +153,8 @@ describe('Fee Calculations', () => {
 		it('should calculate fee percentages correctly for €100', () => {
 			const percentages = getFeePercentages(100)
 			expect(percentages.platformFeePercentage).toBe(10) // 10%
-			expect(percentages.paypalFeePercentage).toBe(3.25) // 3.25%
-			expect(percentages.totalFeePercentage).toBe(13.25) // 13.25%
+			expect(percentages.paypalFeePercentage).toBe(3.88) // 3.88%
+			expect(percentages.totalFeePercentage).toBe(13.88) // 13.88%
 		})
 
 		it('should handle zero amounts correctly', () => {
@@ -172,7 +172,7 @@ describe('Fee Calculations', () => {
 			expect(formatted.hasPayPalFees).toBe(true)
 			expect(formatted.isFreeTransaction).toBe(false)
 			expect(formatted.displayText).toContain('Platform: 10€ (10.0%)')
-			expect(formatted.displayText).toContain('PayPal: 3.25€')
+			expect(formatted.displayText).toContain('PayPal: 3.88€')
 		})
 
 		it('should handle zero amounts correctly', () => {
