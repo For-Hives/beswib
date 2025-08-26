@@ -2,7 +2,7 @@
 
 import { CheckCircle, User as UserIcon, Shield, MapPin, FileText, AlertTriangle, Save } from 'lucide-react'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useEffect } from 'react'
 
 import { valibotResolver } from '@hookform/resolvers/valibot'
 
@@ -49,7 +49,17 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 	const t = getTranslations(locale, profileTranslations)
 	const [isPending, startTransition] = useTransition()
 	const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-	const isComplete = isUserProfileComplete(user)
+
+	// Local user state that gets updated when profile is saved
+	const [localUser, setLocalUser] = useState<User>(user)
+
+	// Update local user when prop changes (e.g., from parent component)
+	useEffect(() => {
+		setLocalUser(user)
+	}, [user])
+
+	// Calculate completion status from local user state
+	const isComplete = isUserProfileComplete(localUser)
 
 	// Gender options for SelectAnimated
 	const genderOptions: SelectOption[] = [
@@ -98,7 +108,11 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 		startTransition(async () => {
 			try {
 				setSubmitStatus('idle')
-				await updateUserProfile(user.id, payload)
+				const updatedUser = await updateUserProfile(user.id, payload)
+
+				// Update local user state with the updated user data
+				setLocalUser(updatedUser)
+
 				setSubmitStatus('success')
 				setTimeout(() => setSubmitStatus('idle'), 3000)
 			} catch (error) {
@@ -163,7 +177,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 				</Alert>
 			)}
 
-			<VerifiedEmailsManager user={user} locale={locale} />
+			<VerifiedEmailsManager user={localUser} locale={locale} />
 
 			<form onSubmit={handleSubmit} className="space-y-8">
 				{/* Personal Information Section */}
