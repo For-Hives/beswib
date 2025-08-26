@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react'
 import { UserIcon } from 'lucide-react'
 
+import { toast } from 'sonner'
+
 import type { VerifiedEmail } from '@/models/verifiedEmail.model'
 import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
@@ -30,7 +32,6 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import { Separator } from '@/components/ui/separator'
 import { createBib } from '@/services/bib.services'
 import { Locale } from '@/lib/i18n/config'
-import { toast } from 'sonner'
 
 interface FormData {
 	acceptedTerms: boolean

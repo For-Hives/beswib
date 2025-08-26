@@ -3,16 +3,11 @@
 import { CheckIcon, MailIcon, PlusIcon, TrashIcon } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 
+import { toast } from 'sonner'
+
 import type { VerifiedEmail } from '@/models/verifiedEmail.model'
 import type { User } from '@/models/user.model'
 
-import {
-	createVerifiedEmail,
-	deleteVerifiedEmail,
-	fetchVerifiedEmailsByUserId,
-	resendVerificationCode,
-	verifyEmail,
-} from '@/services/verifiedEmail.services'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -23,6 +18,13 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
+import {
+	createVerifiedEmail,
+	deleteVerifiedEmail,
+	fetchVerifiedEmailsByUserId,
+	resendVerificationCode,
+	verifyEmail,
+} from '@/services/verifiedEmail.services'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Alert, AlertDescription } from '@/components/ui/alert'
@@ -31,7 +33,6 @@ import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Label } from '@/components/ui/label'
-import { toast } from 'sonner'
 
 import pageLocales from './locales.json'
 
@@ -43,12 +44,12 @@ interface VerifiedEmailsManagerProps {
 	onContactEmailSelect?: (emailId: string) => void
 }
 
-export default function VerifiedEmailsManager({ 
-	user, 
-	locale, 
+export default function VerifiedEmailsManager({
+	user,
 	showContactEmailSelector = false,
 	selectedContactEmailId,
-	onContactEmailSelect 
+	onContactEmailSelect,
+	locale,
 }: VerifiedEmailsManagerProps) {
 	const t = getTranslations(locale, pageLocales)
 
@@ -103,7 +104,10 @@ export default function VerifiedEmailsManager({
 			}
 		} catch (error) {
 			console.error('Error adding email:', error)
-			const errorMessage = error instanceof Error ? error.message : (t.verifiedEmails.errors.addFailed ?? 'Failed to add email. Please try again.')
+			const errorMessage =
+				error instanceof Error
+					? error.message
+					: (t.verifiedEmails.errors.addFailed ?? 'Failed to add email. Please try again.')
 			setError(errorMessage)
 			toast.error(errorMessage)
 		} finally {
@@ -241,7 +245,8 @@ export default function VerifiedEmailsManager({
 							{t.verifiedEmails.selectContactEmail ?? 'Select Contact Email'}
 						</CardTitle>
 						<CardDescription>
-							{t.verifiedEmails.selectContactEmailDescription ?? 'Choose which email address should be used for contact purposes'}
+							{t.verifiedEmails.selectContactEmailDescription ??
+								'Choose which email address should be used for contact purposes'}
 						</CardDescription>
 					</CardHeader>
 					<CardContent>
@@ -258,28 +263,31 @@ export default function VerifiedEmailsManager({
 										</div>
 									</Label>
 								</div>
-								
+
 								{/* Verified emails */}
-								{verifiedEmails.filter(email => email.isVerified).map(email => (
-									<div key={email.id} className="flex items-center space-x-3">
-										<RadioGroupItem value={email.id} id={`contact-${email.id}`} />
-										<Label htmlFor={`contact-${email.id}`} className="flex-1 cursor-pointer">
-											<div className="flex items-center gap-2">
-												<span>{email.email}</span>
-												<CheckIcon className="h-4 w-4 text-green-600" />
-											</div>
-										</Label>
-									</div>
-								))}
+								{verifiedEmails
+									.filter(email => email.isVerified)
+									.map(email => (
+										<div key={email.id} className="flex items-center space-x-3">
+											<RadioGroupItem value={email.id} id={`contact-${email.id}`} />
+											<Label htmlFor={`contact-${email.id}`} className="flex-1 cursor-pointer">
+												<div className="flex items-center gap-2">
+													<span>{email.email}</span>
+													<CheckIcon className="h-4 w-4 text-green-600" />
+												</div>
+											</Label>
+										</div>
+									))}
 							</div>
 						</RadioGroup>
-						
+
 						{selectedContactEmailId && (
 							<Alert className="mt-4">
 								<CheckIcon className="h-4 w-4" />
 								<AlertDescription>
-									{t.verifiedEmails.selectedContactEmail ?? 'Selected contact email'}: {selectedContactEmailId === 'main-email' 
-										? user.email 
+									{t.verifiedEmails.selectedContactEmail ?? 'Selected contact email'}:{' '}
+									{selectedContactEmailId === 'main-email'
+										? user.email
 										: verifiedEmails.find(e => e.id === selectedContactEmailId)?.email}
 								</AlertDescription>
 							</Alert>
@@ -287,7 +295,7 @@ export default function VerifiedEmailsManager({
 					</CardContent>
 				</Card>
 			)}
-			
+
 			<Card>
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
@@ -420,14 +428,15 @@ export default function VerifiedEmailsManager({
 					)}
 				</CardContent>
 			</Card>
-			
+
 			{/* Delete Confirmation Dialog */}
 			<AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
 				<AlertDialogContent>
 					<AlertDialogHeader>
 						<AlertDialogTitle>{t.verifiedEmails.confirmDelete ?? 'Delete Email Address'}</AlertDialogTitle>
 						<AlertDialogDescription>
-							{t.verifiedEmails.confirmDeleteDescription ?? 'Are you sure you want to delete this email address? This action cannot be undone.'}
+							{t.verifiedEmails.confirmDeleteDescription ??
+								'Are you sure you want to delete this email address? This action cannot be undone.'}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>
