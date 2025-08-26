@@ -82,7 +82,20 @@
 				"privateListing": "Private Listing",
 				"publicListingHelp": "Anyone can see and buy your bib",
 				"privateListingHelp": "Only people with the direct link can buy",
-				"currency": "$"
+				"currency": "$",
+				"feeBreakdown": "Fee Breakdown",
+				"feeCalculator": "Fee Calculator",
+				"enterPriceToSeeFees": "Enter a selling price to see fee breakdown",
+				"sellingPriceLabel": "Selling Price",
+				"platformFee": "Platform Fee",
+				"paypalFee": "PayPal Fee",
+				"totalFees": "Total Fees",
+				"youllReceive": "You'll Receive",
+				"totalFeesLabel": "Total fees:",
+				"importantNote": "Important Note:",
+				"paypalFeesVary": "PayPal fees may vary by country and payment method. The displayed fees are estimates based on standard rates.",
+				"platformCommission": "Platform commission: {percentage}",
+				"paypalProcessing": "PayPal processing: {percentage} + {fixedFee} fixed fee. Fees may vary by country."
 			},
 			"confirmation": {
 				"reviewTitle": "Review Your Listing",
@@ -219,7 +232,20 @@
 				"privateListing": "Annonce privée",
 				"publicListingHelp": "Tout le monde peut voir et acheter votre dossard",
 				"privateListingHelp": "Seules les personnes avec le lien direct peuvent acheter",
-				"currency": "€"
+				"currency": "€",
+				"feeBreakdown": "Répartition des frais",
+				"feeCalculator": "Calculateur de frais",
+				"enterPriceToSeeFees": "Entrez un prix de vente pour voir la répartition des frais",
+				"sellingPriceLabel": "Prix de vente",
+				"platformFee": "Frais de plateforme",
+				"paypalFee": "Frais PayPal",
+				"totalFees": "Total des frais",
+				"youllReceive": "Vous recevrez",
+				"totalFeesLabel": "Total des frais :",
+				"importantNote": "Note importante :",
+				"paypalFeesVary": "Les frais PayPal peuvent varier selon le pays et le mode de paiement. Les frais affichés sont des estimations basées sur les tarifs standard.",
+				"platformCommission": "Commission de plateforme : {percentage}",
+				"paypalProcessing": "Traitement PayPal : {percentage} + {fixedFee} de frais fixes. Les frais peuvent varier selon le pays."
 			},
 			"confirmation": {
 				"reviewTitle": "Vérifiez votre annonce",
