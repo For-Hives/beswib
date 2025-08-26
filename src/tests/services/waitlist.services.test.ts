@@ -9,9 +9,10 @@ vi.mock('@/lib/services/pocketbase', () => ({
 
 vi.mock('@/services/user.services', () => ({
 	fetchUserByEmail: vi.fn(),
+	getUserLocaleByEmail: vi.fn(),
 }))
 
-const { fetchUserByEmail: mockFetchUserByEmail } = vi.mocked(await import('@/services/user.services'))
+const { fetchUserByEmail: mockFetchUserByEmail, getUserLocaleByEmail: mockGetUserLocaleByEmail } = vi.mocked(await import('@/services/user.services'))
 
 const mockUser: User = {
 	updated: new Date('2024-01-01T00:00:00.000Z'),
@@ -48,6 +49,7 @@ describe('waitlist.services', () => {
 	beforeEach(() => {
 		vi.clearAllMocks()
 		mockFetchUserByEmail.mockResolvedValue(null) // Default to no user found
+		mockGetUserLocaleByEmail.mockResolvedValue('fr') // Default locale
 	})
 
 	describe('addToWaitlist', () => {
