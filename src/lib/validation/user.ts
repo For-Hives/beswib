@@ -1,15 +1,25 @@
 import type { User } from '@/models/user.model'
 
 /**
+ * Helper function to check if phone number is meaningful (not just country code)
+ */
+function isPhoneNumberValid(phone: string | null | undefined): boolean {
+	if (phone == null || phone.trim() === '') return false
+	// Consider phone number as empty if it's just a country code (e.g., "+33" or "+1")
+	if (phone.match(/^\+\d{1,3}$/) != null) return false
+	return true
+}
+
+/**
  * Checks if a user profile is complete for purchasing bibs
  * Excludes documents and affiliations fields (medicalCertificateUrl, licenseNumber, clubAffiliation)
  */
 export function isUserProfileComplete(user: User | null): boolean {
 	if (!user) return false
 
-	// Accept at least one contact method: phoneNumber OR contactEmail (fallback to primary email)
+	// Accept at least one contact method: valid phoneNumber OR contactEmail (fallback to primary email)
 	const hasAtLeastOneContact =
-		(typeof user.phoneNumber === 'string' && user.phoneNumber.trim() !== '') ||
+		isPhoneNumberValid(user.phoneNumber) ||
 		(typeof user.contactEmail === 'string' && user.contactEmail.trim() !== '') ||
 		// Fallback: some records may not have contactEmail populated; use primary email as contact
 		(typeof user.email === 'string' && user.email.trim() !== '')
@@ -59,9 +69,9 @@ export function isSellerProfileComplete(user: User | null): boolean {
 		return false
 	}
 
-	// Accept either phoneNumber or contactEmail as a valid contact method
+	// Accept either valid phoneNumber or contactEmail as a valid contact method
 	const hasAtLeastOneContact =
-		(typeof user.phoneNumber === 'string' && user.phoneNumber.trim() !== '') ||
+		isPhoneNumberValid(user.phoneNumber) ||
 		(typeof user.contactEmail === 'string' && user.contactEmail.trim() !== '') ||
 		// Fallback to primary email if contactEmail is not set
 		(typeof user.email === 'string' && user.email.trim() !== '')

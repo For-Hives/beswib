@@ -41,7 +41,7 @@ type RunnerFormData = {
 	postalCode: string
 	city: string
 	country: string
-	gender: 'male' | 'female' | 'other'
+	gender?: 'male' | 'female' | 'other' // Now optional
 	medicalCertificateUrl?: string
 	clubAffiliation?: string
 	licenseNumber?: string
@@ -62,17 +62,18 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 	}, [user])
 
 	// Load verified emails for contact email selector
-	useEffect(() => {
-		async function loadVerifiedEmails() {
-			try {
-				const result = await fetchVerifiedEmailsByUserId(user.id)
-				if (result.success && result.data) {
-					setVerifiedEmails(result.data)
-				}
-			} catch (error) {
-				console.error('Failed to load verified emails:', error)
+	const loadVerifiedEmails = async () => {
+		try {
+			const result = await fetchVerifiedEmailsByUserId(user.id)
+			if (result.success && result.data) {
+				setVerifiedEmails(result.data)
 			}
+		} catch (error) {
+			console.error('Failed to load verified emails:', error)
 		}
+	}
+
+	useEffect(() => {
 		void loadVerifiedEmails()
 	}, [user.id])
 
@@ -105,7 +106,8 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 			medicalCertificateUrl: user?.medicalCertificateUrl ?? '',
 			licenseNumber: user?.licenseNumber ?? '',
 			lastName: user?.lastName ?? '',
-			gender: user?.gender === 'male' || user?.gender === 'female' || user?.gender === 'other' ? user.gender : 'male',
+			gender:
+				user?.gender === 'male' || user?.gender === 'female' || user?.gender === 'other' ? user.gender : undefined,
 			firstName: user?.firstName ?? '',
 			emergencyContactRelationship: user?.emergencyContactRelationship ?? '',
 			emergencyContactPhone: user?.emergencyContactPhone ?? '',
@@ -120,17 +122,28 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 		},
 	})
 
+	// Update form's contactEmail when user changes (after form is declared)
+	useEffect(() => {
+		form.setValue('contactEmail', user?.contactEmail ?? user?.email ?? '')
+	}, [user?.contactEmail, user?.email, form])
+
 	const onSubmit: SubmitHandler<RunnerFormData> = values => {
 		if (user == null) return
-		// Enforce at least one contact: if both are empty, surface client-side error
-		const hasPhone = typeof values.phoneNumber === 'string' && values.phoneNumber.trim() !== ''
-		const hasEmail = typeof values.contactEmail === 'string' && values.contactEmail.trim() !== ''
-		if (!hasPhone && !hasEmail) {
-			setSubmitStatus('error')
-			return
+
+		// Helper function to check if phone number is meaningful (not just country code)
+		const isPhoneNumberValid = (phone: string) => {
+			if (!phone || phone.trim() === '') return false
+			// Consider phone number as empty if it's just a country code (e.g., "+33" or "+1")
+			if (phone.match(/^\+\d{1,3}$/)) return false
+			return true
 		}
+
+		// Clean up phone number: if it's just a country code, save as empty string
+		const cleanPhoneNumber = isPhoneNumberValid(values.phoneNumber) ? values.phoneNumber : ''
+
 		const payload: Partial<User> = {
 			...values,
+			phoneNumber: cleanPhoneNumber,
 			birthDate: values.birthDate ? values.birthDate.slice(0, 10) : null,
 		}
 		console.info('Submitting profile update:', payload)
@@ -206,7 +219,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 				</Alert>
 			)}
 
-			<VerifiedEmailsManager user={localUser} locale={locale} />
+			<VerifiedEmailsManager user={localUser} locale={locale} onEmailVerified={() => void loadVerifiedEmails()} />
 
 			<form onSubmit={handleSubmit} className="space-y-8">
 				{/* Personal Information Section */}
@@ -220,7 +233,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 					<CardContent className="z-auto grid grid-cols-1 gap-6 sm:grid-cols-2">
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="firstName">
-								{t.firstName ?? 'First Name'} *
+								{t.firstName ?? 'First Name'}
 							</Label>
 							<Input
 								{...form.register('firstName')}
@@ -236,7 +249,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="lastName">
-								{t.lastName ?? 'Last Name'} *
+								{t.lastName ?? 'Last Name'}
 							</Label>
 							<Input
 								{...form.register('lastName')}
@@ -252,7 +265,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="birthDate">
-								{t.birthDate ?? 'Birth Date'} *
+								{t.birthDate ?? 'Birth Date'}
 							</Label>
 							<Controller
 								name="birthDate"
@@ -274,7 +287,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="gender">
-								{t.gender ?? 'Gender'} *
+								{t.gender ?? 'Gender'}
 							</Label>
 							<SelectAnimated
 								onValueChange={value => form.setValue('gender', value as 'male' | 'female' | 'other')}
@@ -362,7 +375,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 					<CardContent className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="emergencyContactName">
-								{t.contactName ?? 'Contact Name'} *
+								{t.contactName ?? 'Contact Name'}
 							</Label>
 							<Input
 								{...form.register('emergencyContactName')}
@@ -380,7 +393,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="emergencyContactPhone">
-								{t.contactPhone ?? 'Contact Phone'} *
+								{t.contactPhone ?? 'Contact Phone'}
 							</Label>
 							<Controller
 								name="emergencyContactPhone"
@@ -408,7 +421,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 								className="text-foreground mb-2 block text-base font-medium"
 								htmlFor="emergencyContactRelationship"
 							>
-								{t.relationship ?? 'Relationship'} *
+								{t.relationship ?? 'Relationship'}
 							</Label>
 							<Input
 								{...form.register('emergencyContactRelationship')}
@@ -437,7 +450,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 					<CardContent className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 						<div className="sm:col-span-2">
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="address">
-								{t.street ?? 'Street Address'} *
+								{t.street ?? 'Street Address'}
 							</Label>
 							<AddressInput
 								className={form.formState.errors.address ? 'border-red-500' : ''}
@@ -492,7 +505,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="postalCode">
-								{t.postalCode ?? 'Postal Code'} *
+								{t.postalCode ?? 'Postal Code'}
 							</Label>
 							<Input
 								{...form.register('postalCode')}
@@ -510,7 +523,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 
 						<div>
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="city">
-								{t.city ?? 'City'} *
+								{t.city ?? 'City'}
 							</Label>
 							<Input
 								{...form.register('city')}
@@ -526,7 +539,7 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 
 						<div className="sm:col-span-2">
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="country">
-								{t.country ?? 'Country'} *
+								{t.country ?? 'Country'}
 							</Label>
 							<Input
 								{...form.register('country')}

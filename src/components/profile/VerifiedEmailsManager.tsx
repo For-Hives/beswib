@@ -42,12 +42,14 @@ interface VerifiedEmailsManagerProps {
 	showContactEmailSelector?: boolean
 	selectedContactEmailId?: string
 	onContactEmailSelect?: (emailId: string) => void
+	onEmailVerified?: () => void
 }
 
 export default function VerifiedEmailsManager({
 	user,
 	showContactEmailSelector = false,
 	selectedContactEmailId,
+	onEmailVerified,
 	onContactEmailSelect,
 	locale,
 }: VerifiedEmailsManagerProps) {
@@ -134,6 +136,8 @@ export default function VerifiedEmailsManager({
 				setNewEmail('')
 				setShowAddEmail(false)
 				toast.success(t.verifiedEmails.success.addSuccess)
+				// Notify parent component that an email was added
+				onEmailVerified?.()
 			} else {
 				const errorMessage = getErrorMessage(result.error ?? 'CREATE_EMAIL_FAILED')
 				setError(errorMessage)
@@ -173,6 +177,8 @@ export default function VerifiedEmailsManager({
 					return next
 				})
 				toast.success('Email verified successfully')
+				// Notify parent component that an email was verified
+				onEmailVerified?.()
 			} else {
 				const errorMessage = getErrorMessage(result.error ?? 'VERIFY_EMAIL_FAILED')
 				setError(errorMessage)
