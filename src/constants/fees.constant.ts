@@ -9,9 +9,10 @@ import { PLATFORM_FEE } from './global.constant'
 export const PLATFORM_FEE_PERCENTAGE = PLATFORM_FEE // 0.1 = 10%
 export const PLATFORM_FEE_DESCRIPTION = 'Platform commission'
 
-// PayPal fees (standard pricing)
-export const PAYPAL_PERCENTAGE_FEE = 0.029 // 2.9%
-export const PAYPAL_FIXED_FEE = 0.35 // €0.35
+// PayPal fees (updated to match official PayPal Business rates)
+// Source: https://www.paypal.com/us/business/paypal-business-fees#fixed-fees-commercialtrans
+export const PAYPAL_PERCENTAGE_FEE = 0.0349 // 3.49% (standard rate for receiving domestic transactions)
+export const PAYPAL_FIXED_FEE = 0.49 // $0.49 USD (standard fixed fee for US transactions)
 export const PAYPAL_FEE_DESCRIPTION = 'PayPal processing fee'
 
 // Fee calculation precision

@@ -1,14 +1,16 @@
+import { PAYPAL_PERCENTAGE_FEE, PAYPAL_FIXED_FEE } from '@/constants/fees.constant'
 import { PLATFORM_FEE } from '@/constants/global.constant'
 
 /**
  * Calculate PayPal fees based on transaction amount
- * PayPal charges 2.9% + €0.35 per transaction
+ * PayPal charges 3.49% + $0.49 per transaction (US standard rates)
+ * Source: https://www.paypal.com/us/business/paypal-business-fees#fixed-fees-commercialtrans
  */
 export const calculatePayPalFee = (amount: number): number => {
 	if (amount <= 0) return 0
 
-	const percentageFee = amount * 0.029 // 2.9%
-	const fixedFee = 0.35 // €0.35
+	const percentageFee = amount * PAYPAL_PERCENTAGE_FEE
+	const fixedFee = PAYPAL_FIXED_FEE
 	return Math.round((percentageFee + fixedFee) * 100) / 100 // Round to 2 decimal places
 }
 
