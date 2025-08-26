@@ -65,6 +65,8 @@ export const createPhoneSchema = (locale: Locale = 'en', required: boolean = fal
 		v.check((value: string) => {
 			if (!value && !required) return true
 			if (!value && required) return false
+			// Consider phone number as empty if it's just a country code (e.g., "+33" or "+1")
+			if (value?.match(/^\+\d{1,3}$/)) return !required
 			return isValidPhoneNumber(value)
 		}, t.phone?.invalid || 'Invalid phone number')
 	)
@@ -74,7 +76,11 @@ export const createPhoneSchema = (locale: Locale = 'en', required: boolean = fal
 			v.string(),
 			v.trim(),
 			v.nonEmpty(t.phone?.required || 'Phone number is required'),
-			v.check((value: string) => isValidPhoneNumber(value), t.phone?.invalid || 'Invalid phone number')
+			v.check((value: string) => {
+				// Consider phone number as empty if it's just a country code
+				if (value.match(/^\+\d{1,3}$/)) return false
+				return isValidPhoneNumber(value)
+			}, t.phone?.invalid || 'Invalid phone number')
 		)
 	}
 
@@ -173,48 +179,78 @@ export const analyzePasswordStrength = (password: string, locale: Locale = 'en')
 	}
 }
 
-// Runner profile form schema
+// Name schema for optional fields (allows empty)
+export const createOptionalNameSchema = (fieldName: string, locale: Locale = 'en') => {
+	const t = validationTranslations[locale]
+	return v.pipe(
+		v.string(),
+		v.trim(),
+		v.check(
+			(value: string) => {
+				// Allow empty values
+				if (!value) return true
+				// If not empty, apply normal name validation
+				return value.length >= 2 && value.length <= 50 && /^[a-zA-ZÀ-ÿ\s\-']+$/.test(value)
+			},
+			t.name?.invalidCharacters?.(fieldName) || `Invalid characters in ${fieldName}`
+		)
+	)
+}
+
+// Optional field schema with minimum length validation only if not empty
+export const createOptionalFieldSchema = (minLength: number, fieldName: string) => {
+	return v.pipe(
+		v.string(),
+		v.trim(),
+		v.check((value: string) => {
+			// Allow empty values
+			if (!value) return true
+			// If not empty, check minimum length
+			return value.length >= minLength
+		}, `${fieldName} must be at least ${minLength} characters when provided`)
+	)
+}
+
+// Runner profile form schema - ALL FIELDS OPTIONAL
 export const createRunnerFormSchema = (locale: Locale = 'en') => {
-	// Note: 't' could be used for future localized validation messages
-	// const t = validationTranslations[locale]
 	return v.object({
-		postalCode: v.pipe(
-			v.string(),
-			v.trim(),
-			v.nonEmpty('Postal code is required'),
-			v.minLength(4, 'Invalid postal code')
-		),
+		postalCode: createOptionalFieldSchema(4, 'Postal code'),
 		phoneNumber: createPhoneSchema(locale, false),
 		medicalCertificateUrl: v.optional(v.string()),
 		licenseNumber: v.optional(v.string()),
-		lastName: createNameSchema('last name', locale),
-		gender: v.picklist(['male', 'female', 'other'], 'Invalid gender'),
-		firstName: createNameSchema('first name', locale),
-		emergencyContactRelationship: v.pipe(
-			v.string(),
-			v.trim(),
-			v.nonEmpty('Emergency contact relationship is required'),
-			v.minLength(2, 'Please specify the relationship')
+		lastName: createOptionalNameSchema('last name', locale),
+		gender: v.optional(v.picklist(['male', 'female', 'other'], 'Invalid gender')),
+		firstName: createOptionalNameSchema('first name', locale),
+		emergencyContactRelationship: createOptionalFieldSchema(2, 'Emergency contact relationship'),
+		emergencyContactPhone: createPhoneSchema(locale, false),
+		emergencyContactName: createOptionalFieldSchema(2, 'Emergency contact name'),
+		country: createOptionalFieldSchema(2, 'Country'),
+		contactEmail: v.optional(
+			v.pipe(
+				v.string(),
+				v.trim(),
+				v.check((value: string) => {
+					// Allow empty values
+					if (!value) return true
+					// If not empty, must be valid email
+					return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+				}, 'Invalid email address')
+			)
 		),
-		emergencyContactPhone: createPhoneSchema(locale, true),
-		emergencyContactName: v.pipe(
-			v.string(),
-			v.trim(),
-			v.nonEmpty('Emergency contact name is required'),
-			v.minLength(2, 'Contact name must be at least 2 characters')
-		),
-		country: v.pipe(v.string(), v.trim(), v.nonEmpty('Country is required'), v.minLength(2, 'Country name too short')),
-		contactEmail: v.optional(createEmailSchema(locale)),
 		consentMarket: v.optional(v.boolean()),
 		clubAffiliation: v.optional(v.string()),
-		city: v.pipe(v.string(), v.trim(), v.nonEmpty('City is required'), v.minLength(2, 'City name too short')),
+		city: createOptionalFieldSchema(2, 'City'),
 		birthDate: v.pipe(
 			v.string(),
 			v.trim(),
-			v.nonEmpty('Birth date is required'),
-			v.minLength(10, 'Birth date is required')
+			v.check((value: string) => {
+				// Allow empty values
+				if (!value) return true
+				// If not empty, check if it's a valid date format (YYYY-MM-DD)
+				return value.length >= 10 && /^\d{4}-\d{2}-\d{2}/.test(value)
+			}, 'Invalid birth date format')
 		),
-		address: v.pipe(v.string(), v.trim(), v.nonEmpty('Address is required'), v.minLength(4, 'Address too short')),
+		address: createOptionalFieldSchema(4, 'Address'),
 	})
 }
 
