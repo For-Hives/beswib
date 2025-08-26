@@ -66,26 +66,37 @@ export default function FeeDisplay({ locale, amount }: FeeDisplayProps) {
 					</div>
 
 					{/* Platform Fee */}
-					{breakdown.hasPlatformFees && (
-						<div className="flex items-center justify-between">
-							<div className="flex items-center gap-2">
-								<span className="text-sm text-gray-600 dark:text-gray-400">
-									{isEnglish ? 'Platform Fee' : 'Frais de plateforme'}
-								</span>
-								<Tooltip>
-									<TooltipTrigger>
-										<Info className="h-4 w-4 text-gray-500" />
-									</TooltipTrigger>
-									<TooltipContent>
-										<p className="max-w-xs">
-											{isEnglish
-												? `Platform commission: ${formatPercentage(PLATFORM_FEE_PERCENTAGE)}`
-												: `Commission de plateforme : ${formatPercentage(PLATFORM_FEE_PERCENTAGE)}`}
-										</p>
-									</TooltipContent>
-								</Tooltip>
-							</div>
+					<div className="flex items-center justify-between">
+						<div className="flex items-center gap-2">
+							<span className="text-sm text-gray-600 dark:text-gray-400">
+								{isEnglish ? 'Platform Fee' : 'Frais de plateforme'}
+							</span>
+							<Tooltip>
+								<TooltipTrigger>
+									<Info className="h-4 w-4 text-gray-500" />
+								</TooltipTrigger>
+								<TooltipContent>
+									<p className="max-w-xs">
+										{isEnglish
+											? `Platform commission: ${formatPercentage(PLATFORM_FEE_PERCENTAGE)}`
+											: `Commission de plateforme : ${formatPercentage(PLATFORM_FEE_PERCENTAGE)}`}
+									</p>
+								</TooltipContent>
+							</Tooltip>
+						</div>
+						{breakdown.hasPlatformFees ? (
 							<span className="text-sm text-red-600 dark:text-red-400">-{formatCurrency(breakdown.platformFee)}</span>
+						) : (
+							<span className="text-sm text-green-600 dark:text-green-400">{isEnglish ? 'FREE' : 'GRATUIT'}</span>
+						)}
+					</div>
+
+					{/* Platform Fee Note when free */}
+					{!breakdown.hasPlatformFees && (
+						<div className="center text-xs text-green-600 italic dark:text-green-400">
+							{isEnglish
+								? 'Platform fees waived for a limited time!'
+								: 'Frais de plateforme offerts pour une durée limitée !'}
 						</div>
 					)}
 
