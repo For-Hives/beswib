@@ -23,6 +23,7 @@ import { Locale } from '@/lib/i18n/config'
 
 // Import sub-components
 import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs } from './components'
+import { EventWaitlistCard } from '../EventWaitlistCard'
 import PaymentDialog from './components/PaymentDialog'
 import { LockTimer } from './LockTimer'
 
@@ -275,6 +276,16 @@ export default function PayPalPurchaseClient({
 					{/* Event Image */}
 					<div className="lg:col-span-4 lg:row-end-1">
 						<EventImage bib={bib} eventData={eventData} locale={locale} />
+						{/* Event Waitlist Card - Show on all marketplace pages */}
+						<div className="lg:col-span-4">
+							<EventWaitlistCard
+								eventId={bib.event.id}
+								eventName={bib.event.name}
+								locale={locale}
+								user={user}
+								className="mt-6"
+							/>
+						</div>
 					</div>
 
 					{/* Product Details */}
