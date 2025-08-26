@@ -174,13 +174,13 @@ export default function VerifiedEmailsManager({
 		}
 	}
 
-	const handleDeleteEmail = async (emailId: string) => {
+	const handleDeleteEmail = (emailId: string) => {
 		setEmailToDelete(emailId)
 		setDeleteDialogOpen(true)
 	}
 
 	const confirmDeleteEmail = async () => {
-		if (!emailToDelete) return
+		if (emailToDelete == null) return
 
 		setProcessingEmails(prev => new Set(prev).add(emailToDelete))
 		setError(null)
@@ -281,7 +281,7 @@ export default function VerifiedEmailsManager({
 							</div>
 						</RadioGroup>
 
-						{selectedContactEmailId && (
+						{selectedContactEmailId != null && (
 							<Alert className="mt-4">
 								<CheckIcon className="h-4 w-4" />
 								<AlertDescription>
@@ -308,7 +308,7 @@ export default function VerifiedEmailsManager({
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
-					{error != null && error.length > 0 && (
+					{(error?.length ?? 0) > 0 && (
 						<Alert variant="destructive">
 							<AlertDescription>{error}</AlertDescription>
 						</Alert>
@@ -443,8 +443,8 @@ export default function VerifiedEmailsManager({
 						<AlertDialogCancel>{t.verifiedEmails.buttons.cancel ?? 'Cancel'}</AlertDialogCancel>
 						<AlertDialogAction
 							className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-							onClick={confirmDeleteEmail}
-							disabled={emailToDelete ? processingEmails.has(emailToDelete) : false}
+							onClick={() => void confirmDeleteEmail()}
+							disabled={emailToDelete != null ? processingEmails.has(emailToDelete) : false}
 						>
 							{t.verifiedEmails.buttons.delete ?? 'Delete'}
 						</AlertDialogAction>
