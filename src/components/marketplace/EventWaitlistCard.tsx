@@ -8,7 +8,6 @@ import { toast } from 'sonner'
 
 import type { User as UserModel } from '@/models/user.model'
 
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { addToWaitlist } from '@/services/waitlist.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
@@ -67,55 +66,52 @@ export function EventWaitlistCard({ user, locale, eventName, eventId, className 
 
 	if (isSubscribed) {
 		return (
-			<Card className={`border-green-200 bg-green-50 ${className}`}>
-				<CardContent className="pt-6">
-					<div className="flex items-center gap-3 text-center">
-						<div className="rounded-full bg-green-100 p-2">
-							<CheckCircle2 className="h-5 w-5 text-green-600" />
-						</div>
-						<div className="flex-1">
-							<p className="font-medium text-green-800">
-								{t.messages.subscriptionConfirmed || 'Inscription confirmée !'}
-							</p>
-							<p className="text-sm text-green-600">
-								{t.messages.subscriptionConfirmedDesc.replace('{eventName}', eventName) ||
-									`Nous vous préviendrons pour ${eventName}.`}
-							</p>
-						</div>
+			<div className={`border-border/50 bg-card/50 rounded-lg border p-4 backdrop-blur-sm ${className}`}>
+				<div className="flex items-center gap-3">
+					<div className="flex items-center gap-1.5 rounded-full border border-green-500/40 bg-green-500/15 px-2.5 py-1">
+						<CheckCircle2 className="h-4 w-4 text-green-400" />
 					</div>
-				</CardContent>
-			</Card>
+					<div className="flex-1">
+						<h3 className="text-primary mb-1 text-sm font-semibold">
+							{t.messages.subscriptionConfirmed || 'Inscription confirmée !'}
+						</h3>
+						<p className="text-foreground/80 text-sm">
+							{t.messages.subscriptionConfirmedDesc.replace('{eventName}', eventName) ||
+								`Nous vous préviendrons pour ${eventName}.`}
+						</p>
+					</div>
+				</div>
+			</div>
 		)
 	}
 
 	return (
-		<Card className={`border-blue-200 bg-blue-50 ${className}`}>
-			<CardHeader className="pb-4">
-				<CardTitle className="flex items-center gap-2 text-lg text-blue-800">
-					<Bell className="h-5 w-5" />
-					{t.title || 'Intéressé par cet événement ?'}
-				</CardTitle>
-			</CardHeader>
-			<CardContent className="space-y-4">
-				<p className="text-sm text-blue-700">
+		<div className={`border-border/50 bg-card/50 rounded-lg border p-4 backdrop-blur-sm ${className}`}>
+			<h3 className="text-primary mb-3 flex items-center gap-2 text-sm font-semibold">
+				<Bell className="h-4 w-4" />
+				{t.title || 'Intéressé par cet événement ?'}
+			</h3>
+
+			<div className="space-y-4">
+				<p className="text-foreground/80 text-sm leading-relaxed">
 					{t.description ||
 						"Ce prix ne vous convient pas ? Inscrivez-vous à la liste d'attente pour recevoir une notification d'une prochaine mise en vente sur l'événement."}
 				</p>
 
 				{isSignedIn !== true && (
 					<div className="space-y-2">
-						<Label htmlFor="waitlist-email" className="text-sm font-medium text-blue-800">
+						<Label htmlFor="waitlist-email" className="text-muted-foreground text-xs font-medium">
 							{t.form.emailLabel || 'Votre adresse email'}
 						</Label>
 						<div className="relative">
-							<Mail className="absolute top-3 left-3 h-4 w-4 text-blue-500" />
+							<Mail className="text-muted-foreground absolute top-3 left-3 h-4 w-4" />
 							<Input
 								id="waitlist-email"
 								type="email"
 								placeholder={t.form.emailPlaceholder || 'votre@email.com'}
 								value={email}
 								onChange={e => setEmail(e.target.value)}
-								className="border-blue-200 pl-10 focus:border-blue-400"
+								className="border-border/30 focus:border-primary pl-10"
 								disabled={isSubmitting}
 							/>
 						</div>
@@ -123,26 +119,30 @@ export function EventWaitlistCard({ user, locale, eventName, eventId, className 
 				)}
 
 				{isSignedIn === true && user != null && (
-					<div className="flex items-center gap-2 rounded-lg bg-blue-100 p-3">
-						<User className="h-4 w-4 text-blue-600" />
-						<span className="text-sm text-blue-700">
+					<div className="border-border/30 bg-card/30 flex items-center gap-2 rounded-lg border p-3">
+						<User className="text-muted-foreground h-4 w-4" />
+						<span className="text-foreground text-sm">
 							{t.form.signedInAs?.replace('{name}', `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim()) ??
 								`Connecté en tant que ${user.firstName ?? ''} ${user.lastName ?? ''}`.trim()}
 						</span>
 					</div>
 				)}
 
-				<Button onClick={handleSubscribe} disabled={isSubmitting} className="w-full bg-blue-600 hover:bg-blue-700">
+				<Button
+					onClick={handleSubscribe}
+					disabled={isSubmitting}
+					className="bg-primary text-primary-foreground hover:bg-primary/90 w-full"
+				>
 					{isSubmitting
 						? t.form.subscribing || 'Inscription en cours...'
 						: t.form.subscribe || "S'inscrire à la liste d'attente"}
 				</Button>
 
-				<p className="text-xs text-blue-600">
+				<p className="text-muted-foreground text-xs">
 					{t.disclaimer ||
 						"Vous recevrez un email de notification uniquement lorsqu'un dossard sera disponible pour cet événement."}
 				</p>
-			</CardContent>
-		</Card>
+			</div>
+		</div>
 	)
 }
