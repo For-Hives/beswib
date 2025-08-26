@@ -17,6 +17,7 @@ import { Locale } from '@/lib/i18n/config'
 import { checkIsCurrentUserAdmin } from './adminActions'
 import LocaleSynchronizer from './LocaleSynchronizer'
 import DashboardDropdown from './DashboardDropdown'
+import { LaunchBanner } from './LaunchBanner'
 import { ThemeToggle } from './ThemeToggle'
 
 interface HeaderClientProps {
@@ -28,6 +29,25 @@ import pageTranslationsData from './locales.json'
 export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 	const t = getTranslations(locale, pageTranslationsData)
 	const currentPath = usePathname()
+	const [bannerLoading, setBannerLoading] = useState(true)
+
+	// Check banner state on mount to prevent header flash
+	useEffect(() => {
+		const checkBannerState = () => {
+			const bannerDismissed = localStorage.getItem('banner_dismissed') === 'true'
+			const cookieDismissed = document.cookie.split(';').some(cookie => cookie.trim().startsWith('banner_dismissed='))
+
+			// If banner is dismissed, we can show header immediately
+			if (bannerDismissed || cookieDismissed) {
+				setBannerLoading(false)
+			} else {
+				// If banner should show, wait a bit to prevent flash
+				setTimeout(() => setBannerLoading(false), 100)
+			}
+		}
+
+		checkBannerState()
+	}, [])
 
 	// Navigation links data with dynamic current state 🧭
 	const navigationLinks = useMemo(
@@ -53,11 +73,15 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 		[t, locale, currentPath]
 	)
 
+	// Don't render header while banner is loading to prevent flash
+	if (bannerLoading) {
+		return null
+	}
+
 	return (
 		<>
 			{/* Locale synchronization for authenticated users */}
 			<LocaleSynchronizer />
-
 			{/* Spacer div to prevent content from going under fixed header 📏 */}
 			<div className="h-16" />
 
@@ -65,6 +89,8 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 				as="nav"
 				className="border-border bg-background/95 supports-[backdrop-filter]:bg-background/60 fixed top-0 z-[100] w-full border-b backdrop-blur"
 			>
+				<LaunchBanner locale={locale} />
+
 				<div className="mx-auto max-w-7xl px-4 xl:px-0">
 					<div className="flex h-16 items-center justify-between">
 						<div className="flex items-center">
