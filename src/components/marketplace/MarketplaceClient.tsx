@@ -89,6 +89,54 @@ const parseAsSearchString = {
 	},
 }
 
+// --- Custom parser for dates that prevents 'undefined' strings in URLs 📅
+const parseAsDateString = {
+	...parseAsString,
+	serialize: (value: string | null) => {
+		// If value is null, undefined, empty string, or the string "undefined", don't serialize it
+		if (!value || value === 'undefined' || value === 'null') {
+			return null
+		}
+		return value
+	},
+	parse: (value: string) => {
+		// If value is the string "undefined", "null", empty, or invalid date format, return null
+		if (!value || value === 'undefined' || value === 'null' || value.trim() === '') {
+			return null
+		}
+		// Basic date format validation (YYYY-MM-DD)
+		const datePattern = /^\d{4}-\d{2}-\d{2}$/
+		if (!datePattern.test(value)) {
+			return null
+		}
+		return value
+	},
+}
+
+// --- Custom parser for numbers that prevents 'undefined', 'NaN', and invalid values 💰
+const parseAsSafeFloat = {
+	...parseAsFloat,
+	serialize: (value: number) => {
+		// Don't serialize invalid numbers
+		if (isNaN(value) || !isFinite(value)) {
+			return null
+		}
+		return value.toString()
+	},
+	parse: (value: string) => {
+		// Handle 'undefined' and other invalid strings
+		if (!value || value === 'undefined' || value === 'null' || value === 'NaN') {
+			return null
+		}
+		const parsed = parseFloat(value)
+		// Return null for invalid numbers instead of NaN
+		if (isNaN(parsed) || !isFinite(parsed)) {
+			return null
+		}
+		return parsed
+	},
+}
+
 // --- Main client component for the marketplace grid and filters 🖼️
 
 export default function MarketplaceClient({ locale, bibs }: Readonly<MarketplaceClientProps>) {
@@ -102,14 +150,14 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 			sport: parseAsString, // null when not set, string when set
 			sort: parseAsStringLiteral(['date', 'distance', 'price-asc', 'price-desc'] as const).withDefault('date'),
 			search: parseAsSearchString.withDefault(''), // Use custom parser for search
-			priceMin: parseAsFloat.withDefault(0),
-			priceMax: parseAsFloat.withDefault(Infinity),
+			priceMin: parseAsSafeFloat.withDefault(0), // Use safe parser to prevent 'undefined' in URLs
+			priceMax: parseAsSafeFloat.withDefault(Infinity), // Use safe parser to prevent 'undefined' in URLs
 			geography: parseAsArrayOf(parseAsString, ',').withDefault([]),
-			distanceMin: parseAsFloat.withDefault(0),
-			distanceMax: parseAsFloat.withDefault(Infinity),
+			distanceMin: parseAsSafeFloat.withDefault(0), // Use safe parser for consistency
+			distanceMax: parseAsSafeFloat.withDefault(Infinity), // Use safe parser for consistency
 			distance: parseAsString, // null when not set, string when set - kept for backward compatibility
-			dateStart: parseAsString, // ISO date string or null
-			dateEnd: parseAsString, // ISO date string or null
+			dateStart: parseAsDateString, // Use custom parser for dates to prevent 'undefined' strings
+			dateEnd: parseAsDateString, // Use custom parser for dates to prevent 'undefined' strings
 		},
 		{
 			history: 'push', // Use push for better UX
@@ -128,27 +176,32 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 
 	// --- Initialize price and distance range with actual min/max values when first loading
 	React.useEffect(() => {
-		const needsPriceInit = bibs.length > 0 && priceMax === Infinity
-		const needsDistanceInit = bibs.length > 0 && distanceMax === Infinity
+		const needsPriceInit = bibs.length > 0 && (priceMax === Infinity || priceMax == null)
+		const needsDistanceInit = bibs.length > 0 && (distanceMax === Infinity || distanceMax == null)
+		
+		// Also handle cases where values were undefined/null from URL
+		const needsPriceCleanup = priceMin == null || priceMax == null
+		const needsDistanceCleanup = distanceMin == null || distanceMax == null
 
-		if (needsPriceInit || needsDistanceInit) {
-			const updates: { priceMin?: number; priceMax?: number; distanceMax?: number } = {}
+		if (needsPriceInit || needsDistanceInit || needsPriceCleanup || needsDistanceCleanup) {
+			const updates: { priceMin?: number; priceMax?: number; distanceMin?: number; distanceMax?: number } = {}
 
-			if (needsPriceInit) {
+			if (needsPriceInit || needsPriceCleanup) {
 				const calculatedMinPrice = Math.min(...bibs.map(bib => bib.price), 0)
 				const calculatedMaxPrice = Math.max(...bibs.map(bib => bib.price), 0)
-				updates.priceMin = calculatedMinPrice
-				updates.priceMax = calculatedMaxPrice
+				updates.priceMin = priceMin ?? calculatedMinPrice
+				updates.priceMax = priceMax === Infinity || priceMax == null ? calculatedMaxPrice : priceMax
 			}
 
-			if (needsDistanceInit) {
+			if (needsDistanceInit || needsDistanceCleanup) {
 				const calculatedMaxDistance = Math.max(...bibs.map(bib => bib.event.distance), 0)
-				updates.distanceMax = calculatedMaxDistance
+				updates.distanceMin = distanceMin ?? 0
+				updates.distanceMax = distanceMax === Infinity || distanceMax == null ? calculatedMaxDistance : distanceMax
 			}
 
 			void setFilters(updates)
 		}
-	}, [bibs.length, priceMax, distanceMax, setFilters])
+	}, [bibs.length, priceMax, distanceMax, priceMin, distanceMin, setFilters])
 
 	// --- Handler function for sidebar filters 🔗
 	const handleFiltersChange = React.useCallback(
@@ -245,10 +298,14 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		}
 
 		// --- Filter by distance range slider 📏
-		filtered = filtered.filter(bib => bib.event.distance >= distanceMin && bib.event.distance <= distanceMax)
+		const safeDistanceMin = distanceMin ?? 0
+		const safeDistanceMax = distanceMax ?? Infinity
+		filtered = filtered.filter(bib => bib.event.distance >= safeDistanceMin && bib.event.distance <= safeDistanceMax)
 
 		// --- Filter by price range 💰
-		filtered = filtered.filter(bib => bib.price >= priceMin && bib.price <= priceMax)
+		const safePriceMin = priceMin ?? 0
+		const safePriceMax = priceMax ?? Infinity
+		filtered = filtered.filter(bib => bib.price >= safePriceMin && bib.price <= safePriceMax)
 
 		// --- Filter by region (geography) 🗺️
 		if (geography.length > 0) {
@@ -256,15 +313,21 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		}
 
 		// --- Filter by start date 📅
-		if (dateStart != null && dateStart !== undefined && dateStart !== '') {
+		if (dateStart != null && dateStart !== undefined && dateStart !== '' && dateStart !== 'undefined') {
 			const start = new Date(dateStart)
-			filtered = filtered.filter(bib => new Date(bib.event.date) >= start)
+			// Also validate that the date is valid
+			if (!isNaN(start.getTime())) {
+				filtered = filtered.filter(bib => new Date(bib.event.date) >= start)
+			}
 		}
 
 		// --- Filter by end date 📅
-		if (dateEnd != null && dateEnd !== undefined && dateEnd !== '') {
+		if (dateEnd != null && dateEnd !== undefined && dateEnd !== '' && dateEnd !== 'undefined') {
 			const end = new Date(dateEnd)
-			filtered = filtered.filter(bib => new Date(bib.event.date) <= end)
+			// Also validate that the date is valid
+			if (!isNaN(end.getTime())) {
+				filtered = filtered.filter(bib => new Date(bib.event.date) <= end)
+			}
 		}
 
 		// --- Sort the filtered bibs 🔄
@@ -320,14 +383,14 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 										maxDistance={maxDistance}
 										filters={{
 											sport,
-											priceMin,
-											priceMax,
+											priceMin: priceMin ?? 0,
+											priceMax: priceMax ?? maxPrice,
 											geography,
-											distanceMin,
-											distanceMax,
+											distanceMin: distanceMin ?? 0,
+											distanceMax: distanceMax ?? maxDistance,
 											distance,
-											dateStart: dateStart ?? undefined,
-											dateEnd: dateEnd ?? undefined,
+											dateStart: dateStart && dateStart !== 'undefined' ? dateStart : undefined,
+											dateEnd: dateEnd && dateEnd !== 'undefined' ? dateEnd : undefined,
 										}}
 										onFiltersChange={handleFiltersChange}
 										regions={uniqueLocations}
@@ -343,14 +406,14 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 			<ActiveFiltersBadges
 				filters={{
 					sport,
-					priceMin,
-					priceMax,
+					priceMin: priceMin ?? 0,
+					priceMax: priceMax ?? maxPrice,
 					geography,
-					distanceMin,
-					distanceMax,
+					distanceMin: distanceMin ?? 0,
+					distanceMax: distanceMax ?? maxDistance,
 					distance,
-					dateStart: dateStart ?? undefined,
-					dateEnd: dateEnd ?? undefined,
+					dateStart: dateStart && dateStart !== 'undefined' ? dateStart : undefined,
+					dateEnd: dateEnd && dateEnd !== 'undefined' ? dateEnd : undefined,
 				}}
 				minPrice={minPrice}
 				maxPrice={maxPrice}
@@ -371,14 +434,14 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 							maxDistance={maxDistance}
 							filters={{
 								sport,
-								priceMin,
-								priceMax,
+								priceMin: priceMin ?? 0,
+								priceMax: priceMax ?? maxPrice,
 								geography,
-								distanceMin,
-								distanceMax,
+								distanceMin: distanceMin ?? 0,
+								distanceMax: distanceMax ?? maxDistance,
 								distance,
-								dateStart: dateStart ?? undefined,
-								dateEnd: dateEnd ?? undefined,
+								dateStart: dateStart && dateStart !== 'undefined' ? dateStart : undefined,
+								dateEnd: dateEnd && dateEnd !== 'undefined' ? dateEnd : undefined,
 							}}
 							onFiltersChange={handleFiltersChange}
 							regions={uniqueLocations}
