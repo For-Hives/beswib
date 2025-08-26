@@ -1,3 +1,5 @@
+'use server'
+
 import type { EventCreationRequest } from '@/models/eventCreationRequest.model'
 
 import { pb } from '@/lib/services/pocketbase'

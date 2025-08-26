@@ -1,3 +1,5 @@
+'use server'
+
 import type { EventCreationRequest } from '@/models/eventCreationRequest.model'
 import type { DashboardStats } from '@/models/dashboard.model'
 import type { Transaction } from '@/models/transaction.model'
