@@ -94,7 +94,12 @@
 				"sendAnotherMessage": "Send another message"
 			}
 		},
-		"goBackToTop": "Go back to top of the page"
+		"goBackToTop": "Go back to top of the page",
+		"banner": {
+			"title": "🎉 Launch Period: All Beswib fees are FREE!",
+			"action": "Get Started",
+			"learnMore": "Learn more about our pricing"
+		}
 	},
 	"fr": {
 		"navbar": {
@@ -191,7 +196,12 @@
 				"sendAnotherMessage": "Envoyer un autre message"
 			}
 		},
-		"goBackToTop": "Retour en haut de la page"
+		"goBackToTop": "Retour en haut de la page",
+		"banner": {
+			"title": "🎉 Période de lancement : Tous les frais Beswib sont GRATUITS !",
+			"action": "Commencer",
+			"learnMore": "En savoir plus sur nos tarifs"
+		}
 	},
 	"es": {
 		"navbar": {
@@ -288,7 +298,12 @@
 				"sendAnotherMessage": "Enviar otro mensaje"
 			}
 		},
-		"goBackToTop": "Volver al principio de la página"
+		"goBackToTop": "Volver al principio de la página",
+		"banner": {
+			"title": "🎉 Período de lanzamiento: ¡Todas las tarifas de Beswib son GRATUITAS!",
+			"action": "Comenzar",
+			"learnMore": "Más información sobre nuestros precios"
+		}
 	},
 	"it": {
 		"navbar": {
@@ -385,7 +400,12 @@
 				"sendAnotherMessage": "Invia un altro messaggio"
 			}
 		},
-		"goBackToTop": "Torna all'inizio della pagina"
+		"goBackToTop": "Torna all'inizio della pagina",
+		"banner": {
+			"title": "🎉 Periodo di lancio: Tutte le tariffe Beswib sono GRATUITE!",
+			"action": "Inizia",
+			"learnMore": "Scopri di più sui nostri prezzi"
+		}
 	},
 	"de": {
 		"navbar": {
@@ -482,7 +502,12 @@
 				"sendAnotherMessage": "Weitere Nachricht senden"
 			}
 		},
-		"goBackToTop": "Zurück zum Seitenanfang"
+		"goBackToTop": "Zurück zum Seitenanfang",
+		"banner": {
+			"title": "🎉 Startphase: Alle Beswib-Gebühren sind KOSTENLOS!",
+			"action": "Loslegen",
+			"learnMore": "Mehr über unsere Preise erfahren"
+		}
 	},
 	"ro": {
 		"navbar": {
@@ -579,7 +604,12 @@
 				"sendAnotherMessage": "Trimite un alt mesaj"
 			}
 		},
-		"goBackToTop": "Înapoi în partea de sus a paginii"
+		"goBackToTop": "Înapoi în partea de sus a paginii",
+		"banner": {
+			"title": "🎉 Perioada de lansare: Toate taxele Beswib sunt GRATUITE!",
+			"action": "Începe",
+			"learnMore": "Află mai multe despre prețurile noastre"
+		}
 	},
 	"pt": {
 		"navbar": {
@@ -676,7 +706,12 @@
 				"sendAnotherMessage": "Enviar outra mensagem"
 			}
 		},
-		"goBackToTop": "Voltar ao topo da página"
+		"goBackToTop": "Voltar ao topo da página",
+		"banner": {
+			"title": "🎉 Período de lançamento: Todas as taxas do Beswib são GRATUITAS!",
+			"action": "Começar",
+			"learnMore": "Saiba mais sobre nossos preços"
+		}
 	},
 	"nl": {
 		"navbar": {
@@ -773,7 +808,12 @@
 				"sendAnotherMessage": "Nog een bericht sturen"
 			}
 		},
-		"goBackToTop": "Terug naar boven"
+		"goBackToTop": "Terug naar boven",
+		"banner": {
+			"title": "🎉 Lanceringstijd: Alle Beswib-kosten zijn GRATIS!",
+			"action": "Aan de slag",
+			"learnMore": "Meer weten over onze prijzen"
+		}
 	},
 	"ko": {
 		"navbar": {
@@ -870,6 +910,11 @@
 				"sendAnotherMessage": "다른 메시지 보내기"
 			}
 		},
-		"goBackToTop": "페이지 상단으로 이동"
+		"goBackToTop": "페이지 상단으로 이동",
+		"banner": {
+			"title": "🎉 런칭 기간: 모든 Beswib 수수료가 무료입니다!",
+			"action": "시작하기",
+			"learnMore": "가격에 대해 자세히 알아보기"
+		}
 	}
 }
