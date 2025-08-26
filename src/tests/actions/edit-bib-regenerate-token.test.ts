@@ -8,8 +8,8 @@ vi.mock('@clerk/nextjs/server', () => ({
 }))
 
 vi.mock('@/services/user.services', () => ({
-	fetchUserByClerkId: vi.fn(() => Promise.resolve({ id: 'user-123', email: 'test@example.com' })),
 	getUserLocaleByEmail: vi.fn(() => Promise.resolve('fr')),
+	fetchUserByClerkId: vi.fn(() => Promise.resolve({ id: 'user-123', email: 'test@example.com' })),
 }))
 
 vi.mock('@/services/bib.services', () => ({

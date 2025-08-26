@@ -8,11 +8,13 @@ vi.mock('@/lib/services/pocketbase', () => ({
 }))
 
 vi.mock('@/services/user.services', () => ({
-	fetchUserByEmail: vi.fn(),
 	getUserLocaleByEmail: vi.fn(),
+	fetchUserByEmail: vi.fn(),
 }))
 
-const { fetchUserByEmail: mockFetchUserByEmail, getUserLocaleByEmail: mockGetUserLocaleByEmail } = vi.mocked(await import('@/services/user.services'))
+const { getUserLocaleByEmail: mockGetUserLocaleByEmail, fetchUserByEmail: mockFetchUserByEmail } = vi.mocked(
+	await import('@/services/user.services')
+)
 
 const mockUser: User = {
 	updated: new Date('2024-01-01T00:00:00.000Z'),
