@@ -1,5 +1,8 @@
 'use server'
 
+import type { ServiceResult } from '@/types/service-result'
+
+import { createSuccessResult, createErrorResult } from '@/types/service-result'
 import { DateTime } from 'luxon'
 
 import type { CreateVerifiedEmailRequest, VerifiedEmail, VerifyEmailRequest } from '@/models/verifiedEmail.model'
@@ -140,13 +143,13 @@ function mapPbVerifiedEmailToModel(record: unknown): VerifiedEmail {
 /**
  * Creates a new verified email entry and sends verification code
  */
-export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Promise<VerifiedEmail | null> {
+export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Promise<ServiceResult<VerifiedEmail>> {
 	try {
 		// Check spam protection
 		const spamCheck = await canSendVerificationEmail(data.userId, data.email)
 		if (!spamCheck.canSend) {
 			console.warn(`Verification email blocked for ${data.email}: ${spamCheck.reason}`)
-			throw new Error(spamCheck.reason ?? 'Rate limit exceeded')
+			return createErrorResult(spamCheck.reason ?? 'RATE_LIMIT_EXCEEDED')
 		}
 
 		// Check if email already exists for this user
@@ -158,8 +161,8 @@ export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Pro
 		const existing = existingRecords.length > 0 ? existingRecords[0] : null
 
 		if (existing != null && existing !== undefined && Boolean(existing.isVerified) === true) {
-			// Email already verified, throw error instead of returning it
-			throw new Error('This email address is already verified for your account')
+			// Email already verified, return error result
+			return createErrorResult('EMAIL_ALREADY_VERIFIED')
 		}
 
 		const verificationCode = generateVerificationCode()
@@ -190,38 +193,37 @@ export async function createVerifiedEmail(data: CreateVerifiedEmailRequest): Pro
 		const emailSent = await sendVerificationEmail(data.email, verificationCode, VERIFICATION_EXPIRY_MINUTES)
 		if (!emailSent) {
 			console.warn(`Failed to send verification email to ${data.email}`)
-			// Don't throw here, still return the record as it was created successfully
+			// Still return success as the record was created successfully
 		}
 
-		return mapPbVerifiedEmailToModel(record)
+		return createSuccessResult(mapPbVerifiedEmailToModel(record))
 	} catch (error) {
 		handlePocketBaseError(error, 'creating verified email')
-		// Re-throw the error so it can be caught and handled by the calling code
-		throw error instanceof Error ? error : new Error('Failed to create verified email')
+		return createErrorResult('CREATE_EMAIL_FAILED')
 	}
 }
 
 /**
  * Verifies an email with the provided code
  */
-export async function verifyEmail(data: VerifyEmailRequest): Promise<VerifiedEmail | null> {
+export async function verifyEmail(data: VerifyEmailRequest): Promise<ServiceResult<VerifiedEmail>> {
 	try {
 		const record = await pb.collection('verifiedEmails').getOne(data.verifiedEmailId)
 
 		// Check if already verified
 		if (Boolean(record.isVerified) === true) {
-			return mapPbVerifiedEmailToModel(record)
+			return createSuccessResult(mapPbVerifiedEmailToModel(record))
 		}
 
 		// Check if expired
 		const expiresAt = pbDateToLuxon(record.expiresAt as string)
 		if (expiresAt != null && expiresAt.toJSDate() < new Date()) {
-			throw new Error('Verification code has expired')
+			return createErrorResult('VERIFICATION_CODE_EXPIRED')
 		}
 
 		// Check if code matches
 		if (record.verificationCode !== data.verificationCode) {
-			throw new Error('Invalid verification code')
+			return createErrorResult('INVALID_VERIFICATION_CODE')
 		}
 
 		// Mark as verified
@@ -230,27 +232,27 @@ export async function verifyEmail(data: VerifyEmailRequest): Promise<VerifiedEma
 			isVerified: true,
 		})
 
-		return mapPbVerifiedEmailToModel(updatedRecord)
+		return createSuccessResult(mapPbVerifiedEmailToModel(updatedRecord))
 	} catch (error) {
 		handlePocketBaseError(error, 'verifying email')
-		return null
+		return createErrorResult('VERIFY_EMAIL_FAILED')
 	}
 }
 
 /**
  * Fetches all verified emails for a user
  */
-export async function fetchVerifiedEmailsByUserId(userId: string): Promise<VerifiedEmail[]> {
+export async function fetchVerifiedEmailsByUserId(userId: string): Promise<ServiceResult<VerifiedEmail[]>> {
 	try {
 		const records = await pb.collection('verifiedEmails').getFullList({
 			sort: '-created',
 			filter: `userId = "${userId}" && isVerified = true`,
 		})
 
-		return records.map(mapPbVerifiedEmailToModel)
+		return createSuccessResult(records.map(mapPbVerifiedEmailToModel))
 	} catch (error) {
 		handlePocketBaseError(error, 'fetching verified emails')
-		return []
+		return createErrorResult('FETCH_EMAILS_FAILED')
 	}
 }
 
@@ -270,32 +272,32 @@ export async function fetchVerifiedEmailById(id: string): Promise<VerifiedEmail 
 /**
  * Deletes a verified email record
  */
-export async function deleteVerifiedEmail(id: string): Promise<boolean> {
+export async function deleteVerifiedEmail(id: string): Promise<ServiceResult<boolean>> {
 	try {
 		await pb.collection('verifiedEmails').delete(id)
-		return true
+		return createSuccessResult(true)
 	} catch (error) {
 		handlePocketBaseError(error, 'deleting verified email')
-		return false
+		return createErrorResult('DELETE_EMAIL_FAILED')
 	}
 }
 
 /**
  * Resends verification code for an email
  */
-export async function resendVerificationCode(verifiedEmailId: string): Promise<boolean> {
+export async function resendVerificationCode(verifiedEmailId: string): Promise<ServiceResult<boolean>> {
 	try {
 		const record = await pb.collection('verifiedEmails').getOne(verifiedEmailId)
 
 		if (Boolean(record.isVerified) === true) {
-			throw new Error('Email is already verified')
+			return createErrorResult('EMAIL_ALREADY_VERIFIED')
 		}
 
 		// Check spam protection
 		const spamCheck = await canSendVerificationEmail(record.userId as string, record.email as string)
 		if (!spamCheck.canSend) {
 			console.warn(`Resend verification email blocked for ${record.email as string}: ${spamCheck.reason}`)
-			throw new Error(spamCheck.reason)
+			return createErrorResult('RATE_LIMIT_EXCEEDED')
 		}
 
 		const newVerificationCode = generateVerificationCode()
@@ -314,11 +316,12 @@ export async function resendVerificationCode(verifiedEmailId: string): Promise<b
 		)
 		if (!emailSent) {
 			console.warn(`Failed to resend verification email to ${record.email as string}`)
+			return createErrorResult('EMAIL_SEND_FAILED')
 		}
 
-		return emailSent
+		return createSuccessResult(true)
 	} catch (error) {
 		handlePocketBaseError(error, 'resending verification code')
-		return false
+		return createErrorResult('RESEND_CODE_FAILED')
 	}
 }

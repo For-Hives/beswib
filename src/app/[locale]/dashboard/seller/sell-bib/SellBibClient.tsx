@@ -86,16 +86,20 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 	useEffect(() => {
 		const loadVerifiedEmails = async () => {
 			try {
-				const emails = await fetchVerifiedEmailsByUserId(user.id)
-				setVerifiedEmails(emails)
+				const result = await fetchVerifiedEmailsByUserId(user.id)
+				if (result.success && result.data) {
+					setVerifiedEmails(result.data)
 
-				// Auto-select the user's main email if it exists as verified
-				const mainEmailVerified = emails.find(email => email.email === user.email)
-				if (mainEmailVerified !== undefined && formData.linkedEmailId === undefined) {
-					setFormData(prev => ({ ...prev, linkedEmailId: mainEmailVerified.id }))
-				} else if (formData.linkedEmailId === undefined) {
-					// Default to 'main-email' (user's account email)
-					setFormData(prev => ({ ...prev, linkedEmailId: 'main-email' }))
+					// Auto-select the user's main email if it exists as verified
+					const mainEmailVerified = result.data.find(email => email.email === user.email)
+					if (mainEmailVerified !== undefined && formData.linkedEmailId === undefined) {
+						setFormData(prev => ({ ...prev, linkedEmailId: mainEmailVerified.id }))
+					} else if (formData.linkedEmailId === undefined) {
+						// Default to 'main-email' (user's account email)
+						setFormData(prev => ({ ...prev, linkedEmailId: 'main-email' }))
+					}
+				} else {
+					console.error('Error loading verified emails:', result.error)
 				}
 			} catch (error) {
 				console.error('Error loading verified emails:', error)
@@ -103,18 +107,24 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 		}
 
 		void loadVerifiedEmails()
-	}, [user.id]) // Handler for adding a new email
+	}, [user.id])
+
+	// Handler for adding a new email
 	const handleAddEmail = (email: string) => {
 		void createVerifiedEmail({ userId: user.id, email })
 			.then(result => {
-				if (result) {
-					setVerifiedEmails(prev => [...prev, result])
+				if (result.success && result.data) {
+					setVerifiedEmails(prev => [...prev, result.data!])
 					toast.success('Verification code sent to your email')
+				} else {
+					const errorMessage = result.error ?? 'Failed to add email. Please try again.'
+					setErrors({ emailVerification: errorMessage })
+					toast.error(errorMessage)
 				}
 			})
 			.catch(error => {
 				console.error('Error adding email:', error)
-				const errorMessage = error instanceof Error ? error.message : 'Failed to add email. Please try again.'
+				const errorMessage = 'Failed to add email. Please try again.'
 				setErrors({ emailVerification: errorMessage })
 				toast.error(errorMessage)
 			})
@@ -124,33 +134,42 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 	const handleVerifyEmail = (emailId: string, code: string) => {
 		void verifyEmail({ verifiedEmailId: emailId, verificationCode: code })
 			.then(result => {
-				if (result) {
-					setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? result : email)))
+				if (result.success && result.data) {
+					setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? result.data! : email)))
 					setErrors({})
+					toast.success('Email verified successfully')
 				} else {
-					setErrors({ emailVerification: 'Invalid verification code. Please try again.' })
+					const errorMessage = result.error ?? 'Invalid verification code. Please try again.'
+					setErrors({ emailVerification: errorMessage })
+					toast.error(errorMessage)
 				}
 			})
 			.catch(error => {
 				console.error('Error verifying email:', error)
-				setErrors({ emailVerification: 'Failed to verify email. Please try again.' })
+				const errorMessage = 'Failed to verify email. Please try again.'
+				setErrors({ emailVerification: errorMessage })
+				toast.error(errorMessage)
 			})
 	}
 
 	// Handler for resending verification code
 	const handleResendCode = (emailId: string) => {
 		void resendVerificationCode(emailId)
-			.then(success => {
-				if (success) {
+			.then(result => {
+				if (result.success) {
 					setErrors({})
-					// You might want to show a success message here
+					toast.success('Verification code resent')
 				} else {
-					setErrors({ emailVerification: 'Failed to resend code. Please try again.' })
+					const errorMessage = result.error ?? 'Failed to resend code. Please try again.'
+					setErrors({ emailVerification: errorMessage })
+					toast.error(errorMessage)
 				}
 			})
 			.catch(error => {
 				console.error('Error resending code:', error)
-				setErrors({ emailVerification: 'Failed to resend code. Please try again.' })
+				const errorMessage = 'Failed to resend code. Please try again.'
+				setErrors({ emailVerification: errorMessage })
+				toast.error(errorMessage)
 			})
 	}
 
