@@ -1,0 +1,236 @@
+{
+	"en": {
+		"title": "Interested in this event?",
+		"description": "This price doesn't suit you? Sign up for the waitlist to receive a notification about future sales for this event.",
+		"form": {
+			"emailLabel": "Your email address",
+			"emailPlaceholder": "your@email.com",
+			"signedInAs": "Signed in as {name}",
+			"subscribe": "Join the waitlist",
+			"subscribing": "Joining waitlist..."
+		},
+		"validation": {
+			"invalidEmail": "Invalid email",
+			"pleaseEnterValidEmail": "Please enter a valid email address"
+		},
+		"messages": {
+			"alreadySubscribed": "Already subscribed",
+			"alreadySubscribedDesc": "You are already on the waitlist for {eventName}.",
+			"subscriptionSuccess": "Subscription successful!",
+			"subscriptionSuccessDesc": "You will receive a notification when a bib becomes available for {eventName}.",
+			"subscriptionError": "Error",
+			"subscriptionErrorDesc": "An error occurred. Please try again.",
+			"subscriptionConfirmed": "Subscription confirmed!",
+			"subscriptionConfirmedDesc": "We'll notify you about {eventName}."
+		},
+		"disclaimer": "You will only receive an email notification when a bib becomes available for this event."
+	},
+	"fr": {
+		"title": "Intéressé par cet événement ?",
+		"description": "Ce prix ne vous convient pas ? Inscrivez-vous à la liste d'attente pour recevoir une notification d'une prochaine mise en vente sur l'événement.",
+		"form": {
+			"emailLabel": "Votre adresse email",
+			"emailPlaceholder": "votre@email.com",
+			"signedInAs": "Connecté en tant que {name}",
+			"subscribe": "S'inscrire à la liste d'attente",
+			"subscribing": "Inscription en cours..."
+		},
+		"validation": {
+			"invalidEmail": "Email invalide",
+			"pleaseEnterValidEmail": "Veuillez entrer une adresse email valide"
+		},
+		"messages": {
+			"alreadySubscribed": "Déjà inscrit",
+			"alreadySubscribedDesc": "Vous êtes déjà inscrit à la liste d'attente pour {eventName}.",
+			"subscriptionSuccess": "Inscription réussie !",
+			"subscriptionSuccessDesc": "Vous recevrez une notification lorsqu'un dossard sera disponible pour {eventName}.",
+			"subscriptionError": "Erreur",
+			"subscriptionErrorDesc": "Une erreur est survenue. Veuillez réessayer.",
+			"subscriptionConfirmed": "Inscription confirmée !",
+			"subscriptionConfirmedDesc": "Nous vous préviendrons pour {eventName}."
+		},
+		"disclaimer": "Vous recevrez un email de notification uniquement lorsqu'un dossard sera disponible pour cet événement."
+	},
+	"es": {
+		"title": "¿Interesado en este evento?",
+		"description": "¿Este precio no te conviene? Regístrate en la lista de espera para recibir una notificación sobre futuras ventas de este evento.",
+		"form": {
+			"emailLabel": "Tu dirección de email",
+			"emailPlaceholder": "tu@email.com",
+			"signedInAs": "Conectado como {name}",
+			"subscribe": "Unirse a la lista de espera",
+			"subscribing": "Uniéndose a la lista..."
+		},
+		"validation": {
+			"invalidEmail": "Email inválido",
+			"pleaseEnterValidEmail": "Por favor ingresa una dirección de email válida"
+		},
+		"messages": {
+			"alreadySubscribed": "Ya suscrito",
+			"alreadySubscribedDesc": "Ya estás en la lista de espera para {eventName}.",
+			"subscriptionSuccess": "¡Suscripción exitosa!",
+			"subscriptionSuccessDesc": "Recibirás una notificación cuando un dorsal esté disponible para {eventName}.",
+			"subscriptionError": "Error",
+			"subscriptionErrorDesc": "Ocurrió un error. Por favor inténtalo de nuevo.",
+			"subscriptionConfirmed": "¡Suscripción confirmada!",
+			"subscriptionConfirmedDesc": "Te notificaremos sobre {eventName}."
+		},
+		"disclaimer": "Solo recibirás una notificación por email cuando un dorsal esté disponible para este evento."
+	},
+	"it": {
+		"title": "Interessato a questo evento?",
+		"description": "Questo prezzo non ti va bene? Iscriviti alla lista d'attesa per ricevere una notifica su future vendite per questo evento.",
+		"form": {
+			"emailLabel": "Il tuo indirizzo email",
+			"emailPlaceholder": "tuo@email.com",
+			"signedInAs": "Connesso come {name}",
+			"subscribe": "Unisciti alla lista d'attesa",
+			"subscribing": "Iscrizione in corso..."
+		},
+		"validation": {
+			"invalidEmail": "Email non valida",
+			"pleaseEnterValidEmail": "Per favore inserisci un indirizzo email valido"
+		},
+		"messages": {
+			"alreadySubscribed": "Già iscritto",
+			"alreadySubscribedDesc": "Sei già nella lista d'attesa per {eventName}.",
+			"subscriptionSuccess": "Iscrizione riuscita!",
+			"subscriptionSuccessDesc": "Riceverai una notifica quando un pettorale sarà disponibile per {eventName}.",
+			"subscriptionError": "Errore",
+			"subscriptionErrorDesc": "Si è verificato un errore. Riprova per favore.",
+			"subscriptionConfirmed": "Iscrizione confermata!",
+			"subscriptionConfirmedDesc": "Ti notificheremo per {eventName}."
+		},
+		"disclaimer": "Riceverai una notifica email solo quando un pettorale sarà disponibile per questo evento."
+	},
+	"de": {
+		"title": "Interessiert an dieser Veranstaltung?",
+		"description": "Dieser Preis passt Ihnen nicht? Melden Sie sich für die Warteliste an, um eine Benachrichtigung über künftige Verkäufe für diese Veranstaltung zu erhalten.",
+		"form": {
+			"emailLabel": "Ihre E-Mail-Adresse",
+			"emailPlaceholder": "ihre@email.com",
+			"signedInAs": "Angemeldet als {name}",
+			"subscribe": "Der Warteliste beitreten",
+			"subscribing": "Trete der Warteliste bei..."
+		},
+		"validation": {
+			"invalidEmail": "Ungültige E-Mail",
+			"pleaseEnterValidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein"
+		},
+		"messages": {
+			"alreadySubscribed": "Bereits angemeldet",
+			"alreadySubscribedDesc": "Sie sind bereits auf der Warteliste für {eventName}.",
+			"subscriptionSuccess": "Anmeldung erfolgreich!",
+			"subscriptionSuccessDesc": "Sie erhalten eine Benachrichtigung, wenn eine Startnummer für {eventName} verfügbar wird.",
+			"subscriptionError": "Fehler",
+			"subscriptionErrorDesc": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+			"subscriptionConfirmed": "Anmeldung bestätigt!",
+			"subscriptionConfirmedDesc": "Wir werden Sie über {eventName} informieren."
+		},
+		"disclaimer": "Sie erhalten nur eine E-Mail-Benachrichtigung, wenn eine Startnummer für diese Veranstaltung verfügbar wird."
+	},
+	"ro": {
+		"title": "Interesat de acest eveniment?",
+		"description": "Acest preț nu vi se potrivește? Înscrie-te pe lista de așteptare pentru a primi o notificare despre viitoarele vânzări pentru acest eveniment.",
+		"form": {
+			"emailLabel": "Adresa dumneavoastră de email",
+			"emailPlaceholder": "email@dumneavoastra.com",
+			"signedInAs": "Conectat ca {name}",
+			"subscribe": "Alătură-te listei de așteptare",
+			"subscribing": "Se înscrie pe listă..."
+		},
+		"validation": {
+			"invalidEmail": "Email invalid",
+			"pleaseEnterValidEmail": "Vă rugăm să introduceți o adresă de email validă"
+		},
+		"messages": {
+			"alreadySubscribed": "Deja înscris",
+			"alreadySubscribedDesc": "Sunteți deja pe lista de așteptare pentru {eventName}.",
+			"subscriptionSuccess": "Înregistrare reușită!",
+			"subscriptionSuccessDesc": "Veți primi o notificare când un număr de concurs va fi disponibil pentru {eventName}.",
+			"subscriptionError": "Eroare",
+			"subscriptionErrorDesc": "A apărut o eroare. Vă rugăm să încercați din nou.",
+			"subscriptionConfirmed": "Înregistrare confirmată!",
+			"subscriptionConfirmedDesc": "Vă vom anunța despre {eventName}."
+		},
+		"disclaimer": "Veți primi o notificare pe email doar când un număr de concurs va fi disponibil pentru acest eveniment."
+	},
+	"pt": {
+		"title": "Interessado neste evento?",
+		"description": "Este preço não te convém? Inscreve-te na lista de espera para receber uma notificação sobre futuras vendas para este evento.",
+		"form": {
+			"emailLabel": "O teu endereço de email",
+			"emailPlaceholder": "teu@email.com",
+			"signedInAs": "Conectado como {name}",
+			"subscribe": "Juntar-se à lista de espera",
+			"subscribing": "A juntar-se à lista..."
+		},
+		"validation": {
+			"invalidEmail": "Email inválido",
+			"pleaseEnterValidEmail": "Por favor introduz um endereço de email válido"
+		},
+		"messages": {
+			"alreadySubscribed": "Já subscrito",
+			"alreadySubscribedDesc": "Já estás na lista de espera para {eventName}.",
+			"subscriptionSuccess": "Subscrição bem-sucedida!",
+			"subscriptionSuccessDesc": "Receberás uma notificação quando um dorsal estiver disponível para {eventName}.",
+			"subscriptionError": "Erro",
+			"subscriptionErrorDesc": "Ocorreu um erro. Por favor tenta novamente.",
+			"subscriptionConfirmed": "Subscrição confirmada!",
+			"subscriptionConfirmedDesc": "Notificar-te-emos sobre {eventName}."
+		},
+		"disclaimer": "Receberás apenas uma notificação por email quando um dorsal estiver disponível para este evento."
+	},
+	"nl": {
+		"title": "Geïnteresseerd in dit evenement?",
+		"description": "Past deze prijs je niet? Schrijf je in voor de wachtlijst om een melding te ontvangen over toekomstige verkopen voor dit evenement.",
+		"form": {
+			"emailLabel": "Jouw e-mailadres",
+			"emailPlaceholder": "jouw@email.com",
+			"signedInAs": "Ingelogd als {name}",
+			"subscribe": "Lid worden van de wachtlijst",
+			"subscribing": "Lid worden van wachtlijst..."
+		},
+		"validation": {
+			"invalidEmail": "Ongeldig e-mailadres",
+			"pleaseEnterValidEmail": "Voer alsjeblieft een geldig e-mailadres in"
+		},
+		"messages": {
+			"alreadySubscribed": "Al geregistreerd",
+			"alreadySubscribedDesc": "Je staat al op de wachtlijst voor {eventName}.",
+			"subscriptionSuccess": "Registratie succesvol!",
+			"subscriptionSuccessDesc": "Je ontvangt een melding wanneer een startnummer beschikbaar komt voor {eventName}.",
+			"subscriptionError": "Fout",
+			"subscriptionErrorDesc": "Er is een fout opgetreden. Probeer het opnieuw.",
+			"subscriptionConfirmed": "Registratie bevestigd!",
+			"subscriptionConfirmedDesc": "We zullen je op de hoogte stellen van {eventName}."
+		},
+		"disclaimer": "Je ontvangt alleen een e-mailmelding wanneer een startnummer beschikbaar komt voor dit evenement."
+	},
+	"ko": {
+		"title": "이 이벤트에 관심이 있으신가요?",
+		"description": "이 가격이 마음에 들지 않으시나요? 이 이벤트의 향후 판매에 대한 알림을 받으려면 대기자 명단에 등록하세요.",
+		"form": {
+			"emailLabel": "이메일 주소",
+			"emailPlaceholder": "your@email.com",
+			"signedInAs": "{name}으로 로그인됨",
+			"subscribe": "대기자 명단 참가",
+			"subscribing": "대기자 명단 참가 중..."
+		},
+		"validation": {
+			"invalidEmail": "유효하지 않은 이메일",
+			"pleaseEnterValidEmail": "유효한 이메일 주소를 입력해주세요"
+		},
+		"messages": {
+			"alreadySubscribed": "이미 구독됨",
+			"alreadySubscribedDesc": "이미 {eventName}의 대기자 명단에 있습니다.",
+			"subscriptionSuccess": "구독 성공!",
+			"subscriptionSuccessDesc": "{eventName}에 빕이 사용 가능해지면 알림을 받으실 것입니다.",
+			"subscriptionError": "오류",
+			"subscriptionErrorDesc": "오류가 발생했습니다. 다시 시도해주세요.",
+			"subscriptionConfirmed": "구독 확인됨!",
+			"subscriptionConfirmedDesc": "{eventName}에 대해 알려드리겠습니다."
+		},
+		"disclaimer": "이 이벤트에 빕이 사용 가능해질 때만 이메일 알림을 받으실 것입니다."
+	}
+}

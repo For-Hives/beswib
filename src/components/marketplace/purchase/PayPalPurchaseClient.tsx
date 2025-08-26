@@ -326,6 +326,8 @@ export default function PayPalPurchaseClient({
 								void handleBuyNowClick()
 							}}
 							eventId={bib.event.id}
+							eventName={bib.event.name}
+							user={user}
 						/>
 					</div>
 				</div>
