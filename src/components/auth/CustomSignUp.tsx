@@ -193,7 +193,14 @@ export default function CustomSignUp() {
 				emailAddress: formData.email,
 			})
 
-			console.info('Signup result:', JSON.stringify(result, null, 2))
+			console.info('Signup result:', {
+				status: result.status,
+				id: result.id,
+				unverifiedFields: result.unverifiedFields,
+				verifications: result.verifications ? {
+					emailAddress: result.verifications.emailAddress?.status
+				} : undefined
+			})
 
 			// Handle different signup statuses
 			if (result.status === 'complete') {
@@ -228,7 +235,7 @@ export default function CustomSignUp() {
 				setVerificationEmail(formData.email)
 			}
 		} catch (err: unknown) {
-			console.error('Signup error:', JSON.stringify(err, null, 2))
+			console.error('Signup error:', err)
 			const errorMessage = translateClerkErrorLocal(err)
 			setGlobalError(errorMessage)
 
@@ -289,7 +296,7 @@ export default function CustomSignUp() {
 				setGlobalError(t.somethingWentWrong || 'Something went wrong. Please try again.')
 			}
 		} catch (err: unknown) {
-			console.error('❌ Verification error:', JSON.stringify(err, null, 2))
+			console.error('❌ Verification error:', err)
 			const errorMessage = translateClerkErrorLocal(err)
 			setGlobalError(errorMessage)
 			setFieldErrors(prev => ({
