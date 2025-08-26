@@ -17,6 +17,7 @@ import { fetchOrganizerById } from '@/services/organizer.services'
 import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
 import { fetchUserByClerkId } from '@/services/user.services'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { getEventImageUrl } from '@/lib/utils/images'
 import { Locale } from '@/lib/i18n/config'
 
 import MarketplaceItemClient from './MarketplaceItemClient'
@@ -215,7 +216,14 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 				participantCount: bib.expand.eventId.participants ?? 0,
 				name: bib.expand.eventId.name,
 				location: bib.expand.eventId.location,
-				image: '/beswib.svg',
+				image: getEventImageUrl(
+					{
+						expand: {
+							organizer: organizer ?? undefined,
+						},
+					},
+					bib.id
+				),
 				id: bib.expand.eventId.id,
 				distanceUnit: 'km' as const,
 				distance: bib.expand.eventId.distanceKm ?? 0,
