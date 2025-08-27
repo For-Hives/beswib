@@ -53,10 +53,9 @@ export function isUserProfileComplete(user: User | null): boolean {
 }
 
 /**
- * Checks if a user profile is complete for selling bibs (merchant profile)
- * Requires PayPal merchant ID and basic contact information
+ * Checks if PayPal merchant setup is complete
  */
-export function isSellerProfileComplete(user: User | null): boolean {
+export function isPaypalMerchantComplete(user: User | null): boolean {
 	if (!user) return false
 
 	// Check if PayPal merchant ID is configured
@@ -69,6 +68,15 @@ export function isSellerProfileComplete(user: User | null): boolean {
 		return false
 	}
 
+	return true
+}
+
+/**
+ * Checks if contact information is complete for selling
+ */
+export function isSellerContactInfoComplete(user: User | null): boolean {
+	if (!user) return false
+
 	// Accept either valid phoneNumber or contactEmail as a valid contact method
 	const hasAtLeastOneContact =
 		isPhoneNumberValid(user.phoneNumber) ||
@@ -77,22 +85,40 @@ export function isSellerProfileComplete(user: User | null): boolean {
 		(typeof user.email === 'string' && user.email.trim() !== '')
 
 	// Check for basic contact information required for selling
-	const requiredSellerFields = [
-		user.email,
-		user.firstName,
-		user.lastName,
-		hasAtLeastOneContact ? 'ok' : null,
-		user.address,
-		user.postalCode,
-		user.city,
-		user.country,
-	]
+	const requiredContactFields = [user.email, user.firstName, user.lastName, hasAtLeastOneContact ? 'ok' : null]
 
-	return requiredSellerFields.every(field => {
+	return requiredContactFields.every(field => {
 		if (field == null || field === undefined) return false
 		if (typeof field === 'string') {
 			return field.trim() !== ''
 		}
 		return true
 	})
+}
+
+/**
+ * Checks if address information is complete for selling
+ */
+export function isSellerAddressComplete(user: User | null): boolean {
+	if (!user) return false
+
+	const requiredAddressFields = [user.address, user.postalCode, user.city, user.country]
+
+	return requiredAddressFields.every(field => {
+		if (field == null || field === undefined) return false
+		if (typeof field === 'string') {
+			return field.trim() !== ''
+		}
+		return true
+	})
+}
+
+/**
+ * Checks if a user profile is complete for selling bibs (merchant profile)
+ * Requires PayPal merchant ID and basic contact information
+ */
+export function isSellerProfileComplete(user: User | null): boolean {
+	if (!user) return false
+
+	return isPaypalMerchantComplete(user) && isSellerContactInfoComplete(user) && isSellerAddressComplete(user)
 }

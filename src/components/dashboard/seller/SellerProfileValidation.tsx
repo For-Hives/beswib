@@ -6,8 +6,13 @@ import Link from 'next/link'
 
 import type { User } from '@/models/user.model'
 
+import {
+	isSellerProfileComplete,
+	isPaypalMerchantComplete,
+	isSellerContactInfoComplete,
+	isSellerAddressComplete,
+} from '@/lib/validation/user'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { isSellerProfileComplete } from '@/lib/validation/user'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/lib/i18n/config'
@@ -22,6 +27,11 @@ interface SellerProfileValidationProps {
 export default function SellerProfileValidation({ user, locale }: SellerProfileValidationProps) {
 	const isComplete = isSellerProfileComplete(user)
 	const t = getTranslations(locale, sellerTranslations)
+
+	// Check individual completion status
+	const isPaypalComplete = isPaypalMerchantComplete(user)
+	const isContactComplete = isSellerContactInfoComplete(user)
+	const isAddressComplete = isSellerAddressComplete(user)
 
 	if (isComplete) {
 		return (
@@ -56,9 +66,9 @@ export default function SellerProfileValidation({ user, locale }: SellerProfileV
 				<div className="text-sm text-orange-700 dark:text-orange-300">
 					<p className="font-medium">{t.sellerProfile.incomplete.whyRequired}</p>
 					<ul className="mt-1 list-disc space-y-1 pl-5">
-						<li>{t.sellerProfile.incomplete.paypalMerchantId}</li>
-						<li>{t.sellerProfile.incomplete.contactInfo}</li>
-						<li>{t.sellerProfile.incomplete.addressInfo}</li>
+						{!isPaypalComplete && <li>{t.sellerProfile.incomplete.paypalMerchantId}</li>}
+						{!isContactComplete && <li>{t.sellerProfile.incomplete.contactInfo}</li>}
+						{!isAddressComplete && <li>{t.sellerProfile.incomplete.addressInfo}</li>}
 					</ul>
 				</div>
 				<div className="flex flex-col gap-2 sm:flex-row">
