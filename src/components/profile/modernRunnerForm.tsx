@@ -10,6 +10,7 @@ import { SelectAnimated, type SelectOption } from '@/components/ui/select-animat
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { fetchVerifiedEmailsByUserId } from '@/services/verifiedEmail.services'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { InputWithValidation } from '@/components/ui/input-with-validation'
 import profileTranslations from '@/components/profile/locales.json'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import { createRunnerFormSchema } from '@/lib/validation/schemas'
@@ -458,6 +459,8 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 								placeholder="123 Main Street"
 								value={form.watch('address')}
 								onChange={value => form.setValue('address', value)}
+								isCompleted={!!(form.watch('address')?.trim() && form.watch('address')?.trim().length >= 3)}
+								hasError={!!form.formState.errors.address}
 								otherFields={{
 									postalCode: form.watch('postalCode'),
 									country: form.watch('country'),
@@ -507,9 +510,10 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="postalCode">
 								{t.postalCode ?? 'Postal Code'}
 							</Label>
-							<Input
+							<InputWithValidation
 								{...form.register('postalCode')}
-								className={form.formState.errors.postalCode ? 'border-red-500' : ''}
+								hasError={!!form.formState.errors.postalCode}
+								isCompleted={!!(form.watch('postalCode')?.trim() && form.watch('postalCode')?.trim().length >= 3)}
 								id="postalCode"
 								placeholder="12345"
 								type="text"
@@ -525,9 +529,10 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="city">
 								{t.city ?? 'City'}
 							</Label>
-							<Input
+							<InputWithValidation
 								{...form.register('city')}
-								className={form.formState.errors.city ? 'border-red-500' : ''}
+								hasError={!!form.formState.errors.city}
+								isCompleted={!!(form.watch('city')?.trim() && form.watch('city')?.trim().length >= 2)}
 								id="city"
 								placeholder={t.cityPlaceholder ?? 'Enter your city'}
 								type="text"
@@ -541,9 +546,10 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 							<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="country">
 								{t.country ?? 'Country'}
 							</Label>
-							<Input
+							<InputWithValidation
 								{...form.register('country')}
-								className={form.formState.errors.country ? 'border-red-500' : ''}
+								hasError={!!form.formState.errors.country}
+								isCompleted={!!(form.watch('country')?.trim() && form.watch('country')?.trim().length >= 2)}
 								id="country"
 								placeholder={t.countryPlaceholder ?? 'Enter your country'}
 								type="text"

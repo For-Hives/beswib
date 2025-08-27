@@ -1,7 +1,7 @@
 'use client'
 
+import { ChevronDown, MapPin, Check } from 'lucide-react'
 import { forwardRef, useEffect, useRef } from 'react'
-import { ChevronDown, MapPin } from 'lucide-react'
 
 import { useAddressAutocomplete } from '@/hooks/useAddressAutocomplete'
 
@@ -22,6 +22,8 @@ interface AddressInputProps {
 	className?: string
 	/** Whether the input has an error */
 	hasError?: boolean
+	/** Whether the field is completed/valid */
+	isCompleted?: boolean
 	/** Input ID */
 	id?: string
 	/** Input name */
@@ -39,7 +41,22 @@ interface AddressInputProps {
  * Shows dropdown after 3+ words and 1 second delay
  */
 export const AddressInput = forwardRef<HTMLInputElement, AddressInputProps>(
-	({ value, placeholder, otherFields, onChange, onAddressSelect, name, id, hasError, className, ...props }, ref) => {
+	(
+		{
+			value,
+			placeholder,
+			otherFields,
+			onChange,
+			onAddressSelect,
+			name,
+			isCompleted,
+			id,
+			hasError,
+			className,
+			...props
+		},
+		ref
+	) => {
 		const containerRef = useRef<HTMLDivElement>(null)
 		const {
 			suggestions,
@@ -134,6 +151,9 @@ export const AddressInput = forwardRef<HTMLInputElement, AddressInputProps>(
 			}
 		}
 
+		// Check if the current field is completed
+		const isFieldCompleted = isCompleted ?? (value != null && value.trim() !== '' && value.trim().length >= 3)
+
 		const handleKeyDown = (event: React.KeyboardEvent) => {
 			if (event.key === 'Escape') {
 				hideSuggestions()
@@ -163,8 +183,13 @@ export const AddressInput = forwardRef<HTMLInputElement, AddressInputProps>(
 						</div>
 					)}
 
+					{/* Validation check mark */}
+					{!isLoading && isFieldCompleted && !showSuggestions && (
+						<Check className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-green-600" />
+					)}
+
 					{/* Dropdown indicator */}
-					{!isLoading && suggestions.length > 0 && (
+					{!isLoading && !isFieldCompleted && suggestions.length > 0 && (
 						<ChevronDown
 							className={cn(
 								'pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-gray-400 transition-transform',
