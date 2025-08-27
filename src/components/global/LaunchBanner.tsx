@@ -100,7 +100,7 @@ export function LaunchBanner({ locale }: LaunchBannerProps) {
 	return (
 		<div
 			className={cn(
-				'relative isolate flex flex-col justify-between gap-3 overflow-hidden border-b py-3 pr-12 pl-4 sm:flex-row sm:items-center sm:py-2',
+				'relative isolate flex flex-col justify-center gap-3 overflow-hidden border-b py-3 pr-12 pl-4 sm:flex-row sm:items-center sm:py-2',
 				theme === 'dark'
 					? 'border-green-500/20 bg-gradient-to-r from-slate-800/90 to-slate-900/90'
 					: 'border-green-600/15 bg-gradient-to-r from-lime-100/80 to-emerald-100/80'
@@ -118,19 +118,19 @@ export function LaunchBanner({ locale }: LaunchBannerProps) {
 				)}
 			/>
 
-			<div className="flex w-full items-center justify-center gap-3">
+			<div className="flex w-fit items-center justify-center gap-3">
 				<p className={cn('text-sm', theme === 'dark' ? 'text-white' : 'text-gray-900')}>{t?.banner?.title}</p>
 			</div>
 
 			<button
 				type="button"
 				className={cn(
-					'absolute inset-y-0 right-2.5 p-1 text-sm underline transition-colors',
-					theme === 'dark' ? 'text-green-400 hover:text-green-300' : 'text-green-700 hover:text-green-900'
+					'right-2.5 p-0 text-sm underline transition-colors',
+					theme === 'dark' ? 'text-red-400 hover:text-red-300' : 'text-red-700 hover:text-red-900'
 				)}
 				onClick={dismissBanner}
 			>
-				<X className="h-[18px] w-[18px]" />
+				<X className="h-[20px] w-[20px]" />
 			</button>
 		</div>
 	)
