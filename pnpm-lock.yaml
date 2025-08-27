@@ -12,8 +12,8 @@ importers:
         specifier: 1.5.0
         version: 1.5.0(@babel/core@7.28.3)(@types/pg@8.15.4)(@types/react-dom@19.1.8(@types/react@19.1.11))(@types/react@19.1.11)(next@15.5.1(@babel/core@7.28.3)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(use-sync-external-store@1.5.0(react@19.1.1))(ws@8.18.3)
       '@clerk/localizations':
-        specifier: 3.23.0
-        version: 3.23.0
+        specifier: 3.23.1
+        version: 3.23.1
       '@clerk/nextjs':
         specifier: 6.31.4
         version: 6.31.4(next@15.5.1(@babel/core@7.28.3)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -461,8 +461,8 @@ packages:
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-0
       react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-0
 
-  '@clerk/localizations@3.23.0':
-    resolution: {integrity: sha512-71ozafacj24yDO67CEz+3iDewgMWa/8SIN16XhN8xi4GazHpokzQpssNAFum144OVT5JaxjE6tU1Lad56RNQ7Q==}
+  '@clerk/localizations@3.23.1':
+    resolution: {integrity: sha512-2kZ5+d2AfPKXyAbKh/Rlrhop2WcmisYmQNYicBzODM8tqWzgSsqLY5QnbQSzIEdQ12KbTzDvCBkANfeMxdWJKQ==}
     engines: {node: '>=18.17.0'}
 
   '@clerk/nextjs@6.31.4':
@@ -491,6 +491,10 @@ packages:
 
   '@clerk/types@4.81.0':
     resolution: {integrity: sha512-uSVAKUmYiFy2POXP3jNh7iCqdbEpzQe+IjY6MWiI5eYjMXR1l+TwYbU0r3IqnTzAzwm8TlklkpTaeR5ZXKW1Gw==}
+    engines: {node: '>=18.17.0'}
+
+  '@clerk/types@4.82.0':
+    resolution: {integrity: sha512-vUgT3Wvu2HkCuvsVyaEykiMs/vYSLnjK9aBSubE7SbPYqlOTQRsOgfnmHHUdhB9gZIxkcy6SIZwLpZxPTtNMsw==}
     engines: {node: '>=18.17.0'}
 
   '@csstools/color-helpers@5.0.2':
@@ -6618,9 +6622,9 @@ snapshots:
       react-dom: 19.1.1(react@19.1.1)
       tslib: 2.8.1
 
-  '@clerk/localizations@3.23.0':
+  '@clerk/localizations@3.23.1':
     dependencies:
-      '@clerk/types': 4.81.0
+      '@clerk/types': 4.82.0
 
   '@clerk/nextjs@6.31.4(next@15.5.1(@babel/core@7.28.3)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
@@ -6652,6 +6656,10 @@ snapshots:
       tslib: 2.8.1
 
   '@clerk/types@4.81.0':
+    dependencies:
+      csstype: 3.1.3
+
+  '@clerk/types@4.82.0':
     dependencies:
       csstype: 3.1.3
 
