@@ -167,7 +167,7 @@ export const AddressInput = forwardRef<HTMLInputElement, AddressInputProps>(
 					{!isLoading && suggestions.length > 0 && (
 						<ChevronDown
 							className={cn(
-								'absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-gray-400 transition-transform',
+								'absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-gray-400 transition-transform pointer-events-none',
 								showSuggestions && 'rotate-180'
 							)}
 						/>
