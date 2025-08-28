@@ -21,7 +21,7 @@
 		"@c15t/nextjs": "1.5.0",
 		"@clerk/localizations": "3.24.0",
 		"@clerk/nextjs": "6.31.6",
-		"@clerk/themes": "2.4.14",
+		"@clerk/themes": "2.4.15",
 		"@faker-js/faker": "10.0.0",
 		"@formatjs/intl-localematcher": "0.6.1",
 		"@headlessui/react": "2.2.7",
