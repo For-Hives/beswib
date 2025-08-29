@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Languages } from 'lucide-react'
 
 import { useLocale } from '@/hooks/useLocale'
@@ -28,25 +28,50 @@ const languages = {
 
 export default function LanguageSwitcher({ currentLocale, className = '' }: LanguageSwitcherProps) {
 	const { isUpdating, currentLocale: locale, changeLocale } = useLocale(currentLocale)
+	const [isOpen, setIsOpen] = useState(false)
+	const dropdownRef = useRef<HTMLDivElement>(null)
 
 	// Fallback for invalid locale
 	const safeLocale = currentLocale in languages ? currentLocale : 'en'
 	const currentLang = languages[safeLocale]
 
+	// Close dropdown when clicking outside
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+				setIsOpen(false)
+			}
+		}
+
+		if (isOpen) {
+			document.addEventListener('mousedown', handleClickOutside)
+		}
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+	}, [isOpen])
+
 	const handleLanguageChange = async (newLocale: string) => {
 		try {
 			await changeLocale(newLocale)
+			setIsOpen(false)
 		} catch (error) {
 			console.error('Error changing language:', error)
 		}
 	}
 
+	const toggleDropdown = () => {
+		setIsOpen(!isOpen)
+	}
+
 	return (
-		<div className={`group relative ${className}`}>
+		<div className={`group relative ${className}`} ref={dropdownRef}>
 			<button
+				onClick={toggleDropdown}
 				className="border-border bg-background hover:bg-accent/10 flex items-center gap-2 rounded-lg border px-3 py-2 transition-colors"
 				aria-label="Select language"
-				aria-expanded="false"
+				aria-expanded={isOpen}
 				aria-haspopup="true"
 			>
 				<Languages className="h-4 w-4" />
@@ -54,7 +79,11 @@ export default function LanguageSwitcher({ currentLocale, className = '' }: Lang
 				<span className="sm:hidden">{currentLang.flag}</span>
 			</button>
 
-			<div className="bg-background border-border invisible absolute top-full right-0 z-50 mt-2 w-64 rounded-lg border opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:opacity-100">
+			<div
+				className={`bg-background border-border absolute top-full right-0 z-50 mt-2 w-64 rounded-lg border shadow-lg transition-all duration-200 ${
+					isOpen ? 'visible opacity-100' : 'invisible opacity-0 group-hover:visible group-hover:opacity-100'
+				}`}
+			>
 				<div className="p-2">
 					<div className="space-y-1 py-2">
 						{/* Force order: en, fr, es, it, de, ro, pt, nl, ko */}
