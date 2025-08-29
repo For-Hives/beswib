@@ -22,7 +22,7 @@ export function isValidLocale(locale: string | null | undefined): locale is keyo
  * Gets a valid locale with fallback logic
  * 1. If locale is valid, return it
  * 2. If locale is invalid/null, try to detect from browser/user agent (future enhancement)
- * 3. Default to 'fr' for French users, 'en' for others
+ * 3. Default to 'en' as the standard fallback locale
  */
 export function getValidLocale(locale: string | null | undefined, email?: string): keyof typeof locales {
 	// If locale is valid, use it
@@ -30,13 +30,13 @@ export function getValidLocale(locale: string | null | undefined, email?: string
 		return locale
 	}
 
-	// For now, default to 'fr' as this is primarily a French application
+	// Default to 'en' as the standard fallback locale
 	// In the future, we could add more sophisticated detection based on:
 	// - Email domain (.fr, .com, etc.)
 	// - IP geolocation
 	// - User preferences stored elsewhere
-	console.warn(`Invalid or missing locale "${locale}" for email ${email ?? 'unknown'}, falling back to 'fr'`)
-	return 'fr'
+	console.warn(`Invalid or missing locale "${locale}" for email ${email ?? 'unknown'}, falling back to 'en'`)
+	return 'en'
 }
 
 /**
