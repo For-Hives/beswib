@@ -181,6 +181,19 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
+			},
+			"fees": {
+				"paypalLinkText": "PayPal 수수료 상세 보기",
+				"promotionalMessage": "🎉 특별 혜택: 현재 프로모션 기간 동안 플랫폼 수수료가 면제됩니다!",
+				"calculation": {
+					"title": "수수료 계산 예시",
+					"examplePrice": "50€ 빕 예시:",
+					"buyerPays": "구매자 지불:",
+					"paypalFees": "PayPal 수수료:",
+					"platformFees": "플랫폼 수수료:",
+					"sellerReceives": "판매자 수령:",
+					"note": "참고: 모든 금액은 구매 전에 명확하게 표시됩니다"
+				}
 			}
 		}
 	},
@@ -234,6 +247,19 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
+			},
+			"fees": {
+				"paypalLinkText": "Ver comisiones PayPal detalladas",
+				"promotionalMessage": "🎉 ¡Oferta especial: Las comisiones de plataforma están exentas durante nuestro período promocional!",
+				"calculation": {
+					"title": "Ejemplo de cálculo de comisiones",
+					"examplePrice": "Ejemplo con un dorsal de 50€:",
+					"buyerPays": "El comprador paga:",
+					"paypalFees": "Comisiones PayPal:",
+					"platformFees": "Comisiones de plataforma:",
+					"sellerReceives": "El vendedor recibe:",
+					"note": "Nota: Todos los montos se muestran claramente antes de la compra"
+				}
 			}
 		}
 	},
@@ -287,6 +313,19 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
+			},
+			"fees": {
+				"paypalLinkText": "Vedi commissioni PayPal dettagliate",
+				"promotionalMessage": "🎉 Offerta speciale: Le commissioni della piattaforma sono attualmente esenti durante il nostro periodo promozionale!",
+				"calculation": {
+					"title": "Esempio di calcolo delle commissioni",
+					"examplePrice": "Esempio con un pettorale da 50€:",
+					"buyerPays": "L'acquirente paga:",
+					"paypalFees": "Commissioni PayPal:",
+					"platformFees": "Commissioni piattaforma:",
+					"sellerReceives": "Il venditore riceve:",
+					"note": "Nota: Tutti gli importi sono chiaramente mostrati prima dell'acquisto"
+				}
 			}
 		}
 	},
@@ -340,6 +379,19 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
+			},
+			"fees": {
+				"paypalLinkText": "Detaillierte PayPal-Gebühren anzeigen",
+				"promotionalMessage": "🎉 Sonderangebot: Plattformgebühren sind derzeit während unserer Werbeperiode erlassen!",
+				"calculation": {
+					"title": "Gebührenberechnungsbeispiel",
+					"examplePrice": "Beispiel mit einer Startnummer für 50€:",
+					"buyerPays": "Der Käufer zahlt:",
+					"paypalFees": "PayPal-Gebühren:",
+					"platformFees": "Plattformgebühren:",
+					"sellerReceives": "Der Verkäufer erhält:",
+					"note": "Hinweis: Alle Beträge werden vor dem Kauf klar angezeigt"
+				}
 			}
 		}
 	},
@@ -393,6 +445,19 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
+			},
+			"fees": {
+				"paypalLinkText": "Vezi comisioanele PayPal detaliate",
+				"promotionalMessage": "🎉 Ofertă specială: Comisioanele platformei sunt în prezent scutite în timpul perioadei noastre promoționale!",
+				"calculation": {
+					"title": "Exemplu de calcul al comisioanelor",
+					"examplePrice": "Exemplu cu un număr de 50€:",
+					"buyerPays": "Cumpărătorul plătește:",
+					"paypalFees": "Comisioane PayPal:",
+					"platformFees": "Comisioane platformă:",
+					"sellerReceives": "Vânzătorul primește:",
+					"note": "Notă: Toate sumele sunt afișate clar înainte de cumpărare"
+				}
 			}
 		}
 	},
@@ -446,6 +511,19 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
+			},
+			"fees": {
+				"paypalLinkText": "Ver taxas PayPal detalhadas",
+				"promotionalMessage": "🎉 Oferta especial: As taxas da plataforma estão atualmente isentas durante o nosso período promocional!",
+				"calculation": {
+					"title": "Exemplo de cálculo de taxas",
+					"examplePrice": "Exemplo com um dorsal de 50€:",
+					"buyerPays": "O comprador paga:",
+					"paypalFees": "Taxas PayPal:",
+					"platformFees": "Taxas da plataforma:",
+					"sellerReceives": "O vendedor recebe:",
+					"note": "Nota: Todos os montantes são claramente exibidos antes da compra"
+				}
 			}
 		}
 	},
@@ -499,6 +577,19 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
+			},
+			"fees": {
+				"paypalLinkText": "Bekijk gedetailleerde PayPal kosten",
+				"promotionalMessage": "🎉 Speciale aanbieding: Platform kosten zijn momenteel vrijgesteld tijdens onze promotieperiode!",
+				"calculation": {
+					"title": "Kostenberekening voorbeeld",
+					"examplePrice": "Voorbeeld met een startnummer van 50€:",
+					"buyerPays": "Koper betaalt:",
+					"paypalFees": "PayPal kosten:",
+					"platformFees": "Platform kosten:",
+					"sellerReceives": "Verkoper ontvangt:",
+					"note": "Opmerking: Alle bedragen worden duidelijk getoond vóór aankoop"
+				}
 			}
 		}
 	}
