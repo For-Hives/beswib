@@ -36,13 +36,20 @@ export async function syncUserLocaleFromCookie(
 			return { success: false, error: 'User not found in database' }
 		}
 
-		// Only update if user doesn't have a locale set (null or empty)
-		if (user.locale == null || user.locale === undefined || user.locale.trim() === '') {
+		// Only update if user doesn't have a locale set OR if the cookie locale is different and not 'en'
+		// This allows initial sync even if user has 'en' as default
+		const shouldUpdate =
+			user.locale == null ||
+			user.locale === undefined ||
+			user.locale.trim() === '' ||
+			(user.locale === 'en' && cookieLocale !== 'en')
+
+		if (shouldUpdate) {
 			await updateUserLocale(user.id, cookieLocale)
 			return { updated: true, success: true }
 		}
 
-		// User already has a locale set, no need to update
+		// User already has a locale set and it's not the default 'en', no need to update
 		return { updated: false, success: true }
 	} catch (error) {
 		const errorMessage = error instanceof Error ? error.message : 'Failed to sync locale from cookie'

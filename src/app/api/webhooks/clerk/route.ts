@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 import { Webhook } from 'svix'
 
+import { syncUserLocaleFromCookie } from '@/app/[locale]/actions/locale'
 import { linkEmailWaitlistsToUser } from '@/services/waitlist.services'
 import { sendWelcomeEmail } from '@/services/notification.service'
 import { createUser } from '@/services/user.services' // Adjust path as necessary
@@ -46,6 +47,10 @@ export async function POST(req: Request) {
 
 	if (eventType === 'user.created') {
 		return await handleUserCreatedEvent(evt)
+	}
+
+	if (eventType === 'session.created') {
+		return await handleSessionCreatedEvent(evt)
 	}
 
 	return NextResponse.json({ message: `Webhook received: ${eventType}, but no handler configured.` }, { status: 200 })
@@ -188,5 +193,32 @@ async function verifyWebhookPayload(req: Request, headers: SvixHeaders): Promise
 	} catch (err) {
 		console.error('Error verifying webhook:', err)
 		return NextResponse.json({ error: 'Error occured during webhook verification' }, { status: 400 })
+	}
+}
+
+async function handleSessionCreatedEvent(evt: WebhookEvent): Promise<NextResponse> {
+	try {
+		const sessionData = evt.data as { user_id?: string }
+
+		if (!sessionData.user_id) {
+			console.warn('Session created event without user_id')
+			return NextResponse.json({ message: 'Session created event processed (no user_id)' }, { status: 200 })
+		}
+
+		// Log session creation for debugging
+		console.info(`📋 Session created for user ${sessionData.user_id}`)
+		// Note: Locale synchronization is handled by LocaleSynchronizer component in the client
+		// when the user actually loads a page and interacts with the app
+
+		return NextResponse.json(
+			{
+				message: 'Session created event processed successfully',
+			},
+			{ status: 200 }
+		)
+	} catch (error) {
+		console.error('Error processing session.created event:', error)
+		const errorMessage = error instanceof Error ? error.message : 'Internal server error processing session creation'
+		return NextResponse.json({ error: errorMessage }, { status: 500 })
 	}
 }
