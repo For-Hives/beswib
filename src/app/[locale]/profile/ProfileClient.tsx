@@ -42,14 +42,17 @@ interface SerializedClerkUser {
 }
 
 interface ProfileCompletionChecklistProps {
-	user: User
+	user: User | null
 	locale: Locale
 }
 
 function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklistProps) {
 	const t = getTranslations(locale, profileTranslations)
 
-	// Tâches obligatoires
+	if (user == null) {
+		return null
+	}
+
 	const requiredTasks = [
 		{
 			label: t.profile?.completion?.basicInfo?.title ?? 'Informations de base',
@@ -224,7 +227,7 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 	const t = getTranslations(locale, profileTranslations)
 	const { signOut } = useClerk()
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-	const [currentUser, setCurrentUser] = useState<User>(user)
+	const [currentUser, setCurrentUser] = useState(user)
 
 	// Callback pour mettre à jour l'utilisateur en temps réel
 	const handleUserUpdate = useCallback((updatedUser: User) => {
