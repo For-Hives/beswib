@@ -95,7 +95,7 @@ export async function sendVerificationEmail(
 ): Promise<boolean> {
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(email))
-	const subject = getLocalizedEmailSubject('verifiedEmail', userLocale)
+	const subject = getLocalizedEmailSubject('verifiedEmail', userLocale, {}, email)
 
 	return sendEmail({
 		to: email,
@@ -111,7 +111,7 @@ export async function sendWelcomeEmail(email: string, firstName?: string, locale
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(email))
 	// Use the detected locale directly (avoid double call to getUserLocaleByEmail)
-	const subject = getLocalizedEmailSubject('welcome', userLocale, { firstName })
+	const subject = getLocalizedEmailSubject('welcome', userLocale, { firstName }, email)
 
 	return sendEmail({
 		to: email,
@@ -135,7 +135,7 @@ export async function sendWaitlistConfirmationEmail(
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(email))
 	// userLocale is already handled by getTranslations with fallback
-	const subject = getLocalizedEmailSubject('waitlistConfirmation', userLocale, { eventName })
+	const subject = getLocalizedEmailSubject('waitlistConfirmation', userLocale, { eventName }, email)
 
 	return sendEmail({
 		to: email,
@@ -185,7 +185,7 @@ export async function sendSaleConfirmationEmail({
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(sellerEmail))
 	// userLocale is already handled by getTranslations with fallback
-	const subject = getLocalizedEmailSubject('saleConfirmation', userLocale)
+	const subject = getLocalizedEmailSubject('saleConfirmation', userLocale, {}, sellerEmail)
 
 	return sendEmail({
 		to: sellerEmail,
@@ -238,7 +238,7 @@ export async function sendPurchaseConfirmationEmail({
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(buyerEmail))
 	// userLocale is already handled by getTranslations with fallback
-	const subject = getLocalizedEmailSubject('purchaseConfirmation', userLocale)
+	const subject = getLocalizedEmailSubject('purchaseConfirmation', userLocale, {}, buyerEmail)
 
 	return sendEmail({
 		to: buyerEmail,
@@ -612,7 +612,7 @@ export async function sendBibApprovalEmail({
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(sellerEmail))
 	// userLocale is already handled by getTranslations with fallback
-	const subject = getLocalizedEmailSubject('bibApproval', userLocale)
+	const subject = getLocalizedEmailSubject('bibApproval', userLocale, {}, sellerEmail)
 
 	return sendEmail({
 		to: sellerEmail,
@@ -666,7 +666,7 @@ export async function sendPurchaseApprovalEmail({
 	// Auto-detect user locale if not provided
 	const userLocale = locale ?? (await getUserLocaleByEmail(buyerEmail))
 	// userLocale is already handled by getTranslations with fallback
-	const subject = getLocalizedEmailSubject('purchaseApproval', userLocale)
+	const subject = getLocalizedEmailSubject('purchaseApproval', userLocale, {}, buyerEmail)
 
 	return sendEmail({
 		to: buyerEmail,
