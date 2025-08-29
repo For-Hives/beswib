@@ -293,8 +293,8 @@ export async function sendSaleAlertEmail(params: SaleAlertParams): Promise<boole
 		return false
 	}
 
-	// Use French as default for admin emails, but allow override
-	const locale = params.locale ?? 'fr'
+	// Use English as default for admin emails, but allow override
+	const locale = params.locale ?? 'en'
 	// locale is already handled by getTranslations with fallback
 	const subject = getLocalizedEmailSubject('saleAlert', locale, {
 		eventName: params.eventName,
@@ -354,7 +354,7 @@ export async function sendWaitlistAlertEmail(
 
 	// For batch emails, we'll use a default locale or the provided one
 	// In the future, we could optimize by grouping emails by user locale
-	const locale = params.locale ?? 'fr'
+	const locale = params.locale ?? 'en'
 	// locale is already handled by getTranslations with fallback
 	const subject = getLocalizedEmailSubject('waitlistAlert', locale, { eventName: params.eventName })
 

@@ -26,9 +26,9 @@ function getValidLocale(locale: string | null | undefined): string {
 	if (isValidLocale(locale)) {
 		return locale!
 	}
-	// Default to French for this application
-	console.warn(`mapPbRecordToUser: Invalid locale "${locale}", defaulting to 'fr'`)
-	return 'fr'
+	// Default to English as the standard fallback locale
+	console.warn(`mapPbRecordToUser: Invalid locale "${locale}", defaulting to 'en'`)
+	return 'en'
 }
 
 // Map PocketBase record to our User model
@@ -182,11 +182,12 @@ export async function getUserData(userId: string): Promise<null | User> {
 
 /**
  * Get user locale by email address, fallback to 'en' if not found or no locale set
+ * Returns 'en' as the standard default locale for consistency
  */
 export async function getUserLocaleByEmail(email: string): Promise<string> {
 	if (!email || email.trim() === '') {
 		console.warn('getUserLocaleByEmail: Empty email provided, using default locale')
-		return 'fr' // Default to French for this application
+		return 'en' // Default to English as the standard fallback locale
 	}
 
 	try {
@@ -194,25 +195,25 @@ export async function getUserLocaleByEmail(email: string): Promise<string> {
 
 		if (!user) {
 			console.warn(`getUserLocaleByEmail: No user found for email ${email}, using default locale`)
-			return 'fr' // Default to French when user not found
+			return 'en' // Default to English when user not found
 		}
 
 		// Validate the user's locale - if invalid, log warning and use default
 		if (user.locale == null || user.locale === '') {
-			console.warn(`getUserLocaleByEmail: User ${email} has no locale set, using default 'fr'`)
-			return 'fr'
+			console.warn(`getUserLocaleByEmail: User ${email} has no locale set, using default 'en'`)
+			return 'en'
 		}
 
 		// Use local validation function to avoid circular imports
 		if (!isValidLocale(user.locale)) {
-			console.warn(`getUserLocaleByEmail: User ${email} has invalid locale "${user.locale}", falling back to 'fr'`)
-			return 'fr'
+			console.warn(`getUserLocaleByEmail: User ${email} has invalid locale "${user.locale}", falling back to 'en'`)
+			return 'en'
 		}
 
 		return user.locale
 	} catch (error) {
 		console.error('getUserLocaleByEmail: Error fetching user locale:', error)
-		return 'fr' // Fallback to French on error
+		return 'en' // Fallback to English on error
 	}
 }
 
