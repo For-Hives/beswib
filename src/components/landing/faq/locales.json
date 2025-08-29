@@ -3,7 +3,7 @@
 		"faq": {
 			"badge": "FAQ",
 			"title": "Everything you need to know about Beswib",
-			"description": "Beswib is the secure marketplace for legal race bib transfers across Europe and beyond. Our innovative platform revolutionizes how athletes handle unexpected circumstances by connecting sellers and buyers through a trusted, organizer-approved system. Whether you're dealing with injury, scheduling conflicts, or simply changed your training plans, Beswib provides a legal, safe, and efficient solution for race bib transfers. We support all major running disciplines including trail running, road marathons, triathlons, and cycling events. Our platform ensures complete transparency, secure PayPal payments, and instant transfer confirmation with race organizers. Join thousands of athletes who trust Beswib for their race bib needs.",
+			"description": "Our secure marketplace for bib transfers. Our goal is to simplify the resale of bibs, making it legal, safe, and faster than ever before.",
 			"contactButton": "Any questions? Reach out",
 			"items": [
 				{
@@ -38,8 +38,8 @@
 				},
 				{
 					"id": "fees",
-					"question": "Are there any fees?",
-					"answer": "We take a modest commission on each successful sale to cover transaction fees and maintain the platform. Fee details are transparent and displayed before each transaction."
+					"question": "How do fees work and who pays them?",
+					"answer": "Our fee structure is transparent and fair. The buyer pays the full price, and from that amount: 1) PayPal fees (3.49% + €0.39) are deducted for payment processing, 2) Platform fees are currently waived during our promotional period, 3) The seller receives the remaining amount. All fees are clearly displayed before purchase. For detailed PayPal fees, visit their official website."
 				},
 				{
 					"id": "cancellation",
@@ -91,8 +91,8 @@
 				},
 				{
 					"id": "fees",
-					"question": "Y a-t-il des frais ?",
-					"answer": "Nous prélevons une commission modeste sur chaque vente réussie pour couvrir les frais de transaction et maintenir la plateforme. Les détails des frais sont transparents et affichés avant chaque transaction."
+					"question": "Comment fonctionnent les frais et qui les paie ?",
+					"answer": "Notre structure de frais est transparente et équitable. L'acheteur paie le prix complet, et de ce montant : 1) Les frais PayPal (3,49% + 0,39€) sont déduits pour le traitement du paiement, 2) Les frais de plateforme sont actuellement offerts pendant notre période promotionnelle, 3) Le vendeur reçoit le montant restant. Tous les frais sont clairement affichés avant l'achat. Pour les détails des frais PayPal, consultez leur site officiel."
 				},
 				{
 					"id": "cancellation",
@@ -144,8 +144,8 @@
 				},
 				{
 					"id": "fees",
-					"question": "수수료가 있나요?",
-					"answer": "거래 수수료를 충당하고 플랫폼을 유지하기 위해 성공한 각 판매에 대해 적은 수수료를 받습니다. 수수료 세부사항은 투명하며 각 거래 전에 표시됩니다."
+					"question": "수수료는 어떻게 작동하고 누가 지불하나요?",
+					"answer": "우리의 수수료 구조는 투명하고 공정합니다. 구매자가 전체 가격을 지불하고, 그 금액에서: 1) 결제 처리를 위한 PayPal 수수료(3.49% + 0.39€)가 공제됩니다, 2) 현재 프로모션 기간 동안 플랫폼 수수료는 면제됩니다, 3) 판매자는 나머지 금액을 받습니다. 모든 수수료는 구매 전에 명확하게 표시됩니다. PayPal 수수료 세부사항은 공식 웹사이트를 방문하세요."
 				},
 				{
 					"id": "cancellation",
@@ -197,8 +197,8 @@
 				},
 				{
 					"id": "fees",
-					"question": "¿Hay alguna comisión?",
-					"answer": "Cobramos una comisión modesta en cada venta exitosa para cubrir las tasas de transacción y mantener la plataforma. Los detalles de las comisiones son transparentes y se muestran antes de cada transacción."
+					"question": "¿Cómo funcionan las comisiones y quién las paga?",
+					"answer": "Nuestra estructura de comisiones es transparente y justa. El comprador paga el precio completo, y de ese monto: 1) Las comisiones de PayPal (3.49% + 0.39€) se deducen para el procesamiento del pago, 2) Las comisiones de plataforma están actualmente exentas durante nuestro período promocional, 3) El vendedor recibe el monto restante. Todas las comisiones se muestran claramente antes de la compra. Para detalles de comisiones de PayPal, visita su sitio web oficial."
 				},
 				{
 					"id": "cancellation",
@@ -250,8 +250,8 @@
 				},
 				{
 					"id": "fees",
-					"question": "Ci sono commissioni?",
-					"answer": "Prendiamo una commissione modesta su ogni vendita riuscita per coprire le commissioni di transazione e mantenere la piattaforma. I dettagli delle commissioni sono trasparenti e visualizzati prima di ogni transazione."
+					"question": "Come funzionano le commissioni e chi le paga?",
+					"answer": "La nostra struttura delle commissioni è trasparente e giusta. L'acquirente paga il prezzo completo, e da quel importo: 1) Le commissioni PayPal (3.49% + 0.39€) vengono dedotte per l'elaborazione del pagamento, 2) Le commissioni della piattaforma sono attualmente esenti durante il nostro periodo promozionale, 3) Il venditore riceve l'importo rimanente. Tutte le commissioni sono chiaramente mostrate prima dell'acquisto. Per i dettagli delle commissioni PayPal, visita il loro sito web ufficiale."
 				},
 				{
 					"id": "cancellation",
@@ -303,8 +303,8 @@
 				},
 				{
 					"id": "fees",
-					"question": "Gibt es Gebühren?",
-					"answer": "Wir nehmen eine bescheidene Provision bei jedem erfolgreichen Verkauf, um Transaktionsgebühren zu decken und die Plattform zu erhalten. Gebührendetails sind transparent und werden vor jeder Transaktion angezeigt."
+					"question": "Wie funktionieren die Gebühren und wer zahlt sie?",
+					"answer": "Unsere Gebührenstruktur ist transparent und fair. Der Käufer zahlt den vollen Preis, und von diesem Betrag: 1) PayPal-Gebühren (3,49% + 0,39€) werden für die Zahlungsabwicklung abgezogen, 2) Plattformgebühren sind derzeit während unserer Werbeperiode erlassen, 3) Der Verkäufer erhält den verbleibenden Betrag. Alle Gebühren werden vor dem Kauf klar angezeigt. Für detaillierte PayPal-Gebühren besuchen Sie deren offizielle Website."
 				},
 				{
 					"id": "cancellation",
@@ -356,8 +356,8 @@
 				},
 				{
 					"id": "fees",
-					"question": "Există comisioane?",
-					"answer": "Luăm un comision modest la fiecare vânzare reușită pentru a acoperi taxele de tranzacție și a menține platforma. Detaliile comisionului sunt transparente și afișate înainte de fiecare tranzacție."
+					"question": "Cum funcționează comisioanele și cine le plătește?",
+					"answer": "Structura noastră de comisioane este transparentă și corectă. Cumpărătorul plătește prețul complet, și din acea sumă: 1) Comisioanele PayPal (3.49% + 0.39€) sunt deduse pentru procesarea plății, 2) Comisioanele platformei sunt în prezent scutite în timpul perioadei noastre promoționale, 3) Vânzătorul primește suma rămasă. Toate comisioanele sunt afișate clar înainte de cumpărare. Pentru detaliile comisioanelor PayPal, vizitează site-ul lor oficial."
 				},
 				{
 					"id": "cancellation",
@@ -409,8 +409,8 @@
 				},
 				{
 					"id": "fees",
-					"question": "Há alguma taxa?",
-					"answer": "Cobramos uma comissão modesta em cada venda bem-sucedida para cobrir as taxas de transação e manter a plataforma. Os detalhes das taxas são transparentes e exibidos antes de cada transação."
+					"question": "Como funcionam as taxas e quem as paga?",
+					"answer": "A nossa estrutura de taxas é transparente e justa. O comprador paga o preço completo, e desse montante: 1) As taxas PayPal (3.49% + 0.39€) são deduzidas para o processamento do pagamento, 2) As taxas da plataforma estão atualmente isentas durante o nosso período promocional, 3) O vendedor recebe o montante restante. Todas as taxas são claramente exibidas antes da compra. Para detalhes das taxas PayPal, visite o seu site oficial."
 				},
 				{
 					"id": "cancellation",
@@ -462,8 +462,8 @@
 				},
 				{
 					"id": "fees",
-					"question": "Zijn er kosten?",
-					"answer": "We nemen een bescheiden commissie op elke succesvolle verkoop om transactiekosten te dekken en het platform te onderhouden. Kostendetails zijn transparant en worden voor elke transactie weergegeven."
+					"question": "Hoe werken de kosten en wie betaalt ze?",
+					"answer": "Onze kostenstructuur is transparant en eerlijk. De koper betaalt de volledige prijs, en van dit bedrag: 1) PayPal kosten (3.49% + 0.39€) worden afgetrokken voor betalingsverwerking, 2) Platform kosten zijn momenteel vrijgesteld tijdens onze promotieperiode, 3) De verkoper ontvangt het resterende bedrag. Alle kosten worden duidelijk getoond vóór aankoop. Voor gedetailleerde PayPal kosten, bezoek hun officiële website."
 				},
 				{
 					"id": "cancellation",
