@@ -155,7 +155,9 @@ export default function EventSelectionStep({
 												)}
 											</div>
 											{event.expand?.organizer && (
-												<p className="text-muted-foreground mt-2 text-xs">by {event.expand.organizer.name}</p>
+												<p className="text-muted-foreground mt-2 text-xs">
+													{t.form.eventSelection.by} {event.expand.organizer.name}
+												</p>
 											)}
 										</div>
 										{selectedEvent?.id === event.id && (

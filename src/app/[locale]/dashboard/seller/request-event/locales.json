@@ -5,6 +5,16 @@
 			"goBack": "Back to Sell Bib",
 			"submit": "Submit Request"
 		},
+		"sections": {
+			"eventInformation": {
+				"title": "Event Information",
+				"description": "Provide the basic information about the event you want to request."
+			},
+			"additionalInformation": {
+				"title": "Additional Information",
+				"description": "Provide any extra details that might help us add this event to our platform."
+			}
+		},
 		"form": {
 			"eventDate": "Event Date",
 			"eventDateHelp": "When the event is scheduled",
@@ -37,6 +47,16 @@
 			"cancel": "Annuler",
 			"goBack": "Retour à la vente de dossard",
 			"submit": "Soumettre la demande"
+		},
+		"sections": {
+			"eventInformation": {
+				"title": "Informations sur l'événement",
+				"description": "Fournissez les informations de base sur l'événement que vous souhaitez demander."
+			},
+			"additionalInformation": {
+				"title": "Informations supplémentaires",
+				"description": "Fournissez tous les détails supplémentaires qui pourraient nous aider à ajouter cet événement à notre plateforme."
+			}
 		},
 		"form": {
 			"eventDate": "Date de l'événement",
@@ -71,6 +91,16 @@
 			"goBack": "빕 판매로 돌아가기",
 			"submit": "요청 제출"
 		},
+		"sections": {
+			"eventInformation": {
+				"title": "이벤트 정보",
+				"description": "요청하려는 이벤트에 대한 기본 정보를 제공하세요."
+			},
+			"additionalInformation": {
+				"title": "추가 정보",
+				"description": "이 이벤트를 플랫폼에 추가하는 데 도움이 될 수 있는 추가 세부사항을 제공하세요."
+			}
+		},
 		"form": {
 			"eventDate": "이벤트 날짜",
 			"eventDateHelp": "이벤트가 예정된 날짜",
@@ -103,6 +133,16 @@
 			"cancel": "Cancelar",
 			"goBack": "Volver a Vender Dorsal",
 			"submit": "Enviar Solicitud"
+		},
+		"sections": {
+			"eventInformation": {
+				"title": "Información del Evento",
+				"description": "Proporciona la información básica sobre el evento que quieres solicitar."
+			},
+			"additionalInformation": {
+				"title": "Información Adicional",
+				"description": "Proporciona cualquier detalle adicional que pueda ayudarnos a agregar este evento a nuestra plataforma."
+			}
 		},
 		"form": {
 			"eventDate": "Fecha del Evento",
@@ -137,6 +177,16 @@
 			"goBack": "Torna a Vendere Pettorale",
 			"submit": "Invia Richiesta"
 		},
+		"sections": {
+			"eventInformation": {
+				"title": "Informazioni sull'Evento",
+				"description": "Fornisci le informazioni di base sull'evento che vuoi richiedere."
+			},
+			"additionalInformation": {
+				"title": "Informazioni Aggiuntive",
+				"description": "Fornisci tutti i dettagli aggiuntivi che potrebbero aiutarci ad aggiungere questo evento alla nostra piattaforma."
+			}
+		},
 		"form": {
 			"eventDate": "Data dell'Evento",
 			"eventDateHelp": "Quando è programmato l'evento",
@@ -169,6 +219,16 @@
 			"cancel": "Abbrechen",
 			"goBack": "Zurück zum Startnummer Verkauf",
 			"submit": "Anfrage Senden"
+		},
+		"sections": {
+			"eventInformation": {
+				"title": "Veranstaltungsinformationen",
+				"description": "Geben Sie die grundlegenden Informationen über die Veranstaltung an, die Sie anfordern möchten."
+			},
+			"additionalInformation": {
+				"title": "Zusätzliche Informationen",
+				"description": "Geben Sie alle zusätzlichen Details an, die uns beim Hinzufügen dieser Veranstaltung zu unserer Plattform helfen könnten."
+			}
 		},
 		"form": {
 			"eventDate": "Veranstaltungsdatum",
@@ -203,6 +263,16 @@
 			"goBack": "Înapoi la Vânzarea Numărului",
 			"submit": "Trimite Cererea"
 		},
+		"sections": {
+			"eventInformation": {
+				"title": "Informații despre Eveniment",
+				"description": "Furnizați informațiile de bază despre evenimentul pe care doriți să îl solicitați."
+			},
+			"additionalInformation": {
+				"title": "Informații Suplimentare",
+				"description": "Furnizați toate detaliile suplimentare care ne-ar putea ajuta să adăugăm acest eveniment pe platforma noastră."
+			}
+		},
 		"form": {
 			"eventDate": "Data Evenimentului",
 			"eventDateHelp": "Când este programat evenimentul",
@@ -236,6 +306,16 @@
 			"goBack": "Voltar a Vender Dorsal",
 			"submit": "Enviar Pedido"
 		},
+		"sections": {
+			"eventInformation": {
+				"title": "Informações do Evento",
+				"description": "Forneça as informações básicas sobre o evento que deseja solicitar."
+			},
+			"additionalInformation": {
+				"title": "Informações Adicionais",
+				"description": "Forneça todos os detalhes adicionais que possam ajudar-nos a adicionar este evento à nossa plataforma."
+			}
+		},
 		"form": {
 			"eventDate": "Data do Evento",
 			"eventDateHelp": "Quando o evento está agendado",
@@ -268,6 +348,16 @@
 			"cancel": "Annuleren",
 			"goBack": "Terug naar Startnummer Verkopen",
 			"submit": "Verzoek Indienen"
+		},
+		"sections": {
+			"eventInformation": {
+				"title": "Evenementinformatie",
+				"description": "Geef de basisinformatie over het evenement dat u wilt aanvragen."
+			},
+			"additionalInformation": {
+				"title": "Aanvullende Informatie",
+				"description": "Geef alle aanvullende details die ons kunnen helpen dit evenement aan ons platform toe te voegen."
+			}
 		},
 		"form": {
 			"eventDate": "Evenementdatum",
