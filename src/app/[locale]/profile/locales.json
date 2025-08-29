@@ -82,6 +82,38 @@
 				"cancelDelete": "Cancel",
 				"deleteDialogDescription": "This action will redirect you to our contact form where you can submit a deletion request. Our support team will process your request and confirm when your account has been permanently deleted."
 			},
+			"completion": {
+				"title": "Complete your profile",
+				"description": "Fill in this information to optimize your experience.",
+				"required": "Required",
+				"optional": "Optional",
+				"congratulations": "Profile complete!",
+				"allComplete": "All your information is up to date.",
+				"basicInfo": {
+					"title": "Basic Information",
+					"description": "Name, first name and email"
+				},
+				"contactInfo": {
+					"title": "Contact Information",
+					"description": "Phone and address"
+				},
+				"emergencyContact": {
+					"title": "Emergency Contact",
+					"description": "Contact in case of emergency"
+				},
+				"runnerProfile": {
+					"title": "Runner Profile",
+					"description": "Sports information"
+				},
+				"medicalInfo": {
+					"title": "Medical Information",
+					"description": "Medical certificate and license"
+				},
+				"paypalSetup": {
+					"title": "PayPal Configuration",
+					"description": "To receive payments"
+				}
+			},
 			"title": "My Profile"
 		}
 	},
@@ -165,6 +197,36 @@
 				"confirmDelete": "Oui, supprimer mon compte",
 				"cancelDelete": "Annuler",
 				"deleteDialogDescription": "Cette action vous redirigera vers notre formulaire de contact où vous pourrez soumettre une demande de suppression. Notre équipe de support traitera votre demande et confirmera quand votre compte aura été définitivement supprimé."
+			},
+			"completion": {
+				"title": "Complétez votre profil",
+				"description": "Remplissez ces informations pour optimiser votre expérience.",
+				"required": "Obligatoire",
+				"optional": "Optionnel",
+				"basicInfo": {
+					"title": "Informations de base",
+					"description": "Nom, prénom et email"
+				},
+				"contactInfo": {
+					"title": "Informations de contact",
+					"description": "Téléphone et adresse"
+				},
+				"emergencyContact": {
+					"title": "Contact d'urgence",
+					"description": "Contact en cas d'urgence"
+				},
+				"runnerProfile": {
+					"title": "Profil runner",
+					"description": "Informations sportives"
+				},
+				"medicalInfo": {
+					"title": "Informations médicales",
+					"description": "Certificat médical et licence"
+				},
+				"paypalSetup": {
+					"title": "Configuration PayPal",
+					"description": "Pour recevoir des paiements"
+				}
 			},
 			"title": "Mon Profil"
 		}
@@ -250,6 +312,36 @@
 				"cancelDelete": "취소",
 				"deleteDialogDescription": "이 작업은 계정 삭제 요청을 제출할 수 있는 연락처 양식으로 리디렉션합니다. 지원팀이 요청을 처리하고 계정이 영구적으로 삭제되었을 때 확인해 드립니다."
 			},
+			"completion": {
+				"title": "프로필 완성하기",
+				"description": "이 정보를 작성하여 경험을 최적화하세요.",
+				"required": "필수",
+				"optional": "선택",
+				"basicInfo": {
+					"title": "기본 정보",
+					"description": "이름, 성 및 이메일"
+				},
+				"contactInfo": {
+					"title": "연락처 정보",
+					"description": "전화 및 주소"
+				},
+				"emergencyContact": {
+					"title": "비상 연락처",
+					"description": "비상 시 연락처"
+				},
+				"runnerProfile": {
+					"title": "러너 프로필",
+					"description": "스포츠 정보"
+				},
+				"medicalInfo": {
+					"title": "의료 정보",
+					"description": "의료 증명서 및 라이선스"
+				},
+				"paypalSetup": {
+					"title": "PayPal 설정",
+					"description": "결제를 받기 위해"
+				}
+			},
 			"title": "내 프로필"
 		}
 	},
@@ -333,6 +425,36 @@
 				"confirmDelete": "Sí, eliminar mi cuenta",
 				"cancelDelete": "Cancelar",
 				"deleteDialogDescription": "Esta acción te redirigirá a nuestro formulario de contacto donde puedes enviar una solicitud de eliminación. Nuestro equipo de soporte procesará tu solicitud y confirmará cuando tu cuenta haya sido eliminada permanentemente."
+			},
+			"completion": {
+				"title": "Completa tu perfil",
+				"description": "Completa esta información para optimizar tu experiencia.",
+				"required": "Obligatorio",
+				"optional": "Opcional",
+				"basicInfo": {
+					"title": "Información básica",
+					"description": "Nombre, apellido y correo electrónico"
+				},
+				"contactInfo": {
+					"title": "Información de contacto",
+					"description": "Teléfono y dirección"
+				},
+				"emergencyContact": {
+					"title": "Contacto de emergencia",
+					"description": "Contacto en caso de emergencia"
+				},
+				"runnerProfile": {
+					"title": "Perfil corredor",
+					"description": "Información deportiva"
+				},
+				"medicalInfo": {
+					"title": "Información médica",
+					"description": "Certificado médico y licencia"
+				},
+				"paypalSetup": {
+					"title": "Configuración PayPal",
+					"description": "Para recibir pagos"
+				}
 			},
 			"title": "Mi Perfil"
 		}
@@ -418,6 +540,36 @@
 				"cancelDelete": "Annulla",
 				"deleteDialogDescription": "Questa azione ti reindirizzerà al nostro modulo di contatto dove puoi inviare una richiesta di eliminazione. Il nostro team di supporto elaborerà la tua richiesta e confermerà quando il tuo account sarà stato eliminato permanentemente."
 			},
+			"completion": {
+				"title": "Completa il tuo profilo",
+				"description": "Compila queste informazioni per ottimizzare la tua esperienza.",
+				"required": "Obbligatorio",
+				"optional": "Opzionale",
+				"basicInfo": {
+					"title": "Informazioni di base",
+					"description": "Nome, cognome e email"
+				},
+				"contactInfo": {
+					"title": "Informazioni di contatto",
+					"description": "Telefono e indirizzo"
+				},
+				"emergencyContact": {
+					"title": "Contatto di emergenza",
+					"description": "Contatto in caso di emergenza"
+				},
+				"runnerProfile": {
+					"title": "Profilo corridore",
+					"description": "Informazioni sportive"
+				},
+				"medicalInfo": {
+					"title": "Informazioni mediche",
+					"description": "Certificato medico e licenza"
+				},
+				"paypalSetup": {
+					"title": "Configurazione PayPal",
+					"description": "Per ricevere pagamenti"
+				}
+			},
 			"title": "Il Mio Profilo"
 		}
 	},
@@ -501,6 +653,36 @@
 				"confirmDelete": "Ja, mein Konto löschen",
 				"cancelDelete": "Abbrechen",
 				"deleteDialogDescription": "Diese Aktion leitet Sie zu unserem Kontaktformular weiter, wo Sie eine Löschanfrage einreichen können. Unser Support-Team bearbeitet Ihre Anfrage und bestätigt, wann Ihr Konto dauerhaft gelöscht wurde."
+			},
+			"completion": {
+				"title": "Vervollständige dein Profil",
+				"description": "Fülle diese Informationen aus, um deine Erfahrung zu optimieren.",
+				"required": "Erforderlich",
+				"optional": "Optional",
+				"basicInfo": {
+					"title": "Grundinformationen",
+					"description": "Name, Vorname und E-Mail"
+				},
+				"contactInfo": {
+					"title": "Kontaktinformationen",
+					"description": "Telefon und Adresse"
+				},
+				"emergencyContact": {
+					"title": "Notfallkontakt",
+					"description": "Kontakt im Notfall"
+				},
+				"runnerProfile": {
+					"title": "Läuferprofil",
+					"description": "Sportinformationen"
+				},
+				"medicalInfo": {
+					"title": "Medizinische Informationen",
+					"description": "Ärztliches Attest und Lizenz"
+				},
+				"paypalSetup": {
+					"title": "PayPal-Konfiguration",
+					"description": "Um Zahlungen zu erhalten"
+				}
 			},
 			"title": "Mein Profil"
 		}
@@ -586,6 +768,36 @@
 				"cancelDelete": "Anulează",
 				"deleteDialogDescription": "Această acțiune te va redirecționa către formularul nostru de contact unde poți trimite o cerere de ștergere. Echipa noastră de suport va procesa cererea ta și va confirma când contul tău a fost șters definitiv."
 			},
+			"completion": {
+				"title": "Completează-ți profilul",
+				"description": "Completează aceste informații pentru a-ți optimiza experiența.",
+				"required": "Obligatoriu",
+				"optional": "Opțional",
+				"basicInfo": {
+					"title": "Informații de bază",
+					"description": "Nume, prenume și email"
+				},
+				"contactInfo": {
+					"title": "Informații de contact",
+					"description": "Telefon și adresă"
+				},
+				"emergencyContact": {
+					"title": "Contact de urgență",
+					"description": "Contact în caz de urgență"
+				},
+				"runnerProfile": {
+					"title": "Profil alergător",
+					"description": "Informații sportive"
+				},
+				"medicalInfo": {
+					"title": "Informații medicale",
+					"description": "Certificat medical și licență"
+				},
+				"paypalSetup": {
+					"title": "Configurare PayPal",
+					"description": "Pentru a primi plăți"
+				}
+			},
 			"title": "Profilul Meu"
 		}
 	},
@@ -670,6 +882,36 @@
 				"cancelDelete": "Cancelar",
 				"deleteDialogDescription": "Esta ação irá redirecionar-te para o nosso formulário de contacto onde podes enviar um pedido de eliminação. A nossa equipa de suporte processará o teu pedido e confirmará quando a tua conta foi permanentemente eliminada."
 			},
+			"completion": {
+				"title": "Completa o teu perfil",
+				"description": "Preenche estas informações para otimizar a tua experiência.",
+				"required": "Obrigatório",
+				"optional": "Opcional",
+				"basicInfo": {
+					"title": "Informações básicas",
+					"description": "Nome, apelido e email"
+				},
+				"contactInfo": {
+					"title": "Informações de contacto",
+					"description": "Telefone e endereço"
+				},
+				"emergencyContact": {
+					"title": "Contacto de emergência",
+					"description": "Contacto em caso de emergência"
+				},
+				"runnerProfile": {
+					"title": "Perfil corredor",
+					"description": "Informações desportivas"
+				},
+				"medicalInfo": {
+					"title": "Informações médicas",
+					"description": "Certificado médico e licença"
+				},
+				"paypalSetup": {
+					"title": "Configuração PayPal",
+					"description": "Para receber pagamentos"
+				}
+			},
 			"title": "Meu Perfil"
 		}
 	},
@@ -753,6 +995,36 @@
 				"confirmDelete": "Ja, verwijder mijn account",
 				"cancelDelete": "Annuleren",
 				"deleteDialogDescription": "Deze actie zal je doorverwijzen naar ons contactformulier waar je een verwijderingsverzoek kunt indienen. Ons ondersteuningsteam zal je verzoek verwerken en bevestigen wanneer je account permanent is verwijderd."
+			},
+			"completion": {
+				"title": "Vervolledig je profiel",
+				"description": "Vul deze informatie in om je ervaring te optimaliseren.",
+				"required": "Vereist",
+				"optional": "Optioneel",
+				"basicInfo": {
+					"title": "Basisinformatie",
+					"description": "Naam, voornaam en e-mail"
+				},
+				"contactInfo": {
+					"title": "Contactinformatie",
+					"description": "Telefoon en adres"
+				},
+				"emergencyContact": {
+					"title": "Noodcontact",
+					"description": "Contact in geval van nood"
+				},
+				"runnerProfile": {
+					"title": "Loperprofiel",
+					"description": "Sportinformatie"
+				},
+				"medicalInfo": {
+					"title": "Medische informatie",
+					"description": "Medisch certificaat en licentie"
+				},
+				"paypalSetup": {
+					"title": "PayPal-configuratie",
+					"description": "Om betalingen te ontvangen"
+				}
 			},
 			"title": "Mijn Profiel"
 		}
