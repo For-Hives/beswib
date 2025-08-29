@@ -49,6 +49,19 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
+			},
+			"fees": {
+				"paypalLinkText": "View detailed PayPal fees",
+				"promotionalMessage": "🎉 Special Offer: Platform fees are currently waived during our promotional period!",
+				"calculation": {
+					"title": "Fee Calculation Example",
+					"examplePrice": "Example with a €50 bib:",
+					"buyerPays": "Buyer pays:",
+					"paypalFees": "PayPal fees:",
+					"platformFees": "Platform fees:",
+					"sellerReceives": "Seller receives:",
+					"note": "Note: All amounts are clearly displayed before purchase"
+				}
 			}
 		}
 	},
@@ -102,6 +115,19 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
+			},
+			"fees": {
+				"paypalLinkText": "Voir les frais PayPal détaillés",
+				"promotionalMessage": "🎉 Offre spéciale : Les frais de plateforme sont actuellement offerts pendant notre période promotionnelle !",
+				"calculation": {
+					"title": "Exemple de calcul des frais",
+					"examplePrice": "Exemple avec un dossard à 50€ :",
+					"buyerPays": "L'acheteur paie :",
+					"paypalFees": "Frais PayPal :",
+					"platformFees": "Frais de plateforme :",
+					"sellerReceives": "Le vendeur reçoit :",
+					"note": "Note : Tous les montants sont clairement affichés avant l'achat"
+				}
 			}
 		}
 	},
