@@ -5,6 +5,40 @@ import locales from '@/constants/locales.json'
 type LocaleData = typeof locales
 export type EmailTemplateKey = keyof LocaleData[keyof LocaleData]['emails']
 
+// Supported locales - extracted from the locales.json file
+export const SUPPORTED_LOCALES = Object.keys(locales) as (keyof typeof locales)[]
+
+/**
+ * Validates if a locale is supported by the application
+ */
+export function isValidLocale(locale: string | null | undefined): locale is keyof typeof locales {
+	if (locale == null || typeof locale !== 'string') {
+		return false
+	}
+	return SUPPORTED_LOCALES.includes(locale as keyof typeof locales)
+}
+
+/**
+ * Gets a valid locale with fallback logic
+ * 1. If locale is valid, return it
+ * 2. If locale is invalid/null, try to detect from browser/user agent (future enhancement)
+ * 3. Default to 'fr' for French users, 'en' for others
+ */
+export function getValidLocale(locale: string | null | undefined, email?: string): keyof typeof locales {
+	// If locale is valid, use it
+	if (isValidLocale(locale)) {
+		return locale
+	}
+
+	// For now, default to 'fr' as this is primarily a French application
+	// In the future, we could add more sophisticated detection based on:
+	// - Email domain (.fr, .com, etc.)
+	// - IP geolocation
+	// - User preferences stored elsewhere
+	console.warn(`Invalid or missing locale "${locale}" for email ${email ?? 'unknown'}, falling back to 'fr'`)
+	return 'fr'
+}
+
 /**
  * Get localized email subject with parameter substitution using the same system as the rest of the app
  * Uses the proven pattern from HeroAlternative.tsx and other components
@@ -12,10 +46,14 @@ export type EmailTemplateKey = keyof LocaleData[keyof LocaleData]['emails']
 export function getLocalizedEmailSubject(
 	template: EmailTemplateKey | 'verifiedEmail',
 	locale: string,
-	params: Record<string, string | number | undefined> = {}
+	params: Record<string, string | number | undefined> = {},
+	email?: string
 ): string {
+	// Validate and normalize the locale to prevent inconsistent translations
+	const validLocale = getValidLocale(locale, email)
+
 	// Use the exact same pattern as HeroAlternative.tsx
-	const translations = getTranslations(locale, locales)
+	const translations = getTranslations(validLocale, locales)
 
 	// Special case for verifiedEmail which is at root level, not in emails
 	if (template === 'verifiedEmail') {
@@ -53,10 +91,14 @@ export function getLocalizedEmailText(
 	template: EmailTemplateKey,
 	textKey: string,
 	locale: string,
-	params: Record<string, string | number | undefined> = {}
+	params: Record<string, string | number | undefined> = {},
+	email?: string
 ): string {
+	// Validate and normalize the locale to prevent inconsistent translations
+	const validLocale = getValidLocale(locale, email)
+
 	// Use the exact same pattern as HeroAlternative.tsx
-	const translations = getTranslations(locale, locales)
+	const translations = getTranslations(validLocale, locales)
 
 	const emailsData = translations.emails as Record<string, unknown> | undefined
 	if (!emailsData || !(template in emailsData)) {

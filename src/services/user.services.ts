@@ -6,6 +6,31 @@ import { User, type PbUserRecordMinimal } from '@/models/user.model'
 import { pbDateToLuxon } from '@/lib/utils/date'
 import { pb } from '@/lib/services/pocketbase'
 
+// Supported locales for validation
+const SUPPORTED_LOCALES = ['en', 'fr', 'ko', 'es', 'it', 'de', 'ro', 'pt', 'nl']
+
+/**
+ * Validates if a locale string is supported
+ */
+function isValidLocale(locale: string | null | undefined): boolean {
+	if (locale == null || locale === '' || typeof locale !== 'string') {
+		return false
+	}
+	return SUPPORTED_LOCALES.includes(locale)
+}
+
+/**
+ * Gets a valid locale with fallback
+ */
+function getValidLocale(locale: string | null | undefined): string {
+	if (isValidLocale(locale)) {
+		return locale!
+	}
+	// Default to French for this application
+	console.warn(`mapPbRecordToUser: Invalid locale "${locale}", defaulting to 'fr'`)
+	return 'fr'
+}
+
 // Map PocketBase record to our User model
 
 function mapPbRecordToUser(record: PbUserRecordMinimal): User {
@@ -29,7 +54,7 @@ function mapPbRecordToUser(record: PbUserRecordMinimal): User {
 		paypalMerchantId: record.paypalMerchantId,
 		paypal_kyc: record.paypal_kyc === true,
 		medicalCertificateUrl: record.medicalCertificateUrl,
-		locale: record.locale,
+		locale: getValidLocale(record.locale), // Validate locale with fallback
 		licenseNumber: record.licenseNumber,
 		lastName: record.lastName,
 		id: record.id,
@@ -160,15 +185,34 @@ export async function getUserData(userId: string): Promise<null | User> {
  */
 export async function getUserLocaleByEmail(email: string): Promise<string> {
 	if (!email || email.trim() === '') {
-		return 'en' // Default locale
+		console.warn('getUserLocaleByEmail: Empty email provided, using default locale')
+		return 'fr' // Default to French for this application
 	}
 
 	try {
 		const user = await fetchUserByEmail(email.trim())
-		return user?.locale ?? 'en' // Fallback to 'en' if no locale set
+
+		if (!user) {
+			console.warn(`getUserLocaleByEmail: No user found for email ${email}, using default locale`)
+			return 'fr' // Default to French when user not found
+		}
+
+		// Validate the user's locale - if invalid, log warning and use default
+		if (user.locale == null || user.locale === '') {
+			console.warn(`getUserLocaleByEmail: User ${email} has no locale set, using default 'fr'`)
+			return 'fr'
+		}
+
+		// Use local validation function to avoid circular imports
+		if (!isValidLocale(user.locale)) {
+			console.warn(`getUserLocaleByEmail: User ${email} has invalid locale "${user.locale}", falling back to 'fr'`)
+			return 'fr'
+		}
+
+		return user.locale
 	} catch (error) {
-		console.warn('Failed to get user locale by email:', error)
-		return 'en' // Fallback to 'en' on error
+		console.error('getUserLocaleByEmail: Error fetching user locale:', error)
+		return 'fr' // Fallback to French on error
 	}
 }
 
