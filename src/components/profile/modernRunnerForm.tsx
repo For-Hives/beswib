@@ -50,12 +50,12 @@ type RunnerFormData = {
 
 export default function ModernRunnerForm({
 	user,
+	onUserUpdate,
 	locale = 'en' as Locale,
-	onUserUpdate
 }: Readonly<{
-	user: User;
-	locale?: Locale;
-	onUserUpdate?: (updatedUser: User) => void;
+	user: User
+	locale?: Locale
+	onUserUpdate?: (updatedUser: User) => void
 }>) {
 	const t = getTranslations(locale, profileTranslations)
 	const [isPending, startTransition] = useTransition()

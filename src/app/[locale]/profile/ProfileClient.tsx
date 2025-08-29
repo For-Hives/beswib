@@ -130,6 +130,12 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 
 	const requiredCompletionPercentage = Math.round((completedRequiredTasks / totalRequiredTasks) * 100)
 
+	// Si le profil est complètement rempli, on n'affiche rien du tout
+	const isProfileComplete = requiredTasks.every(task => task.completed) && optionalTasks.every(task => task.completed)
+	if (isProfileComplete) {
+		return null
+	}
+
 	return (
 		<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 			<CardHeader>
@@ -154,19 +160,6 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 				</div>
 			</CardHeader>
 			<CardContent className="space-y-6">
-				{/* Message de félicitations si tout est complet */}
-				{requiredTasks.every(task => task.completed) && optionalTasks.every(task => task.completed) && (
-					<div className="py-8 text-center">
-						<div className="mb-2 text-4xl text-green-600 dark:text-green-400">✓</div>
-						<div className="text-foreground mb-1 text-lg font-medium">
-							{t.profile?.completion?.congratulations ?? 'Profil complet !'}
-						</div>
-						<div className="text-muted-foreground text-sm">
-							{t.profile?.completion?.allComplete ?? 'Toutes vos informations sont à jour.'}
-						</div>
-					</div>
-				)}
-
 				{/* Section Obligatoire - seulement si des tâches sont incomplètes */}
 				{requiredTasks.some(task => !task.completed) && (
 					<div className="space-y-3">
