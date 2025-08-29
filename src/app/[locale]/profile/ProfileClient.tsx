@@ -156,9 +156,9 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 			<CardContent className="space-y-6">
 				{/* Message de félicitations si tout est complet */}
 				{requiredTasks.every(task => task.completed) && optionalTasks.every(task => task.completed) && (
-					<div className="text-center py-8">
-						<div className="text-green-600 dark:text-green-400 text-4xl mb-2">✓</div>
-						<div className="text-foreground text-lg font-medium mb-1">
+					<div className="py-8 text-center">
+						<div className="mb-2 text-4xl text-green-600 dark:text-green-400">✓</div>
+						<div className="text-foreground mb-1 text-lg font-medium">
 							{t.profile?.completion?.congratulations ?? 'Profil complet !'}
 						</div>
 						<div className="text-muted-foreground text-sm">
