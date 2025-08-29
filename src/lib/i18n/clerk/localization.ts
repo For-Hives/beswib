@@ -7,6 +7,7 @@ import type { Locale } from '@/lib/i18n/config'
 
 /**
  * Map our app locales to Clerk localization resources
+ * Ordered according to i18n config for consistency
  */
 const clerkLocaleMap: Record<Locale, LocalizationResource> = {
 	ro: roRO,

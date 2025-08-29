@@ -12,7 +12,7 @@ interface LanguageSwitcherProps {
 	className?: string
 }
 
-// Language configuration with native names
+// Language configuration with native names - ordered according to config.ts
 const languages = {
 	ro: { native: 'Română', name: 'Romanian', flag: '🇷🇴' },
 	pt: { native: 'Português', name: 'Portuguese', flag: '🇵🇹' },
@@ -56,7 +56,9 @@ export default function LanguageSwitcher({ currentLocale, className = '' }: Lang
 			<div className="bg-background border-border invisible absolute top-full right-0 z-50 mt-2 w-64 rounded-lg border opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:opacity-100">
 				<div className="p-2">
 					<div className="space-y-1 py-2">
-						{Object.entries(languages).map(([code, lang]) => {
+						{/* Force order: en, fr, es, it, de, ro, pt, nl, ko */}
+						{['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko'].map(code => {
+							const lang = languages[code as keyof typeof languages]
 							const isCurrent = code === locale
 
 							return (
@@ -105,7 +107,9 @@ export function LanguageSwitcherMobile({ currentLocale }: LanguageSwitcherProps)
 		<div className="border-border flex flex-wrap gap-2 border-t p-4">
 			<div className="text-muted-foreground mb-2 w-full text-xs font-medium">Language / Langue</div>
 
-			{Object.entries(languages).map(([code, lang]) => {
+			{/* Force order: en, fr, es, it, de, ro, pt, nl, ko */}
+			{['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko'].map(code => {
+				const lang = languages[code as keyof typeof languages]
 				const isCurrent = code === locale
 
 				return (
