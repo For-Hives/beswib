@@ -125,12 +125,12 @@ export function LaunchBanner({ locale }: LaunchBannerProps) {
 			<button
 				type="button"
 				className={cn(
-					'right-2.5 p-0 text-sm underline transition-colors',
+					'cursor-pointer p-2 text-sm underline transition-colors',
 					theme === 'dark' ? 'text-red-400 hover:text-red-300' : 'text-red-700 hover:text-red-900'
 				)}
 				onClick={dismissBanner}
 			>
-				<X className="h-[20px] w-[20px]" />
+				<X className="h-[16px] w-[16px]" />
 			</button>
 		</div>
 	)
