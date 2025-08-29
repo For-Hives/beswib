@@ -40,6 +40,7 @@
 				"distance": "Distance",
 				"elevation": "Elevation",
 				"participants": "Participants",
+				"by": "by",
 				"requestNewEvent": "Can't find your event?",
 				"requestNewEventDescription": "Request to have it listed - we'll take care of everything!",
 				"requestNewEventButton": "Request New Event"
@@ -192,6 +193,7 @@
 				"distance": "Distance",
 				"elevation": "Dénivelé",
 				"participants": "Participants",
+				"by": "par",
 				"requestNewEvent": "Vous ne trouvez pas votre événement ?",
 				"requestNewEventDescription": "Demandez à ce qu'il soit répertorié - nous nous occupons de tout !",
 				"requestNewEventButton": "Demander un nouvel événement"
@@ -344,6 +346,7 @@
 				"distance": "거리",
 				"elevation": "고도",
 				"participants": "참가자",
+				"by": "작성자",
 				"requestNewEvent": "이벤트를 찾을 수 없나요?",
 				"requestNewEventDescription": "등록 요청을 해주세요 - 저희가 모든 것을 처리해드립니다!",
 				"requestNewEventButton": "새 이벤트 요청"
@@ -496,6 +499,7 @@
 				"distance": "Distancia",
 				"elevation": "Elevación",
 				"participants": "Participantes",
+				"by": "por",
 				"requestNewEvent": "¿No encuentras tu evento?",
 				"requestNewEventDescription": "Solicita que lo incluyamos - ¡nos encargaremos de todo!",
 				"requestNewEventButton": "Solicitar Nuevo Evento"
@@ -648,6 +652,7 @@
 				"distance": "Distanza",
 				"elevation": "Elevazione",
 				"participants": "Partecipanti",
+				"by": "da",
 				"requestNewEvent": "Non trovi il tuo evento?",
 				"requestNewEventDescription": "Richiedi di averlo elencato - ci pensiamo noi a tutto!",
 				"requestNewEventButton": "Richiedi Nuovo Evento"
@@ -800,6 +805,7 @@
 				"distance": "Entfernung",
 				"elevation": "Höhenunterschied",
 				"participants": "Teilnehmer",
+				"by": "von",
 				"requestNewEvent": "Finden Sie Ihre Veranstaltung nicht?",
 				"requestNewEventDescription": "Fordern Sie deren Auflistung an - wir kümmern uns um alles!",
 				"requestNewEventButton": "Neue Veranstaltung Anfordern"
@@ -952,6 +958,7 @@
 				"distance": "Distanță",
 				"elevation": "Elevație",
 				"participants": "Participanți",
+				"by": "de",
 				"requestNewEvent": "Nu găsești evenimentul tău?",
 				"requestNewEventDescription": "Solicită listarea acestuia - ne ocupăm noi de tot!",
 				"requestNewEventButton": "Solicită Eveniment Nou"
@@ -1104,6 +1111,7 @@
 				"distance": "Distância",
 				"elevation": "Elevação",
 				"participants": "Participantes",
+				"by": "por",
 				"requestNewEvent": "Não consegue encontrar o seu evento?",
 				"requestNewEventDescription": "Solicite que seja listado - nós tratamos de tudo!",
 				"requestNewEventButton": "Solicitar Novo Evento"
@@ -1256,6 +1264,7 @@
 				"distance": "Afstand",
 				"elevation": "Hoogteverschil",
 				"participants": "Deelnemers",
+				"by": "door",
 				"requestNewEvent": "Kunt u uw evenement niet vinden?",
 				"requestNewEventDescription": "Vraag om het te laten vermelden - wij regelen alles!",
 				"requestNewEventButton": "Nieuw Evenement Aanvragen"

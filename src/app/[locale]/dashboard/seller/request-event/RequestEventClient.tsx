@@ -174,9 +174,9 @@ export default function RequestEventClient({ locale }: RequestEventClientProps) 
 					{/* Event Information Section */}
 					<div className="grid grid-cols-1 gap-12 md:grid-cols-3">
 						<div>
-							<h2 className="text-foreground text-2xl font-semibold">Event Information</h2>
+							<h2 className="text-foreground text-2xl font-semibold">{t.sections.eventInformation.title}</h2>
 							<p className="text-muted-foreground mt-2 text-base leading-7">
-								Provide the basic information about the event you want to request.
+								{t.sections.eventInformation.description}
 							</p>
 						</div>
 						<div className="sm:max-w-4xl md:col-span-2">
@@ -241,9 +241,9 @@ export default function RequestEventClient({ locale }: RequestEventClientProps) 
 					{/* Additional Information Section */}
 					<div className="grid grid-cols-1 gap-12 md:grid-cols-3">
 						<div>
-							<h2 className="text-foreground text-2xl font-semibold">Additional Information</h2>
+							<h2 className="text-foreground text-2xl font-semibold">{t.sections.additionalInformation.title}</h2>
 							<p className="text-muted-foreground mt-2 text-base leading-7">
-								Provide any extra details that might help us add this event to our platform.
+								{t.sections.additionalInformation.description}
 							</p>
 						</div>
 						<div className="sm:max-w-4xl md:col-span-2">
