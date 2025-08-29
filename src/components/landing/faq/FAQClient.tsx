@@ -21,17 +21,7 @@ export default function FAQClient({ locale }: Readonly<FAQClientProps>) {
 	const t = getTranslations(locale, Translations)
 
 	// PayPal links by locale
-	const paypalLinks = {
-		ro: 'https://www.paypal.com/ro/webapps/mpp/merchant-fees',
-		pt: 'https://www.paypal.com/pt/webapps/mpp/merchant-fees',
-		nl: 'https://www.paypal.com/nl/webapps/mpp/merchant-fees',
-		ko: 'https://www.paypal.com/kr/webapps/mpp/merchant-fees',
-		it: 'https://www.paypal.com/it/webapps/mpp/merchant-fees',
-		fr: 'https://www.paypal.com/fr/webapps/mpp/merchant-fees',
-		es: 'https://www.paypal.com/es/webapps/mpp/merchant-fees',
-		en: 'https://www.paypal.com/us/webapps/mpp/merchant-fees',
-		de: 'https://www.paypal.com/de/webapps/mpp/merchant-fees',
-	}
+	const paypalLinks = 'https://www.paypal.com/ro/webapps/mpp/merchant-fees'
 
 	// Helper function to format fees dynamically
 	const formatFeesAnswer = (answer: string) => {
@@ -127,7 +117,7 @@ export default function FAQClient({ locale }: Readonly<FAQClientProps>) {
 												{/* PayPal fees link */}
 												<div className="pt-2">
 													<Link
-														href={paypalLinks[locale] ?? paypalLinks.en}
+														href={paypalLinks}
 														target="_blank"
 														rel="noopener noreferrer"
 														className="text-primary inline-flex items-center gap-2 text-sm hover:underline"
