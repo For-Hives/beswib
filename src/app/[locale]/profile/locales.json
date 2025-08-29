@@ -203,6 +203,8 @@
 				"description": "Remplissez ces informations pour optimiser votre expérience.",
 				"required": "Obligatoire",
 				"optional": "Optionnel",
+				"congratulations": "Profil complet !",
+				"allComplete": "Toutes vos informations sont à jour.",
 				"basicInfo": {
 					"title": "Informations de base",
 					"description": "Nom, prénom et email"
@@ -317,6 +319,8 @@
 				"description": "이 정보를 작성하여 경험을 최적화하세요.",
 				"required": "필수",
 				"optional": "선택",
+				"congratulations": "프로필 완성!",
+				"allComplete": "모든 정보가 최신 상태입니다.",
 				"basicInfo": {
 					"title": "기본 정보",
 					"description": "이름, 성 및 이메일"
@@ -431,6 +435,8 @@
 				"description": "Completa esta información para optimizar tu experiencia.",
 				"required": "Obligatorio",
 				"optional": "Opcional",
+				"congratulations": "¡Perfil completo!",
+				"allComplete": "Toda tu información está actualizada.",
 				"basicInfo": {
 					"title": "Información básica",
 					"description": "Nombre, apellido y correo electrónico"
@@ -545,6 +551,8 @@
 				"description": "Compila queste informazioni per ottimizzare la tua esperienza.",
 				"required": "Obbligatorio",
 				"optional": "Opzionale",
+				"congratulations": "Profilo completo!",
+				"allComplete": "Tutte le tue informazioni sono aggiornate.",
 				"basicInfo": {
 					"title": "Informazioni di base",
 					"description": "Nome, cognome e email"
