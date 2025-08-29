@@ -160,9 +160,9 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 					</div>
 				</div>
 
-				<DisclosurePanel className="border-border bg-background absolute z-[101] w-full border-b shadow-lg lg:hidden">
+				<DisclosurePanel className="border-border bg-background absolute z-[101] max-h-[calc(100vh-4rem)] w-full overflow-y-auto border-b shadow-lg lg:hidden">
 					<div className="space-y-1 px-2 pt-2 pb-3">
-						{/* Language Switcher for Mobile 🌐 */}
+						{/* Language Switcher for Mobile 🌐 - More compact */}
 						<div className="border-border mb-3 border-b pb-3">
 							<LanguageSwitcherMobile currentLocale={locale} currentPath={currentPath} />
 						</div>
