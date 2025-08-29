@@ -282,9 +282,9 @@ function EventCard({
 								</div>
 
 								{/* Two buttons side by side: View Event (left) and Action Button (right) */}
-								<div className="flex gap-2">
+								<div className="flex flex-col gap-2 xl:flex-row">
 									{/* Left button: Always visible "View Event" button */}
-									<Button onClick={() => onViewEvent(event)} variant="outline" className="flex-1 cursor-pointer">
+									<Button onClick={() => onViewEvent(event)} variant="outline" className="cursor-pointer xl:flex-1">
 										<Search className="h-4 w-4" />
 										{t.events?.eventCard?.viewEvent ?? 'View Event'}
 									</Button>
@@ -294,7 +294,7 @@ function EventCard({
 										// Determine button content and styling based on availability status
 										if (availabilityStatus === 'loading') {
 											return (
-												<Button disabled variant="secondary" className="flex-1 opacity-70">
+												<Button disabled variant="secondary" className="opacity-70 xl:flex-1">
 													<Loader2 className="h-4 w-4 animate-spin" />
 													{t.events?.eventCard?.checkBibs ?? 'Check bibs...'}
 												</Button>
@@ -303,7 +303,7 @@ function EventCard({
 
 										if (availabilityStatus === 'available') {
 											return (
-												<Button onClick={() => onAction(event)} variant="default" className="flex-1 cursor-pointer">
+												<Button onClick={() => onAction(event)} variant="default" className="cursor-pointer xl:flex-1">
 													<ShoppingCart className="h-4 w-4" />
 													{t.events?.eventCard?.viewBibs?.replace('{count}', (bibsCount ?? 0).toString()) ??
 														`View bibs (${bibsCount ?? 0})`}
@@ -313,7 +313,7 @@ function EventCard({
 
 										if (availabilityStatus === 'waitlist') {
 											return (
-												<Button onClick={() => onAction(event)} variant="outline" className="flex-1 cursor-pointer">
+												<Button onClick={() => onAction(event)} variant="outline" className="cursor-pointer xl:flex-1">
 													<Bell className="h-4 w-4" />
 													{t.events?.eventCard?.joinWaitlist ?? 'Join waitlist'}
 												</Button>
@@ -322,7 +322,7 @@ function EventCard({
 
 										// Fallback for unexpected states
 										return (
-											<Button onClick={() => onAction(event)} variant="outline" className="flex-1 cursor-pointer">
+											<Button onClick={() => onAction(event)} variant="outline" className="cursor-pointer xl:flex-1">
 												<Search className="h-4 w-4" />
 												{t.events?.eventCard?.viewDetails ?? 'View details'}
 											</Button>
