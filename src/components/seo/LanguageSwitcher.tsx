@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import { Languages } from 'lucide-react'
 
 import { useLocale } from '@/hooks/useLocale'
@@ -94,43 +95,88 @@ export default function LanguageSwitcher({ currentLocale, className = '' }: Lang
 // Alternative component for small screens (dropdown)
 export function LanguageSwitcherMobile({ currentLocale }: LanguageSwitcherProps) {
 	const { isUpdating, currentLocale: locale, changeLocale } = useLocale(currentLocale)
+	const [isOpen, setIsOpen] = useState(false)
+	const dropdownRef = useRef<HTMLDivElement>(null)
+
+	// Close dropdown when clicking outside
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+				setIsOpen(false)
+			}
+		}
+
+		if (isOpen) {
+			document.addEventListener('mousedown', handleClickOutside)
+		}
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+	}, [isOpen])
 
 	const handleLanguageChange = async (newLocale: string) => {
 		try {
 			await changeLocale(newLocale)
+			setIsOpen(false)
 		} catch (error) {
 			console.error('Error changing language:', error)
 		}
 	}
 
+	// Fallback for invalid locale
+	const safeLocale = currentLocale in languages ? currentLocale : 'en'
+	const currentLang = languages[safeLocale]
+
 	return (
-		<div className="border-border flex flex-wrap gap-2 border-t p-4">
-			<div className="text-muted-foreground mb-2 w-full text-xs font-medium">Language / Langue</div>
+		<div className="relative" ref={dropdownRef}>
+			<button
+				onClick={() => setIsOpen(!isOpen)}
+				className="border-border bg-background hover:bg-accent/10 flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2 transition-colors"
+				aria-label="Select language"
+				aria-expanded={isOpen}
+				aria-haspopup="true"
+			>
+				<div className="flex items-center gap-2">
+					<span className="text-lg">{currentLang.flag}</span>
+					<span className="text-sm font-medium">{currentLang.native}</span>
+				</div>
+				<Languages className="text-muted-foreground h-4 w-4" />
+			</button>
 
-			{/* Force order: en, fr, es, it, de, ro, pt, nl, ko */}
-			{['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko'].map(code => {
-				const lang = languages[code as keyof typeof languages]
-				const isCurrent = code === locale
+			{isOpen && (
+				<div className="border-border bg-background absolute top-full right-0 left-0 z-50 mt-1 max-h-48 overflow-y-auto rounded-lg border shadow-lg">
+					<div className="p-1">
+						{/* Force order: en, fr, es, it, de, ro, pt, nl, ko */}
+						{['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko'].map(code => {
+							const lang = languages[code as keyof typeof languages]
+							const isCurrent = code === locale
 
-				return (
-					<button
-						key={code}
-						onClick={() => !isCurrent && !isUpdating && void handleLanguageChange(code)}
-						disabled={isCurrent || isUpdating}
-						className={`flex items-center gap-2 rounded-lg border px-3 py-2 transition-colors ${
-							isCurrent
-								? 'bg-primary text-primary-foreground border-primary'
-								: 'bg-background text-foreground border-border hover:bg-accent/10 disabled:cursor-not-allowed disabled:opacity-50'
-						}`}
-						lang={code}
-						aria-current={isCurrent ? 'true' : undefined}
-					>
-						<span>{lang.flag}</span>
-						<span className="text-sm font-medium">{lang.native}</span>
-						{isUpdating && code === locale && <span className="ml-1 text-xs">⏳</span>}
-					</button>
-				)
-			})}
+							return (
+								<button
+									key={code}
+									onClick={() => !isCurrent && !isUpdating && void handleLanguageChange(code)}
+									disabled={isCurrent || isUpdating}
+									className={`flex w-full items-center gap-3 rounded-md px-3 py-2 transition-colors ${
+										isCurrent
+											? 'bg-primary/10 text-primary font-medium'
+											: 'hover:bg-accent/10 text-foreground disabled:cursor-not-allowed disabled:opacity-50'
+									}`}
+									lang={code}
+									aria-current={isCurrent ? 'true' : undefined}
+								>
+									<span className="text-lg">{lang.flag}</span>
+									<div className="flex-1 text-left">
+										<div className="text-sm font-medium">{lang.native}</div>
+									</div>
+									{isCurrent && <div className="bg-primary h-2 w-2 rounded-full" />}
+									{isUpdating && code === locale && <div className="text-xs">⏳</div>}
+								</button>
+							)
+						})}
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }
