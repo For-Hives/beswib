@@ -1,7 +1,7 @@
 'use client'
 
 import { LogOut, Trash2, AlertTriangle } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 
 import { useClerk } from '@clerk/nextjs'
 
@@ -231,6 +231,12 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 	const t = getTranslations(locale, profileTranslations)
 	const { signOut } = useClerk()
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+	const [currentUser, setCurrentUser] = useState<User>(user)
+
+	// Callback pour mettre à jour l'utilisateur en temps réel
+	const handleUserUpdate = useCallback((updatedUser: User) => {
+		setCurrentUser(updatedUser)
+	}, [])
 
 	const handleDeleteAccount = () => {
 		// Create the deletion request message template
@@ -278,12 +284,12 @@ ${clerkUser.firstName ?? ''} ${clerkUser.lastName ?? ''}`)
 
 					{/* Profile Completion Checklist */}
 					<div className="mb-8">
-						<ProfileCompletionChecklist user={user} locale={locale} />
+						<ProfileCompletionChecklist user={currentUser} locale={locale} />
 					</div>
 
 					<div className="grid gap-8 lg:grid-cols-3">
 						<div className="space-y-8 lg:col-span-2">
-							<ModernRunnerForm user={user} locale={locale} />
+							<ModernRunnerForm user={user} locale={locale} onUserUpdate={handleUserUpdate} />
 						</div>
 						<div>
 							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">

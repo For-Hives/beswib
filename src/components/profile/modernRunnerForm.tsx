@@ -48,7 +48,15 @@ type RunnerFormData = {
 	licenseNumber?: string
 }
 
-export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Readonly<{ user: User; locale?: Locale }>) {
+export default function ModernRunnerForm({
+	user,
+	locale = 'en' as Locale,
+	onUserUpdate
+}: Readonly<{
+	user: User;
+	locale?: Locale;
+	onUserUpdate?: (updatedUser: User) => void;
+}>) {
 	const t = getTranslations(locale, profileTranslations)
 	const [isPending, startTransition] = useTransition()
 	const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -155,6 +163,11 @@ export default function ModernRunnerForm({ user, locale = 'en' as Locale }: Read
 
 				// Update local user state with the updated user data
 				setLocalUser(updatedUser)
+
+				// Notify parent component about the user update for real-time completion status
+				if (onUserUpdate) {
+					onUserUpdate(updatedUser)
+				}
 
 				setSubmitStatus('success')
 				setTimeout(() => setSubmitStatus('idle'), 3000)
