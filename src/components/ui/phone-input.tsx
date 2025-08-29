@@ -258,8 +258,10 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
 		}, [])
 
 		// Detect country from existing phone number value
-		const hasValue = Boolean(value && value.trim() !== '')
-		const detectedCountry = hasValue && value && value.startsWith('+') ? detectCountryFromPhoneNumber(value) : defaultCountry
+		let detectedCountry = defaultCountry
+		if (value != null && value !== '' && value.startsWith('+')) {
+			detectedCountry = detectCountryFromPhoneNumber(value)
+		}
 
 		// Prevent SSR hydration mismatch by only rendering phone input after mount
 		if (!mounted) {
