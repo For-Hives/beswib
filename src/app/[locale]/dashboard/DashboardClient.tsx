@@ -59,7 +59,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 								<CardTitle className="text-2xl">{t.dashboard.buyer.title}</CardTitle>
 								<CardDescription className="text-base">{t.dashboard.buyer.description}</CardDescription>
 							</CardHeader>
-							<CardContent className="flex justify-center gap-4 text-center">
+							<CardContent className="flex flex-col justify-center gap-4 text-center sm:flex-row">
 								<Link href={`/${locale}/dashboard/buyer`} className="cursor-pointer">
 									<Button className="w-full cursor-pointer" size="lg">
 										<ShoppingBag className="mr-2 h-5 w-5" />
@@ -84,23 +84,19 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 								<CardTitle className="text-2xl">{t.dashboard.seller.title}</CardTitle>
 								<CardDescription className="text-base">{t.dashboard.seller.description}</CardDescription>
 							</CardHeader>
-							<CardContent className="text-center">
-								<div className="flex h-full w-full flex-col items-center justify-end">
-									<div className="flex justify-between gap-4">
-										<Link className="w-full cursor-pointer" href={`/${locale}/dashboard/seller/sell-bib`}>
-											<Button className="w-full cursor-pointer" size="lg">
-												<Tag className="mr-2 h-5 w-5" />
-												<span className="text-xs">{t.dashboard.sellCta ?? 'I want to sell a bib'}</span>
-											</Button>
-										</Link>
-										<Link className="w-full cursor-pointer" href={`/${locale}/dashboard/seller`}>
-											<Button className="w-full cursor-pointer" size="lg" variant="outline">
-												<Tag className="mr-2 h-5 w-5" />
-												<span className="text-xs">{t.dashboard.accessSeller ?? 'Access my Seller Dashboard'}</span>
-											</Button>
-										</Link>
-									</div>
-								</div>
+							<CardContent className="flex flex-col justify-center gap-4 text-center sm:flex-row">
+								<Link className="w-full cursor-pointer" href={`/${locale}/dashboard/seller/sell-bib`}>
+									<Button className="w-full cursor-pointer" size="lg">
+										<Tag className="mr-2 h-5 w-5" />
+										<span className="text-xs">{t.dashboard.sellCta ?? 'I want to sell a bib'}</span>
+									</Button>
+								</Link>
+								<Link className="w-full cursor-pointer" href={`/${locale}/dashboard/seller`}>
+									<Button className="w-full cursor-pointer" size="lg" variant="outline">
+										<Tag className="mr-2 h-5 w-5" />
+										<span className="text-xs">{t.dashboard.accessSeller ?? 'Access my Seller Dashboard'}</span>
+									</Button>
+								</Link>
 							</CardContent>
 						</Card>
 					</div>
