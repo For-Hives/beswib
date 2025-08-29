@@ -65,235 +65,235 @@
 			"locationRequired": "Le lieu est requis"
 		}
 	},
-	"es": {
+	"ko": {
 		"actions": {
-			"cancel": "Cancel",
-			"goBack": "Back to Sell Bib",
-			"submit": "Submit Request"
+			"cancel": "취소",
+			"goBack": "빕 판매로 돌아가기",
+			"submit": "요청 제출"
 		},
 		"form": {
-			"eventDate": "Event Date",
-			"eventDateHelp": "When the event is scheduled",
-			"eventName": "Event Name",
-			"eventNameHelp": "The official name of the race or event",
-			"eventNamePlaceholder": "Enter the event name",
-			"location": "Location",
-			"locationHelp": "Where the event takes place",
-			"locationPlaceholder": "City, Country or specific venue",
-			"message": "Additional Information",
-			"messageHelp": "Provide any extra information that might help us add this event",
-			"messagePlaceholder": "Any additional details about the event (optional)"
+			"eventDate": "이벤트 날짜",
+			"eventDateHelp": "이벤트가 예정된 날짜",
+			"eventName": "이벤트 이름",
+			"eventNameHelp": "레이스 또는 이벤트의 공식 이름",
+			"eventNamePlaceholder": "이벤트 이름을 입력하세요",
+			"location": "위치",
+			"locationHelp": "이벤트가 열리는 곳",
+			"locationPlaceholder": "도시, 국가 또는 특정 장소",
+			"message": "추가 정보",
+			"messageHelp": "이 이벤트를 추가하는 데 도움이 될 수 있는 추가 정보를 제공하세요",
+			"messagePlaceholder": "이벤트에 대한 추가 세부사항 (선택사항)"
 		},
 		"messages": {
-			"error": "There was an error submitting your request. Please try again.",
-			"loading": "Submitting your request...",
-			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+			"error": "요청을 제출하는 중 오류가 발생했습니다. 다시 시도해 주세요.",
+			"loading": "요청을 제출하는 중...",
+			"success": "이벤트 요청이 성공적으로 제출되었습니다! 검토 후 곧 연락드리겠습니다."
 		},
-		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
-		"title": "Request New Event",
+		"subtitle": "이벤트를 찾을 수 없나요? 알려주시면 플랫폼에 추가하겠습니다!",
+		"title": "새 이벤트 요청",
 		"validation": {
-			"eventDateInPast": "Event date cannot be in the past",
-			"eventDateRequired": "Event date is required",
-			"eventNameRequired": "Event name is required",
-			"locationRequired": "Location is required"
+			"eventDateInPast": "이벤트 날짜는 과거일 수 없습니다",
+			"eventDateRequired": "이벤트 날짜가 필요합니다",
+			"eventNameRequired": "이벤트 이름이 필요합니다",
+			"locationRequired": "위치가 필요합니다"
+		}
+	},
+	"es": {
+		"actions": {
+			"cancel": "Cancelar",
+			"goBack": "Volver a Vender Dorsal",
+			"submit": "Enviar Solicitud"
+		},
+		"form": {
+			"eventDate": "Fecha del Evento",
+			"eventDateHelp": "Cuándo está programado el evento",
+			"eventName": "Nombre del Evento",
+			"eventNameHelp": "El nombre oficial de la carrera o evento",
+			"eventNamePlaceholder": "Ingresa el nombre del evento",
+			"location": "Ubicación",
+			"locationHelp": "Dónde se lleva a cabo el evento",
+			"locationPlaceholder": "Ciudad, País o lugar específico",
+			"message": "Información Adicional",
+			"messageHelp": "Proporciona cualquier información adicional que pueda ayudarnos a agregar este evento",
+			"messagePlaceholder": "Cualquier detalle adicional sobre el evento (opcional)"
+		},
+		"messages": {
+			"error": "Hubo un error al enviar tu solicitud. Por favor, inténtalo de nuevo.",
+			"loading": "Enviando tu solicitud...",
+			"success": "¡Tu solicitud de evento ha sido enviada exitosamente! La revisaremos y te contactaremos pronto."
+		},
+		"subtitle": "¿No encuentras tu evento? ¡Haznos saber y lo agregaremos a nuestra plataforma!",
+		"title": "Solicitar Nuevo Evento",
+		"validation": {
+			"eventDateInPast": "La fecha del evento no puede estar en el pasado",
+			"eventDateRequired": "La fecha del evento es requerida",
+			"eventNameRequired": "El nombre del evento es requerido",
+			"locationRequired": "La ubicación es requerida"
 		}
 	},
 	"it": {
 		"actions": {
-			"cancel": "Cancel",
-			"goBack": "Back to Sell Bib",
-			"submit": "Submit Request"
+			"cancel": "Annulla",
+			"goBack": "Torna a Vendere Pettorale",
+			"submit": "Invia Richiesta"
 		},
 		"form": {
-			"eventDate": "Event Date",
-			"eventDateHelp": "When the event is scheduled",
-			"eventName": "Event Name",
-			"eventNameHelp": "The official name of the race or event",
-			"eventNamePlaceholder": "Enter the event name",
-			"location": "Location",
-			"locationHelp": "Where the event takes place",
-			"locationPlaceholder": "City, Country or specific venue",
-			"message": "Additional Information",
-			"messageHelp": "Provide any extra information that might help us add this event",
-			"messagePlaceholder": "Any additional details about the event (optional)"
+			"eventDate": "Data dell'Evento",
+			"eventDateHelp": "Quando è programmato l'evento",
+			"eventName": "Nome dell'Evento",
+			"eventNameHelp": "Il nome ufficiale della gara o evento",
+			"eventNamePlaceholder": "Inserisci il nome dell'evento",
+			"location": "Posizione",
+			"locationHelp": "Dove si svolge l'evento",
+			"locationPlaceholder": "Città, Paese o luogo specifico",
+			"message": "Informazioni Aggiuntive",
+			"messageHelp": "Fornisci qualsiasi informazione aggiuntiva che potrebbe aiutarci ad aggiungere questo evento",
+			"messagePlaceholder": "Qualsiasi dettaglio aggiuntivo sull'evento (opzionale)"
 		},
 		"messages": {
-			"error": "There was an error submitting your request. Please try again.",
-			"loading": "Submitting your request...",
-			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+			"error": "Si è verificato un errore durante l'invio della richiesta. Riprova.",
+			"loading": "Invio della richiesta...",
+			"success": "La tua richiesta di evento è stata inviata con successo! La esamineremo e ti contatteremo presto."
 		},
-		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
-		"title": "Request New Event",
+		"subtitle": "Non trovi il tuo evento? Faccelo sapere e lo aggiungeremo alla nostra piattaforma!",
+		"title": "Richiedi Nuovo Evento",
 		"validation": {
-			"eventDateInPast": "Event date cannot be in the past",
-			"eventDateRequired": "Event date is required",
-			"eventNameRequired": "Event name is required",
-			"locationRequired": "Location is required"
+			"eventDateInPast": "La data dell'evento non può essere nel passato",
+			"eventDateRequired": "La data dell'evento è richiesta",
+			"eventNameRequired": "Il nome dell'evento è richiesto",
+			"locationRequired": "La posizione è richiesta"
 		}
 	},
 	"de": {
 		"actions": {
-			"cancel": "Cancel",
-			"goBack": "Back to Sell Bib",
-			"submit": "Submit Request"
+			"cancel": "Abbrechen",
+			"goBack": "Zurück zum Startnummer Verkauf",
+			"submit": "Anfrage Senden"
 		},
 		"form": {
-			"eventDate": "Event Date",
-			"eventDateHelp": "When the event is scheduled",
-			"eventName": "Event Name",
-			"eventNameHelp": "The official name of the race or event",
-			"eventNamePlaceholder": "Enter the event name",
-			"location": "Location",
-			"locationHelp": "Where the event takes place",
-			"locationPlaceholder": "City, Country or specific venue",
-			"message": "Additional Information",
-			"messageHelp": "Provide any extra information that might help us add this event",
-			"messagePlaceholder": "Any additional details about the event (optional)"
+			"eventDate": "Veranstaltungsdatum",
+			"eventDateHelp": "Wann die Veranstaltung geplant ist",
+			"eventName": "Veranstaltungsname",
+			"eventNameHelp": "Der offizielle Name des Rennens oder der Veranstaltung",
+			"eventNamePlaceholder": "Veranstaltungsnamen eingeben",
+			"location": "Standort",
+			"locationHelp": "Wo die Veranstaltung stattfindet",
+			"locationPlaceholder": "Stadt, Land oder spezifischer Veranstaltungsort",
+			"message": "Zusätzliche Informationen",
+			"messageHelp": "Geben Sie alle zusätzlichen Informationen an, die uns beim Hinzufügen dieser Veranstaltung helfen könnten",
+			"messagePlaceholder": "Alle zusätzlichen Details zur Veranstaltung (optional)"
 		},
 		"messages": {
-			"error": "There was an error submitting your request. Please try again.",
-			"loading": "Submitting your request...",
-			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+			"error": "Beim Senden Ihrer Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+			"loading": "Ihre Anfrage wird gesendet...",
+			"success": "Ihre Veranstaltungsanfrage wurde erfolgreich gesendet! Wir werden sie überprüfen und uns bald bei Ihnen melden."
 		},
-		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
-		"title": "Request New Event",
+		"subtitle": "Finden Sie Ihre Veranstaltung nicht? Lassen Sie es uns wissen und wir fügen sie zu unserer Plattform hinzu!",
+		"title": "Neue Veranstaltung Anfordern",
 		"validation": {
-			"eventDateInPast": "Event date cannot be in the past",
-			"eventDateRequired": "Event date is required",
-			"eventNameRequired": "Event name is required",
-			"locationRequired": "Location is required"
+			"eventDateInPast": "Veranstaltungsdatum kann nicht in der Vergangenheit liegen",
+			"eventDateRequired": "Veranstaltungsdatum ist erforderlich",
+			"eventNameRequired": "Veranstaltungsname ist erforderlich",
+			"locationRequired": "Standort ist erforderlich"
 		}
 	},
 	"ro": {
 		"actions": {
-			"cancel": "Cancel",
-			"goBack": "Back to Sell Bib",
-			"submit": "Submit Request"
+			"cancel": "Anulează",
+			"goBack": "Înapoi la Vânzarea Numărului",
+			"submit": "Trimite Cererea"
 		},
 		"form": {
-			"eventDate": "Event Date",
-			"eventDateHelp": "When the event is scheduled",
-			"eventName": "Event Name",
-			"eventNameHelp": "The official name of the race or event",
-			"eventNamePlaceholder": "Enter the event name",
-			"location": "Location",
-			"locationHelp": "Where the event takes place",
-			"locationPlaceholder": "City, Country or specific venue",
-			"message": "Additional Information",
-			"messageHelp": "Provide any extra information that might help us add this event",
-			"messagePlaceholder": "Any additional details about the event (optional)"
+			"eventDate": "Data Evenimentului",
+			"eventDateHelp": "Când este programat evenimentul",
+			"eventName": "Numele Evenimentului",
+			"eventNameHelp": "Numele oficial al cursei sau evenimentului",
+			"eventNamePlaceholder": "Introduceți numele evenimentului",
+			"location": "Locația",
+			"locationHelp": "Unde se desfășoară evenimentul",
+			"locationPlaceholder": "Oraș, Țară sau locație specifică",
+			"message": "Informații Suplimentare",
+			"messageHelp": "Furnizați orice informație suplimentară care ne-ar putea ajuta să adăugăm acest eveniment",
+			"messagePlaceholder": "Orice detaliu suplimentar despre eveniment (opțional)"
 		},
 		"messages": {
-			"error": "There was an error submitting your request. Please try again.",
-			"loading": "Submitting your request...",
-			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+			"error": "A apărut o eroare la trimiterea cererii. Vă rugăm să încercați din nou.",
+			"loading": "Se trimite cererea...",
+			"success": "Cererea dvs. de eveniment a fost trimisă cu succes! O vom examina și vă vom contacta în curând."
 		},
-		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
-		"title": "Request New Event",
+		"subtitle": "Nu vă găsiți evenimentul? Spuneți-ne și îl vom adăuga pe platforma noastră!",
+		"title": "Solicită Eveniment Nou",
 		"validation": {
-			"eventDateInPast": "Event date cannot be in the past",
-			"eventDateRequired": "Event date is required",
-			"eventNameRequired": "Event name is required",
-			"locationRequired": "Location is required"
+			"eventDateInPast": "Data evenimentului nu poate fi în trecut",
+			"eventDateRequired": "Data evenimentului este obligatorie",
+			"eventNameRequired": "Numele evenimentului este obligatoriu",
+			"locationRequired": "Locația este obligatorie"
 		}
 	},
 	"pt": {
 		"actions": {
-			"cancel": "Cancel",
-			"goBack": "Back to Sell Bib",
-			"submit": "Submit Request"
+			"cancel": "Cancelar",
+			"goBack": "Voltar a Vender Dorsal",
+			"submit": "Enviar Pedido"
 		},
 		"form": {
-			"eventDate": "Event Date",
-			"eventDateHelp": "When the event is scheduled",
-			"eventName": "Event Name",
-			"eventNameHelp": "The official name of the race or event",
-			"eventNamePlaceholder": "Enter the event name",
-			"location": "Location",
-			"locationHelp": "Where the event takes place",
-			"locationPlaceholder": "City, Country or specific venue",
-			"message": "Additional Information",
-			"messageHelp": "Provide any extra information that might help us add this event",
-			"messagePlaceholder": "Any additional details about the event (optional)"
+			"eventDate": "Data do Evento",
+			"eventDateHelp": "Quando o evento está agendado",
+			"eventName": "Nome do Evento",
+			"eventNameHelp": "O nome oficial da corrida ou evento",
+			"eventNamePlaceholder": "Introduza o nome do evento",
+			"location": "Localização",
+			"locationHelp": "Onde o evento se realiza",
+			"locationPlaceholder": "Cidade, País ou local específico",
+			"message": "Informações Adicionais",
+			"messageHelp": "Forneça qualquer informação adicional que possa ajudar-nos a adicionar este evento",
+			"messagePlaceholder": "Qualquer detalhe adicional sobre o evento (opcional)"
 		},
 		"messages": {
-			"error": "There was an error submitting your request. Please try again.",
-			"loading": "Submitting your request...",
-			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+			"error": "Ocorreu um erro ao enviar o seu pedido. Por favor, tente novamente.",
+			"loading": "A enviar o seu pedido...",
+			"success": "O seu pedido de evento foi enviado com sucesso! Vamos analisá-lo e contactá-lo em breve."
 		},
-		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
-		"title": "Request New Event",
+		"subtitle": "Não encontra o seu evento? Diga-nos e vamos adicioná-lo à nossa plataforma!",
+		"title": "Solicitar Novo Evento",
 		"validation": {
-			"eventDateInPast": "Event date cannot be in the past",
-			"eventDateRequired": "Event date is required",
-			"eventNameRequired": "Event name is required",
-			"locationRequired": "Location is required"
+			"eventDateInPast": "A data do evento não pode estar no passado",
+			"eventDateRequired": "A data do evento é obrigatória",
+			"eventNameRequired": "O nome do evento é obrigatório",
+			"locationRequired": "A localização é obrigatória"
 		}
 	},
 	"nl": {
 		"actions": {
-			"cancel": "Cancel",
-			"goBack": "Back to Sell Bib",
-			"submit": "Submit Request"
+			"cancel": "Annuleren",
+			"goBack": "Terug naar Startnummer Verkopen",
+			"submit": "Verzoek Indienen"
 		},
 		"form": {
-			"eventDate": "Event Date",
-			"eventDateHelp": "When the event is scheduled",
-			"eventName": "Event Name",
-			"eventNameHelp": "The official name of the race or event",
-			"eventNamePlaceholder": "Enter the event name",
-			"location": "Location",
-			"locationHelp": "Where the event takes place",
-			"locationPlaceholder": "City, Country or specific venue",
-			"message": "Additional Information",
-			"messageHelp": "Provide any extra information that might help us add this event",
-			"messagePlaceholder": "Any additional details about the event (optional)"
+			"eventDate": "Evenementdatum",
+			"eventDateHelp": "Wanneer het evenement gepland is",
+			"eventName": "Evenementnaam",
+			"eventNameHelp": "De officiële naam van de wedstrijd of het evenement",
+			"eventNamePlaceholder": "Voer de evenementnaam in",
+			"location": "Locatie",
+			"locationHelp": "Waar het evenement plaatsvindt",
+			"locationPlaceholder": "Stad, Land of specifieke locatie",
+			"message": "Aanvullende Informatie",
+			"messageHelp": "Geef alle aanvullende informatie die ons kan helpen dit evenement toe te voegen",
+			"messagePlaceholder": "Alle aanvullende details over het evenement (optioneel)"
 		},
 		"messages": {
-			"error": "There was an error submitting your request. Please try again.",
-			"loading": "Submitting your request...",
-			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
+			"error": "Er is een fout opgetreden bij het indienen van uw verzoek. Probeer het opnieuw.",
+			"loading": "Uw verzoek wordt ingediend...",
+			"success": "Uw evenementverzoek is succesvol ingediend! We zullen het bekijken en u binnenkort contacten."
 		},
-		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
-		"title": "Request New Event",
+		"subtitle": "Kunt u uw evenement niet vinden? Laat het ons weten en we voegen het toe aan ons platform!",
+		"title": "Nieuw Evenement Aanvragen",
 		"validation": {
-			"eventDateInPast": "Event date cannot be in the past",
-			"eventDateRequired": "Event date is required",
-			"eventNameRequired": "Event name is required",
-			"locationRequired": "Location is required"
-		}
-	},
-	"ko": {
-		"actions": {
-			"cancel": "Cancel",
-			"goBack": "Back to Sell Bib",
-			"submit": "Submit Request"
-		},
-		"form": {
-			"eventDate": "Event Date",
-			"eventDateHelp": "When the event is scheduled",
-			"eventName": "Event Name",
-			"eventNameHelp": "The official name of the race or event",
-			"eventNamePlaceholder": "Enter the event name",
-			"location": "Location",
-			"locationHelp": "Where the event takes place",
-			"locationPlaceholder": "City, Country or specific venue",
-			"message": "Additional Information",
-			"messageHelp": "Provide any extra information that might help us add this event",
-			"messagePlaceholder": "Any additional details about the event (optional)"
-		},
-		"messages": {
-			"error": "There was an error submitting your request. Please try again.",
-			"loading": "Submitting your request...",
-			"success": "Your event request has been submitted successfully! We'll review it and get back to you soon."
-		},
-		"subtitle": "Can't find your event? Let us know and we'll add it to our platform!",
-		"title": "Request New Event",
-		"validation": {
-			"eventDateInPast": "Event date cannot be in the past",
-			"eventDateRequired": "Event date is required",
-			"eventNameRequired": "Event name is required",
-			"locationRequired": "Location is required"
+			"eventDateInPast": "Evenementdatum kan niet in het verleden liggen",
+			"eventDateRequired": "Evenementdatum is verplicht",
+			"eventNameRequired": "Evenementnaam is verplicht",
+			"locationRequired": "Locatie is verplicht"
 		}
 	}
 }
