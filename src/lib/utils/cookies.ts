@@ -144,6 +144,7 @@ export function synchronizeLocale(locale: string): void {
 /**
  * Get the most authoritative locale source
  * Priority: URL > localStorage > cookie > database > default
+ * This function determines the best locale to use based on user preferences
  * @param urlLocale - The locale from the current URL
  * @param databaseLocale - The locale from the database (if available)
  * @returns The authoritative locale
