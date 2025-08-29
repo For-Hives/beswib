@@ -81,24 +81,28 @@ export default function LanguageSelector({ currentLocale = 'en' }: LanguageSelec
 			{isOpen && (
 				<div className="absolute bottom-full left-0 mb-2 w-full min-w-[140px] rounded-md border border-gray-200 bg-white shadow-lg dark:border-gray-600 dark:bg-gray-800">
 					<div className="py-1">
-						{languages.map(language => (
-							<button
-								className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-gray-700 ${
-									locale === language.code
-										? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300'
-										: 'text-gray-700 dark:text-gray-300'
-								}`}
-								key={language.code}
-								onClick={() => void handleLanguageChange(language.code)}
-								disabled={isUpdating}
-							>
-								<span>{language.flag}</span>
-								<span>{language.name}</span>
-								{locale === language.code && (
-									<span className="ml-auto text-blue-600 dark:text-blue-400">{isUpdating ? '⏳' : '✓'}</span>
-								)}
-							</button>
-						))}
+						{/* Force order: en, fr, es, it, de, ro, pt, nl, ko */}
+						{['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko'].map(code => {
+							const language = languages.find(lang => lang.code === code)!
+							return (
+								<button
+									className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-gray-700 ${
+										locale === language.code
+											? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300'
+											: 'text-gray-700 dark:text-gray-300'
+									}`}
+									key={language.code}
+									onClick={() => void handleLanguageChange(language.code)}
+									disabled={isUpdating}
+								>
+									<span>{language.flag}</span>
+									<span>{language.name}</span>
+									{locale === language.code && (
+										<span className="ml-auto text-blue-600 dark:text-blue-400">{isUpdating ? '⏳' : '✓'}</span>
+									)}
+								</button>
+							)
+						})}
 					</div>
 				</div>
 			)}

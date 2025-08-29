@@ -202,7 +202,7 @@ Disallow: /_next/image/
 # Site: ${baseUrl}
 # Contact: contact@beswib.com
 # Description: Race bib transfer service (running, trail, triathlon, cycling)
-# Languages: EN, FR, DE, ES, IT, PT, NL, RO, KO
+# Languages: EN, FR, ES, IT, DE, RO, PT, NL, KO
 `
 	return new NextResponse(robotsTxt, {
 		headers: {

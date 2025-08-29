@@ -6,8 +6,8 @@ import type { Locale } from '@/lib/i18n/config'
 
 import { getAllEvents } from '@/services/event.services'
 
-// Supported locales
-const supportedLocales: Locale[] = ['en', 'fr', 'de', 'es', 'it', 'pt', 'nl', 'ro', 'ko']
+// Supported locales - using the same order as defined in i18n config for consistency
+const supportedLocales: Locale[] = ['en', 'fr', 'es', 'it', 'de', 'ro', 'pt', 'nl', 'ko']
 
 // Main static pages
 const staticPages = [
