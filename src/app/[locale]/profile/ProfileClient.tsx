@@ -55,9 +55,9 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 
 	const requiredTasks = [
 		{
-			label: t.profile?.completion?.basicInfo?.title ?? 'Informations de base',
+			label: t.profile?.completion?.basicInfo?.title ?? 'Basic Information',
 			id: 'basic-info',
-			description: t.profile?.completion?.basicInfo?.description ?? 'Nom, prénom et email',
+			description: t.profile?.completion?.basicInfo?.description ?? 'First name, last name and email',
 			completed: Boolean(
 				user.firstName !== null &&
 					user.firstName.length > 0 &&
@@ -68,9 +68,9 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 			),
 		},
 		{
-			label: t.profile?.completion?.contactInfo?.title ?? 'Informations de contact',
+			label: t.profile?.completion?.contactInfo?.title ?? 'Contact Information',
 			id: 'contact-info',
-			description: t.profile?.completion?.contactInfo?.description ?? 'Téléphone et adresse',
+			description: t.profile?.completion?.contactInfo?.description ?? 'Phone number and address',
 			completed: Boolean(
 				user.phoneNumber !== null &&
 					user.phoneNumber.length > 0 &&
@@ -85,9 +85,9 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 			),
 		},
 		{
-			label: t.profile?.completion?.runnerProfile?.title ?? 'Profil runner',
+			label: t.profile?.completion?.runnerProfile?.title ?? 'Runner Profile',
 			id: 'runner-profile',
-			description: t.profile?.completion?.runnerProfile?.description ?? 'Informations sportives',
+			description: t.profile?.completion?.runnerProfile?.description ?? 'Sports information',
 			completed: Boolean(user.birthDate !== null && user.birthDate.toString().length > 0 && user.gender !== null),
 		},
 	]
@@ -95,9 +95,9 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 	// Tâches optionnelles
 	const optionalTasks = [
 		{
-			label: t.profile?.completion?.emergencyContact?.title ?? "Contact d'urgence",
+			label: t.profile?.completion?.emergencyContact?.title ?? 'Emergency Contact',
 			id: 'emergency-contact',
-			description: t.profile?.completion?.emergencyContact?.description ?? "Contact en cas d'urgence",
+			description: t.profile?.completion?.emergencyContact?.description ?? 'Emergency contact information',
 			completed: Boolean(
 				user.emergencyContactName !== null &&
 					user.emergencyContactName.length > 0 &&
@@ -108,9 +108,9 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 			),
 		},
 		{
-			label: t.profile?.completion?.medicalInfo?.title ?? 'Informations médicales',
+			label: t.profile?.completion?.medicalInfo?.title ?? 'Medical Information',
 			id: 'medical-info',
-			description: t.profile?.completion?.medicalInfo?.description ?? 'Certificat médical et licence',
+			description: t.profile?.completion?.medicalInfo?.description ?? 'Medical certificate and license',
 			completed: Boolean(
 				user.medicalCertificateUrl !== null &&
 					user.medicalCertificateUrl.length > 0 &&
@@ -119,9 +119,9 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 			),
 		},
 		{
-			label: t.profile?.completion?.paypalSetup?.title ?? 'Configuration PayPal',
+			label: t.profile?.completion?.paypalSetup?.title ?? 'PayPal Setup',
 			id: 'paypal-setup',
-			description: t.profile?.completion?.paypalSetup?.description ?? 'Pour recevoir des paiements',
+			description: t.profile?.completion?.paypalSetup?.description ?? 'To receive payments',
 			completed: user.paypal_kyc === true,
 		},
 	]
@@ -145,15 +145,15 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 				<div className="flex items-center justify-between">
 					<div>
 						<CardTitle className="flex items-center gap-2">
-							{t.profile?.completion?.title ?? 'Complétez votre profil'}
+							{t.profile?.completion?.title ?? 'Complete Your Profile'}
 						</CardTitle>
 						<CardDescription>
-							{t.profile?.completion?.description ?? 'Remplissez ces informations pour optimiser votre expérience'}
+							{t.profile?.completion?.description ?? 'Fill in this information to optimize your experience'}
 						</CardDescription>
 					</div>
 					<div className="flex flex-col items-center gap-1">
 						<div className="text-muted-foreground text-sm font-medium">
-							{t.profile?.completion?.required ?? 'Obligatoire'}
+							{t.profile?.completion?.required ?? 'Required'}
 						</div>
 						<div className="flex items-center gap-2">
 							<div className="text-primary text-lg font-bold">{requiredCompletionPercentage}%</div>
@@ -169,7 +169,7 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 						<div className="flex items-center gap-2">
 							<div className="h-1 w-1 rounded-full bg-red-500"></div>
 							<span className="text-foreground text-sm font-medium">
-								{t.profile?.completion?.required ?? 'Obligatoire'}
+								{t.profile?.completion?.required ?? 'Required'}
 							</span>
 							<span className="text-muted-foreground text-xs">
 								{completedRequiredTasks}/{totalRequiredTasks}
@@ -197,7 +197,7 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 						<div className="flex items-center gap-2">
 							<div className="h-1 w-1 rounded-full bg-blue-500"></div>
 							<span className="text-foreground text-sm font-medium">
-								{t.profile?.completion?.optional ?? 'Optionnel'}
+								{t.profile?.completion?.optional ?? 'Optional'}
 							</span>
 							<span className="text-muted-foreground text-xs">
 								{completedOptionalTasks}/{totalOptionalTasks}
