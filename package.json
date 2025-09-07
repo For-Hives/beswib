@@ -52,7 +52,7 @@
 		"@react-three/drei": "10.7.4",
 		"@react-three/fiber": "9.3.0",
 		"@react-three/rapier": "2.1.0",
-		"@rive-app/react-canvas": "4.23.1",
+		"@rive-app/react-canvas": "4.23.3",
 		"@sentry/browser": "10.8.0",
 		"@sentry/nextjs": "10.8.0",
 		"@tabler/icons-react": "3.34.1",
