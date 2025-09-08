@@ -316,8 +316,8 @@ importers:
         specifier: 26.1.0
         version: 26.1.0
       react-email:
-        specifier: 4.2.8
-        version: 4.2.8
+        specifier: 4.2.9
+        version: 4.2.9
       tailwindcss:
         specifier: 4.1.13
         version: 4.1.13
@@ -5366,8 +5366,8 @@ packages:
     peerDependencies:
       react: '>= 16.8 || 18.0.0'
 
-  react-email@4.2.8:
-    resolution: {integrity: sha512-Eqzs/xZnS881oghPO/4CQ1cULyESuUhEjfYboXmYNOokXnJ6QP5GKKJZ6zjkg9SnKXxSrIxSo5PxzCI5jReJMA==}
+  react-email@4.2.9:
+    resolution: {integrity: sha512-HYcqJD8Qq93i6ZJ0osNkcZKQknwviPeX4WWpStKcwOKVkOPZN5XGPdojpAnhKOpJkyFNPus79gn1xTP448g94w==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -11617,11 +11617,10 @@ snapshots:
       prop-types: 15.8.1
       react: 19.1.1
 
-  react-email@4.2.8:
+  react-email@4.2.9:
     dependencies:
       '@babel/parser': 7.28.3
       '@babel/traverse': 7.28.3
-      chalk: 5.6.0
       chokidar: 4.0.3
       commander: 13.1.0
       debounce: 2.2.0
