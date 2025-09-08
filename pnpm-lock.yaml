@@ -45,8 +45,8 @@ importers:
         specifier: 0.5.10
         version: 0.5.10(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@paypal/react-paypal-js':
-        specifier: 8.8.3
-        version: 8.8.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: 8.9.1
+        version: 8.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-accordion':
         specifier: 1.2.12
         version: 1.2.12(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -1620,11 +1620,11 @@ packages:
       zod:
         optional: true
 
-  '@paypal/paypal-js@8.2.0':
-    resolution: {integrity: sha512-hLg5wNORW3WiyMiRNJOm6cN2IqjPlClpxd971bEdm0LNpbbejQZYtesb0/0arTnySSbGcxg7MxjkZ/N5Z5qBNQ==}
+  '@paypal/paypal-js@8.4.2':
+    resolution: {integrity: sha512-UbY2lvwW65KX4migWbAx8KK0TCbPdIxeHIHogpJ5Z6yta5Qd2+90rXyx8FGdp6wrcr1f/srotlxnBXvqYWyHog==}
 
-  '@paypal/react-paypal-js@8.8.3':
-    resolution: {integrity: sha512-H5s3EU7S+RFaLad3BmV9nSAmD3iaJI14mCtbngpqMm4ruMNGHjOTaSTX3jAAk/ghmzGAda2GMfyiYondO4F21Q==}
+  '@paypal/react-paypal-js@8.9.1':
+    resolution: {integrity: sha512-7UWGvv+5XD2OexlUpNBRvONErYuxzi0k8wlsjxFsnVSav8hgpfu/27oTMdvGREDzXnQYOKIBn3tbTbNlNc6psA==}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
       react-dom: ^16.8.0 || ^17 || ^18 || ^19
@@ -7745,13 +7745,13 @@ snapshots:
       - crossws
       - ws
 
-  '@paypal/paypal-js@8.2.0':
+  '@paypal/paypal-js@8.4.2':
     dependencies:
       promise-polyfill: 8.3.0
 
-  '@paypal/react-paypal-js@8.8.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@paypal/react-paypal-js@8.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
-      '@paypal/paypal-js': 8.2.0
+      '@paypal/paypal-js': 8.4.2
       '@paypal/sdk-constants': 1.0.156
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
