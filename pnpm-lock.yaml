@@ -268,8 +268,8 @@ importers:
         version: 5.0.8(@types/react@19.1.12)(react@19.1.1)(use-sync-external-store@1.5.0(react@19.1.1))
     devDependencies:
       '@clerk/types':
-        specifier: 4.84.1
-        version: 4.84.1
+        specifier: 4.85.0
+        version: 4.85.0
       '@eslint/eslintrc':
         specifier: 3.3.1
         version: 3.3.1
@@ -487,10 +487,6 @@ packages:
 
   '@clerk/themes@2.4.18':
     resolution: {integrity: sha512-Hrfm5/Nr1ZL+Jg3oRL9FEaFIt+AYO82znd78CBeeKdlYxNKHbihA2xydLmaoj08SX6cmfbf7snnJN6DW3UCqEQ==}
-    engines: {node: '>=18.17.0'}
-
-  '@clerk/types@4.84.1':
-    resolution: {integrity: sha512-0lLz3u8u0Ot5ZUObU+8JJLOeiHHnruShJMeLAHNryp1d5zANPQquOyagamxbkoV1K2lAf8ld3liobs3EBzll6Q==}
     engines: {node: '>=18.17.0'}
 
   '@clerk/types@4.85.0':
@@ -6670,7 +6666,7 @@ snapshots:
 
   '@clerk/localizations@3.24.2':
     dependencies:
-      '@clerk/types': 4.84.1
+      '@clerk/types': 4.85.0
 
   '@clerk/nextjs@6.31.10(next@15.5.2(@babel/core@7.28.3)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
@@ -6700,10 +6696,6 @@ snapshots:
     dependencies:
       '@clerk/types': 4.85.0
       tslib: 2.8.1
-
-  '@clerk/types@4.84.1':
-    dependencies:
-      csstype: 3.1.3
 
   '@clerk/types@4.85.0':
     dependencies:
