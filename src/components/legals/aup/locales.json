@@ -1,0 +1,1001 @@
+{
+	"en": {
+		"aup": {
+			"badge": "Policy",
+			"title": "Acceptable Use Policy",
+			"intro": "This Acceptable Use Policy (the \"Policy\") governs the use of the Beswib platform, services, and applications (the \"Platform\"). It is an integral part of our Terms of Service. By accessing or using the Platform, you agree to comply with this Policy without reservation.",
+			"introduction": {
+				"title": "1. Introduction",
+				"content": "Beswib was created to provide a safe, transparent, and reliable environment for buying and reselling sports race bibs. Any use of the Platform for purposes other than its intended use is strictly prohibited."
+			},
+			"prohibited": {
+				"title": "2. Strictly Prohibited Activities",
+				"illegal": {
+					"title": "2.1. Illegal, Fraudulent, and Deceptive Activities",
+					"fraud": {
+						"title": "Fraud:",
+						"content": "To post, sell, or attempt to sell bibs that you do not own, or that are counterfeit, stolen, invalid, or have already been used."
+					},
+					"misleading": {
+						"title": "Misleading Information:",
+						"content": "To provide false, inaccurate, or misleading personal information during registration or in listings (e.g., a false name, incorrect email address, or false race information)."
+					},
+					"impersonation": {
+						"title": "Impersonation:",
+						"content": "To impersonate another person, a race organizer, or a Beswib employee."
+					},
+					"laundering": {
+						"title": "Money Laundering:",
+						"content": "To use the Platform to engage in money laundering activities or to finance illegal activities."
+					}
+				},
+				"platform": {
+					"title": "2.2. Platform and Data Integrity",
+					"circumvention": {
+						"title": "System Circumvention:",
+						"content": "To attempt to complete a transaction with another user outside of the Beswib Platform in order to avoid paying service fees. Any communication encouraging an external transaction is prohibited."
+					},
+					"manipulation": {
+						"title": "Manipulation:",
+						"content": "To manipulate the price of a listing, whether it is your own or that of another user."
+					},
+					"interference": {
+						"title": "Interference:",
+						"content": "To introduce viruses, Trojan horses, or any other malicious code intended to damage, intercept, or interfere with the operation of the Platform or user data."
+					},
+					"access": {
+						"title": "Unauthorized Access:",
+						"content": "To use robots, spiders, scrapers, or any other automated means to access the Platform, collect data, or interact with the services without our prior written permission."
+					},
+					"overload": {
+						"title": "System Overload:",
+						"content": "To take any action that imposes or may impose an unreasonable or disproportionately large load on our technical infrastructure."
+					}
+				},
+				"content": {
+					"title": "2.3. Prohibited Content and Listings",
+					"unauthorized": {
+						"title": "Unauthorized Products:",
+						"content": "To list for sale any item other than official and transferable bibs for sporting events. The sale of merchandise, equipment, coaching services, or any other product is prohibited."
+					},
+					"regulations": {
+						"title": "Violation of Race Regulations:",
+						"content": "To sell a bib in direct violation of the terms and conditions of the race organizer, particularly if the resale or transfer of bibs is explicitly prohibited by the organizer. The seller is solely responsible for ensuring that the transfer is authorized."
+					},
+					"intellectual": {
+						"title": "Intellectual Property Infringement:",
+						"content": "To use trademarks, logos, copyrighted images, or any other content belonging to third parties (such as race organizers) in your listings without their explicit permission."
+					},
+					"abusive": {
+						"title": "Abusive Content:",
+						"content": "To post content that is defamatory, obscene, pornographic, threatening, harassing, hateful, or that encourages violence or discrimination."
+					}
+				},
+				"conduct": {
+					"title": "2.4. User Conduct",
+					"harassment": {
+						"title": "Harassment:",
+						"content": "To contact other users for purposes other than those related to the transaction (e.g., sending unsolicited messages, advertising, or spam)."
+					},
+					"abuse": {
+						"title": "Abuse of Customer Support:",
+						"content": "To send abusive, repetitive, or unfounded requests to our customer support team."
+					},
+					"privacy": {
+						"title": "Violation of Privacy:",
+						"content": "To collect or disclose personal information about other users without their explicit consent."
+					}
+				}
+			},
+			"enforcement": {
+				"title": "3. Policy Enforcement and Consequences",
+				"content": "Beswib reserves the right, at its sole discretion, to determine whether a violation of this Policy has occurred. In the event of a violation, we may take one or more of the following actions:",
+				"warning": "Issue a formal warning.",
+				"removal": "Remove a listing, content, or any information that violates the Policy.",
+				"suspension": "Temporarily suspend access to your account.",
+				"termination": "Permanently terminate your account and prohibit you from using the Platform in the future.",
+				"legal": "Take legal action against you for reimbursement of all costs incurred as a result of the breach (including administrative and legal fees).",
+				"report": "Report your activities to the relevant law enforcement authorities if the violation constitutes a criminal offense."
+			},
+			"reporting": {
+				"title": "4. Reporting a Violation",
+				"content": "If you believe that a user has violated this Acceptable Use Policy, we encourage you to report it immediately to our support team via the",
+				"contactPage": "Contact page",
+				"email": "or by sending an email to",
+				"details": "Please provide as much detail as possible, including links to the relevant listing or user profile."
+			},
+			"changes": {
+				"title": "5. Changes to this Policy",
+				"content": "We reserve the right to modify this Policy at any time. Any changes will be posted on this page. It is your responsibility to review this Policy periodically to stay informed of any updates."
+			}
+		}
+	},
+	"fr": {
+		"aup": {
+			"badge": "Politique",
+			"title": "Politique d'Utilisation Acceptable",
+			"intro": "Cette Politique d'Utilisation Acceptable (la « Politique ») régit l'utilisation de la plateforme, des services et des applications Beswib (la « Plateforme »). Elle fait partie intégrante de nos Conditions d'Utilisation. En accédant ou en utilisant la Plateforme, vous acceptez de vous conformer à cette Politique sans réserve.",
+			"introduction": {
+				"title": "1. Introduction",
+				"content": "Beswib a été créé pour fournir un environnement sûr, transparent et fiable pour l'achat et la revente de dossards de courses sportives. Toute utilisation de la Plateforme à des fins autres que son usage prévu est strictement interdite."
+			},
+			"prohibited": {
+				"title": "2. Activités Strictement Interdites",
+				"illegal": {
+					"title": "2.1. Activités Illégales, Frauduleuses et Trompeuses",
+					"fraud": {
+						"title": "Fraude :",
+						"content": "Publier, vendre ou tenter de vendre des dossards que vous ne possédez pas, ou qui sont contrefaits, volés, invalides ou déjà utilisés."
+					},
+					"misleading": {
+						"title": "Informations Trompeuses :",
+						"content": "Fournir des informations personnelles fausses, inexactes ou trompeuses lors de l'inscription ou dans les annonces (ex. : faux nom, adresse e-mail incorrecte, informations de course erronées)."
+					},
+					"impersonation": {
+						"title": "Usurpation d'Identité :",
+						"content": "Se faire passer pour une autre personne, un organisateur de course ou un employé de Beswib."
+					},
+					"laundering": {
+						"title": "Blanchiment d'Argent :",
+						"content": "Utiliser la Plateforme pour s'engager dans des activités de blanchiment d'argent ou pour financer des activités illégales."
+					}
+				},
+				"platform": {
+					"title": "2.2. Intégrité de la Plateforme et des Données",
+					"circumvention": {
+						"title": "Contournement du Système :",
+						"content": "Tenter d'effectuer une transaction avec un autre utilisateur en dehors de la Plateforme Beswib afin d'éviter de payer les frais de service. Toute communication encourageant une transaction externe est interdite."
+					},
+					"manipulation": {
+						"title": "Manipulation :",
+						"content": "Manipuler le prix d'une annonce, qu'il s'agisse de la vôtre ou de celle d'un autre utilisateur."
+					},
+					"interference": {
+						"title": "Interférence :",
+						"content": "Introduire des virus, des chevaux de Troie ou tout autre code malveillant destiné à endommager, intercepter ou interférer avec le fonctionnement de la Plateforme ou les données des utilisateurs."
+					},
+					"access": {
+						"title": "Accès Non Autorisé :",
+						"content": "Utiliser des robots, des araignées, des grattoirs ou tout autre moyen automatisé pour accéder à la Plateforme, collecter des données ou interagir avec les services sans notre autorisation écrite préalable."
+					},
+					"overload": {
+						"title": "Surcharge du Système :",
+						"content": "Prendre toute action qui impose ou peut imposer une charge déraisonnable ou disproportionnellement importante sur notre infrastructure technique."
+					}
+				},
+				"content": {
+					"title": "2.3. Contenu et Annonces Interdits",
+					"unauthorized": {
+						"title": "Produits Non Autorisés :",
+						"content": "Mettre en vente tout article autre que des dossards officiels et transférables pour événements sportifs. La vente de marchandises, d'équipements, de services de coaching ou de tout autre produit est interdite."
+					},
+					"regulations": {
+						"title": "Violation des Règlements de Course :",
+						"content": "Vendre un dossard en violation directe des termes et conditions de l'organisateur de course, particulièrement si la revente ou le transfert de dossards est explicitement interdit par l'organisateur. Le vendeur est seul responsable de s'assurer que le transfert est autorisé."
+					},
+					"intellectual": {
+						"title": "Violation de Propriété Intellectuelle :",
+						"content": "Utiliser des marques, logos, images protégées par des droits d'auteur ou tout autre contenu appartenant à des tiers (comme les organisateurs de courses) dans vos annonces sans leur permission explicite."
+					},
+					"abusive": {
+						"title": "Contenu Abusif :",
+						"content": "Publier du contenu diffamatoire, obscène, pornographique, menaçant, harcelant, haineux ou qui encourage la violence ou la discrimination."
+					}
+				},
+				"conduct": {
+					"title": "2.4. Conduite des Utilisateurs",
+					"harassment": {
+						"title": "Harcèlement :",
+						"content": "Contacter d'autres utilisateurs à des fins autres que celles liées à la transaction (ex. : envoi de messages non sollicités, publicité ou spam)."
+					},
+					"abuse": {
+						"title": "Abus du Support Client :",
+						"content": "Envoyer des demandes abusives, répétitives ou non fondées à notre équipe de support client."
+					},
+					"privacy": {
+						"title": "Violation de la Vie Privée :",
+						"content": "Collecter ou divulguer des informations personnelles sur d'autres utilisateurs sans leur consentement explicite."
+					}
+				}
+			},
+			"enforcement": {
+				"title": "3. Application de la Politique et Conséquences",
+				"content": "Beswib se réserve le droit, à sa seule discrétion, de déterminer si une violation de cette Politique s'est produite. En cas de violation, nous pouvons prendre une ou plusieurs des actions suivantes :",
+				"warning": "Émettre un avertissement formel.",
+				"removal": "Supprimer une annonce, du contenu ou toute information qui viole la Politique.",
+				"suspension": "Suspendre temporairement l'accès à votre compte.",
+				"termination": "Résilier définitivement votre compte et vous interdire d'utiliser la Plateforme à l'avenir.",
+				"legal": "Intenter une action en justice contre vous pour le remboursement de tous les coûts encourus suite à la violation (y compris les frais administratifs et juridiques).",
+				"report": "Signaler vos activités aux autorités judiciaires compétentes si la violation constitue une infraction pénale."
+			},
+			"reporting": {
+				"title": "4. Signaler une Violation",
+				"content": "Si vous pensez qu'un utilisateur a violé cette Politique d'Utilisation Acceptable, nous vous encourageons à le signaler immédiatement à notre équipe de support via la",
+				"contactPage": "page Contact",
+				"email": "ou en envoyant un e-mail à",
+				"details": "Veuillez fournir autant de détails que possible, y compris des liens vers l'annonce ou le profil utilisateur concerné."
+			},
+			"changes": {
+				"title": "5. Modifications de cette Politique",
+				"content": "Nous nous réservons le droit de modifier cette Politique à tout moment. Tous les changements seront publiés sur cette page. Il est de votre responsabilité de consulter périodiquement cette Politique pour rester informé des mises à jour."
+			}
+		}
+	},
+	"es": {
+		"aup": {
+			"badge": "Política",
+			"title": "Política de Uso Aceptable",
+			"intro": "Esta Política de Uso Aceptable (la \"Política\") rige el uso de la plataforma, servicios y aplicaciones de Beswib (la \"Plataforma\"). Es parte integral de nuestros Términos de Servicio. Al acceder o usar la Plataforma, aceptas cumplir con esta Política sin reservas.",
+			"introduction": {
+				"title": "1. Introducción",
+				"content": "Beswib fue creado para proporcionar un entorno seguro, transparente y confiable para comprar y revender dorsales de carreras deportivas. Cualquier uso de la Plataforma para propósitos distintos a su uso previsto está estrictamente prohibido."
+			},
+			"prohibited": {
+				"title": "2. Actividades Estrictamente Prohibidas",
+				"illegal": {
+					"title": "2.1. Actividades Ilegales, Fraudulentas y Engañosas",
+					"fraud": {
+						"title": "Fraude:",
+						"content": "Publicar, vender o intentar vender dorsales que no posees, o que son falsificados, robados, inválidos o ya han sido utilizados."
+					},
+					"misleading": {
+						"title": "Información Engañosa:",
+						"content": "Proporcionar información personal falsa, inexacta o engañosa durante el registro o en los anuncios (ej.: nombre falso, dirección de correo electrónico incorrecta, información de carrera falsa)."
+					},
+					"impersonation": {
+						"title": "Suplantación:",
+						"content": "Hacerse pasar por otra persona, un organizador de carreras o un empleado de Beswib."
+					},
+					"laundering": {
+						"title": "Lavado de Dinero:",
+						"content": "Usar la Plataforma para participar en actividades de lavado de dinero o para financiar actividades ilegales."
+					}
+				},
+				"platform": {
+					"title": "2.2. Integridad de la Plataforma y Datos",
+					"circumvention": {
+						"title": "Elusión del Sistema:",
+						"content": "Intentar completar una transacción con otro usuario fuera de la Plataforma Beswib para evitar pagar las tarifas de servicio. Cualquier comunicación que fomente una transacción externa está prohibida."
+					},
+					"manipulation": {
+						"title": "Manipulación:",
+						"content": "Manipular el precio de un anuncio, ya sea propio o de otro usuario."
+					},
+					"interference": {
+						"title": "Interferencia:",
+						"content": "Introducir virus, caballos de Troya o cualquier otro código malicioso destinado a dañar, interceptar o interferir con el funcionamiento de la Plataforma o los datos de usuarios."
+					},
+					"access": {
+						"title": "Acceso No Autorizado:",
+						"content": "Usar robots, arañas, raspadores o cualquier otro medio automatizado para acceder a la Plataforma, recopilar datos o interactuar con los servicios sin nuestro permiso previo por escrito."
+					},
+					"overload": {
+						"title": "Sobrecarga del Sistema:",
+						"content": "Realizar cualquier acción que imponga o pueda imponer una carga irrazonable o desproporcionadamente grande en nuestra infraestructura técnica."
+					}
+				},
+				"content": {
+					"title": "2.3. Contenido y Anuncios Prohibidos",
+					"unauthorized": {
+						"title": "Productos No Autorizados:",
+						"content": "Poner en venta cualquier artículo que no sean dorsales oficiales y transferibles para eventos deportivos. La venta de mercancías, equipos, servicios de entrenamiento o cualquier otro producto está prohibida."
+					},
+					"regulations": {
+						"title": "Violación de Reglamentos de Carrera:",
+						"content": "Vender un dorsal en violación directa de los términos y condiciones del organizador de la carrera, especialmente si la reventa o transferencia de dorsales está explícitamente prohibida por el organizador. El vendedor es el único responsable de asegurar que la transferencia esté autorizada."
+					},
+					"intellectual": {
+						"title": "Infracción de Propiedad Intelectual:",
+						"content": "Usar marcas comerciales, logotipos, imágenes protegidas por derechos de autor o cualquier otro contenido perteneciente a terceros (como organizadores de carreras) en tus anuncios sin su permiso explícito."
+					},
+					"abusive": {
+						"title": "Contenido Abusivo:",
+						"content": "Publicar contenido que sea difamatorio, obsceno, pornográfico, amenazante, acosador, de odio o que fomente la violencia o discriminación."
+					}
+				},
+				"conduct": {
+					"title": "2.4. Conducta del Usuario",
+					"harassment": {
+						"title": "Acoso:",
+						"content": "Contactar a otros usuarios para propósitos distintos a los relacionados con la transacción (ej.: envío de mensajes no solicitados, publicidad o spam)."
+					},
+					"abuse": {
+						"title": "Abuso del Soporte al Cliente:",
+						"content": "Enviar solicitudes abusivas, repetitivas o infundadas a nuestro equipo de soporte al cliente."
+					},
+					"privacy": {
+						"title": "Violación de Privacidad:",
+						"content": "Recopilar o divulgar información personal sobre otros usuarios sin su consentimiento explícito."
+					}
+				}
+			},
+			"enforcement": {
+				"title": "3. Aplicación de la Política y Consecuencias",
+				"content": "Beswib se reserva el derecho, a su sola discreción, de determinar si ha ocurrido una violación de esta Política. En caso de violación, podemos tomar una o más de las siguientes acciones:",
+				"warning": "Emitir una advertencia formal.",
+				"removal": "Eliminar un anuncio, contenido o cualquier información que viole la Política.",
+				"suspension": "Suspender temporalmente el acceso a tu cuenta.",
+				"termination": "Terminar permanentemente tu cuenta y prohibirte usar la Plataforma en el futuro.",
+				"legal": "Tomar acción legal contra ti para el reembolso de todos los costos incurridos como resultado de la violación (incluyendo tarifas administrativas y legales).",
+				"report": "Reportar tus actividades a las autoridades policiales relevantes si la violación constituye un delito."
+			},
+			"reporting": {
+				"title": "4. Reportar una Violación",
+				"content": "Si crees que un usuario ha violado esta Política de Uso Aceptable, te animamos a reportarlo inmediatamente a nuestro equipo de soporte a través de la",
+				"contactPage": "página de Contacto",
+				"email": "o enviando un correo electrónico a",
+				"details": "Por favor proporciona tantos detalles como sea posible, incluyendo enlaces al anuncio o perfil de usuario relevante."
+			},
+			"changes": {
+				"title": "5. Cambios a esta Política",
+				"content": "Nos reservamos el derecho de modificar esta Política en cualquier momento. Cualquier cambio será publicado en esta página. Es tu responsabilidad revisar esta Política periódicamente para mantenerte informado de cualquier actualización."
+			}
+		}
+	},
+	"it": {
+		"aup": {
+			"badge": "Politica",
+			"title": "Politica di Uso Accettabile",
+			"intro": "Questa Politica di Uso Accettabile (la \"Politica\") regola l'uso della piattaforma, servizi e applicazioni Beswib (la \"Piattaforma\"). È parte integrante dei nostri Termini di Servizio. Accedendo o utilizzando la Piattaforma, accetti di conformarti a questa Politica senza riserve.",
+			"introduction": {
+				"title": "1. Introduzione",
+				"content": "Beswib è stato creato per fornire un ambiente sicuro, trasparente e affidabile per l'acquisto e la rivendita di pettorali di gare sportive. Qualsiasi uso della Piattaforma per scopi diversi dal suo uso previsto è severamente vietato."
+			},
+			"prohibited": {
+				"title": "2. Attività Severamente Vietate",
+				"illegal": {
+					"title": "2.1. Attività Illegali, Fraudolente e Ingannevoli",
+					"fraud": {
+						"title": "Frode:",
+						"content": "Pubblicare, vendere o tentare di vendere pettorali che non possiedi, o che sono contraffatti, rubati, non validi o già utilizzati."
+					},
+					"misleading": {
+						"title": "Informazioni Fuorvianti:",
+						"content": "Fornire informazioni personali false, inesatte o fuorvianti durante la registrazione o negli annunci (es.: nome falso, indirizzo email errato, informazioni sulla gara false)."
+					},
+					"impersonation": {
+						"title": "Impersonificazione:",
+						"content": "Impersonare un'altra persona, un organizzatore di gare o un dipendente Beswib."
+					},
+					"laundering": {
+						"title": "Riciclaggio di Denaro:",
+						"content": "Utilizzare la Piattaforma per impegnarsi in attività di riciclaggio di denaro o per finanziare attività illegali."
+					}
+				},
+				"platform": {
+					"title": "2.2. Integrità della Piattaforma e dei Dati",
+					"circumvention": {
+						"title": "Elusione del Sistema:",
+						"content": "Tentare di completare una transazione con un altro utente al di fuori della Piattaforma Beswib per evitare di pagare le commissioni di servizio. Qualsiasi comunicazione che incoraggi una transazione esterna è vietata."
+					},
+					"manipulation": {
+						"title": "Manipolazione:",
+						"content": "Manipolare il prezzo di un annuncio, che sia tuo o di un altro utente."
+					},
+					"interference": {
+						"title": "Interferenza:",
+						"content": "Introdurre virus, cavalli di Troia o qualsiasi altro codice dannoso destinato a danneggiare, intercettare o interferire con il funzionamento della Piattaforma o i dati degli utenti."
+					},
+					"access": {
+						"title": "Accesso Non Autorizzato:",
+						"content": "Utilizzare robot, spider, scraper o qualsiasi altro mezzo automatizzato per accedere alla Piattaforma, raccogliere dati o interagire con i servizi senza il nostro permesso scritto preliminare."
+					},
+					"overload": {
+						"title": "Sovraccarico del Sistema:",
+						"content": "Intraprendere qualsiasi azione che imponga o possa imporre un carico irragionevole o sproporzionatamente grande sulla nostra infrastruttura tecnica."
+					}
+				},
+				"content": {
+					"title": "2.3. Contenuti e Annunci Vietati",
+					"unauthorized": {
+						"title": "Prodotti Non Autorizzati:",
+						"content": "Mettere in vendita qualsiasi articolo diverso da pettorali ufficiali e trasferibili per eventi sportivi. La vendita di merchandise, attrezzature, servizi di coaching o qualsiasi altro prodotto è vietata."
+					},
+					"regulations": {
+						"title": "Violazione dei Regolamenti di Gara:",
+						"content": "Vendere un pettorale in violazione diretta dei termini e condizioni dell'organizzatore della gara, in particolare se la rivendita o il trasferimento di pettorali è esplicitamente vietato dall'organizzatore. Il venditore è l'unico responsabile di assicurarsi che il trasferimento sia autorizzato."
+					},
+					"intellectual": {
+						"title": "Violazione della Proprietà Intellettuale:",
+						"content": "Utilizzare marchi, loghi, immagini protette da copyright o qualsiasi altro contenuto appartenente a terze parti (come organizzatori di gare) nei tuoi annunci senza il loro permesso esplicito."
+					},
+					"abusive": {
+						"title": "Contenuto Abusivo:",
+						"content": "Pubblicare contenuti che siano diffamatori, osceni, pornografici, minacciosi, molesti, pieni di odio o che incoraggino violenza o discriminazione."
+					}
+				},
+				"conduct": {
+					"title": "2.4. Condotta dell'Utente",
+					"harassment": {
+						"title": "Molestie:",
+						"content": "Contattare altri utenti per scopi diversi da quelli relativi alla transazione (es.: invio di messaggi non richiesti, pubblicità o spam)."
+					},
+					"abuse": {
+						"title": "Abuso del Supporto Clienti:",
+						"content": "Inviare richieste abusive, ripetitive o infondate al nostro team di supporto clienti."
+					},
+					"privacy": {
+						"title": "Violazione della Privacy:",
+						"content": "Raccogliere o divulgare informazioni personali su altri utenti senza il loro consenso esplicito."
+					}
+				}
+			},
+			"enforcement": {
+				"title": "3. Applicazione della Politica e Conseguenze",
+				"content": "Beswib si riserva il diritto, a sua sola discrezione, di determinare se si è verificata una violazione di questa Politica. In caso di violazione, possiamo intraprendere una o più delle seguenti azioni:",
+				"warning": "Emettere un avvertimento formale.",
+				"removal": "Rimuovere un annuncio, contenuto o qualsiasi informazione che violi la Politica.",
+				"suspension": "Sospendere temporaneamente l'accesso al tuo account.",
+				"termination": "Terminare permanentemente il tuo account e vietarti di utilizzare la Piattaforma in futuro.",
+				"legal": "Intraprendere azione legale contro di te per il rimborso di tutti i costi sostenuti a seguito della violazione (incluse le spese amministrative e legali).",
+				"report": "Segnalare le tue attività alle autorità competenti se la violazione costituisce un reato."
+			},
+			"reporting": {
+				"title": "4. Segnalare una Violazione",
+				"content": "Se credi che un utente abbia violato questa Politica di Uso Accettabile, ti incoraggiamo a segnalarlo immediatamente al nostro team di supporto tramite la",
+				"contactPage": "pagina Contatti",
+				"email": "o inviando un'email a",
+				"details": "Ti preghiamo di fornire quanti più dettagli possibile, inclusi i link all'annuncio o al profilo utente rilevante."
+			},
+			"changes": {
+				"title": "5. Modifiche a questa Politica",
+				"content": "Ci riserviamo il diritto di modificare questa Politica in qualsiasi momento. Qualsiasi cambiamento sarà pubblicato su questa pagina. È tua responsabilità rivedere periodicamente questa Politica per rimanere informato su eventuali aggiornamenti."
+			}
+		}
+	},
+	"de": {
+		"aup": {
+			"badge": "Richtlinie",
+			"title": "Nutzungsrichtlinie",
+			"intro": "Diese Nutzungsrichtlinie (die \"Richtlinie\") regelt die Nutzung der Beswib-Plattform, -Services und -Anwendungen (die \"Plattform\"). Sie ist ein wesentlicher Bestandteil unserer Nutzungsbedingungen. Durch den Zugriff auf oder die Nutzung der Plattform stimmen Sie zu, diese Richtlinie uneingeschränkt zu befolgen.",
+			"introduction": {
+				"title": "1. Einführung",
+				"content": "Beswib wurde geschaffen, um eine sichere, transparente und zuverlässige Umgebung für den Kauf und Wiederverkauf von Startnummern für Sportwettkämpfe zu bieten. Jede Nutzung der Plattform für andere als die vorgesehenen Zwecke ist strengstens untersagt."
+			},
+			"prohibited": {
+				"title": "2. Streng Verbotene Aktivitäten",
+				"illegal": {
+					"title": "2.1. Illegale, Betrügerische und Irreführende Aktivitäten",
+					"fraud": {
+						"title": "Betrug:",
+						"content": "Startnummern zu veröffentlichen, zu verkaufen oder zu versuchen zu verkaufen, die Sie nicht besitzen, oder die gefälscht, gestohlen, ungültig oder bereits verwendet sind."
+					},
+					"misleading": {
+						"title": "Irreführende Informationen:",
+						"content": "Falsche, ungenaue oder irreführende persönliche Informationen bei der Registrierung oder in Anzeigen anzugeben (z.B. falscher Name, falsche E-Mail-Adresse oder falsche Renninformationen)."
+					},
+					"impersonation": {
+						"title": "Identitätsmissbrauch:",
+						"content": "Sich als eine andere Person, einen Rennveranstalter oder einen Beswib-Mitarbeiter auszugeben."
+					},
+					"laundering": {
+						"title": "Geldwäsche:",
+						"content": "Die Plattform für Geldwäscheaktivitäten oder zur Finanzierung illegaler Aktivitäten zu verwenden."
+					}
+				},
+				"platform": {
+					"title": "2.2. Plattform- und Datenintegrität",
+					"circumvention": {
+						"title": "Systemumgehung:",
+						"content": "Zu versuchen, eine Transaktion mit einem anderen Nutzer außerhalb der Beswib-Plattform durchzuführen, um Servicegebühren zu vermeiden. Jede Kommunikation, die eine externe Transaktion fördert, ist verboten."
+					},
+					"manipulation": {
+						"title": "Manipulation:",
+						"content": "Den Preis einer Anzeige zu manipulieren, sei es Ihre eigene oder die eines anderen Nutzers."
+					},
+					"interference": {
+						"title": "Störung:",
+						"content": "Viren, Trojaner oder anderen bösartigen Code einzuführen, der darauf abzielt, den Betrieb der Plattform oder Nutzerdaten zu beschädigen, abzufangen oder zu stören."
+					},
+					"access": {
+						"title": "Unbefugter Zugriff:",
+						"content": "Roboter, Spider, Scraper oder andere automatisierte Mittel zu verwenden, um auf die Plattform zuzugreifen, Daten zu sammeln oder mit den Services zu interagieren, ohne unsere vorherige schriftliche Genehmigung."
+					},
+					"overload": {
+						"title": "Systemüberlastung:",
+						"content": "Jede Handlung zu unternehmen, die eine unzumutbare oder unverhältnismäßig große Belastung unserer technischen Infrastruktur auferlegt oder auferlegen könnte."
+					}
+				},
+				"content": {
+					"title": "2.3. Verbotene Inhalte und Anzeigen",
+					"unauthorized": {
+						"title": "Nicht Autorisierte Produkte:",
+						"content": "Jegliche Artikel zum Verkauf anzubieten, die keine offiziellen und übertragbaren Startnummern für Sportveranstaltungen sind. Der Verkauf von Merchandise, Ausrüstung, Coaching-Services oder anderen Produkten ist verboten."
+					},
+					"regulations": {
+						"title": "Verletzung von Rennregulierungen:",
+						"content": "Eine Startnummer in direkter Verletzung der Geschäftsbedingungen des Rennveranstalters zu verkaufen, insbesondere wenn der Wiederverkauf oder Transfer von Startnummern vom Veranstalter explizit verboten ist. Der Verkäufer ist allein dafür verantwortlich sicherzustellen, dass der Transfer autorisiert ist."
+					},
+					"intellectual": {
+						"title": "Verletzung des Geistigen Eigentums:",
+						"content": "Markenzeichen, Logos, urheberrechtlich geschützte Bilder oder andere Inhalte Dritter (wie Rennveranstalter) in Ihren Anzeigen ohne deren ausdrückliche Genehmigung zu verwenden."
+					},
+					"abusive": {
+						"title": "Missbräuchlicher Inhalt:",
+						"content": "Inhalte zu veröffentlichen, die verleumderisch, obszön, pornographisch, bedrohlich, belästigend, hasserfüllt sind oder Gewalt oder Diskriminierung fördern."
+					}
+				},
+				"conduct": {
+					"title": "2.4. Nutzerverhalten",
+					"harassment": {
+						"title": "Belästigung:",
+						"content": "Andere Nutzer für andere Zwecke als transaktionsbezogene zu kontaktieren (z.B. unerwünschte Nachrichten, Werbung oder Spam zu senden)."
+					},
+					"abuse": {
+						"title": "Missbrauch des Kundensupports:",
+						"content": "Missbräuchliche, wiederholte oder unbegründete Anfragen an unser Kundensupport-Team zu senden."
+					},
+					"privacy": {
+						"title": "Verletzung der Privatsphäre:",
+						"content": "Persönliche Informationen über andere Nutzer ohne deren ausdrückliche Zustimmung zu sammeln oder preiszugeben."
+					}
+				}
+			},
+			"enforcement": {
+				"title": "3. Durchsetzung der Richtlinie und Konsequenzen",
+				"content": "Beswib behält sich das Recht vor, nach eigenem Ermessen zu bestimmen, ob eine Verletzung dieser Richtlinie aufgetreten ist. Im Falle einer Verletzung können wir eine oder mehrere der folgenden Maßnahmen ergreifen:",
+				"warning": "Eine formelle Warnung aussprechen.",
+				"removal": "Eine Anzeige, Inhalte oder Informationen entfernen, die gegen die Richtlinie verstoßen.",
+				"suspension": "Den Zugang zu Ihrem Konto vorübergehend sperren.",
+				"termination": "Ihr Konto dauerhaft kündigen und Ihnen die zukünftige Nutzung der Plattform verbieten.",
+				"legal": "Rechtliche Schritte gegen Sie einleiten zur Erstattung aller durch die Verletzung entstandenen Kosten (einschließlich Verwaltungs- und Rechtskosten).",
+				"report": "Ihre Aktivitäten den zuständigen Strafverfolgungsbehörden melden, wenn die Verletzung eine Straftat darstellt."
+			},
+			"reporting": {
+				"title": "4. Eine Verletzung Melden",
+				"content": "Wenn Sie glauben, dass ein Nutzer diese Nutzungsrichtlinie verletzt hat, ermutigen wir Sie, dies sofort unserem Support-Team über die",
+				"contactPage": "Kontaktseite",
+				"email": "oder per E-Mail an",
+				"details": "zu melden. Bitte geben Sie so viele Details wie möglich an, einschließlich Links zur relevanten Anzeige oder zum Nutzerprofil."
+			},
+			"changes": {
+				"title": "5. Änderungen an dieser Richtlinie",
+				"content": "Wir behalten uns das Recht vor, diese Richtlinie jederzeit zu ändern. Alle Änderungen werden auf dieser Seite veröffentlicht. Es liegt in Ihrer Verantwortung, diese Richtlinie regelmäßig zu überprüfen, um über Aktualisierungen informiert zu bleiben."
+			}
+		}
+	},
+	"ro": {
+		"aup": {
+			"badge": "Politică",
+			"title": "Politica de Utilizare Acceptabilă",
+			"intro": "Această Politică de Utilizare Acceptabilă (\"Politica\") reglementează utilizarea platformei, serviciilor și aplicațiilor Beswib (\"Platforma\"). Este o parte integrantă a Termenilor noștri de Serviciu. Prin accesarea sau utilizarea Platformei, sunteți de acord să respectați această Politică fără rezerve.",
+			"introduction": {
+				"title": "1. Introducere",
+				"content": "Beswib a fost creat pentru a oferi un mediu sigur, transparent și de încredere pentru cumpărarea și revânzarea de numere de concurs sportiv. Orice utilizare a Platformei în alte scopuri decât cele prevăzute este strict interzisă."
+			},
+			"prohibited": {
+				"title": "2. Activități Strict Interzise",
+				"illegal": {
+					"title": "2.1. Activități Ilegale, Frauduloase și Înșelătoare",
+					"fraud": {
+						"title": "Fraudă:",
+						"content": "Să postați, să vindeți sau să încercați să vindeți numere de concurs pe care nu le dețineți, sau care sunt contrafăcute, furate, nevalide sau deja utilizate."
+					},
+					"misleading": {
+						"title": "Informații Înșelătoare:",
+						"content": "Să furnizați informații personale false, inexacte sau înșelătoare în timpul înregistrării sau în anunțuri (de ex.: nume fals, adresă de email incorectă sau informații false despre cursă)."
+					},
+					"impersonation": {
+						"title": "Uzurpare de Identitate:",
+						"content": "Să vă dați drept altă persoană, un organizator de cursă sau un angajat Beswib."
+					},
+					"laundering": {
+						"title": "Spălare de Bani:",
+						"content": "Să utilizați Platforma pentru a vă angaja în activități de spălare de bani sau pentru a finanța activități ilegale."
+					}
+				},
+				"platform": {
+					"title": "2.2. Integritatea Platformei și a Datelor",
+					"circumvention": {
+						"title": "Ocolirea Sistemului:",
+						"content": "Să încercați să finalizați o tranzacție cu un alt utilizator în afara Platformei Beswib pentru a evita plata taxelor de serviciu. Orice comunicare care încurajează o tranzacție externă este interzisă."
+					},
+					"manipulation": {
+						"title": "Manipulare:",
+						"content": "Să manipulați prețul unui anunț, fie că este al dumneavoastră sau al altui utilizator."
+					},
+					"interference": {
+						"title": "Interferență:",
+						"content": "Să introduceți viruși, cai troieni sau orice alt cod malițios destinat să deterioreze, să intercepteze sau să interfereze cu funcționarea Platformei sau datele utilizatorilor."
+					},
+					"access": {
+						"title": "Acces Neautorizat:",
+						"content": "Să utilizați roboți, păianjeni, scrapere sau orice alte mijloace automatizate pentru a accesa Platforma, a colecta date sau a interacționa cu serviciile fără permisiunea noastră scrisă prealabilă."
+					},
+					"overload": {
+						"title": "Supraîncărcare Sistem:",
+						"content": "Să întreprindeți orice acțiune care impune sau poate impune o sarcină nerezonabilă sau disproporționat de mare asupra infrastructurii noastre tehnice."
+					}
+				},
+				"content": {
+					"title": "2.3. Conținut și Anunțuri Interzise",
+					"unauthorized": {
+						"title": "Produse Neautorizate:",
+						"content": "Să listați pentru vânzare orice articol altul decât numere de concurs oficiale și transferabile pentru evenimente sportive. Vânzarea de marfă, echipamente, servicii de antrenament sau orice alt produs este interzisă."
+					},
+					"regulations": {
+						"title": "Încălcarea Regulamentelor de Cursă:",
+						"content": "Să vindeți un număr de concurs în încălcarea directă a termenilor și condițiilor organizatorului cursei, în special dacă revânzarea sau transferul numerelor de concurs este explicit interzis de organizator. Vânzătorul este singurul responsabil să se asigure că transferul este autorizat."
+					},
+					"intellectual": {
+						"title": "Încălcarea Proprietății Intelectuale:",
+						"content": "Să utilizați mărci comerciale, logo-uri, imagini protejate de drepturi de autor sau orice alt conținut aparținând unor terți (precum organizatorii de curse) în anunțurile dumneavoastră fără permisiunea lor explicită."
+					},
+					"abusive": {
+						"title": "Conținut Abuziv:",
+						"content": "Să postați conținut care este defăimător, obscen, pornografic, amenințător, hărțuitor, plin de ură sau care încurajează violența sau discriminarea."
+					}
+				},
+				"conduct": {
+					"title": "2.4. Conduita Utilizatorului",
+					"harassment": {
+						"title": "Hărțuire:",
+						"content": "Să contactați alți utilizatori în alte scopuri decât cele legate de tranzacție (de ex.: trimitere de mesaje nesolicitate, publicitate sau spam)."
+					},
+					"abuse": {
+						"title": "Abuz al Suportului pentru Clienți:",
+						"content": "Să trimiteți cereri abuzive, repetitive sau nefondate echipei noastre de suport pentru clienți."
+					},
+					"privacy": {
+						"title": "Încălcarea Intimității:",
+						"content": "Să colectați sau să dezvăluiți informații personale despre alți utilizatori fără consimțământul lor explicit."
+					}
+				}
+			},
+			"enforcement": {
+				"title": "3. Aplicarea Politicii și Consecințe",
+				"content": "Beswib își rezervă dreptul, la propria discreție, să determine dacă a avut loc o încălcare a acestei Politici. În cazul unei încălcări, putem lua una sau mai multe dintre următoarele acțiuni:",
+				"warning": "Să emitem o avertizare formală.",
+				"removal": "Să eliminăm un anunț, conținut sau orice informație care încalcă Politica.",
+				"suspension": "Să suspendăm temporar accesul la contul dumneavoastră.",
+				"termination": "Să încheiemccontul dumneavoastră permanent și să vă interzicem utilizarea Platformei în viitor.",
+				"legal": "Să intentăm acțiuni legale împotriva dumneavoastră pentru rambursarea tuturor costurilor suportate ca urmare a încălcării (inclusiv taxele administrative și legale).",
+				"report": "Să raportăm activitățile dumneavoastră autorităților competente dacă încălcarea constituie o infracțiune."
+			},
+			"reporting": {
+				"title": "4. Raportarea unei Încălcări",
+				"content": "Dacă credeți că un utilizator a încălcat această Politică de Utilizare Acceptabilă, vă încurajăm să o raportați imediat echipei noastre de suport prin",
+				"contactPage": "pagina de Contact",
+				"email": "sau prin trimiterea unui email la",
+				"details": "Vă rugăm să furnizați cât mai multe detalii posibil, inclusiv link-uri către anunțul sau profilul utilizatorului relevant."
+			},
+			"changes": {
+				"title": "5. Modificări ale acestei Politici",
+				"content": "Ne rezervăm dreptul de a modifica această Politică în orice moment. Orice modificări vor fi postate pe această pagină. Este responsabilitatea dumneavoastră să revedeți periodic această Politică pentru a rămâne informat despre orice actualizări."
+			}
+		}
+	},
+	"pt": {
+		"aup": {
+			"badge": "Política",
+			"title": "Política de Uso Aceitável",
+			"intro": "Esta Política de Uso Aceitável (a \"Política\") rege o uso da plataforma, serviços e aplicações Beswib (a \"Plataforma\"). É parte integral dos nossos Termos de Serviço. Ao aceder ou usar a Plataforma, concorda em cumprir esta Política sem reservas.",
+			"introduction": {
+				"title": "1. Introdução",
+				"content": "A Beswib foi criada para fornecer um ambiente seguro, transparente e confiável para comprar e revender dorsais de corridas desportivas. Qualquer uso da Plataforma para fins diferentes do seu uso pretendido é estritamente proibido."
+			},
+			"prohibited": {
+				"title": "2. Atividades Estritamente Proibidas",
+				"illegal": {
+					"title": "2.1. Atividades Ilegais, Fraudulentas e Enganosas",
+					"fraud": {
+						"title": "Fraude:",
+						"content": "Publicar, vender ou tentar vender dorsais que não possui, ou que são falsificados, roubados, inválidos ou já foram usados."
+					},
+					"misleading": {
+						"title": "Informação Enganosa:",
+						"content": "Fornecer informações pessoais falsas, imprecisas ou enganosas durante o registo ou nos anúncios (ex.: nome falso, endereço de email incorreto ou informações falsas sobre a corrida)."
+					},
+					"impersonation": {
+						"title": "Impersonificação:",
+						"content": "Fazer-se passar por outra pessoa, um organizador de corridas ou um funcionário da Beswib."
+					},
+					"laundering": {
+						"title": "Lavagem de Dinheiro:",
+						"content": "Usar a Plataforma para se envolver em atividades de lavagem de dinheiro ou para financiar atividades ilegais."
+					}
+				},
+				"platform": {
+					"title": "2.2. Integridade da Plataforma e Dados",
+					"circumvention": {
+						"title": "Contornar o Sistema:",
+						"content": "Tentar completar uma transação com outro utilizador fora da Plataforma Beswib para evitar pagar taxas de serviço. Qualquer comunicação que encoraje uma transação externa é proibida."
+					},
+					"manipulation": {
+						"title": "Manipulação:",
+						"content": "Manipular o preço de um anúncio, seja seu ou de outro utilizador."
+					},
+					"interference": {
+						"title": "Interferência:",
+						"content": "Introduzir vírus, cavalos de Tróia ou qualquer outro código malicioso destinado a danificar, intercetar ou interferir com o funcionamento da Plataforma ou dados dos utilizadores."
+					},
+					"access": {
+						"title": "Acesso Não Autorizado:",
+						"content": "Usar robôs, spiders, scrapers ou qualquer outro meio automatizado para aceder à Plataforma, coletar dados ou interagir com os serviços sem a nossa permissão prévia por escrito."
+					},
+					"overload": {
+						"title": "Sobrecarga do Sistema:",
+						"content": "Tomar qualquer ação que imponha ou possa impor uma carga irrazoável ou desproporcionalmente grande na nossa infraestrutura técnica."
+					}
+				},
+				"content": {
+					"title": "2.3. Conteúdo e Anúncios Proibidos",
+					"unauthorized": {
+						"title": "Produtos Não Autorizados:",
+						"content": "Listar para venda qualquer item que não sejam dorsais oficiais e transferíveis para eventos desportivos. A venda de mercadorias, equipamentos, serviços de treino ou qualquer outro produto é proibida."
+					},
+					"regulations": {
+						"title": "Violação de Regulamentos de Corrida:",
+						"content": "Vender um dorsal em violação direta dos termos e condições do organizador da corrida, particularmente se a revenda ou transferência de dorsais for explicitamente proibida pelo organizador. O vendedor é o único responsável por garantir que a transferência seja autorizada."
+					},
+					"intellectual": {
+						"title": "Violação de Propriedade Intelectual:",
+						"content": "Usar marcas registadas, logótipos, imagens protegidas por direitos de autor ou qualquer outro conteúdo pertencente a terceiros (como organizadores de corridas) nos seus anúncios sem a sua permissão explícita."
+					},
+					"abusive": {
+						"title": "Conteúdo Abusivo:",
+						"content": "Publicar conteúdo que seja difamatório, obsceno, pornográfico, ameaçador, assediador, odioso ou que encoraje violência ou discriminação."
+					}
+				},
+				"conduct": {
+					"title": "2.4. Conduta do Utilizador",
+					"harassment": {
+						"title": "Assédio:",
+						"content": "Contactar outros utilizadores para fins diferentes dos relacionados com a transação (ex.: envio de mensagens não solicitadas, publicidade ou spam)."
+					},
+					"abuse": {
+						"title": "Abuso do Apoio ao Cliente:",
+						"content": "Enviar pedidos abusivos, repetitivos ou infundados à nossa equipa de apoio ao cliente."
+					},
+					"privacy": {
+						"title": "Violação de Privacidade:",
+						"content": "Coletar ou divulgar informações pessoais sobre outros utilizadores sem o seu consentimento explícito."
+					}
+				}
+			},
+			"enforcement": {
+				"title": "3. Aplicação da Política e Consequências",
+				"content": "A Beswib reserva-se o direito, a seu critério exclusivo, de determinar se ocorreu uma violação desta Política. No caso de uma violação, podemos tomar uma ou mais das seguintes ações:",
+				"warning": "Emitir um aviso formal.",
+				"removal": "Remover um anúncio, conteúdo ou qualquer informação que viole a Política.",
+				"suspension": "Suspender temporariamente o acesso à sua conta.",
+				"termination": "Encerrar permanentemente a sua conta e proibi-lo de usar a Plataforma no futuro.",
+				"legal": "Tomar ação legal contra si para reembolso de todos os custos incorridos como resultado da violação (incluindo taxas administrativas e legais).",
+				"report": "Reportar as suas atividades às autoridades policiais relevantes se a violação constituir um crime."
+			},
+			"reporting": {
+				"title": "4. Reportar uma Violação",
+				"content": "Se acredita que um utilizador violou esta Política de Uso Aceitável, encorajamo-lo a reportá-lo imediatamente à nossa equipa de apoio através da",
+				"contactPage": "página de Contacto",
+				"email": "ou enviando um email para",
+				"details": "Por favor, forneça o máximo de detalhes possível, incluindo links para o anúncio ou perfil de utilizador relevante."
+			},
+			"changes": {
+				"title": "5. Alterações a esta Política",
+				"content": "Reservamo-nos o direito de modificar esta Política a qualquer momento. Quaisquer alterações serão publicadas nesta página. É da sua responsabilidade rever esta Política periodicamente para se manter informado sobre quaisquer atualizações."
+			}
+		}
+	},
+	"nl": {
+		"aup": {
+			"badge": "Beleid",
+			"title": "Acceptabel Gebruiksbeleid",
+			"intro": "Dit Acceptabel Gebruiksbeleid (het \"Beleid\") regelt het gebruik van het Beswib platform, diensten en applicaties (het \"Platform\"). Het is een integraal onderdeel van onze Servicevoorwaarden. Door toegang te krijgen tot of gebruik te maken van het Platform, stemt u ermee in dit Beleid zonder voorbehoud na te leven.",
+			"introduction": {
+				"title": "1. Introductie",
+				"content": "Beswib werd gecreëerd om een veilige, transparante en betrouwbare omgeving te bieden voor het kopen en doorverkopen van startnummers voor sportwedstrijden. Elk gebruik van het Platform voor andere doeleinden dan het beoogde gebruik is strikt verboden."
+			},
+			"prohibited": {
+				"title": "2. Strikt Verboden Activiteiten",
+				"illegal": {
+					"title": "2.1. Illegale, Frauduleuze en Misleidende Activiteiten",
+					"fraud": {
+						"title": "Fraude:",
+						"content": "Het plaatsen, verkopen of proberen te verkopen van startnummers die u niet bezit, of die vervalst, gestolen, ongeldig of reeds gebruikt zijn."
+					},
+					"misleading": {
+						"title": "Misleidende Informatie:",
+						"content": "Het verstrekken van valse, onnauwkeurige of misleidende persoonlijke informatie tijdens registratie of in advertenties (bijv.: valse naam, onjuist e-mailadres, of valse race-informatie)."
+					},
+					"impersonation": {
+						"title": "Impersonatie:",
+						"content": "Zich voordoen als een andere persoon, een race-organisator of een Beswib-medewerker."
+					},
+					"laundering": {
+						"title": "Witwassen:",
+						"content": "Het Platform gebruiken om betrokken te raken bij witwasactiviteiten of om illegale activiteiten te financieren."
+					}
+				},
+				"platform": {
+					"title": "2.2. Platform- en Data-integriteit",
+					"circumvention": {
+						"title": "Systeemomzeiling:",
+						"content": "Proberen een transactie met een andere gebruiker buiten het Beswib Platform om te voltooien om servicekosten te vermijden. Elke communicatie die een externe transactie aanmoedigt is verboden."
+					},
+					"manipulation": {
+						"title": "Manipulatie:",
+						"content": "De prijs van een advertentie manipuleren, of het nu uw eigen of die van een andere gebruiker is."
+					},
+					"interference": {
+						"title": "Interferentie:",
+						"content": "Virussen, Trojaanse paarden of andere kwaadaardige code introduceren die bedoeld is om de werking van het Platform of gebruikersgegevens te beschadigen, onderscheppen of verstoren."
+					},
+					"access": {
+						"title": "Onbevoegde Toegang:",
+						"content": "Robots, spiders, scrapers of andere geautomatiseerde middelen gebruiken om toegang te krijgen tot het Platform, gegevens te verzamelen of te interacteren met de diensten zonder onze voorafgaande schriftelijke toestemming."
+					},
+					"overload": {
+						"title": "Systeemoverbelasting:",
+						"content": "Elke actie ondernemen die een onredelijke of onevenredig grote belasting oplegt of kan opleggen aan onze technische infrastructuur."
+					}
+				},
+				"content": {
+					"title": "2.3. Verboden Inhoud en Advertenties",
+					"unauthorized": {
+						"title": "Ongeautoriseerde Producten:",
+						"content": "Het te koop aanbieden van artikelen anders dan officiële en overdraagbare startnummers voor sportevenementen. De verkoop van merchandise, uitrusting, coachingdiensten of andere producten is verboden."
+					},
+					"regulations": {
+						"title": "Schending van Race-reglementen:",
+						"content": "Het verkopen van een startnummer in directe schending van de voorwaarden van de race-organisator, vooral als de doorverkoop of overdracht van startnummers expliciet verboden is door de organisator. De verkoper is er alleen verantwoordelijk voor dat de overdracht geautoriseerd is."
+					},
+					"intellectual": {
+						"title": "Schending van Intellectueel Eigendom:",
+						"content": "Het gebruik van handelsmerken, logo's, auteursrechtelijk beschermde afbeeldingen of andere inhoud die toebehoort aan derden (zoals race-organisatoren) in uw advertenties zonder hun expliciete toestemming."
+					},
+					"abusive": {
+						"title": "Misbruikende Inhoud:",
+						"content": "Het plaatsen van inhoud die lasterlijk, obsceen, pornografisch, bedreigend, intimiderend, hatelijk is of geweld of discriminatie aanmoedigt."
+					}
+				},
+				"conduct": {
+					"title": "2.4. Gebruikersgedrag",
+					"harassment": {
+						"title": "Intimidatie:",
+						"content": "Andere gebruikers contacteren voor andere doeleinden dan die gerelateerd aan de transactie (bijv.: het verzenden van ongevraagde berichten, reclame of spam)."
+					},
+					"abuse": {
+						"title": "Misbruik van Klantenservice:",
+						"content": "Het verzenden van misbruikende, herhaaldelijke of ongegronde verzoeken aan ons klantenserviceteam."
+					},
+					"privacy": {
+						"title": "Schending van Privacy:",
+						"content": "Het verzamelen of bekendmaken van persoonlijke informatie over andere gebruikers zonder hun expliciete toestemming."
+					}
+				}
+			},
+			"enforcement": {
+				"title": "3. Beleidshandhaving en Consequenties",
+				"content": "Beswib behoudt zich het recht voor, naar eigen goeddunken, te bepalen of een schending van dit Beleid heeft plaatsgevonden. In geval van een schending kunnen we een of meer van de volgende acties ondernemen:",
+				"warning": "Een formele waarschuwing uitgeven.",
+				"removal": "Een advertentie, inhoud of informatie verwijderen die het Beleid schendt.",
+				"suspension": "Tijdelijk de toegang tot uw account opschorten.",
+				"termination": "Uw account permanent beëindigen en u verbieden het Platform in de toekomst te gebruiken.",
+				"legal": "Juridische actie ondernemen tegen u voor vergoeding van alle kosten die zijn ontstaan als gevolg van de schending (inclusief administratieve en juridische kosten).",
+				"report": "Uw activiteiten rapporteren aan de relevante wetshandhavingsautoriteiten als de schending een strafbaar feit vormt."
+			},
+			"reporting": {
+				"title": "4. Een Schending Rapporteren",
+				"content": "Als u gelooft dat een gebruiker dit Acceptabel Gebruiksbeleid heeft geschonden, moedigen we u aan dit onmiddellijk te rapporteren aan ons supportteam via de",
+				"contactPage": "Contactpagina",
+				"email": "of door een e-mail te sturen naar",
+				"details": "Gelieve zoveel mogelijk details te verstrekken, inclusief links naar de relevante advertentie of gebruikersprofiel."
+			},
+			"changes": {
+				"title": "5. Wijzigingen aan dit Beleid",
+				"content": "We behouden ons het recht voor dit Beleid op elk moment te wijzigen. Eventuele wijzigingen zullen op deze pagina worden geplaatst. Het is uw verantwoordelijkheid dit Beleid periodiek te bekijken om op de hoogte te blijven van updates."
+			}
+		}
+	},
+	"ko": {
+		"aup": {
+			"badge": "정책",
+			"title": "허용 가능한 사용 정책",
+			"intro": "이 허용 가능한 사용 정책(\"정책\")은 Beswib 플랫폼, 서비스 및 애플리케이션(\"플랫폼\")의 사용을 규정합니다. 이는 당사 서비스 약관의 필수 부분입니다. 플랫폼에 액세스하거나 사용함으로써 귀하는 이 정책을 유보 없이 준수하는 데 동의합니다.",
+			"introduction": {
+				"title": "1. 소개",
+				"content": "Beswib은 스포츠 경기 참가번호를 구매하고 재판매하기 위한 안전하고 투명하며 신뢰할 수 있는 환경을 제공하기 위해 만들어졌습니다. 의도된 용도 이외의 목적으로 플랫폼을 사용하는 것은 엄격히 금지됩니다."
+			},
+			"prohibited": {
+				"title": "2. 엄격히 금지된 활동",
+				"illegal": {
+					"title": "2.1. 불법적, 사기적, 기만적 활동",
+					"fraud": {
+						"title": "사기:",
+						"content": "소유하지 않거나 위조되었거나 도난당했거나 무효하거나 이미 사용된 참가번호를 게시, 판매 또는 판매 시도하는 것."
+					},
+					"misleading": {
+						"title": "오해의 소지가 있는 정보:",
+						"content": "등록 시 또는 목록에서 허위, 부정확하거나 오해의 소지가 있는 개인 정보를 제공하는 것 (예: 허위 이름, 잘못된 이메일 주소 또는 허위 경기 정보)."
+					},
+					"impersonation": {
+						"title": "신원 도용:",
+						"content": "다른 사람, 경기 주최자 또는 Beswib 직원을 사칭하는 것."
+					},
+					"laundering": {
+						"title": "자금 세탁:",
+						"content": "플랫폼을 사용하여 자금 세탁 활동에 참여하거나 불법 활동에 자금을 지원하는 것."
+					}
+				},
+				"platform": {
+					"title": "2.2. 플랫폼 및 데이터 무결성",
+					"circumvention": {
+						"title": "시스템 우회:",
+						"content": "서비스 수수료 지불을 피하기 위해 Beswib 플랫폼 외부에서 다른 사용자와 거래를 완료하려고 시도하는 것. 외부 거래를 장려하는 모든 커뮤니케이션은 금지됩니다."
+					},
+					"manipulation": {
+						"title": "조작:",
+						"content": "자신의 목록이든 다른 사용자의 목록이든 목록 가격을 조작하는 것."
+					},
+					"interference": {
+						"title": "간섭:",
+						"content": "플랫폼의 작동이나 사용자 데이터를 손상, 가로채기 또는 간섭하려는 바이러스, 트로이 목마 또는 기타 악성 코드를 도입하는 것."
+					},
+					"access": {
+						"title": "무단 액세스:",
+						"content": "당사의 사전 서면 허가 없이 로봇, 스파이더, 스크래퍼 또는 기타 자동화된 수단을 사용하여 플랫폼에 액세스하거나 데이터를 수집하거나 서비스와 상호 작용하는 것."
+					},
+					"overload": {
+						"title": "시스템 과부하:",
+						"content": "당사의 기술 인프라에 불합리하거나 불균형적으로 큰 부하를 가하거나 가할 수 있는 모든 행동을 취하는 것."
+					}
+				},
+				"content": {
+					"title": "2.3. 금지된 콘텐츠 및 목록",
+					"unauthorized": {
+						"title": "무허가 제품:",
+						"content": "스포츠 이벤트용 공식적이고 양도 가능한 참가번호 이외의 항목을 판매용으로 나열하는 것. 상품, 장비, 코칭 서비스 또는 기타 제품의 판매는 금지됩니다."
+					},
+					"regulations": {
+						"title": "경기 규정 위반:",
+						"content": "경기 주최자의 약관을 직접 위반하여 참가번호를 판매하는 것, 특히 주최자가 참가번호의 재판매 또는 양도를 명시적으로 금지한 경우. 판매자는 양도가 승인되었는지 확인할 전적인 책임이 있습니다."
+					},
+					"intellectual": {
+						"title": "지적 재산권 침해:",
+						"content": "명시적인 허가 없이 제3자(경기 주최자 등)에 속한 상표, 로고, 저작권으로 보호되는 이미지 또는 기타 콘텐츠를 목록에서 사용하는 것."
+					},
+					"abusive": {
+						"title": "남용적 콘텐츠:",
+						"content": "명예훼손, 외설, 음란, 위협, 괴롭힘, 혐오 또는 폭력이나 차별을 조장하는 콘텐츠를 게시하는 것."
+					}
+				},
+				"conduct": {
+					"title": "2.4. 사용자 행동",
+					"harassment": {
+						"title": "괴롭힘:",
+						"content": "거래와 관련되지 않은 목적으로 다른 사용자에게 연락하는 것 (예: 원치 않는 메시지, 광고 또는 스팸 발송)."
+					},
+					"abuse": {
+						"title": "고객 지원 남용:",
+						"content": "당사 고객 지원 팀에 남용적이거나 반복적이거나 근거 없는 요청을 보내는 것."
+					},
+					"privacy": {
+						"title": "개인정보 침해:",
+						"content": "명시적인 동의 없이 다른 사용자의 개인 정보를 수집하거나 공개하는 것."
+					}
+				}
+			},
+			"enforcement": {
+				"title": "3. 정책 시행 및 결과",
+				"content": "Beswib은 단독 재량으로 이 정책의 위반이 발생했는지 여부를 판단할 권리를 보유합니다. 위반이 발생한 경우 다음 중 하나 이상의 조치를 취할 수 있습니다:",
+				"warning": "공식 경고를 발행합니다.",
+				"removal": "정책을 위반하는 목록, 콘텐츠 또는 정보를 제거합니다.",
+				"suspension": "계정에 대한 액세스를 일시적으로 중단합니다.",
+				"termination": "계정을 영구적으로 종료하고 향후 플랫폼 사용을 금지합니다.",
+				"legal": "위반으로 인해 발생한 모든 비용(행정 및 법적 수수료 포함)에 대한 배상을 위해 법적 조치를 취합니다.",
+				"report": "위반이 형사 범죄를 구성하는 경우 관련 법 집행 기관에 귀하의 활동을 신고합니다."
+			},
+			"reporting": {
+				"title": "4. 위반 신고",
+				"content": "사용자가 이 허용 가능한 사용 정책을 위반했다고 생각되면",
+				"contactPage": "연락처 페이지",
+				"email": "또는 다음 주소로 이메일을 보내어",
+				"details": "즉시 당사 지원 팀에 신고하시기 바랍니다. 관련 목록 또는 사용자 프로필에 대한 링크를 포함하여 가능한 한 자세한 정보를 제공해 주십시오."
+			},
+			"changes": {
+				"title": "5. 이 정책의 변경",
+				"content": "당사는 언제든지 이 정책을 수정할 권리를 보유합니다. 모든 변경 사항은 이 페이지에 게시됩니다. 업데이트에 대한 정보를 유지하기 위해 주기적으로 이 정책을 검토하는 것은 귀하의 책임입니다."
+			}
+		}
+	}
+}

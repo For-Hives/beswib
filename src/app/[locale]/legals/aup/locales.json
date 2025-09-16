@@ -1,0 +1,56 @@
+{
+	"en": {
+		"aup": {
+			"titleOG": "Acceptable Use Policy",
+			"descriptionOG": "PayPal-compliant **usage guidelines** for Beswib's platform and services"
+		}
+	},
+	"fr": {
+		"aup": {
+			"titleOG": "Politique d'Utilisation Acceptable",
+			"descriptionOG": "**Directives d'utilisation** conformes à PayPal pour la plateforme Beswib"
+		}
+	},
+	"es": {
+		"aup": {
+			"titleOG": "Política de Uso Aceptable",
+			"descriptionOG": "**Directrices de uso** compatibles con PayPal para la plataforma Beswib"
+		}
+	},
+	"it": {
+		"aup": {
+			"titleOG": "Politica di Uso Accettabile",
+			"descriptionOG": "**Linee guida d'uso** conformi a PayPal per la piattaforma Beswib"
+		}
+	},
+	"de": {
+		"aup": {
+			"titleOG": "Nutzungsrichtlinie",
+			"descriptionOG": "PayPal-konforme **Nutzungsrichtlinien** für die Beswib-Plattform"
+		}
+	},
+	"ro": {
+		"aup": {
+			"titleOG": "Politica de Utilizare Acceptabilă",
+			"descriptionOG": "**Orientări de utilizare** conforme cu PayPal pentru platforma Beswib"
+		}
+	},
+	"pt": {
+		"aup": {
+			"titleOG": "Política de Uso Aceitável",
+			"descriptionOG": "**Diretrizes de uso** conformes ao PayPal para a plataforma Beswib"
+		}
+	},
+	"nl": {
+		"aup": {
+			"titleOG": "Acceptabel Gebruiksbeleid",
+			"descriptionOG": "PayPal-conforme **gebruiksrichtlijnen** voor het Beswib-platform"
+		}
+	},
+	"ko": {
+		"aup": {
+			"titleOG": "허용 가능한 사용 정책",
+			"descriptionOG": "Beswib 플랫폼을 위한 PayPal 준수 **사용 지침**"
+		}
+	}
+}

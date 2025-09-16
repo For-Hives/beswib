@@ -122,6 +122,11 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 									{t.footer.links?.dataDeletion ?? 'Data Deletion'}
 								</Link>
 							</li>
+							<li>
+								<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/legals/aup`}>
+									{t.footer.links?.aup ?? 'Acceptable Use Policy'}
+								</Link>
+							</li>
 						</ul>
 					</div>
 

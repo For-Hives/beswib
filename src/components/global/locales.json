@@ -29,7 +29,8 @@
 				"legalNotice": "Legal Notice",
 				"privacy": "Privacy Policy",
 				"terms": "Terms of Service",
-				"dataDeletion": "Data Deletion"
+				"dataDeletion": "Data Deletion",
+				"aup": "Acceptable Use Policy"
 			}
 		},
 		"pages": {
@@ -60,6 +61,10 @@
 			"contact": {
 				"title": "Contact | Beswib",
 				"description": "Get in touch with the Beswib team for any questions or inquiries."
+			},
+			"aup": {
+				"title": "Acceptable Use Policy | Beswib",
+				"description": "PayPal-compliant acceptable use policy governing the proper use of Beswib's platform and services."
 			}
 		},
 		"contact": {
@@ -131,7 +136,8 @@
 				"legalNotice": "Mentions légales",
 				"privacy": "Politique de confidentialité",
 				"terms": "Conditions d'utilisation",
-				"dataDeletion": "Suppression des données"
+				"dataDeletion": "Suppression des données",
+				"aup": "Politique d'Utilisation Acceptable"
 			}
 		},
 		"pages": {
@@ -162,6 +168,10 @@
 			"contact": {
 				"title": "Contact | Beswib",
 				"description": "Entrez en contact avec l'équipe Beswib pour toute question ou demande."
+			},
+			"aup": {
+				"title": "Politique d'Utilisation Acceptable | Beswib",
+				"description": "Politique d'utilisation acceptable conforme à PayPal régissant l'utilisation appropriée de la plateforme et des services Beswib."
 			}
 		},
 		"contact": {
@@ -233,7 +243,8 @@
 				"legalNotice": "Aviso legal",
 				"privacy": "Política de privacidad",
 				"terms": "Términos del servicio",
-				"dataDeletion": "Eliminación de datos"
+				"dataDeletion": "Eliminación de datos",
+				"aup": "Política de Uso Aceptable"
 			}
 		},
 		"pages": {
@@ -264,6 +275,10 @@
 			"contact": {
 				"title": "Contacto | Beswib",
 				"description": "Ponte en contacto con el equipo de Beswib para cualquier pregunta o consulta."
+			},
+			"aup": {
+				"title": "Política de Uso Aceptable | Beswib",
+				"description": "Política de uso aceptable compatible con PayPal que rige el uso adecuado de la plataforma y servicios de Beswib."
 			}
 		},
 		"contact": {
@@ -335,7 +350,8 @@
 				"legalNotice": "Note legali",
 				"privacy": "Informativa privacy",
 				"terms": "Termini di servizio",
-				"dataDeletion": "Cancellazione dati"
+				"dataDeletion": "Cancellazione dati",
+				"aup": "Politica di Uso Accettabile"
 			}
 		},
 		"pages": {
@@ -366,6 +382,10 @@
 			"contact": {
 				"title": "Contatto | Beswib",
 				"description": "Contatta il team Beswib per domande o richieste."
+			},
+			"aup": {
+				"title": "Politica di Uso Accettabile | Beswib",
+				"description": "Politica di uso accettabile conforme a PayPal che regola l'uso appropriato della piattaforma e dei servizi Beswib."
 			}
 		},
 		"contact": {
@@ -437,7 +457,8 @@
 				"legalNotice": "Impressum",
 				"privacy": "Datenschutz",
 				"terms": "Nutzungsbedingungen",
-				"dataDeletion": "Datenlöschung"
+				"dataDeletion": "Datenlöschung",
+				"aup": "Nutzungsrichtlinie"
 			}
 		},
 		"pages": {
@@ -468,6 +489,10 @@
 			"contact": {
 				"title": "Kontakt | Beswib",
 				"description": "Kontaktiere das Beswib-Team bei Fragen oder Anliegen."
+			},
+			"aup": {
+				"title": "Nutzungsrichtlinie | Beswib",
+				"description": "PayPal-konforme Nutzungsrichtlinie zur ordnungsgemäßen Nutzung der Beswib-Plattform und -Dienste."
 			}
 		},
 		"contact": {
@@ -539,7 +564,8 @@
 				"legalNotice": "Mențiuni legale",
 				"privacy": "Politica de confidențialitate",
 				"terms": "Termeni și condiții",
-				"dataDeletion": "Ștergere date"
+				"dataDeletion": "Ștergere date",
+				"aup": "Politica de Utilizare Acceptabilă"
 			}
 		},
 		"pages": {
@@ -570,6 +596,10 @@
 			"contact": {
 				"title": "Contact | Beswib",
 				"description": "Ia legătura cu echipa Beswib pentru întrebări sau solicitări."
+			},
+			"aup": {
+				"title": "Politica de Utilizare Acceptabilă | Beswib",
+				"description": "Politică de utilizare acceptabilă conformă cu PayPal care reglementează utilizarea corespunzătoare a platformei și serviciilor Beswib."
 			}
 		},
 		"contact": {
@@ -641,7 +671,8 @@
 				"legalNotice": "Aviso legal",
 				"privacy": "Política de Privacidade",
 				"terms": "Termos de Serviço",
-				"dataDeletion": "Eliminação de dados"
+				"dataDeletion": "Eliminação de dados",
+				"aup": "Política de Uso Aceitável"
 			}
 		},
 		"pages": {
@@ -672,6 +703,10 @@
 			"contact": {
 				"title": "Contacto | Beswib",
 				"description": "Entre em contacto com a equipa Beswib para quaisquer questões ou pedidos."
+			},
+			"aup": {
+				"title": "Política de Uso Aceitável | Beswib",
+				"description": "Política de uso aceitável conforme ao PayPal que rege o uso adequado da plataforma e serviços da Beswib."
 			}
 		},
 		"contact": {
@@ -743,7 +778,8 @@
 				"legalNotice": "Juridische kennisgeving",
 				"privacy": "Privacybeleid",
 				"terms": "Servicevoorwaarden",
-				"dataDeletion": "Gegevensverwijdering"
+				"dataDeletion": "Gegevensverwijdering",
+				"aup": "Acceptabel Gebruiksbeleid"
 			}
 		},
 		"pages": {
@@ -774,6 +810,10 @@
 			"contact": {
 				"title": "Contact | Beswib",
 				"description": "Neem contact op met het Beswib-team voor vragen of verzoeken."
+			},
+			"aup": {
+				"title": "Acceptabel Gebruiksbeleid | Beswib",
+				"description": "PayPal-conform acceptabel gebruiksbeleid voor het juiste gebruik van Beswib's platform en diensten."
 			}
 		},
 		"contact": {
@@ -845,7 +885,8 @@
 				"legalNotice": "법적 고지",
 				"privacy": "개인정보 보호정책",
 				"terms": "서비스 약관",
-				"dataDeletion": "데이터 삭제"
+				"dataDeletion": "데이터 삭제",
+				"aup": "허용 가능한 사용 정책"
 			}
 		},
 		"pages": {
@@ -876,6 +917,10 @@
 			"contact": {
 				"title": "연락처 | Beswib",
 				"description": "질문이나 문의사항이 있으시면 Beswib 팀에 연락해 주세요."
+			},
+			"aup": {
+				"title": "허용 가능한 사용 정책 | Beswib",
+				"description": "Beswib 플랫폼과 서비스의 적절한 사용을 규정하는 PayPal 준수 허용 가능한 사용 정책입니다."
 			}
 		},
 		"contact": {
