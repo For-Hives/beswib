@@ -25,7 +25,7 @@ export default function FAQClient({ locale }: Readonly<FAQClientProps>) {
 
 	// Helper function to format fees dynamically
 	const formatFeesAnswer = (answer: string) => {
-		const isPromotional = PLATFORM_FEE_PERCENTAGE === 0
+		const isPromotional = PLATFORM_FEE_PERCENTAGE <= 0
 		const platformFeeText = isPromotional
 			? 'Platform fees are currently waived during our promotional period'
 			: `Platform fees are ${(PLATFORM_FEE_PERCENTAGE * 100).toFixed(1)}% of the transaction amount`
@@ -128,7 +128,7 @@ export default function FAQClient({ locale }: Readonly<FAQClientProps>) {
 												</div>
 
 												{/* Promotional message if platform fees are waived */}
-												{PLATFORM_FEE_PERCENTAGE === 0 && (
+												{PLATFORM_FEE_PERCENTAGE <= 0 && (
 													<div className="rounded-lg border border-green-200 bg-green-50 p-3 dark:border-green-800 dark:bg-green-900/20">
 														<p className="text-sm font-medium text-green-800 dark:text-green-200">
 															{t.faq.fees.promotionalMessage}
