@@ -177,8 +177,8 @@ importers:
         specifier: 10.4.0
         version: 10.4.0
       framer-motion:
-        specifier: 12.23.15
-        version: 12.23.15(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: 12.23.16
+        version: 12.23.16(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       fuse.js:
         specifier: 7.1.0
         version: 7.1.0
@@ -4315,8 +4315,8 @@ packages:
   forwarded-parse@2.1.2:
     resolution: {integrity: sha512-alTFZZQDKMporBH77856pXgzhEzaUVmLCDk+egLgIgHst3Tpndzz8MnKe+GzRJRfvVdn69HhpW7cmXzvtLvJAw==}
 
-  framer-motion@12.23.15:
-    resolution: {integrity: sha512-MBxUEHjWr/fRQ2aHg2CgdcjJpHMJ9ttHiPeClHDGiOJOYgmde3OXZUrbWDeeE8yvFrWA62hsPS4+rKQ9OJaoQA==}
+  framer-motion@12.23.16:
+    resolution: {integrity: sha512-N81A8hiHqVsexOzI3wzkibyLURW1nEJsZaRuctPhG4AdbbciYu+bKJq9I2lQFzAO4Bx3h4swI6pBbF/Hu7f7BA==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -10955,7 +10955,7 @@ snapshots:
 
   forwarded-parse@2.1.2: {}
 
-  framer-motion@12.23.15(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  framer-motion@12.23.16(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       motion-dom: 12.23.12
       motion-utils: 12.23.6
@@ -11639,7 +11639,7 @@ snapshots:
 
   motion@12.23.15(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
-      framer-motion: 12.23.15(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      framer-motion: 12.23.16(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       tslib: 2.8.1
     optionalDependencies:
       react: 19.1.1
