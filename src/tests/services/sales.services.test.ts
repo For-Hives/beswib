@@ -61,7 +61,11 @@ describe('sales.services', () => {
 				bibId: 'bib1',
 			})
 
-			expect(createOrder).toHaveBeenCalledWith('MERCHANT-XYZ', expect.objectContaining({ price: 100, id: 'bib1' }))
+			expect(createOrder).toHaveBeenCalledWith(
+				'MERCHANT-XYZ',
+				expect.objectContaining({ price: 100, id: 'bib1' }),
+				undefined
+			)
 			expect(fetchUserByClerkId).toHaveBeenCalledWith('clerk_buyer')
 			expect(createTransaction).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -73,6 +77,39 @@ describe('sales.services', () => {
 					bib_id: 'bib1',
 					amount: 100,
 				})
+			)
+			expect(result).toEqual({ transaction: { paypal_order_id: 'ORDER-123', id: 'tx1' }, orderId: 'ORDER-123' })
+		})
+
+		it('creates a PayPal order with locale for return URLs', async () => {
+			asMock(fetchBibById).mockResolvedValue({
+				validated: true,
+				status: 'available',
+				sellerUserId: 'seller_pb',
+				registrationNumber: 'REG',
+				price: 100,
+				originalPrice: 80,
+				optionValues: {},
+				lockedAt: null,
+				listed: null,
+				id: 'bib1',
+				eventId: 'event1',
+			} satisfies Bib)
+			asMock(createOrder).mockResolvedValue({ id: 'ORDER-123' })
+			asMock(fetchUserByClerkId).mockResolvedValue({ id: 'buyer_pb' } as unknown as User)
+			asMock(createTransaction).mockResolvedValue({ paypal_order_id: 'ORDER-123', id: 'tx1' } as unknown as Transaction)
+
+			const result = await salesCreate({
+				sellerMerchantId: 'MERCHANT-XYZ',
+				locale: 'fr',
+				buyerUserId: 'clerk_buyer',
+				bibId: 'bib1',
+			})
+
+			expect(createOrder).toHaveBeenCalledWith(
+				'MERCHANT-XYZ',
+				expect.objectContaining({ price: 100, id: 'bib1' }),
+				'fr'
 			)
 			expect(result).toEqual({ transaction: { paypal_order_id: 'ORDER-123', id: 'tx1' }, orderId: 'ORDER-123' })
 		})
