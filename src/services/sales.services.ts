@@ -18,7 +18,7 @@ import { createOrder } from './paypal.services'
 export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateOutput> {
 	console.info('Creating sale with input:', input)
 
-	const { sellerMerchantId, buyerUserId, bibId } = input
+	const { sellerMerchantId, locale, buyerUserId, bibId } = input
 	if (!buyerUserId || !sellerMerchantId || !bibId) {
 		throw new Error('Missing required salesCreate parameters')
 	}
@@ -52,7 +52,7 @@ export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateO
 		},
 	}
 
-	const order = await createOrder(sellerMerchantId, bibSale)
+	const order = await createOrder(sellerMerchantId, bibSale, locale)
 	if (order.id == null || order.id === '') {
 		throw new Error(order.error ?? 'Failed to create PayPal order')
 	}

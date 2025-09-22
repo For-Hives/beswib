@@ -182,7 +182,11 @@ export async function capturePayment(orderID: string): Promise<{ data?: PayPalCa
 	}
 }
 
-export async function createOrder(sellerId: string, bib: BibSale): Promise<{ error?: string; id?: string }> {
+export async function createOrder(
+	sellerId: string,
+	bib: BibSale,
+	locale?: string
+): Promise<{ error?: string; id?: string }> {
 	try {
 		// Ensure the seller can actually receive payments (KYC done / account enabled)
 		const statusRes = await getMerchantIntegrationStatus(sellerId)
@@ -197,6 +201,9 @@ export async function createOrder(sellerId: string, bib: BibSale): Promise<{ err
 		}
 
 		const token = await getAccessToken()
+		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
+		const userLocale = locale ?? 'en' // Default to 'en' if no locale provided
+
 		const orderData = {
 			purchase_units: [
 				{
@@ -223,6 +230,12 @@ export async function createOrder(sellerId: string, bib: BibSale): Promise<{ err
 			],
 			intent: 'CAPTURE',
 			custom_id: bib.id,
+			application_context: {
+				user_action: 'PAY_NOW', // Enable immediate payment when customer returns to platform
+				shipping_preference: 'NO_SHIPPING', // Hide shipping info for digital/service products like race bibs
+				return_url: `${baseUrl}/${userLocale}/purchase/success`, // Where user goes after approving payment
+				cancel_url: `${baseUrl}/${userLocale}/marketplace`, // Where user goes if they cancel
+			},
 		}
 
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'

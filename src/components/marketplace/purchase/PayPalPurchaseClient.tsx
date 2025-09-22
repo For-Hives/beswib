@@ -206,7 +206,7 @@ export default function PayPalPurchaseClient({
 			setLoading(true)
 			setErrorMessage(null)
 
-			const res = await createSale(bib.id, sellerId)
+			const res = await createSale(bib.id, sellerId, locale)
 			if (!res.success || res.orderId == null || res.orderId === '') {
 				throw new Error(res.error ?? 'Failed to create sale')
 			}

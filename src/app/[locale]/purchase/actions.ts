@@ -60,7 +60,7 @@ export async function handlePaymentPageOpened(paymentIntentId: string, bibId: st
 }
 
 // New action to create sale: wraps salesCreate and returns orderId
-export async function createSale(bibId: string, sellerMerchantId: string) {
+export async function createSale(bibId: string, sellerMerchantId: string, locale?: string) {
 	const { userId } = await auth()
 	if (userId == null || userId === '') {
 		return { success: false, error: 'User is not authenticated.' }
@@ -71,6 +71,7 @@ export async function createSale(bibId: string, sellerMerchantId: string) {
 	try {
 		const { transaction, orderId } = await salesCreate({
 			sellerMerchantId,
+			locale,
 			buyerUserId: userId,
 			bibId,
 		})

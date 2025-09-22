@@ -4,6 +4,7 @@ export type SalesCreateInput = {
 	buyerUserId: string
 	sellerMerchantId: string // PayPal merchant id
 	bibId: string
+	locale?: string // User locale for PayPal return URLs
 }
 
 export type SalesCreateOutput = {
