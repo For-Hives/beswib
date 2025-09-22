@@ -186,7 +186,79 @@ export async function handleConsentRevoked(event: PayPalWebhookEvent) {
 
 // Interfaces moved to src/models/paypal.model
 
-export async function capturePayment(orderID: string): Promise<{ data?: PayPalCaptureResponse; error?: string }> {
+// Define interfaces for PayPal error response formats
+interface PayPalErrorDetail {
+	issue?: string
+	code?: string
+	description?: string
+	message?: string
+}
+
+interface PayPalErrorResponse {
+	name?: string
+	message?: string
+	details?: PayPalErrorDetail[]
+	error?: string
+	error_description?: string
+}
+
+/**
+ * Parses PayPal error responses to extract specific error codes
+ * PayPal errors can come in different formats depending on the API version
+ */
+function parsePayPalError(errorString: string): { errorCode?: string; description?: string } {
+	try {
+		// Try to parse as JSON first (most common format)
+		const cleanErrorString = errorString.replace('PayPal API error (4XX): ', '').replace('PayPal API error (5XX): ', '')
+
+		const errorData = JSON.parse(cleanErrorString) as PayPalErrorResponse
+
+		// Format 1: Direct error object with name
+		if (errorData.name != null && errorData.name !== '') {
+			return {
+				errorCode: errorData.name,
+				description: errorData.message ?? errorData.details?.[0]?.description,
+			}
+		}
+
+		// Format 2: Error with details array
+		if (errorData.details && Array.isArray(errorData.details) && errorData.details.length > 0) {
+			const firstDetail = errorData.details[0]
+			return {
+				errorCode: firstDetail.issue ?? firstDetail.code,
+				description: firstDetail.description ?? firstDetail.message,
+			}
+		}
+
+		// Format 3: Simple error object
+		if (errorData.error != null && errorData.error !== '') {
+			return {
+				errorCode: errorData.error,
+				description: errorData.error_description ?? errorData.message,
+			}
+		}
+	} catch {
+		// If not JSON, try to extract known error patterns
+		if (errorString.includes('INSTRUMENT_DECLINED')) {
+			return { errorCode: 'INSTRUMENT_DECLINED', description: 'The payment method was declined' }
+		}
+		if (errorString.includes('INSUFFICIENT_FUNDS')) {
+			return { errorCode: 'INSUFFICIENT_FUNDS', description: 'Insufficient funds in the account' }
+		}
+		if (errorString.includes('PAYER_ACCOUNT_RESTRICTED')) {
+			return { errorCode: 'PAYER_ACCOUNT_RESTRICTED', description: 'The payer account is restricted' }
+		}
+	}
+
+	return { description: errorString }
+}
+
+export async function capturePayment(orderID: string): Promise<{
+	data?: PayPalCaptureResponse
+	error?: string
+	errorCode?: string
+	isInstrumentDeclined?: boolean
+}> {
 	try {
 		const token = await getAccessToken()
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
@@ -199,8 +271,25 @@ export async function capturePayment(orderID: string): Promise<{ data?: PayPalCa
 		})
 
 		if (!response.ok) {
-			const error = (await response.json()) as { message: string }
-			throw new Error(JSON.stringify(error))
+			const errorResponse = (await response.json()) as { message: string }
+			const errorString = JSON.stringify(errorResponse)
+
+			// Parse PayPal error response for specific error codes
+			const parsedError = parsePayPalError(errorString)
+			const isInstrumentDeclined = parsedError.errorCode === 'INSTRUMENT_DECLINED'
+
+			console.warn('PayPal capture error:', {
+				originalError: errorString,
+				orderID,
+				isInstrumentDeclined,
+				errorCode: parsedError.errorCode,
+			})
+
+			return {
+				isInstrumentDeclined,
+				errorCode: parsedError.errorCode,
+				error: parsedError.description ?? errorString,
+			}
 		}
 
 		const data = (await response.json()) as PayPalCaptureResponse

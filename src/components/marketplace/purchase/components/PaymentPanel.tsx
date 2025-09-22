@@ -42,6 +42,10 @@ interface PaymentPanelProps {
 	onError: (err: Record<string, unknown>) => void
 	/** PayPal cancel handler */
 	onCancel: () => void
+	/** Whether payment method was declined */
+	isInstrumentDeclined?: boolean
+	/** Handler for payment restart after instrument declined */
+	onPaymentRestart?: () => void
 }
 
 /**

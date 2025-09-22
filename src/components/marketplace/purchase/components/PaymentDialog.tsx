@@ -53,6 +53,10 @@ interface PaymentDialogProps {
 	onError: (err: Record<string, unknown>) => void
 	/** PayPal cancel handler */
 	onCancel: () => void
+	/** Whether payment method was declined */
+	isInstrumentDeclined?: boolean
+	/** Handler for payment restart after instrument declined */
+	onPaymentRestart?: () => void
 }
 
 /**
@@ -61,6 +65,7 @@ interface PaymentDialogProps {
  */
 export default function PaymentDialog({
 	successMessage,
+	onPaymentRestart,
 	onError,
 	onCreateOrder,
 	onClose,
@@ -70,6 +75,7 @@ export default function PaymentDialog({
 	loading,
 	isProfileComplete,
 	isOpen,
+	isInstrumentDeclined,
 	eventData,
 	errorMessage,
 	bib,
@@ -147,6 +153,8 @@ export default function PaymentDialog({
 	// Show error dialog
 	if (errorMessage != null && errorMessage !== '') {
 		const isCancelled = errorMessage?.toLowerCase().includes('cancel')
+		const isDeclined = isInstrumentDeclined ?? errorMessage.toLowerCase().includes('declined')
+
 		return (
 			<AlertDialog open={isOpen}>
 				<AlertDialogContent className="sm:max-w-md">
@@ -154,11 +162,17 @@ export default function PaymentDialog({
 						<div className="mb-4 flex items-center justify-center">
 							<div
 								className={`rounded-full p-3 ${
-									isCancelled ? 'bg-orange-100 dark:bg-orange-900/20' : 'bg-red-100 dark:bg-red-900/20'
+									isCancelled
+										? 'bg-orange-100 dark:bg-orange-900/20'
+										: isDeclined
+											? 'bg-yellow-100 dark:bg-yellow-900/20'
+											: 'bg-red-100 dark:bg-red-900/20'
 								}`}
 							>
 								{isCancelled ? (
 									<XCircle className="h-8 w-8 text-orange-600 dark:text-orange-400" />
+								) : isDeclined ? (
+									<AlertCircle className="h-8 w-8 text-yellow-600 dark:text-yellow-400" />
 								) : (
 									<AlertCircle className="h-8 w-8 text-red-600 dark:text-red-400" />
 								)}
@@ -166,18 +180,30 @@ export default function PaymentDialog({
 						</div>
 						<AlertDialogTitle
 							className={`text-center ${
-								isCancelled ? 'text-orange-600 dark:text-orange-400' : 'text-red-600 dark:text-red-400'
+								isCancelled
+									? 'text-orange-600 dark:text-orange-400'
+									: isDeclined
+										? 'text-yellow-600 dark:text-yellow-400'
+										: 'text-red-600 dark:text-red-400'
 							}`}
 						>
-							{isCancelled ? paymentT.paymentCancelled : paymentT.paymentError}
+							{isCancelled ? paymentT.paymentCancelled : isDeclined ? 'Payment Method Declined' : paymentT.paymentError}
 						</AlertDialogTitle>
 						<AlertDialogDescription className="text-center">
-							{isCancelled ? paymentT.paymentCancelledMessage : errorMessage}
+							{isCancelled
+								? paymentT.paymentCancelledMessage
+								: isDeclined
+									? 'Your payment method was declined. Please try with a different payment method or funding source.'
+									: errorMessage}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter className="gap-2 sm:justify-center">
 						<AlertDialogCancel onClick={onClose}>{paymentT.contactSupport}</AlertDialogCancel>
-						<AlertDialogAction onClick={onClose}>{paymentT.tryAgain}</AlertDialogAction>
+						{isDeclined && onPaymentRestart ? (
+							<AlertDialogAction onClick={onPaymentRestart}>Try Different Payment Method</AlertDialogAction>
+						) : (
+							<AlertDialogAction onClick={onClose}>{paymentT.tryAgain}</AlertDialogAction>
+						)}
 					</AlertDialogFooter>
 				</AlertDialogContent>
 			</AlertDialog>
