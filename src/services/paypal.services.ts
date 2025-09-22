@@ -288,11 +288,16 @@ export async function capturePayment(orderID: string): Promise<{
 	try {
 		const token = await getAccessToken()
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
-		const response = await fetch(`${paypalApiUrl}/v2/checkout/orders/${orderID}/capture`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
+
+		const result = await paypalApiCall<PayPalCaptureResponse>(
+			`${paypalApiUrl}/v2/checkout/orders/${orderID}/capture`,
+			{
+				method: 'POST',
+				headers: {
+					'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`,
+				},
 			},
 		})
 
@@ -398,11 +403,17 @@ export async function createOrder(
 		}
 
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
-		const response = await fetch(`${paypalApiUrl}/v2/checkout/orders`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
+
+		const result = await paypalApiCall<PayPalOrderResponse>(
+			`${paypalApiUrl}/v2/checkout/orders`,
+			{
+				method: 'POST',
+				headers: {
+					'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify(orderData),
 			},
 			body: JSON.stringify(orderData),
 		})
@@ -428,6 +439,7 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 		const response = await fetch(`${paypalApiUrl}/v2/customer/partner-referrals/${referralId}`, {
 			method: 'GET',
 			headers: {
+				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 			},
@@ -481,6 +493,7 @@ export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?:
 		const response = await fetch(`${paypalApiUrl}/v1/notifications/webhooks`, {
 			method: 'GET',
 			headers: {
+				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 			},
@@ -562,6 +575,7 @@ export async function setupPayPalWebhooks(): Promise<{ error?: string; success?:
 		const response = await fetch(`${paypalApiUrl}/v1/notifications/webhooks`, {
 			method: 'POST',
 			headers: {
+				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 			},
@@ -645,6 +659,7 @@ export async function getMerchantIntegrationStatus(
 			{
 				method: 'GET',
 				headers: {
+					'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${token}`,
 				},
