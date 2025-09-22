@@ -82,6 +82,7 @@ export default function PayPalPurchaseClient({
 	const [isPanelOpen, setIsPanelOpen] = useState(false)
 	const [lockExpiration, setLockExpiration] = useState<DateTime | null>(null)
 	const [secondsLeft, setSecondsLeft] = useState<number | null>(null)
+	const [isInstrumentDeclined, setIsInstrumentDeclined] = useState<boolean>(false)
 	const [loading, setLoading] = useState(false)
 	const { isSignedIn } = useUser()
 	const router = useRouter()
@@ -231,6 +232,15 @@ export default function PayPalPurchaseClient({
 
 				// Pass the lock key (lockedAtParam) to enforce a last DB check server-side
 				const res = await captureOrder(data.orderID, lockedAtParam ?? null)
+
+				// Handle instrument declined error specifically
+				if (res.isInstrumentDeclined === true || res.needsPaymentRestart === true) {
+					setIsInstrumentDeclined(true)
+					setErrorMessage(res.error ?? 'Your payment method was declined. Please try a different payment method.')
+					console.warn('Payment instrument declined, allowing retry with different funding source')
+					return // Don't redirect, allow user to retry
+				}
+
 				if (res.error != null && res.error !== undefined && res.error !== '') {
 					throw new Error(res.error)
 				}
@@ -243,6 +253,7 @@ export default function PayPalPurchaseClient({
 				const errorMsg = 'Error capturing payment: ' + (error instanceof Error ? error.message : 'Unknown error')
 				console.error('Capture error:', error instanceof Error ? error.message : 'Unknown error')
 				setErrorMessage(errorMsg)
+				setIsInstrumentDeclined(false) // Reset instrument declined flag on other errors
 			} finally {
 				setLoading(false)
 			}
@@ -254,7 +265,17 @@ export default function PayPalPurchaseClient({
 		console.error('PayPal Error:', _err)
 		const message = typeof _err.message === 'string' ? _err.message : 'An unknown error occurred'
 		setErrorMessage('PayPal Error: ' + message)
+		setIsInstrumentDeclined(false) // Reset flag on PayPal SDK errors
 		setLoading(false)
+	}, [])
+
+	// Function to restart payment flow after instrument declined
+	const handlePaymentRestart = useCallback(() => {
+		console.info('Restarting payment flow after instrument declined')
+		setIsInstrumentDeclined(false)
+		setErrorMessage(null)
+		setSuccessMessage(null)
+		// The PayPal buttons will automatically allow selecting a different funding source
 	}, [])
 
 	const onCancel = useCallback(() => {
@@ -360,6 +381,8 @@ export default function PayPalPurchaseClient({
 				onApprove={onApprove}
 				onError={onError}
 				onCancel={onCancel}
+				isInstrumentDeclined={isInstrumentDeclined}
+				onPaymentRestart={handlePaymentRestart}
 			/>
 		</div>
 	)

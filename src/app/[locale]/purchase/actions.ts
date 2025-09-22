@@ -85,7 +85,17 @@ export async function createSale(bibId: string, sellerMerchantId: string, locale
 }
 
 // Server-side wrapper to capture a PayPal order (prevents exposing client secret to the browser)
-export async function captureOrder(orderId: string, lockKey: string | null = null) {
+export async function captureOrder(
+	orderId: string,
+	lockKey: string | null = null
+): Promise<{
+	error?: string
+	isInstrumentDeclined?: boolean
+	needsPaymentRestart?: boolean
+	errorCode?: string
+	debugInfo?: unknown
+	data?: unknown
+}> {
 	if (!orderId) return { error: 'Missing orderId' }
 	try {
 		// Verify the current user owns the order/transaction
@@ -131,6 +141,17 @@ export async function captureOrder(orderId: string, lockKey: string | null = nul
 
 		// All checks passed, proceed to capture
 		const res = await capturePayment(orderId)
+
+		// If instrument declined, add specific flag for frontend handling
+		if (res.isInstrumentDeclined === true) {
+			return {
+				...res,
+				needsPaymentRestart: true,
+				isInstrumentDeclined: true,
+				error: res.error ?? 'Your payment method was declined. Please select a different payment method.',
+			}
+		}
+
 		return res
 	} catch (error) {
 		console.error('Error capturing order:', error)
