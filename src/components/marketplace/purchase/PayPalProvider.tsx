@@ -21,6 +21,7 @@ export function PayPalProvider({
 				'disable-funding': '',
 				currency: 'EUR',
 				components: 'buttons',
+				commit: true,
 				clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
 			}}
 		>
