@@ -183,9 +183,16 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 
 	const paymentsReceivable = merchantStatusQuery.data?.payments_receivable === true
 	const emailConfirmed = merchantStatusQuery.data?.primary_email_confirmed === true
-	const hasOauthIntegrations = Array.isArray(merchantStatusQuery.data?.oauth_integrations)
-		? (merchantStatusQuery.data?.oauth_integrations).length > 0
-		: false
+	// Avoid unsafe optional chaining by storing the value before accessing length
+	const oauthIntegrations = merchantStatusQuery.data?.oauth_integrations
+	const hasOauthIntegrations = Array.isArray(oauthIntegrations) && oauthIntegrations.length > 0
+
+	// Extracted icon element to avoid nested ternary in JSX
+	const oauthStatusIcon = hasOauthIntegrations ? (
+		<CircleCheckBig className="h-4 w-4" />
+	) : (
+		<XCircle className="h-4 w-4" />
+	)
 
 	return (
 		<div className="space-y-6">
@@ -295,13 +302,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 										}`}
 									>
 										<span>{t.paypalLinkInfo.thirdPartyPermissions}</span>
-										{!merchantStatusQuery.isLoading ? (
-											hasOauthIntegrations ? (
-												<CircleCheckBig className="h-4 w-4" />
-											) : (
-												<XCircle className="h-4 w-4" />
-											)
-										) : null}
+										{!merchantStatusQuery.isLoading ? oauthStatusIcon : null}
 									</Badge>
 								</TooltipTrigger>
 								<TooltipContent side="right">
