@@ -289,15 +289,12 @@ export async function capturePayment(orderID: string): Promise<{
 		const token = await getAccessToken()
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
 
-		const result = await paypalApiCall<PayPalCaptureResponse>(
-			`${paypalApiUrl}/v2/checkout/orders/${orderID}/capture`,
-			{
-				method: 'POST',
-				headers: {
-					'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${token}`,
-				},
+		const response = await fetch(`${paypalApiUrl}/v2/checkout/orders/${orderID}/capture`, {
+			method: 'POST',
+			headers: {
+				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
 			},
 		})
 
@@ -404,16 +401,12 @@ export async function createOrder(
 
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
 
-		const result = await paypalApiCall<PayPalOrderResponse>(
-			`${paypalApiUrl}/v2/checkout/orders`,
-			{
-				method: 'POST',
-				headers: {
-					'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify(orderData),
+		const response = await fetch(`${paypalApiUrl}/v2/checkout/orders`, {
+			method: 'POST',
+			headers: {
+				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
 			},
 			body: JSON.stringify(orderData),
 		})
