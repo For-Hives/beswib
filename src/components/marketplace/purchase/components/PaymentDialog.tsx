@@ -187,20 +187,24 @@ export default function PaymentDialog({
 										: 'text-red-600 dark:text-red-400'
 							}`}
 						>
-							{isCancelled ? paymentT.paymentCancelled : isDeclined ? 'Payment Method Declined' : paymentT.paymentError}
+							{isCancelled
+								? paymentT.paymentCancelled
+								: isDeclined
+									? paymentT.paymentMethodDeclined
+									: paymentT.paymentError}
 						</AlertDialogTitle>
 						<AlertDialogDescription className="text-center">
 							{isCancelled
 								? paymentT.paymentCancelledMessage
 								: isDeclined
-									? 'Your payment method was declined. Please try with a different payment method or funding source.'
+									? paymentT.paymentDeclinedMessage
 									: errorMessage}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter className="gap-2 sm:justify-center">
 						<AlertDialogCancel onClick={onClose}>{paymentT.contactSupport}</AlertDialogCancel>
 						{isDeclined && onPaymentRestart ? (
-							<AlertDialogAction onClick={onPaymentRestart}>Try Different Payment Method</AlertDialogAction>
+							<AlertDialogAction onClick={onPaymentRestart}>{paymentT.tryDifferentPaymentMethod}</AlertDialogAction>
 						) : (
 							<AlertDialogAction onClick={onClose}>{paymentT.tryAgain}</AlertDialogAction>
 						)}
