@@ -184,7 +184,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	const paymentsReceivable = merchantStatusQuery.data?.payments_receivable === true
 	const emailConfirmed = merchantStatusQuery.data?.primary_email_confirmed === true
 	const hasOauthIntegrations = Array.isArray(merchantStatusQuery.data?.oauth_integrations)
-		? (merchantStatusQuery.data?.oauth_integrations as unknown[]).length > 0
+		? (merchantStatusQuery.data?.oauth_integrations).length > 0
 		: false
 
 	return (
