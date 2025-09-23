@@ -25,7 +25,9 @@ export default function EventDetailsSection({ register, locale, errors }: Readon
 						</Label>
 						<Input
 							id="distanceKm"
-							{...register('distanceKm', { valueAsNumber: true })}
+							{...register('distanceKm', {
+								setValueAs: (v: string) => (v === '' || v == null ? undefined : Number(v)),
+							})}
 							placeholder={translations.event.fields.distance.placeholder}
 							step="0.001"
 							type="number"
@@ -40,7 +42,9 @@ export default function EventDetailsSection({ register, locale, errors }: Readon
 						</Label>
 						<Input
 							id="elevationGainM"
-							{...register('elevationGainM', { valueAsNumber: true })}
+							{...register('elevationGainM', {
+								setValueAs: (v: string) => (v === '' || v == null ? undefined : Number(v)),
+							})}
 							placeholder={translations.event.fields.elevationGain.placeholder}
 							type="number"
 						/>
@@ -54,7 +58,9 @@ export default function EventDetailsSection({ register, locale, errors }: Readon
 						</Label>
 						<Input
 							id="officialStandardPrice"
-							{...register('officialStandardPrice', { valueAsNumber: true })}
+							{...register('officialStandardPrice', {
+								setValueAs: (v: string) => (v === '' || v == null ? undefined : Number(v)),
+							})}
 							placeholder={translations.event.fields.officialPrice.placeholder}
 							step="0.01"
 							type="number"
@@ -69,7 +75,9 @@ export default function EventDetailsSection({ register, locale, errors }: Readon
 						</Label>
 						<Input
 							id="participants"
-							{...register('participants', { valueAsNumber: true })}
+							{...register('participants', {
+								setValueAs: (v: string) => (v === '' || v == null ? undefined : Number(v)),
+							})}
 							placeholder={translations.event.fields.participantCount.placeholder}
 							type="number"
 						/>
