@@ -207,10 +207,20 @@ interface PayPalErrorResponse {
  * PayPal errors can come in different formats depending on the API version
  */
 function parsePayPalError(errorString: string): { errorCode?: string; description?: string } {
-	try {
-		// Try to parse as JSON first (most common format)
-		const cleanErrorString = errorString.replace('PayPal API error (4XX): ', '').replace('PayPal API error (5XX): ', '')
+	// First, check for common error patterns in plain text (handles both JSON and plain text responses)
+	if (errorString.includes('INSTRUMENT_DECLINED')) {
+		return { errorCode: 'INSTRUMENT_DECLINED', description: 'The payment method was declined' }
+	}
+	if (errorString.includes('INSUFFICIENT_FUNDS')) {
+		return { errorCode: 'INSUFFICIENT_FUNDS', description: 'Insufficient funds in the account' }
+	}
+	if (errorString.includes('PAYER_ACCOUNT_RESTRICTED')) {
+		return { errorCode: 'PAYER_ACCOUNT_RESTRICTED', description: 'The payer account is restricted' }
+	}
 
+	try {
+		// Try to parse as JSON for structured error responses
+		const cleanErrorString = errorString.replace('PayPal API error (4XX): ', '').replace('PayPal API error (5XX): ', '')
 		const errorData = JSON.parse(cleanErrorString) as PayPalErrorResponse
 
 		// Format 1: Direct error object with name
@@ -238,19 +248,24 @@ function parsePayPalError(errorString: string): { errorCode?: string; descriptio
 			}
 		}
 	} catch {
-		// If not JSON, try to extract known error patterns
-		if (errorString.includes('INSTRUMENT_DECLINED')) {
-			return { errorCode: 'INSTRUMENT_DECLINED', description: 'The payment method was declined' }
-		}
-		if (errorString.includes('INSUFFICIENT_FUNDS')) {
-			return { errorCode: 'INSUFFICIENT_FUNDS', description: 'Insufficient funds in the account' }
-		}
-		if (errorString.includes('PAYER_ACCOUNT_RESTRICTED')) {
-			return { errorCode: 'PAYER_ACCOUNT_RESTRICTED', description: 'The payer account is restricted' }
-		}
+		// If JSON parsing fails, treat as plain text error
 	}
 
 	return { description: errorString }
+}
+
+/**
+ * Validates PayPal order ID format to prevent SSRF attacks
+ * PayPal order IDs follow the pattern: ORDER-[17-30 alphanumeric chars]
+ */
+function isValidPayPalOrderId(orderId: string): boolean {
+	if (!orderId || typeof orderId !== 'string') {
+		return false
+	}
+
+	// PayPal order IDs are typically 17 chars (old format) or ORDER-[alphanumeric] (new format)
+	// This prevents path traversal and other SSRF attempts
+	return /^[0-9A-Z]{17}$|^ORDER-[A-Z0-9]{10,30}$/i.test(orderId)
 }
 
 export async function capturePayment(orderID: string): Promise<{
@@ -259,6 +274,13 @@ export async function capturePayment(orderID: string): Promise<{
 	errorCode?: string
 	isInstrumentDeclined?: boolean
 }> {
+	// Validate orderID format to prevent SSRF attacks
+	if (!isValidPayPalOrderId(orderID)) {
+		console.error('Invalid PayPal order ID format:', orderID)
+		return {
+			error: 'Invalid PayPal order ID format',
+		}
+	}
 	try {
 		const token = await getAccessToken()
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
@@ -271,8 +293,19 @@ export async function capturePayment(orderID: string): Promise<{
 		})
 
 		if (!response.ok) {
-			const errorResponse = (await response.json()) as { message: string }
-			const errorString = JSON.stringify(errorResponse)
+			let errorString: string
+
+			// Get response as text first, then try to parse as JSON if possible
+			const responseText = await response.text()
+
+			try {
+				// Try to parse as JSON
+				const errorResponse = JSON.parse(responseText) as unknown
+				errorString = JSON.stringify(errorResponse)
+			} catch {
+				// If not valid JSON, use the text directly
+				errorString = responseText
+			}
 
 			// Parse PayPal error response for specific error codes
 			const parsedError = parsePayPalError(errorString)
