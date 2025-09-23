@@ -129,7 +129,7 @@ export default function EventCreationForm({ onSuccess, onCancel, locale }: Reado
 					<input
 						type="hidden"
 						value="false"
-						{...register('isPartnered', { setValueAs: v => v === true || v === 'true' })}
+						{...register('isPartnered')}
 					/>
 					{/* Faker Button - Development only */}
 					<FakerButton setEventOptions={setEventOptions} setValue={setValue} />
