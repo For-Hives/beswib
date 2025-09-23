@@ -86,8 +86,8 @@ export async function handleOnboardingCompleted(event: PayPalWebhookEvent) {
 		throw new Error('Invalid tracking ID or missing merchant ID')
 	}
 
-	// Support both legacy format: seller_<userId>_<timestamp> and new format: <userId>
-	const userId = trackingId.startsWith('seller_') ? trackingId.split('_')[1] : trackingId
+	// Use trackingId directly as the userId (legacy formats removed)
+	const userId = trackingId
 	if (userId == null) {
 		throw new Error('Could not extract user ID from tracking ID')
 	}
@@ -117,8 +117,8 @@ export async function handleSellerConsentGranted(event: PayPalWebhookEvent) {
 		throw new Error('Invalid tracking ID or missing merchant ID')
 	}
 
-	// Support both legacy format: seller_<userId>_<timestamp> and new format: <userId>
-	const userId = trackingId.startsWith('seller_') ? trackingId.split('_')[1] : trackingId
+	// Use trackingId directly as the userId (legacy formats removed)
+	const userId = trackingId
 	if (userId == null) {
 		throw new Error('Could not extract user ID from tracking ID')
 	}
