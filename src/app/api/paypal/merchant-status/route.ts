@@ -25,7 +25,9 @@ export async function GET(request: NextRequest) {
 
 		// Best-effort: if KYC is complete, persist on user
 		const status = result.status
-		const kycComplete = status.payments_receivable === true && status.primary_email_confirmed === true
+		const hasOauthIntegrations = Array.isArray(status.oauth_integrations) ? status.oauth_integrations.length > 0 : false
+		const kycComplete =
+			status.payments_receivable === true && status.primary_email_confirmed === true && hasOauthIntegrations
 
 		// Fire and forget (do not block API)
 		void updateUser(userId, { paypal_kyc: kycComplete }).catch(() => {})
