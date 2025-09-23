@@ -51,7 +51,10 @@
 			"contactSupport": "Contact Support",
 			"orderProcessing": "Processing Order...",
 			"paymentProcessing": "Processing Payment...",
-			"closeDialog": "Close"
+			"closeDialog": "Close",
+			"paymentMethodDeclined": "Payment Method Declined",
+			"paymentDeclinedMessage": "Your payment method was declined. Please try with a different payment method or funding source.",
+			"tryDifferentPaymentMethod": "Try Different Payment Method"
 		},
 		"form": {
 			"valid": "Valid"
@@ -274,7 +277,10 @@
 			"contactSupport": "Contacter le support",
 			"orderProcessing": "Traitement de la commande...",
 			"paymentProcessing": "Traitement du paiement...",
-			"closeDialog": "Fermer"
+			"closeDialog": "Fermer",
+			"paymentMethodDeclined": "Méthode de paiement refusée",
+			"paymentDeclinedMessage": "Votre méthode de paiement a été refusée. Veuillez essayer avec une méthode de paiement ou une source de financement différente.",
+			"tryDifferentPaymentMethod": "Essayer une méthode de paiement différente"
 		},
 		"form": {
 			"valid": "Valide"
@@ -472,7 +478,10 @@
 			"contactSupport": "Contactar soporte",
 			"orderProcessing": "Procesando pedido...",
 			"paymentProcessing": "Procesando pago...",
-			"closeDialog": "Cerrar"
+			"closeDialog": "Cerrar",
+			"paymentMethodDeclined": "Método de pago rechazado",
+			"paymentDeclinedMessage": "Su método de pago fue rechazado. Por favor intente con un método de pago o fuente de financiamiento diferente.",
+			"tryDifferentPaymentMethod": "Intentar método de pago diferente"
 		},
 		"form": {
 			"valid": "Válido"
@@ -676,7 +685,10 @@
 			"contactSupport": "Contatta il supporto",
 			"orderProcessing": "Elaborazione ordine...",
 			"paymentProcessing": "Elaborazione pagamento...",
-			"closeDialog": "Chiudi"
+			"closeDialog": "Chiudi",
+			"paymentMethodDeclined": "Metodo di pagamento rifiutato",
+			"paymentDeclinedMessage": "Il tuo metodo di pagamento è stato rifiutato. Si prega di provare con un metodo di pagamento o una fonte di finanziamento diversa.",
+			"tryDifferentPaymentMethod": "Prova un metodo di pagamento diverso"
 		},
 		"form": {
 			"valid": "Valido"
@@ -880,7 +892,10 @@
 			"contactSupport": "Support kontaktieren",
 			"orderProcessing": "Bestellung wird verarbeitet...",
 			"paymentProcessing": "Zahlung wird verarbeitet...",
-			"closeDialog": "Schließen"
+			"closeDialog": "Schließen",
+			"paymentMethodDeclined": "Zahlungsmethode abgelehnt",
+			"paymentDeclinedMessage": "Ihre Zahlungsmethode wurde abgelehnt. Bitte versuchen Sie es mit einer anderen Zahlungsmethode oder Finanzierungsquelle.",
+			"tryDifferentPaymentMethod": "Andere Zahlungsmethode versuchen"
 		},
 		"form": {
 			"valid": "Gültig"
@@ -1084,7 +1099,10 @@
 			"contactSupport": "Contactează suportul",
 			"orderProcessing": "Se procesează comanda...",
 			"paymentProcessing": "Se procesează plata...",
-			"closeDialog": "Închide"
+			"closeDialog": "Închide",
+			"paymentMethodDeclined": "Metoda de plată respinsă",
+			"paymentDeclinedMessage": "Metoda dvs. de plată a fost respinsă. Vă rugăm să încercați cu o metodă de plată sau sursă de finanțare diferită.",
+			"tryDifferentPaymentMethod": "Încercați o metodă de plată diferită"
 		},
 		"form": {
 			"valid": "Valid"
@@ -1267,7 +1285,10 @@
 			"contactSupport": "Contactar suporte",
 			"orderProcessing": "A processar pedido...",
 			"paymentProcessing": "A processar pagamento...",
-			"closeDialog": "Fechar"
+			"closeDialog": "Fechar",
+			"paymentMethodDeclined": "Método de pagamento recusado",
+			"paymentDeclinedMessage": "O seu método de pagamento foi recusado. Por favor, tente com um método de pagamento ou fonte de financiamento diferente.",
+			"tryDifferentPaymentMethod": "Tentar método de pagamento diferente"
 		},
 		"form": {
 			"valid": "Válido"
@@ -1450,7 +1471,10 @@
 			"contactSupport": "Contact opnemen met ondersteuning",
 			"orderProcessing": "Bestelling verwerken...",
 			"paymentProcessing": "Betaling verwerken...",
-			"closeDialog": "Sluiten"
+			"closeDialog": "Sluiten",
+			"paymentMethodDeclined": "Betaalmethode geweigerd",
+			"paymentDeclinedMessage": "Uw betaalmethode is geweigerd. Probeer het met een andere betaalmethode of financieringsbron.",
+			"tryDifferentPaymentMethod": "Probeer een andere betaalmethode"
 		},
 		"form": {
 			"valid": "Geldig"
@@ -1654,7 +1678,10 @@
 			"contactSupport": "지원팀 문의",
 			"orderProcessing": "주문 처리 중...",
 			"paymentProcessing": "결제 처리 중...",
-			"closeDialog": "닫기"
+			"closeDialog": "닫기",
+			"paymentMethodDeclined": "결제 수단이 거부됨",
+			"paymentDeclinedMessage": "결제 수단이 거부되었습니다. 다른 결제 수단이나 자금 조달원으로 시도해 주세요.",
+			"tryDifferentPaymentMethod": "다른 결제 수단 시도"
 		},
 		"form": {
 			"valid": "유효함"

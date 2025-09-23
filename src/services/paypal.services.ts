@@ -186,6 +186,10 @@ export async function handleConsentRevoked(event: PayPalWebhookEvent) {
 
 // Interfaces moved to src/models/paypal.model
 
+// Constants for PayPal API error prefixes
+const PAYPAL_4XX_ERROR_PREFIX = 'PayPal API error (4XX): '
+const PAYPAL_5XX_ERROR_PREFIX = 'PayPal API error (5XX): '
+
 // Define interfaces for PayPal error response formats
 interface PayPalErrorDetail {
 	issue?: string
@@ -220,7 +224,7 @@ function parsePayPalError(errorString: string): { errorCode?: string; descriptio
 
 	try {
 		// Try to parse as JSON for structured error responses
-		const cleanErrorString = errorString.replace('PayPal API error (4XX): ', '').replace('PayPal API error (5XX): ', '')
+		const cleanErrorString = errorString.replace(PAYPAL_4XX_ERROR_PREFIX, '').replace(PAYPAL_5XX_ERROR_PREFIX, '')
 		const errorData = JSON.parse(cleanErrorString) as PayPalErrorResponse
 
 		// Format 1: Direct error object with name
