@@ -77,5 +77,8 @@ export interface PayPalMerchantIntegrationStatus {
 	merchant_id?: string
 	payments_receivable?: boolean
 	primary_email_confirmed?: boolean
+	// OAUTH_INTEGRATIONS array from PayPal merchant integration status
+	// Used to verify third-party permissions have been granted to the partner
+	oauth_integrations?: unknown[]
 	products?: PayPalMerchantProduct[]
 }

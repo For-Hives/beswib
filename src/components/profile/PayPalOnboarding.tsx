@@ -76,26 +76,22 @@ function StatusBadge({ t, hasMerchantId }: { hasMerchantId: boolean; t: StatusTe
 }
 
 // Panel showing the merchant ID once available
-function MerchantIdPanel({ merchantId }: { merchantId: string }) {
+function MerchantIdPanel({ merchantId, label, info }: { merchantId: string; label: string; info: string }) {
 	return (
 		<div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-900/20">
 			<p className="text-sm text-blue-800 dark:text-blue-300">
-				<strong>Merchant ID:</strong> {merchantId}
+				<strong>{label}:</strong> {merchantId}
 			</p>
-			<p className="mt-1 text-xs text-blue-600 dark:text-blue-400">
-				Your PayPal merchant ID has been automatically retrieved and saved.
-			</p>
+			<p className="mt-1 text-xs text-blue-600 dark:text-blue-400">{info}</p>
 		</div>
 	)
 }
 
-function PendingLinkNotice() {
+function PendingLinkNotice({ linkingMayTakeTime }: { linkingMayTakeTime: string }) {
 	return (
 		<div className="flex flex-col items-center justify-center space-y-2 py-6">
 			<RefreshCw className="mb-2 h-6 w-6 animate-spin text-blue-600" />
-			<span className="text-sm font-medium text-blue-700 dark:text-blue-300">
-				It could take a few minutes to link your PayPal account.
-			</span>
+			<span className="text-sm font-medium text-blue-700 dark:text-blue-300">{linkingMayTakeTime}</span>
 		</div>
 	)
 }
@@ -174,7 +170,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 		return (
 			<Alert variant="destructive">
 				<XCircle className="h-4 w-4" />
-				<AlertDescription>{formatError(error, 'Failed to load user data. Please refresh the page.')}</AlertDescription>
+				<AlertDescription>{formatError(error, t.errors.loadUserFailed)}</AlertDescription>
 			</Alert>
 		)
 	}
@@ -187,13 +183,16 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 
 	const paymentsReceivable = merchantStatusQuery.data?.payments_receivable === true
 	const emailConfirmed = merchantStatusQuery.data?.primary_email_confirmed === true
+	const hasOauthIntegrations = Array.isArray(merchantStatusQuery.data?.oauth_integrations)
+		? (merchantStatusQuery.data?.oauth_integrations as unknown[]).length > 0
+		: false
 
 	return (
 		<div className="space-y-6">
 			{/* Status Overview */}
 			<Card className="relative">
 				<CardHeader className="">
-					<CardTitle>PayPal Account Status</CardTitle>
+					<CardTitle>{t.paypalStatusTitle}</CardTitle>
 					<CardDescription>{t.paypalConnectionStatus}</CardDescription>
 					<div>
 						<StatusBadge hasMerchantId={hasMerchantId} t={t} />
@@ -284,7 +283,35 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 								</TooltipContent>
 							</Tooltip>
 
-							{/* 4 - Refresh button */}
+							{/* 4 - Third-party permissions (OAuth Integrations) */}
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Badge
+										variant={hasOauthIntegrations ? 'default' : 'destructive'}
+										className={`flex w-full items-center justify-between ${
+											hasOauthIntegrations
+												? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
+												: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
+										}`}
+									>
+										<span>{t.paypalLinkInfo.thirdPartyPermissions}</span>
+										{!merchantStatusQuery.isLoading ? (
+											hasOauthIntegrations ? (
+												<CircleCheckBig className="h-4 w-4" />
+											) : (
+												<XCircle className="h-4 w-4" />
+											)
+										) : null}
+									</Badge>
+								</TooltipTrigger>
+								<TooltipContent side="right">
+									{hasOauthIntegrations
+										? t.paypalLinkInfo.thirdPartyPermissionsTooltipOk
+										: t.paypalLinkInfo.thirdPartyPermissionsTooltipMissing}
+								</TooltipContent>
+							</Tooltip>
+
+							{/* 5 - Refresh button */}
 							<div className="pt-1">
 								<Button
 									variant="outline"
@@ -317,23 +344,31 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 					<CardDescription>{t.onboardingDescription}</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
-					{hasMerchantId && merchantStatusQuery.isSuccess && paymentsReceivable === false ? (
+					{hasMerchantId && merchantStatusQuery.isSuccess && (paymentsReceivable === false || !hasOauthIntegrations) ? (
 						<Alert variant="destructive">
 							<XCircle className="h-4 w-4" />
-							<AlertDescription>{t.paypalNotReadyAlert}</AlertDescription>
+							<AlertDescription>
+								{!hasOauthIntegrations ? t.paypalOauthMissingAlert : t.paypalNotReadyAlert}
+							</AlertDescription>
 						</Alert>
 					) : null}
 					{/* PayPal Merchant ID Display (if available) */}
-					{hasMerchantId && <MerchantIdPanel merchantId={user.paypalMerchantId as string} />}
+					{hasMerchantId && (
+						<MerchantIdPanel
+							merchantId={user.paypalMerchantId as string}
+							label={t.paypalMerchantId}
+							info={t.merchantIdSavedInfo}
+						/>
+					)}
 
 					{/* Connect/Disconnect Button or Loader */}
 					{isOnboardingPending ? (
 						<Button className="w-full" disabled>
 							<RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-							Connecting...
+							{t.connecting}
 						</Button>
 					) : isOnboardingSuccess && !hasMerchantId ? (
-						<PendingLinkNotice />
+						<PendingLinkNotice linkingMayTakeTime={t.linkingMayTakeTime} />
 					) : hasMerchantId ? (
 						<>
 							<Button
@@ -368,7 +403,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 								<Alert variant="destructive">
 									<XCircle className="h-4 w-4" />
 									<AlertDescription>
-										{formatError(disconnectMutation.error, 'Failed to disconnect PayPal account')}
+										{formatError(disconnectMutation.error, t.errors.disconnectFailed)}
 									</AlertDescription>
 								</Alert>
 							) : null}
@@ -385,7 +420,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 							<ExternalLink className="h-4 w-4" />
 							<AlertDescription>
 								<div className="space-y-2">
-									<p>PayPal onboarding window opened. If it didn&apos;t open automatically:</p>
+									<p>{t.onboardingWindowOpened}</p>
 									<a
 										className="inline-flex items-center text-sm font-medium text-blue-600 underline hover:text-blue-800"
 										href={actionUrl}
@@ -406,7 +441,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 				<Alert variant="destructive">
 					<XCircle className="h-4 w-4" />
 					<AlertDescription>
-						{formatError(onboardingMutation.error, 'Failed to initiate PayPal onboarding')}
+						{formatError(onboardingMutation.error, t.errors.initiateOnboardingFailed)}
 					</AlertDescription>
 				</Alert>
 			) : null}
