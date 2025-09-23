@@ -126,11 +126,7 @@ export default function EventCreationForm({ onSuccess, onCancel, locale }: Reado
 					onSubmit={handleSubmit(onSubmit, onInvalid)}
 				>
 					{/* Hidden field to ensure boolean required by schema is included and correctly typed */}
-					<input
-						type="hidden"
-						value="false"
-						{...register('isPartnered')}
-					/>
+					<input type="hidden" value="false" {...register('isPartnered')} />
 					{/* Faker Button - Development only */}
 					<FakerButton setEventOptions={setEventOptions} setValue={setValue} />
 
