@@ -110,7 +110,7 @@ export default function EventCreationForm({ onSuccess, onCancel, locale }: Reado
 		console.warn('[EventCreationForm] Validation failed with errors:', invalidErrors)
 		// Try to highlight a common cause when manually filling the form
 		if ('isPartnered' in invalidErrors) {
-			toast.error('Internal validation failed. Please try again. (isPartnered missing)')
+			toast.error('Form validation failed. Please check all required fields and try again.')
 		} else {
 			toast.error(translations.event.errors.fillRequired)
 		}
