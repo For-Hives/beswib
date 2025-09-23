@@ -41,6 +41,23 @@ describe('PayPal Partner Attribution Header', () => {
 			}
 
 			// Mock successful API responses
+			if (typeof url === 'string' && url.includes('/merchant-integrations/')) {
+				// Mock merchant integration status response
+				return Promise.resolve(
+					new Response(
+						JSON.stringify({
+							status: 'success',
+							primary_email_confirmed: true,
+							payments_receivable: true,
+						}),
+						{
+							status: 200,
+							headers: { 'Content-Type': 'application/json' },
+						}
+					)
+				)
+			}
+
 			return Promise.resolve(
 				new Response(JSON.stringify({ status: 'success', id: 'test-response' }), {
 					status: 200,
@@ -74,9 +91,13 @@ describe('PayPal Partner Attribution Header', () => {
 
 			await createOrder('test-merchant-id', mockBib, 'en')
 
-			// Find the create order API call (should be the second call after OAuth)
+			// Find the create order API call (POST to /v2/checkout/orders)
 			const createOrderCall = mockedFetch.mock.calls.find(
-				call => typeof call[0] === 'string' && call[0].includes('/v2/checkout/orders') && !call[0].includes('/capture')
+				call =>
+					typeof call[0] === 'string' &&
+					call[0].includes('/v2/checkout/orders') &&
+					!call[0].includes('/capture') &&
+					(call[1] as RequestInit)?.method === 'POST'
 			)
 
 			expect(createOrderCall).toBeDefined()
