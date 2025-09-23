@@ -229,7 +229,7 @@ export async function createOrder(
 		if (statusRes.status.payments_receivable !== true || !hasOauthIntegrations) {
 			return {
 				error:
-					"Seller's PayPal account isn't ready to receive payments yet. Please complete PayPal verification and grant third-party permissions to CINQUIN Andy, then retry.",
+					"Seller's PayPal account isn't ready to receive payments yet. Please complete PayPal verification and grant third-party permissions to Beswib, then retry.",
 			}
 		}
 
