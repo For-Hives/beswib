@@ -849,9 +849,9 @@
 					"refreshChecking": "Se verifică…"
 				},
 				"errors": {
-					"loadUserFailed": "Nu s-au putut încărca datele utilizatorului. Te rugăm să reîncarci pagina.",
+					"loadUserFailed": "Nu s-au putut încărca datele utilizatorului. Te rugăm să reîmprospătezi pagina.",
 					"disconnectFailed": "Deconectarea contului PayPal a eșuat",
-					"initiateOnboardingFailed": "Inițierea onboarding-ului PayPal a eșuat"
+					"initiateOnboardingFailed": "Pornirea onboarding-ului PayPal a eșuat"
 				}
 			},
 			"dangerZone": {
@@ -978,9 +978,9 @@
 					"refreshChecking": "A verificar…"
 				},
 				"errors": {
-					"loadUserFailed": "Nu s-au putut încărca datele utilizatorului. Te rugăm să reîncarci pagina.",
-					"disconnectFailed": "Deconectarea contului PayPal a eșuat",
-					"initiateOnboardingFailed": "Inițierea onboarding-ului PayPal a eșuat"
+					"loadUserFailed": "Falha ao carregar os dados do utilizador. Por favor, atualiza a página.",
+					"disconnectFailed": "Falha ao desconectar a conta PayPal",
+					"initiateOnboardingFailed": "Falha ao iniciar o onboarding do PayPal"
 				}
 			},
 			"dangerZone": {
@@ -1090,10 +1090,10 @@
 				"onboardingWindowOpened": "Het PayPal-onboardingvenster is geopend. Als het niet automatisch is geopend:",
 				"paypalOauthMissingAlert": "Probleem met je PayPal-onboarding: ontbrekende derde partij machtigingen. Voer het onboardingproces opnieuw uit en geef CINQUIN Andy toegang. Tot die tijd zijn PayPal-betalingen uitgeschakeld.",
 				"paypalLinkInfo": {
-					"thirdPartyPermissions": "Permissões de terceiros",
-					"thirdPartyPermissionsTooltipOk": "As permissões de terceiros estão concedidas.",
-					"thirdPartyPermissionsTooltipMissing": "Faltam permissões de terceiros. Volta a iniciar o onboarding do PayPal e concede acesso a CINQUIN Andy.",
-					"refreshStatus": "Atualizar estado",
+					"thirdPartyPermissions": "Machtigingen van derden",
+					"thirdPartyPermissionsTooltipOk": "Machtigingen van derden zijn verleend.",
+					"thirdPartyPermissionsTooltipMissing": "Machtigingen van derden ontbreken. Start het PayPal-onboarding opnieuw en geef CINQUIN Andy toegang.",
+					"refreshStatus": "Status vernieuwen",
 					"accountLinked": "Account gekoppeld",
 					"accountLinkedTooltip": "Je PayPal-account is succesvol gekoppeld.",
 					"accountNotLinkedTooltip": "Je moet je PayPal-account koppelen.",
@@ -1107,9 +1107,9 @@
 					"refreshChecking": "Controleren…"
 				},
 				"errors": {
-					"loadUserFailed": "Nu s-au putut încărca datele utilizatorului. Te rugăm să reîncarci pagina.",
-					"disconnectFailed": "Deconectarea contului PayPal a eșuat",
-					"initiateOnboardingFailed": "Inițierea onboarding-ului PayPal a eșuat"
+					"loadUserFailed": "Gebruikersgegevens laden mislukt. Vernieuw de pagina.",
+					"disconnectFailed": "Het ontkoppelen van het PayPal-account is mislukt",
+					"initiateOnboardingFailed": "Het starten van het PayPal-onboarding is mislukt"
 				}
 			},
 			"dangerZone": {
