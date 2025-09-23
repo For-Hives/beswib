@@ -150,9 +150,36 @@ export async function handleSellerConsentGranted(event: PayPalWebhookEvent) {
 }
 
 export async function handleConsentRevoked(event: PayPalWebhookEvent) {
-	// Implement actual logic as needed
-	await Promise.resolve()
-	return { revoked: true, event }
+	try {
+		const resource = event.resource as { merchant_id?: string }
+		const merchantId = resource?.merchant_id
+
+		if (merchantId == null || merchantId === '') {
+			console.warn('Consent revoked webhook without merchant_id')
+			return { revoked: false, reason: 'missing_merchant_id' }
+		}
+
+		// Dynamically import to avoid potential SSR import issues
+		const { updateUser, fetchUserByMerchantId } = await import('./user.services')
+		const user = await fetchUserByMerchantId(merchantId)
+
+		if (user == null) {
+			console.info('Consent revoked for unknown merchantId:', merchantId)
+			return { userFound: false, revoked: true }
+		}
+
+		// Remove the link to our database (merchant id) and reset KYC flag
+		await updateUser(user.id, { paypalMerchantId: null, paypal_kyc: false })
+
+		console.info('Removed PayPal merchant link for user due to consent revoked:', {
+			userId: user.id,
+			merchantId,
+		})
+		return { userId: user.id, userFound: true, revoked: true }
+	} catch (err) {
+		console.error('Error handling MERCHANT.PARTNER-CONSENT.REVOKED:', err)
+		return { revoked: false, error: 'internal_error' }
+	}
 }
 
 // Interfaces moved to src/models/paypal.model
