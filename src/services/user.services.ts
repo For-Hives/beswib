@@ -150,6 +150,37 @@ export async function fetchUserByEmail(email: string): Promise<null | User> {
 	}
 }
 
+/**
+ * Fetch a user by their linked PayPal merchant ID
+ */
+export async function fetchUserByMerchantId(merchantId: string): Promise<null | User> {
+	if (merchantId == null || merchantId.trim() === '') {
+		console.error('merchantId is required to fetch user by PayPal merchant ID')
+		return null
+	}
+	try {
+		const user = await pb
+			.collection('users')
+			.getFirstListItem<PbUserRecordMinimal>(`paypalMerchantId = "${merchantId.trim()}"`)
+		if (user == null) {
+			return null
+		}
+		return mapPbRecordToUser(user)
+	} catch (error) {
+		// If no user found (404), return null - this is expected behavior
+		if (
+			error != null &&
+			typeof error === 'object' &&
+			'status' in error &&
+			(error as { status?: number }).status === 404
+		) {
+			return null
+		}
+		console.error('Error fetching user by PayPal merchant ID:', error)
+		return null
+	}
+}
+
 export async function fetchUserById(id: string): Promise<null | User> {
 	if (id === '') {
 		console.error('User ID (PocketBase record ID) is required to fetch user data.')
