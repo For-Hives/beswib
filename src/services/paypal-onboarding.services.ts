@@ -38,8 +38,9 @@ export async function initiatePayPalOnboarding(
 	userId: string
 ): Promise<{ actionUrl?: string; error?: string; referralId?: string }> {
 	try {
-		// Generate a unique tracking ID for this onboarding (only used internally)
-		const trackingId = `seller_${userId}_${Date.now()}`
+		// Use the user's DB id as the tracking ID (per business requirement)
+		// Note: This intentionally avoids adding timestamps or prefixes.
+		const trackingId = userId
 
 		// Call PayPal onboarding service
 		const result = await onboardSeller(trackingId)
