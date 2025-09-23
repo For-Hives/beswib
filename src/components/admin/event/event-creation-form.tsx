@@ -48,12 +48,15 @@ export default function EventCreationForm({ onSuccess, onCancel, locale }: Reado
 			typeCourse: 'road',
 			participants: 1,
 			options: [],
+			// IMPORTANT: schema requires a boolean; without a value, validation fails silently
+			isPartnered: false,
 		},
 	})
 
 	const formData = watch()
 
 	const onSubmit = async (data: EventFormData) => {
+		console.debug('[EventCreationForm] onSubmit called with data:', data)
 		setIsLoading(true)
 
 		try {
@@ -84,7 +87,9 @@ export default function EventCreationForm({ onSuccess, onCancel, locale }: Reado
 				bibPickupLocation: data.bibPickupLocation ?? undefined,
 			}
 
+			console.debug('[EventCreationForm] Prepared eventData to submit:', eventData)
 			const result = await createEventAction(eventData)
+			console.debug('[EventCreationForm] createEventAction result:', result)
 
 			if (result.success && result.data) {
 				toast.success('Event created successfully!')
@@ -93,10 +98,21 @@ export default function EventCreationForm({ onSuccess, onCancel, locale }: Reado
 				throw new Error(result.error ?? 'Failed to create event')
 			}
 		} catch (error) {
-			console.error('Error creating event:', error)
+			console.error('[EventCreationForm] Error creating event:', error)
 			toast.error(error instanceof Error ? error.message : 'Failed to create event')
 		} finally {
 			setIsLoading(false)
+		}
+	}
+
+	const onInvalid = (invalidErrors: typeof errors) => {
+		// Surface validation issues to the user and log for debugging
+		console.warn('[EventCreationForm] Validation failed with errors:', invalidErrors)
+		// Try to highlight a common cause when manually filling the form
+		if ('isPartnered' in invalidErrors) {
+			toast.error('Internal validation failed. Please try again. (isPartnered missing)')
+		} else {
+			toast.error(translations.event.errors.fillRequired)
 		}
 	}
 
@@ -107,8 +123,14 @@ export default function EventCreationForm({ onSuccess, onCancel, locale }: Reado
 				<form
 					className="dark:border-border/50 bg-card/80 relative w-full max-w-7xl rounded-3xl border border-black/50 p-8 shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md md:p-12"
 					// eslint-disable-next-line @typescript-eslint/no-misused-promises
-					onSubmit={handleSubmit(onSubmit)}
+					onSubmit={handleSubmit(onSubmit, onInvalid)}
 				>
+					{/* Hidden field to ensure boolean required by schema is included and correctly typed */}
+					<input
+						type="hidden"
+						value="false"
+						{...register('isPartnered', { setValueAs: v => v === true || v === 'true' })}
+					/>
 					{/* Faker Button - Development only */}
 					<FakerButton setEventOptions={setEventOptions} setValue={setValue} />
 
