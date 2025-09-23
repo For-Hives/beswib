@@ -462,6 +462,11 @@
 					"paypalEmailCheckTooltip": "Tu correo electrónico de PayPal está verificado en PayPal.",
 					"paypalEmailNotCheckTooltip": "Tu correo electrónico de PayPal no está verificado. Verifícalo en PayPal para recibir pagos.",
 					"refreshChecking": "Comprobando…"
+				},
+				"errors": {
+					"loadUserFailed": "Error al cargar los datos del usuario. Por favor, actualiza la página.",
+					"disconnectFailed": "Error al desconectar la cuenta de PayPal",
+					"initiateOnboardingFailed": "Error al iniciar el onboarding de PayPal"
 				}
 			},
 			"dangerZone": {
@@ -584,8 +589,12 @@
 					"paypalEmail": "Email PayPal",
 					"paypalEmailCheckTooltip": "La tua email PayPal è verificata su PayPal.",
 					"paypalEmailNotCheckTooltip": "La tua email PayPal non è verificata. Verifica la tua email su PayPal per ricevere pagamenti.",
-					"refreshStatus": "Aggiorna stato",
 					"refreshChecking": "Verifica in corso…"
+				},
+				"errors": {
+					"loadUserFailed": "Impossibile caricare i dati utente. Per favore, aggiorna la pagina.",
+					"disconnectFailed": "Impossibile disconnettere l'account PayPal",
+					"initiateOnboardingFailed": "Impossibile avviare l'onboarding di PayPal"
 				}
 			},
 			"dangerZone": {
@@ -708,8 +717,12 @@
 					"paypalEmail": "PayPal-E-Mail",
 					"paypalEmailCheckTooltip": "Ihre PayPal-E-Mail ist bei PayPal verifiziert.",
 					"paypalEmailNotCheckTooltip": "Ihre PayPal-E-Mail ist nicht verifiziert. Bitte verifizieren Sie Ihre E-Mail bei PayPal, um Zahlungen zu erhalten.",
-
 					"refreshChecking": "Wird geprüft…"
+				},
+				"errors": {
+					"loadUserFailed": "Benutzerdaten konnten nicht geladen werden. Bitte aktualisieren Sie die Seite.",
+					"disconnectFailed": "Das Trennen des PayPal-Kontos ist fehlgeschlagen",
+					"initiateOnboardingFailed": "Das Starten des PayPal-Onboardings ist fehlgeschlagen"
 				}
 			},
 			"dangerZone": {
@@ -834,6 +847,11 @@
 					"paypalEmailNotCheckTooltip": "E-mailul tău PayPal nu este verificat. Te rugăm să îți verifici e-mailul pe PayPal pentru a primi plăți.",
 
 					"refreshChecking": "Se verifică…"
+				},
+				"errors": {
+					"loadUserFailed": "Nu s-au putut încărca datele utilizatorului. Te rugăm să reîncarci pagina.",
+					"disconnectFailed": "Deconectarea contului PayPal a eșuat",
+					"initiateOnboardingFailed": "Inițierea onboarding-ului PayPal a eșuat"
 				}
 			},
 			"dangerZone": {
@@ -958,6 +976,11 @@
 					"paypalEmailNotCheckTooltip": "O teu e-mail PayPal não está verificado. Verifica-o no PayPal para receber pagamentos.",
 
 					"refreshChecking": "A verificar…"
+				},
+				"errors": {
+					"loadUserFailed": "Nu s-au putut încărca datele utilizatorului. Te rugăm să reîncarci pagina.",
+					"disconnectFailed": "Deconectarea contului PayPal a eșuat",
+					"initiateOnboardingFailed": "Inițierea onboarding-ului PayPal a eșuat"
 				}
 			},
 			"dangerZone": {
@@ -1082,6 +1105,11 @@
 					"paypalEmailNotCheckTooltip": "Je PayPal-e-mailadres is niet geverifieerd. Verifieer je e-mailadres op PayPal om betalingen te ontvangen.",
 
 					"refreshChecking": "Controleren…"
+				},
+				"errors": {
+					"loadUserFailed": "Nu s-au putut încărca datele utilizatorului. Te rugăm să reîncarci pagina.",
+					"disconnectFailed": "Deconectarea contului PayPal a eșuat",
+					"initiateOnboardingFailed": "Inițierea onboarding-ului PayPal a eșuat"
 				}
 			},
 			"dangerZone": {
