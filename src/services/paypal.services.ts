@@ -15,6 +15,7 @@ import type { BibSale } from '@/models/marketplace.model'
 import { PLATFORM_FEE } from '@/constants/global.constant'
 
 import { getTransactionByOrderId, updateTransaction } from './transaction.services'
+import { logPayPalApi } from './paypalApiLog.services'
 
 const PAYPAL_MERCHANT_ID = () => process.env.PAYPAL_MERCHANT_ID ?? ''
 
@@ -298,6 +299,12 @@ export async function capturePayment(orderID: string): Promise<{
 			},
 		})
 
+		// Log API call with sanitized payload
+		await logPayPalApi('OrderCapture', {
+			response,
+			requestBody: { orderID },
+		})
+
 		if (!response.ok) {
 			let errorString: string
 
@@ -411,6 +418,12 @@ export async function createOrder(
 			body: JSON.stringify(orderData),
 		})
 
+		// Log API call
+		await logPayPalApi('OrderCreate', {
+			response,
+			requestBody: orderData,
+		})
+
 		if (!response.ok) {
 			const error = (await response.json()) as { message: string }
 			throw new Error(JSON.stringify(error))
@@ -436,6 +449,11 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 			},
+		})
+
+		await logPayPalApi('PartnerReferralGet', {
+			response,
+			requestBody: { referralId },
 		})
 
 		if (!response.ok) {
@@ -492,6 +510,8 @@ export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?:
 			},
 		})
 
+		await logPayPalApi('WebhookList', { response })
+
 		if (!response.ok) {
 			const error = (await response.json()) as { message: string }
 			console.error('PayPal webhook list error:', error)
@@ -544,6 +564,27 @@ export async function onboardSeller(
 			}),
 		})
 
+		await logPayPalApi('PartnerReferralCreate', {
+			response,
+			requestBody: {
+				tracking_id: trackingId,
+				products: ['EXPRESS_CHECKOUT'],
+				partner_config_override: { return_url: `${baseUrl}/en/paypal/callback?trackingId=${trackingId}` },
+				operations: [
+					{
+						operation: 'API_INTEGRATION',
+						api_integration_preference: {
+							rest_api_integration: {
+								third_party_details: { features: ['PAYMENT', 'REFUND'] },
+								integration_type: 'THIRD_PARTY',
+								integration_method: 'PAYPAL',
+							},
+						},
+					},
+				],
+			},
+		})
+
 		if (!response.ok) {
 			const error = (await response.json()) as { message: string }
 			throw new Error(JSON.stringify(error))
@@ -585,6 +626,14 @@ export async function setupPayPalWebhooks(): Promise<{ error?: string; success?:
 			}),
 		})
 
+		await logPayPalApi('WebhookCreate', {
+			response,
+			requestBody: {
+				url: webhookUrl,
+				event_types: [{ name: 'MERCHANT.ONBOARDING.COMPLETED' }, { name: 'MERCHANT.PARTNER-CONSENT-REVOKED' }],
+			},
+		})
+
 		if (!response.ok) {
 			const error = (await response.json()) as { message: string }
 			console.error('PayPal webhook setup error:', error)
@@ -611,6 +660,12 @@ async function getAccessToken(): Promise<string> {
 			Accept: 'application/json',
 		},
 		body: 'grant_type=client_credentials',
+	})
+
+	// Log token request without exposing token in body
+	await logPayPalApi('OAuthToken', {
+		response,
+		requestBody: { grant_type: 'client_credentials' },
 	})
 	if (!response.ok) {
 		const error = (await response.json()) as { message: string }
@@ -658,6 +713,8 @@ export async function getMerchantIntegrationStatus(
 				},
 			}
 		)
+
+		await logPayPalApi('MerchantIntegrationGet', { response: res, requestBody: { partnerId, merchantId } })
 
 		if (!res.ok) {
 			let msg = 'Failed to fetch merchant integration status'
