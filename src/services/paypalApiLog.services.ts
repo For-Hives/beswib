@@ -49,8 +49,13 @@ function sanitizeValue(value: unknown, keyPath: string[] = []): unknown {
 	return undefined
 }
 
-export function extractPayPalDebugId(headers?: Headers | Record<string, string> | null, body?: unknown): string | null {
+export async function extractPayPalDebugId(
+	headers?: Headers | Record<string, string> | null,
+	body?: unknown
+): Promise<string | null> {
 	try {
+		// Yield once to satisfy async function contract for Server Actions context
+		await Promise.resolve()
 		// Accept any headers-like object (undici Headers, fetch Headers, or plain object)
 		if (headers) {
 			// Type guards for header-like objects
@@ -112,9 +117,9 @@ export async function logPayPalApi(
 		const requestBody = params.requestBody
 		const responseBody = params.responseBody
 		// Prefer header-derived debug ID over body
-		let debugId: string | null = extractPayPalDebugId(headers, undefined)
+		let debugId: string | null = await extractPayPalDebugId(headers, undefined)
 		if ((debugId == null || debugId === '') && response != null) {
-			debugId = extractPayPalDebugId(response.headers, undefined)
+			debugId = await extractPayPalDebugId(response.headers, undefined)
 		}
 		let resp: unknown = responseBody
 
@@ -130,9 +135,9 @@ export async function logPayPalApi(
 				}
 				// Only fall back to body if we still don't have a header-derived ID
 				if (debugId == null || debugId === '') {
-					debugId = extractPayPalDebugId(cloned.headers, undefined)
+					debugId = await extractPayPalDebugId(cloned.headers, undefined)
 					if (debugId == null || debugId === '') {
-						debugId = extractPayPalDebugId(undefined, resp)
+						debugId = await extractPayPalDebugId(undefined, resp)
 					}
 				}
 			} catch {

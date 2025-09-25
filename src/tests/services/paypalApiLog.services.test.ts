@@ -12,20 +12,20 @@ describe('paypalApiLog.services', () => {
 		vi.clearAllMocks()
 	})
 
-	it('extractPayPalDebugId reads from Headers', () => {
+	it('extractPayPalDebugId reads from Headers', async () => {
 		const headers = new Headers({ 'paypal-debug-id': 'HDR-123' })
-		const id = extractPayPalDebugId(headers, undefined)
+		const id = await extractPayPalDebugId(headers, undefined)
 		expect(id).toBe('HDR-123')
 	})
 
-	it('extractPayPalDebugId reads from plain headers object', () => {
+	it('extractPayPalDebugId reads from plain headers object', async () => {
 		const headers = { 'Correlation-Id': 'CORR-999' }
-		const id = extractPayPalDebugId(headers, undefined)
+		const id = await extractPayPalDebugId(headers, undefined)
 		expect(id).toBe('CORR-999')
 	})
 
-	it('extractPayPalDebugId falls back to body fields', () => {
-		const id = extractPayPalDebugId(undefined, { debug_id: 'DBG-555' })
+	it('extractPayPalDebugId falls back to body fields', async () => {
+		const id = await extractPayPalDebugId(undefined, { debug_id: 'DBG-555' })
 		expect(id).toBe('DBG-555')
 	})
 
