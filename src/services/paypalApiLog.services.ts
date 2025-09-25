@@ -51,17 +51,40 @@ function sanitizeValue(value: unknown, keyPath: string[] = []): unknown {
 
 export function extractPayPalDebugId(headers?: Headers | Record<string, string> | null, body?: unknown): string | null {
 	try {
-		if (headers instanceof Headers) {
-			const h = headers
-			const ids = [h.get('paypal-debug-id'), h.get('debug_id'), h.get('correlation-id')]
-			const id = ids.find(v => v != null && v !== '')
-			if (id != null && id !== '') return id
-		}
-		if (headers && !(headers instanceof Headers)) {
-			const lower: Record<string, string> = {}
-			for (const [k, v] of Object.entries(headers)) lower[k.toLowerCase()] = v
-			const id = lower['paypal-debug-id'] ?? lower['debug_id'] ?? lower['correlation-id']
-			if (id != null && id !== '') return id
+		// Accept any headers-like object (undici Headers, fetch Headers, or plain object)
+		if (headers) {
+			// Type guards for header-like objects
+			type HeadersGet = { get: (key: string) => string | null | undefined }
+			type HeadersEntries = { entries: () => Iterable<[string, string]> }
+			const hasGet = (h: unknown): h is HeadersGet =>
+				typeof h === 'object' && h !== null && typeof (h as { get?: unknown }).get === 'function'
+			const hasEntries = (h: unknown): h is HeadersEntries =>
+				typeof h === 'object' && h !== null && typeof (h as { entries?: unknown }).entries === 'function'
+
+			// Prefer using .get if available (works for Headers from undici/fetch)
+			if (hasGet(headers)) {
+				const candidates = ['paypal-debug-id', 'debug_id', 'correlation-id'] as const
+				for (const key of candidates) {
+					const v = headers.get(key)
+					if (v != null && v !== '') return v
+				}
+			}
+			// Fallback: iterate entries if available
+			if (hasEntries(headers)) {
+				for (const [k, v] of headers.entries()) {
+					const lowerK = k.toLowerCase()
+					if (lowerK === 'paypal-debug-id' || lowerK === 'debug_id' || lowerK === 'correlation-id') {
+						if (v != null && v !== '') return v
+					}
+				}
+			}
+			// Plain object support
+			if (typeof headers === 'object' && !hasGet(headers)) {
+				const lower: Record<string, string> = {}
+				for (const [k, v] of Object.entries(headers)) lower[k.toLowerCase()] = String(v)
+				const id = lower['paypal-debug-id'] ?? lower['debug_id'] ?? lower['correlation-id']
+				if (id != null && id !== '') return id
+			}
 		}
 		if (body != null && typeof body === 'object') {
 			const any = body as Record<string, unknown>
@@ -88,7 +111,11 @@ export async function logPayPalApi(
 		const headers = params.headers
 		const requestBody = params.requestBody
 		const responseBody = params.responseBody
-		let debugId: string | null = extractPayPalDebugId(headers, responseBody)
+		// Prefer header-derived debug ID over body
+		let debugId: string | null = extractPayPalDebugId(headers, undefined)
+		if ((debugId == null || debugId === '') && response != null) {
+			debugId = extractPayPalDebugId(response.headers, undefined)
+		}
 		let resp: unknown = responseBody
 
 		if (response) {
@@ -101,7 +128,13 @@ export async function logPayPalApi(
 				} catch {
 					resp = text
 				}
-				debugId = debugId ?? extractPayPalDebugId(cloned.headers, resp)
+				// Only fall back to body if we still don't have a header-derived ID
+				if (debugId == null || debugId === '') {
+					debugId = extractPayPalDebugId(cloned.headers, undefined)
+					if (debugId == null || debugId === '') {
+						debugId = extractPayPalDebugId(undefined, resp)
+					}
+				}
 			} catch {
 				// ignore body read issues
 			}

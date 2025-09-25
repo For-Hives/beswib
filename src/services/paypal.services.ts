@@ -357,14 +357,11 @@ export async function createOrder(
 		if ('error' in statusRes) {
 			return { error: 'Unable to verify seller PayPal status. Please try again later.' }
 		}
-		// Block payments if receivable is false OR oauth integrations missing
-		const hasOauthIntegrations = Array.isArray(statusRes.status.oauth_integrations)
-			? statusRes.status.oauth_integrations.length > 0
-			: false
-		if (statusRes.status.payments_receivable !== true || !hasOauthIntegrations) {
+		// Block payments if receivable is false
+		if (statusRes.status.payments_receivable !== true) {
 			return {
 				error:
-					"Seller's PayPal account isn't ready to receive payments yet. Please complete PayPal verification and grant third-party permissions to Beswib, then retry.",
+					"Seller's PayPal account isn't ready to receive payments yet. Please complete PayPal verification and retry.",
 			}
 		}
 
