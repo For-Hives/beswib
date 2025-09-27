@@ -74,17 +74,17 @@ function limitPayloadSize(payload: unknown, maxSizeBytes: number = 50000): unkno
 	try {
 		return {
 			data: JSON.parse(truncated + '}') as unknown,
-			_maxSize: maxSizeBytes,
-			_originalSize: jsonString.length,
 			_truncated: true,
+			_originalSize: jsonString.length,
+			_maxSize: maxSizeBytes,
 		}
 	} catch {
 		// If truncated JSON is invalid, return string representation
 		return {
 			data: truncated + '... [TRUNCATED]',
-			_maxSize: maxSizeBytes,
-			_originalSize: jsonString.length,
 			_truncated: true,
+			_originalSize: jsonString.length,
+			_maxSize: maxSizeBytes,
 		}
 	}
 }
