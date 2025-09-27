@@ -117,6 +117,15 @@ const nextConfig: NextConfig = {
 			'https://cdnjs.cloudflare.com',
 		].join(' ')
 
+		const formAction = [
+			"'self'",
+			'https://www.paypal.com',
+			'https://www.sandbox.paypal.com',
+			'https://*.paypal.com',
+			'https://paypalobjects.com',
+			'https://*.paypalobjects.com',
+		].join(' ')
+
 		const csp = [
 			`default-src 'self'`,
 			`script-src ${scriptSrc}`,
@@ -127,7 +136,7 @@ const nextConfig: NextConfig = {
 			`img-src ${imgSrc}`,
 			`style-src 'self' 'unsafe-inline'`,
 			`worker-src 'self' blob:`,
-			`form-action 'self'`,
+			`form-action ${formAction}`,
 			`base-uri 'self'`,
 			`manifest-src 'self'`,
 		].join('; ')
