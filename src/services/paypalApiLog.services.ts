@@ -19,34 +19,74 @@ const SENSITIVE_KEYS = new Set([
 	'paypal_client_id',
 ])
 
-function sanitizeValue(value: unknown, keyPath: string[] = []): unknown {
+function sanitizeValue(value: unknown): unknown {
 	if (value == null) return value
-	if (typeof value === 'string') {
-		// Mask long tokens/ids that look like secrets in strings
-		if (value.length > 80) return value.slice(0, 10) + '…' + value.slice(-6)
+
+	if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
 		return value
 	}
-	if (typeof value === 'number' || typeof value === 'boolean') return value
-	if (Array.isArray(value)) return value.map(v => sanitizeValue(v, keyPath))
-	if (typeof value === 'object') {
-		const out: Record<string, unknown> = {}
-		for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-			const lower = k.toLowerCase()
-			const pathLower = [...keyPath, lower].join('.')
-			if (SENSITIVE_KEYS.has(lower) || /token|secret|password|authorization/.test(pathLower)) {
-				out[k] = '[REDACTED]'
-				continue
-			}
-			// Mask potential payer/contact details
-			if (/email|phone|payer|contact/.test(pathLower)) {
-				out[k] = '[REDACTED]'
-				continue
-			}
-			out[k] = sanitizeValue(v, [...keyPath, k])
-		}
-		return out
+
+	if (Array.isArray(value)) {
+		return value.map(sanitizeValue)
 	}
-	return undefined
+
+	if (typeof value === 'object') {
+		const result: Record<string, unknown> = {}
+		for (const [key, val] of Object.entries(value as Record<string, unknown>)) {
+			const lowerKey = key.toLowerCase()
+
+			// Redact sensitive keys
+			if (
+				SENSITIVE_KEYS.has(lowerKey) ||
+				lowerKey.includes('token') ||
+				lowerKey.includes('secret') ||
+				lowerKey.includes('password') ||
+				lowerKey.includes('authorization')
+			) {
+				result[key] = '[REDACTED]'
+			}
+			// Redact entire objects that contain sensitive information (like payer, contact info)
+			else if (
+				lowerKey.includes('payer') ||
+				lowerKey.includes('contact') ||
+				lowerKey.includes('billing') ||
+				lowerKey.includes('shipping')
+			) {
+				result[key] = '[REDACTED]'
+			} else {
+				result[key] = sanitizeValue(val)
+			}
+		}
+		return result
+	}
+
+	return value
+}
+
+function limitPayloadSize(payload: unknown, maxSizeBytes: number = 50000): unknown {
+	const jsonString = JSON.stringify(payload)
+	if (jsonString.length <= maxSizeBytes) {
+		return payload
+	}
+
+	// If too large, return truncated version with indication
+	const truncated = jsonString.slice(0, maxSizeBytes)
+	try {
+		return {
+			data: JSON.parse(truncated + '}') as unknown,
+			_maxSize: maxSizeBytes,
+			_originalSize: jsonString.length,
+			_truncated: true,
+		}
+	} catch {
+		// If truncated JSON is invalid, return string representation
+		return {
+			data: truncated + '... [TRUNCATED]',
+			_maxSize: maxSizeBytes,
+			_originalSize: jsonString.length,
+			_truncated: true,
+		}
+	}
 }
 
 export async function extractPayPalDebugId(
@@ -116,14 +156,15 @@ export async function logPayPalApi(
 		const headers = params.headers
 		const requestBody = params.requestBody
 		const responseBody = params.responseBody
-		// Prefer header-derived debug ID over body
+		// Extract debug ID from headers first (before consuming response)
 		let debugId: string | null = await extractPayPalDebugId(headers, undefined)
 		if ((debugId == null || debugId === '') && response != null) {
 			debugId = await extractPayPalDebugId(response.headers, undefined)
 		}
+
 		let resp: unknown = responseBody
 
-		if (response) {
+		if (response && resp === undefined) {
 			// Attempt to read response safely
 			try {
 				const cloned = response.clone()
@@ -135,20 +176,19 @@ export async function logPayPalApi(
 				}
 				// Only fall back to body if we still don't have a header-derived ID
 				if (debugId == null || debugId === '') {
-					debugId = await extractPayPalDebugId(cloned.headers, undefined)
-					if (debugId == null || debugId === '') {
-						debugId = await extractPayPalDebugId(undefined, resp)
-					}
+					debugId = await extractPayPalDebugId(undefined, resp)
 				}
 			} catch {
 				// ignore body read issues
 			}
 		}
 
-		const payload = {
+		// Sanitize and limit payload size
+		const sanitizedPayload = {
 			response: sanitizeValue(resp),
 			request: sanitizeValue(requestBody),
 		}
+		const payload = limitPayloadSize(sanitizedPayload)
 		await pb.collection('paypalAPI').create<PayPalApiLog>({ raw: payload, debugId: debugId ?? null, action })
 	} catch (e) {
 		console.warn('Failed to log PayPal API event:', e)
