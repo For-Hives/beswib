@@ -115,16 +115,31 @@ const nextConfig: NextConfig = {
 			'https://loremflickr.com',
 			'https://picsum.photos',
 			'https://cdnjs.cloudflare.com',
+			// PayPal domains
 			'https://paypalobjects.com',
 			'https://*.paypalobjects.com',
 			'https://www.paypalobjects.com',
 			'https://*.paypal.com',
 			'https://www.paypal.com',
+			'https://www.sandbox.paypal.com',
+			// Analytics and tracking domains for PayPal
 			'https://googleads.g.doubleclick.net',
+			'https://*.doubleclick.net',
 			'https://www.google.com',
+			'https://*.google.com',
 			'https://www.google-analytics.com',
+			'https://*.google-analytics.com',
 			'https://www.facebook.com',
+			'https://*.facebook.com',
 			'https://px.ads.linkedin.com',
+			'https://*.linkedin.com',
+			'https://*.googleusercontent.com',
+			// Additional PayPal tracking
+			'https://ak1s.abmr.net',
+			'https://ak1s.mathtag.com',
+			'https://akamai.mathtag.com',
+			'https://ak1.abmr.net',
+			'https://objects.paypal.cn',
 		].join(' ')
 
 		const formAction = [
