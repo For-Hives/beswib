@@ -17,8 +17,8 @@ import { Locale } from '@/lib/i18n/config'
 import { checkIsCurrentUserAdmin } from './adminActions'
 import LocaleSynchronizer from './LocaleSynchronizer'
 import DashboardDropdown from './DashboardDropdown'
-import { LaunchBanner } from './LaunchBanner'
 import { ThemeToggle } from './ThemeToggle'
+// import { LaunchBanner } from './LaunchBanner'
 
 interface HeaderClientProps {
 	locale: Locale
@@ -89,7 +89,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 				as="nav"
 				className="border-border bg-background/95 supports-[backdrop-filter]:bg-background/60 fixed top-0 z-[100] w-full border-b backdrop-blur"
 			>
-				<LaunchBanner locale={locale} />
+				{/* <LaunchBanner locale={locale} /> */}
 
 				<div className="mx-auto max-w-7xl px-4 xl:px-0">
 					<div className="flex h-16 items-center justify-between">
