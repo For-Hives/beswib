@@ -15,23 +15,25 @@ const nextConfig: NextConfig = {
 		],
 		qualities: [75, 90, 100], // Add quality configurations
 	},
+
 	async headers() {
 		// Phase 1: Basic security headers that shouldn't interfere with PayPal
+		await Promise.resolve() // Satisfy async requirement
 		return [
 			{
 				source: '/(.*)',
 				headers: [
 					{
-						key: 'X-Content-Type-Options',
 						value: 'nosniff',
+						key: 'X-Content-Type-Options',
 					},
 					{
-						key: 'Referrer-Policy', 
 						value: 'strict-origin-when-cross-origin',
+						key: 'Referrer-Policy',
 					},
 					{
-						key: 'X-XSS-Protection',
 						value: '1; mode=block',
+						key: 'X-XSS-Protection',
 					},
 				],
 			},
