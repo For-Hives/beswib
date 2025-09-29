@@ -2,7 +2,7 @@
 
 import { CheckCircle, AlertCircle, XCircle } from 'lucide-react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
-import React, { useState, useCallback } from 'react'
+import React from 'react'
 
 import Image from 'next/image'
 
@@ -81,44 +81,6 @@ export default function PaymentDialog({
 	bib,
 }: PaymentDialogProps) {
 	const paymentT = getTranslations(locale, mainLocales).payment
-
-	// Track PayPal interaction state to manage focus
-	const [isPayPalInteracting, setIsPayPalInteracting] = useState(false)
-
-	// Wrapped PayPal handlers to manage focus state
-	const handleCreateOrder = useCallback(async () => {
-		setIsPayPalInteracting(true)
-		try {
-			return await onCreateOrder()
-		} catch (error) {
-			setIsPayPalInteracting(false)
-			throw error
-		}
-	}, [onCreateOrder])
-
-	const handleApprove = useCallback(
-		async (data: { orderID: string }) => {
-			try {
-				await onApprove(data)
-			} finally {
-				setIsPayPalInteracting(false)
-			}
-		},
-		[onApprove]
-	)
-
-	const handleError = useCallback(
-		(err: Record<string, unknown>) => {
-			setIsPayPalInteracting(false)
-			onError(err)
-		},
-		[onError]
-	)
-
-	const handleCancel = useCallback(() => {
-		setIsPayPalInteracting(false)
-		onCancel()
-	}, [onCancel])
 
 	// Calculate the lowest reference price between original and official
 	const officialPrice = eventData?.officialStandardPrice ?? 0
@@ -254,11 +216,7 @@ export default function PaymentDialog({
 
 	// Show main payment dialog
 	return (
-		<Dialog
-			open={isOpen}
-			onOpenChange={open => !open && onClose()}
-			modal={!isPayPalInteracting} // Disable modal behavior when PayPal is interacting
-		>
+		<Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
 			<DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-4xl">
 				<DialogHeader>
 					<DialogTitle>{paymentT.title}</DialogTitle>
@@ -341,16 +299,13 @@ export default function PaymentDialog({
 							<h3 className="text-foreground mb-4 text-sm font-medium">{paymentT.paymentMethod}</h3>
 
 							<div className="rounded-lg">
-								<div
-									className="rounded-lg bg-white p-4"
-									style={{ zIndex: 9999, position: 'relative', colorScheme: 'none' }}
-								>
+								<div className="rounded-lg bg-white p-4" style={{ colorScheme: 'none' }}>
 									<PayPalButtons
-										createOrder={handleCreateOrder}
+										createOrder={onCreateOrder}
 										disabled={loading || !isProfileComplete}
-										onApprove={handleApprove}
-										onCancel={handleCancel}
-										onError={handleError}
+										onApprove={onApprove}
+										onCancel={onCancel}
+										onError={onError}
 										style={{
 											shape: 'rect' as const,
 											layout: 'vertical' as const,
@@ -358,10 +313,6 @@ export default function PaymentDialog({
 											height: 50,
 											color: 'blue' as const,
 										}}
-										// Force iframe mode, disable popups
-										fundingSource={undefined}
-										// Disable popup fallback for better iframe experience
-										forceReRender={[isPayPalInteracting]}
 									/>
 								</div>
 							</div>
