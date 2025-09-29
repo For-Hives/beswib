@@ -115,6 +115,8 @@ const nextConfig: NextConfig = {
 			'https://loremflickr.com',
 			'https://picsum.photos',
 			'https://cdnjs.cloudflare.com',
+			'https://paypalobjects.com',
+			'https://*.paypalobjects.com',
 		].join(' ')
 
 		const formAction = [
