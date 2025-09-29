@@ -117,6 +117,14 @@ const nextConfig: NextConfig = {
 			'https://cdnjs.cloudflare.com',
 			'https://paypalobjects.com',
 			'https://*.paypalobjects.com',
+			'https://www.paypalobjects.com',
+			'https://*.paypal.com',
+			'https://www.paypal.com',
+			'https://googleads.g.doubleclick.net',
+			'https://www.google.com',
+			'https://www.google-analytics.com',
+			'https://www.facebook.com',
+			'https://px.ads.linkedin.com',
 		].join(' ')
 
 		const formAction = [
