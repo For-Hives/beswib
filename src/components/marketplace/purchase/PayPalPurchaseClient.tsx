@@ -261,11 +261,10 @@ export default function PayPalPurchaseClient({
 		[bib.id, locale, router, lockedAtParam]
 	)
 
-	const onError = useCallback((_err: Record<string, unknown>) => {
-		console.error('PayPal Error:', _err)
-		const message = typeof _err.message === 'string' ? _err.message : 'An unknown error occurred'
-		setErrorMessage('PayPal Error: ' + message)
-		setIsInstrumentDeclined(false) // Reset flag on PayPal SDK errors
+	const onError = useCallback((err: Record<string, unknown>) => {
+		console.error('PayPal Error:', err)
+		// Minimal error handling - just log and continue
+		console.warn('PayPal error occurred, but continuing...')
 		setLoading(false)
 	}, [])
 
@@ -279,9 +278,10 @@ export default function PayPalPurchaseClient({
 	}, [])
 
 	const onCancel = useCallback(() => {
-		console.info('PayPal payment cancelled')
-		setErrorMessage('Payment cancelled by user')
+		console.info('PayPal payment cancelled callback triggered')
 		setLoading(false)
+		// Don't show error, just stop loading
+		console.info('Payment cancelled, user can retry')
 	}, [])
 
 	return (

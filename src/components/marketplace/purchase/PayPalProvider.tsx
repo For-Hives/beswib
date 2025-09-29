@@ -17,8 +17,7 @@ export function PayPalProvider({
 		<PayPalScriptProvider
 			options={{
 				intent: 'capture',
-				'enable-funding': 'venmo,paylater',
-				'disable-funding': '',
+				debug: true,
 				currency: 'EUR',
 				components: 'buttons',
 				commit: true,

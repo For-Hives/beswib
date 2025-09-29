@@ -154,6 +154,8 @@ export default function PaymentDialog({
 	if (errorMessage != null && errorMessage !== '') {
 		const isCancelled = errorMessage?.toLowerCase().includes('cancel')
 		const isDeclined = isInstrumentDeclined ?? errorMessage.toLowerCase().includes('declined')
+		const isPopupBlocked =
+			errorMessage?.toLowerCase().includes('popup') && errorMessage?.toLowerCase().includes('block')
 
 		return (
 			<AlertDialog open={isOpen}>
@@ -166,13 +168,17 @@ export default function PaymentDialog({
 										? 'bg-orange-100 dark:bg-orange-900/20'
 										: isDeclined
 											? 'bg-yellow-100 dark:bg-yellow-900/20'
-											: 'bg-red-100 dark:bg-red-900/20'
+											: isPopupBlocked
+												? 'bg-blue-100 dark:bg-blue-900/20'
+												: 'bg-red-100 dark:bg-red-900/20'
 								}`}
 							>
 								{isCancelled ? (
 									<XCircle className="h-8 w-8 text-orange-600 dark:text-orange-400" />
 								) : isDeclined ? (
 									<AlertCircle className="h-8 w-8 text-yellow-600 dark:text-yellow-400" />
+								) : isPopupBlocked ? (
+									<AlertCircle className="h-8 w-8 text-blue-600 dark:text-blue-400" />
 								) : (
 									<AlertCircle className="h-8 w-8 text-red-600 dark:text-red-400" />
 								)}
@@ -184,27 +190,37 @@ export default function PaymentDialog({
 									? 'text-orange-600 dark:text-orange-400'
 									: isDeclined
 										? 'text-yellow-600 dark:text-yellow-400'
-										: 'text-red-600 dark:text-red-400'
+										: isPopupBlocked
+											? 'text-blue-600 dark:text-blue-400'
+											: 'text-red-600 dark:text-red-400'
 							}`}
 						>
 							{isCancelled
 								? paymentT.paymentCancelled
 								: isDeclined
 									? paymentT.paymentMethodDeclined
-									: paymentT.paymentError}
+									: isPopupBlocked
+										? 'Popup Blocked'
+										: paymentT.paymentError}
 						</AlertDialogTitle>
 						<AlertDialogDescription className="text-center">
 							{isCancelled
 								? paymentT.paymentCancelledMessage
 								: isDeclined
 									? paymentT.paymentDeclinedMessage
-									: errorMessage}
+									: isPopupBlocked
+										? 'Your browser is blocking PayPal popups. Please enable popups for this site and try again.'
+										: errorMessage}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter className="gap-2 sm:justify-center">
-						<AlertDialogCancel onClick={onClose}>{paymentT.contactSupport}</AlertDialogCancel>
+						<AlertDialogCancel onClick={onClose}>
+							{isPopupBlocked ? 'Close' : paymentT.contactSupport}
+						</AlertDialogCancel>
 						{isDeclined && onPaymentRestart ? (
 							<AlertDialogAction onClick={onPaymentRestart}>{paymentT.tryDifferentPaymentMethod}</AlertDialogAction>
+						) : isPopupBlocked ? (
+							<AlertDialogAction onClick={onClose}>Enable Popups & Try Again</AlertDialogAction>
 						) : (
 							<AlertDialogAction onClick={onClose}>{paymentT.tryAgain}</AlertDialogAction>
 						)}
@@ -217,10 +233,16 @@ export default function PaymentDialog({
 	// Show main payment dialog
 	return (
 		<Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
-			<DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-4xl">
+			<DialogContent
+				className="max-h-[90vh] overflow-y-auto sm:max-w-4xl"
+				aria-describedby="payment-dialog-description"
+			>
 				<DialogHeader>
 					<DialogTitle>{paymentT.title}</DialogTitle>
 				</DialogHeader>
+				<div id="payment-dialog-description" className="sr-only">
+					Complete your race bib purchase with secure PayPal payment
+				</div>
 
 				<div className="grid gap-6 lg:grid-cols-3">
 					{/* Order Summary - Left Side */}

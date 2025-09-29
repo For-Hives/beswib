@@ -16,191 +16,22 @@ const nextConfig: NextConfig = {
 		qualities: [75, 90, 100], // Add quality configurations
 	},
 	async headers() {
-		// Using async to satisfy Next.js type requirements
-		await Promise.resolve()
-
-		const scriptSrc = [
-			"'self'",
-			"'unsafe-inline'",
-			"'unsafe-eval'",
-			'wasm-unsafe-eval',
-			'https://www.paypal.com',
-			'https://paypalobjects.com',
-			'https://*.paypalobjects.com',
-			'https://www.sandbox.paypal.com',
-			'https://clerk.com',
-			'https://clerk-telemetry.com',
-			'https://clerk.accounts.dev',
-			'https://*.clerk.accounts.dev',
-			'https://*.clerk-telemetry.com',
-			'https://*.clerk.com',
-			'https://challenges.cloudflare.com',
-			'https://*.cloudflare.com',
-			'https://cloudflare-turnstile.com',
-			'https://*.cloudflare-turnstile.com',
-			'https://js.stripe.com',
-			'https://*.js.stripe.com',
-			'https://maps.googleapis.com',
-			'https://umami.wadefade.fr',
-			'https://browser.sentry-cdn.com',
-			'https://*.ingest.sentry.io',
-			'https://www.googletagmanager.com',
-			'https://www.googletagmanager.com/gtag/js',
-			'https://*.beswib.com',
-			'https://clerk.beswib.com',
-			'https://*.paypal.com',
-			'https://cdnjs.cloudflare.com',
-		].join(' ')
-
-		const connectSrc = [
-			"'self'",
-			'https://api-m.sandbox.paypal.com',
-			'https://api-m.paypal.com',
-			'https://paypalobjects.com',
-			'https://*.paypalobjects.com',
-			'https://www.sandbox.paypal.com',
-			'https://www.paypal.com',
-			'https://*.cloudflare.com',
-			'https://*.clerk.com',
-			'https://*.clerk.accounts.dev',
-			'https://challenges.cloudflare.com',
-			'https://clerk-telemetry.com',
-			'https://*.clerk-telemetry.com',
-			'https://api.stripe.com',
-			'https://maps.googleapis.com',
-			'https://umami.wadefade.fr',
-			'https://*.ingest.sentry.io',
-			'https://sentry.io',
-			'https://cloudflare-turnstile.com',
-			'https://*.cloudflare-turnstile.com',
-			'https://www.googletagmanager.com',
-			'https://www.googletagmanager.com/gtag/js',
-			'https://*.beswib.com',
-			'https://clerk.beswib.com',
-			'https://*.paypal.com',
-			'https://cdnjs.cloudflare.com',
-			'https://nominatim.openstreetmap.org',
-			'https://latest.currency-api.pages.dev',
-		].join(' ')
-
-		const frameSrc = [
-			'https://www.paypal.com',
-			'https://www.sandbox.paypal.com',
-			'https://*.cloudflare.com',
-			'https://*.clerk.com',
-			'https://*.clerk.accounts.dev',
-			'https://challenges.cloudflare.com',
-			'https://js.stripe.com',
-			'https://*.js.stripe.com',
-			'https://hooks.stripe.com',
-			'https://cloudflare-turnstile.com',
-			'https://*.cloudflare-turnstile.com',
-			'https://www.googletagmanager.com',
-			'https://www.googletagmanager.com/gtag/js',
-			'https://*.beswib.com',
-			'https://clerk.beswib.com',
-			'https://*.paypal.com',
-			'https://paypalobjects.com',
-			'https://*.paypalobjects.com',
-			'https://cdnjs.cloudflare.com',
-			'https://umami.wadefade.fr',
-		].join(' ')
-
-		const imgSrc = [
-			"'self'",
-			'https://img.clerk.com',
-			'https://challenges.cloudflare.com',
-			'data:',
-			'https://images.unsplash.com',
-			'https://loremflickr.com',
-			'https://picsum.photos',
-			'https://cdnjs.cloudflare.com',
-			// PayPal domains
-			'https://paypalobjects.com',
-			'https://*.paypalobjects.com',
-			'https://www.paypalobjects.com',
-			'https://*.paypal.com',
-			'https://www.paypal.com',
-			'https://www.sandbox.paypal.com',
-			// Analytics and tracking domains for PayPal
-			'https://googleads.g.doubleclick.net',
-			'https://*.doubleclick.net',
-			'https://www.google.com',
-			'https://*.google.com',
-			'https://www.google-analytics.com',
-			'https://*.google-analytics.com',
-			'https://www.facebook.com',
-			'https://*.facebook.com',
-			'https://px.ads.linkedin.com',
-			'https://*.linkedin.com',
-			'https://*.googleusercontent.com',
-			// Additional PayPal tracking
-			'https://ak1s.abmr.net',
-			'https://ak1s.mathtag.com',
-			'https://akamai.mathtag.com',
-			'https://ak1.abmr.net',
-			'https://objects.paypal.cn',
-		].join(' ')
-
-		const formAction = [
-			"'self'",
-			'https://www.paypal.com',
-			'https://www.sandbox.paypal.com',
-			'https://*.paypal.com',
-			'https://paypalobjects.com',
-			'https://*.paypalobjects.com',
-		].join(' ')
-
-		const csp = [
-			`default-src 'self'`,
-			`script-src ${scriptSrc}`,
-			`object-src 'none'`,
-			`frame-src ${frameSrc}`,
-			`frame-ancestors 'none'`,
-			`connect-src ${connectSrc}`,
-			`img-src ${imgSrc}`,
-			`style-src 'self' 'unsafe-inline'`,
-			`worker-src 'self' blob:`,
-			`form-action ${formAction}`,
-			`base-uri 'self'`,
-			`manifest-src 'self'`,
-		].join('; ')
-
+		// Phase 1: Basic security headers that shouldn't interfere with PayPal
 		return [
 			{
 				source: '/(.*)',
 				headers: [
 					{
-						value: 'nosniff',
 						key: 'X-Content-Type-Options',
+						value: 'nosniff',
 					},
 					{
-						value: 'DENY',
-						key: 'X-Frame-Options',
-					},
-					{
-						value: 'max-age=63072000; includeSubDomains; preload',
-						key: 'Strict-Transport-Security',
-					},
-					{
+						key: 'Referrer-Policy', 
 						value: 'strict-origin-when-cross-origin',
-						key: 'Referrer-Policy',
 					},
 					{
-						value: csp,
-						key: 'Content-Security-Policy',
-					},
-					{
-						value: '1; mode=block',
 						key: 'X-XSS-Protection',
-					},
-					{
-						value: 'same-origin',
-						key: 'Cross-Origin-Embedder-Policy',
-					},
-					{
-						value: 'same-origin',
-						key: 'Cross-Origin-Opener-Policy',
+						value: '1; mode=block',
 					},
 				],
 			},
