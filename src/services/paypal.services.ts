@@ -19,6 +19,22 @@ import { logPayPalApi } from './paypalApiLog.services'
 
 const PAYPAL_MERCHANT_ID = () => process.env.PAYPAL_MERCHANT_ID ?? ''
 
+// Enable PayPal Sandbox Negative Testing when TEST_NEGATIVE is true
+const NEGATIVE_TEST_CAPTURE_ENABLED =
+	(process.env.TEST_NEGATIVE_CAPTURE ?? process.env.TEST_NEGATIVE ?? '').toLowerCase() === 'true'
+const NEGATIVE_TEST_ORDER_ENABLED =
+	(process.env.TEST_NEGATIVE_ORDER ?? process.env.TEST_NEGATIVE ?? '').toLowerCase() === 'true'
+const NEGATIVE_TEST_CODE = process.env.TEST_NEGATIVE_CODE ?? 'DUPLICATE_INVOICE_ID'
+
+function getNegativeTestingHeader(isEnabled: boolean): Record<string, string> {
+	if (!isEnabled) return {}
+	// See https://developer.paypal.com/tools/sandbox/negative-testing/request-headers/
+	// Header value must be a JSON string
+	return {
+		'PayPal-Mock-Response': JSON.stringify({ mock_application_codes: NEGATIVE_TEST_CODE }),
+	}
+}
+
 export async function handlePaymentCaptureCompleted(event: unknown) {
 	if (typeof event !== 'object' || event == null) {
 		throw new Error('Invalid webhook event')
@@ -296,6 +312,7 @@ export async function capturePayment(orderID: string): Promise<{
 				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
+				...getNegativeTestingHeader(NEGATIVE_TEST_CAPTURE_ENABLED),
 			},
 		})
 
@@ -411,6 +428,7 @@ export async function createOrder(
 				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
+				...getNegativeTestingHeader(NEGATIVE_TEST_ORDER_ENABLED),
 			},
 			body: JSON.stringify(orderData),
 		})
