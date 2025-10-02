@@ -109,7 +109,7 @@
 		"@clerk/types": "4.89.0",
 		"@eslint/eslintrc": "3.3.1",
 		"@tailwindcss/postcss": "4.1.14",
-		"@types/node": "24.6.1",
+		"@types/node": "24.6.2",
 		"@types/react": "19.1.16",
 		"@types/react-dom": "19.1.9",
 		"@types/three": "0.180.0",
