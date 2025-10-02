@@ -45,8 +45,8 @@ importers:
         specifier: 0.5.10
         version: 0.5.10(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@paypal/react-paypal-js':
-        specifier: 8.9.1
-        version: 8.9.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: 8.9.2
+        version: 8.9.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@radix-ui/react-accordion':
         specifier: 1.2.12
         version: 1.2.12(@types/react-dom@19.2.0(@types/react@19.2.0))(@types/react@19.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -1703,11 +1703,11 @@ packages:
   '@paralleldrive/cuid2@2.2.2':
     resolution: {integrity: sha512-ZOBkgDwEdoYVlSeRbYYXs0S9MejQofiVYoTbKzy/6GQa39/q5tQU2IX46+shYnUkpEl3wc+J6wRlar7r2EK2xA==}
 
-  '@paypal/paypal-js@8.4.2':
-    resolution: {integrity: sha512-UbY2lvwW65KX4migWbAx8KK0TCbPdIxeHIHogpJ5Z6yta5Qd2+90rXyx8FGdp6wrcr1f/srotlxnBXvqYWyHog==}
+  '@paypal/paypal-js@9.0.0':
+    resolution: {integrity: sha512-BQywys+FJ5O53tE7d7N6yveB666xE0+3yUHsi38dvO3axnqfAgW/ijxYvKBY9SlNhhCeMrqF/aFrhsTfHDbWyA==}
 
-  '@paypal/react-paypal-js@8.9.1':
-    resolution: {integrity: sha512-7UWGvv+5XD2OexlUpNBRvONErYuxzi0k8wlsjxFsnVSav8hgpfu/27oTMdvGREDzXnQYOKIBn3tbTbNlNc6psA==}
+  '@paypal/react-paypal-js@8.9.2':
+    resolution: {integrity: sha512-z1GoA7KAkhFCSmpIsRxe9aseXRvfOMgF6vCJ2Mym0VOSYJm8bZSC3Ui4SjONnglfV8S4P8djpe5QB7FtKsDXrQ==}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
       react-dom: ^16.8.0 || ^17 || ^18 || ^19
@@ -8225,13 +8225,13 @@ snapshots:
     dependencies:
       '@noble/hashes': 1.8.0
 
-  '@paypal/paypal-js@8.4.2':
+  '@paypal/paypal-js@9.0.0':
     dependencies:
       promise-polyfill: 8.3.0
 
-  '@paypal/react-paypal-js@8.9.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@paypal/react-paypal-js@8.9.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
-      '@paypal/paypal-js': 8.4.2
+      '@paypal/paypal-js': 9.0.0
       '@paypal/sdk-constants': 1.0.156
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
