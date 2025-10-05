@@ -34,7 +34,7 @@ importers:
         version: 2.2.0(react@19.2.0)
       '@hookform/resolvers':
         specifier: 5.2.2
-        version: 5.2.2(react-hook-form@7.63.0(react@19.2.0))
+        version: 5.2.2(react-hook-form@7.64.0(react@19.2.0))
       '@next/eslint-plugin-next':
         specifier: 15.5.4
         version: 15.5.4
@@ -234,8 +234,8 @@ importers:
         specifier: 14.3.8
         version: 14.3.8(react@19.2.0)
       react-hook-form:
-        specifier: 7.63.0
-        version: 7.63.0(react@19.2.0)
+        specifier: 7.64.0
+        version: 7.64.0(react@19.2.0)
       react-international-phone:
         specifier: 4.6.0
         version: 4.6.0(react@19.2.0)
@@ -5523,8 +5523,8 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  react-hook-form@7.63.0:
-    resolution: {integrity: sha512-ZwueDMvUeucovM2VjkCf7zIHcs1aAlDimZu2Hvel5C5907gUzMpm4xCrQXtRzCvsBqFjonB4m3x4LzCFI1ZKWA==}
+  react-hook-form@7.64.0:
+    resolution: {integrity: sha512-fnN+vvTiMLnRqKNTVhDysdrUay0kUUAymQnFIznmgDvapjveUWOOPqMNzPg+A+0yf9DuE2h6xzBjN1s+Qx8wcg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -7243,10 +7243,10 @@ snapshots:
     dependencies:
       react: 19.2.0
 
-  '@hookform/resolvers@5.2.2(react-hook-form@7.63.0(react@19.2.0))':
+  '@hookform/resolvers@5.2.2(react-hook-form@7.64.0(react@19.2.0))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.63.0(react@19.2.0)
+      react-hook-form: 7.64.0(react@19.2.0)
 
   '@humanfs/core@0.19.1': {}
 
@@ -12143,7 +12143,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  react-hook-form@7.63.0(react@19.2.0):
+  react-hook-form@7.64.0(react@19.2.0):
     dependencies:
       react: 19.2.0
 
