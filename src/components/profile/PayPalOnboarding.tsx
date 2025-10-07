@@ -255,7 +255,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 										) : null}
 									</Badge>
 								</TooltipTrigger>
-								<TooltipContent side="right">
+								<TooltipContent side="right" className="max-w-xs whitespace-normal">
 									{paymentsReceivable
 										? t.paypalLinkInfo.paypalKYCCheckTooltip
 										: t.paypalLinkInfo.paypalKYCNotCheckTooltip}
@@ -283,7 +283,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 										) : null}
 									</Badge>
 								</TooltipTrigger>
-								<TooltipContent side="right">
+								<TooltipContent side="right" className="max-w-xs whitespace-normal">
 									{emailConfirmed
 										? t.paypalLinkInfo.paypalEmailCheckTooltip
 										: t.paypalLinkInfo.paypalEmailNotCheckTooltip}
