@@ -386,6 +386,18 @@ export async function createOrder(
 		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
 		const userLocale = locale ?? 'en' // Default to 'en' if no locale provided
 
+		// Format event date for description
+		const eventDate = new Date(bib.event.date)
+		const formattedDate = eventDate.toLocaleDateString(userLocale, {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+		})
+
+		// Build item name and description
+		const itemName = `Race Bib - ${bib.event.name}`
+		const itemDescription = `${bib.event.distance}${bib.event.distanceUnit} ${bib.event.type} race bib in ${bib.event.location} on ${formattedDate}`
+
 		const orderData = {
 			purchase_units: [
 				{
@@ -401,6 +413,17 @@ export async function createOrder(
 						],
 					},
 					payee: { merchant_id: sellerId },
+					items: [
+						{
+							unit_amount: {
+								value: bib.price.toString(),
+								currency_code: 'EUR',
+							},
+							quantity: '1',
+							name: itemName,
+							description: itemDescription,
+						},
+					],
 					amount: {
 						value: bib.price.toString(),
 						currency_code: 'EUR',
