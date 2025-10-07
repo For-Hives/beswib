@@ -68,7 +68,7 @@
 
 					"paypalEmail": "PayPal Email",
 					"paypalEmailCheckTooltip": "Your PayPal email is verified on PayPal.",
-					"paypalEmailNotCheckTooltip": "Your PayPal email is not verified. Please verify your email on PayPal to receive payments.",
+					"paypalEmailNotCheckTooltip": "Attention: Please confirm your email address on https://www.paypal.com/businessprofile/settings in order to receive payments! You currently cannot receive payments.",
 					"thirdPartyPermissions": "Third-party permissions",
 					"thirdPartyPermissionsTooltipOk": "Third-party permissions are granted.",
 					"thirdPartyPermissionsTooltipMissing": "Missing third-party permissions. Please restart PayPal onboarding and grant access to Beswib.",
@@ -200,7 +200,7 @@
 					"paypalKYC": "KYC PayPal",
 					"paypalEmail": "E-mail PayPal",
 					"paypalEmailCheckTooltip": "Votre e-mail PayPal est vérifié sur PayPal.",
-					"paypalEmailNotCheckTooltip": "Votre e-mail PayPal n'est pas vérifié. Veuillez vérifier votre e-mail sur PayPal pour recevoir des paiements.",
+					"paypalEmailNotCheckTooltip": "Attention : Veuillez confirmer votre adresse e-mail sur https://www.paypal.com/businessprofile/settings afin de recevoir des paiements ! Vous ne pouvez actuellement pas recevoir de paiements.",
 					"thirdPartyPermissions": "Autorisations tierces",
 					"thirdPartyPermissionsTooltipOk": "Les autorisations tierces sont accordées.",
 					"thirdPartyPermissionsTooltipMissing": "Autorisations tierces manquantes. Veuillez redémarrer l’onboarding PayPal et accorder l’accès à Beswib.",
@@ -328,7 +328,7 @@
 					"paypalKYC": "PayPal KYC",
 					"paypalEmail": "PayPal 이메일",
 					"paypalEmailCheckTooltip": "PayPal 이메일이 PayPal에서 인증되었습니다.",
-					"paypalEmailNotCheckTooltip": "PayPal 이메일이 인증되지 않았습니다. 결제를 받으려면 PayPal에서 이메일을 인증하세요.",
+					"paypalEmailNotCheckTooltip": "주의: 결제를 받으려면 https://www.paypal.com/businessprofile/settings에서 이메일 주소를 확인하세요! 현재 결제를 받을 수 없습니다.",
 					"thirdPartyPermissions": "서드파티 권한",
 					"thirdPartyPermissionsTooltipOk": "서드파티 권한이 부여되었습니다.",
 					"thirdPartyPermissionsTooltipMissing": "서드파티 권한이 없습니다. PayPal 온보딩을 다시 진행하고 Beswib에게 권한을 부여하세요.",
@@ -460,7 +460,7 @@
 					"paypalKYC": "KYC de PayPal",
 					"paypalEmail": "Correo electrónico de PayPal",
 					"paypalEmailCheckTooltip": "Tu correo electrónico de PayPal está verificado en PayPal.",
-					"paypalEmailNotCheckTooltip": "Tu correo electrónico de PayPal no está verificado. Verifícalo en PayPal para recibir pagos.",
+					"paypalEmailNotCheckTooltip": "Atención: Por favor, confirma tu dirección de correo electrónico en https://www.paypal.com/businessprofile/settings para recibir pagos. Actualmente no puedes recibir pagos.",
 					"refreshChecking": "Comprobando…"
 				},
 				"errors": {
@@ -588,7 +588,7 @@
 					"paypalKYC": "KYC PayPal",
 					"paypalEmail": "Email PayPal",
 					"paypalEmailCheckTooltip": "La tua email PayPal è verificata su PayPal.",
-					"paypalEmailNotCheckTooltip": "La tua email PayPal non è verificata. Verifica la tua email su PayPal per ricevere pagamenti.",
+					"paypalEmailNotCheckTooltip": "Attenzione: Conferma il tuo indirizzo email su https://www.paypal.com/businessprofile/settings per ricevere pagamenti! Attualmente non puoi ricevere pagamenti.",
 					"refreshChecking": "Verifica in corso…"
 				},
 				"errors": {
@@ -716,7 +716,7 @@
 					"paypalKYC": "PayPal-KYC",
 					"paypalEmail": "PayPal-E-Mail",
 					"paypalEmailCheckTooltip": "Ihre PayPal-E-Mail ist bei PayPal verifiziert.",
-					"paypalEmailNotCheckTooltip": "Ihre PayPal-E-Mail ist nicht verifiziert. Bitte verifizieren Sie Ihre E-Mail bei PayPal, um Zahlungen zu erhalten.",
+					"paypalEmailNotCheckTooltip": "Achtung: Bitte bestätigen Sie Ihre E-Mail-Adresse auf https://www.paypal.com/businessprofile/settings, um Zahlungen zu empfangen! Sie können derzeit keine Zahlungen empfangen.",
 					"refreshChecking": "Wird geprüft…"
 				},
 				"errors": {
@@ -844,7 +844,7 @@
 					"paypalKYC": "KYC PayPal",
 					"paypalEmail": "E-mail PayPal",
 					"paypalEmailCheckTooltip": "E-mailul tău PayPal este verificat pe PayPal.",
-					"paypalEmailNotCheckTooltip": "E-mailul tău PayPal nu este verificat. Te rugăm să îți verifici e-mailul pe PayPal pentru a primi plăți.",
+					"paypalEmailNotCheckTooltip": "Atenție: Te rugăm să confirmi adresa ta de e-mail pe https://www.paypal.com/businessprofile/settings pentru a primi plăți! În prezent nu poți primi plăți.",
 
 					"refreshChecking": "Se verifică…"
 				},
@@ -973,7 +973,7 @@
 					"paypalKYC": "KYC PayPal",
 					"paypalEmail": "E-mail PayPal",
 					"paypalEmailCheckTooltip": "O teu e-mail PayPal está verificado no PayPal.",
-					"paypalEmailNotCheckTooltip": "O teu e-mail PayPal não está verificado. Verifica-o no PayPal para receber pagamentos.",
+					"paypalEmailNotCheckTooltip": "Atenção: Por favor, confirma o teu endereço de e-mail em https://www.paypal.com/businessprofile/settings para receberes pagamentos! Atualmente não podes receber pagamentos.",
 
 					"refreshChecking": "A verificar…"
 				},
@@ -1102,7 +1102,7 @@
 					"paypalKYC": "PayPal-KYC",
 					"paypalEmail": "PayPal-e-mailadres",
 					"paypalEmailCheckTooltip": "Je PayPal-e-mailadres is geverifieerd op PayPal.",
-					"paypalEmailNotCheckTooltip": "Je PayPal-e-mailadres is niet geverifieerd. Verifieer je e-mailadres op PayPal om betalingen te ontvangen.",
+					"paypalEmailNotCheckTooltip": "Attentie: Bevestig je e-mailadres op https://www.paypal.com/businessprofile/settings om betalingen te ontvangen! Je kunt momenteel geen betalingen ontvangen.",
 
 					"refreshChecking": "Controleren…"
 				},
