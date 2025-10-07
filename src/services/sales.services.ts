@@ -1,7 +1,6 @@
 'use server'
 
 import type { SalesCreateInput, SalesCreateOutput, SalesCompleteInput, SalesCompleteOutput } from '@/models/sales.model'
-import type { BibSale } from '@/models/marketplace.model'
 
 import {
 	sendSaleAlert,
@@ -23,33 +22,15 @@ export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateO
 		throw new Error('Missing required salesCreate parameters')
 	}
 
-	// Fetch bib for details and price/seller
+	// Fetch bib with expanded event and seller data for complete details
 	const bib = await fetchBibById(bibId)
 	if (!bib) throw new Error('Bib not found')
 
-	// Build the BibSale lightweight object expected by createOrder
-	const bibSale: BibSale = {
-		user: {
-			lastName: '',
-			id: bib.sellerUserId,
-			firstName: '',
-		},
-		status: bib.status === 'sold' ? 'sold' : 'available',
-		price: bib.price,
-		originalPrice: bib.originalPrice ?? 0,
-		lockedAt: bib.lockedAt ?? null,
-		id: bib.id,
-		event: {
-			type: 'road',
-			participantCount: 0,
-			name: '',
-			location: '',
-			image: '',
-			id: bib.eventId,
-			distanceUnit: 'km',
-			distance: 0,
-			date: new Date(),
-		},
+	// Use the transformer to build a complete BibSale with all event details
+	const { transformBibToBibSale } = await import('@/lib/transformers/bib')
+	const bibSale = transformBibToBibSale(bib)
+	if (!bibSale) {
+		throw new Error('Unable to transform bib to BibSale - missing event or seller data')
 	}
 
 	const order = await createOrder(sellerMerchantId, bibSale, locale)

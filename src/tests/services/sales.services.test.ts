@@ -49,8 +49,24 @@ describe('sales.services', () => {
 				lockedAt: null,
 				listed: null,
 				id: 'bib1',
+				expand: {
+					sellerUserId: {
+						lastName: 'Doe',
+						id: 'seller_pb',
+						firstName: 'John',
+					},
+					eventId: {
+						typeCourse: 'road',
+						participants: 30000,
+						name: 'Paris Marathon 2025',
+						location: 'Paris, France',
+						id: 'event1',
+						eventDate: '2025-04-06',
+						distanceKm: 42.2,
+					},
+				},
 				eventId: 'event1',
-			} satisfies Bib)
+			})
 			asMock(createOrder).mockResolvedValue({ id: 'ORDER-123' })
 			asMock(fetchUserByClerkId).mockResolvedValue({ id: 'buyer_pb' } as unknown as User)
 			asMock(createTransaction).mockResolvedValue({ paypal_order_id: 'ORDER-123', id: 'tx1' } as unknown as Transaction)
@@ -61,11 +77,22 @@ describe('sales.services', () => {
 				bibId: 'bib1',
 			})
 
+			/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 			expect(createOrder).toHaveBeenCalledWith(
 				'MERCHANT-XYZ',
-				expect.objectContaining({ price: 100, id: 'bib1' }),
+				expect.objectContaining({
+					price: 100,
+					id: 'bib1',
+					event: expect.objectContaining({
+						type: 'road',
+						name: 'Paris Marathon 2025',
+						location: 'Paris, France',
+						distance: 42.2,
+					}),
+				}),
 				undefined
 			)
+			/* eslint-enable @typescript-eslint/no-unsafe-assignment */
 			expect(fetchUserByClerkId).toHaveBeenCalledWith('clerk_buyer')
 			expect(createTransaction).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -93,8 +120,24 @@ describe('sales.services', () => {
 				lockedAt: null,
 				listed: null,
 				id: 'bib1',
+				expand: {
+					sellerUserId: {
+						lastName: 'Smith',
+						id: 'seller_pb',
+						firstName: 'Jane',
+					},
+					eventId: {
+						typeCourse: 'trail',
+						participants: 5000,
+						name: 'Lyon Trail 2025',
+						location: 'Lyon, France',
+						id: 'event1',
+						eventDate: '2025-05-15',
+						distanceKm: 21.1,
+					},
+				},
 				eventId: 'event1',
-			} satisfies Bib)
+			})
 			asMock(createOrder).mockResolvedValue({ id: 'ORDER-123' })
 			asMock(fetchUserByClerkId).mockResolvedValue({ id: 'buyer_pb' } as unknown as User)
 			asMock(createTransaction).mockResolvedValue({ paypal_order_id: 'ORDER-123', id: 'tx1' } as unknown as Transaction)
@@ -106,11 +149,22 @@ describe('sales.services', () => {
 				bibId: 'bib1',
 			})
 
+			/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 			expect(createOrder).toHaveBeenCalledWith(
 				'MERCHANT-XYZ',
-				expect.objectContaining({ price: 100, id: 'bib1' }),
+				expect.objectContaining({
+					price: 100,
+					id: 'bib1',
+					event: expect.objectContaining({
+						type: 'trail',
+						name: 'Lyon Trail 2025',
+						location: 'Lyon, France',
+						distance: 21.1,
+					}),
+				}),
 				'fr'
 			)
+			/* eslint-enable @typescript-eslint/no-unsafe-assignment */
 			expect(result).toEqual({ transaction: { paypal_order_id: 'ORDER-123', id: 'tx1' }, orderId: 'ORDER-123' })
 		})
 	})
