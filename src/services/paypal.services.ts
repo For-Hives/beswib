@@ -568,12 +568,18 @@ export async function onboardSeller(
 						api_integration_preference: {
 							rest_api_integration: {
 								third_party_details: {
-									features: ['PAYMENT', 'REFUND'],
+									features: ['PAYMENT', 'REFUND', 'ACCESS_MERCHANT_INFORMATION'],
 								},
 								integration_type: 'THIRD_PARTY',
 								integration_method: 'PAYPAL',
 							},
 						},
+					},
+				],
+				legal_consents: [
+					{
+						type: 'SHARE_DATA_CONSENT',
+						granted: true,
 					},
 				],
 			}),
@@ -590,13 +596,14 @@ export async function onboardSeller(
 						operation: 'API_INTEGRATION',
 						api_integration_preference: {
 							rest_api_integration: {
-								third_party_details: { features: ['PAYMENT', 'REFUND'] },
+								third_party_details: { features: ['PAYMENT', 'REFUND', 'ACCESS_MERCHANT_INFORMATION'] },
 								integration_type: 'THIRD_PARTY',
 								integration_method: 'PAYPAL',
 							},
 						},
 					},
 				],
+				legal_consents: [{ type: 'SHARE_DATA_CONSENT', granted: true }],
 			},
 		})
 
