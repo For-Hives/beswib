@@ -49,10 +49,15 @@ export interface PayPalOrderResponse {
 	status: string
 }
 
+export interface PayPalLegalConsent {
+	granted: boolean
+	type: 'SHARE_DATA_CONSENT'
+}
+
 export interface PayPalPartnerReferralResponse {
 	collected_consents: unknown[]
 	id: string
-	legal_consents: unknown[]
+	legal_consents: PayPalLegalConsent[]
 	links: PayPalLink[]
 	operations: PayPalOperation[]
 	partner_client_id: string
