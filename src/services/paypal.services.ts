@@ -19,6 +19,10 @@ import { logPayPalApi } from './paypalApiLog.services'
 
 const PAYPAL_MERCHANT_ID = () => process.env.PAYPAL_MERCHANT_ID ?? ''
 
+// PayPal Partner Attribution ID (BN Code) - (hardcoded as it's not a secret -> paypal documentation require it)
+// This identifies our platform to PayPal for proper attribution tracking
+const PAYPAL_BN_CODE = 'CINQUINANDY_SP_PPCP'
+
 // Enable PayPal Sandbox Negative Testing when TEST_NEGATIVE is true
 const NEGATIVE_TEST_CAPTURE_ENABLED =
 	(process.env.TEST_NEGATIVE_CAPTURE ?? process.env.TEST_NEGATIVE ?? '').toLowerCase() === 'true'
@@ -309,7 +313,7 @@ export async function capturePayment(orderID: string): Promise<{
 		const response = await fetch(`${paypalApiUrl}/v2/checkout/orders/${orderID}/capture`, {
 			method: 'POST',
 			headers: {
-				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
+				'PayPal-Partner-Attribution-Id': PAYPAL_BN_CODE,
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 				...getNegativeTestingHeader(NEGATIVE_TEST_CAPTURE_ENABLED),
@@ -448,7 +452,7 @@ export async function createOrder(
 		const response = await fetch(`${paypalApiUrl}/v2/checkout/orders`, {
 			method: 'POST',
 			headers: {
-				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
+				'PayPal-Partner-Attribution-Id': PAYPAL_BN_CODE,
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 				...getNegativeTestingHeader(NEGATIVE_TEST_ORDER_ENABLED),
@@ -483,7 +487,7 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 		const response = await fetch(`${paypalApiUrl}/v2/customer/partner-referrals/${referralId}`, {
 			method: 'GET',
 			headers: {
-				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
+				'PayPal-Partner-Attribution-Id': PAYPAL_BN_CODE,
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 			},
@@ -542,7 +546,7 @@ export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?:
 		const response = await fetch(`${paypalApiUrl}/v1/notifications/webhooks`, {
 			method: 'GET',
 			headers: {
-				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
+				'PayPal-Partner-Attribution-Id': PAYPAL_BN_CODE,
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 			},
@@ -575,7 +579,7 @@ export async function onboardSeller(
 		const response = await fetch(`${paypalApiUrl}/v2/customer/partner-referrals`, {
 			method: 'POST',
 			headers: {
-				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
+				'PayPal-Partner-Attribution-Id': PAYPAL_BN_CODE,
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 			},
@@ -654,7 +658,7 @@ export async function setupPayPalWebhooks(): Promise<{ error?: string; success?:
 		const response = await fetch(`${paypalApiUrl}/v1/notifications/webhooks`, {
 			method: 'POST',
 			headers: {
-				'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
+				'PayPal-Partner-Attribution-Id': PAYPAL_BN_CODE,
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 			},
@@ -752,7 +756,7 @@ export async function getMerchantIntegrationStatus(
 			{
 				method: 'GET',
 				headers: {
-					'PayPal-Partner-Attribution-Id': process.env.PAYPAL_BN_CODE ?? '',
+					'PayPal-Partner-Attribution-Id': PAYPAL_BN_CODE,
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${token}`,
 				},

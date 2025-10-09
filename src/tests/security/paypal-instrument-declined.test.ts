@@ -5,7 +5,7 @@ global.fetch = vi.fn()
 const mockedFetch = vi.mocked(fetch)
 
 // Mock environment variables
-process.env.PAYPAL_BN_CODE = 'TEST-BN-CODE-12345'
+// Note: PAYPAL_BN_CODE is now hardcoded in the service, not needed here
 process.env.PAYPAL_API_URL = 'https://api-m.sandbox.paypal.com'
 process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = 'test-client-id'
 process.env.PAYPAL_CLIENT_SECRET = 'test-client-secret'

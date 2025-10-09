@@ -10,11 +10,14 @@ vi.mock('@/constants/global.constant', () => ({
 }))
 
 // Mock environment variables
-process.env.PAYPAL_BN_CODE = 'TEST-BN-CODE-12345'
+// Note: PAYPAL_BN_CODE is now hardcoded in the service, so this env var is ignored
 process.env.PAYPAL_API_URL = 'https://api-m.sandbox.paypal.com'
 process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = 'test-client-id'
 process.env.PAYPAL_CLIENT_SECRET = 'test-client-secret'
 process.env.PAYPAL_MERCHANT_ID = 'test-merchant-id'
+
+// Expected hardcoded BN Code
+const EXPECTED_BN_CODE = 'CINQUINANDY_SP_PPCP'
 
 import {
 	createOrder,
@@ -68,7 +71,7 @@ describe('PayPal Partner Attribution Header', () => {
 	})
 
 	describe('createOrder', () => {
-		it('should include PayPal-Partner-Attribution-Id header', async () => {
+		it('should include PayPal-Partner-Attribution-Id header with hardcoded value', async () => {
 			const mockBib = {
 				user: { lastName: '', id: 'user-123', firstName: '' },
 				status: 'available' as const,
@@ -104,13 +107,13 @@ describe('PayPal Partner Attribution Header', () => {
 
 			if (createOrderCall) {
 				const options = createOrderCall[1] as RequestInit
-				expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', 'TEST-BN-CODE-12345')
+				expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', EXPECTED_BN_CODE)
 			}
 		})
 	})
 
 	describe('capturePayment', () => {
-		it('should include PayPal-Partner-Attribution-Id header', async () => {
+		it('should include PayPal-Partner-Attribution-Id header with hardcoded value', async () => {
 			await capturePayment('ORDER-1234567890ABCDEFGH')
 
 			// Find the capture payment API call
@@ -122,13 +125,13 @@ describe('PayPal Partner Attribution Header', () => {
 
 			if (captureCall) {
 				const options = captureCall[1] as RequestInit
-				expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', 'TEST-BN-CODE-12345')
+				expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', EXPECTED_BN_CODE)
 			}
 		})
 	})
 
 	describe('getMerchantId', () => {
-		it('should include PayPal-Partner-Attribution-Id header', async () => {
+		it('should include PayPal-Partner-Attribution-Id header with hardcoded value', async () => {
 			await getMerchantId('REFERRAL-1234567890ABCDEFGHIJ')
 
 			// Find the get merchant ID API call
@@ -140,13 +143,13 @@ describe('PayPal Partner Attribution Header', () => {
 
 			if (getMerchantCall) {
 				const options = getMerchantCall[1] as RequestInit
-				expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', 'TEST-BN-CODE-12345')
+				expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', EXPECTED_BN_CODE)
 			}
 		})
 	})
 
 	describe('listPayPalWebhooks', () => {
-		it('should include PayPal-Partner-Attribution-Id header', async () => {
+		it('should include PayPal-Partner-Attribution-Id header with hardcoded value', async () => {
 			await listPayPalWebhooks()
 
 			// Find the list webhooks API call
@@ -158,13 +161,13 @@ describe('PayPal Partner Attribution Header', () => {
 
 			if (listWebhooksCall) {
 				const options = listWebhooksCall[1] as RequestInit
-				expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', 'TEST-BN-CODE-12345')
+				expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', EXPECTED_BN_CODE)
 			}
 		})
 	})
 
 	describe('setupPayPalWebhooks', () => {
-		it('should include PayPal-Partner-Attribution-Id header', async () => {
+		it('should include PayPal-Partner-Attribution-Id header with hardcoded value', async () => {
 			await setupPayPalWebhooks()
 
 			// Find the setup webhooks API call
@@ -176,13 +179,13 @@ describe('PayPal Partner Attribution Header', () => {
 
 			if (setupWebhooksCall) {
 				const options = setupWebhooksCall[1] as RequestInit
-				expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', 'TEST-BN-CODE-12345')
+				expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', EXPECTED_BN_CODE)
 			}
 		})
 	})
 
 	describe('getMerchantIntegrationStatus', () => {
-		it('should include PayPal-Partner-Attribution-Id header', async () => {
+		it('should include PayPal-Partner-Attribution-Id header with hardcoded value', async () => {
 			await getMerchantIntegrationStatus('test-merchant-id')
 
 			// Find the merchant status API call
@@ -194,15 +197,16 @@ describe('PayPal Partner Attribution Header', () => {
 
 			if (statusCall) {
 				const options = statusCall[1] as RequestInit
-				expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', 'TEST-BN-CODE-12345')
+				expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', EXPECTED_BN_CODE)
 			}
 		})
 	})
 
-	describe('Environment variable validation', () => {
-		it('should use empty string when PAYPAL_BN_CODE is not set', async () => {
+	describe('Hardcoded BN Code validation', () => {
+		it('should always use hardcoded BN Code regardless of environment variable', async () => {
+			// Set a different value in env var to prove it's not used
 			const originalBnCode = process.env.PAYPAL_BN_CODE
-			delete process.env.PAYPAL_BN_CODE
+			process.env.PAYPAL_BN_CODE = 'WRONG-CODE-SHOULD-NOT-BE-USED'
 
 			try {
 				await capturePayment('ORDER-1234567890ABCDEFGH')
@@ -213,11 +217,17 @@ describe('PayPal Partner Attribution Header', () => {
 
 				if (captureCall) {
 					const options = captureCall[1] as RequestInit
-					expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', '')
+					// Should use hardcoded value, not the env var
+					expect(options.headers).toHaveProperty('PayPal-Partner-Attribution-Id', EXPECTED_BN_CODE)
+					expect(options.headers).not.toHaveProperty('PayPal-Partner-Attribution-Id', 'WRONG-CODE-SHOULD-NOT-BE-USED')
 				}
 			} finally {
 				// Restore environment variable
-				process.env.PAYPAL_BN_CODE = originalBnCode
+				if (originalBnCode !== undefined && originalBnCode !== null && originalBnCode !== '') {
+					process.env.PAYPAL_BN_CODE = originalBnCode
+				} else {
+					delete process.env.PAYPAL_BN_CODE
+				}
 			}
 		})
 	})
