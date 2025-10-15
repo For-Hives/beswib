@@ -18,8 +18,8 @@ importers:
         specifier: 6.33.4
         version: 6.33.4(next@15.5.5(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@clerk/themes':
-        specifier: 2.4.25
-        version: 2.4.25
+        specifier: 2.4.26
+        version: 2.4.26
       '@faker-js/faker':
         specifier: 10.0.0
         version: 10.0.0
@@ -534,8 +534,8 @@ packages:
       react-dom:
         optional: true
 
-  '@clerk/themes@2.4.25':
-    resolution: {integrity: sha512-Bj+HV6t63zzIvCakC2rF7dTgEey13w2hl9wz1wSv78m5pNrUKKU9uIv+DV9Y/iD5t4abBXNFnfgcmLKZ/Il8dA==}
+  '@clerk/themes@2.4.26':
+    resolution: {integrity: sha512-HP1XjD1f4TArjj8hN4KCV1wAkWDxhQqLbt0UDxJo9Swtiyo+uTfk5hgOhxSwY3mV121zyqFSIrrbKQEPRWq9GQ==}
     engines: {node: '>=18.17.0'}
 
   '@clerk/types@4.92.0':
@@ -6965,9 +6965,9 @@ snapshots:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
 
-  '@clerk/themes@2.4.25':
+  '@clerk/themes@2.4.26':
     dependencies:
-      '@clerk/types': 4.92.0
+      '@clerk/types': 4.93.0
       tslib: 2.8.1
 
   '@clerk/types@4.92.0':
