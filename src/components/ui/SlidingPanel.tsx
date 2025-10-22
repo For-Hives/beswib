@@ -121,6 +121,8 @@ export function SlidingPanel({
 									stroke="currentColor"
 									viewBox="0 0 24 24"
 									xmlns="http://www.w3.org/2000/svg"
+									role="img"
+									aria-label="Close Icon"
 								>
 									<path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
 								</svg>

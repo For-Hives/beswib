@@ -104,6 +104,7 @@ export default function LanguageSwitcher({ currentLocale, className = '' }: Lang
 									}`}
 									lang={code}
 									aria-current={isCurrent ? 'true' : undefined}
+									type="button"
 								>
 									<span className="text-lg">{lang.flag}</span>
 									<div className="flex-1 text-left">
@@ -166,6 +167,7 @@ export function LanguageSwitcherMobile({ currentLocale }: LanguageSwitcherProps)
 				aria-label="Select language"
 				aria-expanded={isOpen}
 				aria-haspopup="true"
+				type="button"
 			>
 				<div className="flex items-center gap-2">
 					<span className="text-lg">{currentLang.flag}</span>
