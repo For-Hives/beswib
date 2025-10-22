@@ -266,7 +266,14 @@ export default function OGImageBib({
 							}}
 						>
 							{/* Instagram Icon */}
-							<svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 24 24">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width={32}
+								height={32}
+								viewBox="0 0 24 24"
+								role="img"
+								aria-label="Instagram Icon"
+							>
 								<rect
 									width={21}
 									height={21}
@@ -303,6 +310,8 @@ export default function OGImageBib({
 								style={{
 									marginLeft: '4px',
 								}}
+								role="img"
+								aria-label="Strava Icon"
 							>
 								<path
 									fill="#111E3B"
@@ -311,7 +320,14 @@ export default function OGImageBib({
 							</svg>
 
 							{/* LinkedIn Icon */}
-							<svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="-5.5 0 32 32">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="46"
+								height="46"
+								viewBox="-5.5 0 32 32"
+								role="img"
+								aria-label="LinkedIn Icon"
+							>
 								<path
 									fill="#111E3B"
 									d="M0 8.219v15.563a2.6 2.6 0 0 0 2.625 2.625h15.563c.719 0 1.406-.344 1.844-.781.469-.469.781-1.063.781-1.844V8.219a2.6 2.6 0 0 0-2.625-2.625H2.625c-.781 0-1.375.313-1.844.781C.343 6.813 0 7.5 0 8.219m2.813 2.062c0-1 .813-1.875 1.813-1.875 1.031 0 1.875.875 1.875 1.875 0 1.031-.844 1.844-1.875 1.844-1 0-1.813-.813-1.813-1.844m5.031 12.844v-9.531c0-.219.219-.406.375-.406h2.656c.375 0 .375.438.375.719.75-.75 1.719-.938 2.719-.938 2.438 0 4 1.156 4 3.719v6.438c0 .219-.188.406-.375.406h-2.75c-.219 0-.375-.219-.375-.406v-5.813c0-.969-.281-1.5-1.375-1.5-1.375 0-1.719.906-1.719 2.125v5.188c0 .219-.219.406-.438.406H8.218c-.156 0-.375-.219-.375-.406zm-4.969 0v-9.531c0-.219.219-.406.375-.406h2.719c.25 0 .406.156.406.406v9.531a.414.414 0 0 1-.406.406H3.25c-.188 0-.375-.219-.375-.406"
@@ -319,7 +335,14 @@ export default function OGImageBib({
 							</svg>
 
 							{/* Facebook Icon */}
-							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="32"
+								height="32"
+								viewBox="0 0 24 24"
+								role="img"
+								aria-label="Facebook Icon"
+							>
 								<path
 									fill="#111E3B"
 									fillRule="evenodd"
