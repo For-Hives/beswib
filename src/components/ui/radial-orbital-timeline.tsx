@@ -127,16 +127,7 @@ const OrbitalNode = memo(
 			[item.id, onToggle]
 		)
 
-		const handleKeyDown = useCallback(
-			(e: React.KeyboardEvent) => {
-				if (e.key === 'Enter' || e.key === ' ') {
-					e.preventDefault()
-					e.stopPropagation()
-					onToggle(item.id)
-				}
-			},
-			[item.id, onToggle]
-		)
+		// No need for custom key handling on native buttons
 
 		return (
 			<div
@@ -170,42 +161,38 @@ const OrbitalNode = memo(
 				)}
 
 				{/* Node with icon */}
-				<div
+				<button
 					className={`flex h-12 w-12 transform cursor-pointer items-center justify-center rounded-full border-2 transition-all duration-300 ${getNodeStyling()}`}
 					onClick={handleClick}
 					onMouseEnter={handleMouseEnter}
-					onKeyDown={handleKeyDown}
-					role="button"
-					tabIndex={0}
 					aria-label={`Icon for ${item.title}`}
 					style={{
 						pointerEvents: 'auto',
 					}}
+					type="button"
 				>
 					<div style={{ pointerEvents: 'none' }}>
 						<Icon size={20} />
 					</div>
-				</div>
+				</button>
 
 				{/* Node title */}
-				<div
+				<button
 					className={`absolute top-14 cursor-pointer text-center text-xs font-semibold tracking-wider whitespace-nowrap transition-all duration-300 ${
 						isExpanded ? 'text-foreground scale-125' : 'text-muted-foreground'
 					}`}
 					onClick={handleClick}
 					onMouseEnter={handleMouseEnter}
-					onKeyDown={handleKeyDown}
-					role="button"
-					tabIndex={0}
 					aria-label={`Title: ${item.title}`}
 					style={{
 						pointerEvents: 'auto',
 						padding: '4px 8px',
 						minWidth: '60px',
 					}}
+					type="button"
 				>
 					{item.title}
-				</div>
+				</button>
 
 				{/* Expansion card */}
 				{isExpanded && (
@@ -359,28 +346,14 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 		}
 	}, [autoRotate, frozenRotation, globalElapsed])
 
-	// Handler optimisé avec useCallback
-	const handleContainerClick = useCallback(
-		(e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
-			// Ne fermer que si on clique vraiment sur le fond
-			const target = e.target as HTMLElement
-			const isBackgroundClick =
-				target === containerRef.current ||
-				target === orbitRef.current ||
-				target.classList.contains('orbital-container') ||
-				target.classList.contains('bg-background')
-
-			if (isBackgroundClick) {
-				setExpandedItems({})
-				setActiveNodeId(null)
-				setPulseEffect({})
-				// Pas de reset brutal - on reprend juste la rotation normale
-				setAutoRotate(true)
-				// Le frozenRotation reste jusqu'à la prochaine rotation
-			}
-		},
-		[]
-	)
+	// Accessible overlay close handler
+	const handleOverlayClick = useCallback(() => {
+		setExpandedItems({})
+		setActiveNodeId(null)
+		setPulseEffect({})
+		setAutoRotate(true)
+		// frozenRotation is reset by effect after resuming auto-rotate
+	}, [])
 
 	// Toggle optimisé
 	const toggleItem = useCallback(
@@ -447,21 +420,18 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 			<div
 				ref={containerRef}
 				className="bg-background z-40 flex min-h-128 w-full -translate-x-2 flex-col items-center justify-center md:translate-x-0"
-				onClick={handleContainerClick}
-				onKeyDown={e => {
-					if (e.key === 'Enter' || e.key === ' ') {
-						e.preventDefault()
-						handleContainerClick(e)
-					}
-				}}
-				role="button"
-				tabIndex={0}
-				aria-label="Close expanded timeline items"
 			>
 				<div className="relative flex h-full w-full max-w-6xl items-center justify-center md:scale-100">
+					{/* Background close overlay for accessibility */}
+					<button
+						className="absolute inset-0 z-0 bg-transparent"
+						onClick={handleOverlayClick}
+						type="button"
+						aria-label="Close expanded timeline items"
+					/>
 					<div
 						ref={orbitRef}
-						className="absolute flex h-full w-full items-center justify-center"
+						className="absolute z-10 flex h-full w-full items-center justify-center"
 						style={{
 							transition: 'transform 0.1s linear',
 							transformStyle: 'preserve-3d',
