@@ -49,6 +49,7 @@ export default function AdminEventPageClient({ locale, currentUser }: AdminEvent
 						<button
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
 							onClick={() => router.push('/auth/sign-in')}
+							type="button"
 						>
 							{t.dashboard.ui.signIn}
 						</button>
