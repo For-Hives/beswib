@@ -381,6 +381,7 @@ export default function CustomSignUp() {
 
 				<div className="text-center">
 					<button
+						type="button"
 						onClick={() => {
 							setPendingVerification(false)
 							setVerificationCode('')

@@ -68,6 +68,7 @@ export default function LanguageSwitcher({ currentLocale, className = '' }: Lang
 	return (
 		<div className={`group relative ${className}`} ref={dropdownRef}>
 			<button
+				type="button"
 				onClick={toggleDropdown}
 				className="border-border bg-background hover:bg-accent/10 flex items-center gap-2 rounded-lg border px-3 py-2 transition-colors"
 				aria-label="Select language"

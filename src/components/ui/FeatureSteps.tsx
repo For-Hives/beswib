@@ -48,7 +48,7 @@ export function FeatureSteps({ features, className, autoPlayInterval = 100 }: Fe
 								animate={{ opacity: index === currentFeature ? 1 : 0.3 }}
 								className="flex cursor-pointer items-center gap-6 md:gap-8"
 								initial={{ opacity: 0.3 }}
-								key={index}
+								key={feature.step}
 								onClick={() => {
 									setCurrentFeature(index)
 									setProgress(0)
@@ -95,7 +95,7 @@ export function FeatureSteps({ features, className, autoPlayInterval = 100 }: Fe
 											className="absolute inset-0 overflow-hidden rounded-lg"
 											exit={{ opacity: 0 }}
 											initial={{ opacity: 0 }}
-											key={index}
+											key={feature.step}
 											transition={{ ease: 'easeInOut', duration: 0.4 }}
 										>
 											<Image

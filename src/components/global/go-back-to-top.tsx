@@ -54,7 +54,7 @@ interface GoBackToTopProps {
  * - Accessible with keyboard navigation
  * - Automatic internationalization
  */
-export function GoBackToTop({ threshold = 100, locale, className }: GoBackToTopProps) {
+export function GoBackToTop({ threshold = 100, locale }: GoBackToTopProps) {
 	// Get translations for the current locale
 	const t = getTranslations(locale, translations)
 

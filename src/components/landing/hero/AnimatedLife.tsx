@@ -296,6 +296,7 @@ export function AnimatedLife() {
 
 	return (
 		<button
+			type="button"
 			className="absolute bottom-0 left-0 z-20 flex h-[45vh] w-screen md:h-[35vh]"
 			tabIndex={0}
 			onClick={handleClick}
@@ -368,6 +369,8 @@ function Cycling({ internalDurMs, color }: { color: string; internalDurMs: numbe
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 			className="h-10 w-10"
+			role="img"
+			aria-label="Cycling Icon"
 		>
 			<path
 				d="M644.677 410.63C730.333 410.63 800 480.325 800 565.981C800 651.609 730.333 721.277 644.677 721.277C559.034 721.277 489.367 651.609 489.367 565.981C489.367 480.325 559.034 410.63 644.677 410.63ZM644.677 678.727C706.867 678.727 757.436 628.142 757.436 565.98C757.436 503.777 706.866 453.206 644.677 453.206C582.502 453.206 531.917 503.778 531.917 565.98C531.919 628.142 582.502 678.727 644.677 678.727Z"
@@ -422,6 +425,8 @@ function Runner({ internalDurMs, color }: { color: string; internalDurMs: number
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 			className="h-10 w-10"
+			role="img"
+			aria-label="Runner Icon"
 		>
 			{/* right leg */}
 			<path d="M583 750L530 559L388.5 419" stroke={color} strokeWidth="80" strokeLinecap="round" strokeLinejoin="round">

@@ -169,7 +169,7 @@ export default function PayPalPurchaseClient({
 				}
 				setIsPanelOpen(true)
 			} catch (err) {
-				toast.error('Error locking bib for purchase.' + (err instanceof Error ? err.message : String(err)))
+				toast.error(`Error locking bib for purchase.${err instanceof Error ? err.message : String(err)}`)
 			} finally {
 				setLoading(false)
 			}
@@ -213,7 +213,7 @@ export default function PayPalPurchaseClient({
 			console.info('Sale created, order:', res.orderId)
 			return res.orderId
 		} catch (error: unknown) {
-			const errorMsg = 'Error creating order: ' + (error instanceof Error ? error.message : 'Unknown error')
+			const errorMsg = `Error creating order: ${error instanceof Error ? error.message : 'Unknown error'}`
 			console.error('Order creation error:', error instanceof Error ? error.message : 'Unknown error')
 			setErrorMessage(errorMsg)
 			throw new Error(errorMsg)
@@ -248,7 +248,7 @@ export default function PayPalPurchaseClient({
 
 				router.push(`/${locale}/purchase/success`)
 			} catch (error: unknown) {
-				const errorMsg = 'Error capturing payment: ' + (error instanceof Error ? error.message : 'Unknown error')
+				const errorMsg = `Error capturing payment: ${error instanceof Error ? error.message : 'Unknown error'}`
 				console.error('Capture error:', error instanceof Error ? error.message : 'Unknown error')
 				setErrorMessage(errorMsg)
 				setIsInstrumentDeclined(false) // Reset instrument declined flag on other errors

@@ -43,7 +43,7 @@ export default function Breadcrumbs({ locale, items, className = '' }: Breadcrum
 
 				{/* Navigation items */}
 				{items.map((item, index) => (
-					<Fragment key={index}>
+					<Fragment key={item.label}>
 						{item.current === true ? (
 							<span className="text-foreground font-medium" aria-current="page">
 								{item.label}

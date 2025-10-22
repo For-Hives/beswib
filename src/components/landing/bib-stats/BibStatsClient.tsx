@@ -76,7 +76,7 @@ export default function BibStatsClient({ locale }: Readonly<BibStatsClientProps>
 		<section className="dark:bg-card/50 bg-white/70 px-4 py-12 md:py-24 lg:pb-36 xl:px-0" ref={sectionRef}>
 			<div className="mx-auto max-w-7xl">
 				<div className="grid gap-8 md:grid-cols-3">
-					{stats.map((stat, index) => (
+					{stats.map(stat => (
 						<div className="text-center" key={stat.label}>
 							<div className="text-primary mb-2 text-4xl font-bold md:text-5xl">
 								<NumberFlow

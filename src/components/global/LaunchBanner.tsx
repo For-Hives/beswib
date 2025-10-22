@@ -89,7 +89,7 @@ export function LaunchBanner({ locale }: LaunchBannerProps) {
 		// Also save to cookies as fallback
 		const expires = new Date()
 		expires.setDate(expires.getDate() + 30)
-		// biome-ignore lint/suspicious/noDocumentCookie: <explanation>
+		// biome-ignore lint/suspicious/noDocumentCookie: This is a simple banner dismissal and not a critical security feature.
 		document.cookie = `banner_dismissed=true; expires=${expires.toUTCString()}; path=/; SameSite=Lax`
 	}
 

@@ -77,7 +77,7 @@ export function PasswordStrength({ show = true, password, locale = 'fr' }: Passw
 					<ul className="space-y-0.5">
 						{feedback.slice(0, 3).map((item, index) => (
 							<motion.li
-								key={index}
+								key={item}
 								initial={{ x: -10, opacity: 0 }}
 								animate={{ x: 0, opacity: 1 }}
 								transition={{ delay: index * 0.1 }}
