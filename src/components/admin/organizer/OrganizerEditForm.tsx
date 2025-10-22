@@ -1,20 +1,19 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-
 import { valibotResolver } from '@hookform/resolvers/valibot'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as v from 'valibot'
 
 import { updateOrganizerAction } from '@/app/[locale]/admin/actions'
-import { FileUpload } from '@/components/ui/file-upload'
-import { Organizer } from '@/models/organizer.model'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import { FileUpload } from '@/components/ui/file-upload'
+import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import type { Organizer } from '@/models/organizer.model'
 
 // Validation Schema using Valibot - côté client seulement
 const OrganizerEditSchema = v.object({
@@ -152,7 +151,8 @@ export default function OrganizerEditForm({
 							{translationsCommon.organizers.edit.title}
 						</h1>
 						<p className="text-muted-foreground mt-4 text-lg">
-							{translationsCommon.organizers.edit.subtitle} &quot;{organizer.name}&quot;
+							{translationsCommon.organizers.edit.subtitle} &quot;
+							{organizer.name}&quot;
 						</p>
 					</div>
 

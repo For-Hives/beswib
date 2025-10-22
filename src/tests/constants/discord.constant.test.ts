@@ -1,10 +1,15 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
-import { saleAlertText, contactSummaryText, contactFullText } from '../../constants/discord.constant'
+import { contactFullText, contactSummaryText, saleAlertText } from '../../constants/discord.constant'
 
 describe('discord.constant templates', () => {
 	it('saleAlertText builds expected string', () => {
-		const txt = saleAlertText({ orderId: 'ORD123', currency: 'EUR', bibId: 'BIB1', amount: 42 })
+		const txt = saleAlertText({
+			orderId: 'ORD123',
+			currency: 'EUR',
+			bibId: 'BIB1',
+			amount: 42,
+		})
 		expect(txt).toContain('@here')
 		expect(txt).toContain('order: ORD123')
 		expect(txt).toContain('bib: BIB1')

@@ -1,10 +1,9 @@
 import { Plus } from 'lucide-react'
-
-import { EventOption } from '@/models/eventOption.model'
 import { Button } from '@/components/ui/button'
+import type { EventOption } from '@/models/eventOption.model'
 
 import EventOptionCard from './EventOptionCard'
-import { EventSectionProps } from './types'
+import type { EventSectionProps } from './types'
 
 interface EventOptionsSectionProps extends EventSectionProps {
 	eventOptions: EventOption[]
@@ -68,7 +67,12 @@ export default function EventOptionsSection({
 
 	const removeOptionValue = (optionIndex: number, valueIndex: number) => {
 		const updated = eventOptions.map((option, i) =>
-			i === optionIndex ? { ...option, values: option.values.filter((_, j) => j !== valueIndex) } : option
+			i === optionIndex
+				? {
+						...option,
+						values: option.values.filter((_, j) => j !== valueIndex),
+					}
+				: option
 		)
 		setValue('options', updated)
 		setEventOptions(updated)

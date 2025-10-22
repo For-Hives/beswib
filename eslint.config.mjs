@@ -1,17 +1,16 @@
-import reactHooksPlugin from 'eslint-plugin-react-hooks'
-
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-import noOnlyTestsPlugin from 'eslint-plugin-no-only-tests'
-import queryPlugin from '@tanstack/eslint-plugin-query'
-import perfectionist from 'eslint-plugin-perfectionist'
-import tsPlugin from '@typescript-eslint/eslint-plugin'
-import jsxA11yPlugin from 'eslint-plugin-jsx-a11y'
-import promisePlugin from 'eslint-plugin-promise'
-import tsParser from '@typescript-eslint/parser'
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { FlatCompat } from '@eslint/eslintrc'
-import { fileURLToPath } from 'url'
+import queryPlugin from '@tanstack/eslint-plugin-query'
+import tsPlugin from '@typescript-eslint/eslint-plugin'
+import tsParser from '@typescript-eslint/parser'
+import jsxA11yPlugin from 'eslint-plugin-jsx-a11y'
+import noOnlyTestsPlugin from 'eslint-plugin-no-only-tests'
+import perfectionist from 'eslint-plugin-perfectionist'
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import promisePlugin from 'eslint-plugin-promise'
+import reactHooksPlugin from 'eslint-plugin-react-hooks'
 import * as espree from 'espree'
-import { dirname } from 'path'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)

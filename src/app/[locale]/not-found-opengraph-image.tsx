@@ -1,10 +1,9 @@
-import { ImageResponse } from 'next/og'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { headers } from 'next/headers'
-import { readFileSync } from 'fs'
-import { join } from 'path'
-
-import { generateLocaleParams } from '@/lib/generation/staticParams'
+import { ImageResponse } from 'next/og'
 import OGImage from '@/components/OG/ogImage.component'
+import { generateLocaleParams } from '@/lib/generation/staticParams'
 
 // Alt text for the Open Graph image
 export const alt = 'Beswib Page Not Found Open Graph Image'
@@ -40,15 +39,13 @@ export default async function Image() {
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			(
-				<OGImage
-					title="Page Not Found"
-					secondary="The page you're looking for doesn't exist"
-					host={host}
-					protocol={protocol}
-					size={size}
-				/>
-			),
+			<OGImage
+				title="Page Not Found"
+				secondary="The page you're looking for doesn't exist"
+				host={host}
+				protocol={protocol}
+				size={size}
+			/>,
 			{
 				...size,
 				fonts: [
@@ -72,15 +69,13 @@ export default async function Image() {
 		console.error('Error loading fonts:', error)
 		// Fallback: return the image without custom fonts
 		return new ImageResponse(
-			(
-				<OGImage
-					title="Page Not Found"
-					secondary="The page you're looking for doesn't exist"
-					host={host}
-					protocol={protocol}
-					size={size}
-				/>
-			),
+			<OGImage
+				title="Page Not Found"
+				secondary="The page you're looking for doesn't exist"
+				host={host}
+				protocol={protocol}
+				size={size}
+			/>,
 			size
 		)
 	}

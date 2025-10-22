@@ -1,29 +1,26 @@
-import type { Metadata } from 'next'
-
-import { ArrowLeft, Bell } from 'lucide-react'
-
-import { notFound, redirect } from 'next/navigation'
 import { SignedIn, SignedOut } from '@clerk/nextjs'
 import { auth } from '@clerk/nextjs/server'
+import { ArrowLeft, Bell } from 'lucide-react'
 import { DateTime } from 'luxon'
+import type { Metadata } from 'next'
 import Link from 'next/link'
-
-import type { Event } from '@/models/event.model'
-import type { Bib } from '@/models/bib.model'
+import { notFound, redirect } from 'next/navigation'
+import CardMarket from '@/components/marketplace/CardMarket'
+import { EventBreadcrumbs } from '@/components/seo/Breadcrumbs'
 
 import { WaitlistNotifications } from '@/components/waitlist/WaitlistNotifications'
 import WaitlistStatusClient from '@/components/waitlist/WaitlistStatusClient'
-import { fetchPubliclyListedBibsForEvent } from '@/services/bib.services'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { generateEventMetadata } from '@/lib/seo/metadata-generators'
 import { transformBibsToBibSales } from '@/lib/transformers/bib'
-import { EventBreadcrumbs } from '@/components/seo/Breadcrumbs'
-import { fetchUserByClerkId } from '@/services/user.services'
-import CardMarket from '@/components/marketplace/CardMarket'
-import { addToWaitlist } from '@/services/waitlist.services'
-import { fetchEventById } from '@/services/event.services'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { pbDateToLuxon } from '@/lib/utils/date'
-import { Locale } from '@/lib/i18n/config'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import { fetchPubliclyListedBibsForEvent } from '@/services/bib.services'
+import { fetchEventById } from '@/services/event.services'
+import { fetchUserByClerkId } from '@/services/user.services'
+import { addToWaitlist } from '@/services/waitlist.services'
 
 import eventTranslations from './locales.json'
 
@@ -97,21 +94,24 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 	}
 
 	const formatPrice = (value?: number) => {
-		if (value == null || isNaN(value)) return ''
+		if (value == null || Number.isNaN(value)) return ''
 		try {
-			return new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(value)
+			return new Intl.NumberFormat(locale, {
+				style: 'currency',
+				currency: 'EUR',
+			}).format(value)
 		} catch {
 			return `${value.toFixed(2)} €`
 		}
 	}
 
 	const formatDistance = (value?: number) => {
-		if (value == null || isNaN(value)) return ''
+		if (value == null || Number.isNaN(value)) return ''
 		return `${value.toFixed(1)} km`
 	}
 
 	const formatElevation = (value?: number) => {
-		if (value == null || isNaN(value)) return ''
+		if (value == null || Number.isNaN(value)) return ''
 		return `${Math.round(value)} m`
 	}
 
@@ -155,14 +155,14 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 									<p className="text-muted-foreground">{t.event.typeLabels[event.typeCourse]}</p>
 								</div>
 
-								{event.distanceKm != null && !isNaN(event.distanceKm) && (
+								{event.distanceKm != null && !Number.isNaN(event.distanceKm) && (
 									<div>
 										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.distance}</h3>
 										<p className="text-muted-foreground">{formatDistance(event.distanceKm)}</p>
 									</div>
 								)}
 
-								{event.elevationGainM != null && !isNaN(event.elevationGainM) && (
+								{event.elevationGainM != null && !Number.isNaN(event.elevationGainM) && (
 									<div>
 										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.elevationGain}</h3>
 										<p className="text-muted-foreground">{formatElevation(event.elevationGainM)}</p>
@@ -176,7 +176,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 									</div>
 								)}
 
-								{event.officialStandardPrice != null && !isNaN(event.officialStandardPrice) && (
+								{event.officialStandardPrice != null && !Number.isNaN(event.officialStandardPrice) && (
 									<div>
 										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.officialPrice}</h3>
 										<p className="text-muted-foreground">{formatPrice(event.officialStandardPrice)}</p>

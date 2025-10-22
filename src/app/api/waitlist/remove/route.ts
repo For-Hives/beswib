@@ -1,8 +1,7 @@
 import { auth, currentUser } from '@clerk/nextjs/server'
-import { NextRequest, NextResponse } from 'next/server'
-
-import { disableWaitlistNotifications } from '@/services/waitlist.services'
+import { type NextRequest, NextResponse } from 'next/server'
 import { fetchUserByClerkId } from '@/services/user.services'
+import { disableWaitlistNotifications } from '@/services/waitlist.services'
 
 export async function POST(request: NextRequest) {
 	try {

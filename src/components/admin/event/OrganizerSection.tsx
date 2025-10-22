@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
-
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { getAllOrganizersAction } from '@/app/[locale]/admin/actions'
 import Translations from '@/app/[locale]/admin/locales.json'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Organizer } from '@/models/organizer.model'
 import { Label } from '@/components/ui/label'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { Organizer } from '@/models/organizer.model'
 
-import { EventSectionProps } from './types'
+import type { EventSectionProps } from './types'
 
 export default function OrganizerSection({ setValue, locale, formData, errors }: Readonly<EventSectionProps>) {
 	const translations = getTranslations(locale, Translations)

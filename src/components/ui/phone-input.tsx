@@ -1,8 +1,9 @@
 'use client'
 
-import { PhoneInput as ReactInternationalPhoneInput } from 'react-international-phone'
 import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
-import React, { forwardRef, useState, useEffect } from 'react'
+import type React from 'react'
+import { forwardRef, useEffect, useState } from 'react'
+import { PhoneInput as ReactInternationalPhoneInput } from 'react-international-phone'
 import 'react-international-phone/style.css'
 
 import { cn } from '@/lib/utils'
@@ -99,7 +100,7 @@ const PhoneInputWithMotion = ({
 			style={{
 				background: useMotionTemplate`
 					radial-gradient(
-						${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
+						${visible ? `${radius}px` : '0px'} circle at ${mouseX}px ${mouseY}px,
 						var(--interactive-bubble),
 						transparent 80%
 					)

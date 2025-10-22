@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Mock fetch globally to intercept API calls
 global.fetch = vi.fn()
@@ -21,10 +21,16 @@ describe('PayPal INSTRUMENT_DECLINED Error Handling', () => {
 		mockedFetch.mockImplementation(url => {
 			if (typeof url === 'string' && url.includes('/oauth2/token')) {
 				return Promise.resolve(
-					new Response(JSON.stringify({ token_type: 'Bearer', access_token: 'test-token' }), {
-						status: 200,
-						headers: { 'Content-Type': 'application/json' },
-					})
+					new Response(
+						JSON.stringify({
+							token_type: 'Bearer',
+							access_token: 'test-token',
+						}),
+						{
+							status: 200,
+							headers: { 'Content-Type': 'application/json' },
+						}
+					)
 				)
 			}
 
@@ -55,9 +61,15 @@ describe('PayPal INSTRUMENT_DECLINED Error Handling', () => {
 			mockedFetch.mockImplementation(url => {
 				if (typeof url === 'string' && url.includes('/oauth2/token')) {
 					return Promise.resolve(
-						new Response(JSON.stringify({ token_type: 'Bearer', access_token: 'test-token' }), {
-							status: 200,
-						})
+						new Response(
+							JSON.stringify({
+								token_type: 'Bearer',
+								access_token: 'test-token',
+							}),
+							{
+								status: 200,
+							}
+						)
 					)
 				}
 
@@ -85,9 +97,15 @@ describe('PayPal INSTRUMENT_DECLINED Error Handling', () => {
 			mockedFetch.mockImplementation(url => {
 				if (typeof url === 'string' && url.includes('/oauth2/token')) {
 					return Promise.resolve(
-						new Response(JSON.stringify({ token_type: 'Bearer', access_token: 'test-token' }), {
-							status: 200,
-						})
+						new Response(
+							JSON.stringify({
+								token_type: 'Bearer',
+								access_token: 'test-token',
+							}),
+							{
+								status: 200,
+							}
+						)
 					)
 				}
 
@@ -120,9 +138,15 @@ describe('PayPal INSTRUMENT_DECLINED Error Handling', () => {
 			mockedFetch.mockImplementation(url => {
 				if (typeof url === 'string' && url.includes('/oauth2/token')) {
 					return Promise.resolve(
-						new Response(JSON.stringify({ token_type: 'Bearer', access_token: 'test-token' }), {
-							status: 200,
-						})
+						new Response(
+							JSON.stringify({
+								token_type: 'Bearer',
+								access_token: 'test-token',
+							}),
+							{
+								status: 200,
+							}
+						)
 					)
 				}
 
@@ -156,9 +180,15 @@ describe('PayPal INSTRUMENT_DECLINED Error Handling', () => {
 			mockedFetch.mockImplementation(url => {
 				if (typeof url === 'string' && url.includes('/oauth2/token')) {
 					return Promise.resolve(
-						new Response(JSON.stringify({ token_type: 'Bearer', access_token: 'test-token' }), {
-							status: 200,
-						})
+						new Response(
+							JSON.stringify({
+								token_type: 'Bearer',
+								access_token: 'test-token',
+							}),
+							{
+								status: 200,
+							}
+						)
 					)
 				}
 
@@ -197,9 +227,15 @@ describe('PayPal INSTRUMENT_DECLINED Error Handling', () => {
 			mockedFetch.mockImplementation(url => {
 				if (typeof url === 'string' && url.includes('/oauth2/token')) {
 					return Promise.resolve(
-						new Response(JSON.stringify({ token_type: 'Bearer', access_token: 'test-token' }), {
-							status: 200,
-						})
+						new Response(
+							JSON.stringify({
+								token_type: 'Bearer',
+								access_token: 'test-token',
+							}),
+							{
+								status: 200,
+							}
+						)
 					)
 				}
 
@@ -230,9 +266,15 @@ describe('PayPal INSTRUMENT_DECLINED Error Handling', () => {
 			mockedFetch.mockImplementation(url => {
 				if (typeof url === 'string' && url.includes('/oauth2/token')) {
 					return Promise.resolve(
-						new Response(JSON.stringify({ token_type: 'Bearer', access_token: 'test-token' }), {
-							status: 200,
-						})
+						new Response(
+							JSON.stringify({
+								token_type: 'Bearer',
+								access_token: 'test-token',
+							}),
+							{
+								status: 200,
+							}
+						)
 					)
 				}
 
@@ -260,9 +302,15 @@ describe('PayPal INSTRUMENT_DECLINED Error Handling', () => {
 			mockedFetch.mockImplementation(url => {
 				if (typeof url === 'string' && url.includes('/oauth2/token')) {
 					return Promise.resolve(
-						new Response(JSON.stringify({ token_type: 'Bearer', access_token: 'test-token' }), {
-							status: 200,
-						})
+						new Response(
+							JSON.stringify({
+								token_type: 'Bearer',
+								access_token: 'test-token',
+							}),
+							{
+								status: 200,
+							}
+						)
 					)
 				}
 
@@ -288,9 +336,15 @@ describe('PayPal INSTRUMENT_DECLINED Error Handling', () => {
 			mockedFetch.mockImplementation(url => {
 				if (typeof url === 'string' && url.includes('/oauth2/token')) {
 					return Promise.resolve(
-						new Response(JSON.stringify({ token_type: 'Bearer', access_token: 'test-token' }), {
-							status: 200,
-						})
+						new Response(
+							JSON.stringify({
+								token_type: 'Bearer',
+								access_token: 'test-token',
+							}),
+							{
+								status: 200,
+							}
+						)
 					)
 				}
 

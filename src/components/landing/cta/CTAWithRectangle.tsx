@@ -10,10 +10,10 @@ interface CTAProps {
 
 	withGlow?: boolean
 }
-import Link from 'next/link'
 
+import Link from 'next/link'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 
 import Translations from './locales.json'
 
@@ -37,7 +37,9 @@ export function CTASection({ withGlow = true, locale, className }: CTAProps) {
 					{/* Description */}
 					<p
 						className="animate-fade-in-up dark:text-muted-foreground max-w-4xl text-lg text-neutral-700 opacity-0 delay-300"
-						dangerouslySetInnerHTML={{ __html: translations?.ctaSection.description ?? '' }}
+						dangerouslySetInnerHTML={{
+							__html: translations?.ctaSection.description ?? '',
+						}}
 					/>
 
 					{/* Action Buttons */}

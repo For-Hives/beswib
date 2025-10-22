@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import * as svc from '../../services/notification.service'
 
@@ -24,7 +24,11 @@ describe('notification.service', () => {
 		const fetchMock = vi.fn(() => Promise.resolve({ ok: true } as unknown as Response))
 		vi.stubGlobal('fetch', fetchMock)
 
-		const ok = await svc.sendSaleAlert({ orderId: 'ORD1', bibId: 'B1', amount: 10 })
+		const ok = await svc.sendSaleAlert({
+			orderId: 'ORD1',
+			bibId: 'B1',
+			amount: 10,
+		})
 		expect(fetchMock.mock.calls.length).toBeGreaterThanOrEqual(1)
 		expect(ok).toBe(true)
 	})
@@ -37,7 +41,11 @@ describe('notification.service', () => {
 		const fetchMock = vi.fn(() => Promise.resolve({ ok: true } as unknown as Response))
 		vi.stubGlobal('fetch', fetchMock)
 
-		const ok = await svc.sendContactMessage({ name: 'A', message: 'hi', email: 'a@example.com' })
+		const ok = await svc.sendContactMessage({
+			name: 'A',
+			message: 'hi',
+			email: 'a@example.com',
+		})
 		// postDiscord makes at least one fetch call (summary + full)
 		expect(fetchMock.mock.calls.length).toBeGreaterThanOrEqual(1)
 		expect(ok).toBe(true)

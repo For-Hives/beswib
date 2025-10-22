@@ -2,9 +2,8 @@
 
 import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
 import * as React from 'react'
-
-import { getDateFormatPattern } from '@/lib/utils/date'
 import { cn } from '@/lib/utils'
+import { getDateFormatPattern } from '@/lib/utils/date'
 
 export interface DateInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	locale?: string
@@ -37,7 +36,7 @@ const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 					style={{
 						background: useMotionTemplate`
 				radial-gradient(
-				  ${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
+				  ${visible ? `${radius}px` : '0px'} circle at ${mouseX}px ${mouseY}px,
 				  var(--interactive-bubble),
 				  transparent 80%
 				)

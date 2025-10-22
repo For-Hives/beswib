@@ -1,9 +1,8 @@
 'use client'
 
-import { Canvas, useFrame, useThree, type RootState } from '@react-three/fiber'
-import { useEffect, useMemo, useRef, useState } from 'react'
-
+import { Canvas, type RootState, useFrame, useThree } from '@react-three/fiber'
 import { usePathname } from 'next/navigation'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 
 /**
@@ -459,7 +458,7 @@ function MountainScene({ containerSize }: { containerSize: { width: number; heig
 				type: 't',
 			},
 		}),
-		[] // Ne pas dépendre de containerSize pour éviter la recréation du matériau
+		[containerSize.height, containerSize.width] // Ne pas dépendre de containerSize pour éviter la recréation du matériau
 	)
 
 	/**
@@ -525,7 +524,10 @@ function MountainScene({ containerSize }: { containerSize: { width: number; heig
  */
 export default function MountainShader({ className = '' }: MountainShaderProps) {
 	const containerRef = useRef<HTMLDivElement>(null)
-	const [containerSize, setContainerSize] = useState({ width: 1920, height: 1080 })
+	const [containerSize, setContainerSize] = useState({
+		width: 1920,
+		height: 1080,
+	})
 	const pathname = usePathname()
 
 	/**
@@ -617,7 +619,7 @@ export default function MountainShader({ className = '' }: MountainShaderProps) 
 		return () => {
 			timeouts.forEach(clearTimeout)
 		}
-	}, [pathname])
+	}, [])
 
 	return (
 		<div ref={containerRef} className={className} style={{ width: '100%', height: '100%' }}>

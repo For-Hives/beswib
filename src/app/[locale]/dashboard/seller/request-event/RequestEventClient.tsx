@@ -1,19 +1,18 @@
 'use client'
 
 import { ArrowLeft, Send } from 'lucide-react'
-import { useState } from 'react'
-
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-import type { Locale } from '@/lib/i18n/config'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
 
 import { DateInput } from '@/components/ui/date-input'
-import { Textarea } from '@/components/ui/textareaAlt'
-import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/inputAlt'
-import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
+import { Textarea } from '@/components/ui/textareaAlt'
+import type { Locale } from '@/lib/i18n/config'
 
 import { handleCreateEventCreationRequest } from './actions'
 
@@ -115,7 +114,9 @@ export default function RequestEventClient({ locale }: RequestEventClientProps) 
 			}
 		} catch (error) {
 			console.error('Error submitting event request:', error)
-			setErrors({ name: error instanceof Error ? error.message : t.messages.error })
+			setErrors({
+				name: error instanceof Error ? error.message : t.messages.error,
+			})
 		} finally {
 			setIsSubmitting(false)
 		}

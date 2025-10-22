@@ -1,24 +1,22 @@
 'use client'
 
-import React, { useMemo, useCallback } from 'react'
-import { Search } from 'lucide-react'
-
-import { parseAsArrayOf, parseAsFloat, parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
-import dynamic from 'next/dynamic'
 import Fuse from 'fuse.js'
-
-import type { BibSale } from '@/models/marketplace.model'
-import type { Locale } from '@/lib/i18n/config'
-
-import MarketplaceSidebar, { type MarketplaceFilters } from '@/components/marketplace/MarketplaceSidebar'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Search } from 'lucide-react'
+import dynamic from 'next/dynamic'
+import { parseAsArrayOf, parseAsFloat, parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
+import React, { useCallback, useMemo } from 'react'
 import ActiveFiltersBadges from '@/components/marketplace/ActiveFiltersBadges'
-import marketplaceTranslations from '@/components/marketplace/locales.json'
-import OfferCounter from '@/components/marketplace/offerCounter'
 import CardMarket from '@/components/marketplace/CardMarket'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Input } from '@/components/ui/inputAlt'
+import marketplaceTranslations from '@/components/marketplace/locales.json'
+import MarketplaceSidebar, { type MarketplaceFilters } from '@/components/marketplace/MarketplaceSidebar'
+import OfferCounter from '@/components/marketplace/offerCounter'
 import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Input } from '@/components/ui/inputAlt'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { BibSale } from '@/models/marketplace.model'
+
 const EmptyResultsRive = dynamic(() => import('@/components/marketplace/EmptyResultsRive'), { ssr: false })
 
 // Props for the MarketplaceClient: receives an array of bibs to display 🛍️
@@ -60,7 +58,6 @@ const sortBibs = (bibs: BibSale[], sort: string) => {
 			return [...bibs].sort((a, b) => a.price - b.price)
 		case 'price-desc':
 			return [...bibs].sort((a, b) => b.price - a.price)
-		case 'date':
 		default:
 			return [...bibs].sort((a, b) => new Date(a.event.date).getTime() - new Date(b.event.date).getTime())
 	}
@@ -104,7 +101,7 @@ const sanitizeDateValue = (value: string | null): string | null => {
 
 // --- Helper function to sanitize numeric values from URL parameters 💰
 const sanitizeNumericValue = (value: number | null): number | null => {
-	if (value == null || isNaN(value) || !isFinite(value)) {
+	if (value == null || Number.isNaN(value) || !Number.isFinite(value)) {
 		return null
 	}
 	return value
@@ -195,7 +192,12 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		const needsDistanceCleanup = distanceMin == null || distanceMax == null
 
 		if (needsPriceInit || needsDistanceInit || needsPriceCleanup || needsDistanceCleanup) {
-			const updates: { priceMin?: number; priceMax?: number; distanceMin?: number; distanceMax?: number } = {}
+			const updates: {
+				priceMin?: number
+				priceMax?: number
+				distanceMin?: number
+				distanceMax?: number
+			} = {}
 
 			if (needsPriceInit || needsPriceCleanup) {
 				const calculatedMinPrice = Math.min(...bibs.map(bib => bib.price), 0)
@@ -212,7 +214,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 
 			void setFilters(updates)
 		}
-	}, [bibs.length, priceMax, distanceMax, priceMin, distanceMin, setFilters])
+	}, [bibs.length, priceMax, distanceMax, priceMin, distanceMin, setFilters, bibs.map])
 
 	// --- Handler function for sidebar filters 🔗
 	const handleFiltersChange = React.useCallback(
@@ -224,7 +226,9 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 
 	const handleSortChange = React.useCallback(
 		(sortOption: string) => {
-			void setFilters({ sort: sortOption as 'date' | 'distance' | 'price-asc' | 'price-desc' })
+			void setFilters({
+				sort: sortOption as 'date' | 'distance' | 'price-asc' | 'price-desc',
+			})
 		},
 		[setFilters]
 	)
@@ -327,7 +331,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		if (dateStart != null && dateStart !== undefined && dateStart !== '' && dateStart !== 'undefined') {
 			const start = new Date(dateStart)
 			// Also validate that the date is valid
-			if (!isNaN(start.getTime())) {
+			if (!Number.isNaN(start.getTime())) {
 				filtered = filtered.filter(bib => new Date(bib.event.date) >= start)
 			}
 		}
@@ -336,7 +340,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		if (dateEnd != null && dateEnd !== undefined && dateEnd !== '' && dateEnd !== 'undefined') {
 			const end = new Date(dateEnd)
 			// Also validate that the date is valid
-			if (!isNaN(end.getTime())) {
+			if (!Number.isNaN(end.getTime())) {
 				filtered = filtered.filter(bib => new Date(bib.event.date) <= end)
 			}
 		}

@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
 
 import type { Locale } from '@/lib/i18n/config'
-
-import { generateAlternateLanguages, generateCanonicalUrl } from './utils/seo-generators'
 import { generateBaseMetadata } from './metadata-generators'
+import { generateAlternateLanguages, generateCanonicalUrl } from './utils/seo-generators'
 
 // Configuration des métadonnées pour les pages légales par langue
 const legalPageConfig = {

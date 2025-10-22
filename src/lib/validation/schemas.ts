@@ -1,10 +1,9 @@
 import { isValidPhoneNumber } from 'libphonenumber-js'
 import * as v from 'valibot'
-
-import { validationTranslations } from '@/lib/i18n/translations/validation'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import mainLocales from '@/app/[locale]/locales.json'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { validationTranslations } from '@/lib/i18n/translations/validation'
 
 // Email schema
 export const createEmailSchema = (locale: Locale = 'en') => {
@@ -185,15 +184,12 @@ export const createOptionalNameSchema = (fieldName: string, locale: Locale = 'en
 	return v.pipe(
 		v.string(),
 		v.trim(),
-		v.check(
-			(value: string) => {
-				// Allow empty values
-				if (!value) return true
-				// If not empty, apply normal name validation
-				return value.length >= 2 && value.length <= 50 && /^[a-zA-ZÀ-ÿ\s\-']+$/.test(value)
-			},
-			t.name?.invalidCharacters?.(fieldName) || `Invalid characters in ${fieldName}`
-		)
+		v.check((value: string) => {
+			// Allow empty values
+			if (!value) return true
+			// If not empty, apply normal name validation
+			return value.length >= 2 && value.length <= 50 && /^[a-zA-ZÀ-ÿ\s\-']+$/.test(value)
+		}, t.name?.invalidCharacters?.(fieldName) || `Invalid characters in ${fieldName}`)
 	)
 }
 

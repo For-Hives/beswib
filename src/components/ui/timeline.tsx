@@ -1,7 +1,8 @@
 'use client'
 
-import { useScroll, useTransform, motion, useSpring, useMotionValue, type MotionValue } from 'motion/react'
-import React, { useEffect, useRef, useState } from 'react'
+import { type MotionValue, motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react'
+import type React from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface TimelineEntry {
 	title: string
@@ -132,7 +133,11 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 	// Compute line height in pixels so that the tip aligns with viewport bottom - 10vh,
 	// clamped to the timeline container height. Then ease it with a spring.
 	const lineHeightRaw = useMotionValue(0)
-	const heightSpring = useSpring(lineHeightRaw, { stiffness: 120, mass: 0.8, damping: 30 })
+	const heightSpring = useSpring(lineHeightRaw, {
+		stiffness: 120,
+		mass: 0.8,
+		damping: 30,
+	})
 	const containerHeight = useMotionValue(0)
 	// Keep a motion value in sync with latest measured height
 	useEffect(() => {
@@ -184,7 +189,10 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 			window.removeEventListener('resize', updateLine)
 			ro.disconnect()
 		}
-	}, [])
+	}, [
+		// Keep initial state at 0 until the first scroll/resize
+		lineHeightRaw.set,
+	])
 
 	return (
 		<div className="w-full font-sans md:px-10" ref={containerRef}>
@@ -193,7 +201,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 					<TimelineItem key={item.title} item={item} containerRef={ref} lineHeight={heightEased} />
 				))}
 				<div
-					style={{ height: height + 'px' }}
+					style={{ height: `${height}px` }}
 					className="via-border absolute top-0 left-8 w-[2px] overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] md:left-8"
 				>
 					<motion.div

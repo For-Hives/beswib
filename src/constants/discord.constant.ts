@@ -21,7 +21,7 @@ export type SaleAlertInfo = {
 }
 
 export function saleAlertText(info?: SaleAlertInfo): string {
-	const parts: string[] = [DISCORD_MENTION + ' New sale completed']
+	const parts: string[] = [`${DISCORD_MENTION} New sale completed`]
 	if (typeof info?.orderId === 'string' && info.orderId.length > 0)
 		parts.push(`order: ${safeDiscordText(info.orderId)}`)
 	if (typeof info?.bibId === 'string' && info.bibId.length > 0) parts.push(`bib: ${safeDiscordText(info.bibId)}`)

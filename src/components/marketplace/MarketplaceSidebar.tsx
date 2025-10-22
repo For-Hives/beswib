@@ -1,17 +1,15 @@
 'use client'
 
-import { X, SlidersHorizontal, Calendar, MapPin, Euro, Activity, Filter } from 'lucide-react'
-import React, { useMemo, useState } from 'react'
-
 import Fuse from 'fuse.js'
-
-import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
-import { Separator } from '@/components/ui/separator'
-import { Input } from '@/components/ui/inputAlt'
-import { Button } from '@/components/ui/button'
-import { Slider } from '@/components/ui/slider'
+import { Activity, Calendar, Euro, Filter, MapPin, SlidersHorizontal, X } from 'lucide-react'
+import { useMemo, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
+import { Slider } from '@/components/ui/slider'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 import locales from './locales.json'
 
@@ -51,7 +49,7 @@ export default function MarketplaceSidebar({
 	const [showAllSports, setShowAllSports] = useState(false)
 
 	const lang = locale ?? 'en'
-	const t = locales[lang as keyof typeof locales] ?? locales['en']
+	const t = locales[lang as keyof typeof locales] ?? locales.en
 
 	// Sports options
 	const sportsOptions = [
@@ -150,7 +148,7 @@ export default function MarketplaceSidebar({
 								}
 								className="text-muted-foreground hover:text-foreground"
 							>
-								{(t.reset ?? 'Reset') + ` (${activeFiltersCount})`}
+								{`${t.reset ?? 'Reset'} (${activeFiltersCount})`}
 							</Button>
 						)}
 					</div>
@@ -348,13 +346,13 @@ export default function MarketplaceSidebar({
 								)}
 								{filters.dateStart !== undefined && filters.dateStart !== '' && (
 									<Badge variant="secondary" className="text-xs">
-										{(t.start ?? 'From') + ': '} {filters.dateStart}
+										{`${t.start ?? 'From'}: `} {filters.dateStart}
 										<X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handleDateStartChange('')} />
 									</Badge>
 								)}
 								{filters.dateEnd !== undefined && filters.dateEnd !== '' && (
 									<Badge variant="secondary" className="text-xs">
-										{(t.end ?? 'To') + ': '} {filters.dateEnd}
+										{`${t.end ?? 'To'}: `} {filters.dateEnd}
 										<X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handleDateEndChange('')} />
 									</Badge>
 								)}

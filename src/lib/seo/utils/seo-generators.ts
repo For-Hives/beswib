@@ -1,7 +1,7 @@
-import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
+import type { Event } from '@/models/event.model'
 
-import { SEO_TITLES, SEO_KEYWORDS } from '../constants/seo-translations'
+import { SEO_KEYWORDS, SEO_TITLES } from '../constants/seo-translations'
 
 // Generate SEO keywords for events
 export function generateEventKeywords(locale: Locale, event: Event): string {
@@ -89,7 +89,7 @@ export function generateEventDescription(locale: Locale, event: Event): string {
 
 	// Ensure description stays under 160 characters
 	if (description.length > 160) {
-		description = description.substring(0, 157) + '...'
+		description = `${description.substring(0, 157)}...`
 	}
 
 	return description

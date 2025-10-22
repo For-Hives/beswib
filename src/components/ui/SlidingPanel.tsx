@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
-
 import { AnimatePresence, motion } from 'framer-motion'
+import type React from 'react'
+import { useEffect, useRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -47,8 +47,12 @@ export function SlidingPanel({
 			document.body.style.paddingRight = `${scrollBarWidth}px`
 
 			// Additional scroll prevention for wheel, touch, and keyboard events
-			document.addEventListener('wheel', handlePreventScroll, { passive: false })
-			document.addEventListener('touchmove', handlePreventScroll, { passive: false })
+			document.addEventListener('wheel', handlePreventScroll, {
+				passive: false,
+			})
+			document.addEventListener('touchmove', handlePreventScroll, {
+				passive: false,
+			})
 			document.addEventListener(
 				'keydown',
 				e => {

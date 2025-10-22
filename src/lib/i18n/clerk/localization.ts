@@ -1,7 +1,6 @@
-import type { LocalizationResource } from '@clerk/types'
-
 // Import Clerk localization resources
 import { deDE, enUS, esES, frFR, itIT, koKR, nlNL, ptBR, roRO } from '@clerk/localizations'
+import type { LocalizationResource } from '@clerk/types'
 
 import type { Locale } from '@/lib/i18n/config'
 

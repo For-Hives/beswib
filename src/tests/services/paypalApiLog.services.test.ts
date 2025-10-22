@@ -1,5 +1,5 @@
-import { mockPocketbase, mockPocketbaseCollection } from '@/tests/mocks/pocketbase'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { mockPocketbase, mockPocketbaseCollection } from '@/tests/mocks/pocketbase'
 
 vi.mock('@/lib/services/pocketbase', () => ({
 	pb: mockPocketbase,
@@ -30,10 +30,16 @@ describe('paypalApiLog.services', () => {
 	})
 
 	it('logPayPalApi stores sanitized payload and debugId', async () => {
-		const respBody = JSON.stringify({ payer: { email: 'payer@example.com' }, debug_id: 'DBG-777' })
+		const respBody = JSON.stringify({
+			payer: { email: 'payer@example.com' },
+			debug_id: 'DBG-777',
+		})
 		const response = new Response(respBody, {
 			status: 200,
-			headers: { 'paypal-debug-id': 'HDR-ABC', 'content-type': 'application/json' },
+			headers: {
+				'paypal-debug-id': 'HDR-ABC',
+				'content-type': 'application/json',
+			},
 		})
 
 		const requestBody = {
@@ -50,7 +56,10 @@ describe('paypalApiLog.services', () => {
 		const payload = mockPocketbaseCollection.create.mock.calls[0][0] as {
 			action: string
 			debugId: string | null
-			raw: { request: Record<string, unknown>; response: Record<string, unknown> }
+			raw: {
+				request: Record<string, unknown>
+				response: Record<string, unknown>
+			}
 		}
 
 		// Action and debug id present

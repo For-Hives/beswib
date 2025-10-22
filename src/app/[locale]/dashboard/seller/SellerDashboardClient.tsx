@@ -3,19 +3,17 @@
 import { List, Plus, Search, Tag, Users } from 'lucide-react'
 
 import Link from 'next/link'
-
-import type { Transaction } from '@/models/transaction.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import BibCategoryTabs from '@/components/dashboard/seller/BibCategoryTabs'
-import { getTranslations } from '@/lib/i18n/dictionary'
+import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
 import { Button } from '@/components/ui/button'
-import { Locale } from '@/lib/i18n/config'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { Transaction } from '@/models/transaction.model'
+import type { User } from '@/models/user.model'
 
 import sellerTranslations from './locales.json'
 
@@ -24,7 +22,9 @@ interface SellerDashboardClientProps {
 	locale: Locale
 	sellerBibs: (Bib & { expand?: { eventId: Event } })[]
 	user: User
-	sellerTransactions: (Transaction & { expand?: { bib_id?: Bib & { expand?: { eventId: Event } } } })[]
+	sellerTransactions: (Transaction & {
+		expand?: { bib_id?: Bib & { expand?: { eventId: Event } } }
+	})[]
 }
 
 interface SerializedClerkUser {
@@ -67,7 +67,10 @@ export const getStatusDisplay = (status: string, locale: Locale) => {
 				color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400',
 			}
 		default:
-			return { label: status, color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400' }
+			return {
+				label: status,
+				color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400',
+			}
 	}
 }
 
@@ -99,8 +102,11 @@ export default function SellerDashboardClient({
 				(parsed as { resource?: unknown })?.resource ??
 				null
 			if (resource && typeof resource === 'object') {
-				const breakdown = (resource as { seller_receivable_breakdown?: { paypal_fee?: { value?: string } } })
-					.seller_receivable_breakdown
+				const breakdown = (
+					resource as {
+						seller_receivable_breakdown?: { paypal_fee?: { value?: string } }
+					}
+				).seller_receivable_breakdown
 				const feeStr = breakdown?.paypal_fee?.value
 				const fee = feeStr != null ? Number(feeStr) : 0
 				return Number.isFinite(fee) ? fee : 0
@@ -215,10 +221,12 @@ export default function SellerDashboardClient({
 												{t.stats?.gross ?? 'Gross:'} €{totals.gross.toFixed(2)}
 											</p>
 											<p>
-												{t.stats?.platformFees ?? 'Platform fees:'} −€{totals.platform.toFixed(2)}
+												{t.stats?.platformFees ?? 'Platform fees:'} −€
+												{totals.platform.toFixed(2)}
 											</p>
 											<p>
-												{t.stats?.paypalFees ?? 'PayPal fees:'} −€{totals.paypal.toFixed(2)}
+												{t.stats?.paypalFees ?? 'PayPal fees:'} −€
+												{totals.paypal.toFixed(2)}
 											</p>
 										</div>
 									</CardContent>
@@ -344,10 +352,12 @@ export default function SellerDashboardClient({
 															<div className="text-right">
 																<div className="text-muted-foreground space-y-0.5 text-xs">
 																	<p>
-																		{t.stats?.platformFees ?? 'Platform'}: -€{(tx.platform_fee ?? 0).toFixed(2)}
+																		{t.stats?.platformFees ?? 'Platform'}: -€
+																		{(tx.platform_fee ?? 0).toFixed(2)}
 																	</p>
 																	<p>
-																		{t.stats?.paypalFees ?? 'PayPal'}: -€{paypalFee.toFixed(2)}
+																		{t.stats?.paypalFees ?? 'PayPal'}: -€
+																		{paypalFee.toFixed(2)}
 																	</p>
 																</div>
 															</div>

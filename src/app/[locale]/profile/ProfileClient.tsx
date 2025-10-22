@@ -1,12 +1,15 @@
 'use client'
 
-import { LogOut, Trash2, AlertTriangle } from 'lucide-react'
-import { useState, useCallback } from 'react'
-
 import { useClerk } from '@clerk/nextjs'
-
-import type { User } from '@/models/user.model'
-
+import { AlertTriangle, LogOut, Trash2 } from 'lucide-react'
+import { useCallback, useState } from 'react'
+import profileTranslations from '@/app/[locale]/profile/locales.json'
+import UserHeader from '@/components/dashboard/user-header'
+import ModernRunnerForm from '@/components/profile/modernRunnerForm'
+import PayPalOnboarding from '@/components/profile/PayPalOnboarding'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
 	Dialog,
 	DialogContent,
@@ -15,16 +18,10 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from '@/components/ui/dialog'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import profileTranslations from '@/app/[locale]/profile/locales.json'
-import PayPalOnboarding from '@/components/profile/PayPalOnboarding'
-import ModernRunnerForm from '@/components/profile/modernRunnerForm'
-import UserHeader from '@/components/dashboard/user-header'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Checkbox } from '@/components/ui/checkbox'
 import { Progress } from '@/components/ui/progress'
-import { Button } from '@/components/ui/button'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { User } from '@/models/user.model'
 
 interface ProfileClientProps {
 	clerkUser: SerializedClerkUser

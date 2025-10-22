@@ -1,28 +1,25 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
-import { useState } from 'react'
-import * as React from 'react'
-
 import { valibotResolver } from '@hookform/resolvers/valibot'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import { createEventAction } from '@/app/[locale]/admin/actions'
 import Translations from '@/app/[locale]/admin/locales.json'
-import { EventOption } from '@/models/eventOption.model'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
-import { Event } from '@/models/event.model'
-import { Locale } from '@/lib/i18n/config'
-
-import EventInformationSection from './EventInformationSection'
-import { EventCreationSchema, EventFormData } from './types'
-import EventDetailsSection from './EventDetailsSection'
-import EventOptionsSection from './EventOptionsSection'
+import { Separator } from '@/components/ui/separator'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { Event } from '@/models/event.model'
+import type { EventOption } from '@/models/eventOption.model'
 import BibPickupSection from './BibPickupSection'
-import OrganizerSection from './OrganizerSection'
+import EventDetailsSection from './EventDetailsSection'
+import EventInformationSection from './EventInformationSection'
+import EventOptionsSection from './EventOptionsSection'
 import FakerButton from './FakerButton'
+import OrganizerSection from './OrganizerSection'
+import { EventCreationSchema, type EventFormData } from './types'
 
 export interface EventCreationFormProps {
 	locale: Locale

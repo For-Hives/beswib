@@ -1,6 +1,6 @@
 'use server'
 
-import { email as vEmail, maxLength, minLength, object, pipe, safeParse, string, trim } from 'valibot'
+import { maxLength, minLength, object, pipe, safeParse, string, trim, email as vEmail } from 'valibot'
 
 import { sendContactMessage } from '@/services/notification.service'
 

@@ -1,8 +1,8 @@
 'use client'
 
-import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
-import { CheckIcon, ChevronDownIcon } from 'lucide-react'
 import * as SelectPrimitive from '@radix-ui/react-select'
+import { CheckIcon, ChevronDownIcon } from 'lucide-react'
+import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
@@ -87,7 +87,7 @@ function SelectTriggerAlt({ className, children, ...props }: React.ComponentProp
 			style={{
 				background: useMotionTemplate`
         radial-gradient(
-			  ${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
+			  ${visible ? `${radius}px` : '0px'} circle at ${mouseX}px ${mouseY}px,
 			  var(--interactive-bubble),
 			  transparent 80%
         )

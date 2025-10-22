@@ -1,26 +1,25 @@
 'use client'
 
-import React, { useState } from 'react'
-
-import { useRouter, useParams } from 'next/navigation'
 import { useSignUp } from '@clerk/nextjs'
-import { FieldError } from '@/types/auth'
 import Link from 'next/link'
-
-import {
-	validateEmailValibot,
-	validatePasswordValibot,
-	validateNameValibot,
-	validateVerificationCodeValibot,
-	validateConfirmPasswordValibot,
-} from '@/lib/validation/valibot'
-import { PasswordStrength } from '@/components/ui/PasswordStrength'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { FormInput } from '@/components/ui/FormInput'
+import { useParams, useRouter } from 'next/navigation'
+import type React from 'react'
+import { useState } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
 import { Button } from '@/components/ui/button'
+import { FormInput } from '@/components/ui/FormInput'
 import { Icons } from '@/components/ui/icons'
-import { Locale } from '@/lib/i18n/config'
+import { PasswordStrength } from '@/components/ui/PasswordStrength'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import {
+	validateConfirmPasswordValibot,
+	validateEmailValibot,
+	validateNameValibot,
+	validatePasswordValibot,
+	validateVerificationCodeValibot,
+} from '@/lib/validation/valibot'
+import type { FieldError } from '@/types/auth'
 
 export default function CustomSignUp() {
 	const { signUp, setActive, isLoaded } = useSignUp()
@@ -213,7 +212,9 @@ export default function CustomSignUp() {
 
 				if (hasUnverifiedEmail || emailVerificationNull) {
 					// Email verification needed - prepare verification
-					await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
+					await signUp.prepareEmailAddressVerification({
+						strategy: 'email_code',
+					})
 					setPendingVerification(true)
 					if (formData.email != null && formData.email !== '') {
 						setVerificationEmail(formData.email)
@@ -239,7 +240,13 @@ export default function CustomSignUp() {
 
 			// Set specific field errors based on error codes
 			const e = (err ?? {}) as Partial<{
-				errors: Array<Partial<{ code: string; message: string; meta?: { paramName?: string } }>>
+				errors: Array<
+					Partial<{
+						code: string
+						message: string
+						meta?: { paramName?: string }
+					}>
+				>
 			}>
 
 			if (Array.isArray(e.errors) && e.errors.length > 0) {
@@ -299,7 +306,10 @@ export default function CustomSignUp() {
 			setGlobalError(errorMessage)
 			setFieldErrors(prev => ({
 				...prev,
-				verificationCode: { message: translateClerkErrorLocal(err), code: 'incorrect' },
+				verificationCode: {
+					message: translateClerkErrorLocal(err),
+					code: 'incorrect',
+				},
 			}))
 		} finally {
 			setIsVerifying(false)

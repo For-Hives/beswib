@@ -1,15 +1,13 @@
 'use server'
 
 import { DateTime } from 'luxon'
-
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { isSellerProfileComplete } from '@/lib/validation/user'
-import { pbDateToLuxon } from '@/lib/utils/date'
 import { pb } from '@/lib/services/pocketbase'
+import { pbDateToLuxon } from '@/lib/utils/date'
+import { isSellerProfileComplete } from '@/lib/validation/user'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
 
 import { fetchUserById } from './user.services'
 
@@ -162,20 +160,30 @@ export async function fetchAvailableBibsForEvent(
  * Returns bibs with expanded event and user (seller) details.
  */
 export async function fetchAvailableBibsForMarketplace(): Promise<
-	(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } })[]
+	(Bib & {
+		expand?: {
+			eventId: Event & { expand?: { organizer: Organizer } }
+			sellerUserId: User
+		}
+	})[]
 > {
 	try {
 		// Only fetch bibs that are not locked or whose lock has expired and with future event or active transfer window
 		const nowIso = formatDateToPbIso(new Date())
 		const saleWindowFilter = `((eventId.transferDeadline != null && eventId.transferDeadline >= '${nowIso}') || (eventId.transferDeadline = null && eventId.eventDate >= '${nowIso}'))`
 		const filter = `status = 'available' && listed = 'public' && lockedAt = null && ${saleWindowFilter}`
-		const records = await pb
-			.collection('bibs')
-			.getFullList<Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }>({
-				sort: '-created',
-				filter,
-				expand: 'eventId,sellerUserId,eventId.organizer',
-			})
+		const records = await pb.collection('bibs').getFullList<
+			Bib & {
+				expand?: {
+					eventId: Event & { expand?: { organizer: Organizer } }
+					sellerUserId: User
+				}
+			}
+		>({
+			sort: '-created',
+			filter,
+			expand: 'eventId,sellerUserId,eventId.organizer',
+		})
 
 		return records
 	} catch (error: unknown) {
@@ -195,7 +203,7 @@ export async function lockBib(bibId: string, userId: string): Promise<Bib | null
 	try {
 		const bib = await pb.collection('bibs').getOne<Bib>(bibId)
 		const now = new Date()
-		if (bib.lockedAt != null && bib.lockedAt != '') {
+		if (bib.lockedAt != null && bib.lockedAt !== '') {
 			// Already locked and not expired
 			return null
 		}
@@ -247,7 +255,7 @@ export async function isLocked(bibId: string, timekey: string = ''): Promise<'lo
 			return 'locked'
 		}
 		// si non verouiller, check si deja vendu
-		if (Boolean(bib.status === 'sold')) {
+		if (bib.status === 'sold') {
 			return 'locked'
 		}
 		return 'unlocked'
@@ -345,9 +353,11 @@ export async function updateExpiredBibsToWithdrawn(sellerUserId?: string): Promi
  * @param bibId The ID of the bib to check.
  * @returns Object containing listing status and availability.
  */
-export async function checkBibListingStatus(
-	bibId: string
-): Promise<{ listed: 'private' | 'public' | null; exists: boolean; available: boolean } | null> {
+export async function checkBibListingStatus(bibId: string): Promise<{
+	listed: 'private' | 'public' | null
+	exists: boolean
+	available: boolean
+} | null> {
 	if (bibId === '') {
 		console.error('Bib ID is required.')
 		return null
@@ -373,9 +383,15 @@ export async function checkBibListingStatus(
  * Fetches a single bib by its ID for public display or pre-purchase.
  * @param bibId The ID of the bib to fetch.
  */
-export async function fetchPublicBibById(
-	bibId: string
-): Promise<(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }) | null> {
+export async function fetchPublicBibById(bibId: string): Promise<
+	| (Bib & {
+			expand?: {
+				eventId: Event & { expand?: { organizer: Organizer } }
+				sellerUserId: User
+			}
+	  })
+	| null
+> {
 	if (bibId === '') {
 		console.error('Bib ID is required.')
 		return null
@@ -404,21 +420,30 @@ export async function fetchPublicBibById(
  * Fetches a single bib by its ID for public display or pre-purchase.
  * @param bibId The ID of the bib to fetch.
  */
-export async function fetchBibById(
-	bibId: string
-): Promise<(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }) | null> {
+export async function fetchBibById(bibId: string): Promise<
+	| (Bib & {
+			expand?: {
+				eventId: Event & { expand?: { organizer: Organizer } }
+				sellerUserId: User
+			}
+	  })
+	| null
+> {
 	if (bibId === '') {
 		console.error('Bib ID is required.')
 		return null
 	}
 	try {
-		const record = await pb
-			.collection('bibs')
-			.getOne<
-				Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }
-			>(bibId, {
-				expand: 'eventId,sellerUserId,eventId.organizer',
-			})
+		const record = await pb.collection('bibs').getOne<
+			Bib & {
+				expand?: {
+					eventId: Event & { expand?: { organizer: Organizer } }
+					sellerUserId: User
+				}
+			}
+		>(bibId, {
+			expand: 'eventId,sellerUserId,eventId.organizer',
+		})
 
 		return record
 	} catch (error: unknown) {
@@ -487,22 +512,26 @@ export async function fetchBibsByBuyer(buyerUserId: string): Promise<(Bib & { ex
  * Optionally expands event details if your PocketBase setup allows and it's needed.
  * @param sellerUserId The PocketBase ID of the seller whose bibs are to be fetched.
  */
-export async function fetchBibsBySeller(
-	sellerUserId: string
-): Promise<(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } } } })[]> {
+export async function fetchBibsBySeller(sellerUserId: string): Promise<
+	(Bib & {
+		expand?: { eventId: Event & { expand?: { organizer: Organizer } } }
+	})[]
+> {
 	if (sellerUserId === '') {
 		console.error('Seller ID is required to fetch their bibs.')
 		return []
 	}
 
 	try {
-		const records = await pb
-			.collection('bibs')
-			.getFullList<Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } } } }>({
-				sort: '-created',
-				filter: `sellerUserId = "${sellerUserId}"`,
-				expand: 'eventId,eventId.organizer',
-			})
+		const records = await pb.collection('bibs').getFullList<
+			Bib & {
+				expand?: { eventId: Event & { expand?: { organizer: Organizer } } }
+			}
+		>({
+			sort: '-created',
+			filter: `sellerUserId = "${sellerUserId}"`,
+			expand: 'eventId,eventId.organizer',
+		})
 
 		return records
 	} catch (error: unknown) {
@@ -551,9 +580,14 @@ export async function fetchPrivateBibByToken(
  * Fetches all publicly listed bibs for a specific event.
  * @param eventId The ID of the event.
  */
-export async function fetchPubliclyListedBibsForEvent(
-	eventId: string
-): Promise<(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } })[]> {
+export async function fetchPubliclyListedBibsForEvent(eventId: string): Promise<
+	(Bib & {
+		expand?: {
+			eventId: Event & { expand?: { organizer: Organizer } }
+			sellerUserId: User
+		}
+	})[]
+> {
 	if (eventId === '') {
 		console.error('Event ID is required to fetch publicly listed bibs.')
 		return []
@@ -561,13 +595,18 @@ export async function fetchPubliclyListedBibsForEvent(
 	try {
 		const nowIso = formatDateToPbIso(new Date())
 		const saleWindowFilter = `((eventId.transferDeadline != null && eventId.transferDeadline >= '${nowIso}') || (eventId.transferDeadline = null && eventId.eventDate >= '${nowIso}'))`
-		const records = await pb
-			.collection('bibs')
-			.getFullList<Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }>({
-				sort: '-created',
-				filter: `eventId = "${eventId}" && status = 'available' && listed = 'public' && lockedAt = null && ${saleWindowFilter}`,
-				expand: 'eventId,sellerUserId,eventId.organizer',
-			})
+		const records = await pb.collection('bibs').getFullList<
+			Bib & {
+				expand?: {
+					eventId: Event & { expand?: { organizer: Organizer } }
+					sellerUserId: User
+				}
+			}
+		>({
+			sort: '-created',
+			filter: `eventId = "${eventId}" && status = 'available' && listed = 'public' && lockedAt = null && ${saleWindowFilter}`,
+			expand: 'eventId,sellerUserId,eventId.organizer',
+		})
 		return records
 	} catch (error: unknown) {
 		throw new Error(

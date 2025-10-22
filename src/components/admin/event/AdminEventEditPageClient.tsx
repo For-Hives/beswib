@@ -1,16 +1,14 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-
 import { useRouter } from 'next/navigation'
-
-import EventEditForm from '@/components/admin/event/event-edit-form'
+import { useEffect, useState } from 'react'
 import { getEventByIdAction } from '@/app/[locale]/admin/actions'
 import Translations from '@/app/[locale]/admin/locales.json'
+import EventEditForm from '@/components/admin/event/event-edit-form'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Event } from '@/models/event.model'
-import { User } from '@/models/user.model'
-import { Locale } from '@/lib/i18n/config'
+import type { Event } from '@/models/event.model'
+import type { User } from '@/models/user.model'
 
 interface AdminEventEditPageClientProps {
 	currentUser: null | User

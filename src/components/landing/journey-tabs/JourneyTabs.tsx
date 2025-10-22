@@ -1,4 +1,4 @@
-import { LocaleParams } from '@/lib/generation/staticParams'
+import type { LocaleParams } from '@/lib/generation/staticParams'
 
 import JourneyTabsClient from './JourneyTabsClient'
 

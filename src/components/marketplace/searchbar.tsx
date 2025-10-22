@@ -1,15 +1,14 @@
 'use client'
 
-import React, { useEffect, useMemo, useState } from 'react'
-import { Check, ChevronsUpDown, X } from 'lucide-react'
-
 import Fuse from 'fuse.js'
-
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Check, ChevronsUpDown, X } from 'lucide-react'
+import type React from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Badge } from '@/components/ui/badgeAlt'
 import { Button } from '@/components/ui/button'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { cn } from '@/lib/utils'
 
 import locales from './locales.json'
@@ -49,7 +48,7 @@ export default function Searchbar({
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false) // Controls the visibility of the filter dropdown 👁️‍🗨️
 	// --- State for the price range filter (not directly used in UI, but for sync) 💰
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [priceRange, setPriceRange] = useState([0, 200])
+	const [_priceRange, setPriceRange] = useState([0, 200])
 	// --- Main state for all currently applied filters (used for badges and filtering) 🏷️
 	const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
 		price: [0, maxPrice],
@@ -132,7 +131,7 @@ export default function Searchbar({
 	}))
 
 	const lang = locale ?? 'en'
-	const t = locales[lang] ?? locales['en']
+	const t = locales[lang] ?? locales.en
 
 	// Sport options for SelectAnimated
 	const sportOptions: SelectOption[] = [

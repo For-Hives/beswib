@@ -1,17 +1,14 @@
-import * as React from 'react'
-
+import marketplaceTranslations from '@/app/[locale]/marketplace/locales.json'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { getCurrencyForLocale } from '@/lib/utils/currency'
+import { formatDateWithLocale } from '@/lib/utils/date'
+import { getOrganizerImageUrl } from '@/lib/utils/images'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
 import type { BibSale } from '@/models/marketplace.model'
 import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
-import type { Locale } from '@/lib/i18n/config'
-import type { Bib } from '@/models/bib.model'
-
-import marketplaceTranslations from '@/app/[locale]/marketplace/locales.json'
-import { getCurrencyForLocale } from '@/lib/utils/currency'
-import { getOrganizerImageUrl } from '@/lib/utils/images'
-import { formatDateWithLocale } from '@/lib/utils/date'
-import { getTranslations } from '@/lib/i18n/dictionary'
 
 // Flexible type that works with both BibSale and actual service response
 type BibData = BibSale | (Bib & { expand?: { eventId: Event; sellerUserId: User } })
@@ -20,15 +17,30 @@ type BibData = BibSale | (Bib & { expand?: { eventId: Event; sellerUserId: User 
 function getTypeColor(type: BibSale['event']['type']) {
 	switch (type) {
 		case 'cycle':
-			return { border: 'rgba(6, 182, 212, 0.5)', bg: 'rgba(6, 182, 212, 0.15)' }
+			return {
+				border: 'rgba(6, 182, 212, 0.5)',
+				bg: 'rgba(6, 182, 212, 0.15)',
+			}
 		case 'other':
-			return { border: 'rgba(107, 114, 128, 0.5)', bg: 'rgba(107, 114, 128, 0.15)' }
+			return {
+				border: 'rgba(107, 114, 128, 0.5)',
+				bg: 'rgba(107, 114, 128, 0.15)',
+			}
 		case 'road':
-			return { border: 'rgba(34, 197, 94, 0.5)', bg: 'rgba(34, 197, 94, 0.15)' }
+			return {
+				border: 'rgba(34, 197, 94, 0.5)',
+				bg: 'rgba(34, 197, 94, 0.15)',
+			}
 		case 'trail':
-			return { border: 'rgba(234, 179, 8, 0.5)', bg: 'rgba(234, 179, 8, 0.15)' }
+			return {
+				border: 'rgba(234, 179, 8, 0.5)',
+				bg: 'rgba(234, 179, 8, 0.15)',
+			}
 		case 'triathlon':
-			return { border: 'rgba(147, 51, 234, 0.5)', bg: 'rgba(147, 51, 234, 0.15)' }
+			return {
+				border: 'rgba(147, 51, 234, 0.5)',
+				bg: 'rgba(147, 51, 234, 0.15)',
+			}
 	}
 }
 
@@ -103,7 +115,6 @@ function formatPriceForOG(price: number, currencyCode: string): string {
 		case 'usd':
 			// Use $ which is supported by default fonts
 			return `$${price.toFixed(2)}`
-		case 'eur':
 		default:
 			// Use EUR symbol which is supported by default fonts
 			return `€${price.toFixed(2)}`
@@ -139,7 +150,16 @@ export default function BibCard({ organizer, locale, exchangeRates, bib }: Reado
 		bib.originalPrice != null ? convertPriceWithFallback(bib.originalPrice, targetCurrency, exchangeRates) : null
 
 	if (!event || !user) {
-		return <div style={{ width: '280px', height: '380px', borderRadius: '16px', backgroundColor: '#f3f4f6' }} />
+		return (
+			<div
+				style={{
+					width: '280px',
+					height: '380px',
+					borderRadius: '16px',
+					backgroundColor: '#f3f4f6',
+				}}
+			/>
+		)
 	}
 
 	const typeColors = getTypeColor(event.type)

@@ -1,7 +1,6 @@
-import { mockBib, mockEvent, mockUser } from '@/tests/mocks/data'
 import { describe, expect, it } from 'vitest'
-
 import { mapEventTypeToBibSaleType, transformBibsToBibSales, transformBibToBibSale } from '@/lib/transformers/bib'
+import { mockBib, mockEvent, mockUser } from '@/tests/mocks/data'
 
 describe('bibTransformers', () => {
 	describe('mapEventTypeToBibSaleType', () => {

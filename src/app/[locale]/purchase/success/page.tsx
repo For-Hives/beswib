@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 
-import { LocaleParams } from '@/lib/generation/staticParams'
+import type { LocaleParams } from '@/lib/generation/staticParams'
 import { generateSimplePageMetadata } from '@/lib/seo'
 
 import PurchaseSuccessClient from './purchaseSuccessClient'

@@ -1,8 +1,7 @@
 'use client'
 
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-
 import Image from 'next/image'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
@@ -358,7 +357,7 @@ export default function RadialOrbitalTimeline({ timelineData }: RadialOrbitalTim
 			clearInterval(interval)
 			clearTimeout(resetTimeout)
 		}
-	}, [autoRotate, frozenRotation])
+	}, [autoRotate, frozenRotation, globalElapsed])
 
 	// Handler optimisé avec useCallback
 	const handleContainerClick = useCallback(

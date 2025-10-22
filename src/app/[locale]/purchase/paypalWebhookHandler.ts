@@ -1,5 +1,5 @@
-import { updateTransaction, getTransactionByOrderId } from '@/services/transaction.services'
 import { updateBib } from '@/services/bib.services'
+import { getTransactionByOrderId, updateTransaction } from '@/services/transaction.services'
 
 /**
  * PayPal webhook handler for order completion
@@ -10,7 +10,7 @@ export async function handlePayPalOrderCompleted(paypalOrderId: string, buyerUse
 	// 1. Find transaction by PayPal order ID
 	const transaction = await getTransactionByOrderId(paypalOrderId)
 	if (!transaction) {
-		throw new Error('Transaction not found for PayPal order ID: ' + paypalOrderId)
+		throw new Error(`Transaction not found for PayPal order ID: ${paypalOrderId}`)
 	}
 
 	// 2. Update transaction status to 'succeeded'

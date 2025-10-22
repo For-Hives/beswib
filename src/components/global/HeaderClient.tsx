@@ -1,23 +1,23 @@
 'use client'
 
-import { LayoutDashboard, LogOut, Settings, ShoppingBag, Tag, User } from 'lucide-react'
+import { SignedIn, SignedOut, useClerk, useUser } from '@clerk/nextjs'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useEffect, useState, useMemo } from 'react'
-
-import { SignedIn, SignedOut, useClerk, useUser } from '@clerk/nextjs'
-import { usePathname } from 'next/navigation'
+import { LayoutDashboard, LogOut, Settings, ShoppingBag, Tag, User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useEffect, useMemo, useState } from 'react'
 
 import LanguageSwitcher, { LanguageSwitcherMobile } from '@/components/seo/LanguageSwitcher'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 
 import { checkIsCurrentUserAdmin } from './adminActions'
-import LocaleSynchronizer from './LocaleSynchronizer'
 import DashboardDropdown from './DashboardDropdown'
+import LocaleSynchronizer from './LocaleSynchronizer'
 import { ThemeToggle } from './ThemeToggle'
+
 // import { LaunchBanner } from './LaunchBanner'
 
 interface HeaderClientProps {
@@ -57,13 +57,21 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 				href: `/${locale}`,
 				current: currentPath === `/${locale}` || currentPath === `/${locale}/`,
 			},
-			{ label: t.navbar.racesLink, href: `/${locale}/events`, current: currentPath.startsWith(`/${locale}/events`) },
+			{
+				label: t.navbar.racesLink,
+				href: `/${locale}/events`,
+				current: currentPath.startsWith(`/${locale}/events`),
+			},
 			{
 				label: t.navbar.marketplaceLink,
 				href: `/${locale}/marketplace`,
 				current: currentPath.startsWith(`/${locale}/marketplace`),
 			},
-			{ label: t.navbar.faqLink, href: `/${locale}/faq`, current: currentPath.startsWith(`/${locale}/faq`) },
+			{
+				label: t.navbar.faqLink,
+				href: `/${locale}/faq`,
+				current: currentPath.startsWith(`/${locale}/faq`),
+			},
 			{
 				label: t.navbar.contactLink,
 				href: `/${locale}/contact`,

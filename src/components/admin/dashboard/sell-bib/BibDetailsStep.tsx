@@ -1,15 +1,13 @@
 import { CheckCircle, DollarSign, Euro } from 'lucide-react'
-
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { Locale } from '@/lib/i18n/config'
-
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { Card, CardContent } from '@/components/ui/card'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
 
 interface BibDetailsStepProps {
 	errors: Record<string, string>
@@ -115,7 +113,10 @@ export default function BibDetailsStep({ onChange, locale, formData, errors }: R
 											<SelectAnimated
 												onValueChange={value =>
 													onChange({
-														optionValues: { ...formData.optionValues, [option.key]: value },
+														optionValues: {
+															...formData.optionValues,
+															[option.key]: value,
+														},
 													})
 												}
 												options={optionChoices}

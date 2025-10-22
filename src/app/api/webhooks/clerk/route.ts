@@ -1,12 +1,11 @@
-import { WebhookEvent } from '@clerk/nextjs/server'
-import { NextResponse } from 'next/server'
+import type { WebhookEvent } from '@clerk/nextjs/server'
 import { headers } from 'next/headers'
+import { NextResponse } from 'next/server'
 import { Webhook } from 'svix'
-
-import { linkEmailWaitlistsToUser } from '@/services/waitlist.services'
+import type { User } from '@/models/user.model'
 import { sendWelcomeEmail } from '@/services/notification.service'
 import { createUser } from '@/services/user.services' // Adjust path as necessary
-import { User } from '@/models/user.model'
+import { linkEmailWaitlistsToUser } from '@/services/waitlist.services'
 
 // Make sure to set CLERK_WEBHOOK_SECRET in your environment variables
 const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SIGNING_SECRET
@@ -149,7 +148,10 @@ async function processUserCreation(
 		}
 
 		// Fire-and-forget welcome email; don't block webhook success on email failures
-		void sendWelcomeEmail({ to: userData.email, firstName: userData.firstName ?? undefined })
+		void sendWelcomeEmail({
+			to: userData.email,
+			firstName: userData.firstName ?? undefined,
+		})
 
 		return NextResponse.json(
 			{

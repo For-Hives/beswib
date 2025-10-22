@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { IconUpload } from '@tabler/icons-react'
-import { useDropzone } from 'react-dropzone'
 import { motion } from 'motion/react'
-
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useDropzone } from 'react-dropzone'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 import { cn } from '@/lib/utils'
 
 const mainVariant = {
@@ -107,8 +106,8 @@ export const FileUpload = ({ onChange, locale }: { locale: Locale; onChange?: (f
 										'bg-card/80 dark:border-border/50 relative z-40 mx-auto mt-4 flex w-full flex-col items-start justify-start overflow-hidden rounded-md border border-black/50 p-4 backdrop-blur-md md:h-24',
 										'shadow-sm'
 									)}
-									key={'file' + idx}
-									layoutId={idx === 0 ? 'file-upload' : 'file-upload-' + idx}
+									key={`file${idx}`}
+									layoutId={idx === 0 ? 'file-upload' : `file-upload-${idx}`}
 								>
 									<button
 										className="hover:text-foreground absolute top-2 right-2 rounded px-2 py-1 text-xs text-red-600"

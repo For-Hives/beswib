@@ -14,7 +14,9 @@ export function usePayPalMerchantStatus(userId: string | null | undefined) {
 			if (userId == null || userId === '') return null
 			const res = await fetch(`/api/paypal/merchant-status?userId=${encodeURIComponent(userId)}`)
 			if (!res.ok) throw new Error('Failed to fetch PayPal status')
-			const data = (await res.json()) as { status?: PayPalMerchantIntegrationStatus }
+			const data = (await res.json()) as {
+				status?: PayPalMerchantIntegrationStatus
+			}
 			return data.status ?? null
 		},
 		enabled: userId != null && userId !== '',

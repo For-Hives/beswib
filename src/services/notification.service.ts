@@ -5,15 +5,7 @@
 // Now also sends email notifications via Resend if configured
 
 import { Resend } from 'resend'
-
-import {
-	sendVerificationEmail as sendModernVerificationEmail,
-	sendWelcomeEmail as sendModernWelcomeEmail,
-	sendSaleConfirmationEmail,
-	sendPurchaseConfirmationEmail,
-	sendSaleAlertEmail,
-	sendLocalizedWaitlistAlertEmails,
-} from './email.service'
+import { contactFullText, contactSummaryText, saleAlertText } from '../constants/discord.constant'
 import {
 	renderContactMessageEmailHtml as renderContactMessageEmailHtmlUnsafe,
 	renderWelcomeEmailHtml as renderWelcomeEmailHtmlUnsafe,
@@ -23,8 +15,15 @@ import {
 	VERIFICATION_EMAIL_SUBJECT,
 	VERIFICATION_EMAIL_TEXT_TEMPLATE,
 } from '../constants/verifiedEmail.constant'
-import { contactSummaryText, contactFullText, saleAlertText } from '../constants/discord.constant'
 import { calculateTimeRemaining } from '../lib/utils/date'
+import {
+	sendLocalizedWaitlistAlertEmails,
+	sendVerificationEmail as sendModernVerificationEmail,
+	sendWelcomeEmail as sendModernWelcomeEmail,
+	sendPurchaseConfirmationEmail,
+	sendSaleAlertEmail,
+	sendSaleConfirmationEmail,
+} from './email.service'
 
 const renderContactMessageEmailHtml = (p: { name: string; email: string; message: string }): string =>
 	(renderContactMessageEmailHtmlUnsafe as unknown as (p: { name: string; email: string; message: string }) => string)(p)
@@ -104,11 +103,25 @@ type NewBibNotificationInfo = {
  * @returns Success status and counts of sent/failed notifications
  */
 export async function sendNewBibNotification(
-	bibInfo: NewBibNotificationInfo & { bibCategory?: string; eventDistance?: string; sellerName?: string },
+	bibInfo: NewBibNotificationInfo & {
+		bibCategory?: string
+		eventDistance?: string
+		sellerName?: string
+	},
 	waitlistedEmailsWithLocales: Array<{ email: string; locale?: string }>
-): Promise<{ success: boolean; emailsSent: number; emailsFailed: number; adminNotified: boolean }> {
+): Promise<{
+	success: boolean
+	emailsSent: number
+	emailsFailed: number
+	adminNotified: boolean
+}> {
 	if (waitlistedEmailsWithLocales.length === 0) {
-		return { success: true, emailsSent: 0, emailsFailed: 0, adminNotified: false }
+		return {
+			success: true,
+			emailsSent: 0,
+			emailsFailed: 0,
+			adminNotified: false,
+		}
 	}
 
 	// Calculate time remaining until event (now imported from date utils)
@@ -199,9 +212,15 @@ export async function notifyAdmins(params: {
 	webhookUrl?: string
 }): Promise<boolean> {
 	const [emailOk, webhookOk] = await Promise.all([
-		sendAdminAlertEmail({ text: params.text, subject: params.subject, html: params.html }),
+		sendAdminAlertEmail({
+			text: params.text,
+			subject: params.subject,
+			html: params.html,
+		}),
 		typeof params.discordContent === 'string' && params.discordContent.length > 0
-			? sendAdminWebhook(params.discordContent, { webhookUrl: params.webhookUrl })
+			? sendAdminWebhook(params.discordContent, {
+					webhookUrl: params.webhookUrl,
+				})
 			: Promise.resolve(false),
 	])
 	return Boolean(emailOk || webhookOk)
@@ -213,13 +232,25 @@ export async function sendUserEmail(
 	params: { subject: string; text?: string; html?: string; from?: string }
 ): Promise<boolean> {
 	const from = params.from ?? process.env.NOTIFY_EMAIL_FROM ?? ''
-	return sendEmail({ to, text: params.text, subject: params.subject, html: params.html, from })
+	return sendEmail({
+		to,
+		text: params.text,
+		subject: params.subject,
+		html: params.html,
+		from,
+	})
 }
 
 // Batch email; chunked sending to avoid oversized requests.
 export async function sendBatchEmail(
 	toList: Array<string> | Set<string>,
-	params: { subject: string; text?: string; html?: string; from?: string; chunkSize?: number }
+	params: {
+		subject: string
+		text?: string
+		html?: string
+		from?: string
+		chunkSize?: number
+	}
 ): Promise<{ sent: number; failed: number }> {
 	const unique = Array.from(new Set(Array.isArray(toList) ? toList : Array.from(toList)))
 		.map(s => s.trim())
@@ -235,7 +266,13 @@ export async function sendBatchEmail(
 		// Resend supports array recipients; single API call per chunk
 		// If a chunk fails, count all as failed
 		// For finer-grained reporting, loop per user instead
-		const ok = await sendEmail({ to: chunk, text: params.text, subject: params.subject, html: params.html, from })
+		const ok = await sendEmail({
+			to: chunk,
+			text: params.text,
+			subject: params.subject,
+			html: params.html,
+			from,
+		})
 		if (ok) sent += chunk.length
 		else failed += chunk.length
 	}
@@ -335,7 +372,9 @@ export async function sendWelcomeEmail(params: { to: string; firstName?: string;
 	let subject = `Welcome to Beswib!`
 	try {
 		const { getLocalizedEmailSubject } = await import('@/lib/utils/email-localization')
-		subject = getLocalizedEmailSubject('welcome', fallbackLocale, { firstName: safeFirst })
+		subject = getLocalizedEmailSubject('welcome', fallbackLocale, {
+			firstName: safeFirst,
+		})
 	} catch (error) {
 		console.warn('Failed to get localized subject for fallback welcome email:', error)
 		// Keep default hardcoded subject

@@ -1,13 +1,12 @@
-import { mockPocketbase, mockPocketbaseCollection } from '@/tests/mocks/pocketbase'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { mockPocketbase, mockPocketbaseCollection } from '@/tests/mocks/pocketbase'
 
 vi.mock('@/lib/services/pocketbase', () => ({
 	pb: mockPocketbase,
 }))
 
-import { mockUser } from '@/tests/mocks/data'
-
 import { createUser, fetchUserByClerkId, fetchUserById } from '@/services/user.services'
+import { mockUser } from '@/tests/mocks/data'
 
 describe('user.services', () => {
 	beforeEach(() => {
@@ -44,7 +43,9 @@ describe('user.services', () => {
 		})
 
 		it('should return null if user is not found', async () => {
-			mockPocketbaseCollection.getFirstListItem.mockRejectedValue({ status: 404 })
+			mockPocketbaseCollection.getFirstListItem.mockRejectedValue({
+				status: 404,
+			})
 			const user = await fetchUserByClerkId('nonexistent')
 			expect(user).toBeNull()
 		})
@@ -112,13 +113,19 @@ describe('user.services', () => {
 
 	describe('isAdmin', () => {
 		it('should return true if the user is an admin', async () => {
-			mockPocketbaseCollection.getOne.mockResolvedValue({ ...mockUser, role: 'admin' })
+			mockPocketbaseCollection.getOne.mockResolvedValue({
+				...mockUser,
+				role: 'admin',
+			})
 			const result = await (await import('@/services/user.services')).isUserAdmin('user1')
 			expect(result).toBe(true)
 		})
 
 		it('should return false if the user is not an admin', async () => {
-			mockPocketbaseCollection.getOne.mockResolvedValue({ ...mockUser, role: 'user' })
+			mockPocketbaseCollection.getOne.mockResolvedValue({
+				...mockUser,
+				role: 'user',
+			})
 			const result = await (await import('@/services/user.services')).isUserAdmin('user1')
 			expect(result).toBe(false)
 		})

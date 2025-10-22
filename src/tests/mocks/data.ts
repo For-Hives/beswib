@@ -1,6 +1,6 @@
+import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
 
 export const mockUser: User = {
 	updated: new Date('2024-01-01T00:00:00.000Z'),
@@ -45,7 +45,9 @@ export const mockEvent: Event = {
 	bibPickupWindowBeginDate: new Date('2025-12-30'),
 }
 
-export const mockBib: Bib & { expand?: { eventId: Event; sellerUserId: User } } = {
+export const mockBib: Bib & {
+	expand?: { eventId: Event; sellerUserId: User }
+} = {
 	validated: false,
 	status: 'available',
 	sellerUserId: 'test_user_123456',

@@ -1,8 +1,7 @@
-import { checkAdminAccess } from '@/guard/adminGuard'
 import { redirect } from 'next/navigation'
-
-import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
 import AdminEventPageClient from '@/components/admin/event/AdminEventPageClient'
+import { checkAdminAccess } from '@/guard/adminGuard'
+import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 
 // Generate static params for all locales
 export function generateStaticParams() {

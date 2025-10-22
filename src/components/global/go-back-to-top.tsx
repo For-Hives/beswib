@@ -1,11 +1,11 @@
 'use client'
 
-import ScrollToTop from 'react-scroll-to-top'
 import { ArrowUp } from 'lucide-react'
+import ScrollToTop from 'react-scroll-to-top'
 
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 import { cn } from '@/lib/utils'
 
 import translations from './locales.json'

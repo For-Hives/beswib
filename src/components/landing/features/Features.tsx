@@ -1,6 +1,6 @@
 import { Calendar, CreditCard, Heart, Leaf, Search, Settings, Star, Users } from 'lucide-react'
 
-import { LocaleParams } from '@/lib/generation/staticParams'
+import type { LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
 
@@ -81,7 +81,12 @@ export default async function FeaturesBento({ localeParams }: { localeParams: Pr
 function FeaturesSectionWithHoverEffects({
 	features,
 }: {
-	features: Array<{ description: string; hoverColor: string; icon: React.ReactNode; title: string }>
+	features: Array<{
+		description: string
+		hoverColor: string
+		icon: React.ReactNode
+		title: string
+	}>
 }) {
 	return (
 		<div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 py-10 md:grid-cols-2 lg:grid-cols-4">

@@ -1,9 +1,8 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-
-import globalLocales from '@/lib/i18n/globalLocales.json'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import globalLocales from '@/lib/i18n/globalLocales.json'
 
 import Loader from './Loader'
 

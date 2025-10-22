@@ -1,13 +1,13 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import {
+	areFeesApplicable,
+	calculateNetAmount,
 	calculatePayPalFee,
 	calculatePlatformFee,
-	calculateNetAmount,
-	getFeeBreakdown,
-	areFeesApplicable,
-	getFeePercentages,
 	formatFeeBreakdown,
+	getFeeBreakdown,
+	getFeePercentages,
 } from '@/lib/utils/feeCalculations'
 
 // Mock the PLATFORM_FEE constant

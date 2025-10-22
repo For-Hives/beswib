@@ -1,14 +1,12 @@
 import { describe, expect, it } from 'vitest'
-
-import type { User } from '@/models/user.model'
-
 import {
-	isUserProfileComplete,
-	isSellerProfileComplete,
 	isPaypalMerchantComplete,
-	isSellerContactInfoComplete,
 	isSellerAddressComplete,
+	isSellerContactInfoComplete,
+	isSellerProfileComplete,
+	isUserProfileComplete,
 } from '@/lib/validation/user'
+import type { User } from '@/models/user.model'
 
 describe('isUserProfileComplete', () => {
 	const completeUser: User = {
@@ -59,7 +57,12 @@ describe('isUserProfileComplete', () => {
 	})
 
 	it('should return false when required fields are missing', () => {
-		expect(isUserProfileComplete({ ...completeUser, email: null } as unknown as User)).toBe(false)
+		expect(
+			isUserProfileComplete({
+				...completeUser,
+				email: null,
+			} as unknown as User)
+		).toBe(false)
 		expect(isUserProfileComplete({ ...completeUser, firstName: null })).toBe(false)
 		expect(isUserProfileComplete({ ...completeUser, lastName: null })).toBe(false)
 		expect(isUserProfileComplete({ ...completeUser, birthDate: null })).toBe(false)
@@ -67,7 +70,12 @@ describe('isUserProfileComplete', () => {
 		expect(isUserProfileComplete({ ...completeUser, phoneNumber: null })).toBe(true)
 		expect(isUserProfileComplete({ ...completeUser, emergencyContactName: null })).toBe(false)
 		expect(isUserProfileComplete({ ...completeUser, emergencyContactPhone: null })).toBe(false)
-		expect(isUserProfileComplete({ ...completeUser, emergencyContactRelationship: null })).toBe(false)
+		expect(
+			isUserProfileComplete({
+				...completeUser,
+				emergencyContactRelationship: null,
+			})
+		).toBe(false)
 		expect(isUserProfileComplete({ ...completeUser, address: null })).toBe(false)
 		expect(isUserProfileComplete({ ...completeUser, postalCode: null })).toBe(false)
 		expect(isUserProfileComplete({ ...completeUser, city: null })).toBe(false)
@@ -130,7 +138,10 @@ describe('seller profile validation functions', () => {
 		})
 
 		it('should return false when PayPal merchant ID is missing', () => {
-			const userWithoutMerchantId = { ...completeSellerUser, paypalMerchantId: null }
+			const userWithoutMerchantId = {
+				...completeSellerUser,
+				paypalMerchantId: null,
+			}
 			expect(isPaypalMerchantComplete(userWithoutMerchantId)).toBe(false)
 		})
 
@@ -211,7 +222,10 @@ describe('seller profile validation functions', () => {
 		})
 
 		it('should return false when PayPal setup is incomplete', () => {
-			const userWithoutPaypal = { ...completeSellerUser, paypalMerchantId: null }
+			const userWithoutPaypal = {
+				...completeSellerUser,
+				paypalMerchantId: null,
+			}
 			expect(isSellerProfileComplete(userWithoutPaypal)).toBe(false)
 		})
 

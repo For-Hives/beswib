@@ -1,41 +1,38 @@
 'use client'
 
+import Fuse from 'fuse.js'
 import {
+	Bell,
+	CheckCircle,
+	Clock,
+	Loader2,
 	MapPin,
-	Users,
+	Mountain,
+	Route,
 	Search,
 	ShoppingCart,
-	Bell,
-	Route,
-	Mountain,
-	Loader2,
 	Tag,
-	Clock,
-	CheckCircle,
+	Users,
 } from 'lucide-react'
-import React, { useMemo, useState } from 'react'
-
-import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
-import { useRouter } from 'next/navigation'
-import dynamic from 'next/dynamic'
 import { DateTime } from 'luxon'
-import Fuse from 'fuse.js'
-
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { TriathlonIcon, TrailIcon, RouteIcon, CycleIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
-import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
+import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
+import React, { useMemo, useState } from 'react'
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
-import { formatDateObjectForDisplay } from '@/lib/utils/date'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Timeline } from '@/components/ui/timeline'
-import { Input } from '@/components/ui/inputAlt'
+import { AllTypesIcon, CycleIcon, RouteIcon, TrailIcon, TriathlonIcon } from '@/components/icons/RaceTypeIcons'
 import { Button } from '@/components/ui/button'
-import { Locale } from '@/lib/i18n/config'
+import { Input } from '@/components/ui/inputAlt'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+import { Timeline } from '@/components/ui/timeline'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { formatDateObjectForDisplay } from '@/lib/utils/date'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
 
 import Translations from './locales.json'
 
@@ -362,9 +359,18 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	// Sort options for SelectAnimated
 	const sortOptions: SelectOption[] = [
 		{ value: 'date', label: t.events?.filters?.sortByDate ?? 'Sort by date' },
-		{ value: 'price', label: t.events?.filters?.sortByPrice ?? 'Sort by price' },
-		{ value: 'participants', label: t.events?.filters?.sortByParticipants ?? 'Sort by participants' },
-		{ value: 'distance', label: t.events?.filters?.sortByDistance ?? 'Sort by distance' },
+		{
+			value: 'price',
+			label: t.events?.filters?.sortByPrice ?? 'Sort by price',
+		},
+		{
+			value: 'participants',
+			label: t.events?.filters?.sortByParticipants ?? 'Sort by participants',
+		},
+		{
+			value: 'distance',
+			label: t.events?.filters?.sortByDistance ?? 'Sort by distance',
+		},
 	]
 
 	// Handlers for filter changes
@@ -376,7 +382,9 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 	}
 	const handleSortChange = (val: string) => {
 		// Intentionally not awaiting - this is a fire-and-forget operation
-		void setQuery({ sort: val as 'date' | 'price' | 'participants' | 'distance' })
+		void setQuery({
+			sort: val as 'date' | 'price' | 'participants' | 'distance',
+		})
 	}
 	const handleLocationChange = (val: string) => {
 		void setQuery({ location: val })
@@ -575,7 +583,10 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 				return { title: label, events: list }
 			})
 			if (unknown.length > 0)
-				sections.push({ title: t.events?.groupLabels?.unknownDate ?? 'Unknown date', events: unknown })
+				sections.push({
+					title: t.events?.groupLabels?.unknownDate ?? 'Unknown date',
+					events: unknown,
+				})
 			return sections
 		}
 
@@ -583,10 +594,22 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			return buildRangeGrouper(
 				e => e.officialStandardPrice ?? null,
 				[
-					{ test: v => v >= 0 && v < 20, label: t.events?.filters?.priceRanges?.low ?? '0€ – 20€' },
-					{ test: v => v >= 20 && v < 50, label: t.events?.filters?.priceRanges?.medium ?? '20€ – 50€' },
-					{ test: v => v >= 50 && v < 100, label: t.events?.filters?.priceRanges?.high ?? '50€ – 100€' },
-					{ test: v => v >= 100, label: t.events?.filters?.priceRanges?.veryHigh ?? '100€+' },
+					{
+						test: v => v >= 0 && v < 20,
+						label: t.events?.filters?.priceRanges?.low ?? '0€ – 20€',
+					},
+					{
+						test: v => v >= 20 && v < 50,
+						label: t.events?.filters?.priceRanges?.medium ?? '20€ – 50€',
+					},
+					{
+						test: v => v >= 50 && v < 100,
+						label: t.events?.filters?.priceRanges?.high ?? '50€ – 100€',
+					},
+					{
+						test: v => v >= 100,
+						label: t.events?.filters?.priceRanges?.veryHigh ?? '100€+',
+					},
 				],
 				t.events?.groupLabels?.unknownPrice ?? 'Unknown price'
 			)
@@ -596,10 +619,22 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			return buildRangeGrouper(
 				e => e.participants ?? null,
 				[
-					{ test: v => v <= 100, label: t.events?.filters?.participantRanges?.small ?? '≤ 100 participants' },
-					{ test: v => v > 100 && v <= 500, label: t.events?.filters?.participantRanges?.medium ?? '100 – 500' },
-					{ test: v => v > 500 && v <= 1000, label: t.events?.filters?.participantRanges?.large ?? '500 – 1 000' },
-					{ test: v => v > 1000, label: t.events?.filters?.participantRanges?.veryLarge ?? '1 000+' },
+					{
+						test: v => v <= 100,
+						label: t.events?.filters?.participantRanges?.small ?? '≤ 100 participants',
+					},
+					{
+						test: v => v > 100 && v <= 500,
+						label: t.events?.filters?.participantRanges?.medium ?? '100 – 500',
+					},
+					{
+						test: v => v > 500 && v <= 1000,
+						label: t.events?.filters?.participantRanges?.large ?? '500 – 1 000',
+					},
+					{
+						test: v => v > 1000,
+						label: t.events?.filters?.participantRanges?.veryLarge ?? '1 000+',
+					},
 				],
 				t.events?.groupLabels?.unknownParticipants ?? 'Unknown participants'
 			)
@@ -609,15 +644,53 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		return buildRangeGrouper(
 			e => e.distanceKm ?? null,
 			[
-				{ test: v => v <= 10, label: t.events?.filters?.distanceRanges?.short ?? '≤ 10 km' },
-				{ test: v => v > 10 && v <= 21, label: t.events?.filters?.distanceRanges?.halfMarathon ?? '10 – 21 km' },
-				{ test: v => v > 21 && v <= 42, label: t.events?.filters?.distanceRanges?.marathon ?? '21 – 42 km' },
-				{ test: v => v > 42 && v <= 100, label: t.events?.filters?.distanceRanges?.ultra ?? '42 – 100 km' },
-				{ test: v => v > 100, label: t.events?.filters?.distanceRanges?.veryLong ?? '100 km+' },
+				{
+					test: v => v <= 10,
+					label: t.events?.filters?.distanceRanges?.short ?? '≤ 10 km',
+				},
+				{
+					test: v => v > 10 && v <= 21,
+					label: t.events?.filters?.distanceRanges?.halfMarathon ?? '10 – 21 km',
+				},
+				{
+					test: v => v > 21 && v <= 42,
+					label: t.events?.filters?.distanceRanges?.marathon ?? '21 – 42 km',
+				},
+				{
+					test: v => v > 42 && v <= 100,
+					label: t.events?.filters?.distanceRanges?.ultra ?? '42 – 100 km',
+				},
+				{
+					test: v => v > 100,
+					label: t.events?.filters?.distanceRanges?.veryLong ?? '100 km+',
+				},
 			],
 			t.events?.groupLabels?.unknownDistance ?? 'Unknown distance'
 		)
-	}, [sortedEvents, sortBy, locale])
+	}, [
+		sortedEvents,
+		sortBy,
+		buildRangeGrouper,
+		getMonthKey,
+		getMonthLabel,
+		t.events?.filters?.distanceRanges?.halfMarathon,
+		t.events?.filters?.distanceRanges?.marathon,
+		t.events?.filters?.distanceRanges?.short,
+		t.events?.filters?.distanceRanges?.ultra,
+		t.events?.filters?.distanceRanges?.veryLong,
+		t.events?.filters?.participantRanges?.large,
+		t.events?.filters?.participantRanges?.medium,
+		t.events?.filters?.participantRanges?.small,
+		t.events?.filters?.participantRanges?.veryLarge,
+		t.events?.filters?.priceRanges?.high,
+		t.events?.filters?.priceRanges?.low,
+		t.events?.filters?.priceRanges?.medium,
+		t.events?.filters?.priceRanges?.veryHigh,
+		t.events?.groupLabels?.unknownDate,
+		t.events?.groupLabels?.unknownDistance,
+		t.events?.groupLabels?.unknownParticipants,
+		t.events?.groupLabels?.unknownPrice,
+	])
 
 	// Race type summary cards as quick-access buttons - dynamically generated from actual events
 	const raceTypeSummary = useMemo(() => {
@@ -653,7 +726,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		})
 
 		return summary
-	}, [futureEvents])
+	}, [futureEvents, t.events?.raceTypes])
 
 	// No longer needed - bibs data is already loaded with events!
 

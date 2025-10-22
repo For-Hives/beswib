@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import landingTranslations from '@/app/[locale]/locales.json'
-import { LocaleParams } from '@/lib/generation/staticParams'
+import type { LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
 import { AnimatedLife } from './AnimatedLife'
@@ -65,7 +65,9 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 				<div className="grid min-h-screen w-1/2 grid-cols-12 gap-4">
 					<div className="col-span-12 hidden flex-col justify-start gap-6 px-20 pt-[50vh] lg:flex">
 						<p
-							dangerouslySetInnerHTML={{ __html: landingT.home.hero.description }}
+							dangerouslySetInnerHTML={{
+								__html: landingT.home.hero.description,
+							}}
 							className="text-lg text-neutral-800 dark:text-neutral-300"
 						/>
 						<div className="flex flex-row gap-4">

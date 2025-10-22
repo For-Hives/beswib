@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Mock dependencies used by sales.services
 vi.mock('@/services/paypal.services', () => ({
@@ -18,15 +18,14 @@ vi.mock('@/services/user.services', () => ({
 	fetchUserByClerkId: vi.fn(),
 }))
 
+import type { Bib } from '@/models/bib.model'
 import type { Transaction } from '@/models/transaction.model'
 import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { createTransaction, updateTransaction, getTransactionByOrderId } from '@/services/transaction.services'
-import { salesCreate, salesComplete } from '@/services/sales.services'
 import { fetchBibById, updateBib } from '@/services/bib.services'
-import { fetchUserByClerkId } from '@/services/user.services'
 import { createOrder } from '@/services/paypal.services'
+import { salesComplete, salesCreate } from '@/services/sales.services'
+import { createTransaction, getTransactionByOrderId, updateTransaction } from '@/services/transaction.services'
+import { fetchUserByClerkId } from '@/services/user.services'
 
 type MockedFn<T> = T & { mockResolvedValue: (value: unknown) => void }
 const asMock = <T>(fn: T) => fn as unknown as MockedFn<T>
@@ -68,8 +67,13 @@ describe('sales.services', () => {
 				eventId: 'event1',
 			})
 			asMock(createOrder).mockResolvedValue({ id: 'ORDER-123' })
-			asMock(fetchUserByClerkId).mockResolvedValue({ id: 'buyer_pb' } as unknown as User)
-			asMock(createTransaction).mockResolvedValue({ paypal_order_id: 'ORDER-123', id: 'tx1' } as unknown as Transaction)
+			asMock(fetchUserByClerkId).mockResolvedValue({
+				id: 'buyer_pb',
+			} as unknown as User)
+			asMock(createTransaction).mockResolvedValue({
+				paypal_order_id: 'ORDER-123',
+				id: 'tx1',
+			} as unknown as Transaction)
 
 			const result = await salesCreate({
 				sellerMerchantId: 'MERCHANT-XYZ',
@@ -105,7 +109,10 @@ describe('sales.services', () => {
 					amount: 100,
 				})
 			)
-			expect(result).toEqual({ transaction: { paypal_order_id: 'ORDER-123', id: 'tx1' }, orderId: 'ORDER-123' })
+			expect(result).toEqual({
+				transaction: { paypal_order_id: 'ORDER-123', id: 'tx1' },
+				orderId: 'ORDER-123',
+			})
 		})
 
 		it('creates a PayPal order with locale for return URLs', async () => {
@@ -139,8 +146,13 @@ describe('sales.services', () => {
 				eventId: 'event1',
 			})
 			asMock(createOrder).mockResolvedValue({ id: 'ORDER-123' })
-			asMock(fetchUserByClerkId).mockResolvedValue({ id: 'buyer_pb' } as unknown as User)
-			asMock(createTransaction).mockResolvedValue({ paypal_order_id: 'ORDER-123', id: 'tx1' } as unknown as Transaction)
+			asMock(fetchUserByClerkId).mockResolvedValue({
+				id: 'buyer_pb',
+			} as unknown as User)
+			asMock(createTransaction).mockResolvedValue({
+				paypal_order_id: 'ORDER-123',
+				id: 'tx1',
+			} as unknown as Transaction)
 
 			const result = await salesCreate({
 				sellerMerchantId: 'MERCHANT-XYZ',
@@ -165,21 +177,35 @@ describe('sales.services', () => {
 				'fr'
 			)
 			/* eslint-enable @typescript-eslint/no-unsafe-assignment */
-			expect(result).toEqual({ transaction: { paypal_order_id: 'ORDER-123', id: 'tx1' }, orderId: 'ORDER-123' })
+			expect(result).toEqual({
+				transaction: { paypal_order_id: 'ORDER-123', id: 'tx1' },
+				orderId: 'ORDER-123',
+			})
 		})
 	})
 
 	describe('salesComplete', () => {
 		it('updates transaction and marks bib as sold based on webhook capture payload', async () => {
-			asMock(getTransactionByOrderId).mockResolvedValue({ id: 'tx1', buyer_user_id: 'buyer_pb', bib_id: 'bib1' })
-			asMock(updateTransaction).mockResolvedValue({ id: 'tx1' } as unknown as Transaction)
-			asMock(updateBib).mockResolvedValue({ status: 'sold', id: 'bib1' } as unknown as Bib)
+			asMock(getTransactionByOrderId).mockResolvedValue({
+				id: 'tx1',
+				buyer_user_id: 'buyer_pb',
+				bib_id: 'bib1',
+			})
+			asMock(updateTransaction).mockResolvedValue({
+				id: 'tx1',
+			} as unknown as Transaction)
+			asMock(updateBib).mockResolvedValue({
+				status: 'sold',
+				id: 'bib1',
+			} as unknown as Bib)
 
 			const input = {
 				event: {
 					resource: {
 						update_time: '2025-01-01T00:00:00Z',
-						supplementary_data: { related_ids: { order_id: 'ORDER-123', bib_id: 'bib1' } },
+						supplementary_data: {
+							related_ids: { order_id: 'ORDER-123', bib_id: 'bib1' },
+						},
 						status: 'COMPLETED',
 						payer: { payer_id: 'PAYER-123' },
 						payee: { email_address: 'seller@example.com' },
@@ -207,7 +233,11 @@ describe('sales.services', () => {
 			)
 			expect(updateBib).toHaveBeenCalledWith(
 				'bib1',
-				expect.objectContaining({ validated: true, status: 'sold', buyerUserId: 'buyer_pb' })
+				expect.objectContaining({
+					validated: true,
+					status: 'sold',
+					buyerUserId: 'buyer_pb',
+				})
 			)
 			expect(res).toEqual({ transactionId: 'tx1', bibId: 'bib1' })
 		})

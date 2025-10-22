@@ -1,6 +1,5 @@
-import type { NextConfig } from 'next'
-
 import { withSentryConfig } from '@sentry/nextjs'
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
 	trailingSlash: false,
@@ -59,7 +58,7 @@ export default withSentryConfig(nextConfig, {
 	tunnelRoute: '/monitoring',
 
 	// Only print logs for uploading source maps in CI
-	silent: !Boolean(process.env.CI),
+	silent: !process.env.CI,
 
 	// For all available options, see:
 	// https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/

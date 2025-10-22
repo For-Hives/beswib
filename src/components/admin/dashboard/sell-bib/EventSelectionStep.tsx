@@ -1,15 +1,12 @@
 import { Calendar, CheckCircle, MapPin, Plus, Search, TrendingUp, Users } from 'lucide-react'
-import { useState } from 'react'
-
 import Link from 'next/link'
-
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-
-import { formatDateSimple, pbDateToLuxon } from '@/lib/utils/date'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/inputAlt'
-import { Button } from '@/components/ui/button'
+import { formatDateSimple, pbDateToLuxon } from '@/lib/utils/date'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
 
 interface EventSelectionStepProps {
 	availableEvents: (Event & { expand?: { organizer?: Organizer } })[]
@@ -20,8 +17,8 @@ interface EventSelectionStepProps {
 }
 
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 
 export default function EventSelectionStep({
 	selectedEvent,
@@ -126,7 +123,7 @@ export default function EventSelectionStep({
 														// Fallback: simple date formatting
 														try {
 															const date = new Date(event.eventDate)
-															if (isNaN(date.getTime())) return 'Invalid Date'
+															if (Number.isNaN(date.getTime())) return 'Invalid Date'
 
 															const year = date.getFullYear()
 															const month = String(date.getMonth() + 1).padStart(2, '0')

@@ -1,10 +1,9 @@
-import { ImageResponse } from 'next/og'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { headers } from 'next/headers'
-import { readFileSync } from 'fs'
-import { join } from 'path'
-
-import { generateLocaleParams } from '@/lib/generation/staticParams'
+import { ImageResponse } from 'next/og'
 import OGImage from '@/components/OG/ogImage.component'
+import { generateLocaleParams } from '@/lib/generation/staticParams'
 // import { getTranslations } from '@/lib/i18n/dictionary'
 
 // import pageTranslations from './locales.json'
@@ -43,15 +42,13 @@ export default async function Image() {
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			(
-				<OGImage
-					title="Something went wrong"
-					secondary="An error occurred. Please try again or contact support."
-					host={host}
-					protocol={protocol}
-					size={size}
-				/>
-			),
+			<OGImage
+				title="Something went wrong"
+				secondary="An error occurred. Please try again or contact support."
+				host={host}
+				protocol={protocol}
+				size={size}
+			/>,
 			{
 				...size,
 				fonts: [
@@ -75,15 +72,13 @@ export default async function Image() {
 		console.error('Error loading fonts:', error)
 		// Fallback: return the image without custom fonts
 		return new ImageResponse(
-			(
-				<OGImage
-					title="Something went wrong"
-					secondary="An error occurred. Please try again or contact support."
-					host={host}
-					protocol={protocol}
-					size={size}
-				/>
-			),
+			<OGImage
+				title="Something went wrong"
+				secondary="An error occurred. Please try again or contact support."
+				host={host}
+				protocol={protocol}
+				size={size}
+			/>,
 			size
 		)
 	}

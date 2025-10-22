@@ -1,13 +1,10 @@
 'use client'
 
 import { CheckIcon, MailIcon, PlusIcon, TrashIcon } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { toast } from 'sonner'
-
-import type { VerifiedEmail } from '@/models/verifiedEmail.model'
-import type { User } from '@/models/user.model'
-
+import { Alert, AlertDescription } from '@/components/ui/alert'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -18,6 +15,15 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/inputAlt'
+import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { User } from '@/models/user.model'
+import type { VerifiedEmail } from '@/models/verifiedEmail.model'
 import {
 	createVerifiedEmail,
 	deleteVerifiedEmail,
@@ -25,14 +31,6 @@ import {
 	resendVerificationCode,
 	verifyEmail,
 } from '@/services/verifiedEmail.services'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Input } from '@/components/ui/inputAlt'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Label } from '@/components/ui/label'
 
 import pageLocales from './locales.json'
 
@@ -118,7 +116,7 @@ export default function VerifiedEmailsManager({
 		}
 
 		void loadVerifiedEmails()
-	}, [user.id])
+	}, [user.id, getErrorMessage, t.verifiedEmails.errors.loadFailed])
 
 	const handleAddEmail = async () => {
 		if (!newEmail.trim() || !newEmail.includes('@')) {
@@ -130,7 +128,10 @@ export default function VerifiedEmailsManager({
 		setError(null)
 
 		try {
-			const result = await createVerifiedEmail({ userId: user.id, email: newEmail.trim() })
+			const result = await createVerifiedEmail({
+				userId: user.id,
+				email: newEmail.trim(),
+			})
 			if (result.success && result.data) {
 				setVerifiedEmails(prev => [...prev, result.data!])
 				setNewEmail('')
@@ -168,7 +169,10 @@ export default function VerifiedEmailsManager({
 		setError(null)
 
 		try {
-			const result = await verifyEmail({ verifiedEmailId: emailId, verificationCode: code })
+			const result = await verifyEmail({
+				verifiedEmailId: emailId,
+				verificationCode: code,
+			})
 			if (result.success && result.data) {
 				setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? result.data! : email)))
 				setVerificationCodes(prev => {

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type * as React from 'react'
 
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -19,8 +19,22 @@ type EmailsI18n = {
 			nextStep3: string
 			help: string
 		}
-		saleAlert: { title: string; preheader: string; body: string; order: string; bib: string; amount: string }
-		contact: { title: string; preheader: string; from: string; email: string; anonymous: string; na: string }
+		saleAlert: {
+			title: string
+			preheader: string
+			body: string
+			order: string
+			bib: string
+			amount: string
+		}
+		contact: {
+			title: string
+			preheader: string
+			from: string
+			email: string
+			anonymous: string
+			na: string
+		}
 	}
 }
 
@@ -97,8 +111,21 @@ export function EmailLayout({ title, preheader, locale, children }: EmailLayoutP
 									<tbody>
 										{typeof title === 'string' && title.length > 0 ? (
 											<tr>
-												<td style={{ padding: '16px 24px', borderBottom: '1px solid #e5e7eb' }}>
-													<h1 style={{ margin: 0, lineHeight: '28px', fontSize: 20 }}>{title}</h1>
+												<td
+													style={{
+														padding: '16px 24px',
+														borderBottom: '1px solid #e5e7eb',
+													}}
+												>
+													<h1
+														style={{
+															margin: 0,
+															lineHeight: '28px',
+															fontSize: 20,
+														}}
+													>
+														{title}
+													</h1>
 												</td>
 											</tr>
 										) : null}
@@ -107,7 +134,14 @@ export function EmailLayout({ title, preheader, locale, children }: EmailLayoutP
 										</tr>
 									</tbody>
 								</table>
-								<p style={{ textAlign: 'center', margin: '12px 0 0', fontSize: 12, color: '#6b7280' }}>
+								<p
+									style={{
+										textAlign: 'center',
+										margin: '12px 0 0',
+										fontSize: 12,
+										color: '#6b7280',
+									}}
+								>
 									{tpl(v.layout.copyright, { year })}
 								</p>
 							</td>
@@ -186,7 +220,9 @@ export function ContactMessageEmail({ name, message, locale, email }: ContactMes
 	return (
 		<EmailLayout
 			title={v.contact.title}
-			preheader={tpl(v.contact.preheader, { name: name || v.contact.anonymous })}
+			preheader={tpl(v.contact.preheader, {
+				name: name || v.contact.anonymous,
+			})}
 			locale={locale}
 		>
 			<p style={{ margin: '0 0 8px' }}>
@@ -239,7 +275,9 @@ export function renderContactMessageEmailHtml({ name, message, locale, email }: 
 	const safeEmail = (email ?? '').trim()
 	const safeMessage = message ?? ''
 	const v = em(locale)
-	const preheader = tpl(v.contact.preheader, { name: safeName || v.contact.anonymous })
+	const preheader = tpl(v.contact.preheader, {
+		name: safeName || v.contact.anonymous,
+	})
 	return `
 <html>
 	<body style="padding:0;margin:0;font-family: Arial, Helvetica, sans-serif;color:#111827;background-color:#f3f4f6;">

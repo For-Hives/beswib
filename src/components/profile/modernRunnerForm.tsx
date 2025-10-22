@@ -1,30 +1,28 @@
 'use client'
 
-import { CheckCircle, User as UserIcon, Shield, MapPin, FileText, AlertTriangle, Save } from 'lucide-react'
-import { useForm, Controller, SubmitHandler } from 'react-hook-form'
-import { useState, useTransition, useEffect } from 'react'
-
 import { valibotResolver } from '@hookform/resolvers/valibot'
-
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { fetchVerifiedEmailsByUserId } from '@/services/verifiedEmail.services'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { InputWithValidation } from '@/components/ui/input-with-validation'
-import profileTranslations from '@/components/profile/locales.json'
+import { AlertTriangle, CheckCircle, FileText, MapPin, Save, Shield, User as UserIcon } from 'lucide-react'
+import { useEffect, useState, useTransition } from 'react'
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
+import profileTranslations from '@/components/profile/locales.json'
+import { AddressInput } from '@/components/ui/address-input'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { InputWithValidation } from '@/components/ui/input-with-validation'
+import { Input } from '@/components/ui/inputAlt'
+import { Label } from '@/components/ui/label'
+import { PhoneInput } from '@/components/ui/phone-input'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { formatDateForHTMLInput } from '@/lib/utils/date'
 import { createRunnerFormSchema } from '@/lib/validation/schemas'
 import { isUserProfileComplete } from '@/lib/validation/user'
-import { AddressInput } from '@/components/ui/address-input'
-import { VerifiedEmail } from '@/models/verifiedEmail.model'
-import { formatDateForHTMLInput } from '@/lib/utils/date'
-import { PhoneInput } from '@/components/ui/phone-input'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Input } from '@/components/ui/inputAlt'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
-import { User } from '@/models/user.model'
-import { Locale } from '@/lib/i18n/config'
+import type { User } from '@/models/user.model'
+import type { VerifiedEmail } from '@/models/verifiedEmail.model'
+import { fetchVerifiedEmailsByUserId } from '@/services/verifiedEmail.services'
 
 import VerifiedEmailsManager from './VerifiedEmailsManager'
 
@@ -84,7 +82,7 @@ export default function ModernRunnerForm({
 
 	useEffect(() => {
 		void loadVerifiedEmails()
-	}, [user.id])
+	}, [loadVerifiedEmails])
 
 	// Calculate completion status from local user state
 	const isComplete = isUserProfileComplete(localUser)
@@ -99,7 +97,10 @@ export default function ModernRunnerForm({
 	// Contact email options for SelectAnimated
 	const contactEmailOptions: SelectOption[] = [
 		// Primary account email
-		{ value: user.email, label: `${user.email} (${t.primaryAccount ?? 'Primary account email'})` },
+		{
+			value: user.email,
+			label: `${user.email} (${t.primaryAccount ?? 'Primary account email'})`,
+		},
 		// Verified emails
 		...verifiedEmails.map(email => ({
 			value: email.email,

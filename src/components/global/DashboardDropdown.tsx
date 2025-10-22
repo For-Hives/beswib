@@ -1,14 +1,13 @@
 'use client'
 
+import { useClerk, useUser } from '@clerk/nextjs'
 import { LayoutDashboard, LogOut, Settings, ShoppingBag, Tag, User } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-import { useClerk, useUser } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
-
 import { DropdownMenuAnimated } from '@/components/ui/dropdown-menu-animated'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 
 import { checkIsCurrentUserAdmin } from './adminActions'
 

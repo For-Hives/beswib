@@ -1,14 +1,13 @@
-import { type CourseType } from '@/types/course-types'
-
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import Translations from '@/app/[locale]/admin/locales.json'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Textarea } from '@/components/ui/textareaAlt'
 import { DateInput } from '@/components/ui/date-input'
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+import { Textarea } from '@/components/ui/textareaAlt'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { CourseType } from '@/types/course-types'
 
-import { EventSectionProps } from './types'
+import type { EventSectionProps } from './types'
 
 export default function EventInformationSection({
 	setValue,
@@ -21,10 +20,22 @@ export default function EventInformationSection({
 
 	const typeOptions: SelectOption[] = [
 		{ value: 'road', label: translations.event.fields.eventType.options.road },
-		{ value: 'trail', label: translations.event.fields.eventType.options.trail },
-		{ value: 'triathlon', label: translations.event.fields.eventType.options.triathlon },
-		{ value: 'cycle', label: translations.event.fields.eventType.options.cycle },
-		{ value: 'other', label: translations.event.fields.eventType.options.other },
+		{
+			value: 'trail',
+			label: translations.event.fields.eventType.options.trail,
+		},
+		{
+			value: 'triathlon',
+			label: translations.event.fields.eventType.options.triathlon,
+		},
+		{
+			value: 'cycle',
+			label: translations.event.fields.eventType.options.cycle,
+		},
+		{
+			value: 'other',
+			label: translations.event.fields.eventType.options.other,
+		},
 	]
 
 	return (

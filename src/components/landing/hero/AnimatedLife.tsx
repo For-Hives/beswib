@@ -19,7 +19,7 @@ type GroupKind = 'peloton' | 'breakaway' | 'straggler'
 // Generate a UUID safely across browsers (fallbacks for older mobile/WebViews)
 const safeRandomId = (): string => {
 	try {
-		if (typeof window !== 'undefined' && window.crypto != undefined) {
+		if (typeof window !== 'undefined' && window.crypto !== undefined) {
 			if (typeof window.crypto.randomUUID === 'function') {
 				return window.crypto.randomUUID()
 			}
@@ -326,7 +326,10 @@ export function AnimatedLife() {
 					>
 						<div
 							className="race-move relative"
-							style={{ animationDuration: `${entity.durationMs}ms`, animationDelay: `${entity.delayMs}ms` }}
+							style={{
+								animationDuration: `${entity.durationMs}ms`,
+								animationDelay: `${entity.delayMs}ms`,
+							}}
 							onAnimationEnd={() => handleAnimationEnd(entity)}
 						>
 							{entity.isSpecial === true && showSpecialTooltip === true && (

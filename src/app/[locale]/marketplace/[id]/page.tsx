@@ -1,24 +1,19 @@
-import type { Metadata } from 'next'
-
-import React from 'react'
-
 import { auth } from '@clerk/nextjs/server'
-
-import type { Event as EventModel } from '@/models/event.model'
-import type { Organizer } from '@/models/organizer.model'
-import type { BibSale } from '@/models/marketplace.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { fetchPrivateBibByToken, checkBibListingStatus, fetchPublicBibById } from '@/services/bib.services'
-import { generateCanonicalUrl, generateAlternateLanguages } from '@/lib/seo/utils/seo-generators'
+import type { Metadata } from 'next'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
-import { fetchOrganizerById } from '@/services/organizer.services'
-import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
-import { fetchUserByClerkId } from '@/services/user.services'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { generateAlternateLanguages, generateCanonicalUrl } from '@/lib/seo/utils/seo-generators'
+import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
 import { getEventImageUrl } from '@/lib/utils/images'
-import { Locale } from '@/lib/i18n/config'
+import type { Bib } from '@/models/bib.model'
+import type { Event as EventModel } from '@/models/event.model'
+import type { BibSale } from '@/models/marketplace.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
+import { checkBibListingStatus, fetchPrivateBibByToken, fetchPublicBibById } from '@/services/bib.services'
+import { fetchOrganizerById } from '@/services/organizer.services'
+import { fetchUserByClerkId } from '@/services/user.services'
 
 import MarketplaceItemClient from './MarketplaceItemClient'
 
@@ -53,7 +48,7 @@ export async function generateMetadata({
 						title: `${eventName} Race Bib - €${price}`,
 						description: `Secure race bib transfer for ${eventName}${location ? ` in ${location}` : ''}`,
 					},
-					description: description.length > 160 ? description.substring(0, 157) + '...' : description,
+					description: description.length > 160 ? `${description.substring(0, 157)}...` : description,
 					alternates: {
 						languages: generateAlternateLanguages(`/marketplace/${id}`),
 						canonical: generateCanonicalUrl(locale, `/marketplace/${id}`),
@@ -209,7 +204,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 			status: mapStatus(bib.status),
 			price: bib.price,
 			originalPrice: bib.originalPrice ?? 0,
-			lockedAt: bib.lockedAt != '' && bib.lockedAt != null ? new Date(bib.lockedAt) : null,
+			lockedAt: bib.lockedAt !== '' && bib.lockedAt != null ? new Date(bib.lockedAt) : null,
 			id: bib.id,
 			event: {
 				type: mapEventTypeToBibSaleType(bib.expand.eventId.typeCourse),

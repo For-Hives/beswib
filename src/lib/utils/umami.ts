@@ -60,7 +60,7 @@ function sanitizeLocalePayload(payload: UmamiPayload): UmamiPayload {
 
 		console.info('Extracted locale:', locale)
 
-		payload.data['locale'] = locale ? locale[2] : ''
+		payload.data.locale = locale ? locale[2] : ''
 
 		if (locale) {
 			payload.url = `${locale[1]}/${locale[3] || ''}`
@@ -85,7 +85,9 @@ if (typeof window !== 'undefined') {
 // SSR-safe accessor
 function getClientUmami(): UmamiGlobal | undefined {
 	if (typeof window === 'undefined') return undefined
-	const w: Window & { umami?: UmamiGlobal } = window as Window & { umami?: UmamiGlobal }
+	const w: Window & { umami?: UmamiGlobal } = window as Window & {
+		umami?: UmamiGlobal
+	}
 	return w.umami
 }
 

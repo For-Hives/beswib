@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
 import { useUser } from '@clerk/nextjs'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 import { checkIsCurrentUserAdmin } from './adminActions'
 

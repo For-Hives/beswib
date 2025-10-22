@@ -1,8 +1,7 @@
 import Link from 'next/link'
-
-import { SOCIALS, FacebookIcon, InstagramIcon, LinkedinIcon, StravaIcon } from '@/lib/utils/social'
-import { LocaleParams } from '@/lib/generation/staticParams'
+import type { LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { FacebookIcon, InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/utils/social'
 import { getVersion } from '@/lib/utils/version'
 
 import LanguageSelector from './LanguageSelector'

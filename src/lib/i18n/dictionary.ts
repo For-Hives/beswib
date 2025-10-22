@@ -90,7 +90,9 @@ export function getTranslations<P extends PageTranslationContent, LocaleKey exte
 	// Dynamic initialization for fallback value ⚙️
 	const defaultGlobalContent: GlobalTranslationFileContent =
 		Object.keys(typedGlobalLocales).length > 0
-			? { ...typedGlobalLocales[Object.keys(typedGlobalLocales)[0] as keyof typeof globalLocalesData] }
+			? {
+					...typedGlobalLocales[Object.keys(typedGlobalLocales)[0] as keyof typeof globalLocalesData],
+				}
 			: ({} as GlobalTranslationFileContent)
 
 	const finalGlobalContent: GlobalTranslationFileContent = getFallbackTranslation(

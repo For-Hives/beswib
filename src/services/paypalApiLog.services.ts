@@ -1,8 +1,7 @@
 'use server'
 
-import type { PayPalApiAction, PayPalApiLog } from '@/models/paypalApi.model'
-
 import { pb } from '@/lib/services/pocketbase'
+import type { PayPalApiAction, PayPalApiLog } from '@/models/paypalApi.model'
 
 // Keys that must never be persisted
 const SENSITIVE_KEYS = new Set([
@@ -73,7 +72,7 @@ function limitPayloadSize(payload: unknown, maxSizeBytes: number = 50000): unkno
 	const truncated = jsonString.slice(0, maxSizeBytes)
 	try {
 		return {
-			data: JSON.parse(truncated + '}') as unknown,
+			data: JSON.parse(`${truncated}}`) as unknown,
 			_truncated: true,
 			_originalSize: jsonString.length,
 			_maxSize: maxSizeBytes,
@@ -81,7 +80,7 @@ function limitPayloadSize(payload: unknown, maxSizeBytes: number = 50000): unkno
 	} catch {
 		// If truncated JSON is invalid, return string representation
 		return {
-			data: truncated + '... [TRUNCATED]',
+			data: `${truncated}... [TRUNCATED]`,
 			_truncated: true,
 			_originalSize: jsonString.length,
 			_maxSize: maxSizeBytes,
@@ -127,13 +126,13 @@ export async function extractPayPalDebugId(
 			if (typeof headers === 'object' && !hasGet(headers)) {
 				const lower: Record<string, string> = {}
 				for (const [k, v] of Object.entries(headers)) lower[k.toLowerCase()] = String(v)
-				const id = lower['paypal-debug-id'] ?? lower['debug_id'] ?? lower['correlation-id']
+				const id = lower['paypal-debug-id'] ?? lower.debug_id ?? lower['correlation-id']
 				if (id != null && id !== '') return id
 			}
 		}
 		if (body != null && typeof body === 'object') {
 			const any = body as Record<string, unknown>
-			const id = (any['paypal-debug-id'] as string) ?? (any['debug_id'] as string) ?? (any['correlation-id'] as string)
+			const id = (any['paypal-debug-id'] as string) ?? (any.debug_id as string) ?? (any['correlation-id'] as string)
 			return id ?? null
 		}
 		return null

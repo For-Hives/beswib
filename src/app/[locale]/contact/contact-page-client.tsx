@@ -1,7 +1,7 @@
 'use client'
 
-import globalTranslations from '@/components/global/locales.json'
 import BentoGrid from '@/components/contact/bento-grid'
+import type globalTranslations from '@/components/global/locales.json'
 
 type Translations = (typeof globalTranslations)['en']['contact']
 

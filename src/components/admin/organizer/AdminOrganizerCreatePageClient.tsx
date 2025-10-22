@@ -1,17 +1,17 @@
 'use client'
 
-import { useState } from 'react'
-
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 import organizerCreateTranslations from '@/app/[locale]/admin/organizer/create/locales.json'
 import organizerCommonTranslations from '@/app/[locale]/admin/organizer/locales.json'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Organizer } from '@/models/organizer.model'
-import { User } from '@/models/user.model'
-import { Locale } from '@/lib/i18n/config'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
 
 import OrganizerCreationForm from './OrganizerCreationForm'
+
 interface AdminOrganizerCreatePageClientProps {
 	currentUser: null | User
 	locale: Locale

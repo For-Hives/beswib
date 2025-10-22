@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { handleRegeneratePrivateToken } from '@/app/[locale]/dashboard/seller/edit-bib/[bibId]/actions'
 
@@ -41,9 +41,15 @@ describe('handleRegeneratePrivateToken', () => {
 
 		vi.mocked(fetchBibByIdForSeller)
 			.mockResolvedValueOnce(mockBib) // First call for validation
-			.mockResolvedValueOnce({ ...mockBib, privateListingToken: 'new-token-12345' }) // Second call for return
+			.mockResolvedValueOnce({
+				...mockBib,
+				privateListingToken: 'new-token-12345',
+			}) // Second call for return
 
-		vi.mocked(updateBibBySeller).mockResolvedValue({ ...mockBib, privateListingToken: 'new-token-12345' })
+		vi.mocked(updateBibBySeller).mockResolvedValue({
+			...mockBib,
+			privateListingToken: 'new-token-12345',
+		})
 
 		const result = await handleRegeneratePrivateToken('bib-123')
 

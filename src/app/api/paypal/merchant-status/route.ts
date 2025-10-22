@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 import { getMerchantIntegrationStatus } from '@/services/paypal.services'
 import { getUserData, updateUser } from '@/services/user.services'

@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
-
 import { useUser } from '@clerk/nextjs'
+import { useEffect } from 'react'
 
 import { umamiIdentify } from '@/lib/utils/umami'
 
@@ -11,7 +10,10 @@ export function SessionsTracker() {
 
 	useEffect(() => {
 		if (isLoaded === true && isSignedIn === true && user != null) {
-			void umamiIdentify(user.id, { name: user.fullName, email: user.emailAddresses[0].toString() })
+			void umamiIdentify(user.id, {
+				name: user.fullName,
+				email: user.emailAddresses[0].toString(),
+			})
 		}
 	}, [isLoaded, isSignedIn, user])
 

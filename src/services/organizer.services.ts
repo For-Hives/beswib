@@ -1,14 +1,16 @@
 'use server'
 
-import { Organizer } from '@/models/organizer.model'
 import { pb } from '@/lib/services/pocketbase'
+import type { Organizer } from '@/models/organizer.model'
 
 /**
  * Create a new organizer
  * Uses multipart/form-data for file upload as per PocketBase documentation
  */
 export async function createOrganizer(
-	organizerData: Omit<Organizer, 'created' | 'id' | 'updated'> & { logoFile?: unknown }
+	organizerData: Omit<Organizer, 'created' | 'id' | 'updated'> & {
+		logoFile?: unknown
+	}
 ): Promise<null | Organizer> {
 	try {
 		console.info('🚀 [SERVICE] Creating organizer in PocketBase:', organizerData.name)
@@ -39,7 +41,7 @@ export async function createOrganizer(
 		if (organizerData.logoFile != null) {
 			console.info('📋 [SERVICE] Logo file details:', {
 				type: typeof organizerData.logoFile,
-				hasStream: Object.prototype.hasOwnProperty.call(organizerData.logoFile, 'stream'),
+				hasStream: Object.hasOwn(organizerData.logoFile, 'stream'),
 				constructor: organizerData.logoFile?.constructor?.name ?? 'undefined',
 			})
 
@@ -52,7 +54,7 @@ export async function createOrganizer(
 			const hasStreamProperty =
 				organizerData.logoFile != null &&
 				typeof organizerData.logoFile === 'object' &&
-				Object.prototype.hasOwnProperty.call(organizerData.logoFile, 'stream')
+				Object.hasOwn(organizerData.logoFile, 'stream')
 
 			console.info('🔍 [SERVICE] File checks:', {
 				willUpload: hasFileConstructorName || hasStreamProperty,
@@ -251,14 +253,16 @@ export async function fetchPartneredOrganizers(): Promise<Organizer[]> {
  */
 export async function updateOrganizer(
 	id: string,
-	organizerData: Partial<Omit<Organizer, 'created' | 'id' | 'updated'>> & { logoFile?: unknown }
+	organizerData: Partial<Omit<Organizer, 'created' | 'id' | 'updated'>> & {
+		logoFile?: unknown
+	}
 ): Promise<null | Organizer> {
 	try {
 		// Check if we have a file to upload - server-safe check (NO instanceof File)
 		const hasFile =
 			organizerData.logoFile != null &&
 			typeof organizerData.logoFile === 'object' &&
-			(Object.prototype.hasOwnProperty.call(organizerData.logoFile, 'stream') ||
+			(Object.hasOwn(organizerData.logoFile, 'stream') ||
 				(organizerData.logoFile as Record<string, unknown>).constructor?.name === 'File')
 
 		if (hasFile) {

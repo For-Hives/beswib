@@ -1,13 +1,12 @@
 'use client'
 
-import { CheckCircle, AlertCircle, Mail } from 'lucide-react'
+import { AlertCircle, CheckCircle, Mail } from 'lucide-react'
 
 import { useQueryState } from 'nuqs'
-
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
-import { Locale } from '@/lib/i18n/config'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import waitlistTranslations from './locales.json'
 

@@ -1,20 +1,17 @@
 'use server'
 
-import type { ServiceResult } from '@/types/service-result'
-
-import { createSuccessResult, createErrorResult } from '@/types/service-result'
 import { DateTime } from 'luxon'
-
-import type { CreateVerifiedEmailRequest, VerifiedEmail, VerifyEmailRequest } from '@/models/verifiedEmail.model'
-
 import {
-	VERIFICATION_EXPIRY_MINUTES,
 	MAX_DAILY_ATTEMPTS,
 	RESEND_COOLDOWN_MINUTES,
+	VERIFICATION_EXPIRY_MINUTES,
 } from '@/constants/verifiedEmail.constant'
-import { sendVerificationEmail } from '@/services/notification.service'
-import { pbDateToLuxon } from '@/lib/utils/date'
 import { pb } from '@/lib/services/pocketbase'
+import { pbDateToLuxon } from '@/lib/utils/date'
+import type { CreateVerifiedEmailRequest, VerifiedEmail, VerifyEmailRequest } from '@/models/verifiedEmail.model'
+import { sendVerificationEmail } from '@/services/notification.service'
+import type { ServiceResult } from '@/types/service-result'
+import { createErrorResult, createSuccessResult } from '@/types/service-result'
 
 /**
  * Helper function to handle PocketBase errors consistently

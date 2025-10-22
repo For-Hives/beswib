@@ -1,13 +1,11 @@
 'use client'
 
-import { ChevronDown, MapPin, Check } from 'lucide-react'
+import { Check, ChevronDown, MapPin } from 'lucide-react'
 import { forwardRef, useEffect, useRef } from 'react'
-
-import { useAddressAutocomplete } from '@/hooks/useAddressAutocomplete'
-
-import { extractAddressComponents, formatAddressDisplay, type NominatimResult } from '@/lib/utils/nominatim'
 import { Input } from '@/components/ui/inputAlt'
+import { useAddressAutocomplete } from '@/hooks/useAddressAutocomplete'
 import { cn } from '@/lib/utils'
+import { extractAddressComponents, formatAddressDisplay, type NominatimResult } from '@/lib/utils/nominatim'
 
 interface AddressInputProps {
 	/** The current address value */
@@ -79,7 +77,7 @@ export const AddressInput = forwardRef<HTMLInputElement, AddressInputProps>(
 			if (value !== query) {
 				setQuery(value)
 			}
-		}, [value, setQuery]) // Remove query from deps to avoid circular updates
+		}, [value, setQuery, query]) // Remove query from deps to avoid circular updates
 
 		// Check if other address fields are already completed
 		const areOtherFieldsComplete = () => {
@@ -120,7 +118,7 @@ export const AddressInput = forwardRef<HTMLInputElement, AddressInputProps>(
 			if (areOtherFieldsComplete() && showSuggestions) {
 				hideSuggestions()
 			}
-		}, [otherFields, showSuggestions, hideSuggestions])
+		}, [showSuggestions, hideSuggestions, areOtherFieldsComplete])
 
 		const handleInputChange = (newValue: string) => {
 			setQuery(newValue)

@@ -2,13 +2,21 @@
 
 import { Alignment, Fit, Layout, RuntimeLoader, useRive } from '@rive-app/react-canvas'
 import { ArrowLeft } from 'lucide-react'
-import { useEffect } from 'react'
-
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 import type { Locale } from '@/lib/i18n/config'
 
-const texts: Record<Locale, { title: string; description: string; search: string; goBack: string; home: string }> = {
+const texts: Record<
+	Locale,
+	{
+		title: string
+		description: string
+		search: string
+		goBack: string
+		home: string
+	}
+> = {
 	ro: {
 		title: 'Pagină negăsită',
 		search: 'Caută',

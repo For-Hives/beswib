@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 
 import BeswibLogo from './icons/BeswibLogo'
@@ -56,7 +54,10 @@ function processTextForHighlighting(text: string, highlightColor: string) {
 	while ((match = regex.exec(text)) != null) {
 		// Text before the **
 		if (match.index > lastIndex) {
-			parts.push({ text: text.slice(lastIndex, match.index), color: '#111E3B' })
+			parts.push({
+				text: text.slice(lastIndex, match.index),
+				color: '#111E3B',
+			})
 		}
 		// Text inside **
 		parts.push({ text: match[1], color: highlightColor })
@@ -258,13 +259,23 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 									x={1.5}
 									y={1.5}
 									rx={3.82}
-									style={{ strokeWidth: 1.91, strokeMiterlimit: 10, stroke: '#111E3B', fill: 'none' }}
+									style={{
+										strokeWidth: 1.91,
+										strokeMiterlimit: 10,
+										stroke: '#111E3B',
+										fill: 'none',
+									}}
 								/>
 								<circle
 									cx={12}
 									cy={12}
 									r={4.77}
-									style={{ strokeWidth: 1.91, strokeMiterlimit: 10, stroke: '#111E3B', fill: 'none' }}
+									style={{
+										strokeWidth: 1.91,
+										strokeMiterlimit: 10,
+										stroke: '#111E3B',
+										fill: 'none',
+									}}
 								/>
 								<circle cx={18.2} cy={5.8} r={1.43} style={{ fill: '#111E3B' }} />
 							</svg>

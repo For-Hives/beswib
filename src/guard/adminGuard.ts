@@ -1,8 +1,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
-
+import type { User } from '@/models/user.model'
 import { fetchUserByClerkId } from '@/services/user.services'
-import { User } from '@/models/user.model'
 
 /**
  * Check if current user has admin access without throwing 👑
@@ -59,7 +58,7 @@ export async function requireAdminAccess(): Promise<User> {
 
 		// Check if user is authenticated ✅
 		if (clerkId == null || clerkId === undefined) {
-			redirect('/auth/sign-in?redirectUrl=' + encodeURIComponent('/admin/event'))
+			redirect(`/auth/sign-in?redirectUrl=${encodeURIComponent('/admin/event')}`)
 		}
 
 		// Fetch user data from PocketBase 💾

@@ -1,13 +1,11 @@
-import { Calculator, Info, AlertCircle } from 'lucide-react'
-import React from 'react'
-
-import { PAYPAL_PERCENTAGE_FEE, PAYPAL_FIXED_FEE, PLATFORM_FEE_PERCENTAGE } from '@/constants/fees.constant'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { AlertCircle, Calculator, Info } from 'lucide-react'
 import sellBibLocales from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { getFeeBreakdown } from '@/lib/utils/feeCalculations'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { PAYPAL_FIXED_FEE, PAYPAL_PERCENTAGE_FEE, PLATFORM_FEE_PERCENTAGE } from '@/constants/fees.constant'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
+import { getFeeBreakdown } from '@/lib/utils/feeCalculations'
 
 interface FeeDisplayProps {
 	amount: number

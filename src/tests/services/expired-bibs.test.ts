@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { updateExpiredBibsToWithdrawn } from '@/services/bib.services'
 
@@ -106,8 +106,18 @@ describe('updateExpiredBibsToWithdrawn', () => {
 				.mockResolvedValueOnce({}) // First update succeeds
 				.mockRejectedValueOnce(new Error('Update failed')), // Second update fails
 			getFullList: vi.fn().mockResolvedValue([
-				{ status: 'available', id: 'bib1', expand: { eventId: { name: 'Test' } }, eventId: 'event1' },
-				{ status: 'available', id: 'bib2', expand: { eventId: { name: 'Test' } }, eventId: 'event2' },
+				{
+					status: 'available',
+					id: 'bib1',
+					expand: { eventId: { name: 'Test' } },
+					eventId: 'event1',
+				},
+				{
+					status: 'available',
+					id: 'bib2',
+					expand: { eventId: { name: 'Test' } },
+					eventId: 'event2',
+				},
 			]),
 		}
 

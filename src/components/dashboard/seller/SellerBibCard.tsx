@@ -4,20 +4,23 @@ import { Calendar, Edit3, MapPinned, Tag } from 'lucide-react'
 
 import Image from 'next/image'
 import Link from 'next/link'
-
-import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
-import type { Bib } from '@/models/bib.model'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { cn } from '@/lib/utils'
 
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { getBibImageUrl } from '@/lib/utils/images'
-import { cn } from '@/lib/utils'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
 
 import sellerTranslations from './locales.json'
 
 interface SellerBibCardProps {
-	bib: Bib & { expand?: { eventId: Event & { expand?: { organizer?: { logo?: string } } } } }
+	bib: Bib & {
+		expand?: {
+			eventId: Event & { expand?: { organizer?: { logo?: string } } }
+		}
+	}
 	locale: Locale
 }
 
@@ -25,17 +28,35 @@ interface SellerBibCardProps {
 const getStatusDisplay = (status: string) => {
 	switch (status) {
 		case 'available':
-			return { label: 'Available', color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' }
+			return {
+				label: 'Available',
+				color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
+			}
 		case 'expired':
-			return { label: 'Expired', color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400' }
+			return {
+				label: 'Expired',
+				color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400',
+			}
 		case 'sold':
-			return { label: 'Sold', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400' }
+			return {
+				label: 'Sold',
+				color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400',
+			}
 		case 'validation_failed':
-			return { label: 'Validation Failed', color: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400' }
+			return {
+				label: 'Validation Failed',
+				color: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400',
+			}
 		case 'withdrawn':
-			return { label: 'Withdrawn', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400' }
+			return {
+				label: 'Withdrawn',
+				color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400',
+			}
 		default:
-			return { label: status, color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400' }
+			return {
+				label: status,
+				color: 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400',
+			}
 	}
 }
 
@@ -124,7 +145,7 @@ export default function SellerBibCard({ locale, bib }: SellerBibCardProps) {
 								{(() => {
 									try {
 										const eventDate = new Date(bib.expand.eventId.eventDate)
-										if (isNaN(eventDate.getTime())) return 'Invalid date'
+										if (Number.isNaN(eventDate.getTime())) return 'Invalid date'
 										return formatDateObjectForDisplay(eventDate, locale)
 									} catch {
 										return 'Invalid date'

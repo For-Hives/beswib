@@ -1,5 +1,7 @@
 'use server'
 
+import { PLATFORM_FEE } from '@/constants/global.constant'
+import type { BibSale } from '@/models/marketplace.model'
 import type {
 	PayPalAccessToken,
 	PayPalCaptureResponse,
@@ -10,12 +12,8 @@ import type {
 	PayPalWebhook,
 	PayPalWebhookEvent,
 } from '@/models/paypal.model'
-import type { BibSale } from '@/models/marketplace.model'
-
-import { PLATFORM_FEE } from '@/constants/global.constant'
-
-import { getTransactionByOrderId, updateTransaction } from './transaction.services'
 import { logPayPalApi } from './paypalApiLog.services'
+import { getTransactionByOrderId, updateTransaction } from './transaction.services'
 
 const PAYPAL_MERCHANT_ID = () => process.env.PAYPAL_MERCHANT_ID ?? ''
 
@@ -35,7 +33,9 @@ function getNegativeTestingHeader(isEnabled: boolean): Record<string, string> {
 	// See https://developer.paypal.com/tools/sandbox/negative-testing/request-headers/
 	// Header value must be a JSON string
 	return {
-		'PayPal-Mock-Response': JSON.stringify({ mock_application_codes: NEGATIVE_TEST_CODE }),
+		'PayPal-Mock-Response': JSON.stringify({
+			mock_application_codes: NEGATIVE_TEST_CODE,
+		}),
 	}
 }
 
@@ -99,7 +99,10 @@ export async function handleCheckoutOrderApproved(event: unknown) {
 }
 
 export async function handleOnboardingCompleted(event: PayPalWebhookEvent) {
-	const resource = event.resource as { merchant_id?: string; tracking_id?: string }
+	const resource = event.resource as {
+		merchant_id?: string
+		tracking_id?: string
+	}
 	const merchantId = resource.merchant_id
 	const trackingId = resource.tracking_id
 
@@ -130,7 +133,10 @@ export async function handleOnboardingCompleted(event: PayPalWebhookEvent) {
 }
 
 export async function handleSellerConsentGranted(event: PayPalWebhookEvent) {
-	const resource = event.resource as { merchant_id?: string; tracking_id?: string }
+	const resource = event.resource as {
+		merchant_id?: string
+		tracking_id?: string
+	}
 	const merchantId = resource.merchant_id
 	const trackingId = resource.tracking_id
 
@@ -231,16 +237,28 @@ interface PayPalErrorResponse {
  * Parses PayPal error responses to extract specific error codes
  * PayPal errors can come in different formats depending on the API version
  */
-function parsePayPalError(errorString: string): { errorCode?: string; description?: string } {
+function parsePayPalError(errorString: string): {
+	errorCode?: string
+	description?: string
+} {
 	// First, check for common error patterns in plain text (handles both JSON and plain text responses)
 	if (errorString.includes('INSTRUMENT_DECLINED')) {
-		return { errorCode: 'INSTRUMENT_DECLINED', description: 'The payment method was declined' }
+		return {
+			errorCode: 'INSTRUMENT_DECLINED',
+			description: 'The payment method was declined',
+		}
 	}
 	if (errorString.includes('INSUFFICIENT_FUNDS')) {
-		return { errorCode: 'INSUFFICIENT_FUNDS', description: 'Insufficient funds in the account' }
+		return {
+			errorCode: 'INSUFFICIENT_FUNDS',
+			description: 'Insufficient funds in the account',
+		}
 	}
 	if (errorString.includes('PAYER_ACCOUNT_RESTRICTED')) {
-		return { errorCode: 'PAYER_ACCOUNT_RESTRICTED', description: 'The payer account is restricted' }
+		return {
+			errorCode: 'PAYER_ACCOUNT_RESTRICTED',
+			description: 'The payer account is restricted',
+		}
 	}
 
 	try {
@@ -376,7 +394,9 @@ export async function createOrder(
 		// Ensure the seller can actually receive payments (KYC done / account enabled)
 		const statusRes = await getMerchantIntegrationStatus(sellerId)
 		if ('error' in statusRes) {
-			return { error: 'Unable to verify seller PayPal status. Please try again later.' }
+			return {
+				error: 'Unable to verify seller PayPal status. Please try again later.',
+			}
 		}
 		// Block payments if receivable is false
 		if (statusRes.status.payments_receivable !== true) {
@@ -504,7 +524,9 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 			throw new Error(JSON.stringify(error))
 		}
 
-		const data = (await response.json()) as PayPalPartnerReferralResponse & { status?: string }
+		const data = (await response.json()) as PayPalPartnerReferralResponse & {
+			status?: string
+		}
 		console.info('PayPal referral data:', JSON.stringify(data, null, 2))
 
 		// Check if the referral has been completed and get the merchant ID
@@ -522,23 +544,32 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 
 		// Check if the referral is still pending
 		if (data.status === 'PENDING' || data.status === 'IN_PROGRESS') {
-			return { error: 'Onboarding is still in progress. Please complete the PayPal setup and try again.' }
+			return {
+				error: 'Onboarding is still in progress. Please complete the PayPal setup and try again.',
+			}
 		}
 
 		// Check if the referral was rejected or failed
 		if (data.status === 'REJECTED' || data.status === 'FAILED') {
-			return { error: 'PayPal onboarding was rejected or failed. Please try again.' }
+			return {
+				error: 'PayPal onboarding was rejected or failed. Please try again.',
+			}
 		}
 
 		console.info('No merchant ID found in operations. Full data:', JSON.stringify(data, null, 2))
-		return { error: 'Merchant ID not found. Please complete the PayPal onboarding process and try again.' }
+		return {
+			error: 'Merchant ID not found. Please complete the PayPal onboarding process and try again.',
+		}
 	} catch (error) {
 		console.error('Get merchant ID error:', error instanceof Error ? error.message : error)
 		return { error: 'Failed to get merchant ID from PayPal' }
 	}
 }
 
-export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?: PayPalWebhook[] }> {
+export async function listPayPalWebhooks(): Promise<{
+	error?: string
+	webhooks?: PayPalWebhook[]
+}> {
 	try {
 		const token = await getAccessToken()
 
@@ -617,13 +648,17 @@ export async function onboardSeller(
 			requestBody: {
 				tracking_id: trackingId,
 				products: ['EXPRESS_CHECKOUT'],
-				partner_config_override: { return_url: `${baseUrl}/en/paypal/callback?trackingId=${trackingId}` },
+				partner_config_override: {
+					return_url: `${baseUrl}/en/paypal/callback?trackingId=${trackingId}`,
+				},
 				operations: [
 					{
 						operation: 'API_INTEGRATION',
 						api_integration_preference: {
 							rest_api_integration: {
-								third_party_details: { features: ['PAYMENT', 'REFUND', 'ACCESS_MERCHANT_INFORMATION'] },
+								third_party_details: {
+									features: ['PAYMENT', 'REFUND', 'ACCESS_MERCHANT_INFORMATION'],
+								},
 								integration_type: 'THIRD_PARTY',
 								integration_method: 'PAYPAL',
 							},
@@ -648,7 +683,10 @@ export async function onboardSeller(
 	}
 }
 
-export async function setupPayPalWebhooks(): Promise<{ error?: string; success?: boolean }> {
+export async function setupPayPalWebhooks(): Promise<{
+	error?: string
+	success?: boolean
+}> {
 	try {
 		const token = await getAccessToken()
 		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
@@ -730,11 +768,14 @@ async function getAccessToken(): Promise<string> {
  * Fetch merchant integration status from PayPal to verify KYC/payments readiness.
  * Uses GET /v1/customer/partners/{partner_id}/merchant-integrations/{merchant_id}
  */
-export async function getMerchantIntegrationStatus(
-	merchantId: string
-): Promise<
+export async function getMerchantIntegrationStatus(merchantId: string): Promise<
 	| { error: string; status?: undefined }
-	| { status: PayPalMerchantIntegrationStatus & { primary_email_confirmed: boolean; payments_receivable: boolean } }
+	| {
+			status: PayPalMerchantIntegrationStatus & {
+				primary_email_confirmed: boolean
+				payments_receivable: boolean
+			}
+	  }
 > {
 	try {
 		if (!merchantId) return { error: 'Missing merchantId' }
@@ -763,7 +804,10 @@ export async function getMerchantIntegrationStatus(
 			}
 		)
 
-		await logPayPalApi('MerchantIntegrationGet', { response: res, requestBody: { partnerId, merchantId } })
+		await logPayPalApi('MerchantIntegrationGet', {
+			response: res,
+			requestBody: { partnerId, merchantId },
+		})
 
 		if (!res.ok) {
 			let msg = 'Failed to fetch merchant integration status'
@@ -779,7 +823,9 @@ export async function getMerchantIntegrationStatus(
 		// Ensure booleans present with defaults
 		const payments_receivable = data.payments_receivable === true
 		const primary_email_confirmed = data.primary_email_confirmed === true
-		return { status: { ...data, primary_email_confirmed, payments_receivable } }
+		return {
+			status: { ...data, primary_email_confirmed, payments_receivable },
+		}
 	} catch (e) {
 		console.error('getMerchantIntegrationStatus error:', e)
 		return { error: 'Failed to fetch merchant status' }

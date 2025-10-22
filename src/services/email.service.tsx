@@ -4,14 +4,14 @@ import { render } from '@react-email/components'
 
 import { Resend } from 'resend'
 
-import { BeswibEmailVerification, BeswibWelcomeEmail, BeswibWaitlistConfirmation } from '@/components/emails'
-import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
+import { BeswibEmailVerification, BeswibWaitlistConfirmation, BeswibWelcomeEmail } from '@/components/emails'
+import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
 import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
+import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
+import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
 import BeswibWaitlistAlert from '@/components/emails/BeswibWaitlistAlert'
 import { getLocalizedEmailSubject } from '@/lib/utils/email-localization'
-import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
-import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 import { getUserLocaleByEmail } from '@/services/user.services'
 
 function getResend(): Resend | null {
@@ -356,7 +356,9 @@ export async function sendWaitlistAlertEmail(
 	// In the future, we could optimize by grouping emails by user locale
 	const locale = params.locale ?? 'en'
 	// locale is already handled by getTranslations with fallback
-	const subject = getLocalizedEmailSubject('waitlistAlert', locale, { eventName: params.eventName })
+	const subject = getLocalizedEmailSubject('waitlistAlert', locale, {
+		eventName: params.eventName,
+	})
 
 	return sendBatchEmails(
 		emails,
@@ -398,7 +400,7 @@ export async function sendLocalizedWaitlistAlertEmails(
 		if (!emailsByLocale.has(effectiveLocale)) {
 			emailsByLocale.set(effectiveLocale, [])
 		}
-		emailsByLocale.get(effectiveLocale)!.push(email)
+		emailsByLocale.get(effectiveLocale)?.push(email)
 	}
 
 	let totalSent = 0
@@ -450,7 +452,9 @@ export async function sendLocalizedWaitlistAlertEmails(
 				}
 			} else {
 				// For emails with known locales, send in batch
-				const subject = getLocalizedEmailSubject('waitlistAlert', locale, { eventName: params.eventName })
+				const subject = getLocalizedEmailSubject('waitlistAlert', locale, {
+					eventName: params.eventName,
+				})
 
 				// Calculate timeRemaining with the specified locale
 				const timeRemaining = params.calculateTimeRemaining

@@ -1,15 +1,13 @@
 'use client'
 
-import { ShoppingCart, CheckCircle, Archive, Tag, Clock } from 'lucide-react'
+import { Archive, CheckCircle, Clock, ShoppingCart, Tag } from 'lucide-react'
 import { useState } from 'react'
-
-import type { Event } from '@/models/event.model'
-import type { Locale } from '@/lib/i18n/config'
-import type { Bib } from '@/models/bib.model'
-
 import sellerTranslations from '@/app/[locale]/dashboard/seller/locales.json'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
 
 import SellerBibCard from './SellerBibCard'
 
@@ -38,7 +36,7 @@ const isBibExpired = (bib: Bib & { expand?: { eventId: Event } }): boolean => {
 		const deadline = new Date(transferDeadline)
 
 		// Validate dates
-		if (isNaN(deadline.getTime())) return false
+		if (Number.isNaN(deadline.getTime())) return false
 
 		return now > deadline
 	} catch {

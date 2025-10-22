@@ -1,7 +1,6 @@
-import { mockPocketbase, mockPocketbaseCollection } from '@/tests/mocks/pocketbase'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-
 import type { User } from '@/models/user.model'
+import { mockPocketbase, mockPocketbaseCollection } from '@/tests/mocks/pocketbase'
 
 vi.mock('@/lib/services/pocketbase', () => ({
 	pb: mockPocketbase,
@@ -56,8 +55,14 @@ describe('waitlist.services', () => {
 
 	describe('addToWaitlist', () => {
 		it('should add a user to the waitlist', async () => {
-			mockPocketbaseCollection.getFirstListItem.mockRejectedValue({ status: 404 })
-			mockPocketbaseCollection.create.mockResolvedValue({ user_id: 'user1', id: 'waitlist1', event_id: 'event1' })
+			mockPocketbaseCollection.getFirstListItem.mockRejectedValue({
+				status: 404,
+			})
+			mockPocketbaseCollection.create.mockResolvedValue({
+				user_id: 'user1',
+				id: 'waitlist1',
+				event_id: 'event1',
+			})
 			mockPocketbaseCollection.getOne.mockResolvedValue({
 				typeCourse: 'trail',
 				name: 'Test Event',
@@ -70,16 +75,27 @@ describe('waitlist.services', () => {
 			expect(mockPocketbase.collection).toHaveBeenCalledWith('waitlists')
 			expect(mockPocketbaseCollection.getFirstListItem).toHaveBeenCalledWith('user_id = "user1" && event_id = "event1"')
 			expect(mockPocketbaseCollection.create).toHaveBeenCalled()
-			expect(result).toEqual({ user_id: 'user1', id: 'waitlist1', event_id: 'event1' })
+			expect(result).toEqual({
+				user_id: 'user1',
+				id: 'waitlist1',
+				event_id: 'event1',
+			})
 		})
 
 		it('should return an error if the user is already on the waitlist', async () => {
-			const existingEntry = { user_id: 'user1', id: 'waitlist1', event_id: 'event1' }
+			const existingEntry = {
+				user_id: 'user1',
+				id: 'waitlist1',
+				event_id: 'event1',
+			}
 			mockPocketbaseCollection.getFirstListItem.mockResolvedValue(existingEntry)
 
 			const result = await addToWaitlist('event1', mockUser)
 
-			expect(result).toEqual({ ...existingEntry, error: 'already_on_waitlist' })
+			expect(result).toEqual({
+				...existingEntry,
+				error: 'already_on_waitlist',
+			})
 		})
 
 		it('should return null if the user is not found', async () => {
@@ -92,7 +108,11 @@ describe('waitlist.services', () => {
 			// Mock that the email belongs to an existing user
 			mockFetchUserByEmail.mockResolvedValue(mockUser)
 			mockPocketbase.getFirstListItem.mockRejectedValue({ status: 404 }) // No existing waitlist entry
-			mockPocketbase.create.mockResolvedValue({ user_id: 'user1', id: 'waitlist1', event_id: 'event1' })
+			mockPocketbase.create.mockResolvedValue({
+				user_id: 'user1',
+				id: 'waitlist1',
+				event_id: 'event1',
+			})
 			mockPocketbaseCollection.getOne.mockResolvedValue({
 				typeCourse: 'trail',
 				name: 'Test Event',
@@ -112,7 +132,11 @@ describe('waitlist.services', () => {
 				email: undefined, // Should be undefined since we linked to a user
 				added_at: expect.any(Date) as Date,
 			})
-			expect(result).toEqual({ user_id: 'user1', id: 'waitlist1', event_id: 'event1' })
+			expect(result).toEqual({
+				user_id: 'user1',
+				id: 'waitlist1',
+				event_id: 'event1',
+			})
 		})
 
 		it('should create email-only subscription when email does not belong to registered user', async () => {
@@ -150,8 +174,16 @@ describe('waitlist.services', () => {
 	describe('fetchUserWaitlists', () => {
 		it('should fetch user waitlists', async () => {
 			const waitlists = [
-				{ id: 'waitlist1', expand: { event_id: undefined }, event_id: 'event1' },
-				{ id: 'waitlist2', expand: { event_id: undefined }, event_id: 'event2' },
+				{
+					id: 'waitlist1',
+					expand: { event_id: undefined },
+					event_id: 'event1',
+				},
+				{
+					id: 'waitlist2',
+					expand: { event_id: undefined },
+					event_id: 'event2',
+				},
 			]
 			mockPocketbaseCollection.getFullList.mockResolvedValue(waitlists)
 			mockPocketbaseCollection.getOne.mockImplementation((eventId: string) =>
@@ -208,8 +240,18 @@ describe('waitlist.services', () => {
 	describe('linkEmailWaitlistsToUser', () => {
 		it('should link email-only waitlist entries to a user account', async () => {
 			const emailWaitlistEntries = [
-				{ user_id: null, id: 'waitlist1', event_id: 'event1', email: 'test@test.com' },
-				{ user_id: null, id: 'waitlist2', event_id: 'event2', email: 'test@test.com' },
+				{
+					user_id: null,
+					id: 'waitlist1',
+					event_id: 'event1',
+					email: 'test@test.com',
+				},
+				{
+					user_id: null,
+					id: 'waitlist2',
+					event_id: 'event2',
+					email: 'test@test.com',
+				},
 			]
 			mockPocketbase.getFullList.mockResolvedValue(emailWaitlistEntries)
 			mockPocketbase.update.mockResolvedValue({})
@@ -261,8 +303,18 @@ describe('waitlist.services', () => {
 
 		it('should handle partial failures when updating entries', async () => {
 			const emailWaitlistEntries = [
-				{ user_id: null, id: 'waitlist1', event_id: 'event1', email: 'test@test.com' },
-				{ user_id: null, id: 'waitlist2', event_id: 'event2', email: 'test@test.com' },
+				{
+					user_id: null,
+					id: 'waitlist1',
+					event_id: 'event1',
+					email: 'test@test.com',
+				},
+				{
+					user_id: null,
+					id: 'waitlist2',
+					event_id: 'event2',
+					email: 'test@test.com',
+				},
 			]
 			mockPocketbase.getFullList.mockResolvedValue(emailWaitlistEntries)
 			// First update succeeds, second fails

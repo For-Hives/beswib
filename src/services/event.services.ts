@@ -1,19 +1,18 @@
 'use server'
 
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { dateToPbDateString } from '@/lib/utils/date'
 import { pb } from '@/lib/services/pocketbase'
+import { dateToPbDateString } from '@/lib/utils/date'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
 
 /**
  * Creates a new event. This function is intended for use by organizers.
  * @param eventData Partial data for the new event. Fields like name, date, location, description are expected.
  */
 export async function createEvent(eventData: Omit<Event, 'id'>): Promise<Event | null> {
-	if (!eventData.name || isNaN(eventData.eventDate.getTime()) || !eventData.location || !eventData.organizer) {
+	if (!eventData.name || Number.isNaN(eventData.eventDate.getTime()) || !eventData.location || !eventData.organizer) {
 		console.error('Event name, date, location, and organizer are required.')
 		return null
 	}

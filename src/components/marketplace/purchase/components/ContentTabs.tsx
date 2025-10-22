@@ -1,18 +1,15 @@
 'use client'
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
-import React, { Fragment } from 'react'
-
 import Link from 'next/link'
-
-import type { BibSale } from '@/models/marketplace.model'
-import type { Event } from '@/models/event.model'
-import type { Locale } from '@/lib/i18n/config'
-
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { Fragment } from 'react'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { formatDateWithLocale } from '@/lib/utils/date'
+import type { Event } from '@/models/event.model'
+import type { BibSale } from '@/models/marketplace.model'
 
 interface ContentTabsProps {
 	/** The bib sale data */
@@ -151,7 +148,7 @@ export default function ContentTabs({ locale, eventData, bib }: Readonly<Content
 							<div className="dark:border-border/50 bg-card/50 rounded-lg border border-black/50 p-6 backdrop-blur-sm">
 								<h4 className="text-foreground mb-4 font-semibold">{t.sellerInformation ?? 'Seller Information'}</h4>
 								<p className="text-muted-foreground text-sm">
-									{(t.soldBy ?? 'Sold by') + ' '}
+									{`${t.soldBy ?? 'Sold by'} `}
 									{bib.user.firstName ?? 'Anonymous'}.
 								</p>
 							</div>

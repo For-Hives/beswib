@@ -1,14 +1,12 @@
 import type { Metadata } from 'next'
-
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
-import { fetchApprovedPublicEventsWithBibs } from '@/services/event.services'
-import { generateEventsMetadata } from '@/lib/seo/metadata-generators'
+import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { generateEventsMetadata } from '@/lib/seo/metadata-generators'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
+import { fetchApprovedPublicEventsWithBibs } from '@/services/event.services'
 
 import EventListClient from './EventListClient'
 import eventsTranslations from './locales.json'

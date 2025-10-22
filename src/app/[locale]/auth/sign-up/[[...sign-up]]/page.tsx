@@ -1,12 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
-import { useAuth, SignedOut } from '@clerk/nextjs'
+import { SignedOut, useAuth } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
-
-import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
+import { useEffect, useState } from 'react'
 import CustomSignUp from '@/components/auth/CustomSignUp'
+import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
 
 export default function Page({ params }: { params: Promise<{ locale: string }> }) {
 	const { isSignedIn, isLoaded } = useAuth()

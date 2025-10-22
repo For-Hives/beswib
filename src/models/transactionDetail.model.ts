@@ -1,4 +1,4 @@
-import { Transaction } from './transaction.model'
+import type { Transaction } from './transaction.model'
 
 // TODO : this table does not exist in the database yet, but is used to store transaction details for runners
 export interface TransactionDetail {

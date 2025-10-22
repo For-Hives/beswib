@@ -8,13 +8,12 @@ import {
 	Link,
 	Preview,
 	Section,
-	Text,
 	Tailwind,
+	Text,
 } from '@react-email/components'
 import type * as React from 'react'
-
-import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import { Footer } from './Footer'
 
@@ -102,7 +101,9 @@ export const BeswibWelcomeEmail = ({ steps, locale = 'fr', firstName = 'Coureur'
 						{/* Card principale */}
 						<Section className="bg-card border-border rounded-lg border px-8 shadow-sm">
 							<Heading className="text-foreground mb-6 text-center text-3xl font-bold">
-								🎉&nbsp;&nbsp;{t.emails.welcome.title.replace('{firstName}', firstName)}&nbsp;&nbsp;🎉
+								🎉&nbsp;&nbsp;
+								{t.emails.welcome.title.replace('{firstName}', firstName)}
+								&nbsp;&nbsp;🎉
 							</Heading>
 							<Text className="text-muted-foreground mb-6 text-start text-lg opacity-90">
 								{t.emails.welcome.heroSubtitle}

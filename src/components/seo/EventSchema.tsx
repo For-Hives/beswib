@@ -1,5 +1,5 @@
-import type { Organizer } from '@/models/organizer.model'
 import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
 
 interface EventSchemaProps {
 	event: Event
@@ -146,7 +146,7 @@ export default function EventSchema({ organizer, locale, event }: EventSchemaPro
 	const dynamicSchema: Record<string, unknown> = { ...schema }
 
 	if (event.distanceKm != null && event.distanceKm !== undefined && event.distanceKm > 0) {
-		dynamicSchema['distance'] = {
+		dynamicSchema.distance = {
 			value: event.distanceKm,
 			unitCode: 'KMT',
 			'@type': 'QuantitativeValue',
@@ -154,7 +154,7 @@ export default function EventSchema({ organizer, locale, event }: EventSchemaPro
 	}
 
 	if (event.elevationGainM != null && event.elevationGainM !== undefined && event.elevationGainM > 0) {
-		dynamicSchema['elevation'] = {
+		dynamicSchema.elevation = {
 			value: event.elevationGainM,
 			unitCode: 'MTR',
 			'@type': 'QuantitativeValue',
@@ -162,16 +162,16 @@ export default function EventSchema({ organizer, locale, event }: EventSchemaPro
 	}
 
 	if (event.participants != null && event.participants !== undefined && event.participants > 0) {
-		dynamicSchema['maximumAttendeeCapacity'] = event.participants
+		dynamicSchema.maximumAttendeeCapacity = event.participants
 	}
 
 	if (event.parcoursUrl != null && event.parcoursUrl !== undefined && event.parcoursUrl.length > 0) {
-		dynamicSchema['courseMap'] = event.parcoursUrl
+		dynamicSchema.courseMap = event.parcoursUrl
 	}
 
 	if (event.bibPickupLocation != null && event.bibPickupLocation !== undefined && event.bibPickupLocation.length > 0) {
-		const locationSchema = dynamicSchema['location'] as Record<string, unknown>
-		locationSchema['additionalProperty'] = {
+		const locationSchema = dynamicSchema.location as Record<string, unknown>
+		locationSchema.additionalProperty = {
 			value: event.bibPickupLocation,
 			name: 'Bib Pickup Location',
 			'@type': 'PropertyValue',

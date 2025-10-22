@@ -3,11 +3,10 @@ import type {
 	CreateTypes as ConfettiInstance,
 	Options as ConfettiOptions,
 } from 'canvas-confetti'
-
-import React, { createContext, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react'
-import type { ReactNode } from 'react'
-
 import confetti from 'canvas-confetti'
+import type React from 'react'
+import type { ReactNode } from 'react'
+import { createContext, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react'
 
 import { Button } from '@/components/ui/button'
 

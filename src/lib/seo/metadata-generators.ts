@@ -1,17 +1,15 @@
 import type { Metadata } from 'next'
-
-import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
-
+import type { Event } from '@/models/event.model'
+import { SEO_DESCRIPTIONS, SEO_KEYWORDS, SEO_TITLES } from './constants/seo-translations'
 import {
+	generateAlternateLanguages,
+	generateCanonicalUrl,
+	generateEventDescription,
 	generateEventKeywords,
 	generateEventTitle,
-	generateEventDescription,
 	generateOGImageConfig,
-	generateCanonicalUrl,
-	generateAlternateLanguages,
 } from './utils/seo-generators'
-import { SEO_TITLES, SEO_DESCRIPTIONS, SEO_KEYWORDS } from './constants/seo-translations'
 
 // Base metadata configuration for all pages
 export function generateBaseMetadata(locale: Locale): Metadata {

@@ -1,11 +1,9 @@
-import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
-
-import { COURSE_TYPES } from '@/types/course-types'
+import type { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import * as v from 'valibot'
-
-import adminTranslations from '@/app/[locale]/admin/locales.json'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
+import type adminTranslations from '@/app/[locale]/admin/locales.json'
+import type { Locale } from '@/lib/i18n/config'
+import type { getTranslations } from '@/lib/i18n/dictionary'
+import { COURSE_TYPES } from '@/types/course-types'
 
 // Validation Schema using Valibot
 export const EventCreationSchema = v.object({

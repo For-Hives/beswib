@@ -1,18 +1,16 @@
 'use client'
 
-import { useState } from 'react'
-
-import { useRouter, useParams } from 'next/navigation'
 import { useSignIn } from '@clerk/nextjs'
 import Link from 'next/link'
-
-import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation/valibot'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { FormInput } from '@/components/ui/FormInput'
+import { useParams, useRouter } from 'next/navigation'
+import { useState } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
 import { Button } from '@/components/ui/button'
+import { FormInput } from '@/components/ui/FormInput'
 import { Icons } from '@/components/ui/icons'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation/valibot'
 
 interface FieldError {
 	message: string
@@ -151,7 +149,9 @@ export default function CustomSignIn() {
 			}
 		} catch (err: unknown) {
 			// Check for session_exists error specifically
-			const e = (err ?? {}) as Partial<{ errors: Array<Partial<{ code: string }>> }>
+			const e = (err ?? {}) as Partial<{
+				errors: Array<Partial<{ code: string }>>
+			}>
 			const code = e.errors?.[0]?.code
 
 			if (code === 'session_exists') {
@@ -173,7 +173,10 @@ export default function CustomSignIn() {
 			} else if (code === 'form_password_incorrect') {
 				setFieldErrors(prev => ({
 					...prev,
-					password: { message: translateClerkErrorLocal(err), code: 'incorrect' },
+					password: {
+						message: translateClerkErrorLocal(err),
+						code: 'incorrect',
+					},
 				}))
 			}
 		} finally {

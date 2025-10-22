@@ -1,16 +1,9 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
 import { UserIcon } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 import { toast } from 'sonner'
-
-import type { VerifiedEmail } from '@/models/verifiedEmail.model'
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
 import {
 	BibDetailsStep,
 	ConfirmationStep,
@@ -20,18 +13,23 @@ import {
 	ProgressSteps,
 	StepNavigation,
 } from '@/components/admin/dashboard/sell-bib'
+import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
+import { Separator } from '@/components/ui/separator'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { isSellerProfileComplete } from '@/lib/validation/user'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
+import type { VerifiedEmail } from '@/models/verifiedEmail.model'
+import { createBib } from '@/services/bib.services'
 import {
 	createVerifiedEmail,
 	fetchVerifiedEmailsByUserId,
-	verifyEmail,
 	resendVerificationCode,
+	verifyEmail,
 } from '@/services/verifiedEmail.services'
-import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
-import { isSellerProfileComplete } from '@/lib/validation/user'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Separator } from '@/components/ui/separator'
-import { createBib } from '@/services/bib.services'
-import { Locale } from '@/lib/i18n/config'
 
 interface FormData {
 	acceptedTerms: boolean
@@ -93,7 +91,10 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 					// Auto-select the user's main email if it exists as verified
 					const mainEmailVerified = result.data.find(email => email.email === user.email)
 					if (mainEmailVerified !== undefined && formData.linkedEmailId === undefined) {
-						setFormData(prev => ({ ...prev, linkedEmailId: mainEmailVerified.id }))
+						setFormData(prev => ({
+							...prev,
+							linkedEmailId: mainEmailVerified.id,
+						}))
 					} else if (formData.linkedEmailId === undefined) {
 						// Default to 'main-email' (user's account email)
 						setFormData(prev => ({ ...prev, linkedEmailId: 'main-email' }))
@@ -107,7 +108,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 		}
 
 		void loadVerifiedEmails()
-	}, [user.id])
+	}, [user.id, formData.linkedEmailId, user.email])
 
 	// Handler for adding a new email
 	const handleAddEmail = (email: string) => {
@@ -212,7 +213,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 					newErrors.sellingPrice = t.validation.priceRequired
 				} else {
 					const price = parseFloat(formData.sellingPrice)
-					if (isNaN(price) || price <= 0) {
+					if (Number.isNaN(price) || price <= 0) {
 						newErrors.sellingPrice = t.validation.priceMinimum
 					}
 				}
@@ -227,7 +228,9 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 		if (validateStep(currentStep)) {
 			// Check if seller profile is complete before allowing progression
 			if (!isSellerProfileValid) {
-				setErrors({ submit: 'Please complete your seller profile before proceeding.' })
+				setErrors({
+					submit: 'Please complete your seller profile before proceeding.',
+				})
 				return
 			}
 
@@ -250,7 +253,9 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 
 		// Check if seller profile is complete before allowing submission
 		if (!isSellerProfileValid) {
-			setErrors({ submit: 'Please complete your seller profile before selling bibs.' })
+			setErrors({
+				submit: 'Please complete your seller profile before selling bibs.',
+			})
 			return
 		}
 
@@ -258,7 +263,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 
 		try {
 			// Determine the actual linkedEmailId to use
-			let linkedEmailId: string | undefined = undefined
+			let linkedEmailId: string | undefined
 			if (
 				formData.linkedEmailId !== undefined &&
 				formData.linkedEmailId != null &&

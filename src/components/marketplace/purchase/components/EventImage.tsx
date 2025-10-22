@@ -1,17 +1,13 @@
 'use client'
 
-import React from 'react'
-
 import Image from 'next/image'
-
-import type { BibSale } from '@/models/marketplace.model'
-import type { Event } from '@/models/event.model'
-
 import marketplaceTranslations from '@/components/marketplace/locales.json'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { Badge } from '@/components/ui/badge'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
+import type { Event } from '@/models/event.model'
+import type { BibSale } from '@/models/marketplace.model'
 
 interface EventImageProps {
 	/** The bib sale data containing event information */

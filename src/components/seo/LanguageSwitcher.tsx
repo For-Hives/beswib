@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
 import { Languages } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 
 import { useLocale } from '@/hooks/useLocale'
 

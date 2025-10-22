@@ -1,12 +1,11 @@
 'use client'
 
-import { useId, useState, useEffect } from 'react'
 import { X } from 'lucide-react'
+import { useEffect, useId, useState } from 'react'
 
 import { useThemeStore } from '@/hooks/useTheme'
-
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 import { cn } from '@/lib/utils'
 
 import pageTranslationsData from './locales.json'

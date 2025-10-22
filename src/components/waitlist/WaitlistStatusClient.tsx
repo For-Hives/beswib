@@ -1,9 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 
 import waitlistTranslations from './locales.json'
 
@@ -29,7 +28,9 @@ export default function WaitlistStatusClient({ locale, joinLabel, eventId, actio
 						setInWaitlist(false)
 						return
 					}
-					const data = (await res.json().catch(() => ({}))) as { error?: string }
+					const data = (await res.json().catch(() => ({}))) as {
+						error?: string
+					}
 					throw new Error(data?.error ?? 'request_failed')
 				}
 				const data = (await res.json()) as { inWaitlist: boolean }

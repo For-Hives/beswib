@@ -1,29 +1,25 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
-
-import { useRouter } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
-import { useQueryState } from 'nuqs'
 import { DateTime } from 'luxon'
+import { useRouter } from 'next/navigation'
+import { useQueryState } from 'nuqs'
+import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
-
-import type { User as AppUser } from '@/models/user.model'
-import type { Organizer } from '@/models/organizer.model'
-import type { BibSale } from '@/models/marketplace.model'
-import type { Event } from '@/models/event.model'
-import type { Bib } from '@/models/bib.model'
-
+import { captureOrder, createSale } from '@/app/[locale]/purchase/actions'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
-import { createSale, captureOrder } from '@/app/[locale]/purchase/actions'
-import { isUserProfileComplete } from '@/lib/validation/user'
-import { isLocked, lockBib } from '@/services/bib.services'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
-
-// Import sub-components
-import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs } from './components'
+import { isUserProfileComplete } from '@/lib/validation/user'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { BibSale } from '@/models/marketplace.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User as AppUser } from '@/models/user.model'
+import { isLocked, lockBib } from '@/services/bib.services'
 import { EventWaitlistCard } from '../EventWaitlistCard'
+// Import sub-components
+import { ActionButtons, ContentTabs, EventDetails, EventImage, PriceDisplay } from './components'
 import PaymentDialog from './components/PaymentDialog'
 import { LockTimer } from './LockTimer'
 
@@ -68,7 +64,9 @@ export default function PayPalPurchaseClient({
 			if (dt.isValid) return dt
 			dt = DateTime.fromSQL(date, { zone: 'utc' })
 			if (dt.isValid) return dt
-			dt = DateTime.fromFormat(date, "yyyy-MM-dd HH:mm:ss.SSS'Z'", { zone: 'utc' })
+			dt = DateTime.fromFormat(date, "yyyy-MM-dd HH:mm:ss.SSS'Z'", {
+				zone: 'utc',
+			})
 			if (dt.isValid) return dt
 		}
 		return null
@@ -145,7 +143,7 @@ export default function PayPalPurchaseClient({
 				}
 			}
 		},
-		[setLockedAtParam]
+		[setLockedAtParam, toLuxon]
 	)
 
 	// Helper: enforce locking rules and open the payment panel
@@ -222,7 +220,7 @@ export default function PayPalPurchaseClient({
 		} finally {
 			setLoading(false)
 		}
-	}, [sellerUser?.paypalMerchantId, bib.id])
+	}, [sellerUser?.paypalMerchantId, bib.id, locale])
 
 	const onApprove = useCallback(
 		async (data: { orderID: string }) => {
@@ -258,7 +256,7 @@ export default function PayPalPurchaseClient({
 				setLoading(false)
 			}
 		},
-		[bib.id, locale, router, lockedAtParam]
+		[locale, router, lockedAtParam]
 	)
 
 	const onError = useCallback((err: Record<string, unknown>) => {

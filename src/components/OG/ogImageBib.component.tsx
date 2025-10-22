@@ -1,21 +1,17 @@
-import * as React from 'react'
-
-import type { BibSale } from '@/models/marketplace.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
+import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 import type { Locale } from '@/lib/i18n/config'
 import type { Bib } from '@/models/bib.model'
-
-import computeFontSizeAndRender from '@/components/OG/computeFontSize'
+import type { Event } from '@/models/event.model'
+import type { BibSale } from '@/models/marketplace.model'
+import type { User } from '@/models/user.model'
 
 // Flexible type that works with both BibSale and actual service response
 type BibData = BibSale | (Bib & { expand?: { eventId: Event; sellerUserId: User } }) | null
 
-import { Organizer } from '@/models/organizer.model'
-
+import type { Organizer } from '@/models/organizer.model'
+import BibCard from './BibCard'
 import BeswibLogo from './icons/BeswibLogo'
 import Pattern from './icons/Pattern'
-import BibCard from './BibCard'
 
 // Function to split the text into lines and apply a special color to words between **
 function formatTextWithColor(text: string, highlightColor = '#4C639A') {
@@ -63,7 +59,10 @@ function processTextForHighlighting(text: string, highlightColor: string) {
 	while ((match = regex.exec(text)) != null) {
 		// Text before the **
 		if (match.index > lastIndex) {
-			parts.push({ text: text.slice(lastIndex, match.index), color: '#111E3B' })
+			parts.push({
+				text: text.slice(lastIndex, match.index),
+				color: '#111E3B',
+			})
 		}
 		// Text inside **
 		parts.push({ text: match[1], color: highlightColor })
@@ -274,13 +273,23 @@ export default function OGImageBib({
 									x={1.5}
 									y={1.5}
 									rx={3.82}
-									style={{ strokeWidth: 1.91, strokeMiterlimit: 10, stroke: '#111E3B', fill: 'none' }}
+									style={{
+										strokeWidth: 1.91,
+										strokeMiterlimit: 10,
+										stroke: '#111E3B',
+										fill: 'none',
+									}}
 								/>
 								<circle
 									cx={12}
 									cy={12}
 									r={4.77}
-									style={{ strokeWidth: 1.91, strokeMiterlimit: 10, stroke: '#111E3B', fill: 'none' }}
+									style={{
+										strokeWidth: 1.91,
+										strokeMiterlimit: 10,
+										stroke: '#111E3B',
+										fill: 'none',
+									}}
 								/>
 								<circle cx={18.2} cy={5.8} r={1.43} style={{ fill: '#111E3B' }} />
 							</svg>
@@ -337,7 +346,14 @@ export default function OGImageBib({
 					{bib && locale && organizer ? (
 						<BibCard bib={bib} locale={locale} organizer={organizer} exchangeRates={exchangeRates} />
 					) : (
-						<div style={{ width: '300px', height: '400px', borderRadius: '20px', backgroundColor: '#f3f4f6' }}></div>
+						<div
+							style={{
+								width: '300px',
+								height: '400px',
+								borderRadius: '20px',
+								backgroundColor: '#f3f4f6',
+							}}
+						></div>
 					)}
 
 					{/* Beswib logo positioned at bottom right of right column */}

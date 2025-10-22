@@ -1,13 +1,13 @@
 import { CheckCircle } from 'lucide-react'
-
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 
 interface ProgressStepsProps {
 	currentStepIndex: number
 	locale: Locale
 	steps: readonly string[]
 }
+
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
 
 export default function ProgressSteps({ steps, locale, currentStepIndex }: Readonly<ProgressStepsProps>) {

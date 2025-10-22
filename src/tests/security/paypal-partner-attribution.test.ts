@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Mock fetch globally to intercept API calls
 global.fetch = vi.fn()
@@ -20,12 +20,12 @@ process.env.PAYPAL_MERCHANT_ID = 'test-merchant-id'
 const EXPECTED_BN_CODE = 'CINQUINANDY_SP_PPCP'
 
 import {
-	createOrder,
 	capturePayment,
+	createOrder,
 	getMerchantId,
+	getMerchantIntegrationStatus,
 	listPayPalWebhooks,
 	setupPayPalWebhooks,
-	getMerchantIntegrationStatus,
 } from '@/services/paypal.services'
 
 describe('PayPal Partner Attribution Header', () => {
@@ -36,10 +36,16 @@ describe('PayPal Partner Attribution Header', () => {
 		mockedFetch.mockImplementation(url => {
 			if (typeof url === 'string' && url.includes('/oauth2/token')) {
 				return Promise.resolve(
-					new Response(JSON.stringify({ token_type: 'Bearer', access_token: 'test-token' }), {
-						status: 200,
-						headers: { 'Content-Type': 'application/json' },
-					})
+					new Response(
+						JSON.stringify({
+							token_type: 'Bearer',
+							access_token: 'test-token',
+						}),
+						{
+							status: 200,
+							headers: { 'Content-Type': 'application/json' },
+						}
+					)
 				)
 			}
 

@@ -1,18 +1,17 @@
 'use server'
 
 import { checkAdminAccess } from '@/guard/adminGuard'
-
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import { getDashboardStats, getRecentActivity } from '@/services/dashboard.services'
+import { createEvent, deleteEventById, fetchEventById, getAllEvents, updateEventById } from '@/services/event.services'
 import {
 	createOrganizer,
 	deleteOrganizer,
 	fetchAllOrganizersWithEventsCount,
+	fetchOrganizerById,
 	updateOrganizer,
 } from '@/services/organizer.services'
-import { createEvent, deleteEventById, getAllEvents, fetchEventById, updateEventById } from '@/services/event.services'
-import { getDashboardStats, getRecentActivity } from '@/services/dashboard.services'
-import { fetchOrganizerById } from '@/services/organizer.services'
-import { Organizer } from '@/models/organizer.model'
-import { Event } from '@/models/event.model'
 
 /**
  * Server action to create a new event (admin only)
@@ -42,7 +41,11 @@ export async function createEventAction(eventData: Omit<Event, 'id'>): Promise<{
 			}
 		}
 
-		if (eventData.eventDate == null || eventData.eventDate === undefined || isNaN(eventData.eventDate.getTime())) {
+		if (
+			eventData.eventDate == null ||
+			eventData.eventDate === undefined ||
+			Number.isNaN(eventData.eventDate.getTime())
+		) {
 			return {
 				success: false,
 				error: 'Valid event date is required',
@@ -263,7 +266,10 @@ export async function approveOrganizerAction(
 		return { success: false, error: 'Failed to approve organizer' }
 	} catch (error) {
 		console.error('Error in approveOrganizerAction:', error)
-		return { success: false, error: error instanceof Error ? error.message : 'Failed to approve organizer' }
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to approve organizer',
+		}
 	}
 }
 
@@ -289,7 +295,10 @@ export async function rejectOrganizerAction(id: string): Promise<{ success: bool
 		return { success: false, error: 'Failed to reject organizer' }
 	} catch (error) {
 		console.error('Error in rejectOrganizerAction:', error)
-		return { success: false, error: error instanceof Error ? error.message : 'Failed to reject organizer' }
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to reject organizer',
+		}
 	}
 }
 /**
@@ -375,7 +384,10 @@ export async function updateEventAction(
 			}
 		}
 
-		if (eventData.eventDate !== undefined && (eventData.eventDate == null || isNaN(eventData.eventDate.getTime()))) {
+		if (
+			eventData.eventDate !== undefined &&
+			(eventData.eventDate == null || Number.isNaN(eventData.eventDate.getTime()))
+		) {
 			return {
 				success: false,
 				error: 'Valid event date is required',
@@ -543,6 +555,9 @@ export async function deleteEventAction(id: string): Promise<{ success: boolean;
 		return { success: true }
 	} catch (error) {
 		console.error('Error in deleteEventAction:', error)
-		return { success: false, error: error instanceof Error ? error.message : 'Failed to delete event' }
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to delete event',
+		}
 	}
 }
