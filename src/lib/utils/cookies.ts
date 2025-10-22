@@ -89,6 +89,7 @@ export function setLocaleInCookie(locale: string): void {
 	}
 
 	try {
+		// biome-ignore lint/suspicious/noDocumentCookie: Direct assignment to document.cookie is necessary for Next.js environment.
 		document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=lax`
 	} catch (error) {
 		console.warn('Failed to write locale to cookie:', error)

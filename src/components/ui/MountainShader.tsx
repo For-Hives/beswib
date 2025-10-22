@@ -37,7 +37,7 @@ function useAutoCamera() {
 		const fovRadians = (fov * Math.PI) / 180
 
 		// Calculate Z distance for perfect framing
-		let distanceZ
+		let distanceZ: number = 0
 		if (aspectRatio > 16 / 9) {
 			// Canvas is wider than 16:9 - frame based on height
 			distanceZ = geometryHeight / 2 / Math.tan(fovRadians / 2)

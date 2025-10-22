@@ -94,6 +94,7 @@ export default function LanguageSwitcher({ currentLocale, className = '' }: Lang
 
 							return (
 								<button
+									type="button"
 									key={code}
 									onClick={() => !isCurrent && !isUpdating && void handleLanguageChange(code)}
 									disabled={isCurrent || isUpdating}
@@ -104,7 +105,6 @@ export default function LanguageSwitcher({ currentLocale, className = '' }: Lang
 									}`}
 									lang={code}
 									aria-current={isCurrent ? 'true' : undefined}
-									type="button"
 								>
 									<span className="text-lg">{lang.flag}</span>
 									<div className="flex-1 text-left">
@@ -162,12 +162,12 @@ export function LanguageSwitcherMobile({ currentLocale }: LanguageSwitcherProps)
 	return (
 		<div className="relative" ref={dropdownRef}>
 			<button
+				type="button"
 				onClick={() => setIsOpen(!isOpen)}
 				className="border-border bg-background hover:bg-accent/10 flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2 transition-colors"
 				aria-label="Select language"
 				aria-expanded={isOpen}
 				aria-haspopup="true"
-				type="button"
 			>
 				<div className="flex items-center gap-2">
 					<span className="text-lg">{currentLang.flag}</span>
@@ -186,6 +186,7 @@ export function LanguageSwitcherMobile({ currentLocale }: LanguageSwitcherProps)
 
 							return (
 								<button
+									type="button"
 									key={code}
 									onClick={() => !isCurrent && !isUpdating && void handleLanguageChange(code)}
 									disabled={isCurrent || isUpdating}
@@ -200,6 +201,7 @@ export function LanguageSwitcherMobile({ currentLocale }: LanguageSwitcherProps)
 									<span className="text-lg">{lang.flag}</span>
 									<div className="flex-1 text-left">
 										<div className="text-sm font-medium">{lang.native}</div>
+										<div className="text-muted-foreground text-xs">{lang.name}</div>
 									</div>
 									{isCurrent && <div className="bg-primary h-2 w-2 rounded-full" />}
 									{isUpdating && code === locale && <div className="text-xs">⏳</div>}
