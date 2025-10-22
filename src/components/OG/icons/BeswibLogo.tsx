@@ -1,6 +1,14 @@
 export default function BeswibLogo() {
 	return (
-		<svg width="60" height="60" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg
+			width="60"
+			height="60"
+			viewBox="0 0 1024 1024"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			role="img"
+			aria-label="Beswib Logo"
+		>
 			<path
 				d="M990.386 502.566C990.386 891.48 773.007 870.57 504.854 870.57C236.7 870.57 19.3212 889.038 19.3212 502.566C19.3212 245.484 236.7 37.0596 504.854 37.0596C773.007 37.0596 990.386 245.484 990.386 502.566Z"
 				fill="#E8ECE9"

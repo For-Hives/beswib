@@ -351,7 +351,15 @@ export default function BibCard({ organizer, locale, exchangeRates, bib }: Reado
 							alignItems: 'center',
 						}}
 					>
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							fill="none"
+							viewBox="0 0 24 24"
+							role="img"
+							aria-label="Calendar Icon"
+						>
 							<path
 								stroke="#6b7280"
 								strokeLinecap="round"

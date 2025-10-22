@@ -10,6 +10,8 @@ export default function Pattern() {
 				objectFit: 'cover',
 				height: '100%',
 			}}
+			role="img"
+			aria-label="OG Pattern"
 		>
 			<path
 				fill="#d4d4d4"

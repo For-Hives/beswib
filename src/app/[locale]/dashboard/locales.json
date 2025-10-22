@@ -385,9 +385,7 @@
 			"seller": {
 				"title": "Painel do Vendedor",
 				"description": "Gerir os seus anúncios de dorsais e ver as suas vendas."
-			},
-			"profileButton": "Perfil",
-			"dashboardButton": "Painel"
+			}
 		},
 		"auth": {
 			"signInToAccessDashboard": "Por favor, inicie sessão para aceder ao seu painel."
@@ -436,9 +434,7 @@
 			"seller": {
 				"title": "Verkoper Dashboard",
 				"description": "Beheer je startnummer-advertenties en bekijk je verkopen."
-			},
-			"profileButton": "Profiel",
-			"dashboardButton": "Dashboard"
+			}
 		},
 		"auth": {
 			"signInToAccessDashboard": "Log in om je dashboard te openen."
