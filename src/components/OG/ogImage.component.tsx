@@ -51,7 +51,8 @@ function processTextForHighlighting(text: string, highlightColor: string) {
 	let lastIndex = 0
 	let match: RegExpExecArray | null
 
-	while ((match = regex.exec(text)) != null) {
+	match = regex.exec(text)
+	while (match !== null) {
 		// Text before the **
 		if (match.index > lastIndex) {
 			parts.push({
@@ -62,6 +63,8 @@ function processTextForHighlighting(text: string, highlightColor: string) {
 		// Text inside **
 		parts.push({ text: match[1], color: highlightColor })
 		lastIndex = regex.lastIndex
+
+		match = regex.exec(text)
 	}
 
 	// Text after the last match
