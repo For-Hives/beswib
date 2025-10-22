@@ -480,6 +480,7 @@ export default function BuyerDashboardClient({
 																{t.waiting ?? 'Waiting'}
 															</span>
 															<button
+																type="button"
 																onClick={() => handleDeleteClick(waitlist)}
 																className="text-muted-foreground hover:text-destructive cursor-pointer rounded-full p-1 transition-colors"
 																title={t.removeFromWaitlist ?? 'Remove from waitlist'}

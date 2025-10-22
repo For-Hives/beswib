@@ -104,6 +104,7 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 						<h1 className="text-foreground mb-4 text-3xl font-bold">{t.dashboard.errors.accessError}</h1>
 						<p className="text-muted-foreground mb-6 text-lg">{t.dashboard.errors.accessErrorMessage}</p>
 						<button
+							type="button"
 							className="bg-primary hover:bg-primary/90 cursor-pointer rounded-lg px-4 py-2 text-white"
 							onClick={() => router.push('/auth/sign-in')}
 						>

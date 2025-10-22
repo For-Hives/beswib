@@ -264,7 +264,14 @@ export default function OGImageEvent({
 							}}
 						>
 							{/* Instagram Icon */}
-							<svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 24 24">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width={32}
+								height={32}
+								viewBox="0 0 24 24"
+								role="img"
+								aria-label="Instagram Icon"
+							>
 								<rect
 									width={21}
 									height={21}
@@ -301,6 +308,8 @@ export default function OGImageEvent({
 								style={{
 									marginLeft: '4px',
 								}}
+								role="img"
+								aria-label="Strava Icon"
 							>
 								<path
 									fill="#111E3B"

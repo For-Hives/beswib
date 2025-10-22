@@ -223,7 +223,7 @@ export default function OGImageBib({
 						>
 							{secondaryParts.map((line, lineIndex) => (
 								<div
-									key={`line-${lineIndex}`}
+									key={`line-${line}-${lineIndex}`}
 									style={{
 										maxWidth: '100%',
 										flexWrap: 'wrap',
