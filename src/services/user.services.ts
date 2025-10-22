@@ -11,7 +11,7 @@ const SUPPORTED_LOCALES = ['en', 'fr', 'ko', 'es', 'it', 'de', 'ro', 'pt', 'nl']
 /**
  * Validates if a locale string is supported
  */
-function isValidLocale(locale: string | null | undefined): boolean {
+function isValidLocale(locale: string | null | undefined): locale is string {
 	if (locale == null || locale === '' || typeof locale !== 'string') {
 		return false
 	}
@@ -23,7 +23,7 @@ function isValidLocale(locale: string | null | undefined): boolean {
  */
 function getValidLocale(locale: string | null | undefined): string {
 	if (isValidLocale(locale)) {
-		return locale!
+		return locale
 	}
 	// Default to English as the standard fallback locale
 	console.warn(`mapPbRecordToUser: Invalid locale "${locale}", defaulting to 'en'`)

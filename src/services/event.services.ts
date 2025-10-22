@@ -44,7 +44,7 @@ export async function createEvent(eventData: Omit<Event, 'id'>): Promise<Event |
 		return record
 	} catch (error: unknown) {
 		console.error('PocketBase error details:', error)
-		throw new Error('Error creating event: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error creating event: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 

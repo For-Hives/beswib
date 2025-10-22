@@ -105,7 +105,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
 		return stats
 	} catch (error: unknown) {
 		console.error('Error fetching dashboard stats:', error)
-		throw new Error('Error fetching dashboard statistics: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error fetching dashboard statistics: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -217,6 +217,6 @@ export async function getRecentActivity(): Promise<
 		return activities.slice(0, 10)
 	} catch (error: unknown) {
 		console.error('Error fetching recent activity:', error)
-		throw new Error('Error fetching recent activity: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error fetching recent activity: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }

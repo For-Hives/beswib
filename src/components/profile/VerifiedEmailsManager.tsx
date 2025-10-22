@@ -133,7 +133,8 @@ export default function VerifiedEmailsManager({
 				email: newEmail.trim(),
 			})
 			if (result.success && result.data) {
-				setVerifiedEmails(prev => [...prev, result.data!])
+				const newEmail = result.data
+				setVerifiedEmails(prev => [...prev, newEmail])
 				setNewEmail('')
 				setShowAddEmail(false)
 				toast.success(t.verifiedEmails.success.addSuccess)
@@ -174,7 +175,8 @@ export default function VerifiedEmailsManager({
 				verificationCode: code,
 			})
 			if (result.success && result.data) {
-				setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? result.data! : email)))
+				const updatedEmail = result.data
+				setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? updatedEmail : email)))
 				setVerificationCodes(prev => {
 					const next = { ...prev }
 					delete next[emailId]

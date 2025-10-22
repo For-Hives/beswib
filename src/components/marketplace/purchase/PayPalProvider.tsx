@@ -21,7 +21,11 @@ export function PayPalProvider({
 				currency: 'EUR',
 				components: 'buttons',
 				commit: true,
-				clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
+				clientId:
+					process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ??
+					(() => {
+						throw new Error('NEXT_PUBLIC_PAYPAL_CLIENT_ID is not defined')
+					})(),
 			}}
 		>
 			{children}
