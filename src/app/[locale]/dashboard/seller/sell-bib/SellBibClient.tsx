@@ -115,7 +115,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 		void createVerifiedEmail({ userId: user.id, email })
 			.then(result => {
 				if (result.success && result.data) {
-					setVerifiedEmails(prev => [...prev, result.data!])
+					setVerifiedEmails(prev => [...prev, result.data as VerifiedEmail])
 					toast.success(t.messages.emailVerificationSent)
 				} else {
 					const errorMessage = result.error ?? t.messages.emailAddFailed
@@ -136,7 +136,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 		void verifyEmail({ verifiedEmailId: emailId, verificationCode: code })
 			.then(result => {
 				if (result.success && result.data) {
-					setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? result.data! : email)))
+					setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? (result.data as VerifiedEmail) : email)))
 					setErrors({})
 					toast.success(t.messages.emailVerified)
 				} else {

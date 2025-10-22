@@ -10,6 +10,24 @@ import { cn } from '@/lib/utils'
 
 import translations from './locales.json'
 
+const CustomIcon = ({ className }: { className?: string }) => (
+	<div
+		className={cn(
+			'h-11 w-11 rounded-full shadow-lg transition-all duration-300',
+			'sm:h-12 sm:w-12',
+			'bg-background/90 border-border/60 border backdrop-blur-md',
+			'hover:bg-background/95 hover:scale-110 hover:shadow-xl',
+			'focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2',
+			'active:scale-95',
+			'dark:bg-background/95 dark:border-border/40',
+			'flex items-center justify-center',
+			className
+		)}
+	>
+		<ArrowUp className="h-4 w-4 sm:h-5 sm:w-5" />
+	</div>
+)
+
 interface GoBackToTopProps {
 	/**
 	 * Current locale for translation
@@ -39,25 +57,6 @@ interface GoBackToTopProps {
 export function GoBackToTop({ threshold = 100, locale, className }: GoBackToTopProps) {
 	// Get translations for the current locale
 	const t = getTranslations(locale, translations)
-
-	// Custom icon component using Lucide's ArrowUp
-	const CustomIcon = () => (
-		<div
-			className={cn(
-				'h-11 w-11 rounded-full shadow-lg transition-all duration-300',
-				'sm:h-12 sm:w-12',
-				'bg-background/90 border-border/60 border backdrop-blur-md',
-				'hover:bg-background/95 hover:scale-110 hover:shadow-xl',
-				'focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2',
-				'active:scale-95',
-				'dark:bg-background/95 dark:border-border/40',
-				'flex items-center justify-center',
-				className
-			)}
-		>
-			<ArrowUp className="h-4 w-4 sm:h-5 sm:w-5" />
-		</div>
-	)
 
 	return (
 		<Tooltip>

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import marketplaceTranslations from '@/app/[locale]/marketplace/locales.json'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -198,18 +199,18 @@ export default function BibCard({ organizer, locale, exchangeRates, bib }: Reado
 					alignItems: 'center',
 				}}
 			>
-				<img
+				<Image
 					src={
 						getOrganizerImageUrl(organizer, bib.id).startsWith('/')
 							? `https://beswib.com${getOrganizerImageUrl(organizer, bib.id)}`
 							: getOrganizerImageUrl(organizer, bib.id)
 					}
 					alt="Organizer logo"
+					width={280}
+					height={160}
 					style={{
-						width: '100%',
 						objectPosition: 'center',
 						objectFit: 'cover',
-						height: '160px',
 						borderRadius: '12px',
 					}}
 				/>

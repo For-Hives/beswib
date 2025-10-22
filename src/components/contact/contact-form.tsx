@@ -75,6 +75,8 @@ export default function ContactForm({ t }: ContactFormProps) {
 						stroke="currentColor"
 						viewBox="0 0 24 24"
 						xmlns="http://www.w3.org/2000/svg"
+						role="img"
+						aria-label="Checkmark"
 					>
 						<path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
 					</svg>

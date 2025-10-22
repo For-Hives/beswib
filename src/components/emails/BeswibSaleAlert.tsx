@@ -6,6 +6,32 @@ import { getFeeBreakdown } from '@/lib/utils/feeCalculations'
 
 import { Footer } from './Footer'
 
+interface SaleAlertTranslations {
+	subject: string
+	title: string
+	subtitle: string
+	participants: string
+	seller: string
+	totalReceived: string
+	buyer: string
+	salePrice: string
+	technicalData: string
+	orderId: string
+	transactionId: string
+	paypalCaptureId: string
+	timestamp: string
+	adminFooter: string
+	adminNotice: string
+}
+
+interface EmailsTranslations {
+	saleAlert: SaleAlertTranslations
+}
+
+interface Translations {
+	emails: EmailsTranslations
+}
+
 interface BeswibSaleAlertProps {
 	sellerName?: string
 	sellerEmail?: string
@@ -39,7 +65,7 @@ export const BeswibSaleAlert = ({
 	bibPrice = 150,
 }: BeswibSaleAlertProps) => {
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-	const t = getTranslations(locale, constantsLocales) as any // Safe cast - will error at runtime if translation missing
+	const t = getTranslations(locale, constantsLocales) as unknown as Translations
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
 
 	// Calculate fees dynamically using the utility functions

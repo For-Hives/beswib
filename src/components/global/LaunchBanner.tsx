@@ -34,6 +34,8 @@ function Grid({
 			)}
 			width="100%"
 			height="100%"
+			role="img"
+			aria-label="Grid"
 		>
 			<defs>
 				<pattern
@@ -87,6 +89,7 @@ export function LaunchBanner({ locale }: LaunchBannerProps) {
 		// Also save to cookies as fallback
 		const expires = new Date()
 		expires.setDate(expires.getDate() + 30)
+		// biome-ignore lint/suspicious/noDocumentCookie: <explanation>
 		document.cookie = `banner_dismissed=true; expires=${expires.toUTCString()}; path=/; SameSite=Lax`
 	}
 

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import eventTranslations from '@/app/[locale]/events/[id]/locales.json'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -143,18 +144,18 @@ export default function EventCard({ organizer, locale, exchangeRates, event }: R
 					alignItems: 'center',
 				}}
 			>
-				<img
+				<Image
 					src={
 						getOrganizerImageUrl(organizer, event.id).startsWith('/')
 							? `https://beswib.com${getOrganizerImageUrl(organizer, event.id)}`
 							: getOrganizerImageUrl(organizer, event.id)
 					}
-					alt="Event image"
+					alt="Event"
+					width={280}
+					height={160}
 					style={{
-						width: '100%',
 						objectPosition: 'center',
 						objectFit: 'cover',
-						height: '160px',
 						borderRadius: '12px',
 					}}
 				/>

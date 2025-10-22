@@ -143,10 +143,7 @@ export default function AdminOrganizerValidatePageClient({
 							</div>
 							<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 								{Array.from({ length: 3 }).map((_, i) => (
-									<div
-										className="h-32 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"
-										key={`skeleton-${i}`}
-									></div>
+									<div className="h-32 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" key={i}></div>
 								))}
 							</div>
 						</div>

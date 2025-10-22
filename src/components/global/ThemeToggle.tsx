@@ -16,7 +16,7 @@ export function ThemeToggle() {
 	if (!isHydrated) {
 		// Return a placeholder during SSR to avoid hydration mismatch
 		return (
-			<button aria-label="Toggle theme" className="pointer-events-auto cursor-pointer rounded-md p-2">
+			<button type="button" aria-label="Toggle theme" className="pointer-events-auto cursor-pointer rounded-md p-2">
 				<Sun />
 			</button>
 		)
@@ -24,6 +24,7 @@ export function ThemeToggle() {
 
 	return (
 		<button
+			type="button"
 			aria-label="Toggle theme"
 			onClick={toggleTheme}
 			className="pointer-events-auto cursor-pointer rounded-md p-2"

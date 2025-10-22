@@ -109,6 +109,7 @@ export default function BibCategoryTabs({ locale, bibs = [] }: BibCategoryTabsPr
 
 						return (
 							<button
+								type="button"
 								key={category.key}
 								onClick={() => setActiveCategory(category.key)}
 								className={cn(

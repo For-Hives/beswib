@@ -179,7 +179,10 @@ function validateWebhookSecret(): NextResponse | null {
 async function verifyWebhookPayload(req: Request, headers: SvixHeaders): Promise<NextResponse | WebhookEvent> {
 	const payload: unknown = await req.json()
 	const body = JSON.stringify(payload)
-	const wh = new Webhook(WEBHOOK_SECRET!)
+	if (!WEBHOOK_SECRET) {
+		throw new Error('WEBHOOK_SECRET is not defined')
+	}
+	const wh = new Webhook(WEBHOOK_SECRET)
 
 	try {
 		return wh.verify(body, {

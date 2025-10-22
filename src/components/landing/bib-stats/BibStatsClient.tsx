@@ -77,7 +77,7 @@ export default function BibStatsClient({ locale }: Readonly<BibStatsClientProps>
 			<div className="mx-auto max-w-7xl">
 				<div className="grid gap-8 md:grid-cols-3">
 					{stats.map((stat, index) => (
-						<div className="text-center" key={index}>
+						<div className="text-center" key={stat.label}>
 							<div className="text-primary mb-2 text-4xl font-bold md:text-5xl">
 								<NumberFlow
 									transformTiming={{

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 
 import BeswibLogo from './icons/BeswibLogo'
@@ -355,10 +356,10 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 					}}
 				>
 					{/* Mountain image */}
-					<img
+					<Image
 						src={mountainUrl}
-						width="100%"
-						height="100%"
+						width={500}
+						height={500}
 						alt="mountain"
 						style={{
 							padding: '32px',
