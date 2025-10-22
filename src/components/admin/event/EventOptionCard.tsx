@@ -92,7 +92,7 @@ export default function EventOptionCard({
 					</Button>
 				</div>
 				{option.values.map((value, valueIndex) => (
-					<div className="mb-3 flex items-center gap-3" key={valueIndex}>
+					<div className="mb-3 flex items-center gap-3" key={value}>
 						<Input
 							onChange={e => onUpdateValue(optionIndex, valueIndex, e.target.value)}
 							placeholder={translations.event.eventOptions.values.placeholder}

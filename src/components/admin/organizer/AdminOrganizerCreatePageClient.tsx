@@ -74,6 +74,7 @@ export default function AdminOrganizerCreatePageClient({
 						<button
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
 							onClick={() => router.push('/admin/organizer')}
+							type="button"
 						>
 							{t.organizers.create.success.backButton}
 						</button>

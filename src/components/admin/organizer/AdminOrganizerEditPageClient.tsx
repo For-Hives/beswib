@@ -75,6 +75,7 @@ export default function AdminOrganizerEditPageClient({
 						<button
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
 							onClick={() => router.push('/auth/sign-in')}
+							type="button"
 						>
 							{tCommon.organizers.ui.signIn}
 						</button>
@@ -110,7 +111,11 @@ export default function AdminOrganizerEditPageClient({
 						<div className="mb-6 text-6xl text-red-600 dark:text-red-400">⚠</div>
 						<h1 className="text-foreground mb-4 text-3xl font-bold">{tCommon.organizers.ui.error}</h1>
 						<p className="text-muted-foreground mb-6 text-lg">{error}</p>
-						<button className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white" onClick={handleCancel}>
+						<button
+							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
+							onClick={handleCancel}
+							type="button"
+						>
 							{tCommon.organizers.edit.success.backButton}
 						</button>
 					</div>
@@ -131,7 +136,11 @@ export default function AdminOrganizerEditPageClient({
 						<p className="text-muted-foreground mb-6 text-lg">
 							{tCommon.organizers.edit.success.message.replace('{organizerName}', updatedOrganizer.name)}
 						</p>
-						<button className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white" onClick={handleCancel}>
+						<button
+							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
+							onClick={handleCancel}
+							type="button"
+						>
 							{tCommon.organizers.edit.success.backButton}
 						</button>
 					</div>

@@ -91,7 +91,7 @@ export default function EventOptionsSection({
 					{eventOptions.map((option, optionIndex) => (
 						<EventOptionCard
 							// Use a stable key that doesn't depend on the editable "key" field
-							key={`option-${optionIndex}`}
+							key={`option-${option.key}`}
 							locale={locale}
 							onAddValue={addOptionValue}
 							onRemove={removeEventOption}
