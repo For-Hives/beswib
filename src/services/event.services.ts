@@ -63,9 +63,7 @@ export async function fetchApprovedPublicEvents(
 
 		return records
 	} catch (error: unknown) {
-		throw new Error(
-			'Error fetching approved public events: ' + (error instanceof Error ? error.message : String(error))
-		)
+		throw new Error(`Error fetching approved public events: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -124,7 +122,7 @@ export async function fetchApprovedPublicEventsWithBibs(expandOrganizer = false)
 		return filteredRecords
 	} catch (error: unknown) {
 		throw new Error(
-			'Error fetching approved public events with bibs: ' + (error instanceof Error ? error.message : String(error))
+			`Error fetching approved public events with bibs: ${error instanceof Error ? error.message : String(error)}`
 		)
 	}
 }
@@ -215,7 +213,7 @@ export async function getAllEvents(
 		})
 		return records
 	} catch (error: unknown) {
-		throw new Error('Error fetching all events: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error fetching all events: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -265,7 +263,7 @@ export async function updateEventById(id: string, eventData: Partial<Event>): Pr
 		return record
 	} catch (error: unknown) {
 		console.error('PocketBase error details:', error)
-		throw new Error('Error updating event: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error updating event: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -283,6 +281,6 @@ export async function deleteEventById(id: string): Promise<boolean> {
 		await pb.collection('events').delete(id)
 		return true
 	} catch (error: unknown) {
-		throw new Error('Error deleting event: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error deleting event: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }

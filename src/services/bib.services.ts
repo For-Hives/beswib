@@ -99,7 +99,7 @@ export async function createBib(bibData: Omit<Bib, 'id'>): Promise<Bib | null> {
 
 		return record
 	} catch (error: unknown) {
-		throw new Error('Error creating bib listing: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error creating bib listing: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -150,7 +150,7 @@ export async function fetchAvailableBibsForEvent(
 			throw error
 		}
 		throw new Error(
-			`Error fetching available bibs for event ${eventId}: ` + (error instanceof Error ? error.message : String(error))
+			`Error fetching available bibs for event ${eventId}: ${error instanceof Error ? error.message : String(error)}`
 		)
 	}
 }
@@ -188,7 +188,7 @@ export async function fetchAvailableBibsForMarketplace(): Promise<
 		return records
 	} catch (error: unknown) {
 		throw new Error(
-			`Error fetching available bibs for marketplace: ` + (error instanceof Error ? error.message : String(error))
+			`Error fetching available bibs for marketplace: ${error instanceof Error ? error.message : String(error)}`
 		)
 	}
 }
@@ -210,7 +210,7 @@ export async function lockBib(bibId: string, userId: string): Promise<Bib | null
 		const updated = await pb.collection('bibs').update<Bib>(bibId, { lockedAt: now })
 		return updated
 	} catch (error: unknown) {
-		throw new Error('Error locking bib: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error locking bib: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -224,7 +224,7 @@ export async function unlockBib(bibId: string): Promise<Bib | null> {
 		const updated = await pb.collection('bibs').update<Bib>(bibId, { lockedAt: null })
 		return updated
 	} catch (error: unknown) {
-		throw new Error('Error unlocking bib: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error unlocking bib: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -261,7 +261,7 @@ export async function isLocked(bibId: string, timekey: string = ''): Promise<'lo
 		return 'unlocked'
 	} catch (error: unknown) {
 		console.error('Error checking if bib is locked: ', error)
-		throw new Error('Error checking if bib is locked: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error checking if bib is locked: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -287,7 +287,7 @@ export async function unlockExpiredBibs(): Promise<number> {
 		}
 		return count
 	} catch (error: unknown) {
-		throw new Error('Error unlocking expired bibs: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error unlocking expired bibs: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -343,7 +343,7 @@ export async function updateExpiredBibsToWithdrawn(sellerUserId?: string): Promi
 	} catch (error: unknown) {
 		console.error('Error updating expired bibs to withdrawn:', error)
 		throw new Error(
-			'Error updating expired bibs to withdrawn: ' + (error instanceof Error ? error.message : String(error))
+			`Error updating expired bibs to withdrawn: ${error instanceof Error ? error.message : String(error)}`
 		)
 	}
 }
@@ -374,7 +374,7 @@ export async function checkBibListingStatus(bibId: string): Promise<{
 		}
 	} catch (error) {
 		throw new Error(
-			`Error checking bib listing status for bib ${bibId}: ` + (error instanceof Error ? error.message : String(error))
+			`Error checking bib listing status for bib ${bibId}: ${error instanceof Error ? error.message : String(error)}`
 		)
 	}
 }
@@ -410,9 +410,7 @@ export async function fetchPublicBibById(bibId: string): Promise<
 
 		return record
 	} catch (error: unknown) {
-		throw new Error(
-			`Error fetching bib with ID "${bibId}": ` + (error instanceof Error ? error.message : String(error))
-		)
+		throw new Error(`Error fetching bib with ID "${bibId}": ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -447,9 +445,7 @@ export async function fetchBibById(bibId: string): Promise<
 
 		return record
 	} catch (error: unknown) {
-		throw new Error(
-			`Error fetching bib with ID "${bibId}": ` + (error instanceof Error ? error.message : String(error))
-		)
+		throw new Error(`Error fetching bib with ID "${bibId}": ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -502,7 +498,7 @@ export async function fetchBibsByBuyer(buyerUserId: string): Promise<(Bib & { ex
 		return records
 	} catch (error: unknown) {
 		throw new Error(
-			`Error fetching bibs for buyer ID "${buyerUserId}": ` + (error instanceof Error ? error.message : String(error))
+			`Error fetching bibs for buyer ID "${buyerUserId}": ${error instanceof Error ? error.message : String(error)}`
 		)
 	}
 }
@@ -536,7 +532,7 @@ export async function fetchBibsBySeller(sellerUserId: string): Promise<
 		return records
 	} catch (error: unknown) {
 		throw new Error(
-			`Error fetching bibs for seller ID "${sellerUserId}": ` + (error instanceof Error ? error.message : String(error))
+			`Error fetching bibs for seller ID "${sellerUserId}": ${error instanceof Error ? error.message : String(error)}`
 		)
 	}
 }
@@ -571,7 +567,7 @@ export async function fetchPrivateBibByToken(
 	} catch (error: unknown) {
 		console.error('Error in fetchPrivateBibByToken:', error)
 		throw new Error(
-			`Error fetching private bib with ID "${bibId}": ` + (error instanceof Error ? error.message : String(error))
+			`Error fetching private bib with ID "${bibId}": ${error instanceof Error ? error.message : String(error)}`
 		)
 	}
 }
@@ -631,7 +627,7 @@ export async function updateBib(bibId: string, data: Partial<Omit<Bib, 'id'>>): 
 		const record = await pb.collection('bibs').update<Bib>(bibId, data)
 		return record
 	} catch (error: unknown) {
-		throw new Error('Error updating bib: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error updating bib: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -692,7 +688,7 @@ export async function updateBibBySeller(
 		const updatedRecord = await pb.collection('bibs').update<Bib>(bibId, payload)
 		return updatedRecord
 	} catch (error: unknown) {
-		throw new Error(`Error updating bib ${bibId}: ` + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error updating bib ${bibId}: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -728,7 +724,7 @@ export async function updateBibStatusByAdmin(bibId: string, newStatus: Bib['stat
 			console.error('PocketBase error details:', errorMessage)
 		}
 		throw new Error(
-			`Error updating bib ${bibId} status by admin: ` + (error instanceof Error ? error.message : String(error))
+			`Error updating bib ${bibId} status by admin: ${error instanceof Error ? error.message : String(error)}`
 		)
 	}
 }
