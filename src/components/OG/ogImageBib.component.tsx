@@ -221,30 +221,35 @@ export default function OGImageBib({
 								display: 'flex',
 							}}
 						>
-							{secondaryParts.map((line, lineIndex) => (
-								<div
-									key={`line-${line}-${lineIndex}`}
-									style={{
-										maxWidth: '100%',
-										flexWrap: 'wrap',
-										display: 'flex',
-									}}
-								>
-									{line.parts.map((part, partIndex) => (
-										<span
-											key={`${part.text}-${partIndex}`}
-											style={{
-												whiteSpace: 'normal',
-												marginRight: part.color === '#4C639A' ? '0.2em' : '0',
-												marginLeft: part.color === '#4C639A' ? '0.2em' : '0',
-												color: part.color,
-											}}
-										>
-											{part.text}
-										</span>
-									))}
-								</div>
-							))}
+							{secondaryParts.map(line => {
+								// create a stable key from the line content (text + color) to avoid using array index
+								const lineKey = line.parts.map(p => `${p.text}:${p.color}`).join('|')
+
+								return (
+									<div
+										key={lineKey}
+										style={{
+											maxWidth: '100%',
+											flexWrap: 'wrap',
+											display: 'flex',
+										}}
+									>
+										{line.parts.map(part => (
+											<span
+												key={`${part.text}-${part.color}`}
+												style={{
+													whiteSpace: 'normal',
+													marginRight: part.color === '#4C639A' ? '0.2em' : '0',
+													marginLeft: part.color === '#4C639A' ? '0.2em' : '0',
+													color: part.color,
+												}}
+											>
+												{part.text}
+											</span>
+										))}
+									</div>
+								)
+							})}
 						</div>
 					</div>
 
