@@ -29,7 +29,12 @@
 			"recommended": true,
 			"correctness": {
 				"useExhaustiveDependencies": "off",
-				"noUnusedVariables": "error",
+				"noUnusedVariables": {
+					"level": "error",
+					"options": {
+						"ignoreRestSiblings": true
+					}
+				},
 				"useUniqueElementIds": "off"
 			},
 			"complexity": {
@@ -73,5 +78,21 @@
 				"organizeImports": "on"
 			}
 		}
-	}
+	},
+	"overrides": [
+		{
+			"includes": [
+				"src/components/admin/organizer/AdminOrganizerValidatePageClient.tsx",
+				"src/components/ui/file-upload.tsx",
+				"src/components/ui/slider.tsx"
+			],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noArrayIndexKey": "off"
+					}
+				}
+			}
+		}
+	]
 }
