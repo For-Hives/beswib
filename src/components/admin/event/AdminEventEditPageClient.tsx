@@ -66,6 +66,7 @@ export default function AdminEventEditPageClient({ locale, eventId, currentUser 
 						<p className="text-muted-foreground mb-6 text-lg">{t.dashboard.errors.accessErrorMessage}</p>
 						<button
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
+							type="button"
 							onClick={() => router.push('/auth/sign-in')}
 						>
 							{t.dashboard.ui.signIn}
@@ -86,7 +87,11 @@ export default function AdminEventEditPageClient({ locale, eventId, currentUser 
 						<div className="mb-6 text-6xl text-red-600 dark:text-red-400">⚠</div>
 						<h1 className="text-foreground mb-4 text-3xl font-bold">Error</h1>
 						<p className="text-muted-foreground mb-6 text-lg">{error}</p>
-						<button className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white" onClick={handleCancel}>
+						<button
+							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
+							onClick={handleCancel}
+							type="button"
+						>
 							Back to list
 						</button>
 					</div>
@@ -107,7 +112,11 @@ export default function AdminEventEditPageClient({ locale, eventId, currentUser 
 						<p className="text-muted-foreground mb-6 text-lg">
 							L&apos;événement &quot;{updatedEvent.name}&quot; a été modifié avec succès.
 						</p>
-						<button className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white" onClick={handleCancel}>
+						<button
+							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
+							onClick={handleCancel}
+							type="button"
+						>
 							Retour à la liste
 						</button>
 					</div>
