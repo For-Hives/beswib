@@ -834,6 +834,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 }
 
 function RowActions({ t, row }: { row: Row<AppEvent>; t: EventsTranslations }) {
+	const router = useRouter()
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 	const [deleting, setDeleting] = useState(false)
 
