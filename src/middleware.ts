@@ -18,7 +18,7 @@ export function getLocaleFromRequest(request: NextRequest): string {
 				return acc
 			}, {})
 
-			const cookieLocale = cookies['NEXT_LOCALE']
+			const cookieLocale = cookies.NEXT_LOCALE
 			if (cookieLocale && (i18n.locales as readonly string[]).includes(cookieLocale)) {
 				return cookieLocale
 			}

@@ -123,7 +123,7 @@ export default function SellerBibCard({ locale, bib }: SellerBibCardProps) {
 								{(() => {
 									try {
 										const eventDate = new Date(bib.expand.eventId.eventDate)
-										if (isNaN(eventDate.getTime())) return 'Invalid date'
+										if (Number.isNaN(eventDate.getTime())) return 'Invalid date'
 										return formatDateObjectForDisplay(eventDate, locale)
 									} catch {
 										return 'Invalid date'

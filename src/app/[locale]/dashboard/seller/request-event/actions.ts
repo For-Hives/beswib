@@ -60,7 +60,7 @@ export async function handleCreateEventCreationRequest(formData: FormData): Prom
 
 		// Validate date format and ensure it's not in the past
 		const parsedDate = new Date(eventDate)
-		if (isNaN(parsedDate.getTime())) {
+		if (Number.isNaN(parsedDate.getTime())) {
 			return {
 				success: false,
 				error: 'Invalid date format.',

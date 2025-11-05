@@ -1,7 +1,7 @@
-import { readFileSync } from 'fs'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { headers } from 'next/headers'
 import { ImageResponse } from 'next/og'
-import { join } from 'path'
 import OGImage from '@/components/OG/ogImage.component'
 import { generateLocaleParams } from '@/lib/generation/staticParams'
 

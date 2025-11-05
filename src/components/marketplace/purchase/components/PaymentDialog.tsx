@@ -3,7 +3,6 @@
 import { PayPalButtons } from '@paypal/react-paypal-js'
 import { AlertCircle, CheckCircle, XCircle } from 'lucide-react'
 import Image from 'next/image'
-import React from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
 import {
 	AlertDialog,

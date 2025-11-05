@@ -2,7 +2,6 @@
 
 import { PayPalButtons } from '@paypal/react-paypal-js'
 import Image from 'next/image'
-import React from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
 import { SlidingPanel } from '@/components/ui/SlidingPanel'
 import type { Locale } from '@/lib/i18n/config'

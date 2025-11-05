@@ -1,7 +1,7 @@
 'use client'
 
 import { UserIcon } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { toast } from 'sonner'
 import {
@@ -210,7 +210,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 					newErrors.sellingPrice = t.validation.priceRequired
 				} else {
 					const price = parseFloat(formData.sellingPrice)
-					if (isNaN(price) || price <= 0) {
+					if (Number.isNaN(price) || price <= 0) {
 						newErrors.sellingPrice = t.validation.priceMinimum
 					}
 				}

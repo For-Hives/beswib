@@ -151,7 +151,7 @@ export async function createTransaction(
 				}
 			}
 		}
-		throw new Error('Error creating transaction: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error creating transaction: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -176,6 +176,6 @@ export async function updateTransaction(
 		console.info('Updated transaction record:', record)
 		return record
 	} catch (error: unknown) {
-		throw new Error('Error updating transaction: ' + (error instanceof Error ? error.message : String(error)))
+		throw new Error(`Error updating transaction: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }

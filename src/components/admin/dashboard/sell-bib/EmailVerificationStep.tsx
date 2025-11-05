@@ -1,5 +1,5 @@
 import { CheckIcon, MailIcon, PlusIcon } from 'lucide-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'

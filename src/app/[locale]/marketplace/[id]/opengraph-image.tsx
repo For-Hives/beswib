@@ -1,7 +1,7 @@
-import { readFileSync } from 'fs'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { headers } from 'next/headers'
 import { ImageResponse } from 'next/og'
-import { join } from 'path'
 import OGImage from '@/components/OG/ogImage.component'
 import OGImageBib from '@/components/OG/ogImageBib.component'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
@@ -46,7 +46,7 @@ export default async function Image({ params }: { params: Promise<MarketplaceOpe
 
 		exchangeRates = rates
 
-		if (bibStatus && bibStatus?.exists && bibStatus.available) {
+		if (bibStatus?.exists && bibStatus.available) {
 			// Try to fetch bib data with full expansion (event + organizer)
 			bib = await fetchPublicBibById(id)
 

@@ -61,7 +61,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 								error != null
 									? useMotionTemplate`
 									radial-gradient(
-										${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
+										${visible ? `${radius}px` : '0px'} circle at ${mouseX}px ${mouseY}px,
 										hsl(var(--destructive) / 0.3),
 										transparent 80%
 									)
@@ -69,14 +69,14 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 									: success === true
 										? useMotionTemplate`
 									radial-gradient(
-										${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
+										${visible ? `${radius}px` : '0px'} circle at ${mouseX}px ${mouseY}px,
 										hsl(142 76% 36% / 0.3),
 										transparent 80%
 									)
 								`
 										: useMotionTemplate`
 									radial-gradient(
-										${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
+										${visible ? `${radius}px` : '0px'} circle at ${mouseX}px ${mouseY}px,
 										var(--interactive-bubble),
 										transparent 80%
 									)

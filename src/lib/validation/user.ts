@@ -43,7 +43,7 @@ export function isUserProfileComplete(user: User | null): boolean {
 	return requiredFields.every(field => {
 		if (field == null || field === undefined) return false
 		if (field instanceof Date) {
-			return !isNaN(field.getTime())
+			return !Number.isNaN(field.getTime())
 		}
 		if (typeof field === 'string') {
 			return field.trim() !== ''

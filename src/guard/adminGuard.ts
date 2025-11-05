@@ -58,7 +58,7 @@ export async function requireAdminAccess(): Promise<User> {
 
 		// Check if user is authenticated ✅
 		if (clerkId == null || clerkId === undefined) {
-			redirect('/auth/sign-in?redirectUrl=' + encodeURIComponent('/admin/event'))
+			redirect(`/auth/sign-in?redirectUrl=${encodeURIComponent('/admin/event')}`)
 		}
 
 		// Fetch user data from PocketBase 💾

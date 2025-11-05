@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import React from 'react'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { Badge } from '@/components/ui/badge'
 import type { Locale } from '@/lib/i18n/config'

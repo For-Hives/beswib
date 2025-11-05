@@ -190,8 +190,8 @@ export default function BuyerDashboardClient({
 	}
 
 	return (
-		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
-			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+		<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
+			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size:[24px_24px]"></div>
 
 			{/* User header */}
 			<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
@@ -332,7 +332,7 @@ export default function BuyerDashboardClient({
 							<CardContent>
 								{totalPurchases > 0 ? (
 									<div
-										className={`grid max-h-[100vh] grid-cols-1 gap-6 overflow-y-auto md:grid-cols-2 ${totalPurchases > 6 ? 'pr-4' : ''}`}
+										className={`grid max-h-screen grid-cols-1 gap-6 overflow-y-auto md:grid-cols-2 ${totalPurchases > 6 ? 'pr-4' : ''}`}
 									>
 										{succeededTransactions.map(tx => {
 											if (tx == null) return null
@@ -342,8 +342,8 @@ export default function BuyerDashboardClient({
 												<div className="group relative h-full w-full" key={tx.id}>
 													<div className="bg-card/80 border-border hover:border-foreground/35 relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md transition-all duration-300">
 														{/* Background pattern */}
-														<div className="absolute inset-0 -z-20 [background-image:radial-gradient(var(--border)_1px,transparent_1px)] [background-size:20px_20px] opacity-50 dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]" />
-														<div className="bg-background pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] opacity-25 dark:bg-black" />
+														<div className="absolute inset-0 -z-20 bg:[radial-gradient(var(--border)_1px,transparent_1px)] bg-size:[20px_20px] opacity-50 dark:bg-[radial-gradient(#404040_1px,transparent_1px)]" />
+														<div className="bg-background pointer-events-none absolute inset-0 flex items-center justify-center bg-[radial-gradient(ellipse_at_center,transparent_20%,black)] opacity-25 dark:bg-black" />
 
 														{/* Status badge */}
 														<div className="absolute top-0 right-0 z-20 m-4">
@@ -354,7 +354,7 @@ export default function BuyerDashboardClient({
 
 														{/* Event Image */}
 														<div className="relative flex justify-center px-4 pt-4">
-															<div className="from-green/20 via-emerald/20 to-teal/20 before:from-green before:via-emerald before:to-teal before:to-ring relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gradient-to-br shadow-[inset_0_0_20px_hsl(var(--primary)/0.3),inset_0_0_40px_hsl(var(--accent)/0.2),0_0_30px_hsl(var(--primary)/0.4)] before:absolute before:inset-0 before:-z-10 before:m-[-1px] before:rounded-xl before:bg-gradient-to-br before:p-0.5">
+															<div className="from-green/20 via-emerald/20 to-teal/20 before:from-green before:via-emerald before:to-teal before:to-ring relative aspect-4/3 w-full overflow-hidden rounded-xl bg-linear-to-br shadow-[inset_0_0_20px_hsl(var(--primary)/0.3),inset_0_0_40px_hsl(var(--accent)/0.2),0_0_30px_hsl(var(--primary)/0.4)] before:absolute before:inset-0 before:-z-10 before:m-px before:rounded-xl before:bg-linear-to-br before:p-0.5">
 																<Image
 																	src={getEventImage(bib)}
 																	alt={bib.expand?.eventId?.name ?? 'Event'}
@@ -375,7 +375,7 @@ export default function BuyerDashboardClient({
 															</div>
 
 															{/* Price paid highlight */}
-															<div className="from-green/25 via-emerald/25 to-teal/25 rounded-xl bg-gradient-to-r">
+															<div className="from-green/25 via-emerald/25 to-teal/25 rounded-xl bg-linear-to-r">
 																<div className="flex items-center justify-between">
 																	<div>
 																		<p className="text-muted-foreground text-xs">{t.pricePaid ?? 'Price Paid'}</p>
@@ -476,6 +476,7 @@ export default function BuyerDashboardClient({
 																{t.waiting ?? 'Waiting'}
 															</span>
 															<button
+																type="button"
 																onClick={() => handleDeleteClick(waitlist)}
 																className="text-muted-foreground hover:text-destructive cursor-pointer rounded-full p-1 transition-colors"
 																title={t.removeFromWaitlist ?? 'Remove from waitlist'}

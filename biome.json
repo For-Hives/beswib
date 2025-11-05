@@ -29,7 +29,8 @@
 	},
 	"css": {
 		"parser": {
-			"tailwindDirectives": true
+			"tailwindDirectives": true,
+            "noUnknownAtRules": false
 		}
 	},
 	"linter": {
@@ -53,7 +54,8 @@
 				"noNonNullAssertion": "off"
 			},
 			"suspicious": {
-				"noArrayIndexKey": "warn"
+				"noArrayIndexKey": "warn",
+				"noUnknownAtRules": "off"
 			},
 			"security": {
 				"noDangerouslySetInnerHtml": "off"

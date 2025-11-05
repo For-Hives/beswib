@@ -36,7 +36,7 @@ const isBibExpired = (bib: Bib & { expand?: { eventId: Event } }): boolean => {
 		const deadline = new Date(transferDeadline)
 
 		// Validate dates
-		if (isNaN(deadline.getTime())) return false
+		if (Number.isNaN(deadline.getTime())) return false
 
 		return now > deadline
 	} catch {
@@ -109,6 +109,7 @@ export default function BibCategoryTabs({ locale, bibs = [] }: BibCategoryTabsPr
 
 						return (
 							<button
+								type="button"
 								key={category.key}
 								onClick={() => setActiveCategory(category.key)}
 								className={cn(

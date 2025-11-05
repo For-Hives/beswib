@@ -1,7 +1,6 @@
 'use client'
 
 import { valibotResolver } from '@hookform/resolvers/valibot'
-import * as React from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'

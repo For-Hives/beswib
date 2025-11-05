@@ -123,7 +123,7 @@ export default function EventSelectionStep({
 														// Fallback: simple date formatting
 														try {
 															const date = new Date(event.eventDate)
-															if (isNaN(date.getTime())) return 'Invalid Date'
+															if (Number.isNaN(date.getTime())) return 'Invalid Date'
 
 															const year = date.getFullYear()
 															const month = String(date.getMonth() + 1).padStart(2, '0')

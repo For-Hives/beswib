@@ -1,4 +1,3 @@
-import * as React from 'react'
 import eventTranslations from '@/app/[locale]/events/[id]/locales.json'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -48,7 +47,6 @@ function formatPriceForOG(price: number, currencyCode: string): string {
 			return `${price.toFixed(2)} RON`
 		case 'usd':
 			return `$${price.toFixed(2)}`
-		case 'eur':
 		default:
 			return `€${price.toFixed(2)}`
 	}

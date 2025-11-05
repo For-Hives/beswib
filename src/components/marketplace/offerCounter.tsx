@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 
 import locales from './locales.json'
@@ -15,7 +13,7 @@ interface OfferCounterProps {
 // OfferCounter displays the number of available bibs and a sort dropdown 🔢
 export default function OfferCounter({ sortValue, onSortChange, locale, count }: OfferCounterProps) {
 	const lang = locale ?? 'en'
-	const t = locales[lang as keyof typeof locales] ?? locales['en']
+	const t = locales[lang as keyof typeof locales] ?? locales.en
 
 	// Sort options for SelectAnimated
 	const sortOptions: SelectOption[] = [

@@ -2,7 +2,6 @@
 
 import { AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import type { Locale } from '@/lib/i18n/config'
