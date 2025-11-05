@@ -92,7 +92,7 @@ describe('PayPal Partner Attribution Header', () => {
 				},
 			}
 
-			await createOrder('test-merchant-id', mockBib, 'en')
+			await createOrder('MERCHANTXYZ1234567890', mockBib, 'en')
 
 			// Find the create order API call (POST to /v2/checkout/orders)
 			const createOrderCall = mockedFetch.mock.calls.find(
@@ -186,7 +186,7 @@ describe('PayPal Partner Attribution Header', () => {
 
 	describe('getMerchantIntegrationStatus', () => {
 		it('should include PayPal-Partner-Attribution-Id header with hardcoded value', async () => {
-			await getMerchantIntegrationStatus('test-merchant-id')
+			await getMerchantIntegrationStatus('MERCHANTXYZ1234567890')
 
 			// Find the merchant status API call
 			const statusCall = mockedFetch.mock.calls.find(
