@@ -31,20 +31,22 @@ function sanitizeLogValue(value: string | null | undefined): string {
 	if (typeof value !== 'string') {
 		return String(value)
 	}
-	
+
 	// Remove ANSI escape sequences, control characters, and normalize whitespace
 	const sanitized = value
+		// biome-ignore lint/suspicious/noControlCharactersInRegex: Intentional - removing ANSI escape sequences for security
 		.replace(/\x1b\[[0-9;]*m/g, '') // Remove ANSI color codes
+		// biome-ignore lint/suspicious/noControlCharactersInRegex: Intentional - removing control characters for log injection prevention
 		.replace(/[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]/g, '') // Remove control chars except \n and \r
 		.replace(/[\r\n]/g, ' ') // Replace newlines with spaces
 		.trim()
-	
+
 	// Limit length to prevent log flooding
 	const maxLength = 100
 	if (sanitized.length > maxLength) {
 		return `${sanitized.slice(0, maxLength)}...`
 	}
-	
+
 	return sanitized
 }
 
@@ -72,7 +74,7 @@ export async function addToWaitlist(
 	if (user == null && email != null) {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 		if (!emailRegex.test(email.trim())) {
-			console.error(`Invalid email format: ${sanitizeLogValue(email)}`)
+			console.error('Invalid email format: %s', sanitizeLogValue(email))
 			return null
 		}
 	}
@@ -178,9 +180,7 @@ export async function addToWaitlist(
 			}
 		}
 		const userInfo =
-			actualUser != null
-				? `user ${sanitizeLogValue(actualUser.id)}`
-				: `email ${sanitizeLogValue(email ?? 'unknown')}`
+			actualUser != null ? `user ${sanitizeLogValue(actualUser.id)}` : `email ${sanitizeLogValue(email ?? 'unknown')}`
 		throw new Error(
 			`Error adding ${userInfo} to waitlist for event ${sanitizeLogValue(eventId)}: ` +
 				(error instanceof Error ? error.message : String(error))
@@ -221,7 +221,7 @@ export async function fetchUserWaitlists(userId: string): Promise<(Waitlist & { 
 							},
 						}
 					} catch (error) {
-						console.error(`Failed to fetch event ${sanitizeLogValue(waitlist.event_id)}:`, error)
+						console.error('Failed to fetch event %s:', sanitizeLogValue(waitlist.event_id), error)
 						return waitlist
 					}
 				})
@@ -321,7 +321,7 @@ export async function fetchWaitlistEmailsForEvent(eventId: string): Promise<stri
 		// Remove duplicates and return
 		return Array.from(new Set(emails))
 	} catch (error: unknown) {
-		console.error(`Error fetching waitlist emails for event "${sanitizeLogValue(eventId)}":`, error)
+		console.error('Error fetching waitlist emails for event "%s":', sanitizeLogValue(eventId), error)
 		return []
 	}
 }
@@ -438,7 +438,7 @@ export async function linkEmailWaitlistsToUser(email: string, user: User): Promi
 		})
 
 		if (emailWaitlistEntries.length === 0) {
-			console.info(`No email-only waitlist entries found for ${sanitizeLogValue(email)}`)
+			console.info('No email-only waitlist entries found for %s', sanitizeLogValue(email))
 			return 0
 		}
 
@@ -454,19 +454,26 @@ export async function linkEmailWaitlistsToUser(email: string, user: User): Promi
 				linkedCount++
 			} catch (error) {
 				console.error(
-					`Failed to link waitlist entry ${sanitizeLogValue(entry.id)} to user ${sanitizeLogValue(user.id)}:`,
+					'Failed to link waitlist entry %s to user %s:',
+					sanitizeLogValue(entry.id),
+					sanitizeLogValue(user.id),
 					error
 				)
 			}
 		}
 
 		console.info(
-			`Successfully linked ${linkedCount} waitlist entries from email ${sanitizeLogValue(email)} to user ${sanitizeLogValue(user.id)}`
+			'Successfully linked %d waitlist entries from email %s to user %s',
+			linkedCount,
+			sanitizeLogValue(email),
+			sanitizeLogValue(user.id)
 		)
 		return linkedCount
 	} catch (error: unknown) {
 		console.error(
-			`Error linking email waitlist entries for ${sanitizeLogValue(email)} to user ${sanitizeLogValue(user.id)}:`,
+			'Error linking email waitlist entries for %s to user %s:',
+			sanitizeLogValue(email),
+			sanitizeLogValue(user.id),
 			error
 		)
 		return 0
