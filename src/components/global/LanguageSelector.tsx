@@ -57,6 +57,7 @@ export default function LanguageSelector({ currentLocale = 'en' }: LanguageSelec
 	return (
 		<div className="language-selector relative">
 			<button
+				type="button"
 				className="flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm ring-2 hover:bg-gray-50 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
 				onClick={() => setIsOpen(!isOpen)}
 				aria-label="Select language"
@@ -86,6 +87,7 @@ export default function LanguageSelector({ currentLocale = 'en' }: LanguageSelec
 							const language = languages.find(lang => lang.code === code)!
 							return (
 								<button
+									type="button"
 									className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-gray-700 ${
 										locale === language.code
 											? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300'

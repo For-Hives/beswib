@@ -64,13 +64,14 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
 	const settings = getSpotlightSettings()
 
 	return (
+		// biome-ignore lint/a11y/noStaticElementInteractions: Mouse events are for visual spotlight effect only, not for interaction
 		<div
 			ref={divRef}
 			onMouseMove={handleMouseMove}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 			className={`border-border bg-card relative overflow-hidden rounded-3xl border p-8 ${className}`}
-			aria-label="Interactive card with spotlight effect"
+			role="presentation"
 		>
 			<div
 				className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"

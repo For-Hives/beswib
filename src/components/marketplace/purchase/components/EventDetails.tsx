@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'

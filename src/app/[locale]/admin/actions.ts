@@ -41,7 +41,11 @@ export async function createEventAction(eventData: Omit<Event, 'id'>): Promise<{
 			}
 		}
 
-		if (eventData.eventDate == null || eventData.eventDate === undefined || isNaN(eventData.eventDate.getTime())) {
+		if (
+			eventData.eventDate == null ||
+			eventData.eventDate === undefined ||
+			Number.isNaN(eventData.eventDate.getTime())
+		) {
 			return {
 				success: false,
 				error: 'Valid event date is required',
@@ -374,7 +378,10 @@ export async function updateEventAction(
 			}
 		}
 
-		if (eventData.eventDate !== undefined && (eventData.eventDate == null || isNaN(eventData.eventDate.getTime()))) {
+		if (
+			eventData.eventDate !== undefined &&
+			(eventData.eventDate == null || Number.isNaN(eventData.eventDate.getTime()))
+		) {
 			return {
 				success: false,
 				error: 'Valid event date is required',

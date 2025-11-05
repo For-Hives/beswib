@@ -28,11 +28,11 @@ export default function computeFontSize({ text, maxWidth, maxHeight, initialFont
 			if (wordWidth > maxWidth * 0.9) return false // Word is too long to fit
 
 			// Check if adding the word exceeds the max width
-			if ((currentLine + ' ' + w).trim().length * charWidthCoef * size > maxWidth * 0.8) {
+			if (`${currentLine} ${w}`.trim().length * charWidthCoef * size > maxWidth * 0.8) {
 				if (currentLine) lines.push(currentLine.trim()) // Push current line
 				currentLine = w // Start new line with current word
 			} else {
-				currentLine += ' ' + w // Add word to current line
+				currentLine += ` ${w}` // Add word to current line
 			}
 		}
 

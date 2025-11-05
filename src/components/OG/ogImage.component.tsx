@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 
 import BeswibLogo from './icons/BeswibLogo'

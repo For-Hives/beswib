@@ -14,7 +14,7 @@ export function getCookie(name: string): string | null {
 		return null // SSR safety
 	}
 
-	const nameEQ = name + '='
+	const nameEQ = `${name}=`
 	const cookies = document.cookie.split(';')
 
 	for (let i = 0; i < cookies.length; i++) {

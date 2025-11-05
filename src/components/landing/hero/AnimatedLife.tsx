@@ -19,7 +19,7 @@ type GroupKind = 'peloton' | 'breakaway' | 'straggler'
 // Generate a UUID safely across browsers (fallbacks for older mobile/WebViews)
 const safeRandomId = (): string => {
 	try {
-		if (typeof window !== 'undefined' && window.crypto != undefined) {
+		if (typeof window !== 'undefined' && window.crypto !== undefined) {
 			if (typeof window.crypto.randomUUID === 'function') {
 				return window.crypto.randomUUID()
 			}
@@ -296,6 +296,7 @@ export function AnimatedLife() {
 
 	return (
 		<button
+			type="button"
 			className="absolute bottom-0 left-0 z-20 flex h-[45vh] w-screen md:h-[35vh]"
 			tabIndex={0}
 			onClick={handleClick}

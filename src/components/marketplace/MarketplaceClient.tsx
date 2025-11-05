@@ -58,7 +58,6 @@ const sortBibs = (bibs: BibSale[], sort: string) => {
 			return [...bibs].sort((a, b) => a.price - b.price)
 		case 'price-desc':
 			return [...bibs].sort((a, b) => b.price - a.price)
-		case 'date':
 		default:
 			return [...bibs].sort((a, b) => new Date(a.event.date).getTime() - new Date(b.event.date).getTime())
 	}
@@ -102,7 +101,7 @@ const sanitizeDateValue = (value: string | null): string | null => {
 
 // --- Helper function to sanitize numeric values from URL parameters 💰
 const sanitizeNumericValue = (value: number | null): number | null => {
-	if (value == null || isNaN(value) || !isFinite(value)) {
+	if (value == null || Number.isNaN(value) || !Number.isFinite(value)) {
 		return null
 	}
 	return value
@@ -325,7 +324,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		if (dateStart != null && dateStart !== undefined && dateStart !== '' && dateStart !== 'undefined') {
 			const start = new Date(dateStart)
 			// Also validate that the date is valid
-			if (!isNaN(start.getTime())) {
+			if (!Number.isNaN(start.getTime())) {
 				filtered = filtered.filter(bib => new Date(bib.event.date) >= start)
 			}
 		}
@@ -334,7 +333,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		if (dateEnd != null && dateEnd !== undefined && dateEnd !== '' && dateEnd !== 'undefined') {
 			const end = new Date(dateEnd)
 			// Also validate that the date is valid
-			if (!isNaN(end.getTime())) {
+			if (!Number.isNaN(end.getTime())) {
 				filtered = filtered.filter(bib => new Date(bib.event.date) <= end)
 			}
 		}

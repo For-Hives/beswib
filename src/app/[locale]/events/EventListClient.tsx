@@ -712,6 +712,7 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 					>
 						{raceTypeSummary.map(type => (
 							<button
+								type="button"
 								key={type.key}
 								className={`group relative flex cursor-pointer flex-col items-center justify-center rounded-lg border p-4 transition-all duration-200 hover:scale-105 hover:shadow-md active:scale-95 ${
 									selectedType === type.key ? type.color : type.colorDisabled

@@ -186,7 +186,7 @@ export async function fetchUserWaitlists(userId: string): Promise<(Waitlist & { 
 		return records
 	} catch (error: unknown) {
 		throw new Error(
-			`Error fetching waitlists for user ID "${userId}": ` + (error instanceof Error ? error.message : String(error))
+			`Error fetching waitlists for user ID "${userId}": ${error instanceof Error ? error.message : String(error)}`
 		)
 	}
 }

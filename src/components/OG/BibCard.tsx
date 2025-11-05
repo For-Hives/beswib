@@ -1,4 +1,3 @@
-import * as React from 'react'
 import marketplaceTranslations from '@/app/[locale]/marketplace/locales.json'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -101,7 +100,6 @@ function formatPriceForOG(price: number, currencyCode: string): string {
 		case 'usd':
 			// Use $ which is supported by default fonts
 			return `$${price.toFixed(2)}`
-		case 'eur':
 		default:
 			// Use EUR symbol which is supported by default fonts
 			return `€${price.toFixed(2)}`

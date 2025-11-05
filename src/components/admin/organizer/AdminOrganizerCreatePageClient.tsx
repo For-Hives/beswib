@@ -48,6 +48,7 @@ export default function AdminOrganizerCreatePageClient({
 						<h1 className="text-foreground mb-4 text-3xl font-bold">{tCommon.organizers.ui.accessError}</h1>
 						<p className="text-muted-foreground mb-6 text-lg">{tCommon.organizers.ui.accessErrorDescription}</p>
 						<button
+							type="button"
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
 							onClick={() => router.push('/auth/sign-in')}
 						>
@@ -71,6 +72,7 @@ export default function AdminOrganizerCreatePageClient({
 							{t.organizers.create.success.message.replace('{organizerName}', createdOrganizer.name)}
 						</p>
 						<button
+							type="button"
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
 							onClick={() => router.push('/admin/organizer')}
 						>

@@ -251,7 +251,7 @@ describe('waitlist.services', () => {
 		})
 
 		it('should return 0 if user is not provided', async () => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+			// @biome-ignore lint/suspicious/noExplicitAny: for testing purposes we need to use any
 			const result = await linkEmailWaitlistsToUser('test@test.com', null as any)
 
 			expect(mockPocketbase.getFullList).not.toHaveBeenCalled()

@@ -1,5 +1,4 @@
 import { AlertCircle, Calculator, Info } from 'lucide-react'
-import React from 'react'
 import sellBibLocales from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'

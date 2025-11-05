@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle, Package } from 'lucide-react'
 
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Confetti, type ConfettiRef } from '@/components/ui/confetti'

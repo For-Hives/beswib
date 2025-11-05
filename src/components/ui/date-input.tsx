@@ -36,7 +36,7 @@ const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 					style={{
 						background: useMotionTemplate`
 				radial-gradient(
-				  ${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
+				  ${visible ? `${radius}px` : '0px'} circle at ${mouseX}px ${mouseY}px,
 				  var(--interactive-bubble),
 				  transparent 80%
 				)

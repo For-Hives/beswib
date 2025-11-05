@@ -118,6 +118,7 @@ export default function AdminOrganizerValidatePageClient({
 							Unable to verify admin access. Please try logging in again.
 						</p>
 						<button
+							type="button"
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
 							onClick={() => router.push('/auth/sign-in')}
 						>

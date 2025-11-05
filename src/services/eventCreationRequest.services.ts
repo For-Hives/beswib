@@ -19,9 +19,7 @@ export async function createEventCreationRequest(
 		const record = await pb.collection('eventCreationRequests').create<EventCreationRequest>(dataToCreate)
 		return record
 	} catch (error: unknown) {
-		throw new Error(
-			'Error creating event creation request: ' + (error instanceof Error ? error.message : String(error))
-		)
+		throw new Error(`Error creating event creation request: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -40,9 +38,7 @@ export async function fetchEventCreationRequests(
 		})
 		return records
 	} catch (error: unknown) {
-		throw new Error(
-			'Error fetching event creation requests: ' + (error instanceof Error ? error.message : String(error))
-		)
+		throw new Error(`Error fetching event creation requests: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }
 
@@ -75,8 +71,6 @@ export async function getEventCreationRequestsCount(): Promise<{
 
 		return counts
 	} catch (error: unknown) {
-		throw new Error(
-			'Error counting event creation requests: ' + (error instanceof Error ? error.message : String(error))
-		)
+		throw new Error(`Error counting event creation requests: ${error instanceof Error ? error.message : String(error)}`)
 	}
 }

@@ -1,6 +1,5 @@
 import { auth } from '@clerk/nextjs/server'
 import type { Metadata } from 'next'
-import React from 'react'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -49,7 +48,7 @@ export async function generateMetadata({
 						title: `${eventName} Race Bib - €${price}`,
 						description: `Secure race bib transfer for ${eventName}${location ? ` in ${location}` : ''}`,
 					},
-					description: description.length > 160 ? description.substring(0, 157) + '...' : description,
+					description: description.length > 160 ? `${description.substring(0, 157)}...` : description,
 					alternates: {
 						languages: generateAlternateLanguages(`/marketplace/${id}`),
 						canonical: generateCanonicalUrl(locale, `/marketplace/${id}`),
@@ -205,7 +204,7 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 			status: mapStatus(bib.status),
 			price: bib.price,
 			originalPrice: bib.originalPrice ?? 0,
-			lockedAt: bib.lockedAt != '' && bib.lockedAt != null ? new Date(bib.lockedAt) : null,
+			lockedAt: bib.lockedAt !== '' && bib.lockedAt != null ? new Date(bib.lockedAt) : null,
 			id: bib.id,
 			event: {
 				type: mapEventTypeToBibSaleType(bib.expand.eventId.typeCourse),

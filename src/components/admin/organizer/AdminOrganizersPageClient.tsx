@@ -286,14 +286,15 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 	// Safety check - if currentUser is null, show error
 	if (currentUser == null || currentUser === undefined) {
 		return (
-			<div className="from-background via-destructive/5 to-background relative min-h-screen bg-gradient-to-br">
-				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+			<div className="from-background via-destructive/5 to-background relative min-h-screen bg-linear-to-br">
+				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size:[24px_24px]"></div>
 				<div className="relative flex min-h-screen items-center justify-center">
 					<div className="dark:border-border/50 bg-card/80 w-full max-w-md rounded-3xl border border-black/50 p-8 text-center shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--destructive)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--destructive)/0.2)] backdrop-blur-md">
 						<div className="mb-6 text-6xl text-red-600 dark:text-red-400">⚠</div>
 						<h2 className="text-foreground mb-4 text-3xl font-bold">{t.organizers.ui.accessError}</h2>
 						<p className="text-muted-foreground mb-6 text-lg">{t.organizers.ui.accessErrorDescription}</p>
 						<button
+							type="button"
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
 							onClick={() => router.push('/auth/sign-in')}
 						>
@@ -306,8 +307,8 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 	}
 
 	return (
-		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
-			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+		<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
+			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size:[24px_24px]"></div>
 
 			{/* Admin header with user info */}
 			<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
@@ -416,6 +417,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 										{table.getColumn('name')?.getFilterValue() !== undefined &&
 											table.getColumn('name')?.getFilterValue() !== '' && (
 												<button
+													type="button"
 													aria-label={t.organizers.table.controls.clearFilter}
 													className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 cursor-pointer items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
 													onClick={() => {
@@ -424,7 +426,6 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 															inputRef.current.focus()
 														}
 													}}
-													type="button"
 												>
 													<CircleX aria-hidden="true" size={16} />
 												</button>
@@ -699,6 +700,7 @@ function RowActions({
 	t,
 	row,
 }: Readonly<{ row: Row<Organizer & { eventsCount: number }>; t: OrganizerTranslationsForRowActions }>) {
+	const router = useRouter()
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 
 	const handleDelete = () => {
@@ -717,7 +719,11 @@ function RowActions({
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end">
 					<DropdownMenuGroup>
-						<DropdownMenuItem onClick={() => (window.location.href = `/admin/organizer/edit/${row.original.id}`)}>
+						<DropdownMenuItem
+							onClick={() => {
+								router.push(`/admin/organizer/edit/${row.original.id}`)
+							}}
+						>
 							<Edit className="mr-2 h-4 w-4" />
 							{t.organizers.actionsLabels.edit}
 						</DropdownMenuItem>

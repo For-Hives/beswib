@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider'
 import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
 import TokenValidation from '@/components/marketplace/TokenValidation'

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 import type { Locale } from '@/lib/i18n/config'
 import type { Bib } from '@/models/bib.model'

@@ -76,7 +76,7 @@ export async function handleUpdateBibDetails(bibId: string, formData: FormData):
 	const priceValue = formData.get('price') as string
 
 	const price = parseFloat(priceValue)
-	if (isNaN(price) || price <= 0) {
+	if (Number.isNaN(price) || price <= 0) {
 		throw new Error('Valid price is required.')
 	}
 

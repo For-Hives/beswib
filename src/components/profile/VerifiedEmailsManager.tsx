@@ -1,7 +1,7 @@
 'use client'
 
 import { CheckIcon, MailIcon, PlusIcon, TrashIcon } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { toast } from 'sonner'
 import { Alert, AlertDescription } from '@/components/ui/alert'

@@ -194,7 +194,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 					<TimelineItem key={item.title} item={item} containerRef={ref} lineHeight={heightEased} />
 				))}
 				<div
-					style={{ height: height + 'px' }}
+					style={{ height: `${height}px` }}
 					className="via-border absolute top-0 left-8 w-[2px] overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] md:left-8"
 				>
 					<motion.div

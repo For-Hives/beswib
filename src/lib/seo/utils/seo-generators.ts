@@ -89,7 +89,7 @@ export function generateEventDescription(locale: Locale, event: Event): string {
 
 	// Ensure description stays under 160 characters
 	if (description.length > 160) {
-		description = description.substring(0, 157) + '...'
+		description = `${description.substring(0, 157)}...`
 	}
 
 	return description

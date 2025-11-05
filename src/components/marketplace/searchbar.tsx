@@ -48,7 +48,7 @@ export default function Searchbar({
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false) // Controls the visibility of the filter dropdown 👁️‍🗨️
 	// --- State for the price range filter (not directly used in UI, but for sync) 💰
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [priceRange, setPriceRange] = useState([0, 200])
+	const [_priceRange, setPriceRange] = useState([0, 200])
 	// --- Main state for all currently applied filters (used for badges and filtering) 🏷️
 	const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
 		price: [0, maxPrice],
@@ -131,7 +131,7 @@ export default function Searchbar({
 	}))
 
 	const lang = locale ?? 'en'
-	const t = locales[lang] ?? locales['en']
+	const t = locales[lang] ?? locales.en
 
 	// Sport options for SelectAnimated
 	const sportOptions: SelectOption[] = [

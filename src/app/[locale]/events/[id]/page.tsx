@@ -94,7 +94,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 	}
 
 	const formatPrice = (value?: number) => {
-		if (value == null || isNaN(value)) return ''
+		if (value == null || Number.isNaN(value)) return ''
 		try {
 			return new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(value)
 		} catch {
@@ -103,12 +103,12 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 	}
 
 	const formatDistance = (value?: number) => {
-		if (value == null || isNaN(value)) return ''
+		if (value == null || Number.isNaN(value)) return ''
 		return `${value.toFixed(1)} km`
 	}
 
 	const formatElevation = (value?: number) => {
-		if (value == null || isNaN(value)) return ''
+		if (value == null || Number.isNaN(value)) return ''
 		return `${Math.round(value)} m`
 	}
 
@@ -152,14 +152,14 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 									<p className="text-muted-foreground">{t.event.typeLabels[event.typeCourse]}</p>
 								</div>
 
-								{event.distanceKm != null && !isNaN(event.distanceKm) && (
+								{event.distanceKm != null && !Number.isNaN(event.distanceKm) && (
 									<div>
 										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.distance}</h3>
 										<p className="text-muted-foreground">{formatDistance(event.distanceKm)}</p>
 									</div>
 								)}
 
-								{event.elevationGainM != null && !isNaN(event.elevationGainM) && (
+								{event.elevationGainM != null && !Number.isNaN(event.elevationGainM) && (
 									<div>
 										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.elevationGain}</h3>
 										<p className="text-muted-foreground">{formatElevation(event.elevationGainM)}</p>
@@ -173,7 +173,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 									</div>
 								)}
 
-								{event.officialStandardPrice != null && !isNaN(event.officialStandardPrice) && (
+								{event.officialStandardPrice != null && !Number.isNaN(event.officialStandardPrice) && (
 									<div>
 										<h3 className="text-foreground mb-2 text-lg font-semibold">{t.event.officialPrice}</h3>
 										<p className="text-muted-foreground">{formatPrice(event.officialStandardPrice)}</p>

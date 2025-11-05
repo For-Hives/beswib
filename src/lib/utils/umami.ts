@@ -60,7 +60,7 @@ function sanitizeLocalePayload(payload: UmamiPayload): UmamiPayload {
 
 		console.info('Extracted locale:', locale)
 
-		payload.data['locale'] = locale ? locale[2] : ''
+		payload.data.locale = locale ? locale[2] : ''
 
 		if (locale) {
 			payload.url = `${locale[1]}/${locale[3] || ''}`

@@ -10,7 +10,7 @@ export async function handlePayPalOrderCompleted(paypalOrderId: string, buyerUse
 	// 1. Find transaction by PayPal order ID
 	const transaction = await getTransactionByOrderId(paypalOrderId)
 	if (!transaction) {
-		throw new Error('Transaction not found for PayPal order ID: ' + paypalOrderId)
+		throw new Error(`Transaction not found for PayPal order ID: ${paypalOrderId}`)
 	}
 
 	// 2. Update transaction status to 'succeeded'

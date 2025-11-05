@@ -37,7 +37,7 @@ import {
 import Link from 'next/link'
 
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { deleteEventAction, getAllEventsAction } from '@/app/[locale]/admin/actions'
 import {
 	AlertDialog,
@@ -174,7 +174,7 @@ interface EventsTranslations {
 // Custom filter function for multi-column searching
 const multiColumnFilterFn: FilterFn<AppEvent & { expand?: { organizer?: Organizer } }> = (
 	row,
-	columnId,
+	_columnId,
 	filterValue
 ) => {
 	const organizerName = row.original.expand?.organizer?.name ?? ''
@@ -432,6 +432,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 						<h1 className="text-foreground mb-4 text-3xl font-bold">{t.events.ui.accessError}</h1>
 						<p className="text-muted-foreground mb-6 text-lg">{t.events.ui.accessErrorDescription}</p>
 						<button
+							type="button"
 							className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-white"
 							onClick={() => router.push('/auth/sign-in')}
 						>
@@ -564,6 +565,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 										{table.getColumn('name')?.getFilterValue() !== undefined &&
 											table.getColumn('name')?.getFilterValue() !== '' && (
 												<button
+													type="button"
 													aria-label={t.events.table.controls.clearFilter}
 													className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
 													onClick={() => {
@@ -662,10 +664,11 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 													return (
 														<TableHead className="h-11" key={header.id} style={{ width: `${header.getSize()}px` }}>
 															{header.isPlaceholder ? null : header.column.getCanSort() ? (
-																<div
+																<button
+																	type="button"
 																	className={cn(
 																		header.column.getCanSort() &&
-																			'flex h-full cursor-pointer items-center justify-between gap-2 select-none'
+																			'flex h-full w-full cursor-pointer items-center justify-between gap-2 select-none border-0 bg-transparent p-0 text-left'
 																	)}
 																	onClick={header.column.getToggleSortingHandler()}
 																	onKeyDown={e => {
@@ -681,7 +684,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 																		desc: <ChevronDown aria-hidden="true" className="shrink-0 opacity-60" size={16} />,
 																		asc: <ChevronUp aria-hidden="true" className="shrink-0 opacity-60" size={16} />,
 																	}[header.column.getIsSorted() as string] ?? null}
-																</div>
+																</button>
 															) : (
 																flexRender(header.column.columnDef.header, header.getContext())
 															)}
@@ -866,7 +869,11 @@ function RowActions({ t, row }: { row: Row<AppEvent>; t: EventsTranslations }) {
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end">
 					<DropdownMenuGroup>
-						<DropdownMenuItem onClick={() => (window.location.href = `/admin/event/edit/${row.original.id}`)}>
+						<DropdownMenuItem
+							onClick={() => {
+								router.push(`/admin/event/edit/${row.original.id}`)
+							}}
+						>
 							<Edit className="mr-2 h-4 w-4" />
 							{t.events.table.actions.edit}
 						</DropdownMenuItem>
