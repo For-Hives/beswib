@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <the usage is ok, we know that the index is stable.> */
 'use client'
 
 import { Building, CheckCircle, Clock, Eye, Users, XCircle } from 'lucide-react'

@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <the usage is ok, we know that the index is stable.> */
 'use client'
 
 import { AnimatePresence, motion } from 'framer-motion'

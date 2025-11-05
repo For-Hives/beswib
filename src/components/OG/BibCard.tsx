@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/performance/noImgElement: <that's normal, we are in an opengraph image environment, we can't use the Image component> */
 import marketplaceTranslations from '@/app/[locale]/marketplace/locales.json'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'

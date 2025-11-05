@@ -642,7 +642,7 @@ export async function updateBibBySeller(
 		}
 
 		// Sanitize payload: disallow registrationNumber, eventId, sellerUserId modifications by seller
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		// biome-ignore lint/correctness/noUnusedVariables: <the usage is ok, we know that the variables are not used.>
 		const { sellerUserId, registrationNumber, eventId, ...payload } = dataToUpdate
 
 		const updatedRecord = await pb.collection('bibs').update<Bib>(bibId, payload)

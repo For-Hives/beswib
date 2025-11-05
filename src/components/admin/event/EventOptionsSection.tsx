@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <the usage is ok, we know that the index is stable.> */
 import { Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { EventOption } from '@/models/eventOption.model'

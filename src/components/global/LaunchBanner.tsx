@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/suspicious/noDocumentCookie: <we are doing that to handle cookies on
+ * the client side, for languages synchronization and promotion banner dismissal> */
 'use client'
 
 import { X } from 'lucide-react'

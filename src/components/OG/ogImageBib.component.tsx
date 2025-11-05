@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <the usage is ok, we know that the index is stable.> */
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 import type { Locale } from '@/lib/i18n/config'
 import type { Bib } from '@/models/bib.model'
