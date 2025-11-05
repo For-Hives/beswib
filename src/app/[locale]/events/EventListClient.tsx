@@ -1,41 +1,38 @@
 'use client'
 
+import Fuse from 'fuse.js'
 import {
+	Bell,
+	CheckCircle,
+	Clock,
+	Loader2,
 	MapPin,
-	Users,
+	Mountain,
+	Route,
 	Search,
 	ShoppingCart,
-	Bell,
-	Route,
-	Mountain,
-	Loader2,
 	Tag,
-	Clock,
-	CheckCircle,
+	Users,
 } from 'lucide-react'
-import React, { useMemo, useState } from 'react'
-
-import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
-import { useRouter } from 'next/navigation'
-import dynamic from 'next/dynamic'
 import { DateTime } from 'luxon'
-import Fuse from 'fuse.js'
-
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { TriathlonIcon, TrailIcon, RouteIcon, CycleIcon, AllTypesIcon } from '@/components/icons/RaceTypeIcons'
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
-import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
+import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
+import React, { useMemo, useState } from 'react'
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
-import { formatDateObjectForDisplay } from '@/lib/utils/date'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Timeline } from '@/components/ui/timeline'
-import { Input } from '@/components/ui/inputAlt'
+import { AllTypesIcon, CycleIcon, RouteIcon, TrailIcon, TriathlonIcon } from '@/components/icons/RaceTypeIcons'
 import { Button } from '@/components/ui/button'
-import { Locale } from '@/lib/i18n/config'
+import { Input } from '@/components/ui/inputAlt'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+import { Timeline } from '@/components/ui/timeline'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { formatDateObjectForDisplay } from '@/lib/utils/date'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
 
 import Translations from './locales.json'
 

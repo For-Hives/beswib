@@ -1,16 +1,9 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
 import { UserIcon } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
 
 import { toast } from 'sonner'
-
-import type { VerifiedEmail } from '@/models/verifiedEmail.model'
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
 import {
 	BibDetailsStep,
 	ConfirmationStep,
@@ -20,18 +13,23 @@ import {
 	ProgressSteps,
 	StepNavigation,
 } from '@/components/admin/dashboard/sell-bib'
+import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
+import { Separator } from '@/components/ui/separator'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { isSellerProfileComplete } from '@/lib/validation/user'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
+import type { VerifiedEmail } from '@/models/verifiedEmail.model'
+import { createBib } from '@/services/bib.services'
 import {
 	createVerifiedEmail,
 	fetchVerifiedEmailsByUserId,
-	verifyEmail,
 	resendVerificationCode,
+	verifyEmail,
 } from '@/services/verifiedEmail.services'
-import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
-import { isSellerProfileComplete } from '@/lib/validation/user'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Separator } from '@/components/ui/separator'
-import { createBib } from '@/services/bib.services'
-import { Locale } from '@/lib/i18n/config'
 
 interface FormData {
 	acceptedTerms: boolean
@@ -258,7 +256,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 
 		try {
 			// Determine the actual linkedEmailId to use
-			let linkedEmailId: string | undefined = undefined
+			let linkedEmailId: string | undefined
 			if (
 				formData.linkedEmailId !== undefined &&
 				formData.linkedEmailId != null &&

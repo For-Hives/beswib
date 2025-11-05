@@ -1,8 +1,7 @@
 import { DollarSign, Euro } from 'lucide-react'
-
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 
 import FeeDisplay from './FeeDisplay'
 
@@ -17,8 +16,8 @@ interface PricingStepProps {
 }
 
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 
 export default function PricingStep({ onChange, locale, formData, errors }: Readonly<PricingStepProps>) {
 	const t = getTranslations(locale, sellBibTranslations)

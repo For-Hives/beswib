@@ -1,15 +1,14 @@
 'use client'
 
-import { useState } from 'react'
-
 import { useRouter } from 'next/navigation'
-
-import EventCreationForm from '@/components/admin/event/event-creation-form'
+import { useState } from 'react'
 import Translations from '@/app/[locale]/admin/locales.json'
+import EventCreationForm from '@/components/admin/event/event-creation-form'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Event } from '@/models/event.model'
-import { User } from '@/models/user.model'
-import { Locale } from '@/lib/i18n/config'
+import type { Event } from '@/models/event.model'
+import type { User } from '@/models/user.model'
+
 interface AdminEventPageClientProps {
 	currentUser: null | User
 	locale: Locale

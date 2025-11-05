@@ -2,7 +2,8 @@
 	Installed from https://reactbits.dev/ts/tailwind/
 */
 
-import React, { useRef, useState } from 'react'
+import type React from 'react'
+import { useRef, useState } from 'react'
 
 import { useThemeStore } from '@/hooks/useTheme'
 

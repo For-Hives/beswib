@@ -4,7 +4,7 @@ import { auth } from '@clerk/nextjs/server'
 
 import type { Bib } from '@/models/bib.model'
 
-import { fetchBibByIdForSeller, updateBibBySeller, generatePrivateListingToken } from '@/services/bib.services'
+import { fetchBibByIdForSeller, generatePrivateListingToken, updateBibBySeller } from '@/services/bib.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 
 export async function handleToggleListingStatus(bibId: string, newListed: 'private' | 'public'): Promise<Bib> {
@@ -33,7 +33,7 @@ export async function handleToggleListingStatus(bibId: string, newListed: 'priva
 	}
 
 	try {
-		let privateListingToken: string | undefined = undefined
+		let privateListingToken: string | undefined
 
 		if (newListed === 'private') {
 			// Generate a new token automatically for private listings

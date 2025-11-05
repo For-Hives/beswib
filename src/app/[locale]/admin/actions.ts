@@ -1,18 +1,17 @@
 'use server'
 
 import { checkAdminAccess } from '@/guard/adminGuard'
-
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import { getDashboardStats, getRecentActivity } from '@/services/dashboard.services'
+import { createEvent, deleteEventById, fetchEventById, getAllEvents, updateEventById } from '@/services/event.services'
 import {
 	createOrganizer,
 	deleteOrganizer,
 	fetchAllOrganizersWithEventsCount,
+	fetchOrganizerById,
 	updateOrganizer,
 } from '@/services/organizer.services'
-import { createEvent, deleteEventById, getAllEvents, fetchEventById, updateEventById } from '@/services/event.services'
-import { getDashboardStats, getRecentActivity } from '@/services/dashboard.services'
-import { fetchOrganizerById } from '@/services/organizer.services'
-import { Organizer } from '@/models/organizer.model'
-import { Event } from '@/models/event.model'
 
 /**
  * Server action to create a new event (admin only)

@@ -1,8 +1,7 @@
-import { checkAdminAccess } from '@/guard/adminGuard'
 import { redirect } from 'next/navigation'
-
 import AdminOrganizerEditPageClient from '@/components/admin/organizer/AdminOrganizerEditPageClient'
-import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
+import { checkAdminAccess } from '@/guard/adminGuard'
+import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 
 // Generate static params for all locales
 export function generateStaticParams() {

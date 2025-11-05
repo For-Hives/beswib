@@ -1,5 +1,5 @@
-import { getTranslations } from '@/lib/i18n/dictionary'
 import locales from '@/constants/locales.json'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 // Type definitions for locales structure
 type LocaleData = typeof locales

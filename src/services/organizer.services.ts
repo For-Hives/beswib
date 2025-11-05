@@ -1,7 +1,7 @@
 'use server'
 
-import { Organizer } from '@/models/organizer.model'
 import { pb } from '@/lib/services/pocketbase'
+import type { Organizer } from '@/models/organizer.model'
 
 /**
  * Create a new organizer
@@ -39,7 +39,7 @@ export async function createOrganizer(
 		if (organizerData.logoFile != null) {
 			console.info('📋 [SERVICE] Logo file details:', {
 				type: typeof organizerData.logoFile,
-				hasStream: Object.prototype.hasOwnProperty.call(organizerData.logoFile, 'stream'),
+				hasStream: Object.hasOwn(organizerData.logoFile, 'stream'),
 				constructor: organizerData.logoFile?.constructor?.name ?? 'undefined',
 			})
 
@@ -52,7 +52,7 @@ export async function createOrganizer(
 			const hasStreamProperty =
 				organizerData.logoFile != null &&
 				typeof organizerData.logoFile === 'object' &&
-				Object.prototype.hasOwnProperty.call(organizerData.logoFile, 'stream')
+				Object.hasOwn(organizerData.logoFile, 'stream')
 
 			console.info('🔍 [SERVICE] File checks:', {
 				willUpload: hasFileConstructorName || hasStreamProperty,
@@ -258,7 +258,7 @@ export async function updateOrganizer(
 		const hasFile =
 			organizerData.logoFile != null &&
 			typeof organizerData.logoFile === 'object' &&
-			(Object.prototype.hasOwnProperty.call(organizerData.logoFile, 'stream') ||
+			(Object.hasOwn(organizerData.logoFile, 'stream') ||
 				(organizerData.logoFile as Record<string, unknown>).constructor?.name === 'File')
 
 		if (hasFile) {

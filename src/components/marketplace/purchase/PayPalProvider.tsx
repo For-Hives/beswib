@@ -1,7 +1,7 @@
 'use client'
 
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
-import React from 'react'
+import type React from 'react'
 
 // Ensure the PayPal Client ID is set in your environment variables
 if (process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID === undefined || process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID === '') {

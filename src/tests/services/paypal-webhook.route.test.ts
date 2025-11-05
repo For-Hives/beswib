@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('@/lib/services/paypal', () => ({
 	verifyPayPalWebhookSignature: vi.fn(),
@@ -13,10 +13,9 @@ vi.mock('@/services/paypal.services', () => ({
 }))
 
 import type { NextRequest } from 'next/server'
-
+import { GET, POST } from '@/app/api/webhooks/paypal/route'
 import { verifyPayPalWebhookSignature } from '@/lib/services/paypal'
 import * as paypalServices from '@/services/paypal.services'
-import { POST, GET } from '@/app/api/webhooks/paypal/route'
 
 // Helper to build a NextRequest-like object minimal subset for our route
 class MockRequest {

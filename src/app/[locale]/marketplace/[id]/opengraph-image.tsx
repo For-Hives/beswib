@@ -1,14 +1,13 @@
-import { ImageResponse } from 'next/og'
-import { headers } from 'next/headers'
 import { readFileSync } from 'fs'
+import { headers } from 'next/headers'
+import { ImageResponse } from 'next/og'
 import { join } from 'path'
-
-import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
-import { fetchPublicBibById, checkBibListingStatus } from '@/services/bib.services'
-import OGImageBib from '@/components/OG/ogImageBib.component'
-import { fetchExchangeRates } from '@/lib/utils/currency'
 import OGImage from '@/components/OG/ogImage.component'
+import OGImageBib from '@/components/OG/ogImageBib.component'
+import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { fetchExchangeRates } from '@/lib/utils/currency'
+import { checkBibListingStatus, fetchPublicBibById } from '@/services/bib.services'
 
 import marketplaceTranslations from '../locales.json'
 
@@ -89,19 +88,17 @@ export default async function Image({ params }: { params: Promise<MarketplaceOpe
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			(
-				<OGImageBib
-					title={title}
-					secondary={secondary}
-					host={host}
-					protocol={protocol}
-					size={size}
-					bib={bib}
-					locale={locale}
-					organizer={organizer ?? undefined}
-					exchangeRates={exchangeRates}
-				/>
-			),
+			<OGImageBib
+				title={title}
+				secondary={secondary}
+				host={host}
+				protocol={protocol}
+				size={size}
+				bib={bib}
+				locale={locale}
+				organizer={organizer ?? undefined}
+				exchangeRates={exchangeRates}
+			/>,
 			{
 				...size,
 				fonts: [

@@ -1,47 +1,45 @@
 'use client'
 
 import {
+	AlertTriangle,
 	ArrowLeft,
 	Calendar,
-	MapPin,
+	Copy,
+	DollarSign,
 	Edit3,
 	Eye,
 	EyeOff,
-	Trash2,
+	Hash,
+	Link as LinkIcon,
+	MapPin,
+	RefreshCw,
 	Save,
 	Tag,
-	DollarSign,
-	Hash,
-	AlertTriangle,
-	Copy,
-	RefreshCw,
-	Link as LinkIcon,
+	Trash2,
 } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
-
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
 import Link from 'next/link'
 
-import type { Event } from '@/models/event.model'
-import type { Bib } from '@/models/bib.model'
-
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { formatDateObjectForDisplay } from '@/lib/utils/date'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Separator } from '@/components/ui/separator'
-import { Input } from '@/components/ui/inputAlt'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 import { Badge } from '@/components/ui/badge'
-import { Locale } from '@/lib/i18n/config'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Input } from '@/components/ui/inputAlt'
+import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { formatDateObjectForDisplay } from '@/lib/utils/date'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
 
 import {
+	handleRegeneratePrivateToken,
 	handleToggleListingStatus,
 	handleUpdateBibDetails,
 	handleWithdrawBib,
-	handleRegeneratePrivateToken,
 } from './actions'
 import editBibTranslations from './locales.json'
 

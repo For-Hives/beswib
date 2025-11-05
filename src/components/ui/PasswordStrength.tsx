@@ -1,11 +1,10 @@
 'use client'
 
 import { motion } from 'motion/react'
-
-import { getPasswordStrengthValibot } from '@/lib/validation/valibot'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import mainLocales from '@/app/[locale]/locales.json'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { getPasswordStrengthValibot } from '@/lib/validation/valibot'
 
 interface PasswordStrengthProps {
 	password: string

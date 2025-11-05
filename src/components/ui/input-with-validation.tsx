@@ -1,7 +1,7 @@
 'use client'
 
-import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
 import { Check } from 'lucide-react'
+import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'

@@ -1,14 +1,11 @@
 import * as React from 'react'
-
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { Locale } from '@/lib/i18n/config'
-
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
-
+import type { Locale } from '@/lib/i18n/config'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import EventCard from './EventCard'
 import BeswibLogo from './icons/BeswibLogo'
 import Pattern from './icons/Pattern'
-import EventCard from './EventCard'
 
 // Function to split the text into lines and apply a special color to words between **
 function formatTextWithColor(text: string, highlightColor = '#4C639A') {

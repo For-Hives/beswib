@@ -1,13 +1,11 @@
 'use client'
 
-import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
 import { Eye, EyeOff } from 'lucide-react'
-import { useEffect } from 'react'
+import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
 import * as React from 'react'
-
-import { FieldError } from '@/types/auth'
-
+import { useEffect } from 'react'
 import { cn } from '@/lib/utils'
+import type { FieldError } from '@/types/auth'
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	label: string

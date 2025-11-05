@@ -1,16 +1,14 @@
 'use client'
 
-import { Settings, User as UserIcon, LayoutDashboard } from 'lucide-react'
-
 import { useClerk } from '@clerk/nextjs'
+import { LayoutDashboard, Settings, User as UserIcon } from 'lucide-react'
 import Link from 'next/link'
-
-import type { User as UserType } from '@/models/user.model'
+import dashboardTranslations from '@/app/[locale]/dashboard/locales.json'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import dashboardTranslations from '@/app/[locale]/dashboard/locales.json'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
+import type { User as UserType } from '@/models/user.model'
 
 interface SerializedClerkUser {
 	emailAddresses: { emailAddress: string; id: string }[]

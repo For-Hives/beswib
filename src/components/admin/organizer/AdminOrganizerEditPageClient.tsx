@@ -1,16 +1,14 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-
 import { useRouter } from 'next/navigation'
-
+import { useEffect, useState } from 'react'
+import { getOrganizerByIdAction } from '@/app/[locale]/admin/actions'
 import organizerCommonTranslations from '@/app/[locale]/admin/organizer/locales.json'
 import OrganizerEditForm from '@/components/admin/organizer/OrganizerEditForm'
-import { getOrganizerByIdAction } from '@/app/[locale]/admin/actions'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Organizer } from '@/models/organizer.model'
-import { User } from '@/models/user.model'
-import { Locale } from '@/lib/i18n/config'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
 
 interface AdminOrganizerEditPageClientProps {
 	currentUser: null | User

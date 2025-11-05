@@ -1,17 +1,16 @@
 'use client'
 
 import { Loader2, Send } from 'lucide-react'
-import { useState, useEffect } from 'react'
 import { motion } from 'motion/react'
-import type React from 'react'
-
 import { useSearchParams } from 'next/navigation'
+import type React from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-import globalTranslations from '@/components/global/locales.json'
-import { Textarea } from '@/components/ui/textareaAlt'
-import { Input } from '@/components/ui/inputAlt'
+import type globalTranslations from '@/components/global/locales.json'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/inputAlt'
+import { Textarea } from '@/components/ui/textareaAlt'
 
 interface ContactFormProps {
 	t: (typeof globalTranslations)['en']['contact']

@@ -1,14 +1,12 @@
 import * as React from 'react'
-
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { Locale } from '@/lib/i18n/config'
-
 import eventTranslations from '@/app/[locale]/events/[id]/locales.json'
-import { getCurrencyForLocale } from '@/lib/utils/currency'
-import { getOrganizerImageUrl } from '@/lib/utils/images'
-import { formatDateWithLocale } from '@/lib/utils/date'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { getCurrencyForLocale } from '@/lib/utils/currency'
+import { formatDateWithLocale } from '@/lib/utils/date'
+import { getOrganizerImageUrl } from '@/lib/utils/images'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
 
 // Helper function to get background color based on event type
 function getTypeColor(type: Event['typeCourse']) {

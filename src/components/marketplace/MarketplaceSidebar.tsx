@@ -1,17 +1,15 @@
 'use client'
 
-import { X, SlidersHorizontal, Calendar, MapPin, Euro, Activity, Filter } from 'lucide-react'
-import React, { useMemo, useState } from 'react'
-
 import Fuse from 'fuse.js'
-
-import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
-import { Separator } from '@/components/ui/separator'
-import { Input } from '@/components/ui/inputAlt'
-import { Button } from '@/components/ui/button'
-import { Slider } from '@/components/ui/slider'
+import { Activity, Calendar, Euro, Filter, MapPin, SlidersHorizontal, X } from 'lucide-react'
+import React, { useMemo, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
+import { Slider } from '@/components/ui/slider'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 import locales from './locales.json'
 

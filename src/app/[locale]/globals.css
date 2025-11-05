@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -530,27 +530,27 @@ body *::-webkit-scrollbar-thumb {
 
 /* Normalize native date input calendar icon color across themes */
 /* Chrome/Edge/Safari (WebKit/Blink) */
-input[type='date']::-webkit-calendar-picker-indicator {
+input[type="date"]::-webkit-calendar-picker-indicator {
 	/* Ensure the icon is visible and allow color tweaking */
 	opacity: 1;
 }
 /* In light theme, keep dark icon (no invert) */
-:root input[type='date']::-webkit-calendar-picker-indicator {
+:root input[type="date"]::-webkit-calendar-picker-indicator {
 	filter: invert(0);
 }
 /* In dark theme, invert so the icon appears white */
-.dark input[type='date']::-webkit-calendar-picker-indicator {
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
 	filter: invert(1) brightness(1.2) contrast(1);
 }
 
 /* Hint the control to adopt the current theme for browsers that respect color-scheme */
-input[type='date'] {
+input[type="date"] {
 	color-scheme: var(--theme-color-scheme, light);
 }
-:root input[type='date'] {
+:root input[type="date"] {
 	--theme-color-scheme: light;
 }
-.dark input[type='date'] {
+.dark input[type="date"] {
 	--theme-color-scheme: dark;
 }
 
@@ -777,8 +777,8 @@ input[type='date'] {
 }
 
 /* Additional overrides for any nested input elements */
-.dark input[class*='react-international-phone'],
-.dark [class*='react-international-phone'] input,
+.dark input[class*="react-international-phone"],
+.dark [class*="react-international-phone"] input,
 .dark .react-international-phone-input-container .react-international-phone-input input {
 	background-color: rgb(39 39 42) !important; /* zinc-800 */
 	color: white !important;
@@ -789,8 +789,8 @@ input[type='date'] {
 }
 
 /* Light theme inputs - using CSS variables for consistency */
-input[class*='react-international-phone'],
-[class*='react-international-phone'] input,
+input[class*="react-international-phone"],
+[class*="react-international-phone"] input,
 .react-international-phone-input-container .react-international-phone-input input {
 	background-color: hsl(var(--background)) !important;
 	color: hsl(var(--foreground)) !important;
@@ -861,11 +861,11 @@ input[class*='react-international-phone'],
 }
 
 /* Override any inline styles that might interfere with theming */
-.react-international-phone-country-selector-button[style*='background-color'] {
+.react-international-phone-country-selector-button[style*="background-color"] {
 	background-color: hsl(var(--background)) !important;
 }
 
-.dark .react-international-phone-country-selector-button[style*='background-color'] {
+.dark .react-international-phone-country-selector-button[style*="background-color"] {
 	background-color: rgb(39 39 42) !important;
 }
 

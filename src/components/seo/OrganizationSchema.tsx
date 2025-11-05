@@ -1,4 +1,4 @@
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
 
 interface OrganizationSchemaProps {
 	locale: Locale

@@ -1,7 +1,7 @@
-import { type CourseType } from '@/types/course-types'
+import type { CourseType } from '@/types/course-types'
 
-import { EventOption } from './eventOption.model'
-import { Organizer } from './organizer.model'
+import type { EventOption } from './eventOption.model'
+import type { Organizer } from './organizer.model'
 
 export interface Event {
 	id: string

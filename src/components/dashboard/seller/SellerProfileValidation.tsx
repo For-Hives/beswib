@@ -3,19 +3,17 @@
 import { AlertCircle, CheckCircle, ExternalLink } from 'lucide-react'
 
 import Link from 'next/link'
-
-import type { User } from '@/models/user.model'
-
-import {
-	isSellerProfileComplete,
-	isPaypalMerchantComplete,
-	isSellerContactInfoComplete,
-	isSellerAddressComplete,
-} from '@/lib/validation/user'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
-import { Locale } from '@/lib/i18n/config'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import {
+	isPaypalMerchantComplete,
+	isSellerAddressComplete,
+	isSellerContactInfoComplete,
+	isSellerProfileComplete,
+} from '@/lib/validation/user'
+import type { User } from '@/models/user.model'
 
 import sellerTranslations from './locales.json'
 

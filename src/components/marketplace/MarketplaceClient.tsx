@@ -1,24 +1,22 @@
 'use client'
 
-import React, { useMemo, useCallback } from 'react'
-import { Search } from 'lucide-react'
-
-import { parseAsArrayOf, parseAsFloat, parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
-import dynamic from 'next/dynamic'
 import Fuse from 'fuse.js'
-
-import type { BibSale } from '@/models/marketplace.model'
-import type { Locale } from '@/lib/i18n/config'
-
-import MarketplaceSidebar, { type MarketplaceFilters } from '@/components/marketplace/MarketplaceSidebar'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Search } from 'lucide-react'
+import dynamic from 'next/dynamic'
+import { parseAsArrayOf, parseAsFloat, parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
+import React, { useCallback, useMemo } from 'react'
 import ActiveFiltersBadges from '@/components/marketplace/ActiveFiltersBadges'
-import marketplaceTranslations from '@/components/marketplace/locales.json'
-import OfferCounter from '@/components/marketplace/offerCounter'
 import CardMarket from '@/components/marketplace/CardMarket'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Input } from '@/components/ui/inputAlt'
+import marketplaceTranslations from '@/components/marketplace/locales.json'
+import MarketplaceSidebar, { type MarketplaceFilters } from '@/components/marketplace/MarketplaceSidebar'
+import OfferCounter from '@/components/marketplace/offerCounter'
 import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Input } from '@/components/ui/inputAlt'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { BibSale } from '@/models/marketplace.model'
+
 const EmptyResultsRive = dynamic(() => import('@/components/marketplace/EmptyResultsRive'), { ssr: false })
 
 // Props for the MarketplaceClient: receives an array of bibs to display 🛍️

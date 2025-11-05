@@ -1,28 +1,26 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-import * as React from 'react'
-
 import { valibotResolver } from '@hookform/resolvers/valibot'
+import type * as React from 'react'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import { updateEventAction } from '@/app/[locale]/admin/actions'
 import Translations from '@/app/[locale]/admin/locales.json'
-import { formatDateForHTMLInput } from '@/lib/utils/date'
-import { EventOption } from '@/models/eventOption.model'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
-import { Event } from '@/models/event.model'
-import { Locale } from '@/lib/i18n/config'
-
-import EventInformationSection from './EventInformationSection'
-import { EventCreationSchema, EventFormData } from './types'
-import EventDetailsSection from './EventDetailsSection'
-import EventOptionsSection from './EventOptionsSection'
+import { Separator } from '@/components/ui/separator'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { formatDateForHTMLInput } from '@/lib/utils/date'
+import type { Event } from '@/models/event.model'
+import type { EventOption } from '@/models/eventOption.model'
 import BibPickupSection from './BibPickupSection'
+import EventDetailsSection from './EventDetailsSection'
+import EventInformationSection from './EventInformationSection'
+import EventOptionsSection from './EventOptionsSection'
 import OrganizerSection from './OrganizerSection'
+import { EventCreationSchema, type EventFormData } from './types'
 
 export interface EventEditFormProps {
 	locale: Locale

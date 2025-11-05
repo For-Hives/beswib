@@ -1,26 +1,25 @@
 'use client'
 
-import React, { useState } from 'react'
-
-import { useRouter, useParams } from 'next/navigation'
 import { useSignUp } from '@clerk/nextjs'
-import { FieldError } from '@/types/auth'
 import Link from 'next/link'
-
-import {
-	validateEmailValibot,
-	validatePasswordValibot,
-	validateNameValibot,
-	validateVerificationCodeValibot,
-	validateConfirmPasswordValibot,
-} from '@/lib/validation/valibot'
-import { PasswordStrength } from '@/components/ui/PasswordStrength'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { FormInput } from '@/components/ui/FormInput'
+import { useParams, useRouter } from 'next/navigation'
+import type React from 'react'
+import { useState } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
 import { Button } from '@/components/ui/button'
+import { FormInput } from '@/components/ui/FormInput'
 import { Icons } from '@/components/ui/icons'
-import { Locale } from '@/lib/i18n/config'
+import { PasswordStrength } from '@/components/ui/PasswordStrength'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import {
+	validateConfirmPasswordValibot,
+	validateEmailValibot,
+	validateNameValibot,
+	validatePasswordValibot,
+	validateVerificationCodeValibot,
+} from '@/lib/validation/valibot'
+import type { FieldError } from '@/types/auth'
 
 export default function CustomSignUp() {
 	const { signUp, setActive, isLoaded } = useSignUp()

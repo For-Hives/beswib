@@ -1,9 +1,8 @@
 'use client'
 
-import { Canvas, useFrame, useThree, type RootState } from '@react-three/fiber'
-import { useEffect, useMemo, useRef, useState } from 'react'
-
+import { Canvas, type RootState, useFrame, useThree } from '@react-three/fiber'
 import { usePathname } from 'next/navigation'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 
 /**

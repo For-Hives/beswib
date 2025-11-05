@@ -3,12 +3,11 @@
 import { Calendar, List, MapPin, Plus, Search, ShoppingBag, ShoppingCart, Tag, Zap } from 'lucide-react'
 
 import Link from 'next/link'
-
-import type { User } from '@/models/user.model'
+import { Button } from '@/components/ui/button'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Button } from '@/components/ui/button'
+import type { User } from '@/models/user.model'
 
 interface DashboardClientProps {
 	clerkUser: SerializedClerkUser
@@ -26,7 +25,7 @@ interface SerializedClerkUser {
 }
 
 import UserHeader from '@/components/dashboard/user-header'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
 
 import dashboardTranslations from './locales.json'
 

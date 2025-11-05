@@ -1,6 +1,6 @@
-import { VerifiedEmail } from './verifiedEmail.model'
-import { Event } from './event.model'
-import { User } from './user.model'
+import type { Event } from './event.model'
+import type { User } from './user.model'
+import type { VerifiedEmail } from './verifiedEmail.model'
 
 export interface Bib {
 	id: string

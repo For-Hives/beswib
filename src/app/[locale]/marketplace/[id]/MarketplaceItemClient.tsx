@@ -1,17 +1,15 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-
-import type { Event as EventModel } from '@/models/event.model'
-import type { Organizer } from '@/models/organizer.model'
-import type { BibSale } from '@/models/marketplace.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
+import React, { useEffect, useState } from 'react'
 import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider'
+import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
 import TokenValidation from '@/components/marketplace/TokenValidation'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import type { Bib } from '@/models/bib.model'
+import type { Event as EventModel } from '@/models/event.model'
+import type { BibSale } from '@/models/marketplace.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
 
 interface MarketplaceItemClientProps {
 	bibId: string

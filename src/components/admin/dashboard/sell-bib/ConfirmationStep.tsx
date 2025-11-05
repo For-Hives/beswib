@@ -1,21 +1,19 @@
-import { Copy, ExternalLink, CheckCircle } from 'lucide-react'
+import { CheckCircle, Copy, ExternalLink } from 'lucide-react'
 
 import { toast } from 'sonner'
-
-import type { Organizer } from '@/models/organizer.model'
-import type { BibSale } from '@/models/marketplace.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
 import CardMarket from '@/components/marketplace/CardMarket'
-import { getOrganizerImageUrl } from '@/lib/utils/images'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/inputAlt'
-import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
+import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
+import { getOrganizerImageUrl } from '@/lib/utils/images'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { BibSale } from '@/models/marketplace.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
 
 interface ConfirmationStepProps {
 	createdBib: Bib | null
@@ -36,8 +34,8 @@ interface ConfirmationStepProps {
 import Link from 'next/link'
 
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 
 export default function ConfirmationStep({
 	user,

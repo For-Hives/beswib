@@ -1,18 +1,15 @@
 'use client'
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
-import React, { Fragment } from 'react'
-
 import Link from 'next/link'
-
-import type { BibSale } from '@/models/marketplace.model'
-import type { Event } from '@/models/event.model'
-import type { Locale } from '@/lib/i18n/config'
-
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import React, { Fragment } from 'react'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { formatDateWithLocale } from '@/lib/utils/date'
+import type { Event } from '@/models/event.model'
+import type { BibSale } from '@/models/marketplace.model'
 
 interface ContentTabsProps {
 	/** The bib sale data */

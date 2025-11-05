@@ -1,20 +1,19 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
-import { useState } from 'react'
-
 import { valibotResolver } from '@hookform/resolvers/valibot'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as v from 'valibot'
 
 import { createOrganizerAction } from '@/app/[locale]/admin/actions'
-import { FileUpload } from '@/components/ui/file-upload'
-import { Organizer } from '@/models/organizer.model'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import { FileUpload } from '@/components/ui/file-upload'
+import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import type { Organizer } from '@/models/organizer.model'
 
 import OrganizerFakerButton from './OrganizerFakerButton'
 
@@ -32,8 +31,10 @@ export interface OrganizerCreationFormProps {
 	onCancel?: () => void
 	onSuccess?: (organizer: Organizer) => void
 }
+
 import organizerCreateTranslations from '@/app/[locale]/admin/organizer/create/locales.json'
 import { getTranslations } from '@/lib/i18n/dictionary'
+
 type OrganizerFormData = v.InferOutput<typeof OrganizerCreationSchema>
 
 export default function OrganizerCreationForm({ onSuccess, onCancel, locale }: Readonly<OrganizerCreationFormProps>) {

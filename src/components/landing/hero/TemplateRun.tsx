@@ -1,7 +1,7 @@
 'use client'
 
-import { useThemeStore } from '@/hooks/useTheme'
 import Image from 'next/image'
+import { useThemeStore } from '@/hooks/useTheme'
 
 export default function TemplateRun() {
 	const { theme } = useThemeStore()

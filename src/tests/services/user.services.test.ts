@@ -1,13 +1,12 @@
-import { mockPocketbase, mockPocketbaseCollection } from '@/tests/mocks/pocketbase'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { mockPocketbase, mockPocketbaseCollection } from '@/tests/mocks/pocketbase'
 
 vi.mock('@/lib/services/pocketbase', () => ({
 	pb: mockPocketbase,
 }))
 
-import { mockUser } from '@/tests/mocks/data'
-
 import { createUser, fetchUserByClerkId, fetchUserById } from '@/services/user.services'
+import { mockUser } from '@/tests/mocks/data'
 
 describe('user.services', () => {
 	beforeEach(() => {

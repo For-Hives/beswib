@@ -1,6 +1,6 @@
 'use client'
 
-import { useRive, Layout, Fit, Alignment, RuntimeLoader } from '@rive-app/react-canvas'
+import { Alignment, Fit, Layout, RuntimeLoader, useRive } from '@rive-app/react-canvas'
 import { useEffect } from 'react'
 
 import type { Locale } from '@/lib/i18n/config'

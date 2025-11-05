@@ -1,7 +1,6 @@
 import { Column, Img, Link, Section, Text } from '@react-email/components'
-
-import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 export const Footer = ({ locale, baseUrl }: { baseUrl: string; locale: string }) => {
 	const t = getTranslations(locale, constantsLocales)

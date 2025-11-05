@@ -1,9 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 
 import waitlistTranslations from './locales.json'
 

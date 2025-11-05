@@ -1,18 +1,17 @@
-import { FieldError } from '@/types/auth'
 import * as v from 'valibot'
-
-import { validationTranslations } from '@/lib/i18n/translations/validation'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import mainLocales from '@/app/[locale]/locales.json'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { validationTranslations } from '@/lib/i18n/translations/validation'
+import type { FieldError } from '@/types/auth'
 
 import {
+	analyzePasswordStrength,
 	createEmailSchema,
+	createNameSchema,
 	createSignInPasswordSchema,
 	createSignUpPasswordSchema,
-	createNameSchema,
 	createVerificationCodeSchema,
-	analyzePasswordStrength,
 } from './schemas'
 
 // Email validation using Valibot

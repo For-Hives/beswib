@@ -1,14 +1,12 @@
 import { describe, expect, it } from 'vitest'
-
-import type { User } from '@/models/user.model'
-
 import {
-	isUserProfileComplete,
-	isSellerProfileComplete,
 	isPaypalMerchantComplete,
-	isSellerContactInfoComplete,
 	isSellerAddressComplete,
+	isSellerContactInfoComplete,
+	isSellerProfileComplete,
+	isUserProfileComplete,
 } from '@/lib/validation/user'
+import type { User } from '@/models/user.model'
 
 describe('isUserProfileComplete', () => {
 	const completeUser: User = {

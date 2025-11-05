@@ -1,19 +1,16 @@
 'use client'
 
 import { PayPalButtons } from '@paypal/react-paypal-js'
-import React from 'react'
-
 import Image from 'next/image'
-
-import type { BibSale } from '@/models/marketplace.model'
-import type { Event } from '@/models/event.model'
-import type { Locale } from '@/lib/i18n/config'
-
-import { SlidingPanel } from '@/components/ui/SlidingPanel'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { formatDateWithLocale } from '@/lib/utils/date'
+import React from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
+import { SlidingPanel } from '@/components/ui/SlidingPanel'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
+import { formatDateWithLocale } from '@/lib/utils/date'
+import type { Event } from '@/models/event.model'
+import type { BibSale } from '@/models/marketplace.model'
 
 interface PaymentPanelProps {
 	/** Whether the payment panel is open */

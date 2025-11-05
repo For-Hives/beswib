@@ -3,6 +3,8 @@
 import {
 	Calendar,
 	CheckCircle,
+	ChevronLeft,
+	ChevronRight,
 	Clock,
 	HelpCircle,
 	MapPinned,
@@ -11,20 +13,10 @@ import {
 	Tag,
 	Users,
 	X,
-	ChevronLeft,
-	ChevronRight,
 } from 'lucide-react'
-import { useState } from 'react'
-
 import Image from 'next/image'
 import Link from 'next/link'
-
-import type { Transaction } from '@/models/transaction.model'
-import type { Organizer } from '@/models/organizer.model'
-import type { Waitlist } from '@/models/waitlist.model'
-import type { Event } from '@/models/event.model'
-import type { Bib } from '@/models/bib.model'
-
+import { useState } from 'react'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -35,12 +27,17 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { getOrganizerImageUrl, getRandomBibPlaceholder } from '@/lib/utils/images'
-import { formatDateObjectForDisplay } from '@/lib/utils/date'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
-import { Locale } from '@/lib/i18n/config'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { formatDateObjectForDisplay } from '@/lib/utils/date'
+import { getOrganizerImageUrl, getRandomBibPlaceholder } from '@/lib/utils/images'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { Transaction } from '@/models/transaction.model'
+import type { Waitlist } from '@/models/waitlist.model'
 
 import buyerTranslations from './locales.json'
 

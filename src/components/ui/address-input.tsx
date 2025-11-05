@@ -1,13 +1,11 @@
 'use client'
 
-import { ChevronDown, MapPin, Check } from 'lucide-react'
+import { Check, ChevronDown, MapPin } from 'lucide-react'
 import { forwardRef, useEffect, useRef } from 'react'
-
-import { useAddressAutocomplete } from '@/hooks/useAddressAutocomplete'
-
-import { extractAddressComponents, formatAddressDisplay, type NominatimResult } from '@/lib/utils/nominatim'
 import { Input } from '@/components/ui/inputAlt'
+import { useAddressAutocomplete } from '@/hooks/useAddressAutocomplete'
 import { cn } from '@/lib/utils'
+import { extractAddressComponents, formatAddressDisplay, type NominatimResult } from '@/lib/utils/nominatim'
 
 interface AddressInputProps {
 	/** The current address value */

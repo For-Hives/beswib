@@ -1,20 +1,20 @@
 'use client'
 
 import {
-	ColumnDef,
-	ColumnFiltersState,
-	FilterFn,
+	type ColumnDef,
+	type ColumnFiltersState,
+	type FilterFn,
 	flexRender,
 	getCoreRowModel,
 	getFacetedUniqueValues,
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
-	PaginationState,
-	Row,
-	SortingState,
+	type PaginationState,
+	type Row,
+	type SortingState,
 	useReactTable,
-	VisibilityState,
+	type VisibilityState,
 } from '@tanstack/react-table'
 import {
 	Calendar,
@@ -34,15 +34,11 @@ import {
 	Search,
 	Trash2,
 } from 'lucide-react'
-import React, { useEffect, useId, useMemo, useRef, useState } from 'react'
-
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-import type { Event as AppEvent } from '@/models/event.model'
-import type { Organizer } from '@/models/organizer.model'
-import type { User } from '@/models/user.model'
-
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { deleteEventAction, getAllEventsAction } from '@/app/[locale]/admin/actions'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -54,6 +50,10 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -64,18 +64,16 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination'
-import { getAllEventsAction, deleteEventAction } from '@/app/[locale]/admin/actions'
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
-import { formatDateObjectForDisplay } from '@/lib/utils/date'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/inputAlt'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { Label } from '@/components/ui/label'
+import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { formatDateObjectForDisplay } from '@/lib/utils/date'
+import type { Event as AppEvent } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
 
 interface AdminEventsPageClientProps {
 	currentUser: null | User
@@ -189,7 +187,7 @@ const multiColumnFilterFn: FilterFn<AppEvent & { expand?: { organizer?: Organize
 import { toast } from 'sonner'
 
 import translations from '@/app/[locale]/admin/event/locales.json'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
 import { cn } from '@/lib/utils'
 
 export default function AdminEventsPageClient({ locale, currentUser }: AdminEventsPageClientProps) {

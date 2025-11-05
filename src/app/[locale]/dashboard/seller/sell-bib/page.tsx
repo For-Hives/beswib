@@ -1,12 +1,10 @@
-import type { Metadata } from 'next'
-
 import { auth } from '@clerk/nextjs/server'
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
-
+import type { LocaleParams } from '@/lib/generation/staticParams'
 import { generateAlternateLanguages } from '@/lib/seo/utils/seo-generators'
 import { fetchPartneredApprovedEvents } from '@/services/event.services'
 import { fetchUserByClerkId } from '@/services/user.services'
-import { LocaleParams } from '@/lib/generation/staticParams'
 
 import SellBibClient from './SellBibClient'
 

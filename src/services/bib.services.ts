@@ -1,15 +1,13 @@
 'use server'
 
 import { DateTime } from 'luxon'
-
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { isSellerProfileComplete } from '@/lib/validation/user'
-import { pbDateToLuxon } from '@/lib/utils/date'
 import { pb } from '@/lib/services/pocketbase'
+import { pbDateToLuxon } from '@/lib/utils/date'
+import { isSellerProfileComplete } from '@/lib/validation/user'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
 
 import { fetchUserById } from './user.services'
 
@@ -247,7 +245,7 @@ export async function isLocked(bibId: string, timekey: string = ''): Promise<'lo
 			return 'locked'
 		}
 		// si non verouiller, check si deja vendu
-		if (Boolean(bib.status === 'sold')) {
+		if (bib.status === 'sold') {
 			return 'locked'
 		}
 		return 'unlocked'
@@ -414,11 +412,12 @@ export async function fetchBibById(
 	try {
 		const record = await pb
 			.collection('bibs')
-			.getOne<
-				Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }
-			>(bibId, {
-				expand: 'eventId,sellerUserId,eventId.organizer',
-			})
+			.getOne<Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }>(
+				bibId,
+				{
+					expand: 'eventId,sellerUserId,eventId.organizer',
+				}
+			)
 
 		return record
 	} catch (error: unknown) {

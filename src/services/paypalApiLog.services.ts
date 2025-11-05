@@ -1,8 +1,7 @@
 'use server'
 
-import type { PayPalApiAction, PayPalApiLog } from '@/models/paypalApi.model'
-
 import { pb } from '@/lib/services/pocketbase'
+import type { PayPalApiAction, PayPalApiLog } from '@/models/paypalApi.model'
 
 // Keys that must never be persisted
 const SENSITIVE_KEYS = new Set([

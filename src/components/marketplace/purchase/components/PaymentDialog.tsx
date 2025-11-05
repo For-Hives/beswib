@@ -1,15 +1,10 @@
 'use client'
 
-import { CheckCircle, AlertCircle, XCircle } from 'lucide-react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
-import React from 'react'
-
+import { AlertCircle, CheckCircle, XCircle } from 'lucide-react'
 import Image from 'next/image'
-
-import type { BibSale } from '@/models/marketplace.model'
-import type { Event } from '@/models/event.model'
-import type { Locale } from '@/lib/i18n/config'
-
+import React from 'react'
+import mainLocales from '@/app/[locale]/locales.json'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -21,10 +16,12 @@ import {
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { formatDateWithLocale } from '@/lib/utils/date'
-import mainLocales from '@/app/[locale]/locales.json'
 import { cn } from '@/lib/utils'
+import { formatDateWithLocale } from '@/lib/utils/date'
+import type { Event } from '@/models/event.model'
+import type { BibSale } from '@/models/marketplace.model'
 
 interface PaymentDialogProps {
 	/** Whether the payment dialog is open */

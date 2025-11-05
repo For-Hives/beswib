@@ -1,10 +1,9 @@
 'use server'
 
 import { DateTime } from 'luxon'
-
-import { User, type PbUserRecordMinimal } from '@/models/user.model'
-import { pbDateToLuxon } from '@/lib/utils/date'
 import { pb } from '@/lib/services/pocketbase'
+import { pbDateToLuxon } from '@/lib/utils/date'
+import type { PbUserRecordMinimal, User } from '@/models/user.model'
 
 // Supported locales for validation
 const SUPPORTED_LOCALES = ['en', 'fr', 'ko', 'es', 'it', 'de', 'ro', 'pt', 'nl']

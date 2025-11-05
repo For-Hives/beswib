@@ -12,17 +12,15 @@ import {
 	TrendingUp,
 	Users,
 } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
-
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-import type { User } from '@/models/user.model'
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 import { getDashboardStatsAction } from '@/app/[locale]/admin/actions'
-import { type DashboardStats } from '@/models/dashboard.model'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import type { DashboardStats } from '@/models/dashboard.model'
+import type { User } from '@/models/user.model'
 
 interface AdminDashboardClientProps {
 	currentUser: null | User
@@ -30,8 +28,8 @@ interface AdminDashboardClientProps {
 }
 
 import translations from '@/app/[locale]/admin/locales.json'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 
 export default function AdminDashboardClient({ locale, currentUser }: Readonly<AdminDashboardClientProps>) {
 	const t = getTranslations(locale, translations)

@@ -4,14 +4,14 @@ import { render } from '@react-email/components'
 
 import { Resend } from 'resend'
 
-import { BeswibEmailVerification, BeswibWelcomeEmail, BeswibWaitlistConfirmation } from '@/components/emails'
-import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
+import { BeswibEmailVerification, BeswibWaitlistConfirmation, BeswibWelcomeEmail } from '@/components/emails'
+import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
 import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
+import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
+import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
 import BeswibWaitlistAlert from '@/components/emails/BeswibWaitlistAlert'
 import { getLocalizedEmailSubject } from '@/lib/utils/email-localization'
-import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
-import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
 import { getUserLocaleByEmail } from '@/services/user.services'
 
 function getResend(): Resend | null {

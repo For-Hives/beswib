@@ -4,15 +4,14 @@ import { Calendar, Edit3, MapPinned, Tag } from 'lucide-react'
 
 import Image from 'next/image'
 import Link from 'next/link'
-
-import type { Event } from '@/models/event.model'
 import type { Locale } from '@/lib/i18n/config'
-import type { Bib } from '@/models/bib.model'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { cn } from '@/lib/utils'
 
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { getBibImageUrl } from '@/lib/utils/images'
-import { cn } from '@/lib/utils'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
 
 import sellerTranslations from './locales.json'
 

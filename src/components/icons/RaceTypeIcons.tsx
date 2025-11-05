@@ -1,8 +1,6 @@
-import type { CourseType } from '@/types/course-types'
-
-import React from 'react'
-
+import type React from 'react'
 import { cn } from '@/lib/utils'
+import type { CourseType } from '@/types/course-types'
 
 interface IconProps {
 	className?: string

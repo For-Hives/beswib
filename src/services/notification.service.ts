@@ -5,15 +5,7 @@
 // Now also sends email notifications via Resend if configured
 
 import { Resend } from 'resend'
-
-import {
-	sendVerificationEmail as sendModernVerificationEmail,
-	sendWelcomeEmail as sendModernWelcomeEmail,
-	sendSaleConfirmationEmail,
-	sendPurchaseConfirmationEmail,
-	sendSaleAlertEmail,
-	sendLocalizedWaitlistAlertEmails,
-} from './email.service'
+import { contactFullText, contactSummaryText, saleAlertText } from '../constants/discord.constant'
 import {
 	renderContactMessageEmailHtml as renderContactMessageEmailHtmlUnsafe,
 	renderWelcomeEmailHtml as renderWelcomeEmailHtmlUnsafe,
@@ -23,8 +15,15 @@ import {
 	VERIFICATION_EMAIL_SUBJECT,
 	VERIFICATION_EMAIL_TEXT_TEMPLATE,
 } from '../constants/verifiedEmail.constant'
-import { contactSummaryText, contactFullText, saleAlertText } from '../constants/discord.constant'
 import { calculateTimeRemaining } from '../lib/utils/date'
+import {
+	sendLocalizedWaitlistAlertEmails,
+	sendVerificationEmail as sendModernVerificationEmail,
+	sendWelcomeEmail as sendModernWelcomeEmail,
+	sendPurchaseConfirmationEmail,
+	sendSaleAlertEmail,
+	sendSaleConfirmationEmail,
+} from './email.service'
 
 const renderContactMessageEmailHtml = (p: { name: string; email: string; message: string }): string =>
 	(renderContactMessageEmailHtmlUnsafe as unknown as (p: { name: string; email: string; message: string }) => string)(p)
