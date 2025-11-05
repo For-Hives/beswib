@@ -24,7 +24,7 @@ export function CTASection({ withGlow = true, locale, className }: CTAProps) {
 		<div className="px-4 xl:px-0">
 			<section
 				className={cn(
-					'via-primary/10 dark:from-background dark:via-primary/15 dark:to-background mx-auto my-12 max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-br from-white to-white pt-0 md:pt-0',
+					'via-primary/10 dark:from-background dark:via-primary/15 dark:to-background mx-auto my-12 max-w-7xl overflow-hidden rounded-3xl bg-linear-to-br from-white to-white pt-0 md:pt-0',
 					className
 				)}
 			>

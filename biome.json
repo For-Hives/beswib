@@ -29,8 +29,7 @@
 	},
 	"css": {
 		"parser": {
-			"tailwindDirectives": true,
-            "noUnknownAtRules": false
+			"tailwindDirectives": true
 		}
 	},
 	"linter": {
