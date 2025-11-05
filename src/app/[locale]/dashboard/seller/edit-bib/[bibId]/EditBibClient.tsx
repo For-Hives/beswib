@@ -232,8 +232,8 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 
 	if (bib == null && initialError == null) {
 		return (
-			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
-				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+			<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
+				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size:[24px_24px]"></div>
 				<div className="relative flex min-h-screen items-center justify-center">
 					<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 						<CardContent className="p-8 text-center">
@@ -254,8 +254,8 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 
 	if (initialError != null && bib == null) {
 		return (
-			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
-				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+			<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
+				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size:[24px_24px]"></div>
 				<div className="relative flex min-h-screen items-center justify-center">
 					<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 						<CardContent className="p-8 text-center">
@@ -276,8 +276,8 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 
 	if (bib == null) {
 		return (
-			<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
-				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+			<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
+				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size:[24px_24px]"></div>
 				<div className="relative flex min-h-screen items-center justify-center">
 					<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 						<CardContent className="p-8 text-center">
@@ -302,8 +302,8 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 	const canEdit = !isEditDisabled
 
 	return (
-		<div className="from-background via-primary/5 to-background relative min-h-screen bg-gradient-to-br">
-			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+		<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
+			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size:[24px_24px]"></div>
 
 			{/* Back Navigation */}
 			<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">

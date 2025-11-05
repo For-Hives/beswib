@@ -66,7 +66,7 @@ export default function EventImage({ locale, eventData, bib }: Readonly<EventIma
 
 	return (
 		<div className="relative">
-			<div className="from-green/20 via-emerald/20 to-teal/20 before:from-green before:via-emerald before:to-teal before:to-ring relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-gradient-to-br shadow-[inset_0_0_20px_hsl(var(--primary)/0.3),inset_0_0_40px_hsl(var(--accent)/0.2),0_0_30px_hsl(var(--primary)/0.4)] before:absolute before:inset-0 before:-z-10 before:m-[-1px] before:rounded-lg before:bg-gradient-to-br before:p-0.5">
+			<div className="from-green/20 via-emerald/20 to-teal/20 before:from-green before:via-emerald before:to-teal before:to-ring relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-linear-to-br shadow-[inset_0_0_20px_hsl(var(--primary)/0.3),inset_0_0_40px_hsl(var(--accent)/0.2),0_0_30px_hsl(var(--primary)/0.4)] before:absolute before:inset-0 before:-z-10 before:m-[-1px] before:rounded-lg before:bg-linear-to-br before:p-0.5">
 				<Image
 					src={bib.event.image}
 					alt={bib.event.name}
