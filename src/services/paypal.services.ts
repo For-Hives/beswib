@@ -336,7 +336,9 @@ export async function capturePayment(orderID: string): Promise<{
 		const token = await getAccessToken()
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
 
-		const response = await fetch(`${paypalApiUrl}/v2/checkout/orders/${orderID}/capture`, {
+		// Encode orderID for safe URL construction (defense in depth after validation)
+		const encodedOrderID = encodeURIComponent(orderID)
+		const response = await fetch(`${paypalApiUrl}/v2/checkout/orders/${encodedOrderID}/capture`, {
 			method: 'POST',
 			headers: {
 				'PayPal-Partner-Attribution-Id': PAYPAL_BN_CODE,
@@ -518,7 +520,9 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 		const token = await getAccessToken()
 
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
-		const response = await fetch(`${paypalApiUrl}/v2/customer/partner-referrals/${referralId}`, {
+		// Encode referralId for safe URL construction (defense in depth after validation)
+		const encodedReferralId = encodeURIComponent(referralId)
+		const response = await fetch(`${paypalApiUrl}/v2/customer/partner-referrals/${encodedReferralId}`, {
 			method: 'GET',
 			headers: {
 				'PayPal-Partner-Attribution-Id': PAYPAL_BN_CODE,
