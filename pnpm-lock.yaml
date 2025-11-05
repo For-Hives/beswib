@@ -18,8 +18,8 @@ importers:
         specifier: 6.34.3
         version: 6.34.3(next@15.5.6(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@clerk/themes':
-        specifier: 2.4.30
-        version: 2.4.30
+        specifier: 2.4.32
+        version: 2.4.32(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@faker-js/faker':
         specifier: 10.1.0
         version: 10.1.0
@@ -540,8 +540,8 @@ packages:
       react-dom:
         optional: true
 
-  '@clerk/themes@2.4.30':
-    resolution: {integrity: sha512-XSNlExycBCx5XrzTOuWXZouDCVceulZcoADYqTlhO9XC7NSmHZceRE894u6a0rYje5lkhfxrp0tfOQVXCD/s9w==}
+  '@clerk/themes@2.4.32':
+    resolution: {integrity: sha512-IWiV3r5C7HYQxVVR89SP/eEa/nhWxhMl4DXbuez3nWH43XOHw2uWb5xu4imBMPCoayf0yXDotYuY2CFdwuSwmg==}
     engines: {node: '>=18.17.0'}
 
   '@clerk/types@4.96.0':
@@ -6711,10 +6711,13 @@ snapshots:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
 
-  '@clerk/themes@2.4.30':
+  '@clerk/themes@2.4.32(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
-      '@clerk/types': 4.96.0
+      '@clerk/shared': 3.31.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       tslib: 2.8.1
+    transitivePeerDependencies:
+      - react
+      - react-dom
 
   '@clerk/types@4.96.0':
     dependencies:
