@@ -52,7 +52,7 @@ export function EmailLayout({ title, preheader, locale, children }: EmailLayoutP
 	const v = em(locale)
 	const year = new Date().getFullYear()
 	return (
-		<html>
+		<html lang={locale ?? 'en'}>
 			<body
 				style={{
 					padding: 0,

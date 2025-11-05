@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: for testing purposes we need to use any */
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { User } from '@/models/user.model'
 import { mockPocketbase, mockPocketbaseCollection } from '@/tests/mocks/pocketbase'
@@ -251,7 +252,6 @@ describe('waitlist.services', () => {
 		})
 
 		it('should return 0 if user is not provided', async () => {
-			// @biome-ignore lint/suspicious/noExplicitAny: for testing purposes we need to use any
 			const result = await linkEmailWaitlistsToUser('test@test.com', null as any)
 
 			expect(mockPocketbase.getFullList).not.toHaveBeenCalled()

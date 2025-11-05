@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any */
+/** biome-ignore-all lint/suspicious/noExplicitAny: <the usage is ok, we know that the variables are not used.> */
 import { Body, Container, Head, Heading, Html, Img, Preview, Section, Tailwind, Text } from '@react-email/components'
 import constantsLocales from '@/constants/locales.json'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -38,7 +38,6 @@ export const BeswibSaleAlert = ({
 	buyerEmail = 'jean@example.com',
 	bibPrice = 150,
 }: BeswibSaleAlertProps) => {
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 	const t = getTranslations(locale, constantsLocales) as any // Safe cast - will error at runtime if translation missing
 	const formatPrice = (price: number) => `${price.toFixed(2)}€`
 

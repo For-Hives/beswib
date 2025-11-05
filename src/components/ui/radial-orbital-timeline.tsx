@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/a11y/useSemanticElements: <that's normal, we are using a custom component !> */
 'use client'
 
 import Image from 'next/image'

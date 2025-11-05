@@ -1,6 +1,7 @@
 /**
  * Utility functions for handling cookies on the client side
  */
+/** biome-ignore-all lint/suspicious/noDocumentCookie: <we are doing that to handle cookies on the client side, for languages synchronization> */
 
 import { i18n, type Locale } from '../i18n/config'
 

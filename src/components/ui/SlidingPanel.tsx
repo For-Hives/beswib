@@ -107,6 +107,7 @@ export function SlidingPanel({
 						<div className="mb-6 flex items-center justify-between">
 							{Boolean(title) && <h2 className="text-foreground text-xl font-semibold">{title}</h2>}
 							<button
+								type="button"
 								aria-label="Close panel"
 								className="text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-full p-1 transition-colors"
 								onClick={onClose}
