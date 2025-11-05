@@ -291,6 +291,34 @@ function isValidPayPalOrderId(orderId: string): boolean {
 	return /^[0-9A-Z]{17}$|^ORDER-[A-Z0-9]{10,30}$/i.test(orderId)
 }
 
+/**
+ * Validates PayPal referral ID format to prevent SSRF attacks
+ * PayPal referral IDs are alphanumeric with hyphens, typically COLL-XXXXX or similar
+ */
+function isValidPayPalReferralId(referralId: string): boolean {
+	if (!referralId || typeof referralId !== 'string') {
+		return false
+	}
+
+	// PayPal referral IDs: alphanumeric with hyphens, 10-50 chars
+	// Prevents path traversal, URL injection, and other SSRF attempts
+	return /^[A-Z0-9-]{10,50}$/i.test(referralId)
+}
+
+/**
+ * Validates PayPal merchant ID format to prevent SSRF attacks
+ * PayPal merchant IDs are alphanumeric, typically 13+ chars
+ */
+function isValidPayPalMerchantId(merchantId: string): boolean {
+	if (!merchantId || typeof merchantId !== 'string') {
+		return false
+	}
+
+	// PayPal merchant IDs: alphanumeric, 10-50 chars
+	// Prevents path traversal, URL injection, and other SSRF attempts
+	return /^[A-Z0-9]{10,50}$/i.test(merchantId)
+}
+
 export async function capturePayment(orderID: string): Promise<{
 	data?: PayPalCaptureResponse
 	error?: string
@@ -478,6 +506,14 @@ export async function createOrder(
 }
 
 export async function getMerchantId(referralId: string): Promise<{ error?: string; merchant_id?: string }> {
+	// Validate referralId format to prevent SSRF attacks
+	if (!isValidPayPalReferralId(referralId)) {
+		console.error('Invalid PayPal referral ID format:', referralId)
+		return {
+			error: 'Invalid PayPal referral ID format',
+		}
+	}
+
 	try {
 		const token = await getAccessToken()
 
@@ -736,6 +772,12 @@ export async function getMerchantIntegrationStatus(
 > {
 	try {
 		if (!merchantId) return { error: 'Missing merchantId' }
+
+		// Validate merchantId format to prevent SSRF attacks
+		if (!isValidPayPalMerchantId(merchantId)) {
+			console.error('Invalid PayPal merchant ID format:', merchantId)
+			return { error: 'Invalid PayPal merchant ID format' }
+		}
 
 		const token = await getAccessToken()
 
