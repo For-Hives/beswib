@@ -21,6 +21,34 @@ function escapePocketBaseFilter(value: string): string {
 }
 
 /**
+ * Sanitizes values for safe logging to prevent log injection attacks.
+ * Removes ANSI escape sequences, control characters, and limits length.
+ */
+function sanitizeLogValue(value: string | null | undefined): string {
+	if (value == null || value === undefined) {
+		return '[null]'
+	}
+	if (typeof value !== 'string') {
+		return String(value)
+	}
+	
+	// Remove ANSI escape sequences, control characters, and normalize whitespace
+	const sanitized = value
+		.replace(/\x1b\[[0-9;]*m/g, '') // Remove ANSI color codes
+		.replace(/[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]/g, '') // Remove control chars except \n and \r
+		.replace(/[\r\n]/g, ' ') // Replace newlines with spaces
+		.trim()
+	
+	// Limit length to prevent log flooding
+	const maxLength = 100
+	if (sanitized.length > maxLength) {
+		return `${sanitized.slice(0, maxLength)}...`
+	}
+	
+	return sanitized
+}
+
+/**
  * Adds a user to the waitlist for a specific event.
  * Prevents duplicate entries.
  * @param eventId The ID of the event.
@@ -44,7 +72,7 @@ export async function addToWaitlist(
 	if (user == null && email != null) {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 		if (!emailRegex.test(email.trim())) {
-			console.error(`Invalid email format: ${email}`)
+			console.error(`Invalid email format: ${sanitizeLogValue(email)}`)
 			return null
 		}
 	}
@@ -58,7 +86,9 @@ export async function addToWaitlist(
 			if (existingUser != null) {
 				// Email belongs to an existing user, use the user instead of email-only subscription
 				actualUser = existingUser
-				console.info(`Email ${email} belongs to existing user ${existingUser.id}, linking to user account`)
+				console.info(
+					`Email ${sanitizeLogValue(email)} belongs to existing user ${sanitizeLogValue(existingUser.id)}, linking to user account`
+				)
 			}
 		} catch (error) {
 			console.error('Error checking for existing user by email:', error)
@@ -147,9 +177,12 @@ export async function addToWaitlist(
 				}
 			}
 		}
-		const userInfo = actualUser != null ? `user ${actualUser.id}` : `email ${email ?? 'unknown'}`
+		const userInfo =
+			actualUser != null
+				? `user ${sanitizeLogValue(actualUser.id)}`
+				: `email ${sanitizeLogValue(email ?? 'unknown')}`
 		throw new Error(
-			`Error adding ${userInfo} to waitlist for event ${eventId}: ` +
+			`Error adding ${userInfo} to waitlist for event ${sanitizeLogValue(eventId)}: ` +
 				(error instanceof Error ? error.message : String(error))
 		)
 	}
@@ -188,7 +221,7 @@ export async function fetchUserWaitlists(userId: string): Promise<(Waitlist & { 
 							},
 						}
 					} catch (error) {
-						console.error(`Failed to fetch event ${waitlist.event_id}:`, error)
+						console.error(`Failed to fetch event ${sanitizeLogValue(waitlist.event_id)}:`, error)
 						return waitlist
 					}
 				})
@@ -199,7 +232,7 @@ export async function fetchUserWaitlists(userId: string): Promise<(Waitlist & { 
 		return records
 	} catch (error: unknown) {
 		throw new Error(
-			`Error fetching waitlists for user ID "${userId}": ${error instanceof Error ? error.message : String(error)}`
+			`Error fetching waitlists for user ID "${sanitizeLogValue(userId)}": ${error instanceof Error ? error.message : String(error)}`
 		)
 	}
 }
@@ -288,7 +321,7 @@ export async function fetchWaitlistEmailsForEvent(eventId: string): Promise<stri
 		// Remove duplicates and return
 		return Array.from(new Set(emails))
 	} catch (error: unknown) {
-		console.error(`Error fetching waitlist emails for event "${eventId}":`, error)
+		console.error(`Error fetching waitlist emails for event "${sanitizeLogValue(eventId)}":`, error)
 		return []
 	}
 }
@@ -405,7 +438,7 @@ export async function linkEmailWaitlistsToUser(email: string, user: User): Promi
 		})
 
 		if (emailWaitlistEntries.length === 0) {
-			console.info(`No email-only waitlist entries found for ${email}`)
+			console.info(`No email-only waitlist entries found for ${sanitizeLogValue(email)}`)
 			return 0
 		}
 
@@ -420,14 +453,22 @@ export async function linkEmailWaitlistsToUser(email: string, user: User): Promi
 				})
 				linkedCount++
 			} catch (error) {
-				console.error(`Failed to link waitlist entry ${entry.id} to user ${user.id}:`, error)
+				console.error(
+					`Failed to link waitlist entry ${sanitizeLogValue(entry.id)} to user ${sanitizeLogValue(user.id)}:`,
+					error
+				)
 			}
 		}
 
-		console.info(`Successfully linked ${linkedCount} waitlist entries from email ${email} to user ${user.id}`)
+		console.info(
+			`Successfully linked ${linkedCount} waitlist entries from email ${sanitizeLogValue(email)} to user ${sanitizeLogValue(user.id)}`
+		)
 		return linkedCount
 	} catch (error: unknown) {
-		console.error(`Error linking email waitlist entries for ${email} to user ${user.id}:`, error)
+		console.error(
+			`Error linking email waitlist entries for ${sanitizeLogValue(email)} to user ${sanitizeLogValue(user.id)}:`,
+			error
+		)
 		return 0
 	}
 }
