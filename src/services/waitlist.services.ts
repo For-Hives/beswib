@@ -8,6 +8,19 @@ import { sendWaitlistConfirmationEmail } from '@/services/email.service'
 import { fetchUserByEmail } from '@/services/user.services'
 
 /**
+ * Escapes special characters in PocketBase filter queries to prevent injection attacks.
+ * PocketBase uses a custom filter syntax where double quotes delimit strings.
+ * This function escapes backslashes and double quotes to prevent query manipulation.
+ */
+function escapePocketBaseFilter(value: string): string {
+	if (!value || typeof value !== 'string') {
+		return ''
+	}
+	// Escape backslashes first (to prevent double-escape issues), then escape double quotes
+	return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+}
+
+/**
  * Adds a user to the waitlist for a specific event.
  * Prevents duplicate entries.
  * @param eventId The ID of the event.
@@ -59,10 +72,10 @@ export async function addToWaitlist(
 			let filterQuery = ''
 			if (actualUser != null) {
 				// Check for authenticated user or user found by email
-				filterQuery = `user_id = "${actualUser.id}" && event_id = "${eventId}"`
+				filterQuery = `user_id = "${escapePocketBaseFilter(actualUser.id)}" && event_id = "${escapePocketBaseFilter(eventId)}"`
 			} else if (email != null) {
 				// Check for email-only subscription (only if no user was found for this email)
-				filterQuery = `email = "${email.trim()}" && event_id = "${eventId}"`
+				filterQuery = `email = "${escapePocketBaseFilter(email.trim())}" && event_id = "${escapePocketBaseFilter(eventId)}"`
 			}
 
 			if (filterQuery !== '') {
@@ -156,7 +169,7 @@ export async function fetchUserWaitlists(userId: string): Promise<(Waitlist & { 
 		// Try to fetch with explicit expansion, only active waitlists (mail_notification: true)
 		const records = await pb.collection('waitlists').getFullList<Waitlist & { expand?: { event_id: Event } }>({
 			sort: '-added_at',
-			filter: `user_id = "${userId}" && mail_notification = true`,
+			filter: `user_id = "${escapePocketBaseFilter(userId)}" && mail_notification = true`,
 			expand: 'event_id',
 		})
 
@@ -208,7 +221,7 @@ export async function fetchWaitlistEmailsWithLocalesForEvent(
 	try {
 		// Fetch all waitlist entries for the event with user expansion
 		const waitlistEntries = await pb.collection('waitlists').getFullList<Waitlist & { expand?: { user_id?: User } }>({
-			filter: `event_id = "${eventId}" && mail_notification = true`,
+			filter: `event_id = "${escapePocketBaseFilter(eventId)}" && mail_notification = true`,
 			expand: 'user_id',
 		})
 
@@ -256,7 +269,7 @@ export async function fetchWaitlistEmailsForEvent(eventId: string): Promise<stri
 	try {
 		// Fetch all waitlist entries for the event with user expansion
 		const waitlistEntries = await pb.collection('waitlists').getFullList<Waitlist & { expand?: { user_id?: User } }>({
-			filter: `event_id = "${eventId}" && mail_notification = true`,
+			filter: `event_id = "${escapePocketBaseFilter(eventId)}" && mail_notification = true`,
 			expand: 'user_id',
 		})
 
@@ -301,9 +314,9 @@ export async function disableWaitlistNotifications(
 	try {
 		let filterQuery = ''
 		if (user != null) {
-			filterQuery = `user_id = "${user.id}" && event_id = "${eventId}"`
+			filterQuery = `user_id = "${escapePocketBaseFilter(user.id)}" && event_id = "${escapePocketBaseFilter(eventId)}"`
 		} else if (email != null) {
-			filterQuery = `email = "${email.trim()}" && event_id = "${eventId}"`
+			filterQuery = `email = "${escapePocketBaseFilter(email.trim())}" && event_id = "${escapePocketBaseFilter(eventId)}"`
 		}
 
 		if (filterQuery === '') {
@@ -345,9 +358,9 @@ export async function removeFromWaitlist(eventId: string, user: null | User, ema
 	try {
 		let filterQuery = ''
 		if (user != null) {
-			filterQuery = `user_id = "${user.id}" && event_id = "${eventId}"`
+			filterQuery = `user_id = "${escapePocketBaseFilter(user.id)}" && event_id = "${escapePocketBaseFilter(eventId)}"`
 		} else if (email != null) {
-			filterQuery = `email = "${email.trim()}" && event_id = "${eventId}"`
+			filterQuery = `email = "${escapePocketBaseFilter(email.trim())}" && event_id = "${escapePocketBaseFilter(eventId)}"`
 		}
 
 		if (filterQuery === '') {
@@ -388,7 +401,7 @@ export async function linkEmailWaitlistsToUser(email: string, user: User): Promi
 	try {
 		// Find all email-only waitlist entries for this email
 		const emailWaitlistEntries = await pb.collection('waitlists').getFullList<Waitlist>({
-			filter: `email = "${email.trim()}" && user_id = null`,
+			filter: `email = "${escapePocketBaseFilter(email.trim())}" && user_id = null`,
 		})
 
 		if (emailWaitlistEntries.length === 0) {
@@ -440,9 +453,9 @@ export async function enableWaitlistNotifications(
 	try {
 		let filterQuery = ''
 		if (user != null) {
-			filterQuery = `user_id = "${user.id}" && event_id = "${eventId}"`
+			filterQuery = `user_id = "${escapePocketBaseFilter(user.id)}" && event_id = "${escapePocketBaseFilter(eventId)}"`
 		} else if (email != null) {
-			filterQuery = `email = "${email.trim()}" && event_id = "${eventId}"`
+			filterQuery = `email = "${escapePocketBaseFilter(email.trim())}" && event_id = "${escapePocketBaseFilter(eventId)}"`
 		}
 
 		if (filterQuery === '') {
