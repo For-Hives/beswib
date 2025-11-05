@@ -1,15 +1,13 @@
 'use client'
 
-import { Calendar, MapPinned, ShoppingCart, User, Eye } from 'lucide-react'
-
+import clsx from 'clsx'
+import { Calendar, Eye, MapPinned, ShoppingCart, User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import clsx from 'clsx'
-
-import type { BibSale } from '@/models/marketplace.model'
+import { cn } from '@/lib/utils'
 
 import { formatDateWithLocale } from '@/lib/utils/date'
-import { cn } from '@/lib/utils'
+import type { BibSale } from '@/models/marketplace.model'
 
 interface CardMarketProps {
 	bibSale: BibSale
@@ -17,11 +15,11 @@ interface CardMarketProps {
 	/** Optional event data for official price comparison */
 	eventData?: Event
 }
-import type { Event } from '@/models/event.model'
 
 import marketplaceTranslations from '@/components/marketplace/locales.json'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
+import type { Event } from '@/models/event.model'
 
 export default function CardMarket({ locale, eventData, bibSale }: Readonly<CardMarketProps>) {
 	const translations = getTranslations(locale, marketplaceTranslations)

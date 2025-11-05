@@ -1,11 +1,10 @@
 import { Plus, Trash2 } from 'lucide-react'
-
-import { EventOption } from '@/models/eventOption.model'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Input } from '@/components/ui/inputAlt'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { EventOption } from '@/models/eventOption.model'
 
 interface EventOptionCardProps {
 	locale: Locale

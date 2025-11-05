@@ -3,14 +3,12 @@
 import { Eye } from 'lucide-react'
 
 import Link from 'next/link'
-
-import type { Locale } from '@/lib/i18n/config'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
 import eventTranslations from '@/app/[locale]/events/[id]/locales.json'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
+import type { Bib } from '@/models/bib.model'
+import type { User } from '@/models/user.model'
 
 interface CardEventBibProps {
 	bib: Bib & { expand?: { sellerUserId?: User } }

@@ -1,7 +1,7 @@
 'use client'
 
-import { UseFormSetValue } from 'react-hook-form'
 import { useEffect, useState } from 'react'
+import type { UseFormSetValue } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
 

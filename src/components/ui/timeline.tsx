@@ -1,7 +1,8 @@
 'use client'
 
-import { useScroll, useTransform, motion, useSpring, useMotionValue, type MotionValue } from 'motion/react'
-import React, { useEffect, useRef, useState } from 'react'
+import { type MotionValue, motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react'
+import type React from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface TimelineEntry {
 	title: string

@@ -1,6 +1,5 @@
-import type { Locale } from '@/lib/i18n/config'
-
 import { CURRENCY_API_URL } from '@/constants/api.constant'
+import type { Locale } from '@/lib/i18n/config'
 
 /**
  * Currency mapping for each locale

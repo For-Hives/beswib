@@ -1,13 +1,12 @@
 'use client'
 
-import { ReactNode } from 'react'
-
-import { useParams } from 'next/navigation'
 import Link from 'next/link'
 
-import { getTranslations } from '@/lib/i18n/dictionary'
+import { useParams } from 'next/navigation'
+import type { ReactNode } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import MountainShader from './MountainShader'
 

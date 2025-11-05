@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
-
-import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
-import { generateFAQMetadata } from '@/lib/seo/metadata-generators'
 import BesWibCTA from '@/components/landing/cta/CTASection'
 import FAQ from '@/components/landing/faq/FAQ'
+import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
+import { generateFAQMetadata } from '@/lib/seo/metadata-generators'
 
 export default function FAQPage({ params }: { params: Promise<LocaleParams> }) {
 	// Locale will be used when components are updated for i18n

@@ -1,11 +1,9 @@
-import type { Metadata } from 'next'
-
 import { currentUser } from '@clerk/nextjs/server'
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
-
-import { fetchUserByClerkId } from '@/services/user.services'
-import { LocaleParams } from '@/lib/generation/staticParams'
+import type { LocaleParams } from '@/lib/generation/staticParams'
 import { generateProfileMetadata } from '@/lib/seo'
+import { fetchUserByClerkId } from '@/services/user.services'
 
 import ProfileClient from './ProfileClient'
 

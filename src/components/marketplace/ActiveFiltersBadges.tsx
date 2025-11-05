@@ -4,9 +4,9 @@ import { X } from 'lucide-react'
 import React from 'react'
 
 import marketplaceTranslations from '@/components/marketplace/locales.json'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { Badge } from '@/components/ui/badge'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 interface ActiveFiltersBadgesProps {
 	readonly filters: {

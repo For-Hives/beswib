@@ -1,29 +1,25 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
-
-import { useRouter } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
-import { useQueryState } from 'nuqs'
 import { DateTime } from 'luxon'
+import { useRouter } from 'next/navigation'
+import { useQueryState } from 'nuqs'
+import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
-
-import type { User as AppUser } from '@/models/user.model'
-import type { Organizer } from '@/models/organizer.model'
-import type { BibSale } from '@/models/marketplace.model'
-import type { Event } from '@/models/event.model'
-import type { Bib } from '@/models/bib.model'
-
+import { captureOrder, createSale } from '@/app/[locale]/purchase/actions'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
-import { createSale, captureOrder } from '@/app/[locale]/purchase/actions'
-import { isUserProfileComplete } from '@/lib/validation/user'
-import { isLocked, lockBib } from '@/services/bib.services'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
-
-// Import sub-components
-import { EventImage, EventDetails, PriceDisplay, ActionButtons, ContentTabs } from './components'
+import { isUserProfileComplete } from '@/lib/validation/user'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { BibSale } from '@/models/marketplace.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User as AppUser } from '@/models/user.model'
+import { isLocked, lockBib } from '@/services/bib.services'
 import { EventWaitlistCard } from '../EventWaitlistCard'
+// Import sub-components
+import { ActionButtons, ContentTabs, EventDetails, EventImage, PriceDisplay } from './components'
 import PaymentDialog from './components/PaymentDialog'
 import { LockTimer } from './LockTimer'
 

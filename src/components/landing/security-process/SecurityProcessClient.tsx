@@ -3,8 +3,8 @@
 import { CheckCircle, FileCheck, Handshake, RefreshCcw, Shield } from 'lucide-react'
 
 import RadialOrbitalTimeline from '@/components/ui/radial-orbital-timeline'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
 
 import translations from './locales.json'
 

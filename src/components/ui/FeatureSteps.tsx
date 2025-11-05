@@ -1,9 +1,8 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 

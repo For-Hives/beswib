@@ -1,4 +1,4 @@
-import { PAYPAL_PERCENTAGE_FEE, PAYPAL_FIXED_FEE } from '@/constants/fees.constant'
+import { PAYPAL_FIXED_FEE, PAYPAL_PERCENTAGE_FEE } from '@/constants/fees.constant'
 import { PLATFORM_FEE } from '@/constants/global.constant'
 
 /**

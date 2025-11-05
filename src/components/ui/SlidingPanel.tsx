@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
-
 import { AnimatePresence, motion } from 'framer-motion'
+import type React from 'react'
+import { useEffect, useRef } from 'react'
 
 import { cn } from '@/lib/utils'
 

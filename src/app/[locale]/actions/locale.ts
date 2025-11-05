@@ -3,8 +3,8 @@
 import { auth } from '@clerk/nextjs/server'
 
 import { updateUserLocale } from '@/app/[locale]/profile/actions'
-import { fetchUserByClerkId } from '@/services/user.services'
 import { i18n, type Locale } from '@/lib/i18n/config'
+import { fetchUserByClerkId } from '@/services/user.services'
 
 function isValidLocale(locale: string): locale is Locale {
 	return i18n.locales.includes(locale as Locale)

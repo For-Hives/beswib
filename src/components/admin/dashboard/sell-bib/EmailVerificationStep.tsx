@@ -1,20 +1,18 @@
 import { CheckIcon, MailIcon, PlusIcon } from 'lucide-react'
 import React, { useState } from 'react'
-
-import type { VerifiedEmail } from '@/models/verifiedEmail.model'
-import type { User } from '@/models/user.model'
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { validateEmailValibot, validateVerificationCodeValibot } from '@/lib/validation/valibot'
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Input } from '@/components/ui/inputAlt'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { Locale } from '@/lib/i18n/config'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/inputAlt'
+import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { validateEmailValibot, validateVerificationCodeValibot } from '@/lib/validation/valibot'
+import type { User } from '@/models/user.model'
+import type { VerifiedEmail } from '@/models/verifiedEmail.model'
 
 interface EmailVerificationStepProps {
 	user: User

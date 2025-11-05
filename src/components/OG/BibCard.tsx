@@ -1,17 +1,15 @@
 import * as React from 'react'
-
+import marketplaceTranslations from '@/app/[locale]/marketplace/locales.json'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { getCurrencyForLocale } from '@/lib/utils/currency'
+import { formatDateWithLocale } from '@/lib/utils/date'
+import { getOrganizerImageUrl } from '@/lib/utils/images'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
 import type { BibSale } from '@/models/marketplace.model'
 import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
-import type { Locale } from '@/lib/i18n/config'
-import type { Bib } from '@/models/bib.model'
-
-import marketplaceTranslations from '@/app/[locale]/marketplace/locales.json'
-import { getCurrencyForLocale } from '@/lib/utils/currency'
-import { getOrganizerImageUrl } from '@/lib/utils/images'
-import { formatDateWithLocale } from '@/lib/utils/date'
-import { getTranslations } from '@/lib/i18n/dictionary'
 
 // Flexible type that works with both BibSale and actual service response
 type BibData = BibSale | (Bib & { expand?: { eventId: Event; sellerUserId: User } })

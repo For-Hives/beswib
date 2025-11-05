@@ -1,6 +1,6 @@
+import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
 
 export const mockUser: User = {
 	updated: new Date('2024-01-01T00:00:00.000Z'),

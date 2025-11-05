@@ -1,5 +1,5 @@
-import type { BibSale } from '@/models/marketplace.model'
-
+import CardMarket from '@/components/marketplace/CardMarket'
+import type { Locale } from '@/lib/i18n/config'
 import {
 	generatePricing,
 	getBibColorsDistributed,
@@ -8,8 +8,7 @@ import {
 	getRandomParticipantCount,
 	// generateFakeBibSales // Uncomment to use fully random data
 } from '@/lib/utils'
-import CardMarket from '@/components/marketplace/CardMarket'
-import { Locale } from '@/lib/i18n/config'
+import type { BibSale } from '@/models/marketplace.model'
 
 // Get distributed colors for our 5 examples to ensure each bib has a different color 🎨
 const bibColors = getBibColorsDistributed(5)

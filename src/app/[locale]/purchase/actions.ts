@@ -2,13 +2,12 @@
 
 import { auth } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
-
-import { getTransactionByOrderId, createTransaction } from '@/services/transaction.services'
-import { fetchPublicBibById, isLocked } from '@/services/bib.services'
-import { fetchUserByClerkId } from '@/services/user.services'
-import { capturePayment } from '@/services/paypal.services'
 import { PLATFORM_FEE } from '@/constants/global.constant'
+import { fetchPublicBibById, isLocked } from '@/services/bib.services'
+import { capturePayment } from '@/services/paypal.services'
 import { salesCreate } from '@/services/sales.services'
+import { createTransaction, getTransactionByOrderId } from '@/services/transaction.services'
+import { fetchUserByClerkId } from '@/services/user.services'
 
 export async function handlePaymentPageOpened(paymentIntentId: string, bibId: string) {
 	const { userId } = await auth()

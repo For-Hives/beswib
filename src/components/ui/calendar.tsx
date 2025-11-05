@@ -1,14 +1,12 @@
 'use client'
 
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-import { DayButton, DayPicker, getDefaultClassNames } from 'react-day-picker'
-import { useEffect } from 'react'
 import * as React from 'react'
-
-import type { Event } from '@/models/event.model'
-
+import { useEffect } from 'react'
+import { type DayButton, DayPicker, getDefaultClassNames } from 'react-day-picker'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import type { Event } from '@/models/event.model'
 
 type ChevronProps = React.SVGProps<SVGSVGElement> & {
 	className?: string

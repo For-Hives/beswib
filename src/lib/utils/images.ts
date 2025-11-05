@@ -2,9 +2,8 @@
  * Utility functions for handling images with fallbacks
  */
 
-import type { Organizer } from '@/models/organizer.model'
-
 import { pb } from '@/lib/services/pocketbase'
+import type { Organizer } from '@/models/organizer.model'
 
 // Available placeholder bib images
 const BIB_PLACEHOLDERS = [

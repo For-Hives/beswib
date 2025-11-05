@@ -1,7 +1,7 @@
-import type { Organizer } from './organizer.model'
-import type { Event } from './event.model'
-import type { User } from './user.model'
 import type { Bib } from './bib.model'
+import type { Event } from './event.model'
+import type { Organizer } from './organizer.model'
+import type { User } from './user.model'
 
 export interface Transaction {
 	id: string

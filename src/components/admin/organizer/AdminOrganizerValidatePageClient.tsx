@@ -1,17 +1,15 @@
 'use client'
 
 import { Building, CheckCircle, Clock, Eye, Users, XCircle } from 'lucide-react'
-import { useEffect, useState } from 'react'
-
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { fetchAllOrganizers } from '@/services/organizer.services'
-import { Organizer } from '@/models/organizer.model'
-import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { User } from '@/models/user.model'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
+import { fetchAllOrganizers } from '@/services/organizer.services'
 
 interface AdminOrganizerValidatePageClientProps {
 	currentUser: null | User
@@ -24,9 +22,9 @@ interface ValidationStats {
 }
 
 import organizerTranslations from '@/app/[locale]/admin/organizer/locales.json'
-import { formatDateObjectForDisplay } from '@/lib/utils/date'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Locale } from '@/lib/i18n/config'
+import { formatDateObjectForDisplay } from '@/lib/utils/date'
 export default function AdminOrganizerValidatePageClient({
 	locale,
 	currentUser,

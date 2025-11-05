@@ -1,13 +1,8 @@
 'use client'
 import { CircleCheckBig, ExternalLink, RefreshCw, Unlink, XCircle } from 'lucide-react'
-import { Suspense } from 'react'
-import React from 'react'
-
-import { usePayPalMerchantStatus } from '@/hooks/usePayPalMerchantStatus'
-import { usePayPalOnboarding } from '@/hooks/usePayPalOnboarding'
-import { usePayPalDisconnect } from '@/hooks/usePayPalDisconnect'
-import { useUser } from '@/hooks/useUser'
-
+import React, { Suspense } from 'react'
+import profileTranslations from '@/app/[locale]/profile/locales.json'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -18,14 +13,16 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import profileTranslations from '@/app/[locale]/profile/locales.json'
-import { Alert, AlertDescription } from '@/components/ui/alert'
+import { usePayPalDisconnect } from '@/hooks/usePayPalDisconnect'
+import { usePayPalMerchantStatus } from '@/hooks/usePayPalMerchantStatus'
+import { usePayPalOnboarding } from '@/hooks/usePayPalOnboarding'
+import { useUser } from '@/hooks/useUser'
+import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Locale } from '@/lib/i18n/config'
 
 import PayPalOnboardingSkeleton from './PayPalOnboardingSkeleton'
 

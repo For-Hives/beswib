@@ -1,15 +1,14 @@
 'use client'
 
-import React, { useEffect, useMemo, useState } from 'react'
-import { Check, ChevronsUpDown, X } from 'lucide-react'
-
 import Fuse from 'fuse.js'
-
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
-import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Check, ChevronsUpDown, X } from 'lucide-react'
+import type React from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Badge } from '@/components/ui/badgeAlt'
 import { Button } from '@/components/ui/button'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { cn } from '@/lib/utils'
 
 import locales from './locales.json'

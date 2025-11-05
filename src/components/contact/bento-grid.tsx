@@ -1,14 +1,13 @@
 'use client'
 
 import { ArrowRight, Handshake, Mail, MessageCircle, Users } from 'lucide-react'
-import { useState, Suspense } from 'react'
 import { motion } from 'motion/react'
 import type React from 'react'
-
-import { FacebookIcon, InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/utils/social'
-import globalTranslations from '@/components/global/locales.json'
+import { Suspense, useState } from 'react'
+import type globalTranslations from '@/components/global/locales.json'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { FacebookIcon, InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/utils/social'
 
 type BentoCardProps = Readonly<{
 	className?: string

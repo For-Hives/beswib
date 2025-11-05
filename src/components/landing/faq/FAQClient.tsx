@@ -1,15 +1,14 @@
 'use client'
 
-import { PhoneCall, ExternalLink, Calculator } from 'lucide-react'
+import { Calculator, ExternalLink, PhoneCall } from 'lucide-react'
 
 import Link from 'next/link'
-
-import { PLATFORM_FEE_PERCENTAGE, PAYPAL_PERCENTAGE_FEE, PAYPAL_FIXED_FEE } from '@/constants/fees.constant'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Locale } from '@/lib/i18n/config'
+import { Button } from '@/components/ui/button'
+import { PAYPAL_FIXED_FEE, PAYPAL_PERCENTAGE_FEE, PLATFORM_FEE_PERCENTAGE } from '@/constants/fees.constant'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import Translations from './locales.json'
 

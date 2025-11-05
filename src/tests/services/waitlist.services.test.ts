@@ -1,7 +1,6 @@
-import { mockPocketbase, mockPocketbaseCollection } from '@/tests/mocks/pocketbase'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-
 import type { User } from '@/models/user.model'
+import { mockPocketbase, mockPocketbaseCollection } from '@/tests/mocks/pocketbase'
 
 vi.mock('@/lib/services/pocketbase', () => ({
 	pb: mockPocketbase,

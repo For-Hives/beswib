@@ -1,20 +1,18 @@
 import type { Metadata } from 'next'
 
 import { Suspense } from 'react'
-
-import type { BibSale } from '@/models/marketplace.model'
+import MarketplaceClient from '@/components/marketplace/MarketplaceClient'
+import { generateLocaleParams } from '@/lib/generation/staticParams'
 import type { Locale } from '@/lib/i18n/config'
-
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { generateMarketplaceMetadata } from '@/lib/seo/metadata-generators'
+import { transformBibsToBibSales } from '@/lib/transformers/bib'
+import type { BibSale } from '@/models/marketplace.model'
 import {
 	fetchAvailableBibsForMarketplace,
 	unlockExpiredBibs,
 	updateExpiredBibsToWithdrawn,
 } from '@/services/bib.services'
-import { generateMarketplaceMetadata } from '@/lib/seo/metadata-generators'
-import MarketplaceClient from '@/components/marketplace/MarketplaceClient'
-import { generateLocaleParams } from '@/lib/generation/staticParams'
-import { transformBibsToBibSales } from '@/lib/transformers/bib'
-import { getTranslations } from '@/lib/i18n/dictionary'
 
 import marketplaceTranslations from './locales.json'
 

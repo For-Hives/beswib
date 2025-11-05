@@ -8,13 +8,12 @@ import {
 	Link,
 	Preview,
 	Section,
-	Text,
 	Tailwind,
+	Text,
 } from '@react-email/components'
 import type * as React from 'react'
-
-import { getTranslations } from '@/lib/i18n/dictionary'
 import constantsLocales from '@/constants/locales.json'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import { Footer } from './Footer'
 

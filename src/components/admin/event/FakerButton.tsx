@@ -1,14 +1,14 @@
 'use client'
 
-import { UseFormSetValue } from 'react-hook-form'
 import { useEffect, useState } from 'react'
+import type { UseFormSetValue } from 'react-hook-form'
 
 import { getAllOrganizersAction } from '@/app/[locale]/admin/actions'
-import { EventOption } from '@/models/eventOption.model'
-import { Organizer } from '@/models/organizer.model'
 import { Button } from '@/components/ui/button'
+import type { EventOption } from '@/models/eventOption.model'
+import type { Organizer } from '@/models/organizer.model'
 
-import { EventFormData } from './types'
+import type { EventFormData } from './types'
 
 interface FakerButtonProps {
 	setEventOptions?: (options: EventOption[]) => void

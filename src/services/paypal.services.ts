@@ -1,5 +1,7 @@
 'use server'
 
+import { PLATFORM_FEE } from '@/constants/global.constant'
+import type { BibSale } from '@/models/marketplace.model'
 import type {
 	PayPalAccessToken,
 	PayPalCaptureResponse,
@@ -10,12 +12,8 @@ import type {
 	PayPalWebhook,
 	PayPalWebhookEvent,
 } from '@/models/paypal.model'
-import type { BibSale } from '@/models/marketplace.model'
-
-import { PLATFORM_FEE } from '@/constants/global.constant'
-
-import { getTransactionByOrderId, updateTransaction } from './transaction.services'
 import { logPayPalApi } from './paypalApiLog.services'
+import { getTransactionByOrderId, updateTransaction } from './transaction.services'
 
 const PAYPAL_MERCHANT_ID = () => process.env.PAYPAL_MERCHANT_ID ?? ''
 

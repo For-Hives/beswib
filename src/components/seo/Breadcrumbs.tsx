@@ -1,7 +1,6 @@
 import { ChevronRight, Home } from 'lucide-react'
-import { Fragment } from 'react'
-
 import Link from 'next/link'
+import { Fragment } from 'react'
 
 import type { Locale } from '@/lib/i18n/config'
 

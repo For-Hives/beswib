@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Mock dependencies used by sales.services
 vi.mock('@/services/paypal.services', () => ({
@@ -18,15 +18,14 @@ vi.mock('@/services/user.services', () => ({
 	fetchUserByClerkId: vi.fn(),
 }))
 
+import type { Bib } from '@/models/bib.model'
 import type { Transaction } from '@/models/transaction.model'
 import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { createTransaction, updateTransaction, getTransactionByOrderId } from '@/services/transaction.services'
-import { salesCreate, salesComplete } from '@/services/sales.services'
 import { fetchBibById, updateBib } from '@/services/bib.services'
-import { fetchUserByClerkId } from '@/services/user.services'
 import { createOrder } from '@/services/paypal.services'
+import { salesComplete, salesCreate } from '@/services/sales.services'
+import { createTransaction, getTransactionByOrderId, updateTransaction } from '@/services/transaction.services'
+import { fetchUserByClerkId } from '@/services/user.services'
 
 type MockedFn<T> = T & { mockResolvedValue: (value: unknown) => void }
 const asMock = <T>(fn: T) => fn as unknown as MockedFn<T>

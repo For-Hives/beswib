@@ -1,7 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from 'lucide-react'
-import * as React from 'react'
+import type * as React from 'react'
 
-import { Button, buttonVariants } from '@/components/ui/button'
+import { type Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 type PaginationLinkProps = Pick<React.ComponentProps<typeof Button>, 'size'> &

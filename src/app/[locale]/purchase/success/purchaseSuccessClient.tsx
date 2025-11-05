@@ -1,15 +1,14 @@
 'use client'
-import { CheckCircle, Package, ArrowRight } from 'lucide-react'
-import React, { useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
+import { ArrowRight, CheckCircle, Package } from 'lucide-react'
 
 import { useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
-
-import { Confetti, ConfettiRef } from '@/components/ui/confetti'
-import { Card, CardContent } from '@/components/ui/card'
-import { getTranslations } from '@/lib/i18n/dictionary'
+import React, { useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
-import { Locale } from '@/lib/i18n/config'
+import { Card, CardContent } from '@/components/ui/card'
+import { Confetti, type ConfettiRef } from '@/components/ui/confetti'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import translations from './locales.json'
 

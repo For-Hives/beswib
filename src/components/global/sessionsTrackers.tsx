@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
-
 import { useUser } from '@clerk/nextjs'
+import { useEffect } from 'react'
 
 import { umamiIdentify } from '@/lib/utils/umami'
 

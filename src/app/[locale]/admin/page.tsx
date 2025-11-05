@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
-
-import { checkAdminAccess } from '@/guard/adminGuard'
 import { redirect } from 'next/navigation'
-
 import AdminDashboardClient from '@/components/admin/dashboard/AdminDashboardClient'
-import { generateLocaleParams, LocaleParams } from '@/lib/generation/staticParams'
+import { checkAdminAccess } from '@/guard/adminGuard'
+import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { generateAdminMetadata } from '@/lib/seo'
 
 // Generate static params for all locales

@@ -1,15 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server'
-
+import { type NextRequest, NextResponse } from 'next/server'
+import { verifyPayPalWebhookSignature } from '@/lib/services/paypal'
 import type { PayPalWebhookEvent } from '@/models/paypal.model'
-
 import {
 	handleCheckoutOrderApproved,
-	handleOnboardingCompleted,
-	handleSellerConsentGranted,
 	handleConsentRevoked,
+	handleOnboardingCompleted,
 	handlePaymentCaptureCompleted,
+	handleSellerConsentGranted,
 } from '@/services/paypal.services'
-import { verifyPayPalWebhookSignature } from '@/lib/services/paypal'
 
 // Handle GET requests for webhook verification (PayPal may send GET requests to verify the endpoint)
 export function GET() {

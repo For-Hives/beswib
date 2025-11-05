@@ -1,12 +1,11 @@
 'use server'
 
-import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { dateToPbDateString } from '@/lib/utils/date'
 import { pb } from '@/lib/services/pocketbase'
+import { dateToPbDateString } from '@/lib/utils/date'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { Organizer } from '@/models/organizer.model'
+import type { User } from '@/models/user.model'
 
 /**
  * Creates a new event. This function is intended for use by organizers.

@@ -2,9 +2,8 @@
 
 import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
 import * as React from 'react'
-
-import { getDateFormatPattern } from '@/lib/utils/date'
 import { cn } from '@/lib/utils'
+import { getDateFormatPattern } from '@/lib/utils/date'
 
 export interface DateInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	locale?: string

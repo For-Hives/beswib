@@ -1,14 +1,12 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
-
-import { useRouter } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
 
-import type { Locale } from '@/lib/i18n/config'
-
-import { getAuthoritativeLocale, synchronizeLocale, isSupportedLocale } from '@/lib/utils/cookies'
+import { useRouter } from 'next/navigation'
+import { useCallback, useEffect, useState } from 'react'
 import { updateUserLocalePreference } from '@/app/[locale]/actions/locale'
+import type { Locale } from '@/lib/i18n/config'
+import { getAuthoritativeLocale, isSupportedLocale, synchronizeLocale } from '@/lib/utils/cookies'
 
 /**
  * Custom hook for managing locale state with localStorage and cookie synchronization

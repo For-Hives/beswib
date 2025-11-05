@@ -3,19 +3,17 @@
 import { List, Plus, Search, Tag, Users } from 'lucide-react'
 
 import Link from 'next/link'
-
-import type { Transaction } from '@/models/transaction.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
-import type { Bib } from '@/models/bib.model'
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import BibCategoryTabs from '@/components/dashboard/seller/BibCategoryTabs'
-import { getTranslations } from '@/lib/i18n/dictionary'
+import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
 import { Button } from '@/components/ui/button'
-import { Locale } from '@/lib/i18n/config'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { Bib } from '@/models/bib.model'
+import type { Event } from '@/models/event.model'
+import type { Transaction } from '@/models/transaction.model'
+import type { User } from '@/models/user.model'
 
 import sellerTranslations from './locales.json'
 

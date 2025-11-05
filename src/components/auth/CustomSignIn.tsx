@@ -1,18 +1,16 @@
 'use client'
 
-import { useState } from 'react'
-
-import { useRouter, useParams } from 'next/navigation'
 import { useSignIn } from '@clerk/nextjs'
 import Link from 'next/link'
-
-import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation/valibot'
-import { getTranslations } from '@/lib/i18n/dictionary'
-import { FormInput } from '@/components/ui/FormInput'
+import { useParams, useRouter } from 'next/navigation'
+import { useState } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
 import { Button } from '@/components/ui/button'
+import { FormInput } from '@/components/ui/FormInput'
 import { Icons } from '@/components/ui/icons'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation/valibot'
 
 interface FieldError {
 	message: string

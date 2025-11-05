@@ -1,14 +1,12 @@
 'use client'
 
 import React from 'react'
-
+import marketplaceTranslations from '@/components/marketplace/locales.json'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { Event } from '@/models/event.model'
 import type { BibSale } from '@/models/marketplace.model'
 import type { Organizer } from '@/models/organizer.model'
-import type { Event } from '@/models/event.model'
-import type { Locale } from '@/lib/i18n/config'
-
-import marketplaceTranslations from '@/components/marketplace/locales.json'
-import { getTranslations } from '@/lib/i18n/dictionary'
 
 interface EventDetailsProps {
 	/** The bib sale data containing event information */

@@ -1,12 +1,11 @@
 'use server'
 
-import type { Waitlist } from '@/models/waitlist.model'
+import { pb } from '@/lib/services/pocketbase'
 import type { Event } from '@/models/event.model'
 import type { User } from '@/models/user.model'
-
+import type { Waitlist } from '@/models/waitlist.model'
 import { sendWaitlistConfirmationEmail } from '@/services/email.service'
 import { fetchUserByEmail } from '@/services/user.services'
-import { pb } from '@/lib/services/pocketbase'
 
 /**
  * Adds a user to the waitlist for a specific event.

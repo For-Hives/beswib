@@ -1,21 +1,18 @@
 import * as React from 'react'
-
-import type { BibSale } from '@/models/marketplace.model'
-import type { Event } from '@/models/event.model'
-import type { User } from '@/models/user.model'
+import computeFontSizeAndRender from '@/components/OG/computeFontSize'
 import type { Locale } from '@/lib/i18n/config'
 import type { Bib } from '@/models/bib.model'
-
-import computeFontSizeAndRender from '@/components/OG/computeFontSize'
+import type { Event } from '@/models/event.model'
+import type { BibSale } from '@/models/marketplace.model'
+import type { User } from '@/models/user.model'
 
 // Flexible type that works with both BibSale and actual service response
 type BibData = BibSale | (Bib & { expand?: { eventId: Event; sellerUserId: User } }) | null
 
-import { Organizer } from '@/models/organizer.model'
-
+import type { Organizer } from '@/models/organizer.model'
+import BibCard from './BibCard'
 import BeswibLogo from './icons/BeswibLogo'
 import Pattern from './icons/Pattern'
-import BibCard from './BibCard'
 
 // Function to split the text into lines and apply a special color to words between **
 function formatTextWithColor(text: string, highlightColor = '#4C639A') {

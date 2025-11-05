@@ -1,10 +1,10 @@
 import Translations from '@/app/[locale]/admin/locales.json'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { DateInput } from '@/components/ui/date-input'
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
-import { EventSectionProps } from './types'
+import type { EventSectionProps } from './types'
 
 export default function EventDetailsSection({ register, locale, errors }: Readonly<EventSectionProps>) {
 	const translations = getTranslations(locale, Translations)

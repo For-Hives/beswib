@@ -1,13 +1,11 @@
-import type { Metadata } from 'next'
-
 import { currentUser } from '@clerk/nextjs/server'
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
-
-import { fetchBibsBySeller, updateExpiredBibsToWithdrawn } from '@/services/bib.services'
+import type { LocaleParams } from '@/lib/generation/staticParams'
 import { generateAlternateLanguages } from '@/lib/seo/utils/seo-generators'
+import { fetchBibsBySeller, updateExpiredBibsToWithdrawn } from '@/services/bib.services'
 import { fetchSellerTransactions } from '@/services/transaction.services'
 import { fetchUserByClerkId } from '@/services/user.services'
-import { LocaleParams } from '@/lib/generation/staticParams'
 
 import SellerDashboardClient from './SellerDashboardClient'
 

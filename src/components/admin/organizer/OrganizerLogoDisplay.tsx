@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 import { getOrganizerImageUrl } from '@/lib/utils/images'
-import { Organizer } from '@/models/organizer.model'
+import type { Organizer } from '@/models/organizer.model'
 
 interface OrganizerLogoDisplayProps {
 	className?: string

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import landingTranslations from '@/app/[locale]/locales.json'
-import { LocaleParams } from '@/lib/generation/staticParams'
+import type { LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
 import { AnimatedLife } from './AnimatedLife'

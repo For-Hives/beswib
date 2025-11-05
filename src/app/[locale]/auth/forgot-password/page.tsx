@@ -1,17 +1,15 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-
-import { useParams, useRouter } from 'next/navigation'
 import { useAuth, useSignIn } from '@clerk/nextjs'
 import Link from 'next/link'
-
-import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
-import { getTranslations } from '@/lib/i18n/dictionary'
+import { useParams, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
-import { Input } from '@/components/ui/inputAlt'
+import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
 import { Button } from '@/components/ui/button'
-import { Locale } from '@/lib/i18n/config'
+import { Input } from '@/components/ui/inputAlt'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 export default function ForgotPasswordPage() {
 	const [email, setEmail] = useState('')

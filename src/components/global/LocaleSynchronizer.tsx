@@ -1,11 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
-
 import { useUser } from '@clerk/nextjs'
-
-import { getAuthoritativeLocale, synchronizeLocale, isSupportedLocale } from '@/lib/utils/cookies'
+import { useEffect } from 'react'
 import { syncUserLocaleFromCookie } from '@/app/[locale]/actions/locale'
+import { getAuthoritativeLocale, isSupportedLocale, synchronizeLocale } from '@/lib/utils/cookies'
 
 /**
  * Component that automatically synchronizes user locale from localStorage/cookie to database

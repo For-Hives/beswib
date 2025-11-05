@@ -1,10 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { Badge } from '@/components/ui/badge'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
 import Translations from './locales.json'
 

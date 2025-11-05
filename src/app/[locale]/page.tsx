@@ -1,12 +1,11 @@
 import type { Metadata } from 'next'
-
-import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
-import SecurityProcess from '@/components/landing/security-process/SecurityProcess'
-import JourneyTabs from '@/components/landing/journey-tabs/JourneyTabs'
-import HeroAlternative from '@/components/landing/hero/HeroAlternative'
-import { generateHomeMetadata } from '@/lib/seo/metadata-generators'
-import FeaturesBento from '@/components/landing/features/Features'
 import BesWibCTA from '@/components/landing/cta/CTASection'
+import FeaturesBento from '@/components/landing/features/Features'
+import HeroAlternative from '@/components/landing/hero/HeroAlternative'
+import JourneyTabs from '@/components/landing/journey-tabs/JourneyTabs'
+import SecurityProcess from '@/components/landing/security-process/SecurityProcess'
+import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
+import { generateHomeMetadata } from '@/lib/seo/metadata-generators'
 
 // Generate static params for all locales 🌍
 export function generateStaticParams() {

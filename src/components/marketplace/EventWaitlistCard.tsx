@@ -1,19 +1,16 @@
 'use client'
 
-import { Mail, Bell, User, CheckCircle2 } from 'lucide-react'
-import { useState, useTransition } from 'react'
-
 import { useAuth } from '@clerk/nextjs'
+import { Bell, CheckCircle2, Mail, User } from 'lucide-react'
+import { useState, useTransition } from 'react'
 import { toast } from 'sonner'
-
-import type { User as UserModel } from '@/models/user.model'
-
-import { addToWaitlist } from '@/services/waitlist.services'
-import { getTranslations } from '@/lib/i18n/dictionary'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Locale } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import type { User as UserModel } from '@/models/user.model'
+import { addToWaitlist } from '@/services/waitlist.services'
 
 import eventWaitlistTranslations from './locales/EventWaitlistCard.locales.json'
 
