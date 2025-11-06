@@ -98,7 +98,7 @@
 		"zustand": "5.0.8"
 	},
 	"devDependencies": {
-		"@clerk/types": "4.97.1",
+		"@clerk/types": "4.97.2",
 		"@tailwindcss/postcss": "4.1.16",
 		"@types/node": "24.10.0",
 		"@types/react": "19.2.2",
