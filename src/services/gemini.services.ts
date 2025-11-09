@@ -1,7 +1,7 @@
 'use server'
 
-import { generateText } from 'ai'
 import { createGoogleGenerativeAI } from '@ai-sdk/google'
+import { generateText } from 'ai'
 
 /**
  * Gemini AI service for generating SEO content using Google's Gemini Flash
@@ -103,18 +103,22 @@ Do not include any markdown formatting, code blocks, or additional text. Just th
 		})
 
 		// Parse the JSON response
-		const cleanedText = text.trim().replace(/^```json\s*/, '').replace(/\s*```$/, '').trim()
+		const cleanedText = text
+			.trim()
+			.replace(/^```json\s*/, '')
+			.replace(/\s*```$/, '')
+			.trim()
 		const result = JSON.parse(cleanedText) as SEOResult
 
 		// Validate lengths
 		if (result.seoTitle.length > 60) {
 			console.warn('Generated SEO title exceeds 60 characters, truncating...')
-			result.seoTitle = result.seoTitle.substring(0, 57) + '...'
+			result.seoTitle = `${result.seoTitle.substring(0, 57)} ...`
 		}
 
 		if (result.seoDescription.length > 160) {
 			console.warn('Generated SEO description exceeds 160 characters, truncating...')
-			result.seoDescription = result.seoDescription.substring(0, 157) + '...'
+			result.seoDescription = `${result.seoDescription.substring(0, 157)} ...`
 		}
 
 		console.info('Successfully generated SEO content with Gemini Flash')

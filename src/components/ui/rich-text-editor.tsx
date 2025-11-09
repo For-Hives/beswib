@@ -99,7 +99,7 @@ export function RichTextEditor({
 				},
 			},
 		},
-		[],
+		[]
 	)
 
 	// Sync content changes
@@ -182,7 +182,7 @@ export function RichTextEditor({
 
 				// Convert to base64
 				const reader = new FileReader()
-				reader.onload = (readerEvent) => {
+				reader.onload = readerEvent => {
 					const base64 = readerEvent.target?.result as string
 					if (base64) {
 						editor.chain().focus().setImage({ src: base64 }).run()
@@ -268,7 +268,10 @@ export function RichTextEditor({
 						variant="ghost"
 						size="sm"
 						onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-						className={cn('h-8 w-8 p-0', editor.isActive('heading', { level: 1 }) && 'bg-accent text-accent-foreground')}
+						className={cn(
+							'h-8 w-8 p-0',
+							editor.isActive('heading', { level: 1 }) && 'bg-accent text-accent-foreground'
+						)}
 						title="Heading 1"
 					>
 						<Heading1 className="h-4 w-4" />
@@ -278,7 +281,10 @@ export function RichTextEditor({
 						variant="ghost"
 						size="sm"
 						onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-						className={cn('h-8 w-8 p-0', editor.isActive('heading', { level: 2 }) && 'bg-accent text-accent-foreground')}
+						className={cn(
+							'h-8 w-8 p-0',
+							editor.isActive('heading', { level: 2 }) && 'bg-accent text-accent-foreground'
+						)}
 						title="Heading 2"
 					>
 						<Heading2 className="h-4 w-4" />
@@ -288,7 +294,10 @@ export function RichTextEditor({
 						variant="ghost"
 						size="sm"
 						onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-						className={cn('h-8 w-8 p-0', editor.isActive('heading', { level: 3 }) && 'bg-accent text-accent-foreground')}
+						className={cn(
+							'h-8 w-8 p-0',
+							editor.isActive('heading', { level: 3 }) && 'bg-accent text-accent-foreground'
+						)}
 						title="Heading 3"
 					>
 						<Heading3 className="h-4 w-4" />
@@ -350,7 +359,10 @@ export function RichTextEditor({
 						variant="ghost"
 						size="sm"
 						onClick={() => editor.chain().focus().setTextAlign('center').run()}
-						className={cn('h-8 w-8 p-0', editor.isActive({ textAlign: 'center' }) && 'bg-accent text-accent-foreground')}
+						className={cn(
+							'h-8 w-8 p-0',
+							editor.isActive({ textAlign: 'center' }) && 'bg-accent text-accent-foreground'
+						)}
 						title="Align Center"
 					>
 						<AlignCenter className="h-4 w-4" />
@@ -381,14 +393,7 @@ export function RichTextEditor({
 					>
 						<Link2 className="h-4 w-4" />
 					</Button>
-					<Button
-						type="button"
-						variant="ghost"
-						size="sm"
-						onClick={addImage}
-						className="h-8 w-8 p-0"
-						title="Add Image"
-					>
+					<Button type="button" variant="ghost" size="sm" onClick={addImage} className="h-8 w-8 p-0" title="Add Image">
 						<ImageIcon className="h-4 w-4" />
 					</Button>
 				</div>

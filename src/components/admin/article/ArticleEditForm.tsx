@@ -65,10 +65,6 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 		},
 	})
 
-	// Watch values for button states to avoid infinite re-renders
-	const imageFileValue = form.watch('imageFile')
-	const titleValue = form.watch('title')
-
 	const handleFileUploadWithValidation = (files: File[]) => {
 		if (files.length === 0) {
 			form.setValue('imageFile', undefined)
@@ -93,7 +89,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	}
 
 	const handleGenerateAltText = async () => {
-		const imageFile = form.watch('imageFile')
+		const imageFile = form.getValues('imageFile')
 
 		if (!imageFile || !(imageFile instanceof File)) {
 			toast.error('Please upload an image first')
@@ -104,7 +100,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 		try {
 			const formData = new FormData()
 			formData.append('image', imageFile)
-			formData.append('language', form.watch('locale') || 'fr')
+			formData.append('language', form.getValues('locale') || 'fr')
 
 			const result = await generateAltTextAction(formData)
 
@@ -123,10 +119,10 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	}
 
 	const handleGenerateSEO = async () => {
-		const title = form.watch('title')
-		const description = form.watch('description')
-		const extract = form.watch('extract')
-		const articleLocale = form.watch('locale')
+		const title = form.getValues('title')
+		const description = form.getValues('description')
+		const extract = form.getValues('extract')
+		const articleLocale = form.getValues('locale')
 
 		if (!title) {
 			toast.error('Please enter an article title first')
@@ -334,7 +330,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 												type="button"
 												variant="outline"
 												onClick={handleGenerateAltText}
-												disabled={isGeneratingAlt || !imageFileValue}
+												disabled={isGeneratingAlt || !form.getValues('imageFile')}
 												className="shrink-0"
 											>
 												<Sparkles className="mr-2 h-4 w-4" />
@@ -390,7 +386,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 									type="button"
 									variant="outline"
 									onClick={handleGenerateSEO}
-									disabled={isGeneratingSEO || !titleValue}
+									disabled={isGeneratingSEO || !form.getValues('title')}
 									className="w-full sm:w-auto"
 								>
 									<Sparkles className="mr-2 h-4 w-4" />
