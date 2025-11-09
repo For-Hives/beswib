@@ -3,7 +3,7 @@
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as v from 'valibot'
 
@@ -82,6 +82,8 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 	const localeValue = watch('locale')
 	const seoTitleValue = watch('seoTitle')
 	const seoDescriptionValue = watch('seoDescription')
+	const imageFileValue = watch('imageFile')
+	const titleValue = watch('title')
 
 	const handleFileUploadWithValidation = (files: File[]) => {
 		if (files.length === 0) {
@@ -413,7 +415,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 											type="button"
 											variant="outline"
 											onClick={handleGenerateAltText}
-											disabled={isGeneratingAlt || !watch('imageFile')}
+											disabled={isGeneratingAlt || !imageFileValue}
 											className="shrink-0"
 										>
 											<Sparkles className="mr-2 h-4 w-4" />
@@ -445,7 +447,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 										type="button"
 										variant="outline"
 										onClick={handleGenerateSEO}
-										disabled={isGeneratingSEO || !watch('title')}
+										disabled={isGeneratingSEO || !titleValue}
 										className="w-full sm:w-auto"
 									>
 										<Sparkles className="mr-2 h-4 w-4" />
