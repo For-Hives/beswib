@@ -1,12 +1,12 @@
 'use client'
 
 import { valibotResolver } from '@hookform/resolvers/valibot'
+import { Sparkles } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as v from 'valibot'
-
 import { generateAltTextAction, generateSEOAction, updateArticleAction } from '@/app/[locale]/admin/article/actions'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -14,17 +14,10 @@ import { FileUpload } from '@/components/ui/file-upload'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { RichTextEditor } from '@/components/ui/rich-text-editor'
-import { Sparkles } from 'lucide-react'
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import { i18n, localeFlags, localeNames, type Locale } from '@/lib/i18n/config'
+import { i18n, type Locale, localeFlags, localeNames } from '@/lib/i18n/config'
 import type { Article } from '@/models/article.model'
 
 const articleFormSchema = v.object({
@@ -71,6 +64,10 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 			seoDescription: '',
 		},
 	})
+
+	// Watch values for button states to avoid infinite re-renders
+	const imageFileValue = form.watch('imageFile')
+	const titleValue = form.watch('title')
 
 	const handleFileUploadWithValidation = (files: File[]) => {
 		if (files.length === 0) {
@@ -259,7 +256,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												{i18n.locales.map((loc) => (
+												{i18n.locales.map(loc => (
 													<SelectItem key={loc} value={loc}>
 														<span className="flex items-center gap-2">
 															<span>{localeFlags[loc]}</span>
@@ -337,14 +334,16 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 												type="button"
 												variant="outline"
 												onClick={handleGenerateAltText}
-												disabled={isGeneratingAlt || !form.watch('imageFile')}
+												disabled={isGeneratingAlt || !imageFileValue}
 												className="shrink-0"
 											>
 												<Sparkles className="mr-2 h-4 w-4" />
 												{isGeneratingAlt ? 'Generating...' : 'Generate AI'}
 											</Button>
 										</div>
-										<FormDescription>Alternative text for accessibility and SEO (AI-generated with Forvoyez)</FormDescription>
+										<FormDescription>
+											Alternative text for accessibility and SEO (AI-generated with Forvoyez)
+										</FormDescription>
 										<FormMessage />
 									</FormItem>
 								)}
@@ -391,7 +390,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 									type="button"
 									variant="outline"
 									onClick={handleGenerateSEO}
-									disabled={isGeneratingSEO || !form.watch('title')}
+									disabled={isGeneratingSEO || !titleValue}
 									className="w-full sm:w-auto"
 								>
 									<Sparkles className="mr-2 h-4 w-4" />
