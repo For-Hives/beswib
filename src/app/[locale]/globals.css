@@ -449,6 +449,11 @@
 	}
 }
 
+a,
+button {
+	cursor: pointer;
+}
+
 * {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
