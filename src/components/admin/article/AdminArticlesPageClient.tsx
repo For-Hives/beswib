@@ -174,7 +174,7 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 	const id = useId()
 	const inputRef = useRef<HTMLInputElement>(null)
 
-	const [articles, setArticles] = useState<Article[]>([])
+	const [articles, setArticles] = useState<Array<Article & { translationCount?: number }>>([])
 	const [stats, setStats] = useState<ArticlesStats | null>(null)
 
 	// Table state
