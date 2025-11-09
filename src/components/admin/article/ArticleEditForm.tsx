@@ -48,8 +48,18 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [isGeneratingAlt, setIsGeneratingAlt] = useState(false)
 	const [isGeneratingSEO, setIsGeneratingSEO] = useState(false)
+	const [content, setContent] = useState(article.content || '')
+	const [localeState, setLocaleState] = useState<string>(article.locale || 'fr')
+	const [seoTitle, setSeoTitle] = useState('')
+	const [seoDescription, setSeoDescription] = useState('')
 
-	const form = useForm<ArticleFormValues>({
+	const {
+		setValue,
+		register,
+		handleSubmit,
+		getValues,
+		formState: { errors, dirtyFields },
+	} = useForm<ArticleFormValues>({
 		resolver: valibotResolver(articleFormSchema),
 		defaultValues: {
 			title: article.title,
@@ -66,7 +76,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 
 	const handleFileUploadWithValidation = (files: File[]) => {
 		if (files.length === 0) {
-			form.setValue('imageFile', undefined)
+			setValue('imageFile', undefined)
 			return
 		}
 
@@ -84,11 +94,11 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 			return
 		}
 
-		form.setValue('imageFile', file)
+		setValue('imageFile', file)
 	}
 
 	const handleGenerateAltText = async () => {
-		const imageFile = form.getValues('imageFile')
+		const imageFile = getValues('imageFile')
 
 		if (!imageFile || !(imageFile instanceof File)) {
 			toast.error('Please upload an image first')
@@ -99,12 +109,12 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 		try {
 			const formData = new FormData()
 			formData.append('image', imageFile)
-			formData.append('language', form.getValues('locale') || 'fr')
+			formData.append('language', getValues('locale') || 'fr')
 
 			const result = await generateAltTextAction(formData)
 
 			if (result.success && result.altText) {
-				form.setValue('imageAlt', result.altText, { shouldValidate: true })
+				setValue('imageAlt', result.altText, { shouldValidate: true })
 				toast.success('Alt text generated successfully!')
 			} else {
 				toast.error(result.error || 'Failed to generate alt text')
@@ -118,10 +128,9 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	}
 
 	const handleGenerateSEO = async () => {
-		const title = form.getValues('title')
-		const description = form.getValues('description')
-		const extract = form.getValues('extract')
-		const articleLocale = form.getValues('locale')
+		const title = getValues('title')
+		const description = getValues('description')
+		const extract = getValues('extract')
 
 		if (!title) {
 			toast.error('Please enter an article title first')
@@ -134,13 +143,15 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 			formData.append('title', title)
 			if (description) formData.append('description', description)
 			if (extract) formData.append('extract', extract)
-			formData.append('locale', articleLocale || 'fr')
+			formData.append('locale', getValues('locale') || 'fr')
 
 			const result = await generateSEOAction(formData)
 
 			if (result.success && result.seoTitle && result.seoDescription) {
-				form.setValue('seoTitle', result.seoTitle, { shouldValidate: true })
-				form.setValue('seoDescription', result.seoDescription, { shouldValidate: true })
+				setSeoTitle(result.seoTitle)
+				setSeoDescription(result.seoDescription)
+				setValue('seoTitle', result.seoTitle, { shouldValidate: true })
+				setValue('seoDescription', result.seoDescription, { shouldValidate: true })
 				toast.success('SEO content generated successfully!')
 			} else {
 				toast.error(result.error || 'Failed to generate SEO content')
@@ -158,7 +169,6 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 		try {
 			// Create FormData for file upload
 			const formData = new FormData()
-			formData.append('articleId', article.id)
 			formData.append('title', data.title)
 			formData.append('slug', data.slug)
 			formData.append('locale', data.locale)
@@ -178,6 +188,9 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 			if (data.seoDescription) {
 				formData.append('seoDescription', data.seoDescription)
 			}
+			if (article.translationGroup) {
+				formData.append('translationGroup', article.translationGroup)
+			}
 
 			const result = await updateArticleAction(article.id, formData)
 
@@ -192,6 +205,21 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 			toast.error('An unexpected error occurred')
 		} finally {
 			setIsSubmitting(false)
+		}
+	}
+
+	// Auto-generate slug from title
+	const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value
+		setValue('title', value, { shouldValidate: true })
+		if (!dirtyFields.slug) {
+			const slug = value
+				.toLowerCase()
+				.replace(/[^a-z0-9\s-]/g, '')
+				.replace(/\s+/g, '-')
+				.replace(/-+/g, '-')
+				.trim()
+			setValue('slug', slug)
 		}
 	}
 
@@ -212,270 +240,324 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	}
 
 	return (
-		<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
-			<CardHeader>
-				<CardTitle className="text-2xl">Edit Article</CardTitle>
-				<CardDescription>Update your blog article</CardDescription>
-			</CardHeader>
-			<CardContent>
-				{/* Translation Tabs */}
-				{article.translationGroup && (
-					<div className="mb-6">
-						<ArticleTranslationTabs
-							translationGroup={article.translationGroup}
-							currentLocale={article.locale}
-							onLocaleChange={handleLocaleChange}
-						/>
+		<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br pt-24">
+			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size:[24px_24px]" />
+			<div className="relative flex items-center justify-center p-6 md:p-10">
+				<form
+					className="dark:border-border/50 bg-card/80 relative w-full max-w-7xl rounded-3xl border border-black/50 p-8 shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md md:p-12"
+					// eslint-disable-next-line @typescript-eslint/no-misused-promises
+					onSubmit={handleSubmit(onSubmit)}
+				>
+					<div className="mb-12 text-left">
+						<h1 className="text-foreground text-4xl font-bold tracking-tight md:text-5xl">Edit Article</h1>
+						<p className="text-muted-foreground mt-4 text-lg">Update your blog article</p>
 					</div>
-				)}
 
-				<Form {...form}>
-					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-						{/* Basic Information */}
-						<div className="space-y-6">
-							<h3 className="text-lg font-semibold">Basic Information</h3>
+					{/* Translation Tabs */}
+					<ArticleTranslationTabs
+						translationGroup={article.translationGroup}
+						currentLocale={article.locale}
+						onLocaleChange={handleLocaleChange}
+					/>
 
-							<FormField
-								control={form.control}
-								name="title"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Title</FormLabel>
-										<FormControl>
-											<Input placeholder="Enter article title" {...field} />
-										</FormControl>
-										<FormDescription>The main title of your article</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
-							<FormField
-								control={form.control}
-								name="slug"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Slug</FormLabel>
-										<FormControl>
-											<Input placeholder="article-slug" {...field} />
-										</FormControl>
-										<FormDescription>URL-friendly version of the title (lowercase, hyphens only)</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
-							<FormField
-								control={form.control}
-								name="locale"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Language</FormLabel>
-										<Select onValueChange={field.onChange} defaultValue={field.value}>
-											<FormControl>
-												<SelectTrigger>
-													<SelectValue placeholder="Select language" />
-												</SelectTrigger>
-											</FormControl>
-											<SelectContent>
-												{i18n.locales.map(loc => (
-													<SelectItem key={loc} value={loc}>
-														<span className="flex items-center gap-2">
-															<span>{localeFlags[loc]}</span>
-															<span>{localeNames[loc]}</span>
-														</span>
-													</SelectItem>
-												))}
-											</SelectContent>
-										</Select>
-										<FormDescription>The language for this article</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
-							<FormField
-								control={form.control}
-								name="description"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Description</FormLabel>
-										<FormControl>
-											<Textarea placeholder="Enter article description" className="min-h-[100px]" {...field} />
-										</FormControl>
-										<FormDescription>A brief description for SEO and previews</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
-							<FormField
-								control={form.control}
-								name="extract"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Extract</FormLabel>
-										<FormControl>
-											<Textarea placeholder="Enter article extract" className="min-h-[100px]" {...field} />
-										</FormControl>
-										<FormDescription>A short excerpt to display in article lists</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
+					{/* Global form error */}
+					{errors.root && (
+						<div className="mb-6 rounded-lg bg-red-50 p-4 text-red-700 dark:bg-red-900/20 dark:text-red-400">
+							{errors.root.message}
 						</div>
+					)}
 
-						<Separator />
-
-						{/* Featured Image */}
-						<div className="space-y-6">
-							<h3 className="text-lg font-semibold">Featured Image</h3>
-
-							<div>
-								<FormLabel>Article Image</FormLabel>
-								<div className="bg-card/50 border-border/30 rounded-xl border backdrop-blur-sm">
-									<FileUpload locale={locale} onChange={handleFileUploadWithValidation} />
+					{/* Basic Information Section */}
+					<div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-3">
+						<div>
+							<h2 className="text-foreground text-2xl font-semibold">Basic Information</h2>
+							<p className="text-muted-foreground mt-2 text-base leading-7">
+								Enter the core details about your article including title, slug, and descriptions.
+							</p>
+						</div>
+						<div className="sm:max-w-4xl md:col-span-2">
+							<div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
+								{/* Title */}
+								<div className="col-span-full sm:col-span-3">
+									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="title">
+										Article Title *
+									</Label>
+									<Input
+										id="title"
+										{...register('title')}
+										onChange={handleTitleChange}
+										placeholder="Enter article title"
+										type="text"
+									/>
+									{errors.title && (
+										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.title.message}</p>
+									)}
 								</div>
-								<p className="text-muted-foreground text-sm mt-2">
-									Upload a new featured image for your article (max 5MB, PNG/JPG/WEBP) - leave empty to keep existing
-									image
-								</p>
+
+								{/* Slug */}
+								<div className="col-span-full sm:col-span-3">
+									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="slug">
+										URL Slug *
+									</Label>
+									<Input id="slug" {...register('slug')} placeholder="article-slug" type="text" />
+									<p className="text-muted-foreground mt-1 text-sm">URL-friendly version (lowercase, hyphens only)</p>
+									{errors.slug && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.slug.message}</p>}
+								</div>
+
+								{/* Language */}
+								<div className="col-span-full sm:col-span-3">
+									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="locale">
+										Language *
+									</Label>
+									<Select
+										value={localeState}
+										onValueChange={value => {
+											setLocaleState(value)
+											setValue('locale', value, { shouldValidate: true })
+										}}
+									>
+										<SelectTrigger id="locale">
+											<SelectValue placeholder="Select language" />
+										</SelectTrigger>
+										<SelectContent>
+											{i18n.locales.map(loc => (
+												<SelectItem key={loc} value={loc}>
+													<span className="flex items-center gap-2">
+														<span>{localeFlags[loc]}</span>
+														<span>{localeNames[loc]}</span>
+													</span>
+												</SelectItem>
+											))}
+										</SelectContent>
+									</Select>
+									<p className="text-muted-foreground mt-1 text-sm">Select the language for this article</p>
+									{errors.locale && (
+										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.locale.message}</p>
+									)}
+								</div>
+
+								{/* Description */}
+								<div className="col-span-full">
+									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="description">
+										Description *
+									</Label>
+									<Textarea
+										id="description"
+										{...register('description')}
+										placeholder="Enter article description"
+										className="min-h-[100px]"
+									/>
+									<p className="text-muted-foreground mt-1 text-sm">A brief description for SEO and previews</p>
+									{errors.description && (
+										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.description.message}</p>
+									)}
+								</div>
+
+								{/* Extract */}
+								<div className="col-span-full">
+									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="extract">
+										Extract *
+									</Label>
+									<Textarea
+										id="extract"
+										{...register('extract')}
+										placeholder="Enter article extract"
+										className="min-h-[100px]"
+									/>
+									<p className="text-muted-foreground mt-1 text-sm">A short excerpt to display in article lists</p>
+									{errors.extract && (
+										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.extract.message}</p>
+									)}
+								</div>
 							</div>
-
-							<FormField
-								control={form.control}
-								name="imageAlt"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Image Alt Text</FormLabel>
-										<div className="flex gap-2">
-											<FormControl>
-												<Input placeholder="Describe the image" {...field} className="flex-1" />
-											</FormControl>
-											<Button
-												type="button"
-												variant="outline"
-												onClick={handleGenerateAltText}
-												disabled={isGeneratingAlt || !form.getValues('imageFile')}
-												className="shrink-0"
-											>
-												<Sparkles className="mr-2 h-4 w-4" />
-												{isGeneratingAlt ? 'Generating...' : 'Generate AI'}
-											</Button>
-										</div>
-										<FormDescription>
-											Alternative text for accessibility and SEO (AI-generated with Forvoyez)
-										</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
 						</div>
+					</div>
 
-						<Separator />
-
-						{/* Content */}
-						<div className="space-y-6">
-							<h3 className="text-lg font-semibold">Content</h3>
-
-							<FormField
-								control={form.control}
-								name="content"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Article Content</FormLabel>
-										<FormControl>
-											<RichTextEditor
-												content={field.value}
-												onChange={field.onChange}
-												placeholder="Start writing your article..."
-											/>
-										</FormControl>
-										<FormDescription>The full content of your article (supports rich text)</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
+					{/* Content Section */}
+					<div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-3">
+						<div>
+							<h2 className="text-foreground text-2xl font-semibold">Article Content</h2>
+							<p className="text-muted-foreground mt-2 text-base leading-7">
+								Write the full content of your article using the rich text editor.
+							</p>
 						</div>
-
-						<Separator />
-
-						{/* SEO Settings */}
-						<div className="space-y-6">
-							<div>
-								<h3 className="text-lg font-semibold">SEO Settings</h3>
-								<p className="text-muted-foreground text-sm">Optimize your article for search engines</p>
+						<div className="sm:max-w-4xl md:col-span-2">
+							<div className="grid grid-cols-1 gap-6">
+								<div className="col-span-full">
+									<Label className="text-foreground mb-2 block text-base font-medium">Content *</Label>
+									<RichTextEditor
+										content={content}
+										onChange={value => {
+											setContent(value)
+											setValue('content', value, { shouldValidate: true })
+										}}
+										placeholder="Start writing your article..."
+									/>
+									<p className="text-muted-foreground mt-1 text-sm">
+										The full content of your article (supports rich text)
+									</p>
+									{errors.content && (
+										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.content.message}</p>
+									)}
+								</div>
 							</div>
+						</div>
+					</div>
 
-							<div>
-								<Button
-									type="button"
-									variant="outline"
-									onClick={handleGenerateSEO}
-									disabled={isGeneratingSEO || !form.getValues('title')}
-									className="w-full sm:w-auto"
-								>
-									<Sparkles className="mr-2 h-4 w-4" />
-									{isGeneratingSEO ? 'Generating SEO...' : 'Generate SEO with AI'}
-								</Button>
-								<p className="text-muted-foreground mt-2 text-sm">
-									Automatically generate SEO title and description using AI based on your article content
-								</p>
+					{/* Featured Image Section */}
+					<div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-3">
+						<div>
+							<h2 className="text-foreground text-2xl font-semibold">Featured Image</h2>
+							<p className="text-muted-foreground mt-2 text-base leading-7">
+								Upload an image to be displayed with your article.
+							</p>
+						</div>
+						<div className="sm:max-w-4xl md:col-span-2">
+							<div className="grid grid-cols-1 gap-6">
+								{/* Image Upload */}
+								<div className="col-span-full">
+									<Label className="text-foreground mb-2 block text-base font-medium">Article Image</Label>
+									<p className="text-muted-foreground mb-4 text-sm">
+										Upload a featured image for your article (max 5MB)
+									</p>
+									<div className="bg-card/50 border-border/30 rounded-xl border backdrop-blur-sm">
+										<FileUpload locale={locale} onChange={handleFileUploadWithValidation} />
+									</div>
+									{typeof errors.imageFile?.message === 'string' && (
+										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.imageFile.message}</p>
+									)}
+								</div>
+
+								{/* Image Alt Text */}
+								<div className="col-span-full">
+									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="imageAlt">
+										Image Alt Text
+									</Label>
+									<div className="flex gap-2">
+										<Input
+											id="imageAlt"
+											{...register('imageAlt')}
+											placeholder="Describe the image"
+											type="text"
+											className="flex-1"
+										/>
+										<Button
+											type="button"
+											variant="outline"
+											onClick={handleGenerateAltText}
+											disabled={isGeneratingAlt || !getValues('imageFile')}
+											className="shrink-0"
+										>
+											<Sparkles className="mr-2 h-4 w-4" />
+											{isGeneratingAlt ? 'Generating...' : 'Generate AI'}
+										</Button>
+									</div>
+									<p className="text-muted-foreground mt-1 text-sm">
+										Alternative text for accessibility and SEO (AI-generated with Forvoyez)
+									</p>
+									{errors.imageAlt && (
+										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.imageAlt.message}</p>
+									)}
+								</div>
 							</div>
-
-							<FormField
-								control={form.control}
-								name="seoTitle"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>SEO Title</FormLabel>
-										<FormControl>
-											<Input placeholder="Enter SEO title (max 60 characters)" {...field} maxLength={60} />
-										</FormControl>
-										<FormDescription>
-											{field.value?.length || 0}/60 characters - Appears in search engine results
-										</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
-							<FormField
-								control={form.control}
-								name="seoDescription"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>SEO Description</FormLabel>
-										<FormControl>
-											<Textarea
-												placeholder="Enter SEO description (max 160 characters)"
-												className="min-h-[100px]"
-												{...field}
-												maxLength={160}
-											/>
-										</FormControl>
-										<FormDescription>
-											{field.value?.length || 0}/160 characters - Brief description for search results
-										</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
 						</div>
+					</div>
 
-						<Separator />
-
-						<div className="flex gap-4">
-							<Button type="submit" disabled={isSubmitting}>
-								{isSubmitting ? 'Updating...' : 'Update Article'}
-							</Button>
-							<Button type="button" variant="outline" onClick={() => router.push(`/${locale}/admin/article`)}>
-								Cancel
-							</Button>
+					{/* SEO Section */}
+					<div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-3">
+						<div>
+							<h2 className="text-foreground text-2xl font-semibold">SEO Settings</h2>
+							<p className="text-muted-foreground mt-2 text-base leading-7">
+								Optimize your article for search engines with custom meta tags.
+							</p>
 						</div>
-					</form>
-				</Form>
-			</CardContent>
-		</Card>
+						<div className="sm:max-w-4xl md:col-span-2">
+							<div className="grid grid-cols-1 gap-6">
+								{/* Generate SEO Button */}
+								<div className="col-span-full">
+									<Button
+										type="button"
+										variant="outline"
+										onClick={handleGenerateSEO}
+										disabled={isGeneratingSEO || !getValues('title')}
+										className="w-full sm:w-auto"
+									>
+										<Sparkles className="mr-2 h-4 w-4" />
+										{isGeneratingSEO ? 'Generating SEO...' : 'Generate SEO with AI'}
+									</Button>
+									<p className="text-muted-foreground mt-2 text-sm">
+										Automatically generate SEO title and description using AI based on your article content
+									</p>
+								</div>
+
+								{/* SEO Title */}
+								<div className="col-span-full">
+									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="seoTitle">
+										SEO Title
+									</Label>
+									<Input
+										id="seoTitle"
+										{...register('seoTitle')}
+										onChange={e => {
+											setSeoTitle(e.target.value)
+											setValue('seoTitle', e.target.value, { shouldValidate: true })
+										}}
+										placeholder="Enter SEO title (max 60 characters)"
+										type="text"
+										maxLength={60}
+									/>
+									<p className="text-muted-foreground mt-1 text-sm">
+										{seoTitle?.length || 0}/60 characters - Appears in search engine results
+									</p>
+									{errors.seoTitle && (
+										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.seoTitle.message}</p>
+									)}
+								</div>
+
+								{/* SEO Description */}
+								<div className="col-span-full">
+									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="seoDescription">
+										SEO Description
+									</Label>
+									<Textarea
+										id="seoDescription"
+										{...register('seoDescription')}
+										onChange={e => {
+											setSeoDescription(e.target.value)
+											setValue('seoDescription', e.target.value, { shouldValidate: true })
+										}}
+										placeholder="Enter SEO description (max 160 characters)"
+										className="min-h-[100px]"
+										maxLength={160}
+									/>
+									<p className="text-muted-foreground mt-1 text-sm">
+										{seoDescription?.length || 0}/160 characters - Brief description for search results
+									</p>
+									{errors.seoDescription && (
+										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.seoDescription.message}</p>
+									)}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					{/* Form Actions */}
+					<div className="flex items-center justify-end space-x-6 pt-12">
+						<Button
+							disabled={isSubmitting}
+							onClick={() => router.push(`/${locale}/admin/article`)}
+							size="lg"
+							type="button"
+							variant="outline"
+						>
+							Cancel
+						</Button>
+						<Button disabled={isSubmitting} size="lg" type="submit">
+							{isSubmitting ? 'Updating Article...' : 'Update Article'}
+						</Button>
+					</div>
+				</form>
+			</div>
+		</div>
 	)
 }
