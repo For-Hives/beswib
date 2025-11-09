@@ -40,8 +40,7 @@ export async function generateSEOContent(options: GenerateSEOOptions): Promise<S
 			apiKey,
 		})
 
-		// Use Gemini Flash 2.0 for fast and efficient generation
-		const model = google('gemini-2.0-flash-exp')
+		const model = google('gemini-2.5-flash')
 
 		const locale = options.locale || 'fr'
 		const languageMap: Record<string, string> = {

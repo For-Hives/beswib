@@ -4,12 +4,14 @@ import { useRouter } from 'next/navigation'
 
 import type { Locale } from '@/lib/i18n/config'
 import type { Article } from '@/models/article.model'
+import type { ImageWithAlt } from '@/models/imageWithAlt.model'
+import type { SEO } from '@/models/seo.model'
 import type { User } from '@/models/user.model'
 
 import ArticleEditForm from './ArticleEditForm'
 
 interface AdminArticleEditPageClientProps {
-	article: Article
+	article: Article & { expand?: { image?: ImageWithAlt; seo?: SEO } }
 	currentUser: null | User
 	locale: Locale
 }
