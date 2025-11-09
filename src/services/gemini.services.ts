@@ -197,9 +197,15 @@ function restoreBase64Images(translatedContent: string, imageMap: Map<string, st
  * @param options Article data in French and target locale
  * @returns Fully translated article content including SEO and alt text
  */
+interface TranslationResult extends ArticleTranslationResult {
+	logs?: string[]
+}
+
 export async function generateArticleTranslation(
 	options: GenerateArticleTranslationOptions
-): Promise<ArticleTranslationResult | null> {
+): Promise<TranslationResult | null> {
+	const logs: string[] = []
+	
 	try {
 		const apiKey = process.env.GEMINI_API_KEY
 
@@ -235,7 +241,9 @@ export async function generateArticleTranslation(
 		const { cleanedContent, imageMap } = extractBase64Images(options.content)
 
 		if (imageMap.size > 0) {
-			console.info(`Extracted ${imageMap.size} base64 image(s) from content before translation`)
+			const logMsg = `🖼️ Extracted ${imageMap.size} base64 image(s) from content`
+			console.info(logMsg)
+			logs.push(logMsg)
 		}
 
 		const prompt = `You are a professional translator specializing in sports and e-commerce content for Beswib, an international marketplace for reselling race bibs.
@@ -315,7 +323,9 @@ Do not include any markdown formatting, code blocks, or additional text. Just th
 		// Restore base64 images back into the translated content
 		result.content = restoreBase64Images(result.content, imageMap)
 		if (imageMap.size > 0) {
-			console.info(`Restored ${imageMap.size} base64 image(s) into translated content`)
+			const logMsg = `🖼️ Restored ${imageMap.size} base64 image(s) into translated content`
+			console.info(logMsg)
+			logs.push(logMsg)
 		}
 
 		// Sanitize slug to ensure it's URL-safe (fallback protection)
@@ -331,6 +341,7 @@ Do not include any markdown formatting, code blocks, or additional text. Just th
 		// If slug is empty after sanitization (e.g., all Korean characters), generate from title in English
 		if (!result.slug || result.slug.length < 3) {
 			console.warn('Generated slug was invalid, using fallback from title')
+			logs.push('⚠️ Generated slug was invalid, using fallback from title')
 			result.slug = result.title
 				.toLowerCase()
 				.normalize('NFD')
@@ -344,16 +355,24 @@ Do not include any markdown formatting, code blocks, or additional text. Just th
 		// Validate and truncate SEO fields if needed
 		if (result.seoTitle.length > 60) {
 			console.warn('Generated SEO title exceeds 60 characters, truncating...')
+			logs.push('⚠️ SEO title truncated to 60 characters')
 			result.seoTitle = `${result.seoTitle.substring(0, 57)}...`
 		}
 
 		if (result.seoDescription.length > 160) {
 			console.warn('Generated SEO description exceeds 160 characters, truncating...')
+			logs.push('⚠️ SEO description truncated to 160 characters')
 			result.seoDescription = `${result.seoDescription.substring(0, 157)}...`
 		}
 
-		console.info(`Successfully translated article to ${targetLanguage} with Gemini Flash (slug: ${result.slug})`)
-		return result
+		const successMsg = `✓ Gemini Flash translation complete (${targetLanguage}, slug: ${result.slug})`
+		console.info(successMsg)
+		logs.push(successMsg)
+
+		return {
+			...result,
+			logs,
+		}
 	} catch (error) {
 		console.error('Error calling Gemini API for translation:', error)
 		return null
