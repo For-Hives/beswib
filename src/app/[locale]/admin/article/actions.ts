@@ -237,8 +237,8 @@ export async function updateArticleAction(
 			}
 		} else if (imageAlt && existingArticle.image) {
 			// If only alt text changed, update existing image
-			// Note: This would require an updateImageWithAlt function in article.services.ts
-			// For now, we'll keep the existing image
+			const { updateImageWithAltById } = await import('@/services/article.services')
+			await updateImageWithAltById(existingArticle.image as string, imageAlt)
 		}
 
 		// Handle SEO update if provided

@@ -2,6 +2,7 @@
 
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { Sparkles } from 'lucide-react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -17,7 +18,10 @@ import { RichTextEditor } from '@/components/ui/rich-text-editor'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { i18n, type Locale, localeFlags, localeNames } from '@/lib/i18n/config'
+import { pb } from '@/lib/services/pocketbase'
 import type { Article } from '@/models/article.model'
+import type { ImageWithAlt } from '@/models/imageWithAlt.model'
+import type { SEO } from '@/models/seo.model'
 
 const articleFormSchema = v.object({
 	title: v.pipe(v.string(), v.minLength(1, 'Title is required')),
@@ -39,7 +43,7 @@ const articleFormSchema = v.object({
 type ArticleFormValues = v.InferOutput<typeof articleFormSchema>
 
 interface ArticleEditFormProps {
-	article: Article
+	article: Article & { expand?: { image?: ImageWithAlt; seo?: SEO } }
 	locale: Locale
 }
 
@@ -50,8 +54,13 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	const [isGeneratingSEO, setIsGeneratingSEO] = useState(false)
 	const [content, setContent] = useState(article.content || '')
 	const [localeState, setLocaleState] = useState<string>(article.locale || 'fr')
-	const [seoTitle, setSeoTitle] = useState('')
-	const [seoDescription, setSeoDescription] = useState('')
+	const [seoTitle, setSeoTitle] = useState(article.expand?.seo?.title || '')
+	const [seoDescription, setSeoDescription] = useState(article.expand?.seo?.description || '')
+
+	// Generate current image URL if exists
+	const currentImageUrl = article.expand?.image?.image
+		? pb.files.getUrl(article.expand.image, article.expand.image.image)
+		: null
 
 	const {
 		setValue,
@@ -68,9 +77,9 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 			description: article.description,
 			extract: article.extract,
 			content: article.content,
-			imageAlt: '',
-			seoTitle: '',
-			seoDescription: '',
+			imageAlt: article.expand?.image?.alt || '',
+			seoTitle: article.expand?.seo?.title || '',
+			seoDescription: article.expand?.seo?.description || '',
 		},
 	})
 
@@ -414,9 +423,33 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 						</div>
 						<div className="sm:max-w-4xl md:col-span-2">
 							<div className="grid grid-cols-1 gap-6">
+								{/* Current Image Display */}
+								{currentImageUrl && (
+									<div className="col-span-full">
+										<Label className="text-foreground mb-2 block text-base font-medium">Current Image</Label>
+										<div className="bg-card/50 border-border/30 rounded-xl border p-4 backdrop-blur-sm">
+											<div className="relative h-64 w-full max-w-md">
+												<Image
+													src={currentImageUrl}
+													alt={article.expand?.image?.alt || 'Article image'}
+													fill
+													className="rounded-lg object-cover"
+												/>
+											</div>
+											{article.expand?.image?.alt && (
+												<p className="text-muted-foreground mt-2 text-sm">
+													<span className="font-medium">Alt text:</span> {article.expand.image.alt}
+												</p>
+											)}
+										</div>
+									</div>
+								)}
+
 								{/* Image Upload */}
 								<div className="col-span-full">
-									<Label className="text-foreground mb-2 block text-base font-medium">Article Image</Label>
+									<Label className="text-foreground mb-2 block text-base font-medium">
+										{currentImageUrl ? 'Replace Image' : 'Article Image'}
+									</Label>
 									<p className="text-muted-foreground mb-4 text-sm">
 										Upload a featured image for your article (max 5MB)
 									</p>

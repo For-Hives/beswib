@@ -3,6 +3,7 @@
 import { pb } from '@/lib/services/pocketbase'
 import type { Article } from '@/models/article.model'
 import type { ImageWithAlt } from '@/models/imageWithAlt.model'
+import type { SEO } from '@/models/seo.model'
 
 /**
  * Creates a new article.
@@ -39,16 +40,18 @@ export async function createArticle(articleData: Omit<Article, 'id' | 'created' 
 
 /**
  * Fetches all articles.
- * @param expandImage Whether to expand image data
+ * @param expandRelations Whether to expand image and seo relations
  */
 export async function getAllArticles(
-	expandImage = false
-): Promise<(Article & { expand?: { image?: ImageWithAlt } })[]> {
+	expandRelations = false
+): Promise<(Article & { expand?: { image?: ImageWithAlt; seo?: SEO } })[]> {
 	try {
-		const records = await pb.collection('articles').getFullList<Article & { expand?: { image?: ImageWithAlt } }>({
-			sort: '-created',
-			expand: expandImage ? 'image' : undefined,
-		})
+		const records = await pb
+			.collection('articles')
+			.getFullList<Article & { expand?: { image?: ImageWithAlt; seo?: SEO } }>({
+				sort: '-created',
+				expand: expandRelations ? 'image,seo' : undefined,
+			})
 		return records
 	} catch (error: unknown) {
 		throw new Error(`Error fetching all articles: ${error instanceof Error ? error.message : String(error)}`)
@@ -58,16 +61,18 @@ export async function getAllArticles(
 /**
  * Fetches a single article by its ID.
  * @param id The ID of the article to fetch.
- * @param expandImage Whether to expand image data
+ * @param expandRelations Whether to expand image and seo relations
  */
 export async function fetchArticleById(
 	id: string,
-	expandImage = false
-): Promise<(Article & { expand?: { image?: ImageWithAlt } }) | null> {
+	expandRelations = false
+): Promise<(Article & { expand?: { image?: ImageWithAlt; seo?: SEO } }) | null> {
 	try {
-		const record = await pb.collection('articles').getOne<Article & { expand?: { image?: ImageWithAlt } }>(id, {
-			expand: expandImage ? 'image' : undefined,
-		})
+		const record = await pb
+			.collection('articles')
+			.getOne<Article & { expand?: { image?: ImageWithAlt; seo?: SEO } }>(id, {
+				expand: expandRelations ? 'image,seo' : undefined,
+			})
 		return record
 	} catch (error: unknown) {
 		console.error(`Error fetching article with ID "${id}":`, error)
@@ -78,17 +83,19 @@ export async function fetchArticleById(
 /**
  * Fetches a single article by its slug.
  * @param slug The slug of the article to fetch.
- * @param expandImage Whether to expand image data
+ * @param expandRelations Whether to expand image and seo relations
  */
 export async function fetchArticleBySlug(
 	slug: string,
-	expandImage = false
-): Promise<(Article & { expand?: { image?: ImageWithAlt } }) | null> {
+	expandRelations = false
+): Promise<(Article & { expand?: { image?: ImageWithAlt; seo?: SEO } }) | null> {
 	try {
-		const records = await pb.collection('articles').getFullList<Article & { expand?: { image?: ImageWithAlt } }>({
-			filter: `slug = "${slug}"`,
-			expand: expandImage ? 'image' : undefined,
-		})
+		const records = await pb
+			.collection('articles')
+			.getFullList<Article & { expand?: { image?: ImageWithAlt; seo?: SEO } }>({
+				filter: `slug = "${slug}"`,
+				expand: expandRelations ? 'image,seo' : undefined,
+			})
 		return records.length > 0 ? records[0] : null
 	} catch (error: unknown) {
 		console.error(`Error fetching article with slug "${slug}":`, error)
@@ -183,25 +190,43 @@ export async function fetchImageWithAltById(id: string): Promise<ImageWithAlt | 
 }
 
 /**
+ * Updates an image with alt by its ID.
+ * @param id The ID of the image to update.
+ * @param alt The new alt text.
+ */
+export async function updateImageWithAltById(id: string, alt: string): Promise<ImageWithAlt | null> {
+	try {
+		const record = await pb.collection('image_with_alt').update<ImageWithAlt>(id, { alt })
+		console.info('Image alt text updated successfully:', record.id)
+		return record
+	} catch (error: unknown) {
+		console.error('PocketBase error details:', error)
+		throw new Error(`Error updating image alt text: ${error instanceof Error ? error.message : String(error)}`)
+	}
+}
+
+/**
  * Fetches all articles that share the same translationGroup.
  * @param translationGroup The UUID of the translation group
- * @param expandImage Whether to expand image data
+ * @param expandRelations Whether to expand image and seo relations
  * @returns Array of articles in the same translation group
  */
 export async function fetchArticlesByTranslationGroup(
 	translationGroup: string,
-	expandImage = false
-): Promise<(Article & { expand?: { image?: ImageWithAlt } })[]> {
+	expandRelations = false
+): Promise<(Article & { expand?: { image?: ImageWithAlt; seo?: SEO } })[]> {
 	if (!translationGroup) {
 		return []
 	}
 
 	try {
-		const records = await pb.collection('articles').getFullList<Article & { expand?: { image?: ImageWithAlt } }>({
-			filter: `translationGroup = "${translationGroup}"`,
-			sort: '-created',
-			expand: expandImage ? 'image' : undefined,
-		})
+		const records = await pb
+			.collection('articles')
+			.getFullList<Article & { expand?: { image?: ImageWithAlt; seo?: SEO } }>({
+				filter: `translationGroup = "${translationGroup}"`,
+				sort: '-created',
+				expand: expandRelations ? 'image,seo' : undefined,
+			})
 		return records
 	} catch (error: unknown) {
 		console.error(`Error fetching articles with translationGroup "${translationGroup}":`, error)
