@@ -171,8 +171,7 @@ export async function generateArticleTranslation(
 			apiKey,
 		})
 
-		// Use Gemini Flash 2.0 for fast and efficient translation
-		const model = google('gemini-2.0-flash-exp')
+		const model = google('gemini-2.5-flash')
 
 		const languageMap: Record<string, string> = {
 			en: 'English',
