@@ -84,7 +84,7 @@ export default function MarketplaceItemClient({
 	if (!bibSale || !eventData) {
 		return (
 			<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
-				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size:[24px_24px]"></div>
+				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
 				<div className="relative pt-32 pb-12">
 					<div className="container mx-auto max-w-2xl p-6">
 						<div className="mb-12 space-y-2 text-center">
@@ -101,7 +101,7 @@ export default function MarketplaceItemClient({
 	// Show the normal purchase interface
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
-			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size:[24px_24px]"></div>
+			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
 			<PayPalProvider>
 				<PayPalPurchaseClient
 					bib={bibSale}
