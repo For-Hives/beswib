@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
 import { getArticleByIdAction } from '@/app/[locale]/admin/article/actions'
-import ArticleEditForm from '@/components/admin/article/ArticleEditForm'
+import AdminArticleEditPageClient from '@/components/admin/article/AdminArticleEditPageClient'
 import { checkAdminAccess } from '@/guard/adminGuard'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { generateAdminMetadata } from '@/lib/seo'
@@ -37,5 +37,5 @@ export default async function EditArticlePage({ params }: { params: Promise<Loca
 		redirect(`/${locale}/admin/article`)
 	}
 
-	return <ArticleEditForm article={result.data} locale={locale} />
+	return <AdminArticleEditPageClient article={result.data} currentUser={adminUser} locale={locale} />
 }
