@@ -141,6 +141,7 @@ interface GenerateArticleTranslationOptions {
 
 interface ArticleTranslationResult {
 	title: string
+	slug: string
 	description: string
 	extract: string
 	content: string
@@ -226,6 +227,10 @@ export async function generateArticleTranslation(
 		}
 		const targetLanguage = languageMap[options.targetLocale] || 'English'
 
+		// For languages with non-Latin characters, slug must be in English
+		const requiresEnglishSlug = ['ko'].includes(options.targetLocale)
+		const slugLanguage = requiresEnglishSlug ? 'English' : targetLanguage
+
 		// Extract base64 images from content to save tokens
 		const { cleanedContent, imageMap } = extractBase64Images(options.content)
 
@@ -254,6 +259,7 @@ IMPORTANT TRANSLATION GUIDELINES:
 5. Maintain the engaging and professional tone
 6. Keep SEO title under 60 characters and SEO description under 160 characters
 7. For image alt text, describe what's in the image naturally in the target language
+8. CRITICAL: Generate URL slug in ${slugLanguage} ONLY using lowercase letters (a-z), numbers (0-9), and hyphens (-). NO special characters, NO ${requiresEnglishSlug ? 'Korean' : 'accented'} characters
 
 FRENCH ARTICLE DATA:
 
@@ -275,6 +281,7 @@ ${options.seoDescription ? `SEO Description: ${options.seoDescription}` : ''}
 Respond ONLY with a JSON object in this exact format (no markdown, no code blocks):
 {
   "title": "translated title",
+  "slug": "url-friendly-slug-in-${slugLanguage.toLowerCase()}-only-lowercase-letters-numbers-hyphens",
   "description": "translated description",
   "extract": "translated extract",
   "content": "translated content with preserved HTML tags and image placeholders",
@@ -282,6 +289,12 @@ Respond ONLY with a JSON object in this exact format (no markdown, no code block
   "seoTitle": "translated SEO title (max 60 chars)",
   "seoDescription": "translated SEO description (max 160 chars)"
 }
+
+CRITICAL SLUG RULES:
+- Slug MUST be in ${slugLanguage} (${requiresEnglishSlug ? 'translate the meaning to English first' : 'based on translated title'})
+- ONLY use: lowercase letters (a-z), numbers (0-9), hyphens (-)
+- NO special characters, NO accents, NO spaces, NO underscores
+- Example good slugs: "best-running-tips", "marathon-training-guide", "cycling-nutrition-2024"
 
 Do not include any markdown formatting, code blocks, or additional text. Just the raw JSON object.`
 
@@ -305,6 +318,29 @@ Do not include any markdown formatting, code blocks, or additional text. Just th
 			console.info(`Restored ${imageMap.size} base64 image(s) into translated content`)
 		}
 
+		// Sanitize slug to ensure it's URL-safe (fallback protection)
+		result.slug = result.slug
+			.toLowerCase()
+			.normalize('NFD')
+			.replace(/[\u0300-\u036f]/g, '') // Remove accents
+			.replace(/[^a-z0-9\s-]/g, '') // Remove non-Latin characters
+			.replace(/\s+/g, '-') // Replace spaces with hyphens
+			.replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+			.trim()
+
+		// If slug is empty after sanitization (e.g., all Korean characters), generate from title in English
+		if (!result.slug || result.slug.length < 3) {
+			console.warn('Generated slug was invalid, using fallback from title')
+			result.slug = result.title
+				.toLowerCase()
+				.normalize('NFD')
+				.replace(/[\u0300-\u036f]/g, '')
+				.replace(/[^a-z0-9\s-]/g, '')
+				.replace(/\s+/g, '-')
+				.replace(/-+/g, '-')
+				.trim()
+		}
+
 		// Validate and truncate SEO fields if needed
 		if (result.seoTitle.length > 60) {
 			console.warn('Generated SEO title exceeds 60 characters, truncating...')
@@ -316,7 +352,7 @@ Do not include any markdown formatting, code blocks, or additional text. Just th
 			result.seoDescription = `${result.seoDescription.substring(0, 157)}...`
 		}
 
-		console.info(`Successfully translated article to ${targetLanguage} with Gemini Flash`)
+		console.info(`Successfully translated article to ${targetLanguage} with Gemini Flash (slug: ${result.slug})`)
 		return result
 	} catch (error) {
 		console.error('Error calling Gemini API for translation:', error)
