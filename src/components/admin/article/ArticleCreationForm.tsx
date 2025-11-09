@@ -1,28 +1,21 @@
 'use client'
 
 import { valibotResolver } from '@hookform/resolvers/valibot'
+import { Sparkles } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { useForm, useWatch } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as v from 'valibot'
-
 import { createArticleAction, generateAltTextAction, generateSEOAction } from '@/app/[locale]/admin/article/actions'
 import { Button } from '@/components/ui/button'
 import { FileUpload } from '@/components/ui/file-upload'
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
 import { RichTextEditor } from '@/components/ui/rich-text-editor'
-import { Sparkles } from 'lucide-react'
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { i18n, localeFlags, localeNames, type Locale } from '@/lib/i18n/config'
+import { i18n, type Locale, localeFlags, localeNames } from '@/lib/i18n/config'
 
 const articleFormSchema = v.object({
 	title: v.pipe(v.string(), v.minLength(1, 'Title is required')),
@@ -56,12 +49,16 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [isGeneratingAlt, setIsGeneratingAlt] = useState(false)
 	const [isGeneratingSEO, setIsGeneratingSEO] = useState(false)
+	const [content, setContent] = useState('')
+	const [localeState, setLocaleState] = useState<string>('fr')
+	const [seoTitle, setSeoTitle] = useState('')
+	const [seoDescription, setSeoDescription] = useState('')
 
 	const {
-		watch,
 		setValue,
 		register,
 		handleSubmit,
+		getValues,
 		formState: { errors, dirtyFields },
 	} = useForm<ArticleFormValues>({
 		resolver: valibotResolver(articleFormSchema),
@@ -77,13 +74,6 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 			seoDescription: '',
 		},
 	})
-
-	const contentValue = watch('content')
-	const localeValue = watch('locale')
-	const seoTitleValue = watch('seoTitle')
-	const seoDescriptionValue = watch('seoDescription')
-	const imageFileValue = watch('imageFile')
-	const titleValue = watch('title')
 
 	const handleFileUploadWithValidation = (files: File[]) => {
 		if (files.length === 0) {
@@ -109,7 +99,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 	}
 
 	const handleGenerateAltText = async () => {
-		const imageFile = watch('imageFile')
+		const imageFile = getValues('imageFile')
 
 		if (!imageFile || !(imageFile instanceof File)) {
 			toast.error('Please upload an image first')
@@ -120,7 +110,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 		try {
 			const formData = new FormData()
 			formData.append('image', imageFile)
-			formData.append('language', localeValue || 'fr')
+			formData.append('language', getValues('locale') || 'fr')
 
 			const result = await generateAltTextAction(formData)
 
@@ -139,9 +129,9 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 	}
 
 	const handleGenerateSEO = async () => {
-		const title = watch('title')
-		const description = watch('description')
-		const extract = watch('extract')
+		const title = getValues('title')
+		const description = getValues('description')
+		const extract = getValues('extract')
 
 		if (!title) {
 			toast.error('Please enter an article title first')
@@ -154,11 +144,13 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 			formData.append('title', title)
 			if (description) formData.append('description', description)
 			if (extract) formData.append('extract', extract)
-			formData.append('locale', localeValue || 'fr')
+			formData.append('locale', getValues('locale') || 'fr')
 
 			const result = await generateSEOAction(formData)
 
 			if (result.success && result.seoTitle && result.seoDescription) {
+				setSeoTitle(result.seoTitle)
+				setSeoDescription(result.seoDescription)
 				setValue('seoTitle', result.seoTitle, { shouldValidate: true })
 				setValue('seoDescription', result.seoDescription, { shouldValidate: true })
 				toast.success('SEO content generated successfully!')
@@ -296,12 +288,18 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="locale">
 										Language *
 									</Label>
-									<Select value={localeValue} onValueChange={(value) => setValue('locale', value, { shouldValidate: true })}>
+									<Select
+										value={localeState}
+										onValueChange={value => {
+											setLocaleState(value)
+											setValue('locale', value, { shouldValidate: true })
+										}}
+									>
 										<SelectTrigger id="locale">
 											<SelectValue placeholder="Select language" />
 										</SelectTrigger>
 										<SelectContent>
-											{i18n.locales.map((loc) => (
+											{i18n.locales.map(loc => (
 												<SelectItem key={loc} value={loc}>
 													<span className="flex items-center gap-2">
 														<span>{localeFlags[loc]}</span>
@@ -312,7 +310,9 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 										</SelectContent>
 									</Select>
 									<p className="text-muted-foreground mt-1 text-sm">Select the language for this article</p>
-									{errors.locale && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.locale.message}</p>}
+									{errors.locale && (
+										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.locale.message}</p>
+									)}
 								</div>
 
 								{/* Description */}
@@ -365,8 +365,11 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 								<div className="col-span-full">
 									<Label className="text-foreground mb-2 block text-base font-medium">Content *</Label>
 									<RichTextEditor
-										content={contentValue}
-										onChange={value => setValue('content', value, { shouldValidate: true })}
+										content={content}
+										onChange={value => {
+											setContent(value)
+											setValue('content', value, { shouldValidate: true })
+										}}
 										placeholder="Start writing your article..."
 									/>
 									<p className="text-muted-foreground mt-1 text-sm">
@@ -410,19 +413,27 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 										Image Alt Text
 									</Label>
 									<div className="flex gap-2">
-										<Input id="imageAlt" {...register('imageAlt')} placeholder="Describe the image" type="text" className="flex-1" />
+										<Input
+											id="imageAlt"
+											{...register('imageAlt')}
+											placeholder="Describe the image"
+											type="text"
+											className="flex-1"
+										/>
 										<Button
 											type="button"
 											variant="outline"
 											onClick={handleGenerateAltText}
-											disabled={isGeneratingAlt || !imageFileValue}
+											disabled={isGeneratingAlt || !getValues('imageFile')}
 											className="shrink-0"
 										>
 											<Sparkles className="mr-2 h-4 w-4" />
 											{isGeneratingAlt ? 'Generating...' : 'Generate AI'}
 										</Button>
 									</div>
-									<p className="text-muted-foreground mt-1 text-sm">Alternative text for accessibility and SEO (AI-generated with Forvoyez)</p>
+									<p className="text-muted-foreground mt-1 text-sm">
+										Alternative text for accessibility and SEO (AI-generated with Forvoyez)
+									</p>
 									{errors.imageAlt && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.imageAlt.message}</p>
 									)}
@@ -447,7 +458,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 										type="button"
 										variant="outline"
 										onClick={handleGenerateSEO}
-										disabled={isGeneratingSEO || !titleValue}
+										disabled={isGeneratingSEO || !getValues('title')}
 										className="w-full sm:w-auto"
 									>
 										<Sparkles className="mr-2 h-4 w-4" />
@@ -466,12 +477,16 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 									<Input
 										id="seoTitle"
 										{...register('seoTitle')}
+										onChange={e => {
+											setSeoTitle(e.target.value)
+											setValue('seoTitle', e.target.value, { shouldValidate: true })
+										}}
 										placeholder="Enter SEO title (max 60 characters)"
 										type="text"
 										maxLength={60}
 									/>
 									<p className="text-muted-foreground mt-1 text-sm">
-										{seoTitleValue?.length || 0}/60 characters - Appears in search engine results
+										{seoTitle?.length || 0}/60 characters - Appears in search engine results
 									</p>
 									{errors.seoTitle && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.seoTitle.message}</p>
@@ -486,12 +501,16 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 									<Textarea
 										id="seoDescription"
 										{...register('seoDescription')}
+										onChange={e => {
+											setSeoDescription(e.target.value)
+											setValue('seoDescription', e.target.value, { shouldValidate: true })
+										}}
 										placeholder="Enter SEO description (max 160 characters)"
 										className="min-h-[100px]"
 										maxLength={160}
 									/>
 									<p className="text-muted-foreground mt-1 text-sm">
-										{seoDescriptionValue?.length || 0}/160 characters - Brief description for search results
+										{seoDescription?.length || 0}/160 characters - Brief description for search results
 									</p>
 									{errors.seoDescription && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.seoDescription.message}</p>
