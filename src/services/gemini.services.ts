@@ -150,6 +150,46 @@ interface ArticleTranslationResult {
 }
 
 /**
+ * Extracts base64 images from HTML content and replaces them with placeholders
+ * Returns the cleaned content and a map of placeholders to original full data URLs
+ */
+function extractBase64Images(htmlContent: string): {
+	cleanedContent: string
+	imageMap: Map<string, string>
+} {
+	const imageMap = new Map<string, string>()
+	let placeholderIndex = 0
+
+	// Regex to match base64 images in img src attributes (captures full data URL)
+	const base64ImageRegex = /<img([^>]*?)src="(data:image\/[^;]+;base64,[^"]+)"([^>]*?)>/gi
+
+	const cleanedContent = htmlContent.replace(base64ImageRegex, (_match, beforeSrc, fullDataUrl, afterSrc) => {
+		const placeholder = `__BASE64_IMAGE_PLACEHOLDER_${placeholderIndex}__`
+		// Store the full data URL (including type and base64 prefix)
+		imageMap.set(placeholder, fullDataUrl)
+		placeholderIndex++
+		// Keep the img tag structure but replace base64 with placeholder
+		return `<img${beforeSrc}src="${placeholder}"${afterSrc}>`
+	})
+
+	return { cleanedContent, imageMap }
+}
+
+/**
+ * Restores base64 images back into the translated content
+ */
+function restoreBase64Images(translatedContent: string, imageMap: Map<string, string>): string {
+	let restoredContent = translatedContent
+
+	for (const [placeholder, fullDataUrl] of imageMap.entries()) {
+		// Replace placeholder with the original full data URL
+		restoredContent = restoredContent.replace(placeholder, fullDataUrl)
+	}
+
+	return restoredContent
+}
+
+/**
  * Translates a complete article from French to a target language using Gemini Flash
  * Context: Beswib is an international marketplace for reselling race bibs
  *
@@ -186,6 +226,11 @@ export async function generateArticleTranslation(
 		}
 		const targetLanguage = languageMap[options.targetLocale] || 'English'
 
+		// Extract base64 images from content to save tokens
+		const { cleanedContent, imageMap } = extractBase64Images(options.content)
+
+		console.info(`Extracted ${imageMap.size} base64 image(s) from content before translation`)
+
 		const prompt = `You are a professional translator specializing in sports and e-commerce content for Beswib, an international marketplace for reselling race bibs.
 
 CONTEXT ABOUT BESWIB:
@@ -202,10 +247,11 @@ Translate the following French article content into ${targetLanguage}. Maintain 
 IMPORTANT TRANSLATION GUIDELINES:
 1. Keep HTML tags intact in the content (do not translate HTML tags, only the text inside them)
 2. Preserve any URLs, technical terms, and brand names
-3. Adapt sports terminology appropriately for the target culture
-4. Maintain the engaging and professional tone
-5. Keep SEO title under 60 characters and SEO description under 160 characters
-6. For image alt text, describe what's in the image naturally in the target language
+3. Keep image placeholders EXACTLY as they are (do not modify __BASE64_IMAGE_PLACEHOLDER_X__)
+4. Adapt sports terminology appropriately for the target culture
+5. Maintain the engaging and professional tone
+6. Keep SEO title under 60 characters and SEO description under 160 characters
+7. For image alt text, describe what's in the image naturally in the target language
 
 FRENCH ARTICLE DATA:
 
@@ -216,7 +262,7 @@ Description: ${options.description}
 Extract: ${options.extract}
 
 Content (HTML):
-${options.content}
+${cleanedContent}
 
 ${options.imageAlt ? `Image Alt Text: ${options.imageAlt}` : ''}
 
@@ -229,7 +275,7 @@ Respond ONLY with a JSON object in this exact format (no markdown, no code block
   "title": "translated title",
   "description": "translated description",
   "extract": "translated extract",
-  "content": "translated content with preserved HTML tags",
+  "content": "translated content with preserved HTML tags and image placeholders",
   "imageAlt": "translated image alt text (if image exists, otherwise provide a generic description)",
   "seoTitle": "translated SEO title (max 60 chars)",
   "seoDescription": "translated SEO description (max 160 chars)"
@@ -250,6 +296,10 @@ Do not include any markdown formatting, code blocks, or additional text. Just th
 			.replace(/\s*```$/, '')
 			.trim()
 		const result = JSON.parse(cleanedText) as ArticleTranslationResult
+
+		// Restore base64 images back into the translated content
+		result.content = restoreBase64Images(result.content, imageMap)
+		console.info(`Restored ${imageMap.size} base64 image(s) into translated content`)
 
 		// Validate and truncate SEO fields if needed
 		if (result.seoTitle.length > 60) {
