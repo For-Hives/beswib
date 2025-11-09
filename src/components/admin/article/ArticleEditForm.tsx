@@ -1,14 +1,20 @@
 'use client'
 
 import { valibotResolver } from '@hookform/resolvers/valibot'
-import { Sparkles } from 'lucide-react'
+import { Languages, Sparkles } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as v from 'valibot'
-import { generateAltTextAction, generateSEOAction, updateArticleAction } from '@/app/[locale]/admin/article/actions'
+import {
+	generateAllMissingTranslationsAction,
+	generateAltTextAction,
+	generateArticleTranslationAction,
+	generateSEOAction,
+	updateArticleAction,
+} from '@/app/[locale]/admin/article/actions'
 import ArticleTranslationTabs from '@/components/admin/article/ArticleTranslationTabs'
 import { Button } from '@/components/ui/button'
 import { FileUpload } from '@/components/ui/file-upload'
@@ -52,7 +58,10 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [isGeneratingAlt, setIsGeneratingAlt] = useState(false)
 	const [isGeneratingSEO, setIsGeneratingSEO] = useState(false)
+	const [isGeneratingTranslation, setIsGeneratingTranslation] = useState<string | null>(null)
+	const [isGeneratingAllTranslations, setIsGeneratingAllTranslations] = useState(false)
 	const [content, setContent] = useState(article.content || '')
+	const [refreshTranslations, setRefreshTranslations] = useState(0)
 	const [localeState, setLocaleState] = useState<string>(article.locale || 'fr')
 	const [seoTitle, setSeoTitle] = useState(article.expand?.seo?.title || '')
 	const [seoDescription, setSeoDescription] = useState(article.expand?.seo?.description || '')
@@ -248,6 +257,56 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 		}
 	}
 
+	// Handle translation generation for a single language
+	const handleGenerateTranslation = async (targetLocale: Locale) => {
+		setIsGeneratingTranslation(targetLocale)
+		try {
+			const result = await generateArticleTranslationAction(article.id, targetLocale)
+
+			if (result.success && result.data) {
+				toast.success(`Translation to ${localeNames[targetLocale]} generated successfully!`)
+				// Refresh translations display
+				setRefreshTranslations(prev => prev + 1)
+			} else {
+				toast.error(result.error || `Failed to generate translation to ${localeNames[targetLocale]}`)
+			}
+		} catch (error) {
+			console.error(`Error generating ${targetLocale} translation:`, error)
+			toast.error(`An error occurred while generating translation to ${localeNames[targetLocale]}`)
+		} finally {
+			setIsGeneratingTranslation(null)
+		}
+	}
+
+	// Handle generation of all missing translations
+	const handleGenerateAllTranslations = async () => {
+		setIsGeneratingAllTranslations(true)
+		try {
+			const result = await generateAllMissingTranslationsAction(article.id)
+
+			if (result.success) {
+				if (result.successes.length > 0) {
+					toast.success(`Successfully generated ${result.successes.length} translation(s): ${result.successes.map(l => l.toUpperCase()).join(', ')}`)
+				}
+				if (result.failures.length > 0) {
+					toast.error(`Failed to generate ${result.failures.length} translation(s): ${result.failures.map(f => f.locale.toUpperCase()).join(', ')}`)
+				}
+				if (result.total === 0) {
+					toast.info('All translations already exist!')
+				}
+				// Refresh translations display
+				setRefreshTranslations(prev => prev + 1)
+			} else {
+				toast.error(result.error || 'Failed to generate translations')
+			}
+		} catch (error) {
+			console.error('Error generating all translations:', error)
+			toast.error('An error occurred while generating translations')
+		} finally {
+			setIsGeneratingAllTranslations(false)
+		}
+	}
+
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br pt-24">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]" />
@@ -267,7 +326,79 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 						translationGroup={article.translationGroup}
 						currentLocale={article.locale}
 						onLocaleChange={handleLocaleChange}
+						refreshTrigger={refreshTranslations}
 					/>
+
+					{/* Translation Generation Section - Only shown for French articles */}
+					{article.locale === 'fr' && (
+						<div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-3">
+							<div>
+								<h2 className="text-foreground flex items-center gap-2 text-2xl font-semibold">
+									<Languages className="h-6 w-6" />
+									AI Translation
+								</h2>
+								<p className="text-muted-foreground mt-2 text-base leading-7">
+									Automatically generate translations of this French article into all supported languages using AI.
+								</p>
+							</div>
+							<div className="sm:max-w-4xl md:col-span-2">
+								<div className="grid grid-cols-1 gap-6">
+									{/* Generate All Button */}
+									<div className="col-span-full">
+										<Button
+											type="button"
+											variant="default"
+											onClick={handleGenerateAllTranslations}
+											disabled={isGeneratingAllTranslations || isGeneratingTranslation != null}
+											className="w-full sm:w-auto"
+											size="lg"
+										>
+											<Sparkles className="mr-2 h-5 w-5" />
+											{isGeneratingAllTranslations
+												? 'Generating All Translations...'
+												: 'Generate All Missing Translations'}
+										</Button>
+										<p className="text-muted-foreground mt-2 text-sm">
+											Automatically translate this article to all languages that don't have translations yet
+										</p>
+									</div>
+
+									{/* Individual Language Buttons */}
+									<div className="col-span-full">
+										<Label className="text-foreground mb-3 block text-base font-medium">
+											Or generate individual translations:
+										</Label>
+										<div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+											{i18n.locales
+												.filter(loc => loc !== 'fr')
+												.map(targetLocale => {
+													const isGenerating = isGeneratingTranslation === targetLocale
+													return (
+														<Button
+															key={targetLocale}
+															type="button"
+															variant="outline"
+															onClick={() => handleGenerateTranslation(targetLocale)}
+															disabled={isGeneratingTranslation != null || isGeneratingAllTranslations}
+															className="flex items-center justify-center gap-2"
+														>
+															<span className="text-lg">{localeFlags.fr}</span>
+															<span>→</span>
+															<span className="text-lg">{localeFlags[targetLocale]}</span>
+															<span className="uppercase">{targetLocale}</span>
+															{isGenerating && <Sparkles className="ml-1 h-4 w-4 animate-pulse" />}
+														</Button>
+													)
+												})}
+										</div>
+										<p className="text-muted-foreground mt-2 text-sm">
+											Generate or regenerate a specific language translation. Existing translations will be overwritten.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					)}
 
 					{/* Global form error */}
 					{errors.root && (
