@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as v from 'valibot'
 
-import { generateAltTextAction, updateArticleAction } from '@/app/[locale]/admin/article/actions'
+import { generateAltTextAction, generateSEOAction, updateArticleAction } from '@/app/[locale]/admin/article/actions'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { FileUpload } from '@/components/ui/file-upload'
@@ -55,6 +55,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	const router = useRouter()
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [isGeneratingAlt, setIsGeneratingAlt] = useState(false)
+	const [isGeneratingSEO, setIsGeneratingSEO] = useState(false)
 
 	const form = useForm<ArticleFormValues>({
 		resolver: valibotResolver(articleFormSchema),
@@ -121,6 +122,42 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 			toast.error('An error occurred while generating alt text')
 		} finally {
 			setIsGeneratingAlt(false)
+		}
+	}
+
+	const handleGenerateSEO = async () => {
+		const title = form.watch('title')
+		const description = form.watch('description')
+		const extract = form.watch('extract')
+		const articleLocale = form.watch('locale')
+
+		if (!title) {
+			toast.error('Please enter an article title first')
+			return
+		}
+
+		setIsGeneratingSEO(true)
+		try {
+			const formData = new FormData()
+			formData.append('title', title)
+			if (description) formData.append('description', description)
+			if (extract) formData.append('extract', extract)
+			formData.append('locale', articleLocale || 'fr')
+
+			const result = await generateSEOAction(formData)
+
+			if (result.success && result.seoTitle && result.seoDescription) {
+				form.setValue('seoTitle', result.seoTitle, { shouldValidate: true })
+				form.setValue('seoDescription', result.seoDescription, { shouldValidate: true })
+				toast.success('SEO content generated successfully!')
+			} else {
+				toast.error(result.error || 'Failed to generate SEO content')
+			}
+		} catch (error) {
+			console.error('Error generating SEO:', error)
+			toast.error('An error occurred while generating SEO content')
+		} finally {
+			setIsGeneratingSEO(false)
 		}
 	}
 
@@ -347,6 +384,22 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 							<div>
 								<h3 className="text-lg font-semibold">SEO Settings</h3>
 								<p className="text-muted-foreground text-sm">Optimize your article for search engines</p>
+							</div>
+
+							<div>
+								<Button
+									type="button"
+									variant="outline"
+									onClick={handleGenerateSEO}
+									disabled={isGeneratingSEO || !form.watch('title')}
+									className="w-full sm:w-auto"
+								>
+									<Sparkles className="mr-2 h-4 w-4" />
+									{isGeneratingSEO ? 'Generating SEO...' : 'Generate SEO with AI'}
+								</Button>
+								<p className="text-muted-foreground mt-2 text-sm">
+									Automatically generate SEO title and description using AI based on your article content
+								</p>
 							</div>
 
 							<FormField

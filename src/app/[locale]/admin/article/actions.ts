@@ -12,6 +12,7 @@ import {
 	updateArticleById,
 } from '@/services/article.services'
 import { generateImageAltText } from '@/services/forvoyez.services'
+import { generateSEOContent } from '@/services/gemini.services'
 import { createSEO } from '@/services/seo.services'
 
 /**
@@ -377,6 +378,69 @@ export async function generateAltTextAction(formData: FormData): Promise<{
 		return {
 			success: false,
 			error: error instanceof Error ? error.message : 'Failed to generate alt text',
+		}
+	}
+}
+
+/**
+ * Server action to generate SEO content using Gemini AI (admin only)
+ */
+export async function generateSEOAction(formData: FormData): Promise<{
+	seoTitle?: string
+	seoDescription?: string
+	error?: string
+	success: boolean
+}> {
+	try {
+		// Verify admin access
+		const adminUser = await checkAdminAccess()
+
+		if (adminUser == null) {
+			return {
+				success: false,
+				error: 'Unauthorized: Admin access required',
+			}
+		}
+
+		// Extract article information
+		const title = formData.get('title') as string
+		const description = formData.get('description') as string
+		const extract = formData.get('extract') as string
+		const locale = formData.get('locale') as string
+
+		if (!title) {
+			return {
+				success: false,
+				error: 'Article title is required to generate SEO content',
+			}
+		}
+
+		// Call Gemini service to generate SEO content
+		const result = await generateSEOContent({
+			title,
+			description,
+			extract,
+			locale: locale || 'fr',
+		})
+
+		if (result) {
+			console.info(`Admin ${adminUser.email} generated SEO content with Gemini`)
+			return {
+				success: true,
+				seoTitle: result.seoTitle,
+				seoDescription: result.seoDescription,
+			}
+		} else {
+			return {
+				success: false,
+				error: 'Failed to generate SEO content from Gemini API',
+			}
+		}
+	} catch (error) {
+		console.error('Error in generateSEOAction:', error)
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to generate SEO content',
 		}
 	}
 }
