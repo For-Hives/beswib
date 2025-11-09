@@ -116,26 +116,84 @@ export function RichTextEditor({
 	}
 
 	const addLink = () => {
+		const { from, to } = editor.state.selection
+		const selectedText = editor.state.doc.textBetween(from, to, '')
+
+		// Check if we're editing an existing link
 		const previousUrl = editor.getAttributes('link').href
-		const url = window.prompt('Enter URL:', previousUrl)
 
-		if (url === null) {
-			return
+		if (selectedText) {
+			// Text is selected - just ask for URL
+			const url = window.prompt('Enter URL:', previousUrl || '')
+
+			if (url === null) {
+				return
+			}
+
+			if (url === '') {
+				editor.chain().focus().extendMarkRange('link').unsetLink().run()
+				return
+			}
+
+			editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+		} else {
+			// No text selected - ask for both text and URL
+			const text = window.prompt('Enter link text:')
+			if (!text) return
+
+			const url = window.prompt('Enter URL:')
+			if (!url) return
+
+			editor
+				.chain()
+				.focus()
+				.insertContent({
+					type: 'text',
+					text: text,
+					marks: [
+						{
+							type: 'link',
+							attrs: {
+								href: url,
+							},
+						},
+					],
+				})
+				.run()
 		}
-
-		if (url === '') {
-			editor.chain().focus().extendMarkRange('link').unsetLink().run()
-			return
-		}
-
-		editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
 	}
 
 	const addImage = () => {
-		const url = window.prompt('Enter image URL:')
-		if (url) {
-			editor.chain().focus().setImage({ src: url }).run()
+		// Create a file input element
+		const input = document.createElement('input')
+		input.type = 'file'
+		input.accept = 'image/*'
+
+		input.onchange = (e: Event) => {
+			const target = e.target as HTMLInputElement
+			const file = target.files?.[0]
+
+			if (file) {
+				// Check file size (max 5MB)
+				if (file.size > 5 * 1024 * 1024) {
+					alert('Image size should be less than 5MB')
+					return
+				}
+
+				// Convert to base64
+				const reader = new FileReader()
+				reader.onload = (readerEvent) => {
+					const base64 = readerEvent.target?.result as string
+					if (base64) {
+						editor.chain().focus().setImage({ src: base64 }).run()
+					}
+				}
+				reader.readAsDataURL(file)
+			}
 		}
+
+		// Trigger file picker
+		input.click()
 	}
 
 	return (
@@ -568,11 +626,6 @@ export function RichTextEditor({
 
 				.tiptap-editor .ProseMirror [style*='text-align: left'] {
 					text-align: left;
-				}
-
-				/* Selection */
-				.tiptap-editor .ProseMirror ::selection {
-					background-color: hsl(var(--primary) / 0.2);
 				}
 			`}</style>
 		</div>
