@@ -1,6 +1,7 @@
 'use client'
 
 import {
+	BookOpen,
 	Building,
 	Calendar,
 	CheckCircle,
@@ -8,6 +9,7 @@ import {
 	CreditCard,
 	Eye,
 	FileText,
+	PenSquare,
 	Plus,
 	TrendingUp,
 	Users,
@@ -294,6 +296,44 @@ export default function AdminDashboardClient({ locale, currentUser }: Readonly<A
 										<Clock className="mr-2 h-4 w-4" />
 										{t.dashboard.ui.comingSoon}
 									</Button>
+								</CardContent>
+							</Card>
+
+							{/* Create Article Card */}
+							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 group border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
+								<CardHeader className="text-center">
+									<div className="bg-primary/10 text-primary group-hover:bg-primary/20 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full transition-colors">
+										<PenSquare className="h-8 w-8" />
+									</div>
+									<CardTitle className="text-xl">{t.dashboard.actions.createArticle}</CardTitle>
+									<CardDescription>{t.dashboard.actions.createArticleDescription}</CardDescription>
+								</CardHeader>
+								<CardContent className="text-center">
+									<Link href="/admin/article/create">
+										<Button className="w-full cursor-pointer">
+											<PenSquare className="mr-2 h-4 w-4" />
+											{t.dashboard.actions.createArticle}
+										</Button>
+									</Link>
+								</CardContent>
+							</Card>
+
+							{/* View Articles Card */}
+							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 group border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-lg">
+								<CardHeader className="text-center">
+									<div className="bg-primary/10 text-primary group-hover:bg-primary/20 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full transition-colors">
+										<BookOpen className="h-8 w-8" />
+									</div>
+									<CardTitle className="text-xl">{t.dashboard.actions.viewArticles}</CardTitle>
+									<CardDescription>{t.dashboard.actions.viewArticlesDescription}</CardDescription>
+								</CardHeader>
+								<CardContent className="text-center">
+									<Link href="/admin/article">
+										<Button className="w-full cursor-pointer">
+											<BookOpen className="mr-2 h-4 w-4" />
+											{t.dashboard.actions.viewArticles}
+										</Button>
+									</Link>
 								</CardContent>
 							</Card>
 						</div>
