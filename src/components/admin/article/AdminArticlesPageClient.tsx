@@ -41,6 +41,7 @@ import { toast } from 'sonner'
 
 import { deleteArticleAction, getAllArticlesAction } from '@/app/[locale]/admin/article/actions'
 import translations from '@/app/[locale]/admin/article/locales.json'
+import ArticleTranslationIndicator from '@/components/admin/article/ArticleTranslationIndicator'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -267,6 +268,13 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 						</div>
 					)
 				},
+			},
+			{
+				id: 'translations',
+				size: 100,
+				accessorKey: 'locale',
+				header: 'Languages',
+				cell: ({ row }) => <ArticleTranslationIndicator article={row.original} />,
 			},
 			{
 				id: 'actions',

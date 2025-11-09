@@ -13,6 +13,7 @@ export interface Article {
 	extract: string
 	content: string // Rich text HTML content from editor
 	seo?: SEO['id'] // RELATION_RECORD_ID 🔗 (optional)
+	translationGroup?: string // UUID linking all translations of the same article
 	created: Date
 	updated: Date
 }

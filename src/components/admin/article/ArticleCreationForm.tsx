@@ -2,12 +2,13 @@
 
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { Sparkles } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as v from 'valibot'
 import { createArticleAction, generateAltTextAction, generateSEOAction } from '@/app/[locale]/admin/article/actions'
+import ArticleTranslationTabs from '@/components/admin/article/ArticleTranslationTabs'
 import { Button } from '@/components/ui/button'
 import { FileUpload } from '@/components/ui/file-upload'
 import { Input } from '@/components/ui/inputAlt'
@@ -46,6 +47,7 @@ import type { Article } from '@/models/article.model'
 
 export default function ArticleCreationForm({ locale, onCancel, onSuccess }: ArticleCreationFormProps) {
 	const router = useRouter()
+	const searchParams = useSearchParams()
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [isGeneratingAlt, setIsGeneratingAlt] = useState(false)
 	const [isGeneratingSEO, setIsGeneratingSEO] = useState(false)
@@ -53,6 +55,24 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 	const [localeState, setLocaleState] = useState<string>('fr')
 	const [seoTitle, setSeoTitle] = useState('')
 	const [seoDescription, setSeoDescription] = useState('')
+	const [translationGroup, setTranslationGroup] = useState<string | undefined>(undefined)
+	const [currentArticleId, setCurrentArticleId] = useState<string | undefined>(undefined)
+
+	// Check URL parameters for translationGroup and locale
+	useEffect(() => {
+		const urlTranslationGroup = searchParams.get('translationGroup')
+		const urlLocale = searchParams.get('locale')
+
+		if (urlTranslationGroup) {
+			setTranslationGroup(urlTranslationGroup)
+			toast.info('Creating translation for existing article')
+		}
+
+		if (urlLocale) {
+			setLocaleState(urlLocale)
+			setValue('locale', urlLocale, { shouldValidate: true })
+		}
+	}, [searchParams])
 
 	const {
 		setValue,
@@ -168,6 +188,14 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 	const onSubmit = async (data: ArticleFormValues) => {
 		setIsSubmitting(true)
 		try {
+			// Generate or use existing translationGroup
+			let groupId = translationGroup
+			if (!groupId) {
+				// Generate a new UUID for the translation group
+				groupId = crypto.randomUUID()
+				setTranslationGroup(groupId)
+			}
+
 			// Create FormData for file upload
 			const formData = new FormData()
 			formData.append('title', data.title)
@@ -176,6 +204,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 			formData.append('description', data.description)
 			formData.append('extract', data.extract)
 			formData.append('content', data.content)
+			formData.append('translationGroup', groupId)
 
 			if (data.imageFile != null && data.imageFile instanceof File) {
 				formData.append('imageFile', data.imageFile)
@@ -194,6 +223,13 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 
 			if (result.success) {
 				toast.success('Article created successfully!')
+				if (result.data) {
+					// Set the translation group from the created article
+					if (result.data.translationGroup) {
+						setTranslationGroup(result.data.translationGroup)
+					}
+					setCurrentArticleId(result.data.id)
+				}
 				if (onSuccess && result.data) {
 					onSuccess(result.data)
 				} else {
@@ -225,6 +261,41 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 		}
 	}
 
+	// Handle locale change and load article data if it exists
+	const handleLocaleChange = (newLocale: Locale, article?: Article) => {
+		setLocaleState(newLocale)
+		setValue('locale', newLocale, { shouldValidate: true })
+
+		if (article) {
+			// Load existing translation data
+			setCurrentArticleId(article.id)
+			setValue('title', article.title)
+			setValue('slug', article.slug)
+			setValue('description', article.description)
+			setValue('extract', article.extract)
+			setContent(article.content)
+			setValue('content', article.content)
+			// Note: We don't load image and SEO for now as they require separate handling
+			toast.success(`Loaded ${newLocale.toUpperCase()} translation`)
+		} else {
+			// Clear form for new translation
+			setCurrentArticleId(undefined)
+			setValue('title', '')
+			setValue('slug', '')
+			setValue('description', '')
+			setValue('extract', '')
+			setContent('')
+			setValue('content', '')
+			setValue('imageFile', undefined)
+			setValue('imageAlt', '')
+			setSeoTitle('')
+			setSeoDescription('')
+			setValue('seoTitle', '')
+			setValue('seoDescription', '')
+			toast.info(`Creating new ${newLocale.toUpperCase()} translation`)
+		}
+	}
+
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br pt-24">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size:[24px_24px]"></div>
@@ -238,6 +309,13 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 						<h1 className="text-foreground text-4xl font-bold tracking-tight md:text-5xl">Create New Article</h1>
 						<p className="text-muted-foreground mt-4 text-lg">Add a new blog article to your platform</p>
 					</div>
+
+					{/* Translation Tabs */}
+					<ArticleTranslationTabs
+						translationGroup={translationGroup}
+						currentLocale={localeState as Locale}
+						onLocaleChange={handleLocaleChange}
+					/>
 
 					{/* Global form error */}
 					{errors.root && (
