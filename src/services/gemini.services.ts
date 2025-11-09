@@ -229,7 +229,9 @@ export async function generateArticleTranslation(
 		// Extract base64 images from content to save tokens
 		const { cleanedContent, imageMap } = extractBase64Images(options.content)
 
-		console.info(`Extracted ${imageMap.size} base64 image(s) from content before translation`)
+		if (imageMap.size > 0) {
+			console.info(`Extracted ${imageMap.size} base64 image(s) from content before translation`)
+		}
 
 		const prompt = `You are a professional translator specializing in sports and e-commerce content for Beswib, an international marketplace for reselling race bibs.
 
@@ -299,7 +301,9 @@ Do not include any markdown formatting, code blocks, or additional text. Just th
 
 		// Restore base64 images back into the translated content
 		result.content = restoreBase64Images(result.content, imageMap)
-		console.info(`Restored ${imageMap.size} base64 image(s) into translated content`)
+		if (imageMap.size > 0) {
+			console.info(`Restored ${imageMap.size} base64 image(s) into translated content`)
+		}
 
 		// Validate and truncate SEO fields if needed
 		if (result.seoTitle.length > 60) {
