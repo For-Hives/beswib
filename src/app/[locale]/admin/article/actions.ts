@@ -110,10 +110,10 @@ export async function createArticleAction(formData: FormData): Promise<{
 }
 
 /**
- * Server action to get all articles (admin only)
+ * Server action to get all French articles with translation counts (admin only)
  */
 export async function getAllArticlesAction(): Promise<{
-	data?: Article[]
+	data?: Array<Article & { translationCount?: number }>
 	error?: string
 	success: boolean
 }> {
@@ -128,11 +128,33 @@ export async function getAllArticlesAction(): Promise<{
 			}
 		}
 
-		const articles = await getAllArticles(true)
+		// Get all articles
+		const allArticles = await getAllArticles(true)
+
+		// Filter only French articles
+		const frenchArticles = allArticles.filter(article => article.locale === 'fr')
+
+		// For each French article, count translations in its group
+		const articlesWithCounts = await Promise.all(
+			frenchArticles.map(async article => {
+				let translationCount = 1 // Start with 1 (the French article itself)
+
+				if (article.translationGroup) {
+					// Fetch all articles in the translation group
+					const groupArticles = await fetchArticlesByTranslationGroup(article.translationGroup, false)
+					translationCount = groupArticles.length
+				}
+
+				return {
+					...article,
+					translationCount,
+				}
+			})
+		)
 
 		return {
 			success: true,
-			data: articles,
+			data: articlesWithCounts,
 		}
 	} catch (error) {
 		console.error('Error in getAllArticlesAction:', error)
