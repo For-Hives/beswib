@@ -324,3 +324,59 @@ export async function deleteArticleAction(id: string): Promise<{
 		}
 	}
 }
+
+/**
+ * Server action to generate alt text for an image using Forvoyez AI (admin only)
+ */
+export async function generateAltTextAction(formData: FormData): Promise<{
+	altText?: string
+	error?: string
+	success: boolean
+}> {
+	try {
+		// Verify admin access
+		const adminUser = await checkAdminAccess()
+
+		if (adminUser == null) {
+			return {
+				success: false,
+				error: 'Unauthorized: Admin access required',
+			}
+		}
+
+		// Extract image file from FormData
+		const imageFile = formData.get('image') as File | null
+
+		if (!imageFile || !(imageFile instanceof File)) {
+			return {
+				success: false,
+				error: 'No image file provided',
+			}
+		}
+
+		// Get optional language parameter (defaults to 'fr' in the service)
+		const language = (formData.get('language') as string) || 'fr'
+
+		// Call Forvoyez service to generate alt text
+		const altText = await generateImageAltText(imageFile, { language })
+
+		if (altText) {
+			console.info(`Admin ${adminUser.email} generated alt text with Forvoyez`)
+			return {
+				success: true,
+				altText,
+			}
+		} else {
+			return {
+				success: false,
+				error: 'Failed to generate alt text from Forvoyez API',
+			}
+		}
+	} catch (error) {
+		console.error('Error in generateAltTextAction:', error)
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to generate alt text',
+		}
+	}
+}

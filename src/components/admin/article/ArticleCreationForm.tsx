@@ -7,12 +7,13 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as v from 'valibot'
 
-import { createArticleAction } from '@/app/[locale]/admin/article/actions'
+import { createArticleAction, generateAltTextAction } from '@/app/[locale]/admin/article/actions'
 import { Button } from '@/components/ui/button'
 import { FileUpload } from '@/components/ui/file-upload'
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
 import { RichTextEditor } from '@/components/ui/rich-text-editor'
+import { Sparkles } from 'lucide-react'
 import {
 	Select,
 	SelectContent,
@@ -53,6 +54,7 @@ import type { Article } from '@/models/article.model'
 export default function ArticleCreationForm({ locale, onCancel, onSuccess }: ArticleCreationFormProps) {
 	const router = useRouter()
 	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [isGeneratingAlt, setIsGeneratingAlt] = useState(false)
 
 	const {
 		watch,
@@ -101,6 +103,36 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 		}
 
 		setValue('imageFile', file)
+	}
+
+	const handleGenerateAltText = async () => {
+		const imageFile = watch('imageFile')
+
+		if (!imageFile || !(imageFile instanceof File)) {
+			toast.error('Please upload an image first')
+			return
+		}
+
+		setIsGeneratingAlt(true)
+		try {
+			const formData = new FormData()
+			formData.append('image', imageFile)
+			formData.append('language', localeValue || 'fr')
+
+			const result = await generateAltTextAction(formData)
+
+			if (result.success && result.altText) {
+				setValue('imageAlt', result.altText, { shouldValidate: true })
+				toast.success('Alt text generated successfully!')
+			} else {
+				toast.error(result.error || 'Failed to generate alt text')
+			}
+		} catch (error) {
+			console.error('Error generating alt text:', error)
+			toast.error('An error occurred while generating alt text')
+		} finally {
+			setIsGeneratingAlt(false)
+		}
 	}
 
 	const onSubmit = async (data: ArticleFormValues) => {
@@ -339,8 +371,20 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="imageAlt">
 										Image Alt Text
 									</Label>
-									<Input id="imageAlt" {...register('imageAlt')} placeholder="Describe the image" type="text" />
-									<p className="text-muted-foreground mt-1 text-sm">Alternative text for accessibility and SEO</p>
+									<div className="flex gap-2">
+										<Input id="imageAlt" {...register('imageAlt')} placeholder="Describe the image" type="text" className="flex-1" />
+										<Button
+											type="button"
+											variant="outline"
+											onClick={handleGenerateAltText}
+											disabled={isGeneratingAlt || !watch('imageFile')}
+											className="shrink-0"
+										>
+											<Sparkles className="mr-2 h-4 w-4" />
+											{isGeneratingAlt ? 'Generating...' : 'Generate AI'}
+										</Button>
+									</div>
+									<p className="text-muted-foreground mt-1 text-sm">Alternative text for accessibility and SEO (AI-generated with Forvoyez)</p>
 									{errors.imageAlt && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.imageAlt.message}</p>
 									)}
