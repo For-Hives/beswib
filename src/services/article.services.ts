@@ -19,6 +19,7 @@ export async function createArticle(articleData: Omit<Article, 'id' | 'created' 
 			title: articleData.title,
 			description: articleData.description ?? '',
 			slug: articleData.slug,
+			locale: articleData.locale,
 			image: articleData.image ?? '',
 			extract: articleData.extract ?? '',
 			content: articleData.content ?? '',
@@ -111,6 +112,7 @@ export async function updateArticleById(id: string, articleData: Partial<Article
 		if (articleData.title !== undefined) dataToUpdate.title = articleData.title
 		if (articleData.description !== undefined) dataToUpdate.description = articleData.description
 		if (articleData.slug !== undefined) dataToUpdate.slug = articleData.slug
+		if (articleData.locale !== undefined) dataToUpdate.locale = articleData.locale
 		if (articleData.image !== undefined) dataToUpdate.image = articleData.image
 		if (articleData.extract !== undefined) dataToUpdate.extract = articleData.extract
 		if (articleData.content !== undefined) dataToUpdate.content = articleData.content

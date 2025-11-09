@@ -14,9 +14,16 @@ import { FileUpload } from '@/components/ui/file-upload'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { RichTextEditor } from '@/components/ui/rich-text-editor'
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import type { Locale } from '@/lib/i18n/config'
+import { i18n, localeFlags, localeNames, type Locale } from '@/lib/i18n/config'
 import type { Article } from '@/models/article.model'
 
 const articleFormSchema = v.object({
@@ -26,6 +33,7 @@ const articleFormSchema = v.object({
 		v.minLength(1, 'Slug is required'),
 		v.regex(/^[a-z0-9-]+$/, 'Slug must contain only lowercase letters, numbers, and hyphens')
 	),
+	locale: v.pipe(v.string(), v.minLength(1, 'Language is required')),
 	description: v.pipe(v.string(), v.minLength(1, 'Description is required')),
 	extract: v.pipe(v.string(), v.minLength(1, 'Extract is required')),
 	content: v.pipe(v.string(), v.minLength(1, 'Content is required')),
@@ -51,6 +59,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 		defaultValues: {
 			title: article.title,
 			slug: article.slug,
+			locale: article.locale,
 			description: article.description,
 			extract: article.extract,
 			content: article.content,
@@ -91,6 +100,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 			formData.append('articleId', article.id)
 			formData.append('title', data.title)
 			formData.append('slug', data.slug)
+			formData.append('locale', data.locale)
 			formData.append('description', data.description)
 			formData.append('extract', data.extract)
 			formData.append('content', data.content)
@@ -162,6 +172,35 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 											<Input placeholder="article-slug" {...field} />
 										</FormControl>
 										<FormDescription>URL-friendly version of the title (lowercase, hyphens only)</FormDescription>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="locale"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Language</FormLabel>
+										<Select onValueChange={field.onChange} defaultValue={field.value}>
+											<FormControl>
+												<SelectTrigger>
+													<SelectValue placeholder="Select language" />
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent>
+												{i18n.locales.map((loc) => (
+													<SelectItem key={loc} value={loc}>
+														<span className="flex items-center gap-2">
+															<span>{localeFlags[loc]}</span>
+															<span>{localeNames[loc]}</span>
+														</span>
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
+										<FormDescription>The language for this article</FormDescription>
 										<FormMessage />
 									</FormItem>
 								)}

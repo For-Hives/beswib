@@ -1,6 +1,7 @@
 'use server'
 
 import { checkAdminAccess } from '@/guard/adminGuard'
+import type { Locale } from '@/lib/i18n/config'
 import type { Article } from '@/models/article.model'
 import {
 	createArticle,
@@ -35,6 +36,7 @@ export async function createArticleAction(formData: FormData): Promise<{
 		// Extract form data
 		const title = formData.get('title') as string
 		const slug = formData.get('slug') as string
+		const locale = formData.get('locale') as Locale
 		const description = formData.get('description') as string
 		const extract = formData.get('extract') as string
 		const content = formData.get('content') as string
@@ -44,10 +46,10 @@ export async function createArticleAction(formData: FormData): Promise<{
 		const seoDescription = formData.get('seoDescription') as string
 
 		// Validate required fields
-		if (!title || !slug) {
+		if (!title || !slug || !locale) {
 			return {
 				success: false,
-				error: 'Title and slug are required',
+				error: 'Title, slug, and locale are required',
 			}
 		}
 
@@ -76,6 +78,7 @@ export async function createArticleAction(formData: FormData): Promise<{
 		const result = await createArticle({
 			title,
 			slug,
+			locale,
 			description,
 			extract,
 			content,
@@ -201,6 +204,7 @@ export async function updateArticleAction(
 		// Extract form data
 		const title = formData.get('title') as string
 		const slug = formData.get('slug') as string
+		const locale = formData.get('locale') as Locale
 		const description = formData.get('description') as string
 		const extract = formData.get('extract') as string
 		const content = formData.get('content') as string
@@ -260,6 +264,7 @@ export async function updateArticleAction(
 		const result = await updateArticleById(id, {
 			title,
 			slug,
+			locale,
 			description,
 			extract,
 			content,
