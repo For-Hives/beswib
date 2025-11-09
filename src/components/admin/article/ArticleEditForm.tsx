@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as v from 'valibot'
 import { generateAltTextAction, generateSEOAction, updateArticleAction } from '@/app/[locale]/admin/article/actions'
+import ArticleTranslationTabs from '@/components/admin/article/ArticleTranslationTabs'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { FileUpload } from '@/components/ui/file-upload'
@@ -196,6 +197,22 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 		}
 	}
 
+	// Handle locale change and load article data if it exists
+	const handleLocaleChange = (newLocale: Locale, translatedArticle?: Article) => {
+		if (translatedArticle) {
+			// Navigate to the edit page of the translation
+			router.push(`/${locale}/admin/article/edit/${translatedArticle.id}`)
+		} else {
+			// Navigate to create page with the translationGroup preset
+			const translationGroup = article.translationGroup
+			if (translationGroup) {
+				router.push(`/${locale}/admin/article/create?translationGroup=${translationGroup}&locale=${newLocale}`)
+			} else {
+				toast.info(`Create a translation for ${newLocale.toUpperCase()}`)
+			}
+		}
+	}
+
 	return (
 		<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
 			<CardHeader>
@@ -203,6 +220,17 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 				<CardDescription>Update your blog article</CardDescription>
 			</CardHeader>
 			<CardContent>
+				{/* Translation Tabs */}
+				{article.translationGroup && (
+					<div className="mb-6">
+						<ArticleTranslationTabs
+							translationGroup={article.translationGroup}
+							currentLocale={article.locale}
+							onLocaleChange={handleLocaleChange}
+						/>
+					</div>
+				)}
+
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 						{/* Basic Information */}

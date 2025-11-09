@@ -24,6 +24,7 @@ export async function createArticle(articleData: Omit<Article, 'id' | 'created' 
 			extract: articleData.extract ?? '',
 			content: articleData.content ?? '',
 			seo: articleData.seo ?? '',
+			translationGroup: articleData.translationGroup ?? '',
 		}
 
 		const record = await pb.collection('articles').create<Article>(dataToCreate)
@@ -117,6 +118,7 @@ export async function updateArticleById(id: string, articleData: Partial<Article
 		if (articleData.extract !== undefined) dataToUpdate.extract = articleData.extract
 		if (articleData.content !== undefined) dataToUpdate.content = articleData.content
 		if (articleData.seo !== undefined) dataToUpdate.seo = articleData.seo
+		if (articleData.translationGroup !== undefined) dataToUpdate.translationGroup = articleData.translationGroup
 
 		const record = await pb.collection('articles').update<Article>(id, dataToUpdate)
 
@@ -177,5 +179,32 @@ export async function fetchImageWithAltById(id: string): Promise<ImageWithAlt | 
 	} catch (error: unknown) {
 		console.error(`Error fetching image with ID "${id}":`, error)
 		return null
+	}
+}
+
+/**
+ * Fetches all articles that share the same translationGroup.
+ * @param translationGroup The UUID of the translation group
+ * @param expandImage Whether to expand image data
+ * @returns Array of articles in the same translation group
+ */
+export async function fetchArticlesByTranslationGroup(
+	translationGroup: string,
+	expandImage = false
+): Promise<(Article & { expand?: { image?: ImageWithAlt } })[]> {
+	if (!translationGroup) {
+		return []
+	}
+
+	try {
+		const records = await pb.collection('articles').getFullList<Article & { expand?: { image?: ImageWithAlt } }>({
+			filter: `translationGroup = "${translationGroup}"`,
+			sort: '-created',
+			expand: expandImage ? 'image' : undefined,
+		})
+		return records
+	} catch (error: unknown) {
+		console.error(`Error fetching articles with translationGroup "${translationGroup}":`, error)
+		return []
 	}
 }

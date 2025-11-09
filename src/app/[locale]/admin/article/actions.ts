@@ -8,6 +8,7 @@ import {
 	createImageWithAlt,
 	deleteArticleById,
 	fetchArticleById,
+	fetchArticlesByTranslationGroup,
 	getAllArticles,
 	updateArticleById,
 } from '@/services/article.services'
@@ -46,6 +47,7 @@ export async function createArticleAction(formData: FormData): Promise<{
 		const imageAlt = formData.get('imageAlt') as string
 		const seoTitle = formData.get('seoTitle') as string
 		const seoDescription = formData.get('seoDescription') as string
+		const translationGroup = formData.get('translationGroup') as string
 
 		// Validate required fields
 		if (!title || !slug || !locale) {
@@ -86,6 +88,7 @@ export async function createArticleAction(formData: FormData): Promise<{
 			content,
 			image: imageId,
 			seo: seoId,
+			translationGroup: translationGroup || undefined,
 		})
 
 		if (result != null) {
@@ -214,6 +217,7 @@ export async function updateArticleAction(
 		const imageAlt = formData.get('imageAlt') as string
 		const seoTitle = formData.get('seoTitle') as string
 		const seoDescription = formData.get('seoDescription') as string
+		const translationGroup = formData.get('translationGroup') as string
 
 		// Fetch the existing article to get current image and seo IDs
 		const existingArticle = await fetchArticleById(id)
@@ -272,6 +276,7 @@ export async function updateArticleAction(
 			content,
 			image: imageId,
 			seo: seoId,
+			translationGroup: translationGroup || undefined,
 		})
 
 		if (result != null) {
@@ -441,6 +446,47 @@ export async function generateSEOAction(formData: FormData): Promise<{
 		return {
 			success: false,
 			error: error instanceof Error ? error.message : 'Failed to generate SEO content',
+		}
+	}
+}
+
+/**
+ * Server action to get all translations of an article by translationGroup (admin only)
+ */
+export async function getArticleTranslationsAction(translationGroup: string): Promise<{
+	data?: Article[]
+	error?: string
+	success: boolean
+}> {
+	try {
+		// Verify admin access
+		const adminUser = await checkAdminAccess()
+
+		if (adminUser == null) {
+			return {
+				success: false,
+				error: 'Unauthorized: Admin access required',
+			}
+		}
+
+		if (!translationGroup) {
+			return {
+				success: false,
+				error: 'Translation group ID is required',
+			}
+		}
+
+		const translations = await fetchArticlesByTranslationGroup(translationGroup, true)
+
+		return {
+			success: true,
+			data: translations,
+		}
+	} catch (error) {
+		console.error('Error in getArticleTranslationsAction:', error)
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to fetch translations',
 		}
 	}
 }
