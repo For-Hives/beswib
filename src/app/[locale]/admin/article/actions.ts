@@ -11,6 +11,7 @@ import {
 	getAllArticles,
 	updateArticleById,
 } from '@/services/article.services'
+import { generateImageAltText } from '@/services/forvoyez.services'
 import { createSEO } from '@/services/seo.services'
 
 /**
