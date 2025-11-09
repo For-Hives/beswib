@@ -15,7 +15,11 @@
 				"viewOrganizers": "View Organizers",
 				"viewOrganizersDescription": "Manage all event organizers and their partnerships",
 				"viewReports": "View Reports",
-				"viewTransactions": "View All Transactions"
+				"viewTransactions": "View All Transactions",
+				"createArticle": "Create New Article",
+				"createArticleDescription": "Write and publish new blog articles",
+				"viewArticles": "View Articles",
+				"viewArticlesDescription": "Browse and manage all blog articles"
 			},
 			"errors": {
 				"accessError": "Access Error",
@@ -261,7 +265,11 @@
 				"viewOrganizers": "Voir les Organisateurs",
 				"viewOrganizersDescription": "Gérez tous les organisateurs d'événements et leurs partenariats",
 				"viewReports": "Voir les Rapports",
-				"viewTransactions": "Voir Toutes les Transactions"
+				"viewTransactions": "Voir Toutes les Transactions",
+				"createArticle": "Créer un Nouvel Article",
+				"createArticleDescription": "Écrire et publier de nouveaux articles de blog",
+				"viewArticles": "Voir les Articles",
+				"viewArticlesDescription": "Parcourir et gérer tous les articles de blog"
 			},
 			"errors": {
 				"accessError": "Erreur d'Accès",
@@ -509,7 +517,11 @@
 				"viewOrganizers": "Ver Organizadores",
 				"viewOrganizersDescription": "Gestionar todos los organizadores de eventos y sus asociaciones",
 				"viewReports": "Ver Reportes",
-				"viewTransactions": "Ver Todas las Transacciones"
+				"viewTransactions": "Ver Todas las Transacciones",
+				"createArticle": "Crear Nuevo Artículo",
+				"createArticleDescription": "Escribir y publicar nuevos artículos de blog",
+				"viewArticles": "Ver Artículos",
+				"viewArticlesDescription": "Explorar y gestionar todos los artículos de blog"
 			},
 			"errors": {
 				"accessError": "Error de Acceso",
@@ -748,7 +760,11 @@
 				"viewOrganizers": "Visualizza Organizzatori",
 				"viewOrganizersDescription": "Gestisci tutti gli organizzatori di eventi e le loro partnership",
 				"viewReports": "Visualizza Report",
-				"viewTransactions": "Visualizza Tutte le Transazioni"
+				"viewTransactions": "Visualizza Tutte le Transazioni",
+				"createArticle": "Crea Nuovo Articolo",
+				"createArticleDescription": "Scrivi e pubblica nuovi articoli del blog",
+				"viewArticles": "Visualizza Articoli",
+				"viewArticlesDescription": "Sfoglia e gestisci tutti gli articoli del blog"
 			},
 			"errors": {
 				"accessError": "Errore di Accesso",
@@ -987,7 +1003,11 @@
 				"viewOrganizers": "Veranstalter anzeigen",
 				"viewOrganizersDescription": "Verwalten Sie alle Eventveranstalter und ihre Partnerschaften",
 				"viewReports": "Berichte anzeigen",
-				"viewTransactions": "Alle Transaktionen anzeigen"
+				"viewTransactions": "Alle Transaktionen anzeigen",
+				"createArticle": "Neuen Artikel erstellen",
+				"createArticleDescription": "Neue Blog-Artikel schreiben und veröffentlichen",
+				"viewArticles": "Artikel ansehen",
+				"viewArticlesDescription": "Alle Blog-Artikel durchsuchen und verwalten"
 			},
 			"errors": {
 				"accessError": "Zugriffsfehler",
@@ -1226,7 +1246,11 @@
 				"viewOrganizers": "Vezi Organizatorii",
 				"viewOrganizersDescription": "Gestionează toți organizatorii de evenimente și parteneriatele lor",
 				"viewReports": "Vezi Rapoartele",
-				"viewTransactions": "Vezi Toate Tranzacțiile"
+				"viewTransactions": "Vezi Toate Tranzacțiile",
+				"createArticle": "Creează Articol Nou",
+				"createArticleDescription": "Scrie și publică noi articole de blog",
+				"viewArticles": "Vezi Articole",
+				"viewArticlesDescription": "Răsfoiește și gestionează toate articolele de blog"
 			},
 			"errors": {
 				"accessError": "Eroare de Acces",
@@ -1465,7 +1489,11 @@
 				"viewOrganizers": "Ver Organizadores",
 				"viewOrganizersDescription": "Gerenciar todos os organizadores de eventos e suas parcerias",
 				"viewReports": "Ver Relatórios",
-				"viewTransactions": "Ver Todas as Transações"
+				"viewTransactions": "Ver Todas as Transações",
+				"createArticle": "Criar Novo Artigo",
+				"createArticleDescription": "Escrever e publicar novos artigos de blog",
+				"viewArticles": "Ver Artigos",
+				"viewArticlesDescription": "Navegar e gerenciar todos os artigos de blog"
 			},
 			"errors": {
 				"accessError": "Erro de Acesso",
@@ -1704,7 +1732,11 @@
 				"viewOrganizers": "Organisatoren Bekijken",
 				"viewOrganizersDescription": "Beheer alle evenementorganisatoren en hun partnerschappen",
 				"viewReports": "Rapporten Bekijken",
-				"viewTransactions": "Alle Transacties Bekijken"
+				"viewTransactions": "Alle Transacties Bekijken",
+				"createArticle": "Nieuw Artikel Maken",
+				"createArticleDescription": "Nieuwe blog artikelen schrijven en publiceren",
+				"viewArticles": "Bekijk Artikelen",
+				"viewArticlesDescription": "Alle blog artikelen doorzoeken en beheren"
 			},
 			"errors": {
 				"accessError": "Toegangsfout",
@@ -1943,7 +1975,11 @@
 				"viewOrganizers": "주최자 보기",
 				"viewOrganizersDescription": "모든 이벤트 주최자 및 그들의 파트너십을 관리합니다",
 				"viewReports": "보고서 보기",
-				"viewTransactions": "모든 거래 보기"
+				"viewTransactions": "모든 거래 보기",
+				"createArticle": "새 기사 만들기",
+				"createArticleDescription": "새 블로그 기사 작성 및 게시",
+				"viewArticles": "기사 보기",
+				"viewArticlesDescription": "모든 블로그 기사 탐색 및 관리"
 			},
 			"errors": {
 				"accessError": "접근 오류",
