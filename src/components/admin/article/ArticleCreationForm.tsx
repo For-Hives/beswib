@@ -13,8 +13,15 @@ import { FileUpload } from '@/components/ui/file-upload'
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
 import { RichTextEditor } from '@/components/ui/rich-text-editor'
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import type { Locale } from '@/lib/i18n/config'
+import { i18n, localeFlags, localeNames, type Locale } from '@/lib/i18n/config'
 
 const articleFormSchema = v.object({
 	title: v.pipe(v.string(), v.minLength(1, 'Title is required')),
@@ -23,6 +30,7 @@ const articleFormSchema = v.object({
 		v.minLength(1, 'Slug is required'),
 		v.regex(/^[a-z0-9-]+$/, 'Slug must contain only lowercase letters, numbers, and hyphens')
 	),
+	locale: v.pipe(v.string(), v.minLength(1, 'Language is required')),
 	description: v.pipe(v.string(), v.minLength(1, 'Description is required')),
 	extract: v.pipe(v.string(), v.minLength(1, 'Extract is required')),
 	content: v.pipe(v.string(), v.minLength(1, 'Content is required')),
@@ -57,6 +65,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 		defaultValues: {
 			title: '',
 			slug: '',
+			locale: locale, // Default to current locale
 			description: '',
 			extract: '',
 			content: '',
@@ -67,6 +76,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 	})
 
 	const contentValue = watch('content')
+	const localeValue = watch('locale')
 	const seoTitleValue = watch('seoTitle')
 	const seoDescriptionValue = watch('seoDescription')
 
@@ -100,6 +110,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 			const formData = new FormData()
 			formData.append('title', data.title)
 			formData.append('slug', data.slug)
+			formData.append('locale', data.locale)
 			formData.append('description', data.description)
 			formData.append('extract', data.extract)
 			formData.append('content', data.content)
@@ -208,6 +219,30 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 									<Input id="slug" {...register('slug')} placeholder="article-slug" type="text" />
 									<p className="text-muted-foreground mt-1 text-sm">URL-friendly version (lowercase, hyphens only)</p>
 									{errors.slug && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.slug.message}</p>}
+								</div>
+
+								{/* Language */}
+								<div className="col-span-full sm:col-span-3">
+									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="locale">
+										Language *
+									</Label>
+									<Select value={localeValue} onValueChange={(value) => setValue('locale', value, { shouldValidate: true })}>
+										<SelectTrigger id="locale">
+											<SelectValue placeholder="Select language" />
+										</SelectTrigger>
+										<SelectContent>
+											{i18n.locales.map((loc) => (
+												<SelectItem key={loc} value={loc}>
+													<span className="flex items-center gap-2">
+														<span>{localeFlags[loc]}</span>
+														<span>{localeNames[loc]}</span>
+													</span>
+												</SelectItem>
+											))}
+										</SelectContent>
+									</Select>
+									<p className="text-muted-foreground mt-1 text-sm">Select the language for this article</p>
+									{errors.locale && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.locale.message}</p>}
 								</div>
 
 								{/* Description */}
