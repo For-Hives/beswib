@@ -56,7 +56,6 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 	const [seoTitle, setSeoTitle] = useState('')
 	const [seoDescription, setSeoDescription] = useState('')
 	const [translationGroup, setTranslationGroup] = useState<string | undefined>(undefined)
-	const [currentArticleId, setCurrentArticleId] = useState<string | undefined>(undefined)
 
 	// Check URL parameters for translationGroup and locale
 	useEffect(() => {
@@ -228,7 +227,6 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 					if (result.data.translationGroup) {
 						setTranslationGroup(result.data.translationGroup)
 					}
-					setCurrentArticleId(result.data.id)
 				}
 				if (onSuccess && result.data) {
 					onSuccess(result.data)
@@ -261,25 +259,17 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 		}
 	}
 
-	// Handle locale change and load article data if it exists
-	const handleLocaleChange = (newLocale: Locale, article?: Article) => {
-		setLocaleState(newLocale)
-		setValue('locale', newLocale, { shouldValidate: true })
-
-		if (article) {
-			// Load existing translation data
-			setCurrentArticleId(article.id)
-			setValue('title', article.title)
-			setValue('slug', article.slug)
-			setValue('description', article.description)
-			setValue('extract', article.extract)
-			setContent(article.content)
-			setValue('content', article.content)
-			// Note: We don't load image and SEO for now as they require separate handling
-			toast.success(`Loaded ${newLocale.toUpperCase()} translation`)
+	// Handle locale change - redirect to edit if translation exists
+	const handleLocaleChange = (newLocale: Locale, translatedArticle?: Article) => {
+		if (translatedArticle) {
+			// Navigate to the edit page of the existing translation
+			router.push(`/${locale}/admin/article/edit/${translatedArticle.id}`)
 		} else {
+			// Stay on create page but change locale
+			setLocaleState(newLocale)
+			setValue('locale', newLocale, { shouldValidate: true })
+
 			// Clear form for new translation
-			setCurrentArticleId(undefined)
 			setValue('title', '')
 			setValue('slug', '')
 			setValue('description', '')
@@ -292,7 +282,8 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 			setSeoDescription('')
 			setValue('seoTitle', '')
 			setValue('seoDescription', '')
-			toast.info(`Creating new ${newLocale.toUpperCase()} translation`)
+
+			toast.info(`Switched to ${newLocale.toUpperCase()} - create new translation`)
 		}
 	}
 
