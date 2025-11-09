@@ -127,3 +127,146 @@ Do not include any markdown formatting, code blocks, or additional text. Just th
 		return null
 	}
 }
+
+interface GenerateArticleTranslationOptions {
+	title: string
+	description: string
+	extract: string
+	content: string
+	imageAlt?: string
+	seoTitle?: string
+	seoDescription?: string
+	targetLocale: string
+}
+
+interface ArticleTranslationResult {
+	title: string
+	description: string
+	extract: string
+	content: string
+	imageAlt: string
+	seoTitle: string
+	seoDescription: string
+}
+
+/**
+ * Translates a complete article from French to a target language using Gemini Flash
+ * Context: Beswib is an international marketplace for reselling race bibs
+ *
+ * @param options Article data in French and target locale
+ * @returns Fully translated article content including SEO and alt text
+ */
+export async function generateArticleTranslation(
+	options: GenerateArticleTranslationOptions
+): Promise<ArticleTranslationResult | null> {
+	try {
+		const apiKey = process.env.GEMINI_API_KEY
+
+		if (!apiKey) {
+			console.error('GEMINI_API_KEY is not configured in environment variables')
+			return null
+		}
+
+		const google = createGoogleGenerativeAI({
+			apiKey,
+		})
+
+		// Use Gemini Flash 2.0 for fast and efficient translation
+		const model = google('gemini-2.0-flash-exp')
+
+		const languageMap: Record<string, string> = {
+			en: 'English',
+			fr: 'French',
+			es: 'Spanish',
+			it: 'Italian',
+			de: 'German',
+			ro: 'Romanian',
+			pt: 'Portuguese',
+			nl: 'Dutch',
+			ko: 'Korean',
+		}
+		const targetLanguage = languageMap[options.targetLocale] || 'English'
+
+		const prompt = `You are a professional translator specializing in sports and e-commerce content for Beswib, an international marketplace for reselling race bibs.
+
+CONTEXT ABOUT BESWIB:
+- Beswib is a platform where athletes can legally resell their race bibs (dossards) for running, trail, cycling, triathlon, and other sports events
+- Athletes sell bibs when they can't participate (injury, schedule conflicts, etc.)
+- Buyers can find spots for sold-out events
+- The platform operates internationally across 9 languages
+- All transactions are secure, legal, and compliant
+- We help reduce DNS (Did Not Start) rates and minimize waste at sporting events
+
+TASK:
+Translate the following French article content into ${targetLanguage}. Maintain the professional tone, technical accuracy for sports terminology, and SEO best practices.
+
+IMPORTANT TRANSLATION GUIDELINES:
+1. Keep HTML tags intact in the content (do not translate HTML tags, only the text inside them)
+2. Preserve any URLs, technical terms, and brand names
+3. Adapt sports terminology appropriately for the target culture
+4. Maintain the engaging and professional tone
+5. Keep SEO title under 60 characters and SEO description under 160 characters
+6. For image alt text, describe what's in the image naturally in the target language
+
+FRENCH ARTICLE DATA:
+
+Title: ${options.title}
+
+Description: ${options.description}
+
+Extract: ${options.extract}
+
+Content (HTML):
+${options.content}
+
+${options.imageAlt ? `Image Alt Text: ${options.imageAlt}` : ''}
+
+${options.seoTitle ? `SEO Title: ${options.seoTitle}` : ''}
+
+${options.seoDescription ? `SEO Description: ${options.seoDescription}` : ''}
+
+Respond ONLY with a JSON object in this exact format (no markdown, no code blocks):
+{
+  "title": "translated title",
+  "description": "translated description",
+  "extract": "translated extract",
+  "content": "translated content with preserved HTML tags",
+  "imageAlt": "translated image alt text (if image exists, otherwise provide a generic description)",
+  "seoTitle": "translated SEO title (max 60 chars)",
+  "seoDescription": "translated SEO description (max 160 chars)"
+}
+
+Do not include any markdown formatting, code blocks, or additional text. Just the raw JSON object.`
+
+		const { text } = await generateText({
+			model,
+			prompt,
+			temperature: 0.7,
+		})
+
+		// Parse the JSON response
+		const cleanedText = text
+			.trim()
+			.replace(/^```json\s*/, '')
+			.replace(/\s*```$/, '')
+			.trim()
+		const result = JSON.parse(cleanedText) as ArticleTranslationResult
+
+		// Validate and truncate SEO fields if needed
+		if (result.seoTitle.length > 60) {
+			console.warn('Generated SEO title exceeds 60 characters, truncating...')
+			result.seoTitle = `${result.seoTitle.substring(0, 57)}...`
+		}
+
+		if (result.seoDescription.length > 160) {
+			console.warn('Generated SEO description exceeds 160 characters, truncating...')
+			result.seoDescription = `${result.seoDescription.substring(0, 157)}...`
+		}
+
+		console.info(`Successfully translated article to ${targetLanguage} with Gemini Flash`)
+		return result
+	} catch (error) {
+		console.error('Error calling Gemini API for translation:', error)
+		return null
+	}
+}

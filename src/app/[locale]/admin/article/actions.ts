@@ -13,7 +13,7 @@ import {
 	updateArticleById,
 } from '@/services/article.services'
 import { generateImageAltText } from '@/services/forvoyez.services'
-import { generateSEOContent } from '@/services/gemini.services'
+import { generateArticleTranslation, generateSEOContent } from '@/services/gemini.services'
 import { createSEO } from '@/services/seo.services'
 
 /**
@@ -487,6 +487,266 @@ export async function getArticleTranslationsAction(translationGroup: string): Pr
 		return {
 			success: false,
 			error: error instanceof Error ? error.message : 'Failed to fetch translations',
+		}
+	}
+}
+
+/**
+ * Server action to generate a translation of a French article into a target language (admin only)
+ * Creates a new article in the target language with translated content, SEO, and alt text
+ */
+export async function generateArticleTranslationAction(
+	sourceArticleId: string,
+	targetLocale: Locale
+): Promise<{
+	data?: Article
+	error?: string
+	success: boolean
+}> {
+	try {
+		// Verify admin access
+		const adminUser = await checkAdminAccess()
+
+		if (adminUser == null) {
+			return {
+				success: false,
+				error: 'Unauthorized: Admin access required',
+			}
+		}
+
+		// Fetch the source article (must be French)
+		const sourceArticle = await fetchArticleById(sourceArticleId, true)
+
+		if (sourceArticle == null) {
+			return {
+				success: false,
+				error: 'Source article not found',
+			}
+		}
+
+		if (sourceArticle.locale !== 'fr') {
+			return {
+				success: false,
+				error: 'Source article must be in French (fr)',
+			}
+		}
+
+		// Check if translation already exists
+		let existingTranslation: Article | null = null
+		if (sourceArticle.translationGroup) {
+			const translations = await fetchArticlesByTranslationGroup(sourceArticle.translationGroup, true)
+			existingTranslation = translations.find(t => t.locale === targetLocale) || null
+		}
+
+		// Prepare translation data
+		const translationOptions = {
+			title: sourceArticle.title,
+			description: sourceArticle.description,
+			extract: sourceArticle.extract,
+			content: sourceArticle.content,
+			imageAlt: sourceArticle.expand?.image?.alt || '',
+			seoTitle: sourceArticle.expand?.seo?.title || '',
+			seoDescription: sourceArticle.expand?.seo?.description || '',
+			targetLocale,
+		}
+
+		// Generate translation using Gemini
+		const translatedContent = await generateArticleTranslation(translationOptions)
+
+		if (!translatedContent) {
+			return {
+				success: false,
+				error: 'Failed to generate translation with Gemini AI',
+			}
+		}
+
+		// Auto-generate slug from translated title
+		const slug = translatedContent.title
+			.toLowerCase()
+			.replace(/[^a-z0-9\s-]/g, '')
+			.replace(/\s+/g, '-')
+			.replace(/-+/g, '-')
+			.trim()
+
+		// Create or update image with translated alt text (reuse same image file)
+		let imageId = sourceArticle.image
+		if (sourceArticle.expand?.image?.image) {
+			// Create new image record with translated alt text but same image file
+			const imageFile = sourceArticle.expand.image.image
+			const pb = await import('@/lib/services/pocketbase').then(m => m.pb)
+			
+			// Download original image
+			const imageUrl = pb.files.getUrl(sourceArticle.expand.image, imageFile)
+			const imageResponse = await fetch(imageUrl)
+			const imageBlob = await imageResponse.blob()
+			const imageFileObj = new File([imageBlob], imageFile, { type: imageBlob.type })
+			
+			// Create new image record with translated alt
+			const newImage = await createImageWithAlt(imageFileObj, translatedContent.imageAlt)
+			if (newImage) {
+				imageId = newImage.id
+			}
+		}
+
+		// Create new SEO record with translated metadata
+		let seoId = ''
+		const seoResult = await createSEO({
+			title: translatedContent.seoTitle,
+			description: translatedContent.seoDescription,
+		})
+		if (seoResult) {
+			seoId = seoResult.id
+		}
+
+		// Create or update the translated article
+		let result: Article | null = null
+		if (existingTranslation) {
+			// Update existing translation
+			result = await updateArticleById(existingTranslation.id, {
+				title: translatedContent.title,
+				slug,
+				locale: targetLocale,
+				description: translatedContent.description,
+				extract: translatedContent.extract,
+				content: translatedContent.content,
+				image: imageId,
+				seo: seoId,
+				translationGroup: sourceArticle.translationGroup,
+			})
+		} else {
+			// Create new translation
+			result = await createArticle({
+				title: translatedContent.title,
+				slug,
+				locale: targetLocale,
+				description: translatedContent.description,
+				extract: translatedContent.extract,
+				content: translatedContent.content,
+				image: imageId,
+				seo: seoId,
+				translationGroup: sourceArticle.translationGroup || sourceArticle.id,
+			})
+
+			// If source article doesn't have translationGroup, update it
+			if (!sourceArticle.translationGroup && result) {
+				await updateArticleById(sourceArticle.id, {
+					translationGroup: result.translationGroup,
+				})
+			}
+		}
+
+		if (result != null) {
+			console.info(`Admin ${adminUser.email} generated ${targetLocale} translation for article: ${sourceArticle.title}`)
+			return {
+				success: true,
+				data: result,
+			}
+		} else {
+			throw new Error('Failed to create or update translated article')
+		}
+	} catch (error) {
+		console.error('Error in generateArticleTranslationAction:', error)
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to generate translation',
+		}
+	}
+}
+
+/**
+ * Server action to generate all missing translations for a French article (admin only)
+ * Generates translations for all languages that don't have existing translations yet
+ */
+export async function generateAllMissingTranslationsAction(sourceArticleId: string): Promise<{
+	successes: string[]
+	failures: Array<{ locale: string; error: string }>
+	total: number
+	error?: string
+	success: boolean
+}> {
+	try {
+		// Verify admin access
+		const adminUser = await checkAdminAccess()
+
+		if (adminUser == null) {
+			return {
+				success: false,
+				error: 'Unauthorized: Admin access required',
+				successes: [],
+				failures: [],
+				total: 0,
+			}
+		}
+
+		// Fetch the source article (must be French)
+		const sourceArticle = await fetchArticleById(sourceArticleId, true)
+
+		if (sourceArticle == null) {
+			return {
+				success: false,
+				error: 'Source article not found',
+				successes: [],
+				failures: [],
+				total: 0,
+			}
+		}
+
+		if (sourceArticle.locale !== 'fr') {
+			return {
+				success: false,
+				error: 'Source article must be in French (fr)',
+				successes: [],
+				failures: [],
+				total: 0,
+			}
+		}
+
+		// Get existing translations
+		const existingTranslations = sourceArticle.translationGroup
+			? await fetchArticlesByTranslationGroup(sourceArticle.translationGroup, true)
+			: [sourceArticle]
+
+		const existingLocales = new Set(existingTranslations.map(t => t.locale))
+
+		// Identify missing locales (all except fr)
+		const { i18n } = await import('@/lib/i18n/config')
+		const targetLocales = i18n.locales.filter(locale => locale !== 'fr' && !existingLocales.has(locale))
+
+		const successes: string[] = []
+		const failures: Array<{ locale: string; error: string }> = []
+
+		// Generate translation for each missing locale
+		for (const targetLocale of targetLocales) {
+			const result = await generateArticleTranslationAction(sourceArticleId, targetLocale)
+
+			if (result.success) {
+				successes.push(targetLocale)
+			} else {
+				failures.push({
+					locale: targetLocale,
+					error: result.error || 'Unknown error',
+				})
+			}
+		}
+
+		console.info(
+			`Admin ${adminUser.email} generated ${successes.length}/${targetLocales.length} translations for article: ${sourceArticle.title}`
+		)
+
+		return {
+			success: true,
+			successes,
+			failures,
+			total: targetLocales.length,
+		}
+	} catch (error) {
+		console.error('Error in generateAllMissingTranslationsAction:', error)
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to generate translations',
+			successes: [],
+			failures: [],
+			total: 0,
 		}
 	}
 }

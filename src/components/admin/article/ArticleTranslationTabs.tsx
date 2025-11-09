@@ -11,12 +11,14 @@ interface ArticleTranslationTabsProps {
 	translationGroup?: string
 	currentLocale: Locale
 	onLocaleChange: (locale: Locale, article?: Article) => void
+	refreshTrigger?: number // Increment this to trigger a refresh
 }
 
 export default function ArticleTranslationTabs({
 	translationGroup,
 	currentLocale,
 	onLocaleChange,
+	refreshTrigger = 0,
 }: ArticleTranslationTabsProps) {
 	const [translations, setTranslations] = useState<Article[]>([])
 	const [loading, setLoading] = useState(false)
@@ -45,7 +47,7 @@ export default function ArticleTranslationTabs({
 		}
 
 		void fetchTranslations()
-	}, [translationGroup])
+	}, [translationGroup, refreshTrigger])
 
 	// Create a map of locale to article for quick lookup
 	const translationMap = new Map<Locale, Article>()
