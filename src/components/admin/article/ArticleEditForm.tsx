@@ -286,10 +286,14 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 
 			if (result.success) {
 				if (result.successes.length > 0) {
-					toast.success(`Successfully generated ${result.successes.length} translation(s): ${result.successes.map(l => l.toUpperCase()).join(', ')}`)
+					toast.success(
+						`Successfully generated ${result.successes.length} translation(s): ${result.successes.map(l => l.toUpperCase()).join(', ')}`
+					)
 				}
 				if (result.failures.length > 0) {
-					toast.error(`Failed to generate ${result.failures.length} translation(s): ${result.failures.map(f => f.locale.toUpperCase()).join(', ')}`)
+					toast.error(
+						`Failed to generate ${result.failures.length} translation(s): ${result.failures.map(f => f.locale.toUpperCase()).join(', ')}`
+					)
 				}
 				if (result.total === 0) {
 					toast.info('All translations already exist!')
