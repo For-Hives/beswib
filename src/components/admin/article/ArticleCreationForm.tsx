@@ -65,7 +65,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 		defaultValues: {
 			title: '',
 			slug: '',
-			locale: locale, // Default to current locale
+			locale: 'fr', // Default to French
 			description: '',
 			extract: '',
 			content: '',
