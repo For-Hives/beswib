@@ -131,9 +131,17 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 
 			const result = await generateAltTextAction(formData)
 
+			// Display logs as toast notifications
+			if (result.logs && result.logs.length > 0) {
+				for (const log of result.logs) {
+					toast.info(log, { duration: 2000 })
+					// Small delay between toasts for readability
+					await new Promise(resolve => setTimeout(resolve, 300))
+				}
+			}
+
 			if (result.success && result.altText) {
 				setValue('imageAlt', result.altText, { shouldValidate: true })
-				toast.success('Alt text generated successfully!')
 			} else {
 				toast.error(result.error || 'Failed to generate alt text')
 			}
@@ -165,12 +173,20 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 
 			const result = await generateSEOAction(formData)
 
+			// Display logs as toast notifications
+			if (result.logs && result.logs.length > 0) {
+				for (const log of result.logs) {
+					toast.info(log, { duration: 2000 })
+					// Small delay between toasts for readability
+					await new Promise(resolve => setTimeout(resolve, 300))
+				}
+			}
+
 			if (result.success && result.seoTitle && result.seoDescription) {
 				setSeoTitle(result.seoTitle)
 				setSeoDescription(result.seoDescription)
 				setValue('seoTitle', result.seoTitle, { shouldValidate: true })
 				setValue('seoDescription', result.seoDescription, { shouldValidate: true })
-				toast.success('SEO content generated successfully!')
 			} else {
 				toast.error(result.error || 'Failed to generate SEO content')
 			}
@@ -263,8 +279,16 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 		try {
 			const result = await generateArticleTranslationAction(article.id, targetLocale)
 
+			// Display logs as toast notifications
+			if (result.logs && result.logs.length > 0) {
+				for (const log of result.logs) {
+					toast.info(log, { duration: 2500 })
+					// Small delay between toasts for readability
+					await new Promise(resolve => setTimeout(resolve, 400))
+				}
+			}
+
 			if (result.success && result.data) {
-				toast.success(`Translation to ${localeNames[targetLocale]} generated successfully!`)
 				// Refresh translations display
 				setRefreshTranslations(prev => prev + 1)
 			} else {
@@ -282,17 +306,20 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	const handleGenerateAllTranslations = async () => {
 		setIsGeneratingAllTranslations(true)
 		try {
+			toast.info('🚀 Starting batch translation generation...')
 			const result = await generateAllMissingTranslationsAction(article.id)
 
 			if (result.success) {
 				if (result.successes.length > 0) {
 					toast.success(
-						`Successfully generated ${result.successes.length} translation(s): ${result.successes.map(l => l.toUpperCase()).join(', ')}`
+						`✓ Successfully generated ${result.successes.length} translation(s): ${result.successes.map(l => l.toUpperCase()).join(', ')}`,
+						{ duration: 5000 }
 					)
 				}
 				if (result.failures.length > 0) {
 					toast.error(
-						`Failed to generate ${result.failures.length} translation(s): ${result.failures.map(f => f.locale.toUpperCase()).join(', ')}`
+						`✗ Failed to generate ${result.failures.length} translation(s): ${result.failures.map(f => f.locale.toUpperCase()).join(', ')}`,
+						{ duration: 5000 }
 					)
 				}
 				if (result.total === 0) {

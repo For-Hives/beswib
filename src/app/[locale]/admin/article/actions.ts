@@ -338,7 +338,9 @@ export async function generateAltTextAction(formData: FormData): Promise<{
 	altText?: string
 	error?: string
 	success: boolean
+	logs?: string[]
 }> {
+	const logs: string[] = []
 	try {
 		// Verify admin access
 		const adminUser = await checkAdminAccess()
@@ -347,42 +349,57 @@ export async function generateAltTextAction(formData: FormData): Promise<{
 			return {
 				success: false,
 				error: 'Unauthorized: Admin access required',
+				logs,
 			}
 		}
+
+		logs.push('✓ Admin access verified')
 
 		// Extract image file from FormData
 		const imageFile = formData.get('image') as File | null
 
 		if (!imageFile || !(imageFile instanceof File)) {
+			logs.push('✗ No image file provided')
 			return {
 				success: false,
 				error: 'No image file provided',
+				logs,
 			}
 		}
 
+		logs.push(`✓ Image file received: ${imageFile.name} (${(imageFile.size / 1024).toFixed(2)} KB)`)
+
 		// Get optional language parameter (defaults to 'fr' in the service)
 		const language = (formData.get('language') as string) || 'fr'
+		logs.push(`🖼️ Calling Forvoyez AI for alt text generation (${language.toUpperCase()})...`)
 
 		// Call Forvoyez service to generate alt text
 		const altText = await generateImageAltText(imageFile, { language })
 
 		if (altText) {
 			console.info(`Admin ${adminUser.email} generated alt text with Forvoyez`)
+			logs.push(`✓ Alt text generated: "${altText}"`)
+			logs.push('🎉 Alt text generation completed!')
 			return {
 				success: true,
 				altText,
+				logs,
 			}
 		} else {
+			logs.push('✗ Forvoyez API returned no alt text')
 			return {
 				success: false,
 				error: 'Failed to generate alt text from Forvoyez API',
+				logs,
 			}
 		}
 	} catch (error) {
 		console.error('Error in generateAltTextAction:', error)
+		logs.push(`✗ Error: ${error instanceof Error ? error.message : 'Unknown error'}`)
 		return {
 			success: false,
 			error: error instanceof Error ? error.message : 'Failed to generate alt text',
+			logs,
 		}
 	}
 }
@@ -395,7 +412,9 @@ export async function generateSEOAction(formData: FormData): Promise<{
 	seoDescription?: string
 	error?: string
 	success: boolean
+	logs?: string[]
 }> {
+	const logs: string[] = []
 	try {
 		// Verify admin access
 		const adminUser = await checkAdminAccess()
@@ -404,8 +423,11 @@ export async function generateSEOAction(formData: FormData): Promise<{
 			return {
 				success: false,
 				error: 'Unauthorized: Admin access required',
+				logs,
 			}
 		}
+
+		logs.push('✓ Admin access verified')
 
 		// Extract article information
 		const title = formData.get('title') as string
@@ -414,11 +436,16 @@ export async function generateSEOAction(formData: FormData): Promise<{
 		const locale = formData.get('locale') as string
 
 		if (!title) {
+			logs.push('✗ Article title is required')
 			return {
 				success: false,
 				error: 'Article title is required to generate SEO content',
+				logs,
 			}
 		}
+
+		logs.push(`✓ Article data received: "${title}"`)
+		logs.push(`🤖 Calling Gemini AI for SEO generation (${(locale || 'fr').toUpperCase()})...`)
 
 		// Call Gemini service to generate SEO content
 		const result = await generateSEOContent({
@@ -430,22 +457,30 @@ export async function generateSEOAction(formData: FormData): Promise<{
 
 		if (result) {
 			console.info(`Admin ${adminUser.email} generated SEO content with Gemini`)
+			logs.push(`✓ SEO Title: "${result.seoTitle}" (${result.seoTitle.length}/60 chars)`)
+			logs.push(`✓ SEO Description: "${result.seoDescription}" (${result.seoDescription.length}/160 chars)`)
+			logs.push('🎉 SEO generation completed!')
 			return {
 				success: true,
 				seoTitle: result.seoTitle,
 				seoDescription: result.seoDescription,
+				logs,
 			}
 		} else {
+			logs.push('✗ Gemini API returned no SEO content')
 			return {
 				success: false,
 				error: 'Failed to generate SEO content from Gemini API',
+				logs,
 			}
 		}
 	} catch (error) {
 		console.error('Error in generateSEOAction:', error)
+		logs.push(`✗ Error: ${error instanceof Error ? error.message : 'Unknown error'}`)
 		return {
 			success: false,
 			error: error instanceof Error ? error.message : 'Failed to generate SEO content',
+			logs,
 		}
 	}
 }
@@ -502,7 +537,9 @@ export async function generateArticleTranslationAction(
 	data?: Article
 	error?: string
 	success: boolean
+	logs?: string[]
 }> {
+	const logs: string[] = []
 	try {
 		// Verify admin access
 		const adminUser = await checkAdminAccess()
@@ -511,8 +548,11 @@ export async function generateArticleTranslationAction(
 			return {
 				success: false,
 				error: 'Unauthorized: Admin access required',
+				logs,
 			}
 		}
+
+		logs.push('✓ Admin access verified')
 
 		// Fetch the source article (must be French)
 		const sourceArticle = await fetchArticleById(sourceArticleId, true)
@@ -521,6 +561,7 @@ export async function generateArticleTranslationAction(
 			return {
 				success: false,
 				error: 'Source article not found',
+				logs,
 			}
 		}
 
@@ -528,14 +569,20 @@ export async function generateArticleTranslationAction(
 			return {
 				success: false,
 				error: 'Source article must be in French (fr)',
+				logs,
 			}
 		}
+
+		logs.push(`✓ Source article loaded: "${sourceArticle.title}"`)
 
 		// Check if translation already exists
 		let existingTranslation: Article | null = null
 		if (sourceArticle.translationGroup) {
 			const translations = await fetchArticlesByTranslationGroup(sourceArticle.translationGroup, true)
 			existingTranslation = translations.find(t => t.locale === targetLocale) || null
+			if (existingTranslation) {
+				logs.push(`⚠ Existing translation found, will be overwritten`)
+			}
 		}
 
 		// Prepare translation data
@@ -550,15 +597,21 @@ export async function generateArticleTranslationAction(
 			targetLocale,
 		}
 
+		logs.push('🤖 Calling Gemini AI for translation...')
+
 		// Generate translation using Gemini
 		const translatedContent = await generateArticleTranslation(translationOptions)
 
 		if (!translatedContent) {
+			logs.push('✗ Gemini AI translation failed')
 			return {
 				success: false,
 				error: 'Failed to generate translation with Gemini AI',
+				logs,
 			}
 		}
+
+		logs.push('✓ Translation generated by Gemini AI')
 
 		// Auto-generate slug from translated title
 		const slug = translatedContent.title
@@ -568,9 +621,13 @@ export async function generateArticleTranslationAction(
 			.replace(/-+/g, '-')
 			.trim()
 
+		logs.push(`✓ Generated slug: "${slug}"`)
+
 		// Create or update image with translated alt text (reuse same image file)
 		let imageId = sourceArticle.image
 		if (sourceArticle.expand?.image?.image) {
+			logs.push('📸 Processing image with translated alt text...')
+			
 			// Create new image record with translated alt text but same image file
 			const imageFile = sourceArticle.expand.image.image
 			const pb = await import('@/lib/services/pocketbase').then(m => m.pb)
@@ -585,10 +642,12 @@ export async function generateArticleTranslationAction(
 			const newImage = await createImageWithAlt(imageFileObj, translatedContent.imageAlt)
 			if (newImage) {
 				imageId = newImage.id
+				logs.push(`✓ Image created with alt: "${translatedContent.imageAlt}"`)
 			}
 		}
 
 		// Create new SEO record with translated metadata
+		logs.push('🔍 Creating SEO metadata...')
 		let seoId = ''
 		const seoResult = await createSEO({
 			title: translatedContent.seoTitle,
@@ -596,11 +655,13 @@ export async function generateArticleTranslationAction(
 		})
 		if (seoResult) {
 			seoId = seoResult.id
+			logs.push(`✓ SEO created: "${translatedContent.seoTitle}"`)
 		}
 
 		// Create or update the translated article
 		let result: Article | null = null
 		if (existingTranslation) {
+			logs.push('📝 Updating existing translation...')
 			// Update existing translation
 			result = await updateArticleById(existingTranslation.id, {
 				title: translatedContent.title,
@@ -613,7 +674,9 @@ export async function generateArticleTranslationAction(
 				seo: seoId,
 				translationGroup: sourceArticle.translationGroup,
 			})
+			logs.push('✓ Translation updated successfully')
 		} else {
+			logs.push('📝 Creating new translation article...')
 			// Create new translation
 			result = await createArticle({
 				title: translatedContent.title,
@@ -632,23 +695,29 @@ export async function generateArticleTranslationAction(
 				await updateArticleById(sourceArticle.id, {
 					translationGroup: result.translationGroup,
 				})
+				logs.push('✓ Translation group linked')
 			}
+			logs.push('✓ Translation article created successfully')
 		}
 
 		if (result != null) {
 			console.info(`Admin ${adminUser.email} generated ${targetLocale} translation for article: ${sourceArticle.title}`)
+			logs.push('🎉 Translation generation completed!')
 			return {
 				success: true,
 				data: result,
+				logs,
 			}
 		} else {
 			throw new Error('Failed to create or update translated article')
 		}
 	} catch (error) {
 		console.error('Error in generateArticleTranslationAction:', error)
+		logs.push(`✗ Error: ${error instanceof Error ? error.message : 'Unknown error'}`)
 		return {
 			success: false,
 			error: error instanceof Error ? error.message : 'Failed to generate translation',
+			logs,
 		}
 	}
 }
