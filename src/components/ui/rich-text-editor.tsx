@@ -44,48 +44,70 @@ export function RichTextEditor({
 	placeholder = 'Start writing...',
 	className,
 }: RichTextEditorProps) {
-	const editor = useEditor({
-		immediatelyRender: false,
-		extensions: [
-			StarterKit.configure({
-				heading: {
-					levels: [1, 2, 3],
+	const editor = useEditor(
+		{
+			immediatelyRender: false,
+			shouldRerenderOnTransaction: false,
+			extensions: [
+				StarterKit.configure({
+					heading: {
+						levels: [1, 2, 3],
+					},
+					bulletList: {
+						keepMarks: true,
+						keepAttributes: false,
+					},
+					orderedList: {
+						keepMarks: true,
+						keepAttributes: false,
+					},
+				}),
+				Underline,
+				TextAlign.configure({
+					types: ['heading', 'paragraph'],
+				}),
+				Link.configure({
+					openOnClick: false,
+					autolink: true,
+					defaultProtocol: 'https',
+					protocols: ['http', 'https'],
+					HTMLAttributes: {
+						class: 'text-primary underline cursor-pointer hover:text-primary/80 transition-colors',
+					},
+				}),
+				Image.configure({
+					inline: false,
+					allowBase64: true,
+					HTMLAttributes: {
+						class: 'rounded-lg max-w-full h-auto my-4 shadow-sm',
+					},
+				}),
+				Placeholder.configure({
+					placeholder,
+					emptyEditorClass: 'is-editor-empty',
+				}),
+			],
+			content,
+			onUpdate: ({ editor }) => {
+				const html = editor.getHTML()
+				onChange(html)
+			},
+			editorProps: {
+				attributes: {
+					class:
+						'prose prose-sm dark:prose-invert max-w-none focus:outline-none min-h-[400px] px-6 py-4 text-foreground',
 				},
-			}),
-			Underline,
-			TextAlign.configure({
-				types: ['heading', 'paragraph'],
-			}),
-			Link.configure({
-				openOnClick: false,
-				HTMLAttributes: {
-					class: 'text-primary underline cursor-pointer hover:text-primary/80',
-				},
-			}),
-			Image.configure({
-				HTMLAttributes: {
-					class: 'rounded-lg max-w-full h-auto my-4',
-				},
-			}),
-			Placeholder.configure({
-				placeholder,
-			}),
-		],
-		content,
-		onUpdate: ({ editor }) => {
-			onChange(editor.getHTML())
-		},
-		editorProps: {
-			attributes: {
-				class: 'prose prose-sm dark:prose-invert max-w-none focus:outline-none min-h-[400px] p-6',
 			},
 		},
-	})
+		[],
+	)
 
-	// Update editor content when prop changes
+	// Sync content changes
 	useEffect(() => {
 		if (editor && content !== editor.getHTML()) {
-			editor.commands.setContent(content)
+			const { from, to } = editor.state.selection
+			editor.commands.setContent(content, { emitUpdate: false })
+			editor.commands.setTextSelection({ from, to })
 		}
 	}, [content, editor])
 
@@ -94,10 +116,19 @@ export function RichTextEditor({
 	}
 
 	const addLink = () => {
-		const url = window.prompt('Enter URL:')
-		if (url) {
-			editor.chain().focus().setLink({ href: url }).run()
+		const previousUrl = editor.getAttributes('link').href
+		const url = window.prompt('Enter URL:', previousUrl)
+
+		if (url === null) {
+			return
 		}
+
+		if (url === '') {
+			editor.chain().focus().extendMarkRange('link').unsetLink().run()
+			return
+		}
+
+		editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
 	}
 
 	const addImage = () => {
@@ -110,282 +141,276 @@ export function RichTextEditor({
 	return (
 		<div className={cn('border border-border rounded-xl overflow-hidden bg-card shadow-sm', className)}>
 			{/* Toolbar */}
-			<div className="border-b border-border bg-muted/30 p-3 flex flex-wrap gap-1 sticky top-0 z-10">
+			<div className="border-b border-border bg-muted/30 p-3 flex flex-wrap gap-2 sticky top-0 z-10">
 				{/* Text Formatting */}
-				<div className="flex gap-1">
+				<div className="flex gap-1 items-center">
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().toggleBold().run()}
 						disabled={!editor.can().chain().focus().toggleBold().run()}
-						className={cn('size-9 hover:bg-accent', editor.isActive('bold') && 'bg-accent text-accent-foreground')}
-						aria-label="Bold"
+						className={cn('h-8 w-8 p-0', editor.isActive('bold') && 'bg-accent text-accent-foreground')}
+						title="Bold (Ctrl+B)"
 					>
-						<Bold className="size-4" />
+						<Bold className="h-4 w-4" />
 					</Button>
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().toggleItalic().run()}
 						disabled={!editor.can().chain().focus().toggleItalic().run()}
-						className={cn('size-9 hover:bg-accent', editor.isActive('italic') && 'bg-accent text-accent-foreground')}
-						aria-label="Italic"
+						className={cn('h-8 w-8 p-0', editor.isActive('italic') && 'bg-accent text-accent-foreground')}
+						title="Italic (Ctrl+I)"
 					>
-						<Italic className="size-4" />
+						<Italic className="h-4 w-4" />
 					</Button>
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().toggleUnderline().run()}
 						disabled={!editor.can().chain().focus().toggleUnderline().run()}
-						className={cn('size-9 hover:bg-accent', editor.isActive('underline') && 'bg-accent text-accent-foreground')}
-						aria-label="Underline"
+						className={cn('h-8 w-8 p-0', editor.isActive('underline') && 'bg-accent text-accent-foreground')}
+						title="Underline (Ctrl+U)"
 					>
-						<UnderlineIcon className="size-4" />
+						<UnderlineIcon className="h-4 w-4" />
 					</Button>
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().toggleStrike().run()}
 						disabled={!editor.can().chain().focus().toggleStrike().run()}
-						className={cn('size-9 hover:bg-accent', editor.isActive('strike') && 'bg-accent text-accent-foreground')}
-						aria-label="Strikethrough"
+						className={cn('h-8 w-8 p-0', editor.isActive('strike') && 'bg-accent text-accent-foreground')}
+						title="Strikethrough"
 					>
-						<Strikethrough className="size-4" />
+						<Strikethrough className="h-4 w-4" />
 					</Button>
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().toggleCode().run()}
 						disabled={!editor.can().chain().focus().toggleCode().run()}
-						className={cn('size-9 hover:bg-accent', editor.isActive('code') && 'bg-accent text-accent-foreground')}
-						aria-label="Code"
+						className={cn('h-8 w-8 p-0', editor.isActive('code') && 'bg-accent text-accent-foreground')}
+						title="Code"
 					>
-						<Code className="size-4" />
+						<Code className="h-4 w-4" />
 					</Button>
 				</div>
 
-				<div className="w-px h-9 bg-border mx-1" />
+				<div className="w-px h-8 bg-border" />
 
 				{/* Headings */}
-				<div className="flex gap-1">
+				<div className="flex gap-1 items-center">
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-						className={cn(
-							'size-9 hover:bg-accent',
-							editor.isActive('heading', { level: 1 }) && 'bg-accent text-accent-foreground'
-						)}
-						aria-label="Heading 1"
+						className={cn('h-8 w-8 p-0', editor.isActive('heading', { level: 1 }) && 'bg-accent text-accent-foreground')}
+						title="Heading 1"
 					>
-						<Heading1 className="size-4" />
+						<Heading1 className="h-4 w-4" />
 					</Button>
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-						className={cn(
-							'size-9 hover:bg-accent',
-							editor.isActive('heading', { level: 2 }) && 'bg-accent text-accent-foreground'
-						)}
-						aria-label="Heading 2"
+						className={cn('h-8 w-8 p-0', editor.isActive('heading', { level: 2 }) && 'bg-accent text-accent-foreground')}
+						title="Heading 2"
 					>
-						<Heading2 className="size-4" />
+						<Heading2 className="h-4 w-4" />
 					</Button>
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-						className={cn(
-							'size-9 hover:bg-accent',
-							editor.isActive('heading', { level: 3 }) && 'bg-accent text-accent-foreground'
-						)}
-						aria-label="Heading 3"
+						className={cn('h-8 w-8 p-0', editor.isActive('heading', { level: 3 }) && 'bg-accent text-accent-foreground')}
+						title="Heading 3"
 					>
-						<Heading3 className="size-4" />
+						<Heading3 className="h-4 w-4" />
 					</Button>
 				</div>
 
-				<div className="w-px h-9 bg-border mx-1" />
+				<div className="w-px h-8 bg-border" />
 
 				{/* Lists */}
-				<div className="flex gap-1">
+				<div className="flex gap-1 items-center">
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().toggleBulletList().run()}
-						className={cn('size-9 hover:bg-accent', editor.isActive('bulletList') && 'bg-accent text-accent-foreground')}
-						aria-label="Bullet List"
+						className={cn('h-8 w-8 p-0', editor.isActive('bulletList') && 'bg-accent text-accent-foreground')}
+						title="Bullet List"
 					>
-						<List className="size-4" />
+						<List className="h-4 w-4" />
 					</Button>
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().toggleOrderedList().run()}
-						className={cn('size-9 hover:bg-accent', editor.isActive('orderedList') && 'bg-accent text-accent-foreground')}
-						aria-label="Ordered List"
+						className={cn('h-8 w-8 p-0', editor.isActive('orderedList') && 'bg-accent text-accent-foreground')}
+						title="Ordered List"
 					>
-						<ListOrdered className="size-4" />
+						<ListOrdered className="h-4 w-4" />
 					</Button>
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().toggleBlockquote().run()}
-						className={cn('size-9 hover:bg-accent', editor.isActive('blockquote') && 'bg-accent text-accent-foreground')}
-						aria-label="Quote"
+						className={cn('h-8 w-8 p-0', editor.isActive('blockquote') && 'bg-accent text-accent-foreground')}
+						title="Blockquote"
 					>
-						<Quote className="size-4" />
+						<Quote className="h-4 w-4" />
 					</Button>
 				</div>
 
-				<div className="w-px h-9 bg-border mx-1" />
+				<div className="w-px h-8 bg-border" />
 
 				{/* Alignment */}
-				<div className="flex gap-1">
+				<div className="flex gap-1 items-center">
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().setTextAlign('left').run()}
-						className={cn('size-9 hover:bg-accent', editor.isActive({ textAlign: 'left' }) && 'bg-accent text-accent-foreground')}
-						aria-label="Align Left"
+						className={cn('h-8 w-8 p-0', editor.isActive({ textAlign: 'left' }) && 'bg-accent text-accent-foreground')}
+						title="Align Left"
 					>
-						<AlignLeft className="size-4" />
+						<AlignLeft className="h-4 w-4" />
 					</Button>
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().setTextAlign('center').run()}
-						className={cn(
-							'size-9 hover:bg-accent',
-							editor.isActive({ textAlign: 'center' }) && 'bg-accent text-accent-foreground'
-						)}
-						aria-label="Align Center"
+						className={cn('h-8 w-8 p-0', editor.isActive({ textAlign: 'center' }) && 'bg-accent text-accent-foreground')}
+						title="Align Center"
 					>
-						<AlignCenter className="size-4" />
+						<AlignCenter className="h-4 w-4" />
 					</Button>
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().setTextAlign('right').run()}
-						className={cn('size-9 hover:bg-accent', editor.isActive({ textAlign: 'right' }) && 'bg-accent text-accent-foreground')}
-						aria-label="Align Right"
+						className={cn('h-8 w-8 p-0', editor.isActive({ textAlign: 'right' }) && 'bg-accent text-accent-foreground')}
+						title="Align Right"
 					>
-						<AlignRight className="size-4" />
+						<AlignRight className="h-4 w-4" />
 					</Button>
 				</div>
 
-				<div className="w-px h-9 bg-border mx-1" />
+				<div className="w-px h-8 bg-border" />
 
 				{/* Media */}
-				<div className="flex gap-1">
+				<div className="flex gap-1 items-center">
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={addLink}
-						className={cn('size-9 hover:bg-accent', editor.isActive('link') && 'bg-accent text-accent-foreground')}
-						aria-label="Add Link"
+						className={cn('h-8 w-8 p-0', editor.isActive('link') && 'bg-accent text-accent-foreground')}
+						title="Add Link"
 					>
-						<Link2 className="size-4" />
+						<Link2 className="h-4 w-4" />
 					</Button>
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={addImage}
-						aria-label="Add Image"
-						className="size-9 hover:bg-accent"
+						className="h-8 w-8 p-0"
+						title="Add Image"
 					>
-						<ImageIcon className="size-4" />
+						<ImageIcon className="h-4 w-4" />
 					</Button>
 				</div>
 
-				<div className="w-px h-9 bg-border mx-1" />
+				<div className="w-px h-8 bg-border" />
 
 				{/* History */}
-				<div className="flex gap-1">
+				<div className="flex gap-1 items-center">
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().undo().run()}
 						disabled={!editor.can().chain().focus().undo().run()}
-						aria-label="Undo"
-						className="size-9 hover:bg-accent"
+						className="h-8 w-8 p-0"
+						title="Undo (Ctrl+Z)"
 					>
-						<Undo className="size-4" />
+						<Undo className="h-4 w-4" />
 					</Button>
 					<Button
 						type="button"
 						variant="ghost"
-						size="icon"
+						size="sm"
 						onClick={() => editor.chain().focus().redo().run()}
 						disabled={!editor.can().chain().focus().redo().run()}
-						aria-label="Redo"
-						className="size-9 hover:bg-accent"
+						className="h-8 w-8 p-0"
+						title="Redo (Ctrl+Y)"
 					>
-						<Redo className="size-4" />
+						<Redo className="h-4 w-4" />
 					</Button>
 				</div>
 			</div>
 
 			{/* Editor Content */}
-			<div className="bg-background">
+			<div className="bg-background relative">
 				<EditorContent editor={editor} className="tiptap-editor" />
 			</div>
 
-			{/* Custom Styles for Editor */}
+			{/* Global Styles for Tiptap */}
 			<style jsx global>{`
+				/* Editor Styles */
 				.tiptap-editor .ProseMirror {
 					outline: none;
 				}
 
+				/* Placeholder */
 				.tiptap-editor .ProseMirror p.is-editor-empty:first-child::before {
-					color: hsl(var(--muted-foreground));
+					color: hsl(var(--muted-foreground) / 0.5);
 					content: attr(data-placeholder);
 					float: left;
 					height: 0;
 					pointer-events: none;
 				}
 
+				/* Typography */
 				.tiptap-editor .ProseMirror h1 {
-					font-size: 2em;
+					font-size: 2.25em;
 					font-weight: 700;
 					line-height: 1.2;
 					margin-top: 1.5em;
-					margin-bottom: 0.5em;
+					margin-bottom: 0.75em;
+					color: hsl(var(--foreground));
 				}
 
 				.tiptap-editor .ProseMirror h2 {
-					font-size: 1.5em;
+					font-size: 1.875em;
 					font-weight: 600;
 					line-height: 1.3;
 					margin-top: 1.5em;
-					margin-bottom: 0.5em;
+					margin-bottom: 0.75em;
+					color: hsl(var(--foreground));
 				}
 
 				.tiptap-editor .ProseMirror h3 {
-					font-size: 1.25em;
+					font-size: 1.5em;
 					font-weight: 600;
 					line-height: 1.4;
 					margin-top: 1.5em;
-					margin-bottom: 0.5em;
+					margin-bottom: 0.75em;
+					color: hsl(var(--foreground));
 				}
 
 				.tiptap-editor .ProseMirror p {
@@ -394,11 +419,20 @@ export function RichTextEditor({
 					line-height: 1.75;
 				}
 
+				.tiptap-editor .ProseMirror p:first-child {
+					margin-top: 0;
+				}
+
+				.tiptap-editor .ProseMirror p:last-child {
+					margin-bottom: 0;
+				}
+
+				/* Lists */
 				.tiptap-editor .ProseMirror ul,
 				.tiptap-editor .ProseMirror ol {
-					padding-left: 1.5em;
-					margin-top: 0.75em;
-					margin-bottom: 0.75em;
+					padding-left: 2em;
+					margin-top: 1em;
+					margin-bottom: 1em;
 				}
 
 				.tiptap-editor .ProseMirror ul {
@@ -409,36 +443,62 @@ export function RichTextEditor({
 					list-style-type: decimal;
 				}
 
+				.tiptap-editor .ProseMirror ul ul,
+				.tiptap-editor .ProseMirror ol ul {
+					list-style-type: circle;
+				}
+
+				.tiptap-editor .ProseMirror ol ol,
+				.tiptap-editor .ProseMirror ul ol {
+					list-style-type: lower-latin;
+				}
+
 				.tiptap-editor .ProseMirror li {
+					margin-top: 0.5em;
+					margin-bottom: 0.5em;
+				}
+
+				.tiptap-editor .ProseMirror li p {
 					margin-top: 0.25em;
 					margin-bottom: 0.25em;
 				}
 
+				/* Blockquote */
 				.tiptap-editor .ProseMirror blockquote {
-					border-left: 3px solid hsl(var(--border));
-					padding-left: 1em;
+					border-left: 4px solid hsl(var(--primary) / 0.3);
+					padding-left: 1.5em;
+					padding-top: 0.5em;
+					padding-bottom: 0.5em;
 					margin-left: 0;
-					margin-top: 1em;
-					margin-bottom: 1em;
+					margin-top: 1.5em;
+					margin-bottom: 1.5em;
 					font-style: italic;
 					color: hsl(var(--muted-foreground));
+					background: hsl(var(--muted) / 0.3);
+					border-radius: 0.375rem;
 				}
 
+				/* Code */
 				.tiptap-editor .ProseMirror code {
 					background-color: hsl(var(--muted));
+					color: hsl(var(--foreground));
 					padding: 0.2em 0.4em;
 					border-radius: 0.25rem;
 					font-size: 0.875em;
-					font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+					font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono',
+						'Courier New', monospace;
+					font-weight: 500;
 				}
 
 				.tiptap-editor .ProseMirror pre {
 					background-color: hsl(var(--muted));
+					color: hsl(var(--foreground));
 					padding: 1em;
 					border-radius: 0.5rem;
 					overflow-x: auto;
-					margin-top: 1em;
-					margin-bottom: 1em;
+					margin-top: 1.5em;
+					margin-bottom: 1.5em;
+					border: 1px solid hsl(var(--border));
 				}
 
 				.tiptap-editor .ProseMirror pre code {
@@ -447,23 +507,33 @@ export function RichTextEditor({
 					font-size: 0.875em;
 				}
 
+				/* Links */
 				.tiptap-editor .ProseMirror a {
 					color: hsl(var(--primary));
 					text-decoration: underline;
 					cursor: pointer;
+					transition: opacity 0.2s;
 				}
 
 				.tiptap-editor .ProseMirror a:hover {
 					opacity: 0.8;
 				}
 
+				/* Images */
 				.tiptap-editor .ProseMirror img {
 					max-width: 100%;
 					height: auto;
 					border-radius: 0.5rem;
-					margin: 1em 0;
+					margin: 1.5em 0;
+					display: block;
 				}
 
+				.tiptap-editor .ProseMirror img.ProseMirror-selectednode {
+					outline: 3px solid hsl(var(--primary));
+					outline-offset: 2px;
+				}
+
+				/* Text Formatting */
 				.tiptap-editor .ProseMirror strong {
 					font-weight: 700;
 				}
@@ -480,10 +550,29 @@ export function RichTextEditor({
 					text-decoration: line-through;
 				}
 
+				/* Horizontal Rule */
 				.tiptap-editor .ProseMirror hr {
 					border: none;
-					border-top: 1px solid hsl(var(--border));
+					border-top: 2px solid hsl(var(--border));
 					margin: 2em 0;
+				}
+
+				/* Text Alignment */
+				.tiptap-editor .ProseMirror [style*='text-align: center'] {
+					text-align: center;
+				}
+
+				.tiptap-editor .ProseMirror [style*='text-align: right'] {
+					text-align: right;
+				}
+
+				.tiptap-editor .ProseMirror [style*='text-align: left'] {
+					text-align: left;
+				}
+
+				/* Selection */
+				.tiptap-editor .ProseMirror ::selection {
+					background-color: hsl(var(--primary) / 0.2);
 				}
 			`}</style>
 		</div>
