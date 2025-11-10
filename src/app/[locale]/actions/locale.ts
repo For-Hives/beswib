@@ -4,6 +4,7 @@ import { auth } from '@clerk/nextjs/server'
 
 import { updateUserLocale } from '@/app/[locale]/profile/actions'
 import { i18n, type Locale } from '@/lib/i18n/config'
+import { getTranslatedArticleSlug } from '@/services/article.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 
 function isValidLocale(locale: string): locale is Locale {
@@ -94,6 +95,36 @@ export async function updateUserLocalePreference(locale: string): Promise<{ succ
 		return {
 			success: false,
 			error: errorMessage,
+		}
+	}
+}
+
+/**
+ * Gets the translated article slug for a given slug and target locale
+ * @param currentSlug The slug of the current article
+ * @param targetLocale The target locale to get the translated slug for
+ * @returns The translated slug or null if not found
+ */
+export async function getArticleTranslatedSlug(
+	currentSlug: string,
+	targetLocale: string
+): Promise<{ slug: string | null; success: boolean }> {
+	try {
+		// Validate target locale
+		if (!isValidLocale(targetLocale)) {
+			return { slug: null, success: false }
+		}
+
+		// Get the translated slug
+		const translatedSlug = await getTranslatedArticleSlug(currentSlug, targetLocale)
+
+		return { slug: translatedSlug, success: true }
+	} catch (error) {
+		const errorMessage = error instanceof Error ? error.message : 'Failed to get translated article slug'
+		console.error('Error getting translated article slug:', errorMessage)
+		return {
+			slug: null,
+			success: false,
 		}
 	}
 }

@@ -4,7 +4,7 @@ import { useUser } from '@clerk/nextjs'
 
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
-import { updateUserLocalePreference } from '@/app/[locale]/actions/locale'
+import { getArticleTranslatedSlug, updateUserLocalePreference } from '@/app/[locale]/actions/locale'
 import type { Locale } from '@/lib/i18n/config'
 import { getAuthoritativeLocale, isSupportedLocale, synchronizeLocale } from '@/lib/utils/cookies'
 
@@ -56,7 +56,30 @@ export function useLocale(initialLocale: string) {
 				// Navigate to the new locale URL
 				const currentPath = window.location.pathname
 				const pathWithoutLocale = currentPath.replace(`/${initialLocale}`, '') || '/'
-				const href = newLocale === 'en' ? pathWithoutLocale : `/${newLocale}${pathWithoutLocale}`
+
+				// Check if we're on a blog article page (/blog/[slug])
+				const blogArticleMatch = pathWithoutLocale.match(/^\/blog\/([^/]+)$/)
+
+				let href: string
+
+				if (blogArticleMatch) {
+					// Extract the slug from the path
+					const currentSlug = blogArticleMatch[1]
+
+					// Try to get the translated article slug
+					const { slug: translatedSlug, success } = await getArticleTranslatedSlug(currentSlug, newLocale)
+
+					if (success && translatedSlug) {
+						// Use the translated slug
+						href = newLocale === 'en' ? `/blog/${translatedSlug}` : `/${newLocale}/blog/${translatedSlug}`
+					} else {
+						// Fallback to blog index if no translation found
+						href = newLocale === 'en' ? '/blog' : `/${newLocale}/blog`
+					}
+				} else {
+					// For non-article pages, use the standard locale switching
+					href = newLocale === 'en' ? pathWithoutLocale : `/${newLocale}${pathWithoutLocale}`
+				}
 
 				router.push(href)
 			} catch (error) {
