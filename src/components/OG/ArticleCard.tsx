@@ -163,7 +163,7 @@ export default function ArticleCard({ article, locale, readTime }: Readonly<Arti
 								color: '#6b7280',
 							}}
 						>
-							{formatDateWithLocale(new Date(article.created).toISOString(), locale)}
+							{formatDateWithLocale(new Date(article.created), locale)}
 						</div>
 					</div>
 
