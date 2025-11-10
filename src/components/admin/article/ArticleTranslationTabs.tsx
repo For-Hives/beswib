@@ -1,11 +1,11 @@
 'use client'
 
+import { Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
+import { getArticleTranslationsAction } from '@/app/[locale]/admin/article/actions'
 import { i18n, type Locale, localeFlags } from '@/lib/i18n/config'
 import type { Article } from '@/models/article.model'
-import { getArticleTranslationsAction } from '@/app/[locale]/admin/article/actions'
-import { toast } from 'sonner'
-import { Loader2 } from 'lucide-react'
 
 interface ArticleTranslationTabsProps {
 	translationGroup?: string

@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 import * as v from 'valibot'
 import { createArticleAction, generateAltTextAction, generateSEOAction } from '@/app/[locale]/admin/article/actions'
 import ArticleTranslationTabs from '@/components/admin/article/ArticleTranslationTabs'
+import translations from '@/components/admin/article/locales/article-form.locales.json'
 import { Button } from '@/components/ui/button'
 import { FileUpload } from '@/components/ui/file-upload'
 import { Input } from '@/components/ui/inputAlt'
@@ -17,25 +18,25 @@ import { RichTextEditor } from '@/components/ui/rich-text-editor'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { i18n, type Locale, localeFlags, localeNames } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
 
-const articleFormSchema = v.object({
-	title: v.pipe(v.string(), v.minLength(1, 'Title is required')),
-	slug: v.pipe(
-		v.string(),
-		v.minLength(1, 'Slug is required'),
-		v.regex(/^[a-z0-9-]+$/, 'Slug must contain only lowercase letters, numbers, and hyphens')
-	),
-	locale: v.pipe(v.string(), v.minLength(1, 'Language is required')),
-	description: v.pipe(v.string(), v.minLength(1, 'Description is required')),
-	extract: v.pipe(v.string(), v.minLength(1, 'Extract is required')),
-	content: v.pipe(v.string(), v.minLength(1, 'Content is required')),
-	imageFile: v.optional(v.any()),
-	imageAlt: v.optional(v.string()),
-	seoTitle: v.optional(v.pipe(v.string(), v.maxLength(60, 'SEO title should be max 60 characters'))),
-	seoDescription: v.optional(v.pipe(v.string(), v.maxLength(160, 'SEO description should be max 160 characters'))),
-})
-
-type ArticleFormValues = v.InferOutput<typeof articleFormSchema>
+const createArticleFormSchema = (t: ReturnType<typeof getTranslations<typeof translations.en, Locale>>) =>
+	v.object({
+		title: v.pipe(v.string(), v.minLength(1, t.form.validation.titleRequired)),
+		slug: v.pipe(
+			v.string(),
+			v.minLength(1, t.form.validation.slugRequired),
+			v.regex(/^[a-z0-9-]+$/, t.form.validation.slugFormat)
+		),
+		locale: v.pipe(v.string(), v.minLength(1, t.form.validation.localeRequired)),
+		description: v.pipe(v.string(), v.minLength(1, t.form.validation.descriptionRequired)),
+		extract: v.pipe(v.string(), v.minLength(1, t.form.validation.extractRequired)),
+		content: v.pipe(v.string(), v.minLength(1, t.form.validation.contentRequired)),
+		imageFile: v.optional(v.any()),
+		imageAlt: v.optional(v.string()),
+		seoTitle: v.optional(v.pipe(v.string(), v.maxLength(60, t.form.validation.seoTitleMax))),
+		seoDescription: v.optional(v.pipe(v.string(), v.maxLength(160, t.form.validation.seoDescriptionMax))),
+	})
 
 interface ArticleCreationFormProps {
 	locale: Locale
@@ -46,6 +47,10 @@ interface ArticleCreationFormProps {
 import type { Article } from '@/models/article.model'
 
 export default function ArticleCreationForm({ locale, onCancel, onSuccess }: ArticleCreationFormProps) {
+	const t = getTranslations(locale, translations)
+	const articleFormSchema = createArticleFormSchema(t)
+	type ArticleFormValues = v.InferOutput<typeof articleFormSchema>
+
 	const router = useRouter()
 	const searchParams = useSearchParams()
 	const [isSubmitting, setIsSubmitting] = useState(false)
@@ -64,14 +69,14 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 
 		if (urlTranslationGroup) {
 			setTranslationGroup(urlTranslationGroup)
-			toast.info('Creating translation for existing article')
+			toast.info(t.form.translation.creatingFor)
 		}
 
 		if (urlLocale) {
 			setLocaleState(urlLocale)
 			setValue('locale', urlLocale, { shouldValidate: true })
 		}
-	}, [searchParams])
+	}, [searchParams, t])
 
 	const {
 		setValue,
@@ -105,12 +110,12 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 		const maxSize = 5 * 1024 * 1024 // 5MB
 
 		if (!allowedTypes.includes(file.type)) {
-			toast.error('Invalid file type. Please upload PNG, JPG, or WEBP files only.')
+			toast.error(t.form.messages.error.invalidFileType)
 			return
 		}
 
 		if (file.size > maxSize) {
-			toast.error('File size too large. Maximum size is 5MB.')
+			toast.error(t.form.messages.error.fileTooLarge)
 			return
 		}
 
@@ -121,7 +126,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 		const imageFile = getValues('imageFile')
 
 		if (!imageFile || !(imageFile instanceof File)) {
-			toast.error('Please upload an image first')
+			toast.error(t.form.messages.error.uploadFirst)
 			return
 		}
 
@@ -135,13 +140,13 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 
 			if (result.success && result.altText) {
 				setValue('imageAlt', result.altText, { shouldValidate: true })
-				toast.success('Alt text generated successfully!')
+				toast.success(t.form.messages.success.altGenerated)
 			} else {
-				toast.error(result.error || 'Failed to generate alt text')
+				toast.error(result.error || t.form.messages.error.altGenerate)
 			}
 		} catch (error) {
 			console.error('Error generating alt text:', error)
-			toast.error('An error occurred while generating alt text')
+			toast.error(t.form.messages.error.altGenerate)
 		} finally {
 			setIsGeneratingAlt(false)
 		}
@@ -153,7 +158,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 		const extract = getValues('extract')
 
 		if (!title) {
-			toast.error('Please enter an article title first')
+			toast.error(t.form.messages.error.titleRequired)
 			return
 		}
 
@@ -172,13 +177,13 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 				setSeoDescription(result.seoDescription)
 				setValue('seoTitle', result.seoTitle, { shouldValidate: true })
 				setValue('seoDescription', result.seoDescription, { shouldValidate: true })
-				toast.success('SEO content generated successfully!')
+				toast.success(t.form.messages.success.seoGenerated)
 			} else {
-				toast.error(result.error || 'Failed to generate SEO content')
+				toast.error(result.error || t.form.messages.error.seoGenerate)
 			}
 		} catch (error) {
 			console.error('Error generating SEO:', error)
-			toast.error('An error occurred while generating SEO content')
+			toast.error(t.form.messages.error.seoGenerate)
 		} finally {
 			setIsGeneratingSEO(false)
 		}
@@ -221,7 +226,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 			const result = await createArticleAction(formData)
 
 			if (result.success) {
-				toast.success('Article created successfully!')
+				toast.success(t.form.messages.success.created)
 				if (result.data) {
 					// Set the translation group from the created article
 					if (result.data.translationGroup) {
@@ -234,11 +239,11 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 					router.push(`/${locale}/admin/article`)
 				}
 			} else {
-				toast.error(result.error || 'Failed to create article')
+				toast.error(result.error || t.form.messages.error.create)
 			}
 		} catch (error) {
 			console.error('Error creating article:', error)
-			toast.error('An unexpected error occurred')
+			toast.error(t.form.messages.error.unexpected)
 		} finally {
 			setIsSubmitting(false)
 		}
@@ -283,7 +288,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 			setValue('seoTitle', '')
 			setValue('seoDescription', '')
 
-			toast.info(`Switched to ${newLocale.toUpperCase()} - create new translation`)
+			toast.info(t.form.translation.switchedTo.replace('{locale}', newLocale.toUpperCase()))
 		}
 	}
 
