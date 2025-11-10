@@ -108,7 +108,9 @@ export default async function Image({ params }: { params: Promise<ArticleOpenGra
 		// Log error if font loading fails
 		console.error('Error loading fonts:', error)
 		// Fallback: return the generic image without custom fonts
-		return new ImageResponse(<OGImage title={title} secondary={secondary} host={host} protocol={protocol} size={size} />, size)
+		return new ImageResponse(
+			<OGImage title={title} secondary={secondary} host={host} protocol={protocol} size={size} />,
+			size
+		)
 	}
 }
-
