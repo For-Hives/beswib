@@ -1,6 +1,8 @@
 'use client'
 
-import { Book, Calendar, Clock, Share2 } from 'lucide-react'
+import { Book, Calendar, Check, Clock, Copy, Share2 } from 'lucide-react'
+import { useState } from 'react'
+import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
 
@@ -18,6 +20,7 @@ interface ArticleSidebarProps {
 }
 
 export function ArticleSidebar({ createdAt, locale, readTime, title, translations }: ArticleSidebarProps) {
+	const [isCopied, setIsCopied] = useState(false)
 	const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
 
 	const formattedDate = new Date(createdAt).toLocaleDateString(locale, {
@@ -28,13 +31,14 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 
 	const shareLinks = [
 		{
-			name: 'Twitter',
-			icon: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/twitter-icon.svg',
-			url: `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}`,
+			name: 'X (Twitter)',
+			icon: 'https://cdn.simpleicons.org/x/000000',
+			iconDark: 'https://cdn.simpleicons.org/x/ffffff',
+			url: `https://x.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}`,
 		},
 		{
 			name: 'LinkedIn',
-			icon: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/linkedin-icon.svg',
+			icon: 'https://cdn.simpleicons.org/linkedin',
 			url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`,
 		},
 		{
@@ -44,9 +48,16 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 		},
 	]
 
-	const handleCopyLink = () => {
+	const handleCopyLink = async () => {
 		if (navigator.clipboard) {
-			navigator.clipboard.writeText(currentUrl)
+			try {
+				await navigator.clipboard.writeText(currentUrl)
+				setIsCopied(true)
+				toast.success('Link copied to clipboard!')
+				setTimeout(() => setIsCopied(false), 2000)
+			} catch (error) {
+				toast.error('Failed to copy link')
+			}
 		}
 	}
 
@@ -112,13 +123,38 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 										target="_blank"
 									>
 										{/* biome-ignore lint/performance/noImgElement: External social media icons */}
-										<img alt={link.name} className="size-5" src={link.icon} />
+										<img
+											alt={link.name}
+											className="size-5 dark:invert-0"
+											src={link.iconDark || link.icon}
+											style={
+												link.name === 'X (Twitter)'
+													? { filter: 'var(--tw-invert)' }
+													: undefined
+											}
+										/>
 									</a>
 								</li>
 							))}
 						</ul>
-						<Button className="w-full" size="sm" variant="outline" onClick={handleCopyLink}>
-							Copy Link
+						<Button
+							className="w-full"
+							disabled={isCopied}
+							size="sm"
+							variant={isCopied ? 'default' : 'outline'}
+							onClick={handleCopyLink}
+						>
+							{isCopied ? (
+								<>
+									<Check className="mr-2 size-4" />
+									Copied!
+								</>
+							) : (
+								<>
+									<Copy className="mr-2 size-4" />
+									Copy Link
+								</>
+							)}
 						</Button>
 					</div>
 				</div>
