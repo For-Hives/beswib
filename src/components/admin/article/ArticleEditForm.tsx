@@ -131,13 +131,11 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 
 			const result = await generateAltTextAction(formData)
 
-			// Display logs as toast notifications
+			// Display logs as toast notifications immediately
 			if (result.logs && result.logs.length > 0) {
-				for (const log of result.logs) {
-					toast.info(log, { duration: 2000 })
-					// Small delay between toasts for readability
-					await new Promise(resolve => setTimeout(resolve, 300))
-				}
+				result.logs.forEach(log => {
+					toast.info(log, { duration: 3000 })
+				})
 			}
 
 			if (result.success && result.altText) {
@@ -173,13 +171,11 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 
 			const result = await generateSEOAction(formData)
 
-			// Display logs as toast notifications
+			// Display logs as toast notifications immediately
 			if (result.logs && result.logs.length > 0) {
-				for (const log of result.logs) {
-					toast.info(log, { duration: 2000 })
-					// Small delay between toasts for readability
-					await new Promise(resolve => setTimeout(resolve, 300))
-				}
+				result.logs.forEach(log => {
+					toast.info(log, { duration: 3000 })
+				})
 			}
 
 			if (result.success && result.seoTitle && result.seoDescription) {
@@ -279,13 +275,11 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 		try {
 			const result = await generateArticleTranslationAction(article.id, targetLocale)
 
-			// Display logs as toast notifications
+			// Display logs as toast notifications immediately
 			if (result.logs && result.logs.length > 0) {
-				for (const log of result.logs) {
-					toast.info(log, { duration: 2500 })
-					// Small delay between toasts for readability
-					await new Promise(resolve => setTimeout(resolve, 400))
-				}
+				result.logs.forEach(log => {
+					toast.info(log, { duration: 3500 })
+				})
 			}
 
 			if (result.success && result.data) {
