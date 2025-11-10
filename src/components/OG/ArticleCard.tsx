@@ -18,12 +18,14 @@ interface ArticleCardProps {
 export default function ArticleCard({ article, locale, readTime, host, protocol }: Readonly<ArticleCardProps>) {
 	const t = getTranslations(locale, blogTranslations)
 
+	console.log('article', article)
 	// Get article image URL - convert to absolute URL for OG image environment
 	let imageUrl: string | null = null
 	if (article.expand?.image?.image) {
-		const relativeUrl = pb.files.getUrl(article.expand.image, article.expand.image.image)
+		const relativeUrl = pb.files.getURL(article.expand.image, article.expand.image.image)
 		// Convert relative URL to absolute URL
 		imageUrl = relativeUrl.startsWith('http') ? relativeUrl : `${protocol}://${host}${relativeUrl}`
+		console.log('imageUrl', imageUrl)
 	}
 
 	return (
