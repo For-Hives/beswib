@@ -3,6 +3,8 @@
 		"blog": {
 			"by": "von",
 			"description": "Entdecken Sie die neuesten Trends und Erkenntnisse in der Welt des Laufsports und der Veranstaltungen.",
+			"noArticles": "Noch keine Artikel verfügbar.",
+			"noImage": "Kein Bild",
 			"readTime": "Min. Lesezeit",
 			"title": "Blog"
 		},
@@ -12,6 +14,8 @@
 		},
 		"sidebar": {
 			"article": "Artikel",
+			"copied": "Kopiert!",
+			"copyLink": "Link kopieren",
 			"publishedOn": "Veröffentlicht am",
 			"readTime": "Min. Lesezeit",
 			"shareArticle": "Artikel teilen"
@@ -21,6 +25,8 @@
 		"blog": {
 			"by": "by",
 			"description": "Discover the latest trends and insights in the world of running and events.",
+			"noArticles": "No articles available yet.",
+			"noImage": "No image",
 			"readTime": "min read",
 			"title": "Blog"
 		},
@@ -30,6 +36,8 @@
 		},
 		"sidebar": {
 			"article": "Article",
+			"copied": "Copied!",
+			"copyLink": "Copy Link",
 			"publishedOn": "Published on",
 			"readTime": "min read",
 			"shareArticle": "Share this article"
@@ -39,6 +47,8 @@
 		"blog": {
 			"by": "por",
 			"description": "Descubre las últimas tendencias e información en el mundo del running y los eventos.",
+			"noArticles": "Aún no hay artículos disponibles.",
+			"noImage": "Sin imagen",
 			"readTime": "min de lectura",
 			"title": "Blog"
 		},
@@ -48,6 +58,8 @@
 		},
 		"sidebar": {
 			"article": "Artículo",
+			"copied": "¡Copiado!",
+			"copyLink": "Copiar enlace",
 			"publishedOn": "Publicado el",
 			"readTime": "min de lectura",
 			"shareArticle": "Compartir artículo"
@@ -57,6 +69,8 @@
 		"blog": {
 			"by": "par",
 			"description": "Découvrez les dernières tendances et informations dans le monde de la course à pied et des événements.",
+			"noArticles": "Aucun article disponible pour le moment.",
+			"noImage": "Aucune image",
 			"readTime": "min de lecture",
 			"title": "Blog"
 		},
@@ -66,6 +80,8 @@
 		},
 		"sidebar": {
 			"article": "Article",
+			"copied": "Copié !",
+			"copyLink": "Copier le lien",
 			"publishedOn": "Publié le",
 			"readTime": "min de lecture",
 			"shareArticle": "Partager l'article"
@@ -75,6 +91,8 @@
 		"blog": {
 			"by": "di",
 			"description": "Scopri le ultime tendenze e approfondimenti nel mondo della corsa e degli eventi.",
+			"noArticles": "Nessun articolo disponibile ancora.",
+			"noImage": "Nessuna immagine",
 			"readTime": "min di lettura",
 			"title": "Blog"
 		},
@@ -84,6 +102,8 @@
 		},
 		"sidebar": {
 			"article": "Articolo",
+			"copied": "Copiato!",
+			"copyLink": "Copia link",
 			"publishedOn": "Pubblicato il",
 			"readTime": "min di lettura",
 			"shareArticle": "Condividi articolo"
@@ -93,6 +113,8 @@
 		"blog": {
 			"by": "작성자:",
 			"description": "러닝 및 이벤트 세계의 최신 트렌드와 통찰을 발견하세요.",
+			"noArticles": "아직 사용 가능한 기사가 없습니다.",
+			"noImage": "이미지 없음",
 			"readTime": "분 읽기",
 			"title": "블로그"
 		},
@@ -102,6 +124,8 @@
 		},
 		"sidebar": {
 			"article": "기사",
+			"copied": "복사됨!",
+			"copyLink": "링크 복사",
 			"publishedOn": "게시일",
 			"readTime": "분 읽기",
 			"shareArticle": "기사 공유"
@@ -111,6 +135,8 @@
 		"blog": {
 			"by": "door",
 			"description": "Ontdek de laatste trends en inzichten in de wereld van hardlopen en evenementen.",
+			"noArticles": "Nog geen artikelen beschikbaar.",
+			"noImage": "Geen afbeelding",
 			"readTime": "min leestijd",
 			"title": "Blog"
 		},
@@ -120,6 +146,8 @@
 		},
 		"sidebar": {
 			"article": "Artikel",
+			"copied": "Gekopieerd!",
+			"copyLink": "Link kopiëren",
 			"publishedOn": "Gepubliceerd op",
 			"readTime": "min leestijd",
 			"shareArticle": "Artikel delen"
@@ -129,6 +157,8 @@
 		"blog": {
 			"by": "por",
 			"description": "Descubra as últimas tendências e insights no mundo da corrida e eventos.",
+			"noArticles": "Nenhum artigo disponível ainda.",
+			"noImage": "Sem imagem",
 			"readTime": "min de leitura",
 			"title": "Blog"
 		},
@@ -138,6 +168,8 @@
 		},
 		"sidebar": {
 			"article": "Artigo",
+			"copied": "Copiado!",
+			"copyLink": "Copiar link",
 			"publishedOn": "Publicado em",
 			"readTime": "min de leitura",
 			"shareArticle": "Compartilhar artigo"
@@ -147,6 +179,8 @@
 		"blog": {
 			"by": "de",
 			"description": "Descoperă cele mai recente tendințe și perspective din lumea alergării și a evenimentelor.",
+			"noArticles": "Niciun articol disponibil încă.",
+			"noImage": "Nicio imagine",
 			"readTime": "min citire",
 			"title": "Blog"
 		},
@@ -156,6 +190,8 @@
 		},
 		"sidebar": {
 			"article": "Articol",
+			"copied": "Copiat!",
+			"copyLink": "Copiază link",
 			"publishedOn": "Publicat pe",
 			"readTime": "min citire",
 			"shareArticle": "Distribuie articolul"

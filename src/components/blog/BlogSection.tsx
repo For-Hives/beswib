@@ -14,6 +14,8 @@ interface BlogSectionProps {
 	translations: {
 		by: string
 		description: string
+		noArticles: string
+		noImage: string
 		readTime: string
 		title: string
 	}
@@ -34,7 +36,7 @@ export function BlogSection({ articles, locale, translations }: BlogSectionProps
 			{/* Articles Grid */}
 			{articles.length === 0 ? (
 				<div className="text-muted-foreground flex min-h-[400px] items-center justify-center">
-					<p>No articles available yet.</p>
+					<p>{translations.noArticles}</p>
 				</div>
 			) : (
 				<div className="z-10 grid gap-6 pt-8 md:grid-cols-2 lg:grid-cols-3">
@@ -69,7 +71,7 @@ export function BlogSection({ articles, locale, translations }: BlogSectionProps
 									/>
 								) : (
 									<div className="bg-muted flex aspect-video items-center justify-center rounded-lg">
-										<p className="text-muted-foreground text-sm">No image</p>
+										<p className="text-muted-foreground text-sm">{translations.noImage}</p>
 									</div>
 								)}
 
