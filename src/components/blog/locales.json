@@ -5,6 +5,16 @@
 			"description": "Entdecken Sie die neuesten Trends und Erkenntnisse in der Welt des Laufsports und der Veranstaltungen.",
 			"readTime": "Min. Lesezeit",
 			"title": "Blog"
+		},
+		"breadcrumb": {
+			"blog": "Blog",
+			"home": "Startseite"
+		},
+		"sidebar": {
+			"article": "Artikel",
+			"publishedOn": "Veröffentlicht am",
+			"readTime": "Min. Lesezeit",
+			"shareArticle": "Artikel teilen"
 		}
 	},
 	"en": {
@@ -13,6 +23,16 @@
 			"description": "Discover the latest trends and insights in the world of running and events.",
 			"readTime": "min read",
 			"title": "Blog"
+		},
+		"breadcrumb": {
+			"blog": "Blog",
+			"home": "Home"
+		},
+		"sidebar": {
+			"article": "Article",
+			"publishedOn": "Published on",
+			"readTime": "min read",
+			"shareArticle": "Share this article"
 		}
 	},
 	"es": {
@@ -21,6 +41,16 @@
 			"description": "Descubre las últimas tendencias e información en el mundo del running y los eventos.",
 			"readTime": "min de lectura",
 			"title": "Blog"
+		},
+		"breadcrumb": {
+			"blog": "Blog",
+			"home": "Inicio"
+		},
+		"sidebar": {
+			"article": "Artículo",
+			"publishedOn": "Publicado el",
+			"readTime": "min de lectura",
+			"shareArticle": "Compartir artículo"
 		}
 	},
 	"fr": {
@@ -29,6 +59,16 @@
 			"description": "Découvrez les dernières tendances et informations dans le monde de la course à pied et des événements.",
 			"readTime": "min de lecture",
 			"title": "Blog"
+		},
+		"breadcrumb": {
+			"blog": "Blog",
+			"home": "Accueil"
+		},
+		"sidebar": {
+			"article": "Article",
+			"publishedOn": "Publié le",
+			"readTime": "min de lecture",
+			"shareArticle": "Partager l'article"
 		}
 	},
 	"it": {
@@ -37,6 +77,16 @@
 			"description": "Scopri le ultime tendenze e approfondimenti nel mondo della corsa e degli eventi.",
 			"readTime": "min di lettura",
 			"title": "Blog"
+		},
+		"breadcrumb": {
+			"blog": "Blog",
+			"home": "Home"
+		},
+		"sidebar": {
+			"article": "Articolo",
+			"publishedOn": "Pubblicato il",
+			"readTime": "min di lettura",
+			"shareArticle": "Condividi articolo"
 		}
 	},
 	"ko": {
@@ -45,6 +95,16 @@
 			"description": "러닝 및 이벤트 세계의 최신 트렌드와 통찰을 발견하세요.",
 			"readTime": "분 읽기",
 			"title": "블로그"
+		},
+		"breadcrumb": {
+			"blog": "블로그",
+			"home": "홈"
+		},
+		"sidebar": {
+			"article": "기사",
+			"publishedOn": "게시일",
+			"readTime": "분 읽기",
+			"shareArticle": "기사 공유"
 		}
 	},
 	"nl": {
@@ -53,6 +113,16 @@
 			"description": "Ontdek de laatste trends en inzichten in de wereld van hardlopen en evenementen.",
 			"readTime": "min leestijd",
 			"title": "Blog"
+		},
+		"breadcrumb": {
+			"blog": "Blog",
+			"home": "Home"
+		},
+		"sidebar": {
+			"article": "Artikel",
+			"publishedOn": "Gepubliceerd op",
+			"readTime": "min leestijd",
+			"shareArticle": "Artikel delen"
 		}
 	},
 	"pt": {
@@ -61,6 +131,16 @@
 			"description": "Descubra as últimas tendências e insights no mundo da corrida e eventos.",
 			"readTime": "min de leitura",
 			"title": "Blog"
+		},
+		"breadcrumb": {
+			"blog": "Blog",
+			"home": "Início"
+		},
+		"sidebar": {
+			"article": "Artigo",
+			"publishedOn": "Publicado em",
+			"readTime": "min de leitura",
+			"shareArticle": "Compartilhar artigo"
 		}
 	},
 	"ro": {
@@ -69,6 +149,16 @@
 			"description": "Descoperă cele mai recente tendințe și perspective din lumea alergării și a evenimentelor.",
 			"readTime": "min citire",
 			"title": "Blog"
+		},
+		"breadcrumb": {
+			"blog": "Blog",
+			"home": "Acasă"
+		},
+		"sidebar": {
+			"article": "Articol",
+			"publishedOn": "Publicat pe",
+			"readTime": "min citire",
+			"shareArticle": "Distribuie articolul"
 		}
 	}
 }

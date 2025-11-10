@@ -22,16 +22,9 @@ interface BlogSectionProps {
 export function BlogSection({ articles, locale, translations }: BlogSectionProps) {
 	return (
 		<div className="relative mx-auto w-full max-w-7xl grow px-4 py-12">
-			{/* Background decoration */}
-			<div aria-hidden className="absolute inset-0 isolate -z-10 contain-strict opacity-60">
-				<div className="bg-[radial-gradient(68.54%_68.72%_at_55.02%_31.46%,--theme(--color-foreground/.06)_0,hsla(0,0%,55%,.02)_50%,--theme(--color-foreground/.01)_80%)] absolute top-0 left-0 h-320 w-140 -translate-y-87.5 -rotate-45 rounded-full" />
-				<div className="bg-[radial-gradient(50%_50%_at_50%_50%,--theme(--color-foreground/.04)_0,--theme(--color-foreground/.01)_80%,transparent_100%)] absolute top-0 left-0 h-320 w-60 -rotate-45 rounded-full [translate:5%_-50%]" />
-				<div className="bg-[radial-gradient(50%_50%_at_50%_50%,--theme(--color-foreground/.04)_0,--theme(--color-foreground/.01)_80%,transparent_100%)] absolute top-0 left-0 h-320 w-60 -translate-y-87.5 -rotate-45 rounded-full" />
-			</div>
-
 			{/* Header */}
 			<div className="space-y-2 pb-8">
-				<h1 className="font-mono text-4xl font-bold tracking-wide">{translations.title}</h1>
+				<h1 className="text-4xl font-bold tracking-wide">{translations.title}</h1>
 				<p className="text-muted-foreground text-base">{translations.description}</p>
 			</div>
 
