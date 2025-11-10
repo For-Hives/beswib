@@ -102,6 +102,12 @@
 					"updating": "Updating Article..."
 				},
 				"cancel": "Cancel",
+				"publishAll": {
+					"label": "Publish All Translations",
+					"publishing": "Publishing...",
+					"success": "All translations published successfully!",
+					"error": "Failed to publish translations"
+				},
 				"generateAlt": {
 					"label": "Generate AI",
 					"generating": "Generating..."
@@ -292,6 +298,12 @@
 					"updating": "Mise à jour de l'article..."
 				},
 				"cancel": "Annuler",
+				"publishAll": {
+					"label": "Publier toutes les traductions",
+					"publishing": "Publication...",
+					"success": "Toutes les traductions ont été publiées avec succès !",
+					"error": "Échec de la publication des traductions"
+				},
 				"generateAlt": {
 					"label": "Générer IA",
 					"generating": "Génération..."

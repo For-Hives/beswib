@@ -13,6 +13,7 @@ import {
 	generateAltTextAction,
 	generateArticleTranslationAction,
 	generateSEOAction,
+	publishAllTranslationsAction,
 	updateArticleAction,
 } from '@/app/[locale]/admin/article/actions'
 import ArticleTranslationTabs from '@/components/admin/article/ArticleTranslationTabs'
@@ -66,6 +67,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	const [isGeneratingSEO, setIsGeneratingSEO] = useState(false)
 	const [isGeneratingTranslation, setIsGeneratingTranslation] = useState<string | null>(null)
 	const [isGeneratingAllTranslations, setIsGeneratingAllTranslations] = useState(false)
+	const [isPublishing, setIsPublishing] = useState(false)
 	const [content, setContent] = useState(article.content || '')
 	const [refreshTranslations, setRefreshTranslations] = useState(0)
 	const [processProgress, setProcessProgress] = useState({ current: 0, total: 10, message: '' })
@@ -244,6 +246,31 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 			toast.error(t.form.messages.error.unexpected)
 		} finally {
 			setIsSubmitting(false)
+		}
+	}
+
+	// Handle publishing all translations
+	const handlePublishAll = async () => {
+		if (!article.translationGroup) {
+			toast.error('No translation group found for this article')
+			return
+		}
+
+		setIsPublishing(true)
+		try {
+			const result = await publishAllTranslationsAction(article.translationGroup)
+
+			if (result.success) {
+				toast.success(t.form.actions.publishAll.success)
+				router.refresh()
+			} else {
+				toast.error(result.error || t.form.actions.publishAll.error)
+			}
+		} catch (error) {
+			console.error('Error publishing translations:', error)
+			toast.error(t.form.actions.publishAll.error)
+		} finally {
+			setIsPublishing(false)
 		}
 	}
 
@@ -756,19 +783,35 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 					</div>
 
 					{/* Form Actions */}
-					<div className="flex items-center justify-end space-x-6 pt-12">
-						<Button
-							disabled={isSubmitting}
-							onClick={() => router.push(`/${locale}/admin/article`)}
-							size="lg"
-							type="button"
-							variant="outline"
-						>
-							{t.form.actions.cancel}
-						</Button>
-						<Button disabled={isSubmitting} size="lg" type="submit">
-							{isSubmitting ? t.form.actions.submit.updating : t.form.actions.submit.update}
-						</Button>
+					<div className="flex items-center justify-between pt-12">
+						<div>
+							{article.translationGroup && article.isDraft && (
+								<Button
+									disabled={isPublishing || isSubmitting}
+									onClick={handlePublishAll}
+									size="lg"
+									type="button"
+									variant="default"
+									className="bg-green-600 hover:bg-green-700"
+								>
+									{isPublishing ? t.form.actions.publishAll.publishing : t.form.actions.publishAll.label}
+								</Button>
+							)}
+						</div>
+						<div className="flex items-center space-x-6">
+							<Button
+								disabled={isSubmitting}
+								onClick={() => router.push(`/${locale}/admin/article`)}
+								size="lg"
+								type="button"
+								variant="outline"
+							>
+								{t.form.actions.cancel}
+							</Button>
+							<Button disabled={isSubmitting} size="lg" type="submit">
+								{isSubmitting ? t.form.actions.submit.updating : t.form.actions.submit.update}
+							</Button>
+						</div>
 					</div>
 				</form>
 			</div>

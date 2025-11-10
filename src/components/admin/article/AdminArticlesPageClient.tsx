@@ -240,6 +240,19 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 				},
 			},
 			{
+				size: 100,
+				accessorKey: 'isDraft',
+				header: 'Status',
+				cell: ({ row }) => {
+					const isDraft = row.getValue('isDraft')
+					return (
+						<Badge variant={isDraft ? 'secondary' : 'default'} className={isDraft ? 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-400' : 'bg-green-500/20 text-green-700 dark:text-green-400'}>
+							{isDraft ? 'Draft' : 'Published'}
+						</Badge>
+					)
+				},
+			},
+			{
 				size: 120,
 				accessorKey: 'created',
 				header: t.articles.table.columns.created,
