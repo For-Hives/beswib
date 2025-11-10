@@ -4,6 +4,7 @@ import { revalidateTag } from 'next/cache'
 
 import { checkAdminAccess } from '@/guard/adminGuard'
 import type { Locale } from '@/lib/i18n/config'
+import { getImageUrl } from '@/lib/utils/imageUrl'
 import type { Article } from '@/models/article.model'
 import {
 	createArticle,
@@ -14,7 +15,6 @@ import {
 	getAllArticles,
 	updateArticleById,
 } from '@/services/article.services'
-import { getImageUrl } from '@/lib/utils/imageUrl'
 import { generateImageAltText } from '@/services/forvoyez.services'
 import { generateArticleTranslation, generateSEOContent } from '@/services/gemini.services'
 import { createSEO } from '@/services/seo.services'

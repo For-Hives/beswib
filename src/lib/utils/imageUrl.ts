@@ -36,7 +36,10 @@ export function isProduction(): boolean {
  * @param filename The filename from the record
  * @returns Absolute URL to the file
  */
-export function getImageUrl(record: { id: string; collectionId?: string; collectionName?: string }, filename: string): string {
+export function getImageUrl(
+	record: { id: string; collectionId?: string; collectionName?: string },
+	filename: string
+): string {
 	const baseUrl = getPocketBaseUrl()
 	const collectionId = record.collectionId || record.collectionName || ''
 

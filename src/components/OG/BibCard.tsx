@@ -87,6 +87,8 @@ interface BibCardProps {
 	locale: Locale
 	organizer?: Organizer
 	exchangeRates?: Record<string, number> | null
+	host: string
+	protocol: string
 }
 
 // OpenGraph-compatible price formatting (avoids special characters that need dynamic fonts)
@@ -124,7 +126,7 @@ function convertPriceWithFallback(
 	return formatPriceForOG(converted, currency)
 }
 
-export default function BibCard({ organizer, locale, exchangeRates, bib }: Readonly<BibCardProps>) {
+export default function BibCard({ organizer, locale, exchangeRates, bib, host, protocol }: Readonly<BibCardProps>) {
 	const event = getEventFromBib(bib)
 	const user = getUserFromBib(bib)
 	const t = getTranslations(locale, marketplaceTranslations)
@@ -146,6 +148,12 @@ export default function BibCard({ organizer, locale, exchangeRates, bib }: Reado
 	const originalPrice = bib.originalPrice ?? 0
 	const discountPercentage =
 		originalPrice > 0 && originalPrice > bib.price ? Math.round(((originalPrice - bib.price) / originalPrice) * 100) : 0
+
+	// Get organizer image URL and ensure it's absolute for OG image
+	const organizerImageUrl = getOrganizerImageUrl(organizer, bib.id)
+	const absoluteImageUrl = organizerImageUrl.startsWith('/')
+		? `${protocol}//${host}${organizerImageUrl}`
+		: organizerImageUrl
 
 	console.info('🔍 :', organizer)
 
@@ -176,11 +184,7 @@ export default function BibCard({ organizer, locale, exchangeRates, bib }: Reado
 				}}
 			>
 				<img
-					src={
-						getOrganizerImageUrl(organizer, bib.id).startsWith('/')
-							? `https://beswib.com${getOrganizerImageUrl(organizer, bib.id)}`
-							: getOrganizerImageUrl(organizer, bib.id)
-					}
+					src={absoluteImageUrl}
 					alt="Organizer logo"
 					style={{
 						width: '100%',

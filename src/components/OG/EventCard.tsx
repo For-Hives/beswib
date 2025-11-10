@@ -76,9 +76,18 @@ interface EventCardProps {
 	locale: Locale
 	organizer?: Organizer
 	exchangeRates?: Record<string, number> | null
+	host: string
+	protocol: string
 }
 
-export default function EventCard({ organizer, locale, exchangeRates, event }: Readonly<EventCardProps>) {
+export default function EventCard({
+	organizer,
+	locale,
+	exchangeRates,
+	event,
+	host,
+	protocol,
+}: Readonly<EventCardProps>) {
 	const t = getTranslations(locale, eventTranslations)
 
 	// Currency conversion for official price
@@ -94,6 +103,12 @@ export default function EventCard({ organizer, locale, exchangeRates, event }: R
 
 	const typeColors = getTypeColor(event.typeCourse)
 	const typeLabel = getTypeLabel(event.typeCourse, locale)
+
+	// Get organizer image URL and ensure it's absolute for OG image
+	const organizerImageUrl = getOrganizerImageUrl(organizer, event.id)
+	const absoluteImageUrl = organizerImageUrl.startsWith('/')
+		? `${protocol}//${host}${organizerImageUrl}`
+		: organizerImageUrl
 
 	return (
 		<div
@@ -122,11 +137,7 @@ export default function EventCard({ organizer, locale, exchangeRates, event }: R
 				}}
 			>
 				<img
-					src={
-						getOrganizerImageUrl(organizer, event.id).startsWith('/')
-							? `https://beswib.com${getOrganizerImageUrl(organizer, event.id)}`
-							: getOrganizerImageUrl(organizer, event.id)
-					}
+					src={absoluteImageUrl}
 					alt="Event image"
 					style={{
 						width: '100%',

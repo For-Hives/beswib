@@ -99,6 +99,8 @@ export default function OGImageBib({
 	locale,
 	exchangeRates,
 	bib,
+	host,
+	protocol,
 }: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
@@ -334,7 +336,14 @@ export default function OGImageBib({
 				>
 					{/* Bib card or placeholder */}
 					{bib && locale && organizer ? (
-						<BibCard bib={bib} locale={locale} organizer={organizer} exchangeRates={exchangeRates} />
+						<BibCard
+							bib={bib}
+							locale={locale}
+							organizer={organizer}
+							exchangeRates={exchangeRates}
+							host={host}
+							protocol={protocol}
+						/>
 					) : (
 						<div style={{ width: '300px', height: '400px', borderRadius: '20px', backgroundColor: '#f3f4f6' }}></div>
 					)}

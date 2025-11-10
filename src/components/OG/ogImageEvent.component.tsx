@@ -97,6 +97,8 @@ export default function OGImageEvent({
 	locale,
 	exchangeRates,
 	event,
+	host,
+	protocol,
 }: Readonly<OGImageEventProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
@@ -332,7 +334,14 @@ export default function OGImageEvent({
 				>
 					{/* Event card or placeholder */}
 					{event && locale ? (
-						<EventCard event={event} locale={locale} organizer={organizer} exchangeRates={exchangeRates} />
+						<EventCard
+							event={event}
+							locale={locale}
+							organizer={organizer}
+							exchangeRates={exchangeRates}
+							host={host}
+							protocol={protocol}
+						/>
 					) : (
 						<div style={{ width: '300px', height: '400px', borderRadius: '20px', backgroundColor: '#f3f4f6' }}></div>
 					)}
