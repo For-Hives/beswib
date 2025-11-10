@@ -114,7 +114,7 @@ export async function createArticleAction(formData: FormData): Promise<{
  * Server action to get all French articles with translation counts (admin only)
  */
 export async function getAllArticlesAction(): Promise<{
-	data?: Array<Article & { translationCount?: number }>
+	data?: Array<Article & { translationCount?: number; publishedCount?: number }>
 	error?: string
 	success: boolean
 }> {
@@ -135,20 +135,23 @@ export async function getAllArticlesAction(): Promise<{
 		// Filter only French articles
 		const frenchArticles = allArticles.filter(article => article.locale === 'fr')
 
-		// For each French article, count translations in its group
+		// For each French article, count translations and published translations in its group
 		const articlesWithCounts = await Promise.all(
 			frenchArticles.map(async article => {
 				let translationCount = 1 // Start with 1 (the French article itself)
+				let publishedCount = article.isDraft ? 0 : 1 // Start with 1 if the French article is published
 
 				if (article.translationGroup) {
 					// Fetch all articles in the translation group
 					const groupArticles = await fetchArticlesByTranslationGroup(article.translationGroup, false)
 					translationCount = groupArticles.length
+					publishedCount = groupArticles.filter(a => !a.isDraft).length
 				}
 
 				return {
 					...article,
 					translationCount,
+					publishedCount,
 				}
 			})
 		)
