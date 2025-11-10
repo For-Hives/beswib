@@ -127,7 +127,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 
 		setIsGeneratingAlt(true)
 		setProcessProgress({ current: 0, total: 3, message: 'Generating alt text...' })
-		
+
 		try {
 			const formData = new FormData()
 			formData.append('image', imageFile)
@@ -166,7 +166,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 
 		setIsGeneratingSEO(true)
 		setProcessProgress({ current: 0, total: 3, message: 'Generating SEO...' })
-		
+
 		try {
 			const formData = new FormData()
 			formData.append('title', title)
@@ -277,7 +277,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	const handleGenerateTranslation = async (targetLocale: Locale) => {
 		setIsGeneratingTranslation(targetLocale)
 		setProcessProgress({ current: 0, total: 10, message: `Translating to ${localeNames[targetLocale]}...` })
-		
+
 		try {
 			// Simulate progress based on expected steps
 			const progressSteps = [
