@@ -1,687 +1,687 @@
 {
-  "en": {
-    "articles": {
-      "title": "Article Management",
-      "subtitle": "Manage all blog articles and content from this central hub.",
-      "sections": {
-        "overview": {
-          "title": "Articles Overview",
-          "description": "View and manage all articles in the system"
-        },
-        "actions": {
-          "title": "Quick Actions",
-          "description": "Common administrative tasks for article management"
-        }
-      },
-      "stats": {
-        "totalArticles": "Total Articles",
-        "publishedArticles": "Published Articles",
-        "draftArticles": "Draft Articles"
-      },
-      "actions": {
-        "createArticle": "Create New Article",
-        "createArticleDescription": "Add a new blog article to the platform"
-      },
-      "table": {
-        "columns": {
-          "title": "Title",
-          "slug": "Slug",
-          "status": "Status",
-          "created": "Created",
-          "updated": "Updated",
-          "actions": "Actions"
-        },
-        "status": {
-          "draft": "Draft",
-          "published": "Published"
-        },
-        "actions": {
-          "edit": "Edit",
-          "view": "View",
-          "delete": "Delete"
-        },
-        "empty": {
-          "title": "No articles found",
-          "description": "Get started by creating your first article",
-          "createButton": "Create Article"
-        },
-        "controls": {
-          "selectAll": "Select all",
-          "selectRow": "Select row",
-          "clearFilter": "Clear filter",
-          "toggleColumns": "Toggle columns",
-          "rowsPerPage": "Rows per page",
-          "deleteSelected": "Delete",
-          "confirmDelete": "Are you absolutely sure?",
-          "deleteDescription": "This action cannot be undone. This will permanently delete",
-          "cancel": "Cancel",
-          "yes": "Yes",
-          "no": "No"
-        }
-      },
-      "filters": {
-        "search": "Search articles..."
-      },
-      "ui": {
-        "loading": "Loading...",
-        "refreshing": "Refreshing...",
-        "accessError": "Access Error",
-        "accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
-        "signIn": "Sign In",
-        "connectedAs": "Connected as"
-      }
-    }
-  },
-  "fr": {
-    "articles": {
-      "title": "Gestion des articles",
-      "subtitle": "Gérez tous les articles de blog et le contenu depuis ce hub central.",
-      "sections": {
-        "overview": {
-          "title": "Aperçu des articles",
-          "description": "Visualisez et gérez tous les articles du système"
-        },
-        "actions": {
-          "title": "Actions rapides",
-          "description": "Tâches administratives courantes pour la gestion des articles"
-        }
-      },
-      "stats": {
-        "totalArticles": "Total des articles",
-        "publishedArticles": "Articles publiés",
-        "draftArticles": "Brouillons"
-      },
-      "actions": {
-        "createArticle": "Créer un nouvel article",
-        "createArticleDescription": "Ajouter un nouvel article de blog à la plateforme"
-      },
-      "table": {
-        "columns": {
-          "title": "Titre",
-          "slug": "Slug",
-          "status": "Statut",
-          "created": "Créé",
-          "updated": "Mis à jour",
-          "actions": "Actions"
-        },
-        "status": {
-          "draft": "Brouillon",
-          "published": "Publié"
-        },
-        "actions": {
-          "edit": "Modifier",
-          "view": "Voir",
-          "delete": "Supprimer"
-        },
-        "empty": {
-          "title": "Aucun article trouvé",
-          "description": "Commencez par créer votre premier article",
-          "createButton": "Créer un article"
-        },
-        "controls": {
-          "selectAll": "Tout sélectionner",
-          "selectRow": "Sélectionner la ligne",
-          "clearFilter": "Effacer le filtre",
-          "toggleColumns": "Basculer les colonnes",
-          "rowsPerPage": "Lignes par page",
-          "deleteSelected": "Supprimer",
-          "confirmDelete": "Êtes-vous absolument sûr ?",
-          "deleteDescription": "Cette action ne peut pas être annulée. Cela supprimera définitivement",
-          "cancel": "Annuler",
-          "yes": "Oui",
-          "no": "Non"
-        }
-      },
-      "filters": {
-        "search": "Rechercher des articles..."
-      },
-      "ui": {
-        "loading": "Chargement...",
-        "refreshing": "Actualisation...",
-        "accessError": "Erreur d'accès",
-        "accessErrorDescription": "Impossible de vérifier l'accès administrateur. Veuillez réessayer de vous connecter.",
-        "signIn": "Se connecter",
-        "connectedAs": "Connecté en tant que"
-      }
-    }
-  },
-  "es": {
-    "articles": {
-      "title": "Gestión de artículos",
-      "subtitle": "Gestiona todos los artículos del blog y el contenido desde este centro.",
-      "sections": {
-        "overview": {
-          "title": "Vista general de artículos",
-          "description": "Ver y gestionar todos los artículos del sistema"
-        },
-        "actions": {
-          "title": "Acciones rápidas",
-          "description": "Tareas administrativas comunes para la gestión de artículos"
-        }
-      },
-      "stats": {
-        "totalArticles": "Total de artículos",
-        "publishedArticles": "Artículos publicados",
-        "draftArticles": "Borradores"
-      },
-      "status": {
-        "draft": "Borrador",
-        "published": "Publicado"
-      },
-      "actions": {
-        "createArticle": "Crear nuevo artículo",
-        "createArticleDescription": "Añadir un nuevo artículo de blog a la plataforma"
-      },
-      "table": {
-        "columns": {
-          "title": "Título",
-          "slug": "Slug",
-          "status": "Estado",
-          "created": "Creado",
-          "updated": "Actualizado",
-          "actions": "Acciones"
-        },
-        "status": {
-          "draft": "Borrador",
-          "published": "Publicado"
-        },
-        "actions": {
-          "edit": "Editar",
-          "view": "Ver",
-          "delete": "Eliminar"
-        },
-        "empty": {
-          "title": "No se encontraron artículos",
-          "description": "Comienza creando tu primer artículo",
-          "createButton": "Crear artículo"
-        },
-        "controls": {
-          "selectAll": "Seleccionar todo",
-          "selectRow": "Seleccionar fila",
-          "clearFilter": "Limpiar filtro",
-          "toggleColumns": "Alternar columnas",
-          "rowsPerPage": "Filas por página",
-          "deleteSelected": "Eliminar",
-          "confirmDelete": "¿Estás absolutamente seguro?",
-          "deleteDescription": "Esta acción no se puede deshacer. Esto eliminará permanentemente",
-          "cancel": "Cancelar",
-          "yes": "Sí",
-          "no": "No"
-        }
-      },
-      "filters": {
-        "search": "Buscar artículos..."
-      },
-      "ui": {
-        "loading": "Cargando...",
-        "refreshing": "Actualizando...",
-        "accessError": "Error de acceso",
-        "accessErrorDescription": "No se pudo verificar el acceso de administrador. Intenta iniciar sesión nuevamente.",
-        "signIn": "Iniciar sesión",
-        "connectedAs": "Conectado como"
-      }
-    }
-  },
-  "it": {
-    "articles": {
-      "title": "Gestione articoli",
-      "subtitle": "Gestisci tutti gli articoli del blog e i contenuti da questo hub centrale.",
-      "sections": {
-        "overview": {
-          "title": "Panoramica articoli",
-          "description": "Visualizza e gestisci tutti gli articoli nel sistema"
-        },
-        "actions": {
-          "title": "Azioni rapide",
-          "description": "Attività amministrative comuni per la gestione degli articoli"
-        }
-      },
-      "stats": {
-        "totalArticles": "Totale articoli",
-        "publishedArticles": "Articoli pubblicati",
-        "draftArticles": "Bozze"
-      },
-      "status": {
-        "draft": "Bozza",
-        "published": "Pubblicato"
-      },
-      "actions": {
-        "createArticle": "Crea nuovo articolo",
-        "createArticleDescription": "Aggiungi un nuovo articolo del blog alla piattaforma"
-      },
-      "table": {
-        "columns": {
-          "title": "Titolo",
-          "slug": "Slug",
-          "status": "Stato",
-          "created": "Creato",
-          "updated": "Aggiornato",
-          "actions": "Azioni"
-        },
-        "status": {
-          "draft": "Bozza",
-          "published": "Pubblicato"
-        },
-        "actions": {
-          "edit": "Modifica",
-          "view": "Visualizza",
-          "delete": "Elimina"
-        },
-        "empty": {
-          "title": "Nessun articolo trovato",
-          "description": "Inizia creando il tuo primo articolo",
-          "createButton": "Crea articolo"
-        },
-        "controls": {
-          "selectAll": "Seleziona tutto",
-          "selectRow": "Seleziona riga",
-          "clearFilter": "Cancella filtro",
-          "toggleColumns": "Attiva/disattiva colonne",
-          "rowsPerPage": "Righe per pagina",
-          "deleteSelected": "Elimina",
-          "confirmDelete": "Sei assolutamente sicuro?",
-          "deleteDescription": "Questa azione non può essere annullata. Questo eliminerà permanentemente",
-          "cancel": "Annulla",
-          "yes": "Sì",
-          "no": "No"
-        }
-      },
-      "filters": {
-        "search": "Cerca articoli..."
-      },
-      "ui": {
-        "loading": "Caricamento...",
-        "refreshing": "Aggiornamento...",
-        "accessError": "Errore di accesso",
-        "accessErrorDescription": "Impossibile verificare l'accesso amministratore. Prova ad accedere di nuovo.",
-        "signIn": "Accedi",
-        "connectedAs": "Connesso come"
-      }
-    }
-  },
-  "de": {
-    "articles": {
-      "title": "Artikelverwaltung",
-      "subtitle": "Verwalten Sie alle Blog-Artikel und Inhalte von diesem zentralen Hub aus.",
-      "sections": {
-        "overview": {
-          "title": "Artikelübersicht",
-          "description": "Alle Artikel im System anzeigen und verwalten"
-        },
-        "actions": {
-          "title": "Schnellaktionen",
-          "description": "Häufige Verwaltungsaufgaben für die Artikelverwaltung"
-        }
-      },
-      "stats": {
-        "totalArticles": "Artikel gesamt",
-        "publishedArticles": "Veröffentlichte Artikel",
-        "draftArticles": "Entwürfe"
-      },
-      "status": {
-        "draft": "Entwurf",
-        "published": "Veröffentlicht"
-      },
-      "actions": {
-        "createArticle": "Neuen Artikel erstellen",
-        "createArticleDescription": "Fügen Sie der Plattform einen neuen Blog-Artikel hinzu"
-      },
-      "table": {
-        "columns": {
-          "title": "Titel",
-          "slug": "Slug",
-          "status": "Status",
-          "created": "Erstellt",
-          "updated": "Aktualisiert",
-          "actions": "Aktionen"
-        },
-        "status": {
-          "draft": "Entwurf",
-          "published": "Veröffentlicht"
-        },
-        "actions": {
-          "edit": "Bearbeiten",
-          "view": "Ansehen",
-          "delete": "Löschen"
-        },
-        "empty": {
-          "title": "Keine Artikel gefunden",
-          "description": "Beginnen Sie mit der Erstellung Ihres ersten Artikels",
-          "createButton": "Artikel erstellen"
-        },
-        "controls": {
-          "selectAll": "Alle auswählen",
-          "selectRow": "Zeile auswählen",
-          "clearFilter": "Filter löschen",
-          "toggleColumns": "Spalten umschalten",
-          "rowsPerPage": "Zeilen pro Seite",
-          "deleteSelected": "Löschen",
-          "confirmDelete": "Sind Sie absolut sicher?",
-          "deleteDescription": "Diese Aktion kann nicht rückgängig gemacht werden. Dies wird dauerhaft löschen",
-          "cancel": "Abbrechen",
-          "yes": "Ja",
-          "no": "Nein"
-        }
-      },
-      "filters": {
-        "search": "Artikel suchen..."
-      },
-      "ui": {
-        "loading": "Lädt...",
-        "refreshing": "Aktualisierung...",
-        "accessError": "Zugriffsfehler",
-        "accessErrorDescription": "Admin-Zugriff konnte nicht überprüft werden. Bitte versuchen Sie sich erneut anzumelden.",
-        "signIn": "Anmelden",
-        "connectedAs": "Verbunden als"
-      }
-    }
-  },
-  "ro": {
-    "articles": {
-      "title": "Gestionarea articolelor",
-      "subtitle": "Gestionați toate articolele de blog și conținutul din acest hub central.",
-      "sections": {
-        "overview": {
-          "title": "Prezentare generală articole",
-          "description": "Vizualizați și gestionați toate articolele din sistem"
-        },
-        "actions": {
-          "title": "Acțiuni rapide",
-          "description": "Sarcini administrative comune pentru gestionarea articolelor"
-        }
-      },
-      "stats": {
-        "totalArticles": "Total articole",
-        "publishedArticles": "Articole publicate",
-        "draftArticles": "Proiecte"
-      },
-      "status": {
-        "draft": "Ciornă",
-        "published": "Publicat"
-      },
-      "actions": {
-        "createArticle": "Creați articol nou",
-        "createArticleDescription": "Adăugați un nou articol de blog pe platformă"
-      },
-      "table": {
-        "columns": {
-          "title": "Titlu",
-          "slug": "Slug",
-          "status": "Status",
-          "created": "Creat",
-          "updated": "Actualizat",
-          "actions": "Acțiuni"
-        },
-        "status": {
-          "draft": "Ciornă",
-          "published": "Publicat"
-        },
-        "actions": {
-          "edit": "Editează",
-          "view": "Vizualizare",
-          "delete": "Șterge"
-        },
-        "empty": {
-          "title": "Nu s-au găsit articole",
-          "description": "Începeți prin a crea primul dvs. articol",
-          "createButton": "Creați articol"
-        },
-        "controls": {
-          "selectAll": "Selectați tot",
-          "selectRow": "Selectați rândul",
-          "clearFilter": "Ștergeți filtrul",
-          "toggleColumns": "Comutați coloanele",
-          "rowsPerPage": "Rânduri pe pagină",
-          "deleteSelected": "Șterge",
-          "confirmDelete": "Sunteți absolut sigur?",
-          "deleteDescription": "Această acțiune nu poate fi anulată. Aceasta va șterge permanent",
-          "cancel": "Anulare",
-          "yes": "Da",
-          "no": "Nu"
-        }
-      },
-      "filters": {
-        "search": "Căutați articole..."
-      },
-      "ui": {
-        "loading": "Se încarcă...",
-        "refreshing": "Se actualizează...",
-        "accessError": "Eroare de acces",
-        "accessErrorDescription": "Nu se poate verifica accesul de administrator. Vă rugăm să încercați să vă conectați din nou.",
-        "signIn": "Conectare",
-        "connectedAs": "Conectat ca"
-      }
-    }
-  },
-  "pt": {
-    "articles": {
-      "title": "Gestão de artigos",
-      "subtitle": "Gerencie todos os artigos do blog e conteúdo a partir deste hub central.",
-      "sections": {
-        "overview": {
-          "title": "Visão geral dos artigos",
-          "description": "Visualize e gerencie todos os artigos no sistema"
-        },
-        "actions": {
-          "title": "Ações rápidas",
-          "description": "Tarefas administrativas comuns para gerenciamento de artigos"
-        }
-      },
-      "stats": {
-        "totalArticles": "Total de artigos",
-        "publishedArticles": "Artigos publicados",
-        "draftArticles": "Rascunhos"
-      },
-      "status": {
-        "draft": "Rascunho",
-        "published": "Publicado"
-      },
-      "actions": {
-        "createArticle": "Criar novo artigo",
-        "createArticleDescription": "Adicionar um novo artigo de blog à plataforma"
-      },
-      "table": {
-        "columns": {
-          "title": "Título",
-          "slug": "Slug",
-          "status": "Status",
-          "created": "Criado",
-          "updated": "Atualizado",
-          "actions": "Ações"
-        },
-        "status": {
-          "draft": "Rascunho",
-          "published": "Publicado"
-        },
-        "actions": {
-          "edit": "Editar",
-          "view": "Ver",
-          "delete": "Excluir"
-        },
-        "empty": {
-          "title": "Nenhum artigo encontrado",
-          "description": "Comece criando seu primeiro artigo",
-          "createButton": "Criar artigo"
-        },
-        "controls": {
-          "selectAll": "Selecionar tudo",
-          "selectRow": "Selecionar linha",
-          "clearFilter": "Limpar filtro",
-          "toggleColumns": "Alternar colunas",
-          "rowsPerPage": "Linhas por página",
-          "deleteSelected": "Excluir",
-          "confirmDelete": "Tem certeza absoluta?",
-          "deleteDescription": "Esta ação não pode ser desfeita. Isso excluirá permanentemente",
-          "cancel": "Cancelar",
-          "yes": "Sim",
-          "no": "Não"
-        }
-      },
-      "filters": {
-        "search": "Pesquisar artigos..."
-      },
-      "ui": {
-        "loading": "Carregando...",
-        "refreshing": "Atualizando...",
-        "accessError": "Erro de acesso",
-        "accessErrorDescription": "Não foi possível verificar o acesso de administrador. Tente fazer login novamente.",
-        "signIn": "Entrar",
-        "connectedAs": "Conectado como"
-      }
-    }
-  },
-  "nl": {
-    "articles": {
-      "title": "Artikelbeheer",
-      "subtitle": "Beheer alle blogartikelen en inhoud vanuit deze centrale hub.",
-      "sections": {
-        "overview": {
-          "title": "Artikeloverzicht",
-          "description": "Bekijk en beheer alle artikelen in het systeem"
-        },
-        "actions": {
-          "title": "Snelle acties",
-          "description": "Veelvoorkomende beheertaken voor artikelbeheer"
-        }
-      },
-      "stats": {
-        "totalArticles": "Totaal artikelen",
-        "publishedArticles": "Gepubliceerde artikelen",
-        "draftArticles": "Concepten"
-      },
-      "status": {
-        "draft": "Concept",
-        "published": "Gepubliceerd"
-      },
-      "actions": {
-        "createArticle": "Nieuw artikel maken",
-        "createArticleDescription": "Voeg een nieuw blogartikel toe aan het platform"
-      },
-      "table": {
-        "columns": {
-          "title": "Titel",
-          "slug": "Slug",
-          "status": "Status",
-          "created": "Gemaakt",
-          "updated": "Bijgewerkt",
-          "actions": "Acties"
-        },
-        "status": {
-          "draft": "Concept",
-          "published": "Gepubliceerd"
-        },
-        "actions": {
-          "edit": "Bewerken",
-          "view": "Bekijken",
-          "delete": "Verwijderen"
-        },
-        "empty": {
-          "title": "Geen artikelen gevonden",
-          "description": "Begin met het maken van je eerste artikel",
-          "createButton": "Artikel maken"
-        },
-        "controls": {
-          "selectAll": "Alles selecteren",
-          "selectRow": "Rij selecteren",
-          "clearFilter": "Filter wissen",
-          "toggleColumns": "Kolommen wisselen",
-          "rowsPerPage": "Rijen per pagina",
-          "deleteSelected": "Verwijderen",
-          "confirmDelete": "Weet je het absoluut zeker?",
-          "deleteDescription": "Deze actie kan niet ongedaan worden gemaakt. Dit zal permanent verwijderen",
-          "cancel": "Annuleren",
-          "yes": "Ja",
-          "no": "Nee"
-        }
-      },
-      "filters": {
-        "search": "Zoek artikelen..."
-      },
-      "ui": {
-        "loading": "Laden...",
-        "refreshing": "Vernieuwen...",
-        "accessError": "Toegangsfout",
-        "accessErrorDescription": "Kan beheerderstoegang niet verifiëren. Probeer opnieuw in te loggen.",
-        "signIn": "Inloggen",
-        "connectedAs": "Verbonden als"
-      }
-    }
-  },
-  "ko": {
-    "articles": {
-      "title": "기사 관리",
-      "subtitle": "이 중앙 허브에서 모든 블로그 기사와 콘텐츠를 관리합니다.",
-      "sections": {
-        "overview": {
-          "title": "기사 개요",
-          "description": "시스템의 모든 기사 보기 및 관리"
-        },
-        "actions": {
-          "title": "빠른 작업",
-          "description": "기사 관리를 위한 일반적인 관리 작업"
-        }
-      },
-      "stats": {
-        "totalArticles": "전체 기사",
-        "publishedArticles": "게시된 기사",
-        "draftArticles": "초안"
-      },
-      "status": {
-        "draft": "초안",
-        "published": "게시됨"
-      },
-      "actions": {
-        "createArticle": "새 기사 만들기",
-        "createArticleDescription": "플랫폼에 새 블로그 기사 추가"
-      },
-      "table": {
-        "columns": {
-          "title": "제목",
-          "slug": "슬러그",
-          "status": "상태",
-          "created": "생성됨",
-          "updated": "업데이트됨",
-          "actions": "작업"
-        },
-        "status": {
-          "draft": "초안",
-          "published": "게시됨"
-        },
-        "actions": {
-          "edit": "편집",
-          "view": "보기",
-          "delete": "삭제"
-        },
-        "empty": {
-          "title": "기사를 찾을 수 없습니다",
-          "description": "첫 번째 기사를 만들어 시작하세요",
-          "createButton": "기사 만들기"
-        },
-        "controls": {
-          "selectAll": "모두 선택",
-          "selectRow": "행 선택",
-          "clearFilter": "필터 지우기",
-          "toggleColumns": "열 토글",
-          "rowsPerPage": "페이지당 행",
-          "deleteSelected": "삭제",
-          "confirmDelete": "정말 확실합니까?",
-          "deleteDescription": "이 작업은 취소할 수 없습니다. 이것은 영구적으로 삭제합니다",
-          "cancel": "취소",
-          "yes": "예",
-          "no": "아니오"
-        }
-      },
-      "filters": {
-        "search": "기사 검색..."
-      },
-      "ui": {
-        "loading": "로딩 중...",
-        "refreshing": "새로 고침 중...",
-        "accessError": "액세스 오류",
-        "accessErrorDescription": "관리자 액세스를 확인할 수 없습니다. 다시 로그인해 주세요.",
-        "signIn": "로그인",
-        "connectedAs": "다음으로 연결됨"
-      }
-    }
-  }
+	"en": {
+		"articles": {
+			"title": "Article Management",
+			"subtitle": "Manage all blog articles and content from this central hub.",
+			"sections": {
+				"overview": {
+					"title": "Articles Overview",
+					"description": "View and manage all articles in the system"
+				},
+				"actions": {
+					"title": "Quick Actions",
+					"description": "Common administrative tasks for article management"
+				}
+			},
+			"stats": {
+				"totalArticles": "Total Articles",
+				"publishedArticles": "Published Articles",
+				"draftArticles": "Draft Articles"
+			},
+			"actions": {
+				"createArticle": "Create New Article",
+				"createArticleDescription": "Add a new blog article to the platform"
+			},
+			"table": {
+				"columns": {
+					"title": "Title",
+					"slug": "Slug",
+					"status": "Status",
+					"created": "Created",
+					"updated": "Updated",
+					"actions": "Actions"
+				},
+				"status": {
+					"draft": "Draft",
+					"published": "Published"
+				},
+				"actions": {
+					"edit": "Edit",
+					"view": "View",
+					"delete": "Delete"
+				},
+				"empty": {
+					"title": "No articles found",
+					"description": "Get started by creating your first article",
+					"createButton": "Create Article"
+				},
+				"controls": {
+					"selectAll": "Select all",
+					"selectRow": "Select row",
+					"clearFilter": "Clear filter",
+					"toggleColumns": "Toggle columns",
+					"rowsPerPage": "Rows per page",
+					"deleteSelected": "Delete",
+					"confirmDelete": "Are you absolutely sure?",
+					"deleteDescription": "This action cannot be undone. This will permanently delete",
+					"cancel": "Cancel",
+					"yes": "Yes",
+					"no": "No"
+				}
+			},
+			"filters": {
+				"search": "Search articles..."
+			},
+			"ui": {
+				"loading": "Loading...",
+				"refreshing": "Refreshing...",
+				"accessError": "Access Error",
+				"accessErrorDescription": "Unable to verify admin access. Please try logging in again.",
+				"signIn": "Sign In",
+				"connectedAs": "Connected as"
+			}
+		}
+	},
+	"fr": {
+		"articles": {
+			"title": "Gestion des articles",
+			"subtitle": "Gérez tous les articles de blog et le contenu depuis ce hub central.",
+			"sections": {
+				"overview": {
+					"title": "Aperçu des articles",
+					"description": "Visualisez et gérez tous les articles du système"
+				},
+				"actions": {
+					"title": "Actions rapides",
+					"description": "Tâches administratives courantes pour la gestion des articles"
+				}
+			},
+			"stats": {
+				"totalArticles": "Total des articles",
+				"publishedArticles": "Articles publiés",
+				"draftArticles": "Brouillons"
+			},
+			"actions": {
+				"createArticle": "Créer un nouvel article",
+				"createArticleDescription": "Ajouter un nouvel article de blog à la plateforme"
+			},
+			"table": {
+				"columns": {
+					"title": "Titre",
+					"slug": "Slug",
+					"status": "Statut",
+					"created": "Créé",
+					"updated": "Mis à jour",
+					"actions": "Actions"
+				},
+				"status": {
+					"draft": "Brouillon",
+					"published": "Publié"
+				},
+				"actions": {
+					"edit": "Modifier",
+					"view": "Voir",
+					"delete": "Supprimer"
+				},
+				"empty": {
+					"title": "Aucun article trouvé",
+					"description": "Commencez par créer votre premier article",
+					"createButton": "Créer un article"
+				},
+				"controls": {
+					"selectAll": "Tout sélectionner",
+					"selectRow": "Sélectionner la ligne",
+					"clearFilter": "Effacer le filtre",
+					"toggleColumns": "Basculer les colonnes",
+					"rowsPerPage": "Lignes par page",
+					"deleteSelected": "Supprimer",
+					"confirmDelete": "Êtes-vous absolument sûr ?",
+					"deleteDescription": "Cette action ne peut pas être annulée. Cela supprimera définitivement",
+					"cancel": "Annuler",
+					"yes": "Oui",
+					"no": "Non"
+				}
+			},
+			"filters": {
+				"search": "Rechercher des articles..."
+			},
+			"ui": {
+				"loading": "Chargement...",
+				"refreshing": "Actualisation...",
+				"accessError": "Erreur d'accès",
+				"accessErrorDescription": "Impossible de vérifier l'accès administrateur. Veuillez réessayer de vous connecter.",
+				"signIn": "Se connecter",
+				"connectedAs": "Connecté en tant que"
+			}
+		}
+	},
+	"es": {
+		"articles": {
+			"title": "Gestión de artículos",
+			"subtitle": "Gestiona todos los artículos del blog y el contenido desde este centro.",
+			"sections": {
+				"overview": {
+					"title": "Vista general de artículos",
+					"description": "Ver y gestionar todos los artículos del sistema"
+				},
+				"actions": {
+					"title": "Acciones rápidas",
+					"description": "Tareas administrativas comunes para la gestión de artículos"
+				}
+			},
+			"stats": {
+				"totalArticles": "Total de artículos",
+				"publishedArticles": "Artículos publicados",
+				"draftArticles": "Borradores"
+			},
+			"status": {
+				"draft": "Borrador",
+				"published": "Publicado"
+			},
+			"actions": {
+				"createArticle": "Crear nuevo artículo",
+				"createArticleDescription": "Añadir un nuevo artículo de blog a la plataforma"
+			},
+			"table": {
+				"columns": {
+					"title": "Título",
+					"slug": "Slug",
+					"status": "Estado",
+					"created": "Creado",
+					"updated": "Actualizado",
+					"actions": "Acciones"
+				},
+				"status": {
+					"draft": "Borrador",
+					"published": "Publicado"
+				},
+				"actions": {
+					"edit": "Editar",
+					"view": "Ver",
+					"delete": "Eliminar"
+				},
+				"empty": {
+					"title": "No se encontraron artículos",
+					"description": "Comienza creando tu primer artículo",
+					"createButton": "Crear artículo"
+				},
+				"controls": {
+					"selectAll": "Seleccionar todo",
+					"selectRow": "Seleccionar fila",
+					"clearFilter": "Limpiar filtro",
+					"toggleColumns": "Alternar columnas",
+					"rowsPerPage": "Filas por página",
+					"deleteSelected": "Eliminar",
+					"confirmDelete": "¿Estás absolutamente seguro?",
+					"deleteDescription": "Esta acción no se puede deshacer. Esto eliminará permanentemente",
+					"cancel": "Cancelar",
+					"yes": "Sí",
+					"no": "No"
+				}
+			},
+			"filters": {
+				"search": "Buscar artículos..."
+			},
+			"ui": {
+				"loading": "Cargando...",
+				"refreshing": "Actualizando...",
+				"accessError": "Error de acceso",
+				"accessErrorDescription": "No se pudo verificar el acceso de administrador. Intenta iniciar sesión nuevamente.",
+				"signIn": "Iniciar sesión",
+				"connectedAs": "Conectado como"
+			}
+		}
+	},
+	"it": {
+		"articles": {
+			"title": "Gestione articoli",
+			"subtitle": "Gestisci tutti gli articoli del blog e i contenuti da questo hub centrale.",
+			"sections": {
+				"overview": {
+					"title": "Panoramica articoli",
+					"description": "Visualizza e gestisci tutti gli articoli nel sistema"
+				},
+				"actions": {
+					"title": "Azioni rapide",
+					"description": "Attività amministrative comuni per la gestione degli articoli"
+				}
+			},
+			"stats": {
+				"totalArticles": "Totale articoli",
+				"publishedArticles": "Articoli pubblicati",
+				"draftArticles": "Bozze"
+			},
+			"status": {
+				"draft": "Bozza",
+				"published": "Pubblicato"
+			},
+			"actions": {
+				"createArticle": "Crea nuovo articolo",
+				"createArticleDescription": "Aggiungi un nuovo articolo del blog alla piattaforma"
+			},
+			"table": {
+				"columns": {
+					"title": "Titolo",
+					"slug": "Slug",
+					"status": "Stato",
+					"created": "Creato",
+					"updated": "Aggiornato",
+					"actions": "Azioni"
+				},
+				"status": {
+					"draft": "Bozza",
+					"published": "Pubblicato"
+				},
+				"actions": {
+					"edit": "Modifica",
+					"view": "Visualizza",
+					"delete": "Elimina"
+				},
+				"empty": {
+					"title": "Nessun articolo trovato",
+					"description": "Inizia creando il tuo primo articolo",
+					"createButton": "Crea articolo"
+				},
+				"controls": {
+					"selectAll": "Seleziona tutto",
+					"selectRow": "Seleziona riga",
+					"clearFilter": "Cancella filtro",
+					"toggleColumns": "Attiva/disattiva colonne",
+					"rowsPerPage": "Righe per pagina",
+					"deleteSelected": "Elimina",
+					"confirmDelete": "Sei assolutamente sicuro?",
+					"deleteDescription": "Questa azione non può essere annullata. Questo eliminerà permanentemente",
+					"cancel": "Annulla",
+					"yes": "Sì",
+					"no": "No"
+				}
+			},
+			"filters": {
+				"search": "Cerca articoli..."
+			},
+			"ui": {
+				"loading": "Caricamento...",
+				"refreshing": "Aggiornamento...",
+				"accessError": "Errore di accesso",
+				"accessErrorDescription": "Impossibile verificare l'accesso amministratore. Prova ad accedere di nuovo.",
+				"signIn": "Accedi",
+				"connectedAs": "Connesso come"
+			}
+		}
+	},
+	"de": {
+		"articles": {
+			"title": "Artikelverwaltung",
+			"subtitle": "Verwalten Sie alle Blog-Artikel und Inhalte von diesem zentralen Hub aus.",
+			"sections": {
+				"overview": {
+					"title": "Artikelübersicht",
+					"description": "Alle Artikel im System anzeigen und verwalten"
+				},
+				"actions": {
+					"title": "Schnellaktionen",
+					"description": "Häufige Verwaltungsaufgaben für die Artikelverwaltung"
+				}
+			},
+			"stats": {
+				"totalArticles": "Artikel gesamt",
+				"publishedArticles": "Veröffentlichte Artikel",
+				"draftArticles": "Entwürfe"
+			},
+			"status": {
+				"draft": "Entwurf",
+				"published": "Veröffentlicht"
+			},
+			"actions": {
+				"createArticle": "Neuen Artikel erstellen",
+				"createArticleDescription": "Fügen Sie der Plattform einen neuen Blog-Artikel hinzu"
+			},
+			"table": {
+				"columns": {
+					"title": "Titel",
+					"slug": "Slug",
+					"status": "Status",
+					"created": "Erstellt",
+					"updated": "Aktualisiert",
+					"actions": "Aktionen"
+				},
+				"status": {
+					"draft": "Entwurf",
+					"published": "Veröffentlicht"
+				},
+				"actions": {
+					"edit": "Bearbeiten",
+					"view": "Ansehen",
+					"delete": "Löschen"
+				},
+				"empty": {
+					"title": "Keine Artikel gefunden",
+					"description": "Beginnen Sie mit der Erstellung Ihres ersten Artikels",
+					"createButton": "Artikel erstellen"
+				},
+				"controls": {
+					"selectAll": "Alle auswählen",
+					"selectRow": "Zeile auswählen",
+					"clearFilter": "Filter löschen",
+					"toggleColumns": "Spalten umschalten",
+					"rowsPerPage": "Zeilen pro Seite",
+					"deleteSelected": "Löschen",
+					"confirmDelete": "Sind Sie absolut sicher?",
+					"deleteDescription": "Diese Aktion kann nicht rückgängig gemacht werden. Dies wird dauerhaft löschen",
+					"cancel": "Abbrechen",
+					"yes": "Ja",
+					"no": "Nein"
+				}
+			},
+			"filters": {
+				"search": "Artikel suchen..."
+			},
+			"ui": {
+				"loading": "Lädt...",
+				"refreshing": "Aktualisierung...",
+				"accessError": "Zugriffsfehler",
+				"accessErrorDescription": "Admin-Zugriff konnte nicht überprüft werden. Bitte versuchen Sie sich erneut anzumelden.",
+				"signIn": "Anmelden",
+				"connectedAs": "Verbunden als"
+			}
+		}
+	},
+	"ro": {
+		"articles": {
+			"title": "Gestionarea articolelor",
+			"subtitle": "Gestionați toate articolele de blog și conținutul din acest hub central.",
+			"sections": {
+				"overview": {
+					"title": "Prezentare generală articole",
+					"description": "Vizualizați și gestionați toate articolele din sistem"
+				},
+				"actions": {
+					"title": "Acțiuni rapide",
+					"description": "Sarcini administrative comune pentru gestionarea articolelor"
+				}
+			},
+			"stats": {
+				"totalArticles": "Total articole",
+				"publishedArticles": "Articole publicate",
+				"draftArticles": "Proiecte"
+			},
+			"status": {
+				"draft": "Ciornă",
+				"published": "Publicat"
+			},
+			"actions": {
+				"createArticle": "Creați articol nou",
+				"createArticleDescription": "Adăugați un nou articol de blog pe platformă"
+			},
+			"table": {
+				"columns": {
+					"title": "Titlu",
+					"slug": "Slug",
+					"status": "Status",
+					"created": "Creat",
+					"updated": "Actualizat",
+					"actions": "Acțiuni"
+				},
+				"status": {
+					"draft": "Ciornă",
+					"published": "Publicat"
+				},
+				"actions": {
+					"edit": "Editează",
+					"view": "Vizualizare",
+					"delete": "Șterge"
+				},
+				"empty": {
+					"title": "Nu s-au găsit articole",
+					"description": "Începeți prin a crea primul dvs. articol",
+					"createButton": "Creați articol"
+				},
+				"controls": {
+					"selectAll": "Selectați tot",
+					"selectRow": "Selectați rândul",
+					"clearFilter": "Ștergeți filtrul",
+					"toggleColumns": "Comutați coloanele",
+					"rowsPerPage": "Rânduri pe pagină",
+					"deleteSelected": "Șterge",
+					"confirmDelete": "Sunteți absolut sigur?",
+					"deleteDescription": "Această acțiune nu poate fi anulată. Aceasta va șterge permanent",
+					"cancel": "Anulare",
+					"yes": "Da",
+					"no": "Nu"
+				}
+			},
+			"filters": {
+				"search": "Căutați articole..."
+			},
+			"ui": {
+				"loading": "Se încarcă...",
+				"refreshing": "Se actualizează...",
+				"accessError": "Eroare de acces",
+				"accessErrorDescription": "Nu se poate verifica accesul de administrator. Vă rugăm să încercați să vă conectați din nou.",
+				"signIn": "Conectare",
+				"connectedAs": "Conectat ca"
+			}
+		}
+	},
+	"pt": {
+		"articles": {
+			"title": "Gestão de artigos",
+			"subtitle": "Gerencie todos os artigos do blog e conteúdo a partir deste hub central.",
+			"sections": {
+				"overview": {
+					"title": "Visão geral dos artigos",
+					"description": "Visualize e gerencie todos os artigos no sistema"
+				},
+				"actions": {
+					"title": "Ações rápidas",
+					"description": "Tarefas administrativas comuns para gerenciamento de artigos"
+				}
+			},
+			"stats": {
+				"totalArticles": "Total de artigos",
+				"publishedArticles": "Artigos publicados",
+				"draftArticles": "Rascunhos"
+			},
+			"status": {
+				"draft": "Rascunho",
+				"published": "Publicado"
+			},
+			"actions": {
+				"createArticle": "Criar novo artigo",
+				"createArticleDescription": "Adicionar um novo artigo de blog à plataforma"
+			},
+			"table": {
+				"columns": {
+					"title": "Título",
+					"slug": "Slug",
+					"status": "Status",
+					"created": "Criado",
+					"updated": "Atualizado",
+					"actions": "Ações"
+				},
+				"status": {
+					"draft": "Rascunho",
+					"published": "Publicado"
+				},
+				"actions": {
+					"edit": "Editar",
+					"view": "Ver",
+					"delete": "Excluir"
+				},
+				"empty": {
+					"title": "Nenhum artigo encontrado",
+					"description": "Comece criando seu primeiro artigo",
+					"createButton": "Criar artigo"
+				},
+				"controls": {
+					"selectAll": "Selecionar tudo",
+					"selectRow": "Selecionar linha",
+					"clearFilter": "Limpar filtro",
+					"toggleColumns": "Alternar colunas",
+					"rowsPerPage": "Linhas por página",
+					"deleteSelected": "Excluir",
+					"confirmDelete": "Tem certeza absoluta?",
+					"deleteDescription": "Esta ação não pode ser desfeita. Isso excluirá permanentemente",
+					"cancel": "Cancelar",
+					"yes": "Sim",
+					"no": "Não"
+				}
+			},
+			"filters": {
+				"search": "Pesquisar artigos..."
+			},
+			"ui": {
+				"loading": "Carregando...",
+				"refreshing": "Atualizando...",
+				"accessError": "Erro de acesso",
+				"accessErrorDescription": "Não foi possível verificar o acesso de administrador. Tente fazer login novamente.",
+				"signIn": "Entrar",
+				"connectedAs": "Conectado como"
+			}
+		}
+	},
+	"nl": {
+		"articles": {
+			"title": "Artikelbeheer",
+			"subtitle": "Beheer alle blogartikelen en inhoud vanuit deze centrale hub.",
+			"sections": {
+				"overview": {
+					"title": "Artikeloverzicht",
+					"description": "Bekijk en beheer alle artikelen in het systeem"
+				},
+				"actions": {
+					"title": "Snelle acties",
+					"description": "Veelvoorkomende beheertaken voor artikelbeheer"
+				}
+			},
+			"stats": {
+				"totalArticles": "Totaal artikelen",
+				"publishedArticles": "Gepubliceerde artikelen",
+				"draftArticles": "Concepten"
+			},
+			"status": {
+				"draft": "Concept",
+				"published": "Gepubliceerd"
+			},
+			"actions": {
+				"createArticle": "Nieuw artikel maken",
+				"createArticleDescription": "Voeg een nieuw blogartikel toe aan het platform"
+			},
+			"table": {
+				"columns": {
+					"title": "Titel",
+					"slug": "Slug",
+					"status": "Status",
+					"created": "Gemaakt",
+					"updated": "Bijgewerkt",
+					"actions": "Acties"
+				},
+				"status": {
+					"draft": "Concept",
+					"published": "Gepubliceerd"
+				},
+				"actions": {
+					"edit": "Bewerken",
+					"view": "Bekijken",
+					"delete": "Verwijderen"
+				},
+				"empty": {
+					"title": "Geen artikelen gevonden",
+					"description": "Begin met het maken van je eerste artikel",
+					"createButton": "Artikel maken"
+				},
+				"controls": {
+					"selectAll": "Alles selecteren",
+					"selectRow": "Rij selecteren",
+					"clearFilter": "Filter wissen",
+					"toggleColumns": "Kolommen wisselen",
+					"rowsPerPage": "Rijen per pagina",
+					"deleteSelected": "Verwijderen",
+					"confirmDelete": "Weet je het absoluut zeker?",
+					"deleteDescription": "Deze actie kan niet ongedaan worden gemaakt. Dit zal permanent verwijderen",
+					"cancel": "Annuleren",
+					"yes": "Ja",
+					"no": "Nee"
+				}
+			},
+			"filters": {
+				"search": "Zoek artikelen..."
+			},
+			"ui": {
+				"loading": "Laden...",
+				"refreshing": "Vernieuwen...",
+				"accessError": "Toegangsfout",
+				"accessErrorDescription": "Kan beheerderstoegang niet verifiëren. Probeer opnieuw in te loggen.",
+				"signIn": "Inloggen",
+				"connectedAs": "Verbonden als"
+			}
+		}
+	},
+	"ko": {
+		"articles": {
+			"title": "기사 관리",
+			"subtitle": "이 중앙 허브에서 모든 블로그 기사와 콘텐츠를 관리합니다.",
+			"sections": {
+				"overview": {
+					"title": "기사 개요",
+					"description": "시스템의 모든 기사 보기 및 관리"
+				},
+				"actions": {
+					"title": "빠른 작업",
+					"description": "기사 관리를 위한 일반적인 관리 작업"
+				}
+			},
+			"stats": {
+				"totalArticles": "전체 기사",
+				"publishedArticles": "게시된 기사",
+				"draftArticles": "초안"
+			},
+			"status": {
+				"draft": "초안",
+				"published": "게시됨"
+			},
+			"actions": {
+				"createArticle": "새 기사 만들기",
+				"createArticleDescription": "플랫폼에 새 블로그 기사 추가"
+			},
+			"table": {
+				"columns": {
+					"title": "제목",
+					"slug": "슬러그",
+					"status": "상태",
+					"created": "생성됨",
+					"updated": "업데이트됨",
+					"actions": "작업"
+				},
+				"status": {
+					"draft": "초안",
+					"published": "게시됨"
+				},
+				"actions": {
+					"edit": "편집",
+					"view": "보기",
+					"delete": "삭제"
+				},
+				"empty": {
+					"title": "기사를 찾을 수 없습니다",
+					"description": "첫 번째 기사를 만들어 시작하세요",
+					"createButton": "기사 만들기"
+				},
+				"controls": {
+					"selectAll": "모두 선택",
+					"selectRow": "행 선택",
+					"clearFilter": "필터 지우기",
+					"toggleColumns": "열 토글",
+					"rowsPerPage": "페이지당 행",
+					"deleteSelected": "삭제",
+					"confirmDelete": "정말 확실합니까?",
+					"deleteDescription": "이 작업은 취소할 수 없습니다. 이것은 영구적으로 삭제합니다",
+					"cancel": "취소",
+					"yes": "예",
+					"no": "아니오"
+				}
+			},
+			"filters": {
+				"search": "기사 검색..."
+			},
+			"ui": {
+				"loading": "로딩 중...",
+				"refreshing": "새로 고침 중...",
+				"accessError": "액세스 오류",
+				"accessErrorDescription": "관리자 액세스를 확인할 수 없습니다. 다시 로그인해 주세요.",
+				"signIn": "로그인",
+				"connectedAs": "다음으로 연결됨"
+			}
+		}
+	}
 }
