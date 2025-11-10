@@ -511,10 +511,8 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 					{/* SEO Section */}
 					<div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-3">
 						<div>
-							<h2 className="text-foreground text-2xl font-semibold">SEO Settings</h2>
-							<p className="text-muted-foreground mt-2 text-base leading-7">
-								Optimize your article for search engines with custom meta tags.
-							</p>
+							<h2 className="text-foreground text-2xl font-semibold">{t.form.sections.seo.title}</h2>
+							<p className="text-muted-foreground mt-2 text-base leading-7">{t.form.sections.seo.description}</p>
 						</div>
 						<div className="sm:max-w-4xl md:col-span-2">
 							<div className="grid grid-cols-1 gap-6">
@@ -528,17 +526,15 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 										className="w-full sm:w-auto"
 									>
 										<Sparkles className="mr-2 h-4 w-4" />
-										{isGeneratingSEO ? 'Generating SEO...' : 'Generate SEO with AI'}
+										{isGeneratingSEO ? t.form.actions.generateSEO.generating : t.form.actions.generateSEO.label}
 									</Button>
-									<p className="text-muted-foreground mt-2 text-sm">
-										Automatically generate SEO title and description using AI based on your article content
-									</p>
+									<p className="text-muted-foreground mt-2 text-sm">{t.form.fields.seoTitle.helper}</p>
 								</div>
 
 								{/* SEO Title */}
 								<div className="col-span-full">
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="seoTitle">
-										SEO Title
+										{t.form.fields.seoTitle.label}
 									</Label>
 									<Input
 										id="seoTitle"
@@ -547,12 +543,12 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 											setSeoTitle(e.target.value)
 											setValue('seoTitle', e.target.value, { shouldValidate: true })
 										}}
-										placeholder="Enter SEO title (max 60 characters)"
+										placeholder={t.form.fields.seoTitle.placeholder}
 										type="text"
 										maxLength={60}
 									/>
 									<p className="text-muted-foreground mt-1 text-sm">
-										{seoTitle?.length || 0}/60 characters - Appears in search engine results
+										{seoTitle?.length || 0}/60 {t.form.fields.seoTitle.charactersCount} - {t.form.fields.seoTitle.helper}
 									</p>
 									{errors.seoTitle && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.seoTitle.message}</p>
@@ -562,7 +558,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 								{/* SEO Description */}
 								<div className="col-span-full">
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="seoDescription">
-										SEO Description
+										{t.form.fields.seoDescription.label}
 									</Label>
 									<Textarea
 										id="seoDescription"
@@ -571,12 +567,13 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 											setSeoDescription(e.target.value)
 											setValue('seoDescription', e.target.value, { shouldValidate: true })
 										}}
-										placeholder="Enter SEO description (max 160 characters)"
+										placeholder={t.form.fields.seoDescription.placeholder}
 										className="min-h-[100px]"
 										maxLength={160}
 									/>
 									<p className="text-muted-foreground mt-1 text-sm">
-										{seoDescription?.length || 0}/160 characters - Brief description for search results
+										{seoDescription?.length || 0}/160 {t.form.fields.seoDescription.charactersCount} -{' '}
+										{t.form.fields.seoDescription.helper}
 									</p>
 									{errors.seoDescription && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.seoDescription.message}</p>
@@ -595,10 +592,10 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 							type="button"
 							variant="outline"
 						>
-							Cancel
+							{t.form.actions.cancel}
 						</Button>
 						<Button disabled={isSubmitting} size="lg" type="submit">
-							{isSubmitting ? 'Creating Article...' : 'Create Article'}
+							{isSubmitting ? t.form.actions.submit.creating : t.form.actions.submit.create}
 						</Button>
 					</div>
 				</form>

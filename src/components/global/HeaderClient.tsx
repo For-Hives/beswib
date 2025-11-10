@@ -63,6 +63,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 				href: `/${locale}/marketplace`,
 				current: currentPath.startsWith(`/${locale}/marketplace`),
 			},
+			{ label: t.navbar.blogLink, href: `/${locale}/blog`, current: currentPath.startsWith(`/${locale}/blog`) },
 			{ label: t.navbar.faqLink, href: `/${locale}/faq`, current: currentPath.startsWith(`/${locale}/faq`) },
 			{
 				label: t.navbar.contactLink,
