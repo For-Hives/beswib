@@ -42,7 +42,6 @@ export default function ArticleTranslationIndicator({ article, compact = false }
 	const completionPercentage = Math.round((translationCount / totalLanguages) * 100)
 	const isComplete = translationCount === totalLanguages
 	const isPartial = translationCount > 1 && translationCount < totalLanguages
-	const isOnlyFrench = translationCount === 1
 
 	return (
 		<div className="flex items-center gap-2">
