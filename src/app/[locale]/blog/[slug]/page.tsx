@@ -38,8 +38,8 @@ export default async function ArticlePage({ params }: { params: Promise<ArticleP
 	const readTime = Math.max(1, Math.ceil(wordCount / 200))
 
 	return (
-		<section className="py-12 md:py-16">
-			<div className="container">
+		<section className="w-full px-4 py-12 md:py-16 xl:px-0">
+			<div className="container mx-auto max-w-7xl">
 				{/* Breadcrumb */}
 				<Breadcrumb className="mb-8" items={breadcrumbItems} />
 
