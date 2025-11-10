@@ -3,6 +3,24 @@ import type { Event } from '@/models/event.model'
 
 import { SEO_KEYWORDS, SEO_TITLES } from '../constants/seo-translations'
 
+// Get the base URL based on environment
+export function getBaseUrl(): string {
+	const pocketbaseUrl = process.env.NEXT_PUBLIC_POCKETBASE_URL || ''
+
+	// Check if we're in staging
+	if (pocketbaseUrl.includes('staging')) {
+		return 'https://staging.beswib.com'
+	}
+
+	// Check if we're in local development
+	if (pocketbaseUrl.includes('localhost') || pocketbaseUrl.includes('127.0.0.1')) {
+		return 'http://localhost:3000'
+	}
+
+	// Production
+	return 'https://beswib.com'
+}
+
 // Generate SEO keywords for events
 export function generateEventKeywords(locale: Locale, event: Event): string {
 	const localKeywords = SEO_KEYWORDS[locale]
@@ -145,7 +163,7 @@ export function generateOGImageConfig(
 
 // Generate canonical URL - always include locale in path for consistency
 export function generateCanonicalUrl(locale: Locale, path: string): string {
-	const baseUrl = 'https://beswib.com'
+	const baseUrl = getBaseUrl()
 	const localePath = `/${locale}`
 	// Ensure path starts with / if not empty
 	const cleanPath = path.startsWith('/') ? path : `/${path}`
@@ -157,7 +175,7 @@ export function generateCanonicalUrl(locale: Locale, path: string): string {
 
 // Generate alternate language links with proper URLs and locale codes
 export function generateAlternateLanguages(path: string): Record<string, string> {
-	const baseUrl = 'https://beswib.com'
+	const baseUrl = getBaseUrl()
 	const languages = [
 		{ path: '/en', locale: 'en-US', code: 'en' },
 		{ path: '/fr', locale: 'fr-FR', code: 'fr' },

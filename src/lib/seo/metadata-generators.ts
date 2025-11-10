@@ -9,6 +9,7 @@ import {
 	generateEventKeywords,
 	generateEventTitle,
 	generateOGImageConfig,
+	getBaseUrl,
 } from './utils/seo-generators'
 
 // Base metadata configuration for all pages
@@ -54,7 +55,7 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 			images: [generateOGImageConfig(undefined, undefined, '/')],
 			description: descriptions.home,
 		},
-		metadataBase: new URL('https://beswib.com'),
+		metadataBase: new URL(getBaseUrl()),
 		manifest: '/site.webmanifest',
 		keywords: keywords.global.join(', '),
 		icons: {
