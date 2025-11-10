@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { unstable_cache } from 'next/cache'
 
 import { BlogSection } from '@/components/blog/BlogSection'
 import blogTranslations from '@/components/blog/locales.json'
@@ -12,11 +13,20 @@ export default async function BlogPage({ params }: { params: Promise<LocaleParam
 	const { locale } = await params
 	const blogT = getTranslations(locale, blogTranslations)
 
-	// Fetch articles for the current locale with expanded relations (image, seo)
-	const allArticles = await fetchArticlesByLocale(locale, true)
-
-	// Filter out draft articles for public blog page
-	const articles = allArticles.filter(article => !article.isDraft)
+	// Cache articles with tags for granular revalidation
+	// Tags allow us to invalidate specific parts of the cache when articles are created/updated/deleted
+	const articles = await unstable_cache(
+		async () => {
+			const allArticles = await fetchArticlesByLocale(locale, true)
+			// Filter out draft articles for public blog page
+			return allArticles.filter(article => !article.isDraft)
+		},
+		['blog-articles-by-locale', locale],
+		{
+			tags: ['blog-list', 'blog-articles'],
+			revalidate: 3600, // Fallback: revalidate every hour
+		}
+	)()
 
 	return <BlogSection articles={articles} locale={locale} translations={blogT.blog} />
 }
@@ -32,3 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<LocaleParam
 export function generateStaticParams() {
 	return generateLocaleParams()
 }
+
+// Configure ISR: revalidate every 3600 seconds (1 hour)
+// This allows for automatic cache refresh while still being efficient
+export const revalidate = 3600

@@ -1,5 +1,7 @@
 'use server'
 
+import { revalidateTag } from 'next/cache'
+
 import { checkAdminAccess } from '@/guard/adminGuard'
 import type { Locale } from '@/lib/i18n/config'
 import type { Article } from '@/models/article.model'
@@ -15,6 +17,33 @@ import {
 import { generateImageAltText } from '@/services/forvoyez.services'
 import { generateArticleTranslation, generateSEOContent } from '@/services/gemini.services'
 import { createSEO } from '@/services/seo.services'
+
+/**
+ * Helper function to revalidate all articles in a translation group
+ * Revalidates the blog list and all individual article pages for each translation
+ * Uses 'max' profile for stale-while-revalidate behavior
+ */
+async function revalidateTranslationGroup(translationGroup: string): Promise<void> {
+	try {
+		// Fetch all articles in the translation group
+		const articles = await fetchArticlesByTranslationGroup(translationGroup, false)
+
+		// Revalidate each article's slug
+		for (const article of articles) {
+			revalidateTag(`article-${article.slug}`, 'max')
+		}
+
+		// Revalidate the translation group tag
+		revalidateTag(`translation-group-${translationGroup}`, 'max')
+
+		// Revalidate blog list to reflect changes
+		revalidateTag('blog-list', 'max')
+
+		console.info(`Revalidated translation group: ${translationGroup} (${articles.length} articles)`)
+	} catch (error) {
+		console.error('Error revalidating translation group:', error)
+	}
+}
 
 /**
  * Server action to create a new article (admin only)
@@ -94,6 +123,12 @@ export async function createArticleAction(formData: FormData): Promise<{
 
 		if (result != null) {
 			console.info(`Admin ${adminUser.email} created article: ${result.title}`)
+
+			// Revalidate blog list to reflect the new article in the list
+			// Note: Articles are created as drafts by default
+			revalidateTag('blog-list', 'max')
+			revalidateTag('blog-articles', 'max')
+
 			return {
 				success: true,
 				data: result,
@@ -307,6 +342,17 @@ export async function updateArticleAction(
 
 		if (result != null) {
 			console.info(`Admin ${adminUser.email} updated article: ${result.title}`)
+
+			// Revalidate the specific article and blog list
+			revalidateTag(`article-${result.slug}`, 'max')
+			revalidateTag('blog-list', 'max')
+			revalidateTag('blog-articles', 'max')
+
+			// If part of a translation group, revalidate all translations
+			if (result.translationGroup) {
+				await revalidateTranslationGroup(result.translationGroup)
+			}
+
 			return {
 				success: true,
 				data: result,
@@ -341,9 +387,25 @@ export async function deleteArticleAction(id: string): Promise<{
 			}
 		}
 
+		// Fetch article before deletion to get slug and translationGroup for revalidation
+		const article = await fetchArticleById(id, false)
+
 		await deleteArticleById(id)
 
 		console.info(`Admin ${adminUser.email} deleted article: ${id}`)
+
+		// Revalidate blog pages to remove deleted article
+		if (article) {
+			revalidateTag(`article-${article.slug}`, 'max')
+
+			// If part of a translation group, revalidate all translations
+			if (article.translationGroup) {
+				await revalidateTranslationGroup(article.translationGroup)
+			}
+		}
+
+		revalidateTag('blog-list', 'max')
+		revalidateTag('blog-articles', 'max')
 
 		return {
 			success: true,
@@ -754,6 +816,17 @@ export async function generateArticleTranslationAction(
 		if (result != null) {
 			console.info(`Admin ${adminUser.email} generated ${targetLocale} translation for article: ${sourceArticle.title}`)
 			logs.push('🎉 Translation generation completed!')
+
+			// Revalidate the translated article and all articles in the translation group
+			revalidateTag(`article-${result.slug}`, 'max')
+			revalidateTag('blog-list', 'max')
+			revalidateTag('blog-articles', 'max')
+
+			// Revalidate all translations in the group
+			if (result.translationGroup) {
+				await revalidateTranslationGroup(result.translationGroup)
+			}
+
 			return {
 				success: true,
 				data: result,
@@ -825,6 +898,14 @@ export async function publishAllTranslationsAction(translationGroup: string): Pr
 		console.info(
 			`Admin ${adminUser.email} published ${publishedCount} articles in translation group: ${translationGroup}`
 		)
+
+		// Revalidate all articles in the translation group and blog pages
+		// This is critical because publishing changes the isDraft status
+		await revalidateTranslationGroup(translationGroup)
+
+		// Also revalidate general blog tags to ensure published articles appear
+		revalidateTag('blog-list', 'max')
+		revalidateTag('blog-articles', 'max')
 
 		return {
 			success: true,

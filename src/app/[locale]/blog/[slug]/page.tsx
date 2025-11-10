@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 
 import { ArticleSidebar } from '@/components/blog/ArticleSidebar'
@@ -18,12 +19,29 @@ export default async function ArticlePage({ params }: { params: Promise<ArticleP
 	const { locale, slug } = await params
 	const blogT = getTranslations(locale, blogTranslations)
 
-	// Fetch article by slug with expanded relations
-	const article = await fetchArticleBySlug(slug, true)
+	// Cache article with tags for granular revalidation
+	// Tags allow us to invalidate this specific article when it's updated
+	const article = await unstable_cache(
+		async () => {
+			return await fetchArticleBySlug(slug, true)
+		},
+		['article-by-slug', slug],
+		{
+			tags: ['blog-articles', `article-${slug}`],
+			revalidate: 3600, // Fallback: revalidate every hour
+		}
+	)()
 
 	// If article doesn't exist, isn't in the current locale, or is a draft, show 404
 	if (!article || article.locale !== locale || article.isDraft) {
 		notFound()
+	}
+
+	// Add translation group tag if article belongs to a translation group
+	// This allows revalidating all translations when one is updated
+	if (article.translationGroup) {
+		// Note: The translation group tag is handled via revalidateTranslationGroup helper
+		// which revalidates all articles in the group individually
 	}
 
 	// Breadcrumb navigation
@@ -146,3 +164,7 @@ export async function generateStaticParams(): Promise<ArticlePageParams[]> {
 
 	return allParams
 }
+
+// Configure ISR: revalidate every 3600 seconds (1 hour)
+// This allows for automatic cache refresh while still being efficient
+export const revalidate = 3600
