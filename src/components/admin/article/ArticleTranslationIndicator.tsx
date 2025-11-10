@@ -1,9 +1,9 @@
 'use client'
 
 import { Globe } from 'lucide-react'
-import { localeFlags, type Locale } from '@/lib/i18n/config'
-import type { Article } from '@/models/article.model'
 import { Badge } from '@/components/ui/badge'
+import { type Locale, localeFlags } from '@/lib/i18n/config'
+import type { Article } from '@/models/article.model'
 
 interface ArticleTranslationIndicatorProps {
 	article: Article & { translationCount?: number }

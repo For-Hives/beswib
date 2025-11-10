@@ -645,7 +645,7 @@ export async function generateArticleTranslationAction(
 		let imageId = sourceArticle.image
 		if (sourceArticle.expand?.image?.image) {
 			logs.push('📸 Processing image with translated alt text...')
-			
+
 			if (existingTranslation?.image) {
 				// Update existing image's alt text
 				const { updateImageWithAltById } = await import('@/services/article.services')
@@ -657,13 +657,13 @@ export async function generateArticleTranslationAction(
 				// Create new image record with translated alt text but same image file
 				const imageFile = sourceArticle.expand.image.image
 				const pb = await import('@/lib/services/pocketbase').then(m => m.pb)
-				
+
 				// Download original image
 				const imageUrl = pb.files.getUrl(sourceArticle.expand.image, imageFile)
 				const imageResponse = await fetch(imageUrl)
 				const imageBlob = await imageResponse.blob()
 				const imageFileObj = new File([imageBlob], imageFile, { type: imageBlob.type })
-				
+
 				// Create new image record with translated alt
 				const newImage = await createImageWithAlt(imageFileObj, translatedContent.imageAlt)
 				if (newImage) {
