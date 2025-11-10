@@ -33,7 +33,7 @@ export async function fetchSEOById(id: string): Promise<SEO | null> {
 		const record = await pb.collection('seo').getOne<SEO>(id)
 		return record
 	} catch (error: unknown) {
-		console.error(`Error fetching SEO record with ID "${id}":`, error)
+		console.error('Error fetching SEO record with ID "%s":', id, error)
 		return null
 	}
 }

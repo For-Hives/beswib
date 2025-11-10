@@ -76,7 +76,7 @@ export async function fetchArticleById(
 			})
 		return record
 	} catch (error: unknown) {
-		console.error(`Error fetching article with ID "${id}":`, error)
+		console.error('Error fetching article with ID "%s":', id, error)
 		return null
 	}
 }
@@ -99,7 +99,7 @@ export async function fetchArticleBySlug(
 			})
 		return records.length > 0 ? records[0] : null
 	} catch (error: unknown) {
-		console.error(`Error fetching article with slug "${slug}":`, error)
+		console.error('Error fetching article with slug "%s":', slug, error)
 		return null
 	}
 }
@@ -186,7 +186,7 @@ export async function fetchImageWithAltById(id: string): Promise<ImageWithAlt | 
 		const record = await pb.collection('image_with_alt').getOne<ImageWithAlt>(id)
 		return record
 	} catch (error: unknown) {
-		console.error(`Error fetching image with ID "${id}":`, error)
+		console.error('Error fetching image with ID "%s":', id, error)
 		return null
 	}
 }
@@ -231,7 +231,7 @@ export async function fetchArticlesByTranslationGroup(
 			})
 		return records
 	} catch (error: unknown) {
-		console.error(`Error fetching articles with translationGroup "${translationGroup}":`, error)
+		console.error('Error fetching articles with translationGroup "%s":', translationGroup, error)
 		return []
 	}
 }
@@ -260,7 +260,7 @@ export async function fetchArticlesByLocale(
 			})
 		return records
 	} catch (error: unknown) {
-		console.error(`Error fetching articles with locale "${locale}":`, error)
+		console.error('Error fetching articles with locale "%s":', locale, error)
 		return []
 	}
 }
@@ -289,7 +289,7 @@ export async function getTranslatedArticleSlug(currentSlug: string, targetLocale
 
 		return translatedArticle ? translatedArticle.slug : null
 	} catch (error: unknown) {
-		console.error(`Error fetching translated article slug for "${currentSlug}" to locale "${targetLocale}":`, error)
+		console.error('Error fetching translated article slug for "%s" to locale "%s":', currentSlug, targetLocale, error)
 		return null
 	}
 }
