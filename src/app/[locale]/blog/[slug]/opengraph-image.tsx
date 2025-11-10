@@ -16,6 +16,8 @@ export const alt = 'Beswib Blog Article'
 export const size = { width: 1200, height: 630 }
 // Content type for the image
 export const contentType = 'image/png'
+// Force dynamic rendering to use headers for host detection
+export const dynamic = 'force-dynamic'
 
 // Generate static params for all locales 🌍
 export function generateStaticParams() {

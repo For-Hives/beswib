@@ -55,7 +55,8 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 			images: [generateOGImageConfig(undefined, undefined, '/')],
 			description: descriptions.home,
 		},
-		metadataBase: new URL(getBaseUrl()),
+		// metadataBase is intentionally not set to allow Next.js to detect it from request headers
+		// This ensures OG images work correctly in staging, production, and local environments
 		manifest: '/site.webmanifest',
 		keywords: keywords.global.join(', '),
 		icons: {
