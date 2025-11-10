@@ -317,11 +317,11 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 					const articlesData = result.data
 					setArticles(articlesData)
 
-					// Calculate stats
+					// Calculate stats based on isDraft field
 					const statsData: ArticlesStats = {
 						totalArticles: articlesData.length,
-						publishedArticles: articlesData.length, // TODO: Add published status to Article model
-						draftArticles: 0, // TODO: Add draft status to Article model
+						publishedArticles: articlesData.filter(article => !article.isDraft).length,
+						draftArticles: articlesData.filter(article => article.isDraft).length,
 					}
 					setStats(statsData)
 				} else {
@@ -365,8 +365,8 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 	useEffect(() => {
 		setStats({
 			totalArticles: articles.length,
-			publishedArticles: articles.length,
-			draftArticles: 0,
+			publishedArticles: articles.filter(article => !article.isDraft).length,
+			draftArticles: articles.filter(article => article.isDraft).length,
 		})
 	}, [articles])
 
