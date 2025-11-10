@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <the usage is ok, we know that the index is stable.> */
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 

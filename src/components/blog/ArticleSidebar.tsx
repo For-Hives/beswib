@@ -63,7 +63,8 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 				toast.success('Link copied to clipboard!')
 				setTimeout(() => setIsCopied(false), 2000)
 			} catch (error) {
-				toast.error('Failed to copy link')
+				console.error('Failed to copy link:', error)
+				toast.error(error instanceof Error ? error.message : String(error))
 			}
 		}
 	}
