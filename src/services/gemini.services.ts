@@ -205,7 +205,7 @@ export async function generateArticleTranslation(
 	options: GenerateArticleTranslationOptions
 ): Promise<TranslationResult | null> {
 	const logs: string[] = []
-	
+
 	try {
 		const apiKey = process.env.GEMINI_API_KEY
 

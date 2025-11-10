@@ -1,0 +1,74 @@
+{
+	"de": {
+		"blog": {
+			"by": "von",
+			"description": "Entdecken Sie die neuesten Trends und Erkenntnisse in der Welt des Laufsports und der Veranstaltungen.",
+			"readTime": "Min. Lesezeit",
+			"title": "Blog"
+		}
+	},
+	"en": {
+		"blog": {
+			"by": "by",
+			"description": "Discover the latest trends and insights in the world of running and events.",
+			"readTime": "min read",
+			"title": "Blog"
+		}
+	},
+	"es": {
+		"blog": {
+			"by": "por",
+			"description": "Descubre las últimas tendencias e información en el mundo del running y los eventos.",
+			"readTime": "min de lectura",
+			"title": "Blog"
+		}
+	},
+	"fr": {
+		"blog": {
+			"by": "par",
+			"description": "Découvrez les dernières tendances et informations dans le monde de la course à pied et des événements.",
+			"readTime": "min de lecture",
+			"title": "Blog"
+		}
+	},
+	"it": {
+		"blog": {
+			"by": "di",
+			"description": "Scopri le ultime tendenze e approfondimenti nel mondo della corsa e degli eventi.",
+			"readTime": "min di lettura",
+			"title": "Blog"
+		}
+	},
+	"ko": {
+		"blog": {
+			"by": "작성자:",
+			"description": "러닝 및 이벤트 세계의 최신 트렌드와 통찰을 발견하세요.",
+			"readTime": "분 읽기",
+			"title": "블로그"
+		}
+	},
+	"nl": {
+		"blog": {
+			"by": "door",
+			"description": "Ontdek de laatste trends en inzichten in de wereld van hardlopen en evenementen.",
+			"readTime": "min leestijd",
+			"title": "Blog"
+		}
+	},
+	"pt": {
+		"blog": {
+			"by": "por",
+			"description": "Descubra as últimas tendências e insights no mundo da corrida e eventos.",
+			"readTime": "min de leitura",
+			"title": "Blog"
+		}
+	},
+	"ro": {
+		"blog": {
+			"by": "de",
+			"description": "Descoperă cele mai recente tendințe și perspective din lumea alergării și a evenimentelor.",
+			"readTime": "min citire",
+			"title": "Blog"
+		}
+	}
+}

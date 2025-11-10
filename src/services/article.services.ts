@@ -233,3 +233,32 @@ export async function fetchArticlesByTranslationGroup(
 		return []
 	}
 }
+
+/**
+ * Fetches all articles for a specific locale.
+ * @param locale The locale to filter articles by
+ * @param expandRelations Whether to expand image and seo relations
+ * @returns Array of articles in the specified locale
+ */
+export async function fetchArticlesByLocale(
+	locale: string,
+	expandRelations = false
+): Promise<(Article & { expand?: { image?: ImageWithAlt; seo?: SEO } })[]> {
+	if (!locale) {
+		return []
+	}
+
+	try {
+		const records = await pb
+			.collection('articles')
+			.getFullList<Article & { expand?: { image?: ImageWithAlt; seo?: SEO } }>({
+				filter: `locale = "${locale}"`,
+				sort: '-created',
+				expand: expandRelations ? 'image,seo' : undefined,
+			})
+		return records
+	} catch (error: unknown) {
+		console.error(`Error fetching articles with locale "${locale}":`, error)
+		return []
+	}
+}

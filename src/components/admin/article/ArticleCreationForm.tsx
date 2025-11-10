@@ -302,8 +302,8 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 					onSubmit={handleSubmit(onSubmit)}
 				>
 					<div className="mb-12 text-left">
-						<h1 className="text-foreground text-4xl font-bold tracking-tight md:text-5xl">Create New Article</h1>
-						<p className="text-muted-foreground mt-4 text-lg">Add a new blog article to your platform</p>
+						<h1 className="text-foreground text-4xl font-bold tracking-tight md:text-5xl">{t.form.create.title}</h1>
+						<p className="text-muted-foreground mt-4 text-lg">{t.form.create.subtitle}</p>
 					</div>
 
 					{/* Translation Tabs */}
@@ -323,23 +323,21 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 					{/* Basic Information Section */}
 					<div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-3">
 						<div>
-							<h2 className="text-foreground text-2xl font-semibold">Basic Information</h2>
-							<p className="text-muted-foreground mt-2 text-base leading-7">
-								Enter the core details about your article including title, slug, and descriptions.
-							</p>
+							<h2 className="text-foreground text-2xl font-semibold">{t.form.sections.basicInfo.title}</h2>
+							<p className="text-muted-foreground mt-2 text-base leading-7">{t.form.sections.basicInfo.description}</p>
 						</div>
 						<div className="sm:max-w-4xl md:col-span-2">
 							<div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
 								{/* Title */}
 								<div className="col-span-full sm:col-span-3">
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="title">
-										Article Title *
+										{t.form.fields.title.label} *
 									</Label>
 									<Input
 										id="title"
 										{...register('title')}
 										onChange={handleTitleChange}
-										placeholder="Enter article title"
+										placeholder={t.form.fields.title.placeholder}
 										type="text"
 									/>
 									{errors.title && (
@@ -350,17 +348,17 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 								{/* Slug */}
 								<div className="col-span-full sm:col-span-3">
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="slug">
-										URL Slug *
+										{t.form.fields.slug.label} *
 									</Label>
-									<Input id="slug" {...register('slug')} placeholder="article-slug" type="text" />
-									<p className="text-muted-foreground mt-1 text-sm">URL-friendly version (lowercase, hyphens only)</p>
+									<Input id="slug" {...register('slug')} placeholder={t.form.fields.slug.placeholder} type="text" />
+									<p className="text-muted-foreground mt-1 text-sm">{t.form.fields.slug.helper}</p>
 									{errors.slug && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.slug.message}</p>}
 								</div>
 
 								{/* Language */}
 								<div className="col-span-full sm:col-span-3">
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="locale">
-										Language *
+										{t.form.fields.locale.label} *
 									</Label>
 									<Select
 										value={localeState}
@@ -370,7 +368,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 										}}
 									>
 										<SelectTrigger id="locale">
-											<SelectValue placeholder="Select language" />
+											<SelectValue placeholder={t.form.fields.locale.placeholder} />
 										</SelectTrigger>
 										<SelectContent>
 											{i18n.locales.map(loc => (
@@ -383,7 +381,7 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 											))}
 										</SelectContent>
 									</Select>
-									<p className="text-muted-foreground mt-1 text-sm">Select the language for this article</p>
+									<p className="text-muted-foreground mt-1 text-sm">{t.form.fields.locale.helper}</p>
 									{errors.locale && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.locale.message}</p>
 									)}
@@ -392,15 +390,15 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 								{/* Description */}
 								<div className="col-span-full">
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="description">
-										Description *
+										{t.form.fields.description.label} *
 									</Label>
 									<Textarea
 										id="description"
 										{...register('description')}
-										placeholder="Enter article description"
+										placeholder={t.form.fields.description.placeholder}
 										className="min-h-[100px]"
 									/>
-									<p className="text-muted-foreground mt-1 text-sm">A brief description for SEO and previews</p>
+									<p className="text-muted-foreground mt-1 text-sm">{t.form.fields.description.helper}</p>
 									{errors.description && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.description.message}</p>
 									)}
@@ -409,15 +407,15 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 								{/* Extract */}
 								<div className="col-span-full">
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="extract">
-										Extract *
+										{t.form.fields.extract.label} *
 									</Label>
 									<Textarea
 										id="extract"
 										{...register('extract')}
-										placeholder="Enter article extract"
+										placeholder={t.form.fields.extract.placeholder}
 										className="min-h-[100px]"
 									/>
-									<p className="text-muted-foreground mt-1 text-sm">A short excerpt to display in article lists</p>
+									<p className="text-muted-foreground mt-1 text-sm">{t.form.fields.extract.helper}</p>
 									{errors.extract && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.extract.message}</p>
 									)}
@@ -429,26 +427,24 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 					{/* Content Section */}
 					<div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-3">
 						<div>
-							<h2 className="text-foreground text-2xl font-semibold">Article Content</h2>
-							<p className="text-muted-foreground mt-2 text-base leading-7">
-								Write the full content of your article using the rich text editor.
-							</p>
+							<h2 className="text-foreground text-2xl font-semibold">{t.form.sections.content.title}</h2>
+							<p className="text-muted-foreground mt-2 text-base leading-7">{t.form.sections.content.description}</p>
 						</div>
 						<div className="sm:max-w-4xl md:col-span-2">
 							<div className="grid grid-cols-1 gap-6">
 								<div className="col-span-full">
-									<Label className="text-foreground mb-2 block text-base font-medium">Content *</Label>
+									<Label className="text-foreground mb-2 block text-base font-medium">
+										{t.form.fields.content.label} *
+									</Label>
 									<RichTextEditor
 										content={content}
 										onChange={value => {
 											setContent(value)
 											setValue('content', value, { shouldValidate: true })
 										}}
-										placeholder="Start writing your article..."
+										placeholder={t.form.fields.content.placeholder}
 									/>
-									<p className="text-muted-foreground mt-1 text-sm">
-										The full content of your article (supports rich text)
-									</p>
+									<p className="text-muted-foreground mt-1 text-sm">{t.form.fields.content.helper}</p>
 									{errors.content && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.content.message}</p>
 									)}
@@ -460,19 +456,17 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 					{/* Featured Image Section */}
 					<div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-3">
 						<div>
-							<h2 className="text-foreground text-2xl font-semibold">Featured Image</h2>
+							<h2 className="text-foreground text-2xl font-semibold">{t.form.sections.featuredImage.title}</h2>
 							<p className="text-muted-foreground mt-2 text-base leading-7">
-								Upload an image to be displayed with your article.
+								{t.form.sections.featuredImage.description}
 							</p>
 						</div>
 						<div className="sm:max-w-4xl md:col-span-2">
 							<div className="grid grid-cols-1 gap-6">
 								{/* Image Upload */}
 								<div className="col-span-full">
-									<Label className="text-foreground mb-2 block text-base font-medium">Article Image</Label>
-									<p className="text-muted-foreground mb-4 text-sm">
-										Upload a featured image for your article (max 5MB)
-									</p>
+									<Label className="text-foreground mb-2 block text-base font-medium">{t.form.fields.image.label}</Label>
+									<p className="text-muted-foreground mb-4 text-sm">{t.form.fields.image.helper}</p>
 									<div className="bg-card/50 border-border/30 rounded-xl border backdrop-blur-sm">
 										<FileUpload locale={locale} onChange={handleFileUploadWithValidation} />
 									</div>
@@ -484,13 +478,13 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 								{/* Image Alt Text */}
 								<div className="col-span-full">
 									<Label className="text-foreground mb-2 block text-base font-medium" htmlFor="imageAlt">
-										Image Alt Text
+										{t.form.fields.imageAlt.label}
 									</Label>
 									<div className="flex gap-2">
 										<Input
 											id="imageAlt"
 											{...register('imageAlt')}
-											placeholder="Describe the image"
+											placeholder={t.form.fields.imageAlt.placeholder}
 											type="text"
 											className="flex-1"
 										/>
@@ -502,12 +496,10 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 											className="shrink-0"
 										>
 											<Sparkles className="mr-2 h-4 w-4" />
-											{isGeneratingAlt ? 'Generating...' : 'Generate AI'}
+											{isGeneratingAlt ? t.form.actions.generateAlt.generating : t.form.actions.generateAlt.label}
 										</Button>
 									</div>
-									<p className="text-muted-foreground mt-1 text-sm">
-										Alternative text for accessibility and SEO (AI-generated with Forvoyez)
-									</p>
+									<p className="text-muted-foreground mt-1 text-sm">{t.form.fields.imageAlt.helper}</p>
 									{errors.imageAlt && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.imageAlt.message}</p>
 									)}

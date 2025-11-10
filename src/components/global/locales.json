@@ -10,6 +10,7 @@
 			"racesLink": "Events",
 			"calendarLink": "Calendar",
 			"marketplaceLink": "Marketplace",
+			"blogLink": "Blog",
 			"faqLink": "FAQ",
 			"contactLink": "Contact",
 			"signIn": "Sign In",
@@ -65,6 +66,10 @@
 			"aup": {
 				"title": "Acceptable Use Policy | Beswib",
 				"description": "PayPal-compliant acceptable use policy governing the proper use of Beswib's platform and services."
+			},
+			"blog": {
+				"title": "Blog | Beswib",
+				"description": "Discover the latest trends and insights in the world of running and events."
 			}
 		},
 		"contact": {
@@ -117,6 +122,7 @@
 			"racesLink": "Événements",
 			"calendarLink": "Calendrier",
 			"marketplaceLink": "Marché",
+			"blogLink": "Blog",
 			"faqLink": "FAQ",
 			"contactLink": "Contact",
 			"signIn": "Se connecter",
@@ -172,6 +178,10 @@
 			"aup": {
 				"title": "Politique d'Utilisation Acceptable | Beswib",
 				"description": "Politique d'utilisation acceptable conforme à PayPal régissant l'utilisation appropriée de la plateforme et des services Beswib."
+			},
+			"blog": {
+				"title": "Blog | Beswib",
+				"description": "Découvrez les dernières tendances et informations dans le monde de la course à pied et des événements."
 			}
 		},
 		"contact": {
@@ -224,6 +234,7 @@
 			"racesLink": "Eventos",
 			"calendarLink": "Calendario",
 			"marketplaceLink": "Mercado",
+			"blogLink": "Blog",
 			"faqLink": "FAQ",
 			"contactLink": "Contacto",
 			"signIn": "Iniciar sesión",
@@ -279,6 +290,10 @@
 			"aup": {
 				"title": "Política de Uso Aceptable | Beswib",
 				"description": "Política de uso aceptable compatible con PayPal que rige el uso adecuado de la plataforma y servicios de Beswib."
+			},
+			"blog": {
+				"title": "Blog | Beswib",
+				"description": "Descubre las últimas tendencias e información en el mundo del running y los eventos."
 			}
 		},
 		"contact": {
@@ -331,6 +346,7 @@
 			"racesLink": "Eventi",
 			"calendarLink": "Calendario",
 			"marketplaceLink": "Mercato",
+			"blogLink": "Blog",
 			"faqLink": "FAQ",
 			"contactLink": "Contatto",
 			"signIn": "Accedi",
@@ -386,6 +402,10 @@
 			"aup": {
 				"title": "Politica di Uso Accettabile | Beswib",
 				"description": "Politica di uso accettabile conforme a PayPal che regola l'uso appropriato della piattaforma e dei servizi Beswib."
+			},
+			"blog": {
+				"title": "Blog | Beswib",
+				"description": "Scopri le ultime tendenze e approfondimenti nel mondo della corsa e degli eventi."
 			}
 		},
 		"contact": {
@@ -438,6 +458,7 @@
 			"racesLink": "Veranstaltungen",
 			"calendarLink": "Kalender",
 			"marketplaceLink": "Marktplatz",
+			"blogLink": "Blog",
 			"faqLink": "FAQ",
 			"contactLink": "Kontakt",
 			"signIn": "Anmelden",
@@ -493,6 +514,10 @@
 			"aup": {
 				"title": "Nutzungsrichtlinie | Beswib",
 				"description": "PayPal-konforme Nutzungsrichtlinie zur ordnungsgemäßen Nutzung der Beswib-Plattform und -Dienste."
+			},
+			"blog": {
+				"title": "Blog | Beswib",
+				"description": "Entdecken Sie die neuesten Trends und Erkenntnisse in der Welt des Laufsports und der Veranstaltungen."
 			}
 		},
 		"contact": {
@@ -545,6 +570,7 @@
 			"racesLink": "Evenimente",
 			"calendarLink": "Calendar",
 			"marketplaceLink": "Piață",
+			"blogLink": "Blog",
 			"faqLink": "Întrebări frecvente",
 			"contactLink": "Contact",
 			"signIn": "Autentificare",
@@ -600,6 +626,10 @@
 			"aup": {
 				"title": "Politica de Utilizare Acceptabilă | Beswib",
 				"description": "Politică de utilizare acceptabilă conformă cu PayPal care reglementează utilizarea corespunzătoare a platformei și serviciilor Beswib."
+			},
+			"blog": {
+				"title": "Blog | Beswib",
+				"description": "Descoperă cele mai recente tendințe și perspective din lumea alergării și a evenimentelor."
 			}
 		},
 		"contact": {
@@ -652,6 +682,7 @@
 			"racesLink": "Eventos",
 			"calendarLink": "Calendário",
 			"marketplaceLink": "Marketplace",
+			"blogLink": "Blog",
 			"faqLink": "FAQ",
 			"contactLink": "Contacto",
 			"signIn": "Iniciar sessão",
@@ -707,6 +738,10 @@
 			"aup": {
 				"title": "Política de Uso Aceitável | Beswib",
 				"description": "Política de uso aceitável conforme ao PayPal que rege o uso adequado da plataforma e serviços da Beswib."
+			},
+			"blog": {
+				"title": "Blog | Beswib",
+				"description": "Descubra as últimas tendências e insights no mundo da corrida e eventos."
 			}
 		},
 		"contact": {
@@ -759,6 +794,7 @@
 			"racesLink": "Evenementen",
 			"calendarLink": "Kalender",
 			"marketplaceLink": "Marktplaats",
+			"blogLink": "Blog",
 			"faqLink": "FAQ",
 			"contactLink": "Contact",
 			"signIn": "Inloggen",
@@ -814,6 +850,10 @@
 			"aup": {
 				"title": "Acceptabel Gebruiksbeleid | Beswib",
 				"description": "PayPal-conform acceptabel gebruiksbeleid voor het juiste gebruik van Beswib's platform en diensten."
+			},
+			"blog": {
+				"title": "Blog | Beswib",
+				"description": "Ontdek de laatste trends en inzichten in de wereld van hardlopen en evenementen."
 			}
 		},
 		"contact": {
@@ -866,6 +906,7 @@
 			"racesLink": "이벤트",
 			"calendarLink": "캘린더",
 			"marketplaceLink": "마켓플레이스",
+			"blogLink": "블로그",
 			"faqLink": "자주 묻는 질문",
 			"contactLink": "연락처",
 			"signIn": "로그인",
@@ -921,6 +962,10 @@
 			"aup": {
 				"title": "허용 가능한 사용 정책 | Beswib",
 				"description": "Beswib 플랫폼과 서비스의 적절한 사용을 규정하는 PayPal 준수 허용 가능한 사용 정책입니다."
+			},
+			"blog": {
+				"title": "블로그 | Beswib",
+				"description": "러닝 및 이벤트 세계의 최신 트렌드와 통찰을 발견하세요."
 			}
 		},
 		"contact": {
