@@ -1,0 +1,1712 @@
+{
+	"en": {
+		"form": {
+			"edit": {
+				"title": "Edit Article",
+				"subtitle": "Update your blog article"
+			},
+			"create": {
+				"title": "Create New Article",
+				"subtitle": "Add a new blog article to your platform"
+			},
+			"sections": {
+				"basicInfo": {
+					"title": "Basic Information",
+					"description": "Enter the core details about your article including title, slug, and descriptions."
+				},
+				"content": {
+					"title": "Article Content",
+					"description": "Write the full content of your article using the rich text editor."
+				},
+				"featuredImage": {
+					"title": "Featured Image",
+					"description": "Upload an image to be displayed with your article."
+				},
+				"seo": {
+					"title": "SEO Settings",
+					"description": "Optimize your article for search engines with custom meta tags."
+				},
+				"translation": {
+					"title": "AI Translation",
+					"description": "Automatically generate translations of this French article into all supported languages using AI."
+				}
+			},
+			"fields": {
+				"title": {
+					"label": "Article Title",
+					"placeholder": "Enter article title",
+					"required": true
+				},
+				"slug": {
+					"label": "URL Slug",
+					"placeholder": "article-slug",
+					"helper": "URL-friendly version (lowercase, hyphens only)",
+					"required": true
+				},
+				"locale": {
+					"label": "Language",
+					"placeholder": "Select language",
+					"helper": "Select the language for this article",
+					"required": true
+				},
+				"description": {
+					"label": "Description",
+					"placeholder": "Enter article description",
+					"helper": "A brief description for SEO and previews",
+					"required": true
+				},
+				"extract": {
+					"label": "Extract",
+					"placeholder": "Enter article extract",
+					"helper": "A short excerpt to display in article lists",
+					"required": true
+				},
+				"content": {
+					"label": "Content",
+					"placeholder": "Start writing your article...",
+					"helper": "The full content of your article (supports rich text)",
+					"required": true
+				},
+				"currentImage": {
+					"label": "Current Image",
+					"altLabel": "Alt text"
+				},
+				"image": {
+					"label": "Article Image",
+					"labelReplace": "Replace Image",
+					"helper": "Upload a featured image for your article (max 5MB)"
+				},
+				"imageAlt": {
+					"label": "Image Alt Text",
+					"placeholder": "Describe the image",
+					"helper": "Alternative text for accessibility and SEO (AI-generated with Forvoyez)"
+				},
+				"seoTitle": {
+					"label": "SEO Title",
+					"placeholder": "Enter SEO title (max 60 characters)",
+					"helper": "Appears in search engine results",
+					"charactersCount": "characters"
+				},
+				"seoDescription": {
+					"label": "SEO Description",
+					"placeholder": "Enter SEO description (max 160 characters)",
+					"helper": "Brief description for search results",
+					"charactersCount": "characters"
+				}
+			},
+			"actions": {
+				"submit": {
+					"create": "Create Article",
+					"creating": "Creating Article...",
+					"update": "Update Article",
+					"updating": "Updating Article..."
+				},
+				"cancel": "Cancel",
+				"generateAlt": {
+					"label": "Generate AI",
+					"generating": "Generating..."
+				},
+				"generateSEO": {
+					"label": "Generate SEO with AI",
+					"generating": "Generating SEO..."
+				},
+				"generateAllTranslations": {
+					"label": "Generate All Missing Translations",
+					"generating": "Generating All Translations..."
+				},
+				"generateTranslation": {
+					"orGenerate": "Or generate individual translations:"
+				}
+			},
+			"translation": {
+				"automaticDescription": "Automatically translate this article to all languages that don't have translations yet",
+				"regenerateWarning": "Generate or regenerate a specific language translation. Existing translations will be overwritten.",
+				"startingBatch": "Starting batch translation generation...",
+				"successCount": "Successfully generated {count} translation(s): {locales}",
+				"failureCount": "Failed to generate {count} translation(s): {locales}",
+				"allExist": "All translations already exist!",
+				"switchedTo": "Switched to {locale} - create new translation",
+				"creatingFor": "Creating translation for existing article"
+			},
+			"messages": {
+				"success": {
+					"created": "Article created successfully!",
+					"updated": "Article updated successfully!",
+					"altGenerated": "Alt text generated successfully!",
+					"seoGenerated": "SEO content generated successfully!",
+					"translationGenerated": "Translation to {locale} generated successfully!"
+				},
+				"error": {
+					"create": "Failed to create article",
+					"update": "Failed to update article",
+					"altGenerate": "Failed to generate alt text",
+					"seoGenerate": "Failed to generate SEO content",
+					"translationGenerate": "Failed to generate translation to {locale}",
+					"unexpected": "An unexpected error occurred",
+					"uploadFirst": "Please upload an image first",
+					"titleRequired": "Please enter an article title first",
+					"invalidFileType": "Invalid file type. Please upload PNG, JPG, or WEBP files only.",
+					"fileTooLarge": "File size too large. Maximum size is 5MB."
+				},
+				"info": {
+					"createTranslation": "Create a translation for {locale}"
+				}
+			},
+			"validation": {
+				"titleRequired": "Title is required",
+				"slugRequired": "Slug is required",
+				"slugFormat": "Slug must contain only lowercase letters, numbers, and hyphens",
+				"localeRequired": "Language is required",
+				"descriptionRequired": "Description is required",
+				"extractRequired": "Extract is required",
+				"contentRequired": "Content is required",
+				"seoTitleMax": "SEO title should be max 60 characters",
+				"seoDescriptionMax": "SEO description should be max 160 characters"
+			},
+			"process": {
+				"generatingAlt": "Generating alt text...",
+				"callingForvoyez": "Calling Forvoyez AI...",
+				"processingResult": "Processing result...",
+				"complete": "Complete!",
+				"generatingSEO": "Generating SEO...",
+				"callingGemini": "Calling Gemini AI...",
+				"translatingTo": "Translating to {locale}...",
+				"loadingSource": "Loading source article...",
+				"extractingImages": "Extracting images...",
+				"processingTranslation": "Processing translation...",
+				"creatingImage": "Creating image...",
+				"creatingSEO": "Creating SEO...",
+				"creatingArticle": "Creating article..."
+			}
+		},
+		"pageClient": {
+			"connectedAs": "Connected as",
+			"accessError": "Access Error",
+			"accessErrorDescription": "You must be logged in as an admin to access this page",
+			"signIn": "Sign In",
+			"successTitle": "Article Created Successfully!",
+			"successDescription": "Your article \"{title}\" has been created successfully.",
+			"backToArticles": "Back to Articles"
+		}
+	},
+	"fr": {
+		"form": {
+			"edit": {
+				"title": "Modifier l'article",
+				"subtitle": "Mettez à jour votre article de blog"
+			},
+			"create": {
+				"title": "Créer un nouvel article",
+				"subtitle": "Ajoutez un nouvel article de blog à votre plateforme"
+			},
+			"sections": {
+				"basicInfo": {
+					"title": "Informations de base",
+					"description": "Entrez les détails principaux de votre article, y compris le titre, le slug et les descriptions."
+				},
+				"content": {
+					"title": "Contenu de l'article",
+					"description": "Rédigez le contenu complet de votre article en utilisant l'éditeur de texte enrichi."
+				},
+				"featuredImage": {
+					"title": "Image mise en avant",
+					"description": "Téléchargez une image à afficher avec votre article."
+				},
+				"seo": {
+					"title": "Paramètres SEO",
+					"description": "Optimisez votre article pour les moteurs de recherche avec des balises méta personnalisées."
+				},
+				"translation": {
+					"title": "Traduction IA",
+					"description": "Générez automatiquement des traductions de cet article français dans toutes les langues prises en charge à l'aide de l'IA."
+				}
+			},
+			"fields": {
+				"title": {
+					"label": "Titre de l'article",
+					"placeholder": "Entrez le titre de l'article",
+					"required": true
+				},
+				"slug": {
+					"label": "Slug URL",
+					"placeholder": "slug-article",
+					"helper": "Version adaptée aux URL (minuscules, tirets uniquement)",
+					"required": true
+				},
+				"locale": {
+					"label": "Langue",
+					"placeholder": "Sélectionnez une langue",
+					"helper": "Sélectionnez la langue de cet article",
+					"required": true
+				},
+				"description": {
+					"label": "Description",
+					"placeholder": "Entrez la description de l'article",
+					"helper": "Une brève description pour le SEO et les aperçus",
+					"required": true
+				},
+				"extract": {
+					"label": "Extrait",
+					"placeholder": "Entrez l'extrait de l'article",
+					"helper": "Un court extrait à afficher dans les listes d'articles",
+					"required": true
+				},
+				"content": {
+					"label": "Contenu",
+					"placeholder": "Commencez à écrire votre article...",
+					"helper": "Le contenu complet de votre article (prend en charge le texte enrichi)",
+					"required": true
+				},
+				"currentImage": {
+					"label": "Image actuelle",
+					"altLabel": "Texte alternatif"
+				},
+				"image": {
+					"label": "Image de l'article",
+					"labelReplace": "Remplacer l'image",
+					"helper": "Téléchargez une image mise en avant pour votre article (max 5 Mo)"
+				},
+				"imageAlt": {
+					"label": "Texte alternatif de l'image",
+					"placeholder": "Décrivez l'image",
+					"helper": "Texte alternatif pour l'accessibilité et le SEO (généré par IA avec Forvoyez)"
+				},
+				"seoTitle": {
+					"label": "Titre SEO",
+					"placeholder": "Entrez le titre SEO (max 60 caractères)",
+					"helper": "Apparaît dans les résultats des moteurs de recherche",
+					"charactersCount": "caractères"
+				},
+				"seoDescription": {
+					"label": "Description SEO",
+					"placeholder": "Entrez la description SEO (max 160 caractères)",
+					"helper": "Brève description pour les résultats de recherche",
+					"charactersCount": "caractères"
+				}
+			},
+			"actions": {
+				"submit": {
+					"create": "Créer l'article",
+					"creating": "Création de l'article...",
+					"update": "Mettre à jour l'article",
+					"updating": "Mise à jour de l'article..."
+				},
+				"cancel": "Annuler",
+				"generateAlt": {
+					"label": "Générer IA",
+					"generating": "Génération..."
+				},
+				"generateSEO": {
+					"label": "Générer le SEO avec l'IA",
+					"generating": "Génération du SEO..."
+				},
+				"generateAllTranslations": {
+					"label": "Générer toutes les traductions manquantes",
+					"generating": "Génération de toutes les traductions..."
+				},
+				"generateTranslation": {
+					"orGenerate": "Ou générer des traductions individuelles :"
+				}
+			},
+			"translation": {
+				"automaticDescription": "Traduisez automatiquement cet article dans toutes les langues qui n'ont pas encore de traductions",
+				"regenerateWarning": "Générez ou régénérez une traduction de langue spécifique. Les traductions existantes seront écrasées.",
+				"startingBatch": "Démarrage de la génération de traductions par lots...",
+				"successCount": "{count} traduction(s) générée(s) avec succès : {locales}",
+				"failureCount": "Échec de la génération de {count} traduction(s) : {locales}",
+				"allExist": "Toutes les traductions existent déjà !",
+				"switchedTo": "Basculé vers {locale} - créer une nouvelle traduction",
+				"creatingFor": "Création d'une traduction pour un article existant"
+			},
+			"messages": {
+				"success": {
+					"created": "Article créé avec succès !",
+					"updated": "Article mis à jour avec succès !",
+					"altGenerated": "Texte alternatif généré avec succès !",
+					"seoGenerated": "Contenu SEO généré avec succès !",
+					"translationGenerated": "Traduction vers {locale} générée avec succès !"
+				},
+				"error": {
+					"create": "Échec de la création de l'article",
+					"update": "Échec de la mise à jour de l'article",
+					"altGenerate": "Échec de la génération du texte alternatif",
+					"seoGenerate": "Échec de la génération du contenu SEO",
+					"translationGenerate": "Échec de la génération de la traduction vers {locale}",
+					"unexpected": "Une erreur inattendue s'est produite",
+					"uploadFirst": "Veuillez d'abord télécharger une image",
+					"titleRequired": "Veuillez d'abord entrer un titre d'article",
+					"invalidFileType": "Type de fichier invalide. Veuillez télécharger uniquement des fichiers PNG, JPG ou WEBP.",
+					"fileTooLarge": "Taille du fichier trop grande. La taille maximale est de 5 Mo."
+				},
+				"info": {
+					"createTranslation": "Créer une traduction pour {locale}"
+				}
+			},
+			"validation": {
+				"titleRequired": "Le titre est requis",
+				"slugRequired": "Le slug est requis",
+				"slugFormat": "Le slug ne doit contenir que des lettres minuscules, des chiffres et des tirets",
+				"localeRequired": "La langue est requise",
+				"descriptionRequired": "La description est requise",
+				"extractRequired": "L'extrait est requis",
+				"contentRequired": "Le contenu est requis",
+				"seoTitleMax": "Le titre SEO doit contenir au maximum 60 caractères",
+				"seoDescriptionMax": "La description SEO doit contenir au maximum 160 caractères"
+			},
+			"process": {
+				"generatingAlt": "Génération du texte alternatif...",
+				"callingForvoyez": "Appel de l'IA Forvoyez...",
+				"processingResult": "Traitement du résultat...",
+				"complete": "Terminé !",
+				"generatingSEO": "Génération du SEO...",
+				"callingGemini": "Appel de l'IA Gemini...",
+				"translatingTo": "Traduction vers {locale}...",
+				"loadingSource": "Chargement de l'article source...",
+				"extractingImages": "Extraction des images...",
+				"processingTranslation": "Traitement de la traduction...",
+				"creatingImage": "Création de l'image...",
+				"creatingSEO": "Création du SEO...",
+				"creatingArticle": "Création de l'article..."
+			}
+		},
+		"pageClient": {
+			"connectedAs": "Connecté en tant que",
+			"accessError": "Erreur d'accès",
+			"accessErrorDescription": "Vous devez être connecté en tant qu'administrateur pour accéder à cette page",
+			"signIn": "Se connecter",
+			"successTitle": "Article créé avec succès !",
+			"successDescription": "Votre article \"{title}\" a été créé avec succès.",
+			"backToArticles": "Retour aux articles"
+		}
+	},
+	"es": {
+		"form": {
+			"edit": {
+				"title": "Editar artículo",
+				"subtitle": "Actualiza tu artículo de blog"
+			},
+			"create": {
+				"title": "Crear nuevo artículo",
+				"subtitle": "Añade un nuevo artículo de blog a tu plataforma"
+			},
+			"sections": {
+				"basicInfo": {
+					"title": "Información básica",
+					"description": "Ingresa los detalles principales sobre tu artículo, incluyendo título, slug y descripciones."
+				},
+				"content": {
+					"title": "Contenido del artículo",
+					"description": "Escribe el contenido completo de tu artículo usando el editor de texto enriquecido."
+				},
+				"featuredImage": {
+					"title": "Imagen destacada",
+					"description": "Sube una imagen para mostrar con tu artículo."
+				},
+				"seo": {
+					"title": "Configuración SEO",
+					"description": "Optimiza tu artículo para motores de búsqueda con etiquetas meta personalizadas."
+				},
+				"translation": {
+					"title": "Traducción IA",
+					"description": "Genera automáticamente traducciones de este artículo francés a todos los idiomas compatibles usando IA."
+				}
+			},
+			"fields": {
+				"title": {
+					"label": "Título del artículo",
+					"placeholder": "Ingresa el título del artículo",
+					"required": true
+				},
+				"slug": {
+					"label": "Slug URL",
+					"placeholder": "slug-articulo",
+					"helper": "Versión amigable para URL (minúsculas, solo guiones)",
+					"required": true
+				},
+				"locale": {
+					"label": "Idioma",
+					"placeholder": "Selecciona un idioma",
+					"helper": "Selecciona el idioma para este artículo",
+					"required": true
+				},
+				"description": {
+					"label": "Descripción",
+					"placeholder": "Ingresa la descripción del artículo",
+					"helper": "Una breve descripción para SEO y vistas previas",
+					"required": true
+				},
+				"extract": {
+					"label": "Extracto",
+					"placeholder": "Ingresa el extracto del artículo",
+					"helper": "Un breve extracto para mostrar en listas de artículos",
+					"required": true
+				},
+				"content": {
+					"label": "Contenido",
+					"placeholder": "Comienza a escribir tu artículo...",
+					"helper": "El contenido completo de tu artículo (admite texto enriquecido)",
+					"required": true
+				},
+				"currentImage": {
+					"label": "Imagen actual",
+					"altLabel": "Texto alternativo"
+				},
+				"image": {
+					"label": "Imagen del artículo",
+					"labelReplace": "Reemplazar imagen",
+					"helper": "Sube una imagen destacada para tu artículo (máx. 5 MB)"
+				},
+				"imageAlt": {
+					"label": "Texto alternativo de la imagen",
+					"placeholder": "Describe la imagen",
+					"helper": "Texto alternativo para accesibilidad y SEO (generado por IA con Forvoyez)"
+				},
+				"seoTitle": {
+					"label": "Título SEO",
+					"placeholder": "Ingresa el título SEO (máx. 60 caracteres)",
+					"helper": "Aparece en los resultados de los motores de búsqueda",
+					"charactersCount": "caracteres"
+				},
+				"seoDescription": {
+					"label": "Descripción SEO",
+					"placeholder": "Ingresa la descripción SEO (máx. 160 caracteres)",
+					"helper": "Breve descripción para resultados de búsqueda",
+					"charactersCount": "caracteres"
+				}
+			},
+			"actions": {
+				"submit": {
+					"create": "Crear artículo",
+					"creating": "Creando artículo...",
+					"update": "Actualizar artículo",
+					"updating": "Actualizando artículo..."
+				},
+				"cancel": "Cancelar",
+				"generateAlt": {
+					"label": "Generar IA",
+					"generating": "Generando..."
+				},
+				"generateSEO": {
+					"label": "Generar SEO con IA",
+					"generating": "Generando SEO..."
+				},
+				"generateAllTranslations": {
+					"label": "Generar todas las traducciones faltantes",
+					"generating": "Generando todas las traducciones..."
+				},
+				"generateTranslation": {
+					"orGenerate": "O generar traducciones individuales:"
+				}
+			},
+			"translation": {
+				"automaticDescription": "Traduce automáticamente este artículo a todos los idiomas que aún no tienen traducciones",
+				"regenerateWarning": "Genera o regenera una traducción de idioma específico. Las traducciones existentes se sobrescribirán.",
+				"startingBatch": "Iniciando generación de traducciones por lotes...",
+				"successCount": "{count} traducción(es) generada(s) exitosamente: {locales}",
+				"failureCount": "Error al generar {count} traducción(es): {locales}",
+				"allExist": "¡Todas las traducciones ya existen!",
+				"switchedTo": "Cambiado a {locale} - crear nueva traducción",
+				"creatingFor": "Creando traducción para artículo existente"
+			},
+			"messages": {
+				"success": {
+					"created": "¡Artículo creado exitosamente!",
+					"updated": "¡Artículo actualizado exitosamente!",
+					"altGenerated": "¡Texto alternativo generado exitosamente!",
+					"seoGenerated": "¡Contenido SEO generado exitosamente!",
+					"translationGenerated": "¡Traducción a {locale} generada exitosamente!"
+				},
+				"error": {
+					"create": "Error al crear el artículo",
+					"update": "Error al actualizar el artículo",
+					"altGenerate": "Error al generar el texto alternativo",
+					"seoGenerate": "Error al generar el contenido SEO",
+					"translationGenerate": "Error al generar la traducción a {locale}",
+					"unexpected": "Ocurrió un error inesperado",
+					"uploadFirst": "Por favor sube una imagen primero",
+					"titleRequired": "Por favor ingresa primero un título de artículo",
+					"invalidFileType": "Tipo de archivo inválido. Por favor sube solo archivos PNG, JPG o WEBP.",
+					"fileTooLarge": "Tamaño de archivo demasiado grande. El tamaño máximo es de 5 MB."
+				},
+				"info": {
+					"createTranslation": "Crear una traducción para {locale}"
+				}
+			},
+			"validation": {
+				"titleRequired": "El título es requerido",
+				"slugRequired": "El slug es requerido",
+				"slugFormat": "El slug solo debe contener letras minúsculas, números y guiones",
+				"localeRequired": "El idioma es requerido",
+				"descriptionRequired": "La descripción es requerida",
+				"extractRequired": "El extracto es requerido",
+				"contentRequired": "El contenido es requerido",
+				"seoTitleMax": "El título SEO debe tener máximo 60 caracteres",
+				"seoDescriptionMax": "La descripción SEO debe tener máximo 160 caracteres"
+			},
+			"process": {
+				"generatingAlt": "Generando texto alternativo...",
+				"callingForvoyez": "Llamando a IA Forvoyez...",
+				"processingResult": "Procesando resultado...",
+				"complete": "¡Completo!",
+				"generatingSEO": "Generando SEO...",
+				"callingGemini": "Llamando a IA Gemini...",
+				"translatingTo": "Traduciendo a {locale}...",
+				"loadingSource": "Cargando artículo fuente...",
+				"extractingImages": "Extrayendo imágenes...",
+				"processingTranslation": "Procesando traducción...",
+				"creatingImage": "Creando imagen...",
+				"creatingSEO": "Creando SEO...",
+				"creatingArticle": "Creando artículo..."
+			}
+		},
+		"pageClient": {
+			"connectedAs": "Conectado como",
+			"accessError": "Error de acceso",
+			"accessErrorDescription": "Debes iniciar sesión como administrador para acceder a esta página",
+			"signIn": "Iniciar sesión",
+			"successTitle": "¡Artículo creado exitosamente!",
+			"successDescription": "Tu artículo \"{title}\" ha sido creado exitosamente.",
+			"backToArticles": "Volver a artículos"
+		}
+	},
+	"it": {
+		"form": {
+			"edit": {
+				"title": "Modifica articolo",
+				"subtitle": "Aggiorna il tuo articolo del blog"
+			},
+			"create": {
+				"title": "Crea nuovo articolo",
+				"subtitle": "Aggiungi un nuovo articolo del blog alla tua piattaforma"
+			},
+			"sections": {
+				"basicInfo": {
+					"title": "Informazioni di base",
+					"description": "Inserisci i dettagli principali del tuo articolo, inclusi titolo, slug e descrizioni."
+				},
+				"content": {
+					"title": "Contenuto dell'articolo",
+					"description": "Scrivi il contenuto completo del tuo articolo utilizzando l'editor di testo formattato."
+				},
+				"featuredImage": {
+					"title": "Immagine in evidenza",
+					"description": "Carica un'immagine da visualizzare con il tuo articolo."
+				},
+				"seo": {
+					"title": "Impostazioni SEO",
+					"description": "Ottimizza il tuo articolo per i motori di ricerca con meta tag personalizzati."
+				},
+				"translation": {
+					"title": "Traduzione IA",
+					"description": "Genera automaticamente traduzioni di questo articolo francese in tutte le lingue supportate utilizzando l'IA."
+				}
+			},
+			"fields": {
+				"title": {
+					"label": "Titolo dell'articolo",
+					"placeholder": "Inserisci il titolo dell'articolo",
+					"required": true
+				},
+				"slug": {
+					"label": "Slug URL",
+					"placeholder": "slug-articolo",
+					"helper": "Versione adatta agli URL (minuscole, solo trattini)",
+					"required": true
+				},
+				"locale": {
+					"label": "Lingua",
+					"placeholder": "Seleziona una lingua",
+					"helper": "Seleziona la lingua per questo articolo",
+					"required": true
+				},
+				"description": {
+					"label": "Descrizione",
+					"placeholder": "Inserisci la descrizione dell'articolo",
+					"helper": "Una breve descrizione per SEO e anteprime",
+					"required": true
+				},
+				"extract": {
+					"label": "Estratto",
+					"placeholder": "Inserisci l'estratto dell'articolo",
+					"helper": "Un breve estratto da visualizzare negli elenchi degli articoli",
+					"required": true
+				},
+				"content": {
+					"label": "Contenuto",
+					"placeholder": "Inizia a scrivere il tuo articolo...",
+					"helper": "Il contenuto completo del tuo articolo (supporta testo formattato)",
+					"required": true
+				},
+				"currentImage": {
+					"label": "Immagine corrente",
+					"altLabel": "Testo alternativo"
+				},
+				"image": {
+					"label": "Immagine dell'articolo",
+					"labelReplace": "Sostituisci immagine",
+					"helper": "Carica un'immagine in evidenza per il tuo articolo (max 5 MB)"
+				},
+				"imageAlt": {
+					"label": "Testo alternativo dell'immagine",
+					"placeholder": "Descrivi l'immagine",
+					"helper": "Testo alternativo per accessibilità e SEO (generato da IA con Forvoyez)"
+				},
+				"seoTitle": {
+					"label": "Titolo SEO",
+					"placeholder": "Inserisci il titolo SEO (max 60 caratteri)",
+					"helper": "Appare nei risultati dei motori di ricerca",
+					"charactersCount": "caratteri"
+				},
+				"seoDescription": {
+					"label": "Descrizione SEO",
+					"placeholder": "Inserisci la descrizione SEO (max 160 caratteri)",
+					"helper": "Breve descrizione per i risultati di ricerca",
+					"charactersCount": "caratteri"
+				}
+			},
+			"actions": {
+				"submit": {
+					"create": "Crea articolo",
+					"creating": "Creazione articolo...",
+					"update": "Aggiorna articolo",
+					"updating": "Aggiornamento articolo..."
+				},
+				"cancel": "Annulla",
+				"generateAlt": {
+					"label": "Genera IA",
+					"generating": "Generazione..."
+				},
+				"generateSEO": {
+					"label": "Genera SEO con IA",
+					"generating": "Generazione SEO..."
+				},
+				"generateAllTranslations": {
+					"label": "Genera tutte le traduzioni mancanti",
+					"generating": "Generazione di tutte le traduzioni..."
+				},
+				"generateTranslation": {
+					"orGenerate": "O genera traduzioni individuali:"
+				}
+			},
+			"translation": {
+				"automaticDescription": "Traduci automaticamente questo articolo in tutte le lingue che non hanno ancora traduzioni",
+				"regenerateWarning": "Genera o rigenera una traduzione di lingua specifica. Le traduzioni esistenti verranno sovrascritte.",
+				"startingBatch": "Avvio generazione traduzioni batch...",
+				"successCount": "{count} traduzione/i generata/e con successo: {locales}",
+				"failureCount": "Impossibile generare {count} traduzione/i: {locales}",
+				"allExist": "Tutte le traduzioni esistono già!",
+				"switchedTo": "Passato a {locale} - crea nuova traduzione",
+				"creatingFor": "Creazione traduzione per articolo esistente"
+			},
+			"messages": {
+				"success": {
+					"created": "Articolo creato con successo!",
+					"updated": "Articolo aggiornato con successo!",
+					"altGenerated": "Testo alternativo generato con successo!",
+					"seoGenerated": "Contenuto SEO generato con successo!",
+					"translationGenerated": "Traduzione in {locale} generata con successo!"
+				},
+				"error": {
+					"create": "Impossibile creare l'articolo",
+					"update": "Impossibile aggiornare l'articolo",
+					"altGenerate": "Impossibile generare il testo alternativo",
+					"seoGenerate": "Impossibile generare il contenuto SEO",
+					"translationGenerate": "Impossibile generare la traduzione in {locale}",
+					"unexpected": "Si è verificato un errore imprevisto",
+					"uploadFirst": "Per favore carica prima un'immagine",
+					"titleRequired": "Per favore inserisci prima un titolo per l'articolo",
+					"invalidFileType": "Tipo di file non valido. Per favore carica solo file PNG, JPG o WEBP.",
+					"fileTooLarge": "Dimensione file troppo grande. La dimensione massima è di 5 MB."
+				},
+				"info": {
+					"createTranslation": "Crea una traduzione per {locale}"
+				}
+			},
+			"validation": {
+				"titleRequired": "Il titolo è obbligatorio",
+				"slugRequired": "Lo slug è obbligatorio",
+				"slugFormat": "Lo slug deve contenere solo lettere minuscole, numeri e trattini",
+				"localeRequired": "La lingua è obbligatoria",
+				"descriptionRequired": "La descrizione è obbligatoria",
+				"extractRequired": "L'estratto è obbligatorio",
+				"contentRequired": "Il contenuto è obbligatorio",
+				"seoTitleMax": "Il titolo SEO deve avere massimo 60 caratteri",
+				"seoDescriptionMax": "La descrizione SEO deve avere massimo 160 caratteri"
+			},
+			"process": {
+				"generatingAlt": "Generazione testo alternativo...",
+				"callingForvoyez": "Chiamata IA Forvoyez...",
+				"processingResult": "Elaborazione risultato...",
+				"complete": "Completato!",
+				"generatingSEO": "Generazione SEO...",
+				"callingGemini": "Chiamata IA Gemini...",
+				"translatingTo": "Traduzione in {locale}...",
+				"loadingSource": "Caricamento articolo sorgente...",
+				"extractingImages": "Estrazione immagini...",
+				"processingTranslation": "Elaborazione traduzione...",
+				"creatingImage": "Creazione immagine...",
+				"creatingSEO": "Creazione SEO...",
+				"creatingArticle": "Creazione articolo..."
+			}
+		},
+		"pageClient": {
+			"connectedAs": "Connesso come",
+			"accessError": "Errore di accesso",
+			"accessErrorDescription": "Devi effettuare l'accesso come amministratore per accedere a questa pagina",
+			"signIn": "Accedi",
+			"successTitle": "Articolo creato con successo!",
+			"successDescription": "Il tuo articolo \"{title}\" è stato creato con successo.",
+			"backToArticles": "Torna agli articoli"
+		}
+	},
+	"de": {
+		"form": {
+			"edit": {
+				"title": "Artikel bearbeiten",
+				"subtitle": "Aktualisieren Sie Ihren Blog-Artikel"
+			},
+			"create": {
+				"title": "Neuen Artikel erstellen",
+				"subtitle": "Fügen Sie Ihrer Plattform einen neuen Blog-Artikel hinzu"
+			},
+			"sections": {
+				"basicInfo": {
+					"title": "Grundlegende Informationen",
+					"description": "Geben Sie die wichtigsten Details zu Ihrem Artikel ein, einschließlich Titel, Slug und Beschreibungen."
+				},
+				"content": {
+					"title": "Artikelinhalt",
+					"description": "Schreiben Sie den vollständigen Inhalt Ihres Artikels mit dem Rich-Text-Editor."
+				},
+				"featuredImage": {
+					"title": "Beitragsbild",
+					"description": "Laden Sie ein Bild hoch, das mit Ihrem Artikel angezeigt werden soll."
+				},
+				"seo": {
+					"title": "SEO-Einstellungen",
+					"description": "Optimieren Sie Ihren Artikel für Suchmaschinen mit benutzerdefinierten Meta-Tags."
+				},
+				"translation": {
+					"title": "KI-Übersetzung",
+					"description": "Generieren Sie automatisch Übersetzungen dieses französischen Artikels in alle unterstützten Sprachen mithilfe von KI."
+				}
+			},
+			"fields": {
+				"title": {
+					"label": "Artikeltitel",
+					"placeholder": "Artikeltitel eingeben",
+					"required": true
+				},
+				"slug": {
+					"label": "URL-Slug",
+					"placeholder": "artikel-slug",
+					"helper": "URL-freundliche Version (Kleinbuchstaben, nur Bindestriche)",
+					"required": true
+				},
+				"locale": {
+					"label": "Sprache",
+					"placeholder": "Sprache auswählen",
+					"helper": "Wählen Sie die Sprache für diesen Artikel",
+					"required": true
+				},
+				"description": {
+					"label": "Beschreibung",
+					"placeholder": "Artikelbeschreibung eingeben",
+					"helper": "Eine kurze Beschreibung für SEO und Vorschauen",
+					"required": true
+				},
+				"extract": {
+					"label": "Auszug",
+					"placeholder": "Artikelauszug eingeben",
+					"helper": "Ein kurzer Auszug zur Anzeige in Artikellisten",
+					"required": true
+				},
+				"content": {
+					"label": "Inhalt",
+					"placeholder": "Beginnen Sie mit dem Schreiben Ihres Artikels...",
+					"helper": "Der vollständige Inhalt Ihres Artikels (unterstützt Rich-Text)",
+					"required": true
+				},
+				"currentImage": {
+					"label": "Aktuelles Bild",
+					"altLabel": "Alternativtext"
+				},
+				"image": {
+					"label": "Artikelbild",
+					"labelReplace": "Bild ersetzen",
+					"helper": "Laden Sie ein Beitragsbild für Ihren Artikel hoch (max. 5 MB)"
+				},
+				"imageAlt": {
+					"label": "Bild-Alternativtext",
+					"placeholder": "Beschreiben Sie das Bild",
+					"helper": "Alternativtext für Barrierefreiheit und SEO (KI-generiert mit Forvoyez)"
+				},
+				"seoTitle": {
+					"label": "SEO-Titel",
+					"placeholder": "SEO-Titel eingeben (max. 60 Zeichen)",
+					"helper": "Erscheint in Suchmaschinenergebnissen",
+					"charactersCount": "Zeichen"
+				},
+				"seoDescription": {
+					"label": "SEO-Beschreibung",
+					"placeholder": "SEO-Beschreibung eingeben (max. 160 Zeichen)",
+					"helper": "Kurze Beschreibung für Suchergebnisse",
+					"charactersCount": "Zeichen"
+				}
+			},
+			"actions": {
+				"submit": {
+					"create": "Artikel erstellen",
+					"creating": "Artikel wird erstellt...",
+					"update": "Artikel aktualisieren",
+					"updating": "Artikel wird aktualisiert..."
+				},
+				"cancel": "Abbrechen",
+				"generateAlt": {
+					"label": "KI generieren",
+					"generating": "Wird generiert..."
+				},
+				"generateSEO": {
+					"label": "SEO mit KI generieren",
+					"generating": "SEO wird generiert..."
+				},
+				"generateAllTranslations": {
+					"label": "Alle fehlenden Übersetzungen generieren",
+					"generating": "Alle Übersetzungen werden generiert..."
+				},
+				"generateTranslation": {
+					"orGenerate": "Oder einzelne Übersetzungen generieren:"
+				}
+			},
+			"translation": {
+				"automaticDescription": "Übersetzen Sie diesen Artikel automatisch in alle Sprachen, die noch keine Übersetzungen haben",
+				"regenerateWarning": "Generieren oder regenerieren Sie eine spezifische Sprachübersetzung. Vorhandene Übersetzungen werden überschrieben.",
+				"startingBatch": "Batch-Übersetzungsgenerierung wird gestartet...",
+				"successCount": "{count} Übersetzung(en) erfolgreich generiert: {locales}",
+				"failureCount": "{count} Übersetzung(en) konnten nicht generiert werden: {locales}",
+				"allExist": "Alle Übersetzungen existieren bereits!",
+				"switchedTo": "Zu {locale} gewechselt - neue Übersetzung erstellen",
+				"creatingFor": "Übersetzung für vorhandenen Artikel wird erstellt"
+			},
+			"messages": {
+				"success": {
+					"created": "Artikel erfolgreich erstellt!",
+					"updated": "Artikel erfolgreich aktualisiert!",
+					"altGenerated": "Alternativtext erfolgreich generiert!",
+					"seoGenerated": "SEO-Inhalt erfolgreich generiert!",
+					"translationGenerated": "Übersetzung nach {locale} erfolgreich generiert!"
+				},
+				"error": {
+					"create": "Artikel konnte nicht erstellt werden",
+					"update": "Artikel konnte nicht aktualisiert werden",
+					"altGenerate": "Alternativtext konnte nicht generiert werden",
+					"seoGenerate": "SEO-Inhalt konnte nicht generiert werden",
+					"translationGenerate": "Übersetzung nach {locale} konnte nicht generiert werden",
+					"unexpected": "Ein unerwarteter Fehler ist aufgetreten",
+					"uploadFirst": "Bitte laden Sie zuerst ein Bild hoch",
+					"titleRequired": "Bitte geben Sie zuerst einen Artikeltitel ein",
+					"invalidFileType": "Ungültiger Dateityp. Bitte laden Sie nur PNG-, JPG- oder WEBP-Dateien hoch.",
+					"fileTooLarge": "Dateigröße zu groß. Die maximale Größe beträgt 5 MB."
+				},
+				"info": {
+					"createTranslation": "Eine Übersetzung für {locale} erstellen"
+				}
+			},
+			"validation": {
+				"titleRequired": "Titel ist erforderlich",
+				"slugRequired": "Slug ist erforderlich",
+				"slugFormat": "Slug darf nur Kleinbuchstaben, Zahlen und Bindestriche enthalten",
+				"localeRequired": "Sprache ist erforderlich",
+				"descriptionRequired": "Beschreibung ist erforderlich",
+				"extractRequired": "Auszug ist erforderlich",
+				"contentRequired": "Inhalt ist erforderlich",
+				"seoTitleMax": "SEO-Titel sollte maximal 60 Zeichen haben",
+				"seoDescriptionMax": "SEO-Beschreibung sollte maximal 160 Zeichen haben"
+			},
+			"process": {
+				"generatingAlt": "Alternativtext wird generiert...",
+				"callingForvoyez": "Forvoyez KI wird aufgerufen...",
+				"processingResult": "Ergebnis wird verarbeitet...",
+				"complete": "Abgeschlossen!",
+				"generatingSEO": "SEO wird generiert...",
+				"callingGemini": "Gemini KI wird aufgerufen...",
+				"translatingTo": "Übersetzung nach {locale}...",
+				"loadingSource": "Quellartikel wird geladen...",
+				"extractingImages": "Bilder werden extrahiert...",
+				"processingTranslation": "Übersetzung wird verarbeitet...",
+				"creatingImage": "Bild wird erstellt...",
+				"creatingSEO": "SEO wird erstellt...",
+				"creatingArticle": "Artikel wird erstellt..."
+			}
+		},
+		"pageClient": {
+			"connectedAs": "Verbunden als",
+			"accessError": "Zugriffsfehler",
+			"accessErrorDescription": "Sie müssen als Administrator angemeldet sein, um auf diese Seite zuzugreifen",
+			"signIn": "Anmelden",
+			"successTitle": "Artikel erfolgreich erstellt!",
+			"successDescription": "Ihr Artikel \"{title}\" wurde erfolgreich erstellt.",
+			"backToArticles": "Zurück zu Artikeln"
+		}
+	},
+	"ro": {
+		"form": {
+			"edit": {
+				"title": "Editează articol",
+				"subtitle": "Actualizează articolul tău de blog"
+			},
+			"create": {
+				"title": "Creează articol nou",
+				"subtitle": "Adaugă un nou articol de blog pe platforma ta"
+			},
+			"sections": {
+				"basicInfo": {
+					"title": "Informații de bază",
+					"description": "Introdu detaliile principale despre articolul tău, inclusiv titlu, slug și descrieri."
+				},
+				"content": {
+					"title": "Conținutul articolului",
+					"description": "Scrie conținutul complet al articolului tău folosind editorul de text îmbogățit."
+				},
+				"featuredImage": {
+					"title": "Imagine prezentată",
+					"description": "Încarcă o imagine pentru a fi afișată cu articolul tău."
+				},
+				"seo": {
+					"title": "Setări SEO",
+					"description": "Optimizează articolul tău pentru motoarele de căutare cu meta tag-uri personalizate."
+				},
+				"translation": {
+					"title": "Traducere AI",
+					"description": "Generează automat traduceri ale acestui articol francez în toate limbile acceptate folosind AI."
+				}
+			},
+			"fields": {
+				"title": {
+					"label": "Titlul articolului",
+					"placeholder": "Introdu titlul articolului",
+					"required": true
+				},
+				"slug": {
+					"label": "Slug URL",
+					"placeholder": "slug-articol",
+					"helper": "Versiune prietenoasă pentru URL (litere mici, doar cratime)",
+					"required": true
+				},
+				"locale": {
+					"label": "Limba",
+					"placeholder": "Selectează o limbă",
+					"helper": "Selectează limba pentru acest articol",
+					"required": true
+				},
+				"description": {
+					"label": "Descriere",
+					"placeholder": "Introdu descrierea articolului",
+					"helper": "O scurtă descriere pentru SEO și previzualizări",
+					"required": true
+				},
+				"extract": {
+					"label": "Extras",
+					"placeholder": "Introdu extrasul articolului",
+					"helper": "Un scurt extras pentru a afișa în listele de articole",
+					"required": true
+				},
+				"content": {
+					"label": "Conținut",
+					"placeholder": "Începe să scrii articolul tău...",
+					"helper": "Conținutul complet al articolului tău (suportă text îmbogățit)",
+					"required": true
+				},
+				"currentImage": {
+					"label": "Imagine curentă",
+					"altLabel": "Text alternativ"
+				},
+				"image": {
+					"label": "Imagine articol",
+					"labelReplace": "Înlocuiește imaginea",
+					"helper": "Încarcă o imagine prezentată pentru articolul tău (max. 5 MB)"
+				},
+				"imageAlt": {
+					"label": "Text alternativ imagine",
+					"placeholder": "Descrie imaginea",
+					"helper": "Text alternativ pentru accesibilitate și SEO (generat de AI cu Forvoyez)"
+				},
+				"seoTitle": {
+					"label": "Titlu SEO",
+					"placeholder": "Introdu titlul SEO (max. 60 caractere)",
+					"helper": "Apare în rezultatele motoarelor de căutare",
+					"charactersCount": "caractere"
+				},
+				"seoDescription": {
+					"label": "Descriere SEO",
+					"placeholder": "Introdu descrierea SEO (max. 160 caractere)",
+					"helper": "Scurtă descriere pentru rezultatele de căutare",
+					"charactersCount": "caractere"
+				}
+			},
+			"actions": {
+				"submit": {
+					"create": "Creează articol",
+					"creating": "Se creează articolul...",
+					"update": "Actualizează articol",
+					"updating": "Se actualizează articolul..."
+				},
+				"cancel": "Anulează",
+				"generateAlt": {
+					"label": "Generează AI",
+					"generating": "Se generează..."
+				},
+				"generateSEO": {
+					"label": "Generează SEO cu AI",
+					"generating": "Se generează SEO..."
+				},
+				"generateAllTranslations": {
+					"label": "Generează toate traducerile lipsă",
+					"generating": "Se generează toate traducerile..."
+				},
+				"generateTranslation": {
+					"orGenerate": "Sau generează traduceri individuale:"
+				}
+			},
+			"translation": {
+				"automaticDescription": "Traduce automat acest articol în toate limbile care nu au încă traduceri",
+				"regenerateWarning": "Generează sau regenerează o traducere de limbă specifică. Traducerile existente vor fi suprascrise.",
+				"startingBatch": "Se inițiază generarea de traduceri în lot...",
+				"successCount": "{count} traducere/i generată/e cu succes: {locales}",
+				"failureCount": "Eșec la generarea a {count} traducere/i: {locales}",
+				"allExist": "Toate traducerile există deja!",
+				"switchedTo": "Comutat la {locale} - creează traducere nouă",
+				"creatingFor": "Se creează traducere pentru articol existent"
+			},
+			"messages": {
+				"success": {
+					"created": "Articol creat cu succes!",
+					"updated": "Articol actualizat cu succes!",
+					"altGenerated": "Text alternativ generat cu succes!",
+					"seoGenerated": "Conținut SEO generat cu succes!",
+					"translationGenerated": "Traducere în {locale} generată cu succes!"
+				},
+				"error": {
+					"create": "Eșec la crearea articolului",
+					"update": "Eșec la actualizarea articolului",
+					"altGenerate": "Eșec la generarea textului alternativ",
+					"seoGenerate": "Eșec la generarea conținutului SEO",
+					"translationGenerate": "Eșec la generarea traducerii în {locale}",
+					"unexpected": "A apărut o eroare neașteptată",
+					"uploadFirst": "Vă rugăm să încărcați mai întâi o imagine",
+					"titleRequired": "Vă rugăm să introduceți mai întâi un titlu pentru articol",
+					"invalidFileType": "Tip de fișier invalid. Vă rugăm să încărcați doar fișiere PNG, JPG sau WEBP.",
+					"fileTooLarge": "Dimensiune fișier prea mare. Dimensiunea maximă este de 5 MB."
+				},
+				"info": {
+					"createTranslation": "Creează o traducere pentru {locale}"
+				}
+			},
+			"validation": {
+				"titleRequired": "Titlul este obligatoriu",
+				"slugRequired": "Slug-ul este obligatoriu",
+				"slugFormat": "Slug-ul trebuie să conțină doar litere mici, numere și cratime",
+				"localeRequired": "Limba este obligatorie",
+				"descriptionRequired": "Descrierea este obligatorie",
+				"extractRequired": "Extrasul este obligatoriu",
+				"contentRequired": "Conținutul este obligatoriu",
+				"seoTitleMax": "Titlul SEO ar trebui să aibă maximum 60 de caractere",
+				"seoDescriptionMax": "Descrierea SEO ar trebui să aibă maximum 160 de caractere"
+			},
+			"process": {
+				"generatingAlt": "Se generează text alternativ...",
+				"callingForvoyez": "Se apelează AI Forvoyez...",
+				"processingResult": "Se procesează rezultatul...",
+				"complete": "Complet!",
+				"generatingSEO": "Se generează SEO...",
+				"callingGemini": "Se apelează AI Gemini...",
+				"translatingTo": "Se traduce în {locale}...",
+				"loadingSource": "Se încarcă articolul sursă...",
+				"extractingImages": "Se extrag imaginile...",
+				"processingTranslation": "Se procesează traducerea...",
+				"creatingImage": "Se creează imaginea...",
+				"creatingSEO": "Se creează SEO...",
+				"creatingArticle": "Se creează articolul..."
+			}
+		},
+		"pageClient": {
+			"connectedAs": "Conectat ca",
+			"accessError": "Eroare de acces",
+			"accessErrorDescription": "Trebuie să fiți autentificat ca administrator pentru a accesa această pagină",
+			"signIn": "Autentificare",
+			"successTitle": "Articol creat cu succes!",
+			"successDescription": "Articolul tău \"{title}\" a fost creat cu succes.",
+			"backToArticles": "Înapoi la articole"
+		}
+	},
+	"pt": {
+		"form": {
+			"edit": {
+				"title": "Editar artigo",
+				"subtitle": "Atualize seu artigo do blog"
+			},
+			"create": {
+				"title": "Criar novo artigo",
+				"subtitle": "Adicione um novo artigo de blog à sua plataforma"
+			},
+			"sections": {
+				"basicInfo": {
+					"title": "Informações básicas",
+					"description": "Digite os detalhes principais sobre seu artigo, incluindo título, slug e descrições."
+				},
+				"content": {
+					"title": "Conteúdo do artigo",
+					"description": "Escreva o conteúdo completo do seu artigo usando o editor de texto enriquecido."
+				},
+				"featuredImage": {
+					"title": "Imagem destacada",
+					"description": "Carregue uma imagem para ser exibida com seu artigo."
+				},
+				"seo": {
+					"title": "Configurações SEO",
+					"description": "Otimize seu artigo para mecanismos de busca com meta tags personalizadas."
+				},
+				"translation": {
+					"title": "Tradução IA",
+					"description": "Gere automaticamente traduções deste artigo francês em todos os idiomas suportados usando IA."
+				}
+			},
+			"fields": {
+				"title": {
+					"label": "Título do artigo",
+					"placeholder": "Digite o título do artigo",
+					"required": true
+				},
+				"slug": {
+					"label": "Slug URL",
+					"placeholder": "slug-artigo",
+					"helper": "Versão amigável para URL (minúsculas, apenas hifens)",
+					"required": true
+				},
+				"locale": {
+					"label": "Idioma",
+					"placeholder": "Selecione um idioma",
+					"helper": "Selecione o idioma para este artigo",
+					"required": true
+				},
+				"description": {
+					"label": "Descrição",
+					"placeholder": "Digite a descrição do artigo",
+					"helper": "Uma breve descrição para SEO e pré-visualizações",
+					"required": true
+				},
+				"extract": {
+					"label": "Extrato",
+					"placeholder": "Digite o extrato do artigo",
+					"helper": "Um breve extrato para exibir em listas de artigos",
+					"required": true
+				},
+				"content": {
+					"label": "Conteúdo",
+					"placeholder": "Comece a escrever seu artigo...",
+					"helper": "O conteúdo completo do seu artigo (suporta texto enriquecido)",
+					"required": true
+				},
+				"currentImage": {
+					"label": "Imagem atual",
+					"altLabel": "Texto alternativo"
+				},
+				"image": {
+					"label": "Imagem do artigo",
+					"labelReplace": "Substituir imagem",
+					"helper": "Carregue uma imagem destacada para seu artigo (máx. 5 MB)"
+				},
+				"imageAlt": {
+					"label": "Texto alternativo da imagem",
+					"placeholder": "Descreva a imagem",
+					"helper": "Texto alternativo para acessibilidade e SEO (gerado por IA com Forvoyez)"
+				},
+				"seoTitle": {
+					"label": "Título SEO",
+					"placeholder": "Digite o título SEO (máx. 60 caracteres)",
+					"helper": "Aparece nos resultados dos mecanismos de busca",
+					"charactersCount": "caracteres"
+				},
+				"seoDescription": {
+					"label": "Descrição SEO",
+					"placeholder": "Digite a descrição SEO (máx. 160 caracteres)",
+					"helper": "Breve descrição para resultados de busca",
+					"charactersCount": "caracteres"
+				}
+			},
+			"actions": {
+				"submit": {
+					"create": "Criar artigo",
+					"creating": "Criando artigo...",
+					"update": "Atualizar artigo",
+					"updating": "Atualizando artigo..."
+				},
+				"cancel": "Cancelar",
+				"generateAlt": {
+					"label": "Gerar IA",
+					"generating": "Gerando..."
+				},
+				"generateSEO": {
+					"label": "Gerar SEO com IA",
+					"generating": "Gerando SEO..."
+				},
+				"generateAllTranslations": {
+					"label": "Gerar todas as traduções ausentes",
+					"generating": "Gerando todas as traduções..."
+				},
+				"generateTranslation": {
+					"orGenerate": "Ou gere traduções individuais:"
+				}
+			},
+			"translation": {
+				"automaticDescription": "Traduza automaticamente este artigo para todos os idiomas que ainda não têm traduções",
+				"regenerateWarning": "Gere ou regenere uma tradução de idioma específico. As traduções existentes serão substituídas.",
+				"startingBatch": "Iniciando geração de traduções em lote...",
+				"successCount": "{count} tradução/ões gerada/s com sucesso: {locales}",
+				"failureCount": "Falha ao gerar {count} tradução/ões: {locales}",
+				"allExist": "Todas as traduções já existem!",
+				"switchedTo": "Alternado para {locale} - criar nova tradução",
+				"creatingFor": "Criando tradução para artigo existente"
+			},
+			"messages": {
+				"success": {
+					"created": "Artigo criado com sucesso!",
+					"updated": "Artigo atualizado com sucesso!",
+					"altGenerated": "Texto alternativo gerado com sucesso!",
+					"seoGenerated": "Conteúdo SEO gerado com sucesso!",
+					"translationGenerated": "Tradução para {locale} gerada com sucesso!"
+				},
+				"error": {
+					"create": "Falha ao criar artigo",
+					"update": "Falha ao atualizar artigo",
+					"altGenerate": "Falha ao gerar texto alternativo",
+					"seoGenerate": "Falha ao gerar conteúdo SEO",
+					"translationGenerate": "Falha ao gerar tradução para {locale}",
+					"unexpected": "Ocorreu um erro inesperado",
+					"uploadFirst": "Por favor, carregue uma imagem primeiro",
+					"titleRequired": "Por favor, digite primeiro um título para o artigo",
+					"invalidFileType": "Tipo de arquivo inválido. Por favor, carregue apenas arquivos PNG, JPG ou WEBP.",
+					"fileTooLarge": "Tamanho do arquivo muito grande. O tamanho máximo é de 5 MB."
+				},
+				"info": {
+					"createTranslation": "Criar uma tradução para {locale}"
+				}
+			},
+			"validation": {
+				"titleRequired": "O título é obrigatório",
+				"slugRequired": "O slug é obrigatório",
+				"slugFormat": "O slug deve conter apenas letras minúsculas, números e hifens",
+				"localeRequired": "O idioma é obrigatório",
+				"descriptionRequired": "A descrição é obrigatória",
+				"extractRequired": "O extrato é obrigatório",
+				"contentRequired": "O conteúdo é obrigatório",
+				"seoTitleMax": "O título SEO deve ter no máximo 60 caracteres",
+				"seoDescriptionMax": "A descrição SEO deve ter no máximo 160 caracteres"
+			},
+			"process": {
+				"generatingAlt": "Gerando texto alternativo...",
+				"callingForvoyez": "Chamando IA Forvoyez...",
+				"processingResult": "Processando resultado...",
+				"complete": "Concluído!",
+				"generatingSEO": "Gerando SEO...",
+				"callingGemini": "Chamando IA Gemini...",
+				"translatingTo": "Traduzindo para {locale}...",
+				"loadingSource": "Carregando artigo fonte...",
+				"extractingImages": "Extraindo imagens...",
+				"processingTranslation": "Processando tradução...",
+				"creatingImage": "Criando imagem...",
+				"creatingSEO": "Criando SEO...",
+				"creatingArticle": "Criando artigo..."
+			}
+		},
+		"pageClient": {
+			"connectedAs": "Conectado como",
+			"accessError": "Erro de acesso",
+			"accessErrorDescription": "Você deve estar conectado como administrador para acessar esta página",
+			"signIn": "Entrar",
+			"successTitle": "Artigo criado com sucesso!",
+			"successDescription": "Seu artigo \"{title}\" foi criado com sucesso.",
+			"backToArticles": "Voltar aos artigos"
+		}
+	},
+	"nl": {
+		"form": {
+			"edit": {
+				"title": "Artikel bewerken",
+				"subtitle": "Update je blogartikel"
+			},
+			"create": {
+				"title": "Nieuw artikel maken",
+				"subtitle": "Voeg een nieuw blogartikel toe aan je platform"
+			},
+			"sections": {
+				"basicInfo": {
+					"title": "Basisinformatie",
+					"description": "Voer de belangrijkste details over je artikel in, inclusief titel, slug en beschrijvingen."
+				},
+				"content": {
+					"title": "Artikelinhoud",
+					"description": "Schrijf de volledige inhoud van je artikel met de rich-text editor."
+				},
+				"featuredImage": {
+					"title": "Uitgelichte afbeelding",
+					"description": "Upload een afbeelding om weer te geven met je artikel."
+				},
+				"seo": {
+					"title": "SEO-instellingen",
+					"description": "Optimaliseer je artikel voor zoekmachines met aangepaste meta tags."
+				},
+				"translation": {
+					"title": "AI-vertaling",
+					"description": "Genereer automatisch vertalingen van dit Franse artikel naar alle ondersteunde talen met behulp van AI."
+				}
+			},
+			"fields": {
+				"title": {
+					"label": "Artikeltitel",
+					"placeholder": "Voer artikeltitel in",
+					"required": true
+				},
+				"slug": {
+					"label": "URL-slug",
+					"placeholder": "artikel-slug",
+					"helper": "URL-vriendelijke versie (kleine letters, alleen koppeltekens)",
+					"required": true
+				},
+				"locale": {
+					"label": "Taal",
+					"placeholder": "Selecteer een taal",
+					"helper": "Selecteer de taal voor dit artikel",
+					"required": true
+				},
+				"description": {
+					"label": "Beschrijving",
+					"placeholder": "Voer artikelbeschrijving in",
+					"helper": "Een korte beschrijving voor SEO en voorbeelden",
+					"required": true
+				},
+				"extract": {
+					"label": "Uittreksel",
+					"placeholder": "Voer artikel-uittreksel in",
+					"helper": "Een kort uittreksel om weer te geven in artikellijsten",
+					"required": true
+				},
+				"content": {
+					"label": "Inhoud",
+					"placeholder": "Begin met het schrijven van je artikel...",
+					"helper": "De volledige inhoud van je artikel (ondersteunt rich text)",
+					"required": true
+				},
+				"currentImage": {
+					"label": "Huidige afbeelding",
+					"altLabel": "Alt-tekst"
+				},
+				"image": {
+					"label": "Artikelafbeelding",
+					"labelReplace": "Afbeelding vervangen",
+					"helper": "Upload een uitgelichte afbeelding voor je artikel (max. 5 MB)"
+				},
+				"imageAlt": {
+					"label": "Afbeelding alt-tekst",
+					"placeholder": "Beschrijf de afbeelding",
+					"helper": "Alternatieve tekst voor toegankelijkheid en SEO (AI-gegenereerd met Forvoyez)"
+				},
+				"seoTitle": {
+					"label": "SEO-titel",
+					"placeholder": "Voer SEO-titel in (max. 60 tekens)",
+					"helper": "Verschijnt in zoekmachineresultaten",
+					"charactersCount": "tekens"
+				},
+				"seoDescription": {
+					"label": "SEO-beschrijving",
+					"placeholder": "Voer SEO-beschrijving in (max. 160 tekens)",
+					"helper": "Korte beschrijving voor zoekresultaten",
+					"charactersCount": "tekens"
+				}
+			},
+			"actions": {
+				"submit": {
+					"create": "Artikel maken",
+					"creating": "Artikel wordt gemaakt...",
+					"update": "Artikel bijwerken",
+					"updating": "Artikel wordt bijgewerkt..."
+				},
+				"cancel": "Annuleren",
+				"generateAlt": {
+					"label": "AI genereren",
+					"generating": "Genereren..."
+				},
+				"generateSEO": {
+					"label": "SEO genereren met AI",
+					"generating": "SEO wordt gegenereerd..."
+				},
+				"generateAllTranslations": {
+					"label": "Alle ontbrekende vertalingen genereren",
+					"generating": "Alle vertalingen worden gegenereerd..."
+				},
+				"generateTranslation": {
+					"orGenerate": "Of genereer individuele vertalingen:"
+				}
+			},
+			"translation": {
+				"automaticDescription": "Vertaal dit artikel automatisch naar alle talen die nog geen vertalingen hebben",
+				"regenerateWarning": "Genereer of regenereer een specifieke taalvertaling. Bestaande vertalingen worden overschreven.",
+				"startingBatch": "Batch-vertaling genereren wordt gestart...",
+				"successCount": "{count} vertaling(en) succesvol gegenereerd: {locales}",
+				"failureCount": "{count} vertaling(en) konden niet worden gegenereerd: {locales}",
+				"allExist": "Alle vertalingen bestaan al!",
+				"switchedTo": "Overgeschakeld naar {locale} - nieuwe vertaling maken",
+				"creatingFor": "Vertaling maken voor bestaand artikel"
+			},
+			"messages": {
+				"success": {
+					"created": "Artikel succesvol gemaakt!",
+					"updated": "Artikel succesvol bijgewerkt!",
+					"altGenerated": "Alt-tekst succesvol gegenereerd!",
+					"seoGenerated": "SEO-inhoud succesvol gegenereerd!",
+					"translationGenerated": "Vertaling naar {locale} succesvol gegenereerd!"
+				},
+				"error": {
+					"create": "Artikel kon niet worden gemaakt",
+					"update": "Artikel kon niet worden bijgewerkt",
+					"altGenerate": "Alt-tekst kon niet worden gegenereerd",
+					"seoGenerate": "SEO-inhoud kon niet worden gegenereerd",
+					"translationGenerate": "Vertaling naar {locale} kon niet worden gegenereerd",
+					"unexpected": "Er is een onverwachte fout opgetreden",
+					"uploadFirst": "Upload eerst een afbeelding",
+					"titleRequired": "Voer eerst een artikeltitel in",
+					"invalidFileType": "Ongeldig bestandstype. Upload alleen PNG-, JPG- of WEBP-bestanden.",
+					"fileTooLarge": "Bestandsgrootte te groot. Maximale grootte is 5 MB."
+				},
+				"info": {
+					"createTranslation": "Maak een vertaling voor {locale}"
+				}
+			},
+			"validation": {
+				"titleRequired": "Titel is verplicht",
+				"slugRequired": "Slug is verplicht",
+				"slugFormat": "Slug mag alleen kleine letters, cijfers en koppeltekens bevatten",
+				"localeRequired": "Taal is verplicht",
+				"descriptionRequired": "Beschrijving is verplicht",
+				"extractRequired": "Uittreksel is verplicht",
+				"contentRequired": "Inhoud is verplicht",
+				"seoTitleMax": "SEO-titel mag maximaal 60 tekens bevatten",
+				"seoDescriptionMax": "SEO-beschrijving mag maximaal 160 tekens bevatten"
+			},
+			"process": {
+				"generatingAlt": "Alt-tekst wordt gegenereerd...",
+				"callingForvoyez": "Forvoyez AI wordt aangeroepen...",
+				"processingResult": "Resultaat wordt verwerkt...",
+				"complete": "Voltooid!",
+				"generatingSEO": "SEO wordt gegenereerd...",
+				"callingGemini": "Gemini AI wordt aangeroepen...",
+				"translatingTo": "Vertalen naar {locale}...",
+				"loadingSource": "Bronartikel wordt geladen...",
+				"extractingImages": "Afbeeldingen worden geëxtraheerd...",
+				"processingTranslation": "Vertaling wordt verwerkt...",
+				"creatingImage": "Afbeelding wordt gemaakt...",
+				"creatingSEO": "SEO wordt gemaakt...",
+				"creatingArticle": "Artikel wordt gemaakt..."
+			}
+		},
+		"pageClient": {
+			"connectedAs": "Verbonden als",
+			"accessError": "Toegangsfout",
+			"accessErrorDescription": "Je moet ingelogd zijn als beheerder om toegang te krijgen tot deze pagina",
+			"signIn": "Inloggen",
+			"successTitle": "Artikel succesvol gemaakt!",
+			"successDescription": "Je artikel \"{title}\" is succesvol gemaakt.",
+			"backToArticles": "Terug naar artikelen"
+		}
+	},
+	"ko": {
+		"form": {
+			"edit": {
+				"title": "기사 편집",
+				"subtitle": "블로그 기사 업데이트"
+			},
+			"create": {
+				"title": "새 기사 만들기",
+				"subtitle": "플랫폼에 새 블로그 기사 추가"
+			},
+			"sections": {
+				"basicInfo": {
+					"title": "기본 정보",
+					"description": "제목, 슬러그 및 설명을 포함한 기사의 핵심 세부 정보를 입력하세요."
+				},
+				"content": {
+					"title": "기사 내용",
+					"description": "서식 있는 텍스트 편집기를 사용하여 기사의 전체 내용을 작성하세요."
+				},
+				"featuredImage": {
+					"title": "추천 이미지",
+					"description": "기사와 함께 표시될 이미지를 업로드하세요."
+				},
+				"seo": {
+					"title": "SEO 설정",
+					"description": "맞춤 메타 태그로 검색 엔진에 맞게 기사를 최적화하세요."
+				},
+				"translation": {
+					"title": "AI 번역",
+					"description": "AI를 사용하여 이 프랑스어 기사를 지원되는 모든 언어로 자동 번역합니다."
+				}
+			},
+			"fields": {
+				"title": {
+					"label": "기사 제목",
+					"placeholder": "기사 제목 입력",
+					"required": true
+				},
+				"slug": {
+					"label": "URL 슬러그",
+					"placeholder": "기사-슬러그",
+					"helper": "URL 친화적 버전 (소문자, 하이픈만)",
+					"required": true
+				},
+				"locale": {
+					"label": "언어",
+					"placeholder": "언어 선택",
+					"helper": "이 기사의 언어를 선택하세요",
+					"required": true
+				},
+				"description": {
+					"label": "설명",
+					"placeholder": "기사 설명 입력",
+					"helper": "SEO 및 미리보기를 위한 간략한 설명",
+					"required": true
+				},
+				"extract": {
+					"label": "발췌",
+					"placeholder": "기사 발췌 입력",
+					"helper": "기사 목록에 표시할 짧은 발췌",
+					"required": true
+				},
+				"content": {
+					"label": "내용",
+					"placeholder": "기사 작성 시작...",
+					"helper": "기사의 전체 내용 (서식 있는 텍스트 지원)",
+					"required": true
+				},
+				"currentImage": {
+					"label": "현재 이미지",
+					"altLabel": "대체 텍스트"
+				},
+				"image": {
+					"label": "기사 이미지",
+					"labelReplace": "이미지 교체",
+					"helper": "기사의 추천 이미지 업로드 (최대 5MB)"
+				},
+				"imageAlt": {
+					"label": "이미지 대체 텍스트",
+					"placeholder": "이미지 설명",
+					"helper": "접근성 및 SEO를 위한 대체 텍스트 (Forvoyez로 AI 생성)"
+				},
+				"seoTitle": {
+					"label": "SEO 제목",
+					"placeholder": "SEO 제목 입력 (최대 60자)",
+					"helper": "검색 엔진 결과에 표시됨",
+					"charactersCount": "자"
+				},
+				"seoDescription": {
+					"label": "SEO 설명",
+					"placeholder": "SEO 설명 입력 (최대 160자)",
+					"helper": "검색 결과를 위한 간략한 설명",
+					"charactersCount": "자"
+				}
+			},
+			"actions": {
+				"submit": {
+					"create": "기사 만들기",
+					"creating": "기사 만드는 중...",
+					"update": "기사 업데이트",
+					"updating": "기사 업데이트 중..."
+				},
+				"cancel": "취소",
+				"generateAlt": {
+					"label": "AI 생성",
+					"generating": "생성 중..."
+				},
+				"generateSEO": {
+					"label": "AI로 SEO 생성",
+					"generating": "SEO 생성 중..."
+				},
+				"generateAllTranslations": {
+					"label": "누락된 모든 번역 생성",
+					"generating": "모든 번역 생성 중..."
+				},
+				"generateTranslation": {
+					"orGenerate": "또는 개별 번역 생성:"
+				}
+			},
+			"translation": {
+				"automaticDescription": "아직 번역이 없는 모든 언어로 이 기사를 자동 번역",
+				"regenerateWarning": "특정 언어 번역을 생성하거나 재생성합니다. 기존 번역은 덮어씁니다.",
+				"startingBatch": "일괄 번역 생성 시작 중...",
+				"successCount": "{count}개 번역이 성공적으로 생성됨: {locales}",
+				"failureCount": "{count}개 번역 생성 실패: {locales}",
+				"allExist": "모든 번역이 이미 존재합니다!",
+				"switchedTo": "{locale}로 전환 - 새 번역 만들기",
+				"creatingFor": "기존 기사에 대한 번역 만들기"
+			},
+			"messages": {
+				"success": {
+					"created": "기사가 성공적으로 생성되었습니다!",
+					"updated": "기사가 성공적으로 업데이트되었습니다!",
+					"altGenerated": "대체 텍스트가 성공적으로 생성되었습니다!",
+					"seoGenerated": "SEO 콘텐츠가 성공적으로 생성되었습니다!",
+					"translationGenerated": "{locale}로의 번역이 성공적으로 생성되었습니다!"
+				},
+				"error": {
+					"create": "기사 생성 실패",
+					"update": "기사 업데이트 실패",
+					"altGenerate": "대체 텍스트 생성 실패",
+					"seoGenerate": "SEO 콘텐츠 생성 실패",
+					"translationGenerate": "{locale}로의 번역 생성 실패",
+					"unexpected": "예기치 않은 오류가 발생했습니다",
+					"uploadFirst": "먼저 이미지를 업로드하세요",
+					"titleRequired": "먼저 기사 제목을 입력하세요",
+					"invalidFileType": "잘못된 파일 형식입니다. PNG, JPG 또는 WEBP 파일만 업로드하세요.",
+					"fileTooLarge": "파일 크기가 너무 큽니다. 최대 크기는 5MB입니다."
+				},
+				"info": {
+					"createTranslation": "{locale}에 대한 번역 만들기"
+				}
+			},
+			"validation": {
+				"titleRequired": "제목은 필수입니다",
+				"slugRequired": "슬러그는 필수입니다",
+				"slugFormat": "슬러그는 소문자, 숫자 및 하이픈만 포함해야 합니다",
+				"localeRequired": "언어는 필수입니다",
+				"descriptionRequired": "설명은 필수입니다",
+				"extractRequired": "발췌는 필수입니다",
+				"contentRequired": "내용은 필수입니다",
+				"seoTitleMax": "SEO 제목은 최대 60자여야 합니다",
+				"seoDescriptionMax": "SEO 설명은 최대 160자여야 합니다"
+			},
+			"process": {
+				"generatingAlt": "대체 텍스트 생성 중...",
+				"callingForvoyez": "Forvoyez AI 호출 중...",
+				"processingResult": "결과 처리 중...",
+				"complete": "완료!",
+				"generatingSEO": "SEO 생성 중...",
+				"callingGemini": "Gemini AI 호출 중...",
+				"translatingTo": "{locale}로 번역 중...",
+				"loadingSource": "소스 기사 로드 중...",
+				"extractingImages": "이미지 추출 중...",
+				"processingTranslation": "번역 처리 중...",
+				"creatingImage": "이미지 생성 중...",
+				"creatingSEO": "SEO 생성 중...",
+				"creatingArticle": "기사 생성 중..."
+			}
+		},
+		"pageClient": {
+			"connectedAs": "다음으로 연결됨",
+			"accessError": "액세스 오류",
+			"accessErrorDescription": "이 페이지에 액세스하려면 관리자로 로그인해야 합니다",
+			"signIn": "로그인",
+			"successTitle": "기사가 성공적으로 생성되었습니다!",
+			"successDescription": "\"{title}\" 기사가 성공적으로 생성되었습니다.",
+			"backToArticles": "기사로 돌아가기"
+		}
+	}
+}
