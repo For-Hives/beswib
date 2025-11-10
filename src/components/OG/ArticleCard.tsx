@@ -47,41 +47,17 @@ export default function ArticleCard({ article, locale, readTime }: Readonly<Arti
 					alignItems: 'center',
 				}}
 			>
-				{imageUrl ? (
-					<img
-						src={imageUrl}
-						alt={article.expand?.image?.alt || article.title}
-						style={{
-							width: '100%',
-							objectPosition: 'center',
-							objectFit: 'cover',
-							height: '160px',
-							borderRadius: '12px',
-						}}
-					/>
-				) : (
-					<div
-						style={{
-							width: '100%',
-							height: '160px',
-							borderRadius: '12px',
-							backgroundColor: '#f3f4f6',
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center',
-						}}
-					>
-						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none">
-							<path
-								stroke="#9ca3af"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM8.5 13.5l2.5 3 3.5-4.5 4.5 6H5l3.5-4.5z"
-							/>
-						</svg>
-					</div>
-				)}
+				<img
+					src={imageUrl ?? ''}
+					alt={article.expand?.image?.alt || article.title}
+					style={{
+						width: '100%',
+						objectPosition: 'center',
+						objectFit: 'cover',
+						height: '160px',
+						borderRadius: '12px',
+					}}
+				/>
 			</div>
 
 			{/* Content */}
