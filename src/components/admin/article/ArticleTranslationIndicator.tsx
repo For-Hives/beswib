@@ -1,18 +1,19 @@
 'use client'
 
-import { Globe } from 'lucide-react'
+import { FileText, Globe } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { type Locale, localeFlags } from '@/lib/i18n/config'
 import type { Article } from '@/models/article.model'
 
 interface ArticleTranslationIndicatorProps {
-	article: Article & { translationCount?: number }
+	article: Article & { translationCount?: number; publishedCount?: number }
 	compact?: boolean
 }
 
 export default function ArticleTranslationIndicator({ article, compact = false }: ArticleTranslationIndicatorProps) {
 	const currentLocale = article.locale
 	const translationCount = article.translationCount || 1
+	const publishedCount = article.publishedCount || (article.isDraft ? 0 : 1)
 	const totalLanguages = 9
 
 	// If locale is undefined or not valid, show N/A
@@ -40,8 +41,10 @@ export default function ArticleTranslationIndicator({ article, compact = false }
 
 	// Full mode: show detailed translation status
 	const completionPercentage = Math.round((translationCount / totalLanguages) * 100)
+	const publishedPercentage = Math.round((publishedCount / totalLanguages) * 100)
 	const isComplete = translationCount === totalLanguages
 	const isPartial = translationCount > 1 && translationCount < totalLanguages
+	const allPublished = publishedCount === translationCount && translationCount > 0
 
 	return (
 		<div className="flex items-center gap-2">
@@ -49,6 +52,7 @@ export default function ArticleTranslationIndicator({ article, compact = false }
 				{localeFlags[currentLocale as Locale]}
 			</span>
 			<div className="flex items-center gap-1.5">
+				{/* Translation count indicator */}
 				<Globe
 					className={`h-4 w-4 ${
 						isComplete
@@ -61,10 +65,38 @@ export default function ArticleTranslationIndicator({ article, compact = false }
 				<Badge
 					variant={isComplete ? 'default' : isPartial ? 'secondary' : 'outline'}
 					className="h-6 px-2 text-xs font-medium"
-					title={`${translationCount} out of ${totalLanguages} languages (${completionPercentage}%)`}
+					title={`${translationCount} translations out of ${totalLanguages} languages (${completionPercentage}%)`}
 				>
 					{translationCount}/{totalLanguages}
 				</Badge>
+
+				{/* Published count indicator */}
+				{translationCount > 0 && (
+					<>
+						<FileText
+							className={`h-4 w-4 ${
+								allPublished
+									? 'text-green-600 dark:text-green-400'
+									: publishedCount > 0
+										? 'text-yellow-600 dark:text-yellow-400'
+										: 'text-muted-foreground'
+							}`}
+						/>
+						<Badge
+							variant={allPublished ? 'default' : publishedCount > 0 ? 'secondary' : 'outline'}
+							className={`h-6 px-2 text-xs font-medium ${
+								allPublished
+									? 'bg-green-500/20 text-green-700 dark:text-green-400'
+									: publishedCount > 0
+										? 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-400'
+										: ''
+							}`}
+							title={`${publishedCount} published out of ${translationCount} translations (${publishedPercentage}% of total)`}
+						>
+							{publishedCount}/{translationCount}
+						</Badge>
+					</>
+				)}
 			</div>
 		</div>
 	)
