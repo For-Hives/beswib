@@ -21,8 +21,8 @@ export default async function ArticlePage({ params }: { params: Promise<ArticleP
 	// Fetch article by slug with expanded relations
 	const article = await fetchArticleBySlug(slug, true)
 
-	// If article doesn't exist or isn't in the current locale, show 404
-	if (!article || article.locale !== locale) {
+	// If article doesn't exist, isn't in the current locale, or is a draft, show 404
+	if (!article || article.locale !== locale || article.isDraft) {
 		notFound()
 	}
 
@@ -78,7 +78,7 @@ export async function generateMetadata({ params }: { params: Promise<ArticlePage
 	// Fetch article for metadata
 	const article = await fetchArticleBySlug(slug, true)
 
-	if (!article || article.locale !== locale) {
+	if (!article || article.locale !== locale || article.isDraft) {
 		return {
 			title: 'Article Not Found',
 		}
@@ -132,9 +132,9 @@ export async function generateStaticParams(): Promise<ArticlePageParams[]> {
 	const { getAllArticles } = await import('@/services/article.services')
 	const articles = await getAllArticles(false)
 
-	// Generate params for each article in each locale
+	// Generate params for each article in each locale (exclude drafts)
 	for (const locale of locales) {
-		const localeArticles = articles.filter((article: Article) => article.locale === locale.locale)
+		const localeArticles = articles.filter((article: Article) => article.locale === locale.locale && !article.isDraft)
 
 		for (const article of localeArticles) {
 			allParams.push({

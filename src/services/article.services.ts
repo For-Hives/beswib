@@ -26,6 +26,7 @@ export async function createArticle(articleData: Omit<Article, 'id' | 'created' 
 			content: articleData.content ?? '',
 			seo: articleData.seo ?? '',
 			translationGroup: articleData.translationGroup ?? '',
+			isDraft: articleData.isDraft ?? true, // Default to draft
 		}
 
 		const record = await pb.collection('articles').create<Article>(dataToCreate)
@@ -126,6 +127,7 @@ export async function updateArticleById(id: string, articleData: Partial<Article
 		if (articleData.content !== undefined) dataToUpdate.content = articleData.content
 		if (articleData.seo !== undefined) dataToUpdate.seo = articleData.seo
 		if (articleData.translationGroup !== undefined) dataToUpdate.translationGroup = articleData.translationGroup
+		if (articleData.isDraft !== undefined) dataToUpdate.isDraft = articleData.isDraft
 
 		const record = await pb.collection('articles').update<Article>(id, dataToUpdate)
 

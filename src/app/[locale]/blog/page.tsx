@@ -13,7 +13,10 @@ export default async function BlogPage({ params }: { params: Promise<LocaleParam
 	const blogT = getTranslations(locale, blogTranslations)
 
 	// Fetch articles for the current locale with expanded relations (image, seo)
-	const articles = await fetchArticlesByLocale(locale, true)
+	const allArticles = await fetchArticlesByLocale(locale, true)
+
+	// Filter out draft articles for public blog page
+	const articles = allArticles.filter(article => !article.isDraft)
 
 	return <BlogSection articles={articles} locale={locale} translations={blogT.blog} />
 }

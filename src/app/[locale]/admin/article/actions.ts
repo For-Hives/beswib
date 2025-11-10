@@ -78,7 +78,7 @@ export async function createArticleAction(formData: FormData): Promise<{
 			}
 		}
 
-		// Create the article with PocketBase service
+		// Create the article with PocketBase service (default to draft)
 		const result = await createArticle({
 			title,
 			slug,
@@ -89,6 +89,7 @@ export async function createArticleAction(formData: FormData): Promise<{
 			image: imageId,
 			seo: seoId,
 			translationGroup: translationGroup || undefined,
+			isDraft: true, // New articles are drafts by default
 		})
 
 		if (result != null) {
@@ -764,6 +765,71 @@ export async function generateArticleTranslationAction(
 			success: false,
 			error: error instanceof Error ? error.message : 'Failed to generate translation',
 			logs,
+		}
+	}
+}
+
+/**
+ * Server action to publish all articles in a translation group (admin only)
+ * Sets isDraft to false for all articles in the translation group
+ */
+export async function publishAllTranslationsAction(translationGroup: string): Promise<{
+	error?: string
+	publishedCount: number
+	success: boolean
+}> {
+	try {
+		// Verify admin access
+		const adminUser = await checkAdminAccess()
+
+		if (adminUser == null) {
+			return {
+				success: false,
+				error: 'Unauthorized: Admin access required',
+				publishedCount: 0,
+			}
+		}
+
+		if (!translationGroup) {
+			return {
+				success: false,
+				error: 'Translation group ID is required',
+				publishedCount: 0,
+			}
+		}
+
+		// Fetch all articles in the translation group
+		const articles = await fetchArticlesByTranslationGroup(translationGroup, false)
+
+		if (articles.length === 0) {
+			return {
+				success: false,
+				error: 'No articles found in this translation group',
+				publishedCount: 0,
+			}
+		}
+
+		// Update all articles to set isDraft = false
+		let publishedCount = 0
+		for (const article of articles) {
+			const result = await updateArticleById(article.id, { isDraft: false })
+			if (result != null) {
+				publishedCount++
+			}
+		}
+
+		console.info(`Admin ${adminUser.email} published ${publishedCount} articles in translation group: ${translationGroup}`)
+
+		return {
+			success: true,
+			publishedCount,
+		}
+	} catch (error) {
+		console.error('Error in publishAllTranslationsAction:', error)
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : 'Failed to publish articles',
+			publishedCount: 0,
 		}
 	}
 }
