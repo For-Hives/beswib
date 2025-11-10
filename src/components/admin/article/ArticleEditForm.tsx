@@ -317,9 +317,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 			setTimeout(() => setProcessProgress({ current: 0, total: 10, message: '' }), 500)
 
 			if (result.success && result.data) {
-				toast.success(
-					t.form.messages.success.translationGenerated.replace('{locale}', localeNames[targetLocale])
-				)
+				toast.success(t.form.messages.success.translationGenerated.replace('{locale}', localeNames[targetLocale]))
 				setRefreshTranslations(prev => prev + 1)
 			} else {
 				toast.error(
@@ -421,9 +419,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 												? t.form.actions.generateAllTranslations.generating
 												: t.form.actions.generateAllTranslations.label}
 										</Button>
-										<p className="text-muted-foreground mt-2 text-sm">
-											{t.form.translation.automaticDescription}
-										</p>
+										<p className="text-muted-foreground mt-2 text-sm">{t.form.translation.automaticDescription}</p>
 									</div>
 
 									{/* Individual Language Buttons */}
@@ -723,7 +719,8 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 										maxLength={60}
 									/>
 									<p className="text-muted-foreground mt-1 text-sm">
-										{seoTitle?.length || 0}/60 {t.form.fields.seoTitle.charactersCount} - {t.form.fields.seoTitle.helper}
+										{seoTitle?.length || 0}/60 {t.form.fields.seoTitle.charactersCount} -{' '}
+										{t.form.fields.seoTitle.helper}
 									</p>
 									{errors.seoTitle && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.seoTitle.message}</p>
