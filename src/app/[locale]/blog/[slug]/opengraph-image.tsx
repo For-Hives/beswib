@@ -85,6 +85,8 @@ export default async function Image({ params }: { params: Promise<ArticleOpenGra
 				article={article ?? undefined}
 				locale={locale}
 				readTime={readTime}
+				host={host}
+				protocol={protocol}
 			/>,
 			{
 				...size,
