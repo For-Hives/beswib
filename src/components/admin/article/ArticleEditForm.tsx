@@ -28,7 +28,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea'
 import { i18n, type Locale, localeFlags, localeNames } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { pb } from '@/lib/services/pocketbase'
+import { getArticleImageUrl } from '@/lib/utils/imageUrl'
 import type { Article } from '@/models/article.model'
 import type { ImageWithAlt } from '@/models/imageWithAlt.model'
 import type { SEO } from '@/models/seo.model'
@@ -75,10 +75,8 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	const [seoTitle, setSeoTitle] = useState(article.expand?.seo?.title || '')
 	const [seoDescription, setSeoDescription] = useState(article.expand?.seo?.description || '')
 
-	// Generate current image URL if exists
-	const currentImageUrl = article.expand?.image?.image
-		? pb.files.getUrl(article.expand.image, article.expand.image.image)
-		: null
+	// Generate current image URL if exists (absolute URL based on environment)
+	const currentImageUrl = getArticleImageUrl(article)
 
 	const {
 		setValue,

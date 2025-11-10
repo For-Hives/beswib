@@ -3,7 +3,7 @@
 import Link from 'next/link'
 
 import { LazyImage } from '@/components/ui/lazy-image'
-import { pb } from '@/lib/services/pocketbase'
+import { getArticleImageUrl } from '@/lib/utils/imageUrl'
 import type { Article } from '@/models/article.model'
 import type { ImageWithAlt } from '@/models/imageWithAlt.model'
 import type { SEO } from '@/models/seo.model'
@@ -41,9 +41,8 @@ export function BlogSection({ articles, locale, translations }: BlogSectionProps
 			) : (
 				<div className="z-10 grid gap-6 pt-8 md:grid-cols-2 lg:grid-cols-3">
 					{articles.map(article => {
-						const imageUrl = article.expand?.image?.image
-							? pb.files.getUrl(article.expand.image, article.expand.image.image)
-							: null
+						// Get absolute image URL based on environment (staging vs production)
+						const imageUrl = getArticleImageUrl(article)
 
 						const formattedDate = new Date(article.created).toLocaleDateString(locale, {
 							day: '2-digit',

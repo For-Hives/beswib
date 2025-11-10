@@ -7,7 +7,7 @@ import blogTranslations from '@/components/blog/locales.json'
 import { Breadcrumb, type BreadcrumbItem } from '@/components/ui/breadcrumb'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { pb } from '@/lib/services/pocketbase'
+import { getArticleImageUrl } from '@/lib/utils/imageUrl'
 import type { Article } from '@/models/article.model'
 import { fetchArticleBySlug } from '@/services/article.services'
 
@@ -106,10 +106,8 @@ export async function generateMetadata({ params }: { params: Promise<ArticlePage
 	const title = article.expand?.seo?.title || article.title
 	const description = article.expand?.seo?.description || article.description || article.extract
 
-	// Get image URL for OpenGraph
-	const imageUrl = article.expand?.image?.image
-		? pb.files.getUrl(article.expand.image, article.expand.image.image)
-		: null
+	// Get absolute image URL for OpenGraph (based on environment)
+	const imageUrl = getArticleImageUrl(article)
 
 	return {
 		title: `${title} | Beswib`,

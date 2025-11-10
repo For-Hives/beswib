@@ -2,8 +2,8 @@
 import blogTranslations from '@/components/blog/locales.json'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { pb } from '@/lib/services/pocketbase'
 import { formatDateWithLocale } from '@/lib/utils/date'
+import { getArticleImageUrl } from '@/lib/utils/imageUrl'
 import type { Article } from '@/models/article.model'
 import type { ImageWithAlt } from '@/models/imageWithAlt.model'
 
@@ -15,18 +15,11 @@ interface ArticleCardProps {
 	protocol: string
 }
 
-export default function ArticleCard({ article, locale, readTime, host, protocol }: Readonly<ArticleCardProps>) {
+export default function ArticleCard({ article, locale, readTime }: Readonly<ArticleCardProps>) {
 	const t = getTranslations(locale, blogTranslations)
 
-	console.log('article', article)
-	// Get article image URL - convert to absolute URL for OG image environment
-	let imageUrl: string | null = null
-	if (article.expand?.image?.image) {
-		const relativeUrl = pb.files.getURL(article.expand.image, article.expand.image.image)
-		// Convert relative URL to absolute URL
-		imageUrl = relativeUrl.startsWith('http') ? relativeUrl : `${protocol}://${host}${relativeUrl}`
-		console.log('imageUrl', imageUrl)
-	}
+	// Get article image URL - uses absolute URL based on environment (staging vs production)
+	const imageUrl = getArticleImageUrl(article)
 
 	return (
 		<div

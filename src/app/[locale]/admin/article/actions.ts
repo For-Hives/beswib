@@ -14,6 +14,7 @@ import {
 	getAllArticles,
 	updateArticleById,
 } from '@/services/article.services'
+import { getImageUrl } from '@/lib/utils/imageUrl'
 import { generateImageAltText } from '@/services/forvoyez.services'
 import { generateArticleTranslation, generateSEOContent } from '@/services/gemini.services'
 import { createSEO } from '@/services/seo.services'
@@ -722,10 +723,9 @@ export async function generateArticleTranslationAction(
 			} else {
 				// Create new image record with translated alt text but same image file
 				const imageFile = sourceArticle.expand.image.image
-				const pb = await import('@/lib/services/pocketbase').then(m => m.pb)
 
-				// Download original image
-				const imageUrl = pb.files.getUrl(sourceArticle.expand.image, imageFile)
+				// Download original image using absolute URL (based on environment)
+				const imageUrl = getImageUrl(sourceArticle.expand.image, imageFile)
 				const imageResponse = await fetch(imageUrl)
 				const imageBlob = await imageResponse.blob()
 				const imageFileObj = new File([imageBlob], imageFile, { type: imageBlob.type })
