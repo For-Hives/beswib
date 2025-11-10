@@ -264,3 +264,32 @@ export async function fetchArticlesByLocale(
 		return []
 	}
 }
+
+/**
+ * Fetches the slug of a translated article given the current slug and target locale.
+ * @param currentSlug The slug of the current article
+ * @param targetLocale The locale to get the translated slug for
+ * @returns The slug of the translated article, or null if not found
+ */
+export async function getTranslatedArticleSlug(currentSlug: string, targetLocale: string): Promise<string | null> {
+	if (!currentSlug || !targetLocale) {
+		return null
+	}
+
+	try {
+		// First, get the current article to find its translationGroup
+		const currentArticle = await fetchArticleBySlug(currentSlug, false)
+		if (!currentArticle || !currentArticle.translationGroup) {
+			return null
+		}
+
+		// Then, find the article in the target locale with the same translationGroup
+		const translatedArticles = await fetchArticlesByTranslationGroup(currentArticle.translationGroup, false)
+		const translatedArticle = translatedArticles.find(article => article.locale === targetLocale && !article.isDraft)
+
+		return translatedArticle ? translatedArticle.slug : null
+	} catch (error: unknown) {
+		console.error(`Error fetching translated article slug for "${currentSlug}" to locale "${targetLocale}":`, error)
+		return null
+	}
+}
