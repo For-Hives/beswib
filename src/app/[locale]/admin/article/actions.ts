@@ -722,7 +722,7 @@ export async function generateArticleTranslationAction(
 			logs.push(`✓ Translation updated: ${existingTranslation.id}`)
 		} else {
 			logs.push('📝 Creating new translation article...')
-			// Create new translation
+			// Create new translation (inherit draft status from source article)
 			result = await createArticle({
 				title: translatedContent.title,
 				slug: translatedContent.slug,
@@ -733,6 +733,7 @@ export async function generateArticleTranslationAction(
 				image: imageId,
 				seo: seoId,
 				translationGroup: sourceArticle.translationGroup || sourceArticle.id,
+				isDraft: sourceArticle.isDraft, // Inherit draft status from source
 			})
 
 			// If source article doesn't have translationGroup, update it
@@ -818,7 +819,9 @@ export async function publishAllTranslationsAction(translationGroup: string): Pr
 			}
 		}
 
-		console.info(`Admin ${adminUser.email} published ${publishedCount} articles in translation group: ${translationGroup}`)
+		console.info(
+			`Admin ${adminUser.email} published ${publishedCount} articles in translation group: ${translationGroup}`
+		)
 
 		return {
 			success: true,

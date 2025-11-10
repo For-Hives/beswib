@@ -494,6 +494,12 @@
 					"updating": "Actualizando artículo..."
 				},
 				"cancel": "Cancelar",
+				"publishAll": {
+					"label": "Publicar todas las traducciones",
+					"publishing": "Publicando...",
+					"success": "¡Todas las traducciones se han publicado con éxito!",
+					"error": "Error al publicar las traducciones"
+				},
 				"generateAlt": {
 					"label": "Generar IA",
 					"generating": "Generando..."
@@ -684,6 +690,12 @@
 					"updating": "Aggiornamento articolo..."
 				},
 				"cancel": "Annulla",
+				"publishAll": {
+					"label": "Pubblica tutte le traduzioni",
+					"publishing": "Pubblicazione...",
+					"success": "Tutte le traduzioni sono state pubblicate con successo!",
+					"error": "Errore nella pubblicazione delle traduzioni"
+				},
 				"generateAlt": {
 					"label": "Genera IA",
 					"generating": "Generazione..."
@@ -874,6 +886,12 @@
 					"updating": "Artikel wird aktualisiert..."
 				},
 				"cancel": "Abbrechen",
+				"publishAll": {
+					"label": "Alle Übersetzungen veröffentlichen",
+					"publishing": "Wird veröffentlicht...",
+					"success": "Alle Übersetzungen wurden erfolgreich veröffentlicht!",
+					"error": "Fehler beim Veröffentlichen der Übersetzungen"
+				},
 				"generateAlt": {
 					"label": "KI generieren",
 					"generating": "Wird generiert..."
@@ -1064,6 +1082,12 @@
 					"updating": "Se actualizează articolul..."
 				},
 				"cancel": "Anulează",
+				"publishAll": {
+					"label": "Publică toate traducerile",
+					"publishing": "Se publică...",
+					"success": "Toate traducerile au fost publicate cu succes!",
+					"error": "Eroare la publicarea traducerilor"
+				},
 				"generateAlt": {
 					"label": "Generează AI",
 					"generating": "Se generează..."
@@ -1254,6 +1278,12 @@
 					"updating": "Atualizando artigo..."
 				},
 				"cancel": "Cancelar",
+				"publishAll": {
+					"label": "Publicar todas as traduções",
+					"publishing": "Publicando...",
+					"success": "Todas as traduções foram publicadas com sucesso!",
+					"error": "Erro ao publicar as traduções"
+				},
 				"generateAlt": {
 					"label": "Gerar IA",
 					"generating": "Gerando..."
@@ -1444,6 +1474,12 @@
 					"updating": "Artikel wordt bijgewerkt..."
 				},
 				"cancel": "Annuleren",
+				"publishAll": {
+					"label": "Alle vertalingen publiceren",
+					"publishing": "Publiceren...",
+					"success": "Alle vertalingen zijn succesvol gepubliceerd!",
+					"error": "Fout bij het publiceren van vertalingen"
+				},
 				"generateAlt": {
 					"label": "AI genereren",
 					"generating": "Genereren..."
@@ -1634,6 +1670,12 @@
 					"updating": "기사 업데이트 중..."
 				},
 				"cancel": "취소",
+				"publishAll": {
+					"label": "모든 번역 게시",
+					"publishing": "게시 중...",
+					"success": "모든 번역이 성공적으로 게시되었습니다!",
+					"error": "번역 게시 중 오류 발생"
+				},
 				"generateAlt": {
 					"label": "AI 생성",
 					"generating": "생성 중..."
