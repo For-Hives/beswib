@@ -8,8 +8,6 @@ import { generateLocaleParams, type LocaleParams } from '@/lib/generation/static
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { pb } from '@/lib/services/pocketbase'
 import type { Article } from '@/models/article.model'
-import type { ImageWithAlt } from '@/models/imageWithAlt.model'
-import type { SEO } from '@/models/seo.model'
 import { fetchArticleBySlug } from '@/services/article.services'
 
 interface ArticlePageParams extends LocaleParams {
@@ -39,10 +37,6 @@ export default async function ArticlePage({ params }: { params: Promise<ArticleP
 	const wordCount = article.content ? article.content.split(/\s+/).length : 0
 	const readTime = Math.max(1, Math.ceil(wordCount / 200))
 
-	// Get image URL if available
-	const imageUrl =
-		article.expand?.image?.image ? pb.files.getUrl(article.expand.image, article.expand.image.image) : null
-
 	return (
 		<section className="py-12 md:py-16">
 			<div className="container">
@@ -54,7 +48,7 @@ export default async function ArticlePage({ params }: { params: Promise<ArticleP
 					{/* Sidebar - Left on desktop, bottom on mobile */}
 					<div className="order-last md:order-none md:col-span-4 lg:col-span-3">
 						<ArticleSidebar
-							createdAt={article.created}
+							createdAt={article.created.toString()}
 							locale={locale}
 							readTime={readTime}
 							title={article.title}
@@ -67,18 +61,6 @@ export default async function ArticlePage({ params }: { params: Promise<ArticleP
 						<article className="prose prose-neutral dark:prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-h1:text-4xl prose-h1:font-extrabold prose-h2:text-3xl prose-h3:text-2xl prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-primary prose-blockquote:italic prose-strong:font-semibold prose-code:rounded prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:bg-muted prose-img:rounded-lg prose-img:shadow-lg">
 							{/* Article Header */}
 							<h1>{article.title}</h1>
-
-							{/* Featured Image */}
-							{imageUrl && (
-								<img
-									alt={article.expand?.image?.alt ?? article.title}
-									className="w-full"
-									src={imageUrl}
-								/>
-							)}
-
-							{/* Article Extract/Description */}
-							{article.extract && <p className="lead text-xl text-muted-foreground">{article.extract}</p>}
 
 							{/* Article Content (HTML from rich text editor) */}
 							<div dangerouslySetInnerHTML={{ __html: article.content }} />
@@ -107,8 +89,9 @@ export async function generateMetadata({ params }: { params: Promise<ArticlePage
 	const description = article.expand?.seo?.description || article.description || article.extract
 
 	// Get image URL for OpenGraph
-	const imageUrl =
-		article.expand?.image?.image ? pb.files.getUrl(article.expand.image, article.expand.image.image) : null
+	const imageUrl = article.expand?.image?.image
+		? pb.files.getUrl(article.expand.image, article.expand.image.image)
+		: null
 
 	return {
 		title: `${title} | Beswib`,
@@ -117,8 +100,8 @@ export async function generateMetadata({ params }: { params: Promise<ArticlePage
 			title,
 			description,
 			type: 'article',
-			publishedTime: article.created,
-			modifiedTime: article.updated,
+			publishedTime: article.created.toString(),
+			modifiedTime: article.updated.toString(),
 			locale,
 			...(imageUrl && {
 				images: [

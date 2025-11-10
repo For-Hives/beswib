@@ -465,7 +465,9 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 							<div className="grid grid-cols-1 gap-6">
 								{/* Image Upload */}
 								<div className="col-span-full">
-									<Label className="text-foreground mb-2 block text-base font-medium">{t.form.fields.image.label}</Label>
+									<Label className="text-foreground mb-2 block text-base font-medium">
+										{t.form.fields.image.label}
+									</Label>
 									<p className="text-muted-foreground mb-4 text-sm">{t.form.fields.image.helper}</p>
 									<div className="bg-card/50 border-border/30 rounded-xl border backdrop-blur-sm">
 										<FileUpload locale={locale} onChange={handleFileUploadWithValidation} />
@@ -548,7 +550,8 @@ export default function ArticleCreationForm({ locale, onCancel, onSuccess }: Art
 										maxLength={60}
 									/>
 									<p className="text-muted-foreground mt-1 text-sm">
-										{seoTitle?.length || 0}/60 {t.form.fields.seoTitle.charactersCount} - {t.form.fields.seoTitle.helper}
+										{seoTitle?.length || 0}/60 {t.form.fields.seoTitle.charactersCount} -{' '}
+										{t.form.fields.seoTitle.helper}
 									</p>
 									{errors.seoTitle && (
 										<p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.seoTitle.message}</p>

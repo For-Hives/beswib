@@ -1,7 +1,6 @@
 'use client'
 
 import { Book, Calendar, Clock, Share2 } from 'lucide-react'
-import { usePathname } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
 
@@ -19,7 +18,6 @@ interface ArticleSidebarProps {
 }
 
 export function ArticleSidebar({ createdAt, locale, readTime, title, translations }: ArticleSidebarProps) {
-	const pathname = usePathname()
 	const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
 
 	const formattedDate = new Date(createdAt).toLocaleDateString(locale, {
@@ -113,6 +111,7 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 										rel="noopener noreferrer"
 										target="_blank"
 									>
+										{/* biome-ignore lint/performance/noImgElement: External social media icons */}
 										<img alt={link.name} className="size-5" src={link.icon} />
 									</a>
 								</li>

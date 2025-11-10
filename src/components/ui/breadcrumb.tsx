@@ -19,15 +19,13 @@ export function Breadcrumb({ className, items }: BreadcrumbProps) {
 			<ol className="flex items-center space-x-1">
 				{items.map((item, index) => {
 					const isLast = index === items.length - 1
+					const key = item.href || item.label
 
 					return (
-						<li key={index} className="flex items-center">
+						<li key={`${key}-${index}`} className="flex items-center">
 							{index > 0 && <ChevronRight className="text-muted-foreground mx-1 size-4" />}
 							{item.href && !isLast ? (
-								<Link
-									className="text-muted-foreground hover:text-foreground transition-colors"
-									href={item.href}
-								>
+								<Link className="text-muted-foreground hover:text-foreground transition-colors" href={item.href}>
 									{item.label}
 								</Link>
 							) : (
