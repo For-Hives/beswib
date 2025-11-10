@@ -16,6 +16,7 @@ import {
 	updateArticleAction,
 } from '@/app/[locale]/admin/article/actions'
 import ArticleTranslationTabs from '@/components/admin/article/ArticleTranslationTabs'
+import ProcessLoader from '@/components/admin/article/ProcessLoader'
 import { Button } from '@/components/ui/button'
 import { FileUpload } from '@/components/ui/file-upload'
 import { Input } from '@/components/ui/inputAlt'
@@ -62,6 +63,7 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	const [isGeneratingAllTranslations, setIsGeneratingAllTranslations] = useState(false)
 	const [content, setContent] = useState(article.content || '')
 	const [refreshTranslations, setRefreshTranslations] = useState(0)
+	const [processProgress, setProcessProgress] = useState({ current: 0, total: 10, message: '' })
 	const [localeState, setLocaleState] = useState<string>(article.locale || 'fr')
 	const [seoTitle, setSeoTitle] = useState(article.expand?.seo?.title || '')
 	const [seoDescription, setSeoDescription] = useState(article.expand?.seo?.description || '')
@@ -124,22 +126,23 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 		}
 
 		setIsGeneratingAlt(true)
+		setProcessProgress({ current: 0, total: 3, message: 'Generating alt text...' })
+		
 		try {
 			const formData = new FormData()
 			formData.append('image', imageFile)
 			formData.append('language', getValues('locale') || 'fr')
 
+			setProcessProgress({ current: 1, total: 3, message: 'Calling Forvoyez AI...' })
 			const result = await generateAltTextAction(formData)
 
-			// Display logs as toast notifications immediately
-			if (result.logs && result.logs.length > 0) {
-				result.logs.forEach(log => {
-					toast.info(log, { duration: 3000 })
-				})
-			}
+			setProcessProgress({ current: 2, total: 3, message: 'Processing result...' })
 
 			if (result.success && result.altText) {
 				setValue('imageAlt', result.altText, { shouldValidate: true })
+				setProcessProgress({ current: 3, total: 3, message: 'Complete!' })
+				setTimeout(() => setProcessProgress({ current: 0, total: 3, message: '' }), 500)
+				toast.success('Alt text generated successfully!')
 			} else {
 				toast.error(result.error || 'Failed to generate alt text')
 			}
@@ -162,6 +165,8 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 		}
 
 		setIsGeneratingSEO(true)
+		setProcessProgress({ current: 0, total: 3, message: 'Generating SEO...' })
+		
 		try {
 			const formData = new FormData()
 			formData.append('title', title)
@@ -169,20 +174,19 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 			if (extract) formData.append('extract', extract)
 			formData.append('locale', getValues('locale') || 'fr')
 
+			setProcessProgress({ current: 1, total: 3, message: 'Calling Gemini AI...' })
 			const result = await generateSEOAction(formData)
 
-			// Display logs as toast notifications immediately
-			if (result.logs && result.logs.length > 0) {
-				result.logs.forEach(log => {
-					toast.info(log, { duration: 3000 })
-				})
-			}
+			setProcessProgress({ current: 2, total: 3, message: 'Processing result...' })
 
 			if (result.success && result.seoTitle && result.seoDescription) {
 				setSeoTitle(result.seoTitle)
 				setSeoDescription(result.seoDescription)
 				setValue('seoTitle', result.seoTitle, { shouldValidate: true })
 				setValue('seoDescription', result.seoDescription, { shouldValidate: true })
+				setProcessProgress({ current: 3, total: 3, message: 'Complete!' })
+				setTimeout(() => setProcessProgress({ current: 0, total: 3, message: '' }), 500)
+				toast.success('SEO content generated successfully!')
 			} else {
 				toast.error(result.error || 'Failed to generate SEO content')
 			}
@@ -272,18 +276,39 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 	// Handle translation generation for a single language
 	const handleGenerateTranslation = async (targetLocale: Locale) => {
 		setIsGeneratingTranslation(targetLocale)
+		setProcessProgress({ current: 0, total: 10, message: `Translating to ${localeNames[targetLocale]}...` })
+		
 		try {
-			const result = await generateArticleTranslationAction(article.id, targetLocale)
+			// Simulate progress based on expected steps
+			const progressSteps = [
+				{ step: 1, message: 'Loading source article...' },
+				{ step: 2, message: 'Extracting images...' },
+				{ step: 4, message: 'Calling Gemini AI...' },
+				{ step: 6, message: 'Processing translation...' },
+				{ step: 7, message: 'Creating image...' },
+				{ step: 8, message: 'Creating SEO...' },
+				{ step: 9, message: 'Creating article...' },
+			]
 
-			// Display logs as toast notifications immediately
-			if (result.logs && result.logs.length > 0) {
-				result.logs.forEach(log => {
-					toast.info(log, { duration: 3500 })
+			// Update progress incrementally
+			const progressInterval = setInterval(() => {
+				setProcessProgress(prev => {
+					const nextStep = progressSteps.find(s => s.step > prev.current)
+					if (nextStep && prev.current < 9) {
+						return { current: nextStep.step, total: 10, message: nextStep.message }
+					}
+					return prev
 				})
-			}
+			}, 800)
+
+			const result = await generateArticleTranslationAction(article.id, targetLocale)
+			clearInterval(progressInterval)
+
+			setProcessProgress({ current: 10, total: 10, message: 'Complete!' })
+			setTimeout(() => setProcessProgress({ current: 0, total: 10, message: '' }), 500)
 
 			if (result.success && result.data) {
-				// Refresh translations display
+				toast.success(`Translation to ${localeNames[targetLocale]} generated successfully!`)
 				setRefreshTranslations(prev => prev + 1)
 			} else {
 				toast.error(result.error || `Failed to generate translation to ${localeNames[targetLocale]}`)
@@ -747,6 +772,14 @@ export default function ArticleEditForm({ article, locale }: ArticleEditFormProp
 					</div>
 				</form>
 			</div>
+
+			{/* Process Loader - Fixed bottom right */}
+			<ProcessLoader
+				isLoading={processProgress.current > 0}
+				currentStep={processProgress.current}
+				totalSteps={processProgress.total}
+				message={processProgress.message}
+			/>
 		</div>
 	)
 }
