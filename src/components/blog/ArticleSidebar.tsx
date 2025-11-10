@@ -1,10 +1,11 @@
 'use client'
 
-import { Book, Calendar, Check, Clock, Copy, Share2 } from 'lucide-react'
+import { Book, Calendar, Check, Clock, Copy, Facebook, Instagram, Linkedin, Share2, Twitter } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
+import { SOCIALS } from '@/lib/utils/social'
 
 interface ArticleSidebarProps {
 	createdAt: string
@@ -13,6 +14,8 @@ interface ArticleSidebarProps {
 	title: string
 	translations: {
 		article: string
+		copied: string
+		copyLink: string
 		publishedOn: string
 		readTime: string
 		shareArticle: string
@@ -31,19 +34,23 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 
 	const shareLinks = [
 		{
-			name: 'X (Twitter)',
-			icon: 'https://cdn.simpleicons.org/x/000000',
-			iconDark: 'https://cdn.simpleicons.org/x/ffffff',
+			name: 'Twitter',
+			icon: Twitter,
 			url: `https://x.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}`,
 		},
 		{
 			name: 'LinkedIn',
-			icon: 'https://cdn.simpleicons.org/linkedin',
+			icon: Linkedin,
 			url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`,
 		},
 		{
+			name: 'Instagram',
+			icon: Instagram,
+			url: SOCIALS.instagram,
+		},
+		{
 			name: 'Facebook',
-			icon: 'https://cdn.simpleicons.org/facebook',
+			icon: Facebook,
 			url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`,
 		},
 	]
@@ -113,29 +120,22 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 				<div className="p-5">
 					<div className="space-y-4">
 						<ul className="flex items-center gap-2">
-							{shareLinks.map(link => (
-								<li key={link.name}>
-									<a
-										aria-label={`Share on ${link.name}`}
-										className="border-border bg-muted/50 hover:bg-muted flex size-10 items-center justify-center rounded-full border transition-colors"
-										href={link.url}
-										rel="noopener noreferrer"
-										target="_blank"
-									>
-										{/* biome-ignore lint/performance/noImgElement: External social media icons */}
-										<img
-											alt={link.name}
-											className="size-5 dark:invert-0"
-											src={link.iconDark || link.icon}
-											style={
-												link.name === 'X (Twitter)'
-													? { filter: 'var(--tw-invert)' }
-													: undefined
-											}
-										/>
-									</a>
-								</li>
-							))}
+							{shareLinks.map(link => {
+								const IconComponent = link.icon
+								return (
+									<li key={link.name}>
+										<a
+											aria-label={`Share on ${link.name}`}
+											className="border-border bg-muted/50 hover:bg-muted flex size-10 items-center justify-center rounded-full border transition-colors"
+											href={link.url}
+											rel="noopener noreferrer"
+											target="_blank"
+										>
+											<IconComponent className="size-5" />
+										</a>
+									</li>
+								)
+							})}
 						</ul>
 						<Button
 							className="w-full"
@@ -147,12 +147,12 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 							{isCopied ? (
 								<>
 									<Check className="mr-2 size-4" />
-									Copied!
+									{translations.copied}
 								</>
 							) : (
 								<>
 									<Copy className="mr-2 size-4" />
-									Copy Link
+									{translations.copyLink}
 								</>
 							)}
 						</Button>
