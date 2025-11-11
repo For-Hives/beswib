@@ -167,7 +167,11 @@ interface ArticlesTranslations {
 }
 
 // Custom filter function for multi-column searching
-const multiColumnFilterFn: FilterFn<Article> = (row, _columnId, filterValue) => {
+const multiColumnFilterFn: FilterFn<Article & { translationCount?: number; publishedCount?: number }> = (
+	row,
+	_columnId,
+	filterValue
+) => {
 	const searchableRowContent =
 		`${row.original.title ?? ''} ${row.original.slug ?? ''} ${row.original.description ?? ''}`.toLowerCase()
 	const searchTerm = String(filterValue ?? '').toLowerCase()
@@ -199,8 +203,8 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 		},
 	])
 
-	// Define columns
-	const columns: ColumnDef<Article>[] = useMemo(
+	// Define columns with extended Article type including translation stats
+	const columns: ColumnDef<Article & { translationCount?: number; publishedCount?: number }>[] = useMemo(
 		() => [
 			{
 				id: 'select',
