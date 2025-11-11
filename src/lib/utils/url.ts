@@ -1,7 +1,7 @@
 /**
  * Determines the absolute base URL for the application.
  * Prioritizes environment variables over dynamic header detection.
- * 
+ *
  * @returns Object with protocol and host separated, or full baseUrl
  */
 export function getAbsoluteUrl(): { protocol: string; host: string; baseUrl: string } {
@@ -17,6 +17,7 @@ export function getAbsoluteUrl(): { protocol: string; host: string; baseUrl: str
 				baseUrl: `${url.protocol}//${url.host}`,
 			}
 		} catch (error) {
+			console.error('Error validating URL:', error)
 			console.warn('Invalid SERVER_URL or NEXT_URL_SERVER_URL format:', serverUrl)
 			// Continue to fallback
 		}
@@ -35,7 +36,7 @@ export function getAbsoluteUrl(): { protocol: string; host: string; baseUrl: str
  * Determines the absolute base URL using Next.js headers (async version).
  * This is used in server components where headers() is available.
  * Still prioritizes environment variables over header detection.
- * 
+ *
  * @param requestHeaders - Optional headers object from next/headers
  * @returns Object with protocol and host separated, or full baseUrl
  */
@@ -54,6 +55,7 @@ export async function getAbsoluteUrlFromHeaders(
 				baseUrl: `${url.protocol}//${url.host}`,
 			}
 		} catch (error) {
+			console.error('Error validating URL:', error)
 			console.warn('Invalid SERVER_URL or NEXT_URL_SERVER_URL format:', serverUrl)
 			// Continue to fallback
 		}
@@ -80,4 +82,3 @@ export async function getAbsoluteUrlFromHeaders(
 		baseUrl: 'http://localhost:3000',
 	}
 }
-

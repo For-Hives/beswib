@@ -1,848 +1,848 @@
 {
-  "en": {
-    "events": {
-      "title": "Browse Running Events & Race Bibs | Trail, Marathon, Triathlon Bibs Available",
-      "description": "Discover thousands of running events worldwide. Find and buy verified bibs for trail, marathon, triathlon, and cycling. Secure PayPal payments and instant confirmation.",
-      "searchPlaceholder": "Search events...",
-      "noEvents": "No events available",
-      "loading": "Loading events...",
-      "searchCityPlaceholder": "Search a city...",
-      "cityFilterTooltip": "Only cities with scheduled events are displayed",
-      "filters": {
-        "all": "All Events",
-        "location": "Location",
-        "date": "Date",
-        "category": "Category",
-        "price": "Price",
-        "participants": "Participants",
-        "distance": "Distance",
-        "allCities": "All cities",
-        "sortPlaceholder": "Sort by...",
-        "sortByDate": "Sort by date",
-        "sortByPrice": "Sort by price",
-        "sortByParticipants": "Sort by participants",
-        "sortByDistance": "Sort by distance",
-        "priceRanges": {
-          "low": "0€ – 20€",
-          "medium": "20€ – 50€",
-          "high": "50€ – 100€",
-          "veryHigh": "100€+"
-        },
-        "participantRanges": {
-          "small": "≤ 100 participants",
-          "medium": "100 – 500",
-          "large": "500 – 1 000",
-          "veryLarge": "1 000+"
-        },
-        "distanceRanges": {
-          "short": "≤ 10 km",
-          "halfMarathon": "10 – 21 km",
-          "marathon": "21 – 42 km",
-          "ultra": "42 – 100 km",
-          "veryLong": "100 km+"
-        }
-      },
-      "raceTypes": {
-        "triathlon": "Triathlon",
-        "trail": "Trail",
-        "road": "Road",
-        "cycle": "Cycle",
-        "all": "All"
-      },
-      "groupLabels": {
-        "unknownDate": "Unknown date",
-        "unknownPrice": "Unknown price",
-        "unknownParticipants": "Unknown participants",
-        "unknownDistance": "Unknown distance"
-      },
-      "countLabel": "{count} event{count, plural, one {} other {s}} found",
-      "calendarView": "Calendar view",
-      "listView": "List view",
-      "featuredTitle": "Upcoming Events",
-      "featuredSubtitle": "Next 30 days",
-      "allEventsTitle": "All Events",
-      "noResultsTitle": "No events found",
-      "noResultsSubtitle": "Try changing your search criteria",
-      "calendarTitle": "Events Calendar",
-      "eventCard": {
-        "viewEvent": "View Event",
-        "viewDetails": "View Details",
-        "bibsAvailable": "bibs available",
-        "soldOut": "Sold Out",
-        "checkBibs": "Bib verification...",
-        "viewBibs": "View bibs ({count})",
-        "joinWaitlist": "Join waitlist",
-        "elevationGain": "Elevation Gain",
-        "fromPrice": "From {price}€",
-        "available": "Available",
-        "waitlist": "Waitlist",
-        "loading": "Loading...",
-        "bestPrice": "Best price",
-        "officialPrice": "Official price"
-      },
-      "OG": {
-        "title": "Your Sporting Events",
-        "description": "Browse our **events** and find **race bibs** for upcoming events!"
-      },
-      "noEventsToDisplay": "No events to display.",
-      "eventListTitleClient": "Event List (Client Component):",
-      "emptyResults": {
-        "title": "No events match your search",
-        "subtitle": "Try adjusting your filters. If you think we're missing an event you're interested in, feel free to contact us.",
-        "cta": "Contact us"
-      }
-    }
-  },
-  "fr": {
-    "events": {
-      "title": "Parcourir Événements Running & Dossards | Trail, Marathon, Triathlon Disponibles",
-      "description": "Découvrez des milliers d'événements de course dans le monde entier. Trouvez et achetez des dossards vérifiés pour trail, marathon, triathlon et cyclisme. Paiements PayPal sécurisés et confirmation instantanée.",
-      "searchPlaceholder": "Rechercher des événements...",
-      "noEvents": "Aucun événement disponible",
-      "loading": "Chargement des événements...",
-      "searchCityPlaceholder": "Rechercher une ville...",
-      "cityFilterTooltip": "Seules les villes avec des événements programmés sont affichées",
-      "filters": {
-        "all": "Tous les événements",
-        "location": "Lieu",
-        "date": "Date",
-        "category": "Catégorie",
-        "price": "Prix",
-        "participants": "Participants",
-        "distance": "Distance",
-        "allCities": "Toutes les villes",
-        "sortPlaceholder": "Trier par...",
-        "sortByDate": "Trier par date",
-        "sortByPrice": "Trier par prix",
-        "sortByParticipants": "Trier par participants",
-        "sortByDistance": "Trier par distance",
-        "priceRanges": {
-          "low": "0€ – 20€",
-          "medium": "20€ – 50€",
-          "high": "50€ – 100€",
-          "veryHigh": "100€+"
-        },
-        "participantRanges": {
-          "small": "≤ 100 participants",
-          "medium": "100 – 500",
-          "large": "500 – 1 000",
-          "veryLarge": "1 000+"
-        },
-        "distanceRanges": {
-          "short": "≤ 10 km",
-          "halfMarathon": "10 – 21 km",
-          "marathon": "21 – 42 km",
-          "ultra": "42 – 100 km",
-          "veryLong": "100 km+"
-        }
-      },
-      "raceTypes": {
-        "triathlon": "Triathlon",
-        "trail": "Trail",
-        "road": "Route",
-        "cycle": "Vélo",
-        "all": "Tous"
-      },
-      "groupLabels": {
-        "unknownDate": "Date inconnue",
-        "unknownPrice": "Prix inconnu",
-        "unknownParticipants": "Participants inconnus",
-        "unknownDistance": "Distance inconnue"
-      },
-      "countLabel": "{count} événement{count, plural, one {} other {s}} trouvé{count, plural, one {} other {s}}",
-      "calendarView": "Vue calendrier",
-      "listView": "Vue liste",
-      "featuredTitle": "Événements à venir",
-      "featuredSubtitle": "30 prochains jours",
-      "allEventsTitle": "Tous les événements",
-      "noResultsTitle": "Aucun événement trouvé",
-      "noResultsSubtitle": "Essayez de modifier vos critères de recherche",
-      "calendarTitle": "Calendrier des événements",
-      "eventCard": {
-        "viewEvent": "Voir l'événement",
-        "viewDetails": "Voir les détails",
-        "bibsAvailable": "dossards disponibles",
-        "soldOut": "Épuisé",
-        "checkBibs": "Vérification des dossards...",
-        "viewBibs": "Voir les dossards ({count})",
-        "joinWaitlist": "Rejoindre la liste d'attente",
-        "elevationGain": "Dénivelé positif",
-        "fromPrice": "À partir de {price}€",
-        "available": "Disponible",
-        "waitlist": "Liste d'attente",
-        "loading": "Chargement...",
-        "bestPrice": "Meilleur prix",
-        "officialPrice": "Prix officiel"
-      },
-      "OG": {
-        "title": "Vos évènements sportifs",
-        "description": "Parcourez nos **évènements** et Trouvez des **dossards** pour les événements à **venir** !"
-      },
-      "noEventsToDisplay": "Aucun événement à afficher.",
-      "eventListTitleClient": "Liste des événements (Composant Client) :",
-      "emptyResults": {
-        "title": "Aucun événement ne correspond à votre recherche",
-        "subtitle": "Ajustez vos filtres. Si vous pensez que nous n'avons pas encore la course qui vous intéresse, contactez-nous.",
-        "cta": "Nous contacter"
-      }
-    }
-  },
-  "ko": {
-    "events": {
-      "title": "러닝 이벤트 & 경주 번호 둘러보기 | 트레일, 마라톤, 트라이애슬론 번호 사용 가능",
-      "description": "전 세계 수천 개의 러닝 이벤트를 발견하세요. 트레일 러닝, 마라톤, 트라이애슬론, 사이클링 이벤트를 위한 검증된 경주 번호를 찾고 구매하세요. 안전한 PayPal 결제와 즉시 이전 확인.",
-      "searchPlaceholder": "이벤트 검색...",
-      "noEvents": "사용 가능한 이벤트가 없습니다",
-      "loading": "이벤트를 로딩 중...",
-      "searchCityPlaceholder": "도시 검색...",
-      "cityFilterTooltip": "예정된 이벤트가 있는 도시만 표시됩니다",
-      "filters": {
-        "all": "모든 이벤트",
-        "location": "위치",
-        "date": "날짜",
-        "category": "카테고리",
-        "price": "가격",
-        "participants": "참가자",
-        "distance": "거리",
-        "allCities": "모든 도시",
-        "sortPlaceholder": "정렬 기준...",
-        "sortByDate": "날짜순 정렬",
-        "sortByPrice": "가격순 정렬",
-        "sortByParticipants": "참가자순 정렬",
-        "sortByDistance": "거리순 정렬",
-        "priceRanges": {
-          "low": "0€ – 20€",
-          "medium": "20€ – 50€",
-          "high": "50€ – 100€",
-          "veryHigh": "100€+"
-        },
-        "participantRanges": {
-          "small": "≤ 100명 참가자",
-          "medium": "100 – 500명",
-          "large": "500 – 1 000명",
-          "veryLarge": "1 000명+"
-        },
-        "distanceRanges": {
-          "short": "≤ 10 km",
-          "halfMarathon": "10 – 21 km",
-          "marathon": "21 – 42 km",
-          "ultra": "42 – 100 km",
-          "veryLong": "100 km+"
-        }
-      },
-      "raceTypes": {
-        "triathlon": "트라이애슬론",
-        "trail": "트레일",
-        "road": "도로",
-        "cycle": "사이클",
-        "all": "전체"
-      },
-      "groupLabels": {
-        "unknownDate": "알 수 없는 날짜",
-        "unknownPrice": "알 수 없는 가격",
-        "unknownParticipants": "알 수 없는 참가자",
-        "unknownDistance": "알 수 없는 거리"
-      },
-      "countLabel": "{count}개 이벤트를 찾았습니다",
-      "calendarView": "캘린더 보기",
-      "listView": "목록 보기",
-      "featuredTitle": "예정된 이벤트",
-      "featuredSubtitle": "다음 30일",
-      "allEventsTitle": "모든 이벤트",
-      "noResultsTitle": "이벤트를 찾을 수 없습니다",
-      "noResultsSubtitle": "검색 기준을 변경해보세요",
-      "calendarTitle": "이벤트 캘린더",
-      "eventCard": {
-        "viewEvent": "이벤트 보기",
-        "viewDetails": "상세 보기",
-        "bibsAvailable": "사용 가능한 빕",
-        "soldOut": "매진",
-        "checkBibs": "빕 확인 중...",
-        "viewBibs": "빕 보기 ({count})",
-        "joinWaitlist": "대기자 명단 참가",
-        "elevationGain": "고도 상승",
-        "fromPrice": "{price}€부터",
-        "available": "사용 가능",
-        "waitlist": "대기자 명단",
-        "loading": "로딩 중...",
-        "bestPrice": "최고 가격",
-        "officialPrice": "공식 가격"
-      },
-      "OG": {
-        "title": "당신의 스포츠 이벤트",
-        "description": "우리의 **이벤트**를 둘러보고 다가오는 이벤트를 위한 **레이스 비브**를 찾아보세요!"
-      },
-      "noEventsToDisplay": "표시할 이벤트가 없습니다.",
-      "eventListTitleClient": "이벤트 목록 (클라이언트 컴포넌트):",
-      "emptyResults": {
-        "title": "검색과 일치하는 이벤트가 없습니다",
-        "subtitle": "필터를 조정해 보세요. 관심 있는 이벤트가 없다면 문의해 주세요.",
-        "cta": "문의하기"
-      }
-    }
-  },
-  "es": {
-    "events": {
-      "title": "Explorar Eventos Running & Dorsales | Trail, Maratón, Triatlón Disponibles",
-      "description": "Descubre miles de eventos de running en todo el mundo. Encuentra y compra dorsales verificados para trail running, maratón, triatlón y ciclismo. Pagos PayPal seguros y confirmación instantánea.",
-      "searchPlaceholder": "Buscar eventos...",
-      "noEvents": "No hay eventos disponibles",
-      "loading": "Cargando eventos...",
-      "searchCityPlaceholder": "Buscar una ciudad...",
-      "cityFilterTooltip": "Solo se muestran ciudades con eventos programados",
-      "filters": {
-        "all": "Todos los eventos",
-        "location": "Ubicación",
-        "date": "Fecha",
-        "category": "Categoría",
-        "price": "Precio",
-        "participants": "Participantes",
-        "distance": "Distancia",
-        "allCities": "Todas las ciudades",
-        "sortPlaceholder": "Ordenar por...",
-        "sortByDate": "Ordenar por fecha",
-        "sortByPrice": "Ordenar por precio",
-        "sortByParticipants": "Ordenar por participantes",
-        "sortByDistance": "Ordenar por distancia",
-        "priceRanges": {
-          "low": "0€ – 20€",
-          "medium": "20€ – 50€",
-          "high": "50€ – 100€",
-          "veryHigh": "100€+"
-        },
-        "participantRanges": {
-          "small": "≤ 100 participantes",
-          "medium": "100 – 500",
-          "large": "500 – 1 000",
-          "veryLarge": "1 000+"
-        },
-        "distanceRanges": {
-          "short": "≤ 10 km",
-          "halfMarathon": "10 – 21 km",
-          "marathon": "21 – 42 km",
-          "ultra": "42 – 100 km",
-          "veryLong": "100 km+"
-        }
-      },
-      "raceTypes": {
-        "triathlon": "Triatlón",
-        "trail": "Trail",
-        "road": "Ruta",
-        "cycle": "Ciclismo",
-        "all": "Todos"
-      },
-      "groupLabels": {
-        "unknownDate": "Fecha desconocida",
-        "unknownPrice": "Precio desconocido",
-        "unknownParticipants": "Participantes desconocidos",
-        "unknownDistance": "Distancia desconocida"
-      },
-      "countLabel": "{count} evento{count, plural, one {} other {s}} encontrado{count, plural, one {} other {s}}",
-      "calendarView": "Vista de calendario",
-      "listView": "Vista de lista",
-      "featuredTitle": "Eventos próximos",
-      "featuredSubtitle": "Próximos 30 días",
-      "allEventsTitle": "Todos los eventos",
-      "noResultsTitle": "No se encontraron eventos",
-      "noResultsSubtitle": "Intenta cambiar tus criterios de búsqueda",
-      "calendarTitle": "Calendario de eventos",
-      "eventCard": {
-        "viewEvent": "Ver evento",
-        "viewDetails": "Ver detalles",
-        "bibsAvailable": "dorsales disponibles",
-        "soldOut": "Agotado",
-        "checkBibs": "Verificación de dorsales...",
-        "viewBibs": "Ver dorsales ({count})",
-        "joinWaitlist": "Unirse a la lista de espera",
-        "elevationGain": "Desnivel positivo",
-        "fromPrice": "Desde {price}€",
-        "available": "Disponible",
-        "waitlist": "Lista de espera",
-        "loading": "Cargando...",
-        "bestPrice": "Mejor precio",
-        "officialPrice": "Precio oficial"
-      },
-      "OG": {
-        "title": "Tus Eventos Deportivos",
-        "description": "Explora nuestros **eventos** y encuentra **dorsales** para eventos próximos!"
-      },
-      "noEventsToDisplay": "No hay eventos para mostrar.",
-      "eventListTitleClient": "Lista de eventos (Componente Cliente):",
-      "emptyResults": {
-        "title": "Ningún evento coincide con tu búsqueda",
-        "subtitle": "Prueba a ajustar los filtros. Si crees que falta un evento que te interesa, contáctanos.",
-        "cta": "Contáctanos"
-      }
-    }
-  },
-  "it": {
-    "events": {
-      "title": "Sfoglia Eventi Running & Pettorali | Trail, Maratona, Triathlon Disponibili",
-      "description": "Scopri migliaia di eventi di corsa in tutto il mondo. Trova e acquista pettorali verificati per trail running, maratona, triathlon e ciclismo. Pagamenti PayPal sicuri e conferma istantanea.",
-      "searchPlaceholder": "Cerca eventi...",
-      "noEvents": "Nessun evento disponibile",
-      "loading": "Caricamento eventi...",
-      "searchCityPlaceholder": "Cerca una città...",
-      "cityFilterTooltip": "Vengono mostrate solo le città con eventi programmati",
-      "filters": {
-        "all": "Tutti gli eventi",
-        "location": "Posizione",
-        "date": "Data",
-        "category": "Categoria",
-        "price": "Prezzo",
-        "participants": "Partecipanti",
-        "distance": "Distanza",
-        "allCities": "Tutte le città",
-        "sortPlaceholder": "Ordina per...",
-        "sortByDate": "Ordina per data",
-        "sortByPrice": "Ordina per prezzo",
-        "sortByParticipants": "Ordina per partecipanti",
-        "sortByDistance": "Ordina per distanza",
-        "priceRanges": {
-          "low": "0€ – 20€",
-          "medium": "20€ – 50€",
-          "high": "50€ – 100€",
-          "veryHigh": "100€+"
-        },
-        "participantRanges": {
-          "small": "≤ 100 partecipanti",
-          "medium": "100 – 500",
-          "large": "500 – 1 000",
-          "veryLarge": "1 000+"
-        },
-        "distanceRanges": {
-          "short": "≤ 10 km",
-          "halfMarathon": "10 – 21 km",
-          "marathon": "21 – 42 km",
-          "ultra": "42 – 100 km",
-          "veryLong": "100 km+"
-        }
-      },
-      "raceTypes": {
-        "triathlon": "Triathlon",
-        "trail": "Trail",
-        "road": "Strada",
-        "cycle": "Ciclismo",
-        "all": "Tutti"
-      },
-      "groupLabels": {
-        "unknownDate": "Data sconosciuta",
-        "unknownPrice": "Prezzo sconosciuto",
-        "unknownParticipants": "Partecipanti sconosciuti",
-        "unknownDistance": "Distanza sconosciuta"
-      },
-      "countLabel": "{count} evento{count, plural, one {} other {i}} trovato{count, plural, one {} other {i}}",
-      "calendarView": "Vista calendario",
-      "listView": "Vista lista",
-      "featuredTitle": "Eventi imminenti",
-      "featuredSubtitle": "Prossimi 30 giorni",
-      "allEventsTitle": "Tutti gli eventi",
-      "noResultsTitle": "Nessun evento trovato",
-      "noResultsSubtitle": "Prova a cambiare i tuoi criteri di ricerca",
-      "calendarTitle": "Calendario eventi",
-      "eventCard": {
-        "viewEvent": "Vedi evento",
-        "viewDetails": "Vedi dettagli",
-        "bibsAvailable": "pettorali disponibili",
-        "soldOut": "Esaurito",
-        "checkBibs": "Verifica pettorali...",
-        "viewBibs": "Vedi pettorali ({count})",
-        "joinWaitlist": "Unisciti alla lista d'attesa",
-        "elevationGain": "Dislivello positivo",
-        "fromPrice": "Da {price}€",
-        "available": "Disponibile",
-        "waitlist": "Lista d'attesa",
-        "loading": "Caricamento...",
-        "bestPrice": "Miglior prezzo",
-        "officialPrice": "Prezzo ufficiale"
-      },
-      "OG": {
-        "title": "I Tuoi Eventi Sportivi",
-        "description": "Sfoglia i nostri **eventi** e trova i **pettorali** per gli eventi in arrivo!"
-      },
-      "noEventsToDisplay": "Nessun evento da mostrare.",
-      "eventListTitleClient": "Elenco eventi (Componente client):",
-      "emptyResults": {
-        "title": "Nessun evento corrisponde alla tua ricerca",
-        "subtitle": "Prova a modificare i filtri. Se pensi che manchi un evento di tuo interesse, contattaci.",
-        "cta": "Contattaci"
-      }
-    }
-  },
-  "de": {
-    "events": {
-      "title": "Lauf-Events & Startnummern Durchsuchen | Trail, Marathon, Triathlon Verfügbar",
-      "description": "Entdecke tausende Lauf-Events weltweit. Finde und kaufe verifizierte Startnummern für Trail Running, Marathon, Triathlon und Radsport. Sichere PayPal-Zahlungen und sofortige Übertragungsbestätigung.",
-      "searchPlaceholder": "Veranstaltungen suchen...",
-      "noEvents": "Keine Veranstaltungen verfügbar",
-      "loading": "Veranstaltungen werden geladen...",
-      "searchCityPlaceholder": "Nach einer Stadt suchen...",
-      "cityFilterTooltip": "Nur Städte mit geplanten Veranstaltungen werden angezeigt",
-      "filters": {
-        "all": "Alle Veranstaltungen",
-        "location": "Standort",
-        "date": "Datum",
-        "category": "Kategorie",
-        "price": "Preis",
-        "participants": "Teilnehmer",
-        "distance": "Distanz",
-        "allCities": "Alle Städte",
-        "sortPlaceholder": "Sortieren nach...",
-        "sortByDate": "Nach Datum sortieren",
-        "sortByPrice": "Nach Preis sortieren",
-        "sortByParticipants": "Nach Teilnehmern sortieren",
-        "sortByDistance": "Nach Distanz sortieren",
-        "priceRanges": {
-          "low": "0€ – 20€",
-          "medium": "20€ – 50€",
-          "high": "50€ – 100€",
-          "veryHigh": "100€+"
-        },
-        "participantRanges": {
-          "small": "≤ 100 Teilnehmer",
-          "medium": "100 – 500",
-          "large": "500 – 1 000",
-          "veryLarge": "1 000+"
-        },
-        "distanceRanges": {
-          "short": "≤ 10 km",
-          "halfMarathon": "10 – 21 km",
-          "marathon": "21 – 42 km",
-          "ultra": "42 – 100 km",
-          "veryLong": "100 km+"
-        }
-      },
-      "raceTypes": {
-        "triathlon": "Triathlon",
-        "trail": "Trail",
-        "road": "Straße",
-        "cycle": "Radfahren",
-        "all": "Alle"
-      },
-      "groupLabels": {
-        "unknownDate": "Unbekanntes Datum",
-        "unknownPrice": "Unbekannter Preis",
-        "unknownParticipants": "Unbekannte Teilnehmer",
-        "unknownDistance": "Unbekannte Distanz"
-      },
-      "countLabel": "{count} Veranstaltung{count, plural, one {} other {en}} gefunden",
-      "calendarView": "Kalenderansicht",
-      "listView": "Listenansicht",
-      "featuredTitle": "Bevorstehende Veranstaltungen",
-      "featuredSubtitle": "Nächste 30 Tage",
-      "allEventsTitle": "Alle Veranstaltungen",
-      "noResultsTitle": "Keine Veranstaltungen gefunden",
-      "noResultsSubtitle": "Versuche deine Suchkriterien zu ändern",
-      "calendarTitle": "Veranstaltungskalender",
-      "eventCard": {
-        "viewEvent": "Veranstaltung anzeigen",
-        "viewDetails": "Details anzeigen",
-        "bibsAvailable": "Startnummern verfügbar",
-        "soldOut": "Ausverkauft",
-        "checkBibs": "Startnummern werden überprüft...",
-        "viewBibs": "Startnummern anzeigen ({count})",
-        "joinWaitlist": "Warteliste beitreten",
-        "elevationGain": "Höhenunterschied",
-        "fromPrice": "Ab {price}€",
-        "available": "Verfügbar",
-        "waitlist": "Warteliste",
-        "loading": "Wird geladen...",
-        "bestPrice": "Bester Preis",
-        "officialPrice": "Offizieller Preis"
-      },
-      "OG": {
-        "title": "Ihre Sportveranstaltungen",
-        "description": "Durchsuchen Sie unsere **Veranstaltungen** und finden Sie **Startnummern** für kommende Veranstaltungen!"
-      },
-      "noEventsToDisplay": "Keine Events zum Anzeigen.",
-      "eventListTitleClient": "Event-Liste (Client-Komponente):",
-      "emptyResults": {
-        "title": "Keine Veranstaltungen für deine Suche",
-        "subtitle": "Versuche deine Filter anzupassen. Wenn ein interessantes Event fehlt, kontaktiere uns gerne.",
-        "cta": "Kontakt aufnehmen"
-      }
-    }
-  },
-  "ro": {
-    "events": {
-      "title": "Răsfoiește Evenimente Running & Numere | Trail, Maraton, Triatlon Disponibile",
-      "description": "Descoperă mii de evenimente de alergare din întreaga lume. Găsește și cumpără numere verificate pentru trail running, maraton, triatlon și ciclism. Plăți PayPal sigure și confirmare instantanee.",
-      "searchPlaceholder": "Caută evenimente...",
-      "noEvents": "Nu sunt evenimente disponibile",
-      "loading": "Se încarcă evenimentele...",
-      "searchCityPlaceholder": "Caută un oraș...",
-      "cityFilterTooltip": "Sunt afișate doar orașele cu evenimente programate",
-      "filters": {
-        "all": "Toate evenimentele",
-        "location": "Locația",
-        "date": "Data",
-        "category": "Categoria",
-        "price": "Prețul",
-        "participants": "Participanții",
-        "distance": "Distanța",
-        "allCities": "Toate orașele",
-        "sortPlaceholder": "Sortează după...",
-        "sortByDate": "Sortează după dată",
-        "sortByPrice": "Sortează după preț",
-        "sortByParticipants": "Sortează după participanți",
-        "sortByDistance": "Sortează după distanță",
-        "priceRanges": {
-          "low": "0€ – 20€",
-          "medium": "20€ – 50€",
-          "high": "50€ – 100€",
-          "veryHigh": "100€+"
-        },
-        "participantRanges": {
-          "small": "≤ 100 participanți",
-          "medium": "100 – 500",
-          "large": "500 – 1 000",
-          "veryLarge": "1 000+"
-        },
-        "distanceRanges": {
-          "short": "≤ 10 km",
-          "halfMarathon": "10 – 21 km",
-          "marathon": "21 – 42 km",
-          "ultra": "42 – 100 km",
-          "veryLong": "100 km+"
-        }
-      },
-      "raceTypes": {
-        "triathlon": "Triatlon",
-        "trail": "Trail",
-        "road": "Șosea",
-        "cycle": "Ciclism",
-        "all": "Toate"
-      },
-      "groupLabels": {
-        "unknownDate": "Dată necunoscută",
-        "unknownPrice": "Preț necunoscut",
-        "unknownParticipants": "Participanți necunoscuți",
-        "unknownDistance": "Distanță necunoscută"
-      },
-      "countLabel": "{count} eveniment{count, plural, one {} other {e}} găsit{count, plural, one {} other {e}}",
-      "calendarView": "Vizualizare calendar",
-      "listView": "Vizualizare listă",
-      "featuredTitle": "Evenimente viitoare",
-      "featuredSubtitle": "Următoarele 30 de zile",
-      "allEventsTitle": "Toate evenimentele",
-      "noResultsTitle": "Nu s-au găsit evenimente",
-      "noResultsSubtitle": "Încearcă să schimbi criteriile de căutare",
-      "calendarTitle": "Calendarul evenimentelor",
-      "eventCard": {
-        "viewEvent": "Vezi evenimentul",
-        "viewDetails": "Vezi detaliile",
-        "bibsAvailable": "numere disponibile",
-        "soldOut": "Epuiat",
-        "checkBibs": "Se verifică numerele...",
-        "viewBibs": "Vezi numerele ({count})",
-        "joinWaitlist": "Alătură-te listei de așteptare",
-        "elevationGain": "Diferență de nivel",
-        "fromPrice": "De la {price}€",
-        "available": "Disponibil",
-        "waitlist": "Lista de așteptare",
-        "loading": "Se încarcă...",
-        "bestPrice": "Cel mai bun preț",
-        "officialPrice": "Prețul oficial"
-      },
-      "OG": {
-        "title": "Evenimentele Tale Sportive",
-        "description": "Răsfoiește **evenimentele** noastre și găsește **numere de concurs** pentru evenimente viitoare!"
-      },
-      "noEventsToDisplay": "Nu există evenimente de afișat.",
-      "eventListTitleClient": "Lista evenimente (Componenta client):",
-      "emptyResults": {
-        "title": "Niciun eveniment nu corespunde căutării tale",
-        "subtitle": "Încearcă să ajustezi filtrele. Dacă lipsește un eveniment care te interesează, contactează-ne.",
-        "cta": "Contactează-ne"
-      }
-    }
-  },
-  "pt": {
-    "events": {
-      "title": "Navegar Eventos Running & Dorsais | Trail, Maratona, Triatlo Disponíveis",
-      "description": "Descobre milhares de eventos de corrida em todo o mundo. Encontra e compra dorsais verificados para trail running, maratona, triatlo e ciclismo. Pagamentos PayPal seguros e confirmação instantânea.",
-      "searchPlaceholder": "Pesquisar eventos...",
-      "noEvents": "Nenhum evento disponível",
-      "loading": "A carregar eventos...",
-      "searchCityPlaceholder": "Pesquisar uma cidade...",
-      "cityFilterTooltip": "Apenas cidades com eventos programados são exibidas",
-      "filters": {
-        "all": "Todos os eventos",
-        "location": "Localização",
-        "date": "Data",
-        "category": "Categoria",
-        "price": "Preço",
-        "participants": "Participantes",
-        "distance": "Distância",
-        "allCities": "Todas as cidades",
-        "sortPlaceholder": "Ordenar por...",
-        "sortByDate": "Ordenar por data",
-        "sortByPrice": "Ordenar por preço",
-        "sortByParticipants": "Ordenar por participantes",
-        "sortByDistance": "Ordenar por distância",
-        "priceRanges": {
-          "low": "0€ – 20€",
-          "medium": "20€ – 50€",
-          "high": "50€ – 100€",
-          "veryHigh": "100€+"
-        },
-        "participantRanges": {
-          "small": "≤ 100 participantes",
-          "medium": "100 – 500",
-          "large": "500 – 1 000",
-          "veryLarge": "1 000+"
-        },
-        "distanceRanges": {
-          "short": "≤ 10 km",
-          "halfMarathon": "10 – 21 km",
-          "marathon": "21 – 42 km",
-          "ultra": "42 – 100 km",
-          "veryLong": "100 km+"
-        }
-      },
-      "raceTypes": {
-        "triathlon": "Triatlo",
-        "trail": "Trail",
-        "road": "Estrada",
-        "cycle": "Ciclismo",
-        "all": "Todos"
-      },
-      "groupLabels": {
-        "unknownDate": "Data desconhecida",
-        "unknownPrice": "Preço desconhecido",
-        "unknownParticipants": "Participantes desconhecidos",
-        "unknownDistance": "Distância desconhecida"
-      },
-      "countLabel": "{count} evento{count, plural, one {} other {s}} encontrado{count, plural, one {} other {s}}",
-      "calendarView": "Vista de calendário",
-      "listView": "Vista de lista",
-      "featuredTitle": "Eventos próximos",
-      "featuredSubtitle": "Próximos 30 dias",
-      "allEventsTitle": "Todos os eventos",
-      "noResultsTitle": "Nenhum evento encontrado",
-      "noResultsSubtitle": "Tenta alterar os teus critérios de pesquisa",
-      "calendarTitle": "Calendário de eventos",
-      "eventCard": {
-        "viewEvent": "Ver evento",
-        "viewDetails": "Ver detalhes",
-        "bibsAvailable": "dorsais disponíveis",
-        "soldOut": "Esgotado",
-        "checkBibs": "Verificação de dorsais...",
-        "viewBibs": "Ver dorsais ({count})",
-        "joinWaitlist": "Juntar-se à lista de espera",
-        "elevationGain": "Desnível positivo",
-        "fromPrice": "A partir de {price}€",
-        "available": "Disponível",
-        "waitlist": "Lista de espera",
-        "loading": "A carregar...",
-        "bestPrice": "Melhor preço",
-        "officialPrice": "Preço oficial"
-      },
-      "OG": {
-        "title": "Os Teus Eventos Desportivos",
-        "description": "Navegue pelos nossos **eventos** e encontre **números de corrida** para eventos futuros!"
-      },
-      "noEventsToDisplay": "Não há eventos para mostrar.",
-      "eventListTitleClient": "Lista de eventos (Componente cliente):",
-      "emptyResults": {
-        "title": "Nenhum evento corresponde à tua pesquisa",
-        "subtitle": "Tenta ajustar os filtros. Se achas que falta um evento do teu interesse, contacta-nos.",
-        "cta": "Contacta-nos"
-      }
-    }
-  },
-  "nl": {
-    "events": {
-      "title": "Hardloop Evenementen & Startnummers Doorbladeren | Trail, Marathon, Triatlon Beschikbaar",
-      "description": "Ontdek duizenden hardloop evenementen wereldwijd. Vind en koop geverifieerde startnummers voor trail running, marathon, triatlon en wielrennen. Veilige PayPal betalingen en directe overdrachtsbevestiging.",
-      "searchPlaceholder": "Evenementen zoeken...",
-      "noEvents": "Geen evenementen beschikbaar",
-      "loading": "Evenementen laden...",
-      "searchCityPlaceholder": "Zoek een stad...",
-      "cityFilterTooltip": "Alleen steden met geplande evenementen worden weergegeven",
-      "filters": {
-        "all": "Alle evenementen",
-        "location": "Locatie",
-        "date": "Datum",
-        "category": "Categorie",
-        "price": "Prijs",
-        "participants": "Deelnemers",
-        "distance": "Afstand",
-        "allCities": "Alle steden",
-        "sortPlaceholder": "Sorteren op...",
-        "sortByDate": "Sorteren op datum",
-        "sortByPrice": "Sorteren op prijs",
-        "sortByParticipants": "Sorteren op deelnemers",
-        "sortByDistance": "Sorteren op afstand",
-        "priceRanges": {
-          "low": "0€ – 20€",
-          "medium": "20€ – 50€",
-          "high": "50€ – 100€",
-          "veryHigh": "100€+"
-        },
-        "participantRanges": {
-          "small": "≤ 100 deelnemers",
-          "medium": "100 – 500",
-          "large": "500 – 1 000",
-          "veryLarge": "1 000+"
-        },
-        "distanceRanges": {
-          "short": "≤ 10 km",
-          "halfMarathon": "10 – 21 km",
-          "marathon": "21 – 42 km",
-          "ultra": "42 – 100 km",
-          "veryLong": "100 km+"
-        }
-      },
-      "raceTypes": {
-        "triathlon": "Triatlon",
-        "trail": "Trail",
-        "road": "Weg",
-        "cycle": "Fietsen",
-        "all": "Alle"
-      },
-      "groupLabels": {
-        "unknownDate": "Onbekende datum",
-        "unknownPrice": "Onbekende prijs",
-        "unknownParticipants": "Onbekende deelnemers",
-        "unknownDistance": "Onbekende afstand"
-      },
-      "countLabel": "{count} evenement{count, plural, one {} other {en}} gevonden",
-      "calendarView": "Kalenderweergave",
-      "listView": "Lijstweergave",
-      "featuredTitle": "Aankomende evenementen",
-      "featuredSubtitle": "Volgende 30 dagen",
-      "allEventsTitle": "Alle evenementen",
-      "noResultsTitle": "Geen evenementen gevonden",
-      "noResultsSubtitle": "Probeer je zoekcriteria te wijzigen",
-      "calendarTitle": "Evenementenkalender",
-      "eventCard": {
-        "viewEvent": "Evenement bekijken",
-        "viewDetails": "Details bekijken",
-        "bibsAvailable": "startnummers beschikbaar",
-        "soldOut": "Uitverkocht",
-        "checkBibs": "Startnummers controleren...",
-        "viewBibs": "Startnummers bekijken ({count})",
-        "joinWaitlist": "Wachtlijst bijwonen",
-        "elevationGain": "Hoogteverschil",
-        "fromPrice": "Vanaf {price}€",
-        "available": "Beschikbaar",
-        "waitlist": "Wachtlijst",
-        "loading": "Laden...",
-        "bestPrice": "Beste prijs",
-        "officialPrice": "Officiële prijs"
-      },
-      "OG": {
-        "title": "Jouw Sportevenementen",
-        "description": "Blader door onze **evenementen** en vind **startnummers** voor aankomende evenementen!"
-      },
-      "noEventsToDisplay": "Geen events om weer te geven.",
-      "eventListTitleClient": "Event-lijst (Client-component):",
-      "emptyResults": {
-        "title": "Geen resultaten voor je zoekopdracht",
-        "subtitle": "Probeer je filters aan te passen. Als er een event ontbreekt dat je interesseert, neem contact met ons op.",
-        "cta": "Neem contact op"
-      }
-    }
-  }
+	"en": {
+		"events": {
+			"title": "Browse Running Events & Race Bibs | Trail, Marathon, Triathlon Bibs Available",
+			"description": "Discover thousands of running events worldwide. Find and buy verified bibs for trail, marathon, triathlon, and cycling. Secure PayPal payments and instant confirmation.",
+			"searchPlaceholder": "Search events...",
+			"noEvents": "No events available",
+			"loading": "Loading events...",
+			"searchCityPlaceholder": "Search a city...",
+			"cityFilterTooltip": "Only cities with scheduled events are displayed",
+			"filters": {
+				"all": "All Events",
+				"location": "Location",
+				"date": "Date",
+				"category": "Category",
+				"price": "Price",
+				"participants": "Participants",
+				"distance": "Distance",
+				"allCities": "All cities",
+				"sortPlaceholder": "Sort by...",
+				"sortByDate": "Sort by date",
+				"sortByPrice": "Sort by price",
+				"sortByParticipants": "Sort by participants",
+				"sortByDistance": "Sort by distance",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 participants",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
+			},
+			"raceTypes": {
+				"triathlon": "Triathlon",
+				"trail": "Trail",
+				"road": "Road",
+				"cycle": "Cycle",
+				"all": "All"
+			},
+			"groupLabels": {
+				"unknownDate": "Unknown date",
+				"unknownPrice": "Unknown price",
+				"unknownParticipants": "Unknown participants",
+				"unknownDistance": "Unknown distance"
+			},
+			"countLabel": "{count} event{count, plural, one {} other {s}} found",
+			"calendarView": "Calendar view",
+			"listView": "List view",
+			"featuredTitle": "Upcoming Events",
+			"featuredSubtitle": "Next 30 days",
+			"allEventsTitle": "All Events",
+			"noResultsTitle": "No events found",
+			"noResultsSubtitle": "Try changing your search criteria",
+			"calendarTitle": "Events Calendar",
+			"eventCard": {
+				"viewEvent": "View Event",
+				"viewDetails": "View Details",
+				"bibsAvailable": "bibs available",
+				"soldOut": "Sold Out",
+				"checkBibs": "Bib verification...",
+				"viewBibs": "View bibs ({count})",
+				"joinWaitlist": "Join waitlist",
+				"elevationGain": "Elevation Gain",
+				"fromPrice": "From {price}€",
+				"available": "Available",
+				"waitlist": "Waitlist",
+				"loading": "Loading...",
+				"bestPrice": "Best price",
+				"officialPrice": "Official price"
+			},
+			"OG": {
+				"title": "Your Sporting Events",
+				"description": "Browse our **events** and find **race bibs** for upcoming events!"
+			},
+			"noEventsToDisplay": "No events to display.",
+			"eventListTitleClient": "Event List (Client Component):",
+			"emptyResults": {
+				"title": "No events match your search",
+				"subtitle": "Try adjusting your filters. If you think we're missing an event you're interested in, feel free to contact us.",
+				"cta": "Contact us"
+			}
+		}
+	},
+	"fr": {
+		"events": {
+			"title": "Parcourir Événements Running & Dossards | Trail, Marathon, Triathlon Disponibles",
+			"description": "Découvrez des milliers d'événements de course dans le monde entier. Trouvez et achetez des dossards vérifiés pour trail, marathon, triathlon et cyclisme. Paiements PayPal sécurisés et confirmation instantanée.",
+			"searchPlaceholder": "Rechercher des événements...",
+			"noEvents": "Aucun événement disponible",
+			"loading": "Chargement des événements...",
+			"searchCityPlaceholder": "Rechercher une ville...",
+			"cityFilterTooltip": "Seules les villes avec des événements programmés sont affichées",
+			"filters": {
+				"all": "Tous les événements",
+				"location": "Lieu",
+				"date": "Date",
+				"category": "Catégorie",
+				"price": "Prix",
+				"participants": "Participants",
+				"distance": "Distance",
+				"allCities": "Toutes les villes",
+				"sortPlaceholder": "Trier par...",
+				"sortByDate": "Trier par date",
+				"sortByPrice": "Trier par prix",
+				"sortByParticipants": "Trier par participants",
+				"sortByDistance": "Trier par distance",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 participants",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
+			},
+			"raceTypes": {
+				"triathlon": "Triathlon",
+				"trail": "Trail",
+				"road": "Route",
+				"cycle": "Vélo",
+				"all": "Tous"
+			},
+			"groupLabels": {
+				"unknownDate": "Date inconnue",
+				"unknownPrice": "Prix inconnu",
+				"unknownParticipants": "Participants inconnus",
+				"unknownDistance": "Distance inconnue"
+			},
+			"countLabel": "{count} événement{count, plural, one {} other {s}} trouvé{count, plural, one {} other {s}}",
+			"calendarView": "Vue calendrier",
+			"listView": "Vue liste",
+			"featuredTitle": "Événements à venir",
+			"featuredSubtitle": "30 prochains jours",
+			"allEventsTitle": "Tous les événements",
+			"noResultsTitle": "Aucun événement trouvé",
+			"noResultsSubtitle": "Essayez de modifier vos critères de recherche",
+			"calendarTitle": "Calendrier des événements",
+			"eventCard": {
+				"viewEvent": "Voir l'événement",
+				"viewDetails": "Voir les détails",
+				"bibsAvailable": "dossards disponibles",
+				"soldOut": "Épuisé",
+				"checkBibs": "Vérification des dossards...",
+				"viewBibs": "Voir les dossards ({count})",
+				"joinWaitlist": "Rejoindre la liste d'attente",
+				"elevationGain": "Dénivelé positif",
+				"fromPrice": "À partir de {price}€",
+				"available": "Disponible",
+				"waitlist": "Liste d'attente",
+				"loading": "Chargement...",
+				"bestPrice": "Meilleur prix",
+				"officialPrice": "Prix officiel"
+			},
+			"OG": {
+				"title": "Vos évènements sportifs",
+				"description": "Parcourez nos **évènements** et Trouvez des **dossards** pour les événements à **venir** !"
+			},
+			"noEventsToDisplay": "Aucun événement à afficher.",
+			"eventListTitleClient": "Liste des événements (Composant Client) :",
+			"emptyResults": {
+				"title": "Aucun événement ne correspond à votre recherche",
+				"subtitle": "Ajustez vos filtres. Si vous pensez que nous n'avons pas encore la course qui vous intéresse, contactez-nous.",
+				"cta": "Nous contacter"
+			}
+		}
+	},
+	"ko": {
+		"events": {
+			"title": "러닝 이벤트 & 경주 번호 둘러보기 | 트레일, 마라톤, 트라이애슬론 번호 사용 가능",
+			"description": "전 세계 수천 개의 러닝 이벤트를 발견하세요. 트레일 러닝, 마라톤, 트라이애슬론, 사이클링 이벤트를 위한 검증된 경주 번호를 찾고 구매하세요. 안전한 PayPal 결제와 즉시 이전 확인.",
+			"searchPlaceholder": "이벤트 검색...",
+			"noEvents": "사용 가능한 이벤트가 없습니다",
+			"loading": "이벤트를 로딩 중...",
+			"searchCityPlaceholder": "도시 검색...",
+			"cityFilterTooltip": "예정된 이벤트가 있는 도시만 표시됩니다",
+			"filters": {
+				"all": "모든 이벤트",
+				"location": "위치",
+				"date": "날짜",
+				"category": "카테고리",
+				"price": "가격",
+				"participants": "참가자",
+				"distance": "거리",
+				"allCities": "모든 도시",
+				"sortPlaceholder": "정렬 기준...",
+				"sortByDate": "날짜순 정렬",
+				"sortByPrice": "가격순 정렬",
+				"sortByParticipants": "참가자순 정렬",
+				"sortByDistance": "거리순 정렬",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100명 참가자",
+					"medium": "100 – 500명",
+					"large": "500 – 1 000명",
+					"veryLarge": "1 000명+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
+			},
+			"raceTypes": {
+				"triathlon": "트라이애슬론",
+				"trail": "트레일",
+				"road": "도로",
+				"cycle": "사이클",
+				"all": "전체"
+			},
+			"groupLabels": {
+				"unknownDate": "알 수 없는 날짜",
+				"unknownPrice": "알 수 없는 가격",
+				"unknownParticipants": "알 수 없는 참가자",
+				"unknownDistance": "알 수 없는 거리"
+			},
+			"countLabel": "{count}개 이벤트를 찾았습니다",
+			"calendarView": "캘린더 보기",
+			"listView": "목록 보기",
+			"featuredTitle": "예정된 이벤트",
+			"featuredSubtitle": "다음 30일",
+			"allEventsTitle": "모든 이벤트",
+			"noResultsTitle": "이벤트를 찾을 수 없습니다",
+			"noResultsSubtitle": "검색 기준을 변경해보세요",
+			"calendarTitle": "이벤트 캘린더",
+			"eventCard": {
+				"viewEvent": "이벤트 보기",
+				"viewDetails": "상세 보기",
+				"bibsAvailable": "사용 가능한 빕",
+				"soldOut": "매진",
+				"checkBibs": "빕 확인 중...",
+				"viewBibs": "빕 보기 ({count})",
+				"joinWaitlist": "대기자 명단 참가",
+				"elevationGain": "고도 상승",
+				"fromPrice": "{price}€부터",
+				"available": "사용 가능",
+				"waitlist": "대기자 명단",
+				"loading": "로딩 중...",
+				"bestPrice": "최고 가격",
+				"officialPrice": "공식 가격"
+			},
+			"OG": {
+				"title": "당신의 스포츠 이벤트",
+				"description": "우리의 **이벤트**를 둘러보고 다가오는 이벤트를 위한 **레이스 비브**를 찾아보세요!"
+			},
+			"noEventsToDisplay": "표시할 이벤트가 없습니다.",
+			"eventListTitleClient": "이벤트 목록 (클라이언트 컴포넌트):",
+			"emptyResults": {
+				"title": "검색과 일치하는 이벤트가 없습니다",
+				"subtitle": "필터를 조정해 보세요. 관심 있는 이벤트가 없다면 문의해 주세요.",
+				"cta": "문의하기"
+			}
+		}
+	},
+	"es": {
+		"events": {
+			"title": "Explorar Eventos Running & Dorsales | Trail, Maratón, Triatlón Disponibles",
+			"description": "Descubre miles de eventos de running en todo el mundo. Encuentra y compra dorsales verificados para trail running, maratón, triatlón y ciclismo. Pagos PayPal seguros y confirmación instantánea.",
+			"searchPlaceholder": "Buscar eventos...",
+			"noEvents": "No hay eventos disponibles",
+			"loading": "Cargando eventos...",
+			"searchCityPlaceholder": "Buscar una ciudad...",
+			"cityFilterTooltip": "Solo se muestran ciudades con eventos programados",
+			"filters": {
+				"all": "Todos los eventos",
+				"location": "Ubicación",
+				"date": "Fecha",
+				"category": "Categoría",
+				"price": "Precio",
+				"participants": "Participantes",
+				"distance": "Distancia",
+				"allCities": "Todas las ciudades",
+				"sortPlaceholder": "Ordenar por...",
+				"sortByDate": "Ordenar por fecha",
+				"sortByPrice": "Ordenar por precio",
+				"sortByParticipants": "Ordenar por participantes",
+				"sortByDistance": "Ordenar por distancia",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 participantes",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
+			},
+			"raceTypes": {
+				"triathlon": "Triatlón",
+				"trail": "Trail",
+				"road": "Ruta",
+				"cycle": "Ciclismo",
+				"all": "Todos"
+			},
+			"groupLabels": {
+				"unknownDate": "Fecha desconocida",
+				"unknownPrice": "Precio desconocido",
+				"unknownParticipants": "Participantes desconocidos",
+				"unknownDistance": "Distancia desconocida"
+			},
+			"countLabel": "{count} evento{count, plural, one {} other {s}} encontrado{count, plural, one {} other {s}}",
+			"calendarView": "Vista de calendario",
+			"listView": "Vista de lista",
+			"featuredTitle": "Eventos próximos",
+			"featuredSubtitle": "Próximos 30 días",
+			"allEventsTitle": "Todos los eventos",
+			"noResultsTitle": "No se encontraron eventos",
+			"noResultsSubtitle": "Intenta cambiar tus criterios de búsqueda",
+			"calendarTitle": "Calendario de eventos",
+			"eventCard": {
+				"viewEvent": "Ver evento",
+				"viewDetails": "Ver detalles",
+				"bibsAvailable": "dorsales disponibles",
+				"soldOut": "Agotado",
+				"checkBibs": "Verificación de dorsales...",
+				"viewBibs": "Ver dorsales ({count})",
+				"joinWaitlist": "Unirse a la lista de espera",
+				"elevationGain": "Desnivel positivo",
+				"fromPrice": "Desde {price}€",
+				"available": "Disponible",
+				"waitlist": "Lista de espera",
+				"loading": "Cargando...",
+				"bestPrice": "Mejor precio",
+				"officialPrice": "Precio oficial"
+			},
+			"OG": {
+				"title": "Tus Eventos Deportivos",
+				"description": "Explora nuestros **eventos** y encuentra **dorsales** para eventos próximos!"
+			},
+			"noEventsToDisplay": "No hay eventos para mostrar.",
+			"eventListTitleClient": "Lista de eventos (Componente Cliente):",
+			"emptyResults": {
+				"title": "Ningún evento coincide con tu búsqueda",
+				"subtitle": "Prueba a ajustar los filtros. Si crees que falta un evento que te interesa, contáctanos.",
+				"cta": "Contáctanos"
+			}
+		}
+	},
+	"it": {
+		"events": {
+			"title": "Sfoglia Eventi Running & Pettorali | Trail, Maratona, Triathlon Disponibili",
+			"description": "Scopri migliaia di eventi di corsa in tutto il mondo. Trova e acquista pettorali verificati per trail running, maratona, triathlon e ciclismo. Pagamenti PayPal sicuri e conferma istantanea.",
+			"searchPlaceholder": "Cerca eventi...",
+			"noEvents": "Nessun evento disponibile",
+			"loading": "Caricamento eventi...",
+			"searchCityPlaceholder": "Cerca una città...",
+			"cityFilterTooltip": "Vengono mostrate solo le città con eventi programmati",
+			"filters": {
+				"all": "Tutti gli eventi",
+				"location": "Posizione",
+				"date": "Data",
+				"category": "Categoria",
+				"price": "Prezzo",
+				"participants": "Partecipanti",
+				"distance": "Distanza",
+				"allCities": "Tutte le città",
+				"sortPlaceholder": "Ordina per...",
+				"sortByDate": "Ordina per data",
+				"sortByPrice": "Ordina per prezzo",
+				"sortByParticipants": "Ordina per partecipanti",
+				"sortByDistance": "Ordina per distanza",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 partecipanti",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
+			},
+			"raceTypes": {
+				"triathlon": "Triathlon",
+				"trail": "Trail",
+				"road": "Strada",
+				"cycle": "Ciclismo",
+				"all": "Tutti"
+			},
+			"groupLabels": {
+				"unknownDate": "Data sconosciuta",
+				"unknownPrice": "Prezzo sconosciuto",
+				"unknownParticipants": "Partecipanti sconosciuti",
+				"unknownDistance": "Distanza sconosciuta"
+			},
+			"countLabel": "{count} evento{count, plural, one {} other {i}} trovato{count, plural, one {} other {i}}",
+			"calendarView": "Vista calendario",
+			"listView": "Vista lista",
+			"featuredTitle": "Eventi imminenti",
+			"featuredSubtitle": "Prossimi 30 giorni",
+			"allEventsTitle": "Tutti gli eventi",
+			"noResultsTitle": "Nessun evento trovato",
+			"noResultsSubtitle": "Prova a cambiare i tuoi criteri di ricerca",
+			"calendarTitle": "Calendario eventi",
+			"eventCard": {
+				"viewEvent": "Vedi evento",
+				"viewDetails": "Vedi dettagli",
+				"bibsAvailable": "pettorali disponibili",
+				"soldOut": "Esaurito",
+				"checkBibs": "Verifica pettorali...",
+				"viewBibs": "Vedi pettorali ({count})",
+				"joinWaitlist": "Unisciti alla lista d'attesa",
+				"elevationGain": "Dislivello positivo",
+				"fromPrice": "Da {price}€",
+				"available": "Disponibile",
+				"waitlist": "Lista d'attesa",
+				"loading": "Caricamento...",
+				"bestPrice": "Miglior prezzo",
+				"officialPrice": "Prezzo ufficiale"
+			},
+			"OG": {
+				"title": "I Tuoi Eventi Sportivi",
+				"description": "Sfoglia i nostri **eventi** e trova i **pettorali** per gli eventi in arrivo!"
+			},
+			"noEventsToDisplay": "Nessun evento da mostrare.",
+			"eventListTitleClient": "Elenco eventi (Componente client):",
+			"emptyResults": {
+				"title": "Nessun evento corrisponde alla tua ricerca",
+				"subtitle": "Prova a modificare i filtri. Se pensi che manchi un evento di tuo interesse, contattaci.",
+				"cta": "Contattaci"
+			}
+		}
+	},
+	"de": {
+		"events": {
+			"title": "Lauf-Events & Startnummern Durchsuchen | Trail, Marathon, Triathlon Verfügbar",
+			"description": "Entdecke tausende Lauf-Events weltweit. Finde und kaufe verifizierte Startnummern für Trail Running, Marathon, Triathlon und Radsport. Sichere PayPal-Zahlungen und sofortige Übertragungsbestätigung.",
+			"searchPlaceholder": "Veranstaltungen suchen...",
+			"noEvents": "Keine Veranstaltungen verfügbar",
+			"loading": "Veranstaltungen werden geladen...",
+			"searchCityPlaceholder": "Nach einer Stadt suchen...",
+			"cityFilterTooltip": "Nur Städte mit geplanten Veranstaltungen werden angezeigt",
+			"filters": {
+				"all": "Alle Veranstaltungen",
+				"location": "Standort",
+				"date": "Datum",
+				"category": "Kategorie",
+				"price": "Preis",
+				"participants": "Teilnehmer",
+				"distance": "Distanz",
+				"allCities": "Alle Städte",
+				"sortPlaceholder": "Sortieren nach...",
+				"sortByDate": "Nach Datum sortieren",
+				"sortByPrice": "Nach Preis sortieren",
+				"sortByParticipants": "Nach Teilnehmern sortieren",
+				"sortByDistance": "Nach Distanz sortieren",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 Teilnehmer",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
+			},
+			"raceTypes": {
+				"triathlon": "Triathlon",
+				"trail": "Trail",
+				"road": "Straße",
+				"cycle": "Radfahren",
+				"all": "Alle"
+			},
+			"groupLabels": {
+				"unknownDate": "Unbekanntes Datum",
+				"unknownPrice": "Unbekannter Preis",
+				"unknownParticipants": "Unbekannte Teilnehmer",
+				"unknownDistance": "Unbekannte Distanz"
+			},
+			"countLabel": "{count} Veranstaltung{count, plural, one {} other {en}} gefunden",
+			"calendarView": "Kalenderansicht",
+			"listView": "Listenansicht",
+			"featuredTitle": "Bevorstehende Veranstaltungen",
+			"featuredSubtitle": "Nächste 30 Tage",
+			"allEventsTitle": "Alle Veranstaltungen",
+			"noResultsTitle": "Keine Veranstaltungen gefunden",
+			"noResultsSubtitle": "Versuche deine Suchkriterien zu ändern",
+			"calendarTitle": "Veranstaltungskalender",
+			"eventCard": {
+				"viewEvent": "Veranstaltung anzeigen",
+				"viewDetails": "Details anzeigen",
+				"bibsAvailable": "Startnummern verfügbar",
+				"soldOut": "Ausverkauft",
+				"checkBibs": "Startnummern werden überprüft...",
+				"viewBibs": "Startnummern anzeigen ({count})",
+				"joinWaitlist": "Warteliste beitreten",
+				"elevationGain": "Höhenunterschied",
+				"fromPrice": "Ab {price}€",
+				"available": "Verfügbar",
+				"waitlist": "Warteliste",
+				"loading": "Wird geladen...",
+				"bestPrice": "Bester Preis",
+				"officialPrice": "Offizieller Preis"
+			},
+			"OG": {
+				"title": "Ihre Sportveranstaltungen",
+				"description": "Durchsuchen Sie unsere **Veranstaltungen** und finden Sie **Startnummern** für kommende Veranstaltungen!"
+			},
+			"noEventsToDisplay": "Keine Events zum Anzeigen.",
+			"eventListTitleClient": "Event-Liste (Client-Komponente):",
+			"emptyResults": {
+				"title": "Keine Veranstaltungen für deine Suche",
+				"subtitle": "Versuche deine Filter anzupassen. Wenn ein interessantes Event fehlt, kontaktiere uns gerne.",
+				"cta": "Kontakt aufnehmen"
+			}
+		}
+	},
+	"ro": {
+		"events": {
+			"title": "Răsfoiește Evenimente Running & Numere | Trail, Maraton, Triatlon Disponibile",
+			"description": "Descoperă mii de evenimente de alergare din întreaga lume. Găsește și cumpără numere verificate pentru trail running, maraton, triatlon și ciclism. Plăți PayPal sigure și confirmare instantanee.",
+			"searchPlaceholder": "Caută evenimente...",
+			"noEvents": "Nu sunt evenimente disponibile",
+			"loading": "Se încarcă evenimentele...",
+			"searchCityPlaceholder": "Caută un oraș...",
+			"cityFilterTooltip": "Sunt afișate doar orașele cu evenimente programate",
+			"filters": {
+				"all": "Toate evenimentele",
+				"location": "Locația",
+				"date": "Data",
+				"category": "Categoria",
+				"price": "Prețul",
+				"participants": "Participanții",
+				"distance": "Distanța",
+				"allCities": "Toate orașele",
+				"sortPlaceholder": "Sortează după...",
+				"sortByDate": "Sortează după dată",
+				"sortByPrice": "Sortează după preț",
+				"sortByParticipants": "Sortează după participanți",
+				"sortByDistance": "Sortează după distanță",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 participanți",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
+			},
+			"raceTypes": {
+				"triathlon": "Triatlon",
+				"trail": "Trail",
+				"road": "Șosea",
+				"cycle": "Ciclism",
+				"all": "Toate"
+			},
+			"groupLabels": {
+				"unknownDate": "Dată necunoscută",
+				"unknownPrice": "Preț necunoscut",
+				"unknownParticipants": "Participanți necunoscuți",
+				"unknownDistance": "Distanță necunoscută"
+			},
+			"countLabel": "{count} eveniment{count, plural, one {} other {e}} găsit{count, plural, one {} other {e}}",
+			"calendarView": "Vizualizare calendar",
+			"listView": "Vizualizare listă",
+			"featuredTitle": "Evenimente viitoare",
+			"featuredSubtitle": "Următoarele 30 de zile",
+			"allEventsTitle": "Toate evenimentele",
+			"noResultsTitle": "Nu s-au găsit evenimente",
+			"noResultsSubtitle": "Încearcă să schimbi criteriile de căutare",
+			"calendarTitle": "Calendarul evenimentelor",
+			"eventCard": {
+				"viewEvent": "Vezi evenimentul",
+				"viewDetails": "Vezi detaliile",
+				"bibsAvailable": "numere disponibile",
+				"soldOut": "Epuiat",
+				"checkBibs": "Se verifică numerele...",
+				"viewBibs": "Vezi numerele ({count})",
+				"joinWaitlist": "Alătură-te listei de așteptare",
+				"elevationGain": "Diferență de nivel",
+				"fromPrice": "De la {price}€",
+				"available": "Disponibil",
+				"waitlist": "Lista de așteptare",
+				"loading": "Se încarcă...",
+				"bestPrice": "Cel mai bun preț",
+				"officialPrice": "Prețul oficial"
+			},
+			"OG": {
+				"title": "Evenimentele Tale Sportive",
+				"description": "Răsfoiește **evenimentele** noastre și găsește **numere de concurs** pentru evenimente viitoare!"
+			},
+			"noEventsToDisplay": "Nu există evenimente de afișat.",
+			"eventListTitleClient": "Lista evenimente (Componenta client):",
+			"emptyResults": {
+				"title": "Niciun eveniment nu corespunde căutării tale",
+				"subtitle": "Încearcă să ajustezi filtrele. Dacă lipsește un eveniment care te interesează, contactează-ne.",
+				"cta": "Contactează-ne"
+			}
+		}
+	},
+	"pt": {
+		"events": {
+			"title": "Navegar Eventos Running & Dorsais | Trail, Maratona, Triatlo Disponíveis",
+			"description": "Descobre milhares de eventos de corrida em todo o mundo. Encontra e compra dorsais verificados para trail running, maratona, triatlo e ciclismo. Pagamentos PayPal seguros e confirmação instantânea.",
+			"searchPlaceholder": "Pesquisar eventos...",
+			"noEvents": "Nenhum evento disponível",
+			"loading": "A carregar eventos...",
+			"searchCityPlaceholder": "Pesquisar uma cidade...",
+			"cityFilterTooltip": "Apenas cidades com eventos programados são exibidas",
+			"filters": {
+				"all": "Todos os eventos",
+				"location": "Localização",
+				"date": "Data",
+				"category": "Categoria",
+				"price": "Preço",
+				"participants": "Participantes",
+				"distance": "Distância",
+				"allCities": "Todas as cidades",
+				"sortPlaceholder": "Ordenar por...",
+				"sortByDate": "Ordenar por data",
+				"sortByPrice": "Ordenar por preço",
+				"sortByParticipants": "Ordenar por participantes",
+				"sortByDistance": "Ordenar por distância",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 participantes",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
+			},
+			"raceTypes": {
+				"triathlon": "Triatlo",
+				"trail": "Trail",
+				"road": "Estrada",
+				"cycle": "Ciclismo",
+				"all": "Todos"
+			},
+			"groupLabels": {
+				"unknownDate": "Data desconhecida",
+				"unknownPrice": "Preço desconhecido",
+				"unknownParticipants": "Participantes desconhecidos",
+				"unknownDistance": "Distância desconhecida"
+			},
+			"countLabel": "{count} evento{count, plural, one {} other {s}} encontrado{count, plural, one {} other {s}}",
+			"calendarView": "Vista de calendário",
+			"listView": "Vista de lista",
+			"featuredTitle": "Eventos próximos",
+			"featuredSubtitle": "Próximos 30 dias",
+			"allEventsTitle": "Todos os eventos",
+			"noResultsTitle": "Nenhum evento encontrado",
+			"noResultsSubtitle": "Tenta alterar os teus critérios de pesquisa",
+			"calendarTitle": "Calendário de eventos",
+			"eventCard": {
+				"viewEvent": "Ver evento",
+				"viewDetails": "Ver detalhes",
+				"bibsAvailable": "dorsais disponíveis",
+				"soldOut": "Esgotado",
+				"checkBibs": "Verificação de dorsais...",
+				"viewBibs": "Ver dorsais ({count})",
+				"joinWaitlist": "Juntar-se à lista de espera",
+				"elevationGain": "Desnível positivo",
+				"fromPrice": "A partir de {price}€",
+				"available": "Disponível",
+				"waitlist": "Lista de espera",
+				"loading": "A carregar...",
+				"bestPrice": "Melhor preço",
+				"officialPrice": "Preço oficial"
+			},
+			"OG": {
+				"title": "Os Teus Eventos Desportivos",
+				"description": "Navegue pelos nossos **eventos** e encontre **números de corrida** para eventos futuros!"
+			},
+			"noEventsToDisplay": "Não há eventos para mostrar.",
+			"eventListTitleClient": "Lista de eventos (Componente cliente):",
+			"emptyResults": {
+				"title": "Nenhum evento corresponde à tua pesquisa",
+				"subtitle": "Tenta ajustar os filtros. Se achas que falta um evento do teu interesse, contacta-nos.",
+				"cta": "Contacta-nos"
+			}
+		}
+	},
+	"nl": {
+		"events": {
+			"title": "Hardloop Evenementen & Startnummers Doorbladeren | Trail, Marathon, Triatlon Beschikbaar",
+			"description": "Ontdek duizenden hardloop evenementen wereldwijd. Vind en koop geverifieerde startnummers voor trail running, marathon, triatlon en wielrennen. Veilige PayPal betalingen en directe overdrachtsbevestiging.",
+			"searchPlaceholder": "Evenementen zoeken...",
+			"noEvents": "Geen evenementen beschikbaar",
+			"loading": "Evenementen laden...",
+			"searchCityPlaceholder": "Zoek een stad...",
+			"cityFilterTooltip": "Alleen steden met geplande evenementen worden weergegeven",
+			"filters": {
+				"all": "Alle evenementen",
+				"location": "Locatie",
+				"date": "Datum",
+				"category": "Categorie",
+				"price": "Prijs",
+				"participants": "Deelnemers",
+				"distance": "Afstand",
+				"allCities": "Alle steden",
+				"sortPlaceholder": "Sorteren op...",
+				"sortByDate": "Sorteren op datum",
+				"sortByPrice": "Sorteren op prijs",
+				"sortByParticipants": "Sorteren op deelnemers",
+				"sortByDistance": "Sorteren op afstand",
+				"priceRanges": {
+					"low": "0€ – 20€",
+					"medium": "20€ – 50€",
+					"high": "50€ – 100€",
+					"veryHigh": "100€+"
+				},
+				"participantRanges": {
+					"small": "≤ 100 deelnemers",
+					"medium": "100 – 500",
+					"large": "500 – 1 000",
+					"veryLarge": "1 000+"
+				},
+				"distanceRanges": {
+					"short": "≤ 10 km",
+					"halfMarathon": "10 – 21 km",
+					"marathon": "21 – 42 km",
+					"ultra": "42 – 100 km",
+					"veryLong": "100 km+"
+				}
+			},
+			"raceTypes": {
+				"triathlon": "Triatlon",
+				"trail": "Trail",
+				"road": "Weg",
+				"cycle": "Fietsen",
+				"all": "Alle"
+			},
+			"groupLabels": {
+				"unknownDate": "Onbekende datum",
+				"unknownPrice": "Onbekende prijs",
+				"unknownParticipants": "Onbekende deelnemers",
+				"unknownDistance": "Onbekende afstand"
+			},
+			"countLabel": "{count} evenement{count, plural, one {} other {en}} gevonden",
+			"calendarView": "Kalenderweergave",
+			"listView": "Lijstweergave",
+			"featuredTitle": "Aankomende evenementen",
+			"featuredSubtitle": "Volgende 30 dagen",
+			"allEventsTitle": "Alle evenementen",
+			"noResultsTitle": "Geen evenementen gevonden",
+			"noResultsSubtitle": "Probeer je zoekcriteria te wijzigen",
+			"calendarTitle": "Evenementenkalender",
+			"eventCard": {
+				"viewEvent": "Evenement bekijken",
+				"viewDetails": "Details bekijken",
+				"bibsAvailable": "startnummers beschikbaar",
+				"soldOut": "Uitverkocht",
+				"checkBibs": "Startnummers controleren...",
+				"viewBibs": "Startnummers bekijken ({count})",
+				"joinWaitlist": "Wachtlijst bijwonen",
+				"elevationGain": "Hoogteverschil",
+				"fromPrice": "Vanaf {price}€",
+				"available": "Beschikbaar",
+				"waitlist": "Wachtlijst",
+				"loading": "Laden...",
+				"bestPrice": "Beste prijs",
+				"officialPrice": "Officiële prijs"
+			},
+			"OG": {
+				"title": "Jouw Sportevenementen",
+				"description": "Blader door onze **evenementen** en vind **startnummers** voor aankomende evenementen!"
+			},
+			"noEventsToDisplay": "Geen events om weer te geven.",
+			"eventListTitleClient": "Event-lijst (Client-component):",
+			"emptyResults": {
+				"title": "Geen resultaten voor je zoekopdracht",
+				"subtitle": "Probeer je filters aan te passen. Als er een event ontbreekt dat je interesseert, neem contact met ons op.",
+				"cta": "Neem contact op"
+			}
+		}
+	}
 }

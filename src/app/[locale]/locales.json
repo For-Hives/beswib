@@ -1,1940 +1,1940 @@
 {
-  "en": {
-    "home": {
-      "hero": {
-        "title": "Can't Attend Your Race? <span>Transfer</span> Your Bib Safely!",
-        "description": "Legal race bib transfers for running, trail, triathlon & cycling events worldwide. <br />Secure PayPal payments, verified sellers, and instant organizer approval. Join thousands of athletes who trust Beswib.",
-        "organizerButton": "Organizer? List your race",
-        "consultRacesButton": "Browse races",
-        "workInProgress": "Work in progress"
-      },
-      "impact": {
-        "title": "Our Impact",
-        "activeEvents": "Active Events",
-        "bibsExchanged": "Bibs Exchanged"
-      },
-      "callToAction": {
-        "title": "Ready to Transfer Your Race Bib?",
-        "description": "Join thousands of athletes who safely buy and sell race bibs on Beswib. 100% secure transfers with PayPal protection and organizer approval.",
-        "learnMoreButton": "View Beswib FAQ Guide"
-      }
-    },
-    "payment": {
-      "title": "Complete Your Purchase",
-      "eventDetails": "Event Details",
-      "orderSummary": "Order Summary",
-      "raceBibTransfer": "Race bib transfer",
-      "discountApplied": "Discount applied",
-      "total": "Total",
-      "whatsIncluded": "What's included",
-      "officialBib": "Official race bib with your registered details",
-      "eventMaterials": "All event materials (timing chip, race packet)",
-      "transferService": "Complete registration transfer service",
-      "multilingualAssistance": "Dedicated multilingual assistance",
-      "paymentMethod": "Payment Method",
-      "secureTransaction": "100% Secure Transaction",
-      "secureDescription": "Your payment is processed securely through PayPal's trusted platform. We never store your payment details.",
-      "ssl256": "256-bit SSL",
-      "paypalSecured": "PayPal Secured",
-      "pciCompliant": "PCI Compliant",
-      "trustedAthletes": "Trusted by thousands of athletes worldwide",
-      "bankEncryption": "Bank-level encryption",
-      "instantConfirmation": "Instant confirmation",
-      "fraudProtection": "Fraud protection",
-      "paymentSuccess": "Payment Successful!",
-      "paymentSuccessMessage": "Your payment has been processed successfully. You will receive a confirmation email shortly.",
-      "paymentError": "Payment Error",
-      "paymentCancelled": "Payment Cancelled",
-      "paymentCancelledMessage": "The payment was cancelled. You can try again or contact support if needed.",
-      "goToDashboard": "Go to Dashboard",
-      "tryAgain": "Try Again",
-      "contactSupport": "Contact Support",
-      "orderProcessing": "Processing Order...",
-      "paymentProcessing": "Processing Payment...",
-      "closeDialog": "Close",
-      "paymentMethodDeclined": "Payment Method Declined",
-      "paymentDeclinedMessage": "Your payment method was declined. Please try with a different payment method or funding source.",
-      "tryDifferentPaymentMethod": "Try Different Payment Method"
-    },
-    "form": {
-      "valid": "Valid"
-    },
-    "auth": {
-      "fields": {
-        "email": "Email address",
-        "password": "Password",
-        "firstName": "First name",
-        "lastName": "Last name",
-        "confirmPassword": "Confirm password"
-      },
-      "placeholders": {
-        "email": "your@email.com",
-        "password": "••••••••",
-        "firstName": "John",
-        "lastName": "Doe",
-        "confirmPassword": "••••••••"
-      },
-      "somethingWentWrong": "Something went wrong. Please try again.",
-      "unauthorized": {
-        "title": "Access Denied",
-        "description": "You don't have permission to access this page.",
-        "adminRequired": "Administrator access is required for this section.",
-        "backToHome": "Back to Home",
-        "contactSupport": "Contact Support",
-        "additionalHelp": "If you believe this is an error, please contact our support team."
-      },
-      "legal": {
-        "termsText": "By creating an account, you agree to our",
-        "termsOfService": "Terms of Service",
-        "privacyPolicy": "Privacy Policy",
-        "and": "and"
-      },
-      "signIn": {
-        "title": "Welcome back!",
-        "subtitle": "Sign in to your account to continue",
-        "welcome": "Welcome back!",
-        "forgotPassword": "Forgot password?",
-        "signInButton": "Sign in",
-        "signingIn": "Signing in...",
-        "signIn": "Sign in",
-        "noAccount": "No account yet?",
-        "createAccount": "Create account",
-        "continueWithGoogle": "Sign in with Google",
-        "continueWithFacebook": "Sign in with Facebook",
-        "orContinueWith": "or continue with"
-      },
-      "signUp": {
-        "title": "Create account",
-        "subtitle": "Join the Beswib community and start exchanging your bibs",
-        "firstNameLabel": "First name",
-        "firstNamePlaceholder": "John",
-        "lastNameLabel": "Last name",
-        "lastNamePlaceholder": "Doe",
-        "emailLabel": "Email address",
-        "emailPlaceholder": "your@email.com",
-        "passwordLabel": "Password",
-        "passwordPlaceholder": "••••••••",
-        "confirmPasswordLabel": "Confirm password",
-        "confirmPasswordPlaceholder": "••••••••",
-        "signUpButton": "Create account",
-        "signingUp": "Creating...",
-        "alreadyAccount": "Already have an account?",
-        "signIn": "Sign in",
-        "signUpWithGoogle": "Sign up with Google",
-        "signUpWithFacebook": "Sign up with Facebook",
-        "orCreateWith": "or create account with",
-        "verifyEmail": {
-          "title": "Verify your email",
-          "subtitle": "We sent a verification code to",
-          "codeLabel": "Verification code",
-          "codePlaceholder": "Enter your verification code",
-          "verifyButton": "Verify",
-          "verifying": "Verifying...",
-          "backToForm": "← Back to signup form"
-        },
-        "emailAlreadyExists": "This email is already registered. Try signing in instead or use a different email.",
-        "signInWithEmailInstead": "→ Sign in with this email instead",
-        "completeProfileRequired": "Please complete your profile to finish registration.",
-        "additionalInfoRequired": "Additional information required. Please complete your profile."
-      },
-      "forgotPassword": {
-        "title": "Forgot password",
-        "subtitle": "Enter your email address to receive a reset code",
-        "emailSentSubtitle": "We sent a reset code to your email",
-        "successSubtitle": "Your password has been successfully reset!",
-        "emailLabel": "Email address",
-        "emailPlaceholder": "your@email.com",
-        "newPasswordLabel": "New password",
-        "resetCodeLabel": "Reset code",
-        "resetCodePlaceholder": "123456",
-        "sendCodeButton": "Send code",
-        "resetPasswordButton": "Reset password",
-        "backToSignIn": "← Back to sign in",
-        "continueToDashboard": "Continue to dashboard"
-      },
-      "passwordStrength": {
-        "label": "Password strength",
-        "veryWeak": "Very weak",
-        "weak": "Weak",
-        "medium": "Medium",
-        "good": "Good",
-        "strong": "Strong",
-        "veryStrong": "Very strong",
-        "suggestions": "Suggested improvements:",
-        "atLeast8Chars": "At least 8 characters",
-        "oneLowercase": "One lowercase letter",
-        "oneUppercase": "One uppercase letter",
-        "oneNumber": "One number",
-        "oneSpecialChar": "One special character (optional)"
-      },
-      "common": {
-        "loading": "Loading...",
-        "redirecting": "Redirecting...",
-        "valid": "Valid"
-      }
-    },
-    "clerkErrors": {
-      "form_identifier_not_found": "No account found with this email address.",
-      "form_password_incorrect": "Incorrect password.",
-      "form_identifier_exists": "An account already exists with this email address.",
-      "session_exists": "You are already signed in.",
-      "clerk_js_error": "A technical error occurred. Please try again.",
-      "form_code_incorrect": "Incorrect verification code.",
-      "verification_expired": "The verification code has expired. Request a new code.",
-      "verification_failed": "Verification failed. Please try again.",
-      "form_param_nil": "All fields are required.",
-      "form_password_pwned": "This password has been compromised in a security breach. Please choose another one.",
-      "form_password_too_common": "This password is too common. Please choose a more secure one.",
-      "oauth_access_denied": "Access was denied. Please try again.",
-      "oauth_email_domain_reserved_by_saml": "This email address is reserved for SAML login.",
-      "network_error": "Connection error. Check your internet connection.",
-      "unexpected_error": "An unexpected error occurred. Please try again.",
-      "too_many_requests": "Too many attempts. Please wait before trying again.",
-      "signin_failed": "Sign in failed. Check your credentials.",
-      "signup_failed": "Sign up failed. Please try again.",
-      "captcha_invalid": "CAPTCHA verification failed. Please try again.",
-      "form_param_unknown": "Unknown parameter error. Please try again.",
-      "form_param_invalid": "Invalid form data. Please check your inputs.",
-      "default_error": "An error occurred. Please try again."
-    },
-    "runs": [
-      {
-        "name": "Nantes Marathon",
-        "location": "Nantes"
-      },
-      {
-        "name": "Ironman Nice",
-        "location": "Nice"
-      },
-      {
-        "name": "Thonon Half Marathon",
-        "location": "Thonon-les-Bains"
-      },
-      {
-        "name": "Paris Marathon",
-        "location": "Paris"
-      },
-      {
-        "name": "Ultra Trail du Mont Blanc",
-        "location": "Chamonix"
-      }
-    ],
-    "OG": {
-      "title": "Buy and sell your race bibs with peace of mind.",
-      "description": "A secure platform to **buy** and **resell** **race bibs**"
-    }
-  },
-  "fr": {
-    "home": {
-      "hero": {
-        "title": "Un imprévu ? <span>Transfère</span> ton dossard !",
-        "description": "Que vous soyez plutôt running, trail, triathlon ou encore cyclisme. <br />Trouvez votre course favorite ou vendez votre dossard en toute confiance.",
-        "organizerButton": "Organisateur ? Liste ta course",
-        "consultRacesButton": "Consulter les courses",
-        "workInProgress": "Work in progress"
-      },
-      "impact": {
-        "title": "Notre Impact",
-        "activeEvents": "Événements actifs",
-        "bibsExchanged": "Dossards échangés"
-      },
-      "callToAction": {
-        "title": "Prêt à commencer ?",
-        "description": "Apprenez-en plus sur le fonctionnement de Beswib ou commencez à parcourir les événements.",
-        "learnMoreButton": "Consulter le guide FAQ Beswib"
-      }
-    },
-    "payment": {
-      "title": "Finaliser votre achat",
-      "eventDetails": "Détails de l'événement",
-      "orderSummary": "Résumé de la commande",
-      "raceBibTransfer": "Transfert de dossard",
-      "discountApplied": "Remise appliquée",
-      "total": "Total",
-      "whatsIncluded": "Ce qui est inclus",
-      "officialBib": "Dossard officiel avec vos informations enregistrées",
-      "eventMaterials": "Tous les matériaux de l'événement (puce de chronométrage, kit de course)",
-      "transferService": "Service complet de transfert d'inscription",
-      "multilingualAssistance": "Assistance multilingue dédiée",
-      "paymentMethod": "Méthode de paiement",
-      "secureTransaction": "Transaction 100% sécurisée",
-      "secureDescription": "Votre paiement est traité en toute sécurité via la plateforme de confiance PayPal. Nous ne stockons jamais vos informations de paiement.",
-      "ssl256": "SSL 256-bit",
-      "paypalSecured": "Sécurisé PayPal",
-      "pciCompliant": "Conforme PCI",
-      "trustedAthletes": "Fait confiance par des milliers d'athlètes dans le monde",
-      "bankEncryption": "Chiffrement bancaire",
-      "instantConfirmation": "Confirmation instantanée",
-      "fraudProtection": "Protection contre la fraude",
-      "paymentSuccess": "Paiement réussi !",
-      "paymentSuccessMessage": "Votre paiement a été traité avec succès. Vous recevrez un e-mail de confirmation sous peu.",
-      "paymentError": "Erreur de paiement",
-      "paymentCancelled": "Paiement annulé",
-      "paymentCancelledMessage": "Le paiement a été annulé. Vous pouvez réessayer ou contacter le support si nécessaire.",
-      "goToDashboard": "Aller au tableau de bord",
-      "tryAgain": "Réessayer",
-      "contactSupport": "Contacter le support",
-      "orderProcessing": "Traitement de la commande...",
-      "paymentProcessing": "Traitement du paiement...",
-      "closeDialog": "Fermer",
-      "paymentMethodDeclined": "Méthode de paiement refusée",
-      "paymentDeclinedMessage": "Votre méthode de paiement a été refusée. Veuillez essayer avec une méthode de paiement ou une source de financement différente.",
-      "tryDifferentPaymentMethod": "Essayer une méthode de paiement différente"
-    },
-    "form": {
-      "valid": "Valide"
-    },
-    "auth": {
-      "fields": {
-        "email": "Adresse email",
-        "password": "Mot de passe",
-        "firstName": "Prénom",
-        "lastName": "Nom",
-        "confirmPassword": "Confirmer le mot de passe"
-      },
-      "placeholders": {
-        "email": "votre@email.com",
-        "password": "••••••••",
-        "firstName": "Jean",
-        "lastName": "Dupont",
-        "confirmPassword": "••••••••"
-      },
-      "somethingWentWrong": "Quelque chose s'est mal passé. Veuillez réessayer.",
-      "legal": {
-        "termsText": "En créant un compte, vous acceptez nos",
-        "termsOfService": "Conditions d'utilisation",
-        "privacyPolicy": "Politique de confidentialité",
-        "and": "et"
-      },
-      "signIn": {
-        "title": "Bon retour !",
-        "subtitle": "Connectez-vous à votre compte pour continuer",
-        "welcome": "Bon retour !",
-        "forgotPassword": "Mot de passe oublié ?",
-        "signInButton": "Se connecter",
-        "signingIn": "Connexion...",
-        "signIn": "Se connecter",
-        "noAccount": "Pas encore de compte ?",
-        "createAccount": "Créer un compte",
-        "continueWithGoogle": "Se connecter avec Google",
-        "continueWithFacebook": "Se connecter avec Facebook",
-        "orContinueWith": "ou continuez avec"
-      },
-      "signUp": {
-        "title": "Créer un compte",
-        "subtitle": "Rejoignez la communauté Beswib et commencez à échanger vos dossards",
-        "firstNameLabel": "Prénom",
-        "firstNamePlaceholder": "Jean",
-        "lastNameLabel": "Nom",
-        "lastNamePlaceholder": "Dupont",
-        "emailLabel": "Adresse email",
-        "emailPlaceholder": "votre@email.com",
-        "passwordLabel": "Mot de passe",
-        "passwordPlaceholder": "••••••••",
-        "confirmPasswordLabel": "Confirmer le mot de passe",
-        "confirmPasswordPlaceholder": "••••••••",
-        "signUpButton": "Créer un compte",
-        "signingUp": "Création...",
-        "alreadyAccount": "Déjà un compte ?",
-        "signIn": "Se connecter",
-        "signUpWithGoogle": "S'inscrire avec Google",
-        "signUpWithFacebook": "S'inscrire avec Facebook",
-        "orCreateWith": "ou créez un compte avec",
-        "verifyEmail": {
-          "title": "Vérifiez votre email",
-          "subtitle": "Nous avons envoyé un code de vérification à",
-          "codeLabel": "Code de vérification",
-          "codePlaceholder": "Entrez votre code de vérification",
-          "verifyButton": "Vérifier",
-          "verifying": "Vérification...",
-          "backToForm": "← Retour au formulaire d'inscription"
-        },
-        "emailAlreadyExists": "Cet email est déjà enregistré. Essayez de vous connecter ou utilisez un autre email.",
-        "signInWithEmailInstead": "→ Se connecter avec cet email à la place",
-        "completeProfileRequired": "Veuillez compléter votre profil pour terminer l'inscription.",
-        "additionalInfoRequired": "Informations supplémentaires requises. Veuillez compléter votre profil."
-      },
-      "forgotPassword": {
-        "title": "Mot de passe oublié",
-        "subtitle": "Entrez votre adresse email pour recevoir un code de réinitialisation",
-        "emailSentSubtitle": "Nous avons envoyé un code de réinitialisation à votre email",
-        "successSubtitle": "Votre mot de passe a été réinitialisé avec succès !",
-        "emailLabel": "Adresse email",
-        "emailPlaceholder": "votre@email.com",
-        "newPasswordLabel": "Nouveau mot de passe",
-        "resetCodeLabel": "Code de réinitialisation",
-        "resetCodePlaceholder": "123456",
-        "sendCodeButton": "Envoyer le code",
-        "resetPasswordButton": "Réinitialiser le mot de passe",
-        "backToSignIn": "← Retour à la connexion",
-        "continueToDashboard": "Continuer vers le tableau de bord"
-      },
-      "passwordStrength": {
-        "label": "Force du mot de passe",
-        "veryWeak": "Très faible",
-        "weak": "Faible",
-        "medium": "Moyen",
-        "good": "Bon",
-        "strong": "Fort",
-        "veryStrong": "Très fort",
-        "suggestions": "Améliorations suggérées :",
-        "atLeast8Chars": "Au moins 8 caractères",
-        "oneLowercase": "Une lettre minuscule",
-        "oneUppercase": "Une lettre majuscule",
-        "oneNumber": "Un chiffre",
-        "oneSpecialChar": "Un caractère spécial (optionnel)"
-      },
-      "common": {
-        "loading": "Chargement...",
-        "redirecting": "Redirection...",
-        "valid": "Valide"
-      },
-      "unauthorized": {
-        "title": "Accès Refusé",
-        "description": "Vous n'avez pas la permission d'accéder à cette page.",
-        "adminRequired": "Des privilèges d'administrateur sont requis pour voir ce contenu.",
-        "backToHome": "Retour à l'accueil",
-        "contactSupport": "Contacter le support",
-        "additionalHelp": "Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur."
-      }
-    },
-    "runs": [
-      {
-        "name": "Marathon de Nantes",
-        "location": "Nantes"
-      },
-      {
-        "name": "Ironman Nice",
-        "location": "Nice"
-      },
-      {
-        "name": "Semi-marathon de Thonon",
-        "location": "Thonon-les-Bains"
-      },
-      {
-        "name": "Marathon de Paris",
-        "location": "Paris"
-      },
-      {
-        "name": "Ultra Trail du Mont Blanc",
-        "location": "Chamonix"
-      }
-    ],
-    "OG": {
-      "title": "Achetez et vendez vos dossards en toute sérénité.",
-      "description": "Plateforme d’**achat** et **revente** de **dossards** sécurisée"
-    }
-  },
-  "es": {
-    "home": {
-      "hero": {
-        "title": "¿Un imprevisto? <span>Transfiere</span> tu dorsal!",
-        "description": "Tanto si te gusta el running, trail, triatlón o ciclismo.<br />Encuentra tu carrera favorita o vende tu dorsal con confianza.",
-        "organizerButton": "¿Organizador? Publica tu carrera",
-        "consultRacesButton": "Ver carreras",
-        "workInProgress": "Trabajo en curso"
-      },
-      "impact": {
-        "title": "Nuestro impacto",
-        "activeEvents": "Eventos activos",
-        "bibsExchanged": "Dorsales intercambiados"
-      },
-      "callToAction": {
-        "title": "¿Listo para empezar?",
-        "description": "Conoce cómo funciona Beswib o empieza a explorar eventos ahora.",
-        "learnMoreButton": "Saber más (FAQ)"
-      }
-    },
-    "payment": {
-      "title": "Completar tu compra",
-      "eventDetails": "Detalles del evento",
-      "orderSummary": "Resumen del pedido",
-      "raceBibTransfer": "Transferencia de dorsal",
-      "discountApplied": "Descuento aplicado",
-      "total": "Total",
-      "whatsIncluded": "Qué incluye",
-      "officialBib": "Dorsal oficial con tus datos registrados",
-      "eventMaterials": "Todos los materiales del evento (chip de cronometraje, kit de carrera)",
-      "transferService": "Servicio completo de transferencia de inscripción",
-      "multilingualAssistance": "Asistencia multilingüe dedicada",
-      "paymentMethod": "Método de pago",
-      "secureTransaction": "Transacción 100% segura",
-      "secureDescription": "Tu pago se procesa de forma segura a través de la plataforma de confianza de PayPal. Nunca almacenamos tus datos de pago.",
-      "ssl256": "SSL 256-bit",
-      "paypalSecured": "Securizado por PayPal",
-      "pciCompliant": "Cumple PCI",
-      "trustedAthletes": "Confiado por miles de atletas en todo el mundo",
-      "bankEncryption": "Encriptación bancaria",
-      "instantConfirmation": "Confirmación instantánea",
-      "fraudProtection": "Protección contra fraude",
-      "paymentSuccess": "¡Pago exitoso!",
-      "paymentSuccessMessage": "Su pago se ha procesado exitosamente. Recibirá un correo electrónico de confirmación en breve.",
-      "paymentError": "Error de pago",
-      "paymentCancelled": "Pago cancelado",
-      "paymentCancelledMessage": "El pago fue cancelado. Puede intentar de nuevo o contactar soporte si es necesario.",
-      "goToDashboard": "Ir al panel",
-      "tryAgain": "Intentar de nuevo",
-      "contactSupport": "Contactar soporte",
-      "orderProcessing": "Procesando pedido...",
-      "paymentProcessing": "Procesando pago...",
-      "closeDialog": "Cerrar",
-      "paymentMethodDeclined": "Método de pago rechazado",
-      "paymentDeclinedMessage": "Su método de pago fue rechazado. Por favor intente con un método de pago o fuente de financiamiento diferente.",
-      "tryDifferentPaymentMethod": "Intentar método de pago diferente"
-    },
-    "form": {
-      "valid": "Válido"
-    },
-    "clerkErrors": {
-      "form_identifier_not_found": "No se encontró ninguna cuenta con esta dirección de correo.",
-      "form_password_incorrect": "Contraseña incorrecta.",
-      "form_identifier_exists": "Ya existe una cuenta con esta dirección de correo.",
-      "session_exists": "Ya has iniciado sesión.",
-      "clerk_js_error": "Ocurrió un error técnico. Por favor intenta de nuevo.",
-      "form_code_incorrect": "Código de verificación incorrecto.",
-      "verification_expired": "El código de verificación ha expirado. Solicita un nuevo código.",
-      "verification_failed": "La verificación falló. Por favor intenta de nuevo.",
-      "form_param_nil": "Todos los campos son obligatorios.",
-      "form_password_pwned": "Esta contraseña ha sido comprometida en una violación de seguridad. Por favor elige otra.",
-      "form_password_too_common": "Esta contraseña es demasiado común. Por favor elige una más segura.",
-      "oauth_access_denied": "Se denegó el acceso. Por favor intenta de nuevo.",
-      "oauth_email_domain_reserved_by_saml": "Esta dirección de correo está reservada para inicio de sesión SAML.",
-      "network_error": "Error de conexión. Verifica tu conexión a internet.",
-      "unexpected_error": "Ocurrió un error inesperado. Por favor intenta de nuevo.",
-      "too_many_requests": "Demasiados intentos. Por favor espera antes de intentar de nuevo.",
-      "signin_failed": "Falló el inicio de sesión. Verifica tus credenciales.",
-      "signup_failed": "Falló el registro. Por favor intenta de nuevo.",
-      "default_error": "Ocurrió un error. Por favor intenta de nuevo."
-    },
-    "auth": {
-      "fields": {
-        "email": "Correo electrónico",
-        "password": "Contraseña",
-        "firstName": "Nombre",
-        "lastName": "Apellido",
-        "confirmPassword": "Confirmar contraseña"
-      },
-      "placeholders": {
-        "email": "tu@email.com",
-        "password": "••••••••",
-        "firstName": "Juan",
-        "lastName": "Pérez",
-        "confirmPassword": "••••••••"
-      },
-      "somethingWentWrong": "Algo salió mal. Inténtalo de nuevo.",
-      "legal": {
-        "termsText": "Al crear una cuenta, aceptas",
-        "termsOfService": "los Términos del Servicio",
-        "privacyPolicy": "la Política de Privacidad",
-        "and": "y"
-      },
-      "signIn": {
-        "title": "¡Bienvenido de nuevo!",
-        "subtitle": "Inicia sesión en tu cuenta para continuar",
-        "welcome": "¡Bienvenido de nuevo!",
-        "forgotPassword": "¿Olvidaste tu contraseña?",
-        "signInButton": "Iniciar sesión",
-        "signingIn": "Iniciando sesión...",
-        "signIn": "Iniciar sesión",
-        "noAccount": "¿Aún no tienes cuenta?",
-        "createAccount": "Crear cuenta",
-        "continueWithGoogle": "Iniciar con Google",
-        "continueWithFacebook": "Iniciar con Facebook",
-        "orContinueWith": "o continúa con"
-      },
-      "signUp": {
-        "title": "Crear cuenta",
-        "subtitle": "Únete a la comunidad Beswib y empieza a intercambiar tus dorsales",
-        "firstNameLabel": "Nombre",
-        "firstNamePlaceholder": "Juan",
-        "lastNameLabel": "Apellido",
-        "lastNamePlaceholder": "Pérez",
-        "emailLabel": "Correo electrónico",
-        "emailPlaceholder": "tu@email.com",
-        "passwordLabel": "Contraseña",
-        "passwordPlaceholder": "••••••••",
-        "confirmPasswordLabel": "Confirmar contraseña",
-        "confirmPasswordPlaceholder": "••••••••",
-        "signUpButton": "Crear cuenta",
-        "signingUp": "Creando...",
-        "alreadyAccount": "¿Ya tienes una cuenta?",
-        "signIn": "Iniciar sesión",
-        "signUpWithGoogle": "Registrarse con Google",
-        "signUpWithFacebook": "Registrarse con Facebook",
-        "orCreateWith": "o crea una cuenta con",
-        "verifyEmail": {
-          "title": "Verifica tu correo",
-          "subtitle": "Hemos enviado un código de verificación a",
-          "codeLabel": "Código de verificación",
-          "codePlaceholder": "Ingresa tu código de verificación",
-          "verifyButton": "Verificar",
-          "verifying": "Verificando...",
-          "backToForm": "← Volver al formulario de registro"
-        },
-        "emailAlreadyExists": "Este correo ya está registrado. Intenta iniciar sesión o usa un correo diferente.",
-        "signInWithEmailInstead": "→ Iniciar sesión con este correo en su lugar",
-        "completeProfileRequired": "Por favor completa tu perfil para terminar el registro.",
-        "additionalInfoRequired": "Se requiere información adicional. Por favor completa tu perfil."
-      },
-      "forgotPassword": {
-        "title": "Olvidé mi contraseña",
-        "subtitle": "Introduce tu correo para recibir un código de restablecimiento",
-        "emailSentSubtitle": "Hemos enviado un código a tu correo",
-        "successSubtitle": "¡Tu contraseña se ha restablecido correctamente!",
-        "emailLabel": "Correo electrónico",
-        "emailPlaceholder": "tu@email.com",
-        "newPasswordLabel": "Nueva contraseña",
-        "resetCodeLabel": "Código de restablecimiento",
-        "resetCodePlaceholder": "123456",
-        "sendCodeButton": "Enviar código",
-        "resetPasswordButton": "Restablecer contraseña",
-        "backToSignIn": "← Volver a iniciar sesión",
-        "continueToDashboard": "Continuar al panel"
-      },
-      "passwordStrength": {
-        "label": "Fortaleza de la contraseña",
-        "veryWeak": "Muy débil",
-        "weak": "Débil",
-        "medium": "Media",
-        "good": "Buena",
-        "strong": "Fuerte",
-        "veryStrong": "Muy fuerte",
-        "suggestions": "Mejoras sugeridas:",
-        "atLeast8Chars": "Al menos 8 caracteres",
-        "oneLowercase": "Una letra minúscula",
-        "oneUppercase": "Una letra mayúscula",
-        "oneNumber": "Un número",
-        "oneSpecialChar": "Un carácter especial (opcional)"
-      },
-      "common": {
-        "loading": "Cargando...",
-        "redirecting": "Redirigiendo...",
-        "valid": "Válido"
-      },
-      "unauthorized": {
-        "title": "Acceso Denegado",
-        "description": "No tienes permiso para acceder a esta página.",
-        "adminRequired": "Se requieren privilegios de administrador para ver este contenido.",
-        "backToHome": "Volver al inicio",
-        "contactSupport": "Contactar soporte",
-        "additionalHelp": "Si crees que esto es un error, por favor contacta al administrador."
-      }
-    },
-    "runs": [
-      {
-        "name": "Maratón de Nantes",
-        "location": "Nantes"
-      },
-      {
-        "name": "Ironman Niza",
-        "location": "Niza"
-      },
-      {
-        "name": "Medio Maratón de Thonon",
-        "location": "Thonon-les-Bains"
-      },
-      {
-        "name": "Maratón de París",
-        "location": "París"
-      },
-      {
-        "name": "Ultra Trail del Mont Blanc",
-        "location": "Chamonix"
-      }
-    ],
-    "OG": {
-      "title": "Compra y vende tus dorsales con total tranquilidad.",
-      "description": "Plataforma segura para **comprar** y **revender** **dorsales**"
-    }
-  },
-  "it": {
-    "home": {
-      "hero": {
-        "title": "Un imprevisto? <span>Trasferisci</span> il tuo pettorale!",
-        "description": "Che tu ami running, trail, triathlon o ciclismo.<br />Trova la tua gara preferita o vendi il tuo pettorale in sicurezza.",
-        "organizerButton": "Organizzatore? Elenca la tua gara",
-        "consultRacesButton": "Sfoglia le gare",
-        "workInProgress": "Lavori in corso"
-      },
-      "impact": {
-        "title": "Il nostro impatto",
-        "activeEvents": "Eventi attivi",
-        "bibsExchanged": "Pettorali scambiati"
-      },
-      "callToAction": {
-        "title": "Pronto a iniziare?",
-        "description": "Scopri come funziona Beswib o inizia subito a esplorare gli eventi.",
-        "learnMoreButton": "Scopri di più (FAQ)"
-      }
-    },
-    "payment": {
-      "title": "Completa il tuo acquisto",
-      "eventDetails": "Dettagli evento",
-      "orderSummary": "Riepilogo ordine",
-      "raceBibTransfer": "Trasferimento pettorale",
-      "discountApplied": "Sconto applicato",
-      "total": "Totale",
-      "whatsIncluded": "Cosa è incluso",
-      "officialBib": "Pettorale ufficiale con i tuoi dati registrati",
-      "eventMaterials": "Tutti i materiali dell'evento (chip di cronometraggio, kit gara)",
-      "transferService": "Servizio completo di trasferimento iscrizione",
-      "multilingualAssistance": "Assistenza multilingue dedicata",
-      "paymentMethod": "Metodo di pagamento",
-      "secureTransaction": "Transazione 100% sicura",
-      "secureDescription": "Il tuo pagamento viene elaborato in sicurezza tramite la piattaforma affidabile di PayPal. Non memorizziamo mai i tuoi dati di pagamento.",
-      "ssl256": "SSL 256-bit",
-      "paypalSecured": "Securizzato PayPal",
-      "pciCompliant": "Conforme PCI",
-      "trustedAthletes": "Affidabile per migliaia di atleti in tutto il mondo",
-      "bankEncryption": "Crittografia bancaria",
-      "instantConfirmation": "Conferma istantanea",
-      "fraudProtection": "Protezione antifrode",
-      "paymentSuccess": "Pagamento riuscito!",
-      "paymentSuccessMessage": "Il pagamento è stato elaborato con successo. Riceverai un'email di conferma a breve.",
-      "paymentError": "Errore di pagamento",
-      "paymentCancelled": "Pagamento annullato",
-      "paymentCancelledMessage": "Il pagamento è stato annullato. Puoi riprovare o contattare il supporto se necessario.",
-      "goToDashboard": "Vai alla dashboard",
-      "tryAgain": "Riprova",
-      "contactSupport": "Contatta il supporto",
-      "orderProcessing": "Elaborazione ordine...",
-      "paymentProcessing": "Elaborazione pagamento...",
-      "closeDialog": "Chiudi",
-      "paymentMethodDeclined": "Metodo di pagamento rifiutato",
-      "paymentDeclinedMessage": "Il tuo metodo di pagamento è stato rifiutato. Si prega di provare con un metodo di pagamento o una fonte di finanziamento diversa.",
-      "tryDifferentPaymentMethod": "Prova un metodo di pagamento diverso"
-    },
-    "form": {
-      "valid": "Valido"
-    },
-    "clerkErrors": {
-      "form_identifier_not_found": "Nessun account trovato con questo indirizzo email.",
-      "form_password_incorrect": "Password incorretta.",
-      "form_identifier_exists": "Esiste già un account con questo indirizzo email.",
-      "session_exists": "Sei già connesso.",
-      "clerk_js_error": "Si è verificato un errore tecnico. Riprova.",
-      "form_code_incorrect": "Codice di verifica errato.",
-      "verification_expired": "Il codice di verifica è scaduto. Richiedi un nuovo codice.",
-      "verification_failed": "Verifica fallita. Riprova.",
-      "form_param_nil": "Tutti i campi sono obbligatori.",
-      "form_password_pwned": "Questa password è stata compromessa in una violazione della sicurezza. Scegline un'altra.",
-      "form_password_too_common": "Questa password è troppo comune. Scegline una più sicura.",
-      "oauth_access_denied": "L'accesso è stato negato. Riprova.",
-      "oauth_email_domain_reserved_by_saml": "Questo indirizzo email è riservato per l'accesso SAML.",
-      "network_error": "Errore di connessione. Controlla la tua connessione internet.",
-      "unexpected_error": "Si è verificato un errore imprevisto. Riprova.",
-      "too_many_requests": "Troppi tentativi. Attendi prima di riprovare.",
-      "signin_failed": "Accesso fallito. Controlla le tue credenziali.",
-      "signup_failed": "Registrazione fallita. Riprova.",
-      "default_error": "Si è verificato un errore. Riprova."
-    },
-    "auth": {
-      "fields": {
-        "email": "Indirizzo email",
-        "password": "Password",
-        "firstName": "Nome",
-        "lastName": "Cognome",
-        "confirmPassword": "Conferma password"
-      },
-      "placeholders": {
-        "email": "tua@email.com",
-        "password": "••••••••",
-        "firstName": "Mario",
-        "lastName": "Rossi",
-        "confirmPassword": "••••••••"
-      },
-      "somethingWentWrong": "Qualcosa è andato storto. Riprova.",
-      "legal": {
-        "termsText": "Creando un account accetti i nostri",
-        "termsOfService": "Termini di servizio",
-        "privacyPolicy": "Informativa sulla privacy",
-        "and": "e"
-      },
-      "signIn": {
-        "title": "Bentornato!",
-        "subtitle": "Accedi al tuo account per continuare",
-        "welcome": "Bentornato!",
-        "forgotPassword": "Password dimenticata?",
-        "signInButton": "Accedi",
-        "signingIn": "Accesso in corso...",
-        "signIn": "Accedi",
-        "noAccount": "Non hai un account?",
-        "createAccount": "Crea account",
-        "continueWithGoogle": "Accedi con Google",
-        "continueWithFacebook": "Accedi con Facebook",
-        "orContinueWith": "oppure continua con"
-      },
-      "signUp": {
-        "title": "Crea account",
-        "subtitle": "Unisciti alla community Beswib e inizia a scambiare i tuoi pettorali",
-        "firstNameLabel": "Nome",
-        "firstNamePlaceholder": "Mario",
-        "lastNameLabel": "Cognome",
-        "lastNamePlaceholder": "Rossi",
-        "emailLabel": "Indirizzo email",
-        "emailPlaceholder": "tua@email.com",
-        "passwordLabel": "Password",
-        "passwordPlaceholder": "••••••••",
-        "confirmPasswordLabel": "Conferma password",
-        "confirmPasswordPlaceholder": "••••••••",
-        "signUpButton": "Crea account",
-        "signingUp": "Creazione...",
-        "alreadyAccount": "Hai già un account?",
-        "signIn": "Accedi",
-        "signUpWithGoogle": "Registrati con Google",
-        "signUpWithFacebook": "Registrati con Facebook",
-        "orCreateWith": "oppure crea un account con",
-        "verifyEmail": {
-          "title": "Verifica la tua email",
-          "subtitle": "Abbiamo inviato un codice di verifica a",
-          "codeLabel": "Codice di verifica",
-          "codePlaceholder": "Inserisci il tuo codice di verifica",
-          "verifyButton": "Verifica",
-          "verifying": "Verifica in corso...",
-          "backToForm": "← Torna al modulo di registrazione"
-        },
-        "emailAlreadyExists": "Questa email è già registrata. Prova a effettuare l'accesso o usa un'email diversa.",
-        "signInWithEmailInstead": "→ Accedi con questa email invece",
-        "completeProfileRequired": "Completa il tuo profilo per terminare la registrazione.",
-        "additionalInfoRequired": "Informazioni aggiuntive richieste. Completa il tuo profilo."
-      },
-      "forgotPassword": {
-        "title": "Password dimenticata",
-        "subtitle": "Inserisci la tua email per ricevere un codice di reset",
-        "emailSentSubtitle": "Abbiamo inviato un codice alla tua email",
-        "successSubtitle": "La tua password è stata reimpostata con successo!",
-        "emailLabel": "Indirizzo email",
-        "emailPlaceholder": "tua@email.com",
-        "newPasswordLabel": "Nuova password",
-        "resetCodeLabel": "Codice di reset",
-        "resetCodePlaceholder": "123456",
-        "sendCodeButton": "Invia codice",
-        "resetPasswordButton": "Reimposta password",
-        "backToSignIn": "← Torna all'accesso",
-        "continueToDashboard": "Continua alla dashboard"
-      },
-      "passwordStrength": {
-        "label": "Forza della password",
-        "veryWeak": "Molto debole",
-        "weak": "Debole",
-        "medium": "Media",
-        "good": "Buona",
-        "strong": "Forte",
-        "veryStrong": "Molto forte",
-        "suggestions": "Miglioramenti suggeriti:",
-        "atLeast8Chars": "Almeno 8 caratteri",
-        "oneLowercase": "Una lettera minuscola",
-        "oneUppercase": "Una lettera maiuscola",
-        "oneNumber": "Un numero",
-        "oneSpecialChar": "Un carattere speciale (opzionale)"
-      },
-      "common": {
-        "loading": "Caricamento...",
-        "redirecting": "Reindirizzamento...",
-        "valid": "Valido"
-      },
-      "unauthorized": {
-        "title": "Accesso Negato",
-        "description": "Non hai i permessi per accedere a questa pagina.",
-        "adminRequired": "Sono richiesti privilegi di amministratore per visualizzare questo contenuto.",
-        "backToHome": "Torna alla home",
-        "contactSupport": "Contatta il supporto",
-        "additionalHelp": "Se ritieni che questo sia un errore, contatta l'amministratore."
-      }
-    },
-    "runs": [
-      {
-        "name": "Maratona di Nantes",
-        "location": "Nantes"
-      },
-      {
-        "name": "Ironman Nizza",
-        "location": "Nizza"
-      },
-      {
-        "name": "Mezza Maratona di Thonon",
-        "location": "Thonon-les-Bains"
-      },
-      {
-        "name": "Maratona di Parigi",
-        "location": "Parigi"
-      },
-      {
-        "name": "Ultra Trail du Mont Blanc",
-        "location": "Chamonix"
-      }
-    ],
-    "OG": {
-      "title": "Compra e vendi i tuoi pettorali in tutta serenità.",
-      "description": "Piattaforma sicura per **acquistare** e **rivendere** **pettorali**"
-    }
-  },
-  "de": {
-    "home": {
-      "hero": {
-        "title": "Ein unvorhergesehenes Ereignis? <span>Übertrage</span> deine Startnummer!",
-        "description": "Ob Laufen, Trail, Triathlon oder Radfahren.<br />Finde dein Lieblingsrennen oder verkaufe deine Startnummer sicher.",
-        "organizerButton": "Veranstalter? Liste dein Rennen",
-        "consultRacesButton": "Rennen durchsuchen",
-        "workInProgress": "Arbeiten im Gange"
-      },
-      "impact": {
-        "title": "Unsere Wirkung",
-        "activeEvents": "Aktive Events",
-        "bibsExchanged": "Übertragene Startnummern"
-      },
-      "callToAction": {
-        "title": "Bereit loszulegen?",
-        "description": "Erfahre mehr über Beswib oder beginne jetzt, Events zu entdecken.",
-        "learnMoreButton": "Mehr erfahren (FAQ)"
-      }
-    },
-    "payment": {
-      "title": "Kauf abschließen",
-      "eventDetails": "Event-Details",
-      "orderSummary": "Bestellübersicht",
-      "raceBibTransfer": "Startnummer-Übertragung",
-      "discountApplied": "Rabatt angewendet",
-      "total": "Gesamt",
-      "whatsIncluded": "Was ist enthalten",
-      "officialBib": "Offizielle Startnummer mit Ihren registrierten Daten",
-      "eventMaterials": "Alle Event-Materialien (Zeitmesschip, Rennpaket)",
-      "transferService": "Vollständiger Registrierungsübertragungsservice",
-      "multilingualAssistance": "Dedizierte mehrsprachige Unterstützung",
-      "paymentMethod": "Zahlungsmethode",
-      "secureTransaction": "100% sichere Transaktion",
-      "secureDescription": "Ihre Zahlung wird sicher über die vertrauenswürdige PayPal-Plattform verarbeitet. Wir speichern niemals Ihre Zahlungsdaten.",
-      "ssl256": "256-bit SSL",
-      "paypalSecured": "PayPal-gesichert",
-      "pciCompliant": "PCI-konform",
-      "trustedAthletes": "Vertraut von Tausenden von Athleten weltweit",
-      "bankEncryption": "Bankverschlüsselung",
-      "instantConfirmation": "Sofortige Bestätigung",
-      "fraudProtection": "Betrugsschutz",
-      "paymentSuccess": "Zahlung erfolgreich!",
-      "paymentSuccessMessage": "Ihre Zahlung wurde erfolgreich verarbeitet. Sie erhalten in Kürze eine Bestätigungs-E-Mail.",
-      "paymentError": "Zahlungsfehler",
-      "paymentCancelled": "Zahlung abgebrochen",
-      "paymentCancelledMessage": "Die Zahlung wurde abgebrochen. Sie können es erneut versuchen oder den Support kontaktieren, falls nötig.",
-      "goToDashboard": "Zum Dashboard",
-      "tryAgain": "Erneut versuchen",
-      "contactSupport": "Support kontaktieren",
-      "orderProcessing": "Bestellung wird verarbeitet...",
-      "paymentProcessing": "Zahlung wird verarbeitet...",
-      "closeDialog": "Schließen",
-      "paymentMethodDeclined": "Zahlungsmethode abgelehnt",
-      "paymentDeclinedMessage": "Ihre Zahlungsmethode wurde abgelehnt. Bitte versuchen Sie es mit einer anderen Zahlungsmethode oder Finanzierungsquelle.",
-      "tryDifferentPaymentMethod": "Andere Zahlungsmethode versuchen"
-    },
-    "form": {
-      "valid": "Gültig"
-    },
-    "clerkErrors": {
-      "form_identifier_not_found": "Kein Konto mit dieser E-Mail-Adresse gefunden.",
-      "form_password_incorrect": "Falsches Passwort.",
-      "form_identifier_exists": "Ein Konto mit dieser E-Mail-Adresse existiert bereits.",
-      "session_exists": "Du bist bereits angemeldet.",
-      "clerk_js_error": "Ein technischer Fehler ist aufgetreten. Bitte versuche es erneut.",
-      "form_code_incorrect": "Falscher Verifizierungscode.",
-      "verification_expired": "Der Verifizierungscode ist abgelaufen. Fordere einen neuen Code an.",
-      "verification_failed": "Verifizierung fehlgeschlagen. Bitte versuche es erneut.",
-      "form_param_nil": "Alle Felder sind erforderlich.",
-      "form_password_pwned": "Dieses Passwort wurde bei einem Sicherheitsverstoß kompromittiert. Bitte wähle ein anderes.",
-      "form_password_too_common": "Dieses Passwort ist zu häufig verwendet. Bitte wähle ein sichereres.",
-      "oauth_access_denied": "Der Zugriff wurde verweigert. Bitte versuche es erneut.",
-      "oauth_email_domain_reserved_by_saml": "Diese E-Mail-Adresse ist für SAML-Anmeldung reserviert.",
-      "network_error": "Verbindungsfehler. Überprüfe deine Internetverbindung.",
-      "unexpected_error": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut.",
-      "too_many_requests": "Zu viele Versuche. Bitte warte, bevor du es erneut versuchst.",
-      "signin_failed": "Anmeldung fehlgeschlagen. Überprüfe deine Anmeldedaten.",
-      "signup_failed": "Registrierung fehlgeschlagen. Bitte versuche es erneut.",
-      "default_error": "Ein Fehler ist aufgetreten. Bitte versuche es erneut."
-    },
-    "auth": {
-      "fields": {
-        "email": "E-Mail-Adresse",
-        "password": "Passwort",
-        "firstName": "Vorname",
-        "lastName": "Nachname",
-        "confirmPassword": "Passwort bestätigen"
-      },
-      "placeholders": {
-        "email": "dein@email.de",
-        "password": "••••••••",
-        "firstName": "Max",
-        "lastName": "Mustermann",
-        "confirmPassword": "••••••••"
-      },
-      "somethingWentWrong": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
-      "legal": {
-        "termsText": "Mit der Erstellung eines Kontos stimmst du unseren",
-        "termsOfService": "Nutzungsbedingungen",
-        "privacyPolicy": "Datenschutzbestimmungen",
-        "and": "und"
-      },
-      "signIn": {
-        "title": "Willkommen zurück!",
-        "subtitle": "Melde dich in deinem Konto an, um fortzufahren",
-        "welcome": "Willkommen zurück!",
-        "forgotPassword": "Passwort vergessen?",
-        "signInButton": "Anmelden",
-        "signingIn": "Anmelden...",
-        "signIn": "Anmelden",
-        "noAccount": "Noch kein Konto?",
-        "createAccount": "Konto erstellen",
-        "continueWithGoogle": "Mit Google anmelden",
-        "continueWithFacebook": "Mit Facebook anmelden",
-        "orContinueWith": "oder fortfahren mit"
-      },
-      "signUp": {
-        "title": "Konto erstellen",
-        "subtitle": "Tritt der Beswib-Community bei und beginne, Startnummern zu tauschen",
-        "firstNameLabel": "Vorname",
-        "firstNamePlaceholder": "Max",
-        "lastNameLabel": "Nachname",
-        "lastNamePlaceholder": "Mustermann",
-        "emailLabel": "E-Mail-Adresse",
-        "emailPlaceholder": "dein@email.de",
-        "passwordLabel": "Passwort",
-        "passwordPlaceholder": "••••••••",
-        "confirmPasswordLabel": "Passwort bestätigen",
-        "confirmPasswordPlaceholder": "••••••••",
-        "signUpButton": "Konto erstellen",
-        "signingUp": "Erstellen...",
-        "alreadyAccount": "Bereits ein Konto?",
-        "signIn": "Anmelden",
-        "signUpWithGoogle": "Mit Google registrieren",
-        "signUpWithFacebook": "Mit Facebook registrieren",
-        "orCreateWith": "oder Konto erstellen mit",
-        "verifyEmail": {
-          "title": "E-Mail verifizieren",
-          "subtitle": "Wir haben einen Verifizierungscode gesendet an",
-          "codeLabel": "Verifizierungscode",
-          "codePlaceholder": "Geben Sie Ihren Verifizierungscode ein",
-          "verifyButton": "Verifizieren",
-          "verifying": "Verifiziere...",
-          "backToForm": "← Zurück zum Registrierungsformular"
-        },
-        "emailAlreadyExists": "Diese E-Mail ist bereits registriert. Versuchen Sie sich anzumelden oder verwenden Sie eine andere E-Mail.",
-        "signInWithEmailInstead": "→ Mit dieser E-Mail anmelden",
-        "completeProfileRequired": "Bitte vervollständigen Sie Ihr Profil, um die Registrierung abzuschließen.",
-        "additionalInfoRequired": "Zusätzliche Informationen erforderlich. Bitte vervollständigen Sie Ihr Profil."
-      },
-      "forgotPassword": {
-        "title": "Passwort vergessen",
-        "subtitle": "Gib deine E-Mail ein, um einen Reset-Code zu erhalten",
-        "emailSentSubtitle": "Wir haben einen Code an deine E-Mail gesendet",
-        "successSubtitle": "Dein Passwort wurde erfolgreich zurückgesetzt!",
-        "emailLabel": "E-Mail-Adresse",
-        "emailPlaceholder": "dein@email.de",
-        "newPasswordLabel": "Neues Passwort",
-        "resetCodeLabel": "Reset-Code",
-        "resetCodePlaceholder": "123456",
-        "sendCodeButton": "Code senden",
-        "resetPasswordButton": "Passwort zurücksetzen",
-        "backToSignIn": "← Zurück zum Anmelden",
-        "continueToDashboard": "Weiter zum Dashboard"
-      },
-      "passwordStrength": {
-        "label": "Passwortstärke",
-        "veryWeak": "Sehr schwach",
-        "weak": "Schwach",
-        "medium": "Mittel",
-        "good": "Gut",
-        "strong": "Stark",
-        "veryStrong": "Sehr stark",
-        "suggestions": "Vorgeschlagene Verbesserungen:",
-        "atLeast8Chars": "Mindestens 8 Zeichen",
-        "oneLowercase": "Ein Kleinbuchstabe",
-        "oneUppercase": "Ein Großbuchstabe",
-        "oneNumber": "Eine Zahl",
-        "oneSpecialChar": "Ein Sonderzeichen (optional)"
-      },
-      "common": {
-        "loading": "Lädt...",
-        "redirecting": "Weiterleiten...",
-        "valid": "Gültig"
-      },
-      "unauthorized": {
-        "title": "Zugriff Verweigert",
-        "description": "Du hast keine Berechtigung, auf diese Seite zuzugreifen.",
-        "adminRequired": "Administratorrechte sind erforderlich, um diesen Inhalt anzuzeigen.",
-        "backToHome": "Zurück zur Startseite",
-        "contactSupport": "Support kontaktieren",
-        "additionalHelp": "Wenn du glaubst, dass dies ein Fehler ist, kontaktiere bitte den Administrator."
-      }
-    },
-    "runs": [
-      {
-        "name": "Marathon Nantes",
-        "location": "Nantes"
-      },
-      {
-        "name": "Ironman Nizza",
-        "location": "Nizza"
-      },
-      {
-        "name": "Halbmarathon Thonon",
-        "location": "Thonon-les-Bains"
-      },
-      {
-        "name": "Marathon Paris",
-        "location": "Paris"
-      },
-      {
-        "name": "Ultra Trail du Mont Blanc",
-        "location": "Chamonix"
-      }
-    ],
-    "OG": {
-      "title": "Kaufe und verkaufe deine Startnummern ganz sorgenfrei.",
-      "description": "Sichere Plattform zum **Kauf** und **Weiterverkauf** von **Startnummern**"
-    }
-  },
-  "ro": {
-    "home": {
-      "hero": {
-        "title": "Un eveniment neașteptat? <span>Transferă</span>-ți numărul!",
-        "description": "Fie că preferi alergarea, trail, triatlon sau ciclism.<br />Găsește cursa preferată sau vinde-ți numărul cu încredere.",
-        "organizerButton": "Organizator? Listează cursa",
-        "consultRacesButton": "Vezi cursele",
-        "workInProgress": "Lucrăm la asta"
-      },
-      "impact": {
-        "title": "Impactul nostru",
-        "activeEvents": "Evenimente active",
-        "bibsExchanged": "Numere transferate"
-      },
-      "callToAction": {
-        "title": "Gata de început?",
-        "description": "Află cum funcționează Beswib sau începe să explorezi evenimentele chiar acum.",
-        "learnMoreButton": "Află mai multe (FAQ)"
-      }
-    },
-    "payment": {
-      "title": "Finalizează-ți achiziția",
-      "eventDetails": "Detaliile evenimentului",
-      "orderSummary": "Rezumatul comenzii",
-      "raceBibTransfer": "Transfer număr de cursă",
-      "discountApplied": "Reducere aplicată",
-      "total": "Total",
-      "whatsIncluded": "Ce este inclus",
-      "officialBib": "Număr oficial cu datele tale înregistrate",
-      "eventMaterials": "Toate materialele evenimentului (cip cronometrare, pachet cursă)",
-      "transferService": "Serviciu complet de transfer înscriere",
-      "multilingualAssistance": "Asistență multilingvă dedicată",
-      "paymentMethod": "Metoda de plată",
-      "secureTransaction": "Tranzacție 100% sigură",
-      "secureDescription": "Plata ta este procesată în siguranță prin platforma de încredere PayPal. Nu stocăm niciodată detaliile tale de plată.",
-      "ssl256": "SSL 256-bit",
-      "paypalSecured": "Securizat PayPal",
-      "pciCompliant": "Conform PCI",
-      "trustedAthletes": "De încredere pentru mii de atleți din întreaga lume",
-      "bankEncryption": "Criptare bancară",
-      "instantConfirmation": "Confirmare instantanee",
-      "fraudProtection": "Protecție antifraudă",
-      "paymentSuccess": "Plata reușită!",
-      "paymentSuccessMessage": "Plata dvs. a fost procesată cu succes. Veți primi un email de confirmare în scurt timp.",
-      "paymentError": "Eroare de plată",
-      "paymentCancelled": "Plată anulată",
-      "paymentCancelledMessage": "Plata a fost anulată. Puteți încerca din nou sau contactați suportul dacă este necesar.",
-      "goToDashboard": "Du-te la panou",
-      "tryAgain": "Încearcă din nou",
-      "contactSupport": "Contactează suportul",
-      "orderProcessing": "Se procesează comanda...",
-      "paymentProcessing": "Se procesează plata...",
-      "closeDialog": "Închide",
-      "paymentMethodDeclined": "Metoda de plată respinsă",
-      "paymentDeclinedMessage": "Metoda dvs. de plată a fost respinsă. Vă rugăm să încercați cu o metodă de plată sau sursă de finanțare diferită.",
-      "tryDifferentPaymentMethod": "Încercați o metodă de plată diferită"
-    },
-    "form": {
-      "valid": "Valid"
-    },
-    "auth": {
-      "fields": {
-        "email": "Adresă de email",
-        "password": "Parolă",
-        "firstName": "Prenume",
-        "lastName": "Nume",
-        "confirmPassword": "Confirmă parola"
-      },
-      "placeholders": {
-        "email": "tu@email.com",
-        "password": "••••••••",
-        "firstName": "Ion",
-        "lastName": "Popescu",
-        "confirmPassword": "••••••••"
-      },
-      "somethingWentWrong": "Ceva nu a mers bine. Încearcă din nou.",
-      "legal": {
-        "termsText": "Prin crearea unui cont, ești de acord cu",
-        "termsOfService": "Termenii și condițiile",
-        "privacyPolicy": "Politica de confidențialitate",
-        "and": "și"
-      },
-      "signIn": {
-        "title": "Bun venit înapoi!",
-        "subtitle": "Autentifică-te pentru a continua",
-        "welcome": "Bun venit înapoi!",
-        "forgotPassword": "Ai uitat parola?",
-        "signInButton": "Autentificare",
-        "signingIn": "Autentificare...",
-        "signIn": "Autentificare",
-        "noAccount": "Nu ai încă un cont?",
-        "createAccount": "Creează cont",
-        "continueWithGoogle": "Autentifică-te cu Google",
-        "continueWithFacebook": "Autentifică-te cu Facebook",
-        "orContinueWith": "sau continuă cu"
-      },
-      "signUp": {
-        "title": "Creează cont",
-        "subtitle": "Alătură-te comunității Beswib și începe să schimbi dossaruri",
-        "firstNameLabel": "Prenume",
-        "firstNamePlaceholder": "Ion",
-        "lastNameLabel": "Nume",
-        "lastNamePlaceholder": "Popescu",
-        "emailLabel": "Adresă de email",
-        "emailPlaceholder": "tu@email.com",
-        "passwordLabel": "Parolă",
-        "passwordPlaceholder": "••••••••",
-        "confirmPasswordLabel": "Confirmă parola",
-        "confirmPasswordPlaceholder": "••••••••",
-        "signUpButton": "Creează cont",
-        "signingUp": "Se creează...",
-        "alreadyAccount": "Ai deja un cont?",
-        "signIn": "Autentificare",
-        "signUpWithGoogle": "Înregistrează-te cu Google",
-        "signUpWithFacebook": "Înregistrează-te cu Facebook",
-        "orCreateWith": "sau creează cont cu",
-        "verifyEmail": {
-          "title": "Verifică-ți emailul",
-          "subtitle": "Am trimis un cod de verificare la",
-          "codeLabel": "Cod de verificare",
-          "codePlaceholder": "Introduceți codul de verificare",
-          "verifyButton": "Verifică",
-          "verifying": "Se verifică...",
-          "backToForm": "← Înapoi la formularul de înregistrare"
-        },
-        "emailAlreadyExists": "Acest email este deja înregistrat. Încercați să vă autentificați sau folosiți un alt email.",
-        "signInWithEmailInstead": "→ Autentificați-vă cu acest email în schimb",
-        "completeProfileRequired": "Vă rugăm să completați profilul pentru a finaliza înregistrarea.",
-        "additionalInfoRequired": "Informații suplimentare necesare. Vă rugăm să completați profilul."
-      },
-      "forgotPassword": {
-        "title": "Parolă uitată",
-        "subtitle": "Introdu adresa de email pentru a primi un cod de resetare",
-        "emailSentSubtitle": "Am trimis un cod pe email",
-        "successSubtitle": "Parola ta a fost resetată cu succes!",
-        "emailLabel": "Adresă de email",
-        "emailPlaceholder": "tu@email.com",
-        "newPasswordLabel": "Parolă nouă",
-        "resetCodeLabel": "Cod de resetare",
-        "resetCodePlaceholder": "123456",
-        "sendCodeButton": "Trimite codul",
-        "resetPasswordButton": "Resetează parola",
-        "backToSignIn": "← Înapoi la autentificare",
-        "continueToDashboard": "Continuă către dashboard"
-      },
-      "passwordStrength": {
-        "label": "Puterea parolei",
-        "veryWeak": "Foarte slabă",
-        "weak": "Slabă",
-        "medium": "Medie",
-        "good": "Bună",
-        "strong": "Puternică",
-        "veryStrong": "Foarte puternică",
-        "suggestions": "Îmbunătățiri sugerate:",
-        "atLeast8Chars": "Cel puțin 8 caractere",
-        "oneLowercase": "O literă mică",
-        "oneUppercase": "O literă mare",
-        "oneNumber": "O cifră",
-        "oneSpecialChar": "Un caracter special (opțional)"
-      },
-      "common": {
-        "loading": "Se încarcă...",
-        "redirecting": "Se redirecționează...",
-        "valid": "Valid"
-      },
-      "unauthorized": {
-        "title": "Acces Refuzat",
-        "description": "Nu ai permisiunea de a accesa această pagină.",
-        "adminRequired": "Sunt necesare privilegii de administrator pentru a vedea acest conținut.",
-        "backToHome": "Înapoi la pagina principală",
-        "contactSupport": "Contactează suportul",
-        "additionalHelp": "Dacă crezi că aceasta este o eroare, te rugăm să contactezi administratorul."
-      }
-    },
-    "runs": [
-      {
-        "name": "Maratonul Nantes",
-        "location": "Nantes"
-      },
-      {
-        "name": "Ironman Nisa",
-        "location": "Nisa"
-      },
-      {
-        "name": "Semimaratonul Thonon",
-        "location": "Thonon-les-Bains"
-      },
-      {
-        "name": "Maratonul Paris",
-        "location": "Paris"
-      },
-      {
-        "name": "Ultra Trail du Mont Blanc",
-        "location": "Chamonix"
-      }
-    ],
-    "OG": {
-      "title": "Cumpără și vinde numerele de concurs fără griji.",
-      "description": "Platformă sigură pentru **cumpărarea** și **revânzarea** **numerelor de concurs**"
-    }
-  },
-  "pt": {
-    "home": {
-      "hero": {
-        "title": "Um imprevisto? <span>Transfere</span> o teu dorsal!",
-        "description": "Se gostas de corrida, trail, triatlo ou ciclismo.<br />Encontra a tua prova favorita ou vende o teu dorsal com confiança.",
-        "organizerButton": "Organizador? Lista a tua prova",
-        "consultRacesButton": "Ver provas",
-        "workInProgress": "Em desenvolvimento"
-      },
-      "impact": {
-        "title": "O nosso impacto",
-        "activeEvents": "Eventos ativos",
-        "bibsExchanged": "Dorsais transferidos"
-      },
-      "callToAction": {
-        "title": "Pronto para começar?",
-        "description": "Sabe como funciona a Beswib ou começa já a explorar eventos.",
-        "learnMoreButton": "Saber mais (FAQ)"
-      }
-    },
-    "payment": {
-      "title": "Finalizar a tua compra",
-      "eventDetails": "Detalhes do evento",
-      "orderSummary": "Resumo da encomenda",
-      "raceBibTransfer": "Transferência de dorsal",
-      "discountApplied": "Desconto aplicado",
-      "total": "Total",
-      "whatsIncluded": "O que está incluído",
-      "officialBib": "Dorsal oficial com os teus dados registados",
-      "eventMaterials": "Todos os materiais do evento (chip de cronometragem, kit de prova)",
-      "transferService": "Serviço completo de transferência de inscrição",
-      "multilingualAssistance": "Assistência multilingue dedicada",
-      "paymentMethod": "Método de pagamento",
-      "secureTransaction": "Transação 100% segura",
-      "secureDescription": "O teu pagamento é processado de forma segura através da plataforma de confiança da PayPal. Nunca armazenamos os teus dados de pagamento.",
-      "ssl256": "SSL 256-bit",
-      "paypalSecured": "Securizado pela PayPal",
-      "pciCompliant": "Conforme PCI",
-      "trustedAthletes": "Confiável para milhares de atletas em todo o mundo",
-      "bankEncryption": "Encriptação bancária",
-      "instantConfirmation": "Confirmação instantânea",
-      "fraudProtection": "Proteção contra fraude",
-      "paymentSuccess": "Pagamento bem-sucedido!",
-      "paymentSuccessMessage": "O seu pagamento foi processado com sucesso. Receberá um email de confirmação em breve.",
-      "paymentError": "Erro de pagamento",
-      "paymentCancelled": "Pagamento cancelado",
-      "paymentCancelledMessage": "O pagamento foi cancelado. Pode tentar novamente ou contactar o suporte se necessário.",
-      "goToDashboard": "Ir para o painel",
-      "tryAgain": "Tentar novamente",
-      "contactSupport": "Contactar suporte",
-      "orderProcessing": "A processar pedido...",
-      "paymentProcessing": "A processar pagamento...",
-      "closeDialog": "Fechar",
-      "paymentMethodDeclined": "Método de pagamento recusado",
-      "paymentDeclinedMessage": "O seu método de pagamento foi recusado. Por favor, tente com um método de pagamento ou fonte de financiamento diferente.",
-      "tryDifferentPaymentMethod": "Tentar método de pagamento diferente"
-    },
-    "form": {
-      "valid": "Válido"
-    },
-    "auth": {
-      "fields": {
-        "email": "Endereço de email",
-        "password": "Palavra-passe",
-        "firstName": "Nome",
-        "lastName": "Apelido",
-        "confirmPassword": "Confirmar palavra-passe"
-      },
-      "placeholders": {
-        "email": "teu@email.com",
-        "password": "••••••••",
-        "firstName": "João",
-        "lastName": "Silva",
-        "confirmPassword": "••••••••"
-      },
-      "somethingWentWrong": "Algo correu mal. Tenta novamente.",
-      "legal": {
-        "termsText": "Ao criar uma conta, aceitas os nossos",
-        "termsOfService": "Termos de Serviço",
-        "privacyPolicy": "Política de Privacidade",
-        "and": "e"
-      },
-      "signIn": {
-        "title": "Bem-vindo de volta!",
-        "subtitle": "Inicia sessão na tua conta para continuar",
-        "welcome": "Bem-vindo de volta!",
-        "forgotPassword": "Esqueceste-te da palavra-passe?",
-        "signInButton": "Iniciar sessão",
-        "signingIn": "A iniciar sessão...",
-        "signIn": "Iniciar sessão",
-        "noAccount": "Ainda não tens conta?",
-        "createAccount": "Criar conta",
-        "continueWithGoogle": "Entrar com Google",
-        "continueWithFacebook": "Entrar com Facebook",
-        "orContinueWith": "ou continua com"
-      },
-      "signUp": {
-        "title": "Criar conta",
-        "subtitle": "Junta-te à comunidade Beswib e começa a trocar dorsais",
-        "firstNameLabel": "Nome",
-        "firstNamePlaceholder": "João",
-        "lastNameLabel": "Apelido",
-        "lastNamePlaceholder": "Silva",
-        "emailLabel": "Endereço de email",
-        "emailPlaceholder": "teu@email.com",
-        "passwordLabel": "Palavra-passe",
-        "passwordPlaceholder": "••••••••",
-        "confirmPasswordLabel": "Confirmar palavra-passe",
-        "confirmPasswordPlaceholder": "••••••••",
-        "signUpButton": "Criar conta",
-        "signingUp": "A criar...",
-        "alreadyAccount": "Já tens uma conta?",
-        "signIn": "Iniciar sessão",
-        "signUpWithGoogle": "Registar com Google",
-        "signUpWithFacebook": "Registar com Facebook",
-        "orCreateWith": "ou cria conta com",
-        "verifyEmail": {
-          "title": "Verifica o teu email",
-          "subtitle": "Enviámos um código de verificação para",
-          "codeLabel": "Código de verificação",
-          "codePlaceholder": "Insira o seu código de verificação",
-          "verifyButton": "Verificar",
-          "verifying": "A verificar...",
-          "backToForm": "← Voltar ao formulário de registo"
-        },
-        "emailAlreadyExists": "Este email já está registado. Tenta iniciar sessão ou usa um email diferente.",
-        "signInWithEmailInstead": "→ Iniciar sessão com este email em vez disso",
-        "completeProfileRequired": "Por favor, completa o teu perfil para finalizar o registo.",
-        "additionalInfoRequired": "Informações adicionais necessárias. Por favor, completa o teu perfil."
-      },
-      "forgotPassword": {
-        "title": "Esqueci-me da palavra-passe",
-        "subtitle": "Introduz o teu email para receberes um código de reposição",
-        "emailSentSubtitle": "Enviámos um código para o teu email",
-        "successSubtitle": "A tua palavra-passe foi reposta com sucesso!",
-        "emailLabel": "Endereço de email",
-        "emailPlaceholder": "teu@email.com",
-        "newPasswordLabel": "Nova palavra-passe",
-        "resetCodeLabel": "Código de reposição",
-        "resetCodePlaceholder": "123456",
-        "sendCodeButton": "Enviar código",
-        "resetPasswordButton": "Repor palavra-passe",
-        "backToSignIn": "← Voltar ao início de sessão",
-        "continueToDashboard": "Continuar para o dashboard"
-      },
-      "passwordStrength": {
-        "label": "Força da palavra-passe",
-        "veryWeak": "Muito fraca",
-        "weak": "Fraca",
-        "medium": "Média",
-        "good": "Boa",
-        "strong": "Forte",
-        "veryStrong": "Muito forte",
-        "suggestions": "Melhorias sugeridas:",
-        "atLeast8Chars": "Pelo menos 8 caracteres",
-        "oneLowercase": "Uma letra minúscula",
-        "oneUppercase": "Uma letra maiúscula",
-        "oneNumber": "Um número",
-        "oneSpecialChar": "Um carácter especial (opcional)"
-      },
-      "common": {
-        "loading": "A carregar...",
-        "redirecting": "A redirecionar...",
-        "valid": "Válido"
-      },
-      "unauthorized": {
-        "title": "Acesso Negado",
-        "description": "Não tens permissão para aceder a esta página.",
-        "adminRequired": "São necessários privilégios de administrador para ver este conteúdo.",
-        "backToHome": "Voltar à página inicial",
-        "contactSupport": "Contactar suporte",
-        "additionalHelp": "Se acreditas que isto é um erro, por favor contacta o administrador."
-      }
-    },
-    "runs": [
-      {
-        "name": "Maratona de Nantes",
-        "location": "Nantes"
-      },
-      {
-        "name": "Ironman Nice",
-        "location": "Nice"
-      },
-      {
-        "name": "Meia Maratona de Thonon",
-        "location": "Thonon-les-Bains"
-      },
-      {
-        "name": "Maratona de Paris",
-        "location": "Paris"
-      },
-      {
-        "name": "Ultra Trail du Mont Blanc",
-        "location": "Chamonix"
-      }
-    ],
-    "OG": {
-      "title": "Compra e vende os teus dorsais com toda a tranquilidade.",
-      "description": "Plataforma segura para **comprar** e **revender** **dorsais**"
-    }
-  },
-  "nl": {
-    "home": {
-      "hero": {
-        "title": "Onverwacht iets gebeurd? <span>Draag</span> je startnummer over!",
-        "description": "Of je nu van hardlopen, trail, triatlon of fietsen houdt.<br />Vind je favoriete race of verkoop je startnummer met vertrouwen.",
-        "organizerButton": "Organisator? Plaats je race",
-        "consultRacesButton": "Races bekijken",
-        "workInProgress": "Werk in uitvoering"
-      },
-      "impact": {
-        "title": "Onze impact",
-        "activeEvents": "Actieve events",
-        "bibsExchanged": "Overgedragen startnummers"
-      },
-      "callToAction": {
-        "title": "Klaar om te starten?",
-        "description": "Lees hoe Beswib werkt of begin nu met het verkennen van events.",
-        "learnMoreButton": "Meer info (FAQ)"
-      }
-    },
-    "payment": {
-      "title": "Voltooi je aankoop",
-      "eventDetails": "Eventdetails",
-      "orderSummary": "Besteloverzicht",
-      "raceBibTransfer": "Startnummer overdracht",
-      "discountApplied": "Korting toegepast",
-      "total": "Totaal",
-      "whatsIncluded": "Wat is inbegrepen",
-      "officialBib": "Officieel startnummer met je geregistreerde gegevens",
-      "eventMaterials": "Alle eventmaterialen (tijdschip, racepakket)",
-      "transferService": "Volledige registratieoverdrachtservice",
-      "multilingualAssistance": "Toegewijde meertalige ondersteuning",
-      "paymentMethod": "Betaalmethode",
-      "secureTransaction": "100% veilige transactie",
-      "secureDescription": "Je betaling wordt veilig verwerkt via het vertrouwde PayPal-platform. We slaan je betaalgegevens nooit op.",
-      "ssl256": "256-bit SSL",
-      "paypalSecured": "PayPal-beveiligd",
-      "pciCompliant": "PCI-conform",
-      "trustedAthletes": "Vertrouwd door duizenden atleten wereldwijd",
-      "bankEncryption": "Bankniveau encryptie",
-      "instantConfirmation": "Directe bevestiging",
-      "fraudProtection": "Fraudebescherming",
-      "paymentSuccess": "Betaling succesvol!",
-      "paymentSuccessMessage": "Uw betaling is succesvol verwerkt. U ontvangt binnenkort een bevestigingsmail.",
-      "paymentError": "Betalingsfout",
-      "paymentCancelled": "Betaling geannuleerd",
-      "paymentCancelledMessage": "De betaling is geannuleerd. U kunt het opnieuw proberen of contact opnemen met de ondersteuning indien nodig.",
-      "goToDashboard": "Naar dashboard",
-      "tryAgain": "Opnieuw proberen",
-      "contactSupport": "Contact opnemen met ondersteuning",
-      "orderProcessing": "Bestelling verwerken...",
-      "paymentProcessing": "Betaling verwerken...",
-      "closeDialog": "Sluiten",
-      "paymentMethodDeclined": "Betaalmethode geweigerd",
-      "paymentDeclinedMessage": "Uw betaalmethode is geweigerd. Probeer het met een andere betaalmethode of financieringsbron.",
-      "tryDifferentPaymentMethod": "Probeer een andere betaalmethode"
-    },
-    "form": {
-      "valid": "Geldig"
-    },
-    "clerkErrors": {
-      "form_identifier_not_found": "Geen account gevonden met dit e-mailadres.",
-      "form_password_incorrect": "Onjuist wachtwoord.",
-      "form_identifier_exists": "Er bestaat al een account met dit e-mailadres.",
-      "session_exists": "Je bent al ingelogd.",
-      "clerk_js_error": "Er is een technische fout opgetreden. Probeer het opnieuw.",
-      "form_code_incorrect": "Onjuiste verificatiecode.",
-      "verification_expired": "De verificatiecode is verlopen. Vraag een nieuwe code aan.",
-      "verification_failed": "Verificatie mislukt. Probeer het opnieuw.",
-      "form_param_nil": "Alle velden zijn verplicht.",
-      "form_password_pwned": "Dit wachtwoord is gecompromitteerd in een beveiligingslek. Kies een ander.",
-      "form_password_too_common": "Dit wachtwoord is te algemeen. Kies een veiliger wachtwoord.",
-      "oauth_access_denied": "Toegang geweigerd. Probeer het opnieuw.",
-      "oauth_email_domain_reserved_by_saml": "Dit e-mailadres is gereserveerd voor SAML-login.",
-      "network_error": "Verbindingsfout. Controleer je internetverbinding.",
-      "unexpected_error": "Er is een onverwachte fout opgetreden. Probeer het opnieuw.",
-      "too_many_requests": "Te veel pogingen. Wacht even voordat je het opnieuw probeert.",
-      "signin_failed": "Inloggen mislukt. Controleer je inloggegevens.",
-      "signup_failed": "Registratie mislukt. Probeer het opnieuw.",
-      "default_error": "Er is een fout opgetreden. Probeer het opnieuw."
-    },
-    "auth": {
-      "fields": {
-        "email": "E-mailadres",
-        "password": "Wachtwoord",
-        "firstName": "Voornaam",
-        "lastName": "Achternaam",
-        "confirmPassword": "Bevestig wachtwoord"
-      },
-      "placeholders": {
-        "email": "jij@email.com",
-        "password": "••••••••",
-        "firstName": "Jan",
-        "lastName": "Jansen",
-        "confirmPassword": "••••••••"
-      },
-      "somethingWentWrong": "Er is iets misgegaan. Probeer het opnieuw.",
-      "legal": {
-        "termsText": "Door een account aan te maken, ga je akkoord met onze",
-        "termsOfService": "Servicevoorwaarden",
-        "privacyPolicy": "Privacybeleid",
-        "and": "en"
-      },
-      "signIn": {
-        "title": "Welkom terug!",
-        "subtitle": "Log in op je account om door te gaan",
-        "welcome": "Welkom terug!",
-        "forgotPassword": "Wachtwoord vergeten?",
-        "signInButton": "Inloggen",
-        "signingIn": "Bezig met inloggen...",
-        "signIn": "Inloggen",
-        "noAccount": "Nog geen account?",
-        "createAccount": "Account aanmaken",
-        "continueWithGoogle": "Inloggen met Google",
-        "continueWithFacebook": "Inloggen met Facebook",
-        "orContinueWith": "of ga verder met"
-      },
-      "signUp": {
-        "title": "Account aanmaken",
-        "subtitle": "Word lid van de Beswib-community en begin met het ruilen van startnummers",
-        "firstNameLabel": "Voornaam",
-        "firstNamePlaceholder": "Jan",
-        "lastNameLabel": "Achternaam",
-        "lastNamePlaceholder": "Jansen",
-        "emailLabel": "E-mailadres",
-        "emailPlaceholder": "jij@email.com",
-        "passwordLabel": "Wachtwoord",
-        "passwordPlaceholder": "••••••••",
-        "confirmPasswordLabel": "Bevestig wachtwoord",
-        "confirmPasswordPlaceholder": "••••••••",
-        "signUpButton": "Account aanmaken",
-        "signingUp": "Bezig met aanmaken...",
-        "alreadyAccount": "Al een account?",
-        "signIn": "Inloggen",
-        "signUpWithGoogle": "Registreren met Google",
-        "signUpWithFacebook": "Registreren met Facebook",
-        "orCreateWith": "of maak een account met",
-        "verifyEmail": {
-          "title": "Verifieer je e-mail",
-          "subtitle": "We hebben een verificatiecode gestuurd naar",
-          "codeLabel": "Verificatiecode",
-          "codePlaceholder": "Voer je verificatiecode in",
-          "verifyButton": "Verifiëren",
-          "verifying": "Verifiëren...",
-          "backToForm": "← Terug naar registratieformulier"
-        },
-        "emailAlreadyExists": "Dit e-mailadres is al geregistreerd. Probeer in te loggen of gebruik een ander e-mailadres.",
-        "signInWithEmailInstead": "→ In plaats daarvan inloggen met dit e-mailadres",
-        "completeProfileRequired": "Vul je profiel aan om de registratie af te ronden.",
-        "additionalInfoRequired": "Aanvullende informatie vereist. Vul je profiel aan."
-      },
-      "forgotPassword": {
-        "title": "Wachtwoord vergeten",
-        "subtitle": "Voer je e-mailadres in om een resetcode te ontvangen",
-        "emailSentSubtitle": "We hebben een code naar je e-mail gestuurd",
-        "successSubtitle": "Je wachtwoord is succesvol gereset!",
-        "emailLabel": "E-mailadres",
-        "emailPlaceholder": "jij@email.com",
-        "newPasswordLabel": "Nieuw wachtwoord",
-        "resetCodeLabel": "Resetcode",
-        "resetCodePlaceholder": "123456",
-        "sendCodeButton": "Code verzenden",
-        "resetPasswordButton": "Wachtwoord resetten",
-        "backToSignIn": "← Terug naar inloggen",
-        "continueToDashboard": "Doorgaan naar dashboard"
-      },
-      "passwordStrength": {
-        "label": "Wachtwoordsterkte",
-        "veryWeak": "Zeer zwak",
-        "weak": "Zwak",
-        "medium": "Gemiddeld",
-        "good": "Goed",
-        "strong": "Sterk",
-        "veryStrong": "Zeer sterk",
-        "suggestions": "Aanbevolen verbeteringen:",
-        "atLeast8Chars": "Minstens 8 tekens",
-        "oneLowercase": "Een kleine letter",
-        "oneUppercase": "Een hoofdletter",
-        "oneNumber": "Een cijfer",
-        "oneSpecialChar": "Een speciaal teken (optioneel)"
-      },
-      "common": {
-        "loading": "Laden...",
-        "redirecting": "Doorsturen...",
-        "valid": "Geldig"
-      },
-      "unauthorized": {
-        "title": "Toegang Geweigerd",
-        "description": "Je hebt geen toestemming om deze pagina te bekijken.",
-        "adminRequired": "Beheerdersrechten zijn vereist om deze inhoud te bekijken.",
-        "backToHome": "Terug naar startpagina",
-        "contactSupport": "Contact opnemen met ondersteuning",
-        "additionalHelp": "Als je denkt dat dit een fout is, neem dan contact op met de beheerder."
-      }
-    },
-    "runs": [
-      {
-        "name": "Marathon van Nantes",
-        "location": "Nantes"
-      },
-      {
-        "name": "Ironman Nice",
-        "location": "Nice"
-      },
-      {
-        "name": "Halve marathon Thonon",
-        "location": "Thonon-les-Bains"
-      },
-      {
-        "name": "Marathon van Parijs",
-        "location": "Parijs"
-      },
-      {
-        "name": "Ultra Trail du Mont Blanc",
-        "location": "Chamonix"
-      }
-    ],
-    "OG": {
-      "title": "Koop en verkoop je startnummers zonder zorgen.",
-      "description": "Een veilig platform voor het **kopen** en **doorverkopen** van **startnummers**"
-    }
-  },
-  "ko": {
-    "home": {
-      "hero": {
-        "title": "예상치 못한 일이? <span>빕을 전송하세요!</span>",
-        "description": "러닝, 트레일, 철인 3종 경기 또는 사이클링을 좋아하든 상관없이.<br />좋아하는 레이스를 찾거나 자신 있게 빕을 판매하세요.",
-        "organizerButton": "주최자? 레이스 등록",
-        "consultRacesButton": "레이스 보기",
-        "workInProgress": "작업 진행 중"
-      },
-      "impact": {
-        "title": "우리의 영향력",
-        "activeEvents": "진행 중인 이벤트",
-        "bibsExchanged": "교환된 참가권"
-      },
-      "callToAction": {
-        "title": "시작할 준비가 되셨나요?",
-        "description": "Beswib 작동 방식에 대해 자세히 알아보거나 지금 바로 이벤트를 찾아보세요.",
-        "learnMoreButton": "더 알아보기 (FAQ)"
-      }
-    },
-    "payment": {
-      "title": "구매 완료",
-      "eventDetails": "이벤트 세부사항",
-      "orderSummary": "주문 요약",
-      "raceBibTransfer": "레이스 빕 전송",
-      "discountApplied": "할인 적용됨",
-      "total": "총계",
-      "whatsIncluded": "포함 사항",
-      "officialBib": "등록된 세부사항이 포함된 공식 레이스 빕",
-      "eventMaterials": "모든 이벤트 재료 (타이밍 칩, 레이스 패킷)",
-      "transferService": "완전한 등록 전송 서비스",
-      "multilingualAssistance": "전용 다국어 지원",
-      "paymentMethod": "결제 방법",
-      "secureTransaction": "100% 안전한 거래",
-      "secureDescription": "귀하의 결제는 PayPal의 신뢰할 수 있는 플랫폼을 통해 안전하게 처리됩니다. 우리는 결제 세부사항을 절대 저장하지 않습니다.",
-      "ssl256": "256비트 SSL",
-      "paypalSecured": "PayPal 보안",
-      "pciCompliant": "PCI 준수",
-      "trustedAthletes": "전 세계 수천 명의 운동선수들이 신뢰",
-      "bankEncryption": "은행 수준 암호화",
-      "instantConfirmation": "즉시 확인",
-      "fraudProtection": "사기 방지",
-      "paymentSuccess": "결제 성공!",
-      "paymentSuccessMessage": "결제가 성공적으로 처리되었습니다. 곧 확인 이메일을 받게 됩니다.",
-      "paymentError": "결제 오류",
-      "paymentCancelled": "결제 취소됨",
-      "paymentCancelledMessage": "결제가 취소되었습니다. 다시 시도하거나 필요한 경우 지원팀에 문의할 수 있습니다.",
-      "goToDashboard": "대시보드로 이동",
-      "tryAgain": "다시 시도",
-      "contactSupport": "지원팀 문의",
-      "orderProcessing": "주문 처리 중...",
-      "paymentProcessing": "결제 처리 중...",
-      "closeDialog": "닫기",
-      "paymentMethodDeclined": "결제 수단이 거부됨",
-      "paymentDeclinedMessage": "결제 수단이 거부되었습니다. 다른 결제 수단이나 자금 조달원으로 시도해 주세요.",
-      "tryDifferentPaymentMethod": "다른 결제 수단 시도"
-    },
-    "form": {
-      "valid": "유효함"
-    },
-    "clerkErrors": {
-      "form_identifier_not_found": "이 이메일 주소로 등록된 계정을 찾을 수 없습니다.",
-      "form_password_incorrect": "비밀번호가 올바르지 않습니다.",
-      "form_identifier_exists": "이 이메일 주소로 이미 계정이 존재합니다.",
-      "session_exists": "이미 로그인되어 있습니다.",
-      "clerk_js_error": "기술적인 오류가 발생했습니다. 다시 시도해주세요.",
-      "form_code_incorrect": "인증 코드가 올바르지 않습니다.",
-      "verification_expired": "인증 코드가 만료되었습니다. 새 코드를 요청하세요.",
-      "verification_failed": "인증에 실패했습니다. 다시 시도해주세요.",
-      "form_param_nil": "모든 필드는 필수입니다.",
-      "form_password_pwned": "이 비밀번호는 보안 침해로 인해 노출되었습니다. 다른 비밀번호를 선택해주세요.",
-      "form_password_too_common": "이 비밀번호는 너무 일반적입니다. 더 안전한 비밀번호를 선택해주세요.",
-      "oauth_access_denied": "접근이 거부되었습니다. 다시 시도해주세요.",
-      "oauth_email_domain_reserved_by_saml": "이 이메일 주소는 SAML 로그인용으로 예약되어 있습니다.",
-      "network_error": "연결 오류입니다. 인터넷 연결을 확인해주세요.",
-      "unexpected_error": "예상치 못한 오류가 발생했습니다. 다시 시도해주세요.",
-      "too_many_requests": "너무 많은 시도를 했습니다. 잠시 후에 다시 시도해주세요.",
-      "signin_failed": "로그인에 실패했습니다. 자격 증명을 확인해주세요.",
-      "signup_failed": "회원가입에 실패했습니다. 다시 시도해주세요.",
-      "default_error": "오류가 발생했습니다. 다시 시도해주세요."
-    },
-    "auth": {
-      "fields": {
-        "email": "이메일 주소",
-        "password": "비밀번호",
-        "firstName": "이름",
-        "lastName": "성",
-        "confirmPassword": "비밀번호 확인"
-      },
-      "placeholders": {
-        "email": "you@email.com",
-        "password": "••••••••",
-        "firstName": "홍길동",
-        "lastName": "",
-        "confirmPassword": "••••••••"
-      },
-      "somethingWentWrong": "문제가 발생했습니다. 다시 시도해 주세요.",
-      "legal": {
-        "termsText": "계정을 생성하면 다음에 동의하게 됩니다:",
-        "termsOfService": "서비스 약관",
-        "privacyPolicy": "개인정보 처리방침",
-        "and": "및"
-      },
-      "signIn": {
-        "title": "다시 오신 것을 환영합니다!",
-        "subtitle": "계정에 로그인하여 계속하세요",
-        "welcome": "다시 오신 것을 환영합니다!",
-        "forgotPassword": "비밀번호를 잊으셨나요?",
-        "signInButton": "로그인",
-        "signingIn": "로그인 중...",
-        "signIn": "로그인",
-        "noAccount": "아직 계정이 없으신가요?",
-        "createAccount": "계정 만들기",
-        "continueWithGoogle": "Google로 로그인",
-        "continueWithFacebook": "Facebook으로 로그인",
-        "orContinueWith": "또는 다음으로 계속"
-      },
-      "signUp": {
-        "title": "계정 만들기",
-        "subtitle": "Beswib 커뮤니티에 가입하고 빕 교환을 시작하세요",
-        "firstNameLabel": "이름",
-        "firstNamePlaceholder": "홍길동",
-        "lastNameLabel": "성",
-        "lastNamePlaceholder": "",
-        "emailLabel": "이메일 주소",
-        "emailPlaceholder": "you@email.com",
-        "passwordLabel": "비밀번호",
-        "passwordPlaceholder": "••••••••",
-        "confirmPasswordLabel": "비밀번호 확인",
-        "confirmPasswordPlaceholder": "••••••••",
-        "signUpButton": "계정 만들기",
-        "signingUp": "생성 중...",
-        "alreadyAccount": "이미 계정이 있으신가요?",
-        "signIn": "로그인",
-        "signUpWithGoogle": "Google로 가입",
-        "signUpWithFacebook": "Facebook으로 가입",
-        "orCreateWith": "또는 다음으로 계정 생성",
-        "verifyEmail": {
-          "title": "이메일 확인",
-          "subtitle": "다음으로 인증 코드를 보냈습니다:",
-          "codeLabel": "인증 코드",
-          "codePlaceholder": "인증 코드를 입력하세요",
-          "verifyButton": "확인",
-          "verifying": "확인 중...",
-          "backToForm": "← 가입 양식으로 돌아가기"
-        },
-        "emailAlreadyExists": "이 이메일은 이미 등록되어 있습니다. 로그인을 시도하거나 다른 이메일을 사용하세요.",
-        "signInWithEmailInstead": "→ 대신 이 이메일로 로그인",
-        "completeProfileRequired": "등록을 완료하려면 프로필을 완성해주세요.",
-        "additionalInfoRequired": "추가 정보가 필요합니다. 프로필을 완성해주세요."
-      },
-      "forgotPassword": {
-        "title": "비밀번호 찾기",
-        "subtitle": "재설정 코드를 받으려면 이메일을 입력하세요",
-        "emailSentSubtitle": "이메일로 코드를 보냈습니다",
-        "successSubtitle": "비밀번호가 성공적으로 재설정되었습니다!",
-        "emailLabel": "이메일 주소",
-        "emailPlaceholder": "you@email.com",
-        "newPasswordLabel": "새 비밀번호",
-        "resetCodeLabel": "재설정 코드",
-        "resetCodePlaceholder": "123456",
-        "sendCodeButton": "코드 보내기",
-        "resetPasswordButton": "비밀번호 재설정",
-        "backToSignIn": "← 로그인으로 돌아가기",
-        "continueToDashboard": "대시보드로 계속"
-      },
-      "passwordStrength": {
-        "label": "비밀번호 강도",
-        "veryWeak": "매우 약함",
-        "weak": "약함",
-        "medium": "보통",
-        "good": "좋음",
-        "strong": "강함",
-        "veryStrong": "매우 강함",
-        "suggestions": "개선 사항:",
-        "atLeast8Chars": "최소 8자",
-        "oneLowercase": "소문자 1자",
-        "oneUppercase": "대문자 1자",
-        "oneNumber": "숫자 1자",
-        "oneSpecialChar": "특수문자 1자 (선택)"
-      },
-      "common": {
-        "loading": "로딩 중...",
-        "redirecting": "리디렉션 중...",
-        "valid": "유효함"
-      },
-      "unauthorized": {
-        "title": "접근 거부됨",
-        "description": "이 페이지에 접근할 권한이 없습니다.",
-        "adminRequired": "이 콘텐츠를 보려면 관리자 권한이 필요합니다.",
-        "backToHome": "홈으로 돌아가기",
-        "contactSupport": "지원팀 문의",
-        "additionalHelp": "이것이 오류라고 생각되면 관리자에게 문의하세요."
-      }
-    },
-    "runs": [
-      {
-        "name": "낭트 마라톤",
-        "location": "낭트"
-      },
-      {
-        "name": "아이언맨 니스",
-        "location": "니스"
-      },
-      {
-        "name": "토농 하프 마라톤",
-        "location": "토농 레 방"
-      },
-      {
-        "name": "파리 마라톤",
-        "location": "파리"
-      },
-      {
-        "name": "몽블랑 울트라 트레일",
-        "location": "샤모니"
-      }
-    ],
-    "OG": {
-      "title": "안심하고 빕을 사고파세요.",
-      "description": "**빕**을 안전하게 **구매**하고 **되팔** 수 있는 플랫폼"
-    }
-  }
+	"en": {
+		"home": {
+			"hero": {
+				"title": "Can't Attend Your Race? <span>Transfer</span> Your Bib Safely!",
+				"description": "Legal race bib transfers for running, trail, triathlon & cycling events worldwide. <br />Secure PayPal payments, verified sellers, and instant organizer approval. Join thousands of athletes who trust Beswib.",
+				"organizerButton": "Organizer? List your race",
+				"consultRacesButton": "Browse races",
+				"workInProgress": "Work in progress"
+			},
+			"impact": {
+				"title": "Our Impact",
+				"activeEvents": "Active Events",
+				"bibsExchanged": "Bibs Exchanged"
+			},
+			"callToAction": {
+				"title": "Ready to Transfer Your Race Bib?",
+				"description": "Join thousands of athletes who safely buy and sell race bibs on Beswib. 100% secure transfers with PayPal protection and organizer approval.",
+				"learnMoreButton": "View Beswib FAQ Guide"
+			}
+		},
+		"payment": {
+			"title": "Complete Your Purchase",
+			"eventDetails": "Event Details",
+			"orderSummary": "Order Summary",
+			"raceBibTransfer": "Race bib transfer",
+			"discountApplied": "Discount applied",
+			"total": "Total",
+			"whatsIncluded": "What's included",
+			"officialBib": "Official race bib with your registered details",
+			"eventMaterials": "All event materials (timing chip, race packet)",
+			"transferService": "Complete registration transfer service",
+			"multilingualAssistance": "Dedicated multilingual assistance",
+			"paymentMethod": "Payment Method",
+			"secureTransaction": "100% Secure Transaction",
+			"secureDescription": "Your payment is processed securely through PayPal's trusted platform. We never store your payment details.",
+			"ssl256": "256-bit SSL",
+			"paypalSecured": "PayPal Secured",
+			"pciCompliant": "PCI Compliant",
+			"trustedAthletes": "Trusted by thousands of athletes worldwide",
+			"bankEncryption": "Bank-level encryption",
+			"instantConfirmation": "Instant confirmation",
+			"fraudProtection": "Fraud protection",
+			"paymentSuccess": "Payment Successful!",
+			"paymentSuccessMessage": "Your payment has been processed successfully. You will receive a confirmation email shortly.",
+			"paymentError": "Payment Error",
+			"paymentCancelled": "Payment Cancelled",
+			"paymentCancelledMessage": "The payment was cancelled. You can try again or contact support if needed.",
+			"goToDashboard": "Go to Dashboard",
+			"tryAgain": "Try Again",
+			"contactSupport": "Contact Support",
+			"orderProcessing": "Processing Order...",
+			"paymentProcessing": "Processing Payment...",
+			"closeDialog": "Close",
+			"paymentMethodDeclined": "Payment Method Declined",
+			"paymentDeclinedMessage": "Your payment method was declined. Please try with a different payment method or funding source.",
+			"tryDifferentPaymentMethod": "Try Different Payment Method"
+		},
+		"form": {
+			"valid": "Valid"
+		},
+		"auth": {
+			"fields": {
+				"email": "Email address",
+				"password": "Password",
+				"firstName": "First name",
+				"lastName": "Last name",
+				"confirmPassword": "Confirm password"
+			},
+			"placeholders": {
+				"email": "your@email.com",
+				"password": "••••••••",
+				"firstName": "John",
+				"lastName": "Doe",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Something went wrong. Please try again.",
+			"unauthorized": {
+				"title": "Access Denied",
+				"description": "You don't have permission to access this page.",
+				"adminRequired": "Administrator access is required for this section.",
+				"backToHome": "Back to Home",
+				"contactSupport": "Contact Support",
+				"additionalHelp": "If you believe this is an error, please contact our support team."
+			},
+			"legal": {
+				"termsText": "By creating an account, you agree to our",
+				"termsOfService": "Terms of Service",
+				"privacyPolicy": "Privacy Policy",
+				"and": "and"
+			},
+			"signIn": {
+				"title": "Welcome back!",
+				"subtitle": "Sign in to your account to continue",
+				"welcome": "Welcome back!",
+				"forgotPassword": "Forgot password?",
+				"signInButton": "Sign in",
+				"signingIn": "Signing in...",
+				"signIn": "Sign in",
+				"noAccount": "No account yet?",
+				"createAccount": "Create account",
+				"continueWithGoogle": "Sign in with Google",
+				"continueWithFacebook": "Sign in with Facebook",
+				"orContinueWith": "or continue with"
+			},
+			"signUp": {
+				"title": "Create account",
+				"subtitle": "Join the Beswib community and start exchanging your bibs",
+				"firstNameLabel": "First name",
+				"firstNamePlaceholder": "John",
+				"lastNameLabel": "Last name",
+				"lastNamePlaceholder": "Doe",
+				"emailLabel": "Email address",
+				"emailPlaceholder": "your@email.com",
+				"passwordLabel": "Password",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Confirm password",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Create account",
+				"signingUp": "Creating...",
+				"alreadyAccount": "Already have an account?",
+				"signIn": "Sign in",
+				"signUpWithGoogle": "Sign up with Google",
+				"signUpWithFacebook": "Sign up with Facebook",
+				"orCreateWith": "or create account with",
+				"verifyEmail": {
+					"title": "Verify your email",
+					"subtitle": "We sent a verification code to",
+					"codeLabel": "Verification code",
+					"codePlaceholder": "Enter your verification code",
+					"verifyButton": "Verify",
+					"verifying": "Verifying...",
+					"backToForm": "← Back to signup form"
+				},
+				"emailAlreadyExists": "This email is already registered. Try signing in instead or use a different email.",
+				"signInWithEmailInstead": "→ Sign in with this email instead",
+				"completeProfileRequired": "Please complete your profile to finish registration.",
+				"additionalInfoRequired": "Additional information required. Please complete your profile."
+			},
+			"forgotPassword": {
+				"title": "Forgot password",
+				"subtitle": "Enter your email address to receive a reset code",
+				"emailSentSubtitle": "We sent a reset code to your email",
+				"successSubtitle": "Your password has been successfully reset!",
+				"emailLabel": "Email address",
+				"emailPlaceholder": "your@email.com",
+				"newPasswordLabel": "New password",
+				"resetCodeLabel": "Reset code",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Send code",
+				"resetPasswordButton": "Reset password",
+				"backToSignIn": "← Back to sign in",
+				"continueToDashboard": "Continue to dashboard"
+			},
+			"passwordStrength": {
+				"label": "Password strength",
+				"veryWeak": "Very weak",
+				"weak": "Weak",
+				"medium": "Medium",
+				"good": "Good",
+				"strong": "Strong",
+				"veryStrong": "Very strong",
+				"suggestions": "Suggested improvements:",
+				"atLeast8Chars": "At least 8 characters",
+				"oneLowercase": "One lowercase letter",
+				"oneUppercase": "One uppercase letter",
+				"oneNumber": "One number",
+				"oneSpecialChar": "One special character (optional)"
+			},
+			"common": {
+				"loading": "Loading...",
+				"redirecting": "Redirecting...",
+				"valid": "Valid"
+			}
+		},
+		"clerkErrors": {
+			"form_identifier_not_found": "No account found with this email address.",
+			"form_password_incorrect": "Incorrect password.",
+			"form_identifier_exists": "An account already exists with this email address.",
+			"session_exists": "You are already signed in.",
+			"clerk_js_error": "A technical error occurred. Please try again.",
+			"form_code_incorrect": "Incorrect verification code.",
+			"verification_expired": "The verification code has expired. Request a new code.",
+			"verification_failed": "Verification failed. Please try again.",
+			"form_param_nil": "All fields are required.",
+			"form_password_pwned": "This password has been compromised in a security breach. Please choose another one.",
+			"form_password_too_common": "This password is too common. Please choose a more secure one.",
+			"oauth_access_denied": "Access was denied. Please try again.",
+			"oauth_email_domain_reserved_by_saml": "This email address is reserved for SAML login.",
+			"network_error": "Connection error. Check your internet connection.",
+			"unexpected_error": "An unexpected error occurred. Please try again.",
+			"too_many_requests": "Too many attempts. Please wait before trying again.",
+			"signin_failed": "Sign in failed. Check your credentials.",
+			"signup_failed": "Sign up failed. Please try again.",
+			"captcha_invalid": "CAPTCHA verification failed. Please try again.",
+			"form_param_unknown": "Unknown parameter error. Please try again.",
+			"form_param_invalid": "Invalid form data. Please check your inputs.",
+			"default_error": "An error occurred. Please try again."
+		},
+		"runs": [
+			{
+				"name": "Nantes Marathon",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nice",
+				"location": "Nice"
+			},
+			{
+				"name": "Thonon Half Marathon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Paris Marathon",
+				"location": "Paris"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		],
+		"OG": {
+			"title": "Buy and sell your race bibs with peace of mind.",
+			"description": "A secure platform to **buy** and **resell** **race bibs**"
+		}
+	},
+	"fr": {
+		"home": {
+			"hero": {
+				"title": "Un imprévu ? <span>Transfère</span> ton dossard !",
+				"description": "Que vous soyez plutôt running, trail, triathlon ou encore cyclisme. <br />Trouvez votre course favorite ou vendez votre dossard en toute confiance.",
+				"organizerButton": "Organisateur ? Liste ta course",
+				"consultRacesButton": "Consulter les courses",
+				"workInProgress": "Work in progress"
+			},
+			"impact": {
+				"title": "Notre Impact",
+				"activeEvents": "Événements actifs",
+				"bibsExchanged": "Dossards échangés"
+			},
+			"callToAction": {
+				"title": "Prêt à commencer ?",
+				"description": "Apprenez-en plus sur le fonctionnement de Beswib ou commencez à parcourir les événements.",
+				"learnMoreButton": "Consulter le guide FAQ Beswib"
+			}
+		},
+		"payment": {
+			"title": "Finaliser votre achat",
+			"eventDetails": "Détails de l'événement",
+			"orderSummary": "Résumé de la commande",
+			"raceBibTransfer": "Transfert de dossard",
+			"discountApplied": "Remise appliquée",
+			"total": "Total",
+			"whatsIncluded": "Ce qui est inclus",
+			"officialBib": "Dossard officiel avec vos informations enregistrées",
+			"eventMaterials": "Tous les matériaux de l'événement (puce de chronométrage, kit de course)",
+			"transferService": "Service complet de transfert d'inscription",
+			"multilingualAssistance": "Assistance multilingue dédiée",
+			"paymentMethod": "Méthode de paiement",
+			"secureTransaction": "Transaction 100% sécurisée",
+			"secureDescription": "Votre paiement est traité en toute sécurité via la plateforme de confiance PayPal. Nous ne stockons jamais vos informations de paiement.",
+			"ssl256": "SSL 256-bit",
+			"paypalSecured": "Sécurisé PayPal",
+			"pciCompliant": "Conforme PCI",
+			"trustedAthletes": "Fait confiance par des milliers d'athlètes dans le monde",
+			"bankEncryption": "Chiffrement bancaire",
+			"instantConfirmation": "Confirmation instantanée",
+			"fraudProtection": "Protection contre la fraude",
+			"paymentSuccess": "Paiement réussi !",
+			"paymentSuccessMessage": "Votre paiement a été traité avec succès. Vous recevrez un e-mail de confirmation sous peu.",
+			"paymentError": "Erreur de paiement",
+			"paymentCancelled": "Paiement annulé",
+			"paymentCancelledMessage": "Le paiement a été annulé. Vous pouvez réessayer ou contacter le support si nécessaire.",
+			"goToDashboard": "Aller au tableau de bord",
+			"tryAgain": "Réessayer",
+			"contactSupport": "Contacter le support",
+			"orderProcessing": "Traitement de la commande...",
+			"paymentProcessing": "Traitement du paiement...",
+			"closeDialog": "Fermer",
+			"paymentMethodDeclined": "Méthode de paiement refusée",
+			"paymentDeclinedMessage": "Votre méthode de paiement a été refusée. Veuillez essayer avec une méthode de paiement ou une source de financement différente.",
+			"tryDifferentPaymentMethod": "Essayer une méthode de paiement différente"
+		},
+		"form": {
+			"valid": "Valide"
+		},
+		"auth": {
+			"fields": {
+				"email": "Adresse email",
+				"password": "Mot de passe",
+				"firstName": "Prénom",
+				"lastName": "Nom",
+				"confirmPassword": "Confirmer le mot de passe"
+			},
+			"placeholders": {
+				"email": "votre@email.com",
+				"password": "••••••••",
+				"firstName": "Jean",
+				"lastName": "Dupont",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Quelque chose s'est mal passé. Veuillez réessayer.",
+			"legal": {
+				"termsText": "En créant un compte, vous acceptez nos",
+				"termsOfService": "Conditions d'utilisation",
+				"privacyPolicy": "Politique de confidentialité",
+				"and": "et"
+			},
+			"signIn": {
+				"title": "Bon retour !",
+				"subtitle": "Connectez-vous à votre compte pour continuer",
+				"welcome": "Bon retour !",
+				"forgotPassword": "Mot de passe oublié ?",
+				"signInButton": "Se connecter",
+				"signingIn": "Connexion...",
+				"signIn": "Se connecter",
+				"noAccount": "Pas encore de compte ?",
+				"createAccount": "Créer un compte",
+				"continueWithGoogle": "Se connecter avec Google",
+				"continueWithFacebook": "Se connecter avec Facebook",
+				"orContinueWith": "ou continuez avec"
+			},
+			"signUp": {
+				"title": "Créer un compte",
+				"subtitle": "Rejoignez la communauté Beswib et commencez à échanger vos dossards",
+				"firstNameLabel": "Prénom",
+				"firstNamePlaceholder": "Jean",
+				"lastNameLabel": "Nom",
+				"lastNamePlaceholder": "Dupont",
+				"emailLabel": "Adresse email",
+				"emailPlaceholder": "votre@email.com",
+				"passwordLabel": "Mot de passe",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Confirmer le mot de passe",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Créer un compte",
+				"signingUp": "Création...",
+				"alreadyAccount": "Déjà un compte ?",
+				"signIn": "Se connecter",
+				"signUpWithGoogle": "S'inscrire avec Google",
+				"signUpWithFacebook": "S'inscrire avec Facebook",
+				"orCreateWith": "ou créez un compte avec",
+				"verifyEmail": {
+					"title": "Vérifiez votre email",
+					"subtitle": "Nous avons envoyé un code de vérification à",
+					"codeLabel": "Code de vérification",
+					"codePlaceholder": "Entrez votre code de vérification",
+					"verifyButton": "Vérifier",
+					"verifying": "Vérification...",
+					"backToForm": "← Retour au formulaire d'inscription"
+				},
+				"emailAlreadyExists": "Cet email est déjà enregistré. Essayez de vous connecter ou utilisez un autre email.",
+				"signInWithEmailInstead": "→ Se connecter avec cet email à la place",
+				"completeProfileRequired": "Veuillez compléter votre profil pour terminer l'inscription.",
+				"additionalInfoRequired": "Informations supplémentaires requises. Veuillez compléter votre profil."
+			},
+			"forgotPassword": {
+				"title": "Mot de passe oublié",
+				"subtitle": "Entrez votre adresse email pour recevoir un code de réinitialisation",
+				"emailSentSubtitle": "Nous avons envoyé un code de réinitialisation à votre email",
+				"successSubtitle": "Votre mot de passe a été réinitialisé avec succès !",
+				"emailLabel": "Adresse email",
+				"emailPlaceholder": "votre@email.com",
+				"newPasswordLabel": "Nouveau mot de passe",
+				"resetCodeLabel": "Code de réinitialisation",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Envoyer le code",
+				"resetPasswordButton": "Réinitialiser le mot de passe",
+				"backToSignIn": "← Retour à la connexion",
+				"continueToDashboard": "Continuer vers le tableau de bord"
+			},
+			"passwordStrength": {
+				"label": "Force du mot de passe",
+				"veryWeak": "Très faible",
+				"weak": "Faible",
+				"medium": "Moyen",
+				"good": "Bon",
+				"strong": "Fort",
+				"veryStrong": "Très fort",
+				"suggestions": "Améliorations suggérées :",
+				"atLeast8Chars": "Au moins 8 caractères",
+				"oneLowercase": "Une lettre minuscule",
+				"oneUppercase": "Une lettre majuscule",
+				"oneNumber": "Un chiffre",
+				"oneSpecialChar": "Un caractère spécial (optionnel)"
+			},
+			"common": {
+				"loading": "Chargement...",
+				"redirecting": "Redirection...",
+				"valid": "Valide"
+			},
+			"unauthorized": {
+				"title": "Accès Refusé",
+				"description": "Vous n'avez pas la permission d'accéder à cette page.",
+				"adminRequired": "Des privilèges d'administrateur sont requis pour voir ce contenu.",
+				"backToHome": "Retour à l'accueil",
+				"contactSupport": "Contacter le support",
+				"additionalHelp": "Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur."
+			}
+		},
+		"runs": [
+			{
+				"name": "Marathon de Nantes",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nice",
+				"location": "Nice"
+			},
+			{
+				"name": "Semi-marathon de Thonon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Marathon de Paris",
+				"location": "Paris"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		],
+		"OG": {
+			"title": "Achetez et vendez vos dossards en toute sérénité.",
+			"description": "Plateforme d’**achat** et **revente** de **dossards** sécurisée"
+		}
+	},
+	"es": {
+		"home": {
+			"hero": {
+				"title": "¿Un imprevisto? <span>Transfiere</span> tu dorsal!",
+				"description": "Tanto si te gusta el running, trail, triatlón o ciclismo.<br />Encuentra tu carrera favorita o vende tu dorsal con confianza.",
+				"organizerButton": "¿Organizador? Publica tu carrera",
+				"consultRacesButton": "Ver carreras",
+				"workInProgress": "Trabajo en curso"
+			},
+			"impact": {
+				"title": "Nuestro impacto",
+				"activeEvents": "Eventos activos",
+				"bibsExchanged": "Dorsales intercambiados"
+			},
+			"callToAction": {
+				"title": "¿Listo para empezar?",
+				"description": "Conoce cómo funciona Beswib o empieza a explorar eventos ahora.",
+				"learnMoreButton": "Saber más (FAQ)"
+			}
+		},
+		"payment": {
+			"title": "Completar tu compra",
+			"eventDetails": "Detalles del evento",
+			"orderSummary": "Resumen del pedido",
+			"raceBibTransfer": "Transferencia de dorsal",
+			"discountApplied": "Descuento aplicado",
+			"total": "Total",
+			"whatsIncluded": "Qué incluye",
+			"officialBib": "Dorsal oficial con tus datos registrados",
+			"eventMaterials": "Todos los materiales del evento (chip de cronometraje, kit de carrera)",
+			"transferService": "Servicio completo de transferencia de inscripción",
+			"multilingualAssistance": "Asistencia multilingüe dedicada",
+			"paymentMethod": "Método de pago",
+			"secureTransaction": "Transacción 100% segura",
+			"secureDescription": "Tu pago se procesa de forma segura a través de la plataforma de confianza de PayPal. Nunca almacenamos tus datos de pago.",
+			"ssl256": "SSL 256-bit",
+			"paypalSecured": "Securizado por PayPal",
+			"pciCompliant": "Cumple PCI",
+			"trustedAthletes": "Confiado por miles de atletas en todo el mundo",
+			"bankEncryption": "Encriptación bancaria",
+			"instantConfirmation": "Confirmación instantánea",
+			"fraudProtection": "Protección contra fraude",
+			"paymentSuccess": "¡Pago exitoso!",
+			"paymentSuccessMessage": "Su pago se ha procesado exitosamente. Recibirá un correo electrónico de confirmación en breve.",
+			"paymentError": "Error de pago",
+			"paymentCancelled": "Pago cancelado",
+			"paymentCancelledMessage": "El pago fue cancelado. Puede intentar de nuevo o contactar soporte si es necesario.",
+			"goToDashboard": "Ir al panel",
+			"tryAgain": "Intentar de nuevo",
+			"contactSupport": "Contactar soporte",
+			"orderProcessing": "Procesando pedido...",
+			"paymentProcessing": "Procesando pago...",
+			"closeDialog": "Cerrar",
+			"paymentMethodDeclined": "Método de pago rechazado",
+			"paymentDeclinedMessage": "Su método de pago fue rechazado. Por favor intente con un método de pago o fuente de financiamiento diferente.",
+			"tryDifferentPaymentMethod": "Intentar método de pago diferente"
+		},
+		"form": {
+			"valid": "Válido"
+		},
+		"clerkErrors": {
+			"form_identifier_not_found": "No se encontró ninguna cuenta con esta dirección de correo.",
+			"form_password_incorrect": "Contraseña incorrecta.",
+			"form_identifier_exists": "Ya existe una cuenta con esta dirección de correo.",
+			"session_exists": "Ya has iniciado sesión.",
+			"clerk_js_error": "Ocurrió un error técnico. Por favor intenta de nuevo.",
+			"form_code_incorrect": "Código de verificación incorrecto.",
+			"verification_expired": "El código de verificación ha expirado. Solicita un nuevo código.",
+			"verification_failed": "La verificación falló. Por favor intenta de nuevo.",
+			"form_param_nil": "Todos los campos son obligatorios.",
+			"form_password_pwned": "Esta contraseña ha sido comprometida en una violación de seguridad. Por favor elige otra.",
+			"form_password_too_common": "Esta contraseña es demasiado común. Por favor elige una más segura.",
+			"oauth_access_denied": "Se denegó el acceso. Por favor intenta de nuevo.",
+			"oauth_email_domain_reserved_by_saml": "Esta dirección de correo está reservada para inicio de sesión SAML.",
+			"network_error": "Error de conexión. Verifica tu conexión a internet.",
+			"unexpected_error": "Ocurrió un error inesperado. Por favor intenta de nuevo.",
+			"too_many_requests": "Demasiados intentos. Por favor espera antes de intentar de nuevo.",
+			"signin_failed": "Falló el inicio de sesión. Verifica tus credenciales.",
+			"signup_failed": "Falló el registro. Por favor intenta de nuevo.",
+			"default_error": "Ocurrió un error. Por favor intenta de nuevo."
+		},
+		"auth": {
+			"fields": {
+				"email": "Correo electrónico",
+				"password": "Contraseña",
+				"firstName": "Nombre",
+				"lastName": "Apellido",
+				"confirmPassword": "Confirmar contraseña"
+			},
+			"placeholders": {
+				"email": "tu@email.com",
+				"password": "••••••••",
+				"firstName": "Juan",
+				"lastName": "Pérez",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Algo salió mal. Inténtalo de nuevo.",
+			"legal": {
+				"termsText": "Al crear una cuenta, aceptas",
+				"termsOfService": "los Términos del Servicio",
+				"privacyPolicy": "la Política de Privacidad",
+				"and": "y"
+			},
+			"signIn": {
+				"title": "¡Bienvenido de nuevo!",
+				"subtitle": "Inicia sesión en tu cuenta para continuar",
+				"welcome": "¡Bienvenido de nuevo!",
+				"forgotPassword": "¿Olvidaste tu contraseña?",
+				"signInButton": "Iniciar sesión",
+				"signingIn": "Iniciando sesión...",
+				"signIn": "Iniciar sesión",
+				"noAccount": "¿Aún no tienes cuenta?",
+				"createAccount": "Crear cuenta",
+				"continueWithGoogle": "Iniciar con Google",
+				"continueWithFacebook": "Iniciar con Facebook",
+				"orContinueWith": "o continúa con"
+			},
+			"signUp": {
+				"title": "Crear cuenta",
+				"subtitle": "Únete a la comunidad Beswib y empieza a intercambiar tus dorsales",
+				"firstNameLabel": "Nombre",
+				"firstNamePlaceholder": "Juan",
+				"lastNameLabel": "Apellido",
+				"lastNamePlaceholder": "Pérez",
+				"emailLabel": "Correo electrónico",
+				"emailPlaceholder": "tu@email.com",
+				"passwordLabel": "Contraseña",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Confirmar contraseña",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Crear cuenta",
+				"signingUp": "Creando...",
+				"alreadyAccount": "¿Ya tienes una cuenta?",
+				"signIn": "Iniciar sesión",
+				"signUpWithGoogle": "Registrarse con Google",
+				"signUpWithFacebook": "Registrarse con Facebook",
+				"orCreateWith": "o crea una cuenta con",
+				"verifyEmail": {
+					"title": "Verifica tu correo",
+					"subtitle": "Hemos enviado un código de verificación a",
+					"codeLabel": "Código de verificación",
+					"codePlaceholder": "Ingresa tu código de verificación",
+					"verifyButton": "Verificar",
+					"verifying": "Verificando...",
+					"backToForm": "← Volver al formulario de registro"
+				},
+				"emailAlreadyExists": "Este correo ya está registrado. Intenta iniciar sesión o usa un correo diferente.",
+				"signInWithEmailInstead": "→ Iniciar sesión con este correo en su lugar",
+				"completeProfileRequired": "Por favor completa tu perfil para terminar el registro.",
+				"additionalInfoRequired": "Se requiere información adicional. Por favor completa tu perfil."
+			},
+			"forgotPassword": {
+				"title": "Olvidé mi contraseña",
+				"subtitle": "Introduce tu correo para recibir un código de restablecimiento",
+				"emailSentSubtitle": "Hemos enviado un código a tu correo",
+				"successSubtitle": "¡Tu contraseña se ha restablecido correctamente!",
+				"emailLabel": "Correo electrónico",
+				"emailPlaceholder": "tu@email.com",
+				"newPasswordLabel": "Nueva contraseña",
+				"resetCodeLabel": "Código de restablecimiento",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Enviar código",
+				"resetPasswordButton": "Restablecer contraseña",
+				"backToSignIn": "← Volver a iniciar sesión",
+				"continueToDashboard": "Continuar al panel"
+			},
+			"passwordStrength": {
+				"label": "Fortaleza de la contraseña",
+				"veryWeak": "Muy débil",
+				"weak": "Débil",
+				"medium": "Media",
+				"good": "Buena",
+				"strong": "Fuerte",
+				"veryStrong": "Muy fuerte",
+				"suggestions": "Mejoras sugeridas:",
+				"atLeast8Chars": "Al menos 8 caracteres",
+				"oneLowercase": "Una letra minúscula",
+				"oneUppercase": "Una letra mayúscula",
+				"oneNumber": "Un número",
+				"oneSpecialChar": "Un carácter especial (opcional)"
+			},
+			"common": {
+				"loading": "Cargando...",
+				"redirecting": "Redirigiendo...",
+				"valid": "Válido"
+			},
+			"unauthorized": {
+				"title": "Acceso Denegado",
+				"description": "No tienes permiso para acceder a esta página.",
+				"adminRequired": "Se requieren privilegios de administrador para ver este contenido.",
+				"backToHome": "Volver al inicio",
+				"contactSupport": "Contactar soporte",
+				"additionalHelp": "Si crees que esto es un error, por favor contacta al administrador."
+			}
+		},
+		"runs": [
+			{
+				"name": "Maratón de Nantes",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Niza",
+				"location": "Niza"
+			},
+			{
+				"name": "Medio Maratón de Thonon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Maratón de París",
+				"location": "París"
+			},
+			{
+				"name": "Ultra Trail del Mont Blanc",
+				"location": "Chamonix"
+			}
+		],
+		"OG": {
+			"title": "Compra y vende tus dorsales con total tranquilidad.",
+			"description": "Plataforma segura para **comprar** y **revender** **dorsales**"
+		}
+	},
+	"it": {
+		"home": {
+			"hero": {
+				"title": "Un imprevisto? <span>Trasferisci</span> il tuo pettorale!",
+				"description": "Che tu ami running, trail, triathlon o ciclismo.<br />Trova la tua gara preferita o vendi il tuo pettorale in sicurezza.",
+				"organizerButton": "Organizzatore? Elenca la tua gara",
+				"consultRacesButton": "Sfoglia le gare",
+				"workInProgress": "Lavori in corso"
+			},
+			"impact": {
+				"title": "Il nostro impatto",
+				"activeEvents": "Eventi attivi",
+				"bibsExchanged": "Pettorali scambiati"
+			},
+			"callToAction": {
+				"title": "Pronto a iniziare?",
+				"description": "Scopri come funziona Beswib o inizia subito a esplorare gli eventi.",
+				"learnMoreButton": "Scopri di più (FAQ)"
+			}
+		},
+		"payment": {
+			"title": "Completa il tuo acquisto",
+			"eventDetails": "Dettagli evento",
+			"orderSummary": "Riepilogo ordine",
+			"raceBibTransfer": "Trasferimento pettorale",
+			"discountApplied": "Sconto applicato",
+			"total": "Totale",
+			"whatsIncluded": "Cosa è incluso",
+			"officialBib": "Pettorale ufficiale con i tuoi dati registrati",
+			"eventMaterials": "Tutti i materiali dell'evento (chip di cronometraggio, kit gara)",
+			"transferService": "Servizio completo di trasferimento iscrizione",
+			"multilingualAssistance": "Assistenza multilingue dedicata",
+			"paymentMethod": "Metodo di pagamento",
+			"secureTransaction": "Transazione 100% sicura",
+			"secureDescription": "Il tuo pagamento viene elaborato in sicurezza tramite la piattaforma affidabile di PayPal. Non memorizziamo mai i tuoi dati di pagamento.",
+			"ssl256": "SSL 256-bit",
+			"paypalSecured": "Securizzato PayPal",
+			"pciCompliant": "Conforme PCI",
+			"trustedAthletes": "Affidabile per migliaia di atleti in tutto il mondo",
+			"bankEncryption": "Crittografia bancaria",
+			"instantConfirmation": "Conferma istantanea",
+			"fraudProtection": "Protezione antifrode",
+			"paymentSuccess": "Pagamento riuscito!",
+			"paymentSuccessMessage": "Il pagamento è stato elaborato con successo. Riceverai un'email di conferma a breve.",
+			"paymentError": "Errore di pagamento",
+			"paymentCancelled": "Pagamento annullato",
+			"paymentCancelledMessage": "Il pagamento è stato annullato. Puoi riprovare o contattare il supporto se necessario.",
+			"goToDashboard": "Vai alla dashboard",
+			"tryAgain": "Riprova",
+			"contactSupport": "Contatta il supporto",
+			"orderProcessing": "Elaborazione ordine...",
+			"paymentProcessing": "Elaborazione pagamento...",
+			"closeDialog": "Chiudi",
+			"paymentMethodDeclined": "Metodo di pagamento rifiutato",
+			"paymentDeclinedMessage": "Il tuo metodo di pagamento è stato rifiutato. Si prega di provare con un metodo di pagamento o una fonte di finanziamento diversa.",
+			"tryDifferentPaymentMethod": "Prova un metodo di pagamento diverso"
+		},
+		"form": {
+			"valid": "Valido"
+		},
+		"clerkErrors": {
+			"form_identifier_not_found": "Nessun account trovato con questo indirizzo email.",
+			"form_password_incorrect": "Password incorretta.",
+			"form_identifier_exists": "Esiste già un account con questo indirizzo email.",
+			"session_exists": "Sei già connesso.",
+			"clerk_js_error": "Si è verificato un errore tecnico. Riprova.",
+			"form_code_incorrect": "Codice di verifica errato.",
+			"verification_expired": "Il codice di verifica è scaduto. Richiedi un nuovo codice.",
+			"verification_failed": "Verifica fallita. Riprova.",
+			"form_param_nil": "Tutti i campi sono obbligatori.",
+			"form_password_pwned": "Questa password è stata compromessa in una violazione della sicurezza. Scegline un'altra.",
+			"form_password_too_common": "Questa password è troppo comune. Scegline una più sicura.",
+			"oauth_access_denied": "L'accesso è stato negato. Riprova.",
+			"oauth_email_domain_reserved_by_saml": "Questo indirizzo email è riservato per l'accesso SAML.",
+			"network_error": "Errore di connessione. Controlla la tua connessione internet.",
+			"unexpected_error": "Si è verificato un errore imprevisto. Riprova.",
+			"too_many_requests": "Troppi tentativi. Attendi prima di riprovare.",
+			"signin_failed": "Accesso fallito. Controlla le tue credenziali.",
+			"signup_failed": "Registrazione fallita. Riprova.",
+			"default_error": "Si è verificato un errore. Riprova."
+		},
+		"auth": {
+			"fields": {
+				"email": "Indirizzo email",
+				"password": "Password",
+				"firstName": "Nome",
+				"lastName": "Cognome",
+				"confirmPassword": "Conferma password"
+			},
+			"placeholders": {
+				"email": "tua@email.com",
+				"password": "••••••••",
+				"firstName": "Mario",
+				"lastName": "Rossi",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Qualcosa è andato storto. Riprova.",
+			"legal": {
+				"termsText": "Creando un account accetti i nostri",
+				"termsOfService": "Termini di servizio",
+				"privacyPolicy": "Informativa sulla privacy",
+				"and": "e"
+			},
+			"signIn": {
+				"title": "Bentornato!",
+				"subtitle": "Accedi al tuo account per continuare",
+				"welcome": "Bentornato!",
+				"forgotPassword": "Password dimenticata?",
+				"signInButton": "Accedi",
+				"signingIn": "Accesso in corso...",
+				"signIn": "Accedi",
+				"noAccount": "Non hai un account?",
+				"createAccount": "Crea account",
+				"continueWithGoogle": "Accedi con Google",
+				"continueWithFacebook": "Accedi con Facebook",
+				"orContinueWith": "oppure continua con"
+			},
+			"signUp": {
+				"title": "Crea account",
+				"subtitle": "Unisciti alla community Beswib e inizia a scambiare i tuoi pettorali",
+				"firstNameLabel": "Nome",
+				"firstNamePlaceholder": "Mario",
+				"lastNameLabel": "Cognome",
+				"lastNamePlaceholder": "Rossi",
+				"emailLabel": "Indirizzo email",
+				"emailPlaceholder": "tua@email.com",
+				"passwordLabel": "Password",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Conferma password",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Crea account",
+				"signingUp": "Creazione...",
+				"alreadyAccount": "Hai già un account?",
+				"signIn": "Accedi",
+				"signUpWithGoogle": "Registrati con Google",
+				"signUpWithFacebook": "Registrati con Facebook",
+				"orCreateWith": "oppure crea un account con",
+				"verifyEmail": {
+					"title": "Verifica la tua email",
+					"subtitle": "Abbiamo inviato un codice di verifica a",
+					"codeLabel": "Codice di verifica",
+					"codePlaceholder": "Inserisci il tuo codice di verifica",
+					"verifyButton": "Verifica",
+					"verifying": "Verifica in corso...",
+					"backToForm": "← Torna al modulo di registrazione"
+				},
+				"emailAlreadyExists": "Questa email è già registrata. Prova a effettuare l'accesso o usa un'email diversa.",
+				"signInWithEmailInstead": "→ Accedi con questa email invece",
+				"completeProfileRequired": "Completa il tuo profilo per terminare la registrazione.",
+				"additionalInfoRequired": "Informazioni aggiuntive richieste. Completa il tuo profilo."
+			},
+			"forgotPassword": {
+				"title": "Password dimenticata",
+				"subtitle": "Inserisci la tua email per ricevere un codice di reset",
+				"emailSentSubtitle": "Abbiamo inviato un codice alla tua email",
+				"successSubtitle": "La tua password è stata reimpostata con successo!",
+				"emailLabel": "Indirizzo email",
+				"emailPlaceholder": "tua@email.com",
+				"newPasswordLabel": "Nuova password",
+				"resetCodeLabel": "Codice di reset",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Invia codice",
+				"resetPasswordButton": "Reimposta password",
+				"backToSignIn": "← Torna all'accesso",
+				"continueToDashboard": "Continua alla dashboard"
+			},
+			"passwordStrength": {
+				"label": "Forza della password",
+				"veryWeak": "Molto debole",
+				"weak": "Debole",
+				"medium": "Media",
+				"good": "Buona",
+				"strong": "Forte",
+				"veryStrong": "Molto forte",
+				"suggestions": "Miglioramenti suggeriti:",
+				"atLeast8Chars": "Almeno 8 caratteri",
+				"oneLowercase": "Una lettera minuscola",
+				"oneUppercase": "Una lettera maiuscola",
+				"oneNumber": "Un numero",
+				"oneSpecialChar": "Un carattere speciale (opzionale)"
+			},
+			"common": {
+				"loading": "Caricamento...",
+				"redirecting": "Reindirizzamento...",
+				"valid": "Valido"
+			},
+			"unauthorized": {
+				"title": "Accesso Negato",
+				"description": "Non hai i permessi per accedere a questa pagina.",
+				"adminRequired": "Sono richiesti privilegi di amministratore per visualizzare questo contenuto.",
+				"backToHome": "Torna alla home",
+				"contactSupport": "Contatta il supporto",
+				"additionalHelp": "Se ritieni che questo sia un errore, contatta l'amministratore."
+			}
+		},
+		"runs": [
+			{
+				"name": "Maratona di Nantes",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nizza",
+				"location": "Nizza"
+			},
+			{
+				"name": "Mezza Maratona di Thonon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Maratona di Parigi",
+				"location": "Parigi"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		],
+		"OG": {
+			"title": "Compra e vendi i tuoi pettorali in tutta serenità.",
+			"description": "Piattaforma sicura per **acquistare** e **rivendere** **pettorali**"
+		}
+	},
+	"de": {
+		"home": {
+			"hero": {
+				"title": "Ein unvorhergesehenes Ereignis? <span>Übertrage</span> deine Startnummer!",
+				"description": "Ob Laufen, Trail, Triathlon oder Radfahren.<br />Finde dein Lieblingsrennen oder verkaufe deine Startnummer sicher.",
+				"organizerButton": "Veranstalter? Liste dein Rennen",
+				"consultRacesButton": "Rennen durchsuchen",
+				"workInProgress": "Arbeiten im Gange"
+			},
+			"impact": {
+				"title": "Unsere Wirkung",
+				"activeEvents": "Aktive Events",
+				"bibsExchanged": "Übertragene Startnummern"
+			},
+			"callToAction": {
+				"title": "Bereit loszulegen?",
+				"description": "Erfahre mehr über Beswib oder beginne jetzt, Events zu entdecken.",
+				"learnMoreButton": "Mehr erfahren (FAQ)"
+			}
+		},
+		"payment": {
+			"title": "Kauf abschließen",
+			"eventDetails": "Event-Details",
+			"orderSummary": "Bestellübersicht",
+			"raceBibTransfer": "Startnummer-Übertragung",
+			"discountApplied": "Rabatt angewendet",
+			"total": "Gesamt",
+			"whatsIncluded": "Was ist enthalten",
+			"officialBib": "Offizielle Startnummer mit Ihren registrierten Daten",
+			"eventMaterials": "Alle Event-Materialien (Zeitmesschip, Rennpaket)",
+			"transferService": "Vollständiger Registrierungsübertragungsservice",
+			"multilingualAssistance": "Dedizierte mehrsprachige Unterstützung",
+			"paymentMethod": "Zahlungsmethode",
+			"secureTransaction": "100% sichere Transaktion",
+			"secureDescription": "Ihre Zahlung wird sicher über die vertrauenswürdige PayPal-Plattform verarbeitet. Wir speichern niemals Ihre Zahlungsdaten.",
+			"ssl256": "256-bit SSL",
+			"paypalSecured": "PayPal-gesichert",
+			"pciCompliant": "PCI-konform",
+			"trustedAthletes": "Vertraut von Tausenden von Athleten weltweit",
+			"bankEncryption": "Bankverschlüsselung",
+			"instantConfirmation": "Sofortige Bestätigung",
+			"fraudProtection": "Betrugsschutz",
+			"paymentSuccess": "Zahlung erfolgreich!",
+			"paymentSuccessMessage": "Ihre Zahlung wurde erfolgreich verarbeitet. Sie erhalten in Kürze eine Bestätigungs-E-Mail.",
+			"paymentError": "Zahlungsfehler",
+			"paymentCancelled": "Zahlung abgebrochen",
+			"paymentCancelledMessage": "Die Zahlung wurde abgebrochen. Sie können es erneut versuchen oder den Support kontaktieren, falls nötig.",
+			"goToDashboard": "Zum Dashboard",
+			"tryAgain": "Erneut versuchen",
+			"contactSupport": "Support kontaktieren",
+			"orderProcessing": "Bestellung wird verarbeitet...",
+			"paymentProcessing": "Zahlung wird verarbeitet...",
+			"closeDialog": "Schließen",
+			"paymentMethodDeclined": "Zahlungsmethode abgelehnt",
+			"paymentDeclinedMessage": "Ihre Zahlungsmethode wurde abgelehnt. Bitte versuchen Sie es mit einer anderen Zahlungsmethode oder Finanzierungsquelle.",
+			"tryDifferentPaymentMethod": "Andere Zahlungsmethode versuchen"
+		},
+		"form": {
+			"valid": "Gültig"
+		},
+		"clerkErrors": {
+			"form_identifier_not_found": "Kein Konto mit dieser E-Mail-Adresse gefunden.",
+			"form_password_incorrect": "Falsches Passwort.",
+			"form_identifier_exists": "Ein Konto mit dieser E-Mail-Adresse existiert bereits.",
+			"session_exists": "Du bist bereits angemeldet.",
+			"clerk_js_error": "Ein technischer Fehler ist aufgetreten. Bitte versuche es erneut.",
+			"form_code_incorrect": "Falscher Verifizierungscode.",
+			"verification_expired": "Der Verifizierungscode ist abgelaufen. Fordere einen neuen Code an.",
+			"verification_failed": "Verifizierung fehlgeschlagen. Bitte versuche es erneut.",
+			"form_param_nil": "Alle Felder sind erforderlich.",
+			"form_password_pwned": "Dieses Passwort wurde bei einem Sicherheitsverstoß kompromittiert. Bitte wähle ein anderes.",
+			"form_password_too_common": "Dieses Passwort ist zu häufig verwendet. Bitte wähle ein sichereres.",
+			"oauth_access_denied": "Der Zugriff wurde verweigert. Bitte versuche es erneut.",
+			"oauth_email_domain_reserved_by_saml": "Diese E-Mail-Adresse ist für SAML-Anmeldung reserviert.",
+			"network_error": "Verbindungsfehler. Überprüfe deine Internetverbindung.",
+			"unexpected_error": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut.",
+			"too_many_requests": "Zu viele Versuche. Bitte warte, bevor du es erneut versuchst.",
+			"signin_failed": "Anmeldung fehlgeschlagen. Überprüfe deine Anmeldedaten.",
+			"signup_failed": "Registrierung fehlgeschlagen. Bitte versuche es erneut.",
+			"default_error": "Ein Fehler ist aufgetreten. Bitte versuche es erneut."
+		},
+		"auth": {
+			"fields": {
+				"email": "E-Mail-Adresse",
+				"password": "Passwort",
+				"firstName": "Vorname",
+				"lastName": "Nachname",
+				"confirmPassword": "Passwort bestätigen"
+			},
+			"placeholders": {
+				"email": "dein@email.de",
+				"password": "••••••••",
+				"firstName": "Max",
+				"lastName": "Mustermann",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+			"legal": {
+				"termsText": "Mit der Erstellung eines Kontos stimmst du unseren",
+				"termsOfService": "Nutzungsbedingungen",
+				"privacyPolicy": "Datenschutzbestimmungen",
+				"and": "und"
+			},
+			"signIn": {
+				"title": "Willkommen zurück!",
+				"subtitle": "Melde dich in deinem Konto an, um fortzufahren",
+				"welcome": "Willkommen zurück!",
+				"forgotPassword": "Passwort vergessen?",
+				"signInButton": "Anmelden",
+				"signingIn": "Anmelden...",
+				"signIn": "Anmelden",
+				"noAccount": "Noch kein Konto?",
+				"createAccount": "Konto erstellen",
+				"continueWithGoogle": "Mit Google anmelden",
+				"continueWithFacebook": "Mit Facebook anmelden",
+				"orContinueWith": "oder fortfahren mit"
+			},
+			"signUp": {
+				"title": "Konto erstellen",
+				"subtitle": "Tritt der Beswib-Community bei und beginne, Startnummern zu tauschen",
+				"firstNameLabel": "Vorname",
+				"firstNamePlaceholder": "Max",
+				"lastNameLabel": "Nachname",
+				"lastNamePlaceholder": "Mustermann",
+				"emailLabel": "E-Mail-Adresse",
+				"emailPlaceholder": "dein@email.de",
+				"passwordLabel": "Passwort",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Passwort bestätigen",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Konto erstellen",
+				"signingUp": "Erstellen...",
+				"alreadyAccount": "Bereits ein Konto?",
+				"signIn": "Anmelden",
+				"signUpWithGoogle": "Mit Google registrieren",
+				"signUpWithFacebook": "Mit Facebook registrieren",
+				"orCreateWith": "oder Konto erstellen mit",
+				"verifyEmail": {
+					"title": "E-Mail verifizieren",
+					"subtitle": "Wir haben einen Verifizierungscode gesendet an",
+					"codeLabel": "Verifizierungscode",
+					"codePlaceholder": "Geben Sie Ihren Verifizierungscode ein",
+					"verifyButton": "Verifizieren",
+					"verifying": "Verifiziere...",
+					"backToForm": "← Zurück zum Registrierungsformular"
+				},
+				"emailAlreadyExists": "Diese E-Mail ist bereits registriert. Versuchen Sie sich anzumelden oder verwenden Sie eine andere E-Mail.",
+				"signInWithEmailInstead": "→ Mit dieser E-Mail anmelden",
+				"completeProfileRequired": "Bitte vervollständigen Sie Ihr Profil, um die Registrierung abzuschließen.",
+				"additionalInfoRequired": "Zusätzliche Informationen erforderlich. Bitte vervollständigen Sie Ihr Profil."
+			},
+			"forgotPassword": {
+				"title": "Passwort vergessen",
+				"subtitle": "Gib deine E-Mail ein, um einen Reset-Code zu erhalten",
+				"emailSentSubtitle": "Wir haben einen Code an deine E-Mail gesendet",
+				"successSubtitle": "Dein Passwort wurde erfolgreich zurückgesetzt!",
+				"emailLabel": "E-Mail-Adresse",
+				"emailPlaceholder": "dein@email.de",
+				"newPasswordLabel": "Neues Passwort",
+				"resetCodeLabel": "Reset-Code",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Code senden",
+				"resetPasswordButton": "Passwort zurücksetzen",
+				"backToSignIn": "← Zurück zum Anmelden",
+				"continueToDashboard": "Weiter zum Dashboard"
+			},
+			"passwordStrength": {
+				"label": "Passwortstärke",
+				"veryWeak": "Sehr schwach",
+				"weak": "Schwach",
+				"medium": "Mittel",
+				"good": "Gut",
+				"strong": "Stark",
+				"veryStrong": "Sehr stark",
+				"suggestions": "Vorgeschlagene Verbesserungen:",
+				"atLeast8Chars": "Mindestens 8 Zeichen",
+				"oneLowercase": "Ein Kleinbuchstabe",
+				"oneUppercase": "Ein Großbuchstabe",
+				"oneNumber": "Eine Zahl",
+				"oneSpecialChar": "Ein Sonderzeichen (optional)"
+			},
+			"common": {
+				"loading": "Lädt...",
+				"redirecting": "Weiterleiten...",
+				"valid": "Gültig"
+			},
+			"unauthorized": {
+				"title": "Zugriff Verweigert",
+				"description": "Du hast keine Berechtigung, auf diese Seite zuzugreifen.",
+				"adminRequired": "Administratorrechte sind erforderlich, um diesen Inhalt anzuzeigen.",
+				"backToHome": "Zurück zur Startseite",
+				"contactSupport": "Support kontaktieren",
+				"additionalHelp": "Wenn du glaubst, dass dies ein Fehler ist, kontaktiere bitte den Administrator."
+			}
+		},
+		"runs": [
+			{
+				"name": "Marathon Nantes",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nizza",
+				"location": "Nizza"
+			},
+			{
+				"name": "Halbmarathon Thonon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Marathon Paris",
+				"location": "Paris"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		],
+		"OG": {
+			"title": "Kaufe und verkaufe deine Startnummern ganz sorgenfrei.",
+			"description": "Sichere Plattform zum **Kauf** und **Weiterverkauf** von **Startnummern**"
+		}
+	},
+	"ro": {
+		"home": {
+			"hero": {
+				"title": "Un eveniment neașteptat? <span>Transferă</span>-ți numărul!",
+				"description": "Fie că preferi alergarea, trail, triatlon sau ciclism.<br />Găsește cursa preferată sau vinde-ți numărul cu încredere.",
+				"organizerButton": "Organizator? Listează cursa",
+				"consultRacesButton": "Vezi cursele",
+				"workInProgress": "Lucrăm la asta"
+			},
+			"impact": {
+				"title": "Impactul nostru",
+				"activeEvents": "Evenimente active",
+				"bibsExchanged": "Numere transferate"
+			},
+			"callToAction": {
+				"title": "Gata de început?",
+				"description": "Află cum funcționează Beswib sau începe să explorezi evenimentele chiar acum.",
+				"learnMoreButton": "Află mai multe (FAQ)"
+			}
+		},
+		"payment": {
+			"title": "Finalizează-ți achiziția",
+			"eventDetails": "Detaliile evenimentului",
+			"orderSummary": "Rezumatul comenzii",
+			"raceBibTransfer": "Transfer număr de cursă",
+			"discountApplied": "Reducere aplicată",
+			"total": "Total",
+			"whatsIncluded": "Ce este inclus",
+			"officialBib": "Număr oficial cu datele tale înregistrate",
+			"eventMaterials": "Toate materialele evenimentului (cip cronometrare, pachet cursă)",
+			"transferService": "Serviciu complet de transfer înscriere",
+			"multilingualAssistance": "Asistență multilingvă dedicată",
+			"paymentMethod": "Metoda de plată",
+			"secureTransaction": "Tranzacție 100% sigură",
+			"secureDescription": "Plata ta este procesată în siguranță prin platforma de încredere PayPal. Nu stocăm niciodată detaliile tale de plată.",
+			"ssl256": "SSL 256-bit",
+			"paypalSecured": "Securizat PayPal",
+			"pciCompliant": "Conform PCI",
+			"trustedAthletes": "De încredere pentru mii de atleți din întreaga lume",
+			"bankEncryption": "Criptare bancară",
+			"instantConfirmation": "Confirmare instantanee",
+			"fraudProtection": "Protecție antifraudă",
+			"paymentSuccess": "Plata reușită!",
+			"paymentSuccessMessage": "Plata dvs. a fost procesată cu succes. Veți primi un email de confirmare în scurt timp.",
+			"paymentError": "Eroare de plată",
+			"paymentCancelled": "Plată anulată",
+			"paymentCancelledMessage": "Plata a fost anulată. Puteți încerca din nou sau contactați suportul dacă este necesar.",
+			"goToDashboard": "Du-te la panou",
+			"tryAgain": "Încearcă din nou",
+			"contactSupport": "Contactează suportul",
+			"orderProcessing": "Se procesează comanda...",
+			"paymentProcessing": "Se procesează plata...",
+			"closeDialog": "Închide",
+			"paymentMethodDeclined": "Metoda de plată respinsă",
+			"paymentDeclinedMessage": "Metoda dvs. de plată a fost respinsă. Vă rugăm să încercați cu o metodă de plată sau sursă de finanțare diferită.",
+			"tryDifferentPaymentMethod": "Încercați o metodă de plată diferită"
+		},
+		"form": {
+			"valid": "Valid"
+		},
+		"auth": {
+			"fields": {
+				"email": "Adresă de email",
+				"password": "Parolă",
+				"firstName": "Prenume",
+				"lastName": "Nume",
+				"confirmPassword": "Confirmă parola"
+			},
+			"placeholders": {
+				"email": "tu@email.com",
+				"password": "••••••••",
+				"firstName": "Ion",
+				"lastName": "Popescu",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Ceva nu a mers bine. Încearcă din nou.",
+			"legal": {
+				"termsText": "Prin crearea unui cont, ești de acord cu",
+				"termsOfService": "Termenii și condițiile",
+				"privacyPolicy": "Politica de confidențialitate",
+				"and": "și"
+			},
+			"signIn": {
+				"title": "Bun venit înapoi!",
+				"subtitle": "Autentifică-te pentru a continua",
+				"welcome": "Bun venit înapoi!",
+				"forgotPassword": "Ai uitat parola?",
+				"signInButton": "Autentificare",
+				"signingIn": "Autentificare...",
+				"signIn": "Autentificare",
+				"noAccount": "Nu ai încă un cont?",
+				"createAccount": "Creează cont",
+				"continueWithGoogle": "Autentifică-te cu Google",
+				"continueWithFacebook": "Autentifică-te cu Facebook",
+				"orContinueWith": "sau continuă cu"
+			},
+			"signUp": {
+				"title": "Creează cont",
+				"subtitle": "Alătură-te comunității Beswib și începe să schimbi dossaruri",
+				"firstNameLabel": "Prenume",
+				"firstNamePlaceholder": "Ion",
+				"lastNameLabel": "Nume",
+				"lastNamePlaceholder": "Popescu",
+				"emailLabel": "Adresă de email",
+				"emailPlaceholder": "tu@email.com",
+				"passwordLabel": "Parolă",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Confirmă parola",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Creează cont",
+				"signingUp": "Se creează...",
+				"alreadyAccount": "Ai deja un cont?",
+				"signIn": "Autentificare",
+				"signUpWithGoogle": "Înregistrează-te cu Google",
+				"signUpWithFacebook": "Înregistrează-te cu Facebook",
+				"orCreateWith": "sau creează cont cu",
+				"verifyEmail": {
+					"title": "Verifică-ți emailul",
+					"subtitle": "Am trimis un cod de verificare la",
+					"codeLabel": "Cod de verificare",
+					"codePlaceholder": "Introduceți codul de verificare",
+					"verifyButton": "Verifică",
+					"verifying": "Se verifică...",
+					"backToForm": "← Înapoi la formularul de înregistrare"
+				},
+				"emailAlreadyExists": "Acest email este deja înregistrat. Încercați să vă autentificați sau folosiți un alt email.",
+				"signInWithEmailInstead": "→ Autentificați-vă cu acest email în schimb",
+				"completeProfileRequired": "Vă rugăm să completați profilul pentru a finaliza înregistrarea.",
+				"additionalInfoRequired": "Informații suplimentare necesare. Vă rugăm să completați profilul."
+			},
+			"forgotPassword": {
+				"title": "Parolă uitată",
+				"subtitle": "Introdu adresa de email pentru a primi un cod de resetare",
+				"emailSentSubtitle": "Am trimis un cod pe email",
+				"successSubtitle": "Parola ta a fost resetată cu succes!",
+				"emailLabel": "Adresă de email",
+				"emailPlaceholder": "tu@email.com",
+				"newPasswordLabel": "Parolă nouă",
+				"resetCodeLabel": "Cod de resetare",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Trimite codul",
+				"resetPasswordButton": "Resetează parola",
+				"backToSignIn": "← Înapoi la autentificare",
+				"continueToDashboard": "Continuă către dashboard"
+			},
+			"passwordStrength": {
+				"label": "Puterea parolei",
+				"veryWeak": "Foarte slabă",
+				"weak": "Slabă",
+				"medium": "Medie",
+				"good": "Bună",
+				"strong": "Puternică",
+				"veryStrong": "Foarte puternică",
+				"suggestions": "Îmbunătățiri sugerate:",
+				"atLeast8Chars": "Cel puțin 8 caractere",
+				"oneLowercase": "O literă mică",
+				"oneUppercase": "O literă mare",
+				"oneNumber": "O cifră",
+				"oneSpecialChar": "Un caracter special (opțional)"
+			},
+			"common": {
+				"loading": "Se încarcă...",
+				"redirecting": "Se redirecționează...",
+				"valid": "Valid"
+			},
+			"unauthorized": {
+				"title": "Acces Refuzat",
+				"description": "Nu ai permisiunea de a accesa această pagină.",
+				"adminRequired": "Sunt necesare privilegii de administrator pentru a vedea acest conținut.",
+				"backToHome": "Înapoi la pagina principală",
+				"contactSupport": "Contactează suportul",
+				"additionalHelp": "Dacă crezi că aceasta este o eroare, te rugăm să contactezi administratorul."
+			}
+		},
+		"runs": [
+			{
+				"name": "Maratonul Nantes",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nisa",
+				"location": "Nisa"
+			},
+			{
+				"name": "Semimaratonul Thonon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Maratonul Paris",
+				"location": "Paris"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		],
+		"OG": {
+			"title": "Cumpără și vinde numerele de concurs fără griji.",
+			"description": "Platformă sigură pentru **cumpărarea** și **revânzarea** **numerelor de concurs**"
+		}
+	},
+	"pt": {
+		"home": {
+			"hero": {
+				"title": "Um imprevisto? <span>Transfere</span> o teu dorsal!",
+				"description": "Se gostas de corrida, trail, triatlo ou ciclismo.<br />Encontra a tua prova favorita ou vende o teu dorsal com confiança.",
+				"organizerButton": "Organizador? Lista a tua prova",
+				"consultRacesButton": "Ver provas",
+				"workInProgress": "Em desenvolvimento"
+			},
+			"impact": {
+				"title": "O nosso impacto",
+				"activeEvents": "Eventos ativos",
+				"bibsExchanged": "Dorsais transferidos"
+			},
+			"callToAction": {
+				"title": "Pronto para começar?",
+				"description": "Sabe como funciona a Beswib ou começa já a explorar eventos.",
+				"learnMoreButton": "Saber mais (FAQ)"
+			}
+		},
+		"payment": {
+			"title": "Finalizar a tua compra",
+			"eventDetails": "Detalhes do evento",
+			"orderSummary": "Resumo da encomenda",
+			"raceBibTransfer": "Transferência de dorsal",
+			"discountApplied": "Desconto aplicado",
+			"total": "Total",
+			"whatsIncluded": "O que está incluído",
+			"officialBib": "Dorsal oficial com os teus dados registados",
+			"eventMaterials": "Todos os materiais do evento (chip de cronometragem, kit de prova)",
+			"transferService": "Serviço completo de transferência de inscrição",
+			"multilingualAssistance": "Assistência multilingue dedicada",
+			"paymentMethod": "Método de pagamento",
+			"secureTransaction": "Transação 100% segura",
+			"secureDescription": "O teu pagamento é processado de forma segura através da plataforma de confiança da PayPal. Nunca armazenamos os teus dados de pagamento.",
+			"ssl256": "SSL 256-bit",
+			"paypalSecured": "Securizado pela PayPal",
+			"pciCompliant": "Conforme PCI",
+			"trustedAthletes": "Confiável para milhares de atletas em todo o mundo",
+			"bankEncryption": "Encriptação bancária",
+			"instantConfirmation": "Confirmação instantânea",
+			"fraudProtection": "Proteção contra fraude",
+			"paymentSuccess": "Pagamento bem-sucedido!",
+			"paymentSuccessMessage": "O seu pagamento foi processado com sucesso. Receberá um email de confirmação em breve.",
+			"paymentError": "Erro de pagamento",
+			"paymentCancelled": "Pagamento cancelado",
+			"paymentCancelledMessage": "O pagamento foi cancelado. Pode tentar novamente ou contactar o suporte se necessário.",
+			"goToDashboard": "Ir para o painel",
+			"tryAgain": "Tentar novamente",
+			"contactSupport": "Contactar suporte",
+			"orderProcessing": "A processar pedido...",
+			"paymentProcessing": "A processar pagamento...",
+			"closeDialog": "Fechar",
+			"paymentMethodDeclined": "Método de pagamento recusado",
+			"paymentDeclinedMessage": "O seu método de pagamento foi recusado. Por favor, tente com um método de pagamento ou fonte de financiamento diferente.",
+			"tryDifferentPaymentMethod": "Tentar método de pagamento diferente"
+		},
+		"form": {
+			"valid": "Válido"
+		},
+		"auth": {
+			"fields": {
+				"email": "Endereço de email",
+				"password": "Palavra-passe",
+				"firstName": "Nome",
+				"lastName": "Apelido",
+				"confirmPassword": "Confirmar palavra-passe"
+			},
+			"placeholders": {
+				"email": "teu@email.com",
+				"password": "••••••••",
+				"firstName": "João",
+				"lastName": "Silva",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Algo correu mal. Tenta novamente.",
+			"legal": {
+				"termsText": "Ao criar uma conta, aceitas os nossos",
+				"termsOfService": "Termos de Serviço",
+				"privacyPolicy": "Política de Privacidade",
+				"and": "e"
+			},
+			"signIn": {
+				"title": "Bem-vindo de volta!",
+				"subtitle": "Inicia sessão na tua conta para continuar",
+				"welcome": "Bem-vindo de volta!",
+				"forgotPassword": "Esqueceste-te da palavra-passe?",
+				"signInButton": "Iniciar sessão",
+				"signingIn": "A iniciar sessão...",
+				"signIn": "Iniciar sessão",
+				"noAccount": "Ainda não tens conta?",
+				"createAccount": "Criar conta",
+				"continueWithGoogle": "Entrar com Google",
+				"continueWithFacebook": "Entrar com Facebook",
+				"orContinueWith": "ou continua com"
+			},
+			"signUp": {
+				"title": "Criar conta",
+				"subtitle": "Junta-te à comunidade Beswib e começa a trocar dorsais",
+				"firstNameLabel": "Nome",
+				"firstNamePlaceholder": "João",
+				"lastNameLabel": "Apelido",
+				"lastNamePlaceholder": "Silva",
+				"emailLabel": "Endereço de email",
+				"emailPlaceholder": "teu@email.com",
+				"passwordLabel": "Palavra-passe",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Confirmar palavra-passe",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Criar conta",
+				"signingUp": "A criar...",
+				"alreadyAccount": "Já tens uma conta?",
+				"signIn": "Iniciar sessão",
+				"signUpWithGoogle": "Registar com Google",
+				"signUpWithFacebook": "Registar com Facebook",
+				"orCreateWith": "ou cria conta com",
+				"verifyEmail": {
+					"title": "Verifica o teu email",
+					"subtitle": "Enviámos um código de verificação para",
+					"codeLabel": "Código de verificação",
+					"codePlaceholder": "Insira o seu código de verificação",
+					"verifyButton": "Verificar",
+					"verifying": "A verificar...",
+					"backToForm": "← Voltar ao formulário de registo"
+				},
+				"emailAlreadyExists": "Este email já está registado. Tenta iniciar sessão ou usa um email diferente.",
+				"signInWithEmailInstead": "→ Iniciar sessão com este email em vez disso",
+				"completeProfileRequired": "Por favor, completa o teu perfil para finalizar o registo.",
+				"additionalInfoRequired": "Informações adicionais necessárias. Por favor, completa o teu perfil."
+			},
+			"forgotPassword": {
+				"title": "Esqueci-me da palavra-passe",
+				"subtitle": "Introduz o teu email para receberes um código de reposição",
+				"emailSentSubtitle": "Enviámos um código para o teu email",
+				"successSubtitle": "A tua palavra-passe foi reposta com sucesso!",
+				"emailLabel": "Endereço de email",
+				"emailPlaceholder": "teu@email.com",
+				"newPasswordLabel": "Nova palavra-passe",
+				"resetCodeLabel": "Código de reposição",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Enviar código",
+				"resetPasswordButton": "Repor palavra-passe",
+				"backToSignIn": "← Voltar ao início de sessão",
+				"continueToDashboard": "Continuar para o dashboard"
+			},
+			"passwordStrength": {
+				"label": "Força da palavra-passe",
+				"veryWeak": "Muito fraca",
+				"weak": "Fraca",
+				"medium": "Média",
+				"good": "Boa",
+				"strong": "Forte",
+				"veryStrong": "Muito forte",
+				"suggestions": "Melhorias sugeridas:",
+				"atLeast8Chars": "Pelo menos 8 caracteres",
+				"oneLowercase": "Uma letra minúscula",
+				"oneUppercase": "Uma letra maiúscula",
+				"oneNumber": "Um número",
+				"oneSpecialChar": "Um carácter especial (opcional)"
+			},
+			"common": {
+				"loading": "A carregar...",
+				"redirecting": "A redirecionar...",
+				"valid": "Válido"
+			},
+			"unauthorized": {
+				"title": "Acesso Negado",
+				"description": "Não tens permissão para aceder a esta página.",
+				"adminRequired": "São necessários privilégios de administrador para ver este conteúdo.",
+				"backToHome": "Voltar à página inicial",
+				"contactSupport": "Contactar suporte",
+				"additionalHelp": "Se acreditas que isto é um erro, por favor contacta o administrador."
+			}
+		},
+		"runs": [
+			{
+				"name": "Maratona de Nantes",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nice",
+				"location": "Nice"
+			},
+			{
+				"name": "Meia Maratona de Thonon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Maratona de Paris",
+				"location": "Paris"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		],
+		"OG": {
+			"title": "Compra e vende os teus dorsais com toda a tranquilidade.",
+			"description": "Plataforma segura para **comprar** e **revender** **dorsais**"
+		}
+	},
+	"nl": {
+		"home": {
+			"hero": {
+				"title": "Onverwacht iets gebeurd? <span>Draag</span> je startnummer over!",
+				"description": "Of je nu van hardlopen, trail, triatlon of fietsen houdt.<br />Vind je favoriete race of verkoop je startnummer met vertrouwen.",
+				"organizerButton": "Organisator? Plaats je race",
+				"consultRacesButton": "Races bekijken",
+				"workInProgress": "Werk in uitvoering"
+			},
+			"impact": {
+				"title": "Onze impact",
+				"activeEvents": "Actieve events",
+				"bibsExchanged": "Overgedragen startnummers"
+			},
+			"callToAction": {
+				"title": "Klaar om te starten?",
+				"description": "Lees hoe Beswib werkt of begin nu met het verkennen van events.",
+				"learnMoreButton": "Meer info (FAQ)"
+			}
+		},
+		"payment": {
+			"title": "Voltooi je aankoop",
+			"eventDetails": "Eventdetails",
+			"orderSummary": "Besteloverzicht",
+			"raceBibTransfer": "Startnummer overdracht",
+			"discountApplied": "Korting toegepast",
+			"total": "Totaal",
+			"whatsIncluded": "Wat is inbegrepen",
+			"officialBib": "Officieel startnummer met je geregistreerde gegevens",
+			"eventMaterials": "Alle eventmaterialen (tijdschip, racepakket)",
+			"transferService": "Volledige registratieoverdrachtservice",
+			"multilingualAssistance": "Toegewijde meertalige ondersteuning",
+			"paymentMethod": "Betaalmethode",
+			"secureTransaction": "100% veilige transactie",
+			"secureDescription": "Je betaling wordt veilig verwerkt via het vertrouwde PayPal-platform. We slaan je betaalgegevens nooit op.",
+			"ssl256": "256-bit SSL",
+			"paypalSecured": "PayPal-beveiligd",
+			"pciCompliant": "PCI-conform",
+			"trustedAthletes": "Vertrouwd door duizenden atleten wereldwijd",
+			"bankEncryption": "Bankniveau encryptie",
+			"instantConfirmation": "Directe bevestiging",
+			"fraudProtection": "Fraudebescherming",
+			"paymentSuccess": "Betaling succesvol!",
+			"paymentSuccessMessage": "Uw betaling is succesvol verwerkt. U ontvangt binnenkort een bevestigingsmail.",
+			"paymentError": "Betalingsfout",
+			"paymentCancelled": "Betaling geannuleerd",
+			"paymentCancelledMessage": "De betaling is geannuleerd. U kunt het opnieuw proberen of contact opnemen met de ondersteuning indien nodig.",
+			"goToDashboard": "Naar dashboard",
+			"tryAgain": "Opnieuw proberen",
+			"contactSupport": "Contact opnemen met ondersteuning",
+			"orderProcessing": "Bestelling verwerken...",
+			"paymentProcessing": "Betaling verwerken...",
+			"closeDialog": "Sluiten",
+			"paymentMethodDeclined": "Betaalmethode geweigerd",
+			"paymentDeclinedMessage": "Uw betaalmethode is geweigerd. Probeer het met een andere betaalmethode of financieringsbron.",
+			"tryDifferentPaymentMethod": "Probeer een andere betaalmethode"
+		},
+		"form": {
+			"valid": "Geldig"
+		},
+		"clerkErrors": {
+			"form_identifier_not_found": "Geen account gevonden met dit e-mailadres.",
+			"form_password_incorrect": "Onjuist wachtwoord.",
+			"form_identifier_exists": "Er bestaat al een account met dit e-mailadres.",
+			"session_exists": "Je bent al ingelogd.",
+			"clerk_js_error": "Er is een technische fout opgetreden. Probeer het opnieuw.",
+			"form_code_incorrect": "Onjuiste verificatiecode.",
+			"verification_expired": "De verificatiecode is verlopen. Vraag een nieuwe code aan.",
+			"verification_failed": "Verificatie mislukt. Probeer het opnieuw.",
+			"form_param_nil": "Alle velden zijn verplicht.",
+			"form_password_pwned": "Dit wachtwoord is gecompromitteerd in een beveiligingslek. Kies een ander.",
+			"form_password_too_common": "Dit wachtwoord is te algemeen. Kies een veiliger wachtwoord.",
+			"oauth_access_denied": "Toegang geweigerd. Probeer het opnieuw.",
+			"oauth_email_domain_reserved_by_saml": "Dit e-mailadres is gereserveerd voor SAML-login.",
+			"network_error": "Verbindingsfout. Controleer je internetverbinding.",
+			"unexpected_error": "Er is een onverwachte fout opgetreden. Probeer het opnieuw.",
+			"too_many_requests": "Te veel pogingen. Wacht even voordat je het opnieuw probeert.",
+			"signin_failed": "Inloggen mislukt. Controleer je inloggegevens.",
+			"signup_failed": "Registratie mislukt. Probeer het opnieuw.",
+			"default_error": "Er is een fout opgetreden. Probeer het opnieuw."
+		},
+		"auth": {
+			"fields": {
+				"email": "E-mailadres",
+				"password": "Wachtwoord",
+				"firstName": "Voornaam",
+				"lastName": "Achternaam",
+				"confirmPassword": "Bevestig wachtwoord"
+			},
+			"placeholders": {
+				"email": "jij@email.com",
+				"password": "••••••••",
+				"firstName": "Jan",
+				"lastName": "Jansen",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "Er is iets misgegaan. Probeer het opnieuw.",
+			"legal": {
+				"termsText": "Door een account aan te maken, ga je akkoord met onze",
+				"termsOfService": "Servicevoorwaarden",
+				"privacyPolicy": "Privacybeleid",
+				"and": "en"
+			},
+			"signIn": {
+				"title": "Welkom terug!",
+				"subtitle": "Log in op je account om door te gaan",
+				"welcome": "Welkom terug!",
+				"forgotPassword": "Wachtwoord vergeten?",
+				"signInButton": "Inloggen",
+				"signingIn": "Bezig met inloggen...",
+				"signIn": "Inloggen",
+				"noAccount": "Nog geen account?",
+				"createAccount": "Account aanmaken",
+				"continueWithGoogle": "Inloggen met Google",
+				"continueWithFacebook": "Inloggen met Facebook",
+				"orContinueWith": "of ga verder met"
+			},
+			"signUp": {
+				"title": "Account aanmaken",
+				"subtitle": "Word lid van de Beswib-community en begin met het ruilen van startnummers",
+				"firstNameLabel": "Voornaam",
+				"firstNamePlaceholder": "Jan",
+				"lastNameLabel": "Achternaam",
+				"lastNamePlaceholder": "Jansen",
+				"emailLabel": "E-mailadres",
+				"emailPlaceholder": "jij@email.com",
+				"passwordLabel": "Wachtwoord",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "Bevestig wachtwoord",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "Account aanmaken",
+				"signingUp": "Bezig met aanmaken...",
+				"alreadyAccount": "Al een account?",
+				"signIn": "Inloggen",
+				"signUpWithGoogle": "Registreren met Google",
+				"signUpWithFacebook": "Registreren met Facebook",
+				"orCreateWith": "of maak een account met",
+				"verifyEmail": {
+					"title": "Verifieer je e-mail",
+					"subtitle": "We hebben een verificatiecode gestuurd naar",
+					"codeLabel": "Verificatiecode",
+					"codePlaceholder": "Voer je verificatiecode in",
+					"verifyButton": "Verifiëren",
+					"verifying": "Verifiëren...",
+					"backToForm": "← Terug naar registratieformulier"
+				},
+				"emailAlreadyExists": "Dit e-mailadres is al geregistreerd. Probeer in te loggen of gebruik een ander e-mailadres.",
+				"signInWithEmailInstead": "→ In plaats daarvan inloggen met dit e-mailadres",
+				"completeProfileRequired": "Vul je profiel aan om de registratie af te ronden.",
+				"additionalInfoRequired": "Aanvullende informatie vereist. Vul je profiel aan."
+			},
+			"forgotPassword": {
+				"title": "Wachtwoord vergeten",
+				"subtitle": "Voer je e-mailadres in om een resetcode te ontvangen",
+				"emailSentSubtitle": "We hebben een code naar je e-mail gestuurd",
+				"successSubtitle": "Je wachtwoord is succesvol gereset!",
+				"emailLabel": "E-mailadres",
+				"emailPlaceholder": "jij@email.com",
+				"newPasswordLabel": "Nieuw wachtwoord",
+				"resetCodeLabel": "Resetcode",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "Code verzenden",
+				"resetPasswordButton": "Wachtwoord resetten",
+				"backToSignIn": "← Terug naar inloggen",
+				"continueToDashboard": "Doorgaan naar dashboard"
+			},
+			"passwordStrength": {
+				"label": "Wachtwoordsterkte",
+				"veryWeak": "Zeer zwak",
+				"weak": "Zwak",
+				"medium": "Gemiddeld",
+				"good": "Goed",
+				"strong": "Sterk",
+				"veryStrong": "Zeer sterk",
+				"suggestions": "Aanbevolen verbeteringen:",
+				"atLeast8Chars": "Minstens 8 tekens",
+				"oneLowercase": "Een kleine letter",
+				"oneUppercase": "Een hoofdletter",
+				"oneNumber": "Een cijfer",
+				"oneSpecialChar": "Een speciaal teken (optioneel)"
+			},
+			"common": {
+				"loading": "Laden...",
+				"redirecting": "Doorsturen...",
+				"valid": "Geldig"
+			},
+			"unauthorized": {
+				"title": "Toegang Geweigerd",
+				"description": "Je hebt geen toestemming om deze pagina te bekijken.",
+				"adminRequired": "Beheerdersrechten zijn vereist om deze inhoud te bekijken.",
+				"backToHome": "Terug naar startpagina",
+				"contactSupport": "Contact opnemen met ondersteuning",
+				"additionalHelp": "Als je denkt dat dit een fout is, neem dan contact op met de beheerder."
+			}
+		},
+		"runs": [
+			{
+				"name": "Marathon van Nantes",
+				"location": "Nantes"
+			},
+			{
+				"name": "Ironman Nice",
+				"location": "Nice"
+			},
+			{
+				"name": "Halve marathon Thonon",
+				"location": "Thonon-les-Bains"
+			},
+			{
+				"name": "Marathon van Parijs",
+				"location": "Parijs"
+			},
+			{
+				"name": "Ultra Trail du Mont Blanc",
+				"location": "Chamonix"
+			}
+		],
+		"OG": {
+			"title": "Koop en verkoop je startnummers zonder zorgen.",
+			"description": "Een veilig platform voor het **kopen** en **doorverkopen** van **startnummers**"
+		}
+	},
+	"ko": {
+		"home": {
+			"hero": {
+				"title": "예상치 못한 일이? <span>빕을 전송하세요!</span>",
+				"description": "러닝, 트레일, 철인 3종 경기 또는 사이클링을 좋아하든 상관없이.<br />좋아하는 레이스를 찾거나 자신 있게 빕을 판매하세요.",
+				"organizerButton": "주최자? 레이스 등록",
+				"consultRacesButton": "레이스 보기",
+				"workInProgress": "작업 진행 중"
+			},
+			"impact": {
+				"title": "우리의 영향력",
+				"activeEvents": "진행 중인 이벤트",
+				"bibsExchanged": "교환된 참가권"
+			},
+			"callToAction": {
+				"title": "시작할 준비가 되셨나요?",
+				"description": "Beswib 작동 방식에 대해 자세히 알아보거나 지금 바로 이벤트를 찾아보세요.",
+				"learnMoreButton": "더 알아보기 (FAQ)"
+			}
+		},
+		"payment": {
+			"title": "구매 완료",
+			"eventDetails": "이벤트 세부사항",
+			"orderSummary": "주문 요약",
+			"raceBibTransfer": "레이스 빕 전송",
+			"discountApplied": "할인 적용됨",
+			"total": "총계",
+			"whatsIncluded": "포함 사항",
+			"officialBib": "등록된 세부사항이 포함된 공식 레이스 빕",
+			"eventMaterials": "모든 이벤트 재료 (타이밍 칩, 레이스 패킷)",
+			"transferService": "완전한 등록 전송 서비스",
+			"multilingualAssistance": "전용 다국어 지원",
+			"paymentMethod": "결제 방법",
+			"secureTransaction": "100% 안전한 거래",
+			"secureDescription": "귀하의 결제는 PayPal의 신뢰할 수 있는 플랫폼을 통해 안전하게 처리됩니다. 우리는 결제 세부사항을 절대 저장하지 않습니다.",
+			"ssl256": "256비트 SSL",
+			"paypalSecured": "PayPal 보안",
+			"pciCompliant": "PCI 준수",
+			"trustedAthletes": "전 세계 수천 명의 운동선수들이 신뢰",
+			"bankEncryption": "은행 수준 암호화",
+			"instantConfirmation": "즉시 확인",
+			"fraudProtection": "사기 방지",
+			"paymentSuccess": "결제 성공!",
+			"paymentSuccessMessage": "결제가 성공적으로 처리되었습니다. 곧 확인 이메일을 받게 됩니다.",
+			"paymentError": "결제 오류",
+			"paymentCancelled": "결제 취소됨",
+			"paymentCancelledMessage": "결제가 취소되었습니다. 다시 시도하거나 필요한 경우 지원팀에 문의할 수 있습니다.",
+			"goToDashboard": "대시보드로 이동",
+			"tryAgain": "다시 시도",
+			"contactSupport": "지원팀 문의",
+			"orderProcessing": "주문 처리 중...",
+			"paymentProcessing": "결제 처리 중...",
+			"closeDialog": "닫기",
+			"paymentMethodDeclined": "결제 수단이 거부됨",
+			"paymentDeclinedMessage": "결제 수단이 거부되었습니다. 다른 결제 수단이나 자금 조달원으로 시도해 주세요.",
+			"tryDifferentPaymentMethod": "다른 결제 수단 시도"
+		},
+		"form": {
+			"valid": "유효함"
+		},
+		"clerkErrors": {
+			"form_identifier_not_found": "이 이메일 주소로 등록된 계정을 찾을 수 없습니다.",
+			"form_password_incorrect": "비밀번호가 올바르지 않습니다.",
+			"form_identifier_exists": "이 이메일 주소로 이미 계정이 존재합니다.",
+			"session_exists": "이미 로그인되어 있습니다.",
+			"clerk_js_error": "기술적인 오류가 발생했습니다. 다시 시도해주세요.",
+			"form_code_incorrect": "인증 코드가 올바르지 않습니다.",
+			"verification_expired": "인증 코드가 만료되었습니다. 새 코드를 요청하세요.",
+			"verification_failed": "인증에 실패했습니다. 다시 시도해주세요.",
+			"form_param_nil": "모든 필드는 필수입니다.",
+			"form_password_pwned": "이 비밀번호는 보안 침해로 인해 노출되었습니다. 다른 비밀번호를 선택해주세요.",
+			"form_password_too_common": "이 비밀번호는 너무 일반적입니다. 더 안전한 비밀번호를 선택해주세요.",
+			"oauth_access_denied": "접근이 거부되었습니다. 다시 시도해주세요.",
+			"oauth_email_domain_reserved_by_saml": "이 이메일 주소는 SAML 로그인용으로 예약되어 있습니다.",
+			"network_error": "연결 오류입니다. 인터넷 연결을 확인해주세요.",
+			"unexpected_error": "예상치 못한 오류가 발생했습니다. 다시 시도해주세요.",
+			"too_many_requests": "너무 많은 시도를 했습니다. 잠시 후에 다시 시도해주세요.",
+			"signin_failed": "로그인에 실패했습니다. 자격 증명을 확인해주세요.",
+			"signup_failed": "회원가입에 실패했습니다. 다시 시도해주세요.",
+			"default_error": "오류가 발생했습니다. 다시 시도해주세요."
+		},
+		"auth": {
+			"fields": {
+				"email": "이메일 주소",
+				"password": "비밀번호",
+				"firstName": "이름",
+				"lastName": "성",
+				"confirmPassword": "비밀번호 확인"
+			},
+			"placeholders": {
+				"email": "you@email.com",
+				"password": "••••••••",
+				"firstName": "홍길동",
+				"lastName": "",
+				"confirmPassword": "••••••••"
+			},
+			"somethingWentWrong": "문제가 발생했습니다. 다시 시도해 주세요.",
+			"legal": {
+				"termsText": "계정을 생성하면 다음에 동의하게 됩니다:",
+				"termsOfService": "서비스 약관",
+				"privacyPolicy": "개인정보 처리방침",
+				"and": "및"
+			},
+			"signIn": {
+				"title": "다시 오신 것을 환영합니다!",
+				"subtitle": "계정에 로그인하여 계속하세요",
+				"welcome": "다시 오신 것을 환영합니다!",
+				"forgotPassword": "비밀번호를 잊으셨나요?",
+				"signInButton": "로그인",
+				"signingIn": "로그인 중...",
+				"signIn": "로그인",
+				"noAccount": "아직 계정이 없으신가요?",
+				"createAccount": "계정 만들기",
+				"continueWithGoogle": "Google로 로그인",
+				"continueWithFacebook": "Facebook으로 로그인",
+				"orContinueWith": "또는 다음으로 계속"
+			},
+			"signUp": {
+				"title": "계정 만들기",
+				"subtitle": "Beswib 커뮤니티에 가입하고 빕 교환을 시작하세요",
+				"firstNameLabel": "이름",
+				"firstNamePlaceholder": "홍길동",
+				"lastNameLabel": "성",
+				"lastNamePlaceholder": "",
+				"emailLabel": "이메일 주소",
+				"emailPlaceholder": "you@email.com",
+				"passwordLabel": "비밀번호",
+				"passwordPlaceholder": "••••••••",
+				"confirmPasswordLabel": "비밀번호 확인",
+				"confirmPasswordPlaceholder": "••••••••",
+				"signUpButton": "계정 만들기",
+				"signingUp": "생성 중...",
+				"alreadyAccount": "이미 계정이 있으신가요?",
+				"signIn": "로그인",
+				"signUpWithGoogle": "Google로 가입",
+				"signUpWithFacebook": "Facebook으로 가입",
+				"orCreateWith": "또는 다음으로 계정 생성",
+				"verifyEmail": {
+					"title": "이메일 확인",
+					"subtitle": "다음으로 인증 코드를 보냈습니다:",
+					"codeLabel": "인증 코드",
+					"codePlaceholder": "인증 코드를 입력하세요",
+					"verifyButton": "확인",
+					"verifying": "확인 중...",
+					"backToForm": "← 가입 양식으로 돌아가기"
+				},
+				"emailAlreadyExists": "이 이메일은 이미 등록되어 있습니다. 로그인을 시도하거나 다른 이메일을 사용하세요.",
+				"signInWithEmailInstead": "→ 대신 이 이메일로 로그인",
+				"completeProfileRequired": "등록을 완료하려면 프로필을 완성해주세요.",
+				"additionalInfoRequired": "추가 정보가 필요합니다. 프로필을 완성해주세요."
+			},
+			"forgotPassword": {
+				"title": "비밀번호 찾기",
+				"subtitle": "재설정 코드를 받으려면 이메일을 입력하세요",
+				"emailSentSubtitle": "이메일로 코드를 보냈습니다",
+				"successSubtitle": "비밀번호가 성공적으로 재설정되었습니다!",
+				"emailLabel": "이메일 주소",
+				"emailPlaceholder": "you@email.com",
+				"newPasswordLabel": "새 비밀번호",
+				"resetCodeLabel": "재설정 코드",
+				"resetCodePlaceholder": "123456",
+				"sendCodeButton": "코드 보내기",
+				"resetPasswordButton": "비밀번호 재설정",
+				"backToSignIn": "← 로그인으로 돌아가기",
+				"continueToDashboard": "대시보드로 계속"
+			},
+			"passwordStrength": {
+				"label": "비밀번호 강도",
+				"veryWeak": "매우 약함",
+				"weak": "약함",
+				"medium": "보통",
+				"good": "좋음",
+				"strong": "강함",
+				"veryStrong": "매우 강함",
+				"suggestions": "개선 사항:",
+				"atLeast8Chars": "최소 8자",
+				"oneLowercase": "소문자 1자",
+				"oneUppercase": "대문자 1자",
+				"oneNumber": "숫자 1자",
+				"oneSpecialChar": "특수문자 1자 (선택)"
+			},
+			"common": {
+				"loading": "로딩 중...",
+				"redirecting": "리디렉션 중...",
+				"valid": "유효함"
+			},
+			"unauthorized": {
+				"title": "접근 거부됨",
+				"description": "이 페이지에 접근할 권한이 없습니다.",
+				"adminRequired": "이 콘텐츠를 보려면 관리자 권한이 필요합니다.",
+				"backToHome": "홈으로 돌아가기",
+				"contactSupport": "지원팀 문의",
+				"additionalHelp": "이것이 오류라고 생각되면 관리자에게 문의하세요."
+			}
+		},
+		"runs": [
+			{
+				"name": "낭트 마라톤",
+				"location": "낭트"
+			},
+			{
+				"name": "아이언맨 니스",
+				"location": "니스"
+			},
+			{
+				"name": "토농 하프 마라톤",
+				"location": "토농 레 방"
+			},
+			{
+				"name": "파리 마라톤",
+				"location": "파리"
+			},
+			{
+				"name": "몽블랑 울트라 트레일",
+				"location": "샤모니"
+			}
+		],
+		"OG": {
+			"title": "안심하고 빕을 사고파세요.",
+			"description": "**빕**을 안전하게 **구매**하고 **되팔** 수 있는 플랫폼"
+		}
+	}
 }
