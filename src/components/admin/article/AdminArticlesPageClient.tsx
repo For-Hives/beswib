@@ -44,7 +44,6 @@ import { toast } from 'sonner'
 
 import { deleteArticleAction, getAllArticlesAction } from '@/app/[locale]/admin/article/actions'
 import translations from '@/app/[locale]/admin/article/locales.json'
-import ArticleTranslationIndicator from '@/components/admin/article/ArticleTranslationIndicator'
 import {
 	AlertDialog,
 	AlertDialogAction,
