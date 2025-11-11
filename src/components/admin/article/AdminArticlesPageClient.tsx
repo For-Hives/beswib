@@ -29,6 +29,7 @@ import {
 	Columns3,
 	Edit,
 	Eye,
+	Globe,
 	MoreHorizontal,
 	Plus,
 	Search,
@@ -72,6 +73,7 @@ import { Label } from '@/components/ui/label'
 import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
@@ -98,6 +100,8 @@ interface ArticlesTranslations {
 		}
 		filters: {
 			search: string
+			showAllLanguages: string
+			showFrenchOnly: string
 		}
 		sections: {
 			actions: {
@@ -176,6 +180,7 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 
 	const [articles, setArticles] = useState<Array<Article & { translationCount?: number; publishedCount?: number }>>([])
 	const [stats, setStats] = useState<ArticlesStats | null>(null)
+	const [showAllLanguages, setShowAllLanguages] = useState(false)
 
 	// Table state
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -231,11 +236,23 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 				accessorKey: 'slug',
 				header: t.articles.table.columns.slug,
 				cell: ({ row }) => {
-					const slug = row.getValue('slug')
+					const slug = row.getValue('slug') as string
+					const displaySlug = slug?.length > 30 ? `${slug.substring(0, 30)}...` : slug
 					return (
-						<Badge className="font-mono text-xs" variant="outline">
-							{(slug as string) || 'N/A'}
-						</Badge>
+						<TooltipProvider>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Badge className="max-w-full cursor-help truncate font-mono text-xs" variant="outline">
+										{displaySlug || 'N/A'}
+									</Badge>
+								</TooltipTrigger>
+								{slug && slug.length > 30 && (
+									<TooltipContent>
+										<p className="max-w-md break-all">{slug}</p>
+									</TooltipContent>
+								)}
+							</Tooltip>
+						</TooltipProvider>
 					)
 				},
 			},
@@ -291,10 +308,14 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 			},
 			{
 				id: 'translations',
-				size: 100,
+				size: 120,
 				accessorKey: 'locale',
 				header: 'Languages',
-				cell: ({ row }) => <ArticleTranslationIndicator article={row.original} />,
+				cell: ({ row }) => (
+					<div className="flex flex-wrap items-center gap-1">
+						<ArticleTranslationIndicator article={row.original} compact={false} />
+					</div>
+				),
 			},
 			{
 				id: 'actions',
@@ -311,7 +332,7 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 	useEffect(() => {
 		const fetchArticles = async () => {
 			try {
-				const result = await getAllArticlesAction()
+				const result = await getAllArticlesAction(showAllLanguages)
 
 				if (result.success && result.data) {
 					const articlesData = result.data
@@ -345,7 +366,7 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 		}
 
 		void fetchArticles()
-	}, [])
+	}, [showAllLanguages])
 
 	// Listen to deletion events from RowActions to update local state
 	useEffect(() => {
@@ -519,6 +540,16 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 							{/* Filters */}
 							<div className="flex flex-wrap items-center justify-between gap-3">
 								<div className="flex items-center gap-3">
+									{/* Language filter toggle */}
+									<Button
+										variant={showAllLanguages ? 'default' : 'outline'}
+										onClick={() => setShowAllLanguages(!showAllLanguages)}
+										className="flex items-center gap-2"
+									>
+										<Globe aria-hidden="true" size={16} />
+										{showAllLanguages ? t.articles.filters.showFrenchOnly : t.articles.filters.showAllLanguages}
+									</Button>
+
 									{/* Filter by title, slug, or description */}
 									<div className="relative">
 										<Input

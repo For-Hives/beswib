@@ -60,7 +60,9 @@
 				}
 			},
 			"filters": {
-				"search": "Search articles..."
+				"search": "Search articles...",
+				"showAllLanguages": "Show all languages",
+				"showFrenchOnly": "Show French only"
 			},
 			"ui": {
 				"loading": "Loading...",
@@ -133,7 +135,9 @@
 				}
 			},
 			"filters": {
-				"search": "Rechercher des articles..."
+				"search": "Rechercher des articles...",
+				"showAllLanguages": "Afficher toutes les langues",
+				"showFrenchOnly": "Afficher uniquement le français"
 			},
 			"ui": {
 				"loading": "Chargement...",
@@ -210,7 +214,9 @@
 				}
 			},
 			"filters": {
-				"search": "Buscar artículos..."
+				"search": "Buscar artículos...",
+				"showAllLanguages": "Mostrar todos los idiomas",
+				"showFrenchOnly": "Mostrar solo francés"
 			},
 			"ui": {
 				"loading": "Cargando...",
@@ -287,7 +293,9 @@
 				}
 			},
 			"filters": {
-				"search": "Cerca articoli..."
+				"search": "Cerca articoli...",
+				"showAllLanguages": "Mostra tutte le lingue",
+				"showFrenchOnly": "Mostra solo francese"
 			},
 			"ui": {
 				"loading": "Caricamento...",
@@ -364,7 +372,9 @@
 				}
 			},
 			"filters": {
-				"search": "Artikel suchen..."
+				"search": "Artikel suchen...",
+				"showAllLanguages": "Alle Sprachen anzeigen",
+				"showFrenchOnly": "Nur Französisch anzeigen"
 			},
 			"ui": {
 				"loading": "Lädt...",
@@ -441,7 +451,9 @@
 				}
 			},
 			"filters": {
-				"search": "Căutați articole..."
+				"search": "Căutați articole...",
+				"showAllLanguages": "Afișați toate limbile",
+				"showFrenchOnly": "Afișați doar franceză"
 			},
 			"ui": {
 				"loading": "Se încarcă...",
@@ -518,7 +530,9 @@
 				}
 			},
 			"filters": {
-				"search": "Pesquisar artigos..."
+				"search": "Pesquisar artigos...",
+				"showAllLanguages": "Mostrar todos os idiomas",
+				"showFrenchOnly": "Mostrar apenas francês"
 			},
 			"ui": {
 				"loading": "Carregando...",
@@ -595,7 +609,9 @@
 				}
 			},
 			"filters": {
-				"search": "Zoek artikelen..."
+				"search": "Zoek artikelen...",
+				"showAllLanguages": "Toon alle talen",
+				"showFrenchOnly": "Toon alleen Frans"
 			},
 			"ui": {
 				"loading": "Laden...",
@@ -672,7 +688,9 @@
 				}
 			},
 			"filters": {
-				"search": "기사 검색..."
+				"search": "기사 검색...",
+				"showAllLanguages": "모든 언어 표시",
+				"showFrenchOnly": "프랑스어만 표시"
 			},
 			"ui": {
 				"loading": "로딩 중...",
