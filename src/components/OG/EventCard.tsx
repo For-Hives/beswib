@@ -139,6 +139,8 @@ export default function EventCard({
 				<img
 					src={absoluteImageUrl}
 					alt="Event image"
+					width="248"
+					height="160"
 					style={{
 						width: '100%',
 						objectPosition: 'center',

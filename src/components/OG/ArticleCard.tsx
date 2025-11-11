@@ -15,11 +15,11 @@ interface ArticleCardProps {
 	protocol: string
 }
 
-export default function ArticleCard({ article, locale, readTime }: Readonly<ArticleCardProps>) {
+export default function ArticleCard({ article, locale, readTime, host, protocol }: Readonly<ArticleCardProps>) {
 	const t = getTranslations(locale, blogTranslations)
 
-	// Get article image URL - uses absolute URL based on environment (staging vs production)
-	const imageUrl = getArticleImageUrl(article)
+	// Get article image URL - convert WebP to PNG for OpenGraph compatibility
+	const imageUrl = getArticleImageUrl(article, true, host, protocol)
 
 	return (
 		<div
@@ -51,6 +51,8 @@ export default function ArticleCard({ article, locale, readTime }: Readonly<Arti
 					<img
 						src={imageUrl}
 						alt={article.expand?.image?.alt || article.title}
+						width="248"
+						height="160"
 						style={{
 							width: '100%',
 							objectPosition: 'center',

@@ -1,11 +1,11 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { headers } from 'next/headers'
 import { ImageResponse } from 'next/og'
 import OGImage from '@/components/OG/ogImage.component'
 import OGImageArticle from '@/components/OG/ogImageArticle.component'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { getAbsoluteUrl } from '@/lib/utils/url'
 import { fetchArticleBySlug } from '@/services/article.services'
 
 import articleTranslations from './locales.json'
@@ -66,12 +66,8 @@ export default async function Image({ params }: { params: Promise<ArticleOpenGra
 		// Fallback to generic blog content
 	}
 
-	// Build the absolute URL (useful for Satori)
-	const requestHeaders = await headers()
-	const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? 'localhost:3000'
-	const xfProto = requestHeaders.get('x-forwarded-proto')
-	const isLocal = host?.startsWith('localhost') || host?.startsWith('127.0.0.1')
-	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
+	// Get the absolute URL using environment variables
+	const { protocol, host } = getAbsoluteUrl()
 
 	// Load custom fonts for @vercel/og with error handling
 	try {

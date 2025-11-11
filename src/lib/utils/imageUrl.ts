@@ -63,16 +63,37 @@ export function getImageWithAltUrl(imageWithAlt: ImageWithAlt): string | null {
 /**
  * Generate absolute URL for an article's image
  * @param article Article with expanded image relation
+ * @param convertForOG Whether to convert the image for OpenGraph compatibility (converts WebP to PNG)
+ * @param host Optional host for absolute URL (required when convertForOG is true)
+ * @param protocol Optional protocol for absolute URL (required when convertForOG is true)
  * @returns Absolute URL to the image or null if no image exists
  */
-export function getArticleImageUrl(article: {
-	expand?: {
-		image?: ImageWithAlt
-	}
-}): string | null {
+export function getArticleImageUrl(
+	article: {
+		expand?: {
+			image?: ImageWithAlt
+		}
+	},
+	convertForOG = false,
+	host?: string,
+	protocol?: string
+): string | null {
 	if (!article.expand?.image?.image) {
 		return null
 	}
 
-	return getImageUrl(article.expand.image, article.expand.image.image)
+	const imageUrl = getImageUrl(article.expand.image, article.expand.image.image)
+
+	// If we need to convert for OpenGraph and the image is WebP, use our conversion API
+	// This is because @vercel/og (Satori) doesn't support WebP format
+	if (convertForOG && imageUrl.endsWith('.webp')) {
+		if (!host || !protocol) {
+			console.warn('Host and protocol are required for OG image conversion')
+			return null
+		}
+		// Use our conversion API to convert WebP to PNG
+		return `${protocol}://${host}/api/convert-image?url=${encodeURIComponent(imageUrl)}`
+	}
+
+	return imageUrl
 }

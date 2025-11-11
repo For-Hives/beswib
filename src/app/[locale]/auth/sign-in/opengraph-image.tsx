@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { headers } from 'next/headers'
 import { ImageResponse } from 'next/og'
 import OGImage from '@/components/OG/ogImage.component'
 import { generateLocaleParams } from '@/lib/generation/staticParams'
+import { getAbsoluteUrl } from '@/lib/utils/url'
 
 // Alt text for the Open Graph image
 export const alt = 'Beswib Sign In Open Graph Image'
@@ -25,12 +25,8 @@ export default async function Image() {
 	// Get the translations for the current page and locale
 	// const t = getTranslations(locale, globalLocales)
 
-	// Build the absolute URL (useful for Satori)
-	const requestHeaders = await headers()
-	const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? 'localhost:3000'
-	const xfProto = requestHeaders.get('x-forwarded-proto')
-	const isLocal = host?.startsWith('localhost') || host?.startsWith('127.0.0.1')
-	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
+	// Get the absolute URL using environment variables
+	const { protocol, host } = getAbsoluteUrl()
 
 	// Load custom fonts for @vercel/og with error handling
 	try {
