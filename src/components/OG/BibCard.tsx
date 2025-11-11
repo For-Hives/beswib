@@ -186,6 +186,8 @@ export default function BibCard({ organizer, locale, exchangeRates, bib, host, p
 				<img
 					src={absoluteImageUrl}
 					alt="Organizer logo"
+					width="248"
+					height="160"
 					style={{
 						width: '100%',
 						objectPosition: 'center',
@@ -204,6 +206,7 @@ export default function BibCard({ organizer, locale, exchangeRates, bib, host, p
 						fontWeight: '500',
 						fontSize: '11px',
 						fontFamily: 'Geist',
+						display: 'flex',
 						color: 'white',
 						borderRadius: '20px',
 						border: `1px solid ${typeColors.border}`,
@@ -224,6 +227,7 @@ export default function BibCard({ organizer, locale, exchangeRates, bib, host, p
 							fontWeight: '500',
 							fontSize: '11px',
 							fontFamily: 'Geist',
+							display: 'flex',
 							color: 'white',
 							borderRadius: '20px',
 							border: '1px solid rgba(239, 68, 68, 0.5)',
@@ -254,9 +258,12 @@ export default function BibCard({ organizer, locale, exchangeRates, bib, host, p
 						fontFamily: 'Geist',
 						display: 'flex',
 						color: '#6b7280',
+						justifyContent: 'center',
 					}}
 				>
-					{t.soldBy} {user.firstName ?? 'Anonymous'}
+					<span>
+						{t.soldBy} {user.firstName ?? 'Anonymous'}
+					</span>
 				</div>
 
 				{/* Title and price */}
@@ -376,10 +383,10 @@ export default function BibCard({ organizer, locale, exchangeRates, bib, host, p
 						>
 							<span>{event.location}</span>
 							<span>•</span>
-							<span>
-								{event.distance}
+							<div style={{ display: 'flex', alignItems: 'center' }}>
+								<span>{event.distance}</span>
 								<span style={{ fontStyle: 'italic' }}>{event.distanceUnit}</span>
-							</span>
+							</div>
 						</div>
 					</div>
 
