@@ -1,24 +1,12 @@
 import type { Locale } from '@/lib/i18n/config'
+import { getAbsoluteUrl } from '@/lib/utils/url'
 import type { Event } from '@/models/event.model'
 
 import { SEO_KEYWORDS, SEO_TITLES } from '../constants/seo-translations'
 
-// Get the base URL based on environment
+// Get the base URL based on environment using SERVER_URL or NEXT_URL_SERVER_URL
 export function getBaseUrl(): string {
-	const pocketbaseUrl = process.env.NEXT_PUBLIC_POCKETBASE_URL || ''
-
-	// Check if we're in staging
-	if (pocketbaseUrl.includes('staging')) {
-		return 'https://staging.beswib.com'
-	}
-
-	// Check if we're in local development
-	if (pocketbaseUrl.includes('localhost') || pocketbaseUrl.includes('127.0.0.1')) {
-		return 'http://localhost:3000'
-	}
-
-	// Production
-	return 'https://beswib.com'
+	return getAbsoluteUrl().baseUrl
 }
 
 // Generate SEO keywords for events
