@@ -4,7 +4,7 @@
  * Uses sharp (bundled with Next.js) for proper image conversion
  */
 
-import { NextRequest, NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 export const runtime = 'nodejs'
 
@@ -30,6 +30,7 @@ export async function GET(request: NextRequest) {
 				return new NextResponse('Invalid URL domain', { status: 403 })
 			}
 		} catch (error) {
+			console.error('Error validating URL:', error)
 			return new NextResponse('Invalid URL', { status: 400 })
 		}
 
@@ -62,7 +63,8 @@ export async function GET(request: NextRequest) {
 				// Convert WebP to PNG
 				const pngBuffer = await sharp(buffer).png().toBuffer()
 
-				return new NextResponse(pngBuffer, {
+				// Convert Buffer to Uint8Array for NextResponse compatibility
+				return new NextResponse(new Uint8Array(pngBuffer), {
 					headers: {
 						'Content-Type': 'image/png',
 						'Cache-Control': 'public, max-age=31536000, immutable',
@@ -71,7 +73,7 @@ export async function GET(request: NextRequest) {
 			} catch (error) {
 				console.error('Error converting WebP to PNG with sharp:', error)
 				// Fallback: return original buffer (may not work with OG, but better than failing)
-				return new NextResponse(buffer, {
+				return new NextResponse(new Uint8Array(buffer), {
 					headers: {
 						'Content-Type': contentType,
 						'Cache-Control': 'public, max-age=31536000, immutable',
@@ -81,7 +83,7 @@ export async function GET(request: NextRequest) {
 		}
 
 		// For other formats, return as-is
-		return new NextResponse(buffer, {
+		return new NextResponse(new Uint8Array(buffer), {
 			headers: {
 				'Content-Type': contentType,
 				'Cache-Control': 'public, max-age=31536000, immutable',
@@ -92,4 +94,3 @@ export async function GET(request: NextRequest) {
 		return new NextResponse('Internal server error', { status: 500 })
 	}
 }
-
