@@ -1,56 +1,74 @@
 {
-	"en": {
-		"faq": {
-			"titleOG": "F.A.Q",
-			"descriptionOG": "Everything you need to know about <br/>**Beswib**! Who are we? How do we work?"
-		}
-	},
-	"fr": {
-		"faq": {
-			"titleOG": "F.A.Q",
-			"descriptionOG": "Tout ce que vous devez savoir sur **Beswib**! Qui sommes-nous? Comment on fonctionne?"
-		}
-	},
-	"ko": {
-		"faq": {
-			"titleOG": "자주 묻는 질문",
-			"descriptionOG": "**Beswib**에 대해 알아야 할 모든 것! 우리는 누구인가요? 어떻게 운영되나요?"
-		}
-	},
-	"es": {
-		"faq": {
-			"titleOG": "F.A.Q",
-			"descriptionOG": "¡Todo lo que necesita saber sobre <br/>**Beswib**! ¿Quiénes somos? ¿Cómo funcionamos?"
-		}
-	},
-	"it": {
-		"faq": {
-			"titleOG": "F.A.Q",
-			"descriptionOG": "Tutto ciò che c'è da sapere su <br/>**Beswib**! Chi siamo? Come funzioniamo?"
-		}
-	},
-	"de": {
-		"faq": {
-			"titleOG": "F.A.Q",
-			"descriptionOG": "Alles, was Sie über **Beswib** wissen müssen! Wer sind wir? Wie funktionieren wir?"
-		}
-	},
-	"ro": {
-		"faq": {
-			"titleOG": "F.A.Q",
-			"descriptionOG": "Tot ce trebuie să știți despre <br/>**Beswib**! Cine suntem? Cum funcționăm?"
-		}
-	},
-	"pt": {
-		"faq": {
-			"titleOG": "F.A.Q",
-			"descriptionOG": "Tudo o que você precisa saber sobre <br/>**Beswib**! Quem somos nós? Como funcionamos?"
-		}
-	},
-	"nl": {
-		"faq": {
-			"titleOG": "F.A.Q",
-			"descriptionOG": "Alles wat u moet weten over <br/>**Beswib**! Wie zijn wij? Hoe werken wij?"
-		}
-	}
+  "en": {
+    "faq": {
+      "OG": {
+        "title": "F.A.Q",
+        "description": "Everything you need to know about <br/>**Beswib**! Who are we? How do we work?"
+      }
+    }
+  },
+  "fr": {
+    "faq": {
+      "OG": {
+        "title": "F.A.Q",
+        "description": "Tout ce que vous devez savoir sur **Beswib**! Qui sommes-nous? Comment on fonctionne?"
+      }
+    }
+  },
+  "ko": {
+    "faq": {
+      "OG": {
+        "title": "자주 묻는 질문",
+        "description": "**Beswib**에 대해 알아야 할 모든 것! 우리는 누구인가요? 어떻게 운영되나요?"
+      }
+    }
+  },
+  "es": {
+    "faq": {
+      "OG": {
+        "title": "F.A.Q",
+        "description": "¡Todo lo que necesita saber sobre <br/>**Beswib**! ¿Quiénes somos? ¿Cómo funcionamos?"
+      }
+    }
+  },
+  "it": {
+    "faq": {
+      "OG": {
+        "title": "F.A.Q",
+        "description": "Tutto ciò che c'è da sapere su <br/>**Beswib**! Chi siamo? Come funzioniamo?"
+      }
+    }
+  },
+  "de": {
+    "faq": {
+      "OG": {
+        "title": "F.A.Q",
+        "description": "Alles, was Sie über **Beswib** wissen müssen! Wer sind wir? Wie funktionieren wir?"
+      }
+    }
+  },
+  "ro": {
+    "faq": {
+      "OG": {
+        "title": "F.A.Q",
+        "description": "Tot ce trebuie să știți despre <br/>**Beswib**! Cine suntem? Cum funcționăm?"
+      }
+    }
+  },
+  "pt": {
+    "faq": {
+      "OG": {
+        "title": "F.A.Q",
+        "description": "Tudo o que você precisa saber sobre <br/>**Beswib**! Quem somos nós? Como funcionamos?"
+      }
+    }
+  },
+  "nl": {
+    "faq": {
+      "OG": {
+        "title": "F.A.Q",
+        "description": "Alles wat u moet weten over <br/>**Beswib**! Wie zijn wij? Hoe werken wij?"
+      }
+    }
+  }
 }

@@ -2,7 +2,7 @@ import { auth, currentUser } from '@clerk/nextjs/server'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import type { LocaleParams } from '@/lib/generation/staticParams'
-import { generateAlternateLanguages } from '@/lib/seo/utils/seo-generators'
+import { generateDashboardMetadata } from '@/lib/seo/metadata-generators'
 import { fetchUserByClerkId } from '@/services/user.services'
 
 import DashboardClient from './DashboardClient'
@@ -12,13 +12,7 @@ export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
 	const { locale } = await params
-	return {
-		title: 'Dashboard | Beswib',
-		alternates: {
-			languages: generateAlternateLanguages('/dashboard'),
-			canonical: `https://beswib.com/${locale}/dashboard`,
-		},
-	}
+	return generateDashboardMetadata(locale)
 }
 
 export default async function DashboardPage({ params }: { params: Promise<LocaleParams> }) {

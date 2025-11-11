@@ -2,7 +2,7 @@ import { currentUser } from '@clerk/nextjs/server'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import type { LocaleParams } from '@/lib/generation/staticParams'
-import { generateAlternateLanguages } from '@/lib/seo/utils/seo-generators'
+import { generateAlternateLanguages, getBaseUrl } from '@/lib/seo/utils/seo-generators'
 import { fetchBibsBySeller, updateExpiredBibsToWithdrawn } from '@/services/bib.services'
 import { fetchSellerTransactions } from '@/services/transaction.services'
 import { fetchUserByClerkId } from '@/services/user.services'
@@ -15,10 +15,11 @@ export const dynamic = 'force-dynamic'
 export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
 	const { locale } = await params
 	return {
+		metadataBase: new URL(getBaseUrl()),
 		title: 'Seller Dashboard | Beswib',
 		alternates: {
 			languages: generateAlternateLanguages('/dashboard/seller'),
-			canonical: `https://beswib.com/${locale}/dashboard/seller`,
+			canonical: `${getBaseUrl()}/${locale}/dashboard/seller`,
 		},
 	}
 }

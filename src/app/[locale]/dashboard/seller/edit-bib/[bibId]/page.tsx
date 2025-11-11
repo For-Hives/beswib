@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { getBaseUrl } from '@/lib/seo/utils/seo-generators'
 import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
 import { fetchBibByIdForSeller } from '@/services/bib.services'
@@ -57,6 +58,7 @@ export default async function EditBibPage({ params }: EditBibPageProps) {
 export async function generateMetadata({ params }: EditBibPageProps): Promise<Metadata> {
 	const { bibId } = await params
 	return {
+		metadataBase: new URL(getBaseUrl()),
 		title: `Edit Bib ${bibId} | Seller Dashboard | Beswib`,
 	}
 }
