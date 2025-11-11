@@ -29,7 +29,9 @@ import {
 	Columns3,
 	Edit,
 	Eye,
+	FileText,
 	Globe,
+	Languages,
 	MoreHorizontal,
 	Plus,
 	Search,
@@ -75,6 +77,7 @@ import { SelectAnimated, type SelectOption } from '@/components/ui/select-animat
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import type { Locale } from '@/lib/i18n/config'
+import { localeFlags } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
@@ -311,11 +314,50 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 				size: 120,
 				accessorKey: 'locale',
 				header: 'Languages',
-				cell: ({ row }) => (
-					<div className="flex flex-wrap items-center gap-1">
-						<ArticleTranslationIndicator article={row.original} compact={false} />
-					</div>
-				),
+				cell: ({ row }) => {
+					const article = row.original
+					const currentLocale = article.locale as Locale
+					const translationCount = article.translationCount || 1
+					const publishedCount = article.publishedCount || (article.isDraft ? 0 : 1)
+					const totalLanguages = 9
+
+					return (
+						<div className="flex flex-col items-center gap-1.5 py-1">
+							{/* Ligne 1: Drapeau */}
+							<div className="text-2xl" title={currentLocale?.toUpperCase()}>
+								{currentLocale && localeFlags[currentLocale] ? localeFlags[currentLocale] : '🏳️'}
+							</div>
+
+							{/* Ligne 2: Nombre de langues complétées */}
+							<Badge
+								variant={translationCount === totalLanguages ? 'default' : translationCount > 1 ? 'secondary' : 'outline'}
+								className="flex h-5 items-center gap-1 px-2 text-xs font-medium"
+							>
+								<Languages className="h-3 w-3" />
+								<span>
+									{translationCount}/{totalLanguages}
+								</span>
+							</Badge>
+
+							{/* Ligne 3: Statut Draft/Published */}
+							<Badge
+								variant={publishedCount === translationCount ? 'default' : publishedCount > 0 ? 'secondary' : 'outline'}
+								className={`flex h-5 items-center gap-1 px-2 text-xs font-medium ${
+									publishedCount === translationCount
+										? 'bg-green-500/20 text-green-700 dark:text-green-400'
+										: publishedCount > 0
+											? 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-400'
+											: ''
+								}`}
+							>
+								<FileText className="h-3 w-3" />
+								<span>
+									{publishedCount}/{translationCount}
+								</span>
+							</Badge>
+						</div>
+					)
+				},
 			},
 			{
 				id: 'actions',
