@@ -147,9 +147,10 @@ export async function createArticleAction(formData: FormData): Promise<{
 }
 
 /**
- * Server action to get all French articles with translation counts (admin only)
+ * Server action to get all articles with translation counts (admin only)
+ * @param showAllLanguages - If true, returns articles from all languages. If false, returns only French articles grouped by translationGroup
  */
-export async function getAllArticlesAction(): Promise<{
+export async function getAllArticlesAction(showAllLanguages = false): Promise<{
 	data?: Array<Article & { translationCount?: number; publishedCount?: number }>
 	error?: string
 	success: boolean
@@ -168,7 +169,34 @@ export async function getAllArticlesAction(): Promise<{
 		// Get all articles
 		const allArticles = await getAllArticles(true)
 
-		// Filter only French articles
+		if (showAllLanguages) {
+			// Return all articles without filtering, each with its own translation counts
+			const articlesWithCounts = await Promise.all(
+				allArticles.map(async article => {
+					let translationCount = 1
+					let publishedCount = article.isDraft ? 0 : 1
+
+					if (article.translationGroup) {
+						const groupArticles = await fetchArticlesByTranslationGroup(article.translationGroup, false)
+						translationCount = groupArticles.length
+						publishedCount = groupArticles.filter(a => !a.isDraft).length
+					}
+
+					return {
+						...article,
+						translationCount,
+						publishedCount,
+					}
+				})
+			)
+
+			return {
+				success: true,
+				data: articlesWithCounts,
+			}
+		}
+
+		// Filter only French articles (default behavior)
 		const frenchArticles = allArticles.filter(article => article.locale === 'fr')
 
 		// For each French article, count translations and published translations in its group
