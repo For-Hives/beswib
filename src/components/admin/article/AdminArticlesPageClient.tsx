@@ -330,7 +330,9 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 
 							{/* Ligne 2: Nombre de langues complétées */}
 							<Badge
-								variant={translationCount === totalLanguages ? 'default' : translationCount > 1 ? 'secondary' : 'outline'}
+								variant={
+									translationCount === totalLanguages ? 'default' : translationCount > 1 ? 'secondary' : 'outline'
+								}
 								className="flex h-5 items-center gap-1 px-2 text-xs font-medium"
 							>
 								<Languages className="h-3 w-3" />
