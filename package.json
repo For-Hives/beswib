@@ -117,7 +117,7 @@
 		"@tailwindcss/postcss": "4.1.17",
 		"@tailwindcss/typography": "0.5.19",
 		"@types/node": "24.10.1",
-		"@types/react": "19.2.4",
+		"@types/react": "19.2.5",
 		"@types/react-dom": "19.2.3",
 		"@types/three": "0.181.0",
 		"@types/umami": "2.10.1",
