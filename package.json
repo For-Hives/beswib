@@ -26,7 +26,7 @@
 		"@ai-sdk/google": "2.0.40",
 		"@biomejs/biome": "2.3.6",
 		"@c15t/nextjs": "1.8.1",
-		"@clerk/localizations": "3.28.1",
+		"@clerk/localizations": "3.28.2",
 		"@clerk/nextjs": "6.35.2",
 		"@clerk/themes": "2.4.37",
 		"@faker-js/faker": "10.1.0",
