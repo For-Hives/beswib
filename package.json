@@ -28,7 +28,7 @@
 		"@c15t/nextjs": "1.8.1",
 		"@clerk/localizations": "3.28.5",
 		"@clerk/nextjs": "6.35.5",
-		"@clerk/themes": "2.4.39",
+		"@clerk/themes": "2.4.40",
 		"@faker-js/faker": "10.1.0",
 		"@formatjs/intl-localematcher": "0.6.2",
 		"@google/generative-ai": "0.24.1",
