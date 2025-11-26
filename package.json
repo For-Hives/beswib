@@ -61,7 +61,7 @@
 		"@react-three/fiber": "9.4.0",
 		"@react-three/rapier": "2.2.0",
 		"@rive-app/react-canvas": "4.24.0",
-		"@sentry/browser": "10.26.0",
+		"@sentry/browser": "10.27.0",
 		"@sentry/nextjs": "10.27.0",
 		"@tabler/icons-react": "3.35.0",
 		"@tanstack/react-query": "5.90.11",
