@@ -100,7 +100,7 @@
 		"react-dom": "19.2.0",
 		"react-dropzone": "14.3.8",
 		"react-hook-form": "7.66.1",
-		"react-international-phone": "4.6.0",
+		"react-international-phone": "4.6.1",
 		"react-scroll-to-top": "3.1.0",
 		"require-in-the-middle": "8.0.1",
 		"resend": "6.5.2",
