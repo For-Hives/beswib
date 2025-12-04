@@ -43,7 +43,7 @@ importers:
         version: 2.2.0(react@19.2.1)
       '@hookform/resolvers':
         specifier: 5.2.2
-        version: 5.2.2(react-hook-form@7.67.0(react@19.2.1))
+        version: 5.2.2(react-hook-form@7.68.0(react@19.2.1))
       '@next/third-parties':
         specifier: 16.0.7
         version: 16.0.7(next@16.0.7(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react@19.2.1)
@@ -237,8 +237,8 @@ importers:
         specifier: 14.3.8
         version: 14.3.8(react@19.2.1)
       react-hook-form:
-        specifier: 7.67.0
-        version: 7.67.0(react@19.2.1)
+        specifier: 7.68.0
+        version: 7.68.0(react@19.2.1)
       react-international-phone:
         specifier: 4.6.1
         version: 4.6.1(react@19.2.1)
@@ -4909,8 +4909,8 @@ packages:
     engines: {node: '>=20.0.0'}
     hasBin: true
 
-  react-hook-form@7.67.0:
-    resolution: {integrity: sha512-E55EOwKJHHIT/I6J9DmQbCWToAYSw9nN5R57MZw9rMtjh+YQreMDxRLfdjfxQbiJ3/qbg3Z02wGzBX4M+5fMtQ==}
+  react-hook-form@7.68.0:
+    resolution: {integrity: sha512-oNN3fjrZ/Xo40SWlHf1yCjlMK417JxoSJVUXQjGdvdRCU07NTFei1i1f8ApUAts+IVh14e4EdakeLEA+BEAs/Q==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -6412,10 +6412,10 @@ snapshots:
     dependencies:
       react: 19.2.1
 
-  '@hookform/resolvers@5.2.2(react-hook-form@7.67.0(react@19.2.1))':
+  '@hookform/resolvers@5.2.2(react-hook-form@7.68.0(react@19.2.1))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.67.0(react@19.2.1)
+      react-hook-form: 7.68.0(react@19.2.1)
 
   '@img/colour@1.0.0': {}
 
@@ -10575,7 +10575,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  react-hook-form@7.67.0(react@19.2.1):
+  react-hook-form@7.68.0(react@19.2.1):
     dependencies:
       react: 19.2.1
 
