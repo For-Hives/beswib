@@ -219,8 +219,8 @@ importers:
         specifier: 2.8.3
         version: 2.8.3(next@16.0.7(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react@19.2.1)
       pocketbase:
-        specifier: 0.26.4
-        version: 0.26.4
+        specifier: 0.26.5
+        version: 0.26.5
       punycode:
         specifier: 2.3.1
         version: 2.3.1
@@ -4647,8 +4647,8 @@ packages:
   pkg-types@2.3.0:
     resolution: {integrity: sha512-SIqCzDRg0s9npO5XQ3tNZioRY1uK06lA41ynBC1YmFTmnY6FjUjVt6s4LoADmwoig1qqD0oK8h1p/8mlMx8Oig==}
 
-  pocketbase@0.26.4:
-    resolution: {integrity: sha512-r3JL7Lq7TfMSn0cWHD6RL27HM6BXGI3He4CgdX526nPhvacIMMKHONNh2Myuf+hineoeFXGf/BnrViH9V4TzEQ==}
+  pocketbase@0.26.5:
+    resolution: {integrity: sha512-SXcq+sRvVpNxfLxPB1C+8eRatL7ZY4o3EVl/0OdE3MeR9fhPyZt0nmmxLqYmkLvXCN9qp3lXWV/0EUYb3MmMXQ==}
 
   possible-typed-array-names@1.1.0:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
@@ -10157,7 +10157,7 @@ snapshots:
       exsolve: 1.0.7
       pathe: 2.0.3
 
-  pocketbase@0.26.4: {}
+  pocketbase@0.26.5: {}
 
   possible-typed-array-names@1.1.0: {}
 
