@@ -116,7 +116,7 @@
 		"@clerk/types": "4.101.6",
 		"@tailwindcss/postcss": "4.1.18",
 		"@tailwindcss/typography": "0.5.19",
-		"@types/node": "24.10.3",
+		"@types/node": "24.10.4",
 		"@types/react": "19.2.7",
 		"@types/react-dom": "19.2.3",
 		"@types/three": "0.181.0",
