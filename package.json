@@ -58,7 +58,7 @@
 		"@react-email/components": "1.0.3",
 		"@react-email/tailwind": "2.0.3",
 		"@react-three/drei": "10.7.7",
-		"@react-three/fiber": "9.4.2",
+		"@react-three/fiber": "9.5.0",
 		"@react-three/rapier": "2.2.0",
 		"@rive-app/react-canvas": "4.25.1",
 		"@sentry/browser": "10.32.1",
