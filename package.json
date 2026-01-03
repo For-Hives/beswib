@@ -24,7 +24,7 @@
 	},
 	"dependencies": {
 		"@ai-sdk/google": "2.0.52",
-		"@biomejs/biome": "2.3.10",
+		"@biomejs/biome": "2.3.11",
 		"@c15t/nextjs": "1.8.2",
 		"@clerk/localizations": "3.32.1",
 		"@clerk/nextjs": "6.36.5",
