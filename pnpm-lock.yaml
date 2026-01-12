@@ -307,8 +307,8 @@ importers:
         specifier: 27.4.0
         version: 27.4.0(postcss@8.5.6)
       react-email:
-        specifier: 5.2.1
-        version: 5.2.1
+        specifier: 5.2.2
+        version: 5.2.2
       tailwindcss:
         specifier: 4.1.18
         version: 4.1.18
@@ -4798,8 +4798,8 @@ packages:
     peerDependencies:
       react: '>= 16.8 || 18.0.0'
 
-  react-email@5.2.1:
-    resolution: {integrity: sha512-ETejN253u7SXQQIIj+fvqxOUAFTMTnEl9lfVYFIbcGtRSrojAdN6x8eX+mDgvQFSjI7inMXNxmYaqQkx8eoOQw==}
+  react-email@5.2.2:
+    resolution: {integrity: sha512-tRamuPw48cH1hYxPJXvnqqA+z49JkUjDkHVJ5lrQ/8h2Oo31H2M7HW11qfqJTMaqh4TmmgaVyAqEey+hO0vT4Q==}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
@@ -10306,7 +10306,7 @@ snapshots:
       prop-types: 15.8.1
       react: 19.2.3
 
-  react-email@5.2.1:
+  react-email@5.2.2:
     dependencies:
       '@babel/parser': 7.28.5
       '@babel/traverse': 7.28.5
