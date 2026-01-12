@@ -110,7 +110,7 @@
 		"tailwind-merge": "3.4.0",
 		"three": "0.182.0",
 		"valibot": "1.2.0",
-		"zustand": "5.0.9"
+		"zustand": "5.0.10"
 	},
 	"devDependencies": {
 		"@clerk/types": "4.101.10",
