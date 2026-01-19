@@ -15,8 +15,8 @@ importers:
         specifier: 2.3.11
         version: 2.3.11
       '@c15t/nextjs':
-        specifier: 1.8.2
-        version: 1.8.2(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(next@16.1.3(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.3))(ws@8.18.3)
+        specifier: 1.8.3
+        version: 1.8.3(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(next@16.1.3(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.3))(ws@8.18.3)
       '@clerk/localizations':
         specifier: 3.35.0
         version: 3.35.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -514,15 +514,15 @@ packages:
   '@c15t/logger@1.0.1':
     resolution: {integrity: sha512-Yz+HkHjsGWPkJ7nWGqlSgF3LG9WtV72Om5NoWrW6YJHLMNasC5Z6opi9GM8B1Nm8ivZBzJpADEc4gVIBCkqamw==}
 
-  '@c15t/nextjs@1.8.2':
-    resolution: {integrity: sha512-+l23odvYP4WrhvLX/YHUaGyPo6FIg9xkhpbVkzQVPc+T6EWbSPGJtzhT+Gj9tQ3sFduE4JjIMF3mZUE3jqQdrg==}
+  '@c15t/nextjs@1.8.3':
+    resolution: {integrity: sha512-cWMW0MLUExpIqRQojN5Crk+/K4LvlUOdxltJtELhMHoVld+piDO1hzq3zN0MQArvWCoU3TdiG5Cbisphrk/hJg==}
     peerDependencies:
       next: ^16.0.0 || ^15.0.0 || ^14.0.0 || ^13.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
 
-  '@c15t/react@1.8.2':
-    resolution: {integrity: sha512-fyTcwrAbcehFkkTH3TB+nzo9vOPR9atdE9nQVeIdMbh1lWSdchRIjH+iVaNKtoEcA1cB3SStCXzvqja9F5GQEw==}
+  '@c15t/react@1.8.3':
+    resolution: {integrity: sha512-BOOtA5AeGaJo+bcPdzRXsTtH7trdpcAcUEN9Rv+72qUzcQ7melV8JycZFwgrd0hgQ0PCGJ19YXp60EBbJraIzg==}
     peerDependencies:
       react: ^19.0.0 || ^19.0.0-rc || ^18.0.0 || ^17.0.0 || ^16.8.0
       react-dom: ^19.0.0 || ^19.0.0-rc || ^18.0.0 || ^17.0.0 || ^16.8.0
@@ -3397,8 +3397,8 @@ packages:
   buffer@6.0.3:
     resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
 
-  c15t@1.8.2:
-    resolution: {integrity: sha512-oy4PN+NL7PnlngBu5S0LFOO3pCnXTMZjJc/FG3OcJBwiVZ/+gsu5WhikB0eth3I9X8du1DYn216woX1iI25Mgg==}
+  c15t@1.8.3:
+    resolution: {integrity: sha512-qZSlabDUNkY6Wfv/q0ah07e2ERMiX7xg/qaXSa7A80mMOa5/fXqW7nkw5IWIEgq61g+/l2Eunjm99sA+pSsJQQ==}
 
   call-bind-apply-helpers@1.0.2:
     resolution: {integrity: sha512-Sp1ablJ0ivDkSzjcaJdxEunN5/XvksFJ2sMBFfq6x0ryhQV/2b/KwFe21cMpmHtPOSij8K99/wSfoEuTObmuMQ==}
@@ -5916,9 +5916,9 @@ snapshots:
       neverthrow: 8.2.0
       picocolors: 1.1.1
 
-  '@c15t/nextjs@1.8.2(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(next@16.1.3(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.3))(ws@8.18.3)':
+  '@c15t/nextjs@1.8.3(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(next@16.1.3(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.3))(ws@8.18.3)':
     dependencies:
-      '@c15t/react': 1.8.2(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.3))(ws@8.18.3)
+      '@c15t/react': 1.8.3(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.3))(ws@8.18.3)
       '@c15t/translations': 1.8.0
       next: 16.1.3(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       react: 19.2.3
@@ -5964,12 +5964,12 @@ snapshots:
       - use-sync-external-store
       - ws
 
-  '@c15t/react@1.8.2(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.3))(ws@8.18.3)':
+  '@c15t/react@1.8.3(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.3))(ws@8.18.3)':
     dependencies:
       '@radix-ui/react-accordion': 1.2.4(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@radix-ui/react-slot': 1.2.0(@types/react@19.2.8)(react@19.2.3)
       '@radix-ui/react-switch': 1.1.4(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      c15t: 1.8.2(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react@19.2.8)(react@19.2.3)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.3))(ws@8.18.3)
+      c15t: 1.8.3(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react@19.2.8)(react@19.2.3)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.3))(ws@8.18.3)
       clsx: 2.1.1
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
@@ -9009,7 +9009,7 @@ snapshots:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
-  c15t@1.8.2(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react@19.2.8)(react@19.2.3)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.3))(ws@8.18.3):
+  c15t@1.8.3(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react@19.2.8)(react@19.2.3)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.3))(ws@8.18.3):
     dependencies:
       '@c15t/backend': 1.8.0(@opentelemetry/instrumentation@0.208.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(typeorm@0.3.27(reflect-metadata@0.2.2))(ws@8.18.3)
       '@c15t/translations': 1.8.0
