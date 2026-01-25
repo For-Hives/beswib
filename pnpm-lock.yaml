@@ -195,8 +195,8 @@ importers:
         specifier: 2.0.5
         version: 2.0.5
       libphonenumber-js:
-        specifier: 1.12.34
-        version: 1.12.34
+        specifier: 1.12.35
+        version: 1.12.35
       lucide-react:
         specifier: 0.562.0
         version: 0.562.0(react@19.2.3)
@@ -4228,8 +4228,8 @@ packages:
   leac@0.6.0:
     resolution: {integrity: sha512-y+SqErxb8h7nE/fiEX07jsbuhrpO9lL8eca7/Y1nuWV2moNlXhyd59iDGcRf6moVyDMbmTNzL40SUyrFU/yDpg==}
 
-  libphonenumber-js@1.12.34:
-    resolution: {integrity: sha512-v/Ip8k8eYdp7bINpzqDh46V/PaQ8sK+qi97nMQgjZzFlb166YFqlR/HVI+MzsI9JqcyyVWCOipmmretiaSyQyw==}
+  libphonenumber-js@1.12.35:
+    resolution: {integrity: sha512-T/Cz6iLcsZdb5jDncDcUNhSAJ0VlSC9TnsqtBNdpkaAmy24/R1RhErtNWVWBrcUZKs9hSgaVsBkc7HxYnazIfw==}
 
   lie@3.3.0:
     resolution: {integrity: sha512-UaiMJzeWRlEujzAuw5LokY1L5ecNQYZKfmyZ9L7wDHb/p5etKaxXhohBcrw0EYby+G/NA52vRSN4N39dxHAIwQ==}
@@ -9758,7 +9758,7 @@ snapshots:
 
   leac@0.6.0: {}
 
-  libphonenumber-js@1.12.34: {}
+  libphonenumber-js@1.12.35: {}
 
   lie@3.3.0:
     dependencies:
