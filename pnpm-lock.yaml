@@ -168,8 +168,8 @@ importers:
         specifier: 3.7.1
         version: 3.7.1
       ai:
-        specifier: 5.0.124
-        version: 5.0.124(zod@4.1.12)
+        specifier: 6.0.66
+        version: 6.0.66(zod@4.1.12)
       canvas-confetti:
         specifier: 1.9.4
         version: 1.9.4
@@ -327,8 +327,8 @@ packages:
   '@acemir/cssom@0.9.28':
     resolution: {integrity: sha512-LuS6IVEivI75vKN8S04qRD+YySP0RmU/cV8UNukhQZvprxF+76Z43TNo/a08eCodaGhT1Us8etqS1ZRY9/Or0A==}
 
-  '@ai-sdk/gateway@2.0.30':
-    resolution: {integrity: sha512-5Nrkj8B4MzkkOfjjA+Cs5pamkbkK4lI11bx80QV7TFcen/hWA8wEC+UVzwuM5H2zpekoNMjvl6GonHnR62XIZw==}
+  '@ai-sdk/gateway@3.0.31':
+    resolution: {integrity: sha512-WActnxPeW46XcfZWWEcJ1FytpjCtKQEo25WZVa2xZSf+u2FgSNVt/dXIvlSZetPnXo6T2P/GhFAPBULMN6siRA==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -345,8 +345,18 @@ packages:
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
 
+  '@ai-sdk/provider-utils@4.0.12':
+    resolution: {integrity: sha512-sdC3eUTa5W4r/bISlF3nxmM6zc8mV7Nj3mWI9iUO0cib70h0Zr52Tz5gGzO6HcDirbKVTR2ywmZb61MHU68prA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
+
   '@ai-sdk/provider@2.0.1':
     resolution: {integrity: sha512-KCUwswvsC5VsW2PWFqF8eJgSCu5Ysj7m1TxiHTVA6g7k360bk0RNQENT8KTMAYEs+8fWPD3Uu4dEmzGHc+jGng==}
+    engines: {node: '>=18'}
+
+  '@ai-sdk/provider@3.0.6':
+    resolution: {integrity: sha512-hSfoJtLtpMd7YxKM+iTqlJ0ZB+kJ83WESMiWuWrNVey3X8gg97x0OdAAaeAeclZByCX3UdPOTqhvJdK8qYA3ww==}
     engines: {node: '>=18'}
 
   '@alloc/quick-lru@5.2.0':
@@ -2776,6 +2786,9 @@ packages:
   '@standard-schema/spec@1.0.0':
     resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
 
+  '@standard-schema/spec@1.1.0':
+    resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
+
   '@standard-schema/utils@0.3.0':
     resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
 
@@ -3331,8 +3344,8 @@ packages:
     resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
     engines: {node: '>= 14'}
 
-  ai@5.0.124:
-    resolution: {integrity: sha512-Li6Jw9F9qsvFJXZPBfxj38ddP2iURCnMs96f9Q3OeQzrDVcl1hvtwSEAuxA/qmfh6SDV2ERqFUOFzigvr0697g==}
+  ai@6.0.66:
+    resolution: {integrity: sha512-Klnzjlc3JczRykD75t+Qn5Jt5HwUCaLlN9aZku9KrSDjhc/pab54YH0w85huue7FLPlbTVF5zaQrw3NdEwiGpA==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -5745,10 +5758,10 @@ snapshots:
 
   '@acemir/cssom@0.9.28': {}
 
-  '@ai-sdk/gateway@2.0.30(zod@4.1.12)':
+  '@ai-sdk/gateway@3.0.31(zod@4.1.12)':
     dependencies:
-      '@ai-sdk/provider': 2.0.1
-      '@ai-sdk/provider-utils': 3.0.20(zod@4.1.12)
+      '@ai-sdk/provider': 3.0.6
+      '@ai-sdk/provider-utils': 4.0.12(zod@4.1.12)
       '@vercel/oidc': 3.1.0
       zod: 4.1.12
 
@@ -5765,7 +5778,18 @@ snapshots:
       eventsource-parser: 3.0.6
       zod: 4.1.12
 
+  '@ai-sdk/provider-utils@4.0.12(zod@4.1.12)':
+    dependencies:
+      '@ai-sdk/provider': 3.0.6
+      '@standard-schema/spec': 1.1.0
+      eventsource-parser: 3.0.6
+      zod: 4.1.12
+
   '@ai-sdk/provider@2.0.1':
+    dependencies:
+      json-schema: 0.4.0
+
+  '@ai-sdk/provider@3.0.6':
     dependencies:
       json-schema: 0.4.0
 
@@ -8413,6 +8437,8 @@ snapshots:
 
   '@standard-schema/spec@1.0.0': {}
 
+  '@standard-schema/spec@1.1.0': {}
+
   '@standard-schema/utils@0.3.0': {}
 
   '@swc/helpers@0.5.15':
@@ -9026,11 +9052,11 @@ snapshots:
 
   agent-base@7.1.4: {}
 
-  ai@5.0.124(zod@4.1.12):
+  ai@6.0.66(zod@4.1.12):
     dependencies:
-      '@ai-sdk/gateway': 2.0.30(zod@4.1.12)
-      '@ai-sdk/provider': 2.0.1
-      '@ai-sdk/provider-utils': 3.0.20(zod@4.1.12)
+      '@ai-sdk/gateway': 3.0.31(zod@4.1.12)
+      '@ai-sdk/provider': 3.0.6
+      '@ai-sdk/provider-utils': 4.0.12(zod@4.1.12)
       '@opentelemetry/api': 1.9.0
       zod: 4.1.12
 
