@@ -168,8 +168,8 @@ importers:
         specifier: 3.7.1
         version: 3.7.1
       ai:
-        specifier: 6.0.75
-        version: 6.0.75(zod@4.1.12)
+        specifier: 6.0.77
+        version: 6.0.77(zod@4.1.12)
       canvas-confetti:
         specifier: 1.9.4
         version: 1.9.4
@@ -327,8 +327,8 @@ packages:
   '@acemir/cssom@0.9.28':
     resolution: {integrity: sha512-LuS6IVEivI75vKN8S04qRD+YySP0RmU/cV8UNukhQZvprxF+76Z43TNo/a08eCodaGhT1Us8etqS1ZRY9/Or0A==}
 
-  '@ai-sdk/gateway@3.0.37':
-    resolution: {integrity: sha512-w7rxPd2WOuSr4he2ALvtCAM/W1/33rGdv3kkU52tCGj/bJSYJnJDpnTvoWRLNESp9HEkkiNFfBLFZY0PB9n4aQ==}
+  '@ai-sdk/gateway@3.0.39':
+    resolution: {integrity: sha512-SeCZBAdDNbWpVUXiYgOAqis22p5MEYfrjRw0hiBa5hM+7sDGYQpMinUjkM8kbPXMkY+AhKLrHleBl+SuqpzlgA==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -3374,8 +3374,8 @@ packages:
     resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
     engines: {node: '>= 14'}
 
-  ai@6.0.75:
-    resolution: {integrity: sha512-pT1xtwaE5Un261GO9Mt9DZ2rv26v+gQZNRXo433CNAMo0JDYs2ef+5MvcNkBe1jXCY9XrXxUG/VT6Y6/9S2SWg==}
+  ai@6.0.77:
+    resolution: {integrity: sha512-tyyhrRpCRFVlivdNIFLK8cexSBB2jwTqO0z1qJQagk+UxZ+MW8h5V8xsvvb+xdKDY482Y8KAm0mr7TDnPKvvlw==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -5790,7 +5790,7 @@ snapshots:
 
   '@acemir/cssom@0.9.28': {}
 
-  '@ai-sdk/gateway@3.0.37(zod@4.1.12)':
+  '@ai-sdk/gateway@3.0.39(zod@4.1.12)':
     dependencies:
       '@ai-sdk/provider': 3.0.8
       '@ai-sdk/provider-utils': 4.0.14(zod@4.1.12)
@@ -9140,9 +9140,9 @@ snapshots:
 
   agent-base@7.1.4: {}
 
-  ai@6.0.75(zod@4.1.12):
+  ai@6.0.77(zod@4.1.12):
     dependencies:
-      '@ai-sdk/gateway': 3.0.37(zod@4.1.12)
+      '@ai-sdk/gateway': 3.0.39(zod@4.1.12)
       '@ai-sdk/provider': 3.0.8
       '@ai-sdk/provider-utils': 4.0.14(zod@4.1.12)
       '@opentelemetry/api': 1.9.0
