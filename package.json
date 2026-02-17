@@ -30,7 +30,7 @@
 		"@clerk/nextjs": "6.37.4",
 		"@clerk/themes": "2.4.52",
 		"@faker-js/faker": "10.3.0",
-		"@formatjs/intl-localematcher": "0.8.0",
+		"@formatjs/intl-localematcher": "0.8.1",
 		"@google/generative-ai": "0.24.1",
 		"@headlessui/react": "2.2.9",
 		"@heroicons/react": "2.2.0",
