@@ -18,8 +18,8 @@ importers:
         specifier: 1.8.3
         version: 1.8.3(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.211.0(@opentelemetry/api@1.9.0))(@types/pg@8.15.6)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(next@16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typeorm@0.3.27(reflect-metadata@0.2.2))(use-sync-external-store@1.6.0(react@19.2.4))(ws@8.18.3)
       '@clerk/localizations':
-        specifier: 3.35.4
-        version: 3.35.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: 3.35.5
+        version: 3.35.5(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@clerk/nextjs':
         specifier: 6.37.4
         version: 6.37.4(next@16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -561,8 +561,8 @@ packages:
       react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
       react-dom: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
 
-  '@clerk/localizations@3.35.4':
-    resolution: {integrity: sha512-nE9kOSM5cD4a91r5PyaCoWzbjF2lztFXYKpYYcfQL8RstfidCSTIYYr3uAWxFC9BGi1LeolJiQQjTl72s/hs7A==}
+  '@clerk/localizations@3.35.5':
+    resolution: {integrity: sha512-ZdhemKlHkjDNPlP51YhTPS1Oe9ZydEJZNMY1NL44I35CN6v4TrCZrPlkgDCY4cJPMdZO+/MmW1vwnQjYUOp4oA==}
     engines: {node: '>=18.17.0'}
 
   '@clerk/nextjs@6.37.4':
@@ -6165,7 +6165,7 @@ snapshots:
       react-dom: 19.2.4(react@19.2.4)
       tslib: 2.8.1
 
-  '@clerk/localizations@3.35.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@clerk/localizations@3.35.5(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@clerk/types': 4.101.16(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
     transitivePeerDependencies:
