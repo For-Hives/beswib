@@ -21,8 +21,8 @@ importers:
         specifier: 3.35.5
         version: 3.35.5(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@clerk/nextjs':
-        specifier: 6.37.4
-        version: 6.37.4(next@16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: 6.37.5
+        version: 6.37.5(next@16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@clerk/themes':
         specifier: 2.4.52
         version: 2.4.52(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -550,12 +550,12 @@ packages:
   '@clack/prompts@0.11.0':
     resolution: {integrity: sha512-pMN5FcrEw9hUkZA4f+zLlzivQSeQf5dRGJjSUbvVYDLvpKCdQx5OaknvKzgbtXOizhP+SJJJjqEbOe55uKKfAw==}
 
-  '@clerk/backend@2.31.0':
-    resolution: {integrity: sha512-4Cg5IUSaSR0ecTk1NGlRpxmXKaCJqrXqS5BppyEPMwYYIrLepJGQMNeTWfVr3n1ffJoXxqLQL6X5ct/P2nLDjQ==}
+  '@clerk/backend@2.31.1':
+    resolution: {integrity: sha512-NW/thmJpVN/N/YH5+z+lTh3ECNYd/COlnCIC+CLSxv59uqYRiSzXzAsVrkYF9PbXwkkIC+aAi43d8fnqqIKPUw==}
     engines: {node: '>=18.17.0'}
 
-  '@clerk/clerk-react@5.60.1':
-    resolution: {integrity: sha512-Z7LAJKvcieGSFB3Q0f840o8Lh7VauvBjc+aDElIt6OHaJRjWcjhFcRiL2Fvg9YkRG942IZN8RHl7iKUzAU5SIQ==}
+  '@clerk/clerk-react@5.60.2':
+    resolution: {integrity: sha512-eQpY85y3hqcrSyBKdfYXTmRRvy2B+FAwiX9hQmCECWy5G00vDgPnc3NL37FsSGiWPY5VvCCXbEt8usbgfvcXQQ==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
@@ -565,8 +565,8 @@ packages:
     resolution: {integrity: sha512-ZdhemKlHkjDNPlP51YhTPS1Oe9ZydEJZNMY1NL44I35CN6v4TrCZrPlkgDCY4cJPMdZO+/MmW1vwnQjYUOp4oA==}
     engines: {node: '>=18.17.0'}
 
-  '@clerk/nextjs@6.37.4':
-    resolution: {integrity: sha512-Cl0eYQVdAN2ilLf9lT4UK1WWNWrqv1E5Z+Hx4F5zC+p0Vw4W9yhxwotDalYXgBLXFuLnwQBm5jB460X+gEFtVA==}
+  '@clerk/nextjs@6.37.5':
+    resolution: {integrity: sha512-biYGXzP2iOp8v3cOLn00uNohioT9UA6IZml3nDqvn7R8wlfs/xG7GuK5Yy6XzUvFbX3w2mUX4aG3HrbqnFJ1Zg==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       next: ^13.5.7 || ^14.2.25 || ^15.2.3 || ^16
@@ -6148,9 +6148,9 @@ snapshots:
       picocolors: 1.1.1
       sisteransi: 1.0.5
 
-  '@clerk/backend@2.31.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@clerk/backend@2.31.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
-      '@clerk/shared': 3.45.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@clerk/shared': 3.45.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@clerk/types': 4.101.16(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       standardwebhooks: 1.0.0
       tslib: 2.8.1
@@ -6158,9 +6158,9 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/clerk-react@5.60.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@clerk/clerk-react@5.60.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
-      '@clerk/shared': 3.45.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@clerk/shared': 3.45.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
       tslib: 2.8.1
@@ -6172,11 +6172,11 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/nextjs@6.37.4(next@16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@clerk/nextjs@6.37.5(next@16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
-      '@clerk/backend': 2.31.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@clerk/clerk-react': 5.60.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@clerk/shared': 3.45.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@clerk/backend': 2.31.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@clerk/clerk-react': 5.60.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@clerk/shared': 3.45.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@clerk/types': 4.101.16(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next: 16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4
