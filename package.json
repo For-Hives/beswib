@@ -113,7 +113,7 @@
 		"zustand": "5.0.11"
 	},
 	"devDependencies": {
-		"@clerk/types": "4.101.15",
+		"@clerk/types": "4.101.16",
 		"@tailwindcss/postcss": "4.1.18",
 		"@tailwindcss/typography": "0.5.19",
 		"@types/node": "24.10.13",
