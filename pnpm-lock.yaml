@@ -240,8 +240,8 @@ importers:
         specifier: 7.71.2
         version: 7.71.2(react@19.2.4)
       react-international-phone:
-        specifier: 4.7.0
-        version: 4.7.0(react@19.2.4)
+        specifier: 4.8.0
+        version: 4.8.0(react@19.2.4)
       react-scroll-to-top:
         specifier: 3.1.0
         version: 3.1.0(react@19.2.4)
@@ -4903,8 +4903,8 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
 
-  react-international-phone@4.7.0:
-    resolution: {integrity: sha512-PMC8bGDkNOdRQSMxtz8XL4tlKb5nCB5SpbBc4QkDx9NZs+eLtgfGUBlwF8fEE0uB3W6CShgpWA5zl9niwHUVpA==}
+  react-international-phone@4.8.0:
+    resolution: {integrity: sha512-PoyXx8t0OZNZXLupZN5UtmLb8nO6PQ6f6jQvYCAtg7VzxonuBcDs/4YA4+flqZZj5QOVqN4DLY1p39mEtJAwzw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -10474,7 +10474,7 @@ snapshots:
     dependencies:
       react: 19.2.4
 
-  react-international-phone@4.7.0(react@19.2.4):
+  react-international-phone@4.8.0(react@19.2.4):
     dependencies:
       react: 19.2.4
 
