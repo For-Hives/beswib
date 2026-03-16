@@ -121,7 +121,7 @@
 		"@types/react-dom": "19.2.3",
 		"@types/three": "0.183.1",
 		"@types/umami": "2.10.1",
-		"@vitejs/plugin-react": "5.1.4",
+		"@vitejs/plugin-react": "5.2.0",
 		"@vitest/ui": "4.0.18",
 		"jsdom": "28.1.0",
 		"react-email": "5.2.9",
