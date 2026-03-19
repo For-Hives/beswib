@@ -109,7 +109,7 @@
 		"svix": "1.88.0",
 		"tailwind-merge": "3.5.0",
 		"three": "0.183.2",
-		"valibot": "1.3.0",
+		"valibot": "1.3.1",
 		"zustand": "5.0.12"
 	},
 	"devDependencies": {
