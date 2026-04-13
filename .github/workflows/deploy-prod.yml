@@ -28,7 +28,7 @@ jobs:
           git commit -m "⬆️VERSION⬆️ ❇️${GITHUB_REF#refs/tags/v}❇️"
 
       - name: Push changes
-        uses: ad-m/github-push-action@v1.0.0
+        uses: ad-m/github-push-action@v1.1.0
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           branch: main
