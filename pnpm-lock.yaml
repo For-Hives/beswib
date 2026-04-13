@@ -51,8 +51,8 @@ importers:
         specifier: 0.6.0
         version: 0.6.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@paypal/react-paypal-js':
-        specifier: 8.9.2
-        version: 8.9.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        specifier: 9.1.1
+        version: 9.1.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@radix-ui/react-accordion':
         specifier: 1.2.12
         version: 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -1767,11 +1767,11 @@ packages:
   '@paralleldrive/cuid2@2.2.2':
     resolution: {integrity: sha512-ZOBkgDwEdoYVlSeRbYYXs0S9MejQofiVYoTbKzy/6GQa39/q5tQU2IX46+shYnUkpEl3wc+J6wRlar7r2EK2xA==}
 
-  '@paypal/paypal-js@9.0.1':
-    resolution: {integrity: sha512-6A5hkyYBSuloO7rPwnoPoy/0PPNH0pZZ1TBSTuEaSVqJ9h9t13PiP1ZarffirsO/e5t4hKjUmUORjgKV9sTMLw==}
+  '@paypal/paypal-js@9.6.0':
+    resolution: {integrity: sha512-XVUC/2iUFcnz4cOgzTRPB0AltF2VHbALToClefCS7ehnINSx7UWKpShQbs3IIdALCaqtUDciQI8iFaBw12wM0g==}
 
-  '@paypal/react-paypal-js@8.9.2':
-    resolution: {integrity: sha512-z1GoA7KAkhFCSmpIsRxe9aseXRvfOMgF6vCJ2Mym0VOSYJm8bZSC3Ui4SjONnglfV8S4P8djpe5QB7FtKsDXrQ==}
+  '@paypal/react-paypal-js@9.1.1':
+    resolution: {integrity: sha512-Rn+i3b7buYkayiIfkwTD4rXjCcZ6tTc6BJWR/6ovSY0ezPY5mFumiJ8FsEOtffgLbjkXNULNb0cAlriAy9iclQ==}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
       react-dom: ^16.8.0 || ^17 || ^18 || ^19
@@ -7509,16 +7509,17 @@ snapshots:
     dependencies:
       '@noble/hashes': 1.8.0
 
-  '@paypal/paypal-js@9.0.1':
+  '@paypal/paypal-js@9.6.0':
     dependencies:
       promise-polyfill: 8.3.0
 
-  '@paypal/react-paypal-js@8.9.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@paypal/react-paypal-js@9.1.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
-      '@paypal/paypal-js': 9.0.1
+      '@paypal/paypal-js': 9.6.0
       '@paypal/sdk-constants': 1.0.157
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
+      server-only: 0.0.1
 
   '@paypal/sdk-constants@1.0.157':
     dependencies:
