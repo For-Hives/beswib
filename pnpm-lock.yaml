@@ -304,8 +304,8 @@ importers:
         specifier: 4.1.5
         version: 4.1.5(vitest@4.1.5)
       jsdom:
-        specifier: 29.1.0
-        version: 29.1.0(@noble/hashes@1.8.0)
+        specifier: 29.1.1
+        version: 29.1.1(@noble/hashes@1.8.0)
       react-email:
         specifier: 6.0.5
         version: 6.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -320,7 +320,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: 4.1.5
-        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@24.12.2)(@vitest/ui@4.1.5)(jsdom@29.1.0(@noble/hashes@1.8.0))(vite@7.1.9(@types/node@24.12.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.44.0))
+        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@24.12.2)(@vitest/ui@4.1.5)(jsdom@29.1.1(@noble/hashes@1.8.0))(vite@7.1.9(@types/node@24.12.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.44.0))
 
 packages:
 
@@ -4323,8 +4323,8 @@ packages:
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
-  jsdom@29.1.0:
-    resolution: {integrity: sha512-YNUc7fB9QuvSSQWfrH0xF+TyABkxUwx8sswgIDaCrw4Hol8BghdZDkITtZheRJeMtzWlnTfsM3bBBusRvpO1wg==}
+  jsdom@29.1.1:
+    resolution: {integrity: sha512-ECi4Fi2f7BdJtUKTflYRTiaMxIB0O6zfR1fX0GXpUrf6flp8QIYn1UT20YQqdSOfk2dfkCwS8LAFoJDEppNK5Q==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24.0.0}
     peerDependencies:
       canvas: ^3.0.0
@@ -9041,7 +9041,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.1.0
-      vitest: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@24.12.2)(@vitest/ui@4.1.5)(jsdom@29.1.0(@noble/hashes@1.8.0))(vite@7.1.9(@types/node@24.12.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.44.0))
+      vitest: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@24.12.2)(@vitest/ui@4.1.5)(jsdom@29.1.1(@noble/hashes@1.8.0))(vite@7.1.9(@types/node@24.12.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.44.0))
 
   '@vitest/utils@4.1.5':
     dependencies:
@@ -9897,7 +9897,7 @@ snapshots:
 
   js-tokens@4.0.0: {}
 
-  jsdom@29.1.0(@noble/hashes@1.8.0):
+  jsdom@29.1.1(@noble/hashes@1.8.0):
     dependencies:
       '@asamuzakjp/css-color': 5.1.11
       '@asamuzakjp/dom-selector': 7.1.1
@@ -10990,7 +10990,7 @@ snapshots:
       lightningcss: 1.32.0
       terser: 5.44.0
 
-  vitest@4.1.5(@opentelemetry/api@1.9.1)(@types/node@24.12.2)(@vitest/ui@4.1.5)(jsdom@29.1.0(@noble/hashes@1.8.0))(vite@7.1.9(@types/node@24.12.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.44.0)):
+  vitest@4.1.5(@opentelemetry/api@1.9.1)(@types/node@24.12.2)(@vitest/ui@4.1.5)(jsdom@29.1.1(@noble/hashes@1.8.0))(vite@7.1.9(@types/node@24.12.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.44.0)):
     dependencies:
       '@vitest/expect': 4.1.5
       '@vitest/mocker': 4.1.5(vite@7.1.9(@types/node@24.12.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.44.0))
@@ -11016,7 +11016,7 @@ snapshots:
       '@opentelemetry/api': 1.9.1
       '@types/node': 24.12.2
       '@vitest/ui': 4.1.5(vitest@4.1.5)
-      jsdom: 29.1.0(@noble/hashes@1.8.0)
+      jsdom: 29.1.1(@noble/hashes@1.8.0)
     transitivePeerDependencies:
       - msw
 
