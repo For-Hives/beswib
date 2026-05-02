@@ -168,8 +168,8 @@ importers:
         specifier: 3.7.1
         version: 3.7.1
       ai:
-        specifier: 6.0.172
-        version: 6.0.172(zod@4.1.12)
+        specifier: 6.0.174
+        version: 6.0.174(zod@4.1.12)
       canvas-confetti:
         specifier: 1.9.4
         version: 1.9.4
@@ -324,20 +324,14 @@ importers:
 
 packages:
 
-  '@ai-sdk/gateway@3.0.107':
-    resolution: {integrity: sha512-JwODLcuTe8rWXJwQcNPE5fiadjCOKHxNGtL5pHqEhFQSuWs6x47oVRkLs/Zw6eUhTsuXiZbyJ3QJHVIyLKX5hg==}
+  '@ai-sdk/gateway@3.0.109':
+    resolution: {integrity: sha512-r6dOqThjODp1vOhGRJg2OCmyB/ZOQtGx1esZ2SDvwDX5XoX8dBqYaYjLg8MPXTzMGJSgOkJyCxWgUcZtAl16pw==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
 
   '@ai-sdk/google@3.0.67':
     resolution: {integrity: sha512-Qeq+SidYtzMrcf0fdw3L0QLmtXK+ErwdBzbxS4+0Q/2UP85Ges8RJJcbAj7SO8e2JbeJoM35BLqkeNy1o3wJvQ==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4.1.8
-
-  '@ai-sdk/provider-utils@4.0.25':
-    resolution: {integrity: sha512-yjGPZPiJm79ZOYk0anXn2LkVqUFgStZqEOdyoynhkaAg+yOCuv6PJwf+1gUW0eSIUnYEboT2TPbPX/bxZpx4gw==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -3506,8 +3500,8 @@ packages:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
     engines: {node: '>= 6.0.0'}
 
-  ai@6.0.172:
-    resolution: {integrity: sha512-o12q2SDlrN4btPU2FkFSVEeZiKfQuSbDFixXH8I7AE/zuCXMbN9ilaPThdoAc8mS9+QnhUGy8cSP0IgT3Q+p0A==}
+  ai@6.0.174:
+    resolution: {integrity: sha512-bTrfLUWHWtkjzWyCY4bmyuk4Qvmj4S4NSNsXyNSVVqkmftQNtxRj7dzUoMeQDBBwlJO6fC7m2Q/lNOPqQQfAGA==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -5737,10 +5731,10 @@ packages:
 
 snapshots:
 
-  '@ai-sdk/gateway@3.0.107(zod@4.1.12)':
+  '@ai-sdk/gateway@3.0.109(zod@4.1.12)':
     dependencies:
       '@ai-sdk/provider': 3.0.10
-      '@ai-sdk/provider-utils': 4.0.25(zod@4.1.12)
+      '@ai-sdk/provider-utils': 4.0.26(zod@4.1.12)
       '@vercel/oidc': 3.2.0
       zod: 4.1.12
 
@@ -5748,13 +5742,6 @@ snapshots:
     dependencies:
       '@ai-sdk/provider': 3.0.10
       '@ai-sdk/provider-utils': 4.0.26(zod@4.1.12)
-      zod: 4.1.12
-
-  '@ai-sdk/provider-utils@4.0.25(zod@4.1.12)':
-    dependencies:
-      '@ai-sdk/provider': 3.0.10
-      '@standard-schema/spec': 1.1.0
-      eventsource-parser: 3.0.8
       zod: 4.1.12
 
   '@ai-sdk/provider-utils@4.0.26(zod@4.1.12)':
@@ -9163,11 +9150,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ai@6.0.172(zod@4.1.12):
+  ai@6.0.174(zod@4.1.12):
     dependencies:
-      '@ai-sdk/gateway': 3.0.107(zod@4.1.12)
+      '@ai-sdk/gateway': 3.0.109(zod@4.1.12)
       '@ai-sdk/provider': 3.0.10
-      '@ai-sdk/provider-utils': 4.0.25(zod@4.1.12)
+      '@ai-sdk/provider-utils': 4.0.26(zod@4.1.12)
       '@opentelemetry/api': 1.9.0
       zod: 4.1.12
 
