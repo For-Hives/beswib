@@ -219,8 +219,8 @@ importers:
         specifier: 2.8.9
         version: 2.8.9(next@16.2.5(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       pocketbase:
-        specifier: 0.26.8
-        version: 0.26.8
+        specifier: 0.26.9
+        version: 0.26.9
       punycode:
         specifier: 2.3.1
         version: 2.3.1
@@ -4758,8 +4758,8 @@ packages:
     resolution: {integrity: sha512-lGA1TNsmy2bxvRsTI2cV01kfTwKzZjnZSDmF9llYNyMHMrU4sP87lQ5taiIKm88L3cbswjl008nwyGc3WpNvzg==}
     engines: {node: '>=18.0.0'}
 
-  pocketbase@0.26.8:
-    resolution: {integrity: sha512-aQ/ewvS7ncvAE8wxoW10iAZu6ElgbeFpBhKPnCfvRovNzm2gW8u/sQNPGN6vNgVEagz44kK//C61oKjfa+7Low==}
+  pocketbase@0.26.9:
+    resolution: {integrity: sha512-Tiv1/hNuUzRdvT0d8hF03dfzuefQ1WdSRp1A1q3wzFC/WYhQcbU/Qlaubl/3ZDo6xvFXBS8JAgBS/L+ms7nkVQ==}
 
   possible-typed-array-names@1.1.0:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
@@ -7208,6 +7208,15 @@ snapshots:
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
+  '@orpc/client@1.13.13(@opentelemetry/api@1.9.1)':
+    dependencies:
+      '@orpc/shared': 1.13.13(@opentelemetry/api@1.9.1)
+      '@orpc/standard-server': 1.13.13(@opentelemetry/api@1.9.1)
+      '@orpc/standard-server-fetch': 1.13.13(@opentelemetry/api@1.9.1)
+      '@orpc/standard-server-peer': 1.13.13(@opentelemetry/api@1.9.1)
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
   '@orpc/contract@1.13.13(@opentelemetry/api@1.9.0)':
     dependencies:
       '@orpc/client': 1.13.13(@opentelemetry/api@1.9.0)
@@ -7289,6 +7298,13 @@ snapshots:
     optionalDependencies:
       '@opentelemetry/api': 1.9.0
 
+  '@orpc/shared@1.13.13(@opentelemetry/api@1.9.1)':
+    dependencies:
+      radash: 12.1.1
+      type-fest: 5.4.4
+    optionalDependencies:
+      '@opentelemetry/api': 1.9.1
+
   '@orpc/shared@1.13.14(@opentelemetry/api@1.9.0)':
     dependencies:
       radash: 12.1.1
@@ -7320,6 +7336,13 @@ snapshots:
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
+  '@orpc/standard-server-fetch@1.13.13(@opentelemetry/api@1.9.1)':
+    dependencies:
+      '@orpc/shared': 1.13.13(@opentelemetry/api@1.9.1)
+      '@orpc/standard-server': 1.13.13(@opentelemetry/api@1.9.1)
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
   '@orpc/standard-server-node@1.13.13(@opentelemetry/api@1.9.0)':
     dependencies:
       '@orpc/shared': 1.13.13(@opentelemetry/api@1.9.0)
@@ -7335,9 +7358,22 @@ snapshots:
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
+  '@orpc/standard-server-peer@1.13.13(@opentelemetry/api@1.9.1)':
+    dependencies:
+      '@orpc/shared': 1.13.13(@opentelemetry/api@1.9.1)
+      '@orpc/standard-server': 1.13.13(@opentelemetry/api@1.9.1)
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
   '@orpc/standard-server@1.13.13(@opentelemetry/api@1.9.0)':
     dependencies:
       '@orpc/shared': 1.13.13(@opentelemetry/api@1.9.0)
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/standard-server@1.13.13(@opentelemetry/api@1.9.1)':
+    dependencies:
+      '@orpc/shared': 1.13.13(@opentelemetry/api@1.9.1)
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
@@ -9235,7 +9271,7 @@ snapshots:
     dependencies:
       '@c15t/backend': 1.8.6(@opentelemetry/instrumentation@0.214.0(@opentelemetry/api@1.9.1))(@types/pg@8.15.6)(typeorm@0.3.27(reflect-metadata@0.2.2))
       '@c15t/translations': 1.8.5
-      '@orpc/client': 1.13.13(@opentelemetry/api@1.9.0)
+      '@orpc/client': 1.13.13(@opentelemetry/api@1.9.1)
       '@orpc/server': 1.13.13(@opentelemetry/api@1.9.1)
       zustand: 5.0.13(@types/react@19.2.14)(react@19.2.6)(use-sync-external-store@1.6.0(react@19.2.6))
     transitivePeerDependencies:
@@ -10217,7 +10253,7 @@ snapshots:
 
   picospinner@3.0.0: {}
 
-  pocketbase@0.26.8: {}
+  pocketbase@0.26.9: {}
 
   possible-typed-array-names@1.1.0: {}
 
