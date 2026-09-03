@@ -23,7 +23,7 @@
 		"test:coverage": "vitest run --coverage"
 	},
 	"dependencies": {
-		"@ai-sdk/google": "3.0.75",
+		"@ai-sdk/google": "3.0.121",
 		"@biomejs/biome": "2.4.15",
 		"@c15t/nextjs": "1.8.6",
 		"@clerk/localizations": "4.6.4",
