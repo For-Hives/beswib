@@ -115,7 +115,7 @@
 	"devDependencies": {
 		"@clerk/types": "4.101.20",
 		"@tailwindcss/postcss": "4.3.0",
-		"@tailwindcss/typography": "0.5.19",
+		"@tailwindcss/typography": "0.5.20",
 		"@types/node": "24.12.3",
 		"@types/react": "19.2.14",
 		"@types/react-dom": "19.2.3",
