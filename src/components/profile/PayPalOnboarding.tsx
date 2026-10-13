@@ -21,6 +21,8 @@ import { usePayPalDisconnect } from '@/hooks/usePayPalDisconnect'
 import { usePayPalMerchantStatus } from '@/hooks/usePayPalMerchantStatus'
 import { usePayPalOnboarding } from '@/hooks/usePayPalOnboarding'
 import { useUser } from '@/hooks/useUser'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { track, trackView } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -145,6 +147,29 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 
 	// Merchant KYC / payments readiness status (fetched once; manual refresh only)
 	const merchantStatusQuery = usePayPalMerchantStatus(userId)
+	const statusRefreshRequested = React.useRef(false)
+	const statusSettledAt = Math.max(merchantStatusQuery.dataUpdatedAt, merchantStatusQuery.errorUpdatedAt)
+	// The status block is only displayed once a merchant account is linked
+	const isMerchantLinked = typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0
+
+	React.useEffect(() => {
+		if (statusSettledAt === 0 || !isMerchantLinked) return
+		const status = merchantStatusQuery.data
+		const paymentsReceivable = status?.payments_receivable === true
+		const emailConfirmed = status?.primary_email_confirmed === true
+		const permissionsGranted = Array.isArray(status?.oauth_integrations) && status.oauth_integrations.length > 0
+		let state: 'error' | 'pending' | 'ready' = 'pending'
+		if (merchantStatusQuery.isError) state = 'error'
+		else if (paymentsReceivable && emailConfirmed && permissionsGranted) state = 'ready'
+		trackView('paypal_status_view', {
+			state,
+			refresh: statusRefreshRequested.current,
+			permissions_granted: permissionsGranted,
+			payments_receivable: paymentsReceivable,
+			email_confirmed: emailConfirmed,
+		})
+		statusRefreshRequested.current = false
+	}, [statusSettledAt, isMerchantLinked])
 
 	const handlePayPalConnect = () => {
 		onboardingMutation.mutate(userId)
@@ -152,7 +177,8 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 
 	const handleDisconnect = () => {
 		disconnectMutation.mutate(userId, {
-			onSuccess: () => {
+			onSuccess: result => {
+				if (result.success === true) track('paypal_disconnect_success')
 				setShowDisconnectConfirm(false)
 			},
 		})
@@ -315,6 +341,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 									variant="outline"
 									size="sm"
 									onClick={() => {
+										statusRefreshRequested.current = true
 										void merchantStatusQuery.refetch()
 									}}
 									disabled={merchantStatusQuery.isFetching}
@@ -407,7 +434,12 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 							) : null}
 						</>
 					) : (
-						<Button className="w-full" disabled={isOnboardingPending} onClick={handlePayPalConnect}>
+						<Button
+							className="w-full"
+							disabled={isOnboardingPending}
+							onClick={handlePayPalConnect}
+							{...umamiAttrs('paypal_onboarding_start')}
+						>
 							{t.createSellerButton}
 						</Button>
 					)}
@@ -424,6 +456,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 										href={actionUrl}
 										rel="noopener noreferrer"
 										target="_blank"
+										{...umamiAttrs('paypal_onboarding_open', { via: 'link', popup_blocked: false })}
 									>
 										{t.completeSetup} <ExternalLink className="ml-1 h-3 w-3" />
 									</a>

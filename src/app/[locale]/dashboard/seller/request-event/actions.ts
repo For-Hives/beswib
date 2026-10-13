@@ -10,6 +10,7 @@ import { fetchUserByClerkId } from '@/services/user.services'
 export async function handleCreateEventCreationRequest(formData: FormData): Promise<{
 	data?: EventCreationRequest
 	error?: string
+	errorKind?: 'unauthenticated' | 'user_not_found' | 'invalid_input' | 'create_failed' | 'exception'
 	success: boolean
 }> {
 	try {
@@ -18,6 +19,7 @@ export async function handleCreateEventCreationRequest(formData: FormData): Prom
 		if (clerkId == null || clerkId === '') {
 			return {
 				success: false,
+				errorKind: 'unauthenticated',
 				error: 'Authentication required.',
 			}
 		}
@@ -26,6 +28,7 @@ export async function handleCreateEventCreationRequest(formData: FormData): Prom
 		if (!user) {
 			return {
 				success: false,
+				errorKind: 'user_not_found',
 				error: 'User not found.',
 			}
 		}
@@ -40,6 +43,7 @@ export async function handleCreateEventCreationRequest(formData: FormData): Prom
 		if (!name || name.trim() === '') {
 			return {
 				success: false,
+				errorKind: 'invalid_input',
 				error: 'Event name is required.',
 			}
 		}
@@ -47,6 +51,7 @@ export async function handleCreateEventCreationRequest(formData: FormData): Prom
 		if (!location || location.trim() === '') {
 			return {
 				success: false,
+				errorKind: 'invalid_input',
 				error: 'Event location is required.',
 			}
 		}
@@ -54,6 +59,7 @@ export async function handleCreateEventCreationRequest(formData: FormData): Prom
 		if (!eventDate || eventDate.trim() === '') {
 			return {
 				success: false,
+				errorKind: 'invalid_input',
 				error: 'Event date is required.',
 			}
 		}
@@ -63,6 +69,7 @@ export async function handleCreateEventCreationRequest(formData: FormData): Prom
 		if (Number.isNaN(parsedDate.getTime())) {
 			return {
 				success: false,
+				errorKind: 'invalid_input',
 				error: 'Invalid date format.',
 			}
 		}
@@ -72,6 +79,7 @@ export async function handleCreateEventCreationRequest(formData: FormData): Prom
 		if (parsedDate < today) {
 			return {
 				success: false,
+				errorKind: 'invalid_input',
 				error: 'Event date cannot be in the past.',
 			}
 		}
@@ -96,6 +104,7 @@ export async function handleCreateEventCreationRequest(formData: FormData): Prom
 		} else {
 			return {
 				success: false,
+				errorKind: 'create_failed',
 				error: 'Failed to create event creation request.',
 			}
 		}
@@ -103,6 +112,7 @@ export async function handleCreateEventCreationRequest(formData: FormData): Prom
 		console.error('Error in handleCreateEventCreationRequest:', error)
 		return {
 			success: false,
+			errorKind: 'exception',
 			error: error instanceof Error ? error.message : 'An unexpected error occurred.',
 		}
 	}

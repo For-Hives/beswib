@@ -3,6 +3,8 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import type { WizardStep } from '@/lib/analytics/catalog'
 
 interface StepNavigationProps {
 	createdBib: boolean
@@ -13,6 +15,7 @@ interface StepNavigationProps {
 	onNext: () => void
 	onPrevious: () => void
 	onSubmit: () => Promise<void>
+	trackStep?: WizardStep
 }
 
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
@@ -20,6 +23,7 @@ import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
 export default function StepNavigation({
+	trackStep,
 	onSubmit,
 	onPrevious,
 	onNext,
@@ -35,7 +39,13 @@ export default function StepNavigation({
 
 	return (
 		<div className="flex flex-wrap items-center justify-between gap-4 pt-8">
-			<Button disabled={isSubmitting} onClick={() => router.push('/dashboard/seller')} size="lg" variant="outline">
+			<Button
+				disabled={isSubmitting}
+				onClick={() => router.push('/dashboard/seller')}
+				size="lg"
+				variant="outline"
+				{...(!createdBib && trackStep != null ? umamiAttrs('listing_cancel', { step: trackStep }) : {})}
+			>
 				{createdBib ? t.actions.backToDashboard : t.actions.cancel}
 			</Button>
 

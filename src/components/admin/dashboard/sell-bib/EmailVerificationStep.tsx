@@ -8,6 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { validateEmailValibot, validateVerificationCodeValibot } from '@/lib/validation/valibot'
@@ -49,6 +51,7 @@ export default function EmailVerificationStep({
 		const validationError = validateEmailValibot(emailToAdd, locale)
 
 		if (validationError) {
+			track('verified_email_error', { where: 'sell_wizard', step: 'add', kind: 'validation' })
 			setEmailValidationError(validationError.message)
 			return
 		}
@@ -66,6 +69,7 @@ export default function EmailVerificationStep({
 		const validationError = validateVerificationCodeValibot(code, locale)
 
 		if (validationError) {
+			track('verified_email_error', { where: 'sell_wizard', step: 'verify', kind: 'validation' })
 			setCodeValidationErrors(prev => ({
 				...prev,
 				[emailId]: validationError.message,
@@ -216,7 +220,12 @@ export default function EmailVerificationStep({
 				</CardHeader>
 				<CardContent>
 					{!showAddEmail ? (
-						<Button variant="outline" onClick={() => setShowAddEmail(true)} className="w-full">
+						<Button
+							variant="outline"
+							onClick={() => setShowAddEmail(true)}
+							className="w-full"
+							{...umamiAttrs('verified_email_start', { where: 'sell_wizard' })}
+						>
 							<PlusIcon className="mr-2 h-4 w-4" />
 							{t.form.emailVerification.addEmailButton}
 						</Button>

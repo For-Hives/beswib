@@ -3,13 +3,18 @@
 import { List, Plus, Search, Tag, Users } from 'lucide-react'
 
 import Link from 'next/link'
+import { useEffect } from 'react'
+import { TrackClick } from '@/components/analytics/TrackClick'
 import BibCategoryTabs from '@/components/dashboard/seller/BibCategoryTabs'
 import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { countBucket } from '@/lib/analytics/buckets'
+import { trackView } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { isSellerProfileComplete } from '@/lib/validation/user'
 import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
 import type { Transaction } from '@/models/transaction.model'
@@ -85,6 +90,15 @@ export default function SellerDashboardClient({
 	const totalListings = safeSellerBibs.length
 	const availableBibs = safeSellerBibs.filter(bib => bib.status === 'available').length
 	const soldBibs = safeSellerBibs.filter(bib => bib.status === 'sold').length
+
+	useEffect(() => {
+		trackView('seller_dashboard_view', {
+			listings: countBucket(totalListings),
+			active: countBucket(availableBibs),
+			sold: countBucket(soldBibs),
+			profile_complete: isSellerProfileComplete(user),
+		})
+	}, [])
 	const succeededTransactions = sellerTransactions.filter(tx => tx.status === 'succeeded')
 
 	// Extract PayPal fees from webhook payload when present
@@ -158,7 +172,7 @@ export default function SellerDashboardClient({
 
 					{/* Seller Profile Validation */}
 					<div className="mb-8">
-						<SellerProfileValidation user={user} locale={locale} />
+						<SellerProfileValidation user={user} locale={locale} where="seller_dashboard" />
 					</div>
 
 					{/* Statistics Cards */}
@@ -244,49 +258,57 @@ export default function SellerDashboardClient({
 					<div className="mb-8">
 						<h2 className="text-foreground mb-6 text-xl font-bold">{t.quickActions ?? 'Quick Actions'}</h2>
 						<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-							<Link href={`/${locale}/dashboard/seller/sell-bib`}>
-								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<Plus className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">{t.actions?.sellNewBib ?? 'Sell New Bib'}</p>
-									</CardContent>
-								</Card>
-							</Link>
+							<TrackClick name="cta_click" props={{ cta: 'sell_bib', where: 'seller_quick_actions' }}>
+								<Link href={`/${locale}/dashboard/seller/sell-bib`}>
+									<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+										<CardContent className="flex flex-col items-center p-4 text-center">
+											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+												<Plus className="h-6 w-6" />
+											</div>
+											<p className="text-sm font-medium">{t.actions?.sellNewBib ?? 'Sell New Bib'}</p>
+										</CardContent>
+									</Card>
+								</Link>
+							</TrackClick>
 
-							<Link href={`/${locale}/dashboard/seller/list-bib`}>
-								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<List className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">{t.actions?.myListings ?? 'My Listings'}</p>
-									</CardContent>
-								</Card>
-							</Link>
+							<TrackClick name="cta_click" props={{ cta: 'my_listings', where: 'seller_quick_actions' }}>
+								<Link href={`/${locale}/dashboard/seller/list-bib`}>
+									<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+										<CardContent className="flex flex-col items-center p-4 text-center">
+											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+												<List className="h-6 w-6" />
+											</div>
+											<p className="text-sm font-medium">{t.actions?.myListings ?? 'My Listings'}</p>
+										</CardContent>
+									</Card>
+								</Link>
+							</TrackClick>
 
-							<Link href={`/${locale}/marketplace`}>
-								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<Search className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">{t.actions?.viewMarketplace ?? 'View Marketplace'}</p>
-									</CardContent>
-								</Card>
-							</Link>
+							<TrackClick name="cta_click" props={{ cta: 'browse_marketplace', where: 'seller_quick_actions' }}>
+								<Link href={`/${locale}/marketplace`}>
+									<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+										<CardContent className="flex flex-col items-center p-4 text-center">
+											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+												<Search className="h-6 w-6" />
+											</div>
+											<p className="text-sm font-medium">{t.actions?.viewMarketplace ?? 'View Marketplace'}</p>
+										</CardContent>
+									</Card>
+								</Link>
+							</TrackClick>
 
-							<Link href={`/${locale}/dashboard`}>
-								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<Users className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">{t.actions?.mainDashboard ?? 'Main Dashboard'}</p>
-									</CardContent>
-								</Card>
-							</Link>
+							<TrackClick name="cta_click" props={{ cta: 'dashboard', where: 'seller_quick_actions' }}>
+								<Link href={`/${locale}/dashboard`}>
+									<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+										<CardContent className="flex flex-col items-center p-4 text-center">
+											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+												<Users className="h-6 w-6" />
+											</div>
+											<p className="text-sm font-medium">{t.actions?.mainDashboard ?? 'Main Dashboard'}</p>
+										</CardContent>
+									</Card>
+								</Link>
+							</TrackClick>
 						</div>
 					</div>
 
@@ -373,12 +395,14 @@ export default function SellerDashboardClient({
 									<p className="text-muted-foreground mb-6">
 										{t.recentSales?.startSellingMessage ?? 'Start selling your race bibs to see your sales here'}
 									</p>
-									<Link href={`/${locale}/dashboard/seller/sell-bib`}>
-										<Button size="lg">
-											<Plus className="mr-2 h-4 w-4" />
-											{t.recentSales?.listABib ?? 'List a bib'}
-										</Button>
-									</Link>
+									<TrackClick name="cta_click" props={{ cta: 'sell_bib', where: 'seller_sales_empty' }}>
+										<Link href={`/${locale}/dashboard/seller/sell-bib`}>
+											<Button size="lg">
+												<Plus className="mr-2 h-4 w-4" />
+												{t.recentSales?.listABib ?? 'List a bib'}
+											</Button>
+										</Link>
+									</TrackClick>
 								</CardContent>
 							</Card>
 						)}
@@ -405,12 +429,14 @@ export default function SellerDashboardClient({
 									<p className="text-muted-foreground mb-6">
 										{t.startSelling ?? 'Start selling your race bibs to connect with runners'}
 									</p>
-									<Link href={`/${locale}/dashboard/seller/sell-bib`}>
-										<Button size="lg">
-											<Plus className="mr-2 h-4 w-4" />
-											{t?.sellBib ?? 'List Your First Bib'}
-										</Button>
-									</Link>
+									<TrackClick name="cta_click" props={{ cta: 'sell_bib', where: 'seller_listings_empty' }}>
+										<Link href={`/${locale}/dashboard/seller/sell-bib`}>
+											<Button size="lg">
+												<Plus className="mr-2 h-4 w-4" />
+												{t?.sellBib ?? 'List Your First Bib'}
+											</Button>
+										</Link>
+									</TrackClick>
 								</div>
 							)}
 						</CardContent>

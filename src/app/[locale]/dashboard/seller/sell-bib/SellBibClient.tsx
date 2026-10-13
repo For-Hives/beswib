@@ -15,6 +15,11 @@ import {
 } from '@/components/admin/dashboard/sell-bib'
 import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
 import { Separator } from '@/components/ui/separator'
+import { countBucket, priceBucket } from '@/lib/analytics/buckets'
+import type { EventProps } from '@/lib/analytics/catalog'
+import { verifiedEmailKind, wizardStep } from '@/lib/analytics/classify'
+import { track, trackView } from '@/lib/analytics/client'
+import { eventIdOf } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { isSellerProfileComplete } from '@/lib/validation/user'
@@ -50,6 +55,15 @@ interface SellBibClientProps {
 
 const STEPS = ['eventSelection', 'emailVerification', 'bibDetails', 'pricing', 'confirmation'] as const
 type Step = (typeof STEPS)[number]
+
+// Each step validates a single field
+const VALIDATION_FIELDS: Record<Step, EventProps<'listing_error'>['field']> = {
+	pricing: 'price',
+	eventSelection: 'event',
+	emailVerification: 'email',
+	confirmation: 'terms',
+	bibDetails: 'registration_number',
+}
 
 import sellBibTranslations from '@/app/[locale]/dashboard/seller/sell-bib/locales.json'
 
@@ -107,6 +121,13 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 		void loadVerifiedEmails()
 	}, [user.id])
 
+	useEffect(() => {
+		trackView('listing_start', {
+			profile_complete: isSellerProfileValid,
+			events: countBucket(availableEvents.length),
+		})
+	}, [])
+
 	// Handler for adding a new email
 	const handleAddEmail = (email: string) => {
 		void createVerifiedEmail({ userId: user.id, email })
@@ -114,7 +135,13 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				if (result.success && result.data) {
 					setVerifiedEmails(prev => [...prev, result.data!])
 					toast.success(t.messages.emailVerificationSent)
+					track('verified_email_step', { where: 'sell_wizard', step: 'code_sent' })
 				} else {
+					track('verified_email_error', {
+						where: 'sell_wizard',
+						step: 'add',
+						kind: verifiedEmailKind(result.error),
+					})
 					const errorMessage = result.error ?? t.messages.emailAddFailed
 					setErrors({ emailVerification: errorMessage })
 					toast.error(errorMessage)
@@ -122,6 +149,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 			})
 			.catch(error => {
 				console.error('Error adding email:', error)
+				track('verified_email_error', { where: 'sell_wizard', step: 'add', kind: 'unknown' })
 				const errorMessage = t.messages.emailAddFailed
 				setErrors({ emailVerification: errorMessage })
 				toast.error(errorMessage)
@@ -136,7 +164,13 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 					setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? result.data! : email)))
 					setErrors({})
 					toast.success(t.messages.emailVerified)
+					track('verified_email_success', { where: 'sell_wizard' })
 				} else {
+					track('verified_email_error', {
+						where: 'sell_wizard',
+						step: 'verify',
+						kind: verifiedEmailKind(result.error),
+					})
 					const errorMessage = result.error ?? t.messages.invalidVerificationCode
 					setErrors({ emailVerification: errorMessage })
 					toast.error(errorMessage)
@@ -144,6 +178,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 			})
 			.catch(error => {
 				console.error('Error verifying email:', error)
+				track('verified_email_error', { where: 'sell_wizard', step: 'verify', kind: 'unknown' })
 				const errorMessage = t.messages.emailVerifyFailed
 				setErrors({ emailVerification: errorMessage })
 				toast.error(errorMessage)
@@ -157,7 +192,13 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				if (result.success) {
 					setErrors({})
 					toast.success(t.messages.verificationCodeResent)
+					track('verified_email_step', { where: 'sell_wizard', step: 'code_resent' })
 				} else {
+					track('verified_email_error', {
+						where: 'sell_wizard',
+						step: 'resend',
+						kind: verifiedEmailKind(result.error),
+					})
 					const errorMessage = result.error ?? t.messages.emailResendFailed
 					setErrors({ emailVerification: errorMessage })
 					toast.error(errorMessage)
@@ -165,6 +206,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 			})
 			.catch(error => {
 				console.error('Error resending code:', error)
+				track('verified_email_error', { where: 'sell_wizard', step: 'resend', kind: 'unknown' })
 				const errorMessage = t.messages.emailResendFailed
 				setErrors({ emailVerification: errorMessage })
 				toast.error(errorMessage)
@@ -217,6 +259,10 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				break
 		}
 
+		if (Object.keys(newErrors).length > 0) {
+			track('listing_error', { step: wizardStep(step), kind: 'validation', field: VALIDATION_FIELDS[step] })
+		}
+
 		setErrors(newErrors)
 		return Object.keys(newErrors).length === 0
 	}
@@ -226,11 +272,13 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 			// Check if seller profile is complete before allowing progression
 			if (!isSellerProfileValid) {
 				setErrors({ submit: 'Please complete your seller profile before proceeding.' })
+				track('listing_error', { step: wizardStep(currentStep), kind: 'profile_incomplete', field: 'none' })
 				return
 			}
 
 			if (!isLastStep) {
 				setCurrentStep(STEPS[currentStepIndex + 1])
+				track('listing_step', { step: wizardStep(STEPS[currentStepIndex + 1]), direction: 'next' })
 			}
 		}
 	}
@@ -238,6 +286,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 	const handlePrevious = () => {
 		if (!isFirstStep) {
 			setCurrentStep(STEPS[currentStepIndex - 1])
+			track('listing_step', { step: wizardStep(STEPS[currentStepIndex - 1]), direction: 'back' })
 		}
 	}
 
@@ -249,8 +298,29 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 		// Check if seller profile is complete before allowing submission
 		if (!isSellerProfileValid) {
 			setErrors({ submit: 'Please complete your seller profile before selling bibs.' })
+			track('listing_error', { step: 'confirmation', kind: 'profile_incomplete', field: 'none' })
 			return
 		}
+
+		const sellingPrice = parseFloat(formData.sellingPrice)
+		const originalPrice = parseFloat(formData.originalPrice)
+		let priceVsOriginal: EventProps<'listing_submit'>['price_vs_original'] = 'unknown'
+		if (formData.originalPrice && !Number.isNaN(originalPrice) && !Number.isNaN(sellingPrice)) {
+			if (sellingPrice < originalPrice) priceVsOriginal = 'below'
+			else if (sellingPrice > originalPrice) priceVsOriginal = 'above'
+			else priceVsOriginal = 'equal'
+		}
+		const usesAccountEmail =
+			formData.linkedEmailId === 'main-email' ||
+			verifiedEmails.some(email => email.id === formData.linkedEmailId && email.email === user.email)
+		const listingProps: EventProps<'listing_submit'> = {
+			price_vs_original: priceVsOriginal,
+			price_bucket: priceBucket(sellingPrice),
+			listing: formData.listingType,
+			event_id: eventIdOf(formData.selectedEvent),
+			email_source: usesAccountEmail ? 'account' : 'other',
+		}
+		track('listing_submit', listingProps)
 
 		setIsSubmitting(true)
 
@@ -282,11 +352,14 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 
 			if (result) {
 				setCreatedBib(result)
+				track('listing_success', listingProps)
 			} else {
 				setErrors({ submit: t.messages.error })
+				track('listing_error', { step: 'confirmation', kind: 'create_rejected', field: 'none' })
 			}
 		} catch (error: unknown) {
 			console.error('Error creating bib:', error)
+			track('listing_error', { step: 'confirmation', kind: 'create_failed', field: 'none' })
 			setErrors({ submit: t.messages.error })
 		} finally {
 			setIsSubmitting(false)
@@ -409,7 +482,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 						{/* Seller Profile Validation */}
 						{!isSellerProfileValid && (
 							<div className="mb-8">
-								<SellerProfileValidation user={user} locale={locale} />
+								<SellerProfileValidation user={user} locale={locale} where="sell_wizard" />
 							</div>
 						)}
 
@@ -431,6 +504,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 							onNext={handleNext}
 							onPrevious={handlePrevious}
 							onSubmit={handleSubmit}
+							trackStep={wizardStep(currentStep)}
 						/>
 					</div>
 				</div>

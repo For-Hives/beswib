@@ -3,8 +3,12 @@
 import { AlertCircle, CheckCircle, ExternalLink } from 'lucide-react'
 
 import Link from 'next/link'
+import { useEffect } from 'react'
+import { TrackClick } from '@/components/analytics/TrackClick'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import type { EventProps } from '@/lib/analytics/catalog'
+import { trackView } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import {
@@ -20,9 +24,10 @@ import sellerTranslations from './locales.json'
 interface SellerProfileValidationProps {
 	user: User
 	locale: Locale
+	where: EventProps<'seller_gate_view'>['where']
 }
 
-export default function SellerProfileValidation({ user, locale }: SellerProfileValidationProps) {
+export default function SellerProfileValidation({ user, locale, where }: SellerProfileValidationProps) {
 	const isComplete = isSellerProfileComplete(user)
 	const t = getTranslations(locale, sellerTranslations)
 
@@ -30,6 +35,22 @@ export default function SellerProfileValidation({ user, locale }: SellerProfileV
 	const isPaypalComplete = isPaypalMerchantComplete(user)
 	const isContactComplete = isSellerContactInfoComplete(user)
 	const isAddressComplete = isSellerAddressComplete(user)
+
+	useEffect(() => {
+		if (isComplete) return
+		let paypalState: EventProps<'seller_gate_view'>['paypal_state'] = 'ready'
+		if (user.paypalMerchantId == null || user.paypalMerchantId.trim() === '') {
+			paypalState = 'not_linked'
+		} else if (user.paypal_kyc !== true) {
+			paypalState = 'kyc_pending'
+		}
+		trackView('seller_gate_view', {
+			where,
+			paypal_state: paypalState,
+			contact_missing: !isContactComplete,
+			address_missing: !isAddressComplete,
+		})
+	}, [])
 
 	if (isComplete) {
 		return (
@@ -70,12 +91,14 @@ export default function SellerProfileValidation({ user, locale }: SellerProfileV
 					</ul>
 				</div>
 				<div className="flex flex-col gap-2 sm:flex-row">
-					<Button asChild variant="default" className="flex-1">
-						<Link href={`/${locale}/profile`}>
-							{t.sellerProfile.incomplete.completeProfileButton}
-							<ExternalLink className="ml-2 h-4 w-4" />
-						</Link>
-					</Button>
+					<TrackClick name="cta_click" props={{ cta: 'complete_profile', where: 'seller_gate' }}>
+						<Button asChild variant="default" className="flex-1">
+							<Link href={`/${locale}/profile`}>
+								{t.sellerProfile.incomplete.completeProfileButton}
+								<ExternalLink className="ml-2 h-4 w-4" />
+							</Link>
+						</Button>
+					</TrackClick>
 				</div>
 			</CardContent>
 		</Card>
