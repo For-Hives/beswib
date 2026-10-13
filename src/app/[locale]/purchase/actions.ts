@@ -137,8 +137,24 @@ export async function createSale(
 		}
 	}
 	try {
+		// Not a bib this visitor may buy: refused here with the words of salesCreate
+		const bib = await fetchPurchasableBibById(bibId, privateToken)
+		if (!bib) throw new Error('Bib not found')
+
+		// The payee of the order is the PayPal account on the record of the seller. The id the browser
+		// sends only has to match it: paid to any other merchant, the order would still mark the bib
+		// as sold, to a buyer who paid themselves
+		const payeeMerchantId = bib.expand?.sellerUserId?.paypalMerchantId ?? ''
+		if (payeeMerchantId === '' || payeeMerchantId !== sellerMerchantId) {
+			return {
+				success: false,
+				errorKind: 'seller_not_configured' as const satisfies PurchaseErrorKind,
+				error: 'Seller PayPal account is not configured.',
+			}
+		}
+
 		const { transaction, orderId } = await salesCreate({
-			sellerMerchantId,
+			sellerMerchantId: payeeMerchantId,
 			privateToken,
 			locale,
 			buyerUserId: userId,
