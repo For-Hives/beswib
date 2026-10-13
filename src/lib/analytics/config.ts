@@ -11,8 +11,14 @@ function envOr(value: string | undefined, fallback: string): string {
 	return trimmed === '' ? fallback : trimmed
 }
 
+function withoutTrailingSlashes(value: string): string {
+	let end = value.length
+	while (end > 0 && value[end - 1] === '/') end--
+	return value.slice(0, end)
+}
+
 /** Origin of the Umami instance: serves /script.js and receives /api/send. No trailing slash. */
-export const UMAMI_HOST = envOr(process.env.NEXT_PUBLIC_UMAMI_HOST, DEFAULT_UMAMI_HOST).replace(/\/+$/, '')
+export const UMAMI_HOST = withoutTrailingSlashes(envOr(process.env.NEXT_PUBLIC_UMAMI_HOST, DEFAULT_UMAMI_HOST))
 
 /** Value of data-domains: the tracker stays inert on any other hostname (exact match, comma separated). */
 export const UMAMI_DOMAINS = envOr(process.env.NEXT_PUBLIC_UMAMI_DOMAINS, DEFAULT_UMAMI_DOMAINS)

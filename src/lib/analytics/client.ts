@@ -87,7 +87,7 @@ function dispatch(name: string, props: unknown, dedupe: boolean): void {
 
 		if (dedupe) {
 			const now = Date.now()
-			const sortedKeys = Object.keys(event.data).sort()
+			const sortedKeys = Object.keys(event.data).sort((a, b) => a.localeCompare(b))
 			const key = `${event.name}|${JSON.stringify(sortedKeys.map(k => [k, event.data[k]]))}|${window.location.pathname}`
 			const last = recentViews.get(key)
 			if (last != null && now - last < VIEW_DEDUPE_WINDOW_MS) return
