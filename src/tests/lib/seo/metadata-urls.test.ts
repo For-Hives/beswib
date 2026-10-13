@@ -1,4 +1,6 @@
 // @vitest-environment node
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
 import type { Metadata } from 'next'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -32,6 +34,24 @@ const PAGES: [name: string, metadata: (locale: Locale) => Metadata, path: string
 	['the dashboard', generateDashboardMetadata, '/dashboard/'],
 	['the profile', generateProfileMetadata, '/profile/'],
 	['the admin', generateAdminMetadata, '/admin/'],
+]
+
+// The pages a visitor can share, as directories of src/app/[locale]
+const SHARED_PAGES = [
+	'',
+	'blog',
+	'blog/[slug]',
+	'contact',
+	'events',
+	'events/[id]',
+	'faq',
+	'legals/aup',
+	'legals/data-deletion',
+	'legals/legal-notice',
+	'legals/privacy-policy',
+	'legals/terms',
+	'marketplace',
+	'marketplace/[id]',
 ]
 
 beforeEach(() => {
@@ -120,5 +140,25 @@ describe('canonical and hreflang links', () => {
 			expect(JSON.stringify(metadata('fr'))).not.toMatch(/localhost|127\.0\.0\.1/)
 			expect(String(metadata('fr').alternates?.canonical).startsWith('https://beswib.com/fr/')).toBe(true)
 		}
+	})
+})
+
+describe('share images', () => {
+	// A page that names an image hides the opengraph-image file next to it: the generators used to
+	// name /opengraph-image, the picture of the home page, which is redirected to the English one
+	it.each(PAGES)('%s names no image and leaves it to its opengraph-image file', (_name, metadata) => {
+		for (const locale of i18n.locales) {
+			const page = metadata(locale)
+
+			expect(page.openGraph).not.toHaveProperty('images')
+			expect(page.twitter).not.toHaveProperty('images')
+		}
+	})
+
+	it.each(SHARED_PAGES)('the page /%s has an opengraph-image file of its own', directory => {
+		const folder = join(process.cwd(), 'src/app/[locale]', directory)
+
+		expect(existsSync(join(folder, 'page.tsx'))).toBe(true)
+		expect(existsSync(join(folder, 'opengraph-image.tsx'))).toBe(true)
 	})
 })
