@@ -3,18 +3,13 @@
 import {
 	type ColumnDef,
 	type ColumnFiltersState,
+	type ColumnVisibilityState,
 	type FilterFn,
 	flexRender,
-	getCoreRowModel,
-	getFacetedUniqueValues,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
 	type PaginationState,
 	type Row,
 	type SortingState,
-	useReactTable,
-	type VisibilityState,
+	useTable,
 } from '@tanstack/react-table'
 import {
 	Building,
@@ -39,10 +34,11 @@ import {
 import Link from 'next/link'
 
 import { useRouter } from 'next/navigation'
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { getAllOrganizersAction } from '@/app/[locale]/admin/actions'
 // Import translations
 import organizerTranslations from '@/app/[locale]/admin/organizer/locales.json'
+import { type AdminTableFeatures, adminTableFeatures } from '@/components/admin/adminTableFeatures'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -91,14 +87,19 @@ interface OrganizersStats {
 }
 
 // Custom filter function for multi-column searching
-const multiColumnFilterFn: FilterFn<Organizer & { eventsCount: number }> = (row, _columnId, filterValue) => {
+const multiColumnFilterFn: FilterFn<AdminTableFeatures, Organizer & { eventsCount: number }> = (
+	row,
+	_columnId,
+	filterValue
+) => {
 	const searchableRowContent = `${row.original.name ?? ''} ${row.original.email ?? ''}`.toLowerCase()
 	const searchTerm = String(filterValue ?? '').toLowerCase()
 	return searchableRowContent.includes(searchTerm)
 }
 
 export default function AdminOrganizersPageClient({ locale, currentUser }: Readonly<AdminOrganizersPageClientProps>) {
-	const t = getTranslations(locale, organizerTranslations)
+	// getTranslations builds a new object at every call: kept per locale, so that the columns below stay the same
+	const t = useMemo(() => getTranslations(locale, organizerTranslations), [locale])
 
 	const router = useRouter()
 	const id = useId()
@@ -109,7 +110,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 
 	// Table state
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+	const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>({})
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageSize: 10,
 		pageIndex: 0,
@@ -121,103 +122,109 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 		},
 	])
 
-	// Define columns
-	const columns: ColumnDef<Organizer & { eventsCount: number }>[] = [
-		{
-			size: 28,
-			id: 'select',
-			header: ({ table }) => (
-				<div className="flex items-center justify-center">
-					<Checkbox
-						aria-label={t.organizers.table.controls.selectAll}
-						checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
-						onCheckedChange={value => table.toggleAllPageRowsSelected(value === true)}
-					/>
-				</div>
-			),
-			enableSorting: false,
-			enableHiding: false,
-			cell: ({ row }) => (
-				<div className="flex items-center justify-center">
-					<Checkbox
-						aria-label={t.organizers.table.controls.selectRow}
-						checked={row.getIsSelected()}
-						onCheckedChange={value => row.toggleSelected(value === true)}
-					/>
-				</div>
-			),
-		},
-		{
-			size: 200,
-			header: t.organizers.table.columns.name,
-			filterFn: multiColumnFilterFn,
-			enableHiding: false,
-			cell: ({ row }) => <div className="font-medium">{row.getValue('name') ?? t.organizers.common.na}</div>,
-			accessorKey: 'name',
-		},
-		{
-			size: 180,
-			header: t.organizers.table.columns.email,
-			cell: ({ row }) => {
-				const email = row.getValue('email')
-				return (
-					<div className="flex items-center gap-2">
-						<Mail className="text-muted-foreground h-4 w-4" />
-						<span className="text-sm">{String(email) || t.organizers.common.na}</span>
-					</div>
-				)
-			},
-			accessorKey: 'email',
-		},
-		{
-			size: 100,
-			header: t.organizers.table.columns.eventsCount,
-			cell: ({ row }) => {
-				const eventsCount = row.getValue('eventsCount')
-				return (
+	// Define columns. The same array as long as the locale does not change: the table rebuilds its columns, and React
+	// remounts every cell, whenever it receives a new one
+	const columns: ColumnDef<AdminTableFeatures, Organizer & { eventsCount: number }>[] = useMemo(
+		() => [
+			{
+				size: 28,
+				id: 'select',
+				header: ({ table }) => (
 					<div className="flex items-center justify-center">
-						<Badge variant="outline">{typeof eventsCount === 'number' ? eventsCount : 0}</Badge>
+						<Checkbox
+							aria-label={t.organizers.table.controls.selectAll}
+							checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
+							onCheckedChange={value => table.toggleAllPageRowsSelected(value === true)}
+						/>
 					</div>
-				)
-			},
-			accessorKey: 'eventsCount',
-		},
-		{
-			size: 120,
-			header: t.organizers.table.columns.partnership,
-			cell: ({ row }: { row: Row<Organizer & { eventsCount: number }> }) => (
-				<Badge variant={row.getValue('isPartnered') === true ? 'default' : 'secondary'}>
-					{row.getValue('isPartnered') === true
-						? t.organizers.table.columns.status.partner
-						: t.organizers.table.columns.status.standard}
-				</Badge>
-			),
-			accessorKey: 'isPartnered',
-		},
-		{
-			size: 120,
-			header: t.organizers.table.columns.created,
-			cell: ({ row }) => {
-				const date = row.getValue('created')
-				return (
-					<div>
-						{date != null && date !== undefined && date !== ''
-							? formatDateObjectForDisplay(new Date(date as string), locale)
-							: t.organizers.common.na}
+				),
+				enableSorting: false,
+				enableHiding: false,
+				cell: ({ row }) => (
+					<div className="flex items-center justify-center">
+						<Checkbox
+							aria-label={t.organizers.table.controls.selectRow}
+							checked={row.getIsSelected()}
+							onCheckedChange={value => row.toggleSelected(value === true)}
+						/>
 					</div>
-				)
+				),
 			},
-			accessorKey: 'created',
-		},
-		{
-			size: 60,
-			id: 'actions',
-			header: () => <span className="sr-only">{t.organizers.actionsLabels.openMenu}</span>,
-			enableSorting: false,
-			enableHiding: false,
-			cell: ({ row }) => <RowActions row={row} t={t} />,
-		},
-	]
+			{
+				size: 200,
+				header: t.organizers.table.columns.name,
+				filterFn: multiColumnFilterFn,
+				enableHiding: false,
+				cell: ({ row }) => <div className="font-medium">{row.getValue('name') ?? t.organizers.common.na}</div>,
+				accessorKey: 'name',
+			},
+			{
+				size: 180,
+				header: t.organizers.table.columns.email,
+				cell: ({ row }) => {
+					const email = row.getValue('email')
+					return (
+						<div className="flex items-center gap-2">
+							<Mail className="text-muted-foreground h-4 w-4" />
+							<span className="text-sm">{String(email) || t.organizers.common.na}</span>
+						</div>
+					)
+				},
+				accessorKey: 'email',
+			},
+			{
+				size: 100,
+				header: t.organizers.table.columns.eventsCount,
+				cell: ({ row }) => {
+					const eventsCount = row.getValue('eventsCount')
+					return (
+						<div className="flex items-center justify-center">
+							<Badge variant="outline">{typeof eventsCount === 'number' ? eventsCount : 0}</Badge>
+						</div>
+					)
+				},
+				accessorKey: 'eventsCount',
+			},
+			{
+				size: 120,
+				header: t.organizers.table.columns.partnership,
+				cell: ({ row }) => (
+					<Badge variant={row.getValue('isPartnered') === true ? 'default' : 'secondary'}>
+						{row.getValue('isPartnered') === true
+							? t.organizers.table.columns.status.partner
+							: t.organizers.table.columns.status.standard}
+					</Badge>
+				),
+				accessorKey: 'isPartnered',
+			},
+			{
+				size: 120,
+				header: t.organizers.table.columns.created,
+				cell: ({ row }) => {
+					const date = row.getValue('created')
+					return (
+						<div>
+							{date != null && date !== undefined && date !== ''
+								? formatDateObjectForDisplay(new Date(date as string), locale)
+								: t.organizers.common.na}
+						</div>
+					)
+				},
+				accessorKey: 'created',
+			},
+			{
+				size: 60,
+				id: 'actions',
+				header: () => <span className="sr-only">{t.organizers.actionsLabels.openMenu}</span>,
+				enableSorting: false,
+				enableHiding: false,
+				// A row is its position in the data, and its cells are kept from one render to the next: without the key, a
+				// menu or a dialog left open would stay on the row and act on the organizer that takes its place after a removal
+				cell: ({ row }) => <RowActions key={row.original.id} row={row} t={t} />,
+			},
+		],
+		[t, locale]
+	)
 
 	useEffect(() => {
 		const fetchOrganizers = async () => {
@@ -262,7 +269,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 		table.resetRowSelection()
 	}
 
-	const table = useReactTable({
+	const table = useTable({
 		state: {
 			sorting,
 			pagination,
@@ -273,11 +280,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 		onPaginationChange: setPagination,
 		onColumnVisibilityChange: setColumnVisibility,
 		onColumnFiltersChange: setColumnFilters,
-		getSortedRowModel: getSortedRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
-		getFacetedUniqueValues: getFacetedUniqueValues(),
-		getCoreRowModel: getCoreRowModel(),
+		features: adminTableFeatures,
 		enableSortingRemoval: false,
 		data: organizers,
 		columns,
@@ -595,7 +598,7 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 												}}
 												options={pageSizeOptions}
 												placeholder={t.organizers.table.controls.selectNumberOfResults}
-												value={table.getState().pagination.pageSize.toString()}
+												value={table.state.pagination.pageSize.toString()}
 											/>
 										)
 									})()}
@@ -605,11 +608,11 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 								<div className="text-muted-foreground flex grow justify-end text-sm whitespace-nowrap">
 									<p aria-live="polite" className="text-muted-foreground text-sm whitespace-nowrap">
 										<span className="text-foreground">
-											{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}-
+											{table.state.pagination.pageIndex * table.state.pagination.pageSize + 1}-
 											{Math.min(
 												Math.max(
-													table.getState().pagination.pageIndex * table.getState().pagination.pageSize +
-														table.getState().pagination.pageSize,
+													table.state.pagination.pageIndex * table.state.pagination.pageSize +
+														table.state.pagination.pageSize,
 													0
 												),
 												table.getRowCount()
@@ -699,7 +702,10 @@ type OrganizerTranslationsForRowActions = {
 function RowActions({
 	t,
 	row,
-}: Readonly<{ row: Row<Organizer & { eventsCount: number }>; t: OrganizerTranslationsForRowActions }>) {
+}: Readonly<{
+	row: Row<AdminTableFeatures, Organizer & { eventsCount: number }>
+	t: OrganizerTranslationsForRowActions
+}>) {
 	const router = useRouter()
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 

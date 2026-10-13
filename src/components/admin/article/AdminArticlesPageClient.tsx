@@ -3,18 +3,13 @@
 import {
 	type ColumnDef,
 	type ColumnFiltersState,
+	type ColumnVisibilityState,
 	type FilterFn,
 	flexRender,
-	getCoreRowModel,
-	getFacetedUniqueValues,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
 	type PaginationState,
 	type Row,
 	type SortingState,
-	useReactTable,
-	type VisibilityState,
+	useTable,
 } from '@tanstack/react-table'
 import {
 	Calendar,
@@ -44,6 +39,7 @@ import { toast } from 'sonner'
 
 import { deleteArticleAction, getAllArticlesAction } from '@/app/[locale]/admin/article/actions'
 import translations from '@/app/[locale]/admin/article/locales.json'
+import { type AdminTableFeatures, adminTableFeatures } from '@/components/admin/adminTableFeatures'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -165,12 +161,11 @@ interface ArticlesTranslations {
 	}
 }
 
+// A row of the list: the article with the translation figures the server action adds
+type ArticleRow = Article & { translationCount?: number; publishedCount?: number }
+
 // Custom filter function for multi-column searching
-const multiColumnFilterFn: FilterFn<Article & { translationCount?: number; publishedCount?: number }> = (
-	row,
-	_columnId,
-	filterValue
-) => {
+const multiColumnFilterFn: FilterFn<AdminTableFeatures, ArticleRow> = (row, _columnId, filterValue) => {
 	const searchableRowContent =
 		`${row.original.title ?? ''} ${row.original.slug ?? ''} ${row.original.description ?? ''}`.toLowerCase()
 	const searchTerm = String(filterValue ?? '').toLowerCase()
@@ -178,19 +173,20 @@ const multiColumnFilterFn: FilterFn<Article & { translationCount?: number; publi
 }
 
 export default function AdminArticlesPageClient({ locale, currentUser }: AdminArticlesPageClientProps) {
-	const t = getTranslations(locale, translations)
+	// getTranslations builds a new object at every call: kept per locale, so that the columns below stay the same
+	const t = useMemo(() => getTranslations(locale, translations), [locale])
 
 	const router = useRouter()
 	const id = useId()
 	const inputRef = useRef<HTMLInputElement>(null)
 
-	const [articles, setArticles] = useState<Array<Article & { translationCount?: number; publishedCount?: number }>>([])
+	const [articles, setArticles] = useState<ArticleRow[]>([])
 	const [stats, setStats] = useState<ArticlesStats | null>(null)
 	const [showAllLanguages, setShowAllLanguages] = useState(false)
 
 	// Table state
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+	const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>({})
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageIndex: 0,
 		pageSize: 10,
@@ -202,8 +198,9 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 		},
 	])
 
-	// Define columns with extended Article type including translation stats
-	const columns: ColumnDef<Article & { translationCount?: number; publishedCount?: number }>[] = useMemo(
+	// Define columns with extended Article type including translation stats. The same array as long as the locale does
+	// not change: the table rebuilds its columns, and React remounts every cell, whenever it receives a new one
+	const columns: ColumnDef<AdminTableFeatures, ArticleRow>[] = useMemo(
 		() => [
 			{
 				id: 'select',
@@ -370,7 +367,10 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 				enableHiding: false,
 				enableSorting: false,
 				header: () => <span className="sr-only">{t.articles.table.columns.actions}</span>,
-				cell: ({ row }) => <RowActions row={row} t={t} />,
+				// A row is its position in the data, and its cells are kept from one render to the next: without the key, a
+				// menu or a dialog left open would stay on the row and act on the article that takes its place after a
+				// deletion or a change of language
+				cell: ({ row }) => <RowActions key={row.original.id} row={row} t={t} />,
 			},
 		],
 		[t, locale]
@@ -445,15 +445,11 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 		table.resetRowSelection()
 	}
 
-	const table = useReactTable({
+	const table = useTable({
 		columns,
 		data: articles,
 		enableSortingRemoval: false,
-		getCoreRowModel: getCoreRowModel(),
-		getFacetedUniqueValues: getFacetedUniqueValues(),
-		getFilteredRowModel: getFilteredRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-		getSortedRowModel: getSortedRowModel(),
+		features: adminTableFeatures,
 		onColumnFiltersChange: setColumnFilters,
 		onColumnVisibilityChange: setColumnVisibility,
 		onPaginationChange: setPagination,
@@ -796,7 +792,7 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 												}}
 												options={pageSizeOptions}
 												placeholder="Select number of results"
-												value={table.getState().pagination.pageSize.toString()}
+												value={table.state.pagination.pageSize.toString()}
 											/>
 										)
 									})()}
@@ -806,11 +802,11 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 								<div className="text-muted-foreground flex grow justify-end text-sm whitespace-nowrap">
 									<p aria-live="polite" className="text-muted-foreground text-sm whitespace-nowrap">
 										<span className="text-foreground">
-											{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}-
+											{table.state.pagination.pageIndex * table.state.pagination.pageSize + 1}-
 											{Math.min(
 												Math.max(
-													table.getState().pagination.pageIndex * table.getState().pagination.pageSize +
-														table.getState().pagination.pageSize,
+													table.state.pagination.pageIndex * table.state.pagination.pageSize +
+														table.state.pagination.pageSize,
 													0
 												),
 												table.getRowCount()
@@ -888,7 +884,7 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 	)
 }
 
-function RowActions({ t, row }: { row: Row<Article>; t: ArticlesTranslations }) {
+function RowActions({ t, row }: { row: Row<AdminTableFeatures, ArticleRow>; t: ArticlesTranslations }) {
 	const router = useRouter()
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 	const [deleting, setDeleting] = useState(false)

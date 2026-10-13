@@ -31,12 +31,6 @@
 			"matchPackageNames": ["@c15t/nextjs"],
 			"matchUpdateTypes": ["major"],
 			"enabled": false
-		},
-		{
-			"description": "TanStack Table 9 changes the table API (hook, row models, state): the three admin lists need a migration of their own",
-			"matchPackageNames": ["@tanstack/react-table"],
-			"matchUpdateTypes": ["major"],
-			"enabled": false
 		}
 	]
 }
