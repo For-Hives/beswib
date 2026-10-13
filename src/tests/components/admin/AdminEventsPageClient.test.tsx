@@ -31,6 +31,7 @@ import {
 	countReads,
 	dialogIsOpen,
 	headerCells,
+	headerWidths,
 	installDomShims,
 	labelled,
 	type MountedPage,
@@ -198,6 +199,12 @@ describe('AdminEventsPageClient', () => {
 			])
 			expect(cellsOf(rowNamed(container, 'Course des Lumières'))[4]).toBe('N/A')
 			expect(cellsOf(rowNamed(container, 'SaintéLyon'))[6]).toBe('N/A')
+		})
+
+		it('gives each column the width of its definition', async () => {
+			await show()
+
+			expect(headerWidths(container)).toEqual(['28px', '200px', '180px', '120px', '120px', '100px', '100px', '60px'])
 		})
 
 		it('counts the events, upcoming and past, above the table', async () => {
@@ -756,6 +763,18 @@ describe('AdminEventsPageClient', () => {
 			expect(names()).not.toContain('Marathon de Paris')
 			expect(counter(container)).toBe('1-10 of 24')
 			expect(statCard(container, 'Total Events')).toBe('24')
+		})
+
+		it('returns to the first page when an event of another page is deleted', async () => {
+			mocks.deleteEventAction.mockResolvedValue({ success: true })
+			await show()
+			await click(pager(container).last)
+
+			await openActions('Semi de Bordeaux')
+			await click(buttonNamed(document.body, 'Delete'))
+			await click(buttonNamed(openDialog(), 'Delete'))
+			expect(mocks.deleteEventAction).toHaveBeenCalledWith('evt_05')
+			expect(counter(container)).toBe('1-10 of 24')
 		})
 
 		it('keeps the row when the server refuses the deletion', async () => {

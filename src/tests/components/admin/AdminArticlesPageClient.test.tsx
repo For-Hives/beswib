@@ -30,6 +30,7 @@ import {
 	countReads,
 	dialogIsOpen,
 	headerCells,
+	headerWidths,
 	installDomShims,
 	labelled,
 	type MountedPage,
@@ -190,6 +191,12 @@ describe('AdminArticlesPageClient', () => {
 			])
 			// Without figures from the server: one language, published or not as the article is
 			expect(cellsOf(rowNamed(container, 'inscription : mode d’emploi'))[6]).toBe('🇫🇷1/90/1')
+		})
+
+		it('gives each column the width of its definition', async () => {
+			await show()
+
+			expect(headerWidths(container)).toEqual(['28px', '300px', '180px', '100px', '120px', '120px', '120px', '60px'])
 		})
 
 		it('counts the articles, published and drafts, above the table', async () => {

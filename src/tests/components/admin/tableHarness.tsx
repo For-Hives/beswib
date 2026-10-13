@@ -152,6 +152,10 @@ export function countReads<T extends object>(records: T[], key: keyof T & string
 export const headerCells = (container: HTMLElement): string[] =>
 	[...container.querySelectorAll('thead th')].map(th => text(th))
 
+/** The width each header asks for, from the size of its column */
+export const headerWidths = (container: HTMLElement): string[] =>
+	[...container.querySelectorAll<HTMLElement>('thead th')].map(th => th.style.width)
+
 export const bodyRows = (container: HTMLElement): HTMLTableRowElement[] => [
 	...container.querySelectorAll<HTMLTableRowElement>('tbody tr'),
 ]

@@ -19,6 +19,7 @@ import {
 	countReads,
 	dialogIsOpen,
 	headerCells,
+	headerWidths,
 	installDomShims,
 	labelled,
 	type MountedPage,
@@ -154,6 +155,12 @@ describe('AdminOrganizersPageClient', () => {
 				'Open menu',
 			])
 			expect(sortArrows(container)).toEqual({ [NAME]: 'asc' })
+		})
+
+		it('gives each column the width of its definition', async () => {
+			await show()
+
+			expect(headerWidths(container)).toEqual(['28px', '200px', '180px', '100px', '120px', '120px', '60px'])
 		})
 
 		it('counts the organizers and the partners above the table', async () => {
@@ -627,6 +634,17 @@ describe('AdminOrganizersPageClient', () => {
 			expect(counter(container)).toBe('1-10 of 23')
 			expect(selectedRowNames(container, NAME)).toEqual([])
 			expect(container.textContent).not.toContain('Delete Selected')
+		})
+
+		it('returns to the first page when rows are removed from another page', async () => {
+			await show()
+			await click(pager(container).next)
+			await click(rowBox(container, 'Kilomètre Vertical'))
+
+			await click(buttonNamed(container, 'Delete Selected1'))
+			await click(buttonNamed(openDialog(), 'Delete Selected'))
+			expect(counter(container)).toBe('1-10 of 24')
+			expect(names()[0]).toBe('Alpes Trail')
 		})
 
 		it('leaves the list alone when the removal is cancelled', async () => {
