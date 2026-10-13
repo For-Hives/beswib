@@ -1,6 +1,6 @@
 'use client'
 
-import { SignedIn, SignedOut, useClerk, useUser } from '@clerk/nextjs'
+import { Show, useClerk, useUser } from '@clerk/nextjs'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { LayoutDashboard, LogOut, Settings, ShoppingBag, Tag, User } from 'lucide-react'
@@ -122,11 +122,11 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 							<div className="text-foreground flex items-center">
 								<div className="flex items-center gap-4">
 									<ThemeToggle />
-									<SignedIn>
+									<Show when="signed-in">
 										{/* Dashboard Dropdown Menu 📊 */}
 										<DashboardDropdown locale={locale} />
-									</SignedIn>
-									<SignedOut>
+									</Show>
+									<Show when="signed-out">
 										<Link
 											href={`/${locale}/auth/sign-in`}
 											className="text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-sm font-medium transition-colors"
@@ -139,7 +139,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 										>
 											{t.navbar.signUp}
 										</Link>
-									</SignedOut>
+									</Show>
 									{/* Language Switcher */}
 									<LanguageSwitcher currentLocale={locale} currentPath={currentPath} className="mr-2" />
 								</div>
@@ -187,10 +187,10 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 						{/* Auth Section 🔒 */}
 						<div className="border-border border-t pt-4 pb-3">
 							<div className="flex flex-col space-y-2 px-2">
-								<SignedIn>
+								<Show when="signed-in">
 									<MobileDashboardLinks locale={locale} />
-								</SignedIn>
-								<SignedOut>
+								</Show>
+								<Show when="signed-out">
 									<Link
 										href={`/${locale}/auth/sign-in`}
 										className="text-muted-foreground hover:bg-accent hover:text-accent-foreground block w-full rounded-md px-3 py-2 text-left text-base font-medium transition-colors"
@@ -203,7 +203,7 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 									>
 										{t.navbar.signUp}
 									</Link>
-								</SignedOut>
+								</Show>
 							</div>
 						</div>
 					</div>

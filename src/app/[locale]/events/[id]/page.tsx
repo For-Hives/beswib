@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut } from '@clerk/nextjs'
+import { Show } from '@clerk/nextjs'
 import { auth } from '@clerk/nextjs/server'
 import { ArrowLeft, Bell } from 'lucide-react'
 import { DateTime } from 'luxon'
@@ -266,7 +266,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 								<h3 className="text-foreground mb-4 text-xl font-semibold">{t.event.bibs.noBibsAvailable}</h3>
 								<p className="text-muted-foreground mb-6">{t.event.waitlist.joinDescription}</p>
 
-								<SignedIn>
+								<Show when="signed-in">
 									<div className="mx-auto max-w-md space-y-3">
 										<div className="flex items-center gap-2">
 											<Bell className="h-5 w-5" />
@@ -279,8 +279,8 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 											locale={locale}
 										/>
 									</div>
-								</SignedIn>
-								<SignedOut>
+								</Show>
+								<Show when="signed-out">
 									{/* Non-authenticated user - email input or login options */}
 									<div className="mx-auto max-w-md space-y-4">
 										<form action={handleJoinWaitlist} className="space-y-4">
@@ -321,7 +321,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 											{t.event.waitlist.signInButton}
 										</Link>
 									</div>
-								</SignedOut>
+								</Show>
 							</div>
 						)}
 					</div>

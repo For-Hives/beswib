@@ -1,6 +1,6 @@
 'use client'
 
-import { SignedOut, useAuth } from '@clerk/nextjs'
+import { Show, useAuth } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import CustomSignIn from '@/components/auth/CustomSignIn'
@@ -30,10 +30,10 @@ export default function Page({ params }: { params: Promise<{ locale: string }> }
 	}
 
 	return (
-		<SignedOut>
+		<Show when="signed-out">
 			<AuthSplitScreen>
 				<CustomSignIn />
 			</AuthSplitScreen>
-		</SignedOut>
+		</Show>
 	)
 }

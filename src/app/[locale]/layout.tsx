@@ -1,6 +1,6 @@
 import { ConsentManagerDialog, ConsentManagerProvider, CookieBanner } from '@c15t/nextjs'
 import { ClerkProvider } from '@clerk/nextjs'
-import { shadcn } from '@clerk/themes'
+import { shadcn } from '@clerk/ui/themes'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Bowlby_One_SC, Geist, Geist_Mono } from 'next/font/google'
 import Script from 'next/script'
@@ -69,7 +69,7 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 	return (
 		<ClerkProvider
 			appearance={{
-				baseTheme: shadcn,
+				theme: shadcn,
 			}}
 			localization={clerkLocalization}
 			signInUrl={`/${locale}/sign-in`}

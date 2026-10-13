@@ -1,4 +1,4 @@
-import { Column, Img, Link, Section, Text } from '@react-email/components'
+import { Column, Img, Link, Section, Text } from 'react-email'
 import constantsLocales from '@/constants/locales.json'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
