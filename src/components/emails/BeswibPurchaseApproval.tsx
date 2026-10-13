@@ -1,16 +1,4 @@
-import {
-	Body,
-	Container,
-	Head,
-	Heading,
-	Html,
-	Img,
-	Link,
-	Preview,
-	Section,
-	Tailwind,
-	Text,
-} from '@react-email/components'
+import { Body, Container, Head, Heading, Html, Img, Link, Preview, Section, Tailwind, Text } from 'react-email'
 import constantsLocales from '@/constants/locales.json'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
