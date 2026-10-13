@@ -3,6 +3,7 @@
 import eventTranslations from '@/app/[locale]/events/[id]/locales.json'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { publicAssetDataUrl } from '@/lib/og/assets'
 import { getCurrencyForLocale } from '@/lib/utils/currency'
 import { formatDateWithLocale } from '@/lib/utils/date'
 import { getOrganizerImageUrl } from '@/lib/utils/images'
@@ -76,18 +77,13 @@ interface EventCardProps {
 	locale: Locale
 	organizer?: Organizer
 	exchangeRates?: Record<string, number> | null
-	host: string
-	protocol: string
+	/** No longer read: the placeholder comes from the disk. Kept so the callers stay as they are. */
+	host?: string
+	/** No longer read, see host. */
+	protocol?: string
 }
 
-export default function EventCard({
-	organizer,
-	locale,
-	exchangeRates,
-	event,
-	host,
-	protocol,
-}: Readonly<EventCardProps>) {
+export default function EventCard({ organizer, locale, exchangeRates, event }: Readonly<EventCardProps>) {
 	const t = getTranslations(locale, eventTranslations)
 
 	// Currency conversion for official price
@@ -107,7 +103,7 @@ export default function EventCard({
 	// Get organizer image URL and ensure it's absolute for OG image
 	const organizerImageUrl = getOrganizerImageUrl(organizer, event.id)
 	const absoluteImageUrl = organizerImageUrl.startsWith('/')
-		? `${protocol}//${host}${organizerImageUrl}`
+		? publicAssetDataUrl(organizerImageUrl.slice(1))
 		: organizerImageUrl
 
 	return (

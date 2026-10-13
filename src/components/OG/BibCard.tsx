@@ -2,6 +2,7 @@
 import marketplaceTranslations from '@/app/[locale]/marketplace/locales.json'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { publicAssetDataUrl } from '@/lib/og/assets'
 import { getCurrencyForLocale } from '@/lib/utils/currency'
 import { formatDateWithLocale } from '@/lib/utils/date'
 import { getOrganizerImageUrl } from '@/lib/utils/images'
@@ -87,8 +88,10 @@ interface BibCardProps {
 	locale: Locale
 	organizer?: Organizer
 	exchangeRates?: Record<string, number> | null
-	host: string
-	protocol: string
+	/** No longer read: the placeholder comes from the disk. Kept so the callers stay as they are. */
+	host?: string
+	/** No longer read, see host. */
+	protocol?: string
 }
 
 // OpenGraph-compatible price formatting (avoids special characters that need dynamic fonts)
@@ -126,7 +129,7 @@ function convertPriceWithFallback(
 	return formatPriceForOG(converted, currency)
 }
 
-export default function BibCard({ organizer, locale, exchangeRates, bib, host, protocol }: Readonly<BibCardProps>) {
+export default function BibCard({ organizer, locale, exchangeRates, bib }: Readonly<BibCardProps>) {
 	const event = getEventFromBib(bib)
 	const user = getUserFromBib(bib)
 	const t = getTranslations(locale, marketplaceTranslations)
@@ -152,7 +155,7 @@ export default function BibCard({ organizer, locale, exchangeRates, bib, host, p
 	// Get organizer image URL and ensure it's absolute for OG image
 	const organizerImageUrl = getOrganizerImageUrl(organizer, bib.id)
 	const absoluteImageUrl = organizerImageUrl.startsWith('/')
-		? `${protocol}//${host}${organizerImageUrl}`
+		? publicAssetDataUrl(organizerImageUrl.slice(1))
 		: organizerImageUrl
 
 	return (
