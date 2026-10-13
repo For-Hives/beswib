@@ -8,10 +8,13 @@ env:
   PAYPAL_CLIENT_SECRET: ${{ secrets.PAYPAL_CLIENT_SECRET }}
   PAYPAL_BN_CODE: ${{ secrets.PAYPAL_BN_CODE }}
 
+# Pull requests, and main itself: a commit pushed straight to main that breaks
+# the checks used to stay unseen and turn every later pull request red.
 on:
   pull_request:
+  push:
     branches:
-      - '*'
+      - main
 
 jobs:
   build-test:
@@ -19,25 +22,23 @@ jobs:
 
     permissions:
       contents: read
-      pull-requests: write
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: 'Install Node'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '24.x'
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
-          version: 10.11.01
+          version: 10.22.0
           run_install: |
             - recursive: true
               args: [--frozen-lockfile]
-            - args: [--global, gulp, prettier, vitest]
       - name: 'Typescript Check'
         run: pnpm tsc
-      - name: 'Lint Code'
-        run: pnpm lint
+      - name: 'Biome Checks'
+        run: pnpm check
       - name: 'Run Tests'
         run: pnpm test:run
       - name: 'Build Project'
