@@ -30,8 +30,10 @@ import {
 	counter,
 	countReads,
 	dialogIsOpen,
+	dialogTexts,
 	headerCells,
 	headerWidths,
+	heldBack,
 	installDomShims,
 	labelled,
 	type MountedPage,
@@ -735,6 +737,47 @@ describe('AdminArticlesPageClient', () => {
 			expect(error).toHaveBeenCalledWith('Failed to delete article:', 'nope')
 			expect(titles()).toContain('Objectif 10 km')
 			expect(counter(container)).toBe('1-10 of 25')
+		})
+
+		// A row is its position in the list received, and its cells stay in place from one render to the next. Once
+		// "Calendrier des courses 2026" is gone, the row of "Débuter le trail" holds "Équipement en ultra": whatever was
+		// left open on that row must not carry over to the article that takes its place.
+		it('closes the dialog of a row when a deletion still on its way puts another article under it', async () => {
+			const deletion = heldBack<{ success: boolean }>()
+			mocks.deleteArticleAction.mockReturnValue(deletion.promise)
+			await show()
+			await openActions('Calendrier des courses 2026')
+			await click(buttonNamed(document.body, 'Delete'))
+			await click(buttonNamed(openDialog(), 'Delete'))
+
+			await openActions('Débuter le trail')
+			await click(buttonNamed(document.body, 'Delete'))
+			expect(openDialog().textContent).toContain('This will permanently delete "Débuter le trail".')
+
+			await deletion.answer({ success: true })
+			expect(titles()).not.toContain('Calendrier des courses 2026')
+			expect(titles()).toContain('Équipement en ultra')
+			// Left open, it would name "Équipement en ultra" and its button would delete that article
+			expect(dialogTexts()).toEqual([])
+		})
+
+		it('closes the dialog of a row when the list of every language arrives under it', async () => {
+			// The translations come in between the French articles: in the complete list, the position "Débuter le trail"
+			// has in the French one belongs to "Calendrier des courses 2026"
+			const everyLanguage = articles()
+			await show(everyLanguage.filter(article => article.locale === 'fr'))
+			const complete = heldBack<{ success: boolean; data: ArticleRow[] }>()
+			mocks.getAllArticlesAction.mockReturnValue(complete.promise)
+			await click(buttonNamed(container, 'Show all languages'))
+
+			await openActions('Débuter le trail')
+			await click(buttonNamed(document.body, 'Delete'))
+			expect(openDialog().textContent).toContain('This will permanently delete "Débuter le trail".')
+
+			await complete.answer({ success: true, data: everyLanguage })
+			expect(counter(container)).toBe('1-10 of 25')
+			expect(titles()).toContain('Calendrier des courses 2026')
+			expect(dialogTexts()).toEqual([])
 		})
 	})
 

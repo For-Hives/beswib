@@ -218,7 +218,9 @@ export default function AdminOrganizersPageClient({ locale, currentUser }: Reado
 				header: () => <span className="sr-only">{t.organizers.actionsLabels.openMenu}</span>,
 				enableSorting: false,
 				enableHiding: false,
-				cell: ({ row }) => <RowActions row={row} t={t} />,
+				// A row is its position in the data, and its cells are kept from one render to the next: without the key, a
+				// menu or a dialog left open would stay on the row and act on the organizer that takes its place after a removal
+				cell: ({ row }) => <RowActions key={row.original.id} row={row} t={t} />,
 			},
 		],
 		[t, locale]

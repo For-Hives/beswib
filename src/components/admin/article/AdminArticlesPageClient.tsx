@@ -367,7 +367,10 @@ export default function AdminArticlesPageClient({ locale, currentUser }: AdminAr
 				enableHiding: false,
 				enableSorting: false,
 				header: () => <span className="sr-only">{t.articles.table.columns.actions}</span>,
-				cell: ({ row }) => <RowActions row={row} t={t} />,
+				// A row is its position in the data, and its cells are kept from one render to the next: without the key, a
+				// menu or a dialog left open would stay on the row and act on the article that takes its place after a
+				// deletion or a change of language
+				cell: ({ row }) => <RowActions key={row.original.id} row={row} t={t} />,
 			},
 		],
 		[t, locale]

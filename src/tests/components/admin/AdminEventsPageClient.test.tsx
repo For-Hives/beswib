@@ -31,8 +31,10 @@ import {
 	counter,
 	countReads,
 	dialogIsOpen,
+	dialogTexts,
 	headerCells,
 	headerWidths,
+	heldBack,
 	installDomShims,
 	labelled,
 	type MountedPage,
@@ -41,6 +43,7 @@ import {
 	mountFromServer,
 	openDialog,
 	openMenu,
+	pageIsBlocked,
 	pager,
 	pagerDisabled,
 	pageSize,
@@ -811,6 +814,50 @@ describe('AdminEventsPageClient', () => {
 			expect(error).toHaveBeenCalledWith('Failed to delete event:', 'nope')
 			expect(names()).toContain('Marathon de Paris')
 			expect(counter(container)).toBe('1-10 of 25')
+		})
+
+		// A row is its position in the list received, and its cells stay in place from one render to the next. Once
+		// "Marathon de Paris" is gone, the row of "Trail des Vosges 9" holds "Trail des Vosges 10": whatever was left
+		// open on that row must not carry over to the event that takes its place.
+		it('closes the dialog of a row when a deletion still on its way puts another event under it', async () => {
+			const deletion = heldBack<{ success: boolean }>()
+			mocks.deleteEventAction.mockReturnValue(deletion.promise)
+			await show()
+			await openActions('Marathon de Paris')
+			await click(buttonNamed(document.body, 'Delete'))
+			await click(buttonNamed(openDialog(), 'Delete'))
+
+			await openActions('Trail des Vosges 9')
+			await click(buttonNamed(document.body, 'Delete'))
+			expect(openDialog().textContent).toContain('This will permanently delete "Trail des Vosges 9".')
+			expect(pageIsBlocked()).toBe(true)
+
+			await deletion.answer({ success: true })
+			expect(names()).not.toContain('Marathon de Paris')
+			expect(names()).toContain('Trail des Vosges 10')
+			// Left open, it would name "Trail des Vosges 10" and its button would delete that event
+			expect(dialogTexts()).toEqual([])
+			// The dialog went without being closed by the admin: the page must be handed back all the same
+			expect(pageIsBlocked()).toBe(false)
+		})
+
+		it('closes the menu of a row as well when another event comes under it', async () => {
+			const deletion = heldBack<{ success: boolean }>()
+			mocks.deleteEventAction.mockReturnValue(deletion.promise)
+			await show()
+			await openActions('Marathon de Paris')
+			await click(buttonNamed(document.body, 'Delete'))
+			await click(buttonNamed(openDialog(), 'Delete'))
+
+			await openActions('Trail des Vosges 9')
+			expect(menuEntries()).toHaveLength(3)
+			expect(pageIsBlocked()).toBe(true)
+
+			await deletion.answer({ success: true })
+			expect(names()).toContain('Trail des Vosges 10')
+			// Left open, its Edit entry would lead to "Trail des Vosges 10"
+			expect(menuEntries().map(entry => entry.textContent)).toEqual([])
+			expect(pageIsBlocked()).toBe(false)
 		})
 	})
 

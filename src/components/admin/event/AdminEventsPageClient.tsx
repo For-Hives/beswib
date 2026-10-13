@@ -326,7 +326,9 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 				header: () => <span className="sr-only">{t.events.table.columns.actions}</span>,
 				enableSorting: false,
 				enableHiding: false,
-				cell: ({ row }) => <RowActions row={row} t={t} />,
+				// A row is its position in the data, and its cells are kept from one render to the next: without the key, a
+				// menu or a dialog left open would stay on the row and act on the event that takes its place after a deletion
+				cell: ({ row }) => <RowActions key={row.original.id} row={row} t={t} />,
 			},
 		],
 		[t, locale]

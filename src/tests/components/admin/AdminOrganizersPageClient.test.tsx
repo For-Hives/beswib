@@ -20,6 +20,7 @@ import {
 	counter,
 	countReads,
 	dialogIsOpen,
+	dialogTexts,
 	headerCells,
 	headerWidths,
 	installDomShims,
@@ -719,6 +720,24 @@ describe('AdminOrganizersPageClient', () => {
 			expect(warn).toHaveBeenCalledWith('Delete organizer:', 'org_07')
 			expect(dialogIsOpen()).toBe(false)
 			expect(counter(container)).toBe('1-10 of 25')
+		})
+
+		it('closes the dialog of a row when a removal puts another organizer under it', async () => {
+			// A row is its position in the list received, and its cells stay in place from one render to the next. Once
+			// "Alpes Trail" is gone, the row of "Courir à Lyon" holds "Dijon Run". Nothing waits for the server on this
+			// list, and a pointer cannot reach the removal button behind a dialog: the test does, so that the row actions
+			// already belong to the organizer the day its deletion is wired like the one of events and articles.
+			await show()
+			await click(rowBox(container, 'Alpes Trail'))
+			await openActions('Courir à Lyon')
+			await click(buttonNamed(document.body, 'Delete'))
+			expect(openDialog().textContent).toContain('This will permanently delete "Courir à Lyon"')
+
+			await click(buttonNamed(container, 'Delete Selected1'))
+			await click(buttonNamed(document.body, 'Delete Selected'))
+			expect(names()).not.toContain('Alpes Trail')
+			expect(names()).toContain('Dijon Run')
+			expect(dialogTexts()).toEqual([])
 		})
 	})
 

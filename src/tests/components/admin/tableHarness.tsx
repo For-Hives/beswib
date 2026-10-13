@@ -46,6 +46,28 @@ export async function settle(ms = 0): Promise<void> {
 	})
 }
 
+export interface HeldBack<T> {
+	/** What the mocked server action returns */
+	promise: Promise<T>
+	/** Gives the answer, and lets the page react to it */
+	answer: (value: T) => Promise<void>
+}
+
+/** A server answer that only arrives when the test says so: what the admin does meanwhile happens on the old list */
+export function heldBack<T>(): HeldBack<T> {
+	let resolve: (value: T) => void = () => {}
+	const promise = new Promise<T>(resolver => {
+		resolve = resolver
+	})
+	return {
+		promise,
+		answer: async value => {
+			await act(async () => resolve(value))
+			await settle()
+		},
+	}
+}
+
 export async function mount(page: ReactElement): Promise<MountedPage> {
 	const container = document.createElement('div')
 	document.body.appendChild(container)
@@ -307,3 +329,14 @@ export const openDialog = (): HTMLElement =>
 	required(document.body.querySelector<HTMLElement>('[role="alertdialog"]'), 'confirmation dialog')
 
 export const dialogIsOpen = (): boolean => document.body.querySelector('[role="alertdialog"]') != null
+
+/** What each confirmation dialog on screen says: none when they are all closed */
+export const dialogTexts = (): string[] =>
+	[...document.body.querySelectorAll('[role="alertdialog"]')].map(dialog => text(dialog))
+
+/**
+ * An open dialog or menu keeps the rest of the page out of reach of the pointer and of the wheel. True as long as
+ * one does: a page still blocked once they are all gone could not be used any more.
+ */
+export const pageIsBlocked = (): boolean =>
+	document.body.style.pointerEvents === 'none' || document.body.hasAttribute('data-scroll-locked')
