@@ -511,7 +511,7 @@ export const EVENTS = {
 			listing: oneOf(LISTINGS),
 		},
 	},
-	/** A step of the purchase failed: lock, order creation, PayPal SDK or capture. kind=lock_expired is the server refusal at capture; purchase_lock_expire is the client timer. */
+	/** A step of the purchase failed: lock, order creation, PayPal SDK or capture. kind=lock_expired is the server refusal at capture; purchase_lock_expire is the client timer. kind=locked_by_other is a lock that another buyer really holds. kind=bib_not_found at lock, order or capture: the server does not sell this bib to this visitor (private link replaced by the seller, bib not listed any more). step=lock with kind=unauthenticated: the server had no session for a buyer the browser showed as signed in. */
 	purchase_error: {
 		side: 'client',
 		props: {
@@ -552,7 +552,7 @@ export const EVENTS = {
 			action: oneOf(['dismiss', 'restart_payment', 'try_again']),
 		},
 	},
-	/** PayPal confirmed the capture of the buyer's payment: the money truth, independent of ad-blockers and closed tabs. listing is always public today (captureOrder loads the bib with fetchPublicBibById, so a private bib fails before capture: see ownerNotes). */
+	/** PayPal confirmed the capture of the buyer's payment: the money truth, independent of ad-blockers and closed tabs. listing=private: a bib bought through its private link (captureOrder checks the token of the link again; without it the buyer gets purchase_error{step=capture, kind=bib_not_found}). */
 	payment_capture_success: {
 		side: 'server',
 		props: {

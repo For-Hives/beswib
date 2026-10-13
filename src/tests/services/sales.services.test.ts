@@ -46,7 +46,7 @@ describe('sales.services', () => {
 				originalPrice: 80,
 				optionValues: {},
 				lockedAt: null,
-				listed: null,
+				listed: 'public',
 				id: 'bib1',
 				expand: {
 					sellerUserId: {
@@ -117,7 +117,7 @@ describe('sales.services', () => {
 				originalPrice: 80,
 				optionValues: {},
 				lockedAt: null,
-				listed: null,
+				listed: 'public',
 				id: 'bib1',
 				expand: {
 					sellerUserId: {
@@ -165,6 +165,112 @@ describe('sales.services', () => {
 			)
 			/* eslint-enable @typescript-eslint/no-unsafe-assignment */
 			expect(result).toEqual({ transaction: { paypal_order_id: 'ORDER-123', id: 'tx1' }, orderId: 'ORDER-123' })
+		})
+
+		describe('private listing', () => {
+			const privateBib = {
+				validated: true,
+				status: 'available',
+				sellerUserId: 'seller_pb',
+				registrationNumber: 'REG',
+				privateListingToken: 'private-token-abc',
+				price: 100,
+				originalPrice: 80,
+				optionValues: {},
+				lockedAt: null,
+				listed: 'private',
+				id: 'bib1',
+				expand: {
+					sellerUserId: { lastName: 'Doe', id: 'seller_pb', firstName: 'John' },
+					eventId: {
+						typeCourse: 'road',
+						participants: 30000,
+						name: 'Paris Marathon 2025',
+						location: 'Paris, France',
+						id: 'event1',
+						eventDate: '2025-04-06',
+						distanceKm: 42.2,
+					},
+				},
+				eventId: 'event1',
+			}
+
+			beforeEach(() => {
+				asMock(fetchBibById).mockResolvedValue(privateBib)
+				asMock(createOrder).mockResolvedValue({ id: 'ORDER-123' })
+				asMock(fetchUserByClerkId).mockResolvedValue({ id: 'buyer_pb' } as unknown as User)
+				asMock(createTransaction).mockResolvedValue({
+					paypal_order_id: 'ORDER-123',
+					id: 'tx1',
+				} as unknown as Transaction)
+			})
+
+			it('creates the order for the holder of the token', async () => {
+				const result = await salesCreate({
+					sellerMerchantId: 'MERCHANT-XYZ',
+					privateToken: 'private-token-abc',
+					buyerUserId: 'clerk_buyer',
+					bibId: 'bib1',
+				})
+
+				expect(createOrder).toHaveBeenCalledTimes(1)
+				expect(createTransaction).toHaveBeenCalledWith(expect.objectContaining({ bib_id: 'bib1' }))
+				expect(result).toEqual({ transaction: { paypal_order_id: 'ORDER-123', id: 'tx1' }, orderId: 'ORDER-123' })
+			})
+
+			it.each([
+				['no token', undefined],
+				['a null token', null],
+				['an empty token', ''],
+				['a wrong token', 'private-token-abd'],
+			])('refuses with %s, like a bib that does not exist', async (_label, privateToken) => {
+				await expect(
+					salesCreate({ sellerMerchantId: 'MERCHANT-XYZ', privateToken, buyerUserId: 'clerk_buyer', bibId: 'bib1' })
+				).rejects.toThrow('Bib not found')
+
+				expect(createOrder).not.toHaveBeenCalled()
+				expect(createTransaction).not.toHaveBeenCalled()
+			})
+		})
+
+		// The capture only goes through for a public listing, or a private one with its token: the order
+		// of any other bib must not exist. The first two cases of this file ran on a bib with listed: null
+		// until order creation applied that rule too
+		describe('bib that is not listed', () => {
+			it.each([
+				['null', null],
+				['empty, as PocketBase answers for a field never set', ''],
+			])('refuses when the visibility is %s, with or without a token', async (_label, listed) => {
+				asMock(fetchBibById).mockResolvedValue({
+					validated: true,
+					status: 'available',
+					sellerUserId: 'seller_pb',
+					registrationNumber: 'REG',
+					// Left over from the time the listing was private
+					privateListingToken: 'private-token-abc',
+					price: 100,
+					originalPrice: 80,
+					optionValues: {},
+					lockedAt: null,
+					listed,
+					id: 'bib1',
+					expand: {
+						sellerUserId: { lastName: 'Doe', id: 'seller_pb', firstName: 'John' },
+						eventId: { typeCourse: 'road', name: 'Paris Marathon 2025', id: 'event1', eventDate: '2025-04-06' },
+					},
+					eventId: 'event1',
+				})
+				asMock(createOrder).mockResolvedValue({ id: 'ORDER-123' })
+
+				for (const privateToken of [undefined, 'private-token-abc']) {
+					await expect(
+						salesCreate({ sellerMerchantId: 'MERCHANT-XYZ', privateToken, buyerUserId: 'clerk_buyer', bibId: 'bib1' })
+					).rejects.toThrow('Bib not found')
+				}
+
+				expect(createOrder).not.toHaveBeenCalled()
+				expect(createTransaction).not.toHaveBeenCalled()
+			})
 		})
 	})
 
