@@ -2,7 +2,7 @@
 
 import { DateTime } from 'luxon'
 import { pb } from '@/lib/services/pocketbase'
-import { isPrivateListingToken } from '@/lib/services/privateListing'
+import { isPrivateListingToken, isPurchasableListing } from '@/lib/services/privateListing'
 import { pbDateToLuxon } from '@/lib/utils/date'
 import { isSellerProfileComplete } from '@/lib/validation/user'
 import type { Bib } from '@/models/bib.model'
@@ -419,16 +419,8 @@ export async function fetchPurchasableBibById(
 			return null
 		}
 
-		if (record.listed === 'public') {
-			return record
-		}
-
-		// A private listing is sold to the holder of its token only
-		if (record.listed === 'private' && isPrivateListingToken(record.privateListingToken, privateToken)) {
-			return record
-		}
-
-		return null
+		// A private listing is sold to the holder of its token only, a bib that is not listed to nobody
+		return isPurchasableListing(record, privateToken) ? record : null
 	} catch (error: unknown) {
 		throw new Error(`Error fetching bib with ID "${bibId}": ${error instanceof Error ? error.message : String(error)}`)
 	}

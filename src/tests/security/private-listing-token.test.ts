@@ -8,7 +8,7 @@ vi.mock('node:crypto', async importOriginal => {
 })
 
 import { timingSafeEqual } from 'node:crypto'
-import { isPrivateListingToken } from '@/lib/services/privateListing'
+import { isPrivateListingToken, isPurchasableListing } from '@/lib/services/privateListing'
 
 const TOKEN = 'Zq7Lm2Xc9Vb4Nk8Jh5Gf1Ds6Ap3Wo0Ei'
 
@@ -64,5 +64,33 @@ describe('isPrivateListingToken', () => {
 		expect(isPrivateListingToken(expected, undefined)).toBe(false)
 		expect(isPrivateListingToken(expected, null)).toBe(false)
 		expect(isPrivateListingToken(expected, TOKEN)).toBe(false)
+	})
+})
+
+// The one rule that the lock, the order creation and the capture apply to the listing of a bib
+describe('isPurchasableListing', () => {
+	it('sells a public listing to anyone, with or without a token', () => {
+		expect(isPurchasableListing({ listed: 'public' }, undefined)).toBe(true)
+		expect(isPurchasableListing({ privateListingToken: TOKEN, listed: 'public' }, 'anything')).toBe(true)
+	})
+
+	it('sells a private listing to the holder of its token only', () => {
+		const listing = { privateListingToken: TOKEN, listed: 'private' } as const
+
+		expect(isPurchasableListing(listing, TOKEN)).toBe(true)
+		expect(isPurchasableListing(listing, undefined)).toBe(false)
+		expect(isPurchasableListing(listing, `${TOKEN.slice(0, -1)}j`)).toBe(false)
+		expect(isPurchasableListing({ listed: 'private' }, '')).toBe(false)
+	})
+
+	it.each([
+		['null', null],
+		['empty', ''],
+		['unknown', 'draft'],
+	])('sells a bib whose visibility is %s to nobody, not even with the token it kept', (_label, listed) => {
+		const listing = { privateListingToken: TOKEN, listed } as Parameters<typeof isPurchasableListing>[0]
+
+		expect(isPurchasableListing(listing, undefined)).toBe(false)
+		expect(isPurchasableListing(listing, TOKEN)).toBe(false)
 	})
 })

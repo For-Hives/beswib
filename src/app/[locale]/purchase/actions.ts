@@ -90,6 +90,9 @@ export async function lockBibForPurchase(
 
 /**
  * Tells the signed-in buyer whether a bib is free, locked by them (lockKey) or locked by someone else.
+ * A refusal is not answered as a lock, which tells the buyer to try again later: 'unauthenticated' when
+ * the server has no session for the caller, 'unavailable' when this is not a bib they may buy (a private
+ * listing without its token, a bib that is not listed).
  * @param bibId The ID of the bib to check.
  * @param lockKey The lock time the buyer got from lockBibForPurchase, if any.
  * @param privateToken The token of the private link the buyer came through, if any.
@@ -98,13 +101,14 @@ export async function checkPurchaseLock(
 	bibId: string,
 	lockKey: string = '',
 	privateToken: string | null = null
-): Promise<'locked' | 'unlocked' | 'userlocked'> {
+): Promise<'locked' | 'unlocked' | 'userlocked' | 'unauthenticated' | 'unavailable'> {
 	const { userId } = await auth()
-	if (userId == null || userId === '' || !bibId) return 'locked'
+	if (userId == null || userId === '') return 'unauthenticated'
+	if (!bibId) return 'unavailable'
 
-	// Not a bib this visitor may buy: nothing to tell them, and no expired lock to clear for them
+	// Not a bib this visitor may buy: nothing about its lock to tell them, and no expired lock to clear for them
 	const bib = await fetchPurchasableBibById(bibId, privateToken)
-	if (!bib) return 'locked'
+	if (!bib) return 'unavailable'
 
 	return isLocked(bib.id, lockKey)
 }

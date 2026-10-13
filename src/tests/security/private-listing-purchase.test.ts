@@ -372,11 +372,13 @@ describe('buying a private listing', () => {
 			expect(stored.lockedAt).toBe('')
 		})
 
-		it('does not lock, and tells nothing, for a visitor who is not signed in', async () => {
+		it('does not lock, and tells nothing about the bib, for a visitor who is not signed in', async () => {
 			vi.mocked(auth).mockResolvedValue({ userId: null } as Awaited<ReturnType<typeof auth>>)
 
 			expect(await lockBibForPurchase(stored.id, TOKEN)).toBeNull()
-			expect(await checkPurchaseLock(stored.id, '', TOKEN)).toBe('locked')
+			// Not "locked": nobody else is buying the bib, the buyer has to sign in again
+			expect(await checkPurchaseLock(stored.id, '', TOKEN)).toBe('unauthenticated')
+			expect(await checkPurchaseLock(stored.id, '', WRONG_TOKEN)).toBe('unauthenticated')
 			expect(mockPocketbaseCollection.getOne).not.toHaveBeenCalled()
 			expect(mockPocketbaseCollection.update).not.toHaveBeenCalled()
 		})
@@ -391,13 +393,36 @@ describe('buying a private listing', () => {
 			expect(await checkPurchaseLock(stored.id, '', TOKEN)).toBe('locked')
 		})
 
-		it('says "locked" to anyone else, and leaves the lock alone', async () => {
+		it('says "unavailable" to anyone else, whatever the lock is, and leaves the lock alone', async () => {
 			store(bibRecord('private', { lockedAt: dateToPbDateString(new Date(Date.now() - 6 * 60_000)) }))
 
-			expect(await checkPurchaseLock(stored.id, lockKey)).toBe('locked')
-			expect(await checkPurchaseLock(stored.id, lockKey, WRONG_TOKEN)).toBe('locked')
+			expect(await checkPurchaseLock(stored.id, lockKey)).toBe('unavailable')
+			expect(await checkPurchaseLock(stored.id, lockKey, WRONG_TOKEN)).toBe('unavailable')
 			// isLocked would have cleared this expired lock
 			expect(mockPocketbaseCollection.update).not.toHaveBeenCalled()
+
+			// The same answer when the bib is free and when someone holds it: the lock is not theirs to know
+			stored = { ...stored, lockedAt: '' }
+			expect(await checkPurchaseLock(stored.id, '', WRONG_TOKEN)).toBe('unavailable')
+			stored = { ...stored, lockedAt: dateToPbDateString(new Date(Date.now() - 30_000)) }
+			expect(await checkPurchaseLock(stored.id, '', WRONG_TOKEN)).toBe('unavailable')
+		})
+
+		it('says "unavailable", not "locked", once the seller has replaced the link the buyer opened', async () => {
+			expect(await checkPurchaseLock(stored.id, '', TOKEN)).toBe('unlocked')
+			stored = { ...stored, privateListingToken: REGENERATED_TOKEN }
+
+			// "locked" would tell the buyer to try again later, and that can never work with this link
+			expect(await checkPurchaseLock(stored.id, '', TOKEN)).toBe('unavailable')
+			expect(await lockBibForPurchase(stored.id, TOKEN)).toBeNull()
+			expect(await checkPurchaseLock(stored.id, '', REGENERATED_TOKEN)).toBe('unlocked')
+		})
+
+		it('still says "locked" to the holder of the token while another buyer holds the bib', async () => {
+			store(bibRecord('private'))
+
+			expect(await checkPurchaseLock(stored.id, '', TOKEN)).toBe('locked')
+			expect(await lockBibForPurchase(stored.id, TOKEN)).toBeNull()
 		})
 	})
 
@@ -542,6 +567,49 @@ describe('buying a public listing, as before', () => {
 		pendingTransaction()
 
 		expect(await captureOrder(ORDER_ID, lockKey)).toEqual({ errorKind: 'bib_not_found', error: 'Bib not found.' })
+		expect(capturePayment).not.toHaveBeenCalled()
+	})
+
+	it('tells a buyer whose session ended to sign in again, not that someone else is buying the bib', async () => {
+		store(bibRecord('public', { lockedAt: '' }))
+		vi.mocked(auth).mockResolvedValue({ userId: null } as Awaited<ReturnType<typeof auth>>)
+
+		expect(await checkPurchaseLock(stored.id, '')).toBe('unauthenticated')
+		expect(await lockBibForPurchase(stored.id)).toBeNull()
+		expect(mockPocketbaseCollection.getOne).not.toHaveBeenCalled()
+		expect(stored.lockedAt).toBe('')
+	})
+})
+
+describe('a bib that is not listed', () => {
+	// The lock, the order and the capture apply one rule: an order that the capture would refuse is
+	// never created, so no buyer approves a payment that cannot go through
+	it.each([
+		['null', null],
+		// What PocketBase answers for a select field that was never set
+		['empty', '' as unknown as Bib['listed']],
+	])('is refused at every step when its visibility is %s, token or not', async (_label, listed) => {
+		// The token a listing keeps from the time it was private opens nothing
+		store(bibRecord(listed, { privateListingToken: TOKEN, lockedAt: '' }))
+		pendingTransaction()
+
+		for (const token of [undefined, TOKEN]) {
+			expect(await checkPurchaseLock(stored.id, '', token)).toBe('unavailable')
+			expect(await lockBibForPurchase(stored.id, token)).toBeNull()
+
+			const order = await createSale(stored.id, MERCHANT_ID, 'fr', token)
+			expect(order.success).toBe(false)
+			expect(order).not.toHaveProperty('orderId')
+
+			expect(await captureOrder(ORDER_ID, lockKey, token)).toEqual({
+				errorKind: 'bib_not_found',
+				error: 'Bib not found.',
+			})
+		}
+
+		expect(stored.lockedAt).toBe('')
+		expect(createOrder).not.toHaveBeenCalled()
+		expect(createTransaction).not.toHaveBeenCalled()
 		expect(capturePayment).not.toHaveBeenCalled()
 	})
 })

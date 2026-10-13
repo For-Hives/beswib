@@ -7,9 +7,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 // src/tests/security/private-listing-purchase.test.ts). This file proves the other half: the page
 // hands the token of the link to each of those steps, and to nothing else.
 
-const { actions, push, track, trackView } = vi.hoisted(() => ({
+const { actions, push, refresh, track, trackView } = vi.hoisted(() => ({
 	trackView: vi.fn(),
 	track: vi.fn(),
+	refresh: vi.fn(),
 	push: vi.fn(),
 	actions: {
 		lockBibForPurchase: vi.fn(),
@@ -22,7 +23,7 @@ const { actions, push, track, trackView } = vi.hoisted(() => ({
 vi.mock('@/app/[locale]/purchase/actions', () => actions)
 vi.mock('@/lib/analytics/client', () => ({ trackView, track }))
 vi.mock('@clerk/nextjs', () => ({ useUser: () => ({ isSignedIn: true, isLoaded: true }) }))
-vi.mock('next/navigation', () => ({ useRouter: () => ({ push }) }))
+vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh, push }) }))
 vi.mock('sonner', () => ({ toast: { info: vi.fn(), error: vi.fn() } }))
 vi.mock('@/lib/validation/user', () => ({ isUserProfileComplete: () => true }))
 // The lockedAt parameter of the URL, kept in memory
@@ -74,6 +75,7 @@ vi.mock('@/components/marketplace/EventWaitlistCard', () => ({ EventWaitlistCard
 vi.mock('@/components/marketplace/TokenValidation', () => ({ default: () => <div data-testid="token-form" /> }))
 vi.mock('@/components/analytics/TrackView', () => ({ TrackView: () => null }))
 
+import { toast } from 'sonner'
 import MarketplaceItemClient from '@/app/[locale]/marketplace/[id]/MarketplaceItemClient'
 import type { Event } from '@/models/event.model'
 import type { BibSale } from '@/models/marketplace.model'
@@ -221,5 +223,63 @@ describe('bib page of a public listing', () => {
 		await buyThroughToCapture()
 
 		expect(inspect(Object.values(actions).map(action => action.mock.calls))).not.toContain(TOKEN)
+	})
+})
+
+// The lock check refuses before it looks at the lock when the server has no session, or when the bib
+// is not one this visitor may buy. Neither is a lock held by another buyer, and neither says so
+describe('Buy click that the server refuses', () => {
+	const lockErrors = () =>
+		track.mock.calls.filter(([name]) => name === 'purchase_error').map(([, props]) => props as Record<string, unknown>)
+
+	it('says the link no longer works, and shows the page as the server sees it, when the bib is not for this visitor', async () => {
+		// The seller replaced the private link after the buyer opened it
+		actions.checkPurchaseLock.mockResolvedValue('unavailable')
+		renderBibPage({ isPrivate: true, initialToken: TOKEN })
+		await click('buy')
+
+		expect(lockErrors()).toEqual([expect.objectContaining({ step: 'lock', listing: 'private', kind: 'bib_not_found' })])
+		expect(toast.error).toHaveBeenCalledExactlyOnceWith(expect.stringMatching(/introuvable/))
+		expect(refresh).toHaveBeenCalledTimes(1)
+		// Nothing was locked and nothing can be paid
+		expect(actions.lockBibForPurchase).not.toHaveBeenCalled()
+		expect(container.querySelector('[data-testid="pay"]')).toBeNull()
+		expect(inspect([track.mock.calls, vi.mocked(toast.error).mock.calls, push.mock.calls])).not.toContain(TOKEN)
+	})
+
+	it('asks to sign in again when the server has no session, on a public listing too', async () => {
+		actions.checkPurchaseLock.mockResolvedValue('unauthenticated')
+		renderBibPage({ isPrivate: false })
+		await click('buy')
+
+		expect(lockErrors()).toEqual([
+			expect.objectContaining({ step: 'lock', listing: 'public', kind: 'unauthenticated' }),
+		])
+		expect(toast.error).toHaveBeenCalledExactlyOnceWith(expect.stringMatching(/session/))
+		// The page is right, only the session is not: nothing to render again
+		expect(refresh).not.toHaveBeenCalled()
+		expect(actions.lockBibForPurchase).not.toHaveBeenCalled()
+		expect(container.querySelector('[data-testid="pay"]')).toBeNull()
+	})
+
+	it('keeps "locked by another user" for a bib that another buyer does hold', async () => {
+		actions.checkPurchaseLock.mockResolvedValue('locked')
+		renderBibPage({ isPrivate: true, initialToken: TOKEN })
+		await click('buy')
+
+		expect(lockErrors()).toEqual([expect.objectContaining({ step: 'lock', kind: 'locked_by_other' })])
+		expect(toast.error).toHaveBeenCalledExactlyOnceWith(expect.stringMatching(/locked by another user/))
+		expect(refresh).not.toHaveBeenCalled()
+		expect(actions.lockBibForPurchase).not.toHaveBeenCalled()
+	})
+
+	it('treats an answer it does not know as a lock, never as a free bib', async () => {
+		actions.checkPurchaseLock.mockResolvedValue('something else')
+		renderBibPage({ isPrivate: false })
+		await click('buy')
+
+		expect(lockErrors()).toEqual([expect.objectContaining({ step: 'lock', kind: 'locked_by_other' })])
+		expect(actions.lockBibForPurchase).not.toHaveBeenCalled()
+		expect(container.querySelector('[data-testid="pay"]')).toBeNull()
 	})
 })

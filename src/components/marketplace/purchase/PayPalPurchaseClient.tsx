@@ -51,6 +51,9 @@ interface PayPalPurchaseClientProps {
  */
 type DateLike = string | Date | null | undefined
 type LockStatus = 'locked' | 'unlocked' | 'userlocked'
+// What the lock check answers: the state of the lock, or a refusal that has nothing to do with the lock
+type LockCheck = LockStatus | 'unauthenticated' | 'unavailable'
+const LOCK_CHECKS: readonly LockCheck[] = ['locked', 'unlocked', 'userlocked', 'unauthenticated', 'unavailable']
 
 export default function PayPalPurchaseClient({
 	user,
@@ -80,8 +83,8 @@ export default function PayPalPurchaseClient({
 		return null
 	}
 
-	const normalizeLockStatus = (value: unknown): LockStatus => {
-		return value === 'locked' || value === 'unlocked' || value === 'userlocked' ? (value as LockStatus) : 'locked'
+	const normalizeLockStatus = (value: unknown): LockCheck => {
+		return LOCK_CHECKS.find(check => check === value) ?? 'locked'
 	}
 	const [errorMessage, setErrorMessage] = useState<null | string>(null)
 	const [successMessage, setSuccessMessage] = useState<null | string>(null)
@@ -269,12 +272,27 @@ export default function PayPalPurchaseClient({
 		if (!isProfileComplete) return
 
 		// Check lock status to prevent multiple users purchasing the same bib
-		const status: LockStatus = normalizeLockStatus(
+		const status = normalizeLockStatus(
 			await checkPurchaseLock(bib.id, lockedAtParam ?? '', privateToken ?? null).catch((error: unknown) => {
 				track('purchase_error', { ...purchaseProps, step: 'lock', kind: 'exception' })
 				throw error
 			})
 		)
+		// The server refused before it looked at the lock: nobody else is buying this bib
+		if (status === 'unauthenticated') {
+			// The browser still shows a session the server no longer accepts (expired, or not refreshed yet)
+			track('purchase_error', { ...purchaseProps, step: 'lock', kind: 'unauthenticated' })
+			toast.error('We could not verify your session. Please try again, or reload the page and sign in again.')
+			return
+		}
+		if (status === 'unavailable') {
+			track('purchase_error', { ...purchaseProps, step: 'lock', kind: 'bib_not_found' })
+			toast.error(t.bibNotFound ?? 'Bib not found, or invalid access token')
+			// The page shows a bib the server no longer sells to this visitor (the seller replaced the private
+			// link, or the listing changed): the server renders what is true now
+			router.refresh()
+			return
+		}
 		await attemptLockAndOpenPanel(status)
 	}
 

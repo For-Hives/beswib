@@ -3,7 +3,7 @@
 import { priceBucket } from '@/lib/analytics/buckets'
 import { bibIdOfTransaction } from '@/lib/analytics/ids'
 import { trackServer } from '@/lib/analytics/server'
-import { isPrivateListingToken } from '@/lib/services/privateListing'
+import { isPurchasableListing } from '@/lib/services/privateListing'
 import type { SalesCompleteInput, SalesCompleteOutput, SalesCreateInput, SalesCreateOutput } from '@/models/sales.model'
 import { fetchBibById, updateBib } from './bib.services'
 import {
@@ -27,9 +27,10 @@ export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateO
 	const bib = await fetchBibById(bibId)
 	if (!bib) throw new Error('Bib not found')
 
-	// A private listing is sold to the holder of its token only. Refused like a missing bib, before
-	// anything is asked of PayPal
-	if (bib.listed === 'private' && !isPrivateListingToken(bib.privateListingToken, privateToken)) {
+	// The rule of the lock and of the capture (fetchPurchasableBibById): a public listing, or a private
+	// one for the holder of its token. Anything else is refused like a missing bib, before anything is
+	// asked of PayPal: an order the capture would refuse must not be created
+	if (!isPurchasableListing(bib, privateToken)) {
 		throw new Error('Bib not found')
 	}
 
