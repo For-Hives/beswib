@@ -1,6 +1,9 @@
 import { auth } from '@clerk/nextjs/server'
 import type { Metadata } from 'next'
+import { TrackView } from '@/components/analytics/TrackView'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
+import { listingOf } from '@/lib/analytics/classify'
+import { bibIdOf, eventIdOf } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { generateAlternateLanguages, generateCanonicalUrl } from '@/lib/seo/utils/seo-generators'
@@ -122,6 +125,10 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	if (!bibStatus.available) {
 		return (
 			<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
+				<TrackView
+					name="bib_view"
+					props={{ state: 'unavailable', listing: listingOf(bibStatus.listed) ?? 'unknown', viewer: 'unknown' }}
+				/>
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
 				<div className="relative pt-32 pb-12">
 					<div className="container mx-auto max-w-2xl p-6">
@@ -166,6 +173,16 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 		if (!isSaleOpen) {
 			return (
 				<div className="mx-auto max-w-lg p-6 text-center">
+					<TrackView
+						name="bib_view"
+						props={{
+							state: 'sale_closed',
+							listing: isPrivate ? 'private' : 'public',
+							viewer: 'unknown',
+							bib_id: bibIdOf(bib),
+							event_id: eventIdOf(bib.expand.eventId),
+						}}
+					/>
 					<p className="mb-4 text-lg font-semibold">{t.saleClosedTitle ?? 'Sale closed for this event.'}</p>
 					<p className="text-muted-foreground text-sm">
 						{t.saleClosedBody ?? 'The event has already passed or the transfer deadline is over.'}
