@@ -5,11 +5,16 @@
 
 import * as Sentry from '@sentry/nextjs'
 
+import { dataCollection } from './sentry.data-collection'
+
 Sentry.init({
 	// Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
 	tracesSampleRate: 1,
-	// Enable logs to be sent to Sentry
+	// Whole transactions rather than streamed spans, as in sentry.server.config.ts (which also says what 11 renames)
+	traceLifecycle: 'static',
 	dsn: process.env.SENTRY_DSN,
-	// Setting this option to true will print useful information to the console while you're setting up Sentry.
+	// Required since Sentry 11: without it the SDK sends cookies, request bodies and IP addresses by default
+	dataCollection,
+	// Only prints once `bundleSizeOptimizations.excludeDebugStatements` is off, as in sentry.server.config.ts
 	debug: false,
 })
