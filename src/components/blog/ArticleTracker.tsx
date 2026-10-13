@@ -29,22 +29,31 @@ export function ArticleTracker({ articleId, children, readTime }: ArticleTracker
 		if (!container || typeof IntersectionObserver === 'undefined') return
 
 		const startedAt = Date.now()
+		const sentinels = Array.from(container.querySelectorAll(':scope > [data-depth]'))
+		const sent = new Set<string>()
 		const observer = new IntersectionObserver(entries => {
 			for (const entry of entries) {
 				if (!entry.isIntersecting) continue
-				// Each milestone is sent once per mount
-				observer.unobserve(entry.target)
-				const depth = DEPTHS.find(value => value === entry.target.getAttribute('data-depth'))
-				if (depth === undefined) continue
-				trackView('article_read', {
-					depth,
-					elapsed: elapsedBucket(Date.now() - startedAt),
-					read_time: readTimeBucket(readTime),
-					article_id: articleId,
-				})
+				// A jump (End key, anchor, restored scroll) can pass over a sentinel without it ever
+				// intersecting: reaching a depth also sends the earlier ones not sent yet
+				const reached = DEPTHS.slice(0, sentinels.indexOf(entry.target) + 1)
+				for (const depth of reached) {
+					// Each milestone is sent once per mount
+					if (sent.has(depth)) continue
+					sent.add(depth)
+					trackView('article_read', {
+						depth,
+						elapsed: elapsedBucket(Date.now() - startedAt),
+						read_time: readTimeBucket(readTime),
+						article_id: articleId,
+					})
+				}
+			}
+			for (const sentinel of sentinels) {
+				if (sent.has(sentinel.getAttribute('data-depth') ?? '')) observer.unobserve(sentinel)
 			}
 		})
-		for (const sentinel of container.querySelectorAll(':scope > [data-depth]')) observer.observe(sentinel)
+		for (const sentinel of sentinels) observer.observe(sentinel)
 
 		return () => observer.disconnect()
 	}, [articleId, readTime])
@@ -58,6 +67,8 @@ export function ArticleTracker({ articleId, children, readTime }: ArticleTracker
 			if (!(event.target instanceof Element)) return
 			const anchor = event.target.closest('a[href]')
 			if (!anchor || !container.contains(anchor)) return
+			// An in-page jump does not leave the article, and would be classified as a link to the home page
+			if (anchor.getAttribute('href')?.trim().startsWith('#')) return
 			track('article_link_click', {
 				target: articleLinkTarget(anchor.getAttribute('href') ?? undefined),
 				article_id: articleId,
