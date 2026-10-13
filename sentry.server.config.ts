@@ -14,4 +14,11 @@ Sentry.init({
 
 	// Setting this option to true will print useful information to the console while you're setting up Sentry.
 	debug: false,
+
+	// Never read the body of an incoming request. The arguments of the server actions travel there (the
+	// token of a private listing at every purchase step, what a form posts), and the SDK attaches what it
+	// read to every error and trace of the request, whether sendDefaultPii is set or not.
+	// This replaces the Http integration that @sentry/nextjs sets up, hence disableIncomingRequestSpans:
+	// it is the option it passes itself, because Next.js already traces incoming requests.
+	integrations: [Sentry.httpIntegration({ maxIncomingRequestBodySize: 'none', disableIncomingRequestSpans: true })],
 })
