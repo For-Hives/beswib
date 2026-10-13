@@ -1,6 +1,6 @@
 import { Calendar, CheckCircle, MapPin, Plus, Search, TrendingUp, Users } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { TrackClick } from '@/components/analytics/TrackClick'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -80,9 +80,13 @@ export default function EventSelectionStep({
 	})
 
 	const resultCount = filteredEvents.length
+	const lastTrackedQuery = useRef('')
 	useEffect(() => {
 		if (searchQuery.trim() === '') return
 		const timer = setTimeout(() => {
+			const query = searchQuery.trim().toLowerCase()
+			if (query === lastTrackedQuery.current) return
+			lastTrackedQuery.current = query
 			track('search_submit', { where: 'sell_wizard', result_count: countBucket(resultCount), has_filters: false })
 		}, 1000)
 		return () => clearTimeout(timer)

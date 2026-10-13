@@ -152,8 +152,14 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	// The status block is only displayed once a merchant account is linked
 	const isMerchantLinked = typeof user?.paypalMerchantId === 'string' && user.paypalMerchantId.length > 0
 
+	const statusHandledAt = React.useRef(0)
+
 	React.useEffect(() => {
-		if (statusSettledAt === 0 || !isMerchantLinked) return
+		if (statusSettledAt === 0 || isLoading) return
+		// Each settled fetch is consumed once, so a later link flip never reports a stale result
+		if (statusSettledAt === statusHandledAt.current) return
+		statusHandledAt.current = statusSettledAt
+		if (!isMerchantLinked) return
 		const status = merchantStatusQuery.data
 		const paymentsReceivable = status?.payments_receivable === true
 		const emailConfirmed = status?.primary_email_confirmed === true
@@ -169,7 +175,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 			email_confirmed: emailConfirmed,
 		})
 		statusRefreshRequested.current = false
-	}, [statusSettledAt, isMerchantLinked])
+	}, [statusSettledAt, isMerchantLinked, isLoading])
 
 	const handlePayPalConnect = () => {
 		onboardingMutation.mutate(userId)
