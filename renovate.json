@@ -27,10 +27,9 @@
 			"enabled": false
 		},
 		{
-			"description": "c15t 3 is a rewrite (12 October 2026) that no longer blocks third-party requests such as Google Analytics before consent: to take together with a decision on how GA is gated",
+			"description": "c15t decides whether Google Analytics may load (consent banner, offline mode) and CI only sees part of it: an update is proposed and checked in a browser, never merged automatically",
 			"matchPackageNames": ["@c15t/nextjs"],
-			"matchUpdateTypes": ["major"],
-			"enabled": false
+			"automerge": false
 		},
 		{
 			"description": "TanStack Table 9 changes the table API (hook, row models, state): the three admin lists need a migration of their own",

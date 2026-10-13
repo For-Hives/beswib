@@ -145,6 +145,8 @@ Product events go to a self-hosted Umami. Every event and every property is decl
 - On the server (payment captured, sale completed, account created): `trackServer()` from `@/lib/analytics/server`.
 - The page URL is cleaned before it leaves the browser: locale prefix removed, only `utm_*` parameters kept.
 
+Umami sets no cookie and is not subject to the cookie banner. Google Analytics is: it only exists when `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set (production), and its tag is loaded only once the visitor has allowed the "Analytics" category of the banner (c15t in offline mode, configured in `src/lib/consent/`). The gate is `<ConsentedGoogleAnalytics>`, mounted inside `<ConsentRoot>` in the root layout; a third-party script that needs consent must be mounted the same way, never directly in the layout.
+
 ---
 
 ## 📞 Contact
