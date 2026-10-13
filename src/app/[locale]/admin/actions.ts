@@ -56,6 +56,7 @@ export async function createEventAction(eventData: Omit<Event, 'id'>): Promise<{
 		const result = await createEvent(eventData)
 
 		if (result != null) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Admin ${adminUser.email} created event: ${result.name}`)
 			return {
 				success: true,
@@ -83,10 +84,7 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 	success: boolean
 }> {
 	try {
-		console.info('🚀 [ACTION] Starting createOrganizerAction')
-
 		// Verify admin access (checks Clerk auth, platform registration, and admin role)
-		console.info('🔐 [ACTION] Checking admin access...')
 		const adminUser = await checkAdminAccess()
 
 		if (adminUser == null) {
@@ -96,25 +94,13 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 				error: 'Unauthorized: Admin access required',
 			}
 		}
-		console.info('✅ [ACTION] Admin access verified:', adminUser.email)
 
 		// Extract data from FormData
-		console.info('📊 [ACTION] Extracting data from FormData...')
 		const name = formData.get('name') as string
 		const email = formData.get('email') as string
 		const website = formData.get('website') as string
 		const isPartnered = formData.get('isPartnered') === 'true'
 		const logoFile = formData.get('logoFile')
-
-		console.info('📝 [ACTION] Extracted data:', {
-			website: website || 'empty',
-			name,
-			logoFileType: logoFile != null ? typeof logoFile : 'undefined',
-			logoFileConstructor: logoFile?.constructor?.name ?? 'undefined',
-			isPartnered,
-			hasFile: logoFile != null,
-			email,
-		})
 
 		// Validate required fields
 		if (!name || !email) {
@@ -126,7 +112,6 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 		}
 
 		// Prepare organizer data for creation
-		console.info('🔧 [ACTION] Preparing organizer data...')
 		const organizerData = {
 			website: website ?? undefined,
 			name,
@@ -135,17 +120,11 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 			email,
 		}
 
-		console.info('📋 [ACTION] Final organizer data:', {
-			...organizerData,
-			logoFile: organizerData.logoFile ? `[Object: ${organizerData.logoFile.constructor?.name}]` : 'undefined',
-		})
-
 		// Create the organizer with PocketBase service
-		console.info('💾 [ACTION] Calling createOrganizer service...')
 		const result = await createOrganizer(organizerData)
 
 		if (result != null) {
-			console.info('🎉 [ACTION] Organizer created successfully:', result.name)
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Admin ${adminUser.email} created organizer: ${result.name}`)
 			return {
 				success: true,
@@ -260,6 +239,7 @@ export async function approveOrganizerAction(
 
 		const updated = await updateOrganizer(id, { isPartnered: true })
 		if (updated) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Admin ${adminUser.email} approved organizer: ${id}`)
 			return { success: true, data: updated }
 		}
@@ -286,6 +266,7 @@ export async function rejectOrganizerAction(id: string): Promise<{ success: bool
 
 		const ok = await deleteOrganizer(id)
 		if (ok) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Admin ${adminUser.email} rejected organizer (deleted): ${id}`)
 			return { success: true }
 		}
@@ -392,6 +373,7 @@ export async function updateEventAction(
 		const result = await updateEventById(id, eventData)
 
 		if (result != null) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Admin ${adminUser.email} updated event: ${result.name} (${id})`)
 			return {
 				success: true,
@@ -512,6 +494,7 @@ export async function updateOrganizerAction(
 		const result = await updateOrganizer(id, organizerData)
 
 		if (result != null) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Admin ${adminUser.email} updated organizer: ${result.name} (${id})`)
 			return {
 				success: true,
@@ -545,6 +528,7 @@ export async function deleteEventAction(id: string): Promise<{ success: boolean;
 		}
 
 		await deleteEventById(id)
+		// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 		console.info(`Admin ${adminUser.email} deleted event: ${id}`)
 		return { success: true }
 	} catch (error) {

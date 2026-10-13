@@ -21,17 +21,12 @@ export default function AdminEventPageClient({ locale, currentUser }: AdminEvent
 	const [isSuccess, setIsSuccess] = useState(false)
 	const [createdEvent, setCreatedEvent] = useState<Event | null>(null)
 
-	// Debug: initial render
-	console.debug('[AdminEventPageClient] mounted with locale:', locale, 'currentUser:', currentUser?.id ?? null)
-
 	const handleSuccess = (event: Event) => {
-		console.debug('[AdminEventPageClient] onSuccess received event:', event)
 		setCreatedEvent(event)
 		setIsSuccess(true)
 	}
 
 	const handleCancel = () => {
-		console.debug('[AdminEventPageClient] onCancel - navigating to /admin/')
 		router.push('/admin/')
 	}
 
@@ -60,7 +55,6 @@ export default function AdminEventPageClient({ locale, currentUser }: AdminEvent
 	}
 
 	if (isSuccess && createdEvent) {
-		console.debug('[AdminEventPageClient] Success UI rendered for event id:', createdEvent.id)
 		return (
 			<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>

@@ -760,6 +760,12 @@ input[type="date"] {
 	height: 41px !important;
 }
 
+/* Light override for inputs nested in .react-international-phone-input, kept before the .dark rules (ascending specificity) */
+.react-international-phone-input input {
+	background-color: hsl(var(--background)) !important;
+	color: hsl(var(--foreground)) !important;
+}
+
 /* Dark theme specific overrides for phone input */
 .dark .react-international-phone-input-container input {
 	background-color: rgb(39 39 42) !important; /* zinc-800 to match inputAlt */
@@ -770,11 +776,6 @@ input[type="date"] {
 /* Override any default white background from react-international-phone */
 .react-international-phone-input {
 	background: transparent !important;
-}
-
-.react-international-phone-input input {
-	background-color: hsl(var(--background)) !important;
-	color: hsl(var(--foreground)) !important;
 }
 
 .dark .react-international-phone-input input {
@@ -795,6 +796,7 @@ input[type="date"] {
 }
 
 /* Light theme inputs - using CSS variables for consistency */
+/* biome-ignore-start lint/style/noDescendingSpecificity: light base rule kept after its .dark twin (the same three selectors prefixed with .dark), which outranks it in dark mode whatever the order; moving it up would reorder it against equal-specificity input rules setting the same properties */
 input[class*="react-international-phone"],
 [class*="react-international-phone"] input,
 .react-international-phone-input-container .react-international-phone-input input {
@@ -805,6 +807,7 @@ input[class*="react-international-phone"],
 	border-left: none !important; /* Remove left border to connect with flag button */
 	border-radius: 0 0.375rem 0.375rem 0 !important; /* Rounded only on the right */
 }
+/* biome-ignore-end lint/style/noDescendingSpecificity: light base rule kept after its .dark twin */
 
 /* Ensure the input container has proper positioning */
 .react-international-phone-input-container {
@@ -815,6 +818,12 @@ input[class*="react-international-phone"],
 /* Remove any default focus shadows that might interfere */
 .react-international-phone-input input:focus {
 	box-shadow: 0 0 0 2px hsl(var(--ring)) !important;
+	outline: none !important;
+}
+
+/* Focus ring consistency (light) - matching inputAlt.tsx exactly, kept before the .dark rules (ascending specificity) */
+.react-international-phone-input input:focus {
+	box-shadow: 0 0 0 2px hsl(var(--ring)) !important; /* Same as inputAlt.tsx */
 	outline: none !important;
 }
 
@@ -834,15 +843,18 @@ input[class*="react-international-phone"],
 }
 
 /* Ensure the input field itself has the proper background */
+/* biome-ignore lint/style/noDescendingSpecificity: late light re-assertion that must stay after the equal-specificity light input rules above setting the same background-color; the .dark selectors outrank it in dark mode whatever the order */
 .react-international-phone-input input {
 	background-color: hsl(var(--background)) !important;
 }
 
+/* biome-ignore lint/style/noDescendingSpecificity: dark twin of the rule above, must stay after the equal-specificity (0,2,1) input rules setting the same background-color; the (0,3,1) nested .dark selector outranks it whatever the order */
 .dark .react-international-phone-input input {
 	background-color: rgb(39 39 42) !important;
 }
 
 /* Ensure the flag button background matches the theme */
+/* biome-ignore lint/style/noDescendingSpecificity: light base rule re-declared after the earlier .dark override on purpose (it has to follow the first base rule it refines); the .dark selector has higher specificity and wins in dark mode either way */
 .react-international-phone-country-selector-button {
 	background-color: hsl(var(--background)) !important;
 	border-color: hsl(var(--border)) !important;
@@ -850,6 +862,7 @@ input[class*="react-international-phone"],
 	box-shadow: var(--shadow-sm) !important; /* Using CSS variable for consistency */
 }
 
+/* biome-ignore lint/style/noDescendingSpecificity: light hover state kept after the earlier .dark button rules of equal specificity that set the same background-color; the .dark :hover selector has higher specificity and wins in dark mode either way */
 .react-international-phone-country-selector-button:hover {
 	background-color: hsl(var(--muted) / 0.5) !important;
 }
@@ -876,6 +889,7 @@ input[class*="react-international-phone"],
 }
 
 /* Ensure dropdown styling is consistent across themes */
+/* biome-ignore lint/style/noDescendingSpecificity: light base rule re-declared after the earlier .dark shadow override on purpose (it has to follow the first base rule it refines); the .dark selector has higher specificity and wins in dark mode either way */
 .react-international-phone-dropdown {
 	background-color: hsl(var(--background)) !important;
 	border-color: hsl(var(--border)) !important;
@@ -889,20 +903,17 @@ input[class*="react-international-phone"],
 }
 
 /* Final border consistency - ensuring phone input has same borders as inputAlt.tsx */
+/* biome-ignore lint/style/noDescendingSpecificity: order is load-bearing, this border shorthand must come after the equal-specificity light input rules above (border-color, border-left: none) to override them; the .dark selectors outrank it in dark mode either way */
 .react-international-phone-input-container input {
 	border: 1px solid hsl(var(--border)) !important; /* Same as inputAlt.tsx */
 }
 
+/* biome-ignore lint/style/noDescendingSpecificity: order is load-bearing, this dark border shorthand must come after the equal-specificity .dark input rules above (border-color, border-left: none) to override them; the (0,3,1) nested .dark selector outranks it either way */
 .dark .react-international-phone-input-container input {
 	border: 1px solid rgb(82 82 91) !important; /* zinc-600 for dark theme */
 }
 
-/* Focus ring consistency - matching inputAlt.tsx exactly */
-.react-international-phone-input input:focus {
-	box-shadow: 0 0 0 2px hsl(var(--ring)) !important; /* Same as inputAlt.tsx */
-	outline: none !important;
-}
-
+/* Focus ring consistency (dark) - matching inputAlt.tsx exactly */
 .dark .react-international-phone-input input:focus {
 	box-shadow: 0 0 0 2px rgb(82 82 91) !important; /* neutral-600 for dark mode focus to match inputAlt */
 	outline: none !important;

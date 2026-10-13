@@ -53,7 +53,6 @@ export default function EventCreationForm({ onSuccess, onCancel, locale }: Reado
 	const formData = watch()
 
 	const onSubmit = async (data: EventFormData) => {
-		console.debug('[EventCreationForm] onSubmit called with data:', data)
 		setIsLoading(true)
 
 		try {
@@ -84,9 +83,7 @@ export default function EventCreationForm({ onSuccess, onCancel, locale }: Reado
 				bibPickupLocation: data.bibPickupLocation ?? undefined,
 			}
 
-			console.debug('[EventCreationForm] Prepared eventData to submit:', eventData)
 			const result = await createEventAction(eventData)
-			console.debug('[EventCreationForm] createEventAction result:', result)
 
 			if (result.success && result.data) {
 				toast.success('Event created successfully!')

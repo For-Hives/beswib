@@ -7,11 +7,8 @@ import Pattern from './icons/Pattern'
 
 // Function to split the text into lines and apply a special color to words between **
 function formatTextWithColor(text: string, highlightColor = '#4C639A') {
-	console.info('🔍 Input text:', text)
-
 	// Split text into sentences ending with ? or !
 	const sentences = text.split(/([?!])/).filter(part => part.trim())
-	console.info('📝 Sentences after split:', sentences)
 
 	const lines: { parts: { text: string; color: string }[] }[] = []
 	let currentSentence = ''
@@ -27,7 +24,6 @@ function formatTextWithColor(text: string, highlightColor = '#4C639A') {
 			const lineParts = processTextForHighlighting(currentSentence, highlightColor)
 			lines.push({ parts: lineParts })
 
-			console.info(`✅ Created line ${lines.length}:`, currentSentence)
 			currentSentence = ''
 		} else {
 			// This is text, add it to current sentence
@@ -39,10 +35,8 @@ function formatTextWithColor(text: string, highlightColor = '#4C639A') {
 	if (currentSentence.trim()) {
 		const lineParts = processTextForHighlighting(currentSentence, highlightColor)
 		lines.push({ parts: lineParts })
-		console.info(`✅ Created final line ${lines.length}:`, currentSentence)
 	}
 
-	console.info('🎯 Final lines structure:', lines)
 	return lines
 }
 

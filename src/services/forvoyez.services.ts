@@ -78,6 +78,7 @@ export async function generateImageAltText(
 		const data = (await response.json()) as ForvoyezResponse
 
 		if (data.alternativeText) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info('Successfully generated alt text with Forvoyez')
 			return data.alternativeText
 		} else {

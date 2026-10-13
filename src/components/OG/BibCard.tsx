@@ -155,8 +155,6 @@ export default function BibCard({ organizer, locale, exchangeRates, bib, host, p
 		? `${protocol}//${host}${organizerImageUrl}`
 		: organizerImageUrl
 
-	console.info('🔍 :', organizer)
-
 	return (
 		<div
 			style={{

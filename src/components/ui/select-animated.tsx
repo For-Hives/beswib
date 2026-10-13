@@ -204,5 +204,5 @@ const SelectAnimated = ({
 	)
 }
 
+export type { SelectAnimatedProps, SelectOption }
 export { SelectAnimated }
-export type { SelectOption, SelectAnimatedProps }

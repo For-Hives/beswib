@@ -104,7 +104,7 @@ export default function ActiveFiltersBadges({
 	}
 
 	// Geography filters
-	filters.geography.forEach(location => {
+	new Set(filters.geography).forEach(location => {
 		activeFilters.push({
 			value: location,
 			type: 'geography',
@@ -137,9 +137,9 @@ export default function ActiveFiltersBadges({
 		<div className="border-border bg-card/50 border-b px-6 py-3">
 			<div className="w-full">
 				<div className="flex flex-wrap items-center gap-2">
-					{activeFilters.map((filter, index) => (
+					{activeFilters.map(filter => (
 						<Badge
-							key={`${filter.type}-${index}`}
+							key={`${filter.type}-${filter.value}`}
 							variant="secondary"
 							className="hover:bg-destructive/20 hover:text-destructive cursor-pointer text-xs transition-colors"
 							onClick={() => onRemoveFilter(filter.type, filter.value)}

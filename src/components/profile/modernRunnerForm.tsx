@@ -153,7 +153,6 @@ export default function ModernRunnerForm({
 			phoneNumber: cleanPhoneNumber,
 			birthDate: values.birthDate ? values.birthDate.slice(0, 10) : null,
 		}
-		console.info('Submitting profile update:', payload)
 		startTransition(async () => {
 			try {
 				setSubmitStatus('idle')

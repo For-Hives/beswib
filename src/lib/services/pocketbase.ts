@@ -18,7 +18,6 @@ pb.autoCancellation(false)
 // For server-side operations, authenticate with admin token 👑
 if (POCKETBASE_TOKEN != null && POCKETBASE_TOKEN !== '') {
 	pb.authStore.save(POCKETBASE_TOKEN, null)
-	console.info('PocketBase authenticated with admin token')
 } else {
 	console.warn('POCKETBASE_TOKEN not found - some operations may not work')
 }
