@@ -1,4 +1,4 @@
-import type { Locale } from '@/lib/i18n/config'
+import { i18n, type Locale } from '@/lib/i18n/config'
 import { getPublicBaseUrl } from '@/lib/utils/url'
 
 interface OrganizationSchemaProps {
@@ -7,6 +7,9 @@ interface OrganizationSchemaProps {
 
 export default function OrganizationSchema({ locale }: OrganizationSchemaProps) {
 	const baseUrl = getPublicBaseUrl()
+	// The layout passes the first segment of the address as it came. It is no locale when Clerk
+	// rewrites a protected page to /clerk_<timestamp>, and the URLs below must still name real pages.
+	const pageLocale = i18n.locales.includes(locale) ? locale : i18n.defaultLocale
 
 	// Organization schema for better SEO recognition
 	const organizationSchema = {
@@ -28,7 +31,7 @@ export default function OrganizationSchema({ locale }: OrganizationSchemaProps) 
 		keywords: 'race bibs, running, trail, triathlon, cycling, marketplace, transfer',
 		image: {
 			width: 1200,
-			url: `${baseUrl}/${locale}/opengraph-image`,
+			url: `${baseUrl}/${pageLocale}/opengraph-image`,
 			height: 630,
 			'@type': 'ImageObject',
 		},
@@ -63,7 +66,7 @@ export default function OrganizationSchema({ locale }: OrganizationSchemaProps) 
 		},
 		potentialAction: {
 			target: {
-				urlTemplate: `${baseUrl}/${locale}/marketplace?search={search_term_string}`,
+				urlTemplate: `${baseUrl}/${pageLocale}/marketplace?search={search_term_string}`,
 				'@type': 'EntryPoint',
 			},
 			'query-input': 'required name=search_term_string',

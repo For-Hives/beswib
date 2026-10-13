@@ -199,3 +199,36 @@ describe('share images', () => {
 		expect(existsSync(join(folder, 'opengraph-image.tsx'))).toBe(true)
 	})
 })
+
+// Clerk answers a crawler that asks for a protected page (dashboard, profile, purchase, admin) with
+// a rewrite to /clerk_<timestamp>. The [locale] segment takes that for a locale and serves the home
+// page, whose opengraph-image file would then be /clerk_<timestamp>/opengraph-image: not a route.
+describe('an address whose first segment is no locale', () => {
+	const REWRITTEN = 'clerk_1791929263179' as Locale
+
+	beforeEach(() => {
+		// The generators say that they fall back to English
+		vi.spyOn(console, 'error').mockImplementation(() => undefined)
+	})
+
+	it('names the share image of the site, in a locale that exists', () => {
+		const page = generateHomeMetadata(REWRITTEN)
+		const { metadataBase } = generateRootMetadata()
+
+		for (const images of [page.openGraph?.images, page.twitter?.images]) {
+			expect(images).toEqual([expect.objectContaining({ width: 1200, url: '/en/opengraph-image', height: 630 })])
+		}
+		// What Next.js makes of that path, and the file that draws it
+		expect(new URL('/en/opengraph-image', metadataBase ?? undefined).href).toBe(`${BASE}/en/opengraph-image`)
+		expect(existsSync(join(SRC, 'app/[locale]/opengraph-image.tsx'))).toBe(true)
+	})
+
+	it('announces the English home page as its own address, and English as its language', () => {
+		const page = generateHomeMetadata(REWRITTEN)
+
+		expect(page.alternates?.canonical).toBe(`${BASE}/en/`)
+		expect(page.openGraph?.url).toBe(`${BASE}/en/`)
+		expect(page.openGraph).toMatchObject({ locale: 'en' })
+		expect(JSON.stringify(page)).not.toContain('clerk_')
+	})
+})

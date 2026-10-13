@@ -28,6 +28,26 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 	// No image, here or in the generators below: Next.js announces the opengraph-image file that
 	// sits next to a page only when the page names none. Naming the image of the site here gave
 	// every page the same picture, in English.
+	//
+	// One exception, an address whose first segment is no locale of the site. Clerk answers a crawler
+	// that asks for a protected page with a rewrite to /clerk_<timestamp>, which the [locale] segment
+	// serves as the home page: the file next to it would be /clerk_<timestamp>/opengraph-image, which
+	// is not an image. That page names the image of the site, so a shared dashboard link keeps one.
+	const siteImage =
+		locale === safeLocale
+			? {}
+			: {
+					images: [
+						{
+							width: 1200,
+							url: `/${safeLocale}/opengraph-image`,
+							type: 'image/png',
+							height: 630,
+							alt: 'Beswib - Race Bib Transfer',
+						},
+					],
+				}
+
 	return {
 		twitter: {
 			title: titles.home,
@@ -35,6 +55,7 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 			description: descriptions.home,
 			creator: '@beswib',
 			card: 'summary_large_image',
+			...siteImage,
 		},
 		title: {
 			template: `%s | ${titles.site}`,
@@ -58,8 +79,9 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 			type: 'website',
 			title: titles.home,
 			siteName: titles.site,
-			locale: locale.replace('-', '_'),
+			locale: safeLocale.replace('-', '_'),
 			description: descriptions.home,
+			...siteImage,
 		},
 		manifest: '/site.webmanifest',
 		keywords: keywords.global.join(', '),

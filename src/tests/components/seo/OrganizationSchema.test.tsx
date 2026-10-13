@@ -3,12 +3,13 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import OrganizationSchema from '@/components/seo/OrganizationSchema'
+import type { Locale } from '@/lib/i18n/config'
 
 const BASE = 'https://staging.beswib.com'
 
 type Schema = Record<string, unknown> & { '@type': string }
 
-function schemas(locale: 'en' | 'fr'): Schema[] {
+function schemas(locale: Locale): Schema[] {
 	const html = renderToStaticMarkup(<OrganizationSchema locale={locale} />)
 	return [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map(match => JSON.parse(match[1]))
 }
@@ -23,6 +24,7 @@ beforeEach(() => {
 
 afterEach(() => {
 	vi.unstubAllEnvs()
+	vi.restoreAllMocks()
 })
 
 describe('OrganizationSchema', () => {
@@ -45,6 +47,8 @@ describe('OrganizationSchema', () => {
 	})
 
 	it('is the production site, word for word, when the build was given no address', () => {
+		// The helper says so in the log, once
+		vi.spyOn(console, 'warn').mockImplementation(() => undefined)
 		vi.stubEnv('NEXT_PUBLIC_BASE_URL', undefined)
 
 		const [organization, website] = schemas('en')
@@ -52,5 +56,16 @@ describe('OrganizationSchema', () => {
 		expect(organization.url).toBe('https://beswib.com')
 		expect(website.url).toBe('https://beswib.com')
 		expect(JSON.stringify([organization, website])).not.toContain('localhost')
+	})
+
+	it('names pages that exist when the first segment of the address is no locale', () => {
+		// What Clerk rewrites a protected page to when a crawler asks for it: the layout receives it as the locale
+		const [organization, website] = schemas('clerk_1791929263179' as Locale)
+
+		expect(organization).toMatchObject({ image: { url: `${BASE}/en/opengraph-image` } })
+		expect(website).toMatchObject({
+			potentialAction: { target: { urlTemplate: `${BASE}/en/marketplace?search={search_term_string}` } },
+		})
+		expect(JSON.stringify([organization, website])).not.toContain('clerk_')
 	})
 })
