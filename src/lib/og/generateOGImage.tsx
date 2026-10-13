@@ -2,7 +2,6 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { ImageResponse } from 'next/og'
 import OGImage from '@/components/OG/ogImage.component'
-import { getAbsoluteUrl } from '@/lib/utils/url'
 
 /**
  * Configuration options for generating an Open Graph image
@@ -54,43 +53,34 @@ export const DEFAULT_OG_SIZE = { width: 1200, height: 630 }
 export async function generateOGImage(config: OGImageConfig): Promise<ImageResponse> {
 	const { title, description, size = DEFAULT_OG_SIZE } = config
 
-	// Get the absolute URL using environment variables
-	const { protocol, host } = getAbsoluteUrl()
-
 	// Load custom fonts for @vercel/og with error handling
 	try {
 		const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/BowlbyOneSC-Regular.ttf'))
 		const geistFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/Geist-Regular.ttf'))
 
 		// Return the Open Graph image with custom fonts
-		return new ImageResponse(
-			<OGImage title={title} secondary={description} host={host} protocol={protocol} size={size} />,
-			{
-				...size,
-				fonts: [
-					{
-						weight: 400,
-						style: 'normal',
-						name: 'BowlbyOneSC',
-						data: bowlbyFont,
-					},
-					{
-						weight: 400,
-						style: 'normal',
-						name: 'Geist',
-						data: geistFont,
-					},
-				],
-			}
-		)
+		return new ImageResponse(<OGImage title={title} secondary={description} size={size} />, {
+			...size,
+			fonts: [
+				{
+					weight: 400,
+					style: 'normal',
+					name: 'BowlbyOneSC',
+					data: bowlbyFont,
+				},
+				{
+					weight: 400,
+					style: 'normal',
+					name: 'Geist',
+					data: geistFont,
+				},
+			],
+		})
 	} catch (error) {
 		// Log error if font loading fails
 		console.error('Error loading fonts for OG image:', error)
 
 		// Fallback: return the image without custom fonts
-		return new ImageResponse(
-			<OGImage title={title} secondary={description} host={host} protocol={protocol} size={size} />,
-			size
-		)
+		return new ImageResponse(<OGImage title={title} secondary={description} size={size} />, size)
 	}
 }

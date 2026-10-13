@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next'
 import { NextResponse } from 'next/server'
 
 import type { Locale } from '@/lib/i18n/config'
-
+import { getPublicBaseUrl } from '@/lib/utils/url'
 import { getAllEvents } from '@/services/event.services'
 
 // Supported locales - using the same order as defined in i18n config for consistency
@@ -51,7 +51,7 @@ const changeFreq = {
 // Generate sitemap XML
 export async function GET() {
 	const sitemap: MetadataRoute.Sitemap = []
-	const baseUrl = 'https://beswib.com'
+	const baseUrl = getPublicBaseUrl()
 
 	try {
 		// Fetch all events

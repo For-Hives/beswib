@@ -1,6 +1,5 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { headers } from 'next/headers'
 import { ImageResponse } from 'next/og'
 import OGImage from '@/components/OG/ogImage.component'
 import { generateLocaleParams } from '@/lib/generation/staticParams'
@@ -25,13 +24,6 @@ export default async function Image() {
 	// Get the translations for the current page and locale
 	// const t = getTranslations(locale, globalLocales)
 
-	// Build the absolute URL (useful for Satori)
-	const requestHeaders = await headers()
-	const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? 'localhost:3000'
-	const xfProto = requestHeaders.get('x-forwarded-proto')
-	const isLocal = host?.startsWith('localhost') || host?.startsWith('127.0.0.1')
-	const protocol = xfProto ?? (isLocal ? 'http' : 'https')
-
 	// Load custom fonts for @vercel/og with error handling
 	try {
 		const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/BowlbyOneSC-Regular.ttf'))
@@ -39,13 +31,7 @@ export default async function Image() {
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			<OGImage
-				title="Page Not Found"
-				secondary="The page you're looking for doesn't exist"
-				host={host}
-				protocol={protocol}
-				size={size}
-			/>,
+			<OGImage title="Page Not Found" secondary="The page you're looking for doesn't exist" size={size} />,
 			{
 				...size,
 				fonts: [
@@ -69,13 +55,7 @@ export default async function Image() {
 		console.error('Error loading fonts:', error)
 		// Fallback: return the image without custom fonts
 		return new ImageResponse(
-			<OGImage
-				title="Page Not Found"
-				secondary="The page you're looking for doesn't exist"
-				host={host}
-				protocol={protocol}
-				size={size}
-			/>,
+			<OGImage title="Page Not Found" secondary="The page you're looking for doesn't exist" size={size} />,
 			size
 		)
 	}

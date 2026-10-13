@@ -9,6 +9,7 @@ import { Breadcrumb, type BreadcrumbItem } from '@/components/ui/breadcrumb'
 import { articleIdOf } from '@/lib/analytics/ids'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { getPublicBaseUrl } from '@/lib/utils/url'
 import type { Article } from '@/models/article.model'
 import { fetchArticleBySlug } from '@/services/article.services'
 
@@ -108,11 +109,18 @@ export async function generateMetadata({ params }: { params: Promise<ArticlePage
 	// Use SEO data if available, otherwise fallback to article data
 	const title = article.expand?.seo?.title || article.title
 	const description = article.expand?.seo?.description || article.description || article.extract
+	// No hreflang here: the translations of an article live under their own slugs.
+	// Written by hand rather than with generateCanonicalUrl(), which ends every address with a slash:
+	// the site answers those with a redirect to the slashless one (trailingSlash: false), and a share
+	// crawler that follows og:url would be sent back to the page it came from.
+	const canonical = `${getPublicBaseUrl()}/${locale}/blog/${slug}`
 
 	return {
 		title: `${title} | Beswib`,
 		description,
+		alternates: { canonical },
 		openGraph: {
+			url: canonical,
 			title,
 			description,
 			type: 'article',

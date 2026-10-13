@@ -264,7 +264,7 @@ export function getLegalPageMetadata(
 		title: `${pageConfig.title} - Beswib`,
 		openGraph: {
 			...baseMetadata.openGraph,
-			url: `https://beswib.com/${locale}/legals/${pageType}`,
+			url: generateCanonicalUrl(locale, `/legals/${pageType}`),
 			title: `${pageConfig.title} - Beswib`,
 			description: pageConfig.description,
 		},

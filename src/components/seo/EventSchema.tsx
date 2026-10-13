@@ -1,3 +1,4 @@
+import { getPublicBaseUrl } from '@/lib/utils/url'
 import type { Event } from '@/models/event.model'
 import type { Organizer } from '@/models/organizer.model'
 
@@ -10,6 +11,7 @@ interface EventSchemaProps {
 export default function EventSchema({ organizer, locale, event }: EventSchemaProps) {
 	const eventDate = new Date(event.eventDate)
 	const isoDate = eventDate.toISOString()
+	const eventUrl = `${getPublicBaseUrl()}/${locale}/events/${event.id}`
 
 	// Traductions des types de course
 	const courseTypeTranslations = {
@@ -86,7 +88,7 @@ export default function EventSchema({ organizer, locale, event }: EventSchemaPro
 		sport: courseType,
 		potentialAction: {
 			target: {
-				urlTemplate: `https://beswib.com/${locale}/events/${event.id}`,
+				urlTemplate: eventUrl,
 				inLanguage: locale,
 				actionPlatform: ['https://schema.org/DesktopWebPlatform', 'https://schema.org/MobileWebPlatform'],
 				'@type': 'EntryPoint',
@@ -118,7 +120,7 @@ export default function EventSchema({ organizer, locale, event }: EventSchemaPro
 		name: event.name,
 		mainEntityOfPage: {
 			'@type': 'WebPage',
-			'@id': `https://beswib.com/${locale}/events/${event.id}`,
+			'@id': eventUrl,
 		},
 		location: {
 			name: event.location,

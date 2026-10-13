@@ -3,7 +3,6 @@ import { join } from 'node:path'
 import { ImageResponse } from 'next/og'
 import OGImage from '@/components/OG/ogImage.component'
 import { generateLocaleParams } from '@/lib/generation/staticParams'
-import { getAbsoluteUrl } from '@/lib/utils/url'
 
 // Alt text for the Open Graph image
 export const alt = 'Beswib Sign Up Open Graph Image'
@@ -25,9 +24,6 @@ export default async function Image() {
 	// Get the translations for the current page and locale
 	// const t = getTranslations(locale, globalLocales)
 
-	// Get the absolute URL using environment variables
-	const { protocol, host } = getAbsoluteUrl()
-
 	// Load custom fonts for @vercel/og with error handling
 	try {
 		const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/BowlbyOneSC-Regular.ttf'))
@@ -35,13 +31,7 @@ export default async function Image() {
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			<OGImage
-				title="Sign Up"
-				secondary="Join Beswib and start buying or selling race bibs safely"
-				host={host}
-				protocol={protocol}
-				size={size}
-			/>,
+			<OGImage title="Sign Up" secondary="Join Beswib and start buying or selling race bibs safely" size={size} />,
 			{
 				...size,
 				fonts: [
@@ -65,13 +55,7 @@ export default async function Image() {
 		console.error('Error loading fonts:', error)
 		// Fallback: return the image without custom fonts
 		return new ImageResponse(
-			<OGImage
-				title="Sign Up"
-				secondary="Join Beswib and start buying or selling race bibs safely"
-				host={host}
-				protocol={protocol}
-				size={size}
-			/>,
+			<OGImage title="Sign Up" secondary="Join Beswib and start buying or selling race bibs safely" size={size} />,
 			size
 		)
 	}
