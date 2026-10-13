@@ -1,6 +1,7 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": ["config:recommended"],
+	"minimumReleaseAge": "3 days",
 	"packageRules": [
 		{
 			"matchUpdateTypes": ["minor", "patch"],
@@ -8,6 +9,29 @@
 			"automerge": true,
 			"automergeType": "pr",
 			"automergeStrategy": "squash"
+		},
+		{
+			"description": "@types/node follows the Node that runs the app (22 in production, 24 in CI): no types of a newer major, they would let APIs through that production does not have",
+			"matchPackageNames": ["@types/node"],
+			"allowedVersions": "<25"
+		},
+		{
+			"description": "Sentry 11 sends request bodies, cookies and headers by default unless dataCollection is set, drops import-in-the-middle and changes the build instrumentation: a migration of its own, to validate on staging with the real DSN",
+			"matchPackageNames": ["@sentry/nextjs", "@sentry/browser"],
+			"matchUpdateTypes": ["major"],
+			"enabled": false
+		},
+		{
+			"description": "c15t 3 is a rewrite (12 October 2026) that no longer blocks third-party requests such as Google Analytics before consent: to take together with a decision on how GA is gated",
+			"matchPackageNames": ["@c15t/nextjs"],
+			"matchUpdateTypes": ["major"],
+			"enabled": false
+		},
+		{
+			"description": "TanStack Table 9 changes the table API (hook, row models, state): the three admin lists need a migration of their own",
+			"matchPackageNames": ["@tanstack/react-table"],
+			"matchUpdateTypes": ["major"],
+			"enabled": false
 		}
 	]
 }
