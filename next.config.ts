@@ -45,6 +45,11 @@ const nextConfig: NextConfig = {
 	},
 }
 
+// Since Sentry 11 the source maps are uploaded by the `sentry` CLI package, which reports its own usage and errors
+// to Sentry: a channel @sentry/cli did not have, and one the `telemetry` option of withSentryConfig does not reach.
+// It stays off, as before the upgrade, unless the build environment sets the variable to something else.
+process.env.SENTRY_CLI_NO_TELEMETRY ??= '1'
+
 export default withSentryConfig(nextConfig, {
 	// For all available options, see:
 	// https://www.npmjs.com/package/@sentry/webpack-plugin#options
@@ -67,6 +72,7 @@ export default withSentryConfig(nextConfig, {
 
 	org: 'neova-s5',
 
-	// Tree-shake the Sentry SDK debug statements to reduce bundle size
+	// Tree-shake the Sentry SDK debug statements to reduce bundle size. Since Sentry 11 this also applies to
+	// Turbopack builds: while it is on, `debug: true` in the Sentry config files prints nothing.
 	bundleSizeOptimizations: { excludeDebugStatements: true },
 })

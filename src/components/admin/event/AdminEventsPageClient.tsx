@@ -3,18 +3,13 @@
 import {
 	type ColumnDef,
 	type ColumnFiltersState,
+	type ColumnVisibilityState,
 	type FilterFn,
 	flexRender,
-	getCoreRowModel,
-	getFacetedUniqueValues,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
 	type PaginationState,
 	type Row,
 	type SortingState,
-	useReactTable,
-	type VisibilityState,
+	useTable,
 } from '@tanstack/react-table'
 import {
 	Calendar,
@@ -39,6 +34,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { deleteEventAction, getAllEventsAction } from '@/app/[locale]/admin/actions'
+import { type AdminTableFeatures, adminTableFeatures } from '@/components/admin/adminTableFeatures'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -172,7 +168,7 @@ interface EventsTranslations {
 }
 
 // Custom filter function for multi-column searching
-const multiColumnFilterFn: FilterFn<AppEvent & { expand?: { organizer?: Organizer } }> = (
+const multiColumnFilterFn: FilterFn<AdminTableFeatures, AppEvent & { expand?: { organizer?: Organizer } }> = (
 	row,
 	_columnId,
 	filterValue
@@ -191,7 +187,8 @@ import type { Locale } from '@/lib/i18n/config'
 import { cn } from '@/lib/utils'
 
 export default function AdminEventsPageClient({ locale, currentUser }: AdminEventsPageClientProps) {
-	const t = getTranslations(locale, translations)
+	// getTranslations builds a new object at every call: kept per locale, so that the columns below stay the same
+	const t = useMemo(() => getTranslations(locale, translations), [locale])
 
 	const router = useRouter()
 	const id = useId()
@@ -202,7 +199,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 
 	// Table state
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+	const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>({})
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageSize: 10,
 		pageIndex: 0,
@@ -214,8 +211,9 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 		},
 	])
 
-	// Define columns
-	const columns: ColumnDef<AppEvent & { expand?: { organizer?: Organizer } }>[] = useMemo(
+	// Define columns. The same array as long as the locale does not change: the table rebuilds its columns, and React
+	// remounts every cell, whenever it receives a new one
+	const columns: ColumnDef<AdminTableFeatures, AppEvent & { expand?: { organizer?: Organizer } }>[] = useMemo(
 		() => [
 			{
 				size: 28,
@@ -250,6 +248,11 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 				accessorKey: 'name',
 			},
 			{
+				// The only column whose value can be missing (an event whose organizer relation is empty). The table picks
+				// the comparison and the first direction of a column from the values of its first ten rows: with nothing
+				// there it would compare raw character codes and start from Z, so both are stated here.
+				sortFn: 'alphanumeric',
+				sortDescFirst: false,
 				size: 180,
 				header: t.events.table.columns.organizer,
 				cell: ({ row }) => {
@@ -323,10 +326,12 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 				header: () => <span className="sr-only">{t.events.table.columns.actions}</span>,
 				enableSorting: false,
 				enableHiding: false,
-				cell: ({ row }) => <RowActions row={row} t={t} />,
+				// A row is its position in the data, and its cells are kept from one render to the next: without the key, a
+				// menu or a dialog left open would stay on the row and act on the event that takes its place after a deletion
+				cell: ({ row }) => <RowActions key={row.original.id} row={row} t={t} />,
 			},
 		],
-		[t]
+		[t, locale]
 	)
 
 	useEffect(() => {
@@ -400,7 +405,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 		table.resetRowSelection()
 	}
 
-	const table = useReactTable({
+	const table = useTable({
 		state: {
 			sorting,
 			pagination,
@@ -411,11 +416,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 		onPaginationChange: setPagination,
 		onColumnVisibilityChange: setColumnVisibility,
 		onColumnFiltersChange: setColumnFilters,
-		getSortedRowModel: getSortedRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
-		getFacetedUniqueValues: getFacetedUniqueValues(),
-		getCoreRowModel: getCoreRowModel(),
+		features: adminTableFeatures,
 		enableSortingRemoval: false,
 		data: events,
 		columns,
@@ -741,7 +742,7 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 												}}
 												options={pageSizeOptions}
 												placeholder="Select number of results"
-												value={table.getState().pagination.pageSize.toString()}
+												value={table.state.pagination.pageSize.toString()}
 											/>
 										)
 									})()}
@@ -751,11 +752,11 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 								<div className="text-muted-foreground flex grow justify-end text-sm whitespace-nowrap">
 									<p aria-live="polite" className="text-muted-foreground text-sm whitespace-nowrap">
 										<span className="text-foreground">
-											{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}-
+											{table.state.pagination.pageIndex * table.state.pagination.pageSize + 1}-
 											{Math.min(
 												Math.max(
-													table.getState().pagination.pageIndex * table.getState().pagination.pageSize +
-														table.getState().pagination.pageSize,
+													table.state.pagination.pageIndex * table.state.pagination.pageSize +
+														table.state.pagination.pageSize,
 													0
 												),
 												table.getRowCount()
@@ -833,7 +834,13 @@ export default function AdminEventsPageClient({ locale, currentUser }: AdminEven
 	)
 }
 
-function RowActions({ t, row }: { row: Row<AppEvent>; t: EventsTranslations }) {
+function RowActions({
+	t,
+	row,
+}: {
+	row: Row<AdminTableFeatures, AppEvent & { expand?: { organizer?: Organizer } }>
+	t: EventsTranslations
+}) {
 	const router = useRouter()
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 	const [deleting, setDeleting] = useState(false)

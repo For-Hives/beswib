@@ -21,7 +21,7 @@
 			"allowedVersions": "<25"
 		},
 		{
-			"description": "Sentry 11 sends request bodies, cookies and headers by default unless dataCollection is set, drops import-in-the-middle and changes the build instrumentation: a migration of its own, to validate on staging with the real DSN",
+			"description": "A Sentry major can change what the SDK sends by default (11 turned cookies, request bodies and IP addresses on unless dataCollection says otherwise, see sentry.data-collection.ts): a migration of its own, with the envelopes compared before and after",
 			"matchPackageNames": ["@sentry/nextjs", "@sentry/browser"],
 			"matchUpdateTypes": ["major"],
 			"enabled": false
@@ -30,12 +30,6 @@
 			"description": "c15t decides whether Google Analytics may load (consent banner, offline mode) and CI only sees part of it: an update is proposed and checked in a browser, never merged automatically",
 			"matchPackageNames": ["@c15t/nextjs"],
 			"automerge": false
-		},
-		{
-			"description": "TanStack Table 9 changes the table API (hook, row models, state): the three admin lists need a migration of their own",
-			"matchPackageNames": ["@tanstack/react-table"],
-			"matchUpdateTypes": ["major"],
-			"enabled": false
 		}
 	]
 }
