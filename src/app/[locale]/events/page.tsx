@@ -46,7 +46,7 @@ export default async function EventsPage({ params }: { params: Promise<LocalePar
 				</div>
 			</header>
 
-			<EventListClient locale={locale} prefetchedEvents={events} />
+			<EventListClient locale={locale} prefetchedEvents={events} loadFailed={error != null} />
 		</div>
 	)
 }

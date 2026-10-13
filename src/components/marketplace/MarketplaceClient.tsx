@@ -4,7 +4,7 @@ import Fuse from 'fuse.js'
 import { Search } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { parseAsArrayOf, parseAsFloat, parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import ActiveFiltersBadges from '@/components/marketplace/ActiveFiltersBadges'
 import CardMarket from '@/components/marketplace/CardMarket'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
@@ -13,6 +13,11 @@ import OfferCounter from '@/components/marketplace/offerCounter'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/inputAlt'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { countBucket } from '@/lib/analytics/buckets'
+import type { EventProps } from '@/lib/analytics/catalog'
+import { sportOf } from '@/lib/analytics/classify'
+import { track, trackView } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import type { BibSale } from '@/models/marketplace.model'
@@ -105,6 +110,43 @@ const sanitizeNumericValue = (value: number | null): number | null => {
 		return null
 	}
 	return value
+}
+
+// --- Analytics: closed names for the sort options and for the badges of the active-filter bar
+const sortValueOf = (sortOption: string): EventProps<'sort_change'>['sort'] | undefined => {
+	switch (sortOption) {
+		case 'date':
+			return 'date'
+		case 'distance':
+			return 'distance'
+		case 'price-asc':
+			return 'price_asc'
+		case 'price-desc':
+			return 'price_desc'
+		default:
+			return undefined
+	}
+}
+
+const badgeFilterOf = (type: string): EventProps<'filter_change'>['filter'] | undefined => {
+	switch (type) {
+		case 'sport':
+			return 'sport'
+		case 'distance':
+			return 'distance_preset'
+		case 'distanceRange':
+			return 'distance_range'
+		case 'price':
+			return 'price_range'
+		case 'geography':
+			return 'geography'
+		case 'dateStart':
+			return 'date_start'
+		case 'dateEnd':
+			return 'date_end'
+		default:
+			return undefined
+	}
 }
 
 // --- Main client component for the marketplace grid and filters 🖼️
@@ -221,9 +263,11 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 
 	const handleSortChange = React.useCallback(
 		(sortOption: string) => {
+			const trackedSort = sortValueOf(sortOption)
+			if (trackedSort != null && sortOption !== sort) track('sort_change', { where: 'marketplace', sort: trackedSort })
 			void setFilters({ sort: sortOption as 'date' | 'distance' | 'price-asc' | 'price-desc' })
 		},
-		[setFilters]
+		[setFilters, sort]
 	)
 
 	// --- Handler for search input that safely handles special characters 🔍
@@ -239,6 +283,16 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 	// --- Handler for removing individual filters 🔗
 	const handleRemoveFilter = React.useCallback(
 		(type: string, value?: string) => {
+			const removedFilter = badgeFilterOf(type)
+			if (removedFilter != null) {
+				track('filter_change', {
+					where: 'marketplace',
+					filter: removedFilter,
+					action: 'remove',
+					surface: 'badge_bar',
+					value: removedFilter === 'sport' && sport != null ? sportOf(sport) : 'na',
+				})
+			}
 			switch (type) {
 				case 'sport':
 					void setFilters({ sport: null })
@@ -266,7 +320,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 					break
 			}
 		},
-		[setFilters, geography, minPrice, maxPrice, maxDistance]
+		[setFilters, geography, minPrice, maxPrice, maxDistance, sport]
 	)
 
 	// --- Fuse.js instance for fuzzy search on bibs (name, location, type) ✨
@@ -356,6 +410,63 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 		fuse,
 	])
 
+	// --- Analytics: same tests as the filter counter of the sidebar; a range that was never set (Infinity) does not count
+	const activeFilterCount = [
+		sport != null,
+		distance != null,
+		(distanceMin ?? 0) !== 0 || (distanceMax != null && distanceMax !== Infinity && distanceMax !== maxDistance),
+		(priceMin ?? 0) !== minPrice || (priceMax != null && priceMax !== Infinity && priceMax !== maxPrice),
+		geography.length > 0,
+		dateStart != null && dateStart !== 'undefined',
+		dateEnd != null && dateEnd !== 'undefined',
+	].filter(Boolean).length
+	const resultCount = filteredAndSortedBibs.length
+
+	const listStateRef = useRef({ resultCount, activeFilterCount })
+	useEffect(() => {
+		listStateRef.current = { resultCount, activeFilterCount }
+	})
+
+	// A typed search is counted once it has settled; the value present at mount never is
+	const lastTrackedSearchRef = useRef(search.trim())
+	useEffect(() => {
+		const term = search.trim()
+		if (term === '' || term === lastTrackedSearchRef.current) return
+		const timer = setTimeout(() => {
+			lastTrackedSearchRef.current = term
+			track('search_submit', {
+				where: 'marketplace',
+				result_count: countBucket(listStateRef.current.resultCount),
+				has_filters: listStateRef.current.activeFilterCount > 0,
+			})
+		}, 1000)
+		return () => clearTimeout(timer)
+	}, [search])
+
+	const isEmpty = resultCount === 0
+	const hasQuery = search.trim() !== ''
+	const catalogueEmpty = bibs.length === 0
+	// Each empty state is counted once for as long as the list stays empty
+	const sentEmptyStatesRef = useRef(new Set<string>())
+	useEffect(() => {
+		if (!isEmpty) {
+			sentEmptyStatesRef.current.clear()
+			return
+		}
+		const key = `${hasQuery}|${activeFilterCount}|${catalogueEmpty}`
+		if (sentEmptyStatesRef.current.has(key)) return
+		const timer = setTimeout(() => {
+			sentEmptyStatesRef.current.add(key)
+			trackView('empty_results_view', {
+				where: 'marketplace',
+				has_query: hasQuery,
+				filter_count: activeFilterCount,
+				catalogue_empty: catalogueEmpty,
+			})
+		}, 1000)
+		return () => clearTimeout(timer)
+	}, [isEmpty, hasQuery, activeFilterCount, catalogueEmpty])
+
 	// --- Main render: classic layout with search bar at top and sidebar 🖼️
 	return (
 		<div className="bg-background">
@@ -375,7 +486,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 					<div className="mt-3 block sm:hidden">
 						<Dialog>
 							<DialogTrigger asChild>
-								<Button variant="outline" className="w-full">
+								<Button variant="outline" className="w-full" {...umamiAttrs('menu_open', { menu: 'filters' })}>
 									{translations.filtersButton ?? 'Filters'}
 								</Button>
 							</DialogTrigger>
@@ -402,6 +513,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 										}}
 										onFiltersChange={handleFiltersChange}
 										regions={uniqueLocations}
+										surface="mobile_dialog"
 									/>
 								</div>
 							</DialogContent>
@@ -453,6 +565,7 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 							}}
 							onFiltersChange={handleFiltersChange}
 							regions={uniqueLocations}
+							surface="sidebar"
 						/>
 					</div>
 
@@ -469,8 +582,14 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 
 							{/* Grid of bib cards, responsive layout 🖼️ */}
 							<div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
-								{filteredAndSortedBibs.map(bib => (
-									<CardMarket bibSale={bib} key={bib.id} locale={locale} />
+								{filteredAndSortedBibs.map((bib, index) => (
+									<CardMarket
+										bibSale={bib}
+										key={bib.id}
+										locale={locale}
+										trackWhere="marketplace"
+										position={index + 1}
+									/>
 								))}
 							</div>
 
