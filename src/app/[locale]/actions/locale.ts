@@ -114,6 +114,11 @@ export async function getArticleTranslatedSlug(
 			return { slug: null, success: false }
 		}
 
+		// Anyone may call this action, with any argument: only a slug is looked up
+		if (typeof currentSlug !== 'string') {
+			return { slug: null, success: false }
+		}
+
 		// Get the translated slug
 		const translatedSlug = await getTranslatedArticleSlug(currentSlug, targetLocale)
 

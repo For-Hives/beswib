@@ -7,6 +7,7 @@ import type { PurchaseErrorKind } from '@/lib/analytics/catalog'
 import { listingOf } from '@/lib/analytics/classify'
 import { bibIdOf, eventIdOfBib } from '@/lib/analytics/ids'
 import { trackServer } from '@/lib/analytics/server'
+import { isValidPayPalOrderId } from '@/lib/validation/paypal'
 import type { Bib } from '@/models/bib.model'
 import { fetchPurchasableBibById, isLocked, lockBib } from '@/services/bib.services'
 import { capturePayment } from '@/services/paypal.services'
@@ -144,6 +145,13 @@ export async function captureOrder(
 		const { userId } = await auth()
 		if (userId == null || userId === '') {
 			return { errorKind: 'unauthenticated', error: 'User is not authenticated.' }
+		}
+
+		// The order id is sent by the browser and is looked up through a PocketBase filter. One that is
+		// not shaped like a PayPal order id is no order of ours: answered as such before any lookup,
+		// whatever a filter widened by it would have matched
+		if (!isValidPayPalOrderId(orderId)) {
+			return { errorKind: 'order_not_found', error: 'Order not found.' }
 		}
 
 		const tx = await getTransactionByOrderId(orderId)

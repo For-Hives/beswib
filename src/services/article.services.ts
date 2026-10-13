@@ -6,6 +6,16 @@ import type { ImageWithAlt } from '@/models/imageWithAlt.model'
 import type { SEO } from '@/models/seo.model'
 
 /**
+ * Escapes a value written between double quotes in a PocketBase filter.
+ * The slug of an article comes from the address of a blog page and from the locale switcher of every
+ * page (getArticleTranslatedSlug, an action open to anonymous visitors): unescaped, a slug that closes
+ * the quote turns the lookup into a query of the caller's choice, run with the admin token.
+ */
+function escapeFilterValue(value: string): string {
+	return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+}
+
+/**
  * Creates a new article.
  * @param articleData Data for the new article.
  */
@@ -93,7 +103,7 @@ export async function fetchArticleBySlug(
 		const records = await pb
 			.collection('articles')
 			.getFullList<Article & { expand?: { image?: ImageWithAlt; seo?: SEO } }>({
-				filter: `slug = "${slug}"`,
+				filter: `slug = "${escapeFilterValue(slug)}"`,
 				expand: expandRelations ? 'image,seo' : undefined,
 			})
 		return records.length > 0 ? records[0] : null
@@ -221,7 +231,7 @@ export async function fetchArticlesByTranslationGroup(
 		const records = await pb
 			.collection('articles')
 			.getFullList<Article & { expand?: { image?: ImageWithAlt; seo?: SEO } }>({
-				filter: `translationGroup = "${translationGroup}"`,
+				filter: `translationGroup = "${escapeFilterValue(translationGroup)}"`,
 				sort: '-created',
 				expand: expandRelations ? 'image,seo' : undefined,
 			})
@@ -250,7 +260,7 @@ export async function fetchArticlesByLocale(
 		const records = await pb
 			.collection('articles')
 			.getFullList<Article & { expand?: { image?: ImageWithAlt; seo?: SEO } }>({
-				filter: `locale = "${locale}"`,
+				filter: `locale = "${escapeFilterValue(locale)}"`,
 				sort: '-created',
 				expand: expandRelations ? 'image,seo' : undefined,
 			})
