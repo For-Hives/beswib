@@ -80,8 +80,7 @@ function processTextForHighlighting(text: string, highlightColor: string) {
 type OGImageProps = {
 	title?: string // Optional main title
 	secondary?: string // Optional secondary description
-	host: string // Hostname for assets
-	protocol: string // Protocol (http/https) for assets
+	logoSrc?: string | null // The organizer logo as a data URL, already converted
 	size: { width: number; height: number } // OG image dimensions
 	bib?: BibData // Optional bib data to display
 	organizer?: Organizer // Optional organizer data to display
@@ -98,8 +97,7 @@ export default function OGImageBib({
 	locale,
 	exchangeRates,
 	bib,
-	host,
-	protocol,
+	logoSrc,
 }: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
@@ -335,14 +333,7 @@ export default function OGImageBib({
 				>
 					{/* Bib card or placeholder */}
 					{bib && locale && organizer ? (
-						<BibCard
-							bib={bib}
-							locale={locale}
-							organizer={organizer}
-							exchangeRates={exchangeRates}
-							host={host}
-							protocol={protocol}
-						/>
+						<BibCard bib={bib} locale={locale} organizer={organizer} exchangeRates={exchangeRates} logoSrc={logoSrc} />
 					) : (
 						<div style={{ width: '300px', height: '400px', borderRadius: '20px', backgroundColor: '#f3f4f6' }}></div>
 					)}

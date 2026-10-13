@@ -78,8 +78,7 @@ type OGImageArticleProps = {
 	article?: Article & { expand?: { image?: ImageWithAlt } } // Optional article data
 	locale?: Locale // Optional locale for translations
 	readTime?: number // Optional read time in minutes
-	host: string // Hostname for assets
-	protocol: string // Protocol (http/https) for assets
+	imageSrc?: string | null // The article picture as a data URL, already converted
 }
 
 // Main component for generating an Open Graph image for articles
@@ -90,8 +89,7 @@ export default function OGImageArticle({
 	article,
 	locale,
 	readTime,
-	host,
-	protocol,
+	imageSrc,
 }: Readonly<OGImageArticleProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
@@ -327,7 +325,7 @@ export default function OGImageArticle({
 				>
 					{/* Article card or placeholder */}
 					{article && locale && readTime !== undefined ? (
-						<ArticleCard article={article} locale={locale} readTime={readTime} host={host} protocol={protocol} />
+						<ArticleCard article={article} locale={locale} readTime={readTime} imageSrc={imageSrc} />
 					) : (
 						<div style={{ width: '280px', height: '380px', borderRadius: '16px', backgroundColor: '#f3f4f6' }} />
 					)}

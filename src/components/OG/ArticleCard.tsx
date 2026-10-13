@@ -3,7 +3,6 @@ import blogTranslations from '@/components/blog/locales.json'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { formatDateWithLocale } from '@/lib/utils/date'
-import { getArticleImageUrl } from '@/lib/utils/imageUrl'
 import type { Article } from '@/models/article.model'
 import type { ImageWithAlt } from '@/models/imageWithAlt.model'
 
@@ -11,15 +10,14 @@ interface ArticleCardProps {
 	article: Article & { expand?: { image?: ImageWithAlt } }
 	locale: Locale
 	readTime: number
-	host: string
-	protocol: string
+	/** The article picture as a data URL (see pocketBaseImageDataUrl), or null to draw the card without it */
+	imageSrc?: string | null
 }
 
-export default function ArticleCard({ article, locale, readTime, host, protocol }: Readonly<ArticleCardProps>) {
+export default function ArticleCard({ article, locale, readTime, imageSrc }: Readonly<ArticleCardProps>) {
 	const t = getTranslations(locale, blogTranslations)
 
-	// Get article image URL - convert WebP to PNG for OpenGraph compatibility
-	const imageUrl = getArticleImageUrl(article, true, host, protocol)
+	const imageUrl = imageSrc
 
 	return (
 		<div

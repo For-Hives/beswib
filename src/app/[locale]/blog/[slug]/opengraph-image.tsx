@@ -1,11 +1,9 @@
-import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
-import { ImageResponse } from 'next/og'
-import OGImage from '@/components/OG/ogImage.component'
 import OGImageArticle from '@/components/OG/ogImageArticle.component'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { getAbsoluteUrl } from '@/lib/utils/url'
+import { renderCardOrGeneric } from '@/lib/og/dynamic-image'
+import { pocketBaseImageDataUrl } from '@/lib/og/pocketbase-image'
+import { getArticleImageUrl } from '@/lib/utils/imageUrl'
 import { fetchArticleBySlug } from '@/services/article.services'
 
 import articleTranslations from './locales.json'
@@ -66,51 +64,20 @@ export default async function Image({ params }: { params: Promise<ArticleOpenGra
 		// Fallback to generic blog content
 	}
 
-	// Get the absolute URL using environment variables
-	const { protocol, host } = getAbsoluteUrl()
+	// The article picture, fetched and converted here: the image only embeds data it was handed
+	const imageSrc = article ? await pocketBaseImageDataUrl(getArticleImageUrl(article)) : null
 
-	// Load custom fonts for @vercel/og with error handling
-	try {
-		const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/BowlbyOneSC-Regular.ttf'))
-		const geistFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/Geist-Regular.ttf'))
-
-		// Return the Open Graph image with custom fonts
-		return new ImageResponse(
-			<OGImageArticle
-				title={title}
-				secondary={secondary}
-				size={size}
-				article={article ?? undefined}
-				locale={locale}
-				readTime={readTime}
-				host={host}
-				protocol={protocol}
-			/>,
-			{
-				...size,
-				fonts: [
-					{
-						weight: 400,
-						style: 'normal',
-						name: 'BowlbyOneSC',
-						data: bowlbyFont,
-					},
-					{
-						weight: 400,
-						style: 'normal',
-						name: 'Geist',
-						data: geistFont,
-					},
-				],
-			}
-		)
-	} catch (error) {
-		// Log error if font loading fails
-		console.error('Error loading fonts:', error)
-		// Fallback: return the generic image without custom fonts
-		return new ImageResponse(
-			<OGImage title={title} secondary={secondary} host={host} protocol={protocol} size={size} />,
-			size
-		)
-	}
+	return renderCardOrGeneric(
+		<OGImageArticle
+			title={title}
+			secondary={secondary}
+			size={size}
+			article={article ?? undefined}
+			locale={locale}
+			readTime={readTime}
+			imageSrc={imageSrc}
+		/>,
+		{ title, secondary },
+		size
+	)
 }

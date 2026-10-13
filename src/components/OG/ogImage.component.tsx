@@ -1,6 +1,7 @@
 /** biome-ignore-all lint/suspicious/noArrayIndexKey: <the usage is ok, we know that the index is stable.> */
 /** biome-ignore-all lint/performance/noImgElement: <that's normal, we are in an opengraph image environment, we can't use the Image component> */
 import computeFontSizeAndRender from '@/components/OG/computeFontSize'
+import { publicAssetDataUrl } from '@/lib/og/assets'
 
 import BeswibLogo from './icons/BeswibLogo'
 import Pattern from './icons/Pattern'
@@ -71,13 +72,15 @@ function processTextForHighlighting(text: string, highlightColor: string) {
 type OGImageProps = {
 	title?: string // Optional main title
 	secondary?: string // Optional secondary description
-	host: string // Hostname for assets
-	protocol: string // Protocol (http/https) for assets
+	/** No longer read: the assets come from the disk. Kept so the callers stay as they are. */
+	host?: string
+	/** No longer read, see host. */
+	protocol?: string
 	size: { width: number; height: number } // OG image dimensions
 }
 
 // Main component for generating an Open Graph image
-export default function OGImage({ title, size, secondary, protocol, host }: Readonly<OGImageProps>) {
+export default function OGImage({ title, size, secondary }: Readonly<OGImageProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
 	const MAX_WIDTH_Secondary = 440
@@ -107,7 +110,7 @@ export default function OGImage({ title, size, secondary, protocol, host }: Read
 	})
 
 	// URLs for images used in the OG image
-	const mountainUrl = `${protocol}://${host}/openGraph/${encodeURIComponent('mountain-outlined.png')}`
+	const mountainUrl = publicAssetDataUrl('openGraph/mountain-outlined.png')
 
 	// Split text into parts with color for highlights
 	const secondaryParts = formatTextWithColor(secondaryDesc)
