@@ -2,8 +2,8 @@
 
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { AlertTriangle, CheckCircle, FileText, MapPin, Save, Shield, User as UserIcon } from 'lucide-react'
-import { useEffect, useState, useTransition } from 'react'
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { useEffect, useRef, useState, useTransition } from 'react'
+import { Controller, type FieldErrors, type SubmitHandler, useForm } from 'react-hook-form'
 import { updateUserProfile } from '@/app/[locale]/profile/actions'
 import profileTranslations from '@/components/profile/locales.json'
 import { AddressInput } from '@/components/ui/address-input'
@@ -15,11 +15,13 @@ import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
+import type { EventProps } from '@/lib/analytics/catalog'
+import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { formatDateForHTMLInput } from '@/lib/utils/date'
 import { createRunnerFormSchema } from '@/lib/validation/schemas'
-import { isUserProfileComplete } from '@/lib/validation/user'
+import { isSellerAddressComplete, isUserProfileComplete } from '@/lib/validation/user'
 import type { User } from '@/models/user.model'
 import type { VerifiedEmail } from '@/models/verifiedEmail.model'
 import { fetchVerifiedEmailsByUserId } from '@/services/verifiedEmail.services'
@@ -44,6 +46,34 @@ type RunnerFormData = {
 	medicalCertificateUrl?: string
 	clubAffiliation?: string
 	licenseNumber?: string
+}
+
+type FormErrorTarget = Pick<EventProps<'profile_form_error'>, 'block' | 'field'>
+
+// Field NAME of the first schema error, never its value
+const FORM_ERROR_TARGETS: Partial<Record<keyof RunnerFormData, FormErrorTarget>> = {
+	firstName: { block: 'personal', field: 'first_name' },
+	lastName: { block: 'personal', field: 'last_name' },
+	birthDate: { block: 'personal', field: 'birth_date' },
+	gender: { block: 'personal', field: 'gender' },
+	phoneNumber: { block: 'personal', field: 'phone_number' },
+	contactEmail: { block: 'personal', field: 'contact_email' },
+	consentMarket: { block: 'personal', field: 'other' },
+	emergencyContactName: { block: 'emergency', field: 'emergency_contact_name' },
+	emergencyContactPhone: { block: 'emergency', field: 'emergency_contact_phone' },
+	emergencyContactRelationship: { block: 'emergency', field: 'emergency_contact_relationship' },
+	address: { block: 'address', field: 'address' },
+	postalCode: { block: 'address', field: 'postal_code' },
+	city: { block: 'address', field: 'city' },
+	country: { block: 'address', field: 'country' },
+	medicalCertificateUrl: { block: 'documents', field: 'other' },
+	clubAffiliation: { block: 'documents', field: 'other' },
+	licenseNumber: { block: 'documents', field: 'other' },
+}
+
+function isFilled(value: unknown): boolean {
+	if (value == null) return false
+	return typeof value === 'string' ? value.trim() !== '' : true
 }
 
 export default function ModernRunnerForm({
@@ -86,6 +116,13 @@ export default function ModernRunnerForm({
 
 	// Calculate completion status from local user state
 	const isComplete = isUserProfileComplete(localUser)
+
+	const formStarted = useRef(false)
+	const trackFormStart = () => {
+		if (formStarted.current) return
+		formStarted.current = true
+		track('profile_form_start', { was_complete: isComplete })
+	}
 
 	// Gender options for SelectAnimated
 	const genderOptions: SelectOption[] = [
@@ -166,19 +203,41 @@ export default function ModernRunnerForm({
 					onUserUpdate(updatedUser)
 				}
 
+				track('profile_form_success', {
+					complete: isUserProfileComplete(updatedUser),
+					was_complete: isComplete,
+					personal_done:
+						isFilled(updatedUser.firstName) &&
+						isFilled(updatedUser.lastName) &&
+						isFilled(updatedUser.birthDate) &&
+						isFilled(updatedUser.gender),
+					emergency_done:
+						isFilled(updatedUser.emergencyContactName) &&
+						isFilled(updatedUser.emergencyContactPhone) &&
+						isFilled(updatedUser.emergencyContactRelationship),
+					address_done: isSellerAddressComplete(updatedUser),
+					marketing_consent: values.consentMarket === true,
+				})
 				setSubmitStatus('success')
 				setTimeout(() => setSubmitStatus('idle'), 3000)
 			} catch (error) {
 				console.error(error)
+				track('profile_form_error', { kind: 'server', block: 'none', field: 'none', invalid_count: 0 })
 				setSubmitStatus('error')
 				setTimeout(() => setSubmitStatus('idle'), 5000)
 			}
 		})
 	}
 
+	const onInvalid = (errors: FieldErrors<RunnerFormData>) => {
+		const fields = Object.keys(errors) as (keyof RunnerFormData)[]
+		const target = FORM_ERROR_TARGETS[fields[0]] ?? { block: 'none', field: 'other' }
+		track('profile_form_error', { kind: 'validation', ...target, invalid_count: fields.length })
+	}
+
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		void form.handleSubmit(onSubmit)(e)
+		void form.handleSubmit(onSubmit, onInvalid)(e)
 	}
 
 	return (
@@ -232,7 +291,7 @@ export default function ModernRunnerForm({
 
 			<VerifiedEmailsManager user={localUser} locale={locale} onEmailVerified={() => void loadVerifiedEmails()} />
 
-			<form onSubmit={handleSubmit} className="space-y-8">
+			<form onSubmit={handleSubmit} onChange={trackFormStart} className="space-y-8">
 				{/* Personal Information Section */}
 				<Card className="dark:border-border/50 bg-card/80 relative z-20 border-black/50 backdrop-blur-sm">
 					<CardHeader>
@@ -301,7 +360,10 @@ export default function ModernRunnerForm({
 								{t.gender ?? 'Gender'}
 							</Label>
 							<SelectAnimated
-								onValueChange={value => form.setValue('gender', value as 'male' | 'female' | 'other')}
+								onValueChange={value => {
+									trackFormStart()
+									form.setValue('gender', value as 'male' | 'female' | 'other')
+								}}
 								options={genderOptions}
 								placeholder="Select your gender"
 								value={form.watch('gender')}
@@ -340,7 +402,10 @@ export default function ModernRunnerForm({
 								{t.contactEmail ?? 'Contact Email'}
 							</Label>
 							<SelectAnimated
-								onValueChange={value => form.setValue('contactEmail', value)}
+								onValueChange={value => {
+									trackFormStart()
+									form.setValue('contactEmail', value)
+								}}
 								options={contactEmailOptions}
 								placeholder={t.selectContactEmailPlaceholder ?? 'Select your contact email'}
 								value={form.watch('contactEmail')}

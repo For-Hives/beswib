@@ -21,6 +21,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { verifiedEmailKind } from '@/lib/analytics/classify'
+import { track, trackView } from '@/lib/analytics/client'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import type { User } from '@/models/user.model'
 import type { VerifiedEmail } from '@/models/verifiedEmail.model'
@@ -105,10 +108,12 @@ export default function VerifiedEmailsManager({
 					setVerifiedEmails(result.data)
 				} else {
 					console.error('Error loading verified emails:', result.error)
+					trackView('verified_email_error', { where: 'profile', step: 'load', kind: verifiedEmailKind(result.error) })
 					setError(getErrorMessage(result.error ?? 'FETCH_EMAILS_FAILED'))
 				}
 			} catch (error) {
 				console.error('Error loading verified emails:', error)
+				trackView('verified_email_error', { where: 'profile', step: 'load', kind: 'unknown' })
 				setError(t.verifiedEmails.errors.loadFailed ?? 'Failed to load verified emails')
 			} finally {
 				setLoading(false)
@@ -121,6 +126,7 @@ export default function VerifiedEmailsManager({
 	const handleAddEmail = async () => {
 		if (!newEmail.trim() || !newEmail.includes('@')) {
 			setError(t.verifiedEmails.errors.addInvalidEmail ?? 'Please enter a valid email address')
+			track('verified_email_error', { where: 'profile', step: 'add', kind: 'validation' })
 			return
 		}
 
@@ -134,15 +140,18 @@ export default function VerifiedEmailsManager({
 				setNewEmail('')
 				setShowAddEmail(false)
 				toast.success(t.verifiedEmails.success.addSuccess)
+				track('verified_email_step', { where: 'profile', step: 'code_sent' })
 				// Notify parent component that an email was added
 				onEmailVerified?.()
 			} else {
+				track('verified_email_error', { where: 'profile', step: 'add', kind: verifiedEmailKind(result.error) })
 				const errorMessage = getErrorMessage(result.error ?? 'CREATE_EMAIL_FAILED')
 				setError(errorMessage)
 				toast.error(errorMessage)
 			}
 		} catch (error) {
 			console.error('Error adding email:', error)
+			track('verified_email_error', { where: 'profile', step: 'add', kind: 'unknown' })
 			const errorMessage = t.verifiedEmails.errors.addFailed ?? 'Failed to add email. Please try again.'
 			setError(errorMessage)
 			toast.error(errorMessage)
@@ -159,6 +168,7 @@ export default function VerifiedEmailsManager({
 		const code = verificationCodes[emailId]
 		if (code?.length !== 6) {
 			setError(t.verifiedEmails.errors.verifyInvalidCode ?? 'Please enter a valid 6-digit verification code')
+			track('verified_email_error', { where: 'profile', step: 'verify', kind: 'validation' })
 			return
 		}
 
@@ -175,15 +185,18 @@ export default function VerifiedEmailsManager({
 					return next
 				})
 				toast.success('Email verified successfully')
+				track('verified_email_success', { where: 'profile' })
 				// Notify parent component that an email was verified
 				onEmailVerified?.()
 			} else {
+				track('verified_email_error', { where: 'profile', step: 'verify', kind: verifiedEmailKind(result.error) })
 				const errorMessage = getErrorMessage(result.error ?? 'VERIFY_EMAIL_FAILED')
 				setError(errorMessage)
 				toast.error(errorMessage)
 			}
 		} catch (error) {
 			console.error('Error verifying email:', error)
+			track('verified_email_error', { where: 'profile', step: 'verify', kind: 'unknown' })
 			const errorMessage = t.verifiedEmails.errors.verifyFailed ?? 'Failed to verify email. Please try again.'
 			setError(errorMessage)
 			toast.error(errorMessage)
@@ -204,13 +217,16 @@ export default function VerifiedEmailsManager({
 			const result = await resendVerificationCode(emailId)
 			if (result.success) {
 				toast.success('Verification code sent')
+				track('verified_email_step', { where: 'profile', step: 'code_resent' })
 			} else {
+				track('verified_email_error', { where: 'profile', step: 'resend', kind: verifiedEmailKind(result.error) })
 				const errorMessage = getErrorMessage(result.error ?? 'RESEND_CODE_FAILED')
 				setError(errorMessage)
 				toast.error(errorMessage)
 			}
 		} catch (error) {
 			console.error('Error resending code:', error)
+			track('verified_email_error', { where: 'profile', step: 'resend', kind: 'unknown' })
 			const errorMessage =
 				t.verifiedEmails.errors.resendFailed ?? 'Failed to resend verification code. Please try again.'
 			setError(errorMessage)
@@ -241,12 +257,14 @@ export default function VerifiedEmailsManager({
 				setVerifiedEmails(prev => prev.filter(email => email.id !== emailToDelete))
 				toast.success('Email deleted successfully')
 			} else {
+				track('verified_email_error', { where: 'profile', step: 'remove', kind: verifiedEmailKind(result.error) })
 				const errorMessage = getErrorMessage(result.error ?? 'DELETE_EMAIL_FAILED')
 				setError(errorMessage)
 				toast.error(errorMessage)
 			}
 		} catch (error) {
 			console.error('Error deleting email:', error)
+			track('verified_email_error', { where: 'profile', step: 'remove', kind: 'unknown' })
 			const errorMessage = t.verifiedEmails.errors.deleteFailed ?? 'Failed to delete email. Please try again.'
 			setError(errorMessage)
 			toast.error(errorMessage)
@@ -434,7 +452,12 @@ export default function VerifiedEmailsManager({
 
 					{/* Add new email */}
 					{!showAddEmail ? (
-						<Button variant="outline" onClick={() => setShowAddEmail(true)} className="w-full">
+						<Button
+							variant="outline"
+							onClick={() => setShowAddEmail(true)}
+							className="w-full"
+							{...umamiAttrs('verified_email_start', { where: 'profile' })}
+						>
 							<PlusIcon className="mr-2 h-4 w-4" />
 							{t.verifiedEmails.buttons.addEmail ?? 'Add Email Address'}
 						</Button>

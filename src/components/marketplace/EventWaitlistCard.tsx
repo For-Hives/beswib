@@ -7,6 +7,8 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { track } from '@/lib/analytics/client'
 import type { EventId } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -25,16 +27,32 @@ interface EventWaitlistCardProps {
 	className?: string
 }
 
-export function EventWaitlistCard({ user, locale, eventName, eventId, className = '' }: EventWaitlistCardProps) {
+export function EventWaitlistCard({
+	user,
+	locale,
+	eventName,
+	eventId,
+	className = '',
+	analyticsEventId,
+}: EventWaitlistCardProps) {
 	const { isSignedIn } = useAuth()
 	const [email, setEmail] = useState('')
 	const [isSubmitting, startTransition] = useTransition()
 	const [isSubscribed, setIsSubscribed] = useState(false)
 
 	const t = getTranslations(locale, eventWaitlistTranslations)
+	const mode = isSignedIn === true ? 'account' : 'email'
 
 	const handleSubscribe = () => {
 		if (isSignedIn !== true && (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
+			if (analyticsEventId !== undefined) {
+				track('waitlist_join_error', {
+					where: 'bib_page',
+					mode: 'email',
+					kind: 'invalid_email',
+					event_id: analyticsEventId,
+				})
+			}
 			toast.error(t.validation.pleaseEnterValidEmail ?? 'Veuillez entrer une adresse email valide')
 			return
 		}
@@ -44,12 +62,23 @@ export function EventWaitlistCard({ user, locale, eventName, eventId, className 
 				const result = await addToWaitlist(eventId, user ?? null, isSignedIn === true ? undefined : email)
 
 				if (result?.error === 'already_on_waitlist') {
+					if (analyticsEventId !== undefined) {
+						track('waitlist_join_error', {
+							where: 'bib_page',
+							mode,
+							kind: 'already_joined',
+							event_id: analyticsEventId,
+						})
+					}
 					toast.info(
 						t.messages.alreadySubscribedDesc.replace('{eventName}', eventName) ||
 							`Vous êtes déjà inscrit à la liste d'attente pour ${eventName}.`
 					)
 				} else if (result) {
 					setIsSubscribed(true)
+					if (analyticsEventId !== undefined) {
+						track('waitlist_join_success', { where: 'bib_page', mode, event_id: analyticsEventId })
+					}
 					toast.success(
 						t.messages.subscriptionSuccessDesc.replace('{eventName}', eventName) ||
 							`Vous recevrez une notification lorsqu'un dossard sera disponible pour ${eventName}.`
@@ -59,6 +88,9 @@ export function EventWaitlistCard({ user, locale, eventName, eventId, className 
 				}
 			} catch (error) {
 				console.error('Error adding to waitlist:', error)
+				if (analyticsEventId !== undefined) {
+					track('waitlist_join_error', { where: 'bib_page', mode, kind: 'failed', event_id: analyticsEventId })
+				}
 				toast.error(t.messages.subscriptionErrorDesc || 'Une erreur est survenue. Veuillez réessayer.')
 			}
 		})
@@ -132,6 +164,9 @@ export function EventWaitlistCard({ user, locale, eventName, eventId, className 
 					onClick={handleSubscribe}
 					disabled={isSubmitting}
 					className="bg-primary text-primary-foreground hover:bg-primary/90 w-full"
+					{...(analyticsEventId !== undefined
+						? umamiAttrs('waitlist_join_submit', { where: 'bib_page', mode, event_id: analyticsEventId })
+						: {})}
 				>
 					{isSubmitting
 						? t.form.subscribing || 'Inscription en cours...'
