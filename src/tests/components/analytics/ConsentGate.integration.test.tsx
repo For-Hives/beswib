@@ -3,7 +3,7 @@ import { act } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { ConsentedGoogleAnalytics } from '@/components/analytics/ConsentedGoogleAnalytics'
+import { ANALYTICS_REFUSED_AT_KEY, ConsentedGoogleAnalytics } from '@/components/analytics/ConsentedGoogleAnalytics'
 import { getConsentRootProps } from '@/lib/consent/root-props'
 import { i18n, type Locale } from '@/lib/i18n/config'
 
@@ -223,14 +223,74 @@ describe('consent gate on Google Analytics, with the real c15t runtime', { timeo
 		expect(analyticsTag()).toBeNull()
 	})
 
-	it('reads a 1.8.6 record for what it says: only one that granted measurement loads Google Analytics', async () => {
-		// Control for the two tests above: no visitor of this site has such a record, but it shows that
-		// the stored 1.8.6 format really is what decides
-		seedLegacyChoice(['marketing', 'measurement'])
+	it('does not read a grant of measurement stored before the upgrade as consent to analytics', async () => {
+		// Such records exist: c15t 1.5 and 1.6 (production until 22 October 2025) stored every category
+		// as granted on "Accept All", on a dialog that listed necessary and marketing only, and 1.8
+		// copied the record as it was. c15t 3 reads it back as a permission for measurement.
+		seedLegacyChoice(['functionality', 'experience', 'marketing', 'measurement'])
 		await visit()
+		await settle()
 
-		await waitFor('Google Analytics', () => analyticsTag() !== null)
+		// Read back (the visitor is not asked again), and still not a yes to Analytics
 		expect(button('Accept All')).toBeUndefined()
+		expect(analyticsTag()).toBeNull()
+		expect(window.dataLayer).toBeUndefined()
+
+		// Saying yes on the current dialog is what loads Google Analytics
+		await click(SETTINGS_LINK)
+		await waitFor('the preferences dialog', () => switches().length > 0)
+		await click('Accept All')
+		await waitFor('Google Analytics', () => analyticsTag() !== null)
+	})
+
+	it('does not read the record c15t 1.5 and 1.6 kept under their own key as consent to analytics either', async () => {
+		const time = Date.now() - 360 * DAY_MS
+		const consents = { necessary: true, functionality: true, measurement: true, experience: true, marketing: true }
+		localStorage.setItem('privacy-consent-storage', JSON.stringify({ consentInfo: { time, type: 'all' }, consents }))
+		await visit()
+		await settle()
+
+		expect(analyticsTag()).toBeNull()
+		expect(window.dataLayer).toBeUndefined()
+	})
+
+	it('keeps Google Analytics out after a withdrawal, even when the withdrawal never reached storage', async () => {
+		await visit()
+		await click('Accept All')
+		await waitFor('Google Analytics', () => analyticsTag() !== null)
+		await waitFor('the stored grant', () => readCookie('c15t') !== undefined && localStorage.getItem('c15t') !== null)
+		const storedGrant = { cookie: readCookie('c15t'), record: localStorage.getItem('c15t') }
+
+		// The visitor switches Analytics off from the footer link
+		await click(SETTINGS_LINK)
+		await waitFor('the preferences dialog', () => switches().length > 0)
+		const analytics = switches()[1]
+		expect(analytics.getAttribute('aria-checked')).toBe('true')
+		await act(async () => {
+			analytics.click()
+		})
+		await click('Save Settings')
+		await waitFor('Google Analytics to go', () => analyticsTag() === null)
+		// Kept by the gate in the same task, without waiting for c15t's writer
+		expect(Number(localStorage.getItem(ANALYTICS_REFUSED_AT_KEY))).toBeGreaterThan(0)
+
+		// What a failed download of c15t's writer leaves behind: storage still holds the grant
+		leave()
+		// biome-ignore lint/suspicious/noDocumentCookie: puts the consent cookie back as it was before the withdrawal
+		document.cookie = `c15t=${storedGrant.cookie}; path=/`
+		localStorage.setItem('c15t', storedGrant.record ?? '')
+		await visit()
+		await settle()
+
+		// c15t reads the grant back (no banner), the gate does not follow it
+		expect(button('Accept All')).toBeUndefined()
+		expect(analyticsTag()).toBeNull()
+
+		// A new yes, given after the refusal, loads it again
+		await click(SETTINGS_LINK)
+		await waitFor('the preferences dialog', () => switches().length > 0)
+		await click('Accept All')
+		await waitFor('Google Analytics', () => analyticsTag() !== null)
 	})
 
 	it('deletes the _ga cookies the previous setup wrote, for a visitor who has not accepted', async () => {

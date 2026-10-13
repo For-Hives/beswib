@@ -147,6 +147,8 @@ Product events go to a self-hosted Umami. Every event and every property is decl
 
 Umami sets no cookie and is not subject to the cookie banner. Google Analytics is: it only exists when `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set (production), and its tag is loaded only once the visitor has allowed the "Analytics" category of the banner (c15t in offline mode, configured in `src/lib/consent/`). The gate is `<ConsentedGoogleAnalytics>`, mounted inside `<ConsentRoot>` in the root layout; a third-party script that needs consent must be mounted the same way, never directly in the layout.
 
+What Google Analytics sends is cleaned too (`src/lib/analytics/google-hits.ts`): gtag.js reads the address bar itself and has no before-send hook, so its hits are rewritten where they leave the page. Every URL in a hit loses its query string except `utm_*` (the locale stays), and the term of a site search is removed. A new query parameter therefore needs no change there; a new id in a path that points at one person's record goes in `maskPath()`.
+
 ---
 
 ## 📞 Contact

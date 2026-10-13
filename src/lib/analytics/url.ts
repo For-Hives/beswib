@@ -62,7 +62,8 @@ function isSafeCampaignValue(value: string): boolean {
 	return !/[@\s]/.test(value) && !/%40/i.test(value)
 }
 
-function cleanQuery(params: URLSearchParams): string {
+/** The query string that may leave the browser: the utm_* parameters, with their '?', or ''. */
+export function cleanQuery(params: URLSearchParams): string {
 	const kept = new URLSearchParams()
 	for (const key of QUERY_ALLOW_LIST) {
 		const value = params.get(key)
