@@ -2,6 +2,7 @@
 
 import { AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
+import { TrackClick } from '@/components/analytics/TrackClick'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import type { Locale } from '@/lib/i18n/config'
@@ -50,9 +51,11 @@ export default function ActionButtons({
 						<AlertTitle>{t.profileIncompleteTitle ?? 'Profile Incomplete'}</AlertTitle>
 						<AlertDescription>
 							{t.profileIncompleteBody ?? 'Please complete your runner profile before purchasing a bib.'}{' '}
-							<Link className="font-bold underline" href={`/${locale}/profile`}>
-								{t.completeProfile ?? 'Complete Profile'}
-							</Link>
+							<TrackClick name="cta_click" props={{ where: 'bib_page', cta: 'complete_profile' }}>
+								<Link className="font-bold underline" href={`/${locale}/profile`}>
+									{t.completeProfile ?? 'Complete Profile'}
+								</Link>
+							</TrackClick>
 						</AlertDescription>
 					</Alert>
 				</div>
@@ -66,9 +69,11 @@ export default function ActionButtons({
 						<AlertTitle>{t.ownBibTitle ?? 'Your Own Bib'}</AlertTitle>
 						<AlertDescription>
 							{t.ownBibBody ?? 'You cannot purchase your own bib. You can manage it from your'}{' '}
-							<Link className="font-bold underline" href={`/${locale}/dashboard/seller`}>
-								{t.sellerDashboard ?? 'seller dashboard'}
-							</Link>
+							<TrackClick name="cta_click" props={{ where: 'bib_page', cta: 'seller_dashboard' }}>
+								<Link className="font-bold underline" href={`/${locale}/dashboard/seller`}>
+									{t.sellerDashboard ?? 'seller dashboard'}
+								</Link>
+							</TrackClick>
 							.
 						</AlertDescription>
 					</Alert>
@@ -89,14 +94,16 @@ export default function ActionButtons({
 
 			{/* Event Details Button - Only show if user can potentially purchase */}
 			{(isSignedIn !== true || (isSignedIn === true && isProfileComplete && !isOwnBib)) && (
-				<Link href={`/${locale}/events/${eventId}`}>
-					<button
-						type="button"
-						className="border-border bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus:ring-primary w-full cursor-pointer rounded-md border px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none"
-					>
-						{t.eventDetails ?? 'Event Details'}
-					</button>
-				</Link>
+				<TrackClick name="cta_click" props={{ where: 'bib_page', cta: 'event_details' }}>
+					<Link href={`/${locale}/events/${eventId}`}>
+						<button
+							type="button"
+							className="border-border bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus:ring-primary w-full cursor-pointer rounded-md border px-8 py-3 text-base font-medium transition-all focus:ring-2 focus:ring-offset-2 focus:outline-none"
+						>
+							{t.eventDetails ?? 'Event Details'}
+						</button>
+					</Link>
+				</TrackClick>
 			)}
 		</div>
 	)

@@ -1,6 +1,7 @@
 'use client'
 
 import marketplaceTranslations from '@/components/marketplace/locales.json'
+import { umamiAttrs } from '@/lib/analytics/attrs'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import type { Event } from '@/models/event.model'
@@ -51,6 +52,7 @@ export default function EventDetails({ organizerData, locale, eventData, bib }: 
 											target="_blank"
 											rel="noopener noreferrer"
 											className="text-primary hover:text-primary/80 mt-1 inline-block text-xs font-medium underline"
+											{...umamiAttrs('outbound_click', { where: 'bib_page', target: 'organizer_site' })}
 										>
 											{organizerData?.website ?? eventData?.expand?.organizer?.website}
 										</a>
@@ -94,6 +96,7 @@ export default function EventDetails({ organizerData, locale, eventData, bib }: 
 											target="_blank"
 											rel="noopener noreferrer"
 											className="text-primary hover:text-primary/80 mt-1 inline-block text-xs font-medium underline"
+											{...umamiAttrs('outbound_click', { where: 'bib_page', target: 'organizer_site' })}
 										>
 											{organizerData?.website ?? eventData?.expand?.organizer?.website}
 										</a>
