@@ -2,6 +2,8 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { i18n } from '@/lib/i18n/config'
+import { afterAuthPath, signInPath, signUpPath } from '@/lib/utils/redirect'
+import { getPublicBaseUrl } from '@/lib/utils/url'
 
 export function getLocaleFromRequest(request: NextRequest): string {
 	try {
@@ -75,6 +77,20 @@ const isPublicAuthRoute = createRouteMatcher([
 	'/(.*)/auth/forgot-password',
 ])
 
+// The locale a pathname starts with, when it starts with one
+function localeOfPathname(pathname: string) {
+	return i18n.locales.find(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`)
+}
+
+// auth.protect() sends a signed-out visitor to the sign-in page, with the address they asked for in
+// redirect_url. The page is named here, in the locale of the request: otherwise Clerk reads
+// NEXT_PUBLIC_CLERK_SIGN_IN_URL, a single value that cannot name nine locales, or without it
+// leaves the site for its own Account Portal.
+function authPages(request: NextRequest) {
+	const locale = localeOfPathname(request.nextUrl.pathname) ?? getLocaleFromRequest(request)
+	return { signUpUrl: signUpPath(locale), signInUrl: signInPath(locale) }
+}
+
 export default clerkMiddleware(async (auth, request: NextRequest) => {
 	const { pathname } = request.nextUrl
 
@@ -91,32 +107,33 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 	}
 
 	// Check if there is any supported locale in the pathname 🗺️
-	const pathnameHasLocale = i18n.locales.some(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`)
+	const currentLocale = localeOfPathname(pathname)
 
-	if (!pathnameHasLocale) {
+	if (currentLocale === undefined) {
 		// Redirect if there is no locale - use smart locale detection 🧠
 		const locale = getLocaleFromRequest(request)
 		request.nextUrl.pathname = `/${locale}${pathname}`
 		return NextResponse.redirect(request.nextUrl)
 	}
 
-	// Extract locale from pathname for proper redirects
-	const currentLocale =
-		i18n.locales.find(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) ?? i18n.defaultLocale
-
 	// Protect routes that require authentication
 	if (isProtectedRoute(request)) {
 		await auth.protect()
 	}
 
-	// Redirect authenticated users away from auth pages
+	// Redirect authenticated users away from auth pages: to the page that sent them to the form when
+	// it named itself, to their dashboard otherwise. The forms go to the same place once the session
+	// is active, and Clerk refreshes the route at that moment: the two answers must agree.
 	const { userId } = await auth()
 	if (isPublicAuthRoute(request) && typeof userId === 'string' && userId.length > 0) {
-		return NextResponse.redirect(new URL(`/${currentLocale}/dashboard`, request.url))
+		// The public address, not request.url: behind the proxy the middleware sees the address the
+		// server listens on, and Clerk writes the return address with the one the visitor sees
+		const destination = afterAuthPath(request.nextUrl.search, getPublicBaseUrl(), currentLocale)
+		return NextResponse.redirect(new URL(destination, request.url))
 	}
 
 	return NextResponse.next()
-})
+}, authPages)
 
 export const config = {
 	matcher: [

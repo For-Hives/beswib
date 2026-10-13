@@ -68,9 +68,10 @@ function takeOAuthMarker(): OAuthMarker | null {
 	}
 }
 
-// Mounted where an OAuth round trip can land: the dashboard hub (redirectUrlComplete) and the two
-// auth forms (no session: the middleware sends the visitor back to sign-in; Back from the provider).
-// The marker is removed on first read, so a second mount on the same page sends nothing.
+// Mounted once, in the root layout: an OAuth round trip lands on the page the visitor signed in
+// for (a bib, an event, their dashboard: see afterAuthPath), on the sign-in form when there is no
+// session (the middleware sends the visitor back there), or on the page it started from (Back from
+// the provider). The marker is removed on first read, so a second mount would send nothing.
 export function SessionsTracker() {
 	const { user, isSignedIn, isLoaded } = useUser()
 	const createdAt = user?.createdAt?.getTime()

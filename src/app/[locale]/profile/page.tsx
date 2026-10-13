@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import type { LocaleParams } from '@/lib/generation/staticParams'
 import { generateProfileMetadata } from '@/lib/seo'
+import { signInPath } from '@/lib/utils/redirect'
 import { fetchUserByClerkId } from '@/services/user.services'
 
 import ProfileClient from './ProfileClient'
@@ -17,7 +18,7 @@ export default async function ProfilePage({ params }: { params: Promise<LocalePa
 	const clerkUser = await currentUser()
 
 	if (!clerkUser) {
-		redirect(`/${locale}/sign-in`)
+		redirect(signInPath(locale, `/${locale}/profile`))
 	}
 
 	const user = await fetchUserByClerkId(clerkUser.id)

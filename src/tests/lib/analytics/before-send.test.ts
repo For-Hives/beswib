@@ -103,6 +103,28 @@ describe('beswibBeforeSend, every payload', () => {
 		expect(result).toHaveProperty('referrer', `${ORIGIN}/marketplace/abcdefghij12345`)
 	})
 
+	it('never sends the page a sign-in comes back to: redirect_url can hold a private listing token', () => {
+		const bib = '/fr/marketplace/abcdefghij12345?tkn=s3cr3t-Token'
+		const signIn = `/fr/auth/sign-in?redirect_url=${encodeURIComponent(bib)}`
+		const written = `/fr/auth/sign-in?redirect_url=${encodeURIComponent(`https://beswib.com${bib}`)}`
+
+		const results = [
+			// The sign-in page itself, a probe sent from it, and the page the visitor lands on afterwards
+			hook('event', envelope(signIn)),
+			hook('event', namedEvent(signIn, 'sign_in_start', { method: 'google', intent: 'purchase' })),
+			hook('event', envelope(bib, { referrer: `${ORIGIN}${signIn}` })),
+			// The same with the address Clerk writes in full
+			hook('event', namedEvent(written, 'sign_in_success', { method: 'password', intent: 'purchase' })),
+		]
+
+		expect(results[0]).toHaveProperty('url', `${ORIGIN}/auth/sign-in`)
+		expect(results[1]).toHaveProperty('url', `${ORIGIN}/auth/sign-in`)
+		expect(results[2]).toHaveProperty('url', `${ORIGIN}/marketplace/abcdefghij12345`)
+		expect(results[2]).toHaveProperty('referrer', `${ORIGIN}/auth/sign-in`)
+		expect(results[3]).toHaveProperty('url', `${ORIGIN}/auth/sign-in`)
+		expect(JSON.stringify(results)).not.toMatch(/redirect_url|tkn|s3cr3t/)
+	})
+
 	it.each([
 		['identify', envelope('/fr', { data: { email: 'runner@example.com', name: 'Jane Runner' } })],
 		['identify', envelope('/fr', { id: 'user_2abc' })],

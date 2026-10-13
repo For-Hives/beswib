@@ -13,6 +13,7 @@ import Footer from '@/components/global/footer'
 import { GoBackToTop } from '@/components/global/go-back-to-top'
 import Header from '@/components/global/Header'
 import LocaleSynchronizer, { GlobalLocaleSynchronizer } from '@/components/global/LocaleSynchronizer'
+import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import QueryProvider from '@/components/providers/QueryProvider'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import OrganizationSchema from '@/components/seo/OrganizationSchema'
@@ -20,6 +21,7 @@ import PageTransition from '@/components/ui/PageTransition'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getClerkLocalization } from '@/lib/i18n/clerk/localization'
 import { generateRootMetadata } from '@/lib/seo/metadata-generators'
+import { signInPath, signUpPath } from '@/lib/utils/redirect'
 import { getVersion } from '@/lib/utils/version'
 
 import '@/app/[locale]/globals.css'
@@ -77,8 +79,8 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 				theme: shadcn,
 			}}
 			localization={clerkLocalization}
-			signInUrl={`/${locale}/sign-in`}
-			signUpUrl={`/${locale}/dashboard`}
+			signInUrl={signInPath(locale)}
+			signUpUrl={signUpPath(locale)}
 			signInFallbackRedirectUrl={`/${locale}/dashboard`}
 		>
 			<html lang={locale} suppressHydrationWarning>
@@ -127,6 +129,8 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 								<NuqsAdapter>
 									<LocaleSynchronizer />
 									<GlobalLocaleSynchronizer />
+									{/* An OAuth round trip can come back on any page: its outcome is resolved here */}
+									<SessionsTracker />
 									<Header localeParams={typedLocaleParams} />
 									<PageTransition>{props.children}</PageTransition>
 									{/* Ensure Sentry client init runs on the browser */}

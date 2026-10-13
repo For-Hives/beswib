@@ -3,10 +3,10 @@
 import { useSignIn } from '@clerk/nextjs/legacy'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
 import { TrackClick } from '@/components/analytics/TrackClick'
-import { clearOAuthMarker, SessionsTracker, writeOAuthMarker } from '@/components/global/sessionsTrackers'
+import { clearOAuthMarker, writeOAuthMarker } from '@/components/global/sessionsTrackers'
 import { Button } from '@/components/ui/button'
 import { FormInput } from '@/components/ui/FormInput'
 import { Icons } from '@/components/ui/icons'
@@ -14,6 +14,7 @@ import { clerkErrorKind, signInIntent } from '@/lib/analytics/classify'
 import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { afterAuthPath, returnPathFrom, signUpPath } from '@/lib/utils/redirect'
 import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation/valibot'
 
 interface FieldError {
@@ -84,6 +85,18 @@ export default function CustomSignIn() {
 	}>({})
 	const passwordStarted = useRef(false)
 
+	// Where the visitor goes once signed in: back to the page that sent them here (redirect_url, when
+	// it names a page of the site), to their dashboard otherwise. Read when an attempt starts: once
+	// the session is active the address bar may already show the next page.
+	const readDestination = () => afterAuthPath(window.location.search, window.location.origin, locale)
+
+	// A visitor without an account keeps the page to come back to on the sign-up form. Set in an
+	// effect: the query string is only known in the browser.
+	const [signUpHref, setSignUpHref] = useState(signUpPath(locale))
+	useEffect(() => {
+		setSignUpHref(signUpPath(locale, returnPathFrom(window.location.search, window.location.origin)))
+	}, [locale])
+
 	// Validate fields in real-time
 	const validateField = (field: 'email' | 'password', value: string) => {
 		let error: FieldError | null = null
@@ -130,6 +143,7 @@ export default function CustomSignIn() {
 		if (!isLoaded || isSubmitting) return
 
 		const intent = signInIntent(window.location.search)
+		const destination = readDestination()
 		clearOAuthMarker()
 		if (!passwordStarted.current) {
 			passwordStarted.current = true
@@ -157,7 +171,7 @@ export default function CustomSignIn() {
 			if (result.status === 'complete') {
 				await setActive({ session: result.createdSessionId })
 				track('sign_in_success', { method: 'password', intent })
-				router.push(`/${locale}/dashboard`)
+				router.push(destination)
 			} else {
 				setGlobalError(t.somethingWentWrong)
 				track('sign_in_error', { method: 'password', kind: 'incomplete', field: 'none' })
@@ -168,8 +182,8 @@ export default function CustomSignIn() {
 			const code = e.errors?.[0]?.code
 
 			if (code === 'session_exists') {
-				// User is already signed in, redirect to dashboard
-				router.push(`/${locale}/dashboard`)
+				// User is already signed in: same destination as a sign-in that just succeeded
+				router.push(destination)
 				return
 			}
 
@@ -200,20 +214,22 @@ export default function CustomSignIn() {
 
 		const method = strategy === 'oauth_google' ? 'google' : 'facebook'
 		const intent = signInIntent(window.location.search)
+		const destination = readDestination()
 		track('sign_in_start', { method, intent })
 		writeOAuthMarker('sign_in', method, intent)
 
 		setIsSubmitting(true)
+		// The app has no SSO callback page: the provider returns straight to the destination, as it
+		// did when that was always the dashboard
 		void signIn.authenticateWithRedirect({
 			strategy,
-			redirectUrlComplete: `/${locale}/dashboard`,
-			redirectUrl: `/${locale}/dashboard`,
+			redirectUrlComplete: destination,
+			redirectUrl: destination,
 		})
 	}
 
 	return (
 		<div className="w-full max-w-md space-y-6">
-			<SessionsTracker />
 			{/* Header */}
 			<div className="space-y-2 text-start">
 				<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.signIn.welcome}</h1>
@@ -315,7 +331,7 @@ export default function CustomSignIn() {
 					{t.signIn.noAccount}{' '}
 					<TrackClick name="cta_click" props={{ cta: 'sign_up', where: 'auth_sign_in' }}>
 						<Link
-							href={`/${locale}/auth/sign-up`}
+							href={signUpHref}
 							className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
 						>
 							{t.signIn.createAccount}
