@@ -1,13 +1,8 @@
 import type { Locale } from '@/lib/i18n/config'
-import { getAbsoluteUrl } from '@/lib/utils/url'
+import { getPublicBaseUrl } from '@/lib/utils/url'
 import type { Event } from '@/models/event.model'
 
 import { SEO_KEYWORDS, SEO_TITLES } from '../constants/seo-translations'
-
-// Get the base URL based on environment using SERVER_URL or NEXT_URL_SERVER_URL
-export function getBaseUrl(): string {
-	return getAbsoluteUrl().baseUrl
-}
 
 // Generate SEO keywords for events
 export function generateEventKeywords(locale: Locale, event: Event): string {
@@ -151,7 +146,7 @@ export function generateOGImageConfig(
 
 // Generate canonical URL - always include locale in path for consistency
 export function generateCanonicalUrl(locale: Locale, path: string): string {
-	const baseUrl = getBaseUrl()
+	const baseUrl = getPublicBaseUrl()
 	const localePath = `/${locale}`
 	// Ensure path starts with / if not empty
 	const cleanPath = path.startsWith('/') ? path : `/${path}`
@@ -163,7 +158,7 @@ export function generateCanonicalUrl(locale: Locale, path: string): string {
 
 // Generate alternate language links with proper URLs and locale codes
 export function generateAlternateLanguages(path: string): Record<string, string> {
-	const baseUrl = getBaseUrl()
+	const baseUrl = getPublicBaseUrl()
 	const languages = [
 		{ path: '/en', locale: 'en-US', code: 'en' },
 		{ path: '/fr', locale: 'fr-FR', code: 'fr' },

@@ -19,6 +19,7 @@ import OrganizationSchema from '@/components/seo/OrganizationSchema'
 import PageTransition from '@/components/ui/PageTransition'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getClerkLocalization } from '@/lib/i18n/clerk/localization'
+import { generateRootMetadata } from '@/lib/seo/metadata-generators'
 import { getVersion } from '@/lib/utils/version'
 
 import '@/app/[locale]/globals.css'
@@ -42,6 +43,11 @@ const bowlbyOneSC = Bowlby_One_SC({
 // Generate static params for all locales 🌐
 export function generateStaticParams() {
 	return generateLocaleParams()
+}
+
+// The one place that says where the site lives: the pages below only add their own paths 🌍
+export function generateMetadata() {
+	return generateRootMetadata()
 }
 
 // Generate viewport metadata for theme and color scheme 🎨

@@ -1,4 +1,5 @@
 import type { Locale } from '@/lib/i18n/config'
+import { getPublicBaseUrl } from '@/lib/utils/url'
 
 interface BreadcrumbItem {
 	label: string
@@ -14,7 +15,7 @@ interface BreadcrumbSchemaProps {
 export default function BreadcrumbSchema({ locale, items }: BreadcrumbSchemaProps) {
 	if (items.length === 0) return null
 
-	const baseUrl = 'https://beswib.com'
+	const baseUrl = getPublicBaseUrl()
 	const localePrefix = locale === 'en' ? '' : `/${locale}`
 
 	// Always include home as first item

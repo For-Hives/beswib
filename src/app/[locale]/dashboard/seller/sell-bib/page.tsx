@@ -2,7 +2,8 @@ import { auth } from '@clerk/nextjs/server'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import type { LocaleParams } from '@/lib/generation/staticParams'
-import { generateAlternateLanguages, getBaseUrl } from '@/lib/seo/utils/seo-generators'
+import { generateAlternateLanguages } from '@/lib/seo/utils/seo-generators'
+import { getPublicBaseUrl } from '@/lib/utils/url'
 import { fetchPartneredApprovedEvents } from '@/services/event.services'
 import { fetchUserByClerkId } from '@/services/user.services'
 
@@ -14,11 +15,10 @@ export const dynamic = 'force-dynamic'
 export async function generateMetadata({ params }: { params: Promise<LocaleParams> }): Promise<Metadata> {
 	const { locale } = await params
 	return {
-		metadataBase: new URL(getBaseUrl()),
 		title: 'Sell Bib | Beswib',
 		alternates: {
 			languages: generateAlternateLanguages('/dashboard/seller/sell-bib'),
-			canonical: `${getBaseUrl()}/${locale}/dashboard/seller/sell-bib`,
+			canonical: `${getPublicBaseUrl()}/${locale}/dashboard/seller/sell-bib`,
 		},
 	}
 }

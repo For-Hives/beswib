@@ -1,13 +1,16 @@
 import type { Locale } from '@/lib/i18n/config'
+import { getPublicBaseUrl } from '@/lib/utils/url'
 
 interface OrganizationSchemaProps {
 	locale: Locale
 }
 
 export default function OrganizationSchema({ locale }: OrganizationSchemaProps) {
+	const baseUrl = getPublicBaseUrl()
+
 	// Organization schema for better SEO recognition
 	const organizationSchema = {
-		url: 'https://beswib.com',
+		url: baseUrl,
 		serviceType: 'Race Bib Transfer Service',
 		sameAs: [
 			'https://twitter.com/beswib',
@@ -18,14 +21,14 @@ export default function OrganizationSchema({ locale }: OrganizationSchemaProps) 
 		name: 'Beswib',
 		logo: {
 			width: 200,
-			url: 'https://beswib.com/beswib.svg',
+			url: `${baseUrl}/beswib.svg`,
 			height: 200,
 			'@type': 'ImageObject',
 		},
 		keywords: 'race bibs, running, trail, triathlon, cycling, marketplace, transfer',
 		image: {
 			width: 1200,
-			url: 'https://beswib.com/og-image.jpg',
+			url: `${baseUrl}/${locale}/opengraph-image`,
 			height: 630,
 			'@type': 'ImageObject',
 		},
@@ -53,14 +56,14 @@ export default function OrganizationSchema({ locale }: OrganizationSchemaProps) 
 
 	// Website schema for improved site understanding
 	const websiteSchema = {
-		url: 'https://beswib.com',
+		url: baseUrl,
 		publisher: {
 			'@type': 'Organization',
-			'@id': 'https://beswib.com#organization',
+			'@id': `${baseUrl}#organization`,
 		},
 		potentialAction: {
 			target: {
-				urlTemplate: `https://beswib.com/${locale}/marketplace?search={search_term_string}`,
+				urlTemplate: `${baseUrl}/${locale}/marketplace?search={search_term_string}`,
 				'@type': 'EntryPoint',
 			},
 			'query-input': 'required name=search_term_string',

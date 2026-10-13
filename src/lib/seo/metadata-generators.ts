@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import type { Locale } from '@/lib/i18n/config'
+import { getPublicBaseUrl } from '@/lib/utils/url'
 import type { Event } from '@/models/event.model'
 import { SEO_DESCRIPTIONS, SEO_KEYWORDS, SEO_TITLES } from './constants/seo-translations'
 import {
@@ -9,8 +10,13 @@ import {
 	generateEventKeywords,
 	generateEventTitle,
 	generateOGImageConfig,
-	getBaseUrl,
 } from './utils/seo-generators'
+
+// Root layout metadata: the base every relative metadata URL of the site resolves against, the
+// opengraph-image files first. Without it Next.js resolves them against http://localhost:3000.
+export function generateRootMetadata(): Metadata {
+	return { metadataBase: new URL(getPublicBaseUrl()) }
+}
 
 // Base metadata configuration for all pages
 export function generateBaseMetadata(locale: Locale): Metadata {
@@ -21,7 +27,6 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 	const keywords = SEO_KEYWORDS[safeLocale]
 
 	return {
-		metadataBase: new URL(getBaseUrl()),
 		twitter: {
 			title: titles.home,
 			site: '@beswib',

@@ -9,6 +9,7 @@ import { Breadcrumb, type BreadcrumbItem } from '@/components/ui/breadcrumb'
 import { articleIdOf } from '@/lib/analytics/ids'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { generateCanonicalUrl } from '@/lib/seo/utils/seo-generators'
 import type { Article } from '@/models/article.model'
 import { fetchArticleBySlug } from '@/services/article.services'
 
@@ -108,11 +109,15 @@ export async function generateMetadata({ params }: { params: Promise<ArticlePage
 	// Use SEO data if available, otherwise fallback to article data
 	const title = article.expand?.seo?.title || article.title
 	const description = article.expand?.seo?.description || article.description || article.extract
+	// No hreflang here: the translations of an article live under their own slugs
+	const canonical = generateCanonicalUrl(locale, `/blog/${slug}`)
 
 	return {
 		title: `${title} | Beswib`,
 		description,
+		alternates: { canonical },
 		openGraph: {
+			url: canonical,
 			title,
 			description,
 			type: 'article',
