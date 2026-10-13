@@ -42,8 +42,8 @@ importers:
         specifier: 0.6.2
         version: 0.6.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@paypal/react-paypal-js':
-        specifier: 9.2.0
-        version: 9.2.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: 10.6.0
+        version: 10.6.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@radix-ui/react-accordion':
         specifier: 1.2.21
         version: 1.2.21(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -1510,17 +1510,17 @@ packages:
   '@paralleldrive/cuid2@2.2.2':
     resolution: {integrity: sha512-ZOBkgDwEdoYVlSeRbYYXs0S9MejQofiVYoTbKzy/6GQa39/q5tQU2IX46+shYnUkpEl3wc+J6wRlar7r2EK2xA==}
 
-  '@paypal/paypal-js@9.7.0':
-    resolution: {integrity: sha512-eUQVZWTEhXhaPsYDmfUaOeV5zfeLUn7kCE7/BXm6uAtMhUoK0S7uPtUzosqfH1vZgjfUSyTzghDJtYxXyRRZig==}
+  '@paypal/paypal-js@11.2.2':
+    resolution: {integrity: sha512-RVGfgu9lmcEtsi0LbMGwPL4ksmzQ6ws9nyOJyEmBVWtkMnf+WfA6JLPmi2aHvlwKbT+K6Sw153VbE5rUjYxE8g==, tarball: https://registry.npmjs.org/@paypal/paypal-js/-/paypal-js-11.2.2.tgz}
 
-  '@paypal/react-paypal-js@9.2.0':
-    resolution: {integrity: sha512-wckuxilT+fYYwg0TYbEbxkclYeJnhIlThpNtV9RLXQA6uBbt5xPIzGv9wt2ykQTLiNIqhXhw1Hlz5yxUeCteKQ==}
+  '@paypal/react-paypal-js@10.6.0':
+    resolution: {integrity: sha512-oBf/5EsmHTvNho8U25z/SJkU82eGoWEfogVHBd7K0Bf91hOPuM9brx3bwbP87j+45/M/S91SyVTavEKpBKxWVA==, tarball: https://registry.npmjs.org/@paypal/react-paypal-js/-/react-paypal-js-10.6.0.tgz}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
       react-dom: ^16.8.0 || ^17 || ^18 || ^19
 
   '@paypal/sdk-constants@1.0.157':
-    resolution: {integrity: sha512-BjxWT9rK6dM1AOffSpvHYY47/8BY775jgEYYiwH6eL4YaqU5Epcw7zOtwQ8L4UaEn4FCAjZ2EWxaS83dCN7SpA==}
+    resolution: {integrity: sha512-BjxWT9rK6dM1AOffSpvHYY47/8BY775jgEYYiwH6eL4YaqU5Epcw7zOtwQ8L4UaEn4FCAjZ2EWxaS83dCN7SpA==, tarball: https://registry.npmjs.org/@paypal/sdk-constants/-/sdk-constants-1.0.157.tgz}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==, tarball: https://registry.npmjs.org/@pkgjs/parseargs/-/parseargs-0.11.0.tgz}
@@ -4396,7 +4396,7 @@ packages:
     engines: {node: '>= 0.4'}
 
   hi-base32@0.5.1:
-    resolution: {integrity: sha512-EmBBpvdYh/4XxsnUybsPag6VikPYnN30td+vQk+GI3qpahVEG9+gTkG0aXVxTjBqQ5T6ijbWIu77O+C5WFWsnA==}
+    resolution: {integrity: sha512-EmBBpvdYh/4XxsnUybsPag6VikPYnN30td+vQk+GI3qpahVEG9+gTkG0aXVxTjBqQ5T6ijbWIu77O+C5WFWsnA==, tarball: https://registry.npmjs.org/hi-base32/-/hi-base32-0.5.1.tgz}
 
   hls.js@1.6.13:
     resolution: {integrity: sha512-hNEzjZNHf5bFrUNvdS4/1RjIanuJ6szpWNfTaX5I6WfGynWXGT7K/YQLYtemSvFExzeMdgdE4SsyVLJbd5PcZA==, tarball: https://registry.npmjs.org/hls.js/-/hls.js-1.6.13.tgz}
@@ -5069,7 +5069,7 @@ packages:
     engines: {node: '>=0.4.0'}
 
   promise-polyfill@8.3.0:
-    resolution: {integrity: sha512-H5oELycFml5yto/atYqmjyigJoAo3+OXwolYiH7OfQuYlAqhxNvTfiNMbV9hsC6Yp83yE5r2KTVmtrG6R9i6Pg==}
+    resolution: {integrity: sha512-H5oELycFml5yto/atYqmjyigJoAo3+OXwolYiH7OfQuYlAqhxNvTfiNMbV9hsC6Yp83yE5r2KTVmtrG6R9i6Pg==, tarball: https://registry.npmjs.org/promise-polyfill/-/promise-polyfill-8.3.0.tgz}
 
   promise-worker-transferable@1.0.4:
     resolution: {integrity: sha512-bN+0ehEnrXfxV2ZQvU2PetO0n4gqBD4ulq3MI1WOPLgr7/Mg9yRQkX5+0v1vagr74ZTsl7XtzlaYDo2EuCeYJw==, tarball: https://registry.npmjs.org/promise-worker-transferable/-/promise-worker-transferable-1.0.4.tgz}
@@ -7468,13 +7468,13 @@ snapshots:
     dependencies:
       '@noble/hashes': 1.8.0
 
-  '@paypal/paypal-js@9.7.0':
+  '@paypal/paypal-js@11.2.2':
     dependencies:
       promise-polyfill: 8.3.0
 
-  '@paypal/react-paypal-js@9.2.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@paypal/react-paypal-js@10.6.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
-      '@paypal/paypal-js': 9.7.0
+      '@paypal/paypal-js': 11.2.2
       '@paypal/sdk-constants': 1.0.157
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
