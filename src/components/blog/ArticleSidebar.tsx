@@ -1,6 +1,7 @@
 'use client'
 
-import { Book, Calendar, Check, Clock, Copy, Facebook, Instagram, Linkedin, Share2, Twitter } from 'lucide-react'
+import { IconBrandFacebook, IconBrandInstagram, IconBrandLinkedin, IconBrandTwitter } from '@tabler/icons-react'
+import { Book, Calendar, Check, Clock, Copy, Share2 } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
@@ -35,22 +36,22 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 	const shareLinks = [
 		{
 			name: 'Twitter',
-			icon: Twitter,
+			icon: IconBrandTwitter,
 			url: `https://x.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}`,
 		},
 		{
 			name: 'LinkedIn',
-			icon: Linkedin,
+			icon: IconBrandLinkedin,
 			url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`,
 		},
 		{
 			name: 'Instagram',
-			icon: Instagram,
+			icon: IconBrandInstagram,
 			url: SOCIALS.instagram,
 		},
 		{
 			name: 'Facebook',
-			icon: Facebook,
+			icon: IconBrandFacebook,
 			url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`,
 		},
 	]
@@ -132,7 +133,7 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 											rel="noopener noreferrer"
 											target="_blank"
 										>
-											<IconComponent className="size-5" />
+											<IconComponent aria-hidden="true" className="size-5" />
 										</a>
 									</li>
 								)
