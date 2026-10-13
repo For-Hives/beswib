@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button'
 
 type DropdownMenuProps = {
 	children: React.ReactNode
+	/** Called when the menu goes from closed to open. */
+	onOpen?: () => void
 	options: {
 		Icon?: React.ReactNode
 		label: string
@@ -16,11 +18,12 @@ type DropdownMenuProps = {
 	}[]
 }
 
-const DropdownMenuAnimated = ({ options, children }: DropdownMenuProps) => {
+const DropdownMenuAnimated = ({ options, onOpen, children }: DropdownMenuProps) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const dropdownRef = useRef<HTMLDivElement>(null)
 
 	const toggleDropdown = () => {
+		if (!isOpen) onOpen?.()
 		setIsOpen(!isOpen)
 	}
 

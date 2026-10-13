@@ -2,6 +2,7 @@
 
 import { CheckCircle, FileCheck, Handshake, RefreshCcw, Shield } from 'lucide-react'
 
+import { SectionViewTracker } from '@/components/analytics/SectionViewTracker'
 import RadialOrbitalTimeline from '@/components/ui/radial-orbital-timeline'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -75,6 +76,7 @@ export default function SecurityProcessClient({ locale }: Readonly<SecurityProce
 
 	return (
 		<section className="pt-16 pb-32">
+			<SectionViewTracker section="security_process" />
 			{/* Header Section */}
 			<div className="mx-auto max-w-7xl px-6 py-16">
 				<h2 className="text-foreground mb-4 text-center text-4xl font-bold">{t.security.title}</h2>

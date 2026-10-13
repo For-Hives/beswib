@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { DropdownMenuAnimated } from '@/components/ui/dropdown-menu-animated'
+import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -46,27 +47,42 @@ export default function DashboardDropdown({ locale }: Readonly<DashboardDropdown
 
 	const baseOptions = [
 		{
-			onClick: () => router.push(`/${locale}/dashboard`),
+			onClick: () => {
+				track('nav_click', { item: 'dashboard', where: 'user_menu' })
+				router.push(`/${locale}/dashboard`)
+			},
 			label: t.navbar.dashboardLink,
 			Icon: <LayoutDashboard className="h-4 w-4" />,
 		},
 		{
-			onClick: () => router.push(`/${locale}/profile`),
+			onClick: () => {
+				track('nav_click', { item: 'profile', where: 'user_menu' })
+				router.push(`/${locale}/profile`)
+			},
 			label: t.navbar.profileLink,
 			Icon: <User className="h-4 w-4" />,
 		},
 		{
-			onClick: () => router.push(`/${locale}/marketplace`),
+			onClick: () => {
+				track('nav_click', { item: 'buy_bib', where: 'user_menu' })
+				router.push(`/${locale}/marketplace`)
+			},
 			label: t.navbar.buyBibLink,
 			Icon: <ShoppingBag className="h-4 w-4" />,
 		},
 		{
-			onClick: () => router.push(`/${locale}/dashboard/seller/sell-bib`),
+			onClick: () => {
+				track('nav_click', { item: 'sell_bib', where: 'user_menu' })
+				router.push(`/${locale}/dashboard/seller/sell-bib`)
+			},
 			label: t.navbar.sellBibLink,
 			Icon: <Tag className="h-4 w-4" />,
 		},
 		{
-			onClick: () => void signOut({ redirectUrl: '/' }),
+			onClick: () => {
+				track('nav_click', { item: 'sign_out', where: 'user_menu' })
+				void signOut({ redirectUrl: '/' })
+			},
 			label: t.navbar.signOut,
 			Icon: <LogOut className="h-4 w-4" />,
 		},
@@ -84,5 +100,9 @@ export default function DashboardDropdown({ locale }: Readonly<DashboardDropdown
 			]
 		: baseOptions
 
-	return <DropdownMenuAnimated options={options}>{t.navbar.dashboardLink}</DropdownMenuAnimated>
+	return (
+		<DropdownMenuAnimated onOpen={() => track('menu_open', { menu: 'user_menu' })} options={options}>
+			{t.navbar.dashboardLink}
+		</DropdownMenuAnimated>
+	)
 }

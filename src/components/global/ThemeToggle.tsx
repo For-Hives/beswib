@@ -4,6 +4,7 @@ import { Moon, Sun } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { useThemeStore } from '@/hooks/useTheme'
+import { umamiAttrs } from '@/lib/analytics/attrs'
 
 export function ThemeToggle() {
 	const { toggleTheme, theme } = useThemeStore()
@@ -28,6 +29,7 @@ export function ThemeToggle() {
 			aria-label="Toggle theme"
 			onClick={toggleTheme}
 			className="pointer-events-auto cursor-pointer rounded-md p-2"
+			{...umamiAttrs('theme_change', { to: theme === 'light' ? 'dark' : 'light' })}
 		>
 			{theme === 'light' ? <Moon /> : <Sun />}
 		</button>

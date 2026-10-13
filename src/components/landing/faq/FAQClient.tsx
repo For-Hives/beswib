@@ -3,10 +3,14 @@
 import { Calculator, ExternalLink, PhoneCall } from 'lucide-react'
 
 import Link from 'next/link'
+import { TrackClick } from '@/components/analytics/TrackClick'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { PAYPAL_FIXED_FEE, PAYPAL_PERCENTAGE_FEE, PLATFORM_FEE_PERCENTAGE } from '@/constants/fees.constant'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import type { EventProps } from '@/lib/analytics/catalog'
+import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -14,6 +18,17 @@ import Translations from './locales.json'
 
 interface FAQClientProps {
 	locale: Locale
+}
+
+const FAQ_QUESTIONS: Record<string, EventProps<'faq_item_open'>['question']> = {
+	'what-is-beswib': 'what_is_beswib',
+	'payment-security': 'payment_security',
+	'organizer-benefits': 'organizer_benefits',
+	'is-it-legal': 'is_it_legal',
+	'how-to-sell': 'how_to_sell',
+	'how-to-buy': 'how_to_buy',
+	fees: 'fees',
+	cancellation: 'cancellation',
 }
 
 export default function FAQClient({ locale }: Readonly<FAQClientProps>) {
@@ -59,17 +74,27 @@ export default function FAQClient({ locale }: Readonly<FAQClientProps>) {
 								</p>
 							</div>
 							<div>
-								<Button asChild className="gap-4" variant="outline">
-									<Link href={`/${locale}/contact`}>
-										{t.faq.contactButton} <PhoneCall className="h-4 w-4" />
-									</Link>
-								</Button>
+								<TrackClick name="cta_click" props={{ cta: 'contact', where: 'faq_intro' }}>
+									<Button asChild className="gap-4" variant="outline">
+										<Link href={`/${locale}/contact`}>
+											{t.faq.contactButton} <PhoneCall className="h-4 w-4" />
+										</Link>
+									</Button>
+								</TrackClick>
 							</div>
 						</div>
 					</div>
 
 					{/* Right Column - Accordion */}
-					<Accordion className="w-full" collapsible type="single">
+					<Accordion
+						className="w-full"
+						collapsible
+						onValueChange={value => {
+							const question = Object.hasOwn(FAQ_QUESTIONS, value) ? FAQ_QUESTIONS[value] : undefined
+							if (question !== undefined) track('faq_item_open', { question })
+						}}
+						type="single"
+					>
 						{t.faq.items.map(item => {
 							// Special handling for fees item to include dynamic content and PayPal link
 							if (item.id === 'fees') {
@@ -120,6 +145,7 @@ export default function FAQClient({ locale }: Readonly<FAQClientProps>) {
 														target="_blank"
 														rel="noopener noreferrer"
 														className="text-primary inline-flex items-center gap-2 text-sm hover:underline"
+														{...umamiAttrs('outbound_click', { target: 'paypal_fees', where: 'faq' })}
 													>
 														{t.faq.fees.paypalLinkText}
 														<ExternalLink className="h-3 w-3" />
