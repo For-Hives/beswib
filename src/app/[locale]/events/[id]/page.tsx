@@ -5,11 +5,17 @@ import { DateTime } from 'luxon'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
+import { TrackClick } from '@/components/analytics/TrackClick'
+import { EventViewTracker } from '@/components/events/EventViewTracker'
 import CardMarket from '@/components/marketplace/CardMarket'
 import { EventBreadcrumbs } from '@/components/seo/Breadcrumbs'
 
 import { WaitlistNotifications } from '@/components/waitlist/WaitlistNotifications'
 import WaitlistStatusClient from '@/components/waitlist/WaitlistStatusClient'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { countBucket } from '@/lib/analytics/buckets'
+import { sportOf } from '@/lib/analytics/classify'
+import { eventIdOf } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { generateEventMetadata } from '@/lib/seo/metadata-generators'
@@ -116,7 +122,18 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
 
-			<WaitlistNotifications eventId={eventId} eventName={event.name} locale={locale} />
+			<WaitlistNotifications
+				eventId={eventId}
+				eventName={event.name}
+				locale={locale}
+				analyticsEventId={eventIdOf(event)}
+			/>
+			<EventViewTracker
+				eventId={eventIdOf(event)}
+				sport={sportOf(event.typeCourse)}
+				bibCount={countBucket(bibSales.length)}
+				eventDate={pbDateToLuxon(event.eventDate)?.toISO() ?? null}
+			/>
 
 			<div className="relative pt-12 pb-12">
 				<div className="container mx-auto max-w-6xl p-6">
@@ -189,6 +206,11 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 												href={event.parcoursUrl}
 												target="_blank"
 												rel="noopener noreferrer"
+												{...umamiAttrs('outbound_click', {
+													target: 'course_map',
+													where: 'event_page',
+													event_id: eventIdOf(event),
+												})}
 											>
 												{t.event.viewCourse}
 											</Link>
@@ -205,6 +227,11 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 												href={event.registrationUrl}
 												target="_blank"
 												rel="noopener noreferrer"
+												{...umamiAttrs('outbound_click', {
+													target: 'registration',
+													where: 'event_page',
+													event_id: eventIdOf(event),
+												})}
 											>
 												{t.event.goToRegistration}
 											</Link>
@@ -256,8 +283,14 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
 						{bibSales.length > 0 ? (
 							<div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
-								{bibSales.map(bibSale => (
-									<CardMarket key={bibSale.id} bibSale={bibSale} locale={locale} />
+								{bibSales.map((bibSale, index) => (
+									<CardMarket
+										key={bibSale.id}
+										bibSale={bibSale}
+										locale={locale}
+										trackWhere="event_page"
+										position={index + 1}
+									/>
 								))}
 							</div>
 						) : (
@@ -277,6 +310,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 											action={handleJoinWaitlist}
 											joinLabel={t.event.waitlist.joinButton}
 											locale={locale}
+											analyticsEventId={eventIdOf(event)}
 										/>
 									</div>
 								</Show>
@@ -301,6 +335,11 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 											<button
 												className="bg-accent/20 hover:bg-accent/30 text-accent-foreground hover:text-foreground border-border flex w-full items-center justify-center gap-3 rounded-xl border px-6 py-3 font-medium backdrop-blur-md transition"
 												type="submit"
+												{...umamiAttrs('waitlist_join_submit', {
+													where: 'event_page',
+													mode: 'email',
+													event_id: eventIdOf(event),
+												})}
 											>
 												<Bell className="h-5 w-5" />
 												{t.event.waitlist.subscribeButton}
@@ -314,12 +353,14 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 												<span className="text-muted-foreground bg-background px-2">{t.event.waitlist.or}</span>
 											</div>
 										</div>
-										<Link
-											className="bg-primary hover:bg-primary/90 text-primary-foreground flex w-full items-center justify-center gap-3 rounded-xl px-6 py-3 font-medium transition"
-											href={`/${locale}/sign-in`}
-										>
-											{t.event.waitlist.signInButton}
-										</Link>
+										<TrackClick name="cta_click" props={{ cta: 'sign_in', where: 'event_waitlist' }}>
+											<Link
+												className="bg-primary hover:bg-primary/90 text-primary-foreground flex w-full items-center justify-center gap-3 rounded-xl px-6 py-3 font-medium transition"
+												href={`/${locale}/sign-in`}
+											>
+												{t.event.waitlist.signInButton}
+											</Link>
+										</TrackClick>
 									</div>
 								</Show>
 							</div>
@@ -328,13 +369,15 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
 					{/* Back Button */}
 					<div className="mt-8 text-center">
-						<Link
-							className="bg-accent/20 hover:bg-accent/30 text-accent-foreground hover:text-foreground border-border inline-flex items-center gap-3 rounded-xl border px-6 py-3 font-medium backdrop-blur-md transition"
-							href={`/${locale}/events`}
-						>
-							<ArrowLeft className="h-5 w-5" />
-							{t.event.backToEvents}
-						</Link>
+						<TrackClick name="cta_click" props={{ cta: 'browse_events', where: 'event_page' }}>
+							<Link
+								className="bg-accent/20 hover:bg-accent/30 text-accent-foreground hover:text-foreground border-border inline-flex items-center gap-3 rounded-xl border px-6 py-3 font-medium backdrop-blur-md transition"
+								href={`/${locale}/events`}
+							>
+								<ArrowLeft className="h-5 w-5" />
+								{t.event.backToEvents}
+							</Link>
+						</TrackClick>
 					</div>
 				</div>
 			</div>

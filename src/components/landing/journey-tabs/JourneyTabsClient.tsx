@@ -1,8 +1,10 @@
 'use client'
 
 import { DollarSign, ShoppingCart } from 'lucide-react'
+import { SectionViewTracker } from '@/components/analytics/SectionViewTracker'
 import { FeatureSteps } from '@/components/ui/FeatureSteps'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -83,6 +85,7 @@ export default function JourneyTabsClient({ locale }: Readonly<JourneyTabsClient
 
 	return (
 		<section className="dark:bg-muted/30 bg-neutral-50 px-4 py-16 md:py-24 xl:px-0">
+			<SectionViewTracker section="journey" />
 			<div className="mx-auto max-w-7xl">
 				<div className="mb-12 text-center">
 					<h2 className="dark:text-foreground mb-6 text-3xl font-bold tracking-tight text-neutral-900 md:text-4xl lg:text-5xl">
@@ -93,7 +96,13 @@ export default function JourneyTabsClient({ locale }: Readonly<JourneyTabsClient
 					</p>
 				</div>
 
-				<Tabs className="w-full" defaultValue="buyer">
+				<Tabs
+					className="w-full"
+					defaultValue="buyer"
+					onValueChange={value => {
+						if (value === 'buyer' || value === 'seller') track('journey_tab_select', { tab: value })
+					}}
+				>
 					<TabsList className="mx-auto mb-8 grid w-full max-w-md grid-cols-2">
 						<TabsTrigger className="flex cursor-pointer items-center gap-2" value="buyer">
 							<ShoppingCart className="h-4 w-4" />

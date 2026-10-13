@@ -2,7 +2,7 @@
 
 import { useClerk } from '@clerk/nextjs'
 import { AlertTriangle, LogOut, Trash2 } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import profileTranslations from '@/app/[locale]/profile/locales.json'
 import UserHeader from '@/components/dashboard/user-header'
 import ModernRunnerForm from '@/components/profile/modernRunnerForm'
@@ -19,8 +19,11 @@ import {
 	DialogTitle,
 } from '@/components/ui/dialog'
 import { Progress } from '@/components/ui/progress'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { track, trackView } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { isSellerProfileComplete, isUserProfileComplete } from '@/lib/validation/user'
 import type { User } from '@/models/user.model'
 
 interface ProfileClientProps {
@@ -231,7 +234,16 @@ export default function ProfileClient({ user, locale, clerkUser }: ProfileClient
 		setCurrentUser(updatedUser)
 	}, [])
 
+	useEffect(() => {
+		trackView('profile_view', {
+			available: user != null,
+			complete: isUserProfileComplete(user),
+			seller_ready: isSellerProfileComplete(user),
+		})
+	}, [])
+
 	const handleDeleteAccount = () => {
+		track('account_delete_step', { step: 'confirm' })
 		// Create the deletion request message template
 		const deleteRequestTemplate = encodeURIComponent(`Hello Beswib Support,
 
@@ -312,7 +324,12 @@ ${clerkUser.firstName ?? ''} ${clerkUser.lastName ?? ''}`)
 									</CardDescription>
 								</CardHeader>
 								<CardContent className="space-y-3">
-									<Button variant="outline" onClick={() => void signOut({ redirectUrl: '/' })} className="w-full">
+									<Button
+										variant="outline"
+										onClick={() => void signOut({ redirectUrl: '/' })}
+										className="w-full"
+										{...umamiAttrs('nav_click', { item: 'sign_out', where: 'profile' })}
+									>
 										<LogOut className="h-4 w-4" />
 										<span>{t.profile?.dangerZone?.signOut ?? 'Sign Out'}</span>
 									</Button>
@@ -322,7 +339,12 @@ ${clerkUser.firstName ?? ''} ${clerkUser.lastName ?? ''}`)
 											{t.profile?.dangerZone?.deleteDescription ??
 												'Permanently delete your account and all associated data. This action cannot be undone.'}
 										</p>
-										<Button variant="destructive" onClick={() => setShowDeleteDialog(true)} className="w-full">
+										<Button
+											variant="destructive"
+											onClick={() => setShowDeleteDialog(true)}
+											className="w-full"
+											{...umamiAttrs('account_delete_step', { step: 'open' })}
+										>
 											<Trash2 className="h-4 w-4" />
 											<span>{t.profile?.dangerZone?.deleteAccount ?? 'Delete Account'}</span>
 										</Button>
@@ -331,7 +353,13 @@ ${clerkUser.firstName ?? ''} ${clerkUser.lastName ?? ''}`)
 							</Card>
 
 							{/* Delete Account Dialog */}
-							<Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+							<Dialog
+								open={showDeleteDialog}
+								onOpenChange={open => {
+									if (!open) track('account_delete_step', { step: 'cancel' })
+									setShowDeleteDialog(open)
+								}}
+							>
 								<DialogContent className="sm:max-w-[425px]">
 									<DialogHeader>
 										<DialogTitle className="text-destructive flex items-center gap-2">
@@ -348,7 +376,11 @@ ${clerkUser.firstName ?? ''} ${clerkUser.lastName ?? ''}`)
 										</div>
 									</div>
 									<DialogFooter>
-										<Button variant="outline" onClick={() => setShowDeleteDialog(false)}>
+										<Button
+											variant="outline"
+											onClick={() => setShowDeleteDialog(false)}
+											{...umamiAttrs('account_delete_step', { step: 'cancel' })}
+										>
 											{t.profile?.dangerZone?.cancelDelete ?? 'Cancel'}
 										</Button>
 										<Button variant="destructive" onClick={handleDeleteAccount}>

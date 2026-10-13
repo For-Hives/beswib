@@ -14,17 +14,17 @@ export async function submitContactMessage(input: {
 	name: string
 	email: string
 	message: string
-}): Promise<{ success: boolean; error?: string }> {
+}): Promise<{ success: boolean; error?: string; code?: 'invalid_input' | 'delivery_failed' }> {
 	const result = safeParse(ContactSchema, input)
 	if (!result.success) {
 		// Prefer the first message; collapse multiple field errors into one short message
 		const firstError = result.issues?.[0]?.message ?? 'Invalid input'
-		return { success: false, error: firstError }
+		return { success: false, error: firstError, code: 'invalid_input' }
 	}
 
 	const { name, message, email } = result.output
 
 	const ok = await sendContactMessage({ name, message, email })
-	if (!ok) return { success: false, error: 'Notification failed' }
+	if (!ok) return { success: false, error: 'Notification failed', code: 'delivery_failed' }
 	return { success: true }
 }

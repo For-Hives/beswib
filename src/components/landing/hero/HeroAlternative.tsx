@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import landingTranslations from '@/app/[locale]/locales.json'
+import { TrackClick } from '@/components/analytics/TrackClick'
 import type { LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -28,20 +29,24 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 					/>
 					<div className="flex flex-row justify-center gap-4">
 						<div>
-							<Link
-								className="border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md border px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none md:px-8 dark:shadow-none"
-								href={`/${locale}/contact`}
-							>
-								{landingT.home.hero.organizerButton}
-							</Link>
+							<TrackClick name="cta_click" props={{ cta: 'organizer_contact', where: 'hero' }}>
+								<Link
+									className="border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md border px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none md:px-8 dark:shadow-none"
+									href={`/${locale}/contact`}
+								>
+									{landingT.home.hero.organizerButton}
+								</Link>
+							</TrackClick>
 						</div>
 						<div>
-							<Link
-								className="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none md:px-8 dark:shadow-none"
-								href={`/${locale}/events`}
-							>
-								{landingT.home.hero.consultRacesButton}
-							</Link>
+							<TrackClick name="cta_click" props={{ cta: 'browse_events', where: 'hero' }}>
+								<Link
+									className="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none md:px-8 dark:shadow-none"
+									href={`/${locale}/events`}
+								>
+									{landingT.home.hero.consultRacesButton}
+								</Link>
+							</TrackClick>
 						</div>
 					</div>
 				</div>
@@ -70,20 +75,24 @@ export default async function HeroAlternative({ localeParams }: { localeParams: 
 						/>
 						<div className="flex flex-row gap-4">
 							<div>
-								<Link
-									className="border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md border px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none lg:px-8 dark:shadow-none"
-									href={`/${locale}/contact`}
-								>
-									{landingT.home.hero.organizerButton}
-								</Link>
+								<TrackClick name="cta_click" props={{ cta: 'organizer_contact', where: 'hero' }}>
+									<Link
+										className="border-input bg-background ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md border px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none lg:px-8 dark:shadow-none"
+										href={`/${locale}/contact`}
+									>
+										{landingT.home.hero.organizerButton}
+									</Link>
+								</TrackClick>
 							</div>
 							<div>
-								<Link
-									className="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none lg:px-8 dark:shadow-none"
-									href={`/${locale}/events`}
-								>
-									{landingT.home.hero.consultRacesButton}
-								</Link>
+								<TrackClick name="cta_click" props={{ cta: 'browse_events', where: 'hero' }}>
+									<Link
+										className="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md px-3 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none lg:px-8 dark:shadow-none"
+										href={`/${locale}/events`}
+									>
+										{landingT.home.hero.consultRacesButton}
+									</Link>
+								</TrackClick>
 							</div>
 						</div>
 					</div>

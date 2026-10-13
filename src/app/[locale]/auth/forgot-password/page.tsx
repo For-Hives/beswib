@@ -6,11 +6,18 @@ import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
+import { TrackClick } from '@/components/analytics/TrackClick'
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/inputAlt'
+import { clerkErrorKind } from '@/lib/analytics/classify'
+import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+
+function clerkErrorCode(err: unknown): string | undefined {
+	return (err as { errors?: { code?: string }[] } | null | undefined)?.errors?.[0]?.code
+}
 
 export default function ForgotPasswordPage() {
 	const [email, setEmail] = useState('')
@@ -63,6 +70,7 @@ export default function ForgotPasswordPage() {
 	// Send the password reset code to the user's email
 	async function create(e: React.FormEvent) {
 		e.preventDefault()
+		track('password_reset_start')
 		await signIn
 			?.create({
 				strategy: 'reset_password_email_code',
@@ -70,12 +78,14 @@ export default function ForgotPasswordPage() {
 			})
 			.then(() => {
 				setSuccessfulCreation(true)
+				track('password_reset_step', { step: 'code_sent' })
 				setError('')
 			})
 			.catch((err: unknown) => {
 				const msg = translateClerkErrorLocal(err)
 				console.error('error', msg)
 				setError(msg)
+				track('password_reset_error', { step: 'request', kind: clerkErrorKind(clerkErrorCode(err)) })
 			})
 	}
 
@@ -94,19 +104,23 @@ export default function ForgotPasswordPage() {
 				// Check if 2FA is required
 				if (result.status === 'needs_second_factor') {
 					setError('')
+					track('password_reset_error', { step: 'reset', kind: 'incomplete' })
 				} else if (result.status === 'complete') {
 					// Set the active session to
 					// the newly created session (user is now signed in)
 					void setActive({ session: result.createdSessionId })
 					setComplete(true)
+					track('password_reset_success')
 				} else {
 					console.error(result)
+					track('password_reset_error', { step: 'reset', kind: 'incomplete' })
 				}
 			})
 			.catch((err: unknown) => {
 				const msg = translateClerkErrorLocal(err)
 				console.error('error', msg)
 				setError(msg)
+				track('password_reset_error', { step: 'reset', kind: clerkErrorKind(clerkErrorCode(err)) })
 			})
 	}
 
@@ -204,12 +218,14 @@ export default function ForgotPasswordPage() {
 				)}
 
 				<div className="text-center">
-					<Link
-						href={`/${locale}/auth/sign-in`}
-						className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-					>
-						{t.forgotPassword.backToSignIn}
-					</Link>
+					<TrackClick name="cta_click" props={{ cta: 'sign_in', where: 'auth_forgot_password' }}>
+						<Link
+							href={`/${locale}/auth/sign-in`}
+							className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+						>
+							{t.forgotPassword.backToSignIn}
+						</Link>
+					</TrackClick>
 				</div>
 			</div>
 		</AuthSplitScreen>

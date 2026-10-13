@@ -16,7 +16,8 @@ import {
 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { TrackClick } from '@/components/analytics/TrackClick'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -29,6 +30,11 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { countBucket } from '@/lib/analytics/buckets'
+import type { EventProps } from '@/lib/analytics/catalog'
+import { track, trackView } from '@/lib/analytics/client'
+import { eventIdOfWaitlist } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
@@ -68,6 +74,13 @@ interface BuyerDashboardClientProps {
 	successEventName: string
 	userWaitlists: (Waitlist & { expand?: { event_id: Event } })[]
 	totalSpent: number
+}
+
+function leaveErrorKind(status: number): EventProps<'waitlist_leave_error'>['kind'] {
+	if (status === 401) return 'unauthorized'
+	if (status === 404) return 'user_missing'
+	if (status === 400) return 'bad_request'
+	return 'server'
 }
 
 export default function BuyerDashboardClient({
@@ -125,6 +138,13 @@ export default function BuyerDashboardClient({
 		: []
 	const waitlistEntries = futureWaitlists.length
 
+	useEffect(() => {
+		trackView('buyer_dashboard_view', {
+			purchases: countBucket(totalPurchases),
+			waitlists: countBucket(waitlistEntries),
+		})
+	}, [])
+
 	// Pagination calculations
 	const totalPages = Math.ceil(futureWaitlists.length / itemsPerPage)
 	const startIndex = (currentPage - 1) * itemsPerPage
@@ -138,6 +158,7 @@ export default function BuyerDashboardClient({
 
 	// Handle delete confirmation
 	const handleDeleteClick = (waitlist: Waitlist) => {
+		track('waitlist_leave_start', { event_id: eventIdOfWaitlist(waitlist) })
 		setWaitlistToDelete(waitlist)
 		setDeleteDialogOpen(true)
 	}
@@ -162,9 +183,14 @@ export default function BuyerDashboardClient({
 
 			if (response.ok) {
 				await response.json()
+				track('waitlist_leave_success', { event_id: eventIdOfWaitlist(waitlistToDelete) })
 				// Reload the page to update the waitlist
 				window.location.reload()
 			} else {
+				track('waitlist_leave_error', {
+					event_id: eventIdOfWaitlist(waitlistToDelete),
+					kind: leaveErrorKind(response.status),
+				})
 				const errorData = (await response.json().catch(() => 'No error data')) as unknown
 				console.error(
 					'❌ Client: Failed to disable waitlist notifications. Status:',
@@ -175,6 +201,7 @@ export default function BuyerDashboardClient({
 			}
 		} catch (error) {
 			console.error('❌ Client: Error disabling waitlist notifications:', error)
+			track('waitlist_leave_error', { event_id: eventIdOfWaitlist(waitlistToDelete), kind: 'network' })
 		} finally {
 			setIsDeleting(false)
 			setDeleteDialogOpen(false)
@@ -276,38 +303,44 @@ export default function BuyerDashboardClient({
 					<div className="mb-8">
 						<h2 className="text-foreground mb-4 text-xl font-semibold">{t.quickActions ?? 'Quick Actions'}</h2>
 						<div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-							<Link href="/marketplace">
-								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<ShoppingCart className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">{t.browseMarketplace ?? 'Browse Marketplace'}</p>
-									</CardContent>
-								</Card>
-							</Link>
+							<TrackClick name="cta_click" props={{ cta: 'browse_marketplace', where: 'buyer_quick_actions' }}>
+								<Link href="/marketplace">
+									<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+										<CardContent className="flex flex-col items-center p-4 text-center">
+											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+												<ShoppingCart className="h-6 w-6" />
+											</div>
+											<p className="text-sm font-medium">{t.browseMarketplace ?? 'Browse Marketplace'}</p>
+										</CardContent>
+									</Card>
+								</Link>
+							</TrackClick>
 
-							<Link href={`/${locale}/dashboard`}>
-								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<CheckCircle className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">{t.mainDashboard ?? 'Main Dashboard'}</p>
-									</CardContent>
-								</Card>
-							</Link>
+							<TrackClick name="cta_click" props={{ cta: 'dashboard', where: 'buyer_quick_actions' }}>
+								<Link href={`/${locale}/dashboard`}>
+									<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+										<CardContent className="flex flex-col items-center p-4 text-center">
+											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+												<CheckCircle className="h-6 w-6" />
+											</div>
+											<p className="text-sm font-medium">{t.mainDashboard ?? 'Main Dashboard'}</p>
+										</CardContent>
+									</Card>
+								</Link>
+							</TrackClick>
 
-							<Link href={`/${locale}/contact`}>
-								<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<HelpCircle className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">{t.getHelp ?? 'Get Help'}</p>
-									</CardContent>
-								</Card>
-							</Link>
+							<TrackClick name="cta_click" props={{ cta: 'contact', where: 'buyer_quick_actions' }}>
+								<Link href={`/${locale}/contact`}>
+									<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
+										<CardContent className="flex flex-col items-center p-4 text-center">
+											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+												<HelpCircle className="h-6 w-6" />
+											</div>
+											<p className="text-sm font-medium">{t.getHelp ?? 'Get Help'}</p>
+										</CardContent>
+									</Card>
+								</Link>
+							</TrackClick>
 						</div>
 					</div>
 
@@ -429,9 +462,11 @@ export default function BuyerDashboardClient({
 										<p className="text-muted-foreground mb-4">
 											{t.noPurchases ?? "You haven't made any purchases yet"}
 										</p>
-										<Link href={`/${locale}/events`}>
-											<Button className="cursor-pointer">{t.browseEvents}</Button>
-										</Link>
+										<TrackClick name="cta_click" props={{ cta: 'browse_events', where: 'buyer_purchases_empty' }}>
+											<Link href={`/${locale}/events`}>
+												<Button className="cursor-pointer">{t.browseEvents}</Button>
+											</Link>
+										</TrackClick>
 									</div>
 								)}
 							</CardContent>
@@ -447,9 +482,11 @@ export default function BuyerDashboardClient({
 								<CardDescription>
 									{t.waitlistIntro ?? "Events you're waiting for bibs to become available"}
 									<br />
-									<Link className="text-primary hover:underline" href="/events">
-										{t.browseEventsWaitlist ?? 'Browse events'}
-									</Link>{' '}
+									<TrackClick name="cta_click" props={{ cta: 'browse_events', where: 'buyer_waitlist_intro' }}>
+										<Link className="text-primary hover:underline" href="/events">
+											{t.browseEventsWaitlist ?? 'Browse events'}
+										</Link>
+									</TrackClick>{' '}
 									{t.waitlistJoinText ?? 'to join a waitlist if no bibs are available.'}
 								</CardDescription>
 							</CardHeader>
@@ -548,9 +585,11 @@ export default function BuyerDashboardClient({
 										<p className="text-muted-foreground mb-4">
 											{t.noWaitlistEntries ?? 'You are not currently on any waitlists.'}
 										</p>
-										<Link href={`/${locale}/events`}>
-											<Button variant="outline">{t.browseEvents}</Button>
-										</Link>
+										<TrackClick name="cta_click" props={{ cta: 'browse_events', where: 'buyer_waitlist_empty' }}>
+											<Link href={`/${locale}/events`}>
+												<Button variant="outline">{t.browseEvents}</Button>
+											</Link>
+										</TrackClick>
 									</div>
 								)}
 							</CardContent>
@@ -567,9 +606,16 @@ export default function BuyerDashboardClient({
 						<AlertDialogDescription>{t.disableWaitlistConfirm}</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>
-						<AlertDialogCancel disabled={isDeleting}>{t.cancel}</AlertDialogCancel>
+						<AlertDialogCancel
+							disabled={isDeleting}
+							{...(waitlistToDelete
+								? umamiAttrs('waitlist_leave_cancel', { event_id: eventIdOfWaitlist(waitlistToDelete) })
+								: {})}
+						>
+							{t.cancel}
+						</AlertDialogCancel>
 						<AlertDialogAction
-							onClick={void handleDeleteConfirm}
+							onClick={() => void handleDeleteConfirm()}
 							disabled={isDeleting}
 							className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
 						>

@@ -3,6 +3,7 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import Link from 'next/link'
 import { Fragment } from 'react'
+import { TrackClick } from '@/components/analytics/TrackClick'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import type { Locale } from '@/lib/i18n/config'
@@ -158,9 +159,11 @@ export default function ContentTabs({ locale, eventData, bib }: Readonly<Content
 								<h4 className="text-foreground mb-4 font-semibold">{t.termsAndConditions ?? 'Terms & Conditions'}</h4>
 								<p className="text-muted-foreground text-sm">
 									{terms.summary}{' '}
-									<Link href={terms.href} className="text-primary hover:text-primary/80 font-medium underline">
-										{t.readFullTerms ?? 'Read full terms'}
-									</Link>
+									<TrackClick name="cta_click" props={{ where: 'bib_page', cta: 'terms' }}>
+										<Link href={terms.href} className="text-primary hover:text-primary/80 font-medium underline">
+											{t.readFullTerms ?? 'Read full terms'}
+										</Link>
+									</TrackClick>
 								</p>
 							</div>
 						</div>

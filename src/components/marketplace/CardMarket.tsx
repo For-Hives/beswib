@@ -4,6 +4,10 @@ import clsx from 'clsx'
 import { Calendar, Eye, MapPinned, ShoppingCart, User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { TrackClick } from '@/components/analytics/TrackClick'
+import { priceBucket } from '@/lib/analytics/buckets'
+import type { EventProps } from '@/lib/analytics/catalog'
+import { bibIdOf, eventIdOf } from '@/lib/analytics/ids'
 import { cn } from '@/lib/utils'
 
 import { formatDateWithLocale } from '@/lib/utils/date'
@@ -14,6 +18,9 @@ interface CardMarketProps {
 	locale: Locale
 	/** Optional event data for official price comparison */
 	eventData?: Event
+	/** List the card sits in and its rank there: set where a click on the card is counted, left out elsewhere */
+	trackWhere?: EventProps<'bib_card_click'>['where']
+	position?: number
 }
 
 import marketplaceTranslations from '@/components/marketplace/locales.json'
@@ -21,8 +28,38 @@ import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import type { Event } from '@/models/event.model'
 
-export default function CardMarket({ locale, eventData, bibSale }: Readonly<CardMarketProps>) {
+export default function CardMarket({ locale, eventData, bibSale, trackWhere, position }: Readonly<CardMarketProps>) {
 	const translations = getTranslations(locale, marketplaceTranslations)
+
+	const cardClick =
+		trackWhere != null && position != null
+			? {
+					where: trackWhere,
+					position: Math.min(position, 50),
+					bib_id: bibIdOf(bibSale),
+					event_id: eventIdOf(bibSale.event),
+					price_bucket: priceBucket(bibSale.price),
+				}
+			: undefined
+
+	const eventLink = (
+		<Link
+			className="border-border text-foreground hover:bg-accent/10 flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border px-3 py-1.5 text-xs font-medium transition"
+			href={`/${locale}/events/${bibSale.event.id}`}
+		>
+			<Eye className="h-4 w-4" />
+			{translations.viewEvent ?? 'View event'}
+		</Link>
+	)
+	const bibLink = (
+		<Link
+			className="bg-primary text-primary-foreground hover:bg-primary/90 flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-xs font-medium transition"
+			href={`/${locale}/marketplace/${bibSale.id}`}
+		>
+			<ShoppingCart className="h-4 w-4" />
+			{translations.wantThisBib ?? 'I want this bib'}
+		</Link>
+	)
 
 	// Calculate the lowest reference price between original and official
 	const officialPrice = eventData?.officialStandardPrice ?? 0
@@ -155,20 +192,21 @@ export default function CardMarket({ locale, eventData, bibSale }: Readonly<Card
 					</div>
 					<div className="flex h-full items-end justify-center py-2">
 						<div className="flex w-full flex-col gap-2 md:flex-row">
-							<Link
-								className="border-border text-foreground hover:bg-accent/10 flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border px-3 py-1.5 text-xs font-medium transition"
-								href={`/${locale}/events/${bibSale.event.id}`}
-							>
-								<Eye className="h-4 w-4" />
-								{translations.viewEvent ?? 'View event'}
-							</Link>
-							<Link
-								className="bg-primary text-primary-foreground hover:bg-primary/90 flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-xs font-medium transition"
-								href={`/${locale}/marketplace/${bibSale.id}`}
-							>
-								<ShoppingCart className="h-4 w-4" />
-								{translations.wantThisBib ?? 'I want this bib'}
-							</Link>
+							{cardClick != null ? (
+								<>
+									<TrackClick name="bib_card_click" props={{ ...cardClick, target: 'event' }}>
+										{eventLink}
+									</TrackClick>
+									<TrackClick name="bib_card_click" props={{ ...cardClick, target: 'bib' }}>
+										{bibLink}
+									</TrackClick>
+								</>
+							) : (
+								<>
+									{eventLink}
+									{bibLink}
+								</>
+							)}
 						</div>
 					</div>
 				</div>

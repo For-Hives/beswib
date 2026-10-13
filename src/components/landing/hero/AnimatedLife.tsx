@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useThemeStore } from '@/hooks/useTheme'
 
-import { umamiTrack } from '@/lib/utils/umami'
+import { track } from '@/lib/analytics/client'
 
 // Global knobs
 // GLOBAL_SPEED: higher means faster traversal and faster internal animations
@@ -291,7 +291,7 @@ export function AnimatedLife() {
 
 	function handleClick() {
 		setShowSpecialTooltip(v => !v)
-		void umamiTrack('show_special_tooltip')
+		track('show_special_tooltip')
 	}
 
 	return (

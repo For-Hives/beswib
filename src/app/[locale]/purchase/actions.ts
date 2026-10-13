@@ -3,6 +3,11 @@
 import { auth } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 import { PLATFORM_FEE } from '@/constants/global.constant'
+import { priceBucket } from '@/lib/analytics/buckets'
+import type { PurchaseErrorKind } from '@/lib/analytics/catalog'
+import { listingOf } from '@/lib/analytics/classify'
+import { bibIdOf, eventIdOfBib } from '@/lib/analytics/ids'
+import { trackServer } from '@/lib/analytics/server'
 import { fetchPublicBibById, isLocked } from '@/services/bib.services'
 import { capturePayment } from '@/services/paypal.services'
 import { salesCreate } from '@/services/sales.services'
@@ -62,10 +67,18 @@ export async function handlePaymentPageOpened(paymentIntentId: string, bibId: st
 export async function createSale(bibId: string, sellerMerchantId: string, locale?: string) {
 	const { userId } = await auth()
 	if (userId == null || userId === '') {
-		return { success: false, error: 'User is not authenticated.' }
+		return {
+			success: false,
+			errorKind: 'unauthenticated' as const satisfies PurchaseErrorKind,
+			error: 'User is not authenticated.',
+		}
 	}
 	if (!bibId || !sellerMerchantId) {
-		return { success: false, error: 'Missing parameters.' }
+		return {
+			success: false,
+			errorKind: 'missing_params' as const satisfies PurchaseErrorKind,
+			error: 'Missing parameters.',
+		}
 	}
 	try {
 		const { transaction, orderId } = await salesCreate({
@@ -79,7 +92,11 @@ export async function createSale(bibId: string, sellerMerchantId: string, locale
 		return { transactionId: transaction.id, success: true, orderId }
 	} catch (error) {
 		console.error('Error creating sale:', error)
-		return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
+		return {
+			success: false,
+			errorKind: 'exception' as const satisfies PurchaseErrorKind,
+			error: error instanceof Error ? error.message : 'Unknown error',
+		}
 	}
 }
 
@@ -89,43 +106,44 @@ export async function captureOrder(
 	lockKey: string | null = null
 ): Promise<{
 	error?: string
+	errorKind?: PurchaseErrorKind
 	isInstrumentDeclined?: boolean
 	needsPaymentRestart?: boolean
 	errorCode?: string
 	debugInfo?: unknown
 	data?: unknown
 }> {
-	if (!orderId) return { error: 'Missing orderId' }
+	if (!orderId) return { errorKind: 'missing_params', error: 'Missing orderId' }
 	try {
 		// Verify the current user owns the order/transaction
 		const { userId } = await auth()
 		if (userId == null || userId === '') {
-			return { error: 'User is not authenticated.' }
+			return { errorKind: 'unauthenticated', error: 'User is not authenticated.' }
 		}
 
 		const tx = await getTransactionByOrderId(orderId)
 		if (!tx) {
-			return { error: 'Order not found.' }
+			return { errorKind: 'order_not_found', error: 'Order not found.' }
 		}
 
 		const pbBuyer = await fetchUserByClerkId(userId)
 		if (!pbBuyer) {
-			return { error: 'User not found in database.' }
+			return { errorKind: 'buyer_not_found', error: 'User not found in database.' }
 		}
 		if (pbBuyer.id !== tx.buyer_user_id) {
-			return { error: 'This order does not belong to the current user.' }
+			return { errorKind: 'not_owner', error: 'This order does not belong to the current user.' }
 		}
 
 		// Verify the bib is still available and locked by this user with the provided lock key
 		const bib = await fetchPublicBibById(tx.bib_id)
 		if (!bib) {
-			return { error: 'Bib not found.' }
+			return { errorKind: 'bib_not_found', error: 'Bib not found.' }
 		}
 		if (bib.status !== 'available') {
-			return { error: 'This bib is no longer available.' }
+			return { errorKind: 'bib_unavailable', error: 'This bib is no longer available.' }
 		}
 		if (lockKey == null || lockKey === '') {
-			return { error: 'Lock has expired. Please try again.' }
+			return { errorKind: 'lock_expired', error: 'Lock has expired. Please try again.' }
 		}
 
 		const lockState = await isLocked(tx.bib_id, lockKey)
@@ -135,7 +153,7 @@ export async function captureOrder(
 				lockState === 'locked'
 					? 'This bib is currently locked by another user.'
 					: 'Your lock has expired. Please try again.'
-			return { error: msg }
+			return { errorKind: lockState === 'locked' ? 'locked_by_other' : 'lock_expired', error: msg }
 		}
 
 		// All checks passed, proceed to capture
@@ -147,13 +165,23 @@ export async function captureOrder(
 				...res,
 				needsPaymentRestart: true,
 				isInstrumentDeclined: true,
+				errorKind: 'instrument_declined',
 				error: res.error ?? 'Your payment method was declined. Please select a different payment method.',
 			}
+		}
+
+		if (res.data != null && (res.error == null || res.error === '')) {
+			trackServer('payment_capture_success', {
+				price_bucket: priceBucket(bib.price),
+				listing: listingOf(bib.listed) ?? 'public',
+				event_id: eventIdOfBib(bib),
+				bib_id: bibIdOf(bib),
+			})
 		}
 
 		return res
 	} catch (error) {
 		console.error('Error capturing order:', error)
-		return { error: error instanceof Error ? error.message : 'Unknown error' }
+		return { errorKind: 'exception', error: error instanceof Error ? error.message : 'Unknown error' }
 	}
 }

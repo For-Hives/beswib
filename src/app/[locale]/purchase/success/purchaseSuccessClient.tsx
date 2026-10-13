@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Confetti, type ConfettiRef } from '@/components/ui/confetti'
+import { umamiAttrs } from '@/lib/analytics/attrs'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -219,6 +220,7 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 									})
 									router.push('/dashboard/buyer/')
 								}}
+								{...umamiAttrs('cta_click', { where: 'purchase_success', cta: 'buyer_dashboard' })}
 							>
 								<Package className="h-5 w-5" />
 								{t.success.viewBibs}
@@ -226,7 +228,13 @@ export default function PurchaseSuccessClient({ locale }: { locale: Locale }) {
 						</motion.div>
 
 						<motion.div>
-							<Button variant="outline" size="lg" className="gap-2" onClick={() => router.push('/marketplace')}>
+							<Button
+								variant="outline"
+								size="lg"
+								className="gap-2"
+								onClick={() => router.push('/marketplace')}
+								{...umamiAttrs('cta_click', { where: 'purchase_success', cta: 'browse_marketplace' })}
+							>
 								{t.success.backMarketplace}
 								<motion.div
 									animate={{ x: [0, 4, 0] }}

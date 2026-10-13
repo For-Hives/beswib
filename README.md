@@ -137,6 +137,14 @@ Next.js (App Router) + TypeScript, installed with pnpm. Copy `.exemple.env` to `
 
 The commit hook (Husky + lint-staged) runs Biome on the staged files and rejects warnings.
 
+### Analytics
+
+Product events go to a self-hosted Umami. Every event and every property is declared once, in `src/lib/analytics/catalog.ts` (the rules for adding one are at the top of that file); nothing outside that catalogue can be sent, and no event carries anything that identifies a visitor.
+
+- In the browser: `track()` and `trackView()` from `@/lib/analytics/client`, `<TrackClick>` around a link, `umamiAttrs()` on a button.
+- On the server (payment captured, sale completed, account created): `trackServer()` from `@/lib/analytics/server`.
+- The page URL is cleaned before it leaves the browser: locale prefix removed, only `utm_*` parameters kept.
+
 ---
 
 ## 📞 Contact

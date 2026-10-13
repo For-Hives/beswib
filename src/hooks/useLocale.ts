@@ -5,6 +5,8 @@ import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { getArticleTranslatedSlug, updateUserLocalePreference } from '@/app/[locale]/actions/locale'
+import type { EventProps } from '@/lib/analytics/catalog'
+import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getAuthoritativeLocale, isSupportedLocale, synchronizeLocale } from '@/lib/utils/cookies'
 
@@ -12,7 +14,7 @@ import { getAuthoritativeLocale, isSupportedLocale, synchronizeLocale } from '@/
  * Custom hook for managing locale state with localStorage and cookie synchronization
  * Provides a consistent way to handle locale changes across the application
  */
-export function useLocale(initialLocale: string) {
+export function useLocale(initialLocale: string, where?: EventProps<'locale_change'>['where']) {
 	const [currentLocale, setCurrentLocale] = useState<Locale>(initialLocale as Locale)
 	const [isUpdating, setIsUpdating] = useState(false)
 	const router = useRouter()
@@ -61,6 +63,7 @@ export function useLocale(initialLocale: string) {
 				const blogArticleMatch = pathWithoutLocale.match(/^\/blog\/([^/]+)$/)
 
 				let href: string
+				let result: EventProps<'locale_change'>['result']
 
 				if (blogArticleMatch) {
 					// Extract the slug from the path
@@ -70,24 +73,28 @@ export function useLocale(initialLocale: string) {
 					const { slug: translatedSlug, success } = await getArticleTranslatedSlug(currentSlug, newLocale)
 
 					if (success && translatedSlug) {
+						result = 'article_translated'
 						// Use the translated slug
 						href = newLocale === 'en' ? `/blog/${translatedSlug}` : `/${newLocale}/blog/${translatedSlug}`
 					} else {
+						result = 'article_fallback_list'
 						// Fallback to blog index if no translation found
 						href = newLocale === 'en' ? '/blog' : `/${newLocale}/blog`
 					}
 				} else {
+					result = 'same_page'
 					// For non-article pages, use the standard locale switching
 					href = newLocale === 'en' ? pathWithoutLocale : `/${newLocale}${pathWithoutLocale}`
 				}
 
+				if (where !== undefined) track('locale_change', { where, to: newLocale, result })
 				router.push(href)
 			} catch (error) {
 				console.error('Error changing locale:', error)
 				setIsUpdating(false)
 			}
 		},
-		[currentLocale, initialLocale, isSignedIn, router]
+		[currentLocale, initialLocale, isSignedIn, router, where]
 	)
 
 	/**

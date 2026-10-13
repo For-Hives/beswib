@@ -3,6 +3,8 @@
 import { Calendar, List, MapPin, Plus, Search, ShoppingBag, ShoppingCart, Tag, Zap } from 'lucide-react'
 
 import Link from 'next/link'
+import { TrackClick } from '@/components/analytics/TrackClick'
+import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import { Button } from '@/components/ui/button'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -34,6 +36,7 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
+			<SessionsTracker />
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
 			<UserHeader clerkUser={clerkUser} user={user} locale={locale} />
 
@@ -59,18 +62,22 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 								<CardDescription className="text-base">{t.dashboard.buyer.description}</CardDescription>
 							</CardHeader>
 							<CardContent className="flex flex-col justify-center gap-4 text-center sm:flex-row">
-								<Link href={`/${locale}/dashboard/buyer`} className="cursor-pointer">
-									<Button className="w-full cursor-pointer" size="lg">
-										<ShoppingBag className="mr-2 h-5 w-5" />
-										<span className="text-xs">{t.dashboard.buyCta ?? 'I want to buy a bib'}</span>
-									</Button>
-								</Link>
-								<Link href={`/${locale}/dashboard/buyer`} className="cursor-pointer">
-									<Button className="w-full cursor-pointer" size="lg" variant="outline">
-										<ShoppingCart className="mr-2 h-5 w-5" />
-										<span className="text-xs">{t.dashboard.accessBuyer ?? 'Access my Buyer Dashboard'}</span>
-									</Button>
-								</Link>
+								<TrackClick name="cta_click" props={{ cta: 'buy_bib', where: 'dashboard_buyer_card' }}>
+									<Link href={`/${locale}/dashboard/buyer`} className="cursor-pointer">
+										<Button className="w-full cursor-pointer" size="lg">
+											<ShoppingBag className="mr-2 h-5 w-5" />
+											<span className="text-xs">{t.dashboard.buyCta ?? 'I want to buy a bib'}</span>
+										</Button>
+									</Link>
+								</TrackClick>
+								<TrackClick name="cta_click" props={{ cta: 'buyer_dashboard', where: 'dashboard_buyer_card' }}>
+									<Link href={`/${locale}/dashboard/buyer`} className="cursor-pointer">
+										<Button className="w-full cursor-pointer" size="lg" variant="outline">
+											<ShoppingCart className="mr-2 h-5 w-5" />
+											<span className="text-xs">{t.dashboard.accessBuyer ?? 'Access my Buyer Dashboard'}</span>
+										</Button>
+									</Link>
+								</TrackClick>
 							</CardContent>
 						</Card>
 
@@ -84,18 +91,22 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 								<CardDescription className="text-base">{t.dashboard.seller.description}</CardDescription>
 							</CardHeader>
 							<CardContent className="flex flex-col justify-center gap-4 text-center sm:flex-row">
-								<Link className="w-full cursor-pointer" href={`/${locale}/dashboard/seller/sell-bib`}>
-									<Button className="w-full cursor-pointer" size="lg">
-										<Tag className="mr-2 h-5 w-5" />
-										<span className="text-xs">{t.dashboard.sellCta ?? 'I want to sell a bib'}</span>
-									</Button>
-								</Link>
-								<Link className="w-full cursor-pointer" href={`/${locale}/dashboard/seller`}>
-									<Button className="w-full cursor-pointer" size="lg" variant="outline">
-										<Tag className="mr-2 h-5 w-5" />
-										<span className="text-xs">{t.dashboard.accessSeller ?? 'Access my Seller Dashboard'}</span>
-									</Button>
-								</Link>
+								<TrackClick name="cta_click" props={{ cta: 'sell_bib', where: 'dashboard_seller_card' }}>
+									<Link className="w-full cursor-pointer" href={`/${locale}/dashboard/seller/sell-bib`}>
+										<Button className="w-full cursor-pointer" size="lg">
+											<Tag className="mr-2 h-5 w-5" />
+											<span className="text-xs">{t.dashboard.sellCta ?? 'I want to sell a bib'}</span>
+										</Button>
+									</Link>
+								</TrackClick>
+								<TrackClick name="cta_click" props={{ cta: 'seller_dashboard', where: 'dashboard_seller_card' }}>
+									<Link className="w-full cursor-pointer" href={`/${locale}/dashboard/seller`}>
+										<Button className="w-full cursor-pointer" size="lg" variant="outline">
+											<Tag className="mr-2 h-5 w-5" />
+											<span className="text-xs">{t.dashboard.accessSeller ?? 'Access my Seller Dashboard'}</span>
+										</Button>
+									</Link>
+								</TrackClick>
 							</CardContent>
 						</Card>
 					</div>
@@ -108,62 +119,72 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 						<div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-6">
 							{/* Sell Bib */}
 							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-								<Link href={`/${locale}/dashboard/seller/sell-bib`}>
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<Plus className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">{t.dashboard.sellBib ?? 'Sell Bib'}</p>
-									</CardContent>
-								</Link>
+								<TrackClick name="cta_click" props={{ cta: 'sell_bib', where: 'dashboard_quick_actions' }}>
+									<Link href={`/${locale}/dashboard/seller/sell-bib`}>
+										<CardContent className="flex flex-col items-center p-4 text-center">
+											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+												<Plus className="h-6 w-6" />
+											</div>
+											<p className="text-sm font-medium">{t.dashboard.sellBib ?? 'Sell Bib'}</p>
+										</CardContent>
+									</Link>
+								</TrackClick>
 							</Card>
 
 							{/* Browse Events */}
 							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-								<Link href={`/${locale}/events`}>
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<Calendar className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">{t.dashboard.browseEvents ?? 'Browse Events'}</p>
-									</CardContent>
-								</Link>
+								<TrackClick name="cta_click" props={{ cta: 'browse_events', where: 'dashboard_quick_actions' }}>
+									<Link href={`/${locale}/events`}>
+										<CardContent className="flex flex-col items-center p-4 text-center">
+											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+												<Calendar className="h-6 w-6" />
+											</div>
+											<p className="text-sm font-medium">{t.dashboard.browseEvents ?? 'Browse Events'}</p>
+										</CardContent>
+									</Link>
+								</TrackClick>
 							</Card>
 
 							{/* Marketplace */}
 							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-								<Link href="/marketplace">
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<Search className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">{t.dashboard.marketplace ?? 'Marketplace'}</p>
-									</CardContent>
-								</Link>
+								<TrackClick name="cta_click" props={{ cta: 'browse_marketplace', where: 'dashboard_quick_actions' }}>
+									<Link href="/marketplace">
+										<CardContent className="flex flex-col items-center p-4 text-center">
+											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+												<Search className="h-6 w-6" />
+											</div>
+											<p className="text-sm font-medium">{t.dashboard.marketplace ?? 'Marketplace'}</p>
+										</CardContent>
+									</Link>
+								</TrackClick>
 							</Card>
 
 							{/* My Listings */}
 							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-								<Link href={`/${locale}/dashboard/seller/request-event`}>
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<List className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">{t.dashboard.cantFindEvent ?? "I don't find my event"}</p>
-									</CardContent>
-								</Link>
+								<TrackClick name="cta_click" props={{ cta: 'request_event', where: 'dashboard_quick_actions' }}>
+									<Link href={`/${locale}/dashboard/seller/request-event`}>
+										<CardContent className="flex flex-col items-center p-4 text-center">
+											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+												<List className="h-6 w-6" />
+											</div>
+											<p className="text-sm font-medium">{t.dashboard.cantFindEvent ?? "I don't find my event"}</p>
+										</CardContent>
+									</Link>
+								</TrackClick>
 							</Card>
 
 							{/* Contact */}
 							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-								<Link href={`/${locale}/contact`}>
-									<CardContent className="flex flex-col items-center p-4 text-center">
-										<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-											<MapPin className="h-6 w-6" />
-										</div>
-										<p className="text-sm font-medium">{t.dashboard.contact ?? 'Contact'}</p>
-									</CardContent>
-								</Link>
+								<TrackClick name="cta_click" props={{ cta: 'contact', where: 'dashboard_quick_actions' }}>
+									<Link href={`/${locale}/contact`}>
+										<CardContent className="flex flex-col items-center p-4 text-center">
+											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
+												<MapPin className="h-6 w-6" />
+											</div>
+											<p className="text-sm font-medium">{t.dashboard.contact ?? 'Contact'}</p>
+										</CardContent>
+									</Link>
+								</TrackClick>
 							</Card>
 						</div>
 					</div>

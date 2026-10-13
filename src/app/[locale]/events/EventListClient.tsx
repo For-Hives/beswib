@@ -18,7 +18,7 @@ import { DateTime } from 'luxon'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import SpotlightCard from '@/components/bits/SpotlightCard/SpotlightCard'
 import { AllTypesIcon, CycleIcon, RouteIcon, TrailIcon, TriathlonIcon } from '@/components/icons/RaceTypeIcons'
 import { Button } from '@/components/ui/button'
@@ -26,6 +26,12 @@ import { Input } from '@/components/ui/inputAlt'
 import { SelectAnimated, type SelectOption } from '@/components/ui/select-animated'
 import { Timeline } from '@/components/ui/timeline'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { countBucket } from '@/lib/analytics/buckets'
+import type { EventProps } from '@/lib/analytics/catalog'
+import { sportOf } from '@/lib/analytics/classify'
+import { track, trackView } from '@/lib/analytics/client'
+import { eventIdOf } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
@@ -115,6 +121,24 @@ interface EventsPageProps {
 		}
 	})[]
 	locale: Locale
+	/** The events could not be fetched: only tells the empty-list analytics event why the list is empty */
+	loadFailed?: boolean
+}
+
+// Analytics: closed names for the sort options
+const sortValueOf = (sortOption: string): EventProps<'sort_change'>['sort'] | undefined => {
+	switch (sortOption) {
+		case 'date':
+			return 'date'
+		case 'price':
+			return 'price'
+		case 'participants':
+			return 'participants'
+		case 'distance':
+			return 'distance'
+		default:
+			return undefined
+	}
 }
 
 const eventTypeColors = {
@@ -161,6 +185,12 @@ function EventCard({
 	onViewEvent: (event: Event) => void
 	t: EventTranslations
 }) {
+	const cardClick = {
+		event_id: eventIdOf(event),
+		sport: sportOf(event.typeCourse),
+		bib_count: countBucket(bibsCount ?? 0),
+	}
+
 	return (
 		<SpotlightCard className="h-full">
 			<div className="flex h-full flex-col">
@@ -281,7 +311,12 @@ function EventCard({
 								{/* Two buttons side by side: View Event (left) and Action Button (right) */}
 								<div className="flex flex-col gap-2 xl:flex-row">
 									{/* Left button: Always visible "View Event" button */}
-									<Button onClick={() => onViewEvent(event)} variant="outline" className="cursor-pointer xl:flex-1">
+									<Button
+										onClick={() => onViewEvent(event)}
+										variant="outline"
+										className="cursor-pointer xl:flex-1"
+										{...umamiAttrs('event_card_click', { ...cardClick, action: 'view_event' })}
+									>
 										<Search className="h-4 w-4" />
 										{t.events?.eventCard?.viewEvent ?? 'View Event'}
 									</Button>
@@ -300,7 +335,12 @@ function EventCard({
 
 										if (availabilityStatus === 'available') {
 											return (
-												<Button onClick={() => onAction(event)} variant="default" className="cursor-pointer xl:flex-1">
+												<Button
+													onClick={() => onAction(event)}
+													variant="default"
+													className="cursor-pointer xl:flex-1"
+													{...umamiAttrs('event_card_click', { ...cardClick, action: 'view_bibs' })}
+												>
 													<ShoppingCart className="h-4 w-4" />
 													{t.events?.eventCard?.viewBibs?.replace('{count}', (bibsCount ?? 0).toString()) ??
 														`View bibs (${bibsCount ?? 0})`}
@@ -310,7 +350,12 @@ function EventCard({
 
 										if (availabilityStatus === 'waitlist') {
 											return (
-												<Button onClick={() => onAction(event)} variant="outline" className="cursor-pointer xl:flex-1">
+												<Button
+													onClick={() => onAction(event)}
+													variant="outline"
+													className="cursor-pointer xl:flex-1"
+													{...umamiAttrs('event_card_click', { ...cardClick, action: 'join_waitlist' })}
+												>
 													<Bell className="h-4 w-4" />
 													{t.events?.eventCard?.joinWaitlist ?? 'Join waitlist'}
 												</Button>
@@ -335,7 +380,7 @@ function EventCard({
 	)
 }
 
-export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps) {
+export default function EventsPage({ prefetchedEvents, locale, loadFailed }: EventsPageProps) {
 	// State and translation variables
 	const t = getTranslations(locale, Translations)
 	const router = useRouter()
@@ -369,13 +414,33 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 		void setQuery({ search: val })
 	}
 	const handleTypeChange = (val: 'all' | 'triathlon' | 'trail' | 'road' | 'cycle') => {
+		if (val !== selectedType) {
+			track('filter_change', {
+				where: 'events',
+				filter: 'sport',
+				action: val === 'all' ? 'remove' : 'apply',
+				value: val,
+				surface: 'toolbar',
+			})
+		}
 		void setQuery({ type: val })
 	}
 	const handleSortChange = (val: string) => {
+		const trackedSort = sortValueOf(val)
+		if (trackedSort != null && val !== sortBy) track('sort_change', { where: 'events', sort: trackedSort })
 		// Intentionally not awaiting - this is a fire-and-forget operation
 		void setQuery({ sort: val as 'date' | 'price' | 'participants' | 'distance' })
 	}
 	const handleLocationChange = (val: string) => {
+		if (val !== selectedLocation) {
+			track('filter_change', {
+				where: 'events',
+				filter: 'geography',
+				action: val !== '' ? 'apply' : 'remove',
+				value: 'na',
+				surface: 'toolbar',
+			})
+		}
 		void setQuery({ location: val })
 	}
 
@@ -615,6 +680,56 @@ export default function EventsPage({ prefetchedEvents, locale }: EventsPageProps
 			t.events?.groupLabels?.unknownDistance ?? 'Unknown distance'
 		)
 	}, [sortedEvents, sortBy, locale])
+
+	const resultCount = sortedEvents.length
+	const activeFilterCount = (selectedType !== 'all' ? 1 : 0) + (selectedLocation !== '' ? 1 : 0)
+
+	const listStateRef = useRef({ resultCount, activeFilterCount })
+	useEffect(() => {
+		listStateRef.current = { resultCount, activeFilterCount }
+	})
+
+	// A typed search is counted once it has settled; the value present at mount never is
+	const lastTrackedSearchRef = useRef(searchTerm.trim())
+	useEffect(() => {
+		const term = searchTerm.trim()
+		if (term === '' || term === lastTrackedSearchRef.current) return
+		const timer = setTimeout(() => {
+			lastTrackedSearchRef.current = term
+			track('search_submit', {
+				where: 'events',
+				result_count: countBucket(listStateRef.current.resultCount),
+				has_filters: listStateRef.current.activeFilterCount > 0,
+			})
+		}, 1000)
+		return () => clearTimeout(timer)
+	}, [searchTerm])
+
+	const isEmpty = groupedSections.length === 0
+	const hasQuery = searchTerm !== ''
+	const catalogueEmpty = futureEvents.length === 0
+	const loadHasFailed = loadFailed === true
+	// Each empty state is counted once for as long as the list stays empty
+	const sentEmptyStatesRef = useRef(new Set<string>())
+	useEffect(() => {
+		if (!isEmpty) {
+			sentEmptyStatesRef.current.clear()
+			return
+		}
+		const key = `${hasQuery}|${activeFilterCount}|${catalogueEmpty}|${loadHasFailed}`
+		if (sentEmptyStatesRef.current.has(key)) return
+		const timer = setTimeout(() => {
+			sentEmptyStatesRef.current.add(key)
+			trackView('empty_results_view', {
+				where: 'events',
+				has_query: hasQuery,
+				filter_count: activeFilterCount,
+				catalogue_empty: catalogueEmpty,
+				load_failed: loadHasFailed,
+			})
+		}, 1000)
+		return () => clearTimeout(timer)
+	}, [isEmpty, hasQuery, activeFilterCount, catalogueEmpty, loadHasFailed])
 
 	// Race type summary cards as quick-access buttons - dynamically generated from actual events
 	const raceTypeSummary = useMemo(() => {

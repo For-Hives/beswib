@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { TrackView } from '@/components/analytics/TrackView'
 import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider'
 import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
 import TokenValidation from '@/components/marketplace/TokenValidation'
@@ -71,12 +72,15 @@ export default function MarketplaceItemClient({
 	// If it's a private bib and no valid token, show the validation form
 	if (isPrivate && !hasValidToken) {
 		return (
-			<TokenValidation
-				bibId={bibId}
-				locale={locale}
-				onValidToken={handleValidToken}
-				translations={t.tokenValidation ?? {}}
-			/>
+			<>
+				<TrackView name="bib_view" props={{ state: 'token_required', listing: 'private', viewer: 'unknown' }} />
+				<TokenValidation
+					bibId={bibId}
+					locale={locale}
+					onValidToken={handleValidToken}
+					translations={t.tokenValidation ?? {}}
+				/>
+			</>
 		)
 	}
 
@@ -84,6 +88,11 @@ export default function MarketplaceItemClient({
 	if (!bibSale || !eventData) {
 		return (
 			<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
+				{isPrivate ? (
+					<TrackView name="bib_view" props={{ state: 'token_invalid', listing: 'private', viewer: 'unknown' }} />
+				) : (
+					<TrackView name="bib_view" props={{ state: 'unavailable', listing: 'public', viewer: 'unknown' }} />
+				)}
 				<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
 				<div className="relative pt-32 pb-12">
 					<div className="container mx-auto max-w-2xl p-6">
@@ -111,6 +120,7 @@ export default function MarketplaceItemClient({
 					eventData={eventData}
 					organizerData={organizerData}
 					bibData={bibData}
+					isPrivate={isPrivate}
 				/>
 			</PayPalProvider>
 		</div>

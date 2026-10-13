@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { track } from '@/lib/analytics/client'
 
 interface TokenValidationProps {
 	bibId: string
@@ -43,11 +45,13 @@ export default function TokenValidation({ translations: t, onValidToken, locale,
 		e.preventDefault()
 
 		if (!token.trim()) {
+			track('private_token_error', { kind: 'empty' })
 			setError(t.requiredToken ?? 'Private token is required')
 			setIsSuccess(false)
 			return
 		}
 
+		track('private_token_submit')
 		setIsValidating(true)
 		setError('')
 		setIsSuccess(false)
@@ -64,11 +68,14 @@ export default function TokenValidation({ translations: t, onValidToken, locale,
 
 				if (response.ok) {
 					// Token is valid, show success message briefly before redirect
+					track('private_token_success')
 					setIsSuccess(true)
 					setTimeout(() => {
 						onValidToken(token.trim())
 					}, 1000)
 				} else {
+					if (response.status === 400 || response.status === 401) track('private_token_error', { kind: 'invalid' })
+					else track('private_token_error', { kind: 'server' })
 					if (t.invalidToken != null) {
 						setError(t.invalidToken)
 					} else {
@@ -76,6 +83,7 @@ export default function TokenValidation({ translations: t, onValidToken, locale,
 					}
 				}
 			} catch (error) {
+				track('private_token_error', { kind: 'network' })
 				console.error('Token validation error:', error)
 				setError(t.invalidToken ?? 'Invalid private token. Please check your token and try again.')
 			} finally {
@@ -95,7 +103,7 @@ export default function TokenValidation({ translations: t, onValidToken, locale,
 			{/* Back Navigation */}
 			<div className="bg-card/25 border-border/30 absolute top-0 right-0 left-0 z-20 mx-4 mt-12 mb-6 rounded-2xl border p-4 backdrop-blur-sm">
 				<div className="flex items-center gap-4">
-					<Button variant="ghost" size="sm" onClick={handleBackToMarketplace}>
+					<Button variant="ghost" size="sm" onClick={handleBackToMarketplace} {...umamiAttrs('private_token_cancel')}>
 						<ArrowLeft className="mr-2 h-4 w-4" />
 						{t.backToMarketplace ?? 'Back to Marketplace'}
 					</Button>

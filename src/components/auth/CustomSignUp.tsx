@@ -4,12 +4,17 @@ import { useSignUp } from '@clerk/nextjs/legacy'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import type React from 'react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
+import { TrackClick } from '@/components/analytics/TrackClick'
+import { clearOAuthMarker, SessionsTracker, writeOAuthMarker } from '@/components/global/sessionsTrackers'
 import { Button } from '@/components/ui/button'
 import { FormInput } from '@/components/ui/FormInput'
 import { Icons } from '@/components/ui/icons'
 import { PasswordStrength } from '@/components/ui/PasswordStrength'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { clerkErrorKind } from '@/lib/analytics/classify'
+import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import {
@@ -120,8 +125,16 @@ export default function CustomSignUp() {
 		return error == null
 	}
 
+	const passwordStarted = useRef(false)
+	const trackPasswordStart = () => {
+		if (passwordStarted.current) return
+		passwordStarted.current = true
+		track('sign_up_start', { method: 'password' })
+	}
+
 	// Handle input changes
 	const handleInputChange = (field: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+		trackPasswordStart()
 		const value = e.target.value
 		setFormData(prev => ({ ...prev, [field]: value }))
 
@@ -170,6 +183,9 @@ export default function CustomSignUp() {
 		e.preventDefault()
 		if (!isLoaded || isSubmitting) return
 
+		clearOAuthMarker()
+		trackPasswordStart()
+
 		// Validate all fields
 		const firstNameValid = validateField('firstName', formData.firstName)
 		const lastNameValid = validateField('lastName', formData.lastName)
@@ -178,8 +194,24 @@ export default function CustomSignUp() {
 		const confirmPasswordValid = validateField('confirmPassword', formData.confirmPassword)
 
 		if (!firstNameValid || !lastNameValid || !emailValid || !passwordValid || !confirmPasswordValid) {
+			track('sign_up_error', {
+				method: 'password',
+				step: 'form',
+				kind: 'validation',
+				field: !firstNameValid
+					? 'first_name'
+					: !lastNameValid
+						? 'last_name'
+						: !emailValid
+							? 'email'
+							: !passwordValid
+								? 'password'
+								: 'confirm_password',
+			})
 			return
 		}
+
+		track('sign_up_step', { step: 'form_submit' })
 
 		setIsSubmitting(true)
 		setGlobalError('')
@@ -196,6 +228,7 @@ export default function CustomSignUp() {
 			if (result.status === 'complete') {
 				// Account is already verified, can directly sign in
 				await setActive({ session: result.createdSessionId })
+				track('sign_up_success', { method: 'password' })
 				router.push(`/${locale}/dashboard`)
 				return
 			} else if (result.status === 'missing_requirements') {
@@ -207,6 +240,7 @@ export default function CustomSignUp() {
 					// Email verification needed - prepare verification
 					await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
 					setPendingVerification(true)
+					track('sign_up_step', { step: 'email_code' })
 					if (formData.email != null && formData.email !== '') {
 						setVerificationEmail(formData.email)
 					}
@@ -215,6 +249,7 @@ export default function CustomSignUp() {
 					// Some other requirement is missing
 					console.warn('Signup blocked by missing requirements:', result.unverifiedFields)
 					setGlobalError('Additional information required. Please complete your profile.')
+					track('sign_up_error', { method: 'password', step: 'form', kind: 'incomplete', field: 'none' })
 					return
 				}
 			}
@@ -222,6 +257,7 @@ export default function CustomSignUp() {
 			// For any other status that might need email verification
 			await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
 			setPendingVerification(true)
+			track('sign_up_step', { step: 'email_code' })
 			if (formData.email != null && formData.email !== '') {
 				setVerificationEmail(formData.email)
 			}
@@ -234,6 +270,12 @@ export default function CustomSignUp() {
 			const e = (err ?? {}) as Partial<{
 				errors: Array<Partial<{ code: string; message: string; meta?: { paramName?: string } }>>
 			}>
+			track('sign_up_error', {
+				method: 'password',
+				step: 'form',
+				kind: clerkErrorKind(e.errors?.[0]?.code),
+				field: 'none',
+			})
 
 			if (Array.isArray(e.errors) && e.errors.length > 0) {
 				e.errors.forEach(error => {
@@ -265,6 +307,7 @@ export default function CustomSignUp() {
 		// Validate verification code
 		const codeValid = validateField('verificationCode', verificationCode)
 		if (!codeValid) {
+			track('sign_up_error', { method: 'password', step: 'email_code', kind: 'validation', field: 'code' })
 			return
 		}
 
@@ -278,16 +321,25 @@ export default function CustomSignUp() {
 
 			if (completeSignUp.status === 'complete') {
 				await setActive({ session: completeSignUp.createdSessionId })
+				track('sign_up_success', { method: 'password' })
 
 				// Success message before redirect
 				router.push(`/${locale}/dashboard`)
 			} else if (completeSignUp.status === 'missing_requirements') {
 				setGlobalError('Please complete your profile to finish registration.')
+				track('sign_up_error', { method: 'password', step: 'email_code', kind: 'incomplete', field: 'none' })
 			} else {
 				setGlobalError(t.somethingWentWrong || 'Something went wrong. Please try again.')
+				track('sign_up_error', { method: 'password', step: 'email_code', kind: 'incomplete', field: 'none' })
 			}
 		} catch (err: unknown) {
 			console.error('❌ Verification error:', err)
+			track('sign_up_error', {
+				method: 'password',
+				step: 'email_code',
+				kind: clerkErrorKind((err as { errors?: { code?: string }[] } | null | undefined)?.errors?.[0]?.code),
+				field: 'none',
+			})
 			const errorMessage = translateClerkErrorLocal(err)
 			setGlobalError(errorMessage)
 			setFieldErrors(prev => ({
@@ -302,6 +354,10 @@ export default function CustomSignUp() {
 	// Handle OAuth sign up
 	const signUpWith = async (strategy: 'oauth_google' | 'oauth_facebook') => {
 		if (!signUp) return
+
+		const method = strategy === 'oauth_google' ? 'google' : 'facebook'
+		track('sign_up_start', { method })
+		writeOAuthMarker('sign_up', method, 'none')
 
 		setIsSubmitting(true)
 		await signUp.authenticateWithRedirect({
@@ -365,6 +421,7 @@ export default function CustomSignUp() {
 				<div className="text-center">
 					<button
 						type="button"
+						{...umamiAttrs('sign_up_cancel')}
 						onClick={() => {
 							setPendingVerification(false)
 							setVerificationCode('')
@@ -388,6 +445,7 @@ export default function CustomSignUp() {
 	// Sign up form
 	return (
 		<div className="w-full max-w-md space-y-6">
+			<SessionsTracker />
 			{/* Header */}
 			<div className="space-y-2 text-start">
 				<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.signUp.title}</h1>
@@ -530,23 +588,27 @@ export default function CustomSignUp() {
 			<div className="text-center">
 				<p className="text-muted-foreground text-sm">
 					{t.signUp.alreadyAccount}{' '}
-					<Link
-						href={`/${locale}/auth/sign-in`}
-						className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
-					>
-						{t.signUp.signIn}
-					</Link>
+					<TrackClick name="cta_click" props={{ cta: 'sign_in', where: 'auth_sign_up' }}>
+						<Link
+							href={`/${locale}/auth/sign-in`}
+							className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
+						>
+							{t.signUp.signIn}
+						</Link>
+					</TrackClick>
 				</p>
 
 				{/* Show sign in link if email already exists */}
 				{fieldErrors.email?.code === 'exists' && (
 					<p className="mt-2 text-sm">
-						<Link
-							href={`/${locale}/auth/sign-in`}
-							className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
-						>
-							→ Sign in with this email instead
-						</Link>
+						<TrackClick name="cta_click" props={{ cta: 'sign_in', where: 'auth_sign_up_exists' }}>
+							<Link
+								href={`/${locale}/auth/sign-in`}
+								className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
+							>
+								→ Sign in with this email instead
+							</Link>
+						</TrackClick>
 					</p>
 				)}
 			</div>

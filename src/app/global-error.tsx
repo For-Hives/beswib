@@ -4,9 +4,17 @@ import * as Sentry from '@sentry/nextjs'
 import NextError from 'next/error'
 import { useEffect } from 'react'
 
+import { sectionOf } from '@/lib/analytics/classify'
+import { trackView } from '@/lib/analytics/client'
+
 export default function GlobalError({ error }: { error: Error & { digest?: string } }) {
 	useEffect(() => {
 		Sentry.captureException(error)
+		trackView('error_view', {
+			scope: 'global',
+			origin: error.digest ? 'server' : 'client',
+			section: sectionOf(window.location.pathname),
+		})
 	}, [error])
 
 	return (

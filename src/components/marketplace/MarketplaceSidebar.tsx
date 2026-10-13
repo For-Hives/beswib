@@ -10,6 +10,10 @@ import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Slider } from '@/components/ui/slider'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { priceBucket } from '@/lib/analytics/buckets'
+import type { EventProps, PriceBucket } from '@/lib/analytics/catalog'
+import { sportOf } from '@/lib/analytics/classify'
+import { track } from '@/lib/analytics/client'
 
 import locales from './locales.json'
 
@@ -21,7 +25,11 @@ interface MarketplaceSidebarProps {
 	readonly filters: MarketplaceFilters
 	readonly onFiltersChange: (filters: Partial<MarketplaceFilters>) => void
 	readonly regions?: string[]
+	/** Where this copy of the filters is rendered, for analytics */
+	readonly surface: Extract<FilterChange['surface'], 'sidebar' | 'mobile_dialog'>
 }
+
+type FilterChange = EventProps<'filter_change'>
 
 export type MarketplaceFilters = {
 	sport: string | null
@@ -36,6 +44,7 @@ export type MarketplaceFilters = {
 }
 
 export default function MarketplaceSidebar({
+	surface,
 	regions = [],
 	onFiltersChange,
 	minPrice = 0,
@@ -64,8 +73,20 @@ export default function MarketplaceSidebar({
 	const fuse = useMemo(() => new Fuse(regions, { threshold: 0.4 }), [regions])
 	const filteredRegions = regionSearch ? fuse.search(regionSearch).map(result => result.item) : regions
 
+	const trackFilterChange = (
+		filter: FilterChange['filter'],
+		action: FilterChange['action'],
+		value: FilterChange['value'] = 'na',
+		priceMax?: PriceBucket
+	) => {
+		track('filter_change', { where: 'marketplace', filter, action, surface, value, price_max: priceMax })
+	}
+
 	// Handle sport selection as toggle
 	const handleSportChange = (sport: string | null) => {
+		const appliedSport = sport === 'all' || filters.sport === sport ? null : sport
+		if (appliedSport != null) trackFilterChange('sport', 'apply', sportOf(appliedSport))
+		else if (filters.sport != null) trackFilterChange('sport', 'remove', sportOf(filters.sport))
 		if (sport === 'all') {
 			onFiltersChange({ sport: null })
 			return
@@ -84,8 +105,19 @@ export default function MarketplaceSidebar({
 		onFiltersChange({ distanceMin: values[0], distanceMax: values[1] })
 	}
 
+	// The sliders are counted when the thumb is released, not on every drag tick
+	const handlePriceCommit = (values: number[]) => {
+		if (values[0] === minPrice && values[1] === maxPrice) trackFilterChange('price_range', 'remove')
+		else trackFilterChange('price_range', 'apply', 'na', priceBucket(values[1]))
+	}
+
+	const handleDistanceCommit = (values: number[]) => {
+		trackFilterChange('distance_range', values[0] === 0 && values[1] === maxDistance ? 'remove' : 'apply')
+	}
+
 	// Handle geography selection
 	const handleGeographyToggle = (location: string) => {
+		trackFilterChange('geography', filters.geography.includes(location) ? 'remove' : 'apply')
 		const newGeography = filters.geography.includes(location)
 			? filters.geography.filter(l => l !== location)
 			: [...filters.geography, location]
@@ -94,6 +126,7 @@ export default function MarketplaceSidebar({
 
 	// Remove geography filter
 	const handleRemoveGeography = (location: string) => {
+		trackFilterChange('geography', 'remove')
 		onFiltersChange({
 			geography: filters.geography.filter(l => l !== location),
 		})
@@ -101,10 +134,12 @@ export default function MarketplaceSidebar({
 
 	// Handle date changes
 	const handleDateStartChange = (date: string) => {
+		trackFilterChange('date_start', date !== '' ? 'apply' : 'remove')
 		onFiltersChange({ dateStart: date ?? undefined })
 	}
 
 	const handleDateEndChange = (date: string) => {
+		trackFilterChange('date_end', date !== '' ? 'apply' : 'remove')
 		onFiltersChange({ dateEnd: date ?? undefined })
 	}
 
@@ -133,7 +168,8 @@ export default function MarketplaceSidebar({
 							<Button
 								variant="ghost"
 								size="sm"
-								onClick={() =>
+								onClick={() => {
+									trackFilterChange('all', 'reset')
 									onFiltersChange({
 										sport: null,
 										priceMin: minPrice,
@@ -145,7 +181,7 @@ export default function MarketplaceSidebar({
 										dateStart: undefined,
 										dateEnd: undefined,
 									})
-								}
+								}}
 								className="text-muted-foreground hover:text-foreground"
 							>
 								{`${t.reset ?? 'Reset'} (${activeFiltersCount})`}
@@ -213,6 +249,7 @@ export default function MarketplaceSidebar({
 						<Slider
 							value={[filters.distanceMin, filters.distanceMax]}
 							onValueChange={handleDistanceChange}
+							onValueCommit={handleDistanceCommit}
 							max={maxDistance}
 							min={0}
 							step={1}
@@ -235,6 +272,7 @@ export default function MarketplaceSidebar({
 						<Slider
 							value={[filters.priceMin, filters.priceMax]}
 							onValueChange={handlePriceChange}
+							onValueCommit={handlePriceCommit}
 							max={maxPrice}
 							min={0}
 							step={5}
@@ -332,7 +370,13 @@ export default function MarketplaceSidebar({
 								{(filters.distanceMin !== 0 || filters.distanceMax !== maxDistance) && (
 									<Badge variant="secondary" className="text-xs">
 										{filters.distanceMin}km - {filters.distanceMax}km
-										<X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handleDistanceChange([0, maxDistance])} />
+										<X
+											className="ml-1 h-3 w-3 cursor-pointer"
+											onClick={() => {
+												trackFilterChange('distance_range', 'remove')
+												handleDistanceChange([0, maxDistance])
+											}}
+										/>
 									</Badge>
 								)}
 								{(filters.priceMin !== minPrice || filters.priceMax !== maxPrice) && (
@@ -340,7 +384,10 @@ export default function MarketplaceSidebar({
 										{filters.priceMin}€ - {filters.priceMax}€
 										<X
 											className="ml-1 h-3 w-3 cursor-pointer"
-											onClick={() => handlePriceChange([minPrice, maxPrice])}
+											onClick={() => {
+												trackFilterChange('price_range', 'remove')
+												handlePriceChange([minPrice, maxPrice])
+											}}
 										/>
 									</Badge>
 								)}

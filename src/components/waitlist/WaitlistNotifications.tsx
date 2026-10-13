@@ -1,10 +1,12 @@
 'use client'
 
 import { AlertCircle, CheckCircle, Mail } from 'lucide-react'
-
 import { useQueryState } from 'nuqs'
+import { useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { trackView } from '@/lib/analytics/client'
+import type { EventId } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -12,11 +14,13 @@ import waitlistTranslations from './locales.json'
 
 interface WaitlistNotificationsProps {
 	eventId: string
+	/** For the analytics probes of the page that renders it */
+	analyticsEventId?: EventId
 	eventName: string
 	locale: Locale
 }
 
-export function WaitlistNotifications({ locale, eventName, eventId }: WaitlistNotificationsProps) {
+export function WaitlistNotifications({ locale, eventName, eventId, analyticsEventId }: WaitlistNotificationsProps) {
 	const t = getTranslations(locale, waitlistTranslations)
 	const [waitlistSuccess] = useQueryState('waitlist_success')
 	const [waitlistError] = useQueryState('waitlist_error')
@@ -25,6 +29,41 @@ export function WaitlistNotifications({ locale, eventName, eventId }: WaitlistNo
 	const isWaitlistSuccess = waitlistSuccess === 'true'
 	const hasError = waitlistError != null && waitlistError !== ''
 	const hasSubscribedEmail = subscribedEmail != null && subscribedEmail !== ''
+
+	useEffect(() => {
+		if (analyticsEventId === undefined || !isWaitlistSuccess) return
+		trackView('waitlist_join_success', {
+			where: 'event_page',
+			mode: hasSubscribedEmail ? 'email' : 'account',
+			event_id: analyticsEventId,
+		})
+	}, [analyticsEventId, isWaitlistSuccess, hasSubscribedEmail])
+
+	useEffect(() => {
+		if (analyticsEventId === undefined || !hasError) return
+		if (waitlistError === 'already_added') {
+			trackView('waitlist_join_error', {
+				where: 'event_page',
+				mode: 'account',
+				kind: 'already_joined',
+				event_id: analyticsEventId,
+			})
+		} else if (waitlistError === 'already_added_email') {
+			trackView('waitlist_join_error', {
+				where: 'event_page',
+				mode: 'email',
+				kind: 'already_joined',
+				event_id: analyticsEventId,
+			})
+		} else {
+			trackView('waitlist_join_error', {
+				where: 'event_page',
+				mode: 'unknown',
+				kind: 'failed',
+				event_id: analyticsEventId,
+			})
+		}
+	}, [analyticsEventId, hasError, waitlistError])
 
 	// Close handlers
 	const handleClose = () => {

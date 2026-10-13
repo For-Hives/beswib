@@ -4,6 +4,7 @@ import { Calendar, Edit3, MapPinned, Tag } from 'lucide-react'
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { TrackClick } from '@/components/analytics/TrackClick'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
@@ -67,11 +68,13 @@ export default function SellerBibCard({ locale, bib }: SellerBibCardProps) {
 				{canEdit && (
 					<div className="absolute inset-0 z-30 flex items-center justify-center opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:backdrop-blur-sm">
 						<div className="absolute inset-0 rounded-2xl bg-black/30" />
-						<Link href={`/dashboard/seller/edit-bib/${bib.id}`} className="relative z-10">
-							<div className="bg-primary flex items-center justify-center rounded-full p-4 shadow-xl transition-all duration-200 hover:scale-110 hover:shadow-2xl">
-								<Edit3 className="text-primary-foreground h-6 w-6" />
-							</div>
-						</Link>
+						<TrackClick name="cta_click" props={{ cta: 'edit_listing', where: 'seller_listing_card' }}>
+							<Link href={`/dashboard/seller/edit-bib/${bib.id}`} className="relative z-10">
+								<div className="bg-primary flex items-center justify-center rounded-full p-4 shadow-xl transition-all duration-200 hover:scale-110 hover:shadow-2xl">
+									<Edit3 className="text-primary-foreground h-6 w-6" />
+								</div>
+							</Link>
+						</TrackClick>
 					</div>
 				)}
 

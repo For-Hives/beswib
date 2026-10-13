@@ -9,7 +9,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
+import { TrackClick } from '@/components/analytics/TrackClick'
 import LanguageSwitcher, { LanguageSwitcherMobile } from '@/components/seo/LanguageSwitcher'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import type { NavItem } from '@/lib/analytics/catalog'
+import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -51,22 +55,40 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 
 	// Navigation links data with dynamic current state 🧭
 	const navigationLinks = useMemo(
-		() => [
+		(): { current: boolean; href: string; id: NavItem; label: string }[] => [
 			{
 				label: t.navbar.homeLink,
+				id: 'home',
 				href: `/${locale}`,
 				current: currentPath === `/${locale}` || currentPath === `/${locale}/`,
 			},
-			{ label: t.navbar.racesLink, href: `/${locale}/events`, current: currentPath.startsWith(`/${locale}/events`) },
+			{
+				label: t.navbar.racesLink,
+				id: 'events',
+				href: `/${locale}/events`,
+				current: currentPath.startsWith(`/${locale}/events`),
+			},
 			{
 				label: t.navbar.marketplaceLink,
+				id: 'marketplace',
 				href: `/${locale}/marketplace`,
 				current: currentPath.startsWith(`/${locale}/marketplace`),
 			},
-			{ label: t.navbar.blogLink, href: `/${locale}/blog`, current: currentPath.startsWith(`/${locale}/blog`) },
-			{ label: t.navbar.faqLink, href: `/${locale}/faq`, current: currentPath.startsWith(`/${locale}/faq`) },
+			{
+				label: t.navbar.blogLink,
+				id: 'blog',
+				href: `/${locale}/blog`,
+				current: currentPath.startsWith(`/${locale}/blog`),
+			},
+			{
+				label: t.navbar.faqLink,
+				id: 'faq',
+				href: `/${locale}/faq`,
+				current: currentPath.startsWith(`/${locale}/faq`),
+			},
 			{
 				label: t.navbar.contactLink,
+				id: 'contact',
 				href: `/${locale}/contact`,
 				current: currentPath.startsWith(`/${locale}/contact`),
 			},
@@ -90,124 +112,143 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 				as="nav"
 				className="border-border bg-background/95 supports-[backdrop-filter]:bg-background/60 fixed top-0 z-[100] w-full border-b backdrop-blur"
 			>
-				{/* <LaunchBanner locale={locale} /> */}
+				{({ open }) => (
+					<>
+						{/* <LaunchBanner locale={locale} /> */}
 
-				<div className="mx-auto max-w-7xl px-4 xl:px-0">
-					<div className="flex h-16 items-center justify-between">
-						<div className="flex items-center">
-							<div className="">
-								<Link href={`/${locale}`}>
-									<Image alt="Beswib" className="h-8 w-auto" height={32} src="/beswib.svg" width={32} />
-								</Link>
-							</div>
-							<div className="hidden lg:ml-6 lg:block">
-								<div className="flex space-x-4">
-									{navigationLinks.map(link => (
-										<Link
-											className={`text-md rounded-md px-3 py-2 font-medium transition-colors ${
-												link.current
-													? 'bg-accent text-accent-foreground'
-													: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-											}`}
-											href={link.href}
-											key={link.href}
-										>
-											{link.label}
-										</Link>
-									))}
+						<div className="mx-auto max-w-7xl px-4 xl:px-0">
+							<div className="flex h-16 items-center justify-between">
+								<div className="flex items-center">
+									<div className="">
+										<TrackClick name="nav_click" props={{ item: 'logo', where: 'header' }}>
+											<Link href={`/${locale}`}>
+												<Image alt="Beswib" className="h-8 w-auto" height={32} src="/beswib.svg" width={32} />
+											</Link>
+										</TrackClick>
+									</div>
+									<div className="hidden lg:ml-6 lg:block">
+										<div className="flex space-x-4">
+											{navigationLinks.map(link => (
+												<Link
+													className={`text-md rounded-md px-3 py-2 font-medium transition-colors ${
+														link.current
+															? 'bg-accent text-accent-foreground'
+															: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+													}`}
+													href={link.href}
+													key={link.href}
+													onClick={() => track('nav_click', { item: link.id, where: 'header' })}
+												>
+													{link.label}
+												</Link>
+											))}
+										</div>
+									</div>
+								</div>
+								<div className="hidden lg:ml-6 lg:block">
+									<div className="text-foreground flex items-center">
+										<div className="flex items-center gap-4">
+											<ThemeToggle />
+											<Show when="signed-in">
+												{/* Dashboard Dropdown Menu 📊 */}
+												<DashboardDropdown locale={locale} />
+											</Show>
+											<Show when="signed-out">
+												<TrackClick name="nav_click" props={{ item: 'sign_in', where: 'header' }}>
+													<Link
+														href={`/${locale}/auth/sign-in`}
+														className="text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-sm font-medium transition-colors"
+													>
+														{t.navbar.signIn}
+													</Link>
+												</TrackClick>
+												<TrackClick name="nav_click" props={{ item: 'sign_up', where: 'header' }}>
+													<Link
+														href={`/${locale}/auth/sign-up`}
+														className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+													>
+														{t.navbar.signUp}
+													</Link>
+												</TrackClick>
+											</Show>
+											{/* Language Switcher */}
+											<LanguageSwitcher currentLocale={locale} currentPath={currentPath} className="mr-2" />
+										</div>
+									</div>
+								</div>
+								<div className="-mr-2 flex gap-4 lg:hidden">
+									<div className="flex items-center gap-3">
+										<ThemeToggle />
+									</div>
+
+									{/* Mobile menu button 📱 */}
+									<DisclosureButton
+										className="group text-muted-foreground hover:bg-accent hover:text-accent-foreground focus:ring-ring relative inline-flex items-center justify-center rounded-md p-2 transition-colors focus:ring-2 focus:outline-none focus:ring-inset"
+										onClick={() => {
+											if (!open) track('menu_open', { menu: 'mobile_nav' })
+										}}
+									>
+										<span className="absolute -inset-0.5" />
+										<span className="sr-only">Open main menu</span>
+										<Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
+										<XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
+									</DisclosureButton>
 								</div>
 							</div>
 						</div>
-						<div className="hidden lg:ml-6 lg:block">
-							<div className="text-foreground flex items-center">
-								<div className="flex items-center gap-4">
-									<ThemeToggle />
-									<Show when="signed-in">
-										{/* Dashboard Dropdown Menu 📊 */}
-										<DashboardDropdown locale={locale} />
-									</Show>
-									<Show when="signed-out">
-										<Link
-											href={`/${locale}/auth/sign-in`}
-											className="text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-sm font-medium transition-colors"
-										>
-											{t.navbar.signIn}
-										</Link>
-										<Link
-											href={`/${locale}/auth/sign-up`}
-											className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-3 py-2 text-sm font-medium transition-colors"
-										>
-											{t.navbar.signUp}
-										</Link>
-									</Show>
-									{/* Language Switcher */}
-									<LanguageSwitcher currentLocale={locale} currentPath={currentPath} className="mr-2" />
+
+						<DisclosurePanel className="border-border bg-background absolute z-[101] max-h-[calc(100vh-4rem)] w-full overflow-y-auto border-b shadow-lg lg:hidden">
+							<div className="space-y-1 px-2 pt-2 pb-3">
+								{/* Language Switcher for Mobile 🌐 - More compact */}
+								<div className="border-border mb-3 border-b pb-3">
+									<LanguageSwitcherMobile currentLocale={locale} currentPath={currentPath} />
+								</div>
+
+								{/* Main Navigation Links 🔗 */}
+								{navigationLinks.map(link => (
+									<DisclosureButton
+										as={Link}
+										className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${
+											link.current
+												? 'bg-accent text-accent-foreground'
+												: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+										}`}
+										href={link.href}
+										key={link.href}
+										onClick={() => track('nav_click', { item: link.id, where: 'header_mobile' })}
+									>
+										{link.label}
+									</DisclosureButton>
+								))}
+
+								{/* Auth Section 🔒 */}
+								<div className="border-border border-t pt-4 pb-3">
+									<div className="flex flex-col space-y-2 px-2">
+										<Show when="signed-in">
+											<MobileDashboardLinks locale={locale} />
+										</Show>
+										<Show when="signed-out">
+											<Link
+												href={`/${locale}/auth/sign-in`}
+												onClick={() => track('nav_click', { item: 'sign_in', where: 'header_mobile' })}
+												className="text-muted-foreground hover:bg-accent hover:text-accent-foreground block w-full rounded-md px-3 py-2 text-left text-base font-medium transition-colors"
+											>
+												{t.navbar.signIn}
+											</Link>
+											<Link
+												href={`/${locale}/auth/sign-up`}
+												onClick={() => track('nav_click', { item: 'sign_up', where: 'header_mobile' })}
+												className="bg-primary text-primary-foreground hover:bg-primary/90 block w-full rounded-md px-3 py-2 text-left text-base font-medium transition-colors"
+											>
+												{t.navbar.signUp}
+											</Link>
+										</Show>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div className="-mr-2 flex gap-4 lg:hidden">
-							<div className="flex items-center gap-3">
-								<ThemeToggle />
-							</div>
-
-							{/* Mobile menu button 📱 */}
-							<DisclosureButton className="group text-muted-foreground hover:bg-accent hover:text-accent-foreground focus:ring-ring relative inline-flex items-center justify-center rounded-md p-2 transition-colors focus:ring-2 focus:outline-none focus:ring-inset">
-								<span className="absolute -inset-0.5" />
-								<span className="sr-only">Open main menu</span>
-								<Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
-								<XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
-							</DisclosureButton>
-						</div>
-					</div>
-				</div>
-
-				<DisclosurePanel className="border-border bg-background absolute z-[101] max-h-[calc(100vh-4rem)] w-full overflow-y-auto border-b shadow-lg lg:hidden">
-					<div className="space-y-1 px-2 pt-2 pb-3">
-						{/* Language Switcher for Mobile 🌐 - More compact */}
-						<div className="border-border mb-3 border-b pb-3">
-							<LanguageSwitcherMobile currentLocale={locale} currentPath={currentPath} />
-						</div>
-
-						{/* Main Navigation Links 🔗 */}
-						{navigationLinks.map(link => (
-							<DisclosureButton
-								as={Link}
-								className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${
-									link.current
-										? 'bg-accent text-accent-foreground'
-										: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-								}`}
-								href={link.href}
-								key={link.href}
-							>
-								{link.label}
-							</DisclosureButton>
-						))}
-
-						{/* Auth Section 🔒 */}
-						<div className="border-border border-t pt-4 pb-3">
-							<div className="flex flex-col space-y-2 px-2">
-								<Show when="signed-in">
-									<MobileDashboardLinks locale={locale} />
-								</Show>
-								<Show when="signed-out">
-									<Link
-										href={`/${locale}/auth/sign-in`}
-										className="text-muted-foreground hover:bg-accent hover:text-accent-foreground block w-full rounded-md px-3 py-2 text-left text-base font-medium transition-colors"
-									>
-										{t.navbar.signIn}
-									</Link>
-									<Link
-										href={`/${locale}/auth/sign-up`}
-										className="bg-primary text-primary-foreground hover:bg-primary/90 block w-full rounded-md px-3 py-2 text-left text-base font-medium transition-colors"
-									>
-										{t.navbar.signUp}
-									</Link>
-								</Show>
-							</div>
-						</div>
-					</div>
-				</DisclosurePanel>
+						</DisclosurePanel>
+					</>
+				)}
 			</Disclosure>
 		</>
 	)
@@ -259,6 +300,7 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 						: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
 				}`}
 				href={`/${locale}/dashboard`}
+				onClick={() => track('nav_click', { item: 'dashboard', where: 'header_mobile' })}
 			>
 				<LayoutDashboard className="h-4 w-4" />
 				{t.navbar.dashboardLink}
@@ -273,6 +315,7 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 						: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
 				}`}
 				href={`/${locale}/profile`}
+				onClick={() => track('nav_click', { item: 'profile', where: 'header_mobile' })}
 			>
 				<User className="h-4 w-4" />
 				{t.navbar.profileLink}
@@ -287,6 +330,7 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 						: 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
 				}`}
 				href="/marketplace"
+				onClick={() => track('nav_click', { item: 'buy_bib', where: 'header_mobile' })}
 			>
 				<ShoppingBag className="h-4 w-4" />
 				{t.navbar.buyBibLink}
@@ -301,6 +345,7 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 						: 'bg-primary text-primary-foreground hover:bg-primary/90'
 				}`}
 				href={`/${locale}/dashboard/seller/sell-bib`}
+				onClick={() => track('nav_click', { item: 'sell_bib', where: 'header_mobile' })}
 			>
 				<Tag className="h-4 w-4" />
 				{t.navbar.sellBibLink}
@@ -326,6 +371,7 @@ function MobileDashboardLinks({ locale }: Readonly<{ locale: Locale }>) {
 			<DisclosureButton
 				as="button"
 				onClick={() => void signOut({ redirectUrl: '/' })}
+				{...umamiAttrs('nav_click', { item: 'sign_out', where: 'header_mobile' })}
 				className="text-destructive hover:bg-destructive/10 flex w-full items-center gap-3 rounded-md px-3 py-2 text-base font-medium transition-colors"
 			>
 				<LogOut className="h-4 w-4" />

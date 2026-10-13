@@ -1,6 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { trackView } from '@/lib/analytics/client'
+import type { EventId } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -9,11 +12,13 @@ import waitlistTranslations from './locales.json'
 interface Props {
 	joinLabel: string
 	eventId: string
+	/** For the analytics probes of the page that renders it */
+	analyticsEventId?: EventId
 	action: (formData: FormData) => Promise<void>
 	locale: Locale
 }
 
-export default function WaitlistStatusClient({ locale, joinLabel, eventId, action }: Props) {
+export default function WaitlistStatusClient({ locale, joinLabel, eventId, action, analyticsEventId }: Props) {
 	const t = getTranslations(locale, waitlistTranslations)
 	const [inWaitlist, setInWaitlist] = useState<boolean | null>(null)
 	const [error, setError] = useState<string | null>(null)
@@ -41,6 +46,7 @@ export default function WaitlistStatusClient({ locale, joinLabel, eventId, actio
 					msg = (e as { message?: string }).message
 				}
 				setError(msg ?? 'unknown_error')
+				if (analyticsEventId !== undefined) trackView('waitlist_status_error', { event_id: analyticsEventId })
 			}
 		}
 		void run()
@@ -67,6 +73,9 @@ export default function WaitlistStatusClient({ locale, joinLabel, eventId, actio
 			<button
 				className="bg-accent/20 hover:bg-accent/30 text-accent-foreground hover:text-foreground border-border flex w-full items-center justify-center gap-3 rounded-xl border px-6 py-3 font-medium backdrop-blur-md transition"
 				type="submit"
+				{...(analyticsEventId !== undefined
+					? umamiAttrs('waitlist_join_submit', { where: 'event_page', mode: 'account', event_id: analyticsEventId })
+					: {})}
 			>
 				{/* Icon is up to parent; keep label only to stay generic */}
 				{joinLabel}

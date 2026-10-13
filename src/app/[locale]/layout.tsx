@@ -8,11 +8,11 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import type { ReactNode } from 'react'
 import { Toaster } from 'sonner'
 import SentryClientInit from '@/app/[locale]/SentryClientInit'
+import { UmamiScript } from '@/components/analytics/UmamiScript'
 import Footer from '@/components/global/footer'
 import { GoBackToTop } from '@/components/global/go-back-to-top'
 import Header from '@/components/global/Header'
 import LocaleSynchronizer, { GlobalLocaleSynchronizer } from '@/components/global/LocaleSynchronizer'
-import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import QueryProvider from '@/components/providers/QueryProvider'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import OrganizationSchema from '@/components/seo/OrganizationSchema'
@@ -21,7 +21,6 @@ import { generateLocaleParams, type LocaleParams } from '@/lib/generation/static
 import { getClerkLocalization } from '@/lib/i18n/clerk/localization'
 import { getVersion } from '@/lib/utils/version'
 
-import '@/lib/utils/umami'
 import '@/app/[locale]/globals.css'
 
 const geistSans = Geist({
@@ -84,16 +83,7 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 					<OrganizationSchema locale={locale} />
 
 					{/* Scripts moved to body to avoid head conflicts */}
-					<Script
-						async
-						id="umami-script"
-						data-domains={'beswib.com'}
-						data-website-id="e9168017-b73b-491b-b7b0-fee64f07c847"
-						src="https://umami.wadefade.fr/script.js"
-						data-tag={version}
-						data-before-send="beforeSendHandler"
-						strategy="afterInteractive"
-					/>
+					<UmamiScript version={version} />
 					{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID != null && (
 						<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
 					)}
@@ -129,7 +119,6 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 						>
 							<QueryProvider>
 								<NuqsAdapter>
-									<SessionsTracker />
 									<LocaleSynchronizer />
 									<GlobalLocaleSynchronizer />
 									<Header localeParams={typedLocaleParams} />
