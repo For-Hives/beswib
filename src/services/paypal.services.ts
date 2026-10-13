@@ -2,6 +2,8 @@
 
 import { PLATFORM_FEE } from '@/constants/global.constant'
 import { trackServer } from '@/lib/analytics/server'
+import { i18n } from '@/lib/i18n/config'
+import { getPublicBaseUrl } from '@/lib/utils/url'
 import type { BibSale } from '@/models/marketplace.model'
 import type {
 	PayPalAccessToken,
@@ -610,11 +612,16 @@ export async function listPayPalWebhooks(): Promise<{ error?: string; webhooks?:
 }
 
 export async function onboardSeller(
-	trackingId: string
+	trackingId: string,
+	locale?: string
 ): Promise<{ action_url?: string; error?: string; referral_id?: string }> {
 	try {
 		const token = await getAccessToken()
-		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
+		// Back from PayPal the seller lands on their profile, in their language: its onboarding card
+		// waits for the merchant account to be linked (the webhook does it) and shows its status. The
+		// page reads nothing from the address, and PayPal adds its own parameters to it.
+		const sellerLocale = i18n.locales.find(known => known === locale) ?? i18n.defaultLocale
+		const returnUrl = `${getPublicBaseUrl()}/${sellerLocale}/profile`
 
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
 		const response = await fetch(`${paypalApiUrl}/v2/customer/partner-referrals`, {
@@ -628,7 +635,7 @@ export async function onboardSeller(
 				tracking_id: trackingId,
 				products: ['EXPRESS_CHECKOUT'],
 				partner_config_override: {
-					return_url: `${baseUrl}/en/paypal/callback?trackingId=${trackingId}`,
+					return_url: returnUrl,
 				},
 				operations: [
 					{
@@ -658,7 +665,7 @@ export async function onboardSeller(
 			requestBody: {
 				tracking_id: trackingId,
 				products: ['EXPRESS_CHECKOUT'],
-				partner_config_override: { return_url: `${baseUrl}/en/paypal/callback?trackingId=${trackingId}` },
+				partner_config_override: { return_url: returnUrl },
 				operations: [
 					{
 						operation: 'API_INTEGRATION',

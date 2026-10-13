@@ -4,7 +4,7 @@ import { track } from '@/lib/analytics/client'
 
 import { initiatePayPalOnboarding } from '@/services/paypal-onboarding.services'
 
-export function usePayPalOnboarding() {
+export function usePayPalOnboarding(locale: string) {
 	return useMutation({
 		onSuccess: result => {
 			if (result.actionUrl ?? '') {
@@ -19,6 +19,6 @@ export function usePayPalOnboarding() {
 			console.error('PayPal onboarding error:', error)
 			track('paypal_onboarding_error', { kind: 'request_failed' })
 		},
-		mutationFn: (userId: string) => initiatePayPalOnboarding(userId),
+		mutationFn: (userId: string) => initiatePayPalOnboarding(userId, locale),
 	})
 }

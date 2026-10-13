@@ -35,15 +35,17 @@ export async function completePayPalOnboarding(
 }
 
 export async function initiatePayPalOnboarding(
-	userId: string
+	userId: string,
+	locale?: string
 ): Promise<{ actionUrl?: string; error?: string; referralId?: string }> {
 	try {
 		// Use the user's DB id as the tracking ID (per business requirement)
 		// Note: This intentionally avoids adding timestamps or prefixes.
 		const trackingId = userId
 
-		// Call PayPal onboarding service
-		const result = await onboardSeller(trackingId)
+		// Call PayPal onboarding service. The locale is the one of the page the seller is on: PayPal
+		// sends them back to their profile in it.
+		const result = await onboardSeller(trackingId, locale)
 
 		if (result.error != null && result.error !== undefined && result.error !== '') {
 			return { error: result.error }
