@@ -446,9 +446,17 @@ export default function MarketplaceClient({ locale, bibs }: Readonly<Marketplace
 	const isEmpty = resultCount === 0
 	const hasQuery = search.trim() !== ''
 	const catalogueEmpty = bibs.length === 0
+	// Each empty state is counted once for as long as the list stays empty
+	const sentEmptyStatesRef = useRef(new Set<string>())
 	useEffect(() => {
-		if (!isEmpty) return
+		if (!isEmpty) {
+			sentEmptyStatesRef.current.clear()
+			return
+		}
+		const key = `${hasQuery}|${activeFilterCount}|${catalogueEmpty}`
+		if (sentEmptyStatesRef.current.has(key)) return
 		const timer = setTimeout(() => {
+			sentEmptyStatesRef.current.add(key)
 			trackView('empty_results_view', {
 				where: 'marketplace',
 				has_query: hasQuery,

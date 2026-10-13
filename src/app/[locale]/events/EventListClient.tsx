@@ -709,9 +709,17 @@ export default function EventsPage({ prefetchedEvents, locale, loadFailed }: Eve
 	const hasQuery = searchTerm !== ''
 	const catalogueEmpty = futureEvents.length === 0
 	const loadHasFailed = loadFailed === true
+	// Each empty state is counted once for as long as the list stays empty
+	const sentEmptyStatesRef = useRef(new Set<string>())
 	useEffect(() => {
-		if (!isEmpty) return
+		if (!isEmpty) {
+			sentEmptyStatesRef.current.clear()
+			return
+		}
+		const key = `${hasQuery}|${activeFilterCount}|${catalogueEmpty}|${loadHasFailed}`
+		if (sentEmptyStatesRef.current.has(key)) return
 		const timer = setTimeout(() => {
+			sentEmptyStatesRef.current.add(key)
 			trackView('empty_results_view', {
 				where: 'events',
 				has_query: hasQuery,
