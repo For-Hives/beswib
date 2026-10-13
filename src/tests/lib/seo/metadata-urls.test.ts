@@ -1,6 +1,6 @@
 // @vitest-environment node
-import { existsSync } from 'node:fs'
-import { join } from 'node:path'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { join, relative, sep } from 'node:path'
 import type { Metadata } from 'next'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -54,6 +54,23 @@ const SHARED_PAGES = [
 	'marketplace/[id]',
 ]
 
+const SRC = join(process.cwd(), 'src')
+
+// The source files of the app, tests aside, that match a pattern
+function sourcesMatching(pattern: RegExp, directory = SRC): string[] {
+	const paths: string[] = []
+	for (const entry of readdirSync(directory, { withFileTypes: true })) {
+		const full = join(directory, entry.name)
+		const path = relative(SRC, full).split(sep).join('/')
+		if (entry.isDirectory()) {
+			if (path !== 'tests') paths.push(...sourcesMatching(pattern, full))
+		} else if (/\.(ts|tsx)$/.test(entry.name) && pattern.test(readFileSync(full, 'utf8'))) {
+			paths.push(path)
+		}
+	}
+	return paths
+}
+
 beforeEach(() => {
 	// A production build that knows its public address, as on the hosting platform
 	vi.stubEnv('NODE_ENV', 'production')
@@ -88,6 +105,24 @@ describe('metadataBase', () => {
 
 	it.each(PAGES)('is not set a second time by %s', (_name, metadata) => {
 		expect(metadata('en')).not.toHaveProperty('metadataBase')
+	})
+
+	// The layout cannot be imported here (Clerk, the fonts, the whole shell), so its source is read,
+	// as src/tests/lib/analytics/usage.test.ts does. Without this export every test above still
+	// passes and Next.js goes back to http://localhost:3000 for the opengraph-image files.
+	it('is what the root layout exports as its metadata', () => {
+		// The root layout: there is no layout above the [locale] segment
+		expect(existsSync(join(SRC, 'app/layout.tsx'))).toBe(false)
+
+		const layout = readFileSync(join(SRC, 'app/[locale]/layout.tsx'), 'utf8')
+
+		expect(layout).toMatch(
+			/export\s+(async\s+)?function\s+generateMetadata\s*\([^)]*\)[^{]*\{[^}]*\bgenerateRootMetadata\(\)[^}]*\}/
+		)
+	})
+
+	it('is set in one place only: a second base would be a second address to keep right', () => {
+		expect(sourcesMatching(/\bmetadataBase\s*:/)).toEqual(['lib/seo/metadata-generators.ts'])
 	})
 
 	it('resolves the relative URLs the pages keep (icons, manifest) on the public address', () => {
@@ -134,6 +169,8 @@ describe('canonical and hreflang links', () => {
 	})
 
 	it('announces no local address from a production build that was given none', () => {
+		// The helper says so in the log, once
+		vi.spyOn(console, 'warn').mockImplementation(() => undefined)
 		vi.stubEnv('NEXT_PUBLIC_BASE_URL', undefined)
 
 		for (const [, metadata] of PAGES) {
