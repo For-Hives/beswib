@@ -1,6 +1,6 @@
 'use server'
 
-import { render } from '@react-email/components'
+import { render } from 'react-email'
 
 import { Resend } from 'resend'
 

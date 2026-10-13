@@ -1,7 +1,6 @@
 import type { WebhookEvent } from '@clerk/nextjs/server'
-import { headers } from 'next/headers'
-import { NextResponse } from 'next/server'
-import { Webhook } from 'svix'
+import { verifyWebhook } from '@clerk/nextjs/webhooks'
+import { type NextRequest, NextResponse } from 'next/server'
 import type { User } from '@/models/user.model'
 import { sendWelcomeEmail } from '@/services/notification.service'
 import { createUser } from '@/services/user.services' // Adjust path as necessary
@@ -18,24 +17,18 @@ interface ClerkUserData {
 	primary_email_address_id?: string
 }
 
-interface SvixHeaders {
-	svix_id: string
-	svix_signature: string
-	svix_timestamp: string
-}
-
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
 	const secretValidation = validateWebhookSecret()
 	if (secretValidation) {
 		return secretValidation
 	}
 
-	const headersResult = await extractSvixHeaders()
-	if (headersResult instanceof NextResponse) {
-		return headersResult
+	const headersValidation = validateSvixHeaders(req)
+	if (headersValidation) {
+		return headersValidation
 	}
 
-	const verificationResult = await verifyWebhookPayload(req, headersResult)
+	const verificationResult = await verifyWebhookPayload(req)
 	if (verificationResult instanceof NextResponse) {
 		return verificationResult
 	}
@@ -81,19 +74,6 @@ function buildUserData(evt: WebhookEvent, primaryEmail: string): Omit<User, 'cre
 		birthDate: null,
 		address: null,
 	}
-}
-
-async function extractSvixHeaders(): Promise<NextResponse | SvixHeaders> {
-	const headerPayload = await headers()
-	const svix_id = headerPayload.get('svix-id')
-	const svix_timestamp = headerPayload.get('svix-timestamp')
-	const svix_signature = headerPayload.get('svix-signature')
-
-	if (svix_id == null || svix_timestamp == null || svix_signature == null) {
-		return NextResponse.json({ error: 'Error occured -- no svix headers' }, { status: 400 })
-	}
-
-	return { svix_timestamp, svix_signature, svix_id }
 }
 
 function extractUserData(evt: WebhookEvent): NextResponse | { clerkId: string; primaryEmail: string } {
@@ -166,6 +146,18 @@ async function processUserCreation(
 	}
 }
 
+function validateSvixHeaders(req: NextRequest): NextResponse | null {
+	const svix_id = req.headers.get('svix-id')
+	const svix_timestamp = req.headers.get('svix-timestamp')
+	const svix_signature = req.headers.get('svix-signature')
+
+	if (svix_id == null || svix_timestamp == null || svix_signature == null) {
+		return NextResponse.json({ error: 'Error occured -- no svix headers' }, { status: 400 })
+	}
+
+	return null
+}
+
 function validateWebhookSecret(): NextResponse | null {
 	if (WEBHOOK_SECRET === undefined || WEBHOOK_SECRET == null || WEBHOOK_SECRET.trim() === '') {
 		console.error('CLERK_WEBHOOK_SECRET is not set')
@@ -174,17 +166,10 @@ function validateWebhookSecret(): NextResponse | null {
 	return null
 }
 
-async function verifyWebhookPayload(req: Request, headers: SvixHeaders): Promise<NextResponse | WebhookEvent> {
-	const payload: unknown = await req.json()
-	const body = JSON.stringify(payload)
-	const wh = new Webhook(WEBHOOK_SECRET!)
-
+async function verifyWebhookPayload(req: NextRequest): Promise<NextResponse | WebhookEvent> {
 	try {
-		return wh.verify(body, {
-			'svix-timestamp': headers.svix_timestamp,
-			'svix-signature': headers.svix_signature,
-			'svix-id': headers.svix_id,
-		}) as WebhookEvent
+		// Checks the svix signature against the raw request body, then parses it
+		return await verifyWebhook(req, { signingSecret: WEBHOOK_SECRET })
 	} catch (err) {
 		console.error('Error verifying webhook:', err)
 		return NextResponse.json({ error: 'Error occured during webhook verification' }, { status: 400 })

@@ -1,6 +1,6 @@
 'use server'
 
-import { createGoogleGenerativeAI } from '@ai-sdk/google'
+import { createGoogle } from '@ai-sdk/google'
 import { generateText } from 'ai'
 
 /**
@@ -36,7 +36,7 @@ export async function generateSEOContent(options: GenerateSEOOptions): Promise<S
 			return null
 		}
 
-		const google = createGoogleGenerativeAI({
+		const google = createGoogle({
 			apiKey,
 		})
 
@@ -215,7 +215,7 @@ export async function generateArticleTranslation(
 			return null
 		}
 
-		const google = createGoogleGenerativeAI({
+		const google = createGoogle({
 			apiKey,
 		})
 

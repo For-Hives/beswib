@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"target": "ES2017",
 		"lib": ["dom", "dom.iterable", "esnext"],
+		"types": ["node", "umami"],
 		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": true,
@@ -12,7 +13,9 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "react-jsx",
-		"incremental": true,
+		// Off on purpose: TypeScript 7.0.2 keeps stale results in incremental mode after a global declaration changes
+		// (microsoft/TypeScript#64715). A full check takes about 6 s. Turn it back on once a fixed release is installed.
+		"incremental": false,
 		"plugins": [
 			{
 				"name": "next"

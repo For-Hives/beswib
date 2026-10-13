@@ -1,4 +1,4 @@
-import { withSentryConfig } from '@sentry/nextjs'
+import { withSentryConfig } from '@sentry/nextjs/config'
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
@@ -67,6 +67,6 @@ export default withSentryConfig(nextConfig, {
 
 	org: 'neova-s5',
 
-	// Automatically tree-shake Sentry logger statements to reduce bundle size
-	disableLogger: true,
+	// Tree-shake the Sentry SDK debug statements to reduce bundle size
+	bundleSizeOptimizations: { excludeDebugStatements: true },
 })
