@@ -176,9 +176,6 @@ importers:
       date-fns:
         specifier: 4.4.0
         version: 4.4.0
-      framer-motion:
-        specifier: 12.39.0
-        version: 12.39.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       fuse.js:
         specifier: 7.5.0
         version: 7.5.0
@@ -198,8 +195,8 @@ importers:
         specifier: 3.3.1
         version: 3.3.1(three@0.186.1)
       motion:
-        specifier: 12.39.0
-        version: 12.39.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: 14.1.0
+        version: 14.1.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       negotiator:
         specifier: 1.1.0
         version: 1.1.0
@@ -4363,15 +4360,12 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==, tarball: https://registry.npmjs.org/foreground-child/-/foreground-child-3.3.1.tgz}
     engines: {node: '>=14'}
 
-  framer-motion@12.39.0:
-    resolution: {integrity: sha512-+vnLfzrv0MzjLzNl+nvNvR7jdg3q4cxxjz/YvzfifHl0TREtL00cs1RoMTxs+1PzLiEqZGV6gYsBY0oEAYZ24w==, tarball: https://registry.npmjs.org/framer-motion/-/framer-motion-12.39.0.tgz}
+  framer-motion@14.1.0:
+    resolution: {integrity: sha512-QsdZSdWoyQfUmgi+GZfow8Du5COG6VRYEo9FlgKUPgH87/Le/fYekHCAKwLdYKHdCZcZfWHg4iOxlD6RoqXciQ==, tarball: https://registry.npmjs.org/framer-motion/-/framer-motion-14.1.0.tgz}
     peerDependencies:
-      '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
     peerDependenciesMeta:
-      '@emotion/is-prop-valid':
-        optional: true
       react:
         optional: true
       react-dom:
@@ -4925,21 +4919,18 @@ packages:
   module-details-from-path@1.0.4:
     resolution: {integrity: sha512-EGWKgxALGMgzvxYF1UyGTy0HXX/2vHLkw6+NvDKW2jypWbHpjQuj4UMcqQWXHERJhVGKikolT06G3bcKe4fi7w==}
 
-  motion-dom@12.39.0:
-    resolution: {integrity: sha512-Xn7aAcGDhco/JZTXOub64UmaYn73C6J1Po7Fk+8EvkJsNGTqfhon6UJY53vJKXW5v5Zl8HrYsVxv6oPXeGoGLQ==, tarball: https://registry.npmjs.org/motion-dom/-/motion-dom-12.39.0.tgz}
+  motion-dom@14.1.0:
+    resolution: {integrity: sha512-FyFLkNUAAETzCvf851mZcl+v+kaZrKq+UM+XmkY4G8n+ny/WYfiWh9j0fhSQ1KOKVQrM9/cLO11THO2k71HJlg==, tarball: https://registry.npmjs.org/motion-dom/-/motion-dom-14.1.0.tgz}
 
-  motion-utils@12.39.0:
-    resolution: {integrity: sha512-8nadJAJjTtqRkmRF36FoJTrywK9nnFmnPwnSMyxaOCU7GDjN9RTMJIxx9De8ErM+vpPhMccr/6fo5WciyQLnMQ==, tarball: https://registry.npmjs.org/motion-utils/-/motion-utils-12.39.0.tgz}
+  motion-utils@14.1.0:
+    resolution: {integrity: sha512-xd4FeWOnnXsJHmAaRCLNbOS7mEaNOangjMt3Pl241H07f1kxW48fADQ/8O5hLLNhf1qdlozgY3PPAHBdOoU7AA==, tarball: https://registry.npmjs.org/motion-utils/-/motion-utils-14.1.0.tgz}
 
-  motion@12.39.0:
-    resolution: {integrity: sha512-H4a+Ze+a9j+/NTla5ezfb/g9vmIOxC+viDj++NGDZyTZkdRKjiOz3kSv6TalRWM8ZmD2y/CfC6TkQc97ybyqSA==, tarball: https://registry.npmjs.org/motion/-/motion-12.39.0.tgz}
+  motion@14.1.0:
+    resolution: {integrity: sha512-lsCsW9uJ+iMJj8MSiLccpUC+ZUpoSspaX6Pm78KrnZKMioCPAPG6WeG1d1d/Ywg+z1mny+STP6VyEYW+3nAqNw==, tarball: https://registry.npmjs.org/motion/-/motion-14.1.0.tgz}
     peerDependencies:
-      '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
     peerDependenciesMeta:
-      '@emotion/is-prop-valid':
-        optional: true
       react:
         optional: true
       react-dom:
@@ -10256,10 +10247,10 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  framer-motion@12.39.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+  framer-motion@14.1.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
-      motion-dom: 12.39.0
-      motion-utils: 12.39.0
+      motion-dom: 14.1.0
+      motion-utils: 14.1.0
       tslib: 2.8.1
     optionalDependencies:
       react: 19.3.0
@@ -10730,15 +10721,15 @@ snapshots:
 
   module-details-from-path@1.0.4: {}
 
-  motion-dom@12.39.0:
+  motion-dom@14.1.0:
     dependencies:
-      motion-utils: 12.39.0
+      motion-utils: 14.1.0
 
-  motion-utils@12.39.0: {}
+  motion-utils@14.1.0: {}
 
-  motion@12.39.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+  motion@14.1.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
-      framer-motion: 12.39.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      framer-motion: 14.1.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       tslib: 2.8.1
     optionalDependencies:
       react: 19.3.0

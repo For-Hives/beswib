@@ -1,6 +1,6 @@
 'use client'
-import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle, Package } from 'lucide-react'
+import { motion } from 'motion/react'
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'
