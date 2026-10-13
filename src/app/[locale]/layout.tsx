@@ -1,13 +1,13 @@
-import { ConsentManagerDialog, ConsentManagerProvider, CookieBanner } from '@c15t/nextjs'
+import { ConsentBanner, ConsentDialog, ConsentRoot } from '@c15t/nextjs'
 import { ClerkProvider } from '@clerk/nextjs'
 import { shadcn } from '@clerk/ui/themes'
-import { GoogleAnalytics } from '@next/third-parties/google'
 import { Bowlby_One_SC, Geist, Geist_Mono } from 'next/font/google'
 import Script from 'next/script'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import type { ReactNode } from 'react'
 import { Toaster } from 'sonner'
 import SentryClientInit from '@/app/[locale]/SentryClientInit'
+import { ConsentedGoogleAnalytics } from '@/components/analytics/ConsentedGoogleAnalytics'
 import { UmamiScript } from '@/components/analytics/UmamiScript'
 import Footer from '@/components/global/footer'
 import { GoBackToTop } from '@/components/global/go-back-to-top'
@@ -17,6 +17,7 @@ import QueryProvider from '@/components/providers/QueryProvider'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import OrganizationSchema from '@/components/seo/OrganizationSchema'
 import PageTransition from '@/components/ui/PageTransition'
+import { getConsentRootProps } from '@/lib/consent/root-props'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getClerkLocalization } from '@/lib/i18n/clerk/localization'
 import { getVersion } from '@/lib/utils/version'
@@ -84,9 +85,6 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 
 					{/* Scripts moved to body to avoid head conflicts */}
 					<UmamiScript version={version} />
-					{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID != null && (
-						<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
-					)}
 					{/* Apply persisted/system theme BEFORE paint to prevent flash */}
 					<Script
 						id="theme-script"
@@ -112,11 +110,15 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 						}}
 					/>
 					<ThemeProvider>
-						<ConsentManagerProvider
-							options={{
-								mode: 'offline',
-							}}
-						>
+						<ConsentRoot {...getConsentRootProps(locale)}>
+							{/* Google Analytics waits for the visitor's consent, which only exists inside the consent root */}
+							{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID != null && (
+								<ConsentedGoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+							)}
+							{/* Ahead of the page in the DOM: the banner is the first stop of the Tab key (c15t 3 no longer
+							    moves the focus to it). The c15t credit stays in the dialog only, as before the upgrade. */}
+							<ConsentBanner hideBranding />
+							<ConsentDialog />
 							<QueryProvider>
 								<NuqsAdapter>
 									<LocaleSynchronizer />
@@ -125,14 +127,12 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 									<PageTransition>{props.children}</PageTransition>
 									{/* Ensure Sentry client init runs on the browser */}
 									<SentryClientInit />
-									<CookieBanner />
-									<ConsentManagerDialog />
 									<Footer localeParams={typedLocaleParams} />
 									<GoBackToTop locale={locale} />
 									<Toaster />
 								</NuqsAdapter>
 							</QueryProvider>
-						</ConsentManagerProvider>
+						</ConsentRoot>
 					</ThemeProvider>
 				</body>
 			</html>

@@ -31,7 +31,8 @@
 				"privacy": "Privacy Policy",
 				"terms": "Terms of Service",
 				"dataDeletion": "Data Deletion",
-				"aup": "Acceptable Use Policy"
+				"aup": "Acceptable Use Policy",
+				"cookieSettings": "Cookie settings"
 			}
 		},
 		"pages": {
@@ -143,7 +144,8 @@
 				"privacy": "Politique de confidentialité",
 				"terms": "Conditions d'utilisation",
 				"dataDeletion": "Suppression des données",
-				"aup": "Politique d'Utilisation Acceptable"
+				"aup": "Politique d'Utilisation Acceptable",
+				"cookieSettings": "Gestion des cookies"
 			}
 		},
 		"pages": {
@@ -255,7 +257,8 @@
 				"privacy": "Política de privacidad",
 				"terms": "Términos del servicio",
 				"dataDeletion": "Eliminación de datos",
-				"aup": "Política de Uso Aceptable"
+				"aup": "Política de Uso Aceptable",
+				"cookieSettings": "Configuración de cookies"
 			}
 		},
 		"pages": {
@@ -367,7 +370,8 @@
 				"privacy": "Informativa privacy",
 				"terms": "Termini di servizio",
 				"dataDeletion": "Cancellazione dati",
-				"aup": "Politica di Uso Accettabile"
+				"aup": "Politica di Uso Accettabile",
+				"cookieSettings": "Impostazioni dei cookie"
 			}
 		},
 		"pages": {
@@ -479,7 +483,8 @@
 				"privacy": "Datenschutz",
 				"terms": "Nutzungsbedingungen",
 				"dataDeletion": "Datenlöschung",
-				"aup": "Nutzungsrichtlinie"
+				"aup": "Nutzungsrichtlinie",
+				"cookieSettings": "Cookie-Einstellungen"
 			}
 		},
 		"pages": {
@@ -591,7 +596,8 @@
 				"privacy": "Politica de confidențialitate",
 				"terms": "Termeni și condiții",
 				"dataDeletion": "Ștergere date",
-				"aup": "Politica de Utilizare Acceptabilă"
+				"aup": "Politica de Utilizare Acceptabilă",
+				"cookieSettings": "Setări cookie-uri"
 			}
 		},
 		"pages": {
@@ -703,7 +709,8 @@
 				"privacy": "Política de Privacidade",
 				"terms": "Termos de Serviço",
 				"dataDeletion": "Eliminação de dados",
-				"aup": "Política de Uso Aceitável"
+				"aup": "Política de Uso Aceitável",
+				"cookieSettings": "Definições de cookies"
 			}
 		},
 		"pages": {
@@ -815,7 +822,8 @@
 				"privacy": "Privacybeleid",
 				"terms": "Servicevoorwaarden",
 				"dataDeletion": "Gegevensverwijdering",
-				"aup": "Acceptabel Gebruiksbeleid"
+				"aup": "Acceptabel Gebruiksbeleid",
+				"cookieSettings": "Cookie-instellingen"
 			}
 		},
 		"pages": {
@@ -927,7 +935,8 @@
 				"privacy": "개인정보 보호정책",
 				"terms": "서비스 약관",
 				"dataDeletion": "데이터 삭제",
-				"aup": "허용 가능한 사용 정책"
+				"aup": "허용 가능한 사용 정책",
+				"cookieSettings": "쿠키 설정"
 			}
 		},
 		"pages": {

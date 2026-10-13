@@ -96,9 +96,10 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 		[t, locale, currentPath]
 	)
 
-	// Don't render header while banner is loading to prevent flash
+	// Don't render header while banner is loading to prevent flash. Its space is kept from the first
+	// paint (and in the server HTML): the page must not move down when the header arrives.
 	if (bannerLoading) {
-		return null
+		return <div className="h-16" />
 	}
 
 	return (

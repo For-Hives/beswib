@@ -1,3 +1,4 @@
+import { ConsentDialogLink } from '@c15t/nextjs'
 import Link from 'next/link'
 import { TrackClick } from '@/components/analytics/TrackClick'
 import { umamiAttrs } from '@/lib/analytics/attrs'
@@ -161,6 +162,17 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 										{t.footer.links?.aup ?? 'Acceptable Use Policy'}
 									</Link>
 								</TrackClick>
+							</li>
+							{/* Reopens the consent preferences: the only way to give or withdraw consent once the banner is
+							    gone. The button only exists after hydration: an invisible copy of its label, in the same
+							    grid cell, keeps its place meanwhile, on two lines where the label wraps. */}
+							<li className="grid">
+								<span aria-hidden="true" className="invisible col-start-1 row-start-1">
+									{t.footer.links?.cookieSettings ?? 'Cookie settings'}
+								</span>
+								<ConsentDialogLink className="text-muted-foreground hover:text-foreground col-start-1 row-start-1 text-left">
+									{t.footer.links?.cookieSettings ?? 'Cookie settings'}
+								</ConsentDialogLink>
 							</li>
 						</ul>
 					</div>
