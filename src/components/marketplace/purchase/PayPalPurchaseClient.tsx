@@ -16,7 +16,6 @@ import { bibIdOf, eventIdOf } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { isUserProfileComplete } from '@/lib/validation/user'
-import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
 import type { BibSale } from '@/models/marketplace.model'
 import type { Organizer } from '@/models/organizer.model'
@@ -30,11 +29,11 @@ import { LockTimer } from './LockTimer'
 interface PayPalPurchaseClientProps {
 	bib: BibSale
 	locale: Locale
-	sellerUser: AppUser | null
+	/** The seller, cut down to what the purchase needs: the page sends this to the browser of any visitor */
+	sellerUser: Pick<AppUser, 'paypalMerchantId'> | null
 	user: AppUser | null
 	eventData?: Event & { expand?: { organizer: Organizer } }
 	organizerData?: Organizer
-	bibData?: Bib & { expand?: { eventId: Event; sellerUserId: AppUser } }
 	/** The bib was reached through its private link (analytics probes) */
 	isPrivate?: boolean
 	/** Token of that private link: the server asks for it at every purchase step. Never an analytics property */
