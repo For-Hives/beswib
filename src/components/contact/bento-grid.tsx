@@ -6,6 +6,8 @@ import type React from 'react'
 import { Suspense, useState } from 'react'
 import type globalTranslations from '@/components/global/locales.json'
 import { Button } from '@/components/ui/button'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { track } from '@/lib/analytics/client'
 import { cn } from '@/lib/utils'
 import { FacebookIcon, InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/utils/social'
 
@@ -18,6 +20,8 @@ type BentoCardProps = Readonly<{
 	ctaLabel: string
 
 	isActive: boolean
+	/** Analytics only: which mailbox the card opens */
+	mailbox?: 'mail_contact' | 'mail_support' | 'mail_partners'
 	onMouseEnter: () => void
 	onMouseLeave: () => void
 	title: string
@@ -111,6 +115,7 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 				icon={<Mail className="h-6 w-6" />}
 				ctaLabel={t.contactCta}
 				isActive={activeCard === 'email'}
+				mailbox="mail_contact"
 				onMouseEnter={() => handleMouseEnter('email')}
 				onMouseLeave={handleMouseLeave}
 				title={t.email}
@@ -125,6 +130,7 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 				icon={<Users className="h-6 w-6" />}
 				ctaLabel={t.contactCta}
 				isActive={activeCard === 'support'}
+				mailbox="mail_support"
 				onMouseEnter={() => handleMouseEnter('support')}
 				onMouseLeave={handleMouseLeave}
 				title={t.support}
@@ -136,7 +142,13 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 				className="border-border bg-card hover:border-primary/50 relative col-span-1 flex cursor-pointer flex-col items-start justify-start overflow-hidden rounded-3xl border px-6 py-6 text-center shadow-xl transition-colors"
 				initial={{ y: 20, opacity: 0 }}
 			>
-				<Link className="h-full w-full" href={SOCIALS.linkedin} rel="noopener noreferrer" target="_blank">
+				<Link
+					className="h-full w-full"
+					href={SOCIALS.linkedin}
+					rel="noopener noreferrer"
+					target="_blank"
+					{...umamiAttrs('outbound_click', { target: 'linkedin', where: 'contact_page' })}
+				>
 					<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
 
 					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
@@ -152,7 +164,13 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 				className="border-border bg-card hover:border-primary/50 relative col-span-1 flex cursor-pointer flex-col items-start justify-start overflow-hidden rounded-3xl border px-6 py-6 text-center shadow-xl transition-colors"
 				initial={{ y: 20, opacity: 0 }}
 			>
-				<Link className="h-full w-full" href={SOCIALS.instagram} rel="noopener noreferrer" target="_blank">
+				<Link
+					className="h-full w-full"
+					href={SOCIALS.instagram}
+					rel="noopener noreferrer"
+					target="_blank"
+					{...umamiAttrs('outbound_click', { target: 'instagram', where: 'contact_page' })}
+				>
 					<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
 
 					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
@@ -168,7 +186,13 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 				className="border-border bg-card hover:border-primary/50 relative col-span-1 flex cursor-pointer flex-col items-start justify-start overflow-hidden rounded-3xl border px-6 py-6 text-center shadow-xl transition-colors"
 				initial={{ y: 20, opacity: 0 }}
 			>
-				<Link className="h-full w-full" href={SOCIALS.strava} rel="noopener noreferrer" target="_blank">
+				<Link
+					className="h-full w-full"
+					href={SOCIALS.strava}
+					rel="noopener noreferrer"
+					target="_blank"
+					{...umamiAttrs('outbound_click', { target: 'strava', where: 'contact_page' })}
+				>
 					<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
 
 					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
@@ -184,7 +208,13 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 				className="border-border bg-card hover:border-primary/50 relative col-span-1 flex cursor-pointer flex-col items-start justify-start overflow-hidden rounded-3xl border px-6 py-6 text-center shadow-xl transition-colors"
 				initial={{ y: 20, opacity: 0 }}
 			>
-				<Link className="h-full w-full" href={SOCIALS.facebook} rel="noopener noreferrer" target="_blank">
+				<Link
+					className="h-full w-full"
+					href={SOCIALS.facebook}
+					rel="noopener noreferrer"
+					target="_blank"
+					{...umamiAttrs('outbound_click', { target: 'facebook', where: 'contact_page' })}
+				>
 					<div className="via-primary/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent"></div>
 
 					<div className="grid h-full w-full grid-cols-1 items-center justify-center gap-2">
@@ -205,6 +235,7 @@ export default function BentoGrid({ t }: Readonly<Props>) {
 				icon={<Handshake className="h-6 w-6" />}
 				ctaLabel={t.partnerships}
 				isActive={activeCard === 'partnerships'}
+				mailbox="mail_partners"
 				onMouseEnter={() => handleMouseEnter('partnerships')}
 				onMouseLeave={handleMouseLeave}
 				title={t.partnerships}
@@ -217,6 +248,7 @@ function BentoCard({
 	title,
 	onMouseLeave,
 	onMouseEnter,
+	mailbox,
 	isActive,
 	icon,
 	href,
@@ -234,6 +266,9 @@ function BentoCard({
 			)}
 			href={href}
 			initial={{ y: 20, opacity: 0 }}
+			onClick={() => {
+				if (mailbox) track('outbound_click', { target: mailbox, where: 'contact_page' })
+			}}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
 		>

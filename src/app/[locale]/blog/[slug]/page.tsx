@@ -3,8 +3,10 @@ import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 
 import { ArticleSidebar } from '@/components/blog/ArticleSidebar'
+import { ArticleTracker } from '@/components/blog/ArticleTracker'
 import blogTranslations from '@/components/blog/locales.json'
 import { Breadcrumb, type BreadcrumbItem } from '@/components/ui/breadcrumb'
+import { articleIdOf } from '@/lib/analytics/ids'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import type { Article } from '@/models/article.model'
@@ -76,11 +78,13 @@ export default async function ArticlePage({ params }: { params: Promise<ArticleP
 					{/* Article Content - Right on desktop, top on mobile */}
 					<div className="md:col-span-8 md:col-start-5 lg:col-span-9 lg:col-start-4">
 						<article className="prose prose-neutral dark:prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-h1:text-4xl prose-h1:font-extrabold prose-h2:text-3xl prose-h3:text-2xl prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-primary prose-blockquote:italic prose-strong:font-semibold prose-code:rounded prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:bg-muted prose-img:rounded-lg prose-img:shadow-lg">
-							{/* Article Header */}
-							<h1>{article.title}</h1>
+							<ArticleTracker articleId={articleIdOf(article)} readTime={readTime}>
+								{/* Article Header */}
+								<h1>{article.title}</h1>
 
-							{/* Article Content (HTML from rich text editor) */}
-							<div dangerouslySetInnerHTML={{ __html: article.content }} />
+								{/* Article Content (HTML from rich text editor) */}
+								<div dangerouslySetInnerHTML={{ __html: article.content }} />
+							</ArticleTracker>
 						</article>
 					</div>
 				</div>

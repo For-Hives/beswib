@@ -5,6 +5,9 @@ import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect } from 'react'
 
+import { TrackClick } from '@/components/analytics/TrackClick'
+import { referrerSource, sectionOf } from '@/lib/analytics/classify'
+import { trackView } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 
 const texts: Record<Locale, { title: string; description: string; search: string; goBack: string; home: string }> = {
@@ -98,6 +101,10 @@ export default function NotFoundPage() {
 		else rive.play()
 	}, [rive])
 
+	useEffect(() => {
+		trackView('not_found_view', { section: sectionOf(window.location.pathname), source: referrerSource() })
+	}, [])
+
 	return (
 		<div className="bg-background relative flex min-h-svh w-full flex-col justify-center p-6 lg:p-10">
 			{/* Background Rive animation, dimmed for readability */}
@@ -114,25 +121,29 @@ export default function NotFoundPage() {
 				<p className="text-muted-foreground mt-6 text-lg font-medium text-pretty sm:text-xl/8">{t.description}</p>
 
 				<div className="mt-10 flex flex-col gap-x-6 gap-y-3 sm:flex-row sm:items-center sm:justify-center">
-					<Link
-						href={`/${locale}`}
-						onClick={() => (typeof window !== 'undefined' ? window.history.back() : undefined)}
-						className="group bg-secondary text-secondary-foreground ring-offset-background hover:bg-secondary/80 focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-					>
-						<ArrowLeft
-							className="ms-0 me-2 opacity-60 transition-transform group-hover:-translate-x-0.5"
-							size={16}
-							strokeWidth={2}
-							aria-hidden="true"
-						/>
-						{t.goBack}
-					</Link>
-					<Link
-						href={`/${locale}`}
-						className="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-					>
-						{t.home}
-					</Link>
+					<TrackClick name="cta_click" props={{ cta: 'back', where: 'not_found' }}>
+						<Link
+							href={`/${locale}`}
+							onClick={() => (typeof window !== 'undefined' ? window.history.back() : undefined)}
+							className="group bg-secondary text-secondary-foreground ring-offset-background hover:bg-secondary/80 focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+						>
+							<ArrowLeft
+								className="ms-0 me-2 opacity-60 transition-transform group-hover:-translate-x-0.5"
+								size={16}
+								strokeWidth={2}
+								aria-hidden="true"
+							/>
+							{t.goBack}
+						</Link>
+					</TrackClick>
+					<TrackClick name="cta_click" props={{ cta: 'home', where: 'not_found' }}>
+						<Link
+							href={`/${locale}`}
+							className="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+						>
+							{t.home}
+						</Link>
+					</TrackClick>
 				</div>
 			</div>
 		</div>
