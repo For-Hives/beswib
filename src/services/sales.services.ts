@@ -1,5 +1,8 @@
 'use server'
 
+import { priceBucket } from '@/lib/analytics/buckets'
+import { bibIdOfTransaction } from '@/lib/analytics/ids'
+import { trackServer } from '@/lib/analytics/server'
 import type { SalesCompleteInput, SalesCompleteOutput, SalesCreateInput, SalesCreateOutput } from '@/models/sales.model'
 import { fetchBibById, updateBib } from './bib.services'
 import {
@@ -80,6 +83,7 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 	const bibIdFromPayload = resource.supplementary_data?.related_ids?.bib_id ?? ''
 
 	const found = await getTransactionByOrderId(orderId)
+	if (found == null) trackServer('paypal_webhook_error', { kind: 'transaction_not_found' })
 	const transactionId = found?.id ?? null
 	const bibId = (found?.bib_id ?? bibIdFromPayload) || null
 
@@ -106,6 +110,11 @@ export async function salesComplete(input: SalesCompleteInput): Promise<SalesCom
 			status: 'sold',
 			...(typeof buyerUserId === 'string' && buyerUserId !== '' ? { buyerUserId } : {}),
 		})
+	}
+
+	// `found` still holds the status read before the update: a PayPal redelivery sends nothing
+	if (found != null && found.status !== 'succeeded') {
+		trackServer('sale_success', { price_bucket: priceBucket(found.amount), bib_id: bibIdOfTransaction(found) })
 	}
 
 	void sendSaleAlert({ orderId, currency, bibId, amount })

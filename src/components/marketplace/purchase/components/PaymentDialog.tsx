@@ -1,8 +1,9 @@
 'use client'
 
-import { PayPalButtons } from '@paypal/react-paypal-js'
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 import { AlertCircle, CheckCircle, XCircle } from 'lucide-react'
 import Image from 'next/image'
+import { useEffect } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
 import {
 	AlertDialog,
@@ -15,6 +16,7 @@ import {
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { umamiAttrs } from '@/lib/analytics/attrs'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
@@ -53,6 +55,12 @@ interface PaymentDialogProps {
 	isInstrumentDeclined?: boolean
 	/** Handler for payment restart after instrument declined */
 	onPaymentRestart?: () => void
+	/** A PayPal funding button was clicked (analytics probes) */
+	onFundingClick?: (source: string | undefined) => void
+	/** The PayPal SDK failed to load while the dialog is open (analytics probes) */
+	onSdkLoadError?: () => void
+	/** The payment dialog was closed with X, Escape or the overlay (analytics probes) */
+	onDismiss?: () => void
 }
 
 /**
@@ -61,8 +69,11 @@ interface PaymentDialogProps {
  */
 export default function PaymentDialog({
 	successMessage,
+	onSdkLoadError,
 	onPaymentRestart,
+	onFundingClick,
 	onError,
+	onDismiss,
 	onCreateOrder,
 	onClose,
 	onCancel,
@@ -77,6 +88,11 @@ export default function PaymentDialog({
 	bib,
 }: PaymentDialogProps) {
 	const paymentT = getTranslations(locale, mainLocales).payment
+	const [{ isRejected }] = usePayPalScriptReducer()
+
+	useEffect(() => {
+		if (isOpen && isRejected) onSdkLoadError?.()
+	}, [isOpen, isRejected, onSdkLoadError])
 
 	// Calculate the lowest reference price between original and official
 	const officialPrice = eventData?.officialStandardPrice ?? 0
@@ -210,15 +226,36 @@ export default function PaymentDialog({
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter className="gap-2 sm:justify-center">
-						<AlertDialogCancel onClick={onClose}>
+						<AlertDialogCancel
+							onClick={onClose}
+							{...umamiAttrs('purchase_error_click', {
+								variant: isDeclined ? 'declined' : 'generic',
+								action: 'dismiss',
+							})}
+						>
 							{isPopupBlocked ? 'Close' : paymentT.contactSupport}
 						</AlertDialogCancel>
 						{isDeclined && onPaymentRestart ? (
-							<AlertDialogAction onClick={onPaymentRestart}>{paymentT.tryDifferentPaymentMethod}</AlertDialogAction>
+							<AlertDialogAction
+								onClick={onPaymentRestart}
+								{...umamiAttrs('purchase_error_click', { variant: 'declined', action: 'restart_payment' })}
+							>
+								{paymentT.tryDifferentPaymentMethod}
+							</AlertDialogAction>
 						) : isPopupBlocked ? (
-							<AlertDialogAction onClick={onClose}>Enable Popups & Try Again</AlertDialogAction>
+							<AlertDialogAction
+								onClick={onClose}
+								{...umamiAttrs('purchase_error_click', { variant: 'generic', action: 'try_again' })}
+							>
+								Enable Popups & Try Again
+							</AlertDialogAction>
 						) : (
-							<AlertDialogAction onClick={onClose}>{paymentT.tryAgain}</AlertDialogAction>
+							<AlertDialogAction
+								onClick={onClose}
+								{...umamiAttrs('purchase_error_click', { variant: 'generic', action: 'try_again' })}
+							>
+								{paymentT.tryAgain}
+							</AlertDialogAction>
 						)}
 					</AlertDialogFooter>
 				</AlertDialogContent>
@@ -228,7 +265,14 @@ export default function PaymentDialog({
 
 	// Show main payment dialog
 	return (
-		<Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
+		<Dialog
+			open={isOpen}
+			onOpenChange={open => {
+				if (open) return
+				onDismiss?.()
+				onClose()
+			}}
+		>
 			<DialogContent
 				className="max-h-[90vh] overflow-y-auto sm:max-w-4xl"
 				aria-describedby="payment-dialog-description"
@@ -323,6 +367,9 @@ export default function PaymentDialog({
 										disabled={loading || !isProfileComplete}
 										onApprove={onApprove}
 										onCancel={onCancel}
+										onClick={data => {
+											onFundingClick?.(typeof data.fundingSource === 'string' ? data.fundingSource : undefined)
+										}}
 										onError={onError}
 										style={{
 											shape: 'rect' as const,

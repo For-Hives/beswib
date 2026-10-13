@@ -4,10 +4,15 @@ import { useUser } from '@clerk/nextjs'
 import { DateTime } from 'luxon'
 import { useRouter } from 'next/navigation'
 import { useQueryState } from 'nuqs'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import { captureOrder, createSale } from '@/app/[locale]/purchase/actions'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
+import { priceBucket } from '@/lib/analytics/buckets'
+import type { EventProps } from '@/lib/analytics/catalog'
+import { fundingSource, paypalCodeKind } from '@/lib/analytics/classify'
+import { track, trackView } from '@/lib/analytics/client'
+import { bibIdOf, eventIdOf } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { isUserProfileComplete } from '@/lib/validation/user'
@@ -51,6 +56,7 @@ export default function PayPalPurchaseClient({
 	sellerUser,
 	organizerData,
 	locale,
+	isPrivate = false,
 	eventData,
 	bib,
 }: Readonly<PayPalPurchaseClientProps>) {
@@ -82,7 +88,7 @@ export default function PayPalPurchaseClient({
 	const [secondsLeft, setSecondsLeft] = useState<number | null>(null)
 	const [isInstrumentDeclined, setIsInstrumentDeclined] = useState<boolean>(false)
 	const [loading, setLoading] = useState(false)
-	const { isSignedIn } = useUser()
+	const { isSignedIn, isLoaded } = useUser()
 	const router = useRouter()
 	const [isProfileComplete, setIsProfileComplete] = useState(false)
 
@@ -100,6 +106,52 @@ export default function PayPalPurchaseClient({
 	useEffect(() => {
 		setIsProfileComplete(isUserProfileComplete(user))
 	}, [user])
+
+	// Analytics: what every purchase event says about the bib (stable while the bib is the same)
+	const bibId = bibIdOf(bib)
+	const eventId = eventIdOf(bib.event)
+	const price = priceBucket(bib.price)
+	const purchaseProps = useMemo(
+		() => ({
+			price_bucket: price,
+			listing: isPrivate ? ('private' as const) : ('public' as const),
+			event_id: eventId,
+			bib_id: bibId,
+		}),
+		[bibId, eventId, price, isPrivate]
+	)
+	const viewedBibRef = useRef<string | null>(null)
+	const orderCreatedRef = useRef(false)
+	const orderErrorTrackedRef = useRef(false)
+	const paypalDismissedRef = useRef(false)
+	const lockSawPositiveRef = useRef(false)
+	const dialogStateRef = useRef({ isOpen: false, hasError: false })
+
+	useEffect(() => {
+		dialogStateRef.current = { isOpen: isPanelOpen, hasError: errorMessage != null && errorMessage !== '' }
+	}, [isPanelOpen, errorMessage])
+
+	// The server re-renders this page when the lockedAt param changes: one view per bib, not per render
+	useEffect(() => {
+		if (!isLoaded || viewedBibRef.current === bibId) return
+		viewedBibRef.current = bibId
+		const viewer: EventProps<'bib_view'>['viewer'] =
+			isSignedIn !== true
+				? 'anonymous'
+				: isOwnBib
+					? 'own_bib'
+					: isUserProfileComplete(user)
+						? 'ready'
+						: 'profile_incomplete'
+		trackView('bib_view', {
+			viewer,
+			state: 'available',
+			price_bucket: purchaseProps.price_bucket,
+			listing: purchaseProps.listing,
+			event_id: purchaseProps.event_id,
+			bib_id: viewer === 'own_bib' ? undefined : purchaseProps.bib_id,
+		})
+	}, [isLoaded, isSignedIn, isOwnBib, user, bibId, purchaseProps])
 
 	// Set lockExpiration from Nuqs lockedAt param
 	useEffect(() => {
@@ -120,7 +172,24 @@ export default function PayPalPurchaseClient({
 		const updateSeconds = () => {
 			const left = Math.max(0, Math.floor((lockExpiration.toMillis() - Date.now()) / 1000))
 			setSecondsLeft(left)
+			if (left > 0) lockSawPositiveRef.current = true
 			if (left <= 0) {
+				// A stale lockedAt (reload, shared URL) is at zero on its first tick: not an expiry
+				if (lockSawPositiveRef.current) {
+					lockSawPositiveRef.current = false
+					const { isOpen, hasError } = dialogStateRef.current
+					track('purchase_lock_expire', {
+						stage: !isOpen
+							? 'dialog_closed'
+							: hasError
+								? 'error_shown'
+								: orderCreatedRef.current
+									? 'paypal_open'
+									: 'dialog_open',
+						event_id: eventId,
+						bib_id: bibId,
+					})
+				}
 				setLockExpiration(null)
 			}
 		}
@@ -150,6 +219,7 @@ export default function PayPalPurchaseClient({
 	const attemptLockAndOpenPanel = useCallback(
 		async (status: LockStatus) => {
 			if (status === 'locked') {
+				track('purchase_error', { ...purchaseProps, step: 'lock', kind: 'locked_by_other' })
 				toast.error('This bib is currently locked by another user for purchase. Please try again later.')
 				return
 			}
@@ -159,6 +229,7 @@ export default function PayPalPurchaseClient({
 				if (status === 'unlocked') {
 					const lockedBib = await lockBib(bib.id, user?.id ?? '')
 					if (lockedBib == null || lockedBib === undefined) {
+						track('purchase_error', { ...purchaseProps, step: 'lock', kind: 'lock_failed' })
 						toast.error('Failed to lock bib. It may have just been locked by another user.')
 						console.error('Failed to lock bib:', lockedBib)
 						return
@@ -167,18 +238,27 @@ export default function PayPalPurchaseClient({
 				} else if (status === 'userlocked') {
 					toast.info('This bib is currently locked by you for purchase.')
 				}
+				orderCreatedRef.current = false
+				paypalDismissedRef.current = false
+				track('purchase_start', { ...purchaseProps, lock: status === 'unlocked' ? 'new' : 'resumed' })
 				setIsPanelOpen(true)
 			} catch (err) {
+				track('purchase_error', { ...purchaseProps, step: 'lock', kind: 'exception' })
 				toast.error(`Error locking bib for purchase.${err instanceof Error ? err.message : String(err)}`)
 			} finally {
 				setLoading(false)
 			}
 		},
-		[bib.id, updateLockStateFrom, user?.id]
+		[bib.id, updateLockStateFrom, user?.id, purchaseProps]
 	)
 
 	// Check if user is authenticated when trying to open payment modal
 	const handleBuyNowClick = async () => {
+		track('purchase_click', {
+			...purchaseProps,
+			viewer:
+				isSignedIn !== true ? 'anonymous' : isOwnBib ? 'own_bib' : isProfileComplete ? 'ready' : 'profile_incomplete',
+		})
 		if (isSignedIn !== true) {
 			router.push(`/${locale}/auth/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`)
 			return
@@ -187,14 +267,22 @@ export default function PayPalPurchaseClient({
 		if (!isProfileComplete) return
 
 		// Check lock status to prevent multiple users purchasing the same bib
-		const status: LockStatus = normalizeLockStatus(await isLocked(bib.id, lockedAtParam ?? ''))
+		const status: LockStatus = normalizeLockStatus(
+			await isLocked(bib.id, lockedAtParam ?? '').catch((error: unknown) => {
+				track('purchase_error', { ...purchaseProps, step: 'lock', kind: 'exception' })
+				throw error
+			})
+		)
 		await attemptLockAndOpenPanel(status)
 	}
 
 	const handleCreateOrder = useCallback(async () => {
+		orderErrorTrackedRef.current = false
 		// Get seller's PayPal merchant ID
 		const sellerId = sellerUser?.paypalMerchantId
 		if (sellerId == null || sellerId === undefined || sellerId === '') {
+			track('purchase_error', { ...purchaseProps, step: 'order', kind: 'seller_not_configured' })
+			orderErrorTrackedRef.current = true
 			const errorMsg = 'Seller PayPal account not configured'
 			setErrorMessage(errorMsg)
 			throw new Error(errorMsg)
@@ -206,11 +294,19 @@ export default function PayPalPurchaseClient({
 
 			const res = await createSale(bib.id, sellerId, locale)
 			if (!res.success || res.orderId == null || res.orderId === '') {
+				track('purchase_error', { ...purchaseProps, step: 'order', kind: res.errorKind ?? 'exception' })
+				orderErrorTrackedRef.current = true
 				throw new Error(res.error ?? 'Failed to create sale')
 			}
 
+			orderCreatedRef.current = true
+			track('purchase_step', { ...purchaseProps, step: 'order_created', funding_source: 'na' })
 			return res.orderId
 		} catch (error: unknown) {
+			if (!orderErrorTrackedRef.current) {
+				track('purchase_error', { ...purchaseProps, step: 'order', kind: 'exception' })
+				orderErrorTrackedRef.current = true
+			}
 			const errorMsg = `Error creating order: ${error instanceof Error ? error.message : 'Unknown error'}`
 			console.error('Order creation error:', error instanceof Error ? error.message : 'Unknown error')
 			setErrorMessage(errorMsg)
@@ -218,11 +314,13 @@ export default function PayPalPurchaseClient({
 		} finally {
 			setLoading(false)
 		}
-	}, [sellerUser?.paypalMerchantId, bib.id])
+	}, [sellerUser?.paypalMerchantId, bib.id, purchaseProps])
 
 	const onApprove = useCallback(
 		async (data: { orderID: string }) => {
+			let outcomeTracked = false
 			try {
+				track('purchase_step', { ...purchaseProps, step: 'approved', funding_source: 'na' })
 				setLoading(true)
 				setErrorMessage(null)
 
@@ -234,17 +332,31 @@ export default function PayPalPurchaseClient({
 					setIsInstrumentDeclined(true)
 					setErrorMessage(res.error ?? 'Your payment method was declined. Please try a different payment method.')
 					console.warn('Payment instrument declined, allowing retry with different funding source')
+					track('purchase_error', {
+						...purchaseProps,
+						step: 'capture',
+						kind: res.errorKind ?? 'instrument_declined',
+					})
 					return // Don't redirect, allow user to retry
 				}
 
 				if (res.error != null && res.error !== undefined && res.error !== '') {
+					outcomeTracked = true
+					track('purchase_error', {
+						...purchaseProps,
+						step: 'capture',
+						kind: res.errorKind ?? paypalCodeKind(res.errorCode),
+					})
 					throw new Error(res.error)
 				}
 
+				outcomeTracked = true
+				track('purchase_success', purchaseProps)
 				setSuccessMessage('Payment captured successfully!')
 
 				router.push(`/${locale}/purchase/success`)
 			} catch (error: unknown) {
+				if (!outcomeTracked) track('purchase_error', { ...purchaseProps, step: 'capture', kind: 'exception' })
 				const errorMsg = `Error capturing payment: ${error instanceof Error ? error.message : 'Unknown error'}`
 				console.error('Capture error:', error instanceof Error ? error.message : 'Unknown error')
 				setErrorMessage(errorMsg)
@@ -253,15 +365,21 @@ export default function PayPalPurchaseClient({
 				setLoading(false)
 			}
 		},
-		[bib.id, locale, router, lockedAtParam]
+		[bib.id, locale, router, lockedAtParam, purchaseProps]
 	)
 
-	const onError = useCallback((err: Record<string, unknown>) => {
-		console.error('PayPal Error:', err)
-		// Minimal error handling - just log and continue
-		console.warn('PayPal error occurred, but continuing...')
-		setLoading(false)
-	}, [])
+	const onError = useCallback(
+		(err: Record<string, unknown>) => {
+			// The SDK also reports here the order creation failure that handleCreateOrder already sent
+			if (orderErrorTrackedRef.current) orderErrorTrackedRef.current = false
+			else track('purchase_error', { ...purchaseProps, step: 'paypal', kind: 'sdk_error' })
+			console.error('PayPal Error:', err)
+			// Minimal error handling - just log and continue
+			console.warn('PayPal error occurred, but continuing...')
+			setLoading(false)
+		},
+		[purchaseProps]
+	)
 
 	// Function to restart payment flow after instrument declined
 	const handlePaymentRestart = useCallback(() => {
@@ -272,9 +390,32 @@ export default function PayPalPurchaseClient({
 	}, [])
 
 	const onCancel = useCallback(() => {
+		track('purchase_cancel', { ...purchaseProps, where: 'paypal_popup', reached: 'order_created' })
+		paypalDismissedRef.current = true
 		setLoading(false)
 		// Don't show error, just stop loading
-	}, [])
+	}, [purchaseProps])
+
+	const handleFundingClick = useCallback(
+		(source: string | undefined) => {
+			track('purchase_step', { ...purchaseProps, step: 'payment_click', funding_source: fundingSource(source) })
+		},
+		[purchaseProps]
+	)
+
+	const handleSdkLoadError = useCallback(() => {
+		track('purchase_error', { ...purchaseProps, step: 'paypal', kind: 'sdk_load_failed' })
+	}, [purchaseProps])
+
+	const handleDialogDismiss = useCallback(() => {
+		track('purchase_cancel', {
+			...purchaseProps,
+			where: 'payment_dialog',
+			reached: paypalDismissedRef.current ? 'paypal_dismissed' : orderCreatedRef.current ? 'order_created' : 'dialog',
+		})
+		orderCreatedRef.current = false
+		paypalDismissedRef.current = false
+	}, [purchaseProps])
 
 	return (
 		<div className="relative">
@@ -293,6 +434,7 @@ export default function PayPalPurchaseClient({
 						<div className="lg:col-span-4">
 							<EventWaitlistCard
 								eventId={bib.event.id}
+								analyticsEventId={eventId}
 								eventName={bib.event.name}
 								locale={locale}
 								user={user}
@@ -375,6 +517,9 @@ export default function PayPalPurchaseClient({
 				onCancel={onCancel}
 				isInstrumentDeclined={isInstrumentDeclined}
 				onPaymentRestart={handlePaymentRestart}
+				onFundingClick={handleFundingClick}
+				onSdkLoadError={handleSdkLoadError}
+				onDismiss={handleDialogDismiss}
 			/>
 		</div>
 	)

@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import { trackServer } from '@/lib/analytics/server'
 import { verifyPayPalWebhookSignature } from '@/lib/services/paypal'
 import type { PayPalWebhookEvent } from '@/models/paypal.model'
 import {
@@ -26,6 +27,7 @@ export async function POST(request: NextRequest) {
 		const verified = await verifyPayPalWebhookSignature({ headers, body })
 		if (!verified) {
 			console.error('PayPal webhook signature verification failed')
+			trackServer('paypal_webhook_error', { kind: 'signature_invalid' })
 			return NextResponse.json({ error: 'Invalid webhook signature' }, { status: 400 })
 		}
 
@@ -60,6 +62,7 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json({ status: 'success', result })
 	} catch (error) {
 		console.error('PayPal webhook error:', error)
+		trackServer('paypal_webhook_error', { kind: 'exception' })
 		return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 })
 	}
 }
