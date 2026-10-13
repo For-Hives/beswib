@@ -51,7 +51,6 @@ function Calendar({
 					'bg-accent text-accent-foreground rounded-md data-[selected=true]:rounded-none',
 					defaultClassNames.today
 				),
-				table: 'w-full border-collapse',
 				root: cn('w-fit', defaultClassNames.root),
 				range_start: cn('rounded-l-md bg-accent', defaultClassNames.range_start),
 				range_middle: cn('rounded-none', defaultClassNames.range_middle),
