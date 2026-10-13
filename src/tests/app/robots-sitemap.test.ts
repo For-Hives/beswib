@@ -46,10 +46,13 @@ describe('robots.txt', () => {
 	})
 })
 
+const NAMESPACE_HOSTS = new Set(['www.sitemaps.org', 'www.w3.org'])
+
 describe('sitemap.xml', () => {
 	it('lists the pages and their translations under the public address', async () => {
 		const xml = await (await sitemap()).text()
-		const listed = addresses(xml).filter(address => !address.includes('sitemaps.org') && !address.includes('w3.org'))
+		// The XML namespaces of the format are addresses too, and are not pages of the site
+		const listed = addresses(xml).filter(address => !NAMESPACE_HOSTS.has(new URL(address).hostname))
 
 		expect(xml).toContain(`<loc>${BASE}/fr/events/${mockEvent.id}</loc>`)
 		expect(xml).toContain(`hreflang="ko" href="${BASE}/ko/marketplace"`)
