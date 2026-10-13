@@ -27,12 +27,13 @@ jobs:
           git add package.json
           git commit -m "⬆️VERSION⬆️ ❇️${GITHUB_REF#refs/tags/v}❇️"
 
+      # No force: if main moved after the tag was cut (Renovate merges on its own), the push is
+      # refused and the release stops here, instead of erasing those commits from main.
       - name: Push changes
         uses: ad-m/github-push-action@881a6320fdb16eb5318c5054f31c218aec2b324c # v1.3.0
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           branch: main
-          force: true
       # Coolify 4.3+ only accepts POST on its deploy endpoint (a GET gets a 405).
       # --fail-with-body: a refused call fails the job instead of passing unseen.
       - name: Deploy to Coolify
