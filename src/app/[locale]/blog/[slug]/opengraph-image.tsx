@@ -5,7 +5,9 @@ import OGImage from '@/components/OG/ogImage.component'
 import OGImageArticle from '@/components/OG/ogImageArticle.component'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { getAbsoluteUrl } from '@/lib/utils/url'
+import { pocketBaseImageDataUrl } from '@/lib/og/pocketbase-image'
+import { rendered } from '@/lib/og/render'
+import { getArticleImageUrl } from '@/lib/utils/imageUrl'
 import { fetchArticleBySlug } from '@/services/article.services'
 
 import articleTranslations from './locales.json'
@@ -66,8 +68,8 @@ export default async function Image({ params }: { params: Promise<ArticleOpenGra
 		// Fallback to generic blog content
 	}
 
-	// Get the absolute URL using environment variables
-	const { protocol, host } = getAbsoluteUrl()
+	// The article picture, fetched and converted here: the image only embeds data it was handed
+	const imageSrc = article ? await pocketBaseImageDataUrl(getArticleImageUrl(article)) : null
 
 	// Load custom fonts for @vercel/og with error handling
 	try {
@@ -75,7 +77,7 @@ export default async function Image({ params }: { params: Promise<ArticleOpenGra
 		const geistFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/Geist-Regular.ttf'))
 
 		// Return the Open Graph image with custom fonts
-		return new ImageResponse(
+		const image = new ImageResponse(
 			<OGImageArticle
 				title={title}
 				secondary={secondary}
@@ -83,8 +85,7 @@ export default async function Image({ params }: { params: Promise<ArticleOpenGra
 				article={article ?? undefined}
 				locale={locale}
 				readTime={readTime}
-				host={host}
-				protocol={protocol}
+				imageSrc={imageSrc}
 			/>,
 			{
 				...size,
@@ -104,13 +105,12 @@ export default async function Image({ params }: { params: Promise<ArticleOpenGra
 				],
 			}
 		)
+		// Drawn here, so that a failure reaches the catch below instead of cutting the response
+		return await rendered(image)
 	} catch (error) {
-		// Log error if font loading fails
-		console.error('Error loading fonts:', error)
+		// A font that cannot be read, or an image that cannot be drawn
+		console.error('Error rendering the Open Graph image, falling back to the generic one:', error)
 		// Fallback: return the generic image without custom fonts
-		return new ImageResponse(
-			<OGImage title={title} secondary={secondary} host={host} protocol={protocol} size={size} />,
-			size
-		)
+		return new ImageResponse(<OGImage title={title} secondary={secondary} size={size} />, size)
 	}
 }

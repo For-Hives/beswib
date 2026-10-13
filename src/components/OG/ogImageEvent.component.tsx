@@ -73,8 +73,7 @@ function processTextForHighlighting(text: string, highlightColor: string) {
 type OGImageEventProps = {
 	title?: string // Optional main title
 	secondary?: string // Optional secondary description
-	host: string // Hostname for assets
-	protocol: string // Protocol (http/https) for assets
+	logoSrc?: string | null // The organizer logo as a data URL, already converted
 	size: { width: number; height: number } // OG image dimensions
 	event?: Event | null // Optional event data to display
 	organizer?: Organizer // Optional organizer data to display
@@ -91,8 +90,7 @@ export default function OGImageEvent({
 	locale,
 	exchangeRates,
 	event,
-	host,
-	protocol,
+	logoSrc,
 }: Readonly<OGImageEventProps>) {
 	const MAX_WIDTH_Main = 440
 	const MAX_HEIGHT_Main = 197
@@ -333,8 +331,7 @@ export default function OGImageEvent({
 							locale={locale}
 							organizer={organizer}
 							exchangeRates={exchangeRates}
-							host={host}
-							protocol={protocol}
+							logoSrc={logoSrc}
 						/>
 					) : (
 						<div style={{ width: '300px', height: '400px', borderRadius: '20px', backgroundColor: '#f3f4f6' }}></div>

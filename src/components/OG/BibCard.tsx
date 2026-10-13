@@ -5,7 +5,7 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import { publicAssetDataUrl } from '@/lib/og/assets'
 import { getCurrencyForLocale } from '@/lib/utils/currency'
 import { formatDateWithLocale } from '@/lib/utils/date'
-import { getOrganizerImageUrl } from '@/lib/utils/images'
+import { getRandomBibPlaceholder } from '@/lib/utils/images'
 import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
 import type { BibSale } from '@/models/marketplace.model'
@@ -88,10 +88,8 @@ interface BibCardProps {
 	locale: Locale
 	organizer?: Organizer
 	exchangeRates?: Record<string, number> | null
-	/** No longer read: the placeholder comes from the disk. Kept so the callers stay as they are. */
-	host?: string
-	/** No longer read, see host. */
-	protocol?: string
+	/** The organizer logo as a data URL (see pocketBaseImageDataUrl), or null to draw a placeholder bib */
+	logoSrc?: string | null
 }
 
 // OpenGraph-compatible price formatting (avoids special characters that need dynamic fonts)
@@ -129,7 +127,7 @@ function convertPriceWithFallback(
 	return formatPriceForOG(converted, currency)
 }
 
-export default function BibCard({ organizer, locale, exchangeRates, bib }: Readonly<BibCardProps>) {
+export default function BibCard({ locale, exchangeRates, bib, logoSrc }: Readonly<BibCardProps>) {
 	const event = getEventFromBib(bib)
 	const user = getUserFromBib(bib)
 	const t = getTranslations(locale, marketplaceTranslations)
@@ -152,11 +150,8 @@ export default function BibCard({ organizer, locale, exchangeRates, bib }: Reado
 	const discountPercentage =
 		originalPrice > 0 && originalPrice > bib.price ? Math.round(((originalPrice - bib.price) / originalPrice) * 100) : 0
 
-	// Get organizer image URL and ensure it's absolute for OG image
-	const organizerImageUrl = getOrganizerImageUrl(organizer, bib.id)
-	const absoluteImageUrl = organizerImageUrl.startsWith('/')
-		? publicAssetDataUrl(organizerImageUrl.slice(1))
-		: organizerImageUrl
+	// Only embedded images: the logo fetched and converted by the route, or a placeholder bib of public/
+	const absoluteImageUrl = logoSrc ?? publicAssetDataUrl(getRandomBibPlaceholder(bib.id).slice(1))
 
 	return (
 		<div

@@ -6,7 +6,7 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import { publicAssetDataUrl } from '@/lib/og/assets'
 import { getCurrencyForLocale } from '@/lib/utils/currency'
 import { formatDateWithLocale } from '@/lib/utils/date'
-import { getOrganizerImageUrl } from '@/lib/utils/images'
+import { getRandomBibPlaceholder } from '@/lib/utils/images'
 import type { Event } from '@/models/event.model'
 import type { Organizer } from '@/models/organizer.model'
 
@@ -77,13 +77,11 @@ interface EventCardProps {
 	locale: Locale
 	organizer?: Organizer
 	exchangeRates?: Record<string, number> | null
-	/** No longer read: the placeholder comes from the disk. Kept so the callers stay as they are. */
-	host?: string
-	/** No longer read, see host. */
-	protocol?: string
+	/** The organizer logo as a data URL (see pocketBaseImageDataUrl), or null to draw a placeholder bib */
+	logoSrc?: string | null
 }
 
-export default function EventCard({ organizer, locale, exchangeRates, event }: Readonly<EventCardProps>) {
+export default function EventCard({ organizer, locale, exchangeRates, event, logoSrc }: Readonly<EventCardProps>) {
 	const t = getTranslations(locale, eventTranslations)
 
 	// Currency conversion for official price
@@ -100,11 +98,8 @@ export default function EventCard({ organizer, locale, exchangeRates, event }: R
 	const typeColors = getTypeColor(event.typeCourse)
 	const typeLabel = getTypeLabel(event.typeCourse, locale)
 
-	// Get organizer image URL and ensure it's absolute for OG image
-	const organizerImageUrl = getOrganizerImageUrl(organizer, event.id)
-	const absoluteImageUrl = organizerImageUrl.startsWith('/')
-		? publicAssetDataUrl(organizerImageUrl.slice(1))
-		: organizerImageUrl
+	// Only embedded images: the logo fetched and converted by the route, or a placeholder bib of public/
+	const absoluteImageUrl = logoSrc ?? publicAssetDataUrl(getRandomBibPlaceholder(event.id).slice(1))
 
 	return (
 		<div
