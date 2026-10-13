@@ -149,11 +149,12 @@ export async function createSale(
 		return { transactionId: transaction.id, success: true, orderId }
 	} catch (error) {
 		console.error('Error creating sale:', error)
-		return {
-			success: false,
-			errorKind: 'exception' as const satisfies PurchaseErrorKind,
-			error: error instanceof Error ? error.message : 'Unknown error',
-		}
+		const message = error instanceof Error ? error.message : 'Unknown error'
+		// salesCreate answers this for a bib the visitor may not buy (a private listing without its token,
+		// a bib that is not listed). It is a refusal, counted like the one of the lock and of the capture,
+		// not a failure of the order creation
+		const errorKind: PurchaseErrorKind = message === 'Bib not found' ? 'bib_not_found' : 'exception'
+		return { success: false, errorKind, error: message }
 	}
 }
 

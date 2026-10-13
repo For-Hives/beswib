@@ -198,6 +198,18 @@ describe('bib page of a private listing opened with its link', () => {
 		expect(sent).not.toContain(TOKEN)
 	})
 
+	it('counts an order that the server refuses with the kind the server gives, not as a crash', async () => {
+		// The seller replaced the link while the payment dialog was open
+		actions.createSale.mockResolvedValue({ success: false, errorKind: 'bib_not_found', error: 'Bib not found' })
+		renderBibPage({ isPrivate: true, initialToken: TOKEN })
+		await click('buy')
+		await click('pay')
+
+		const errors = track.mock.calls.filter(([name]) => name === 'purchase_error').map(([, props]) => props as unknown)
+		expect(errors).toEqual([expect.objectContaining({ step: 'order', listing: 'private', kind: 'bib_not_found' })])
+		expect(actions.captureOrder).not.toHaveBeenCalled()
+	})
+
 	it('shows the token form, and no purchase step, without a token', () => {
 		renderBibPage({ isPrivate: true })
 

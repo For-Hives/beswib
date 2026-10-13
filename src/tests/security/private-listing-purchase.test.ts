@@ -241,6 +241,31 @@ describe('buying a private listing', () => {
 			expect(createOrder).not.toHaveBeenCalled()
 		})
 
+		it('answers a refusal as a bib that is not found, the kind the lock and the capture give it', async () => {
+			// The seller replaced the link while the payment dialog was open: the funnel counts a refusal
+			stored = { ...stored, privateListingToken: REGENERATED_TOKEN }
+
+			expect(await createSale(stored.id, MERCHANT_ID, 'fr', TOKEN)).toEqual({
+				success: false,
+				errorKind: 'bib_not_found',
+				error: 'Bib not found',
+			})
+			expect(await checkPurchaseLock(stored.id, '', TOKEN)).toBe('unavailable')
+			pendingTransaction()
+			expect((await captureOrder(ORDER_ID, lockKey, TOKEN)).errorKind).toBe('bib_not_found')
+		})
+
+		it('keeps the kind "exception" for an order that PayPal did not create', async () => {
+			vi.mocked(createOrder).mockRejectedValue(new Error('PayPal is unreachable'))
+
+			expect(await createSale(stored.id, MERCHANT_ID, 'fr', TOKEN)).toEqual({
+				success: false,
+				errorKind: 'exception',
+				error: 'PayPal is unreachable',
+			})
+			expect(createTransaction).not.toHaveBeenCalled()
+		})
+
 		it('still requires a signed-in buyer', async () => {
 			vi.mocked(auth).mockResolvedValue({ userId: null } as Awaited<ReturnType<typeof auth>>)
 
