@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useQueryState } from 'nuqs'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'sonner'
-import { captureOrder, createSale } from '@/app/[locale]/purchase/actions'
+import { captureOrder, checkPurchaseLock, createSale, lockBibForPurchase } from '@/app/[locale]/purchase/actions'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { priceBucket } from '@/lib/analytics/buckets'
 import type { EventProps } from '@/lib/analytics/catalog'
@@ -21,7 +21,6 @@ import type { Event } from '@/models/event.model'
 import type { BibSale } from '@/models/marketplace.model'
 import type { Organizer } from '@/models/organizer.model'
 import type { User as AppUser } from '@/models/user.model'
-import { isLocked, lockBib } from '@/services/bib.services'
 import { EventWaitlistCard } from '../EventWaitlistCard'
 // Import sub-components
 import { ActionButtons, ContentTabs, EventDetails, EventImage, PriceDisplay } from './components'
@@ -38,6 +37,8 @@ interface PayPalPurchaseClientProps {
 	bibData?: Bib & { expand?: { eventId: Event; sellerUserId: AppUser } }
 	/** The bib was reached through its private link (analytics probes) */
 	isPrivate?: boolean
+	/** Token of that private link: the server asks for it at every purchase step. Never an analytics property */
+	privateToken?: string
 }
 
 /**
@@ -54,6 +55,7 @@ type LockStatus = 'locked' | 'unlocked' | 'userlocked'
 export default function PayPalPurchaseClient({
 	user,
 	sellerUser,
+	privateToken,
 	organizerData,
 	locale,
 	isPrivate = false,
@@ -227,7 +229,7 @@ export default function PayPalPurchaseClient({
 			setLoading(true)
 			try {
 				if (status === 'unlocked') {
-					const lockedBib = await lockBib(bib.id, user?.id ?? '')
+					const lockedBib = await lockBibForPurchase(bib.id, privateToken ?? null)
 					if (lockedBib == null || lockedBib === undefined) {
 						track('purchase_error', { ...purchaseProps, step: 'lock', kind: 'lock_failed' })
 						toast.error('Failed to lock bib. It may have just been locked by another user.')
@@ -249,7 +251,7 @@ export default function PayPalPurchaseClient({
 				setLoading(false)
 			}
 		},
-		[bib.id, updateLockStateFrom, user?.id, purchaseProps]
+		[bib.id, updateLockStateFrom, privateToken, purchaseProps]
 	)
 
 	// Check if user is authenticated when trying to open payment modal
@@ -268,7 +270,7 @@ export default function PayPalPurchaseClient({
 
 		// Check lock status to prevent multiple users purchasing the same bib
 		const status: LockStatus = normalizeLockStatus(
-			await isLocked(bib.id, lockedAtParam ?? '').catch((error: unknown) => {
+			await checkPurchaseLock(bib.id, lockedAtParam ?? '', privateToken ?? null).catch((error: unknown) => {
 				track('purchase_error', { ...purchaseProps, step: 'lock', kind: 'exception' })
 				throw error
 			})
@@ -292,7 +294,7 @@ export default function PayPalPurchaseClient({
 			setLoading(true)
 			setErrorMessage(null)
 
-			const res = await createSale(bib.id, sellerId, locale)
+			const res = await createSale(bib.id, sellerId, locale, privateToken ?? null)
 			if (!res.success || res.orderId == null || res.orderId === '') {
 				track('purchase_error', { ...purchaseProps, step: 'order', kind: res.errorKind ?? 'exception' })
 				orderErrorTrackedRef.current = true
@@ -314,7 +316,7 @@ export default function PayPalPurchaseClient({
 		} finally {
 			setLoading(false)
 		}
-	}, [sellerUser?.paypalMerchantId, bib.id, purchaseProps])
+	}, [sellerUser?.paypalMerchantId, bib.id, privateToken, purchaseProps])
 
 	const onApprove = useCallback(
 		async (data: { orderID: string }) => {
@@ -325,7 +327,7 @@ export default function PayPalPurchaseClient({
 				setErrorMessage(null)
 
 				// Pass the lock key (lockedAtParam) to enforce a last DB check server-side
-				const res = await captureOrder(data.orderID, lockedAtParam ?? null)
+				const res = await captureOrder(data.orderID, lockedAtParam ?? null, privateToken ?? null)
 
 				// Handle instrument declined error specifically
 				if (res.isInstrumentDeclined === true || res.needsPaymentRestart === true) {
@@ -365,7 +367,7 @@ export default function PayPalPurchaseClient({
 				setLoading(false)
 			}
 		},
-		[bib.id, locale, router, lockedAtParam, purchaseProps]
+		[bib.id, locale, router, lockedAtParam, privateToken, purchaseProps]
 	)
 
 	const onError = useCallback(

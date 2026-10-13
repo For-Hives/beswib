@@ -8,7 +8,8 @@ import type { PurchaseErrorKind } from '@/lib/analytics/catalog'
 import { listingOf } from '@/lib/analytics/classify'
 import { bibIdOf, eventIdOfBib } from '@/lib/analytics/ids'
 import { trackServer } from '@/lib/analytics/server'
-import { fetchPublicBibById, isLocked } from '@/services/bib.services'
+import type { Bib } from '@/models/bib.model'
+import { fetchPublicBibById, fetchPurchasableBibById, isLocked, lockBib } from '@/services/bib.services'
 import { capturePayment } from '@/services/paypal.services'
 import { salesCreate } from '@/services/sales.services'
 import { createTransaction, getTransactionByOrderId } from '@/services/transaction.services'
@@ -63,8 +64,59 @@ export async function handlePaymentPageOpened(paymentIntentId: string, bibId: st
 	}
 }
 
+// Lock steps of the purchase. The browser calls these, never the bib services themselves: lockBib and
+// isLocked take any bib id from anyone, signed in or not, with or without the token of a private listing.
+
+/**
+ * Locks a bib for the signed-in buyer who is about to pay for it.
+ * @param bibId The ID of the bib to lock.
+ * @param privateToken The token of the private link the buyer came through, if any.
+ * @returns The lock time (the key of the lock), or null when the bib could not be locked.
+ */
+export async function lockBibForPurchase(
+	bibId: string,
+	privateToken: string | null = null
+): Promise<{ lockedAt: Bib['lockedAt'] } | null> {
+	const { userId } = await auth()
+	if (userId == null || userId === '' || !bibId) return null
+
+	const bib = await fetchPurchasableBibById(bibId, privateToken)
+	if (!bib) return null
+
+	const lock = await lockBib(bib.id, userId)
+	if (!lock) return null
+	return { lockedAt: lock.lockedAt ?? null }
+}
+
+/**
+ * Tells the signed-in buyer whether a bib is free, locked by them (lockKey) or locked by someone else.
+ * @param bibId The ID of the bib to check.
+ * @param lockKey The lock time the buyer got from lockBibForPurchase, if any.
+ * @param privateToken The token of the private link the buyer came through, if any.
+ */
+export async function checkPurchaseLock(
+	bibId: string,
+	lockKey: string = '',
+	privateToken: string | null = null
+): Promise<'locked' | 'unlocked' | 'userlocked'> {
+	const { userId } = await auth()
+	if (userId == null || userId === '' || !bibId) return 'locked'
+
+	// Not a bib this visitor may buy: nothing to tell them, and no expired lock to clear for them
+	const bib = await fetchPurchasableBibById(bibId, privateToken)
+	if (!bib) return 'locked'
+
+	return isLocked(bib.id, lockKey)
+}
+
 // New action to create sale: wraps salesCreate and returns orderId
-export async function createSale(bibId: string, sellerMerchantId: string, locale?: string) {
+// privateToken: the token of the private link the buyer came through, checked by salesCreate
+export async function createSale(
+	bibId: string,
+	sellerMerchantId: string,
+	locale?: string,
+	privateToken: string | null = null
+) {
 	const { userId } = await auth()
 	if (userId == null || userId === '') {
 		return {
@@ -83,6 +135,7 @@ export async function createSale(bibId: string, sellerMerchantId: string, locale
 	try {
 		const { transaction, orderId } = await salesCreate({
 			sellerMerchantId,
+			privateToken,
 			locale,
 			buyerUserId: userId,
 			bibId,
@@ -103,7 +156,8 @@ export async function createSale(bibId: string, sellerMerchantId: string, locale
 // Server-side wrapper to capture a PayPal order (prevents exposing client secret to the browser)
 export async function captureOrder(
 	orderId: string,
-	lockKey: string | null = null
+	lockKey: string | null = null,
+	privateToken: string | null = null
 ): Promise<{
 	error?: string
 	errorKind?: PurchaseErrorKind
@@ -134,8 +188,10 @@ export async function captureOrder(
 			return { errorKind: 'not_owner', error: 'This order does not belong to the current user.' }
 		}
 
-		// Verify the bib is still available and locked by this user with the provided lock key
-		const bib = await fetchPublicBibById(tx.bib_id)
+		// Verify the bib is still available and locked by this user with the provided lock key.
+		// A private listing is only found with its token: the order alone does not prove the buyer
+		// holds it, and the seller may have regenerated it since
+		const bib = await fetchPurchasableBibById(tx.bib_id, privateToken)
 		if (!bib) {
 			return { errorKind: 'bib_not_found', error: 'Bib not found.' }
 		}

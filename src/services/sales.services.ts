@@ -3,6 +3,7 @@
 import { priceBucket } from '@/lib/analytics/buckets'
 import { bibIdOfTransaction } from '@/lib/analytics/ids'
 import { trackServer } from '@/lib/analytics/server'
+import { isPrivateListingToken } from '@/lib/services/privateListing'
 import type { SalesCompleteInput, SalesCompleteOutput, SalesCreateInput, SalesCreateOutput } from '@/models/sales.model'
 import { fetchBibById, updateBib } from './bib.services'
 import {
@@ -17,7 +18,7 @@ import { fetchUserByClerkId, fetchUserById } from './user.services'
 
 // Create PayPal order and persist a pending Transaction linked to that order
 export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateOutput> {
-	const { sellerMerchantId, locale, buyerUserId, bibId } = input
+	const { sellerMerchantId, privateToken, locale, buyerUserId, bibId } = input
 	if (!buyerUserId || !sellerMerchantId || !bibId) {
 		throw new Error('Missing required salesCreate parameters')
 	}
@@ -25,6 +26,12 @@ export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateO
 	// Fetch bib with expanded event and seller data for complete details
 	const bib = await fetchBibById(bibId)
 	if (!bib) throw new Error('Bib not found')
+
+	// A private listing is sold to the holder of its token only. Refused like a missing bib, before
+	// anything is asked of PayPal
+	if (bib.listed === 'private' && !isPrivateListingToken(bib.privateListingToken, privateToken)) {
+		throw new Error('Bib not found')
+	}
 
 	// Use the transformer to build a complete BibSale with all event details
 	const { transformBibToBibSale } = await import('@/lib/transformers/bib')

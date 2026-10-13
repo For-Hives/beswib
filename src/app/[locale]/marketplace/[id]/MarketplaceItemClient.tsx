@@ -121,6 +121,7 @@ export default function MarketplaceItemClient({
 					organizerData={organizerData}
 					bibData={bibData}
 					isPrivate={isPrivate}
+					privateToken={isPrivate ? initialToken : undefined}
 				/>
 			</PayPalProvider>
 		</div>

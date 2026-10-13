@@ -552,7 +552,7 @@ export const EVENTS = {
 			action: oneOf(['dismiss', 'restart_payment', 'try_again']),
 		},
 	},
-	/** PayPal confirmed the capture of the buyer's payment: the money truth, independent of ad-blockers and closed tabs. listing is always public today (captureOrder loads the bib with fetchPublicBibById, so a private bib fails before capture: see ownerNotes). */
+	/** PayPal confirmed the capture of the buyer's payment: the money truth, independent of ad-blockers and closed tabs. listing=private: a bib bought through its private link (captureOrder checks the token of the link again; without it the buyer gets purchase_error{step=capture, kind=bib_not_found}). */
 	payment_capture_success: {
 		side: 'server',
 		props: {

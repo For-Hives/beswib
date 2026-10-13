@@ -2,6 +2,7 @@
 
 import { DateTime } from 'luxon'
 import { pb } from '@/lib/services/pocketbase'
+import { isPrivateListingToken } from '@/lib/services/privateListing'
 import { pbDateToLuxon } from '@/lib/utils/date'
 import { isSellerProfileComplete } from '@/lib/validation/user'
 import type { Bib } from '@/models/bib.model'
@@ -185,10 +186,12 @@ export async function fetchAvailableBibsForMarketplace(): Promise<
 
 /**
  * Atomically locks a bib for purchase for 5 minutes if not already locked or lock expired.
+ * Answers with the lock alone, never the record: every export of this file is a server action, and
+ * the record holds the token of a private listing.
  * @param bibId The ID of the bib to lock.
  * @param userId The ID of the user attempting to lock.
  */
-export async function lockBib(bibId: string, userId: string): Promise<Bib | null> {
+export async function lockBib(bibId: string, userId: string): Promise<Pick<Bib, 'id' | 'lockedAt'> | null> {
 	if (!bibId || !userId) return null
 	try {
 		const bib = await pb.collection('bibs').getOne<Bib>(bibId)
@@ -198,7 +201,7 @@ export async function lockBib(bibId: string, userId: string): Promise<Bib | null
 			return null
 		}
 		const updated = await pb.collection('bibs').update<Bib>(bibId, { lockedAt: now })
-		return updated
+		return { lockedAt: updated.lockedAt, id: updated.id }
 	} catch (error: unknown) {
 		throw new Error(`Error locking bib: ${error instanceof Error ? error.message : String(error)}`)
 	}
@@ -396,6 +399,42 @@ export async function fetchPublicBibById(
 }
 
 /**
+ * Fetches a single bib by its ID for a step of its purchase (lock, order, capture): a public listing,
+ * or a private one when the caller holds its token. Anything else is answered like a missing bib.
+ * @param bibId The ID of the bib to fetch.
+ * @param privateToken The private listing token the buyer came with, if any.
+ */
+export async function fetchPurchasableBibById(
+	bibId: string,
+	privateToken?: string | null
+): Promise<(Bib & { expand?: { eventId: Event & { expand?: { organizer: Organizer } }; sellerUserId: User } }) | null> {
+	if (bibId === '') {
+		console.error('Bib ID is required.')
+		return null
+	}
+	try {
+		const record = await fetchBibById(bibId)
+
+		if (record == null) {
+			return null
+		}
+
+		if (record.listed === 'public') {
+			return record
+		}
+
+		// A private listing is sold to the holder of its token only
+		if (record.listed === 'private' && isPrivateListingToken(record.privateListingToken, privateToken)) {
+			return record
+		}
+
+		return null
+	} catch (error: unknown) {
+		throw new Error(`Error fetching bib with ID "${bibId}": ${error instanceof Error ? error.message : String(error)}`)
+	}
+}
+
+/**
  * Fetches a single bib by its ID for public display or pre-purchase.
  * @param bibId The ID of the bib to fetch.
  */
@@ -527,7 +566,7 @@ export async function fetchPrivateBibByToken(
 			})
 
 		// Verify the token matches and this is a private listing ✅
-		if (record.listed !== 'private' || record.privateListingToken !== token) {
+		if (record.listed !== 'private' || !isPrivateListingToken(record.privateListingToken, token)) {
 			console.warn(`Invalid token access attempt for bib ${bibId}`)
 			return null
 		}

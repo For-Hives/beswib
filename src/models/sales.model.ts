@@ -5,6 +5,7 @@ export type SalesCreateInput = {
 	sellerMerchantId: string // PayPal merchant id
 	bibId: string
 	locale?: string // User locale for PayPal return URLs
+	privateToken?: string | null // Token of the private link the buyer came through, if any
 }
 
 export type SalesCreateOutput = {
