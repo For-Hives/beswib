@@ -31,6 +31,7 @@ import {
 	mountFromServer,
 	openDialog,
 	openMenu,
+	PAGE_TEST_TIMEOUT,
 	pager,
 	pagerDisabled,
 	pageSize,
@@ -97,7 +98,7 @@ const organizers = (records = RECORDS): OrganizerRow[] =>
 
 const NAME = 'Organizer Name'
 
-describe('AdminOrganizersPageClient', () => {
+describe('AdminOrganizersPageClient', { timeout: PAGE_TEST_TIMEOUT }, () => {
 	let page: MountedPage
 	let container: HTMLElement
 
@@ -335,6 +336,26 @@ describe('AdminOrganizersPageClient', () => {
 			await click(sortButton(container, 'Created'))
 			expect(sortArrows(container)).toEqual({ Created: 'asc' })
 			expect(columnCells(container, 'Created')).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(day => `Jan ${day}, 2024`))
+		})
+
+		it('keeps organizers created at the same instant in the order received, both ways', async () => {
+			// Two Date objects for one instant are neither equal nor ordered when compared as they are: only the date
+			// comparison, which reads their time, sees a tie
+			const received = ['Dijon Run', 'Alpes Trail', 'Courir à Lyon', 'Bordeaux Marathon']
+			await show(
+				organizers([RECORDS[7], RECORDS[1], RECORDS[6], RECORDS[5]]).map(organizer => ({
+					...organizer,
+					created: new Date(Date.UTC(2024, 4, 1, 12)),
+				}))
+			)
+
+			await click(sortButton(container, 'Created'))
+			expect(sortArrows(container)).toEqual({ Created: 'desc' })
+			expect(names()).toEqual(received)
+
+			await click(sortButton(container, 'Created'))
+			expect(sortArrows(container)).toEqual({ Created: 'asc' })
+			expect(names()).toEqual(received)
 		})
 
 		it('adds a second sort with shift, and a plain click on another column starts over', async () => {

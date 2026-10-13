@@ -17,6 +17,13 @@ export const adminUser: User = {
 	email: 'ada@beswib.com',
 }
 
+/**
+ * How long one test of a list may take. Each one mounts a whole page and drives it click by click: half a second on
+ * a quiet machine, several when the cores are shared. A test that goes over its time is not stopped: it keeps
+ * clicking in the document of the tests that follow, and they fail with it. Hence a wide margin over the default 5 s.
+ */
+export const PAGE_TEST_TIMEOUT = 20_000
+
 export interface MountedPage {
 	container: HTMLElement
 	/** Number of React commits of the page since it was mounted */

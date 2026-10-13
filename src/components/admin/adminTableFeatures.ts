@@ -30,8 +30,10 @@ export const adminTableFeatures = tableFeatures({
 	paginatedRowModel: createPaginatedRowModel(),
 	// The comparators a column picks by itself: datetime when it holds Date values, text or alphanumeric when it holds
 	// strings, depending on whether one of the first ten rows contains a digit. Both names lead to the natural
-	// comparison, so that "Trail 9" comes before "Trail 10" whichever rows come first. A name that is not registered
-	// would fall back to the raw comparison (capitals first). Numbers and booleans use the built-in one.
+	// comparison, so that "Trail 9" comes before "Trail 10" whichever rows come first, on a list of any length. In
+	// that comparison case is ignored, and a value that starts with a digit comes after those that start with a
+	// letter ("10 km de Lyon" after "UTMB"). A name that is not registered would fall back to the raw comparison
+	// (capitals first). Numbers and booleans use the built-in one.
 	sortFns: { alphanumeric: sortFn_alphanumeric, datetime: sortFn_datetime, text: sortFn_alphanumeric },
 })
 

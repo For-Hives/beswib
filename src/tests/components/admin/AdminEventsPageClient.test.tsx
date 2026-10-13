@@ -43,6 +43,7 @@ import {
 	mountFromServer,
 	openDialog,
 	openMenu,
+	PAGE_TEST_TIMEOUT,
 	pageIsBlocked,
 	pager,
 	pagerDisabled,
@@ -130,7 +131,7 @@ const events = (records = RECORDS): EventRow[] =>
 const NAME = 'Event Name'
 const HEADERS = ['', NAME, 'Organizer', 'Date', 'Distance', 'Type', 'Participants', 'Actions']
 
-describe('AdminEventsPageClient', () => {
+describe('AdminEventsPageClient', { timeout: PAGE_TEST_TIMEOUT }, () => {
 	let page: MountedPage
 	let container: HTMLElement
 
@@ -482,8 +483,8 @@ describe('AdminEventsPageClient', () => {
 			await show(
 				events([
 					...orphans,
-					['Trail de Zeta', 'zeta Sport 10', '2024-01-10', 20, 'trail', 100],
-					['Trail de Beta', 'Zeta Sport 9', '2024-01-11', 20, 'trail', 100],
+					['Trail de Zeta', 'Zeta Sport 10', '2024-01-10', 20, 'trail', 100],
+					['Trail de Beta', 'zeta Sport 9', '2024-01-11', 20, 'trail', 100],
 					['Trail d’Alpha', 'Alpha Club', '2024-01-12', 20, 'trail', 100],
 				])
 			)
@@ -491,7 +492,8 @@ describe('AdminEventsPageClient', () => {
 
 			await click(sortButton(container, 'Organizer'))
 			expect(sortArrows(container)).toEqual({ Organizer: 'asc' })
-			expect(columnCells(container, 'Organizer').slice(0, 3)).toEqual(['Alpha Club', 'Zeta Sport 9', 'zeta Sport 10'])
+			// Raw character codes would put the capital first, and with it 10 before 9
+			expect(columnCells(container, 'Organizer').slice(0, 3)).toEqual(['Alpha Club', 'zeta Sport 9', 'Zeta Sport 10'])
 		})
 
 		it('orders ten rows or fewer like a longer list: case ignored, 9 before 10', async () => {
@@ -509,6 +511,35 @@ describe('AdminEventsPageClient', () => {
 				'Trail des Vosges 100',
 				'UTMB Mont-Blanc',
 			])
+		})
+
+		// The table chooses the comparison of a column from the first ten rows it receives. With or without a number
+		// among them, the order is the same. table-core 8 looked at the rows after the tenth instead: on a list of more
+		// than ten rows too, without a number there it compared plain text, "10" before "9" and "10 km de Lyon" first.
+		it.each([
+			['first', (numbered: EventRecord[], others: EventRecord[]) => [...numbered, ...others]],
+			['last', (numbered: EventRecord[], others: EventRecord[]) => [...others, ...numbered]],
+		])('orders the names the same way when those with a number come %s in the list received', async (_, arrange) => {
+			const hasNumber = ([name]: EventRecord) => /\d/.test(name)
+			await show(
+				events(
+					arrange(
+						RECORDS.filter(hasNumber),
+						RECORDS.filter(record => !hasNumber(record))
+					)
+				)
+			)
+			await choosePageSize(container, 25)
+
+			await click(sortButton(container, NAME))
+			expect(names().slice(17, 21)).toEqual([
+				'Trail des Vosges 9',
+				'Trail des Vosges 10',
+				'Trail des Vosges 100',
+				'Triathlon de Nice',
+			])
+			// A name that starts with a number comes after those that start with a letter
+			expect(names().at(-1)).toBe('10 km de Lyon')
 		})
 
 		it('sorts from the keyboard as well', async () => {

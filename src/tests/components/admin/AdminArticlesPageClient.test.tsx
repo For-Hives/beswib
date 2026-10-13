@@ -42,6 +42,7 @@ import {
 	mountFromServer,
 	openDialog,
 	openMenu,
+	PAGE_TEST_TIMEOUT,
 	pager,
 	pagerDisabled,
 	pageSize,
@@ -124,7 +125,7 @@ const articles = (records = RECORDS): ArticleRow[] =>
 
 const HEADERS = ['', 'Title', 'Slug', 'Status', 'Created', 'Updated', 'Languages', 'Actions']
 
-describe('AdminArticlesPageClient', () => {
+describe('AdminArticlesPageClient', { timeout: PAGE_TEST_TIMEOUT }, () => {
 	let page: MountedPage
 	let container: HTMLElement
 
