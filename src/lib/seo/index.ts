@@ -27,5 +27,4 @@ export {
 	generateEventDescription,
 	generateEventKeywords,
 	generateEventTitle,
-	generateOGImageConfig,
 } from './utils/seo-generators'

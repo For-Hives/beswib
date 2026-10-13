@@ -1,13 +1,8 @@
 import type { Locale } from '@/lib/i18n/config'
-import { getAbsoluteUrl } from '@/lib/utils/url'
+import { getPublicBaseUrl } from '@/lib/utils/url'
 import type { Event } from '@/models/event.model'
 
 import { SEO_KEYWORDS, SEO_TITLES } from '../constants/seo-translations'
-
-// Get the base URL based on environment using SERVER_URL or NEXT_URL_SERVER_URL
-export function getBaseUrl(): string {
-	return getAbsoluteUrl().baseUrl
-}
 
 // Generate SEO keywords for events
 export function generateEventKeywords(locale: Locale, event: Event): string {
@@ -101,57 +96,9 @@ export function generateEventDescription(locale: Locale, event: Event): string {
 	return description
 }
 
-// Generate Open Graph images configuration
-export function generateOGImageConfig(
-	event?: Event,
-	customImage?: string,
-	pagePath?: string
-): {
-	url: string
-	width: number
-	height: number
-	alt: string
-	type?: string
-} {
-	// If custom image is provided, use it
-	if (customImage !== null && customImage !== undefined && customImage.trim() !== '') {
-		return {
-			width: 1200,
-			url: customImage,
-			type: 'image/png',
-			height: 630,
-			alt: event ? `${event.name} - Race Bib Transfer` : 'Beswib - Race Bib Transfer',
-		}
-	}
-
-	// Generate dynamic OG image URL based on page path
-	if (pagePath !== null && pagePath !== undefined && pagePath.trim() !== '') {
-		// Remove locale prefix and trailing slash for clean path
-		const cleanPath = pagePath.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, '').replace(/\/$/, '')
-		const ogImagePath = cleanPath ? `/${cleanPath}/opengraph-image` : '/opengraph-image'
-
-		return {
-			width: 1200,
-			url: ogImagePath,
-			type: 'image/png',
-			height: 630,
-			alt: event ? `${event.name} - Race Bib Transfer` : 'Beswib - Race Bib Transfer',
-		}
-	}
-
-	// Fallback to default OG image
-	return {
-		width: 1200,
-		url: '/opengraph-image',
-		type: 'image/png',
-		height: 630,
-		alt: event ? `${event.name} - Race Bib Transfer` : 'Beswib - Race Bib Transfer',
-	}
-}
-
 // Generate canonical URL - always include locale in path for consistency
 export function generateCanonicalUrl(locale: Locale, path: string): string {
-	const baseUrl = getBaseUrl()
+	const baseUrl = getPublicBaseUrl()
 	const localePath = `/${locale}`
 	// Ensure path starts with / if not empty
 	const cleanPath = path.startsWith('/') ? path : `/${path}`
@@ -163,7 +110,7 @@ export function generateCanonicalUrl(locale: Locale, path: string): string {
 
 // Generate alternate language links with proper URLs and locale codes
 export function generateAlternateLanguages(path: string): Record<string, string> {
-	const baseUrl = getBaseUrl()
+	const baseUrl = getPublicBaseUrl()
 	const languages = [
 		{ path: '/en', locale: 'en-US', code: 'en' },
 		{ path: '/fr', locale: 'fr-FR', code: 'fr' },

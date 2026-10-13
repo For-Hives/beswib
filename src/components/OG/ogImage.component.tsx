@@ -72,10 +72,6 @@ function processTextForHighlighting(text: string, highlightColor: string) {
 type OGImageProps = {
 	title?: string // Optional main title
 	secondary?: string // Optional secondary description
-	/** No longer read: the assets come from the disk. Kept so the callers stay as they are. */
-	host?: string
-	/** No longer read, see host. */
-	protocol?: string
 	size: { width: number; height: number } // OG image dimensions
 }
 

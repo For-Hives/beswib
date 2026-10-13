@@ -1,4 +1,5 @@
 import type { Locale } from '@/lib/i18n/config'
+import { getPublicBaseUrl } from '@/lib/utils/url'
 
 interface FAQItem {
 	question: string
@@ -13,7 +14,7 @@ interface FAQSchemaProps {
 export default function FAQSchema({ locale, faqItems }: FAQSchemaProps) {
 	const faqSchema = {
 		publisher: {
-			url: 'https://beswib.com',
+			url: getPublicBaseUrl(),
 			name: 'Beswib',
 			'@type': 'Organization',
 		},

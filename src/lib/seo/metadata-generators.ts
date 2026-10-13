@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import type { Locale } from '@/lib/i18n/config'
+import { getPublicBaseUrl } from '@/lib/utils/url'
 import type { Event } from '@/models/event.model'
 import { SEO_DESCRIPTIONS, SEO_KEYWORDS, SEO_TITLES } from './constants/seo-translations'
 import {
@@ -8,9 +9,13 @@ import {
 	generateEventDescription,
 	generateEventKeywords,
 	generateEventTitle,
-	generateOGImageConfig,
-	getBaseUrl,
 } from './utils/seo-generators'
+
+// Root layout metadata: the base every relative metadata URL of the site resolves against, the
+// opengraph-image files first. Without it Next.js resolves them against http://localhost:3000.
+export function generateRootMetadata(): Metadata {
+	return { metadataBase: new URL(getPublicBaseUrl()) }
+}
 
 // Base metadata configuration for all pages
 export function generateBaseMetadata(locale: Locale): Metadata {
@@ -20,15 +25,37 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 	const descriptions = SEO_DESCRIPTIONS[safeLocale]
 	const keywords = SEO_KEYWORDS[safeLocale]
 
+	// No image, here or in the generators below: Next.js announces the opengraph-image file that
+	// sits next to a page only when the page names none. Naming the image of the site here gave
+	// every page the same picture, in English.
+	//
+	// One exception, an address whose first segment is no locale of the site. Clerk answers a crawler
+	// that asks for a protected page with a rewrite to /clerk_<timestamp>, which the [locale] segment
+	// serves as the home page: the file next to it would be /clerk_<timestamp>/opengraph-image, which
+	// is not an image. That page names the image of the site, so a shared dashboard link keeps one.
+	const siteImage =
+		locale === safeLocale
+			? {}
+			: {
+					images: [
+						{
+							width: 1200,
+							url: `/${safeLocale}/opengraph-image`,
+							type: 'image/png',
+							height: 630,
+							alt: 'Beswib - Race Bib Transfer',
+						},
+					],
+				}
+
 	return {
-		metadataBase: new URL(getBaseUrl()),
 		twitter: {
 			title: titles.home,
 			site: '@beswib',
-			images: [generateOGImageConfig(undefined, undefined, '/')],
 			description: descriptions.home,
 			creator: '@beswib',
 			card: 'summary_large_image',
+			...siteImage,
 		},
 		title: {
 			template: `%s | ${titles.site}`,
@@ -52,9 +79,9 @@ export function generateBaseMetadata(locale: Locale): Metadata {
 			type: 'website',
 			title: titles.home,
 			siteName: titles.site,
-			locale: locale.replace('-', '_'),
-			images: [generateOGImageConfig(undefined, undefined, '/')],
+			locale: safeLocale.replace('-', '_'),
 			description: descriptions.home,
+			...siteImage,
 		},
 		manifest: '/site.webmanifest',
 		keywords: keywords.global.join(', '),
@@ -492,7 +519,6 @@ export function generateDashboardMetadata(locale: Locale): Metadata {
 			...baseMetadata.openGraph,
 			url: generateCanonicalUrl(locale, '/dashboard'),
 			title: 'Dashboard',
-			images: [generateOGImageConfig(undefined, undefined, '/dashboard')],
 			description: 'Manage your Beswib account and race bibs',
 		},
 		description: 'Manage your Beswib account and race bibs',
@@ -520,7 +546,6 @@ export function generateProfileMetadata(locale: Locale): Metadata {
 			...baseMetadata.openGraph,
 			url: generateCanonicalUrl(locale, '/profile'),
 			title: 'My Profile',
-			images: [generateOGImageConfig(undefined, undefined, '/profile')],
 			description: 'Update your personal and runner information',
 		},
 		description: 'Update your personal and runner information',
@@ -548,7 +573,6 @@ export function generateAdminMetadata(locale: Locale): Metadata {
 			...baseMetadata.openGraph,
 			url: generateCanonicalUrl(locale, '/admin'),
 			title: 'Admin Dashboard',
-			images: [generateOGImageConfig(undefined, undefined, '/admin')],
 			description: 'Manage your Beswib platform',
 		},
 		description: 'Manage your Beswib platform',
@@ -606,7 +630,6 @@ export function generateAuthMetadata(
 			...baseMetadata.openGraph,
 			url: generateCanonicalUrl(locale, authPath),
 			title: authTitle,
-			images: [generateOGImageConfig(undefined, undefined, authPath)],
 			description: authDescription,
 		},
 		description: authDescription,

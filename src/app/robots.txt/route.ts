@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server'
 
+import { getPublicBaseUrl } from '@/lib/utils/url'
+
 export function GET() {
-	const baseUrl = 'https://beswib.com'
+	const baseUrl = getPublicBaseUrl()
 
 	const robotsTxt = `# Beswib - Robots.txt
 # Race bib transfer service
