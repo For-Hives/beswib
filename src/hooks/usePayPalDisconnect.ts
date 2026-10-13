@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { disconnectPayPalAccount } from '@/services/paypal-onboarding.services'
+import { disconnectPayPal } from '@/app/[locale]/profile/actions'
 
 export function usePayPalDisconnect() {
 	return useMutation({
-		mutationFn: (userId: string) => disconnectPayPalAccount(userId),
+		mutationFn: () => disconnectPayPal(),
 	})
 }

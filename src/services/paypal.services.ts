@@ -1,4 +1,4 @@
-'use server'
+import 'server-only'
 
 import { PLATFORM_FEE } from '@/constants/global.constant'
 import { trackServer } from '@/lib/analytics/server'

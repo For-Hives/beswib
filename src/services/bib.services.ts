@@ -1,4 +1,4 @@
-'use server'
+import 'server-only'
 
 import { DateTime } from 'luxon'
 import { pb } from '@/lib/services/pocketbase'
@@ -186,8 +186,8 @@ export async function fetchAvailableBibsForMarketplace(): Promise<
 
 /**
  * Atomically locks a bib for purchase for 5 minutes if not already locked or lock expired.
- * Answers with the lock alone, never the record: every export of this file is a server action, and
- * the record holds the token of a private listing.
+ * Answers with the lock alone, never the record: its caller is a server action that hands the answer
+ * to the browser, and the record holds the token of a private listing.
  * @param bibId The ID of the bib to lock.
  * @param userId The ID of the user attempting to lock.
  */
@@ -299,7 +299,8 @@ export async function updateExpiredBibsToWithdrawn(sellerUserId?: string): Promi
 
 		// If sellerUserId is provided, limit to that seller's bibs
 		if (sellerUserId != null && sellerUserId !== '') {
-			filter += ` && sellerUserId = '${sellerUserId}'`
+			// The id may come from the body of a request: escaped, it cannot close the quote and widen the filter
+			filter += ` && sellerUserId = '${escapeFilterValue(sellerUserId)}'`
 		}
 
 		const expiredBibs = await pb.collection('bibs').getFullList<Bib & { expand?: { eventId: Event } }>({
@@ -753,6 +754,13 @@ export async function generatePrivateListingToken(): Promise<string> {
 		resolve(resultChars.join(''))
 		reject(new Error('Secure random generator is unavailable'))
 	})
+}
+
+/**
+ * Escapes a value written between single quotes in a PocketBase filter.
+ */
+function escapeFilterValue(value: string): string {
+	return String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'")
 }
 
 /**

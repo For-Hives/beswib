@@ -1,4 +1,4 @@
-'use server'
+import 'server-only'
 
 import { createGoogle } from '@ai-sdk/google'
 import { generateText } from 'ai'

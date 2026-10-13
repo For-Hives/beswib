@@ -5,6 +5,12 @@ import { useEffect, useState } from 'react'
 
 import { toast } from 'sonner'
 import {
+	addVerifiedEmail,
+	confirmVerifiedEmail,
+	fetchMyVerifiedEmails,
+	resendVerifiedEmailCode,
+} from '@/app/[locale]/profile/actions'
+import {
 	BibDetailsStep,
 	ConfirmationStep,
 	EmailVerificationStep,
@@ -28,13 +34,8 @@ import type { Event } from '@/models/event.model'
 import type { Organizer } from '@/models/organizer.model'
 import type { User } from '@/models/user.model'
 import type { VerifiedEmail } from '@/models/verifiedEmail.model'
-import { createBib } from '@/services/bib.services'
-import {
-	createVerifiedEmail,
-	fetchVerifiedEmailsByUserId,
-	resendVerificationCode,
-	verifyEmail,
-} from '@/services/verifiedEmail.services'
+
+import { handleCreateBib } from './actions'
 
 interface FormData {
 	acceptedTerms: boolean
@@ -98,7 +99,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 	useEffect(() => {
 		const loadVerifiedEmails = async () => {
 			try {
-				const result = await fetchVerifiedEmailsByUserId(user.id)
+				const result = await fetchMyVerifiedEmails()
 				if (result.success && result.data) {
 					setVerifiedEmails(result.data)
 
@@ -130,7 +131,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 
 	// Handler for adding a new email
 	const handleAddEmail = (email: string) => {
-		void createVerifiedEmail({ userId: user.id, email })
+		void addVerifiedEmail(email)
 			.then(result => {
 				if (result.success && result.data) {
 					setVerifiedEmails(prev => [...prev, result.data!])
@@ -158,7 +159,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 
 	// Handler for verifying an email
 	const handleVerifyEmail = (emailId: string, code: string) => {
-		void verifyEmail({ verifiedEmailId: emailId, verificationCode: code })
+		void confirmVerifiedEmail(emailId, code)
 			.then(result => {
 				if (result.success && result.data) {
 					setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? result.data! : email)))
@@ -187,7 +188,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 
 	// Handler for resending verification code
 	const handleResendCode = (emailId: string) => {
-		void resendVerificationCode(emailId)
+		void resendVerifiedEmailCode(emailId)
 			.then(result => {
 				if (result.success) {
 					setErrors({})
@@ -335,10 +336,10 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				linkedEmailId = formData.linkedEmailId
 			}
 
-			const bibData: Omit<Bib, 'id'> = {
+			// No seller id: the server lists the bib for the session's user
+			const bibData: Omit<Bib, 'id' | 'sellerUserId'> = {
 				validated: false,
 				status: 'available',
-				sellerUserId: user.id,
 				registrationNumber: formData.registrationNumber,
 				price: parseFloat(formData.sellingPrice),
 				originalPrice: formData.originalPrice ? parseFloat(formData.originalPrice) : undefined,
@@ -348,7 +349,7 @@ export default function SellBibClient({ user, locale, availableEvents }: SellBib
 				eventId: formData.selectedEvent.id,
 			}
 
-			const result = await createBib(bibData)
+			const result = await handleCreateBib(bibData)
 
 			if (result) {
 				setCreatedBib(result)

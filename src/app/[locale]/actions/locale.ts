@@ -2,10 +2,9 @@
 
 import { auth } from '@clerk/nextjs/server'
 
-import { updateUserLocale } from '@/app/[locale]/profile/actions'
 import { i18n, type Locale } from '@/lib/i18n/config'
 import { getTranslatedArticleSlug } from '@/services/article.services'
-import { fetchUserByClerkId } from '@/services/user.services'
+import { fetchUserByClerkId, updateUser } from '@/services/user.services'
 
 function isValidLocale(locale: string): locale is Locale {
 	return i18n.locales.includes(locale as Locale)
@@ -46,7 +45,7 @@ export async function syncUserLocaleFromCookie(
 			(user.locale === 'en' && cookieLocale !== 'en')
 
 		if (shouldUpdate) {
-			await updateUserLocale(user.id, cookieLocale)
+			await updateUser(user.id, { locale: cookieLocale })
 			return { updated: true, success: true }
 		}
 
@@ -86,7 +85,7 @@ export async function updateUserLocalePreference(locale: string): Promise<{ succ
 		}
 
 		// Update user locale
-		await updateUserLocale(user.id, locale)
+		await updateUser(user.id, { locale })
 
 		return { success: true }
 	} catch (error) {

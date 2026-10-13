@@ -1,4 +1,4 @@
-'use server'
+import 'server-only'
 
 import { pb } from '@/lib/services/pocketbase'
 import type { PayPalApiAction, PayPalApiLog } from '@/models/paypalApi.model'

@@ -4,6 +4,13 @@ import { CheckIcon, MailIcon, PlusIcon, TrashIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { toast } from 'sonner'
+import {
+	addVerifiedEmail,
+	confirmVerifiedEmail,
+	fetchMyVerifiedEmails,
+	removeVerifiedEmail,
+	resendVerifiedEmailCode,
+} from '@/app/[locale]/profile/actions'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import {
 	AlertDialog,
@@ -27,13 +34,6 @@ import { track, trackView } from '@/lib/analytics/client'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import type { User } from '@/models/user.model'
 import type { VerifiedEmail } from '@/models/verifiedEmail.model'
-import {
-	createVerifiedEmail,
-	deleteVerifiedEmail,
-	fetchVerifiedEmailsByUserId,
-	resendVerificationCode,
-	verifyEmail,
-} from '@/services/verifiedEmail.services'
 
 import pageLocales from './locales.json'
 
@@ -103,7 +103,7 @@ export default function VerifiedEmailsManager({
 		async function loadVerifiedEmails() {
 			try {
 				setLoading(true)
-				const result = await fetchVerifiedEmailsByUserId(user.id)
+				const result = await fetchMyVerifiedEmails()
 				if (result.success && result.data) {
 					setVerifiedEmails(result.data)
 				} else {
@@ -134,7 +134,7 @@ export default function VerifiedEmailsManager({
 		setError(null)
 
 		try {
-			const result = await createVerifiedEmail({ userId: user.id, email: newEmail.trim() })
+			const result = await addVerifiedEmail(newEmail.trim())
 			if (result.success && result.data) {
 				setVerifiedEmails(prev => [...prev, result.data!])
 				setNewEmail('')
@@ -176,7 +176,7 @@ export default function VerifiedEmailsManager({
 		setError(null)
 
 		try {
-			const result = await verifyEmail({ verifiedEmailId: emailId, verificationCode: code })
+			const result = await confirmVerifiedEmail(emailId, code)
 			if (result.success && result.data) {
 				setVerifiedEmails(prev => prev.map(email => (email.id === emailId ? result.data! : email)))
 				setVerificationCodes(prev => {
@@ -214,7 +214,7 @@ export default function VerifiedEmailsManager({
 		setError(null)
 
 		try {
-			const result = await resendVerificationCode(emailId)
+			const result = await resendVerifiedEmailCode(emailId)
 			if (result.success) {
 				toast.success('Verification code sent')
 				track('verified_email_step', { where: 'profile', step: 'code_resent' })
@@ -252,7 +252,7 @@ export default function VerifiedEmailsManager({
 		setError(null)
 
 		try {
-			const result = await deleteVerifiedEmail(emailToDelete)
+			const result = await removeVerifiedEmail(emailToDelete)
 			if (result.success) {
 				setVerifiedEmails(prev => prev.filter(email => email.id !== emailToDelete))
 				toast.success('Email deleted successfully')

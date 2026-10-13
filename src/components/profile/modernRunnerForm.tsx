@@ -4,7 +4,7 @@ import { valibotResolver } from '@hookform/resolvers/valibot'
 import { AlertTriangle, CheckCircle, FileText, MapPin, Save, Shield, User as UserIcon } from 'lucide-react'
 import { useEffect, useRef, useState, useTransition } from 'react'
 import { Controller, type FieldErrors, type SubmitHandler, useForm } from 'react-hook-form'
-import { updateUserProfile } from '@/app/[locale]/profile/actions'
+import { fetchMyVerifiedEmails, updateUserProfile } from '@/app/[locale]/profile/actions'
 import profileTranslations from '@/components/profile/locales.json'
 import { AddressInput } from '@/components/ui/address-input'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -24,7 +24,6 @@ import { createRunnerFormSchema } from '@/lib/validation/schemas'
 import { isSellerAddressComplete, isUserProfileComplete } from '@/lib/validation/user'
 import type { User } from '@/models/user.model'
 import type { VerifiedEmail } from '@/models/verifiedEmail.model'
-import { fetchVerifiedEmailsByUserId } from '@/services/verifiedEmail.services'
 
 import VerifiedEmailsManager from './VerifiedEmailsManager'
 
@@ -101,7 +100,7 @@ export default function ModernRunnerForm({
 	// Load verified emails for contact email selector
 	const loadVerifiedEmails = async () => {
 		try {
-			const result = await fetchVerifiedEmailsByUserId(user.id)
+			const result = await fetchMyVerifiedEmails()
 			if (result.success && result.data) {
 				setVerifiedEmails(result.data)
 			}
@@ -193,7 +192,7 @@ export default function ModernRunnerForm({
 		startTransition(async () => {
 			try {
 				setSubmitStatus('idle')
-				const updatedUser = await updateUserProfile(user.id, payload)
+				const updatedUser = await updateUserProfile(payload)
 
 				// Update local user state with the updated user data
 				setLocalUser(updatedUser)

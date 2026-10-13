@@ -4,6 +4,7 @@ import { useAuth } from '@clerk/nextjs'
 import { Bell, CheckCircle2, Mail, User } from 'lucide-react'
 import { useState, useTransition } from 'react'
 import { toast } from 'sonner'
+import { joinEventWaitlist } from '@/app/[locale]/events/actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -13,7 +14,6 @@ import type { EventId } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import type { User as UserModel } from '@/models/user.model'
-import { addToWaitlist } from '@/services/waitlist.services'
 
 import eventWaitlistTranslations from './locales/EventWaitlistCard.locales.json'
 
@@ -59,7 +59,8 @@ export function EventWaitlistCard({
 
 		startTransition(async () => {
 			try {
-				const result = await addToWaitlist(eventId, user ?? null, isSignedIn === true ? undefined : email)
+				// The server subscribes the session's user; only an anonymous visitor sends an address
+				const result = await joinEventWaitlist(eventId, isSignedIn === true ? undefined : email)
 
 				if (result?.error === 'already_on_waitlist') {
 					if (analyticsEventId !== undefined) {
