@@ -3,7 +3,6 @@ import { join } from 'node:path'
 import { ImageResponse } from 'next/og'
 import OGImage from '@/components/OG/ogImage.component'
 import { generateLocaleParams } from '@/lib/generation/staticParams'
-import { getAbsoluteUrl } from '@/lib/utils/url'
 // import { getTranslations } from '@/lib/i18n/dictionary'
 
 // import pageTranslations from './locales.json'
@@ -28,9 +27,6 @@ export default async function Image() {
 	// Get the translations for the current page and locale
 	// const t = getTranslations(locale, pageTranslations) // TODO: Use when needed
 
-	// Get the absolute URL using environment variables
-	const { protocol, host } = getAbsoluteUrl()
-
 	// Load custom fonts for @vercel/og with error handling
 	try {
 		const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/BowlbyOneSC-Regular.ttf'))
@@ -41,8 +37,6 @@ export default async function Image() {
 			<OGImage
 				title="Something went wrong"
 				secondary="An error occurred. Please try again or contact support."
-				host={host}
-				protocol={protocol}
 				size={size}
 			/>,
 			{
@@ -71,8 +65,6 @@ export default async function Image() {
 			<OGImage
 				title="Something went wrong"
 				secondary="An error occurred. Please try again or contact support."
-				host={host}
-				protocol={protocol}
 				size={size}
 			/>,
 			size

@@ -4,7 +4,6 @@ import { ImageResponse } from 'next/og'
 // import globalLocales from '@/lib/i18n/globalLocales.json'
 import OGImage from '@/components/OG/ogImage.component'
 import { generateLocaleParams } from '@/lib/generation/staticParams'
-import { getAbsoluteUrl } from '@/lib/utils/url'
 // import { getTranslations } from '@/lib/i18n/dictionary'
 
 // Alt text for the Open Graph image
@@ -28,9 +27,6 @@ export default async function Image() {
 	// Get the translations for the current page and locale
 	// const t = getTranslations(locale, globalLocales) // TODO: Use when needed
 
-	// Get the absolute URL using environment variables
-	const { protocol, host } = getAbsoluteUrl()
-
 	// Load custom fonts for @vercel/og with error handling
 	try {
 		const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/BowlbyOneSC-Regular.ttf'))
@@ -38,13 +34,7 @@ export default async function Image() {
 
 		// Return the Open Graph image with custom fonts
 		return new ImageResponse(
-			<OGImage
-				title="Access Denied"
-				secondary="You don't have permission to access this page"
-				host={host}
-				protocol={protocol}
-				size={size}
-			/>,
+			<OGImage title="Access Denied" secondary="You don't have permission to access this page" size={size} />,
 			{
 				...size,
 				fonts: [
@@ -68,13 +58,7 @@ export default async function Image() {
 		console.error('Error loading fonts:', error)
 		// Fallback: return the image without custom fonts
 		return new ImageResponse(
-			<OGImage
-				title="Access Denied"
-				secondary="You don't have permission to access this page"
-				host={host}
-				protocol={protocol}
-				size={size}
-			/>,
+			<OGImage title="Access Denied" secondary="You don't have permission to access this page" size={size} />,
 			size
 		)
 	}
