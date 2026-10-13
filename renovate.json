@@ -11,6 +11,11 @@
 			"automergeStrategy": "squash"
 		},
 		{
+			"description": "motion minors change how animations behave and CI cannot see it (the page transition wraps every page): proposed, never merged automatically",
+			"matchPackageNames": ["motion"],
+			"automerge": false
+		},
+		{
 			"description": "@types/node follows the Node that runs the app (22 in production, 24 in CI): no types of a newer major, they would let APIs through that production does not have",
 			"matchPackageNames": ["@types/node"],
 			"allowedVersions": "<25"
