@@ -1,6 +1,6 @@
 import { ConsentManagerDialog, ConsentManagerProvider, CookieBanner } from '@c15t/nextjs'
 import { ClerkProvider } from '@clerk/nextjs'
-import { shadcn } from '@clerk/themes'
+import { shadcn } from '@clerk/ui/themes'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Bowlby_One_SC, Geist, Geist_Mono } from 'next/font/google'
 import Script from 'next/script'
@@ -69,7 +69,7 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 	return (
 		<ClerkProvider
 			appearance={{
-				baseTheme: shadcn,
+				theme: shadcn,
 			}}
 			localization={clerkLocalization}
 			signInUrl={`/${locale}/sign-in`}
@@ -118,7 +118,7 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 						id="locale-sync-script"
 						strategy="afterInteractive"
 						dangerouslySetInnerHTML={{
-							__html: `(function(){try{var s=localStorage.getItem("NEXT_LOCALE");var c=document.cookie.split(';').find(function(cookie){return cookie.trim().startsWith('NEXT_LOCALE=')});if(s&&s.length===2&&(!c||c.split('=')[1]!==s)){document.cookie='NEXT_LOCALE='+s+';path=/;max-age='+(60*60*24*365)+';SameSite=lax';console.info('Locale synchronized:',s)}}catch(r){}})();`,
+							__html: `(function(){try{var s=localStorage.getItem("NEXT_LOCALE");var c=document.cookie.split(';').find(function(cookie){return cookie.trim().startsWith('NEXT_LOCALE=')});if(s&&s.length===2&&(!c||c.split('=')[1]!==s)){document.cookie='NEXT_LOCALE='+s+';path=/;max-age='+(60*60*24*365)+';SameSite=lax'}}catch(r){}})();`,
 						}}
 					/>
 					<ThemeProvider>

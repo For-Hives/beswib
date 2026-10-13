@@ -36,6 +36,7 @@ export default async function MarketplacePage({ params }: { params: Promise<{ lo
 			unlockExpiredBibs(), // Unlock bibs that were locked too long
 		])
 		if (expiredCount > 0) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Marketplace: Updated ${expiredCount} expired bibs to withdrawn status`)
 		}
 	} catch (error) {

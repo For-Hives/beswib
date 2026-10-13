@@ -16,39 +16,29 @@ export async function getDashboardStats(): Promise<DashboardStats> {
 		// Run all queries in parallel for better performance 🚀
 		const [events, bibs, users, transactions, eventCreationRequests] = await Promise.all([
 			// Events 🎉
-			pb
-				.collection('events')
-				.getFullList<Event>({
-					fields: 'id,isPartnered',
-				}),
+			pb.collection('events').getFullList<Event>({
+				fields: 'id,isPartnered',
+			}),
 
 			// Bibs 🏷️
-			pb
-				.collection('bibs')
-				.getFullList<Bib>({
-					fields: 'id,status,validated',
-				}),
+			pb.collection('bibs').getFullList<Bib>({
+				fields: 'id,status,validated',
+			}),
 
 			// Users 👤
-			pb
-				.collection('users')
-				.getFullList<User>({
-					fields: 'id',
-				}),
+			pb.collection('users').getFullList<User>({
+				fields: 'id',
+			}),
 
 			// Transactions 💰
-			pb
-				.collection('transactions')
-				.getFullList<Transaction>({
-					fields: 'id,amount,transactionDate,status',
-				}),
+			pb.collection('transactions').getFullList<Transaction>({
+				fields: 'id,amount,transactionDate,status',
+			}),
 
 			// Event Creation Requests 📝
-			pb
-				.collection('eventCreationRequests')
-				.getFullList<EventCreationRequest>({
-					fields: 'id,status',
-				}),
+			pb.collection('eventCreationRequests').getFullList<EventCreationRequest>({
+				fields: 'id,status',
+			}),
 		])
 
 		// Calculate today's date for filtering 📅
@@ -124,35 +114,27 @@ export async function getRecentActivity(): Promise<
 	try {
 		const [recentBibs, recentEventRequests, recentUsers, recentTransactions] = await Promise.all([
 			// Recent bibs needing validation ✅
-			pb
-				.collection('bibs')
-				.getList<Bib & { expand?: { eventId: Event } }>(1, 5, {
-					sort: '-created',
-					filter: 'validated = false',
-					expand: 'eventId',
-				}),
+			pb.collection('bibs').getList<Bib & { expand?: { eventId: Event } }>(1, 5, {
+				sort: '-created',
+				filter: 'validated = false',
+				expand: 'eventId',
+			}),
 
 			// Recent event creation requests 🙏
-			pb
-				.collection('eventCreationRequests')
-				.getList<EventCreationRequest>(1, 5, {
-					sort: '-created',
-					filter: 'status = "waiting"',
-				}),
+			pb.collection('eventCreationRequests').getList<EventCreationRequest>(1, 5, {
+				sort: '-created',
+				filter: 'status = "waiting"',
+			}),
 
 			// Recent user registrations (last 24h) 🆕
-			pb
-				.collection('users')
-				.getList<User>(1, 5, {
-					sort: '-created',
-				}),
+			pb.collection('users').getList<User>(1, 5, {
+				sort: '-created',
+			}),
 
 			// Recent transactions 💰
-			pb
-				.collection('transactions')
-				.getList<Transaction>(1, 5, {
-					sort: '-created',
-				}),
+			pb.collection('transactions').getList<Transaction>(1, 5, {
+				sort: '-created',
+			}),
 		])
 
 		const activities: Array<{

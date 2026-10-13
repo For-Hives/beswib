@@ -1,6 +1,6 @@
 'use client'
 
-import { useSignIn } from '@clerk/nextjs'
+import { useSignIn } from '@clerk/nextjs/legacy'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -154,7 +154,6 @@ export default function CustomSignIn() {
 
 			if (code === 'session_exists') {
 				// User is already signed in, redirect to dashboard
-				console.info('User already signed in, redirecting to dashboard')
 				router.push(`/${locale}/dashboard`)
 				return
 			}

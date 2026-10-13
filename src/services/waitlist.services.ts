@@ -88,9 +88,6 @@ export async function addToWaitlist(
 			if (existingUser != null) {
 				// Email belongs to an existing user, use the user instead of email-only subscription
 				actualUser = existingUser
-				console.info(
-					`Email ${sanitizeLogValue(email)} belongs to existing user ${sanitizeLogValue(existingUser.id)}, linking to user account`
-				)
 			}
 		} catch (error) {
 			console.error('Error checking for existing user by email:', error)
@@ -208,7 +205,7 @@ export async function fetchUserWaitlists(userId: string): Promise<(Waitlist & { 
 
 		// If expansion didn't work, try to fetch events separately
 		if (records.length > 0 && !records[0].expand?.event_id) {
-			console.info('Expansion failed, fetching events separately')
+			console.warn('Expansion failed, fetching events separately')
 			const waitlistsWithEvents = await Promise.all(
 				records.map(async waitlist => {
 					try {
@@ -438,7 +435,6 @@ export async function linkEmailWaitlistsToUser(email: string, user: User): Promi
 		})
 
 		if (emailWaitlistEntries.length === 0) {
-			console.info('No email-only waitlist entries found for %s', sanitizeLogValue(email))
 			return 0
 		}
 
@@ -462,12 +458,6 @@ export async function linkEmailWaitlistsToUser(email: string, user: User): Promi
 			}
 		}
 
-		console.info(
-			'Successfully linked %d waitlist entries from email %s to user %s',
-			linkedCount,
-			sanitizeLogValue(email),
-			sanitizeLogValue(user.id)
-		)
 		return linkedCount
 	} catch (error: unknown) {
 		console.error(

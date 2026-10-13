@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -7,14 +7,9 @@
 		"defaultBranch": "main"
 	},
 	"files": {
-		"ignoreUnknown": true,
-		"includes": ["**"],
-		"maxSize": 10485760
-	},
-	"html": {
-		"formatter": {
-			"indentScriptAndStyle": true
-		}
+		"ignoreUnknown": false,
+		"includes": ["**", "!pnpm-lock.yaml", "!**/*.svg"],
+		"maxSize": 1048576
 	},
 	"formatter": {
 		"enabled": true,
@@ -25,7 +20,8 @@
 		"lineWidth": 120,
 		"attributePosition": "auto",
 		"bracketSameLine": false,
-		"bracketSpacing": true
+		"bracketSpacing": true,
+		"useEditorconfig": true
 	},
 	"css": {
 		"parser": {
@@ -33,12 +29,13 @@
 		}
 	},
 	"linter": {
-		"enabled": true,
 		"domains": {
-			"next": "recommended"
+			"next": "recommended",
+			"test": "recommended"
 		},
+		"enabled": true,
 		"rules": {
-			"recommended": true,
+			"preset": "recommended",
 			"correctness": {
 				"useExhaustiveDependencies": "off",
 				"noUnusedVariables": "error",
@@ -54,7 +51,13 @@
 			},
 			"suspicious": {
 				"noArrayIndexKey": "warn",
-				"noUnknownAtRules": "off"
+				"noUnknownAtRules": "off",
+				"noConsole": {
+					"level": "warn",
+					"options": {
+						"allow": ["error", "warn"]
+					}
+				}
 			},
 			"security": {
 				"noDangerouslySetInnerHtml": "off"
@@ -77,6 +80,12 @@
 			"bracketSpacing": true
 		}
 	},
+	"html": {
+		"formatter": {
+			"selfCloseVoidElements": "always",
+			"indentScriptAndStyle": true
+		}
+	},
 	"assist": {
 		"enabled": true,
 		"actions": {
@@ -84,5 +93,17 @@
 				"organizeImports": "on"
 			}
 		}
-	}
+	},
+	"overrides": [
+		{
+			"includes": ["**/scripts/**"],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noConsole": "off"
+					}
+				}
+			}
+		}
+	]
 }

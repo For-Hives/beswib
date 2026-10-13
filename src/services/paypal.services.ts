@@ -185,6 +185,7 @@ export async function handleConsentRevoked(event: PayPalWebhookEvent) {
 		const user = await fetchUserByMerchantId(merchantId)
 
 		if (user == null) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info('Consent revoked for unknown merchantId:', merchantId)
 			return { userFound: false, revoked: true }
 		}
@@ -192,6 +193,7 @@ export async function handleConsentRevoked(event: PayPalWebhookEvent) {
 		// Remove the link to our database (merchant id) and reset KYC flag
 		await updateUser(user.id, { paypalMerchantId: null, paypal_kyc: false })
 
+		// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 		console.info('Removed PayPal merchant link for user due to consent revoked:', {
 			userId: user.id,
 			merchantId,
@@ -543,7 +545,6 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 		}
 
 		const data = (await response.json()) as PayPalPartnerReferralResponse & { status?: string }
-		console.info('PayPal referral data:', JSON.stringify(data, null, 2))
 
 		// Check if the referral has been completed and get the merchant ID
 		if (Array.isArray(data.operations) && data.operations.length > 0) {
@@ -552,7 +553,6 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 				const merchantId =
 					apiIntegration.api_integration_preference.rest_api_integration?.third_party_details?.merchant_id
 				if (typeof merchantId === 'string' && merchantId.length > 0) {
-					console.info('Found merchant ID:', merchantId)
 					return { merchant_id: merchantId }
 				}
 			}
@@ -568,7 +568,7 @@ export async function getMerchantId(referralId: string): Promise<{ error?: strin
 			return { error: 'PayPal onboarding was rejected or failed. Please try again.' }
 		}
 
-		console.info('No merchant ID found in operations. Full data:', JSON.stringify(data, null, 2))
+		console.warn('No merchant ID found in operations. Full data:', JSON.stringify(data, null, 2))
 		return { error: 'Merchant ID not found. Please complete the PayPal onboarding process and try again.' }
 	} catch (error) {
 		console.error('Get merchant ID error:', error instanceof Error ? error.message : error)
@@ -728,6 +728,7 @@ export async function setupPayPalWebhooks(): Promise<{ error?: string; success?:
 		}
 
 		const data = (await response.json()) as { id: string }
+		// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 		console.info('PayPal webhook setup successful:', data)
 		return { success: true }
 	} catch (error) {

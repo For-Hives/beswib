@@ -1,6 +1,6 @@
 'use server'
 
-import { render } from '@react-email/components'
+import { render } from 'react-email'
 
 import { Resend } from 'resend'
 
@@ -77,6 +77,7 @@ async function sendEmail({ to, text, subject, react, html, from }: SendEmailPara
 			return false
 		}
 
+		// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 		console.info('Email sent successfully:', data?.id)
 		return true
 	} catch (error) {

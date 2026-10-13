@@ -1,6 +1,6 @@
 'use client'
 
-import { useSignUp } from '@clerk/nextjs'
+import { useSignUp } from '@clerk/nextjs/legacy'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import type React from 'react'
@@ -192,13 +192,6 @@ export default function CustomSignUp() {
 				emailAddress: formData.email,
 			})
 
-			console.info('Signup result:', {
-				verifications: result.verifications?.emailAddress?.status,
-				unverifiedFields: result.unverifiedFields,
-				status: result.status,
-				id: result.id,
-			})
-
 			// Handle different signup statuses
 			if (result.status === 'complete') {
 				// Account is already verified, can directly sign in
@@ -220,6 +213,7 @@ export default function CustomSignUp() {
 					return
 				} else {
 					// Some other requirement is missing
+					console.warn('Signup blocked by missing requirements:', result.unverifiedFields)
 					setGlobalError('Additional information required. Please complete your profile.')
 					return
 				}

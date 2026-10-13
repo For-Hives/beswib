@@ -157,7 +157,7 @@ export default function VerifiedEmailsManager({
 
 	const handleVerifyEmail = async (emailId: string) => {
 		const code = verificationCodes[emailId]
-		if (!code || code.length !== 6) {
+		if (code?.length !== 6) {
 			setError(t.verifiedEmails.errors.verifyInvalidCode ?? 'Please enter a valid 6-digit verification code')
 			return
 		}

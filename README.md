@@ -124,6 +124,21 @@ All organizer fields are editable via admin JSON interface. Optional features li
 
 ---
 
+## 🧑‍💻 Development
+
+Next.js (App Router) + TypeScript, installed with pnpm. Copy `.exemple.env` to `.env` and fill it in.
+
+- `pnpm dev`: local server.
+- `pnpm check`: Biome (lint, formatting, import order), failing on errors and warnings. Also run in CI.
+- `pnpm check:write`: apply formatting, safe lint fixes and import order.
+- `pnpm tsc`: type check.
+- `pnpm test:run`: unit tests (Vitest).
+- `pnpm build`: production build.
+
+The commit hook (Husky + lint-staged) runs Biome on the staged files and rejects warnings.
+
+---
+
 ## 📞 Contact
 
 Looking to integrate your race or explore a partnership?

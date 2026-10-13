@@ -40,7 +40,6 @@ export async function createEvent(eventData: Omit<Event, 'id'>): Promise<Event |
 
 		const record = await pb.collection('events').create<Event>(dataToCreate)
 
-		console.info('Event created successfully:', record.id)
 		return record
 	} catch (error: unknown) {
 		console.error('PocketBase error details:', error)
@@ -259,7 +258,6 @@ export async function updateEventById(id: string, eventData: Partial<Event>): Pr
 
 		const record = await pb.collection('events').update<Event>(id, dataToUpdate)
 
-		console.info('Event updated successfully:', record.id)
 		return record
 	} catch (error: unknown) {
 		console.error('PocketBase error details:', error)

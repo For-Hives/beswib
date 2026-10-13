@@ -25,12 +25,10 @@ interface UserHeaderProps {
 	locale?: Locale
 }
 
-export default function UserHeader({ user, locale, clerkUser }: Readonly<UserHeaderProps>) {
+export default function UserHeader({ locale, clerkUser }: Readonly<UserHeaderProps>) {
 	const t = getTranslations(locale ?? ('en' as Locale), dashboardTranslations)
 	const userName = clerkUser.firstName ?? clerkUser.emailAddresses[0]?.emailAddress ?? 'User'
 	const { openUserProfile } = useClerk()
-
-	console.info(user)
 
 	const handleOpenAccount = () => {
 		// Open Clerk's user profile modal as a clear way to manage account & sign out
