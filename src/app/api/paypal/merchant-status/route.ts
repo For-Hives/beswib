@@ -1,20 +1,26 @@
-import { type NextRequest, NextResponse } from 'next/server'
+import { auth } from '@clerk/nextjs/server'
+import { NextResponse } from 'next/server'
 
 import { trackServer } from '@/lib/analytics/server'
 import { getMerchantIntegrationStatus } from '@/services/paypal.services'
-import { getUserData, updateUser } from '@/services/user.services'
+import { fetchUserByClerkId, updateUser } from '@/services/user.services'
 
-// GET /api/paypal/merchant-status?userId=...
-export async function GET(request: NextRequest) {
+// GET /api/paypal/merchant-status
+// The PayPal status of the signed-in user. The middleware lets every /api path through, so the caller
+// is identified here: never by an id of the query string, which named any seller to anyone
+export async function GET() {
 	try {
-		const { searchParams } = new URL(request.url)
-		const userId = searchParams.get('userId') ?? ''
-		if (!userId) {
-			return NextResponse.json({ error: 'Missing userId' }, { status: 400 })
+		const { userId: clerkId } = await auth()
+		if (clerkId == null || clerkId === '') {
+			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 		}
 
-		const user = await getUserData(userId)
-		const merchantId = user?.paypalMerchantId ?? ''
+		const user = await fetchUserByClerkId(clerkId)
+		if (user == null) {
+			return NextResponse.json({ error: 'User not found' }, { status: 404 })
+		}
+
+		const merchantId = user.paypalMerchantId ?? ''
 		if (!merchantId) {
 			return NextResponse.json({ error: 'Merchant not linked' }, { status: 400 })
 		}
@@ -30,10 +36,10 @@ export async function GET(request: NextRequest) {
 		const kycComplete =
 			status.payments_receivable === true && status.primary_email_confirmed === true && hasOauthIntegrations
 
-		if (kycComplete && user?.paypal_kyc !== true) trackServer('paypal_kyc_success')
+		if (kycComplete && user.paypal_kyc !== true) trackServer('paypal_kyc_success')
 
 		// Fire and forget (do not block API)
-		void updateUser(userId, { paypal_kyc: kycComplete }).catch(() => {})
+		void updateUser(user.id, { paypal_kyc: kycComplete }).catch(() => {})
 
 		return NextResponse.json({ status: result.status })
 	} catch (e) {
