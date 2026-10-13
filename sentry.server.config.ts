@@ -9,7 +9,6 @@ Sentry.init({
 	tracesSampleRate: 1,
 
 	// Enable logs to be sent to Sentry
-	enableLogs: true,
 
 	dsn: process.env.SENTRY_DSN,
 
