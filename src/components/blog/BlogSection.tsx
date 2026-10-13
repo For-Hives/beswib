@@ -2,7 +2,10 @@
 
 import Link from 'next/link'
 
+import { TrackClick } from '@/components/analytics/TrackClick'
+import { TrackView } from '@/components/analytics/TrackView'
 import { LazyImage } from '@/components/ui/lazy-image'
+import { articleIdOf } from '@/lib/analytics/ids'
 import { getArticleImageUrl } from '@/lib/utils/imageUrl'
 import type { Article } from '@/models/article.model'
 import type { ImageWithAlt } from '@/models/imageWithAlt.model'
@@ -36,11 +39,15 @@ export function BlogSection({ articles, locale, translations }: BlogSectionProps
 			{/* Articles Grid */}
 			{articles.length === 0 ? (
 				<div className="text-muted-foreground flex min-h-[400px] items-center justify-center">
+					<TrackView
+						name="empty_results_view"
+						props={{ where: 'blog', has_query: false, filter_count: 0, catalogue_empty: true }}
+					/>
 					<p>{translations.noArticles}</p>
 				</div>
 			) : (
 				<div className="z-10 grid gap-6 pt-8 md:grid-cols-2 lg:grid-cols-3">
-					{articles.map(article => {
+					{articles.map((article, index) => {
 						// Get absolute image URL based on environment (staging vs production)
 						const imageUrl = getArticleImageUrl(article)
 
@@ -55,37 +62,44 @@ export function BlogSection({ articles, locale, translations }: BlogSectionProps
 						const readTime = Math.max(1, Math.ceil(wordCount / 200))
 
 						return (
-							<Link
+							<TrackClick
 								key={article.id}
-								className="hover:bg-accent/60 active:bg-accent group flex flex-col gap-3 rounded-lg p-3 duration-75"
-								href={`/${locale}/blog/${article.slug}`}
+								name="article_click"
+								props={{ position: Math.min(index + 1, 50), article_id: articleIdOf(article) }}
 							>
-								{imageUrl ? (
-									<LazyImage
-										alt={article.expand?.image?.alt ?? article.title}
-										className="transition-all duration-500 group-hover:scale-105"
-										inView={true}
-										ratio={16 / 9}
-										src={imageUrl}
-									/>
-								) : (
-									<div className="bg-muted flex aspect-video items-center justify-center rounded-lg">
-										<p className="text-muted-foreground text-sm">{translations.noImage}</p>
-									</div>
-								)}
+								<Link
+									className="hover:bg-accent/60 active:bg-accent group flex flex-col gap-3 rounded-lg p-3 duration-75"
+									href={`/${locale}/blog/${article.slug}`}
+								>
+									{imageUrl ? (
+										<LazyImage
+											alt={article.expand?.image?.alt ?? article.title}
+											className="transition-all duration-500 group-hover:scale-105"
+											inView={true}
+											ratio={16 / 9}
+											src={imageUrl}
+										/>
+									) : (
+										<div className="bg-muted flex aspect-video items-center justify-center rounded-lg">
+											<p className="text-muted-foreground text-sm">{translations.noImage}</p>
+										</div>
+									)}
 
-								<div className="space-y-2 px-2 pb-2">
-									<div className="text-muted-foreground flex flex-wrap items-center gap-2 text-[11px] sm:text-xs">
-										<p>{formattedDate}</p>
-										<div className="bg-muted-foreground size-1 rounded-full" />
-										<p>
-											{readTime} {translations.readTime}
+									<div className="space-y-2 px-2 pb-2">
+										<div className="text-muted-foreground flex flex-wrap items-center gap-2 text-[11px] sm:text-xs">
+											<p>{formattedDate}</p>
+											<div className="bg-muted-foreground size-1 rounded-full" />
+											<p>
+												{readTime} {translations.readTime}
+											</p>
+										</div>
+										<h2 className="line-clamp-2 text-lg font-semibold leading-5 tracking-tight">{article.title}</h2>
+										<p className="text-muted-foreground line-clamp-3 text-sm">
+											{article.extract || article.description}
 										</p>
 									</div>
-									<h2 className="line-clamp-2 text-lg font-semibold leading-5 tracking-tight">{article.title}</h2>
-									<p className="text-muted-foreground line-clamp-3 text-sm">{article.extract || article.description}</p>
-								</div>
-							</Link>
+								</Link>
+							</TrackClick>
 						)
 					})}
 				</div>

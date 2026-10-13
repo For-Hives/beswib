@@ -4,13 +4,14 @@ import { Loader2, Send } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useSearchParams } from 'next/navigation'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
 import type globalTranslations from '@/components/global/locales.json'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/inputAlt'
 import { Textarea } from '@/components/ui/textareaAlt'
+import { track } from '@/lib/analytics/client'
 
 interface ContactFormProps {
 	t: (typeof globalTranslations)['en']['contact']
@@ -23,6 +24,9 @@ export default function ContactForm({ t }: ContactFormProps) {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [message, setMessage] = useState('')
+	// Analytics only: whether the URL hand-off filled a field, and whether contact_form_start was sent
+	const prefilledRef = useRef(false)
+	const startedRef = useRef(false)
 
 	// Pre-fill form with URL parameters
 	useEffect(() => {
@@ -33,27 +37,34 @@ export default function ContactForm({ t }: ContactFormProps) {
 		if (nameParam != null && nameParam !== '') setName(decodeURIComponent(nameParam))
 		if (emailParam != null && emailParam !== '') setEmail(decodeURIComponent(emailParam))
 		if (messageParam != null && messageParam !== '') setMessage(decodeURIComponent(messageParam))
+		if (nameParam || emailParam || messageParam) prefilledRef.current = true
 	}, [searchParams])
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		if (isSubmitting) return
+		track('contact_form_submit', { prefilled: prefilledRef.current })
 		setIsSubmitting(true)
 		try {
 			const { submitContactMessage } = await import('@/app/[locale]/contact/actions')
 			const res = await submitContactMessage({ name, message, email })
 			if (res.success) {
+				track('contact_form_success', { prefilled: prefilledRef.current })
 				toast.success(t.form.messageSent)
 				setIsSubmitted(true)
 				setName('')
 				setEmail('')
 				setMessage('')
+				// The fields were just emptied: a second message is no longer the URL hand-off
+				prefilledRef.current = false
 			} else {
+				track('contact_form_error', { kind: res.code ?? 'exception', prefilled: prefilledRef.current })
 				// Soft error handling; keep the user on the form
 				console.error('Contact submit failed:', res.error)
 				toast.error(res.error ?? 'Failed to send message')
 			}
 		} catch (err) {
+			track('contact_form_error', { kind: 'exception', prefilled: prefilledRef.current })
 			console.error('Contact submit error:', err)
 			toast.error('Failed to send message')
 		} finally {
@@ -89,7 +100,15 @@ export default function ContactForm({ t }: ContactFormProps) {
 	}
 
 	return (
-		<form className="mt-4 h-full space-y-4" onSubmit={e => void handleSubmit(e)}>
+		<form
+			className="mt-4 h-full space-y-4"
+			onFocusCapture={() => {
+				if (startedRef.current) return
+				startedRef.current = true
+				track('contact_form_start', { prefilled: prefilledRef.current })
+			}}
+			onSubmit={e => void handleSubmit(e)}
+		>
 			<div>
 				<label className="text-foreground mb-1 block text-sm font-medium dark:text-gray-300" htmlFor="name">
 					{t.form.yourName}

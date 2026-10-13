@@ -1,7 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import { TrackClick } from '@/components/analytics/TrackClick'
 import { Badge } from '@/components/ui/badge'
+import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -132,11 +134,17 @@ export default function AupClient({ locale }: Readonly<Props>) {
 					<h2 className="text-xl font-semibold tracking-tight md:text-2xl">{t.aup.reporting.title}</h2>
 					<p className="text-muted-foreground">
 						{t.aup.reporting.content}{' '}
-						<Link href={`/${locale}/contact`} className="underline">
-							{t.aup.reporting.contactPage}
-						</Link>{' '}
+						<TrackClick name="cta_click" props={{ cta: 'contact', where: 'legal_aup' }}>
+							<Link href={`/${locale}/contact`} className="underline">
+								{t.aup.reporting.contactPage}
+							</Link>
+						</TrackClick>{' '}
 						{t.aup.reporting.email}{' '}
-						<Link href="mailto:support@beswib.com" className="underline">
+						<Link
+							href="mailto:support@beswib.com"
+							className="underline"
+							onClick={() => track('outbound_click', { target: 'mail_support', where: 'legal_aup' })}
+						>
 							support@beswib.com
 						</Link>
 						. {t.aup.reporting.details}

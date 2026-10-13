@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
+import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -95,7 +96,11 @@ export default function LegalNoticeClient({ locale }: Readonly<Props>) {
 					<h2 className="text-xl font-semibold tracking-tight md:text-2xl">{t.legal.abuse.title}</h2>
 					<p className="text-muted-foreground">
 						{t.legal.abuse.content}{' '}
-						<Link href={`mailto:${t.legal.contact.email}`} className="underline">
+						<Link
+							href={`mailto:${t.legal.contact.email}`}
+							className="underline"
+							onClick={() => track('outbound_click', { target: 'mail_contact', where: 'legal_notice' })}
+						>
 							{t.legal.contact.email}
 						</Link>
 						.

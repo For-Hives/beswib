@@ -5,6 +5,9 @@ import * as Sentry from '@sentry/nextjs'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect } from 'react'
+import { TrackClick } from '@/components/analytics/TrackClick'
+import { sectionOf } from '@/lib/analytics/classify'
+import { trackView } from '@/lib/analytics/client'
 import { i18n, type Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -28,6 +31,11 @@ export default function LocaleSegmentError({
 }>) {
 	useEffect(() => {
 		Sentry.captureException(error)
+		trackView('error_view', {
+			scope: 'segment',
+			origin: error.digest ? 'server' : 'client',
+			section: sectionOf(window.location.pathname),
+		})
 	}, [error])
 
 	// Runtime locale detection for client component
@@ -70,25 +78,29 @@ export default function LocaleSegmentError({
 				<p className="text-muted-foreground mt-6 text-lg font-medium text-pretty sm:text-xl/8">{t.error.description}</p>
 
 				<div className="mt-10 flex flex-col gap-x-6 gap-y-3 sm:flex-row sm:items-center sm:justify-center">
-					<Link
-						href={`/${locale}`}
-						onClick={() => (typeof window !== 'undefined' ? window.history.back() : undefined)}
-						className="group bg-secondary text-secondary-foreground ring-offset-background hover:bg-secondary/80 focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-					>
-						<ArrowLeft
-							className="ms-0 me-2 opacity-60 transition-transform group-hover:-translate-x-0.5"
-							size={16}
-							strokeWidth={2}
-							aria-hidden="true"
-						/>
-						{t.error.goBack}
-					</Link>
-					<Link
-						href={`/${locale}`}
-						className="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-					>
-						{t.error.home}
-					</Link>
+					<TrackClick name="cta_click" props={{ cta: 'back', where: 'error_page' }}>
+						<Link
+							href={`/${locale}`}
+							onClick={() => (typeof window !== 'undefined' ? window.history.back() : undefined)}
+							className="group bg-secondary text-secondary-foreground ring-offset-background hover:bg-secondary/80 focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+						>
+							<ArrowLeft
+								className="ms-0 me-2 opacity-60 transition-transform group-hover:-translate-x-0.5"
+								size={16}
+								strokeWidth={2}
+								aria-hidden="true"
+							/>
+							{t.error.goBack}
+						</Link>
+					</TrackClick>
+					<TrackClick name="cta_click" props={{ cta: 'home', where: 'error_page' }}>
+						<Link
+							href={`/${locale}`}
+							className="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+						>
+							{t.error.home}
+						</Link>
+					</TrackClick>
 				</div>
 
 				{/* No extra error metadata displayed to mirror 404 UI */}

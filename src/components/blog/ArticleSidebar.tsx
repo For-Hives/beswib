@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
+import { umamiAttrs } from '@/lib/analytics/attrs'
 import { SOCIALS } from '@/lib/utils/social'
 
 interface ArticleSidebarProps {
@@ -36,25 +37,29 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 	const shareLinks = [
 		{
 			name: 'Twitter',
+			network: 'twitter',
 			icon: IconBrandTwitter,
 			url: `https://x.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}`,
 		},
 		{
 			name: 'LinkedIn',
+			network: 'linkedin',
 			icon: IconBrandLinkedin,
 			url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`,
 		},
 		{
 			name: 'Instagram',
+			network: 'instagram',
 			icon: IconBrandInstagram,
 			url: SOCIALS.instagram,
 		},
 		{
 			name: 'Facebook',
+			network: 'facebook',
 			icon: IconBrandFacebook,
 			url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`,
 		},
-	]
+	] as const
 
 	const handleCopyLink = async () => {
 		if (navigator.clipboard) {
@@ -132,6 +137,7 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 											href={link.url}
 											rel="noopener noreferrer"
 											target="_blank"
+											{...umamiAttrs('article_share_click', { network: link.network })}
 										>
 											<IconComponent aria-hidden="true" className="size-5" />
 										</a>
@@ -145,6 +151,7 @@ export function ArticleSidebar({ createdAt, locale, readTime, title, translation
 							size="sm"
 							variant={isCopied ? 'default' : 'outline'}
 							onClick={handleCopyLink}
+							{...umamiAttrs('article_share_click', { network: 'copy_link' })}
 						>
 							{isCopied ? (
 								<>
