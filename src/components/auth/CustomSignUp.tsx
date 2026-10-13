@@ -7,7 +7,7 @@ import type React from 'react'
 import { useRef, useState } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
 import { TrackClick } from '@/components/analytics/TrackClick'
-import { clearOAuthMarker, writeOAuthMarker } from '@/components/global/sessionsTrackers'
+import { clearOAuthMarker, SessionsTracker, writeOAuthMarker } from '@/components/global/sessionsTrackers'
 import { Button } from '@/components/ui/button'
 import { FormInput } from '@/components/ui/FormInput'
 import { Icons } from '@/components/ui/icons'
@@ -445,6 +445,7 @@ export default function CustomSignUp() {
 	// Sign up form
 	return (
 		<div className="w-full max-w-md space-y-6">
+			<SessionsTracker />
 			{/* Header */}
 			<div className="space-y-2 text-start">
 				<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.signUp.title}</h1>
