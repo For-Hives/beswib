@@ -1,5 +1,7 @@
 'use client'
 
+import { SectionViewTracker } from '@/components/analytics/SectionViewTracker'
+import { TrackClick } from '@/components/analytics/TrackClick'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -28,6 +30,7 @@ export function CTASection({ withGlow = true, locale, className }: CTAProps) {
 					className
 				)}
 			>
+				<SectionViewTracker section="cta_section" />
 				<div className="relative mx-auto flex max-w-7xl flex-col items-center gap-6 px-6 py-12 text-center sm:gap-8 md:py-24">
 					{/* Title */}
 					<h2 className="animate-fade-in-up dark:text-foreground text-3xl font-semibold text-neutral-900 opacity-0 delay-200 sm:text-4xl">
@@ -42,13 +45,17 @@ export function CTASection({ withGlow = true, locale, className }: CTAProps) {
 
 					{/* Action Buttons */}
 					<div className="animate-fade-in-up flex flex-col gap-4 opacity-0 delay-500 sm:flex-row">
-						<Button asChild className="text-base" size="lg" variant={'outline'}>
-							<Link href={`/${locale}/contact`}>{translations.cta.organizerButton}</Link>
-						</Button>
+						<TrackClick name="cta_click" props={{ cta: 'organizer_contact', where: 'cta_section' }}>
+							<Button asChild className="text-base" size="lg" variant={'outline'}>
+								<Link href={`/${locale}/contact`}>{translations.cta.organizerButton}</Link>
+							</Button>
+						</TrackClick>
 
-						<Button asChild className="text-base" size="lg" variant={'default'}>
-							<Link href={`/${locale}/dashboard/seller/sell-bib`}>{translations.cta.sellBibButton}</Link>
-						</Button>
+						<TrackClick name="cta_click" props={{ cta: 'sell_bib', where: 'cta_section' }}>
+							<Button asChild className="text-base" size="lg" variant={'default'}>
+								<Link href={`/${locale}/dashboard/seller/sell-bib`}>{translations.cta.sellBibButton}</Link>
+							</Button>
+						</TrackClick>
 					</div>
 
 					{/* Glow Effect */}

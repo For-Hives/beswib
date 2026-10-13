@@ -28,7 +28,7 @@ interface LanguageSelectorProps {
 
 export default function LanguageSelector({ currentLocale = 'en' }: LanguageSelectorProps) {
 	const [isOpen, setIsOpen] = useState(false)
-	const { isUpdating, currentLocale: locale, changeLocale } = useLocale(currentLocale)
+	const { isUpdating, currentLocale: locale, changeLocale } = useLocale(currentLocale, 'footer')
 
 	const currentLanguage = languages.find(lang => lang.code === locale) ?? languages[0]
 

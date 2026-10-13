@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { TrackClick } from '@/components/analytics/TrackClick'
+import { umamiAttrs } from '@/lib/analytics/attrs'
 import type { LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { FacebookIcon, InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/utils/social'
@@ -19,7 +21,13 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 				<div className="flex flex-col gap-4">
 					<p className="text-muted-foreground text-sm">
 						{t.footer.madeWith} ❤️ {t.footer.by}{' '}
-						<Link className="underline" href="https://forhives.fr/" target="_blank" rel="noopener noreferrer">
+						<Link
+							className="underline"
+							href="https://forhives.fr/"
+							target="_blank"
+							rel="noopener noreferrer"
+							{...umamiAttrs('outbound_click', { target: 'forhives', where: 'footer' })}
+						>
 							ForHives
 						</Link>
 					</p>
@@ -29,6 +37,7 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="LinkedIn"
+							{...umamiAttrs('outbound_click', { target: 'linkedin', where: 'footer' })}
 							className="text-muted-foreground hover:text-foreground transition-colors"
 						>
 							<LinkedinIcon className="h-5 w-5" />
@@ -38,6 +47,7 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="Instagram"
+							{...umamiAttrs('outbound_click', { target: 'instagram', where: 'footer' })}
 							className="text-muted-foreground hover:text-foreground transition-colors"
 						>
 							<InstagramIcon className="h-5 w-5" />
@@ -47,6 +57,7 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="Strava"
+							{...umamiAttrs('outbound_click', { target: 'strava', where: 'footer' })}
 							className="text-muted-foreground hover:text-foreground transition-colors"
 						>
 							<StravaIcon className="h-5 w-5" />
@@ -56,6 +67,7 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="Facebook"
+							{...umamiAttrs('outbound_click', { target: 'facebook', where: 'footer' })}
 							className="text-muted-foreground hover:text-foreground transition-colors"
 						>
 							<FacebookIcon className="h-5 w-5" />
@@ -74,24 +86,32 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 						</h3>
 						<ul className="space-y-2 text-sm">
 							<li>
-								<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/marketplace`}>
-									{t.navbar.marketplaceLink}
-								</Link>
+								<TrackClick name="nav_click" props={{ item: 'marketplace', where: 'footer' }}>
+									<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/marketplace`}>
+										{t.navbar.marketplaceLink}
+									</Link>
+								</TrackClick>
 							</li>
 							<li>
-								<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/events`}>
-									{t.navbar.racesLink}
-								</Link>
+								<TrackClick name="nav_click" props={{ item: 'events', where: 'footer' }}>
+									<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/events`}>
+										{t.navbar.racesLink}
+									</Link>
+								</TrackClick>
 							</li>
 							<li>
-								<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/faq`}>
-									{t.navbar.faqLink}
-								</Link>
+								<TrackClick name="nav_click" props={{ item: 'faq', where: 'footer' }}>
+									<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/faq`}>
+										{t.navbar.faqLink}
+									</Link>
+								</TrackClick>
 							</li>
 							<li>
-								<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/contact`}>
-									{t.navbar.contactLink}
-								</Link>
+								<TrackClick name="nav_click" props={{ item: 'contact', where: 'footer' }}>
+									<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/contact`}>
+										{t.navbar.contactLink}
+									</Link>
+								</TrackClick>
 							</li>
 						</ul>
 					</div>
@@ -102,29 +122,45 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 						</h3>
 						<ul className="space-y-2 text-sm">
 							<li>
-								<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/legals/legal-notice`}>
-									{t.footer.links?.legalNotice ?? 'Legal Notice'}
-								</Link>
+								<TrackClick name="nav_click" props={{ item: 'legal_notice', where: 'footer' }}>
+									<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/legals/legal-notice`}>
+										{t.footer.links?.legalNotice ?? 'Legal Notice'}
+									</Link>
+								</TrackClick>
 							</li>
 							<li>
-								<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/legals/privacy-policy`}>
-									{t.footer.links?.privacy ?? 'Privacy Policy'}
-								</Link>
+								<TrackClick name="nav_click" props={{ item: 'privacy_policy', where: 'footer' }}>
+									<Link
+										className="text-muted-foreground hover:text-foreground"
+										href={`/${locale}/legals/privacy-policy`}
+									>
+										{t.footer.links?.privacy ?? 'Privacy Policy'}
+									</Link>
+								</TrackClick>
 							</li>
 							<li>
-								<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/legals/terms`}>
-									{t.footer.links?.terms ?? 'Terms of Service'}
-								</Link>
+								<TrackClick name="nav_click" props={{ item: 'terms', where: 'footer' }}>
+									<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/legals/terms`}>
+										{t.footer.links?.terms ?? 'Terms of Service'}
+									</Link>
+								</TrackClick>
 							</li>
 							<li>
-								<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/legals/data-deletion`}>
-									{t.footer.links?.dataDeletion ?? 'Data Deletion'}
-								</Link>
+								<TrackClick name="nav_click" props={{ item: 'data_deletion', where: 'footer' }}>
+									<Link
+										className="text-muted-foreground hover:text-foreground"
+										href={`/${locale}/legals/data-deletion`}
+									>
+										{t.footer.links?.dataDeletion ?? 'Data Deletion'}
+									</Link>
+								</TrackClick>
 							</li>
 							<li>
-								<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/legals/aup`}>
-									{t.footer.links?.aup ?? 'Acceptable Use Policy'}
-								</Link>
+								<TrackClick name="nav_click" props={{ item: 'aup', where: 'footer' }}>
+									<Link className="text-muted-foreground hover:text-foreground" href={`/${locale}/legals/aup`}>
+										{t.footer.links?.aup ?? 'Acceptable Use Policy'}
+									</Link>
+								</TrackClick>
 							</li>
 						</ul>
 					</div>

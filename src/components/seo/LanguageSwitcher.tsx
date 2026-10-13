@@ -27,7 +27,7 @@ const languages = {
 }
 
 export default function LanguageSwitcher({ currentLocale, className = '' }: LanguageSwitcherProps) {
-	const { isUpdating, currentLocale: locale, changeLocale } = useLocale(currentLocale)
+	const { isUpdating, currentLocale: locale, changeLocale } = useLocale(currentLocale, 'header')
 	const [isOpen, setIsOpen] = useState(false)
 	const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -125,7 +125,7 @@ export default function LanguageSwitcher({ currentLocale, className = '' }: Lang
 
 // Alternative component for small screens (dropdown)
 export function LanguageSwitcherMobile({ currentLocale }: LanguageSwitcherProps) {
-	const { isUpdating, currentLocale: locale, changeLocale } = useLocale(currentLocale)
+	const { isUpdating, currentLocale: locale, changeLocale } = useLocale(currentLocale, 'header_mobile')
 	const [isOpen, setIsOpen] = useState(false)
 	const dropdownRef = useRef<HTMLDivElement>(null)
 

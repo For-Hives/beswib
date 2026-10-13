@@ -1,5 +1,6 @@
 import { Calendar, CreditCard, Heart, Leaf, Search, Settings, Star, Users } from 'lucide-react'
 
+import { SectionViewTracker } from '@/components/analytics/SectionViewTracker'
 import type { LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { cn } from '@/lib/utils'
@@ -64,6 +65,7 @@ export default async function FeaturesBento({ localeParams }: { localeParams: Pr
 
 	return (
 		<section className="dark:bg-muted border-t border-neutral-200/60 bg-white py-24 dark:border-neutral-200/10">
+			<SectionViewTracker section="features" />
 			<div className="mx-auto max-w-7xl">
 				<div className="mb-16 text-center">
 					<h2 className="mb-6 text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
