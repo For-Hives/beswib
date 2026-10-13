@@ -1,12 +1,8 @@
-import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
-import { ImageResponse } from 'next/og'
-import OGImage from '@/components/OG/ogImage.component'
 import OGImageBib from '@/components/OG/ogImageBib.component'
 import { generateLocaleParams, type LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { renderCardOrGeneric } from '@/lib/og/dynamic-image'
 import { pocketBaseImageDataUrl } from '@/lib/og/pocketbase-image'
-import { rendered } from '@/lib/og/render'
 import { fetchExchangeRates } from '@/lib/utils/currency'
 import { getOrganizerImageUrl } from '@/lib/utils/images'
 import { checkBibListingStatus, fetchPublicBibById } from '@/services/bib.services'
@@ -81,47 +77,18 @@ export default async function Image({ params }: { params: Promise<MarketplaceOpe
 	// The organizer logo, fetched and converted here: the image only embeds data it was handed
 	const logoSrc = organizer?.logo ? await pocketBaseImageDataUrl(getOrganizerImageUrl(organizer)) : null
 
-	// Load custom fonts for @vercel/og with error handling
-	try {
-		const bowlbyFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/BowlbyOneSC-Regular.ttf'))
-		const geistFont = readFileSync(join(process.cwd(), 'src/components/OG/typos/Geist-Regular.ttf'))
-
-		// Return the Open Graph image with custom fonts
-		const image = new ImageResponse(
-			<OGImageBib
-				title={title}
-				secondary={secondary}
-				logoSrc={logoSrc}
-				size={size}
-				bib={bib}
-				locale={locale}
-				organizer={organizer ?? undefined}
-				exchangeRates={exchangeRates}
-			/>,
-			{
-				...size,
-				fonts: [
-					{
-						weight: 400,
-						style: 'normal',
-						name: 'BowlbyOneSC',
-						data: bowlbyFont,
-					},
-					{
-						weight: 400,
-						style: 'normal',
-						name: 'Geist',
-						data: geistFont,
-					},
-				],
-			}
-		)
-		// Drawn here, so that a failure reaches the catch below instead of cutting the response
-		return await rendered(image)
-	} catch (error) {
-		// A font that cannot be read, or an image that cannot be drawn
-		console.error('Error rendering the Open Graph image, falling back to the generic one:', error)
-		// Fallback: return the image without custom fonts
-		return new ImageResponse(<OGImage title={title} secondary={secondary} size={size} />, size)
-	}
+	return renderCardOrGeneric(
+		<OGImageBib
+			title={title}
+			secondary={secondary}
+			logoSrc={logoSrc}
+			size={size}
+			bib={bib}
+			locale={locale}
+			organizer={organizer ?? undefined}
+			exchangeRates={exchangeRates}
+		/>,
+		{ title, secondary },
+		size
+	)
 }

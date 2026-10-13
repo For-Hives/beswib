@@ -51,6 +51,58 @@ describe('pocketBaseImageDataUrl', () => {
 		expect(dataUrl?.startsWith(PNG_DATA_URL)).toBe(true)
 	})
 
+	it('reduces a large photo to what a card shows, well under what the renderer accepts', async () => {
+		const photo = await sharp({
+			create: {
+				width: 3000,
+				height: 2000,
+				channels: 3,
+				background: '#336699',
+				noise: { type: 'gaussian', mean: 128, sigma: 40 },
+			},
+		})
+			.jpeg()
+			.toBuffer()
+		fetchMock.mockResolvedValue(new Response(new Uint8Array(photo), { headers: { 'content-type': 'image/jpeg' } }))
+
+		const dataUrl = await pocketBaseImageDataUrl(FILE.replace('.webp', '.jpg'))
+
+		expect(dataUrl?.startsWith(PNG_DATA_URL)).toBe(true)
+		expect(dataUrl?.length).toBeLessThan(1_500_000)
+		const { width, height } = await sharp(
+			Buffer.from(String(dataUrl).slice('data:image/png;base64,'.length), 'base64')
+		).metadata()
+		expect([width, height]).toEqual([600, 400])
+	})
+
+	it('does not enlarge a small picture', async () => {
+		fetchMock.mockResolvedValue(await webp())
+
+		const dataUrl = await pocketBaseImageDataUrl(FILE)
+
+		const { width, height } = await sharp(
+			Buffer.from(String(dataUrl).slice('data:image/png;base64,'.length), 'base64')
+		).metadata()
+		expect([width, height]).toEqual([2, 2])
+	})
+
+	it('draws an SVG logo', async () => {
+		const svg =
+			'<svg xmlns="http://www.w3.org/2000/svg" width="40" height="20"><rect width="40" height="20" fill="#f00"/></svg>'
+		fetchMock.mockResolvedValue(new Response(svg, { headers: { 'content-type': 'image/svg+xml' } }))
+
+		const dataUrl = await pocketBaseImageDataUrl('https://api.beswib.com/api/files/organizer/abcdefghijklmno/logo.svg')
+
+		expect(dataUrl?.startsWith(PNG_DATA_URL)).toBe(true)
+		const { width, height } = await sharp(
+			Buffer.from(String(dataUrl).slice('data:image/png;base64,'.length), 'base64')
+		).metadata()
+		// drawn larger than its 40 x 20 points, so that it stays sharp in the card
+		expect(Number(width) / Number(height)).toBeCloseTo(2, 1)
+		expect(Number(width)).toBeGreaterThan(100)
+		expect(Number(width)).toBeLessThanOrEqual(600)
+	})
+
 	it.each([null, undefined, ''])('gives null without a URL (%s)', async url => {
 		expect(await pocketBaseImageDataUrl(url)).toBeNull()
 		expect(fetchMock).not.toHaveBeenCalled()

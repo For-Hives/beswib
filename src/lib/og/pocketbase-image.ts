@@ -9,12 +9,21 @@ const LOCAL_HOSTNAMES = new Set(['localhost', '127.0.0.1', '[::1]'])
 // /api/files/<collection>/<record id>/<file name>, the names PocketBase generates
 const FILE_PATH = /^\/api\/files\/[\w-]+\/[\w-]+\/[\w.-]+$/
 const SOURCE_TYPES = new Set(['image/webp', 'image/png', 'image/jpeg', 'image/gif', 'image/avif'])
+// Organizer logos may be SVG: drawn for an Open Graph image only, never handed out by the public route
+const SVG_TYPE = 'image/svg+xml'
+const SVG_DENSITY = 300
 const REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308])
 const MAX_REDIRECTS = 3
 const MAX_BYTES = 15 * 1024 * 1024
 // A few bytes can declare a 16383 x 16383 image: decoding stops well before that
 const MAX_PIXELS = 50_000_000
 const TIMEOUT_MS = 10_000
+// An Open Graph card shows its picture at about 250 px: twice that is plenty, and the renderer
+// refuses an embedded image above 10 MB of text (a 2560 px photo re-encoded as PNG is over it)
+const EMBEDDED_MAX_SIDE = 600
+
+/** For a picture embedded in an Open Graph image: fitted inside a square of this side, SVG accepted */
+type Embedding = { maxSide: number }
 
 export type PocketBaseImage =
 	| { ok: true; png: Buffer }
@@ -109,7 +118,7 @@ async function readLimited(response: Response): Promise<Buffer | null> {
 	return Buffer.concat(chunks)
 }
 
-async function fetchAsPng(rawUrl: string): Promise<PocketBaseImage> {
+async function fetchAsPng(rawUrl: string, embedding?: Embedding): Promise<PocketBaseImage> {
 	if (!URL.canParse(rawUrl)) return refused(400, 'Invalid URL')
 
 	// Only files of our own API domains
@@ -128,7 +137,8 @@ async function fetchAsPng(rawUrl: string): Promise<PocketBaseImage> {
 
 	// The declared type, without its parameters
 	const contentType = (response.headers.get('content-type') ?? '').split(';')[0].trim().toLowerCase()
-	if (!SOURCE_TYPES.has(contentType)) {
+	const isSvg = embedding != null && contentType === SVG_TYPE
+	if (!SOURCE_TYPES.has(contentType) && !isSvg) {
 		await response.body?.cancel()
 		return refused(415, 'Unsupported media type')
 	}
@@ -139,7 +149,12 @@ async function fetchAsPng(rawUrl: string): Promise<PocketBaseImage> {
 	// Decode and encode again: what leaves is a PNG whatever came in, or nothing
 	try {
 		const sharp = (await import('sharp')).default
-		return { ok: true, png: await sharp(buffer, { limitInputPixels: MAX_PIXELS }).png().toBuffer() }
+		let image = sharp(buffer, { limitInputPixels: MAX_PIXELS, ...(isSvg ? { density: SVG_DENSITY } : {}) })
+		if (embedding != null) {
+			const side = embedding.maxSide
+			image = image.rotate().resize({ width: side, height: side, fit: 'inside', withoutEnlargement: true })
+		}
+		return { ok: true, png: await image.png().toBuffer() }
 	} catch (error) {
 		console.error('Error converting image to PNG with sharp:', error)
 		return refused(415, 'Unsupported image')
@@ -150,9 +165,9 @@ async function fetchAsPng(rawUrl: string): Promise<PocketBaseImage> {
  * The image behind a PocketBase file URL, as a PNG, or the reason it is refused (with the HTTP
  * status the public route answers). Only an unexpected failure throws.
  */
-export async function fetchPocketBaseImageAsPng(rawUrl: string): Promise<PocketBaseImage> {
+export async function fetchPocketBaseImageAsPng(rawUrl: string, embedding?: Embedding): Promise<PocketBaseImage> {
 	try {
-		return await fetchAsPng(rawUrl)
+		return await fetchAsPng(rawUrl, embedding)
 	} catch (error) {
 		if (error instanceof DOMException && error.name === 'TimeoutError') return refused(504, 'Upstream timeout')
 		// the file server could not be reached
@@ -164,11 +179,12 @@ export async function fetchPocketBaseImageAsPng(rawUrl: string): Promise<PocketB
 /**
  * The same image as a data URL, for an Open Graph image, or null when there is none to show:
  * no URL, a refused or missing file, a failure. Never throws: the image is then drawn without it.
+ * The picture is reduced to what a card shows and turned upright (EXIF), an SVG logo is drawn.
  */
 export async function pocketBaseImageDataUrl(rawUrl: string | null | undefined): Promise<string | null> {
 	if (rawUrl == null || rawUrl === '') return null
 	try {
-		const image = await fetchPocketBaseImageAsPng(rawUrl)
+		const image = await fetchPocketBaseImageAsPng(rawUrl, { maxSide: EMBEDDED_MAX_SIDE })
 		return image.ok ? `data:image/png;base64,${image.png.toString('base64')}` : null
 	} catch (error) {
 		console.error('Error loading an image for an Open Graph image:', error)
