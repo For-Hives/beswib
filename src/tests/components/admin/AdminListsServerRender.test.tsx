@@ -29,14 +29,25 @@ import { adminUser } from './tableHarness'
 const tagContent = (html: string, tag: string): string[] =>
 	[...html.matchAll(new RegExp(`<${tag}\\b[^>]*>(.*?)</${tag}>`, 'gs'))].map(match => match[1])
 
-const tagText = (html: string, tag: string): string[] =>
-	tagContent(html, tag).map(content => content.replace(/<[^>]+>/g, ''))
+/** The text of a piece of React's own markup: what stands outside the tags (React escapes < and > in text) */
+function textOf(html: string): string {
+	let text = ''
+	let insideTag = false
+	for (const char of html) {
+		if (char === '<') insideTag = true
+		else if (char === '>') insideTag = false
+		else if (!insideTag) text += char
+	}
+	return text
+}
+
+const tagText = (html: string, tag: string): string[] => tagContent(html, tag).map(textOf)
 
 /** The headers that carry the sort arrow, as "header: direction" */
 const sortArrows = (html: string): string[] =>
 	tagContent(html, 'th').flatMap(content => {
 		const arrow = content.match(/lucide-chevron-(up|down)/)
-		return arrow ? [`${content.replace(/<[^>]+>/g, '')}: ${arrow[1] === 'up' ? 'asc' : 'desc'}`] : []
+		return arrow ? [`${textOf(content)}: ${arrow[1] === 'up' ? 'asc' : 'desc'}`] : []
 	})
 
 const headerWidths = (html: string): string[] =>
