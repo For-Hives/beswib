@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import type { EventId } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -9,6 +10,8 @@ import waitlistTranslations from './locales.json'
 interface Props {
 	joinLabel: string
 	eventId: string
+	/** For the analytics probes of the page that renders it */
+	analyticsEventId?: EventId
 	action: (formData: FormData) => Promise<void>
 	locale: Locale
 }

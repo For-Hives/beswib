@@ -31,6 +31,8 @@ interface PayPalPurchaseClientProps {
 	eventData?: Event & { expand?: { organizer: Organizer } }
 	organizerData?: Organizer
 	bibData?: Bib & { expand?: { eventId: Event; sellerUserId: AppUser } }
+	/** The bib was reached through its private link (analytics probes) */
+	isPrivate?: boolean
 }
 
 /**

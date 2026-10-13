@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import type { EventId } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import type { User as UserModel } from '@/models/user.model'
@@ -16,6 +17,8 @@ import eventWaitlistTranslations from './locales/EventWaitlistCard.locales.json'
 
 interface EventWaitlistCardProps {
 	eventId: string
+	/** For the analytics probes of the page that renders it */
+	analyticsEventId?: EventId
 	eventName: string
 	locale: Locale
 	user?: UserModel | null

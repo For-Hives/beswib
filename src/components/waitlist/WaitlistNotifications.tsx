@@ -1,10 +1,10 @@
 'use client'
 
 import { AlertCircle, CheckCircle, Mail } from 'lucide-react'
-
 import { useQueryState } from 'nuqs'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import type { EventId } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -12,6 +12,8 @@ import waitlistTranslations from './locales.json'
 
 interface WaitlistNotificationsProps {
 	eventId: string
+	/** For the analytics probes of the page that renders it */
+	analyticsEventId?: EventId
 	eventName: string
 	locale: Locale
 }

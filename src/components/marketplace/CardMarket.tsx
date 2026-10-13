@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { Calendar, Eye, MapPinned, ShoppingCart, User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import type { EventProps } from '@/lib/analytics/catalog'
 import { cn } from '@/lib/utils'
 
 import { formatDateWithLocale } from '@/lib/utils/date'
@@ -14,6 +15,9 @@ interface CardMarketProps {
 	locale: Locale
 	/** Optional event data for official price comparison */
 	eventData?: Event
+	/** List the card sits in and its rank there: set where a click on the card is counted, left out elsewhere */
+	trackWhere?: EventProps<'bib_card_click'>['where']
+	position?: number
 }
 
 import marketplaceTranslations from '@/components/marketplace/locales.json'
