@@ -12,9 +12,9 @@ import type { ImageWithAlt } from '@/models/imageWithAlt.model'
 export function getPocketBaseUrl(): string {
 	const url = process.env.NEXT_PUBLIC_POCKETBASE_URL
 
-	// If URL is provided, use it
+	// If URL is provided, use it, without a trailing slash: paths are appended as `${baseUrl}/api/...`
 	if (url) {
-		return url
+		return url.replace(/\/+$/, '')
 	}
 
 	// Fallback to staging (this should never happen in production)
