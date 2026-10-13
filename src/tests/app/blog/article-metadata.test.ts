@@ -52,8 +52,17 @@ describe('metadata of a blog article', () => {
 	it('gives the article a canonical URL and an Open Graph URL on the public address', async () => {
 		const metadata = await metadataOf('en')
 
-		expect(metadata.alternates?.canonical).toBe(`${BASE}/en/blog/${SLUG}/`)
-		expect(metadata.openGraph?.url).toBe(`${BASE}/en/blog/${SLUG}/`)
+		expect(metadata.alternates?.canonical).toBe(`${BASE}/en/blog/${SLUG}`)
+		expect(metadata.openGraph?.url).toBe(`${BASE}/en/blog/${SLUG}`)
+	})
+
+	it('announces the address the page answers on, not the slashed one the site redirects away from', async () => {
+		const metadata = await metadataOf('en')
+
+		// next.config.ts has trailingSlash: false: /en/blog/<slug>/ answers 308 to /en/blog/<slug>, and
+		// an og:url that redirects to the page that announces it is a loop for a share crawler
+		expect(String(metadata.alternates?.canonical).endsWith('/')).toBe(false)
+		expect(String(metadata.openGraph?.url).endsWith('/')).toBe(false)
 	})
 
 	it('follows the locale of the page, without doubling it', async () => {
@@ -61,8 +70,8 @@ describe('metadata of a blog article', () => {
 
 		const metadata = await metadataOf('fr', 'premier-10-km')
 
-		expect(metadata.alternates?.canonical).toBe(`${BASE}/fr/blog/premier-10-km/`)
-		expect(metadata.openGraph?.url).toBe(`${BASE}/fr/blog/premier-10-km/`)
+		expect(metadata.alternates?.canonical).toBe(`${BASE}/fr/blog/premier-10-km`)
+		expect(metadata.openGraph?.url).toBe(`${BASE}/fr/blog/premier-10-km`)
 	})
 
 	it('announces no translation: another locale has another slug', async () => {
@@ -95,8 +104,8 @@ describe('metadata of a blog article', () => {
 			const metadata = await metadataOf('en')
 			const { metadataBase } = generateRootMetadata()
 
-			expect(metadata.alternates?.canonical).toBe(`https://beswib.com/en/blog/${SLUG}/`)
-			expect(metadata.openGraph?.url).toBe(`https://beswib.com/en/blog/${SLUG}/`)
+			expect(metadata.alternates?.canonical).toBe(`https://beswib.com/en/blog/${SLUG}`)
+			expect(metadata.openGraph?.url).toBe(`https://beswib.com/en/blog/${SLUG}`)
 			expect(String(metadataBase)).toBe('https://beswib.com/')
 		}
 	})
