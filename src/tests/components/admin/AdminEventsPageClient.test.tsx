@@ -23,6 +23,7 @@ import {
 	adminUser,
 	bodyRows,
 	buttonNamed,
+	cellNodes,
 	cellsOf,
 	choosePageSize,
 	click,
@@ -462,28 +463,48 @@ describe('AdminEventsPageClient', () => {
 			])
 		})
 
-		it('starts descending on the organizer when the first event has none', async () => {
-			// table-core 8 decides the first direction of a column from the first row alone
+		it('starts ascending on the organizer even when the first event has none', async () => {
+			// table-core 8 took the first direction of a column from its first row alone: when that event happened to have
+			// no organizer, the first click sorted the names from Z to A instead of A to Z.
 			const [first, ...others] = RECORDS
 			await show(events([RECORDS[3], first, ...others.filter(record => record !== RECORDS[3])]))
 
 			await click(sortButton(container, 'Organizer'))
-			expect(sortArrows(container)).toEqual({ Organizer: 'desc' })
+			expect(sortArrows(container)).toEqual({ Organizer: 'asc' })
 		})
 
-		it('orders ten rows or fewer by raw character codes: capitals first, 10 before 9', async () => {
-			// table-core 8 picks the comparator of a column from the rows after the tenth; a shorter list gets the raw one
+		it('sorts the organizers the same way when the first ten events have none', async () => {
+			// What the table samples to choose a comparison and a first direction: nothing to learn from these ten
+			const orphans = RECORDS.slice(0, 10).map(([name, , ...rest]): EventRecord => [name, null, ...rest])
+			await show(
+				events([
+					...orphans,
+					['Trail de Zeta', 'zeta Sport 10', '2024-01-10', 20, 'trail', 100],
+					['Trail de Beta', 'Zeta Sport 9', '2024-01-11', 20, 'trail', 100],
+					['Trail d’Alpha', 'Alpha Club', '2024-01-12', 20, 'trail', 100],
+				])
+			)
+			await choosePageSize(container, 25)
+
+			await click(sortButton(container, 'Organizer'))
+			expect(sortArrows(container)).toEqual({ Organizer: 'asc' })
+			expect(columnCells(container, 'Organizer').slice(0, 3)).toEqual(['Alpha Club', 'Zeta Sport 9', 'zeta Sport 10'])
+		})
+
+		it('orders ten rows or fewer like a longer list: case ignored, 9 before 10', async () => {
+			// table-core 8 chose the comparison of a column from the rows after the tenth. A search that left ten rows or
+			// fewer fell back to raw character codes: capitals first, "10" before "9", unlike the full list.
 			await show()
 
 			await typeInto(search(), 'alpes trail')
 			await click(sortButton(container, NAME))
 			expect(names()).toEqual([
+				'annecy Lake Run',
 				'Gravel des Alpes',
+				'Trail des Vosges 9',
 				'Trail des Vosges 10',
 				'Trail des Vosges 100',
-				'Trail des Vosges 9',
 				'UTMB Mont-Blanc',
-				'annecy Lake Run',
 			])
 		})
 
@@ -861,6 +882,17 @@ describe('AdminEventsPageClient', () => {
 
 			await settle(150)
 			expect(page.commits()).toBe(before)
+		})
+
+		it('keeps the cells of a row in place when another row is selected', async () => {
+			// The columns used to be a new array at every render: React then threw every cell away and built it again
+			await show()
+			const before = cellNodes(rowNamed(container, 'Semi de Paris'))
+			expect(before.every(node => node != null)).toBe(true)
+
+			await click(rowBox(container, 'Lyon Urban Trail'))
+			const after = cellNodes(rowNamed(container, 'Semi de Paris'))
+			expect(after.map((node, index) => node === before[index])).toEqual(before.map(() => true))
 		})
 
 		it('does not go through the records again when only the selection or the order changes', async () => {

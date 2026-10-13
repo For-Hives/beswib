@@ -22,6 +22,7 @@ import {
 	adminUser,
 	bodyRows,
 	buttonNamed,
+	cellNodes,
 	cellsOf,
 	choosePageSize,
 	click,
@@ -411,20 +412,21 @@ describe('AdminArticlesPageClient', () => {
 			])
 		})
 
-		it('orders ten rows or fewer by raw character codes: capitals first, 10 before 9', async () => {
-			// table-core 8 picks the comparator of a column from the rows after the tenth; a shorter list gets the raw one
+		it('orders ten rows or fewer like a longer list: case ignored, 9 before 10', async () => {
+			// table-core 8 chose the comparison of a column from the rows after the tenth. A search that left ten rows or
+			// fewer fell back to raw character codes: capitals first, "10" before "9", unlike the full list.
 			await show()
 
 			await typeInto(search(), 'top')
 			await click(sortButton(container, 'Title'))
-			expect(titles()).toEqual(['Top 10 des trails en France', 'Top 100 des courses mythiques', 'Top 9 des marathons'])
+			expect(titles()).toEqual(['Top 9 des marathons', 'Top 10 des trails en France', 'Top 100 des courses mythiques'])
 
 			await typeInto(search(), 'tion')
 			expect(titles()).toEqual([
 				'Hydratation en course',
+				'inscription : mode d’emploi',
 				'Nutrition avant un semi',
 				'Récupération après un ultra',
-				'inscription : mode d’emploi',
 			])
 		})
 
@@ -804,6 +806,17 @@ describe('AdminArticlesPageClient', () => {
 
 			await settle(150)
 			expect(page.commits()).toBe(before)
+		})
+
+		it('keeps the cells of a row in place when another row is selected', async () => {
+			// The columns used to be a new array at every render: React then threw every cell away and built it again
+			await show()
+			const before = cellNodes(rowNamed(container, 'Hydratation en course'))
+			expect(before.every(node => node != null)).toBe(true)
+
+			await click(rowBox(container, 'Objectif 10 km'))
+			const after = cellNodes(rowNamed(container, 'Hydratation en course'))
+			expect(after.map((node, index) => node === before[index])).toEqual(before.map(() => true))
 		})
 
 		it('does not go through the records again when only the selection or the order changes', async () => {

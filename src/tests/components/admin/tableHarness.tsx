@@ -200,6 +200,10 @@ export const bodyRows = (container: HTMLElement): HTMLTableRowElement[] => [
 
 export const cellsOf = (row: HTMLTableRowElement): string[] => [...row.querySelectorAll('td')].map(td => text(td))
 
+/** What each cell of a row renders, as DOM nodes: the same nodes later means the cells were updated, not rebuilt */
+export const cellNodes = (row: HTMLTableRowElement): (Element | null)[] =>
+	[...row.querySelectorAll('td')].map(td => td.firstElementChild)
+
 /** The text of one column, top to bottom, for the rows on screen */
 export const columnCells = (container: HTMLElement, header: string): string[] => {
 	const index = headerCells(container).indexOf(header)

@@ -12,6 +12,7 @@ import {
 	adminUser,
 	bodyRows,
 	buttonNamed,
+	cellNodes,
 	cellsOf,
 	choosePageSize,
 	click,
@@ -348,27 +349,32 @@ describe('AdminOrganizersPageClient', () => {
 			expect(sortArrows(container)).toEqual({ Email: 'asc' })
 		})
 
-		it('flips the last column of a double sort on a plain click, the first one staying', async () => {
+		it('goes back to a single sort on a plain click, whichever column of a double sort is clicked', async () => {
+			// table-core 8 made an exception for the column added last: a plain click flipped it and kept the other one,
+			// while the same click on the other column replaced the whole sort. Without shift, a click now means one sort.
 			await show()
 			await click(sortButton(container, 'Partnership'))
 			await click(sortButton(container, 'Events'), { shiftKey: true })
 
 			await click(sortButton(container, 'Events'))
-			expect(sortArrows(container)).toEqual({ Partnership: 'desc', Events: 'asc' })
+			expect(sortArrows(container)).toEqual({ Events: 'asc' })
 
-			// The first column of the double sort does not get that treatment: it replaces the whole sort
-			await click(sortButton(container, 'Partnership'))
-			expect(sortArrows(container)).toEqual({ Partnership: 'asc' })
+			await click(sortButton(container, 'Partnership'), { shiftKey: true })
+			expect(sortArrows(container)).toEqual({ Events: 'asc', Partnership: 'desc' })
+			await click(sortButton(container, 'Events'))
+			expect(sortArrows(container)).toEqual({ Events: 'desc' })
 		})
 
-		it('orders ten rows or fewer by raw character codes: capitals first, 10 before 9', async () => {
-			// table-core 8 picks the comparator of a column from the rows after the tenth; a shorter list gets the raw one
+		it('orders ten rows or fewer like a longer list: case ignored, 9 before 10', async () => {
+			// table-core 8 chose the comparison of a column from the rows after the tenth. A list this short had none, and
+			// fell back to raw character codes: capitals first, "10" before "9", unlike the same list once it grew.
 			await show(organizers(RECORDS.slice(0, 5)))
 
-			expect(names()).toEqual(['Alpes Trail', 'Trail 10 Vosges', 'Trail 9 Vosges', 'Zermatt Ultra', 'annecy Running'])
+			expect(names()).toEqual(['Alpes Trail', 'annecy Running', 'Trail 9 Vosges', 'Trail 10 Vosges', 'Zermatt Ultra'])
 		})
 
-		it('orders the result of a search by raw character codes when it has ten rows or fewer', async () => {
+		it('keeps the order of the full list in the result of a search', async () => {
+			// Same cause: on table-core 8 a search that left ten rows or fewer reordered them ("Trail 9" after "Trail 100")
 			await show()
 
 			await typeInto(search(), 'trail')
@@ -376,9 +382,9 @@ describe('AdminOrganizersPageClient', () => {
 				'Alpes Trail',
 				'Jura Trail',
 				'Quimper Trail',
+				'Trail 9 Vosges',
 				'Trail 10 Vosges',
 				'Trail 100 Vosges',
-				'Trail 9 Vosges',
 				'École de Trail',
 			])
 		})
@@ -793,6 +799,17 @@ describe('AdminOrganizersPageClient', () => {
 
 			await settle(150)
 			expect(page.commits()).toBe(before)
+		})
+
+		it('keeps the cells of a row in place when another row is selected', async () => {
+			// The columns used to be a new array at every render: React then threw every cell away and built it again
+			await show()
+			const before = cellNodes(rowNamed(container, 'Alpes Trail'))
+			expect(before.every(node => node != null)).toBe(true)
+
+			await click(rowBox(container, 'Bordeaux Marathon'))
+			const after = cellNodes(rowNamed(container, 'Alpes Trail'))
+			expect(after.map((node, index) => node === before[index])).toEqual(before.map(() => true))
 		})
 
 		it('does not go through the records again when only the selection or the order changes', async () => {
