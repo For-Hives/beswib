@@ -28,7 +28,7 @@ jobs:
           git commit -m "⬆️VERSION⬆️ ❇️${GITHUB_REF#refs/tags/v}❇️"
 
       - name: Push changes
-        uses: ad-m/github-push-action@v1.3.0
+        uses: ad-m/github-push-action@881a6320fdb16eb5318c5054f31c218aec2b324c # v1.3.0
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           branch: main
@@ -36,5 +36,8 @@ jobs:
       # Coolify 4.3+ only accepts POST on its deploy endpoint (a GET gets a 405).
       # --fail-with-body: a refused call fails the job instead of passing unseen.
       - name: Deploy to Coolify
+        env:
+          COOLIFY_WEBHOOK: ${{ secrets.COOLIFY_WEBHOOK }}
+          COOLIFY_TOKEN: ${{ secrets.COOLIFY_TOKEN }}
         run: |
-          curl --fail-with-body --request POST '${{ secrets.COOLIFY_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'
+          curl --fail-with-body --request POST "$COOLIFY_WEBHOOK" --header "Authorization: Bearer $COOLIFY_TOKEN"
