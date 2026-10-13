@@ -16,7 +16,6 @@ export async function createSEO(seoData: Omit<SEO, 'id' | 'created' | 'updated'>
 
 		const record = await pb.collection('seo').create<SEO>(dataToCreate)
 
-		console.info('SEO record created successfully:', record.id)
 		return record
 	} catch (error: unknown) {
 		console.error('PocketBase error details:', error)
@@ -57,7 +56,6 @@ export async function updateSEOById(id: string, seoData: Partial<SEO>): Promise<
 
 		const record = await pb.collection('seo').update<SEO>(id, dataToUpdate)
 
-		console.info('SEO record updated successfully:', record.id)
 		return record
 	} catch (error: unknown) {
 		console.error('PocketBase error details:', error)

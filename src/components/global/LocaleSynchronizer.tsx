@@ -34,12 +34,8 @@ export default function LocaleSynchronizer() {
 				// Attempt to sync locale to database
 				const result = await syncUserLocaleFromCookie(authoritativeLocale)
 
-				if (result.success === true && result.updated === true) {
-					console.info(`✅ User locale synchronized and stored: ${authoritativeLocale}`)
-				} else if (result.success === true && result.updated === false) {
-					// User already has a locale set, which is normal
-					console.debug('User already has locale preference set')
-				} else {
+				// A stored locale, or a user who already has a locale set, is normal
+				if (result.success !== true || (result.updated !== true && result.updated !== false)) {
 					console.warn('Failed to sync user locale to database:', result.error)
 				}
 			} catch (error) {
@@ -69,7 +65,6 @@ export function GlobalLocaleSynchronizer() {
 				if (authoritativeLocale && isSupportedLocale(authoritativeLocale)) {
 					// Ensure consistency across all storage mechanisms
 					synchronizeLocale(authoritativeLocale)
-					console.debug(`🌐 Global locale synchronized: ${authoritativeLocale}`)
 				}
 			} catch (error) {
 				console.warn('Error in global locale synchronization:', error)

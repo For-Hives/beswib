@@ -22,12 +22,6 @@ export async function POST(request: NextRequest) {
 		const body = await request.text()
 		const headers = request.headers
 
-		// Log webhook for debugging
-		console.info('PayPal webhook received:', {
-			headers: Object.fromEntries(headers.entries()),
-			body: body,
-		})
-
 		// Verify webhook signature
 		const verified = await verifyPayPalWebhookSignature({ headers, body })
 		if (!verified) {
@@ -38,6 +32,7 @@ export async function POST(request: NextRequest) {
 		// Parse the webhook payload
 		const webhookEvent = JSON.parse(body) as PayPalWebhookEvent
 
+		// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 		console.info('Processing PayPal webhook event:', webhookEvent.event_type)
 
 		let result: unknown = null
@@ -58,6 +53,7 @@ export async function POST(request: NextRequest) {
 				result = await handleCheckoutOrderApproved(webhookEvent)
 				break
 			default:
+				// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 				console.info('Unhandled PayPal webhook event type:', webhookEvent.event_type)
 		}
 

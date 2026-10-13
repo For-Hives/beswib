@@ -103,8 +103,6 @@ export default function OrganizerFakerButton({ setValue }: OrganizerFakerButtonP
 				setValue(key as keyof OrganizerFormData, value)
 			}
 		})
-
-		console.info('🎭 Fake organizer data generated:', fakeData)
 	}
 
 	// Don't render in production

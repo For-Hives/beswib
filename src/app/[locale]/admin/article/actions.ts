@@ -40,6 +40,7 @@ async function revalidateTranslationGroup(translationGroup: string): Promise<voi
 		// Revalidate blog list to reflect changes
 		revalidateTag('blog-list', 'max')
 
+		// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 		console.info(`Revalidated translation group: ${translationGroup} (${articles.length} articles)`)
 	} catch (error) {
 		console.error('Error revalidating translation group:', error)
@@ -123,6 +124,7 @@ export async function createArticleAction(formData: FormData): Promise<{
 		})
 
 		if (result != null) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Admin ${adminUser.email} created article: ${result.title}`)
 
 			// Revalidate blog list to reflect the new article in the list
@@ -370,6 +372,7 @@ export async function updateArticleAction(
 		})
 
 		if (result != null) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Admin ${adminUser.email} updated article: ${result.title}`)
 
 			// Revalidate the specific article and blog list
@@ -421,6 +424,7 @@ export async function deleteArticleAction(id: string): Promise<{
 
 		await deleteArticleById(id)
 
+		// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 		console.info(`Admin ${adminUser.email} deleted article: ${id}`)
 
 		// Revalidate blog pages to remove deleted article
@@ -494,6 +498,7 @@ export async function generateAltTextAction(formData: FormData): Promise<{
 		const altText = await generateImageAltText(imageFile, { language })
 
 		if (altText) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Admin ${adminUser.email} generated alt text with Forvoyez`)
 			logs.push(`✓ Alt text generated: "${altText}"`)
 			logs.push('🎉 Alt text generation completed!')
@@ -573,6 +578,7 @@ export async function generateSEOAction(formData: FormData): Promise<{
 		})
 
 		if (result) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Admin ${adminUser.email} generated SEO content with Gemini`)
 			logs.push(`✓ SEO Title: "${result.seoTitle}" (${result.seoTitle.length}/60 chars)`)
 			logs.push(`✓ SEO Description: "${result.seoDescription}" (${result.seoDescription.length}/160 chars)`)
@@ -842,6 +848,7 @@ export async function generateArticleTranslationAction(
 		}
 
 		if (result != null) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Admin ${adminUser.email} generated ${targetLocale} translation for article: ${sourceArticle.title}`)
 			logs.push('🎉 Translation generation completed!')
 
@@ -923,6 +930,7 @@ export async function publishAllTranslationsAction(translationGroup: string): Pr
 			}
 		}
 
+		// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 		console.info(
 			`Admin ${adminUser.email} published ${publishedCount} articles in translation group: ${translationGroup}`
 		)
@@ -1025,6 +1033,7 @@ export async function generateAllMissingTranslationsAction(sourceArticleId: stri
 			}
 		}
 
+		// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 		console.info(
 			`Admin ${adminUser.email} generated ${successes.length}/${targetLocales.length} translations for article: ${sourceArticle.title}`
 		)

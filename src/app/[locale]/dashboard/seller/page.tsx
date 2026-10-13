@@ -38,6 +38,7 @@ export default async function SellerDashboardPage({ params }: { params: Promise<
 	try {
 		const expiredCount = await updateExpiredBibsToWithdrawn(pbUser.id)
 		if (expiredCount > 0) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Updated ${expiredCount} expired bibs to withdrawn status for seller ${pbUser.id}`)
 		}
 	} catch (error) {

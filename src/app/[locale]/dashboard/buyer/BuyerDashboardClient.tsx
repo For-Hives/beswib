@@ -146,13 +146,11 @@ export default function BuyerDashboardClient({
 	const handleDeleteConfirm = async () => {
 		if (!waitlistToDelete) return
 
-		console.info('🔍 Client: Starting delete confirmation for waitlist:', waitlistToDelete)
 		setIsDeleting(true)
 		try {
 			const requestBody = {
 				eventId: waitlistToDelete.event_id,
 			}
-			console.info('🔍 Client: Sending request with body:', requestBody)
 
 			const response = await fetch('/api/waitlist/remove', {
 				method: 'POST',
@@ -162,13 +160,8 @@ export default function BuyerDashboardClient({
 				body: JSON.stringify(requestBody),
 			})
 
-			console.info('🔍 Client: Response status:', response.status)
-			console.info('🔍 Client: Response ok:', response.ok)
-
 			if (response.ok) {
-				const responseData = (await response.json()) as { success: boolean }
-				console.info('🔍 Client: Response data:', responseData)
-				console.info('✅ Client: Successfully disabled notifications, reloading page')
+				await response.json()
 				// Reload the page to update the waitlist
 				window.location.reload()
 			} else {
@@ -337,7 +330,7 @@ export default function BuyerDashboardClient({
 										{succeededTransactions.map(tx => {
 											if (tx == null) return null
 											const bib = tx.expand?.bib_id
-											if (!bib || !bib.id) return null
+											if (!bib?.id) return null
 											return (
 												<div className="group relative h-full w-full" key={tx.id}>
 													<div className="bg-card/80 border-border hover:border-foreground/35 relative flex h-full flex-col overflow-hidden rounded-2xl border shadow-[0_0_0_1px_hsl(var(--border)),inset_0_0_30px_hsl(var(--primary)/0.1),inset_0_0_60px_hsl(var(--accent)/0.05),0_0_50px_hsl(var(--primary)/0.2)] backdrop-blur-md transition-all duration-300">

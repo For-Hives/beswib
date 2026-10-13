@@ -11,38 +11,21 @@ export async function createOrganizer(
 	organizerData: Omit<Organizer, 'created' | 'id' | 'updated'> & { logoFile?: unknown }
 ): Promise<null | Organizer> {
 	try {
-		console.info('🚀 [SERVICE] Creating organizer in PocketBase:', organizerData.name)
-
 		// Prepare form data for PocketBase (multipart/form-data) 📄
-		console.info('📦 [SERVICE] Creating FormData...')
 		const formData = new FormData()
 
 		// Add required text fields ✅
-		console.info('✅ [SERVICE] Adding basic fields...')
 		formData.append('name', organizerData.name)
 		formData.append('email', organizerData.email)
 		formData.append('isPartnered', String(organizerData.isPartnered))
 
 		// Add optional fields only if they exist 🤔
 		if (organizerData.website != null && organizerData.website !== undefined && organizerData.website.trim() !== '') {
-			console.info('🌐 [SERVICE] Adding website field...')
 			formData.append('website', organizerData.website.trim())
 		}
 
 		// Handle logo file upload - server-safe check
-		console.info('🖼️ [SERVICE] Processing logo file...', {
-			logoFileType: organizerData.logoFile != null ? typeof organizerData.logoFile : 'undefined',
-			isFileGlobalDefined: typeof File !== 'undefined',
-			hasLogoFile: organizerData.logoFile != null,
-		})
-
 		if (organizerData.logoFile != null) {
-			console.info('📋 [SERVICE] Logo file details:', {
-				type: typeof organizerData.logoFile,
-				hasStream: Object.hasOwn(organizerData.logoFile, 'stream'),
-				constructor: organizerData.logoFile?.constructor?.name ?? 'undefined',
-			})
-
 			// COMPLETELY avoid using instanceof File - use only string checks
 			const hasFileConstructorName =
 				organizerData.logoFile != null &&
@@ -54,27 +37,15 @@ export async function createOrganizer(
 				typeof organizerData.logoFile === 'object' &&
 				Object.hasOwn(organizerData.logoFile, 'stream')
 
-			console.info('🔍 [SERVICE] File checks:', {
-				willUpload: hasFileConstructorName || hasStreamProperty,
-				hasStreamProperty,
-				hasFileConstructorName,
-			})
-
 			if (hasFileConstructorName || hasStreamProperty) {
-				console.info('📎 [SERVICE] Adding logo file to FormData...')
 				formData.append('logo', organizerData.logoFile as Blob)
-				console.info('✅ [SERVICE] Logo file added successfully')
 			} else {
 				console.warn('⚠️ [SERVICE] logoFile is not a proper File object, skipping file upload')
 			}
-		} else {
-			console.info('📷 [SERVICE] No logo file provided')
 		}
 
 		// Create record using multipart/form-data 💾
-		console.info('💾 [SERVICE] Sending to PocketBase...')
 		const record = await pb.collection('organizer').create(formData)
-		console.info('✅ [SERVICE] PocketBase record created:', record.id)
 
 		const result = {
 			website: (record.website as string) ?? null,
@@ -87,7 +58,6 @@ export async function createOrganizer(
 			created: new Date(record.created as string),
 		}
 
-		console.info('🎉 [SERVICE] createOrganizer completed successfully')
 		return result
 	} catch (error) {
 		console.error('💥 [SERVICE] Error creating organizer:', error)

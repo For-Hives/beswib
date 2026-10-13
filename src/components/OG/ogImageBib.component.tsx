@@ -33,7 +33,6 @@ function formatTextWithColor(text: string, highlightColor = '#4C639A') {
 			const lineParts = processTextForHighlighting(currentSentence, highlightColor)
 			lines.push({ parts: lineParts })
 
-			console.info(`✅ Created line ${lines.length}:`, currentSentence)
 			currentSentence = ''
 		} else {
 			// This is text, add it to current sentence

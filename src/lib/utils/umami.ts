@@ -58,8 +58,6 @@ function sanitizeLocalePayload(payload: UmamiPayload): UmamiPayload {
 	if (typeof payload.url === 'string') {
 		locale = payload.url.match(/^(https?:\/\/[^/]+)\/([a-z]{2})(?:\/(.*))?$/)
 
-		console.info('Extracted locale:', locale)
-
 		payload.data.locale = locale ? locale[2] : ''
 
 		if (locale) {

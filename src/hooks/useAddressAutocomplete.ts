@@ -117,7 +117,7 @@ export function useAddressAutocomplete(options: UseAddressAutocompleteOptions = 
 		}
 	}, [debounceMs, query, searchAddressesDebounced])
 
-	const selectSuggestion = useCallback((suggestion: NominatimResult) => {
+	const selectSuggestion = useCallback(() => {
 		// This callback can be used by parent components to handle selection
 		// Clear the internal state without modifying query (to avoid race conditions)
 		setSuggestions([])
@@ -126,7 +126,6 @@ export function useAddressAutocomplete(options: UseAddressAutocompleteOptions = 
 
 		// Note: The actual suggestion handling is done in the AddressInput component
 		// This callback is primarily for clearing state
-		console.debug('Address suggestion selected:', suggestion.display_name)
 	}, [])
 
 	const hideSuggestions = useCallback(() => {

@@ -14,8 +14,6 @@ import { fetchUserByClerkId, fetchUserById } from './user.services'
 
 // Create PayPal order and persist a pending Transaction linked to that order
 export async function salesCreate(input: SalesCreateInput): Promise<SalesCreateOutput> {
-	console.info('Creating sale with input:', input)
-
 	const { sellerMerchantId, locale, buyerUserId, bibId } = input
 	if (!buyerUserId || !sellerMerchantId || !bibId) {
 		throw new Error('Missing required salesCreate parameters')

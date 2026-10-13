@@ -31,7 +31,6 @@ export async function createArticle(articleData: Omit<Article, 'id' | 'created' 
 
 		const record = await pb.collection('articles').create<Article>(dataToCreate)
 
-		console.info('Article created successfully:', record.id)
 		return record
 	} catch (error: unknown) {
 		console.error('PocketBase error details:', error)
@@ -131,7 +130,6 @@ export async function updateArticleById(id: string, articleData: Partial<Article
 
 		const record = await pb.collection('articles').update<Article>(id, dataToUpdate)
 
-		console.info('Article updated successfully:', record.id)
 		return record
 	} catch (error: unknown) {
 		console.error('PocketBase error details:', error)
@@ -169,7 +167,6 @@ export async function createImageWithAlt(imageFile: File, alt: string): Promise<
 
 		const record = await pb.collection('image_with_alt').create<ImageWithAlt>(formData)
 
-		console.info('Image created successfully:', record.id)
 		return record
 	} catch (error: unknown) {
 		console.error('PocketBase error details:', error)
@@ -199,7 +196,6 @@ export async function fetchImageWithAltById(id: string): Promise<ImageWithAlt | 
 export async function updateImageWithAltById(id: string, alt: string): Promise<ImageWithAlt | null> {
 	try {
 		const record = await pb.collection('image_with_alt').update<ImageWithAlt>(id, { alt })
-		console.info('Image alt text updated successfully:', record.id)
 		return record
 	} catch (error: unknown) {
 		console.error('PocketBase error details:', error)
@@ -279,7 +275,7 @@ export async function getTranslatedArticleSlug(currentSlug: string, targetLocale
 	try {
 		// First, get the current article to find its translationGroup
 		const currentArticle = await fetchArticleBySlug(currentSlug, false)
-		if (!currentArticle || !currentArticle.translationGroup) {
+		if (!currentArticle?.translationGroup) {
 			return null
 		}
 

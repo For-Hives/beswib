@@ -199,7 +199,6 @@ export default function PayPalPurchaseClient({
 		}
 
 		try {
-			console.info('Creating order for bib:', bib.id, 'with seller ID:', sellerId)
 			setLoading(true)
 			setErrorMessage(null)
 
@@ -208,7 +207,6 @@ export default function PayPalPurchaseClient({
 				throw new Error(res.error ?? 'Failed to create sale')
 			}
 
-			console.info('Sale created, order:', res.orderId)
 			return res.orderId
 		} catch (error: unknown) {
 			const errorMsg = `Error creating order: ${error instanceof Error ? error.message : 'Unknown error'}`
@@ -242,7 +240,6 @@ export default function PayPalPurchaseClient({
 				}
 
 				setSuccessMessage('Payment captured successfully!')
-				console.info('Payment captured:', res)
 
 				router.push(`/${locale}/purchase/success`)
 			} catch (error: unknown) {
@@ -266,7 +263,6 @@ export default function PayPalPurchaseClient({
 
 	// Function to restart payment flow after instrument declined
 	const handlePaymentRestart = useCallback(() => {
-		console.info('Restarting payment flow after instrument declined')
 		setIsInstrumentDeclined(false)
 		setErrorMessage(null)
 		setSuccessMessage(null)
@@ -274,10 +270,8 @@ export default function PayPalPurchaseClient({
 	}, [])
 
 	const onCancel = useCallback(() => {
-		console.info('PayPal payment cancelled callback triggered')
 		setLoading(false)
 		// Don't show error, just stop loading
-		console.info('Payment cancelled, user can retry')
 	}, [])
 
 	return (

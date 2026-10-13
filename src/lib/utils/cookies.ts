@@ -135,8 +135,6 @@ export function synchronizeLocale(locale: string): void {
 
 		// Update cookie
 		setLocaleInCookie(locale)
-
-		console.debug(`✅ Locale synchronized: ${locale}`)
 	} catch (error) {
 		console.error('Failed to synchronize locale:', error)
 	}

@@ -120,6 +120,7 @@ Do not include any markdown formatting, code blocks, or additional text. Just th
 			result.seoDescription = `${result.seoDescription.substring(0, 157)} ...`
 		}
 
+		// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 		console.info('Successfully generated SEO content with Gemini Flash')
 		return result
 	} catch (error) {
@@ -242,7 +243,6 @@ export async function generateArticleTranslation(
 
 		if (imageMap.size > 0) {
 			const logMsg = `🖼️ Extracted ${imageMap.size} base64 image(s) from content`
-			console.info(logMsg)
 			logs.push(logMsg)
 		}
 
@@ -324,7 +324,6 @@ Do not include any markdown formatting, code blocks, or additional text. Just th
 		result.content = restoreBase64Images(result.content, imageMap)
 		if (imageMap.size > 0) {
 			const logMsg = `🖼️ Restored ${imageMap.size} base64 image(s) into translated content`
-			console.info(logMsg)
 			logs.push(logMsg)
 		}
 
@@ -366,6 +365,7 @@ Do not include any markdown formatting, code blocks, or additional text. Just th
 		}
 
 		const successMsg = `✓ Gemini Flash translation complete (${targetLanguage}, slug: ${result.slug})`
+		// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 		console.info(successMsg)
 		logs.push(successMsg)
 

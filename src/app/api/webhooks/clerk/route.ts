@@ -144,6 +144,7 @@ async function processUserCreation(
 		// Link any existing email-only waitlist entries to this new user account
 		const linkedCount = await linkEmailWaitlistsToUser(userData.email, newUserInDb)
 		if (linkedCount > 0) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Linked ${linkedCount} existing waitlist entries to new user ${newUserInDb.id}`)
 		}
 

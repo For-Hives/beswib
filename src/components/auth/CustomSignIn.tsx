@@ -154,7 +154,6 @@ export default function CustomSignIn() {
 
 			if (code === 'session_exists') {
 				// User is already signed in, redirect to dashboard
-				console.info('User already signed in, redirecting to dashboard')
 				router.push(`/${locale}/dashboard`)
 				return
 			}

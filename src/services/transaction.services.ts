@@ -164,6 +164,7 @@ export async function updateTransaction(
 	transactionId: string,
 	transactionData: Partial<Omit<Transaction, 'id' | 'transactionDate'>>
 ): Promise<null | Transaction> {
+	// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 	console.info('Updating transaction with ID:', transactionId)
 	if (transactionId === '') {
 		console.error('Transaction ID is required to update a transaction.')
@@ -173,7 +174,6 @@ export async function updateTransaction(
 	try {
 		const record = await pb.collection('transactions').update<Transaction>(transactionId, transactionData)
 
-		console.info('Updated transaction record:', record)
 		return record
 	} catch (error: unknown) {
 		throw new Error(`Error updating transaction: ${error instanceof Error ? error.message : String(error)}`)

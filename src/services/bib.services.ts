@@ -266,7 +266,6 @@ export async function unlockExpiredBibs(): Promise<number> {
 		const pad = (n: number, width = 2) => n.toString().padStart(width, '0')
 		const padMs = (n: number) => n.toString().padStart(3, '0')
 		const expiredIso = `${expiredDate.getUTCFullYear()}-${pad(expiredDate.getUTCMonth() + 1)}-${pad(expiredDate.getUTCDate())} ${pad(expiredDate.getUTCHours())}:${pad(expiredDate.getUTCMinutes())}:${pad(expiredDate.getUTCSeconds())}.${padMs(expiredDate.getUTCMilliseconds())}Z`
-		console.info(`Unlocking expired bibs older than ${expiredIso}`)
 		const records = await pb.collection('bibs').getFullList<Bib>({
 			filter: `lockedAt != null && lockedAt < '${expiredIso}'`,
 		})
@@ -300,8 +299,6 @@ export async function updateExpiredBibsToWithdrawn(sellerUserId?: string): Promi
 			filter += ` && sellerUserId = '${sellerUserId}'`
 		}
 
-		console.info(`Checking for expired bibs to withdraw${sellerUserId != null ? ` for seller ${sellerUserId}` : ''}...`)
-
 		const expiredBibs = await pb.collection('bibs').getFullList<Bib & { expand?: { eventId: Event } }>({
 			filter,
 			expand: 'eventId',
@@ -317,6 +314,7 @@ export async function updateExpiredBibsToWithdrawn(sellerUserId?: string): Promi
 					buyerUserId: undefined,
 				})
 				count++
+				// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 				console.info(
 					`Updated expired bib ${bib.id} to withdrawn status (event: ${bib.expand?.eventId?.name ?? bib.eventId})`
 				)
@@ -326,6 +324,7 @@ export async function updateExpiredBibsToWithdrawn(sellerUserId?: string): Promi
 		}
 
 		if (count > 0) {
+			// biome-ignore lint/suspicious/noConsole: Preserve the existing operational audit log without changing its severity.
 			console.info(`Successfully updated ${count} expired bibs to withdrawn status`)
 		}
 
@@ -642,7 +641,6 @@ export async function updateBibBySeller(
 		}
 
 		// Sanitize payload: disallow registrationNumber, eventId, sellerUserId modifications by seller
-		// biome-ignore lint/correctness/noUnusedVariables: <the usage is ok, we know that the variables are not used.>
 		const { sellerUserId, registrationNumber, eventId, ...payload } = dataToUpdate
 
 		const updatedRecord = await pb.collection('bibs').update<Bib>(bibId, payload)
