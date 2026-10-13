@@ -76,8 +76,10 @@ describe('TrackView', () => {
 			<TrackView key="d" name="account_create_success" />,
 			// @ts-expect-error an event without properties takes no props
 			<TrackView key="e" name="event_request_start" props={{ prefilled: false }} />,
+			// @ts-expect-error one literal name per element: a union would let required props be omitted
+			<TrackView key="f" name={typeof window === 'undefined' ? 'profile_view' : 'event_request_start'} />,
 		]
-		expect(elements).toHaveLength(5)
+		expect(elements).toHaveLength(6)
 	})
 })
 

@@ -39,6 +39,23 @@ export function maskPath(path: string): string {
 	return path.replace(EDIT_BIB_PATH, '$1:id')
 }
 
+const BACK_OFFICE_PATH = /^\/admin(\/|$)/
+
+/**
+ * True when a path (with or without its locale prefix) belongs to the back-office. The path is
+ * decoded and lower-cased first: Next.js decodes a path before routing it, so '/fr/%61dmin' is
+ * the back-office too. Erring on the side of 'yes' only costs an event.
+ */
+export function isBackOfficePath(pathname: string): boolean {
+	let decoded = pathname
+	try {
+		decoded = decodeURIComponent(pathname)
+	} catch {
+		// Malformed escape: judge the path as it is written
+	}
+	return BACK_OFFICE_PATH.test(stripLocale(decoded.toLowerCase()).path)
+}
+
 function isSafeCampaignValue(value: string): boolean {
 	if (value === '' || value.length > UTM_VALUE_MAX_LENGTH) return false
 	// An address or a sentence is not a campaign name

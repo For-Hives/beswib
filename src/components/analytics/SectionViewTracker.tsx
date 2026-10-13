@@ -12,7 +12,9 @@ interface SectionViewTrackerProps {
 
 /**
  * Viewport variant of <TrackView>: a zero-size sentinel that sends section_view once, the first
- * time it enters the viewport. Render it as the first child of the section to measure.
+ * time it enters the viewport. Render it as the first child of the section to measure, which must
+ * be a plain block: the sentinel is an in-flow element, so in a flex / grid / space-y parent it
+ * would count as one more item.
  */
 export function SectionViewTracker({ section }: Readonly<SectionViewTrackerProps>) {
 	const sentinelRef = useRef<HTMLSpanElement>(null)

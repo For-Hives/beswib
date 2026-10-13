@@ -16,4 +16,6 @@ beforeEach(() => {
 	vi.stubEnv('POCKETBASE_URL', 'http://mock-pocketbase.test')
 	vi.stubEnv('POCKETBASE_TOKEN', 'mock-token')
 	vi.stubEnv('RESEND_API_KEY', 'mock-resend-key')
+	// Never the production site: no test run may send a server analytics event (see src/lib/analytics/server.ts)
+	vi.stubEnv('NEXT_PUBLIC_BASE_URL', 'http://localhost:3000')
 })

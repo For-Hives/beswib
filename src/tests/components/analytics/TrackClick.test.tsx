@@ -153,7 +153,11 @@ describe('TrackClick', () => {
 			<TrackClick key="g" name="waitlist_leave_start" props={{ event_id: 'abcdefghij12345' }}>
 				x
 			</TrackClick>,
+			// @ts-expect-error one literal name per element: a union would let required props be omitted
+			<TrackClick key="h" name={bibId === '' ? 'cta_click' : 'sign_up_cancel'}>
+				x
+			</TrackClick>,
 		]
-		expect(elements).toHaveLength(7)
+		expect(elements).toHaveLength(8)
 	})
 })

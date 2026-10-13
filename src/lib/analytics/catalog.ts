@@ -29,8 +29,9 @@
  *  7. side 'client' events go through track / trackView / umamiAttrs / TrackClick / TrackView,
  *     side 'server' events through trackServer. A name is never sent from both sides.
  *  8. Server events never carry anything that identifies a user.
- *  9. The catalogue test (src/tests/lib/analytics/catalog.test.ts) lists every event with its
- *     properties: update it in the same change.
+ *  9. The catalogue test (src/tests/lib/analytics/catalog.test.ts) pins every event with its
+ *     properties (expected-events.ts) and the full shape of the catalogue, value lists included
+ *     (catalogue-shape.snap): update both in the same change.
  */
 
 import { LOCALES } from './config'
@@ -1209,24 +1210,36 @@ export type EventProps<N extends EventName> = Simplify<
 	}
 >
 
+/** True when T is a union of several types. */
+type IsUnion<T, U = T> = T extends unknown ? ([U] extends [T] ? false : true) : never
+
 /**
  * The trailing argument list of track(name, ...), trackView, umamiAttrs and trackServer:
  * nothing for an event without properties, an optional object when every property is optional,
  * a required object otherwise.
+ *
+ * The name must be ONE literal. With a union of names (`cond ? 'a_click' : 'b_click'`) only the
+ * properties common to the members would be asked for, and the event would be dropped at run
+ * time for a missing one: a union is refused, branch with if / else instead.
  */
-export type PropsArg<N extends EventName> = keyof SpecsOf<N> extends never
-	? []
-	: Record<never, never> extends EventProps<N>
-		? [props?: EventProps<N>]
-		: [props: EventProps<N>]
+export type PropsArg<N extends EventName> =
+	IsUnion<N> extends true
+		? [props: never]
+		: keyof SpecsOf<N> extends never
+			? []
+			: Record<never, never> extends EventProps<N>
+				? [props?: EventProps<N>]
+				: [props: EventProps<N>]
 
 /** The `props` field of <TrackClick> and <TrackView>, following the same rule as PropsArg. */
 export type PropsField<N extends EventName> =
-	PropsArg<N> extends []
-		? { readonly props?: undefined }
-		: [] extends PropsArg<N>
-			? { readonly props?: EventProps<N> }
-			: { readonly props: EventProps<N> }
+	IsUnion<N> extends true
+		? { readonly props: never }
+		: PropsArg<N> extends []
+			? { readonly props?: undefined }
+			: [] extends PropsArg<N>
+				? { readonly props?: EventProps<N> }
+				: { readonly props: EventProps<N> }
 
 /** A sanitised property bag, as it travels to Umami. */
 export type EventData = Record<string, string | number | boolean>

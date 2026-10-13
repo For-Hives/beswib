@@ -36,6 +36,7 @@ declare const transaction: Transaction
 declare const waitlist: Waitlist
 declare const user: User
 declare const routeParam: string
+declare const condition: boolean
 
 export function validCalls(): void {
 	const bibId = bibIdOf(bib)
@@ -141,6 +142,31 @@ export function missingRequiredProperty(): void {
 	trackServer('paypal_webhook_error', {})
 	// @ts-expect-error a required property cannot be undefined
 	track('cta_click', { cta: 'sell_bib', where: undefined })
+}
+
+export function unionOfNames(): void {
+	const method = 'password' as const
+
+	// One literal event name per call. A union of names would only ask for the properties the
+	// members have in common, and the event would then be dropped at run time.
+	// @ts-expect-error sign_in_success also requires `intent`: branch with if / else
+	track(condition ? 'sign_up_success' : 'sign_in_success', { method })
+	// @ts-expect-error both members require properties
+	track(condition ? 'cta_click' : 'menu_open')
+	// @ts-expect-error both members require properties
+	trackView(condition ? 'profile_view' : 'contact_form_start')
+	// @ts-expect-error both members require properties
+	trackServer(condition ? 'paypal_webhook_error' : 'sale_success')
+	// @ts-expect-error both members require properties
+	umamiAttrs(condition ? 'theme_change' : 'menu_open')
+	// @ts-expect-error a union is refused even when no member has a property
+	track(condition ? 'private_token_submit' : 'private_token_cancel')
+	// @ts-expect-error a union is refused even when the bag fits every member
+	track(condition ? 'sign_up_success' : 'sign_up_submit', { method })
+
+	// The way to write it
+	if (condition) track('sign_up_success', { method })
+	else track('sign_in_success', { method, intent: 'none' })
 }
 
 export function wrongSide(): void {

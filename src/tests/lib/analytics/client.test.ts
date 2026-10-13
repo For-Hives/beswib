@@ -60,6 +60,34 @@ describe('track', () => {
 		expect(JSON.stringify(warn.mock.calls)).not.toContain('runner@example.com')
 	})
 
+	it.each(['/fr/admin', '/fr/admin/event/create', '/admin', '/fr/%61dmin/event', '/fr/Admin'])(
+		'sends nothing from the back-office (%s)',
+		path => {
+			installTracker()
+			window.history.replaceState({}, '', path)
+			client.track('nav_click', { item: 'logo', where: 'header' })
+			client.trackView('event_request_start')
+			expect(trackerTrack).not.toHaveBeenCalled()
+		}
+	)
+
+	it('does not queue a back-office event for a later page', () => {
+		window.history.replaceState({}, '', '/fr/admin/event')
+		client.track('nav_click', { item: 'logo', where: 'header' })
+		window.history.replaceState({}, '', '/fr/marketplace')
+		installTracker()
+		client.flushQueue()
+		vi.advanceTimersByTime(1000)
+		expect(trackerTrack).not.toHaveBeenCalled()
+	})
+
+	it('still sends from a path that only starts like the back-office', () => {
+		installTracker()
+		window.history.replaceState({}, '', '/fr/administration')
+		client.track('show_special_tooltip')
+		expect(trackerTrack).toHaveBeenCalledOnce()
+	})
+
 	it('removes undeclared properties before the tracker sees them', () => {
 		installTracker()
 		const anyTrack = client.track as (name: string, props?: unknown) => void

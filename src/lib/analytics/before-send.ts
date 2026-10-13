@@ -3,7 +3,7 @@ import type { Locale } from '@/lib/i18n/config'
 import type { EventData } from './catalog'
 import { BEFORE_SEND_GLOBAL, LOCALES } from './config'
 import { sanitizeEvent } from './sanitize'
-import { cleanReferrer, cleanUrl } from './url'
+import { cleanReferrer, cleanUrl, isBackOfficePath } from './url'
 
 // The before-send hook of the Umami tracker (data-before-send="beswibBeforeSend").
 //
@@ -28,14 +28,14 @@ import { cleanReferrer, cleanUrl } from './url'
 //  5. A page view whose cleaned URL equals the previous page view sent is dropped (list filters
 //     push a history entry on every change; once cleaned they are all the same page).
 //  6. A named event must be a client event of the catalogue with valid properties, otherwise it
-//     is dropped. Named events are also dropped under /admin (page views are kept there).
+//     is dropped. Named events are also dropped under /admin, whether the URL of the payload or
+//     the real location says so (page views are kept there).
 //  7. data.locale is added to every browser event (page views included).
 
 /** Top-level keys copied as they are, when they are strings. */
 const ENVELOPE_KEYS = ['website', 'hostname', 'screen', 'language', 'title', 'tag'] as const
 /** Web-vital metrics of a 'performance' payload: numbers only. */
 const PERFORMANCE_KEYS = ['ttfb', 'fcp', 'lcp', 'cls', 'inp', 'duration'] as const
-const ADMIN_PATH = /^\/admin(\/|$)/
 
 export type BeforeSendResult = Record<string, unknown> | false
 
@@ -88,7 +88,10 @@ function clean(type: unknown, payload: unknown): BeforeSendResult {
 
 	const event = sanitizeEvent(source.name, source.data)
 	if (event == null || event.side !== 'client') return false
-	if (ADMIN_PATH.test(cleaned.path)) return false
+	// The back-office is judged on the URL of the payload AND on the real location: the tracker
+	// only follows client navigations once the window has loaded, and queued events are flushed
+	// with the URL of the moment
+	if (isBackOfficePath(cleaned.path) || isBackOfficePath(window.location.pathname)) return false
 
 	return { ...envelope, name: event.name, data: { ...event.data, ...localeData } }
 }

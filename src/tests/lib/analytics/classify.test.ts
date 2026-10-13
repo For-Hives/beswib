@@ -14,8 +14,10 @@ import {
 	COUNT_BUCKETS,
 	DAYS_TO_EVENT_BUCKETS,
 	ELAPSED_BUCKETS,
+	type EventProps,
 	FUNDING_SOURCES,
 	LEAD_TIME_BUCKETS,
+	LISTINGS,
 	PRICE_BUCKETS,
 	PURCHASE_ERROR_KINDS,
 	READ_TIME_BUCKETS,
@@ -30,6 +32,7 @@ import {
 	articleLinkTarget,
 	clerkErrorKind,
 	fundingSource,
+	listingOf,
 	paypalCodeKind,
 	referrerSource,
 	sectionOf,
@@ -46,6 +49,7 @@ import {
 	eventIdOfBib,
 	eventIdOfWaitlist,
 } from '@/lib/analytics/ids'
+import type { Bib } from '@/models/bib.model'
 
 const ORIGIN = 'https://beswib.com'
 const NOW = new Date('2026-10-13T12:00:00Z')
@@ -330,6 +334,32 @@ describe('classifiers', () => {
 		[undefined, 'other'],
 	])('sportOf(%j) is %s', (typeCourse, expected) => {
 		expect(sportOf(typeCourse)).toBe(expected)
+	})
+})
+
+describe('listingOf', () => {
+	it.each([
+		['public', 'public'],
+		['private', 'private'],
+		[null, undefined],
+		[undefined, undefined],
+		['', undefined],
+		['Public', undefined],
+		['draft', undefined],
+	])('listingOf(%j) is %s', (listed, expected) => {
+		expect(listingOf(listed)).toBe(expected)
+	})
+
+	it('only returns a member of the closed list', () => {
+		for (const listed of ['public', 'private']) expect(LISTINGS).toContain(listingOf(listed))
+	})
+
+	it('takes Bib.listed as it is, null included', () => {
+		const bib: Pick<Bib, 'listed'> = { listed: null }
+		const props: EventProps<'listing_edit_view'> = { state: 'ok', listing: listingOf(bib.listed) }
+		expect(props.listing).toBeUndefined()
+		const required: EventProps<'payment_capture_success'>['listing'] = listingOf(bib.listed) ?? 'public'
+		expect(required).toBe('public')
 	})
 })
 

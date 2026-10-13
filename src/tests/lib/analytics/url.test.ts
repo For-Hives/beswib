@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { LOCALES, QUERY_ALLOW_LIST } from '@/lib/analytics/config'
-import { cleanReferrer, cleanUrl, maskPath, stripLocale } from '@/lib/analytics/url'
+import { cleanReferrer, cleanUrl, isBackOfficePath, maskPath, stripLocale } from '@/lib/analytics/url'
 
 const ORIGIN = 'https://beswib.com'
 
@@ -80,6 +80,36 @@ describe('maskPath', () => {
 	it('leaves other paths alone', () => {
 		expect(maskPath('/dashboard/seller/edit-bib')).toBe('/dashboard/seller/edit-bib')
 		expect(maskPath('/marketplace/abcdefghij12345')).toBe('/marketplace/abcdefghij12345')
+	})
+})
+
+describe('isBackOfficePath', () => {
+	it.each([
+		'/admin',
+		'/admin/',
+		'/admin/event/create',
+		'/fr/admin',
+		'/ko/admin/organizer',
+		// Next.js decodes the path before routing: an encoded letter still reaches the back-office
+		'/fr/%61dmin/event',
+		'/%61dmin',
+		'/fr/Admin/event',
+		'/FR/ADMIN',
+		'/fr/admin%2Fevent',
+	])('is true for %s', path => {
+		expect(isBackOfficePath(path)).toBe(true)
+	})
+
+	it.each(['/', '/fr', '/fr/administration', '/administrator', '/fr/blog/admin', '/fr/events/admin', '/xx/admin', ''])(
+		'is false for %j',
+		path => {
+			expect(isBackOfficePath(path)).toBe(false)
+		}
+	)
+
+	it('does not throw on a malformed escape', () => {
+		expect(isBackOfficePath('/fr/admin/%E0%A4%A')).toBe(true)
+		expect(isBackOfficePath('/fr/%E0%A4%A')).toBe(false)
 	})
 })
 

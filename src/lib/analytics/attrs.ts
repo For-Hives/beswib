@@ -16,12 +16,23 @@ export type UmamiAttrs = { readonly [K in `data-umami-event${string}`]?: string 
  *  - NEVER on a same-tab <a> / next Link (nor on a <Button asChild> rendering one), nor on a
  *    mailto / tel link: wrap those in <TrackClick>.
  *
+ * The tracker takes the CLOSEST element carrying data-umami-event: of two nested probes only the
+ * innermost event is sent, and any click inside the element counts.
+ *
  * Values travel as strings (booleans and integers are read back by the before-send hook). An
- * undefined property is omitted. An invalid event yields no attribute at all, never a partial one.
+ * undefined property is omitted. An invalid event yields no attribute at all, never a partial one
+ * (with a console warning outside production).
  */
 export function umamiAttrs<N extends ClientEventName>(name: N, ...args: PropsArg<N>): UmamiAttrs {
 	const event = sanitizeEvent(name, args[0])
-	if (event == null || event.side !== 'client') return {}
+	if (event == null || event.side !== 'client') {
+		if (process.env.NODE_ENV !== 'production') {
+			console.warn(
+				`[analytics] "${name}" has no attributes: not a client event of the catalogue, or invalid properties`
+			)
+		}
+		return {}
+	}
 
 	const attrs: Record<string, string> = { 'data-umami-event': event.name }
 	for (const key of Object.keys(event.data)) {

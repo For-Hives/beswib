@@ -46,7 +46,43 @@ function signature(spec: EventSpec): string {
 		.join(' ')
 }
 
+// The whole catalogue as text: one line per shared list, one line per property with its type, its
+// values (or max, or id kind) and its optional mark. Compared with a committed file, so that ANY
+// change of the closed catalogue (a value added to a list included) shows up in a review.
+function describeProp(key: string, prop: EventSpec['props'][string]): string {
+	const label = prop.optional === true ? `${key}?` : key
+	switch (prop.type) {
+		case 'enum':
+		case 'bucket':
+			return `\t${label}: ${prop.type} ${prop.values.join(' | ')}`
+		case 'int':
+			return `\t${label}: int 0..${prop.max}`
+		case 'id':
+			return `\t${label}: id ${prop.kind}`
+		default:
+			return `\t${label}: ${prop.type}`
+	}
+}
+
+function catalogueShape(): string {
+	const lines = ['# Shared lists']
+	for (const [name, value] of Object.entries(catalog)) {
+		if (Array.isArray(value) && name === name.toUpperCase()) lines.push(`${name} = ${value.join(' | ')}`)
+	}
+	lines.push('', '# Events')
+	for (const [name, spec] of entries) {
+		lines.push(`${name} (${spec.side})`)
+		for (const [key, prop] of Object.entries(spec.props)) lines.push(describeProp(key, prop))
+	}
+	return `${lines.join('\n')}\n`
+}
+
 describe('analytics catalogue', () => {
+	it('has exactly the committed shape: lists, events, property types, values, limits and optional marks', async () => {
+		// A deliberate change of the catalogue is recorded with: pnpm vitest run src/tests/lib/analytics/catalog.test.ts -u
+		await expect(catalogueShape()).toMatchFileSnapshot('./catalogue-shape.snap')
+	})
+
 	it('declares exactly the events of the final catalogue, in order, with their properties', () => {
 		expect(entries.map(([name]) => name)).toEqual(Object.keys(EXPECTED_EVENTS))
 		for (const [name, spec] of entries) {

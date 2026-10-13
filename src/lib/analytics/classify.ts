@@ -2,6 +2,7 @@ import type {
 	ArticleLinkTarget,
 	AuthErrorKind,
 	FundingSource,
+	Listing,
 	PurchaseErrorKind,
 	ReferrerSource,
 	Section,
@@ -10,7 +11,7 @@ import type {
 	VerifiedEmailKind,
 	WizardStep,
 } from './catalog'
-import { SPORTS } from './catalog'
+import { LISTINGS, SPORTS } from './catalog'
 import { PRODUCTION_HOSTNAMES } from './config'
 import { stripLocale } from './url'
 
@@ -240,4 +241,13 @@ export function wizardStep(step: string | undefined): WizardStep {
 /** The sport of an event, from event.typeCourse (or BibSale.event.type). */
 export function sportOf(typeCourse: string | null | undefined): Sport {
 	return SPORTS.find(sport => sport === typeCourse) ?? 'other'
+}
+
+/**
+ * The visibility of a bib, from bib.listed ('public' | 'private' | null). A bib without a
+ * visibility gives undefined: leave an optional `listing` out, and write the fallback of a
+ * required one at the call site (`listingOf(bib.listed) ?? 'public'`), never a cast.
+ */
+export function listingOf(listed: string | null | undefined): Listing | undefined {
+	return LISTINGS.find(listing => listing === listed)
 }

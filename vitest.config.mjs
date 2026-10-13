@@ -17,6 +17,8 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@': resolve(__dirname, './src'),
+			// Next.js resolves 'server-only' itself at build time; under Vitest it is the empty module Next ships
+			'server-only': resolve(__dirname, './node_modules/next/dist/compiled/server-only/empty.js'),
 		},
 	},
 	plugins: [react()],

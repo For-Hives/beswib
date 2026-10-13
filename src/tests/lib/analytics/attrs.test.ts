@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { umamiAttrs } from '@/lib/analytics/attrs'
 import { articleIdOf, bibIdOf, eventIdOf } from '@/lib/analytics/ids'
@@ -11,6 +11,11 @@ const articleId = articleIdOf({ id: 'a1b2c3d4e5f6g7h', slug: 'how-to-resell-a-bi
 const TRACKER_ATTRIBUTE_PATTERN = /data-umami-event-([\w-_]+)/
 
 const anyAttrs = umamiAttrs as (name: string, props?: unknown) => Record<string, string>
+
+afterEach(() => {
+	vi.restoreAllMocks()
+	vi.unstubAllEnvs()
+})
 
 describe('umamiAttrs', () => {
 	it('builds the event attribute and one attribute per property', () => {
@@ -76,12 +81,30 @@ describe('umamiAttrs', () => {
 	})
 
 	it('yields no attribute at all for an invalid event, never a partial one', () => {
+		const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined)
 		expect(anyAttrs('unknown_event', { a: 'b' })).toEqual({})
 		expect(anyAttrs('cta_click', { cta: 'sell_bib', where: 'nowhere' })).toEqual({})
 		expect(anyAttrs('cta_click', { cta: 'sell_bib' })).toEqual({})
 		expect(anyAttrs('waitlist_leave_start', { event_id: 'user_2abcDEFghiJKL' })).toEqual({})
 		// A server event has no attribute form
 		expect(anyAttrs('paypal_webhook_error', { kind: 'exception' })).toEqual({})
+		expect(warn).toHaveBeenCalledTimes(5)
+	})
+
+	it('warns outside production when an event gets no attributes, naming the event and never its properties', () => {
+		const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined)
+		anyAttrs('cta_click', { cta: 'runner@example.com', where: 'hero' })
+		expect(warn).toHaveBeenCalledOnce()
+		expect(String(warn.mock.calls[0][0])).toContain('cta_click')
+		expect(JSON.stringify(warn.mock.calls)).not.toContain('runner@example.com')
+
+		vi.stubEnv('NODE_ENV', 'production')
+		anyAttrs('cta_click', { cta: 'sell_bib', where: 'nowhere' })
+		expect(warn).toHaveBeenCalledOnce()
+		// A valid event never warns
+		vi.stubEnv('NODE_ENV', 'test')
+		anyAttrs('cta_click', { cta: 'sell_bib', where: 'hero' })
+		expect(warn).toHaveBeenCalledOnce()
 	})
 
 	it('drops undeclared properties', () => {

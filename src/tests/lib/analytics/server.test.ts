@@ -1,4 +1,7 @@
 // @vitest-environment node
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 type Server = typeof import('@/lib/analytics/server')
@@ -37,6 +40,8 @@ beforeEach(async () => {
 	})
 	fetchMock = vi.fn(async () => new Response('{"cache":"x"}', { status: 200 }))
 	vi.stubGlobal('fetch', fetchMock)
+	// The production site: a production build whose base URL is beswib.com
+	vi.stubEnv('NODE_ENV', 'production')
 	vi.stubEnv('NEXT_PUBLIC_BASE_URL', 'https://beswib.com')
 	vi.stubEnv('NEXT_PUBLIC_UMAMI_HOST', '')
 	await loadServer()
@@ -74,6 +79,44 @@ describe('isServerTrackingEnabled', () => {
 	it('is off when the variable is missing', () => {
 		vi.stubEnv('NEXT_PUBLIC_BASE_URL', undefined)
 		expect(server.isServerTrackingEnabled()).toBe(false)
+	})
+})
+
+describe('isServerTrackingEnabled, outside a production build', () => {
+	// A developer machine or a test run may well carry the production base URL in its environment
+	it.each(['development', 'test', ''])('is off when NODE_ENV is %j, even with the production base URL', nodeEnv => {
+		vi.stubEnv('NODE_ENV', nodeEnv)
+		vi.stubEnv('NEXT_PUBLIC_BASE_URL', 'https://beswib.com')
+		expect(server.isServerTrackingEnabled()).toBe(false)
+	})
+
+	it.each(['development', 'test'])('trackServer sends nothing when NODE_ENV is %j', async nodeEnv => {
+		vi.stubEnv('NODE_ENV', nodeEnv)
+		server.trackServer('account_create_success')
+		await runAfterCallbacks()
+		expect(afterMock).not.toHaveBeenCalled()
+		expect(fetchMock).not.toHaveBeenCalled()
+	})
+})
+
+describe('trackServer, in a browser', () => {
+	it('is a server-only module: its first statement makes a client bundle fail to build', () => {
+		const source = readFileSync(resolve(process.cwd(), 'src/lib/analytics/server.ts'), 'utf8')
+		expect(source.startsWith("import 'server-only'\n")).toBe(true)
+	})
+
+	it('sends nothing when a window exists, whatever the environment says', async () => {
+		// In a browser after() throws: without a guard the event would be POSTed straight from the
+		// visitor's browser, past the before-send hook
+		vi.stubGlobal('window', {})
+		afterMock.mockImplementation(() => {
+			throw new Error('`after` was called outside a request scope')
+		})
+		expect(server.isServerTrackingEnabled()).toBe(false)
+		server.trackServer('account_create_success')
+		await new Promise(resolve => setTimeout(resolve, 10))
+		expect(afterMock).not.toHaveBeenCalled()
+		expect(fetchMock).not.toHaveBeenCalled()
 	})
 })
 

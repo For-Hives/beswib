@@ -1,6 +1,7 @@
 import type { ClientEventName, EventData, PropsArg } from './catalog'
 import { CLIENT_QUEUE_LIMIT, CLIENT_QUEUE_MAX_WAIT_MS, CLIENT_QUEUE_POLL_MS, VIEW_DEDUPE_WINDOW_MS } from './config'
 import { sanitizeEvent } from './sanitize'
+import { isBackOfficePath } from './url'
 
 // Browser-side sending. Nothing else in the app calls window.umami.
 //
@@ -79,6 +80,10 @@ function dispatch(name: string, props: unknown, dedupe: boolean): void {
 			}
 			return
 		}
+
+		// Nothing is recorded from the back-office, and nothing tracked there may wait in the queue
+		// for the next page. (The before-send hook applies the same rule on the way out.)
+		if (isBackOfficePath(window.location.pathname)) return
 
 		if (dedupe) {
 			const now = Date.now()

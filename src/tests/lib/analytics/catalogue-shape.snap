@@ -1,0 +1,368 @@
+# Shared lists
+LOCALES = en | fr | es | it | de | ro | pt | nl | ko
+PRICE_BUCKETS = lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+COUNT_BUCKETS = 0 | 1 | 2_5 | 6_20 | 21_plus
+SPORTS = road | trail | triathlon | cycle | other
+LISTINGS = public | private
+VIEWERS = anonymous | profile_incomplete | own_bib | ready
+WIZARD_STEPS = event_selection | email_verification | bib_details | pricing | confirmation
+SECTIONS = home | marketplace | events | blog | faq | contact | legals | auth | dashboard | profile | purchase | other
+AUTH_METHODS = password | google | facebook
+AUTH_ERROR_KINDS = validation | wrong_password | account_not_found | account_exists | code_incorrect | code_expired | verification_failed | password_rejected | captcha | rate_limited | invalid_param | oauth | oauth_incomplete | session_exists | network | incomplete | unknown
+CTAS = browse_events | browse_marketplace | buy_bib | sell_bib | organizer_contact | contact | sign_in | sign_up | forgot_password | complete_profile | dashboard | buyer_dashboard | seller_dashboard | profile | my_listings | request_event | event_details | edit_listing | terms | home | back
+CTA_WHERES = hero | cta_section | faq_intro | legal_aup | not_found | error_page | event_waitlist | event_page | bib_page | purchase_success | dashboard_buyer_card | dashboard_seller_card | dashboard_quick_actions | buyer_quick_actions | buyer_purchases_empty | buyer_waitlist_intro | buyer_waitlist_empty | user_header | seller_quick_actions | seller_sales_empty | seller_listings_empty | seller_listing_card | seller_gate | sell_wizard | auth_sign_in | auth_sign_up | auth_sign_up_exists | auth_forgot_password
+NAV_ITEMS = logo | home | events | marketplace | blog | faq | contact | sign_in | sign_up | dashboard | profile | buy_bib | sell_bib | sign_out | legal_notice | privacy_policy | terms | data_deletion | aup
+NAV_WHERES = header | header_mobile | user_menu | footer | profile
+OUTBOUND_TARGETS = forhives | linkedin | instagram | strava | facebook | paypal_fees | course_map | registration | organizer_site | mail_contact | mail_support | mail_partners
+OUTBOUND_WHERES = footer | faq | contact_page | event_page | bib_page | legal_aup | legal_notice
+WAITLIST_WHERES = event_page | bib_page
+VERIFIED_EMAIL_WHERES = profile | sell_wizard
+VERIFIED_EMAIL_KINDS = validation | rate_limited | already_verified | code_expired | code_incorrect | send_failed | failed | unknown
+PURCHASE_ERROR_KINDS = locked_by_other | lock_failed | lock_expired | seller_not_configured | unauthenticated | missing_params | bib_not_found | bib_unavailable | buyer_not_found | order_not_found | not_owner | instrument_declined | insufficient_funds | payer_restricted | paypal_error | sdk_load_failed | sdk_error | exception
+FUNDING_SOURCES = paypal | card | paylater | sepa | other | na
+DAYS_TO_EVENT_BUCKETS = past | 0_7 | 8_30 | 31_90 | 91_plus
+LEAD_TIME_BUCKETS = 0_30 | 31_90 | 91_180 | 181_plus
+ELAPSED_BUCKETS = lt_15s | 15_60s | 1_3m | 3_10m | gt_10m
+READ_TIME_BUCKETS = 1_2 | 3_5 | 6_10 | gt_10
+ARTICLE_LINK_TARGETS = marketplace | events | sell_bib | blog | faq | contact | auth | home | internal_other | external | mailto
+WAITLIST_MODES = account | email
+EMAIL_SOURCES = account | other
+LIST_WHERES = marketplace | events
+SIGN_IN_INTENTS = none | purchase | sell
+LISTING_UPDATE_ACTIONS = price | make_public | make_private | token_regenerate | withdraw
+PRICE_VS_ORIGINAL = unknown | below | equal | above
+REFERRER_SOURCES = internal | external | direct
+LANDING_SECTIONS = journey | features | security_process | cta_section
+EVENT_VERBS = view | click | open | select | change | start | step | submit | success | error | cancel | expire | read
+EVENT_NAME_EXCEPTIONS = show_special_tooltip
+
+# Events
+cta_click (client)
+	cta: enum browse_events | browse_marketplace | buy_bib | sell_bib | organizer_contact | contact | sign_in | sign_up | forgot_password | complete_profile | dashboard | buyer_dashboard | seller_dashboard | profile | my_listings | request_event | event_details | edit_listing | terms | home | back
+	where: enum hero | cta_section | faq_intro | legal_aup | not_found | error_page | event_waitlist | event_page | bib_page | purchase_success | dashboard_buyer_card | dashboard_seller_card | dashboard_quick_actions | buyer_quick_actions | buyer_purchases_empty | buyer_waitlist_intro | buyer_waitlist_empty | user_header | seller_quick_actions | seller_sales_empty | seller_listings_empty | seller_listing_card | seller_gate | sell_wizard | auth_sign_in | auth_sign_up | auth_sign_up_exists | auth_forgot_password
+nav_click (client)
+	item: enum logo | home | events | marketplace | blog | faq | contact | sign_in | sign_up | dashboard | profile | buy_bib | sell_bib | sign_out | legal_notice | privacy_policy | terms | data_deletion | aup
+	where: enum header | header_mobile | user_menu | footer | profile
+menu_open (client)
+	menu: enum mobile_nav | user_menu | filters
+locale_change (client)
+	to: enum en | fr | es | it | de | ro | pt | nl | ko
+	where: enum header | header_mobile | footer
+	result: enum same_page | article_translated | article_fallback_list
+theme_change (client)
+	to: enum light | dark
+outbound_click (client)
+	target: enum forhives | linkedin | instagram | strava | facebook | paypal_fees | course_map | registration | organizer_site | mail_contact | mail_support | mail_partners
+	where: enum footer | faq | contact_page | event_page | bib_page | legal_aup | legal_notice
+	event_id?: id event
+section_view (client)
+	landing_section: enum journey | features | security_process | cta_section
+journey_tab_select (client)
+	tab: enum buyer | seller
+show_special_tooltip (client)
+faq_item_open (client)
+	question: enum what_is_beswib | how_to_sell | is_it_legal | how_to_buy | payment_security | organizer_benefits | fees | cancellation
+search_submit (client)
+	where: enum marketplace | events | sell_wizard
+	result_count: bucket 0 | 1 | 2_5 | 6_20 | 21_plus
+	has_filters: boolean
+filter_change (client)
+	where: enum marketplace | events
+	filter: enum sport | distance_range | distance_preset | price_range | geography | date_start | date_end | all
+	action: enum apply | remove | reset
+	surface: enum sidebar | mobile_dialog | badge_bar | toolbar
+	value: enum road | trail | triathlon | cycle | other | all | na
+	price_max?: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+sort_change (client)
+	where: enum marketplace | events
+	sort: enum date | price | price_asc | price_desc | distance | participants
+empty_results_view (client)
+	where: enum marketplace | events | blog
+	has_query: boolean
+	filter_count: int 0..7
+	catalogue_empty: boolean
+	load_failed?: boolean
+bib_card_click (client)
+	where: enum marketplace | event_page
+	target: enum bib | event
+	position: int 0..50
+	bib_id: id bib
+	event_id: id event
+	price_bucket: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+event_card_click (client)
+	action: enum view_event | view_bibs | join_waitlist
+	event_id: id event
+	sport: enum road | trail | triathlon | cycle | other
+	bib_count: bucket 0 | 1 | 2_5 | 6_20 | 21_plus
+event_view (client)
+	event_id: id event
+	sport: enum road | trail | triathlon | cycle | other
+	bib_count: bucket 0 | 1 | 2_5 | 6_20 | 21_plus
+	days_to_event: bucket past | 0_7 | 8_30 | 31_90 | 91_plus
+bib_view (client)
+	state: enum available | token_required | token_invalid | unavailable | sale_closed
+	listing: enum public | private | unknown
+	viewer: enum anonymous | profile_incomplete | own_bib | ready | unknown
+	bib_id?: id bib
+	event_id?: id event
+	price_bucket?: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+private_token_submit (client)
+private_token_success (client)
+private_token_error (client)
+	kind: enum empty | invalid | server | network
+private_token_cancel (client)
+purchase_click (client)
+	bib_id: id bib
+	event_id: id event
+	price_bucket: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+	listing: enum public | private
+	viewer: enum anonymous | profile_incomplete | own_bib | ready
+purchase_start (client)
+	bib_id: id bib
+	event_id: id event
+	price_bucket: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+	listing: enum public | private
+	lock: enum new | resumed
+purchase_step (client)
+	step: enum payment_click | order_created | approved
+	bib_id: id bib
+	event_id: id event
+	price_bucket: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+	listing: enum public | private
+	funding_source: enum paypal | card | paylater | sepa | other | na
+purchase_success (client)
+	bib_id: id bib
+	event_id: id event
+	price_bucket: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+	listing: enum public | private
+purchase_error (client)
+	step: enum lock | order | paypal | capture
+	kind: enum locked_by_other | lock_failed | lock_expired | seller_not_configured | unauthenticated | missing_params | bib_not_found | bib_unavailable | buyer_not_found | order_not_found | not_owner | instrument_declined | insufficient_funds | payer_restricted | paypal_error | sdk_load_failed | sdk_error | exception
+	bib_id: id bib
+	event_id: id event
+	price_bucket: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+	listing: enum public | private
+purchase_cancel (client)
+	where: enum paypal_popup | payment_dialog
+	reached: enum dialog | order_created | paypal_dismissed
+	bib_id: id bib
+	event_id: id event
+	price_bucket: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+	listing: enum public | private
+purchase_lock_expire (client)
+	bib_id: id bib
+	event_id: id event
+	stage: enum dialog_closed | dialog_open | paypal_open | error_shown
+purchase_error_click (client)
+	variant: enum declined | generic
+	action: enum dismiss | restart_payment | try_again
+payment_capture_success (server)
+	bib_id: id bib
+	event_id: id event
+	price_bucket: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+	listing: enum public | private
+sale_success (server)
+	bib_id: id bib
+	price_bucket: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+paypal_webhook_error (server)
+	kind: enum signature_invalid | transaction_not_found | exception
+waitlist_join_submit (client)
+	where: enum event_page | bib_page
+	mode: enum account | email
+	event_id: id event
+waitlist_join_success (client)
+	where: enum event_page | bib_page
+	mode: enum account | email
+	event_id: id event
+waitlist_join_error (client)
+	where: enum event_page | bib_page
+	mode: enum account | email | unknown
+	event_id: id event
+	kind: enum invalid_email | already_joined | failed
+waitlist_status_error (client)
+	event_id: id event
+waitlist_leave_start (client)
+	event_id: id event
+waitlist_leave_cancel (client)
+	event_id: id event
+waitlist_leave_success (client)
+	event_id: id event
+waitlist_leave_error (client)
+	event_id: id event
+	kind: enum unauthorized | user_missing | bad_request | server | network
+buyer_dashboard_view (client)
+	purchases: bucket 0 | 1 | 2_5 | 6_20 | 21_plus
+	waitlists: bucket 0 | 1 | 2_5 | 6_20 | 21_plus
+profile_view (client)
+	available: boolean
+	complete: boolean
+	seller_ready: boolean
+profile_form_start (client)
+	was_complete: boolean
+profile_form_success (client)
+	complete: boolean
+	was_complete: boolean
+	personal_done: boolean
+	emergency_done: boolean
+	address_done: boolean
+	marketing_consent: boolean
+profile_form_error (client)
+	kind: enum validation | server
+	block: enum none | personal | emergency | address | documents
+	field: enum none | first_name | last_name | birth_date | gender | phone_number | contact_email | emergency_contact_name | emergency_contact_phone | emergency_contact_relationship | address | postal_code | city | country | other
+	invalid_count: int 0..17
+account_delete_step (client)
+	step: enum open | cancel | confirm
+verified_email_start (client)
+	where: enum profile | sell_wizard
+verified_email_step (client)
+	where: enum profile | sell_wizard
+	step: enum code_sent | code_resent
+verified_email_success (client)
+	where: enum profile | sell_wizard
+verified_email_error (client)
+	where: enum profile | sell_wizard
+	step: enum load | add | verify | resend | remove
+	kind: enum validation | rate_limited | already_verified | code_expired | code_incorrect | send_failed | failed | unknown
+sign_up_start (client)
+	method: enum password | google | facebook
+sign_up_step (client)
+	step: enum form_submit | email_code
+sign_up_success (client)
+	method: enum password | google | facebook
+sign_up_error (client)
+	method: enum password | google | facebook
+	step: enum form | email_code | oauth
+	kind: enum validation | wrong_password | account_not_found | account_exists | code_incorrect | code_expired | verification_failed | password_rejected | captcha | rate_limited | invalid_param | oauth | oauth_incomplete | session_exists | network | incomplete | unknown
+	field: enum none | first_name | last_name | email | password | confirm_password | code
+sign_up_cancel (client)
+account_create_success (server)
+account_create_error (server)
+	kind: enum missing_clerk_id | missing_email | db_failed | exception
+sign_in_start (client)
+	method: enum password | google | facebook
+	intent: enum none | purchase | sell
+sign_in_success (client)
+	method: enum password | google | facebook
+	intent: enum none | purchase | sell
+sign_in_error (client)
+	method: enum password | google | facebook
+	kind: enum validation | wrong_password | account_not_found | account_exists | code_incorrect | code_expired | verification_failed | password_rejected | captcha | rate_limited | invalid_param | oauth | oauth_incomplete | session_exists | network | incomplete | unknown
+	field: enum none | email | password
+password_reset_start (client)
+password_reset_step (client)
+	step: enum code_sent
+password_reset_success (client)
+password_reset_error (client)
+	step: enum request | reset
+	kind: enum validation | wrong_password | account_not_found | account_exists | code_incorrect | code_expired | verification_failed | password_rejected | captcha | rate_limited | invalid_param | oauth | oauth_incomplete | session_exists | network | incomplete | unknown
+seller_dashboard_view (client)
+	listings: bucket 0 | 1 | 2_5 | 6_20 | 21_plus
+	active: bucket 0 | 1 | 2_5 | 6_20 | 21_plus
+	sold: bucket 0 | 1 | 2_5 | 6_20 | 21_plus
+	profile_complete: boolean
+seller_gate_view (client)
+	where: enum seller_dashboard | sell_wizard
+	paypal_state: enum not_linked | kyc_pending | ready
+	contact_missing: boolean
+	address_missing: boolean
+listing_start (client)
+	profile_complete: boolean
+	events: bucket 0 | 1 | 2_5 | 6_20 | 21_plus
+listing_step (client)
+	step: enum event_selection | email_verification | bib_details | pricing | confirmation
+	direction: enum next | back
+listing_event_select (client)
+	event_id: id event
+	search_used: boolean
+listing_submit (client)
+	event_id: id event
+	listing: enum public | private
+	price_bucket: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+	price_vs_original: enum unknown | below | equal | above
+	email_source: enum account | other
+listing_success (client)
+	event_id: id event
+	listing: enum public | private
+	price_bucket: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+	price_vs_original: enum unknown | below | equal | above
+	email_source: enum account | other
+listing_error (client)
+	step: enum event_selection | email_verification | bib_details | pricing | confirmation
+	kind: enum validation | profile_incomplete | create_rejected | create_failed
+	field: enum none | event | email | registration_number | price | terms
+listing_cancel (client)
+	step: enum event_selection | email_verification | bib_details | pricing | confirmation
+listing_share_click (client)
+	action: enum copy_link | open_link | copy_token
+	where: enum wizard_success | edit_page
+	listing: enum public | private
+listing_edit_view (client)
+	state: enum ok | error
+	event_id?: id event
+	status?: enum available | validation_failed | sold | expired | withdrawn
+	listing?: enum public | private
+listing_update_success (client)
+	action: enum price | make_public | make_private | token_regenerate | withdraw
+	event_id: id event
+	listing: enum public | private
+	price_change: enum up | down | same | na
+	price_bucket: bucket lt_25 | 25_49 | 50_99 | 100_199 | 200_499 | 500_plus
+listing_update_error (client)
+	action: enum price | make_public | make_private | token_regenerate | withdraw
+	event_id: id event
+paypal_onboarding_start (client)
+paypal_onboarding_open (client)
+	via: enum popup | link
+	popup_blocked: boolean
+paypal_onboarding_error (client)
+	kind: enum referral_failed | request_failed
+paypal_onboarding_success (server)
+	webhook: enum onboarding_completed | consent_granted
+paypal_status_view (client)
+	state: enum ready | pending | error
+	payments_receivable: boolean
+	email_confirmed: boolean
+	permissions_granted: boolean
+	refresh: boolean
+paypal_kyc_success (server)
+paypal_disconnect_success (client)
+event_request_start (client)
+event_request_submit (client)
+	has_message: boolean
+	lead_time: bucket 0_30 | 31_90 | 91_180 | 181_plus
+event_request_success (client)
+	has_message: boolean
+	lead_time: bucket 0_30 | 31_90 | 91_180 | 181_plus
+event_request_error (client)
+	kind: enum validation | unauthenticated | user_not_found | invalid_input | create_failed | exception | request_failed
+	field: enum none | name | location | date
+contact_form_start (client)
+	prefilled: boolean
+contact_form_submit (client)
+	prefilled: boolean
+contact_form_success (client)
+	prefilled: boolean
+contact_form_error (client)
+	kind: enum invalid_input | delivery_failed | exception
+	prefilled: boolean
+article_click (client)
+	position: int 0..50
+	article_id: id article
+article_read (client)
+	depth: enum 25 | 50 | 75 | 100
+	elapsed: bucket lt_15s | 15_60s | 1_3m | 3_10m | gt_10m
+	read_time: bucket 1_2 | 3_5 | 6_10 | gt_10
+	article_id: id article
+article_link_click (client)
+	target: enum marketplace | events | sell_bib | blog | faq | contact | auth | home | internal_other | external | mailto
+	article_id: id article
+article_share_click (client)
+	network: enum twitter | linkedin | instagram | facebook | copy_link
+not_found_view (client)
+	section: enum home | marketplace | events | blog | faq | contact | legals | auth | dashboard | profile | purchase | other
+	source: enum internal | external | direct
+error_view (client)
+	scope: enum segment | global
+	origin: enum server | client
+	section: enum home | marketplace | events | blog | faq | contact | legals | auth | dashboard | profile | purchase | other

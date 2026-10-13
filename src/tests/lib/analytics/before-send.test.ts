@@ -247,6 +247,29 @@ describe('beswibBeforeSend, named events', () => {
 		expect(hook('event', namedEvent('/admin/event', 'nav_click', data))).toBe(false)
 	})
 
+	it('drops a named event when the page really is the back-office, whatever URL the tracker believes', () => {
+		// The tracker only follows client navigations once the window has loaded: until then it
+		// still reports the URL of the first page. Queued events are flushed with the current URL too.
+		const data = { item: 'logo', where: 'header' }
+		window.history.replaceState({}, '', '/fr/admin/event')
+		try {
+			expect(hook('event', namedEvent('/fr', 'nav_click', data))).toBe(false)
+			expect(hook('event', namedEvent('/fr/events', 'show_special_tooltip'))).toBe(false)
+			// Page views are kept there
+			expect(hook('event', envelope('/fr/admin/event'))).toHaveProperty('url', `${ORIGIN}/admin/event`)
+		} finally {
+			window.history.replaceState({}, '', '/')
+		}
+	})
+
+	it.each(['/fr/%61dmin/event', '/fr/Admin/event', '/fr/ADMIN', '/%61dmin', '/fr/admin%2Fevent'])(
+		'drops a named event of the back-office written as %s',
+		path => {
+			expect(hook('event', namedEvent(path, 'nav_click', { item: 'logo', where: 'header' }))).toBe(false)
+			expect(hook('event', namedEvent(path, 'show_special_tooltip'))).toBe(false)
+		}
+	)
+
 	it('keeps a named event of a path that only starts like the back-office', () => {
 		const data = { item: 'logo', where: 'header' }
 		expect(hook('event', namedEvent('/fr/administration', 'nav_click', data))).toMatchObject({ name: 'nav_click' })
