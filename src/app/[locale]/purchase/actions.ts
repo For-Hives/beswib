@@ -2,67 +2,17 @@
 
 import { auth } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
-import { PLATFORM_FEE } from '@/constants/global.constant'
 import { priceBucket } from '@/lib/analytics/buckets'
 import type { PurchaseErrorKind } from '@/lib/analytics/catalog'
 import { listingOf } from '@/lib/analytics/classify'
 import { bibIdOf, eventIdOfBib } from '@/lib/analytics/ids'
 import { trackServer } from '@/lib/analytics/server'
 import type { Bib } from '@/models/bib.model'
-import { fetchPublicBibById, fetchPurchasableBibById, isLocked, lockBib } from '@/services/bib.services'
+import { fetchPurchasableBibById, isLocked, lockBib } from '@/services/bib.services'
 import { capturePayment } from '@/services/paypal.services'
 import { salesCreate } from '@/services/sales.services'
-import { createTransaction, getTransactionByOrderId } from '@/services/transaction.services'
+import { getTransactionByOrderId } from '@/services/transaction.services'
 import { fetchUserByClerkId } from '@/services/user.services'
-
-export async function handlePaymentPageOpened(paymentIntentId: string, bibId: string) {
-	const { userId } = await auth()
-
-	if (userId == null) {
-		throw new Error('User is not authenticated.')
-	}
-
-	try {
-		const bib = await fetchPublicBibById(bibId)
-		if (!bib) {
-			throw new Error('Bib not found.')
-		}
-		// Map Clerk userId to PocketBase user record ID
-		const pbUser = await fetchUserByClerkId(userId)
-		if (!pbUser) {
-			throw new Error('User not found in database.')
-		}
-
-		const transaction = await createTransaction({
-			status: 'pending',
-			seller_user_id: bib.sellerUserId,
-			raw_webhook_payload: '',
-			platform_fee: bib.price * PLATFORM_FEE,
-			paypal_order_id: paymentIntentId,
-			paypal_capture_id: '',
-			payment_status: 'pending',
-			payer_id: '',
-			payer_email: '',
-			currency: 'EUR',
-			capture_time: '',
-			buyer_user_id: pbUser.id,
-			bib_id: bib.id,
-			amount: bib.price,
-		})
-
-		if (!transaction) {
-			throw new Error('Failed to create transaction.')
-		}
-
-		return { transaction, success: true }
-	} catch (error) {
-		console.error('Error handling payment page open:', error)
-		if (error instanceof Error) {
-			return { success: false, error: error.message }
-		}
-		return { success: false, error: 'An unexpected error occurred.' }
-	}
-}
 
 // Lock steps of the purchase. The browser calls these, never the bib services themselves: lockBib and
 // isLocked take any bib id from anyone, signed in or not, with or without the token of a private listing.

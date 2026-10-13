@@ -89,6 +89,12 @@ function browserModules(): Map<string, string> {
 	return reachedFrom
 }
 
+/** What a module exports at run time, by name: in a 'use server' module, each one is an endpoint. */
+function exportedNames(text: string): string[] {
+	const declarations = /^export\s+(?:default\s+)?(?:async\s+)?(?:function\*?|const|let|var|class)\s+(\w+)/gm
+	return [...text.matchAll(declarations)].map(([, name]) => name).sort()
+}
+
 const services = sources.filter(file => file.path.startsWith('services/'))
 const actionModules = sources.filter(file => directiveOf(file.text) === 'use server').map(file => file.path)
 
@@ -122,8 +128,85 @@ describe('what the browser may call on the server', () => {
 			'app/[locale]/profile/actions.ts',
 			'app/[locale]/purchase/actions.ts',
 			'components/global/adminActions.ts',
-			'lib/i18n/locale.ts',
 		])
+	})
+
+	it('keeps the actions of these modules to the ones that were reviewed', () => {
+		// Next only registers the exports that something imports, so an export nobody uses is one import
+		// away from being an endpoint. A new name here is a new public endpoint: it must identify its
+		// caller, and take no id of a person from its arguments
+		const exported = Object.fromEntries(
+			actionModules.map(path => [path, exportedNames(byPath.get(path)?.text ?? '')] as const)
+		)
+		expect(exported).toEqual({
+			'components/global/adminActions.ts': ['checkIsCurrentUserAdmin'],
+			'app/[locale]/purchase/actions.ts': ['captureOrder', 'checkPurchaseLock', 'createSale', 'lockBibForPurchase'],
+			'app/[locale]/profile/actions.ts': [
+				'addVerifiedEmail',
+				'confirmVerifiedEmail',
+				'disconnectPayPal',
+				'fetchMyVerifiedEmails',
+				'getCurrentUserData',
+				'removeVerifiedEmail',
+				'resendVerifiedEmailCode',
+				'startPayPalOnboarding',
+				'updateUserProfile',
+			],
+			'app/[locale]/events/actions.ts': ['joinEventWaitlist'],
+			'app/[locale]/dashboard/seller/sell-bib/actions.ts': ['handleCreateBib'],
+			'app/[locale]/dashboard/seller/request-event/actions.ts': ['handleCreateEventCreationRequest'],
+			'app/[locale]/dashboard/seller/edit-bib/[bibId]/actions.ts': [
+				'handleRegeneratePrivateToken',
+				'handleToggleListingStatus',
+				'handleUpdateBibDetails',
+				'handleWithdrawBib',
+			],
+			'app/[locale]/contact/actions.ts': ['submitContactMessage'],
+			'app/[locale]/admin/article/actions.ts': [
+				'createArticleAction',
+				'deleteArticleAction',
+				'generateAllMissingTranslationsAction',
+				'generateAltTextAction',
+				'generateArticleTranslationAction',
+				'generateSEOAction',
+				'getAllArticlesAction',
+				'getArticleByIdAction',
+				'getArticleTranslationsAction',
+				'publishAllTranslationsAction',
+				'updateArticleAction',
+			],
+			'app/[locale]/admin/actions.ts': [
+				'approveOrganizerAction',
+				'createEventAction',
+				'createOrganizerAction',
+				'deleteEventAction',
+				'getAllEventsAction',
+				'getAllOrganizersAction',
+				'getDashboardStatsAction',
+				'getEventByIdAction',
+				'getOrganizerByIdAction',
+				'getRecentActivityAction',
+				'rejectOrganizerAction',
+				'updateEventAction',
+				'updateOrganizerAction',
+			],
+			'app/[locale]/actions/locale.ts': [
+				'getArticleTranslatedSlug',
+				'syncUserLocaleFromCookie',
+				'updateUserLocalePreference',
+			],
+		})
+	})
+
+	it.each(actionModules)('%s exports its actions one by one, where the list above can see them', path => {
+		// export { a, b } and export * from would add endpoints that the list above does not read
+		expect(byPath.get(path)?.text).not.toMatch(/^export\s*(?:\{|\*)/m)
+	})
+
+	it("keeps the actions declared inside a page ('use server' in a function body) to the reviewed one", () => {
+		const inline = sources.filter(file => /^[ \t]+['"]use server['"]/m.test(file.text)).map(file => file.path)
+		// handleJoinWaitlist: it reads the session when it runs and subscribes the session's user
+		expect(inline).toEqual(['app/[locale]/events/[id]/page.tsx'])
 	})
 
 	it('finds the browser modules, hooks included', () => {
