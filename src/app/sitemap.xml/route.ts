@@ -17,8 +17,7 @@ const staticPages = [
 	'faq',
 	'contact',
 	'legals/terms',
-	'legals/privacy',
-	'legals/cookies',
+	'legals/privacy-policy',
 	'legals/legal-notice',
 ]
 
@@ -26,9 +25,8 @@ const staticPages = [
 const pagePriorities = {
 	marketplace: 0.8, // Marketplace
 	'legals/terms': 0.3, // Terms
-	'legals/privacy': 0.3, // Privacy
+	'legals/privacy-policy': 0.3, // Privacy
 	'legals/legal-notice': 0.3, // Legal notice
-	'legals/cookies': 0.3, // Cookies
 	faq: 0.6, // FAQ
 	events: 0.9, // Events
 	contact: 0.5, // Contact
@@ -39,9 +37,8 @@ const pagePriorities = {
 const changeFreq = {
 	marketplace: 'hourly' as const,
 	'legals/terms': 'monthly' as const,
-	'legals/privacy': 'monthly' as const,
+	'legals/privacy-policy': 'monthly' as const,
 	'legals/legal-notice': 'monthly' as const,
-	'legals/cookies': 'monthly' as const,
 	faq: 'weekly' as const,
 	events: 'hourly' as const,
 	contact: 'monthly' as const,
