@@ -3,11 +3,15 @@
 import { useSignIn } from '@clerk/nextjs/legacy'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
+import { TrackClick } from '@/components/analytics/TrackClick'
+import { clearOAuthMarker, writeOAuthMarker } from '@/components/global/sessionsTrackers'
 import { Button } from '@/components/ui/button'
 import { FormInput } from '@/components/ui/FormInput'
 import { Icons } from '@/components/ui/icons'
+import { clerkErrorKind, signInIntent } from '@/lib/analytics/classify'
+import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation/valibot'
@@ -78,6 +82,7 @@ export default function CustomSignIn() {
 		email?: FieldError
 		password?: FieldError
 	}>({})
+	const passwordStarted = useRef(false)
 
 	// Validate fields in real-time
 	const validateField = (field: 'email' | 'password', value: string) => {
@@ -124,11 +129,19 @@ export default function CustomSignIn() {
 		e.preventDefault()
 		if (!isLoaded || isSubmitting) return
 
+		const intent = signInIntent(window.location.search)
+		clearOAuthMarker()
+		if (!passwordStarted.current) {
+			passwordStarted.current = true
+			track('sign_in_start', { method: 'password', intent })
+		}
+
 		// Validate all fields
 		const emailValid = validateField('email', formData.email)
 		const passwordValid = validateField('password', formData.password)
 
 		if (!emailValid || !passwordValid) {
+			track('sign_in_error', { method: 'password', kind: 'validation', field: emailValid ? 'password' : 'email' })
 			return
 		}
 
@@ -143,9 +156,11 @@ export default function CustomSignIn() {
 
 			if (result.status === 'complete') {
 				await setActive({ session: result.createdSessionId })
+				track('sign_in_success', { method: 'password', intent })
 				router.push(`/${locale}/dashboard`)
 			} else {
 				setGlobalError(t.somethingWentWrong)
+				track('sign_in_error', { method: 'password', kind: 'incomplete', field: 'none' })
 			}
 		} catch (err: unknown) {
 			// Check for session_exists error specifically
@@ -158,6 +173,7 @@ export default function CustomSignIn() {
 				return
 			}
 
+			track('sign_in_error', { method: 'password', kind: clerkErrorKind(code), field: 'none' })
 			const errorMessage = translateClerkErrorLocal(err)
 			setGlobalError(errorMessage)
 
@@ -181,6 +197,11 @@ export default function CustomSignIn() {
 	// Handle OAuth sign in
 	const signInWith = (strategy: 'oauth_google' | 'oauth_facebook') => {
 		if (!signIn) return
+
+		const method = strategy === 'oauth_google' ? 'google' : 'facebook'
+		const intent = signInIntent(window.location.search)
+		track('sign_in_start', { method, intent })
+		writeOAuthMarker('sign_in', method, intent)
 
 		setIsSubmitting(true)
 		void signIn.authenticateWithRedirect({
@@ -265,12 +286,14 @@ export default function CustomSignIn() {
 				/>
 
 				<div className="flex items-center justify-end">
-					<Link
-						href={`/${locale}/auth/forgot-password`}
-						className="text-primary hover:text-primary/80 text-sm transition-colors hover:underline"
-					>
-						{t.signIn.forgotPassword}
-					</Link>
+					<TrackClick name="cta_click" props={{ cta: 'forgot_password', where: 'auth_sign_in' }}>
+						<Link
+							href={`/${locale}/auth/forgot-password`}
+							className="text-primary hover:text-primary/80 text-sm transition-colors hover:underline"
+						>
+							{t.signIn.forgotPassword}
+						</Link>
+					</TrackClick>
 				</div>
 
 				<Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
@@ -289,12 +312,14 @@ export default function CustomSignIn() {
 			<div className="text-center">
 				<p className="text-muted-foreground text-sm">
 					{t.signIn.noAccount}{' '}
-					<Link
-						href={`/${locale}/auth/sign-up`}
-						className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
-					>
-						{t.signIn.createAccount}
-					</Link>
+					<TrackClick name="cta_click" props={{ cta: 'sign_up', where: 'auth_sign_in' }}>
+						<Link
+							href={`/${locale}/auth/sign-up`}
+							className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
+						>
+							{t.signIn.createAccount}
+						</Link>
+					</TrackClick>
 				</p>
 			</div>
 		</div>

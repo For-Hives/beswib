@@ -1,6 +1,7 @@
 import type { WebhookEvent } from '@clerk/nextjs/server'
 import { verifyWebhook } from '@clerk/nextjs/webhooks'
 import { type NextRequest, NextResponse } from 'next/server'
+import { trackServer } from '@/lib/analytics/server'
 import type { User } from '@/models/user.model'
 import { sendWelcomeEmail } from '@/services/notification.service'
 import { createUser } from '@/services/user.services' // Adjust path as necessary
@@ -82,6 +83,7 @@ function extractUserData(evt: WebhookEvent): NextResponse | { clerkId: string; p
 
 	if (typeof clerkId !== 'string' || clerkId.trim() === '') {
 		console.error('Received user.created event without clerkId')
+		trackServer('account_create_error', { kind: 'missing_clerk_id' })
 		return NextResponse.json({ error: 'Missing Clerk User ID in webhook payload' }, { status: 400 })
 	}
 
@@ -91,6 +93,7 @@ function extractUserData(evt: WebhookEvent): NextResponse | { clerkId: string; p
 
 	if (typeof primaryEmail !== 'string' || primaryEmail.trim() === '') {
 		console.error(`User ${clerkId} has no primary email address.`)
+		trackServer('account_create_error', { kind: 'missing_email' })
 		return NextResponse.json({ error: 'Primary email address missing' }, { status: 400 })
 	}
 
@@ -118,8 +121,12 @@ async function processUserCreation(
 
 		if (newUserInDb == null) {
 			console.error(`Failed to create user ${clerkId} in PocketBase.`)
+			trackServer('account_create_error', { kind: 'db_failed' })
 			return NextResponse.json({ error: 'Failed to create user in database' }, { status: 500 })
 		}
+
+		// Sent before the waitlist linking: a failure there must not hide a created account
+		trackServer('account_create_success')
 
 		// Link any existing email-only waitlist entries to this new user account
 		const linkedCount = await linkEmailWaitlistsToUser(userData.email, newUserInDb)
@@ -141,6 +148,7 @@ async function processUserCreation(
 		)
 	} catch (error) {
 		console.error(`Error processing user.created event for ${clerkId}:`, error)
+		trackServer('account_create_error', { kind: 'exception' })
 		const errorMessage = error instanceof Error ? error.message : 'Internal server error processing user creation.'
 		return NextResponse.json({ error: errorMessage }, { status: 500 })
 	}
