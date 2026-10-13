@@ -1,3 +1,4 @@
+import { StrictMode } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const mocks = vi.hoisted(() => ({ getAllOrganizersAction: vi.fn(), push: vi.fn() }))
@@ -25,6 +26,7 @@ import {
 	type MountedPage,
 	menuEntries,
 	mount,
+	mountFromServer,
 	openDialog,
 	openMenu,
 	pager,
@@ -758,6 +760,20 @@ describe('AdminOrganizersPageClient', () => {
 		})
 	})
 
+	describe('first visit', () => {
+		it('takes over the markup of the server without a mismatch, then shows the list', async () => {
+			const error = vi.spyOn(console, 'error').mockImplementation(() => {})
+			mocks.getAllOrganizersAction.mockResolvedValue({ success: true, data: organizers() })
+			const hydrated = await mountFromServer(<AdminOrganizersPageClient currentUser={adminUser} locale="en" />)
+			page = hydrated
+
+			expect(hydrated.hydrationErrors).toEqual([])
+			expect(error).not.toHaveBeenCalled()
+			expect(columnCells(hydrated.container, NAME)[0]).toBe('Alpes Trail')
+			expect(counter(hydrated.container)).toBe('1-10 of 25')
+		})
+	})
+
 	describe('stability', () => {
 		it('is at rest once the list is on screen', async () => {
 			await show()
@@ -792,6 +808,31 @@ describe('AdminOrganizersPageClient', () => {
 			await click(rowBox(container, 'Jura Trail'))
 			await click(sortButton(container, 'Events'))
 			expect(emailReads()).toBe(afterSearch)
+		})
+
+		it('behaves the same when React renders everything twice, as it does in development', async () => {
+			mocks.getAllOrganizersAction.mockResolvedValue({ success: true, data: organizers() })
+			page = await mount(
+				<StrictMode>
+					<AdminOrganizersPageClient currentUser={adminUser} locale="en" />
+				</StrictMode>
+			)
+			container = page.container
+			expect(counter(container)).toBe('1-10 of 25')
+
+			await click(sortButton(container, 'Events'))
+			expect(columnCells(container, 'Events')).toEqual(['40', '31', '25', '14', '12', '11', '10', '9', '8', '7'])
+			await click(pager(container).next)
+			expect(counter(container)).toBe('11-20 of 25')
+			await click(selectAllBox(container))
+			expect(buttonNamed(container, 'Delete Selected10')).toBeDefined()
+			await typeInto(search(), 'running')
+			expect(names()).toEqual(['annecy Running', 'Orléans Running'])
+			expect(counter(container)).toBe('1-2 of 2')
+
+			const before = page.commits()
+			await settle(150)
+			expect(page.commits()).toBe(before)
 		})
 
 		it('keyboard on a header does not sort this list', async () => {

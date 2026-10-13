@@ -1,5 +1,6 @@
 import { act, Profiler, type ReactElement } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
+import { renderToString } from 'react-dom/server'
 import { vi } from 'vitest'
 
 import type { User } from '@/models/user.model'
@@ -66,6 +67,43 @@ export async function mount(page: ReactElement): Promise<MountedPage> {
 	return {
 		container,
 		commits: () => commits,
+		unmount: () => {
+			act(() => root.unmount())
+			container.remove()
+		},
+	}
+}
+
+export interface HydratedPage extends MountedPage {
+	/** What React could not reuse from the server markup: none when the two renders agree */
+	hydrationErrors: unknown[]
+}
+
+/** Renders the page as the server does, then lets the browser take over that markup, as on a real first visit */
+export async function mountFromServer(page: ReactElement): Promise<HydratedPage> {
+	const hydrationErrors: unknown[] = []
+	let commits = 0
+	const tree = (
+		<Profiler
+			id="admin-list"
+			onRender={() => {
+				commits += 1
+			}}
+		>
+			{page}
+		</Profiler>
+	)
+	const container = document.createElement('div')
+	container.innerHTML = renderToString(tree)
+	document.body.appendChild(container)
+	const root = await act(async () =>
+		hydrateRoot(container, tree, { onRecoverableError: error => hydrationErrors.push(error) })
+	)
+	await settle()
+	return {
+		container,
+		commits: () => commits,
+		hydrationErrors,
 		unmount: () => {
 			act(() => root.unmount())
 			container.remove()

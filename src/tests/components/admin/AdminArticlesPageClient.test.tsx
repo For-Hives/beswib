@@ -36,6 +36,7 @@ import {
 	type MountedPage,
 	menuEntries,
 	mount,
+	mountFromServer,
 	openDialog,
 	openMenu,
 	pager,
@@ -767,6 +768,20 @@ describe('AdminArticlesPageClient', () => {
 			expect(page.container.textContent).toContain('Access Error')
 			await click(buttonNamed(page.container, 'Sign In'))
 			expect(mocks.push).toHaveBeenCalledWith('/auth/sign-in')
+		})
+	})
+
+	describe('first visit', () => {
+		it('takes over the markup of the server without a mismatch, then shows the list', async () => {
+			const error = vi.spyOn(console, 'error').mockImplementation(() => {})
+			mocks.getAllArticlesAction.mockResolvedValue({ success: true, data: articles() })
+			const hydrated = await mountFromServer(<AdminArticlesPageClient currentUser={adminUser} locale="en" />)
+			page = hydrated
+
+			expect(hydrated.hydrationErrors).toEqual([])
+			expect(error).not.toHaveBeenCalled()
+			expect(columnCells(hydrated.container, 'Title')[0]).toBe('Top 100 des courses mythiques')
+			expect(counter(hydrated.container)).toBe('1-10 of 25')
 		})
 	})
 

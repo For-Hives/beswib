@@ -37,6 +37,7 @@ import {
 	type MountedPage,
 	menuEntries,
 	mount,
+	mountFromServer,
 	openDialog,
 	openMenu,
 	pager,
@@ -824,6 +825,20 @@ describe('AdminEventsPageClient', () => {
 			expect(page.container.textContent).toContain('Access Error')
 			await click(buttonNamed(page.container, 'Sign In'))
 			expect(mocks.push).toHaveBeenCalledWith('/auth/sign-in')
+		})
+	})
+
+	describe('first visit', () => {
+		it('takes over the markup of the server without a mismatch, then shows the list', async () => {
+			const error = vi.spyOn(console, 'error').mockImplementation(() => {})
+			mocks.getAllEventsAction.mockResolvedValue({ success: true, data: events() })
+			const hydrated = await mountFromServer(<AdminEventsPageClient currentUser={adminUser} locale="en" />)
+			page = hydrated
+
+			expect(hydrated.hydrationErrors).toEqual([])
+			expect(error).not.toHaveBeenCalled()
+			expect(columnCells(hydrated.container, NAME)[0]).toBe('Semi de Paris')
+			expect(counter(hydrated.container)).toBe('1-10 of 25')
 		})
 	})
 
