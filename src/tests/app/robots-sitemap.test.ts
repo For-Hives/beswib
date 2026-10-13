@@ -38,6 +38,8 @@ describe('robots.txt', () => {
 	})
 
 	it('points at the production site when the build was given no address', async () => {
+		// The helper says so in the log, once
+		vi.spyOn(console, 'warn').mockImplementation(() => undefined)
 		vi.stubEnv('NEXT_PUBLIC_BASE_URL', undefined)
 
 		expect(await robots().text()).toContain('Sitemap: https://beswib.com/sitemap.xml\n')
