@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
+import { umamiAttrs } from '@/lib/analytics/attrs'
 import { mapEventTypeToBibSaleType } from '@/lib/transformers/bib'
 import { getOrganizerImageUrl } from '@/lib/utils/images'
 import type { Bib } from '@/models/bib.model'
@@ -170,10 +171,24 @@ export default function ConfirmationStep({
 									onClick={() => void (formData.listingType === 'private' ? copyPrivateLink() : copyPublicLink())}
 									size="sm"
 									variant="outline"
+									{...umamiAttrs('listing_share_click', {
+										action: 'copy_link',
+										where: 'wizard_success',
+										listing: formData.listingType,
+									})}
 								>
 									<Copy className="h-4 w-4" />
 								</Button>
-								<Button asChild size="sm" variant="outline">
+								<Button
+									asChild
+									size="sm"
+									variant="outline"
+									{...umamiAttrs('listing_share_click', {
+										action: 'open_link',
+										where: 'wizard_success',
+										listing: formData.listingType,
+									})}
+								>
 									<Link
 										href={formData.listingType === 'private' ? generatePrivateLink() : generatePublicLink()}
 										rel="noopener noreferrer"

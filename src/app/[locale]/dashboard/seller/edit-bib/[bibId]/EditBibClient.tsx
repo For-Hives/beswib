@@ -29,6 +29,12 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '
 import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { priceBucket } from '@/lib/analytics/buckets'
+import type { EventProps } from '@/lib/analytics/catalog'
+import { listingOf } from '@/lib/analytics/classify'
+import { track, trackView } from '@/lib/analytics/client'
+import { eventIdOfBib } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { formatDateObjectForDisplay } from '@/lib/utils/date'
@@ -48,6 +54,14 @@ interface EditBibClientProps {
 	initialBibWithEvent: (Bib & { expand?: { eventId?: Event } }) | null
 	initialError?: null | string
 	locale: Locale
+}
+
+const TRACKED_STATUSES = ['available', 'validation_failed', 'sold', 'expired', 'withdrawn'] as const
+
+function priceChange(previous: number, next: number): EventProps<'listing_update_success'>['price_change'] {
+	if (next > previous) return 'up'
+	if (next < previous) return 'down'
+	return 'same'
 }
 
 // Status display mapping
@@ -108,12 +122,34 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 		}
 	}, [initialError])
 
+	useEffect(() => {
+		if (initialBibWithEvent == null) {
+			trackView('listing_edit_view', { state: 'error' })
+			return
+		}
+		trackView('listing_edit_view', {
+			status: TRACKED_STATUSES.find(status => status === initialBibWithEvent.status),
+			state: 'ok',
+			listing: listingOf(initialBibWithEvent.listed),
+			event_id: eventIdOfBib(initialBibWithEvent),
+		})
+	}, [])
+
 	function handleUpdateDetailsAction(formData: FormData) {
 		setIsLoading(true)
 
 		handleUpdateBibDetails(bibId, formData)
 			.then(updatedBib => {
 				toast.success(t.successMessages.detailsUpdated ?? 'Details updated successfully!')
+				if (bib != null) {
+					track('listing_update_success', {
+						price_change: priceChange(bib.price, updatedBib.price),
+						price_bucket: priceBucket(updatedBib.price),
+						listing: listingOf(updatedBib.listed) ?? 'private',
+						event_id: eventIdOfBib(bib),
+						action: 'price',
+					})
+				}
 				const newEventId = updatedBib.eventId
 
 				const nextState: Bib & { expand?: { eventId?: Event } } = {
@@ -126,6 +162,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 			})
 			.catch((error: unknown) => {
 				toast.error(error instanceof Error ? error.message : String(error))
+				if (bib != null) track('listing_update_error', { event_id: eventIdOfBib(bib), action: 'price' })
 				setIsLoading(false)
 			})
 	}
@@ -136,6 +173,15 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 		handleToggleListingStatus(bibId, newListed)
 			.then(updatedBib => {
 				toast.success(t.successMessages?.statusUpdated ?? 'Listing status updated successfully!')
+				if (bib != null) {
+					track('listing_update_success', {
+						price_change: 'na',
+						price_bucket: priceBucket(updatedBib.price),
+						listing: newListed,
+						event_id: eventIdOfBib(bib),
+						action: newListed === 'public' ? 'make_public' : 'make_private',
+					})
+				}
 				const newEventId = updatedBib.eventId
 				const nextState: Bib & { expand?: { eventId?: Event } } = {
 					...updatedBib,
@@ -147,6 +193,12 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 			})
 			.catch((error: unknown) => {
 				toast.error(error instanceof Error ? error.message : String(error))
+				if (bib != null) {
+					track('listing_update_error', {
+						event_id: eventIdOfBib(bib),
+						action: newListed === 'public' ? 'make_public' : 'make_private',
+					})
+				}
 				setIsLoading(false)
 			})
 	}
@@ -156,10 +208,20 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 		handleWithdrawBib(bibId)
 			.then(() => {
 				toast.success(t.successMessages?.bibWithdrawn ?? 'Bib withdrawn successfully!')
+				if (bib != null) {
+					track('listing_update_success', {
+						price_change: 'na',
+						price_bucket: priceBucket(bib.price),
+						listing: listingOf(bib.listed) ?? 'private',
+						event_id: eventIdOfBib(bib),
+						action: 'withdraw',
+					})
+				}
 				router.push('/dashboard/seller?success=Bib+listing+withdrawn')
 			})
 			.catch((error: unknown) => {
 				toast.error(error instanceof Error ? error.message : String(error))
+				if (bib != null) track('listing_update_error', { event_id: eventIdOfBib(bib), action: 'withdraw' })
 				setIsLoading(false)
 			})
 	}
@@ -169,6 +231,15 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 		handleRegeneratePrivateToken(bibId)
 			.then(updatedBib => {
 				toast.success(t.successMessages?.tokenRegenerated ?? 'New private token generated successfully!')
+				if (bib != null) {
+					track('listing_update_success', {
+						price_change: 'na',
+						price_bucket: priceBucket(updatedBib.price),
+						listing: 'private',
+						event_id: eventIdOfBib(bib),
+						action: 'token_regenerate',
+					})
+				}
 				const newEventId = updatedBib.eventId
 				const nextState: Bib & { expand?: { eventId?: Event } } = {
 					...updatedBib,
@@ -181,6 +252,7 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 			})
 			.catch((error: unknown) => {
 				toast.error(error instanceof Error ? error.message : String(error))
+				if (bib != null) track('listing_update_error', { event_id: eventIdOfBib(bib), action: 'token_regenerate' })
 				setIsLoading(false)
 				setShowRegenerateDialog(false)
 			})
@@ -504,7 +576,18 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 															readOnly
 															className="bg-background font-mono text-sm"
 														/>
-														<Button type="button" variant="outline" size="sm" onClick={copyToken} disabled={isLoading}>
+														<Button
+															type="button"
+															variant="outline"
+															size="sm"
+															onClick={copyToken}
+															disabled={isLoading}
+															{...umamiAttrs('listing_share_click', {
+																action: 'copy_token',
+																where: 'edit_page',
+																listing: 'private',
+															})}
+														>
 															<Copy className="h-4 w-4" />
 														</Button>
 														<Button
@@ -533,6 +616,11 @@ export default function EditBibClient({ locale, initialError, initialBibWithEven
 															size="sm"
 															onClick={copyPrivateLink}
 															disabled={isLoading}
+															{...umamiAttrs('listing_share_click', {
+																action: 'copy_link',
+																where: 'edit_page',
+																listing: 'private',
+															})}
 														>
 															<LinkIcon className="h-4 w-4" />
 														</Button>

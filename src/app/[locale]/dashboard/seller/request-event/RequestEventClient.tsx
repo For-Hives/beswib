@@ -4,7 +4,7 @@ import { ArrowLeft, Send } from 'lucide-react'
 import Link from 'next/link'
 
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 
 import { DateInput } from '@/components/ui/date-input'
@@ -12,6 +12,9 @@ import { Input } from '@/components/ui/inputAlt'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textareaAlt'
+import { leadTimeBucket } from '@/lib/analytics/buckets'
+import type { EventProps } from '@/lib/analytics/catalog'
+import { track, trackView } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 
 import { handleCreateEventCreationRequest } from './actions'
@@ -50,6 +53,10 @@ export default function RequestEventClient({ locale }: RequestEventClientProps) 
 		eventDate: '',
 	})
 
+	useEffect(() => {
+		trackView('event_request_start')
+	}, [])
+
 	const validateForm = (): boolean => {
 		const newErrors: FormErrors = {}
 
@@ -73,6 +80,13 @@ export default function RequestEventClient({ locale }: RequestEventClientProps) 
 			}
 		}
 
+		if (Object.keys(newErrors).length > 0) {
+			let field: EventProps<'event_request_error'>['field'] = 'date'
+			if (newErrors.name != null) field = 'name'
+			else if (newErrors.location != null) field = 'location'
+			track('event_request_error', { kind: 'validation', field })
+		}
+
 		setErrors(newErrors)
 		return Object.keys(newErrors).length === 0
 	}
@@ -92,6 +106,12 @@ export default function RequestEventClient({ locale }: RequestEventClientProps) 
 			return
 		}
 
+		const requestProps: EventProps<'event_request_submit'> = {
+			lead_time: leadTimeBucket(formData.eventDate),
+			has_message: formData.message.trim() !== '',
+		}
+		track('event_request_submit', requestProps)
+
 		setIsSubmitting(true)
 
 		try {
@@ -106,14 +126,17 @@ export default function RequestEventClient({ locale }: RequestEventClientProps) 
 
 			if (result.success) {
 				setShowSuccess(true)
+				track('event_request_success', requestProps)
 				setTimeout(() => {
 					router.push(`/${locale}/dashboard/seller/sell-bib`)
 				}, 3000)
 			} else {
 				setErrors({ name: result.error ?? t.messages.error })
+				track('event_request_error', { kind: result.errorKind ?? 'exception', field: 'none' })
 			}
 		} catch (error) {
 			console.error('Error submitting event request:', error)
+			track('event_request_error', { kind: 'request_failed', field: 'none' })
 			setErrors({ name: error instanceof Error ? error.message : t.messages.error })
 		} finally {
 			setIsSubmitting(false)

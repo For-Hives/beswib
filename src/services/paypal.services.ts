@@ -1,6 +1,7 @@
 'use server'
 
 import { PLATFORM_FEE } from '@/constants/global.constant'
+import { trackServer } from '@/lib/analytics/server'
 import type { BibSale } from '@/models/marketplace.model'
 import type {
 	PayPalAccessToken,
@@ -118,6 +119,7 @@ export async function handleOnboardingCompleted(event: PayPalWebhookEvent) {
 			paypal_kyc: false,
 		})
 	)
+	trackServer('paypal_onboarding_success', { webhook: 'onboarding_completed' })
 
 	// Optionally, verify merchant readiness right away (best-effort)
 	void getMerchantIntegrationStatus(merchantId).catch(err => {
@@ -159,6 +161,7 @@ export async function handleSellerConsentGranted(event: PayPalWebhookEvent) {
 				console.error('Error checking merchant integration status:', err)
 			})
 			success = true
+			trackServer('paypal_onboarding_success', { webhook: 'consent_granted' })
 		} catch (err) {
 			attempts++
 			if (attempts >= 3) {

@@ -1,9 +1,14 @@
 import { Calendar, CheckCircle, MapPin, Plus, Search, TrendingUp, Users } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { TrackClick } from '@/components/analytics/TrackClick'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/inputAlt'
+import { umamiAttrs } from '@/lib/analytics/attrs'
+import { countBucket } from '@/lib/analytics/buckets'
+import { track } from '@/lib/analytics/client'
+import { eventIdOf } from '@/lib/analytics/ids'
 import { formatDateSimple, pbDateToLuxon } from '@/lib/utils/date'
 import type { Event } from '@/models/event.model'
 import type { Organizer } from '@/models/organizer.model'
@@ -74,6 +79,19 @@ export default function EventSelectionStep({
 		return isEventAvailable() && matchesSearch
 	})
 
+	const resultCount = filteredEvents.length
+	const lastTrackedQuery = useRef('')
+	useEffect(() => {
+		if (searchQuery.trim() === '') return
+		const timer = setTimeout(() => {
+			const query = searchQuery.trim().toLowerCase()
+			if (query === lastTrackedQuery.current) return
+			lastTrackedQuery.current = query
+			track('search_submit', { where: 'sell_wizard', result_count: countBucket(resultCount), has_filters: false })
+		}, 1000)
+		return () => clearTimeout(timer)
+	}, [searchQuery, resultCount])
+
 	return (
 		<div className="grid grid-cols-1 gap-12 md:grid-cols-3">
 			{/* Section Header */}
@@ -108,6 +126,10 @@ export default function EventSelectionStep({
 								}`}
 								key={event.id}
 								onClick={() => onEventSelect(event)}
+								{...umamiAttrs('listing_event_select', {
+									event_id: eventIdOf(event),
+									search_used: searchQuery !== '',
+								})}
 							>
 								<CardContent className="p-4">
 									<div className="flex items-start justify-between">
@@ -178,12 +200,14 @@ export default function EventSelectionStep({
 							<p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
 								{t.form.eventSelection.requestNewEventDescription}
 							</p>
-							<Link href={`/${locale}/dashboard/seller/request-event`}>
-								<Button className="gap-2" variant="outline">
-									<Plus className="h-4 w-4" />
-									{t.form.eventSelection.requestNewEventButton}
-								</Button>
-							</Link>
+							<TrackClick name="cta_click" props={{ cta: 'request_event', where: 'sell_wizard' }}>
+								<Link href={`/${locale}/dashboard/seller/request-event`}>
+									<Button className="gap-2" variant="outline">
+										<Plus className="h-4 w-4" />
+										{t.form.eventSelection.requestNewEventButton}
+									</Button>
+								</Link>
+							</TrackClick>
 						</CardContent>
 					</Card>
 				</div>

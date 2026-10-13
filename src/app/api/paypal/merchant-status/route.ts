@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
+import { trackServer } from '@/lib/analytics/server'
 import { getMerchantIntegrationStatus } from '@/services/paypal.services'
 import { getUserData, updateUser } from '@/services/user.services'
 
@@ -28,6 +29,8 @@ export async function GET(request: NextRequest) {
 		const hasOauthIntegrations = Array.isArray(status.oauth_integrations) ? status.oauth_integrations.length > 0 : false
 		const kycComplete =
 			status.payments_receivable === true && status.primary_email_confirmed === true && hasOauthIntegrations
+
+		if (kycComplete && user?.paypal_kyc !== true) trackServer('paypal_kyc_success')
 
 		// Fire and forget (do not block API)
 		void updateUser(userId, { paypal_kyc: kycComplete }).catch(() => {})
