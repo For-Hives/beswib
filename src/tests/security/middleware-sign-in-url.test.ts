@@ -100,15 +100,65 @@ describe('a signed-out visitor on a protected page', () => {
 	})
 })
 
-describe('a signed-out visitor elsewhere', () => {
-	it.each(['/fr', '/fr/marketplace/abcdefghij12345?tkn=secret', '/fr/events/abcdefghij12345', '/fr/auth/sign-in'])(
-		'is not redirected from %s',
-		async path => {
-			const middleware = await loadMiddleware()
+// Once signed in, the middleware reads that return address back (middleware-auth-pages.test.ts).
+// Behind a proxy Clerk does not write it with the address of the request the server received, but
+// with the one the proxy forwards: what is pinned here is which one, with the same headers there.
+describe('the return address Clerk writes behind a proxy', () => {
+	it.each([
+		[
+			'the address the proxy forwards',
+			{ 'x-forwarded-proto': 'https', 'x-forwarded-host': 'staging.beswib.com' },
+			'https://staging.beswib.com',
+		],
+		[
+			'the first one when several proxies forwarded theirs',
+			{ 'x-forwarded-proto': 'https, http', 'x-forwarded-host': 'staging.beswib.com, 10.0.0.5:3000' },
+			'https://staging.beswib.com',
+		],
+		['the Host header when nothing is forwarded', { host: 'localhost:3334' }, 'http://localhost:3334'],
+	])('names %s', async (_name, headers, origin) => {
+		const middleware = await loadMiddleware()
+		// The address the server listens on
+		const request = new NextRequest('http://localhost:3000/fr/profile', {
+			headers: { 'sec-fetch-dest': 'document', accept: 'text/html', ...headers },
+		})
 
-			expect(await locationOf(middleware, visit(path))).toBeNull()
-		}
-	)
+		const response = await middleware(request, {} as NextFetchEvent)
+		const location = new URL(response?.headers.get('location') ?? '')
+
+		expect(location.pathname).toBe('/fr/auth/sign-in')
+		expect(location.searchParams.get('redirect_url')).toBe(`${origin}/fr/profile`)
+	})
+})
+
+describe('a signed-out visitor elsewhere', () => {
+	it.each([
+		'/fr',
+		'/fr/marketplace/abcdefghij12345?tkn=secret',
+		'/fr/events/abcdefghij12345',
+		'/fr/auth/sign-in',
+		// Where Google or Facebook hands the visitor back: the session does not exist yet
+		'/fr/auth/sso-callback?redirect_url=%2Ffr%2Fprofile',
+	])('is not redirected from %s', async path => {
+		const middleware = await loadMiddleware()
+
+		expect(await locationOf(middleware, visit(path))).toBeNull()
+	})
+
+	it('keeps the query string when the locale is added: the page to come back to, the token of a private listing', async () => {
+		const middleware = await loadMiddleware()
+		const query = '?redirect_url=%2Ffr%2Fmarketplace%2Fabcdefghij12345%3Ftkn%3Ds3cr3t'
+
+		// What the language switch asks for when the visitor chooses English (see use-locale.test.tsx)
+		const form = await locationOf(middleware, visit(`/auth/sign-in${query}`, { cookie: 'NEXT_LOCALE=en' }))
+		expect(`${form?.pathname}${form?.search}`).toBe(`/en/auth/sign-in${query}`)
+
+		const bib = await locationOf(
+			middleware,
+			visit('/marketplace/abcdefghij12345?tkn=s3cr3t', { cookie: 'NEXT_LOCALE=en' })
+		)
+		expect(`${bib?.pathname}${bib?.search}`).toBe('/en/marketplace/abcdefghij12345?tkn=s3cr3t')
+	})
 
 	it('gets the locale first on a protected page asked without one, then the sign-in page of that locale', async () => {
 		const middleware = await loadMiddleware()

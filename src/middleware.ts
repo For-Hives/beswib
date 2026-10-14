@@ -2,7 +2,7 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { i18n } from '@/lib/i18n/config'
-import { afterAuthPath, signInPath, signUpPath } from '@/lib/utils/redirect'
+import { returnPathFrom, signInPath, signUpPath } from '@/lib/utils/redirect'
 import { getPublicBaseUrl } from '@/lib/utils/url'
 
 export function getLocaleFromRequest(request: NextRequest): string {
@@ -91,6 +91,17 @@ function authPages(request: NextRequest) {
 	return { signUpUrl: signUpPath(locale), signInUrl: signInPath(locale) }
 }
 
+// The address of the site as Clerk reads it from the request, which is the one it writes in
+// redirect_url: what the proxy forwards first (its first value: each proxy on the way adds its
+// own), the Host header otherwise. Null when the request says neither.
+function requestOrigin(request: NextRequest): string | null {
+	const firstValue = (name: string) => request.headers.get(name)?.split(',')[0]?.trim()
+	const host = firstValue('x-forwarded-host') || request.headers.get('host')
+	if (host == null || host === '') return null
+	const protocol = firstValue('x-forwarded-proto') || request.nextUrl.protocol.replace(':', '')
+	return `${protocol}://${host}`
+}
+
 export default clerkMiddleware(async (auth, request: NextRequest) => {
 	const { pathname } = request.nextUrl
 
@@ -126,10 +137,15 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 	// is active, and Clerk refreshes the route at that moment: the two answers must agree.
 	const { userId } = await auth()
 	if (isPublicAuthRoute(request) && typeof userId === 'string' && userId.length > 0) {
-		// The public address, not request.url: behind the proxy the middleware sees the address the
-		// server listens on, and Clerk writes the return address with the one the visitor sees
-		const destination = afterAuthPath(request.nextUrl.search, getPublicBaseUrl(), currentLocale)
-		return NextResponse.redirect(new URL(destination, request.url))
+		// Clerk writes the return address in full, with the address the visitor sees: the public one,
+		// or the one of this request when the deployment is not on the address it was built for
+		// (never request.url: behind the proxy that is the address the server listens on). Only the
+		// path is kept, and the redirect stays on the address of the request whatever a header says.
+		const { search } = request.nextUrl
+		const origin = requestOrigin(request)
+		const returnTo =
+			returnPathFrom(search, getPublicBaseUrl()) ?? (origin === null ? null : returnPathFrom(search, origin))
+		return NextResponse.redirect(new URL(returnTo ?? `/${currentLocale}/dashboard`, request.url))
 	}
 
 	return NextResponse.next()
