@@ -1,4 +1,4 @@
-'use server'
+import 'server-only'
 
 export async function disconnectPayPalAccount(userId: string): Promise<{ error?: string; success?: boolean }> {
 	try {

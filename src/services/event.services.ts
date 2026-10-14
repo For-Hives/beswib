@@ -1,4 +1,4 @@
-'use server'
+import 'server-only'
 
 import { pb } from '@/lib/services/pocketbase'
 import { dateToPbDateString } from '@/lib/utils/date'

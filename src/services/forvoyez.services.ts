@@ -1,4 +1,4 @@
-'use server'
+import 'server-only'
 
 /**
  * Forvoyez API service for generating image alt text using AI

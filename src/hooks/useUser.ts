@@ -1,8 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
+import { getCurrentUserData, updateUserProfile } from '@/app/[locale]/profile/actions'
 import type { User } from '@/models/user.model'
-
-import { getUserData, updateUser } from '@/services/user.services'
 
 export function useUpdateUser() {
 	const queryClient = useQueryClient()
@@ -13,7 +12,8 @@ export function useUpdateUser() {
 			void queryClient.invalidateQueries({ queryKey: ['user', userId] })
 			queryClient.setQueryData(['user', userId], updatedUser)
 		},
-		mutationFn: ({ userId, userData }: { userData: Partial<User>; userId: string }) => updateUser(userId, userData),
+		// The server saves the profile of the session's user: userId only names the cache entry to refresh
+		mutationFn: ({ userData }: { userData: Partial<User>; userId: string }) => updateUserProfile(userData),
 	})
 }
 
@@ -23,7 +23,8 @@ export function useUser(userId: string) {
 		refetchIntervalInBackground: true,
 		refetchInterval: 5000, // Poll every 5 seconds to check for merchant ID updates
 		queryKey: ['user', userId],
-		queryFn: () => getUserData(userId),
+		// The server answers with the record of the session's user: userId only names the cache entry
+		queryFn: () => getCurrentUserData(),
 		enabled: !!userId,
 	})
 }

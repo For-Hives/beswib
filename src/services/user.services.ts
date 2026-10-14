@@ -1,4 +1,4 @@
-'use server'
+import 'server-only'
 
 import { DateTime } from 'luxon'
 import { pb } from '@/lib/services/pocketbase'
@@ -134,7 +134,10 @@ export async function fetchUserByEmail(email: string): Promise<null | User> {
 		return null
 	}
 	try {
-		const user = await pb.collection('users').getFirstListItem<PbUserRecordMinimal>(`email = "${email.trim()}"`)
+		// The address may be typed by an anonymous visitor (waitlist form): escaped, it cannot close the
+		// quote and turn the lookup into a query over the other fields of the users
+		const escapedEmail = email.trim().replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+		const user = await pb.collection('users').getFirstListItem<PbUserRecordMinimal>(`email = "${escapedEmail}"`)
 		if (user == null) {
 			return null
 		}

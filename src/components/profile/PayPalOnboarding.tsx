@@ -178,11 +178,11 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	}, [statusSettledAt, isMerchantLinked, isLoading])
 
 	const handlePayPalConnect = () => {
-		onboardingMutation.mutate(userId)
+		onboardingMutation.mutate()
 	}
 
 	const handleDisconnect = () => {
-		disconnectMutation.mutate(userId, {
+		disconnectMutation.mutate(undefined, {
 			onSuccess: result => {
 				if (result.success === true) track('paypal_disconnect_success')
 				setShowDisconnectConfirm(false)
