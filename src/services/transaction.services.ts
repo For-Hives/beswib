@@ -1,4 +1,4 @@
-'use server'
+import 'server-only'
 
 import { pb } from '@/lib/services/pocketbase'
 import type { Transaction, TransactionWithExpand } from '@/models/transaction.model'
@@ -7,7 +7,12 @@ import type { Transaction, TransactionWithExpand } from '@/models/transaction.mo
 export async function getTransactionByOrderId(orderId: string): Promise<Transaction | null> {
 	if (!orderId) return null
 	try {
-		const record = await pb.collection('transactions').getFirstListItem<Transaction>(`paypal_order_id = "${orderId}"`)
+		// The id may be the one a browser sent with a capture: escaped, it cannot close the quote and turn
+		// the lookup into a query over the other fields of the transactions
+		const escapedOrderId = String(orderId).replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+		const record = await pb
+			.collection('transactions')
+			.getFirstListItem<Transaction>(`paypal_order_id = "${escapedOrderId}"`)
 		return record ?? null
 	} catch {
 		// Not found or query error

@@ -1,4 +1,3 @@
-'use server'
 import { i18n, type Locale } from './config'
 
 /**

@@ -145,10 +145,15 @@ export async function createOrganizerAction(formData: FormData): Promise<{
 }
 
 /**
- * Server action to get all events for admin
+ * Server action to get all events for admin (admin only)
  */
 export async function getAllEventsAction(expandOrganizer = true) {
 	try {
+		const adminUser = await checkAdminAccess()
+		if (adminUser == null) {
+			return { success: false, error: 'Unauthorized: Admin access required' }
+		}
+
 		const events = await getAllEvents(expandOrganizer)
 		return {
 			success: true,
@@ -164,10 +169,15 @@ export async function getAllEventsAction(expandOrganizer = true) {
 }
 
 /**
- * Server action to get all organizers for admin
+ * Server action to get all organizers for admin (admin only)
  */
 export async function getAllOrganizersAction() {
 	try {
+		const adminUser = await checkAdminAccess()
+		if (adminUser == null) {
+			return { success: false, error: 'Unauthorized: Admin access required' }
+		}
+
 		const organizers = await fetchAllOrganizersWithEventsCount()
 
 		return {
@@ -184,10 +194,15 @@ export async function getAllOrganizersAction() {
 }
 
 /**
- * Server action to get dashboard statistics
+ * Server action to get dashboard statistics (admin only)
  */
 export async function getDashboardStatsAction() {
 	try {
+		const adminUser = await checkAdminAccess()
+		if (adminUser == null) {
+			return { success: false, error: 'Unauthorized: Admin access required' }
+		}
+
 		const stats = await getDashboardStats()
 		return {
 			success: true,
@@ -203,10 +218,15 @@ export async function getDashboardStatsAction() {
 }
 
 /**
- * Server action to get recent activity
+ * Server action to get recent activity (admin only)
  */
 export async function getRecentActivityAction() {
 	try {
+		const adminUser = await checkAdminAccess()
+		if (adminUser == null) {
+			return { success: false, error: 'Unauthorized: Admin access required' }
+		}
+
 		const activity = await getRecentActivity()
 		return {
 			success: true,

@@ -1,8 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 
+import { startPayPalOnboarding } from '@/app/[locale]/profile/actions'
 import { track } from '@/lib/analytics/client'
-
-import { initiatePayPalOnboarding } from '@/services/paypal-onboarding.services'
 
 export function usePayPalOnboarding() {
 	return useMutation({
@@ -19,6 +18,6 @@ export function usePayPalOnboarding() {
 			console.error('PayPal onboarding error:', error)
 			track('paypal_onboarding_error', { kind: 'request_failed' })
 		},
-		mutationFn: (userId: string) => initiatePayPalOnboarding(userId),
+		mutationFn: () => startPayPalOnboarding(),
 	})
 }

@@ -1,7 +1,8 @@
-'use server'
+import 'server-only'
 
 import { PLATFORM_FEE } from '@/constants/global.constant'
 import { trackServer } from '@/lib/analytics/server'
+import { isValidPayPalOrderId } from '@/lib/validation/paypal'
 import type { BibSale } from '@/models/marketplace.model'
 import type {
 	PayPalAccessToken,
@@ -280,20 +281,6 @@ function parsePayPalError(errorString: string): { errorCode?: string; descriptio
 	}
 
 	return { description: errorString }
-}
-
-/**
- * Validates PayPal order ID format to prevent SSRF attacks
- * PayPal order IDs follow the pattern: ORDER-[17-30 alphanumeric chars]
- */
-function isValidPayPalOrderId(orderId: string): boolean {
-	if (!orderId || typeof orderId !== 'string') {
-		return false
-	}
-
-	// PayPal order IDs are typically 17 chars (old format) or ORDER-[alphanumeric] (new format)
-	// This prevents path traversal and other SSRF attempts
-	return /^[0-9A-Z]{17}$|^ORDER-[A-Z0-9]{10,30}$/i.test(orderId)
 }
 
 /**

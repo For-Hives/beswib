@@ -12,7 +12,8 @@ export function usePayPalMerchantStatus(userId: string | null | undefined) {
 		queryKey: ['paypal-merchant-status', userId],
 		queryFn: async () => {
 			if (userId == null || userId === '') return null
-			const res = await fetch(`/api/paypal/merchant-status?userId=${encodeURIComponent(userId)}`)
+			// The route answers for the session's user: userId only names the cache entry
+			const res = await fetch('/api/paypal/merchant-status')
 			if (!res.ok) throw new Error('Failed to fetch PayPal status')
 			const data = (await res.json()) as { status?: PayPalMerchantIntegrationStatus }
 			return data.status ?? null

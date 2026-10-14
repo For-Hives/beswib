@@ -1,4 +1,4 @@
-'use server'
+import 'server-only'
 
 import { priceBucket } from '@/lib/analytics/buckets'
 import { bibIdOfTransaction } from '@/lib/analytics/ids'

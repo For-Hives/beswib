@@ -244,6 +244,12 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 		} satisfies BibSale
 	}
 
+	// Props of a Client Component are sent to the browser of every visitor. Of the seller, the purchase
+	// needs the PayPal merchant id only: their record also holds their e-mail, phone, address and birth date
+	const sellerUser = bib?.expand?.sellerUserId
+		? { paypalMerchantId: bib.expand.sellerUserId.paypalMerchantId ?? null }
+		: null
+
 	return (
 		<MarketplaceItemClient
 			bibId={id}
@@ -251,11 +257,10 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 			initialToken={tkn}
 			isPrivate={isPrivate}
 			bibSale={bibSale}
-			sellerUser={bib?.expand?.sellerUserId ?? null}
+			sellerUser={sellerUser}
 			user={user}
 			eventData={bib?.expand?.eventId}
 			organizerData={organizer ?? undefined}
-			bibData={bib ?? undefined}
 			translations={t}
 		/>
 	)

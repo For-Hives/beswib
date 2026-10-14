@@ -23,7 +23,11 @@ export async function GET(request: Request) {
 		}
 
 		try {
-			await pb.collection('waitlists').getFirstListItem<Waitlist>(`user_id = "${user.id}" && event_id = "${eventId}"`)
+			// eventId comes from the query string: escaped, it cannot close the quote and widen the filter
+			const escapedEventId = eventId.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+			await pb
+				.collection('waitlists')
+				.getFirstListItem<Waitlist>(`user_id = "${user.id}" && event_id = "${escapedEventId}"`)
 			return NextResponse.json({ inWaitlist: true })
 		} catch (err: unknown) {
 			// PocketBase throws 404 if not found

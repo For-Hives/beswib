@@ -1,4 +1,4 @@
-'use server'
+import 'server-only'
 
 // Minimal notification service to support future expansion
 // Currently provides sendSaleAlert() to ping a Discord webhook with @here

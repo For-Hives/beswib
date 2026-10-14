@@ -10,7 +10,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import type { Organizer } from '@/models/organizer.model'
 import type { User } from '@/models/user.model'
-import { fetchAllOrganizers } from '@/services/organizer.services'
 
 interface AdminOrganizerValidatePageClientProps {
 	currentUser: null | User
@@ -22,6 +21,7 @@ interface ValidationStats {
 	totalOrganizers: number
 }
 
+import { getAllOrganizersAction } from '@/app/[locale]/admin/actions'
 import organizerTranslations from '@/app/[locale]/admin/organizer/locales.json'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
@@ -42,7 +42,9 @@ export default function AdminOrganizerValidatePageClient({
 		const fetchOrganizers = async () => {
 			try {
 				setIsLoading(true)
-				const organizersData = await fetchAllOrganizers()
+				// Through the admin action, which checks the role: the organizer service answers anyone
+				const result = await getAllOrganizersAction()
+				const organizersData: Organizer[] = result.data ?? []
 				setOrganizers(organizersData)
 
 				// Calculate stats
