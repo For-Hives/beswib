@@ -36,8 +36,20 @@ const byPath = new Map(sources.map(file => [file.path, file]))
 
 /** The directive a module starts with, after its leading comments. */
 function directiveOf(text: string): 'use client' | 'use server' | null {
-	const match = /^(?:\s|\/\/[^\n]*\n|\/\*[\s\S]*?\*\/)*['"](use client|use server)['"]/.exec(text)
-	return (match?.[1] as 'use client' | 'use server' | undefined) ?? null
+	// Walked by hand: one regular expression for "any run of comments" backtracks badly
+	let index = 0
+	for (;;) {
+		while (index < text.length && text[index].trim() === '') index++
+		const comment = text.startsWith('//', index) ? '\n' : text.startsWith('/*', index) ? '*/' : null
+		if (comment == null) break
+		const end = text.indexOf(comment, index + 2)
+		if (end === -1) return null
+		index = end + comment.length
+	}
+	for (const directive of ['use client', 'use server'] as const) {
+		if (text.startsWith(`'${directive}'`, index) || text.startsWith(`"${directive}"`, index)) return directive
+	}
+	return null
 }
 
 /** The modules of the app a file imports at run time: type-only imports are erased by the compiler. */
