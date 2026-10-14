@@ -15,6 +15,7 @@ import { track, trackView } from '@/lib/analytics/client'
 import { bibIdOf, eventIdOf } from '@/lib/analytics/ids'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { signInPath } from '@/lib/utils/redirect'
 import { isUserProfileComplete } from '@/lib/validation/user'
 import type { Event } from '@/models/event.model'
 import type { BibSale } from '@/models/marketplace.model'
@@ -264,7 +265,9 @@ export default function PayPalPurchaseClient({
 				isSignedIn !== true ? 'anonymous' : isOwnBib ? 'own_bib' : isProfileComplete ? 'ready' : 'profile_incomplete',
 		})
 		if (isSignedIn !== true) {
-			router.push(`/${locale}/auth/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`)
+			// Back to this bib after sign-in. The query string comes along: a private listing is only
+			// reachable with its token
+			router.push(signInPath(locale, `${window.location.pathname}${window.location.search}`))
 			return
 		}
 		if (isOwnBib) return // User trying to buy their own bib - button is disabled upstream

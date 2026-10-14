@@ -77,6 +77,6 @@ export async function requireAdminAccess(): Promise<User> {
 		return user
 	} catch (error) {
 		console.error('Error in requireAdminAccess:', error)
-		redirect('/unauthorized')
+		redirect('/auth/unauthorized')
 	}
 }

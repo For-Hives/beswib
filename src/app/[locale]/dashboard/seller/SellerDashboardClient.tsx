@@ -271,8 +271,9 @@ export default function SellerDashboardClient({
 								</Link>
 							</TrackClick>
 
+							{/* The seller's listings are on this page, further down: there is no page of their own */}
 							<TrackClick name="cta_click" props={{ cta: 'my_listings', where: 'seller_quick_actions' }}>
-								<Link href={`/${locale}/dashboard/seller/list-bib`}>
+								<Link href={`/${locale}/dashboard/seller#my-listings`}>
 									<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 										<CardContent className="flex flex-col items-center p-4 text-center">
 											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
@@ -408,8 +409,12 @@ export default function SellerDashboardClient({
 						)}
 					</div>
 
-					{/* Bib Listings with Categories */}
-					<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
+					{/* Bib Listings with Categories. The "My Listings" quick action jumps here: scroll-mt keeps
+					    the title below the fixed header */}
+					<Card
+						id="my-listings"
+						className="dark:border-border/50 bg-card/80 scroll-mt-20 border-black/50 backdrop-blur-sm"
+					>
 						<CardHeader>
 							<CardTitle className="flex items-center gap-2">
 								<Tag className="h-5 w-5" />

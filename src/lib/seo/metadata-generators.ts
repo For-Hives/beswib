@@ -599,17 +599,17 @@ export function generateAuthMetadata(
 		case 'sign-in':
 			authTitle = 'Sign In'
 			authDescription = 'Access your Beswib dashboard and manage your race bibs'
-			authPath = '/sign-in'
+			authPath = '/auth/sign-in'
 			break
 		case 'sign-up':
 			authTitle = 'Sign Up'
 			authDescription = 'Join Beswib and start buying or selling race bibs safely'
-			authPath = '/sign-up'
+			authPath = '/auth/sign-up'
 			break
 		case 'forgot-password':
 			authTitle = 'Forgot Password'
 			authDescription = 'Reset your Beswib account password securely'
-			authPath = '/forgot-password'
+			authPath = '/auth/forgot-password'
 			break
 		case 'unauthorized':
 			authTitle = 'Access Denied'

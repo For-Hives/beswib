@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { signInPath } from '@/lib/utils/redirect'
 import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
 import { fetchBibByIdForSeller } from '@/services/bib.services'
@@ -26,7 +27,7 @@ export default async function EditBibPage({ params }: EditBibPageProps) {
 	const t = getTranslations(locale, editBibTranslations)
 
 	if (clerkId == null || clerkId === '') {
-		redirect(`/auth/sign-in?redirect_url=/dashboard/seller/edit-bib/${bibId}`)
+		redirect(signInPath(locale, `/${locale}/dashboard/seller/edit-bib/${bibId}`))
 	}
 
 	try {

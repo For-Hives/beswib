@@ -308,9 +308,20 @@ describe('PayPal account (startPayPalOnboarding, disconnectPayPal)', () => {
 		const legacyCall = startPayPalOnboarding as unknown as (userId: string) => ReturnType<typeof startPayPalOnboarding>
 		const result = await legacyCall('alice')
 
-		// PayPal hands this id back to the webhook, which links the merchant account to that user
-		expect(onboardSeller).toHaveBeenCalledExactlyOnceWith('mallory')
+		// PayPal hands this id back to the webhook, which links the merchant account to that user.
+		// The only argument the action reads is the language of the page: 'alice' is not one.
+		expect(onboardSeller).toHaveBeenCalledExactlyOnceWith('mallory', undefined)
 		expect(result).toEqual({ referralId: 'REF-1', actionUrl: 'https://paypal.test/onboard' })
+	})
+
+	it('passes on the language of the page, for the way back from PayPal, and nothing else', async () => {
+		signIn('mallory')
+
+		await startPayPalOnboarding('fr')
+		await startPayPalOnboarding('fr/../../admin')
+
+		expect(onboardSeller).toHaveBeenNthCalledWith(1, 'mallory', 'fr')
+		expect(onboardSeller).toHaveBeenNthCalledWith(2, 'mallory', undefined)
 	})
 
 	it('does not start an onboarding for a visitor who is not signed in', async () => {

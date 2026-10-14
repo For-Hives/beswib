@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import CustomSignUp from '@/components/auth/CustomSignUp'
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
+import { afterAuthPath } from '@/lib/utils/redirect'
 
 export default function Page({ params }: { params: Promise<{ locale: string }> }) {
 	const { isSignedIn, isLoaded } = useAuth()
@@ -17,7 +18,8 @@ export default function Page({ params }: { params: Promise<{ locale: string }> }
 
 	useEffect(() => {
 		if (isLoaded && isSignedIn) {
-			router.push(`/${locale}/dashboard`)
+			// The same destination as the form and the middleware: the three can answer the same sign-in
+			router.push(afterAuthPath(window.location.search, window.location.origin, locale))
 		}
 	}, [isLoaded, isSignedIn, router, locale])
 

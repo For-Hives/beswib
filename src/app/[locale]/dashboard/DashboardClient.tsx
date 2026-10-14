@@ -4,7 +4,6 @@ import { Calendar, List, MapPin, Plus, Search, ShoppingBag, ShoppingCart, Tag, Z
 
 import Link from 'next/link'
 import { TrackClick } from '@/components/analytics/TrackClick'
-import { SessionsTracker } from '@/components/global/sessionsTrackers'
 import { Button } from '@/components/ui/button'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -36,7 +35,6 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
-			<SessionsTracker />
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
 			<UserHeader clerkUser={clerkUser} user={user} locale={locale} />
 
