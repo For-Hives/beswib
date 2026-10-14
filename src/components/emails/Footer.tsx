@@ -40,7 +40,7 @@ export const Footer = ({ locale, baseUrl }: { baseUrl: string; locale: string })
 						{getSafeTranslation('emails.saleConfirmation.dashboard', 'Dashboard')}
 					</Link>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
-					<Link href={`${baseUrl}/legals/privacy`} className="text-muted-foreground text-xs underline">
+					<Link href={`${baseUrl}/legals/privacy-policy`} className="text-muted-foreground text-xs underline">
 						{getSafeTranslation('emails.saleConfirmation.privacy', 'Privacy')}
 					</Link>
 				</Section>

@@ -1,7 +1,7 @@
 'use server'
 
 import { auth } from '@clerk/nextjs/server'
-
+import { i18n } from '@/lib/i18n/config'
 import type { User } from '@/models/user.model'
 import type { VerifiedEmail } from '@/models/verifiedEmail.model'
 import { disconnectPayPalAccount, initiatePayPalOnboarding } from '@/services/paypal-onboarding.services'
@@ -111,11 +111,18 @@ export async function updateUserProfile(data: Partial<User>) {
 /**
  * Starts the PayPal onboarding of the signed-in user. PayPal answers the webhook with the tracking id
  * of the referral, which is the id of the user the merchant account gets linked to.
+ * `locale` is the language of the page the seller is on: PayPal sends them back to their profile in
+ * it. It comes from the browser: anything that is not one of the app's locales is dropped here.
  */
-export async function startPayPalOnboarding(): Promise<{ actionUrl?: string; error?: string; referralId?: string }> {
+export async function startPayPalOnboarding(
+	locale?: string
+): Promise<{ actionUrl?: string; error?: string; referralId?: string }> {
 	const user = await getSessionUser()
 	if (user == null) return { error: 'Authentication required.' }
-	return initiatePayPalOnboarding(user.id)
+	return initiatePayPalOnboarding(
+		user.id,
+		i18n.locales.find(known => known === locale)
+	)
 }
 
 /**

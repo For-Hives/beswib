@@ -14,6 +14,7 @@ import { clerkErrorKind } from '@/lib/analytics/classify'
 import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { afterAuthPath, returnPathFrom, signInPath } from '@/lib/utils/redirect'
 
 function clerkErrorCode(err: unknown): string | undefined {
 	return (err as { errors?: { code?: string }[] } | null | undefined)?.errors?.[0]?.code
@@ -60,12 +61,20 @@ export default function ForgotPasswordPage() {
 		return errorsT.default_error
 	}
 
-	// Redirect if already signed in
+	// Redirect if already signed in, which is also how a reset ends: to the page that sent the
+	// visitor to the sign-in form when there is one, as the forms and the middleware do
 	useEffect(() => {
 		if (isLoaded && isSignedIn) {
-			router.push(`/${locale}/dashboard`)
+			router.push(afterAuthPath(window.location.search, window.location.origin, locale))
 		}
 	}, [isLoaded, isSignedIn, router, locale])
+
+	// A visitor who goes back to the sign-in form keeps the page to come back to. Set in an effect:
+	// the query string is only known in the browser.
+	const [returnTo, setReturnTo] = useState<string | null>(null)
+	useEffect(() => {
+		setReturnTo(returnPathFrom(window.location.search, window.location.origin))
+	}, [])
 
 	// Send the password reset code to the user's email
 	async function create(e: React.FormEvent) {
@@ -220,7 +229,7 @@ export default function ForgotPasswordPage() {
 				<div className="text-center">
 					<TrackClick name="cta_click" props={{ cta: 'sign_in', where: 'auth_forgot_password' }}>
 						<Link
-							href={`/${locale}/auth/sign-in`}
+							href={signInPath(locale, returnTo)}
 							className="text-muted-foreground hover:text-foreground text-sm transition-colors"
 						>
 							{t.forgotPassword.backToSignIn}

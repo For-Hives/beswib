@@ -3,7 +3,8 @@ import { useMutation } from '@tanstack/react-query'
 import { startPayPalOnboarding } from '@/app/[locale]/profile/actions'
 import { track } from '@/lib/analytics/client'
 
-export function usePayPalOnboarding() {
+/** `locale` is the language of the page: PayPal sends the seller back to their profile in it. */
+export function usePayPalOnboarding(locale: string) {
 	return useMutation({
 		onSuccess: result => {
 			if (result.actionUrl ?? '') {
@@ -18,6 +19,6 @@ export function usePayPalOnboarding() {
 			console.error('PayPal onboarding error:', error)
 			track('paypal_onboarding_error', { kind: 'request_failed' })
 		},
-		mutationFn: () => startPayPalOnboarding(),
+		mutationFn: () => startPayPalOnboarding(locale),
 	})
 }

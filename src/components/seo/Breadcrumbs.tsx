@@ -114,8 +114,8 @@ export function LegalBreadcrumbs({
 }) {
 	const items: BreadcrumbItem[] = [
 		{
+			// No link: the legal pages have no index page
 			label: 'Legal',
-			href: `/${locale}/legals`,
 		},
 		{
 			label: pageName,

@@ -4,10 +4,10 @@ import { useSignUp } from '@clerk/nextjs/legacy'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import type React from 'react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import mainLocales from '@/app/[locale]/locales.json'
 import { TrackClick } from '@/components/analytics/TrackClick'
-import { clearOAuthMarker, SessionsTracker, writeOAuthMarker } from '@/components/global/sessionsTrackers'
+import { clearOAuthMarker, writeOAuthMarker } from '@/components/global/sessionsTrackers'
 import { Button } from '@/components/ui/button'
 import { FormInput } from '@/components/ui/FormInput'
 import { Icons } from '@/components/ui/icons'
@@ -17,6 +17,7 @@ import { clerkErrorKind } from '@/lib/analytics/classify'
 import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
+import { afterAuthPath, oauthCallbackPath, returnPathFrom, signInPath } from '@/lib/utils/redirect'
 import {
 	validateConfirmPasswordValibot,
 	validateEmailValibot,
@@ -125,6 +126,18 @@ export default function CustomSignUp() {
 		return error == null
 	}
 
+	// Where the visitor goes once the account exists: back to the page that sent them to the forms
+	// (redirect_url, when it names a page of the site), to their dashboard otherwise. Read when a
+	// step starts: once the session is active the address bar may already show the next page.
+	const readDestination = () => afterAuthPath(window.location.search, window.location.origin, locale)
+
+	// A visitor who already has an account keeps the page to come back to on the sign-in form. Set
+	// in an effect: the query string is only known in the browser.
+	const [signInHref, setSignInHref] = useState(signInPath(locale))
+	useEffect(() => {
+		setSignInHref(signInPath(locale, returnPathFrom(window.location.search, window.location.origin)))
+	}, [locale])
+
 	const passwordStarted = useRef(false)
 	const trackPasswordStart = () => {
 		if (passwordStarted.current) return
@@ -183,6 +196,7 @@ export default function CustomSignUp() {
 		e.preventDefault()
 		if (!isLoaded || isSubmitting) return
 
+		const destination = readDestination()
 		clearOAuthMarker()
 		trackPasswordStart()
 
@@ -229,7 +243,7 @@ export default function CustomSignUp() {
 				// Account is already verified, can directly sign in
 				await setActive({ session: result.createdSessionId })
 				track('sign_up_success', { method: 'password' })
-				router.push(`/${locale}/dashboard`)
+				router.push(destination)
 				return
 			} else if (result.status === 'missing_requirements') {
 				// Check if it's specifically email verification that's missing
@@ -304,6 +318,8 @@ export default function CustomSignUp() {
 		e.preventDefault()
 		if (!isLoaded || isVerifying) return
 
+		const destination = readDestination()
+
 		// Validate verification code
 		const codeValid = validateField('verificationCode', verificationCode)
 		if (!codeValid) {
@@ -324,7 +340,7 @@ export default function CustomSignUp() {
 				track('sign_up_success', { method: 'password' })
 
 				// Success message before redirect
-				router.push(`/${locale}/dashboard`)
+				router.push(destination)
 			} else if (completeSignUp.status === 'missing_requirements') {
 				setGlobalError('Please complete your profile to finish registration.')
 				track('sign_up_error', { method: 'password', step: 'email_code', kind: 'incomplete', field: 'none' })
@@ -356,14 +372,17 @@ export default function CustomSignUp() {
 		if (!signUp) return
 
 		const method = strategy === 'oauth_google' ? 'google' : 'facebook'
+		const destination = readDestination()
 		track('sign_up_start', { method })
 		writeOAuthMarker('sign_up', method, 'none')
 
 		setIsSubmitting(true)
+		// The provider returns to the callback page, where Clerk finishes the attempt (an account
+		// that already exists is signed in there), and the visitor goes on to the destination
 		await signUp.authenticateWithRedirect({
 			strategy,
-			redirectUrlComplete: `/${locale}/dashboard`,
-			redirectUrl: `/${locale}/dashboard`,
+			redirectUrlComplete: destination,
+			redirectUrl: oauthCallbackPath(locale, returnPathFrom(window.location.search, window.location.origin)),
 		})
 	}
 
@@ -445,7 +464,6 @@ export default function CustomSignUp() {
 	// Sign up form
 	return (
 		<div className="w-full max-w-md space-y-6">
-			<SessionsTracker />
 			{/* Header */}
 			<div className="space-y-2 text-start">
 				<h1 className="text-foreground text-2xl font-bold tracking-tight">{t.signUp.title}</h1>
@@ -590,7 +608,7 @@ export default function CustomSignUp() {
 					{t.signUp.alreadyAccount}{' '}
 					<TrackClick name="cta_click" props={{ cta: 'sign_in', where: 'auth_sign_up' }}>
 						<Link
-							href={`/${locale}/auth/sign-in`}
+							href={signInHref}
 							className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
 						>
 							{t.signUp.signIn}
@@ -603,7 +621,7 @@ export default function CustomSignUp() {
 					<p className="mt-2 text-sm">
 						<TrackClick name="cta_click" props={{ cta: 'sign_in', where: 'auth_sign_up_exists' }}>
 							<Link
-								href={`/${locale}/auth/sign-in`}
+								href={signInHref}
 								className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
 							>
 								→ Sign in with this email instead

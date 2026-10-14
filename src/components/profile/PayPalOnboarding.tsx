@@ -141,7 +141,7 @@ function PayPalOnboardingContent({ userId, locale }: PayPalOnboardingProps) {
 	const t = getTranslations(locale, profileTranslations).profile.sellerInfo
 	const { isLoading, error, data: user } = useUser(userId)
 
-	const onboardingMutation = usePayPalOnboarding()
+	const onboardingMutation = usePayPalOnboarding(locale)
 	const disconnectMutation = usePayPalDisconnect()
 	const [showDisconnectConfirm, setShowDisconnectConfirm] = React.useState(false)
 

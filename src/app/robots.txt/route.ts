@@ -12,19 +12,8 @@ export function GET() {
 User-agent: *
 Allow: /
 
-# Sitemaps for all locales
+# Sitemap for all locales
 Sitemap: ${baseUrl}/sitemap.xml
-
-# Sitemaps for all locales
-Sitemap: ${baseUrl}/en/sitemap.xml
-Sitemap: ${baseUrl}/fr/sitemap.xml
-Sitemap: ${baseUrl}/de/sitemap.xml
-Sitemap: ${baseUrl}/es/sitemap.xml
-Sitemap: ${baseUrl}/it/sitemap.xml
-Sitemap: ${baseUrl}/pt/sitemap.xml
-Sitemap: ${baseUrl}/nl/sitemap.xml
-Sitemap: ${baseUrl}/ro/sitemap.xml
-Sitemap: ${baseUrl}/ko/sitemap.xml
 
 # Important pages to index
 Allow: /en/

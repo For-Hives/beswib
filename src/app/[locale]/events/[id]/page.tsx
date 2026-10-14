@@ -21,6 +21,7 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import { generateEventMetadata } from '@/lib/seo/metadata-generators'
 import { transformBibsToBibSales } from '@/lib/transformers/bib'
 import { pbDateToLuxon } from '@/lib/utils/date'
+import { signInPath } from '@/lib/utils/redirect'
 import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
 import { fetchPubliclyListedBibsForEvent } from '@/services/bib.services'
@@ -87,8 +88,8 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 				redirect(`/${locale}/events/${eventIdFromForm}?waitlist_error=failed`)
 			}
 		} else {
-			// No authentication and no email provided - redirect to sign-in
-			redirect(`/${locale}/sign-in`)
+			// No authentication and no email provided - redirect to sign-in, and back to this event afterwards
+			redirect(signInPath(locale, `/${locale}/events/${eventId}`))
 		}
 	}
 
@@ -356,7 +357,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 										<TrackClick name="cta_click" props={{ cta: 'sign_in', where: 'event_waitlist' }}>
 											<Link
 												className="bg-primary hover:bg-primary/90 text-primary-foreground flex w-full items-center justify-center gap-3 rounded-xl px-6 py-3 font-medium transition"
-												href={`/${locale}/sign-in`}
+												href={signInPath(locale, `/${locale}/events/${eventId}`)}
 											>
 												{t.event.waitlist.signInButton}
 											</Link>
