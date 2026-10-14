@@ -36,15 +36,22 @@ let warnedAboutBotFilter = false
 
 /**
  * True only on the production site: a production build (NODE_ENV, so never `next dev` nor a test
- * run, whatever their environment holds) whose NEXT_PUBLIC_BASE_URL has the hostname beswib.com or
- * www.beswib.com. Never true in a browser.
+ * run, whatever their environment holds) whose own address, as its environment names it, has the
+ * hostname beswib.com or www.beswib.com. Never true in a browser.
+ *
+ * The address is read from the variables themselves, in the order getPublicBaseUrl() reads them
+ * (the deployments only have SERVER_URL), and not from that helper: for a production build that
+ * names no address at all it answers https://beswib.com, a default for links, not a proof of
+ * being the production site.
  */
 export function isServerTrackingEnabled(): boolean {
 	try {
 		if (typeof window !== 'undefined') return false
 		if (process.env.NODE_ENV !== 'production') return false
-		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-		if (baseUrl == null || baseUrl === '') return false
+		const baseUrl = [process.env.NEXT_PUBLIC_BASE_URL, process.env.SERVER_URL, process.env.NEXT_URL_SERVER_URL].find(
+			value => value != null && value.trim() !== ''
+		)
+		if (baseUrl == null) return false
 		return PRODUCTION_HOSTNAMES.includes(new URL(baseUrl).hostname)
 	} catch {
 		return false
