@@ -43,6 +43,9 @@ beforeEach(async () => {
 	// The production site: a production build whose base URL is beswib.com
 	vi.stubEnv('NODE_ENV', 'production')
 	vi.stubEnv('NEXT_PUBLIC_BASE_URL', 'https://beswib.com')
+	// The older names of the same address: unset unless a test says otherwise
+	vi.stubEnv('SERVER_URL', undefined)
+	vi.stubEnv('NEXT_URL_SERVER_URL', undefined)
 	vi.stubEnv('NEXT_PUBLIC_UMAMI_HOST', '')
 	await loadServer()
 })
@@ -76,8 +79,27 @@ describe('isServerTrackingEnabled', () => {
 		expect(server.isServerTrackingEnabled()).toBe(false)
 	})
 
-	it('is off when the variable is missing', () => {
+	it('is off when no variable names the address of the deployment', () => {
 		vi.stubEnv('NEXT_PUBLIC_BASE_URL', undefined)
+		expect(server.isServerTrackingEnabled()).toBe(false)
+	})
+
+	// The deployments name themselves with SERVER_URL only
+	it.each(['SERVER_URL', 'NEXT_URL_SERVER_URL'])('is on when only %s names the production site', name => {
+		vi.stubEnv('NEXT_PUBLIC_BASE_URL', undefined)
+		vi.stubEnv(name, 'https://beswib.com')
+		expect(server.isServerTrackingEnabled()).toBe(true)
+	})
+
+	it.each(['SERVER_URL', 'NEXT_URL_SERVER_URL'])('is off when only %s is set and names staging', name => {
+		vi.stubEnv('NEXT_PUBLIC_BASE_URL', undefined)
+		vi.stubEnv(name, 'https://staging.beswib.com')
+		expect(server.isServerTrackingEnabled()).toBe(false)
+	})
+
+	it('believes the first variable that is set: staging stays off whatever an older name says', () => {
+		vi.stubEnv('NEXT_PUBLIC_BASE_URL', 'https://staging.beswib.com')
+		vi.stubEnv('SERVER_URL', 'https://beswib.com')
 		expect(server.isServerTrackingEnabled()).toBe(false)
 	})
 })

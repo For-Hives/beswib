@@ -2,6 +2,7 @@ import 'server-only'
 
 import { PLATFORM_FEE } from '@/constants/global.constant'
 import { trackServer } from '@/lib/analytics/server'
+import { getPublicBaseUrl } from '@/lib/utils/url'
 import { isValidPayPalOrderId } from '@/lib/validation/paypal'
 import type { BibSale } from '@/models/marketplace.model'
 import type {
@@ -407,7 +408,7 @@ export async function createOrder(
 		}
 
 		const token = await getAccessToken()
-		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
+		const baseUrl = getPublicBaseUrl()
 		const userLocale = locale ?? 'en' // Default to 'en' if no locale provided
 
 		// Format event date for description
@@ -679,8 +680,7 @@ export async function onboardSeller(
 export async function setupPayPalWebhooks(): Promise<{ error?: string; success?: boolean }> {
 	try {
 		const token = await getAccessToken()
-		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
-		const webhookUrl = `${baseUrl}/api/webhooks/paypal`
+		const webhookUrl = `${getPublicBaseUrl()}/api/webhooks/paypal`
 
 		const paypalApiUrl = process.env.PAYPAL_API_URL ?? 'https://api-m.sandbox.paypal.com'
 		const response = await fetch(`${paypalApiUrl}/v1/notifications/webhooks`, {
