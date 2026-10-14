@@ -12,20 +12,27 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 const mocks = vi.hoisted(() => ({
 	user: { user: null as { createdAt: Date } | null, isSignedIn: false, isLoaded: true },
 	track: vi.fn(),
+	pathname: '/fr/marketplace/abcdefghij12345',
 }))
 
 vi.mock('@clerk/nextjs', () => ({ useUser: () => mocks.user }))
+vi.mock('next/navigation', () => ({ usePathname: () => mocks.pathname }))
 vi.mock('@/lib/analytics/client', () => ({ trackView: vi.fn(), track: mocks.track }))
 
 import { clearOAuthMarker, SessionsTracker, writeOAuthMarker } from '@/components/global/sessionsTrackers'
+import { i18n } from '@/lib/i18n/config'
 
 const MARKER = 'beswib.oauth'
 const LONG_AGO = new Date('2025-01-01T00:00:00Z')
+const BIB = '/fr/marketplace/abcdefghij12345'
+const CALLBACK = '/fr/auth/sso-callback'
 
 let container: HTMLDivElement
 let root: Root
 
-function land(): void {
+// The tracker is in the root layout: a navigation renders it again, it is not mounted again
+function land(pathname: string = mocks.pathname): void {
+	mocks.pathname = pathname
 	act(() => root.render(<SessionsTracker />))
 }
 
@@ -39,6 +46,7 @@ beforeEach(() => {
 	document.body.appendChild(container)
 	root = createRoot(container)
 	mocks.user = { user: null, isSignedIn: false, isLoaded: true }
+	mocks.pathname = BIB
 })
 
 afterEach(() => {
@@ -144,6 +152,105 @@ describe('the page an OAuth round trip comes back to', () => {
 		land()
 		// A value that is not an intent is not sent: the outcome is counted without it
 		expect(mocks.track.mock.calls).toEqual([['sign_in_success', { method: 'google', intent: 'none' }]])
+	})
+})
+
+// The provider hands the visitor back on the callback page, where Clerk finishes the attempt: the
+// session of an account it has to create only exists a moment later. Judged there, every such
+// sign-up would be counted as a sign-in that failed.
+describe('the callback page, where the round trip is not over yet', () => {
+	it.each(i18n.locales)('says nothing and keeps the marker, in the %s locale', locale => {
+		writeOAuthMarker('sign_in', 'google', 'purchase')
+		land(`/${locale}/auth/sso-callback`)
+
+		expect(mocks.track).not.toHaveBeenCalled()
+		expect(window.sessionStorage.getItem(MARKER)).not.toBeNull()
+	})
+
+	it('counts the sign-up on the page Clerk sends the visitor to, once the account exists', () => {
+		writeOAuthMarker('sign_in', 'google', 'purchase')
+		land(CALLBACK)
+
+		// Clerk has created the account and the session, still on the callback page
+		signedIn(new Date())
+		land(CALLBACK)
+		expect(mocks.track).not.toHaveBeenCalled()
+
+		land(BIB)
+		expect(mocks.track.mock.calls).toEqual([['sign_up_success', { method: 'google' }]])
+		expect(window.sessionStorage.getItem(MARKER)).toBeNull()
+	})
+
+	it('counts the sign-in of an account that already existed, started from the sign-up form', () => {
+		writeOAuthMarker('sign_up', 'facebook', 'none')
+		land(CALLBACK)
+		signedIn(LONG_AGO)
+		land('/fr/dashboard')
+
+		expect(mocks.track.mock.calls).toEqual([['sign_in_success', { method: 'facebook', intent: 'none' }]])
+	})
+
+	it('waits for Clerk on the next page too: the session is announced after the navigation', () => {
+		writeOAuthMarker('sign_in', 'google', 'purchase')
+		land(CALLBACK)
+
+		// Clerk holds its state back while it navigates, then says who is signed in
+		mocks.user = { user: null, isSignedIn: false, isLoaded: false }
+		land(BIB)
+		expect(mocks.track).not.toHaveBeenCalled()
+		expect(window.sessionStorage.getItem(MARKER)).not.toBeNull()
+
+		signedIn(LONG_AGO)
+		land(BIB)
+		expect(mocks.track.mock.calls).toEqual([['sign_in_success', { method: 'google', intent: 'purchase' }]])
+	})
+
+	it('counts an attempt that could not be finished on the form the visitor is sent back to', () => {
+		writeOAuthMarker('sign_in', 'google', 'purchase')
+		land(CALLBACK)
+		land('/fr/auth/sign-in')
+
+		expect(mocks.track.mock.calls).toEqual([
+			['sign_in_error', { method: 'google', kind: 'oauth_incomplete', field: 'none' }],
+		])
+	})
+
+	it('counts the round trip once, however many pages follow', () => {
+		writeOAuthMarker('sign_in', 'google', 'purchase')
+		land(CALLBACK)
+		signedIn(LONG_AGO)
+		land(BIB)
+		land('/fr/dashboard')
+		land(CALLBACK)
+		land(BIB)
+
+		expect(mocks.track).toHaveBeenCalledTimes(1)
+	})
+
+	it.each(['/fr/auth/sso-callback/more', '/xx/auth/sso-callback', '/fr/sso-callback', '/fr/auth/sign-in'])(
+		'is that page only: %s judges at once',
+		pathname => {
+			writeOAuthMarker('sign_in', 'google', 'none')
+			land(pathname)
+
+			expect(mocks.track).toHaveBeenCalledTimes(1)
+			expect(window.sessionStorage.getItem(MARKER)).toBeNull()
+		}
+	)
+})
+
+// An admin sent to sign-in from /admin comes back there. Nothing is recorded from the back-office
+// (track() sends nothing there: see client.test.ts), and nothing may wait there for a later page.
+describe('a round trip that ends in the back-office', () => {
+	it('is resolved there and then: the marker does not wait for the next page outside it', () => {
+		writeOAuthMarker('sign_in', 'google', 'none')
+		signedIn(LONG_AGO)
+		land('/fr/admin/event')
+
+		expect(window.sessionStorage.getItem(MARKER)).toBeNull()
+
+		land(BIB)
+		expect(mocks.track).toHaveBeenCalledTimes(1)
 	})
 })
 

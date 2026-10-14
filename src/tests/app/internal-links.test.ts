@@ -7,7 +7,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { GET as robots } from '@/app/robots.txt/route'
 import { GET as sitemap } from '@/app/sitemap.xml/route'
 import { i18n } from '@/lib/i18n/config'
-import { signInPath, signUpPath } from '@/lib/utils/redirect'
+import { oauthCallbackPath, signInPath, signUpPath } from '@/lib/utils/redirect'
 import { getAllEvents } from '@/services/event.services'
 import { mockEvent } from '@/tests/mocks/data'
 
@@ -170,6 +170,7 @@ describe('the routes of the app, as this test reads them', () => {
 		'/fr/auth/sign-in',
 		'/fr/auth/sign-up',
 		'/fr/auth/forgot-password',
+		'/fr/auth/sso-callback?redirect_url=%2Ffr%2Fprofile',
 		'/fr/dashboard/seller',
 		'/fr/dashboard/seller#my-listings',
 		'/fr/dashboard/seller/edit-bib/abcdefghij12345',
@@ -239,6 +240,11 @@ describe('the addresses the app sends a visitor to', () => {
 	it.each(i18n.locales)('has a sign-in and a sign-up page in the %s locale', locale => {
 		expect(isRoute(signInPath(locale))).toBe(true)
 		expect(isRoute(signUpPath(locale, `/${locale}/marketplace/abcdefghij12345`))).toBe(true)
+	})
+
+	// The other addresses a sign-in goes through are built by helpers too: no pattern above reads them
+	it.each(i18n.locales)('has a page for Google and Facebook to come back to in the %s locale', locale => {
+		expect(isRoute(oauthCallbackPath(locale, `/${locale}/marketplace/abcdefghij12345`))).toBe(true)
 	})
 })
 

@@ -60,7 +60,12 @@ export function afterAuthPath(search: string, origin: string, locale: string): s
 	return returnPathFrom(search, origin) ?? `/${locale}/dashboard`
 }
 
-function authPagePath(page: 'sign-in' | 'sign-up', locale: string, returnTo: string | null | undefined): string {
+// Where Google or Facebook hands the visitor back, for Clerk to finish the sign-in or the sign-up
+const OAUTH_CALLBACK_PAGE = 'sso-callback'
+
+type AuthPage = 'sign-in' | 'sign-up' | typeof OAUTH_CALLBACK_PAGE
+
+function authPagePath(page: AuthPage, locale: string, returnTo: string | null | undefined): string {
 	const path = `/${locale}/auth/${page}`
 	return returnTo == null || returnTo === '' ? path : `${path}?${RETURN_PARAM}=${encodeURIComponent(returnTo)}`
 }
@@ -73,4 +78,20 @@ export function signInPath(locale: string, returnTo?: string | null): string {
 /** The sign-up page of a locale. `returnTo` is the page the visitor comes back to once the account exists. */
 export function signUpPath(locale: string, returnTo?: string | null): string {
 	return authPagePath('sign-up', locale, returnTo)
+}
+
+/**
+ * The page a sign-in or a sign-up with Google or Facebook comes back to: Clerk finishes the attempt
+ * there, then sends the visitor to `returnTo` (or to the dashboard). Never the destination itself:
+ * an attempt that needs one more step (an unknown account to create, an existing one to sign in)
+ * is only completed on that page.
+ */
+export function oauthCallbackPath(locale: string, returnTo?: string | null): string {
+	return authPagePath(OAUTH_CALLBACK_PAGE, locale, returnTo)
+}
+
+/** True on the page of oauthCallbackPath, in any locale: the round trip is not over there yet. */
+export function isOAuthCallbackPath(pathname: string | null | undefined): boolean {
+	const page = pathname?.replace(/\/$/, '')
+	return i18n.locales.some(locale => page === `/${locale}/auth/${OAUTH_CALLBACK_PAGE}`)
 }

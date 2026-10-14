@@ -43,6 +43,8 @@ const t = getTranslations('fr', mainLocales).auth
 const BIB = '/fr/marketplace/abcdefghij12345?tkn=s3cr3t-Token'
 const WITH_BIB = `?redirect_url=${encodeURIComponent(BIB)}`
 const DASHBOARD = '/fr/dashboard'
+// Where the provider hands the visitor back: Clerk finishes the attempt there (see sso-callback.test.tsx)
+const CALLBACK = '/fr/auth/sso-callback'
 
 // redirect_url values that must leave the visitor on the dashboard: see redirect-target.test.ts
 const ELSEWHERE = [
@@ -217,12 +219,12 @@ describe('sign-in with Google or Facebook', () => {
 	it.each([
 		['oauth_google', t.signIn.continueWithGoogle],
 		['oauth_facebook', t.signIn.continueWithFacebook],
-	])('asks Clerk to come back to the bib with %s', async (strategy, label) => {
+	])('asks Clerk to come back to the bib with %s, through the callback page', async (strategy, label) => {
 		open(`/fr/auth/sign-in${WITH_BIB}`, <CustomSignIn />)
 		await click(label)
 
 		expect(mocks.signIn.authenticateWithRedirect.mock.calls).toEqual([
-			[{ strategy, redirectUrlComplete: BIB, redirectUrl: BIB }],
+			[{ strategy, redirectUrlComplete: BIB, redirectUrl: `${CALLBACK}${WITH_BIB}` }],
 		])
 	})
 
@@ -230,8 +232,9 @@ describe('sign-in with Google or Facebook', () => {
 		open('/fr/auth/sign-in', <CustomSignIn />)
 		await click(t.signIn.continueWithGoogle)
 
+		// Never the destination itself: an account Beswib does not know is created on the callback page
 		expect(mocks.signIn.authenticateWithRedirect.mock.calls).toEqual([
-			[{ strategy: 'oauth_google', redirectUrlComplete: DASHBOARD, redirectUrl: DASHBOARD }],
+			[{ strategy: 'oauth_google', redirectUrlComplete: DASHBOARD, redirectUrl: CALLBACK }],
 		])
 	})
 
@@ -240,7 +243,7 @@ describe('sign-in with Google or Facebook', () => {
 		await click(t.signIn.continueWithGoogle)
 
 		expect(mocks.signIn.authenticateWithRedirect.mock.calls).toEqual([
-			[{ strategy: 'oauth_google', redirectUrlComplete: DASHBOARD, redirectUrl: DASHBOARD }],
+			[{ strategy: 'oauth_google', redirectUrlComplete: DASHBOARD, redirectUrl: CALLBACK }],
 		])
 	})
 
@@ -321,12 +324,22 @@ describe('sign-up', () => {
 	it.each([
 		['oauth_google', t.signUp.signUpWithGoogle],
 		['oauth_facebook', t.signUp.signUpWithFacebook],
-	])('asks Clerk to come back to the bib with %s', async (strategy, label) => {
+	])('asks Clerk to come back to the bib with %s, through the callback page', async (strategy, label) => {
 		open(`/fr/auth/sign-up${WITH_BIB}`, <CustomSignUp />)
 		await click(label)
 
 		expect(mocks.signUp.authenticateWithRedirect.mock.calls).toEqual([
-			[{ strategy, redirectUrlComplete: BIB, redirectUrl: BIB }],
+			[{ strategy, redirectUrlComplete: BIB, redirectUrl: `${CALLBACK}${WITH_BIB}` }],
+		])
+	})
+
+	it('asks Clerk to come back to the dashboard when no page asked for the account', async () => {
+		open('/fr/auth/sign-up', <CustomSignUp />)
+		await click(t.signUp.signUpWithGoogle)
+
+		// Never the destination itself: an account that already exists is signed in on the callback page
+		expect(mocks.signUp.authenticateWithRedirect.mock.calls).toEqual([
+			[{ strategy: 'oauth_google', redirectUrlComplete: DASHBOARD, redirectUrl: CALLBACK }],
 		])
 	})
 
@@ -335,7 +348,7 @@ describe('sign-up', () => {
 		await click(t.signUp.signUpWithGoogle)
 
 		expect(mocks.signUp.authenticateWithRedirect.mock.calls).toEqual([
-			[{ strategy: 'oauth_google', redirectUrlComplete: DASHBOARD, redirectUrl: DASHBOARD }],
+			[{ strategy: 'oauth_google', redirectUrlComplete: DASHBOARD, redirectUrl: CALLBACK }],
 		])
 	})
 

@@ -1,10 +1,12 @@
 'use client'
 
 import { useUser } from '@clerk/nextjs'
+import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 
 import { SIGN_IN_INTENTS, type SignInIntent } from '@/lib/analytics/catalog'
 import { track } from '@/lib/analytics/client'
+import { isOAuthCallbackPath } from '@/lib/utils/redirect'
 
 // An OAuth round trip leaves the page: the form that started it writes this marker and the page
 // the visitor comes back to resolves it. It only ever holds the closed values below.
@@ -69,15 +71,23 @@ function takeOAuthMarker(): OAuthMarker | null {
 }
 
 // Mounted once, in the root layout: an OAuth round trip lands on the page the visitor signed in
-// for (a bib, an event, their dashboard: see afterAuthPath), on the sign-in form when there is no
-// session (the middleware sends the visitor back there), or on the page it started from (Back from
-// the provider). The marker is removed on first read, so a second mount would send nothing.
+// for (a bib, an event, their dashboard: see afterAuthPath), on a form when it could not be finished
+// (the callback page or the middleware sends the visitor back there), or on the page it started
+// from (Back from the provider). The marker is removed on first read, so a second mount would send
+// nothing.
+//
+// On the callback page the round trip is not over: Clerk may still be creating the account or the
+// session, so the marker waits there for the page the visitor is sent to next.
+//
+// A round trip that ends in the back-office (an admin sent to sign-in from /admin) is not counted:
+// the marker is removed and track() sends nothing from there, as for every named event.
 export function SessionsTracker() {
 	const { user, isSignedIn, isLoaded } = useUser()
 	const createdAt = user?.createdAt?.getTime()
+	const onCallbackPage = isOAuthCallbackPath(usePathname())
 
 	useEffect(() => {
-		if (isLoaded !== true) return
+		if (isLoaded !== true || onCallbackPage) return
 
 		const resolveOAuthOutcome = () => {
 			const marker = takeOAuthMarker()
@@ -105,7 +115,7 @@ export function SessionsTracker() {
 		}
 		window.addEventListener('pageshow', onPageShow)
 		return () => window.removeEventListener('pageshow', onPageShow)
-	}, [isLoaded, isSignedIn, createdAt])
+	}, [isLoaded, isSignedIn, createdAt, onCallbackPage])
 
 	return null
 }

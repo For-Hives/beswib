@@ -125,6 +125,21 @@ describe('beswibBeforeSend, every payload', () => {
 		expect(JSON.stringify(results)).not.toMatch(/redirect_url|tkn|s3cr3t/)
 	})
 
+	it('never sends it from the page Google or Facebook returns to either', () => {
+		const bib = '/fr/marketplace/abcdefghij12345?tkn=s3cr3t-Token'
+		const callback = `/fr/auth/sso-callback?redirect_url=${encodeURIComponent(bib)}`
+
+		const results = [
+			// The callback page, then the page Clerk sends the visitor to
+			hook('event', envelope(callback)),
+			hook('event', envelope(bib, { referrer: `${ORIGIN}${callback}` })),
+		]
+
+		expect(results[0]).toHaveProperty('url', `${ORIGIN}/auth/sso-callback`)
+		expect(results[1]).toHaveProperty('referrer', `${ORIGIN}/auth/sso-callback`)
+		expect(JSON.stringify(results)).not.toMatch(/redirect_url|tkn|s3cr3t/)
+	})
+
 	it.each([
 		['identify', envelope('/fr', { data: { email: 'runner@example.com', name: 'Jane Runner' } })],
 		['identify', envelope('/fr', { id: 'user_2abc' })],

@@ -14,7 +14,7 @@ import { clerkErrorKind, signInIntent } from '@/lib/analytics/classify'
 import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { afterAuthPath, returnPathFrom, signUpPath } from '@/lib/utils/redirect'
+import { afterAuthPath, oauthCallbackPath, returnPathFrom, signUpPath } from '@/lib/utils/redirect'
 import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation/valibot'
 
 interface FieldError {
@@ -219,12 +219,12 @@ export default function CustomSignIn() {
 		writeOAuthMarker('sign_in', method, intent)
 
 		setIsSubmitting(true)
-		// The app has no SSO callback page: the provider returns straight to the destination, as it
-		// did when that was always the dashboard
+		// The provider returns to the callback page, where Clerk finishes the attempt (an account
+		// Beswib does not know yet is created there), and the visitor goes on to the destination
 		void signIn.authenticateWithRedirect({
 			strategy,
 			redirectUrlComplete: destination,
-			redirectUrl: destination,
+			redirectUrl: oauthCallbackPath(locale, returnPathFrom(window.location.search, window.location.origin)),
 		})
 	}
 

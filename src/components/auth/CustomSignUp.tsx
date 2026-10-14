@@ -17,7 +17,7 @@ import { clerkErrorKind } from '@/lib/analytics/classify'
 import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { afterAuthPath, returnPathFrom, signInPath } from '@/lib/utils/redirect'
+import { afterAuthPath, oauthCallbackPath, returnPathFrom, signInPath } from '@/lib/utils/redirect'
 import {
 	validateConfirmPasswordValibot,
 	validateEmailValibot,
@@ -377,12 +377,12 @@ export default function CustomSignUp() {
 		writeOAuthMarker('sign_up', method, 'none')
 
 		setIsSubmitting(true)
-		// The app has no SSO callback page: the provider returns straight to the destination, as it
-		// did when that was always the dashboard
+		// The provider returns to the callback page, where Clerk finishes the attempt (an account
+		// that already exists is signed in there), and the visitor goes on to the destination
 		await signUp.authenticateWithRedirect({
 			strategy,
 			redirectUrlComplete: destination,
-			redirectUrl: destination,
+			redirectUrl: oauthCallbackPath(locale, returnPathFrom(window.location.search, window.location.origin)),
 		})
 	}
 

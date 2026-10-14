@@ -2,7 +2,15 @@
 import { describe, expect, it } from 'vitest'
 
 import { i18n } from '@/lib/i18n/config'
-import { afterAuthPath, returnPathFrom, safeRedirectPath, signInPath, signUpPath } from '@/lib/utils/redirect'
+import {
+	afterAuthPath,
+	isOAuthCallbackPath,
+	oauthCallbackPath,
+	returnPathFrom,
+	safeRedirectPath,
+	signInPath,
+	signUpPath,
+} from '@/lib/utils/redirect'
 
 // redirect_url is read from the address of the sign-in page: anybody can put any value in a link
 // to it. After sign-in the visitor must be on a page of this site, whatever the value was.
@@ -216,5 +224,47 @@ describe('signInPath and signUpPath', () => {
 
 		expect([...url.searchParams.keys()]).toEqual(['redirect_url'])
 		expect(url.pathname).toBe('/fr/auth/sign-in')
+	})
+})
+
+// Where Google or Facebook hands the visitor back: the page to come back to goes there with them
+describe('oauthCallbackPath', () => {
+	it('names the page that exists, under /auth', () => {
+		expect(oauthCallbackPath('fr')).toBe('/fr/auth/sso-callback')
+		expect(oauthCallbackPath('ko', null)).toBe('/ko/auth/sso-callback')
+		expect(oauthCallbackPath('ko', '')).toBe('/ko/auth/sso-callback')
+	})
+
+	it('carries the page to come back to, and the callback page reads it back unchanged', () => {
+		const page = '/fr/marketplace/abcdefghij12345?tkn=s3cr3t&lockedAt=2026-10-13T10:00:00.000Z#buy'
+		const url = new URL(oauthCallbackPath('fr', page), ORIGIN)
+
+		expect([...url.searchParams.keys()]).toEqual(['redirect_url'])
+		expect(afterAuthPath(url.search, ORIGIN, 'fr')).toBe(page)
+	})
+})
+
+describe('isOAuthCallbackPath', () => {
+	it.each(i18n.locales)('knows the callback page of the %s locale', locale => {
+		expect(isOAuthCallbackPath(new URL(oauthCallbackPath(locale, '/fr/profile'), ORIGIN).pathname)).toBe(true)
+	})
+
+	it('knows it with a trailing slash too', () => {
+		expect(isOAuthCallbackPath('/fr/auth/sso-callback/')).toBe(true)
+	})
+
+	it.each([
+		'/fr/auth/sign-in',
+		'/fr/auth/sso-callback/more',
+		'/fr/auth/sso-callback//',
+		'/xx/auth/sso-callback',
+		'/auth/sso-callback',
+		'/fr/sso-callback',
+		'/fr/marketplace/abcdefghij12345',
+		'',
+		null,
+		undefined,
+	])('answers no for %j', pathname => {
+		expect(isOAuthCallbackPath(pathname)).toBe(false)
 	})
 })
