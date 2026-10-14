@@ -14,7 +14,7 @@ import { clerkErrorKind, signInIntent } from '@/lib/analytics/classify'
 import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { afterAuthPath, oauthCallbackPath, returnPathFrom, signUpPath } from '@/lib/utils/redirect'
+import { afterAuthPath, forgotPasswordPath, oauthCallbackPath, returnPathFrom, signUpPath } from '@/lib/utils/redirect'
 import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation/valibot'
 
 interface FieldError {
@@ -90,12 +90,12 @@ export default function CustomSignIn() {
 	// the session is active the address bar may already show the next page.
 	const readDestination = () => afterAuthPath(window.location.search, window.location.origin, locale)
 
-	// A visitor without an account keeps the page to come back to on the sign-up form. Set in an
-	// effect: the query string is only known in the browser.
-	const [signUpHref, setSignUpHref] = useState(signUpPath(locale))
+	// A visitor without an account, or who forgot their password, keeps the page to come back to on
+	// the form they go to. Set in an effect: the query string is only known in the browser.
+	const [returnTo, setReturnTo] = useState<string | null>(null)
 	useEffect(() => {
-		setSignUpHref(signUpPath(locale, returnPathFrom(window.location.search, window.location.origin)))
-	}, [locale])
+		setReturnTo(returnPathFrom(window.location.search, window.location.origin))
+	}, [])
 
 	// Validate fields in real-time
 	const validateField = (field: 'email' | 'password', value: string) => {
@@ -305,7 +305,7 @@ export default function CustomSignIn() {
 				<div className="flex items-center justify-end">
 					<TrackClick name="cta_click" props={{ cta: 'forgot_password', where: 'auth_sign_in' }}>
 						<Link
-							href={`/${locale}/auth/forgot-password`}
+							href={forgotPasswordPath(locale, returnTo)}
 							className="text-primary hover:text-primary/80 text-sm transition-colors hover:underline"
 						>
 							{t.signIn.forgotPassword}
@@ -331,7 +331,7 @@ export default function CustomSignIn() {
 					{t.signIn.noAccount}{' '}
 					<TrackClick name="cta_click" props={{ cta: 'sign_up', where: 'auth_sign_in' }}>
 						<Link
-							href={signUpHref}
+							href={signUpPath(locale, returnTo)}
 							className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
 						>
 							{t.signIn.createAccount}

@@ -63,7 +63,7 @@ export function afterAuthPath(search: string, origin: string, locale: string): s
 // Where Google or Facebook hands the visitor back, for Clerk to finish the sign-in or the sign-up
 const OAUTH_CALLBACK_PAGE = 'sso-callback'
 
-type AuthPage = 'sign-in' | 'sign-up' | typeof OAUTH_CALLBACK_PAGE
+type AuthPage = 'sign-in' | 'sign-up' | 'forgot-password' | typeof OAUTH_CALLBACK_PAGE
 
 function authPagePath(page: AuthPage, locale: string, returnTo: string | null | undefined): string {
 	const path = `/${locale}/auth/${page}`
@@ -78,6 +78,11 @@ export function signInPath(locale: string, returnTo?: string | null): string {
 /** The sign-up page of a locale. `returnTo` is the page the visitor comes back to once the account exists. */
 export function signUpPath(locale: string, returnTo?: string | null): string {
 	return authPagePath('sign-up', locale, returnTo)
+}
+
+/** The forgotten-password page of a locale. `returnTo` is the page the visitor comes back to once signed in again. */
+export function forgotPasswordPath(locale: string, returnTo?: string | null): string {
+	return authPagePath('forgot-password', locale, returnTo)
 }
 
 /**

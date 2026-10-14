@@ -7,7 +7,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { GET as robots } from '@/app/robots.txt/route'
 import { GET as sitemap } from '@/app/sitemap.xml/route'
 import { i18n } from '@/lib/i18n/config'
-import { oauthCallbackPath, signInPath, signUpPath } from '@/lib/utils/redirect'
+import { forgotPasswordPath, oauthCallbackPath, signInPath, signUpPath } from '@/lib/utils/redirect'
 import { getAllEvents } from '@/services/event.services'
 import { mockEvent } from '@/tests/mocks/data'
 
@@ -245,6 +245,10 @@ describe('the addresses the app sends a visitor to', () => {
 	// The other addresses a sign-in goes through are built by helpers too: no pattern above reads them
 	it.each(i18n.locales)('has a page for Google and Facebook to come back to in the %s locale', locale => {
 		expect(isRoute(oauthCallbackPath(locale, `/${locale}/marketplace/abcdefghij12345`))).toBe(true)
+	})
+
+	it.each(i18n.locales)('has a forgotten-password page in the %s locale', locale => {
+		expect(isRoute(forgotPasswordPath(locale, `/${locale}/marketplace/abcdefghij12345`))).toBe(true)
 	})
 })
 

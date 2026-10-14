@@ -282,6 +282,27 @@ describe('the link from the sign-in form to the sign-up form', () => {
 	})
 })
 
+// A visitor who signs in to buy a bib and has forgotten their password must not lose the bib either
+describe('the link from the sign-in form to the forgotten-password page', () => {
+	it('carries the page to come back to', () => {
+		open(`/fr/auth/sign-in${WITH_BIB}`, <CustomSignIn />)
+
+		expect(link(t.signIn.forgotPassword)).toBe(`/fr/auth/forgot-password${WITH_BIB}`)
+	})
+
+	it('is the plain page without one', () => {
+		open('/fr/auth/sign-in', <CustomSignIn />)
+
+		expect(link(t.signIn.forgotPassword)).toBe('/fr/auth/forgot-password')
+	})
+
+	it.each(ELSEWHERE)('does not carry a redirect_url that is %s', (_name, value) => {
+		open(`/fr/auth/sign-in?redirect_url=${encodeURIComponent(value)}`, <CustomSignIn />)
+
+		expect(link(t.signIn.forgotPassword)).toBe('/fr/auth/forgot-password')
+	})
+})
+
 describe('sign-up', () => {
 	it('goes back to the bib when the account is complete at once', async () => {
 		open(`/fr/auth/sign-up${WITH_BIB}`, <CustomSignUp />)

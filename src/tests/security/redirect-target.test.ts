@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest'
 import { i18n } from '@/lib/i18n/config'
 import {
 	afterAuthPath,
+	forgotPasswordPath,
 	isOAuthCallbackPath,
 	oauthCallbackPath,
 	returnPathFrom,
@@ -266,5 +267,35 @@ describe('isOAuthCallbackPath', () => {
 		undefined,
 	])('answers no for %j', pathname => {
 		expect(isOAuthCallbackPath(pathname)).toBe(false)
+	})
+})
+
+// A visitor who has forgotten their password leaves the sign-in form and comes back to it: the
+// page to come back to makes the trip with them
+describe('forgotPasswordPath', () => {
+	it('names the page that exists, under /auth', () => {
+		expect(forgotPasswordPath('fr')).toBe('/fr/auth/forgot-password')
+		expect(forgotPasswordPath('ko', null)).toBe('/ko/auth/forgot-password')
+		expect(forgotPasswordPath('ko', '')).toBe('/ko/auth/forgot-password')
+	})
+
+	it('carries the page to come back to, and the page reads it back unchanged', () => {
+		const page = '/fr/marketplace/abcdefghij12345?tkn=s3cr3t&lockedAt=2026-10-13T10:00:00.000Z#buy'
+		const url = new URL(forgotPasswordPath('fr', page), ORIGIN)
+
+		expect([...url.searchParams.keys()]).toEqual(['redirect_url'])
+		expect(afterAuthPath(url.search, ORIGIN, 'fr')).toBe(page)
+	})
+
+	it('keeps it through every hop of a sign-in: form, forgotten password, form again, provider, callback', () => {
+		const page = '/fr/marketplace/abcdefghij12345?tkn=s3cr3t'
+		const read = (path: string) => returnPathFrom(new URL(path, ORIGIN).search, ORIGIN)
+
+		const form = signInPath('fr', page)
+		const forgotten = forgotPasswordPath('fr', read(form))
+		const formAgain = signInPath('fr', read(forgotten))
+		const callback = oauthCallbackPath('fr', read(formAgain))
+
+		expect(afterAuthPath(new URL(callback, ORIGIN).search, ORIGIN, 'fr')).toBe(page)
 	})
 })

@@ -140,6 +140,21 @@ describe('beswibBeforeSend, every payload', () => {
 		expect(JSON.stringify(results)).not.toMatch(/redirect_url|tkn|s3cr3t/)
 	})
 
+	it('never sends it from the forgotten-password page either', () => {
+		const bib = '/fr/marketplace/abcdefghij12345?tkn=s3cr3t-Token'
+		const forgotten = `/fr/auth/forgot-password?redirect_url=${encodeURIComponent(bib)}`
+
+		const results = [
+			// The page itself, and a probe sent from it
+			hook('event', envelope(forgotten)),
+			hook('event', namedEvent(forgotten, 'password_reset_start')),
+		]
+
+		expect(results[0]).toHaveProperty('url', `${ORIGIN}/auth/forgot-password`)
+		expect(results[1]).toHaveProperty('url', `${ORIGIN}/auth/forgot-password`)
+		expect(JSON.stringify(results)).not.toMatch(/redirect_url|tkn|s3cr3t/)
+	})
+
 	it.each([
 		['identify', envelope('/fr', { data: { email: 'runner@example.com', name: 'Jane Runner' } })],
 		['identify', envelope('/fr', { id: 'user_2abc' })],

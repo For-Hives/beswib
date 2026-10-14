@@ -83,8 +83,11 @@ export function useLocale(initialLocale: string, where?: EventProps<'locale_chan
 					}
 				} else {
 					result = 'same_page'
-					// For non-article pages, use the standard locale switching
-					href = newLocale === 'en' ? pathWithoutLocale : `/${newLocale}${pathWithoutLocale}`
+					// For non-article pages, use the standard locale switching. The same page keeps what
+					// its address carried: the token of a private listing, the page to come back to after
+					// sign-in, the filters of a list.
+					const localizedPath = newLocale === 'en' ? pathWithoutLocale : `/${newLocale}${pathWithoutLocale}`
+					href = `${localizedPath}${window.location.search}${window.location.hash}`
 				}
 
 				if (where !== undefined) track('locale_change', { where, to: newLocale, result })
