@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@ai-sdk/google':
-        specifier: 4.0.94
-        version: 4.0.94(zod@4.1.12)
+        specifier: 4.0.95
+        version: 4.0.95(zod@4.1.12)
       '@c15t/nextjs':
         specifier: 3.0.0
         version: 3.0.0(next@16.4.0(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@7.0.2)
@@ -315,8 +315,8 @@ packages:
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
 
-  '@ai-sdk/google@4.0.94':
-    resolution: {integrity: sha512-OPT9YSx6oBEVIjpOY/6E5Pkjd8yiISRFa3gowkI1LEhYygFkbU88r6IU2U750uN18SShROJoNVWXQ+/GzNPMZw==}
+  '@ai-sdk/google@4.0.95':
+    resolution: {integrity: sha512-EKIJUHuA1lvZqEg7Oeizop/TjyHPh01wtZ09kHf03Qd0MBQ4wCLpE/i9/8oXgDe/CVr7+TM9rAZE0ocjNt525Q==}
     engines: {node: '>=22'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -5046,7 +5046,7 @@ snapshots:
       '@vercel/oidc': 3.2.0
       zod: 4.1.12
 
-  '@ai-sdk/google@4.0.94(zod@4.1.12)':
+  '@ai-sdk/google@4.0.95(zod@4.1.12)':
     dependencies:
       '@ai-sdk/provider': 4.0.27
       '@ai-sdk/provider-utils': 5.0.59(zod@4.1.12)
