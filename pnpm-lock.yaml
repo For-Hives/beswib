@@ -156,8 +156,8 @@ importers:
         specifier: 3.7.6
         version: 3.7.6
       ai:
-        specifier: 7.0.138
-        version: 7.0.138(zod@4.1.12)
+        specifier: 7.0.140
+        version: 7.0.140(zod@4.1.12)
       canvas-confetti:
         specifier: 1.9.4
         version: 1.9.4
@@ -309,8 +309,8 @@ importers:
 
 packages:
 
-  '@ai-sdk/gateway@4.0.111':
-    resolution: {integrity: sha512-+Uq8GgAsEkq3rv1AoYyqpCeHSOXG5ZP7KnsquM8yyIXkn1oBeZbFZvTtNE6gC9Eg1VK34KwImv8NrtB6tfm2wA==}
+  '@ai-sdk/gateway@4.0.113':
+    resolution: {integrity: sha512-fYov5+sH1A20/eN1PaL5z8bZ9RUq0CcL9yAsAhCHz/qUCKliDOg9HXjNYzOUlH6o21lIrp/aKQc8QLGkEEZGlQ==}
     engines: {node: '>=22'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -3168,8 +3168,8 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
-  ai@7.0.138:
-    resolution: {integrity: sha512-rB2grfrM9se2GY/au4e5Eq0xadPM4+a+ip3EZ0ofedIPU8/GETWGjXO6gbzQDA+7nMaZnaUVaX2f+ByAj/LF8w==}
+  ai@7.0.140:
+    resolution: {integrity: sha512-GHWqpUcY7EsRHc7jC99SqzpgabExb9w7anxDYa5N79AIVsGavIZFxZKhVQ/SORkuXFkPO4FG8cCSweaGutvwSw==}
     engines: {node: '>=22'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -5035,7 +5035,7 @@ packages:
 
 snapshots:
 
-  '@ai-sdk/gateway@4.0.111(zod@4.1.12)':
+  '@ai-sdk/gateway@4.0.113(zod@4.1.12)':
     dependencies:
       '@ai-sdk/provider': 4.0.27
       '@ai-sdk/provider-utils': 5.0.59(zod@4.1.12)
@@ -7665,9 +7665,9 @@ snapshots:
   acorn@8.19.0:
     optional: true
 
-  ai@7.0.138(zod@4.1.12):
+  ai@7.0.140(zod@4.1.12):
     dependencies:
-      '@ai-sdk/gateway': 4.0.111(zod@4.1.12)
+      '@ai-sdk/gateway': 4.0.113(zod@4.1.12)
       '@ai-sdk/provider': 4.0.27
       '@ai-sdk/provider-utils': 5.0.59(zod@4.1.12)
       zod: 4.1.12
