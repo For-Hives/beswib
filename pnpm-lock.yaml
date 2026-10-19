@@ -21,8 +21,8 @@ importers:
         specifier: 7.9.16
         version: 7.9.16(next@16.4.0(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@clerk/ui':
-        specifier: 1.40.1
-        version: 1.40.1(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@8.1.1)
+        specifier: 1.40.2
+        version: 1.40.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@8.1.1)
       '@formatjs/intl-localematcher':
         specifier: 0.9.0
         version: 0.9.0
@@ -572,8 +572,8 @@ packages:
       react-dom:
         optional: true
 
-  '@clerk/ui@1.40.1':
-    resolution: {integrity: sha512-aICgFAgHd8ok/AdrMqqtXCBrj+4lgdqhkjYiAWgFYEn9E6eyuWM0Naj7fum1nH92mMofkCHot09awYYvTCutrg==}
+  '@clerk/ui@1.40.2':
+    resolution: {integrity: sha512-6rnUJALgw4LmU7Nziwuw3s+XTK7/stSfkpUE6UhdzedI8nQ/wW1UDO11hL6JD/yfaj+duSfN6DIlpcD+Nb5COQ==}
     engines: {node: '>=20.9.0'}
     peerDependencies:
       react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
@@ -5332,7 +5332,7 @@ snapshots:
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
 
-  '@clerk/ui@1.40.1(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@8.1.1)':
+  '@clerk/ui@1.40.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@8.1.1)':
     dependencies:
       '@clerk/localizations': 4.23.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@clerk/shared': 4.40.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
