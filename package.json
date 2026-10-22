@@ -32,7 +32,7 @@
 		"@formatjs/intl-localematcher": "0.9.0",
 		"@headlessui/react": "2.2.10",
 		"@heroicons/react": "2.2.0",
-		"@hookform/resolvers": "5.9.2",
+		"@hookform/resolvers": "6.0.0",
 		"@next/third-parties": "16.4.2",
 		"@number-flow/react": "0.6.2",
 		"@paypal/react-paypal-js": "10.6.0",
