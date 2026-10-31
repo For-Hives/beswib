@@ -12,8 +12,8 @@ importers:
         specifier: 4.0.107
         version: 4.0.107(zod@4.1.12)
       '@c15t/nextjs':
-        specifier: 3.0.0
-        version: 3.0.0(next@16.4.3(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)
+        specifier: 3.1.0
+        version: 3.1.0(next@16.4.3(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)
       '@clerk/localizations':
         specifier: 4.24.3
         version: 4.24.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -490,17 +490,17 @@ packages:
     resolution: {integrity: sha512-ctxtJ/eA+t+6q2++vj5j7FYX3nRu311q1wfYH3xjlLOsczhlhxAg2FWNUXhpGvAw3BWo1xBcvOV6/YLc2r5FJw==}
     hasBin: true
 
-  '@c15t/core@3.0.0':
-    resolution: {integrity: sha512-OaP86YrkyUfxd6m5JiIlf+IAzXRqjSHCLGbO7hD+D06uHtDsNIyjXYUnyJR3La1gpYUAYJs4SLJ/ULeMRFmu0w==}
+  '@c15t/core@3.1.0':
+    resolution: {integrity: sha512-WmXB1WXIeeZbVHZXoZs1//L+cb0aSYWRkr+qCNPYVnadq/FCFPCy0Z2TrC0BlKrVDrduJelyD+ky/p66CPf65A==}
 
-  '@c15t/dev-tools@3.0.0':
-    resolution: {integrity: sha512-9j3K7xUsurjPtjqOnxSarrkklByCAMISqQ8CbFM6C/8m7J5A8bT5cuSBW3yMqgvyDFwWGH08kTZOdp4YFJch5w==}
+  '@c15t/dev-tools@3.1.0':
+    resolution: {integrity: sha512-xdYMJbTnC/zPGi1rSAkHujbdHkHZ2DFfvwQw45TNU/Sez8djFsu0Fu3KNvfJ9e3mf66qAKKfd9Mfc7BjI5fbzQ==}
 
-  '@c15t/iab@3.0.0':
-    resolution: {integrity: sha512-NzqgkdfhMOxFK2Z8Byia9TqKVX2y3BRg+z9tYeGFaOuWpkQTapvboP7W3mHnDw3uM9kEcAbw8pDSPjsT1mGxZw==}
+  '@c15t/iab@3.1.0':
+    resolution: {integrity: sha512-80N1npr+8UduWu5olRdC27/alDzz8mPBpqs87ty7sXWqJ70KkBGTt/La18r0Nr6xZ9rMqKqfw4Ny5bQ9Ux3HDg==}
 
-  '@c15t/nextjs@3.0.0':
-    resolution: {integrity: sha512-krIKy8X2+Cb9eMGSjLiDijINT9OMDg6DSG2GcrrvmXQK6NVSYqVfhhdVUeXzm3X/Yd/+tnIYvDKpPDvAzhmDwg==}
+  '@c15t/nextjs@3.1.0':
+    resolution: {integrity: sha512-XlpCmtKoSQAKPO2yGFzFDNlkh0B5EOUOT8cH7w+L/t0NM9jGuVUKPvSu3npvFM/f9MJjKGVP8mPxDGJxAUJKWA==}
     peerDependencies:
       next: ^15.0.0 || ^16.0.0
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
@@ -513,8 +513,8 @@ packages:
       react-dom:
         optional: true
 
-  '@c15t/react@3.0.0':
-    resolution: {integrity: sha512-jX/W7O51OGR/ZwK6yUAPwcMvsIUkgviaA5fr2ydkQJW+bdLUmTBMFsXMVAKQ46UPurG4DXf/1zGuBG1PlC+K2g==}
+  '@c15t/react@3.1.0':
+    resolution: {integrity: sha512-wnQzW0Tz3IZY3etDCWr+6VQU5GRe6At1emvrn0S4MYPBhFNQNbZoUB+GikuRFLaL1wCbgOMlJcf9Tc19AxnyAg==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
       react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
@@ -524,14 +524,14 @@ packages:
       react-dom:
         optional: true
 
-  '@c15t/schema@3.0.0':
-    resolution: {integrity: sha512-eIDclYzJblktI2DvkBhE62yTifYgGuQfT/tS5jl3Rw/ByiSvD+C7U80r5Ujv4cyNIHNAUUgkEQXWDvEzIyAohQ==}
+  '@c15t/schema@3.1.0':
+    resolution: {integrity: sha512-gAOMNlkNSwDZ7igutDWeLvEwPl3VoWIFsNHdgu8yUnNKjkdE64F4udpMbtr6e3JRM3h1CQhLQUG5B/fQbF5eDQ==}
 
-  '@c15t/translations@3.0.0':
-    resolution: {integrity: sha512-HQg18k6BjCtyIYUhtefVeAywGMa4jkDi4GYZSwCW90cJPzuN+pl1XSmZo7yOnc+uIAhPu3jrbGUUY5ZRLdTs0w==}
+  '@c15t/translations@3.1.0':
+    resolution: {integrity: sha512-oL4Egzd6LPEQYuv5JisnPocsF1c5wYp/1EzjPsMpsYRBlVIXme5d8voGMrCjNFYDH662UHvSlMTHXYYmCjPXNw==}
 
-  '@c15t/ui@3.0.0':
-    resolution: {integrity: sha512-aglVaWs6DpsNwxg3diIi4l3kD+r1V9reUiitXo9cN3A40U4LCDmlFqOZ88sTcZ7nlaXmQx7p3z3bQPwU0nTvRw==}
+  '@c15t/ui@3.0.1':
+    resolution: {integrity: sha512-casq1k+H5GfkE0FMUMkvvniH5/3NkjOTmxK6fbwDE/ZA2CM8GX+qa5AdIKhvZjXW8d3rx0m/XJsrD4COb+r+mw==}
 
   '@clerk/backend@3.26.4':
     resolution: {integrity: sha512-zvXqCfOKhgkY7LonpE1p8tLO+XOciHKTJ9K3e3KykxuiSPwnxKeKVltJMO8xu4LPhF/joFRY/B1cPQM06/f6AQ==}
@@ -5218,33 +5218,33 @@ snapshots:
     dependencies:
       css-tree: 3.2.1
 
-  '@c15t/core@3.0.0(typescript@7.0.2)':
+  '@c15t/core@3.1.0(typescript@7.0.2)':
     dependencies:
-      '@c15t/schema': 3.0.0(typescript@7.0.2)
-      '@c15t/translations': 3.0.0
+      '@c15t/schema': 3.1.0(typescript@7.0.2)
+      '@c15t/translations': 3.1.0
     transitivePeerDependencies:
       - typescript
 
-  '@c15t/dev-tools@3.0.0(typescript@7.0.2)':
+  '@c15t/dev-tools@3.1.0(typescript@7.0.2)':
     dependencies:
-      '@c15t/core': 3.0.0(typescript@7.0.2)
+      '@c15t/core': 3.1.0(typescript@7.0.2)
     transitivePeerDependencies:
       - typescript
 
-  '@c15t/iab@3.0.0(typescript@7.0.2)':
+  '@c15t/iab@3.1.0(typescript@7.0.2)':
     dependencies:
-      '@c15t/core': 3.0.0(typescript@7.0.2)
-      '@c15t/schema': 3.0.0(typescript@7.0.2)
+      '@c15t/core': 3.1.0(typescript@7.0.2)
+      '@c15t/schema': 3.1.0(typescript@7.0.2)
       '@iabtechlabtcf/core': 1.5.22
     transitivePeerDependencies:
       - typescript
 
-  '@c15t/nextjs@3.0.0(next@16.4.3(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)':
+  '@c15t/nextjs@3.1.0(next@16.4.3(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)':
     dependencies:
-      '@c15t/core': 3.0.0(typescript@7.0.2)
-      '@c15t/react': 3.0.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)
-      '@c15t/schema': 3.0.0(typescript@7.0.2)
-      '@c15t/translations': 3.0.0
+      '@c15t/core': 3.1.0(typescript@7.0.2)
+      '@c15t/react': 3.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)
+      '@c15t/schema': 3.1.0(typescript@7.0.2)
+      '@c15t/translations': 3.1.0
     optionalDependencies:
       next: 16.4.3(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react: 19.3.1
@@ -5252,14 +5252,14 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@c15t/react@3.0.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)':
+  '@c15t/react@3.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)':
     dependencies:
-      '@c15t/core': 3.0.0(typescript@7.0.2)
-      '@c15t/dev-tools': 3.0.0(typescript@7.0.2)
-      '@c15t/iab': 3.0.0(typescript@7.0.2)
-      '@c15t/schema': 3.0.0(typescript@7.0.2)
-      '@c15t/translations': 3.0.0
-      '@c15t/ui': 3.0.0(typescript@7.0.2)
+      '@c15t/core': 3.1.0(typescript@7.0.2)
+      '@c15t/dev-tools': 3.1.0(typescript@7.0.2)
+      '@c15t/iab': 3.1.0(typescript@7.0.2)
+      '@c15t/schema': 3.1.0(typescript@7.0.2)
+      '@c15t/translations': 3.1.0
+      '@c15t/ui': 3.0.1(typescript@7.0.2)
       '@types/google.maps': 3.65.3
     optionalDependencies:
       react: 19.3.1
@@ -5267,20 +5267,20 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@c15t/schema@3.0.0(typescript@7.0.2)':
+  '@c15t/schema@3.1.0(typescript@7.0.2)':
     dependencies:
-      '@c15t/translations': 3.0.0
+      '@c15t/translations': 3.1.0
       base-x: 5.0.1
       valibot: 1.4.2(typescript@7.0.2)
     transitivePeerDependencies:
       - typescript
 
-  '@c15t/translations@3.0.0': {}
+  '@c15t/translations@3.1.0': {}
 
-  '@c15t/ui@3.0.0(typescript@7.0.2)':
+  '@c15t/ui@3.0.1(typescript@7.0.2)':
     dependencies:
-      '@c15t/core': 3.0.0(typescript@7.0.2)
-      '@c15t/translations': 3.0.0
+      '@c15t/core': 3.1.0(typescript@7.0.2)
+      '@c15t/translations': 3.1.0
     transitivePeerDependencies:
       - typescript
 
