@@ -41,8 +41,7 @@ const PROFILE_FIELDS = [
 	'clubAffiliation',
 ] as const satisfies readonly (keyof User)[]
 
-// The shape the waitlist form asks of an address, minus the two characters that end the quoted value
-// of a PocketBase filter: the verified e-mail service writes the address into its filters as it comes
+// The shape of an address, minus the two characters that end the quoted value of a PocketBase filter: the verified e-mail service writes the address into its filters as it comes
 const EMAIL_PATTERN = /^[^\s@"\\]+@[^\s@"\\]+\.[^\s@"\\]+$/
 const EMAIL_MAX_LENGTH = 320
 

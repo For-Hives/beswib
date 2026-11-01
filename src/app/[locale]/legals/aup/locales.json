@@ -2,55 +2,55 @@
 	"en": {
 		"aup": {
 			"titleOG": "Acceptable Use Policy",
-			"descriptionOG": "PayPal-compliant **usage guidelines** for Beswib's platform and services"
+			"descriptionOG": "**Usage guidelines** for Beswib's platform and services"
 		}
 	},
 	"fr": {
 		"aup": {
 			"titleOG": "Politique d'Utilisation Acceptable",
-			"descriptionOG": "**Directives d'utilisation** conformes à PayPal pour la plateforme Beswib"
+			"descriptionOG": "**Directives d'utilisation** pour la plateforme Beswib"
 		}
 	},
 	"es": {
 		"aup": {
 			"titleOG": "Política de Uso Aceptable",
-			"descriptionOG": "**Directrices de uso** compatibles con PayPal para la plataforma Beswib"
+			"descriptionOG": "**Directrices de uso** para la plataforma Beswib"
 		}
 	},
 	"it": {
 		"aup": {
 			"titleOG": "Politica di Uso Accettabile",
-			"descriptionOG": "**Linee guida d'uso** conformi a PayPal per la piattaforma Beswib"
+			"descriptionOG": "**Linee guida d'uso** per la piattaforma Beswib"
 		}
 	},
 	"de": {
 		"aup": {
 			"titleOG": "Nutzungsrichtlinie",
-			"descriptionOG": "PayPal-konforme **Nutzungsrichtlinien** für die Beswib-Plattform"
+			"descriptionOG": "**Nutzungsrichtlinien** für die Beswib-Plattform"
 		}
 	},
 	"ro": {
 		"aup": {
 			"titleOG": "Politica de Utilizare Acceptabilă",
-			"descriptionOG": "**Orientări de utilizare** conforme cu PayPal pentru platforma Beswib"
+			"descriptionOG": "**Orientări de utilizare** pentru platforma Beswib"
 		}
 	},
 	"pt": {
 		"aup": {
 			"titleOG": "Política de Uso Aceitável",
-			"descriptionOG": "**Diretrizes de uso** conformes ao PayPal para a plataforma Beswib"
+			"descriptionOG": "**Diretrizes de uso** para a plataforma Beswib"
 		}
 	},
 	"nl": {
 		"aup": {
 			"titleOG": "Acceptabel Gebruiksbeleid",
-			"descriptionOG": "PayPal-conforme **gebruiksrichtlijnen** voor het Beswib-platform"
+			"descriptionOG": "**Gebruiksrichtlijnen** voor het Beswib-platform"
 		}
 	},
 	"ko": {
 		"aup": {
 			"titleOG": "허용 가능한 사용 정책",
-			"descriptionOG": "Beswib 플랫폼을 위한 PayPal 준수 **사용 지침**"
+			"descriptionOG": "Beswib 플랫폼을 위한 **사용 지침**"
 		}
 	}
 }

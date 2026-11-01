@@ -8,25 +8,19 @@ are pointed at. They need a superuser token in `PB_SUPERUSER_TOKEN`, which they 
 
 Without `--apply` they only read.
 
-## 1. API rules of `verifiedEmails`
+## 1. API rules of a collection
 
 ```sh
-node scripts/archive/lock-verified-emails.mjs --url https://<base>            # prints the rules
-node scripts/archive/lock-verified-emails.mjs --url https://<base> --apply    # listRule, viewRule
-node scripts/archive/lock-verified-emails.mjs --url https://<base> --apply --all-rules
+node scripts/archive/set-collection-rules.mjs --url https://<base> --collection <name>            # prints the rules
+node scripts/archive/set-collection-rules.mjs --url https://<base> --collection <name> --apply    # listRule, viewRule
+node scripts/archive/set-collection-rules.mjs --url https://<base> --collection <name> --apply --all-rules
 ```
 
-The script reads the collection back, then checks that a read without the token is refused. The same
-by hand: dashboard `/_/` > Collections > `verifiedEmails` > API Rules > set the rule to the locked
-state (superuser only). Or:
+The script reads the collection back, then does the same read without the token and expects a refusal.
+The same by hand: dashboard `/_/` > Collections > the collection > API Rules.
 
-```sh
-curl -X PATCH https://<base>/api/collections/verifiedEmails \
-  -H "Authorization: $PB_SUPERUSER_TOKEN" -H 'Content-Type: application/json' \
-  -d '{"listRule":null,"viewRule":null}'
-```
-
-The app is not affected: it only reaches this collection from the server, with the superuser token.
+The app only reaches PocketBase from the server, with the superuser token: its pages do not depend on
+these rules.
 
 ## 2. Fictional data
 
@@ -37,16 +31,20 @@ superusers are left alone.
 
 Order:
 
-1. Deploy the code of this branch, so that nothing can start a payment or a listing during the run.
+1. Deploy the code of this branch with `NEXT_PUBLIC_ARCHIVE_DATA_FICTIONAL` unset. Payments, listings,
+   the waitlist, event requests and sign-ups are closed, and the Clerk webhook writes nobody: nothing
+   adds a real person during the run. The site does not call its data fictional yet.
 2. Back up: dashboard `/_/` > Settings > Backups > New backup, then **download the .zip and keep it off
    the server**. A backup left in `pb_data/backups` still holds the real data on the same disk.
-3. Dry run, which checks the fictional data and the relations against the schema of this base and
-   prints the counts:
+3. Dry run, which checks the fictional data and the relations against the schema of this base, with
+   the rules PocketBase applies (empty required values, pattern, min, max), and prints the counts:
    `node scripts/archive/seed-fictional-data.mjs --url https://<base>`
 4. Run:
-   `node scripts/archive/seed-fictional-data.mjs --url https://<base> --apply --confirm-host <host> --backup <name>`
-   (`--backup` must name a backup of this base less than 24 hours old; `--backup-file <path>` takes the
-   downloaded .zip instead.)
+   `node scripts/archive/seed-fictional-data.mjs --url https://<base> --apply --confirm-host <host> --backup-file <downloaded .zip>`
+   The file must be a .zip that holds a `data.db`, downloaded less than 24 hours ago. Nothing in it says
+   which base it comes from: pass the right one.
+5. Set `NEXT_PUBLIC_ARCHIVE_DATA_FICTIONAL=true` for this site and rebuild it (a redeploy, not a restart:
+   Next.js writes the value in at build time). The site now says its data is fictional.
 
 If it stops halfway, it can be run again: it starts by deleting. To undo: dashboard > Settings >
 Backups > Restore.
@@ -56,10 +54,12 @@ deadline has passed. Running the script again moves them forward.
 
 ## After the run
 
-Still holding real data after the script, none of which it can reach:
+Sign-ups are closed in the code, so none of this is urgent, and none of it is within reach of the script.
 
-- Clerk: the accounts. Delete them, and turn sign-ups off, or the Clerk webhook creates a real `users`
-  record for the next person who signs up.
+Still holding real data:
+
+- Clerk: the accounts. Turn sign-ups off in its dashboard (an API call could still create an account
+  there, which the webhook now ignores), then delete them.
 - PocketBase: `pb_data/auxiliary.db` (request logs: dashboard > Settings > Logs, retention 0) and the
   free pages of `pb_data/data.db` until a `VACUUM`, which needs access to the server.
 - The backups, on purpose. Decide how long to keep them, and delete them after that.

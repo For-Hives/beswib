@@ -134,8 +134,6 @@ describe('what the browser may call on the server', () => {
 			'app/[locale]/admin/article/actions.ts',
 			'app/[locale]/contact/actions.ts',
 			'app/[locale]/dashboard/seller/edit-bib/[bibId]/actions.ts',
-			'app/[locale]/dashboard/seller/request-event/actions.ts',
-			'app/[locale]/events/actions.ts',
 			'app/[locale]/profile/actions.ts',
 			'components/global/adminActions.ts',
 		])
@@ -159,8 +157,6 @@ describe('what the browser may call on the server', () => {
 				'resendVerifiedEmailCode',
 				'updateUserProfile',
 			],
-			'app/[locale]/events/actions.ts': ['joinEventWaitlist'],
-			'app/[locale]/dashboard/seller/request-event/actions.ts': ['handleCreateEventCreationRequest'],
 			'app/[locale]/dashboard/seller/edit-bib/[bibId]/actions.ts': [
 				'handleRegeneratePrivateToken',
 				'handleToggleListingStatus',
@@ -209,10 +205,9 @@ describe('what the browser may call on the server', () => {
 		expect(byPath.get(path)?.text).not.toMatch(/^export\s*(?:\{|\*)/m)
 	})
 
-	it("keeps the actions declared inside a page ('use server' in a function body) to the reviewed one", () => {
+	it("declares no action inside a page ('use server' in a function body)", () => {
 		const inline = sources.filter(file => /^[ \t]+['"]use server['"]/m.test(file.text)).map(file => file.path)
-		// handleJoinWaitlist: it reads the session when it runs and subscribes the session's user
-		expect(inline).toEqual(['app/[locale]/events/[id]/page.tsx'])
+		expect(inline).toEqual([])
 	})
 
 	it('finds the browser modules, hooks included', () => {

@@ -100,40 +100,16 @@ export default function SellerDashboardClient({
 	}, [])
 	const succeededTransactions = sellerTransactions.filter(tx => tx.status === 'succeeded')
 
-	// Extract PayPal fees from webhook payload when present
-	const extractPaypalFee = (raw: unknown): number => {
-		if (typeof raw !== 'string' || raw.trim() === '') return 0
-		try {
-			const parsed = JSON.parse(raw) as { event?: { resource?: unknown } } | { resource?: unknown }
-			const resource =
-				(parsed as { event?: { resource?: unknown } })?.event?.resource ??
-				(parsed as { resource?: unknown })?.resource ??
-				null
-			if (resource && typeof resource === 'object') {
-				const breakdown = (resource as { seller_receivable_breakdown?: { paypal_fee?: { value?: string } } })
-					.seller_receivable_breakdown
-				const feeStr = breakdown?.paypal_fee?.value
-				const fee = feeStr != null ? Number(feeStr) : 0
-				return Number.isFinite(fee) ? fee : 0
-			}
-			return 0
-		} catch {
-			return 0
-		}
-	}
-
 	const totals = succeededTransactions.reduce(
 		(acc, tx) => {
 			const amount = tx.amount ?? 0
 			const platform = tx.platform_fee ?? 0
-			const paypal = extractPaypalFee(tx.raw_webhook_payload)
 			acc.gross += amount
 			acc.platform += platform
-			acc.paypal += paypal
-			acc.net += amount - platform - paypal
+			acc.net += amount - platform
 			return acc
 		},
-		{ platform: 0, paypal: 0, net: 0, gross: 0 }
+		{ platform: 0, net: 0, gross: 0 }
 	)
 
 	return (
@@ -213,18 +189,13 @@ export default function SellerDashboardClient({
 									</CardHeader>
 									<CardContent>
 										<div className="text-2xl font-bold">€{totals.net.toFixed(2)}</div>
-										<p className="text-muted-foreground text-xs">
-											{t.stats?.netRevenueDesc ?? 'After platform and PayPal fees'}
-										</p>
+										<p className="text-muted-foreground text-xs">{t.stats?.netRevenueDesc ?? 'After platform fees'}</p>
 										<div className="text-muted-foreground mt-2 space-y-1 text-xs">
 											<p>
 												{t.stats?.gross ?? 'Gross:'} €{totals.gross.toFixed(2)}
 											</p>
 											<p>
 												{t.stats?.platformFees ?? 'Platform fees:'} −€{totals.platform.toFixed(2)}
-											</p>
-											<p>
-												{t.stats?.paypalFees ?? 'PayPal fees:'} −€{totals.paypal.toFixed(2)}
 											</p>
 										</div>
 									</CardContent>
@@ -234,14 +205,10 @@ export default function SellerDashboardClient({
 								<div className="max-w-xs">
 									<p className="font-medium">{t.tooltip?.feesExplanation ?? 'How fees work:'}</p>
 									<p className="mt-1 text-sm">
-										<strong>{t.tooltip?.netFormula ?? 'Net = Amount − Platform fees − PayPal fees.'}</strong>
+										<strong>{t.tooltip?.netFormula ?? 'Net = Amount − Platform fees.'}</strong>
 									</p>
 									<p className="mt-1 text-xs">
 										{t.tooltip?.platformFeesInfo ?? 'Platform fees are 10% of the listing price.'}
-									</p>
-									<p className="mt-1 text-xs">
-										{t.tooltip?.paypalFeesInfo ??
-											'PayPal fees are provided by PayPal in the capture and may vary by country and payment method.'}
 									</p>
 								</div>
 							</TooltipContent>
@@ -323,8 +290,7 @@ export default function SellerDashboardClient({
 									const bib = tx.expand?.bib_id
 									if (!tx?.id || !bib || bib.id === '') return null
 
-									const paypalFee = extractPaypalFee(tx.raw_webhook_payload)
-									const net = (tx.amount ?? 0) - (tx.platform_fee ?? 0) - paypalFee
+									const net = (tx.amount ?? 0) - (tx.platform_fee ?? 0)
 
 									return (
 										<div className="group relative h-full w-full" key={tx.id}>
@@ -360,9 +326,6 @@ export default function SellerDashboardClient({
 																<div className="text-muted-foreground space-y-0.5 text-xs">
 																	<p>
 																		{t.stats?.platformFees ?? 'Platform'}: -€{(tx.platform_fee ?? 0).toFixed(2)}
-																	</p>
-																	<p>
-																		{t.stats?.paypalFees ?? 'PayPal'}: -€{paypalFee.toFixed(2)}
 																	</p>
 																</div>
 															</div>

@@ -31,10 +31,9 @@
 			"sold": "Sold",
 			"soldDesc": "Successfully sold",
 			"netRevenue": "Net Revenue",
-			"netRevenueDesc": "After platform and PayPal fees",
+			"netRevenueDesc": "After platform fees",
 			"gross": "Gross:",
 			"platformFees": "Platform fees:",
-			"paypalFees": "PayPal fees:",
 			"amount": "Amount:",
 			"net": "Net:",
 			"netEarned": "Net Earned"
@@ -42,9 +41,8 @@
 		"tooltip": {
 			"hover": "Hover",
 			"feesExplanation": "How fees work:",
-			"netFormula": "Net = Amount − Platform fees − PayPal fees.",
-			"platformFeesInfo": "Platform fees are 10% of the listing price.",
-			"paypalFeesInfo": "PayPal fees are provided by PayPal in the capture and may vary by country and payment method."
+			"netFormula": "Net = Amount − Platform fees.",
+			"platformFeesInfo": "Platform fees are 10% of the listing price."
 		},
 		"quickActions": "Quick Actions",
 		"actions": {
@@ -121,10 +119,9 @@
 			"sold": "Vendu",
 			"soldDesc": "Vendu avec succès",
 			"netRevenue": "Revenus Nets",
-			"netRevenueDesc": "Après frais plateforme et PayPal",
+			"netRevenueDesc": "Après frais de plateforme",
 			"gross": "Brut :",
 			"platformFees": "Frais plateforme :",
-			"paypalFees": "Frais PayPal :",
 			"amount": "Montant :",
 			"net": "Net :",
 			"netEarned": "Net Gagné"
@@ -132,9 +129,8 @@
 		"tooltip": {
 			"hover": "Survoler",
 			"feesExplanation": "Comment fonctionnent les frais :",
-			"netFormula": "Net = Montant − Frais plateforme − Frais PayPal.",
-			"platformFeesInfo": "Les frais de plateforme sont 10% du prix de vente.",
-			"paypalFeesInfo": "Les frais PayPal sont fournis par PayPal lors de la capture et peuvent varier selon le pays et la méthode de paiement."
+			"netFormula": "Net = Montant − Frais plateforme.",
+			"platformFeesInfo": "Les frais de plateforme sont 10% du prix de vente."
 		},
 		"quickActions": "Actions Rapides",
 		"actions": {
@@ -211,10 +207,9 @@
 			"sold": "판매완료",
 			"soldDesc": "성공적으로 판매됨",
 			"netRevenue": "순수익",
-			"netRevenueDesc": "플랫폼 및 PayPal 수수료 차감 후",
+			"netRevenueDesc": "플랫폼 수수료 차감 후",
 			"gross": "총액:",
 			"platformFees": "플랫폼 수수료:",
-			"paypalFees": "PayPal 수수료:",
 			"amount": "금액:",
 			"net": "순액:",
 			"netEarned": "순수익"
@@ -222,9 +217,8 @@
 		"tooltip": {
 			"hover": "호버",
 			"feesExplanation": "수수료 작동 방식:",
-			"netFormula": "순액 = 금액 − 플랫폼 수수료 − PayPal 수수료.",
-			"platformFeesInfo": "플랫폼 수수료는 등록 가격의 10%입니다.",
-			"paypalFeesInfo": "PayPal 수수료는 PayPal에서 제공되며 국가 및 결제 방법에 따라 달라질 수 있습니다."
+			"netFormula": "순액 = 금액 − 플랫폼 수수료.",
+			"platformFeesInfo": "플랫폼 수수료는 등록 가격의 10%입니다."
 		},
 		"quickActions": "빠른 작업",
 		"actions": {
@@ -301,10 +295,9 @@
 			"sold": "Vendido",
 			"soldDesc": "Vendido exitosamente",
 			"netRevenue": "Ingresos Netos",
-			"netRevenueDesc": "Después de comisiones de plataforma y PayPal",
+			"netRevenueDesc": "Después de comisiones de plataforma",
 			"gross": "Bruto:",
 			"platformFees": "Comisiones plataforma:",
-			"paypalFees": "Comisiones PayPal:",
 			"amount": "Cantidad:",
 			"net": "Neto:",
 			"netEarned": "Neto Ganado"
@@ -312,9 +305,8 @@
 		"tooltip": {
 			"hover": "Pasar el ratón",
 			"feesExplanation": "Cómo funcionan las comisiones:",
-			"netFormula": "Neto = Cantidad − Comisiones plataforma − Comisiones PayPal.",
-			"platformFeesInfo": "Las comisiones de plataforma son el 10% del precio de venta.",
-			"paypalFeesInfo": "Las comisiones de PayPal son proporcionadas por PayPal en la captura y pueden variar según el país y método de pago."
+			"netFormula": "Neto = Cantidad − Comisiones plataforma.",
+			"platformFeesInfo": "Las comisiones de plataforma son el 10% del precio de venta."
 		},
 		"quickActions": "Acciones Rápidas",
 		"actions": {
@@ -391,10 +383,9 @@
 			"sold": "Venduto",
 			"soldDesc": "Venduto con successo",
 			"netRevenue": "Ricavi Netti",
-			"netRevenueDesc": "Dopo commissioni piattaforma e PayPal",
+			"netRevenueDesc": "Dopo commissioni piattaforma",
 			"gross": "Lordo:",
 			"platformFees": "Commissioni piattaforma:",
-			"paypalFees": "Commissioni PayPal:",
 			"amount": "Importo:",
 			"net": "Netto:",
 			"netEarned": "Netto Guadagnato"
@@ -402,9 +393,8 @@
 		"tooltip": {
 			"hover": "Passa sopra",
 			"feesExplanation": "Come funzionano le commissioni:",
-			"netFormula": "Netto = Importo − Commissioni piattaforma − Commissioni PayPal.",
-			"platformFeesInfo": "Le commissioni della piattaforma sono il 10% del prezzo di vendita.",
-			"paypalFeesInfo": "Le commissioni PayPal sono fornite da PayPal nella cattura e possono variare per paese e metodo di pagamento."
+			"netFormula": "Netto = Importo − Commissioni piattaforma.",
+			"platformFeesInfo": "Le commissioni della piattaforma sono il 10% del prezzo di vendita."
 		},
 		"quickActions": "Azioni Rapide",
 		"actions": {
@@ -481,10 +471,9 @@
 			"sold": "Verkauft",
 			"soldDesc": "Erfolgreich verkauft",
 			"netRevenue": "Nettoeinnahmen",
-			"netRevenueDesc": "Nach Plattform- und PayPal-Gebühren",
+			"netRevenueDesc": "Nach Plattform-Gebühren",
 			"gross": "Brutto:",
 			"platformFees": "Plattform-Gebühren:",
-			"paypalFees": "PayPal-Gebühren:",
 			"amount": "Betrag:",
 			"net": "Netto:",
 			"netEarned": "Netto Verdient"
@@ -492,9 +481,8 @@
 		"tooltip": {
 			"hover": "Darüber fahren",
 			"feesExplanation": "Wie Gebühren funktionieren:",
-			"netFormula": "Netto = Betrag − Plattform-Gebühren − PayPal-Gebühren.",
-			"platformFeesInfo": "Plattform-Gebühren sind 10% des Verkaufspreises.",
-			"paypalFeesInfo": "PayPal-Gebühren werden von PayPal bei der Erfassung bereitgestellt und können je nach Land und Zahlungsmethode variieren."
+			"netFormula": "Netto = Betrag − Plattform-Gebühren.",
+			"platformFeesInfo": "Plattform-Gebühren sind 10% des Verkaufspreises."
 		},
 		"quickActions": "Schnelle Aktionen",
 		"actions": {
@@ -571,10 +559,9 @@
 			"sold": "Vândut",
 			"soldDesc": "Vândut cu succes",
 			"netRevenue": "Venituri Nete",
-			"netRevenueDesc": "După comisioane platformă și PayPal",
+			"netRevenueDesc": "După comisioane platformă",
 			"gross": "Brut:",
 			"platformFees": "Comisioane platformă:",
-			"paypalFees": "Comisioane PayPal:",
 			"amount": "Suma:",
 			"net": "Net:",
 			"netEarned": "Net Câștigat"
@@ -582,9 +569,8 @@
 		"tooltip": {
 			"hover": "Trece peste",
 			"feesExplanation": "Cum funcționează comisioanele:",
-			"netFormula": "Net = Suma − Comisioane platformă − Comisioane PayPal.",
-			"platformFeesInfo": "Comisioanele platformei sunt 10% din prețul de vânzare.",
-			"paypalFeesInfo": "Comisioanele PayPal sunt furnizate de PayPal în captură și pot varia în funcție de țară și metoda de plată."
+			"netFormula": "Net = Suma − Comisioane platformă.",
+			"platformFeesInfo": "Comisioanele platformei sunt 10% din prețul de vânzare."
 		},
 		"quickActions": "Acțiuni Rapide",
 		"actions": {
@@ -661,10 +647,9 @@
 			"sold": "Vendido",
 			"soldDesc": "Vendido com sucesso",
 			"netRevenue": "Receitas Líquidas",
-			"netRevenueDesc": "Após comissões da plataforma e PayPal",
+			"netRevenueDesc": "Após comissões da plataforma",
 			"gross": "Bruto:",
 			"platformFees": "Comissões plataforma:",
-			"paypalFees": "Comissões PayPal:",
 			"amount": "Montante:",
 			"net": "Líquido:",
 			"netEarned": "Líquido Ganho"
@@ -672,9 +657,8 @@
 		"tooltip": {
 			"hover": "Passar por cima",
 			"feesExplanation": "Como funcionam as comissões:",
-			"netFormula": "Líquido = Montante − Comissões plataforma − Comissões PayPal.",
-			"platformFeesInfo": "As comissões da plataforma são 10% do preço de venda.",
-			"paypalFeesInfo": "As comissões PayPal são fornecidas pelo PayPal na captura e podem variar por país e método de pagamento."
+			"netFormula": "Líquido = Montante − Comissões plataforma.",
+			"platformFeesInfo": "As comissões da plataforma são 10% do preço de venda."
 		},
 		"quickActions": "Ações Rápidas",
 		"actions": {
@@ -751,10 +735,9 @@
 			"sold": "Verkocht",
 			"soldDesc": "Succesvol verkocht",
 			"netRevenue": "Netto Inkomsten",
-			"netRevenueDesc": "Na platform- en PayPal-kosten",
+			"netRevenueDesc": "Na platformkosten",
 			"gross": "Bruto:",
 			"platformFees": "Platform-kosten:",
-			"paypalFees": "PayPal-kosten:",
 			"amount": "Bedrag:",
 			"net": "Netto:",
 			"netEarned": "Netto Verdiend"
@@ -762,9 +745,8 @@
 		"tooltip": {
 			"hover": "Hover",
 			"feesExplanation": "Hoe kosten werken:",
-			"netFormula": "Netto = Bedrag − Platform-kosten − PayPal-kosten.",
-			"platformFeesInfo": "Platform-kosten zijn 10% van de verkoopprijs.",
-			"paypalFeesInfo": "PayPal-kosten worden door PayPal geleverd bij de vangst en kunnen variëren per land en betaalmethode."
+			"netFormula": "Netto = Bedrag − Platform-kosten.",
+			"platformFeesInfo": "Platform-kosten zijn 10% van de verkoopprijs."
 		},
 		"quickActions": "Snelle Acties",
 		"actions": {

@@ -45,7 +45,7 @@ const RUNNERS = [
 ]
 
 const BIBS_PER_EVENT = 3
-const PLATFORM_FEE = 0
+const PLATFORM_FEE_RATE = 0.05
 
 function pad(value, width = 3) {
 	return String(value).padStart(width, '0')
@@ -181,7 +181,8 @@ export function buildFictionalData(now) {
 					id: id('demotx', transactions.length + 1),
 					bib_id: bib.id,
 					amount: price,
-					platform_fee: PLATFORM_FEE,
+					// Never 0, which PocketBase refuses on a required number, and whole in case decimals are refused
+					platform_fee: Math.max(1, Math.round(price * PLATFORM_FEE_RATE)),
 					status: 'succeeded',
 					transactionDate: pbDate(now),
 					buyer_user_id: buyer.id,
@@ -193,7 +194,7 @@ export function buildFictionalData(now) {
 					currency: 'EUR',
 					payment_status: 'COMPLETED',
 					capture_time: pbDate(now),
-					raw_webhook_payload: {},
+					raw_webhook_payload: { fictional: true },
 				})
 			}
 			bibs.push(bib)
@@ -206,7 +207,7 @@ export function buildFictionalData(now) {
 		user_id: buyers[index % buyers.length].id,
 		email: buyers[index % buyers.length].email,
 		mail_notification: false,
-		optionPreferences: {},
+		optionPreferences: { size: 'M' },
 		added_at: pbDate(now),
 	}))
 

@@ -24,7 +24,6 @@
 				"title": "Profile Incomplete",
 				"description": "Please complete your profile to start selling bibs.",
 				"whyRequired": "The following information is required to ensure secure transactions:",
-				"paypalMerchantId": "PayPal Merchant ID for payments",
 				"contactInfo": "Valid contact information",
 				"addressInfo": "Complete address details",
 				"completeProfileButton": "Complete Profile"
@@ -56,7 +55,6 @@
 				"title": "Profil Incomplet",
 				"description": "Veuillez compléter votre profil pour commencer à vendre des dossards.",
 				"whyRequired": "Les informations suivantes sont requises pour assurer des transactions sécurisées :",
-				"paypalMerchantId": "ID Marchand PayPal pour les paiements",
 				"contactInfo": "Informations de contact valides",
 				"addressInfo": "Détails d'adresse complets",
 				"completeProfileButton": "Compléter le Profil"
@@ -88,7 +86,6 @@
 				"title": "Perfil Incompleto",
 				"description": "Por favor completa tu perfil para comenzar a vender dorsales.",
 				"whyRequired": "La siguiente información es requerida para asegurar transacciones seguras:",
-				"paypalMerchantId": "ID de Comerciante PayPal para pagos",
 				"contactInfo": "Información de contacto válida",
 				"addressInfo": "Detalles de dirección completos",
 				"completeProfileButton": "Completar Perfil"
@@ -120,7 +117,6 @@
 				"title": "Profilo Incompleto",
 				"description": "Per favore completa il tuo profilo per iniziare a vendere pettorali.",
 				"whyRequired": "Le seguenti informazioni sono richieste per garantire transazioni sicure:",
-				"paypalMerchantId": "ID Commerciante PayPal per i pagamenti",
 				"contactInfo": "Informazioni di contatto valide",
 				"addressInfo": "Dettagli dell'indirizzo completi",
 				"completeProfileButton": "Completa Profilo"
@@ -152,7 +148,6 @@
 				"title": "Profil Unvollständig",
 				"description": "Bitte vervollständigen Sie Ihr Profil, um mit dem Verkauf von Startnummern zu beginnen.",
 				"whyRequired": "Die folgenden Informationen sind erforderlich, um sichere Transaktionen zu gewährleisten:",
-				"paypalMerchantId": "PayPal Händler-ID für Zahlungen",
 				"contactInfo": "Gültige Kontaktinformationen",
 				"addressInfo": "Vollständige Adressdetails",
 				"completeProfileButton": "Profil Vervollständigen"
@@ -184,7 +179,6 @@
 				"title": "Profil Incomplet",
 				"description": "Te rog să-ți completezi profilul pentru a începe să vinzi numere de start.",
 				"whyRequired": "Următoarele informații sunt necesare pentru a asigura tranzacții sigure:",
-				"paypalMerchantId": "ID-ul de Comerciant PayPal pentru plăți",
 				"contactInfo": "Informații de contact valide",
 				"addressInfo": "Detalii complete ale adresei",
 				"completeProfileButton": "Completează Profilul"
@@ -216,7 +210,6 @@
 				"title": "Perfil Incompleto",
 				"description": "Por favor, complete seu perfil para começar a vender dorsais.",
 				"whyRequired": "As seguintes informações são necessárias para garantir transações seguras:",
-				"paypalMerchantId": "ID de Comerciante PayPal para pagamentos",
 				"contactInfo": "Informações de contato válidas",
 				"addressInfo": "Detalhes completos do endereço",
 				"completeProfileButton": "Completar Perfil"
@@ -248,7 +241,6 @@
 				"title": "Profiel Onvoltooid",
 				"description": "Vul je profiel aan om te beginnen met het verkopen van startnummers.",
 				"whyRequired": "De volgende informatie is vereist om veilige transacties te garanderen:",
-				"paypalMerchantId": "PayPal Merchant ID voor betalingen",
 				"contactInfo": "Geldige contactgegevens",
 				"addressInfo": "Volledige adresgegevens",
 				"completeProfileButton": "Profiel Voltooien"
@@ -280,7 +272,6 @@
 				"title": "프로필 미완성",
 				"description": "배번 판매를 시작하려면 프로필을 완성해 주세요.",
 				"whyRequired": "안전한 거래를 위해 다음 정보가 필요합니다:",
-				"paypalMerchantId": "결제를 위한 PayPal 상인 ID",
 				"contactInfo": "유효한 연락처 정보",
 				"addressInfo": "완전한 주소 정보",
 				"completeProfileButton": "프로필 완성"

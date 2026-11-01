@@ -166,14 +166,6 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 														{t.navbar.signIn}
 													</Link>
 												</TrackClick>
-												<TrackClick name="nav_click" props={{ item: 'sign_up', where: 'header' }}>
-													<Link
-														href={`/${locale}/auth/sign-up`}
-														className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-3 py-2 text-sm font-medium transition-colors"
-													>
-														{t.navbar.signUp}
-													</Link>
-												</TrackClick>
 											</Show>
 											{/* Language Switcher */}
 											<LanguageSwitcher currentLocale={locale} currentPath={currentPath} className="mr-2" />
@@ -238,13 +230,6 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 												className="text-muted-foreground hover:bg-accent hover:text-accent-foreground block w-full rounded-md px-3 py-2 text-left text-base font-medium transition-colors"
 											>
 												{t.navbar.signIn}
-											</Link>
-											<Link
-												href={`/${locale}/auth/sign-up`}
-												onClick={() => track('nav_click', { item: 'sign_up', where: 'header_mobile' })}
-												className="bg-primary text-primary-foreground hover:bg-primary/90 block w-full rounded-md px-3 py-2 text-left text-base font-medium transition-colors"
-											>
-												{t.navbar.signUp}
 											</Link>
 										</Show>
 									</div>

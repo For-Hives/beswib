@@ -3,13 +3,14 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 import translations from '@/components/global/locales.json'
+import { isDataFictional } from '@/lib/archive'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
-type ClosedFlow = 'purchase' | 'sell' | 'payments'
+type ClosedFlow = 'purchase' | 'sell' | 'payments' | 'waitlist' | 'eventRequest' | 'signup'
 
 /**
- * What stands where a payment, a listing or a payout step used to be: Beswib is archived, and the
+ * What stands where a payment, a listing, a form or a sign-up used to be: Beswib is archived, and the
  * code behind those steps is gone. `children` adds a way on from there.
  */
 export function ArchivedClosedCard({
@@ -25,7 +26,10 @@ export function ArchivedClosedCard({
 				<Archive className="h-4 w-4 shrink-0" />
 				{t.closed[flow].title}
 			</p>
-			<p className="text-muted-foreground mt-2 text-sm">{t.closed[flow].body}</p>
+			<p className="text-muted-foreground mt-2 text-sm">
+				{t.closed[flow].body}
+				{flow === 'purchase' && isDataFictional() && ` ${t.fictionalListing}`}
+			</p>
 			<div className="mt-4 flex flex-wrap gap-3">
 				{children}
 				<Link

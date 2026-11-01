@@ -2,8 +2,8 @@ import { act } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-// A sign-in with Google or Facebook that needs one more step is only finished by Clerk's callback:
-// an account Beswib does not know becomes a sign-up, an account that exists becomes a sign-in.
+// A sign-in with Google or Facebook that needs one more step is only finished by Clerk's callback,
+// which is told not to turn an account Beswib does not know into a sign-up: the site is archived.
 // The forms used to name the destination as the page the provider returns to, and nothing on a
 // bib or on the dashboard finishes an attempt: those visitors came back signed out.
 //
@@ -70,6 +70,12 @@ afterEach(() => {
 })
 
 describe('the page Google or Facebook returns to', () => {
+	it('never turns an unknown account into a sign-up', () => {
+		land(`/fr/auth/sso-callback${WITH_BIB}`)
+
+		expect(told().transferable).toBe(false)
+	})
+
 	it('is the one the forms name to Clerk, and reads back the page they asked to come back to', () => {
 		land(oauthCallbackPath('fr', BIB))
 
@@ -77,10 +83,11 @@ describe('the page Google or Facebook returns to', () => {
 		expect(told()).toMatchObject({ signUpForceRedirectUrl: BIB, signInForceRedirectUrl: BIB })
 	})
 
-	it('sends the visitor to the bib once Clerk has a session, whether it signed in or created the account', () => {
+	it('sends the visitor to the bib once Clerk has a session', () => {
 		land(`/fr/auth/sso-callback${WITH_BIB}`)
 
 		expect(told()).toEqual({
+			transferable: false,
 			signUpUrl: `/fr/auth/sign-up${WITH_BIB}`,
 			signUpForceRedirectUrl: BIB,
 			signInUrl: `/fr/auth/sign-in${WITH_BIB}`,
@@ -101,6 +108,7 @@ describe('the page Google or Facebook returns to', () => {
 		land('/fr/auth/sso-callback')
 
 		expect(told()).toEqual({
+			transferable: false,
 			signUpUrl: '/fr/auth/sign-up',
 			signUpForceRedirectUrl: DASHBOARD,
 			signInUrl: '/fr/auth/sign-in',
@@ -112,6 +120,7 @@ describe('the page Google or Facebook returns to', () => {
 		land(`/fr/auth/sso-callback?redirect_url=${encodeURIComponent(value)}`)
 
 		expect(told()).toEqual({
+			transferable: false,
 			signUpUrl: '/fr/auth/sign-up',
 			signUpForceRedirectUrl: DASHBOARD,
 			signInUrl: '/fr/auth/sign-in',
@@ -130,12 +139,7 @@ describe('the page Google or Facebook returns to', () => {
 			'signInUrl',
 			'signUpForceRedirectUrl',
 			'signUpUrl',
+			'transferable',
 		])
-	})
-
-	it('has the element Clerk draws its bot protection in when the attempt becomes a sign-up', () => {
-		land(`/fr/auth/sso-callback${WITH_BIB}`)
-
-		expect(container.querySelector('#clerk-captcha')).not.toBeNull()
 	})
 })

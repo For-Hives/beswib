@@ -5,10 +5,10 @@
 //
 // PB_SUPERUSER_TOKEN=… node scripts/archive/seed-fictional-data.mjs --url https://…             (dry run)
 // PB_SUPERUSER_TOKEN=… node scripts/archive/seed-fictional-data.mjs --url https://… --apply \
-//   --confirm-host <host> (--backup <name in PocketBase> | --backup-file <local .zip>)
+//   --confirm-host <host> --backup-file <downloaded .zip>
 
 import { randomBytes } from 'node:crypto'
-import { openSync, readSync, statSync } from 'node:fs'
+import { closeSync, fstatSync, openSync, readSync, statSync } from 'node:fs'
 import { pathToFileURL } from 'node:url'
 
 import { buildFictionalData } from './fictional-data.mjs'
@@ -35,12 +35,84 @@ function fieldsOf(collection) {
 	return collection.fields ?? collection.schema ?? []
 }
 
-/** What the fictional records must look like on this base: fields it does not have are dropped. */
+// Before PocketBase 0.23 the rules of a field are under `options`, since then on the field itself
+function rulesOf(field) {
+	return { ...field.options, ...field }
+}
+
+const BLANK_JSON = new Set(['null', '""', '{}', '[]'])
+
+/** PocketBase's own idea of an empty value, the one a required field refuses: 0, false and {} are empty. */
+function isBlank(type, value) {
+	if (value == null || value === '') return true
+	if (type === 'number') return value === 0
+	if (type === 'bool') return value !== true
+	if (type === 'json') return BLANK_JSON.has(JSON.stringify(value))
+	return Array.isArray(value) && value.length === 0
+}
+
+function rangeProblem(amount, min, max, unit = '') {
+	if (min != null && amount < min) return `is ${amount}${unit}, under the minimum ${min}`
+	if (max != null && amount > max) return `is ${amount}${unit}, over the maximum ${max}`
+	return null
+}
+
+function textProblem(rules, value) {
+	// 0 means "not set" for these two, and PocketBase then caps a text at 5000 characters
+	const problem = rangeProblem([...String(value)].length, rules.min || null, rules.max || 5000, ' characters')
+	if (problem != null || !rules.pattern) return problem
+	try {
+		return new RegExp(rules.pattern).test(String(value)) ? null : `does not match the pattern ${rules.pattern}`
+	} catch {
+		return `has a pattern this script cannot check (${rules.pattern}): check it by hand and adjust it`
+	}
+}
+
+function domainProblem(rules, value) {
+	const domain = String(value).split('@').pop().toLowerCase()
+	if (rules.onlyDomains?.length > 0 && !rules.onlyDomains.includes(domain)) return `is not on ${rules.onlyDomains}`
+	if (rules.exceptDomains?.includes(domain)) return `is on the refused domain ${domain}`
+	return null
+}
+
+function dateProblem(rules, value) {
+	const time = date => (date ? new Date(String(date).replace(' ', 'T')).getTime() : null)
+	return rangeProblem(time(value), time(rules.min), time(rules.max)) == null
+		? null
+		: `is out of the range ${rules.min || '…'} to ${rules.max || '…'}`
+}
+
+/** What PocketBase would refuse in a value that is not empty. */
+function valueProblem(rules, value) {
+	switch (rules.type) {
+		case 'number':
+			if (rules.onlyInt === true && !Number.isInteger(value)) return `is ${value}, and only an integer is allowed`
+			return rangeProblem(value, rules.min, rules.max)
+		case 'text':
+			return textProblem(rules, value)
+		case 'email':
+		case 'url':
+			return domainProblem(rules, value)
+		case 'date':
+			return dateProblem(rules, value)
+		case 'select': {
+			const wrong = [value].flat().find(item => !rules.values?.includes(item))
+			return wrong === undefined ? null : `has no value "${wrong}"`
+		}
+		default:
+			return null
+	}
+}
+
+/**
+ * What the fictional records must look like on this base: fields it does not have are dropped, and
+ * anything PocketBase would refuse is reported, because a refusal during the run comes after the delete.
+ */
 export function fitToSchema(records, collection) {
 	const fields = fieldsOf(collection)
 	const known = new Set(fields.map(field => field.name))
 	const dropped = new Set()
-	const problems = []
+	const problems = new Set()
 
 	const fitted = records.map(record => {
 		const kept = {}
@@ -53,18 +125,26 @@ export function fitToSchema(records, collection) {
 
 	const isAuth = collection.type === 'auth'
 	for (const field of fields) {
-		if (field.system === true || field.required !== true || AUTOMATIC_FIELD_TYPES.has(field.type)) continue
-		if (isAuth && ['password', 'tokenKey'].includes(field.name)) continue
-		const empty = fitted.some(record => record[field.name] == null || record[field.name] === '')
-		if (empty) problems.push(`${collection.name}.${field.name} is required and the fictional data leaves it empty`)
-	}
-	for (const field of fields) {
-		if (field.type !== 'select' || !Array.isArray(field.values)) continue
-		const wrong = fitted.find(record => record[field.name] != null && !field.values.includes(record[field.name]))
-		if (wrong != null) problems.push(`${collection.name}.${field.name} has no value "${wrong[field.name]}"`)
+		const rules = rulesOf(field)
+		const skipRequired =
+			field.system === true ||
+			AUTOMATIC_FIELD_TYPES.has(field.type) ||
+			(isAuth && ['password', 'tokenKey'].includes(field.name))
+
+		for (const record of fitted) {
+			const value = record[field.name]
+			if (isBlank(field.type, value)) {
+				if (field.required === true && !skipRequired) {
+					problems.add(`${collection.name}.${field.name} is required and the fictional data leaves it empty`)
+				}
+			} else {
+				const problem = valueProblem(rules, value)
+				if (problem != null) problems.add(`${collection.name}.${field.name} ${problem}`)
+			}
+		}
 	}
 
-	return { records: fitted, dropped: [...dropped], problems, isAuth }
+	return { records: fitted, dropped: [...dropped], problems: [...problems], isAuth }
 }
 
 /**
@@ -97,29 +177,76 @@ export function checkRelations(allCollections, deleteOrder) {
 	return { problems, notes }
 }
 
-/** Proof of a backup, or an error. A flag alone is not enough. */
-export async function checkBackup(argv, client, now) {
-	const name = flagValue(argv, '--backup')
+const END_OF_DIRECTORY = 0x06054b50
+const ZIP64_LOCATOR = 0x07064b50
+const DIRECTORY_ENTRY = 0x02014b50
+const MAX_32 = 0xffffffff
+
+/** The names and sizes in the directory of a .zip, read without unpacking it. Null when it is not one. */
+export function listZipEntries(file) {
+	const fd = openSync(file, 'r')
+	try {
+		const { size } = fstatSync(fd)
+		const read = (position, length) => {
+			const buffer = Buffer.alloc(length)
+			return buffer.subarray(0, readSync(fd, buffer, 0, length, position))
+		}
+
+		// The end record is the last thing in the file, followed at most by a comment of 65535 bytes
+		const tailLength = Math.min(size, 22 + 0xffff)
+		const tailStart = size - tailLength
+		const tail = read(tailStart, tailLength)
+		let end = tail.length - 22
+		while (end >= 0 && tail.readUInt32LE(end) !== END_OF_DIRECTORY) end--
+		if (end < 0) return null
+
+		let directorySize = tail.readUInt32LE(end + 12)
+		let directoryStart = tail.readUInt32LE(end + 16)
+		if (directorySize === MAX_32 || directoryStart === MAX_32) {
+			const locator = read(tailStart + end - 20, 20)
+			if (locator.length < 20 || locator.readUInt32LE(0) !== ZIP64_LOCATOR) return null
+			const record = read(Number(locator.readBigUInt64LE(8)), 56)
+			if (record.length < 56) return null
+			directorySize = Number(record.readBigUInt64LE(40))
+			directoryStart = Number(record.readBigUInt64LE(48))
+		}
+
+		const directory = read(directoryStart, directorySize)
+		const entries = []
+		let offset = 0
+		while (offset + 46 <= directory.length && directory.readUInt32LE(offset) === DIRECTORY_ENTRY) {
+			const nameLength = directory.readUInt16LE(offset + 28)
+			entries.push({
+				name: directory.toString('utf8', offset + 46, offset + 46 + nameLength),
+				size: directory.readUInt32LE(offset + 24),
+			})
+			offset += 46 + nameLength + directory.readUInt16LE(offset + 30) + directory.readUInt16LE(offset + 32)
+		}
+		return entries
+	} finally {
+		closeSync(fd)
+	}
+}
+
+/**
+ * Proof of a backup, or an error. A flag alone is not enough, and a backup that stays on the server
+ * cannot be opened from here: the proof is the downloaded archive, which holds the database. Nothing
+ * in it says which base it came from.
+ */
+export function checkBackup(argv, now) {
 	const file = flagValue(argv, '--backup-file')
-	if (name == null && file == null) {
-		throw new Error('--apply needs --backup <name in PocketBase> or --backup-file <local .zip>.')
-	}
+	if (file == null) throw new Error('--apply needs --backup-file <the downloaded backup .zip>.')
 
-	if (file != null) {
-		const { size } = statSync(file)
-		const head = Buffer.alloc(2)
-		readSync(openSync(file, 'r'), head, 0, 2, 0)
-		if (size === 0 || head.toString() !== 'PK') throw new Error(`${file} is not a PocketBase backup (.zip).`)
-		return `local file, ${size} bytes`
-	}
+	const entries = listZipEntries(file)
+	if (entries == null) throw new Error(`${file} is not a PocketBase backup (.zip).`)
+	const database = entries.find(entry => entry.name === 'data.db')
+	if (database == null || database.size === 0) throw new Error(`${file} holds no data.db: not a PocketBase backup.`)
 
-	const backups = await client.get('/api/backups')
-	const backup = backups.find(candidate => candidate.key === name)
-	if (backup == null) throw new Error(`No backup named ${name} on this base.`)
-	if (backup.size === 0) throw new Error(`Backup ${name} is empty.`)
-	const age = now.getTime() - new Date(backup.modified.replace(' ', 'T')).getTime()
-	if (age > BACKUP_MAX_AGE_MS) throw new Error(`Backup ${name} is more than 24 hours old: take a new one.`)
-	return `${name}, ${backup.size} bytes`
+	const { size, mtime } = statSync(file)
+	if (now.getTime() - mtime.getTime() > BACKUP_MAX_AGE_MS) {
+		throw new Error(`${file} is more than 24 hours old: take a new one.`)
+	}
+	return `local file, ${size} bytes, with data.db`
 }
 
 async function deleteAll(client, collection, log) {
@@ -200,7 +327,7 @@ export async function seedFictionalData(argv, env, fetchImpl = fetch, log = cons
 	if (flagValue(argv, '--confirm-host') !== target.host) {
 		throw new Error(`--apply needs --confirm-host ${target.host}.`)
 	}
-	log(`Backup: ${await checkBackup(argv, client, now)}`)
+	log(`Backup: ${checkBackup(argv, now)}`)
 
 	log('Deleting…')
 	for (const name of DELETE_ORDER) {

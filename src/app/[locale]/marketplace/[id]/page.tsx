@@ -3,6 +3,7 @@ import { TrackView } from '@/components/analytics/TrackView'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { listingOf } from '@/lib/analytics/classify'
 import { bibIdOf, eventIdOf } from '@/lib/analytics/ids'
+import { isDataFictional } from '@/lib/archive'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { generateAlternateLanguages, generateCanonicalUrl } from '@/lib/seo/utils/seo-generators'
@@ -40,14 +41,14 @@ export async function generateMetadata({
 					? `${eventName} Bib in ${location} | €${price} | Beswib`
 					: `${eventName} Race Bib | €${price} | Beswib`
 
-				const description = `${eventName}${location ? ` in ${location}` : ''} race bib, listed at €${price}. Beswib is an archived project: the listings are fictional and nothing can be bought.`
+				const description = `${eventName}${location ? ` in ${location}` : ''} race bib, listed at €${price}. Beswib is an archived project: ${isDataFictional() ? 'the listings are fictional and ' : ''}nothing can be bought.`
 
 				return {
 					title: title.length > 60 ? `${eventName} Race Bib | €${price} | Beswib` : title,
 					openGraph: {
 						type: 'website',
 						title: `${eventName} Race Bib - €${price}`,
-						description: `Fictional race bib for ${eventName}${location ? ` in ${location}` : ''}`,
+						description: `${isDataFictional() ? 'Fictional race' : 'Race'} bib for ${eventName}${location ? ` in ${location}` : ''}`,
 					},
 					description: description.length > 160 ? `${description.substring(0, 157)}...` : description,
 					alternates: {
@@ -67,9 +68,9 @@ export async function generateMetadata({
 		openGraph: {
 			type: 'website',
 			title: 'Race Bib | Beswib',
-			description: 'Archived race bib marketplace: fictional listings, nothing can be bought',
+			description: `Archived race bib marketplace: ${isDataFictional() ? 'fictional listings, ' : ''}nothing can be bought`,
 		},
-		description: 'Beswib is an archived race bib marketplace: the listings are fictional and nothing can be bought.',
+		description: `Beswib is an archived race bib marketplace: ${isDataFictional() ? 'the listings are fictional and ' : ''}nothing can be bought.`,
 		alternates: {
 			languages: generateAlternateLanguages(`/marketplace/${id}`),
 			canonical: generateCanonicalUrl(locale, `/marketplace/${id}`),

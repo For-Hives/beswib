@@ -39,7 +39,7 @@
 				{
 					"id": "fees",
 					"question": "How do fees work and who pays them?",
-					"answer": "Our fee structure is transparent and fair. The buyer pays the full price, and from that amount: 1) PayPal fees (3.49% + €0.39) are deducted for payment processing, 2) Platform fees are currently waived during our promotional period, 3) The seller receives the remaining amount. All fees are clearly displayed before purchase. For detailed PayPal fees, visit their official website."
+					"answer": "Beswib is archived: nothing can be bought or sold any more, so there are no fees."
 				},
 				{
 					"id": "cancellation",
@@ -49,19 +49,6 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
-			},
-			"fees": {
-				"paypalLinkText": "View detailed PayPal fees",
-				"promotionalMessage": "🎉 Special Offer: Platform fees are currently waived during our promotional period!",
-				"calculation": {
-					"title": "Fee Calculation Example",
-					"examplePrice": "Example with a €50 bib:",
-					"buyerPays": "Buyer pays:",
-					"paypalFees": "PayPal fees:",
-					"platformFees": "Platform fees:",
-					"sellerReceives": "Seller receives:",
-					"note": "Note: All amounts are clearly displayed before purchase"
-				}
 			}
 		}
 	},
@@ -105,7 +92,7 @@
 				{
 					"id": "fees",
 					"question": "Comment fonctionnent les frais et qui les paie ?",
-					"answer": "Notre structure de frais est transparente et équitable. L'acheteur paie le prix complet, et de ce montant : 1) Les frais PayPal (3,49% + 0,39€) sont déduits pour le traitement du paiement, 2) Les frais de plateforme sont actuellement offerts pendant notre période promotionnelle, 3) Le vendeur reçoit le montant restant. Tous les frais sont clairement affichés avant l'achat. Pour les détails des frais PayPal, consultez leur site officiel."
+					"answer": "Beswib est archivé : plus rien ne peut être acheté ni vendu, il n'y a donc aucun frais."
 				},
 				{
 					"id": "cancellation",
@@ -115,19 +102,6 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
-			},
-			"fees": {
-				"paypalLinkText": "Voir les frais PayPal détaillés",
-				"promotionalMessage": "🎉 Offre spéciale : Les frais de plateforme sont actuellement offerts pendant notre période promotionnelle !",
-				"calculation": {
-					"title": "Exemple de calcul des frais",
-					"examplePrice": "Exemple avec un dossard à 50€ :",
-					"buyerPays": "L'acheteur paie :",
-					"paypalFees": "Frais PayPal :",
-					"platformFees": "Frais de plateforme :",
-					"sellerReceives": "Le vendeur reçoit :",
-					"note": "Note : Tous les montants sont clairement affichés avant l'achat"
-				}
 			}
 		}
 	},
@@ -171,7 +145,7 @@
 				{
 					"id": "fees",
 					"question": "수수료는 어떻게 작동하고 누가 지불하나요?",
-					"answer": "우리의 수수료 구조는 투명하고 공정합니다. 구매자가 전체 가격을 지불하고, 그 금액에서: 1) 결제 처리를 위한 PayPal 수수료(3.49% + 0.39€)가 공제됩니다, 2) 현재 프로모션 기간 동안 플랫폼 수수료는 면제됩니다, 3) 판매자는 나머지 금액을 받습니다. 모든 수수료는 구매 전에 명확하게 표시됩니다. PayPal 수수료 세부사항은 공식 웹사이트를 방문하세요."
+					"answer": "Beswib는 보관되었습니다. 더 이상 구매나 판매가 불가능하므로 수수료도 없습니다."
 				},
 				{
 					"id": "cancellation",
@@ -181,19 +155,6 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
-			},
-			"fees": {
-				"paypalLinkText": "PayPal 수수료 상세 보기",
-				"promotionalMessage": "🎉 특별 혜택: 현재 프로모션 기간 동안 플랫폼 수수료가 면제됩니다!",
-				"calculation": {
-					"title": "수수료 계산 예시",
-					"examplePrice": "50€ 빕 예시:",
-					"buyerPays": "구매자 지불:",
-					"paypalFees": "PayPal 수수료:",
-					"platformFees": "플랫폼 수수료:",
-					"sellerReceives": "판매자 수령:",
-					"note": "참고: 모든 금액은 구매 전에 명확하게 표시됩니다"
-				}
 			}
 		}
 	},
@@ -237,7 +198,7 @@
 				{
 					"id": "fees",
 					"question": "¿Cómo funcionan las comisiones y quién las paga?",
-					"answer": "Nuestra estructura de comisiones es transparente y justa. El comprador paga el precio completo, y de ese monto: 1) Las comisiones de PayPal (3.49% + 0.39€) se deducen para el procesamiento del pago, 2) Las comisiones de plataforma están actualmente exentas durante nuestro período promocional, 3) El vendedor recibe el monto restante. Todas las comisiones se muestran claramente antes de la compra. Para detalles de comisiones de PayPal, visita su sitio web oficial."
+					"answer": "Beswib está archivado: ya no se puede comprar ni vender nada, así que no hay comisiones."
 				},
 				{
 					"id": "cancellation",
@@ -247,19 +208,6 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
-			},
-			"fees": {
-				"paypalLinkText": "Ver comisiones PayPal detalladas",
-				"promotionalMessage": "🎉 ¡Oferta especial: Las comisiones de plataforma están exentas durante nuestro período promocional!",
-				"calculation": {
-					"title": "Ejemplo de cálculo de comisiones",
-					"examplePrice": "Ejemplo con un dorsal de 50€:",
-					"buyerPays": "El comprador paga:",
-					"paypalFees": "Comisiones PayPal:",
-					"platformFees": "Comisiones de plataforma:",
-					"sellerReceives": "El vendedor recibe:",
-					"note": "Nota: Todos los montos se muestran claramente antes de la compra"
-				}
 			}
 		}
 	},
@@ -303,7 +251,7 @@
 				{
 					"id": "fees",
 					"question": "Come funzionano le commissioni e chi le paga?",
-					"answer": "La nostra struttura delle commissioni è trasparente e giusta. L'acquirente paga il prezzo completo, e da quel importo: 1) Le commissioni PayPal (3.49% + 0.39€) vengono dedotte per l'elaborazione del pagamento, 2) Le commissioni della piattaforma sono attualmente esenti durante il nostro periodo promozionale, 3) Il venditore riceve l'importo rimanente. Tutte le commissioni sono chiaramente mostrate prima dell'acquisto. Per i dettagli delle commissioni PayPal, visita il loro sito web ufficiale."
+					"answer": "Beswib è archiviato: non si può più comprare né vendere nulla, quindi non ci sono commissioni."
 				},
 				{
 					"id": "cancellation",
@@ -313,19 +261,6 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
-			},
-			"fees": {
-				"paypalLinkText": "Vedi commissioni PayPal dettagliate",
-				"promotionalMessage": "🎉 Offerta speciale: Le commissioni della piattaforma sono attualmente esenti durante il nostro periodo promozionale!",
-				"calculation": {
-					"title": "Esempio di calcolo delle commissioni",
-					"examplePrice": "Esempio con un pettorale da 50€:",
-					"buyerPays": "L'acquirente paga:",
-					"paypalFees": "Commissioni PayPal:",
-					"platformFees": "Commissioni piattaforma:",
-					"sellerReceives": "Il venditore riceve:",
-					"note": "Nota: Tutti gli importi sono chiaramente mostrati prima dell'acquisto"
-				}
 			}
 		}
 	},
@@ -369,7 +304,7 @@
 				{
 					"id": "fees",
 					"question": "Wie funktionieren die Gebühren und wer zahlt sie?",
-					"answer": "Unsere Gebührenstruktur ist transparent und fair. Der Käufer zahlt den vollen Preis, und von diesem Betrag: 1) PayPal-Gebühren (3,49% + 0,39€) werden für die Zahlungsabwicklung abgezogen, 2) Plattformgebühren sind derzeit während unserer Werbeperiode erlassen, 3) Der Verkäufer erhält den verbleibenden Betrag. Alle Gebühren werden vor dem Kauf klar angezeigt. Für detaillierte PayPal-Gebühren besuchen Sie deren offizielle Website."
+					"answer": "Beswib ist archiviert: Es kann nichts mehr gekauft oder verkauft werden, daher fallen keine Gebühren an."
 				},
 				{
 					"id": "cancellation",
@@ -379,19 +314,6 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
-			},
-			"fees": {
-				"paypalLinkText": "Detaillierte PayPal-Gebühren anzeigen",
-				"promotionalMessage": "🎉 Sonderangebot: Plattformgebühren sind derzeit während unserer Werbeperiode erlassen!",
-				"calculation": {
-					"title": "Gebührenberechnungsbeispiel",
-					"examplePrice": "Beispiel mit einer Startnummer für 50€:",
-					"buyerPays": "Der Käufer zahlt:",
-					"paypalFees": "PayPal-Gebühren:",
-					"platformFees": "Plattformgebühren:",
-					"sellerReceives": "Der Verkäufer erhält:",
-					"note": "Hinweis: Alle Beträge werden vor dem Kauf klar angezeigt"
-				}
 			}
 		}
 	},
@@ -435,7 +357,7 @@
 				{
 					"id": "fees",
 					"question": "Cum funcționează comisioanele și cine le plătește?",
-					"answer": "Structura noastră de comisioane este transparentă și corectă. Cumpărătorul plătește prețul complet, și din acea sumă: 1) Comisioanele PayPal (3.49% + 0.39€) sunt deduse pentru procesarea plății, 2) Comisioanele platformei sunt în prezent scutite în timpul perioadei noastre promoționale, 3) Vânzătorul primește suma rămasă. Toate comisioanele sunt afișate clar înainte de cumpărare. Pentru detaliile comisioanelor PayPal, vizitează site-ul lor oficial."
+					"answer": "Beswib este arhivat: nu se mai poate cumpăra sau vinde nimic, deci nu există comisioane."
 				},
 				{
 					"id": "cancellation",
@@ -445,19 +367,6 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
-			},
-			"fees": {
-				"paypalLinkText": "Vezi comisioanele PayPal detaliate",
-				"promotionalMessage": "🎉 Ofertă specială: Comisioanele platformei sunt în prezent scutite în timpul perioadei noastre promoționale!",
-				"calculation": {
-					"title": "Exemplu de calcul al comisioanelor",
-					"examplePrice": "Exemplu cu un număr de 50€:",
-					"buyerPays": "Cumpărătorul plătește:",
-					"paypalFees": "Comisioane PayPal:",
-					"platformFees": "Comisioane platformă:",
-					"sellerReceives": "Vânzătorul primește:",
-					"note": "Notă: Toate sumele sunt afișate clar înainte de cumpărare"
-				}
 			}
 		}
 	},
@@ -501,7 +410,7 @@
 				{
 					"id": "fees",
 					"question": "Como funcionam as taxas e quem as paga?",
-					"answer": "A nossa estrutura de taxas é transparente e justa. O comprador paga o preço completo, e desse montante: 1) As taxas PayPal (3.49% + 0.39€) são deduzidas para o processamento do pagamento, 2) As taxas da plataforma estão atualmente isentas durante o nosso período promocional, 3) O vendedor recebe o montante restante. Todas as taxas são claramente exibidas antes da compra. Para detalhes das taxas PayPal, visite o seu site oficial."
+					"answer": "A Beswib está arquivada: já não é possível comprar nem vender nada, por isso não há taxas."
 				},
 				{
 					"id": "cancellation",
@@ -511,19 +420,6 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
-			},
-			"fees": {
-				"paypalLinkText": "Ver taxas PayPal detalhadas",
-				"promotionalMessage": "🎉 Oferta especial: As taxas da plataforma estão atualmente isentas durante o nosso período promocional!",
-				"calculation": {
-					"title": "Exemplo de cálculo de taxas",
-					"examplePrice": "Exemplo com um dorsal de 50€:",
-					"buyerPays": "O comprador paga:",
-					"paypalFees": "Taxas PayPal:",
-					"platformFees": "Taxas da plataforma:",
-					"sellerReceives": "O vendedor recebe:",
-					"note": "Nota: Todos os montantes são claramente exibidos antes da compra"
-				}
 			}
 		}
 	},
@@ -567,7 +463,7 @@
 				{
 					"id": "fees",
 					"question": "Hoe werken de kosten en wie betaalt ze?",
-					"answer": "Onze kostenstructuur is transparant en eerlijk. De koper betaalt de volledige prijs, en van dit bedrag: 1) PayPal kosten (3.49% + 0.39€) worden afgetrokken voor betalingsverwerking, 2) Platform kosten zijn momenteel vrijgesteld tijdens onze promotieperiode, 3) De verkoper ontvangt het resterende bedrag. Alle kosten worden duidelijk getoond vóór aankoop. Voor gedetailleerde PayPal kosten, bezoek hun officiële website."
+					"answer": "Beswib is gearchiveerd: er kan niets meer worden gekocht of verkocht, dus er zijn geen kosten."
 				},
 				{
 					"id": "cancellation",
@@ -577,19 +473,6 @@
 			],
 			"support": {
 				"buttonUrl": "/contact"
-			},
-			"fees": {
-				"paypalLinkText": "Bekijk gedetailleerde PayPal kosten",
-				"promotionalMessage": "🎉 Speciale aanbieding: Platform kosten zijn momenteel vrijgesteld tijdens onze promotieperiode!",
-				"calculation": {
-					"title": "Kostenberekening voorbeeld",
-					"examplePrice": "Voorbeeld met een startnummer van 50€:",
-					"buyerPays": "Koper betaalt:",
-					"paypalFees": "PayPal kosten:",
-					"platformFees": "Platform kosten:",
-					"sellerReceives": "Verkoper ontvangt:",
-					"note": "Opmerking: Alle bedragen worden duidelijk getoond vóór aankoop"
-				}
 			}
 		}
 	}

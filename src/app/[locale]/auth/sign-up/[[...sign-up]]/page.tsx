@@ -1,41 +1,27 @@
-'use client'
+import Link from 'next/link'
 
-import { Show, useAuth } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import CustomSignUp from '@/components/auth/CustomSignUp'
+import { ArchivedClosedCard } from '@/components/archive/ArchivedClosedCard'
+import translations from '@/components/global/locales.json'
 import AuthSplitScreen from '@/components/ui/AuthSplitScreen'
-import { afterAuthPath } from '@/lib/utils/redirect'
+import type { Locale } from '@/lib/i18n/config'
+import { getTranslations } from '@/lib/i18n/dictionary'
+import { signInPath } from '@/lib/utils/redirect'
 
-export default function Page({ params }: { params: Promise<{ locale: string }> }) {
-	const { isSignedIn, isLoaded } = useAuth()
-	const router = useRouter()
-	const [locale, setLocale] = useState('en')
-
-	useEffect(() => {
-		void params.then(p => setLocale(p.locale || 'en'))
-	}, [params])
-
-	useEffect(() => {
-		if (isLoaded && isSignedIn) {
-			// The same destination as the form and the middleware: the three can answer the same sign-in
-			router.push(afterAuthPath(window.location.search, window.location.origin, locale))
-		}
-	}, [isLoaded, isSignedIn, router, locale])
-
-	if (!isLoaded) {
-		return (
-			<div className="flex h-screen items-center justify-center">
-				<div className="border-primary h-8 w-8 animate-spin rounded-full border-b-2"></div>
-			</div>
-		)
-	}
+// Beswib is archived: nobody new comes in. An existing account can still sign in.
+export default async function Page({ params }: { params: Promise<{ locale: Locale }> }) {
+	const { locale } = await params
+	const t = getTranslations(locale, translations)
 
 	return (
-		<Show when="signed-out">
-			<AuthSplitScreen>
-				<CustomSignUp />
-			</AuthSplitScreen>
-		</Show>
+		<AuthSplitScreen>
+			<ArchivedClosedCard locale={locale} flow="signup">
+				<Link
+					href={signInPath(locale)}
+					className="text-primary hover:text-primary/80 inline-flex items-center text-sm font-medium underline"
+				>
+					{t.navbar.signIn}
+				</Link>
+			</ArchivedClosedCard>
+		</AuthSplitScreen>
 	)
 }

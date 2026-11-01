@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import translations from '@/components/global/locales.json'
+import { isDataFictional } from '@/lib/archive'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
@@ -60,7 +61,7 @@ export function ArchivedProjectNotice({ locale }: Readonly<{ locale: Locale }>) 
 				>
 					{t.noticeCta}
 				</Link>
-				<p className="text-muted-foreground/80 text-right text-xs">{t.fictional}</p>
+				{isDataFictional() && <p className="text-muted-foreground/80 text-right text-xs">{t.fictional}</p>}
 			</div>
 		</aside>
 	)

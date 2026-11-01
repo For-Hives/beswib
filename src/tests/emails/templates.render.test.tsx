@@ -6,11 +6,7 @@ import { describe, expect, it } from 'vitest'
 import BeswibBibApproval from '@/components/emails/BeswibBibApproval'
 import BeswibEmailVerification from '@/components/emails/BeswibEmailVerification'
 import BeswibPurchaseApproval from '@/components/emails/BeswibPurchaseApproval'
-import BeswibPurchaseConfirmation from '@/components/emails/BeswibPurchaseConfirmation'
-import BeswibSaleAlert from '@/components/emails/BeswibSaleAlert'
-import BeswibSaleConfirmation from '@/components/emails/BeswibSaleConfirmation'
 import BeswibWaitlistAlert from '@/components/emails/BeswibWaitlistAlert'
-import BeswibWaitlistConfirmation from '@/components/emails/BeswibWaitlistConfirmation'
 import BeswibWelcomeEmail from '@/components/emails/BeswibWelcomeEmail'
 
 // Every transactional e-mail, rendered the way the app sends it. A bump of
@@ -37,82 +33,6 @@ const templates: Array<{ name: string; make: (locale: string) => ReactElement; s
 		name: 'BeswibWelcomeEmail',
 		make: locale => <BeswibWelcomeEmail firstName="Zoé" locale={locale} />,
 		shows: ['Zoé'],
-	},
-	{
-		name: 'BeswibWaitlistConfirmation',
-		make: locale => (
-			<BeswibWaitlistConfirmation
-				userName="Zoé Martin"
-				{...event}
-				eventId="evt_8f3k2j1"
-				createdAt="13/10/2026"
-				locale={locale}
-			/>
-		),
-		shows: [event.eventName],
-	},
-	{
-		name: 'BeswibSaleConfirmation',
-		make: locale => (
-			<BeswibSaleConfirmation
-				sellerName="Marie Dupont"
-				buyerName="Jean Martin"
-				eventName={event.eventName}
-				bibPrice={149.5}
-				orderId={ORDER_ID}
-				eventDate={event.eventDate}
-				eventLocation={event.eventLocation}
-				locale={locale}
-			/>
-		),
-		shows: [ORDER_ID],
-	},
-	{
-		name: 'BeswibPurchaseConfirmation',
-		make: locale => (
-			<BeswibPurchaseConfirmation
-				buyerName="Jean Martin"
-				sellerName="Marie Dupont"
-				listingPrice={149.5}
-				orderId={ORDER_ID}
-				{...event}
-				locale={locale}
-			/>
-		),
-		shows: [event.eventName, ORDER_ID],
-	},
-	{
-		name: 'BeswibPurchaseConfirmation, free bib',
-		make: locale => (
-			<BeswibPurchaseConfirmation
-				buyerName="Jean Martin"
-				sellerName="Marie Dupont"
-				listingPrice={0}
-				orderId={ORDER_ID}
-				{...event}
-				locale={locale}
-			/>
-		),
-		shows: [event.eventName, ORDER_ID],
-	},
-	{
-		name: 'BeswibSaleAlert',
-		make: locale => (
-			<BeswibSaleAlert
-				sellerName="Marie Dupont"
-				sellerEmail="marie.dupont@example.com"
-				buyerName="Jean Martin"
-				buyerEmail="jean.martin@example.com"
-				bibPrice={149.5}
-				orderId={ORDER_ID}
-				{...event}
-				transactionId="tx_9d2k1m5p7q"
-				paypalCaptureId="3C679366HH908993F"
-				saleTimestamp="13/10/2026 14:02:11"
-				locale={locale}
-			/>
-		),
-		shows: [ORDER_ID, 'tx_9d2k1m5p7q', 'jean.martin@example.com'],
 	},
 	{
 		name: 'BeswibWaitlistAlert',

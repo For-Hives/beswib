@@ -1,6 +1,6 @@
 'use client'
 
-import { Calendar, List, MapPin, Plus, Search, ShoppingBag, ShoppingCart, Tag, Zap } from 'lucide-react'
+import { Calendar, MapPin, Plus, Search, ShoppingBag, ShoppingCart, Tag, Zap } from 'lucide-react'
 
 import Link from 'next/link'
 import { TrackClick } from '@/components/analytics/TrackClick'
@@ -158,19 +158,6 @@ export default function DashboardClient({ user, locale, clerkUser }: DashboardCl
 							</Card>
 
 							{/* My Listings */}
-							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
-								<TrackClick name="cta_click" props={{ cta: 'request_event', where: 'dashboard_quick_actions' }}>
-									<Link href={`/${locale}/dashboard/seller/request-event`}>
-										<CardContent className="flex flex-col items-center p-4 text-center">
-											<div className="bg-primary/10 text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-												<List className="h-6 w-6" />
-											</div>
-											<p className="text-sm font-medium">{t.dashboard.cantFindEvent ?? "I don't find my event"}</p>
-										</CardContent>
-									</Link>
-								</TrackClick>
-							</Card>
-
 							{/* Contact */}
 							<Card className="dark:border-border/50 bg-card/80 hover:bg-card/90 cursor-pointer border-black/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md">
 								<TrackClick name="cta_click" props={{ cta: 'contact', where: 'dashboard_quick_actions' }}>

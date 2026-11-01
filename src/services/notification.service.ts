@@ -20,9 +20,6 @@ import {
 	sendLocalizedWaitlistAlertEmails,
 	sendVerificationEmail as sendModernVerificationEmail,
 	sendWelcomeEmail as sendModernWelcomeEmail,
-	sendPurchaseConfirmationEmail,
-	sendSaleAlertEmail,
-	sendSaleConfirmationEmail,
 } from './email.service'
 
 const renderContactMessageEmailHtml = (p: { name: string; email: string; message: string }): string =>
@@ -365,86 +362,4 @@ export async function sendVerificationEmail(
 	const html = VERIFICATION_EMAIL_HTML_TEMPLATE(verificationCode, expiryMinutes)
 
 	return sendUserEmail(email, { text, subject, html })
-}
-
-/**
- * Sends a sale confirmation email to the seller with all transaction details
- */
-export async function sendSellerSaleConfirmation(params: {
-	sellerEmail: string
-	sellerName?: string
-	buyerName?: string
-	eventName?: string
-	bibPrice?: number
-	platformFee?: number
-	totalReceived?: number
-	orderId?: string
-	eventDate?: string
-	eventLocation?: string
-	locale?: string
-}): Promise<boolean> {
-	try {
-		// Use modern React Email template
-		return await sendSaleConfirmationEmail(params)
-	} catch (error) {
-		console.error('Error sending sale confirmation email:', error)
-		return false
-	}
-}
-
-/**
- * Sends a purchase confirmation email to the buyer with all transaction details
- */
-export async function sendBuyerPurchaseConfirmation(params: {
-	buyerEmail: string
-	buyerName?: string
-	sellerName?: string
-	eventName?: string
-	bibPrice?: number
-	orderId?: string
-	eventDate?: string
-	eventLocation?: string
-	eventDistance?: string
-	bibCategory?: string
-	locale?: string
-}): Promise<boolean> {
-	try {
-		// Use modern React Email template
-		return await sendPurchaseConfirmationEmail(params)
-	} catch (error) {
-		console.error('Error sending purchase confirmation email:', error)
-		return false
-	}
-}
-
-/**
- * Sends a comprehensive sale alert email to administrators with all transaction details
- */
-export async function sendAdminSaleAlert(params: {
-	sellerName?: string
-	sellerEmail?: string
-	buyerName?: string
-	buyerEmail?: string
-	eventName?: string
-	bibPrice?: number
-	platformFee?: number
-	netRevenue?: number
-	orderId?: string
-	eventDate?: string
-	eventLocation?: string
-	eventDistance?: string
-	bibCategory?: string
-	transactionId?: string
-	paypalCaptureId?: string
-}): Promise<boolean> {
-	try {
-		// Use modern React Email template
-		return await sendSaleAlertEmail({
-			...params,
-			saleTimestamp: new Date().toLocaleString('fr-FR'),
-		})
-	} catch (error) {
-		console.error('Error sending admin sale alert email:', error)
-		return false
-	}
 }

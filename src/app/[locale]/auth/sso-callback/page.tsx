@@ -14,9 +14,9 @@ interface CallbackPages {
 }
 
 // Where Google or Facebook hands the visitor back (see oauthCallbackPath). Clerk finishes the
-// attempt here: a sign-in with an account Beswib does not know becomes a sign-up, a sign-up with an
-// account that exists becomes a sign-in, and only then is there a session. When the provider
-// returned straight to the destination, those visitors arrived there signed out, without a word.
+// attempt here, and only then is there a session. When the provider returned straight to the
+// destination, those visitors arrived there signed out, without a word. Beswib is archived: a sign-in
+// with an account it does not know is not turned into a sign-up.
 export default function Page() {
 	const params = useParams()
 	const locale = ((params?.locale as string) || 'en') as Locale
@@ -41,14 +41,13 @@ export default function Page() {
 			    Clerk then uses it whatever its own settings or the address bar say */}
 			{pages != null && (
 				<AuthenticateWithRedirectCallback
+					transferable={false}
 					signInForceRedirectUrl={pages.destination}
 					signUpForceRedirectUrl={pages.destination}
 					signInUrl={pages.signInUrl}
 					signUpUrl={pages.signUpUrl}
 				/>
 			)}
-			{/* An attempt that becomes a sign-up goes through Clerk's bot protection, drawn here */}
-			<div id="clerk-captcha" data-cl-theme="auto" data-cl-size="normal" data-cl-language="auto"></div>
 		</div>
 	)
 }

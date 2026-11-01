@@ -49,4 +49,31 @@ describe('the archived site', () => {
 
 		expect(offenders).toEqual([])
 	})
+
+	it('says nothing of PayPal to a visitor, in any language or template', () => {
+		const texts = listFiles(SRC)
+			.filter(file => file.endsWith('.json') || file.endsWith('seo-translations.ts') || file.includes('/emails/'))
+			.filter(file => /paypal/i.test(readFileSync(file, 'utf8')))
+			.map(file => relative(SRC, file))
+
+		expect(texts).toEqual([])
+	})
+
+	it('has no way left to write a real person or a request in the base', () => {
+		const offenders = sources
+			.filter(file =>
+				/\.collection\(['"](users|waitlists|eventCreationRequests)['"]\)\s*\.create\b/.test(readFileSync(file, 'utf8'))
+			)
+			.map(file => relative(SRC, file))
+
+		expect(offenders).toEqual([])
+	})
+
+	it('has no form that signs up', () => {
+		const offenders = sources
+			.filter(file => /\buseSignUp\b/.test(readFileSync(file, 'utf8')))
+			.map(file => relative(SRC, file))
+
+		expect(offenders).toEqual([])
+	})
 })

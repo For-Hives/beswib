@@ -100,17 +100,6 @@ function mapUserToPbPayload(user: Partial<User>): Record<string, unknown> {
 	return payload
 }
 
-export async function createUser(user: Partial<User>): Promise<User> {
-	try {
-		// Tests expect the raw user object to be passed to PocketBase create
-		const created = await pb.collection('users').create<PbUserRecordMinimal>(user as Record<string, unknown>)
-		return mapPbRecordToUser(created)
-	} catch (error) {
-		console.error('Error creating user:', error)
-		throw error
-	}
-}
-
 export async function fetchUserByClerkId(clerkId: string | undefined): Promise<null | User> {
 	if (clerkId == null || clerkId === undefined || clerkId === '') {
 		console.error('Clerk ID is required to fetch user by clerk ID')
@@ -134,7 +123,7 @@ export async function fetchUserByEmail(email: string): Promise<null | User> {
 		return null
 	}
 	try {
-		// The address may be typed by an anonymous visitor (waitlist form): escaped, it cannot close the
+		// The address comes from outside: escaped, it cannot close the
 		// quote and turn the lookup into a query over the other fields of the users
 		const escapedEmail = email.trim().replace(/\\/g, '\\\\').replace(/"/g, '\\"')
 		const user = await pb.collection('users').getFirstListItem<PbUserRecordMinimal>(`email = "${escapedEmail}"`)
