@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { TrackClick } from '@/components/analytics/TrackClick'
 import BibCategoryTabs from '@/components/dashboard/seller/BibCategoryTabs'
-import SellerProfileValidation from '@/components/dashboard/seller/SellerProfileValidation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
@@ -168,11 +167,6 @@ export default function SellerDashboardClient({
 						<p className="text-muted-foreground text-lg">
 							{t.welcome ?? 'Welcome to your seller dashboard'}, {userName}!
 						</p>
-					</div>
-
-					{/* Seller Profile Validation */}
-					<div className="mb-8">
-						<SellerProfileValidation user={user} locale={locale} where="seller_dashboard" />
 					</div>
 
 					{/* Statistics Cards */}

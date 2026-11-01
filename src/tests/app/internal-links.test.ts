@@ -178,7 +178,7 @@ describe('the routes of the app, as this test reads them', () => {
 		'/fr/legals/privacy-policy',
 		'/fr/profile',
 		'/marketplace',
-		'/api/webhooks/paypal',
+		'/api/webhooks/clerk',
 		'/sitemap.xml',
 		'/beswib.svg',
 	])('knows %s', path => {
@@ -198,7 +198,7 @@ describe('the routes of the app, as this test reads them', () => {
 		'/fr/legals/privacy',
 		'/fr/legals/cookies',
 		'/fr/sitemap.xml',
-		'/fr/api/webhooks/paypal',
+		'/fr/api/webhooks/clerk',
 		'/xx/marketplace',
 		'/fr/not-found',
 		// A directory of public/ is not a file of it
@@ -217,9 +217,7 @@ describe('the addresses the app sends a visitor to', () => {
 		expect(found).toContain('app/[locale]/dashboard/seller/SellerDashboardClient.tsx /{locale}/dashboard/seller')
 		expect(found).toContain('app/[locale]/admin/event/page.tsx /not-found')
 		expect(found).toContain('app/[locale]/events/EventListClient.tsx /{locale}/events/{}')
-		expect(found).toContain('components/marketplace/purchase/PayPalPurchaseClient.tsx /{locale}/purchase/success')
 		expect(found).toContain('components/emails/Footer.tsx /legals/privacy-policy')
-		expect(found).toContain('services/paypal.services.ts /{locale}/profile')
 	})
 
 	it('all name a route of the app', () => {

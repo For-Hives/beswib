@@ -58,10 +58,8 @@ describe('a signed-out visitor on a protected page', () => {
 	it.each([
 		'/fr/dashboard',
 		'/fr/dashboard/buyer',
-		'/fr/dashboard/seller/sell-bib',
 		'/fr/dashboard/seller/edit-bib/abcdefghij12345',
 		'/fr/profile',
-		'/fr/purchase/success',
 		'/fr/admin/event',
 	])('comes back to %s after sign-in', async path => {
 		const middleware = await loadMiddleware()
@@ -70,6 +68,12 @@ describe('a signed-out visitor on a protected page', () => {
 
 		expect(location?.pathname).toBe('/fr/auth/sign-in')
 		expect(location?.searchParams.get('redirect_url')).toBe(`${SITE}${path}`)
+	})
+
+	it('lets anyone read that no bib can be listed any more', async () => {
+		const middleware = await loadMiddleware()
+
+		expect(await locationOf(middleware, visit('/fr/dashboard/seller/sell-bib'))).toBeNull()
 	})
 
 	it('keeps the query string of the page in the return address', async () => {
