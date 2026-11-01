@@ -5,27 +5,12 @@ vi.mock('@/lib/services/pocketbase', () => ({
 	pb: mockPocketbase,
 }))
 
-import { createUser, fetchUserByClerkId, fetchUserById } from '@/services/user.services'
+import { fetchUserByClerkId, fetchUserById } from '@/services/user.services'
 import { mockUser } from '@/tests/mocks/data'
 
 describe('user.services', () => {
 	beforeEach(() => {
 		vi.clearAllMocks()
-	})
-
-	describe('createUser', () => {
-		it('should create a user', async () => {
-			mockPocketbaseCollection.create.mockResolvedValue(mockUser)
-			const user = await createUser(mockUser)
-			expect(user).toEqual(mockUser)
-			expect(mockPocketbase.collection).toHaveBeenCalledWith('users')
-			expect(mockPocketbaseCollection.create).toHaveBeenCalledWith(mockUser)
-		})
-
-		it('should throw an error if user creation fails', async () => {
-			mockPocketbaseCollection.create.mockRejectedValue(new Error('Failed to create'))
-			await expect(createUser(mockUser)).rejects.toThrow('Failed to create')
-		})
 	})
 
 	describe('fetchUserByClerkId', () => {

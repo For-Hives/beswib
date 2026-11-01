@@ -54,7 +54,7 @@ function readOrigin(value: string | undefined): { origin: string } | { refusal: 
  * site announces about itself (metadataBase, canonical and hreflang links, Open Graph, sitemap,
  * robots.txt, JSON-LD).
  *
- * NEXT_PUBLIC_BASE_URL comes first: it is the variable the e-mails and the PayPal return URLs
+ * NEXT_PUBLIC_BASE_URL comes first: it is the variable the e-mails
  * already use. SERVER_URL and NEXT_URL_SERVER_URL are the older names of the same thing, still
  * read so that a deployment that only has those keeps its address.
  *

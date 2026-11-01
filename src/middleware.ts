@@ -63,12 +63,10 @@ export function getLocaleFromRequest(request: NextRequest): string {
 }
 
 // Define protected routes that require authentication
-const isProtectedRoute = createRouteMatcher([
-	'/(.*)/dashboard(.*)',
-	'/(.*)/profile(.*)',
-	'/(.*)/purchase(.*)',
-	'/(.*)/admin(.*)',
-])
+const isProtectedRoute = createRouteMatcher(['/(.*)/dashboard(.*)', '/(.*)/profile(.*)', '/(.*)/admin(.*)'])
+
+// Beswib is archived: this page only says that no bib can be listed any more, and says it to anyone
+const isArchivedNoticeRoute = createRouteMatcher(['/(.*)/dashboard/seller/sell-bib(.*)'])
 
 // Define public routes that should redirect authenticated users away
 const isPublicAuthRoute = createRouteMatcher([
@@ -128,7 +126,7 @@ export default clerkMiddleware(async (auth, request: NextRequest) => {
 	}
 
 	// Protect routes that require authentication
-	if (isProtectedRoute(request)) {
+	if (isProtectedRoute(request) && !isArchivedNoticeRoute(request)) {
 		await auth.protect()
 	}
 

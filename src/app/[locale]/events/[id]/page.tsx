@@ -1,17 +1,14 @@
-import { Show } from '@clerk/nextjs'
-import { auth } from '@clerk/nextjs/server'
-import { ArrowLeft, Bell } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { DateTime } from 'luxon'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { TrackClick } from '@/components/analytics/TrackClick'
+import { ArchivedClosedCard } from '@/components/archive/ArchivedClosedCard'
 import { EventViewTracker } from '@/components/events/EventViewTracker'
 import CardMarket from '@/components/marketplace/CardMarket'
 import { EventBreadcrumbs } from '@/components/seo/Breadcrumbs'
 
-import { WaitlistNotifications } from '@/components/waitlist/WaitlistNotifications'
-import WaitlistStatusClient from '@/components/waitlist/WaitlistStatusClient'
 import { umamiAttrs } from '@/lib/analytics/attrs'
 import { countBucket } from '@/lib/analytics/buckets'
 import { sportOf } from '@/lib/analytics/classify'
@@ -21,13 +18,10 @@ import { getTranslations } from '@/lib/i18n/dictionary'
 import { generateEventMetadata } from '@/lib/seo/metadata-generators'
 import { transformBibsToBibSales } from '@/lib/transformers/bib'
 import { pbDateToLuxon } from '@/lib/utils/date'
-import { signInPath } from '@/lib/utils/redirect'
 import type { Bib } from '@/models/bib.model'
 import type { Event } from '@/models/event.model'
 import { fetchPubliclyListedBibsForEvent } from '@/services/bib.services'
 import { fetchEventById } from '@/services/event.services'
-import { fetchUserByClerkId } from '@/services/user.services'
-import { addToWaitlist } from '@/services/waitlist.services'
 
 import eventTranslations from './locales.json'
 
@@ -53,45 +47,6 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
 	const publiclyListedBibs: Bib[] = await fetchPubliclyListedBibsForEvent(eventId)
 	const bibSales = transformBibsToBibSales(publiclyListedBibs)
-
-	async function handleJoinWaitlist(formData: FormData) {
-		'use server'
-		const eventIdFromForm = formData.get('eventId') as string
-		const userEmail = formData.get('email') as string | null
-
-		// Determine auth at action time to avoid dynamic usage during render
-		const { userId: clerkId } = await auth()
-
-		if (clerkId != null) {
-			// Authenticated user flow
-			const user = await fetchUserByClerkId(clerkId)
-			const result = await addToWaitlist(eventIdFromForm, user)
-
-			if (result && result.error === 'already_on_waitlist') {
-				redirect(`/${locale}/events/${eventIdFromForm}?waitlist_error=already_added`)
-			} else if (result) {
-				redirect(`/${locale}/events/${eventIdFromForm}?waitlist_success=true`)
-			} else {
-				redirect(`/${locale}/events/${eventIdFromForm}?waitlist_error=failed`)
-			}
-		} else if (userEmail != null && userEmail.trim() !== '') {
-			// Email-only subscription flow
-			const result = await addToWaitlist(eventIdFromForm, null, userEmail.trim())
-
-			if (result && result.error === 'already_on_waitlist') {
-				redirect(`/${locale}/events/${eventIdFromForm}?waitlist_error=already_added_email`)
-			} else if (result) {
-				redirect(
-					`/${locale}/events/${eventIdFromForm}?waitlist_success=true&email=${encodeURIComponent(userEmail.trim())}`
-				)
-			} else {
-				redirect(`/${locale}/events/${eventIdFromForm}?waitlist_error=failed`)
-			}
-		} else {
-			// No authentication and no email provided - redirect to sign-in, and back to this event afterwards
-			redirect(signInPath(locale, `/${locale}/events/${eventId}`))
-		}
-	}
 
 	// Local helpers for formatting various values
 	const formatPbDate = (date: Date | string | null | undefined) => {
@@ -123,12 +78,6 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
 
-			<WaitlistNotifications
-				eventId={eventId}
-				eventName={event.name}
-				locale={locale}
-				analyticsEventId={eventIdOf(event)}
-			/>
 			<EventViewTracker
 				eventId={eventIdOf(event)}
 				sport={sportOf(event.typeCourse)}
@@ -298,72 +247,9 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 							<div className="py-8 text-center">
 								<div className="mb-6 text-6xl opacity-50">📋</div>
 								<h3 className="text-foreground mb-4 text-xl font-semibold">{t.event.bibs.noBibsAvailable}</h3>
-								<p className="text-muted-foreground mb-6">{t.event.waitlist.joinDescription}</p>
-
-								<Show when="signed-in">
-									<div className="mx-auto max-w-md space-y-3">
-										<div className="flex items-center gap-2">
-											<Bell className="h-5 w-5" />
-											<span className="font-medium">{t.event.waitlist.joinButton}</span>
-										</div>
-										<WaitlistStatusClient
-											eventId={eventId}
-											action={handleJoinWaitlist}
-											joinLabel={t.event.waitlist.joinButton}
-											locale={locale}
-											analyticsEventId={eventIdOf(event)}
-										/>
-									</div>
-								</Show>
-								<Show when="signed-out">
-									{/* Non-authenticated user - email input or login options */}
-									<div className="mx-auto max-w-md space-y-4">
-										<form action={handleJoinWaitlist} className="space-y-4">
-											<input name="eventId" type="hidden" value={eventId} />
-											<div className="space-y-2">
-												<label className="text-foreground block text-sm font-medium" htmlFor="waitlist-email">
-													{t.event.waitlist.emailLabel}
-												</label>
-												<input
-													className="border-border bg-card/50 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 w-full rounded-lg border px-4 py-3 backdrop-blur-sm transition focus:ring-2 focus:outline-none"
-													id="waitlist-email"
-													name="email"
-													placeholder={t.event.waitlist.emailPlaceholder}
-													required
-													type="email"
-												/>
-											</div>
-											<button
-												className="bg-accent/20 hover:bg-accent/30 text-accent-foreground hover:text-foreground border-border flex w-full items-center justify-center gap-3 rounded-xl border px-6 py-3 font-medium backdrop-blur-md transition"
-												type="submit"
-												{...umamiAttrs('waitlist_join_submit', {
-													where: 'event_page',
-													mode: 'email',
-													event_id: eventIdOf(event),
-												})}
-											>
-												<Bell className="h-5 w-5" />
-												{t.event.waitlist.subscribeButton}
-											</button>
-										</form>
-										<div className="relative">
-											<div className="absolute inset-0 flex items-center">
-												<div className="border-border w-full border-t" />
-											</div>
-											<div className="relative flex justify-center text-sm">
-												<span className="text-muted-foreground bg-background px-2">{t.event.waitlist.or}</span>
-											</div>
-										</div>
-										<TrackClick name="cta_click" props={{ cta: 'sign_in', where: 'event_waitlist' }}>
-											<Link
-												className="bg-primary hover:bg-primary/90 text-primary-foreground flex w-full items-center justify-center gap-3 rounded-xl px-6 py-3 font-medium transition"
-												href={signInPath(locale, `/${locale}/events/${eventId}`)}
-											>
-												{t.event.waitlist.signInButton}
-											</Link>
-										</TrackClick>
-									</div>
-								</Show>
+								<div className="mx-auto max-w-md text-left">
+									<ArchivedClosedCard locale={locale} flow="waitlist" />
+								</div>
 							</div>
 						)}
 					</div>

@@ -114,7 +114,7 @@ describe('what the browser may call on the server', () => {
 	it('reads the source files of the app', () => {
 		expect(sources.length).toBeGreaterThan(200)
 		expect(services.map(file => file.path)).toContain('services/user.services.ts')
-		expect(services.length).toBeGreaterThanOrEqual(19)
+		expect(services.length).toBeGreaterThanOrEqual(15)
 	})
 
 	it.each(services.map(file => [file.path, file]))("%s is not a 'use server' module", (_path, file) => {
@@ -134,11 +134,7 @@ describe('what the browser may call on the server', () => {
 			'app/[locale]/admin/article/actions.ts',
 			'app/[locale]/contact/actions.ts',
 			'app/[locale]/dashboard/seller/edit-bib/[bibId]/actions.ts',
-			'app/[locale]/dashboard/seller/request-event/actions.ts',
-			'app/[locale]/dashboard/seller/sell-bib/actions.ts',
-			'app/[locale]/events/actions.ts',
 			'app/[locale]/profile/actions.ts',
-			'app/[locale]/purchase/actions.ts',
 			'components/global/adminActions.ts',
 		])
 	})
@@ -152,21 +148,15 @@ describe('what the browser may call on the server', () => {
 		)
 		expect(exported).toEqual({
 			'components/global/adminActions.ts': ['checkIsCurrentUserAdmin'],
-			'app/[locale]/purchase/actions.ts': ['captureOrder', 'checkPurchaseLock', 'createSale', 'lockBibForPurchase'],
 			'app/[locale]/profile/actions.ts': [
 				'addVerifiedEmail',
 				'confirmVerifiedEmail',
-				'disconnectPayPal',
 				'fetchMyVerifiedEmails',
 				'getCurrentUserData',
 				'removeVerifiedEmail',
 				'resendVerifiedEmailCode',
-				'startPayPalOnboarding',
 				'updateUserProfile',
 			],
-			'app/[locale]/events/actions.ts': ['joinEventWaitlist'],
-			'app/[locale]/dashboard/seller/sell-bib/actions.ts': ['handleCreateBib'],
-			'app/[locale]/dashboard/seller/request-event/actions.ts': ['handleCreateEventCreationRequest'],
 			'app/[locale]/dashboard/seller/edit-bib/[bibId]/actions.ts': [
 				'handleRegeneratePrivateToken',
 				'handleToggleListingStatus',
@@ -215,18 +205,16 @@ describe('what the browser may call on the server', () => {
 		expect(byPath.get(path)?.text).not.toMatch(/^export\s*(?:\{|\*)/m)
 	})
 
-	it("keeps the actions declared inside a page ('use server' in a function body) to the reviewed one", () => {
+	it("declares no action inside a page ('use server' in a function body)", () => {
 		const inline = sources.filter(file => /^[ \t]+['"]use server['"]/m.test(file.text)).map(file => file.path)
-		// handleJoinWaitlist: it reads the session when it runs and subscribes the session's user
-		expect(inline).toEqual(['app/[locale]/events/[id]/page.tsx'])
+		expect(inline).toEqual([])
 	})
 
 	it('finds the browser modules, hooks included', () => {
 		const browser = browserModules()
 		expect(browser.size).toBeGreaterThan(100)
 		// Hooks carry no directive: they are in the bundle because a Client Component imports them
-		expect(browser.has('hooks/useUser.ts')).toBe(true)
-		expect(browser.has('hooks/usePayPalOnboarding.ts')).toBe(true)
+		expect(browser.has('hooks/useTheme.ts')).toBe(true)
 	})
 
 	it('never imports a service, the admin guard or a route handler from a module of the browser bundle', () => {

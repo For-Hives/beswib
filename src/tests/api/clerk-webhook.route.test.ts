@@ -3,15 +3,12 @@ import { createHmac, randomBytes } from 'node:crypto'
 import { NextRequest } from 'next/server'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-const mocks = vi.hoisted(() => ({
-	sendWelcomeEmail: vi.fn(),
-	linkEmailWaitlistsToUser: vi.fn(),
-	createUser: vi.fn(),
-}))
+// Beswib is archived: a signed event is acknowledged, and no service is reached. Nothing in the route
+// imports one, which server-side imports would make visible here first.
+const mocks = vi.hoisted(() => ({ collection: vi.fn(), send: vi.fn() }))
 
-vi.mock('@/services/user.services', () => ({ createUser: mocks.createUser }))
-vi.mock('@/services/waitlist.services', () => ({ linkEmailWaitlistsToUser: mocks.linkEmailWaitlistsToUser }))
-vi.mock('@/services/notification.service', () => ({ sendWelcomeEmail: mocks.sendWelcomeEmail }))
+vi.mock('@/lib/services/pocketbase', () => ({ pb: { collection: mocks.collection } }))
+vi.mock('@/services/notification.service', () => ({ sendWelcomeEmail: mocks.send }))
 
 const ENDPOINT = 'https://beswib.test/api/webhooks/clerk'
 
@@ -74,8 +71,6 @@ describe('Clerk webhook route', () => {
 	beforeEach(() => {
 		vi.clearAllMocks()
 		vi.spyOn(console, 'error').mockImplementation(() => undefined)
-		mocks.createUser.mockResolvedValue({ id: 'pb_user_1' })
-		mocks.linkEmailWaitlistsToUser.mockResolvedValue(0)
 	})
 
 	afterEach(() => {
@@ -83,30 +78,16 @@ describe('Clerk webhook route', () => {
 		vi.unstubAllEnvs()
 	})
 
-	it('creates the PocketBase user for a correctly signed user.created event', async () => {
+	it('acknowledges a correctly signed user.created event and writes nobody', async () => {
 		const secret = newSecret()
 		const POST = await loadRoute(secret)
 
 		const res = await POST(signedRequest({ signingSecret: secret, body: JSON.stringify(userCreatedEvent) }))
 
 		expect(res.status).toBe(200)
-		expect(await res.json()).toEqual({
-			welcomeEmailQueued: true,
-			message: 'User created and metadata updated successfully',
-			linkedWaitlistEntries: 0,
-		})
-		expect(mocks.createUser).toHaveBeenCalledTimes(1)
-		expect(mocks.createUser).toHaveBeenCalledWith(
-			expect.objectContaining({
-				role: 'user',
-				lastName: 'Doe',
-				firstName: 'Jane',
-				email: 'jane@example.com',
-				clerkId: 'user_2abcDEF',
-			})
-		)
-		expect(mocks.linkEmailWaitlistsToUser).toHaveBeenCalledWith('jane@example.com', { id: 'pb_user_1' })
-		expect(mocks.sendWelcomeEmail).toHaveBeenCalledWith({ to: 'jane@example.com', firstName: 'Jane' })
+		expect(await res.json()).toEqual({ message: 'Webhook received: user.created, ignored: Beswib is archived.' })
+		expect(mocks.collection).not.toHaveBeenCalled()
+		expect(mocks.send).not.toHaveBeenCalled()
 	})
 
 	it('verifies the raw body, whatever its JSON formatting', async () => {
@@ -118,9 +99,6 @@ describe('Clerk webhook route', () => {
 		const res = await POST(signedRequest({ signingSecret: secret, body }))
 
 		expect(res.status).toBe(200)
-		expect(mocks.createUser).toHaveBeenCalledWith(
-			expect.objectContaining({ firstName: 'Jérôme', clerkId: 'user_2abcDEF' })
-		)
 	})
 
 	it('rejects a body modified after signing', async () => {
@@ -138,8 +116,8 @@ describe('Clerk webhook route', () => {
 
 		expect(res.status).toBe(400)
 		expect(await res.json()).toEqual({ error: 'Error occured during webhook verification' })
-		expect(mocks.createUser).not.toHaveBeenCalled()
-		expect(mocks.sendWelcomeEmail).not.toHaveBeenCalled()
+		expect(mocks.collection).not.toHaveBeenCalled()
+		expect(mocks.send).not.toHaveBeenCalled()
 	})
 
 	it('rejects a payload signed with another secret', async () => {
@@ -149,7 +127,7 @@ describe('Clerk webhook route', () => {
 
 		expect(res.status).toBe(400)
 		expect(await res.json()).toEqual({ error: 'Error occured during webhook verification' })
-		expect(mocks.createUser).not.toHaveBeenCalled()
+		expect(mocks.collection).not.toHaveBeenCalled()
 	})
 
 	it('rejects a signature made for another message id', async () => {
@@ -161,7 +139,7 @@ describe('Clerk webhook route', () => {
 		const res = await POST(req)
 
 		expect(res.status).toBe(400)
-		expect(mocks.createUser).not.toHaveBeenCalled()
+		expect(mocks.collection).not.toHaveBeenCalled()
 	})
 
 	it('rejects a timestamp outside the tolerance window', async () => {
@@ -178,7 +156,7 @@ describe('Clerk webhook route', () => {
 
 		expect(res.status).toBe(400)
 		expect(await res.json()).toEqual({ error: 'Error occured during webhook verification' })
-		expect(mocks.createUser).not.toHaveBeenCalled()
+		expect(mocks.collection).not.toHaveBeenCalled()
 	})
 
 	it.each(['svix-id', 'svix-timestamp', 'svix-signature'])('rejects a request without the %s header', async header => {
@@ -191,7 +169,7 @@ describe('Clerk webhook route', () => {
 
 		expect(res.status).toBe(400)
 		expect(await res.json()).toEqual({ error: 'Error occured -- no svix headers' })
-		expect(mocks.createUser).not.toHaveBeenCalled()
+		expect(mocks.collection).not.toHaveBeenCalled()
 	})
 
 	it.each([undefined, '', '   '])('answers 500 when the signing secret is %j', async configuredSecret => {
@@ -201,10 +179,10 @@ describe('Clerk webhook route', () => {
 
 		expect(res.status).toBe(500)
 		expect(await res.json()).toEqual({ error: 'Internal Server Error: Webhook secret not configured' })
-		expect(mocks.createUser).not.toHaveBeenCalled()
+		expect(mocks.collection).not.toHaveBeenCalled()
 	})
 
-	it('acknowledges other verified events without creating a user', async () => {
+	it('acknowledges other verified events the same way', async () => {
 		const secret = newSecret()
 		const POST = await loadRoute(secret)
 		const body = JSON.stringify({ ...userCreatedEvent, type: 'user.updated' })
@@ -212,34 +190,7 @@ describe('Clerk webhook route', () => {
 		const res = await POST(signedRequest({ signingSecret: secret, body }))
 
 		expect(res.status).toBe(200)
-		expect(await res.json()).toEqual({ message: 'Webhook received: user.updated, but no handler configured.' })
-		expect(mocks.createUser).not.toHaveBeenCalled()
-	})
-
-	it('answers 400 when the verified user has no primary email', async () => {
-		const secret = newSecret()
-		const POST = await loadRoute(secret)
-		const body = JSON.stringify({
-			...userCreatedEvent,
-			data: { ...userCreatedEvent.data, primary_email_address_id: null },
-		})
-
-		const res = await POST(signedRequest({ signingSecret: secret, body }))
-
-		expect(res.status).toBe(400)
-		expect(await res.json()).toEqual({ error: 'Primary email address missing' })
-		expect(mocks.createUser).not.toHaveBeenCalled()
-	})
-
-	it('answers 500 when PocketBase does not create the user, so Clerk retries', async () => {
-		const secret = newSecret()
-		const POST = await loadRoute(secret)
-		mocks.createUser.mockResolvedValue(null)
-
-		const res = await POST(signedRequest({ signingSecret: secret, body: JSON.stringify(userCreatedEvent) }))
-
-		expect(res.status).toBe(500)
-		expect(await res.json()).toEqual({ error: 'Failed to create user in database' })
-		expect(mocks.sendWelcomeEmail).not.toHaveBeenCalled()
+		expect(await res.json()).toEqual({ message: 'Webhook received: user.updated, ignored: Beswib is archived.' })
+		expect(mocks.collection).not.toHaveBeenCalled()
 	})
 })

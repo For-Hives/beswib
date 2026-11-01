@@ -6,8 +6,8 @@ import { mockPocketbase } from '@/tests/mocks/pocketbase'
 
 // The page of a bib is public, and what a Server Component passes to a Client Component is written in
 // the HTML of every visitor. The bib comes from PocketBase with the whole record of its seller expanded
-// (e-mail, phone, address, birth date, emergency contact): the page must hand over what the purchase
-// needs, nothing else.
+// (e-mail, phone, address, birth date, emergency contact): the page must hand over the name shown on
+// the card, nothing else.
 
 vi.mock('@clerk/nextjs/server', () => ({
 	auth: vi.fn(() => Promise.resolve({ userId: null })),
@@ -35,15 +35,12 @@ import type { Bib } from '@/models/bib.model'
 import { checkBibListingStatus, fetchPrivateBibByToken, fetchPublicBibById } from '@/services/bib.services'
 
 const TOKEN = 'Zq7Lm2Xc9Vb4Nk8Jh5Gf1Ds6Ap3Wo0Ei'
-const MERCHANT_ID = 'SELLERMERCHANT01'
 
 // The record of the seller as PocketBase expands it on the bib
 const seller = {
 	role: 'user',
 	postalCode: '74000',
 	phoneNumber: '+33600000000',
-	paypalMerchantId: MERCHANT_ID,
-	paypal_kyc: true,
 	lastName: 'Seller',
 	id: 'seller_pb',
 	firstName: 'Sam',
@@ -114,7 +111,7 @@ describe('what the page of a bib sends to the browser', () => {
 		['public', {}],
 		['private', { tkn: TOKEN }],
 	] as const)(
-		'hands over the PayPal merchant id of the seller of a %s listing, and no personal data',
+		'hands over the name of the seller of a %s listing, and no personal data',
 		async (listed, searchParams) => {
 			vi.mocked(checkBibListingStatus).mockResolvedValue({ listed, exists: true, available: true })
 			vi.mocked(fetchPublicBibById).mockResolvedValue(bibRecord('public'))
@@ -122,8 +119,7 @@ describe('what the page of a bib sends to the browser', () => {
 
 			const props = await renderPage(searchParams)
 
-			expect(props.sellerUser).toEqual({ paypalMerchantId: MERCHANT_ID })
-			// The name shown on the card, and the id the page compares with the visitor's own
+			expect(props).not.toHaveProperty('sellerUser')
 			expect(props.bibSale).toMatchObject({ user: { lastName: 'Seller', id: 'seller_pb', firstName: 'Sam' } })
 			const sent = JSON.stringify(props)
 			for (const value of SELLER_PRIVATE_VALUES) expect(sent).not.toContain(value)
@@ -145,7 +141,6 @@ describe('what the page of a bib sends to the browser', () => {
 
 		const props = await renderPage()
 
-		expect(props.sellerUser).toBeNull()
 		expect(props.bibSale).toBeUndefined()
 		expect(fetchPublicBibById).not.toHaveBeenCalled()
 	})

@@ -17,9 +17,6 @@ vi.mock('next/cache', () => ({
 vi.mock('@/lib/services/pocketbase', () => ({
 	pb: mockPocketbase,
 }))
-vi.mock('@/services/paypal.services', () => ({
-	onboardSeller: vi.fn(),
-}))
 vi.mock('@/services/notification.service', () => ({
 	sendVerificationEmail: vi.fn(),
 }))
@@ -28,17 +25,14 @@ import { auth } from '@clerk/nextjs/server'
 import {
 	addVerifiedEmail,
 	confirmVerifiedEmail,
-	disconnectPayPal,
 	fetchMyVerifiedEmails,
 	getCurrentUserData,
 	removeVerifiedEmail,
 	resendVerifiedEmailCode,
-	startPayPalOnboarding,
 	updateUserProfile,
 } from '@/app/[locale]/profile/actions'
 import type { PbUserRecordMinimal, User } from '@/models/user.model'
 import { sendVerificationEmail } from '@/services/notification.service'
-import { onboardSeller } from '@/services/paypal.services'
 
 const CODE = '483920'
 
@@ -182,7 +176,6 @@ beforeEach(() => {
 	})
 
 	vi.mocked(sendVerificationEmail).mockResolvedValue(true)
-	vi.mocked(onboardSeller).mockResolvedValue({ referral_id: 'REF-1', action_url: 'https://paypal.test/onboard' })
 })
 
 afterEach(() => {
@@ -298,57 +291,6 @@ describe('own record (getCurrentUserData)', () => {
 
 		expect(await getCurrentUserData()).toBeNull()
 		expect(collections).toEqual([])
-	})
-})
-
-describe('PayPal account (startPayPalOnboarding, disconnectPayPal)', () => {
-	it('starts the onboarding with the id of the signed-in user as tracking id', async () => {
-		signIn('mallory')
-
-		const legacyCall = startPayPalOnboarding as unknown as (userId: string) => ReturnType<typeof startPayPalOnboarding>
-		const result = await legacyCall('alice')
-
-		// PayPal hands this id back to the webhook, which links the merchant account to that user.
-		// The only argument the action reads is the language of the page: 'alice' is not one.
-		expect(onboardSeller).toHaveBeenCalledExactlyOnceWith('mallory', undefined)
-		expect(result).toEqual({ referralId: 'REF-1', actionUrl: 'https://paypal.test/onboard' })
-	})
-
-	it('passes on the language of the page, for the way back from PayPal, and nothing else', async () => {
-		signIn('mallory')
-
-		await startPayPalOnboarding('fr')
-		await startPayPalOnboarding('fr/../../admin')
-
-		expect(onboardSeller).toHaveBeenNthCalledWith(1, 'mallory', 'fr')
-		expect(onboardSeller).toHaveBeenNthCalledWith(2, 'mallory', undefined)
-	})
-
-	it('does not start an onboarding for a visitor who is not signed in', async () => {
-		signIn(null)
-
-		expect(await startPayPalOnboarding()).toEqual({ error: 'Authentication required.' })
-		expect(onboardSeller).not.toHaveBeenCalled()
-	})
-
-	it('unlinks the PayPal account of the signed-in user only', async () => {
-		signIn('mallory')
-
-		const legacyCall = disconnectPayPal as unknown as (userId: string) => ReturnType<typeof disconnectPayPal>
-		expect(await legacyCall('alice')).toEqual({ success: true })
-
-		expect(mockPocketbaseCollection.update).toHaveBeenCalledExactlyOnceWith('mallory', {
-			paypalMerchantId: null,
-			paypal_kyc: false,
-		})
-		expect(users.get('alice')?.paypalMerchantId).toBe('MERCHANTALICE')
-	})
-
-	it('unlinks nothing for a visitor who is not signed in', async () => {
-		signIn(null)
-
-		expect(await disconnectPayPal()).toEqual({ error: 'Authentication required.' })
-		expect(writes()).toBe(0)
 	})
 })
 

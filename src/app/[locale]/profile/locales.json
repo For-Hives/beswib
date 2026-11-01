@@ -32,59 +32,6 @@
 				"title": "Runner Information",
 				"tshirtSize": "T-Shirt Size"
 			},
-			"sellerInfo": {
-				"cancel": "Cancel",
-				"completeSetup": "Complete PayPal Setup",
-				"confirm": "Confirm",
-				"connectPayPal": "Connect with PayPal",
-				"createSellerButton": "Create Seller Account",
-				"description": "Complete your seller profile to sell bibs and receive payments.",
-				"disconnectButton": "Disconnect PayPal seller account",
-				"disconnectDescription": "You will not be able to receive payments until you reconnect your PayPal seller account.",
-				"disconnectTitle": "Disconnect PayPal?",
-				"disconnecting": "Disconnecting...",
-				"onboardingDescription": "Connect your PayPal account to receive payments when selling bibs.",
-				"onboardingTitle": "PayPal Onboarding",
-				"paymentTestDescription": "Test your PayPal integration with sample payments.",
-				"paymentTestTitle": "Payment Testing",
-				"paypalConnectionStatus": "PayPal Connection Status:",
-				"paypalStatusTitle": "PayPal Account Status",
-				"paypalMerchantId": "PayPal Merchant ID",
-				"paypalNotVerified": "Not Verified",
-				"paypalVerified": "Verified",
-				"paypalNotReadyAlert": "Your PayPal account is linked but not ready to receive payments yet. Please complete the verification steps in PayPal, then click \"Refresh status\" above. This can take a little while after onboarding.",
-				"testingPayment": "Ready to test payments with your merchant ID.",
-				"connecting": "Connecting...",
-				"title": "Seller Information",
-				"completeProfileFirst": "Please complete your profile first.",
-				"paypalLinkInfo": {
-					"accountLinked": "Account Linked",
-					"accountLinkedTooltip": "Your PayPal account is successfully linked.",
-					"accountNotLinkedTooltip": "You need to link your PayPal account.",
-
-					"paypalKYCCheckTooltip": "Your PayPal account is verified and ready for transactions.",
-					"paypalKYCNotCheckTooltip": "Attention: You currently cannot receive payments due to restriction on your PayPal account. Please reach out to PayPal Customer Support or connect to https://www.paypal.com for more information.",
-					"paypalKYC": "PayPal KYC",
-
-					"paypalEmail": "PayPal Email",
-					"paypalEmailCheckTooltip": "Your PayPal email is verified on PayPal.",
-					"paypalEmailNotCheckTooltip": "Attention: Please confirm your email address on https://www.paypal.com/businessprofile/settings in order to receive payments! You currently cannot receive payments.",
-					"thirdPartyPermissions": "Third-party permissions",
-					"thirdPartyPermissionsTooltipOk": "Third-party permissions are granted.",
-					"thirdPartyPermissionsTooltipMissing": "Missing third-party permissions. Please restart PayPal onboarding and grant access to Beswib.",
-					"refreshStatus": "Refresh status",
-					"refreshChecking": "Checking…"
-				},
-				"errors": {
-					"loadUserFailed": "Failed to load user data. Please refresh the page.",
-					"disconnectFailed": "Failed to disconnect PayPal account",
-					"initiateOnboardingFailed": "Failed to initiate PayPal onboarding"
-				},
-				"merchantIdSavedInfo": "Your PayPal merchant ID has been automatically retrieved and saved.",
-				"linkingMayTakeTime": "It could take a few minutes to link your PayPal account.",
-				"onboardingWindowOpened": "PayPal onboarding window opened. If it didn't open automatically:",
-				"paypalOauthMissingAlert": "Issue with your PayPal onboarding: third-party permissions are missing. Please go through the onboarding flow again and grant permissions to Beswib. Until fixed, PayPal payments are turned off."
-			},
 			"dangerZone": {
 				"title": "Danger Zone",
 				"description": "Sign out from your account or permanently delete your data.",
@@ -120,10 +67,6 @@
 				"medicalInfo": {
 					"title": "Medical Information",
 					"description": "Medical certificate and license"
-				},
-				"paypalSetup": {
-					"title": "PayPal Configuration",
-					"description": "To receive payments"
 				}
 			},
 			"title": "My Profile"
@@ -162,57 +105,6 @@
 				"title": "Informations Coureur",
 				"tshirtSize": "Taille de T-shirt"
 			},
-			"sellerInfo": {
-				"cancel": "Annuler",
-				"completeSetup": "Terminer la Configuration PayPal",
-				"confirm": "Confirmer",
-				"connectPayPal": "Se connecter avec PayPal",
-				"createSellerButton": "Créer un Compte Vendeur",
-				"description": "Complétez votre profil vendeur pour vendre des dossards et recevoir des paiements.",
-				"disconnectButton": "Déconnecter le compte vendeur PayPal",
-				"disconnectDescription": "Vous ne pourrez plus recevoir de paiements tant que vous ne reconnecterez pas votre compte vendeur PayPal.",
-				"disconnectTitle": "Déconnecter PayPal ?",
-				"disconnecting": "Déconnexion...",
-				"onboardingDescription": "Connectez votre compte PayPal pour recevoir des paiements lors de la vente de dossards.",
-				"onboardingTitle": "Configuration PayPal",
-				"paymentTestDescription": "Testez votre intégration PayPal avec des paiements d'exemple.",
-				"paymentTestTitle": "Test de Paiement",
-				"paypalConnectionStatus": "Statut de la connexion PayPal :",
-				"paypalStatusTitle": "Statut du compte PayPal",
-				"paypalMerchantId": "ID Marchand PayPal",
-				"paypalNotVerified": "Non Vérifié",
-				"paypalVerified": "Vérifié",
-				"paypalNotReadyAlert": "Votre compte PayPal est lié mais pas encore prêt à recevoir des paiements. Veuillez terminer la vérification sur PayPal, puis cliquez sur « Actualiser le statut » ci-dessus. Cela peut prendre un peu de temps après l’onboarding.",
-				"testingPayment": "Prêt à tester les paiements avec votre ID marchand.",
-				"title": "Informations Vendeur",
-				"completeProfileFirst": "Veuillez d'abord compléter votre profil.",
-				"connecting": "Connexion...",
-				"merchantIdSavedInfo": "Votre ID marchand PayPal a été récupéré et enregistré automatiquement.",
-				"linkingMayTakeTime": "La liaison de votre compte PayPal peut prendre quelques minutes.",
-				"onboardingWindowOpened": "La fenêtre d’onboarding PayPal s’est ouverte. Si elle ne s’est pas ouverte automatiquement :",
-				"paypalOauthMissingAlert": "Problème avec votre onboarding PayPal : les autorisations tierces sont manquantes. Veuillez recommencer l’onboarding et accorder les autorisations à Beswib. En attendant, les paiements PayPal sont désactivés.",
-				"paypalLinkInfo": {
-					"accountLinked": "Compte lié",
-					"accountLinkedTooltip": "Votre compte PayPal est correctement lié.",
-					"accountNotLinkedTooltip": "Vous devez lier votre compte PayPal.",
-					"paypalKYCCheckTooltip": "Votre compte PayPal est vérifié et prêt pour les transactions.",
-					"paypalKYCNotCheckTooltip": "Attention : Vous ne pouvez actuellement pas recevoir de paiements en raison de restrictions sur votre compte PayPal. Veuillez contacter le support PayPal ou vous connecter à https://www.paypal.com pour plus d'informations.",
-					"paypalKYC": "KYC PayPal",
-					"paypalEmail": "E-mail PayPal",
-					"paypalEmailCheckTooltip": "Votre e-mail PayPal est vérifié sur PayPal.",
-					"paypalEmailNotCheckTooltip": "Attention : Veuillez confirmer votre adresse e-mail sur https://www.paypal.com/businessprofile/settings afin de recevoir des paiements ! Vous ne pouvez actuellement pas recevoir de paiements.",
-					"thirdPartyPermissions": "Autorisations tierces",
-					"thirdPartyPermissionsTooltipOk": "Les autorisations tierces sont accordées.",
-					"thirdPartyPermissionsTooltipMissing": "Autorisations tierces manquantes. Veuillez redémarrer l’onboarding PayPal et accorder l’accès à Beswib.",
-					"refreshStatus": "Actualiser le statut",
-					"refreshChecking": "Vérification…"
-				},
-				"errors": {
-					"loadUserFailed": "Échec du chargement des données utilisateur. Veuillez actualiser la page.",
-					"disconnectFailed": "Échec de la déconnexion du compte PayPal",
-					"initiateOnboardingFailed": "Échec du démarrage de l’onboarding PayPal"
-				}
-			},
 			"dangerZone": {
 				"title": "Zone dangereuse",
 				"description": "Déconnectez-vous de votre compte ou supprimez définitivement vos données.",
@@ -248,10 +140,6 @@
 				"medicalInfo": {
 					"title": "Informations médicales",
 					"description": "Certificat médical et licence"
-				},
-				"paypalSetup": {
-					"title": "Configuration PayPal",
-					"description": "Pour recevoir des paiements"
 				}
 			},
 			"title": "Mon Profil"
@@ -290,57 +178,6 @@
 				"title": "러너 정보",
 				"tshirtSize": "티셔츠 사이즈"
 			},
-			"sellerInfo": {
-				"cancel": "취소",
-				"completeSetup": "PayPal 설정 완료",
-				"confirm": "확인",
-				"connectPayPal": "PayPal 연결",
-				"createSellerButton": "판매자 계정 생성",
-				"description": "빕을 판매하고 결제를 받으려면 판매자 프로필을 완성하세요.",
-				"disconnectButton": "PayPal 판매자 계정 연결 해제",
-				"disconnectDescription": "PayPal 판매자 계정을 다시 연결할 때까지 결제를 받을 수 없습니다.",
-				"disconnectTitle": "PayPal 연결 해제?",
-				"disconnecting": "연결 해제 중...",
-				"onboardingDescription": "빕 판매 시 결제를 받으려면 PayPal 계정을 연결하세요.",
-				"onboardingTitle": "PayPal 온보딩",
-				"paymentTestDescription": "샘플 결제로 PayPal 통합을 테스트하세요.",
-				"paymentTestTitle": "결제 테스트",
-				"paypalConnectionStatus": "PayPal 연결 상태:",
-				"paypalStatusTitle": "PayPal 계정 상태",
-				"paypalMerchantId": "PayPal 판매자 ID",
-				"paypalNotVerified": "확인되지 않음",
-				"paypalVerified": "확인됨",
-				"paypalNotReadyAlert": "PayPal 계정이 연결되었지만 아직 결제를 받을 준비가 되지 않았습니다. PayPal에서 인증 절차를 완료한 후 위의 \"상태 새로고침\"을 클릭하세요. 온보딩 후 잠시 시간이 걸릴 수 있습니다.",
-				"testingPayment": "판매자 ID로 결제를 테스트할 준비가 되었습니다.",
-				"title": "판매자 정보",
-				"completeProfileFirst": "먼저 프로필을 완성해 주세요.",
-				"connecting": "연결 중...",
-				"merchantIdSavedInfo": "PayPal 판매자 ID가 자동으로 조회되어 저장되었습니다.",
-				"linkingMayTakeTime": "PayPal 계정 연결에 몇 분 정도 걸릴 수 있습니다.",
-				"onboardingWindowOpened": "PayPal 온보딩 창이 열렸습니다. 자동으로 열리지 않았다면:",
-				"paypalOauthMissingAlert": "PayPal 온보딩에 문제가 있습니다: 서드파티 권한이 없습니다. 온보딩을 다시 진행하여 Beswib에게 권한을 부여하세요. 해결될 때까지 PayPal 결제는 비활성화됩니다.",
-				"paypalLinkInfo": {
-					"accountLinked": "계정 연결됨",
-					"accountLinkedTooltip": "PayPal 계정이 성공적으로 연결되었습니다.",
-					"accountNotLinkedTooltip": "PayPal 계정을 연결해야 합니다.",
-					"paypalKYCCheckTooltip": "PayPal 계정이 인증되어 거래가 가능합니다.",
-					"paypalKYCNotCheckTooltip": "주의: PayPal 계정에 대한 제한으로 인해 현재 결제를 받을 수 없습니다. PayPal 고객 지원팀에 문의하거나 https://www.paypal.com에 접속하여 자세한 정보를 확인하세요.",
-					"paypalKYC": "PayPal KYC",
-					"paypalEmail": "PayPal 이메일",
-					"paypalEmailCheckTooltip": "PayPal 이메일이 PayPal에서 인증되었습니다.",
-					"paypalEmailNotCheckTooltip": "주의: 결제를 받으려면 https://www.paypal.com/businessprofile/settings에서 이메일 주소를 확인하세요! 현재 결제를 받을 수 없습니다.",
-					"thirdPartyPermissions": "서드파티 권한",
-					"thirdPartyPermissionsTooltipOk": "서드파티 권한이 부여되었습니다.",
-					"thirdPartyPermissionsTooltipMissing": "서드파티 권한이 없습니다. PayPal 온보딩을 다시 진행하고 Beswib에게 권한을 부여하세요.",
-					"refreshStatus": "상태 새로고침",
-					"refreshChecking": "확인 중…"
-				},
-				"errors": {
-					"loadUserFailed": "사용자 데이터를 불러오지 못했습니다. 페이지를 새로고침해 주세요.",
-					"disconnectFailed": "PayPal 계정 연결 해제에 실패했습니다",
-					"initiateOnboardingFailed": "PayPal 온보딩 시작에 실패했습니다"
-				}
-			},
 			"dangerZone": {
 				"title": "주의 구역",
 				"description": "계정에서 로그아웃하거나 데이터를 영구적으로 삭제합니다.",
@@ -376,10 +213,6 @@
 				"medicalInfo": {
 					"title": "의료 정보",
 					"description": "의료 증명서 및 라이선스"
-				},
-				"paypalSetup": {
-					"title": "PayPal 설정",
-					"description": "결제를 받기 위해"
 				}
 			},
 			"title": "내 프로필"
@@ -418,57 +251,6 @@
 				"title": "Información del Corredor",
 				"tshirtSize": "Talla de Camiseta"
 			},
-			"sellerInfo": {
-				"cancel": "Cancelar",
-				"completeSetup": "Completar Configuración PayPal",
-				"confirm": "Confirmar",
-				"connectPayPal": "Conectar con PayPal",
-				"createSellerButton": "Crear Cuenta de Vendedor",
-				"description": "Completa tu perfil de vendedor para vender dorsales y recibir pagos.",
-				"disconnectButton": "Desconectar cuenta de vendedor PayPal",
-				"disconnectDescription": "No podrás recibir pagos hasta que vuelvas a conectar tu cuenta de vendedor PayPal.",
-				"disconnectTitle": "¿Desconectar PayPal?",
-				"disconnecting": "Desconectando...",
-				"onboardingDescription": "Conecta tu cuenta PayPal para recibir pagos al vender dorsales.",
-				"onboardingTitle": "Onboarding de PayPal",
-				"paymentTestDescription": "Prueba tu integración con PayPal con pagos de ejemplo.",
-				"paymentTestTitle": "Prueba de Pago",
-				"paypalConnectionStatus": "Estado de Conexión PayPal:",
-				"paypalMerchantId": "ID de Comerciante PayPal",
-				"paypalNotVerified": "No Verificado",
-				"paypalVerified": "Verificado",
-				"paypalNotReadyAlert": "Tu cuenta de PayPal está vinculada pero todavía no está lista para recibir pagos. Completa la verificación en PayPal y luego haz clic en \"Actualizar estado\" arriba. Esto puede tardar un poco después del onboarding.",
-				"testingPayment": "Listo para probar pagos con tu ID de comerciante.",
-				"title": "Información del Vendedor",
-				"completeProfileFirst": "Por favor, completa tu perfil primero.",
-				"paypalStatusTitle": "Estado de la cuenta de PayPal",
-				"connecting": "Conectando...",
-				"merchantIdSavedInfo": "Tu ID de comerciante de PayPal se ha obtenido y guardado automáticamente.",
-				"linkingMayTakeTime": "La vinculación de tu cuenta de PayPal puede tardar unos minutos.",
-				"onboardingWindowOpened": "Se ha abierto la ventana de onboarding de PayPal. Si no se abrió automáticamente:",
-				"paypalOauthMissingAlert": "Problema con tu onboarding de PayPal: faltan permisos de terceros. Vuelve a realizar el flujo de onboarding y concede permisos a Beswib. Hasta entonces, los pagos con PayPal estarán desactivados.",
-				"paypalLinkInfo": {
-					"thirdPartyPermissions": "Permisos de terceros",
-					"thirdPartyPermissionsTooltipOk": "Los permisos de terceros están concedidos.",
-					"thirdPartyPermissionsTooltipMissing": "Faltan permisos de terceros. Vuelve a iniciar el onboarding de PayPal y concede acceso a Beswib.",
-					"refreshStatus": "Actualizar estado",
-					"accountLinked": "Cuenta vinculada",
-					"accountLinkedTooltip": "Tu cuenta de PayPal está vinculada correctamente.",
-					"accountNotLinkedTooltip": "Necesitas vincular tu cuenta de PayPal.",
-					"paypalKYCCheckTooltip": "Tu cuenta de PayPal está verificada y lista para transacciones.",
-					"paypalKYCNotCheckTooltip": "Atención: Actualmente no puedes recibir pagos debido a restricciones en tu cuenta de PayPal. Ponte en contacto con el servicio de atención al cliente de PayPal o conéctate a https://www.paypal.com para más información.",
-					"paypalKYC": "KYC de PayPal",
-					"paypalEmail": "Correo electrónico de PayPal",
-					"paypalEmailCheckTooltip": "Tu correo electrónico de PayPal está verificado en PayPal.",
-					"paypalEmailNotCheckTooltip": "Atención: Por favor, confirma tu dirección de correo electrónico en https://www.paypal.com/businessprofile/settings para recibir pagos. Actualmente no puedes recibir pagos.",
-					"refreshChecking": "Comprobando…"
-				},
-				"errors": {
-					"loadUserFailed": "Error al cargar los datos del usuario. Por favor, actualiza la página.",
-					"disconnectFailed": "Error al desconectar la cuenta de PayPal",
-					"initiateOnboardingFailed": "Error al iniciar el onboarding de PayPal"
-				}
-			},
 			"dangerZone": {
 				"title": "Zona de peligro",
 				"description": "Cierra sesión de tu cuenta o elimina permanentemente tus datos.",
@@ -504,10 +286,6 @@
 				"medicalInfo": {
 					"title": "Información médica",
 					"description": "Certificado médico y licencia"
-				},
-				"paypalSetup": {
-					"title": "Configuración PayPal",
-					"description": "Para recibir pagos"
 				}
 			},
 			"title": "Mi Perfil"
@@ -546,57 +324,6 @@
 				"title": "Informazioni Corridore",
 				"tshirtSize": "Taglia T-shirt"
 			},
-			"sellerInfo": {
-				"cancel": "Annulla",
-				"completeSetup": "Completa Configurazione PayPal",
-				"confirm": "Conferma",
-				"connectPayPal": "Connetti con PayPal",
-				"createSellerButton": "Crea Account Venditore",
-				"description": "Completa il tuo profilo venditore per vendere pettorali e ricevere pagamenti.",
-				"disconnectButton": "Disconnetti account venditore PayPal",
-				"disconnectDescription": "Non potrai più ricevere pagamenti finché non riconnetti il tuo account venditore PayPal.",
-				"disconnectTitle": "Disconnettere PayPal?",
-				"disconnecting": "Disconnessione...",
-				"onboardingDescription": "Connetti il tuo account PayPal per ricevere pagamenti quando vendi pettorali.",
-				"onboardingTitle": "Onboarding PayPal",
-				"paymentTestDescription": "Testa la tua integrazione PayPal con pagamenti di esempio.",
-				"paymentTestTitle": "Test Pagamento",
-				"paypalConnectionStatus": "Stato Connessione PayPal:",
-				"paypalMerchantId": "ID Commerciante PayPal",
-				"paypalVerified": "Verificato",
-				"paypalNotVerified": "Non Verificato",
-				"paypalNotReadyAlert": "Il tuo conto PayPal è collegato ma non è ancora pronto a ricevere pagamenti. Completa la verifica su PayPal, quindi fai clic su \"Aggiorna stato\" sopra. Potrebbe richiedere un po’ di tempo dopo l’onboarding.",
-				"testingPayment": "Pronto a testare i pagamenti con il tuo ID commerciante.",
-				"title": "Informazioni Venditore",
-				"completeProfileFirst": "Per favore, completa prima il tuo profilo.",
-				"paypalStatusTitle": "Stato dell'account PayPal",
-				"connecting": "Connettendo...",
-				"merchantIdSavedInfo": "Il tuo ID commerciante PayPal è stato ottenuto e salvato automaticamente.",
-				"linkingMayTakeTime": "La connessione del tuo account PayPal potrebbe richiedere alcuni minuti.",
-				"onboardingWindowOpened": "Si è aperta la finestra di onboarding di PayPal. Se non si è aperta automaticamente:",
-				"paypalOauthMissingAlert": "Problema con il tuo onboarding di PayPal: mancano i permessi di terze parti. Riprova il flusso di onboarding e concedi i permessi a Beswib. Fino ad allora, i pagamenti con PayPal saranno disabilitati.",
-				"paypalLinkInfo": {
-					"thirdPartyPermissions": "Permessi di terze parti",
-					"thirdPartyPermissionsTooltipOk": "I permessi di terze parti sono stati concessi.",
-					"thirdPartyPermissionsTooltipMissing": "Mancano i permessi di terze parti. Ritorna al flusso di onboarding di PayPal e concedi accesso a Beswib.",
-					"refreshStatus": "Aggiorna stato",
-					"accountLinked": "Account collegato",
-					"accountLinkedTooltip": "Il tuo account PayPal è stato collegato correttamente.",
-					"accountNotLinkedTooltip": "Devi collegare il tuo account PayPal.",
-					"paypalKYCCheckTooltip": "Il tuo account PayPal è verificato ed è pronto per le transazioni.",
-					"paypalKYCNotCheckTooltip": "Attenzione: Attualmente non puoi ricevere pagamenti a causa di restrizioni sul tuo account PayPal. Contatta il supporto clienti di PayPal o collegati a https://www.paypal.com per maggiori informazioni.",
-					"paypalKYC": "KYC PayPal",
-					"paypalEmail": "Email PayPal",
-					"paypalEmailCheckTooltip": "La tua email PayPal è verificata su PayPal.",
-					"paypalEmailNotCheckTooltip": "Attenzione: Conferma il tuo indirizzo email su https://www.paypal.com/businessprofile/settings per ricevere pagamenti! Attualmente non puoi ricevere pagamenti.",
-					"refreshChecking": "Verifica in corso…"
-				},
-				"errors": {
-					"loadUserFailed": "Impossibile caricare i dati utente. Per favore, aggiorna la pagina.",
-					"disconnectFailed": "Impossibile disconnettere l'account PayPal",
-					"initiateOnboardingFailed": "Impossibile avviare l'onboarding di PayPal"
-				}
-			},
 			"dangerZone": {
 				"title": "Zona pericolosa",
 				"description": "Esci dal tuo account o elimina permanentemente i tuoi dati.",
@@ -632,10 +359,6 @@
 				"medicalInfo": {
 					"title": "Informazioni mediche",
 					"description": "Certificato medico e licenza"
-				},
-				"paypalSetup": {
-					"title": "Configurazione PayPal",
-					"description": "Per ricevere pagamenti"
 				}
 			},
 			"title": "Il Mio Profilo"
@@ -674,57 +397,6 @@
 				"title": "Läuferinformationen",
 				"tshirtSize": "T-Shirt Größe"
 			},
-			"sellerInfo": {
-				"cancel": "Abbrechen",
-				"completeSetup": "PayPal-Setup abschließen",
-				"confirm": "Bestätigen",
-				"connectPayPal": "Mit PayPal verbinden",
-				"createSellerButton": "Verkäuferkonto erstellen",
-				"description": "Vervollständige dein Verkäuferprofil, um Startnummern zu verkaufen und Zahlungen zu erhalten.",
-				"disconnectButton": "PayPal Verkäuferkonto trennen",
-				"disconnectDescription": "Sie können keine Zahlungen empfangen, bis Sie Ihr PayPal Verkäuferkonto wieder verbinden.",
-				"disconnectTitle": "PayPal trennen?",
-				"disconnecting": "Wird getrennt...",
-				"onboardingDescription": "Verbinde dein PayPal-Konto, um Zahlungen beim Verkauf von Startnummern zu erhalten.",
-				"onboardingTitle": "PayPal Onboarding",
-				"paymentTestDescription": "Teste deine PayPal-Integration mit Beispielzahlungen.",
-				"paymentTestTitle": "Zahlung testen",
-				"paypalConnectionStatus": "PayPal Verbindungsstatus:",
-				"paypalMerchantId": "PayPal Händler-ID",
-				"paypalNotVerified": "Nicht verifiziert",
-				"paypalVerified": "Verifiziert",
-				"paypalNotReadyAlert": "Ihr PayPal-Konto ist verknüpft, aber noch nicht bereit, Zahlungen zu empfangen. Bitte schließen Sie die Verifizierung bei PayPal ab und klicken Sie anschließend oben auf \"Status aktualisieren\". Dies kann nach dem Onboarding etwas dauern.",
-				"testingPayment": "Bereit, Zahlungen mit Ihrer Händler-ID zu testen.",
-				"title": "Verkäuferinformationen",
-				"completeProfileFirst": "Bitte vervollständige zuerst dein Profil.",
-				"paypalStatusTitle": "Status des PayPal-Kontos",
-				"connecting": "Verbindungsaufbau...",
-				"merchantIdSavedInfo": "Ihre PayPal-Händler-ID wurde automatisch abgerufen und gespeichert.",
-				"linkingMayTakeTime": "Die Verknüpfung Ihres PayPal-Kontos kann einige Minuten in Anspruch nehmen.",
-				"onboardingWindowOpened": "Das Onboarding-Fenster von PayPal wurde geöffnet. Wenn es sich nicht automatisch öffnete:",
-				"paypalOauthMissingAlert": "Problem mit Ihrem PayPal-Onboarding: Fehlende Drittanbieterberechtigungen. Bitte führen Sie den Onboarding-Prozess erneut durch und gewähren Sie Beswib Zugriff. Bis dahin sind Zahlungen mit PayPal deaktiviert.",
-				"paypalLinkInfo": {
-					"thirdPartyPermissions": "Drittanbieterberechtigungen",
-					"thirdPartyPermissionsTooltipOk": "Die Drittanbieterberechtigungen sind erteilt.",
-					"thirdPartyPermissionsTooltipMissing": "Drittanbieterberechtigungen fehlen. Bitte starten Sie das PayPal-Onboarding erneut und gewähren Sie Beswib Zugriff.",
-					"refreshStatus": "Status aktualisieren",
-					"accountLinked": "Konto verknüpft",
-					"accountLinkedTooltip": "Ihr PayPal-Konto ist erfolgreich verknüpft.",
-					"accountNotLinkedTooltip": "Sie müssen Ihr PayPal-Konto verknüpfen.",
-					"paypalKYCCheckTooltip": "Ihr PayPal-Konto ist verifiziert und für Transaktionen bereit.",
-					"paypalKYCNotCheckTooltip": "Achtung: Sie können derzeit aufgrund von Einschränkungen Ihres PayPal-Kontos keine Zahlungen empfangen. Bitte wenden Sie sich an den PayPal-Kundensupport oder besuchen Sie https://www.paypal.com für weitere Informationen.",
-					"paypalKYC": "PayPal-KYC",
-					"paypalEmail": "PayPal-E-Mail",
-					"paypalEmailCheckTooltip": "Ihre PayPal-E-Mail ist bei PayPal verifiziert.",
-					"paypalEmailNotCheckTooltip": "Achtung: Bitte bestätigen Sie Ihre E-Mail-Adresse auf https://www.paypal.com/businessprofile/settings, um Zahlungen zu empfangen! Sie können derzeit keine Zahlungen empfangen.",
-					"refreshChecking": "Wird geprüft…"
-				},
-				"errors": {
-					"loadUserFailed": "Benutzerdaten konnten nicht geladen werden. Bitte aktualisieren Sie die Seite.",
-					"disconnectFailed": "Das Trennen des PayPal-Kontos ist fehlgeschlagen",
-					"initiateOnboardingFailed": "Das Starten des PayPal-Onboardings ist fehlgeschlagen"
-				}
-			},
 			"dangerZone": {
 				"title": "Gefahrenbereich",
 				"description": "Melde dich von deinem Konto ab oder lösche deine Daten dauerhaft.",
@@ -760,10 +432,6 @@
 				"medicalInfo": {
 					"title": "Medizinische Informationen",
 					"description": "Ärztliches Attest und Lizenz"
-				},
-				"paypalSetup": {
-					"title": "PayPal-Konfiguration",
-					"description": "Um Zahlungen zu erhalten"
 				}
 			},
 			"title": "Mein Profil"
@@ -802,58 +470,6 @@
 				"title": "Informații Alergător",
 				"tshirtSize": "Mărime Tricou"
 			},
-			"sellerInfo": {
-				"cancel": "Anulează",
-				"completeSetup": "Finalizează Setarea PayPal",
-				"confirm": "Confirmă",
-				"connectPayPal": "Conectează-te cu PayPal",
-				"createSellerButton": "Creează Cont Vânzător",
-				"description": "Completează-ți profilul de vânzător pentru a vinde numere de concurs și a primi plăți.",
-				"disconnectButton": "Deconectează contul de vânzător PayPal",
-				"disconnectDescription": "Nu vei putea primi plăți până nu vei reconecta contul tău de vânzător PayPal.",
-				"disconnectTitle": "Deconectezi PayPal?",
-				"disconnecting": "Deconectare...",
-				"onboardingDescription": "Conectează-ți contul PayPal pentru a primi plăți când vinzi numere de concurs.",
-				"onboardingTitle": "Onboarding PayPal",
-				"paymentTestDescription": "Testează-ți integrarea PayPal cu plăți eșantion.",
-				"paymentTestTitle": "Testare Plată",
-				"paypalConnectionStatus": "Stare Conexiune PayPal:",
-				"paypalMerchantId": "ID Comerciant PayPal",
-				"paypalNotVerified": "Neconfirmat",
-				"paypalVerified": "Confirmat",
-				"paypalNotReadyAlert": "Contul tău PayPal este conectat, dar nu este încă pregătit să primească plăți. Te rugăm să finalizezi verificarea în PayPal, apoi apasă \"Actualizează statusul\" de mai sus. Acest lucru poate dura puțin după onboarding.",
-				"testingPayment": "Gata de testat plățile cu ID-ul tău de comerciant.",
-				"title": "Informații Vânzător",
-				"completeProfileFirst": "Te rugăm să îți completezi mai întâi profilul.",
-				"paypalStatusTitle": "Starea contului PayPal",
-				"connecting": "Conectare...",
-				"merchantIdSavedInfo": "ID-ul tău de comerciant PayPal a fost obținut și salvat automat.",
-				"linkingMayTakeTime": "Vincularea contului tău PayPal poate dura câteva minute.",
-				"onboardingWindowOpened": "Fereastra de onboarding PayPal s-a deschis. Dacă nu s-a deschis automat:",
-				"paypalOauthMissingAlert": "Problemă cu onboarding-ul tău PayPal: lipsesc permisiunile terță parte. Te rugăm să reiei fluxul de onboarding și să acorzi permisiuni lui Beswib. Până atunci, plățile cu PayPal vor fi dezactivate.",
-				"paypalLinkInfo": {
-					"thirdPartyPermissions": "Permisiuni de terță parte",
-					"thirdPartyPermissionsTooltipOk": "Permisiunile de terță parte sunt acordate.",
-					"thirdPartyPermissionsTooltipMissing": "Lipsesc permisiunile de terță parte. Vino înapoi pentru a relua onboarding-ul PayPal și a acorda acces lui Beswib.",
-					"refreshStatus": "Actualizează statusul",
-					"accountLinked": "Cont conectat",
-					"accountLinkedTooltip": "Contul tău PayPal este conectat cu succes.",
-					"accountNotLinkedTooltip": "Trebuie să-ți conectezi contul PayPal.",
-					"paypalKYCCheckTooltip": "Contul tău PayPal este verificat și pregătit pentru tranzacții.",
-					"paypalKYCNotCheckTooltip": "Atenție: În prezent nu poți primi plăți din cauza restricțiilor asupra contului tău PayPal. Te rugăm să contactezi suportul pentru clienți PayPal sau să te conectezi la https://www.paypal.com pentru mai multe informații.",
-					"paypalKYC": "KYC PayPal",
-					"paypalEmail": "E-mail PayPal",
-					"paypalEmailCheckTooltip": "E-mailul tău PayPal este verificat pe PayPal.",
-					"paypalEmailNotCheckTooltip": "Atenție: Te rugăm să confirmi adresa ta de e-mail pe https://www.paypal.com/businessprofile/settings pentru a primi plăți! În prezent nu poți primi plăți.",
-
-					"refreshChecking": "Se verifică…"
-				},
-				"errors": {
-					"loadUserFailed": "Nu s-au putut încărca datele utilizatorului. Te rugăm să reîmprospătezi pagina.",
-					"disconnectFailed": "Deconectarea contului PayPal a eșuat",
-					"initiateOnboardingFailed": "Pornirea onboarding-ului PayPal a eșuat"
-				}
-			},
 			"dangerZone": {
 				"title": "Zonă periculoasă",
 				"description": "Deconectează-te din cont sau șterge definitiv datele tale.",
@@ -889,10 +505,6 @@
 				"medicalInfo": {
 					"title": "Informații medicale",
 					"description": "Certificat medical și licență"
-				},
-				"paypalSetup": {
-					"title": "Configurare PayPal",
-					"description": "Pentru a primi plăți"
 				}
 			},
 			"title": "Profilul Meu"
@@ -931,58 +543,6 @@
 				"title": "Informações do Corredor",
 				"tshirtSize": "Tamanho da Camiseta"
 			},
-			"sellerInfo": {
-				"cancel": "Cancelar",
-				"completeSetup": "Completar Configuração PayPal",
-				"confirm": "Confirmar",
-				"connectPayPal": "Conectar com PayPal",
-				"createSellerButton": "Criar Conta de Vendedor",
-				"description": "Completa o teu perfil de vendedor para vender dorsais e receber pagamentos.",
-				"disconnectButton": "Desconectar conta de vendedor PayPal",
-				"disconnectDescription": "Não poderás receber pagamentos até que reconectes a tua conta de vendedor PayPal.",
-				"disconnectTitle": "Desconectar PayPal?",
-				"disconnecting": "Desconectando...",
-				"onboardingDescription": "Conecta a tua conta PayPal para receber pagamentos ao vender dorsais.",
-				"onboardingTitle": "Onboarding PayPal",
-				"paymentTestDescription": "Testa a tua integração PayPal com pagamentos de exemplo.",
-				"paymentTestTitle": "Teste de Pagamento",
-				"paypalConnectionStatus": "Estado de Conexão PayPal:",
-				"paypalMerchantId": "ID de Comerciante PayPal",
-				"paypalNotVerified": "Não Verificado",
-				"paypalVerified": "Verificado",
-				"paypalNotReadyAlert": "A tua conta PayPal está ligada mas ainda não está pronta para receber pagamentos. Conclui a verificação no PayPal e depois clica em \"Atualizar estado\" acima. Isto pode demorar um pouco após o onboarding.",
-				"testingPayment": "Pronto para testar pagamentos com o teu ID de comerciante.",
-				"title": "Informações do Vendedor",
-				"completeProfileFirst": "Por favor, completa primeiro o teu perfil.",
-				"paypalStatusTitle": "Estado da conta PayPal",
-				"connecting": "Conectando...",
-				"merchantIdSavedInfo": "O teu ID de comerciante PayPal foi obtido e guardado automaticamente.",
-				"linkingMayTakeTime": "A vinculação da tua conta PayPal pode demorar alguns minutos.",
-				"onboardingWindowOpened": "A janela de onboarding do PayPal foi aberta. Se não se abriu automaticamente:",
-				"paypalOauthMissingAlert": "Problema com o teu onboarding do PayPal: faltam permissões de terceiros. Volta a realizar o fluxo de onboarding e concede permissões a Beswib. Até lá, os pagamentos com PayPal estarão desativados.",
-				"paypalLinkInfo": {
-					"thirdPartyPermissions": "Permissões de terceiros",
-					"thirdPartyPermissionsTooltipOk": "As permissões de terceiros estão concedidas.",
-					"thirdPartyPermissionsTooltipMissing": "Faltam permissões de terceiros. Volta a iniciar o onboarding do PayPal e concede acesso a Beswib.",
-					"refreshStatus": "Atualizar estado",
-					"accountLinked": "Conta ligada",
-					"accountLinkedTooltip": "A tua conta PayPal está ligada com sucesso.",
-					"accountNotLinkedTooltip": "Precisas ligar a tua conta PayPal.",
-					"paypalKYCCheckTooltip": "A tua conta PayPal está verificada e pronta para transações.",
-					"paypalKYCNotCheckTooltip": "Atenção: Atualmente não podes receber pagamentos devido a restrições na tua conta PayPal. Por favor, contacta o suporte ao cliente PayPal ou acede a https://www.paypal.com para mais informações.",
-					"paypalKYC": "KYC PayPal",
-					"paypalEmail": "E-mail PayPal",
-					"paypalEmailCheckTooltip": "O teu e-mail PayPal está verificado no PayPal.",
-					"paypalEmailNotCheckTooltip": "Atenção: Por favor, confirma o teu endereço de e-mail em https://www.paypal.com/businessprofile/settings para receberes pagamentos! Atualmente não podes receber pagamentos.",
-
-					"refreshChecking": "A verificar…"
-				},
-				"errors": {
-					"loadUserFailed": "Falha ao carregar os dados do utilizador. Por favor, atualiza a página.",
-					"disconnectFailed": "Falha ao desconectar a conta PayPal",
-					"initiateOnboardingFailed": "Falha ao iniciar o onboarding do PayPal"
-				}
-			},
 			"dangerZone": {
 				"title": "Zona perigosa",
 				"description": "Faz logout da tua conta ou elimina permanentemente os teus dados.",
@@ -1018,10 +578,6 @@
 				"medicalInfo": {
 					"title": "Informações médicas",
 					"description": "Certificado médico e licença"
-				},
-				"paypalSetup": {
-					"title": "Configuração PayPal",
-					"description": "Para receber pagamentos"
 				}
 			},
 			"title": "Meu Perfil"
@@ -1060,58 +616,6 @@
 				"title": "Loper Informatie",
 				"tshirtSize": "T-Shirt Maat"
 			},
-			"sellerInfo": {
-				"cancel": "Annuleren",
-				"completeSetup": "PayPal Setup Voltooien",
-				"confirm": "Bevestigen",
-				"connectPayPal": "Verbinden met PayPal",
-				"createSellerButton": "Verkoper Account Aanmaken",
-				"description": "Voltooi je verkoperprofiel om startnummers te verkopen en betalingen te ontvangen.",
-				"disconnectButton": "PayPal verkoper account ontkoppelen",
-				"disconnectDescription": "U kunt geen betalingen ontvangen totdat u uw PayPal verkoper account opnieuw verbindt.",
-				"disconnectTitle": "PayPal ontkoppelen?",
-				"disconnecting": "Ontkoppelen...",
-				"onboardingDescription": "Verbind je PayPal account om betalingen te ontvangen bij het verkopen van startnummers.",
-				"onboardingTitle": "PayPal Onboarding",
-				"paymentTestDescription": "Test je PayPal integratie met voorbeeldbetalingen.",
-				"paymentTestTitle": "Betaling Testen",
-				"paypalConnectionStatus": "PayPal Verbindingsstatus:",
-				"paypalMerchantId": "PayPal Merchant ID",
-				"paypalNotVerified": "Niet Geverifieerd",
-				"paypalVerified": "Geverifieerd",
-				"paypalNotReadyAlert": "Je PayPal-account is gekoppeld maar nog niet klaar om betalingen te ontvangen. Voltooi de verificatie bij PayPal en klik daarna hierboven op \"Status vernieuwen\". Dit kan na het onboardingproces even duren.",
-				"testingPayment": "Klaar om betalingen te testen met uw merchant ID.",
-				"title": "Verkoper Informatie",
-				"completeProfileFirst": "Vul eerst je profiel in.",
-				"paypalStatusTitle": "Status van PayPal-account",
-				"connecting": "Verbinden...",
-				"merchantIdSavedInfo": "Je PayPal-verkoper ID is automatisch verkregen en opgeslagen.",
-				"linkingMayTakeTime": "Het koppelen van je PayPal-account kan enkele minuten duren.",
-				"onboardingWindowOpened": "Het PayPal-onboardingvenster is geopend. Als het niet automatisch is geopend:",
-				"paypalOauthMissingAlert": "Probleem met je PayPal-onboarding: ontbrekende derde partij machtigingen. Voer het onboardingproces opnieuw uit en geef Beswib toegang. Tot die tijd zijn PayPal-betalingen uitgeschakeld.",
-				"paypalLinkInfo": {
-					"thirdPartyPermissions": "Machtigingen van derden",
-					"thirdPartyPermissionsTooltipOk": "Machtigingen van derden zijn verleend.",
-					"thirdPartyPermissionsTooltipMissing": "Machtigingen van derden ontbreken. Start het PayPal-onboarding opnieuw en geef Beswib toegang.",
-					"refreshStatus": "Status vernieuwen",
-					"accountLinked": "Account gekoppeld",
-					"accountLinkedTooltip": "Je PayPal-account is succesvol gekoppeld.",
-					"accountNotLinkedTooltip": "Je moet je PayPal-account koppelen.",
-					"paypalKYCCheckTooltip": "Je PayPal-account is geverifieerd en klaar voor transacties.",
-					"paypalKYCNotCheckTooltip": "Attentie: Je kunt momenteel geen betalingen ontvangen vanwege beperkingen op je PayPal-account. Neem contact op met PayPal Klantenondersteuning of ga naar https://www.paypal.com voor meer informatie.",
-					"paypalKYC": "PayPal-KYC",
-					"paypalEmail": "PayPal-e-mailadres",
-					"paypalEmailCheckTooltip": "Je PayPal-e-mailadres is geverifieerd op PayPal.",
-					"paypalEmailNotCheckTooltip": "Attentie: Bevestig je e-mailadres op https://www.paypal.com/businessprofile/settings om betalingen te ontvangen! Je kunt momenteel geen betalingen ontvangen.",
-
-					"refreshChecking": "Controleren…"
-				},
-				"errors": {
-					"loadUserFailed": "Gebruikersgegevens laden mislukt. Vernieuw de pagina.",
-					"disconnectFailed": "Het ontkoppelen van het PayPal-account is mislukt",
-					"initiateOnboardingFailed": "Het starten van het PayPal-onboarding is mislukt"
-				}
-			},
 			"dangerZone": {
 				"title": "Gevarenzone",
 				"description": "Log uit van je account of verwijder je gegevens permanent.",
@@ -1147,10 +651,6 @@
 				"medicalInfo": {
 					"title": "Medische informatie",
 					"description": "Medisch certificaat en licentie"
-				},
-				"paypalSetup": {
-					"title": "PayPal-configuratie",
-					"description": "Om betalingen te ontvangen"
 				}
 			},
 			"title": "Mijn Profiel"

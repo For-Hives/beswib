@@ -481,13 +481,6 @@ export default function BuyerDashboardClient({
 								</CardTitle>
 								<CardDescription>
 									{t.waitlistIntro ?? "Events you're waiting for bibs to become available"}
-									<br />
-									<TrackClick name="cta_click" props={{ cta: 'browse_events', where: 'buyer_waitlist_intro' }}>
-										<Link className="text-primary hover:underline" href="/events">
-											{t.browseEventsWaitlist ?? 'Browse events'}
-										</Link>
-									</TrackClick>{' '}
-									{t.waitlistJoinText ?? 'to join a waitlist if no bibs are available.'}
 								</CardDescription>
 							</CardHeader>
 							<CardContent>

@@ -1,19 +1,7 @@
 'use client'
 
 import Fuse from 'fuse.js'
-import {
-	Bell,
-	CheckCircle,
-	Clock,
-	Loader2,
-	MapPin,
-	Mountain,
-	Route,
-	Search,
-	ShoppingCart,
-	Tag,
-	Users,
-} from 'lucide-react'
+import { CheckCircle, Loader2, MapPin, Mountain, Route, Search, ShoppingCart, Tag, Users } from 'lucide-react'
 import { DateTime } from 'luxon'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
@@ -269,12 +257,6 @@ function EventCard({
 													{t.events?.eventCard?.available ?? 'Available'}
 												</span>
 											)}
-											{availabilityStatus === 'waitlist' && (
-												<span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2 py-1 text-sm font-medium text-orange-800 italic dark:bg-orange-900/30 dark:text-orange-300">
-													<Clock className="h-3 w-3" />
-													{t.events?.eventCard?.waitlist ?? 'Waitlist'}
-												</span>
-											)}
 											{availabilityStatus === 'loading' && (
 												<span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 italic dark:bg-gray-700 dark:text-gray-300">
 													<Loader2 className="h-3 w-3 animate-spin" />
@@ -354,10 +336,9 @@ function EventCard({
 													onClick={() => onAction(event)}
 													variant="outline"
 													className="cursor-pointer xl:flex-1"
-													{...umamiAttrs('event_card_click', { ...cardClick, action: 'join_waitlist' })}
+													{...umamiAttrs('event_card_click', { ...cardClick, action: 'view_event' })}
 												>
-													<Bell className="h-4 w-4" />
-													{t.events?.eventCard?.joinWaitlist ?? 'Join waitlist'}
+													{t.events?.eventCard?.viewEvent ?? 'View Event'}
 												</Button>
 											)
 										}

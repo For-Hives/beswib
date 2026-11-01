@@ -35,7 +35,6 @@ vi.mock('@/lib/analytics/client', () => ({ trackView: vi.fn(), track: mocks.trac
 
 import mainLocales from '@/app/[locale]/locales.json'
 import CustomSignIn from '@/components/auth/CustomSignIn'
-import CustomSignUp from '@/components/auth/CustomSignUp'
 import { getTranslations } from '@/lib/i18n/dictionary'
 
 const t = getTranslations('fr', mainLocales).auth
@@ -110,15 +109,6 @@ function link(label: string): string | null {
 async function signInWithPassword(): Promise<void> {
 	type(field('email'), 'runner@example.com')
 	type(field('current-password'), 'Trail-2026-test')
-	await submit()
-}
-
-async function fillSignUp(): Promise<void> {
-	type(field('given-name'), 'Ada')
-	type(field('family-name'), 'Runner')
-	type(field('email'), 'runner@example.com')
-	type(field('new-password', 0), 'Trail-2026-test')
-	type(field('new-password', 1), 'Trail-2026-test')
 	await submit()
 }
 
@@ -262,23 +252,12 @@ describe('sign-in with Google or Facebook', () => {
 	})
 })
 
-describe('the link from the sign-in form to the sign-up form', () => {
-	it('carries the page to come back to', () => {
+describe('the sign-in form of an archived site', () => {
+	it('offers no way to create an account', () => {
 		open(`/fr/auth/sign-in${WITH_BIB}`, <CustomSignIn />)
 
-		expect(link(t.signIn.createAccount)).toBe(`/fr/auth/sign-up${WITH_BIB}`)
-	})
-
-	it('is the plain sign-up page without one', () => {
-		open('/fr/auth/sign-in', <CustomSignIn />)
-
-		expect(link(t.signIn.createAccount)).toBe('/fr/auth/sign-up')
-	})
-
-	it.each(ELSEWHERE)('does not carry a redirect_url that is %s', (_name, value) => {
-		open(`/fr/auth/sign-in?redirect_url=${encodeURIComponent(value)}`, <CustomSignIn />)
-
-		expect(link(t.signIn.createAccount)).toBe('/fr/auth/sign-up')
+		expect(container.textContent).not.toContain(t.signIn.createAccount)
+		expect(container.querySelector('a[href*="sign-up"]')).toBeNull()
 	})
 })
 
@@ -300,90 +279,5 @@ describe('the link from the sign-in form to the forgotten-password page', () => 
 		open(`/fr/auth/sign-in?redirect_url=${encodeURIComponent(value)}`, <CustomSignIn />)
 
 		expect(link(t.signIn.forgotPassword)).toBe('/fr/auth/forgot-password')
-	})
-})
-
-describe('sign-up', () => {
-	it('goes back to the bib when the account is complete at once', async () => {
-		open(`/fr/auth/sign-up${WITH_BIB}`, <CustomSignUp />)
-		await fillSignUp()
-
-		expect(mocks.signUp.create).toHaveBeenCalledTimes(1)
-		expect(mocks.push.mock.calls).toEqual([[BIB]])
-	})
-
-	it('goes back to the bib after the e-mail verification code', async () => {
-		mocks.signUp.create.mockResolvedValue({ unverifiedFields: ['email_address'], status: 'missing_requirements' })
-
-		open(`/fr/auth/sign-up${WITH_BIB}`, <CustomSignUp />)
-		await fillSignUp()
-		expect(mocks.signUp.prepareEmailAddressVerification).toHaveBeenCalledTimes(1)
-		expect(mocks.push).not.toHaveBeenCalled()
-
-		type(field('one-time-code'), '123456')
-		await submit()
-
-		expect(mocks.signUp.attemptEmailAddressVerification).toHaveBeenCalledWith({ code: '123456' })
-		expect(mocks.setActive).toHaveBeenCalledWith({ session: 'sess_1' })
-		expect(mocks.push.mock.calls).toEqual([[BIB]])
-	})
-
-	it('goes to the dashboard when no page asked for the account', async () => {
-		open('/fr/auth/sign-up', <CustomSignUp />)
-		await fillSignUp()
-
-		expect(mocks.push.mock.calls).toEqual([[DASHBOARD]])
-	})
-
-	it.each(ELSEWHERE)('goes to the dashboard when redirect_url is %s', async (_name, value) => {
-		open(`/fr/auth/sign-up?redirect_url=${encodeURIComponent(value)}`, <CustomSignUp />)
-		await fillSignUp()
-
-		expect(mocks.push.mock.calls).toEqual([[DASHBOARD]])
-	})
-
-	it.each([
-		['oauth_google', t.signUp.signUpWithGoogle],
-		['oauth_facebook', t.signUp.signUpWithFacebook],
-	])('asks Clerk to come back to the bib with %s, through the callback page', async (strategy, label) => {
-		open(`/fr/auth/sign-up${WITH_BIB}`, <CustomSignUp />)
-		await click(label)
-
-		expect(mocks.signUp.authenticateWithRedirect.mock.calls).toEqual([
-			[{ strategy, redirectUrlComplete: BIB, redirectUrl: `${CALLBACK}${WITH_BIB}` }],
-		])
-	})
-
-	it('asks Clerk to come back to the dashboard when no page asked for the account', async () => {
-		open('/fr/auth/sign-up', <CustomSignUp />)
-		await click(t.signUp.signUpWithGoogle)
-
-		// Never the destination itself: an account that already exists is signed in on the callback page
-		expect(mocks.signUp.authenticateWithRedirect.mock.calls).toEqual([
-			[{ strategy: 'oauth_google', redirectUrlComplete: DASHBOARD, redirectUrl: CALLBACK }],
-		])
-	})
-
-	it.each(ELSEWHERE)('never hands Clerk a redirect_url that is %s', async (_name, value) => {
-		open(`/fr/auth/sign-up?redirect_url=${encodeURIComponent(value)}`, <CustomSignUp />)
-		await click(t.signUp.signUpWithGoogle)
-
-		expect(mocks.signUp.authenticateWithRedirect.mock.calls).toEqual([
-			[{ strategy: 'oauth_google', redirectUrlComplete: DASHBOARD, redirectUrl: CALLBACK }],
-		])
-	})
-
-	it('carries the page to come back to on its link to the sign-in form', () => {
-		open(`/fr/auth/sign-up${WITH_BIB}`, <CustomSignUp />)
-
-		expect(link(t.signUp.signIn)).toBe(`/fr/auth/sign-in${WITH_BIB}`)
-	})
-
-	it('never tells the analytics the page or its token', async () => {
-		open(`/fr/auth/sign-up${WITH_BIB}`, <CustomSignUp />)
-		await fillSignUp()
-
-		expect(mocks.track.mock.calls.map(call => call[0])).toEqual(['sign_up_start', 'sign_up_step', 'sign_up_success'])
-		expect(analytics()).not.toMatch(/tkn|s3cr3t|abcdefghij12345|marketplace/)
 	})
 })

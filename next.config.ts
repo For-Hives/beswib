@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
 	},
 
 	async headers() {
-		// Phase 1: Basic security headers that shouldn't interfere with PayPal
+		// Phase 1: Basic security headers
 		await Promise.resolve() // Satisfy async requirement
 		return [
 			{

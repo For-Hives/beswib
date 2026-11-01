@@ -14,7 +14,7 @@ import { clerkErrorKind, signInIntent } from '@/lib/analytics/classify'
 import { track } from '@/lib/analytics/client'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
-import { afterAuthPath, forgotPasswordPath, oauthCallbackPath, returnPathFrom, signUpPath } from '@/lib/utils/redirect'
+import { afterAuthPath, forgotPasswordPath, oauthCallbackPath, returnPathFrom } from '@/lib/utils/redirect'
 import { validateEmailValibot, validatePasswordValibot } from '@/lib/validation/valibot'
 
 interface FieldError {
@@ -324,21 +324,6 @@ export default function CustomSignIn() {
 					)}
 				</Button>
 			</form>
-
-			{/* Footer */}
-			<div className="text-center">
-				<p className="text-muted-foreground text-sm">
-					{t.signIn.noAccount}{' '}
-					<TrackClick name="cta_click" props={{ cta: 'sign_up', where: 'auth_sign_in' }}>
-						<Link
-							href={signUpPath(locale, returnTo)}
-							className="text-primary hover:text-primary/80 font-medium transition-colors hover:underline"
-						>
-							{t.signIn.createAccount}
-						</Link>
-					</TrackClick>
-				</p>
-			</div>
 		</div>
 	)
 }

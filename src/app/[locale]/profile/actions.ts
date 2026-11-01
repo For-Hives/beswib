@@ -1,10 +1,8 @@
 'use server'
 
 import { auth } from '@clerk/nextjs/server'
-import { i18n } from '@/lib/i18n/config'
 import type { User } from '@/models/user.model'
 import type { VerifiedEmail } from '@/models/verifiedEmail.model'
-import { disconnectPayPalAccount, initiatePayPalOnboarding } from '@/services/paypal-onboarding.services'
 import { fetchUserByClerkId, updateUser } from '@/services/user.services'
 import {
 	createVerifiedEmail,
@@ -43,8 +41,7 @@ const PROFILE_FIELDS = [
 	'clubAffiliation',
 ] as const satisfies readonly (keyof User)[]
 
-// The shape the waitlist form asks of an address, minus the two characters that end the quoted value
-// of a PocketBase filter: the verified e-mail service writes the address into its filters as it comes
+// The shape of an address, minus the two characters that end the quoted value of a PocketBase filter: the verified e-mail service writes the address into its filters as it comes
 const EMAIL_PATTERN = /^[^\s@"\\]+@[^\s@"\\]+\.[^\s@"\\]+$/
 const EMAIL_MAX_LENGTH = 320
 
@@ -106,32 +103,6 @@ export async function updateUserProfile(data: Partial<User>) {
 		console.error('Error updating user profile:', error)
 		throw error
 	}
-}
-
-/**
- * Starts the PayPal onboarding of the signed-in user. PayPal answers the webhook with the tracking id
- * of the referral, which is the id of the user the merchant account gets linked to.
- * `locale` is the language of the page the seller is on: PayPal sends them back to their profile in
- * it. It comes from the browser: anything that is not one of the app's locales is dropped here.
- */
-export async function startPayPalOnboarding(
-	locale?: string
-): Promise<{ actionUrl?: string; error?: string; referralId?: string }> {
-	const user = await getSessionUser()
-	if (user == null) return { error: 'Authentication required.' }
-	return initiatePayPalOnboarding(
-		user.id,
-		i18n.locales.find(known => known === locale)
-	)
-}
-
-/**
- * Unlinks the PayPal merchant account of the signed-in user.
- */
-export async function disconnectPayPal(): Promise<{ error?: string; success?: boolean }> {
-	const user = await getSessionUser()
-	if (user == null) return { error: 'Authentication required.' }
-	return disconnectPayPalAccount(user.id)
 }
 
 /**

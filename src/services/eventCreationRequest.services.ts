@@ -4,26 +4,6 @@ import { pb } from '@/lib/services/pocketbase'
 import type { EventCreationRequest } from '@/models/eventCreationRequest.model'
 
 /**
- * Creates a new event creation request
- * @param requestData The event creation request data
- */
-export async function createEventCreationRequest(
-	requestData: Omit<EventCreationRequest, 'id' | 'status' | 'created' | 'updated'>
-): Promise<EventCreationRequest | null> {
-	try {
-		const dataToCreate = {
-			...requestData,
-			status: 'waiting' as const,
-		}
-
-		const record = await pb.collection('eventCreationRequests').create<EventCreationRequest>(dataToCreate)
-		return record
-	} catch (error: unknown) {
-		throw new Error(`Error creating event creation request: ${error instanceof Error ? error.message : String(error)}`)
-	}
-}
-
-/**
  * Fetches all event creation requests with optional filtering by status
  * @param status Optional status filter ('waiting', 'accepted', 'rejected')
  */

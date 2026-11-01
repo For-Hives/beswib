@@ -2,6 +2,7 @@ import { ConsentDialogLink } from '@c15t/nextjs'
 import Link from 'next/link'
 import { TrackClick } from '@/components/analytics/TrackClick'
 import { umamiAttrs } from '@/lib/analytics/attrs'
+import { isDataFictional } from '@/lib/archive'
 import type { LocaleParams } from '@/lib/generation/staticParams'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { FacebookIcon, InstagramIcon, LinkedinIcon, SOCIALS, StravaIcon } from '@/lib/utils/social'
@@ -31,6 +32,10 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 						>
 							ForHives
 						</Link>
+					</p>
+					<p className="text-muted-foreground/80 text-xs">
+						{t.archive.badge}
+						{isDataFictional() && ` · ${t.archive.fictional}`}
 					</p>
 					<div className="flex items-center gap-3">
 						<Link

@@ -2,14 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import { TrackView } from '@/components/analytics/TrackView'
-import { PayPalProvider } from '@/components/marketplace/purchase/PayPalProvider'
-import PayPalPurchaseClient from '@/components/marketplace/purchase/PayPalPurchaseClient'
+import BibDetailClient from '@/components/marketplace/BibDetailClient'
 import TokenValidation from '@/components/marketplace/TokenValidation'
 import type { Locale } from '@/lib/i18n/config'
 import type { Event as EventModel } from '@/models/event.model'
 import type { BibSale } from '@/models/marketplace.model'
 import type { Organizer } from '@/models/organizer.model'
-import type { User } from '@/models/user.model'
 
 interface MarketplaceItemClientProps {
 	bibId: string
@@ -17,9 +15,6 @@ interface MarketplaceItemClientProps {
 	initialToken?: string
 	isPrivate: boolean
 	bibSale?: BibSale
-	/** The seller, cut down to what the purchase needs: this component runs in the browser of any visitor */
-	sellerUser?: Pick<User, 'paypalMerchantId'> | null
-	user?: User | null
 	eventData?: EventModel
 	organizerData?: Organizer
 	translations: {
@@ -40,9 +35,7 @@ interface MarketplaceItemClientProps {
 }
 
 export default function MarketplaceItemClient({
-	user,
 	translations: t,
-	sellerUser,
 	organizerData,
 	locale,
 	isPrivate,
@@ -105,22 +98,11 @@ export default function MarketplaceItemClient({
 		)
 	}
 
-	// Show the normal purchase interface
+	// Beswib is archived: the page of a bib shows the race, and no way to pay
 	return (
 		<div className="from-background via-primary/5 to-background relative min-h-screen bg-linear-to-br">
 			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
-			<PayPalProvider>
-				<PayPalPurchaseClient
-					bib={bibSale}
-					locale={locale as Locale}
-					sellerUser={sellerUser ?? null}
-					user={user ?? null}
-					eventData={eventData}
-					organizerData={organizerData}
-					isPrivate={isPrivate}
-					privateToken={isPrivate ? initialToken : undefined}
-				/>
-			</PayPalProvider>
+			<BibDetailClient bib={bibSale} locale={locale as Locale} eventData={eventData} organizerData={organizerData} />
 		</div>
 	)
 }

@@ -5,8 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mockPocketbase, mockPocketbaseCollection } from '@/tests/mocks/pocketbase'
 
 // The middleware lets every /api path through without authentication: a route handler that does not
-// identify its caller answers anyone. These two did: the PayPal status of any seller named in the query
-// string, and the maintenance job to whoever posted to it.
+// identify its caller answers anyone. The maintenance job did: it ran for whoever posted to it.
 
 vi.mock('@clerk/nextjs/server', () => ({
 	auth: vi.fn(),
@@ -17,16 +16,10 @@ vi.mock('@/lib/services/pocketbase', () => ({
 vi.mock('@/lib/analytics/server', () => ({
 	trackServer: vi.fn(),
 }))
-vi.mock('@/services/paypal.services', () => ({
-	getMerchantIntegrationStatus: vi.fn(),
-}))
 
 import { auth } from '@clerk/nextjs/server'
 import { POST as updateExpiredBibs } from '@/app/api/maintenance/update-expired-bibs/route'
-import { GET as merchantStatus } from '@/app/api/paypal/merchant-status/route'
 import { GET as waitlistStatus } from '@/app/api/waitlist/status/route'
-import { trackServer } from '@/lib/analytics/server'
-import { getMerchantIntegrationStatus } from '@/services/paypal.services'
 
 const MAINTENANCE_TOKEN = 'maintenance-token-of-the-test-run'
 
@@ -71,62 +64,11 @@ beforeEach(() => {
 	})
 	mockPocketbaseCollection.getFullList.mockResolvedValue([{ id: 'bib_expired', eventId: 'event_1' }])
 	mockPocketbaseCollection.update.mockImplementation((id: string, data: object) => Promise.resolve({ id, ...data }))
-
-	vi.mocked(getMerchantIntegrationStatus).mockResolvedValue({
-		status: { primary_email_confirmed: true, payments_receivable: true, oauth_integrations: [{}] },
-	} as Awaited<ReturnType<typeof getMerchantIntegrationStatus>>)
 })
 
 afterEach(() => {
 	vi.restoreAllMocks()
 	vi.unstubAllEnvs()
-})
-
-describe('GET /api/paypal/merchant-status', () => {
-	it('answers 401 to a visitor who is not signed in, without asking PayPal anything', async () => {
-		signIn(null)
-
-		const response = await merchantStatus()
-
-		expect(response.status).toBe(401)
-		expect(await response.json()).toEqual({ error: 'Unauthorized' })
-		expect(getMerchantIntegrationStatus).not.toHaveBeenCalled()
-		expect(mockPocketbaseCollection.update).not.toHaveBeenCalled()
-	})
-
-	it('answers with the PayPal status of the signed-in user, never of a user named in the query string', async () => {
-		signIn('clerk_mallory')
-
-		// The request the browser made before: ?userId=<any seller>
-		const legacyRoute = merchantStatus as unknown as (request: NextRequest) => Promise<Response>
-		const response = await legacyRoute(
-			new NextRequest('http://localhost:3000/api/paypal/merchant-status?userId=alice_pb')
-		)
-
-		expect(response.status).toBe(200)
-		expect(getMerchantIntegrationStatus).toHaveBeenCalledExactlyOnceWith('MERCHANTMALLORY')
-		// The KYC flag that the check persists is the one of the caller
-		expect(mockPocketbaseCollection.update).toHaveBeenCalledExactlyOnceWith('mallory_pb', { paypal_kyc: true })
-		expect(trackServer).toHaveBeenCalledExactlyOnceWith('paypal_kyc_success')
-	})
-
-	it('answers 404 to a session that has no account in the database', async () => {
-		signIn('clerk_ghost')
-
-		const response = await merchantStatus()
-
-		expect(response.status).toBe(404)
-		expect(getMerchantIntegrationStatus).not.toHaveBeenCalled()
-	})
-
-	it('keeps answering 400 to a user who has not linked PayPal', async () => {
-		signIn('clerk_admin')
-
-		const response = await merchantStatus()
-
-		expect(response.status).toBe(400)
-		expect(await response.json()).toEqual({ error: 'Merchant not linked' })
-	})
 })
 
 describe('POST /api/maintenance/update-expired-bibs', () => {

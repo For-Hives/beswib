@@ -1,9 +1,9 @@
-import { auth } from '@clerk/nextjs/server'
 import type { Metadata } from 'next'
 import { TrackView } from '@/components/analytics/TrackView'
 import marketplaceTranslations from '@/components/marketplace/locales.json'
 import { listingOf } from '@/lib/analytics/classify'
 import { bibIdOf, eventIdOf } from '@/lib/analytics/ids'
+import { isDataFictional } from '@/lib/archive'
 import type { Locale } from '@/lib/i18n/config'
 import { getTranslations } from '@/lib/i18n/dictionary'
 import { generateAlternateLanguages, generateCanonicalUrl } from '@/lib/seo/utils/seo-generators'
@@ -16,7 +16,6 @@ import type { Organizer } from '@/models/organizer.model'
 import type { User } from '@/models/user.model'
 import { checkBibListingStatus, fetchPrivateBibByToken, fetchPublicBibById } from '@/services/bib.services'
 import { fetchOrganizerById } from '@/services/organizer.services'
-import { fetchUserByClerkId } from '@/services/user.services'
 
 import MarketplaceItemClient from './MarketplaceItemClient'
 
@@ -39,17 +38,17 @@ export async function generateMetadata({
 				const price = bib.price
 
 				const title = location
-					? `${eventName} Bib in ${location} | €${price} | Race Bib Transfer | Beswib`
-					: `${eventName} Race Bib | €${price} | Buy Secure Transfer | Beswib`
+					? `${eventName} Bib in ${location} | €${price} | Beswib`
+					: `${eventName} Race Bib | €${price} | Beswib`
 
-				const description = `Purchase ${eventName}${location ? ` in ${location}` : ''} race bib for €${price}. Secure PayPal payment, organizer approved transfer, instant confirmation. Legal race bib marketplace with verified sellers.`
+				const description = `${eventName}${location ? ` in ${location}` : ''} race bib, listed at €${price}. Beswib is an archived project: ${isDataFictional() ? 'the listings are fictional and ' : ''}nothing can be bought.`
 
 				return {
 					title: title.length > 60 ? `${eventName} Race Bib | €${price} | Beswib` : title,
 					openGraph: {
 						type: 'website',
 						title: `${eventName} Race Bib - €${price}`,
-						description: `Secure race bib transfer for ${eventName}${location ? ` in ${location}` : ''}`,
+						description: `${isDataFictional() ? 'Fictional race' : 'Race'} bib for ${eventName}${location ? ` in ${location}` : ''}`,
 					},
 					description: description.length > 160 ? `${description.substring(0, 157)}...` : description,
 					alternates: {
@@ -65,14 +64,13 @@ export async function generateMetadata({
 
 	// Fallback metadata if we can't fetch bib data
 	return {
-		title: 'Race Bib Purchase | Secure Transfer | Beswib Marketplace',
+		title: 'Race Bib | Beswib Marketplace',
 		openGraph: {
 			type: 'website',
-			title: 'Race Bib Purchase | Beswib',
-			description: 'Secure race bib marketplace with verified sellers',
+			title: 'Race Bib | Beswib',
+			description: `Archived race bib marketplace: ${isDataFictional() ? 'fictional listings, ' : ''}nothing can be bought`,
 		},
-		description:
-			'Purchase verified race bibs from trusted sellers. Secure PayPal payments, organizer approved transfers, instant confirmation. Legal marketplace for running, trail, triathlon events.',
+		description: `Beswib is an archived race bib marketplace: ${isDataFictional() ? 'the listings are fictional and ' : ''}nothing can be bought.`,
 		alternates: {
 			languages: generateAlternateLanguages(`/marketplace/${id}`),
 			canonical: generateCanonicalUrl(locale, `/marketplace/${id}`),
@@ -94,12 +92,6 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 	const { locale, id } = await params
 	const t = getTranslations(locale, marketplaceTranslations)
 	const { tkn } = await searchParams
-	const { userId } = await auth()
-
-	let user: null | User = null
-	if (userId != null && userId !== undefined) {
-		user = await fetchUserByClerkId(userId)
-	}
 
 	// First, check if the bib exists and if it's private or public
 	const bibStatus = await checkBibListingStatus(id)
@@ -143,7 +135,8 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 		)
 	}
 
-	let bib: (Bib & { expand?: { eventId: EventModel; sellerUserId: User } }) | null = null
+	let bib: (Bib & { expand?: { eventId: EventModel; sellerUserId: Pick<User, 'firstName' | 'lastName'> } }) | null =
+		null
 	let isPrivate = false
 
 	// Handle private bibs
@@ -244,12 +237,6 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 		} satisfies BibSale
 	}
 
-	// Props of a Client Component are sent to the browser of every visitor. Of the seller, the purchase
-	// needs the PayPal merchant id only: their record also holds their e-mail, phone, address and birth date
-	const sellerUser = bib?.expand?.sellerUserId
-		? { paypalMerchantId: bib.expand.sellerUserId.paypalMerchantId ?? null }
-		: null
-
 	return (
 		<MarketplaceItemClient
 			bibId={id}
@@ -257,8 +244,6 @@ export default async function MarketplaceItemPage({ searchParams, params }: Mark
 			initialToken={tkn}
 			isPrivate={isPrivate}
 			bibSale={bibSale}
-			sellerUser={sellerUser}
-			user={user}
 			eventData={bib?.expand?.eventId}
 			organizerData={organizer ?? undefined}
 			translations={t}

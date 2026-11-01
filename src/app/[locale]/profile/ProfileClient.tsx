@@ -4,9 +4,9 @@ import { useClerk } from '@clerk/nextjs'
 import { AlertTriangle, LogOut, Trash2 } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import profileTranslations from '@/app/[locale]/profile/locales.json'
+import { ArchivedClosedCard } from '@/components/archive/ArchivedClosedCard'
 import UserHeader from '@/components/dashboard/user-header'
 import ModernRunnerForm from '@/components/profile/modernRunnerForm'
-import PayPalOnboarding from '@/components/profile/PayPalOnboarding'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -117,12 +117,6 @@ function ProfileCompletionChecklist({ user, locale }: ProfileCompletionChecklist
 					user.licenseNumber !== null &&
 					user.licenseNumber.length > 0
 			),
-		},
-		{
-			label: t.profile?.completion?.paypalSetup?.title ?? 'PayPal Setup',
-			id: 'paypal-setup',
-			description: t.profile?.completion?.paypalSetup?.description ?? 'To receive payments',
-			completed: user.paypal_kyc === true,
 		},
 	]
 
@@ -297,19 +291,7 @@ ${clerkUser.firstName ?? ''} ${clerkUser.lastName ?? ''}`)
 							<ModernRunnerForm user={user} locale={locale} onUserUpdate={handleUserUpdate} />
 						</div>
 						<div>
-							<Card className="dark:border-border/50 bg-card/80 border-black/50 backdrop-blur-sm">
-								<CardHeader>
-									<CardTitle>{t.profile.sellerInfo.title}</CardTitle>
-									<CardDescription>{t.profile.sellerInfo.description}</CardDescription>
-								</CardHeader>
-								<CardContent className="space-y-4">
-									{user != null ? (
-										<PayPalOnboarding locale={locale} userId={user.id} />
-									) : (
-										<p className="text-muted-foreground text-sm">{t.profile.sellerInfo.completeProfileFirst}</p>
-									)}
-								</CardContent>
-							</Card>
+							<ArchivedClosedCard locale={locale} flow="payments" />
 
 							{/* Danger Zone */}
 							<Card className="border-destructive/40 bg-destructive/5 mt-8">
