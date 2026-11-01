@@ -127,6 +127,9 @@ export default function HeaderClient({ locale }: Readonly<HeaderClientProps>) {
 											</Link>
 										</TrackClick>
 									</div>
+									<span className="border-border/60 bg-muted/60 text-muted-foreground ml-3 rounded-full border px-2.5 py-0.5 text-xs font-medium whitespace-nowrap">
+										{t.archive.badge}
+									</span>
 									<div className="hidden lg:ml-6 lg:block">
 										<div className="flex space-x-4">
 											{navigationLinks.map(link => (

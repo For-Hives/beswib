@@ -32,6 +32,9 @@ export default async function Footer({ localeParams }: Readonly<{ localeParams: 
 							ForHives
 						</Link>
 					</p>
+					<p className="text-muted-foreground/80 text-xs">
+						{t.archive.badge} · {t.archive.fictional}
+					</p>
 					<div className="flex items-center gap-3">
 						<Link
 							href={SOCIALS.linkedin}

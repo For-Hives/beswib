@@ -69,7 +69,7 @@ export function GoBackToTop({ threshold = 100, locale, className }: GoBackToTopP
 						component={<CustomIcon />}
 						style={{
 							zIndex: 50,
-							right: '1rem',
+							left: '1rem',
 							position: 'fixed',
 							padding: 0,
 							bottom: '1rem',
@@ -79,7 +79,7 @@ export function GoBackToTop({ threshold = 100, locale, className }: GoBackToTopP
 					/>
 				</div>
 			</TooltipTrigger>
-			<TooltipContent side="left" sideOffset={12} className="hidden sm:block">
+			<TooltipContent side="right" sideOffset={12} className="hidden sm:block">
 				<p className="text-sm font-medium">{t.goBackToTop}</p>
 			</TooltipContent>
 		</Tooltip>

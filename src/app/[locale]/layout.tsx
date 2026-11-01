@@ -9,6 +9,7 @@ import { Toaster } from 'sonner'
 import SentryClientInit from '@/app/[locale]/SentryClientInit'
 import { ConsentedGoogleAnalytics } from '@/components/analytics/ConsentedGoogleAnalytics'
 import { UmamiScript } from '@/components/analytics/UmamiScript'
+import { ArchivedProjectNotice } from '@/components/archive/ArchivedProjectNotice'
 import Footer from '@/components/global/footer'
 import { GoBackToTop } from '@/components/global/go-back-to-top'
 import Header from '@/components/global/Header'
@@ -139,6 +140,7 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 									<SentryClientInit />
 									<Footer localeParams={typedLocaleParams} />
 									<GoBackToTop locale={locale} />
+									<ArchivedProjectNotice locale={locale} />
 									<Toaster />
 								</NuqsAdapter>
 							</QueryProvider>

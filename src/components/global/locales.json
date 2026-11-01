@@ -110,6 +110,29 @@
 			"title": "🎉 Launch Period: All Beswib fees are FREE!",
 			"action": "Get Started",
 			"learnMore": "Learn more about our pricing"
+		},
+		"archive": {
+			"badge": "Archived project",
+			"noticeTitle": "Beswib is looking for its next runner 🏁",
+			"noticeBody": "This project is up for grabs. Interested in the code or anything else? Make an offer.",
+			"noticeCta": "Make an offer",
+			"dismiss": "Close",
+			"fictional": "The data shown is fictional.",
+			"browse": "Browse the marketplace",
+			"closed": {
+				"purchase": {
+					"title": "Sales are closed",
+					"body": "Beswib is archived: this bib cannot be bought and no payment is possible. The listing is fictional."
+				},
+				"sell": {
+					"title": "Listing is closed",
+					"body": "Beswib is archived: no new bib can be listed. You can still look around."
+				},
+				"payments": {
+					"title": "Payments are disconnected",
+					"body": "Beswib is archived: PayPal and every payment have been disconnected, so there is nothing to set up here."
+				}
+			}
 		}
 	},
 	"fr": {
@@ -223,6 +246,29 @@
 			"title": "🎉 Période de lancement : Tous les frais Beswib sont GRATUITS !",
 			"action": "Commencer",
 			"learnMore": "En savoir plus sur nos tarifs"
+		},
+		"archive": {
+			"badge": "Projet archivé",
+			"noticeTitle": "Beswib cherche sa relève 🏁",
+			"noticeBody": "Le projet est à reprendre. Le code ou le reste vous intéresse ? Faites une offre.",
+			"noticeCta": "Faire une offre",
+			"dismiss": "Fermer",
+			"fictional": "Les données affichées sont fictives.",
+			"browse": "Parcourir le marketplace",
+			"closed": {
+				"purchase": {
+					"title": "Les ventes sont fermées",
+					"body": "Beswib est archivé : ce dossard ne peut pas être acheté et aucun paiement n'est possible. L'annonce est fictive."
+				},
+				"sell": {
+					"title": "La mise en vente est fermée",
+					"body": "Beswib est archivé : plus aucun dossard ne peut être mis en vente. Vous pouvez toujours visiter le site."
+				},
+				"payments": {
+					"title": "Les paiements sont déconnectés",
+					"body": "Beswib est archivé : PayPal et tout paiement sont déconnectés, il n'y a donc plus rien à configurer ici."
+				}
+			}
 		}
 	},
 	"es": {
@@ -336,6 +382,29 @@
 			"title": "🎉 Período de lanzamiento: ¡Todas las tarifas de Beswib son GRATUITAS!",
 			"action": "Comenzar",
 			"learnMore": "Más información sobre nuestros precios"
+		},
+		"archive": {
+			"badge": "Proyecto archivado",
+			"noticeTitle": "Beswib busca quien tome el relevo 🏁",
+			"noticeBody": "Este proyecto está disponible para quien quiera retomarlo. ¿Te interesa el código o el resto? Haz una oferta.",
+			"noticeCta": "Hacer una oferta",
+			"dismiss": "Cerrar",
+			"fictional": "Los datos mostrados son ficticios.",
+			"browse": "Explorar el marketplace",
+			"closed": {
+				"purchase": {
+					"title": "Las ventas están cerradas",
+					"body": "Beswib está archivado: este dorsal no se puede comprar y no es posible ningún pago. El anuncio es ficticio."
+				},
+				"sell": {
+					"title": "La publicación está cerrada",
+					"body": "Beswib está archivado: ya no se pueden publicar dorsales. Puedes seguir visitando el sitio."
+				},
+				"payments": {
+					"title": "Los pagos están desconectados",
+					"body": "Beswib está archivado: PayPal y todos los pagos están desconectados, así que aquí ya no hay nada que configurar."
+				}
+			}
 		}
 	},
 	"it": {
@@ -449,6 +518,29 @@
 			"title": "🎉 Periodo di lancio: Tutte le tariffe Beswib sono GRATUITE!",
 			"action": "Inizia",
 			"learnMore": "Scopri di più sui nostri prezzi"
+		},
+		"archive": {
+			"badge": "Progetto archiviato",
+			"noticeTitle": "Beswib cerca chi raccolga il testimone 🏁",
+			"noticeBody": "Questo progetto è da rilevare. Ti interessa il codice o il resto? Fai un'offerta.",
+			"noticeCta": "Fai un'offerta",
+			"dismiss": "Chiudi",
+			"fictional": "I dati mostrati sono fittizi.",
+			"browse": "Sfoglia il marketplace",
+			"closed": {
+				"purchase": {
+					"title": "Le vendite sono chiuse",
+					"body": "Beswib è archiviato: questo pettorale non può essere acquistato e nessun pagamento è possibile. L'annuncio è fittizio."
+				},
+				"sell": {
+					"title": "La pubblicazione è chiusa",
+					"body": "Beswib è archiviato: non è più possibile mettere in vendita pettorali. Puoi comunque visitare il sito."
+				},
+				"payments": {
+					"title": "I pagamenti sono scollegati",
+					"body": "Beswib è archiviato: PayPal e tutti i pagamenti sono scollegati, quindi qui non c'è più nulla da configurare."
+				}
+			}
 		}
 	},
 	"de": {
@@ -562,6 +654,29 @@
 			"title": "🎉 Startphase: Alle Beswib-Gebühren sind KOSTENLOS!",
 			"action": "Loslegen",
 			"learnMore": "Mehr über unsere Preise erfahren"
+		},
+		"archive": {
+			"badge": "Archiviertes Projekt",
+			"noticeTitle": "Beswib sucht jemanden, der übernimmt 🏁",
+			"noticeBody": "Dieses Projekt kann übernommen werden. Interesse am Code oder am Rest? Mach ein Angebot.",
+			"noticeCta": "Angebot machen",
+			"dismiss": "Schließen",
+			"fictional": "Die angezeigten Daten sind fiktiv.",
+			"browse": "Marktplatz ansehen",
+			"closed": {
+				"purchase": {
+					"title": "Der Verkauf ist geschlossen",
+					"body": "Beswib ist archiviert: Diese Startnummer kann nicht gekauft werden und Zahlungen sind nicht möglich. Das Angebot ist fiktiv."
+				},
+				"sell": {
+					"title": "Das Einstellen ist geschlossen",
+					"body": "Beswib ist archiviert: Es können keine Startnummern mehr eingestellt werden. Du kannst dich aber weiter umsehen."
+				},
+				"payments": {
+					"title": "Zahlungen sind getrennt",
+					"body": "Beswib ist archiviert: PayPal und alle Zahlungen sind getrennt, hier gibt es also nichts mehr einzurichten."
+				}
+			}
 		}
 	},
 	"ro": {
@@ -675,6 +790,29 @@
 			"title": "🎉 Perioada de lansare: Toate taxele Beswib sunt GRATUITE!",
 			"action": "Începe",
 			"learnMore": "Află mai multe despre prețurile noastre"
+		},
+		"archive": {
+			"badge": "Proiect arhivat",
+			"noticeTitle": "Beswib caută pe cineva care să preia ștafeta 🏁",
+			"noticeBody": "Acest proiect poate fi preluat. Te interesează codul sau restul? Fă o ofertă.",
+			"noticeCta": "Fă o ofertă",
+			"dismiss": "Închide",
+			"fictional": "Datele afișate sunt fictive.",
+			"browse": "Răsfoiește marketplace-ul",
+			"closed": {
+				"purchase": {
+					"title": "Vânzările sunt închise",
+					"body": "Beswib este arhivat: acest număr de concurs nu poate fi cumpărat și nicio plată nu este posibilă. Anunțul este fictiv."
+				},
+				"sell": {
+					"title": "Publicarea este închisă",
+					"body": "Beswib este arhivat: nu mai pot fi puse în vânzare numere de concurs. Poți vizita în continuare site-ul."
+				},
+				"payments": {
+					"title": "Plățile sunt deconectate",
+					"body": "Beswib este arhivat: PayPal și toate plățile sunt deconectate, așa că nu mai este nimic de configurat aici."
+				}
+			}
 		}
 	},
 	"pt": {
@@ -788,6 +926,29 @@
 			"title": "🎉 Período de lançamento: Todas as taxas do Beswib são GRATUITAS!",
 			"action": "Começar",
 			"learnMore": "Saiba mais sobre nossos preços"
+		},
+		"archive": {
+			"badge": "Projeto arquivado",
+			"noticeTitle": "A Beswib procura quem pegue no testemunho 🏁",
+			"noticeBody": "Este projeto está disponível para ser retomado. Interessa-te o código ou o resto? Faz uma oferta.",
+			"noticeCta": "Fazer uma oferta",
+			"dismiss": "Fechar",
+			"fictional": "Os dados apresentados são fictícios.",
+			"browse": "Explorar o marketplace",
+			"closed": {
+				"purchase": {
+					"title": "As vendas estão encerradas",
+					"body": "A Beswib está arquivada: este dorsal não pode ser comprado e nenhum pagamento é possível. O anúncio é fictício."
+				},
+				"sell": {
+					"title": "A publicação está encerrada",
+					"body": "A Beswib está arquivada: já não é possível colocar dorsais à venda. Podes continuar a visitar o site."
+				},
+				"payments": {
+					"title": "Os pagamentos estão desligados",
+					"body": "A Beswib está arquivada: o PayPal e todos os pagamentos estão desligados, por isso já não há nada a configurar aqui."
+				}
+			}
 		}
 	},
 	"nl": {
@@ -901,6 +1062,29 @@
 			"title": "🎉 Lanceringstijd: Alle Beswib-kosten zijn GRATIS!",
 			"action": "Aan de slag",
 			"learnMore": "Meer weten over onze prijzen"
+		},
+		"archive": {
+			"badge": "Gearchiveerd project",
+			"noticeTitle": "Beswib zoekt iemand die het stokje overneemt 🏁",
+			"noticeBody": "Dit project kan worden overgenomen. Interesse in de code of de rest? Doe een bod.",
+			"noticeCta": "Doe een bod",
+			"dismiss": "Sluiten",
+			"fictional": "De getoonde gegevens zijn fictief.",
+			"browse": "Bekijk de marktplaats",
+			"closed": {
+				"purchase": {
+					"title": "De verkoop is gesloten",
+					"body": "Beswib is gearchiveerd: dit startnummer kan niet worden gekocht en betalen is niet mogelijk. De advertentie is fictief."
+				},
+				"sell": {
+					"title": "Aanbieden is gesloten",
+					"body": "Beswib is gearchiveerd: er kunnen geen startnummers meer worden aangeboden. Je kunt wel nog rondkijken."
+				},
+				"payments": {
+					"title": "Betalingen zijn losgekoppeld",
+					"body": "Beswib is gearchiveerd: PayPal en alle betalingen zijn losgekoppeld, dus hier valt niets meer in te stellen."
+				}
+			}
 		}
 	},
 	"ko": {
@@ -1014,6 +1198,29 @@
 			"title": "🎉 런칭 기간: 모든 Beswib 수수료가 무료입니다!",
 			"action": "시작하기",
 			"learnMore": "가격에 대해 자세히 알아보기"
+		},
+		"archive": {
+			"badge": "보관된 프로젝트",
+			"noticeTitle": "Beswib의 바통을 이어받을 분을 찾습니다 🏁",
+			"noticeBody": "이 프로젝트는 인수할 수 있습니다. 코드나 그 밖의 자산에 관심이 있으신가요? 제안해 주세요.",
+			"noticeCta": "제안하기",
+			"dismiss": "닫기",
+			"fictional": "표시된 데이터는 가상입니다.",
+			"browse": "마켓플레이스 둘러보기",
+			"closed": {
+				"purchase": {
+					"title": "판매가 종료되었습니다",
+					"body": "Beswib는 보관되었습니다. 이 배번은 구매할 수 없으며 결제도 불가능합니다. 이 게시물은 가상입니다."
+				},
+				"sell": {
+					"title": "등록이 종료되었습니다",
+					"body": "Beswib는 보관되었습니다. 더 이상 배번을 등록할 수 없습니다. 사이트는 계속 둘러보실 수 있습니다."
+				},
+				"payments": {
+					"title": "결제가 해제되었습니다",
+					"body": "Beswib는 보관되었습니다. PayPal과 모든 결제가 해제되어 여기서 설정할 항목이 없습니다."
+				}
+			}
 		}
 	}
 }
