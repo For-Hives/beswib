@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { buildFictionalData } from '../../../scripts/archive/fictional-data.mjs'
 import { lockVerifiedEmails } from '../../../scripts/archive/lock-verified-emails.mjs'
-import { fitToSchema, seedFictionalData } from '../../../scripts/archive/seed-fictional-data.mjs'
+import { checkRelations, fitToSchema, seedFictionalData } from '../../../scripts/archive/seed-fictional-data.mjs'
 
 const NOW = new Date('2026-11-01T12:00:00Z')
 const ENV = { PB_SUPERUSER_TOKEN: 'test-token' }
@@ -86,6 +86,41 @@ describe('fitting the data to the schema of the base', () => {
 			])
 		)
 		expect(fitted.problems).toHaveLength(2)
+	})
+})
+
+describe('the relations of the base', () => {
+	const ORDER = ['bibs', 'users', 'events']
+	const relation = (target: string, extra: object = {}) => ({
+		type: 'relation',
+		name: 'link',
+		collectionId: target,
+		...extra,
+	})
+	const base = (id: string, fields: object[] = []) => ({ id, name: id, fields })
+
+	it('accepts dependents deleted before what they point to', () => {
+		const result = checkRelations([base('bibs', [relation('users', { required: true })]), base('users')], ORDER)
+		expect(result).toEqual({ problems: [], notes: [] })
+	})
+
+	it('refuses a required relation whose target is deleted first', () => {
+		const result = checkRelations([base('users'), base('events', [relation('users', { required: true })])], ORDER)
+		expect(result.problems).toHaveLength(1)
+	})
+
+	it.each([
+		['a cascade', { cascadeDelete: true }],
+		['a required relation', { required: true }],
+	])('refuses %s from a collection that stays', (_name, extra) => {
+		const result = checkRelations([base('users'), base('articles', [relation('users', extra)])], ORDER)
+		expect(result.problems).toHaveLength(1)
+	})
+
+	it('only notes an optional link from a collection that stays', () => {
+		const result = checkRelations([base('users'), base('articles', [relation('users')])], ORDER)
+		expect(result.problems).toEqual([])
+		expect(result.notes).toHaveLength(1)
 	})
 })
 

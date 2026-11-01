@@ -40,7 +40,8 @@ Order:
 1. Deploy the code of this branch, so that nothing can start a payment or a listing during the run.
 2. Back up: dashboard `/_/` > Settings > Backups > New backup, then **download the .zip and keep it off
    the server**. A backup left in `pb_data/backups` still holds the real data on the same disk.
-3. Dry run, which checks the fictional data against the schema of this base and prints the counts:
+3. Dry run, which checks the fictional data and the relations against the schema of this base and
+   prints the counts:
    `node scripts/archive/seed-fictional-data.mjs --url https://<base>`
 4. Run:
    `node scripts/archive/seed-fictional-data.mjs --url https://<base> --apply --confirm-host <host> --backup <name>`

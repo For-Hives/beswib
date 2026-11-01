@@ -41,7 +41,7 @@ export function ArchivedProjectNotice({ locale }: Readonly<{ locale: Locale }>) 
 	return (
 		<aside
 			aria-label={t.badge}
-			className="border-border/60 bg-background/95 dark:border-border/40 fixed right-4 bottom-4 left-4 z-40 rounded-2xl border p-4 shadow-lg backdrop-blur-md sm:left-auto sm:w-80"
+			className="border-border/60 bg-background/95 dark:border-border/40 fixed right-4 bottom-20 left-4 z-40 rounded-2xl border p-4 shadow-lg backdrop-blur-md sm:bottom-4 sm:left-auto sm:w-80"
 		>
 			<button
 				type="button"

@@ -67,6 +67,36 @@ export function fitToSchema(records, collection) {
 	return { records: fitted, dropped: [...dropped], problems, isAuth }
 }
 
+/**
+ * Deleting a record reaches into the collections that point to it: PocketBase deletes the referencing
+ * records of a cascade relation, and refuses when a required relation would be left empty. Both must
+ * be known before the first delete. Returns { problems, notes }.
+ */
+export function checkRelations(allCollections, deleteOrder) {
+	const byId = new Map(allCollections.map(collection => [collection.id, collection.name]))
+	const position = name => deleteOrder.indexOf(name)
+	const problems = []
+	const notes = []
+
+	for (const collection of allCollections) {
+		for (const field of fieldsOf(collection)) {
+			if (field.type !== 'relation') continue
+			const target = byId.get(field.collectionId)
+			if (target == null || target === collection.name || position(target) === -1) continue
+			const label = `${collection.name}.${field.name} points to ${target}`
+
+			if (position(collection.name) === -1) {
+				if (field.cascadeDelete === true) problems.push(`${label}: its records would be deleted with it`)
+				else if (field.required === true) problems.push(`${label}: required, the delete would be refused`)
+				else notes.push(`${label}: the link is emptied`)
+			} else if (position(collection.name) > position(target) && field.required === true && !field.cascadeDelete) {
+				problems.push(`${label}: required, and ${target} is deleted first`)
+			}
+		}
+	}
+	return { problems, notes }
+}
+
 /** Proof of a backup, or an error. A flag alone is not enough. */
 export async function checkBackup(argv, client, now) {
 	const name = flagValue(argv, '--backup')
@@ -142,9 +172,12 @@ export async function seedFictionalData(argv, env, fetchImpl = fetch, log = cons
 	const absentRequired = CREATE_ORDER.filter(name => missing.includes(name))
 	if (absentRequired.length > 0) throw new Error(`Collections not found: ${absentRequired.join(', ')}`)
 
+	const relations = checkRelations((await client.get('/api/collections?perPage=200')).items ?? [], DELETE_ORDER)
+	for (const note of relations.notes) log(`Note: ${note}.`)
+
 	const built = buildFictionalData(now)
 	const fitted = {}
-	const problems = []
+	const problems = [...relations.problems]
 	for (const name of CREATE_ORDER) {
 		fitted[name] = fitToSchema(built[name], collections[name])
 		problems.push(...fitted[name].problems)
