@@ -24,7 +24,7 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
-		"@ai-sdk/google": "4.0.107",
+		"@ai-sdk/google": "4.0.108",
 		"@c15t/nextjs": "3.0.0",
 		"@clerk/localizations": "4.24.3",
 		"@clerk/nextjs": "7.9.22",
