@@ -72,7 +72,7 @@
 		"@tiptap/starter-kit": "3.32.1",
 		"@types/canvas-confetti": "1.9.0",
 		"@types/luxon": "3.7.6",
-		"ai": "7.0.156",
+		"ai": "7.0.157",
 		"canvas-confetti": "1.9.4",
 		"class-variance-authority": "0.7.1",
 		"clsx": "2.1.1",
