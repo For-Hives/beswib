@@ -15,8 +15,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0(next@16.4.4(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)
       '@clerk/localizations':
-        specifier: 4.24.4
-        version: 4.24.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: 4.24.5
+        version: 4.24.5(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@clerk/nextjs':
         specifier: 7.9.23
         version: 7.9.23(next@16.4.4(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -534,8 +534,8 @@ packages:
     resolution: {integrity: sha512-znLhEv811EFbYvPjFQSGVFCaCQq6j6nz0H7UqvKXONVAoz0T9T9CVjz1j7Ii9EbjFyQikZ1uxV84WfDiDNiTeQ==}
     engines: {node: '>=20.9.0'}
 
-  '@clerk/localizations@4.24.4':
-    resolution: {integrity: sha512-vJZ0oVJIOuCRsb4BhLB6L7lX+odzVy4evBYZ0RXZnfDUBkD8nPQrjSZ2Ocfy/6f/DIKa8N763hso5bpsjC1TiQ==}
+  '@clerk/localizations@4.24.5':
+    resolution: {integrity: sha512-fWf7eRJYNihtFShzIX6U3FHEpyWMP1vwp0oXZ1541dItLOUDkQf1S72ejoExs+oHTZ2RSQBRq7RcxzoKQ/2ShA==}
     engines: {node: '>=20.9.0'}
 
   '@clerk/nextjs@7.9.23':
@@ -555,6 +555,18 @@ packages:
 
   '@clerk/shared@4.43.1':
     resolution: {integrity: sha512-0oyDzyEMZzU3tmvEVb4dts9ix5XqXBiNlCn9SWA8y/RNi8TtSHT5bPh/zn6HaA6fkdhJONjD6XVZIq7hkIdkyQ==}
+    engines: {node: '>=20.9.0'}
+    peerDependencies:
+      react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
+      react-dom: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
+  '@clerk/shared@4.44.1':
+    resolution: {integrity: sha512-c06U6GtlLJNOKj900rHDSqjVRz0/0zb3RZXVGKUqTulfQxr4Ym543JE6cbOnZVJZCbm0fGPhdRKvHq6fO/SvVw==}
     engines: {node: '>=20.9.0'}
     peerDependencies:
       react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
@@ -5206,9 +5218,9 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/localizations@4.24.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@clerk/localizations@4.24.5(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
-      '@clerk/shared': 4.43.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@clerk/shared': 4.44.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
     transitivePeerDependencies:
       - react
       - react-dom
@@ -5239,9 +5251,19 @@ snapshots:
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
 
+  '@clerk/shared@4.44.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      '@tanstack/query-core': 5.105.3
+      dequal: 2.0.3
+      glob-to-regexp: 0.4.1
+      js-cookie: 3.0.8
+    optionalDependencies:
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
+
   '@clerk/ui@1.42.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)':
     dependencies:
-      '@clerk/localizations': 4.24.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@clerk/localizations': 4.24.5(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@clerk/shared': 4.43.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@emotion/cache': 11.11.0
       '@emotion/react': 11.11.1(@types/react@19.3.0)(react@19.3.1)(supports-color@8.1.1)
