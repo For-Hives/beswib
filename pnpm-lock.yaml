@@ -198,8 +198,8 @@ importers:
         specifier: 2.10.2
         version: 2.10.2(next@16.4.5(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
       pocketbase:
-        specifier: 0.28.1
-        version: 0.28.1
+        specifier: 0.29.0
+        version: 0.29.0
       punycode:
         specifier: 2.3.1
         version: 2.3.1
@@ -4049,8 +4049,8 @@ packages:
     resolution: {integrity: sha512-0Z++uU8mvB0EvCPAEUq9BGiPcSravzJ+RPdXfjYlzXffqsogisiKRQqI6ctrSSJ6n985vxrgKtQ5n4sRINcJZg==}
     engines: {node: '>=18.0.0'}
 
-  pocketbase@0.28.1:
-    resolution: {integrity: sha512-/3ihkq+rvfcs0MQgrK4sEElOg6gfenHW9S/O+3BSO+V1yT+4B10+9aT22uTQUPqze9ItwNtwWyY5ZmdgVCTdVA==}
+  pocketbase@0.29.0:
+    resolution: {integrity: sha512-GIEcwI9zTeK++TMV97nIjMbcLvzTzvbQQF32af5WikWQpELHQosI5Rb6+y1ikVL2ezl0X+Itd9ds1USpYvGYug==}
 
   postal-mime@2.7.6:
     resolution: {integrity: sha512-UUlyE2KlxmvwMGq060onF/VWU3zD6dVW31FwokQ5v26jWd35fbs2MoTFzh+jXnPwAyV2MULMKXcBInGOl5TO6Q==}
@@ -8332,7 +8332,7 @@ snapshots:
 
   picospinner@3.1.2: {}
 
-  pocketbase@0.28.1: {}
+  pocketbase@0.29.0: {}
 
   postal-mime@2.7.6: {}
 
