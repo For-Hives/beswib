@@ -94,9 +94,6 @@ export function TeamVariant(props: Readonly<VariantProps>) {
 						{t.team.dismiss}
 					</DialogPrimitive.Close>
 				</div>
-				<p className={`${styles.notice} ${styles.reveal}`} style={stagger(6)}>
-					{t.notice}
-				</p>
 			</div>
 		</div>
 	)
