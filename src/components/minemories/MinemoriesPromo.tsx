@@ -13,7 +13,7 @@ import {
 	isHiddenPath,
 	isPreviewRequested,
 	isSnoozed,
-	OPEN_DELAY_MS,
+	openDelay,
 	readSnoozedUntil,
 	STORAGE_KEY,
 	snoozeValue,
@@ -44,7 +44,7 @@ function writeStored(value: string): void {
 
 /**
  * The dialog that tells Beswib's visitors the same team now makes Minemories. It waits for the consent
- * banner to be gone, then six seconds of browsing, never opens on account, admin or sign-in pages, opens
+ * banner to be gone, then six seconds on the site (pages together), never opens on account, admin or sign-in pages, opens
  * once per page load at most, and stays shut for 90 days after a close (a year after a click through).
  * NEXT_PUBLIC_MINEMORIES_PROMO=off turns it off.
  *
@@ -58,6 +58,8 @@ export function MinemoriesPromo({ locale }: Readonly<{ locale: Locale }>) {
 	const [open, setOpen] = useState(false)
 	const forced = useRef(false)
 	const shown = useRef(false)
+	// The layout mounts once per visit and stays mounted across client-side navigations
+	const arrivedAt = useRef(typeof performance === 'undefined' ? 0 : performance.now())
 
 	// Review link: opens at once, whatever the banner, the page or an earlier close
 	useEffect(() => {
@@ -68,17 +70,21 @@ export function MinemoriesPromo({ locale }: Readonly<{ locale: Locale }>) {
 		trackView('minemories_promo_view', { forced: true })
 	}, [])
 
-	// Regular visit: after the delay, when nothing else is on screen
+	// Regular visit: six seconds after arriving on the site (not on this page: browsing from page to
+	// page must not restart the count), when nothing else is on screen
 	useEffect(() => {
 		if (!ENABLED || shown.current || activeUI !== 'none' || isHiddenPath(pathname)) return
 		if (isSnoozed(readSnoozedUntil(readStored()), Date.now())) return
 
-		const timer = window.setTimeout(() => {
-			if (shown.current) return
-			shown.current = true
-			setOpen(true)
-			trackView('minemories_promo_view', { forced: false })
-		}, OPEN_DELAY_MS)
+		const timer = window.setTimeout(
+			() => {
+				if (shown.current) return
+				shown.current = true
+				setOpen(true)
+				trackView('minemories_promo_view', { forced: false })
+			},
+			openDelay(performance.now() - arrivedAt.current)
+		)
 		return () => window.clearTimeout(timer)
 	}, [activeUI, pathname])
 

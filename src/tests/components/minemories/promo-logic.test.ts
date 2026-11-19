@@ -3,11 +3,14 @@ import { describe, expect, it } from 'vitest'
 
 import translations from '@/components/minemories/locales.json'
 import {
+	AFTER_BANNER_MS,
 	isEnabled,
 	isHiddenPath,
 	isPreviewRequested,
 	isSnoozed,
 	minemoriesUrl,
+	OPEN_DELAY_MS,
+	openDelay,
 	readSnoozedUntil,
 	SNOOZE_DAYS,
 	snoozeValue,
@@ -43,6 +46,17 @@ describe('whether the promotion may open', () => {
 			expect(isHiddenPath(path)).toBe(true)
 		}
 	)
+
+	it('counts the six seconds from the arrival on the site, not from the current page', () => {
+		expect(openDelay(0)).toBe(OPEN_DELAY_MS)
+		expect(openDelay(2000)).toBe(OPEN_DELAY_MS - 2000)
+		expect(openDelay(-50)).toBe(OPEN_DELAY_MS)
+	})
+
+	it('leaves a breathing room after the consent banner, however long it stayed', () => {
+		expect(openDelay(OPEN_DELAY_MS - 500)).toBe(AFTER_BANNER_MS)
+		expect(openDelay(60_000)).toBe(AFTER_BANNER_MS)
+	})
 
 	it('waits for the pathname', () => {
 		expect(isHiddenPath(null)).toBe(true)
