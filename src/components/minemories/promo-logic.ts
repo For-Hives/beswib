@@ -10,8 +10,19 @@ export const STORAGE_KEY = 'beswib.minemories-promo'
 /** Never insistent: closed, it stays away for three months; clicked through, for a year. */
 export const SNOOZE_DAYS = { dismiss: 90, convert: 365 } as const
 
-/** Milliseconds of browsing, with no consent banner on screen, before the promotion opens. */
+/** Milliseconds of browsing on the site, all pages together, before the promotion opens. */
 export const OPEN_DELAY_MS = 6000
+
+/** Breathing room after the consent banner closes, so that one dialog never chains straight into another. */
+export const AFTER_BANNER_MS = 1500
+
+/**
+ * How long to wait from now, given the time already spent on the site: what is left of the six
+ * seconds, never less than the breathing room (the banner may just have closed).
+ */
+export function openDelay(elapsedMs: number): number {
+	return Math.max(AFTER_BANNER_MS, OPEN_DELAY_MS - Math.max(0, elapsedMs))
+}
 
 /** Where the promotion never opens: account, admin and sign-in pages are for something else. */
 const HIDDEN_SECTIONS = new Set(['admin', 'auth', 'dashboard', 'profile', 'sign-in', 'sign-up'])
