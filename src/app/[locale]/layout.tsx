@@ -15,6 +15,7 @@ import { GoBackToTop } from '@/components/global/go-back-to-top'
 import Header from '@/components/global/Header'
 import LocaleSynchronizer, { GlobalLocaleSynchronizer } from '@/components/global/LocaleSynchronizer'
 import { SessionsTracker } from '@/components/global/sessionsTrackers'
+import { MinemoriesPromo } from '@/components/minemories/MinemoriesPromo'
 import QueryProvider from '@/components/providers/QueryProvider'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import OrganizationSchema from '@/components/seo/OrganizationSchema'
@@ -141,6 +142,8 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
 									<Footer localeParams={typedLocaleParams} />
 									<GoBackToTop locale={locale} />
 									<ArchivedProjectNotice locale={locale} />
+									{/* Beswib is archived: its visitors are invited to the team's next project */}
+									<MinemoriesPromo locale={locale} />
 									<Toaster />
 								</NuqsAdapter>
 							</QueryProvider>

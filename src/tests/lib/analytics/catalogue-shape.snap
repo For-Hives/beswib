@@ -33,6 +33,7 @@ LISTING_UPDATE_ACTIONS = price | make_public | make_private | token_regenerate |
 PRICE_VS_ORIGINAL = unknown | below | equal | above
 REFERRER_SOURCES = internal | external | direct
 LANDING_SECTIONS = journey | features | security_process | cta_section
+MINEMORIES_PROMO_VARIANTS = relay | cinema | game | time | postcard | team
 EVENT_VERBS = view | click | open | select | change | start | step | submit | success | error | cancel | expire | read
 EVENT_NAME_EXCEPTIONS = show_special_tooltip
 
@@ -297,6 +298,12 @@ listing_share_click (client)
 	action: enum copy_link | open_link | copy_token
 	where: enum wizard_success | edit_page
 	listing: enum public | private
+minemories_promo_view (client)
+	variant: enum relay | cinema | game | time | postcard | team
+	forced: boolean
+minemories_promo_click (client)
+	variant: enum relay | cinema | game | time | postcard | team
+	action: enum install | visit | share | copy_link | close
 listing_edit_view (client)
 	state: enum ok | error
 	event_id?: id event

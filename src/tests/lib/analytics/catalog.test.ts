@@ -90,8 +90,8 @@ describe('analytics catalogue', () => {
 		}
 	})
 
-	it('holds 99 events, 7 of them sent by the server', () => {
-		expect(entries).toHaveLength(99)
+	it('holds 101 events, 7 of them sent by the server', () => {
+		expect(entries).toHaveLength(101)
 		const serverNames = entries.filter(([, spec]) => spec.side === 'server').map(([name]) => name)
 		expect(serverNames).toEqual([
 			'payment_capture_success',
