@@ -936,6 +936,20 @@ export const EVENTS = {
 			listing: oneOf(LISTINGS),
 		},
 	},
+	/** The Minemories promotion opened, on its own or forced by `?minemories` (a review, not a visitor). */
+	minemories_promo_view: {
+		side: 'client',
+		props: {
+			forced: bool,
+		},
+	},
+	/** The visitor went to Minemories from the promotion, or closed it. */
+	minemories_promo_click: {
+		side: 'client',
+		props: {
+			action: oneOf(['visit', 'close']),
+		},
+	},
 	/** The edit page of a listing was displayed, or failed to load. */
 	listing_edit_view: {
 		side: 'client',

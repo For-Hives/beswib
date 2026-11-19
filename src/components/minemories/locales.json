@@ -1,0 +1,92 @@
+{
+	"en": {
+		"minemoriesPromo": {
+			"close": "Close",
+			"band": "From Beswib to Minemories",
+			"title": "Same team. New project.",
+			"lead": "After Beswib, we built Minemories: your Minecraft builds kept in 3D, to revisit in your browser.",
+			"cta": "See Minemories",
+			"dismiss": "No thanks"
+		}
+	},
+	"fr": {
+		"minemoriesPromo": {
+			"close": "Fermer",
+			"band": "De Beswib à Minemories",
+			"title": "Même équipe. Nouveau projet.",
+			"lead": "Après Beswib, on a créé Minemories : tes constructions Minecraft gardées en 3D, à revoir dans ton navigateur.",
+			"cta": "Voir Minemories",
+			"dismiss": "Non merci"
+		}
+	},
+	"es": {
+		"minemoriesPromo": {
+			"close": "Cerrar",
+			"band": "De Beswib a Minemories",
+			"title": "Mismo equipo. Nuevo proyecto.",
+			"lead": "Después de Beswib, creamos Minemories: tus construcciones de Minecraft guardadas en 3D, para volver a verlas en tu navegador.",
+			"cta": "Ver Minemories",
+			"dismiss": "No, gracias"
+		}
+	},
+	"it": {
+		"minemoriesPromo": {
+			"close": "Chiudi",
+			"band": "Da Beswib a Minemories",
+			"title": "Stessa squadra. Nuovo progetto.",
+			"lead": "Dopo Beswib abbiamo creato Minemories: le tue costruzioni di Minecraft conservate in 3D, da rivedere nel browser.",
+			"cta": "Vedi Minemories",
+			"dismiss": "No, grazie"
+		}
+	},
+	"de": {
+		"minemoriesPromo": {
+			"close": "Schließen",
+			"band": "Von Beswib zu Minemories",
+			"title": "Gleiches Team. Neues Projekt.",
+			"lead": "Nach Beswib haben wir Minemories gebaut: deine Minecraft-Bauten in 3D aufbewahrt, im Browser wieder zu besuchen.",
+			"cta": "Minemories ansehen",
+			"dismiss": "Nein, danke"
+		}
+	},
+	"ro": {
+		"minemoriesPromo": {
+			"close": "Închide",
+			"band": "De la Beswib la Minemories",
+			"title": "Aceeași echipă. Proiect nou.",
+			"lead": "După Beswib, am creat Minemories: construcțiile tale din Minecraft păstrate în 3D, de revăzut în browser.",
+			"cta": "Vezi Minemories",
+			"dismiss": "Nu, mulțumesc"
+		}
+	},
+	"pt": {
+		"minemoriesPromo": {
+			"close": "Fechar",
+			"band": "Da Beswib ao Minemories",
+			"title": "A mesma equipa. Um novo projeto.",
+			"lead": "Depois da Beswib, criámos o Minemories: as tuas construções do Minecraft guardadas em 3D, para reveres no navegador.",
+			"cta": "Ver o Minemories",
+			"dismiss": "Não, obrigado"
+		}
+	},
+	"nl": {
+		"minemoriesPromo": {
+			"close": "Sluiten",
+			"band": "Van Beswib naar Minemories",
+			"title": "Zelfde team. Nieuw project.",
+			"lead": "Na Beswib maakten we Minemories: je Minecraft-bouwwerken in 3D bewaard, om terug te zien in je browser.",
+			"cta": "Bekijk Minemories",
+			"dismiss": "Nee, bedankt"
+		}
+	},
+	"ko": {
+		"minemoriesPromo": {
+			"close": "닫기",
+			"band": "Beswib에서 Minemories로",
+			"title": "같은 팀, 새 프로젝트.",
+			"lead": "Beswib 다음으로 Minemories를 만들었어요. Minecraft 건축물을 3D로 남겨 브라우저에서 다시 볼 수 있어요.",
+			"cta": "Minemories 보기",
+			"dismiss": "괜찮아요"
+		}
+	}
+}

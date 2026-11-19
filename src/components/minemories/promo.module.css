@@ -1,0 +1,413 @@
+/*
+ * The Minemories promotion, in Minemories' charter (its docs/features/brand-guidelines.md): warm night,
+ * square corners, a 2 px outline and the game's bevel, copper for the one primary button, ember as the
+ * accent, a pixel font for titles and buttons and Atkinson for reading. Everything is scoped to .root
+ * so that none of it leaks into Beswib.
+ */
+
+.root {
+	--night: #14110e;
+	--night-2: #1f1a15;
+	--text: #f4efe6;
+	--text-2: #c9c1b4;
+	--text-shadow: #3d3b39;
+	--outline: #0a0806;
+	--hover: #fff4e0;
+	--stone-hi: #aaaaaa;
+	--stone: #6f6f6f;
+	--stone-lo: #565656;
+	--copper-hi: #c98b55;
+	--copper: #8a5a2b;
+	--copper-lo: #5e3a1a;
+	--ember: #ffb347;
+	--gp: 2px;
+	--bevel: inset 4px 4px 0 #3a322b, inset -4px -4px 0 #0f0c0a;
+	--ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+	--ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+	--f-pixel: var(--font-mm-pixel), ui-monospace, monospace;
+	--f-read: var(--font-mm-read), system-ui, -apple-system, "Segoe UI", "Noto Sans KR", sans-serif;
+
+	color: var(--text);
+	font-family: var(--f-read);
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Korean: no Hangul in the pixel font, so titles fall back to the reading font. */
+.root:lang(ko) {
+	--f-pixel: var(--font-mm-read), "Noto Sans KR", system-ui, sans-serif;
+}
+
+/* ---- Shell: overlay, sheet, close button ------------------------------------------------------------------------- */
+
+.overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 10000;
+	background: rgb(10 8 6 / 0.8);
+}
+
+.sheet {
+	position: fixed;
+	z-index: 10001;
+	inset: auto 0 0 0;
+	max-height: 94dvh;
+	overflow-x: hidden;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	background: var(--night-2);
+	box-shadow:
+		0 0 0 var(--gp) var(--outline),
+		var(--bevel);
+	outline: none;
+}
+
+@media (min-width: 720px) {
+	.sheet {
+		inset: 50% auto auto 50%;
+		width: min(var(--sheet-w, 880px), calc(100vw - 48px));
+		max-height: calc(100dvh - 48px);
+		transform: translate(-50%, -50%);
+	}
+}
+
+.close {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	z-index: 3;
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	padding: 0 0 var(--gp);
+	border: var(--gp) solid var(--outline);
+	background: var(--stone);
+	box-shadow:
+		inset var(--gp) var(--gp) 0 var(--stone-hi),
+		inset calc(-1 * var(--gp)) calc(-2 * var(--gp)) 0 var(--stone-lo);
+	color: var(--text);
+	cursor: pointer;
+	transition:
+		border-color 120ms var(--ease),
+		transform 120ms var(--ease);
+}
+
+.close:hover {
+	border-color: var(--hover);
+}
+
+.close:focus-visible,
+.btn:focus-visible,
+.link:focus-visible {
+	outline: var(--gp) solid var(--hover);
+	outline-offset: var(--gp);
+}
+
+/* ---- Pixel icon: a monochrome SVG used as a mask, so it takes the text colour ----------------------------------- */
+
+.icon {
+	display: inline-block;
+	flex: none;
+	width: 16px;
+	height: 16px;
+	background: currentColor;
+	mask: var(--icon) center / contain no-repeat;
+	image-rendering: pixelated;
+}
+
+/* ---- Text ------------------------------------------------------------------------------------------------------- */
+
+.title {
+	margin: 0;
+	color: var(--text);
+	font: 600 32px / 40px var(--f-pixel);
+	text-shadow: 3px 3px 0 var(--text-shadow);
+	text-wrap: balance;
+}
+
+@media (min-width: 720px) {
+	.title {
+		font-size: 40px;
+		line-height: 48px;
+		text-shadow: 4px 4px 0 var(--text-shadow);
+	}
+}
+
+.lead {
+	margin: 0;
+	max-width: 54ch;
+	color: var(--text-2);
+	font: 400 17px / 1.6 var(--f-read);
+}
+
+/* ---- Buttons (the game's button: face, light top left, shadow bottom right, black outline) ----------------------- */
+
+.actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	align-items: center;
+}
+
+.btn {
+	--face: var(--stone);
+	--hi: var(--stone-hi);
+	--lo: var(--stone-lo);
+	--ts: #3f3f3f;
+
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	min-height: 44px;
+	padding: 0 18px var(--gp);
+	border: var(--gp) solid var(--outline);
+	background: var(--face);
+	box-shadow:
+		inset var(--gp) var(--gp) 0 var(--hi),
+		inset calc(-1 * var(--gp)) calc(-2 * var(--gp)) 0 var(--lo);
+	color: #fff;
+	font: 400 18px / 20px var(--f-pixel);
+	text-align: center;
+	text-decoration: none;
+	text-shadow: var(--gp) var(--gp) 0 var(--ts);
+	white-space: nowrap;
+	cursor: pointer;
+	transition:
+		border-color 120ms var(--ease),
+		transform 120ms var(--ease);
+}
+
+.btn:hover {
+	border-color: var(--hover);
+	transform: translateY(-2px);
+}
+
+.btn:active {
+	padding: var(--gp) 18px 0;
+	box-shadow: inset var(--gp) var(--gp) 0 var(--lo);
+	transform: translateY(0);
+	transition-duration: 60ms;
+}
+
+.btnPrimary {
+	--face: var(--copper);
+	--hi: var(--copper-hi);
+	--lo: var(--copper-lo);
+	--ts: #2b1b0e;
+}
+
+.btnIcon {
+	width: 16px;
+	height: 16px;
+	transition: transform 120ms var(--ease-pop);
+}
+
+.btn:hover .btnIcon {
+	transform: scale(1.2);
+}
+
+.link {
+	padding: 10px 4px;
+	border: 0;
+	background: none;
+	color: var(--text-2);
+	font: 400 15px / 1.4 var(--f-read);
+	text-decoration: underline;
+	text-decoration-thickness: var(--gp);
+	text-underline-offset: 3px;
+	cursor: pointer;
+	transition:
+		color 120ms var(--ease),
+		text-underline-offset 120ms var(--ease);
+}
+
+.link:hover {
+	color: var(--text);
+	text-underline-offset: 6px;
+}
+
+/* ---- Entrance: 12 px + fade, 60 ms stagger (--i), nothing under reduced motion ------------------------------------ */
+
+@media (prefers-reduced-motion: no-preference) {
+	.overlay[data-state="open"] {
+		animation: fade-in 200ms var(--ease);
+	}
+
+	.overlay[data-state="closed"] {
+		animation: fade-out 160ms var(--ease) forwards;
+	}
+
+	.sheet[data-state="open"] {
+		animation: sheet-up 360ms var(--ease);
+	}
+
+	.sheet[data-state="closed"] {
+		animation: fade-out 160ms var(--ease) forwards;
+	}
+
+	@media (min-width: 720px) {
+		.sheet[data-state="open"] {
+			animation: sheet-in 360ms var(--ease);
+		}
+	}
+
+	.reveal {
+		animation: reveal 360ms var(--ease) both;
+		animation-delay: calc(120ms + var(--i, 0) * 60ms);
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+}
+
+@keyframes fade-out {
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes sheet-up {
+	from {
+		transform: translateY(32px);
+		opacity: 0;
+	}
+}
+
+@keyframes sheet-in {
+	from {
+		transform: translate(-50%, calc(-50% + 12px));
+		opacity: 0;
+	}
+}
+
+@keyframes reveal {
+	from {
+		transform: translateY(12px);
+		opacity: 0;
+	}
+}
+
+/* ---- The design: Beswib's light, smooth world breaks into Minemories' pixels --------------------------------------- */
+
+.team {
+	display: grid;
+}
+
+.teamBand {
+	--day: #eef3f8;
+
+	display: grid;
+	grid-template-columns: 1fr 140px 1fr;
+	height: 196px;
+	overflow: hidden;
+	box-shadow: inset 0 calc(-1 * var(--gp)) 0 var(--outline);
+}
+
+.teamBeswib,
+.teamMinemories {
+	display: grid;
+	place-content: center;
+	justify-items: center;
+	gap: 10px;
+}
+
+.teamBeswib {
+	background: var(--day);
+}
+
+.teamMinemories {
+	background: var(--night);
+}
+
+.teamLogo {
+	width: 72px;
+	height: 72px;
+}
+
+@media (min-width: 720px) {
+	.teamLogo {
+		width: 80px;
+		height: 80px;
+	}
+}
+
+.teamBeswib .teamLogo {
+	border-radius: 50%;
+	box-shadow: 0 8px 20px rgb(15 15 35 / 0.18);
+}
+
+.teamMinemories .teamLogo {
+	image-rendering: pixelated;
+}
+
+/* Each side named in its own type: Beswib's smooth sans, Minemories' pixels. */
+.teamNameBeswib {
+	color: #0f0f23;
+	font:
+		700 20px / 1 var(--font-geist-sans),
+		system-ui,
+		sans-serif;
+	letter-spacing: -0.02em;
+}
+
+.teamNameMinemories {
+	color: var(--text);
+	font: 600 20px / 1 var(--f-pixel);
+	text-shadow: 2px 2px 0 var(--text-shadow);
+}
+
+.teamDissolve {
+	display: block;
+	width: 140px;
+	height: 196px;
+	background: var(--night);
+}
+
+.teamPixelDay {
+	fill: var(--day);
+}
+
+.teamPixelNight {
+	fill: var(--night);
+}
+
+/* On opening, the pixels turn from Beswib's day to Minemories' night, column after column. */
+@media (prefers-reduced-motion: no-preference) {
+	.teamPixelNight {
+		animation: pixel-turn 120ms steps(1) both;
+		animation-delay: calc(240ms + var(--col) * 55ms + var(--row) * 25ms);
+	}
+
+	.teamMinemories {
+		animation: fade-in 200ms var(--ease) 820ms both;
+	}
+}
+
+@keyframes pixel-turn {
+	from {
+		fill: var(--day);
+	}
+}
+
+.teamCopy {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 28px 20px 22px;
+}
+
+@media (min-width: 720px) {
+	.teamCopy {
+		padding: 32px 36px 26px;
+	}
+}
+
+.teamSign {
+	margin: 0;
+	color: var(--ember);
+	font: 400 16px / 24px var(--f-pixel);
+}

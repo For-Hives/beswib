@@ -297,6 +297,10 @@ listing_share_click (client)
 	action: enum copy_link | open_link | copy_token
 	where: enum wizard_success | edit_page
 	listing: enum public | private
+minemories_promo_view (client)
+	forced: boolean
+minemories_promo_click (client)
+	action: enum visit | close
 listing_edit_view (client)
 	state: enum ok | error
 	event_id?: id event
