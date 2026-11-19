@@ -1078,7 +1078,7 @@ export const EVENTS = {
 	contact_form_error: {
 		side: 'client',
 		props: {
-			kind: oneOf(['invalid_input', 'delivery_failed', 'exception']),
+			kind: oneOf(['invalid_input', 'captcha', 'rate_limited', 'delivery_failed', 'exception']),
 			prefilled: bool,
 		},
 	},

@@ -47,6 +47,8 @@ export async function sendSaleAlert(info?: SaleAlertInfo): Promise<boolean> {
 		subject: '[Beswib] New sale completed',
 		html: `<p>${escapeHtml(content)}</p>`,
 		discordContent: content,
+		// Code-authored @here; every interpolated value went through safeDiscordText
+		mentionEveryone: true,
 	})
 }
 
@@ -54,12 +56,16 @@ type ContactMessageInfo = {
 	name: string
 	email: string
 	message: string
+	/** The message contains a link: flagged in the e-mail subject (the scams received all had one). */
+	hasLink?: boolean
 }
 
 /**
  * Sends a contact form message to the configured Discord webhook.
  * Uses DISCORD_WEBHOOK_URL env var (single channel).
  * Posts two messages: a summary line with @here, then the full message as a code block.
+ * Only the summary may ping, through the team's own @here: the visitor's text is escaped and the full
+ * message is posted with every mention disabled.
  */
 export async function sendContactMessage(info: ContactMessageInfo): Promise<boolean> {
 	const webhookUrl = process.env.DISCORD_WEBHOOK_URL ?? ''
@@ -67,11 +73,11 @@ export async function sendContactMessage(info: ContactMessageInfo): Promise<bool
 	const full = contactFullText(info.message)
 
 	const [d1, d2, emailOk] = await Promise.all([
-		postDiscord(webhookUrl, summary),
+		postDiscord(webhookUrl, summary, { mentionEveryone: true }),
 		postDiscord(webhookUrl, full),
 		sendAdminAlertEmail({
 			text: `From: ${info.name || 'Anonymous'}\\nEmail: ${info.email || 'n/a'}\\n\\n${info.message}`,
-			subject: '[Beswib] New contact message',
+			subject: `[Beswib] ${info.hasLink === true ? '[Link in message] ' : ''}New contact message`,
 			html: renderContactMessageEmailHtml({
 				name: info.name ?? '',
 				message: info.message ?? '',
@@ -169,9 +175,12 @@ Event Link: ${baseUrl}/events/${bibInfo.eventId}`
 // --- Internal utilities ----------------------------------------------------
 
 // Admin-only webhook (Discord); true if posted, false otherwise.
-export async function sendAdminWebhook(content: string, opts?: { webhookUrl?: string }): Promise<boolean> {
+export async function sendAdminWebhook(
+	content: string,
+	opts?: { webhookUrl?: string; mentionEveryone?: boolean }
+): Promise<boolean> {
 	const url = opts?.webhookUrl ?? process.env.DISCORD_WEBHOOK_URL ?? ''
-	return postDiscord(url, content)
+	return postDiscord(url, content, { mentionEveryone: opts?.mentionEveryone })
 }
 
 // Admin-only alert email; sends to NOTIFY_SALES_EMAIL_TO (comma-separated supported).
@@ -193,11 +202,16 @@ export async function notifyAdmins(params: {
 	html?: string
 	discordContent?: string
 	webhookUrl?: string
+	/** Let the message's own @here/@everyone ping. Only for code-authored text, user values escaped. */
+	mentionEveryone?: boolean
 }): Promise<boolean> {
 	const [emailOk, webhookOk] = await Promise.all([
 		sendAdminAlertEmail({ text: params.text, subject: params.subject, html: params.html }),
 		typeof params.discordContent === 'string' && params.discordContent.length > 0
-			? sendAdminWebhook(params.discordContent, { webhookUrl: params.webhookUrl })
+			? sendAdminWebhook(params.discordContent, {
+					webhookUrl: params.webhookUrl,
+					mentionEveryone: params.mentionEveryone,
+				})
 			: Promise.resolve(false),
 	])
 	return Boolean(emailOk || webhookOk)
@@ -279,13 +293,25 @@ async function sendEmail(params: {
 	}
 }
 
-async function postDiscord(webhookUrl: string, content: string): Promise<boolean> {
+/**
+ * Posts to a Discord webhook. Mentions are disabled by default (`allowed_mentions.parse: []`): text coming from
+ * visitors or organizers can never ping anyone. `mentionEveryone` allows @here/@everyone only, never users or
+ * roles, for the alerts whose @here is written by the code (DISCORD_MENTION) around escaped values.
+ */
+async function postDiscord(
+	webhookUrl: string,
+	content: string,
+	opts?: { mentionEveryone?: boolean }
+): Promise<boolean> {
 	if (!webhookUrl || webhookUrl.length === 0) return false
 	try {
 		const res = await fetch(webhookUrl, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ content }),
+			body: JSON.stringify({
+				content,
+				allowed_mentions: { parse: opts?.mentionEveryone === true ? ['everyone'] : [] },
+			}),
 		})
 		return res.ok
 	} catch {

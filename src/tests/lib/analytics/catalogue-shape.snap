@@ -344,7 +344,7 @@ contact_form_submit (client)
 contact_form_success (client)
 	prefilled: boolean
 contact_form_error (client)
-	kind: enum invalid_input | delivery_failed | exception
+	kind: enum invalid_input | captcha | rate_limited | delivery_failed | exception
 	prefilled: boolean
 article_click (client)
 	position: int 0..50

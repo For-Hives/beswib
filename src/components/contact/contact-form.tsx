@@ -2,7 +2,7 @@
 
 import { Loader2, Send } from 'lucide-react'
 import { motion } from 'motion/react'
-import { useSearchParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
@@ -12,6 +12,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/inputAlt'
 import { Textarea } from '@/components/ui/textareaAlt'
 import { track } from '@/lib/analytics/client'
+import { HONEYPOT_FIELD } from '@/lib/security/spam'
+
+import TurnstileWidget from './turnstile-widget'
 
 interface ContactFormProps {
 	t: (typeof globalTranslations)['en']['contact']
@@ -19,6 +22,7 @@ interface ContactFormProps {
 
 export default function ContactForm({ t }: ContactFormProps) {
 	const searchParams = useSearchParams()
+	const { locale } = useParams<{ locale?: string }>()
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [isSubmitted, setIsSubmitted] = useState(false)
 	const [name, setName] = useState('')
@@ -27,6 +31,9 @@ export default function ContactForm({ t }: ContactFormProps) {
 	// Analytics only: whether the URL hand-off filled a field, and whether contact_form_start was sent
 	const prefilledRef = useRef(false)
 	const startedRef = useRef(false)
+	// Latest Turnstile token (single-use, valid about 5 minutes) and the function asking the widget for a new one
+	const turnstileTokenRef = useRef<string | null>(null)
+	const resetTurnstileRef = useRef<(() => void) | null>(null)
 
 	// Pre-fill form with URL parameters
 	useEffect(() => {
@@ -40,14 +47,26 @@ export default function ContactForm({ t }: ContactFormProps) {
 		if (nameParam || emailParam || messageParam) prefilledRef.current = true
 	}, [searchParams])
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		if (isSubmitting) return
+		const turnstileToken = turnstileTokenRef.current
+		if (turnstileToken == null) {
+			toast.info(t.form.captchaPending)
+			return
+		}
+		const honeypot = new FormData(e.currentTarget).get(HONEYPOT_FIELD)
 		track('contact_form_submit', { prefilled: prefilledRef.current })
 		setIsSubmitting(true)
 		try {
 			const { submitContactMessage } = await import('@/app/[locale]/contact/actions')
-			const res = await submitContactMessage({ name, message, email })
+			const res = await submitContactMessage({
+				website: typeof honeypot === 'string' ? honeypot : '',
+				turnstileToken,
+				name,
+				message,
+				email,
+			})
 			if (res.success) {
 				track('contact_form_success', { prefilled: prefilledRef.current })
 				toast.success(t.form.messageSent)
@@ -61,13 +80,17 @@ export default function ContactForm({ t }: ContactFormProps) {
 				track('contact_form_error', { kind: res.code ?? 'exception', prefilled: prefilledRef.current })
 				// Soft error handling; keep the user on the form
 				console.error('Contact submit failed:', res.error)
-				toast.error(res.error ?? 'Failed to send message')
+				if (res.code === 'captcha') toast.error(t.form.captchaFailed)
+				else if (res.code === 'rate_limited') toast.error(t.form.rateLimited)
+				else toast.error(res.error ?? 'Failed to send message')
 			}
 		} catch (err) {
 			track('contact_form_error', { kind: 'exception', prefilled: prefilledRef.current })
 			console.error('Contact submit error:', err)
 			toast.error('Failed to send message')
 		} finally {
+			// A token is single-use: ask for a new one after every attempt
+			resetTurnstileRef.current?.()
 			setIsSubmitting(false)
 		}
 	}
@@ -149,6 +172,18 @@ export default function ContactForm({ t }: ContactFormProps) {
 					required
 				/>
 			</div>
+			{/* Trap field: hidden from visitors, filled in by the robots that fill in everything */}
+			<div aria-hidden="true" className="absolute top-auto left-[-10000px] h-px w-px overflow-hidden">
+				<label htmlFor={HONEYPOT_FIELD}>Leave this field empty</label>
+				<input autoComplete="off" id={HONEYPOT_FIELD} name={HONEYPOT_FIELD} tabIndex={-1} type="text" />
+			</div>
+			<TurnstileWidget
+				locale={locale}
+				onToken={token => {
+					turnstileTokenRef.current = token
+				}}
+				resetRef={resetTurnstileRef}
+			/>
 			<Button
 				className="from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-primary-foreground w-full cursor-pointer bg-gradient-to-r"
 				disabled={isSubmitting}

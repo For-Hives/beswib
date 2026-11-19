@@ -102,7 +102,10 @@
 				"sending": "Sending...",
 				"messageSent": "Message Sent!",
 				"messageResponse": "We'll get back to you as soon as possible.",
-				"sendAnotherMessage": "Send another message"
+				"sendAnotherMessage": "Send another message",
+				"captchaPending": "Anti-robot check in progress, please wait a few seconds and send again.",
+				"captchaFailed": "The anti-robot check failed. Please wait a few seconds and send your message again.",
+				"rateLimited": "Too many messages sent. Please try again in a few minutes."
 			}
 		},
 		"goBackToTop": "Go back to top of the page",
@@ -251,7 +254,10 @@
 				"sending": "Envoi en cours...",
 				"messageSent": "Message envoyé !",
 				"messageResponse": "Nous vous répondrons dès que possible.",
-				"sendAnotherMessage": "Envoyer un autre message"
+				"sendAnotherMessage": "Envoyer un autre message",
+				"captchaPending": "Vérification anti-robot en cours, patientez quelques secondes puis renvoyez.",
+				"captchaFailed": "La vérification anti-robot n'a pas abouti. Patientez quelques secondes puis renvoyez votre message.",
+				"rateLimited": "Trop de messages envoyés. Réessayez dans quelques minutes."
 			}
 		},
 		"goBackToTop": "Retour en haut de la page",
@@ -400,7 +406,10 @@
 				"sending": "Enviando...",
 				"messageSent": "¡Mensaje enviado!",
 				"messageResponse": "Te responderemos lo antes posible.",
-				"sendAnotherMessage": "Enviar otro mensaje"
+				"sendAnotherMessage": "Enviar otro mensaje",
+				"captchaPending": "Verificación anti-robot en curso, espera unos segundos y vuelve a enviar.",
+				"captchaFailed": "La verificación anti-robot ha fallado. Espera unos segundos y vuelve a enviar tu mensaje.",
+				"rateLimited": "Demasiados mensajes enviados. Inténtalo de nuevo en unos minutos."
 			}
 		},
 		"goBackToTop": "Volver al principio de la página",
@@ -549,7 +558,10 @@
 				"sending": "Invio...",
 				"messageSent": "Messaggio inviato!",
 				"messageResponse": "Ti risponderemo al più presto.",
-				"sendAnotherMessage": "Invia un altro messaggio"
+				"sendAnotherMessage": "Invia un altro messaggio",
+				"captchaPending": "Verifica anti-robot in corso, attendi qualche secondo e invia di nuovo.",
+				"captchaFailed": "La verifica anti-robot non è riuscita. Attendi qualche secondo e invia di nuovo il tuo messaggio.",
+				"rateLimited": "Troppi messaggi inviati. Riprova tra qualche minuto."
 			}
 		},
 		"goBackToTop": "Torna all'inizio della pagina",
@@ -698,7 +710,10 @@
 				"sending": "Senden...",
 				"messageSent": "Nachricht gesendet!",
 				"messageResponse": "Wir melden uns so schnell wie möglich.",
-				"sendAnotherMessage": "Weitere Nachricht senden"
+				"sendAnotherMessage": "Weitere Nachricht senden",
+				"captchaPending": "Anti-Roboter-Prüfung läuft, bitte warte einige Sekunden und sende erneut.",
+				"captchaFailed": "Die Anti-Roboter-Prüfung ist fehlgeschlagen. Bitte warte einige Sekunden und sende deine Nachricht erneut.",
+				"rateLimited": "Zu viele Nachrichten gesendet. Bitte versuche es in einigen Minuten erneut."
 			}
 		},
 		"goBackToTop": "Zurück zum Seitenanfang",
@@ -847,7 +862,10 @@
 				"sending": "Se trimite...",
 				"messageSent": "Mesaj trimis!",
 				"messageResponse": "Îți vom răspunde cât mai curând.",
-				"sendAnotherMessage": "Trimite un alt mesaj"
+				"sendAnotherMessage": "Trimite un alt mesaj",
+				"captchaPending": "Verificarea anti-robot este în curs, așteaptă câteva secunde și trimite din nou.",
+				"captchaFailed": "Verificarea anti-robot a eșuat. Așteaptă câteva secunde și trimite din nou mesajul.",
+				"rateLimited": "Prea multe mesaje trimise. Încearcă din nou peste câteva minute."
 			}
 		},
 		"goBackToTop": "Înapoi în partea de sus a paginii",
@@ -996,7 +1014,10 @@
 				"sending": "A enviar...",
 				"messageSent": "Mensagem enviada!",
 				"messageResponse": "Responderemos o mais rapidamente possível.",
-				"sendAnotherMessage": "Enviar outra mensagem"
+				"sendAnotherMessage": "Enviar outra mensagem",
+				"captchaPending": "Verificação anti-robô em curso, aguarde alguns segundos e envie novamente.",
+				"captchaFailed": "A verificação anti-robô falhou. Aguarde alguns segundos e envie a sua mensagem novamente.",
+				"rateLimited": "Demasiadas mensagens enviadas. Tente novamente dentro de alguns minutos."
 			}
 		},
 		"goBackToTop": "Voltar ao topo da página",
@@ -1145,7 +1166,10 @@
 				"sending": "Bezig met verzenden...",
 				"messageSent": "Bericht verzonden!",
 				"messageResponse": "We reageren zo snel mogelijk.",
-				"sendAnotherMessage": "Nog een bericht sturen"
+				"sendAnotherMessage": "Nog een bericht sturen",
+				"captchaPending": "Anti-robotcontrole bezig, wacht een paar seconden en verstuur opnieuw.",
+				"captchaFailed": "De anti-robotcontrole is mislukt. Wacht een paar seconden en verstuur je bericht opnieuw.",
+				"rateLimited": "Te veel berichten verstuurd. Probeer het over een paar minuten opnieuw."
 			}
 		},
 		"goBackToTop": "Terug naar boven",
@@ -1294,7 +1318,10 @@
 				"sending": "전송 중...",
 				"messageSent": "메시지가 전송되었습니다!",
 				"messageResponse": "최대한 빨리 답변해 드리겠습니다.",
-				"sendAnotherMessage": "다른 메시지 보내기"
+				"sendAnotherMessage": "다른 메시지 보내기",
+				"captchaPending": "로봇 방지 확인 중입니다. 몇 초 후 다시 보내 주세요.",
+				"captchaFailed": "로봇 방지 확인에 실패했습니다. 몇 초 후 메시지를 다시 보내 주세요.",
+				"rateLimited": "메시지를 너무 많이 보냈습니다. 몇 분 후 다시 시도해 주세요."
 			}
 		},
 		"goBackToTop": "페이지 상단으로 이동",
