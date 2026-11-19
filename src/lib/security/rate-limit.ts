@@ -44,22 +44,37 @@ export class SlidingWindowLimiter {
 }
 
 /**
+ * Loopback, private and link-local addresses: what the proxy sees when traffic reaches it through Docker's
+ * userland proxy or another internal hop. Used as a key, one of them would put every visitor in the same bucket.
+ */
+function isInternalIp(ip: string): boolean {
+	const v4 = ip.startsWith('::ffff:') ? ip.slice(7) : ip
+	if (isIP(v4) === 4) {
+		const [a, b] = v4.split('.').map(Number)
+		return (
+			a === 127 || a === 10 || (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168) || (a === 169 && b === 254)
+		)
+	}
+	const lower = ip.toLowerCase()
+	return lower === '::1' || /^f[cd]/.test(lower) || /^fe[89ab]/.test(lower)
+}
+
+function publicIp(value: string | null | undefined): string | null {
+	const ip = value?.trim() ?? ''
+	return isIP(ip) !== 0 && !isInternalIp(ip) ? ip : null
+}
+
+/**
  * The visitor's IP address, from the headers set by the reverse proxy (Traefik, in front of the container).
  *
  * beswib.com points straight at the server (no Cloudflare proxy), so `cf-connecting-ip` would be whatever the
  * visitor typed and is ignored. The proxy APPENDS the address it received the connection from to
  * `x-forwarded-for`: the last entry is the only one a visitor cannot choose; the first ones are theirs to forge.
- * Returns null when no usable address is found (the caller must not lump those requests into one shared bucket).
+ * Returns null when no usable public address is found (the caller must not lump those requests into the
+ * per-IP buckets).
  */
 export function getClientIp(headers: Pick<Headers, 'get'>): string | null {
-	const forwarded = headers.get('x-forwarded-for')
-	if (forwarded != null) {
-		const last = forwarded.split(',').at(-1)?.trim() ?? ''
-		if (isIP(last) !== 0) return last
-	}
-	const realIp = headers.get('x-real-ip')?.trim() ?? ''
-	if (isIP(realIp) !== 0) return realIp
-	return null
+	return publicIp(headers.get('x-forwarded-for')?.split(',').at(-1)) ?? publicIp(headers.get('x-real-ip'))
 }
 
 const TEN_MINUTES = 10 * 60 * 1000

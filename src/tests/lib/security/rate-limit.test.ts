@@ -23,6 +23,24 @@ describe('getClientIp', () => {
 		expect(getClientIp(new Headers({ 'cf-connecting-ip': '1.2.3.4' }))).toBeNull()
 	})
 
+	it('never keys on an internal address, which would put every visitor in one bucket', () => {
+		for (const ip of [
+			'172.17.0.1',
+			'10.0.0.2',
+			'192.168.1.1',
+			'127.0.0.1',
+			'::1',
+			'fd00::1',
+			'fe80::1',
+			'::ffff:10.0.0.1',
+		])
+			expect(getClientIp(new Headers({ 'x-forwarded-for': `203.0.113.7, ${ip}` }))).toBeNull()
+		expect(getClientIp(new Headers({ 'x-forwarded-for': '172.17.0.1', 'x-real-ip': '198.51.100.20' }))).toBe(
+			'198.51.100.20'
+		)
+		expect(getClientIp(new Headers({ 'x-forwarded-for': '172.32.0.1' }))).toBe('172.32.0.1')
+	})
+
 	it('falls back to x-real-ip, then to null', () => {
 		expect(getClientIp(new Headers({ 'x-real-ip': '2001:db8::1' }))).toBe('2001:db8::1')
 		expect(getClientIp(new Headers({ 'x-forwarded-for': 'not-an-ip' }))).toBeNull()
