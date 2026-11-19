@@ -257,8 +257,6 @@ export const LISTING_UPDATE_ACTIONS = ['price', 'make_public', 'make_private', '
 export const PRICE_VS_ORIGINAL = ['unknown', 'below', 'equal', 'above'] as const
 export const REFERRER_SOURCES = ['internal', 'external', 'direct'] as const
 export const LANDING_SECTIONS = ['journey', 'features', 'security_process', 'cta_section'] as const
-// Same list and order as PROMO_VARIANTS (components/minemories/promo-logic.ts), checked by its test
-export const MINEMORIES_PROMO_VARIANTS = ['relay', 'cinema', 'game', 'time', 'postcard', 'team'] as const
 
 // ---- The catalogue ----
 
@@ -938,20 +936,18 @@ export const EVENTS = {
 			listing: oneOf(LISTINGS),
 		},
 	},
-	/** The Minemories promotion opened, on its own or forced by `?minemories=` (a review, not a visitor). */
+	/** The Minemories promotion opened, on its own or forced by `?minemories` (a review, not a visitor). */
 	minemories_promo_view: {
 		side: 'client',
 		props: {
-			variant: oneOf(MINEMORIES_PROMO_VARIANTS),
 			forced: bool,
 		},
 	},
-	/** The visitor acted on the Minemories promotion: went to Minemories, passed it on, or closed it. */
+	/** The visitor went to Minemories from the promotion, or closed it. */
 	minemories_promo_click: {
 		side: 'client',
 		props: {
-			variant: oneOf(MINEMORIES_PROMO_VARIANTS),
-			action: oneOf(['install', 'visit', 'share', 'copy_link', 'close']),
+			action: oneOf(['visit', 'close']),
 		},
 	},
 	/** The edit page of a listing was displayed, or failed to load. */

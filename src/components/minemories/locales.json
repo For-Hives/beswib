@@ -2,703 +2,91 @@
 	"en": {
 		"minemoriesPromo": {
 			"close": "Close",
-			"install": "Install the mod",
-			"visit": "Discover Minemories",
-			"facts": "Minecraft Java 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.11 · Fabric, Forge, NeoForge · solo and servers · beta",
-			"notice": "Minemories is not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.",
-			"relay": {
-				"kicker": "Beswib passes the baton",
-				"title": "Same team. New race.",
-				"lead": "Beswib is archived. Its team now builds Minemories: a mod that keeps your Minecraft builds in 3D, to walk through again in your browser.",
-				"points": [
-					"Press M: the spot where you play is kept in 3D.",
-					"Your friends walk through it, no Minecraft needed.",
-					"Captures stay on your computer until you choose."
-				],
-				"bibTop": "Beswib · finisher",
-				"bibBottom": "Next stage: Minemories"
-			},
-			"cinema": {
-				"kicker": "Some evenings are worth keeping.",
-				"title": "Keep your Minecraft builds in 3D",
-				"lead": "The mod keeps the spot where you play in 3D. You find it again in your browser and show it to anyone you like.",
-				"steps": ["Install.", "Play.", "Revisit."],
-				"videoLabel": "Walking through a Minecraft base in the Minemories 3D viewer"
-			},
-			"game": {
-				"kicker": "Minecraft Java mod",
-				"title": "Press M. It's kept.",
-				"lead": "One key in game, and the spot where you play is saved in 3D. You can then walk through it in your browser.",
-				"you": "You",
-				"chatQuestion": "we keep the base before the server closes?",
-				"chatDone": "world capture done.",
-				"chatGallery": "your base is waiting in your gallery, in 3D.",
-				"hotbarLabel": "The three steps",
-				"slots": [
-					{
-						"name": "Install",
-						"lore": "From the CurseForge app, or drop the .jar in your mods folder."
-					},
-					{
-						"name": "Take a memory",
-						"lore": "M → Take a memory. Or go AFK for 5 minutes: the mod takes one for you."
-					},
-					{
-						"name": "Revisit",
-						"lore": "Link the game to your gallery with a 6-digit code, then walk through your world in 3D."
-					}
-				]
-			},
-			"time": {
-				"kicker": "Your server is closing?",
-				"title": "The server closes. Your base stays.",
-				"lead": "Keep your base in 3D before the server shuts down. You can still walk through it afterwards, and show it around.",
-				"note": "No need to be the server admin.",
-				"sliderLabel": "Time passing over the world",
-				"stages": ["Tonight", "In a year", "In ten years"],
-				"caption": "The world moves on. Your memory doesn't."
-			},
-			"postcard": {
-				"kicker": "You don't play Minecraft?",
-				"title": "Someone close to you does.",
-				"lead": "Minemories turns their builds into 3D you walk through in a browser, no Minecraft needed. Send them the link.",
-				"share": "Send the link",
-				"copied": "Link copied",
-				"shareText": "Minemories keeps your Minecraft builds in 3D. Have a look:",
-				"self": "I play: install the mod",
-				"caption": "HD postcard, ready for Discord"
-			},
-			"team": {
-				"band": "From Beswib to Minemories",
-				"title": "Same team. New project.",
-				"lead": "After Beswib, we built Minemories: your Minecraft builds kept in 3D, to revisit in your browser.",
-				"cta": "See Minemories",
-				"dismiss": "No thanks"
-			}
+			"band": "From Beswib to Minemories",
+			"title": "Same team. New project.",
+			"lead": "After Beswib, we built Minemories: your Minecraft builds kept in 3D, to revisit in your browser.",
+			"cta": "See Minemories",
+			"dismiss": "No thanks"
 		}
 	},
 	"fr": {
 		"minemoriesPromo": {
 			"close": "Fermer",
-			"install": "Installer le mod",
-			"visit": "Découvrir Minemories",
-			"facts": "Minecraft Java 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.11 · Fabric, Forge, NeoForge · solo et serveurs · bêta",
-			"notice": "Minemories n’est pas un produit officiel Minecraft. Ni approuvé par Mojang ou Microsoft, ni associé à eux.",
-			"relay": {
-				"kicker": "Beswib passe le relais",
-				"title": "Même équipe. Nouvelle course.",
-				"lead": "Beswib est archivé. Son équipe construit maintenant Minemories : un mod qui garde tes constructions Minecraft en 3D, à revisiter dans ton navigateur.",
-				"points": [
-					"Appuie sur M : le coin où tu joues est gardé en 3D.",
-					"Tes potes s’y baladent, sans Minecraft.",
-					"Tes captures restent sur ton ordinateur, tant que tu ne décides pas."
-				],
-				"bibTop": "Beswib · finisher",
-				"bibBottom": "Prochaine étape : Minemories"
-			},
-			"cinema": {
-				"kicker": "Il y a des soirs qu’on aimerait garder.",
-				"title": "Garde tes constructions Minecraft en 3D",
-				"lead": "Le mod garde en 3D le coin où tu joues. Tu le retrouves dans ton navigateur et tu le fais visiter à qui tu veux.",
-				"steps": ["Installe.", "Joue.", "Revois."],
-				"videoLabel": "Balade dans une base Minecraft, dans la visionneuse 3D de Minemories"
-			},
-			"game": {
-				"kicker": "Mod pour Minecraft Java",
-				"title": "Appuie sur M. C’est gardé.",
-				"lead": "Une touche en jeu, et le coin où tu joues est gardé en 3D. Tu t’y promènes ensuite dans ton navigateur.",
-				"you": "Toi",
-				"chatQuestion": "on garde la base avant que le serveur ferme ?",
-				"chatDone": "capture du monde terminée.",
-				"chatGallery": "ta base t’attend en 3D dans ta galerie.",
-				"hotbarLabel": "Les trois étapes",
-				"slots": [
-					{
-						"name": "Installe",
-						"lore": "Depuis l’app CurseForge, ou glisse le .jar dans ton dossier mods."
-					},
-					{
-						"name": "Prendre un souvenir",
-						"lore": "M → Prendre un souvenir. Ou pars AFK 5 minutes : le mod en prend un pour toi."
-					},
-					{
-						"name": "Revois",
-						"lore": "Connecte le jeu à ta galerie avec un code à 6 chiffres, puis balade-toi dans ton monde en 3D."
-					}
-				]
-			},
-			"time": {
-				"kicker": "Ton serveur va fermer ?",
-				"title": "Le serveur ferme. Ta base reste.",
-				"lead": "Garde ta base en 3D avant que le serveur s’éteigne. Tu pourras encore t’y balader après, et la faire visiter.",
-				"note": "Pas besoin d’être admin du serveur.",
-				"sliderLabel": "Le temps qui passe sur le monde",
-				"stages": ["Ce soir", "Dans un an", "Dans dix ans"],
-				"caption": "Le monde change. Ton souvenir, non."
-			},
-			"postcard": {
-				"kicker": "Tu ne joues pas à Minecraft ?",
-				"title": "Quelqu’un de proche, si.",
-				"lead": "Minemories transforme ses constructions en 3D, à visiter dans un navigateur, sans Minecraft. Envoie-lui le lien.",
-				"share": "Envoyer le lien",
-				"copied": "Lien copié",
-				"shareText": "Minemories garde tes constructions Minecraft en 3D. Regarde :",
-				"self": "Je joue : installer le mod",
-				"caption": "Carte postale HD, prête pour Discord"
-			},
-			"team": {
-				"band": "De Beswib à Minemories",
-				"title": "Même équipe. Nouveau projet.",
-				"lead": "Après Beswib, on a créé Minemories : tes constructions Minecraft gardées en 3D, à revoir dans ton navigateur.",
-				"cta": "Voir Minemories",
-				"dismiss": "Non merci"
-			}
+			"band": "De Beswib à Minemories",
+			"title": "Même équipe. Nouveau projet.",
+			"lead": "Après Beswib, on a créé Minemories : tes constructions Minecraft gardées en 3D, à revoir dans ton navigateur.",
+			"cta": "Voir Minemories",
+			"dismiss": "Non merci"
 		}
 	},
 	"es": {
 		"minemoriesPromo": {
 			"close": "Cerrar",
-			"install": "Instalar el mod",
-			"visit": "Descubrir Minemories",
-			"facts": "Minecraft Java 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.11 · Fabric, Forge, NeoForge · individual y servidores · beta",
-			"notice": "Minemories no es un producto oficial de Minecraft. No está aprobado por Mojang ni Microsoft, ni asociado a ellos.",
-			"relay": {
-				"kicker": "Beswib pasa el relevo",
-				"title": "Mismo equipo. Nueva carrera.",
-				"lead": "Beswib está archivado. Su equipo construye ahora Minemories: un mod que guarda tus construcciones de Minecraft en 3D, para volver a recorrerlas en tu navegador.",
-				"points": [
-					"Pulsa M: el rincón donde juegas queda guardado en 3D.",
-					"Tus amigos lo recorren, sin Minecraft.",
-					"Tus capturas se quedan en tu ordenador hasta que tú decidas."
-				],
-				"bibTop": "Beswib · finisher",
-				"bibBottom": "Siguiente etapa: Minemories"
-			},
-			"cinema": {
-				"kicker": "Hay noches que uno quisiera guardar.",
-				"title": "Guarda tus construcciones de Minecraft en 3D",
-				"lead": "El mod guarda en 3D el rincón donde juegas. Lo encuentras en tu navegador y se lo enseñas a quien quieras.",
-				"steps": ["Instala.", "Juega.", "Vuelve."],
-				"videoLabel": "Paseo por una base de Minecraft en el visor 3D de Minemories"
-			},
-			"game": {
-				"kicker": "Mod para Minecraft Java",
-				"title": "Pulsa M. Queda guardado.",
-				"lead": "Una tecla en el juego y el rincón donde juegas se guarda en 3D. Luego lo recorres en tu navegador.",
-				"you": "Tú",
-				"chatQuestion": "¿guardamos la base antes de que cierre el servidor?",
-				"chatDone": "captura del mundo terminada.",
-				"chatGallery": "tu base te espera en 3D en tu galería.",
-				"hotbarLabel": "Los tres pasos",
-				"slots": [
-					{
-						"name": "Instala",
-						"lore": "Desde la app de CurseForge, o arrastra el .jar a tu carpeta mods."
-					},
-					{
-						"name": "Guarda un recuerdo",
-						"lore": "M → Guardar un recuerdo. O quédate AFK 5 minutos: el mod guarda uno por ti."
-					},
-					{
-						"name": "Vuelve",
-						"lore": "Conecta el juego a tu galería con un código de 6 cifras y recorre tu mundo en 3D."
-					}
-				]
-			},
-			"time": {
-				"kicker": "¿Tu servidor va a cerrar?",
-				"title": "El servidor cierra. Tu base se queda.",
-				"lead": "Guarda tu base en 3D antes de que se apague el servidor. Podrás seguir recorriéndola después y enseñarla.",
-				"note": "No hace falta ser admin del servidor.",
-				"sliderLabel": "El paso del tiempo sobre el mundo",
-				"stages": ["Esta noche", "En un año", "En diez años"],
-				"caption": "El mundo cambia. Tu recuerdo, no."
-			},
-			"postcard": {
-				"kicker": "¿No juegas a Minecraft?",
-				"title": "Alguien cercano sí.",
-				"lead": "Minemories convierte sus construcciones en 3D que se recorre en un navegador, sin Minecraft. Mándale el enlace.",
-				"share": "Enviar el enlace",
-				"copied": "Enlace copiado",
-				"shareText": "Minemories guarda tus construcciones de Minecraft en 3D. Mira:",
-				"self": "Yo juego: instalar el mod",
-				"caption": "Postal HD, lista para Discord"
-			},
-			"team": {
-				"band": "De Beswib a Minemories",
-				"title": "Mismo equipo. Nuevo proyecto.",
-				"lead": "Después de Beswib, creamos Minemories: tus construcciones de Minecraft guardadas en 3D, para volver a verlas en tu navegador.",
-				"cta": "Ver Minemories",
-				"dismiss": "No, gracias"
-			}
+			"band": "De Beswib a Minemories",
+			"title": "Mismo equipo. Nuevo proyecto.",
+			"lead": "Después de Beswib, creamos Minemories: tus construcciones de Minecraft guardadas en 3D, para volver a verlas en tu navegador.",
+			"cta": "Ver Minemories",
+			"dismiss": "No, gracias"
 		}
 	},
 	"it": {
 		"minemoriesPromo": {
 			"close": "Chiudi",
-			"install": "Installa la mod",
-			"visit": "Scopri Minemories",
-			"facts": "Minecraft Java 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.11 · Fabric, Forge, NeoForge · single player e server · beta",
-			"notice": "Minemories non è un prodotto ufficiale di Minecraft. Non è approvato da Mojang o Microsoft, né associato a loro.",
-			"relay": {
-				"kicker": "Beswib passa il testimone",
-				"title": "Stessa squadra. Nuova gara.",
-				"lead": "Beswib è archiviato. Il suo team ora costruisce Minemories: una mod che conserva le tue costruzioni di Minecraft in 3D, da rivisitare nel browser.",
-				"points": [
-					"Premi M: l’angolo in cui giochi resta in 3D.",
-					"I tuoi amici lo esplorano, senza Minecraft.",
-					"Le catture restano sul tuo computer finché non decidi tu."
-				],
-				"bibTop": "Beswib · finisher",
-				"bibBottom": "Prossima tappa: Minemories"
-			},
-			"cinema": {
-				"kicker": "Ci sono serate che vorresti conservare.",
-				"title": "Conserva le tue costruzioni di Minecraft in 3D",
-				"lead": "La mod conserva in 3D l’angolo in cui giochi. Lo ritrovi nel browser e lo fai visitare a chi vuoi.",
-				"steps": ["Installa.", "Gioca.", "Rivedi."],
-				"videoLabel": "Passeggiata in una base di Minecraft nel visualizzatore 3D di Minemories"
-			},
-			"game": {
-				"kicker": "Mod per Minecraft Java",
-				"title": "Premi M. È salvato.",
-				"lead": "Un tasto in gioco e l’angolo in cui giochi viene salvato in 3D. Poi lo esplori nel browser.",
-				"you": "Tu",
-				"chatQuestion": "salviamo la base prima che il server chiuda?",
-				"chatDone": "cattura del mondo completata.",
-				"chatGallery": "la tua base ti aspetta in 3D nella galleria.",
-				"hotbarLabel": "I tre passaggi",
-				"slots": [
-					{
-						"name": "Installa",
-						"lore": "Dall’app CurseForge, o trascina il .jar nella cartella mods."
-					},
-					{
-						"name": "Salva un ricordo",
-						"lore": "M → Salva un ricordo. Oppure resta AFK 5 minuti: la mod ne salva uno per te."
-					},
-					{
-						"name": "Rivedi",
-						"lore": "Collega il gioco alla galleria con un codice di 6 cifre, poi esplora il tuo mondo in 3D."
-					}
-				]
-			},
-			"time": {
-				"kicker": "Il tuo server sta per chiudere?",
-				"title": "Il server chiude. La tua base resta.",
-				"lead": "Conserva la tua base in 3D prima che il server si spenga. Potrai ancora esplorarla dopo, e mostrarla.",
-				"note": "Non serve essere admin del server.",
-				"sliderLabel": "Il tempo che passa sul mondo",
-				"stages": ["Stasera", "Tra un anno", "Tra dieci anni"],
-				"caption": "Il mondo cambia. Il tuo ricordo, no."
-			},
-			"postcard": {
-				"kicker": "Non giochi a Minecraft?",
-				"title": "Qualcuno vicino a te sì.",
-				"lead": "Minemories trasforma le sue costruzioni in 3D da esplorare nel browser, senza Minecraft. Mandagli il link.",
-				"share": "Invia il link",
-				"copied": "Link copiato",
-				"shareText": "Minemories conserva le tue costruzioni di Minecraft in 3D. Guarda:",
-				"self": "Gioco io: installa la mod",
-				"caption": "Cartolina HD, pronta per Discord"
-			},
-			"team": {
-				"band": "Da Beswib a Minemories",
-				"title": "Stessa squadra. Nuovo progetto.",
-				"lead": "Dopo Beswib abbiamo creato Minemories: le tue costruzioni di Minecraft conservate in 3D, da rivedere nel browser.",
-				"cta": "Vedi Minemories",
-				"dismiss": "No, grazie"
-			}
+			"band": "Da Beswib a Minemories",
+			"title": "Stessa squadra. Nuovo progetto.",
+			"lead": "Dopo Beswib abbiamo creato Minemories: le tue costruzioni di Minecraft conservate in 3D, da rivedere nel browser.",
+			"cta": "Vedi Minemories",
+			"dismiss": "No, grazie"
 		}
 	},
 	"de": {
 		"minemoriesPromo": {
 			"close": "Schließen",
-			"install": "Mod installieren",
-			"visit": "Minemories entdecken",
-			"facts": "Minecraft Java 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.11 · Fabric, Forge, NeoForge · Einzelspieler und Server · Beta",
-			"notice": "Minemories ist kein offizielles Minecraft-Produkt. Weder von Mojang oder Microsoft genehmigt noch mit ihnen verbunden.",
-			"relay": {
-				"kicker": "Beswib übergibt den Staffelstab",
-				"title": "Gleiches Team. Neues Rennen.",
-				"lead": "Beswib ist archiviert. Das Team baut jetzt Minemories: ein Mod, der deine Minecraft-Bauten in 3D aufbewahrt, damit du sie im Browser wieder besuchst.",
-				"points": [
-					"Drück M: Der Ort, an dem du spielst, bleibt in 3D erhalten.",
-					"Deine Freunde laufen darin herum, ganz ohne Minecraft.",
-					"Deine Aufnahmen bleiben auf deinem Computer, bis du entscheidest."
-				],
-				"bibTop": "Beswib · Finisher",
-				"bibBottom": "Nächste Etappe: Minemories"
-			},
-			"cinema": {
-				"kicker": "Manche Abende will man festhalten.",
-				"title": "Bewahre deine Minecraft-Bauten in 3D auf",
-				"lead": "Der Mod bewahrt den Ort, an dem du spielst, in 3D auf. Du findest ihn im Browser wieder und zeigst ihn, wem du willst.",
-				"steps": ["Installieren.", "Spielen.", "Wiedersehen."],
-				"videoLabel": "Rundgang durch eine Minecraft-Basis im 3D-Viewer von Minemories"
-			},
-			"game": {
-				"kicker": "Mod für Minecraft Java",
-				"title": "Drück M. Festgehalten.",
-				"lead": "Eine Taste im Spiel, und der Ort, an dem du spielst, ist in 3D gespeichert. Danach läufst du im Browser darin herum.",
-				"you": "Du",
-				"chatQuestion": "sichern wir die Basis, bevor der Server schließt?",
-				"chatDone": "Weltaufnahme abgeschlossen.",
-				"chatGallery": "deine Basis wartet in 3D in deiner Galerie.",
-				"hotbarLabel": "Die drei Schritte",
-				"slots": [
-					{
-						"name": "Installieren",
-						"lore": "Über die CurseForge-App, oder zieh die .jar in deinen mods-Ordner."
-					},
-					{
-						"name": "Erinnerung festhalten",
-						"lore": "M → Erinnerung festhalten. Oder sei 5 Minuten AFK: Dann hält der Mod eine für dich fest."
-					},
-					{
-						"name": "Wiedersehen",
-						"lore": "Verbinde das Spiel mit einem 6-stelligen Code mit deiner Galerie und lauf in 3D durch deine Welt."
-					}
-				]
-			},
-			"time": {
-				"kicker": "Dein Server schließt?",
-				"title": "Der Server schließt. Deine Basis bleibt.",
-				"lead": "Bewahre deine Basis in 3D auf, bevor der Server abgeschaltet wird. Danach kannst du weiter darin herumlaufen und sie zeigen.",
-				"note": "Du musst kein Server-Admin sein.",
-				"sliderLabel": "Die Zeit vergeht über der Welt",
-				"stages": ["Heute Abend", "In einem Jahr", "In zehn Jahren"],
-				"caption": "Die Welt verändert sich. Deine Erinnerung nicht."
-			},
-			"postcard": {
-				"kicker": "Du spielst kein Minecraft?",
-				"title": "Jemand in deiner Nähe schon.",
-				"lead": "Minemories macht aus den Bauten ein 3D-Modell, durch das man im Browser läuft, ganz ohne Minecraft. Schick den Link weiter.",
-				"share": "Link senden",
-				"copied": "Link kopiert",
-				"shareText": "Minemories bewahrt deine Minecraft-Bauten in 3D auf. Schau mal:",
-				"self": "Ich spiele: Mod installieren",
-				"caption": "HD-Postkarte, bereit für Discord"
-			},
-			"team": {
-				"band": "Von Beswib zu Minemories",
-				"title": "Gleiches Team. Neues Projekt.",
-				"lead": "Nach Beswib haben wir Minemories gebaut: deine Minecraft-Bauten in 3D aufbewahrt, im Browser wieder zu besuchen.",
-				"cta": "Minemories ansehen",
-				"dismiss": "Nein, danke"
-			}
+			"band": "Von Beswib zu Minemories",
+			"title": "Gleiches Team. Neues Projekt.",
+			"lead": "Nach Beswib haben wir Minemories gebaut: deine Minecraft-Bauten in 3D aufbewahrt, im Browser wieder zu besuchen.",
+			"cta": "Minemories ansehen",
+			"dismiss": "Nein, danke"
 		}
 	},
 	"ro": {
 		"minemoriesPromo": {
 			"close": "Închide",
-			"install": "Instalează modul",
-			"visit": "Descoperă Minemories",
-			"facts": "Minecraft Java 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.11 · Fabric, Forge, NeoForge · singleplayer și servere · beta",
-			"notice": "Minemories nu este un produs oficial Minecraft. Nu este aprobat de Mojang sau Microsoft și nu este asociat cu acestea.",
-			"relay": {
-				"kicker": "Beswib predă ștafeta",
-				"title": "Aceeași echipă. O nouă cursă.",
-				"lead": "Beswib este arhivat. Echipa lui construiește acum Minemories: un mod care îți păstrează construcțiile din Minecraft în 3D, ca să le revezi în browser.",
-				"points": [
-					"Apasă M: locul în care joci rămâne păstrat în 3D.",
-					"Prietenii tăi îl vizitează, fără Minecraft.",
-					"Capturile rămân pe calculatorul tău până decizi tu."
-				],
-				"bibTop": "Beswib · finisher",
-				"bibBottom": "Următoarea etapă: Minemories"
-			},
-			"cinema": {
-				"kicker": "Sunt seri pe care ai vrea să le păstrezi.",
-				"title": "Păstrează-ți construcțiile Minecraft în 3D",
-				"lead": "Modul păstrează în 3D locul în care joci. Îl regăsești în browser și îl arăți cui vrei.",
-				"steps": ["Instalează.", "Joacă.", "Revezi."],
-				"videoLabel": "Plimbare printr-o bază Minecraft în vizualizatorul 3D Minemories"
-			},
-			"game": {
-				"kicker": "Mod pentru Minecraft Java",
-				"title": "Apasă M. E păstrat.",
-				"lead": "O tastă în joc și locul în care joci este salvat în 3D. Apoi te plimbi prin el în browser.",
-				"you": "Tu",
-				"chatQuestion": "păstrăm baza înainte să se închidă serverul?",
-				"chatDone": "captura lumii este gata.",
-				"chatGallery": "baza ta te așteaptă în 3D în galerie.",
-				"hotbarLabel": "Cei trei pași",
-				"slots": [
-					{
-						"name": "Instalează",
-						"lore": "Din aplicația CurseForge sau trage fișierul .jar în folderul mods."
-					},
-					{
-						"name": "Păstrează o amintire",
-						"lore": "M → Păstrează o amintire. Sau stai AFK 5 minute: modul păstrează una pentru tine."
-					},
-					{
-						"name": "Revezi",
-						"lore": "Leagă jocul de galerie cu un cod din 6 cifre, apoi plimbă-te prin lumea ta în 3D."
-					}
-				]
-			},
-			"time": {
-				"kicker": "Serverul tău se închide?",
-				"title": "Serverul se închide. Baza ta rămâne.",
-				"lead": "Păstrează-ți baza în 3D înainte să se oprească serverul. Te vei putea plimba prin ea și după, și o poți arăta.",
-				"note": "Nu trebuie să fii admin pe server.",
-				"sliderLabel": "Timpul care trece peste lume",
-				"stages": ["În seara asta", "Peste un an", "Peste zece ani"],
-				"caption": "Lumea se schimbă. Amintirea ta, nu."
-			},
-			"postcard": {
-				"kicker": "Nu joci Minecraft?",
-				"title": "Cineva apropiat joacă.",
-				"lead": "Minemories îi transformă construcțiile în 3D, de vizitat în browser, fără Minecraft. Trimite-i linkul.",
-				"share": "Trimite linkul",
-				"copied": "Link copiat",
-				"shareText": "Minemories îți păstrează construcțiile Minecraft în 3D. Uite:",
-				"self": "Eu joc: instalează modul",
-				"caption": "Carte poștală HD, gata pentru Discord"
-			},
-			"team": {
-				"band": "De la Beswib la Minemories",
-				"title": "Aceeași echipă. Proiect nou.",
-				"lead": "După Beswib, am creat Minemories: construcțiile tale din Minecraft păstrate în 3D, de revăzut în browser.",
-				"cta": "Vezi Minemories",
-				"dismiss": "Nu, mulțumesc"
-			}
+			"band": "De la Beswib la Minemories",
+			"title": "Aceeași echipă. Proiect nou.",
+			"lead": "După Beswib, am creat Minemories: construcțiile tale din Minecraft păstrate în 3D, de revăzut în browser.",
+			"cta": "Vezi Minemories",
+			"dismiss": "Nu, mulțumesc"
 		}
 	},
 	"pt": {
 		"minemoriesPromo": {
 			"close": "Fechar",
-			"install": "Instalar o mod",
-			"visit": "Descobrir o Minemories",
-			"facts": "Minecraft Java 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.11 · Fabric, Forge, NeoForge · single player e servidores · beta",
-			"notice": "O Minemories não é um produto oficial do Minecraft. Não é aprovado pela Mojang ou pela Microsoft, nem associado a elas.",
-			"relay": {
-				"kicker": "A Beswib passa o testemunho",
-				"title": "A mesma equipa. Uma nova corrida.",
-				"lead": "A Beswib está arquivada. A equipa constrói agora o Minemories: um mod que guarda as tuas construções do Minecraft em 3D, para as reveres no navegador.",
-				"points": [
-					"Carrega no M: o sítio onde jogas fica guardado em 3D.",
-					"Os teus amigos passeiam por lá, sem Minecraft.",
-					"As capturas ficam no teu computador até decidires."
-				],
-				"bibTop": "Beswib · finisher",
-				"bibBottom": "Próxima etapa: Minemories"
-			},
-			"cinema": {
-				"kicker": "Há noites que apetece guardar.",
-				"title": "Guarda as tuas construções do Minecraft em 3D",
-				"lead": "O mod guarda em 3D o sítio onde jogas. Encontras tudo no navegador e mostras a quem quiseres.",
-				"steps": ["Instala.", "Joga.", "Revê."],
-				"videoLabel": "Passeio por uma base do Minecraft no visualizador 3D do Minemories"
-			},
-			"game": {
-				"kicker": "Mod para Minecraft Java",
-				"title": "Carrega no M. Está guardado.",
-				"lead": "Uma tecla no jogo e o sítio onde jogas fica guardado em 3D. Depois passeias por ele no navegador.",
-				"you": "Tu",
-				"chatQuestion": "guardamos a base antes de o servidor fechar?",
-				"chatDone": "captura do mundo concluída.",
-				"chatGallery": "a tua base espera-te em 3D na galeria.",
-				"hotbarLabel": "Os três passos",
-				"slots": [
-					{
-						"name": "Instala",
-						"lore": "Pela app do CurseForge, ou arrasta o .jar para a pasta mods."
-					},
-					{
-						"name": "Guardar uma memória",
-						"lore": "M → Guardar uma memória. Ou fica AFK 5 minutos: o mod guarda uma por ti."
-					},
-					{
-						"name": "Revê",
-						"lore": "Liga o jogo à galeria com um código de 6 dígitos e passeia pelo teu mundo em 3D."
-					}
-				]
-			},
-			"time": {
-				"kicker": "O teu servidor vai fechar?",
-				"title": "O servidor fecha. A tua base fica.",
-				"lead": "Guarda a tua base em 3D antes de o servidor desligar. Vais poder continuar a passear por ela e mostrá-la.",
-				"note": "Não precisas de ser admin do servidor.",
-				"sliderLabel": "O tempo a passar sobre o mundo",
-				"stages": ["Hoje à noite", "Daqui a um ano", "Daqui a dez anos"],
-				"caption": "O mundo muda. A tua memória, não."
-			},
-			"postcard": {
-				"kicker": "Não jogas Minecraft?",
-				"title": "Alguém próximo de ti joga.",
-				"lead": "O Minemories transforma as construções dessa pessoa em 3D, para visitar no navegador, sem Minecraft. Envia-lhe o link.",
-				"share": "Enviar o link",
-				"copied": "Link copiado",
-				"shareText": "O Minemories guarda as tuas construções do Minecraft em 3D. Vê:",
-				"self": "Eu jogo: instalar o mod",
-				"caption": "Postal HD, pronto para o Discord"
-			},
-			"team": {
-				"band": "Da Beswib ao Minemories",
-				"title": "A mesma equipa. Um novo projeto.",
-				"lead": "Depois da Beswib, criámos o Minemories: as tuas construções do Minecraft guardadas em 3D, para reveres no navegador.",
-				"cta": "Ver o Minemories",
-				"dismiss": "Não, obrigado"
-			}
+			"band": "Da Beswib ao Minemories",
+			"title": "A mesma equipa. Um novo projeto.",
+			"lead": "Depois da Beswib, criámos o Minemories: as tuas construções do Minecraft guardadas em 3D, para reveres no navegador.",
+			"cta": "Ver o Minemories",
+			"dismiss": "Não, obrigado"
 		}
 	},
 	"nl": {
 		"minemoriesPromo": {
 			"close": "Sluiten",
-			"install": "De mod installeren",
-			"visit": "Ontdek Minemories",
-			"facts": "Minecraft Java 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.11 · Fabric, Forge, NeoForge · singleplayer en servers · bèta",
-			"notice": "Minemories is geen officieel Minecraft-product. Niet goedgekeurd door of verbonden met Mojang of Microsoft.",
-			"relay": {
-				"kicker": "Beswib geeft het stokje door",
-				"title": "Zelfde team. Nieuwe race.",
-				"lead": "Beswib is gearchiveerd. Het team bouwt nu Minemories: een mod die je Minecraft-bouwwerken in 3D bewaart, om ze in je browser terug te zien.",
-				"points": [
-					"Druk op M: de plek waar je speelt blijft in 3D bewaard.",
-					"Je vrienden lopen erdoorheen, zonder Minecraft.",
-					"Je opnames blijven op je computer tot jij beslist."
-				],
-				"bibTop": "Beswib · finisher",
-				"bibBottom": "Volgende etappe: Minemories"
-			},
-			"cinema": {
-				"kicker": "Sommige avonden wil je bewaren.",
-				"title": "Bewaar je Minecraft-bouwwerken in 3D",
-				"lead": "De mod bewaart de plek waar je speelt in 3D. Je vindt hem terug in je browser en laat hem zien aan wie je wilt.",
-				"steps": ["Installeer.", "Speel.", "Bekijk."],
-				"videoLabel": "Wandeling door een Minecraft-basis in de 3D-viewer van Minemories"
-			},
-			"game": {
-				"kicker": "Mod voor Minecraft Java",
-				"title": "Druk op M. Bewaard.",
-				"lead": "Eén toets in het spel en de plek waar je speelt is in 3D opgeslagen. Daarna loop je er in je browser doorheen.",
-				"you": "Jij",
-				"chatQuestion": "bewaren we de basis voordat de server sluit?",
-				"chatDone": "wereldopname klaar.",
-				"chatGallery": "je basis wacht in 3D in je galerij.",
-				"hotbarLabel": "De drie stappen",
-				"slots": [
-					{
-						"name": "Installeer",
-						"lore": "Via de CurseForge-app, of sleep de .jar naar je mods-map."
-					},
-					{
-						"name": "Herinnering vastleggen",
-						"lore": "M → Herinnering vastleggen. Of ga 5 minuten AFK: de mod legt er een voor je vast."
-					},
-					{
-						"name": "Bekijk",
-						"lore": "Koppel het spel aan je galerij met een code van 6 cijfers en loop in 3D door je wereld."
-					}
-				]
-			},
-			"time": {
-				"kicker": "Gaat je server sluiten?",
-				"title": "De server sluit. Je basis blijft.",
-				"lead": "Bewaar je basis in 3D voordat de server uitgaat. Daarna kun je er nog steeds doorheen lopen en hem laten zien.",
-				"note": "Je hoeft geen serverbeheerder te zijn.",
-				"sliderLabel": "De tijd die over de wereld gaat",
-				"stages": ["Vanavond", "Over een jaar", "Over tien jaar"],
-				"caption": "De wereld verandert. Je herinnering niet."
-			},
-			"postcard": {
-				"kicker": "Speel je geen Minecraft?",
-				"title": "Iemand dicht bij je wel.",
-				"lead": "Minemories maakt van die bouwwerken 3D waar je in een browser doorheen loopt, zonder Minecraft. Stuur de link door.",
-				"share": "Link sturen",
-				"copied": "Link gekopieerd",
-				"shareText": "Minemories bewaart je Minecraft-bouwwerken in 3D. Kijk:",
-				"self": "Ik speel: mod installeren",
-				"caption": "HD-ansichtkaart, klaar voor Discord"
-			},
-			"team": {
-				"band": "Van Beswib naar Minemories",
-				"title": "Zelfde team. Nieuw project.",
-				"lead": "Na Beswib maakten we Minemories: je Minecraft-bouwwerken in 3D bewaard, om terug te zien in je browser.",
-				"cta": "Bekijk Minemories",
-				"dismiss": "Nee, bedankt"
-			}
+			"band": "Van Beswib naar Minemories",
+			"title": "Zelfde team. Nieuw project.",
+			"lead": "Na Beswib maakten we Minemories: je Minecraft-bouwwerken in 3D bewaard, om terug te zien in je browser.",
+			"cta": "Bekijk Minemories",
+			"dismiss": "Nee, bedankt"
 		}
 	},
 	"ko": {
 		"minemoriesPromo": {
 			"close": "닫기",
-			"install": "모드 설치하기",
-			"visit": "Minemories 둘러보기",
-			"facts": "Minecraft Java 1.18.2, 1.19.2, 1.20.1, 1.21.1, 1.21.11 · Fabric, Forge, NeoForge · 싱글플레이와 서버 · 베타",
-			"notice": "Minemories는 Minecraft 공식 제품이 아닙니다. Mojang이나 Microsoft의 승인을 받지 않았고 두 회사와 관련이 없습니다.",
-			"relay": {
-				"kicker": "Beswib가 바통을 넘겨요",
-				"title": "같은 팀, 새로운 레이스.",
-				"lead": "Beswib는 보관되었어요. 그 팀이 지금 Minemories를 만들고 있어요. Minecraft 건축물을 3D로 남겨 브라우저에서 다시 둘러볼 수 있는 모드예요.",
-				"points": [
-					"M을 누르면 지금 플레이하는 곳이 3D로 남아요.",
-					"친구들은 Minecraft 없이 둘러봐요.",
-					"캡처는 직접 정하기 전까지 내 컴퓨터에 남아요."
-				],
-				"bibTop": "Beswib · 완주",
-				"bibBottom": "다음 구간: Minemories"
-			},
-			"cinema": {
-				"kicker": "간직하고 싶은 저녁이 있어요.",
-				"title": "Minecraft 건축물을 3D로 남기세요",
-				"lead": "모드가 지금 플레이하는 곳을 3D로 남겨요. 브라우저에서 다시 보고, 원하는 사람에게 보여 줄 수 있어요.",
-				"steps": ["설치.", "플레이.", "다시 보기."],
-				"videoLabel": "Minemories 3D 뷰어에서 Minecraft 기지를 걷는 장면"
-			},
-			"game": {
-				"kicker": "Minecraft Java 모드",
-				"title": "M을 누르면 남아요.",
-				"lead": "게임에서 키 하나면 지금 있는 곳이 3D로 저장돼요. 그다음 브라우저에서 둘러보세요.",
-				"you": "나",
-				"chatQuestion": "서버 닫히기 전에 기지 남겨 둘까?",
-				"chatDone": "월드 캡처 완료.",
-				"chatGallery": "기지가 갤러리에서 3D로 기다리고 있어요.",
-				"hotbarLabel": "세 단계",
-				"slots": [
-					{
-						"name": "설치",
-						"lore": "CurseForge 앱에서 설치하거나 .jar 파일을 mods 폴더에 넣으세요."
-					},
-					{
-						"name": "추억 남기기",
-						"lore": "M → 추억 남기기를 누르세요. 아니면 5분 동안 AFK 상태로 있으면 모드가 대신 하나 남겨요."
-					},
-					{
-						"name": "다시 보기",
-						"lore": "6자리 코드로 게임을 갤러리에 연결하고 월드를 3D로 둘러보세요."
-					}
-				]
-			},
-			"time": {
-				"kicker": "서버가 곧 닫히나요?",
-				"title": "서버는 닫혀도, 기지는 남아요.",
-				"lead": "서버가 꺼지기 전에 기지를 3D로 남기세요. 그 뒤에도 둘러보고 보여 줄 수 있어요.",
-				"note": "서버 관리자가 아니어도 돼요.",
-				"sliderLabel": "월드에 흐르는 시간",
-				"stages": ["오늘 밤", "1년 뒤", "10년 뒤"],
-				"caption": "월드는 변해도 추억은 그대로예요."
-			},
-			"postcard": {
-				"kicker": "Minecraft를 안 하시나요?",
-				"title": "가까운 누군가는 해요.",
-				"lead": "Minemories는 그 사람의 건축물을 브라우저에서 둘러보는 3D로 바꿔요. Minecraft 없이도요. 링크를 보내 주세요.",
-				"share": "링크 보내기",
-				"copied": "링크를 복사했어요",
-				"shareText": "Minemories는 Minecraft 건축물을 3D로 남겨요. 한번 보세요:",
-				"self": "제가 해요: 모드 설치하기",
-				"caption": "Discord용 HD 엽서"
-			},
-			"team": {
-				"band": "Beswib에서 Minemories로",
-				"title": "같은 팀, 새 프로젝트.",
-				"lead": "Beswib 다음으로 Minemories를 만들었어요. Minecraft 건축물을 3D로 남겨 브라우저에서 다시 볼 수 있어요.",
-				"cta": "Minemories 보기",
-				"dismiss": "괜찮아요"
-			}
+			"band": "Beswib에서 Minemories로",
+			"title": "같은 팀, 새 프로젝트.",
+			"lead": "Beswib 다음으로 Minemories를 만들었어요. Minecraft 건축물을 3D로 남겨 브라우저에서 다시 볼 수 있어요.",
+			"cta": "Minemories 보기",
+			"dismiss": "괜찮아요"
 		}
 	}
 }

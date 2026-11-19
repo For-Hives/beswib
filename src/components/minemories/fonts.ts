@@ -16,7 +16,7 @@ export const pixelFont = Pixelify_Sans({
 export const readingFont = Atkinson_Hyperlegible_Next({
 	variable: '--font-mm-read',
 	subsets: ['latin', 'latin-ext'],
-	weight: ['400', '700'],
+	weight: ['400'],
 	preload: false,
 	display: 'swap',
 })
