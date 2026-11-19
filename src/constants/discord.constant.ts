@@ -1,13 +1,27 @@
 export const DISCORD_MENTION = '@here'
 
+const ZERO_WIDTH_SPACE = '\u200b'
+
+/**
+ * Neutralises the mentions a visitor could type (@everyone, @here, <@id>, <@&role>): a zero-width space after
+ * the @ keeps the text readable and stops Discord from parsing it. E-mail addresses are left untouched.
+ */
+function neutraliseMentions(text: string): string {
+	return text.replace(/@(everyone|here)/gi, `@${ZERO_WIDTH_SPACE}$1`).replace(/<@/g, `<@${ZERO_WIDTH_SPACE}`)
+}
+
+function clean(text: string, max: number): string {
+	return neutraliseMentions(text.replaceAll('`', 'ˋ')).slice(0, max).trim()
+}
+
 export function safeDiscordText(value: unknown, max = 5000): string {
 	if (value == null || value === undefined) return ''
-	if (typeof value === 'string') return value.replaceAll('`', 'ˋ').slice(0, max).trim()
+	if (typeof value === 'string') return clean(value, max)
 	if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint')
-		return String(value).replaceAll('`', 'ˋ').slice(0, max).trim()
+		return clean(String(value), max)
 	try {
 		// Fallback: stringify objects safely
-		return JSON.stringify(value).replaceAll('`', 'ˋ').slice(0, max).trim()
+		return clean(JSON.stringify(value), max)
 	} catch {
 		return ''
 	}

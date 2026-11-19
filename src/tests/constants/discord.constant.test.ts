@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { contactFullText, contactSummaryText, saleAlertText } from '../../constants/discord.constant'
+import { contactFullText, contactSummaryText, safeDiscordText, saleAlertText } from '../../constants/discord.constant'
 
 describe('discord.constant templates', () => {
 	it('saleAlertText builds expected string', () => {
@@ -24,5 +24,20 @@ describe('discord.constant templates', () => {
 		expect(full.startsWith('```')).toBe(true)
 		expect(full).toContain('hello world')
 		expect(full.endsWith('```')).toBe(true)
+	})
+
+	it('safeDiscordText neutralises the mentions a visitor types', () => {
+		const text = safeDiscordText('Hi @everyone and @here, ping <@123> and <@&456>')
+		expect(text).not.toMatch(/@(everyone|here)/)
+		expect(text).not.toContain('<@1')
+		expect(text).not.toContain('<@&')
+		expect(text).toContain('@\u200beveryone')
+	})
+
+	it('contactSummaryText keeps the team ping but escapes the visitor name, and leaves the e-mail readable', () => {
+		const s = contactSummaryText('@everyone', 'runner@example.com')
+		expect(s.startsWith('@here ')).toBe(true)
+		expect(s).not.toContain('@everyone')
+		expect(s).toContain('runner@example.com')
 	})
 })
