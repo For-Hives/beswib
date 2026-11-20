@@ -24,8 +24,8 @@ importers:
         specifier: 1.42.3
         version: 1.42.3(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)
       '@formatjs/intl-localematcher':
-        specifier: 0.9.0
-        version: 0.9.0
+        specifier: 0.10.1
+        version: 0.10.1
       '@headlessui/react':
         specifier: 2.2.10
         version: 2.2.10(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -873,8 +873,8 @@ packages:
   '@formatjs/fast-memoize@3.1.7':
     resolution: {integrity: sha512-zXfhLpvA6T7+efdt9JLbBwZ00tT7NsBMDVnDu8rpHeNNv8KfRZAMo2gkG0k9lK/Nzc//3kJ9pImsfuJxk3KhUA==}
 
-  '@formatjs/intl-localematcher@0.9.0':
-    resolution: {integrity: sha512-Z7TD3ssNry1Av1dVDoq/mzpxGyxqWwU0ClWEo+BB3k0JQTeQvUGmeK9WZGYvlqStS0UqkaKXk3dfjsb6NaHAxw==}
+  '@formatjs/intl-localematcher@0.10.1':
+    resolution: {integrity: sha512-gBqglQK9rXuHsLmM8wzTMBy4Xo4d0jamirIVKuEL8F1rwbskWdpMA1kZarSkny+uvr5q/K6GSzE0Rcq1wZLl3g==}
 
   '@formkit/auto-animate@0.8.4':
     resolution: {integrity: sha512-DHHC01EJ1p70Q0z/ZFRBIY8NDnmfKccQoyoM84Tgb6omLMat6jivCdf272Y8k3nf4Lzdin/Y4R9q8uFtU0GbnA==}
@@ -5483,7 +5483,7 @@ snapshots:
 
   '@formatjs/fast-memoize@3.1.7': {}
 
-  '@formatjs/intl-localematcher@0.9.0':
+  '@formatjs/intl-localematcher@0.10.1':
     dependencies:
       '@formatjs/fast-memoize': 3.1.7
 
